@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {isWithin, removeClass, getDimensions, toJQuery} from '../util/index';
+import {isString, isWithin, removeClass, getDimensions, toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
@@ -51,7 +51,7 @@ export default function (UIkit) {
             });
 
             if (this.toggle) {
-                this.toggle = typeof this.toggle === 'string' ? toJQuery(this.toggle) : this.$el.prev();
+                this.toggle = isString(this.toggle) ? toJQuery(this.toggle) : this.$el.prev();
 
                 if (this.toggle) {
                     UIkit.toggle(this.toggle, {target: this.$el});
@@ -89,12 +89,19 @@ export default function (UIkit) {
 
         },
 
+        events: {
+
+            beforeshow: 'initMouseTracker',
+            beforehide: 'cancelMouseTracker'
+
+        },
+
         methods: {
 
             doToggle(toggle) {
                 this[this.isToggled(this.$el) ? 'hide' : 'show'](toggle, false)
             },
-            
+
             show(toggle, delay = true) {
 
                 if (this.toggle && !this.toggle.is(toggle)) {
@@ -114,10 +121,7 @@ export default function (UIkit) {
                     active.hide(null, false);
                 }
 
-                var show = () => {
-                    this.toggleElement(this.$el, true, true);
-                    this.initMouseTracker();
-                };
+                var show = () => this.toggleElement(this.$el, true);
 
                 if (delay && this.delayShow) {
                     this.showTimer = setTimeout(show, this.delayShow);
@@ -140,8 +144,7 @@ export default function (UIkit) {
 
                     active = null;
 
-                    this.cancelMouseTracker();
-                    this.toggleElement(this.$el, false, false);
+                    this.toggleNow(this.$el, false);
                 };
 
                 this.isDelaying = this.movesTo(this.$el);
@@ -160,9 +163,7 @@ export default function (UIkit) {
                 clearTimeout(this.hideTimer);
             },
 
-            isActive() {
-                return active === this;
-            }
+            isActive: () => active === this
 
         }
 

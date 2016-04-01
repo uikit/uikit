@@ -39,13 +39,11 @@ export default function (UIkit) {
 
         methods: {
 
-            isActive() {
-                return this.$el.hasClass(this.cls);
-            },
+            getActive: () => active,
 
-            doToggle() {
-                this[this.isActive() ? 'hide' : 'show']();
-            },
+            isActive: () => this.$el.hasClass(this.cls),
+
+            doToggle: () => this[this.isActive() ? 'hide' : 'show'](),
 
             show() {
 
@@ -61,7 +59,7 @@ export default function (UIkit) {
                     hide.hide();
                 }
 
-                this.toggleElement(this.$el, false, true);
+                this.toggleNow(this.$el, true);
             },
 
             hide() {
@@ -72,13 +70,8 @@ export default function (UIkit) {
 
                 active = active && active !== this && active;
 
-                this.toggleElement(this.$el, false, false);
-            },
-
-            getActive() {
-                return active;
+                this.toggleNow(this.$el, false);
             }
-
         }
 
     };

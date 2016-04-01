@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {Animation, toJQuery, requestAnimationFrame} from '../util/index';
+import {Animation, isString, toJQuery, requestAnimationFrame} from '../util/index';
 
 export default function (UIkit) {
 
@@ -101,7 +101,7 @@ export default function (UIkit) {
                     if (this.bottomProp === true || this.bottomProp[0] === '!') {
                         this.bottom = this.bottomProp === true ? this.$el.parent() : this.$el.closest(this.bottomProp.substr(1));
                         this.bottom = this.bottom.offset().top + this.bottom.height() + parseFloat(this.bottom.css('padding-top'));
-                    } else if (typeof this.bottomProp === 'string') {
+                    } else if (isString(this.bottomProp)) {
                         this.bottom = toJQuery(this.bottomProp);
                         if (this.bottom) {
                             this.bottom = this.bottom.offset().top;

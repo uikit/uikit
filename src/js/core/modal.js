@@ -5,7 +5,7 @@ export default function (UIkit) {
     UIkit.component('modal', {
 
         mixins: [UIkit.mixin.modal],
-        
+
         props: {
             center: Boolean
         },
@@ -16,27 +16,6 @@ export default function (UIkit) {
             clsPanel: 'uk-modal-dialog',
             clsClose: 'uk-modal-close',
             clsOverflow: 'uk-overflow-container'
-        },
-
-        ready() {
-
-            this.$el.on('beforeshow', () => {
-
-                this.page.addClass(this.clsPage);
-                this.$el.css('display', 'block');
-                this.$el.height();
-
-            });
-
-            this.$el.on('beforehide', () => {
-                
-                this.panel.one(transitionend, () => {
-                    this.page.removeClass(this.clsPage);
-                    this.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
-                });
-                
-            });
-
         },
 
         update: {
@@ -52,6 +31,27 @@ export default function (UIkit) {
             },
 
             events: ['resize', 'orientationchange']
+
+        },
+
+        events: {
+
+            beforeshow() {
+
+                this.page.addClass(this.clsPage);
+                this.$el.css('display', 'block');
+                this.$el.height();
+
+            },
+
+            beforehide() {
+
+                this.panel.one(transitionend, () => {
+                    this.page.removeClass(this.clsPage);
+                    this.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
+                });
+
+            }
 
         }
 

@@ -27,6 +27,7 @@ export default function (UIkit) {
         },
 
         ready() {
+
             this.clsFlip = this.flip ? this.clsFlip : '';
             this.clsOverlay = this.overlay ? this.clsOverlay : '';
             this.clsMode = `${this.clsMode}-${this.mode}`;
@@ -38,38 +39,6 @@ export default function (UIkit) {
             if (this.mode !== 'push' && this.mode !== 'reveal') {
                 this.clsPageAnimation = '';
             }
-
-            this.$el.on('beforeshow', () => {
-
-                this.scrollbarWidth = window.innerWidth - this.page.width();
-
-                if (this.scrollbarWidth && this.overlay) {
-                    this.body.css('overflow-y', 'scroll');
-                    this.scrollbarWidth = 0;
-                }
-
-                this.page.width(window.innerWidth - this.scrollbarWidth).addClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageAnimation} ${this.clsOverlay}`);
-                this.panel.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
-                this.$el.css('display', 'block').height();
-
-            });
-
-            this.$el.on('beforehide', () => {
-
-                this.panel.one(transitionend, () => {
-                    this.page.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsOverlay}`).width('');
-                    this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
-                    this.$el.css('display', '');
-                    this.body.css('overflow-y', '');
-                });
-
-                if (this.mode === 'noeffect' || this.getActive() && this.getActive() !== this) {
-                    this.panel.trigger(transitionend);
-                }
-
-                this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
-
-            });
 
         },
 
@@ -84,6 +53,42 @@ export default function (UIkit) {
             },
 
             events: ['resize', 'orientationchange']
+
+        },
+
+        events: {
+
+            beforeshow() {
+
+                this.scrollbarWidth = window.innerWidth - this.page.width();
+
+                if (this.scrollbarWidth && this.overlay) {
+                    this.body.css('overflow-y', 'scroll');
+                    this.scrollbarWidth = 0;
+                }
+
+                this.page.width(window.innerWidth - this.scrollbarWidth).addClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageAnimation} ${this.clsOverlay}`);
+                this.panel.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
+                this.$el.css('display', 'block').height();
+
+            },
+
+            beforehide() {
+
+                this.panel.one(transitionend, () => {
+                    this.page.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsOverlay}`).width('');
+                    this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
+                    this.$el.css('display', '');
+                    this.body.css('overflow-y', '');
+                });
+
+                if (this.mode === 'noeffect' || this.getActive() && this.getActive() !== this) {
+                    this.panel.trigger(transitionend);
+                }
+
+                this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
+
+            }
 
         }
 

@@ -121,7 +121,7 @@ export const Animation = {
 
 export function isWithin(element, selector) {
     element = $(element);
-    return element.is(selector) || !!(typeof selector === 'string' ? element.parents(selector).length : $.contains(selector instanceof $ ? selector[0] : selector, element[0]));
+    return element.is(selector) || !!(isString(selector) ? element.parents(selector).length : $.contains(selector instanceof $ ? selector[0] : selector, element[0]));
 }
 
 export function attrFilter(element, attr, pattern, replacement) {

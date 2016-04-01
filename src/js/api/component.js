@@ -34,12 +34,7 @@ export default function (UIkit) {
         return UIkit.components[name];
     };
 
-    UIkit.getComponents = function (element) {
-        return element && element[DATA] || {};
-    };
-
-    UIkit.getComponent = function (element, name) {
-        return element && element[DATA] && element[DATA][name];
-    };
+    UIkit.getComponents = (element) => element && element[DATA] || {};
+    UIkit.getComponent = (element, name) => UIkit.getComponents(element)[name];
 
 }

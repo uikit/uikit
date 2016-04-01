@@ -36,9 +36,9 @@ export default function (UIkit) {
             });
 
             var mode = hasTouch ? 'click' : this.mode;
-            
+
             if (target) {
-                
+
                 mode = this.mode || target.mode;
 
                 target.target = this.$el;

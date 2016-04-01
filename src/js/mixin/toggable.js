@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {Animation, Transition} from '../util/index';
+import {Animation, isString, Transition} from '../util/index';
 
 export default function (UIkit) {
 
@@ -22,7 +22,7 @@ export default function (UIkit) {
 
         ready() {
 
-            if (typeof this.animation === 'string') {
+            if (isString(this.animation)) {
 
                 this.animation = this.animation.split(',');
 
@@ -39,7 +39,7 @@ export default function (UIkit) {
 
         methods: {
 
-            toggleElement(targets, animate, show) {
+            toggleElement(targets, show, animate) {
 
                 var deferreds = [], toggled;
 
@@ -51,24 +51,27 @@ export default function (UIkit) {
 
                     el.trigger(`before${toggled ? 'hide' : 'show'}`, [this]);
 
-                    if (this.animation === true && animate !== false) {
-
-                        deferreds.push(this.toggleTransition(el, show));
-
-                    } else if (this.animation && animate !== false) {
-
-                        deferreds.push(this.toggleAnimation(el, show));
-
-                    } else {                        
-
-                        this._toggle(el, typeof show === 'boolean' ? show : !toggled);
-                        deferreds.push($.Deferred().resolve());
-                    }
+                    deferreds.push(this.animation === true && animate !== false
+                        ? this.toggleTransition(el, show)
+                        : this.animation && animate !== false
+                            ? this.toggleAnimation(el, show)
+                            : this.toggleNow(el, show)
+                    );
 
                     el.trigger(toggled ? 'hide' : 'show', [this]);
                 });
 
                 return $.when.apply(null, deferreds);
+            },
+
+            toggleNow(el, show) {
+
+                el = $(el);
+
+                var toggled = this.isToggled(el);
+                this._toggle(el, typeof show === 'boolean' ? show : !toggled);
+
+                return $.Deferred().resolve();
             },
 
             toggleTransition(el, show) {

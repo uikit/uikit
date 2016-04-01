@@ -17,13 +17,6 @@ export default function (UIkit) {
             complete: null
         },
 
-        ready() {
-            this.$el.on('click', (e) => {
-                e.preventDefault();
-                this.scrollToElement($(this.$el[0].hash).length ? this.$el[0].hash : 'body');
-            });
-        },
-
         methods: {
 
             scrollToElement(el) {
@@ -42,6 +35,13 @@ export default function (UIkit) {
 
             }
 
+        },
+
+        events: {
+            click(e) {
+                e.preventDefault();
+                this.scrollToElement($(this.$el[0].hash).length ? this.$el[0].hash : 'body');
+            }
         }
 
     });

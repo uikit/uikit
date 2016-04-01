@@ -15,6 +15,33 @@ strats.destroy = function (parentVal, childVal) {
         : parentVal;
 };
 
+strats.events = function (parentVal, childVal) {
+
+    if (!childVal) {
+        return parentVal;
+    }
+
+    if (!parentVal) {
+        return childVal;
+    }
+
+    var ret = extend({}, parentVal);
+
+    for (var key in childVal) {
+        var parent = ret[key], child = childVal[key];
+
+        if (parent && !isArray(parent)) {
+            parent = [parent]
+        }
+
+        ret[key] = parent
+            ? parent.concat(child)
+            : [child]
+    }
+
+    return ret;
+};
+
 // property strategy
 strats.props = function (parentVal, childVal) {
 

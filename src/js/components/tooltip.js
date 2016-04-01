@@ -23,9 +23,6 @@ UIkit.component('tooltip', {
         this.$el.removeAttr('title');
         this.tooltip = $(`<div class="uk-tooltip" aria-hidden="true"><div class="uk-tooltip-inner">${this.content}</div></div>`).appendTo('body');
 
-        this.$el.on('focus mouseenter', this.show.bind(this));
-        this.$el.on('blur mouseleave', this.hide.bind(this));
-
     },
 
     methods: {
@@ -35,15 +32,20 @@ UIkit.component('tooltip', {
 
             this.showTimer = setTimeout(() => {
                 this.positionAt(this.tooltip, this.$el);
-                this.toggleElement(this.tooltip, true, true);
+                this.toggleElement(this.tooltip, true);
             }, this.delay);
         },
 
         hide() {
             clearTimeout(this.showTimer);
-            this.toggleElement(this.tooltip, true, false);
+            this.toggleElement(this.tooltip, false);
         }
 
+    },
+
+    events: {
+        'focus mouseenter': 'show',
+        'blur mouseleave': 'hide'
     }
 
 });

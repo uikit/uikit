@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {toJQuery} from '../util/index';
+import {isString, toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
@@ -66,7 +66,7 @@ export default function (UIkit) {
                         ? prev + 1
                         : item === 'previous'
                             ? prev - 1
-                            : typeof item === 'string'
+                            : isString(item)
                                 ? parseInt(item, 10)
                                 : typeof item === 'number'
                                     ? item
@@ -91,8 +91,8 @@ export default function (UIkit) {
                 this.toggles.removeClass(this.cls).attr('aria-expanded', false);
                 toggle.addClass(this.cls).attr('aria-expanded', true);
 
-                this.toggleElement(hasPrev ? this.connect.children(`:nth-child(${prev + 1})`) : undefined, hasPrev).then(() => {
-                    this.toggleElement(this.connect.children(`:nth-child(${index + 1})`), hasPrev);
+                this.toggleElement(hasPrev ? this.connect.children(`:nth-child(${prev + 1})`) : undefined, null, hasPrev).then(() => {
+                    this.toggleElement(this.connect.children(`:nth-child(${index + 1})`), null, hasPrev);
                 });
 
             }

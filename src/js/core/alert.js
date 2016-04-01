@@ -24,16 +24,10 @@ export default function (UIkit) {
         methods: {
 
             closeAlert() {
-                this.$el.trigger('close');
                 this.toggleElement(this.$el).then(() => this.$destroy());
-                requestAnimationFrame(() => this.$el.css('opacity', 0))
+                requestAnimationFrame(() => this.$el.css('opacity', 0));
             }
 
-        },
-
-        destroy() {
-            this.$el.off('click');
-            this.$el.trigger('closed');
         }
 
     });

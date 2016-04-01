@@ -26,6 +26,8 @@ export default function (UIkit) {
 
         this._callHook('init');
 
+        this._initEvents();
+
         requestAnimationFrame(() => {
             this._isReady = true;
             this._callHook('ready');

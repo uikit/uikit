@@ -1,4 +1,4 @@
-import {toJQuery, Transition, requestAnimationFrame} from '../util/index';
+import {isString, requestAnimationFrame, toJQuery, Transition} from '../util/index';
 
 export default function (UIkit) {
 
@@ -44,12 +44,10 @@ export default function (UIkit) {
 
             this.items.each((i, el) => {
                 el = $(el);
-                this.toggleElement(el.find(this.content), false, el.hasClass(this.clsOpen));
+                this.toggleNow(el.find(this.content), el.hasClass(this.clsOpen));
             });
 
-            var active = this.active !== false && toJQuery(this.items.eq(Number(this.active)))
-                || !this.collapsible && toJQuery(this.items.eq(0));
-
+            var active = this.active !== false && toJQuery(this.items.eq(Number(this.active))) || !this.collapsible && toJQuery(this.items.eq(0));
             if (active && !active.hasClass(this.clsOpen)) {
                 this.show(active, false);
             }
@@ -61,7 +59,7 @@ export default function (UIkit) {
 
                 var index = typeof item === 'number'
                         ? item
-                        : typeof item === 'string'
+                        : isString(item)
                             ? parseInt(item, 10)
                             : this.items.index(item),
                     active = this.items.filter(`.${this.clsOpen}`);
@@ -85,14 +83,14 @@ export default function (UIkit) {
                         content.parent().attr('hidden', state);
                     }
 
-                    this.toggleElement(content, false, true);
+                    this.toggleNow(content, true);
 
-                    this.toggleElement(content.parent(), animate, state).then(() => {
+                    this.toggleElement(content.parent(), state, animate).then(() => {
                         requestAnimationFrame(() => {
                             if (!Transition.inProgress(content.parent())) {
 
                                 if (!el.hasClass(this.clsOpen)) {
-                                    this.toggleElement(content, false, false);
+                                    this.toggleNow(content, false);
                                 }
 
                                 content.unwrap();

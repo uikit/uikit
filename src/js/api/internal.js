@@ -1,4 +1,4 @@
-import {bind, camelize, coerce, createEvent, hasOwn, hyphenate, isPlainObject, mergeOptions} from '../util/index';
+import {bind, camelize, coerce, createEvent, hasOwn, hyphenate, isArray, isPlainObject, isString, mergeOptions} from '../util/index';
 
 export default function (UIkit) {
 
@@ -86,6 +86,31 @@ export default function (UIkit) {
         if (methods) {
             for (var key in methods) {
                 this[key] = bind(methods[key], this);
+            }
+        }
+    };
+
+    UIkit.prototype._initEvents = function () {
+
+        var events = this.$options.events,
+            register = (name, fn) => {
+
+                if (isString(fn)) {
+                    fn = this[fn];
+                }
+
+                this.$el.on(name, bind(fn, this));
+            };
+
+        if (events) {
+            for (var key in events) {
+
+                if (isArray(events[key])) {
+                    events[key].forEach(event => register(key, event));
+                } else {
+                    register(key, events[key]);
+                }
+
             }
         }
     };
