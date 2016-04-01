@@ -37,18 +37,17 @@ export default function (UIkit) {
 
         },
 
-        methods: {
+        events: {
 
-            getActive: () => active,
+            toggle(e) {
+                e.preventDefault();
+                this.toggleNow(this.$el);
+            },
 
-            isActive: () => this.$el.hasClass(this.cls),
-
-            doToggle: () => this[this.isActive() ? 'hide' : 'show'](),
-
-            show() {
+            beforeshow() {
 
                 if (this.isActive()) {
-                    return;
+                    return false;
                 }
 
                 var hide = active && active !== this && active;
@@ -59,10 +58,9 @@ export default function (UIkit) {
                     hide.hide();
                 }
 
-                this.toggleNow(this.$el, true);
             },
 
-            hide() {
+            beforehide() {
 
                 if (!this.isActive()) {
                     return;
@@ -70,7 +68,26 @@ export default function (UIkit) {
 
                 active = active && active !== this && active;
 
+            }
+
+        },
+
+        methods: {
+
+            isActive() {
+                return this.$el.hasClass(this.cls);
+            },
+
+            show() {
+                this.toggleNow(this.$el, true);
+            },
+
+            hide() {
                 this.toggleNow(this.$el, false);
+            },
+
+            getActive() {
+                return active;
             }
         }
 

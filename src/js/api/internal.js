@@ -93,14 +93,7 @@ export default function (UIkit) {
     UIkit.prototype._initEvents = function () {
 
         var events = this.$options.events,
-            register = (name, fn) => {
-
-                if (isString(fn)) {
-                    fn = this[fn];
-                }
-
-                this.$el.on(name, bind(fn, this));
-            };
+            register = (name, fn) => this.$el.on(name, isString(fn) ? this[fn] : bind(fn, this));
 
         if (events) {
             for (var key in events) {

@@ -36,10 +36,9 @@ export default function (UIkit) {
                 return;
             }
 
-            var self = this;
-            this.$el.on('click', `${this.targets} ${this.toggle}`, function (e) {
+            this.$el.on('click', `${this.targets} ${this.toggle}`, e => {
                 e.preventDefault();
-                self.show(self.items.find(self.toggle).index(this));
+                this.show(this.items.find(this.toggle).index(e.currentTarget));
             });
 
             this.items.each((i, el) => {

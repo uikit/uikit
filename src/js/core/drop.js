@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {isString, isWithin, removeClass, getDimensions, toJQuery} from '../util/index';
+import {hasTouch, isString, isWithin, removeClass, getDimensions, toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
@@ -7,7 +7,7 @@ export default function (UIkit) {
 
     $(document).on('click', e => {
         if (active && !isWithin(e.target, active.$el) && !e.isDefaultPrevented()) {
-            active.hide(null, false);
+            active.hide(false);
         }
     });
 
@@ -40,6 +40,7 @@ export default function (UIkit) {
 
         ready() {
 
+            this.mode = hasTouch ? 'click' : this.mode;
             this.clsDrop = this.clsDrop || 'uk-' + this.$options.name;
             this.clsPos = this.clsDrop;
 
@@ -47,8 +48,18 @@ export default function (UIkit) {
 
             this.$el.on('click', `.${this.clsDrop}-close`, e => {
                 e.preventDefault();
-                this.hide(null, false)
+                this.hide(false)
             });
+
+            if (this.mode === 'hover') {
+                this.$el.on('toggleenter mouseenter', (e, toggle) => {
+                    e.preventDefault();
+                    this.show(toggle);
+                }).on('toggleleave mouseleave', e => {
+                    e.preventDefault();
+                    this.hide();
+                });
+            }
 
             if (this.toggle) {
                 this.toggle = isString(this.toggle) ? toJQuery(this.toggle) : this.$el.prev();
@@ -91,21 +102,34 @@ export default function (UIkit) {
 
         events: {
 
-            beforeshow: 'initMouseTracker',
-            beforehide: 'cancelMouseTracker'
+            beforeshow() {
+                this.initMouseTracker();
+                this.toggle.addClass(this.cls).attr('aria-expanded', 'true');
+            },
+
+            beforehide() {
+                this.cancelMouseTracker();
+                this.toggle.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
+            },
+
+            toggle(e, toggle) {
+                e.preventDefault();
+
+                if (this.isToggled(this.$el)) {
+                    this.hide(false);
+                } else {
+                    this.show(toggle, false);
+                }
+            }
 
         },
 
         methods: {
 
-            doToggle(toggle) {
-                this[this.isToggled(this.$el) ? 'hide' : 'show'](toggle, false)
-            },
-
             show(toggle, delay = true) {
 
-                if (this.toggle && !this.toggle.is(toggle)) {
-                    this.hide(null, false);
+                if (toggle && this.toggle && !this.toggle.is(toggle)) {
+                    this.hide(false);
                 }
 
                 this.toggle = toggle || this.toggle;
@@ -118,7 +142,7 @@ export default function (UIkit) {
                     this.showTimer = setTimeout(this.show.bind(this), 75);
                     return;
                 } else if (active) {
-                    active.hide(null, false);
+                    active.hide(false);
                 }
 
                 var show = () => this.toggleElement(this.$el, true);
@@ -132,7 +156,7 @@ export default function (UIkit) {
                 active = this;
             },
 
-            hide(toggle, delay = true) {
+            hide(delay = true) {
 
                 this.clearTimers();
 
@@ -163,7 +187,9 @@ export default function (UIkit) {
                 clearTimeout(this.hideTimer);
             },
 
-            isActive: () => active === this
+            isActive() {
+                return active === this;
+            }
 
         }
 

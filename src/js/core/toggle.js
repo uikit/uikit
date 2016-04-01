@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import {each, hasTouch, isWithin} from '../util/index';
 
 export default function (UIkit) {
@@ -8,14 +9,12 @@ export default function (UIkit) {
 
         props: {
             href: 'jQuery',
-            target: 'jQuery',
-            mode: String
+            target: 'jQuery'
         },
 
         defaults: {
             href: false,
-            target: false,
-            mode: false
+            target: false
         },
 
         ready() {
@@ -26,55 +25,32 @@ export default function (UIkit) {
                 return;
             }
 
-            var target, targets = UIkit.getComponents(this.target[0]);
-
-            each(targets, (i, component) => {
-                if (component.doToggle) {
-                    target = component;
-                    return false;
+            this.target.on('toggle', (e, toggle) => {
+                if (this.$el === toggle && !e.isDefaultPrevented()) {
+                    this.toggleElement(e.target);
                 }
-            });
+            })
 
-            var mode = hasTouch ? 'click' : this.mode;
+        },
 
-            if (target) {
+        events: {
 
-                mode = this.mode || target.mode;
-
-                target.target = this.$el;
-
-                this.$el.on('click', e => {
-
-                    if (!isWithin(e.target, this.target)) {
-                        e.preventDefault();
-                    }
-
-                    target.doToggle(this.$el);
-
-                });
-
-                this.$el.attr('aria-expanded', false);
-
-                if (mode === 'hover') {
-                    this.$el.add(target.$el)
-                        .on('mouseenter', () => target.show(this.$el))
-                        .on('mouseleave', () => target.hide(this.$el));
-                }
-
-                target.$el
-                    .on('beforeshow', () => this.$el.addClass(target.cls).attr('aria-expanded', 'true'))
-                    .on('beforehide', () => this.$el.removeClass(target.cls).attr('aria-expanded', 'false').blur().find('a, button').blur());
-            } else {
-
-                this.aria = this.cls === false;
-                this.updateAria(this.target);
-
-                this.$el.on('click', e => {
+            click(e) {
+                if (!isWithin(e.target, this.target)) {
                     e.preventDefault();
-                    this.toggleElement(this.target);
-                });
+                }
 
+                this.target.trigger('toggle', [this.$el]);
+            },
+
+            mouseenter() {
+                this.target.trigger('toggleenter', [this.$el]);
+            },
+
+            mouseleave() {
+                this.target.trigger('toggleleave', [this.$el]);
             }
+
         }
 
     });

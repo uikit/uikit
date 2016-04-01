@@ -31,15 +31,14 @@ export default function (UIkit) {
                 return;
             }
 
-            var self = this;
-            this.$el.on('click', this.toggle + ':not(.uk-disabled)', function (e) {
+            this.$el.on('click', this.toggle + ':not(.uk-disabled)', e => {
                 e.preventDefault();
-                self.show(this);
+                this.show(e.currentTarget);
             });
 
-            this.connect.on('click', `[${this.attrItem}]`, function (e) {
+            this.connect.on('click', `[${this.attrItem}]`, e => {
                 e.preventDefault();
-                self.show($(this).attr(self.attrItem));
+                this.show($(e.currentTarget).attr(this.attrItem));
             });
 
             if (this.swiping) {
