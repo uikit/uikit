@@ -53,16 +53,12 @@ export default function (UIkit) {
                     return;
                 }
 
-                var hide = false;
-
-                if (active && active !== this) {
-                    hide = true;
-                }
+                var hide = active && active !== this && active;
 
                 active = this;
 
                 if (hide) {
-                    active.hide();
+                    hide.hide();
                 }
 
                 this.toggleElement(this.$el, false, true);
@@ -74,7 +70,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                active = false;
+                active = active && active !== this && active;
 
                 this.toggleElement(this.$el, false, false);
             },
