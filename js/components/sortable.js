@@ -166,6 +166,11 @@
                     return;
                 }
 
+                if ($this.options.handleClass) {
+                    var handle = $target.hasClass($this.options.handleClass) ? $target : $target.closest('.'+$this.options.handleClass, $this.element);
+                    if (!handle.length) return;
+                }
+
                 e.preventDefault();
 
                 if (!supportsTouch && $link.length) {
@@ -301,16 +306,6 @@
                 return;
             }
 
-            if ($this.options.handleClass) {
-
-                var handle = target.hasClass($this.options.handleClass) ? target : target.closest('.'+$this.options.handleClass, $this.element);
-
-                if (!handle.length) {
-                    //e.preventDefault();
-                    return;
-                }
-            }
-
             if (target.is('.'+$this.options.noDragClass) || target.closest('.'+$this.options.noDragClass).length) {
                 return;
             }
@@ -332,7 +327,7 @@
             delayIdle = {
 
                 pos       : { x:e.pageX, y:e.pageY },
-                threshold : $this.options.threshold,
+                threshold : $this.options.handleClass ? 0 : $this.options.threshold,
                 apply     : function(evt) {
 
                     draggingPlaceholder = UI.$('<div class="'+([$this.options.draggingClass, $this.options.dragCustomClass].join(' '))+'"></div>').css({
