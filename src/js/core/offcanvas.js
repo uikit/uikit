@@ -5,7 +5,7 @@ export default function (UIkit) {
     UIkit.component('offcanvas', {
 
         mixins: [UIkit.mixin.modal],
-        
+
         props: {
             mode: String,
             flip: Boolean,
@@ -39,7 +39,7 @@ export default function (UIkit) {
                 this.clsPageAnimation = '';
             }
 
-            this.$el.on('show', () => {
+            this.$el.on('beforeshow', () => {
 
                 this.scrollbarWidth = window.innerWidth - this.page.width();
 
@@ -51,11 +51,10 @@ export default function (UIkit) {
                 this.page.width(window.innerWidth - this.scrollbarWidth).addClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageAnimation} ${this.clsOverlay}`);
                 this.panel.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                 this.$el.css('display', 'block').height();
-                this.$el.addClass(this.clsOpen);
 
             });
 
-            this.$el.on('hide', () => {
+            this.$el.on('beforehide', () => {
 
                 this.panel.one(transitionend, () => {
                     this.page.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsOverlay}`).width('');
@@ -68,7 +67,6 @@ export default function (UIkit) {
                     this.panel.trigger(transitionend);
                 }
 
-                this.$el.removeClass(this.clsOpen);
                 this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
 
             });

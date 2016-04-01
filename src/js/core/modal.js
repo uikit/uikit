@@ -20,22 +20,21 @@ export default function (UIkit) {
 
         ready() {
 
-            this.$el.on('show', () => {
+            this.$el.on('beforeshow', () => {
+
                 this.page.addClass(this.clsPage);
                 this.$el.css('display', 'block');
-                this._callUpdate();
                 this.$el.height();
-                this.$el.addClass(this.clsOpen);
+
             });
 
-            this.$el.on('hide', () => {
-
+            this.$el.on('beforehide', () => {
+                
                 this.panel.one(transitionend, () => {
                     this.page.removeClass(this.clsPage);
                     this.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
                 });
-
-                this.$el.removeClass(this.clsOpen);
+                
             });
 
         },
@@ -45,7 +44,7 @@ export default function (UIkit) {
             handler() {
 
                 if (this.$el.css('display') === 'block' && this.center) {
-                    this.$el.removeClass('uk-flex uk-flex-center').css('display', 'block');
+                    this.$el.removeClass('uk-flex uk-flex-center uk-flex-middle').css('display', 'block');
                     this.$el.toggleClass('uk-flex-middle', window.innerHeight > this.panel.outerHeight(true));
                     this.$el.addClass('uk-flex uk-flex-center').css('display', '');
                 }

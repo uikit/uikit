@@ -6,10 +6,10 @@ import Toggable from './toggable';
 
 export default function (UIkit, _) {
 
-    UIkit.use(Modal);
     UIkit.use(Mouse);
     UIkit.use(Position);
     UIkit.use(Svg);
     UIkit.use(Toggable);
+    UIkit.use(Modal);
 
 }

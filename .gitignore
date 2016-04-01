@@ -1,4 +1,6 @@
 /.idea
+/js
+/css
 /custom
 /dist
 /node_modules

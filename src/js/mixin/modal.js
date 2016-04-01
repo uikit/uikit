@@ -13,14 +13,15 @@ export default function (UIkit) {
 
     UIkit.mixin.modal = {
 
+        mixins: [UIkit.mixin.toggable],
+
         props: {
             clsPanel: String,
-            clsOpen: String,
             clsClose: String
         },
 
         defaults: {
-            clsOpen: 'uk-open'
+            cls: 'uk-open'
         },
 
         ready() {
@@ -39,7 +40,7 @@ export default function (UIkit) {
         methods: {
 
             isActive() {
-                return this.$el.hasClass(this.clsOpen);
+                return this.$el.hasClass(this.cls);
             },
 
             doToggle() {
@@ -64,10 +65,7 @@ export default function (UIkit) {
                     active.hide();
                 }
 
-                this.$el.trigger('beforeshow', [this]);
-                this.$el.trigger('show', [this]);
-
-                this.$update();
+                this.toggleElement(this.$el, false, true);
             },
 
             hide() {
@@ -78,10 +76,7 @@ export default function (UIkit) {
 
                 active = false;
 
-                this.$el.trigger('beforehide', [this]);
-                this.$el.trigger('hide', [this]);
-
-                this.$update();
+                this.toggleElement(this.$el, false, false);
             },
 
             getActive() {
