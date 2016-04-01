@@ -107,18 +107,6 @@
                             </div>
                         </div>
 
-                        <button class="uk-button uk-button-default" uk-toggle="target: #test">Same</button>
-                        <button class="uk-button uk-button-default" uk-toggle="target: #test">Same</button>
-                        <a class="uk-button uk-button-default" href="#test" uk-toggle>Target</a>
-
-                        <div id="test" class="uk-dropdown" uk-dropdown="toggle: false">
-                            <ul class="uk-nav uk-dropdown-nav">
-                                <li class="uk-active"><a href="#">Active</a></li>
-                                <li><a href="#">Item</a></li>
-                                <li><a href="#">Item</a></li>
-                            </ul>
-                        </div>
-
                         <div class="uk-inline-container">
                             <button class="uk-button uk-button-default" disabled>Disabled</button>
                             <div class="uk-dropdown" uk-dropdown="mode: click">
@@ -147,6 +135,19 @@
                                     <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
                                     <li class="uk-nav-divider"></li>
                                     <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="uk-inline-container">
+                            <button class="uk-button uk-button-default" uk-toggle="target: #test">Same</button>
+                            <a class="uk-button uk-button-default" href="#test" uk-toggle>Same</a>
+                            <button class="uk-button uk-button-default">Target</button>
+                            <div id="test" class="uk-dropdown" uk-dropdown>
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li class="uk-active"><a href="#">Active</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
                                 </ul>
                             </div>
                         </div>
