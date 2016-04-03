@@ -4,14 +4,13 @@
 // Component:       `uk-offcanvas`
 //
 // Sub-objects:     `uk-offcanvas-page`
+//                  `uk-offcanvas-overlay`
 //                  `uk-offcanvas-bar`
-//                  `uk-offcanvas-close`
 //
-// Modifiers:       `uk-offcanvas-overlay`
-//                  `uk-offcanvas-reveal`
-//                  `uk-offcanvas-push`
+// Modifiers:       `uk-offcanvas-flip`
 //                  `uk-offcanvas-page-animation`
-//                  `uk-offcanvas-page-animation-flip`
+//                  `uk-offcanvas-bar-animation`
+//                  `uk-offcanvas-reveal`
 //
 // States:          `uk-open`
 //
@@ -37,7 +36,6 @@
 /*
  * 1. Hide by default
  * 2. Set position
- * Note: Background mask is moved to pseudo element to enable the transition with `opacity`.
  */
 
 .uk-offcanvas {
@@ -48,27 +46,77 @@
     top: 0;
     bottom: 0;
     left: 0;
-    width: @offcanvas-bar-width;
     z-index: @offcanvas-z-index;
 }
+
+/*
+ * Flip modifier
+ */
+
+.uk-offcanvas-flip .uk-offcanvas {
+    right: 0;
+    left: auto;
+}
+
+
+/* Page
+ ========================================================================== */
+
+/*
+ * 1. Prepare slide-out animation (Used in reveal and push mode)
+ * 2. Prevent horizontal scrollbar when page is slide-out
+ * Note: JS sets a fixed width so the page can slide-out without shinking
+ */
+
+.uk-offcanvas-page {
+    /* 1 */
+    -webkit-transition: margin-left 0.3s ease-in-out;
+    transition: margin-left 0.3s ease-in-out;
+    /* 2 */
+    overflow-x: hidden;
+}
+
+/*
+ * Activate slide-out animation
+ */
+
+.uk-offcanvas-page-animation { margin-left: @offcanvas-bar-width; }
+
+/* Flip modifier */
+.uk-offcanvas-flip.uk-offcanvas-page-animation { margin-left: -@offcanvas-bar-width; }
+
+
+/* Overlay
+ ========================================================================== */
+
+/*
+ * Prevent scrollbar on page
+ */
+
+.uk-offcanvas-overlay { overflow: hidden; }
+
+/*
+ * Overlay the whole page. Needed for the `::before`
+ * Using `100vw` so no modification is needed when off-canvas is flipped
+ */
 
 .uk-offcanvas-overlay .uk-offcanvas { width: 100vw; }
 
 /*
- * 1. Mask the background page
+ * 1. Mask the whole page
  * 2. Fade-in transition
  */
 
 .uk-offcanvas-overlay .uk-offcanvas::before {
+    /* 1 */
     content: "";
     position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
     right: 0;
-    /* 4 */
     background: @offcanvas-background;
-    /* 5 */
+    /* 2 */
     opacity: 0;
     -webkit-transition: opacity 0.15s linear;
     transition: opacity 0.15s linear;
@@ -76,18 +124,6 @@
 }
 
 .uk-offcanvas-overlay .uk-offcanvas.uk-open::before { opacity: 1; }
-
-
-/* Page (`html` element)
- ========================================================================== */
-
-/*
- * Prevent scrollbar
- * Note: JS sets a fixed width to prevent layout jumping caused by removing the scrollbar
- */
-
-.uk-offcanvas-page { overflow-x: hidden; }
-.uk-offcanvas-page.uk-offcanvas-overlay { overflow: hidden; }
 
 
 /* Bar
@@ -110,7 +146,6 @@
     /* 2 */
     box-sizing: border-box;
     width: @offcanvas-bar-width;
-    max-width: 100%;
     padding: @offcanvas-bar-padding-vertical @offcanvas-bar-padding-horizontal;
     background: @offcanvas-bar-background;
     /* 3 */
@@ -122,23 +157,16 @@
     .hook-offcanvas-bar;
 }
 
-
-/* Animation modifiers
- ========================================================================== */
-
-/*
- * Page
- */
-
-.uk-offcanvas-page {
-    -webkit-transition: margin-left 0.3s ease-in-out;
-    transition: margin-left 0.3s ease-in-out;
+/* Flip modifier */
+.uk-offcanvas-flip .uk-offcanvas-bar {
+    left: auto;
+    right: 0;
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
 }
 
-.uk-offcanvas-page-animation { margin-left: @offcanvas-bar-width; }
-
 /*
- * Bar
+ * Show
  */
 
 .uk-open > .uk-offcanvas-bar {
@@ -146,20 +174,33 @@
     transform: translateX(0);
 }
 
+/*
+ * Slide Animation (Used in slide and push mode)
+ */
+
 .uk-offcanvas-bar-animation {
     -webkit-transition: -webkit-transform 0.3s ease-in-out;
     transition: transform 0.3s ease-in-out;
 }
 
-/* Reveal */
+/*
+ * Reveal Animation
+ * 1. Set the bar to target position
+ * 2. Clip the bar with `clip-path` and use `clip` as fallback
+ * 3. Animation
+ */
+
 .uk-offcanvas-reveal {
-    -webkit-transition: clip 0.3s ease-in-out, -webkit-clip-path 0.3s ease-in-out;
-    transition: clip 0.3s ease-in-out, -webkit-clip-path 0.3s ease-in-out, clip-path 0.3s ease-in-out;
+    /* 1 */
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+    /* 2 */
     clip: rect(0, 0, 100vh, 0);
     -webkit-clip-path: inset(0 @offcanvas-bar-width 0 0);
     clip-path: inset(0 @offcanvas-bar-width 0 0);
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
+    /* 3 */
+    -webkit-transition: clip 0.3s ease-in-out, -webkit-clip-path 0.3s ease-in-out;
+    transition: clip 0.3s ease-in-out, -webkit-clip-path 0.3s ease-in-out, clip-path 0.3s ease-in-out;
 }
 
 .uk-open > .uk-offcanvas-reveal {
@@ -168,47 +209,15 @@
     clip-path: inset(0);
 }
 
-
-/* Modifier `uk-offcanvas-bar-flip`
- ========================================================================== */
-
-/*
- * Page
- */
-
-.uk-offcanvas-flip.uk-offcanvas-page-animation { margin-left: -@offcanvas-bar-width; }
-
-/*
- * Offcanvas
- */
-
-.uk-offcanvas-flip .uk-offcanvas {
-    right: 0;
-    left: auto;
-}
-
-/*
- * Bar
- */
-
-.uk-offcanvas-flip .uk-offcanvas-bar {
-    left: auto;
-    right: 0;
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-}
-
-.uk-offcanvas-flip .uk-open > .uk-offcanvas-bar {
+/* Flip modifier */
+.uk-offcanvas-flip .uk-offcanvas-reveal {
+    /* 1 */
     -webkit-transform: translateX(0);
     transform: translateX(0);
-}
-
-.uk-offcanvas-flip .uk-offcanvas-reveal {
+    /* 2 */
     clip: rect(0, @offcanvas-bar-width, 100vh, @offcanvas-bar-width);
     -webkit-clip-path: inset(0 0 0 @offcanvas-bar-width);
     clip-path: inset(0 0 0 @offcanvas-bar-width);
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
 }
 
 .uk-offcanvas-flip .uk-open > .uk-offcanvas-reveal {
@@ -216,6 +225,7 @@
     -webkit-clip-path: inset(0);
     clip-path: inset(0);
 }
+
 
 // Hooks
 // ========================================================================

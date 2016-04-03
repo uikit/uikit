@@ -13,7 +13,7 @@ export default function (UIkit) {
         },
 
         defaults: {
-            mode: 'overlay',
+            mode: 'slide',
             flip: false,
             overlay: false,
             clsPage: 'uk-offcanvas-page',
