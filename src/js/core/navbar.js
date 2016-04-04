@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {Transition, isWithin, requestAnimationFrame, toJQuery} from '../util/index';
+import {extend, isWithin, requestAnimationFrame, toJQuery, Transition} from '../util/index';
 
 export default function (UIkit) {
 
@@ -28,8 +28,9 @@ export default function (UIkit) {
             boundary: true,
             boundaryAlign: false,
             clsDrop: 'uk-navbar-dropdown',
-            delayShow: 75,
+            delayShow: 0,
             delayHide: 800,
+            flip: 'x',
             dropbar: false,
             duration: 200,
             dropbarMode: 'overlay'
@@ -39,27 +40,15 @@ export default function (UIkit) {
 
             var drop;
 
+            this.boundary = (this.boundary === true || this.boundaryAlign) ? this.$el : this.boundary;
+
             this.$el.find(this.dropdown + ':not([uk-drop], [uk-dropdown])').each((i, el) => {
 
                 drop = toJQuery('.' + this.clsDrop, el);
 
-                if (!drop) {
-                    return;
+                if (drop) {
+                    UIkit.drop(drop, extend({}, this));
                 }
-
-                UIkit.drop(drop, {
-                    mode: this.mode,
-                    pos: this.pos,
-                    offset: this.offset,
-                    boundary: (this.boundary === true || this.boundaryAlign) ? this.$el : this.boundary,
-                    boundaryAlign: this.boundaryAlign,
-                    clsDrop: this.clsDrop,
-                    flip: 'x',
-                    delayShow: this.delayShow,
-                    delayHide: this.delayHide,
-                    duration: this.duration
-                });
-
             });
 
             this.$el.on('mouseenter', this.dropdown, ({target}) => {
@@ -83,47 +72,47 @@ export default function (UIkit) {
                 this.dropbar.addClass('uk-navbar-dropbar-overlay');
             }
 
-            this.$el.on({
-
-                beforeshow: (e, {$el}) => {
-                    $el.addClass(`${this.clsDrop}-dropbar`);
-
-                    var height = this.dropbar[0].offsetHeight ? this.dropbar.height() : 0;
-                    Transition.stop(this.dropbar);
-                    this.dropbar.height(height);
-                    Transition.start(this.dropbar, {height: $el.outerHeight(true)}, this.duration);
-                },
-
-                hide: () => {
-                    requestAnimationFrame(() => {
-                        if (!this.getActive()) {
-                            var height = this.dropbar[0].offsetHeight ? this.dropbar.height() : 0;
-                            Transition.stop(this.dropbar);
-                            this.dropbar.height(height);
-                            Transition.start(this.dropbar, {height: 0}, this.duration);
-                        }
-                    })
-                }
-
-            });
-
-            this.dropbar.on({
-
-                mouseenter: () => {
+            this.dropbar
+                .on('mouseenter', () => {
                     var active = this.getActive();
                     if (active) {
                         active.clearTimers();
                     }
-                },
-
-                mouseleave: ({relatedTarget}) => {
+                })
+                .on('mouseleave', ({relatedTarget}) => {
                     var active = this.getActive();
                     if (active && !isWithin(relatedTarget, active.toggle)) {
                         active.hide();
                     }
-                }
+                });
 
-            });
+        },
+
+        events: {
+
+            mouseenter({target}) {
+                var active = this.getActive();
+                if (active && active.mode !== 'click' && isWithin(target, this.dropdown) && !isWithin(target, active.toggle) && !active.isDelaying) {
+                    active.hide(false);
+                }
+            },
+
+            beforeshow(e, {$el}) {
+                if (this.dropbar) {
+                    $el.addClass(`${this.clsDrop}-dropbar`);
+                    this.transitionTo($el.outerHeight(true));
+                }
+            },
+
+            hide() {
+                if (this.dropbar) {
+                    requestAnimationFrame(() => {
+                        if (!this.getActive()) {
+                            this.transitionTo(0);
+                        }
+                    });
+                }
+            }
 
         },
 
@@ -134,6 +123,13 @@ export default function (UIkit) {
                 if (active && isWithin(active.toggle, this.$el)) {
                     return active;
                 }
+            },
+
+            transitionTo(height) {
+                var current = this.dropbar[0].offsetHeight ? this.dropbar.height() : 0;
+                Transition.stop(this.dropbar);
+                this.dropbar.height(current);
+                return Transition.start(this.dropbar, {height}, this.duration);
             }
 
         }

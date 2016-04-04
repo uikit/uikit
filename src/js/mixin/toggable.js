@@ -25,12 +25,11 @@ export default function (UIkit) {
 
                 this.animation = this.animation.split(',');
 
-                if (this.animation.length == 1) {
+                if (this.animation.length === 1) {
                     this.animation[1] = this.animation[0];
                 }
 
-                this.animation[0] = this.animation[0].trim();
-                this.animation[1] = this.animation[1].trim();
+                this.animation.map(animation => animation.trim());
 
             }
 
@@ -46,16 +45,16 @@ export default function (UIkit) {
 
                     el = $(el);
 
-                    toggled = this.isToggled(el);
+                    Animation.cancel(el);
 
-                    var event = $.Event(`before${toggled ? 'hide' : 'show'}`)
+                    toggled = typeof show === 'boolean' ? !show : this.isToggled(el);
+
+                    var event = $.Event(`before${toggled ? 'hide' : 'show'}`);
                     el.trigger(event, [this]);
 
                     if (event.result === false) {
                         return;
                     }
-
-                    Animation.cancel(el);
 
                     if (this.animation === true && animate !== false) {
 
@@ -80,7 +79,7 @@ export default function (UIkit) {
 
                         Transition.stop(el);
 
-                        var toggled = this.isToggled(el);
+                        toggled = this.isToggled(el);
 
                         if (!toggled) {
                             this._toggle(el, true);
@@ -115,8 +114,6 @@ export default function (UIkit) {
 
                     } else if (this.animation && animate !== false) {
 
-                        toggled = this.isToggled(el);
-
                         if ((!toggled && show !== false) || show === true) {
 
                             this._toggle(el, true);
@@ -129,7 +126,7 @@ export default function (UIkit) {
                         }
 
                     } else {
-                        this._toggle(el, typeof show === 'boolean' ? show : !this.isToggled(el));
+                        this._toggle(el, !toggled);
                         deferred = $.Deferred().resolve();
                     }
 

@@ -161,13 +161,7 @@ export default function (UIkit) {
                 this.clearTimers();
 
                 var hide = () => {
-
-                    if (!this.isActive()) {
-                        return;
-                    }
-
-                    active = null;
-
+                    active = this.isActive() ? null : active;
                     this.toggleNow(this.$el, false);
                 };
 
