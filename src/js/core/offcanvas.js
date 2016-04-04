@@ -23,6 +23,7 @@ export default function (UIkit) {
             clsSidebarAnimation: 'uk-offcanvas-bar-animation',
             clsMode: 'uk-offcanvas',
             clsOverlay: 'uk-offcanvas-overlay',
+            clsPageOverlay: 'uk-offcanvas-page-overlay',
             clsClose: 'uk-offcanvas-close'
         },
 
@@ -30,6 +31,7 @@ export default function (UIkit) {
 
             this.clsFlip = this.flip ? this.clsFlip : '';
             this.clsOverlay = this.overlay ? this.clsOverlay : '';
+            this.clsPageOverlay = this.overlay ? this.clsPageOverlay : '';
             this.clsMode = `${this.clsMode}-${this.mode}`;
 
             if (this.mode === 'noeffect' || this.mode === 'reveal') {
@@ -67,18 +69,18 @@ export default function (UIkit) {
                     this.scrollbarWidth = 0;
                 }
 
-                this.page.width(window.innerWidth - this.scrollbarWidth).addClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageAnimation} ${this.clsOverlay}`);
+                this.page.width(window.innerWidth - this.scrollbarWidth).addClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageAnimation} ${this.clsPageOverlay}`);
                 this.panel.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
-                this.$el.css('display', 'block').height();
+                this.$el.addClass(this.clsOverlay).css('display', 'block').height();
 
             },
 
             beforehide() {
 
                 this.panel.one(transitionend, () => {
-                    this.page.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsOverlay}`).width('');
+                    this.page.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageOverlay}`).width('');
                     this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
-                    this.$el.css('display', '');
+                    this.$el.removeClass(this.clsOverlay).css('display', '');
                     this.body.css('overflow-y', '');
                 });
 

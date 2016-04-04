@@ -86,28 +86,29 @@
 .uk-offcanvas-flip.uk-offcanvas-page-animation { margin-left: -@offcanvas-bar-width; }
 
 
-/* Overlay
- ========================================================================== */
-
 /*
- * Prevent scrollbar on page
+ * Prevent scrollbar on page if overlay is used
  */
 
-.uk-offcanvas-overlay { overflow: hidden; }
+.uk-offcanvas-page-overlay { overflow: hidden; }
+
+
+/* Overlay
+ ========================================================================== */
 
 /*
  * Overlay the whole page. Needed for the `::before`
  * Using `100vw` so no modification is needed when off-canvas is flipped
  */
 
-.uk-offcanvas-overlay .uk-offcanvas { width: 100vw; }
+.uk-offcanvas-overlay { width: 100vw; }
 
 /*
  * 1. Mask the whole page
  * 2. Fade-in transition
  */
 
-.uk-offcanvas-overlay .uk-offcanvas::before {
+.uk-offcanvas-overlay::before {
     /* 1 */
     content: "";
     position: absolute;
@@ -123,7 +124,7 @@
     .hook-offcanvas;
 }
 
-.uk-offcanvas-overlay .uk-offcanvas.uk-open::before { opacity: 1; }
+.uk-offcanvas-overlay.uk-open::before { opacity: 1; }
 
 
 /* Bar
