@@ -3,27 +3,62 @@ module.exports = require('../../src/js/uikit.js');
 
 requestAnimationFrame(function () {
 
-    var $select = $('<select><option value="">- Select Test -</option></select>').css('margin', '20px 0'), $optgroup;
+    var $select = $('<select><option value="">- Select Test -</option></select>').css('margin', '20px 0');
 
-    $.each({
-
-        Base: ['base'],
-        Elements: ['typography', 'list', 'description-list', 'table', 'form', 'button'],
-        Common: ['alert', 'badge', 'close', 'icon', 'label'],
-        Navigation: ['nav', 'navbar', 'subnav', 'breadcrumb', 'pagination', 'tab'],
-        Layout: ['section', 'container', 'grid', 'card'],
-        JavaScript: ['accordion', 'drop', 'dropdown', 'modal', 'offcanvas', 'scrollspy', 'smooth-scroll', 'sticky', 'switcher', 'toggle'],
-        Utilities: ['align', 'animation', 'column', 'cover', 'flex', 'height-expand', 'height-viewport', 'inverse', 'margin', 'padding', 'position', 'text', 'utility', 'visibility', 'width'],
-        Components: ['form-advanced', 'tooltip']
-
-    }, function (group, tests) {
-
-        $optgroup = $('<optgroup label="' + group + '"></optgroup>').appendTo($select);
-
-        tests.forEach(function (name) {
-            $optgroup.append('<option value="' + name + '.html">' + name.charAt(0).toUpperCase() + name.slice(1) + '</option>');
-        });
-
+    [
+        'accordion',
+        'alert',
+        'align',
+        'animation',
+        'badge',
+        'base',
+        'breadcrumb',
+        'button',
+        'card',
+        'close',
+        'column',
+        'container',
+        'cover',
+        'description-list',
+        'drop',
+        'dropdown',
+        'flex',
+        'form',
+        'form-advanced',
+        'grid',
+        'height-expand',
+        'height-viewport',
+        'icon',
+        'inverse',
+        'label',
+        'list',
+        'margin',
+        'modal',
+        'nav',
+        'navbar',
+        'offcanvas',
+        'padding',
+        'pagination',
+        'position',
+        'scrollspy',
+        'section',
+        'smooth-scroll',
+        'sticky',
+        'subnav',
+        'switcher',
+        'tab',
+        'table',
+        'text',
+        'toggle',
+        'tooltip',
+        'typography',
+        'utility',
+        'visibility',
+        'width'
+    ].forEach(function (name) {
+        $('<option value="' + name + '.html">' + name.split('-').map(function (name) {
+                return name.charAt(0).toUpperCase() + name.slice(1);
+            }).join(' ') + '</option>').appendTo($select);
     });
 
     $select.on('change', function () {
