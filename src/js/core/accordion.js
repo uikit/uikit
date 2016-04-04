@@ -1,4 +1,4 @@
-import {isString, requestAnimationFrame, toJQuery, Transition} from '../util/index';
+import {isString, toJQuery, Transition} from '../util/index';
 
 export default function (UIkit) {
 
@@ -83,19 +83,17 @@ export default function (UIkit) {
                     }
 
                     this.toggleNow(content, true);
-
                     this.toggleElement(content.parent(), state, animate).then(() => {
-                        requestAnimationFrame(() => {
-                            if (!Transition.inProgress(content.parent())) {
+                        if (el.hasClass(this.clsOpen) === state) {
 
-                                if (!el.hasClass(this.clsOpen)) {
-                                    this.toggleNow(content, false);
-                                }
-
-                                content.unwrap();
+                            if (!state) {
+                                this.toggleNow(content, false);
                             }
-                        });
+
+                            content.unwrap();
+                        }
                     });
+
                 })
             }
 

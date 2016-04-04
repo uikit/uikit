@@ -35,9 +35,9 @@ export function transition(element, props, duration, transition) {
 
     element
         .one(transitionend || 'transitionend', () => {
-            d.resolve();
             clearTimeout(timer);
             element.removeClass('uk-transition').css('transition', '');
+            d.resolve();
         })
         .addClass('uk-transition')
         .css('transition', `all ${duration}ms ${transition || 'linear'}`)

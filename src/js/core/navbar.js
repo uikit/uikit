@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {extend, isWithin, requestAnimationFrame, toJQuery, Transition} from '../util/index';
+import {extend, isWithin, toJQuery, Transition} from '../util/index';
 
 export default function (UIkit) {
 
@@ -106,11 +106,7 @@ export default function (UIkit) {
 
             hide() {
                 if (this.dropbar) {
-                    requestAnimationFrame(() => {
-                        if (!this.getActive()) {
-                            this.transitionTo(0);
-                        }
-                    });
+                    this.transitionTo(0);
                 }
             }
 
