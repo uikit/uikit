@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {Animation, isString, Transition} from '../util/index';
+import {Animation, extend, isString, Transition} from '../util/index';
 
 export default function (UIkit) {
 
@@ -55,9 +55,19 @@ export default function (UIkit) {
                         return;
                     }
 
+                    Animation.cancel(el);
+
                     if (this.animation === true && animate !== false) {
 
                         var height = el[0].offsetHeight ? el.height() : 0,
+                            initProps = {
+                                overflow: '',
+                                height: '',
+                                'padding-top': '',
+                                'padding-bottom': '',
+                                'margin-top': '',
+                                'margin-bottom': ''
+                            },
                             hideProps = {
                                 overflow: 'hidden',
                                 height: 0,
@@ -87,27 +97,23 @@ export default function (UIkit) {
                                 el.css(hideProps);
                             }
 
-                            deferred = Transition.start(el, {
+                            deferred = Transition.start(el, extend(initProps, {
                                 overflow: 'hidden',
-                                height: endHeight,
-                                'padding-top': '',
-                                'padding-bottom': '',
-                                'margin-top': '',
-                                'margin-bottom': ''
-                            }, Math.round(this.duration * (1 - height / endHeight)), this.transition);
-
+                                height: endHeight
+                            }), Math.round(this.duration * (1 - height / endHeight)), this.transition);
 
                         } else {
 
                             deferred = Transition
                                 .start(el, hideProps, Math.round(this.duration * (height / endHeight)), this.transition)
-                                .then(() => this._toggle(el, false));
+                                .then(() => {
+                                    this._toggle(el, false);
+                                    el.css(initProps);
+                                });
 
                         }
 
                     } else if (this.animation && animate !== false) {
-
-                        Animation.cancel(el);
 
                         toggled = this.isToggled(el);
 
