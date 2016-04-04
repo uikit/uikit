@@ -144,7 +144,6 @@
     top: 0;
     bottom: 0;
     left: 0;
-    z-index: @offcanvas-z-index + 1;
     /* 2 */
     box-sizing: border-box;
     width: @offcanvas-bar-width;
@@ -168,7 +167,7 @@
 }
 
 /*
- * Show
+ * Open
  */
 
 .uk-open > .uk-offcanvas-bar {
@@ -190,6 +189,7 @@
  * 1. Set the bar to target position
  * 2. Clip the bar with `clip-path` and use `clip` as fallback
  * 3. Animation
+ * Note: Future `clip-path` is commented out
  */
 
 .uk-offcanvas-reveal {
@@ -198,11 +198,11 @@
     transform: translateX(0);
     /* 2 */
     clip: rect(0, 0, 100vh, 0);
-    -webkit-clip-path: inset(0 @offcanvas-bar-width 0 0);
-    clip-path: inset(0 @offcanvas-bar-width 0 0);
+    //-webkit-clip-path: inset(0 @offcanvas-bar-width 0 0);
+    //clip-path: inset(0 @offcanvas-bar-width 0 0);
     /* 3 */
-    -webkit-transition: clip 0.3s ease-in-out, -webkit-clip-path 0.3s ease-in-out;
-    transition: clip 0.3s ease-in-out, -webkit-clip-path 0.3s ease-in-out, clip-path 0.3s ease-in-out;
+    -webkit-transition: clip 0.3s ease-in-out; //, -webkit-clip-path 0.3s ease-in-out;
+    transition: clip 0.3s ease-in-out; //, -webkit-clip-path 0.3s ease-in-out, clip-path 0.3s ease-in-out;
 }
 
 /* Fix weird scrollbar bug in Chrome if overlay is used */
@@ -213,8 +213,8 @@
 
 .uk-open > .uk-offcanvas-reveal {
     clip: rect(0, @offcanvas-bar-width, 100vh, 0);
-    -webkit-clip-path: inset(0);
-    clip-path: inset(0);
+    //-webkit-clip-path: inset(0);
+    //clip-path: inset(0);
 }
 
 /* Flip modifier */
@@ -224,14 +224,14 @@
     transform: translateX(0);
     /* 2 */
     clip: rect(0, @offcanvas-bar-width, 100vh, @offcanvas-bar-width);
-    -webkit-clip-path: inset(0 0 0 @offcanvas-bar-width);
-    clip-path: inset(0 0 0 @offcanvas-bar-width);
+    //-webkit-clip-path: inset(0 0 0 @offcanvas-bar-width);
+    //clip-path: inset(0 0 0 @offcanvas-bar-width);
 }
 
 .uk-offcanvas-flip .uk-open > .uk-offcanvas-reveal {
     clip: rect(0, @offcanvas-bar-width, 100vh, 0);
-    -webkit-clip-path: inset(0);
-    clip-path: inset(0);
+    //-webkit-clip-path: inset(0);
+    //clip-path: inset(0);
 }
 
 
