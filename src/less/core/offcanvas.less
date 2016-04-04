@@ -20,13 +20,14 @@
 // Variables
 // ========================================================================
 
-@offcanvas-z-index:                             1000;
-@offcanvas-background:                          rgba(0,0,0,0.1);
+@offcanvas-z-index:                             @global-z-index;
+
+@offcanvas-overlay-background:                  rgba(0,0,0,0.1);
 
 @offcanvas-bar-width:                           270px;
-@offcanvas-bar-padding-vertical:                20px;
-@offcanvas-bar-padding-horizontal:              20px;
-@offcanvas-bar-background:                      #333;
+@offcanvas-bar-padding-vertical:                @global-margin;
+@offcanvas-bar-padding-horizontal:              @global-margin;
+@offcanvas-bar-background:                      @global-secondary-background;
 
 
 /* ========================================================================
@@ -116,12 +117,12 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: @offcanvas-background;
+    background: @offcanvas-overlay-background;
     /* 2 */
     opacity: 0;
     -webkit-transition: opacity 0.15s linear;
     transition: opacity 0.15s linear;
-    .hook-offcanvas;
+    .hook-offcanvas-overlay;
 }
 
 .uk-offcanvas-overlay.uk-open::before { opacity: 1; }
@@ -204,6 +205,12 @@
     transition: clip 0.3s ease-in-out, -webkit-clip-path 0.3s ease-in-out, clip-path 0.3s ease-in-out;
 }
 
+/* Fix weird scrollbar bug in Chrome if overlay is used */
+.uk-offcanvas-page:not(.uk-offcanvas-flip) .uk-offcanvas-reveal {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
 .uk-open > .uk-offcanvas-reveal {
     clip: rect(0, @offcanvas-bar-width, 100vh, 0);
     -webkit-clip-path: inset(0);
@@ -233,6 +240,6 @@
 
 .hook-offcanvas-misc;
 
-.hook-offcanvas() {}
+.hook-offcanvas-overlay() {}
 .hook-offcanvas-bar() {}
 .hook-offcanvas-misc() {}
