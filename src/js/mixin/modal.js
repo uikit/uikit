@@ -30,7 +30,7 @@ export default function (UIkit) {
             this.body = $('body');
             this.panel = toJQuery(`.${this.clsPanel}`, this.$el);
 
-            this.$el.on('click', `.${this.clsClose}`, (e) => {
+            this.$el.on('click', `.${this.clsClose}`, e => {
                 e.preventDefault();
                 this.hide();
             });
@@ -61,13 +61,7 @@ export default function (UIkit) {
             },
 
             beforehide() {
-
-                if (!this.isActive()) {
-                    return;
-                }
-
                 active = active && active !== this && active;
-
             }
 
         },
@@ -78,12 +72,16 @@ export default function (UIkit) {
                 return this.$el.hasClass(this.cls);
             },
 
+            toggle() {
+                return this.toggleNow(this.$el);
+            },
+
             show() {
-                this.toggleNow(this.$el, true);
+                return this.toggleNow(this.$el, true);
             },
 
             hide() {
-                this.toggleNow(this.$el, false);
+                return this.toggleNow(this.$el, false);
             },
 
             getActive() {
