@@ -3,8 +3,6 @@
 //
 // Component:       `uk-close`
 //
-// Modifiers:       `uk-close-button`
-//
 // ========================================================================
 
 
@@ -13,13 +11,6 @@
 
 @close-opacity:                                 0.3;
 @close-hover-opacity:                           0.5;
-
-@close-button-padding:                          10px;
-@close-button-border-radius:                    100%;
-@close-button-background:                       @global-muted-background;
-
-@close-button-hover-background:                 darken(@icon-button-background, 5%);
-@close-button-hover-color:                      @global-color;
 
 
 /* ========================================================================
@@ -35,9 +26,9 @@
 /*
  * 1. Remove margins in Chrome, Safari and Opera.
  * 2. Remove borders for `button`.
- * 3. Address `overflow` set to `hidden` in IE 8/9/10/11.
+ * 3. Address `overflow` set to `hidden` in IE.
  * 4. Correct `font` properties and `color` not being inherited for `button`.
- * 5. Address inconsistent `text-transform` inheritance which is only inherit in Firefox and IE 8/9/10/11
+ * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
  * 6. Remove default `button` padding and background color
  * 7. Style
  * 8. Required for `a`.
@@ -69,7 +60,7 @@
 }
 
 /*
- * Removes inner padding and border in Firefox 4+.
+ * Remove the inner border and padding in Firefox.
  */
 
 .uk-close::-moz-focus-inner {
@@ -105,42 +96,6 @@
 }
 
 
-/* Style modifier
- ========================================================================== */
-
-/*
- * 1. Reset
- */
-
-.uk-close-button {
-    padding: @close-button-padding;
-    border-radius: @close-button-border-radius;
-    background-color: @close-button-background;
-    color: @icon-button-color;
-    /* 1 */
-    opacity: 1;
-    .hook-close-button;
-}
-
-/*
- * Hover + Focus
- * 1. Reset
- * 2. Remove default focus style
- */
-
-.uk-close-button:hover,
-.uk-close-button:focus {
-    background-color: @close-button-hover-background;
-    color: @close-button-hover-color;
-    /* 1 */
-    opacity: 1;
-    /* 2 */
-    outline: none;
-    .hook-close-button-hover;
-}
-
-
-
 // Hooks
 // ========================================================================
 
@@ -148,6 +103,4 @@
 
 .hook-close() {}
 .hook-close-hover() {}
-.hook-close-button() {}
-.hook-close-button-hover() {}
 .hook-close-misc() {}
