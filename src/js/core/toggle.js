@@ -1,4 +1,4 @@
-import {hasTouch, isWithin} from '../util/index';
+import {isWithin} from '../util/index';
 
 export default function (UIkit) {
 
@@ -34,22 +34,12 @@ export default function (UIkit) {
 
         events: {
 
-            tap(e) {
-                if (!isWithin(e.target, this.target)) {
-                    e.preventDefault();
-                }
-
-                this.toggle();
-            },
-
             click(e) {
                 if (!isWithin(e.target, this.target)) {
                     e.preventDefault();
                 }
 
-                if (!hasTouch) {
-                    this.toggle();
-                }
+                this.toggle();
             },
 
             mouseenter() {

@@ -603,7 +603,7 @@
 
             (function () {
 
-                $('#toggle').on(UIkit.util.hasTouch ? 'tap' : 'click', function (e) {
+                $('#toggle').on('click', function (e) {
 
                     e.preventDefault();
                     UIkit.offcanvas('#offcanvas-toggle')[0].toggle();

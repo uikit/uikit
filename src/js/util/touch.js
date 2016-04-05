@@ -4,7 +4,7 @@
 import $ from 'jquery';
 import {ready} from './index';
 
-var touch = {}, touchTimeout, tapTimeout, swipeTimeout, longTapTimeout, longTapDelay = 750, gesture;
+var touch = {}, touchTimeout, tapTimeout, swipeTimeout, longTapTimeout, longTapDelay = 750, gesture, clicked;
 
 function swipeDirection(x1, x2, y1, y2) {
     return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down');
@@ -45,6 +45,11 @@ ready(function () {
     }
 
     $(document)
+
+        .on('click', function() {
+            clicked = true;
+        })
+
         .on('MSGestureEnd gestureend', function (e) {
 
             var swipeDirectionFromVelocity = e.originalEvent.velocityX > 1 ? 'Right' : e.originalEvent.velocityX < -1 ? 'Left' : e.originalEvent.velocityY > 1 ? 'Down' : e.originalEvent.velocityY < -1 ? 'Up' : null;
@@ -80,6 +85,8 @@ ready(function () {
             if (gesture && ( e.type == 'MSPointerDown' || e.type == 'pointerdown' || e.type == 'touchstart' )) {
                 gesture.addPointer(e.originalEvent.pointerId);
             }
+
+            clicked = false;
 
         })
         // MSPointerMove: for IE10
@@ -131,6 +138,8 @@ ready(function () {
                         var event = $.Event('tap');
                         event.cancelTouch = cancelAll;
                         if (touch.el !== undefined) touch.el.trigger(event);
+
+                        if (!clicked) touch.el.trigger('click');
 
                         // trigger double tap immediately
                         if (touch.isDoubleTap) {
