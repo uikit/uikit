@@ -1,11 +1,11 @@
 import $ from 'jquery';
-import {isWithin, toJQuery} from '../util/index';
+import {hasTouch, isWithin, toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
     var active = false;
 
-    $(document).on('click', e => {
+    $(document).on(hasTouch ? 'tap' : 'click', e => {
         if (active && !e.isDefaultPrevented() && !isWithin(e.target, active.panel)) {
             active.hide();
         }

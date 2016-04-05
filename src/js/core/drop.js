@@ -5,7 +5,7 @@ export default function (UIkit) {
 
     var active;
 
-    $(document).on('click', e => {
+    $(document).on(hasTouch ? 'tap' : 'click', e => {
         if (active && !isWithin(e.target, active.$el) && !e.isDefaultPrevented()) {
             active.hide(false);
         }
