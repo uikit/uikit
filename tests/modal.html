@@ -26,7 +26,7 @@
                         <a class="uk-button uk-button-default" href="#modal-sections" uk-toggle>Sections</a>
                         <a class="uk-button uk-button-default" href="#modal-nobody" uk-toggle>No Body</a>
                         <a class="uk-button uk-button-default" href="#modal-caption" uk-toggle>Caption</a>
-                        <a class="uk-button uk-button-default" href="#modal-close-button" uk-toggle>Close Button</a>
+                        <a class="uk-button uk-button-default" href="#modal-close-outside" uk-toggle>Close Outside</a>
                     </p>
 
                 </div>
@@ -68,8 +68,8 @@
                     <h2>Group</h2>
 
                     <p uk-margin-wrap>
-                        <a class="uk-button uk-button-default" href="#modal-group-1" uk-toggle>Open</a>
-                        <a class="uk-button uk-button-default" href="#modal-group-2" uk-toggle>Open</a>
+                        <a class="uk-button uk-button-default" href="#modal-group-1" uk-toggle>Modal 1</a>
+                        <a class="uk-button uk-button-default" href="#modal-group-2" uk-toggle>Modal 2</a>
                     </p>
 
                 </div>
@@ -113,14 +113,14 @@
 
         <div id="modal" class="uk-modal" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
-                <button class="uk-modal-close uk-close" type="button" uk-close></button>
+                <button class="uk-close uk-modal-close-default" type="button" uk-close></button>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </div>
         </div>
 
         <div id="modal-sections" class="uk-modal" uk-modal>
             <div class="uk-modal-dialog">
-                <button class="uk-modal-close uk-close" type="button" uk-close></button>
+                <button class="uk-close uk-modal-close-default" type="button" uk-close></button>
                 <div class="uk-modal-header">
                     <h2>Headline</h2>
                 </div>
@@ -136,14 +136,14 @@
 
         <div id="modal-nobody" class="uk-modal" uk-modal>
             <div class="uk-modal-dialog">
-                <button class="uk-modal-close uk-modal-close-button uk-close" type="button" uk-close></button>
+                <button class="uk-close uk-modal-close-outside" type="button" uk-close></button>
                 <img src="http://unsplash.it/900/600" alt="">
             </div>
         </div>
 
         <div id="modal-caption" class="uk-modal" uk-modal>
             <div class="uk-modal-dialog">
-                <button class="uk-modal-close uk-close" type="button" uk-close></button>
+                <button class="uk-close uk-modal-close-default" type="button" uk-close></button>
                 <div class="uk-modal-body">
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 </div>
@@ -151,30 +151,30 @@
             </div>
         </div>
 
-        <div id="modal-close-button" class="uk-modal" uk-modal>
+        <div id="modal-close-outside" class="uk-modal" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
-                <button class="uk-modal-close uk-modal-close-button uk-close" type="button" uk-close></button>
+                <button class="uk-close uk-modal-close-outside" type="button" uk-close></button>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </div>
         </div>
 
         <div id="modal-container" class="uk-modal uk-modal-container" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
-                <button class="uk-modal-close uk-close" type="button" uk-close></button>
+                <button class="uk-close uk-modal-close-default" type="button" uk-close></button>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </div>
         </div>
 
         <div id="modal-widths" class="uk-modal" uk-modal>
             <div class="uk-modal-dialog uk-modal-body uk-width-3-4@m uk-width-2-3@l uk-width-1-2@xl">
-                <button class="uk-modal-close uk-close" type="button" uk-close></button>
+                <button class="uk-close uk-modal-close-default" type="button" uk-close></button>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </div>
         </div>
 
         <div id="modal-full" class="uk-modal uk-modal-full" uk-modal>
             <div class="uk-modal-dialog">
-                <button class="uk-modal-close uk-close" type="button" uk-close></button>
+                <button class="uk-close uk-modal-close-full" type="button"></button>
                 <div class="uk-grid uk-child-width-1-2@s uk-flex-middle" uk-grid>
                     <div class="uk-height-viewport uk-background-cover" style="background-image: url('http://unsplash.it/600/600');"></div>
                     <div>
@@ -186,7 +186,7 @@
 
         <div id="modal-center" class="uk-modal" uk-modal="center: true">
             <div class="uk-modal-dialog">
-                <button class="uk-modal-close uk-modal-close-button uk-close" type="button" uk-close></button>
+                <button class="uk-close uk-modal-close-outside" type="button" uk-close></button>
                 <img src="http://unsplash.it/900/600" alt="">
             </div>
         </div>
@@ -194,7 +194,7 @@
         <div id="modal-center-scrollbar" class="uk-modal" uk-modal="center: true">
             <div class="uk-modal-dialog uk-modal-body">
 
-                <button class="uk-modal-close uk-close" type="button" uk-close></button>
+                <button class="uk-close uk-modal-close-default" type="button" uk-close></button>
 
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
@@ -222,7 +222,7 @@
         <div id="modal-scrollbar" class="uk-modal" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
 
-                <button class="uk-modal-close uk-close" type="button" uk-close></button>
+                <button class="uk-close uk-modal-close-default" type="button" uk-close></button>
 
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
@@ -250,7 +250,7 @@
         <div id="modal-overflow" class="uk-modal uk-modal-container" uk-modal>
             <div class="uk-modal-dialog">
 
-                <button class="uk-modal-close uk-close" type="button" uk-close></button>
+                <button class="uk-close uk-modal-close-default" type="button" uk-close></button>
 
                 <div class="uk-modal-header">
                     <h2>Headline</h2>
@@ -288,7 +288,7 @@
 
         <div id="modal-group-1" class="uk-modal" uk-modal>
             <div class="uk-modal-dialog">
-                <button class="uk-modal-close uk-close" type="button" uk-close></button>
+                <button class="uk-close uk-modal-close-default" type="button" uk-close></button>
                 <div class="uk-modal-header">
                     <h2>Headline 1</h2>
                 </div>
@@ -304,7 +304,7 @@
 
         <div id="modal-group-2" class="uk-modal" uk-modal>
             <div class="uk-modal-dialog">
-                <button class="uk-modal-close uk-close" type="button" uk-close></button>
+                <button class="uk-close uk-modal-close-default" type="button" uk-close></button>
                 <div class="uk-modal-header">
                     <h2>Headline 2</h2>
                 </div>
