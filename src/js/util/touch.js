@@ -137,9 +137,17 @@ ready(function () {
                         // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
                         var event = $.Event('tap');
                         event.cancelTouch = cancelAll;
-                        if (touch.el !== undefined) touch.el.trigger(event);
 
-                        if (!clicked) touch.el.trigger('click');
+                        if (touch.el !== undefined) {
+
+                            if (!clicked) {
+                                touch.el.trigger('click');
+                            }
+
+                            touch.el.trigger(event);
+                        }
+
+
 
                         // trigger double tap immediately
                         if (touch.isDoubleTap) {
