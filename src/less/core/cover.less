@@ -13,7 +13,7 @@
  ========================================================================== */
 
 /*
- * Works with `video` and `img` elements
+ * Works with embedded content like images and video
  * 1. Resizes the object to always covers its container
  * 2. Reset responsiveness
  * 3. Center object
@@ -38,10 +38,15 @@
 }
 
 /*
- * Works with `iframes`
+ * Works with iframes and embedded content
+ * 2. Reset responsiveness for embedded content
+ * 3. Center object
  */
 
 [uk-cover] {
+    /* 1 */
+    max-width: none;
+    /* 2 */
     position: absolute;
     left: 50%;
     top: 50%;
