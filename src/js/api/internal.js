@@ -1,4 +1,4 @@
-import {bind, camelize, coerce, createEvent, hasOwn, hyphenate, isArray, isPlainObject, isString, mergeOptions} from '../util/index';
+import {bind, camelize, coerce, createEvent, hasOwn, hyphenate, isArray, isPlainObject, isString, mergeOptions, requestAnimationFrame} from '../util/index';
 
 export default function (UIkit) {
 
@@ -106,6 +106,22 @@ export default function (UIkit) {
 
             }
         }
+    };
+
+    UIkit.prototype._callReady = function () {
+
+        var ready = () => {
+            this._isReady = true;
+            this._callHook('ready');
+            this._callUpdate();
+        };
+
+        if (this.$options.el.hasAttribute('uk-' + hyphenate(this.$options.name))) {
+            requestAnimationFrame(ready);
+        } else {
+            ready();
+        }
+
     };
 
     UIkit.prototype._callHook = function (hook) {
