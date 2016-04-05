@@ -32,27 +32,37 @@
     max-width: @container-max-width;
     margin-left: auto;
     margin-right: auto;
-    padding: 0 @container-padding-horizontal;
+    padding-left: @container-padding-horizontal;
+    padding-right: @container-padding-horizontal;
 }
 
 /* Phone landscape and bigger */
 @media (min-width: @breakpoint-small) {
 
-    .uk-container { padding: 0 @container-padding-horizontal-s; }
+    .uk-container {
+        padding-left: @container-padding-horizontal-s;
+        padding-right: @container-padding-horizontal-s;
+    }
 
 }
 
 /* Tablet landscape and bigger */
 @media (min-width: @breakpoint-medium) {
 
-    .uk-container { padding: 0 @container-padding-horizontal-m; }
+    .uk-container {
+        padding-left: @container-padding-horizontal-m;
+        padding-right: @container-padding-horizontal-m;
+    }
 
 }
 
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
-    .uk-container { padding: 0 @container-padding-horizontal-l; }
+    .uk-container {
+        padding-left: @container-padding-horizontal-l;
+        padding-right: @container-padding-horizontal-l;
+    }
 
 }
 
