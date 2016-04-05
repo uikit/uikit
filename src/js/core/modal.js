@@ -14,7 +14,7 @@ export default function (UIkit) {
             center: false,
             clsPage: 'uk-modal-page',
             clsPanel: 'uk-modal-dialog',
-            clsClose: 'uk-modal-close',
+            selClose: '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full',
             clsOverflow: 'uk-overflow-container'
         },
 

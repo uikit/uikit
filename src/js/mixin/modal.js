@@ -17,7 +17,7 @@ export default function (UIkit) {
 
         props: {
             clsPanel: String,
-            clsClose: String
+            selClose: String
         },
 
         defaults: {
@@ -30,7 +30,7 @@ export default function (UIkit) {
             this.body = $('body');
             this.panel = toJQuery(`.${this.clsPanel}`, this.$el);
 
-            this.$el.on('click', `.${this.clsClose}`, e => {
+            this.$el.on('click', this.selClose, e => {
                 e.preventDefault();
                 this.hide();
             });

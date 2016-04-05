@@ -24,7 +24,7 @@ export default function (UIkit) {
             clsMode: 'uk-offcanvas',
             clsOverlay: 'uk-offcanvas-overlay',
             clsPageOverlay: 'uk-offcanvas-page-overlay',
-            clsClose: 'uk-offcanvas-close'
+            selClose: '.uk-offcanvas-close'
         },
 
         ready() {
