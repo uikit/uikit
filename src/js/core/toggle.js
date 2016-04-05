@@ -39,7 +39,7 @@ export default function (UIkit) {
                     e.preventDefault();
                 }
 
-                this.target.trigger('toggle', [this.$el]);
+                this.toggle();
             },
 
             mouseenter() {
@@ -48,6 +48,14 @@ export default function (UIkit) {
 
             mouseleave() {
                 this.target.trigger('toggleleave', [this.$el]);
+            }
+
+        },
+
+        methods: {
+
+            toggle() {
+                this.target.trigger('toggle', [this.$el]);
             }
 
         }
