@@ -4,6 +4,7 @@
   - Updated sortable behavior with handleClass option
   - Removed data-uk-observe
   - Fixed scrollspynav active state (revert)
+  - Fixed form-select component with input as target
 
 ### 2.26.1 (March 30, 2016)
   - Removed translateZ(0) in sticky component to avoid stacking context
