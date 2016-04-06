@@ -105,9 +105,11 @@ export default function (UIkit) {
             `, options);
 
         alert.show();
-        alert.$el.on('hide', () => {
-            deferred.resolve();
-            alert.$destroy();
+        alert.$el.on('beforehide', () => {
+            alert.$el.on(transitionend, () => {
+                deferred.resolve();
+                alert.$destroy();
+            });
         }).find('button:first').focus();
 
         return deferred.promise();
@@ -130,7 +132,9 @@ export default function (UIkit) {
         confirm.show();
         confirm.$el
             .on('click', '.uk-modal-footer button', e => deferred[$(e.target).index() === 0 ? 'reject' : 'resolve']())
-            .on('hide', e => confirm.$destroy())
+            .on('beforehide', () => {
+                confirm.$el.on(transitionend, () => confirm.$destroy());
+            })
             .find('button:last').focus();
 
         return deferred.promise();
@@ -162,11 +166,13 @@ export default function (UIkit) {
                 deferred.resolve(input.val());
                 prompt.hide()
             })
-            .on('hide', () => {
-                if (deferred.state() === 'pending') {
-                    deferred.resolve(null);
-                }
-                prompt.$destroy();
+            .on('beforehide', () => {
+                prompt.$el.on(transitionend, () => {
+                    if (deferred.state() === 'pending') {
+                        deferred.resolve(null);
+                    }
+                    prompt.$destroy();
+                })
             });
 
         input.val(value).focus();
