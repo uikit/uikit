@@ -1,4 +1,4 @@
-/*! UIkit 2.26.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.26.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Autocomplete
  ========================================================================== */
@@ -17,6 +17,11 @@
   max-width: 100%;
   /* 4 */
   vertical-align: middle;
+}
+/* Legacy dropdown modifier */
+.uk-dropdown-flip {
+  left: auto;
+  right: 0;
 }
 /* Nav modifier `uk-nav-autocomplete`
  ========================================================================== */

@@ -1,4 +1,4 @@
-/*! UIkit 2.26.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.26.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -484,6 +484,33 @@
     });
 
 
+    UIkit.plugin("lightbox", "iframe", {
+
+        init: function (lightbox) {
+
+            lightbox.on("showitem.uk.lightbox", function (e, data) {
+
+                var resolve = function (source, width, height) {
+
+                    data.meta = {
+                        'content': '<iframe class="uk-responsive-width" src="' + source + '" width="' + width + '" height="' + height + '"></iframe>',
+                        'width': width,
+                        'height': height
+                    };
+
+                    data.type = 'iframe';
+
+                    data.promise.resolve();
+                };
+
+                if (data.type === 'iframe' || data.source.match(/\.(html|php)$/)) {
+                    resolve(data.source, (lightbox.options.width || 800), (lightbox.options.height || 600));
+                }
+            });
+
+        }
+    });
+    
     function getModal(lightbox) {
 
         if (modal) {

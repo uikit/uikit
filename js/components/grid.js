@@ -1,4 +1,4 @@
-/*! UIkit 2.26.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.26.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -63,7 +63,7 @@
                 // filter
                 this.controls.on('click', '[data-uk-filter]', function(e){
                     e.preventDefault();
-                    $this.filter(UI.$(this).data('ukFilter'));
+                    $this.filter(UI.$(this).attr('data-uk-filter'));
                 });
 
                 // sort
@@ -88,7 +88,7 @@
                 if ($this.element.is(":visible"))  $this.updateLayout();
             });
 
-            UI.$html.on("changed.uk.dom", function(e) {
+            UI.domObserve(this.element, function(e) {
                 $this.updateLayout();
             });
 

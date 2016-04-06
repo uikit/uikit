@@ -1,4 +1,4 @@
-/*! UIkit 2.26.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.26.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -9,7 +9,8 @@
 
         defaults: {
             cls: 'uk-margin-small-top',
-            rowfirst: false
+            rowfirst: false,
+            observe: false
         },
 
         boot: function() {
@@ -46,13 +47,16 @@
                 return UI.Utils.debounce(fn, 20);
             })());
 
-            UI.$html.on("changed.uk.dom", function(e) {
-                $this.process();
-            });
-
             this.on("display.uk.check", function(e) {
                 if (this.element.is(":visible")) this.process();
             }.bind(this));
+
+            if (this.options.observe) {
+
+                UI.domObserve(this.element, function(e) {
+                    if ($this.element.is(":visible")) $this.process();
+                });
+            }
 
             stacks.push(this);
         },

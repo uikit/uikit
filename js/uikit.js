@@ -1,4 +1,4 @@
-/*! UIkit 2.26.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.26.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     if (typeof define == "function" && define.amd) { // AMD
@@ -44,7 +44,7 @@
 
     var UI = {}, _UI = global.UIkit ? Object.create(global.UIkit) : undefined;
 
-    UI.version = '2.26.1';
+    UI.version = '2.26.2';
 
     UI.noConflict = function() {
         // restore UIkit version
@@ -594,7 +594,7 @@
                 var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
                     fn.apply(element, []);
                     $element.trigger('changed.uk.dom');
-                }, 50));
+                }, 50), {childList: true, subtree: true});
 
                 // pass in the target node, as well as the observer options
                 observer.observe(element, { childList: true, subtree: true });
@@ -626,15 +626,6 @@
         var domReady = function() {
 
             UI.$body = UI.$('body');
-
-            UI.ready(function(context){
-                UI.domObserve('[data-uk-observe]');
-            });
-
-            UI.on('changed.uk.dom', function(e) {
-                UI.init(e.target);
-                UI.Utils.checkDisplay(e.target);
-            });
 
             UI.trigger('beforeready.uk.dom');
 
@@ -709,6 +700,37 @@
 
             // mark that domready is left behind
             UI.domready = true;
+
+            // auto init js components
+            if (UI.support.mutationobserver) {
+
+                var initFn = UI.Utils.debounce(function(){
+                    requestAnimationFrame(function(){ UI.init(document.body);});
+                }, 10);
+
+                (new UI.support.mutationobserver(function(mutations) {
+
+                    var init = false;
+
+                    mutations.every(function(mutation){
+
+                        if (mutation.type != 'childList') return true;
+
+                        for (var i = 0, node; i < mutation.addedNodes.length; ++i) {
+
+                            node = mutation.addedNodes[i];
+
+                            if (node.outerHTML && node.outerHTML.indexOf('data-uk-') !== -1) {
+                                return (init = true) && false;
+                            }
+                        }
+                        return true;
+                    });
+
+                    if (init) initFn();
+
+                })).observe(document.body, {childList: true, subtree: true});
+            }
         };
 
         if (document.readyState == 'complete' || document.readyState == 'interactive') {
@@ -934,7 +956,8 @@
 
         defaults: {
             cls: 'uk-margin-small-top',
-            rowfirst: false
+            rowfirst: false,
+            observe: false
         },
 
         boot: function() {
@@ -971,13 +994,16 @@
                 return UI.Utils.debounce(fn, 20);
             })());
 
-            UI.$html.on("changed.uk.dom", function(e) {
-                $this.process();
-            });
-
             this.on("display.uk.check", function(e) {
                 if (this.element.is(":visible")) this.process();
             }.bind(this));
+
+            if (this.options.observe) {
+
+                UI.domObserve(this.element, function(e) {
+                    if ($this.element.is(":visible")) $this.process();
+                });
+            }
 
             stacks.push(this);
         },
@@ -1473,7 +1499,7 @@
                         scrollTop = $win.scrollTop(),
                         target = (function(){
                             for(var i=0; i< inviews.length;i++){
-                                if(inviews[i].offset().top + inviews[i].outerHeight() >= scrollTop){
+                                if(inviews[i].offset().top >= scrollTop){
                                     return inviews[i];
                                 }
                             }
@@ -2389,7 +2415,8 @@
         defaults: {
             "target"        : false,
             "row"           : true,
-            "ignorestacked" : false
+            "ignorestacked" : false,
+            "observe"       : false
         },
 
         boot: function() {
@@ -2419,7 +2446,7 @@
             UI.$win.on('load resize orientationchange', (function() {
 
                 var fn = function() {
-                    $this.match();
+                    if ($this.element.is(":visible")) $this.match();
                 };
 
                 UI.$(function() { fn(); });
@@ -2427,11 +2454,12 @@
                 return UI.Utils.debounce(fn, 50);
             })());
 
-            UI.$html.on("changed.uk.dom", function(e) {
-                $this.columns  = $this.element.children();
-                $this.elements = $this.options.target ? $this.find($this.options.target) : $this.columns;
-                $this.match();
-            });
+            if (this.options.observe) {
+
+                UI.domObserve(this.element, function(e) {
+                    if ($this.element.is(":visible")) $this.match();
+                });
+            }
 
             this.on("display.uk.check", function(e) {
                 if(this.element.is(":visible")) this.match();
@@ -2545,7 +2573,11 @@
                 if (target[0] == $this.element[0] && $this.options.bgclose) {
                     $this.hide();
                 }
-            }).on("changed.uk.dom", this.resize.bind(this));
+            });
+
+            UI.domObserve(this.element, function(e) {
+                $this.resize();
+            });
         },
 
         toggle: function() {
@@ -3298,10 +3330,6 @@
                 // Init ARIA for toggles
                 toggles.not(active).attr('aria-expanded', 'false');
                 active.attr('aria-expanded', 'true');
-
-                this.on('changed.uk.dom', function() {
-                    $this.connect = UI.$($this.options.connect);
-                });
             }
 
         },

@@ -1,4 +1,4 @@
-/*! UIkit 2.26.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.26.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -185,7 +185,7 @@
 
                     if (ele.is('[data-date]')) {
                         active.current = moment(ele.data("date"));
-                        active.element.val(active.current.format(active.options.format)).trigger("change");
+                        active.element.val(active.current.isValid() ? active.current.format(active.options.format) : null).trigger("change");
                         active.hide();
                     } else {
                        active.add((ele.hasClass("uk-datepicker-next") ? 1:-1), "months");

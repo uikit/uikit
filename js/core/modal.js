@@ -1,4 +1,4 @@
-/*! UIkit 2.26.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.26.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -51,7 +51,11 @@
                 if (target[0] == $this.element[0] && $this.options.bgclose) {
                     $this.hide();
                 }
-            }).on("changed.uk.dom", this.resize.bind(this));
+            });
+
+            UI.domObserve(this.element, function(e) {
+                $this.resize();
+            });
         },
 
         toggle: function() {
