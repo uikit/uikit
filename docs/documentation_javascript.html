@@ -144,17 +144,11 @@ require("uikit!notify,sortable", function(UI){
 
                             <hr class="uk-article-divider">
 
-                            <h2 id="dom-observe"><a href="#dom-observe" class="uk-link-reset">Observe the DOM to auto-init new added components, e.g via AJAX.</a></h2>
+                            <h2 id="dom-observe"><a href="#dom-observe" class="uk-link-reset">Auto-init new added components, e.g via AJAX or reactive framework.</a></h2>
 
-                            <p>If you inject dynamic HTML markup into the DOM via JavaScript, just add the <code>data-uk-observe</code> attribute to one of the parent elements to auto-initialize UIKit JavaScript components.</p>
+                            <p>If you inject dynamic HTML markup into the DOM via JavaScript, UIKit JavaScript components will be automatically initialized via the <code>data-uk-*</code> attributes.</p>
 
-                            <h3 class="tm-article-subtitle">Usage</h3>
-
-                            <pre><code>
-                            &lt;div data-uk-observe&gt;
-                                &lt;!-- inject your dynamic html here --&gt;
-                            &lt;/div&gt;
-                            </code></pre>
+                            <p>You can manually add an observer to your DOM via the <code>UIkit.domObserve</code> method.</p>
 
                             <h3 class="tm-article-subtitle">Observe an element via JavaScript</h3>
 
