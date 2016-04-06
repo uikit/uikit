@@ -1,6 +1,7 @@
 # Changelog
 
 ### WIP
+  - Added iframe support for lightbox component
   - Updated sortable behavior with handleClass option
   - Updated sortable + nestable serialize
   - Removed data-uk-observe
