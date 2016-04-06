@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.26.2 (April 06, 2016)
   - Added iframe support for lightbox component
   - Added observe option to data-uk-grid-margin + data-uk-grid-match
   - Added all data-uk-* js components should now auto initialize after inserted into DOM
