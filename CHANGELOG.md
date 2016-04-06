@@ -3,6 +3,7 @@
 ### WIP
   - Added iframe support for lightbox component
   - Added observe option to data-uk-grid-margin + data-uk-grid-match
+  - Added all data-uk-* js components should now auto initialize after inserted into DOM
   - Updated sortable behavior with handleClass option
   - Updated sortable + nestable serialize
   - Removed data-uk-observe
