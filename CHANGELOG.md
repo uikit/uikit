@@ -2,6 +2,7 @@
 
 ### WIP
   - Updated sortable behavior with handleClass option
+  - Updated sortable serialize
   - Removed data-uk-observe
   - Fixed scrollspynav active state (revert)
   - Fixed form-select component with input as target
