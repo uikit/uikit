@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import {extend, isFunction, isString, toJQuery, transitionend} from '../util/index';
 
 export default function (UIkit) {
@@ -45,12 +46,10 @@ export default function (UIkit) {
             },
 
             beforehide() {
-
-                this.panel.one(transitionend, () => {
+                this.$el.one(transitionend, () => {
                     this.page.removeClass(this.clsPage);
                     this.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
                 });
-
             }
 
         }
@@ -82,7 +81,7 @@ export default function (UIkit) {
 
     UIkit.modal.dialog = function (content, options) {
 
-        return UIkit.modal($(
+        var dialog = UIkit.modal($(
             `<div class="uk-modal">
                 <div class="uk-modal-dialog">
                     ${isString(content) ? content : $(content).html()}
@@ -90,47 +89,44 @@ export default function (UIkit) {
              </div>`
         ).appendTo('body'), options)[0];
 
+        dialog.show();
+        dialog.$el.on('hide', () => dialog.$destroy());
+
+        return dialog;
     };
 
     UIkit.modal.alert = function (message, options) {
 
         options = extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
-        var deferred = $.Deferred(),
-            alert = UIkit.modal.dialog(`
-                <div class="uk-modal-body">${isString(message) ? message : $(message).html()}</div>
-                <div class="uk-modal-footer uk-text-right">
-                    <button class="uk-button uk-button-primary uk-modal-close">${options.labels.ok}</button>
-                </div>
-            `, options);
+        var deferred = $.Deferred();
 
-        alert.show();
-        alert.$el.on('hide', () => {
-            deferred.resolve();
-            alert.$destroy();
-        }).find('button:first').focus();
+        UIkit.modal.dialog(`
+            <div class="uk-modal-body">${isString(message) ? message : $(message).html()}</div>
+            <div class="uk-modal-footer uk-text-right">
+                <button class="uk-button uk-button-primary uk-modal-close">${options.labels.ok}</button>
+            </div>
+        `, options).$el
+            .on('hide', () => deferred.resolve())
+            .find('button:first').focus();
 
         return deferred.promise();
-
     };
 
     UIkit.modal.confirm = function (message, options) {
 
         options = extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
-        var deferred = $.Deferred(),
-            confirm = UIkit.modal.dialog(`
-                <div class="uk-modal-body">${isString(message) ? message : $(message).html()}</div>
-                <div class="uk-modal-footer uk-text-right">
-                    <button class="uk-button uk-button-default uk-modal-close">${options.labels.cancel}</button>
-                    <button class="uk-button uk-button-primary uk-modal-close">${options.labels.ok}</button>
-                </div>
-            `, options);
+        var deferred = $.Deferred();
 
-        confirm.show();
-        confirm.$el
+        UIkit.modal.dialog(`
+            <div class="uk-modal-body">${isString(message) ? message : $(message).html()}</div>
+            <div class="uk-modal-footer uk-text-right">
+                <button class="uk-button uk-button-default uk-modal-close">${options.labels.cancel}</button>
+                <button class="uk-button uk-button-primary uk-modal-close">${options.labels.ok}</button>
+            </div>
+        `, options).$el
             .on('click', '.uk-modal-footer button', e => deferred[$(e.target).index() === 0 ? 'reject' : 'resolve']())
-            .on('hide', e => confirm.$destroy())
             .find('button:last').focus();
 
         return deferred.promise();
@@ -155,7 +151,6 @@ export default function (UIkit) {
             `, options),
             input = prompt.$el.find('input');
 
-        prompt.show();
         prompt.$el
             .on('submit', 'form', e => {
                 e.preventDefault();
@@ -166,7 +161,6 @@ export default function (UIkit) {
                 if (deferred.state() === 'pending') {
                     deferred.resolve(null);
                 }
-                prompt.$destroy();
             });
 
         input.val(value).focus();

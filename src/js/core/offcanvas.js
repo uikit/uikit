@@ -85,11 +85,12 @@ export default function (UIkit) {
                 });
 
                 this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
+            },
 
+            hide() {
                 if (this.mode === 'noeffect' || this.getActive() && this.getActive() !== this) {
                     this.panel.trigger(transitionend);
                 }
-
             }
 
         }
