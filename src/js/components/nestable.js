@@ -232,15 +232,8 @@
                     items.each(function() {
 
                         var li    = UI.$(this),
-                            item  = {}, attribute,
+                            item  = li.data(),
                             sub   = li.children(list.options._listClass);
-
-                        for (var i = 0; i < li[0].attributes.length; i++) {
-                            attribute = li[0].attributes[i];
-                            if (attribute.name.indexOf('data-') === 0) {
-                                item[attribute.name.substr(5)] = UI.Utils.str2json(attribute.value);
-                            }
-                        }
 
                         if (sub.length) {
                             item.children = step(sub, depth + 1);
@@ -268,7 +261,7 @@
 
                     items.each(function(index) {
                         var li   = UI.$(this),
-                            item = UI.$.extend({parent_id: (parent ? parent : null), depth: depth, order: index}, li.data()),
+                            item = UI.$.extend({parent_id: (parent != null ? parent : null), depth: depth, order: index}, li.data()),
                             sub  = li.children(options._listClass);
 
                         data.push(item);

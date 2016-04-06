@@ -17,8 +17,10 @@
                 'move.uk.nestable': function(){
                     //console.log('move', arguments);
                 },
-                'change.uk.nestable': function(){
+                'change.uk.nestable': function(event, nestable, element, action){
                     console.log('change', arguments);
+                    console.log('nestable.list()', nestable.list());
+                    console.log('nestable.serialize()', nestable.serialize());
                 }
             });
         });
@@ -37,28 +39,28 @@
                     <h2>Default</h2>
 
                     <ul class="uk-nestable" data-uk-nestable="{group:'test'}">
-                        <li  class="uk-nestable-item">
+                        <li  class="uk-nestable-item" data-id="0">
                             <div class="uk-nestable-panel">
                                 <a href="http://www.getuikit.com">Item 1</a>
                                 <img src="holder.js/60x20/sky/auto/" width="60" height="20" alt="">
                             </div>
                         </li>
-                        <li  class="uk-nestable-item">
+                        <li  class="uk-nestable-item" data-id="testId">
                             <a class="uk-nestable-panel uk-display-block" href="http://www.getuikit.com">
                                 Item 2
                             </a>
                         </li>
-                        <li  class="uk-nestable-item">
+                        <li  class="uk-nestable-item" data-id="2">
                             <div class="uk-nestable-panel">
                                 Item 3
                             </div>
                         </li>
-                        <li  class="uk-nestable-item">
+                        <li  class="uk-nestable-item" data-id="3">
                             <div class="uk-nestable-panel">
                                 Item 4
                             </div>
                         </li>
-                        <li  class="uk-nestable-item">
+                        <li  class="uk-nestable-item" data-id="4">
                             <div class="uk-nestable-panel">
                                 Item 5
                             </div>
