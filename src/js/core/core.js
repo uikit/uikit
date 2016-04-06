@@ -43,7 +43,7 @@
 
     var UI = {}, _UI = global.UIkit ? Object.create(global.UIkit) : undefined;
 
-    UI.version = '2.26.1';
+    UI.version = '2.26.2';
 
     UI.noConflict = function() {
         // restore UIkit version
@@ -593,7 +593,7 @@
                 var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
                     fn.apply(element, []);
                     $element.trigger('changed.uk.dom');
-                }, 50));
+                }, 50), {childList: true, subtree: true});
 
                 // pass in the target node, as well as the observer options
                 observer.observe(element, { childList: true, subtree: true });
@@ -625,15 +625,6 @@
         var domReady = function() {
 
             UI.$body = UI.$('body');
-
-            UI.ready(function(context){
-                UI.domObserve('[data-uk-observe]');
-            });
-
-            UI.on('changed.uk.dom', function(e) {
-                UI.init(e.target);
-                UI.Utils.checkDisplay(e.target);
-            });
 
             UI.trigger('beforeready.uk.dom');
 
@@ -708,6 +699,37 @@
 
             // mark that domready is left behind
             UI.domready = true;
+
+            // auto init js components
+            if (UI.support.mutationobserver) {
+
+                var initFn = UI.Utils.debounce(function(){
+                    requestAnimationFrame(function(){ UI.init(document.body);});
+                }, 10);
+
+                (new UI.support.mutationobserver(function(mutations) {
+
+                    var init = false;
+
+                    mutations.every(function(mutation){
+
+                        if (mutation.type != 'childList') return true;
+
+                        for (var i = 0, node; i < mutation.addedNodes.length; ++i) {
+
+                            node = mutation.addedNodes[i];
+
+                            if (node.outerHTML && node.outerHTML.indexOf('data-uk-') !== -1) {
+                                return (init = true) && false;
+                            }
+                        }
+                        return true;
+                    });
+
+                    if (init) initFn();
+
+                })).observe(document.body, {childList: true, subtree: true});
+            }
         };
 
         if (document.readyState == 'complete' || document.readyState == 'interactive') {

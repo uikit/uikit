@@ -98,10 +98,6 @@
                 // Init ARIA for toggles
                 toggles.not(active).attr('aria-expanded', 'false');
                 active.attr('aria-expanded', 'true');
-
-                this.on('changed.uk.dom', function() {
-                    $this.connect = UI.$($this.options.connect);
-                });
             }
 
         },

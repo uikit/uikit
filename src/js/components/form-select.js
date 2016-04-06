@@ -50,7 +50,14 @@
                 var select = $this.select[0], fn = function(){
 
                     try {
-                        $this.target.text(select.options[select.selectedIndex].text);
+                        if($this.options.target === 'input')
+                        {
+                            $this.target.val(select.options[select.selectedIndex].text);
+                        }
+                        else
+                        {
+                            $this.target.text(select.options[select.selectedIndex].text);
+                        }
                     } catch(e) {}
 
                     $this.element[$this.select.val() ? 'addClass':'removeClass']($this.options.activeClass);

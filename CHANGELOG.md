@@ -1,5 +1,16 @@
 # Changelog
 
+### 2.26.2 (April 06, 2016)
+  - Added iframe support for lightbox component
+  - Added observe option to data-uk-grid-margin + data-uk-grid-match
+  - Added all data-uk-* js components should now auto initialize after inserted into DOM
+  - Updated sortable behavior with handleClass option
+  - Updated sortable + nestable serialize
+  - Removed data-uk-observe
+  - Fixed flip dropdown modifier for autocomplete component
+  - Fixed scrollspynav active state (revert)
+  - Fixed form-select component with input as target
+
 ### 2.26.1 (March 30, 2016)
   - Removed translateZ(0) in sticky component to avoid stacking context
   - Removed clearfix fix in flex component

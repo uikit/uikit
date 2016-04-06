@@ -165,6 +165,11 @@
                     return;
                 }
 
+                if ($this.options.handleClass) {
+                    var handle = $target.hasClass($this.options.handleClass) ? $target : $target.closest('.'+$this.options.handleClass, $this.element);
+                    if (!handle.length) return;
+                }
+
                 e.preventDefault();
 
                 if (!supportsTouch && $link.length) {
@@ -300,16 +305,6 @@
                 return;
             }
 
-            if ($this.options.handleClass) {
-
-                var handle = target.hasClass($this.options.handleClass) ? target : target.closest('.'+$this.options.handleClass, $this.element);
-
-                if (!handle.length) {
-                    //e.preventDefault();
-                    return;
-                }
-            }
-
             if (target.is('.'+$this.options.noDragClass) || target.closest('.'+$this.options.noDragClass).length) {
                 return;
             }
@@ -331,7 +326,7 @@
             delayIdle = {
 
                 pos       : { x:e.pageX, y:e.pageY },
-                threshold : $this.options.threshold,
+                threshold : $this.options.handleClass ? 0 : $this.options.threshold,
                 apply     : function(evt) {
 
                     draggingPlaceholder = UI.$('<div class="'+([$this.options.draggingClass, $this.options.dragCustomClass].join(' '))+'"></div>').css({
@@ -601,10 +596,12 @@
 
             this.element.children().each(function(j, child) {
                 item = {};
-                for (var i = 0; i < child.attributes.length; i++) {
+                for (var i = 0, attr, val; i < child.attributes.length; i++) {
                     attribute = child.attributes[i];
                     if (attribute.name.indexOf('data-') === 0) {
-                        item[attribute.name.substr(5)] = UI.Utils.str2json(attribute.value);
+                        attr       = attribute.name.substr(5);
+                        val        =  UI.Utils.str2json(attribute.value);
+                        item[attr] = (val || attribute.value=='false' || attribute.value=='0') ? val:attribute.value;
                     }
                 }
                 data.push(item);
