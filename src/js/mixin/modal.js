@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {isWithin, toJQuery} from '../util/index';
+import {isWithin, toJQuery, transitionend} from '../util/index';
 
 export default function (UIkit) {
 
@@ -74,6 +74,18 @@ export default function (UIkit) {
 
             beforehide() {
                 active = active && active !== this && active;
+
+                this.$el.one(transitionend, () => {
+                    var event = $.Event('hide');
+                    event.isHidden = true;
+                    this.$el.trigger(event, [this]);
+                });
+            },
+
+            hide(e) {
+                if (!e.isHidden) {
+                    e.stopImmediatePropagation();
+                }
             }
 
         },

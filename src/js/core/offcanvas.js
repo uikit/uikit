@@ -84,11 +84,11 @@ export default function (UIkit) {
                     this.body.css('overflow-y', '');
                 });
 
+                this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
+
                 if (this.mode === 'noeffect' || this.getActive() && this.getActive() !== this) {
                     this.panel.trigger(transitionend);
                 }
-
-                this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
 
             }
 
