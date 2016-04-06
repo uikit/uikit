@@ -4,6 +4,7 @@
   - Updated sortable behavior with handleClass option
   - Updated sortable + nestable serialize
   - Removed data-uk-observe
+  - Fixed flip dropdown modifier for autocomplete component
   - Fixed scrollspynav active state (revert)
   - Fixed form-select component with input as target
 
