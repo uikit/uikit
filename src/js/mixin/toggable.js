@@ -134,7 +134,7 @@ export default function (UIkit) {
                     el.trigger(toggled ? 'hide' : 'show', [this]);
                 });
 
-                return $.when.apply(null, deferreds);
+                return $.when(...deferreds);
             },
 
             toggleNow(el, show) {

@@ -73,6 +73,18 @@
                     </p>
 
                 </div>
+                <div>
+
+                    <h2>Dialogs</h2>
+
+                    <p uk-margin-wrap>
+                        <a id="modal-dialog" class="uk-button uk-button-default" href="#">Dialog</a>
+                        <a id="modal-alert" class="uk-button uk-button-default" href="#">Alert</a>
+                        <a id="modal-confirm" class="uk-button uk-button-default" href="#">Confirm</a>
+                        <a id="modal-prompt" class="uk-button uk-button-default" href="#">Prompt</a>
+                    </p>
+
+                </div>
             </div>
 
         </div>
@@ -317,6 +329,46 @@
                 </div>
             </div>
         </div>
+
+        <script>
+
+            (function () {
+
+                $('#modal-dialog').on('click', function (e) {
+                    e.preventDefault();
+                    $(this).blur();
+                    UIkit.modal.dialog('<p class="uk-modal-body">UIkit dialog!</p>').show();
+                });
+
+                $('#modal-alert').on('click', function (e) {
+                    e.preventDefault();
+                    $(this).blur();
+                    UIkit.modal.alert('UIkit alert!').then(function() {
+                        console.log('Alert closed.')
+                    });
+                });
+
+                $('#modal-confirm').on('click', function (e) {
+                    e.preventDefault();
+                    $(this).blur();
+                    UIkit.modal.confirm('UIkit confirm!').then(function() {
+                        console.log('Confirmed.')
+                    }, function () {
+                        console.log('Rejected.')
+                    });
+                });
+
+                $('#modal-prompt').on('click', function (e) {
+                    e.preventDefault();
+                    $(this).blur();
+                    UIkit.modal.prompt('Name:', 'Your name').then(function(name) {
+                        console.log('Prompted:', name)
+                    });
+                });
+
+            })();
+
+        </script>
 
     </body>
 </html>

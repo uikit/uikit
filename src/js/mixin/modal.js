@@ -5,9 +5,17 @@ export default function (UIkit) {
 
     var active = false;
 
-    $(document).on('click', e => {
-        if (active && !e.isDefaultPrevented() && !isWithin(e.target, active.panel)) {
-            active.hide();
+    $(document).on({
+        click: e => {
+            if (active && active.bgClose && !e.isDefaultPrevented() && !isWithin(e.target, active.panel)) {
+                active.hide();
+            }
+        },
+        keydown: e => {
+            if (e.keyCode === 27 && active && active.escClose) {
+                e.preventDefault();
+                active.hide();
+            }
         }
     });
 
@@ -17,11 +25,15 @@ export default function (UIkit) {
 
         props: {
             clsPanel: String,
-            selClose: String
+            selClose: String,
+            escClose: Boolean,
+            bgClose: Boolean
         },
 
         defaults: {
-            cls: 'uk-open'
+            cls: 'uk-open',
+            escClose: true,
+            bgClose: true
         },
 
         ready() {
