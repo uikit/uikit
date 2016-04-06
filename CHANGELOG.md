@@ -2,6 +2,7 @@
 
 ### WIP
   - Added iframe support for lightbox component
+  - Added observe option to data-uk-grid-margin + data-uk-grid-match
   - Updated sortable behavior with handleClass option
   - Updated sortable + nestable serialize
   - Removed data-uk-observe
