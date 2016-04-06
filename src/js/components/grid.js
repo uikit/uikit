@@ -62,7 +62,7 @@
                 // filter
                 this.controls.on('click', '[data-uk-filter]', function(e){
                     e.preventDefault();
-                    $this.filter(UI.$(this).data('ukFilter'));
+                    $this.filter(UI.$(this).attr('data-uk-filter'));
                 });
 
                 // sort
