@@ -38,18 +38,16 @@ export default function (UIkit) {
         events: {
 
             beforeshow() {
-
                 this.page.addClass(this.clsPage);
                 this.$el.css('display', 'block');
                 this.$el.height();
-
             },
 
-            beforehide() {
-                this.$el.one(transitionend, () => {
+            hide() {
+                if (!this.getActive()) {
                     this.page.removeClass(this.clsPage);
-                    this.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
-                });
+                }
+                this.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
             }
 
         }

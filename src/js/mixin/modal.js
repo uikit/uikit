@@ -63,19 +63,19 @@ export default function (UIkit) {
                     return false;
                 }
 
-                var hide = active && active !== this && active;
+                var prev = active && active !== this && active;
+
+                if (!active) {
+                    this.body.css('overflow-y', this.getScrollbarWidth() && this.overlay ? 'scroll' : '');
+                }
 
                 active = this;
 
-                if (this.getScrollbarWidth() && this.overlay) {
-                    this.body.css('overflow-y', 'scroll');
+                if (prev) {
+                    prev.hide();
                 }
 
-                if (hide) {
-                    hide.hide();
-                }
-
-                this.$el.one(transitionend, () => {
+                this.panel.one(transitionend, () => {
                     var event = $.Event('show');
                     event.isShown = true;
                     this.$el.trigger(event, [this]);
@@ -90,13 +90,15 @@ export default function (UIkit) {
             },
 
             beforehide() {
+
                 active = active && active !== this && active;
 
-                this.$el.one(transitionend, () => {
+                this.panel.one(transitionend, () => {
                     var event = $.Event('hide');
                     event.isHidden = true;
                     this.$el.trigger(event, [this]);
                 });
+
             },
 
             hide(e) {
@@ -106,7 +108,9 @@ export default function (UIkit) {
                     return;
                 }
 
-                this.body.css('overflow-y', '');
+                if (!active) {
+                    this.body.css('overflow-y', '');
+                }
 
             }
 

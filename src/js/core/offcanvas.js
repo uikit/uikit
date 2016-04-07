@@ -70,18 +70,18 @@ export default function (UIkit) {
 
             beforehide() {
 
-                this.panel.one(transitionend, () => {
-                    this.page.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageOverlay}`).width('');
-                    this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
-                    this.$el.removeClass(this.clsOverlay).css('display', '');
-                });
-
                 this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
 
                 if (this.mode === 'noeffect' || this.getActive() && this.getActive() !== this) {
                     this.panel.trigger(transitionend);
                 }
 
+            },
+
+            hide() {
+                this.page.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageOverlay}`).width('');
+                this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
+                this.$el.removeClass(this.clsOverlay).css('display', '');
             }
 
         }
