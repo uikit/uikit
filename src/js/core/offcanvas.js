@@ -49,7 +49,7 @@ export default function (UIkit) {
             handler() {
 
                 if (this.isActive()) {
-                    this.page.width(window.innerWidth - this.scrollbarWidth);
+                    this.page.width(window.innerWidth - this.getScrollbarWidth());
                 }
 
             },
@@ -62,14 +62,7 @@ export default function (UIkit) {
 
             beforeshow() {
 
-                this.scrollbarWidth = window.innerWidth - this.page.width();
-
-                if (this.scrollbarWidth && this.overlay) {
-                    this.body.css('overflow-y', 'scroll');
-                    this.scrollbarWidth = 0;
-                }
-
-                this.page.width(window.innerWidth - this.scrollbarWidth).addClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageAnimation} ${this.clsPageOverlay}`);
+                this.page.addClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageAnimation} ${this.clsPageOverlay}`);
                 this.panel.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                 this.$el.addClass(this.clsOverlay).css('display', 'block').height();
 
@@ -81,16 +74,14 @@ export default function (UIkit) {
                     this.page.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageOverlay}`).width('');
                     this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                     this.$el.removeClass(this.clsOverlay).css('display', '');
-                    this.body.css('overflow-y', '');
                 });
 
                 this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
-            },
 
-            hide() {
                 if (this.mode === 'noeffect' || this.getActive() && this.getActive() !== this) {
                     this.panel.trigger(transitionend);
                 }
+
             }
 
         }

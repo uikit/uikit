@@ -33,7 +33,8 @@ export default function (UIkit) {
         defaults: {
             cls: 'uk-open',
             escClose: true,
-            bgClose: true
+            bgClose: true,
+            overlay: true
         },
 
         ready() {
@@ -66,10 +67,26 @@ export default function (UIkit) {
 
                 active = this;
 
+                if (this.getScrollbarWidth() && this.overlay) {
+                    this.body.css('overflow-y', 'scroll');
+                }
+
                 if (hide) {
                     hide.hide();
                 }
 
+                this.$el.one(transitionend, () => {
+                    var event = $.Event('show');
+                    event.isShown = true;
+                    this.$el.trigger(event, [this]);
+                });
+
+            },
+
+            show(e) {
+                if (!e.isShown) {
+                    e.stopImmediatePropagation();
+                }
             },
 
             beforehide() {
@@ -83,9 +100,14 @@ export default function (UIkit) {
             },
 
             hide(e) {
+
                 if (!e.isHidden) {
                     e.stopImmediatePropagation();
+                    return;
                 }
+
+                this.body.css('overflow-y', '');
+
             }
 
         },
@@ -110,6 +132,10 @@ export default function (UIkit) {
 
             getActive() {
                 return active;
+            },
+
+            getScrollbarWidth() {
+                return window.innerWidth - this.page.width();
             }
         }
 
