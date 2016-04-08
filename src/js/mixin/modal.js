@@ -123,15 +123,21 @@ export default function (UIkit) {
             },
 
             toggle() {
-                return this.toggleNow(this.$el);
+                return this.isActive() ? this.hide() : this.show();
             },
 
             show() {
-                return this.toggleNow(this.$el, true);
+                var deferred = $.Deferred();
+                this.$el.one('show', () => deferred.resolve());
+                this.toggleNow(this.$el, true);
+                return deferred.promise();
             },
 
             hide() {
-                return this.toggleNow(this.$el, false);
+                var deferred = $.Deferred();
+                this.$el.one('hide', () => deferred.resolve());
+                this.toggleNow(this.$el, false);
+                return deferred.promise();
             },
 
             getActive() {

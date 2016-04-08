@@ -82,13 +82,13 @@ export default function (UIkit) {
         var dialog = UIkit.modal($(
             `<div class="uk-modal">
                 <div class="uk-modal-dialog">
-                    ${isString(content) ? content : $(content).html()}
                 </div>
              </div>`
         ).appendTo('body'), options)[0];
 
-        dialog.show();
         dialog.$el.on('hide', () => dialog.$destroy());
+        dialog.panel.append(content);
+        dialog.show();
 
         return dialog;
     };

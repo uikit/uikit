@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Lightbox - UIkit tests</title>
+
+        <link rel="stylesheet" href="../css/uikit.css">
+        <script src="../vendor/jquery.js"></script>
+        <script src="js/test.js"></script>
+
+        <!--<script charset="utf-8">-->
+            <!--jQuery(function($){-->
+
+                <!--var lightbox = UIkit.lightbox.create([-->
+                    <!--{'source': 'http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4', 'type':'video'},-->
+                    <!--{'source': 'https://source.unsplash.com/random/700x500', 'type':'image'}-->
+                <!--]);-->
+
+                <!--$('#btnLightbox').on('click', function(){-->
+                    <!--lightbox.show();-->
+                <!--});-->
+            <!--});-->
+        <!--</script>-->
+
+        <style>
+
+            .uk-transition-show,
+            .uk-transition .uk-transition-hide { display: none; }
+
+            .uk-transition-hide,
+            .uk-transition .uk-transition-show { display: block; }
+
+            .uk-modal-dialog { margin: 50px; }
+
+            .uk-modal-dialog .uk-slidenav {
+                position: absolute;
+                top: 50%;
+                -webkit-transform: translate(50%,-50%);
+                transform: translate(50%,-50%);
+            }
+
+            .uk-modal-dialog .uk-slidenav-next {
+                right:0;
+                -webkit-transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%);
+            }
+
+            .uk-modal-spinner {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                -webkit-transform: translate(-50%,-50%);
+                transform: translate(-50%,-50%);
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Lightbox</h1>
+
+            <h2>Different image dimensions</h2>
+
+            <div class="uk-grid uk-child-width-1-5" uk-grid uk-lightbox>
+                <div>
+
+                    <a href="https://source.unsplash.com/random/800x600" title="800x600" type="image">
+                        <img src="https://source.unsplash.com/random/400x300" width="400" height="400" alt="">
+                    </a>
+
+                </div>
+                <div>
+
+                    <a href="https://source.unsplash.com/random/700x500" title="700x500" type="image">
+                        <img src="https://source.unsplash.com/random/404x303" width="400" height="400" alt="">
+                    </a>
+
+                </div>
+                <div>
+
+                    <a href="https://source.unsplash.com/random/400x300" title="400x300" type="image">
+                        <img src="https://source.unsplash.com/random/408x306" width="400" height="400" alt="">
+                    </a>
+
+                </div>
+                <div>
+
+                    <a href="https://source.unsplash.com/random/600x2000" title="600x2000" type="image">
+                        <img src="https://source.unsplash.com/random/412x309" width="400" height="400" alt="">
+                    </a>
+
+                </div>
+                <div>
+
+                    <a href="https://source.unsplash.com/random/2000x500" title="2000x500" type="image">
+                        <img src="https://source.unsplash.com/random/416x312" width="400" height="400" alt="">
+                    </a>
+
+                </div>
+            </div>
+
+            <h2>Different content sources</h2>
+
+            <!--<div class="uk-grid uk-grid-width-medium-1-4" data-uk-grid-margin>-->
+                <!--<div>-->
+
+                    <!--<a href="https://source.unsplash.com/random/800x800" data-lightbox-type="image" data-uk-lightbox="{group:'group2'}" title="Title">-->
+                        <!--<img src="holder.js/400x300/auto/text:image" width="400" height="400" alt="">-->
+                    <!--</a>-->
+
+                <!--</div>-->
+                <!--<div>-->
+
+                    <!--<a href="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" data-uk-lightbox="{group:'group2'}">-->
+                        <!--<img src="holder.js/400x300/auto/text:video" width="400" height="400" alt="">-->
+                    <!--</a>-->
+
+                <!--</div>-->
+                <!--<div>-->
+
+                    <!--<a href="http://vimeo.com/1084537" data-uk-lightbox="{group:'group2'}">-->
+                        <!--<img src="holder.js/400x300/auto/text:vimeo" width="400" height="400" alt="">-->
+                    <!--</a>-->
+
+                <!--</div>-->
+                <!--<div>-->
+
+                    <!--<a href="https://www.youtube.com/watch?v=YE7VzlLtp-4" data-uk-lightbox="{group:'group2'}">-->
+                        <!--<img src="holder.js/400x300/auto/text:youtube" width="400" height="400" alt="">-->
+                    <!--</a>-->
+
+                <!--</div>-->
+            <!--</div>-->
+
+            <!--<h2>Dynamic lightbox</h2>-->
+
+            <!--<button id="btnLightbox" class="uk-button">Show dynamic lightbox</button>-->
+
+        </div>
+
+    </body>
+</html>

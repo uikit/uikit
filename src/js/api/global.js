@@ -14,8 +14,9 @@ export default function (UIkit) {
         return this;
     };
 
-    UIkit.mixin = function (mixin) {
-        this.options = mergeOptions(this.options, mixin);
+    UIkit.mixin = function (mixin, component) {
+        component = component || this;
+        component.options = mergeOptions(component.options, mixin);
     };
 
     UIkit.extend = function (options) {

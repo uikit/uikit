@@ -31,6 +31,7 @@ requestAnimationFrame(function () {
         'icon',
         'inverse',
         'label',
+        'lightbox',
         'list',
         'margin',
         'modal',

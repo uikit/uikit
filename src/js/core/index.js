@@ -8,6 +8,7 @@ import Dropdown from './dropdown';
 import Grid from './grid';
 import HeightViewport from './height-viewport';
 import Icon from './icon';
+import Lightbox from './lightbox';
 import MarginWrap from './margin-wrap';
 import MatchHeight from './match-height';
 import Modal from './modal';
@@ -69,6 +70,7 @@ export default function (UIkit, _) {
     UIkit.use(Close);
     UIkit.use(MatchHeight);
     UIkit.use(Modal);
+    UIkit.use(Lightbox);
     UIkit.use(Nav);
     UIkit.use(Navbar);
     UIkit.use(Offcanvas);

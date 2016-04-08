@@ -139,7 +139,7 @@ export default function (UIkit) {
                 if (this.isActive()) {
                     return;
                 } else if (delay && active && active !== this && active.isDelaying) {
-                    this.showTimer = setTimeout(this.show.bind(this), 75);
+                    this.showTimer = setTimeout(this.show, 75);
                     return;
                 } else if (active) {
                     active.hide(false);
@@ -168,7 +168,7 @@ export default function (UIkit) {
                 this.isDelaying = this.movesTo(this.$el);
 
                 if (delay && this.isDelaying) {
-                    this.hideTimer = setTimeout(this.hide.bind(this), this.hoverIdle);
+                    this.hideTimer = setTimeout(this.hide, this.hoverIdle);
                 } else if (delay && this.delayHide) {
                     this.hideTimer = setTimeout(hide, this.delayHide);
                 } else {

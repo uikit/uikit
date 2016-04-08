@@ -42,11 +42,11 @@ export default function (UIkit) {
 
             this.boundary = (this.boundary === true || this.boundaryAlign) ? this.$el : this.boundary;
 
-            this.$el.find(this.dropdown + ':not([uk-drop], [uk-dropdown])').each((i, el) => {
+            this.$el.find(this.dropdown).each((i, el) => {
 
                 drop = toJQuery('.' + this.clsDrop, el);
 
-                if (drop) {
+                if (drop && !UIkit.getComponent(drop, 'drop') && !UIkit.getComponent(drop, 'dropdown')) {
                     UIkit.drop(drop, extend({}, this));
                 }
             });

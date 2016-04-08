@@ -1,0 +1,183 @@
+// Name:            Slidenav
+// Description:     Defines styles for a previous/next navigation between slides
+//
+// Component:       `uk-slidenav`
+//
+// Modifiers:       `uk-slidenav-previous`
+//                  `uk-slidenav-next`
+//                  `uk-slidenav-contrast`
+//
+// Sub-objects:     `uk-slidenav-position`
+//
+// Uses:            Icon: FontAwesome
+//
+// Markup:
+//
+// <!-- uk-slidenav -->
+// <a href="" class="uk-slidenav uk-slidenav-previous"></a>
+// <a href="" class="uk-slidenav uk-slidenav-next"></a>
+//
+// <!-- uk-slidenav-position -->
+// <div class="uk-slidenav-position">
+//     <img src="" alt="">
+//     <a href="" class="uk-slidenav uk-slidenav-previous"></a>
+//     <a href="" class="uk-slidenav uk-slidenav-next"></a>
+// </div>
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@slidenav-width:                                60px;
+@slidenav-height:                               @slidenav-width;
+@slidenav-color:                                rgba(50,50,50,0.4);
+@slidenav-font-size:                            60px;
+@slidenav-line-height:                          @slidenav-height;
+@slidenav-previous-icon:                        "\f104";
+@slidenav-next-icon:                            "\f105";
+
+@slidenav-hover-color:                          rgba(50,50,50,0.7);
+
+@slidenav-active-color:                         rgba(50,50,50,0.9);
+
+@slidenav-position-previous:                    20px;
+@slidenav-position-next:                        @slidenav-position-previous;
+
+@slidenav-contrast-color:                       rgba(255,255,255,0.5);
+@slidenav-contrast-hover-color:                 rgba(255,255,255,0.7);
+@slidenav-contrast-active-color:                rgba(255,255,255,0.9);
+
+
+/* ========================================================================
+   Component: Slidenav
+ ========================================================================== */
+
+/*
+ * 1. Required for `a` elements
+ * 2. Dimension
+ * 3. Style
+ */
+
+.uk-slidenav {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    box-sizing: border-box;
+    width: @slidenav-width;
+    height: @slidenav-height;
+    /* 3 */
+    line-height: @slidenav-line-height;
+    color: @slidenav-color;
+    font-size: @slidenav-font-size;
+    text-align: center;
+    .hook-slidenav;
+}
+
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ * 2. Remove default focus style
+ * 3. Required for `a` elements
+ * 4. Style
+ */
+
+.uk-slidenav:hover,
+.uk-slidenav:focus { // 1
+    /* 2 */
+    outline: none;
+    /* 3 */
+    text-decoration: none;
+    /* 4 */
+    color: @slidenav-hover-color;
+    cursor: pointer;
+    .hook-slidenav-hover;
+}
+
+/* Active */
+.uk-slidenav:active {
+    color: @slidenav-active-color;
+    .hook-slidenav-active;
+}
+
+/*
+ * Icons
+ */
+
+.uk-slidenav-previous:before {
+    content: @slidenav-previous-icon;
+    font-family: FontAwesome;
+}
+
+.uk-slidenav-next:before {
+    content: @slidenav-next-icon;
+    font-family: FontAwesome;
+}
+
+
+/* Sub-object: `uk-slidenav-position`
+ ========================================================================== */
+
+/*
+ * Create position context
+ */
+
+.uk-slidenav-position { position: relative; }
+
+/*
+ * Center vertically
+ */
+
+.uk-slidenav-position .uk-slidenav {
+    display: none;
+    position: absolute;
+    top: 50%;
+    z-index: 1;
+    margin-top: -(@slidenav-height / 2);
+}
+
+.uk-slidenav-position:hover .uk-slidenav { display: block; }
+
+.uk-slidenav-position .uk-slidenav-previous { left: @slidenav-position-previous; }
+.uk-slidenav-position .uk-slidenav-next { right: @slidenav-position-next; }
+
+
+/* Modifier: `uk-slidenav-contrast`
+ ========================================================================== */
+
+.uk-slidenav-contrast {
+    color: @slidenav-contrast-color;
+    .hook-slidenav-contrast;
+}
+
+/*
+ * Hover
+ * 1. Apply hover style also to focus state
+ */
+
+.uk-slidenav-contrast:hover,
+.uk-slidenav-contrast:focus { // 1
+    color: @slidenav-contrast-hover-color;
+    .hook-slidenav-contrast-hover;
+}
+
+/* Active */
+.uk-slidenav-contrast:active {
+    color: @slidenav-contrast-active-color;
+    .hook-slidenav-contrast-active;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-slidenav-misc;
+
+.hook-slidenav() {}
+.hook-slidenav-hover() {}
+.hook-slidenav-active() {}
+.hook-slidenav-contrast() {}
+.hook-slidenav-contrast-hover() {}
+.hook-slidenav-contrast-active() {}
+.hook-slidenav-misc() {}
