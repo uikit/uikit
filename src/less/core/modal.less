@@ -50,12 +50,11 @@
 @modal-footer-padding-vertical:                 @global-gutter;
 
 @modal-close-default-position:                  @global-margin;
-@modal-close-outside-position:                  -5px;
 @modal-close-outside-translate:                 100%;
 @modal-close-outside-color:                     @global-light-color;
-@modal-close-outside-opacity:                   0.5;
 @modal-close-outside-hover-color:               @global-light-color;
-@modal-close-outside-hover-opacity:             1;
+@modal-close-full-color:                        @global-color;
+@modal-close-full-hover-color:                  @global-color;
 
 @modal-caption-margin-top:                      @global-margin;
 @modal-caption-color:                           #fff;
@@ -277,7 +276,14 @@
     position: absolute;
     top: 0;
     right: 0;
+    width: 20px;
+    height: 20px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    opacity: 1;
 }
+
+[class*='uk-modal-close-']:hover { opacity: 1; }
 
 /*
  * Default
@@ -286,6 +292,7 @@
 .uk-modal-close-default {
     top: @modal-close-default-position;
     right: @modal-close-default-position;
+    .svg-fill("@{internal-less-image-path}/modal-close-default.svg", "#000", @list-bullet-icon-color);
     .hook-modal-close-default;
 }
 
@@ -294,18 +301,14 @@
  */
 
 .uk-modal-close-outside {
-    top: @modal-close-outside-position;
-    right: @modal-close-outside-position;
     -webkit-transform: translate(@modal-close-outside-translate, -(@modal-close-outside-translate));
     transform: translate(@modal-close-outside-translate, -(@modal-close-outside-translate));
-    color: @modal-close-outside-color;
-    opacity: @modal-close-outside-opacity;
+    .svg-fill("@{internal-less-image-path}/modal-close-default.svg", "#000", @modal-close-outside-color);
     .hook-modal-close-outside;
 }
 
 .uk-modal-close-outside:hover {
-    color: @modal-close-outside-hover-color;
-    opacity: @modal-close-outside-hover-opacity;
+    .svg-fill("@{internal-less-image-path}/modal-close-default.svg", "#000", @modal-close-outside-hover-color);
     .hook-modal-close-outside-hover;
 }
 
@@ -314,7 +317,13 @@
  */
 
 .uk-modal-close-full {
+    .svg-fill("@{internal-less-image-path}/modal-close-default.svg", "#000", @modal-close-full-color);
     .hook-modal-close-full;
+}
+
+.uk-modal-close-full:hover {
+    .svg-fill("@{internal-less-image-path}/modal-close-default.svg", "#000", @modal-close-full-hover-color);
+    .hook-modal-close-outside-hover;
 }
 
 /*
