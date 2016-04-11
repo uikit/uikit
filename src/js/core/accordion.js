@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import {getIndex, isString, toJQuery, Transition} from '../util/index';
 
 export default function (UIkit) {

@@ -59,7 +59,12 @@ export function toJQuery(element, context) {
         return null;
     }
 
-    element = $(element, context);
+    try {
+        element = $(element, context);
+    } catch (e) {
+        return null;
+    }
+
     return element.length ? element : null;
 }
 
