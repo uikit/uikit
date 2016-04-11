@@ -158,3 +158,23 @@ export function isInView(element, offsetTop, offsetLeft) {
         && offset.left + element.width() >= scrollLeft
         && offset.left - offsetLeft <= scrollLeft + win.width();
 }
+
+export function getIndex(index, elements, current = 0) {
+
+    elements = $(elements);
+
+    var length = $(elements).length;
+
+    index = (typeof index === 'number'
+        ? index
+        : index === 'next'
+            ? current + 1
+            : index === 'previous'
+                ? current - 1
+                : isString(index)
+                    ? parseInt(index, 10)
+                    : elements.index(index)
+    ) % length;
+
+    return index < 0 ? index + length : index;
+}

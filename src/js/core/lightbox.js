@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {extend, isFunction, isString, toJQuery, Transition} from '../util/index';
+import {extend, getIndex, Transition} from '../util/index';
 
 export default function (UIkit) {
 
@@ -111,18 +111,7 @@ export default function (UIkit) {
 
             show(index) {
 
-                var length = this.slides.length;
-
-                this.index = (index === 'next'
-                    ? this.index + 1
-                    : index === 'previous'
-                        ? this.index - 1
-                        : isString(index)
-                            ? parseInt(index, 10)
-                            : index
-                    ) % length;
-
-                this.index = this.index < 0 ? this.index + length : this.index;
+                this.index = getIndex(index, this.slides, this.index);
 
                 if (!this.modal) {
                     this.modal = UIkit.modal.dialog(`
@@ -145,7 +134,7 @@ export default function (UIkit) {
                         .on('hide', this.hide)
                         .on('click', `[${this.attrItem}]`, e => {
                             e.preventDefault();
-                              this.show($(e.currentTarget).attr(this.attrItem));
+                            this.show($(e.currentTarget).attr(this.attrItem));
                         });
                 }
 

@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {isString, toJQuery} from '../util/index';
+import {getIndex, isString, toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
@@ -61,20 +61,9 @@ export default function (UIkit) {
                 var length = this.toggles.length,
                     prev = this.connect.children(`.${this.cls}`).index(),
                     hasPrev = prev >= 0,
-                    index = (item === 'next'
-                        ? prev + 1
-                        : item === 'previous'
-                            ? prev - 1
-                            : isString(item)
-                                ? parseInt(item, 10)
-                                : typeof item === 'number'
-                                    ? item
-                                    : this.toggles.index(item)
-                        ) % length,
-                    toggle,
-                    dir = item === 'previous' ? -1 : 1;
-
-                index = index < 0 ? index + length : index;
+                    index = getIndex(item, this.toggles, prev),
+                    dir = item === 'previous' ? -1 : 1,
+                    toggle;
 
                 for (var i = 0; i < length; i++, index = (index + dir + length) % length) {
                     if (!this.toggles.eq(index).is('.uk-disabled, [disabled]')) {

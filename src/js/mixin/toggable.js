@@ -29,7 +29,7 @@ export default function (UIkit) {
                     this.animation[1] = this.animation[0];
                 }
 
-                this.animation.map(animation => animation.trim());
+                this.animation = this.animation.map(animation => animation.trim());
 
             }
 

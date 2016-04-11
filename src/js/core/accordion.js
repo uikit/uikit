@@ -1,4 +1,4 @@
-import {isString, toJQuery, Transition} from '../util/index';
+import {getIndex, isString, toJQuery, Transition} from '../util/index';
 
 export default function (UIkit) {
 
@@ -56,11 +56,7 @@ export default function (UIkit) {
 
             show(item, animate) {
 
-                var index = typeof item === 'number'
-                        ? item
-                        : isString(item)
-                            ? parseInt(item, 10)
-                            : this.items.index(item),
+                var index = getIndex(item, this.items),
                     active = this.items.filter(`.${this.clsOpen}`);
 
                 item = this.items.eq(index);
