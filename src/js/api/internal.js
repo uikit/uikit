@@ -1,4 +1,4 @@
-import {bind, camelize, coerce, createEvent, hasOwn, hyphenate, isArray, isPlainObject, isString, mergeOptions, requestAnimationFrame} from '../util/index';
+import {bind, camelize, coerce, createEvent, extend, hasOwn, hyphenate, isArray, isPlainObject, isString, mergeOptions, requestAnimationFrame} from '../util/index';
 
 export default function (UIkit) {
 
@@ -25,7 +25,7 @@ export default function (UIkit) {
 
     UIkit.prototype._initData = function () {
 
-        var defaults = this.$options.defaults,
+        var defaults = extend(true, {}, this.$options.defaults),
             data = this.$options.data || {},
             props = this.$options.props;
 
