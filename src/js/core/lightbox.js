@@ -56,17 +56,6 @@ export default function (UIkit) {
                 this.show(this.toggles.index(e.currentTarget));
             });
 
-
-            //
-            // if (this.swiping) {
-            //     this.connect.on('swipeRight swipeLeft', e => {
-            //         e.preventDefault();
-            //         if (!window.getSelection().toString()) {
-            //             this.show(e.type == 'swipeLeft' ? 'next' : 'previous');
-            //         }
-            //     });
-            // }
-
         },
 
         update: {
@@ -97,14 +86,15 @@ export default function (UIkit) {
                     this.width = maxWidth;
                 }
 
-                Transition.stop(this.modal.panel);
-                Transition.stop(this.modal.content);
+                Transition
+                    .stop(this.modal.panel)
+                    .stop(this.modal.content);
 
+                this.modal.content.css('opacity', 0).html(item.content);
                 this.modal.panel.css({width, height});
-                this.modal.content.html(item.content).css('opacity', 0);
 
                 Transition.start(this.modal.panel, {width: this.width, height: this.height}, this.duration).then(() => {
-                    Transition.start(this.modal.content, {opacity: 1}, 200);
+                    Transition.start(this.modal.content, {opacity: 1}, 400);
                 });
 
             },
@@ -155,7 +145,12 @@ export default function (UIkit) {
                         .on('click', `[${this.attrItem}]`, e => {
                             e.preventDefault();
                             this.show($(e.currentTarget).attr(this.attrItem));
-                        });
+                        }).on('swipeRight swipeLeft', e => {
+                        e.preventDefault();
+                        if (!window.getSelection().toString()) {
+                            this.show(e.type == 'swipeLeft' ? 'next' : 'previous');
+                        }
+                    });
                 }
 
                 active = this;
@@ -164,7 +159,11 @@ export default function (UIkit) {
                 this.modal.content.empty();
                 this.modal.caption.text(this.getItem().title);
 
-                this.$el.trigger('showitem');
+                var event = $.Event('showitem');
+                this.$el.trigger(event);
+                if (!event.isImmediatePropagationStopped()) {
+                    this.setError(this.getItem());
+                }
             },
 
             hide() {
@@ -216,6 +215,94 @@ export default function (UIkit) {
                 img.onload = () => this.setItem(item, `<img class="uk-responsive-width" width="${img.width}" height="${img.height}" src ="${item.source}">`, img.width, img.height);
 
                 img.src = item.source;
+
+                e.stopImmediatePropagation();
+            }
+
+        }
+
+    }, 'lightbox');
+
+    UIkit.mixin({
+
+        events: {
+
+            showitem(e) {
+
+                let item = this.getItem();
+
+                if (item.type !== 'video' && item.source && !item.source.match(/\.(mp4|webm|ogv)$/i)) {
+                    return;
+                }
+
+                var vid = $('<video class="uk-responsive-width" controls></video>')
+                    .on('loadedmetadata', () => this.setItem(item, vid.attr({width: vid[0].videoWidth, height: vid[0].videoHeight}), vid[0].videoWidth, vid[0].videoHeight))
+                    .attr('src', item.source);
+
+                e.stopImmediatePropagation();
+            }
+
+        }
+
+    }, 'lightbox');
+
+    UIkit.mixin({
+
+        events: {
+
+            showitem(e) {
+
+                let item = this.getItem(), matches;
+
+                if (!(matches = item.source.match(/\/\/.*?youtube\.[a-z]+\/watch\?v=([^&]+)&?(.*)/)) && !(item.source.match(/youtu\.be\/(.*)/))) {
+                    return;
+                }
+
+                let id = matches[1],
+                    img = new Image(),
+                    lowres = false,
+                    setIframe = (width, height) => this.setItem(item, `<iframe src="//www.youtube.com/embed/${id}" width="${width}" height="${height}" style="max-width:100%;box-sizing:border-box;"></iframe>`, width, height);
+
+                img.onerror = () => setIframe(640, 320);
+                img.onload = () => {
+                    //youtube default 404 thumb, fall back to lowres
+                    if (img.width === 120 && img.height === 90) {
+                        if (!lowres) {
+                            lowres = true;
+                            img.src = '//img.youtube.com/vi/' + id + '/0.jpg';
+                        } else {
+                            setIframe(640, 320);
+                        }
+                    } else {
+                        setIframe(img.width, img.height);
+                    }
+                };
+
+                img.src = `//img.youtube.com/vi/${id}/maxresdefault.jpg`;
+
+                e.stopImmediatePropagation();
+            }
+
+        }
+
+    }, 'lightbox');
+
+    UIkit.mixin({
+
+        events: {
+
+            showitem(e) {
+
+                let item = this.getItem(), matches;
+
+                if (!(matches = item.source.match(/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/))) {
+                    return;
+                }
+
+                let id = matches[2],
+                    setIframe = (width, height) => this.setItem(item, `<iframe src="//player.vimeo.com/video/${id}" width="${width}" height="${height}" style="max-width:100%;box-sizing:border-box;"></iframe>`, width, height);
+
+                $.ajax({type: 'GET', url: 'http://vimeo.com/api/oembed.json?url=' + encodeURI(item.source), jsonp: 'callback', dataType: 'jsonp'}).then((res) => setIframe(res.width, res.height));
 
                 e.stopImmediatePropagation();
             }
