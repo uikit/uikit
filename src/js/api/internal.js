@@ -116,7 +116,7 @@ export default function (UIkit) {
             this._callUpdate();
         };
 
-        if (this.$options.el.hasAttribute('uk-' + hyphenate(this.$options.name))) {
+        if (document.readyState !== 'complete') {
             requestAnimationFrame(ready);
         } else {
             ready();

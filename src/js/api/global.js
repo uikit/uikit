@@ -1,4 +1,4 @@
-import {classify, mergeOptions} from '../util/index';
+import {classify, isString, mergeOptions} from '../util/index';
 
 export default function (UIkit) {
 
@@ -15,7 +15,7 @@ export default function (UIkit) {
     };
 
     UIkit.mixin = function (mixin, component) {
-        component = component || this;
+        component = (isString(component) ? UIkit.components[component] : component) || this;
         component.options = mergeOptions(component.options, mixin);
     };
 

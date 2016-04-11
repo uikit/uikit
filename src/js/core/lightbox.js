@@ -33,7 +33,7 @@ export default function (UIkit) {
             toggle: 'a',
             duration: 400,
             attrItem: 'uk-lightbox-item',
-            slides: [],
+            items: [],
             index: 0
         },
 
@@ -43,7 +43,8 @@ export default function (UIkit) {
 
             this.toggles.each((i, el) => {
                 el = $(el);
-                this.slides.push({
+                this.items.push({
+                    index: i,
                     source: el.attr('href'),
                     title: el.attr('title'),
                     type: el.attr('type')
@@ -72,9 +73,14 @@ export default function (UIkit) {
 
             handler() {
 
-                if (!this.modal) {
+                var item = this.getItem();
+
+                if (!this.modal || !item.content) {
                     return;
                 }
+
+                this.width = item.width;
+                this.height = item.height;
 
                 var maxWidth = window.innerWidth - (this.modal.panel.outerWidth(true) - this.modal.panel.width()) - this.modal.getScrollbarWidth(),
                     maxHeight = window.innerHeight - (this.modal.panel.outerHeight(true) - this.modal.panel.height()),
@@ -95,7 +101,7 @@ export default function (UIkit) {
                 Transition.stop(this.modal.content);
 
                 this.modal.panel.css({width, height});
-                this.modal.content.css('opacity', 0);
+                this.modal.content.html(item.content).css('opacity', 0);
 
                 Transition.start(this.modal.panel, {width: this.width, height: this.height}, this.duration).then(() => {
                     Transition.start(this.modal.content, {opacity: 1}, 200);
@@ -107,11 +113,25 @@ export default function (UIkit) {
 
         },
 
+        events: {
+
+            showitem(e) {
+
+                var item = this.getItem();
+
+                if (item.content) {
+                    this.$update();
+                    e.stopImmediatePropagation();
+                }
+            }
+
+        },
+
         methods: {
 
             show(index) {
 
-                this.index = getIndex(index, this.slides, this.index);
+                this.index = getIndex(index, this.items, this.index);
 
                 if (!this.modal) {
                     this.modal = UIkit.modal.dialog(`
@@ -123,7 +143,7 @@ export default function (UIkit) {
                     this.modal.content = $('<div class="uk-lightbox-content"></div>').appendTo(this.modal.panel);
                     this.modal.caption = $('<div class="uk-modal-caption uk-transition-hide"></div>').appendTo(this.modal.panel);
 
-                    if (this.slides.length > 1) {
+                    if (this.items.length > 1) {
                         this.modal.panel.append(`
                             <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous uk-hidden-touch uk-transition-hide" uk-lightbox-item="previous"></a>
                             <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next uk-hidden-touch uk-transition-hide" uk-lightbox-item="next"></a>
@@ -158,17 +178,20 @@ export default function (UIkit) {
             },
 
             getItem() {
-                return extend({source: '', title: '', type: 'auto'}, this.slides[this.index]);
+                return this.items[this.index] || {source: '', title: '', type: 'auto'};
             },
 
-            setContent(content) {
+            setItem(item, content, width = 200, height = 200) {
 
-                if (!this.modal) {
-                    return;
-                }
+                item.content = content;
+                item.width = width;
+                item.height = height;
 
-                this.modal.content.html(content);
                 this.$update();
+            },
+
+            setError(item) {
+                this.setItem(item, '<div class="uk-position-cover uk-flex uk-flex-middle uk-flex-center"><strong>Loading resource failed!</strong></div>', 400, 300);
             }
 
         }
@@ -181,7 +204,7 @@ export default function (UIkit) {
 
             showitem(e) {
 
-                var item = this.getItem();
+                let item = this.getItem();
 
                 if (item.type !== 'image' && item.source && !item.source.match(/\.(jp(e)?g|png|gif|svg)$/i)) {
                     return;
@@ -189,15 +212,8 @@ export default function (UIkit) {
 
                 var img = new Image();
 
-                img.onerror = function () {
-                    // data.promise.reject('Loading image failed');
-                };
-
-                img.onload = () => {
-                    this.width = img.width;
-                    this.height = img.height;
-                    this.setContent(`<img class="uk-responsive-width" width="${img.width}" height="${img.height}" src ="${item.source}">`);
-                };
+                img.onerror = () => this.setError(item);
+                img.onload = () => this.setItem(item, `<img class="uk-responsive-width" width="${img.width}" height="${img.height}" src ="${item.source}">`, img.width, img.height);
 
                 img.src = item.source;
 
@@ -206,6 +222,6 @@ export default function (UIkit) {
 
         }
 
-    }, UIkit.components.lightbox);
+    }, 'lightbox');
 
 }
