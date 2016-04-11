@@ -116,7 +116,7 @@ export default function (UIkit) {
             this._callUpdate();
         };
 
-        if (document.readyState !== 'complete') {
+        if (document.readyState === 'loading') {
             requestAnimationFrame(ready);
         } else {
             ready();
