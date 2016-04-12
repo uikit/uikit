@@ -145,7 +145,11 @@ export default function (UIkit) {
             },
 
             getScrollbarWidth() {
-                return window.innerWidth - this.page.width();
+                var width = this.page.width();
+                this.page.css('width', '');
+                var scrollbarWidth = window.innerWidth - this.page.width();
+                this.page.width(width);
+                return scrollbarWidth;
             }
         }
 
