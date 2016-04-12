@@ -47,8 +47,6 @@ export default function (UIkit) {
                 var event = $.Event('toggle');
                 this.target.trigger(event, [this.$el]);
 
-                console.log(event, event.isDefaultPrevented())
-
                 if (!event.isDefaultPrevented()) {
                     this.toggleElement(event.target);
                 }
