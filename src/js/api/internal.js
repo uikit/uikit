@@ -1,4 +1,4 @@
-import {bind, camelize, coerce, createEvent, extend, hasOwn, hyphenate, isArray, isPlainObject, isString, mergeOptions, requestAnimationFrame} from '../util/index';
+import {bind, camelize, coerce, createEvent, extend, hasOwn, hyphenate, isArray, isPlainObject, isReady, isString, mergeOptions, requestAnimationFrame} from '../util/index';
 
 export default function (UIkit) {
 
@@ -116,7 +116,7 @@ export default function (UIkit) {
             this._callUpdate();
         };
 
-        if (document.readyState === 'loading') {
+        if (isReady()) {
             requestAnimationFrame(ready);
         } else {
             ready();
