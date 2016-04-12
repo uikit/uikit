@@ -24,7 +24,7 @@ export default function (UIkit) {
 
             click(e) {
 
-                if ($(e.target).closest('a').attr('href')[0] === '#') {
+                if (String($(e.target).closest('a').attr('href'))[0] === '#') {
                     e.preventDefault();
                 }
 
@@ -46,6 +46,8 @@ export default function (UIkit) {
             toggle() {
                 var event = $.Event('toggle');
                 this.target.trigger(event, [this.$el]);
+
+                console.log(event, event.isDefaultPrevented())
 
                 if (!event.isDefaultPrevented()) {
                     this.toggleElement(event.target);
