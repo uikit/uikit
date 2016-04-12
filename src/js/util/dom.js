@@ -1,6 +1,5 @@
 import $ from 'jquery';
-import {animationend, transitionend, requestAnimationFrame} from './env';
-import {isString, extend} from './lang';
+import {animationend, extend, isString, transitionend, requestAnimationFrame} from './index';
 
 export const langDirection = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
 
