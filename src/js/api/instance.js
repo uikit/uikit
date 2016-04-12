@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {ready} from '../util/index';
+import {isReady, requestAnimationFrame} from '../util/index';
 
 export default function (UIkit) {
 
@@ -28,12 +28,11 @@ export default function (UIkit) {
 
         this._initEvents();
 
-        ready(() => {
-            this._isReady = true;
-            this._callHook('ready');
-            this._callUpdate();
-        });
-
+        if (isReady()) {
+            this._callReady()
+        } else {
+            requestAnimationFrame(() => this._callReady());
+        }
     };
 
     UIkit.prototype.$update = function (e, element) {

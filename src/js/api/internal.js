@@ -108,6 +108,12 @@ export default function (UIkit) {
         }
     };
 
+    UIkit.prototype._callReady = function () {
+        this._isReady = true;
+        this._callHook('ready');
+        this._callUpdate();
+    };
+
     UIkit.prototype._callHook = function (hook) {
 
         var handlers = this.$options[hook];
