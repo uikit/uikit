@@ -1,4 +1,4 @@
-import {isWithin} from '../util/index';
+import $ from 'jquery';
 
 export default function (UIkit) {
 
@@ -17,19 +17,7 @@ export default function (UIkit) {
         },
 
         ready() {
-
             this.target = this.target || this.href;
-
-            if (!this.target) {
-                return;
-            }
-
-            this.target.on('toggle', (e, toggle) => {
-                if (this.$el === toggle && !e.isDefaultPrevented()) {
-                    this.toggleElement(e.target);
-                }
-            })
-
         },
 
         events: {
@@ -56,7 +44,12 @@ export default function (UIkit) {
         methods: {
 
             toggle() {
-                this.target.trigger('toggle', [this.$el]);
+                var event = $.Event('toggle');
+                this.target.trigger(event, [this.$el]);
+
+                if (!event.isDefaultPrevented()) {
+                    this.toggleElement(event.target);
+                }
             }
 
         }
