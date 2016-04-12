@@ -29,7 +29,7 @@ export default function (UIkit) {
         this._initEvents();
 
         if (isReady()) {
-            this._callReady()
+            this._callReady();
         } else {
             requestAnimationFrame(() => this._callReady());
         }
