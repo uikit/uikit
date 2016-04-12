@@ -35,7 +35,8 @@ export default function (UIkit) {
         events: {
 
             click(e) {
-                if (!isWithin(e.target, this.target)) {
+
+                if ($(e.target).closest('a').attr('href')[0] === '#') {
                     e.preventDefault();
                 }
 
