@@ -8,7 +8,7 @@ export default function (UIkit) {
         props: {
             dropdown: String,
             mode: String,
-            pos: String,
+            align: String,
             offset: Number,
             boundary: Boolean,
             boundaryAlign: Boolean,
@@ -23,7 +23,7 @@ export default function (UIkit) {
         defaults: {
             dropdown: '.uk-navbar-nav > li',
             mode: 'hover',
-            pos: 'bottom-left',
+            align: 'left',
             offset: 0,
             boundary: true,
             boundaryAlign: false,
@@ -41,6 +41,7 @@ export default function (UIkit) {
             var drop;
 
             this.boundary = (this.boundary === true || this.boundaryAlign) ? this.$el : this.boundary;
+            this.pos = `bottom-${this.align}`;
 
             this.$el.find(this.dropdown).each((i, el) => {
 
