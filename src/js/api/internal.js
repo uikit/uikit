@@ -1,4 +1,4 @@
-import {bind, camelize, coerce, createEvent, extend, hasOwn, hyphenate, isArray, isPlainObject, isReady, isString, mergeOptions, requestAnimationFrame} from '../util/index';
+import {bind, camelize, coerce, createEvent, extend, hasOwn, hyphenate, isArray, isPlainObject, isString, mergeOptions} from '../util/index';
 
 export default function (UIkit) {
 
@@ -106,22 +106,6 @@ export default function (UIkit) {
 
             }
         }
-    };
-
-    UIkit.prototype._callReady = function () {
-
-        var ready = () => {
-            this._isReady = true;
-            this._callHook('ready');
-            this._callUpdate();
-        };
-
-        if (!isReady()) {
-            requestAnimationFrame(ready);
-        } else {
-            ready();
-        }
-
     };
 
     UIkit.prototype._callHook = function (hook) {

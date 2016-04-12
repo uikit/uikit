@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import {ready} from '../util/index';
 
 export default function (UIkit) {
 
@@ -27,7 +28,12 @@ export default function (UIkit) {
 
         this._initEvents();
 
-        this._callReady();
+        ready(() => {
+            this._isReady = true;
+            this._callHook('ready');
+            this._callUpdate();
+        });
+
     };
 
     UIkit.prototype.$update = function (e, element) {

@@ -4,10 +4,6 @@ import {isString, extend} from './lang';
 
 export const langDirection = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
 
-export function isReady() {
-    return document.readyState === 'complete' || document.readyState !== 'loading' && !document.documentElement.doScroll;
-}
-
 export function ready(fn) {
 
     var handle = function () {
@@ -16,7 +12,7 @@ export function ready(fn) {
         fn();
     };
 
-    if (isReady()) {
+    if (document.readyState === 'complete' || document.readyState !== 'loading' && !document.documentElement.doScroll) {
         fn();
     } else {
         document.addEventListener('DOMContentLoaded', handle);
