@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {getIndex, isString, toJQuery} from '../util/index';
+import {getIndex, toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
