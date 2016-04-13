@@ -50,7 +50,7 @@ export default function (UIkit) {
                     toggled = typeof show === 'boolean' ? !show : this.isToggled(el);
 
                     var event = $.Event(`before${toggled ? 'hide' : 'show'}`);
-                    el.trigger(event, [this]);
+                    el.triggerHandler(event, [this]);
 
                     if (event.result === false) {
                         return;
@@ -131,7 +131,7 @@ export default function (UIkit) {
                     }
 
                     deferreds.push(deferred);
-                    el.trigger(toggled ? 'hide' : 'show', [this]);
+                    el.triggerHandler(toggled ? 'hide' : 'show', [this]);
                 });
 
                 return $.when(...deferreds);

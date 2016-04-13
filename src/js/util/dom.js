@@ -137,11 +137,11 @@ export function removeClass(element, cls) {
     return attrFilter(element, 'class', new RegExp(`(^|\\s)${cls}(?!\\S)`, 'g'), '');
 }
 
-export function createEvent(e) {
+export function createEvent(e, bubbles = true, cancelable = false) {
     if (isString(e)) {
-        var ev = document.createEvent('Event');
-        ev.initEvent(e, true, false);
-        return ev;
+        var event = document.createEvent('Event');
+        event.initEvent(e, bubbles, cancelable);
+        return event;
     }
     return e;
 }
