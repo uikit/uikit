@@ -20,10 +20,7 @@
 
                     var obj    = UI.buttonRadio(ele, UI.Utils.options(ele.attr("data-uk-button-radio"))),
                         target = UI.$(e.target);
-
-                    if (target.is(obj.options.target)) {
-                        target.trigger("click");
-                    }
+                    target.trigger("click");
                 }
             });
         },
