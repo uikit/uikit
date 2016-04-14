@@ -12,7 +12,7 @@ export default function (UIkit) {
 
         ready() {
 
-            this.$el.attr({hidden: true, id: ''});
+            this.$el.attr({hidden: true, id: null});
 
             if (this.src.indexOf('#') !== -1) {
 
@@ -22,7 +22,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                this.getIcon(parts[0], parts[1]).then((icon) => icon.insertAfter(this.$el));
+                this.getIcon(parts[0], parts[1]).then((icon) => this.svg = icon.insertAfter(this.$el));
 
             } else {
 
@@ -34,11 +34,20 @@ export default function (UIkit) {
                         return;
                     }
 
-                    this.addProps(svg).insertAfter(this.$el);
+                    this.svg = this.addProps(svg).insertAfter(this.$el);
                 });
 
             }
 
+        },
+
+        destroy() {
+
+            this.$el.attr({hidden: null, id: this.id || null});
+
+            if (this.svg) {
+                this.svg.remove();
+            }
         }
 
     });
