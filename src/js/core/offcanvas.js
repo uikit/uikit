@@ -60,16 +60,24 @@ export default function (UIkit) {
 
         events: {
 
-            beforeshow() {
+            beforeshow(e) {
 
+                if (!this.$el.is(e.target)) {
+                    return;
+                }
+                
                 this.page.addClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageAnimation} ${this.clsPageOverlay}`);
                 this.panel.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                 this.$el.addClass(this.clsOverlay).css('display', 'block').height();
 
             },
 
-            beforehide() {
+            beforehide(e) {
 
+                if (!this.$el.is(e.target)) {
+                    return;
+                }
+                
                 this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
 
                 if (this.mode === 'noeffect' || this.getActive() && this.getActive() !== this) {
@@ -78,7 +86,12 @@ export default function (UIkit) {
 
             },
 
-            hide() {
+            hide(e) {
+
+                if (!this.$el.is(e.target)) {
+                    return;
+                }
+                
                 this.page.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageOverlay}`).width('');
                 this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                 this.$el.removeClass(this.clsOverlay).css('display', '');

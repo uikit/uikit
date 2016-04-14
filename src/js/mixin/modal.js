@@ -57,7 +57,11 @@ export default function (UIkit) {
                 this.toggleNow(this.$el);
             },
 
-            beforeshow() {
+            beforeshow(e) {
+
+                if (!this.$el.is(e.target)) {
+                    return;
+                }
 
                 if (this.isActive()) {
                     return false;
@@ -84,12 +88,22 @@ export default function (UIkit) {
             },
 
             show(e) {
+
+                if (!this.$el.is(e.target)) {
+                    return;
+                }
+
                 if (!e.isShown) {
                     e.stopImmediatePropagation();
                 }
+
             },
 
-            beforehide() {
+            beforehide(e) {
+
+                if (!this.$el.is(e.target)) {
+                    return;
+                }
 
                 active = active && active !== this && active;
 
@@ -102,6 +116,10 @@ export default function (UIkit) {
             },
 
             hide(e) {
+
+                if (!this.$el.is(e.target)) {
+                    return;
+                }
 
                 if (!e.isHidden) {
                     e.stopImmediatePropagation();
