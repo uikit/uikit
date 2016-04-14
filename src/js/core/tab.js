@@ -149,7 +149,7 @@
 
                         if (!item.hasClass('uk-disabled')) {
 
-                            clone = item[0].outerHTML.replace('<a ', '<a data-index="'+i+'" ');
+                            clone = item[0].outerHTML.replace('<a', '<a data-index="'+i+'"');
 
                             this.responsivetab.lst.append(clone);
                         }
