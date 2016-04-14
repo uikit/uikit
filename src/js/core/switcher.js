@@ -51,7 +51,7 @@
                 if (this.connect.length) {
 
                     // Init ARIA for connect
-                    this.connect.children().attr('aria-hidden', 'true');
+                    this.connect.children(':not(template)').attr('aria-hidden', 'true');
 
                     this.connect.on("click", '[data-uk-switcher-item]', function(e) {
 
@@ -163,7 +163,7 @@
                 this.connect.each(function() {
 
                     var container = UI.$(this),
-                        children  = UI.$(container.children()),
+                        children  = UI.$(container.children(':not(template)')),
                         current   = UI.$(children.filter('.uk-active')),
                         next      = UI.$(children.eq($this.index));
 
