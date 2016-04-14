@@ -37,26 +37,26 @@
  ========================================================================== */
 
 /*
- * `background-image` is used to pass the image path to JS
- */
-
-[uk-icon] { background-image: url("@{internal-image-path}/icons.svg"); }
-
-/*
- * 1. Let the SVG color use the current text color
- * 2. Alignment
- * 3. Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
+ * 1. `background-image` is used to pass the image path to JS
+ * 2. Let the SVG color use the current text color
+ * 3. Let the container fit the height of the icon
  */
 
 .uk-icon {
     display: inline-block;
     /* 1 */
-    fill: currentcolor;
+    background-image: url("@{internal-image-path}/icons.svg");
     /* 2 */
-    vertical-align: middle;
+    fill: currentcolor;
     /* 3 */
-    transform: translate(0,0);
+    line-height: 0;
 }
+
+/*
+ * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
+ */
+
+.uk-icon > * { transform: translate(0,0); }
 
 
 /* Image modifier
@@ -69,9 +69,10 @@
 .uk-icon-image {
     width: @icon-image-size;
     height: @icon-image-size;
-    background-position: 50 %50%;
+    background-position: 50% 50%;
     background-repeat: no-repeat;
     background-size: contain;
+    vertical-align: middle;
 }
 
 
@@ -102,7 +103,7 @@
     width: @icon-button-size;
     height: @icon-button-size;
     border-radius: @icon-button-border-radius;
-    background: @icon-button-background;
+    background-color: @icon-button-background;
     color: @icon-button-color;
     vertical-align: middle;
     /* 1 */
@@ -188,7 +189,7 @@
     //
 
     .uk-icon-button {
-        background: @icon-button-background;
+        background-color: @icon-button-background;
         color: @icon-button-color;
         .hook-dye-icon-button;
     }
