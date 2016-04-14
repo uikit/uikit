@@ -6,18 +6,13 @@ export default function (UIkit) {
 
         props: ['icon'],
 
-        defaults: {
-            cls: 'uk-icon',
-            exclude: ['class']
-        },
+        defaults: {exclude: ['class']},
 
         ready() {
 
             if (!this.icon) {
                 return;
             }
-
-            this.$el.addClass(this.cls);
 
             this.getIcon(this.$el.css('background-image').slice(4, -1).replace(/"/g, ''), this.icon).then(this.handleIcon);
         },
@@ -31,7 +26,7 @@ export default function (UIkit) {
         },
 
         destroy() {
-            this.$el.removeClass(this.cls).empty();
+            this.$el.empty();
         }
 
     });
