@@ -32,11 +32,11 @@ export default function (UIkit) {
             },
 
             mouseenter() {
-                this.target.trigger('toggleenter', [this.$el]);
+                this.target.triggerHandler('toggleenter', [this.$el]);
             },
 
             mouseleave() {
-                this.target.trigger('toggleleave', [this.$el]);
+                this.target.triggerHandler('toggleleave', [this.$el]);
             }
 
         },

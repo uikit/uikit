@@ -15,6 +15,7 @@ strats.destroy = function (parentVal, childVal) {
         : parentVal;
 };
 
+// events strategy
 strats.events = function (parentVal, childVal) {
 
     if (!childVal) {

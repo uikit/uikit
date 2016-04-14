@@ -129,8 +129,7 @@ export function isWithin(element, selector) {
 
 export function attrFilter(element, attr, pattern, replacement) {
     element = $(element);
-    element.attr(attr, (i, value) => value ? value.replace(pattern, replacement) : value);
-    return element;
+    return element.attr(attr, (i, value) => value ? value.replace(pattern, replacement) : value);
 }
 
 export function removeClass(element, cls) {
@@ -143,6 +142,7 @@ export function createEvent(e, bubbles = true, cancelable = false) {
         event.initEvent(e, bubbles, cancelable);
         return event;
     }
+
     return e;
 }
 
