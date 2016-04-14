@@ -171,7 +171,7 @@ export default function (UIkit) {
                 active = active && active !== this && active;
 
                 this.modal.hide().then(() => {
-                    this.modal.$destroy();
+                    this.modal.$destroy(true);
                     this.modal = null;
                 });
             },

@@ -97,7 +97,7 @@ export default function (UIkit) {
              </div>`
         ).appendTo('body'), options)[0];
 
-        dialog.$el.on('hide', () => dialog.$destroy());
+        dialog.$el.on('hide', () => dialog.$destroy(true));
         dialog.panel.append(content);
         dialog.show();
 

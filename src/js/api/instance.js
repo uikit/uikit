@@ -61,34 +61,7 @@ export default function (UIkit) {
         });
     };
 
-    UIkit.prototype.$replace = function (el) {
-
-        var $el = $(el), prev = this.$options.el, name = this.$options.name;
-
-        el = $el[0];
-
-        delete prev[DATA][name];
-
-        if (!el[DATA]) {
-            el[DATA] = {};
-        }
-
-        el[DATA][name] = this;
-
-        UIkit.elements.splice(UIkit.elements.indexOf(prev), 1, el);
-        this.$el.replaceWith($el);
-        this.$options.el = el;
-        this.$el = $el;
-
-        this.__preventDestroy = true;
-    };
-
-    UIkit.prototype.$destroy = function () {
-
-        if (this.__preventDestroy) {
-            this.__preventDestroy = false;
-            return;
-        }
+    UIkit.prototype.$destroy = function (remove = false) {
 
         this._callHook('destroy');
 
@@ -107,7 +80,9 @@ export default function (UIkit) {
             delete UIkit.elements[UIkit.elements.indexOf(el)];
         }
 
-        this.$el.remove();
+        if (remove) {
+            this.$el.remove();
+        }
     };
 
 }

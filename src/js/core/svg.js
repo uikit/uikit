@@ -12,6 +12,8 @@ export default function (UIkit) {
 
         ready() {
 
+            this.$el.attr({hidden: true, id: ''});
+
             if (this.src.indexOf('#') !== -1) {
 
                 var parts = this.src.split('#');
@@ -20,7 +22,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                this.getIcon(parts[0], parts[1]).then(this.$replace.bind(this));
+                this.getIcon(parts[0], parts[1]).then((icon) => icon.insertAfter(this.$el));
 
             } else {
 
@@ -32,7 +34,7 @@ export default function (UIkit) {
                         return;
                     }
 
-                    this.$replace(this.addProps(svg));
+                    this.addProps(svg).insertAfter(this.$el);
                 });
 
             }

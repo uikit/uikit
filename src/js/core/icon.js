@@ -14,7 +14,7 @@ export default function (UIkit) {
                 return;
             }
 
-            this.class += (this.class ? ' ' : '') + this.cls;
+            this.class = this.cls;
 
             this.getIcon(this.$el.css('background-image').slice(4, -1).replace(/"/g, ''), this.icon).then(this.handleIcon);
         },
@@ -22,9 +22,13 @@ export default function (UIkit) {
         methods: {
 
             handleIcon(icon) {
-                this.$replace(icon);
+                this.$el.append(icon);
             }
 
+        },
+
+        destroy() {
+            this.$el.empty();
         }
 
     });

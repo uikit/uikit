@@ -24,7 +24,7 @@ export default function (UIkit) {
         methods: {
 
             closeAlert() {
-                this.toggleElement(this.$el).then(() => this.$destroy());
+                this.toggleElement(this.$el).then(() => this.$destroy(true));
                 requestAnimationFrame(() => this.$el.css('opacity', 0));
             }
 
