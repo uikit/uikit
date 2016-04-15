@@ -58,7 +58,16 @@
 /* Close
  ========================================================================== */
 
-.uk-alert-close { float: right; }
+/*
+ * Pass image path to JS
+ */
+
+.uk-alert-close::before { background-image: url("@{internal-image-path}/alert-close.svg"); }
+
+.uk-alert-close {
+    float: right;
+    .hook-alert-close;
+}
 
 /*
  * Remove margin from adjacent element
@@ -115,6 +124,7 @@
 .hook-alert-misc;
 
 .hook-alert() {}
+.hook-alert-close() {}
 .hook-alert-success() {}
 .hook-alert-warning() {}
 .hook-alert-danger() {}
