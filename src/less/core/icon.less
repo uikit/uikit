@@ -37,19 +37,23 @@
  ========================================================================== */
 
 /*
- * 1. `background-image` is used to pass the image path to JS
- * 2. Let the SVG color use the current text color
- * 3. Let the container fit the height of the icon
+ * `background-image` is used to pass the image path to JS
+ */
+
+.uk-icon::before { background-image: url("@{internal-image-path}/icons.svg"); }
+
+/*
+ * 1. Let the SVG color use the current text color
+ * 2. Let the container fit the height of the icon
  */
 
 .uk-icon {
     display: inline-block;
     /* 1 */
-    background-image: url("@{internal-image-path}/icons.svg");
-    /* 2 */
     fill: currentcolor;
-    /* 3 */
+    /* 2 */
     line-height: 0;
+    background-image: url("@{internal-image-path}/icons.svg");
 }
 
 /*
