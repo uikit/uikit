@@ -21,6 +21,9 @@
 @alert-background:                              #ebf7fd;
 @alert-color:                                   @global-primary-background;
 
+@alert-close-opacity:                           0.3;
+@alert-close-hover-opacity:                     0.5;
+
 @alert-success-background:                      #f2fae3;
 @alert-success-color:                           @global-success-background;
 
@@ -58,14 +61,8 @@
 /* Close
  ========================================================================== */
 
-/*
- * Pass image path to JS
- */
-
-.uk-alert-close::before { background-image: url("@{internal-image-path}/alert-close.svg"); }
-
 .uk-alert-close {
-    float: right;
+    opacity: @alert-close-opacity;
     .hook-alert-close;
 }
 
@@ -74,6 +71,19 @@
  */
 
 .uk-alert-close:first-child + * { margin-top: 0; }
+
+/*
+ * Hover + Focus
+ * 1. Required for `a` elements
+ */
+
+.uk-alert-close:hover,
+.uk-alert-close:focus {
+    opacity: @alert-close-hover-opacity;
+    /* 1 */
+    color: inherit;
+    .hook-alert-close-hover;
+}
 
 
 /* Style modifiers
@@ -125,6 +135,7 @@
 
 .hook-alert() {}
 .hook-alert-close() {}
+.hook-alert-close-hover() {}
 .hook-alert-success() {}
 .hook-alert-warning() {}
 .hook-alert-danger() {}

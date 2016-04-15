@@ -6,22 +6,15 @@
 // ========================================================================
 
 
-// Variables
-// ========================================================================
-
-@close-opacity:                                 0.3;
-@close-hover-opacity:                           0.5;
-
-
 /* ========================================================================
    Component: Close
  ========================================================================== */
 
 /*
- * `background-image` is used to pass the image path to JS
+ * Pass image path to JS
  */
 
-[uk-close] { background-image: url("@{internal-image-path}/icons.svg"); }
+.uk-close::before { background-image: url("@{internal-image-path}/icons.svg"); }
 
 /*
  * 1. Remove margins in Chrome, Safari and Opera.
@@ -31,7 +24,9 @@
  * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
  * 6. Remove default `button` padding and background color
  * 7. Style
- * 8. Required for `a`.
+ * 8. Required for `button`.
+ * 9. Let the SVG color use the current text color
+ * 10. Let the container fit the height of the icon
  */
 
 .uk-close {
@@ -52,11 +47,12 @@
     /* 7 */
     display: inline-block;
     vertical-align: middle;
-    cursor: pointer;
-    opacity: @close-opacity;
     /* 8 */
-    text-decoration: none;
-    .hook-close;
+    cursor: pointer;
+    /* 9 */
+    fill: currentcolor;
+    /* 10 */
+    line-height: 0;
 }
 
 /*
@@ -69,31 +65,16 @@
 }
 
 /*
- * Hover + Focus
- * 1. Required for `a` elements
+ * Required for `button`.
  */
 
-.uk-close:hover,
-.uk-close:focus {
-    opacity: @close-hover-opacity;
-    outline: none;
-    /* 1 */
-    color: inherit;
-    text-decoration: none;
-    .hook-close-hover;
-}
+.uk-close:focus { outline: none; }
 
 /*
- * 1. Needed for embedded content
- * 2. Needed for SVG icons
+ * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
  */
 
-.uk-close > * {
-    /* 1 */
-    display: block !important;
-    /* 2 */
-    fill: currentColor;
-}
+.uk-close > * { transform: translate(0,0); }
 
 
 // Hooks
@@ -101,6 +82,4 @@
 
 .hook-close-misc;
 
-.hook-close() {}
-.hook-close-hover() {}
 .hook-close-misc() {}
