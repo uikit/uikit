@@ -22,7 +22,7 @@ export default function (UIkit) {
                 svgs[src] = $.Deferred();
 
                 if (!storage[key]) {
-                    $.get(src, 'text').then((doc, status, res) => {
+                    $.get(src).then((doc, status, res) => {
                         storage[key] = res.responseText;
                         svgs[src].resolve(storage[key]);
                     });
