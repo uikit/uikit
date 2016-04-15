@@ -20,8 +20,8 @@
         <path d="M13,9 L13,13 L9,13 L9,9 L13,9 L13,9 L13,9 Z M14,8 L8,8 L8,14 L14,14 L14,8 L14,8 L14,8 L14,8 Z"></path>
     </symbol>
 
-    <symbol id="close" viewBox="0 0 10 10">
-        <path d="M10,1.01 L8.989,0 L5,3.99 L1.01,0 L0,1.01 L3.99,5 L0,8.989 L1.01,10 L5,6.011 L8.989,10 L10,8.9891 L6.011,5 L10,1.01 Z"></path>
+    <symbol id="close" viewBox="0 0 14 14">
+        <polygon points="14 1 13 0 7 6 1 0 0 1 6 7 0 13 1 14 7 8 13 14 14 13 8 7"></polygon>
     </symbol>
 
     <symbol id="small-edit" viewBox="0 0 11 12">

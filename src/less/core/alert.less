@@ -3,12 +3,12 @@
 //
 // Component:       `uk-alert`
 //
-// Sub-objects:     `uk-alert-close`
-//
 // Modifiers:       `uk-alert-success`
 //                  `uk-alert-warning`
 //                  `uk-alert-danger`
 //                  `uk-alert-large`
+//
+// Adopted:         `uk-alert-close`
 //
 // ========================================================================
 
@@ -21,8 +21,8 @@
 @alert-background:                              #ebf7fd;
 @alert-color:                                   @global-primary-background;
 
-@alert-close-opacity:                           0.3;
-@alert-close-hover-opacity:                     0.5;
+@alert-close-opacity:                           0.4;
+@alert-close-hover-opacity:                     0.8;
 
 @alert-success-background:                      #f2fae3;
 @alert-success-color:                           @global-success-background;
@@ -63,6 +63,7 @@
 
 .uk-alert-close {
     opacity: @alert-close-opacity;
+    float: right;
     .hook-alert-close;
 }
 

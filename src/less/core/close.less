@@ -23,8 +23,8 @@
  * 4. Correct `font` properties and `color` not being inherited for `button`.
  * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
  * 6. Remove default `button` padding and background color
- * 7. Style
- * 8. Required for `button`.
+ * 7. Required for `button`.
+ * 8. Style
  * 9. Let the SVG color use the current text color
  * 10. Let the container fit the height of the icon
  */
@@ -45,10 +45,9 @@
     padding: 0;
     background-color: transparent;
     /* 7 */
-    display: inline-block;
-    vertical-align: middle;
-    /* 8 */
     cursor: pointer;
+    /* 8 */
+    display: inline-block;
     /* 9 */
     fill: currentcolor;
     /* 10 */
@@ -63,6 +62,12 @@
     border: 0;
     padding: 0;
 }
+
+/*
+ * Required for `a`.
+ */
+
+.uk-close:hover { color: inherit; }
 
 /*
  * Required for `button`.
