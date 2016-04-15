@@ -4,15 +4,7 @@ export default function (UIkit) {
 
         name: 'close',
 
-        defaults: {icon: 'close', exclude: ['id', 'style', 'class']},
-
-        methods: {
-
-            handleIcon(icon) {
-                this.$el.append(icon);
-            }
-
-        }
+        defaults: {icon: 'close', exclude: ['id', 'style', 'class']}
 
     }));
 

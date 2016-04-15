@@ -14,7 +14,7 @@ export default function (UIkit) {
                 return;
             }
 
-            this.getIcon(this.$el.css('background-image').slice(4, -1).replace(/"/g, ''), this.icon).then(this.handleIcon);
+            this.getIcon(getComputedStyle(this.$el[0], ':before')['background-image'].slice(4, -1).replace(/"/g, ''), this.icon).then(this.handleIcon);
         },
 
         methods: {
