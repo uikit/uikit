@@ -4,6 +4,8 @@ export default function (UIkit) {
 
     UIkit.component('margin-wrap', {
 
+        mixins: [UIkit.mixin.class],
+
         props: {
             margin: String,
             rowFirst: Boolean

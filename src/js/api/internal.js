@@ -14,6 +14,8 @@ export default function (UIkit) {
         UIkit.instances[uid] = this;
 
         this.$el = null;
+        this.$name = UIkit.prefix + hyphenate(this.$options.name);
+
         this._uid = uid++;
         this._initData();
         this._initMethods();
@@ -40,7 +42,7 @@ export default function (UIkit) {
 
         var el = this.$options.el,
             props = this.$options.props,
-            options = el.getAttribute('uk-' + hyphenate(this.$options.name));
+            options = el.getAttribute(this.$name);
 
         if (props) {
             for (var key in props) {
