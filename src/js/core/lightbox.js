@@ -92,7 +92,7 @@ export default function (UIkit) {
                     .stop(this.modal.panel)
                     .stop(this.modal.content);
 
-                this.modal.content.css('opacity', 0).html(item.content);
+                this.modal.content = $(item.content).css('opacity', 0).appendTo(this.modal.panel);
                 this.modal.panel.css({width, height});
 
                 Transition.start(this.modal.panel, {width: this.width, height: this.height}, this.duration).then(() => {
@@ -132,7 +132,6 @@ export default function (UIkit) {
                         `, {center: true});
                     this.modal.$el.css('overflow', 'hidden').addClass('uk-modal-lightbox');
                     this.modal.panel.css({width: 200, height: 200});
-                    this.modal.content = $('<div class="uk-lightbox-content"></div>').appendTo(this.modal.panel);
                     this.modal.caption = $('<div class="uk-modal-caption uk-transition-hide"></div>').appendTo(this.modal.panel);
 
                     if (this.items.length > 1) {
@@ -160,7 +159,7 @@ export default function (UIkit) {
                 active = this;
 
                 this.modal.panel.addClass('uk-transition');
-                this.modal.content.empty();
+                this.modal.content && this.modal.content.remove();
                 this.modal.caption.text(this.getItem().title);
 
                 var event = $.Event('showitem');
