@@ -130,7 +130,7 @@ export default function (UIkit) {
                         <button class="uk-close uk-modal-close-outside uk-transition-hide" type="button" uk-close></button>
                         <span class="uk-icon uk-position-center uk-transition-show" uk-icon="icon: trash"></span>
                         `, {center: true});
-                    this.modal.$el.css('overflow', 'hidden');
+                    this.modal.$el.css('overflow', 'hidden').addClass('uk-modal-lightbox');
                     this.modal.panel.css({width: 200, height: 200});
                     this.modal.content = $('<div class="uk-lightbox-content"></div>').appendTo(this.modal.panel);
                     this.modal.caption = $('<div class="uk-modal-caption uk-transition-hide"></div>').appendTo(this.modal.panel);
