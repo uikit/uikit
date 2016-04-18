@@ -36,6 +36,34 @@
 .hook-modal-footer() {}
 
 
+// Close
+// ========================================================================
+
+.hook-modal-close() {}
+
+.hook-modal-close-hover() {}
+
+.hook-modal-close-default() { opacity: 0.6; }
+
+.hook-modal-close-default-hover() { opacity: 1; }
+
+.hook-modal-close-outside() { opacity: 0.6; }
+
+.hook-modal-close-outside-hover() { opacity: 1; }
+
+.hook-modal-close-full() {
+    top: 0;
+    right: 0;
+    padding: 15px;
+    background: @global-background;
+    color: lighten(@global-color, 20%)
+}
+
+.hook-modal-close-full-hover() {
+    color: @global-color;
+}
+
+
 // Caption
 // ========================================================================
 
