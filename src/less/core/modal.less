@@ -44,13 +44,17 @@
 @modal-body-padding-vertical:                   @global-gutter;
 
 @modal-header-padding-horizontal:               @global-gutter;
-@modal-header-padding-vertical:                 @global-gutter;
+@modal-header-padding-vertical:                 (@global-gutter / 2);
+@modal-header-border:                           @global-border;
+@modal-header-border-width:                     1px;
 
 @modal-footer-padding-horizontal:               @global-gutter;
-@modal-footer-padding-vertical:                 @global-gutter;
+@modal-footer-padding-vertical:                 (@global-gutter / 2);
+@modal-footer-border:                           @global-border;
+@modal-footer-border-width:                     1px;
 
-@modal-title-font-size:                         @global-large-font-size;
-@modal-title-line-height:                       1.4;
+@modal-title-font-size:                         @global-xlarge-font-size;
+@modal-title-line-height:                       1.3;
 
 @modal-close-position:                          @global-small-margin;
 @modal-close-padding:                           5px;
@@ -237,12 +241,14 @@
 }
 
 .uk-modal-header {
-    padding: @modal-header-padding-vertical @modal-header-padding-horizontal 0 @modal-body-padding-horizontal;
+    padding: @modal-header-padding-vertical @modal-header-padding-horizontal;
+    border-bottom: @modal-header-border-width solid @modal-header-border;
     .hook-modal-header;
 }
 
 .uk-modal-footer {
-    padding: 0 @modal-footer-padding-horizontal @modal-footer-padding-vertical @modal-footer-padding-horizontal;
+    padding: @modal-footer-padding-vertical @modal-footer-padding-horizontal;
+    border-top: @modal-footer-border-width solid @modal-footer-border;
     .hook-modal-footer;
 }
 
@@ -277,6 +283,7 @@
  ========================================================================== */
 
 .uk-modal-title {
+    margin-top: 0;
     font-size: @modal-title-font-size;
     line-height: @modal-title-line-height;
     .hook-modal-title;
