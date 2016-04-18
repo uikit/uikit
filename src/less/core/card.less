@@ -52,8 +52,8 @@
 @card-default-color:                           @global-color;
 @card-default-title-color:                     @global-color;
 @card-default-hover-background:                darken(@card-default-background, 5%);
-@card-default-header-background:               darken(@card-default-background, 5%);
-@card-default-footer-background:               darken(@card-default-background, 5%);
+@card-default-header-border:                   @global-border;
+@card-default-footer-border:                   @global-border;
 
 @card-primary-background:                      @global-primary-background;
 @card-primary-color:                           @global-light-color;
@@ -214,12 +214,12 @@
 }
 
 .uk-card-default .uk-card-header {
-    background-color: @card-default-header-background;
+    border-bottom: 1px solid @card-default-header-border;
     .hook-card-default-header;
 }
 
 .uk-card-default .uk-card-footer {
-    background-color: @card-default-header-background;
+    border-top: 1px solid @card-default-footer-border;
     .hook-card-default-footer;
 }
 
