@@ -163,10 +163,16 @@ export default function (UIkit) {
             },
 
             getScrollbarWidth() {
-                var width = this.page.width();
+                var width = this.page[0].style.width;
+
                 this.page.css('width', '');
+
                 var scrollbarWidth = window.innerWidth - this.page.width();
-                this.page.width(width);
+
+                if (width) {
+                    this.page.width(width);
+                }
+
                 return scrollbarWidth;
             }
         }
