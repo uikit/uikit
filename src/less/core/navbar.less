@@ -80,7 +80,8 @@
  ========================================================================== */
 
 /*
- * 1. Style
+ * 1. Create position context to center navbar group
+ * 2. Style
  */
 
 .uk-navbar {
@@ -88,6 +89,8 @@
     display: -webkit-flex;
     display: flex;
     /* 1 */
+    position: relative;
+    /* 2 */
     background: @navbar-background;
     .hook-navbar;
 }
@@ -118,9 +121,17 @@
 
 .uk-navbar-right { margin-left: auto; }
 
-.uk-navbar-center {
+.uk-navbar-center:only-child {
     margin-left: auto;
     margin-right: auto;
+}
+
+.uk-navbar-center:not(:only-child) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
 }
 
 
