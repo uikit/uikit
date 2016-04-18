@@ -26,12 +26,14 @@ export default function (UIkit) {
 
         props: {
             toggle: String,
-            duration: Number
+            duration: Number,
+            inverse: Boolean
         },
 
         defaults: {
             toggle: 'a',
             duration: 400,
+            dark: false,
             attrItem: 'uk-lightbox-item',
             items: [],
             index: 0
@@ -126,7 +128,7 @@ export default function (UIkit) {
                 if (!this.modal) {
                     this.modal = UIkit.modal.dialog(`
                         <button class="uk-close uk-modal-close-outside uk-transition-hide" type="button" uk-close></button>
-                        <span class="uk-modal-spinner uk-transition-show" uk-icon="icon: trash"></span>
+                        <span class="uk-icon uk-position-center uk-transition-show" uk-icon="icon: trash"></span>
                         `, {center: true});
                     this.modal.$el.css('overflow', 'hidden');
                     this.modal.panel.css({width: 200, height: 200});
@@ -134,9 +136,11 @@ export default function (UIkit) {
                     this.modal.caption = $('<div class="uk-modal-caption uk-transition-hide"></div>').appendTo(this.modal.panel);
 
                     if (this.items.length > 1) {
-                        this.modal.panel.append(`
-                            <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous uk-hidden-touch uk-transition-hide" uk-lightbox-item="previous"></a>
-                            <a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next uk-hidden-touch uk-transition-hide" uk-lightbox-item="next"></a>
+                        this.modal.panel.addClass('uk-slidenav-position').append(`
+                            <div class="uk-transition-hide uk-hidden-touch ${this.dark ? 'uk-dark' : 'uk-light'}">
+                                <a href="#" class="uk-slidenav uk-slidenav-previous" uk-lightbox-item="previous"></a>
+                                <a href="#" class="uk-slidenav uk-slidenav-next" uk-lightbox-item="next"></a>
+                            </div>
                         `);
                     }
 
