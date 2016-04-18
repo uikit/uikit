@@ -24,9 +24,11 @@ export default function (UIkit) {
             handler() {
 
                 if (this.$el.css('display') === 'block' && this.center) {
-                    this.$el.removeClass('uk-flex uk-flex-center uk-flex-middle').css('display', 'block');
-                    this.$el.toggleClass('uk-flex-middle', window.innerHeight > this.panel.outerHeight(true));
-                    this.$el.addClass('uk-flex uk-flex-center').css('display', '');
+                    this.$el
+                        .removeClass('uk-flex uk-flex-center uk-flex-middle')
+                        .css('display', 'block')
+                        .toggleClass('uk-flex uk-flex-center uk-flex-middle', window.innerHeight > this.panel.outerHeight(true))
+                        .css('display', this.$el.hasClass('uk-flex') ? '' : 'block');
                 }
 
             },
