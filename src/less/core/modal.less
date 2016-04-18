@@ -49,6 +49,9 @@
 @modal-footer-padding-horizontal:               @global-gutter;
 @modal-footer-padding-vertical:                 @global-gutter;
 
+@modal-title-font-size:                         @global-large-font-size;
+@modal-title-line-height:                       1.4;
+
 @modal-close-position:                          @global-small-margin;
 @modal-close-padding:                           5px;
 
@@ -270,6 +273,16 @@
 .uk-modal-footer > :last-child { margin-bottom: 0; }
 
 
+/* Title
+ ========================================================================== */
+
+.uk-modal-title {
+    font-size: @modal-title-font-size;
+    line-height: @modal-title-line-height;
+    .hook-modal-title;
+}
+
+
 /* Close
  ========================================================================== */
 
@@ -360,6 +373,7 @@
 .hook-modal-header() {}
 .hook-modal-body() {}
 .hook-modal-footer() {}
+.hook-modal-title() {}
 .hook-modal-close() {}
 .hook-modal-close-hover() {}
 .hook-modal-close-default() {}
