@@ -74,6 +74,8 @@
 
 @navbar-dropbar-background:                     @navbar-dropdown-background;
 
+@navbar-image-path:                             "../images";
+
 
 /* ========================================================================
    Component: Navbar
@@ -252,7 +254,7 @@
     display: inline-block;
     width: @navbar-toggle-icon-width;
     height: @navbar-toggle-icon-height;
-    .svg-fill("../images/navbar-toggle-icon.svg", "#000", @navbar-toggle-icon-color);
+    .svg-fill("@{navbar-image-path}/navbar-toggle-icon.svg", "#000", @navbar-toggle-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
     .hook-navbar-toggle-icon;
@@ -261,7 +263,7 @@
 /* Hover + Focus */
 :hover > .uk-navbar-toggle-icon,
 :focus > .uk-navbar-toggle-icon {
-    .svg-fill("../images/navbar-toggle-icon.svg", "#000", @navbar-toggle-icon-hover-color);
+    .svg-fill("@{navbar-image-path}/navbar-toggle-icon.svg", "#000", @navbar-toggle-icon-hover-color);
     .hook-navbar-toggle-icon-hover;
 }
 
