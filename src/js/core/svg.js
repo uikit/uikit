@@ -1,4 +1,4 @@
-import {toJQuery} from '../util/index';
+import $ from 'jquery';
 
 export default function (UIkit) {
 
@@ -28,9 +28,9 @@ export default function (UIkit) {
 
                 this.get(this.src).then(doc => {
 
-                    var svg = toJQuery(doc);
+                    var svg = $(doc).filter('svg');
 
-                    if (!svg) {
+                    if (!svg.length) {
                         return;
                     }
 
