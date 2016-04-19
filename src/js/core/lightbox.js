@@ -272,7 +272,7 @@ export default function (UIkit) {
                     if (img.width === 120 && img.height === 90) {
                         if (!lowres) {
                             lowres = true;
-                            img.src = '//img.youtube.com/vi/' + id + '/0.jpg';
+                            img.src = `//img.youtube.com/vi/${id}/0.jpg`;
                         } else {
                             setIframe(640, 320);
                         }
