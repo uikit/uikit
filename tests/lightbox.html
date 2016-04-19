@@ -8,7 +8,6 @@
         <link rel="stylesheet" href="../css/uikit.css">
         <script src="../vendor/jquery.js"></script>
         <script src="js/test.js"></script>
-
         <!--<script charset="utf-8">-->
             <!--jQuery(function($){-->
 
@@ -22,7 +21,6 @@
                 <!--});-->
             <!--});-->
         <!--</script>-->
-
         <style>
 
             .uk-transition-show,
@@ -31,10 +29,18 @@
             .uk-transition-hide,
             .uk-transition .uk-transition-show { display: block; }
 
+
+            /* Visible when active */
+            .uk-visible-toggle:not(.uk-active) .uk-hidden-target { display: none !important; }
+
+            /* Hidden when active */
+            .uk-visible-toggle.uk-active .uk-visible-target { display: none !important; }
+
+
+
             .uk-modal-dialog { margin: 50px; }
 
         </style>
-
     </head>
 
     <body>

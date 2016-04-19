@@ -14,6 +14,7 @@
 //
 // Modifiers:       `uk-modal-container`
 //                  `uk-modal-full`
+//                  `uk-modal-lightbox`
 //
 // Adopted:         `uk-modal-close-default`
 //                  `uk-modal-close-outside`
@@ -230,6 +231,15 @@
     -webkit-transition: opacity 0.3s linear;
     transition: opacity 0.3s linear;
     .hook-modal-full;
+}
+
+
+/* Lightbox modifier
+ ========================================================================== */
+
+.uk-modal-lightbox .uk-modal-dialog {
+    margin-left: @modal-dialog-margin-horizontal;
+    margin-right: @modal-dialog-margin-horizontal;
 }
 
 
