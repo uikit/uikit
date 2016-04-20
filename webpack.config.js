@@ -43,6 +43,7 @@ module.exports = [
 
     {
         entry: {
+            'lightbox': "./src/js/components/lightbox",
             'tooltip': "./src/js/components/tooltip"
         },
         output: {

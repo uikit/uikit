@@ -1,4 +1,6 @@
 import $ from 'jquery';
+import {requestAnimationFrame} from '../util/index';
+
 import Accordion from './accordion';
 import Alert from './alert';
 import Close from './close';
@@ -8,7 +10,6 @@ import Dropdown from './dropdown';
 import Grid from './grid';
 import HeightViewport from './height-viewport';
 import Icon from './icon';
-import Lightbox from './lightbox';
 import MarginWrap from './margin-wrap';
 import MatchHeight from './match-height';
 import Modal from './modal';
@@ -25,7 +26,6 @@ import Svg from './svg';
 import Switcher from './switcher';
 import Tab from './tab';
 import Toggle from './toggle';
-import {requestAnimationFrame} from '../util/index';
 
 export default function (UIkit, _) {
 
@@ -72,7 +72,6 @@ export default function (UIkit, _) {
     UIkit.use(Slidenav);
     UIkit.use(MatchHeight);
     UIkit.use(Modal);
-    UIkit.use(Lightbox);
     UIkit.use(Nav);
     UIkit.use(Navbar);
     UIkit.use(Offcanvas);
