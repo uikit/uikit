@@ -9,20 +9,6 @@
         <script src="../vendor/jquery.js"></script>
         <script src="js/test.js"></script>
         <script src="../js/components/lightbox.js"></script>
-        <!--<script charset="utf-8">-->
-            <!--jQuery(function($){-->
-
-                <!--var lightbox = UIkit.lightbox.create([-->
-                    <!--{'source': 'http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4', 'type':'video'},-->
-                    <!--{'source': 'https://source.unsplash.com/random/700x500', 'type':'image'}-->
-                <!--]);-->
-
-                <!--$('#btnLightbox').on('click', function(){-->
-                    <!--lightbox.show();-->
-                <!--});-->
-            <!--});-->
-        <!--</script>-->
-
     </head>
 
     <body>
@@ -132,11 +118,46 @@
 
             </div>
 
-            <!--<h2>Dynamic lightbox</h2>-->
+            <h2>Dynamic lightbox</h2>
 
-            <!--<button id="btnLightbox" class="uk-button">Show dynamic lightbox</button>-->
+            <button id="lightbox" class="uk-button uk-button-default">Dynamic lightbox</button>
+
+            <h2>Javascript Options</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                    </tbody>
+                </table>
+            </div>
 
         </div>
+
+        <script>
+
+            (function () {
+
+                $('#lightbox').on('click', function (e) {
+                    e.preventDefault();
+
+                    UIkit.lightbox('#lightbox', {items: [
+                        {source: 'https://source.unsplash.com/random/700x700', title: '700x700', type: 'image'},
+                        {source: 'https://source.unsplash.com/random/400x500', title: '400x500', type: 'image'},
+                    ]})[0].show();
+                });
+
+            })();
+
+        </script>
 
     </body>
 </html>

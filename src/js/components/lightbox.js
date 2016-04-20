@@ -44,7 +44,6 @@ UIkit.component('lightbox', {
         this.toggles.each((i, el) => {
             el = $(el);
             this.items.push({
-                index: i,
                 source: el.attr('href'),
                 title: el.attr('title'),
                 type: el.attr('type')
