@@ -18,6 +18,7 @@ import Offcanvas from './offcanvas';
 import Responsive from './responsive';
 import Scrollspy from './scrollspy';
 import ScrollspyNav from './scrollspy-nav';
+import Slidenav from './slidenav';
 import SmoothScroll from './smooth-scroll';
 import Sticky from './sticky';
 import Svg from './svg';
@@ -68,6 +69,7 @@ export default function (UIkit, _) {
     UIkit.use(HeightViewport);
     UIkit.use(Icon);
     UIkit.use(Close);
+    UIkit.use(Slidenav);
     UIkit.use(MatchHeight);
     UIkit.use(Modal);
     UIkit.use(Lightbox);

@@ -4,7 +4,7 @@ export default function (UIkit) {
 
         name: 'close',
 
-        defaults: {icon: 'close', exclude: ['id', 'style', 'class']}
+        defaults: {icon: 'close_close'}
 
     }));
 

@@ -96,6 +96,10 @@ export default function (UIkit) {
                 this.modal.panel.css({width, height});
 
                 Transition.start(this.modal.panel, {width: this.width, height: this.height}, this.duration).then(() => {
+
+                    this.modal.panel.find('[uk-transition-hide]').show();
+                    this.modal.panel.find('[uk-transition-show]').hide();
+
                     Transition.start(this.modal.content, {opacity: 1}, 400);
                 });
 
@@ -127,20 +131,19 @@ export default function (UIkit) {
 
                 if (!this.modal) {
                     this.modal = UIkit.modal.dialog(`
-                        <button class="uk-close uk-modal-close-outside uk-transition-hide" type="button" uk-close></button>
-                        <span class="uk-icon uk-position-center uk-transition-show" uk-icon="icon: trash"></span>
+                        <button class="uk-close uk-modal-close-outside" uk-transition-hide type="button" uk-close></button>
+                        <span class="uk-icon uk-position-center" uk-transition-show uk-icon="icon: trash"></span>
                         `, {center: true});
                     this.modal.$el.css('overflow', 'hidden').addClass('uk-modal-lightbox');
                     this.modal.panel.css({width: 200, height: 200});
-                    this.modal.caption = $('<div class="uk-modal-caption uk-transition-hide"></div>').appendTo(this.modal.panel);
+                    this.modal.caption = $('<div class="uk-modal-caption" uk-transition-hide></div>').appendTo(this.modal.panel);
 
                     if (this.items.length > 1) {
-                        this.modal.panel.addClass('uk-slidenav-position').append(`
-                            <div class="uk-transition-hide uk-hidden-touch ${this.dark ? 'uk-dark' : 'uk-light'}">
-                                <a href="#" class="uk-slidenav uk-slidenav-previous" uk-lightbox-item="previous"></a>
-                                <a href="#" class="uk-slidenav uk-slidenav-next" uk-lightbox-item="next"></a>
-                            </div>
-                        `);
+                        $(`<div class="uk-hidden-touch ${this.dark ? 'uk-dark' : 'uk-light'}" uk-transition-hide></div>`)
+                            .appendTo(this.modal.panel.addClass('uk-slidenav-position')).append(`
+                                <a href="#" class="uk-slidenav uk-position-center-left" uk-slidenav="icon: previous" uk-lightbox-item="previous"></a>
+                                <a href="#" class="uk-slidenav uk-position-center-right" uk-slidenav="icon: next" uk-lightbox-item="next"></a>
+                            `);
                     }
 
                     this.modal.$el
@@ -158,7 +161,9 @@ export default function (UIkit) {
 
                 active = this;
 
-                this.modal.panel.addClass('uk-transition');
+                this.modal.panel.find('[uk-transition-hide]').hide();
+                this.modal.panel.find('[uk-transition-show]').show();
+
                 this.modal.content && this.modal.content.remove();
                 this.modal.caption.text(this.getItem().title);
 

@@ -45,4 +45,21 @@
         <rect x="4" y="0" width="1" height="9"></rect>
     </symbol>
 
+
+
+
+    <symbol id="close_close" viewBox="0 0 14 14">
+        <polygon points="14 1 13 0 7 6 1 0 0 1 6 7 0 13 1 14 7 8 13 14 14 13 8 7"></polygon>
+    </symbol>
+
+    <symbol id="slidenav_previous" viewBox="0 0 9 9">
+        <rect x="0" y="4" width="9" height="1"></rect>
+        <rect x="4" y="0" width="1" height="9"></rect>
+    </symbol>
+
+    <symbol id="slidenav_next" viewBox="0 0 9 9">
+        <rect x="0" y="4" width="9" height="1"></rect>
+        <rect x="4" y="0" width="1" height="9"></rect>
+    </symbol>
+
 </svg>

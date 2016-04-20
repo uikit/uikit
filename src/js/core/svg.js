@@ -1,44 +1,11 @@
-import $ from 'jquery';
-
 export default function (UIkit) {
 
     UIkit.component('svg', {
 
         mixins: [UIkit.mixin.svg],
 
-        props: ['src'],
-
-        defaults: {exclude: ['src']},
-
         ready() {
-
             this.$el.attr({hidden: true, id: null});
-
-            if (this.src.indexOf('#') !== -1) {
-
-                var parts = this.src.split('#');
-
-                if (parts.length < 2) {
-                    return;
-                }
-
-                this.getIcon(parts[0], parts[1]).then((icon) => this.svg = icon.insertAfter(this.$el));
-
-            } else {
-
-                this.get(this.src).then(doc => {
-
-                    var svg = $(doc).filter('svg');
-
-                    if (!svg.length) {
-                        return;
-                    }
-
-                    this.svg = this.addProps(svg).insertAfter(this.$el);
-                });
-
-            }
-
         },
 
         destroy() {
@@ -48,6 +15,14 @@ export default function (UIkit) {
             if (this.svg) {
                 this.svg.remove();
             }
+        },
+
+        methods: {
+
+            handle(svg) {
+                this.svg = svg.insertAfter(this.$el);
+            }
+
         }
 
     });

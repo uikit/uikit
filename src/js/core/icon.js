@@ -6,20 +6,11 @@ export default function (UIkit) {
 
         props: ['icon'],
 
-        defaults: {exclude: ['class']},
-
-        ready() {
-
-            if (!this.icon) {
-                return;
-            }
-
-            this.getIcon(getComputedStyle(this.$el[0], '::before')['background-image'].slice(4, -1).replace(/"/g, ''), this.icon).then(this.handleIcon);
-        },
+        defaults: {exclude: ['id', 'style', 'class']},
 
         methods: {
 
-            handleIcon(icon) {
+            handle(icon) {
                 this.$el.append(icon);
             }
 

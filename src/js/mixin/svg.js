@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import {toJQuery} from '../util/index';
 
 var storage = window.sessionStorage || {}, svgs = {};
 
@@ -6,9 +7,58 @@ export default function (UIkit) {
 
     UIkit.mixin.svg = {
 
-        props: {id: String, class: String, style: String, width: Number, height: Number, ratio: Number},
+        props: {
+            id: String,
+            icon: String,
+            src: String,
+            class: String,
+            style: String,
+            width: Number,
+            height: Number,
+            ratio: Number
+        },
 
-        defaults: {ratio: 1, id: false, class: '', exclude: []},
+        defaults: {
+            ratio: 1,
+            id: false,
+            class: '',
+            exclude: ['src']
+        },
+
+        ready() {
+
+            this.src = getComputedStyle(this.$el[0], '::before')['background-image'].slice(4, -1).replace(/"/g, '') || this.src;
+
+            if (this.src.indexOf('#') !== -1) {
+
+                var parts = this.src.split('#');
+
+                if (parts.length > 1) {
+                    this.src = parts[0];
+                    this.icon = parts[1];
+                }
+            }
+
+            if (this.icon) {
+
+                this.getIcon(this.src, this.icon).then(this.handle);
+
+            } else {
+
+                this.get(this.src).then(doc => {
+
+                    var svg = $(doc).filter('svg');
+
+                    if (!svg.length) {
+                        return $.Deferred().reject('SVG not found.');
+                    }
+
+                    this.handle(this.addProps(svg));
+                });
+
+            }
+
+        },
 
         methods: {
 
@@ -37,21 +87,25 @@ export default function (UIkit) {
 
                 return this.get(src).then(doc => {
 
-                    var el = $('#' + icon, doc);
+                    var el = toJQuery(`#${icon}`, doc);
 
-                    if (!el || !el.length) {
-                        return $.Deferred().reject('Icon not found.');
+                    if (el) {
+                        return this.addProps($($('<div>').append(el.clone()).html().replace(/symbol/g, 'svg'))); // IE workaround, el[0].outerHTML
                     }
 
-                    el = $($('<div>').append(el.clone()).html().replace(/symbol/g, 'svg')); // IE workaround, el[0].outerHTML
+                    if (!toJQuery('symbol', doc) && (el = $(doc).filter('svg'))) {
+                        return this.addProps(el);
+                    }
 
-                    return this.addProps(el);
+                    return $.Deferred().reject('Icon not found.');
                 });
 
             },
 
             addProps(el) {
+
                 var dimensions = el[0].getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
+
                 if (dimensions) {
                     dimensions = dimensions.split(' ');
                     this.width = this.width || dimensions[2];
@@ -80,6 +134,10 @@ export default function (UIkit) {
                 }
 
                 return el;
+            },
+
+            handle(svg) {
+                // needs to be overwritten by implementing component
             }
 
         }
