@@ -82,7 +82,8 @@ export default function (UIkit) {
                 this.$el.attr({hidden: true, id: null});
 
                 if (isVoidElement(this.$el)) {
-                    this.svg = el.insertAfter(this.$el.attr({hidden: true, id: null}));
+                    this.$el.attr({hidden: true, id: null});
+                    this.svg = el.insertAfter(this.$el);
                 } else {
                     this.svg = el.appendTo(this.$el);
                 }
@@ -126,7 +127,7 @@ export default function (UIkit) {
             }
 
         }
-        
+
     });
 
 }

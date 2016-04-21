@@ -2,7 +2,6 @@ import Cls from './class';
 import Modal from './modal';
 import Mouse from './mouse';
 import Position from './position';
-import Svg from './svg';
 import Toggable from './toggable';
 
 export default function (UIkit, _) {
