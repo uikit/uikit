@@ -17,7 +17,15 @@
 //                  `uk-position-center-right`
 //                  `uk-position-cover`
 //
+// Modifiers:       `uk-position-margin`
+//
 // ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@position-margin:                                      @global-small-gutter;
 
 
 /* ========================================================================
@@ -39,6 +47,10 @@
 [class*='uk-position-left'],
 [class*='uk-position-right'],
 [class*='uk-position-center'] { position: absolute !important; }
+
+
+/* Edges
+ ========================================================================== */
 
 /* Don't use `width: 100%` because it is wrong if the parent has padding. */
 .uk-position-top {
@@ -65,9 +77,9 @@
     right: 0;
 }
 
-/*
- * Corners
- */
+
+/* Corners
+ ========================================================================== */
 
 .uk-position-top-left {
     top: 0;
@@ -133,6 +145,22 @@
     left: 0;
     right: 0;
 }
+
+
+/* Margin modifier
+ ========================================================================== */
+
+.uk-position-margin[class*='uk-position-top']:not(.uk-position-top-center),
+.uk-position-margin[class*='uk-position-bottom']:not(.uk-position-bottom-center),
+.uk-position-margin[class*='uk-position-left'],
+.uk-position-margin[class*='uk-position-right'] { margin: @position-margin; }
+
+
+.uk-position-margin[class*='uk-position-top'] { margin-top: @position-margin; }
+.uk-position-margin[class*='uk-position-bottom'] { margin-bottom: @position-margin; }
+
+.uk-position-margin.uk-position-center-left { margin-left: @position-margin; }
+.uk-position-margin.uk-position-center-right { margin-right: @position-margin; }
 
 
 // Hooks
