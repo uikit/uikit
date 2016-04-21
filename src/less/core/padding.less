@@ -14,6 +14,9 @@
 @padding-padding:                                       @global-gutter;
 @padding-padding-l:                                     @global-medium-gutter;
 
+@padding-small-padding:                                 @global-small-gutter;
+
+@padding-large-padding:                                 @global-gutter;
 @padding-large-padding-l:                               @global-large-gutter;
 
 
@@ -21,16 +24,26 @@
    Component: Padding
  ========================================================================== */
 
-.uk-padding,
-.uk-padding-large { padding: @padding-padding; }
+.uk-padding { padding: @padding-padding; }
 
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
-    .uk-padding,
-    .uk-padding-large { padding: @padding-padding-l; }
+    .uk-padding { padding: @padding-padding-l; }
 
 }
+
+
+/* Small
+ ========================================================================== */
+
+.uk-padding-small { padding: @padding-small-padding; }
+
+
+/* Large
+ ========================================================================== */
+
+.uk-padding-large { padding: @padding-large-padding; }
 
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
