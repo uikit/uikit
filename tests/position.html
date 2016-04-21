@@ -10,6 +10,9 @@
         <script src="js/test.js"></script>
         <style>
 
+            .uk-padding-small { background: rgba(255,255,255,0.5); }
+
+            /* JavaScript */
             #boundary {
                 height: 300px;
                 outline: 1px solid rgba(0,0,0,0.1);
@@ -41,6 +44,65 @@
         <div class="uk-container">
 
             <h1>Position</h1>
+
+            <div class="uk-grid uk-child-width-1-2" uk-grid>
+                <div>
+
+                    <div class="uk-inline-container">
+                        <a class="uk-display-block" href="#"><img src="https://source.unsplash.com/random/800x600" alt=""></a>
+                        <div class="uk-padding-small uk-position-top-left">Top Left</div>
+                        <div class="uk-padding-small uk-position-top-center">Top Center</div>
+                        <div class="uk-padding-small uk-position-top-right">Top Right</div>
+                        <div class="uk-padding-small uk-position-center-left">Center Left</div>
+                        <div class="uk-padding-small uk-position-center">Center Center</div>
+                        <div class="uk-padding-small uk-position-center-right">Center Right</div>
+                        <div class="uk-padding-small uk-position-bottom-left">Bottom Left</div>
+                        <div class="uk-padding-small uk-position-bottom-center">Bottom Center</div>
+                        <div class="uk-padding-small uk-position-bottom-right">Bottom Right</div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <div class="uk-inline-container">
+                        <a class="uk-display-block" href="#"><img src="https://source.unsplash.com/random/800x600" alt=""></a>
+                        <div class="uk-padding-small uk-position-top uk-text-center">Top</div>
+                        <div class="uk-padding-small uk-position-bottom uk-text-center">Bottom</div>
+                        <div class="uk-padding-small uk-position-left uk-flex uk-flex-middle">Left</div>
+                        <div class="uk-padding-small uk-position-right uk-flex uk-flex-middle">Right</div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <div class="uk-inline-container">
+                        <a class="uk-display-block" href="#"><img src="https://source.unsplash.com/random/800x600" alt=""></a>
+                        <div class="uk-padding-small uk-position-margin uk-position-top-left">Top Left</div>
+                        <div class="uk-padding-small uk-position-margin uk-position-top-center">Top Center</div>
+                        <div class="uk-padding-small uk-position-margin uk-position-top-right">Top Right</div>
+                        <div class="uk-padding-small uk-position-margin uk-position-center-left">Center Left</div>
+                        <div class="uk-padding-small uk-position-margin uk-position-center">Center Center</div>
+                        <div class="uk-padding-small uk-position-margin uk-position-center-right">Center Right</div>
+                        <div class="uk-padding-small uk-position-margin uk-position-bottom-left">Bottom Left</div>
+                        <div class="uk-padding-small uk-position-margin uk-position-bottom-center">Bottom Center</div>
+                        <div class="uk-padding-small uk-position-margin uk-position-bottom-right">Bottom Right</div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <div class="uk-inline-container">
+                        <a class="uk-display-block" href="#"><img src="https://source.unsplash.com/random/800x600" alt=""></a>
+                        <div class="uk-padding-small uk-position-margin uk-position-top uk-text-center">Top</div>
+                        <div class="uk-padding-small uk-position-margin uk-position-bottom uk-text-center">Bottom</div>
+                        <div class="uk-padding-small uk-position-margin uk-position-left uk-flex uk-flex-middle">Left</div>
+                        <div class="uk-padding-small uk-position-margin uk-position-right uk-flex uk-flex-middle">Right</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h2>JavaScript</h2>
 
             <div id="boundary" class="uk-margin">
                 <div id="target" class="uk-flex uk-flex-center uk-flex-middle" draggable="true">Drag me!</div>
