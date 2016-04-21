@@ -521,7 +521,7 @@
 
         init: function(editor) {
 
-            var parser = editor.options.mdparser || marked || null;
+            var parser = editor.options.mdparser || window.marked || null;
 
             if (!parser) return;
 
