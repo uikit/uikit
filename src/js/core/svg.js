@@ -79,7 +79,6 @@ export default function (UIkit) {
                 if (this.height && !this.width) {
                     el.removeAttr('width');
                 }
-                this.$el.attr({hidden: true, id: null});
 
                 if (isVoidElement(this.$el)) {
                     this.$el.attr({hidden: true, id: null});
