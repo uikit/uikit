@@ -10,7 +10,6 @@ export default function (UIkit, _) {
     UIkit.use(Cls);
     UIkit.use(Mouse);
     UIkit.use(Position);
-    UIkit.use(Svg);
     UIkit.use(Toggable);
     UIkit.use(Modal);
 

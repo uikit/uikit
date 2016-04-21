@@ -181,3 +181,8 @@ export function getIndex(index, elements, current = 0) {
 
     return index < 0 ? index + length : index;
 }
+
+export function isVoidElement(element) {
+    element = $(element);
+    return require('void-elements').indexOf(element[0].tagName) !== -1;
+}

@@ -17,6 +17,7 @@
     "babel-loader": "^6.2.0",
     "babel-plugin-add-module-exports": "^0.1.2",
     "babel-preset-es2015": "^6.3.13",
+    "void-elements": "^2.0.1",
     "webpack": "^1.3"
   }
 }

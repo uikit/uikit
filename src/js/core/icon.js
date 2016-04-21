@@ -1,25 +1,13 @@
 export default function (UIkit) {
 
-    UIkit.component('icon', {
+    UIkit.component('icon', UIkit.components.svg.extend({
 
-        mixins: [UIkit.mixin.svg],
+        name: 'icon',
 
         props: ['icon'],
 
-        defaults: {exclude: ['id', 'style', 'class']},
+        defaults: {exclude: ['id', 'style', 'class']}
 
-        methods: {
-
-            handle(icon) {
-                this.$el.append(icon);
-            }
-
-        },
-
-        destroy() {
-            this.$el.empty();
-        }
-
-    });
+    }));
 
 }

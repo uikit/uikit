@@ -93,11 +93,10 @@ UIkit.component('lightbox', {
             this.modal.panel.css({width, height});
 
             Transition.start(this.modal.panel, {width: this.width, height: this.height}, this.duration).then(() => {
-
-                this.modal.panel.find('[uk-transition-hide]').show();
-                this.modal.panel.find('[uk-transition-show]').hide();
-
-                Transition.start(this.modal.content, {opacity: 1}, 400);
+                Transition.start(this.modal.content, {opacity: 1}, 400).then(() => {
+                    this.modal.panel.find('[uk-transition-hide]').show();
+                    this.modal.panel.find('[uk-transition-show]').hide();
+                });
             });
 
         },

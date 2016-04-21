@@ -67,6 +67,7 @@ export default function (UIkit, _) {
     UIkit.use(MarginWrap);
     UIkit.use(Grid);
     UIkit.use(HeightViewport);
+    UIkit.use(Svg);
     UIkit.use(Icon);
     UIkit.use(Close);
     UIkit.use(Slidenav);
@@ -80,7 +81,6 @@ export default function (UIkit, _) {
     UIkit.use(ScrollspyNav);
     UIkit.use(SmoothScroll);
     UIkit.use(Sticky);
-    UIkit.use(Svg);
     UIkit.use(Switcher);
     UIkit.use(Tab);
     UIkit.use(Toggle);
