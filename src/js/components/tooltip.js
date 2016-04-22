@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {removeClass} from '../util/index';
+import {flipPosition} from '../util/index';
 
 UIkit.component('tooltip', {
 
@@ -21,8 +21,11 @@ UIkit.component('tooltip', {
         duration: 150
     },
 
-    ready() {
+    init() {
+        this.animation += ` ${this.clsAnimation}${flipPosition(this.dir)}-${this.align}`;
+    },
 
+    ready() {
         this.content = this.$el.attr('title');
         this.$el.removeAttr('title');
         this.tooltip = $(`<div class="uk-tooltip" aria-hidden="true"><div class="uk-tooltip-inner">${this.content}</div></div>`).appendTo('body');
@@ -36,8 +39,6 @@ UIkit.component('tooltip', {
 
             this.showTimer = setTimeout(() => {
                 this.positionAt(this.tooltip, this.$el);
-                removeClass(this.$el, this.clsAnimation);
-                this.$el.addClass(`${this.clsAnimation}${this.dir}-${this.align}`);
                 this.toggleElement(this.tooltip, true);
             }, this.delay);
         },

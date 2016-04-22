@@ -1,4 +1,4 @@
-import {position, removeClass} from '../util/index';
+import {flipPosition, position, removeClass} from '../util/index';
 
 export default function (UIkit) {
 
@@ -18,7 +18,7 @@ export default function (UIkit) {
             clsPos: ''
         },
 
-        ready() {
+        init() {
             this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
             this.dir = this.pos[0];
             this.align = this.pos[1];
@@ -60,18 +60,3 @@ export default function (UIkit) {
     }
 
 };
-
-function flipPosition(pos) {
-    switch (pos) {
-        case 'left':
-            return 'right';
-        case 'right':
-            return 'left';
-        case 'top':
-            return 'bottom';
-        case 'bottom':
-            return 'top';
-        default:
-            return pos;
-    }
-}
