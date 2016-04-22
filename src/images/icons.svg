@@ -48,18 +48,18 @@
 
 
 
+
+
     <symbol id="close_close" viewBox="0 0 14 14">
         <polygon points="14 1 13 0 7 6 1 0 0 1 6 7 0 13 1 14 7 8 13 14 14 13 8 7"></polygon>
     </symbol>
 
-    <symbol id="slidenav_previous" viewBox="0 0 9 9">
-        <rect x="0" y="4" width="9" height="1"></rect>
-        <rect x="4" y="0" width="1" height="9"></rect>
+    <symbol id="slidenav_previous" viewBox="0 0 18 16">
+        <polygon points="18 7 3.828 7 9.414 1.414 8 0 0 8 8 16 9.414 14.586 3.828 9 18 9"></polygon>
     </symbol>
 
-    <symbol id="slidenav_next" viewBox="0 0 9 9">
-        <rect x="0" y="4" width="9" height="1"></rect>
-        <rect x="4" y="0" width="1" height="9"></rect>
+    <symbol id="slidenav_next" viewBox="0 0 18 16">
+        <polygon points="10 0 8.586 1.414 14.172 7 0 7 0 9 14.172 9 8.586 14.586 10 16 18 8"></polygon>
     </symbol>
 
 </svg>

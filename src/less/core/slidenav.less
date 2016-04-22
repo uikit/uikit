@@ -3,6 +3,8 @@
 //
 // Component:       `uk-slidenav`
 //
+// Sub-objects:     `uk-slidenav-container`
+//
 // Modifiers:       `uk-slidenav-previous`
 //                  `uk-slidenav-next`
 //
@@ -12,11 +14,12 @@
 // Variables
 // ========================================================================
 
-@slidenav-color:                                fadeout(@global-light-color, 50%);
+@slidenav-padding:                              5px;
+@slidenav-color:                                fadeout(@global-color, 40%);
 
-@slidenav-hover-color:                          fadeout(@global-light-color, 70%);
+@slidenav-hover-color:                          fadeout(@global-color, 20%);
 
-@slidenav-active-color:                         fadeout(@global-light-color, 90%);
+@slidenav-active-color:                         fadeout(@global-color, 10%);
 
 
 /* ========================================================================
@@ -36,14 +39,8 @@
  */
 
 .uk-slidenav {
-
-    width: 50px;
-    height: 50px;
-    background-color: black;
-
-
-
     display: inline-block;
+    padding: @slidenav-padding;
     /* 1 */
     fill: currentcolor;
     /* 2 */
@@ -74,14 +71,28 @@
     .hook-slidenav-active;
 }
 
+
 /* Icon modifier
  ========================================================================== */
 
-.uk-slidenav-previous {}
+[uk-slidenav*='previous'] {
+    .hook-slidenav-previous;
+}
 
-.uk-slidenav-next {}
+[uk-slidenav*='next'] {
+    .hook-slidenav-next;
+}
 
 
+/* Container
+ ========================================================================== */
+
+.uk-slidenav-container {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    .hook-slidenav-container;
+}
 
 
 // Hooks
@@ -92,4 +103,46 @@
 .hook-slidenav() {}
 .hook-slidenav-hover() {}
 .hook-slidenav-active() {}
+.hook-slidenav-previous() {}
+.hook-slidenav-next() {}
+.hook-slidenav-container() {}
 .hook-slidenav-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @slidenav-color:                       fadeout(@dye-color, 40%);
+    @slidenav-hover-color:                 fadeout(@dye-color, 20%);
+    @slidenav-active-color:                fadeout(@dye-color, 10%);
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-slidenav {
+        color: @slidenav-color;
+        .hook-dye-slidenav;
+    }
+
+    .uk-slidenav:hover,
+    .uk-slidenav:focus {
+        color: @slidenav-hover-color;
+        .hook-dye-slidenav-hover;
+    }
+
+    .uk-slidenav:active {
+        color: @slidenav-active-color;
+        .hook-dye-slidenav-active;
+    }
+
+}
+
+.hook-dye-slidenav() {}
+.hook-dye-slidenav-hover() {}
+.hook-dye-slidenav-active() {}
