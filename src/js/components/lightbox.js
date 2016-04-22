@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {extend, getIndex, Transition} from '../util/index';
+import {getIndex, Transition} from '../util/index';
 
 var active;
 
@@ -76,18 +76,22 @@ UIkit.component('lightbox', {
                 height = this.modal.panel.height();
 
             if (maxHeight < this.height) {
-                this.width = Math.floor(this.width * (maxHeight / this.height));
+                this.width = Math.round(this.width * (maxHeight / this.height));
                 this.height = maxHeight;
             }
 
             if (maxWidth < this.width) {
-                this.height = Math.floor(this.height * (maxWidth / this.width));
+                this.height = Math.round(this.height * (maxWidth / this.width));
                 this.width = maxWidth;
             }
 
             Transition
                 .stop(this.modal.panel)
                 .stop(this.modal.content);
+
+            if (this.modal.content) {
+                this.modal.content.remove();
+            }
 
             this.modal.content = $(item.content).css('opacity', 0).appendTo(this.modal.panel);
             this.modal.panel.css({width, height});
@@ -181,7 +185,7 @@ UIkit.component('lightbox', {
         },
 
         getItem() {
-            return this.items[this.index] || {source: '', title: '', type: 'auto'};
+            return this.items[this.index] || {source: '', title: '', type: ''};
         },
 
         setItem(item, content, width = 200, height = 200) {

@@ -14,7 +14,7 @@ export default function (UIkit) {
 
                 var width = this.$el.parent().width();
 
-                this.$el.css({height: (width < this.width) ? Math.floor((width / this.width) * this.height) : this.height});
+                this.$el.css({height: (width < this.width) ? Math.round((width / this.width) * this.height) : this.height});
 
             },
 
