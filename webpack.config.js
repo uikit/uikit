@@ -3,7 +3,7 @@ var webpack = require("webpack");
 var loaders = {
     loaders: [
         {
-            test: /(src|tests)\/.*\.js$/,
+            test: /(src|tests)(\/|\\).*\.js$/,
             loader: "babel",
             query: { presets: ["es2015"] }
         }
