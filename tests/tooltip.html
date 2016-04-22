@@ -11,7 +11,7 @@
         <script src="../js/components/tooltip.js"></script>
         <style type="text/css">
 
-            .tooltip-container { height: 110px; }
+            .test { height: 80px; }
 
         </style>
     </head>
@@ -22,49 +22,43 @@
 
             <h1>Tooltip</h1>
 
-            <div class="tooltip-container">
-                <div class="uk-tooltip uk-tooltip-top-center" style="display: block;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+            <div class="test">
+                <div class="uk-tooltip uk-tooltip-top-center uk-display-inline-block">Tooltip</div>
             </div>
 
-            <p>
-                <button class="uk-button uk-button-default" title="Hello World" uk-tooltip>No options</button>
-                <span data-uk-tooltip title="Hello World">No options</span>
-            </p>
 
-            <p>
-                <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: top">Top</button>
-                <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: top-left">Top/Left</button>
-                <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: top-right">Top/Right</button>
-                <span title="Hello World" uk-tooltip="pos: top">Top</span>
-                <span title="Hello World" uk-tooltip="pos: top-left">Top/Left</span>
-                <span title="Hello World" uk-tooltip="pos: top-right">Top/Right</span>
-            </p>
+            <div class="uk-grid uk-child-width-1-2@m" uk-grid>
+                <div>
 
-            <p>
-                <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: bottom">Bottom</button>
-                <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: bottom-left">Bottom/Left</button>
-                <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: bottom-right">Bottom/Right</button>
-                <span title="Hello World" uk-tooltip="pos: bottom">Bottom</span>
-                <span title="Hello World" uk-tooltip="pos: bottom-left">Bottom/Left</span>
-                <span title="Hello World" uk-tooltip="pos: bottom-right">Bottom/Right</span>
-            </p>
+                    <p uk-margin>
+                        <button class="uk-button uk-button-default" title="Hello World" uk-tooltip>Top</button>
+                        <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: top-left">Top Left</button>
+                        <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: top-right">Top Right</button>
+                    </p>
 
-            <p>
-                <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: left">Left</button>
-                <span title="Hello World" uk-tooltip="pos: left">Left</span>
-            </p>
+                    <p uk-margin>
+                        <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: bottom">Bottom</button>
+                        <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: bottom-left">Bottom Left</button>
+                        <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: bottom-right">Bottom Right</button>
+                    </p>
 
-            <p>
-                <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: right">Right</button>
-                <span title="Hello World" uk-tooltip="pos: right">Right</span>
-            </p>
+                    <p uk-margin>
+                        <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: left">Left</button>
+                        <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: right">Right</button>
+                    </p>
 
-            <h2>Inputs</h2>
+                </div>
+                <form class="uk-form">
 
-            <form class="uk-form">
-                <input type="text" title="Hello World" placeholder="Tooltip left" uk-tooltip="pos: left">
-                <input type="text" title="Hello World" placeholder="Tooltip right" uk-tooltip="pos: right">
-            </form>
+                    <p>
+                        <input type="text" title="Hello World" placeholder="Input" uk-tooltip="pos: left">
+                    </p>
+                    <p>
+                        <input type="text" title="Hello World" placeholder="Input" uk-tooltip="pos: right">
+                    </p>
+
+                </form>
+            </div>
 
             <h2>Javascript Options</h2>
 

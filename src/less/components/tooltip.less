@@ -24,8 +24,7 @@
 @tooltip-padding-horizontal:                    8px;
 @tooltip-background:                            #666;
 @tooltip-color:                                 @global-light-color;
-@tooltip-font-size:                             @global-small-font-size;
-@tooltip-line-height:                           1.4;
+@tooltip-font-size:                             12px;
 
 
 /* ========================================================================
@@ -51,9 +50,9 @@
     padding: @tooltip-padding-vertical @tooltip-padding-horizontal;
     /* 4 */
     background: @tooltip-background;
+    border-radius: 2px;
     color: @tooltip-color;
     font-size: @tooltip-font-size;
-    line-height: @tooltip-line-height;
     .hook-tooltip;
 }
 
