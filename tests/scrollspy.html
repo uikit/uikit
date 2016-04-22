@@ -24,7 +24,7 @@
 
         <div class="uk-card uk-card-default uk-card-body test-fixed">
             <h3 class="uk-card-title">Scrollspy Nav</h3>
-            <ul class="uk-nav uk-nav-default" uk-scrollspy-nav="closest: li; smooth-scroll: true">
+            <ul class="uk-nav uk-nav-default" uk-scrollspy-nav="closest: li; scroll: true">
                 <li><a href="#animation-repeat">Single</a></li>
                 <li><a href="#animation-delay">Group</a></li>
                 <li><a href="#animation-fade">Fade</a></li>
@@ -46,7 +46,7 @@
 
             <h2 id="animation-repeat">Single, Repeat, Delay</h2>
 
-            <div class="uk-grid uk-child-width-1-4@m" uk-grid uk-match-height="target: > div > .uk-card">
+            <div class="uk-grid uk-child-width-1-4@m" uk-grid uk-height-match="target: > div > .uk-card">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-fade">
                         <p>The element is animated only the first time it appears in the viewport.</p>
@@ -508,10 +508,10 @@
                             <td>Target to apply the class to.</td>
                         </tr>
                         <tr>
-                            <td><code>smooth-scroll</code></td>
+                            <td><code>scroll</code></td>
                             <td>Boolean</td>
                             <td>false</td>
-                            <td>Adds the SmoothScroll component to its links.</td>
+                            <td>Adds the Scroll component to its links.</td>
                         </tr>
                         <tr>
                             <td><code>overflow</code></td>

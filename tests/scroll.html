@@ -4,7 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Smooth scroll - UIkit tests</title>
+        <title>Scroll - UIkit tests</title>
         <link rel="stylesheet" href="../css/uikit.css">
         <script src="../vendor/jquery.js"></script>
         <script src="js/test.js"></script>
@@ -14,19 +14,19 @@
 
         <div class="uk-container">
 
-            <h1>Smooth scroll</h1>
+            <h1>Scroll</h1>
 
-            <a class="uk-button uk-button-default" href="#bottom" uk-smooth-scroll>Go Down!</a>
+            <a class="uk-button uk-button-default" href="#bottom" uk-scroll>Go Down!</a>
             <a id="top-callback" class="uk-button uk-button-default" href="#bottom" >Go Down with callback!</a>
 
             <div style="height: 2000px;"></div>
 
-            <a id="bottom" class="uk-button uk-button-default" href="#top" uk-smooth-scroll>Go Up!</a>
+            <a id="bottom" class="uk-button uk-button-default" href="#top" uk-scroll>Go Up!</a>
 
             <script type="text/javascript">
                 jQuery(function ($) {
 
-                    UIkit.smoothScroll($('#top-callback'), {complete: function () {
+                    UIkit.scroll($('#top-callback'), {complete: function () {
                         alert('I\'m down!');
                     }});
 

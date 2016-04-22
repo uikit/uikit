@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 export default function (UIkit) {
 
-    UIkit.component('margin-wrap', {
+    UIkit.component('margin', {
 
         mixins: [UIkit.mixin.class],
 

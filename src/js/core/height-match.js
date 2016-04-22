@@ -3,7 +3,7 @@ import {requestAnimationFrame} from '../util/index';
 
 export default function (UIkit) {
 
-    UIkit.component('match-height', {
+    UIkit.component('height-match', {
 
         props: {
             target: String,
@@ -69,12 +69,12 @@ export default function (UIkit) {
                 var max = 0;
 
                 elements
-                    .each(function () {
-                        max = Math.max(max, $(this).outerHeight());
+                    .each((i, el) => {
+                        max = Math.max(max, $(el).outerHeight());
                     })
-                    .each(function () {
-                        var el = $(this);
-                        el.css('min-height', (max - (el.css('box-sizing') == 'border-box' ? 0 : (el.outerHeight() - el.height()))) + 'px');
+                    .each((i, el) => {
+                        el = $(el);
+                        el.css('min-height', `${max - (el.css('box-sizing') === 'border-box' ? 0 : (el.outerHeight() - el.height()))}px`);
                     });
             }
 

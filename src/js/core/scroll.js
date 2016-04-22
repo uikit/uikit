@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 export default function (UIkit) {
 
-    UIkit.component('smooth-scroll', {
+    UIkit.component('scroll', {
 
         props: {
             duration: Number,

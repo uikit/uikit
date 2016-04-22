@@ -1,6 +1,6 @@
 export default function (UIkit) {
 
-    UIkit.component('grid', UIkit.components.marginWrap.extend({
+    UIkit.component('grid', UIkit.components.margin.extend({
 
         name: 'grid',
 

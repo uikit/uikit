@@ -7,14 +7,14 @@ export default function (UIkit) {
         props: {
             cls: String,
             closest: String,
-            smoothScroll: Boolean,
+            scroll: Boolean,
             overflow: Boolean
         },
 
         defaults: {
             cls: 'uk-active',
             closest: false,
-            smoothScroll: false,
+            scroll: false,
             overflow: true
         },
 
@@ -23,9 +23,9 @@ export default function (UIkit) {
             this.elements = (this.closest ? this.links.closest(this.closest) : this.links);
             this.targets = $($.map(this.links, (el) => el.hash).join(','));
 
-            if (this.smoothScroll) {
+            if (this.scroll) {
                 this.links.each(function () {
-                    UIkit.smoothScroll(this);
+                    UIkit.scroll(this);
                 });
             }
         },
