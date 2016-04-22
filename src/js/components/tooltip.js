@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import {removeClass} from '../util/index';
 
 UIkit.component('tooltip', {
 
@@ -14,7 +15,10 @@ UIkit.component('tooltip', {
         offset: 5,
         delay: 0,
         cls: 'uk-active',
-        clsPos: 'uk-tooltip'
+        clsPos: 'uk-tooltip',
+        clsAnimation: 'uk-animation-',
+        animation: 'uk-animation-scale-up',
+        duration: 150
     },
 
     ready() {
@@ -32,6 +36,8 @@ UIkit.component('tooltip', {
 
             this.showTimer = setTimeout(() => {
                 this.positionAt(this.tooltip, this.$el);
+                removeClass(this.$el, this.clsAnimation);
+                this.$el.addClass(`${this.clsAnimation}${this.dir}-${this.align}`);
                 this.toggleElement(this.tooltip, true);
             }, this.delay);
         },
