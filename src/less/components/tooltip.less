@@ -1,5 +1,5 @@
 // Name:            Tooltip
-// Description:     Defines styles for tooltips
+// Description:     Component to create tooltips
 //
 // Component:       `uk-tooltip`
 //
@@ -12,24 +12,22 @@
 //                  `uk-tooltip-left`
 //                  `uk-tooltip-right`
 //
+// Uses:            Animation
+//
 // ========================================================================
 
 
 // Variables
 // ========================================================================
 
-@tooltip-z-index:                               1030;
+@tooltip-z-index:                               @global-z-index + 30;
 @tooltip-max-width:                             200px;
 @tooltip-padding-vertical:                      5px;
 @tooltip-padding-horizontal:                    8px;
-@tooltip-background:                            #333;
-@tooltip-triangle-size:                         5px;
-
-@tooltip-color:                                 rgba(255,255,255,0.7);
-@tooltip-font-size:                             12px;
-@tooltip-line-height:                           18px;
-
-@tooltip-offset-horizontal:                     10px;
+@tooltip-background:                            #666;
+@tooltip-color:                                 @global-light-color;
+@tooltip-font-size:                             @global-small-font-size;
+@tooltip-line-height:                           1.4;
 
 
 /* ========================================================================
@@ -38,9 +36,10 @@
 
 /*
  * 1. Hide by default
- * 2. Set fixed position
- * 3. Set dimensions
- * 4. Set style
+ * 2. Position
+ * 3. Dimensions
+ * 4. Style
+ * 5. Animation
  */
 
 .uk-tooltip {
@@ -58,123 +57,14 @@
     color: @tooltip-color;
     font-size: @tooltip-font-size;
     line-height: @tooltip-line-height;
+    /* 5 */
+    -webkit-animation: 0.5s ease-out both uk-fade-scale-02;
+    animation: 0.5s ease-out both uk-fade-scale-02;
     .hook-tooltip;
 }
 
-/*
- * 1. Show drop
- */
-
-.uk-tooltip.uk-active {
-    /* 1 */
-    display: block;
-}
-
-
-/* Triangle
- ========================================================================== */
-
-/*
- * 1. Dashed is less antialised than solid
- */
-
-.uk-tooltip:after {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 0;
-    height: 0;
-    /* 1 */
-    border: @tooltip-triangle-size dashed @tooltip-background;
-}
-
-
-/* Direction modifiers
- ========================================================================== */
-
-/*
- * Top
- */
-
-.uk-tooltip-top-center:after,
-.uk-tooltip-top-left:after,
-.uk-tooltip-top-right:after {
-    bottom: -@tooltip-triangle-size;
-    border-top-style: solid;
-    border-bottom: none;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    border-top-color: @tooltip-background;
-}
-
-/*
- * Bottom
- */
-
-.uk-tooltip-bottom-center:after,
-.uk-tooltip-bottom-left:after,
-.uk-tooltip-bottom-right:after {
-    top: -@tooltip-triangle-size;
-    border-bottom-style: solid;
-    border-top: none;
-    border-left-color: transparent;
-    border-right-color: transparent;
-    border-bottom-color: @tooltip-background;
-}
-
-/*
- * Top/Bottom center
- */
-
-.uk-tooltip-top-center:after,
-.uk-tooltip-bottom-center:after {
-    left: 50%;
-    margin-left: -@tooltip-triangle-size;
-}
-
-/*
- * Top/Bottom left
- */
-
-.uk-tooltip-top-left:after,
-.uk-tooltip-bottom-left:after { left: @tooltip-offset-horizontal; }
-
-/*
- * Top/Bottom right
- */
-
-.uk-tooltip-top-right:after,
-.uk-tooltip-bottom-right:after { right: @tooltip-offset-horizontal; }
-
-/*
- * Left
- */
-
-.uk-tooltip-left-center:after {
-    right: -@tooltip-triangle-size;
-    top: 50%;
-    margin-top: -@tooltip-triangle-size;
-    border-left-style: solid;
-    border-right: none;
-    border-top-color: transparent;
-    border-bottom-color: transparent;
-    border-left-color: @tooltip-background;
-}
-
-/*
- * Right
- */
-
-.uk-tooltip-right-center:after {
-    left: -@tooltip-triangle-size;
-    top: 50%;
-    margin-top: -@tooltip-triangle-size;
-    border-right-style: solid;
-    border-left: none;
-    border-top-color: transparent;
-    border-bottom-color: transparent;
-    border-right-color: @tooltip-background;
-}
+/* Show */
+.uk-tooltip.uk-active { display: block; }
 
 
 // Hooks
