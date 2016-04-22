@@ -4,6 +4,8 @@ export default function (UIkit) {
 
         name: 'grid',
 
+        mixins: [UIkit.mixin.class],
+
         defaults: {margin: 'uk-grid-margin'}
 
     }));

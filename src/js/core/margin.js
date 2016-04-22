@@ -4,8 +4,6 @@ export default function (UIkit) {
 
     UIkit.component('margin', {
 
-        mixins: [UIkit.mixin.class],
-
         props: {
             margin: String,
             rowFirst: Boolean
