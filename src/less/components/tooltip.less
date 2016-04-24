@@ -12,6 +12,8 @@
 //                  `uk-tooltip-left`
 //                  `uk-tooltip-right`
 //
+// States:          `uk-active`
+//
 // ========================================================================
 
 
@@ -23,8 +25,11 @@
 @tooltip-padding-vertical:                      5px;
 @tooltip-padding-horizontal:                    8px;
 @tooltip-background:                            #666;
+@tooltip-border-radius:                         2px;
 @tooltip-color:                                 @global-light-color;
 @tooltip-font-size:                             12px;
+
+@tooltip-margin:                                10px;
 
 
 /* ========================================================================
@@ -50,7 +55,7 @@
     padding: @tooltip-padding-vertical @tooltip-padding-horizontal;
     /* 4 */
     background: @tooltip-background;
-    border-radius: 2px;
+    border-radius: @tooltip-border-radius;
     color: @tooltip-color;
     font-size: @tooltip-font-size;
     .hook-tooltip;
@@ -58,6 +63,16 @@
 
 /* Show */
 .uk-tooltip.uk-active { display: block; }
+
+
+/* Direction / Alignment modifiers
+ ========================================================================== */
+
+/* Direction */
+[class*='uk-tooltip-top'] { margin-top: -@tooltip-margin; }
+[class*='uk-tooltip-bottom'] { margin-top: @tooltip-margin; }
+[class*='uk-tooltip-left'] { margin-left: -@tooltip-margin; }
+[class*='uk-tooltip-right'] { margin-left: @tooltip-margin; }
 
 
 // Hooks

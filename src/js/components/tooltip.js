@@ -12,13 +12,13 @@ UIkit.component('tooltip', {
 
     defaults: {
         pos: 'top',
-        offset: 5,
+        offset: 0,
         delay: 0,
         cls: 'uk-active',
         clsPos: 'uk-tooltip',
         clsAnimation: 'uk-animation-',
         animation: 'uk-animation-scale-up',
-        duration: 150
+        duration: 100
     },
 
     init() {

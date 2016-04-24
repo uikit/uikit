@@ -11,7 +11,9 @@
         <script src="../js/components/tooltip.js"></script>
         <style type="text/css">
 
-            .test { height: 80px; }
+            .test { height: 60px; }
+
+            .test .uk-tooltip { margin: 0; }
 
         </style>
     </head>
@@ -26,9 +28,10 @@
                 <div class="uk-tooltip uk-tooltip-top-center uk-display-inline-block">Tooltip</div>
             </div>
 
-
             <div class="uk-grid uk-child-width-1-2@m" uk-grid>
                 <div>
+
+                    <h2>Position</h2>
 
                     <p uk-margin>
                         <button class="uk-button uk-button-default" title="Hello World" uk-tooltip>Top</button>
@@ -50,12 +53,16 @@
                 </div>
                 <form class="uk-form">
 
+                <h2>Focused Form</h2>
+
                     <p>
                         <input type="text" title="Hello World" placeholder="Input" uk-tooltip="pos: left">
                     </p>
                     <p>
                         <input type="text" title="Hello World" placeholder="Input" uk-tooltip="pos: right">
                     </p>
+
+                    <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="delay: 500">Delay 500</button>
 
                 </form>
             </div>
