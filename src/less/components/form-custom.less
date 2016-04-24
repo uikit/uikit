@@ -1,4 +1,4 @@
-// Name:            Form advanced
+// Name:            Form custom
 // Description:     Custom appearance of radio, checkbox and select controls
 //
 // Component:       `uk-form`
@@ -32,7 +32,7 @@
 
 
 /* ========================================================================
-   Component: Form advanced
+   Component: Form custom
    Note: Only works in Chrome, Safari, Opera and Edge
  ========================================================================== */
 
@@ -68,7 +68,7 @@
     /* 6 */
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    .hook-form-advanced;
+    .hook-form-custom;
 }
 
 .uk-form input[type="radio"] { border-radius: 50%; }
@@ -89,7 +89,7 @@
 .uk-form input[type=checkbox]:indeterminate {
     border-color: transparent;
     background-color: @form-radio-checked-background;
-    .hook-form-advanced-checked;
+    .hook-form-custom-checked;
 }
 
 
@@ -109,7 +109,7 @@
 .uk-form input[type=checkbox]:disabled {
     border-color: @form-radio-disabled-border;
     background-color: @form-radio-disabled-background;
-    .hook-form-advanced-disabled;
+    .hook-form-custom-disabled;
 }
 
 .uk-form input[type=radio]:disabled:checked { .svg-fill("@{form-image-path}/form-radio.svg", "#000", @form-radio-disabled-icon-color); }
@@ -150,9 +150,9 @@
 // Hooks
 // ========================================================================
 
-.hook-form-advanced-misc;
+.hook-form-custom-misc;
 
-.hook-form-advanced() {}
-.hook-form-advanced-checked() {}
-.hook-form-advanced-disabled() {}
-.hook-form-advanced-misc() {}
+.hook-form-custom() {}
+.hook-form-custom-checked() {}
+.hook-form-custom-disabled() {}
+.hook-form-custom-misc() {}

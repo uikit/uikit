@@ -24,7 +24,7 @@ requestAnimationFrame(function () {
         'dropdown',
         'flex',
         'form',
-        'form-advanced',
+        'form-custom',
         'grid',
         'height-expand',
         'height-viewport',
