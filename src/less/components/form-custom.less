@@ -16,8 +16,9 @@
 @form-radio-border-width:                     1px;
 @form-radio-background:                       transparent;
 
-@form-radio-focus-color:                      #9cf;
+@form-radio-focus-color:                      fade(@global-primary-background, 50%);
 
+@form-radio-checked-border:                   transparent;
 @form-radio-checked-background:               @global-primary-background;
 @form-radio-checked-icon-color:               @global-light-color;
 
@@ -73,7 +74,7 @@
 
 .uk-form input[type="radio"] { border-radius: 50%; }
 
-
+/* Focus */
 .uk-form input[type="radio"]:focus,
 .uk-form input[type="checkbox"]:focus {
     outline: none;
@@ -87,11 +88,10 @@
 .uk-form input[type=radio]:checked,
 .uk-form input[type=checkbox]:checked,
 .uk-form input[type=checkbox]:indeterminate {
-    border-color: transparent;
+    border-color: @form-radio-checked-border;
     background-color: @form-radio-checked-background;
     .hook-form-custom-checked;
 }
-
 
 /*
  * Icons
@@ -156,3 +156,52 @@
 .hook-form-custom-checked() {}
 .hook-form-custom-disabled() {}
 .hook-form-custom-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @form-radio-border:                    @dye-color;
+    @form-radio-focus-color:               fade(@dye-color, 50%);
+    @form-radio-checked-border:            @dye-color;
+    @form-radio-checked-background:        transparent;
+    @form-radio-checked-icon-color:        @dye-color;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-form input[type="radio"],
+    .uk-form input[type="checkbox"] {
+        border-color: @form-radio-border;
+        background-color: @form-radio-background;
+        .hook-dye-form-custom;
+    }
+
+    /* Focus */
+    .uk-form input[type="radio"]:focus,
+    .uk-form input[type="checkbox"]:focus { box-shadow: 0 0 0 3px @form-radio-focus-color; }
+
+    /* Checked */
+    .uk-form input[type=radio]:checked,
+    .uk-form input[type=checkbox]:checked,
+    .uk-form input[type=checkbox]:indeterminate {
+        border-color: @form-radio-checked-border;
+        background-color: @form-radio-checked-background;
+        .hook-dye-form-custom-checked;
+    }
+
+    /* Icon */
+    .uk-form input[type=radio]:checked { .svg-fill("@{form-image-path}/form-radio.svg", "#000", @form-radio-checked-icon-color); }
+    .uk-form input[type=checkbox]:checked { .svg-fill("@{form-image-path}/form-checkbox.svg", "#000", @form-radio-checked-icon-color); }
+    .uk-form input[type=checkbox]:indeterminate { .svg-fill("@{form-image-path}/form-checkbox-indeterminate.svg", "#000", @form-radio-checked-icon-color); }
+
+}
+
+.hook-dye-form-custom() {}
+.hook-dye-form-custom-checked() {}
