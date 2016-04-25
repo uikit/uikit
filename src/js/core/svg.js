@@ -39,7 +39,7 @@ export default function (UIkit) {
                 }
             }
 
-            this.get(this.src).then(doc => {
+            this.svg = this.get(this.src).then(doc => {
 
                 var svg = toJQuery($(doc).filter('svg')), el;
 
@@ -82,9 +82,9 @@ export default function (UIkit) {
 
                 if (isVoidElement(this.$el)) {
                     this.$el.attr({hidden: true, id: null});
-                    this.svg = el.insertAfter(this.$el);
+                    return el.insertAfter(this.$el);
                 } else {
-                    this.svg = el.appendTo(this.$el);
+                    return el.appendTo(this.$el);
                 }
 
             });
@@ -98,7 +98,7 @@ export default function (UIkit) {
             }
 
             if (this.svg) {
-                this.svg.remove();
+                this.svg.then(svg => svg.remove());
             }
         },
 

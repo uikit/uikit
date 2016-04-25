@@ -43,8 +43,9 @@ module.exports = [
 
     {
         entry: {
-            'lightbox': "./src/js/components/lightbox",
-            'tooltip': "./src/js/components/tooltip"
+            lightbox: "./src/js/components/lightbox",
+            spinner: "./src/js/components/spinner",
+            tooltip: "./src/js/components/tooltip"
         },
         output: {
             path: "./js/components",
