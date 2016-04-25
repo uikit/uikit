@@ -1,0 +1,110 @@
+// Name:            Spinner
+// Description:     Component to create a loading spinner
+//
+// Component:       `uk-spinner`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@spinner-size:                                  30px;
+@spinner-stroke-width:                          1;
+@spinner-radius:                                floor((@spinner-size - @spinner-stroke-width) / 2); // Minus stroke width to prevent overflow clipping
+@spinner-circumference:                         round(2 * 3.141 * @spinner-radius);
+@spinner-duration:                              1.4s;
+
+
+/* ========================================================================
+   Component: Spinner
+ ========================================================================== */
+
+/*
+ * Pass image path to JS
+ */
+
+.uk-spinner::before { background-image: url("@{internal-image-path}/icons.svg"); }
+
+
+/*
+ * 1. Let the SVG color use the current text color
+ * 2. Let the container fit the height of the icon
+ */
+
+.uk-spinner {
+    display: inline-block;
+    width: @spinner-size;
+    height: @spinner-size;
+    /* 1 */
+    fill: none;
+    stroke: currentcolor;
+    /* 2 */
+    line-height: 0;
+}
+
+
+/* SVG
+ ========================================================================== */
+
+.uk-spinner > * {
+    -webkit-animation: uk-spinner-rotate @spinner-duration linear infinite;
+    animation: uk-spinner-rotate @spinner-duration linear infinite;
+}
+
+@-webkit-keyframes uk-spinner-rotate {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(270deg); }
+}
+
+@keyframes uk-spinner-rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(270deg); }
+}
+
+/*
+ * Circle
+ */
+
+.uk-spinner > * > * {
+    stroke-dasharray: @spinner-circumference;
+    stroke-dashoffset: 0;
+    transform-origin: center;
+    -webkit-animation: uk-spinner-dash @spinner-duration ease-in-out infinite;
+    animation: uk-spinner-dash @spinner-duration ease-in-out infinite;
+    stroke-width: @spinner-stroke-width;
+    stroke-linecap: round;
+}
+
+@-webkit-keyframes uk-spinner-dash {
+    0% { stroke-dashoffset: @spinner-circumference; }
+    50% {
+        stroke-dashoffset: @spinner-circumference/4;
+        -webkit-transform:rotate(135deg);
+    }
+    100% {
+        stroke-dashoffset: @spinner-circumference;
+        -webkit-transform:rotate(450deg);
+    }
+}
+
+@keyframes uk-spinner-dash {
+    0% { stroke-dashoffset: @spinner-circumference; }
+    50% {
+        stroke-dashoffset: @spinner-circumference/4;
+        transform:rotate(135deg);
+    }
+    100% {
+        stroke-dashoffset: @spinner-circumference;
+        transform:rotate(450deg);
+    }
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-spinner-misc;
+
+.hook-spinner() {}
+.hook-spinner-misc() {}

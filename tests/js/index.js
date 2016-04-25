@@ -45,6 +45,7 @@ requestAnimationFrame(function () {
         'scrollspy',
         'section',
         'slidenav',
+        'spinner',
         'sticky',
         'subnav',
         'switcher',

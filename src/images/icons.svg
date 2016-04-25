@@ -62,4 +62,8 @@
         <polygon points="10 0 8.586 1.414 14.172 7 0 7 0 9 14.172 9 8.586 14.586 10 16 18 8"></polygon>
     </symbol>
 
+    <symbol id="spinner_spinner" viewBox="0 0 30 30">
+        <circle  cx="15" cy="15" r="14"></circle>
+    </symbol>
+
 </svg>
