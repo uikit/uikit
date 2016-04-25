@@ -48,7 +48,7 @@ export default function (UIkit) {
                 this.target.triggerHandler(event, [this.$el]);
 
                 if (!event.isDefaultPrevented()) {
-                    this.toggleElement(event.target);
+                    this.toggleElement(this.target);
                 }
             }
 

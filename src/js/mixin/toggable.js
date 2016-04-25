@@ -8,8 +8,8 @@ export default function (UIkit) {
         props: {
             cls: Boolean,
             animation: Boolean,
-            origin: String,
             duration: Number,
+            origin: String,
             transition: String
         },
 

@@ -86,7 +86,6 @@ export function animate(element, animation, duration, origin, out) {
 
     }
 
-
     reset();
 
     element
