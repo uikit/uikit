@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {animationend, extend, isString, transitionend, requestAnimationFrame} from './index';
+import {animationend, each, extend, isString, transitionend, requestAnimationFrame} from './index';
 
 export const langDirection = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
 
@@ -194,3 +194,33 @@ export function isVoidElement(element) {
     element = $(element);
     return require('void-elements')[element[0].tagName.toLowerCase()];
 }
+
+export const Dimensions = {
+
+    ratio(dimensions, prop, value) {
+
+        var aProp = prop === 'width' ? 'height' : 'width';
+
+        return {
+            [aProp]: Math.round(value * dimensions[aProp] / dimensions[prop]),
+            [prop]: value
+        };
+    },
+
+    fit(dimensions, maxDimensions) {
+        dimensions = extend({}, dimensions);
+
+        each(dimensions, prop => dimensions = dimensions[prop] > maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
+
+        return dimensions;
+    },
+
+    cover(dimensions, maxDimensions) {
+        dimensions = extend({}, dimensions);
+
+        each(dimensions, prop => dimensions = dimensions[prop] < maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
+
+        return dimensions;
+    }
+
+};

@@ -1,3 +1,5 @@
+import {Dimensions} from '../util/index';
+
 export default function (UIkit) {
 
     UIkit.component('responsive', {
@@ -7,15 +9,12 @@ export default function (UIkit) {
         update: {
 
             handler() {
-
-                if (!this.$el.is(':visible') || !this.width || !this.height) {
-                    return;
+                if (this.$el.is(':visible') && this.width && this.height) {
+                    this.$el.height(Dimensions.fit(
+                        {height: this.height, width: this.width},
+                        {width: this.$el.parent().width(), height: this.height || this.$el.height()}
+                    )['height']);
                 }
-
-                var width = this.$el.parent().width();
-
-                this.$el.css({height: (width < this.width) ? Math.round((width / this.width) * this.height) : this.height});
-
             },
 
             events: ['load', 'resize', 'orientationchange']

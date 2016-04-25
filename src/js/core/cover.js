@@ -1,3 +1,5 @@
+import {Dimensions} from '../util/index';
+
 export default function (UIkit) {
 
     UIkit.component('cover', {
@@ -35,25 +37,13 @@ export default function (UIkit) {
 
                 this.$el.css(dimensions);
 
-                var width = this.$el.parent().width(),
-                    height = this.$el.parent().height(),
-                    ratio = (this.width || this.$el.width()) / (this.height || this.$el.height());
+                this.$el
+                    .css(dimensions)
+                    .css(Dimensions.cover(
+                        {width: this.width || this.$el.width(), height: this.height || this.$el.height()},
+                        {width: this.$el.parent().width(), height: this.$el.parent().height()})
+                    );
 
-                // if element height < parent height (gap underneath)
-                if ((width / ratio) < height) {
-
-                    dimensions.width = Math.ceil(height * ratio);
-                    dimensions.height = height;
-
-                // element width < parent width (gap to right)
-                } else {
-
-                    dimensions.width = width;
-                    dimensions.height = Math.ceil(width / ratio);
-
-                }
-
-                this.$el.css(dimensions);
             },
 
             events: ['load', 'resize', 'orientationchange']

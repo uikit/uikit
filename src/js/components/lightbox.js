@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {getIndex, Transition} from '../util/index';
+import {Dimensions, getIndex, Transition} from '../util/index';
 
 var active;
 
@@ -67,23 +67,12 @@ UIkit.component('lightbox', {
                 return;
             }
 
-            this.width = item.width;
-            this.height = item.height;
-
-            var maxWidth = window.innerWidth - (this.modal.panel.outerWidth(true) - this.modal.panel.width()) - this.modal.getScrollbarWidth(),
-                maxHeight = window.innerHeight - (this.modal.panel.outerHeight(true) - this.modal.panel.height()),
-                width = this.modal.panel.width(),
-                height = this.modal.panel.height();
-
-            if (maxHeight < this.height) {
-                this.width = Math.round(this.width * (maxHeight / this.height));
-                this.height = maxHeight;
-            }
-
-            if (maxWidth < this.width) {
-                this.height = Math.round(this.height * (maxWidth / this.width));
-                this.width = maxWidth;
-            }
+            var dim = {width: this.modal.panel.width(), height: this.modal.panel.height()},
+                max = {
+                    width: window.innerWidth - (this.modal.panel.outerWidth(true) - dim.width),
+                    height: window.innerHeight - (this.modal.panel.outerHeight(true) - dim.height)
+                },
+                newDim = Dimensions.fit({width: item.width, height: item.height}, max);
 
             Transition
                 .stop(this.modal.panel)
@@ -94,9 +83,9 @@ UIkit.component('lightbox', {
             }
 
             this.modal.content = $(item.content).css('opacity', 0).appendTo(this.modal.panel);
-            this.modal.panel.css({width, height});
+            this.modal.panel.css(dim);
 
-            Transition.start(this.modal.panel, {width: this.width, height: this.height}, this.duration).then(() => {
+            Transition.start(this.modal.panel, newDim, this.duration).then(() => {
                 Transition.start(this.modal.content, {opacity: 1}, 400).then(() => {
                     this.modal.panel.find('[uk-transition-hide]').show();
                     this.modal.panel.find('[uk-transition-show]').hide();
