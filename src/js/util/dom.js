@@ -68,15 +68,24 @@ export const Transition = {
 
 };
 
-export function animate(element, animation, duration, out) {
+export function animate(element, animation, duration, origin, out) {
 
     var d = $.Deferred(), cls = out ? 'uk-animation-leave' : 'uk-animation-enter';
 
     element = $(element);
 
-    if (out && animation.indexOf('uk-animation-') === 0) {
-        animation += ' uk-animation-reverse';
+    if (animation.indexOf('uk-animation-') === 0) {
+
+        if (origin) {
+            animation += ` uk-animation-${origin}`;
+        }
+
+        if (out) {
+            animation += ' uk-animation-reverse';
+        }
+
     }
+
 
     reset();
 
@@ -103,12 +112,12 @@ export function animate(element, animation, duration, out) {
 
 export const Animation = {
 
-    in(element, animation, duration) {
-        return animate(element, animation, duration, false);
+    in(element, animation, duration, origin) {
+        return animate(element, animation, duration, origin, false);
     },
 
-    out(element, animation, duration) {
-        return animate(element, animation, duration, true);
+    out(element, animation, duration, origin) {
+        return animate(element, animation, duration, origin, true);
     },
 
     inProgress(element) {

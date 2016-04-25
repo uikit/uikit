@@ -16,6 +16,7 @@ export default function (UIkit) {
             cls: false,
             animation: false,
             duration: 200,
+            origin: false,
             transition: 'linear'
         },
 
@@ -117,11 +118,11 @@ export default function (UIkit) {
                         if ((!toggled && show !== false) || show === true) {
 
                             this._toggle(el, true);
-                            deferred = Animation.in(el, this.animation[0], this.duration);
+                            deferred = Animation.in(el, this.animation[0], this.duration, this.origin);
 
                         } else {
                             deferred = Animation
-                                .out(el, this.animation[1], this.duration)
+                                .out(el, this.animation[1], this.duration, this.origin)
                                 .then(() => this._toggle(el, false));
                         }
 
