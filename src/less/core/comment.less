@@ -1,0 +1,153 @@
+// Name:            Comment
+// Description:     Component to create nested comments
+//
+// Component:       `uk-comment`
+//
+// Sub-objects:     `uk-comment-body`
+//                  `uk-comment-header`
+//                  `uk-comment-title`
+//                  `uk-comment-meta`
+//                  `uk-comment-avatar`
+//                  `uk-comment-list`
+//
+// Modifier:        `uk-comment-primary`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@comment-header-margin-bottom:                  @global-margin;
+
+@comment-title-font-size:                       @global-medium-font-size;
+@comment-title-line-height:                     1.4;
+
+@comment-meta-font-size:                        @global-small-font-size;
+@comment-meta-line-height:                      1.4;
+@comment-meta-color:                            @global-muted-color;
+
+@comment-list-margin-top:                       @global-large-margin;
+@comment-list-padding-left:                     30px;
+@comment-list-padding-left-m:                   100px;
+
+
+/* ========================================================================
+   Component: Comment
+ ========================================================================== */
+
+.uk-comment {
+    .hook-comment;
+}
+
+
+/* Sections
+ ========================================================================== */
+
+.uk-comment-body {
+    .hook-comment-body;
+}
+
+.uk-comment-header {
+    margin-bottom: @comment-header-margin-bottom;
+    .hook-comment-header;
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-comment-body::before,
+.uk-comment-body::after,
+.uk-comment-header::before,
+.uk-comment-header::after {
+    content: "";
+    display: table;
+}
+
+.uk-comment-body::after,
+.uk-comment-header::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-comment-body > :last-child,
+.uk-comment-header > :last-child { margin-bottom: 0; }
+
+
+/* Title
+ ========================================================================== */
+
+.uk-comment-title {
+    font-size: @comment-title-font-size;
+    line-height: @comment-title-line-height;
+    .hook-comment-title;
+}
+
+
+/* Meta
+ ========================================================================== */
+
+.uk-comment-meta {
+    font-size: @comment-meta-font-size;
+    line-height: @comment-meta-line-height;
+    color: @comment-meta-color;
+    .hook-comment-meta;
+}
+
+
+/* Avatar
+ ========================================================================== */
+
+.uk-comment-avatar {
+    .hook-comment-avatar;
+}
+
+
+/* List
+ ========================================================================== */
+
+.uk-comment-list {
+    padding: 0;
+    list-style: none;
+}
+
+.uk-comment-list .uk-comment + ul {
+    margin: @comment-list-margin-top 0 0 0;
+    padding-left: @comment-list-padding-left;
+    list-style: none;
+}
+
+.uk-comment-list > :nth-child(n+2),
+.uk-comment-list .uk-comment + ul > :nth-child(n+2) { margin-top: @comment-list-margin-top; }
+
+/* Tablet and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-comment-list .uk-comment + ul { padding-left: @comment-list-padding-left-m; }
+
+}
+
+
+/* Style modifier
+ ========================================================================== */
+
+.uk-comment-primary {
+    .hook-comment-primary;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-comment-misc;
+
+.hook-comment() {}
+.hook-comment-body() {}
+.hook-comment-header() {}
+.hook-comment-title() {}
+.hook-comment-meta() {}
+.hook-comment-avatar() {}
+.hook-comment-primary() {}
+.hook-comment-misc() {}
