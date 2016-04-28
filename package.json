@@ -4,7 +4,7 @@
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
   "version": "3.0.0",
   "scripts": {
-    "compile-less": "lessc --relative-urls src/less/uikit.less > css/uikit.css",
+    "compile-less": "lessc --rootpath='../src/less/' --relative-urls src/less/uikit.less > css/uikit.css",
     "compile-js": "webpack -d --progress --color",
     "compile": "npm run compile-less & npm run compile-js",
     "watch-less": "watch-run -i -p 'src/less/**/*.less' npm run compile-less",
