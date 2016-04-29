@@ -43,7 +43,7 @@
 .uk-icon::before { background-image: url("../../images/icons.svg"); }
 
 /*
- * 1. Let the SVG color use the current text color
+ * 1. Fill the SVG object with the current text color
  * 2. Let the container fit the height of the icon
  */
 
@@ -54,6 +54,12 @@
     /* 2 */
     line-height: 0;
 }
+
+/* Let the line drawn around the SVG object use the current text color
+ * But only if a `stroke-width` attribute is present, because its default value is `1`
+ */
+
+.uk-icon [stroke-width] { stroke: currentcolor; }
 
 /*
  * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
