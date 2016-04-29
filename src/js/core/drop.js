@@ -6,7 +6,7 @@ export default function (UIkit) {
     var active;
 
     $(document).on('click', e => {
-        if (active && !isWithin(e.target, active.$el) && !e.isDefaultPrevented()) {
+        if (active && !isWithin(e.target, active.$el) && (!active.toggle || !isWithin(e.target, active.toggle))) {
             active.hide(false);
         }
     });
