@@ -52,8 +52,6 @@
 @nav-default-sublist-item-color:                @global-muted-color;
 @nav-default-sublist-item-hover-color:          @global-color;
 
-@nav-image-path:                                "../../images";
-
 
 /* ========================================================================
    Component: Nav
@@ -126,13 +124,13 @@ ul.uk-nav-sub {
     height: @nav-parent-icon-height;
     margin-right: @nav-parent-icon-margin-right;
     float: right;
-    .svg-fill("@{nav-image-path}/nav-parent-close.svg", "#000", @nav-parent-icon-color);
+    .svg-fill("../../images/nav-parent-close.svg", "#000", @nav-parent-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
     .hook-nav-parent-icon;
 }
 
-.uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill("@{nav-image-path}/nav-parent-open.svg", "#000", @nav-parent-icon-color); }
+.uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill("../../images/nav-parent-open.svg", "#000", @nav-parent-icon-color); }
 
 
 /* Header
@@ -253,11 +251,11 @@ ul.uk-nav-sub {
     //
 
     .uk-nav-parent-icon > .uk-parent > a::after {
-        .svg-fill("@{nav-image-path}/nav-parent-close.svg", "#000", @nav-parent-icon-color);
+        .svg-fill("../../images/nav-parent-close.svg", "#000", @nav-parent-icon-color);
         .hook-dye-nav-parent-icon;
     }
 
-    .uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill("@{nav-image-path}/nav-parent-open.svg", "#000", @nav-parent-icon-color); }
+    .uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill("../../images/nav-parent-open.svg", "#000", @nav-parent-icon-color); }
 
     //
     // Items

@@ -36,8 +36,6 @@
 @list-large-striped-padding-vertical:           @global-margin;
 @list-large-striped-padding-horizontal:         @global-small-margin;
 
-@list-image-path:                              "../../images";
-
 
 /* ========================================================================
    Component: List
@@ -125,7 +123,7 @@
     width: @list-bullet-width;
     height: @list-bullet-height;
     margin-right: @list-bullet-margin-right;
-    .svg-fill("@{list-image-path}/list-bullet.svg", "#000", @list-bullet-icon-color);
+    .svg-fill("../../images/list-bullet.svg", "#000", @list-bullet-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
     vertical-align: middle;
@@ -191,7 +189,7 @@
     }
 
     .uk-list-bullet > li::before {
-        .svg-fill("@{list-image-path}/list-bullet.svg", "#000", @list-bullet-icon-color);
+        .svg-fill("../../images/list-bullet.svg", "#000", @list-bullet-icon-color);
         .hook-dye-list-bullet;
     }
 

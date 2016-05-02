@@ -29,8 +29,6 @@
 @form-select-icon-color:                      @global-color;
 @form-select-disabled-icon-color:             @global-muted-color;
 
-@form-image-path:                              "../../images";
-
 
 /* ========================================================================
    Component: Form custom
@@ -97,9 +95,9 @@
  * Icons
  */
 
-.uk-form input[type=radio]:checked { .svg-fill("@{form-image-path}/form-radio.svg", "#000", @form-radio-checked-icon-color); }
-.uk-form input[type=checkbox]:checked { .svg-fill("@{form-image-path}/form-checkbox.svg", "#000", @form-radio-checked-icon-color); }
-.uk-form input[type=checkbox]:indeterminate { .svg-fill("@{form-image-path}/form-checkbox-indeterminate.svg", "#000", @form-radio-checked-icon-color); }
+.uk-form input[type=radio]:checked { .svg-fill("../../images/form-radio.svg", "#000", @form-radio-checked-icon-color); }
+.uk-form input[type=checkbox]:checked { .svg-fill("../../images/form-checkbox.svg", "#000", @form-radio-checked-icon-color); }
+.uk-form input[type=checkbox]:indeterminate { .svg-fill("../../images/form-checkbox-indeterminate.svg", "#000", @form-radio-checked-icon-color); }
 
 /*
  * Disabled
@@ -112,9 +110,9 @@
     .hook-form-custom-disabled;
 }
 
-.uk-form input[type=radio]:disabled:checked { .svg-fill("@{form-image-path}/form-radio.svg", "#000", @form-radio-disabled-icon-color); }
-.uk-form input[type=checkbox]:disabled:checked { .svg-fill("@{form-image-path}/form-checkbox.svg", "#000", @form-radio-disabled-icon-color); }
-.uk-form input[type=checkbox]:disabled:indeterminate { .svg-fill("@{form-image-path}/form-checkbox-indeterminate.svg", "#000", @form-radio-disabled-icon-color); }
+.uk-form input[type=radio]:disabled:checked { .svg-fill("../../images/form-radio.svg", "#000", @form-radio-disabled-icon-color); }
+.uk-form input[type=checkbox]:disabled:checked { .svg-fill("../../images/form-checkbox.svg", "#000", @form-radio-disabled-icon-color); }
+.uk-form input[type=checkbox]:disabled:indeterminate { .svg-fill("../../images/form-checkbox-indeterminate.svg", "#000", @form-radio-disabled-icon-color); }
 
 
 /* Select
@@ -132,7 +130,7 @@
     -moz-appearance: none;
     /* 2 */
     padding-right: 20px;
-    .svg-fill("@{form-image-path}/form-select.svg", "#000", @form-select-icon-color);
+    .svg-fill("../../images/form-select.svg", "#000", @form-select-icon-color);
     background-repeat: no-repeat;
     background-position: 100% 50%;
 }
@@ -144,7 +142,7 @@
  * Disabled
  */
 
-.uk-form select:not([multiple]):not([size]):disabled { .svg-fill("@{form-image-path}/form-select.svg", "#000", @form-select-disabled-icon-color); }
+.uk-form select:not([multiple]):not([size]):disabled { .svg-fill("../../images/form-select.svg", "#000", @form-select-disabled-icon-color); }
 
 
 // Hooks
@@ -197,9 +195,9 @@
     }
 
     /* Icon */
-    .uk-form input[type=radio]:checked { .svg-fill("@{form-image-path}/form-radio.svg", "#000", @form-radio-checked-icon-color); }
-    .uk-form input[type=checkbox]:checked { .svg-fill("@{form-image-path}/form-checkbox.svg", "#000", @form-radio-checked-icon-color); }
-    .uk-form input[type=checkbox]:indeterminate { .svg-fill("@{form-image-path}/form-checkbox-indeterminate.svg", "#000", @form-radio-checked-icon-color); }
+    .uk-form input[type=radio]:checked { .svg-fill("../../images/form-radio.svg", "#000", @form-radio-checked-icon-color); }
+    .uk-form input[type=checkbox]:checked { .svg-fill("../../images/form-checkbox.svg", "#000", @form-radio-checked-icon-color); }
+    .uk-form input[type=checkbox]:indeterminate { .svg-fill("../../images/form-checkbox-indeterminate.svg", "#000", @form-radio-checked-icon-color); }
 
 }
 
