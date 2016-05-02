@@ -53,10 +53,7 @@
             });
 
             UI.domObserve(this.element, function(e) {
-                // TODO: prevent padding on body added in resize() when closing a lightbox
-                if (this.classList.contains('uk-open')) {
-                    $this.resize();
-                }
+                if ($this.isActive()) $this.resize();
             });
         },
 
@@ -190,13 +187,13 @@
                 body.css(this.paddingdir, "");
             }
 
-            if(active===this) active = false;
+            if (active===this) active = false;
 
             this.trigger('hide.uk.modal');
         },
 
         isActive: function() {
-            return this.active;
+            return this.element.hasClass('uk-open');
         }
 
     });
