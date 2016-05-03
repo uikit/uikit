@@ -68,8 +68,7 @@ requestAnimationFrame(function () {
 
     $select.on('change', function () {
         if ($select.val()) {
-            var base = '../' + document.querySelector('script[src*="test.js"]').getAttribute('src').replace('js/test.js', '');
-            location.href = base + 'tests/' + $select.val();
+            location.href = '../' + document.querySelector('script[src*="test.js"]').getAttribute('src').replace('js/test.js', '') + 'tests/' + $select.val();
         }
     }).val(location.pathname.split('/').pop());
 
