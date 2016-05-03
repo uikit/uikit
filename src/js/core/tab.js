@@ -1,3 +1,5 @@
+import {isNumber, isString} from '../util/index';
+
 export default function (UIkit) {
 
     UIkit.component('tab', UIkit.components.switcher.extend({
@@ -7,7 +9,7 @@ export default function (UIkit) {
         props: {
             media: Number
         },
-        
+
         defaults: {
             media: 960,
             attrItem: 'uk-tab-item'
@@ -24,8 +26,8 @@ export default function (UIkit) {
             handler() {
 
                 this.$el.toggleClass(this.vertical || '', this.vertical && this.media
-                    && typeof(this.media) === 'number' && window.innerWidth >= this.media
-                    || typeof(this.media) === 'string' && window.matchMedia(this.media).matches);
+                    && isNumber(this.media) && window.innerWidth >= this.media
+                    || isString(this.media) && window.matchMedia(this.media).matches);
 
             },
 
