@@ -297,8 +297,8 @@ $form-icon-color:                                #999 !default;
     border: $form-border-width solid $form-border;
     background: $form-background;
     color: $form-color;
-    -webkit-transition: all linear 0.2s;
-    transition: all linear 0.2s;
+    -webkit-transition: linear 0.2s;
+    transition: linear 0.2s;
     @include hook-form();
 
     // Focus state

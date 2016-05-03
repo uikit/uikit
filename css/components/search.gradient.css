@@ -82,8 +82,8 @@
   padding: 0 0 0 30px;
   border: 1px solid rgba(0, 0, 0, 0);
   background: rgba(0, 0, 0, 0);
-  -webkit-transition: all linear 0.2s;
-  transition: all linear 0.2s;
+  -webkit-transition: linear 0.2s;
+  transition: linear 0.2s;
   vertical-align: middle;
 }
 /* Placeholder */

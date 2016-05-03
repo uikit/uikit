@@ -181,6 +181,19 @@
         };
     };
 
+    UI.Utils.throttle = function (func, limit) {
+        var wait = false;
+        return function () {
+            if (!wait) {
+                func.call();
+                wait = true;
+                setTimeout(function () {
+                    wait = false;
+                }, limit);
+            }
+        }
+    };
+
     UI.Utils.removeCssRules = function(selectorRegEx) {
         var idx, idxs, stylesheet, _i, _j, _k, _len, _len1, _len2, _ref;
 
@@ -2576,7 +2589,7 @@
             });
 
             UI.domObserve(this.element, function(e) {
-                $this.resize();
+                if ($this.isActive()) $this.resize();
             });
         },
 
@@ -2710,13 +2723,13 @@
                 body.css(this.paddingdir, "");
             }
 
-            if(active===this) active = false;
+            if (active===this) active = false;
 
             this.trigger('hide.uk.modal');
         },
 
         isActive: function() {
-            return this.active;
+            return this.element.hasClass('uk-open');
         }
 
     });
