@@ -173,12 +173,18 @@
 
                 e.preventDefault();
 
-                if (!supportsTouch && $link.length) {
+                if ($link.length) {
 
                     $link.one('click', function(e){
                         e.preventDefault();
-                    }).one('mouseup', function(){
-                        if(!moved) $link.trigger('click');
+                    }).one('mouseup touchend', function(){
+
+                        if (!moved) {
+                            $link.trigger('click');
+                            if (supportsTouch && $link.attr('href').trim()) {
+                                location.href = $link.attr('href');
+                            }
+                        }
                     });
                 }
 
