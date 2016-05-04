@@ -7,6 +7,7 @@
   - Updated list button action in html mode (html editor)
   - Removed default ```transition-property: all``` for all uk-form inputs + search component input
   - Fixed fullscreen videos on iOS + lightbox
+  - Fixed links in sortables + nestables on iOS
 
 ### 2.26.2 (April 06, 2016)
   - Added iframe support for lightbox component

@@ -129,7 +129,8 @@
 
             var onStartEvent = function(e) {
 
-                var handle = UI.$(e.target);
+                var handle = UI.$(e.target),
+                    link   = handle.is('a[href]') ? handle:handle.parents('a[href]');
 
                 if (e.target === $this.element[0]) {
                     return;
@@ -160,6 +161,8 @@
 
                 $this.delayMove = function(evt) {
 
+                    link = false;
+
                     evt.preventDefault();
                     $this.dragStart(e);
                     $this.trigger('start.uk.nestable', [$this]);
@@ -170,6 +173,15 @@
                 $this.delayMove.x         = parseInt(e.pageX, 10);
                 $this.delayMove.y         = parseInt(e.pageY, 10);
                 $this.delayMove.threshold = $this.options.idlethreshold;
+
+                if (link.length && eEnd == 'touchend') {
+
+                    $this.one(eEnd, function(){
+                        if (link && link.attr('href').trim()) {
+                            location.href = link.attr('href');
+                        }
+                    });
+                }
 
                 e.preventDefault();
             };
