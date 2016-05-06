@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {animationend, each, extend, isString, transitionend, requestAnimationFrame} from './index';
+import {animationend, each, extend, isNumber, isString, transitionend, requestAnimationFrame} from './index';
 
 export const langDirection = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
 
@@ -176,7 +176,7 @@ export function getIndex(index, elements, current = 0) {
 
     var length = $(elements).length;
 
-    index = (typeof index === 'number'
+    index = (isNumber(index)
         ? index
         : index === 'next'
             ? current + 1

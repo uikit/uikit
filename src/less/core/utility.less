@@ -11,6 +11,7 @@
 //                  `uk-responsive-*`
 //                  `uk-border-*`
 //                  `uk-dropcap`
+//                  `uk-logo`
 //
 // States:          `uk-disabled`
 //
@@ -245,6 +246,7 @@
     background-repeat: no-repeat;
 }
 
+
 /* Drop cap
  ========================================================================== */
 
@@ -285,6 +287,8 @@
     .hook-logo-hover;
 }
 
+.uk-logo-inverse { display: none; }
+
 
 /* Disabled
  ========================================================================== */
@@ -302,3 +306,38 @@
 .hook-logo() {}
 .hook-logo-hover() {}
 .hook-utility-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @logo-color:                           @dye-color;
+    @logo-hover-color:                     @dye-color;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-logo {
+        color: @logo-color;
+        .hook-dye-logo;
+    }
+
+    .uk-logo:hover,
+    .uk-logo:focus {
+        color: @logo-hover-color;
+        .hook-dye-logo-hover;
+    }
+
+    .uk-logo > :not(.uk-logo-inverse) { display: none; }
+    .uk-logo-inverse { display: inline; }
+
+}
+
+.hook-dye-logo() {}
+.hook-dye-logo-hover() {}

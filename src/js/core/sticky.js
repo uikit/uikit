@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {Animation, isString, toJQuery, requestAnimationFrame} from '../util/index';
+import {Animation, isNumber, isString, toJQuery, requestAnimationFrame} from '../util/index';
 
 export default function (UIkit) {
 
@@ -66,10 +66,10 @@ export default function (UIkit) {
             }
 
             // TODO: fix
-            this.$el.css({
-                // 'overflow-y': 'scroll',
-                '-webkit-overflow-scrolling': 'touch'
-            });
+            // this.$el.css({
+            //     // 'overflow-y': 'scroll',
+            //     '-webkit-overflow-scrolling': 'touch'
+            // });
 
         },
 
@@ -77,7 +77,7 @@ export default function (UIkit) {
 
             handler({type, dir}) {
 
-                var isActive = this.$el.hasClass(this.clsActive);
+                var isActive = this.$el.hasClass(this.clsActive), el;
 
                 if (type !== 'scroll') {
 
@@ -85,11 +85,13 @@ export default function (UIkit) {
 
                     this.top = this.topProp;
 
-                    if (this.topProp && typeof(this.topProp) === 'string') {
-                        if (this.topProp.match(/^-?\d+vh$/)) {
-                            this.top = window.innerHeight * parseFloat(this.topProp) / 100;
+                    if (this.top && !isNumber(this.top)) {
+                        if (isString(this.top) && this.top.match(/^-?\d+vh$/)) {
+                            this.top = window.innerHeight * parseFloat(this.top) / 100;
                         } else {
-                            var el = toJQuery(this.topProp);
+
+                            el = toJQuery(this.top);
+
                             if (el) {
                                 this.top = el[0].offsetTop + el[0].offsetHeight;
                             }
@@ -98,21 +100,29 @@ export default function (UIkit) {
 
                     this.top = Math.max(parseFloat(this.top), this.offsetTop) - this.offset;
 
-                    if (this.bottomProp === true || this.bottomProp[0] === '!') {
-                        this.bottom = this.bottomProp === true ? this.$el.parent() : this.$el.closest(this.bottomProp.substr(1));
+                    this.bottom = this.bottomProp;
+
+                    if (this.bottom === true || this.bottom[0] === '!') {
+                        this.bottom = this.bottom === true ? this.$el.parent() : this.$el.closest(this.bottom.substr(1));
                         this.bottom = this.bottom.offset().top + this.bottom.height() + parseFloat(this.bottom.css('padding-top'));
-                    } else if (isString(this.bottomProp)) {
-                        this.bottom = toJQuery(this.bottomProp);
-                        if (this.bottom) {
-                            this.bottom = this.bottom.offset().top;
+                    } else if (this.bottom && !isNumber(this.bottom)) {
+                        if (isString(this.bottom) && this.bottom.match(/^-?\d+vh$/)) {
+                            this.top = window.innerHeight * parseFloat(this.bottom) / 100;
+                        } else {
+
+                            el = toJQuery(this.bottom);
+
+                            if (el) {
+                                this.bottom = el[0].offsetTop + el[0].offsetHeight;
+                            }
                         }
                     }
 
                     this.bottom = this.bottom ? this.bottom - this.$el.outerHeight() : this.bottom;
 
                     this.mediaInactive = this.media
-                        && !(typeof(this.media) === 'number' && window.innerWidth >= this.media
-                        || typeof(this.media) === 'string' && window.matchMedia(this.media).matches);
+                        && !(isNumber(this.media) && window.innerWidth >= this.media
+                        || isString(this.media) && window.matchMedia(this.media).matches);
                 }
 
                 var scroll = $(window).scrollTop();

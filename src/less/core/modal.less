@@ -221,15 +221,20 @@
 
 /*
  * Full size
- * Reset all default declarations
+ * 1. Remove background from modal
+ * 2. Reset all default declarations from modal dialog
  */
 
+/* 1 */
+.uk-modal-full { background: none; }
+
+/* 2 */
 .uk-modal-full .uk-modal-dialog {
     margin: 0;
     width: 100%;
     max-width: 100%;
-    -webkit-transition: opacity 0.3s linear;
-    transition: opacity 0.3s linear;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
     .hook-modal-full;
 }
 

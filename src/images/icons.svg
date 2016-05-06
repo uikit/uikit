@@ -559,6 +559,125 @@
 
 
 
+    <symbol id="twitter" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
+    <symbol id="facebook" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
+    <symbol id="googleplus" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
+    <symbol id="instagram" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
+    <symbol id="pinterest" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
+    <symbol id="dribbble" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
+    <symbol id="flickr" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
+    <symbol id="behance" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
+    <symbol id="youtube" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
+    <symbol id="vimeo" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
+    <symbol id="soundcloud" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
+    <symbol id="linkedin" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
+    <symbol id="xing" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
+    <symbol id="foursquare" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
+    <symbol id="tumblr" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
+    <symbol id="whatsapp" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
+    <symbol id="rss" viewBox="0 0 14 13">
+        <rect x="0" y="0" width="14" height="1"></rect>
+        <rect x="0" y="4" width="14" height="1"></rect>
+        <rect x="0" y="8" width="14" height="1"></rect>
+        <rect x="0" y="12" width="14" height="1"></rect>
+    </symbol>
+
 
 
 
