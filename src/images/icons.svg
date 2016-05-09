@@ -1,21 +1,19 @@
 <svg xmlns="http://www.w3.org/2000/svg">
 
-
-
     <symbol id="server" viewBox="0 0 20 20">
-        <rect  x="3" y="3" width="1" height="2"/>
-        <rect x="5" y="3" width="1" height="2"/>
-        <rect x="7" y="3" width="1" height="2"/>
-        <rect x="16" y="3" width="1" height="1"/>
-        <rect x="16" y="10" width="1" height="1"/>
-        <circle fill="none" stroke-width="1" cx="9.9" cy="17.4" r="1.4"/>
-        <rect x="3" y="10" width="1" height="2"/>
-        <rect x="5" y="10" width="1" height="2"/>
-        <rect x="9.5" y="14" width="1" height="2"/>
-        <rect x="3" y="17" width="6" height="1"/>
-        <rect x="11" y="17" width="6" height="1"/>
-        <rect fill="none" stroke-width="1" x="1.5" y="1.5" width="17" height="5"/>
-        <rect fill="none" stroke-width="1" x="1.5" y="8.5" width="17" height="5"/>
+        <rect  x="3" y="3" width="1" height="2"></rect>
+        <rect x="5" y="3" width="1" height="2"></rect>
+        <rect x="7" y="3" width="1" height="2"></rect>
+        <rect x="16" y="3" width="1" height="1"></rect>
+        <rect x="16" y="10" width="1" height="1"></rect>
+        <circle fill="none" stroke-width="1" cx="9.9" cy="17.4" r="1.4"></circle>
+        <rect x="3" y="10" width="1" height="2"></rect>
+        <rect x="5" y="10" width="1" height="2"></rect>
+        <rect x="9.5" y="14" width="1" height="2"></rect>
+        <rect x="3" y="17" width="6" height="1"></rect>
+        <rect x="11" y="17" width="6" height="1"></rect>
+        <rect fill="none" stroke-width="1" x="1.5" y="1.5" width="17" height="5"></rect>
+        <rect fill="none" stroke-width="1" x="1.5" y="8.5" width="17" height="5"></rect>
     </symbol>
 
     <symbol id="database" viewBox="0 0 20 20">
@@ -40,8 +38,8 @@
     </symbol>
 
     <symbol id="comments" viewBox="0 0 20 20">
-        <polygon fill="none" stroke-width="1" points="0.5,3.5 16.5,3.5 16.5,13.5 9.5,13.5 5.5,17.5 5.5,13.5 0.5,13.5 "/>
-        <polyline fill="none" stroke-width="1" points="3.5,2 3.5,0.5 19.5,0.5 19.5,10.5 18,10.5 "/>
+        <polygon fill="none" stroke-width="1" points="0.5,3.5 16.5,3.5 16.5,13.5 9.5,13.5 5.5,17.5 5.5,13.5 0.5,13.5 "></polygon>
+        <polyline fill="none" stroke-width="1" points="3.5,2 3.5,0.5 19.5,0.5 19.5,10.5 18,10.5 "></polyline>
     </symbol>
 
     <symbol id="camera" viewBox="0 0 20 20">
@@ -81,31 +79,31 @@
     </symbol>
 
     <symbol id="storage" viewBox="0 0 20 20">
-        <rect x="5" y="2" width="10" height="1"/>
-        <rect x="3" y="4" width="14" height="1"/>
-        <rect x="1.5" y="6.5" width="17" height="11" fill="none" stroke-width="1" />
+        <rect x="5" y="2" width="10" height="1"></rect>
+        <rect x="3" y="4" width="14" height="1"></rect>
+        <rect fill="none" stroke-width="1" x="1.5" y="6.5" width="17" height="11"></rect>
     </symbol>
 
     <symbol id="notification" viewBox="0 0 20 20">
-        <path d="M17,15.5 L3,15.5 C2.99,14.61 3.79,13.34 4.1,12.51 C4.58,11.3 4.72,10.35 5.19,7.01 C5.54,4.53 5.89,3.2 7.28,2.16 C8.13,1.56 9.37,1.5 9.81,1.5 L9.96,1.5 C9.96,1.5 11.62,1.41 12.67,2.17 C14.08,3.2 14.42,4.54 14.77,7.02 C15.26,10.35 15.4,11.31 15.87,12.52 C16.2,13.34 17.01,14.61 17,15.5 L17,15.5 Z" fill="none" stroke-width="1" />
-        <path d="M12.39,16 C12.39,17.37 11.35,18.43 9.91,18.43 C8.48,18.43 7.42,17.37 7.42,16" fill="none" stroke-width="1" />
+        <path fill="none" stroke-width="1" d="M17,15.5 L3,15.5 C2.99,14.61 3.79,13.34 4.1,12.51 C4.58,11.3 4.72,10.35 5.19,7.01 C5.54,4.53 5.89,3.2 7.28,2.16 C8.13,1.56 9.37,1.5 9.81,1.5 L9.96,1.5 C9.96,1.5 11.62,1.41 12.67,2.17 C14.08,3.2 14.42,4.54 14.77,7.02 C15.26,10.35 15.4,11.31 15.87,12.52 C16.2,13.34 17.01,14.61 17,15.5 L17,15.5 Z"></path>
+        <path fill="none" stroke-width="1" d="M12.39,16 C12.39,17.37 11.35,18.43 9.91,18.43 C8.48,18.43 7.42,17.37 7.42,16"></path>
     </symbol>
 
     <symbol id="large-screen" viewBox="0 0 20 20">
-        <rect x="7" y="16" width="6" height="1"/>
-        <rect fill="none" stroke-width="1" x="0.5" y="3.5" width="19" height="11"/>
+        <rect x="7" y="16" width="6" height="1"></rect>
+        <rect fill="none" stroke-width="1" x="0.5" y="3.5" width="19" height="11"></rect>
     </symbol>
 
     <symbol id="desktop" viewBox="0 0 20 20">
-        <rect x="9" y="15" width="1" height="2"/>
-        <rect x="11" y="15" width="1" height="2"/>
-        <rect x="6" y="17" width="9" height="1"/>
-        <rect fill="none" stroke-width="1" x="1.5" y="3.5" width="17" height="11"/>
+        <rect x="9" y="15" width="1" height="2"></rect>
+        <rect x="11" y="15" width="1" height="2"></rect>
+        <rect x="6" y="17" width="9" height="1"></rect>
+        <rect fill="none" stroke-width="1" x="1.5" y="3.5" width="17" height="11"></rect>
     </symbol>
 
     <symbol id="notebook" viewBox="0 0 20 20">
-        <rect y="16" width="20" height="1"/>
-        <rect fill="none" stroke-width="1" x="2.5" y="4.5" width="15" height="10"/>
+        <rect y="16" width="20" height="1"></rect>
+        <rect fill="none" stroke-width="1" x="2.5" y="4.5" width="15" height="10"></rect>
     </symbol>
 
     <symbol id="tablet" viewBox="0 0 20 20">
@@ -125,15 +123,15 @@
     </symbol>
 
     <symbol id="settings" viewBox="0 0 20 20">
-        <ellipse cx="6.11" cy="3.55" rx="2.11" ry="2.15" fill="none" stroke-width="1" />
-        <ellipse cx="6.11" cy="15.55" rx="2.11" ry="2.15" fill="none" stroke-width="1" />
-        <circle cx="13.15" cy="9.55" r="2.15" fill="none" stroke-width="1" />
-        <rect x="1" y="3" width="3" height="1"/>
-        <rect x="10" y="3" width="8" height="1"/>
-        <rect x="1" y="9" width="8" height="1"/>
-        <rect x="15" y="9" width="3" height="1"/>
-        <rect x="1" y="15" width="3" height="1"/>
-        <rect x="10" y="15" width="8" height="1"/>
+        <ellipse fill="none" stroke-width="1" cx="6.11" cy="3.55" rx="2.11" ry="2.15"></ellipse>
+        <ellipse fill="none" stroke-width="1" cx="6.11" cy="15.55" rx="2.11" ry="2.15"></ellipse>
+        <circle fill="none" stroke-width="1" cx="13.15" cy="9.55" r="2.15"></circle>
+        <rect x="1" y="3" width="3" height="1"></rect>
+        <rect x="10" y="3" width="8" height="1"></rect>
+        <rect x="1" y="9" width="8" height="1"></rect>
+        <rect x="15" y="9" width="3" height="1"></rect>
+        <rect x="1" y="15" width="3" height="1"></rect>
+        <rect x="10" y="15" width="8" height="1"></rect>
     </symbol>
 
     <symbol id="refresh" viewBox="0 0 20 20">
@@ -142,12 +140,12 @@
     </symbol>
 
     <symbol id="help" viewBox="0 0 20 20">
-        <polygon points="11.6,5.07 14.52,2.15 17.35,4.98 14.52,7.8"/>
-        <polygon points="14.66,11.83 17.56,14.73 14.73,17.56 11.9,14.73"/>
-        <polygon points="7.81,14.53 4.98,17.36 2.15,14.53 5.1,11.58"/>
-        <polygon points="5.24,8.06 2.29,5.11 5.11,2.27 8.18,5.34"/>
-        <circle cx="10" cy="10" r="9" fill="none" stroke-width="1" />
-        <circle cx="10" cy="10" r="5" fill="none" stroke-width="1" />
+        <polygon points="11.6,5.07 14.52,2.15 17.35,4.98 14.52,7.8"></polygon>
+        <polygon points="14.66,11.83 17.56,14.73 14.73,17.56 11.9,14.73"></polygon>
+        <polygon points="7.81,14.53 4.98,17.36 2.15,14.53 5.1,11.58"></polygon>
+        <polygon points="5.24,8.06 2.29,5.11 5.11,2.27 8.18,5.34"></polygon>
+        <circle fill="none" stroke-width="1" cx="10" cy="10" r="9"></circle>
+        <circle fill="none" stroke-width="1" cx="10" cy="10" r="5"></circle>
     </symbol>
 
     <symbol id="help-2" viewBox="0 0 20 20">
@@ -171,92 +169,92 @@
     </symbol>
 
     <symbol id="thumbnails" viewBox="0 0 20 20">
-        <rect x="3.5" y="3.5" width="5" height="5" fill="none" stroke-width="1" />
-        <rect x="11.5" y="3.5" width="5" height="5" fill="none" stroke-width="1" />
-        <rect x="11.5" y="11.5" width="5" height="5" fill="none" stroke-width="1" />
-        <rect x="3.5" y="11.5" width="5" height="5" fill="none" stroke-width="1" />
+        <rect fill="none" stroke-width="1" x="3.5" y="3.5" width="5" height="5"></rect>
+        <rect fill="none" stroke-width="1" x="11.5" y="3.5" width="5" height="5"></rect>
+        <rect fill="none" stroke-width="1" x="11.5" y="11.5" width="5" height="5"></rect>
+        <rect fill="none" stroke-width="1" x="3.5" y="11.5" width="5" height="5"></rect>
     </symbol>
 
     <symbol id="warning" viewBox="0 0 20 20">
-        <polygon points="10 1 19 10 10 19 1 10" fill="none" stroke-width="1" />
-        <circle cx="10" cy="14" r="1" />
-        <path d="M10.966,7.716 C10.845,9.535 10.56,11.289 10.56,11.289 C10.506,11.866 10.266,12 9.99,12 C9.692,12 9.485,11.866 9.43,11.289 C9.43,11.289 9.156,9.535 9.035,7.716 C8.957,6.539 9.035,5.996 9.035,5.996 C9.035,5.441 9.462,5.011 9.99,5 C10.527,5.011 10.966,5.441 10.966,5.996 C10.966,5.996 11.043,6.539 10.966,7.716"/>
+        <polygon fill="none" stroke-width="1" points="10 1 19 10 10 19 1 10"></polygon>
+        <circle cx="10" cy="14" r="1"></circle>
+        <path d="M10.966,7.716 C10.845,9.535 10.56,11.289 10.56,11.289 C10.506,11.866 10.266,12 9.99,12 C9.692,12 9.485,11.866 9.43,11.289 C9.43,11.289 9.156,9.535 9.035,7.716 C8.957,6.539 9.035,5.996 9.035,5.996 C9.035,5.441 9.462,5.011 9.99,5 C10.527,5.011 10.966,5.441 10.966,5.996 C10.966,5.996 11.043,6.539 10.966,7.716"></path>
     </symbol>
 
     <symbol id="share" viewBox="0 0 20 20">
-        <polyline points="6.53 3.94 9.5 1 12.42 3.94" fill="none" stroke-width="1" />
-        <line x1="9.5" y1="10.41" x2="9.5" y2="1.41" fill="none" stroke-width="1" />
-        <polyline points="6 5.5 3.5 5.5 3.5 18.5 15.5 18.5 15.5 5.5 13 5.5" fill="none" stroke-width="1" />
+        <polyline fill="none" stroke-width="1" points="6.53 3.94 9.5 1 12.42 3.94"></polyline>
+        <line fill="none" stroke-width="1" x1="9.5" y1="10.41" x2="9.5" y2="1.41"></line>
+        <polyline fill="none" stroke-width="1" points="6 5.5 3.5 5.5 3.5 18.5 15.5 18.5 15.5 5.5 13 5.5"></polyline>
     </symbol>
 
     <symbol id="upload" viewBox="0 0 20 20">
-        <polyline points="6 7 9.5 3.5 13 7" fill="none" stroke-width="1" />
-        <rect x="3" y="17" width="13" height="1"/>
-        <line x1="9.5" y1="15" x2="9.5" y2="4" fill="none" stroke-width="1" />
+        <polyline fill="none" stroke-width="1" points="6 7 9.5 3.5 13 7"></polyline>
+        <rect x="3" y="17" width="13" height="1"></rect>
+        <line fill="none" stroke-width="1" x1="9.5" y1="15" x2="9.5" y2="4"></line>
     </symbol>
 
     <symbol id="trash" viewBox="0 0 20 20">
-        <polyline points="6.5 3 6.5 1.5 13.5 1.5 13.5 3" fill="none" stroke-width="1" />
-        <polyline points="4.5 4 4.5 18.5 15.5 18.5 15.5 4" fill="none" stroke-width="1" />
-        <rect x="8" y="7" width="1" height="9"/>
-        <rect x="11" y="7" width="1" height="9"/>
-        <rect x="2" y="3" width="16" height="1"/>
+        <polyline fill="none" stroke-width="1" points="6.5 3 6.5 1.5 13.5 1.5 13.5 3"></polyline>
+        <polyline fill="none" stroke-width="1" points="4.5 4 4.5 18.5 15.5 18.5 15.5 4"></polyline>
+        <rect x="8" y="7" width="1" height="9"></rect>
+        <rect x="11" y="7" width="1" height="9"></rect>
+        <rect x="2" y="3" width="16" height="1"></rect>
     </symbol>
 
     <symbol id="toggler" viewBox="0 0 20 20">
-        <rect x="3" y="5" width="14" height="1" />
-        <rect x="3" y="9" width="14" height="1" />
-        <rect x="3" y="13" width="14" height="1" />
+        <rect x="3" y="5" width="14" height="1"></rect>
+        <rect x="3" y="9" width="14" height="1"></rect>
+        <rect x="3" y="13" width="14" height="1"></rect>
     </symbol>
 
     <symbol id="toggler-more-vertical" viewBox="0 0 20 20">
-        <circle cx="10" cy="3" r="2" />
-        <circle cx="10" cy="10" r="2" />
-        <circle cx="10" cy="17" r="2" />
+        <circle cx="10" cy="3" r="2"></circle>
+        <circle cx="10" cy="10" r="2"></circle>
+        <circle cx="10" cy="17" r="2"></circle>
     </symbol>
 
     <symbol id="toggler-more" viewBox="0 0 20 20">
-        <circle cx="3" cy="10" r="2" />
-        <circle cx="10" cy="10" r="2" />
-        <circle cx="17" cy="10" r="2" />
+        <circle cx="3" cy="10" r="2"></circle>
+        <circle cx="10" cy="10" r="2"></circle>
+        <circle cx="17" cy="10" r="2"></circle>
     </symbol>
 
     <symbol id="table" viewBox="0 0 20 20">
-        <rect x="1" y="3" width="18" height="1" />
-        <rect x="1" y="7" width="18" height="1" />
-        <rect x="1" y="11" width="18" height="1" />
-        <rect x="1" y="15" width="18" height="1" />
+        <rect x="1" y="3" width="18" height="1"></rect>
+        <rect x="1" y="7" width="18" height="1"></rect>
+        <rect x="1" y="11" width="18" height="1"></rect>
+        <rect x="1" y="15" width="18" height="1"></rect>
     </symbol>
 
     <symbol id="shopping-cart" viewBox="0 0 20 20">
-        <polyline points="1 3 4 5 6 13.5 16.5 13.5 18.5 7.5 9.5 7.5" fill="none" stroke-width="1" />
-        <circle cx="14.5" cy="16.5" r="1.5"/>
-        <circle cx="8.5" cy="16.5" r="1.5"/>
+        <polyline fill="none" stroke-width="1" points="1 3 4 5 6 13.5 16.5 13.5 18.5 7.5 9.5 7.5"></polyline>
+        <circle cx="14.5" cy="16.5" r="1.5"></circle>
+        <circle cx="8.5" cy="16.5" r="1.5"></circle>
     </symbol>
 
     <symbol id="block" viewBox="0 0 20 20">
-        <circle cx="10" cy="10" r="9" fill="none" stroke-width="1" />
-        <line x1="4" y1="3.5" x2="16" y2="16.5" fill="none" stroke-width="1" />
+        <circle fill="none" stroke-width="1" cx="10" cy="10" r="9"></circle>
+        <line fill="none" stroke-width="1" x1="4" y1="3.5" x2="16" y2="16.5"></line>
     </symbol>
 
     <symbol id="star" viewBox="0 0 20 20">
-        <polygon points="10 2 12.63 7.27 18.5 8.12 14.25 12.22 15.25 18 10 15.27 4.75 18 5.75 12.22 1.5 8.12 7.37 7.27" fill="none" stroke-width="1" />
+        <polygon fill="none" stroke-width="1" points="10 2 12.63 7.27 18.5 8.12 14.25 12.22 15.25 18 10 15.27 4.75 18 5.75 12.22 1.5 8.12 7.37 7.27"></polygon>
     </symbol>
 
     <symbol id="sort-up" viewBox="0 0 20 20">
-        <polygon points="5 13 10 8 15 13" />
+        <polygon points="5 13 10 8 15 13"></polygon>
     </symbol>
 
     <symbol id="sort-down" viewBox="0 0 20 20">
-        <polygon points="5 7 15 7 10 12" />
+        <polygon points="5 7 15 7 10 12"/>
     </symbol>
 
     <symbol id="sort-left" viewBox="0 0 20 20">
-        <polygon points="12 5 7 10 12 15" />
+        <polygon points="12 5 7 10 12 15"></polygon>
     </symbol>
 
     <symbol id="sort-right" viewBox="0 0 20 20">
-        <polygon points="8 5 13 10 8 15" />
+        <polygon points="8 5 13 10 8 15"></polygon>
     </symbol>
 
     <symbol id="smily" viewBox="0 0 20 20">
@@ -267,8 +265,8 @@
     </symbol>
 
     <symbol id="search" viewBox="0 0 20 20">
-        <circle cx="9" cy="9" r="7" fill="none" stroke-width="1" />
-        <path d="M14,14 L18,18 L14,14 Z" fill="none" stroke-width="1" />
+        <circle fill="none" stroke-width="1" cx="9" cy="9" r="7"></circle>
+        <path fill="none" stroke-width="1" d="M14,14 L18,18 L14,14 Z"></path>
     </symbol>
 
     <symbol id="reply" viewBox="0 0 20 20">
@@ -280,12 +278,12 @@
     </symbol>
 
     <symbol id="plus" viewBox="0 0 20 20">
-        <rect x="9" y="1" width="1" height="17"/>
-        <rect x="1" y="9" width="17" height="1"/>
+        <rect x="9" y="1" width="1" height="17"></rect>
+        <rect x="1" y="9" width="17" height="1"></rect>
     </symbol>
 
     <symbol id="plus-2" viewBox="0 0 20 20">
-        <polygon id="Path-376" points="9 1 10 1 10 9 18 9 18 10 10 10 10 18 9 18 9 10 1 10 1 9 9 9" />
+        <polygon id="Path-376" points="9 1 10 1 10 9 18 9 18 10 10 10 10 18 9 18 9 10 1 10 1 9 9 9"></polygon>
     </symbol>
 
     <symbol id="lock" viewBox="0 0 20 20">
@@ -299,38 +297,38 @@
     </symbol>
 
     <symbol id="move" viewBox="0 0 20 20">
-        <polygon points="4,5 1,5 1,9 2,9 2,6 4,6 "/>
-        <polygon points="1,16 2,16 2,18 4,18 4,19 1,19 "/>
-        <polygon points="14,16 14,19 11,19 11,18 13,18 13,16 "/>
-        <rect x="5.5" y="1.5" width="13" height="13" fill="none" stroke-width="1" />
-        <rect x="1" y="11" width="1" height="3"/>
-        <rect x="6" y="18" width="3" height="1"/>
+        <polygon points="4,5 1,5 1,9 2,9 2,6 4,6 "></polygon>
+        <polygon points="1,16 2,16 2,18 4,18 4,19 1,19 "></polygon>
+        <polygon points="14,16 14,19 11,19 11,18 13,18 13,16 "></polygon>
+        <rect fill="none" stroke-width="1" x="5.5" y="1.5" width="13" height="13"></rect>
+        <rect x="1" y="11" width="1" height="3"></rect>
+        <rect x="6" y="18" width="3" height="1"></rect>
     </symbol>
 
     <symbol id="media" viewBox="0 0 20 20">
-        <polyline points="1,16 6,11 8,13 13,7 19,16 " fill="none" stroke-width="1" />
-        <circle r="1.5" cy="6.5" cx="5.5" />
-        <rect height="14" width="19" y="2.5" x="0.5" fill="none" stroke-width="1" />
+        <polyline fill="none" stroke-width="1" points="1,16 6,11 8,13 13,7 19,16 "></polyline>
+        <circle r="1.5" cy="6.5" cx="5.5"></circle>
+        <rect fill="none" stroke-width="1" height="14" width="19" y="2.5" x="0.5"></rect>
     </symbol>
 
     <symbol id="minus" viewBox="0 0 20 20">
-        <rect height="1" width="18" y="9" x="1" />
+        <rect height="1" width="18" y="9" x="1"></rect>
     </symbol>
 
     <symbol id="email" viewBox="0 0 20 20">
-        <polyline points="1.4,6.5 10,11 18.6,6.5 " fill="none" stroke-width="1" />
-        <path d="M 1,4 1,16 19,16 19,4 1,4 Z M 18,15 2,15 2,5 18,5 18,15 Z" />
+        <polyline fill="none" stroke-width="1" points="1.4,6.5 10,11 18.6,6.5"></polyline>
+        <path d="M 1,4 1,16 19,16 19,4 1,4 Z M 18,15 2,15 2,5 18,5 18,15 Z"></path>
     </symbol>
 
     <symbol id="logout" viewBox="0 0 20 20">
-        <polygon points="13.1 13.4 12.5 12.8 15.28 10 8 10 8 9 15.28 9 12.5 6.2 13.1 5.62 17 9.5" />
-        <polygon points="13 2 3 2 3 17 13 17 13 16 4 16 4 3 13 3" />
+        <polygon points="13.1 13.4 12.5 12.8 15.28 10 8 10 8 9 15.28 9 12.5 6.2 13.1 5.62 17 9.5"></polygon>
+        <polygon points="13 2 3 2 3 17 13 17 13 16 4 16 4 3 13 3"></polygon>
     </symbol>
 
     <symbol id="home" viewBox="0 0 20 20">
-        <polyline points="1 11 10 2 19 11" fill="none" stroke-width="1" />
-        <polygon points="15 4 18 4 18 7 17 7 17 5 15 5" />
-        <polygon points="3 11 4 11 4 18 7 18 7 12 12 12 12 18 16 18 16 11 17 11 17 19 11 19 11 13 8 13 8 19 3 19" />
+        <polyline fill="none" stroke-width="1" points="1 11 10 2 19 11"></polyline>
+        <polygon points="15 4 18 4 18 7 17 7 17 5 15 5"></polygon>
+        <polygon points="3 11 4 11 4 18 7 18 7 12 12 12 12 18 16 18 16 11 17 11 17 19 11 19 11 13 8 13 8 19 3 19"></polygon>
     </symbol>
 
     <symbol id="heart" viewBox="0 0 20 20">
@@ -338,44 +336,44 @@
     </symbol>
 
     <symbol id="page" viewBox="0 0 20 20">
-        <path d="M 12.42,1 3,1 3,19 17,19 17,5.57 12.42,1 Z M 16,18 4,18 4,2 l 7,0 0,5 5,0 0,11 z M 12,6 12,2 16,6 12,6 Z" />
+        <path d="M 12.42,1 3,1 3,19 17,19 17,5.57 12.42,1 Z M 16,18 4,18 4,2 l 7,0 0,5 5,0 0,11 z M 12,6 12,2 16,6 12,6 Z"></path>
     </symbol>
 
     <symbol id="hashtag" viewBox="0 0 20 20">
-        <path d="M15.431,8 L15.661,7 L12.911,7 L13.831,3 L12.901,3 L11.98,7 L9.29,7 L10.21,3 L9.281,3 L8.361,7 L5.23,7 L5,8 L8.13,8 L7.21,12 L4.23,12 L4,13 L6.98,13 L6.061,17 L6.991,17 L7.911,13 L10.601,13 L9.681,17 L10.611,17 L11.531,13 L14.431,13 L14.661,12 L11.76,12 L12.681,8 L15.431,8 Z M10.831,12 L8.141,12 L9.061,8 L11.75,8 L10.831,12 Z" />
+        <path d="M15.431,8 L15.661,7 L12.911,7 L13.831,3 L12.901,3 L11.98,7 L9.29,7 L10.21,3 L9.281,3 L8.361,7 L5.23,7 L5,8 L8.13,8 L7.21,12 L4.23,12 L4,13 L6.98,13 L6.061,17 L6.991,17 L7.911,13 L10.601,13 L9.681,17 L10.611,17 L11.531,13 L14.431,13 L14.661,12 L11.76,12 L12.681,8 L15.431,8 Z M10.831,12 L8.141,12 L9.061,8 L11.75,8 L10.831,12 Z"></path>
     </symbol>
 
     <symbol id="hashtag-2" viewBox="0 0 20 20">
-        <polygon points="5.23,7 15.66,7 15.43,8 5,8"/>
-        <polygon points="4.23,12 14.66,12 14.43,13 4,13"/>
-        <path d="M 13.83,3 12.9,3 9.68,17 10.61,17 13.83,3 Z"/>
-        <path d="M 10.15,3 9.22,3 6,17 6.93,17 10.15,3 Z" />
+        <polygon points="5.23,7 15.66,7 15.43,8 5,8"></polygon>
+        <polygon points="4.23,12 14.66,12 14.43,13 4,13"></polygon>
+        <path d="M 13.83,3 12.9,3 9.68,17 10.61,17 13.83,3 Z"></path>
+        <path d="M 10.15,3 9.22,3 6,17 6.93,17 10.15,3 Z"></path>
     </symbol>
 
     <symbol id="code" viewBox="0 0 20 20">
-        <polyline points="6,14 2,10 6,6" fill="none" stroke-width="1" />
-        <polyline points="15,6 19,10 15,14" fill="none" stroke-width="1" />
-        <path d="M13,6 L8,14" fill="none" stroke-width="1" />
+        <polyline fill="none" stroke-width="1" points="6,14 2,10 6,6"></polyline>
+        <polyline fill="none" stroke-width="1" points="15,6 19,10 15,14"></polyline>
+        <path fill="none" stroke-width="1" d="M13,6 L8,14"></path>
     </symbol>
 
     <symbol id="check" viewBox="0 0 20 20">
-        <polyline points="4,10 8,15 17,4 " fill="none" stroke-width="1" />
+        <polyline fill="none" stroke-width="1" points="4,10 8,15 17,4"></polyline>
     </symbol>
 
     <symbol id="angle-top" viewBox="0 0 20 20">
-        <polyline points="4 13 10 7 16 13" fill="none" stroke-width="1" />
+        <polyline fill="none" stroke-width="1" points="4 13 10 7 16 13"></polyline>
     </symbol>
 
     <symbol id="angle-bottom" viewBox="0 0 20 20">
-        <polyline points="16 7 10 13 4 7" fill="none" stroke-width="1" />
+        <polyline fill="none" stroke-width="1" points="16 7 10 13 4 7"></polyline>
     </symbol>
 
     <symbol id="angle-left" viewBox="0 0 20 20">
-        <polyline points="13 16 7 10 13 4" fill="none" stroke-width="1" />
+        <polyline fill="none" stroke-width="1" points="13 16 7 10 13 4"></polyline>
     </symbol>
 
     <symbol id="angle-right" viewBox="0 0 20 20">
-        <polyline points="7 4 13 10 7 16" fill="none" stroke-width="1" />
+        <polyline fill="none" stroke-width="1" points="7 4 13 10 7 16"></polyline>
     </symbol>
 
     <!-- runden -->
@@ -386,9 +384,9 @@
     </symbol>
 
     <symbol id="calendar" viewBox="0 0 20 20">
-        <path d="M 2,3 2,17 18,17 18,3 2,3 Z M 17,16 3,16 3,8 17,8 17,16 Z M 17,7 3,7 3,4 17,4 17,7 Z" />
-        <rect width="1" height="3" x="6" y="2" />
-        <rect width="1" height="3" x="13" y="2" />
+        <path d="M 2,3 2,17 18,17 18,3 2,3 Z M 17,16 3,16 3,8 17,8 17,16 Z M 17,7 3,7 3,4 17,4 17,7 Z"></path>
+        <rect width="1" height="3" x="6" y="2"></rect>
+        <rect width="1" height="3" x="13" y="2"></rect>
     </symbol>
 
     <symbol id="shedule" viewBox="0 0 20 20">
@@ -400,9 +398,9 @@
     </symbol>
 
     <symbol id="time" viewBox="0 0 20 20">
-        <circle r="8" cy="10" cx="10" fill="none" stroke-width="1" />
-        <rect x="9" y="4" width="1" height="7" />
-        <rect x="10" y="10" width="5" height="1" />
+        <circle fill="none" stroke-width="1" r="8" cy="10" cx="10"></circle>
+        <rect x="9" y="4" width="1" height="7"></rect>
+        <rect x="10" y="10" width="5" height="1"></rect>
     </symbol>
 
 <!-- socials todo runden -->
@@ -425,16 +423,16 @@
     </symbol>
 
     <symbol id="uikit" viewBox="0 0 20 20">
-        <polygon points="14.35 3.5 11.27 5.4 14.75 7.4 14.75 12.7 10 15.4 5 12.7 5 8.6 2 7 2 14.5 9.9 19 17.9 14.5 17.9 5.5" />
-        <polygon points="12.58 2.8 9.6 1 6.5 3 9.5 4.6" />
+        <polygon points="14.35 3.5 11.27 5.4 14.75 7.4 14.75 12.7 10 15.4 5 12.7 5 8.6 2 7 2 14.5 9.9 19 17.9 14.5 17.9 5.5"></polygon>
+        <polygon points="12.58 2.8 9.6 1 6.5 3 9.5 4.6"></polygon>
     </symbol>
 
     <symbol id="twitter" viewBox="0 0 20 20">
-        <path d="M19,4.74 C18.339,5.029 17.626,5.229 16.881,5.32 C17.644,4.86 18.227,4.139 18.503,3.28 C17.79,3.7 17.001,4.009 16.159,4.17 C15.485,3.45 14.526,3 13.464,3 C11.423,3 9.771,4.66 9.771,6.7 C9.771,6.99 9.804,7.269 9.868,7.539 C6.795,7.38 4.076,5.919 2.254,3.679 C1.936,4.219 1.754,4.86 1.754,5.539 C1.754,6.82 2.405,7.95 3.397,8.61 C2.79,8.589 2.22,8.429 1.723,8.149 L1.723,8.189 C1.723,9.978 2.997,11.478 4.686,11.82 C4.376,11.899 4.049,11.939 3.713,11.939 C3.475,11.939 3.245,11.919 3.018,11.88 C3.49,13.349 4.852,14.419 6.469,14.449 C5.205,15.429 3.612,16.019 1.882,16.019 C1.583,16.019 1.29,16.009 1,15.969 C2.635,17.019 4.576,17.629 6.662,17.629 C13.454,17.629 17.17,12 17.17,7.129 C17.17,6.969 17.166,6.809 17.157,6.649 C17.879,6.129 18.504,5.478 19,4.74" />
+        <path d="M19,4.74 C18.339,5.029 17.626,5.229 16.881,5.32 C17.644,4.86 18.227,4.139 18.503,3.28 C17.79,3.7 17.001,4.009 16.159,4.17 C15.485,3.45 14.526,3 13.464,3 C11.423,3 9.771,4.66 9.771,6.7 C9.771,6.99 9.804,7.269 9.868,7.539 C6.795,7.38 4.076,5.919 2.254,3.679 C1.936,4.219 1.754,4.86 1.754,5.539 C1.754,6.82 2.405,7.95 3.397,8.61 C2.79,8.589 2.22,8.429 1.723,8.149 L1.723,8.189 C1.723,9.978 2.997,11.478 4.686,11.82 C4.376,11.899 4.049,11.939 3.713,11.939 C3.475,11.939 3.245,11.919 3.018,11.88 C3.49,13.349 4.852,14.419 6.469,14.449 C5.205,15.429 3.612,16.019 1.882,16.019 C1.583,16.019 1.29,16.009 1,15.969 C2.635,17.019 4.576,17.629 6.662,17.629 C13.454,17.629 17.17,12 17.17,7.129 C17.17,6.969 17.166,6.809 17.157,6.649 C17.879,6.129 18.504,5.478 19,4.74"></path>
     </symbol>
 
     <symbol id="pagekit" viewBox="0 0 20 20">
-        <polygon points="3 0 18 0 18 16 11 16 11 13 15 13 15 3 6 3 6 16 11 16 11 19 3 19" />
+        <polygon points="3 0 18 0 18 16 11 16 11 13 15 13 15 3 6 3 6 16 11 16 11 19 3 19"></polygon>
     </symbol>
 
     <symbol id="instagram" viewBox="0 0 20 20">
@@ -465,8 +463,8 @@
     </symbol>
 
     <symbol id="flickr" viewBox="0 0 20 20">
-        <circle cx="5" cy="9.5" r="3.5"/>
-        <circle cx="14" cy="9.5" r="3.5"/>
+        <circle cx="5" cy="9.5" r="3.5"></circle>
+        <circle cx="14" cy="9.5" r="3.5"></circle>
     </symbol>
 
     <symbol id="google-plus" viewBox="0 0 20 20">
@@ -499,7 +497,7 @@
     </symbol>
 
     <symbol id="bold" viewBox="0 0 20 20">
-        <path d="M5,15.3 C5.66,15.3 5.9,15 5.9,14.53 L5.9,5.5 C5.9,4.92 5.56,4.7 5,4.7 L5,4 L8.95,4 C12.6,4 13.7,5.37 13.7,6.9 C13.7,7.87 13.14,9.17 10.86,9.59 L10.86,9.7 C13.25,9.86 14.29,11.28 14.3,12.54 C14.3,14.47 12.94,16 9,16 L5,16 L5,15.3 Z M9,9.3 C11.19,9.3 11.8,8.5 11.85,7 C11.85,5.65 11.3,4.8 9,4.8 L7.67,4.8 L7.67,9.3 L9,9.3 Z M9.185,15.22 C11.97,15 12.39,14 12.4,12.58 C12.4,11.15 11.39,10 9,10 L7.67,10 L7.67,15 L9.18,15 Z" />
+        <path d="M5,15.3 C5.66,15.3 5.9,15 5.9,14.53 L5.9,5.5 C5.9,4.92 5.56,4.7 5,4.7 L5,4 L8.95,4 C12.6,4 13.7,5.37 13.7,6.9 C13.7,7.87 13.14,9.17 10.86,9.59 L10.86,9.7 C13.25,9.86 14.29,11.28 14.3,12.54 C14.3,14.47 12.94,16 9,16 L5,16 L5,15.3 Z M9,9.3 C11.19,9.3 11.8,8.5 11.85,7 C11.85,5.65 11.3,4.8 9,4.8 L7.67,4.8 L7.67,9.3 L9,9.3 Z M9.185,15.22 C11.97,15 12.39,14 12.4,12.58 C12.4,11.15 11.39,10 9,10 L7.67,10 L7.67,15 L9.18,15 Z"></path>
     </symbol>
 
     <symbol id="italic" viewBox="0 0 20 20">
@@ -512,8 +510,8 @@
     </symbol>
 
     <symbol id="video" viewBox="0 0 20 20">
-        <polygon points="18,6 18,14 12,10 "/>
-        <rect x="2" y="5" width="12" height="10"/>
+        <polygon points="18,6 18,14 12,10 "></polygon>
+        <rect x="2" y="5" width="12" height="10"></rect>
     </symbol>
 <!-- editor ende -->
 
@@ -530,17 +528,17 @@
     </symbol>
 
     <symbol id="minimize" viewBox="0 0 20 20">
-        <polygon points="11 4 12 4 12 8 16 8 16 9 11 9" />
-        <polygon points="4 11 9 11 9 16 8 16 8 12 4 12" />
-        <path d="M12,8 L18,2" fill="none" stroke-width="1" />
-        <path d="M2,18 L8,12" fill="none" stroke-width="1" />
+        <polygon points="11 4 12 4 12 8 16 8 16 9 11 9"></polygon>
+        <polygon points="4 11 9 11 9 16 8 16 8 12 4 12"></polygon>
+        <path fill="none" stroke-width="1" d="M12,8 L18,2"></path>
+        <path fill="none" stroke-width="1" d="M2,18 L8,12"></path>
     </symbol>
 
     <symbol id="fullscreen" viewBox="0 0 20 20">
-        <polygon points="13 2 18 2 18 7 17 7 17 3 13 3" />
-        <polygon points="2 13 3 13 3 17 7 17 7 18 2 18" />
-        <path d="M11,9 L17,3" fill="none" stroke-width="1" />
-        <path d="M3,17 L9,11" fill="none" stroke-width="1" />
+        <polygon points="13 2 18 2 18 7 17 7 17 3 13 3"></polygon>
+        <polygon points="2 13 3 13 3 17 7 17 7 18 2 18"></polygon>
+        <path fill="none" stroke-width="1" d="M11,9 L17,3"></path>
+        <path fill="none" stroke-width="1" d="M3,17 L9,11"></path>
     </symbol>
 
     <symbol id="edit" viewBox="0 0 20 20">
@@ -553,40 +551,34 @@
     </symbol>
 
     <symbol id="download" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1" points="14,10 9.5,14.5 5,10 "/>
-        <rect x="3" y="17" width="13" height="1"/>
-        <line fill="none" stroke-width="1" x1="9.5" y1="13.91" x2="9.5" y2="3"/>
+        <polyline fill="none" stroke-width="1" points="14,10 9.5,14.5 5,10"></polyline>
+        <rect x="3" y="17" width="13" height="1"></rect>
+        <line fill="none" stroke-width="1" x1="9.5" y1="13.91" x2="9.5" y2="3"></line>
     </symbol>
 
     <symbol id="close" viewBox="0 0 20 20">
-        <path d="M16,16 L4,4" fill="none" stroke-width="1" />
-        <path d="M16,4 L4,16" fill="none" stroke-width="1" />
+        <path fill="none" stroke-width="1" d="M16,16 L4,4"></path>
+        <path fill="none" stroke-width="1" d="M16,4 L4,16"></path>
     </symbol>
 
     <symbol id="arrow-top" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1" points="15.5,9 10.5,4 5.5,9 "/>
-        <line fill="none" stroke-width="1" x1="10.5" y1="16" x2="10.5" y2="4.5"/>
+        <polyline fill="none" stroke-width="1" points="15.5,9 10.5,4 5.5,9"></polyline>
+        <line fill="none" stroke-width="1" x1="10.5" y1="16" x2="10.5" y2="4.5"></line>
     </symbol>
 
     <symbol id="arrow-down" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1" points="15,10 10.5,15 6,10 "/>
-        <line fill="none" stroke-width="1" x1="10.5" y1="3" x2="10.5" y2="14"/>
+        <polyline fill="none" stroke-width="1" points="15,10 10.5,15 6,10 "></polyline>
+        <line fill="none" stroke-width="1" x1="10.5" y1="3" x2="10.5" y2="14"></line>
     </symbol>
 
     <symbol id="arrow-left" viewBox="0 0 20 20">
-        <polyline points="5.8,11 16,11 16,10 5.8,10 10.15,5.66 9.5,5 4,10.5 9.5,16 10.15,15.34 5.8,11" />
+        <polyline points="5.8,11 16,11 16,10 5.8,10 10.15,5.66 9.5,5 4,10.5 9.5,16 10.15,15.34 5.8,11"></polyline>
     </symbol>
 
     <symbol id="arrow-right" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1" points="10,5 15,9.5 10,14 "/>
-        <line fill="none" stroke-width="1" x1="4" y1="9.5" x2="15" y2="9.5"/>
+        <polyline fill="none" stroke-width="1" points="10,5 15,9.5 10,14 "></polyline>
+        <line fill="none" stroke-width="1" x1="4" y1="9.5" x2="15" y2="9.5"></line>
     </symbol>
-<!-- todo ende -->
-
-
-
-
-
 
     <symbol id="trash-alt" viewBox="0 0 16 18">
         <rect x="8" y="7" width="1" height="9"></rect>
