@@ -11,15 +11,21 @@
 @navbar-dropdown-background:                    @global-background;
 @navbar-dropdown-grid-gutter-horizontal:        (@navbar-dropdown-padding * 2);
 
+
 // Component
 // ========================================================================
 
 .hook-navbar() {}
 
 
-// Nav
+// Container
 // ========================================================================
 
+.hook-navbar-container() {}
+
+
+// Nav
+// ========================================================================
 
 .hook-navbar-nav-item() {}
 
@@ -105,26 +111,16 @@
      * Navbar
      */
 
-    /* Phone landscape and bigger */
-    @media (min-width: @breakpoint-small) {
-
-        .uk-navbar:not(.uk-navbar-container) {
-            padding-left: @navbar-nav-item-padding-horizontal;
-            padding-right: @navbar-nav-item-padding-horizontal;
-        }
-
-    }
-
-    .uk-navbar-container .uk-navbar-left { margin-left: -@navbar-nav-item-padding-horizontal; }
-    .uk-navbar-container .uk-navbar-right { margin-right: -@navbar-nav-item-padding-horizontal; }
+    .uk-navbar-container > .uk-container .uk-navbar-left { margin-left: -@navbar-nav-item-padding-horizontal; }
+    .uk-navbar-container > .uk-container .uk-navbar-right { margin-right: -@navbar-nav-item-padding-horizontal; }
 
     /*
      * Dropdown
      * Note: Don't adjust if boundary-align is true
      */
 
-    .uk-navbar-dropdown-top-left:not(.uk-navbar-dropdown-boundary),
-    .uk-navbar-dropdown-bottom-left:not(.uk-navbar-dropdown-boundary) { margin-left: @navbar-nav-item-padding-horizontal - 25px; }
+    // .uk-navbar-dropdown-top-left:not(.uk-navbar-dropdown-boundary),
+    // .uk-navbar-dropdown-bottom-left:not(.uk-navbar-dropdown-boundary) { margin-left: @navbar-nav-item-padding-horizontal - 25px; }
 
     /*
      * Nav

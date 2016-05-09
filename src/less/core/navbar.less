@@ -3,7 +3,8 @@
 //
 // Component:       `uk-navbar`
 //
-// Sub-objects:     `uk-navbar-left`
+// Sub-objects:     `uk-navbar-container`
+//                  `uk-navbar-left`
 //                  `uk-navbar-right`
 //                  `uk-navbar-center`
 //                  `uk-navbar-nav`
@@ -13,8 +14,7 @@
 //                  `uk-navbar-subtitle`
 //                  `uk-navbar-dropbar`
 //
-// Modifiers:       `uk-navbar-container`
-//                  `uk-navbar-transparent`
+// Modifiers:       `uk-navbar-transparent`
 //                  `uk-navbar-dropdown-stack`
 //
 // Adopted:         `uk-navbar-dropdown` + Modifiers
@@ -81,7 +81,6 @@
 
 /*
  * 1. Create position context to center navbar group
- * 2. Style
  */
 
 .uk-navbar {
@@ -90,10 +89,24 @@
     display: flex;
     /* 1 */
     position: relative;
-    /* 2 */
-    background: @navbar-background;
     .hook-navbar;
 }
+
+
+/* Container
+ ========================================================================== */
+
+.uk-navbar-container {
+    background: @navbar-background;
+    .hook-navbar-container;
+}
+
+/*
+ * Remove pseudo elements created by micro clearfix as precaution (if Container component is used)
+ */
+
+.uk-navbar-container > ::before,
+.uk-navbar-container > ::after { display: none !important; }
 
 
 /* Groups
@@ -275,30 +288,6 @@
 }
 
 
-/* Container
- ========================================================================== */
-
-/*
- * Use this class if a container wraps the navbar groups inside the navbar.
- * 2. Take the full width
- * 3. Remove pseudo elements created by micro clearfix
- */
-
-.uk-navbar-container > * {
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    /* 2 */
-    -ms-flex: 1;
-    -webkit-flex: 1;
-    flex: 1;
-}
-
-/* 3 */
-.uk-navbar-container > ::before,
-.uk-navbar-container > ::after { display: none !important; }
-
-
 /* Style modifier
  ========================================================================== */
 
@@ -464,6 +453,7 @@
 .hook-navbar-misc;
 
 .hook-navbar() {}
+.hook-navbar-container() {}
 .hook-navbar-nav-item() {}
 .hook-navbar-nav-item-hover() {}
 .hook-navbar-nav-item-onclick() {}
