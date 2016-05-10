@@ -4,7 +4,7 @@
         <polyline fill="none" stroke-width="1.03" points="9 0 0 9 7 16 16 7 9 0"></polyline>
         <path d="M17.98,13.72 C17.67,15.44 15.47,15.41 15.03,13.72 C14.79,12.8 15.67,10 16.45,10 C17.16,10 18.16,12.71 17.98,13.72 L17.98,13.72 Z"></path>
         <path fill="none" stroke-width="1" d="M0.5,9.5 L13.5,9.5"></path>
-        <line fill="none" stroke-width="1" x1="9.5" y1="5" x2="5.5" y2="1"/>
+        <line fill="none" stroke-width="1" x1="9.5" y1="5" x2="5.5" y2="1"></line>
     </symbol>
 
     <symbol id="copy" viewBox="0 0 20 20">
@@ -268,7 +268,7 @@
     </symbol>
 
     <symbol id="sort-down" viewBox="0 0 20 20">
-        <polygon points="5 7 15 7 10 12"/>
+        <polygon points="5 7 15 7 10 12"></polygon>
     </symbol>
 
     <symbol id="sort-left" viewBox="0 0 20 20">
