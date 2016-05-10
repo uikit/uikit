@@ -22,8 +22,8 @@
     .dye-vars() {
 
         // Gobal variables must be defined in this scope otherwise they could not be overridden
-        @dye-color:                            @global-light-color;
-        @dye-contrast-color:                   @global-color;
+        @dye-color:                            @global-inverse-color;
+        @dye-inverse-color:                    @global-color;
         @dye-muted-color:                      fade(@dye-color, 70%);
 
         @dye-primary-background:               @dye-color;
@@ -39,7 +39,7 @@
         @button-default-active-background:     transparent;
         @button-default-active-color:          @dye-color;
 
-        @nav-default-item-active-color:        @dye-contrast-color;
+        @nav-default-item-active-color:        @dye-inverse-color;
 
         //
         // Call default variables (Core and Theme)
