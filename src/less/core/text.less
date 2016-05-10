@@ -23,6 +23,8 @@
 @text-large-font-size:                          @global-large-font-size;
 @text-large-line-height:                        1.5;
 
+@text-bold-font-weight:                         bolder;
+
 @text-muted-color:                              @global-muted-color;
 @text-primary-color:                            #2d7091;
 @text-success-color:                            #659f13;
@@ -72,7 +74,7 @@
 /* Weight modifier
  ========================================================================== */
 
-.uk-text-bold { font-weight: bold; }
+.uk-text-bold { font-weight: @text-bold-font-weight; }
 
 
 /* Color modifiers
