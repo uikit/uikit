@@ -78,7 +78,8 @@
  * Style
  */
 
-.uk-list > li:nth-child(n+2) { margin-top: @list-margin-top; }
+.uk-list > li:nth-child(n+2),
+.uk-list > li > ul { margin-top: @list-margin-top; }
 
 
 /* Style modifiers
@@ -113,20 +114,21 @@
  */
 
 .uk-list-bullet > li {
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
+    position: relative;
+    padding-left: calc(@list-bullet-width ~"+" @list-bullet-margin-right);
 }
 
 .uk-list-bullet > li::before {
     content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
     width: @list-bullet-width;
     height: @list-bullet-height;
-    margin-right: @list-bullet-margin-right;
     .svg-fill("../../images/list-bullet.svg", "#000", @list-bullet-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    vertical-align: middle;
+    float: left;
     .hook-list-bullet;
 }
 
@@ -134,7 +136,8 @@
 /* Size modifier
  ========================================================================== */
 
-.uk-list-large > li:nth-child(n+2) { margin-top: @list-large-margin-top; }
+.uk-list-large > li:nth-child(n+2),
+.uk-list-large > li > ul { margin-top: @list-large-margin-top; }
 
 /*
  * Line
