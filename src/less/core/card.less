@@ -61,11 +61,13 @@
 @card-primary-color:                           @global-inverse-color;
 @card-primary-title-color:                     @card-primary-color;
 @card-primary-hover-background:                darken(@card-primary-background, 5%);
+@card-primary-color-mode:                     'light';
 
 @card-secondary-background:                    @global-secondary-background;
 @card-secondary-color:                         @global-inverse-color;
 @card-secondary-title-color:                   @card-secondary-color;
 @card-secondary-hover-background:              darken(@card-secondary-background, 5%);
+@card-secondary-color-mode:                   'light';
 
 @card-small-body-padding-horizontal:           @global-small-gutter;
 @card-small-body-padding-vertical:             @global-small-gutter;
@@ -246,6 +248,10 @@
     .hook-card-primary-hover;
 }
 
+// Color Mode
+.uk-card-primary:extend(.uk-light all) when (@card-primary-color-mode = 'light') {}
+.uk-card-primary:extend(.uk-dark all) when (@card-primary-color-mode = 'dark') {}
+
 /*
  * Secondary
  */
@@ -265,6 +271,10 @@
     background-color: @card-secondary-hover-background;
     .hook-card-secondary-hover;
 }
+
+// Color Mode
+.uk-card-secondary:extend(.uk-light all) when (@card-secondary-color-mode = 'light') {}
+.uk-card-secondary:extend(.uk-dark all) when (@card-secondary-color-mode = 'dark') {}
 
 
 /* Size modifier

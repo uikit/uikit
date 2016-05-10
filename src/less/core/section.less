@@ -29,6 +29,9 @@
 @section-primary-background:                      @global-primary-background;
 @section-secondary-background:                    @global-secondary-background;
 
+@section-primary-color-mode:                     'light';
+@section-secondary-color-mode:                   'light';
+
 
 /* ========================================================================
    Component: Section
@@ -146,6 +149,10 @@
     .hook-section-primary;
 }
 
+// Color Mode
+.uk-section-primary:extend(.uk-light all) when (@section-primary-color-mode = 'light') {}
+.uk-section-primary:extend(.uk-dark all) when (@section-primary-color-mode = 'dark') {}
+
 /*
  * Secondary
  */
@@ -154,6 +161,10 @@
     background: @section-secondary-background;
     .hook-section-secondary;
 }
+
+// Color Mode
+.uk-section-secondary:extend(.uk-light all) when (@section-secondary-color-mode = 'light') {}
+.uk-section-secondary:extend(.uk-dark all) when (@section-secondary-color-mode = 'dark') {}
 
 /*
  * Indicate that an image or video is used as background
