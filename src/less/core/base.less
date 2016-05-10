@@ -56,13 +56,14 @@
 
 @base-list-padding-left:                        30px;
 
-@base-hr-margin-vertical:                       @base-margin-vertical;
+@base-hr-margin-vertical:                       @global-margin;
 @base-hr-border:                                @global-border;
 @base-hr-border-width:                          1px;
 
 @base-blockquote-font-size:                     @global-medium-font-size;
 @base-blockquote-line-height:                   1.5;
 @base-blockquote-font-style:                    italic;
+@base-blockquote-margin-vertical:               @global-margin;
 
 @base-pre-font-size:                            @global-small-font-size;
 @base-pre-line-height:                          1.5;
@@ -305,7 +306,6 @@ p,
 ul,
 ol,
 dl,
-blockquote,
 pre,
 address,
 fieldset,
@@ -316,7 +316,6 @@ figure { margin: 0 0 @base-margin-vertical 0; }
 * + ul,
 * + ol,
 * + dl,
-* + blockquote,
 * + pre,
 * + address,
 * + fieldset,
@@ -428,11 +427,14 @@ hr {
     /* 2 */
     overflow: visible;
     /* 3 */
-    margin: @base-hr-margin-vertical 0;
+    margin: 0 0 @base-hr-margin-vertical 0;
     border: 0;
     border-top: @base-hr-border-width solid @base-hr-border;
     .hook-base-hr;
 }
+
+/* Add margin if adjacent element */
+* + hr { margin-top: @base-hr-margin-vertical }
 
 
 /* Address
@@ -448,8 +450,12 @@ blockquote {
     font-size: @base-blockquote-font-size;
     line-height: @base-blockquote-line-height;
     font-style: @base-blockquote-font-style;
+    margin: 0 0 @base-blockquote-margin-vertical 0;
     .hook-base-blockquote;
 }
+
+/* Add margin if adjacent element */
+* + blockquote { margin-top: @base-blockquote-margin-vertical; }
 
 
 /* Preformatted text
