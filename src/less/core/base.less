@@ -32,6 +32,7 @@
 @base-mark-background:                          #ffd;
 @base-mark-color:                               @global-color;
 @base-quote-font-style:                         italic;
+@base-small-font-size:                          80%;
 
 @base-margin-vertical:                          @global-margin;
 
@@ -219,7 +220,7 @@ q { font-style: @base-quote-font-style; }
  * Add the correct font size in all browsers.
  */
 
-small { font-size: 80%; }
+small { font-size: @base-small-font-size; }
 
 /*
  * Prevents `sub` and `sup` affecting `line-height` in all browsers.
