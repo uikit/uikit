@@ -1,13 +1,11 @@
-# uikit3
-UIkit 3 Concept
+# UIkit3
 
+UIkit 3 Beta
 
 ## Getting started
 
-
 - Clone the repo, `git clone`
 - Install with [Node](https://nodejs.org/en/): ```npm install```
-- Add a *css* folder
-- Run ```webpack```
-- Install ```npm install -g less```
-- Compile the less files with ```npm run compile-less```
+- Create ```css``` folder
+- Compile JS ```webpack``` or ```webpack -w``
+- Compile LESS ```npm run compile-less``` or ```npm run watch-less```
