@@ -5,7 +5,7 @@
   - Added UIkit.Utils.throttle helper function
   - Updated icon component to FontAwesome 4.6.0
   - Updated list button action in html mode (html editor)
-  - Removed default ```transition-property: all``` for all uk-form inputs + search component input
+  - Removed default ```transition-property: all``` for all uk-form inputs
   - Fixed fullscreen videos on iOS + lightbox
   - Fixed links in sortables + nestables on iOS/Windows mobile
 
