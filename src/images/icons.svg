@@ -608,26 +608,6 @@
         <line fill="none" stroke-width="1" x1="4" y1="9.5" x2="15" y2="9.5"></line>
     </symbol>
 
-    <symbol id="trash-alt" viewBox="0 0 16 18">
-        <rect x="8" y="7" width="1" height="9"></rect>
-        <rect x="11" y="7" width="1" height="9"></rect>
-        <path d="M16,2 L12,2 L12,0 L4,0 L4,2 L0,2 L0,3 L2,3 L2,18 L14,18 L14,3 L16,3 L16,2 L16,2 L16,2 Z M5,1 L11,1 L11,2 L5,2 L5,1 L5,1 L5,1 Z M13,17 L3,17 L3,3 L13,3 L13,17 L13,17 L13,17 Z"></path>
-    </symbol>
-
-    <symbol id="table-alt" viewBox="0 0 14 13">
-        <rect x="0" y="0" width="14" height="1"></rect>
-        <rect x="0" y="4" width="14" height="1"></rect>
-        <rect x="0" y="8" width="14" height="1"></rect>
-        <rect x="0" y="12" width="14" height="1"></rect>
-    </symbol>
-
-    <symbol id="thumbnails-alt" viewBox="0 0 14 14">
-        <path d="M5,1 L5,5 L1,5 L1,1 L5,1 L5,1 L5,1 Z M6,0 L0,0 L0,6 L6,6 L6,0 L6,0 L6,0 L6,0 Z"></path>
-        <path d="M13,1 L13,5 L9,5 L9,1 L13,1 L13,1 L13,1 Z M14,0 L8,0 L8,6 L14,6 L14,0 L14,0 L14,0 L14,0 Z"></path>
-        <path d="M5,9 L5,13 L1,13 L1,9 L5,9 L5,9 L5,9 Z M6,8 L0,8 L0,14 L6,14 L6,8 L6,8 L6,8 L6,8 Z"></path>
-        <path d="M13,9 L13,13 L9,13 L9,9 L13,9 L13,9 L13,9 Z M14,8 L8,8 L8,14 L14,14 L14,8 L14,8 L14,8 L14,8 Z"></path>
-    </symbol>
-
     <symbol id="small-edit" viewBox="0 0 11 12">
         <path d="M8.787,0.382 L3,6.188 L3,8 L4.776,8 L10.617,2.193 C11.127,1.684 11.127,0.893 10.617,0.382 C10.0877686,-0.04577637 9.32269287,-0.169982916 8.787,0.382 L8.787,0.382 Z M4.415,7 L4,7 L4,6.548 L9.469,0.997 C9.579,0.887 9.667,0.87 9.735,0.87 C9.803,0.87 9.913,0.887 10.022,0.998 C10.133,1.107 10.141,1.187 10.141,1.255 C10.141,1.323 10.111,1.4 10.001,1.514 L4.415,7 L4.415,7 Z"></path>
         <path d="M8,6 L8,11 L1,11 L1,1 L7,1 L7,0 L0,0 L0,12 L9,12 L9,6 L8,6 L8,6 Z"></path>
