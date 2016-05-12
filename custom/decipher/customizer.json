@@ -22,6 +22,7 @@
                 "*-font-family"
             ],
             "options": [
+                {"name": "Fira Sans", "value": "Fira Sans"},
                 {"name": "Arial", "value": "\"Helvetica Neue\", Helvetica, Arial, sans-serif"},
                 {"name": "Consolas", "value": "Consolas, monospace, serif"},
                 {"name": "Georgia", "value": "Georgia, \"Times New Roman\", Times, serif"},
