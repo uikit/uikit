@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.26.3 (May 12, 2016)
 
   - Added UIkit.Utils.throttle helper function
   - Updated icon component to FontAwesome 4.6.0
