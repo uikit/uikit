@@ -1,0 +1,109 @@
+//
+// Component: Base
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@base-body-background:                          @global-background;
+@base-body-font-size:                           @global-font-size;
+@base-body-line-height:                         @global-line-height;
+@base-body-color:                               @global-color;
+
+@base-link-color:                               @global-link-color;
+@base-link-hover-color:                         @global-link-hover-color;
+@base-ins-color:                                @global-color;
+@base-mark-color:                               @global-color;
+
+@base-margin-vertical:                          @global-margin;
+
+@base-heading-color:                            @global-color;
+@base-heading-margin-top:                       @global-margin-large;
+@base-h1-font-size:                             round((@global-font-size * 2.6)); // 36px / 42px
+@base-h1-line-height:                           round((@base-h1-font-size * 1.154)); // 42px / 48px
+@base-h2-font-size:                             round((@global-font-size * 1.74)); // 24px / 28px
+@base-h2-line-height:                           round((@base-h2-font-size * 1.27)); // 30px / 36px
+@base-h3-font-size:                             round((@global-font-size * 1.28)); // 18px / 20px
+@base-h3-line-height:                           round((@base-h3-font-size * 1.32)); // 24px / 26px
+@base-h4-font-size:                             round((@global-font-size * 1.14)); // 16px / 18px
+@base-h4-line-height:                           round((@base-h4-font-size * 1.36)); // 22px / 24px
+@base-h5-font-size:                             @global-font-size; // 14px / 16px
+@base-h5-line-height:                           @global-line-height; // 20px / 22px
+@base-h6-font-size:                             round((@global-font-size * 0.85)); // 12px / 14px
+@base-h6-line-height:                           round((@base-h6-font-size * 1.46)); // 18px / 20px
+
+@base-hr-border:                                @global-border;
+
+@base-blockquote-border:                        @global-border;
+@base-blockquote-font-size:                     round((@global-font-size * 1.14)); // 16px / 18px
+@base-blockquote-line-height:                   round((@base-blockquote-font-size * 1.36)); // 22px / 24px
+
+@base-code-font-size:                           round((@global-font-size * 0.85)); // 12px / 14px
+
+@base-pre-color:                                @global-color;
+@base-pre-font-size:                            round((@global-font-size * 0.85)); // 12px / 14px
+@base-pre-line-height:                          round((@base-pre-font-size * 1.46)); // 18px / 20px
+
+
+// Body
+// ========================================================================
+
+.hook-base-body() {}
+
+
+// Links
+// ========================================================================
+
+.hook-base-link() {}
+
+.hook-base-link-hover() {}
+
+
+// Text-level semantics
+// ========================================================================
+
+.hook-base-code() {}
+
+
+// Headings
+// ========================================================================
+
+.hook-base-h() {}
+
+.hook-base-h1() {}
+
+.hook-base-h2() {}
+
+.hook-base-h3() {}
+
+.hook-base-h4() {}
+
+.hook-base-h5() {}
+
+.hook-base-h6() {}
+
+
+// Horizontal rules
+// ========================================================================
+
+.hook-base-hr() {}
+
+
+// Blockquotes
+// ========================================================================
+
+.hook-base-blockquote() {}
+
+
+// Preformatted text
+// ========================================================================
+
+.hook-base-pre() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-base-misc() {}

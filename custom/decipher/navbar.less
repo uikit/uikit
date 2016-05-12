@@ -1,0 +1,60 @@
+//
+// Component: Navbar
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@navbar-color:                                  @global-color;
+@navbar-link-color:                             @global-link-color;
+@navbar-link-hover-color:                       @global-link-hover-color;
+
+@navbar-nav-line-height:                        @navbar-nav-height;
+@navbar-nav-color:                              @global-color;
+@navbar-nav-font-size:                          @global-font-size;
+@navbar-nav-hover-color:                        @global-color;
+@navbar-nav-onclick-color:                      @global-color;
+@navbar-nav-active-color:                       @global-color;
+
+@navbar-brand-font-size:                        round((@global-font-size * 1.28)); // 18px / 20px
+@navbar-brand-color:                            @global-color;
+@navbar-brand-hover-color:                      @global-color;
+
+@navbar-toggle-font-size:                       round((@global-font-size * 1.28)); // 18px / 20px
+@navbar-toggle-color:                           @global-color;
+@navbar-toggle-hover-color:                     @global-color;
+
+
+// Component
+// ========================================================================
+
+.hook-navbar() {}
+
+
+// Sub-object: `uk-navbar-nav`
+// ========================================================================
+
+.hook-navbar-nav() {}
+
+// Hover
+.hook-navbar-nav-hover() {}
+
+// OnClick
+.hook-navbar-nav-onclick() {}
+
+// Active
+.hook-navbar-nav-active() {}
+
+
+// Sub-object: `uk-navbar-content`
+// ========================================================================
+
+.hook-navbar-content() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-navbar-misc() {}

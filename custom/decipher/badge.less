@@ -1,0 +1,55 @@
+//
+// Component: Badge
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@badge-background:                              @global-primary-background;
+@badge-font-size:                               round((@global-font-size * 0.74)); // 10px / 12px
+@badge-line-height:                             round((@badge-font-size * 1.36)); // 14px / 16px
+@badge-color:                                   @global-contrast-color;
+@badge-hover-color:                             @global-contrast-color;
+
+@badge-notification-font-size:                  round((@global-font-size * 0.85)); // 12px / 14px
+@badge-notification-line-height:                round((@badge-notification-font-size * 1.46)); // 18px / 20px
+
+@badge-success-background:                      @global-success-background;
+@badge-warning-background:                      @global-warning-background;
+@badge-danger-background:                       @global-danger-background;
+
+
+// Component
+// ========================================================================
+
+.hook-badge() {}
+
+
+// Color modifier
+// ========================================================================
+
+//
+// Modifier: `badge-success`
+//
+
+.hook-badge-success() {}
+
+//
+// Modifier: `badge-warning`
+//
+
+.hook-badge-warning() {}
+
+//
+// Modifier: `badge-danger`
+//
+
+.hook-badge-danger() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-badge-misc() {}

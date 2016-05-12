@@ -1,0 +1,355 @@
+{
+    "controls": [
+        {
+            "type": "color",
+            "vars": [
+                "*-color",
+                "*-border",
+                "*-border-top",
+                "*-border-bottom",
+                "*-border-left",
+                "*-border-right",
+                "*-background",
+                "*-text-shadow",
+                "*-box-shadow",
+                "*-gradient-top",
+                "*-gradient-bottom"
+            ]
+        },
+        {
+            "type": "font",
+            "vars": [
+                "*-font-family"
+            ],
+            "options": [
+                {"name": "Arial", "value": "\"Helvetica Neue\", Helvetica, Arial, sans-serif"},
+                {"name": "Consolas", "value": "Consolas, monospace, serif"},
+                {"name": "Georgia", "value": "Georgia, \"Times New Roman\", Times, serif"},
+                {"name": "Lucida", "value": "\"Lucida Grande\", \"Lucida Sans Unicode\", Arial, Verdana, sans-serif"},
+                {"name": "Times New Roman", "value": "\"Times New Roman\", Times, serif"},
+                {"name": "Trebuchet", "value": "\"Trebuchet MS\", Verdana, Arial, sans-serif"},
+                {"name": "Verdana", "value": "Verdana, Arial, sans-serif"}
+            ]
+        },
+        {
+            "type": "select",
+            "vars": [
+                "@dropdown-animation",
+                "@dropdown-navbar-animation"
+            ],
+            "options": [
+                {"name": "Fade", "value": "uk-fade"},
+                {"name": "Slide-Up", "value": "uk-slide-bottom-fixed"},
+                {"name": "Slide-Down", "value": "uk-slide-top-fixed"}
+            ]
+        },
+        {
+            "type": "select",
+            "vars": [
+                "*-text-transform"
+            ],
+            "options": [
+                {"name": "None", "value": "none"},
+                {"name": "Lowercase", "value": "lowercase"},
+                {"name": "Uppercase", "value": "uppercase"},
+                {"name": "Capitalize", "value": "capitalize"}
+            ]
+        },
+        {
+            "type": "select",
+            "vars": [
+                "*-weight"
+            ],
+            "options": [
+                {"name": "Normal", "value": "normal"},
+                {"name": "Bold", "value": "bold"},
+                {"name": "100", "value": "100"},
+                {"name": "200", "value": "200"},
+                {"name": "300", "value": "300"},
+                {"name": "400", "value": "400"},
+                {"name": "500", "value": "500"},
+                {"name": "600", "value": "600"},
+                {"name": "700", "value": "700"},
+                {"name": "800", "value": "800"},
+                {"name": "900", "value": "900"}
+            ]
+        }
+    ],
+    "groups": [
+        {
+            "label": "General",
+            "vars": [
+                "@global-background",
+                "@global-border",
+
+                "@utility-container-max-width",
+                "@utility-container-large-max-width"
+            ]
+        },
+        {
+            "label": "Typography",
+            "vars": [
+                "@global-color",
+                "@global-muted-color",
+
+                "@global-link-color",
+                "@global-link-hover-color",
+
+                "@global-contrast-color",
+
+                "@global-font-size",
+                "@global-line-height",
+
+                "@base-body-font-family",
+                "@base-heading-font-family"
+            ]
+        },
+        {
+            "label": "Buttons, Navs & Badges",
+            "vars": [
+                "@global-primary-background",
+                "@global-success-background",
+                "@global-warning-background",
+                "@global-danger-background"
+            ]
+        },
+        {
+            "label": "Spacings",
+            "advanced": true,
+            "vars": [
+                "@global-margin",
+                "@global-margin-large",
+                "@global-grid-gutter",
+                "@global-grid-gutter-large"
+            ]
+        },
+        {
+            "label": "Controls",
+            "advanced": true,
+            "vars": [
+                "@global-height",
+                "@global-height-mini",
+                "@global-height-small",
+                "@global-height-large"
+            ]
+        },
+        {
+            "label": "Breakpoints",
+            "advanced": true,
+            "vars": [
+                "@breakpoint-*"
+            ]
+        },
+        {
+            "label": "Alert",
+            "advanced": true,
+            "vars": [
+                "@alert-*"
+            ]
+        },
+        {
+            "label": "Article",
+            "advanced": true,
+            "vars": [
+                "@article-*"
+            ]
+        },
+        {
+            "label": "Badge",
+            "advanced": true,
+            "vars": [
+                "@badge-*"
+            ]
+        },
+        {
+            "label": "Base",
+            "advanced": true,
+            "vars": [
+                "@base-*"
+            ]
+        },
+        {
+            "label": "Block",
+            "advanced": true,
+            "vars": [
+                "@block-*"
+            ]
+        },
+        {
+            "label": "Breadcrumb",
+            "advanced": true,
+            "vars": [
+                "@breadcrumb-*"
+            ]
+        },
+        {
+            "label": "Button",
+            "advanced": true,
+            "vars": [
+                "@button-*"
+            ]
+        },
+        {
+            "label": "Close",
+            "advanced": true,
+            "vars": [
+                "@close-*"
+            ]
+        },
+        {
+            "label": "Comment",
+            "advanced": true,
+            "vars": [
+                "@comment-*"
+            ]
+        },
+        {
+            "label": "Contrast",
+            "advanced": true,
+            "vars": [
+                "@contrast-color",
+                "@contrast-inverted-color"
+            ]
+        },
+        {
+            "label": "Column",
+            "advanced": true,
+            "vars": [
+                "@column-*"
+            ]
+        },
+        {
+            "label": "Description",
+            "advanced": true,
+            "vars": [
+                "@description-*"
+            ]
+        },
+        {
+            "label": "Dropdown",
+            "advanced": true,
+            "vars": [
+                "@dropdown-*"
+            ]
+        },
+        {
+            "label": "Form",
+            "advanced": true,
+            "vars": [
+                "@form-*"
+            ]
+        },
+        {
+            "label": "Grid",
+            "advanced": true,
+            "vars": [
+                "@grid-*"
+            ]
+        },
+        {
+            "label": "Icon",
+            "advanced": true,
+            "vars": [
+                "@icon-*"
+            ]
+        },
+        {
+            "label": "List",
+            "advanced": true,
+            "vars": [
+                "@list-*"
+            ]
+        },
+        {
+            "label": "Modal",
+            "advanced": true,
+            "vars": [
+                "@modal-*"
+            ]
+        },
+        {
+            "label": "Nav",
+            "advanced": true,
+            "vars": [
+                "@nav-*"
+            ]
+        },
+        {
+            "label": "Navbar",
+            "advanced": true,
+            "vars": [
+                "@navbar-*"
+            ]
+        },
+        {
+            "label": "Offcanvas",
+            "advanced": true,
+            "vars": [
+                "@offcanvas-*"
+            ]
+        },
+        {
+            "label": "Overlay",
+            "advanced": true,
+            "vars": [
+                "@overlay-*"
+            ]
+        },
+        {
+            "label": "Pagination",
+            "advanced": true,
+            "vars": [
+                "@pagination-*"
+            ]
+        },
+        {
+            "label": "Panel",
+            "advanced": true,
+            "vars": [
+                "@panel-*"
+            ]
+        },
+        {
+            "label": "Subnav",
+            "advanced": true,
+            "vars": [
+                "@subnav-*"
+            ]
+        },
+        {
+            "label": "Tab",
+            "advanced": true,
+            "vars": [
+                "@tab-*"
+            ]
+        },
+        {
+            "label": "Table",
+            "advanced": true,
+            "vars": [
+                "@table-*"
+            ]
+        },
+        {
+            "label": "Text",
+            "advanced": true,
+            "vars": [
+                "@text-*"
+            ]
+        },
+        {
+            "label": "Thumbnail",
+            "advanced": true,
+            "vars": [
+                "@thumbnail-*"
+            ]
+        },
+        {
+            "label": "Utility",
+            "advanced": true,
+            "vars": [
+                "@utility-*"
+            ]
+        }
+    ]
+}
