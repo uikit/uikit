@@ -1,0 +1,123 @@
+// Name:            ToTop
+// Description:     Component to create a totop scroller
+//
+// Component:       `uk-totop`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@totop-padding:                                 5px;
+@totop-color:                                   fadeout(@global-color, 40%);
+
+@totop-hover-color:                             fadeout(@global-color, 20%);
+
+@totop-active-color:                            fadeout(@global-color, 10%);
+
+
+/* ========================================================================
+   Component: ToTop
+ ========================================================================== */
+
+/*
+ * Pass image path to JS
+ */
+
+.uk-totop::before { background-image: url("../../images/icons.svg"); }
+
+/*
+ * 1. Fill the SVG object with the current text color
+ * 2. Let the container fit the height of the icon
+ * 3. Style
+ */
+
+.uk-totop {
+    display: inline-block;
+    padding: @totop-padding;
+    /* 1 */
+    fill: currentcolor;
+    /* 2 */
+    line-height: 0;
+    vertical-align: middle;
+    /* 3 */
+    color: @totop-color;
+    .hook-totop;
+}
+
+/* Let the line drawn around the SVG object use the current text color
+ * But only if a `stroke-width` attribute is present, because its default value is `1`
+ */
+
+.uk-totop [stroke-width] { stroke: currentcolor; }
+
+/*
+ * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
+ */
+
+.uk-totop > * { transform: translate(0,0); }
+
+/* Hover + Focus */
+.uk-totop:hover,
+.uk-totop:focus {
+    color: @totop-hover-color;
+    outline: none;
+    .hook-totop-hover;
+}
+
+/* Active */
+.uk-totop:active {
+    color: @totop-active-color;
+    .hook-totop-active;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-totop-misc;
+
+.hook-totop() {}
+.hook-totop-hover() {}
+.hook-totop-active() {}
+.hook-totop-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @totop-color:                       fadeout(@dye-color, 40%);
+    @totop-hover-color:                 fadeout(@dye-color, 20%);
+    @totop-active-color:                fadeout(@dye-color, 10%);
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-totop {
+        color: @totop-color;
+        .hook-dye-totop;
+    }
+
+    .uk-totop:hover,
+    .uk-totop:focus {
+        color: @totop-hover-color;
+        .hook-dye-totop-hover;
+    }
+
+    .uk-totop:active {
+        color: @totop-active-color;
+        .hook-dye-totop-active;
+    }
+
+}
+
+.hook-dye-totop() {}
+.hook-dye-totop-hover() {}
+.hook-dye-totop-active() {}
