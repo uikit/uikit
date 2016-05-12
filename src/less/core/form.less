@@ -297,8 +297,10 @@
     border: @form-border-width solid @form-border;
     background: @form-background;
     color: @form-color;
-    -webkit-transition: all linear 0.2s;
-    transition: all linear 0.2s;
+    -webkit-transition: all 0.2s linear;
+    -webkit-transition-property: border, background, color, box-shadow, padding;
+    transition: all 0.2s linear;
+    transition-property: border, background, color, box-shadow, padding;
     .hook-form;
 
     // Focus state
