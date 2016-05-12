@@ -1,4 +1,4 @@
-/*! UIkit 2.26.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.26.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -3318,8 +3318,10 @@ html:not(.uk-touch) .uk-nav-offcanvas ul a:hover {
   border: 1px solid #dddddd;
   background: #ffffff;
   color: #444444;
-  -webkit-transition: linear 0.2s;
-  transition: linear 0.2s;
+  -webkit-transition: all 0.2s linear;
+  -webkit-transition-property: border, background, color, box-shadow, padding;
+  transition: all 0.2s linear;
+  transition-property: border, background, color, box-shadow, padding;
   border-radius: 4px;
 }
 .uk-form select:focus,
