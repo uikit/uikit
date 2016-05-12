@@ -9,6 +9,8 @@
 //
 // Modifiers:       `uk-nav-parent-icon`
 //                  `uk-nav-default`
+//                  `uk-nav-primary`
+//                  `uk-nav-center`
 //
 // States:          `uk-active`
 //                  `uk-parent`
@@ -51,6 +53,18 @@
 @nav-default-divider-border-width:              1px;
 @nav-default-sublist-item-color:                @global-muted-color;
 @nav-default-sublist-item-hover-color:          @global-color;
+
+@nav-primary-item-font-size:                    @global-large-font-size;
+@nav-primary-item-color:                        @global-muted-color;
+@nav-primary-item-hover-color:                  @global-color;
+@nav-primary-item-active-color:                 @global-color;
+@nav-primary-header-color:                      @global-color;
+@nav-primary-divider-border:                    @global-border;
+@nav-primary-divider-border-width:              1px;
+@nav-primary-sublist-item-color:                @global-muted-color;
+@nav-primary-sublist-item-hover-color:          @global-color;
+
+@nav-center-text-align:                         center;
 
 
 /* ========================================================================
@@ -155,7 +169,7 @@ ul.uk-nav-sub {
 }
 
 
-/* Style modifier
+/* Default modifier
  ========================================================================== */
 
 /*
@@ -208,6 +222,73 @@ ul.uk-nav-sub {
 .uk-nav-default .uk-nav-sub a:focus { color: @nav-default-sublist-item-hover-color; }
 
 
+/* Primary modifier
+ ========================================================================== */
+
+/*
+ * Items
+ */
+
+.uk-nav-primary > li > a {
+    font-size: @nav-primary-item-font-size;
+    color: @nav-primary-item-color;
+    .hook-nav-primary-item;
+}
+
+/* Hover + Focus */
+.uk-nav-primary > li > a:hover,
+.uk-nav-primary > li > a:focus {
+    color: @nav-primary-item-hover-color;
+    .hook-nav-primary-item-hover;
+}
+
+/* Active */
+.uk-nav-primary > li.uk-active > a {
+    color: @nav-primary-item-active-color;
+    .hook-nav-primary-item-active;
+}
+
+/*
+ * Header
+ */
+
+.uk-nav-primary .uk-nav-header {
+    color: @nav-primary-header-color;
+    .hook-nav-primary-header;
+}
+
+/*
+ * Divider
+ */
+
+.uk-nav-primary .uk-nav-divider {
+    border-top: @nav-primary-divider-border-width solid @nav-primary-divider-border;
+    .hook-nav-primary-divider;
+}
+
+/*
+ * Sublists
+ */
+
+.uk-nav-primary .uk-nav-sub a { color: @nav-primary-sublist-item-color; }
+
+.uk-nav-primary .uk-nav-sub a:hover,
+.uk-nav-primary .uk-nav-sub a:focus { color: @nav-primary-sublist-item-hover-color; }
+
+
+/* Alignment modifier
+ ========================================================================== */
+
+.uk-nav-center { text-align: @nav-center-text-align; }
+
+/* Sublists */
+.uk-nav-center .uk-nav-sub,
+.uk-nav-center .uk-nav-sub ul { padding-left: 0; }
+
+/* Parent icon modifier  */
+.uk-nav-center.uk-nav-parent-icon > .uk-parent > a::after { position: absolute; }
+
+
 // Hooks
 // ========================================================================
 
@@ -222,6 +303,11 @@ ul.uk-nav-sub {
 .hook-nav-default-item-active() {}
 .hook-nav-default-header() {}
 .hook-nav-default-divider() {}
+.hook-nav-primary-item() {}
+.hook-nav-primary-item-hover() {}
+.hook-nav-primary-item-active() {}
+.hook-nav-primary-header() {}
+.hook-nav-primary-divider() {}
 .hook-nav-misc() {}
 
 
@@ -238,6 +324,14 @@ ul.uk-nav-sub {
     @nav-default-divider-border:           @dye-border;
     @nav-default-sublist-item-color:       @dye-muted-color;
     @nav-default-sublist-item-hover-color: @dye-color;
+
+    @nav-primary-item-color:               @dye-muted-color;
+    @nav-primary-item-hover-color:         @dye-color;
+    @nav-primary-item-active-color:        @dye-color;
+    @nav-primary-header-color:             @dye-color;
+    @nav-primary-divider-border:           @dye-border;
+    @nav-primary-sublist-item-color:       @dye-muted-color;
+    @nav-primary-sublist-item-hover-color: @dye-color;
 
 }
 
@@ -258,7 +352,7 @@ ul.uk-nav-sub {
     .uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill("../../images/nav-parent-open.svg", "#000", @nav-parent-icon-color); }
 
     //
-    // Items
+    // Default
     //
 
     .uk-nav-default > li > a {
@@ -277,32 +371,55 @@ ul.uk-nav-sub {
         .hook-dye-nav-default-item-active;
     }
 
-    //
-    // Header
-    //
-
     .uk-nav-default .uk-nav-header {
         color: @nav-default-header-color;
         .hook-dye-nav-default-header;
     }
-
-    //
-    // Divider
-    //
 
     .uk-nav-default .uk-nav-divider {
         border-top-color: @nav-default-divider-border;
         .hook-dye-nav-default-divider;
     }
 
-    //
-    // Sublists
-    //
-
     .uk-nav-default .uk-nav-sub a { color: @nav-default-sublist-item-color; }
 
     .uk-nav-default .uk-nav-sub a:hover,
     .uk-nav-default .uk-nav-sub a:focus { color: @nav-default-sublist-item-hover-color; }
+
+    //
+    // Primary
+    //
+
+    .uk-nav-primary > li > a {
+        color: @nav-primary-item-color;
+        .hook-dye-nav-primary-item;
+    }
+
+    .uk-nav-primary > li > a:hover,
+    .uk-nav-primary > li > a:focus {
+        color: @nav-primary-item-hover-color;
+        .hook-dye-nav-primary-item-hover;
+    }
+
+    .uk-nav-primary > li.uk-active > a {
+        color: @nav-primary-item-active-color;
+        .hook-dye-nav-primary-item-active;
+    }
+
+    .uk-nav-primary .uk-nav-header {
+        color: @nav-primary-header-color;
+        .hook-dye-nav-primary-header;
+    }
+
+    .uk-nav-primary .uk-nav-divider {
+        border-top-color: @nav-primary-divider-border;
+        .hook-dye-nav-primary-divider;
+    }
+
+    .uk-nav-primary .uk-nav-sub a { color: @nav-primary-sublist-item-color; }
+
+    .uk-nav-primary .uk-nav-sub a:hover,
+    .uk-nav-primary .uk-nav-sub a:focus { color: @nav-primary-sublist-item-hover-color; }
 
 }
 
@@ -312,3 +429,8 @@ ul.uk-nav-sub {
 .hook-dye-nav-default-item-active() {}
 .hook-dye-nav-default-header() {}
 .hook-dye-nav-default-divider() {}
+.hook-dye-nav-primary-item() {}
+.hook-dye-nav-primary-item-hover() {}
+.hook-dye-nav-primary-item-active() {}
+.hook-dye-nav-primary-header() {}
+.hook-dye-nav-primary-divider() {}
