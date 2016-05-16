@@ -615,8 +615,8 @@
         <circle  cx="15" cy="15" r="14"></circle>
     </symbol>
 
-    <symbol id="totop_arrow" viewBox="0 0 20 20">
-            <polyline fill="none" stroke-width="1.03" points="4 13 10 7 16 13"></polyline>
+    <symbol id="totop_totop" viewBox="0 0 20 20">
+        <polyline fill="none" stroke-width="1.03" points="4 13 10 7 16 13"></polyline>
     </symbol>
 
 

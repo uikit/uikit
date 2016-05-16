@@ -54,6 +54,12 @@
     line-height: 0;
 }
 
+/* Let the line drawn around the SVG object use the current text color
+ * But only if a `stroke-width` attribute is present, because its default value is `1`
+ */
+
+.uk-close [stroke-width] { stroke: currentcolor; }
+
 /*
  * Remove the inner border and padding in Firefox.
  */

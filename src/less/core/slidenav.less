@@ -51,6 +51,12 @@
     .hook-slidenav;
 }
 
+/* Let the line drawn around the SVG object use the current text color
+ * But only if a `stroke-width` attribute is present, because its default value is `1`
+ */
+
+.uk-slidenav [stroke-width] { stroke: currentcolor; }
+
 /*
  * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
  */
