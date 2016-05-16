@@ -11,6 +11,7 @@ requestAnimationFrame(function () {
         'align',
         'animation',
         'article',
+        'background',
         'badge',
         'base',
         'breadcrumb',

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Background - UIkit tests</title>
+        <link rel="stylesheet" href="../css/uikit.css">
+        <script src="../vendor/jquery.js"></script>
+        <script src="js/test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Background</h1>
+
+            <h2>Color, Position, No Repeat, Image</h2>
+
+            <div class="uk-grid uk-child-width-1-4" uk-grid>
+                <div>
+
+                    <div class="uk-background-norepeat uk-background-image@s uk-background uk-background-top-left uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center" style="background-image: url('https://source.unsplash.com/random/80x60');">Default<br>Top Left</br>S</div>
+
+                </div>
+                <div>
+
+                    <div class="uk-background-norepeat uk-background-image@m uk-background-muted uk-background-top-right uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center" style="background-image: url('https://source.unsplash.com/random/80x60');">Muted<br>Top Right</br>M</div>
+
+                </div>
+                <div>
+
+                    <div class="uk-background-norepeat uk-background-image@l uk-background-primary uk-background-bottom-left uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center" style="background-image: url('https://source.unsplash.com/random/80x60');">Primary<br>Bottom Left</br>L</div>
+
+                </div>
+                <div>
+
+                    <div class="uk-background-norepeat uk-background-image@xl uk-background-secondary uk-background-bottom-right uk-padding uk-flex uk-flex-center uk-flex-middle uk-text-center" style="background-image: url('https://source.unsplash.com/random/80x60');">Secondary<br>Bottom Right</br>XL</div>
+
+                </div>
+            </div>
+
+            <h2>Cover</h2>
+
+            <div class="uk-grid uk-child-width-1-2@s" uk-grid>
+                <div>
+
+                    <div class="uk-background-cover uk-flex uk-flex-center uk-flex-middle uk-light" style="height: 300px; background-image: url('https://source.unsplash.com/random/800x600');">
+                        <h1 class="uk-heading-large">Fixed Height</h1>
+                    </div>
+
+                </div>
+                <div>
+
+                    <div class="uk-background-cover uk-position-relative uk-light" style="background-image: url('https://source.unsplash.com/random/800x600');">
+                        <img class="uk-invisible" src="https://source.unsplash.com/random/800x600" alt="">
+                        <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
+                            <h1 class="uk-heading-large">Responsive Height</h1>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </body>
+</html>

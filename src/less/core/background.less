@@ -1,9 +1,7 @@
 // Name:            Background
-// Description:     TODO
+// Description:     Utilities for backgrounds
 //
-// Component:       `uk-background`
-//                  `uk-background-muted`
-//                  `uk-background-blend-*`
+// Component:       `uk-background-*`
 //
 // ========================================================================
 
@@ -11,8 +9,10 @@
 // Variables
 // ========================================================================
 
-@background-background:                         #fff;
-@background-muted-background:                   #fff;
+@background-background:                         @global-background;
+@background-muted-background:                   @global-muted-background;
+@background-primary-background:                 @global-primary-background;
+@background-secondary-background:               @global-secondary-background;
 
 
 /* ========================================================================
@@ -20,17 +20,77 @@
  ========================================================================== */
 
 
-/* Backgrounds
+/* Color
  ========================================================================== */
 
-.uk-background {
-    background-color: @background-background;
-    .hook-background;
+.uk-background { background-color: @background-background; }
+.uk-background-muted { background-color: @background-muted-background; }
+.uk-background-primary { background-color: @background-primary-background; }
+.uk-background-secondary { background-color: @background-secondary-background; }
+
+
+/* Size
+ ========================================================================== */
+
+.uk-background-cover,
+.uk-background-contain {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
 }
 
-.uk-background-muted {
-    background-color: @background-muted-background;
-    .hook-background-muted;
+.uk-background-cover { background-size: cover; }
+.uk-background-contain { background-size: contain; }
+
+
+/* Position
+ ========================================================================== */
+
+.uk-background-top-left { background-position: 0 0; }
+.uk-background-top-center { background-position: 0 50%; }
+.uk-background-top-right { background-position: 0 100%; }
+.uk-background-center-left { background-position: 50% 0; }
+.uk-background-center-center { background-position: 50% 50%; }
+.uk-background-center-right { background-position: 50% 100%; }
+.uk-background-bottom-left { background-position: 100% 0; }
+.uk-background-bottom-center { background-position: 100% 50%; }
+.uk-background-bottom-right { background-position: 100% 100%; }
+
+
+/* Repeat
+ ========================================================================== */
+
+.uk-background-norepeat { background-repeat: no-repeat; }
+
+
+/* Image
+ ========================================================================== */
+
+/* Phone portrait and smaller */
+@media (max-width: @breakpoint-xsmall-max) {
+
+    .uk-background-image\@s { background-image: none !important; }
+
+}
+
+/* Phone landscape and smaller */
+@media (max-width: @breakpoint-small-max) {
+
+    .uk-background-image\@m { background-image: none !important; }
+
+}
+
+/* Tablet landscape and smaller */
+@media (max-width: @breakpoint-medium-max) {
+
+    .uk-background-image\@l { background-image: none !important; }
+
+}
+
+/* Desktop and smaller */
+@media (max-width: @breakpoint-large-max) {
+
+    .uk-background-image\@xl {background-image: none !important; }
+
 }
 
 
@@ -59,6 +119,4 @@
 
 .hook-background-misc;
 
-.hook-background() {}
-.hook-background-muted() {}
 .hook-background-misc() {}
