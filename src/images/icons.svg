@@ -721,6 +721,11 @@
         <polygon points="14 1 13 0 7 6 1 0 0 1 6 7 0 13 1 14 7 8 13 14 14 13 8 7"></polygon>
     </symbol>
 
+    <symbol id="search_search" viewBox="0 0 20 20">
+        <circle fill="none" stroke-width="1.1" cx="9" cy="9" r="7"></circle>
+        <path fill="none" stroke-width="1.1" d="M14,14 L18,18 L14,14 Z"></path>
+    </symbol>
+
     <symbol id="slidenav_previous" viewBox="0 0 18 16">
         <polygon points="18 7 3.828 7 9.414 1.414 8 0 0 8 8 16 9.414 14.586 3.828 9 18 9"></polygon>
     </symbol>

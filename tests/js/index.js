@@ -48,6 +48,7 @@ requestAnimationFrame(function () {
         'position',
         'scroll',
         'scrollspy',
+        'search',
         'section',
         'slidenav',
         'spinner',

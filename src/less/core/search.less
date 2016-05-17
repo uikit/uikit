@@ -1,0 +1,277 @@
+// Name:            Search
+// Description:     Defines a search component
+//
+// Component:       `uk-search`
+//
+// Sub-objects:     `uk-search-field`
+//                  `uk-search-icon`
+//
+// Modifier:        ''
+//
+// States:          `uk-active`
+//                  `uk-loading`
+//
+// Uses:            Animation
+//
+// Markup:
+//
+// <!-- uk-search -->
+// <form class="uk-search" data-uk-search>
+//     <input class="uk-search-field" type="search" placeholder="">
+// </form>
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@search-width:                                  120px;
+@search-focus-width:                            180px;
+@search-height:                                 @global-control-height;
+@search-padding-horizontal:                     6px;
+@search-padding-vertical:                       4px;
+@search-border:                                 #e5e5e5; //rgba(0,0,0,0);
+@search-border-width:                           1px;
+@search-background:                             #f5f5f5; //rgba(0,0,0,0);
+@search-color:                                  #444;
+@search-placeholder-color:                      #999;
+
+@search-icon-padding:                           5px;
+@search-icon-color:                             fadeout(@global-color, 40%);
+@search-icon-hover-color:                       fadeout(@global-color, 20%);
+@search-icon-active-color:                      fadeout(@global-color, 10%);
+
+
+/* ========================================================================
+   Component: Search
+ ========================================================================== */
+
+/*
+ * 1. Create position context for toggle
+ * 2. Needed for `form` element
+ */
+
+.uk-search {
+    display: inline-block;
+    /* 1 */
+    position: relative;
+    /* 2 */
+    margin: 0;
+    .hook-search;
+}
+
+
+/* Sub-object `uk-search-field`
+ ========================================================================== */
+
+/*
+ * Removes inner padding and border in Firefox 4+.
+ */
+
+.uk-search-field::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/*
+ * Remove inner padding and search cancel button in Chrome, Safari and Opera on OS X.
+ */
+
+.uk-search-field::-webkit-search-cancel-button,
+.uk-search-field::-webkit-search-decoration { -webkit-appearance: none; }
+
+/*
+ * Removes cancel button in IE10
+ */
+
+.uk-search-field::-ms-clear { display: none; }
+
+/*
+ * Removes placeholder transparency in Firefox.
+ */
+
+.uk-search-field::-moz-placeholder { opacity: 1; }
+
+/*
+ * 1. Define consistent box sizing.
+ * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
+ * 3. Remove `border-radius` in iOS.
+ * 4. Correct `font` properties and `color` not being inherited.
+ * 5. Remove default style in iOS.
+ * 6. Style
+ */
+
+.uk-search-field {
+    /* 1 */
+    box-sizing: border-box;
+    /* 2 */
+    margin: 0;
+    /* 3 */
+    border-radius: 0;
+    /* 4 */
+    font: inherit;
+    color: @search-color;
+    /* 5 */
+    -webkit-appearance: none;
+    /* 6 */
+    width: @search-width;
+    height: @search-height;
+    padding: @search-padding-vertical @search-padding-horizontal;
+    border: @search-border-width solid @search-border;
+    background: @search-background;
+    -webkit-transition: border 0.2s linear, background 0.2s linear, width 0.2s linear;
+    transition: border 0.2s linear, background 0.2s linear, width 0.2s linear;
+    vertical-align: middle;
+    .hook-search-field;
+}
+
+/* Placeholder */
+.uk-search-field:-ms-input-placeholder { color: @search-placeholder-color !important; }
+.uk-search-field::-moz-placeholder { color: @search-placeholder-color; }
+.uk-search-field::-webkit-input-placeholder { color: @search-placeholder-color; }
+
+/* Focus */
+.uk-search-field:focus {
+    outline: 0;
+    .hook-search-field-focus;
+}
+
+/* Focus + Active */
+.uk-search-field:focus,
+.uk-search.uk-active .uk-search-field { width: @search-focus-width; }
+
+
+/* Search Icon
+ ========================================================================== */
+
+/*
+ * Pass image path to JS
+ */
+
+.uk-search-icon::before { background-image: url("../../images/icons.svg"); }
+
+/*
+ * 1. Fill the SVG object with the current text color
+ * 2. Let the container fit the height of the icon
+ * 3. Style
+ */
+
+.uk-search-icon {
+    display: inline-block;
+    padding: @search-icon-padding;
+    /* 1 */
+    fill: currentcolor;
+    /* 2 */
+    line-height: 0;
+    vertical-align: middle;
+    /* 3 */
+    color: @search-icon-color;
+    .hook-search-icon;
+}
+
+/* Let the line drawn around the SVG object use the current text color
+ * But only if a `stroke-width` attribute is present, because its default value is `1`
+ */
+
+.uk-search-icon [stroke-width] { stroke: currentcolor; }
+
+/*
+ * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
+ */
+
+.uk-search-icon > * { transform: translate(0,0); }
+
+/* Hover + Focus */
+.uk-search-icon:hover,
+.uk-search-icon:focus {
+    color: @search-icon-hover-color;
+    outline: none;
+    .hook-search-icon-hover;
+}
+
+/* Active */
+.uk-search-icon:active {
+    color: @search-icon-active-color;
+    .hook-search-icon-active;
+}
+
+
+
+// Hooks
+// ========================================================================
+
+.hook-search-misc;
+
+.hook-search() {}
+.hook-search-field() {}
+.hook-search-field-focus() {}
+
+.hook-search-icon() {}
+.hook-search-icon-hover() {}
+.hook-search-icon-active() {}
+
+.hook-search-misc() {}
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @search-border:                                 @dye-color;
+    @search-background:                             @dye-color;
+    @search-color:                                  @dye-inverse-color;
+    @search-placeholder-color:                      fade(@dye-inverse-color, 70%);
+
+    @search-icon-color:                             fadeout(@dye-color, 40%);
+    @search-icon-hover-color:                       fadeout(@dye-color, 20%);
+    @search-icon-active-color:                      fadeout(@dye-color, 10%);
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-search-field {
+        color: @search-color;
+        border-color: @search-border;
+        background: @search-background;
+        .hook-dye-search-field;
+    }
+
+    //
+    // Placeholder
+    //
+
+    .uk-search-field:-ms-input-placeholder { color: @search-placeholder-color !important; }
+    .uk-search-field::-moz-placeholder { color: @search-placeholder-color; }
+    .uk-search-field::-webkit-input-placeholder { color: @search-placeholder-color; }
+
+    //
+    // Icon
+    //
+
+    .uk-search-icon {
+        color: @search-icon-color;
+        .hook-dye-search-icon;
+    }
+
+    .uk-search-icon:hover,
+    .uk-search-icon:focus {
+        color: @search-icon-hover-color;
+        .hook-dye-search-icon-hover;
+    }
+
+    .uk-search-icon:active {
+        color: @search-icon-active-color;
+        .hook-dye-search-icon-active;
+    }
+
+}
+
+.hook-dye-search-field() {}
+.hook-dye-search-icon() {}
+.hook-dye-search-icon-hover() {}
+.hook-dye-search-icon-active() {}
