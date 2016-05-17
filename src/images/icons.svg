@@ -2,6 +2,17 @@
 
     <!-- neu -->
 
+    <symbol id="tag2" viewBox="0 0 20 20">
+        <path fill="none" stroke-width="1.1" d="M17.5,3.71 L17.5,7.72 C17.5,7.96 17.4,8.2 17.21,8.39 L8.39,17.2 C7.99,17.6 7.33,17.6 6.93,17.2 L2.8,13.07 C2.4,12.67 2.4,12.01 2.8,11.61 L11.61,2.8 C11.81,2.6 12.08,2.5 12.34,2.5 L16.19,2.5 C16.52,2.5 16.86,2.63 17.11,2.88 C17.35,3.11 17.48,3.4 17.5,3.71 L17.5,3.71 Z"></path>
+        <circle cx="14" cy="6" r="1"></circle>
+    </symbol>
+
+    <symbol id="cart2" viewBox="0 0 20 20">
+        <circle cx="7.3" cy="17.3" r="1.3"></circle>
+        <circle cx="13.3" cy="17.3" r="1.3"></circle>
+        <polyline fill="none" stroke-width="1" points="0 2 3.2 4 5.3 12.5 16 12.5 18 6.5 8 6.5"></polyline>
+    </symbol>
+
     <symbol id="credit-card" viewBox="0 0 20 20">
         <rect fill="none" stroke-width="1" x="1.5" y="4.5" width="17" height="12"></rect>
         <rect x="1" y="7" width="18" height="3"></rect>
