@@ -21,6 +21,7 @@ import Scroll from './scroll';
 import Scrollspy from './scrollspy';
 import ScrollspyNav from './scrollspy-nav';
 import Slidenav from './slidenav';
+import Totop from './totop';
 import Sticky from './sticky';
 import Svg from './svg';
 import Switcher from './switcher';
@@ -72,6 +73,7 @@ export default function (UIkit, _) {
     UIkit.use(Icon);
     UIkit.use(Close);
     UIkit.use(Slidenav);
+    UIkit.use(Totop);
     UIkit.use(Modal);
     UIkit.use(Nav);
     UIkit.use(Navbar);
