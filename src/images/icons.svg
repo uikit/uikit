@@ -1,5 +1,112 @@
 <svg xmlns="http://www.w3.org/2000/svg">
 
+    <!-- neu -->
+
+    <symbol id="credit-card" viewBox="0 0 20 20">
+        <rect fill="none" stroke-width="1" x="1.5" y="4.5" width="17" height="12"></rect>
+        <rect x="1" y="7" width="18" height="3"></rect>
+    </symbol>
+
+    <symbol id="grid" viewBox="0 0 20 20">
+        <rect x="2" y="2" width="3" height="3"></rect>
+        <rect x="8" y="2" width="3" height="3"></rect>
+        <rect x="14" y="2" width="3" height="3"></rect>
+        <rect x="2" y="8" width="3" height="3"></rect>
+        <rect x="8" y="8" width="3" height="3"></rect>
+        <rect x="14" y="8" width="3" height="3"></rect>
+        <rect x="2" y="14" width="3" height="3"></rect>
+        <rect x="8" y="14" width="3" height="3"></rect>
+        <rect x="14" y="14" width="3" height="3"></rect>
+    </symbol>
+
+    <symbol id="world" viewBox="0 0 20 20">
+        <path fill="none" stroke-width="1" d="M2,6.5 L18,6.5"></path>
+        <path fill="none" stroke-width="1" d="M2,13.5 L18,13.5"></path>
+        <path fill="none" stroke-width="1" d="M10,18.8 C7.33,16.67 5.61,13.64 5.61,10.08 C5.61,6.52 7.33,3.33 10,1.2 L10,1.2 C12.67,3.33 14.4,6.52 14.4,10.08 C14.4,13.64 12.67,16.67 10,18.8 L10,18.8 L10,18.8 Z"></path>
+        <circle fill="none" stroke-width="1" cx="10" cy="10" r="9"></circle>
+    </symbol>
+
+    <symbol id="list2" viewBox="0 0 20 20">
+        <circle cx="1.5" cy="4.5" r="1.5"/>
+        <circle cx="1.5" cy="10.5" r="1.5"/>
+        <circle cx="1.5" cy="16.5" r="1.5"/>
+        <rect x="6" y="4" width="13" height="1"></rect>
+        <rect x="6" y="10" width="13" height="1"></rect>
+        <rect x="6" y="16" width="13" height="1"></rect>
+    </symbol>
+
+    <symbol id="location2" viewBox="0 0 20 20">
+        <path fill="none" stroke-width="1" d="M10,0.5 C6.41,0.5 3.5,3.39 3.5,6.98 C3.5,11.83 10,19 10,19 C10,19 16.5,11.83 16.5,6.98 C16.5,3.39 13.59,0.5 10,0.5 L10,0.5 Z"></path>
+        <circle fill="none" stroke-width="1" cx="10" cy="6.8" r="2.3"></circle>
+    </symbol>
+
+    <symbol id="rss2" viewBox="0 0 20 20">
+        <circle cx="3.12" cy="15.88" r="2.12"></circle>
+        <path fill="none" stroke-width="1.1" d="M1.5,8.2 C1.78,8.18 2.06,8.16 2.35,8.16 C7.57,8.16 11.81,12.37 11.81,17.57 C11.81,17.89 11.79,18.19 11.76,18.5"></path>
+        <path fill="none" stroke-width="1.1" d="M1.5,2.52 C1.78,2.51 2.06,2.5 2.35,2.5 C10.72,2.5 17.5,9.24 17.5,17.57 C17.5,17.89 17.49,18.19 17.47,18.5"></path>
+    </symbol>
+
+    <symbol id="instagram-new" viewBox="0 0 20 20">
+        <path d="M13.54,1 L6.46,1 C3.45,1 1,3.44 1,6.44 L1,13.56 C1,16.56 3.45,19 6.46,19 L13.53,19 C16.55,19 18.99,16.56 18.99,13.56 L18.99,6.44 C19,3.44 16.55,1 13.54,1 L13.54,1 Z M17.47,13.98 C17.47,15.88 15.92,17.43 14.01,17.43 L6.13,17.43 C4.22,17.43 2.67,15.89 2.67,13.98 L2.67,6.19 C2.67,4.29 4.22,2.74 6.13,2.74 L14.01,2.74 C15.92,2.74 17.47,4.28 17.47,6.19 L17.47,13.98 L17.47,13.98 Z"></path>
+        <circle cx="14.87" cy="5.26" r="1.09"></circle>
+        <path d="M10.03,5.45 C7.48,5.45 5.4,7.51 5.4,10.05 C5.4,12.6 7.47,14.66 10.03,14.66 C12.59,14.66 14.66,12.6 14.66,10.05 C14.65,7.51 12.58,5.45 10.03,5.45 L10.03,5.45 Z M10.08,13 C8.42,13 7.08,11.66 7.08,10.01 C7.08,8.36 8.42,7.02 10.08,7.02 C11.74,7.02 13.08,8.36 13.08,10.01 C13.08,11.66 11.74,13 10.08,13 L10.08,13 Z"></path>
+    </symbol>
+
+    <symbol id="git-fork" viewBox="0 0 20 20">
+        <circle fill="none" stroke-width="1.2" cx="5.79" cy="2.79" r="1.79"></circle>
+        <circle fill="none" stroke-width="1.2" cx="14.19" cy="2.79" r="1.79"></circle>
+        <ellipse fill="none" stroke-width="1.2" cx="10.03" cy="16.79" rx="1.79" ry="1.79"></ellipse>
+        <path fill="none" stroke-width="2" d="M5.79,4.57 L5.79,6.56 C5.79,9.19 10.03,10.22 10.03,13.31 C10.03,14.86 10.04,14.55 10.04,14.55 C10.04,14.37 10.04,14.86 10.04,13.31 C10.04,10.22 14.2,9.19 14.2,6.56 L14.2,4.57"></path>
+    </symbol>
+
+    <symbol id="bookmark" viewBox="0 0 20 20">
+        <polygon fill="none" stroke-width="1" points="5.5 1.5 15.5 1.5 15.5 17.5 10.5 12.5 5.5 17.5"></polygon>
+    </symbol>
+
+    <symbol id="dashboard" viewBox="0 0 20 20">
+        <path fill="none" stroke-width="1" d="M2.52,17 C1.56,15.57 1,13.85 1,12 C1,7.03 5.03,3 10,3 C14.97,3 19,7.03 19,12 C19,13.85 18.44,15.57 17.48,17"></path>
+        <path fill="none" stroke-width="1.1" d="M11,12.5 L15.2,8.4"></path>
+        <circle fill="none" stroke-width="1.1" cx="10" cy="13.5" r="1.5"></circle>
+    </symbol>
+
+    <symbol id="paint-bucket2" viewBox="0 0 20 20">
+        <path d="M10.21,1 L0,11.21 L8.1,19.31 L18.31,9.1 L10.21,1 L10.21,1 Z M16.89,9.1 L15,11 L1.7,11 L10.21,2.42 L16.89,9.1 Z"></path>
+        <path fill="none" stroke-width="1" d="M6.42,2.33 L11.7,7.61"></path>
+        <path d="M18.49,12 C18.49,12 20,14.06 20,15.36 C20,16.28 19.24,17 18.49,17 L18.49,17 C17.74,17 17,16.28 17,15.36 C17,14.06 18.49,12 18.49,12 L18.49,12 Z"></path>
+    </symbol>
+
+    <symbol id="git-branch2" viewBox="0 0 20 20">
+        <circle fill="none" stroke-width="1.2" cx="7" cy="3" r="2"></circle>
+        <circle fill="none" stroke-width="1.2" cx="14" cy="6" r="2"></circle>
+        <circle fill="none" stroke-width="1.2" cx="7" cy="17" r="2"></circle>
+        <path fill="none" stroke-width="2" d="M14,8 C14,10.41 12.43,10.87 10.56,11.25 C9.09,11.54 7,12.06 7,15 L7,5"></path>
+    </symbol>
+
+    <symbol id="code2" viewBox="0 0 20 20">
+        <polyline fill="none" stroke-width="1.1" points="14,6 18,10 14,14"></polyline>
+        <polyline fill="none" stroke-width="1.1" points="6,14 2,10 6,6"></polyline>
+    </symbol>
+
+    <symbol id="login" viewBox="0 0 20 20">
+        <polyline fill="none" stroke-width="1.1" points="10,7 13,10.5 10,14 "></polyline>
+        <polygon  points="7,3 17,3 17,18 7,18 7,17 16,17 16,4 7,4 "></polygon>
+        <line fill="none" stroke-width="1" x1="13" y1="10.5" x2="4" y2="10.5"></line>
+    </symbol>
+
+    <symbol id="pull" viewBox="0 0 20 20">
+        <polyline fill="none" stroke-width="1.1" points="6.24,11.74 9.5,8.5 12.76,11.74 "></polyline>
+        <polyline fill="none" stroke-width="1" points="6,15.5 3.5,15.5 3.5,2.5 15.5,2.5 15.5,15.5 13,15.5 "></polyline>
+        <line fill="none" stroke-width="1" x1="9.5" y1="18" x2="9.5" y2="8.5"></line>
+    </symbol>
+
+    <symbol id="commenting" viewBox="0 0 20 20">
+        <polygon fill="none" stroke-width="1" points="1.5,1.5 18.5,1.5 18.5,13.5 10.5,13.5 6.5,17.5 6.5,13.5 1.5,13.5"></polygon>
+        <circle cx="10" cy="8" r="1"></circle>
+        <circle cx="6" cy="8" r="1"></circle>
+        <circle cx="14" cy="8" r="1"></circle>
+    </symbol>
+    <!-- neu ende -->
+
     <symbol id="album" viewBox="0 0 20 20">
         <rect x="5" y="2" width="10" height="1"></rect>
         <rect x="3" y="4" width="14" height="1"></rect>
@@ -100,15 +207,15 @@
     </symbol>
 
     <symbol id="cloud-download" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1" points="11.75 13 9.5 15.25 7.25 13"></polyline>
-        <path fill="none" stroke-width="1.05" d="M6.5,11.61 L3.75,11.61 C1.96,11.61 0.5,10.17 0.5,8.39 C0.5,6.76 1.72,5.41 3.31,5.2 C3.38,2.31 5.75,0 8.68,0 C11.19,0 13.31,1.71 13.89,4.02 C14.39,3.8 14.93,3.68 15.5,3.68 C17.71,3.68 19.5,5.45 19.5,7.64 C19.5,9.83 17.71,11.6 15.5,11.6 L12.5,11.6"></path>
-        <path fill="none" stroke-width="1" d="M9.5,15 L9.5,6.5"></path>
+        <path fill="none" stroke-width="1" d="M6.5,14.61 L3.75,14.61 C1.96,14.61 0.5,13.17 0.5,11.39 C0.5,9.76 1.72,8.41 3.3,8.2 C3.38,5.31 5.75,3 8.68,3 C11.19,3 13.31,4.71 13.89,7.02 C14.39,6.8 14.93,6.68 15.5,6.68 C17.71,6.68 19.5,8.45 19.5,10.64 C19.5,12.83 17.71,14.6 15.5,14.6 L12.5,14.6"></path>
+        <polyline fill="none" stroke-width="1" points="11.75 16 9.5 18.25 7.25 16"></polyline>
+        <path fill="none" stroke-width="1" d="M9.5,18 L9.5,9.5"></path>
     </symbol>
 
     <symbol id="cloud-upload" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1" points="7.25 8.75 9.5 6.5 11.75 8.75"></polyline>
-        <path fill="none" stroke-width="1.05" d="M6.5,11.61 L3.75,11.61 C1.96,11.61 0.5,10.17 0.5,8.39 C0.5,6.76 1.72,5.41 3.31,5.2 C3.38,2.31 5.75,0 8.68,0 C11.19,0 13.31,1.71 13.89,4.02 C14.39,3.8 14.93,3.68 15.5,3.68 C17.71,3.68 19.5,5.45 19.5,7.64 C19.5,9.83 17.71,11.6 15.5,11.6 L12.5,11.6"></path>
-        <path fill="none" stroke-width="1" d="M9.5,15 L9.5,6.5"></path>
+        <path fill="none" stroke-width="1" d="M6.5,14.61 L3.75,14.61 C1.96,14.61 0.5,13.17 0.5,11.39 C0.5,9.76 1.72,8.41 3.31,8.2 C3.38,5.31 5.75,3 8.68,3 C11.19,3 13.31,4.71 13.89,7.02 C14.39,6.8 14.93,6.68 15.5,6.68 C17.71,6.68 19.5,8.45 19.5,10.64 C19.5,12.83 17.71,14.6 15.5,14.6 L12.5,14.6"></path>
+        <polyline fill="none" stroke-width="1" points="7.25 11.75 9.5 9.5 11.75 11.75"></polyline>
+        <path fill="none" stroke-width="1" d="M9.5,18 L9.5,9.5"></path>
     </symbol>
 
     <symbol id="code" viewBox="0 0 20 20">
