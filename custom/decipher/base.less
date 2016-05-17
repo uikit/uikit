@@ -7,12 +7,14 @@
 // Variables
 // ========================================================================
 
-@base-font-family:                              "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+@base-font-family:                              @global-font-family-sans-serif;
 @base-body-background:                          @global-background;
 @base-body-font-family:                         @base-font-family;
 @base-body-font-size:                           @global-font-size;
 @base-body-line-height:                         @global-line-height;
 @base-body-color:                               @global-color;
+
+@base-muted-background:                         @global-muted-background;
 
 @base-link-color:                               @global-link-color;
 @base-link-hover-color:                         @global-link-hover-color;
@@ -67,7 +69,9 @@
 // Text-level semantics
 // ========================================================================
 
-.hook-base-code() {}
+.hook-base-code() {
+  background-color:                             @base-muted-background;
+}
 
 
 // Headings
@@ -97,13 +101,17 @@
 // Blockquotes
 // ========================================================================
 
-.hook-base-blockquote() {}
+.hook-base-blockquote() {
+  background-color:                             @base-muted-background;
+}
 
 
 // Preformatted text
 // ========================================================================
 
-.hook-base-pre() {}
+.hook-base-pre() {
+  background-color:                             @base-muted-background;
+}
 
 
 // Miscellaneous

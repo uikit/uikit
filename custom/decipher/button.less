@@ -7,6 +7,9 @@
 // Variables
 // ========================================================================
 
+@button-border-radius:                          @global-border-radius;
+@button-outline-width:                          1.5px;
+
 @button-height:                                 @global-height;
 @button-mini-height:                            @global-height-mini;
 @button-small-height:                           @global-height-small;
@@ -21,11 +24,21 @@
 @button-small-font-size:                        round((@global-font-size * 0.85)); // 12px / 14px
 @button-large-font-size:                        round((@global-font-size * 1.14)); // 16px / 18px
 
-@button-color:                                  @global-color;
-@button-hover-color:                            @global-color;
-@button-active-color:                           @global-color;
+@button-font-family:                            @global-font-family-sans-serif;
+@button-font-weight:                            400;
 
-@button-primary-background:                     @global-primary-background;
+@button-icon-color-difference:                  20%;
+
+@button-color:                                  @global-color;
+@button-background:                             @global-muted-background;
+@button-hover-color:                            @global-color;
+@button-hover-background:                       darken(@button-background, 10%);
+@button-active-color:                           @global-color;
+@button-active-background:                      darken(@button-background, 20%);
+
+@button-primary-background:                     @global-color;
+@button-primary-hover-background:               lighten(@button-primary-background, 10%);
+@button-primary-active-background:              lighten(@button-primary-background, 20%);
 @button-primary-color:                          @global-contrast-color;
 @button-primary-hover-color:                    @global-contrast-color;
 @button-primary-active-color:                   @global-contrast-color;
@@ -33,14 +46,17 @@
 @button-success-background:                     @global-success-background;
 @button-success-color:                          @global-contrast-color;
 @button-success-hover-color:                    @global-contrast-color;
+@button-success-hover-background:               lighten(@global-success-background, 5%);
 @button-success-active-color:                   @global-contrast-color;
+@button-success-active-background:              lighten(@button-success-background, 10%);
 
 @button-danger-background:                      @global-danger-background;
 @button-danger-color:                           @global-contrast-color;
 @button-danger-hover-color:                     @global-contrast-color;
 @button-danger-active-color:                    @global-contrast-color;
 
-@button-disabled-color:                         @global-muted-color;
+@button-disabled-color:                         lighten(@global-muted-color, 5%);
+@button-disabled-background:                    @global-muted-background;
 
 @button-link-color:                             @global-link-color;
 @button-link-hover-color:                       @global-link-hover-color;
@@ -50,7 +66,29 @@
 // Component
 // ========================================================================
 
-.hook-button() {}
+.hook-button() {
+  font-weight:                                  @button-font-weight;
+  border-radius:                                @button-border-radius;
+  font-family:                                  @button-font-family;
+
+  [class*="uk-icon-"]{
+    opacity: .4;
+
+    &:first-child{
+      position: relative;
+      left: -2px;
+    }
+    &:last-child{
+      position: relative;
+      right: -2px;
+    }
+    &:first-child:last-child{
+      position: static;
+    }
+  }
+}
+
+
 
 .hook-button-hover() {}
 
@@ -99,11 +137,40 @@
 
 .hook-button-link() {}
 
+// Focus
+.uk-button-link:focus { outline: 1px dotted; }
+
 
 // Size modifiers
 // ========================================================================
 
 .hook-button-large() {}
+
+
+
+/* Sub-object `uk-button-group`
+ ========================================================================== */
+
+/*
+ * Reset border-radius
+ */
+
+.uk-button-group > .uk-button:not(:first-child):not(:last-child),
+.uk-button-group > div:not(:first-child):not(:last-child) .uk-button {
+    border-radius: 0;
+}
+
+.uk-button-group > .uk-button:first-child,
+.uk-button-group > div:first-child .uk-button {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.uk-button-group > .uk-button:last-child,
+.uk-button-group > div:last-child .uk-button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
 
 
 // Miscellaneous

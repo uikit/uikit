@@ -13,8 +13,11 @@
 @panel-title-color:                             @global-color;
 
 @panel-box-padding:                             @global-margin;
+@panel-box-background:                          @global-muted-background;
 @panel-box-color:                               @global-color;
 @panel-box-title-color:                         @global-color;
+
+@panel-box-secondary-background:                @global-muted-background-2;
 
 @panel-hover-padding:                           @global-margin;
 @panel-hover-color:                             @global-color;
@@ -43,7 +46,9 @@
 // Modifier: `uk-panel-box`
 // ========================================================================
 
-.hook-panel-box() {}
+.hook-panel-box() {
+  background-color:                              @panel-box-background;
+}
 
 .hook-panel-box-hover() {}
 
@@ -59,7 +64,9 @@
 // Sub-modifier: `uk-panel-box-secondary`
 //
 
-.hook-panel-box-secondary() {}
+.hook-panel-box-secondary() {
+  background-color:                              @panel-box-secondary-background
+}
 
 .hook-panel-box-secondary-hover() {}
 

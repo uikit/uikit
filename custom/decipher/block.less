@@ -21,7 +21,12 @@
 
 .hook-block-default() {}
 
-.hook-block-muted() {}
+.hook-block-muted() {
+  &,
+  h1, h2, h3, h4, h5, h6{
+    color: lighten(desaturate(@global-color, 30%), 40%);
+  }
+}
 
 .hook-block-secondary() {}
 

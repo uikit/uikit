@@ -8,6 +8,8 @@
 // ========================================================================
 
 @breadcrumb-disabled-color:                     @global-muted-color;
+@breadcrumb-divider-color:                      @global-muted-color;
+@breadcrumb-divider:                            '›';
 
 
 // Component
@@ -19,7 +21,9 @@
 // Items
 // ========================================================================
 
-.hook-breadcrumb-divider() {}
+.hook-breadcrumb-divider() {
+  color:                                         @breadcrumb-divider-color;
+}
 
 
 // Miscellaneous
