@@ -1,6 +1,8 @@
 import $ from 'jquery';
 module.exports = require('../../src/js/uikit.js');
 
+$('html').css('padding-top', '80px');
+
 requestAnimationFrame(function () {
 
     var $select = $('<select><option value="">- Select Test -</option></select>').css('margin', '20px 0');
@@ -75,5 +77,6 @@ requestAnimationFrame(function () {
     }).val(location.pathname.split('/').pop());
 
     $('body').prepend($('<div class="uk-form uk-container"></div>').prepend($select));
+    $('html').css('padding-top', '');
 
 });
