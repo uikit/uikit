@@ -33,13 +33,7 @@ export default function (UIkit) {
 
         ready() {
 
-            this.placeholder = $('<div class="uk-sticky-placeholder"></div>')
-                .insertAfter(this.$el)
-                .css({
-                    height: this.$el.css('position') !== 'absolute' ? this.$el.outerHeight() : '',
-                    margin: this.$el.css('margin')
-                }).attr('hidden', true);
-
+            this.placeholder = $('<div class="uk-sticky-placeholder"></div>').insertAfter(this.$el).attr('hidden', true);
             this.widthElement = this.widthElement || this.placeholder;
             this.topProp = this.top;
             this.bottomProp = this.bottom;
@@ -65,12 +59,6 @@ export default function (UIkit) {
                 }
             }
 
-            // TODO: fix
-            // this.$el.css({
-            //     // 'overflow-y': 'scroll',
-            //     '-webkit-overflow-scrolling': 'touch'
-            // });
-
         },
 
         update: {
@@ -80,6 +68,11 @@ export default function (UIkit) {
                 var isActive = this.$el.hasClass(this.clsActive), el;
 
                 if (type !== 'scroll') {
+
+                    this.placeholder.css({
+                        height: this.$el.css('position') !== 'absolute' ? this.$el.outerHeight() : '',
+                        margin: this.$el.css('margin')
+                    });
 
                     this.offsetTop = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
 
