@@ -12,6 +12,8 @@
 @nav-header-font-size:                          round((@global-font-size * 0.85)); // 12px / 14px
 @nav-header-margin-top:                         @global-margin;
 
+@nav-active-border-radius:                      @global-border-radius;
+
 @nav-divider-margin-horizontal:                 @nav-padding-horizontal;
 
 @nav-subtitle-font-size:                        round((@global-font-size * 0.85)); // 12px / 14px
@@ -91,10 +93,14 @@
 .hook-nav-side() {}
 
 // Hover
-.hook-nav-side-hover() {}
+.hook-nav-side-hover() {
+  border-radius:  @nav-active-border-radius;
+}
 
 // Active
-.hook-nav-side-active() {}
+.hook-nav-side-active() {
+  border-radius:  @nav-active-border-radius;
+}
 
 //
 // Sub-object: `uk-nav-header`
@@ -119,7 +125,14 @@
 .hook-nav-dropdown() {}
 
 // Hover
-.hook-nav-dropdown-hover() {}
+.hook-nav-dropdown-hover() {
+  border-radius: 0;
+}
+
+// Active
+.hook-nav-dropdown-active() {
+  border-radius: 0;
+}
 
 //
 // Sub-object: `uk-nav-header`

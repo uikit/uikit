@@ -8,12 +8,15 @@
 // ========================================================================
 
 @alert-margin-vertical:                         @global-margin;
+@alert-border-radius:                           @global-border-radius;
 
 
 // Component
 // ========================================================================
 
-.hook-alert() {}
+.hook-alert() {
+  border-radius: @alert-border-radius;
+}
 
 
 // Modifier: `uk-alert-success`

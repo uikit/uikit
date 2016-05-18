@@ -12,6 +12,8 @@
 @form-background:                               @global-background;
 @form-color:                                    @global-color;
 
+@form-border-radius:                            @global-border-radius;
+
 @form-focus-color:                              @global-color;
 
 @form-disabled-border:                          @global-border;
@@ -39,7 +41,9 @@
 // Component
 // ========================================================================
 
-.hook-form() {}
+.hook-form() {
+  border-radius: @form-border-radius;
+}
 
 // Focus state
 .hook-form-focus() {}

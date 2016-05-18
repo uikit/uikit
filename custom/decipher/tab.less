@@ -23,7 +23,9 @@
 // Items
 //
 
-.hook-tab() {}
+.hook-tab() {
+  border-radius: @global-border-radius @global-border-radius 0 0;
+}
 
 // Hover
 .hook-tab-hover() {}
@@ -38,4 +40,24 @@
 // Miscellaneous
 // ========================================================================
 
-.hook-tab-misc() {}
+.hook-tab-misc() {
+
+  // Modifier: `uk-tab-bottom'
+  // ========================================================================
+
+  .uk-tab-bottom > li > a { border-radius: 0 0 @global-border-radius @global-border-radius; }
+
+
+  // Modifier: `uk-tab-left', `uk-tab-right'
+  // ========================================================================
+
+  // Tablet and bigger
+  @media (min-width: @breakpoint-medium) {
+
+    // Modifier: `uk-tab-left'
+    .uk-tab-left > li > a { border-radius: @global-border-radius 0 0 @global-border-radius; }
+
+     // Modifier: `uk-tab-right'
+    .uk-tab-right > li > a { border-radius: 0 @global-border-radius @global-border-radius 0; }
+  }
+}
