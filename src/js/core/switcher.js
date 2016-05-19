@@ -20,12 +20,17 @@ export default function (UIkit) {
             active: 0,
             swiping: true,
             cls: 'uk-active',
+            clsContainer: 'uk-switcher',
             attrItem: 'uk-switcher-item'
         },
 
         ready() {
 
             this.toggles = toJQuery(this.toggle, this.$el);
+
+            if (!this.connect) {
+                this.connect = toJQuery(this.$el.next(`.${this.clsContainer}`));
+            }
 
             if (!this.connect || !this.toggles) {
                 return;
