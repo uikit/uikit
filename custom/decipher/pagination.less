@@ -12,6 +12,8 @@
 @pagination-hover-color:                        @global-color;
 @pagination-onclick-color:                      @global-color;
 
+@pagination-item-border-radius:                 @global-border-radius;
+
 @pagination-active-background:                  @global-primary-background;
 @pagination-active-color:                       @global-contrast-color;
 
@@ -25,7 +27,9 @@
 // Items
 //
 
-.hook-pagination-item() {}
+.hook-pagination-item() {
+  border-radius:                                @pagination-item-border-radius;
+}
 
 // Link
 .hook-pagination-link() {}

@@ -10,6 +10,7 @@
 @progress-margin-vertical:                      @global-margin;
 
 @progress-bar-background:                       @global-primary-background;
+@progress-bar-border-radius:                    @global-border-radius;
 @progress-bar-font-size:                        round((@global-font-size * 0.85)); // 12px / 14px
 @progress-bar-color:                            @global-contrast-color;
 
@@ -21,7 +22,9 @@
 // Component
 // ========================================================================
 
-.hook-progress() {}
+.hook-progress() {
+  border-radius: @progress-bar-border-radius;
+}
 
 
 // Sub-object: `progress-bar`

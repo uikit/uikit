@@ -14,6 +14,8 @@
 @base-body-line-height:                         @global-line-height;
 @base-body-color:                               @global-color;
 
+@base-block-border-radius:                      @global-border-radius;
+
 @base-muted-background:                         @global-muted-background;
 
 @base-link-color:                               @global-link-color;
@@ -71,6 +73,7 @@
 
 .hook-base-code() {
   background-color:                             @base-muted-background;
+  border-radius:                                @base-block-border-radius;
 }
 
 
@@ -102,6 +105,7 @@
 // ========================================================================
 
 .hook-base-blockquote() {
+  border-radius:                                @base-block-border-radius;
   background-color:                             @base-muted-background;
 }
 
@@ -110,6 +114,7 @@
 // ========================================================================
 
 .hook-base-pre() {
+  border-radius:                                @base-block-border-radius;
   background-color:                             @base-muted-background;
 }
 

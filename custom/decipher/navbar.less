@@ -11,6 +11,7 @@
 @navbar-background:                             @global-muted-background;
 @navbar-link-color:                             @global-link-color;
 @navbar-link-hover-color:                       @global-link-hover-color;
+@navbar-border-radius:                          @global-border-radius;
 
 @navbar-nav-line-height:                        @navbar-nav-height;
 @navbar-nav-color:                              @global-color;
@@ -34,7 +35,9 @@
 // Component
 // ========================================================================
 
-.hook-navbar() {}
+.hook-navbar() {
+  border-radius: @navbar-border-radius;
+}
 
 
 // Sub-object: `uk-navbar-nav`
@@ -61,4 +64,34 @@
 // Miscellaneous
 // ========================================================================
 
-.hook-navbar-misc() {}
+.hook-navbar-misc() {
+
+  // Apply same `border-radius` as `uk-navbar`
+    .uk-navbar-nav:first-child > li:first-child > a {
+      border-top-left-radius: @navbar-border-radius;
+      border-bottom-left-radius: @navbar-border-radius;
+    }
+
+    // Sub-modifier `uk-navbar-flip`
+
+    // Apply same `border-radius` as `uk-navbar`
+    .uk-navbar-flip .uk-navbar-nav:first-child > li:first-child > a {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+
+    .uk-navbar-flip .uk-navbar-nav:last-child > li:last-child > a {
+      border-top-right-radius: @navbar-border-radius;
+      border-bottom-right-radius: @navbar-border-radius;
+    }
+
+    // Sub-modifier `uk-navbar-attached`
+
+    .uk-navbar-attached {
+      border-radius: 0;
+    }
+
+    .uk-navbar-attached .uk-navbar-nav > li > a {
+      border-radius: 0 !important;
+    }
+}
