@@ -66,7 +66,7 @@
 
             var $this = this, canvas, kbanimduration;
 
-            this.container     = this.element.hasClass('uk-slideshow') ? this.element : UI.$(this.find('.uk-slideshow'));
+            this.container     = this.element.hasClass('uk-slideshow') ? this.element : UI.$(this.find('.uk-slideshow:first'));
             this.slides        = this.container.children();
             this.slidesCount   = this.slides.length;
             this.current       = this.options.start;
