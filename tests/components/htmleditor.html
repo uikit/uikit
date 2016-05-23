@@ -88,6 +88,17 @@
             <h3>Split mode with markdown rendering (commonmark)</h3>
             <textarea data-uk-htmleditor="{markdown:true, mdparser: window.commonmarkparser}">**test**</textarea>
 
+            <p>
+                <a href="#modal" data-uk-modal>Open in modal</a>
+            </p>
+
+            <div id="modal" class="uk-modal">
+              <div class="uk-modal-dialog">
+                <a class="uk-modal-close uk-close"></a>
+                <textarea data-uk-htmleditor="{markdown:true, mdparser: window.commonmarkparser}">**test**</textarea>
+              </div>
+            </div>
+
         </div>
 
     </body>
