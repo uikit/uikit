@@ -1,5 +1,10 @@
 # Changelog
 
+
+### WIP
+
+  - Fixed Htmleditor fullscreen mode in fixed container
+
 ### 2.26.3 (May 12, 2016)
 
   - Added UIkit.Utils.throttle helper function
