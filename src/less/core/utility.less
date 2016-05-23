@@ -22,6 +22,9 @@
 // Variables
 // ========================================================================
 
+@panel-title-font-size:                         @global-large-font-size;
+@panel-title-line-height:                       1.4;
+
 @panel-scrollable-height:                       170px;
 @panel-scrollable-padding:                      10px;
 @panel-scrollable-border:                       #ddd;
@@ -68,6 +71,18 @@
  */
 
 .uk-panel > :last-child { margin-bottom: 0; }
+
+
+/*
+ * Title
+ */
+
+.uk-panel-title {
+    margin-top: 0;
+    font-size: @panel-title-font-size;
+    line-height: @panel-title-line-height;
+    .hook-panel-title;
+}
 
 /*
  * Scrollable
@@ -299,6 +314,7 @@
 
 .hook-utility-misc;
 
+.hook-panel-title() {}
 .hook-panel-scrollable() {}
 .hook-dropcap() {}
 .hook-logo() {}
