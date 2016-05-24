@@ -1,4 +1,4 @@
-var $ = jQuery, storage = window.sessionStorage, key = '_uikit_style;
+var $ = jQuery, storage = window.sessionStorage, key = '_uikit_style';
 
 if (!storage[key]) {
     storage[key] = '../css/uikit.css';
