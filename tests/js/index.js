@@ -1,8 +1,6 @@
-import $ from 'jquery';
+var $ = jQuery, storage = window.sessionStorage, key = '_uikit_style;
 
 $('html').css('padding-top', '80px');
-
-var storage = window.sessionStorage, key = '_uikit_style';
 
 if (!storage[key]) {
     storage[key] = '../css/uikit.css';
