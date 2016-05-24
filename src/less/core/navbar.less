@@ -130,6 +130,7 @@
 
 /*
  * Align groups
+ * 1. Fix text wrapping if the centered section is larger than 50% of the navbar
  */
 
 .uk-navbar-right { margin-left: auto; }
@@ -145,6 +146,8 @@
     left: 50%;
     -webkit-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
+    /* 1 */
+    white-space: nowrap;
 }
 
 
