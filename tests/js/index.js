@@ -1,7 +1,5 @@
 var $ = jQuery, storage = window.sessionStorage, key = '_uikit_style;
 
-$('html').css('padding-top', '80px');
-
 if (!storage[key]) {
     storage[key] = '../css/uikit.css';
 }
@@ -99,3 +97,5 @@ requestAnimationFrame(function () {
     $('html').css('padding-top', '');
 
 });
+
+$('html').css('padding-top', '80px');
