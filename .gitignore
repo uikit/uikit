@@ -1,12 +1,14 @@
 /.idea
 /js
-/css
-/custom
+/css/*
+!/css/.gitkeep
 /dist
 /node_modules
 /showcase
 /tools
 /tests/js/test.js
+/tests/css/*
+!/tests/css/.gitkeep
 *~
 *.diff
 *.patch
