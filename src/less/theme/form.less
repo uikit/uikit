@@ -14,8 +14,10 @@
 // ========================================================================
 
 .hook-form() {
-    -webkit-transition: all 0.2s linear;
-    transition: all 0.2s linear;
+    -webkit-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
+    -webkit-transition-property: color, background-color, border;
+    transition-property: color, background-color, border;
 }
 
 .hook-form-focus() {}

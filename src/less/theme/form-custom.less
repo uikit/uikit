@@ -11,9 +11,18 @@
 // Component
 // ========================================================================
 
-.hook-form-custom() {}
+.hook-form-custom() {
+    -webkit-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
+    -webkit-transition-property: background-color, border;
+    transition-property: background-color, border;
+}
+
+.hook-form-custom-focus() {}
 
 .hook-form-custom-checked() {}
+
+.hook-form-custom-checked-focus() {}
 
 .hook-form-custom-disabled() {}
 

@@ -16,11 +16,13 @@
 @form-radio-border-width:                     @global-border-width;
 @form-radio-background:                       transparent;
 
-@form-radio-focus-color:                      fade(@global-primary-background, 50%);
+@form-radio-focus-border:                     @global-primary-background;
 
 @form-radio-checked-border:                   transparent;
 @form-radio-checked-background:               @global-primary-background;
 @form-radio-checked-icon-color:               @global-inverse-color;
+
+@form-radio-checked-focus-background:         darken(@global-primary-background, 10%);
 
 @form-radio-disabled-border:                  @global-border;
 @form-radio-disabled-background:              @global-muted-background;
@@ -76,7 +78,8 @@
 .uk-form input[type="radio"]:focus,
 .uk-form input[type="checkbox"]:focus {
     outline: none;
-    box-shadow: 0 0 0 3px @form-radio-focus-color;
+    border-color: @form-radio-focus-border;
+    .hook-form-custom-focus;
 }
 
 /*
@@ -89,6 +92,14 @@
     border-color: @form-radio-checked-border;
     background-color: @form-radio-checked-background;
     .hook-form-custom-checked;
+}
+
+/* Focus */
+.uk-form input[type=radio]:checked:focus,
+.uk-form input[type=checkbox]:checked:focus,
+.uk-form input[type=checkbox]:indeterminate:focus {
+    background-color: @form-radio-checked-focus-background;
+    .hook-form-custom-checked-focus;
 }
 
 /*
@@ -151,7 +162,9 @@
 .hook-form-custom-misc;
 
 .hook-form-custom() {}
+.hook-form-custom-focus() {}
 .hook-form-custom-checked() {}
+.hook-form-custom-checked-focus() {}
 .hook-form-custom-disabled() {}
 .hook-form-custom-misc() {}
 
