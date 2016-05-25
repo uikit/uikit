@@ -34,14 +34,14 @@ export default function (UIkit) {
                     .each((i, el) => {
                         el = $(el);
                         offset = el.offset();
-                        top = Math.min(top, offset.top + el.outerHeight(true) - 1); // (-1): weird firefox bug when parent container is display:flex
-                        left = Math.min(left, offset.left + el.outerWidth(true));
+                        top = Math.min(top, offset.top + el.outerHeight(true) - 1);
+                        left = Math.min(left, offset.left + el.outerWidth(true) - 1);
                     })
                     .each((i, el) => {
                         el = $(el);
                         offset = el.offset();
                         el.toggleClass(this.margin, offset.top >= top);
-                        el.toggleClass(this.rowFirst, this.rowFirst && offset.left < left);
+                        el.toggleClass(this.rowFirst, this.rowFirst && offset.left <= left);
                     });
             },
 
