@@ -130,14 +130,18 @@ export default function (UIkit) {
                 ) {
                     if (isActive) {
 
-                        Animation.cancel(this.$el);
+                        this.$el.removeClass(this.clsActive).addClass(this.clsInactive);
 
-                        this.$el.css({position: '', top: '', width: ''})
-                            .removeClass(this.clsActive)
-                            .addClass(this.clsInactive)
-                            .trigger('inactive');
+                        var hide = () => {
+                            this.$el.css({position: '', top: '', width: ''}).trigger('inactive');
+                            this.placeholder.attr('hidden', true);
+                        };
 
-                        this.placeholder.attr('hidden', true);
+                        if (this.animation) {
+                            Animation.cancel(this.$el).out(this.$el, this.animation).then(hide);
+                        } else {
+                            hide();
+                        }
 
                     }
 

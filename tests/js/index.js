@@ -84,7 +84,7 @@ requestAnimationFrame(function () {
 
     var $styles = $(`
         <select>
-            <option value="../css/uikit.css">Themed</option>
+            <option value="../css/uikit.css">Theme</option>
             <option value="css/uikit.core.css">Core</option>
         </select>
     `).insertAfter($tests);
