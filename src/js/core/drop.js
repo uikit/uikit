@@ -13,7 +13,7 @@ export default function (UIkit) {
 
     UIkit.component('drop', {
 
-        mixins: [UIkit.mixin.position, UIkit.mixin.toggable, UIkit.mixin.mouse],
+        mixins: [UIkit.mixin.class, UIkit.mixin.position, UIkit.mixin.toggable, UIkit.mixin.mouse],
 
         props: {
             mode: String,
