@@ -5,6 +5,8 @@ export default function (UIkit) {
 
     UIkit.component('navbar', {
 
+        mixins: [UIkit.mixin.class],
+
         props: {
             dropdown: String,
             mode: String,
