@@ -6,7 +6,24 @@ export default function (UIkit) {
 
         mixins: [UIkit.mixin.class],
 
-        defaults: {margin: 'uk-grid-margin'}
+        defaults: {
+            margin: 'uk-grid-margin',
+            clsStack: 'uk-grid-stack'
+        },
+
+        update: {
+
+            handler() {
+
+                var children = this.$el.children().filter((i, el) => el.offsetHeight > 0);
+
+                this.$el.toggleClass(this.clsStack, children.length === children.filter(`.${this.firstColumn}`).length);
+
+            },
+
+            events: ['load', 'resize', 'orientationchange']
+
+        }
 
     }));
 

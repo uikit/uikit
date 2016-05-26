@@ -6,12 +6,12 @@ export default function (UIkit) {
 
         props: {
             margin: String,
-            rowFirst: Boolean
+            firstColumn: Boolean
         },
 
         defaults: {
             margin: 'uk-margin-small-top',
-            rowFirst: 'uk-row-first'
+            firstColumn: 'uk-column-first'
         },
 
         update: {
@@ -22,27 +22,53 @@ export default function (UIkit) {
                     return;
                 }
 
-                var left = Number.MAX_VALUE,
-                    top = Number.MAX_VALUE,
-                    offset,
+                var offset,
+                    top,
+                    bottom,
                     columns = this.$el.children()
                         .filter((i, el) => el.offsetHeight > 0)
                         .removeClass(this.margin)
-                        .removeClass(this.rowFirst);
+                        .removeClass(this.firstColumn),
+                    rows = [[columns.eq(0)]];
 
-                columns
-                    .each((i, el) => {
-                        el = $(el);
-                        offset = el.offset();
-                        top = Math.min(top, offset.top + el.outerHeight(true) - 1);
-                        left = Math.min(left, offset.left + el.outerWidth(true) - 1);
-                    })
-                    .each((i, el) => {
-                        el = $(el);
-                        offset = el.offset();
-                        el.toggleClass(this.margin, offset.top >= top);
-                        el.toggleClass(this.rowFirst, this.rowFirst && offset.left <= left);
-                    });
+                columns.slice(1).each((i, el) => {
+
+                    el = $(el);
+                    offset = el.offset();
+                    top = offset.top;
+                    bottom = offset.top + el.outerHeight(true);
+
+                    for (var index = 0; index < rows.length; index++) {
+                        var row = rows[index],
+                            off = row[0].offset(),
+                            after = offset.top >= off.top + row[0].outerHeight(true);
+
+                        if (rows.length === index + 1 && after) {
+                            rows.push([el]);
+                            break;
+                        }
+
+                        if (bottom <= off.top) {
+                            rows.unshift([el]);
+                            break;
+                        }
+
+                        if (!after) {
+                            row.push(el);
+                            row = row.sort((a, b) => a[0].offsetLeft - b[0].offsetLeft);
+                            break;
+                        }
+                    }
+
+                });
+
+                rows.forEach((row, i) => {
+                   row.forEach((el, j) => {
+                       el.toggleClass(this.margin, i !== 0);
+                       el.toggleClass(this.firstColumn, j === 0)
+                   });
+                });
+
             },
 
             events: ['load', 'resize', 'orientationchange']

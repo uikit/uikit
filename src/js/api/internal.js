@@ -129,22 +129,25 @@ export default function (UIkit) {
 
         e = createEvent(e || 'update');
 
-        var update = this.$options.update;
+        var updates = this.$options.update;
 
-        if (!update) {
+        if (!updates) {
             return;
         }
 
-        if (isPlainObject(update)) {
+        updates.forEach(update => {
+            if (isPlainObject(update)) {
 
-            if (e.type !== 'update' && update.events && update.events.indexOf(e.type) === -1) {
-                return;
+                if (e.type !== 'update' && update.events && update.events.indexOf(e.type) === -1) {
+                    return;
+                }
+
+                update = update.handler;
             }
 
-            update = update.handler;
-        }
+            update.call(this, e);
+        });
 
-        update.call(this, e);
     };
 
 }

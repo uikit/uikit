@@ -7,7 +7,7 @@
 //                  `uk-subnav-pill`
 //
 // States:          `uk-active`
-//                  `uk-row-first`
+//                  `uk-column-first`
 //
 // ========================================================================
 
@@ -130,7 +130,7 @@
  * `nth-child` makes it also work without JS if it's only one row
  */
 
-.uk-subnav-line > :nth-child(n+2):not(.uk-row-first)::before {
+.uk-subnav-line > :nth-child(n+2):not(.uk-column-first)::before {
     content: "";
     height: @subnav-line-divider-border-height;
     margin-right: @subnav-margin-horizontal;
@@ -233,7 +233,7 @@
     // Line
     //
 
-    .uk-subnav-line > :nth-child(n+2):not(.uk-row-first)::before {
+    .uk-subnav-line > :nth-child(n+2):not(.uk-column-first)::before {
         border-left-color: @subnav-line-divider-border;
         .hook-dye-subnav-line-divider;
     }
