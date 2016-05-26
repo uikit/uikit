@@ -86,7 +86,7 @@
  * `nth-child` makes it also work without JS if it's only one row
  */
 
-.uk-breadcrumb > :nth-child(n+2):not(.uk-column-first)::before {
+.uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
     content: @breadcrumb-divider;
     display: inline-block;
     margin: 0 @breadcrumb-margin-horizontal;
@@ -145,7 +145,7 @@
     // Divider
     //
 
-    .uk-breadcrumb > :nth-child(n+2):not(.uk-column-first)::before {
+    .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
         color: @breadcrumb-divider-color;
         .hook-dye-breadcrumb-divider;
     }

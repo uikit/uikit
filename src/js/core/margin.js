@@ -11,7 +11,7 @@ export default function (UIkit) {
 
         defaults: {
             margin: 'uk-margin-small-top',
-            firstColumn: 'uk-column-first'
+            firstColumn: 'uk-first-column'
         },
 
         update: {
