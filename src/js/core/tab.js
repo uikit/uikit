@@ -4,6 +4,8 @@ export default function (UIkit) {
 
     UIkit.component('tab', UIkit.components.switcher.extend({
 
+        mixins: [UIkit.mixin.class],
+
         name: 'tab',
 
         props: {
