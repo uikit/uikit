@@ -120,8 +120,8 @@ UIkit.component('lightbox', {
 
             if (!this.modal) {
                 this.modal = UIkit.modal.dialog(`
-                    <button class="uk-close uk-modal-close-outside" uk-transition-hide type="button" uk-close></button>
-                    <span class="uk-icon uk-position-center" uk-transition-show uk-icon="icon: trash"></span>
+                    <button class="uk-modal-close-outside" uk-transition-hide type="button" uk-close></button>
+                    <span class="uk-position-center" uk-transition-show uk-icon="icon: trash"></span>
                     `, {center: true});
                 this.modal.$el.css('overflow', 'hidden').addClass('uk-modal-lightbox');
                 this.modal.panel.css({width: 200, height: 200});
@@ -130,8 +130,8 @@ UIkit.component('lightbox', {
                 if (this.items.length > 1) {
                     $(`<div class="uk-hidden-touch ${this.dark ? 'uk-dark' : 'uk-light'}" uk-transition-hide></div>`)
                         .appendTo(this.modal.panel.addClass('uk-slidenav-position')).append(`
-                            <a href="#" class="uk-slidenav uk-position-center-left" uk-slidenav="icon: previous" uk-lightbox-item="previous"></a>
-                            <a href="#" class="uk-slidenav uk-position-center-right" uk-slidenav="icon: next" uk-lightbox-item="next"></a>
+                            <a href="#" class="uk-position-center-left" uk-slidenav="icon: previous" uk-lightbox-item="previous"></a>
+                            <a href="#" class="uk-position-center-right" uk-slidenav="icon: next" uk-lightbox-item="next"></a>
                         `);
                 }
 
