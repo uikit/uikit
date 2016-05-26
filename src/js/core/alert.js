@@ -2,7 +2,7 @@ export default function (UIkit) {
 
     UIkit.component('alert', {
 
-        mixins: [UIkit.mixin.toggable],
+        mixins: [UIkit.mixin.class, UIkit.mixin.toggable],
 
         props: {
             animation: Boolean,
