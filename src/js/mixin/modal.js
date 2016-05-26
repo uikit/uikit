@@ -21,7 +21,7 @@ export default function (UIkit) {
 
     UIkit.mixin.modal = {
 
-        mixins: [UIkit.mixin.toggable],
+        mixins: [UIkit.mixin.class, UIkit.mixin.toggable],
 
         props: {
             clsPanel: String,
