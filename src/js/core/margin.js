@@ -55,7 +55,6 @@ export default function (UIkit) {
 
                         if (!after) {
                             row.push(el);
-                            row = row.sort((a, b) => a[0].offsetLeft - b[0].offsetLeft);
                             break;
                         }
                     }
@@ -63,7 +62,7 @@ export default function (UIkit) {
                 });
 
                 rows.forEach((row, i) => {
-                   row.forEach((el, j) => {
+                    row.sort((a, b) => a[0].offsetLeft - b[0].offsetLeft).forEach((el, j) => {
                        el.toggleClass(this.margin, i !== 0);
                        el.toggleClass(this.firstColumn, j === 0)
                    });
