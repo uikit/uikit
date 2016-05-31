@@ -10,6 +10,7 @@
 //                  `uk-height-*`
 //                  `uk-responsive-*`
 //                  `uk-preserve-width`
+//                  `uk-maxwidth-*`
 //                  `uk-border-*`
 //                  `uk-dropcap`
 //                  `uk-logo`
@@ -30,6 +31,9 @@
 @panel-scrollable-padding:                      10px;
 @panel-scrollable-border:                       @global-border;
 @panel-scrollable-border-width:                 @global-border-width;
+
+@maxwidth-small-max-width:                      280px;
+@maxwidth-medium-max-width:                     800px;
 
 @border-rounded-border:                         5px;
 
@@ -252,6 +256,13 @@
 .uk-preserve-width img,
 .uk-preserve-width svg,
 .uk-preserve-width video { max-width: none; }
+
+
+/* Max width
+ ========================================================================== */
+
+.uk-maxwidth-small { max-width: @maxwidth-small-max-width; }
+.uk-maxwidth-medium { max-width: @maxwidth-medium-max-width; }
 
 
 /* Border
