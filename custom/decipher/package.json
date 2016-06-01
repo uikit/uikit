@@ -1,0 +1,22 @@
+{
+  "name": "uikit-decipher-theme",
+  "version": "0.0.1",
+  "description": "Decipher's theme built with UIkit.",
+  "main": "js/uikit.min.js",
+  "keywords": [
+    "uikit",
+    "jspm",
+    "npm"
+  ],
+  "author": "Decipher Technology Studios, LLC",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DecipherNow/uikit-decipher-theme.git"
+  },
+  "directories": {
+    "css": "css",
+    "fonts": "fonts",
+    "js": "js"
+  }
+}

@@ -1,0 +1,180 @@
+//
+// Component: Form
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@form-padding:                                  4px 6px;
+@form-large-padding:                            4px 6px;
+
+@form-transition:                               all 0.0s linear;
+@form-hover-transition:                         all 0.0s linear;
+
+@form-height:                                   @global-height;
+@form-border:                                   @global-border;
+@form-background:                               @global-background;
+@form-color:                                    @global-color;
+
+@form-border-radius:                            @global-border-radius;
+
+@form-hover-color:                              @global-link-color;
+@form-hover-border:                             @global-border;
+@form-hover-background:                         @button-hover-background;
+
+@form-focus-color:                              @global-color;
+@form-focus-border:                             @global-border;
+@form-focus-background:                         lighten(@form-background, 5%);
+
+@form-disabled-border:                          transparent;
+@form-disabled-color:                           @global-muted-color;
+
+@form-placeholder-color:                        @global-muted-color;
+
+@form-select-color:                             @global-color;
+@form-select-border:                            transparent;
+@form-select-background:                        @button-background;
+@form-select-hover-color:                       @global-link-color;
+@form-select-hover-background:                  @button-hover-background;
+@form-select-active-color:                      @global-link-color;
+@form-select-active-background:                 @button-active-background;
+
+@form-gutter:                                   @global-margin;
+
+@form-legend-border:                            transparent;
+@form-legend-font-size:                         round((@global-font-size * 1.28)); // 18px / 20px
+@form-legend-line-height:                       round((@form-legend-font-size * 1.68)); // 30px / 34px
+
+@form-small-height:                             @global-height-small;
+@form-large-height:                             @global-height-large;
+@form-small-font-size:                          round((@global-font-size * 0.85)); // 12px / 14px
+@form-large-font-size:                          round((@global-font-size * 1.14)); // 16px / 18px
+
+@form-blank-border:                             @global-border;
+
+@form-icon-font-size:                           @global-font-size;
+@form-icon-color:                               @global-muted-color;
+
+@form-select-appearance:                        none;
+
+
+// Component
+// ========================================================================
+
+.hook-form() {
+  border-radius: @form-border-radius;
+}
+
+// Focus state
+.hook-form-focus() {}
+
+// Disabled state
+.hook-form-disabled() {}
+
+// Legend
+.hook-form-legend() {}
+
+
+// Validation states
+// ========================================================================
+
+//
+// Error state
+//
+
+.hook-form-danger() {}
+
+//
+// Success state
+//
+
+.hook-form-success() {}
+
+
+// Style modifiers
+// ========================================================================
+
+.hook-form-blank() {}
+
+.hook-form-blank-focus() {}
+
+
+// Sub-object: `uk-form-label`
+// ========================================================================
+
+.hook-form-stacked-label() {}
+
+.hook-form-horizontal-label() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-form-misc() {
+
+  .uk-form select{
+    cursor: pointer;
+    border: @form-select-border;
+    color: @form-select-color;
+    background-color: @form-select-background;
+
+    &::-ms-expand {
+      display: none;
+    }
+
+    &:hover{
+      color: @form-select-color;
+      background-color: @form-select-hover-background;
+    }
+
+    &:focus,
+    &:active{
+      color: @form-select-active-color;
+      background-color: @form-select-active-background;
+    }
+
+    &,
+    &:hover,
+    &:focus{
+      -webkit-appearance: @form-select-appearance;
+      -moz-appearance:    @form-select-appearance;
+      appearance:         @form-select-appearance;
+      padding-right: 1.8em;
+      background-image: url('images/down-arrow-highlight.png');
+      background-size: 1em;
+      background-repeat: no-repeat;
+      background-position: 97% center;
+      background-position: right 4px center;
+    }
+
+    &:hover{
+      background-image: url('images/down-arrow-highlight.png');
+    }
+
+    &[disabled],
+    &:disabled{
+      &,
+      &:hover,
+      &:focus,
+      &:active{
+        cursor: default;
+        color: @form-disabled-color;
+        background-color: @form-disabled-background;
+        background-image: url('images/down-arrow-disabled.png');
+      }
+    }
+  }
+
+}
+
+.hook-form{
+  transition: @form-transition;
+  -webkit-transition: @form-transition;
+
+  &:hover{
+    transition: @form-hover-transition;
+    -webkit-transition: @form-hover-transition;
+  }
+}

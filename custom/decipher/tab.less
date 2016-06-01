@@ -1,0 +1,63 @@
+//
+// Component: Tab
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@tab-border:                                    @global-border;
+@tab-color:                                     @global-link-color;
+@tab-hover-color:                               @global-link-hover-color;
+@tab-active-border:                             @global-border;
+@tab-active-background:                         @global-background;
+@tab-active-color:                              @global-color;
+@tab-disabled-color:                            @global-muted-color;
+
+
+// Component
+// ========================================================================
+
+//
+// Items
+//
+
+.hook-tab() {
+  border-radius: @global-border-radius @global-border-radius 0 0;
+}
+
+// Hover
+.hook-tab-hover() {}
+
+// Active
+.hook-tab-active() {}
+
+// Disabled
+.hook-tab-disabled() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-tab-misc() {
+
+  // Modifier: `uk-tab-bottom'
+  // ========================================================================
+
+  .uk-tab-bottom > li > a { border-radius: 0 0 @global-border-radius @global-border-radius; }
+
+
+  // Modifier: `uk-tab-left', `uk-tab-right'
+  // ========================================================================
+
+  // Tablet and bigger
+  @media (min-width: @breakpoint-medium) {
+
+    // Modifier: `uk-tab-left'
+    .uk-tab-left > li > a { border-radius: @global-border-radius 0 0 @global-border-radius; }
+
+     // Modifier: `uk-tab-right'
+    .uk-tab-right > li > a { border-radius: 0 @global-border-radius @global-border-radius 0; }
+  }
+}
