@@ -223,7 +223,6 @@ gulp.task('help', function(done) {
         /**
          * Decipher start
          */
-        '-d, --dev': '',
         '-f, --fonts': '',
         '-P, --packageManagerTask': '',
         '-i, --images': ''
@@ -503,26 +502,10 @@ gulp.task('dist-themes-core', ['dist-themes'], function(done) {
 
     themes.forEach(function(theme) {
 
-        /**
-         * Decipher start
-         */
-        var modifyVars,
-            devMode = gutil.env.d || gutil.env.dev || false;
-
-        if (devMode) {
-            modifyVars = {
-                'global-image-path': ('"../../'+theme.path+'/images"'),
-                'global-font-path': ('"../../'+theme.path+'/fonts"')
-            };
-        } else {
-            modifyVars = {
-                'global-image-path': ('"/images"'),
-                'global-font-path': ('"/fonts"')
-            };
-        }
-        /**
-         * Decipher end
-         */
+        var modifyVars = {
+            'global-image-path': ('"../../'+theme.path+'/images"'),
+            'global-font-path': ('"../../'+theme.path+'/fonts"')
+        };
 
         promises.push(new Promise(function(resolve, reject){
 
