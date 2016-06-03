@@ -99,7 +99,8 @@ gulp.task('dist', ['dist-themes-core'], function(done) {
      */
     var sequence           = ['sass', 'dist-core-minify', 'dist-core-header'],
         packageManagerTask = gutil.env.P || gutil.env.packageManagerTask || false,
-        fonts              = gutil.env.f || gutil.env.fonts || false;
+        fonts              = gutil.env.f || gutil.env.fonts || false,
+        images             = gutil.env.i || gutil.env.images || false;
 
     if (packageManagerTask && packageManagerTask === 'dist-packageJson-file') {
         sequence.push('dist-packageJson-file');
@@ -109,6 +110,10 @@ gulp.task('dist', ['dist-themes-core'], function(done) {
 
     if (fonts) {
         sequence.push('fonts');
+    }
+
+    if (images) {
+        sequence.push('images');
     }
     /**
      * Decipher end
@@ -220,7 +225,8 @@ gulp.task('help', function(done) {
          */
         '-d, --dev': '',
         '-f, --fonts': '',
-        '-P, --packageManagerTask': ''
+        '-P, --packageManagerTask': '',
+        '-i, --images': ''
         /**
          * Decipher end
          */
@@ -762,6 +768,31 @@ gulp.task('fonts', function(done) {
                 gulp
                     .src(fontPath + '/*')
                     .pipe(gulp.dest('dist/fonts/'))
+                done();
+            }
+
+        });
+    }
+
+});
+
+gulp.task('images', function(done) {
+    var images = gutil.env.i || gutil.env.images || false;
+
+    if (images) {
+
+        var imagePath = 'custom/decipher/images';
+
+        fs.stat(imagePath, function(err) {
+
+            if (err) {
+                var error = new Error(err);
+                console.log(error.message);
+                done();
+            } else {
+                gulp
+                    .src(imagePath + '/*')
+                    .pipe(gulp.dest('dist/images/'))
                 done();
             }
 
