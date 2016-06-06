@@ -95,19 +95,30 @@
 .uk-text-center { text-align: center !important; }
 .uk-text-justify { text-align: justify !important; }
 
-/* Tablet landscape and smaller */
-@media (max-width: @breakpoint-medium-max) {
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
 
-    .uk-text-center\@m { text-align: center !important; }
-    .uk-text-left\@m { text-align: left !important; }
+    .uk-text-left\@s { text-align: left !important; }
+    .uk-text-center\@s { text-align: center !important; }
+    .uk-text-right\@s { text-align: right !important; }
 
 }
 
-/* Phone landscape and smaller */
-@media (max-width: @breakpoint-small-max) {
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
 
-    .uk-text-center\@s { text-align: center !important; }
-    .uk-text-left\@s { text-align: left !important; }
+    .uk-text-left\@m { text-align: left !important; }
+    .uk-text-center\@m { text-align: center !important; }
+    .uk-text-right\@m { text-align: right !important; }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-text-left\@l { text-align: left !important; }
+    .uk-text-center\@l { text-align: center !important; }
+    .uk-text-right\@l { text-align: right !important; }
 
 }
 
