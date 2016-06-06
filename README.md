@@ -3,7 +3,7 @@
 
 # UIkit
 
-UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.
+This is Decipher's fork of UIkit, a lightweight and modular front-end framework for developing fast and powerful web interfaces. For more information about UIKit:
 
 * [Homepage](http://getuikit.com) - Learn more about UIkit
 * [@getuikit](https://twitter.com/getuikit) - Get the latest buzz on Twitter
@@ -14,6 +14,26 @@ Join our developer chat. We are online every work day between 8:00 and 18:00 UTC
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/uikit/uikit)
 
 ## Getting started
+
+To get started with Docker, build the container:
+
+```{bash}
+# from within the source directory
+docker build -t deciphernow/uikit .
+```
+
+Then run it:
+
+```{bash}
+# also from within the source directory
+docker run -it --rm -v $(pwd):/uikit -p 3000:3000 deciphernow/uikit
+```
+
+This runs interactively on a pseudo-tty, removes the container upon exit, with the source directory mounted inside the container, exposing port 3000 on your host.
+
+---
+
+Otherwise,
 
 You have following options to get UIkit:
 
