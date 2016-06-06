@@ -502,10 +502,19 @@ gulp.task('dist-themes-core', ['dist-themes'], function(done) {
 
     themes.forEach(function(theme) {
 
-        var modifyVars = {
-            'global-image-path': ('"../../'+theme.path+'/images"'),
-            'global-font-path': ('"../../'+theme.path+'/fonts"')
-        };
+        /**
+         * Decipher start
+         */
+        var modifyVars = {};
+        if (theme.name !== 'decipher') {
+            modifyVars = {
+                'global-image-path': ('"../../'+theme.path+'/images"'),
+                'global-font-path': ('"../../'+theme.path+'/fonts"')
+            }
+        }
+        /**
+         * Decipher end
+         */
 
         promises.push(new Promise(function(resolve, reject){
 
