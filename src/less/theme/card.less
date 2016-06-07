@@ -16,6 +16,16 @@
 
 @card-secondary-hover-background:              @card-secondary-background;
 
+//
+// New
+//
+
+@card-default-header-border:                   @global-border;
+@card-default-header-border-width:             @global-border-width;
+
+@card-default-footer-border:                   @global-border;
+@card-default-footer-border-width:             @global-border-width;
+
 
 // Component
 // ========================================================================
@@ -74,9 +84,9 @@
 
 .hook-card-default-hover() {}
 
-.hook-card-default-header() {}
+.hook-card-default-header() { border-bottom: @card-default-header-border-width solid @card-default-header-border; }
 
-.hook-card-default-footer() {}
+.hook-card-default-footer() { border-top: @card-default-footer-border-width  solid @card-default-footer-border; }
 
 //
 // Primary
@@ -104,17 +114,18 @@
 
 .hook-card-misc() {
 
-    .uk-card-body .uk-nav-default { margin: (-@card-body-padding-vertical + 15px) -@card-footer-padding-horizontal; }
+    .uk-card-body .uk-nav-default { margin: (-@card-body-padding-vertical + 15px) -@card-body-padding-horizontal; }
 
+    /* Reset negative margin if not first child */
     .uk-card-title + .uk-nav-default { margin-top: 0; }
 
-    /* Desktop and bigger */
-    @media (min-width: @breakpoint-large) {
+    // /* Desktop and bigger */
+    // @media (min-width: @breakpoint-large) {
 
-        .uk-card-body .uk-nav-default { margin: (-@card-body-padding-vertical-l + 15px) -@card-body-padding-horizontal-l; }
+    //     .uk-card-body .uk-nav-default { margin: (-@card-body-padding-vertical-l + 15px) -@card-body-padding-horizontal-l; }
 
-        .uk-card-title + .uk-nav-default { margin-top: 0; }
+    //     .uk-card-title + .uk-nav-default { margin-top: 0; }
 
-    }
+    // }
 
 }
