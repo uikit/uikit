@@ -32,11 +32,10 @@
 @divider-icon-width:                            50px;
 @divider-icon-height:                           20px;
 @divider-icon-color:                            @global-border;
-@divider-icon-top:                              50%;
-@divider-icon-left:                             0;
-@divider-icon-right:                            0;
-@divider-icon-border:                           @global-border;
-@divider-icon-border-width:                     1px;
+@divider-icon-line-top:                         50%;
+@divider-icon-line-width:                       100%;
+@divider-icon-line-border:                      @global-border;
+@divider-icon-line-border-width:                1px;
 
 @pre-scrollable-height:                         300px;
 
@@ -145,20 +144,21 @@
 .uk-divider-icon::after {
     content: "";
     position: absolute;
-    top: @divider-icon-top;
-    border-bottom: @divider-icon-border-width solid @divider-icon-border;
+    top: @divider-icon-line-top;
+    max-width: ~'calc(50% - (@{divider-icon-width} / 2))';
+    border-bottom: @divider-icon-line-border-width solid @divider-icon-line-border;
     .hook-divider-icon-line;
 }
 
 .uk-divider-icon::before {
-    left: @divider-icon-left;
     right: ~'calc(50% + (@{divider-icon-width} / 2))';
+    width: @divider-icon-line-width;
     .hook-divider-icon-line-left;
 }
 
 .uk-divider-icon::after {
-    right: @divider-icon-right;
     left: ~'calc(50% + (@{divider-icon-width} / 2))';
+    width: @divider-icon-line-width;
     .hook-divider-icon-line-right;
 }
 
