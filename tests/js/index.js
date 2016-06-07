@@ -32,6 +32,7 @@ requestAnimationFrame(function () {
         'description-list',
         'drop',
         'dropdown',
+        'element',
         'flex',
         'form',
         'form-custom',
@@ -66,7 +67,6 @@ requestAnimationFrame(function () {
         'toggle',
         'tooltip',
         'totop',
-        'typography',
         'utility',
         'visibility',
         'width'
