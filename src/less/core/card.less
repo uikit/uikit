@@ -22,32 +22,28 @@
 // Variables
 // ========================================================================
 
-@card-body-padding-horizontal:                 @global-margin;
-@card-body-padding-vertical:                   @global-margin;
+@card-body-padding-horizontal:                 @global-gutter;
+@card-body-padding-vertical:                   @global-gutter;
 
-@card-header-padding-horizontal:               @global-margin;
-@card-header-padding-vertical:                 round(@global-margin / 1.5);
+@card-body-padding-horizontal-l:               @global-medium-gutter;
+@card-body-padding-vertical-l:                 @global-medium-gutter;
 
-@card-footer-padding-horizontal:               @global-margin;
-@card-footer-padding-vertical:                 round(@global-margin / 1.5);
+@card-header-padding-horizontal:               @global-gutter;
+@card-header-padding-vertical:                 (@global-gutter / 1.5);
 
-@card-small-body-padding-horizontal:           @global-small-gutter;
-@card-small-body-padding-vertical:             @global-small-gutter;
+@card-header-padding-horizontal-l:             @global-medium-gutter;
+@card-header-padding-vertical-l:               (@global-medium-gutter / 1.5);
 
-@card-medium-body-padding-horizontal:          @global-gutter;
-@card-medium-body-padding-vertical:            @global-gutter;
-@card-medium-body-padding-horizontal-l:        @global-medium-gutter;
-@card-medium-body-padding-vertical-l:          @global-medium-gutter;
+@card-footer-padding-horizontal:               @global-gutter;
+@card-footer-padding-vertical:                 (@global-gutter / 1.5);
 
-@card-large-body-padding-horizontal:          @global-gutter;
-@card-large-body-padding-vertical:            @global-gutter;
-@card-large-body-padding-horizontal-l:         @global-large-gutter;
-@card-large-body-padding-vertical-l:           @global-large-gutter;
+@card-footer-padding-horizontal-l:             @global-medium-gutter;
+@card-footer-padding-vertical-l:               (@global-medium-gutter / 1.5);
 
 @card-title-font-size:                         @global-large-font-size;
 @card-title-line-height:                       1.4;
 
-@card-badge-top:                               @global-margin;
+@card-badge-top:                               @global-gutter;
 @card-badge-right:                             @card-badge-top;
 
 @card-hover-background:                        @global-muted-background;
@@ -68,6 +64,20 @@
 @card-secondary-title-color:                   @card-secondary-color;
 @card-secondary-hover-background:              darken(@card-secondary-background, 5%);
 @card-secondary-color-mode:                   'light';
+
+@card-small-body-padding-horizontal:           @global-margin;
+@card-small-body-padding-vertical:             @global-margin;
+@card-small-header-padding-horizontal:         @global-margin;
+@card-small-header-padding-vertical:           (@global-margin / 1.5);
+@card-small-footer-padding-horizontal:         @global-margin;
+@card-small-footer-padding-vertical:           (@global-margin / 1.5);
+
+@card-large-body-padding-horizontal-l:         @global-large-gutter;
+@card-large-body-padding-vertical-l:           @global-large-gutter;
+@card-large-header-padding-horizontal-l:       @global-large-gutter;
+@card-large-header-padding-vertical-l:         (@global-large-gutter / 1.5);
+@card-large-footer-padding-horizontal-l:       @global-large-gutter;
+@card-large-footer-padding-vertical-l:         (@global-large-gutter / 1.5);
 
 
 /* ========================================================================
@@ -99,6 +109,17 @@
     .hook-card-footer;
 }
 
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-card-body { padding: @card-body-padding-vertical-l @card-body-padding-horizontal-l; }
+
+    .uk-card-header { padding: @card-header-padding-vertical-l @card-header-padding-horizontal-l; }
+
+    .uk-card-footer { padding: @card-footer-padding-vertical-l @card-footer-padding-horizontal-l; }
+
+}
+
 /*
  * Micro clearfix
  */
@@ -124,30 +145,6 @@
 .uk-card-body > :last-child,
 .uk-card-header > :last-child,
 .uk-card-footer > :last-child { margin-bottom: 0; }
-
-
-/* Size modifiers
- ========================================================================== */
-
-.uk-card-small.uk-card-body,
-.uk-card-small .uk-card-body { padding: @card-small-body-padding-vertical @card-small-body-padding-horizontal; }
-
-.uk-card-medium.uk-card-body,
-.uk-card-medium .uk-card-body { padding: @card-medium-body-padding-vertical @card-medium-body-padding-horizontal; }
-
-.uk-card-large.uk-card-body,
-.uk-card-large .uk-card-body { padding: @card-large-body-padding-vertical @card-large-body-padding-horizontal; }
-
-/* Desktop and bigger */
-@media (min-width: @breakpoint-large) {
-
-    .uk-card-medium.uk-card-body,
-    .uk-card-medium .uk-card-body { padding: @card-medium-body-padding-vertical-l @card-medium-body-padding-horizontal-l; }
-
-    .uk-card-large.uk-card-body,
-    .uk-card-large .uk-card-body { padding: @card-large-body-padding-vertical-l @card-large-body-padding-horizontal-l; }
-
-}
 
 
 /* Media
@@ -285,6 +282,35 @@
 // Color Mode
 .uk-card-secondary:extend(.uk-light all) when (@card-secondary-color-mode = 'light') {}
 .uk-card-secondary:extend(.uk-dark all) when (@card-secondary-color-mode = 'dark') {}
+
+
+/* Size modifier
+ ========================================================================== */
+
+/*
+ * Small
+ */
+
+.uk-card-small.uk-card-body,
+.uk-card-small .uk-card-body { padding: @card-small-body-padding-vertical @card-small-body-padding-horizontal; }
+
+.uk-card-small .uk-card-header { padding: @card-small-header-padding-vertical @card-small-header-padding-horizontal; }
+.uk-card-small .uk-card-footer { padding: @card-small-footer-padding-vertical @card-small-footer-padding-horizontal; }
+
+/*
+ * Large
+ */
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-card-large.uk-card-body,
+    .uk-card-large .uk-card-body { padding: @card-large-body-padding-vertical-l @card-large-body-padding-horizontal-l; }
+
+    .uk-card-large .uk-card-header { padding: @card-large-header-padding-vertical-l @card-large-header-padding-horizontal-l; }
+    .uk-card-large .uk-card-footer { padding: @card-large-footer-padding-vertical-l @card-large-footer-padding-horizontal-l; }
+
+}
 
 
 // Hooks
