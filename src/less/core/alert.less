@@ -3,7 +3,8 @@
 //
 // Component:       `uk-alert`
 //
-// Modifiers:       `uk-alert-success`
+// Modifiers:       `uk-alert-primary`
+//                  `uk-alert-success`
 //                  `uk-alert-warning`
 //                  `uk-alert-danger`
 //                  `uk-alert-large`
@@ -18,11 +19,14 @@
 
 @alert-margin-vertical:                         @global-margin;
 @alert-padding:                                 @global-small-gutter;
-@alert-background:                              #ebf7fd;
-@alert-color:                                   @global-primary-background;
+@alert-background:                              @global-muted-background;
+@alert-color:                                   @global-color;
 
 @alert-close-opacity:                           0.4;
 @alert-close-hover-opacity:                     0.8;
+
+@alert-primary-background:                      #ebf7fd;
+@alert-primary-color:                           @global-primary-background;
 
 @alert-success-background:                      #f2fae3;
 @alert-success-color:                           @global-success-background;
@@ -91,6 +95,16 @@
  ========================================================================== */
 
 /*
+ * Primary
+ */
+
+.uk-alert-primary {
+    background: @alert-primary-background;
+    color: @alert-primary-color;
+    .hook-alert-primary;
+}
+
+/*
  * Success
  */
 
@@ -137,6 +151,7 @@
 .hook-alert() {}
 .hook-alert-close() {}
 .hook-alert-close-hover() {}
+.hook-alert-primary() {}
 .hook-alert-success() {}
 .hook-alert-warning() {}
 .hook-alert-danger() {}
