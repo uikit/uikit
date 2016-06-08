@@ -18,6 +18,8 @@
 
 @margin-small-margin:                                  @global-small-margin;
 
+@margin-medium-margin:                                 @global-medium-margin;
+
 @margin-large-margin:                                  @global-medium-margin;
 @margin-large-margin-l:                                @global-large-margin;
 
@@ -30,7 +32,7 @@
  ========================================================================== */
 
 /*
- * Default (Medium)
+ * Default
  */
 
 .uk-margin { margin-bottom: @margin-margin; }
@@ -52,6 +54,18 @@
 .uk-margin-small-bottom { margin-bottom: @margin-small-margin !important; }
 .uk-margin-small-left { margin-left: @margin-small-margin !important; }
 .uk-margin-small-right { margin-right: @margin-small-margin !important; }
+
+
+/* Medium
+ ========================================================================== */
+
+.uk-margin-medium { margin-bottom: @margin-medium-margin; }
+* + .uk-margin-medium { margin-top: @margin-medium-margin; }
+
+.uk-margin-medium-top { margin-top: @margin-medium-margin !important; }
+.uk-margin-medium-bottom { margin-bottom: @margin-medium-margin !important; }
+.uk-margin-medium-left { margin-left: @margin-medium-margin !important; }
+.uk-margin-medium-right { margin-right: @margin-medium-margin !important; }
 
 
 /* Large
