@@ -26,8 +26,7 @@
 // Variables
 // ========================================================================
 
-@search-width:                                  120px;
-@search-focus-width:                            180px;
+@search-width:                                  180px;
 @search-height:                                 @global-control-height;
 @search-padding-horizontal:                     6px;
 @search-padding-vertical:                       4px;
@@ -36,6 +35,10 @@
 @search-background:                             #f5f5f5; //rgba(0,0,0,0);
 @search-color:                                  #444;
 @search-placeholder-color:                      #999;
+
+@search-large-width:                            300px;
+@search-large-height:                           @global-control-large-height;
+@search-large-font-size:                        @global-large-font-size;
 
 @search-icon-padding:                           5px;
 @search-icon-color:                             fadeout(@global-color, 40%);
@@ -139,7 +142,7 @@
 
 /* Focus + Active */
 .uk-search-field:focus,
-.uk-search.uk-active .uk-search-field { width: @search-focus-width; }
+.uk-search.uk-active .uk-search-field {}
 
 
 /* Search Icon
@@ -196,6 +199,31 @@
     .hook-search-icon-active;
 }
 
+// Search Default
+// ========================================================================
+
+.uk-search-default .uk-search-icon {
+    position: absolute;
+    top: @search-padding-vertical;
+    left: @search-padding-horizontal;
+}
+
+.uk-search-default .uk-search-field { padding-left: @search-height; }
+
+
+// Size Modifier
+// ========================================================================
+
+.uk-search-large .uk-search-icon {
+    top: 14px;
+    transform: scale(1.2);
+}
+
+.uk-search-large .uk-search-field {
+    width: @search-large-width;
+    height: @search-large-height;
+    font-size: @search-large-font-size;
+}
 
 
 // Hooks

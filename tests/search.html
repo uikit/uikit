@@ -11,9 +11,9 @@
             jQuery(function($) {
 
                 // Trigger focus on search input
-                $(".uk-search-icon").on('click', UIkit.Utils.debounce(function () {
-                    this.parentNode.querySelector('.uk-search-field').focus();
-                }, 300));
+                //$(".uk-search-icon").on('click', UIkit.Utils.debounce(function () {
+                //    this.parentNode.querySelector('.uk-search-field').focus();
+                //}, 300));
 
             });
         </script>
@@ -23,68 +23,47 @@
 
         <div class="uk-container">
 
-            <h1>Search</h1>
+            <h1>Search Components</h1>
 
             <form class="uk-search" data-uk-search>
                 <input class="uk-search-field" type="search" placeholder="search...">
+                <p>
+                    <a href="#" class="uk-search-icon" uk-icon="icon: search_search"></a>
+                </p>
             </form>
 
-            <p>
-                <a href="#" class="uk-search-icon" uk-icon="icon: search_search"></a>
-            </p>
+            <hr>
 
-            <h2>Search in navbar</h2>
+            <h2>Search Default</h2>
 
-            <div class="uk-margin">
+            <form class="uk-search uk-search-default" data-uk-search>
+                <span class="uk-search-icon" uk-icon="icon: search_search"></span>
+                <input class="uk-search-field" type="search" placeholder="search...">
+            </form>
 
+            <hr>
 
-                <nav class="uk-navbar-container uk-margin" uk-navbar>
-                    <div class="uk-navbar-left">
+            <h2>Search Toggle</h2>
 
-                        <ul class="uk-navbar-nav">
-                            <li class="uk-active"><a href="#">Active</a></li>
-                            <li>
-                                <a href="#">Parent</a>
-                                <div class="uk-navbar-dropdown">
-                                    <ul class="uk-nav uk-navbar-dropdown-nav">
-                                        <li class="uk-active"><a href="#">Active</a></li>
-                                         <li class="uk-parent">
-                                            <a href="#">Parent</a>
-                                            <ul class="uk-nav-sub">
-                                                <li><a href="#">Sub item</a></li>
-                                                <li><a href="#">Sub item</a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="uk-nav-header">Header</li>
-                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
-                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
-                                        <li class="uk-nav-divider"></li>
-                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li>
-                                <a href="#">Content</a>
-                                <div class="uk-navbar-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
-                            </li>
-                            <li><a href="#">Item</a></li>
-                            <li><a href="#">Item</a></li>
-                        </ul>
+            <form class="uk-search uk-search-toggle" data-uk-search>
+                <div class="uk-search-toggle">
+                    <a href="#" class="uk-search-icon" uk-icon="icon: search_search"></a>
+                    <a href="#" class="uk-close-icon" uk-icon="icon: close_close"></a>
+                </div>
+                <div uk-dropdown="mode: click; pos: right-center">
+                    <input class="uk-search-field" type="search" placeholder="search...">
+                </div>
+            </form>
 
-                    </div>
+            <hr>
 
-                    <div class="uk-navbar-right">
-                        <form class="uk-search" data-uk-search>
-                            <input class="uk-search-field" type="search" placeholder="search...">
-                        </form>
-                        <p>
-                            <a href="#" class="uk-search-icon" uk-icon="icon: search_search"></a>
-                        </p>
-                    </div>
+            <h2>Sizes</h2>
 
-                </nav>
+            <form class="uk-search uk-search-default uk-search-large" data-uk-search>
+                <span class="uk-search-icon" uk-icon="icon: search_search"></span>
+                <input class="uk-search-field" type="search" placeholder="search...">
+            </form>
 
-            </div>
 
         </div>
 
