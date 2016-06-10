@@ -113,20 +113,34 @@
     list-style: none;
 }
 
+/* Adjacent siblings */
+.uk-comment-list > :nth-child(n+2) {
+    margin-top: @comment-list-margin-top;
+    .hook-comment-list-adjacent;
+}
+
+/*
+ * Sublists
+ */
+
 .uk-comment-list .uk-comment + ul {
     margin: @comment-list-margin-top 0 0 0;
     padding-left: @comment-list-padding-left;
     list-style: none;
+    .hook-comment-list-sub;
 }
-
-.uk-comment-list > :nth-child(n+2),
-.uk-comment-list .uk-comment + ul > :nth-child(n+2) { margin-top: @comment-list-margin-top; }
 
 /* Tablet and bigger */
 @media (min-width: @breakpoint-medium) {
 
     .uk-comment-list .uk-comment + ul { padding-left: @comment-list-padding-left-m; }
 
+}
+
+/* Adjacent siblings */
+.uk-comment-list .uk-comment + ul > :nth-child(n+2) {
+    margin-top: @comment-list-margin-top;
+    .hook-comment-list-sub-adjacent;
 }
 
 
@@ -149,5 +163,8 @@
 .hook-comment-title() {}
 .hook-comment-meta() {}
 .hook-comment-avatar() {}
+.hook-comment-list-adjacent() {}
+.hook-comment-list-sub() {}
+.hook-comment-list-sub-adjacent() {}
 .hook-comment-primary() {}
 .hook-comment-misc() {}
