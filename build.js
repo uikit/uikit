@@ -9,6 +9,7 @@ var banner = "/*! UIkit " + version + " | http://www.getuikit.com | (c) 2014 - 2
 // Standalone
 rollup.rollup({
   entry: 'src/js/uikit',
+  external: ['jquery'],
   plugins: [
     babel({
       presets: ['es2015-rollup']
