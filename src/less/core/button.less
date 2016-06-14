@@ -90,7 +90,8 @@
  * 6. Style
  * 7. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
  *    Better would be to use height and flexbox to center the text vertically but flexbox doesn't work in Firefox on `button` elements.
- * 8. Required for `a`.
+ * 8. Align text if button has a width
+ * 9. Required for `a`.
  */
 
 .uk-button {
@@ -114,6 +115,8 @@
     /* 7 */
     line-height: @button-line-height;
     /* 8 */
+    text-align: center;
+    /* 9 */
     text-decoration: none;
     .hook-button;
 }
