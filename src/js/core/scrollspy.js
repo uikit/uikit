@@ -45,7 +45,7 @@ export default function (UIkit) {
                     var $el = $(el);
 
                     if (!el.__uk_scrollspy) {
-                        el.__uk_scrollspy = {toggles: ($el.attr('cls') ? $el.attr('cls') : this.cls).split(',')};
+                        el.__uk_scrollspy = {toggles: ($el.attr('uk-scrollspy-class') ? $el.attr('uk-scrollspy-class') : this.cls).split(',')};
                     }
 
                     var data = el.__uk_scrollspy;
