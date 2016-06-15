@@ -66,18 +66,11 @@
 
 /*
  * Grid cell
- * 1. Space is allocated solely based on content dimensions: 0 0 auto
- * 2. Reset margin for e.g. paragraphs
+ * Note: Space is allocated solely based on content dimensions, but shrinks: 0 1 auto
+ * Reset margin for e.g. paragraphs
  */
 
-.uk-grid > * {
-    /* 1 */
-    -ms-flex: none;
-    -webkit-flex: none;
-    flex: none;
-    /* 2 */
-    margin: 0;
-}
+.uk-grid > * { margin: 0; }
 
 /*
  * Remove margin from the last-child
