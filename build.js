@@ -2,18 +2,17 @@ var fs = require('fs');
 var rollup = require('rollup');
 var uglify = require('uglify-js');
 var babel = require('rollup-plugin-babel');
+var resolve = require('rollup-plugin-node-resolve');
 var package = require('./package.json');
 var version = process.env.VERSION || package.version;
 var banner = "/*! UIkit " + version + " | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */\n";
 
-// Standalone
 rollup.rollup({
   entry: 'src/js/uikit',
   external: ['jquery'],
   plugins: [
-    babel({
-      presets: ['es2015-rollup']
-    })
+    babel({ presets: ['es2015-rollup'] }),
+    resolve({ main: true, jsnext: true })
   ]
 })
 .then(function (bundle) {
