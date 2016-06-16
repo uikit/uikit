@@ -15,6 +15,9 @@
                 //    this.parentNode.querySelector('.uk-search-field').focus();
                 //}, 300));
 
+                //$(".uk-search-toggle-button").on 'tap', ->
+                //$(this).toggleClass 'uk-active'
+
             });
         </script>
     </head>
@@ -46,11 +49,11 @@
             <h2>Search Toggle</h2>
 
             <form class="uk-search uk-search-toggle" data-uk-search>
-                <div class="uk-search-toggle">
+                <div class="uk-search-toggle-button">
                     <a href="#" class="uk-search-icon" uk-icon="icon: search_search"></a>
                     <a href="#" class="uk-close-icon" uk-icon="icon: close_close"></a>
                 </div>
-                <div uk-dropdown="mode: click; pos: right-center">
+                <div uk-drop="mode: click; pos: right-center">
                     <input class="uk-search-field" type="search" placeholder="search...">
                 </div>
             </form>

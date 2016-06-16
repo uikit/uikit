@@ -40,7 +40,6 @@
 @search-large-height:                           @global-control-large-height;
 @search-large-font-size:                        @global-large-font-size;
 
-@search-icon-padding:                           5px;
 @search-icon-color:                             fadeout(@global-color, 40%);
 @search-icon-hover-color:                       fadeout(@global-color, 20%);
 @search-icon-active-color:                      fadeout(@global-color, 10%);
@@ -162,7 +161,6 @@
 
 .uk-search-icon {
     display: inline-block;
-    padding: @search-icon-padding;
     /* 1 */
     fill: currentcolor;
     /* 2 */
@@ -204,18 +202,44 @@
 
 .uk-search-default .uk-search-icon {
     position: absolute;
-    top: @search-padding-vertical;
+    top: round((@search-height - 20px) / 2);
     left: @search-padding-horizontal;
 }
 
 .uk-search-default .uk-search-field { padding-left: @search-height; }
+
+// Search Toggle
+// ========================================================================
+
+// Testing
+.uk-search-toggle .uk-search-toggle-button {
+    box-sizing: border-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    width: @global-control-height;
+    height: @global-control-height;
+    padding: 10px;
+    background: @global-muted-background;
+}
+
+.uk-search-toggle .uk-search-toggle-button .uk-close-icon { display: none; }
+
+.uk-search-toggle .uk-search-toggle-button.uk-open .uk-search-icon { display: none; }
+.uk-search-toggle .uk-search-toggle-button.uk-open .uk-close-icon { display: block; }
 
 
 // Size Modifier
 // ========================================================================
 
 .uk-search-large .uk-search-icon {
-    top: 14px;
+    top: round((@search-large-height - 20px) / 2);
     transform: scale(1.2);
 }
 
