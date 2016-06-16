@@ -190,9 +190,27 @@ export function getIndex(index, elements, current = 0) {
     return index < 0 ? index + length : index;
 }
 
+var voidElements = {
+    area: true,
+    base: true,
+    br: true,
+    col: true,
+    embed: true,
+    hr: true,
+    img: true,
+    input: true,
+    keygen: true,
+    link: true,
+    menuitem: true,
+    meta: true,
+    param: true,
+    source: true,
+    track: true,
+    wbr: true
+};
 export function isVoidElement(element) {
     element = $(element);
-    return require('void-elements')[element[0].tagName.toLowerCase()];
+    return voidElements[element[0].tagName.toLowerCase()];
 }
 
 export const Dimensions = {
