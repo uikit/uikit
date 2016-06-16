@@ -1,7 +1,9 @@
 import $ from 'jquery';
-import {Dimensions, getIndex, Transition} from '../util/index';
 
 var active;
+var Dimensions = UIkit.util.Dimensions;
+var getIndex = UIkit.util.getIndex;
+var Transition = UIkit.util.Transition;
 
 $(document).on({
     keydown: e => {

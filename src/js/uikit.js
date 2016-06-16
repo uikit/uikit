@@ -8,4 +8,3 @@ mixin(UIkit, UIkit.util);
 core(UIkit, UIkit.util);
 
 export default UIkit;
-module.exports = UIkit;

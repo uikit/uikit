@@ -1,5 +1,6 @@
 import $ from 'jquery';
-import {flipPosition} from '../util/index';
+
+var flipPosition = UIkit.util.flipPosition;
 
 UIkit.component('tooltip', {
 
