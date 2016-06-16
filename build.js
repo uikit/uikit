@@ -9,15 +9,22 @@ var package = require('./package.json');
 var version = process.env.VERSION || package.version;
 var banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */\n`;
 
-glob('src/js/{uikit.js,components/**/*.js}', (er, files) => files.forEach(compile));
+['js', 'js/components'].forEach(folder => {
+    if (!fs.existsSync(folder)) {
+        fs.mkdirSync(folder);
+    }
+});
 
-function compile(file) {
+compile('src/js/uikit.js', ['jquery'], {jquery: 'jQuery'});
+glob('src/js/components/**/*.js', (er, files) => files.forEach(file => compile(file, ['jquery', 'uikit'], {jquery: 'jQuery', uikit: 'UIkit'})));
+
+function compile(file, external, globals) {
 
     var entry = file.substring(0, file.length - 3), dest = entry.substring(4);
 
     rollup.rollup({
+        external,
         entry: `${entry}.js`,
-        external: ['jquery'],
         plugins: [
             babel({presets: ['es2015-rollup']}),
             resolve({main: true, jsnext: true})
@@ -25,10 +32,10 @@ function compile(file) {
     })
         .then(function (bundle) {
             return write(`${dest}.js`, bundle.generate({
+                globals,
                 format: 'umd',
                 banner: banner,
-                moduleName: 'UIkit',
-                globals: {jquery: 'jQuery'}
+                moduleName: 'UIkit'
             }).code);
         })
         .then(function () {

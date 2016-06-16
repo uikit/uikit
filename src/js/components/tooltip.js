@@ -1,10 +1,11 @@
 import $ from 'jquery';
+import {util, mixin} from 'uikit';
 
-var flipPosition = UIkit.util.flipPosition;
+var flipPosition = util.flipPosition;
 
 UIkit.component('tooltip', {
 
-    mixins: [UIkit.mixin.toggable, UIkit.mixin.position],
+    mixins: [mixin.toggable, mixin.position],
 
     props: {
         delay: Number
