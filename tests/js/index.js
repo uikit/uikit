@@ -49,6 +49,7 @@ requestAnimationFrame(function () {
         'nav',
         'navbar',
         'offcanvas',
+        'overlay',
         'padding',
         'pagination',
         'position',
