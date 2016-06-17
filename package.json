@@ -9,14 +9,22 @@
     "compile": "npm run compile-less & npm run compile-js",
     "watch-less": "watch-run -i -p 'src/less/**/*.less' npm run compile-less",
     "watch-js": "watch-run -i -p 'src/js/**/*.js' npm run compile-js",
-    "watch": "npm run watch-less & npm run watch-js"
+    "watch": "npm run watch-less & npm run watch-js",
+    "test": "webpack-dev-server --inline --hot & open http://localhost:8080/tests/"
   },
   "devDependencies": {
+    "babel-core": "^6.9.1",
+    "babel-eslint": "^5.0.4",
+    "babel-loader": "^6.2.4",
+    "babel-plugin-add-module-exports": "^0.1.4",
+    "babel-preset-es2015": "^6.9.0",
     "babel-preset-es2015-rollup": "^1.1.1",
     "glob": "^7.0.3",
     "rollup": "^0.31.1",
     "rollup-plugin-babel": "^2.5.1",
     "rollup-plugin-node-resolve": "^1.7.0",
-    "uglify-js": "^2.6.2"
+    "uglify-js": "^2.6.2",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1"
   }
 }
