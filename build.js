@@ -15,12 +15,13 @@ var banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2016 Y
     }
 });
 
-compile('src/js/uikit.js', ['jquery'], {jquery: 'jQuery'});
-glob('src/js/components/**/*.js', (er, files) => files.forEach(file => compile(file, ['jquery', 'uikit'], {jquery: 'jQuery', uikit: 'UIkit'})));
+compile('src/js/uikit.js', 'js/uikit', ['jquery'], {jquery: 'jQuery'});
+compile('tests/js/index.js', 'tests/js/test', ['jquery'], {jquery: 'jQuery'});
+glob('src/js/components/**/*.js', (er, files) => files.forEach(file => compile(file, file.substring(4, file.length - 3), ['jquery', 'uikit'], {jquery: 'jQuery', uikit: 'UIkit'})));
 
-function compile(file, external, globals) {
+function compile(file, dest, external, globals) {
 
-    var entry = file.substring(0, file.length - 3), dest = entry.substring(4);
+    var entry = path.resolve(path.dirname(file), path.basename(file, '.js'));
 
     rollup.rollup({
         external,
