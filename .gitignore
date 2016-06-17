@@ -6,7 +6,7 @@
 /node_modules
 /showcase
 /tools
-/tests/js/test.js
+/tests/js/test*
 /tests/css/*
 !/tests/css/.gitkeep
 *~
