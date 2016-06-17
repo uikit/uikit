@@ -41,7 +41,7 @@ UIkit.component('tooltip', {
             this.$el.attr('aria-expanded', true);
 
             this.positionAt(this.tooltip, this.$el);
-            this.origin = this.getAxis() === 'y' ? `${flipPosition(this.dir)}-${this.align}` : `${this.align}-${flipPosition(this.dir)}`;
+            this.origin = this.getAxis() === 'y' ? `${util.flipPosition(this.dir)}-${this.align}` : `${this.align}-${util.flipPosition(this.dir)}`;
 
             this.showTimer = setTimeout(() => this.toggleElement(this.tooltip, true), this.delay);
         },

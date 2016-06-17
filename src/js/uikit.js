@@ -8,3 +8,7 @@ mixin(UIkit, UIkit.util);
 core(UIkit, UIkit.util);
 
 export default UIkit;
+
+if (typeof module !== 'undefined') {
+    module.exports = UIkit;
+}
