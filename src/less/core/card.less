@@ -16,6 +16,8 @@
 //                  `uk-card-secondary`
 //                  `uk-card-large`
 //
+// Uses:            `uk-grid-stack`
+//
 // ========================================================================
 
 
@@ -154,7 +156,9 @@
     .hook-card-media;
 }
 
-.uk-card-media-top {
+.uk-card-media-top,
+.uk-grid-stack > .uk-card-media-left,
+.uk-grid-stack > .uk-card-media-right  {
     .hook-card-media-top;
 }
 
@@ -162,11 +166,11 @@
     .hook-card-media-bottom;
 }
 
-.uk-card-media-left {
+:not(.uk-grid-stack) > .uk-card-media-left {
     .hook-card-media-left;
 }
 
-.uk-card-media-right {
+:not(.uk-grid-stack) > .uk-card-media-right {
     .hook-card-media-right;
 }
 
