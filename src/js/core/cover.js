@@ -29,20 +29,16 @@ export default function (UIkit) {
 
             handler() {
 
-                if (!this.$el.is(':visible')) {
-                    return this;
+                if (this.$el[0].offsetHeight === 0) {
+                    return;
                 }
 
-                var dimensions = {width: '', height: ''};
-
-                this.$el.css(dimensions);
-
                 this.$el
-                    .css(dimensions)
+                    .css({width: '', height: ''})
                     .css(Dimensions.cover(
                         {width: this.width || this.$el.width(), height: this.height || this.$el.height()},
-                        {width: this.$el.parent().width(), height: this.$el.parent().height()})
-                    );
+                        {width: this.$el.parent().width(), height: this.$el.parent().height()}
+                    ));
 
             },
 

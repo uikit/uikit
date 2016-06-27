@@ -234,7 +234,7 @@ export const Dimensions = {
     },
 
     cover(dimensions, maxDimensions) {
-        dimensions = extend({}, dimensions);
+        dimensions = this.fit(dimensions, maxDimensions);
 
         each(dimensions, prop => dimensions = dimensions[prop] < maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
 
