@@ -22,10 +22,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                var offset,
-                    top,
-                    bottom,
-                    columns = this.$el.children()
+                var columns = this.$el.children()
                         .filter((i, el) => el.offsetHeight > 0)
                         .removeClass(this.margin)
                         .removeClass(this.firstColumn),
@@ -34,29 +31,27 @@ export default function (UIkit) {
                 columns.slice(1).each((i, el) => {
 
                     el = $(el);
-                    offset = el.offset();
-                    top = offset.top;
-                    bottom = offset.top + el.outerHeight(true);
+
+                    var top = el.offset().top, bottom = top + el.outerHeight(true);
 
                     for (var index = 0; index < rows.length; index++) {
-                        var row = rows[index],
-                            off = row[0].offset(),
-                            after = offset.top >= off.top + row[0].outerHeight(true);
+                        var row = rows[index], offset = row[0].offset();
 
-                        if (rows.length === index + 1 && after) {
+                        if (bottom <= offset.top) {
+                            rows.splice(index, 0, [el]);
+                            break;
+                        }
+
+                        if (top < offset.top + row[0].outerHeight(true)) {
+                            row.push(el);
+                            break;
+                        }
+
+                        if (rows.length === index + 1) {
                             rows.push([el]);
                             break;
                         }
 
-                        if (bottom <= off.top) {
-                            rows.unshift([el]);
-                            break;
-                        }
-
-                        if (!after) {
-                            row.push(el);
-                            break;
-                        }
                     }
 
                 });
