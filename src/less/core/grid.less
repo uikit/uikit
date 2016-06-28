@@ -309,7 +309,8 @@
 /*
  * Behave like a block element
  * 1. Wrap into the next line
- * 2. Take the full width
+ * 2. Take the full width, at least 100%
+ * 3. Expand width even if larger than 100%, e.g. because of negative margin (Needed for nested grids)
  */
 
 .uk-grid-match > * {
@@ -326,6 +327,10 @@
     /* 2 */
     box-sizing: border-box;
     width: 100%;
+    /* 3 */
+    -ms-flex: auto;
+    -webkit-flex: auto;
+    flex: auto;
 }
 
 
