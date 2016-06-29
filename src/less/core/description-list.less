@@ -3,7 +3,7 @@
 //
 // Component:       `uk-description-list`
 //
-// Modifiers:       `uk-description-list-line`
+// Modifiers:       `uk-description-list-divider`
 //
 // ========================================================================
 
@@ -13,8 +13,8 @@
 
 @description-list-margin-vertical:              @global-margin;
 
-@description-list-line-border-width:            @global-border-width;
-@description-list-line-border:                  @global-border;
+@description-list-divider-border-width:         @global-border-width;
+@description-list-divider-border:               @global-border;
 
 
 /* ========================================================================
@@ -49,10 +49,10 @@
  * Line
  */
 
-.uk-description-list-line > dd:nth-last-child(n+2) {
+.uk-description-list-divider > dd:nth-last-child(n+2) {
     padding-bottom: @description-list-margin-vertical;
-    border-bottom: @description-list-line-border-width solid @description-list-line-border;
-    .hook-description-list-line;
+    border-bottom: @description-list-divider-border-width solid @description-list-divider-border;
+    .hook-description-list-divider;
 }
 
 
@@ -63,5 +63,5 @@
 
 .hook-description-list-term() {}
 .hook-description-list-description() {}
-.hook-description-list-line() {}
+.hook-description-list-divider() {}
 .hook-description-list-misc() {}

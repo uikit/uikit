@@ -3,7 +3,7 @@
 //
 // Component:       `uk-subnav`
 //
-// Modifiers:       `uk-subnav-line`
+// Modifiers:       `uk-subnav-divider`
 //                  `uk-subnav-pill`
 //
 // States:          `uk-active`
@@ -22,9 +22,9 @@
 @subnav-item-hover-text-decoration:             none;
 @subnav-item-active-color:                      @global-color;
 
-@subnav-line-divider-border-height:             @global-margin;
-@subnav-line-divider-border:                    @global-border;
-@subnav-line-divider-border-width:              @global-border-width;
+@subnav-divider-border-height:                  @global-margin;
+@subnav-divider-border:                         @global-border;
+@subnav-divider-border-width:                   @global-border-width;
 
 @subnav-pill-item-padding-vertical:             5px;
 @subnav-pill-item-padding-horizontal:           10px;
@@ -108,14 +108,14 @@
 }
 
 
-/* Line modifier
+/* Divider modifier
  ========================================================================== */
 
 /*
  * 1. Align items and divider vertically
  */
 
-.uk-subnav-line > * {
+.uk-subnav-divider > * {
     /* 1 */
     display: -ms-flexbox;
     display: -webkit-flex;
@@ -130,12 +130,12 @@
  * `nth-child` makes it also work without JS if it's only one row
  */
 
-.uk-subnav-line > :nth-child(n+2):not(.uk-first-column)::before {
+.uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
     content: "";
-    height: @subnav-line-divider-border-height;
+    height: @subnav-divider-border-height;
     margin-right: @subnav-margin-horizontal;
-    border-left: @subnav-line-divider-border-width solid @subnav-line-divider-border;
-    .hook-subnav-line-divider;
+    border-left: @subnav-divider-border-width solid @subnav-divider-border;
+    .hook-subnav-divider;
 }
 
 
@@ -183,7 +183,7 @@
 .hook-subnav-item() {}
 .hook-subnav-item-hover() {}
 .hook-subnav-item-active() {}
-.hook-subnav-line-divider() {}
+.hook-subnav-divider() {}
 .hook-subnav-pill-item() {}
 .hook-subnav-pill-item-hover() {}
 .hook-subnav-pill-item-active() {}
@@ -199,7 +199,7 @@
     @subnav-item-color:                    @dye-muted-color;
     @subnav-item-hover-color:              @dye-color;
     @subnav-item-active-color:             @dye-color;
-    @subnav-line-divider-border:           @dye-border;
+    @subnav-divider-border:                @dye-border;
     @subnav-pill-item-hover-background:    @dye-muted-background;
     @subnav-pill-item-hover-color:         @dye-inverse-color;
     @subnav-pill-item-active-background:   @dye-primary-background;
@@ -230,12 +230,12 @@
     }
 
     //
-    // Line
+    // Divider
     //
 
-    .uk-subnav-line > :nth-child(n+2):not(.uk-first-column)::before {
-        border-left-color: @subnav-line-divider-border;
-        .hook-dye-subnav-line-divider;
+    .uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
+        border-left-color: @subnav-divider-border;
+        .hook-dye-subnav-divider;
     }
 
     //
@@ -269,7 +269,7 @@
 .hook-dye-subnav-item() {}
 .hook-dye-subnav-item-hover() {}
 .hook-dye-subnav-item-active() {}
-.hook-dye-subnav-line-divider() {}
+.hook-dye-subnav-divider() {}
 .hook-dye-subnav-pill-item-hover() {}
 .hook-dye-subnav-pill-item-active() {}
 .hook-dye-subnav-item-disabled() {}
