@@ -5,6 +5,7 @@
 
   - Fixed Htmleditor fullscreen mode in fixed container
   - Fixed prefixer gulp task
+  - Fixed stick wrapper margin in IE
 
 ### 2.26.3 (May 12, 2016)
 

@@ -232,9 +232,12 @@
         computeWrapper: function() {
 
             this.wrapper.css({
-                'height' : ['absolute','fixed'].indexOf(this.element.css('position')) == -1 ? this.element.outerHeight() : '',
-                'float'  : this.element.css('float') != 'none' ? this.element.css('float') : '',
-                'margin' : this.element.css('margin')
+                'height'        : ['absolute','fixed'].indexOf(this.element.css('position')) == -1 ? this.element.outerHeight() : '',
+                'float'         : this.element.css('float') != 'none' ? this.element.css('float') : '',
+                'margin-top'    : this.element.css('margin-top'),
+                'margin-bottom' : this.element.css('margin-bottom'),
+                'margin-left'   : this.element.css('margin-left'),
+                'margin-right'  : this.element.css('margin-right')
             });
 
             if (this.element.css('position') == 'fixed') {
