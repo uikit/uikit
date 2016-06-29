@@ -644,7 +644,7 @@
             UI.component.bootComponents();
 
             // custom scroll observer
-            requestAnimationFrame((function(){
+            var rafToken = requestAnimationFrame((function(){
 
                 var memory = {dir: {x:0, y:0}, x: window.pageXOffset, y:window.pageYOffset};
 
@@ -671,7 +671,8 @@
                         }]);
                     }
 
-                    requestAnimationFrame(fn);
+                    cancelAnimationFrame(rafToken);
+                    rafToken = requestAnimationFrame(fn);
                 };
 
                 if (UI.support.touch) {
