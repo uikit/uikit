@@ -25,12 +25,6 @@
 .hook-form-disabled() {}
 
 
-// Legend
-// ========================================================================
-
-.hook-form-legend() {}
-
-
 // Style modifiers
 // ========================================================================
 
@@ -41,6 +35,31 @@
 .hook-form-blank() {}
 
 .hook-form-blank-focus() {}
+
+
+// Radio and checkbox
+// ========================================================================
+
+.hook-form-custom() {
+    -webkit-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
+    -webkit-transition-property: background-color, border;
+    transition-property: background-color, border;
+}
+
+.hook-form-custom-focus() {}
+
+.hook-form-custom-checked() {}
+
+.hook-form-custom-checked-focus() {}
+
+.hook-form-custom-disabled() {}
+
+
+// Legend
+// ========================================================================
+
+.hook-form-legend() {}
 
 
 // Layout modifiers
@@ -68,5 +87,8 @@
 
     .hook-dye-form() {}
     .hook-dye-form-focus() {}
+
+    .hook-dye-form-custom() {}
+    .hook-dye-form-custom-checked() {}
 
 }

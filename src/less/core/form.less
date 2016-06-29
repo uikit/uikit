@@ -1,11 +1,20 @@
 // Name:            Form
 // Description:     Styles for forms
 //
-// Component:       `uk-form`
+// Component:       `uk-input`
+//                  `uk-select`
+//                  `uk-textarea`
+//                  `uk-radio`
+//                  `uk-checkbox`
+//                  `uk-legend`
+//                  `uk-fieldset`
 //
-// Sub-objects:     `uk-form-label`
+// Sub-objects:     `uk-form-stacked`
+//                  `uk-form-horizontal`
+//                  `uk-form-label`
 //                  `uk-form-controls`
 //                  `uk-form-icon`
+//                  `uk-form-icon-container`
 //
 // Modifiers:       `uk-form-small`
 //                  `uk-form-large`
@@ -16,8 +25,6 @@
 //                  `uk-form-width-small`
 //                  `uk-form-width-medium`
 //                  `uk-form-width-large`
-//                  `uk-form-stacked`
-//                  `uk-form-horizontal`
 //                  `uk-form-controls-text`
 //
 // ========================================================================
@@ -45,9 +52,6 @@
 
 @form-placeholder-color:                        @global-muted-color;
 
-@form-legend-font-size:                         @global-large-font-size;
-@form-legend-line-height:                       1.4;
-
 @form-small-height:                             @global-control-small-height;
 @form-large-height:                             @global-control-large-height;
 @form-small-font-size:                          @global-small-font-size;
@@ -64,10 +68,36 @@
 @form-blank-border:                             @global-border;
 @form-blank-border-style:                       dashed;
 
-@form-mini-width:                               40px;
-@form-small-width:                              130px;
-@form-medium-width:                             200px;
-@form-large-width:                              500px;
+@form-width-mini:                               40px;
+@form-width-small:                              130px;
+@form-width-medium:                             200px;
+@form-width-large:                              500px;
+
+@form-select-padding-right:                     20px;
+@form-select-icon-color:                        @global-color;
+@form-select-disabled-icon-color:               @global-muted-color;
+
+@form-radio-size:                               @global-font-size;
+@form-radio-margin-top:                         -4px;
+
+@form-radio-border:                             darken(@global-border, 10%);
+@form-radio-border-width:                       @global-border-width;
+@form-radio-background:                         transparent;
+
+@form-radio-focus-border:                       @global-primary-background;
+
+@form-radio-checked-border:                     transparent;
+@form-radio-checked-background:                 @global-primary-background;
+@form-radio-checked-icon-color:                 @global-inverse-color;
+
+@form-radio-checked-focus-background:           darken(@global-primary-background, 10%);
+
+@form-radio-disabled-border:                    @global-border;
+@form-radio-disabled-background:                @global-muted-background;
+@form-radio-disabled-icon-color:                @global-muted-color;
+
+@form-legend-font-size:                         @global-large-font-size;
+@form-legend-line-height:                       1.4;
 
 @form-stacked-margin-bottom:                    @global-small-margin;
 
@@ -96,9 +126,11 @@
  * 4. Change font properties to `inherit` in all browsers
  */
 
-.uk-form input,
-.uk-form select,
-.uk-form textarea {
+.uk-input,
+.uk-select,
+.uk-textarea,
+.uk-radio,
+.uk-checkbox {
     /* 1 */
     box-sizing: border-box;
     /* 2 */
@@ -110,10 +142,16 @@
 }
 
 /*
+ * Show the overflow in Edge.
+ */
+
+.uk-input { overflow: visible; }
+
+/*
  * Remove the inheritance of text transform in Firefox.
  */
 
-.uk-form select { text-transform: none; }
+.uk-select { text-transform: none; }
 
 /*
  * 1. Change font properties to `inherit` in all browsers
@@ -121,7 +159,7 @@
  * NOTE: Both declarations don't work in Chrome, Safari and Opera.
  */
 
-.uk-form optgroup {
+.uk-select optgroup {
     /* 1 */
     font: inherit;
     /* 2 */
@@ -129,149 +167,97 @@
 }
 
 /*
- * 1. Show the overflow in Edge.
- * 2. Show the overflow in Edge, Firefox, and IE.
+ * Remove the default vertical scrollbar in IE.
  */
 
-.uk-form input, /* 1 */
-.uk-form select { /* 2 */
-  overflow: visible;
-}
-
-
-/*
- * Remove the inner border and padding in Firefox.
- */
-
-.uk-form input::-moz-focus-inner {
-    border: 0;
-    padding: 0;
-}
-
-/*
- * Remove the padding in IE 10-.
- */
-
-.uk-form input[type="checkbox"],
-.uk-form input[type="radio"] { padding: 0; }
-
-/*
- * Improves consistency of cursor style for clickable elements
- */
-
-.uk-form input[type="checkbox"]:not(:disabled),
-.uk-form input[type="radio"]:not(:disabled) { cursor: pointer; }
-
-/*
- * Remove default style in iOS.
- */
-
-.uk-form textarea,
-.uk-form input:not([type]),
-.uk-form input[type="text"],
-.uk-form input[type="password"],
-.uk-form input[type="email"],
-.uk-form input[type="url"],
-.uk-form input[type="search"],
-.uk-form input[type="tel"],
-.uk-form input[type="number"],
-.uk-form input[type="datetime"] { -webkit-appearance: none; }
+.uk-textarea { overflow: auto; }
 
 /*
  * Remove the inner padding and cancel buttons in Chrome on OS X and Safari on OS X.
  */
 
-.uk-form input[type="search"]::-webkit-search-cancel-button,
-.uk-form input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+.uk-input[type="search"]::-webkit-search-cancel-button,
+.uk-input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+
 
 /*
  * Correct the cursor style of increment and decrement buttons in Chrome.
  */
 
-.uk-form input[type="number"]::-webkit-inner-spin-button,
-.uk-form input[type="number"]::-webkit-outer-spin-button { height: auto; }
-
-/*
- * Define consistent border, margin, and padding.
- */
-
-.uk-form fieldset {
-    border: none;
-    margin: 0;
-    padding: 0;
-}
-
-/*
- * 1. Remove the default vertical scrollbar in IE.
- * 2. Improve readability and alignment in all browsers.
- */
-
-.uk-form textarea {
-    /* 1 */
-    overflow: auto;
-    /* 2 */
-    vertical-align: top;
-}
+.uk-input[type="number"]::-webkit-inner-spin-button,
+.uk-input[type="number"]::-webkit-outer-spin-button { height: auto; }
 
 /*
  * Removes placeholder transparency in Firefox.
  */
 
-.uk-form ::-moz-placeholder { opacity: 1; }
+.uk-input::-moz-placeholder,
+.uk-textarea::-moz-placeholder { opacity: 1; }
 
 /*
- * Removes `box-shadow` for invalid controls in Firefox.
+ * Remove the padding in IE 10-.
  */
 
-.uk-form :invalid { box-shadow: none; }
+.uk-radio,
+.uk-checkbox { padding: 0; }
+
+/*
+ * Improves consistency of cursor style for clickable elements
+ */
+
+.uk-radio:not(:disabled),
+.uk-checkbox:not(:disabled) { cursor: pointer; }
+
+/*
+ * Define consistent border, margin, and padding.
+ */
+
+.uk-fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Input, select and textarea
+ * Allowed: `text`, `password`, `datetime`, `datetime-local`, `date`,  `month`,
+            `time`, `week`, `number`, `email`, `url`, `search`, `tel`, `color`
+ * Disallowed: `range`, `radio`, `checkbox`, `file`, `submit`, `reset` and `image`
+ ========================================================================== */
+
+/*
+ * Remove default style in iOS.
+ */
+
+.uk-input,
+.uk-textarea { -webkit-appearance: none; }
 
 /*
  * Vertical alignment
  */
 
-.uk-form input:not([type="radio"]):not([type="checkbox"]),
-.uk-form select { vertical-align: middle; }
-
-
-/* Text inputs, select and textarea
- ========================================================================== */
+.uk-input,
+.uk-select { vertical-align: middle; }
+.uk-textarea { vertical-align: top; }
 
 /*
- * Remove margin from the last-child
+ * Height
  */
 
-.uk-form > :last-child { margin-bottom: 0; }
+.uk-input,
+.uk-select:not([multiple]):not([size]) { height: @form-height; }
 
 /*
- * Controls
- * Except for `range`, `radio`, `checkbox`, `file`, `submit`, `reset` and `image`
- * 1. Must be `height` because `min-height` is not working in OSX
- * 2. Prevent content overflow
- * 3. Style
+ * 1. Prevent content overflow
+ * 2. Style
  */
 
-.uk-form select,
-.uk-form textarea,
-.uk-form input:not([type]),
-.uk-form input[type="text"],
-.uk-form input[type="password"],
-.uk-form input[type="datetime"],
-.uk-form input[type="datetime-local"],
-.uk-form input[type="date"],
-.uk-form input[type="month"],
-.uk-form input[type="time"],
-.uk-form input[type="week"],
-.uk-form input[type="number"],
-.uk-form input[type="email"],
-.uk-form input[type="url"],
-.uk-form input[type="search"],
-.uk-form input[type="tel"],
-.uk-form input[type="color"] {
+.uk-input,
+.uk-select,
+.uk-textarea {
     /* 1 */
-    height: @form-height;
-    /* 2 */
     max-width: 100%;
-    /* 3 */
+    /* 2 */
     padding: @form-padding-vertical @form-padding-horizontal;
     border: @form-border-width solid @form-border;
     background: @form-background;
@@ -300,13 +286,213 @@
  * Placeholder
  */
 
-.uk-form :-ms-input-placeholder { color: @form-placeholder-color !important; }
-.uk-form ::-moz-placeholder { color: @form-placeholder-color; }
-.uk-form ::-webkit-input-placeholder { color: @form-placeholder-color; }
+.uk-input:-ms-input-placeholder { color: @form-placeholder-color !important; }
+.uk-input::-moz-placeholder { color: @form-placeholder-color; }
+.uk-input::-webkit-input-placeholder { color: @form-placeholder-color; }
 
-.uk-form :disabled:-ms-input-placeholder { color: @form-disabled-color !important; }
-.uk-form :disabled::-moz-placeholder { color: @form-disabled-color; }
-.uk-form :disabled::-webkit-input-placeholder { color: @form-disabled-color; }
+.uk-textarea:-ms-input-placeholder { color: @form-placeholder-color !important; }
+.uk-textarea::-moz-placeholder { color: @form-placeholder-color; }
+.uk-textarea::-webkit-input-placeholder { color: @form-placeholder-color; }
+
+
+/* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)
+ ========================================================================== */
+
+/*
+ * Small
+ */
+
+.uk-form-small { font-size: @form-small-font-size; }
+
+.uk-form-small:not(textarea):not([multiple]):not([size]) { height: @form-small-height; }
+
+/*
+ * Large
+ */
+
+.uk-form-large { font-size: @form-large-font-size; }
+
+.uk-form-large:not(textarea):not([multiple]):not([size]) { height: @form-large-height; }
+
+
+/* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)
+ ========================================================================== */
+
+/*
+ * Error
+ */
+
+.uk-form-danger {
+    border-color: @form-danger-border;
+    background: @form-danger-background;
+    color: @form-danger-color;
+    .hook-form-danger;
+}
+
+/*
+ * Success
+ */
+
+.uk-form-success  {
+    border-color: @form-success-border;
+    background: @form-success-background;
+    color: @form-success-color;
+    .hook-form-success;
+}
+
+/*
+ * Blank
+ */
+
+.uk-form-blank {
+    border-color: transparent;
+    border-style: @form-blank-border-style;
+    background: none;
+    .hook-form-blank;
+}
+
+.uk-form-blank:focus {
+    border-color: @form-blank-border;
+    .hook-form-blank-focus;
+}
+
+
+/* Width modifiers (`uk-input`, `uk-select` and `uk-textarea`)
+ ========================================================================== */
+
+/*
+ * Fixed widths
+ * Different widths for mini sized `input` and `select` elements
+ */
+
+input.uk-form-width-mini { width: @form-width-mini; }
+
+select.uk-form-width-mini { width: (@form-width-mini + 25px); }
+
+.uk-form-width-small { width: @form-width-small; }
+
+.uk-form-width-medium { width: @form-width-medium; }
+
+.uk-form-width-large { width: @form-width-large; }
+
+
+/* Select
+ ========================================================================== */
+
+/*
+ * 1. Remove default style. Also works in Firefox
+ * 2. Style
+ * 3. Remove default style in IE 10/11
+ */
+
+.uk-select:not([multiple]):not([size]) {
+    /* 1 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* 2 */
+    padding-right: @form-select-padding-right;
+    .svg-fill("../../images/form-select.svg", "#000", @form-select-icon-color);
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+}
+
+/* 3 */
+.uk-select:not([multiple]):not([size])::-ms-expand { display: none; }
+
+/*
+ * Disabled
+ */
+
+.uk-select:not([multiple]):not([size]):disabled { .svg-fill("../../images/form-select.svg", "#000", @form-select-disabled-icon-color); }
+
+
+/* Radio and checkbox
+ * Note: Only works in Chrome, Safari, Opera and Edge
+ ========================================================================== */
+
+/*
+ * 1. Style
+ * 2. Make box more robust so it clips the child element
+ * 3. Vertical alignment
+ * 4. Remove default style
+ * 5. Fix black background on iOS
+ * 6. Center icons
+ */
+
+.uk-radio,
+.uk-checkbox {
+    /* 1 */
+    display: inline-block;
+    height: @form-radio-size;
+    width: @form-radio-size;
+    border: @form-radio-border-width solid @form-radio-border;
+    /* 2 */
+    overflow: hidden;
+    /* 3 */
+    margin-top: @form-radio-margin-top;
+    vertical-align: middle;
+    /* 4 */
+    -webkit-appearance: none;
+    /* 5 */
+    background-color: @form-radio-background;
+    /* 6 */
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    .hook-form-custom;
+}
+
+.uk-radio { border-radius: 50%; }
+
+/* Focus */
+.uk-radio:focus,
+.uk-checkbox:focus {
+    outline: none;
+    border-color: @form-radio-focus-border;
+    .hook-form-custom-focus;
+}
+
+/*
+ * Checked
+ */
+
+.uk-radio:checked,
+.uk-checkbox:checked,
+.uk-checkbox:indeterminate {
+    border-color: @form-radio-checked-border;
+    background-color: @form-radio-checked-background;
+    .hook-form-custom-checked;
+}
+
+/* Focus */
+.uk-radio:checked:focus,
+.uk-checkbox:checked:focus,
+.uk-checkbox:indeterminate:focus {
+    background-color: @form-radio-checked-focus-background;
+    .hook-form-custom-checked-focus;
+}
+
+/*
+ * Icons
+ */
+
+.uk-radio:checked { .svg-fill("../../images/form-radio.svg", "#000", @form-radio-checked-icon-color); }
+.uk-checkbox:checked { .svg-fill("../../images/form-checkbox.svg", "#000", @form-radio-checked-icon-color); }
+.uk-checkbox:indeterminate { .svg-fill("../../images/form-checkbox-indeterminate.svg", "#000", @form-radio-checked-icon-color); }
+
+/*
+ * Disabled
+ */
+
+.uk-radio:disabled,
+.uk-checkbox:disabled {
+    border-color: @form-radio-disabled-border;
+    background-color: @form-radio-disabled-background;
+    .hook-form-custom-disabled;
+}
+
+.uk-radio:disabled:checked { .svg-fill("../../images/form-radio.svg", "#000", @form-radio-disabled-icon-color); }
+.uk-checkbox:disabled:checked { .svg-fill("../../images/form-checkbox.svg", "#000", @form-radio-disabled-icon-color); }
+.uk-checkbox:disabled:indeterminate { .svg-fill("../../images/form-checkbox-indeterminate.svg", "#000", @form-radio-disabled-icon-color); }
 
 
 /* Legend
@@ -320,7 +506,7 @@
  * 4. Style
  */
 
-.uk-form legend {
+.uk-legend {
     /* 1 */
     width: 100%;
     /* 2 */
@@ -332,85 +518,6 @@
     line-height: @form-legend-line-height;
     .hook-form-legend;
 }
-
-
-/* Size modifiers
- ========================================================================== */
-
-.uk-form-small {
-    height: @form-small-height !important;
-    font-size: @form-small-font-size !important;
-}
-
-.uk-form-large  {
-    height: @form-large-height !important;
-    font-size: @form-large-font-size !important;
-}
-
-/*
- * Reset height
- */
-
-.uk-form textarea,
-.uk-form select[multiple],
-.uk-form select[size] { height: auto !important; }
-
-
-/* Style modifier
- ========================================================================== */
-
-/*
- * Error
- */
-
-.uk-form-danger {
-    border-color: @form-danger-border !important;
-    background: @form-danger-background !important;
-    color: @form-danger-color !important;
-    .hook-form-danger;
-}
-
-/*
- * Success
- */
-
-.uk-form-success  {
-    border-color: @form-success-border !important;
-    background: @form-success-background !important;
-    color: @form-success-color !important;
-    .hook-form-success;
-}
-
-/*
- * Blank
- */
-
-.uk-form-blank {
-    border-color: transparent !important;
-    border-style: @form-blank-border-style !important;
-    background: none !important;
-    .hook-form-blank;
-}
-
-.uk-form-blank:focus {
-    border-color: @form-blank-border !important;
-    .hook-form-blank-focus;
-}
-
-
-/* Width modifiers
- ========================================================================== */
-
-/*
- * Fixed widths
- * Different widths for mini sized `input` and `select` elements
- */
-
-input.uk-form-width-mini { width: @form-mini-width; }
-select.uk-form-width-mini { width: (@form-mini-width + 25px); }
-.uk-form-width-small { width: @form-small-width; }
-.uk-form-width-medium { width: @form-medium-width; }
-.uk-form-width-large { width: @form-large-width; }
 
 
 /* Layout modifiers
@@ -425,7 +532,6 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
     margin-bottom: @form-stacked-margin-bottom;
     .hook-form-stacked-label;
 }
-
 
 /*
  * Horizontal
@@ -470,7 +576,7 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
  * 3. Prevent content overflow because of `inline-block`
  */
 
-.uk-form-icon {
+.uk-form-icon-container {
     /* 1 */
     display: inline-block;
     /* 2 */
@@ -486,7 +592,7 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
  * 4. Style
  */
 
-.uk-form-icon > span {
+.uk-form-icon {
     position: absolute;
     /* 1 */
     top: 0;
@@ -509,18 +615,18 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
     color: @form-icon-color;
 }
 
-.uk-form-icon:not(.uk-form-icon-flip) > input { padding-left: @form-icon-width !important; }
+.uk-form-icon-container:not(.uk-form-icon-flip) > .uk-input { padding-left: @form-icon-width; }
 
 /*
  * Position modifier
  */
 
-.uk-form-icon-flip > span {
+.uk-form-icon-flip > .uk-form-icon {
     right: 0;
     left: auto;
 }
 
-.uk-form-icon-flip > input { padding-right: @form-icon-width !important; }
+.uk-form-icon-flip > .uk-input { padding-right: @form-icon-width; }
 
 
 // Hooks
@@ -531,11 +637,17 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
 .hook-form() {}
 .hook-form-focus() {}
 .hook-form-disabled() {}
-.hook-form-legend() {}
 .hook-form-danger() {}
 .hook-form-success() {}
 .hook-form-blank() {}
 .hook-form-blank-focus() {}
+.hook-form-custom() {}
+.hook-form-custom-focus() {}
+.hook-form-custom-checked() {}
+.hook-form-custom-checked-focus() {}
+.hook-form-custom-disabled() {}
+.hook-form-custom-misc() {}
+.hook-form-legend() {}
 .hook-form-stacked-label() {}
 .hook-form-horizontal-label() {}
 .hook-form-misc() {}
@@ -554,6 +666,12 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
     @form-focus-color:                     @dye-inverse-color;
     @form-placeholder-color:               fade(@dye-inverse-color, 70%);
 
+    @form-radio-border:                    fade(@dye-color, 70%);
+    @form-radio-focus-border:              @dye-color;
+    @form-radio-checked-border:            @dye-color;
+    @form-radio-checked-background:        transparent;
+    @form-radio-checked-icon-color:        @dye-color;
+
 }
 
 .dye() {
@@ -561,23 +679,9 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
     .dye-vars();
     .dye-hooks();
 
-    .uk-form select,
-    .uk-form textarea,
-    .uk-form input:not([type]),
-    .uk-form input[type="text"],
-    .uk-form input[type="password"],
-    .uk-form input[type="datetime"],
-    .uk-form input[type="datetime-local"],
-    .uk-form input[type="date"],
-    .uk-form input[type="month"],
-    .uk-form input[type="time"],
-    .uk-form input[type="week"],
-    .uk-form input[type="number"],
-    .uk-form input[type="email"],
-    .uk-form input[type="url"],
-    .uk-form input[type="search"],
-    .uk-form input[type="tel"],
-    .uk-form input[type="color"] {
+    .uk-input,
+    .uk-select,
+    .uk-textarea {
         border-color: @form-border;
         background: @form-background;
         color: @form-color;
@@ -596,11 +700,46 @@ select.uk-form-width-mini { width: (@form-mini-width + 25px); }
     // Placeholder
     //
 
-    .uk-form :-ms-input-placeholder { color: @form-placeholder-color !important; }
-    .uk-form ::-moz-placeholder { color: @form-placeholder-color; }
-    .uk-form ::-webkit-input-placeholder { color: @form-placeholder-color; }
+    .uk-input:-ms-input-placeholder { color: @form-placeholder-color !important; }
+    .uk-input::-moz-placeholder { color: @form-placeholder-color; }
+    .uk-input::-webkit-input-placeholder { color: @form-placeholder-color; }
+
+    .uk-textarea:-ms-input-placeholder { color: @form-placeholder-color !important; }
+    .uk-textarea::-moz-placeholder { color: @form-placeholder-color; }
+    .uk-textarea::-webkit-input-placeholder { color: @form-placeholder-color; }
+
+    //
+    // Radio and checkbox
+    //
+
+    .uk-radio,
+    .uk-checkbox {
+        border-color: @form-radio-border;
+        background-color: @form-radio-background;
+        .hook-dye-form-custom;
+    }
+
+    /* Focus */
+    .uk-radio:focus,
+    .uk-checkbox:focus { border-color: @form-radio-focus-border; }
+
+    /* Checked */
+    .uk-radio:checked,
+    .uk-checkbox:checked,
+    .uk-checkbox:indeterminate {
+        border-color: @form-radio-checked-border;
+        background-color: @form-radio-checked-background;
+        .hook-dye-form-custom-checked;
+    }
+
+    /* Icon */
+    .uk-radio:checked { .svg-fill("../../images/form-radio.svg", "#000", @form-radio-checked-icon-color); }
+    .uk-checkbox:checked { .svg-fill("../../images/form-checkbox.svg", "#000", @form-radio-checked-icon-color); }
+    .uk-checkbox:indeterminate { .svg-fill("../../images/form-checkbox-indeterminate.svg", "#000", @form-radio-checked-icon-color); }
 
 }
 
 .hook-dye-form() {}
 .hook-dye-form-focus() {}
+.hook-dye-form-custom() {}
+.hook-dye-form-custom-checked() {}

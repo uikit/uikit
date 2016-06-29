@@ -9,8 +9,8 @@ document.writeln(`<script src="../js/uikit.js"></script>`);
 
 requestAnimationFrame(function () {
 
-    var $container = $('<div class="uk-form uk-container"></div>').prependTo('body');
-    var $tests = $('<select><option value="">- Select Test -</option></select>').css('margin', '20px 20px 20px 0').prependTo($container);
+    var $container = $('<div class="uk-container"></div>').prependTo('body');
+    var $tests = $('<select class="uk-select"><option value="">- Select Test -</option></select>').css('margin', '20px 20px 20px 0').prependTo($container);
 
     [
         'accordion',
@@ -35,7 +35,6 @@ requestAnimationFrame(function () {
         'element',
         'flex',
         'form',
-        'form-custom',
         'grid',
         'height-expand',
         'height-viewport',
@@ -84,7 +83,7 @@ requestAnimationFrame(function () {
     }).val(location.pathname.split('/').pop());
 
     var $styles = $(`
-        <select>
+        <select class="uk-select">
             <option value="../css/uikit.css">Theme</option>
             <option value="css/uikit.core.css">Core</option>
         </select>
