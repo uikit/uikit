@@ -4,6 +4,7 @@
 ### WIP
 
   - Fixed Htmleditor fullscreen mode in fixed container
+  - Fixed prefixer gulp task
 
 ### 2.26.3 (May 12, 2016)
 
