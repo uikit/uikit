@@ -71,7 +71,10 @@ export default function (UIkit) {
 
                     this.placeholder.css({
                         height: this.$el.css('position') !== 'absolute' ? this.$el.outerHeight() : '',
-                        margin: this.$el.css('margin')
+                        marginTop: this.$el.css('marginTop'),
+                        marginBottom: this.$el.css('marginBottom'),
+                        marginLeft: this.$el.css('marginLeft'),
+                        marginRight: this.$el.css('marginRight')
                     });
 
                     this.offsetTop = (isActive ? this.placeholder.offset() : this.$el.offset()).top;

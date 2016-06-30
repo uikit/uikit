@@ -64,18 +64,18 @@ export default function (UIkit) {
                             initProps = {
                                 overflow: '',
                                 height: '',
-                                'padding-top': '',
-                                'padding-bottom': '',
-                                'margin-top': '',
-                                'margin-bottom': ''
+                                paddingTop: '',
+                                paddingBottom: '',
+                                marginTop: '',
+                                marginBottom: ''
                             },
                             hideProps = {
                                 overflow: 'hidden',
                                 height: 0,
-                                'padding-top': 0,
-                                'padding-bottom': 0,
-                                'margin-top': 0,
-                                'margin-bottom': 0
+                                paddingTop: 0,
+                                paddingBottom: 0,
+                                marginTop: 0,
+                                marginBottom: 0
                             },
                             inProgress = Transition.inProgress(el);
 
