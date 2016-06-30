@@ -146,6 +146,9 @@
 
                         this.currentTop = null;
                         this.animate    = false;
+
+                        this.computeWrapper();
+                        
                     }.bind(this);
 
 
