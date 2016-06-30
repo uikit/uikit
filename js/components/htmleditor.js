@@ -26,6 +26,7 @@
             mode         : 'split',
             markdown     : false,
             autocomplete : true,
+            enablescripts: false,
             height       : 500,
             maxsplitsize : 1000,
             codemirror   : { mode: 'htmlmixed', lineWrapping: true, dragDrop: false, autoCloseTags: true, matchTags: true, autoCloseBrackets: true, matchBrackets: true, indentUnit: 4, indentWithTabs: false, tabSize: 4, hintOptions: {completionSingle:false} },
@@ -289,6 +290,10 @@
         render: function() {
 
             this.currentvalue = this.editor.getValue();
+
+            if (!this.options.enablescripts) {
+                this.currentvalue = this.currentvalue.replace(/<(script|style)\b[^<]*(?:(?!<\/(script|style)>)<[^<]*)*<\/(script|style)>/img, '');
+            }
 
             // empty code
             if (!this.currentvalue) {

@@ -44,15 +44,15 @@
 
             this.on("drop", function(e){
 
-                if (e.dataTransfer && e.dataTransfer.files) {
+                if (e.originalEvent.dataTransfer && e.originalEvent.dataTransfer.files) {
 
                     e.stopPropagation();
                     e.preventDefault();
 
                     $this.element.removeClass($this.options.dragoverClass);
-                    $this.element.trigger('dropped.uk.upload', [e.dataTransfer.files]);
+                    $this.element.trigger('dropped.uk.upload', [e.originalEvent.dataTransfer.files]);
 
-                    xhrupload(e.dataTransfer.files, $this.options);
+                    xhrupload(e.originalEvent.dataTransfer.files, $this.options);
                 }
 
             }).on("dragenter", function(e){
@@ -93,9 +93,6 @@
         return supportFileAPI() && supportAjaxUploadProgressEvents() && supportFormData();
     })();
 
-    if (UI.support.ajaxupload){
-        UI.$.event.props.push("dataTransfer");
-    }
 
     function xhrupload(files, settings) {
 
