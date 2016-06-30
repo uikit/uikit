@@ -291,7 +291,7 @@
             this.currentvalue = this.editor.getValue();
 
             if (!this.options.enablescripts) {
-                this.currentvalue = this.currentvalue.replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/img, '');
+                this.currentvalue = this.currentvalue.replace(/<(script|style)\b[^<]*(?:(?!<\/(script|style)>)<[^<]*)*<\/(script|style)>/img, '');
             }
 
             // empty code
