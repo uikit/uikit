@@ -53,7 +53,7 @@
 
                 for (var i = 0; i < sticked.length; i++) {
                     sticked[i].reset(true);
-                    //sticked[i].self.computeWrapper();
+                    sticked[i].self.computeWrapper();
                 }
 
                 checkscrollposition();
@@ -68,7 +68,7 @@
 
                         var $ele = UI.$(this);
 
-                        if(!$ele.data("sticky")) {
+                        if (!$ele.data("sticky")) {
                             UI.sticky($ele, UI.Utils.options($ele.attr('data-uk-sticky')));
                         }
                     });
@@ -84,6 +84,12 @@
 
             this.wrapper = this.element.wrap('<div class="uk-sticky-placeholder"></div>').parent();
             this.computeWrapper();
+            this.wrapper.css({
+                'margin-top'    : this.element.css('margin-top'),
+                'margin-bottom' : this.element.css('margin-bottom'),
+                'margin-left'   : this.element.css('margin-left'),
+                'margin-right'  : this.element.css('margin-right')
+            })
             this.element.css('margin', 0);
 
             if (boundary) {
@@ -147,8 +153,6 @@
                         this.currentTop = null;
                         this.animate    = false;
 
-                        this.computeWrapper();
-                        
                     }.bind(this);
 
 
@@ -236,11 +240,7 @@
 
             this.wrapper.css({
                 'height'        : ['absolute','fixed'].indexOf(this.element.css('position')) == -1 ? this.element.outerHeight() : '',
-                'float'         : this.element.css('float') != 'none' ? this.element.css('float') : '',
-                'margin-top'    : this.element.css('margin-top'),
-                'margin-bottom' : this.element.css('margin-bottom'),
-                'margin-left'   : this.element.css('margin-left'),
-                'margin-right'  : this.element.css('margin-right')
+                'float'         : this.element.css('float') != 'none' ? this.element.css('float') : ''
             });
 
             if (this.element.css('position') == 'fixed') {
