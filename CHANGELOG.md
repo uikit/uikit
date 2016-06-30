@@ -3,6 +3,7 @@
 
 ### WIP
 
+  - Added Htmleditor enablescripts option
   - Fixed Htmleditor fullscreen mode in fixed container
   - Fixed prefixer gulp task
 
