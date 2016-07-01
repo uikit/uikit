@@ -1,6 +1,7 @@
 import $ from 'jquery';
 import {util} from 'uikit';
 
+var {Dimensions, getIndex, Transition} = util;
 var active;
 
 $(document).on({
@@ -72,9 +73,9 @@ UIkit.component('lightbox', {
                     width: window.innerWidth - (this.modal.panel.outerWidth(true) - dim.width),
                     height: window.innerHeight - (this.modal.panel.outerHeight(true) - dim.height)
                 },
-                newDim = util.Dimensions.fit({width: item.width, height: item.height}, max);
+                newDim = Dimensions.fit({width: item.width, height: item.height}, max);
 
-            util.Transition
+            Transition
                 .stop(this.modal.panel)
                 .stop(this.modal.content);
 
@@ -85,8 +86,8 @@ UIkit.component('lightbox', {
             this.modal.content = $(item.content).css('opacity', 0).appendTo(this.modal.panel);
             this.modal.panel.css(dim);
 
-            util.Transition.start(this.modal.panel, newDim, this.duration).then(() => {
-                util.Transition.start(this.modal.content, {opacity: 1}, 400).then(() => {
+            Transition.start(this.modal.panel, newDim, this.duration).then(() => {
+                Transition.start(this.modal.content, {opacity: 1}, 400).then(() => {
                     this.modal.panel.find('[uk-transition-hide]').show();
                     this.modal.panel.find('[uk-transition-show]').hide();
                 });
@@ -116,7 +117,7 @@ UIkit.component('lightbox', {
 
         show(index) {
 
-            this.index = util.getIndex(index, this.items, this.index);
+            this.index = getIndex(index, this.items, this.index);
 
             if (!this.modal) {
                 this.modal = UIkit.modal.dialog(`

@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import {util, mixin} from 'uikit';
 
-var flipPosition = util.flipPosition;
+var {flipPosition} = util;
 
 UIkit.component('tooltip', {
 
@@ -41,7 +41,7 @@ UIkit.component('tooltip', {
             this.$el.attr('aria-expanded', true);
 
             this.positionAt(this.tooltip, this.$el);
-            this.origin = this.getAxis() === 'y' ? `${util.flipPosition(this.dir)}-${this.align}` : `${this.align}-${util.flipPosition(this.dir)}`;
+            this.origin = this.getAxis() === 'y' ? `${flipPosition(this.dir)}-${this.align}` : `${this.align}-${flipPosition(this.dir)}`;
 
             this.showTimer = setTimeout(() => this.toggleElement(this.tooltip, true), this.delay);
         },
