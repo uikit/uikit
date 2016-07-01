@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {extend, isFunction, isString, toJQuery, transitionend} from '../util/index';
+import {extend, isFunction, isString, toJQuery} from '../util/index';
 
 export default function (UIkit) {
 

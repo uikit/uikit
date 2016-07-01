@@ -1,7 +1,7 @@
 import $ from 'jquery';
 import {util} from 'uikit';
 
-var {Dimensions, getIndex, Transition} = util;
+var {extend, Dimensions, getIndex, Transition} = util;
 var active;
 
 $(document).on({
@@ -68,28 +68,29 @@ UIkit.component('lightbox', {
                 return;
             }
 
-            var dim = {width: this.modal.panel.width(), height: this.modal.panel.height()},
+            var panel = this.modal.panel,
+                dim = {width: panel.width(), height: panel.height()},
                 max = {
-                    width: window.innerWidth - (this.modal.panel.outerWidth(true) - dim.width),
-                    height: window.innerHeight - (this.modal.panel.outerHeight(true) - dim.height)
+                    width: window.innerWidth - (panel.outerWidth(true) - dim.width),
+                    height: window.innerHeight - (panel.outerHeight(true) - dim.height)
                 },
                 newDim = Dimensions.fit({width: item.width, height: item.height}, max);
 
             Transition
-                .stop(this.modal.panel)
+                .stop(panel)
                 .stop(this.modal.content);
 
             if (this.modal.content) {
                 this.modal.content.remove();
             }
 
-            this.modal.content = $(item.content).css('opacity', 0).appendTo(this.modal.panel);
-            this.modal.panel.css(dim);
+            this.modal.content = $(item.content).css('opacity', 0).appendTo(panel);
+            panel.css(dim);
 
-            Transition.start(this.modal.panel, newDim, this.duration).then(() => {
+            Transition.start(panel, newDim, this.duration).then(() => {
                 Transition.start(this.modal.content, {opacity: 1}, 400).then(() => {
-                    this.modal.panel.find('[uk-transition-hide]').show();
-                    this.modal.panel.find('[uk-transition-show]').hide();
+                    panel.find('[uk-transition-hide]').show();
+                    panel.find('[uk-transition-show]').hide();
                 });
             });
 
@@ -179,11 +180,7 @@ UIkit.component('lightbox', {
         },
 
         setItem(item, content, width = 200, height = 200) {
-
-            item.content = content;
-            item.width = width;
-            item.height = height;
-
+            extend(item, {content, width, height});
             this.$update();
         },
 
