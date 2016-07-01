@@ -4,6 +4,7 @@
 ### WIP
 
   - Added Htmleditor enablescripts option
+  - Fixed jquery3 switcher + slideshow animation compatibility
   - Fixed Htmleditor fullscreen mode in fixed container
   - Fixed prefixer gulp task
   - Fixed stick wrapper margin in IE
