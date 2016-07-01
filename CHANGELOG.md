@@ -4,6 +4,7 @@
 ### WIP
 
   - Added Htmleditor enablescripts option
+  - Removed marked lib / load from a CDN
   - Fixed jQuery v.3 switcher + slideshow animation compatibility
   - Fixed Htmleditor fullscreen mode in fixed container
   - Fixed prefixer gulp task
