@@ -84,3 +84,33 @@
 // ========================================================================
 
 .hook-element-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default-theme() {}
+
+.dye-hooks() {
+
+    .hook-dye-heading-divider() {
+
+        &::before {
+            border-bottom-color: @dye-border;
+        }
+
+    }
+
+    .hook-dye-heading-bullet() {
+
+        &::before {
+            border-left-color: @dye-border;
+        }
+
+    }
+
+    .hook-dye-divider-icon() {}
+
+    .hook-dye-divider-icon-line() {}
+
+}

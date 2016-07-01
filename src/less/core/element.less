@@ -198,3 +198,49 @@
 .hook-divider-icon-line-right() {}
 .hook-divider() {}
 .hook-element-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @heading-divider-border:                  @dye-border;
+    @heading-bullet-border:                   @dye-border;
+    @divider-icon-color:                      @dye-border;
+    @divider-icon-line-border:                @dye-border;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-heading-divider {
+        border-bottom-color: @heading-divider-border;
+        .hook-dye-heading-divider;
+    }
+
+    .uk-heading-bullet {
+        border-left-color: @heading-bullet-border;
+        .hook-dye-heading-bullet;
+    }
+
+    .uk-divider-icon {
+        .svg-fill("../../images/list-bullet.svg", "#000", @divider-icon-color);
+        .hook-dye-divider-icon;
+    }
+
+    .uk-divider-icon::before,
+    .uk-divider-icon::after {
+        border-bottom-color: @divider-icon-line-border;
+        .hook-dye-divider-icon-line;
+    }
+
+}
+
+.hook-dye-heading-divider() {}
+.hook-dye-heading-bullet() {}
+.hook-dye-divider-icon() {}
+.hook-dye-divider-icon-line() {}
