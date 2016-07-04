@@ -102,6 +102,8 @@ gulp.task('dist', ['dist-themes-core'], function(done) {
         fonts              = gutil.env.f || gutil.env.fonts || false,
         images             = gutil.env.i || gutil.env.images || false;
 
+    var postSequence       = ['replace_uikit_amd_dependency'];
+
     if (packageManagerTask && packageManagerTask === 'dist-packageJson-file') {
         sequence.push('dist-packageJson-file');
     } else {
@@ -119,7 +121,7 @@ gulp.task('dist', ['dist-themes-core'], function(done) {
      * Decipher end
      */
 
-    runSequence(sequence, function(){
+    runSequence(sequence, postSequence, function(){
 
         if (gutil.env.m || gutil.env.min) {
             gulp.src(['./dist/**/*.css', './dist/**/*.js', '!./dist/**/*.min.css', '!./dist/**/*.min.js'])
@@ -797,6 +799,13 @@ gulp.task('dist-packageJson-file', function(done) {
     gulp.src('custom/decipher/package.json')
         .pipe(gulp.dest('dist'));
 });
+
+gulp.task('replace_uikit_amd_dependency', function(done) {
+    return gulp.src(['dist/js/components/*.js', 'dist/js/components/*.min.js'])
+        .pipe(replace(["uikit"], ["github:DecipherNow/uikit-decipher-theme@master/js/uikit"]))
+        .pipe(gulp.dest('dist/js/components'));
+});
+
 /**
  * Decipher end
  */
