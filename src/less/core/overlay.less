@@ -44,14 +44,8 @@
 // Variables
 // ========================================================================
 
-@overlay-panel-padding:                         20px;
-@overlay-panel-color:                           #fff;
-
-@overlay-panel-background:                      rgba(0,0,0,0.5);
-
-@overlay-icon:                                  "\f002";
-@overlay-icon-size:                             50px;
-@overlay-icon-color:                            #fff;
+@overlay-icon-color:                            @global-color;
+@overlay-icon-size:                             40px;
 
 @overlay-fade-in-opacity:                       1;
 @overlay-fade-out-opacity:                      0.7;
@@ -66,6 +60,18 @@
 
 @overlay-panel-link-color:                      inherit;
 @overlay-panel-link-text-decoration:            underline;
+
+//
+// New 3.0
+//
+
+@overlay-panel-background:                      @global-background;
+@overlay-panel-background-fade:                 fade(@global-background, 60%);
+@overlay-panel-primary-background:              @global-primary-background;
+@overlay-panel-primary-background-fade:         fade(@global-primary-background, 60%);
+@overlay-panel-secondary-background:            @global-secondary-background;
+@overlay-panel-secondary-background-fade:       fade(@global-secondary-background, 60%);
+
 
 
 /* ========================================================================
@@ -113,20 +119,11 @@
  ========================================================================== */
 
 /*
- * 1. Position cover
- * 2. Style
+ * 1. Style
  */
 
 .uk-overlay-panel {
     /* 1 */
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    /* 2 */
-    padding: @overlay-panel-padding;
-    color: @overlay-panel-color;
     .hook-overlay-panel;
 }
 
@@ -135,7 +132,7 @@
  */
 
 .uk-overlay-panel > :last-child,
-.uk-overlay-panel.uk-flex > * > :last-child { margin-bottom: 0; }
+.uk-overlay-panel > * > :last-child { margin-bottom: 0; }
 
 
 /* Sub-object `uk-overlay-hover` and `uk-overlay-active`
@@ -149,9 +146,53 @@
 /* Modifier `uk-overlay-background`
  ========================================================================== */
 
-.uk-overlay-background {
+/*
+ * 1. Position cover
+ */
+
+.uk-overlay-background-cover {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+ }
+
+.uk-overlay-background,
+.uk-overlay-background .uk-overlay-background-cover {
     background: @overlay-panel-background;
     .hook-overlay-background;
+}
+
+.uk-overlay-background-fade,
+.uk-overlay-background-fade .uk-overlay-background-cover  {
+    background: @overlay-panel-background-fade;
+    .hook-overlay-background-fade;
+}
+
+.uk-overlay-primary-background,
+.uk-overlay-primary-background .uk-overlay-background-cover {
+    background: @overlay-panel-primary-background;
+    .hook-overlay-primary-background;
+}
+
+.uk-overlay-primary-background-fade,
+.uk-overlay-primary-background-fade .uk-overlay-background-cover {
+    background: @overlay-panel-primary-background-fade;
+    .hook-overlay-primary-background-fade;
+}
+
+.uk-overlay-secondary-background,
+.uk-overlay-secondary-background .uk-overlay-background-cover {
+    background: @overlay-panel-secondary-background;
+    .hook-overlay-secondary-background;
+}
+
+.uk-overlay-secondary-background-fade,
+.uk-overlay-secondary-background-fade .uk-overlay-background-cover {
+    background: @overlay-panel-secondary-background-fade;
+    .hook-overlay-secondary-background-fade;
 }
 
 
@@ -168,35 +209,17 @@
 }
 
 
-/* Position modifiers
- ========================================================================== */
-
-.uk-overlay-top { bottom: auto; }
-
-.uk-overlay-bottom { top: auto; }
-
-.uk-overlay-left { right: auto; }
-
-.uk-overlay-right { left: auto; }
-
-
 /* Sub-object `uk-overlay-icon`
  ========================================================================== */
 
-.uk-overlay-icon:before {
-    content: @overlay-icon;
-    position: absolute;
-    top: 50%;
-    left: 50%;
+.uk-overlay-icon::before {
+    display: block;
+    content: "";
     width: @overlay-icon-size;
     height: @overlay-icon-size;
-    margin-top: -(@overlay-icon-size / 2);
-    margin-left: -(@overlay-icon-size / 2);
-    font-size: @overlay-icon-size;
-    line-height: 1;
-    font-family: FontAwesome;
-    text-align: center;
-    color: @overlay-icon-color;
+    .svg-fill("../../images/accordion-close.svg", "#000", @overlay-icon-color);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
     .hook-overlay-icon;
 }
 
@@ -325,6 +348,11 @@
 
 .hook-overlay-panel() {}
 .hook-overlay-background() {}
+.hook-overlay-background-fade() {}
+.hook-overlay-primary-background() {}
+.hook-overlay-primary-background-fade() {}
+.hook-overlay-secondary-background() {}
+.hook-overlay-secondary-background-fade() {}
 .hook-overlay-image() {}
 .hook-overlay-icon() {}
 .hook-overlay-misc() {}
