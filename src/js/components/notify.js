@@ -63,6 +63,12 @@
             this.element.addClass('uk-notify-message-'+this.options.status);
             this.currentstatus = this.options.status;
         }
+        
+        // id for closebutton
+        if (this.options.notifyhandle) {
+            this.element.attr('id' , this.options.notifyhandle);
+            this.currenthandle = this.options.notifyhandle;
+        }
 
         this.group = this.options.group;
 
