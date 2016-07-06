@@ -25,7 +25,8 @@
 // Variables
 // ========================================================================
 
-@position-margin:                                      @global-small-gutter;
+@position-small-margin:                                @global-small-gutter;
+@position-medium-margin:                               @global-gutter;
 
 
 /* ========================================================================
@@ -150,17 +151,38 @@
 /* Margin modifier
  ========================================================================== */
 
-.uk-position-margin[class*='uk-position-top']:not(.uk-position-top-center),
-.uk-position-margin[class*='uk-position-bottom']:not(.uk-position-bottom-center),
-.uk-position-margin[class*='uk-position-left'],
-.uk-position-margin[class*='uk-position-right'] { margin: @position-margin; }
+/*
+ * Small
+ */
 
+.uk-position-small[class*='uk-position-top']:not(.uk-position-top-center),
+.uk-position-small[class*='uk-position-bottom']:not(.uk-position-bottom-center),
+.uk-position-small[class*='uk-position-left'],
+.uk-position-small[class*='uk-position-right'],
+.uk-position-small.uk-position-cover { margin: @position-small-margin; }
 
-.uk-position-margin[class*='uk-position-top'] { margin-top: @position-margin; }
-.uk-position-margin[class*='uk-position-bottom'] { margin-bottom: @position-margin; }
+.uk-position-small[class*='uk-position-top'] { margin-top: @position-small-margin; }
+.uk-position-small[class*='uk-position-bottom'] { margin-bottom: @position-small-margin; }
 
-.uk-position-margin.uk-position-center-left { margin-left: @position-margin; }
-.uk-position-margin.uk-position-center-right { margin-right: @position-margin; }
+.uk-position-small.uk-position-center-left { margin-left: @position-small-margin; }
+.uk-position-small.uk-position-center-right { margin-right: @position-small-margin; }
+
+/*
+ * Medium
+ */
+
+.uk-position-medium[class*='uk-position-top']:not(.uk-position-top-center),
+.uk-position-medium[class*='uk-position-bottom']:not(.uk-position-bottom-center),
+.uk-position-medium[class*='uk-position-left'],
+.uk-position-medium[class*='uk-position-right'],
+.uk-position-medium.uk-position-cover { margin: @position-medium-margin; }
+
+.uk-position-medium[class*='uk-position-top'] { margin-top: @position-medium-margin; }
+.uk-position-medium[class*='uk-position-bottom'] { margin-bottom: @position-medium-margin; }
+
+.uk-position-medium.uk-position-center-left { margin-left: @position-medium-margin; }
+.uk-position-medium.uk-position-center-right { margin-right: @position-medium-margin; }
+
 
 
 // Hooks
