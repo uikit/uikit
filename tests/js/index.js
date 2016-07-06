@@ -67,6 +67,7 @@ requestAnimationFrame(function () {
         'toggle',
         'tooltip',
         'totop',
+        'transition',
         'utility',
         'visibility',
         'width'
