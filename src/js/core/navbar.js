@@ -46,8 +46,8 @@ export default function (UIkit) {
             this.pos = `bottom-${this.align}`;
 
             this.$el.find(this.dropdown).each((i, el) => {
-
-                drop = toJQuery('.' + this.clsDrop, el);
+                
+                drop = toJQuery(`.${this.clsDrop}`, el);
 
                 if (drop && !UIkit.getComponent(drop, 'drop') && !UIkit.getComponent(drop, 'dropdown')) {
                     UIkit.drop(drop, extend({}, this));
@@ -56,7 +56,7 @@ export default function (UIkit) {
 
             this.$el.on('mouseenter', this.dropdown, ({target}) => {
                 var active = this.getActive();
-                if (active && active.mode !== 'click' && !isWithin(target, active.toggle) && !active.isDelaying) {
+                if (active && active.mode !== 'click' && !isWithin(target, active.toggle.$el) && !active.isDelaying) {
                     active.hide(false);
                 }
             });
@@ -84,7 +84,7 @@ export default function (UIkit) {
                 })
                 .on('mouseleave', ({relatedTarget}) => {
                     var active = this.getActive();
-                    if (active && !isWithin(relatedTarget, active.toggle)) {
+                    if (active && !isWithin(relatedTarget, active.toggle.$el)) {
                         active.hide();
                     }
                 });
@@ -95,7 +95,7 @@ export default function (UIkit) {
 
             mouseenter({target}) {
                 var active = this.getActive();
-                if (active && active.mode !== 'click' && isWithin(target, this.dropdown) && !isWithin(target, active.toggle) && !active.isDelaying) {
+                if (active && active.mode !== 'click' && isWithin(target, this.dropdown) && !isWithin(target, active.toggle.$el) && !active.isDelaying) {
                     active.hide(false);
                 }
             },
@@ -119,7 +119,7 @@ export default function (UIkit) {
 
             getActive() {
                 var active = UIkit.drop.getActive();
-                if (active && isWithin(active.toggle, this.$el)) {
+                if (active && isWithin(active.toggle.$el, this.$el)) {
                     return active;
                 }
             },

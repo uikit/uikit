@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import {hasTouch} from '../util/index';
 
 export default function (UIkit) {
 
@@ -8,16 +9,29 @@ export default function (UIkit) {
 
         props: {
             href: 'jQuery',
-            target: 'jQuery'
+            target: 'jQuery',
+            mode: String
         },
 
         defaults: {
             href: false,
-            target: false
+            target: false,
+            mode: 'click'
         },
 
         ready() {
+
             this.target = this.target || this.href;
+
+            this.mode = hasTouch ? 'click' : this.mode;
+
+            if (this.mode === 'hover') {
+                this.$el.on({
+                    mouseenter: () => this.toggle('toggleShow'),
+                    mouseleave: () => this.toggle('toggleHide')
+                })
+            }
+
         },
 
         events: {
@@ -29,23 +43,15 @@ export default function (UIkit) {
                 }
 
                 this.toggle();
-            },
-
-            mouseenter() {
-                this.target.triggerHandler('toggleenter', [this.$el]);
-            },
-
-            mouseleave() {
-                this.target.triggerHandler('toggleleave', [this.$el]);
             }
 
         },
 
         methods: {
 
-            toggle() {
-                var event = $.Event('toggle');
-                this.target.triggerHandler(event, [this.$el]);
+            toggle(type) {
+                var event = $.Event(type || 'toggle');
+                this.target.triggerHandler(event, [this]);
 
                 if (!event.isDefaultPrevented()) {
                     this.toggleElement(this.target);

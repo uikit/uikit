@@ -1,12 +1,12 @@
 import $ from 'jquery';
-import {hasTouch, isString, isWithin, removeClass, getDimensions, toJQuery} from '../util/index';
+import {isString, isWithin, removeClass, getDimensions, toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
     var active;
 
     $(document).on('click', e => {
-        if (active && !isWithin(e.target, active.$el) && (!active.toggle || !isWithin(e.target, active.toggle))) {
+        if (active && !isWithin(e.target, active.$el) && (!active.toggle || !isWithin(e.target, active.toggle.$el))) {
             active.hide(false);
         }
     });
@@ -40,7 +40,6 @@ export default function (UIkit) {
 
         ready() {
 
-            this.mode = hasTouch ? 'click' : this.mode;
             this.clsDrop = this.clsDrop || 'uk-' + this.$options.name;
             this.clsPos = this.clsDrop;
 
@@ -51,21 +50,11 @@ export default function (UIkit) {
                 this.hide(false)
             });
 
-            if (this.mode === 'hover') {
-                this.$el.on('toggleenter mouseenter', (e, toggle) => {
-                    e.preventDefault();
-                    this.show(toggle);
-                }).on('toggleleave mouseleave', e => {
-                    e.preventDefault();
-                    this.hide();
-                });
-            }
-
             if (this.toggle) {
                 this.toggle = isString(this.toggle) ? toJQuery(this.toggle) : this.$el.prev();
 
                 if (this.toggle) {
-                    UIkit.toggle(this.toggle, {target: this.$el});
+                    this.toggle = UIkit.toggle(this.toggle, {target: this.$el, mode: this.mode})[0];
                 }
             }
 
@@ -82,7 +71,7 @@ export default function (UIkit) {
                 this.dir = this.pos[0];
                 this.align = this.pos[1];
 
-                var boundary = getDimensions(this.boundary), alignTo = this.boundaryAlign ? boundary : getDimensions(this.toggle);
+                var boundary = getDimensions(this.boundary), alignTo = this.boundaryAlign ? boundary : getDimensions(this.toggle.$el);
 
                 if (this.align === 'justify') {
                     var prop = this.getAxis() === 'y' ? 'width' : 'height';
@@ -92,7 +81,7 @@ export default function (UIkit) {
                     this.$el.trigger('stack', [this]);
                 }
 
-                this.positionAt(this.$el, this.boundaryAlign ? this.boundary : this.toggle, this.boundary);
+                this.positionAt(this.$el, this.boundaryAlign ? this.boundary : this.toggle.$el, this.boundary);
 
             },
 
@@ -104,12 +93,12 @@ export default function (UIkit) {
 
             beforeshow() {
                 this.initMouseTracker();
-                this.toggle.addClass(this.cls).attr('aria-expanded', 'true');
+                this.toggle.$el.addClass(this.cls).attr('aria-expanded', 'true');
             },
 
             beforehide() {
                 this.cancelMouseTracker();
-                this.toggle.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
+                this.toggle.$el.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
             },
 
             toggle(e, toggle) {
@@ -120,6 +109,19 @@ export default function (UIkit) {
                 } else {
                     this.show(toggle, false);
                 }
+            },
+
+            'toggleShow mouseenter'(e, toggle) {
+                e.preventDefault();
+                this.show(toggle);
+            },
+
+            'toggleHide mouseleave'(e) {
+                e.preventDefault();
+
+                if (this.toggle && this.toggle.mode === 'hover') {
+                    this.hide();
+                }
             }
 
         },
@@ -128,7 +130,7 @@ export default function (UIkit) {
 
             show(toggle, delay = true) {
 
-                if (toggle && this.toggle && !this.toggle.is(toggle)) {
+                if (toggle && this.toggle && !this.toggle.$el.is(toggle)) {
                     this.hide(false);
                 }
 
