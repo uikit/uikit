@@ -1,42 +1,14 @@
 // Name:            Overlay
-// Description:     Defines styles for image overlays
+// Description:     Component to create content areas overlaying an image
 //
 // Component:       `uk-overlay`
 //
-// Sub-objects:     `uk-overlay-panel`
-//                  `uk-overlay-hover`
-//                  `uk-overlay-active`
-//                  `uk-overlay-icon`
+// Sub-objects:     `uk-overlay-container`
 //
-// Modifier:        `uk-overlay-background`
-//                  `uk-overlay-image`
-//                  `uk-overlay-top`
-//                  `uk-overlay-bottom`
-//                  `uk-overlay-left`
-//                  `uk-overlay-right`
-//                  `uk-overlay-fade`
-//                  `uk-overlay-scale`
-//                  `uk-overlay-spin`
-//                  `uk-overlay-grayscale`
-//                  `uk-overlay-slide-top`
-//                  `uk-overlay-slide-bottom`
-//                  `uk-overlay-slide-left`
-//                  `uk-overlay-slide-right`
-//
-// States:          `uk-hover`
-//                  `uk-active`
-//                  `uk-ignore`
-//
-// Uses:            Icon: `[class*='uk-icon-']`
-//                  `uk-border-circle`
-//
-// Markup:
-//
-// <!-- uk-overlay -->
-// <figure class="uk-overlay" href="">
-//     <img src="" alt="">
-//     <figcaption class="uk-overlay-panel"></figcaption>
-// </figure>
+// Modifier:        `uk-overlay-default`
+//                  `uk-overlay-primary`
+//                  `uk-overlay-secondary`
+//                  `uk-overlay-small`
 //
 // ========================================================================
 
@@ -44,107 +16,102 @@
 // Variables
 // ========================================================================
 
-@overlay-icon-color:                            @global-color;
-@overlay-icon-size:                             40px;
+@overlay-padding-horizontal:                    @global-gutter;
+@overlay-padding-vertical:                      @global-gutter;
 
-@overlay-panel-background:                      @global-background;
-@overlay-panel-background-primary:              @global-primary-background;
-@overlay-panel-background-secondary:            @global-secondary-background;
+@overlay-default-background:                    fade(@global-background, 80%);
 
+@overlay-primary-background:                    fade(@global-primary-background, 80%);
+@overlay-primary-color-mode:                    'light';
+
+@overlay-secondary-background:                  fade(@global-secondary-background, 80%);
+@overlay-secondary-color-mode:                  'light';
+
+@overlay-small-padding-horizontal:              @global-small-gutter;
+@overlay-small-padding-vertical:                @global-small-gutter;
 
 
 /* ========================================================================
    Component: Overlay
  ========================================================================== */
 
-/*
- * 1. Container width fits its content
- * 2. Create position context
- * 3. Set max-width for responsive images to prevent `inline-block` consequences
- * 4. Remove the gap between the container and its child element
- * 5. Needed for transitions and to fixed wrong scaling calculation for images in Chrome
- * 6. Fixed `overflow: hidden` to be ignored with border-radius and CSS transforms in Webkit
- * 7. Reset margin
- */
-
 .uk-overlay {
-    /* 1 */
-    display: inline-block;
-    /* 2 */
-    position: relative;
-    /* 3 */
-    max-width: 100%;
-    /* 4 */
-    vertical-align: middle;
-    /* 5 */
-    overflow: hidden;
-    /* 6 */
-    -webkit-transform: translateZ(0);
-    /* 7 */
-    margin: 0;
-}
-
-/* 6 for Safari */
-.uk-overlay.uk-border-circle { -webkit-mask-image: -webkit-radial-gradient(circle, white 100%, black 100%); }
-
-/*
- * Remove margin from content
- */
-
-.uk-overlay > :first-child { margin-bottom: 0; }
-
-
-/* Sub-object `uk-overlay-panel`
- ========================================================================== */
-
-/*
- * 1. Style
- */
-
-.uk-overlay-panel {
-    /* 1 */
-    .hook-overlay-panel;
+    padding: @overlay-padding-vertical @overlay-padding-horizontal;
+    .hook-overlay;
 }
 
 /*
  * Remove margin from the last-child
  */
 
-.uk-overlay-panel > :last-child,
-.uk-overlay-panel > * > :last-child { margin-bottom: 0; }
+.uk-overlay > :last-child { margin-bottom: 0; }
 
 
-/* Modifier `uk-overlay-panel-background`
+/* Container
  ========================================================================== */
 
-.uk-overlay-panel-background {
-    background: @overlay-panel-background;
-    .hook-overlay-panel-background;
+/*
+ * 1. Container fits its content
+ * 2. Create position context
+ * 3. Behave like most inline-block elements
+ * 4. Clip child elements
+ */
+
+.uk-overlay-container {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    vertical-align: middle;
+    /* 4 */
+    overflow: hidden;
 }
 
-.uk-overlay-panel-background-primary {
-    background: @overlay-panel-background-primary;
-    .hook-overlay-panel-background-primary;
-}
 
-.uk-overlay-panel-background-secondary {
-    background: @overlay-panel-background-secondary;
-    .hook-overlay-panel-background-secondary;
-}
-
-/* Sub-object `uk-overlay-icon`
+/* Style modifiers
  ========================================================================== */
 
-.uk-overlay-icon::before {
-    display: block;
-    content: "";
-    width: @overlay-icon-size;
-    height: @overlay-icon-size;
-    .svg-fill("../../images/accordion-close.svg", "#000", @overlay-icon-color);
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    .hook-overlay-icon;
+/*
+ * Default
+ */
+
+.uk-overlay-default {
+    background: @overlay-default-background;
+    .hook-overlay-default;
 }
+
+/*
+ * Primary
+ */
+
+.uk-overlay-primary {
+    background: @overlay-primary-background;
+    .hook-overlay-primary;
+}
+
+// Color Mode
+.uk-overlay-primary:extend(.uk-light all) when (@overlay-primary-color-mode = 'light') {}
+.uk-overlay-primary:extend(.uk-dark all) when (@overlay-primary-color-mode = 'dark') {}
+
+/*
+ * Secondary
+ */
+
+.uk-overlay-secondary {
+    background: @overlay-secondary-background;
+    .hook-overlay-secondary;
+}
+
+// Color Mode
+.uk-overlay-secondary:extend(.uk-light all) when (@overlay-secondary-color-mode = 'light') {}
+.uk-overlay-secondary:extend(.uk-dark all) when (@overlay-secondary-color-mode = 'dark') {}
+
+
+/* Size modifiers
+ ========================================================================== */
+
+.uk-overlay-small { padding: @overlay-small-padding-vertical @overlay-small-padding-horizontal; }
 
 
 // Hooks
@@ -152,9 +119,8 @@
 
 .hook-overlay-misc;
 
-.hook-overlay-panel() {}
-.hook-overlay-panel-background() {}
-.hook-overlay-panel-background-primary() {}
-.hook-overlay-panel-background-secondary() {}
-.hook-overlay-icon() {}
+.hook-overlay() {}
+.hook-overlay-default() {}
+.hook-overlay-primary() {}
+.hook-overlay-secondary() {}
 .hook-overlay-misc() {}
