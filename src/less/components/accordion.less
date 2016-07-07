@@ -6,6 +6,8 @@
 // Sub-objects:     `uk-accordion-title`
 //                  `uk-accordion-content`
 //
+// Modifiers:       `uk-accordion-icon`
+//
 // Markup:
 //
 // <!-- uk-accordion -->
@@ -31,6 +33,14 @@
 
 @accordion-content-padding-horizontal:          @accordion-title-padding-horizontal;
 @accordion-content-padding-bottom:              @accordion-title-padding-horizontal;
+
+@accordion-icon-color:					#07D;
+@accordion-icon-right:					"\f104";
+@accordion-icon-left:					"\f105";
+@accordion-open-icon:					"\f107";
+@accordion-icon-width:					30px;
+@accordion-icon-margin:					-(@accordion-title-padding-horizontal); 
+@accordion-icon-clsactive:				~'uk-active'; //value (string-var) must match js option value of "clsactive"                  
 
 
 /* ========================================================================
@@ -82,6 +92,31 @@
 
  .uk-accordion-content > :last-child { margin-bottom: 0; }
 
+/* Modifier: `uk-accordion-parent-icon`
+ ========================================================================== */
+
+.uk-accordion-icon-right > .uk-accordion-title:after {
+    content: @accordion-icon-right;
+    width: @accordion-icon-width;
+    margin-right: @accordion-icon-margin;
+    float: right;
+    font-family: FontAwesome;
+    text-align: center;
+    .hook-accordion-icon-right;
+}  
+    
+.uk-accordion-icon-left > .uk-accordion-title:after {
+    content: @accordion-icon-left;
+    width: @accordion-icon-width;
+    margin-left: @accordion-icon-margin;
+    float: left;
+    font-family: FontAwesome;
+    text-align: center;
+    .hook-accordion-icon-left;
+}
+
+.uk-accordion-icon-right > h3.uk-accordion-title.@{accordion-icon-clsactive}:after {content: @accordion-open-icon;} 
+.uk-accordion-icon-left > h3.uk-accordion-title.@{accordion-icon-clsactive}:after {content: @accordion-open-icon;}
 
 // Hooks
 // ========================================================================
@@ -90,5 +125,7 @@
 
 .hook-accordion() {}
 .hook-accordion-title() {}
+.hook-accordion-icon-left() {}
+.hook-accordion-icon-right() {}
 .hook-accordion-content() {}
 .hook-accordion-misc() {}
