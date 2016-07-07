@@ -11,6 +11,7 @@
 //                  `uk-transition-slide-left-*`
 //                  `uk-transition-slide-right-*`
 //                  `uk-transition-kenburns`
+//                  `uk-transition-slow`
 //
 // Sub-objects:     `uk-transition-toggle`
 //
@@ -24,10 +25,13 @@
 // ========================================================================
 
 @transition-duration:                           0.3s;
+
 @transition-kenburns-duration:                  15s;
 
 @transition-fade-small-translate:               10px;
 @transition-fade-medium-translate:              50px;
+
+@transition-slow-duration:                      0.7s;
 
 
 /* ========================================================================
@@ -59,8 +63,7 @@
 }
 
 .uk-transition-toggle:hover .uk-transition-scale-up,
-.uk-transition-toggle.uk-hover .uk-transition-scale-up,
-.uk-transition-toggle.uk-active .uk-transition-scale-up {
+.uk-transition-toggle.uk-hover .uk-transition-scale-up {
     -webkit-transform: scale(1.1);
     transform: scale(1.1);
 }
@@ -71,8 +74,7 @@
 }
 
 .uk-transition-toggle:hover .uk-transition-scale-down,
-.uk-transition-toggle.uk-hover .uk-transition-scale-down,
-.uk-transition-toggle.uk-active .uk-transition-scale-down {
+.uk-transition-toggle.uk-hover .uk-transition-scale-down {
     -webkit-transform: scale(1);
     transform: scale(1);
 }
@@ -145,8 +147,7 @@
 
 /* Hover */
 .uk-transition-toggle:hover [class*='uk-transition-slide'],
-.uk-transition-toggle.uk-hover [class*='uk-transition-slide'],
-.uk-transition-toggle.uk-active [class*='uk-transition-slide'] {
+.uk-transition-toggle.uk-hover [class*='uk-transition-slide'] {
     opacity: 1;
     -webkit-transform: translateX(0) translateY(0);
     transform: translateX(0) translateY(0);
@@ -163,11 +164,16 @@
 }
 
 .uk-transition-toggle:hover .uk-transition-kenburns,
-.uk-transition-toggle.uk-hover .uk-transition-kenburns,
-.uk-transition-toggle.uk-active .uk-transition-kenburns {
+.uk-transition-toggle.uk-hover .uk-transition-kenburns {
     -webkit-transform: scale(1.2);
     transform: scale(1.2);
 }
+
+
+/* Duration modifiers
+========================================================================== */
+
+.uk-transition-slow { transition-duration: @transition-slow-duration; }
 
 
 // Hooks
