@@ -48,18 +48,20 @@ export default function (UIkit) {
         });
     };
 
-    UIkit.prototype.$updateParents = function (e, element) {
+    // TODO only include if used
 
-        element = element ? $(element)[0] : this.$el[0];
-
-        UIkit.elements.forEach(el => {
-            if (el[DATA] && $.contains(el, element)) {
-                for (var name in el[DATA]) {
-                    el[DATA][name]._callUpdate(e);
-                }
-            }
-        });
-    };
+    // UIkit.prototype.$updateParents = function (e, element) {
+    //
+    //     element = element ? $(element)[0] : this.$el[0];
+    //
+    //     UIkit.elements.forEach(el => {
+    //         if (el[DATA] && $.contains(el, element)) {
+    //             for (var name in el[DATA]) {
+    //                 el[DATA][name]._callUpdate(e);
+    //             }
+    //         }
+    //     });
+    // };
 
     UIkit.prototype.$destroy = function (remove = false) {
 

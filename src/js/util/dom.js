@@ -74,7 +74,7 @@ export function animate(element, animation, duration, origin, out) {
 
     element = $(element);
 
-    if (animation.indexOf('uk-animation-') === 0) {
+    if (animation.lastIndexOf('uk-animation-', 0) === 0) {
 
         if (origin) {
             animation += ` uk-animation-${origin}`;
