@@ -21,9 +21,9 @@
 
                 <div class="uk-panel">
 
-                    <figure class="uk-overlay uk-overlay-background-fade uk-dark">
+                    <figure class="uk-overlay uk-background">
                         <img src="http://unsplash.it/600/400" width="600" height="400" alt="">
-                        <div class="uk-overlay-background-cover"></div>
+                        <div class="uk-overlay-panel uk-overlay-panel-background uk-position-cover" style="opacity: 0.8;"></div>
                         <figcaption class="uk-overlay-panel uk-position-bottom uk-padding-small">
                             <h3>Title</h3>
                             <p>Lorem <a href="#">ipsum dolor</a> sit amet.</p>
@@ -31,44 +31,42 @@
                         </figcaption>
                     </figure>
 
-                    <p class="uk-text-center">default 60%, bottom</p>
+                    <p class="uk-text-center">default, bottom</p>
                 </div>
 
                 <div class="uk-panel">
 
-                    <figure class="uk-overlay uk-overlay-primary-background-fade uk-light">
-                        <img src="http://unsplash.it/601/401" width="600" height="400" alt="">
-                        <div class="uk-overlay-background-cover"></div>
-                        <figcaption class="uk-overlay-panel uk-position-top-right uk-text-right uk-padding-small">
-                            <div>
-                                <h3>Title</h3>
-                                <p>Lorem <a href="#">ipsum dolor</a> sit amet.</p>
-                                <p class="uk-margin-small"><button class="uk-button">Button</button></p>
-                            </div>
+                    <figure class="uk-overlay uk-background-primary uk-light">
+                        <img src="http://unsplash.it/600/400" width="600" height="400" alt="">
+                        <div class="uk-overlay-panel uk-overlay-panel-background-primary uk-position-cover" style="opacity: 0.8;"></div>
+                        <figcaption class="uk-overlay-panel uk-position-center uk-text-center uk-padding">
+                            <h3>Title</h3>
+                            <p>Lorem <a href="#">ipsum dolor</a> sit amet.</p>
+                            <p class="uk-margin-small"><button class="uk-button">Button</button></p>
                         </figcaption>
                     </figure>
 
-                    <p class="uk-text-center">primary 60%, top-right</p>
+                    <p class="uk-text-center">primary, center</p>
                 </div>
 
                 <div class="uk-panel">
 
-                    <figure class="uk-overlay uk-overlay-secondary-background-fade uk-light">
-                        <img src="http://unsplash.it/602/402" width="600" height="400" alt="">
-                        <div class="uk-overlay-background-cover"></div>
-                        <figcaption class="uk-overlay-panel uk-position-center uk-padding-small uk-text-center">
-                            <div>
-                                <h3>Title</h3>
-                                <p>Lorem <a href="#">ipsum dolor</a> sit amet.</p>
-                                <p class="uk-margin-small"><button class="uk-button">Button</button></p>
-                            </div>
+                    <figure class="uk-overlay uk-background-secondary uk-light">
+                        <img src="http://unsplash.it/600/400" width="600" height="400" alt="">
+                        <div class="uk-overlay-panel uk-overlay-panel-background-secondary uk-position-cover" style="opacity: 0.8;"></div>
+                        <figcaption class="uk-overlay-panel uk-position-top-right uk-text-right uk-padding">
+                            <h3>Title</h3>
+                            <p>Lorem <a href="#">ipsum dolor</a> sit amet.</p>
+                            <p class="uk-margin-small"><button class="uk-button">Button</button></p>
                         </figcaption>
                     </figure>
 
-                    <p class="uk-text-center">secondary 60%, center</p>
+                    <p class="uk-text-center">secondary, top-right</p>
                 </div>
 
             </div>
+
+            <hr>
 
             <h2>Hover</h2>
 
@@ -76,163 +74,96 @@
 
                 <div class="uk-panel">
 
-                    <figure class="uk-overlay uk-overlay-hover uk-overlay-background-fade">
+                    <figure class="uk-overlay uk-transition-toggle uk-background-primary uk-light">
                         <img src="http://unsplash.it/600/400" width="600" height="400" alt="">
-                        <div class="uk-overlay-background-cover uk-overlay-fade"></div>
-                        <figcaption class="uk-overlay-panel uk-position-top-center uk-padding uk-overlay-fade">
+                        <div class="uk-overlay-panel uk-overlay-panel-background-primary uk-position-cover uk-transition-fade"></div>
+                        <figcaption class="uk-overlay-panel uk-position-bottom uk-padding-small uk-transition-fade">
                             <h3>Title</h3>
                             <p>Lorem <a href="#">ipsum dolor</a> sit amet.</p>
                             <p class="uk-margin-small"><button class="uk-button">Button</button></p>
                         </figcaption>
                     </figure>
 
-                    <p class="uk-text-center">default, top-center, fade</p>
+                    <p class="uk-text-center">primary, bottom, fade, fade</p>
                 </div>
 
                 <div class="uk-panel">
 
-                    <figure class="uk-overlay uk-overlay-hover uk-overlay-primary-background uk-light">
-                        <img src="http://unsplash.it/601/401" width="600" height="400" alt="">
-                        <div class="uk-overlay-background-cover uk-overlay-slide-left uk-blend-soft-light"></div>
-                        <figcaption class="uk-overlay-panel uk-position-top-left uk-padding uk-overlay-slide-left">
-                            <div>
-                                <h3>Title</h3>
-                                <p>Lorem <a href="#">ipsum dolor</a> sit amet.</p>
-                                <p class="uk-margin-small"><button class="uk-button">Button</button></p>
-                            </div>
+                    <figure class="uk-overlay uk-transition-toggle uk-background">
+                        <img src="http://unsplash.it/600/400" width="600" height="400" alt="">
+                        <div class="uk-overlay-panel uk-overlay-panel-background uk-position-cover uk-transition-slide-bottom"></div>
+                        <figcaption class="uk-overlay-panel uk-position-cover uk-text-center uk-padding uk-transition-slide-top">
+                            <h3>Title</h3>
+                            <p>Lorem <a href="#">ipsum dolor</a> sit amet.</p>
+                            <p class="uk-margin-small"><button class="uk-button">Button</button></p>
                         </figcaption>
                     </figure>
 
-                    <p class="uk-text-center">primary, top-left, slide-top, soft-light</p>
+                    <p class="uk-text-center">default, cover, slide-bottom, slide-top</p>
                 </div>
 
                 <div class="uk-panel">
 
-                    <figure class="uk-overlay uk-overlay-hover uk-overlay-secondary-background uk-light">
-                        <img src="http://unsplash.it/602/402" width="600" height="400" alt="">
-                        <div class="uk-overlay-background-cover uk-overlay-slide-bottom uk-blend-multiply"></div>
-                        <figcaption class="uk-overlay-panel uk-position-bottom uk-padding uk-overlay-fade">
-                            <div>
-                                <h3>Title</h3>
-                                <p>Lorem <a href="#">ipsum dolor</a> sit amet.</p>
-                            </div>
+                    <figure class="uk-overlay uk-transition-toggle uk-background-secondary uk-light">
+                        <img src="http://unsplash.it/600/400" width="600" height="400" alt="">
+                        <div class="uk-overlay-panel uk-overlay-panel-background-secondary uk-position-cover uk-transition-slide-left-medium uk-blend-multiply"></div>
+                        <figcaption class="uk-overlay-panel uk-position-top uk-padding uk-transition-slide-right-medium">
+                            <h3>Title</h3>
+                            <p>Lorem <a href="#">ipsum dolor</a> sit amet.</p>
+                            <p class="uk-margin-small"><button class="uk-button">Button</button></p>
                         </figcaption>
                     </figure>
 
-                    <p class="uk-text-center">secondary, center, slide-bottom, multiply</p>
+                    <p class="uk-text-center">secondary, top, slide-left, slide-right</p>
                 </div>
 
             </div>
+
+            <hr>
 
             <h2>Icon</h2>
-
-            <div class="uk-grid-match uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-2@m" uk-grid>
-
-                <div class="uk-panel">
-
-                    <figure class="uk-overlay uk-overlay-background-fade uk-dark">
-                        <img src="http://unsplash.it/602/402" width="600" height="400" alt="">
-                        <div class="uk-overlay-background-cover"></div>
-                        <div class="uk-overlay-panel uk-overlay-icon uk-position-center"></div>
-                    </figure>
-
-                    <p class="uk-text-center">default 60%, icon</p>
-                </div>
-
-                <div class="uk-panel">
-
-                    <figure class="uk-overlay uk-overlay-hover uk-overlay-primary-background uk-light">
-                        <img src="http://unsplash.it/602/402" width="600" height="400" alt="">
-                        <div class="uk-overlay-background-cover uk-overlay-slide-bottom uk-blend-overlay"></div>
-                        <div class="uk-overlay-panel uk-overlay-icon uk-position-center uk-overlay-fade"></div>
-                    </figure>
-
-                    <p class="uk-text-center">secondary, slide-bottom, overlay</p>
-                </div>
-
-            </div>
-
-            <h2>Image Animations</h2>
 
             <div class="uk-grid-match uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid>
 
                 <div class="uk-panel">
 
-                    <figure class="uk-overlay uk-overlay-hover uk-overlay-background">
-                        <img class="uk-overlay-spin" src="http://unsplash.it/600/400" width="600" height="400" alt="">
-                        <div class="uk-overlay-background-cover uk-overlay-fade"></div>
-                        <figcaption class="uk-overlay-panel uk-position-top-center uk-padding uk-overlay-fade">
-                            <h3>Title</h3>
-                            <p>Lorem <a href="#">ipsum dolor</a> sit amet.</p>
-                            <p class="uk-margin-small"><button class="uk-button">Button</button></p>
-                        </figcaption>
+                    <figure class="uk-overlay uk-transition-toggle uk-background-secondary uk-light">
+                        <img src="http://unsplash.it/600/400" width="600" height="400" alt="">
+                        <div class="uk-overlay-panel uk-overlay-panel-background-secondary uk-position-cover uk-transition-fade"></div>
+                        <div class="uk-overlay-panel uk-overlay-icon uk-position-center uk-transition-fade"></div>
                     </figure>
 
-                    <p class="uk-text-center">default, top-center, fade</p>
+                    <p class="uk-text-center">secondary, bottom, fade, fade</p>
                 </div>
 
                 <div class="uk-panel">
 
-                    <figure class="uk-overlay uk-overlay-hover uk-overlay-primary-background uk-light">
-                        <img class="uk-overlay-grayscale" src="http://unsplash.it/601/401" width="600" height="400" alt="">
-                        <div class="uk-overlay-background-cover uk-overlay-slide-left uk-blend-soft-light"></div>
-                        <figcaption class="uk-overlay-panel uk-position-top-left uk-padding uk-overlay-slide-left">
-                            <div>
-                                <h3>Title</h3>
-                                <p>Lorem <a href="#">ipsum dolor</a> sit amet.</p>
-                                <p class="uk-margin-small"><button class="uk-button">Button</button></p>
-                            </div>
-                        </figcaption>
+                    <figure class="uk-overlay uk-transition-toggle uk-background-primary uk-light">
+                        <img src="http://unsplash.it/600/400" width="600" height="400" alt="">
+                        <div class="uk-overlay-panel uk-overlay-panel-background-primary uk-position-cover uk-transition-slide-bottom"></div>
+                        <div class="uk-overlay-panel uk-overlay-icon uk-position-center uk-transition-fade"></div>
                     </figure>
 
-                    <p class="uk-text-center">primary, top-left, slide-top, soft-light</p>
+                    <p class="uk-text-center">primary, cover, slide-bottom, slide-top</p>
                 </div>
 
                 <div class="uk-panel">
 
-                    <figure class="uk-overlay uk-overlay-hover uk-overlay-secondary-background uk-light">
-                        <img class="uk-overlay-scale" src="http://unsplash.it/602/402" width="600" height="400" alt="">
-                        <div class="uk-overlay-background-cover uk-overlay-slide-bottom uk-blend-multiply"></div>
-                        <figcaption class="uk-overlay-panel uk-position-bottom uk-padding uk-overlay-fade">
-                            <div>
-                                <h3>Title</h3>
-                                <p>Lorem <a href="#">ipsum dolor</a> sit amet.</p>
-                            </div>
-                        </figcaption>
+                    <figure class="uk-overlay uk-transition-toggle uk-background">
+                        <img src="http://unsplash.it/600/400" width="600" height="400" alt="">
+                        <div class="uk-overlay-panel uk-overlay-panel-background uk-position-cover uk-transition-slide-bottom uk-blend-multiply"></div>
+                        <div class="uk-overlay-panel uk-overlay-icon uk-position-center uk-transition-fade"></div>
                     </figure>
 
-                    <p class="uk-text-center">secondary, center, slide-bottom, multiply</p>
+                    <p class="uk-text-center">default, top, slide-left, slide-right</p>
                 </div>
 
             </div>
 
+            <hr>
 
             <h2>Second Image</h2>
 
-            <div class="uk-grid-match uk-child-width-1-1 uk-child-width-1-2@s uk-child-width-1-2@m" uk-grid>
-
-                <div class="uk-panel">
-
-                    <figure class="uk-overlay uk-overlay-background-fade uk-dark">
-                        <img src="http://unsplash.it/600/400" width="600" height="400" alt="">
-                        <img class="uk-overlay-panel uk-overlay-image uk-overlay-fade" src="http://unsplash.it/601/401" width="600" height="400" alt="">
-                    </figure>
-
-                    <p class="uk-text-center">default 60%, icon</p>
-                </div>
-
-                <div class="uk-panel">
-
-                    <figure class="uk-overlay uk-overlay-hover uk-overlay-primary-background uk-light">
-                        <img src="http://unsplash.it/600/400" width="600" height="400" alt="">
-                        <img class="uk-overlay-panel uk-overlay-image uk-overlay-fade" src="http://unsplash.it/601/401" width="600" height="400" alt="">
-                        <div class="uk-overlay-background-cover uk-overlay-slide-bottom uk-blend-overlay"></div>
-                    </figure>
-
-                    <p class="uk-text-center">secondary, slide-bottom, overlay</p>
-                </div>
-
-            </div>
 
         </div>
 

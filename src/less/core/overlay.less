@@ -47,30 +47,9 @@
 @overlay-icon-color:                            @global-color;
 @overlay-icon-size:                             40px;
 
-@overlay-fade-in-opacity:                       1;
-@overlay-fade-out-opacity:                      0.7;
-
-@overlay-scale-in-scale:                        1.1;
-@overlay-scale-out-scale:                       1;
-
-@overlay-spin-in-scale:                         1.1;
-@overlay-spin-out-scale:                        1;
-@overlay-spin-in-rotate:                        3deg;
-@overlay-spin-out-rotate:                       0deg;
-
-@overlay-panel-link-color:                      inherit;
-@overlay-panel-link-text-decoration:            underline;
-
-//
-// New 3.0
-//
-
 @overlay-panel-background:                      @global-background;
-@overlay-panel-background-fade:                 fade(@global-background, 60%);
-@overlay-panel-primary-background:              @global-primary-background;
-@overlay-panel-primary-background-fade:         fade(@global-primary-background, 60%);
-@overlay-panel-secondary-background:            @global-secondary-background;
-@overlay-panel-secondary-background-fade:       fade(@global-secondary-background, 60%);
+@overlay-panel-background-primary:              @global-primary-background;
+@overlay-panel-background-secondary:            @global-secondary-background;
 
 
 
@@ -135,79 +114,23 @@
 .uk-overlay-panel > * > :last-child { margin-bottom: 0; }
 
 
-/* Sub-object `uk-overlay-hover` and `uk-overlay-active`
+/* Modifier `uk-overlay-panel-background`
  ========================================================================== */
 
-.uk-overlay-hover:not(:hover):not(.uk-hover) .uk-overlay-panel:not(.uk-ignore) { opacity: 0; }
-
-.uk-overlay-active :not(.uk-active) > .uk-overlay-panel:not(.uk-ignore) { opacity: 0; }
-
-
-/* Modifier `uk-overlay-background`
- ========================================================================== */
-
-/*
- * 1. Position cover
- */
-
-.uk-overlay-background-cover {
-    /* 1 */
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
- }
-
-.uk-overlay-background,
-.uk-overlay-background .uk-overlay-background-cover {
+.uk-overlay-panel-background {
     background: @overlay-panel-background;
-    .hook-overlay-background;
+    .hook-overlay-panel-background;
 }
 
-.uk-overlay-background-fade,
-.uk-overlay-background-fade .uk-overlay-background-cover  {
-    background: @overlay-panel-background-fade;
-    .hook-overlay-background-fade;
+.uk-overlay-panel-background-primary {
+    background: @overlay-panel-background-primary;
+    .hook-overlay-panel-background-primary;
 }
 
-.uk-overlay-primary-background,
-.uk-overlay-primary-background .uk-overlay-background-cover {
-    background: @overlay-panel-primary-background;
-    .hook-overlay-primary-background;
+.uk-overlay-panel-background-secondary {
+    background: @overlay-panel-background-secondary;
+    .hook-overlay-panel-background-secondary;
 }
-
-.uk-overlay-primary-background-fade,
-.uk-overlay-primary-background-fade .uk-overlay-background-cover {
-    background: @overlay-panel-primary-background-fade;
-    .hook-overlay-primary-background-fade;
-}
-
-.uk-overlay-secondary-background,
-.uk-overlay-secondary-background .uk-overlay-background-cover {
-    background: @overlay-panel-secondary-background;
-    .hook-overlay-secondary-background;
-}
-
-.uk-overlay-secondary-background-fade,
-.uk-overlay-secondary-background-fade .uk-overlay-background-cover {
-    background: @overlay-panel-secondary-background-fade;
-    .hook-overlay-secondary-background-fade;
-}
-
-
-/* Modifier `uk-overlay-image`
- ========================================================================== */
-
-/*
- * Reset panel
- */
-
-.uk-overlay-image {
-    padding: 0;
-    .hook-overlay-image;
-}
-
 
 /* Sub-object `uk-overlay-icon`
  ========================================================================== */
@@ -224,142 +147,14 @@
 }
 
 
-/* Transitions
- ========================================================================== */
-
-// .uk-overlay-fade:hover { &:extend(.uk-animation-fade all); }
-//
-// .uk-overlay-slide-top:hover { &:extend(.uk-animation-slide-top-small all); }
-// .uk-overlay-slide-bottom:hover { &:extend(.uk-animation-slide-bottom-small all); }
-// .uk-overlay-slide-left:hover { &:extend(.uk-animation-slide-left-small all); }
-// .uk-overlay-slide-right:hover { &:extend(.uk-animation-slide-right-small all); }
-
-.uk-overlay-fade,
-.uk-overlay-scale,
-.uk-overlay-spin,
-.uk-overlay-grayscale,
-.uk-overlay-blur,
-[class*='uk-overlay-slide'] {
-    transition-duration: 0.3s;
-    transition-timing-function: ease-out;
-    transition-property: opacity, transform, filter;
-}
-
-.uk-overlay-active .uk-overlay-fade,
-.uk-overlay-active .uk-overlay-scale,
-.uk-overlay-active .uk-overlay-spin,
-.uk-overlay-active [class*='uk-overlay-slide'] { transition-duration: 0.8s; }
-
-/*
- * Fade
- */
-
-.uk-overlay-fade { opacity: @overlay-fade-out-opacity; }
-
-.uk-overlay-hover:hover .uk-overlay-fade,
-.uk-overlay-hover.uk-hover .uk-overlay-fade,
-.uk-overlay-active .uk-active > .uk-overlay-fade { opacity: @overlay-fade-in-opacity; }
-
-/*
- * Scale
- */
-
-.uk-overlay-scale {
-    -webkit-transform: scale(@overlay-scale-out-scale);
-    transform: scale(@overlay-scale-out-scale);
-}
-
-.uk-overlay-hover:hover .uk-overlay-scale,
-.uk-overlay-hover.uk-hover .uk-overlay-scale,
-.uk-overlay-active .uk-active > .uk-overlay-scale {
-    -webkit-transform: scale(@overlay-scale-in-scale);
-    transform: scale(@overlay-scale-in-scale);
-}
-
-/*
- * Spin
- */
-
-.uk-overlay-spin {
-    -webkit-transform: scale(@overlay-spin-out-scale) rotate(@overlay-spin-out-rotate);
-    transform: scale(@overlay-spin-out-scale) rotate(@overlay-spin-out-rotate);
-}
-
-.uk-overlay-hover:hover .uk-overlay-spin,
-.uk-overlay-hover.uk-hover .uk-overlay-spin,
-.uk-overlay-active .uk-active > .uk-overlay-spin {
-    -webkit-transform: scale(@overlay-spin-in-scale) rotate(@overlay-spin-in-rotate);
-    transform: scale(@overlay-spin-in-scale) rotate(@overlay-spin-in-rotate);
-}
-
-/*
- * Grayscale
- */
-
-.uk-overlay-grayscale {
-    -webkit-filter: grayscale(100%);
-    filter: grayscale(100%);
-}
-
-.uk-overlay-hover:hover .uk-overlay-grayscale,
-.uk-overlay-hover.uk-hover .uk-overlay-grayscale,
-.uk-overlay-active .uk-active > .uk-overlay-grayscale {
-    -webkit-filter: grayscale(0%);
-    filter: grayscale(0%);
-}
-
-/*
- * Slide
- */
-
-[class*='uk-overlay-slide'] { opacity: 0; }
-
-/* Top */
-.uk-overlay-slide-top {
-    -webkit-transform: translateY(-100%);
-    transform: translateY(-100%);
-}
-
-/* Bottom */
-.uk-overlay-slide-bottom {
-    -webkit-transform: translateY(100%);
-    transform: translateY(100%);
-}
-
-/* Left */
-.uk-overlay-slide-left {
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
-}
-
-/* Right */
-.uk-overlay-slide-right {
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-}
-
-/* Hover */
-.uk-overlay-hover:hover [class*='uk-overlay-slide'],
-.uk-overlay-hover.uk-hover [class*='uk-overlay-slide'],
-.uk-overlay-active .uk-active > [class*='uk-overlay-slide'] {
-    opacity: 1;
-    -webkit-transform: translateX(0) translateY(0);
-    transform: translateX(0) translateY(0);
-}
-
-
 // Hooks
 // ========================================================================
 
 .hook-overlay-misc;
 
 .hook-overlay-panel() {}
-.hook-overlay-background() {}
-.hook-overlay-background-fade() {}
-.hook-overlay-primary-background() {}
-.hook-overlay-primary-background-fade() {}
-.hook-overlay-secondary-background() {}
-.hook-overlay-secondary-background-fade() {}
-.hook-overlay-image() {}
+.hook-overlay-panel-background() {}
+.hook-overlay-panel-background-primary() {}
+.hook-overlay-panel-background-secondary() {}
 .hook-overlay-icon() {}
 .hook-overlay-misc() {}
