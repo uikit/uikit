@@ -14,6 +14,7 @@
 //                  `uk-dropcap`
 //                  `uk-logo`
 //                  `uk-blend-*`
+//                  `uk-transform-origin-*`
 //
 // States:          `uk-disabled`
 //
@@ -314,6 +315,50 @@
 .uk-blend-saturation { mix-blend-mode: saturation; }
 .uk-blend-color { mix-blend-mode: color; }
 .uk-blend-luminosity { mix-blend-mode: luminosity; }
+
+
+/* Transform Origin
+========================================================================== */
+
+.uk-transform-origin-top-left {
+     -webkit-transform-origin: 0 0;
+     transform-origin: 0 0;
+}
+
+.uk-transform-origin-top-center {
+     -webkit-transform-origin: 50% 0;
+     transform-origin: 50% 0;
+}
+
+.uk-transform-origin-top-right {
+     -webkit-transform-origin: 100% 0;
+     transform-origin: 100% 0;
+}
+
+.uk-transform-origin-center-left {
+     -webkit-transform-origin: 0 50%;
+     transform-origin: 0 50%;
+}
+
+.uk-transform-origin-center-right {
+     -webkit-transform-origin: 100% 50%;
+     transform-origin: 100% 50%;
+}
+
+.uk-transform-origin-bottom-left {
+     -webkit-transform-origin: 0 100%;
+     transform-origin: 0 100%;
+}
+
+.uk-transform-origin-bottom-center {
+     -webkit-transform-origin: 50% 100%;
+     transform-origin: 50% 100%;
+}
+
+.uk-transform-origin-bottom-right {
+     -webkit-transform-origin: 100% 100%;
+     transform-origin: 100% 100%;
+}
 
 
 // Hooks

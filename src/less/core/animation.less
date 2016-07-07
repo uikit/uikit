@@ -13,16 +13,8 @@
 //                  `uk-animation-slide-right-*`
 //                  `uk-animation-kenburns`
 //                  `uk-animation-shake`
-//                  `uk-animation-top-left`
-//                  `uk-animation-top-center`
-//                  `uk-animation-top-right`
-//                  `uk-animation-center-left`
-//                  `uk-animation-center-right`
-//                  `uk-animation-bottom-left`
-//                  `uk-animation-bottom-center`
-//                  `uk-animation-bottom-right`
 //
-// Sub-objects:     `uk-animation-hover`
+// Sub-objects:     `uk-animation-toggle`
 //
 // States:          `uk-touch`
 //
@@ -188,50 +180,6 @@
 }
 
 
-/* Origin modifiers
-========================================================================== */
-
-.uk-animation-top-left {
-     -webkit-transform-origin: 0 0;
-     transform-origin: 0 0;
-}
-
-.uk-animation-top-center {
-     -webkit-transform-origin: 50% 0;
-     transform-origin: 50% 0;
-}
-
-.uk-animation-top-right {
-     -webkit-transform-origin: 100% 0;
-     transform-origin: 100% 0;
-}
-
-.uk-animation-center-left {
-     -webkit-transform-origin: 0 50%;
-     transform-origin: 0 50%;
-}
-
-.uk-animation-center-right {
-     -webkit-transform-origin: 100% 50%;
-     transform-origin: 100% 50%;
-}
-
-.uk-animation-bottom-left {
-     -webkit-transform-origin: 0 100%;
-     transform-origin: 0 100%;
-}
-
-.uk-animation-bottom-center {
-     -webkit-transform-origin: 50% 100%;
-     transform-origin: 50% 100%;
-}
-
-.uk-animation-bottom-right {
-     -webkit-transform-origin: 100% 100%;
-     transform-origin: 100% 100%;
-}
-
-
 /* Enable animation only on hover
 ========================================================================== */
 
@@ -239,10 +187,8 @@
  * Note: Firefox and IE needs this because animations are not triggered when switching between display `none` and `block`
  */
 
-.uk-animation-hover:not(:hover),
-.uk-animation-hover:not(:hover) [class*='uk-animation-'],
-.uk-touch .uk-animation-hover:not(.uk-hover),
-.uk-touch .uk-animation-hover:not(.uk-hover) [class*='uk-animation-'] {
+.uk-animation-toggle:not(:hover) [class*='uk-animation-'],
+.uk-animation-toggle:not(.uk-hover) [class*='uk-animation-'] {
     -webkit-animation-name: none;
     animation-name: none;
 }
