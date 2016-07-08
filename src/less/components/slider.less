@@ -29,6 +29,14 @@
  ========================================================================== */
 
 /*
+ * RTL Compatibility
+ */
+ 
+[data-uk-slider] { direction: ltr; }
+
+html[dir="rtl"] .uk-slider > * { direction: rtl; }
+
+/*
  * 1. Create position context
  * 2. Create stacking context to prevent z-index issues with other components
  * 3. Deactivate browser history navigation in IE11
