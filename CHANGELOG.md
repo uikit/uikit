@@ -5,6 +5,7 @@
 
   - Added Htmleditor enablescripts option
   - Removed marked lib / load from a CDN
+  - Fixed slider in rtl mode
   - Fixed jQuery v.3 switcher + slideshow animation compatibility
   - Fixed Htmleditor fullscreen mode in fixed container
   - Fixed prefixer gulp task
