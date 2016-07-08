@@ -8,6 +8,7 @@
 // Modifier:        `uk-overlay-default`
 //                  `uk-overlay-primary`
 //                  `uk-overlay-secondary`
+//                  `uk-overlay-media`
 //                  `uk-overlay-small`
 //
 // ========================================================================
@@ -26,6 +27,8 @@
 
 @overlay-secondary-background:                  fade(@global-secondary-background, 80%);
 @overlay-secondary-color-mode:                  'light';
+
+@overlay-media-background:                      fade(@global-secondary-background, 30%);
 
 @overlay-small-padding-horizontal:              @global-small-gutter;
 @overlay-small-padding-vertical:                @global-small-gutter;
@@ -66,6 +69,7 @@
     vertical-align: middle;
     /* 4 */
     overflow: hidden;
+
 }
 
 
@@ -107,6 +111,15 @@
 .uk-overlay-secondary:extend(.uk-light all) when (@overlay-secondary-color-mode = 'light') {}
 .uk-overlay-secondary:extend(.uk-dark all) when (@overlay-secondary-color-mode = 'dark') {}
 
+/*
+ * Media
+ */
+
+.uk-overlay-media {
+    padding: 0;
+    background: @overlay-media-background;
+    .hook-overlay-media;
+}
 
 /* Size modifiers
  ========================================================================== */
@@ -123,4 +136,5 @@
 .hook-overlay-default() {}
 .hook-overlay-primary() {}
 .hook-overlay-secondary() {}
+.hook-overlay-media() {}
 .hook-overlay-misc() {}

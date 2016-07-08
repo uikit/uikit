@@ -11,6 +11,7 @@
 //                  `uk-transition-slide-left-*`
 //                  `uk-transition-slide-right-*`
 //                  `uk-transition-kenburns`
+//                  `uk-transition-opaque`
 //                  `uk-transition-slow`
 //
 // Sub-objects:     `uk-transition-toggle`
@@ -26,6 +27,10 @@
 
 @transition-duration:                           0.3s;
 
+@transition-fade-soft-opacity:                  0.7;
+
+@transition-scale:                              1.1;
+
 @transition-kenburns-duration:                  15s;
 
 @transition-fade-small-translate:               10px;
@@ -38,10 +43,20 @@
    Component: Transition
  ========================================================================== */
 
+/*
+ * 1. Switches on the hardware compositing mode from the beginning to assure a smooth transition when hovering.
+ *
+ * Note: Transitions don't work with `uk-postion-center-*` classes because they also use `transform`
+ *       Just put the transition in an extra `div`
+ */
+
 [class*='uk-transition-'] {
     transition-duration: @transition-duration;
     transition-timing-function: ease-out;
     transition-property: opacity, transform, filter;
+    /* 1 */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 /*
@@ -50,33 +65,40 @@
 
 .uk-transition-fade { opacity: 0; }
 
-.uk-transition-toggle:hover .uk-transition-fade,
-.uk-transition-toggle.uk-hover .uk-transition-fade { opacity: 1; }
+.uk-transition-fade-soft { opacity: @transition-fade-soft-opacity; }
+
+.uk-transition-toggle:hover [class*='uk-transition-fade'],
+.uk-transition-toggle.uk-hover [class*='uk-transition-fade'] { opacity: 1; }
 
 /*
  * Scale
+ * Note: Using `scale3d` for better image rendering
  */
 
+[class*='uk-transition-scale'] { opacity: 0; }
+
 .uk-transition-scale-up {
-    -webkit-transform: scale(1);
-    transform: scale(1);
+    -webkit-transform: scale3d(1,1,1);
+    transform: scale3d(1,1,1);
 }
 
 .uk-transition-toggle:hover .uk-transition-scale-up,
 .uk-transition-toggle.uk-hover .uk-transition-scale-up {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
+    opacity: 1;
+    -webkit-transform: scale3d(@transition-scale,@transition-scale,1);
+    transform: scale3d(@transition-scale,@transition-scale,1);
 }
 
 .uk-transition-scale-down {
-    -webkit-transform: scale(1.1);
-    transform: scale(1.1);
+    -webkit-transform: scale3d(@transition-scale,@transition-scale,1);
+    transform: scale3d(@transition-scale,@transition-scale,1);
 }
 
 .uk-transition-toggle:hover .uk-transition-scale-down,
 .uk-transition-toggle.uk-hover .uk-transition-scale-down {
-    -webkit-transform: scale(1);
-    transform: scale(1);
+    opacity: 1;
+    -webkit-transform: scale3d(1,1,1);
+    transform: scale3d(1,1,1);
 }
 
 /*
@@ -168,6 +190,12 @@
     -webkit-transform: scale(1.2);
     transform: scale(1.2);
 }
+
+
+/* Opacity modifier
+========================================================================== */
+
+.uk-transition-opaque { opacity: 1; }
 
 
 /* Duration modifiers
