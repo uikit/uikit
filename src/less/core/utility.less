@@ -6,7 +6,7 @@
 //                  `uk-float-*`
 //                  `uk-overflow-*`
 //                  `uk-display-*`
-//                  `uk-inline-container`
+//                  `uk-inline-*`
 //                  `uk-height-*`
 //                  `uk-responsive-*`
 //                  `uk-preserve-width`
@@ -144,36 +144,36 @@
 /* Display
  ========================================================================== */
 
-/*
- * 1. Prevent content overflow
- */
-
 .uk-display-block { display: block !important; }
 .uk-display-inline { display: inline !important; }
-
-.uk-display-inline-block {
-    display: inline-block !important;
-    /* 1 */
-    max-width: 100%;
-}
+.uk-display-inline-block { display: inline-block !important; }
 
 
-/* Inline Container
+/* Inline
  ========================================================================== */
 
 /*
  * 1. Container fits its content
  * 2. Create position context
- * 3. Behave like most inline-block elements
+ * 3. Prevent content overflow
+ * 4. Behave like most inline-block elements
+ * 5. Clip child elements
  */
 
-.uk-inline-container {
+[class*='uk-inline'] {
     /* 1 */
     display: inline-block;
     /* 2 */
     position: relative;
     /* 3 */
+    max-width: 100%;
+    /* 4 */
     vertical-align: middle;
+}
+
+.uk-inline-clip {
+    /* 5 */
+    overflow: hidden;
 }
 
 
