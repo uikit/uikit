@@ -9,7 +9,6 @@
 //                  `uk-overlay-primary`
 //                  `uk-overlay-secondary`
 //                  `uk-overlay-media`
-//                  `uk-overlay-small`
 //
 // ========================================================================
 
@@ -30,9 +29,6 @@
 
 @overlay-media-background:                      fade(@global-secondary-background, 30%);
 
-@overlay-small-padding-horizontal:              @global-small-gutter;
-@overlay-small-padding-vertical:                @global-small-gutter;
-
 
 /* ========================================================================
    Component: Overlay
@@ -48,29 +44,6 @@
  */
 
 .uk-overlay > :last-child { margin-bottom: 0; }
-
-
-/* Container
- ========================================================================== */
-
-/*
- * 1. Container fits its content
- * 2. Create position context
- * 3. Behave like most inline-block elements
- * 4. Clip child elements
- */
-
-.uk-overlay-container {
-    /* 1 */
-    display: inline-block;
-    /* 2 */
-    position: relative;
-    /* 3 */
-    vertical-align: middle;
-    /* 4 */
-    overflow: hidden;
-
-}
 
 
 /* Style modifiers
@@ -120,11 +93,6 @@
     background: @overlay-media-background;
     .hook-overlay-media;
 }
-
-/* Size modifiers
- ========================================================================== */
-
-.uk-overlay-small { padding: @overlay-small-padding-vertical @overlay-small-padding-horizontal; }
 
 
 // Hooks
