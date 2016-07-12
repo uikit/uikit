@@ -362,7 +362,7 @@
                     $this.addDragHandlers();
 
                     $this.options.start(this, currentlyDraggingElement);
-                    $this.trigger('start.uk.sortable', [$this, currentlyDraggingElement]);
+                    $this.trigger('start.uk.sortable', [$this, currentlyDraggingElement, draggingPlaceholder]);
 
                     moved     = true;
                     delayIdle = false;
