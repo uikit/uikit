@@ -159,6 +159,8 @@
 .uk-nestable-moving,
 /* Needed if moving over links or buttons */
 .uk-nestable-moving * { cursor: move; }
+/* Fixes dragging items over iframes */
+.uk-nestable-moving iframe { pointer-events: none; }
 
 
 /* [data-nestable-action='toggle']

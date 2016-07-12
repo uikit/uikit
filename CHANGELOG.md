@@ -12,6 +12,7 @@
   - Fixed stick wrapper margin in IE
   - Fixed for Dynamic Grid ```_getSize``` is not a function
   - Fixed where many requestanimationframes can exist (custom scroll observer)
+  - Fixed dragging items over iframes (sortable/nestable component)
 
 ### 2.26.3 (May 12, 2016)
 
