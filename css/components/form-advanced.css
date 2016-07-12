@@ -16,7 +16,7 @@
   display: inline-block;
   height: 14px;
   width: 14px;
-  border: 1px solid #aaaaaa;
+  border: 1px solid #aaa;
   /* 2 */
   overflow: hidden;
   /* 3 */
@@ -67,12 +67,12 @@
  */
 .uk-form input[type=radio]:disabled,
 .uk-form input[type=checkbox]:disabled {
-  border-color: #dddddd;
+  border-color: #ddd;
 }
 .uk-form input[type=radio]:disabled:checked:before {
-  background-color: #aaaaaa;
+  background-color: #aaa;
 }
 .uk-form input[type=checkbox]:disabled:checked:before,
 .uk-form input[type=checkbox]:disabled:indeterminate:before {
-  color: #aaaaaa;
+  color: #aaa;
 }

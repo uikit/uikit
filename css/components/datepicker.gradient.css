@@ -42,11 +42,11 @@
  * Previous and next navigation
  */
 .uk-datepicker-nav a {
-  color: #444444;
+  color: #444;
   text-decoration: none;
 }
 .uk-datepicker-nav a:hover {
-  color: #444444;
+  color: #444;
 }
 .uk-datepicker-previous {
   float: left;
@@ -88,7 +88,7 @@
   width: 26px;
   line-height: 24px;
   text-align: center;
-  color: #444444;
+  color: #444;
   text-decoration: none;
   border: 1px solid transparent;
   border-radius: 4px;
@@ -98,7 +98,7 @@
  * Sub-object: `uk-datepicker-table-muted`
  */
 a.uk-datepicker-table-muted {
-  color: #999999;
+  color: #999;
 }
 /*
  * Hover
@@ -108,17 +108,17 @@ a.uk-datepicker-table-muted {
 .uk-datepicker-table a:hover,
 .uk-datepicker-table a:focus {
   background-color: #fafafa;
-  color: #444444;
+  color: #444;
   /* 2 */
   outline: none;
   border-color: rgba(0, 0, 0, 0.2);
   border-bottom-color: rgba(0, 0, 0, 0.3);
-  text-shadow: 0 1px 0 #ffffff;
+  text-shadow: 0 1px 0 #fff;
 }
 /* OnClick */
 .uk-datepicker-table a:active {
   background-color: #f5f5f5;
-  color: #444444;
+  color: #444;
   border-color: rgba(0, 0, 0, 0.2);
   border-top-color: rgba(0, 0, 0, 0.3);
   background-image: none;
@@ -129,7 +129,7 @@ a.uk-datepicker-table-muted {
  */
 .uk-datepicker-table a.uk-active {
   background: #009dd8;
-  color: #ffffff;
+  color: #fff;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-bottom-color: rgba(0, 0, 0, 0.4);
   background-origin: border-box;

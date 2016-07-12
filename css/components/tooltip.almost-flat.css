@@ -19,7 +19,7 @@
   max-width: 200px;
   padding: 5px 8px;
   /* 4 */
-  background: #333333;
+  background: #333;
   color: rgba(255, 255, 255, 0.7);
   font-size: 12px;
   line-height: 18px;
@@ -38,7 +38,7 @@
   width: 0;
   height: 0;
   /* 1 */
-  border: 5px dashed #333333;
+  border: 5px dashed #333;
 }
 /* Direction modifiers
  ========================================================================== */
@@ -53,7 +53,7 @@
   border-bottom: none;
   border-left-color: transparent;
   border-right-color: transparent;
-  border-top-color: #333333;
+  border-top-color: #333;
 }
 /*
  * Bottom
@@ -66,7 +66,7 @@
   border-top: none;
   border-left-color: transparent;
   border-right-color: transparent;
-  border-bottom-color: #333333;
+  border-bottom-color: #333;
 }
 /*
  * Top/Bottom center
@@ -101,7 +101,7 @@
   border-right: none;
   border-top-color: transparent;
   border-bottom-color: transparent;
-  border-left-color: #333333;
+  border-left-color: #333;
 }
 /*
  * Right
@@ -114,5 +114,5 @@
   border-left: none;
   border-top-color: transparent;
   border-bottom-color: transparent;
-  border-right-color: #333333;
+  border-right-color: #333;
 }

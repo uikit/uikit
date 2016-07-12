@@ -42,11 +42,11 @@
  * Previous and next navigation
  */
 .uk-datepicker-nav a {
-  color: #444444;
+  color: #444;
   text-decoration: none;
 }
 .uk-datepicker-nav a:hover {
-  color: #444444;
+  color: #444;
 }
 .uk-datepicker-previous {
   float: left;
@@ -88,14 +88,14 @@
   width: 26px;
   line-height: 24px;
   text-align: center;
-  color: #444444;
+  color: #444;
   text-decoration: none;
 }
 /*
  * Sub-object: `uk-datepicker-table-muted`
  */
 a.uk-datepicker-table-muted {
-  color: #999999;
+  color: #999;
 }
 /*
  * Hover
@@ -104,20 +104,20 @@ a.uk-datepicker-table-muted {
  */
 .uk-datepicker-table a:hover,
 .uk-datepicker-table a:focus {
-  background-color: #dddddd;
-  color: #444444;
+  background-color: #ddd;
+  color: #444;
   /* 2 */
   outline: none;
 }
 /* OnClick */
 .uk-datepicker-table a:active {
-  background-color: #cccccc;
-  color: #444444;
+  background-color: #ccc;
+  color: #444;
 }
 /*
  * Active
  */
 .uk-datepicker-table a.uk-active {
   background: #00a8e6;
-  color: #ffffff;
+  color: #fff;
 }

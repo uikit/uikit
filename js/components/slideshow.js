@@ -67,7 +67,7 @@
 
             var $this = this, canvas, kbanimduration;
 
-            this.container     = this.element.hasClass('uk-slideshow') ? this.element : UI.$(this.find('.uk-slideshow'));
+            this.container     = this.element.hasClass('uk-slideshow') ? this.element : UI.$(this.find('.uk-slideshow:first'));
             this.slides        = this.container.children();
             this.slidesCount   = this.slides.length;
             this.current       = this.options.start;
@@ -444,8 +444,8 @@
 
             next.css('opacity', 1).one(UI.support.animation.end, function() {
 
-                current.removeClass(dir == -1 ? 'uk-slideshow-scroll-backward-out' : 'uk-slideshow-scroll-forward-out');
-                next.css('opacity', '').removeClass(dir == -1 ? 'uk-slideshow-scroll-backward-in' : 'uk-slideshow-scroll-forward-in');
+                current.css('opacity', 0).removeClass(dir == -1 ? 'uk-slideshow-scroll-backward-out' : 'uk-slideshow-scroll-forward-out');
+                next.removeClass(dir == -1 ? 'uk-slideshow-scroll-backward-in' : 'uk-slideshow-scroll-forward-in');
                 d.resolve();
 
             }.bind(this));
@@ -466,8 +466,8 @@
 
             next.css('opacity', 1).one(UI.support.animation.end, function() {
 
-                current.removeClass(dir === -1 ? 'uk-slideshow-swipe-backward-out' : 'uk-slideshow-swipe-forward-out');
-                next.css('opacity', '').removeClass(dir === -1 ? 'uk-slideshow-swipe-backward-in' : 'uk-slideshow-swipe-forward-in');
+                current.css('opacity', 0).removeClass(dir === -1 ? 'uk-slideshow-swipe-backward-out' : 'uk-slideshow-swipe-forward-out');
+                next.removeClass(dir === -1 ? 'uk-slideshow-swipe-backward-in' : 'uk-slideshow-swipe-forward-in');
                 d.resolve();
 
             }.bind(this));
@@ -490,8 +490,7 @@
 
             current.one(UI.support.animation.end, function() {
 
-                current.removeClass('uk-slideshow-scale-out');
-                next.css('opacity', '');
+                current.css('opacity', 0).removeClass('uk-slideshow-scale-out');
                 d.resolve();
 
             }.bind(this));
@@ -521,8 +520,7 @@
 
             current.one(UI.support.animation.end, function() {
 
-                current.removeClass('uk-slideshow-fade-out');
-                next.css('opacity', '');
+                current.css('opacity', 0).removeClass('uk-slideshow-fade-out');
                 d.resolve();
 
             }.bind(this));

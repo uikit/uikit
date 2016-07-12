@@ -10,7 +10,7 @@
   box-sizing: border-box;
   height: 20px;
   margin-bottom: 15px;
-  background: #eeeeee;
+  background: #eee;
   /* 1 */
   overflow: hidden;
   /* 2 */
@@ -38,7 +38,7 @@
   transition: width 0.6s ease;
   /* 2 */
   font-size: 12px;
-  color: #ffffff;
+  color: #fff;
   text-align: center;
 }
 /* Size modifiers

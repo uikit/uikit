@@ -60,3 +60,7 @@
 .uk-sortable-moving * {
   cursor: move;
 }
+/* Fixes dragging items over iframes */
+.uk-sortable-moving iframe {
+  pointer-events: none;
+}

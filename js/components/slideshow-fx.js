@@ -80,7 +80,9 @@
             this.container.append(ghost);
 
             ghost.children().last().on(UI.support.transition.end, function() {
-                ghost.remove();
+
+                setTimeout(ghost.remove.bind(ghost), 0);
+
                 d.resolve();
             });
 
@@ -155,7 +157,9 @@
             ghost.width();
 
             ghost.children().first().on(UI.support.transition.end, function() {
-                ghost.remove();
+
+                setTimeout(ghost.remove.bind(ghost), 0);
+
                 d.resolve();
             }).end().css({
                 'transform': 'scaleX(1)',
@@ -228,7 +232,9 @@
                     '-webkit-transition': 'all '+$this.options.duration+'ms ease-in-out '+(50+i*25)+'ms'
                 });
             }).last().on(UI.support.transition.end, function() {
-                ghost.remove();
+
+                setTimeout(ghost.remove.bind(ghost), 0);
+
                 d.resolve();
             });
 
@@ -332,7 +338,9 @@
             }
 
             boxes.last().on(UI.support.transition.end, function() {
-                ghost.remove();
+
+                setTimeout(ghost.remove.bind(ghost), 0);
+
                 d.resolve();
             });
 

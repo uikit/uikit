@@ -29,7 +29,7 @@
  * Items
  */
 .uk-nav-autocomplete > li > a {
-  color: #444444;
+  color: #444;
 }
 /*
  * Active
@@ -37,7 +37,7 @@
  */
 .uk-nav-autocomplete > li.uk-active > a {
   background: #00a8e6;
-  color: #ffffff;
+  color: #fff;
   /* 1 */
   outline: none;
   box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.05);
@@ -47,11 +47,11 @@
  * Sub-object: `uk-nav-header`
  */
 .uk-nav-autocomplete .uk-nav-header {
-  color: #999999;
+  color: #999;
 }
 /*
  * Sub-object: `uk-nav-divider`
  */
 .uk-nav-autocomplete .uk-nav-divider {
-  border-top: 1px solid #dddddd;
+  border-top: 1px solid #ddd;
 }

@@ -5,7 +5,7 @@
 /* Sub-object `uk-htmleditor-navbar`
  ========================================================================== */
 .uk-htmleditor-navbar {
-  background: #eeeeee;
+  background: #eee;
 }
 /*
  * Micro clearfix
@@ -42,7 +42,7 @@
   padding: 0 15px;
   line-height: 40px;
   /* 2 */
-  color: #444444;
+  color: #444;
   font-size: 11px;
   cursor: pointer;
 }
@@ -54,19 +54,19 @@
 .uk-htmleditor-navbar-nav > li:hover > a,
 .uk-htmleditor-navbar-nav > li > a:focus {
   background-color: #f5f5f5;
-  color: #444444;
+  color: #444;
   outline: none;
   /* 2 */
 }
 /* OnClick */
 .uk-htmleditor-navbar-nav > li > a:active {
-  background-color: #dddddd;
-  color: #444444;
+  background-color: #ddd;
+  color: #444;
 }
 /* Active */
 .uk-htmleditor-navbar-nav > li.uk-active > a {
   background-color: #f5f5f5;
-  color: #444444;
+  color: #444;
 }
 /* Sub-object: `uk-htmleditor-navbar-flip`
  ========================================================================== */
@@ -82,10 +82,10 @@
 /* Sub-object `uk-htmleditor-content`
  ========================================================================== */
 .uk-htmleditor-content {
-  border-left: 1px solid #dddddd;
-  border-right: 1px solid #dddddd;
-  border-bottom: 1px solid #dddddd;
-  background: #ffffff;
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background: #fff;
 }
 /*
  * Micro clearfix
@@ -145,7 +145,7 @@
   width: 50%;
 }
 [data-mode='split'] .uk-htmleditor-code {
-  border-right: 1px solid #eeeeee;
+  border-right: 1px solid #eee;
 }
 /* Sub-object `uk-htmleditor-iframe`
  ========================================================================== */

@@ -5,9 +5,9 @@
 .uk-placeholder {
   margin-bottom: 15px;
   padding: 15px;
-  border: 1px dashed #dddddd;
+  border: 1px dashed #ddd;
   background: #fafafa;
-  color: #444444;
+  color: #444;
 }
 /*
  * Add margin if adjacent element

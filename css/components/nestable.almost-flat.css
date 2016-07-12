@@ -63,7 +63,7 @@
   bottom: 0;
   left: 0;
   right: 0;
-  border: 1px dashed #dddddd;
+  border: 1px dashed #ddd;
   opacity: 1;
 }
 /* Empty List
@@ -88,6 +88,10 @@
 .uk-nestable-moving,
 .uk-nestable-moving * {
   cursor: move;
+}
+/* Fixes dragging items over iframes */
+.uk-nestable-moving iframe {
+  pointer-events: none;
 }
 /* [data-nestable-action='toggle']
  ========================================================================== */
@@ -131,5 +135,5 @@
   background: #f5f5f5;
   border-radius: 4px;
   border: 1px solid rgba(0, 0, 0, 0.06);
-  text-shadow: 0 1px 0 #ffffff;
+  text-shadow: 0 1px 0 #fff;
 }
