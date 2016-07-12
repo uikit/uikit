@@ -70,7 +70,22 @@ export default function (UIkit) {
 
                 elements
                     .each((i, el) => {
-                        max = Math.max(max, $(el).outerHeight());
+
+                        el = $(el);
+
+                        var height;
+
+                        if (el.css('display') === 'none') {
+                            var style = el.attr('style');
+                            el.attr('style', `${style};display:block !important;`);
+                            height = el.outerHeight();
+                            el.attr('style', style || '');
+                        } else {
+                            height = el.outerHeight();
+                        }
+
+                        max = Math.max(max, height);
+
                     })
                     .each((i, el) => {
                         el = $(el);
