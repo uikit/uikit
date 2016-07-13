@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="../vendor/codemirror/codemirror.css">
         <link rel="stylesheet" href="../vendor/codemirror/show-hint.css">
         <script src="../vendor/codemirror/codemirror.js"></script>
-        <script src="../vendor/marked.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/0.3.5/marked.min.js"></script>
         <script src="../src/js/components/htmleditor.js"></script>
     </head>
 
@@ -228,6 +228,12 @@ Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseru
                                             <td>'split', 'tab'</td>
                                             <td>'split'</td>
                                             <td>View mode</td>
+                                        </tr>
+                                        <tr>
+                                            <td><code>enablescripts</code></td>
+                                            <td>boolean</td>
+                                            <td>false</td>
+                                            <td>Run inline scripts and style within the preview</td>
                                         </tr>
                                         <tr>
                                             <td><code>iframe</code></td>

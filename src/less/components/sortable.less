@@ -108,6 +108,8 @@
 .uk-sortable-moving,
 /* Needed if moving over links or buttons */
 .uk-sortable-moving * { cursor: move; }
+/* Fixes dragging items over iframes */
+.uk-sortable-moving iframe { pointer-events: none; }
 
 
 // Hooks

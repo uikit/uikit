@@ -20,7 +20,11 @@
     "use strict";
 
     var supportsTouch       = ('ontouchstart' in window || 'MSGesture' in window) || (window.DocumentTouch && document instanceof DocumentTouch),
-        draggingPlaceholder, currentlyDraggingElement, currentlyDraggingTarget, dragging, moving, clickedlink, delayIdle, touchedlists, moved, overElement;
+        draggingPlaceholder, currentlyDraggingElement, currentlyDraggingTarget, dragging, moving, clickedlink, delayIdle, touchedlists, moved, overElement, startEvent;
+
+    var POINTER_DOWN = supportsTouch ? ('MSGesture' in window ? 'pointerdown':'touchstart') : 'mousedown',
+        POINTER_MOVE = supportsTouch ? ('MSGesture' in window ? 'pointermove':'touchmove') : 'mousemove',
+        POINTER_UP   = supportsTouch ? ('MSGesture' in window ? 'pointerup':'touchend') : 'mouseup';
 
     function closestSortable(ele) {
 
@@ -75,11 +79,12 @@
                 });
             });
 
-            UI.$html.on('mousemove touchmove', function(e) {
+            UI.$html.on(POINTER_MOVE, function(e) {
 
                 if (delayIdle) {
 
                     var src = e.originalEvent.targetTouches ? e.originalEvent.targetTouches[0] : e;
+
                     if (Math.abs(src.pageX - delayIdle.pos.x) > delayIdle.threshold || Math.abs(src.pageY - delayIdle.pos.y) > delayIdle.threshold) {
                         delayIdle.apply(src);
                     }
@@ -98,8 +103,9 @@
                     }
 
                     var offset = draggingPlaceholder.data('mouse-offset'),
-                        left   = parseInt(e.originalEvent.pageX, 10) + offset.left,
-                        top    = parseInt(e.originalEvent.pageY, 10) + offset.top;
+                        ev     = e.originalEvent.touches && e.originalEvent.touches[0] || e.originalEvent,
+                        left   = parseInt(ev.pageX, 10) + offset.left,
+                        top    = parseInt(ev.pageY, 10) + offset.top;
 
                     draggingPlaceholder.css({'left': left, 'top': top });
 
@@ -117,7 +123,7 @@
                 }
             });
 
-            UI.$html.on('mouseup touchend', function(e) {
+            UI.$html.on(POINTER_UP, function(e) {
 
                 delayIdle = clickedlink = false;
 
@@ -175,7 +181,7 @@
 
                     $link.one('click', function(e){
                         e.preventDefault();
-                    }).one('mouseup touchend', function(){
+                    }).one(POINTER_UP, function(){
 
                         if (!moved) {
                             $link.trigger('click');
@@ -228,8 +234,9 @@
 
             // Bind/unbind standard mouse/touch events as a polyfill.
             function addDragHandlers() {
-                if (supportsTouch) {
-                    element.addEventListener("touchmove", handleTouchMove, false);
+
+                if (supportsTouch && startEvent.touches && startEvent.touches.length) {
+                    element.addEventListener(POINTER_MOVE, handleTouchMove, false);
                 } else {
                     element.addEventListener('mouseover', handleDragEnter, false);
                     element.addEventListener('mouseout', handleDragLeave, false);
@@ -239,8 +246,8 @@
             }
 
             function removeDragHandlers() {
-                if (supportsTouch) {
-                    element.removeEventListener("touchmove", handleTouchMove, false);
+                if (supportsTouch && startEvent.touches && startEvent.touches.length) {
+                    element.removeEventListener(POINTER_MOVE, handleTouchMove, false);
                 } else {
                     element.removeEventListener('mouseover', handleDragEnter, false);
                     element.removeEventListener('mouseout', handleDragLeave, false);
@@ -267,19 +274,21 @@
 
                     var touch, target, context;
 
+                    startEvent = e;
+
                     if (e) {
-                        touch  = (supportsTouch && e.touches && e.touches[0]) || { };
+                        touch  = e.touches && e.touches[0] || e;
                         target = touch.target || e.target;
 
                         // Fix event.target for a touch event
                         if (supportsTouch && document.elementFromPoint) {
-                            target = document.elementFromPoint(e.pageX - document.body.scrollLeft, e.pageY - document.body.scrollTop);
+                            target = document.elementFromPoint(touch.pageX - document.body.scrollLeft, touch.pageY - document.body.scrollTop);
                         }
 
                         overElement = UI.$(target);
                     }
 
-                    if (UI.$(target).hasClass($this.options.childClass)) {
+                    if (UI.$(target).hasClass('.'+$this.options.childClass)) {
                         fn.apply(target, [e]);
                     } else if (target !== element) {
 
@@ -293,8 +302,8 @@
                 };
             }
 
-            window.addEventListener(supportsTouch ? 'touchmove' : 'mousemove', handleDragMove, false);
-            element.addEventListener(supportsTouch ? 'touchstart': 'mousedown', handleDragStart, false);
+            window.addEventListener(POINTER_MOVE, handleDragMove, false);
+            element.addEventListener(POINTER_DOWN, handleDragStart, false);
         },
 
         dragStart: function(e, elem) {
@@ -326,11 +335,11 @@
                 draggingPlaceholder.remove();
             }
 
-            var $current = UI.$(currentlyDraggingElement), offset = $current.offset();
+            var $current = UI.$(currentlyDraggingElement), offset = $current.offset(), ev = e.touches && e.touches[0] || e;
 
             delayIdle = {
 
-                pos       : { x:e.pageX, y:e.pageY },
+                pos       : { x:ev.pageX, y:ev.pageY },
                 threshold : $this.options.handleClass ? 1 : $this.options.threshold,
                 apply     : function(evt) {
 
@@ -343,8 +352,8 @@
                         padding : $current.css('padding')
                     }).data({
                         'mouse-offset': {
-                            'left'   : offset.left - parseInt(evt.pageX, 10),
-                            'top'    : offset.top  - parseInt(evt.pageY, 10)
+                            'left'   : offset.left - parseInt(ev.pageX, 10),
+                            'top'    : offset.top  - parseInt(ev.pageY, 10)
                         },
                         'origin' : $this.element,
                         'index'  : $current.index()
@@ -362,7 +371,7 @@
                     $this.addDragHandlers();
 
                     $this.options.start(this, currentlyDraggingElement);
-                    $this.trigger('start.uk.sortable', [$this, currentlyDraggingElement]);
+                    $this.trigger('start.uk.sortable', [$this, currentlyDraggingElement, draggingPlaceholder]);
 
                     moved     = true;
                     delayIdle = false;

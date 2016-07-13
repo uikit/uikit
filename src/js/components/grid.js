@@ -302,7 +302,7 @@
     * MIT license
     * https://github.com/desandro/get-size
     */
-    var _getSize = (function(){
+    function _getSize() {
 
         var prefixes = 'Webkit Moz ms Ms O'.split(' ');
         var docElemStyle = document.documentElement.style;
@@ -518,9 +518,9 @@
 
         return getSize;
 
-    })();
+    }
 
     function getElementSize(ele) {
-        return _getSize(ele);
+        return _getSize()(ele);
     }
 });
