@@ -27,7 +27,8 @@ export default function (UIkit) {
 
         ready() {
 
-            this.src = getComputedStyle(this.$el[0], '::before')['background-image'].slice(4, -1).replace(/"/g, '') || this.src;
+            var style = getComputedStyle(this.$el[0], '::before');
+            this.src = style && style['background-image'].slice(4, -1).replace(/"/g, '') || this.src;
 
             if (this.src.indexOf('#') !== -1) {
 
