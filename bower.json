@@ -1,6 +1,6 @@
 {
     "name": "uikit",
-    "version": "2.26.3",
+    "version": "2.26.4",
     "homepage": "http://getuikit.com",
     "main": [
         "css/uikit.min.css",
@@ -11,7 +11,7 @@
         "fonts/FontAwesome.otf"
     ],
     "dependencies": {
-        "jquery": "~2.1.0"
+        "jquery": ">= 1.9.0"
     },
     "ignore": [
         "node_modules",
