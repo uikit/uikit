@@ -1,7 +1,7 @@
 # Changelog
 
 
-### WIP
+### 2.26.4 (Jul 13, 2016)
 
   - Added Htmleditor enablescripts option
   - Removed marked lib / load from a CDN
