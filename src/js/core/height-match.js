@@ -1,5 +1,4 @@
 import $ from 'jquery';
-import {requestAnimationFrame} from '../util/index';
 
 export default function (UIkit) {
 
@@ -26,31 +25,27 @@ export default function (UIkit) {
                     return this;
                 }
 
-                requestAnimationFrame(() => {
+                var lastOffset = false, group = [];
 
-                    var lastOffset = false, group = [];
+                elements.each((i, el) => {
 
-                    elements.each((i, el) => {
+                    el = $(el);
 
-                        el = $(el);
+                    var offset = el.offset().top;
 
-                        var offset = el.offset().top;
-
-                        if (offset != lastOffset && group.length) {
-                            this.match($(group));
-                            group = [];
-                            offset = el.offset().top;
-                        }
-
-                        group.push(el);
-                        lastOffset = offset;
-                    });
-
-                    if (group.length) {
+                    if (offset != lastOffset && group.length) {
                         this.match($(group));
+                        group = [];
+                        offset = el.offset().top;
                     }
 
+                    group.push(el);
+                    lastOffset = offset;
                 });
+
+                if (group.length) {
+                    this.match($(group));
+                }
 
             },
 
