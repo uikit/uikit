@@ -3,12 +3,8 @@
 //
 // Component:       `uk-overlay`
 //
-// Sub-objects:     `uk-overlay-container`
-//
 // Modifier:        `uk-overlay-default`
 //                  `uk-overlay-primary`
-//                  `uk-overlay-secondary`
-//                  `uk-overlay-media`
 //
 // ========================================================================
 
@@ -21,13 +17,8 @@
 
 @overlay-default-background:                    fade(@global-background, 80%);
 
-@overlay-primary-background:                    fade(@global-primary-background, 80%);
+@overlay-primary-background:                    fade(@global-secondary-background, 80%);
 @overlay-primary-color-mode:                    'light';
-
-@overlay-secondary-background:                  fade(@global-secondary-background, 80%);
-@overlay-secondary-color-mode:                  'light';
-
-@overlay-media-background:                      fade(@global-secondary-background, 30%);
 
 
 /* ========================================================================
@@ -71,29 +62,6 @@
 .uk-overlay-primary:extend(.uk-light all) when (@overlay-primary-color-mode = 'light') {}
 .uk-overlay-primary:extend(.uk-dark all) when (@overlay-primary-color-mode = 'dark') {}
 
-/*
- * Secondary
- */
-
-.uk-overlay-secondary {
-    background: @overlay-secondary-background;
-    .hook-overlay-secondary;
-}
-
-// Color Mode
-.uk-overlay-secondary:extend(.uk-light all) when (@overlay-secondary-color-mode = 'light') {}
-.uk-overlay-secondary:extend(.uk-dark all) when (@overlay-secondary-color-mode = 'dark') {}
-
-/*
- * Media
- */
-
-.uk-overlay-media {
-    padding: 0;
-    background: @overlay-media-background;
-    .hook-overlay-media;
-}
-
 
 // Hooks
 // ========================================================================
@@ -103,6 +71,4 @@
 .hook-overlay() {}
 .hook-overlay-default() {}
 .hook-overlay-primary() {}
-.hook-overlay-secondary() {}
-.hook-overlay-media() {}
 .hook-overlay-misc() {}
