@@ -23,13 +23,6 @@
 }
 
 /*
- * Fixes initial flex-shrink value in IE10
- */
-
-.uk-flex > *,
-.uk-flex-inline > * { -ms-flex-negative: 1; }
-
-/*
  * Remove pseudo elements created by micro clearfix as precaution
  */
 
@@ -314,15 +307,12 @@
 /*
  * Relative Flex: 1 1 auto
  * Space is allocated considering content
- * 1. Fixes flex-shrink value in IE10
  */
 
 .uk-flex-auto {
     -ms-flex: auto;
     -webkit-flex: auto;
     flex: auto;
-    /* 1 */
-    -ms-flex-negative: 1;
 }
 
 /*
