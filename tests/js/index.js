@@ -6,7 +6,7 @@ storage[keyinverse] = storage[keyinverse] || 'default';
 document.writeln(`<link rel="stylesheet" href="${storage[key]}">`);
 document.writeln(`<script src="../js/uikit.js"></script>`);
 
-requestAnimationFrame(function () {
+jQuery(function () {
 
     var $container = $('<div class="uk-container"></div>').prependTo('body');
     var $tests     = $('<select class="uk-select"><option value="">- Select Test -</option></select>').css('margin', '20px 20px 20px 0').prependTo($container);
