@@ -394,6 +394,7 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
     .svg-fill("../../images/form-select.svg", "#000", @form-select-icon-color);
     background-repeat: no-repeat;
     background-position: 100% 50%;
+    .hook-form-select;
 }
 
 /* 3 */
@@ -403,7 +404,10 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
  * Disabled
  */
 
-.uk-select:not([multiple]):not([size]):disabled { .svg-fill("../../images/form-select.svg", "#000", @form-select-disabled-icon-color); }
+.uk-select:not([multiple]):not([size]):disabled {
+    .svg-fill("../../images/form-select.svg", "#000", @form-select-disabled-icon-color);
+    .hook-form-select-disabled;
+}
 
 
 /* Radio and checkbox
@@ -641,6 +645,8 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
 .hook-form-success() {}
 .hook-form-blank() {}
 .hook-form-blank-focus() {}
+.hook-form-select() {}
+.hook-form-select-disabled() {}
 .hook-form-custom() {}
 .hook-form-custom-focus() {}
 .hook-form-custom-checked() {}
@@ -683,14 +689,14 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
     .uk-select,
     .uk-textarea {
         border-color: @form-border;
-        background: @form-background;
+        background-color: @form-background;
         color: @form-color;
         background-clip: padding-box;
         .hook-dye-form;
 
         &:focus {
             border-color: @form-focus-border;
-            background: @form-focus-background;
+            background-color: @form-focus-background;
             color: @form-focus-color;
             .hook-dye-form-focus;
         }
