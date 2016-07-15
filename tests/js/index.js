@@ -96,12 +96,12 @@ requestAnimationFrame(function () {
         document.body.classList.remove('uk-light');
 
         switch ($inverse.val()) {
-            case 'light':
+            case 'dark':
                 document.documentElement.style.background = '#fff';
                 document.body.classList.add('uk-dark');
                 break;
 
-            case 'dark':
+            case 'light':
                 document.documentElement.style.background = '#222';
                 document.body.classList.add('uk-light');
                 break;
