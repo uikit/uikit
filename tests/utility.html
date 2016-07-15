@@ -278,31 +278,6 @@
                 </tbody>
             </table>
 
-            <h2>Touch</h2>
-
-            <div class="uk-panel uk-overflow-auto prevent-ie11-navigation" style="min-height: 200px;">
-                <div id="output">
-                    <div class="uk-hidden-notouch uk-text-success">Touch support detected.</div>
-                    <div class="uk-hidden-touch uk-text-danger">No touch support detected.</div>
-                </div>
-            </div>
-
-            <p class="uk-text-muted">In IE11, swipe-gestures are only detected on the grey panel.</p>
-
-            <style>
-                .prevent-ie11-navigation {
-                    touch-action: pan-y pinch-zoom double-tap-zoom;
-                }
-            </style>
-
-            <script>
-
-                jQuery(window).bind('swipeRight swipeLeft tap', 'body', function(e) {
-                    jQuery('#output').prepend('<li>' + e.type + '</li>');
-                });
-
-            </script>
-
         </div>
 
     </body>
