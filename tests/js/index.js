@@ -1,8 +1,7 @@
-var $ = jQuery, storage = window.sessionStorage, key = '_uikit_style';
+var $ = jQuery, storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_inverse';
 
-if (!storage[key]) {
-    storage[key] = '../css/uikit.css';
-}
+storage[key] = storage[key] || '../css/uikit.css';
+storage[keyinverse] = storage[keyinverse] || 'default';
 
 document.writeln(`<link rel="stylesheet" href="${storage[key]}">`);
 document.writeln(`<script src="../js/uikit.js"></script>`);
@@ -10,7 +9,8 @@ document.writeln(`<script src="../js/uikit.js"></script>`);
 requestAnimationFrame(function () {
 
     var $container = $('<div class="uk-container"></div>').prependTo('body');
-    var $tests = $('<select class="uk-select"><option value="">- Select Test -</option></select>').css('margin', '20px 20px 20px 0').prependTo($container);
+    var $tests     = $('<select class="uk-select"><option value="">- Select Test -</option></select>').css('margin', '20px 20px 20px 0').prependTo($container);
+    var $inverse   = $('<select class="uk-select"><option value="">- Select Invert -</option></select>').css('margin', '20px').appendTo($container);
 
     [
         'accordion',
@@ -82,6 +82,38 @@ requestAnimationFrame(function () {
             location.href = `../${document.querySelector('script[src*="test.js"]').getAttribute('src').replace('js/test.js', '')}tests/${$tests.val()}`;
         }
     }).val(location.pathname.split('/').pop());
+
+
+    ['default','light','dark'].forEach(name => {
+        $(`<option value="${name}">${name.split('-').map(name => {
+            return name.charAt(0).toUpperCase() + name.slice(1);
+        }).join(' ')}</option>`).appendTo($inverse);
+    });
+
+    $inverse.on('change', () => {
+
+        document.body.classList.remove('uk-dark');
+        document.body.classList.remove('uk-light');
+
+        switch ($inverse.val()) {
+            case 'light':
+                document.documentElement.style.background = '#fff';
+                document.body.classList.add('uk-dark');
+                break;
+
+            case 'dark':
+                document.documentElement.style.background = '#222';
+                document.body.classList.add('uk-light');
+                break;
+
+            default:
+                document.documentElement.style.background = '';
+        }
+
+        storage[keyinverse] = $inverse.val();
+
+    }).val(storage[keyinverse]).trigger('change');
+
 
     var $styles = $(`
         <select class="uk-select">
