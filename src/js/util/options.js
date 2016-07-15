@@ -5,6 +5,7 @@ var strats = {};
 // concat strategy
 strats.init =
 strats.ready =
+strats.complete =
 strats.update =
 strats.destroy = function (parentVal, childVal) {
     return childVal

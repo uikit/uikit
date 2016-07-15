@@ -25,7 +25,7 @@ export default function (UIkit) {
             exclude: ['src']
         },
 
-        ready() {
+        complete() {
 
             this.src = getComputedStyle(this.$el[0], '::before')['background-image'].slice(4, -1).replace(/"/g, '') || this.src;
 

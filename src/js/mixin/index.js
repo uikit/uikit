@@ -4,7 +4,7 @@ import Mouse from './mouse';
 import Position from './position';
 import Toggable from './toggable';
 
-export default function (UIkit, _) {
+export default function (UIkit) {
 
     UIkit.use(Cls);
     UIkit.use(Mouse);

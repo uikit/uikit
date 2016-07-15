@@ -18,7 +18,7 @@ export default function (UIkit) {
             }
         },
 
-        ready() {
+        complete() {
             this.borderBox = this.$el.css('box-sizing') === 'border-box';
         },
 

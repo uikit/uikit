@@ -28,10 +28,7 @@ import Switcher from './switcher';
 import Tab from './tab';
 import Toggle from './toggle';
 
-export default function (UIkit, _) {
-
-    // add touch identifier class
-    $('html').addClass(_.hasTouch ? 'uk-touch' : 'uk-notouch');
+export default function (UIkit) {
 
     var scroll = window.pageYOffset, dir, ticking, resizing;
 

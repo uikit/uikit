@@ -28,13 +28,13 @@ export default function (UIkit) {
 
         this._initEvents();
 
-        // TODO testing, should be removed once approved
-
-        // if (isReady()) {
-        //     this._callReady();
-        // } else {
+        if (isReady()) {
+            this._callReady();
+        } else {
             requestAnimationFrame(() => this._callReady());
-        // }
+        }
+
+        requestAnimationFrame(() => this._callHook('complete'));
     };
 
     UIkit.prototype.$update = function (e, element) {
