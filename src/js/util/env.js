@@ -54,3 +54,17 @@ var matchesFn = Element.prototype.matches
 export function matches(element, selector) {
     return element[matchesFn] ? element[matchesFn](selector) : false;
 }
+
+export function getCssVar(name) {
+
+    /* usage in css:  .var-name:before { content:"xyz" } */
+
+    var element = document.createElement('div'), val;
+
+    element.classList.add('var-'+name);
+    document.documentElement.appendChild(element);
+    val = window.getComputedStyle(element, ':before').content;
+    document.documentElement.removeChild(element);
+
+    return val || undefined;
+}
