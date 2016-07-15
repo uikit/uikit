@@ -4,7 +4,7 @@
 // Component:       `uk-hidden-*`
 //                  `uk-visible-*`
 //                  `uk-invisible`
-//                  `uk-visible-hover`
+//                  `uk-visible-toggle`
 //                  `uk-hidden-hover`
 //                  `uk-invisible-hover`
 //
@@ -94,10 +94,12 @@
  ========================================================================== */
 
 /* Hidden */
-.uk-visible-hover:not(:hover) .uk-hidden-hover { display: none !important; }
+.uk-visible-toggle:not(:hover) .uk-hidden-hover,
+.uk-visible-toggle:not(.uk-hover) .uk-hidden-hover { display: none !important; }
 
 /* Invisible */
-.uk-visible-hover:not(:hover) .uk-invisible-hover { visibility: hidden !important; }
+.uk-visible-toggle:not(:hover) .uk-invisible-hover,
+.uk-visible-toggle:not(.uk-hover) .uk-invisible-hover { visibility: hidden !important; }
 
 
 
