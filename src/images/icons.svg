@@ -671,11 +671,11 @@
 
     <!-- Components -->
 
-    <symbol id="close_close" viewBox="0 0 14 14">
+    <symbol id="close_icon" viewBox="0 0 14 14">
         <polygon points="14 1 13 0 7 6 1 0 0 1 6 7 0 13 1 14 7 8 13 14 14 13 8 7"></polygon>
     </symbol>
 
-    <symbol id="search_search" viewBox="0 0 20 20">
+    <symbol id="search_icon" viewBox="0 0 20 20">
         <circle fill="none" stroke-width="1.1" cx="9" cy="9" r="7"></circle>
         <path fill="none" stroke-width="1.1" d="M14,14 L18,18 L14,14 Z"></path>
     </symbol>
@@ -688,13 +688,17 @@
         <polygon points="10 0 8.586 1.414 14.172 7 0 7 0 9 14.172 9 8.586 14.586 10 16 18 8"></polygon>
     </symbol>
 
-    <symbol id="spinner_spinner" viewBox="0 0 30 30">
+    <symbol id="spinner_icon" viewBox="0 0 30 30">
         <circle  cx="15" cy="15" r="14"></circle>
     </symbol>
 
-    <symbol id="totop_totop" viewBox="0 0 20 20">
+    <symbol id="totop_icon" viewBox="0 0 20 20">
         <polyline fill="none" stroke-width="1.03" points="4 13 10 7 16 13"></polyline>
     </symbol>
 
+    <symbol id="overlay_icon" viewBox="0 0 40 40">
+        <rect x="19" y="0" width="1" height="40"></rect>
+        <rect x="0" y="19" width="40" height="1"></rect>
+    </symbol>
 
 </svg>

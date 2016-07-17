@@ -4,7 +4,7 @@ export default function (UIkit) {
 
         name: 'totop',
 
-        defaults: {icon: 'totop_totop'}
+        defaults: {icon: 'totop_icon'}
 
     }));
 
