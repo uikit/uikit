@@ -14,7 +14,7 @@
 //                  `uk-form-label`
 //                  `uk-form-controls`
 //                  `uk-form-icon`
-//                  `uk-form-icon-container`
+//                  `uk-form-icon-flip`
 //
 // Modifiers:       `uk-form-small`
 //                  `uk-form-large`
@@ -571,21 +571,6 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
  ========================================================================== */
 
 /*
- * 1. Container fits its content
- * 2. Create position context
- * 3. Prevent content overflow because of `inline-block`
- */
-
-.uk-form-icon-container {
-    /* 1 */
-    display: inline-block;
-    /* 2 */
-    position: relative;
-    /* 3 */
-    max-width: 100%;
-}
-
-/*
  * 1. Set container position and width
  * 2. Center icon vertically and horizontally
  * 3. Make form element clickable through icon
@@ -615,18 +600,18 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
     color: @form-icon-color;
 }
 
-.uk-form-icon-container:not(.uk-form-icon-flip) > .uk-input { padding-left: @form-icon-width; }
+.uk-form-icon:not(.uk-form-icon-flip) + .uk-input { padding-left: @form-icon-width; }
 
 /*
  * Position modifier
  */
 
-.uk-form-icon-flip > .uk-form-icon {
+.uk-form-icon-flip {
     right: 0;
     left: auto;
 }
 
-.uk-form-icon-flip > .uk-input { padding-right: @form-icon-width; }
+.uk-form-icon-flip + .uk-input { padding-right: @form-icon-width; }
 
 
 // Hooks
