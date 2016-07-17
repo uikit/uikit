@@ -8,6 +8,8 @@
 // Modifiers:       `uk-slidenav-previous`
 //                  `uk-slidenav-next`
 //
+// Extend:          `uk-icon`
+//
 // ========================================================================
 
 
@@ -27,41 +29,14 @@
  ========================================================================== */
 
 /*
- * Pass image path to JS
+ * Extend `uk-icon`
  */
 
-.uk-slidenav::before { background-image: url("../../images/icons.svg"); }
-
-/*
- * 1. Fill the SVG object with the current text color
- * 2. Let the container fit the height of the icon
- * 3. Style
- */
-
-.uk-slidenav {
-    display: inline-block;
+.uk-slidenav:extend(.uk-icon all) {
     padding: @slidenav-padding;
-    /* 1 */
-    fill: currentcolor;
-    /* 2 */
-    line-height: 0;
-    vertical-align: middle;
-    /* 3 */
     color: @slidenav-color;
     .hook-slidenav;
 }
-
-/* Let the line drawn around the SVG object use the current text color
- * But only if a `stroke-width` attribute is present, because its default value is `1`
- */
-
-.uk-slidenav [stroke-width] { stroke: currentcolor; }
-
-/*
- * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
- */
-
-.uk-slidenav > * { transform: translate(0,0); }
 
 /* Hover + Focus */
 .uk-slidenav:hover,

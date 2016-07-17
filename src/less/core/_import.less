@@ -17,6 +17,17 @@
 @import "grid.less";
 @import "card.less";
 
+// Common
+@import "icon.less";
+@import "close.less"; // After: Icon
+@import "totop.less"; // After: Icon
+@import "alert.less"; // After: Close
+@import "badge.less";
+@import "label.less";
+@import "overlay.less";
+@import "article.less"; // After: Subnav
+@import "comment.less"; // After: Subnav
+
 // Navs
 @import "nav.less";
 @import "navbar.less"; // After: Card, Grid, Nav
@@ -24,18 +35,7 @@
 @import "breadcrumb.less";
 @import "pagination.less";
 @import "tab.less";
-@import "slidenav.less";
-
-// Common
-@import "icon.less";
-@import "close.less";
-@import "totop.less";
-@import "alert.less"; // After: Close
-@import "badge.less";
-@import "label.less";
-@import "overlay.less";
-@import "article.less"; // After: Subnav
-@import "comment.less"; // After: Subnav
+@import "slidenav.less"; // After: Icon
 
 // JavaScript
 @import "accordion.less";

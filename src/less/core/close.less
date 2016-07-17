@@ -3,6 +3,8 @@
 //
 // Component:       `uk-close`
 //
+// Extend:          `uk-icon`
+//
 // ========================================================================
 
 
@@ -11,12 +13,7 @@
  ========================================================================== */
 
 /*
- * Pass image path to JS
- */
-
-.uk-close::before { background-image: url("../../images/icons.svg"); }
-
-/*
+ * Extend `uk-icon`
  * 1. Remove margins in Chrome, Safari and Opera.
  * 2. Remove borders for `button`.
  * 3. Address `overflow` set to `hidden` in IE.
@@ -24,12 +21,9 @@
  * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
  * 6. Remove default `button` padding and background color
  * 7. Required for `button`.
- * 8. Style
- * 9. Fill the SVG object with the current text color
- * 10. Let the container fit the height of the icon
  */
 
-.uk-close {
+.uk-close:extend(.uk-icon all) {
     /* 1 */
     margin: 0;
     /* 2 */
@@ -46,19 +40,7 @@
     background-color: transparent;
     /* 7 */
     cursor: pointer;
-    /* 8 */
-    display: inline-block;
-    /* 9 */
-    fill: currentcolor;
-    /* 10 */
-    line-height: 0;
 }
-
-/* Let the line drawn around the SVG object use the current text color
- * But only if a `stroke-width` attribute is present, because its default value is `1`
- */
-
-.uk-close [stroke-width] { stroke: currentcolor; }
 
 /*
  * Remove the inner border and padding in Firefox.
@@ -80,12 +62,6 @@
  */
 
 .uk-close:focus { outline: none; }
-
-/*
- * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
- */
-
-.uk-close > * { transform: translate(0,0); }
 
 
 // Hooks

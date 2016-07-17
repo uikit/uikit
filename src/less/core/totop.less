@@ -3,6 +3,8 @@
 //
 // Component:       `uk-totop`
 //
+// Extend:          `uk-icon`
+//
 // ========================================================================
 
 
@@ -22,41 +24,14 @@
  ========================================================================== */
 
 /*
- * Pass image path to JS
+ * Extend `uk-icon`
  */
 
-.uk-totop::before { background-image: url("../../images/icons.svg"); }
-
-/*
- * 1. Fill the SVG object with the current text color
- * 2. Let the container fit the height of the icon
- * 3. Style
- */
-
-.uk-totop {
-    display: inline-block;
+.uk-totop:extend(.uk-icon all) {
     padding: @totop-padding;
-    /* 1 */
-    fill: currentcolor;
-    /* 2 */
-    line-height: 0;
-    vertical-align: middle;
-    /* 3 */
     color: @totop-color;
     .hook-totop;
 }
-
-/* Let the line drawn around the SVG object use the current text color
- * But only if a `stroke-width` attribute is present, because its default value is `1`
- */
-
-.uk-totop [stroke-width] { stroke: currentcolor; }
-
-/*
- * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
- */
-
-.uk-totop > * { transform: translate(0,0); }
 
 /* Hover + Focus */
 .uk-totop:hover,
