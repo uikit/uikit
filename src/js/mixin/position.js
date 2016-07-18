@@ -48,10 +48,7 @@ export default function (UIkit) {
                 this.dir = axis === 'x' ? flipped.target.x : flipped.target.y;
                 this.align = axis === 'x' ? flipped.target.y : flipped.target.x;
 
-                element
-                    .css('display', '')
-                    .addClass(`${this.clsPos}-${this.dir}-${this.align}`)
-                    .css(`margin-${flipPosition(this.dir)}`, this.offset !== false ? 0 : '');
+                element.css('display', '').toggleClass(`${this.clsPos}-${this.dir}-${this.align}`, this.offset === false);
 
             },
 
