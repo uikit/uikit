@@ -12,8 +12,8 @@ document.addEventListener("DOMContentLoaded", () => {
     var $ = jQuery;
 
     var $container = $('<div class="uk-container"></div>').prependTo('body');
-    var $tests     = $('<select class="uk-select"><option value="">- Select Test -</option></select>').css('margin', '20px 20px 20px 0').prependTo($container);
-    var $inverse   = $('<select class="uk-select"><option value="">- Select Invert -</option></select>').css('margin', '20px').appendTo($container);
+    var $tests     = $('<select class="uk-select"></select>').css('margin', '20px 20px 20px 0').prependTo($container);
+    var $inverse   = $('<select class="uk-select"></select>').css('margin', '20px').appendTo($container);
 
     [
         'accordion',
