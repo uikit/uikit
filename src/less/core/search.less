@@ -1,24 +1,13 @@
 // Name:            Search
-// Description:     Defines a search component
+// Description:     Component to create the search
 //
 // Component:       `uk-search`
 //
-// Sub-objects:     `uk-search-field`
-//                  `uk-search-icon`
+// Sub-objects:     `uk-search-toggle`
+//                  `uk-search-overlay`
 //
-// Modifier:        ''
-//
-// States:          `uk-active`
-//                  `uk-loading`
-//
-// Uses:            Animation
-//
-// Markup:
-//
-// <!-- uk-search -->
-// <form class="uk-search" data-uk-search>
-//     <input class="uk-search-field" type="search" placeholder="">
-// </form>
+// Modifier:        `uk-search-default`
+//                  `uk-search-primary`
 //
 // ========================================================================
 
@@ -26,23 +15,33 @@
 // Variables
 // ========================================================================
 
-@search-width:                                  180px;
-@search-height:                                 @global-control-height;
-@search-padding-horizontal:                     6px;
-@search-padding-vertical:                       4px;
-@search-border:                                 #e5e5e5; //rgba(0,0,0,0);
-@search-border-width:                           @global-border-width;
-@search-background:                             #f5f5f5; //rgba(0,0,0,0);
-@search-color:                                  #444;
-@search-placeholder-color:                      #999;
+@search-default-width:                          180px;
+@search-default-height:                         @global-control-height;
+@search-default-padding-horizontal:             6px;
+@search-default-padding-vertical:               4px;
+@search-default-border:                         @global-border;
+@search-default-border-width:                   @global-border-width;
+@search-default-background:                     @global-background;
+@search-default-color:                          @global-color;
 
-@search-large-width:                            300px;
-@search-large-height:                           @global-control-large-height;
-@search-large-font-size:                        @global-large-font-size;
+@search-default-icon-width:                     26px;
+@search-default-icon-color:                     @global-muted-color;
 
-@search-icon-color:                             fadeout(@global-color, 40%);
-@search-icon-hover-color:                       fadeout(@global-color, 20%);
-@search-icon-active-color:                      fadeout(@global-color, 10%);
+@search-default-placeholder-color:              @global-muted-color;
+
+@search-primary-width:                          100%;
+@search-primary-height:                         40px;
+@search-primary-border:                         @global-border;
+@search-primary-border-width:                   0;
+@search-primary-background:                     transparent;
+@search-primary-color:                          @global-color;
+@search-primary-font-size:                      @global-medium-font-size;
+
+@search-primary-placeholder-color:              @global-muted-color;
+
+@search-toggle-color:                           fadeout(@global-color, 40%);
+@search-toggle-hover-color:                     fadeout(@global-color, 20%);
+@search-toggle-active-color:                    fadeout(@global-color, 10%);
 
 
 /* ========================================================================
@@ -50,55 +49,29 @@
  ========================================================================== */
 
 /*
- * 1. Create position context for toggle
- * 2. Needed for `form` element
+ * Remove the inner padding and cancel buttons in Chrome on OS X and Safari on OS X.
  */
 
-.uk-search {
-    display: inline-block;
-    /* 1 */
-    position: relative;
-    /* 2 */
-    margin: 0;
-    .hook-search;
-}
-
-
-/* Sub-object `uk-search-field`
- ========================================================================== */
-
-/*
- * Removes inner padding and border in Firefox 4+.
- */
-
-.uk-search-field::-moz-focus-inner {
-    border: 0;
-    padding: 0;
-}
-
-/*
- * Remove inner padding and search cancel button in Chrome, Safari and Opera on OS X.
- */
-
-.uk-search-field::-webkit-search-cancel-button,
-.uk-search-field::-webkit-search-decoration { -webkit-appearance: none; }
+.uk-search::-webkit-search-cancel-button,
+.uk-search::-webkit-search-decoration { -webkit-appearance: none; }
 
 /*
  * Removes placeholder transparency in Firefox.
  */
 
-.uk-search-field::-moz-placeholder { opacity: 1; }
+.uk-search::-moz-placeholder { opacity: 1; }
 
 /*
  * 1. Define consistent box sizing.
  * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
  * 3. Remove `border-radius` in iOS.
- * 4. Correct `font` properties and `color` not being inherited.
- * 5. Remove default style in iOS.
- * 6. Style
+ * 4. Change font properties to `inherit` in all browsers
+ * 5. Show the overflow in Edge.
+ * 6. Remove default style in iOS.
+ * 7. Vertical alignment
  */
 
-.uk-search-field {
+.uk-search {
     /* 1 */
     box-sizing: border-box;
     /* 2 */
@@ -107,140 +80,108 @@
     border-radius: 0;
     /* 4 */
     font: inherit;
-    color: @search-color;
     /* 5 */
-    -webkit-appearance: none;
+    overflow: visible;
     /* 6 */
-    width: @search-width;
-    height: @search-height;
-    padding: @search-padding-vertical @search-padding-horizontal;
-    border: @search-border-width solid @search-border;
-    background: @search-background;
-    -webkit-transition: border 0.2s linear, background 0.2s linear, width 0.2s linear;
-    transition: border 0.2s linear, background 0.2s linear, width 0.2s linear;
+    -webkit-appearance: none;
+    /* 7 */
     vertical-align: middle;
-    .hook-search-field;
 }
 
-/* Placeholder */
-.uk-search-field:-ms-input-placeholder { color: @search-placeholder-color !important; }
-.uk-search-field::-moz-placeholder { color: @search-placeholder-color; }
-.uk-search-field::-webkit-input-placeholder { color: @search-placeholder-color; }
 
-/* Focus */
-.uk-search-field:focus {
-    outline: 0;
-    .hook-search-field-focus;
-}
-
-/* Focus + Active */
-.uk-search-field:focus,
-.uk-search.uk-active .uk-search-field {}
-
-
-/* Search Icon
+/* Style modifiers
  ========================================================================== */
 
 /*
- * Pass image path to JS
+ * Default
  */
 
-.uk-search-icon::before { background-image: url("../../images/icons.svg"); }
-
-/*
- * 1. Fill the SVG object with the current text color
- * 2. Let the container fit the height of the icon
- * 3. Style
- */
-
-.uk-search-icon {
-    display: inline-block;
-    /* 1 */
-    fill: currentcolor;
-    /* 2 */
-    line-height: 0;
-    vertical-align: middle;
-    /* 3 */
-    color: @search-icon-color;
-    .hook-search-icon;
+.uk-search-default {
+    width: @search-default-width;
+    height: @search-default-height;
+    padding: @search-default-padding-vertical @search-default-padding-horizontal @search-default-padding-vertical (@search-default-icon-width + @search-default-padding-horizontal);
+    border: @search-default-border-width solid @search-default-border;
+    background-color: @search-default-background;
+    .svg-fill("../../images/search-default.svg", "#000", @search-default-icon-color);
+    background-repeat: no-repeat;
+    background-position: @search-default-padding-horizontal 50%;
+    color: @search-default-color;
+    .hook-search-default;
 }
 
-/* Let the line drawn around the SVG object use the current text color
- * But only if a `stroke-width` attribute is present, because its default value is `1`
- */
 
-.uk-search-icon [stroke-width] { stroke: currentcolor; }
+/* Placeholder */
+.uk-search-default:-ms-input-placeholder { color: @search-default-placeholder-color !important; }
+.uk-search-default::-moz-placeholder { color: @search-default-placeholder-color; }
+.uk-search-default::-webkit-input-placeholder { color: @search-default-placeholder-color; }
+
+/* Focus */
+.uk-search-default:focus {
+    outline: 0;
+    .hook-search-default-focus;
+}
 
 /*
- * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
+ * Primary
  */
 
-.uk-search-icon > * { transform: translate(0,0); }
+.uk-search-primary {
+    width: @search-primary-width;
+    height: @search-primary-height;
+    border: @search-primary-border-width solid @search-primary-border;
+    background: @search-primary-background;
+    color: @search-primary-color;
+    font-size: @search-primary-font-size;
+    .hook-search-primary;
+}
+
+
+/* Placeholder */
+.uk-search-primary:-ms-input-placeholder { color: @search-primary-placeholder-color !important; }
+.uk-search-primary::-moz-placeholder { color: @search-primary-placeholder-color; }
+.uk-search-primary::-webkit-input-placeholder { color: @search-primary-placeholder-color; }
+
+/* Focus */
+.uk-search-primary:focus {
+    outline: 0;
+    .hook-search-primary-focus;
+}
+
+
+/* Toggle
+ ========================================================================== */
+
+/*
+ * Extend `uk-icon`
+ */
+
+.uk-search-toggle:extend(.uk-icon all) {
+    background-color: red;
+    color: @search-toggle-color;
+    .hook-search-toggle;
+}
 
 /* Hover + Focus */
-.uk-search-icon:hover,
-.uk-search-icon:focus {
-    color: @search-icon-hover-color;
+.uk-search-toggle:hover,
+.uk-search-toggle:focus {
+    color: @search-toggle-hover-color;
     outline: none;
-    .hook-search-icon-hover;
+    .hook-search-toggle-hover;
 }
 
-/* Active */
-.uk-search-icon:active {
-    color: @search-icon-active-color;
-    .hook-search-icon-active;
+/* OnClick */
+.uk-search-toggle:active {
+    color: @search-toggle-active-color;
+    .hook-search-toggle-active;
 }
 
-// Search Default
-// ========================================================================
 
-.uk-search-default .uk-search-icon {
-    position: absolute;
-    top: round((@search-height - 20px) / 2);
-    left: @search-padding-horizontal;
-}
+/* Overlay
+ ========================================================================== */
 
-.uk-search-default .uk-search-field { padding-left: @search-height; }
-
-// Search Toggle
-// ========================================================================
-
-// Testing
-.uk-search-toggle .uk-search-toggle-button {
-    box-sizing: border-box;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
-    width: @global-control-height;
-    height: @global-control-height;
-    padding: 10px;
-    background: @global-muted-background;
-}
-
-.uk-search-toggle .uk-search-toggle-button .uk-close-icon { display: none; }
-
-.uk-search-toggle .uk-search-toggle-button.uk-open .uk-search-icon { display: none; }
-.uk-search-toggle .uk-search-toggle-button.uk-open .uk-close-icon { display: block; }
-
-
-// Size Modifier
-// ========================================================================
-
-.uk-search-large .uk-search-icon {
-    top: round((@search-large-height - 20px) / 2);
-    transform: scale(1.2);
-}
-
-.uk-search-large .uk-search-field {
-    width: @search-large-width;
-    height: @search-large-height;
-    font-size: @search-large-font-size;
+.uk-search-overlay {
+    padding: 5px 20px;
+    background: blue;
 }
 
 
@@ -249,29 +190,32 @@
 
 .hook-search-misc;
 
-.hook-search() {}
-.hook-search-field() {}
-.hook-search-field-focus() {}
+.hook-search-default() {}
+.hook-search-default-focus() {}
 
-.hook-search-icon() {}
-.hook-search-icon-hover() {}
-.hook-search-icon-active() {}
+.hook-search-primary() {}
+.hook-search-primary-focus() {}
+
+.hook-search-toggle() {}
+.hook-search-toggle-hover() {}
+.hook-search-toggle-active() {}
 
 .hook-search-misc() {}
+
 
 // Dye
 // ========================================================================
 
 .dye-vars-default() {
 
-    @search-border:                                 @dye-color;
-    @search-background:                             @dye-color;
-    @search-color:                                  @dye-inverse-color;
-    @search-placeholder-color:                      fade(@dye-inverse-color, 70%);
+    @search-default-border:                         @dye-color;
+    @search-default-background:                     @dye-color;
+    @search-default-color:                          @dye-inverse-color;
+    @search-default-placeholder-color:              fade(@dye-inverse-color, 70%);
 
-    @search-icon-color:                             fadeout(@dye-color, 40%);
-    @search-icon-hover-color:                       fadeout(@dye-color, 20%);
-    @search-icon-active-color:                      fadeout(@dye-color, 10%);
+    @search-toggle-color:                           fadeout(@dye-color, 40%);
+    @search-toggle-hover-color:                     fadeout(@dye-color, 20%);
+    @search-toggle-active-color:                    fadeout(@dye-color, 10%);
 
 }
 
@@ -280,44 +224,44 @@
     .dye-vars();
     .dye-hooks();
 
-    .uk-search-field {
-        color: @search-color;
-        border-color: @search-border;
-        background: @search-background;
-        .hook-dye-search-field;
+    .uk-search-default {
+        color: @search-default-color;
+        border-color: @search-default-border;
+        background: @search-default-background;
+        .hook-dye-search-default;
     }
 
     //
     // Placeholder
     //
 
-    .uk-search-field:-ms-input-placeholder { color: @search-placeholder-color !important; }
-    .uk-search-field::-moz-placeholder { color: @search-placeholder-color; }
-    .uk-search-field::-webkit-input-placeholder { color: @search-placeholder-color; }
+    .uk-search-default:-ms-input-placeholder { color: @search-default-placeholder-color !important; }
+    .uk-search-default::-moz-placeholder { color: @search-default-placeholder-color; }
+    .uk-search-default::-webkit-input-placeholder { color: @search-default-placeholder-color; }
 
     //
-    // Icon
+    // Toggle
     //
 
-    .uk-search-icon {
-        color: @search-icon-color;
-        .hook-dye-search-icon;
+    .uk-search-toggle {
+        color: @search-toggle-color;
+        .hook-dye-search-toggle;
     }
 
-    .uk-search-icon:hover,
-    .uk-search-icon:focus {
-        color: @search-icon-hover-color;
-        .hook-dye-search-icon-hover;
+    .uk-search-toggle:hover,
+    .uk-search-toggle:focus {
+        color: @search-toggle-hover-color;
+        .hook-dye-search-toggle-hover;
     }
 
-    .uk-search-icon:active {
-        color: @search-icon-active-color;
-        .hook-dye-search-icon-active;
+    .uk-search-toggle:active {
+        color: @search-toggle-active-color;
+        .hook-dye-search-toggle-active;
     }
 
 }
 
-.hook-dye-search-field() {}
-.hook-dye-search-icon() {}
-.hook-dye-search-icon-hover() {}
-.hook-dye-search-icon-active() {}
+.hook-dye-search-default() {}
+.hook-dye-search-toggle() {}
+.hook-dye-search-toggle-hover() {}
+.hook-dye-search-toggle-active() {}

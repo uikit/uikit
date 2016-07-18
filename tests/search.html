@@ -5,68 +5,136 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Search - UIkit tests</title>
-        
         <script src="js/test.js"></script>
-        <script>
-            jQuery(function($) {
-
-                // Trigger focus on search input
-                //$(".uk-search-icon").on('click', UIkit.Utils.debounce(function () {
-                //    this.parentNode.querySelector('.uk-search-field').focus();
-                //}, 300));
-
-                //$(".uk-search-toggle-button").on 'tap', ->
-                //$(this).toggleClass 'uk-active'
-
-            });
-        </script>
     </head>
 
     <body>
 
         <div class="uk-container">
 
-            <h1>Search Components</h1>
+            <h1>Search</h1>
 
-            <form class="uk-search" data-uk-search>
-                <input class="uk-search-field" type="search" placeholder="search...">
-                <p>
-                    <a href="#" class="uk-search-icon" uk-icon="icon: search_icon"></a>
-                </p>
-            </form>
+            <div class="uk-child-width-1-2@m" uk-grid>
+                <div>
 
-            <hr>
+                    <h2>Default</h2>
 
-            <h2>Search Default</h2>
+                    <form>
+                        <input class="uk-search uk-search-default" type="search" placeholder="Search...">
+                    </form>
 
-            <form class="uk-search uk-search-default" data-uk-search>
-                <span class="uk-search-icon" uk-icon="icon: search_icon"></span>
-                <input class="uk-search-field" type="search" placeholder="search...">
-            </form>
+                    <h2>Primary</h2>
 
-            <hr>
+                    <form>
+                        <input class="uk-search uk-search-primary" type="search" placeholder="Search...">
+                    </form>
 
-            <h2>Search Toggle</h2>
-
-            <form class="uk-search uk-search-toggle" data-uk-search>
-                <div class="uk-search-toggle-button">
-                    <a href="#" class="uk-search-icon" uk-icon="icon: search_icon"></a>
-                    <a href="#" class="uk-close-icon" uk-icon="icon: close_close"></a>
                 </div>
-                <div uk-drop="mode: click; pos: right-center">
-                    <input class="uk-search-field" type="search" placeholder="search...">
+                <div>
+
+                    <h2>Toggle</h2>
+
+                    <a class="uk-search-toggle" href="#" uk-icon="icon: search_icon"></a>
+
+                    <h2>Overlay with Primary</h2>
+
+                    <form class="uk-search-overlay">
+                        <input class="uk-search uk-search-primary" type="search" placeholder="Search...">
+                    </form>
+
                 </div>
-            </form>
+            </div>
 
-            <hr>
+            <h2>Layouts</h2>
 
-            <h2>Sizes</h2>
+            <nav class="uk-navbar uk-navbar-container uk-margin">
+                <div class="uk-navbar-left">
 
-            <form class="uk-search uk-search-default uk-search-large" data-uk-search>
-                <span class="uk-search-icon" uk-icon="icon: search_icon"></span>
-                <input class="uk-search-field" type="search" placeholder="search...">
-            </form>
+                    <a class="uk-navbar-item uk-logo" href="#">Overlay</a>
 
+                    <ul class="uk-navbar-nav">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li><a href="#">Parent</a></li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Item</a></li>
+                    </ul>
+
+                </div>
+                <div class="uk-navbar-right">
+
+                    <div class="uk-navbar-item">
+                        <a class="uk-search-toggle" href="#" uk-icon="icon: search_icon" uk-toggle="target: #test"></a>
+                        <div id="test" class="uk-search-overlay uk-position-cover uk-flex uk-flex-middle" hidden>
+                            <input class="uk-search uk-search-primary" type="search" placeholder="Search...">
+                            <a href="#" uk-close uk-toggle="target: #test"></a>
+                        </div>
+                    </div>
+
+                </div>
+
+            </nav>
+
+            <nav class="uk-navbar uk-navbar-container uk-margin">
+                <div class="uk-navbar-left">
+
+                    <a class="uk-navbar-item uk-logo" href="#">Drop</a>
+
+                    <ul class="uk-navbar-nav">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li><a href="#">Parent</a></li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Item</a></li>
+                    </ul>
+
+                </div>
+                <div class="uk-navbar-right">
+
+                    <div class="uk-navbar-item">
+                        <div class="uk-inline uk-flex">
+                            <a class="uk-search-toggle" href="#" uk-icon="icon: search_icon"></a>
+                            <div uk-drop="mode: click; pos: left-center; offset: 0">
+                                <div class="uk-search-overlay">
+                                    <input class="uk-search uk-search-primary" type="search" placeholder="Search...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </nav>
+
+            <nav class="uk-navbar uk-navbar-container uk-margin">
+                <div class="uk-navbar-left">
+
+                    <a class="uk-navbar-item uk-logo" href="#">Modal</a>
+
+                    <ul class="uk-navbar-nav">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li><a href="#">Parent</a></li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Item</a></li>
+                    </ul>
+
+                </div>
+                <div class="uk-navbar-right">
+
+                    <div class="uk-navbar-item">
+                        <div class="uk-inline uk-flex">
+                            <a class="uk-search-toggle" href="#modal-full" uk-icon="icon: search_icon" uk-toggle></a>
+                        </div>
+                    </div>
+
+                </div>
+            </nav>
+
+            <div id="modal-full" class="uk-modal-full" uk-modal>
+                <div class="uk-modal-dialog uk-flex uk-flex-center uk-flex-middle" uk-height-viewport>
+                    <button class="uk-modal-close-full" type="button" uk-close></button>
+                    <div class="uk-width-xxlarge uk-padding-large">
+                        <input class="uk-search uk-search-primary" type="search" placeholder="Search...">
+                    </div>
+                </div>
+            </div>
 
         </div>
 
