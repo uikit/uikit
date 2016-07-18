@@ -59,14 +59,19 @@ export default function (UIkit) {
                     if (typeof(this.media) == 'string') {
 
                         if (this.media[0] == '@') {
-                            mediaQuery = '(min-width: '+UIkit.util.getCssVar('media-'+this.media.substr(1))+')';
+
+                            var lessvar = 'media-'+this.media.substr(1);
+
+                            mediaQuery = `(min-width: ${UIkit.util.getCssVar(lessvar)})`;
                         }
 
                     } else if (typeof(this.media) == 'number') {
                         mediaQuery = '(min-width: '+this.media+'px)';
                     }
 
-                    if (mediaQuery && !window.matchMedia(mediaQuery).matches) return;
+                    if (mediaQuery && !window.matchMedia(mediaQuery).matches) {
+                        return;
+                    }
                 }
 
                 var event = $.Event(type || 'toggle');

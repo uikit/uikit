@@ -48,10 +48,10 @@ UIkit.component('tooltip', {
 
         hide() {
 
-            if (this.$el.is('input') && this.$el[0]===document.activeElement) {
+            if (this.$el.is('input') && this.$el[0] === document.activeElement) {
                 return;
             }
-            
+
             clearTimeout(this.showTimer);
             this.$el.attr('aria-expanded', false);
             this.toggleElement(this.tooltip, false);
