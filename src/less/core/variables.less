@@ -109,3 +109,29 @@
 //
 
 @global-z-index:                                1000;
+
+
+//
+// Export variables
+//
+
+
+// get current media
+.var-media:before { content: 'small'; }
+
+@media (min-width: @breakpoint-medium) {
+    .var-media:before { content: 'medium'; }
+}
+
+@media (min-width: @breakpoint-large) {
+    .var-media:before { content: 'large'; }
+}
+
+@media (min-width: @breakpoint-xlarge) {
+    .var-media:before { content: 'xlarge'; }
+}
+
+.var-media-s:before  { content: '@{breakpoint-small}'; }
+.var-media-m:before  { content: '@{breakpoint-medium}'; }
+.var-media-l:before  { content: '@{breakpoint-large}'; }
+.var-media-xl:before { content: '@{breakpoint-xlarge}'; }

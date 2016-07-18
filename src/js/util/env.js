@@ -63,8 +63,10 @@ export function getCssVar(name) {
 
     element.classList.add('var-'+name);
     document.documentElement.appendChild(element);
-    val = window.getComputedStyle(element, ':before').content;
+    val = window.getComputedStyle(element, ':before').content.replace(/^["'](.*)["']$/, '$1');
     document.documentElement.removeChild(element);
+
+    try { val = JSON.parse(val); }catch(e){}
 
     return val || undefined;
 }

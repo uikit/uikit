@@ -10,7 +10,8 @@ export default function (UIkit) {
         props: {
             href: 'jQuery',
             target: 'jQuery',
-            mode: String
+            mode: String,
+            media: String
         },
 
         defaults: {
@@ -50,6 +51,24 @@ export default function (UIkit) {
         methods: {
 
             toggle(type) {
+
+                if (this.media) {
+
+                    var mediaQuery;
+
+                    if (typeof(this.media) == 'string') {
+
+                        if (this.media[0] == '@') {
+                            mediaQuery = '(min-width: '+UIkit.util.getCssVar('media-'+this.media.replace(/^@/, ''))+')';
+                        }
+
+                    } else if (typeof(this.media) == 'number') {
+                        mediaQuery = '(min-width: '+this.media+'px)';
+                    }
+
+                    if (mediaQuery && !window.matchMedia(mediaQuery).matches) return;
+                }
+
                 var event = $.Event(type || 'toggle');
                 this.target.triggerHandler(event, [this]);
 
