@@ -59,7 +59,7 @@ export default function (UIkit) {
                     if (typeof(this.media) == 'string') {
 
                         if (this.media[0] == '@') {
-                            mediaQuery = '(min-width: '+UIkit.util.getCssVar('media-'+this.media.replace(/^@/, ''))+')';
+                            mediaQuery = '(min-width: '+UIkit.util.getCssVar('media-'+this.media.substr(1))+')';
                         }
 
                     } else if (typeof(this.media) == 'number') {
