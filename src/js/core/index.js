@@ -64,7 +64,7 @@ export default function (UIkit) {
         var hovercls = 'uk-hover';
         var selector = '.uk-animation-toggle, .uk-transition-toggle, [uk-hover]';
 
-        $('html').on('mouseenter touchstart MSPointerDown pointerdown', selector, e => {
+        $('html').on('mouseenter touchstart MSPointerDown pointerdown', selector, function(e) {
 
             if (hoverset && hoverset.length) {
                 $(`.${hovercls}`).removeClass(hovercls);
@@ -72,10 +72,10 @@ export default function (UIkit) {
 
             hoverset = $(this).addClass(hovercls);
 
-        }).on('mouseleave touchend MSPointerUp pointerup', selector, e => {
+        }).on('mouseleave touchend MSPointerUp pointerup', selector, function(e) {
 
             if (hoverset && hoverset.length) {
-                hoverset.removeClass(hovercls);
+                hoverset.not($(this).parents()).removeClass(hovercls);
             }
         });
 
