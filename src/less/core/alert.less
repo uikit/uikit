@@ -7,7 +7,6 @@
 //                  `uk-alert-success`
 //                  `uk-alert-warning`
 //                  `uk-alert-danger`
-//                  `uk-alert-large`
 //
 // Adopted:         `uk-alert-close`
 //
@@ -19,9 +18,12 @@
 
 @alert-margin-vertical:                         @global-margin;
 @alert-padding:                                 @global-small-gutter;
+@alert-padding-right:                           @alert-padding + 14px;
 @alert-background:                              @global-muted-background;
 @alert-color:                                   @global-color;
 
+@alert-close-top:                               @alert-padding + 5px;
+@alert-close-right:                             @alert-padding;
 @alert-close-opacity:                           0.4;
 @alert-close-hover-opacity:                     0.8;
 
@@ -37,16 +39,15 @@
 @alert-danger-background:                       #fff1f0;
 @alert-danger-color:                            @global-danger-background;
 
-@alert-large-padding:                           @global-gutter;
-
 
 /* ========================================================================
    Component: Alert
  ========================================================================== */
 
 .uk-alert {
+    position: relative;
     margin-bottom: @alert-margin-vertical;
-    padding: @alert-padding;
+    padding: @alert-padding @alert-padding-right @alert-padding @alert-padding;
     background: @alert-background;
     color: @alert-color;
     .hook-alert;
@@ -66,8 +67,10 @@
  ========================================================================== */
 
 .uk-alert-close {
+    position: absolute;
+    top: @alert-close-top;
+    right: @alert-close-right;
     opacity: @alert-close-opacity;
-    float: right;
     .hook-alert-close;
 }
 
@@ -133,14 +136,6 @@
     color: @alert-danger-color;
     .hook-alert-danger;
 }
-
-
-/* Size modifiers
- ========================================================================== */
-
-.uk-alert-large { padding: @alert-large-padding; }
-
-.uk-alert-large > .uk-alert-close { margin: -10px -10px 0 0; }
 
 
 // Hooks
