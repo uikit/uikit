@@ -12,9 +12,12 @@
 // Variables
 // ========================================================================
 
-@accordion-title-margin-bottom:                15px;
+@accordion-item-margin-top:                    @global-margin;
+
 @accordion-title-font-size:                    @global-large-font-size;
 @accordion-title-line-height:                  1.4;
+
+@accordion-content-margin-top:                 @global-margin;
 
 
 /* ========================================================================
@@ -22,7 +25,30 @@
  ========================================================================== */
 
 .uk-accordion {
+    padding: 0;
+    list-style: none;
     .hook-accordion;
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-accordion > li::before,
+.uk-accordion > li::after {
+    content: "";
+    display: table;
+}
+
+.uk-accordion > li::after { clear: both; }
+
+
+/* Item
+ ========================================================================== */
+
+.uk-accordion > :nth-child(n+2) {
+    margin-top: @accordion-item-margin-top;
+    .hook-accordion-item;
 }
 
 
@@ -30,6 +56,7 @@
  ========================================================================== */
 
 .uk-accordion-title {
+    margin: 0;
     font-size: @accordion-title-font-size;
     line-height: @accordion-title-line-height;
     cursor: pointer;
@@ -41,7 +68,7 @@
  ========================================================================== */
 
 .uk-accordion-content {
-    padding-bottom: @global-margin;
+    margin-top: @accordion-content-margin-top;
     .hook-accordion-content;
 }
 
