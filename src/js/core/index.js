@@ -58,28 +58,27 @@ export default function (UIkit) {
 
     // add uk-hover class on tap to support overlays on touch devices
     // Todo: Rework?
-    (function(){
 
-        var hoverset;
-        var hovercls = 'uk-hover';
-        var selector = '.uk-animation-toggle, .uk-transition-toggle, [uk-hover]';
+    var hoverset;
+    var hovercls = 'uk-hover';
+    var hoverselector = '.uk-animation-toggle, .uk-transition-toggle, [uk-hover]';
 
-        $('html').on('mouseenter touchstart MSPointerDown pointerdown', selector, function(e) {
+    $('html').on('mouseenter touchstart MSPointerDown pointerdown', hoverselector, function(e) {
 
-            if (hoverset && hoverset.length) {
-                $(`.${hovercls}`).removeClass(hovercls);
-            }
+        if (hoverset && hoverset.length) {
+            $(`.${hovercls}`).removeClass(hovercls);
+        }
 
-            hoverset = $(this).addClass(hovercls);
+        hoverset = $(this).addClass(hovercls);
 
-        }).on('mouseleave touchend MSPointerUp pointerup', selector, function(e) {
+    }).on('mouseleave touchend MSPointerUp pointerup', hoverselector, function(e) {
 
-            if (hoverset && hoverset.length) {
-                hoverset.not($(this).parents()).removeClass(hovercls);
-            }
-        });
+        if (hoverset && hoverset.length) {
+            hoverset.not($(this).parents()).removeClass(hovercls);
+        }
+    });
 
-    })();
+
 
     // core components
     UIkit.use(Accordion);

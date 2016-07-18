@@ -22,28 +22,66 @@ export default function (UIkit) {
 
         ready() {
 
-            this.target = this.target || this.href;
+            this.target = this.target || this.href || this.$el;
 
-            this.mode = hasTouch ? 'click' : this.mode;
+            this.mode = hasTouch && this.mode == 'hover' ? 'click' : this.mode;
 
-            if (this.mode === 'hover') {
-                this.$el.on({
-                    mouseenter: () => this.toggle('toggleShow'),
-                    mouseleave: () => this.toggle('toggleHide')
-                })
-            }
+            switch(this.mode) {
 
-        },
+                case 'media':
 
-        events: {
+                    if (this.media) {
 
-            click(e) {
+                        var onresize = () => {
 
-                if (String($(e.target).closest('a').attr('href'))[0] === '#') {
-                    e.preventDefault();
-                }
+                            var mediaQuery;
 
-                this.toggle();
+                            if (typeof(this.media) == 'string') {
+
+                                if (this.media[0] == '@') {
+                                    var lessvar = 'media-'+this.media.substr(1);
+                                    mediaQuery = `(min-width: ${UIkit.util.getCssVar(lessvar)})`;
+                                }
+
+                            } else if (typeof(this.media) == 'number') {
+                                mediaQuery = '(min-width: '+this.media+'px)';
+                            }
+
+                            if (mediaQuery && window.matchMedia(mediaQuery).matches) {
+                                this.toggle('toggleShow');
+                            } else {
+                                this.toggle('toggleHide')
+                            }
+
+                            return onresize;
+                        };
+
+                        $(window).on('resize', onresize());
+                    }
+
+                    break;
+
+                case 'hover':
+
+                    this.$el.on({
+                        mouseenter: () => this.toggle('toggleShow'),
+                        mouseleave: () => this.toggle('toggleHide')
+                    });
+
+                    break;
+
+                case 'click':
+
+                    this.$el.on('click', (e) => {
+
+                        if (String($(e.target).closest('a').attr('href'))[0] === '#') {
+                            e.preventDefault();
+                        }
+
+                        this.toggle();
+                    });
+
+                    break;
             }
 
         },
@@ -51,28 +89,6 @@ export default function (UIkit) {
         methods: {
 
             toggle(type) {
-
-                if (this.media) {
-
-                    var mediaQuery;
-
-                    if (typeof(this.media) == 'string') {
-
-                        if (this.media[0] == '@') {
-
-                            var lessvar = 'media-'+this.media.substr(1);
-
-                            mediaQuery = `(min-width: ${UIkit.util.getCssVar(lessvar)})`;
-                        }
-
-                    } else if (typeof(this.media) == 'number') {
-                        mediaQuery = '(min-width: '+this.media+'px)';
-                    }
-
-                    if (mediaQuery && !window.matchMedia(mediaQuery).matches) {
-                        return;
-                    }
-                }
 
                 var event = $.Event(type || 'toggle');
                 this.target.triggerHandler(event, [this]);
