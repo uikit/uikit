@@ -62,8 +62,29 @@
         .svg-fill("../../images/accordion-close.svg", "#000", @accordion-icon-color);
         background-repeat: no-repeat;
         background-position: 50% 50%;
-        .hook-nav-parent-icon;
     }
+
+    .uk-open > .uk-accordion-title::after { .svg-fill("../../images/accordion-open.svg", "#000", @accordion-icon-color); }
+
+}
+
+// Dye
+// ========================================================================
+
+.dye-vars-default-theme() {
+
+    @accordion-item-border:                @dye-border;
+    @accordion-icon-color:                 @dye-color;
+
+}
+
+.dye() {
+
+    .dye-vars();
+
+    .uk-accordion > :nth-child(n+2) { border-top-color: @accordion-item-border; }
+
+    .uk-accordion-title::after { .svg-fill("../../images/accordion-close.svg", "#000", @accordion-icon-color); }
 
     .uk-open > .uk-accordion-title::after { .svg-fill("../../images/accordion-open.svg", "#000", @accordion-icon-color); }
 
