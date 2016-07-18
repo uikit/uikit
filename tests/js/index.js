@@ -1,12 +1,15 @@
-var $ = jQuery, storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_inverse';
+var storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_inverse';
 
 storage[key] = storage[key] || '../css/uikit.css';
 storage[keyinverse] = storage[keyinverse] || 'default';
 
 document.writeln(`<link rel="stylesheet" href="${storage[key]}">`);
+document.writeln(`<script src="../vendor/jquery.js"></script>`);
 document.writeln(`<script src="../js/uikit.js"></script>`);
 
-jQuery(function () {
+document.addEventListener("DOMContentLoaded", () => {
+
+    var $ = jQuery;
 
     var $container = $('<div class="uk-container"></div>').prependTo('body');
     var $tests     = $('<select class="uk-select"><option value="">- Select Test -</option></select>').css('margin', '20px 20px 20px 0').prependTo($container);
@@ -131,4 +134,4 @@ jQuery(function () {
 
 });
 
-$('html').css('padding-top', '80px');
+document.querySelector('html').style.paddingTop = '80px';
