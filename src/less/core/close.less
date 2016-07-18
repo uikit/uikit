@@ -21,6 +21,7 @@
  * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
  * 6. Remove default `button` padding and background color
  * 7. Required for `button`.
+ * 8. Re-reset `line-height` for icon
  */
 
 .uk-close:extend(.uk-icon all) {
@@ -40,6 +41,8 @@
     background-color: transparent;
     /* 7 */
     cursor: pointer;
+    /* 8 */
+    line-height: 0;
 }
 
 /*
