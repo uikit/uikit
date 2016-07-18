@@ -14,7 +14,7 @@ export default function (UIkit) {
         defaults: {
             pos: 'bottom-left',
             flip: true,
-            offset: 0,
+            offset: false,
             clsPos: ''
         },
 
@@ -48,7 +48,11 @@ export default function (UIkit) {
                 this.dir = axis === 'x' ? flipped.target.x : flipped.target.y;
                 this.align = axis === 'x' ? flipped.target.y : flipped.target.x;
 
-                element.css('display', '').addClass(`${this.clsPos}-${this.dir}-${this.align}`)
+                element
+                    .css('display', '')
+                    .addClass(`${this.clsPos}-${this.dir}-${this.align}`)
+                    .css(`margin-${flipPosition(this.dir)}`, this.offset !== false ? 0 : '');
+
             },
 
             getAxis() {
