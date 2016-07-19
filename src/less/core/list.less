@@ -177,6 +177,7 @@
 .dye-vars-default() {
 
     @list-divider-border:                     @dye-border;
+    @list-striped-background:                 @dye-muted-background;
     @list-bullet-icon-color:                  @dye-color;
 
 }
@@ -190,6 +191,8 @@
         border-top-color: @list-divider-border;
         .hook-dye-list-divider;
     }
+
+    .uk-list-striped > li:nth-of-type(odd) { background: @list-striped-background; }
 
     .uk-list-bullet > li::before {
         .svg-fill("../../images/list-bullet.svg", "#000", @list-bullet-icon-color);

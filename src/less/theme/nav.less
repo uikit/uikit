@@ -18,6 +18,17 @@
 @nav-default-item-color:                        @global-color;
 @nav-default-item-active-color:                 @global-inverse-color;
 
+//
+// New
+//
+
+@nav-default-item-hover-background:             @global-muted-background;
+@nav-default-item-active-background:            @global-primary-background;
+
+@nav-primary-item-padding-vertical:             5px;
+
+@nav-primary-header-padding-vertical:           5px;
+
 
 // Sublists
 // ========================================================================
@@ -48,9 +59,9 @@
 
 .hook-nav-default-item() {}
 
-.hook-nav-default-item-hover() { background: @global-muted-background; }
+.hook-nav-default-item-hover() { background: @nav-default-item-hover-background; }
 
-.hook-nav-default-item-active() { background: @global-primary-background; }
+.hook-nav-default-item-active() { background: @nav-default-item-active-background; }
 
 .hook-nav-default-header() {}
 
@@ -60,13 +71,13 @@
 // Primary style modifier
 // ========================================================================
 
-.hook-nav-primary-item() { padding: 5px 0; }
+.hook-nav-primary-item() { padding: @nav-primary-item-padding-vertical 0; }
 
 .hook-nav-primary-item-hover() {}
 
 .hook-nav-primary-item-active() {}
 
-.hook-nav-primary-header() { padding: 5px 0; }
+.hook-nav-primary-header() { padding: @nav-primary-header-padding-vertical 0; }
 
 .hook-nav-primary-divider() {}
 

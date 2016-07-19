@@ -11,11 +11,23 @@
 
 @dropdown-nav-item-color:                       @global-color;
 
+//
+// New
+//
+
+@dropdown-box-shadow:                           rgba(0,0,0,0.15);
+@dropdown-box-shadow-blur:                      10px;
+
+@dropdown-nav-item-padding-vertical:            6px;
+@dropdown-nav-item-padding-horizontal:          25px;
+
+@dropdown-nav-sublist-padding-left:             40px;
+
 
 // Component
 // ========================================================================
 
-.hook-dropdown() { box-shadow: 0 3px 10px rgba(0,0,0,0.15); }
+.hook-dropdown() { box-shadow: 0 3px @dropdown-box-shadow-blur @dropdown-box-shadow; }
 
 
 // Nav
@@ -23,11 +35,11 @@
 
 .hook-dropdown-nav() { margin: 0 (-@dropdown-padding); }
 
-.hook-dropdown-nav-item() { padding: 6px 25px; }
+.hook-dropdown-nav-item() { padding: @dropdown-nav-item-padding-vertical @dropdown-nav-item-padding-horizontal; }
 
 .hook-dropdown-nav-item-hover() { background: @global-muted-background; }
 
-.hook-dropdown-nav-header() { padding: 6px 25px; }
+.hook-dropdown-nav-header() { padding: @dropdown-nav-item-padding-vertical @dropdown-nav-item-padding-horizontal; }
 
 .hook-dropdown-nav-divider() {}
 
@@ -37,6 +49,6 @@
 
 .hook-dropdown-misc() {
 
-    .uk-dropdown-nav .uk-nav-sub { padding-left: 40px; }
+    .uk-dropdown-nav .uk-nav-sub { padding-left: @dropdown-nav-sublist-padding-left; }
 
 }

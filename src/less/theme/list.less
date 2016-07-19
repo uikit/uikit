@@ -7,13 +7,20 @@
 // Variables
 // ========================================================================
 
+//
+// New
+//
+
+@list-striped-border:                           @global-border;
+@list-striped-border-width:                     @global-border-width;
+
 
 // Style modifiers
 // ========================================================================
 
 .hook-list-divider() {}
 
-.hook-list-striped() { border-bottom: 1px solid @global-border; }
+.hook-list-striped() { border-bottom: @list-striped-border-width solid @list-striped-border; }
 
 .hook-list-bullet() {}
 
@@ -23,7 +30,7 @@
 
 .hook-list-misc() {
 
-    .uk-list-striped > li:first-child { border-top: 1px solid @global-border; }
+    .uk-list-striped > li:first-child { border-top: @list-striped-border-width solid @list-striped-border; }
 
 }
 
@@ -38,5 +45,8 @@
     .hook-dye-list-divider() {}
 
     .hook-dye-list-bullet() {}
+
+    .uk-list-striped > li { border-bottom-color: @dye-border; }
+    .uk-list-striped > li:first-child { border-top-color: @dye-border; }
 
 }
