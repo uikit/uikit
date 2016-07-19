@@ -130,7 +130,7 @@ export default function (UIkit) {
 
             show(toggle, delay = true) {
 
-                if (toggle && this.toggle && !this.toggle.$el.is(toggle)) {
+                if (toggle && this.toggle && !this.toggle.$el.is(toggle.$el)) {
                     this.hide(false);
                 }
 

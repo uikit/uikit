@@ -52,9 +52,7 @@ export default function (UIkit) {
                 if (drop && !UIkit.getComponent(drop, 'drop') && !UIkit.getComponent(drop, 'dropdown')) {
                     UIkit.drop(drop, extend({}, this));
                 }
-            });
-
-            this.$el.on('mouseenter', this.dropdown, ({target}) => {
+            }).on('mouseenter', ({target}) => {
                 var active = this.getActive();
                 if (active && active.mode !== 'click' && !isWithin(target, active.toggle.$el) && !active.isDelaying) {
                     active.hide(false);
@@ -92,13 +90,6 @@ export default function (UIkit) {
         },
 
         events: {
-
-            mouseenter({target}) {
-                var active = this.getActive();
-                if (active && active.mode !== 'click' && isWithin(target, this.dropdown) && !isWithin(target, active.toggle.$el) && !active.isDelaying) {
-                    active.hide(false);
-                }
-            },
 
             beforeshow(e, {$el}) {
                 if (this.dropbar) {
