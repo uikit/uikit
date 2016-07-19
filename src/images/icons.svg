@@ -455,12 +455,6 @@
         <path fill="none" stroke-width="1.1" d="M1.5,2.52 C1.78,2.51 2.06,2.5 2.35,2.5 C10.72,2.5 17.5,9.24 17.5,17.57 C17.5,17.89 17.49,18.19 17.47,18.5"></path>
     </symbol>
 
-    <symbol id="rss2" viewBox="0 0 20 20">
-        <circle cx="3.12" cy="16.8" r="1.6"/>
-        <path fill="none" stroke-width="1.1" d="M1.5,8.2 C1.78,8.18 2.06,8.16 2.35,8.16 C7.57,8.16 11.81,12.37 11.81,17.57 C11.81,17.89 11.79,18.19 11.76,18.5"></path>
-        <path fill="none" stroke-width="1.1" d="M1.5,2.52 C1.78,2.51 2.06,2.5 2.35,2.5 C10.72,2.5 17.5,9.24 17.5,17.57 C17.5,17.89 17.49,18.19 17.47,18.5"></path>
-    </symbol>
-
     <symbol id="schedule" viewBox="0 0 20 20">
         <path d="M1,3 L1,17 L11,17 L10,16 L2,16 L2,8 L16,8 L16,10 L17,11 L17,3 L1,3 L1,3 Z M16,7 L2,7 L2,4 L16,4 L16,7 L16,7 Z"></path>
         <rect x="5" y="2" width="1" height="3"></rect>
@@ -649,14 +643,6 @@
         <path fill="none" stroke-width="1" d="M1.85,14.5 L17.15,14.5"></path>
         <path fill="none" stroke-width="1" d="M1.85,4.5 L17.35,4.5"></path>
         <path fill="none" stroke-width="1" d="M9.5,18.46 L9.48,18.46 C6.81,16.33 5.11,13.14 5.11,9.58 C5.11,6.02 6.83,2.83 9.5,0.7 C9.51,0.7 9.49,0.7 9.5,0.7 L9.5,0.7 C12.17,2.83 13.9,6.02 13.9,9.58 C13.9,13.14 12.17,16.33 9.5,18.46 L9.5,18.46 L9.5,18.46 Z"></path>
-        <circle fill="none" stroke-width="1" cx="9.5" cy="9.5" r="9"></circle>
-    </symbol>
-
-    <symbol id="world2" viewBox="0 0 20 20">
-        <path fill="none" stroke-width="1" d="M0,9.5 L19,9.5"></path>
-        <path fill="none" stroke-width="1" d="M9.5,18.46 L9.48,18.46 C6.81,16.33 5.11,13.15 5.11,9.58 C5.11,6.02 6.83,2.83 9.5,0.7 C9.51,0.7 9.49,0.7 9.5,0.7 L9.5,0.7 C12.17,2.83 13.9,6.02 13.9,9.58 C13.9,13.14 12.17,16.33 9.5,18.46 L9.5,18.46 L9.5,18.46 Z"></path>
-        <path fill="none" stroke-width="1" d="M2.62,3.87 C4.59,4.5 6.96,4.86 9.5,4.86 C12,4.86 14.4,4.52 16.41,3.91"></path>
-        <path fill="none" stroke-width="1" d="M2.59,15.1 C4.61,14.49 7.02,14.14 9.54,14.14 C12.07,14.14 14.42,14.5 16.39,15.12"></path>
         <circle fill="none" stroke-width="1" cx="9.5" cy="9.5" r="9"></circle>
     </symbol>
 
