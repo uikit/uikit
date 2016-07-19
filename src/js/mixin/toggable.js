@@ -148,7 +148,7 @@ export default function (UIkit) {
                 el = $(el);
 
                 if (this.cls) {
-                    el.toggleClass(this.cls, toggled)
+                    el.toggleClass(this.cls);
                 } else {
                     el.attr('hidden', !toggled);
                 }
@@ -159,7 +159,7 @@ export default function (UIkit) {
 
             isToggled(el) {
                 el = $(el);
-                return this.cls ? el.hasClass(this.cls) : !el.attr('hidden');
+                return this.cls ? el.hasClass(this.cls.split(' ')[0]) : !el.attr('hidden');
             },
 
             updateAria(el) {
