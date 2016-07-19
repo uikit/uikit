@@ -26,7 +26,7 @@ export default function (UIkit) {
             dropdown: '.uk-navbar-nav > li',
             mode: 'hover',
             align: 'left',
-            offset: 0,
+            offset: false,
             boundary: true,
             boundaryAlign: false,
             clsDrop: 'uk-navbar-dropdown',
@@ -46,7 +46,7 @@ export default function (UIkit) {
             this.pos = `bottom-${this.align}`;
 
             this.$el.find(this.dropdown).each((i, el) => {
-                
+
                 drop = toJQuery(`.${this.clsDrop}`, el);
 
                 if (drop && !UIkit.getComponent(drop, 'drop') && !UIkit.getComponent(drop, 'dropdown')) {

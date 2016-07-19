@@ -6,7 +6,7 @@ export default function (UIkit) {
 
         props: {
             pos: String,
-            offset: Number,
+            offset: undefined,
             flip: Boolean,
             clsPos: String
         },
