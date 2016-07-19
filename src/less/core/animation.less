@@ -187,8 +187,7 @@
  * Note: Firefox and IE needs this because animations are not triggered when switching between display `none` and `block`
  */
 
-.uk-animation-toggle:not(:hover) [class*='uk-animation-'],
-.uk-animation-toggle:not(.uk-hover) [class*='uk-animation-'] {
+.uk-animation-toggle:not(:hover):not(.uk-hover) [class*='uk-animation-'] {
     -webkit-animation-name: none;
     animation-name: none;
 }
