@@ -148,7 +148,13 @@ export default function (UIkit) {
                 el = $(el);
 
                 if (this.cls) {
-                    el.toggleClass(this.cls);
+
+                    if (this.cls.indexOf(' ') != -1) {
+                        el.toggleClass(this.cls);
+                    } else {
+                        el.toggleClass(this.cls, toggled);
+                    }
+
                 } else {
                     el.attr('hidden', !toggled);
                 }
