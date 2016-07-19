@@ -33,13 +33,14 @@ export default function (UIkit) {
                 this.dir = this.pos[0];
                 this.align = this.pos[1];
 
-                var axis = this.getAxis(),
+                var offset = Number(this.offset),
+                    axis = this.getAxis(),
                     flipped = position(
                         element,
                         target,
                         axis === 'x' ? `${flipPosition(this.dir)} ${this.align}` : `${this.align} ${flipPosition(this.dir)}`,
                         axis === 'x' ? `${this.dir} ${this.align}` : `${this.align} ${this.dir}`,
-                        axis === 'x' ? `${this.dir === 'left' ? -1 * this.offset : this.offset}` : ` ${this.dir === 'top' ? -1 * this.offset : this.offset}`,
+                        axis === 'x' ? `${this.dir === 'left' ? -1 * offset : offset}` : ` ${this.dir === 'top' ? -1 * offset : offset}`,
                         null,
                         this.flip,
                         boundary
