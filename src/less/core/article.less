@@ -4,6 +4,7 @@
 // Component:       `uk-article`
 //
 // Sub-objects:     `uk-article-title`
+//                  `uk-article-meta`
 //
 // ========================================================================
 
@@ -88,3 +89,27 @@
 .hook-article-title() {}
 .hook-article-meta() {}
 .hook-article-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @article-meta-color:                   @dye-muted-color;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-article-meta  {
+        color: @article-meta-color;
+        .hook-dye-article-meta;
+    }
+
+}
+
+.hook-dye-article-meta() {}
