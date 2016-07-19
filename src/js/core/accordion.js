@@ -23,7 +23,7 @@ export default function (UIkit) {
             animation: true,
             collapsible: true,
             multiple: false,
-            clsOpen: 'uk-active',
+            clsOpen: 'uk-open',
             toggle: '.uk-accordion-title',
             content: '.uk-accordion-content',
             transition: 'ease'
