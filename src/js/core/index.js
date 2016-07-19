@@ -16,6 +16,7 @@ import Modal from './modal';
 import Nav from './nav';
 import Navbar from './navbar';
 import Offcanvas from './offcanvas';
+import Overlayicon from './overlay-icon';
 import Responsive from './responsive';
 import Scroll from './scroll';
 import Scrollspy from './scrollspy';
@@ -99,6 +100,7 @@ export default function (UIkit) {
     UIkit.use(Nav);
     UIkit.use(Navbar);
     UIkit.use(Offcanvas);
+    UIkit.use(Overlayicon);
     UIkit.use(Responsive);
     UIkit.use(Scroll);
     UIkit.use(Scrollspy);
