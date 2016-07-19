@@ -7,6 +7,13 @@
 // Variables
 // ========================================================================
 
+//
+// New
+//
+
+@article-meta-link-color:                       @article-meta-color;
+@article-meta-link-hover-color:                 @global-color;
+
 
 // Component
 // ========================================================================
@@ -29,7 +36,16 @@
 // Meta
 // ========================================================================
 
-.hook-article-meta() {}
+.hook-article-meta() {
+
+    a { color: @article-meta-link-color; }
+
+    a:hover {
+        color: @article-meta-link-hover-color;
+        text-decoration: none;
+    }
+
+}
 
 
 // Miscellaneous

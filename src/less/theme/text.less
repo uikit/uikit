@@ -7,6 +7,13 @@
 // Variables
 // ========================================================================
 
+//
+// New
+//
+
+@text-meta-link-color:                          @text-meta-color;
+@text-meta-link-hover-color:                    @global-color;
+
 
 // Style modifiers
 // ========================================================================
@@ -15,10 +22,10 @@
 
 .hook-text-meta() {
 
-    a { color: @text-meta-color; }
+    a { color: @text-meta-link-color; }
 
     a:hover {
-        color: @global-color;
+        color: @text-meta-link-hover-color;
         text-decoration: none;
     }
 
