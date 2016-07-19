@@ -11,18 +11,25 @@
 @table-header-cell-font-weight:                 normal;
 @table-header-cell-color:                       @global-muted-color;
 
+//
+// New
+//
+
+@table-border:                                 @global-border;
+@table-border-width:                           @global-border-width;
+
 
 // Component
 // ========================================================================
 
 .hook-table-header-cell() {
-    border-bottom: 1px solid @global-border;
+    border-bottom: @table-border-width solid @table-border;
     text-transform: uppercase;
 }
 
 .hook-table-cell() {}
 
-.hook-table-footer() { border-top: 1px solid @global-border; }
+.hook-table-footer() { border-top: @table-border-width solid @table-border; }
 
 .hook-table-caption() {}
 
@@ -48,7 +55,7 @@
 
 .hook-table-misc() {
 
-    .uk-table :not(:last-child) > td { border-bottom: 1px solid @global-border; }
+    .uk-table :not(:last-child) > td { border-bottom: @table-border-width solid @table-border; }
 
     .uk-table tbody tr {
         -webkit-transition: background-color 0.1s linear;
