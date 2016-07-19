@@ -1,4 +1,4 @@
-import {flipPosition, position, removeClass} from '../util/index';
+import {flipPosition, position, removeClass, toNumber} from '../util/index';
 
 export default function (UIkit) {
 
@@ -33,7 +33,7 @@ export default function (UIkit) {
                 this.dir = this.pos[0];
                 this.align = this.pos[1];
 
-                var offset = Number(this.offset),
+                var offset = toNumber(this.offset) || 0,
                     axis = this.getAxis(),
                     flipped = position(
                         element,
