@@ -28,47 +28,12 @@ export default function (UIkit) {
 
             switch(this.mode) {
 
-                case 'media':
-
-                    if (this.media) {
-
-                        var onresize = () => {
-
-                            var mediaQuery;
-
-                            if (typeof(this.media) == 'string') {
-
-                                if (this.media[0] == '@') {
-                                    var lessvar = 'media-'+this.media.substr(1);
-                                    mediaQuery = `(min-width: ${UIkit.util.getCssVar(lessvar)})`;
-                                }
-
-                            } else if (typeof(this.media) == 'number') {
-                                mediaQuery = '(min-width: '+this.media+'px)';
-                            }
-
-                            if (mediaQuery && window.matchMedia(mediaQuery).matches) {
-                                this.toggle('toggleShow');
-                            } else {
-                                this.toggle('toggleHide')
-                            }
-
-                            return onresize;
-                        };
-
-                        $(window).on('resize', onresize());
-                    }
-
-                    break;
-
                 case 'hover':
 
                     this.$el.on({
                         mouseenter: () => this.toggle('toggleShow'),
                         mouseleave: () => this.toggle('toggleHide')
                     });
-
-                    break;
 
                 case 'click':
 
@@ -80,8 +45,6 @@ export default function (UIkit) {
 
                         this.toggle();
                     });
-
-                    break;
             }
 
         },
@@ -97,6 +60,41 @@ export default function (UIkit) {
                     this.toggleElement(this.target);
                 }
             }
+
+        },
+
+        update: {
+
+            handler() {
+
+                if (this.mode == 'media' && this.media) {
+
+                    var mediaQuery;
+
+                    if (typeof(this.media) == 'string') {
+
+                        if (this.media[0] == '@') {
+                            var lessvar = 'media-'+this.media.substr(1);
+                            mediaQuery = `(min-width: ${UIkit.util.getCssVar(lessvar)})`;
+                        }
+
+                    } else if (typeof(this.media) == 'number') {
+                        mediaQuery = '(min-width: '+this.media+'px)';
+                    }
+
+                    if (mediaQuery && window.matchMedia(mediaQuery).matches) {
+                        if (!this.isToggled(this.$el)) {
+                            this.toggle('toggleShow');
+                        }
+                    } else {
+                        if (this.isToggled(this.$el)) {
+                            this.toggle('toggleHide')
+                        }
+                    }
+                }
+            },
+
+            events: ['load', 'resize', 'orientationchange']
 
         }
 
