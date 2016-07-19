@@ -11,7 +11,8 @@ export default function (UIkit) {
 
         defaults: {
             animation: true,
-            close: '.uk-alert-close'
+            close: '.uk-alert-close',
+            duration: 150
         },
 
         ready() {

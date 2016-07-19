@@ -60,7 +60,9 @@ export default function (UIkit) {
 
                     if (this.animation === true && animate !== false) {
 
-                        var height = el[0].offsetHeight ? el.height() : 0,
+                        var inProgress = Transition.inProgress(el),
+                            inner = parseFloat(el.children().first().css('margin-top')) + parseFloat(el.children().last().css('margin-bottom')),
+                            height = el[0].offsetHeight ? el.height() + (inProgress ? 0 : inner) : 0,
                             initProps = {
                                 overflow: '',
                                 height: '',
@@ -76,8 +78,7 @@ export default function (UIkit) {
                                 paddingBottom: 0,
                                 marginTop: 0,
                                 marginBottom: 0
-                            },
-                            inProgress = Transition.inProgress(el);
+                            };
 
                         Transition.stop(el);
 
@@ -88,7 +89,7 @@ export default function (UIkit) {
                         }
 
                         el.css('height', '');
-                        var endHeight = el.height();
+                        var endHeight = el.height() + inner;
 
                         el.height(height);
 

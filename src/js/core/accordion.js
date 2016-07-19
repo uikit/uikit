@@ -75,8 +75,7 @@ export default function (UIkit) {
                     el.toggleClass(this.clsOpen, state);
 
                     if (!Transition.inProgress(content.parent())) {
-                        content.wrap('<div>');
-                        content.parent().attr('hidden', state);
+                        content.wrap('<div>').parent().attr('hidden', state);
                     }
 
                     this.toggleNow(content, true);
