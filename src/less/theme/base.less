@@ -11,8 +11,21 @@
 
 @base-blockquote-margin-vertical:               @global-medium-margin;
 
+//
+// New
+//
+
+@base-code-border:                              @global-border;
+@base-code-border-width:                        @global-border-width;
+@base-code-border-radius:                       3px;
+
+@base-blockquote-text-align:                    center;
+
 @base-pre-padding:                              10px;
 @base-pre-background:                           @global-background;
+@base-pre-border:                               @global-border;
+@base-pre-border-width:                         @global-border-width;
+@base-pre-border-radius:                        3px;
 
 
 // Body
@@ -34,8 +47,8 @@
 
 .hook-base-code() {
     padding: 1px 6px 3px 6px;
-    border: 1px solid @global-border;
-    border-radius: 3px;
+    border: @base-code-border-width solid @base-code-border;
+    border-radius: @base-code-border-radius;
 }
 
 
@@ -67,7 +80,7 @@
 // ========================================================================
 
 .hook-base-blockquote() {
-    text-align: center;
+    text-align: @base-blockquote-text-align;
 }
 
 
@@ -77,8 +90,8 @@
 .hook-base-pre() {
     padding: @base-pre-padding;
     background: @base-pre-background;
-    border: 1px solid @global-border;
-    border-radius: 3px;
+    border: @base-pre-border-width solid @base-pre-border;
+    border-radius: @base-pre-border-radius;
 }
 
 

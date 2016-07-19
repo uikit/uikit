@@ -11,14 +11,26 @@
 
 @card-default-background:                      @global-background;
 @card-default-hover-background:                @card-default-background;
-@card-default-header-border:                   @global-border;
-@card-default-header-border-width:             @global-border-width;
-@card-default-footer-border:                   @global-border;
-@card-default-footer-border-width:             @global-border-width;
 
 @card-primary-hover-background:                @card-primary-background;
 
 @card-secondary-hover-background:              @card-secondary-background;
+
+//
+// New
+//
+
+@card-box-shadow:                              rgba(0,0,0,0.15);
+@card-box-shadow-blur:                         10px;
+
+@card-hover-box-shadow:                        rgba(0,0,0,0.3);
+@card-hover-box-shadow-blur:                   25px;
+
+@card-default-header-border:                   @global-border;
+@card-default-header-border-width:             @global-border-width;
+
+@card-default-footer-border:                   @global-border;
+@card-default-footer-border-width:             @global-border-width;
 
 
 // Component
@@ -66,13 +78,13 @@
 // Hover modifier
 // ========================================================================
 
-.hook-card-hover() { box-shadow: 0 4px 25px rgba(0,0,0,0.3); }
+.hook-card-hover() { box-shadow: 0 4px @card-hover-box-shadow-blur @card-hover-box-shadow; }
 
 
 // Style modifiers
 // ========================================================================
 
-.hook-card-default() { box-shadow: 0 3px 10px rgba(0,0,0,0.15); }
+.hook-card-default() { box-shadow: 0 3px @card-box-shadow-blur @card-box-shadow; }
 
 .hook-card-default-title() {}
 
@@ -86,7 +98,7 @@
 // Primary
 //
 
-.hook-card-primary() { box-shadow: 0 3px 10px rgba(0,0,0,0.15); }
+.hook-card-primary() { box-shadow: 0 3px @card-box-shadow-blur @card-box-shadow; }
 
 .hook-card-primary-title() {}
 
@@ -96,7 +108,7 @@
 // Secondary
 //
 
-.hook-card-secondary() { box-shadow: 0 3px 10px rgba(0,0,0,0.15); }
+.hook-card-secondary() { box-shadow: 0 3px @card-box-shadow-blur @card-box-shadow; }
 
 .hook-card-secondary-title() {}
 

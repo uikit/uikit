@@ -17,12 +17,24 @@
 
 @button-disabled-background:                    transparent;
 
+//
+// New
+//
+
+@button-border-width:                           @global-border-width;
+
+@button-default-border:                         @global-border;
+@button-default-hover-border:                   darken(@global-border, 20%);
+@button-default-active-border:                  darken(@global-border, 30%);
+
+@button-disabled-border:                        @global-border;
+
 
 // Component
 // ========================================================================
 
 .hook-button() {
-    border: 1px solid transparent;
+    border: @button-border-width solid transparent;
     -webkit-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
     -webkit-transition-property: color, background-color, border;
@@ -39,11 +51,11 @@
 // Style modifiers
 // ========================================================================
 
-.hook-button-default() { border-color: @global-border; }
+.hook-button-default() { border-color: @button-default-border; }
 
-.hook-button-default-hover() {  border-color: darken(@global-border, 20%); }
+.hook-button-default-hover() {  border-color: @button-default-hover-border; }
 
-.hook-button-default-active() { border-color: darken(@global-border, 30%); }
+.hook-button-default-active() { border-color: @button-default-active-border; }
 
 //
 // Primary
@@ -79,7 +91,7 @@
 // Disabled
 // ========================================================================
 
-.hook-button-disabled() { border: 1px solid @global-border; }
+.hook-button-disabled() { border-color: @button-disabled-border; }
 
 
 // Text modifier
@@ -111,7 +123,7 @@
      */
 
     .uk-button-group > .uk-button-default:nth-child(n+2),
-    .uk-button-group > div:nth-child(n+2) .uk-button-default { margin-left: -1px; }
+    .uk-button-group > div:nth-child(n+2) .uk-button-default { margin-left: -@button-border-width; }
 
     /*
      * Create position context to superimpose the successor elements border
