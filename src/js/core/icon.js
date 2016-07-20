@@ -20,6 +20,14 @@ export default function (UIkit) {
 
     }));
 
+    UIkit.component('navbar-toggle-icon', UIkit.components.icon.extend({
+
+        name: 'navbar-toggle-icon',
+
+        defaults: {icon: 'navbar_toggle_icon'}
+
+    }));
+
     UIkit.component('overlay-icon', UIkit.components.icon.extend({
 
         name: 'overlay-icon',

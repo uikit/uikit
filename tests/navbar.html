@@ -1292,34 +1292,34 @@
                 </div>
                 <div>
 
-                    <nav class="uk-navbar uk-navbar-container uk-margin">
+                    <nav id="navbar-toggle-1" class="uk-navbar uk-navbar-container uk-margin">
                         <div class="uk-navbar-left">
                             <div>
                                 <a class="uk-navbar-item uk-logo" href="#">Logo</a>
-                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown;">Dropdown</div>
+                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown; boundary: #navbar-toggle-1; flip: x">Dropdown</div>
                             </div>
                         </div>
                         <div class="uk-navbar-right">
                             <div>
-                                <a class="uk-navbar-toggle" uk-icon="icon: navbar_toggle_icon" href="#"></a>
-                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown;">Dropdown</div>
+                                <a class="uk-navbar-toggle" href="#" uk-navbar-toggle-icon></a>
+                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown; boundary: #navbar-toggle-1; flip: x">Dropdown</div>
                             </div>
                         </div>
                     </nav>
 
-                    <nav class="uk-navbar uk-navbar-container uk-margin">
+                    <nav id="navbar-toggle-2" class="uk-navbar uk-navbar-container uk-margin">
                         <div class="uk-navbar-left">
                             <div>
                                 <a class="uk-navbar-toggle" href="#">Menu</a>
-                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown;">Dropdown</div>
+                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown; boundary: #navbar-toggle-2; flip: x">Dropdown</div>
                             </div>
                         </div>
                         <div class="uk-navbar-right">
                             <div>
                                 <a class="uk-navbar-toggle" href="#">
-                                    <span class="uk-margin-small-right">Menu</span> <span uk-icon="icon: navbar_toggle_icon"></span>
+                                    <span class="uk-margin-small-right">Menu</span> <span uk-navbar-toggle-icon></span>
                                 </a>
-                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown;">Dropdown</div>
+                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown; boundary: #navbar-toggle-2; flip: x">Dropdown</div>
                             </div>
                         </div>
                     </nav>
