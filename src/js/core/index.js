@@ -83,12 +83,10 @@ export default function (UIkit) {
     UIkit.use(Cover);
     UIkit.use(Drop);
     UIkit.use(Dropdown);
-    UIkit.use(Margin);
-    UIkit.use(Grid);
     UIkit.use(HeightMatch);
     UIkit.use(HeightViewport);
-    UIkit.use(Svg);
-    UIkit.use(Icon);
+    UIkit.use(Margin);
+    UIkit.use(Grid);
     UIkit.use(Modal);
     UIkit.use(Nav);
     UIkit.use(Navbar);
@@ -98,6 +96,8 @@ export default function (UIkit) {
     UIkit.use(Scrollspy);
     UIkit.use(ScrollspyNav);
     UIkit.use(Sticky);
+    UIkit.use(Svg);
+    UIkit.use(Icon);
     UIkit.use(Switcher);
     UIkit.use(Tab);
     UIkit.use(Toggle);
