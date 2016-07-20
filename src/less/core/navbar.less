@@ -212,7 +212,7 @@
 
 .uk-navbar-nav > li:hover > a,
 .uk-navbar-nav > li > a:focus,
-.uk-navbar-nav > li.uk-open > a {
+.uk-navbar-nav > li > a.uk-open {
     color: @navbar-nav-item-hover-color;
     outline: none;
     .hook-navbar-nav-item-hover;
@@ -249,7 +249,8 @@
 }
 
 .uk-navbar-toggle:hover,
-.uk-navbar-toggle:focus {
+.uk-navbar-toggle:focus,
+.uk-navbar-toggle.uk-open {
     color: @navbar-toggle-hover-color;
     outline: none;
     text-decoration: none;
@@ -494,7 +495,7 @@
 
     .uk-navbar-transparent .uk-navbar-nav > li:hover > a,
     .uk-navbar-transparent .uk-navbar-nav > li > a:focus,
-    .uk-navbar-transparent .uk-navbar-nav > li.uk-open > a {
+    .uk-navbar-transparent .uk-navbar-nav > li > a.uk-open {
         color: @navbar-nav-item-hover-color;
         .hook-dye-navbar-transparent-nav-item-hover;
     }
