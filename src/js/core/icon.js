@@ -40,6 +40,14 @@ export default function (UIkit) {
 
     }));
 
+    UIkit.component('search', UIkit.components.icon.extend({
+
+        name: 'search',
+
+        defaults: {icon: 'search_icon'}
+
+    }));
+
     UIkit.component('slidenav', UIkit.components.icon.extend({
 
         name: 'slidenav',
