@@ -75,8 +75,8 @@ export function getDimensions(elem) {
     var width = elem.outerWidth(),
         height = elem.outerHeight(),
         offset = elem.offset(),
-        left = offset ? offset.left : elem.scrollLeft(),
-        top = offset ? offset.top : elem.scrollTop();
+        left = offset ? Math.round(offset.left) : elem.scrollLeft(),
+        top = offset ? Math.round(offset.top) : elem.scrollTop();
 
     return {width, height, left, top, right: left + width, bottom: top + height};
 }
