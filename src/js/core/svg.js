@@ -53,13 +53,15 @@ export default function (UIkit) {
                     }
                 }
 
-                this.get(this.src).then(doc => {
+                this.get(this.src).then(svg => {
 
-                    var svg = toJQuery($(doc).filter('svg')), el;
+                    var el;
 
-                    el = !this.icon ? svg : (el = toJQuery(`#${this.icon}`, svg))
-                    && $($('<div>').append(el).html().replace(/symbol/g, 'svg')) // IE workaround, el[0].outerHTML
-                    || !toJQuery('symbol', svg) && svg; // fallback if SVG has no symbols
+                    el = !this.icon
+                            ? svg.clone()
+                            : (el = toJQuery(`#${this.icon}`, svg))
+                                && $((el[0].outerHTML || $('<div>').append(el.clone()).html()).replace(/symbol/g, 'svg')) // IE workaround, el[0].outerHTML
+                                || !toJQuery('symbol', svg) && svg.clone(); // fallback if SVG has no symbols
 
                     if (!el) {
                         return $.Deferred().reject('SVG not found.');
@@ -132,13 +134,17 @@ export default function (UIkit) {
                 if (!storage[key]) {
                     $.get(src).then((doc, status, res) => {
                         storage[key] = res.responseText;
-                        svgs[src].resolve(storage[key]);
+                        svgs[src].resolve(getSvg(storage[key]));
                     });
                 } else {
-                    svgs[src].resolve(storage[key]);
+                    svgs[src].resolve(getSvg(storage[key]));
                 }
 
                 return svgs[src];
+
+                function getSvg (doc) {
+                    return $(doc).filter('svg');
+                }
             }
 
         }
