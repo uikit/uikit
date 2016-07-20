@@ -1,9 +1,29 @@
+
+String.prototype.ucfirst = function() {
+    return this.length ? this.charAt(0).toUpperCase() + this.slice(1) : '';
+}
+
+function _get(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+
 var storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_inverse';
 
-storage[key] = storage[key] || '../css/uikit.css';
+var styles  = {
+    'core'  : 'css/uikit.core.css',
+    'theme' : '../css/uikit.css'
+};
+
+if (_get('style') && _get('style').match(/\.(json|css)$/)) {
+    styles.custom = _get('style');
+}
+
+storage[key]        = storage[key] || 'core';
 storage[keyinverse] = storage[keyinverse] || 'default';
 
-document.writeln(`<link rel="stylesheet" href="${storage[key]}">`);
+document.writeln(`<link rel="stylesheet" href="${(styles[storage[key]] || '../css/uikit.css')}">`);
 document.writeln(`<script src="../vendor/jquery.js"></script>`);
 document.writeln(`<script src="../js/uikit.js"></script>`);
 
@@ -13,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     var $container = $('<div class="uk-container"></div>').prependTo('body');
     var $tests     = $('<select class="uk-select"></select>').css('margin', '20px 20px 20px 0').prependTo($container);
+    var $styles    = $('<select class="uk-select"></select>').css('margin', '20px').appendTo($container);
     var $inverse   = $('<select class="uk-select"></select>').css('margin', '20px').appendTo($container);
 
     [
@@ -75,6 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
         'visibility',
         'width'
     ].forEach(name => {
+
         $(`<option value="${name}.html">${name.split('-').map(name => {
             return name.charAt(0).toUpperCase() + name.slice(1);
         }).join(' ')}</option>`).appendTo($tests);
@@ -82,14 +104,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     $tests.on('change', () => {
         if ($tests.val()) {
-            location.href = `../${document.querySelector('script[src*="test.js"]').getAttribute('src').replace('js/test.js', '')}tests/${$tests.val()}`;
+            var style = styles.custom ? `?style=${_get('style')}` : '';
+            location.href = `../${document.querySelector('script[src*="test.js"]').getAttribute('src').replace('js/test.js', '')}tests/${$tests.val()}${style}`;
         }
     }).val(location.pathname.split('/').pop());
 
 
     ['default','light','dark'].forEach(name => {
         $(`<option value="${name}">${name.split('-').map(name => {
-            return name.charAt(0).toUpperCase() + name.slice(1);
+            return name.ucfirst();
         }).join(' ')}</option>`).appendTo($inverse);
     });
 
@@ -118,14 +141,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }).val(storage[keyinverse]).trigger('change');
 
 
-    var $styles = $(`
-        <select class="uk-select">
-            <option value="../css/uikit.css">Theme</option>
-            <option value="css/uikit.core.css">Core</option>
-        </select>
-    `).insertAfter($tests);
+    Object.keys(styles).forEach(style => {
+        $styles.append(`<option value="${style}">${style.ucfirst()}</option>`);
+    });
 
-    $styles.css('margin', '20px 0').on('change', () => {
+    $styles.on('change', () => {
         storage[key] = $styles.val();
         location.reload();
     }).val(storage[key]);
