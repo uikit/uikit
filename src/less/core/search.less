@@ -5,7 +5,8 @@
 //
 // Sub-objects:     `uk-search-input`
 //                  `uk-search-icon`
-//                  `uk-search-toggle`
+//
+// Adopted:         `uk-search-toggle`
 //
 // Modifier:        `uk-search-default`
 //                  `uk-search-large`
@@ -302,13 +303,10 @@ span.uk-search-icon { pointer-events: none; }
 
 
 /* Toggle
+ * Adopts `uk-icon`
  ========================================================================== */
 
-/*
- * Extend `uk-icon`
- */
-
-.uk-search-toggle:extend(.uk-icon all) {
+.uk-search-toggle {
     background-color: red;
     color: @search-toggle-color;
     .hook-search-toggle;

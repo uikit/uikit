@@ -10,16 +10,16 @@
 //                  `uk-navbar-nav`
 //                  `uk-navbar-item`
 //                  `uk-navbar-toggle`
-//                  `uk-navbar-toggle-icon`
 //                  `uk-navbar-subtitle`
 //                  `uk-navbar-dropbar`
-//
-// Modifiers:       `uk-navbar-transparent`
-//                  `uk-navbar-dropdown-stack`
 //
 // Adopted:         `uk-navbar-dropdown` + Modifiers
 //                  `uk-navbar-dropdown-nav`
 //                  `uk-navbar-dropdown-grid`
+//                  `uk-navbar-toggle-icon`
+//
+// Modifiers:       `uk-navbar-transparent`
+//                  `uk-navbar-dropdown-stack`
 //
 // States:          `uk-active`
 //                  `uk-parent`
@@ -259,10 +259,10 @@
 
 /*
  * Icon
- * Extend `uk-icon`
+ * Adopts `uk-icon`
  */
 
-.uk-navbar-toggle-icon:extend(.uk-icon all) {
+.uk-navbar-toggle-icon {
     .hook-navbar-toggle-icon;
 }
 
@@ -295,6 +295,7 @@
  ========================================================================== */
 
 /*
+ * Adopts `uk-dropdown`
  * 1. Hide by default
  * 2. Set position
  * 3. Set a default width
@@ -332,6 +333,7 @@
 
 /*
  * Grid
+ * Adopts `uk-grid`
  */
 
 /* Gutter Horizontal */
@@ -363,6 +365,7 @@
 
 
 /* Dropdown Nav
+ * Adopts `uk-nav`
  ========================================================================== */
 
 .uk-navbar-dropdown-nav {
