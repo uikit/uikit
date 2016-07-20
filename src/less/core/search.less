@@ -4,12 +4,13 @@
 // Component:       `uk-search`
 //
 // Sub-objects:     `uk-search-input`
-//                  `uk-search-icon`
 //
-// Adopted:         `uk-search-toggle`
+// Adopted:         `uk-search-icon`
 //
 // Modifier:        `uk-search-default`
+//                  `uk-search-navbar`
 //                  `uk-search-large`
+//                  `uk-search-toggle`
 //
 // ========================================================================
 
@@ -32,6 +33,13 @@
 
 @search-default-icon-width:                         @global-control-height;
 
+@search-navbar-width:                               400px;
+@search-navbar-height:                              40px;
+@search-navbar-background:                          transparent;
+@search-navbar-font-size:                           @global-large-font-size;
+
+@search-navbar-icon-width:                          40px;
+
 @search-large-width:                                500px;
 @search-large-height:                               80px;
 @search-large-background:                           transparent;
@@ -39,16 +47,8 @@
 
 @search-large-icon-width:                           80px;
 
-@search-navbar-width:                               300px;
-@search-navbar-height:                              40px;
-@search-navbar-background:                          transparent;
-@search-navbar-font-size:                           @global-large-font-size;
-
-@search-navbar-icon-width:                          40px;
-
-@search-toggle-color:                               fadeout(@global-color, 40%);
-@search-toggle-hover-color:                         fadeout(@global-color, 20%);
-@search-toggle-active-color:                        fadeout(@global-color, 10%);
+@search-toggle-color:                               @global-muted-color;
+@search-toggle-hover-color:                         @global-color;
 
 
 /* ========================================================================
@@ -132,12 +132,11 @@
 .uk-search-input::-webkit-input-placeholder { color: @search-placeholder-color; }
 
 
-
 /* Icon
  ========================================================================== */
 
-
 /*
+ * Adopts `uk-icon`
  * Required for `button`
  * 1. Remove margins in Chrome, Safari and Opera.
  * 2. Remove borders for `button`.
@@ -302,12 +301,10 @@ span.uk-search-icon { pointer-events: none; }
 .uk-search-navbar .uk-search-icon-flip + .uk-search-input { padding-right: (@search-navbar-icon-width); }
 
 
-/* Toggle
- * Adopts `uk-icon`
+/* Icon modifier
  ========================================================================== */
 
 .uk-search-toggle {
-    background-color: red;
     color: @search-toggle-color;
     .hook-search-toggle;
 }
@@ -316,16 +313,8 @@ span.uk-search-icon { pointer-events: none; }
 .uk-search-toggle:hover,
 .uk-search-toggle:focus {
     color: @search-toggle-hover-color;
-    outline: none;
     .hook-search-toggle-hover;
 }
-
-/* OnClick */
-.uk-search-toggle:active {
-    color: @search-toggle-active-color;
-    .hook-search-toggle-active;
-}
-
 
 
 // Hooks
@@ -339,6 +328,5 @@ span.uk-search-icon { pointer-events: none; }
 
 .hook-search-toggle() {}
 .hook-search-toggle-hover() {}
-.hook-search-toggle-active() {}
 
 .hook-search-misc() {}

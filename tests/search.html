@@ -126,7 +126,7 @@
 
             <a class="uk-search-toggle" href="#" uk-icon="icon: search_icon"></a>
 
-            <h2>Layouts</h2>
+            <h2>Navbar Toggle + Layouts</h2>
 
             <nav class="uk-navbar uk-navbar-container uk-margin">
 
@@ -144,9 +144,7 @@
                 </div>
                 <div class="test-overlay uk-navbar-right">
 
-                    <div class="uk-navbar-item">
-                        <a class="uk-search-toggle" href="#" uk-icon="icon: search_icon" uk-toggle="target: .test-overlay; animation: uk-animation-fade;"></a>
-                    </div>
+                    <a class="uk-navbar-toggle" uk-icon="icon: search_icon" uk-toggle="target: .test-overlay; animation: uk-animation-fade;" href="#"></a>
 
                 </div>
 
@@ -158,9 +156,7 @@
                         </form>
                     </div>
 
-                    <div class="uk-navbar-item">
-                        <a href="#" uk-close uk-toggle="target: .test-overlay; animation: uk-animation-fade;"></a>
-                    </div>
+                    <a class="uk-navbar-toggle" uk-close uk-toggle="target: .test-overlay; animation: uk-animation-fade;" href="#"></a>
 
                 </div>
 
@@ -181,8 +177,8 @@
                 </div>
                 <div class="uk-navbar-right">
 
-                    <div class="uk-navbar-item">
-                        <a class="uk-search-toggle" href="#" uk-icon="icon: search_icon"></a>
+                    <div>
+                        <a class="uk-navbar-toggle" uk-icon="icon: search_icon" href="#"></a>
                         <div uk-drop="mode: click; pos: left-center; offset: 0">
                             <form class="uk-search uk-search-navbar uk-width-1-1">
                                 <input class="uk-search-input" type="search" placeholder="Search...">
@@ -209,9 +205,36 @@
                 <div class="uk-navbar-right">
 
                     <div>
-                        <a class="uk-navbar-toggle" uk-icon="icon: search_icon" href="#"></a>
-                        <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown;">
+                        <a class="uk-navbar-toggle" href="#" uk-icon="icon: search_icon"></a>
+                        <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown;">
                             <form class="uk-search uk-search-navbar">
+                                <input class="uk-search-input" type="search" placeholder="Search...">
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </nav>
+
+            <nav id="test-justify" class="uk-navbar uk-navbar-container uk-margin">
+                <div class="uk-navbar-left">
+
+                    <a class="uk-navbar-item uk-logo" href="#">Justify</a>
+
+                    <ul class="uk-navbar-nav">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li><a href="#">Parent</a></li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Item</a></li>
+                    </ul>
+
+                </div>
+                <div class="uk-navbar-right">
+
+                    <div>
+                        <a class="uk-navbar-toggle" href="#" uk-icon="icon: search_icon"></a>
+                        <div class="uk-navbar-dropdown" uk-drop="mode: click; cls-drop: uk-navbar-dropdown; boundary: #test-justify; boundary-align: true; pos: bottom-justify; flip: x">
+                            <form class="uk-search uk-search-navbar uk-width-1-1">
                                 <input class="uk-search-input" type="search" placeholder="Search...">
                             </form>
                         </div>
@@ -235,11 +258,7 @@
                 </div>
                 <div class="uk-navbar-right">
 
-                    <div class="uk-navbar-item">
-                        <div class="uk-inline uk-flex">
-                            <a class="uk-search-toggle" href="#modal-full" uk-icon="icon: search_icon" uk-toggle></a>
-                        </div>
-                    </div>
+                    <a class="uk-navbar-toggle" href="#modal-full" uk-icon="icon: search_icon" uk-toggle></a>
 
                 </div>
             </nav>
