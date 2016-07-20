@@ -4,6 +4,7 @@
 
   - Updated icon component to FontAwesome 4.6.3
   - Fixed slideset showing horizontal scrollbar on animation
+  - Fixed sticky element disappearing on scroll in iOS browsers
 
 
 ### 2.26.4 (Jul 13, 2016)
