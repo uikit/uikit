@@ -47,10 +47,6 @@
 
 @navbar-toggle-color:                           @global-muted-color;
 @navbar-toggle-hover-color:                     @global-color;
-@navbar-toggle-icon-width:                      (@global-line-height * 1em);
-@navbar-toggle-icon-height:                     @navbar-toggle-icon-width;
-@navbar-toggle-icon-color:                      @global-muted-color;
-@navbar-toggle-icon-hover-color:                @global-color;
 
 @navbar-subtitle-font-size:                     @global-small-font-size;
 
@@ -252,32 +248,26 @@
     .hook-navbar-toggle;
 }
 
-.uk-navbar-toggle:hover {
+.uk-navbar-toggle:hover,
+.uk-navbar-toggle:focus {
     color: @navbar-toggle-hover-color;
+    outline: none;
     text-decoration: none;
     .hook-navbar-toggle-hover;
 }
 
-.uk-navbar-toggle:focus { outline: none; }
-
 /*
  * Icon
+ * Extend `uk-icon`
  */
 
-.uk-navbar-toggle-icon {
-    display: inline-block;
-    width: @navbar-toggle-icon-width;
-    height: @navbar-toggle-icon-height;
-    .svg-fill("../../images/navbar-toggle-icon.svg", "#000", @navbar-toggle-icon-color);
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
+.uk-navbar-toggle-icon:extend(.uk-icon all) {
     .hook-navbar-toggle-icon;
 }
 
 /* Hover + Focus */
 :hover > .uk-navbar-toggle-icon,
 :focus > .uk-navbar-toggle-icon {
-    .svg-fill("../../images/navbar-toggle-icon.svg", "#000", @navbar-toggle-icon-hover-color);
     .hook-navbar-toggle-icon-hover;
 }
 

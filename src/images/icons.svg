@@ -687,4 +687,10 @@
         <rect x="0" y="19" width="40" height="1"></rect>
     </symbol>
 
+    <svg id="navbar_toggle_icon" viewBox="0 0 20 20">
+        <rect y="9" width="20" height="2"></rect>
+        <rect y="3" width="20" height="2"></rect>
+        <rect y="15" width="20" height="2"></rect>
+    </svg>
+
 </svg>

@@ -1271,9 +1271,7 @@
 
                     <nav class="uk-navbar uk-navbar-container uk-margin">
                         <div class="uk-navbar-left">
-                            <a class="uk-navbar-toggle" href="#">
-                                <div class="uk-navbar-toggle-icon"></div>
-                            </a>
+                            <a class="uk-navbar-toggle" uk-icon="icon: navbar_toggle_icon" href="#"></a>
                         </div>
                         <div class="uk-navbar-right">
                             <a class="uk-navbar-item uk-logo" href="#">Logo</a>
@@ -1283,7 +1281,7 @@
                     <nav class="uk-navbar uk-navbar-container uk-margin">
                         <div class="uk-navbar-left">
                             <a class="uk-navbar-toggle" href="#">
-                                <div class="uk-navbar-toggle-icon"></div> <span class="uk-margin-small-left">Menu</span>
+                                <span uk-icon="icon: navbar_toggle_icon"></span> <span class="uk-margin-small-left">Menu</span>
                             </a>
                         </div>
                         <div class="uk-navbar-right">
@@ -1296,23 +1294,33 @@
 
                     <nav class="uk-navbar uk-navbar-container uk-margin">
                         <div class="uk-navbar-left">
-                            <a class="uk-navbar-item uk-logo" href="#">Logo</a>
+                            <div>
+                                <a class="uk-navbar-item uk-logo" href="#">Logo</a>
+                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown;">Dropdown</div>
+                            </div>
                         </div>
                         <div class="uk-navbar-right">
-                            <a class="uk-navbar-toggle" href="#">
-                                <div class="uk-navbar-toggle-icon"></div>
-                            </a>
+                            <div>
+                                <a class="uk-navbar-toggle" uk-icon="icon: navbar_toggle_icon" href="#"></a>
+                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown;">Dropdown</div>
+                            </div>
                         </div>
                     </nav>
 
                     <nav class="uk-navbar uk-navbar-container uk-margin">
                         <div class="uk-navbar-left">
-                            <a class="uk-navbar-toggle" href="#">Menu</a>
+                            <div>
+                                <a class="uk-navbar-toggle" href="#">Menu</a>
+                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown;">Dropdown</div>
+                            </div>
                         </div>
                         <div class="uk-navbar-right">
-                            <a class="uk-navbar-toggle" href="#">
-                                <span class="uk-margin-small-right">Menu</span> <div class="uk-navbar-toggle-icon"></div>
-                            </a>
+                            <div>
+                                <a class="uk-navbar-toggle" href="#">
+                                    <span class="uk-margin-small-right">Menu</span> <span uk-icon="icon: navbar_toggle_icon"></span>
+                                </a>
+                                <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown;">Dropdown</div>
+                            </div>
                         </div>
                     </nav>
 

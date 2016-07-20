@@ -182,12 +182,39 @@
                 <div class="uk-navbar-right">
 
                     <div class="uk-navbar-item">
-                            <a class="uk-search-toggle" href="#" uk-icon="icon: search_icon"></a>
-                            <div uk-drop="mode: click; pos: left-center; offset: 0">
-                                <form class="uk-search uk-search-navbar uk-width-1-1">
-                                    <input class="uk-search-input" type="search" placeholder="Search...">
-                                </form>
-                            </div>
+                        <a class="uk-search-toggle" href="#" uk-icon="icon: search_icon"></a>
+                        <div uk-drop="mode: click; pos: left-center; offset: 0">
+                            <form class="uk-search uk-search-navbar uk-width-1-1">
+                                <input class="uk-search-input" type="search" placeholder="Search...">
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </nav>
+
+            <nav class="uk-navbar uk-navbar-container uk-margin">
+                <div class="uk-navbar-left">
+
+                    <a class="uk-navbar-item uk-logo" href="#">Dropdown</a>
+
+                    <ul class="uk-navbar-nav">
+                        <li class="uk-active"><a href="#">Active</a></li>
+                        <li><a href="#">Parent</a></li>
+                        <li><a href="#">Item</a></li>
+                        <li><a href="#">Item</a></li>
+                    </ul>
+
+                </div>
+                <div class="uk-navbar-right">
+
+                    <div>
+                        <a class="uk-navbar-toggle" uk-icon="icon: search_icon" href="#"></a>
+                        <div class="uk-navbar-dropdown" uk-drop="cls-drop: uk-navbar-dropdown;">
+                            <form class="uk-search uk-search-navbar">
+                                <input class="uk-search-input" type="search" placeholder="Search...">
+                            </form>
+                        </div>
                     </div>
 
                 </div>
