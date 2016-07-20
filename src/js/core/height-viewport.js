@@ -18,13 +18,11 @@ export default function (UIkit) {
             }
         },
 
-        complete() {
-            this.borderBox = this.$el.css('box-sizing') === 'border-box';
-        },
-
         update: {
 
             handler() {
+
+                this.borderBox = this.$el.css('box-sizing') === 'border-box';
 
                 if (this.expand) {
 

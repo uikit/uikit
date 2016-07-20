@@ -31,10 +31,14 @@ export default function (UIkit) {
         if (isReady()) {
             this._callReady();
         } else {
-            requestAnimationFrame(() => this._callReady());
+            var ready = (() => {
+                if (isReady()) {
+                    this._callReady();
+                } else {
+                    requestAnimationFrame(ready);
+                }
+            })();
         }
-
-        requestAnimationFrame(() => this._callHook('complete'));
     };
 
     UIkit.prototype.$update = function (e, element) {

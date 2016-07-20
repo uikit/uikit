@@ -25,69 +25,86 @@ export default function (UIkit) {
             exclude: ['src']
         },
 
-        complete() {
+        ready() {
 
-            this.src = getComputedStyle(this.$el[0], '::before')['background-image'].slice(4, -1).replace(/"/g, '') || this.src;
+            this.svg = $.Deferred();
 
-            if (this.src.indexOf('#') !== -1) {
+            var fn = (() => {
 
-                var parts = this.src.split('#');
+                    if (!this.src) {
+                        this.src = getComputedStyle(this.$el[0], '::before');
 
-                if (parts.length > 1) {
-                    this.src = parts[0];
-                    this.icon = parts[1];
-                }
-            }
+                        if (!this.src) {
+                            requestAnimationFrame(fn);
+                            return;
+                        } else {
+                            this.src = this.src['background-image'].slice(4, -1).replace(/"/g, '');
+                        }
 
-            this.svg = this.get(this.src).then(doc => {
-
-                var svg = toJQuery($(doc).filter('svg')), el;
-
-                el = !this.icon ? svg : (el = toJQuery(`#${this.icon}`, svg))
-                && $($('<div>').append(el).html().replace(/symbol/g, 'svg')) // IE workaround, el[0].outerHTML
-                || !toJQuery('symbol', svg) && svg; // fallback if SVG has no symbols
-
-                if (!el) {
-                    return $.Deferred().reject('SVG not found.');
-                }
-
-                var dimensions = el[0].getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
-
-                if (dimensions) {
-                    dimensions = dimensions.split(' ');
-                    this.width = this.width || dimensions[2];
-                    this.height = this.height || dimensions[3];
-                }
-
-                this.width *= this.ratio;
-                this.height *= this.ratio;
-
-                for (var prop in this.$options.props) {
-                    if (this[prop] && this.exclude.indexOf(prop) === -1) {
-                        el.attr(prop, this[prop]);
                     }
-                }
 
-                if (!this.id) {
-                    el.removeAttr('id');
-                }
+                    if (this.src.indexOf('#') !== -1) {
 
-                if (this.width && !this.height) {
-                    el.removeAttr('height');
-                }
+                        var parts = this.src.split('#');
 
-                if (this.height && !this.width) {
-                    el.removeAttr('width');
-                }
+                        if (parts.length > 1) {
+                            this.src = parts[0];
+                            this.icon = parts[1];
+                        }
+                    }
 
-                if (isVoidElement(this.$el)) {
-                    this.$el.attr({hidden: true, id: null});
-                    return el.insertAfter(this.$el);
-                } else {
-                    return el.appendTo(this.$el);
-                }
+                    this.get(this.src).then(doc => {
 
-            });
+                        var svg = toJQuery($(doc).filter('svg')), el;
+
+                        el = !this.icon ? svg : (el = toJQuery(`#${this.icon}`, svg))
+                        && $($('<div>').append(el).html().replace(/symbol/g, 'svg')) // IE workaround, el[0].outerHTML
+                        || !toJQuery('symbol', svg) && svg; // fallback if SVG has no symbols
+
+                        if (!el) {
+                            return $.Deferred().reject('SVG not found.');
+                        }
+
+                        var dimensions = el[0].getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
+
+                        if (dimensions) {
+                            dimensions = dimensions.split(' ');
+                            this.width = this.width || dimensions[2];
+                            this.height = this.height || dimensions[3];
+                        }
+
+                        this.width *= this.ratio;
+                        this.height *= this.ratio;
+
+                        for (var prop in this.$options.props) {
+                            if (this[prop] && this.exclude.indexOf(prop) === -1) {
+                                el.attr(prop, this[prop]);
+                            }
+                        }
+
+                        if (!this.id) {
+                            el.removeAttr('id');
+                        }
+
+                        if (this.width && !this.height) {
+                            el.removeAttr('height');
+                        }
+
+                        if (this.height && !this.width) {
+                            el.removeAttr('width');
+                        }
+
+                        if (isVoidElement(this.$el)) {
+                            this.$el.attr({hidden: true, id: null});
+                            this.svg.resolve(el.insertAfter(this.$el));
+                        } else {
+                            this.svg.resolve(el.appendTo(this.$el));
+                        }
+
+                    });
+
+                })();
+
 
         },
 
