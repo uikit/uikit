@@ -3,11 +3,12 @@
 //
 // Component:       `uk-search`
 //
-// Sub-objects:     `uk-search-toggle`
-//                  `uk-search-overlay`
+// Sub-objects:     `uk-search-input`
+//                  `uk-search-icon`
+//                  `uk-search-toggle`
 //
 // Modifier:        `uk-search-default`
-//                  `uk-search-primary`
+//                  `uk-search-large`
 //
 // ========================================================================
 
@@ -15,33 +16,38 @@
 // Variables
 // ========================================================================
 
-@search-default-width:                          180px;
-@search-default-height:                         @global-control-height;
-@search-default-padding-horizontal:             6px;
-@search-default-padding-vertical:               4px;
-@search-default-border:                         @global-border;
-@search-default-border-width:                   @global-border-width;
-@search-default-background:                     @global-background;
-@search-default-color:                          @global-color;
+@search-color:                                      @global-color;
+@search-placeholder-color:                          @global-muted-color;
 
-@search-default-icon-width:                     26px;
-@search-default-icon-color:                     @global-muted-color;
+@search-icon-font-size:                             @global-font-size;
+@search-icon-color:                                 @global-muted-color;
 
-@search-default-placeholder-color:              @global-muted-color;
+@search-default-width:                              180px;
+@search-default-height:                             @global-control-height;
+@search-default-padding-horizontal:                 6px;
+@search-default-border:                             @global-border;
+@search-default-border-width:                       @global-border-width;
+@search-default-background:                         @global-background;
 
-@search-primary-width:                          100%;
-@search-primary-height:                         40px;
-@search-primary-border:                         @global-border;
-@search-primary-border-width:                   0;
-@search-primary-background:                     transparent;
-@search-primary-color:                          @global-color;
-@search-primary-font-size:                      @global-medium-font-size;
+@search-default-icon-width:                         @global-control-height;
 
-@search-primary-placeholder-color:              @global-muted-color;
+@search-large-width:                                500px;
+@search-large-height:                               80px;
+@search-large-background:                           transparent;
+@search-large-font-size:                            @global-xxlarge-font-size;
 
-@search-toggle-color:                           fadeout(@global-color, 40%);
-@search-toggle-hover-color:                     fadeout(@global-color, 20%);
-@search-toggle-active-color:                    fadeout(@global-color, 10%);
+@search-large-icon-width:                           80px;
+
+@search-navbar-width:                               300px;
+@search-navbar-height:                              40px;
+@search-navbar-background:                          transparent;
+@search-navbar-font-size:                           @global-large-font-size;
+
+@search-navbar-icon-width:                          40px;
+
+@search-toggle-color:                               fadeout(@global-color, 40%);
+@search-toggle-hover-color:                         fadeout(@global-color, 20%);
+@search-toggle-active-color:                        fadeout(@global-color, 10%);
 
 
 /* ========================================================================
@@ -49,17 +55,39 @@
  ========================================================================== */
 
 /*
+ * 1. Container fits its content
+ * 2. Create position context
+ * 3. Prevent content overflow
+ * 4. Reset `form`
+ */
+
+.uk-search {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    max-width: 100%;
+    /* 4 */
+    margin: 0;
+}
+
+
+/* Input
+ ========================================================================== */
+
+/*
  * Remove the inner padding and cancel buttons in Chrome on OS X and Safari on OS X.
  */
 
-.uk-search::-webkit-search-cancel-button,
-.uk-search::-webkit-search-decoration { -webkit-appearance: none; }
+.uk-search-input::-webkit-search-cancel-button,
+.uk-search-input::-webkit-search-decoration { -webkit-appearance: none; }
 
 /*
  * Removes placeholder transparency in Firefox.
  */
 
-.uk-search::-moz-placeholder { opacity: 1; }
+.uk-search-input::-moz-placeholder { opacity: 1; }
 
 /*
  * 1. Define consistent box sizing.
@@ -69,9 +97,11 @@
  * 5. Show the overflow in Edge.
  * 6. Remove default style in iOS.
  * 7. Vertical alignment
+ * 8. Take the full container width
+ * 9. Style
  */
 
-.uk-search {
+.uk-search-input {
     /* 1 */
     box-sizing: border-box;
     /* 2 */
@@ -86,66 +116,189 @@
     -webkit-appearance: none;
     /* 7 */
     vertical-align: middle;
+    /* 8 */
+    width: 100%;
+    /* 9 */
+    border: none;
+    color: @search-color;
 }
 
+.uk-search-input:focus { outline: 0; }
 
-/* Style modifiers
+/* Placeholder */
+.uk-search-input:-ms-input-placeholder { color: @search-placeholder-color !important; }
+.uk-search-input::-moz-placeholder { color: @search-placeholder-color; }
+.uk-search-input::-webkit-input-placeholder { color: @search-placeholder-color; }
+
+
+
+/* Icon
  ========================================================================== */
 
+
 /*
- * Default
+ * Required for `button`
+ * 1. Remove margins in Chrome, Safari and Opera.
+ * 2. Remove borders for `button`.
+ * 3. Address `overflow` set to `hidden` in IE.
+ * 4. Correct `font` properties and `color` not being inherited for `button`.
+ * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 6. Remove default `button` padding and background color
+ * 7. Required for `button`.
+ * Style
+ * 8. Set container position and width
+ * 9. Center icon vertically and horizontally
  */
 
-.uk-search-default {
-    width: @search-default-width;
+.uk-search-icon {
+    /* 1 */
+    margin: 0;
+    /* 2 */
+    border: none;
+    /* 3 */
+    overflow: visible;
+    /* 4 */
+    font: inherit;
+    color: @search-icon-color;
+    /* 5 */
+    text-transform: none;
+    /* 6. */
+    padding: 0;
+    background-color: transparent;
+    /* 7 */
+    cursor: pointer;
+    /* 8 */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    /* 9 */
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+/*
+ * Remove the inner border and padding in Firefox. Required for `button`.
+ */
+
+.uk-search-icon::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/*
+ * Required for `a`.
+ */
+
+.uk-search-icon:hover { color:  @search-icon-color; }
+
+/*
+ * Remove default focus style
+ */
+
+.uk-search-icon:focus { outline: none; }
+
+/*
+ * Make `input` element clickable through icon if it's a `span`
+ */
+
+span.uk-search-icon { pointer-events: none; }
+
+/*
+ * Position modifier
+ */
+
+.uk-search-icon-flip {
+    right: 0;
+    left: auto;
+}
+
+
+/* Default modifier
+ ========================================================================== */
+
+.uk-search-default { width: @search-default-width; }
+
+/*
+ * Input
+ */
+
+.uk-search-default .uk-search-input {
     height: @search-default-height;
-    padding: @search-default-padding-vertical @search-default-padding-horizontal @search-default-padding-vertical (@search-default-icon-width + @search-default-padding-horizontal);
+    padding-left: @search-default-padding-horizontal;
+    padding-right: @search-default-padding-horizontal;
     border: @search-default-border-width solid @search-default-border;
     background-color: @search-default-background;
-    .svg-fill("../../images/search-default.svg", "#000", @search-default-icon-color);
-    background-repeat: no-repeat;
-    background-position: @search-default-padding-horizontal 50%;
-    color: @search-default-color;
-    .hook-search-default;
-}
-
-
-/* Placeholder */
-.uk-search-default:-ms-input-placeholder { color: @search-default-placeholder-color !important; }
-.uk-search-default::-moz-placeholder { color: @search-default-placeholder-color; }
-.uk-search-default::-webkit-input-placeholder { color: @search-default-placeholder-color; }
-
-/* Focus */
-.uk-search-default:focus {
-    outline: 0;
-    .hook-search-default-focus;
+    .hook-search-default-input;
 }
 
 /*
- * Primary
+ * Icon
  */
 
-.uk-search-primary {
-    width: @search-primary-width;
-    height: @search-primary-height;
-    border: @search-primary-border-width solid @search-primary-border;
-    background: @search-primary-background;
-    color: @search-primary-color;
-    font-size: @search-primary-font-size;
-    .hook-search-primary;
+.uk-search-default .uk-search-icon { width: @search-default-icon-width; }
+
+.uk-search-default .uk-search-icon:not(.uk-search-icon-flip) + .uk-search-input { padding-left: (@search-default-icon-width); }
+.uk-search-default .uk-search-icon-flip + .uk-search-input { padding-right: (@search-default-icon-width); }
+
+
+/* Large modifier
+ ========================================================================== */
+
+.uk-search-large { width: @search-large-width; }
+
+/*
+ * Input
+ */
+
+.uk-search-large .uk-search-input {
+    height: @search-large-height;
+    background-color: @search-large-background;
+    font-size: @search-large-font-size;
+    .hook-search-large-input;
 }
 
+/*
+ * Icon
+ */
 
-/* Placeholder */
-.uk-search-primary:-ms-input-placeholder { color: @search-primary-placeholder-color !important; }
-.uk-search-primary::-moz-placeholder { color: @search-primary-placeholder-color; }
-.uk-search-primary::-webkit-input-placeholder { color: @search-primary-placeholder-color; }
+.uk-search-large .uk-search-icon { width: @search-large-icon-width; }
 
-/* Focus */
-.uk-search-primary:focus {
-    outline: 0;
-    .hook-search-primary-focus;
+.uk-search-large .uk-search-icon:not(.uk-search-icon-flip) + .uk-search-input { padding-left: (@search-large-icon-width); }
+.uk-search-large .uk-search-icon-flip + .uk-search-input { padding-right: (@search-large-icon-width); }
+
+
+/* Navbar modifier
+ ========================================================================== */
+
+.uk-search-navbar { width: @search-navbar-width; }
+
+/*
+ * Input
+ */
+
+.uk-search-navbar .uk-search-input {
+    height: @search-navbar-height;
+    background-color: @search-navbar-background;
+    font-size: @search-navbar-font-size;
+    .hook-search-navbar-input;
 }
+
+/*
+ * Icon
+ */
+
+.uk-search-navbar .uk-search-icon { width: @search-navbar-icon-width; }
+
+.uk-search-navbar .uk-search-icon:not(.uk-search-icon-flip) + .uk-search-input { padding-left: (@search-navbar-icon-width); }
+.uk-search-navbar .uk-search-icon-flip + .uk-search-input { padding-right: (@search-navbar-icon-width); }
 
 
 /* Toggle
@@ -176,92 +329,18 @@
 }
 
 
-/* Overlay
- ========================================================================== */
-
-.uk-search-overlay {
-    padding: 5px 20px;
-    background: blue;
-}
-
 
 // Hooks
 // ========================================================================
 
 .hook-search-misc;
 
-.hook-search-default() {}
-.hook-search-default-focus() {}
-
-.hook-search-primary() {}
-.hook-search-primary-focus() {}
+.hook-search-default-input() {}
+.hook-search-large-input() {}
+.hook-search-navbar-input() {}
 
 .hook-search-toggle() {}
 .hook-search-toggle-hover() {}
 .hook-search-toggle-active() {}
 
 .hook-search-misc() {}
-
-
-// Dye
-// ========================================================================
-
-.dye-vars-default() {
-
-    @search-default-border:                         @dye-color;
-    @search-default-background:                     @dye-color;
-    @search-default-color:                          @dye-inverse-color;
-    @search-default-placeholder-color:              fade(@dye-inverse-color, 70%);
-
-    @search-toggle-color:                           fadeout(@dye-color, 40%);
-    @search-toggle-hover-color:                     fadeout(@dye-color, 20%);
-    @search-toggle-active-color:                    fadeout(@dye-color, 10%);
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
-
-    .uk-search-default {
-        color: @search-default-color;
-        border-color: @search-default-border;
-        background: @search-default-background;
-        .hook-dye-search-default;
-    }
-
-    //
-    // Placeholder
-    //
-
-    .uk-search-default:-ms-input-placeholder { color: @search-default-placeholder-color !important; }
-    .uk-search-default::-moz-placeholder { color: @search-default-placeholder-color; }
-    .uk-search-default::-webkit-input-placeholder { color: @search-default-placeholder-color; }
-
-    //
-    // Toggle
-    //
-
-    .uk-search-toggle {
-        color: @search-toggle-color;
-        .hook-dye-search-toggle;
-    }
-
-    .uk-search-toggle:hover,
-    .uk-search-toggle:focus {
-        color: @search-toggle-hover-color;
-        .hook-dye-search-toggle-hover;
-    }
-
-    .uk-search-toggle:active {
-        color: @search-toggle-active-color;
-        .hook-dye-search-toggle-active;
-    }
-
-}
-
-.hook-dye-search-default() {}
-.hook-dye-search-toggle() {}
-.hook-dye-search-toggle-hover() {}
-.hook-dye-search-toggle-active() {}

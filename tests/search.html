@@ -14,41 +14,135 @@
 
             <h1>Search</h1>
 
-            <div class="uk-child-width-1-2@m" uk-grid>
+            <div class="uk-child-width-1-3@m" uk-grid>
                 <div>
 
                     <h2>Default</h2>
 
-                    <form>
-                        <input class="uk-search uk-search-default" type="search" placeholder="Search...">
-                    </form>
+                    <div class="uk-margin">
+                        <form class="uk-search uk-search-default">
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                        </form>
+                    </div>
 
-                    <h2>Primary</h2>
+                    <h3>Icon + Flip</h3>
 
-                    <form>
-                        <input class="uk-search uk-search-primary" type="search" placeholder="Search...">
-                    </form>
+                    <div class="uk-margin" uk-margin>
+                        <form class="uk-search uk-search-default">
+                            <span class="uk-search-icon" uk-icon="icon: search_icon"></span>
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                        </form>
+
+                        <form class="uk-search uk-search-default">
+                            <span class="uk-search-icon uk-search-icon-flip" uk-icon="icon: search_icon"></span>
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                        </form>
+                    </div>
+
+                    <h3>Link + Button</h3>
+
+                    <div class="uk-margin" uk-margin>
+                        <form class="uk-search uk-search-default">
+                            <a class="uk-search-icon" href="#" uk-icon="icon: search_icon"></a>
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                        </form>
+
+                        <form class="uk-search uk-search-default">
+                            <button class="uk-search-icon uk-search-icon-flip" uk-icon="icon: search_icon"></button>
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                        </form>
+                    </div>
 
                 </div>
                 <div>
 
-                    <h2>Toggle</h2>
+                    <h2>Navbar</h2>
 
-                    <a class="uk-search-toggle" href="#" uk-icon="icon: search_icon"></a>
+                    <div class="uk-margin">
+                        <form class="uk-search uk-search-navbar">
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                        </form>
+                    </div>
 
-                    <h2>Overlay with Primary</h2>
+                    <h3>Icon + Flip</h3>
 
-                    <form class="uk-search-overlay">
-                        <input class="uk-search uk-search-primary" type="search" placeholder="Search...">
-                    </form>
+                    <div class="uk-margin" uk-margin>
+                        <form class="uk-search uk-search-navbar">
+                            <span class="uk-search-icon" uk-icon="icon: search_icon"></span>
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                        </form>
+
+                        <form class="uk-search uk-search-navbar">
+                            <span class="uk-search-icon uk-search-icon-flip" uk-icon="icon: search_icon"></span>
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                        </form>
+                    </div>
+
+                    <h3>Link + Button</h3>
+
+                    <div class="uk-margin" uk-margin>
+                        <form class="uk-search uk-search-navbar">
+                            <a class="uk-search-icon" href="#" uk-icon="icon: search_icon"></a>
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                        </form>
+
+                        <form class="uk-search uk-search-navbar">
+                            <button class="uk-search-icon uk-search-icon-flip" uk-icon="icon: search_icon"></button>
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                        </form>
+                    </div>
+
+                </div>
+                <div>
+
+                    <h2>Large</h2>
+
+                    <div class="uk-margin">
+                        <form class="uk-search uk-search-large">
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                        </form>
+                    </div>
+
+                    <h3>Icon + Flip</h3>
+
+                    <div class="uk-margin" uk-margin>
+                        <form class="uk-search uk-search-large">
+                            <span class="uk-search-icon" uk-icon="icon: search_icon"></span>
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                        </form>
+
+                        <form class="uk-search uk-search-large">
+                            <span class="uk-search-icon uk-search-icon-flip" uk-icon="icon: search_icon"></span>
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                        </form>
+                    </div>
+
+                    <h3>Link + Button</h3>
+
+                    <div class="uk-margin" uk-margin>
+                        <form class="uk-search uk-search-large">
+                            <a class="uk-search-icon" href="#" uk-icon="icon: search_icon"></a>
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                        </form>
+
+                        <form class="uk-search uk-search-large">
+                            <button class="uk-search-icon uk-search-icon-flip" uk-icon="icon: search_icon"></button>
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                        </form>
+                    </div>
 
                 </div>
             </div>
 
+            <h2>Toggle</h2>
+
+            <a class="uk-search-toggle" href="#" uk-icon="icon: search_icon"></a>
+
             <h2>Layouts</h2>
 
             <nav class="uk-navbar uk-navbar-container uk-margin">
-                <div class="uk-navbar-left">
+
+                <div class="test-overlay uk-navbar-left">
 
                     <a class="uk-navbar-item uk-logo" href="#">Overlay</a>
 
@@ -60,14 +154,24 @@
                     </ul>
 
                 </div>
-                <div class="uk-navbar-right">
+                <div class="test-overlay uk-navbar-right">
 
                     <div class="uk-navbar-item">
-                        <a class="uk-search-toggle" href="#" uk-icon="icon: search_icon" uk-toggle="target: #test"></a>
-                        <div id="test" class="uk-search-overlay uk-position-cover uk-flex uk-flex-middle" hidden>
-                            <input class="uk-search uk-search-primary" type="search" placeholder="Search...">
-                            <a href="#" uk-close uk-toggle="target: #test"></a>
-                        </div>
+                        <a class="uk-search-toggle" href="#" uk-icon="icon: search_icon" uk-toggle="target: .test-overlay; animation: uk-animation-fade;"></a>
+                    </div>
+
+                </div>
+
+                <div class="uk-navbar-left uk-flex-1 test-overlay" hidden>
+
+                    <div class="uk-navbar-item uk-width-1-1">
+                        <form class="uk-search uk-search-navbar uk-width-1-1">
+                            <input class="uk-search-input" type="search" placeholder="Search...">
+                        </form>
+                    </div>
+
+                    <div class="uk-navbar-item">
+                        <a href="#" uk-close uk-toggle="target: .test-overlay; animation: uk-animation-fade;"></a>
                     </div>
 
                 </div>
@@ -90,14 +194,12 @@
                 <div class="uk-navbar-right">
 
                     <div class="uk-navbar-item">
-                        <div class="uk-inline uk-flex">
                             <a class="uk-search-toggle" href="#" uk-icon="icon: search_icon"></a>
                             <div uk-drop="mode: click; pos: left-center; offset: 0">
-                                <div class="uk-search-overlay">
-                                    <input class="uk-search uk-search-primary" type="search" placeholder="Search...">
-                                </div>
+                                <form class="uk-search uk-search-navbar uk-width-1-1">
+                                    <input class="uk-search-input" type="search" placeholder="Search...">
+                                </form>
                             </div>
-                        </div>
                     </div>
 
                 </div>
@@ -130,9 +232,9 @@
             <div id="modal-full" class="uk-modal-full" uk-modal>
                 <div class="uk-modal-dialog uk-flex uk-flex-center uk-flex-middle" uk-height-viewport>
                     <button class="uk-modal-close-full" type="button" uk-close></button>
-                    <div class="uk-width-xxlarge uk-padding-large">
-                        <input class="uk-search uk-search-primary" type="search" placeholder="Search...">
-                    </div>
+                    <form class="uk-search uk-search-large">
+                        <input class="uk-search-input uk-text-center" type="search" placeholder="Search...">
+                    </form>
                 </div>
             </div>
 
