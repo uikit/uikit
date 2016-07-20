@@ -93,14 +93,10 @@ export default function (UIkit) {
     UIkit.use(HeightViewport);
     UIkit.use(Svg);
     UIkit.use(Icon);
-    UIkit.use(Close);
-    UIkit.use(Slidenav);
-    UIkit.use(Totop);
     UIkit.use(Modal);
     UIkit.use(Nav);
     UIkit.use(Navbar);
     UIkit.use(Offcanvas);
-    UIkit.use(Overlayicon);
     UIkit.use(Responsive);
     UIkit.use(Scroll);
     UIkit.use(Scrollspy);
