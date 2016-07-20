@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {isReady, requestAnimationFrame} from '../util/index';
+import {ready} from '../util/index';
 
 export default function (UIkit) {
 
@@ -28,17 +28,8 @@ export default function (UIkit) {
 
         this._initEvents();
 
-        if (isReady()) {
-            this._callReady();
-        } else {
-            var ready = (() => {
-                if (isReady()) {
-                    this._callReady();
-                } else {
-                    requestAnimationFrame(ready);
-                }
-            })();
-        }
+        ready(() => this._callReady());
+
     };
 
     UIkit.prototype.$update = function (e, element) {
@@ -53,21 +44,6 @@ export default function (UIkit) {
             }
         });
     };
-
-    // TODO only include if used
-
-    // UIkit.prototype.$updateParents = function (e, element) {
-    //
-    //     element = element ? $(element)[0] : this.$el[0];
-    //
-    //     UIkit.elements.forEach(el => {
-    //         if (el[DATA] && $.contains(el, element)) {
-    //             for (var name in el[DATA]) {
-    //                 el[DATA][name]._callUpdate(e);
-    //             }
-    //         }
-    //     });
-    // };
 
     UIkit.prototype.$destroy = function (remove = false) {
 
