@@ -43,23 +43,30 @@ export default function (UIkit) {
 
             toggleElement(targets, show, animate) {
 
-                var all = targets => $.when.apply($, $(targets).toArray().map(el => this._toggleElement(el, show, animate))), toggled;
+                var all = targets => $.when.apply($, $(targets).toArray().map(el => this._toggleElement(el, show, animate))), toggles;
 
                 if (!this.queued) {
                     return all(targets);
                 }
 
                 if (this.queued !== true) {
-                    toggled = $(targets).not(this.queued);
+                    toggles = $(targets).not(this.queued);
                     this.queued = true;
-                    return all(toggled);
+                    return all(toggles);
                 }
 
-                this.queued = $(targets).not(toggled = $(targets).filter((_, el) => this.isToggled(el)));
+                this.queued = $(targets).not(toggles = $(targets).filter((_, el) => this.isToggled(el)));
 
-                return all(toggled)
-                    .then(() => this.queued !== true ? all(this.queued) : true)
-                    .then(() => this.queued = true);
+                return all(toggles).then(() => {
+
+                    if (this.queued !== true) {
+                        toggles = this.queued;
+                        this.queued = true;
+                        return all(toggles);
+                    }
+
+                    return true;
+                });
             },
 
             toggleNow(el, show) {
