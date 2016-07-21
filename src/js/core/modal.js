@@ -152,15 +152,14 @@ export default function (UIkit) {
                 <form class="uk-form-stacked">
                     <div class="uk-modal-body">
                         <label>${isString(message) ? message : $(message).html()}</label>
-                        <input class="uk-input uk-width-1-1" type="text">
+                        <input class="uk-input uk-width-1-1" type="text" autofocus>
                     </div>
                     <div class="uk-modal-footer uk-text-right">
                         <button class="uk-button uk-button-default uk-modal-close" type="button">${options.labels.cancel}</button>
                         <button class="uk-button uk-button-primary" type="submit">${options.labels.ok}</button>
                     </div>
                 </form>
-            `, options),
-            input = prompt.$el.find('input');
+            `, options);
 
         prompt.$el
             .on('submit', 'form', e => {
@@ -172,9 +171,8 @@ export default function (UIkit) {
                 if (deferred.state() === 'pending') {
                     deferred.resolve(null);
                 }
-            });
-
-        input.val(value).focus();
+            })
+            .find('input').val(value);
 
         return deferred.promise();
     };

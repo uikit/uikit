@@ -1,7 +1,7 @@
 import $ from 'jquery';
-import {hasTouch, getCssVar} from '../util/index';
+import { isNumber, isString, getCssVar, hasTouch } from '../util/index';
 
-var cssVars = {}; // css vars cache
+var vars = {}; // css vars cache
 
 export default function (UIkit) {
 
@@ -28,26 +28,58 @@ export default function (UIkit) {
 
             this.mode = hasTouch && this.mode == 'hover' ? 'click' : this.mode;
 
-            switch(this.mode) {
-
-                case 'hover':
-
-                    this.$el.on({
-                        mouseenter: () => this.toggle('toggleShow'),
-                        mouseleave: () => this.toggle('toggleHide')
-                    });
-
-                case 'click':
-
-                    this.$el.on('click', (e) => {
-
-                        if (String($(e.target).closest('a').attr('href'))[0] === '#') {
-                            e.preventDefault();
-                        }
-
-                        this.toggle();
-                    });
+            if (this.mode === 'media') {
+                return;
             }
+
+            if (this.mode === 'hover') {
+                this.$el.on({
+                    mouseenter: () => this.toggle('toggleShow'),
+                    mouseleave: () => this.toggle('toggleHide')
+                });
+            }
+
+            this.$el.on('click', (e) => {
+
+                if (String($(e.target).closest('a').attr('href'))[0] === '#') {
+                    e.preventDefault();
+                }
+
+                this.toggle();
+            });
+
+        },
+
+        update: {
+
+            handler() {
+
+                if (this.mode !== 'media' || !this.media) {
+                    return;
+                }
+
+                if (isString(this.media) && this.media[0] == '@') {
+
+                    var name = `media-${this.media.substr(1)}`;
+
+                    if (!vars[name] && undefined === (vars[name] = getCssVar(name))) {
+                        return;
+                    }
+
+                    this.media = `(min-width: ${vars[name]})`;
+
+                } else if (isNumber(this.media)) {
+                    this.media = `(min-width: ${this.media}px)`;
+                }
+
+                var toggled = this.isToggled(this.target);
+                if (window.matchMedia(this.media).matches ? !toggled : toggled) {
+                    this.toggle();
+                }
+
+            },
+
+            events: ['load', 'resize', 'orientationchange']
 
         },
 
@@ -62,47 +94,6 @@ export default function (UIkit) {
                     this.toggleElement(this.target);
                 }
             }
-
-        },
-
-        update: {
-
-            handler() {
-
-                if (this.mode == 'media' && this.media) {
-
-                    var mediaQuery;
-
-                    if (typeof(this.media) == 'string') {
-
-                        if (this.media[0] == '@') {
-
-                            var cssvar =  'media-'+this.media.substr(1);
-
-                            if (cssVars[cssvar] === undefined) {
-                                cssVars[cssvar] = getCssVar(cssvar);
-                            }
-
-                            mediaQuery = `(min-width: ${cssVars[cssvar]})`;
-                        }
-
-                    } else if (typeof(this.media) == 'number') {
-                        mediaQuery = '(min-width: '+this.media+'px)';
-                    }
-
-                    if (mediaQuery && window.matchMedia(mediaQuery).matches) {
-                        if (!this.isToggled(this.$el)) {
-                            this.toggle('toggleShow');
-                        }
-                    } else {
-                        if (this.isToggled(this.$el)) {
-                            this.toggle('toggleHide')
-                        }
-                    }
-                }
-            },
-
-            events: ['load', 'resize', 'orientationchange']
 
         }
 

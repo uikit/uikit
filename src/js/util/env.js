@@ -71,5 +71,5 @@ export function getCssVar(name) {
 
     doc.removeChild(element);
 
-    return val;
+    return val || undefined;
 }
