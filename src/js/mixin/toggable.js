@@ -184,6 +184,8 @@ export default function (UIkit) {
                     el.attr('hidden', !toggled);
                 }
 
+                el.filter(':visible').find('[autofocus]').focus();
+
                 this.updateAria(el);
                 this.$update(null, el);
             },

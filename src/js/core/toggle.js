@@ -1,5 +1,7 @@
 import $ from 'jquery';
-import {hasTouch} from '../util/index';
+import {hasTouch, getCssVar} from '../util/index';
+
+var cssVars = {}; // css vars cache
 
 export default function (UIkit) {
 
@@ -74,8 +76,14 @@ export default function (UIkit) {
                     if (typeof(this.media) == 'string') {
 
                         if (this.media[0] == '@') {
-                            var lessvar = 'media-'+this.media.substr(1);
-                            mediaQuery = `(min-width: ${UIkit.util.getCssVar(lessvar)})`;
+
+                            var cssvar =  'media-'+this.media.substr(1);
+
+                            if (cssVars[cssvar] === undefined) {
+                                cssVars[cssvar] = getCssVar(cssvar);
+                            }
+
+                            mediaQuery = `(min-width: ${cssVars[cssvar]})`;
                         }
 
                     } else if (typeof(this.media) == 'number') {
