@@ -32,7 +32,7 @@ export default function (UIkit) {
             var fn = (() => {
 
                 if (!this.src) {
-                    this.src = getComputedStyle(this.$el[0], '::before');
+                    this.src = window.getComputedStyle(this.$el[0], '::before');
 
                     if (!this.src) {
                         requestAnimationFrame(fn);

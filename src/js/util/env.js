@@ -2,11 +2,10 @@ export const Observer = window.MutationObserver || window.WebKitMutationObserver
 export const requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
 export const cancelAnimationFrame = window.cancelAnimationFrame || window.clearTimeout;
 
-export const hasTouch =
-    ('ontouchstart' in window) ||
-    (window.DocumentTouch && document instanceof DocumentTouch) ||
-    (navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0) || //IE 10
-    (navigator.pointerEnabled && navigator.maxTouchPoints > 0); //IE >=11
+export const hasTouch = 'ontouchstart' in window
+    || window.DocumentTouch && document instanceof DocumentTouch
+    || navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0 //IE 10
+    || navigator.pointerEnabled && navigator.maxTouchPoints > 0; //IE >=11
 
 export const transitionend = (function () {
 
@@ -59,14 +58,18 @@ export function getCssVar(name) {
 
     /* usage in css:  .var-name:before { content:"xyz" } */
 
-    var element = document.createElement('div'), val;
+    var val, doc = document.documentElement,
+        element = doc.appendChild(document.createElement('div'));
 
-    element.classList.add('var-'+name);
-    document.documentElement.appendChild(element);
-    val = window.getComputedStyle(element, ':before').content.replace(/^["'](.*)["']$/, '$1');
-    document.documentElement.removeChild(element);
+    element.classList.add(`var-${name}`);
 
-    try { val = JSON.parse(val); }catch(e){}
+    try {
 
-    return val || undefined;
+        val = JSON.parse(val = window.getComputedStyle(element, ':before').content.replace(/^["'](.*)["']$/, '$1'));
+
+    } catch (e) {}
+
+    doc.removeChild(element);
+
+    return val;
 }
