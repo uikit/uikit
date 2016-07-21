@@ -260,8 +260,10 @@
 }
 
 // Color Mode
-.uk-card-primary:extend(.uk-light all) when (@card-primary-color-mode = 'light') {}
-.uk-card-primary:extend(.uk-dark all) when (@card-primary-color-mode = 'dark') {}
+.uk-card-primary.uk-card-body:extend(.uk-light all) when (@card-primary-color-mode = 'light') {}
+.uk-card-primary .uk-card-body:extend(.uk-light all) when (@card-primary-color-mode = 'light') {}
+.uk-card-primary.uk-card-body:extend(.uk-dark all) when (@card-primary-color-mode = 'dark') {}
+.uk-card-primary .uk-card-body:extend(.uk-dark all) when (@card-primary-color-mode = 'dark') {}
 
 /*
  * Secondary
@@ -284,8 +286,10 @@
 }
 
 // Color Mode
-.uk-card-secondary:extend(.uk-light all) when (@card-secondary-color-mode = 'light') {}
-.uk-card-secondary:extend(.uk-dark all) when (@card-secondary-color-mode = 'dark') {}
+.uk-card-secondary.uk-card-body:extend(.uk-light all) when (@card-secondary-color-mode = 'light') {}
+.uk-card-secondary .uk-card-body:extend(.uk-light all) when (@card-secondary-color-mode = 'light') {}
+.uk-card-secondary.uk-card-body:extend(.uk-dark all) when (@card-secondary-color-mode = 'dark') {}
+.uk-card-secondary .uk-card-body:extend(.uk-dark all) when (@card-secondary-color-mode = 'dark') {}
 
 
 /* Size modifier
