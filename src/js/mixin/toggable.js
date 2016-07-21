@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {Animation, extend, isString, Transition} from '../util/index';
+import {Animation, extend, isArray, isString, Transition} from '../util/index';
 
 export default function (UIkit) {
 
@@ -10,7 +10,8 @@ export default function (UIkit) {
             animation: Boolean,
             duration: Number,
             origin: String,
-            transition: String
+            transition: String,
+            queued: Boolean
         },
 
         defaults: {
@@ -18,7 +19,8 @@ export default function (UIkit) {
             animation: false,
             duration: 200,
             origin: false,
-            transition: 'linear'
+            transition: 'linear',
+            queued: false
         },
 
         ready() {
@@ -41,107 +43,123 @@ export default function (UIkit) {
 
             toggleElement(targets, show, animate) {
 
-                var deferreds = [], toggled, deferred;
+                var all = targets => $.when.apply($, $(targets).toArray().map(el => this._toggleElement(el, show, animate))), toggled;
 
-                $(targets).each((i, el) => {
+                if (!this.queued) {
+                    return all(targets);
+                }
 
-                    el = $(el);
+                if (this.queued !== true) {
+                    toggled = $(targets).not(this.queued);
+                    this.queued = true;
+                    return all(toggled);
+                }
 
-                    Animation.cancel(el);
+                this.queued = $(targets).not(toggled = $(targets).filter((_, el) => this.isToggled(el)));
 
-                    toggled = typeof show === 'boolean' ? !show : this.isToggled(el);
-
-                    var event = $.Event(`before${toggled ? 'hide' : 'show'}`);
-                    el.trigger(event, [this]);
-
-                    if (event.result === false) {
-                        return;
-                    }
-
-                    if (this.animation === true && animate !== false) {
-
-                        var inProgress = Transition.inProgress(el),
-                            inner = parseFloat(el.children().first().css('margin-top')) + parseFloat(el.children().last().css('margin-bottom')),
-                            height = el[0].offsetHeight ? el.height() + (inProgress ? 0 : inner) : 0,
-                            initProps = {
-                                overflow: '',
-                                height: '',
-                                paddingTop: '',
-                                paddingBottom: '',
-                                marginTop: '',
-                                marginBottom: ''
-                            },
-                            hideProps = {
-                                overflow: 'hidden',
-                                height: 0,
-                                paddingTop: 0,
-                                paddingBottom: 0,
-                                marginTop: 0,
-                                marginBottom: 0
-                            };
-
-                        Transition.stop(el);
-
-                        toggled = this.isToggled(el);
-
-                        if (!toggled) {
-                            this._toggle(el, true);
-                        }
-
-                        el.css('height', '');
-                        var endHeight = el.height() + inner;
-
-                        el.height(height);
-
-                        if ((!toggled && show !== false) || show === true) {
-
-                            if (!inProgress) {
-                                el.css(hideProps);
-                            }
-
-                            deferred = Transition.start(el, extend(initProps, {
-                                overflow: 'hidden',
-                                height: endHeight
-                            }), Math.round(this.duration * (1 - height / endHeight)), this.transition);
-
-                        } else {
-
-                            deferred = Transition
-                                .start(el, hideProps, Math.round(this.duration * (height / endHeight)), this.transition)
-                                .then(() => {
-                                    this._toggle(el, false);
-                                    el.css(initProps);
-                                });
-
-                        }
-
-                    } else if (this.animation && animate !== false) {
-
-                        if ((!toggled && show !== false) || show === true) {
-
-                            this._toggle(el, true);
-                            deferred = Animation.in(el, this.animation[0], this.duration, this.origin);
-
-                        } else {
-                            deferred = Animation
-                                .out(el, this.animation[1], this.duration, this.origin)
-                                .then(() => this._toggle(el, false));
-                        }
-
-                    } else {
-                        this._toggle(el, !toggled);
-                        deferred = $.Deferred().resolve();
-                    }
-
-                    deferreds.push(deferred);
-                    el.trigger(toggled ? 'hide' : 'show', [this]);
-                });
-
-                return $.when(...deferreds);
+                return all(toggled)
+                    .then(() => this.queued !== true ? all(this.queued) : true)
+                    .then(() => this.queued = true);
             },
 
             toggleNow(el, show) {
                 return this.toggleElement(el, show, false);
+            },
+
+            _toggleElement(el, show, animate) {
+
+                el = $(el);
+
+                var toggled, deferred;
+
+                Animation.cancel(el);
+
+                toggled = typeof show === 'boolean' ? !show : this.isToggled(el);
+
+                var event = $.Event(`before${toggled ? 'hide' : 'show'}`);
+                el.trigger(event, [this]);
+
+                if (event.result === false) {
+                    return;
+                }
+
+                if (this.animation === true && animate !== false) {
+
+                    var inProgress = Transition.inProgress(el),
+                        inner = parseFloat(el.children().first().css('margin-top')) + parseFloat(el.children().last().css('margin-bottom')),
+                        height = el[0].offsetHeight ? el.height() + (inProgress ? 0 : inner) : 0,
+                        initProps = {
+                            overflow: '',
+                            height: '',
+                            paddingTop: '',
+                            paddingBottom: '',
+                            marginTop: '',
+                            marginBottom: ''
+                        },
+                        hideProps = {
+                            overflow: 'hidden',
+                            height: 0,
+                            paddingTop: 0,
+                            paddingBottom: 0,
+                            marginTop: 0,
+                            marginBottom: 0
+                        };
+
+                    Transition.stop(el);
+
+                    toggled = this.isToggled(el);
+
+                    if (!toggled) {
+                        this._toggle(el, true);
+                    }
+
+                    el.css('height', '');
+                    var endHeight = el.height() + inner;
+
+                    el.height(height);
+
+                    if ((!toggled && show !== false) || show === true) {
+
+                        if (!inProgress) {
+                            el.css(hideProps);
+                        }
+
+                        deferred = Transition.start(el, extend(initProps, {
+                            overflow: 'hidden',
+                            height: endHeight
+                        }), Math.round(this.duration * (1 - height / endHeight)), this.transition);
+
+                    } else {
+
+                        deferred = Transition
+                            .start(el, hideProps, Math.round(this.duration * (height / endHeight)), this.transition)
+                            .then(() => {
+                                this._toggle(el, false);
+                                el.css(initProps);
+                            });
+
+                    }
+
+                } else if (this.animation && animate !== false) {
+
+                    if ((!toggled && show !== false) || show === true) {
+
+                        this._toggle(el, true);
+                        deferred = Animation.in(el, this.animation[0], this.duration, this.origin);
+
+                    } else {
+                        deferred = Animation
+                            .out(el, this.animation[1], this.duration, this.origin)
+                            .then(() => this._toggle(el, false));
+                    }
+
+                } else {
+                    this._toggle(el, !toggled);
+                    deferred = $.Deferred().resolve();
+                }
+
+                el.trigger(toggled ? 'hide' : 'show', [this]);
+                return deferred;
             },
 
             _toggle(el, toggled) {
