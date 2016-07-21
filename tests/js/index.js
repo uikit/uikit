@@ -36,6 +36,9 @@ document.addEventListener("DOMContentLoaded", () => {
     var $styles    = $('<select class="uk-select"></select>').css('margin', '20px').appendTo($container);
     var $inverse   = $('<select class="uk-select"></select>').css('margin', '20px').appendTo($container);
 
+    // Tests
+    // ------------------------------
+
     [
         'accordion',
         'alert',
@@ -109,11 +112,29 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }).val(location.pathname.split('/').pop());
 
+    // Styles
+    // ------------------------------
 
-    ['default','light','dark'].forEach(name => {
-        $(`<option value="${name}">${name.split('-').map(name => {
-            return name.ucfirst();
-        }).join(' ')}</option>`).appendTo($inverse);
+    Object.keys(styles).forEach(style => {
+        $styles.append(`<option value="${style}">${style.ucfirst()}</option>`);
+    });
+
+    $styles.on('change', () => {
+        storage[key] = $styles.val();
+        location.reload();
+    }).val(storage[key]);
+
+    // Variations
+    // ------------------------------
+
+    var variations = {
+        'default' : 'Default',
+        'light'   : 'Dark',
+        'dark'    : 'Light'
+    };
+
+    Object.keys(variations).forEach(name => {
+        $(`<option value="${name}">${variations[name]}</option>`).appendTo($inverse);
     });
 
     $inverse.on('change', () => {
@@ -140,15 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }).val(storage[keyinverse]).trigger('change');
 
-
-    Object.keys(styles).forEach(style => {
-        $styles.append(`<option value="${style}">${style.ucfirst()}</option>`);
-    });
-
-    $styles.on('change', () => {
-        storage[key] = $styles.val();
-        location.reload();
-    }).val(storage[key]);
 
     $('html').css('padding-top', '');
 
