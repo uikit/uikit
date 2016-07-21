@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {extend, isFunction, isString, toJQuery} from '../util/index';
+import {extend, isFunction, isString, ready, toJQuery} from '../util/index';
 
 export default function (UIkit) {
 
@@ -99,9 +99,12 @@ export default function (UIkit) {
              </div>`
         ).appendTo('body'), options)[0];
 
+        ready(() => {
+            dialog.panel.append(content);
+            dialog.show();
+        });
+
         dialog.$el.on('hide', () => dialog.$destroy(true));
-        dialog.panel.append(content);
-        dialog.show();
 
         return dialog;
     };
