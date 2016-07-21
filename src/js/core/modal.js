@@ -159,7 +159,8 @@ export default function (UIkit) {
                         <button class="uk-button uk-button-primary" type="submit">${options.labels.ok}</button>
                     </div>
                 </form>
-            `, options);
+            `, options),
+            input = prompt.$el.find('input').val(value);
 
         prompt.$el
             .on('submit', 'form', e => {
@@ -171,8 +172,7 @@ export default function (UIkit) {
                 if (deferred.state() === 'pending') {
                     deferred.resolve(null);
                 }
-            })
-            .find('input').val(value);
+            });
 
         return deferred.promise();
     };
