@@ -54,30 +54,6 @@ export default function (UIkit) {
             }
         });
 
-    // add uk-hover class on tap to support overlays on touch devices
-    // Todo: Rework?
-
-    var hoverset;
-    var hovercls = 'uk-hover';
-    var hoverselector = '.uk-animation-toggle, .uk-transition-toggle, [uk-hover]';
-
-    $('html').on('mouseenter touchstart MSPointerDown pointerdown', hoverselector, function(e) {
-
-        if (hoverset && hoverset.length) {
-            $(`.${hovercls}`).removeClass(hovercls);
-        }
-
-        hoverset = $(this).addClass(hovercls);
-
-    }).on('mouseleave touchend MSPointerUp pointerup', hoverselector, function(e) {
-
-        if (hoverset && hoverset.length) {
-            hoverset.not($(this).parents()).removeClass(hovercls);
-        }
-    });
-
-
-
     // core components
     UIkit.use(Accordion);
     UIkit.use(Alert);
@@ -86,7 +62,7 @@ export default function (UIkit) {
     UIkit.use(Dropdown);
     UIkit.use(HeightMatch);
     UIkit.use(HeightViewport);
-    //UIkit.use(Hover);
+    UIkit.use(Hover);
     UIkit.use(Margin);
     UIkit.use(Grid);
     UIkit.use(Modal);

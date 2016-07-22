@@ -1,41 +1,33 @@
 import $ from 'jquery';
+import { hasTouch, isWithin, ready } from '../util/index';
 
 export default function (UIkit) {
 
-    var html = $('html'),
-        selectors = ['.uk-animation-toggle', '.uk-transition-toggle', '[uk-hover]'],
-        cls = 'uk-hover',
-        current,
-        start = function () {
-            if (current && current.length) {
-                $(`.${cls}`).removeClass(cls);
-            }
+    ready(() => {
 
-            current = $(this).addClass(cls);
-        },
-        end = function () {
-            if (current && current.length) {
-                current.not($(this).parents()).removeClass(cls);
-            }
-        };
-
-        attach();
-
-    Object.defineProperty(UIkit, 'hoverSelector', {
-
-        get() {
-            return selectors;
-        },
-
-        set(selector) {
-            selectors.push(selector);
-            attach();
+        if (!hasTouch) {
+            return;
         }
+
+        var cls = 'uk-hover',
+            html = $('html').on('tap', ({target}) => $(`.${cls}`).filter((_, el) => !isWithin(target, el)).removeClass(cls));
+
+        Object.defineProperty(UIkit, 'hoverSelector', {
+
+            set(selector) {
+
+                html.on('tap', selector, function () {
+                    this.classList.add(cls);
+                });
+
+            }
+
+        });
+
+        UIkit.hoverSelector = '.uk-animation-toggle, .uk-transition-toggle, [uk-hover]';
 
     });
 
-    function attach () {
-        html.off(start).on('mouseenter touchstart MSPointerDown pointerdown', selectors.join(','), start)
-            .off(end).on('mouseleave touchend MSPointerUp pointerup', selectors.join(','), end);
-    }
 }
+
+
