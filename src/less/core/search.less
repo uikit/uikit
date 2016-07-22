@@ -4,13 +4,13 @@
 // Component:       `uk-search`
 //
 // Sub-objects:     `uk-search-input`
+//                  `uk-search-toggle`
 //
 // Adopted:         `uk-search-icon`
 //
 // Modifier:        `uk-search-default`
 //                  `uk-search-navbar`
 //                  `uk-search-large`
-//                  `uk-search-toggle`
 //
 // ========================================================================
 
@@ -134,11 +134,8 @@
 /* Icon
  ========================================================================== */
 
-/*
- * Icon
- */
-
 .uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/search-default.svg"); }
+[uk-search-icon*='navbar']::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/search-navbar.svg"); }
 
 /*
  * Adopts `uk-icon`
@@ -161,7 +158,7 @@
     overflow: visible;
     /* 4 */
     font: inherit;
-    color: @search-icon-color;
+    color: inherit;
     /* 5 */
     text-transform: none;
     /* 6. */
@@ -181,18 +178,13 @@
 }
 
 /*
- * Required for `a`.
- */
-
-.uk-search-icon:hover { color:  @search-icon-color; }
-
-/*
  * Remove default focus style
  */
 
 .uk-search-icon:focus { outline: none; }
 
 /*
+ * Position above input
  * 1. Set position
  * 2. Center icon vertically and horizontally
  */
@@ -213,13 +205,21 @@
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
+    /* 3 */
+    color: @search-icon-color;
 }
 
 /*
- * Make `input` element clickable through icon if it's a `span`
+ * Required for `a`.
  */
 
-.uk-search span.uk-search-icon { pointer-events: none; }
+.uk-search .uk-search-icon:hover { color: @search-icon-color; }
+
+/*
+ * Make `input` element clickable through icon, e.g. if it's a `span`
+ */
+
+.uk-search .uk-search-icon:not(a):not(button):not(input) { pointer-events: none; }
 
 /*
  * Position modifier
@@ -315,7 +315,7 @@
 .uk-search-large .uk-search-icon-flip + .uk-search-input { padding-right: (@search-large-icon-width); }
 
 
-/* Icon modifier
+/* Toggle
  ========================================================================== */
 
 .uk-search-toggle {
