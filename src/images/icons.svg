@@ -657,29 +657,40 @@
 
     <!-- Components -->
 
-    <symbol id="close_icon" viewBox="0 0 14 14">
-        <polygon points="14 1 13 0 7 6 1 0 0 1 6 7 0 13 1 14 7 8 13 14 14 13 8 7"></polygon>
+    <symbol id="close_icon" viewBox="0 0 20 20">
+        <path fill="none" stroke-width="1.3" d="M16,16 L4,4"></path>
+        <path fill="none" stroke-width="1.3" d="M16,4 L4,16"></path>
     </symbol>
 
-    <symbol id="search_icon" viewBox="0 0 20 20">
+    <symbol id="search_icon-large" viewBox="0 0 20 20">
         <circle fill="none" stroke-width="1.1" cx="9" cy="9" r="7"></circle>
         <path fill="none" stroke-width="1.1" d="M14,14 L18,18 L14,14 Z"></path>
     </symbol>
 
-    <symbol id="slidenav_previous" viewBox="0 0 18 16">
-        <polygon points="18 7 3.828 7 9.414 1.414 8 0 0 8 8 16 9.414 14.586 3.828 9 18 9"></polygon>
+    <symbol id="search_icon_navbar" viewBox="0 0 25 25">
+        <circle fill="none" stroke-width="1" cx="9" cy="9" r="7"></circle>
+        <path fill="none" stroke-width="1" d="M14,14 L18,18 L14,14 Z"></path>
     </symbol>
 
-    <symbol id="slidenav_next" viewBox="0 0 18 16">
-        <polygon points="10 0 8.586 1.414 14.172 7 0 7 0 9 14.172 9 8.586 14.586 10 16 18 8"></polygon>
+    <symbol id="search_icon" viewBox="0 0 40 40">
+        <circle fill="none" stroke-width="1.1" cx="9" cy="9" r="7"></circle>
+        <path fill="none" stroke-width="1.1" d="M14,14 L18,18 L14,14 Z"></path>
     </symbol>
 
     <symbol id="spinner_icon" viewBox="0 0 30 30">
         <circle  cx="15" cy="15" r="14"></circle>
     </symbol>
 
+    <symbol id="slidenav_next" viewBox="0 0 20 20">
+        <polyline fill="none" stroke-width="1" points="7 4 13 10 7 16"></polyline>
+    </symbol>
+
+    <symbol id="slidenav_previous" viewBox="0 0 20 20">
+        <polyline fill="none" stroke-width="1" points="13 16 7 10 13 4"></polyline>
+    </symbol>
+
     <symbol id="totop_icon" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1.03" points="4 13 10 7 16 13"></polyline>
+        <polyline fill="none" stroke-width="1" points="4 13 10 7 16 13"></polyline>
     </symbol>
 
     <symbol id="overlay_icon" viewBox="0 0 40 40">
