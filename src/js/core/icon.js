@@ -23,7 +23,6 @@ export default function (UIkit) {
         'slidenav',
         'spinner',
         'search-icon',
-        'search-toggle',
         'totop'
     ].forEach(name => UIkit.component(name, UIkit.components.icon.extend({name})));
 

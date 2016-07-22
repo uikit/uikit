@@ -150,9 +150,6 @@
  * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
  * 6. Remove default `button` padding and background color
  * 7. Required for `button`.
- * Style
- * 8. Set container position and width
- * 9. Center icon vertically and horizontally
  */
 
 .uk-search-icon {
@@ -172,21 +169,6 @@
     background-color: transparent;
     /* 7 */
     cursor: pointer;
-    /* 8 */
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    /* 9 */
-    display: -ms-inline-flexbox;
-    display: -webkit-inline-flex;
-    display: inline-flex;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
 }
 
 /*
@@ -211,16 +193,39 @@
 .uk-search-icon:focus { outline: none; }
 
 /*
+ * 1. Set position
+ * 2. Center icon vertically and horizontally
+ */
+
+.uk-search .uk-search-icon {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    /* 2 */
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+/*
  * Make `input` element clickable through icon if it's a `span`
  */
 
-span.uk-search-icon { pointer-events: none; }
+.uk-search span.uk-search-icon { pointer-events: none; }
 
 /*
  * Position modifier
  */
 
-.uk-search-icon-flip {
+.uk-search .uk-search-icon-flip {
     right: 0;
     left: auto;
 }
@@ -254,32 +259,6 @@ span.uk-search-icon { pointer-events: none; }
 .uk-search-default .uk-search-icon-flip + .uk-search-input { padding-right: (@search-default-icon-width); }
 
 
-/* Large modifier
- ========================================================================== */
-
-.uk-search-large { width: @search-large-width; }
-
-/*
- * Input
- */
-
-.uk-search-large .uk-search-input {
-    height: @search-large-height;
-    background-color: @search-large-background;
-    font-size: @search-large-font-size;
-    .hook-search-large-input;
-}
-
-/*
- * Icon
- */
-
-.uk-search-large .uk-search-icon { width: @search-large-icon-width; }
-
-.uk-search-large .uk-search-icon:not(.uk-search-icon-flip) + .uk-search-input { padding-left: (@search-large-icon-width); }
-.uk-search-large .uk-search-icon-flip + .uk-search-input { padding-right: (@search-large-icon-width); }
-
-
 /* Navbar modifier
  ========================================================================== */
 
@@ -300,10 +279,40 @@ span.uk-search-icon { pointer-events: none; }
  * Icon
  */
 
+.uk-search-navbar .uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/search-navbar.svg"); }
+
 .uk-search-navbar .uk-search-icon { width: @search-navbar-icon-width; }
 
 .uk-search-navbar .uk-search-icon:not(.uk-search-icon-flip) + .uk-search-input { padding-left: (@search-navbar-icon-width); }
 .uk-search-navbar .uk-search-icon-flip + .uk-search-input { padding-right: (@search-navbar-icon-width); }
+
+
+/* Large modifier
+ ========================================================================== */
+
+.uk-search-large { width: @search-large-width; }
+
+/*
+ * Input
+ */
+
+.uk-search-large .uk-search-input {
+    height: @search-large-height;
+    background-color: @search-large-background;
+    font-size: @search-large-font-size;
+    .hook-search-large-input;
+}
+
+/*
+ * Icon
+ */
+
+.uk-search-large .uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/search-large.svg"); }
+
+.uk-search-large .uk-search-icon { width: @search-large-icon-width; }
+
+.uk-search-large .uk-search-icon:not(.uk-search-icon-flip) + .uk-search-input { padding-left: (@search-large-icon-width); }
+.uk-search-large .uk-search-icon-flip + .uk-search-input { padding-right: (@search-large-icon-width); }
 
 
 /* Icon modifier
@@ -328,8 +337,8 @@ span.uk-search-icon { pointer-events: none; }
 .hook-search-misc;
 
 .hook-search-default-input() {}
-.hook-search-large-input() {}
 .hook-search-navbar-input() {}
+.hook-search-large-input() {}
 
 .hook-search-toggle() {}
 .hook-search-toggle-hover() {}
