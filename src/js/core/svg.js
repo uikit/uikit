@@ -60,10 +60,10 @@ export default function (UIkit) {
                     el = !this.icon
                             ? svg.clone()
                             : (el = toJQuery(`#${this.icon}`, svg))
-                                && $((el[0].outerHTML || $('<div>').append(el.clone()).html()).replace(/symbol/g, 'svg')) // IE workaround, el[0].outerHTML
+                                && toJQuery((el[0].outerHTML || $('<div>').append(el.clone()).html()).replace(/symbol/g, 'svg')) // IE workaround, el[0].outerHTML
                                 || !toJQuery('symbol', svg) && svg.clone(); // fallback if SVG has no symbols
 
-                    if (!el.length) {
+                    if (!el) {
                         return $.Deferred().reject('SVG not found.');
                     }
 
