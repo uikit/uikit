@@ -16,6 +16,15 @@ export default function (UIkit) {
 
     }));
 
-    ['close', 'navbar-toggle-icon', 'overlay-icon', 'slidenav', 'spinner', 'search-icon', 'totop'].forEach(name => UIkit.component(name, UIkit.components.icon.extend({name})));
+    [
+        'close',
+        'navbar-toggle-icon',
+        'overlay-icon',
+        'slidenav',
+        'spinner',
+        'search-icon',
+        'search-toggle',
+        'totop'
+    ].forEach(name => UIkit.component(name, UIkit.components.icon.extend({name})));
 
 }
