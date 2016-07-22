@@ -19,7 +19,8 @@ export default function (UIkit) {
         defaults: {
             href: false,
             target: false,
-            mode: 'click'
+            mode: 'click',
+            queued: true
         },
 
         ready() {

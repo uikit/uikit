@@ -38,7 +38,7 @@ export default function (UIkit) {
                         requestAnimationFrame(fn);
                         return;
                     } else {
-                        this.src = this.src['background-image'].slice(4, -1).replace(/"/g, '');
+                        this.src = this.src.backgroundImage.slice(4, -1).replace(/"/g, '');
                     }
 
                 }
