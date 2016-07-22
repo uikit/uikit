@@ -9,6 +9,7 @@ import Dropdown from './dropdown';
 import Grid from './grid';
 import HeightMatch from './height-match';
 import HeightViewport from './height-viewport';
+import Hover from './hover';
 import Icon from './icon';
 import Margin from './margin';
 import Modal from './modal';
@@ -85,6 +86,7 @@ export default function (UIkit) {
     UIkit.use(Dropdown);
     UIkit.use(HeightMatch);
     UIkit.use(HeightViewport);
+    //UIkit.use(Hover);
     UIkit.use(Margin);
     UIkit.use(Grid);
     UIkit.use(Modal);
