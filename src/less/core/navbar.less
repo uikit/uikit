@@ -243,12 +243,6 @@
 /* Toggle
  ========================================================================== */
 
-/*
- * Icon
- */
-
-.uk-navbar-toggle::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/navbar-toggle.svg"); }
-
 .uk-navbar-toggle {
     color: @navbar-toggle-color;
     .hook-navbar-toggle;
@@ -267,6 +261,8 @@
  * Icon
  * Adopts `uk-icon`
  */
+
+.uk-navbar-toggle-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/navbar-toggle.svg"); }
 
 .uk-navbar-toggle-icon {
     .hook-navbar-toggle-icon;

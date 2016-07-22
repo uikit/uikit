@@ -132,8 +132,8 @@ UIkit.component('lightbox', {
                 if (this.items.length > 1) {
                     $(`<div class="${this.dark ? 'uk-dark' : 'uk-light'}" uk-transition-hide></div>`)
                         .appendTo(this.modal.panel.addClass('uk-slidenav-position')).append(`
-                            <a href="#" class="uk-position-center-left" uk-slidenav="icon: previous" uk-lightbox-item="previous"></a>
-                            <a href="#" class="uk-position-center-right" uk-slidenav="icon: next" uk-lightbox-item="next"></a>
+                            <a href="#" class="uk-position-center-left" uk-slidenav="previous" uk-lightbox-item="previous"></a>
+                            <a href="#" class="uk-position-center-right" uk-slidenav="next" uk-lightbox-item="next"></a>
                         `);
                 }
 
