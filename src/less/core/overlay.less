@@ -39,6 +39,16 @@
 .uk-overlay > :last-child { margin-bottom: 0; }
 
 
+/* Icon
+ ========================================================================== */
+
+.uk-overlay-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/overlay.svg"); }
+
+.uk-overlay-icon {
+    .hook-overlay-icon;
+}
+
+
 /* Style modifiers
  ========================================================================== */
 
@@ -71,6 +81,7 @@
 .hook-overlay-misc;
 
 .hook-overlay() {}
+.hook-overlay-icon() {}
 .hook-overlay-default() {}
 .hook-overlay-primary() {}
 .hook-overlay-misc() {}

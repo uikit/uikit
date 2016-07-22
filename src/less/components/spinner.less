@@ -21,26 +21,17 @@
  ========================================================================== */
 
 /*
- * Pass image path to JS
+ * Icon
  */
 
-.uk-spinner::before { background-image: url("../../images/icons.svg"); }
-
+.uk-spinner::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/spinner.svg"); }
 
 /*
- * 1. Only let the line drawn around the SVG object use the current text color
- * 2. Let the container fit the height of the icon
+ * Adopts `uk-icon`
  */
 
 .uk-spinner {
-    display: inline-block;
-    width: @spinner-size;
-    height: @spinner-size;
-    /* 1 */
-    fill: none;
-    stroke: currentcolor;
-    /* 2 */
-    line-height: 0;
+    .hook-spinner;
 }
 
 

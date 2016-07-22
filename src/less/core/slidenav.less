@@ -54,9 +54,21 @@
 /* Icon modifier
  ========================================================================== */
 
+/*
+ * Previous
+ */
+
+[uk-slidenav*='previous']::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/slidenav-previous.svg"); }
+
 [uk-slidenav*='previous'] {
     .hook-slidenav-previous;
 }
+
+/*
+ * Next
+ */
+
+[uk-slidenav*='next']::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/slidenav-next.svg"); }
 
 [uk-slidenav*='next'] {
     .hook-slidenav-next;
