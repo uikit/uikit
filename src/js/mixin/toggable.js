@@ -157,8 +157,7 @@ export default function (UIkit) {
                     } else {
                         deferred = Animation
                             .out(el, this.animation[1], this.duration, this.origin)
-                            .then(() => () => {
-
+                            .then(() => {
                                 if (!this.queued) {
                                     this._toggle(el, false);
                                 } else {
