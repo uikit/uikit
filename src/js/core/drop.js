@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import {isString, isWithin, removeClass, getDimensions, toJQuery} from '../util/index';
+import {Class, Mouse, Position, Toggable} from '../mixin/index';
 
 export default function (UIkit) {
 
@@ -13,7 +14,7 @@ export default function (UIkit) {
 
     UIkit.component('drop', {
 
-        mixins: [UIkit.mixin.class, UIkit.mixin.position, UIkit.mixin.toggable, UIkit.mixin.mouse],
+        mixins: [Class, Mouse, Position, Toggable],
 
         props: {
             mode: String,

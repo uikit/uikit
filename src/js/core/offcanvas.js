@@ -1,10 +1,11 @@
 import {transitionend} from '../util/index';
+import {Modal} from '../mixin/index';
 
 export default function (UIkit) {
 
     UIkit.component('offcanvas', {
 
-        mixins: [UIkit.mixin.modal],
+        mixins: [Modal],
 
         props: {
             mode: String,

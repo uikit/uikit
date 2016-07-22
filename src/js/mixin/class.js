@@ -1,11 +1,7 @@
-export default function (UIkit) {
+export default {
 
-    UIkit.mixin.class = {
-
-        init() {
-            this.$el.addClass(this.$name)
-        }
-
-    };
+    init() {
+        this.$el.addClass(this.$name)
+    }
 
 }

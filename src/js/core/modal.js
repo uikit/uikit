@@ -1,11 +1,12 @@
 import $ from 'jquery';
 import {extend, isFunction, isString, ready, toJQuery} from '../util/index';
+import {Modal} from '../mixin/index';
 
 export default function (UIkit) {
 
     UIkit.component('modal', {
 
-        mixins: [UIkit.mixin.modal],
+        mixins: [Modal],
 
         props: {
             center: Boolean

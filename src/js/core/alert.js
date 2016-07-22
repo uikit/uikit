@@ -1,8 +1,10 @@
+import {Class, Toggable} from '../mixin/index';
+
 export default function (UIkit) {
 
     UIkit.component('alert', {
 
-        mixins: [UIkit.mixin.class, UIkit.mixin.toggable],
+        mixins: [Class, Toggable],
 
         props: {
             animation: Boolean,

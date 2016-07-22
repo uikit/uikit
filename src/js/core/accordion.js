@@ -1,11 +1,12 @@
 import $ from 'jquery';
 import {getIndex, toJQuery, Transition} from '../util/index';
+import {Class, Toggable} from '../mixin/index';
 
 export default function (UIkit) {
 
     UIkit.component('accordion', {
 
-        mixins: [UIkit.mixin.class, UIkit.mixin.toggable],
+        mixins: [Class, Toggable],
 
         props: {
             targets: String,

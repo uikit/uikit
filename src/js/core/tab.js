@@ -1,10 +1,11 @@
 import {isNumber, isString} from '../util/index';
+import {Class} from '../mixin/index';
 
 export default function (UIkit) {
 
     UIkit.component('tab', UIkit.components.switcher.extend({
 
-        mixins: [UIkit.mixin.class],
+        mixins: [Class],
 
         name: 'tab',
 

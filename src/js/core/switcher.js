@@ -1,11 +1,12 @@
 import $ from 'jquery';
 import {getIndex, toJQuery} from '../util/index';
+import {Toggable} from '../mixin/index';
 
 export default function (UIkit) {
 
     UIkit.component('switcher', {
 
-        mixins: [UIkit.mixin.toggable],
+        mixins: [Toggable],
 
         props: {
             connect: 'jQuery',

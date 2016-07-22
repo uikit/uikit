@@ -1,8 +1,10 @@
+import {Class} from '../mixin/index';
+
 export default function (UIkit) {
 
     UIkit.component('grid', UIkit.components.margin.extend({
 
-        mixins: [UIkit.mixin.class],
+        mixins: [Class],
 
         name: 'grid',
 
