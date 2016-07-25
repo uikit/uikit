@@ -41,29 +41,33 @@ export default {
 
         toggleElement(targets, show, animate) {
 
-            var all = targets => $.when.apply($, $(targets).toArray().map(el => this._toggleElement(el, show, animate))), toggles;
+            var all = targets => $.when.apply($, targets.toArray().map(el => this._toggleElement(el, show, animate))),
+                toggles, res, win = $(window), scroll = win.scrollTop();
+
+            targets = $(targets);
 
             if (!this.queued) {
                 return all(targets);
             }
 
             if (this.queued !== true) {
-                toggles = $(targets).not(this.queued);
+                toggles = targets.not(this.queued);
                 this.queued = true;
-                return all(toggles);
+                res = all(toggles);
+                win.scrollTop(scroll);
+                return res;
             }
 
-            this.queued = $(targets).not(toggles = $(targets).filter((_, el) => this.isToggled(el)));
+            this.queued = targets.not(toggles = targets.filter((_, el) => this.isToggled(el)));
 
             return all(toggles).then(() => {
-
                 if (this.queued !== true) {
-                    toggles = this.queued;
+                    res = all(this.queued);
                     this.queued = true;
-                    return all(toggles);
+                    win.scrollTop(scroll);
+                    return res;
                 }
 
-                return true;
             });
         },
 
@@ -155,13 +159,7 @@ export default {
                 } else {
                     deferred = Animation
                         .out(el, this.animation[1], this.duration, this.origin)
-                        .then(() => {
-                            if (!this.queued) {
-                                this._toggle(el, false);
-                            } else {
-                                requestAnimationFrame(() => this._toggle(el, false))
-                            }
-                        });
+                        .then(() => this._toggle(el, false));
                 }
 
             } else {
