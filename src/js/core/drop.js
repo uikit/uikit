@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import {isString, isWithin, removeClass, getDimensions, toJQuery} from '../util/index';
-import {Class, Mouse, Position, Toggable} from '../mixin/index';
+import {Mouse, Position, Toggable} from '../mixin/index';
 
 export default function (UIkit) {
 
@@ -14,7 +14,7 @@ export default function (UIkit) {
 
     UIkit.component('drop', {
 
-        mixins: [Class, Mouse, Position, Toggable],
+        mixins: [Mouse, Position, Toggable],
 
         props: {
             mode: String,
@@ -39,16 +39,20 @@ export default function (UIkit) {
             cls: 'uk-open'
         },
 
-        ready() {
-
+        init() {
             this.clsDrop = this.clsDrop || 'uk-' + this.$options.name;
             this.clsPos = this.clsDrop;
+
+            this.$el.addClass(this.clsDrop);
+        },
+
+        ready() {
 
             this.updateAria(this.$el);
 
             this.$el.on('click', `.${this.clsDrop}-close`, e => {
                 e.preventDefault();
-                this.hide(false)
+                this.hide(false);
             });
 
             if (this.toggle) {
