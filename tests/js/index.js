@@ -33,6 +33,7 @@ document.writeln(`<script src="../js/uikit.js"></script>`);
 
 [
     'tooltip',
+    'sortable',
     'spinner'
 ].forEach(component => {
     document.writeln(`<link rel="stylesheet" href="../css/components/${storage[key]}/${component}.css">`);
