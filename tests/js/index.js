@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ].forEach(name => {
 
         $(`<option value="${name}.html">${name.split('-').map(name => {
-            return name.charAt(0).toUpperCase() + name.slice(1);
+            return name.ucfirst();
         }).join(' ')}</option>`).appendTo($tests);
     });
 
@@ -124,6 +124,8 @@ document.addEventListener("DOMContentLoaded", () => {
             location.href = `../${document.querySelector('script[src*="test.js"]').getAttribute('src').replace('js/test.js', '')}tests/${$tests.val()}${style}`;
         }
     }).val(location.pathname.split('/').pop());
+
+    $tests.prepend(`<option value="index.html">Overview</option>`);
 
     // Styles
     // ------------------------------
