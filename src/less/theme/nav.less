@@ -22,6 +22,8 @@
 // New
 //
 
+@nav-parent-icon-margin-right:                  -10px;
+
 @nav-default-item-hover-background:             @global-muted-background;
 @nav-default-item-active-background:            @global-primary-background;
 
@@ -39,7 +41,7 @@
 // Parent icon modifier
 // ========================================================================
 
-.hook-nav-parent-icon() {}
+.hook-nav-parent-icon() { margin-right: @nav-parent-icon-margin-right; }
 
 
 // Header
