@@ -37,16 +37,12 @@
 @form-padding-horizontal:                       6px;
 @form-padding-vertical:                         4px;
 
-@form-border:                                   @global-border;
-@form-border-width:                             @global-border-width;
-@form-background:                               @global-background;
+@form-background:                               @global-muted-background;
 @form-color:                                    @global-color;
 
-@form-focus-border:                             @global-primary-background;
-@form-focus-background:                         @global-background;
+@form-focus-background:                         @global-muted-background;
 @form-focus-color:                              @global-color;
 
-@form-disabled-border:                          @global-border;
 @form-disabled-background:                      @global-muted-background;
 @form-disabled-color:                           @global-muted-color;
 
@@ -57,16 +53,8 @@
 @form-small-font-size:                          @global-small-font-size;
 @form-large-font-size:                          @global-medium-font-size;
 
-@form-danger-border:                            @global-danger-background;
-@form-danger-background:                        @global-background;
 @form-danger-color:                             @global-danger-background;
-
-@form-success-border:                           @global-success-background;
-@form-success-background:                       @global-background;
 @form-success-color:                            @global-success-background;
-
-@form-blank-border:                             @global-border;
-@form-blank-border-style:                       dashed;
 
 @form-width-mini:                               40px;
 @form-width-small:                              130px;
@@ -79,20 +67,13 @@
 
 @form-radio-size:                               @global-font-size;
 @form-radio-margin-top:                         -4px;
+@form-radio-background:                         darken(@global-muted-background, 5%);
 
-@form-radio-border:                             darken(@global-border, 10%);
-@form-radio-border-width:                       @global-border-width;
-@form-radio-background:                         transparent;
-
-@form-radio-focus-border:                       @global-primary-background;
-
-@form-radio-checked-border:                     transparent;
 @form-radio-checked-background:                 @global-primary-background;
 @form-radio-checked-icon-color:                 @global-inverse-color;
 
 @form-radio-checked-focus-background:           darken(@global-primary-background, 10%);
 
-@form-radio-disabled-border:                    @global-border;
 @form-radio-disabled-background:                @global-muted-background;
 @form-radio-disabled-icon-color:                @global-muted-color;
 
@@ -233,23 +214,9 @@
 .uk-textarea { -webkit-appearance: none; }
 
 /*
- * Vertical alignment
- */
-
-.uk-input,
-.uk-select { vertical-align: middle; }
-.uk-textarea { vertical-align: top; }
-
-/*
- * Height
- */
-
-.uk-input,
-.uk-select:not([multiple]):not([size]) { height: @form-height; }
-
-/*
  * 1. Prevent content overflow
- * 2. Style
+ * 2. Reset default
+ * 3. Style
  */
 
 .uk-input,
@@ -258,15 +225,17 @@
     /* 1 */
     max-width: 100%;
     /* 2 */
-    padding: @form-padding-vertical @form-padding-horizontal;
-    border: @form-border-width solid @form-border;
+    border: none;
+    /* 3 */
+    padding-left: @form-padding-horizontal;
+    padding-right: @form-padding-horizontal;
     background: @form-background;
     color: @form-color;
+
     .hook-form;
 
     // Focus
     &:focus {
-        border-color: @form-focus-border;
         outline: 0;
         background: @form-focus-background;
         color: @form-focus-color;
@@ -275,11 +244,32 @@
 
     // Disabled
     &:disabled {
-        border-color: @form-disabled-border;
         background-color: @form-disabled-background;
         color: @form-disabled-color;
         .hook-form-disabled;
     }
+}
+
+/*
+ * Single-line
+ */
+
+.uk-input,
+.uk-select:not([multiple]):not([size]) {
+    height: @form-height;
+    vertical-align: middle;
+}
+
+/*
+ * Multi-line
+ */
+
+.uk-select[multiple],
+.uk-select[size],
+.uk-textarea {
+    padding-top: @form-padding-vertical;
+    padding-bottom: @form-padding-vertical;
+    vertical-align: top;
 }
 
 /*
@@ -322,9 +312,8 @@
  * Error
  */
 
-.uk-form-danger {
-    border-color: @form-danger-border;
-    background: @form-danger-background;
+.uk-form-danger,
+.uk-form-danger:focus {
     color: @form-danger-color;
     .hook-form-danger;
 }
@@ -333,9 +322,8 @@
  * Success
  */
 
-.uk-form-success  {
-    border-color: @form-success-border;
-    background: @form-success-background;
+.uk-form-success,
+.uk-form-success:focus  {
     color: @form-success-color;
     .hook-form-success;
 }
@@ -345,14 +333,11 @@
  */
 
 .uk-form-blank {
-    border-color: transparent;
-    border-style: @form-blank-border-style;
     background: none;
     .hook-form-blank;
 }
 
 .uk-form-blank:focus {
-    border-color: @form-blank-border;
     .hook-form-blank-focus;
 }
 
@@ -425,7 +410,6 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
     display: inline-block;
     height: @form-radio-size;
     width: @form-radio-size;
-    border: @form-radio-border-width solid @form-radio-border;
     /* 2 */
     overflow: hidden;
     /* 3 */
@@ -447,7 +431,6 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
 .uk-radio:focus,
 .uk-checkbox:focus {
     outline: none;
-    border-color: @form-radio-focus-border;
     .hook-form-radio-focus;
 }
 
@@ -458,7 +441,6 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
 .uk-radio:checked,
 .uk-checkbox:checked,
 .uk-checkbox:indeterminate {
-    border-color: @form-radio-checked-border;
     background-color: @form-radio-checked-background;
     .hook-form-radio-checked;
 }
@@ -485,7 +467,6 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
 
 .uk-radio:disabled,
 .uk-checkbox:disabled {
-    border-color: @form-radio-disabled-border;
     background-color: @form-radio-disabled-background;
     .hook-form-radio-disabled;
 }
@@ -642,17 +623,14 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
 
 .dye-vars-default() {
 
-    @form-border:                          fade(@dye-color, 80%);
-    @form-background:                      fade(@dye-color, 80%);
-    @form-color:                           @dye-inverse-color;
-    @form-focus-border:                    @dye-color;
-    @form-focus-background:                @dye-color;
-    @form-focus-color:                     @dye-inverse-color;
-    @form-placeholder-color:               fade(@dye-inverse-color, 70%);
+    @form-background:                      transparent;
+    @form-color:                           @dye-color;
+    @form-focus-background:                transparent;
+    @form-focus-color:                     @dye-color;
+    @form-placeholder-color:               @dye-muted-color;
 
-    @form-radio-border:                    fade(@dye-color, 70%);
-    @form-radio-focus-border:              @dye-color;
-    @form-radio-checked-border:            @dye-color;
+    @form-select-icon-color:               @dye-color;
+
     @form-radio-checked-background:        transparent;
     @form-radio-checked-icon-color:        @dye-color;
 
@@ -666,14 +644,12 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
     .uk-input,
     .uk-select,
     .uk-textarea {
-        border-color: @form-border;
         background-color: @form-background;
         color: @form-color;
         background-clip: padding-box;
         .hook-dye-form;
 
         &:focus {
-            border-color: @form-focus-border;
             background-color: @form-focus-background;
             color: @form-focus-color;
             .hook-dye-form-focus;
@@ -696,22 +672,28 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
     // Radio and checkbox
     //
 
+    .uk-select:not([multiple]):not([size]) { .svg-fill("../../images/form-select.svg", "#000", @form-select-icon-color); }
+
+
+    //
+    // Radio and checkbox
+    //
+
     .uk-radio,
     .uk-checkbox {
-        border-color: @form-radio-border;
-        background-color: @form-radio-background;
         .hook-dye-form-radio;
     }
 
     // Focus
     .uk-radio:focus,
-    .uk-checkbox:focus { border-color: @form-radio-focus-border; }
+    .uk-checkbox:focus {
+        .hook-dye-form-radio-focus;
+    }
 
     // Checked
     .uk-radio:checked,
     .uk-checkbox:checked,
     .uk-checkbox:indeterminate {
-        border-color: @form-radio-checked-border;
         background-color: @form-radio-checked-background;
         .hook-dye-form-radio-checked;
     }

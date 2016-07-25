@@ -7,53 +7,96 @@
 // Variables
 // ========================================================================
 
+@form-background:                               @global-background;
+@form-focus-background:                         @global-background;
+
+@form-danger-color:                             @form-color;
+@form-success-color:                            @form-color;
+
+@form-radio-background:                         transparent;
+
 @form-stacked-margin-bottom:                    5px;
+
+//
+// New
+//
+
+@form-border:                                   @global-border;
+@form-border-width:                             @global-border-width;
+
+@form-focus-border:                             @global-primary-background;
+
+@form-disabled-border:                          @global-border;
+
+@form-danger-border:                            @global-danger-background;
+@form-success-border:                           @global-success-background;
+
+@form-blank-border:                             @global-border;
+@form-blank-border-style:                       dashed;
+
+@form-radio-border:                             darken(@global-border, 10%);
+@form-radio-border-width:                       @global-border-width;
+
+@form-radio-focus-border:                       @global-primary-background;
+
+@form-radio-checked-border:                     transparent;
+
+@form-radio-disabled-border:                    @global-border;
 
 
 // Component
 // ========================================================================
 
 .hook-form() {
+    border: @form-border-width solid @form-border;
     -webkit-transition: 0.2s ease-in-out;
     transition: 0.2s ease-in-out;
     -webkit-transition-property: color, background-color, border;
     transition-property: color, background-color, border;
 }
 
-.hook-form-focus() {}
+.hook-form-focus() {
+    border-color: @form-focus-border;
+}
 
-.hook-form-disabled() {}
+.hook-form-disabled() {
+    border-color: @form-disabled-border;
+}
 
 
 // Style modifiers
 // ========================================================================
 
-.hook-form-danger() {}
+.hook-form-danger() { border-color: @form-danger-border; }
 
-.hook-form-success() {}
+.hook-form-success() { border-color: @form-success-border; }
 
-.hook-form-blank() {}
+.hook-form-blank() {
+    border-color: transparent;
+    border-style: @form-blank-border-style;
+}
 
-.hook-form-blank-focus() {}
+.hook-form-blank-focus() { border-color: @form-blank-border; }
 
 
 // Radio and checkbox
 // ========================================================================
 
 .hook-form-radio() {
+    border: @form-radio-border-width solid @form-radio-border;
     -webkit-transition: 0.2s ease-in-out;
     transition: 0.2s ease-in-out;
     -webkit-transition-property: background-color, border;
     transition-property: background-color, border;
 }
 
-.hook-form-radio-focus() {}
+.hook-form-radio-focus() { border-color: @form-radio-focus-border; }
 
-.hook-form-radio-checked() {}
+.hook-form-radio-checked() { border-color: @form-radio-checked-border; }
 
-.hook-form-radio-checked-focus() {}
+.hook-form-radio-checked-focus() { }
 
-.hook-form-radio-disabled() {}
+.hook-form-radio-disabled() { border-color: @form-radio-disabled-border; }
 
 
 // Legend
@@ -85,10 +128,14 @@
 
 .dye-hooks() {
 
-    .hook-dye-form() {}
-    .hook-dye-form-focus() {}
+    .hook-dye-form() { border-color: @dye-border; }
 
-    .hook-dye-form-radio() {}
-    .hook-dye-form-radio-checked() {}
+    .hook-dye-form-focus() { border-color: @dye-color; }
+
+    .hook-dye-form-radio() { border-color: @dye-border; }
+
+    .hook-dye-form-radio-focus() { border-color: @dye-color;; }
+
+    .hook-dye-form-radio-checked() { border-color: @dye-color; }
 
 }
