@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
         'search',
         'section',
         'slidenav',
+        'sortable',
         'spinner',
         'sticky',
         'subnav',

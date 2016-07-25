@@ -4,8 +4,12 @@ export const cancelAnimationFrame = window.cancelAnimationFrame || window.clearT
 
 export const hasTouch = 'ontouchstart' in window
     || window.DocumentTouch && document instanceof DocumentTouch
-    || navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0 //IE 10
-    || navigator.pointerEnabled && navigator.maxTouchPoints > 0; //IE >=11
+    || navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0 // IE 10
+    || navigator.pointerEnabled && navigator.maxTouchPoints > 0; // IE >=11
+
+export const pointerDown = !hasTouch ? 'mousedown' : window.PointerEvent ? 'pointerdown' : 'touchstart';
+export const pointerMove = !hasTouch ? 'mousemove' : window.PointerEvent ? 'pointermove' : 'touchmove';
+export const pointerUp = !hasTouch ? 'mouseup' : window.PointerEvent ? 'pointerup' : 'touchend';
 
 export const transitionend = (function () {
 
@@ -72,4 +76,10 @@ export function getCssVar(name) {
     doc.removeChild(element);
 
     return val || undefined;
+}
+
+var idCounter = 0;
+export function uniqueId (prefix) {
+    var id = ++idCounter + '';
+    return prefix ? prefix + id : id;
 }
