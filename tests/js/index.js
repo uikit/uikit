@@ -12,8 +12,8 @@ function _get(name) {
 var storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_inverse';
 
 var styles  = {
-    'core'  : 'css/uikit.core.css',
-    'theme' : '../css/uikit.css'
+    'core'  : '../css/uikit.core.css',
+    'theme' : '../css/uikit.theme.css'
 };
 
 if (_get('style') && _get('style').match(/\.(json|css)$/)) {
@@ -23,9 +23,20 @@ if (_get('style') && _get('style').match(/\.(json|css)$/)) {
 storage[key]        = storage[key] || 'core';
 storage[keyinverse] = storage[keyinverse] || 'default';
 
-document.writeln(`<link rel="stylesheet" href="${(styles[storage[key]] || '../css/uikit.css')}">`);
+// add UIkit core
+document.writeln(`<link rel="stylesheet" href="${(styles[storage[key]] || '../css/uikit.theme.css')}">`);
 document.writeln(`<script src="../vendor/jquery.js"></script>`);
 document.writeln(`<script src="../js/uikit.js"></script>`);
+
+
+// add  UIkit components
+
+[
+    'tooltip',
+    'spinner'
+].forEach(component => {
+    document.writeln(`<link rel="stylesheet" href="../css/components/${storage[key]}/${component}.css">`);
+});
 
 document.addEventListener("DOMContentLoaded", () => {
 

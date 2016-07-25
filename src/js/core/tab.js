@@ -9,33 +9,18 @@ export default function (UIkit) {
 
         name: 'tab',
 
-        props: {
-            media: Number
-        },
-
         defaults: {
             media: 960,
             attrItem: 'uk-tab-item'
         },
 
-        ready() {
+        init() {
 
-            this.vertical = this.$el.hasClass('uk-tab-left') && 'uk-tab-left' || this.$el.hasClass('uk-tab-right') && 'uk-tab-right';
+            this.cls = this.$el.hasClass('uk-tab-left') && 'uk-tab-left' || this.$el.hasClass('uk-tab-right') && 'uk-tab-right';
 
-        },
-
-        update: {
-
-            handler() {
-
-                this.$el.toggleClass(this.vertical || '', this.vertical && this.media
-                    && isNumber(this.media) && window.innerWidth >= this.media
-                    || isString(this.media) && window.matchMedia(this.media).matches);
-
-            },
-
-            events: ['resize', 'orientationchange']
-
+            if (this.cls) {
+                UIkit.toggle(this.$el, {media:this.media, mode:'media', cls:this.cls});
+            }
         }
 
     }));

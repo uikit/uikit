@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { isNumber, isString, getCssVar, hasTouch } from '../util/index';
+import { isString, getCssVar, hasTouch } from '../util/index';
 
 var vars = {}; // css vars cache
 
@@ -20,7 +20,8 @@ export default function (UIkit) {
             href: false,
             target: false,
             mode: 'click',
-            queued: true
+            queued: true,
+            media: false
         },
 
         ready() {
@@ -69,7 +70,7 @@ export default function (UIkit) {
 
                     this.media = `(min-width: ${vars[name]})`;
 
-                } else if (isNumber(this.media)) {
+                } else if (!isNaN(this.media)) {
                     this.media = `(min-width: ${this.media}px)`;
                 }
 
