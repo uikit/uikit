@@ -24,8 +24,6 @@
 
 @alert-close-top:                               @alert-padding + 5px;
 @alert-close-right:                             @alert-padding;
-@alert-close-opacity:                           0.4;
-@alert-close-hover-opacity:                     0.8;
 
 @alert-primary-background:                      #ebf7fd;
 @alert-primary-color:                           @global-primary-background;
@@ -71,7 +69,6 @@
     position: absolute;
     top: @alert-close-top;
     right: @alert-close-right;
-    opacity: @alert-close-opacity;
     .hook-alert-close;
 }
 
@@ -83,14 +80,10 @@
 
 /*
  * Hover + Focus
- * 1. Required for `a` elements
  */
 
 .uk-alert-close:hover,
 .uk-alert-close:focus {
-    opacity: @alert-close-hover-opacity;
-    /* 1 */
-    color: inherit;
     .hook-alert-close-hover;
 }
 

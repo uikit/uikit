@@ -7,6 +7,13 @@
 // Variables
 // ========================================================================
 
+//
+// New
+//
+
+@modal-close-full-padding:                     @global-margin;
+@modal-close-full-background:                  @modal-dialog-background;
+
 
 // Component
 // ========================================================================
@@ -49,25 +56,22 @@
 
 .hook-modal-close-hover() {}
 
-.hook-modal-close-default() { opacity: 0.6; }
+.hook-modal-close-default() {}
 
-.hook-modal-close-default-hover() { opacity: 1; }
+.hook-modal-close-default-hover() {}
 
-.hook-modal-close-outside() { opacity: 0.6; }
+.hook-modal-close-outside() {}
 
-.hook-modal-close-outside-hover() { opacity: 1; }
+.hook-modal-close-outside-hover() {}
 
 .hook-modal-close-full() {
     top: 0;
     right: 0;
-    padding: 15px;
-    background: @global-background;
-    color: lighten(@global-color, 20%)
+    padding: @modal-close-full-padding;
+    background: @modal-close-full-background;
 }
 
-.hook-modal-close-full-hover() {
-    color: @global-color;
-}
+.hook-modal-close-full-hover() {}
 
 
 // Caption

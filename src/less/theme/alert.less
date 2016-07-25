@@ -7,6 +7,9 @@
 // Variables
 // ========================================================================
 
+@alert-close-opacity:                           0.4;
+@alert-close-hover-opacity:                     0.8;
+
 
 // Component
 // ========================================================================
@@ -17,9 +20,16 @@
 // Close
 // ========================================================================
 
-.hook-alert-close() {}
+.hook-alert-close() {
+    color: inherit;
+    opacity: @alert-close-opacity;
+}
 
-.hook-alert-close-hover() {}
+.hook-alert-close-hover() {
+    color: inherit;
+    opacity: @alert-close-hover-opacity;
+
+}
 
 
 // Style modifiers
