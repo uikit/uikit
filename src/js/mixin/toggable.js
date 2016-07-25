@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {Animation, extend, isArray, isString, Transition} from '../util/index';
+import {Animation, extend, isString, Transition} from '../util/index';
 
 export default {
 
