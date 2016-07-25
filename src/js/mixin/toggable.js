@@ -42,7 +42,7 @@ export default {
         toggleElement(targets, show, animate) {
 
             var all = targets => $.when.apply($, targets.toArray().map(el => this._toggleElement(el, show, animate))),
-                toggles, res, win = $(window), scroll = win.scrollTop();
+                toggles, res, body = document.body, scroll = body.scrollTop;
 
             targets = $(targets);
 
@@ -51,10 +51,9 @@ export default {
             }
 
             if (this.queued !== true) {
-                toggles = targets.not(this.queued);
+                res = all(this.queued);
                 this.queued = true;
-                res = all(toggles);
-                win.scrollTop(scroll);
+                body.scrollTop = scroll;
                 return res;
             }
 
@@ -64,7 +63,7 @@ export default {
                 if (this.queued !== true) {
                     res = all(this.queued);
                     this.queued = true;
-                    win.scrollTop(scroll);
+                    body.scrollTop = scroll;
                     return res;
                 }
 
