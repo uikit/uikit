@@ -493,6 +493,10 @@
     .dye-vars();
     .dye-hooks();
 
+    // Prevent underline because of dye base `a` selector
+    .uk-navbar-nav > li > a,
+    .uk-navbar-nav > li > a:hover { text-decoration: none; }
+
     .uk-navbar-transparent .uk-navbar-nav > li > a {
         color: @navbar-nav-item-color;
         .hook-dye-navbar-transparent-nav-item;

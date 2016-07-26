@@ -614,14 +614,14 @@ textarea { touch-action: manipulation; }
     // Link
     //
 
-    :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]),
+    a:not([class]),
     .uk-link  {
         color: @base-link-color;
         text-decoration: @base-link-text-decoration;
         .hook-dye-base-link;
     }
 
-    :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]):hover,
+    a:not([class]):hover,
     .uk-link:hover {
         color: @base-link-hover-color;
         text-decoration: @base-link-hover-text-decoration;
