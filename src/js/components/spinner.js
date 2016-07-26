@@ -2,8 +2,6 @@ UIkit.component('spinner', UIkit.components.icon.extend({
 
     name: 'spinner',
 
-    defaults: {icon: 'spinner_icon'},
-
     init() {
         this.height = this.width = this.$el.width();
     },

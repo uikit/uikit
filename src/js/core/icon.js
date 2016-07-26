@@ -23,7 +23,6 @@ export default function (UIkit) {
         'navbar-toggle-icon',
         'overlay-icon',
         'slidenav',
-        'spinner',
         'search-icon',
         'totop'
     ].forEach(name => UIkit.component(name, UIkit.components.icon.extend({name})));
