@@ -8,6 +8,7 @@
 /tools
 /tests/js/test*
 /tests/css/*
+custom
 !/tests/css/.gitkeep
 *~
 *.diff

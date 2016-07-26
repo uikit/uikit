@@ -19,6 +19,8 @@ compile('src/js/uikit.js', 'js/uikit', ['jquery'], {jquery: 'jQuery'});
 compile('tests/js/index.js', 'tests/js/test', ['jquery'], {jquery: 'jQuery'});
 glob('src/js/components/**/*.js', (er, files) => files.forEach(file => compile(file, file.substring(4, file.length - 3), ['jquery', 'uikit'], {jquery: 'jQuery', uikit: 'UIkit'})));
 
+buildthemes();
+
 function compile(file, dest, external, globals) {
 
     var entry = path.resolve(path.dirname(file), path.basename(file, '.js'));
@@ -46,6 +48,26 @@ function compile(file, dest, external, globals) {
             );
         })
         .catch(console.log);
+}
+
+function buildthemes() {
+
+    if (!fs.existsSync('custom')) {
+        return;
+    }
+
+    var themes = {};
+
+    fs.readdirSync('custom').filter(function(file) {
+        return fs.statSync(path.join('custom', file)).isDirectory();
+    }).forEach(function(folder) {
+        themes[folder] = `../css/uikit.${folder}.css`;
+    });
+
+    if (Object.keys(themes).length) {
+        write('themes.json', JSON.stringify(themes));
+    }
+
 }
 
 function write(dest, code) {
