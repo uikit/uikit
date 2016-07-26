@@ -37,7 +37,7 @@ export default function (UIkit) {
                 return;
             }
 
-            this.$el.on('click', this.toggle + ':not(.uk-disabled)', e => {
+            this.$el.on('click', `${this.toggle}:not(.uk-disabled)`, e => {
                 e.preventDefault();
                 this.show(e.currentTarget);
             });

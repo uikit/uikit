@@ -1,7 +1,6 @@
-
-String.prototype.ucfirst = function() {
+String.prototype.ucfirst = function () {
     return this.length ? this.charAt(0).toUpperCase() + this.slice(1) : '';
-}
+};
 
 function _get(name) {
     var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
@@ -11,42 +10,46 @@ function _get(name) {
 
 var storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_inverse';
 
-var styles  = {
-    'core'  : '../css/uikit.core.css',
-    'theme' : '../css/uikit.theme.css'
+var styles = {
+    core: '../css/uikit.core.css',
+    theme: '../css/uikit.theme.css'
 };
+
+var component = location.pathname.split('/').pop().replace(/.html$/, '');
 
 if (_get('style') && _get('style').match(/\.(json|css)$/)) {
     styles.custom = _get('style');
 }
 
-storage[key]        = storage[key] || 'core';
+storage[key] = storage[key] || 'core';
 storage[keyinverse] = storage[keyinverse] || 'default';
 
 // add UIkit core
 document.writeln(`<link rel="stylesheet" href="${(styles[storage[key]] || '../css/uikit.theme.css')}">`);
-document.writeln(`<script src="../vendor/jquery.js"></script>`);
-document.writeln(`<script src="../js/uikit.js"></script>`);
-
 
 // add  UIkit components
-
 [
     'tooltip',
     'sortable',
     'spinner'
-].forEach(component => {
-    document.writeln(`<link rel="stylesheet" href="../css/components/${storage[key]}/${component}.css">`);
+].forEach(name => {
+    if (name === component) {
+        document.writeln(`<link rel="stylesheet" href="../css/components/${storage[key]}/${name}.css">`);
+    }
 });
+
+document.writeln(`<script src="../vendor/jquery.js"></script>`);
+document.writeln(`<script src="../js/uikit.js"></script>`);
+
 
 document.addEventListener("DOMContentLoaded", () => {
 
     var $ = jQuery;
 
     var $container = $('<div class="uk-container"></div>').prependTo('body');
-    var $tests     = $('<select class="uk-select"></select>').css('margin', '20px 20px 20px 0').prependTo($container);
-    var $styles    = $('<select class="uk-select"></select>').css('margin', '20px').appendTo($container);
-    var $inverse   = $('<select class="uk-select"></select>').css('margin', '20px').appendTo($container);
+    var $tests = $('<select class="uk-select"></select>').css('margin', '20px 20px 20px 0').prependTo($container);
+    var $styles = $('<select class="uk-select"></select>').css('margin', '20px').appendTo($container);
+    var $inverse = $('<select class="uk-select"></select>').css('margin', '20px').appendTo($container);
 
     // Tests
     // ------------------------------
@@ -123,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
             var style = styles.custom ? `?style=${_get('style')}` : '';
             location.href = `../${document.querySelector('script[src*="test.js"]').getAttribute('src').replace('js/test.js', '')}tests/${$tests.val()}${style}`;
         }
-    }).val(location.pathname.split('/').pop());
+    }).val(component && `${component}.html`);
 
     $tests.prepend(`<option value="index.html">Overview</option>`);
 
@@ -143,9 +146,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // ------------------------------
 
     var variations = {
-        'default' : 'Default',
-        'light'   : 'Dark',
-        'dark'    : 'Light'
+        'default': 'Default',
+        'light': 'Dark',
+        'dark': 'Light'
     };
 
     Object.keys(variations).forEach(name => {
