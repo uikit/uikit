@@ -11,7 +11,7 @@
     "watch-js": "watch-run -i -p 'src/js/**/*.js' npm run compile-js",
     "watch": "npm run watch-less & npm run watch-js",
     "test": "webpack-dev-server --inline --hot & open http://localhost:8080/tests/",
-    "compile-less-core": "lessc --rootpath=../src/less/ --relative-urls src/less/theme/_import.less > css/uikit.theme.css && lessc --rootpath=../../src/less/core/ --relative-urls src/less/core/_import.less > css/uikit.core.css",
+    "compile-less-core": "lessc --relative-urls --rootpath=../src/less/theme/ src/less/theme/_import.less > css/uikit.theme.css & lessc --relative-urls --rootpath=../src/less/core/ src/less/core/_import.less > css/uikit.core.css",
     "compile-less-components": "mkdir css/components & lessc-each src/less/components css/components/core  --rootpath=../src/less/ --relative-urls && lessc-each src/less/theme/components css/components/theme  --rootpath=../src/less/ --relative-urls"
   },
   "devDependencies": {
