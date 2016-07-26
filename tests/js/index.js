@@ -34,9 +34,7 @@ document.writeln(`<link rel="stylesheet" href="${(styles[storage[key]] || '../cs
 
 // add  UIkit components
 components.forEach(name => {
-    if (name === component) {
-        document.writeln(`<link rel="stylesheet" href="../css/components/${storage[key]}/${name}.css">`);
-    }
+    document.writeln(`<link rel="stylesheet" href="../css/components/${storage[key]}/${name}.css">`);
 });
 
 document.writeln(`<script src="../vendor/jquery.js"></script>`);
@@ -44,9 +42,7 @@ document.writeln(`<script src="../js/uikit.js"></script>`);
 
 // add  UIkit components
 components.forEach(name => {
-    if (name === component) {
-        document.writeln(`<script src="../js/components/${name}.js"></script>`);
-    }
+    document.writeln(`<script src="../js/components/${name}.js"></script>`);
 });
 
 document.addEventListener("DOMContentLoaded", () => {
