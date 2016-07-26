@@ -9,13 +9,13 @@ export default function (UIkit) {
             return;
         }
 
-        var cls = 'uk-hover', html = $('html').on('tap', ({target}) => $(`.${cls}`).filter((_, el) => !isWithin(target, el)).removeClass(cls));
+        var cls = 'uk-hover', doc = $(document.documentElement).on('tap', ({target}) => $(`.${cls}`).filter((_, el) => !isWithin(target, el)).removeClass(cls));
 
         Object.defineProperty(UIkit, 'hoverSelector', {
 
             set(selector) {
 
-                html.on('tap', selector, function () {
+                doc.on('tap', selector, function () {
                     this.classList.add(cls);
                 });
 

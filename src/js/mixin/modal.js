@@ -39,8 +39,8 @@ export default {
 
     ready() {
 
-        this.page = $('html');
-        this.body = $('body');
+        this.page = $(document.documentElement);
+        this.body = $(document.body);
         this.panel = toJQuery(`.${this.clsPanel}`, this.$el);
 
         this.$el.on('click', this.selClose, e => {

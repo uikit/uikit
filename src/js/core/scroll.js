@@ -13,8 +13,7 @@ export default function (UIkit) {
         defaults: {
             duration: 1000,
             transition: 'easeOutExpo',
-            offset: 0,
-            complete: null
+            offset: 0
         },
 
         methods: {
@@ -31,7 +30,7 @@ export default function (UIkit) {
                 }
 
                 // animate to target, fire callback when done
-                $('body').stop().animate({scrollTop: target}, this.duration, this.transition, this.complete);
+                $('body').stop().animate({scrollTop: target}, this.duration, this.transition, () => this.$el.triggerHandler($.Event('scrolled'), [this]));
 
             }
 
