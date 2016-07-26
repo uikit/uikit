@@ -1,5 +1,4 @@
-import {isNumber, isString} from '../util/index';
-import {Class} from '../mixin/index';
+import { Class } from '../mixin/index';
 
 export default function (UIkit) {
 
@@ -19,7 +18,7 @@ export default function (UIkit) {
             this.cls = this.$el.hasClass('uk-tab-left') && 'uk-tab-left' || this.$el.hasClass('uk-tab-right') && 'uk-tab-right';
 
             if (this.cls) {
-                UIkit.toggle(this.$el, {media:this.media, mode:'media', cls:this.cls});
+                UIkit.toggle(this.$el, {media: this.media, mode: 'media', cls: this.cls});
             }
         }
 
