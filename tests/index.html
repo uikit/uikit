@@ -12,7 +12,7 @@
 
         <nav class="uk-navbar-container uk-margin">
             <div class="uk-container">
-                <div class="uk-navbar">
+                <div uk-navbar>
                     <div class="uk-navbar-left">
 
                         <a class="uk-navbar-item uk-logo" href="#">Logo</a>
@@ -321,6 +321,65 @@
                             </div>
                         </div>
 
+                        <h3>Icon</h3>
+
+                        <div class="uk-grid-small" uk-grid>
+                            <div>
+                                <a class="uk-icon-button" href="#" uk-icon="icon: github"></a>
+                            </div>
+                            <div>
+                                <a class="uk-icon-button" href="#" uk-icon="icon: twitter"></a>
+                            </div>
+                            <div>
+                                <a class="uk-icon-button" href="#" uk-icon="icon: facebook"></a>
+                            </div>
+                            <div>
+                                <a class="uk-icon-button" href="#" uk-icon="icon: dribbble"></a>
+                            </div>
+                        </div>
+
+                        <div uk-alert>
+                            <a href="#" class="uk-alert-close" uk-close></a>
+                            <p>Default message</p>
+                        </div>
+
+                        <div class="uk-alert-primary" uk-alert>
+                            <a href="#" class="uk-alert-close" uk-close></a>
+                            <p>Primary message</p>
+                        </div>
+
+                        <div class="uk-alert-success" uk-alert>
+                            <a href="#" class="uk-alert-close" uk-close></a>
+                            <p>Success message</p>
+                        </div>
+
+                        <div class="uk-alert-warning" uk-alert>
+                            <a href="#" class="uk-alert-close" uk-close></a>
+                            <p>Warning message</p>
+                        </div>
+
+                        <div class="uk-alert-danger" uk-alert>
+                            <a href="#" class="uk-alert-close" uk-close></a>
+                            <p>Danger message</p>
+                        </div>
+
+                        <a class="uk-badge" href="#">1</a>
+
+                        <p>
+                            <span class="uk-label">Default</span>
+                            <span class="uk-label uk-label-success">Success</span>
+                            <span class="uk-label uk-label-warning">Warning</span>
+                            <span class="uk-label uk-label-danger">Danger</span>
+                        </p>
+
+                        <div class="uk-inline">
+                            <img src="https://source.unsplash.com/random/800x500" alt="">
+                            <div class="uk-position-center">
+                                <span uk-overlay-icon></span>
+                            </div>
+                            <a class="uk-position-center-left uk-position-small" href="#" uk-slidenav="previous"></a>
+                            <a class="uk-position-center-right uk-position-small" href="#" uk-slidenav="next"></a>
+                        </div>
 
                     </div>
                 </div>
@@ -422,66 +481,38 @@
                     </div>
                 </div>
 
+                <div class="uk-grid-divider uk-child-width-expand@m" uk-grid>
+                    <div>
 
-
-
-
-
-
-
-
-
-            </div>
-        </div>
-
-        <div id="modal" uk-modal>
-            <div class="uk-modal-dialog uk-flex uk-flex-center uk-flex-middle" uk-height-viewport>
-                <button class="uk-modal-close-full" type="button" uk-close></button>
-                <form class="uk-search uk-search-large">
-                    <input class="uk-search-input uk-text-center" type="search" placeholder="Search..." autofocus>
-                </form>
-            </div>
-        </div>
-
-        <div id="offcanvas" uk-offcanvas="flip: true; overlay: true">
-            <div class="uk-offcanvas-bar">
-
-                <ul class="uk-nav uk-nav-default">
-                    <li class="uk-active"><a href="#">Active</a></li>
-                    <li class="uk-parent">
-                        <a href="#">Parent</a>
-                        <ul class="uk-nav-sub">
-                            <li><a href="#">Sub item</a></li>
-                            <li><a href="#">Sub item</a></li>
+                        <ul class="uk-subnav uk-subnav-divider" uk-margin>
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li class="uk-disabled"><a href="#">Disabled</a></li>
                         </ul>
-                    </li>
-                    <li class="uk-nav-header">Header</li>
-                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
-                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
-                    <li class="uk-nav-divider"></li>
-                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
-                </ul>
 
-                <button class="uk-button uk-button-default uk-offcanvas-close uk-width-1-1 uk-margin">Close</button>
+                    </div>
+                    <div>
 
-                <h3>Title</h3>
+                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li class="uk-disabled"><a href="#">Disabled</a></li>
+                        </ul>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                    <div>
+
+                        <ul uk-tab>
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li class="uk-disabled"><a href="#">Disabled</a></li>
+                        </ul>
+
+                    </div>
+                </div>
 
             </div>
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
         <div class="uk-section uk-section-muted uk-section-small">
             <div class="uk-container">
@@ -528,357 +559,86 @@
             </div>
         </div>
 
+        <div class="uk-section uk-section-default uk-section-small">
+            <div class="uk-container uk-text-center">
 
+                <a href="#" uk-totop></a>
 
+            </div>
+        </div>
 
-        <div class="uk-container">
+        <div id="modal" uk-modal>
+            <div class="uk-modal-dialog">
 
-            <div class="uk-child-width-1-2@m" uk-grid>
-                <div>
-                    <div class="uk-panel uk-padding">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
 
-                        <h2>Light</h2>
+                <div class="uk-modal-header">
+                    <h2 class="uk-modal-title">Modal Title</h2>
+                </div>
 
-                        <div class="uk-child-width-1-2@s" uk-grid>
-                            <div>
+                <div class="uk-modal-body uk-text-center uk-padding-large">
 
-                                <h3>Base</h3>
+                    <div class="uk-width-medium uk-margin-auto uk-margin-medium">
 
-                                <ul class="uk-list">
-                                    <li>The <a href="#">a element</a> example<br></li>
-                                    <li>The <code>code element</code> example<br></li>
-                                    <li>The <em>em element</em> example<br></li>
-                                </ul>
+                        <h3>Nav Primary</h3>
 
-                                <hr>
-
-                            </div>
-                            <div>
-
-                                <h3>Text</h3>
-
-                                <ul class="uk-list">
-                                    <li class="uk-text-muted">text-muted</li>
-                                    <li class="uk-text-primary">text-primary</li>
-                                    <li class="uk-text-meta">text-meta</li>
-                                    <li class="uk-text-lead">text-lead</li>
-                                </ul>
-
-                            </div>
-                        </div>
-
-                        <div class="uk-child-width-1-2@s" uk-grid>
-                            <div>
-
-                                <h3 class="uk-heading-divider">Heading divider</h1>
-
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-
-                            </div>
-                            <div>
-
-                                <h3 class="uk-heading-bullet">Heading bullet</h1>
-
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-
-                            </div>
-                        </div>
-
-                        <hr class="uk-divider-icon">
-
-                        <div class="uk-child-width-1-2@s" uk-grid>
-                            <div>
-
-                                <h3>List</h3>
-
-                                <ul class="uk-list uk-list-bullet">
-                                    <li>List item 1</li>
-                                    <li>List item 2</li>
-                                    <li>List item 3</li>
-                                </ul>
-
-                                <ul class="uk-list uk-list-divider">
-                                    <li>List item 1</li>
-                                    <li>List item 2</li>
-                                    <li>List item 3</li>
-                                </ul>
-
-                            </div>
-                            <div>
-
-                                <h3>Form</h3>
-
-                                <form class="uk-panel uk-margin">
-
-                                    <div class="uk-margin">
-                                        <label class="uk-form-label">Text</label>
-                                        <input class="uk-input uk-width-1-1" type="text" placeholder="Some text...">
-                                    </div>
-
-                                    <div class="uk-margin">
-                                        <label class="uk-form-label">Select</label>
-                                        <select class="uk-select uk-width-1-1">
-                                            <option>Option 01</option>
-                                            <option>Option 02</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="uk-margin">
-                                        <label class="uk-form-label">Textarea</label>
-                                        <textarea class="uk-textarea uk-width-1-1" rows="2" placeholder="Some text..."></textarea>
-                                    </div>
-
-                                    <div class="uk-grid-small uk-child-width-auto" uk-grid>
-                                        <div>
-                                            <label><input class="uk-radio" type="radio" name="radio"> Radio</label>
-                                        </div>
-                                        <div>
-                                            <label><input class="uk-checkbox" type="checkbox"> Checkbox</label>
-                                        </div>
-                                    </div>
-
-                                </form>
-
-                            </div>
-                        </div>
-
-                        <div class="uk-child-width-1-2@s" uk-grid>
-                            <div>
-
-                                <h3>Nav Default</h3>
-
-                                <ul class="uk-nav-default uk-nav-parent-icon" uk-nav>
-                                    <li class="uk-active"><a href="#">Active</a></li>
-                                    <li class="uk-parent">
-                                        <a href="#">Parent</a>
-                                        <ul class="uk-nav-sub">
-                                            <li><a href="#">Sub item</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="uk-nav-divider"></li>
-                                    <li class="uk-nav-header">Header</li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
-                                </ul>
-
-                            </div>
-                            <div>
-
-                                <h3>Nav Primary</h3>
-
-                                <ul class="uk-nav-primary uk-nav-parent-icon" uk-nav>
-                                    <li class="uk-active"><a href="#">Active</a></li>
-                                    <li class="uk-parent">
-                                        <a href="#">Parent</a>
-                                        <ul class="uk-nav-sub">
-                                            <li><a href="#">Sub item</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="uk-nav-divider"></li>
-                                    <li class="uk-nav-header">Header</li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
-
-                        <div class="uk-child-width-1-2@s" uk-grid>
-                            <div>
-
-                                <h3>Button</h3>
-
-                                <p uk-margin>
-                                    <a class="uk-button uk-button-default" href="#">Default</a>
-                                    <button class="uk-button uk-button-primary">Primary</button>
-                                    <button class="uk-button uk-button-text">Text</button>
-                                </p>
-
-                            </div>
-                            <div>
-
-                                <h3>Icon</h3>
-
-                                <div class="uk-grid-small uk-flex-middle" uk-grid>
-                                    <div>
-                                        <span class="uk-display-block" uk-icon="icon: trash"></span>
-                                    </div>
-                                    <div>
-                                        <a class="uk-icon-hover" href="#" uk-icon="icon: trash"></a>
-                                    </div>
-                                    <div>
-                                        <a class="uk-icon-button" href="#" uk-icon="icon: trash"></a>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-
-                        <div class="uk-child-width-1-2@s" uk-grid>
-                            <div>
-
-                                <h3>Badge</h3>
-
-                                <a class="uk-badge" href="#">1</a>
-                                <span class="uk-badge">2</span>
-
-                            </div>
-                            <div>
-
-                                <h3>Label</h3>
-
-                                <a class="uk-label" href="#">Default</a>
-                                <span class="uk-label uk-label-success">Success</span>
-
-                            </div>
-                        </div>
-
-                        <h3>Navbar</h3>
-
-                        <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
-                            <div class="uk-navbar-left">
-                                <ul class="uk-navbar-nav">
-                                    <li class="uk-active"><a href="">Active</a></li>
-                                    <li>
-                                        <a href="">Parent</a>
-                                        <div class="uk-navbar-dropdown">
-                                            <ul class="uk-nav uk-navbar-dropdown-nav">
-                                                <li class="uk-active"><a href="#">Active</a></li>
-                                                <li class="uk-parent">
-                                                    <a href="#">Parent</a>
-                                                    <ul class="uk-nav-sub">
-                                                        <li><a href="#">Sub item</a></li>
-                                                        <li><a href="#">Sub item</a></li>
-                                                    </ul>
-                                                </li>
-                                                <li class="uk-nav-header">Header</li>
-                                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
-                                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
-                                                <li class="uk-nav-divider"></li>
-                                                <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="">Item</a></li>
-                                    <li><a href="">Item</a></li>
-                                </ul>
-                            </div>
-                        </nav>
-
-                        <h3>Subnav</h3>
-
-                        <ul class="uk-subnav" uk-margin>
+                        <ul class="uk-nav-primary uk-nav-parent-icon uk-nav-center" uk-nav>
                             <li class="uk-active"><a href="#">Active</a></li>
-                            <li><a href="#">Item</a></li>
-                            <li><a href="#">Item</a></li>
-                            <li class="uk-disabled"><a href="#">Disabled</a></li>
+                            <li class="uk-parent">
+                                <a href="#">Parent</a>
+                                <ul class="uk-nav-sub">
+                                    <li><a href="#">Sub item</a></li>
+                                </ul>
+                            </li>
+                            <li class="uk-nav-divider"></li>
+                            <li class="uk-nav-header">Header</li>
+                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
                         </ul>
-
-                        <ul class="uk-subnav uk-subnav-divider" uk-margin>
-                            <li class="uk-active"><a href="#">Active</a></li>
-                            <li><a href="#">Item</a></li>
-                            <li><a href="#">Item</a></li>
-                            <li class="uk-disabled"><a href="#">Disabled</a></li>
-                        </ul>
-
-                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
-                            <li class="uk-active"><a href="#">Active</a></li>
-                            <li><a href="#">Item</a></li>
-                            <li><a href="#">Item</a></li>
-                            <li class="uk-disabled"><a href="#">Disabled</a></li>
-                        </ul>
-
-                        <h3>Breadcrumb</h3>
-
-                        <ul class="uk-breadcrumb">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Blog</a></li>
-                            <li class="uk-disabled"><a href="#">Category</a></li>
-                            <li class="uk-disabled"><a href="#">Post</a></li>
-                        </ul>
-
-                        <h3>Pagination</h3>
-
-                        <ul class="uk-pagination" uk-margin>
-                            <li class="uk-disabled"><a href="#"><span uk-icon="icon: trash"></span></a></li>
-                            <li><a href="#"><span uk-icon="icon: trash"></span></a></li>
-                            <li><a href="#">1</a></li>
-                            <li class="uk-disabled"><span>...</span></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">6</a></li>
-                            <li class="uk-active"><span>7</span></li>
-                            <li><a href="#">8</a></li>
-                            <li><a href="#">9</a></li>
-                            <li class="uk-disabled"><span>...</span></li>
-                            <li><a href="#">20</a></li>
-                            <li><a href="#"><span uk-icon="icon: trash"></span></a></li>
-                            <li class="uk-disabled"><a href="#"><span uk-icon="icon: trash"></span></a></li>
-                        </ul>
-
-                        <h3>Tab</h3>
-
-                        <ul uk-tab>
-                            <li class="uk-active"><a href="#">Active</a></li>
-                            <li><a href="#">Item</a></li>
-                            <li><a href="#">Item</a></li>
-                            <li class="uk-disabled"><a href="#">Disabled</a></li>
-                        </ul>
-
-                        <div class="uk-child-width-auto@s uk-margin-large-top" uk-grid>
-                            <div>
-
-                                <h3>Slidenav</h3>
-
-                                <p>
-                                    <a href="#" uk-slidenav="previous"></a>
-                                    <a href="#" uk-slidenav="next"></a>
-                                </p>
-
-                            </div>
-                            <div>
-
-                                <h3>Spinner</h3>
-
-                                <div uk-spinner></div>
-
-                            </div>
-                            <div>
-
-                                <h3>Totop</h3>
-
-                                <p>
-                                    <a href="#" uk-totop></a>
-                                </p>
-
-                            </div>
-                        </div>
-
-                        <h3>Grid</h3>
-
-                        <div class="uk-grid-divider uk-child-width-1-3" uk-grid>
-                            <div><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
-                            <div><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
-                            <div><div class="uk-panel">Lorem ipsum dolor sit amet.</div></div>
-                        </div>
-
-                        <h3>Column</h3>
-
-                        <div class="uk-margin uk-column-divider uk-column-1-3">
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-                        </div>
-
-                        <h3>Logo</h3>
-
-                        <p>
-                            <a class="uk-logo" href="#">Text Logo</a>
-                            <a class="uk-logo" href="#">
-                                <img src="https://source.unsplash.com/random/150x50" alt="">
-                                <img class="uk-logo-inverse" src="https://source.unsplash.com/random/151x51" alt="">
-                            </a>
-                        </p>
 
                     </div>
-                </div>
-            </div>
 
+                    <form class="uk-search uk-search-large uk-margin-auto">
+                        <input class="uk-search-input uk-text-center" type="search" placeholder="Search..." autofocus>
+                    </form>
+
+                </div>
+
+                <div class="uk-modal-footer uk-text-right">
+                    <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                    <button class="uk-button uk-button-primary" type="button">Save</button>
+                </div>
+
+                <div class="uk-modal-caption">Caption</div>
+
+            </div>
+        </div>
+
+        <div id="offcanvas" uk-offcanvas="flip: true; overlay: true">
+            <div class="uk-offcanvas-bar">
+
+                <ul class="uk-nav uk-nav-default">
+                    <li class="uk-active"><a href="#">Active</a></li>
+                    <li class="uk-parent">
+                        <a href="#">Parent</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="#">Sub item</a></li>
+                            <li><a href="#">Sub item</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Header</li>
+                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                </ul>
+
+                <button class="uk-button uk-button-default uk-offcanvas-close uk-width-1-1 uk-margin">Close</button>
+
+                <h3>Title</h3>
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+
+            </div>
         </div>
 
     </body>
