@@ -68,7 +68,7 @@ class Message {
 
     show() {
 
-        if (this.element.is(":visible")) {
+        if (this.element.is(':visible')) {
             return;
         }
 
@@ -116,7 +116,7 @@ class Message {
         if (instantly) {
             finalize();
         } else {
-            this.element.animate({"opacity":0, "margin-top": -1* this.element.outerHeight(), "margin-bottom":0}, function(){
+            this.element.animate({opacity:0, marginTop: -1* this.element.outerHeight(), marginBottom:0}, function(){
                 finalize();
             });
         }
@@ -141,7 +141,7 @@ class Message {
             return this.currentstatus;
         }
 
-        this.element.removeClass('uk-notify-message-'+this.currentstatus).addClass('uk-notify-message-'+status);
+        this.element.removeClass(`uk-notify-message-${this.currentstatus}`).addClass(`uk-notify-message-${status}`);
         this.currentstatus = status;
 
         return this;
