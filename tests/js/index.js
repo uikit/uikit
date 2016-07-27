@@ -23,6 +23,7 @@ var styles = Object.assign({
 
 var component = location.pathname.split('/').pop().replace(/.html$/, '');
 var components = [
+    'notify',
     'tooltip',
     'sortable',
     'spinner'
@@ -98,6 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
         'modal',
         'nav',
         'navbar',
+        'notify',
         'offcanvas',
         'overlay',
         'padding',
