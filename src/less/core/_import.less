@@ -50,6 +50,15 @@
 // Toggle
 // Scroll
 
+// Components
+@load-tooltip: false;
+@load-spinner: false;
+@load-sortable: false;
+
+& when (@load-tooltip) { @import "../components/tooltip.less"; }
+& when (@load-spinner) { @import "../components/spinner.less"; }
+& when (@load-sortable) { @import "../components/sortable.less"; }
+
 // Utility
 @import "animation.less";
 @import "width.less";
