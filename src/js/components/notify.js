@@ -27,51 +27,51 @@ var containers = {},
         }
     };
 
-var Message = function(options){
+class Message {
 
-    this.options = $.extend({}, Message.defaults, options);
+    constructor(options) {
 
-    this.uuid    = `notifymsg-${++uid}`;
-    this.element = $(`
-        <div class="uk-notify-message">
-            <a class="uk-close"></a>
-            <div></div>
-        </div>
-    `).data("notifyMessage", this);
+        this.options = $.extend({
+            message: '',
+            status: '',
+            timeout: 5000,
+            group: null,
+            pos: 'top-center',
+            onClose: function() {}
+        }, options);
 
-    this.content(this.options.message);
+        this.uuid    = `notifymsg-${++uid}`;
+        this.element = $(`
+            <div class="uk-notify-message">
+                <a class="uk-close"></a>
+                <div></div>
+            </div>
+        `).data("notifyMessage", this);
 
-    // status
-    if (this.options.status) {
-        this.element.addClass('uk-notify-message-'+this.options.status);
-        this.currentstatus = this.options.status;
+        this.content(this.options.message);
+
+        // status
+        if (this.options.status) {
+            this.element.addClass('uk-notify-message-'+this.options.status);
+            this.currentstatus = this.options.status;
+        }
+
+        this.group = this.options.group;
+
+        messages[this.uuid] = this;
+
+        if (!containers[this.options.pos]) {
+            containers[this.options.pos] = $('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", ".uk-notify-message", function(){
+
+                var message = $(this).data("notifyMessage");
+
+                message.element.trigger('manualclose.uk.notify', [message]);
+                message.close();
+            });
+        }
     }
 
-    this.group = this.options.group;
-
-    messages[this.uuid] = this;
-
-    if (!containers[this.options.pos]) {
-        containers[this.options.pos] = $('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", ".uk-notify-message", function(){
-
-            var message = $(this).data("notifyMessage");
-
-            message.element.trigger('manualclose.uk.notify', [message]);
-            message.close();
-        });
-    }
-};
-
-
-$.extend(Message.prototype, {
-
-    uuid: false,
-    element: false,
-    timout: false,
-    currentstatus: "",
-    group: false,
-
-    show: function() {
+    show() {
 
         if (this.element.is(":visible")) return;
 
@@ -98,9 +98,9 @@ $.extend(Message.prototype, {
         });
 
         return this;
-    },
+    }
 
-    close: function(instantly) {
+    close(instantly) {
 
         var $this    = this,
             finalize = function(){
@@ -125,22 +125,22 @@ $.extend(Message.prototype, {
                 finalize();
             });
         }
-    },
+    }
 
-    content: function(html){
+    content(html){
 
         var container = this.element.find(">div");
 
-        if(!html) {
+        if (!html) {
             return container.html();
         }
 
         container.html(html);
 
         return this;
-    },
+    }
 
-    status: function(status) {
+    status(status) {
 
         if (!status) {
             return this.currentstatus;
@@ -152,16 +152,7 @@ $.extend(Message.prototype, {
 
         return this;
     }
-});
-
-Message.defaults = {
-    message: "",
-    status: "",
-    timeout: 5000,
-    group: null,
-    pos: 'top-center',
-    onClose: function() {}
-};
+}
 
 UIkit.notify          = notify;
 UIkit.notify.message  = Message;
