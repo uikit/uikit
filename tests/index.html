@@ -52,7 +52,7 @@
             </div>
         </nav>
 
-        <div class="uk-section uk-section-default">
+        <div class="uk-section uk-section-default uk-section-small">
             <div class="uk-container">
 
                 <div class="uk-child-width-expand@m" uk-grid>
@@ -73,18 +73,26 @@
 
                             <div class="uk-grid-small uk-child-width-1-2@m" uk-grid>
                                 <div>
-                                    <div class="uk-inline">
+                                    <div class="uk-inline-clip">
                                         <img src="https://source.unsplash.com/random/800x500" alt="">
                                         <div class="uk-overlay uk-overlay-default uk-position-bottom uk-padding-small">
                                             <p>Default Lorem ipsum dolor sit amet.</p>
                                         </div>
+                                        <div class="uk-position-top-right uk-position-small uk-light">
+                                            <a href="#" uk-slidenav="previous"></a>
+                                            <a href="#" uk-slidenav="next"></a>
+                                        </div>
                                     </div>
                                 </div>
                                 <div>
-                                    <div class="uk-inline">
+                                    <div class="uk-inline-clip">
                                         <img src="https://source.unsplash.com/random/801x501" alt="">
                                         <div class="uk-overlay uk-overlay-primary uk-position-bottom uk-padding-small">
                                             <p>Primary Lorem ipsum dolor sit amet.</p>
+                                        </div>
+                                        <div class="uk-position-top-right uk-position-small uk-light">
+                                            <a class="uk-slidenav-large" href="#" uk-slidenav="previous"></a>
+                                            <a class="uk-slidenav-large" href="#" uk-slidenav="next"></a>
                                         </div>
                                     </div>
                                 </div>
@@ -95,6 +103,14 @@
                             <p class="uk-column-divider uk-column-1-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
                             <pre><code>&lt;div class="myclass">...&lt;div></code></pre>
+
+                            <p>
+                                <span class="uk-label">Default</span>
+                                <span class="uk-label uk-label-success">Success</span>
+                                <span class="uk-label uk-label-warning">Warning</span>
+                                <span class="uk-label uk-label-danger">Danger</span>
+                                <a class="uk-badge" href="#">1</a>
+                            </p>
 
                             <hr>
 
@@ -107,6 +123,7 @@
                                         <li><code>code element</code></li>
                                         <li><del>del element</del></li>
                                         <li><dfn title="Title text">dfn element</dfn></li>
+                                        <li><a href="" class="uk-link-muted">Link Muted</a></li>
                                     </ul>
 
                                 </div>
@@ -118,6 +135,7 @@
                                         <li><mark>mark element</mark></li>
                                         <li><q>q <q>inside</q> a q</q></li>
                                         <li><strong>strong element</strong></li>
+                                        <li class="uk-text-meta">Text Meta</li>
                                     </ul>
 
                                 </div>
@@ -194,18 +212,6 @@
                             <li class="uk-disabled"><a href="#"><span uk-icon="icon: trash"></span></a></li>
                         </ul>
 
-
-
-                        <h1>H1 heading</h1>
-                        <h2>H2 heading</h2>
-                        <h3>H3 heading</h3>
-                        <h4>H4 heading</h4>
-                        <h5>H5 heading</h5>
-                        <h6>H6 heading</h6>
-
-
-
-
                     </div>
                     <div>
 
@@ -227,18 +233,28 @@
 
                                 <h3 class="uk-heading-divider">Heading divider</h1>
 
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
-
-                                <lp><a href="" class="uk-link-muted">Link Muted</a></lp>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 
                                 <h3 class="uk-heading-bullet">Heading bullet</h1>
 
-                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt.</p>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 
-                                <p class="uk-text-meta">April 01, 2016</p>
+                                <div class="uk-inline uk-light">
+                                    <img src="https://source.unsplash.com/random/800x400" alt="">
+                                    <div class="uk-position-center">
+                                        <span uk-overlay-icon></span>
+                                    </div>
+                                </div>
 
                             </div>
                             <div>
+
+                                <div class="uk-margin">
+                                    <form class="uk-search uk-search-default uk-width-1-1">
+                                        <span class="uk-search-icon" uk-search-icon></span>
+                                        <input class="uk-search-input" type="search" placeholder="Search...">
+                                    </form>
+                                </div>
 
                                 <div class="uk-margin uk-card uk-card-body uk-card-default uk-card-hover">
                                     <h3 class="uk-card-title">Default</h3>
@@ -261,6 +277,139 @@
                         <div class="uk-child-width-expand@m" uk-grid>
                             <div>
 
+                                <h1 class="uk-margin-small">H1 heading</h1>
+                                <h2 class="uk-margin-small">H2 heading</h2>
+                                <h3 class="uk-margin-small">H3 heading</h3>
+                                <h4 class="uk-margin-small">H4 heading</h4>
+                                <h5 class="uk-margin-small">H5 heading</h5>
+                                <h6 class="uk-margin-small">H6 heading</h6>
+
+                            </div>
+                            <div>
+
+                                <div class="uk-grid-small uk-flex-center uk-margin" uk-grid>
+                                    <div>
+                                        <a class="uk-icon-button" href="#" uk-icon="icon: github"></a>
+                                    </div>
+                                    <div>
+                                        <a class="uk-icon-button" href="#" uk-icon="icon: twitter"></a>
+                                    </div>
+                                    <div>
+                                        <a class="uk-icon-button" href="#" uk-icon="icon: facebook"></a>
+                                    </div>
+                                    <div>
+                                        <a class="uk-icon-button" href="#" uk-icon="icon: dribbble"></a>
+                                    </div>
+                                </div>
+
+                                <div class="uk-grid-small uk-child-width-1-2@m" uk-grid>
+                                    <div>
+
+                                        <div uk-alert>
+                                            <a href="#" class="uk-alert-close" uk-close></a>
+                                            <p>Default</p>
+                                        </div>
+
+                                    </div>
+                                    <div>
+
+                                        <div class="uk-alert-primary" uk-alert>
+                                            <a href="#" class="uk-alert-close" uk-close></a>
+                                            <p>Primary</p>
+                                        </div>
+
+                                    </div>
+                                    <div>
+
+                                        <div class="uk-alert-success" uk-alert>
+                                            <a href="#" class="uk-alert-close" uk-close></a>
+                                            <p>Success</p>
+                                        </div>
+
+                                    </div>
+                                    <div>
+
+                                        <div class="uk-alert-warning" uk-alert>
+                                            <a href="#" class="uk-alert-close" uk-close></a>
+                                            <p>Warning</p>
+                                        </div>
+
+                                    </div>
+                                    <div>
+
+                                        <div class="uk-alert-danger" uk-alert>
+                                            <a href="#" class="uk-alert-close" uk-close></a>
+                                            <p>Danger</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="uk-child-width-expand@m" uk-grid>
+                            <div>
+
+                                <div class="uk-grid-small uk-child-width-1-2" uk-grid>
+                                    <div>
+                                        <button class="uk-button uk-button-default uk-width-1-1">Default</button>
+                                    </div>
+                                    <div>
+                                        <button class="uk-button uk-button-primary uk-width-1-1">Primary</button>
+                                    </div>
+                                    <div>
+                                        <button class="uk-button uk-button-success uk-width-1-1">Success</button>
+                                    </div>
+                                    <div>
+                                        <button class="uk-button uk-button-danger uk-width-1-1">Danger</button>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div>
+
+                                <div class="uk-grid-small uk-child-width-1-1" uk-grid>
+                                    <div>
+
+                                        <div class="uk-button-group">
+                                            <button class="uk-button uk-button-default">Group</button>
+                                            <div class="uk-inline">
+                                                <button class="uk-button uk-button-default"><span uk-icon="icon: table"></span></button>
+                                                <div uk-drop="mode: click">
+                                                    <ul class="uk-nav uk-dropdown-nav">
+                                                        <li class="uk-active"><a href="#">Active</a></li>
+                                                        <li class="uk-parent">
+                                                            <a href="#">Parent</a>
+                                                            <ul class="uk-nav-sub">
+                                                                <li><a href="#">Sub item</a></li>
+                                                                <li><a href="#">Sub item</a></li>
+                                                            </ul>
+                                                        </li>
+                                                        <li class="uk-nav-header">Header</li>
+                                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                                        <li class="uk-nav-divider"></li>
+                                                        <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div>
+
+                                        <button class="uk-button uk-button-default" disabled>Disabled</button>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="uk-child-width-expand@m" uk-grid>
+                            <div>
+
                                 <form class="uk-form-stacked">
 
                                     <div class="uk-margin-small">
@@ -269,7 +418,6 @@
                                     </div>
 
                                     <div class="uk-margin-small">
-                                        <label class="uk-form-label">Select</label>
                                         <select class="uk-select uk-width-1-1">
                                             <option>Option 01</option>
                                             <option>Option 02</option>
@@ -277,8 +425,7 @@
                                     </div>
 
                                     <div class="uk-margin-small">
-                                        <label class="uk-form-label">Textarea</label>
-                                        <textarea class="uk-textarea uk-width-1-1" rows="2" placeholder="Some text..."></textarea>
+                                         <textarea class="uk-textarea uk-width-1-1" rows="2" placeholder="Some text..."></textarea>
                                     </div>
 
                                     <div class="uk-grid-small uk-child-width-auto" uk-grid>
@@ -295,129 +442,64 @@
                             </div>
                             <div>
 
-                                <div class="uk-margin-small">
-                                    <input class="uk-input uk-width-1-1" type="text" placeholder=":disabled" disabled>
-                                </div>
+                                <form class="uk-form-stacked">
 
-                                <div class="uk-margin-small uk-grid-small" uk-grid>
-                                    <div class="uk-width-expand">
-                                        <input class="uk-input uk-width-1-1" type="text" placeholder=":focus" required>
+                                    <div class="uk-margin-small">
+                                        <label class="uk-form-label">States</label>
+                                        <input class="uk-input uk-width-1-1" type="text" placeholder=":disabled" disabled>
                                     </div>
-                                    <div class="uk-width-auto">
-                                        <button class="uk-button uk-button-default uk-width-1-1">Required</button>
+
+                                    <div class="uk-margin-small">
+                                        <input class="uk-input uk-form-danger uk-width-1-1" type="text" placeholder="form-danger" value="form-danger">
                                     </div>
-                                </div>
+                                    <div class="uk-margin-small">
+                                        <input class="uk-input uk-form-success uk-width-1-1" type="text" placeholder="form-success" value="form-success">
+                                    </div>
+                                    <div class="uk-margin-small">
+                                        <input class="uk-input uk-form-blank uk-width-1-1" type="text" placeholder="form-blank">
+                                    </div>
 
-                                <div class="uk-margin-small">
-                                    <input class="uk-input uk-form-danger uk-width-1-1" type="text" placeholder="form-danger" value="form-danger">
-                                </div>
-                                <div class="uk-margin-small">
-                                    <input class="uk-input uk-form-success uk-width-1-1" type="text" placeholder="form-success" value="form-success">
-                                </div>
-                                <div class="uk-margin-small">
-                                    <input class="uk-input uk-form-blank uk-width-1-1" type="text" placeholder="form-blank">
-                                </div>
+                                </form>
 
                             </div>
-                        </div>
-
-                        <h3>Icon</h3>
-
-                        <div class="uk-grid-small" uk-grid>
-                            <div>
-                                <a class="uk-icon-button" href="#" uk-icon="icon: github"></a>
-                            </div>
-                            <div>
-                                <a class="uk-icon-button" href="#" uk-icon="icon: twitter"></a>
-                            </div>
-                            <div>
-                                <a class="uk-icon-button" href="#" uk-icon="icon: facebook"></a>
-                            </div>
-                            <div>
-                                <a class="uk-icon-button" href="#" uk-icon="icon: dribbble"></a>
-                            </div>
-                        </div>
-
-                        <div uk-alert>
-                            <a href="#" class="uk-alert-close" uk-close></a>
-                            <p>Default message</p>
-                        </div>
-
-                        <div class="uk-alert-primary" uk-alert>
-                            <a href="#" class="uk-alert-close" uk-close></a>
-                            <p>Primary message</p>
-                        </div>
-
-                        <div class="uk-alert-success" uk-alert>
-                            <a href="#" class="uk-alert-close" uk-close></a>
-                            <p>Success message</p>
-                        </div>
-
-                        <div class="uk-alert-warning" uk-alert>
-                            <a href="#" class="uk-alert-close" uk-close></a>
-                            <p>Warning message</p>
-                        </div>
-
-                        <div class="uk-alert-danger" uk-alert>
-                            <a href="#" class="uk-alert-close" uk-close></a>
-                            <p>Danger message</p>
-                        </div>
-
-                        <a class="uk-badge" href="#">1</a>
-
-                        <p>
-                            <span class="uk-label">Default</span>
-                            <span class="uk-label uk-label-success">Success</span>
-                            <span class="uk-label uk-label-warning">Warning</span>
-                            <span class="uk-label uk-label-danger">Danger</span>
-                        </p>
-
-                        <div class="uk-inline">
-                            <img src="https://source.unsplash.com/random/800x500" alt="">
-                            <div class="uk-position-center">
-                                <span uk-overlay-icon></span>
-                            </div>
-                            <a class="uk-position-center-left uk-position-small" href="#" uk-slidenav="previous"></a>
-                            <a class="uk-position-center-right uk-position-small" href="#" uk-slidenav="next"></a>
                         </div>
 
                     </div>
                 </div>
 
-                <div class="uk-margin" uk-margin>
+                <hr>
 
-                    <div class="uk-button-group">
-                        <button class="uk-button uk-button-default">Group</button>
-                        <div class="uk-inline">
-                            <button class="uk-button uk-button-default"><span uk-icon="icon: table"></span></button>
-                            <div uk-drop="mode: click">
-                                <ul class="uk-nav uk-dropdown-nav">
-                                    <li class="uk-active"><a href="#">Active</a></li>
-                                    <li class="uk-parent">
-                                        <a href="#">Parent</a>
-                                        <ul class="uk-nav-sub">
-                                            <li><a href="#">Sub item</a></li>
-                                            <li><a href="#">Sub item</a></li>
-                                        </ul>
-                                    </li>
-                                    <li class="uk-nav-header">Header</li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
-                                    <li class="uk-nav-divider"></li>
-                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                <div class="uk-grid-divider uk-child-width-expand@m" uk-grid>
+                    <div>
+
+                        <ul class="uk-subnav uk-subnav-divider" uk-margin>
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li class="uk-disabled"><a href="#">Disabled</a></li>
+                        </ul>
+
                     </div>
+                    <div>
 
-                    <button class="uk-button uk-button-primary">Primary</button>
-                    <button class="uk-button uk-button-success">Success</button>
-                    <button class="uk-button uk-button-danger">Danger</button>
-                    <button class="uk-button uk-button-default" disabled>Disabled</button>
-                    <button class="uk-button uk-button-text">Text</button>
-                    <button class="uk-button uk-button-link">Link</button>
+                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li class="uk-disabled"><a href="#">Disabled</a></li>
+                        </ul>
 
+                    </div>
+                    <div>
+
+                        <ul uk-tab>
+                            <li class="uk-active"><a href="#">Active</a></li>
+                            <li><a href="#">Item</a></li>
+                            <li class="uk-disabled"><a href="#">Disabled</a></li>
+                        </ul>
+
+                    </div>
                 </div>
+
+                <hr>
 
                 <div class="uk-grid-divider uk-child-width-expand@m" uk-grid>
                     <div>
@@ -477,36 +559,6 @@
                                 </tr>
                             </tbody>
                         </table>
-
-                    </div>
-                </div>
-
-                <div class="uk-grid-divider uk-child-width-expand@m" uk-grid>
-                    <div>
-
-                        <ul class="uk-subnav uk-subnav-divider" uk-margin>
-                            <li class="uk-active"><a href="#">Active</a></li>
-                            <li><a href="#">Item</a></li>
-                            <li class="uk-disabled"><a href="#">Disabled</a></li>
-                        </ul>
-
-                    </div>
-                    <div>
-
-                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
-                            <li class="uk-active"><a href="#">Active</a></li>
-                            <li><a href="#">Item</a></li>
-                            <li class="uk-disabled"><a href="#">Disabled</a></li>
-                        </ul>
-
-                    </div>
-                    <div>
-
-                        <ul uk-tab>
-                            <li class="uk-active"><a href="#">Active</a></li>
-                            <li><a href="#">Item</a></li>
-                            <li class="uk-disabled"><a href="#">Disabled</a></li>
-                        </ul>
 
                     </div>
                 </div>
