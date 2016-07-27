@@ -22,6 +22,8 @@ export default function (UIkit) {
         'close',
         'navbar-toggle-icon',
         'overlay-icon',
+        'pagination-previous',
+        'pagination-next',
         'slidenav',
         'search-icon',
         'totop'
