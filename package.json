@@ -4,10 +4,10 @@
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
   "version": "3.0.0",
   "scripts": {
-    "compile-less": "npm run compile-less-core & npm run compile-less-components",
-    "compile-js": "node build",
+    "compile-less": "npm run compile-less-core & npm run compile-less-components & node scripts/less",
+    "compile-js": "node scripts/build",
     "compile": "npm run compile-less & npm run compile-js",
-    "watch-less": "watch-run -i -p '**/*.less' npm run compile",
+    "watch-less": "watch-run -i -p '**/*.less' npm run compile-less",
     "watch-js": "watch-run -i -p 'src/js/**/*.js' npm run compile-js",
     "watch": "npm run watch-less & npm run watch-js",
     "test": "webpack-dev-server --inline --hot & open http://localhost:8080/tests/",
