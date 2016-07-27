@@ -1,37 +1,35 @@
 import $ from 'jquery';
+import {extend, isString} from '../util/index';
 
-var uid = 0;
+var uid = 0, containers = {}, messages = {};
 
-var containers = {},
-    messages   = {},
-    notify     =  function(options){
+var notify = function(options){
 
-        if ($.type(options) == 'string') {
-            options = { message: options };
-        }
+    if (isString(options)) {
+        options = { message: options };
+    }
 
-        if (arguments[1]) {
-            options = $.extend(options, $.type(arguments[1]) == 'string' ? {status:arguments[1]} : arguments[1]);
-        }
+    if (arguments[1]) {
+        options = extend(options, isString(arguments[1]) ? {status:arguments[1]} : arguments[1]);
+    }
 
-        return (new Message(options)).show();
-    },
-    closeAll  = function(group, instantly){
+    return (new Message(options)).show();
+};
 
-        var id;
+var closeAll  = function(group, instantly){
 
-        if (group) {
-            for(id in messages) { if(group===messages[id].group) messages[id].close(instantly); }
-        } else {
-            for(id in messages) { messages[id].close(instantly); }
-        }
-    };
+    if (group) {
+        for(var id in messages) { if (group===messages[id].group) messages[id].close(instantly); }
+    } else {
+        for(var id in messages) { messages[id].close(instantly); }
+    }
+};
 
 class Message {
 
     constructor(options) {
 
-        this.options = $.extend({
+        this.options = extend({
             message: '',
             status: '',
             timeout: 5000,
@@ -46,13 +44,16 @@ class Message {
                 <a class="uk-close"></a>
                 <div></div>
             </div>
-        `).data("notifyMessage", this);
+        `).on('click', () => {
+            this.element.trigger('close', [this]);
+            this.close();
+        });
 
         this.content(this.options.message);
 
         // status
         if (this.options.status) {
-            this.element.addClass('uk-notify-message-'+this.options.status);
+            this.element.addClass(`uk-notify-message-${this.options.status}`);
             this.currentstatus = this.options.status;
         }
 
@@ -61,37 +62,29 @@ class Message {
         messages[this.uuid] = this;
 
         if (!containers[this.options.pos]) {
-            containers[this.options.pos] = $('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", ".uk-notify-message", function(){
-
-                var message = $(this).data("notifyMessage");
-
-                message.element.trigger('manualclose.uk.notify', [message]);
-                message.close();
-            });
+            containers[this.options.pos] = $(`<div class="uk-notify uk-notify-${this.options.pos}"></div>`).appendTo('body');
         }
     }
 
     show() {
 
-        if (this.element.is(":visible")) return;
-
-        var $this = this;
+        if (this.element.is(":visible")) {
+            return;
+        }
 
         containers[this.options.pos].show().prepend(this.element);
 
-        var marginbottom = parseInt(this.element.css("margin-bottom"), 10);
+        var marginbottom = parseInt(this.element.css('margin-bottom'), 10);
 
-        this.element.css({"opacity":0, "margin-top": -1*this.element.outerHeight(), "margin-bottom":0}).animate({"opacity":1, "margin-top": 0, "margin-bottom":marginbottom}, function(){
+        this.element.css({opacity:0, marginTop: -1*this.element.outerHeight(), marginBottom:0}).animate({opacity:1, marginTop: 0, marginBottom: marginbottom}, () => {
 
-            if ($this.options.timeout) {
+            if (this.options.timeout) {
 
-                var closefn = function(){ $this.close(); };
+                this.timeout = setTimeout(() => { this.close(); }, this.options.timeout);
 
-                $this.timeout = setTimeout(closefn, $this.options.timeout);
-
-                $this.element.hover(
-                    function() { clearTimeout($this.timeout); },
-                    function() { $this.timeout = setTimeout(closefn, $this.options.timeout);  }
+                this.element.hover(
+                    () => { clearTimeout(this.timeout); },
+                    () => { this.timeout = setTimeout(() => { this.close(); }, this.options.timeout);  }
                 );
             }
 
@@ -102,21 +95,23 @@ class Message {
 
     close(instantly) {
 
-        var $this    = this,
-            finalize = function(){
-                $this.element.remove();
+        var finalize = () => {
 
-                if (!containers[$this.options.pos].children().length) {
-                    containers[$this.options.pos].hide();
-                }
+            this.element.remove();
 
-                $this.options.onClose.apply($this, []);
-                $this.element.trigger('close.uk.notify', [$this]);
+            if (!containers[this.options.pos].children().length) {
+                containers[this.options.pos].hide();
+            }
 
-                delete messages[$this.uuid];
-            };
+            this.options.onClose.apply(this, []);
+            this.element.trigger('close.uk.notify', [this]);
 
-        if (this.timeout) clearTimeout(this.timeout);
+            delete messages[this.uuid];
+        };
+
+        if (this.timeout) {
+            clearTimeout(this.timeout);
+        }
 
         if (instantly) {
             finalize();
@@ -147,7 +142,6 @@ class Message {
         }
 
         this.element.removeClass('uk-notify-message-'+this.currentstatus).addClass('uk-notify-message-'+status);
-
         this.currentstatus = status;
 
         return this;
