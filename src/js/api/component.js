@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {isPlainObject, camelize} from '../util/index';
+import {camelize, isPlainObject} from '../util/index';
 
 export default function (UIkit) {
 

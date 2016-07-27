@@ -8,7 +8,7 @@ UIkit.component('spinner', UIkit.components.icon.extend({
 
     ready() {
 
-        this.svg.then((svg) => {
+        this.svg.then(svg => {
             var circle = svg.find('circle'),
                 diameter = Math.floor(this.width / 2);
 

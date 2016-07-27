@@ -4,9 +4,9 @@
 // Component:       `uk-sortable`
 //
 // Sub-objects:     `uk-sortable-handle`
-//                  `uk-sortable-moving`
+//                  `uk-sortable-dragging`
 //
-// Modifier:        `uk-sortable-dragged`
+// Modifier:        `uk-sortable-ghost`
 //                  `uk-sortable-placeholder`
 //
 // Markup:
@@ -62,10 +62,10 @@
 .uk-sortable > :last-child { margin-bottom: 0; }
 
 
-/* Sub-modifier `uk-sortable-dragged`
+/* Sub-modifier `uk-sortable-ghost`
  ========================================================================== */
 
-.uk-sortable-dragged {
+.uk-sortable-ghost {
     position: absolute;
     z-index: @sortable-dragged-z-index;
     pointer-events: none;
@@ -104,14 +104,14 @@
 .uk-sortable-handle:hover { cursor: move; }
 
 
-/* Sub-object `uk-sortable-moving`
+/* Sub-object `uk-sortable-dragging`
  ========================================================================== */
 
-.uk-sortable-moving,
+.uk-sortable-dragging,
 /* Needed if moving over links or buttons */
-.uk-sortable-moving * { cursor: move; }
+.uk-sortable-dragging * { cursor: move; }
 /* Fixes dragging items over iframes */
-.uk-sortable-moving iframe { pointer-events: none; }
+.uk-sortable-dragging iframe { pointer-events: none; }
 
 
 // Hooks

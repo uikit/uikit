@@ -37,10 +37,14 @@ export function transition(element, props, duration, transition) {
     let timer = setTimeout(() => element.trigger(transitionend || 'transitionend'), duration);
 
     element
-        .one(transitionend || 'transitionend', () => {
+        .one(transitionend || 'transitionend', (e, cancel) => {
             clearTimeout(timer);
             element.removeClass('uk-transition').css('transition', '');
-            d.resolve();
+            if (!cancel) {
+                d.resolve();
+            } else {
+                d.reject();
+            }
         })
         .addClass('uk-transition')
         .css('transition', `all ${duration}ms ${transition || 'linear'}`)
@@ -60,6 +64,16 @@ export const Transition = {
         $(element).trigger(transitionend || 'transitionend');
 
         return this;
+    },
+
+    cancel(element) {
+
+        element = $(element);
+
+        $(element).trigger(transitionend || 'transitionend', [true]);
+
+        return;
+
     },
 
     inProgress(element) {

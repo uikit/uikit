@@ -77,9 +77,3 @@ export function getCssVar(name) {
 
     return val || undefined;
 }
-
-var idCounter = 0;
-export function uniqueId (prefix) {
-    var id = ++idCounter + '';
-    return prefix ? prefix + id : id;
-}

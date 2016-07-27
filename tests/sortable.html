@@ -20,16 +20,15 @@
         <script type="text/javascript">
 
             jQuery(function($) {
-                 $('body').on('start', function (e, sortable, el) {
-                     console.log('start', sortable, el);
-                 }).on('move', function(e, sortable) {
-                     console.log('move', sortable);
-                 }).on('change', function(e, sortable, el, mode) {
-                     console.log('change', sortable, el, mode);
-                 }).on('stop', function(e, sortable) {
-                     console.log('stop', sortable);
-                     console.log( sortable.serialize() );
-                 });
+//                 $('body').on('start', function (e, sortable, el) {
+//                     console.log('start', sortable, el);
+//                 }).on('move', function(e, sortable) {
+//                     console.log('move', sortable);
+//                 }).on('change', function(e, sortable, el, mode) {
+//                     console.log('change', sortable, el, mode);
+//                 }).on('stop', function(e, sortable) {
+//                     console.log('stop', sortable);
+//                 });
             });
 
         </script>
@@ -43,45 +42,45 @@
 
             <h2>Grid</h2>
 
-            <ul class="uk-sortable uk-child-width-1-2 uk-child-width-1-5@m" uk-sortable="clsHandle: uk-panel" uk-grid uk-margin>
+            <ul class="uk-child-width-1-2 uk-child-width-1-5@m" uk-sortable="handle: .uk-panel" uk-grid>
                 <li>
-                    <div class="uk-panel uk-padding uk-card uk-card-primary">
+                    <div class="0 uk-panel uk-padding uk-card uk-card-primary">
                         <a href="http://www.getuikit.com">Item 1</a>
                         <img src="https://source.unsplash.com/random/60x40" width="40" height="40" alt="">
                     </div>
                 </li>
-                <li><div class="uk-panel uk-padding uk-card uk-card-primary"><a href="http://www.getuikit.com">Item 2</a></div></li>
-                <li><div class="uk-panel uk-padding uk-card uk-card-primary">Item 3</div></li>
-                <li><div class="uk-panel uk-padding uk-card uk-card-primary">Item 4</div></li>
-                <li><div class="uk-panel uk-padding uk-card uk-card-primary">Item 5</div></li>
-                <li><div class="uk-panel uk-padding uk-card uk-card-primary">Item 6</div></li>
-                <li><div class="uk-panel uk-padding uk-card uk-card-primary">Item 7</div></li>
-                <li><div class="uk-panel uk-padding uk-card uk-card-primary">Item 8</div></li>
-                <li><div class="uk-panel uk-padding uk-card uk-card-primary">Item 9</div></li>
-                <li><div class="uk-panel uk-padding uk-card uk-card-primary">Item 10</div></li>
-                <li><div class="uk-panel uk-padding uk-card uk-card-primary">Item 11</div></li>
-                <li><div class="uk-panel uk-padding uk-card uk-card-primary">Item 12</div></li>
+                <li><div class="1 uk-panel uk-padding uk-card uk-card-primary"><a href="http://www.getuikit.com">Item 2</a></div></li>
+                <li><div class="2 uk-panel uk-padding uk-card uk-card-primary">Item 3</div></li>
+                <li><div class="3 uk-panel uk-padding uk-card uk-card-primary">Item 4</div></li>
+                <li><div class="4 uk-panel uk-padding uk-card uk-card-primary">Item 5</div></li>
+                <li><div class="5 uk-panel uk-padding uk-card uk-card-primary">Item 6</div></li>
+                <li><div class="6 uk-panel uk-padding uk-card uk-card-primary">Item 7</div></li>
+                <li><div class="7 uk-panel uk-padding uk-card uk-card-primary">Item 8</div></li>
+                <li><div class="8 uk-panel uk-padding uk-card uk-card-primary">Item 9</div></li>
+                <li><div class="9 uk-panel uk-padding uk-card uk-card-primary">Item 10</div></li>
+                <li><div class="10 uk-panel uk-padding uk-card uk-card-primary">Item 11</div></li>
+                <li><div class="11 uk-panel uk-padding uk-card uk-card-primary">Item 12</div></li>
             </ul>
 
             <div class="uk-grid uk-child-width-1-3">
                 <div>
 
-                    <h2>Stacked with data</h2>
+                    <h2>Stacked</h2>
 
-                    <div class="uk-sortable" uk-sortable="group: test" uk-margin>
-                        <div data-test="id: 1, name: 'Item 1">
+                    <div uk-sortable="group: test" uk-margin>
+                        <div>
                             <div class="uk-panel uk-padding uk-card uk-card-primary">Item 1</div>
                         </div>
-                        <div data-test="id: 2, name: 'Item 2">
+                        <div>
                             <div class="uk-panel uk-padding uk-card uk-card-primary">Item 2</div>
                         </div>
-                        <div data-test="id: 3, name: 'Item 3">
+                        <div>
                             <div class="uk-panel uk-padding uk-card uk-card-primary">Item 3</div>
                         </div>
-                        <div data-test="id: 4, name: 'Item 4">
+                        <div>
                             <div class="uk-panel uk-padding uk-card uk-card-primary">Item 4</div>
                         </div>
-                        <div data-test="id: 5, name: 'Item 5">
+                        <div>
                             <div class="uk-panel uk-padding uk-card uk-card-primary">Item 5</div>
                         </div>
                     </div>
@@ -91,7 +90,7 @@
 
                     <h2>Handle</h2>
 
-                    <div class="uk-sortable" uk-sortable="clsHandle: uk-sortable-handle; group: test" uk-margin>
+                    <div uk-sortable="handle: .uk-sortable-handle; group: test" uk-margin>
                         <div>
                             <div class="uk-panel uk-padding uk-card uk-card-primary"><span class="uk-sortable-handle uk-margin-small-right" uk-icon="icon: table"></span> Item 1</div>
                         </div>
@@ -114,14 +113,14 @@
 
                     <h2>Empty</h2>
 
-                    <div class="uk-sortable uk-margin" uk-sortable="group: test" uk-margin></div>
+                    <div class="uk-margin" uk-sortable="group: test" uk-margin></div>
 
                 </div>
             </div>
 
             <h2>Nav</h2>
 
-            <ul class="uk-nav uk-nav-default uk-width-1-4@m" uk-sortable="clsDragCustom: test-item">
+            <ul class="uk-nav uk-nav-default uk-width-1-4@m" uk-sortable="clsCustom: test-item">
                 <li class="uk-active"><a href="#">Active</a></li>
                 <li><a href="#">Item</a></li>
                 <li><a href="#">Item</a></li>
@@ -137,10 +136,10 @@
 
             <div>
 
-                <ul class="uk-child-width-1-3 uk-sortable" uk-sortable="group: main" test="1" uk-grid>
+                <ul class="uk-child-width-1-3" uk-sortable="group: main" uk-grid>
                     <li>
                         <div class="uk-panel uk-padding uk-card uk-card-primary">
-                            <ul class="uk-sortable" uk-sortable="group: inner" test="2">
+                            <ul uk-sortable="group: inner">
                                 <li>List 1.1</li>
                                 <li>List 1.2</li>
                                 <li>List 1.3</li>
@@ -150,7 +149,7 @@
                     </li>
                     <li>
                         <div class="uk-panel uk-padding uk-card uk-card-primary">
-                            <ul class="uk-sortable" uk-sortable="group: inner" test="2">
+                            <ul uk-sortable="group: inner">
                                 <li>List 1.1</li>
                                 <li>List 1.2</li>
                                 <li>List 1.3</li>
@@ -159,10 +158,10 @@
                         </div>
                     </li>
                 </ul>
-                <ul class="uk-child-width-1-3 uk-sortable" uk-sortable="group: main" test="1" uk-grid>
+                <ul class="uk-child-width-1-3" uk-sortable="group: main" uk-grid>
                     <li>
                         <div class="uk-panel uk-padding uk-card uk-card-primary">
-                            <ul class="uk-sortable" uk-sortable="group: inner">
+                            <ul uk-sortable="group: inner">
                                 <li>List 2.1</li>
                                 <li>List 2.2</li>
                                 <li>List 2.3</li>
@@ -172,7 +171,7 @@
                     </li>
                     <li>
                         <div class="uk-panel uk-padding uk-card uk-card-primary">
-                            <ul class="uk-sortable" uk-sortable="group: inner">
+                            <ul uk-sortable="group: inner">
                                 <li>List 2.1</li>
                                 <li>List 2.2</li>
                                 <li>List 2.3</li>
@@ -181,11 +180,11 @@
                         </div>
                     </li>
                 </ul>
-                <ul class="uk-child-width-1-3 uk-sortable" uk-sortable="group: main" test="1" uk-grid>
+                <ul class="uk-child-width-1-3" uk-sortable="group: main" uk-grid>
 
                     <li>
                         <div class="uk-panel uk-padding uk-card uk-card-primary">
-                            <ul class="uk-sortable" uk-sortable="group: inner">
+                            <ul uk-sortable="group: inner">
                                 <li>List 3.1</li>
                                 <li>List 3.2</li>
                                 <li>List 3.3</li>
@@ -195,7 +194,7 @@
                     </li>
                     <li>
                         <div class="uk-panel uk-padding uk-card uk-card-primary">
-                            <ul class="uk-sortable" uk-sortable="group: inner">
+                            <ul uk-sortable="group: inner">
                                 <li>List 3.1</li>
                                 <li>List 3.2</li>
                                 <li>List 3.3</li>
@@ -221,40 +220,76 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>pos</code></td>
+                            <td><code>group</code></td>
                             <td>String</td>
-                            <td>'bottom-left'</td>
-                            <td>Tooltip position.</td>
-                        </tr>
-                        <tr>
-                            <td><code>offset</code></td>
-                            <td>Number</td>
-                            <td>0</td>
-                            <td>The offset of the Tooltip.</td>
+                            <td>''</td>
+                            <td>The group</td>
                         </tr>
                         <tr>
                             <td><code>animation</code></td>
-                            <td>String</td>
-                            <td>false</td>
-                            <td>The space separated names of animations to use. (Comma separate for animation out)</td>
-                        </tr>
-                        <tr>
-                            <td><code>duration</code></td>
                             <td>Number</td>
-                            <td>200</td>
+                            <td>150</td>
                             <td>The animation duration.</td>
                         </tr>
                         <tr>
-                            <td><code>delay</code></td>
+                            <td><code>threshold</code></td>
                             <td>Number</td>
-                            <td>0</td>
-                            <td>The show delay.</td>
+                            <td>10</td>
+                            <td>Mouse move threshold before dragging starts.</td>
                         </tr>
                         <tr>
-                            <td><code>cls</code></td>
+                            <td><code>clsItem</code></td>
                             <td>String</td>
-                            <td>uk-active</td>
-                            <td>The active class.</td>
+                            <td>uk-sortable-item</td>
+                            <td>The item class.</td>
+                        </tr>
+                        <tr>
+                            <td><code>clsPlaceholder</code></td>
+                            <td>String</td>
+                            <td>uk-sortable-placeholder</td>
+                            <td>The placeholder class.</td>
+                        </tr>
+                        <tr>
+                            <td><code>clsGhost</code></td>
+                            <td>String</td>
+                            <td>uk-sortable-ghost</td>
+                            <td>The ghost class.</td>
+                        </tr>
+                        <tr>
+                            <td><code>clsDragging</code></td>
+                            <td>String</td>
+                            <td>uk-sortable-dragging</td>
+                            <td>The body's dragging class.</td>
+                        </tr>
+                        <tr>
+                            <td><code>clsBase</code></td>
+                            <td>String</td>
+                            <td>uk-sortable</td>
+                            <td>The list's class.</td>
+                        </tr>
+                        <tr>
+                            <td><code>clsNoDrag</code></td>
+                            <td>String</td>
+                            <td>uk-sortable-nodrag</td>
+                            <td>Prevent dragging on elements with this class.</td>
+                        </tr>
+                        <tr>
+                            <td><code>clsEmpty</code></td>
+                            <td>String</td>
+                            <td>uk-sortable-empty</td>
+                            <td>The empty list class.</td>
+                        </tr>
+                        <tr>
+                            <td><code>clsCustom</code></td>
+                            <td>String</td>
+                            <td>''</td>
+                            <td>The ghost's custom class.</td>
+                        </tr>
+                        <tr>
+                            <td><code>handle</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>The handle selector.</td>
                         </tr>
                     </tbody>
                 </table>
