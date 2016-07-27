@@ -7,13 +7,19 @@ function _get(name) {
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
 
+function _load(url) {
+    var request = new XMLHttpRequest();
+    request.open('GET', url, false);  // `false` makes the request synchronous
+    request.send(null);
+    return request.status === 200 ? request.responseText : undefined;
+}
 
 var storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_inverse';
 
-var styles = {
+var styles = Object.assign({
     core: '../css/uikit.core.css',
     theme: '../css/uikit.theme.css'
-};
+}, JSON.parse(_load('../themes.json') || '{}'));
 
 var component = location.pathname.split('/').pop().replace(/.html$/, '');
 var components = [

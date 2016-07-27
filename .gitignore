@@ -9,6 +9,7 @@
 /tests/js/test*
 /tests/css/*
 custom
+themes.json
 !/tests/css/.gitkeep
 *~
 *.diff
