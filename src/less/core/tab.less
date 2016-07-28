@@ -118,12 +118,17 @@
  * Bottom
  */
 
+.uk-tab-bottom {
+    .hook-tab-bottom;
+}
+
 .uk-tab-bottom > * > a {
     .hook-tab-bottom-item;
 }
 
 /*
  * Left + Right
+ * 1. Reset Gutter
  */
 
 .uk-tab-left,
@@ -131,6 +136,20 @@
     -ms-flex-direction: column;
     -webkit-flex-direction: column;
     flex-direction: column;
+    /* 1 */
+    margin-left: 0;
+}
+
+/* 1 */
+.uk-tab-left > *,
+.uk-tab-right > * { padding-left: 0; }
+
+.uk-tab-left {
+    .hook-tab-left;
+}
+
+.uk-tab-right {
+    .hook-tab-right;
 }
 
 .uk-tab-left > * > a {
@@ -144,7 +163,6 @@
 }
 
 
-
 // Hooks
 // ========================================================================
 
@@ -155,8 +173,11 @@
 .hook-tab-item-hover() {}
 .hook-tab-item-active() {}
 .hook-tab-item-disabled() {}
+.hook-tab-bottom() {}
 .hook-tab-bottom-item() {}
+.hook-tab-left() {}
 .hook-tab-left-item() {}
+.hook-tab-right() {}
 .hook-tab-right-item() {}
 .hook-tab-misc() {}
 
