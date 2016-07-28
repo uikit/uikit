@@ -21,7 +21,6 @@ var styles = Object.assign({
     }
 }, JSON.parse(_load('../themes.json') || '{}'));
 
-
 if (_get('style') && _get('style').match(/\.(json|css)$/)) {
     styles.custom = _get('style');
 }
@@ -45,13 +44,15 @@ document.writeln(`<script src="../js/uikit.js"></script>`);
 // add  UIkit components
 
 var component = location.pathname.split('/').pop().replace(/.html$/, '');
-
-[
+var components = [
     'notify',
-    'tooltip',
     'sortable',
-    'spinner'
-].forEach(name => {
+    'spinner',
+    'tooltip',
+    'upload'
+];
+
+components.forEach(name => {
     document.writeln(`<script src="../js/components/${name}.js"></script>`);
 });
 
@@ -101,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
         'modal',
         'nav',
         'navbar',
-        'notify',
         'offcanvas',
         'overlay',
         'padding',
@@ -112,8 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
         'search',
         'section',
         'slidenav',
-        'sortable',
-        'spinner',
         'sticky',
         'subnav',
         'switcher',
@@ -121,13 +119,12 @@ document.addEventListener("DOMContentLoaded", () => {
         'table',
         'text',
         'toggle',
-        'tooltip',
         'totop',
         'transition',
         'utility',
         'visibility',
         'width'
-    ].forEach(name => {
+    ].concat(components).sort().forEach(name => {
 
         $(`<option value="${name}.html">${name.split('-').map(name => {
             return ucfirst(name);
