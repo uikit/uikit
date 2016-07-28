@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {isVoidElement, toJQuery} from '../util/index';
+import { isVoidElement, toJQuery } from '../util/index';
 
 var storage = window.sessionStorage || {}, svgs = {};
 

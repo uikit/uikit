@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {getDimensions} from '../util/index';
+import { getDimensions } from '../util/index';
 
 export default {
 

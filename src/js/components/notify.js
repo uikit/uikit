@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {extend, isString} from '../util/index';
+import { extend, isString } from '../util/index';
 
 var uid = 0, containers = {}, messages = {};
 

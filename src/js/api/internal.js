@@ -1,4 +1,4 @@
-import {bind, camelize, coerce, createEvent, extend, hasOwn, hyphenate, isArray, isPlainObject, isString, mergeOptions} from '../util/index';
+import { bind, camelize, coerce, createEvent, extend, hasOwn, hyphenate, isArray, isPlainObject, isString, mergeOptions } from '../util/index';
 
 export default function (UIkit) {
 

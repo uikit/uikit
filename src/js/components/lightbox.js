@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {util} from 'uikit';
+import { util } from 'uikit';
 
 var {extend, Dimensions, getIndex, Transition} = util;
 var active;

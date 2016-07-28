@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {util, mixin} from 'uikit';
+import { util, mixin } from 'uikit';
 
 var {flipPosition} = util;
 

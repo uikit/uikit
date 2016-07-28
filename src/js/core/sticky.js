@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {Animation, isNumber, isString, toJQuery, requestAnimationFrame} from '../util/index';
+import { Animation, isNumber, isString, toJQuery, requestAnimationFrame } from '../util/index';
 
 export default function (UIkit) {
 

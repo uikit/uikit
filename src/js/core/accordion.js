@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import {getIndex, toJQuery, Transition} from '../util/index';
-import {Class, Toggable} from '../mixin/index';
+import { getIndex, toJQuery, Transition } from '../util/index';
+import { Class, Toggable } from '../mixin/index';
 
 export default function (UIkit) {
 

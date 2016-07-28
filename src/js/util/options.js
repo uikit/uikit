@@ -1,4 +1,4 @@
-import {extend, isArray, hasOwn} from './index';
+import { extend, isArray, hasOwn } from './index';
 
 var strats = {};
 
