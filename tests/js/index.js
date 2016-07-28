@@ -1,33 +1,26 @@
-String.prototype.ucfirst = function () {
-    return this.length ? this.charAt(0).toUpperCase() + this.slice(1) : '';
-};
-
-function _get(name) {
-    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
-}
-
-function _load(url) {
-    var request = new XMLHttpRequest();
-    request.open('GET', url, false);  // `false` makes the request synchronous
-    request.send(null);
-    return request.status === 200 ? request.responseText : undefined;
-}
 
 var storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_inverse';
 
-var styles = Object.assign({
-    core: '../css/uikit.core.css',
-    theme: '../css/uikit.theme.css'
+var styles = extend({
+    core: {
+        file: '../css/uikit.core.css',
+        components: [
+            '../css/components/core/notify.css',
+            '../css/components/core/sortable.css',
+            '../css/components/core/spinner.css',
+            '../css/components/core/tooltip.css'
+        ]
+    },
+    theme: {
+        file: '../css/uikit.theme.css',
+        components: [
+            '../css/components/theme/notify.css',
+            '../css/components/theme/sortable.css',
+            '../css/components/theme/spinner.css',
+            '../css/components/theme/tooltip.css'
+        ]
+    }
 }, JSON.parse(_load('../themes.json') || '{}'));
-
-var component = location.pathname.split('/').pop().replace(/.html$/, '');
-var components = [
-    'notify',
-    'tooltip',
-    'sortable',
-    'spinner'
-];
 
 if (_get('style') && _get('style').match(/\.(json|css)$/)) {
     styles.custom = _get('style');
@@ -36,18 +29,30 @@ if (_get('style') && _get('style').match(/\.(json|css)$/)) {
 storage[key] = storage[key] || 'core';
 storage[keyinverse] = storage[keyinverse] || 'default';
 
+var style = styles[storage[key]] || styles.theme;
+
 // add UIkit core
-document.writeln(`<link rel="stylesheet" href="${(styles[storage[key]] || '../css/uikit.theme.css')}">`);
+document.writeln(`<link rel="stylesheet" href="${style.file}">`);
 
 // add  UIkit components
-(['core', 'theme'].indexOf(storage[key]) == -1 ? [] : components).forEach(name => {
-    document.writeln(`<link rel="stylesheet" href="../css/components/${storage[key]}/${name}.css">`);
+(style.components || []).forEach(file => {
+    document.writeln(`<link rel="stylesheet" href="${file}">`);
 });
 
 document.writeln(`<script src="../vendor/jquery.js"></script>`);
 document.writeln(`<script src="../js/uikit.js"></script>`);
 
 // add  UIkit components
+
+var component = location.pathname.split('/').pop().replace(/.html$/, '');
+var components = [
+    'notify',
+    'sortable',
+    'spinner',
+    'tooltip',
+    'upload'
+];
+
 components.forEach(name => {
     document.writeln(`<script src="../js/components/${name}.js"></script>`);
 });
@@ -98,7 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
         'modal',
         'nav',
         'navbar',
-        'notify',
         'offcanvas',
         'overlay',
         'padding',
@@ -109,8 +113,6 @@ document.addEventListener("DOMContentLoaded", () => {
         'search',
         'section',
         'slidenav',
-        'sortable',
-        'spinner',
         'sticky',
         'subnav',
         'switcher',
@@ -118,16 +120,15 @@ document.addEventListener("DOMContentLoaded", () => {
         'table',
         'text',
         'toggle',
-        'tooltip',
         'totop',
         'transition',
         'utility',
         'visibility',
         'width'
-    ].forEach(name => {
+    ].concat(components).sort().forEach(name => {
 
         $(`<option value="${name}.html">${name.split('-').map(name => {
-            return name.ucfirst();
+            return ucfirst(name);
         }).join(' ')}</option>`).appendTo($tests);
     });
 
@@ -144,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // ------------------------------
 
     Object.keys(styles).forEach(style => {
-        $styles.append(`<option value="${style}">${style.ucfirst()}</option>`);
+        $styles.append(`<option value="${style}">${ucfirst(style)}</option>`);
     });
 
     $styles.on('change', () => {
@@ -195,3 +196,32 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.querySelector('html').style.paddingTop = '80px';
+
+
+function extend(target) {
+
+    for (var index = 1, source; index < arguments.length; index++) {
+        source = arguments[index];
+        for (var key in source) {
+            target[key] = source[key];
+        }
+    }
+
+    return target;
+}
+
+function ucfirst(str) {
+    return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : '';
+};
+
+function _get(name) {
+    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+function _load(url) {
+    var request = new XMLHttpRequest();
+    request.open('GET', url, false);  // `false` makes the request synchronous
+    request.send(null);
+    return request.status === 200 ? request.responseText : undefined;
+}

@@ -24,7 +24,12 @@ function buildthemes() {
     fs.readdirSync('custom').filter(function(file) {
         return fs.statSync(path.join('custom', file)).isDirectory();
     }).forEach(function(folder) {
-        themes[folder] = `../css/uikit.${folder}.css`;
+
+        themes[folder] = {
+            file: `../css/uikit.${folder}.css`,
+            components: []
+        };
+
         exec(`lessc --relative-urls --rootpath=../custom/${folder}/ custom/${folder}/_import.less > css/uikit.${folder}.css`, function() {
             console.log(`${cyan('css/uikit.'+folder+'.css')} build`);
         });
