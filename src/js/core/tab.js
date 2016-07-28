@@ -15,10 +15,10 @@ export default function (UIkit) {
 
         init() {
 
-            this.cls = this.$el.hasClass('uk-tab-left') && 'uk-tab-left' || this.$el.hasClass('uk-tab-right') && 'uk-tab-right';
+            var cls = this.$el.hasClass('uk-tab-left') && 'uk-tab-left' || this.$el.hasClass('uk-tab-right') && 'uk-tab-right';
 
-            if (this.cls) {
-                UIkit.toggle(this.$el, {media: this.media, mode: 'media', cls: this.cls});
+            if (cls) {
+                UIkit.toggle(this.$el, {cls, mode: 'media', media: this.media});
             }
         }
 
