@@ -132,10 +132,17 @@ export default function (UIkit) {
                 svgs[src] = $.Deferred();
 
                 if (!storage[key]) {
-                    $.get(src).then((doc, status, res) => {
-                        storage[key] = res.responseText;
+
+                    if (src.indexOf('data:') === 0) {
+                        storage[key] = decodeURIComponent(src.split(',')[1]);
                         svgs[src].resolve(getSvg(storage[key]));
-                    });
+                    } else {
+                        $.get(src).then((doc, status, res) => {
+                            storage[key] = res.responseText;
+                            svgs[src].resolve(getSvg(storage[key]));
+                        });
+                    }
+
                 } else {
                     svgs[src].resolve(getSvg(storage[key]));
                 }
