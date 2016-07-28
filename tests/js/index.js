@@ -43,7 +43,15 @@ document.writeln(`<script src="../vendor/jquery.js"></script>`);
 document.writeln(`<script src="../js/uikit.js"></script>`);
 
 // add  UIkit components
-components.forEach(name => {
+
+var component = location.pathname.split('/').pop().replace(/.html$/, '');
+
+[
+    'notify',
+    'tooltip',
+    'sortable',
+    'spinner'
+].forEach(name => {
     document.writeln(`<script src="../js/components/${name}.js"></script>`);
 });
 
