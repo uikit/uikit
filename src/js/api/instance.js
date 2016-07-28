@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {ready} from '../util/index';
+import { ready } from '../util/index';
 
 export default function (UIkit) {
 

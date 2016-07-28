@@ -1,4 +1,4 @@
-import {Class} from '../mixin/index';
+import { Class } from '../mixin/index';
 
 export default function (UIkit) {
 

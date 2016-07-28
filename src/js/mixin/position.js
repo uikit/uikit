@@ -1,4 +1,4 @@
-import {flipPosition, position, removeClass, toNumber} from '../util/index';
+import { flipPosition, position, removeClass, toNumber } from '../util/index';
 
 export default {
 

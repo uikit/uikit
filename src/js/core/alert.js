@@ -1,4 +1,4 @@
-import {Class, Toggable} from '../mixin/index';
+import { Class, Toggable } from '../mixin/index';
 
 export default function (UIkit) {
 

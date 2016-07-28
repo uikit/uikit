@@ -1,4 +1,4 @@
-import {Dimensions} from '../util/index';
+import { Dimensions } from '../util/index';
 
 export default function (UIkit) {
 

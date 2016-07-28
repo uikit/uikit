@@ -1,5 +1,5 @@
-import {transitionend} from '../util/index';
-import {Modal} from '../mixin/index';
+import { transitionend } from '../util/index';
+import { Modal } from '../mixin/index';
 
 export default function (UIkit) {
 

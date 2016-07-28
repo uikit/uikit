@@ -2,7 +2,7 @@
 // http://zeptojs.com/
 
 import $ from 'jquery';
-import {ready} from './index';
+import { ready } from './index';
 
 var touch = {}, touchTimeout, tapTimeout, swipeTimeout, longTapTimeout, longTapDelay = 750, gesture, clicked;
 

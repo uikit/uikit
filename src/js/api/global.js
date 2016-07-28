@@ -1,4 +1,4 @@
-import {classify, isString, mergeOptions} from '../util/index';
+import { classify, isString, mergeOptions } from '../util/index';
 
 export default function (UIkit) {
 

@@ -1,6 +1,6 @@
 import $ from 'jquery';
-import {extend, isFunction, isString, ready, toJQuery} from '../util/index';
-import {Modal} from '../mixin/index';
+import { extend, isFunction, isString, ready, toJQuery } from '../util/index';
+import { Modal } from '../mixin/index';
 
 export default function (UIkit) {
 

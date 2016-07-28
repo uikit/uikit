@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import {requestAnimationFrame} from '../util/index';
+import { requestAnimationFrame } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
