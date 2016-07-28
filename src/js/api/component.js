@@ -22,9 +22,13 @@ export default function (UIkit) {
 
         UIkit[name] = function (element, data) {
 
+            if (isPlainObject(element)) {
+                return new UIkit.components[name]({data: element});
+            }
+
             var result = [];
 
-            data = data || {};
+            data =  data || {};
 
             $(element).each((i, el) => result.push(el[DATA] && el[DATA][name] || new UIkit.components[name]({el, data})));
 

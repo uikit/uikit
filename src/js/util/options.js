@@ -3,6 +3,7 @@ import {extend, isArray, hasOwn} from './index';
 var strats = {};
 
 // concat strategy
+strats.created =
 strats.init =
 strats.ready =
 strats.update =
