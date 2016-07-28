@@ -241,7 +241,7 @@ function insert(element, target, animation) {
         children = children.concat(elementList.children().toArray());
     }
 
-    children = children.map(el => $(el).stop());
+    children = children.map(el => $(el));
 
     var props = children.map(el => extend({position: 'absolute', pointerEvents: 'none', minWidth: el.width()}, el.position()));
 

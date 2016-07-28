@@ -58,22 +58,13 @@ export const Transition = {
     start: transition,
 
     stop(element) {
-
-        element = $(element);
-
         $(element).trigger(transitionend || 'transitionend');
-
         return this;
     },
 
     cancel(element) {
-
-        element = $(element);
-
         $(element).trigger(transitionend || 'transitionend', [true]);
-
-        return;
-
+        return this;
     },
 
     inProgress(element) {
