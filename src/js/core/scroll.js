@@ -30,7 +30,7 @@ export default function (UIkit) {
                 }
 
                 // animate to target, fire callback when done
-                $('body').stop().animate({scrollTop: target}, this.duration, this.transition, () => this.$el.triggerHandler($.Event('scrolled'), [this]));
+                $('html,body').stop().animate({scrollTop: parseInt(target, 10) || 1}, this.duration, this.transition, () => this.$el.triggerHandler($.Event('scrolled'), [this]));
 
             }
 
