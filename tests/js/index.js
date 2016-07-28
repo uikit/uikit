@@ -91,7 +91,6 @@ document.addEventListener("DOMContentLoaded", () => {
         'height-expand',
         'height-viewport',
         'icon',
-        'inverse',
         'label',
         'lightbox',
         'list',
