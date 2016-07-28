@@ -6,7 +6,7 @@ var uid = 0, containers = {}, messages = {};
 var notify = function(options){
 
     if (isString(options)) {
-        options = { message: options };
+        options = {message: options};
     }
 
     if (arguments[1]) {
@@ -16,12 +16,14 @@ var notify = function(options){
     return (new Message(options)).show();
 };
 
-var closeAll  = function(group, instantly){
+var closeAll = function(group, instantly){
 
-    if (group) {
-        for(var id in messages) { if (group===messages[id].group) messages[id].close(instantly); }
-    } else {
-        for(var id in messages) { messages[id].close(instantly); }
+    for (var id in messages) {
+        if (!group) {
+            messages[id].close(instantly);
+        } else if (group && group === messages[id].group) {
+            messages[id].close(instantly);
+        }
     }
 };
 
@@ -38,7 +40,7 @@ class Message {
             onClose: function() {}
         }, options);
 
-        this.uuid    = `notifymsg-${++uid}`;
+        this.uuid = `notifymsg-${++uid}`;
         this.element = $(`
             <div class="uk-notify-message">
                 <a class="uk-close"></a>
@@ -54,7 +56,7 @@ class Message {
         // status
         if (this.options.status) {
             this.element.addClass(`uk-notify-message-${this.options.status}`);
-            this.currentstatus = this.options.status;
+            this.currentStatus = this.options.status;
         }
 
         this.group = this.options.group;
@@ -74,21 +76,20 @@ class Message {
 
         containers[this.options.pos].show().prepend(this.element);
 
-        var marginbottom = parseInt(this.element.css('margin-bottom'), 10);
+        var marginBottom = parseInt(this.element.css('margin-bottom'), 10);
 
-        this.element.css({opacity:0, marginTop: -1*this.element.outerHeight(), marginBottom:0}).animate({opacity:1, marginTop: 0, marginBottom: marginbottom}, () => {
+        this.element.css({opacity:0, marginTop: -1*this.element.outerHeight(), marginBottom:0})
+                    .animate({opacity:1, marginTop: 0, marginBottom: marginBottom}, () => {
 
-            if (this.options.timeout) {
+                        if (this.options.timeout) {
 
-                this.timeout = setTimeout(() => { this.close(); }, this.options.timeout);
-
-                this.element.hover(
-                    () => { clearTimeout(this.timeout); },
-                    () => { this.timeout = setTimeout(() => { this.close(); }, this.options.timeout);  }
-                );
-            }
-
-        });
+                            this.timeout = setTimeout(() => { this.close(); }, this.options.timeout);
+                            this.element.hover(
+                                () => clearTimeout(this.timeout),
+                                () => { this.timeout = setTimeout(() => { this.close(); }, this.options.timeout);  }
+                            );
+                        }
+                    });
 
         return this;
     }
@@ -116,9 +117,7 @@ class Message {
         if (instantly) {
             finalize();
         } else {
-            this.element.animate({opacity:0, marginTop: -1* this.element.outerHeight(), marginBottom:0}, function(){
-                finalize();
-            });
+            this.element.animate({opacity:0, marginTop: -1* this.element.outerHeight(), marginBottom:0}, finalize);
         }
     }
 
@@ -138,11 +137,11 @@ class Message {
     status(status) {
 
         if (!status) {
-            return this.currentstatus;
+            return this.currentStatus;
         }
 
-        this.element.removeClass(`uk-notify-message-${this.currentstatus}`).addClass(`uk-notify-message-${status}`);
-        this.currentstatus = status;
+        this.element.removeClass(`uk-notify-message-${this.currentStatus}`).addClass(`uk-notify-message-${status}`);
+        this.currentStatus = status;
 
         return this;
     }
