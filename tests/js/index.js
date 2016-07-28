@@ -1,6 +1,7 @@
+
 var storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_inverse';
 
-var styles = Object.assign({
+var styles = extend({
     core: {
         file: '../css/uikit.core.css',
         components: [
@@ -196,6 +197,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.querySelector('html').style.paddingTop = '80px';
 
+
+function extend(target) {
+
+    for (var index = 1, source; index < arguments.length; index++) {
+        source = arguments[index];
+        for (var key in source) {
+            target[key] = source[key];
+        }
+    }
+
+    return target;
+}
 
 function ucfirst(str) {
     return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : '';
