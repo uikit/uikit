@@ -42,13 +42,18 @@
 
 .dye-vars-default-theme() {}
 
-.dye-hooks() {
+.dye() {
 
-    .hook-dye-list-divider() {}
-
-    .hook-dye-list-bullet() {}
+    .dye-vars();
 
     .uk-list-striped > li { border-bottom-color: @dye-border; }
     .uk-list-striped > li:first-child { border-top-color: @dye-border; }
+
+}
+
+.dye-hooks() {
+
+    .hook-dye-list-divider() {}
+    .hook-dye-list-bullet() {}
 
 }
