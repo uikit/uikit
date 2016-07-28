@@ -10,6 +10,11 @@ buildthemes();
 
 function buildthemes() {
 
+
+    if (!fs.existsSync('themes.json') && !fs.existsSync('custom')) {
+        return write('themes.json', '{}');
+    }
+
     if (!fs.existsSync('custom')) {
         return;
     }

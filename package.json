@@ -4,7 +4,7 @@
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
   "version": "3.0.0",
   "scripts": {
-    "compile-less": "npm run compile-less-core & npm run compile-less-components & node scripts/less",
+    "compile-less": "mkdir -p css/components & npm run compile-less-core & npm run compile-less-components & node scripts/less",
     "compile-js": "node scripts/build",
     "compile": "npm run compile-less & npm run compile-js",
     "watch-less": "watch-run -i -p '**/*.less' npm run compile-less",
@@ -12,7 +12,7 @@
     "watch": "npm run watch-less & npm run watch-js",
     "test": "webpack-dev-server --inline --hot & open http://localhost:8080/tests/",
     "compile-less-core": "lessc --relative-urls --rootpath=../src/less/theme/ src/less/theme/_import.less > css/uikit.theme.css & lessc --relative-urls --rootpath=../src/less/core/ src/less/core/_import.less > css/uikit.core.css",
-    "compile-less-components": "mkdir css/components & lessc-each src/less/components css/components/core  --rootpath=../src/less/ --relative-urls && lessc-each src/less/theme/components css/components/theme  --rootpath=../src/less/ --relative-urls"
+    "compile-less-components": "lessc-each src/less/components css/components/core  --rootpath=../src/less/ --relative-urls & lessc-each src/less/theme/components css/components/theme  --rootpath=../src/less/ --relative-urls"
   },
   "devDependencies": {
     "babel-core": "^6.9.1",
