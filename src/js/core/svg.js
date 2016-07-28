@@ -28,19 +28,45 @@ export default function (UIkit) {
         ready() {
 
             this.svg = $.Deferred();
+            this.init();
 
-            var fn = (() => {
+        },
+
+        update: {
+
+            handler() {
+                if (!this.src){
+                    this.init();
+                }
+            },
+
+            events: ['load']
+
+        },
+
+        destroy() {
+
+            if (isVoidElement(this.$el)) {
+                this.$el.attr({hidden: null, id: this.id || null});
+            }
+
+            if (this.svg) {
+                this.svg.then(svg => svg.remove());
+            }
+        },
+
+        methods: {
+
+            init() {
 
                 if (!this.src) {
-                    this.src = window.getComputedStyle(this.$el[0], '::before');
 
-                    if (!this.src) {
-                        requestAnimationFrame(fn);
+                    var style = window.getComputedStyle(this.$el[0], '::before');
+                    if (!style || style && !style.backgroundImage) {
                         return;
-                    } else {
-                        this.src = this.src.backgroundImage.slice(4, -1).replace(/"/g, '');
                     }
 
+                    this.src = style.backgroundImage.slice(4, -1).replace(/"/g, '');
                 }
 
                 if (this.src.indexOf('#') !== -1) {
@@ -58,10 +84,10 @@ export default function (UIkit) {
                     var el;
 
                     el = !this.icon
-                            ? svg.clone()
-                            : (el = toJQuery(`#${this.icon}`, svg))
-                                && toJQuery((el[0].outerHTML || $('<div>').append(el.clone()).html()).replace(/symbol/g, 'svg')) // IE workaround, el[0].outerHTML
-                                || !toJQuery('symbol', svg) && svg.clone(); // fallback if SVG has no symbols
+                        ? svg.clone()
+                        : (el = toJQuery(`#${this.icon}`, svg))
+                    && toJQuery((el[0].outerHTML || $('<div>').append(el.clone()).html()).replace(/symbol/g, 'svg')) // IE workaround, el[0].outerHTML
+                    || !toJQuery('symbol', svg) && svg.clone(); // fallback if SVG has no symbols
 
                     if (!el) {
                         return $.Deferred().reject('SVG not found.');
@@ -105,22 +131,7 @@ export default function (UIkit) {
 
                 });
 
-            })();
-
-        },
-
-        destroy() {
-
-            if (isVoidElement(this.$el)) {
-                this.$el.attr({hidden: null, id: this.id || null});
-            }
-
-            if (this.svg) {
-                this.svg.then(svg => svg.remove());
-            }
-        },
-
-        methods: {
+            },
 
             get(src) {
 
