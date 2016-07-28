@@ -48,6 +48,7 @@ document.writeln(`<script src="../js/uikit.js"></script>`);
 
 var component = location.pathname.split('/').pop().replace(/.html$/, '');
 var components = [
+    'lightbox',
     'notify',
     'progress',
     'sortable',

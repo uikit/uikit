@@ -51,7 +51,7 @@ UIkit.component('lightbox', {
             })
         });
 
-        this.$el.on('click', this.toggle + ':not(.uk-disabled)', e => {
+        this.$el.on('click', `${this.toggle}:not(.uk-disabled)`, e => {
             e.preventDefault();
             this.show(this.toggles.index(e.currentTarget));
         });
