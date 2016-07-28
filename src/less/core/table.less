@@ -16,6 +16,7 @@
 // Variables
 // ========================================================================
 
+@table-margin-vertical:                         @global-margin;
 @table-padding-vertical:                        16px;
 @table-padding-horizontal:                      12px;
 
@@ -44,7 +45,7 @@
 
 /*
  * 1. Remove most spacing between table cells.
- * 2. Behave like block elements
+ * 2. Behave like a block element
  * 3. Style
  * 4. Add margin if adjacent element
  */
@@ -56,11 +57,11 @@
     /* 2 */
     width: 100%;
     /* 3 */
-    margin-bottom: @global-margin;
+    margin-bottom: @table-margin-vertical;
 }
 
 /* 4 */
-* + .uk-table { margin-top: @global-margin; }
+* + .uk-table { margin-top: @table-margin-vertical; }
 
 
 /* Header cell
