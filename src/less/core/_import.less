@@ -53,11 +53,13 @@
 // Components
 @load-notify: false;
 @load-tooltip: false;
+@load-progress: false;
 @load-spinner: false;
 @load-sortable: false;
 
 & when (@load-notify) { @import "../components/notify.less"; }
 & when (@load-tooltip) { @import "../components/tooltip.less"; }
+& when (@load-progress) { @import "../components/progress.less"; }
 & when (@load-spinner) { @import "../components/spinner.less"; }
 & when (@load-sortable) { @import "../components/sortable.less"; }
 

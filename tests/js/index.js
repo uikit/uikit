@@ -6,6 +6,7 @@ var styles = extend({
         file: '../css/uikit.core.css',
         components: [
             '../css/components/core/notify.css',
+            '../css/components/core/progress.css',
             '../css/components/core/sortable.css',
             '../css/components/core/spinner.css',
             '../css/components/core/tooltip.css'
@@ -15,6 +16,7 @@ var styles = extend({
         file: '../css/uikit.theme.css',
         components: [
             '../css/components/theme/notify.css',
+            '../css/components/theme/progress.css',
             '../css/components/theme/sortable.css',
             '../css/components/theme/spinner.css',
             '../css/components/theme/tooltip.css'
@@ -47,6 +49,7 @@ document.writeln(`<script src="../js/uikit.js"></script>`);
 var component = location.pathname.split('/').pop().replace(/.html$/, '');
 var components = [
     'notify',
+    'progress',
     'sortable',
     'spinner',
     'tooltip',

@@ -1,0 +1,174 @@
+// Name:            Progress
+// Description:     Component to create progress bars
+//
+// Component:       `uk-progress`
+//
+// Modifiers:       `uk-progress-success`
+//                  `uk-progress-warning`
+//                  `uk-progress-danger`
+//
+// ========================================================================
+
+@import (once, reference) "../core/_import";
+
+
+// Variables
+// ========================================================================
+
+@progress-height:                               20px;
+@progress-margin-vertical:                      15px;
+@progress-background:                           @global-muted-background;
+
+@progress-bar-background:                       @global-primary-background;
+
+@progress-success-bar-background:               @global-success-background;
+@progress-warning-bar-background:               @global-warning-background;
+@progress-danger-bar-background:                @global-danger-background;
+
+
+/* ========================================================================
+   Component: Progress
+ ========================================================================== */
+
+/*
+ * 1. Remove default style
+ * 2. Behave like a block element
+ * 3. Remove borders in Firefox and Edge
+ * 4. Set background color for progress container in Firefox, IE11 and Edge
+ * 5. Style
+ * 6. Add margin if adjacent element
+ */
+
+.uk-progress {
+    /* 1 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* 2 */
+    display: block;
+    width: 100%;
+    /* 3 */
+    border: 0;
+    /* 4 */
+    background-color: @progress-background;
+    /* 5 */
+    height: @progress-height;
+    .hook-progress;
+}
+
+/* 6 */
+* + .uk-progress { margin-top: @progress-margin-vertical; }
+
+/*
+ * Remove animated circles for indeterminate state in IE11 and Edge
+ */
+
+.uk-progress:indeterminate { color: transparent; }
+
+/*
+ * Progress container
+ * 2. Remove progress bar for indeterminate state in Firefox
+ */
+
+.uk-progress::-webkit-progress-bar {
+  background-color: @progress-background;
+  .hook-progress;
+}
+
+/* 2 */
+.uk-progress:indeterminate::-moz-progress-bar { width: 0; }
+
+/*
+ * Progress bar
+ * 1. Remove right border in IE11 and Edge
+ */
+
+.uk-progress::-webkit-progress-value {
+    background-color: @progress-bar-background;
+    .hook-progress-bar;
+}
+
+.uk-progress::-moz-progress-bar {
+    background-color: @progress-bar-background;
+    .hook-progress-bar;
+}
+
+.uk-progress::-ms-fill {
+    background-color: @progress-bar-background;
+    /* 1 */
+    border: 0;
+    .hook-progress-bar;
+}
+
+
+/* Color modifiers
+ ========================================================================== */
+
+/*
+ * Success
+ */
+
+.uk-progress-success::-webkit-progress-value {
+    background-color: @progress-success-bar-background;
+    .hook-progress-success-bar;
+}
+
+.uk-progress-success::-moz-progress-bar {
+    background-color: @progress-success-bar-background;
+    .hook-progress-success-bar;
+}
+
+.uk-progress-success::-ms-fill {
+    background-color: @progress-success-bar-background;
+    .hook-progress-success-bar;
+}
+
+/*
+ * Warning
+ */
+
+.uk-progress-warning::-webkit-progress-value {
+    background-color: @progress-warning-bar-background;
+    .hook-progress-warning-bar;
+}
+
+.uk-progress-warning::-moz-progress-bar {
+    background-color: @progress-warning-bar-background;
+    .hook-progress-warning-bar;
+}
+
+.uk-progress-warning::-ms-fill {
+    background-color: @progress-warning-bar-background;
+    .hook-progress-warning-bar;
+}
+
+/*
+ * Danger
+ */
+
+.uk-progress-danger::-webkit-progress-value {
+    background-color: @progress-danger-bar-background;
+    .hook-progress-danger-bar;
+}
+
+.uk-progress-danger::-moz-progress-bar {
+    background-color: @progress-danger-bar-background;
+    .hook-progress-danger-bar;
+}
+
+.uk-progress-danger::-ms-fill {
+    background-color: @progress-danger-bar-background;
+    .hook-progress-danger-bar;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-progress-misc;
+
+.hook-progress() {}
+.hook-progress-bar() {}
+.hook-progress-success-bar() {}
+.hook-progress-warning-bar() {}
+.hook-progress-danger-bar() {}
+.hook-progress-misc() {}
