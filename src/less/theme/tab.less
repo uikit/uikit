@@ -11,6 +11,9 @@
 // New
 //
 
+@tab-border:                                    @global-border;
+@tab-border-width:                              @global-border-width;
+
 @tab-item-border-width:                         @global-border-width;
 
 @tab-item-active-border:                        @global-primary-background;
@@ -19,7 +22,20 @@
 // Component
 // ========================================================================
 
-.hook-tab() {}
+.hook-tab() {
+
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: @tab-margin-horizontal;
+        right: 0;
+        border-bottom: @tab-border-width solid @tab-border;
+    }
+
+}
 
 
 // Items
@@ -41,14 +57,49 @@
 // Position modifiers
 // ========================================================================
 
+.hook-tab-bottom() {
+
+    &::before {
+        top: 0;
+        bottom: auto;
+    }
+
+}
+
 .hook-tab-bottom-item() {
     border-top: @tab-item-border-width solid transparent;
     border-bottom: none;
 }
 
+.hook-tab-left() {
+
+    &::before {
+        top: 0;
+        bottom: 0;
+        left: auto;
+        right: 0;
+        border-left: @tab-border-width solid @tab-border;
+        border-bottom: none;
+    }
+
+}
+
 .hook-tab-left-item() {
     border-right: @tab-item-border-width solid transparent;
     border-bottom: none;
+}
+
+.hook-tab-right() {
+
+    &::before {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: auto;
+        border-left: @tab-border-width solid @tab-border;
+        border-bottom: none;
+    }
+
 }
 
 .hook-tab-right-item() {
