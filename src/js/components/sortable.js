@@ -232,30 +232,34 @@ function insert(element, target, animation) {
         return $.Deferred().resolve();
     }
 
-    var children = targetList.children().toArray();
+    var children = targetList.children().toArray(),
+        lists = targetList
+        reset = {position: '', minWidth: '', pointerEvents: '', top: '', left: ''};
 
     if (!targetList.is(elementList)) {
+        lists = lists.add(elementList);
         children = children.concat(elementList.children().toArray());
     }
 
     children = children.map(el => $(el).stop());
 
-    targetList.css('min-height', targetList.height());
-
-    if (!targetList.is(elementList)) {
-        elementList.css('min-height', elementList.height());
-    }
-
     var props = children.map(el => extend({position: 'absolute', pointerEvents: 'none', minWidth: el.width()}, el.position()));
 
+    children.forEach(el => el.css(reset));
+
     element[before ? 'insertBefore' : 'insertAfter'](target);
+
+    lists.each((_, list) => {
+        getSortable(list).$updateParents();
+        $(list).css('min-height', $(list).height())
+    });
 
     var positions = children.map(el => el.position()), promises = [];
 
     children.forEach((el, i) => {
         let def = $.Deferred();
         el.css(props[i]).animate(positions[i], animation, () => {
-            el.css({position: '', minWidth: '', pointerEvents: '', top: '', left: ''});
+            el.css(reset);
             def.resolve();
         });
         promises.push(def);
