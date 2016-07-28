@@ -40,7 +40,7 @@ storage[keyinverse] = storage[keyinverse] || 'default';
 document.writeln(`<link rel="stylesheet" href="${(styles[storage[key]] || '../css/uikit.theme.css')}">`);
 
 // add  UIkit components
-components.forEach(name => {
+(['core', 'theme'].indexOf(storage[key]) == -1 ? [] : components).forEach(name => {
     document.writeln(`<link rel="stylesheet" href="../css/components/${storage[key]}/${name}.css">`);
 });
 
