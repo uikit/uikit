@@ -35,7 +35,7 @@
 @modal-dialog-margin-vertical-xs:               15px;
 @modal-dialog-margin-horizontal:                @modal-dialog-margin-vertical-xs;
 @modal-dialog-width:                            600px;
-@modal-dialog-background:                       #fff;
+@modal-dialog-background:                       @global-background;
 
 @modal-dialog-large-margin-horizontal:          15px;
 @modal-dialog-large-margin-horizontal-s:        @global-gutter;
@@ -46,12 +46,12 @@
 @modal-body-padding-vertical:                   @global-gutter;
 
 @modal-header-padding-horizontal:               @global-gutter;
-@modal-header-padding-vertical:                 (@global-gutter / 2);
+@modal-header-padding-vertical:                 (@modal-header-padding-horizontal / 2);
 @modal-header-border:                           @global-border;
 @modal-header-border-width:                     @global-border-width;
 
 @modal-footer-padding-horizontal:               @global-gutter;
-@modal-footer-padding-vertical:                 (@global-gutter / 2);
+@modal-footer-padding-vertical:                 (@modal-footer-padding-horizontal / 2);
 @modal-footer-border:                           @global-border;
 @modal-footer-border-width:                     @global-border-width;
 
