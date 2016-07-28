@@ -78,14 +78,18 @@
  ========================================================================== */
 
 /*
- * 1. Set default `font-family` and set `font-size` to support `rem` units
+ * 1. Set `font-size` to support `rem` units
+ *    Not using `font` property because a leading hyphen (e.g. -apple-system) causes the font to break in IE11 and Edge
  * 2. Prevent adjustments of font size after orientation changes in IE and iOS.
  * 3. Style
  */
 
 html {
     /* 1 */
-    font: @base-body-font-weight @base-body-font-size e("/") @base-body-line-height @base-body-font-family;
+    font-family: @base-body-font-family;
+    font-size: @base-body-font-size;
+    font-weight: @base-body-font-weight;
+    line-height: @base-body-line-height;
     /* 2 */
     -webkit-text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
