@@ -233,7 +233,7 @@ function insert(element, target, animation) {
     }
 
     var children = targetList.children().toArray(),
-        lists = targetList
+        lists = targetList,
         reset = {position: '', minWidth: '', pointerEvents: '', top: '', left: ''};
 
     if (!targetList.is(elementList)) {
@@ -251,7 +251,7 @@ function insert(element, target, animation) {
 
     lists.each((_, list) => {
         getSortable(list).$updateParents();
-        $(list).css('min-height', $(list).height())
+        $(list).css('min-height', $(list).height());
     });
 
     var positions = children.map(el => el.position()), promises = [];
