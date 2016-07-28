@@ -121,7 +121,19 @@
 // Dye
 // ========================================================================
 
-.dye-vars-default-theme() {}
+.dye-vars-default-theme() {
+
+    @tab-border:                        @dye-border;
+
+}
+
+.dye() {
+
+    .dye-vars();
+
+    .uk-tab::before { border-color: @tab-border; }
+
+}
 
 .dye-hooks() {
 
