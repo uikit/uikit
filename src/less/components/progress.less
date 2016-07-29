@@ -3,10 +3,6 @@
 //
 // Component:       `uk-progress`
 //
-// Modifiers:       `uk-progress-success`
-//                  `uk-progress-warning`
-//                  `uk-progress-danger`
-//
 // ========================================================================
 
 @import (once, reference) "../core/_import";
@@ -102,67 +98,6 @@
 }
 
 
-/* Color modifiers
- ========================================================================== */
-
-/*
- * Success
- */
-
-.uk-progress-success::-webkit-progress-value {
-    background-color: @progress-success-bar-background;
-    .hook-progress-success-bar;
-}
-
-.uk-progress-success::-moz-progress-bar {
-    background-color: @progress-success-bar-background;
-    .hook-progress-success-bar;
-}
-
-.uk-progress-success::-ms-fill {
-    background-color: @progress-success-bar-background;
-    .hook-progress-success-bar;
-}
-
-/*
- * Warning
- */
-
-.uk-progress-warning::-webkit-progress-value {
-    background-color: @progress-warning-bar-background;
-    .hook-progress-warning-bar;
-}
-
-.uk-progress-warning::-moz-progress-bar {
-    background-color: @progress-warning-bar-background;
-    .hook-progress-warning-bar;
-}
-
-.uk-progress-warning::-ms-fill {
-    background-color: @progress-warning-bar-background;
-    .hook-progress-warning-bar;
-}
-
-/*
- * Danger
- */
-
-.uk-progress-danger::-webkit-progress-value {
-    background-color: @progress-danger-bar-background;
-    .hook-progress-danger-bar;
-}
-
-.uk-progress-danger::-moz-progress-bar {
-    background-color: @progress-danger-bar-background;
-    .hook-progress-danger-bar;
-}
-
-.uk-progress-danger::-ms-fill {
-    background-color: @progress-danger-bar-background;
-    .hook-progress-danger-bar;
-}
-
-
 // Hooks
 // ========================================================================
 
@@ -170,7 +105,4 @@
 
 .hook-progress() {}
 .hook-progress-bar() {}
-.hook-progress-success-bar() {}
-.hook-progress-warning-bar() {}
-.hook-progress-danger-bar() {}
 .hook-progress-misc() {}

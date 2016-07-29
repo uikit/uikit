@@ -10,13 +10,13 @@
         <script>
         	document.addEventListener("DOMContentLoaded", function() {
 
-        			var max = 100, time = 1000, animate, value = progressbar.value || 0;
+        			var max = 100, time = 1000, animate, value = test.value || 0;
 
         		    var loading = function() {
 
                         value += 20;
 
-        		        progressbar.value = value;
+        		        test.value = value;
 
         		        if (value >= max) {
         		            clearInterval(animate);
@@ -36,41 +36,24 @@
 
             <h1>Progress</h1>
 
-            <div class="uk-child-width-expand@m" uk-grid>
-                <div>
+            <div class="uk-width-1-2@m">
 
-                    <p>Updating</p>
-                    <progress id="progressbar" class="uk-progress" max="100"></progress>
+                <p>Indeterminate</p>
+                <progress class="uk-progress"></progress>
 
-                    <p>Indeterminate</p>
-                    <progress class="uk-progress"></progress>
+                <p>Determinate</p>
+                <progress class="uk-progress" value="40" max="100"></progress>
 
-                    <p>Determinate</p>
-                    <progress class="uk-progress" value="40" max="100"></progress>
+                <p>With Text</p>
+                <progress class="uk-progress" value="45" max="100">45%</progress>
 
-                    <p>With Text</p>
-                    <progress class="uk-progress" value="45" max="100">45%</progress>
+                <p>100%</p>
+                <progress class="uk-progress" value="100" max="100"></progress>
 
-                    <p>100%</p>
-                    <progress class="uk-progress" value="100" max="100"></progress>
+                <p>Updating</p>
+                <progress id="test" class="uk-progress" max="100"></progress>
 
-                </div>
-                <div>
-
-                    <h2>Colors</h2>
-
-                    <progress class="uk-progress uk-progress-success" value="40" max="100"></progress>
-
-                    <progress class="uk-progress uk-progress-warning" value="40" max="100"></progress>
-
-                    <progress class="uk-progress uk-progress-danger" value="40" max="100"></progress>
-
-                </div>
             </div>
-
-
-
-
 
         </div>
 
