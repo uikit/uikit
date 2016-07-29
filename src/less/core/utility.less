@@ -17,6 +17,7 @@
 //                  `uk-transform-origin-*`
 //
 // States:          `uk-disabled`
+//                  `uk-drag`
 //
 // ========================================================================
 
@@ -291,10 +292,26 @@
 .uk-logo-inverse { display: none; }
 
 
-/* Disabled
+/* Disabled State
  ========================================================================== */
 
 .uk-disabled { pointer-events: none; }
+
+
+/* Drag State
+ ========================================================================== */
+
+/*
+ * 1. Needed if moving over elements with have their own cursor on hover, e.g. links or buttons
+ * 2. Fix dragging over iframes
+ */
+
+.uk-drag,
+/* 1 */
+.uk-drag * { cursor: move; }
+
+/* 2 */
+.uk-drag iframe { pointer-events: none; }
 
 
 /* Blend modes
