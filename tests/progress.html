@@ -6,6 +6,28 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Progress - UIkit tests</title>
         <script src="js/test.js"></script>
+
+        <script>
+        	document.addEventListener("DOMContentLoaded", function() {
+
+        			var max = 100, time = 1000, animate, value = progressbar.value || 0;
+
+        		    var loading = function() {
+
+                        value += 20;
+
+        		        progressbar.value = value;
+
+        		        if (value >= max) {
+        		            clearInterval(animate);
+        		        }
+                        return loading;
+        		    };
+
+        		    animate = setInterval(loading(), time);
+        	});
+        </script>
+
     </head>
 
     <body>
@@ -16,6 +38,9 @@
 
             <div class="uk-child-width-expand@m" uk-grid>
                 <div>
+
+                    <p>Updating</p>
+                    <progress id="progressbar" class="uk-progress" max="100"></progress>
 
                     <p>Indeterminate</p>
                     <progress class="uk-progress"></progress>
