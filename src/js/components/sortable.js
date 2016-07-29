@@ -15,8 +15,8 @@ UIkit.component('sortable', {
         threshold: Number,
         clsItem: String,
         clsPlaceholder: String,
-        clsGhost: String,
-        clsDragging: String,
+        clsDrag: String,
+        clsDragState: String,
         clsBase: String,
         clsNoDrag: String,
         clsEmpty: String,
@@ -27,11 +27,11 @@ UIkit.component('sortable', {
     defaults: {
         group: false,
         animation: 150,
-        threshold: 10,
+        threshold: 5,
         clsItem: 'uk-sortable-item',
         clsPlaceholder: 'uk-sortable-placeholder',
-        clsGhost: 'uk-sortable-drag',
-        clsDragging: 'uk-sortable-dragging',
+        clsDrag: 'uk-sortable-drag',
+        clsDragState: 'uk-drag',
         clsBase: 'uk-sortable',
         clsNoDrag: 'uk-sortable-nodrag',
         clsEmpty: 'uk-sortable-empty',
@@ -71,19 +71,15 @@ UIkit.component('sortable', {
             this.touched = [this];
             this.element = $(e.currentTarget);
 
-            var offset = this.element.offset(), pos = getPos(e);
-
             this.origin = extend({
-                left: offset.left - pos.x,
-                top: offset.top - pos.y,
-                index: this.element.index(),
-                target: target
-            }, pos);
+                target,
+                index: this.element.index()
+            }, getPos(e));
 
             doc.on(pointerMove, this.move);
             doc.on(pointerUp, this.end);
 
-            if (this.handle) {
+            if (!this.threshold) {
                 this.start(e);
             }
 
@@ -91,7 +87,7 @@ UIkit.component('sortable', {
 
         start(e) {
 
-            this.ghost = $(`<div class="${`${this.clsGhost} ${this.clsCustom}`}"></div>`)
+            this.ghost = $(`<div class="${`${this.clsDrag} ${this.clsCustom}`}"></div>`)
                 .css({
                     width: this.element.width(),
                     height: this.element.height(),
@@ -99,9 +95,12 @@ UIkit.component('sortable', {
                 })
                 .append(this.element.html()).appendTo('body');
 
+            var {left, top} = this.element.offset(), {x, y} = getPos(e);
+            extend(this.origin, {left: left - x, top: top - y});
+
             this.element.addClass(this.clsPlaceholder);
             this.$el.children().addClass(this.clsItem);
-            doc.addClass(this.clsDragging);
+            doc.addClass(this.clsDragState);
 
             this.$el.trigger('start', [this, this.element, this.ghost]);
 
@@ -173,8 +172,12 @@ UIkit.component('sortable', {
             doc.off(pointerUp, this.end);
 
             var pos = getPos(e);
-            if (isWithin(this.origin.target[0], 'a[href]') && e.type !== 'mouseup' && pos.x === this.origin.x && pos.y === this.origin.y) {
-                location.href = this.origin.target.closest('a[href]').attr('href');
+            if (isWithin(this.origin.target, 'a[href]')) {
+                if (pos.x !== this.origin.x || pos.y !== this.origin.y) {
+                    $(e.target).one('click', e => e.preventDefault());
+                } else if (e.type !== 'mouseup') {
+                    location.href = this.origin.target.closest('a[href]').attr('href');
+                }
             }
 
             if (!this.ghost) {
@@ -199,7 +202,7 @@ UIkit.component('sortable', {
 
             this.touched.forEach(sortable => sortable.$el.children().removeClass(`${sortable.clsPlaceholder} ${sortable.clsItem}`));
 
-            doc.removeClass(this.clsDragging);
+            doc.removeClass(this.clsDragState);
 
         }
 
