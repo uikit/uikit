@@ -40,7 +40,7 @@ export default function (UIkit) {
         },
 
         init() {
-            this.clsDrop = this.clsDrop || 'uk-' + this.$options.name;
+            this.clsDrop = this.clsDrop || `uk-${this.$options.name}`;
             this.clsPos = this.clsDrop;
 
             this.$el.addClass(this.clsDrop);

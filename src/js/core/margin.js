@@ -23,32 +23,34 @@ export default function (UIkit) {
                 }
 
                 var columns = this.$el.children()
-                        .filter((i, el) => el.offsetHeight > 0)
+                        .filter((_, el) => el.offsetHeight > 0)
                         .removeClass(this.margin)
                         .removeClass(this.firstColumn),
                     rows = [[columns.eq(0)]];
 
-                columns.slice(1).each((i, el) => {
+                columns.slice(1).each((_, el) => {
 
                     el = $(el);
 
-                    var top = el.offset().top, bottom = top + el.outerHeight(true);
+                    var top = Math.ceil(el.offset().top), bottom = top + el.outerHeight(true);
 
-                    for (var index = 0; index < rows.length; index++) {
-                        var row = rows[index], offset = row[0].offset();
+                    for (var index = rows.length - 1; index >= 0; index--) {
+                        var row = rows[index],
+                            rowTop = Math.ceil(row[0].offset().top),
+                            rowBottom = rowTop + row[0].outerHeight(true);
 
-                        if (bottom <= offset.top) {
-                            rows.splice(index, 0, [el]);
+                        if (top >= rowBottom) {
+                            rows.push([el]);
                             break;
                         }
 
-                        if (top < offset.top + row[0].outerHeight(true)) {
+                        if (bottom > rowTop) {
                             row.push(el);
                             break;
                         }
 
-                        if (rows.length === index + 1) {
-                            rows.push([el]);
+                        if (index === 0) {
+                            rows.splice(index, 0, [el]);
                             break;
                         }
 
