@@ -35,7 +35,7 @@ export default function (UIkit) {
         update: {
 
             handler() {
-                if (!this.src){
+                if (!this.src) {
                     this.init();
                 }
             },
@@ -86,8 +86,8 @@ export default function (UIkit) {
                     el = !this.icon
                         ? svg.clone()
                         : (el = toJQuery(`#${this.icon}`, svg))
-                    && toJQuery((el[0].outerHTML || $('<div>').append(el.clone()).html()).replace(/symbol/g, 'svg')) // IE workaround, el[0].outerHTML
-                    || !toJQuery('symbol', svg) && svg.clone(); // fallback if SVG has no symbols
+                            && toJQuery((el[0].outerHTML || $('<div>').append(el.clone()).html()).replace(/symbol/g, 'svg')) // IE workaround, el[0].outerHTML
+                            || !toJQuery('symbol', svg) && svg.clone(); // fallback if SVG has no symbols
 
                     if (!el) {
                         return $.Deferred().reject('SVG not found.');
@@ -139,13 +139,15 @@ export default function (UIkit) {
                     return svgs[src];
                 }
 
-                var key = `uikit_${UIkit.version}_${src}`;
                 svgs[src] = $.Deferred();
 
-                if (!storage[key]) {
+                if (src.lastIndexOf('data:', 0) === 0) {
+                    svgs[src].resolve(getSvg(decodeURIComponent(src.split(',')[1])));
+                } else {
 
-                    if (src.indexOf('data:') === 0) {
-                        storage[key] = decodeURIComponent(src.split(',')[1]);
+                    var key = `uikit_${UIkit.version}_${src}`;
+
+                    if (storage[key]) {
                         svgs[src].resolve(getSvg(storage[key]));
                     } else {
                         $.get(src).then((doc, status, res) => {
@@ -153,9 +155,6 @@ export default function (UIkit) {
                             svgs[src].resolve(getSvg(storage[key]));
                         });
                     }
-
-                } else {
-                    svgs[src].resolve(getSvg(storage[key]));
                 }
 
                 return svgs[src];

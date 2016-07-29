@@ -50,7 +50,6 @@ var component = location.pathname.split('/').pop().replace(/.html$/, '');
 var components = [
     'lightbox',
     'notify',
-    'progress',
     'sortable',
     'spinner',
     'tooltip',
@@ -112,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
         'padding',
         'pagination',
         'position',
+        'progress',
         'scroll',
         'scrollspy',
         'search',
