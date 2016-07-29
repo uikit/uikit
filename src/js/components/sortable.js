@@ -55,9 +55,6 @@ UIkit.component('sortable', {
 
         init(e) {
 
-            e.stopPropagation();
-            e.preventDefault();
-
             var target = $(e.target);
 
             if (target.is(':input')
@@ -67,6 +64,9 @@ UIkit.component('sortable', {
             ) {
                 return;
             }
+
+            e.preventDefault();
+            e.stopPropagation();
 
             this.touched = [this];
             this.element = $(e.currentTarget);
