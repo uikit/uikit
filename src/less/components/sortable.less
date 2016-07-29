@@ -4,18 +4,11 @@
 // Component:       `uk-sortable`
 //
 // Sub-objects:     `uk-sortable-handle`
-//                  `uk-sortable-dragging`
 //
 // Modifier:        `uk-sortable-drag`
 //                  `uk-sortable-placeholder`
 //
-// Markup:
-//
-// <!-- uk-sortable -->
-// <ul class="uk-sortable" data-uk-sortable>
-//     <li></li>
-//     <li></li>
-// </ul>
+// States:          `uk-drag`
 //
 // ========================================================================
 
@@ -46,14 +39,6 @@
  */
 
 .uk-sortable > * { touch-action: none; }
-
-/*
- * Disables the default callout shown when you touch and hold a touch target
- * Currently only works in Webkit
- */
-
-.uk-sortable a,
-.uk-sortable img { -webkit-touch-callout: none; }
 
 /*
  * Remove margin from the last-child
@@ -94,24 +79,9 @@
 /* Sub-object `uk-sortable-handle`
  ========================================================================== */
 
-/*
- * Deactivate browser touch actions in IE11
- */
-
-.uk-sortable-handle { touch-action: none; }
-
 /* Hover */
 .uk-sortable-handle:hover { cursor: move; }
 
-
-/* Sub-object `uk-sortable-dragging`
- ========================================================================== */
-
-.uk-sortable-dragging,
-/* Needed if moving over links or buttons */
-.uk-sortable-dragging * { cursor: move; }
-/* Fixes dragging items over iframes */
-.uk-sortable-dragging iframe { pointer-events: none; }
 
 
 // Hooks
