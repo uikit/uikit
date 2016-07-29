@@ -66,13 +66,12 @@ UIkit.component('upload', {
         },
 
         drop(e) {
-
             e.preventDefault();
             e.stopPropagation();
 
             var transfer = e.originalEvent.dataTransfer;
 
-            if (!transfer || !transfer.files || transfer.files.length) {
+            if (!transfer || !transfer.files) {
                 return;
             }
 
@@ -103,6 +102,10 @@ UIkit.component('upload', {
     methods: {
 
         upload(files) {
+
+            if (!files.length) {
+                return;
+            }
 
             this.$el.trigger('upload', [files]);
 
