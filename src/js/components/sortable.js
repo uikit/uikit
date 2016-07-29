@@ -237,7 +237,7 @@ function insert(element, target, animation) {
 
     var children = targetList.children().toArray(),
         lists = targetList,
-        reset = {position: '', minWidth: '', pointerEvents: '', top: '', left: ''};
+        reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: ''};
 
     if (!targetList.is(elementList)) {
         lists = lists.add(elementList);
@@ -246,7 +246,7 @@ function insert(element, target, animation) {
 
     children = children.map(el => $(el));
 
-    var props = children.map(el => extend({position: 'absolute', pointerEvents: 'none', minWidth: el.width()}, el.position()));
+    var props = children.map(el => extend({position: 'absolute', pointerEvents: 'none', width: el.outerWidth(), height: el.outerHeight()}, el.position()));
 
     children.forEach(el => el.css(reset));
 
