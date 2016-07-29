@@ -213,10 +213,6 @@
     .dye-vars();
     .dye-hooks();
 
-    // Prevent underline because of dye base `a` selector
-    .uk-subnav > * > a,
-    .uk-subnav > * > a:hover { text-decoration: none; }
-
     .uk-subnav > * > a {
         color: @subnav-item-color;
         .hook-dye-subnav-item;

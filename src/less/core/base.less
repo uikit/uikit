@@ -615,16 +615,22 @@ textarea { touch-action: manipulation; }
 
     //
     // Link
+    // 1. Select only `a` element which doesn't have any class but also exclude components where this is the case
+    // 2. Re-select `a` element which are excluded because of the descendant depth caused by 1.
     //
 
-    a:not([class]),
+    :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]), // 1
+    > a:not([class]), // 2
+    > * > a:not([class]), // 2
     .uk-link  {
         color: @base-link-color;
         text-decoration: @base-link-text-decoration;
         .hook-dye-base-link;
     }
 
-    a:not([class]):hover,
+    :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]):hover, // 1
+    > a:not([class]):hover, // 2
+    > * > a:not([class]):hover, // 2
     .uk-link:hover {
         color: @base-link-hover-color;
         text-decoration: @base-link-hover-text-decoration;
