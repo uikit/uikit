@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Upload - UIkit tests</title>
+        <script src="js/test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Upload</h1>
+
+            <div id="upload" class="uk-placeholder uk-text-center">
+
+                <div class="uk-form-file uk-margin">
+                    <button class="uk-button">Select</button>
+                    <input type="file" multiple>
+                </div>
+
+                <div class="uk-margin">
+
+                    <span uk-icon="icon: cloud-upload"></span> Attach binaries by dropping them here or <a class="uk-form-file">selecting one<input type="file" multiple></a>
+
+                </div>
+
+            </div>
+
+            <progress id="progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+
+        </div>
+
+        <h2>Javascript Options</h2>
+
+        <div class="uk-overflow-auto">
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Value</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>url</code></td>
+                        <td>String</td>
+                        <td>''</td>
+                        <td>The request url.</td>
+                    </tr>
+                    <tr>
+                        <td><code>multiple</code></td>
+                        <td>Boolean</td>
+                        <td>false</td>
+                        <td>Allow multiple files to be uploaded.</td>
+                    </tr>
+                    <tr>
+                        <td><code>name</code></td>
+                        <td>String</td>
+                        <td>'files[]'</td>
+                        <td>The name parameter.</td>
+                    </tr>
+                    <tr>
+                        <td><code>type</code></td>
+                        <td>String</td>
+                        <td>POST</td>
+                        <td>The request type.</td>
+                    </tr>
+                    <tr>
+                        <td><code>params</code></td>
+                        <td>Object</td>
+                        <td>{}</td>
+                        <td>Additional parameters.</td>
+                    </tr>
+                    <tr>
+                        <td><code>allow</code></td>
+                        <td>String</td>
+                        <td>false</td>
+                        <td>File name filter. (eg. *.png)</td>
+                    </tr>
+                    <tr>
+                        <td><code>mime</code></td>
+                        <td>String</td>
+                        <td>false</td>
+                        <td>File MIME type filter. (eg. images/*)</td>
+                    </tr>
+                    <tr>
+                        <td><code>concurrent</code></td>
+                        <td>Number</td>
+                        <td>1</td>
+                        <td>Number of files that will be uploaded simultaneously.</td>
+                    </tr>
+                    <tr>
+                        <td><code>dataType</code></td>
+                        <td>String</td>
+                        <td>(xml, json, script, or html)</td>
+                        <td>The expected response data type.</td>
+                    </tr>
+                    <tr>
+                        <td><code>msg-invalid-mime</code></td>
+                        <td>String</td>
+                        <td>Invalid File Type: %s</td>
+                        <td>Invalid MIME type message.</td>
+                    </tr>
+                    <tr>
+                        <td><code>msg-invalid-name</code></td>
+                        <td>String</td>
+                        <td>Invalid File Name: %s</td>
+                        <td>Invalid name message.</td>
+                    </tr>
+                    <tr>
+                        <td><code>clsDragover</code></td>
+                        <td>String</td>
+                        <td>'uk-dragover'</td>
+                        <td>File name filter.</td>
+                    </tr>
+                    <tr>
+                        <td><code>abort</code></td>
+                        <td>Function</td>
+                        <td>null</td>
+                        <td>The abort callback.</td>
+                    </tr>
+                    <tr>
+                        <td><code>beforeAll</code></td>
+                        <td>Function</td>
+                        <td>null</td>
+                        <td>The beforeAll callback.</td>
+                    </tr>
+                    <tr>
+                        <td><code>beforeSend</code></td>
+                        <td>Function</td>
+                        <td>null</td>
+                        <td>The beforeSend callback.</td>
+                    </tr>
+                    <tr>
+                        <td><code>complete</code></td>
+                        <td>Function</td>
+                        <td>null</td>
+                        <td>The complete callback.</td>
+                    </tr>
+                    <tr>
+                        <td><code>completeAll</code></td>
+                        <td>Function</td>
+                        <td>null</td>
+                        <td>The completeAll callback.</td>
+                    </tr>
+                    <tr>
+                        <td><code>error</code></td>
+                        <td>Function</td>
+                        <td>null</td>
+                        <td>The error callback.</td>
+                    </tr>
+                    <tr>
+                        <td><code>load</code></td>
+                        <td>Function</td>
+                        <td>null</td>
+                        <td>The load callback.</td>
+                    </tr>
+                    <tr>
+                        <td><code>loadEnd</code></td>
+                        <td>Function</td>
+                        <td>null</td>
+                        <td>The loadEnd callback.</td>
+                    </tr>
+                    <tr>
+                        <td><code>loadStart</code></td>
+                        <td>Function</td>
+                        <td>null</td>
+                        <td>The loadStart callback.</td>
+                    </tr>
+                    <tr>
+                        <td><code>progress</code></td>
+                        <td>Function</td>
+                        <td>null</td>
+                        <td>The progress callback.</td>
+                    </tr>
+                    <tr>
+                        <td><code>fail</code></td>
+                        <td>Function</td>
+                        <td>alert</td>
+                        <td>The fail callback. If name or MIME type are invalid.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <script>
+
+            (function ($) {
+
+                var bar = $("#progressbar");
+
+                UIkit.upload('#upload', {
+
+                    url: 'http://localhost/upload.php',
+                    multiple: true,
+
+                    beforeSend: function() { console.log('beforeSend', arguments); },
+                    beforeAll: function() { console.log('beforeAll', arguments); },
+                    load: function() { console.log('load', arguments); },
+                    loadEnd: function() { console.log('loadEnd', arguments); },
+                    error: function() { console.log('error', arguments); },
+                    complete: function() { console.log('complete', arguments); },
+
+                    loadStart: function (e) {
+                        console.log('loadStart', arguments);
+
+                        bar.attr('hidden', null).val(0);
+                        bar[0].max =  e.total;
+                        bar[0].value =  e.loaded;
+                    },
+
+                    progress: function (e) {
+                        console.log('progress', arguments);
+
+                        bar[0].max =  e.total;
+                        bar[0].value =  e.loaded;
+
+                    },
+
+                    loadend(e) {
+                        console.log('complete', arguments);
+
+                        bar[0].max =  e.total;
+                        bar[0].value =  e.loaded;
+                    },
+
+                    completeAll: function () {
+                        console.log('completeAll', arguments);
+
+                        setTimeout(function () {
+                            bar.attr('hidden', 'hidden');
+                        }, 2250);
+
+                        alert('Upload Completed');
+                    }
+                });
+
+            })(jQuery);
+        </script>
+
+    </body>
+</html>

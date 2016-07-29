@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
-export {$, each, extend, map, merge, isArray, isFunction, isPlainObject} from 'jquery';
+export {$, ajax, each, extend, map, merge, isArray, isFunction, isPlainObject} from 'jquery';
 
 export function bind(fn, context) {
     return function (a) {
