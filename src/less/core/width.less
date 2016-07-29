@@ -134,9 +134,15 @@
 /* Single Widths
  ========================================================================== */
 
+/*
+ * 1. `max-width` is needed for the pixel-based classes
+ */
+
 [class*='uk-width'] {
     box-sizing: border-box;
     width: 100%;
+    /* 1 */
+   max-width: 100%;
 }
 
 /* Halves */
@@ -161,11 +167,11 @@
 .uk-width-5-6 { width: calc(100% * 5 / 6); }
 
 /* Pixel */
-.uk-width-small { max-width: @width-small-width; }
-.uk-width-medium { max-width: @width-medium-width; }
-.uk-width-large { max-width: @width-large-width; }
-.uk-width-xlarge { max-width: @width-xlarge-width; }
-.uk-width-xxlarge { max-width: @width-xxlarge-width; }
+.uk-width-small { width: @width-small-width; }
+.uk-width-medium { width: @width-medium-width; }
+.uk-width-large { width: @width-large-width; }
+.uk-width-xlarge { width: @width-xlarge-width; }
+.uk-width-xxlarge { width: @width-xxlarge-width; }
 
 /* Auto */
 .uk-width-auto { width: auto; }
@@ -206,11 +212,11 @@
     .uk-width-5-6\@s { width: calc(100% * 5 / 6); }
 
     /* Pixel */
-    .uk-width-small\@s { max-width: @width-small-width; }
-    .uk-width-medium\@s { max-width: @width-medium-width; }
-    .uk-width-large\@s { max-width: @width-large-width; }
-    .uk-width-xlarge\@s { max-width: @width-xlarge-width; }
-    .uk-width-xxlarge\@s { max-width: @width-xxlarge-width; }
+    .uk-width-small\@s { width: @width-small-width; }
+    .uk-width-medium\@s { width: @width-medium-width; }
+    .uk-width-large\@s { width: @width-large-width; }
+    .uk-width-xlarge\@s { width: @width-xlarge-width; }
+    .uk-width-xxlarge\@s { width: @width-xxlarge-width; }
 
     /* Auto */
     .uk-width-auto\@s { width: auto; }
@@ -253,11 +259,11 @@
     .uk-width-5-6\@m { width: calc(100% * 5 / 6); }
 
     /* Pixel */
-    .uk-width-small\@m { max-width: @width-small-width; }
-    .uk-width-medium\@m { max-width: @width-medium-width; }
-    .uk-width-large\@m { max-width: @width-large-width; }
-    .uk-width-xlarge\@m { max-width: @width-xlarge-width; }
-    .uk-width-xxlarge\@m { max-width: @width-xxlarge-width; }
+    .uk-width-small\@m { width: @width-small-width; }
+    .uk-width-medium\@m { width: @width-medium-width; }
+    .uk-width-large\@m { width: @width-large-width; }
+    .uk-width-xlarge\@m { width: @width-xlarge-width; }
+    .uk-width-xxlarge\@m { width: @width-xxlarge-width; }
 
      /* Auto */
     .uk-width-auto\@m { width: auto; }
@@ -300,11 +306,11 @@
     .uk-width-5-6\@l { width: calc(100% * 5 / 6); }
 
     /* Pixel */
-    .uk-width-small\@l { max-width: @width-small-width; }
-    .uk-width-medium\@l { max-width: @width-medium-width; }
-    .uk-width-large\@l { max-width: @width-large-width; }
-    .uk-width-xlarge\@l { max-width: @width-xlarge-width; }
-    .uk-width-xxlarge\@l { max-width: @width-xxlarge-width; }
+    .uk-width-small\@l { width: @width-small-width; }
+    .uk-width-medium\@l { width: @width-medium-width; }
+    .uk-width-large\@l { width: @width-large-width; }
+    .uk-width-xlarge\@l { width: @width-xlarge-width; }
+    .uk-width-xxlarge\@l { width: @width-xxlarge-width; }
 
     /* Auto */
     .uk-width-auto\@l { width: auto; }
@@ -347,11 +353,11 @@
     .uk-width-5-6\@xl { width: calc(100% * 5 / 6); }
 
     /* Pixel */
-    .uk-width-small\@xl { max-width: @width-small-width; }
-    .uk-width-medium\@xl { max-width: @width-medium-width; }
-    .uk-width-large\@xl { max-width: @width-large-width; }
-    .uk-width-xlarge\@xl { max-width: @width-xlarge-width; }
-    .uk-width-xxlarge\@xl { max-width: @width-xxlarge-width; }
+    .uk-width-small\@xl { width: @width-small-width; }
+    .uk-width-medium\@xl { width: @width-medium-width; }
+    .uk-width-large\@xl { width: @width-large-width; }
+    .uk-width-xlarge\@xl { width: @width-xlarge-width; }
+    .uk-width-xxlarge\@xl { width: @width-xxlarge-width; }
 
     /* Auto */
     .uk-width-auto\@xl { width: auto; }
