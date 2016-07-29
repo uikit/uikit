@@ -30,7 +30,7 @@ UIkit.component('sortable', {
         threshold: 10,
         clsItem: 'uk-sortable-item',
         clsPlaceholder: 'uk-sortable-placeholder',
-        clsGhost: 'uk-sortable-ghost',
+        clsGhost: 'uk-sortable-drag',
         clsDragging: 'uk-sortable-dragging',
         clsBase: 'uk-sortable',
         clsNoDrag: 'uk-sortable-nodrag',
