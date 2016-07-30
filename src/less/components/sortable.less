@@ -1,12 +1,13 @@
 // Name:            Sortable
-// Description:     Defines styles for sortable grids and lists
+// Description:     Component to create sortable grids and lists
 //
 // Component:       `uk-sortable`
 //
-// Sub-objects:     `uk-sortable-handle`
-//
-// Modifier:        `uk-sortable-drag`
+// Sub-objects:     `uk-sortable-drag`
 //                  `uk-sortable-placeholder`
+//                  `uk-sortable-handle`
+//
+// Modifiers:       `uk-sortable-empty`
 //
 // States:          `uk-drag`
 //
@@ -22,7 +23,7 @@
 
 @sortable-placeholder-opacity:                  0;
 
-@sortable-empty-height:                         30px;
+@sortable-empty-height:                         50px;
 
 
 /* ========================================================================
@@ -47,18 +48,18 @@
 .uk-sortable > :last-child { margin-bottom: 0; }
 
 
-/* Sub-modifier `uk-sortable-drag`
+/* Drag
  ========================================================================== */
 
 .uk-sortable-drag {
     position: absolute;
     z-index: @sortable-dragged-z-index;
     pointer-events: none;
-    .hook-sortable-dragged;
+    .hook-sortable-drag;
 }
 
 
-/* Sub-modifier `uk-sortable-placeholder`
+/* Placeholder
  ========================================================================== */
 
 .uk-sortable-placeholder {
@@ -67,7 +68,7 @@
 }
 
 
-/* Empty List
+/* Empty modifier
  ========================================================================== */
 
 .uk-sortable-empty {
@@ -76,7 +77,7 @@
 }
 
 
-/* Sub-object `uk-sortable-handle`
+/* Handle
  ========================================================================== */
 
 /* Hover */
@@ -90,7 +91,7 @@
 .hook-sortable-misc;
 
 .hook-sortable() {}
-.hook-sortable-dragged() {}
+.hook-sortable-drag() {}
 .hook-sortable-placeholder() {}
 .hook-sortable-empty() {}
 .hook-sortable-misc() {}
