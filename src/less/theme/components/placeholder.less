@@ -1,0 +1,33 @@
+//
+// Component: Placeholder
+//
+// ========================================================================
+
+@load-placeholder: true;
+@import (once) "../../components/placeholder.less";
+
+
+// Variables
+// ========================================================================
+
+@placeholder-background:                        lighten(@global-muted-background, 2%);
+
+//
+// New
+//
+
+@placeholder-border:                            @global-border;
+@placeholder-border-width:                      @global-border-width;
+
+// Component
+// ========================================================================
+
+.hook-placeholder() {
+    border: @placeholder-border-width dashed @placeholder-border;
+}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-placeholder-misc() {}

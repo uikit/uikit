@@ -6,6 +6,7 @@ var styles = extend({
         file: '../css/uikit.core.css',
         components: [
             '../css/components/core/notify.css',
+            '../css/components/core/placeholder.css',
             '../css/components/core/progress.css',
             '../css/components/core/sortable.css',
             '../css/components/core/spinner.css',
@@ -16,6 +17,7 @@ var styles = extend({
         file: '../css/uikit.theme.css',
         components: [
             '../css/components/theme/notify.css',
+            '../css/components/theme/placeholder.css',
             '../css/components/theme/progress.css',
             '../css/components/theme/sortable.css',
             '../css/components/theme/spinner.css',
@@ -50,6 +52,7 @@ var component = location.pathname.split('/').pop().replace(/.html$/, '');
 var components = [
     'lightbox',
     'notify',
+    'placeholder',
     'sortable',
     'spinner',
     'tooltip',
@@ -111,6 +114,7 @@ document.addEventListener("DOMContentLoaded", () => {
         'padding',
         'pagination',
         'position',
+        'placeholder',
         'progress',
         'scroll',
         'scrollspy',
