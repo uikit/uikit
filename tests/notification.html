@@ -21,40 +21,64 @@
 
             <h1>Notification</h1>
 
-            <h2>Positions</h2>
+            <div class="uk-child-width-1-2@m" uk-grid>
+                <div>
 
-            <p>
-                <button class="uk-button" data-message="Message..." data-pos="top-left">Top Left</button>
-                <button class="uk-button" data-message="Message..." data-pos="top-center">Top Center</button>
-                <button class="uk-button" data-message="Message..." data-pos="top-right">Top Right</button>
-                <button class="uk-button" data-message="Message..." data-pos="bottom-left">Bottom Left</button>
-                <button class="uk-button" data-message="Message..." data-pos="bottom-center">Bottom Center</button>
-                <button class="uk-button" data-message="Message..." data-pos="bottom-right">Bottom Right</button>
-            </p>
+                    <p class="uk-notification-message">Message</p>
 
-            <h2>Styles</h2>
+                    <p class="uk-notification-message uk-notification-message-primary">
+                        <a href="#" class="uk-notification-close" uk-close></a>
+                        Primary message
+                    </p>
 
-            <p>
-                <button class="uk-button" data-message="Primary message..." data-status="primary">Primary</button>
-                <button class="uk-button" data-message="Success message..." data-status="success">Success</button>
-                <button class="uk-button" data-message="Warning message..." data-status="warning">Warning</button>
-                <button class="uk-button" data-message="Danger message..." data-status="danger">Danger</button>
-            </p>
+                    <p class="uk-notification-message uk-notification-message-success">
+                        <a href="#" class="uk-notification-close" uk-close></a>
+                        Success message
+                    </p>
 
-            <h2>Specials</h2>
+                    <p class="uk-notification-message uk-notification-message-warning">
+                        <a href="#" class="uk-notification-close" uk-close></a>
+                        Warning message
+                    </p>
 
-            <p>
-                <button class="uk-button" data-message="<i class='uk-icon-check'></i> Message with an icon...">With icon</button>
-                <button class="uk-button" data-message="Sticky message..." data-timeout="0">Sticky</button>
-            </p>
+                    <p class="uk-notification-message uk-notification-message-danger">
+                        <a href="#" class="uk-notification-close" uk-close></a>
+                        Danger message
+                    </p>
 
-            <h2>Styles</h2>
+                </div>
+                <div>
 
-            <p class="uk-notification-message">Message...</p>
-            <p class="uk-notification-message uk-notification-message-primary"><a class="uk-close"></a>Primary message...</p>
-            <p class="uk-notification-message uk-notification-message-success"><a class="uk-close"></a>Success message...</p>
-            <p class="uk-notification-message uk-notification-message-warning"><a class="uk-close"></a>Warning message...</p>
-            <p class="uk-notification-message uk-notification-message-danger"><a class="uk-close"></a>Danger message...</p>
+                    <p uk-margin>
+                        <button class="uk-button uk-button-default" data-message="Message" data-pos="top-left">Top Left</button>
+                        <button class="uk-button uk-button-default" data-message="Message" data-pos="top-center">Top Center</button>
+                        <button class="uk-button uk-button-default" data-message="Message" data-pos="top-right">Top Right</button>
+                    </p>
+
+                    <p uk-margin>
+                        <button class="uk-button uk-button-default" data-message="Message" data-pos="bottom-left">Bottom Left</button>
+                        <button class="uk-button uk-button-default" data-message="Message" data-pos="bottom-center">Bottom Center</button>
+                        <button class="uk-button uk-button-default" data-message="Message" data-pos="bottom-right">Bottom Right</button>
+                    </p>
+
+                    <h2>Styles</h2>
+
+                    <p uk-margin>
+                        <button class="uk-button uk-button-default" data-message="Primary message" data-status="primary">Primary</button>
+                        <button class="uk-button uk-button-default" data-message="Success message" data-status="success">Success</button>
+                        <button class="uk-button uk-button-default" data-message="Warning message" data-status="warning">Warning</button>
+                        <button class="uk-button uk-button-default" data-message="Danger message" data-status="danger">Danger</button>
+                    </p>
+
+                    <h2>Specials</h2>
+
+                    <p uk-margin>
+                        <button class="uk-button uk-button-default" data-message="<span uk-icon='icon: check;'></span> Message with an icon">With icon</button>
+                        <button class="uk-button uk-button-default" data-message="Message without timeout" data-timeout="0">No Timeout</button>
+                    </p>
+
+                </div>
+            </div>
 
         </div>
 

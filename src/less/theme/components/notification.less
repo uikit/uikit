@@ -3,7 +3,7 @@
 //
 // ========================================================================
 
-@load-sortable: true;
+@load-notification: true;
 @import (once) "../../components/notification.less";
 
 
@@ -16,12 +16,26 @@
 
 .hook-notification() {}
 
+
+// Close
+// ========================================================================
+
+.hook-notification-close() {}
+
+
+// Style modifiers
+// ========================================================================
+
+.hook-notification-primary() {}
+
+.hook-notification-success() {}
+
+.hook-notification-warning() {}
+
+.hook-notification-danger() {}
+
+
 // Miscellaneous
 // ========================================================================
 
-.hook-notification-message() {}
-.hook-notification-message-primary() {}
-.hook-notification-message-success() {}
-.hook-notification-message-warning() {}
-.hook-notification-message-danger() {}
 .hook-notification-misc() {}
