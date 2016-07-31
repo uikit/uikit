@@ -6,11 +6,12 @@
 //                  `uk-textarea`
 //                  `uk-radio`
 //                  `uk-checkbox`
-//                  `uk-input-file`
 //                  `uk-legend`
 //                  `uk-fieldset`
 //
-// Sub-objects:     `uk-form-stacked`
+// Sub-objects:     `uk-form-custom-file`
+//                  `uk-form-custom-select`
+//                  `uk-form-stacked`
 //                  `uk-form-horizontal`
 //                  `uk-form-label`
 //                  `uk-form-controls`
@@ -477,28 +478,6 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
 .uk-checkbox:disabled:indeterminate { .svg-fill("../../images/form-checkbox-indeterminate.svg", "#000", @form-radio-disabled-icon-color); }
 
 
-/* Input file
- ========================================================================== */
-
-/*
- * 1. Required for Firefox
- * 2. Let the input cover the whole area
- */
-
-.uk-input-file {
-    position: absolute;
-    top: 0;
-    z-index: 1;
-    width: 100%;
-    opacity: 0;
-    cursor: pointer;
-    /* 1 */
-    left: 0;
-    /* 2 */
-    font-size: 500px;
-}
-
-
 /* Legend
  ========================================================================== */
 
@@ -521,6 +500,44 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
     font-size: @form-legend-font-size;
     line-height: @form-legend-line-height;
     .hook-form-legend;
+}
+
+
+/* Custom controls
+ ========================================================================== */
+
+/*
+ * 1. Required for Firefox
+ */
+
+.uk-form-custom-file,
+.uk-form-custom-select {
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    opacity: 0;
+    cursor: pointer;
+    /* 1 */
+    left: 0;
+}
+
+/*
+ * Let the input cover the whole area
+ */
+
+.uk-form-custom-file { font-size: 500px; }
+
+/*
+ * 1. Let the select cover the whole area
+ * 2. Required for Webkit to make `height` work
+ */
+
+.uk-form-custom-select {
+    /* 1 */
+    height: 100%;
+    /* 2 */
+    -webkit-appearance: none;
 }
 
 

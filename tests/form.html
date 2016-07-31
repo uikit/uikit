@@ -271,23 +271,92 @@
 
                     </form>
 
-                    <h2>Form file</h2>
+                    <h2>Custom Controls</h2>
 
-                    <div class="uk-margin">
+                    <form class="uk-form-stacked uk-child-width-1-2@m" uk-grid>
+                        <div>
 
-                        <div class="uk-inline-clip">
-                            <button class="uk-button uk-button-default">Select</button>
-                            <input class="uk-input-file" type="file">
+                            <h3>File</h3>
+
+                            <div class="uk-margin">
+
+                                <button class="uk-button uk-button-default uk-inline-clip">
+                                    Select
+                                    <input class="uk-form-custom-file" type="file">
+                                </button>
+
+                            </div>
+
+                            <div class="uk-margin">
+                                <span class="uk-text-middle">Here is a text</span>
+                                <div class="uk-inline-clip uk-text-primary">upload<input class="uk-form-custom-file" type="file"></div>
+                            </div>
+
+                            <div class="uk-margin">
+
+                                <div class="uk-inline-clip">
+                                    <input class="uk-form-custom-file" type="file" uk-form-custom>
+                                    <input class="uk-input" type="text" placeholder="Select file" disabled>
+                                </div>
+
+                                <button class="uk-button uk-button-default">Submit</button>
+
+                            </div>
+
                         </div>
+                        <div>
 
-                        <button class="uk-button uk-button-default">Another button</button>
+                            <h3>Select</h3>
 
-                    </div>
+                            <div class="uk-margin">
 
-                    <div class="uk-margin">
-                        <span class="uk-text-middle">Here is a text</span>
-                        <div class="uk-inline-clip uk-text-primary">upload<input class="uk-input-file" type="file"></div>
-                    </div>
+                                <div class="uk-inline-clip" >
+                                    <select class="uk-form-custom-select" uk-form-custom>
+                                        <option value="1">Option 01</option>
+                                        <option value="2">Option 02</option>
+                                        <option value="3">Option 03</option>
+                                        <option value="4">Option 04</option>
+                                    </select>
+                                    <span>Text</span>
+                                </div>
+
+                            </div>
+
+                            <div class="uk-margin">
+
+                                <div class="uk-inline-clip">
+                                    <select class="uk-form-custom-select" uk-form-custom="target: #test">
+                                        <option value="1">Option 01</option>
+                                        <option value="2">Option 02</option>
+                                        <option value="3">Option 03</option>
+                                        <option value="4">Option 04</option>
+                                    </select>
+                                    <a>
+                                        <span uk-icon="icon: pencil"></span>
+                                        <span id="test">Text</span>
+                                    </a>
+                                </div>
+
+                            </div>
+
+                            <div class="uk-margin">
+
+                                <button class="uk-button uk-button-default uk-inline-clip" >
+                                    <select class="uk-form-custom-select" uk-form-custom>
+                                        <option value="">Please select...</option>
+                                        <option value="1">Option 01</option>
+                                        <option value="2">Option 02</option>
+                                        <option value="3">Option 03</option>
+                                        <option value="4">Option 04</option>
+                                    </select>
+                                    <span>test</span>
+                                    <span uk-icon="icon: chevron-down"></span>
+                                </button>
+
+                            </div>
+
+                        </div>
+                    </form>
 
                 </div>
                 <form class="uk-form-stacked uk-width-1-3@s">
