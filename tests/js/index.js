@@ -93,6 +93,7 @@ document.addEventListener("DOMContentLoaded", () => {
         'container',
         'cover',
         'description-list',
+        'dotnav',
         'drop',
         'dropdown',
         'element',

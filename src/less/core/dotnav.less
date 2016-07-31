@@ -1,0 +1,196 @@
+// Name:            Dotnav
+// Description:     Component to create dot navigations
+//
+// Component:       `uk-dotnav`
+//
+// Modifier:        `uk-dotnav-vertical`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@dotnav-margin-horizontal:                      15px;
+@dotnav-margin-vertical:                        @dotnav-margin-horizontal;
+
+@dotnav-item-width:                             20px;
+@dotnav-item-height:                            @dotnav-item-width;
+@dotnav-item-background:                        fadeout(@global-color, 90%);
+
+@dotnav-item-hover-background:                  fadeout(@global-color, 60%);
+
+@dotnav-item-onclick-background:                fadeout(@global-color, 40%);
+
+@dotnav-item-active-background:                 fadeout(@global-color, 60%);
+
+
+/* ========================================================================
+   Component: Dotnav
+ ========================================================================== */
+
+/*
+ * 1. Allow cells to wrap into the next line
+ * 2. Reset lists
+ * 3. Gutter
+ */
+
+.uk-dotnav {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /* 1 */
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    /* 2 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 3 */
+    margin-left: -@dotnav-margin-horizontal;
+    .hook-dotnav;
+}
+
+/*
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Gutter
+ */
+
+.uk-dotnav > * {
+    /* 1 */
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+    /* 2 */
+    padding-left: @dotnav-margin-horizontal;
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * Items
+ * 1. Hide text if present
+ */
+
+.uk-dotnav > * > * {
+    display: block;
+    box-sizing: content-box;
+    width: @dotnav-item-width;
+    height: @dotnav-item-height;
+    border-radius: 50%;
+    background: @dotnav-item-background;
+    /* 1 */
+    text-indent: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    .hook-dotnav-item;
+}
+
+/* Hover + Focus */
+.uk-dotnav > * > :hover,
+.uk-dotnav > * > :focus {
+    background: @dotnav-item-hover-background;
+    outline: none;
+    .hook-dotnav-item-hover;
+}
+
+/* OnClick */
+.uk-dotnav > * > :active {
+    background: @dotnav-item-onclick-background;
+    .hook-dotnav-item-onclick;
+}
+
+/* Active */
+.uk-dotnav > .uk-active > * {
+    background: @dotnav-item-active-background;
+    .hook-dotnav-item-active;
+}
+
+
+/* Modifier: 'uk-dotnav-vertical'
+ ========================================================================== */
+
+/*
+ * 1. Change direction
+ * 2. Gutter
+ */
+
+.uk-dotnav-vertical {
+    /* 1 */
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    /* 2 */
+    margin-left: 0;
+    margin-top: -@dotnav-margin-vertical;
+}
+
+/* 2 */
+.uk-dotnav-vertical > * {
+    padding-left: 0;
+    padding-top: @dotnav-margin-vertical;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-dotnav-misc;
+
+.hook-dotnav() {}
+.hook-dotnav-item() {}
+.hook-dotnav-item-hover() {}
+.hook-dotnav-item-onclick() {}
+.hook-dotnav-item-active() {}
+.hook-dotnav-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @dotnav-item-background:               fadeout(@dye-color, 60%);
+    @dotnav-item-hover-background:         fadeout(@dye-color, 30%);
+    @dotnav-item-onclicke-background:      fadeout(@dye-color, 10%);
+    @dotnav-item-active-background:        fadeout(@dye-color, 10%);
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-dotnav > * > * {
+        background: @dotnav-item-background;
+        .hook-dye-dotnav-item;
+    }
+
+    .uk-dotnav > * > :hover,
+    .uk-dotnav > * > :focus {
+        background: @dotnav-item-hover-background;
+        .hook-dye-dotnav-item-hover;
+    }
+
+    .uk-dotnav > * > :active {
+        background: @dotnav-item-onclick-background;
+        .hook-dye-dotnav-item-onclick;
+    }
+
+    .uk-dotnav > .uk-active > * {
+        background: @dotnav-item-active-background;
+        .hook-dye-dotnav-item-active;
+    }
+
+}
+
+.hook-dye-dotnav-item() {}
+.hook-dye-dotnav-item-hover() {}
+.hook-dye-dotnav-item-onclick() {}
+.hook-dye-dotnav-item-active() {}
