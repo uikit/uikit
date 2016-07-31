@@ -9,8 +9,7 @@
 //                  `uk-legend`
 //                  `uk-fieldset`
 //
-// Sub-objects:     `uk-form-custom-file`
-//                  `uk-form-custom-select`
+// Sub-objects:     `uk-form-custom`
 //                  `uk-form-stacked`
 //                  `uk-form-horizontal`
 //                  `uk-form-label`
@@ -507,37 +506,26 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
  ========================================================================== */
 
 /*
- * 1. Required for Firefox
+ * 1. Position and resize the form control to always cover its container
+ * 2. Required for Firefox for positioning to the left
+ * 3. Required for Webkit to make `height` work
+ * 4. Hide controle and show cursor
  */
 
-.uk-form-custom-file,
-.uk-form-custom-select {
+.uk-form-custom {
+    /* 1 */
     position: absolute;
     top: 0;
     z-index: 1;
     width: 100%;
-    opacity: 0;
-    cursor: pointer;
-    /* 1 */
-    left: 0;
-}
-
-/*
- * Let the input cover the whole area
- */
-
-.uk-form-custom-file { font-size: 500px; }
-
-/*
- * 1. Let the select cover the whole area
- * 2. Required for Webkit to make `height` work
- */
-
-.uk-form-custom-select {
-    /* 1 */
     height: 100%;
     /* 2 */
+    left: 0;
+    /* 3 */
     -webkit-appearance: none;
+    /* 4 */
+    opacity: 0;
+    cursor: pointer;
 }
 
 
