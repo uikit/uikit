@@ -91,6 +91,7 @@
 @form-icon-width:                               30px;
 @form-icon-font-size:                           @global-font-size;
 @form-icon-color:                               @global-muted-color;
+@form-icon-hover-color:                         @global-color;
 
 
 /* ========================================================================
@@ -580,20 +581,21 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
  ========================================================================== */
 
 /*
- * 1. Set container position and width
- * 2. Center icon vertically and horizontally
- * 3. Make form element clickable through icon
+ * 1. Set position
+ * 2. Set width
+ * 3. Center icon vertically and horizontally
  * 4. Style
  */
 
 .uk-form-icon {
-    position: absolute;
     /* 1 */
+    position: absolute;
     top: 0;
     bottom: 0;
     left: 0;
-    width: @form-icon-width;
     /* 2 */
+    width: @form-icon-width;
+    /* 3 */
     display: -ms-inline-flexbox;
     display: -webkit-inline-flex;
     display: inline-flex;
@@ -603,11 +605,25 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
-    /* 3 */
-    pointer-events: none;
     /* 4 */
     color: @form-icon-color;
 }
+
+/*
+ * Required for `a`.
+ */
+
+.uk-form-icon:hover { color: @form-icon-hover-color; }
+
+/*
+ * Make `input` element clickable through icon, e.g. if it's a `span`
+ */
+
+.uk-form-icon:not(a):not(button):not(input) { pointer-events: none; }
+
+/*
+ * Input padding
+ */
 
 .uk-form-icon:not(.uk-form-icon-flip) + .uk-input { padding-left: @form-icon-width; }
 
