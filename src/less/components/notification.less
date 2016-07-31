@@ -1,0 +1,192 @@
+// Name:            Notification
+// Description:     Component to create notification messages
+//
+// Component:       `uk-notification`
+//
+// Sub-objects:     `uk-notification-message`
+//
+// Modifiers:       `uk-notification-top-center`
+//                  `uk-notification-top-right`
+//                  `uk-notification-bottom-left`
+//                  `uk-notification-bottom-center`
+//                  `uk-notification-bottom-right`
+//                  `uk-notification-message-primary`
+//                  `uk-notification-message-success`
+//                  `uk-notification-message-warning`
+//                  `uk-notification-message-danger`
+//
+// Uses:            Close: `uk-close`
+//
+// ========================================================================
+
+@import (once, reference) "../core/_import";
+
+
+// Variables
+// ========================================================================
+
+@notification-position:                               10px;
+@notification-z-index:                                1040;
+@notification-width:                                  350px;
+
+@notification-message-margin-bottom:                  10px;
+@notification-message-padding:                        15px;
+@notification-message-background:                     #444;
+@notification-message-color:                          #fff;
+@notification-message-font-size:                      16px;
+@notification-message-line-height:                    22px;
+
+@notification-message-primary-background:             #ebf7fd;
+@notification-message-primary-color:                  #2d7091;
+
+@notification-message-success-background:             #f2fae3;
+@notification-message-success-color:                  #659f13;
+
+@notification-message-warning-background:             #fffceb;
+@notification-message-warning-color:                  #e28327;
+
+@notification-message-danger-background:              #fff1f0;
+@notification-message-danger-color:                   #d85030;
+
+
+/* ========================================================================
+   Component: Notification
+ ========================================================================== */
+
+/*
+ * Message container for positioning
+ */
+
+.uk-notification {
+    position: fixed;
+    top: @notification-position;
+    left: @notification-position;
+    z-index: @notification-z-index;
+    box-sizing: border-box;
+    width: @notification-width;
+    .hook-notification;
+}
+
+
+/* Position modifiers
+========================================================================== */
+
+.uk-notification-top-right,
+.uk-notification-bottom-right  {
+    left: auto;
+    right: @notification-position;
+}
+
+.uk-notification-top-center,
+.uk-notification-bottom-center {
+    left: 50%;
+    margin-left: (@notification-width / -2);
+}
+
+.uk-notification-bottom-left,
+.uk-notification-bottom-right,
+.uk-notification-bottom-center {
+    top: auto;
+    bottom: @notification-position;
+}
+
+
+/* Responsiveness
+========================================================================== */
+
+/* Phones portrait and smaller */
+@media (max-width: @breakpoint-small-max) {
+
+    /*
+     * Fit in small screen
+     */
+
+    .uk-notification {
+        left: 10px;
+        right: 10px;
+        width: auto;
+        margin: 0;
+    }
+
+}
+
+
+/* Sub-object: `uk-notification-message`
+========================================================================== */
+
+.uk-notification-message {
+    position: relative;
+    margin-bottom: @notification-message-margin-bottom;
+    padding: @notification-message-padding;
+    background: @notification-message-background;
+    color: @notification-message-color;
+    font-size: @notification-message-font-size;
+    line-height: @notification-message-line-height;
+    cursor: pointer;
+    .hook-notification-message;
+}
+
+
+/* Close in notification
+ ========================================================================== */
+
+.uk-notification-message > .uk-close {
+    visibility: hidden;
+    float: right;
+}
+
+.uk-notification-message:hover > .uk-close { visibility: visible; }
+
+
+/* Modifier: `uk-alert-info`
+ ========================================================================== */
+
+.uk-notification-message-primary {
+    background: @notification-message-primary-background;
+    color: @notification-message-primary-color;
+    .hook-notification-message-primary;
+}
+
+
+/* Modifier: `uk-alert-success`
+ ========================================================================== */
+
+.uk-notification-message-success {
+    background: @notification-message-success-background;
+    color: @notification-message-success-color;
+    .hook-notification-message-success;
+}
+
+
+/* Modifier: `uk-notification-message-warning`
+ ========================================================================== */
+
+.uk-notification-message-warning {
+    background: @notification-message-warning-background;
+    color: @notification-message-warning-color;
+    .hook-notification-message-warning;
+}
+
+
+/* Modifier: `uk-notification-message-danger`
+ ========================================================================== */
+
+.uk-notification-message-danger {
+    background: @notification-message-danger-background;
+    color: @notification-message-danger-color;
+    .hook-notification-message-danger;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-notification-misc;
+
+.hook-notification() {}
+.hook-notification-message() {}
+.hook-notification-message-primary() {}
+.hook-notification-message-success() {}
+.hook-notification-message-warning() {}
+.hook-notification-message-danger() {}
+.hook-notification-misc() {}

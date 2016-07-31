@@ -51,14 +51,14 @@
 // Scroll
 
 // Components
-@load-notify: false;
+@load-notification: false;
 @load-tooltip: false;
 @load-placeholder: false;
 @load-progress: false;
 @load-spinner: false;
 @load-sortable: false;
 
-& when (@load-notify) { @import "../components/notify.less"; }
+& when (@load-notification) { @import "../components/notification.less"; }
 & when (@load-tooltip) { @import "../components/tooltip.less"; }
 & when (@load-placeholder) { @import "../components/placeholder.less"; }
 & when (@load-progress) { @import "../components/progress.less"; }

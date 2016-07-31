@@ -4,12 +4,12 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Accordion - UIkit tests</title>
+        <title>Notification - UIkit tests</title>
         <script src="js/test.js"></script>
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 $('button').on('click', function(){
-                    UIkit.notify($(this).data());
+                    UIkit.notification($(this).data());
                 });
             });
         </script>
@@ -19,7 +19,7 @@
 
         <div class="uk-container">
 
-            <h1>Notify</h1>
+            <h1>Notification</h1>
 
             <h2>Positions</h2>
 
@@ -50,11 +50,11 @@
 
             <h2>Styles</h2>
 
-            <p class="uk-notify-message">Message...</p>
-            <p class="uk-notify-message uk-notify-message-primary"><a class="uk-close"></a>Primary message...</p>
-            <p class="uk-notify-message uk-notify-message-success"><a class="uk-close"></a>Success message...</p>
-            <p class="uk-notify-message uk-notify-message-warning"><a class="uk-close"></a>Warning message...</p>
-            <p class="uk-notify-message uk-notify-message-danger"><a class="uk-close"></a>Danger message...</p>
+            <p class="uk-notification-message">Message...</p>
+            <p class="uk-notification-message uk-notification-message-primary"><a class="uk-close"></a>Primary message...</p>
+            <p class="uk-notification-message uk-notification-message-success"><a class="uk-close"></a>Success message...</p>
+            <p class="uk-notification-message uk-notification-message-warning"><a class="uk-close"></a>Warning message...</p>
+            <p class="uk-notification-message uk-notification-message-danger"><a class="uk-close"></a>Danger message...</p>
 
         </div>
 

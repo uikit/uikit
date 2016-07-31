@@ -5,7 +5,7 @@ var styles = extend({
     core: {
         file: '../css/uikit.core.css',
         components: [
-            '../css/components/core/notify.css',
+            '../css/components/core/notification.css',
             '../css/components/core/placeholder.css',
             '../css/components/core/progress.css',
             '../css/components/core/sortable.css',
@@ -16,7 +16,7 @@ var styles = extend({
     theme: {
         file: '../css/uikit.theme.css',
         components: [
-            '../css/components/theme/notify.css',
+            '../css/components/theme/notification.css',
             '../css/components/theme/placeholder.css',
             '../css/components/theme/progress.css',
             '../css/components/theme/sortable.css',
@@ -51,7 +51,7 @@ document.writeln(`<script src="../js/uikit.js"></script>`);
 var component = location.pathname.split('/').pop().replace(/.html$/, '');
 var components = [
     'lightbox',
-    'notify',
+    'notification',
     'placeholder',
     'sortable',
     'spinner',

@@ -3,7 +3,7 @@ import { extend, isString } from '../util/index';
 
 var uid = 0, containers = {}, messages = {};
 
-var notify = function(options){
+var notification = function(options){
 
     if (isString(options)) {
         options = {message: options};
@@ -40,9 +40,9 @@ class Message {
             onClose: function() {}
         }, options);
 
-        this.uuid = `notifymsg-${++uid}`;
+        this.uuid = `notificationmsg-${++uid}`;
         this.element = $(`
-            <div class="uk-notify-message">
+            <div class="uk-notification-message">
                 <a class="uk-close"></a>
                 <div></div>
             </div>
@@ -55,7 +55,7 @@ class Message {
 
         // status
         if (this.options.status) {
-            this.element.addClass(`uk-notify-message-${this.options.status}`);
+            this.element.addClass(`uk-notification-message-${this.options.status}`);
             this.currentStatus = this.options.status;
         }
 
@@ -64,7 +64,7 @@ class Message {
         messages[this.uuid] = this;
 
         if (!containers[this.options.pos]) {
-            containers[this.options.pos] = $(`<div class="uk-notify uk-notify-${this.options.pos}"></div>`).appendTo('body');
+            containers[this.options.pos] = $(`<div class="uk-notification uk-notification-${this.options.pos}"></div>`).appendTo('body');
         }
     }
 
@@ -105,7 +105,7 @@ class Message {
             }
 
             this.options.onClose.apply(this, []);
-            this.element.trigger('close.uk.notify', [this]);
+            this.element.trigger('close.uk.notification', [this]);
 
             delete messages[this.uuid];
         };
@@ -140,13 +140,13 @@ class Message {
             return this.currentStatus;
         }
 
-        this.element.removeClass(`uk-notify-message-${this.currentStatus}`).addClass(`uk-notify-message-${status}`);
+        this.element.removeClass(`uk-notification-message-${this.currentStatus}`).addClass(`uk-notification-message-${status}`);
         this.currentStatus = status;
 
         return this;
     }
 }
 
-UIkit.notify          = notify;
-UIkit.notify.message  = Message;
-UIkit.notify.closeAll = closeAll;
+UIkit.notification          = notification;
+UIkit.notification.message  = Message;
+UIkit.notification.closeAll = closeAll;
