@@ -1,7 +1,6 @@
 /.idea
 /js
 /css/*
-!/css/.gitkeep
 /dist
 /node_modules
 /showcase

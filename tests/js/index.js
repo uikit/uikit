@@ -132,7 +132,7 @@ $(() => {
     $tests.on('change', () => {
         if ($tests.val()) {
             var style = styles.custom ? `?style=${getParam('style')}` : '';
-            location.href = `../${document.querySelector('script[src*="test.js"]').getAttribute('src').replace('js/test.js', '')}tests/${$tests.val()}${style}`;
+            location.href = `../${$html.find('script[src*="test.js"]').attr('src').replace('js/test.js', '')}tests/${$tests.val()}${style}`;
         }
     }).val(component && `${component}.html`);
 
