@@ -21,11 +21,9 @@ glob('src/js/components/**/*.js', (er, files) => files.forEach(file => compile(f
 
 function compile(file, dest, external, globals) {
 
-    var entry = path.resolve(path.dirname(file), path.basename(file, '.js'));
-
     rollup.rollup({
         external,
-        entry: `${entry}.js`,
+        entry: `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
         plugins: [
             babel({presets: ['es2015-rollup']}),
             resolve({main: true, jsnext: true})
