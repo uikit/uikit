@@ -317,7 +317,7 @@
 
                             <div class="uk-margin">
                                 <span class="uk-text-middle">Here is a text</span>
-                                <div class="uk-form-custom uk-text-primary">upload<input type="file"></div>
+                                <a class="uk-form-custom">upload<input type="file"></a>
                             </div>
 
                             <div class="uk-margin">
@@ -352,24 +352,22 @@
 
                             <div class="uk-margin">
 
-                                <div uk-form-custom="target: #test">
+                                <a uk-form-custom="target: #test">
                                     <select>
                                         <option value="1">Option 01</option>
                                         <option value="2">Option 02</option>
                                         <option value="3">Option 03</option>
                                         <option value="4">Option 04</option>
                                     </select>
-                                    <a>
-                                        <span uk-icon="icon: pencil"></span>
-                                        <span id="test"></span>
-                                    </a>
-                                </div>
+                                    <span uk-icon="icon: pencil"></span>
+                                    <span id="test"></span>
+                                </a>
 
                             </div>
 
                             <div class="uk-margin">
 
-                                <button class="uk-button uk-button-default" type="button" uk-form-custom>
+                                <button class="uk-button uk-button-default" uk-form-custom>
                                     <select>
                                         <option value="">Please select...</option>
                                         <option value="1">Option 01</option>

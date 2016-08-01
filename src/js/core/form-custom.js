@@ -23,6 +23,10 @@ export default function (UIkit) {
 
         events: {
 
+            click(e) {
+                e.preventDefault();
+            },
+
             change(e) {
                 this.target[this.target.is(':input') ? 'val' : 'text'](
                     this.input[0].files && this.input[0].files[0]
