@@ -22,16 +22,15 @@ function buildthemes() {
     var themes = {};
 
     fs.readdirSync('custom').filter(function(file) {
-        return fs.statSync(path.join('custom', file)).isDirectory();
-    }).forEach(function(folder) {
+        return path.join('custom', file).match(/\.less$/);
+    }).forEach(function(theme) {
 
-        themes[folder] = {
-            file: `../css/uikit.${folder}.css`,
-            components: []
-        };
+        theme = path.basename(theme, '.less');
 
-        exec(`lessc --relative-urls --rootpath=../custom/${folder}/ custom/${folder}/_import.less > css/uikit.${folder}.css`, function() {
-            console.log(`${cyan('css/uikit.'+folder+'.css')} build`);
+        themes[theme] = {file: `../css/uikit.${theme}.css`};
+
+        exec(`lessc --relative-urls --rootpath=../custom/ custom/${theme}.less > css/uikit.${theme}.css`, function() {
+            console.log(`${cyan('css/uikit.'+theme+'.css')} build`);
         });
     });
 
