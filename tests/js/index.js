@@ -18,6 +18,8 @@ var components = [
     'upload'
 ];
 
+var component = location.pathname.split('/').pop().replace(/.html$/, '');
+
 if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
     styles.custom = getParam('style');
 }
