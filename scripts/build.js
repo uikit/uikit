@@ -31,31 +31,26 @@ function compile(file, dest, external, globals) {
             resolve({main: true, jsnext: true})
         ]
     })
-        .then(function (bundle) {
-            return write(`${dest}.js`, bundle.generate({
-                globals,
-                format: 'umd',
-                banner: banner,
-                moduleName: 'UIkit'
-            }).code);
-        })
-        .then(function () {
-            return write(
-                `${dest}.min.js`,
-                `${banner}\n${uglify.minify(`${dest}.js`).code}`
-            );
-        })
+        .then(bundle => write(`${dest}.js`, bundle.generate({
+            globals,
+            format: 'umd',
+            banner: banner,
+            moduleName: 'UIkit'
+        }).code))
+        .then(() => write(`${dest}.min.js`, `${banner}\n${uglify.minify(`${dest}.js`).code}`))
         .catch(console.log);
 }
 
 function write(dest, code) {
-    return new Promise(function (resolve, reject) {
-        fs.writeFile(dest, code, function (err) {
-            if (err) return reject(err);
+    return new Promise((resolve, reject) =>
+        fs.writeFile(dest, code, err => {
+            if (err) {
+                return reject(err);
+            }
             console.log(`${cyan(dest)} ${getSize(code)}`);
             resolve();
-        });
-    });
+        })
+    );
 }
 
 function getSize(code) {
