@@ -4,15 +4,26 @@
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
   "version": "3.0.0",
   "scripts": {
-    "compile-less": "mkdir -p css/components & npm run compile-less-core & npm run compile-less-components & node scripts/less",
+    "compile-less": "mkdir -p css & npm run compile-less-dists & node scripts/less",
+
+    "compile-less-dists": "npm run compile-less-core-all & npm run compile-less-core-site & npm run compile-less-core-app & npm run compile-less-theme-all & npm run compile-less-theme-site & npm run compile-less-theme-app",
+
+
+    "compile-less-core-all": "lessc --relative-urls --rootpath=../src/less/ --modify-var='load-dist=all' --modify-var='load-theme=false' src/less/uikit.less > css/uikit.core.all.css",
+    "compile-less-core-site": "lessc --relative-urls --rootpath=../src/less/ --modify-var='load-dist=site' --modify-var='load-theme=false' src/less/uikit.less > css/uikit.core.site.css",
+    "compile-less-core-app": "lessc --relative-urls --rootpath=../src/less/ --modify-var='load-dist=app' --modify-var='load-theme=false' src/less/uikit.less > css/uikit.core.app.css",
+
+    "compile-less-theme-all": "lessc --relative-urls --rootpath=../src/less/ --modify-var='load-dist=all' --modify-var='load-theme=true' src/less/uikit.less > css/uikit.theme.all.css",
+    "compile-less-theme-site": "lessc --relative-urls --rootpath=../src/less/ --modify-var='load-dist=site' --modify-var='load-theme=true' src/less/uikit.less > css/uikit.theme.site.css",
+    "compile-less-theme-app": "lessc --relative-urls --rootpath=../src/less/ --modify-var='load-dist=app' --modify-var='load-theme=true' src/less/uikit.less > css/uikit.theme.app.css",
+
+
     "compile-js": "node scripts/build",
     "compile": "npm run compile-less & npm run compile-js",
     "watch-less": "watch-run -i -p '**/*.less' npm run compile-less",
     "watch-js": "watch-run -i -p 'src/js/**/*.js' npm run compile-js",
     "watch": "npm run watch-less & npm run watch-js",
-    "test": "webpack-dev-server --inline --hot & open http://localhost:8080/tests/",
-    "compile-less-core": "lessc --relative-urls --rootpath=../src/less/theme/ src/less/theme/_import.less > css/uikit.theme.css & lessc --relative-urls --rootpath=../src/less/core/ src/less/core/_import.less > css/uikit.core.css",
-    "compile-less-components": "lessc-each src/less/components css/components/core  --rootpath=../src/less/ --relative-urls & lessc-each src/less/theme/components css/components/theme  --rootpath=../src/less/ --relative-urls"
+    "test": "webpack-dev-server --inline --hot & open http://localhost:8080/tests/"
   },
   "devDependencies": {
     "babel-core": "^6.9.1",
@@ -27,7 +38,6 @@
     "rollup-plugin-node-resolve": "^1.7.0",
     "uglify-js": "^2.6.2",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1",
-    "lessc-each": "^1.1.0"
+    "webpack-dev-server": "^1.14.1"
   }
 }
