@@ -18,6 +18,7 @@
 //
 // States:          `uk-disabled`
 //                  `uk-drag`
+//                  `uk-dragover`
 //
 // ========================================================================
 
@@ -39,6 +40,9 @@
 @logo-font-family:                              @global-font-family;
 @logo-color:                                    @global-color;
 @logo-hover-color:                              @global-color;
+
+@dragover-box-shadow:                           rgba(100,100,100,0.3);
+@dragover-box-shadow-blur:                      20px;
 
 
 /* ========================================================================
@@ -312,6 +316,16 @@
 
 /* 2 */
 .uk-drag iframe { pointer-events: none; }
+
+
+/* Dragover State
+ ========================================================================== */
+
+/*
+ * Create a box-shadow when dragging a file over the upload area
+ */
+
+.uk-dragover { box-shadow: 0 0 @dragover-box-shadow-blur @dragover-box-shadow; }
 
 
 /* Blend modes
