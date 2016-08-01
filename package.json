@@ -6,13 +6,15 @@
   "scripts": {
     "compile-less": "mkdir -p css & npm run compile-less-dists & node scripts/less",
 
-    "compile-less-dists": "npm run compile-less-core-all & npm run compile-less-core-site & npm run compile-less-core-app & npm run compile-less-theme-all & npm run compile-less-theme-site & npm run compile-less-theme-app",
+    "compile-less-dists": "npm run compile-less-core && npm run compile-less-core-all & npm run compile-less-core-site & npm run compile-less-core-app & npm run compile-less-theme & npm run compile-less-theme-all & npm run compile-less-theme-site & npm run compile-less-theme-app",
 
 
+    "compile-less-core": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.less > css/uikit.css",
     "compile-less-core-all": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.all.less > css/uikit.all.css",
     "compile-less-core-site": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.site.less > css/uikit.site.css",
     "compile-less-core-app": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.app.less > css/uikit.app.css",
 
+    "compile-less-theme": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.theme.less > css/uikit.theme.css",
     "compile-less-theme-all": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.theme.all.less > css/uikit.theme.all.css",
     "compile-less-theme-site": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.theme.site.less > css/uikit.theme.site.css",
     "compile-less-theme-app": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.theme.app.less > css/uikit.theme.app.css",
