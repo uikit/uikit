@@ -9,13 +9,13 @@
     "compile-less-dists": "npm run compile-less-core-all & npm run compile-less-core-site & npm run compile-less-core-app & npm run compile-less-theme-all & npm run compile-less-theme-site & npm run compile-less-theme-app",
 
 
-    "compile-less-core-all": "lessc --relative-urls --rootpath=../src/less/ --modify-var='load-dist=all' --modify-var='load-theme=false' src/less/uikit.less > css/uikit.core.all.css",
-    "compile-less-core-site": "lessc --relative-urls --rootpath=../src/less/ --modify-var='load-dist=site' --modify-var='load-theme=false' src/less/uikit.less > css/uikit.core.site.css",
-    "compile-less-core-app": "lessc --relative-urls --rootpath=../src/less/ --modify-var='load-dist=app' --modify-var='load-theme=false' src/less/uikit.less > css/uikit.core.app.css",
+    "compile-less-core-all": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.all.less > css/uikit.all.css",
+    "compile-less-core-site": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.site.less > css/uikit.site.css",
+    "compile-less-core-app": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.app.less > css/uikit.app.css",
 
-    "compile-less-theme-all": "lessc --relative-urls --rootpath=../src/less/ --modify-var='load-dist=all' --modify-var='load-theme=true' src/less/uikit.less > css/uikit.theme.all.css",
-    "compile-less-theme-site": "lessc --relative-urls --rootpath=../src/less/ --modify-var='load-dist=site' --modify-var='load-theme=true' src/less/uikit.less > css/uikit.theme.site.css",
-    "compile-less-theme-app": "lessc --relative-urls --rootpath=../src/less/ --modify-var='load-dist=app' --modify-var='load-theme=true' src/less/uikit.less > css/uikit.theme.app.css",
+    "compile-less-theme-all": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.theme.all.less > css/uikit.theme.all.css",
+    "compile-less-theme-site": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.theme.site.less > css/uikit.theme.site.css",
+    "compile-less-theme-app": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.theme.app.less > css/uikit.theme.app.css",
 
 
     "compile-js": "node scripts/build",
