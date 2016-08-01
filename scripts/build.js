@@ -1,5 +1,4 @@
 var fs = require('fs');
-var exec = require('child_process').exec;
 var path = require('path');
 var glob = require('glob');
 var rollup = require('rollup');
