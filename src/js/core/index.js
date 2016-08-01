@@ -6,6 +6,7 @@ import Alert from './alert';
 import Cover from './cover';
 import Drop from './drop';
 import Dropdown from './dropdown';
+import FormCustom from './form-custom';
 import Grid from './grid';
 import HeightMatch from './height-match';
 import HeightViewport from './height-viewport';
@@ -60,6 +61,7 @@ export default function (UIkit) {
     UIkit.use(Cover);
     UIkit.use(Drop);
     UIkit.use(Dropdown);
+    UIkit.use(FormCustom);
     UIkit.use(HeightMatch);
     UIkit.use(HeightViewport);
     UIkit.use(Hover);
