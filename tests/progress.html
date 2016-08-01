@@ -8,23 +8,22 @@
         <script src="js/test.js"></script>
 
         <script>
-        	document.addEventListener("DOMContentLoaded", function() {
 
-        			var max = 100, time = 1000, animate, value = test.value || 0;
+        	jQuery(function() {
+
+        			var animate;
 
         		    var loading = function() {
 
-                        value += 20;
+        		        test.value += 20;
 
-        		        test.value = value;
-
-        		        if (value >= max) {
+        		        if (test.value >= test.max) {
         		            clearInterval(animate);
         		        }
                         return loading;
         		    };
 
-        		    animate = setInterval(loading(), time);
+        		    animate = setInterval(loading(), 1000);
         	});
         </script>
 
