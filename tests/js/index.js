@@ -5,31 +5,11 @@ var storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_
 $.ajax({url: '../themes.json', async: false, dataType: 'json'}).then(res => themes = res);
 
 var styles = $.extend({
-    core: {
-        file: '../css/uikit.core.css',
-        components: [
-            '../css/components/core/notification.css',
-            '../css/components/core/placeholder.css',
-            '../css/components/core/progress.css',
-            '../css/components/core/sortable.css',
-            '../css/components/core/spinner.css',
-            '../css/components/core/tooltip.css'
-        ]
-    },
-    theme: {
-        file: '../css/uikit.theme.css',
-        components: [
-            '../css/components/theme/notification.css',
-            '../css/components/theme/placeholder.css',
-            '../css/components/theme/progress.css',
-            '../css/components/theme/sortable.css',
-            '../css/components/theme/spinner.css',
-            '../css/components/theme/tooltip.css'
-        ]
-    }
-}, themes),
-    component = location.pathname.split('/').pop().replace(/.html$/, ''),
-    components = [
+    core: { file: '../css/uikit.core.css' },
+    theme: { file: '../css/uikit.theme.css' }
+}, themes);
+
+var components = [
     'lightbox',
     'notification',
     'sortable',
@@ -47,8 +27,8 @@ storage[keyinverse] = storage[keyinverse] || 'default';
 
 var style = styles[storage[key]] || styles.theme;
 
-// add styles
-[style.file].concat(style.components || []).forEach(file => document.writeln(`<link rel="stylesheet" href="${file}">`));
+// add style
+document.writeln(`<link rel="stylesheet" href="${style.file}">`);
 
 // add javascripts
 ['../vendor/jquery.js', '../js/uikit.js']
