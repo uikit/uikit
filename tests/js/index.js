@@ -5,18 +5,20 @@ var storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_
 $.ajax({url: '../themes.json', async: false, dataType: 'json'}).then(res => themes = res);
 
 var styles = $.extend({
-    core: { file: '../css/uikit.core.css' },
-    theme: { file: '../css/uikit.theme.css' }
+    core: {file: '../css/uikit.core.css'},
+    theme: {file: '../css/uikit.theme.css'}
 }, themes);
 
+
 var components = [
-    'lightbox',
-    'notification',
-    'sortable',
-    'spinner',
-    'tooltip',
-    'upload'
-];
+        'lightbox',
+        'notification',
+        'sortable',
+        'spinner',
+        'tooltip',
+        'upload'
+    ],
+    component = location.pathname.split('/').pop().replace(/.html$/, '');
 
 if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
     styles.custom = getParam('style');
@@ -36,7 +38,6 @@ document.writeln(`<link rel="stylesheet" href="${style.file}">`);
     .forEach(file => document.writeln(`<script src="${file}"></script>`));
 
 $(() => {
-
 
     var $body = $('body');
     var $container = $('<div class="uk-container"></div>').prependTo('body');
