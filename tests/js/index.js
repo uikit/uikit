@@ -1,5 +1,3 @@
-import $ from "jquery";
-
 var storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_inverse', themes = {}, $html = $('html');
 
 $.ajax({url: '../themes.json', async: false, dataType: 'json'}).then(res => themes = res);
@@ -31,12 +29,11 @@ var style = styles[storage[key]] || styles.theme;
 document.writeln(`<link rel="stylesheet" href="${style.file}">`);
 
 // add javascripts
-['../vendor/jquery.js', '../js/uikit.js']
+['../js/uikit.js']
     .concat(components.map(name => `../js/components/${name}.js`))
     .forEach(file => document.writeln(`<script src="${file}"></script>`));
 
 $(() => {
-
 
     var $body = $('body');
     var $container = $('<div class="uk-container"></div>').prependTo('body');

@@ -27,7 +27,7 @@ function compile(file, dest, external, globals) {
         entry: `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
         plugins: [
             babel({presets: ['es2015-rollup']}),
-            resolve({main: true, jsnext: true})
+            resolve({jsnext: true})
         ]
     })
         .then(bundle => write(`${dest}.js`, bundle.generate({
