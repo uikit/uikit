@@ -17,14 +17,19 @@ export default function (UIkit) {
         ready() {
             this.input = this.$el.find(':input:first');
             this.target = this.target || this.input.next();
+
+            this.input.trigger('change');
         },
 
         events: {
 
-            change() {
-                this.target[this.target.is(':input') ? 'val' : 'text'](this.input.is('select')
-                    ? this.input.find('option:selected').text()
-                    : this.input.val()
+            change(e) {
+                this.target[this.target.is(':input') ? 'val' : 'text'](
+                    this.input[0].files && this.input[0].files[0]
+                        ? this.input[0].files[0].name
+                        : this.input.is('select')
+                            ? this.input.find('option:selected').text()
+                            : this.input.val()
                 );
             }
 
