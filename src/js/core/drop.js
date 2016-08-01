@@ -73,7 +73,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                removeClass(this.$el, this.clsDrop + '-(stack|boundary)').css({top: '', left: '', width: '', height: ''});
+                removeClass(this.$el, `${this.clsDrop}-(stack|boundary)`).css({top: '', left: '', width: '', height: ''});
 
                 this.$el.toggleClass(`${this.clsDrop}-boundary`, this.boundaryAlign);
 

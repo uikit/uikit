@@ -1,152 +1,90 @@
 import $ from 'jquery';
-import { extend, isString } from '../util/index';
+import { util } from 'uikit';
 
-var uid = 0, containers = {}, messages = {};
+var {Transition} = util;
 
-var notification = function(options){
+var containers = {};
 
-    if (isString(options)) {
-        options = {message: options};
-    }
+UIkit.component('notification', {
 
-    if (arguments[1]) {
-        options = extend(options, isString(arguments[1]) ? {status:arguments[1]} : arguments[1]);
-    }
+    defaults: {
+        message: '',
+        status: '',
+        timeout: 5000,
+        group: null,
+        pos: 'top-center',
+        onClose: null
+    },
 
-    return (new Message(options)).show();
-};
+    created() {
 
-var closeAll = function(group, instantly){
-
-    for (var id in messages) {
-        if (!group) {
-            messages[id].close(instantly);
-        } else if (group && group === messages[id].group) {
-            messages[id].close(instantly);
+        if (!containers[this.pos]) {
+            containers[this.pos] = $(`<div class="uk-notification uk-notification-${this.pos}"></div>`).appendTo('body');
         }
-    }
-};
 
-class Message {
+        this.$el = $(`<div class="uk-notification-message"><div></div></div>`)
+            .on('click', e => {
+                e.preventDefault();
+                this.close();
+            })
+            .toggleClass(`uk-notification-message-${this.status}`, this.status)
+            .appendTo(containers[this.pos].show())
+            .prepend('<a href="#" class="uk-notification-close" uk-close></a>');
 
-    constructor(options) {
+        this.$el.find('> div').append(this.message);
 
-        this.options = extend({
-            message: '',
-            status: '',
-            timeout: 5000,
-            group: null,
-            pos: 'top-center',
-            onClose: function() {}
-        }, options);
+        var marginBottom = parseInt(this.$el.css('margin-bottom'), 10);
 
-        this.uuid = `notificationmsg-${++uid}`;
-        this.element = $(`
-            <div class="uk-notification-message">
-                <a class="uk-close"></a>
-                <div></div>
-            </div>
-        `).on('click', () => {
-            this.element.trigger('close', [this]);
-            this.close();
+        Transition.start(
+            this.$el.css({opacity: 0, marginTop: -1 * this.$el.outerHeight(), marginBottom: 0}),
+            {opacity: 1, marginTop: 0, marginBottom}
+        ).then(() => {
+            if (this.timeout) {
+                this.timer = setTimeout(this.close, this.timeout);
+                this.$el.on('mouseenter', () => clearTimeout(this.timer))
+                    .on('mouseleave', () => this.timer = setTimeout(this.close, this.timeout));
+            }
         });
 
-        this.content(this.options.message);
+    },
 
-        // status
-        if (this.options.status) {
-            this.element.addClass(`uk-notification-message-${this.options.status}`);
-            this.currentStatus = this.options.status;
-        }
+    methods: {
 
-        this.group = this.options.group;
+        close(immediate) {
 
-        messages[this.uuid] = this;
+            var remove = () => {
 
-        if (!containers[this.options.pos]) {
-            containers[this.options.pos] = $(`<div class="uk-notification uk-notification-${this.options.pos}"></div>`).appendTo('body');
-        }
-    }
+                this.onClose && this.onClose();
+                this.$el.trigger('close', [this]).remove();
 
-    show() {
+                if (!containers[this.pos].children().length) {
+                    containers[this.pos].hide();
+                }
 
-        if (this.element.is(':visible')) {
-            return;
-        }
+            };
 
-        containers[this.options.pos].show().prepend(this.element);
-
-        var marginBottom = parseInt(this.element.css('margin-bottom'), 10);
-
-        this.element.css({opacity:0, marginTop: -1*this.element.outerHeight(), marginBottom:0})
-                    .animate({opacity:1, marginTop: 0, marginBottom: marginBottom}, () => {
-
-                        if (this.options.timeout) {
-
-                            this.timeout = setTimeout(() => { this.close(); }, this.options.timeout);
-                            this.element.hover(
-                                () => clearTimeout(this.timeout),
-                                () => { this.timeout = setTimeout(() => { this.close(); }, this.options.timeout);  }
-                            );
-                        }
-                    });
-
-        return this;
-    }
-
-    close(instantly) {
-
-        var finalize = () => {
-
-            this.element.remove();
-
-            if (!containers[this.options.pos].children().length) {
-                containers[this.options.pos].hide();
+            if (this.timer) {
+                clearTimeout(this.timer);
             }
 
-            this.options.onClose.apply(this, []);
-            this.element.trigger('close.uk.notification', [this]);
-
-            delete messages[this.uuid];
-        };
-
-        if (this.timeout) {
-            clearTimeout(this.timeout);
+            if (immediate) {
+                remove();
+            } else {
+                Transition.start(this.$el, {opacity: 0, marginTop: -1 * this.$el.outerHeight(), marginBottom: 0}).then(remove)
+            }
         }
 
-        if (instantly) {
-            finalize();
-        } else {
-            this.element.animate({opacity:0, marginTop: -1* this.element.outerHeight(), marginBottom:0}, finalize);
-        }
     }
 
-    content(html){
+});
 
-        var container = this.element.find(">div");
+UIkit.notification.closeAll = function (group, immediate) {
 
-        if (!html) {
-            return container.html();
+    var notification;
+    UIkit.elements.forEach(el => {
+        if ((notification = UIkit.getComponent(el, 'notification')) && !group || group === notification.group) {
+            notification.close(immediate);
         }
+    });
 
-        container.html(html);
-
-        return this;
-    }
-
-    status(status) {
-
-        if (!status) {
-            return this.currentStatus;
-        }
-
-        this.element.removeClass(`uk-notification-message-${this.currentStatus}`).addClass(`uk-notification-message-${status}`);
-        this.currentStatus = status;
-
-        return this;
-    }
-}
-
-UIkit.notification          = notification;
-UIkit.notification.message  = Message;
-UIkit.notification.closeAll = closeAll;
+};

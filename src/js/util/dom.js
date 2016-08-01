@@ -24,7 +24,7 @@ export function ready(fn) {
 
 }
 
-export function transition(element, props, duration, transition) {
+export function transition(element, props, duration = 400, transition = 'linear') {
 
     var d = $.Deferred();
 
@@ -47,7 +47,7 @@ export function transition(element, props, duration, transition) {
             }
         })
         .addClass('uk-transition')
-        .css('transition', `all ${duration}ms ${transition || 'linear'}`)
+        .css('transition', `all ${duration}ms ${transition}`)
         .css(props);
 
     return d.promise();
@@ -73,7 +73,7 @@ export const Transition = {
 
 };
 
-export function animate(element, animation, duration, origin, out) {
+export function animate(element, animation, duration = 200, origin, out) {
 
     var d = $.Deferred(), cls = out ? 'uk-animation-leave' : 'uk-animation-enter';
 
