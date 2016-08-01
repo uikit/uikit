@@ -512,7 +512,7 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
  * 2. Create position context
  * 3. Prevent content overflow
  * 4. Behave like most inline-block elements
- * 5. Clip child elements
+ * 5. Clip child elements, !important needed because of button is loaded after form
  */
 
 .uk-form-custom {
@@ -525,7 +525,7 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
     /* 4 */
     vertical-align: middle;
     /* 5 */
-    overflow: hidden;
+    overflow: hidden !important;
 }
 
 /*
@@ -533,6 +533,7 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
  * 2. Required for Firefox for positioning to the left
  * 3. Required for Webkit to make `height` work
  * 4. Hide controle and show cursor
+ * 5. Needed for the cursor
  */
 
 .uk-form-custom select,
@@ -551,6 +552,9 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
     opacity: 0;
     cursor: pointer;
 }
+
+/* 5 */
+.uk-form-custom input[type="file"] { font-size: 500px; }
 
 
 /* Layout
