@@ -1,7 +1,10 @@
+import $ from '../../vendor/jquery';
 
-var storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_inverse';
+var storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_inverse', themes = {}, $html = $('html');
 
-var styles = extend({
+$.ajax({url: '../themes.json', async: false, dataType: 'json'}).then(res => themes = res);
+
+var styles = $.extend({
     core: {
         file: '../css/uikit.core.css',
         components: [
@@ -24,32 +27,9 @@ var styles = extend({
             '../css/components/theme/tooltip.css'
         ]
     }
-}, JSON.parse(_load('../themes.json') || '{}'));
-
-if (_get('style') && _get('style').match(/\.(json|css)$/)) {
-    styles.custom = _get('style');
-}
-
-storage[key] = storage[key] || 'core';
-storage[keyinverse] = storage[keyinverse] || 'default';
-
-var style = styles[storage[key]] || styles.theme;
-
-// add UIkit core
-document.writeln(`<link rel="stylesheet" href="${style.file}">`);
-
-// add  UIkit components
-(style.components || []).forEach(file => {
-    document.writeln(`<link rel="stylesheet" href="${file}">`);
-});
-
-document.writeln(`<script src="../vendor/jquery.js"></script>`);
-document.writeln(`<script src="../js/uikit.js"></script>`);
-
-// add  UIkit components
-
-var component = location.pathname.split('/').pop().replace(/.html$/, '');
-var components = [
+}, themes),
+    component = location.pathname.split('/').pop().replace(/.html$/, ''),
+    components = [
     'lightbox',
     'notification',
     'placeholder',
@@ -59,14 +39,27 @@ var components = [
     'upload'
 ];
 
-components.forEach(name => {
-    document.writeln(`<script src="../js/components/${name}.js"></script>`);
-});
+if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
+    styles.custom = getParam('style');
+}
 
-document.addEventListener("DOMContentLoaded", () => {
+storage[key] = storage[key] || 'core';
+storage[keyinverse] = storage[keyinverse] || 'default';
 
-    var $ = jQuery;
+var style = styles[storage[key]] || styles.theme;
 
+// add styles
+[style.file].concat(style.components || []).forEach(file => document.writeln(`<link rel="stylesheet" href="${file}">`));
+
+// add javascripts
+['../vendor/jquery.js', '../js/uikit.js']
+    .concat(components.map(name => `../js/components/${name}.js`))
+    .forEach(file => document.writeln(`<script src="${file}"></script>`));
+
+$(() => {
+
+
+    var $body = $('body');
     var $container = $('<div class="uk-container"></div>').prependTo('body');
     var $tests = $('<select class="uk-select"></select>').css('margin', '20px 20px 20px 0').prependTo($container);
     var $styles = $('<select class="uk-select"></select>').css('margin', '20px').appendTo($container);
@@ -134,16 +127,11 @@ document.addEventListener("DOMContentLoaded", () => {
         'utility',
         'visibility',
         'width'
-    ].concat(components).sort().forEach(name => {
-
-        $(`<option value="${name}.html">${name.split('-').map(name => {
-            return ucfirst(name);
-        }).join(' ')}</option>`).appendTo($tests);
-    });
+    ].concat(components).sort().forEach(name => $(`<option value="${name}.html">${name.split('-').map(ucfirst).join(' ')}</option>`).appendTo($tests));
 
     $tests.on('change', () => {
         if ($tests.val()) {
-            var style = styles.custom ? `?style=${_get('style')}` : '';
+            var style = styles.custom ? `?style=${getParam('style')}` : '';
             location.href = `../${document.querySelector('script[src*="test.js"]').getAttribute('src').replace('js/test.js', '')}tests/${$tests.val()}${style}`;
         }
     }).val(component && `${component}.html`);
@@ -153,9 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // Styles
     // ------------------------------
 
-    Object.keys(styles).forEach(style => {
-        $styles.append(`<option value="${style}">${ucfirst(style)}</option>`);
-    });
+    Object.keys(styles).forEach(style => $styles.append(`<option value="${style}">${ucfirst(style)}</option>`));
 
     $styles.on('change', () => {
         storage[key] = $styles.val();
@@ -171,28 +157,25 @@ document.addEventListener("DOMContentLoaded", () => {
         'dark': 'Light'
     };
 
-    Object.keys(variations).forEach(name => {
-        $(`<option value="${name}">${variations[name]}</option>`).appendTo($inverse);
-    });
+    Object.keys(variations).forEach(name => $(`<option value="${name}">${variations[name]}</option>`).appendTo($inverse));
 
     $inverse.on('change', () => {
 
-        document.body.classList.remove('uk-dark');
-        document.body.classList.remove('uk-light');
+        $body.removeClass('uk-dark uk-light');
 
         switch ($inverse.val()) {
             case 'dark':
-                document.documentElement.style.background = '#fff';
-                document.body.classList.add('uk-dark');
+                $html.css('background', '#fff');
+                $body.addClass('uk-dark');
                 break;
 
             case 'light':
-                document.documentElement.style.background = '#222';
-                document.body.classList.add('uk-light');
+                $html.css('background', '#222');
+                $body.addClass('uk-light');
                 break;
 
             default:
-                document.documentElement.style.background = '';
+                $html.css('background', '');
         }
 
         storage[keyinverse] = $inverse.val();
@@ -200,37 +183,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }).val(storage[keyinverse]).trigger('change');
 
 
-    $('html').css('padding-top', '');
+    $html.css('padding-top', '');
 
 });
 
-document.querySelector('html').style.paddingTop = '80px';
-
-
-function extend(target) {
-
-    for (var index = 1, source; index < arguments.length; index++) {
-        source = arguments[index];
-        for (var key in source) {
-            target[key] = source[key];
-        }
-    }
-
-    return target;
-}
+$html.css('padding-top', '80px');
 
 function ucfirst(str) {
     return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : '';
-};
-
-function _get(name) {
-    var match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
-    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
 
-function _load(url) {
-    var request = new XMLHttpRequest();
-    request.open('GET', url, false);  // `false` makes the request synchronous
-    request.send(null);
-    return request.status === 200 ? request.responseText : undefined;
+function getParam(name) {
+    var match = RegExp(`[?&]${name}=([^&]*)`).exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }
