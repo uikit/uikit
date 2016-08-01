@@ -506,6 +506,28 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
 /* Custom controls
  ========================================================================== */
 
+
+/*
+ * 1. Container fits its content
+ * 2. Create position context
+ * 3. Prevent content overflow
+ * 4. Behave like most inline-block elements
+ * 5. Clip child elements
+ */
+
+.uk-form-custom {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    max-width: 100%;
+    /* 4 */
+    vertical-align: middle;
+    /* 5 */
+    overflow: hidden;
+}
+
 /*
  * 1. Position and resize the form control to always cover its container
  * 2. Required for Firefox for positioning to the left
@@ -513,7 +535,8 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
  * 4. Hide controle and show cursor
  */
 
-.uk-form-custom {
+.uk-form-custom select,
+.uk-form-custom input[type="file"] {
     /* 1 */
     position: absolute;
     top: 0;

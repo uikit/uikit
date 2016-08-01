@@ -1,10 +1,7 @@
 //
-// Component: Tooltip
+// Component: Progress
 //
 // ========================================================================
-
-@load-tooltip: true;
-@import (once) "../../components/tooltip.less";
 
 
 // Variables
@@ -14,10 +11,15 @@
 // Component
 // ========================================================================
 
-.hook-tooltip() {}
+.hook-progress() {
+    border-radius: 500px;
+    overflow: hidden;
+}
+
+.hook-progress-bar() {}
 
 
 // Miscellaneous
 // ========================================================================
 
-.hook-tooltip-misc() {}
+.hook-progress-misc() {}

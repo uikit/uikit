@@ -1,5 +1,44 @@
-// Import core components
-@import "core/_import.less";
+//
+// Import components
+//
 
-// Import theme styles
-@import "theme/_import.less";
+@import "components/_import.less";
+
+//
+// Import theme
+//
+
+@load-theme: true;
+& when (@load-theme) { @import "theme/_import.less"; }
+
+//
+// Dists
+//
+
+& when (@load-dist="site") {
+
+    @load-spinner: true;
+
+}
+
+& when (@load-dist="app") {
+
+    @load-notification: true;
+    @load-tooltip: true;
+    @load-placeholder: true;
+    @load-progress: true;
+    @load-spinner: true;
+    @load-sortable: true;
+
+}
+
+& when (@load-dist="all") {
+
+    @load-notification: true;
+    @load-tooltip: true;
+    @load-placeholder: true;
+    @load-progress: true;
+    @load-spinner: true;
+    @load-sortable: true;
+
+}
