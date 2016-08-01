@@ -9,22 +9,20 @@
 
         <script>
 
-        	jQuery(function() {
+            jQuery(function () {
 
-        			var animate;
+                var animate = setInterval(function () {
 
-        		    var loading = function() {
+                    test.value += 10;
 
-        		        test.value += 20;
+                    if (test.value >= test.max) {
+                        clearInterval(animate);
+                    }
 
-        		        if (test.value >= test.max) {
-        		            clearInterval(animate);
-        		        }
-                        return loading;
-        		    };
+                }, 1000);
 
-        		    animate = setInterval(loading(), 1000);
-        	});
+            });
+
         </script>
 
     </head>
