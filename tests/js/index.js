@@ -32,7 +32,6 @@ var styles = $.extend({
     components = [
     'lightbox',
     'notification',
-    'placeholder',
     'sortable',
     'spinner',
     'tooltip',
