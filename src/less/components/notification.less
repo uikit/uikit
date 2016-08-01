@@ -125,11 +125,14 @@
  ========================================================================== */
 
 .uk-notification-close {
+    display: none;
     position: absolute;
     top: @notification-close-top;
     right: @notification-close-right;
     .hook-notification-close;
 }
+
+.uk-notification-message:hover .uk-notification-close { display: block; }
 
 
 /* Style modifiers
