@@ -30,7 +30,7 @@ export default function (UIkit) {
 
         var defaults = extend(true, {}, this.$options.defaults),
             data = this.$options.data || {},
-            props = this.$options.props;
+            props = this.$options.props || {};
 
         if (defaults) {
             for (var key in defaults) {
@@ -42,7 +42,7 @@ export default function (UIkit) {
     UIkit.prototype._initProps = function () {
 
         var el = this.$options.el,
-            props = this.$options.props,
+            props = this.$options.props || {},
             options = el.getAttribute(this.$name);
 
         if (props) {

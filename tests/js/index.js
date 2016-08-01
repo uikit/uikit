@@ -1,24 +1,22 @@
-import $ from '../../vendor/jquery';
+import $ from "jquery";
 
 var storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_inverse', themes = {}, $html = $('html');
 
 $.ajax({url: '../themes.json', async: false, dataType: 'json'}).then(res => themes = res);
 
 var styles = $.extend({
-    core: { file: '../css/uikit.all.css' },
-    theme: { file: '../css/uikit.theme.all.css' }
-}, themes);
-
-var components = [
-    'lightbox',
-    'notification',
-    'sortable',
-    'spinner',
-    'tooltip',
-    'upload'
-];
-
-var component = location.pathname.split('/').pop().replace(/.html$/, '');
+        core: { file: '../css/uikit.all.css' },
+        theme: { file: '../css/uikit.theme.all.css' }
+    }, themes),
+    component = location.pathname.split('/').pop().replace(/.html$/, ''),
+    components = [
+        'lightbox',
+        'notification',
+        'sortable',
+        'spinner',
+        'tooltip',
+        'upload'
+    ];
 
 if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
     styles.custom = getParam('style');
