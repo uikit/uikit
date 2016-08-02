@@ -1,4 +1,5 @@
 import { Class } from '../mixin/index';
+import { toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
@@ -7,7 +8,7 @@ export default function (UIkit) {
         mixins: [Class],
 
         props: {
-            target: 'jQuery'
+            target: String
         },
 
         defaults: {
@@ -16,16 +17,12 @@ export default function (UIkit) {
 
         ready() {
             this.input = this.$el.find(':input:first');
-            this.target = this.target || this.input.next();
+            this.target = this.target && toJQuery(this.$el.find(this.target)) || this.input.next();
 
             this.input.trigger('change');
         },
 
         events: {
-
-            click(e) {
-                e.preventDefault();
-            },
 
             change(e) {
                 this.target[this.target.is(':input') ? 'val' : 'text'](
