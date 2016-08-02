@@ -135,81 +135,16 @@ UIkit.component('sortable', {
                 }
             }
 
-            var target = e.type === 'mousemove' ? e.target : elementFromPoint(e),
-                sortable = getSortable(target),
-                prevSortable = getSortable(this.element[0]),
-                change = sortable !== prevSortable,
-                sortables = [sortable];
+            var target = e.type === 'mousemove' ? e.target : elementFromPoint(e), sortable = getSortable(target);
 
-            if (!sortable || change && (!sortable.group || sortable.group !== prevSortable.group)) {
-                return;
-            }
-
-            target = sortable.$el.children().has(target);
-
-            if (!change && (!target.length || this.element.is(target))) {
-                return
-            }
-
-            if (change) {
-
-                sortables.concat(prevSortable);
-                sortable.$el.children().addClass(this.clsItem);
+            if (sortable) {
+                sortable.insert(this.element, target);
 
                 if (this.touched.indexOf(sortable) === -1) {
                     this.touched.push(sortable);
                 }
+
             }
-
-            var add = () => {
-                    if (target.length) {
-                        this.element[change || this.element.prevAll().filter(target).length ? 'insertBefore' : 'insertAfter'](target);
-                    } else {
-                        sortable.$el.append(this.element);
-                    }
-
-                    sortables.forEach(sortable => sortable.$updateParents());
-                };
-
-            if (!this.animation) {
-                add();
-                return;
-            }
-
-            var children = sortable.$el.children().toArray(),
-                reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: ''};
-
-            if (change) {
-                children = children.concat(prevSortable.$el.children().toArray());
-            }
-
-            children = children.map(el => $(el));
-
-            var props = children.map(el => extend({position: 'absolute', pointerEvents: 'none', width: el.outerWidth(), height: el.outerHeight()}, el.position()));
-
-            children.forEach(el => el.css(reset));
-
-            add();
-
-            sortables.forEach(sortable => sortable.$el.css('min-height', sortable.$el.height()));
-
-            var positions = children.map(el => el.position()), promises = [];
-
-            children.forEach((el, i) => {
-                let def = $.Deferred();
-                el.css(props[i]).animate(positions[i], this.animation, () => {
-                    el.css(reset);
-                    def.resolve();
-                });
-                promises.push(def);
-            });
-
-            $.when.apply($, promises).then(() =>
-                sortables.forEach(sortable => {
-                    sortable.$el.css('min-height', '');
-                    sortable.$updateParents();
-                })
-            );
 
         },
 
@@ -251,6 +186,78 @@ UIkit.component('sortable', {
 
             doc.removeClass(this.clsDragState);
 
+        },
+
+        insert(element, target) {
+
+            var prevSortable = getSortable(element[0]),
+                change = this !== prevSortable,
+                sortables = [this];
+
+            if (change && (!this.group || this.group !== prevSortable.group)) {
+                return;
+            }
+
+            target = this.$el.children().has(target);
+
+            if (!change && (!target.length || element.is(target))) {
+                return;
+            }
+
+            if (change) {
+                sortables.concat(prevSortable);
+                this.$el.children().addClass(this.clsItem);
+            }
+
+            var move = () => {
+                if (target.length) {
+                    element[change || element.prevAll().filter(target).length ? 'insertBefore' : 'insertAfter'](target);
+                } else {
+                    this.$el.append(element);
+                }
+
+                sortables.forEach(sortable => sortable.$updateParents());
+            };
+
+            if (!this.animation) {
+                move();
+                return;
+            }
+
+            var children = this.$el.children().toArray(),
+                reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: ''};
+
+            if (change) {
+                children = children.concat(prevSortable.$el.children().toArray());
+            }
+
+            children = children.map(el => $(el));
+
+            var props = children.map(el => extend({position: 'absolute', pointerEvents: 'none', width: el.outerWidth(), height: el.outerHeight()}, el.position()));
+
+            children.forEach(el => el.css(reset));
+
+            move();
+
+            sortables.forEach(sortable => sortable.$el.css('min-height', sortable.$el.height()));
+
+            var positions = children.map(el => el.position()), promises = [];
+
+            children.forEach((el, i) => {
+                let def = $.Deferred();
+                el.css(props[i]).animate(positions[i], this.animation, () => {
+                    el.css(reset);
+                    def.resolve();
+                });
+                promises.push(def);
+            });
+
+            $.when.apply($, promises).then(() =>
+                sortables.forEach(sortable => {
+                    sortable.$el.css('min-height', '');
+                    sortable.$updateParents();
+                })
+            );
         }
 
     }
