@@ -32,10 +32,6 @@ function cancelAll() {
     touch = {};
 }
 
-function isPrimaryTouch(event) {
-    return event.pointerType == event.MSPOINTER_TYPE_TOUCH && event.isPrimary;
-}
-
 ready(function () {
     var now, delta, deltaX = 0, deltaY = 0, firstTouch;
 
@@ -46,7 +42,7 @@ ready(function () {
 
     $(document)
 
-        .on('click', function() {
+        .on('click', function () {
             clicked = true;
         })
 
@@ -59,13 +55,9 @@ ready(function () {
                 touch.el.trigger('swipe' + swipeDirectionFromVelocity);
             }
         })
-        // MSPointerDown: for IE10
-        // pointerdown: for IE11
-        .on('touchstart MSPointerDown pointerdown', function (e) {
+        .on('touchstart pointerdown', function (e) {
 
-            if (e.type == 'MSPointerDown' && !isPrimaryTouch(e.originalEvent)) return;
-
-            firstTouch = (e.type == 'MSPointerDown' || e.type == 'pointerdown') ? e : e.originalEvent.touches[0];
+            firstTouch = e.type == 'pointerdown' ? e : e.originalEvent.touches[0];
 
             now = Date.now();
             delta = now - (touch.last || now);
@@ -82,20 +74,16 @@ ready(function () {
             longTapTimeout = setTimeout(longTap, longTapDelay);
 
             // adds the current touch contact for IE gesture recognition
-            if (gesture && ( e.type == 'MSPointerDown' || e.type == 'pointerdown' || e.type == 'touchstart' )) {
+            if (gesture && ( e.type == 'pointerdown' || e.type == 'touchstart' )) {
                 gesture.addPointer(e.originalEvent.pointerId);
             }
 
             clicked = false;
 
         })
-        // MSPointerMove: for IE10
-        // pointermove: for IE11
-        .on('touchmove MSPointerMove pointermove', function (e) {
+        .on('touchmove pointermove', function (e) {
 
-            if (e.type == 'MSPointerMove' && !isPrimaryTouch(e.originalEvent)) return;
-
-            firstTouch = (e.type == 'MSPointerMove' || e.type == 'pointermove') ? e : e.originalEvent.touches[0];
+            firstTouch = e.type == 'pointermove' ? e : e.originalEvent.touches[0];
 
             cancelLongTap();
             touch.x2 = firstTouch.pageX;
@@ -104,11 +92,7 @@ ready(function () {
             deltaX += Math.abs(touch.x1 - touch.x2);
             deltaY += Math.abs(touch.y1 - touch.y2);
         })
-        // MSPointerUp: for IE10
-        // pointerup: for IE11
-        .on('touchend MSPointerUp pointerup', function (e) {
-
-            if (e.type == 'MSPointerUp' && !isPrimaryTouch(e.originalEvent)) return;
+        .on('touchend pointerup', function (e) {
 
             cancelLongTap();
 
@@ -171,7 +155,7 @@ ready(function () {
         // when the browser window loses focus,
         // for example when a modal dialog is shown,
         // cancel all ongoing events
-        .on('touchcancel MSPointerCancel', cancelAll);
+        .on('touchcancel pointercancel', cancelAll);
 
     // scrolling the window indicates intention of the user
     // to scroll, not tap or swipe, so cancel all ongoing events
