@@ -23,12 +23,11 @@ UIkit.component('notification', {
         }
 
         this.$el = $(
-                `<div class="uk-notification-message">
+                `<div class="uk-notification-message${this.status ? ` uk-notification-message-${this.status}` : ''}">
                     <a href="#" class="uk-notification-close" uk-close></a>
                     <div>${this.message}</div>
                 </div>`
             )
-            .toggleClass(`uk-notification-message-${this.status}`, this.status)
             .appendTo(containers[this.pos].show())
             .on('click', e => {
                 e.preventDefault();
@@ -43,7 +42,8 @@ UIkit.component('notification', {
         ).then(() => {
             if (this.timeout) {
                 this.timer = setTimeout(this.close, this.timeout);
-                this.$el.on('mouseenter', () => clearTimeout(this.timer))
+                this.$el
+                    .on('mouseenter', () => clearTimeout(this.timer))
                     .on('mouseleave', () => this.timer = setTimeout(this.close, this.timeout));
             }
         });
