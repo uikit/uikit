@@ -21,15 +21,13 @@ function buildthemes() {
 
     var themes = {};
 
-    fs.readdirSync('custom').filter(function(file) {
-        return path.join('custom', file).match(/\.less$/);
-    }).forEach(function(theme) {
+    fs.readdirSync('custom').filter(file => path.join('custom', file).match(/\.less$/)).forEach(theme => {
 
         theme = path.basename(theme, '.less');
 
         themes[theme] = {file: `../css/uikit.${theme}.css`};
 
-        exec(`lessc --relative-urls --rootpath=../custom/ custom/${theme}.less > css/uikit.${theme}.css`, function() {
+        exec(`lessc --relative-urls --rootpath=../custom/ custom/${theme}.less > css/uikit.${theme}.css`, () => {
             console.log(`${cyan('css/uikit.'+theme+'.css')} build`);
         });
     });
