@@ -17,23 +17,21 @@ export default function (UIkit) {
             if (mutation.type === 'childList') {
 
                 for (let i = 0; i < mutation.addedNodes.length; ++i) {
-
-                    let node = mutation.addedNodes[i];
-
-                    if (matches(node, UIkit.component.selector)) {
-                        attachComponents(node);
-                    }
+                    apply(mutation.addedNodes[i], (node => {
+                        if (matches(node, UIkit.component.selector)) {
+                            attachComponents(node);
+                        }
+                    }));
                 }
 
                 for (let i = 0; i < mutation.removedNodes.length; ++i) {
-
-                    let components = mutation.removedNodes[i][DATA];
-
-                    if (components) {
-                        for (let name in components) {
-                            components[name].$destroy();
+                    apply(mutation.removedNodes[i], (node => {
+                        if (node[DATA]) {
+                            for (let name in node[DATA]) {
+                                node[DATA][name].$destroy();
+                            }
                         }
-                    }
+                    }));
                 }
 
             }
@@ -55,6 +53,15 @@ export default function (UIkit) {
                     UIkit[name](node);
                 }
             }
+        }
+    }
+
+    function apply(node, fn) {
+        fn(node);
+        node = node.firstChild;
+        while (node) {
+            apply(node, fn);
+            node = node.nextSibling;
         }
     }
 

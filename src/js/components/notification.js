@@ -22,16 +22,18 @@ UIkit.component('notification', {
             containers[this.pos] = $(`<div class="uk-notification uk-notification-${this.pos}"></div>`).appendTo('body');
         }
 
-        this.$el = $(`<div class="uk-notification-message"><div></div></div>`)
+        this.$el = $(
+                `<div class="uk-notification-message">
+                    <a href="#" class="uk-notification-close" uk-close></a>
+                    <div>${this.message}</div>
+                </div>`
+            )
+            .toggleClass(`uk-notification-message-${this.status}`, this.status)
+            .appendTo(containers[this.pos].show())
             .on('click', e => {
                 e.preventDefault();
                 this.close();
-            })
-            .toggleClass(`uk-notification-message-${this.status}`, this.status)
-            .appendTo(containers[this.pos].show())
-            .prepend('<a href="#" class="uk-notification-close" uk-close></a>');
-
-        this.$el.find('> div').append(this.message);
+            });
 
         var marginBottom = parseInt(this.$el.css('margin-bottom'), 10);
 

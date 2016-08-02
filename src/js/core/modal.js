@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { extend, isFunction, isString, ready, toJQuery } from '../util/index';
+import { extend, isFunction, isString, toJQuery } from '../util/index';
 import { Modal } from '../mixin/index';
 
 export default function (UIkit) {
@@ -95,16 +95,11 @@ export default function (UIkit) {
 
         var dialog = UIkit.modal($(
             `<div class="uk-modal">
-                <div class="uk-modal-dialog">
-                </div>
+                <div class="uk-modal-dialog">${content}</div>
              </div>`
         ).appendTo('body'), options)[0];
 
-        ready(() => {
-            dialog.panel.append(content);
-            dialog.show();
-        });
-
+        dialog.show();
         dialog.$el.on('hide', () => dialog.$destroy(true));
 
         return dialog;
