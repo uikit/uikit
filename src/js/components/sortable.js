@@ -190,11 +190,11 @@ UIkit.component('sortable', {
 
         insert(element, target) {
 
-            var prevSortable = getSortable(element[0]),
-                change = this !== prevSortable,
+            var previous = getSortable(element[0]),
+                change = this !== previous,
                 sortables = [this];
 
-            if (change && (!this.group || this.group !== prevSortable.group)) {
+            if (change && (!this.group || this.group !== previous.group)) {
                 return;
             }
 
@@ -205,7 +205,7 @@ UIkit.component('sortable', {
             }
 
             if (change) {
-                sortables.concat(prevSortable);
+                sortables.concat(previous);
                 this.$el.children().addClass(this.clsItem);
             }
 
@@ -228,7 +228,7 @@ UIkit.component('sortable', {
                 reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: ''};
 
             if (change) {
-                children = children.concat(prevSortable.$el.children().toArray());
+                children = children.concat(previous.$el.children().toArray());
             }
 
             children = children.map(el => $(el));
