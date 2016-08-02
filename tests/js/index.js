@@ -73,7 +73,6 @@ $(() => {
         'height-viewport',
         'icon',
         'label',
-        'lightbox',
         'list',
         'margin',
         'modal',
