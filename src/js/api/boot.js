@@ -18,7 +18,7 @@ export default function (UIkit) {
 
                 for (let i = 0; i < mutation.addedNodes.length; ++i) {
                     apply(mutation.addedNodes[i], (node => {
-                        if (matches(node, UIkit.component.selector)) {
+                        if (!node[DATA] && matches(node, UIkit.component.selector)) {
                             attachComponents(node);
                         }
                     }));
@@ -41,7 +41,6 @@ export default function (UIkit) {
     })).observe(document, {childList: true, subtree: true});
 
     function attachComponents(node) {
-
         for (var i = 0; i < node.attributes.length; i++) {
 
             let name = node.attributes[i].name;

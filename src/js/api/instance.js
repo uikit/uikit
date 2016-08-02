@@ -15,7 +15,8 @@ export default function (UIkit) {
         }
 
         if (el[DATA][name]) {
-            return console.warn(`Component "${name}" is already mounted on element: `, el);
+            console.warn(`Component "${name}" is already mounted on element: `, el);
+            return;
         }
 
         el[DATA][name] = this;
