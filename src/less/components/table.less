@@ -8,6 +8,7 @@
 //                  `uk-table-small`
 //                  `uk-table-hover`
 //                  `uk-table-shrink`
+//                  `uk-table-expand`
 //
 // States:          `uk-active`
 //
@@ -38,6 +39,8 @@
 
 @table-small-padding-vertical:                  10px;
 @table-small-padding-horizontal:                12px;
+
+@table-expand-min-width:                        300px;
 
 
 /* ========================================================================
@@ -117,6 +120,7 @@
 /* Row
  ========================================================================== */
 
+.uk-table > tr.uk-active,
 .uk-table tbody tr.uk-active {
     background: @table-row-active-background;
     .hook-table-row-active;
@@ -137,6 +141,7 @@
  * Striped
  */
 
+.uk-table-striped > tr:nth-of-type(odd),
 .uk-table-striped tbody tr:nth-of-type(odd) {
     background: @table-striped-background;
     .hook-table-striped;
@@ -146,6 +151,7 @@
  * Hover
  */
 
+.uk-table-hover > tr:hover,
 .uk-table-hover tbody tr:hover {
     background: @table-hover-background;
     .hook-table-hover;
@@ -162,11 +168,11 @@
 }
 
 
-/* Cel size modifier
+/* Cell size modifier
  ========================================================================== */
 
 .uk-table-shrink { width: 1px; }
-
+.uk-table-expand { min-width: @table-expand-min-width; }
 
 
 // Hooks
