@@ -83,7 +83,7 @@ UIkit.component('sortable', {
 
         start(e) {
 
-            this.ghost = $(`<div class="${`${this.clsDrag} ${this.clsCustom}`}"></div>`)
+            this.ghost = $(`<div class="${`${this.clsDrag} ${this.clsCustom}`}" uk-no-boot></div>`)
                 .css({
                     width: this.element.width(),
                     height: this.element.height(),
