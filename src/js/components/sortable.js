@@ -135,15 +135,27 @@ UIkit.component('sortable', {
                 }
             }
 
-            var target = e.type === 'mousemove' ? e.target : elementFromPoint(e), sortable = getSortable(target);
+            var target = e.type === 'mousemove' ? e.target : elementFromPoint(e),
+                sortable = getSortable(target),
+                previous = getSortable(this.element[0]),
+                move = sortable !== previous;
 
-            if (sortable) {
-                sortable.insert(this.element, target);
+            if (!sortable || this.element.has(target).length || move && (!sortable.group || sortable.group !== previous.group)) {
+                return;
+            }
 
-                if (this.touched.indexOf(sortable) === -1) {
-                    this.touched.push(sortable);
-                }
+            target = sortable.$el.children().has(target);
 
+            if (move) {
+                previous.remove(this.element);
+            } else if (!target.length) {
+                return;
+            }
+
+            sortable.insert(this.element, target);
+
+            if (this.touched.indexOf(sortable) === -1) {
+                this.touched.push(sortable);
             }
 
         },
@@ -190,74 +202,91 @@ UIkit.component('sortable', {
 
         insert(element, target) {
 
-            var previous = getSortable(element[0]),
-                change = this !== previous,
-                sortables = [this];
+            this.$el.children().addClass(this.clsItem);
 
-            if (change && (!this.group || this.group !== previous.group)) {
-                return;
-            }
+            var insert = () => {
 
-            target = this.$el.children().has(target);
-
-            if (!change && (!target.length || element.is(target))) {
-                return;
-            }
-
-            if (change) {
-                sortables.concat(previous);
-                this.$el.children().addClass(this.clsItem);
-            }
-
-            var move = () => {
                 if (target.length) {
-                    element[change || element.prevAll().filter(target).length ? 'insertBefore' : 'insertAfter'](target);
+
+                    if (!this.$el.has(element).length || element.prevAll().filter(target).length) {
+                        element.insertBefore(target);
+                    } else {
+                        element.insertAfter(target);
+                    }
+
                 } else {
                     this.$el.append(element);
                 }
 
-                sortables.forEach(sortable => sortable.$updateParents());
+                this.$updateParents();
+
             };
 
-            if (!this.animation) {
-                move();
+            if (this.animation) {
+                this.animate(insert);
+            } else {
+                insert();
+                this.$updateParents();
+            }
+
+        },
+
+        remove(element) {
+
+            if (!this.$el.has(element).length) {
                 return;
             }
+
+            var remove = () => {
+                element.remove();
+                this.$updateParents();
+            };
+
+            if (this.animation) {
+                this.animate(remove);
+            } else {
+                remove();
+            }
+
+        },
+
+        animate(fn) {
 
             var children = this.$el.children().toArray(),
                 reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: ''};
 
-            if (change) {
-                children = children.concat(previous.$el.children().toArray());
-            }
-
             children = children.map(el => $(el));
 
-            var props = children.map(el => extend({position: 'absolute', pointerEvents: 'none', width: el.outerWidth(), height: el.outerHeight()}, el.position()));
+            var props = children.map(el => extend({
+                position: 'absolute',
+                pointerEvents: 'none',
+                width: el.outerWidth(),
+                height: el.outerHeight()
+            }, el.position()));
 
-            children.forEach(el => el.css(reset));
+            fn();
 
-            move();
+            this.$el.children().css(reset);
 
-            sortables.forEach(sortable => sortable.$el.css('min-height', sortable.$el.height()));
+            this.$el.css('min-height', this.$el.height());
 
             var positions = children.map(el => el.position()), promises = [];
 
             children.forEach((el, i) => {
-                let def = $.Deferred();
-                el.css(props[i]).animate(positions[i], this.animation, () => {
+                var def = $.Deferred();
+                el.css(props[i]);
+                el.animate(positions[i], this.animation, () => {
                     el.css(reset);
                     def.resolve();
                 });
                 promises.push(def);
             });
 
-            $.when.apply($, promises).then(() =>
-                sortables.forEach(sortable => {
-                    sortable.$el.css('min-height', '');
-                    sortable.$updateParents();
-                })
-            );
+            $.when.apply($, promises).then(() => {
+                this.$el.css('min-height', '');
+                this.$updateParents();
+            });
+
         }
 
     }
