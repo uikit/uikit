@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import { extend, isFunction, isString, toJQuery } from '../util/index';
-import { Modal } from '../mixin/index';
+import { Class, Modal } from '../mixin/index';
 
 export default function (UIkit) {
 
@@ -69,6 +69,8 @@ export default function (UIkit) {
     });
 
     UIkit.component('overflow-auto', {
+
+        mixins: [Class],
 
         ready() {
             this.panel = toJQuery(this.$el.closest('.uk-modal-dialog'));
