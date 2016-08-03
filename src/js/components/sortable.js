@@ -70,11 +70,7 @@ UIkit.component('sortable', {
 
             this.touched = [this];
             this.element = $(e.currentTarget);
-
-            this.origin = extend({
-                target,
-                index: this.element.index()
-            }, getPos(e));
+            this.origin = extend({target, index: this.element.index()}, getPos(e));
 
             doc.on(pointerMove, this.move);
             doc.on(pointerUp, this.end);
@@ -94,6 +90,8 @@ UIkit.component('sortable', {
                     padding: this.element.css('padding')
                 })
                 .append(this.element.html()).appendTo('body');
+
+            this.ghost.children().first().height(this.element.children().height());
 
             var {left, top} = this.element.offset(), {x, y} = getPos(e);
             extend(this.origin, {left: left - x, top: top - y});
@@ -219,14 +217,12 @@ UIkit.component('sortable', {
                 }
 
                 this.$updateParents();
-
             };
 
             if (this.animation) {
                 this.animate(insert);
             } else {
                 insert();
-                this.$updateParents();
             }
 
         },
@@ -250,39 +246,35 @@ UIkit.component('sortable', {
 
         },
 
-        animate(fn) {
+        animate(action) {
 
-            var children = this.$el.children().toArray(),
+            var props = [],
+                children = this.$el.children().toArray().map(el => {
+                    el = $(el);
+                    props.push(extend({
+                        position: 'absolute',
+                        pointerEvents: 'none',
+                        width: el.outerWidth(),
+                        height: el.outerHeight()
+                    }, el.position()));
+                    return el;
+                }),
                 reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: ''};
 
-            children = children.map(el => $(el));
-
-            var props = children.map(el => extend({
-                position: 'absolute',
-                pointerEvents: 'none',
-                width: el.outerWidth(),
-                height: el.outerHeight()
-            }, el.position()));
-
-            fn();
+            action();
 
             this.$el.children().css(reset);
-
+            this.$updateParents();
             this.$el.css('min-height', this.$el.height());
 
-            var positions = children.map(el => el.position()), promises = [];
+            var positions = children.map(el => el.position());
 
-            children.forEach((el, i) => {
+            $.when.apply($, children.map((el, i) => {
                 var def = $.Deferred();
-                el.css(props[i]);
-                el.animate(positions[i], this.animation, () => {
-                    el.css(reset);
-                    def.resolve();
-                });
-                promises.push(def);
-            });
-
-            $.when.apply($, promises).then(() => {
+                el.css(props[i]).animate(positions[i], this.animation, () => def.resolve(el));
+                return def;
+            })).then((...elements) => {
+                elements.forEach(el => el.css(reset));
                 this.$el.css('min-height', '');
                 this.$updateParents();
             });
