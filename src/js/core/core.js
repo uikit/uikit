@@ -376,7 +376,7 @@
 
         element = $(element);
 
-        var autofocus = element.find('[autofocus]:first');
+        var autofocus = element.find('[autofocus]:first'), tabidx;
 
         if (autofocus.length) {
             return autofocus.focus();
@@ -389,11 +389,17 @@
         }
 
         if (!element.attr('tabindex')) {
-            element.attr('tabindex', tabindex++)
+            tabidx = tabindex++;
+            element.attr('tabindex', tabidx);
         }
 
         element[0].focus();
-        return element.attr('tabindex', '');
+
+        if (tabidx) {
+            element.attr('tabindex', '');
+        }
+
+        return element;
     }
 
     UI.Utils.events       = {};
