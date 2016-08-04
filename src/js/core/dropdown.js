@@ -69,7 +69,7 @@
             var triggerevent = UI.support.touch ? "click" : "mouseenter";
 
             // init code
-            UI.$html.on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
+            UI.$html.on(triggerevent+".dropdown.uikit focus", "[data-uk-dropdown]", function(e) {
 
                 var ele = UI.$(this);
 
@@ -120,7 +120,8 @@
 
             // Init ARIA
             this.element.attr('aria-haspopup', 'true');
-            this.element.attr('aria-expanded', this.element.hasClass("uk-open"));
+            this.element.attr('aria-expanded', this.element.hasClass('uk-open'));
+            this.dropdown.attr('aria-hidden', 'true');
 
             if (this.options.mode == "click" || UI.support.touch) {
 
@@ -234,6 +235,7 @@
 
             // Update ARIA
             this.element.attr('aria-expanded', 'true');
+            this.dropdown.attr('aria-hidden', 'false');
 
             this.trigger('show.uk.dropdown', [this]);
 
@@ -258,6 +260,7 @@
 
             // Update ARIA
             this.element.attr('aria-expanded', 'false');
+            this.dropdown.attr('aria-hidden', 'true');
 
             this.trigger('hide.uk.dropdown', [this, force]);
 
