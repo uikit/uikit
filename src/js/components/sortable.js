@@ -285,6 +285,7 @@ UIkit.component('sortable', {
 
             action();
 
+            children.forEach(el => el.stop())
             this.$el.children().css(reset);
             this.$updateParents();
             this.$el.css('min-height', this.$el.height());
@@ -295,9 +296,8 @@ UIkit.component('sortable', {
                 var def = $.Deferred();
                 el.css(props[i]).animate(positions[i], this.animation, () => def.resolve(el));
                 return def;
-            })).then((...elements) => {
-                elements.forEach(el => el.css(reset));
-                this.$el.css('min-height', '');
+            })).then(() => {
+                this.$el.css('min-height', '').children().css(reset);
                 this.$updateParents();
             });
 
