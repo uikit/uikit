@@ -2,6 +2,10 @@
 
 ### WIP
 
+  - Added uk-text-capitalize, uk-text-lowercase and uk-text-uppercase classes
+  - Added headers option to upload component
+  - Updated modal + dropdown components to get focus when shown
+  - Updated dragging behavior on infinite sliders
   - Updated icon component to FontAwesome 4.6.3
   - Fixed slideset showing horizontal scrollbar on animation
   - Fixed sticky element disappearing on scroll in iOS browsers
