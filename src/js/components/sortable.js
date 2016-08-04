@@ -41,6 +41,17 @@ UIkit.component('sortable', {
 
     ready() {
 
+        ['init', 'start', 'move', 'end'].forEach(key => {
+            let fn = this[key];
+            this[key] = e => {
+                this.scrollY = win.scrollTop();
+                var {pageX, pageY} = e.originalEvent.touches && e.originalEvent.touches[0] || e.originalEvent;
+                this.pos = {x: pageX, y: pageY};
+
+                fn(e);
+            }
+        });
+
         this.$el.on(pointerDown, '> *', this.init);
 
         if (this.clsEmpty) {
@@ -70,7 +81,7 @@ UIkit.component('sortable', {
 
             this.touched = [this];
             this.element = $(e.currentTarget);
-            this.origin = extend({target, index: this.element.index()}, this.setPos(e));
+            this.origin = extend({target, index: this.element.index()}, this.pos);
 
             doc.on(pointerMove, this.move);
             doc.on(pointerUp, this.end);
@@ -94,8 +105,8 @@ UIkit.component('sortable', {
 
             this.ghost.children().first().height(this.element.children().height());
 
-            var {left, top} = this.element.offset(), {x, y} = this.setPos(e);
-            extend(this.origin, {left: left - x, top: top - y});
+            var {left, top} = this.element.offset();
+            extend(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
 
             this.element.addClass(this.clsPlaceholder);
             this.$el.children().addClass(this.clsItem);
@@ -108,8 +119,6 @@ UIkit.component('sortable', {
 
         move(e) {
 
-            this.setPos(e);
-
             if (!this.ghost) {
 
                 if (Math.abs(this.pos.x - this.origin.x) > this.threshold || Math.abs(this.pos.y - this.origin.y) > this.threshold) {
@@ -121,7 +130,7 @@ UIkit.component('sortable', {
 
             this.update();
 
-            var target = e.type === 'mousemove' ? e.target : elementFromPoint(e),
+            var target = e.type === 'mousemove' ? e.target : document.elementFromPoint(this.pos.x - document.body.scrollLeft, this.pos.y - document.body.scrollTop),
                 sortable = getSortable(target),
                 previous = getSortable(this.element[0]),
                 move = sortable !== previous;
@@ -155,22 +164,7 @@ UIkit.component('sortable', {
             }
         },
 
-        update() {
-
-            this.ghost.offset({top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
-
-            var top = this.ghost.offset().top, bottom = top + this.ghost.outerHeight();
-
-            if (top > 0 && top < this.scrollY) {
-                setTimeout(() => win.scrollTop(this.scrollY - 5), 5);
-            } else if (bottom < doc[0].offsetHeight && bottom > window.innerHeight + this.scrollY) {
-                setTimeout(() => win.scrollTop(this.scrollY + 5), 5);
-            }
-        },
-
         end(e) {
-
-            this.setPos(e);
 
             doc.off(pointerMove, this.move);
             doc.off(pointerUp, this.end);
@@ -208,6 +202,19 @@ UIkit.component('sortable', {
 
             doc.removeClass(this.clsDragState);
 
+        },
+
+        update() {
+
+            this.ghost.offset({top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
+
+            var top = this.ghost.offset().top, bottom = top + this.ghost.outerHeight();
+
+            if (top > 0 && top < this.scrollY) {
+                setTimeout(() => win.scrollTop(this.scrollY - 5), 5);
+            } else if (bottom < doc[0].offsetHeight && bottom > window.innerHeight + this.scrollY) {
+                setTimeout(() => win.scrollTop(this.scrollY + 5), 5);
+            }
         },
 
         insert(element, target) {
@@ -291,11 +298,6 @@ UIkit.component('sortable', {
                 this.$updateParents();
             });
 
-        },
-
-        setPos(e) {
-            this.scrollY = win.scrollTop();
-            return this.pos = getPos(e);
         }
 
     }
@@ -304,14 +306,4 @@ UIkit.component('sortable', {
 
 function getSortable(element) {
     return UIkit.getComponent(element, 'sortable') || element.parentNode && getSortable(element.parentNode);
-}
-
-function getPos(e) {
-    var {pageX, pageY} = e.originalEvent.touches && e.originalEvent.touches[0] || e.originalEvent;
-    return {x: pageX, y: pageY};
-}
-
-function elementFromPoint(e) {
-    var {x, y} = getPos(e);
-    return document.elementFromPoint(x - document.body.scrollLeft, y - document.body.scrollTop);
 }
