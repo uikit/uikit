@@ -64,22 +64,20 @@
 
         init: function() {
 
-            var $this = this, canvas, kbanimduration;
+            var $this = this;
 
             this.container     = this.element.hasClass('uk-slideshow') ? this.element : UI.$(this.find('.uk-slideshow:first'));
-            this.slides        = this.container.children();
-            this.slidesCount   = this.slides.length;
             this.current       = this.options.start;
             this.animating     = false;
-            this.triggers      = this.find('[data-uk-slideshow-item]');
+
             this.fixFullscreen = navigator.userAgent.match(/(iPad|iPhone|iPod)/g) && this.container.hasClass('uk-slideshow-fullscreen'); // viewport unit fix for height:100vh - should be fixed in iOS 8
 
             if (this.options.kenburns) {
 
-                kbanimduration = this.options.kenburns === true ? '15s': this.options.kenburns;
+                this.kbanimduration = this.options.kenburns === true ? '15s': this.options.kenburns;
 
-                if (!String(kbanimduration).match(/(ms|s)$/)) {
-                    kbanimduration += 'ms';
+                if (!String(this.kbanimduration).match(/(ms|s)$/)) {
+                    this.kbanimduration += 'ms';
                 }
 
                 if (typeof(this.options.kenburnsanimations) == 'string') {
@@ -87,10 +85,101 @@
                 }
             }
 
+            this.prepareSlides();
+
+            this.on("click.uk.slideshow", '[data-uk-slideshow-item]', function(e) {
+
+                e.preventDefault();
+
+                var slide = UI.$(this).attr('data-uk-slideshow-item');
+
+                if ($this.current == slide) return;
+
+                switch(slide) {
+                    case 'next':
+                    case 'previous':
+                        $this[slide=='next' ? 'next':'previous']();
+                        break;
+                    default:
+                        $this.show(parseInt(slide, 10));
+                }
+
+                $this.stop();
+            });
+
+            UI.$win.on("resize load", UI.Utils.debounce(function() {
+                $this.resize();
+
+                if ($this.fixFullscreen) {
+                    $this.container.css('height', window.innerHeight);
+                    $this.slides.css('height', window.innerHeight);
+                }
+            }, 100));
+
+            // chrome image load fix
+            setTimeout(function(){
+                $this.resize();
+            }, 80);
+
+            // Set autoplay
+            if (this.options.autoplay) {
+                this.start();
+            }
+
+            if (this.options.videoautoplay && this.slides.eq(this.current).data('media')) {
+                this.playmedia(this.slides.eq(this.current).data('media'));
+            }
+
+            if (this.options.kenburns) {
+                this.applyKenBurns(this.slides.eq(this.current));
+            }
+
+            this.container.on({
+                mouseenter: function() { if ($this.options.pauseOnHover) $this.hovering = true;  },
+                mouseleave: function() { $this.hovering = false; }
+            });
+
+            this.on('swipeRight swipeLeft', function(e) {
+                $this[e.type=='swipeLeft' ? 'next' : 'previous']();
+            });
+
+            this.on('display.uk.check', function(){
+                if ($this.element.is(":visible")) {
+
+                    $this.resize();
+
+                    if ($this.fixFullscreen) {
+                        $this.container.css('height', window.innerHeight);
+                        $this.slides.css('height', window.innerHeight);
+                    }
+                }
+            });
+
+            UI.domObserve(this.element, function(e) {
+                $this.prepareSlides(true);
+            });
+        },
+
+        prepareSlides: function(resize) {
+
+            var $this = this, canvas, processed = 0;
+
+            this.slides        = this.container.children();
+            this.slidesCount   = this.slides.length;
+
+            if (!this.slides.eq(this.current).length) {
+                this.current = 0;
+            }
+
             this.slides.each(function(index) {
 
-                var slide = UI.$(this),
-                    media = slide.children('img,video,iframe').eq(0);
+                var slide = UI.$(this);
+
+                if (slide.data('processed')) {
+                    return;
+                }
+
+                var media = slide.children('img,video,iframe').eq(0);
 
                 slide.data('media', media);
                 slide.data('sizer', media);
@@ -179,85 +268,27 @@
                 if ($this.hasKenBurns(slide)) {
 
                     slide.data('cover').css({
-                        '-webkit-animation-duration': kbanimduration,
-                        'animation-duration': kbanimduration
+                        '-webkit-animation-duration': $this.kbanimduration,
+                        'animation-duration': $this.kbanimduration
                     });
                 }
+
+                slide.data('processed', ++processed);
             });
 
-            this.on("click.uk.slideshow", '[data-uk-slideshow-item]', function(e) {
+            if (processed) {
 
-                e.preventDefault();
+                this.triggers = this.find('[data-uk-slideshow-item]');
 
-                var slide = UI.$(this).attr('data-uk-slideshow-item');
-
-                if ($this.current == slide) return;
-
-                switch(slide) {
-                    case 'next':
-                    case 'previous':
-                        $this[slide=='next' ? 'next':'previous']();
-                        break;
-                    default:
-                        $this.show(parseInt(slide, 10));
-                }
-
-                $this.stop();
-            });
-
-            // Set start slide
-            this.slides.attr('aria-hidden', 'true').eq(this.current).addClass('uk-active').attr('aria-hidden', 'false');
-            this.triggers.filter('[data-uk-slideshow-item="'+this.current+'"]').addClass('uk-active');
-
-            UI.$win.on("resize load", UI.Utils.debounce(function() {
-                $this.resize();
-
-                if ($this.fixFullscreen) {
-                    $this.container.css('height', window.innerHeight);
-                    $this.slides.css('height', window.innerHeight);
-                }
-            }, 100));
-
-            // chrome image load fix
-            setTimeout(function(){
-                $this.resize();
-            }, 80);
-
-            // Set autoplay
-            if (this.options.autoplay) {
-                this.start();
+                // Set start slide
+                this.slides.attr('aria-hidden', 'true').removeClass('uk-active').eq(this.current).addClass('uk-active').attr('aria-hidden', 'false');
+                this.triggers.filter('[data-uk-slideshow-item="'+this.current+'"]').addClass('uk-active');
             }
 
-            if (this.options.videoautoplay && this.slides.eq(this.current).data('media')) {
-                this.playmedia(this.slides.eq(this.current).data('media'));
+            if (resize && processed) {
+                this.resize();
             }
-
-            if (this.options.kenburns) {
-                this.applyKenBurns(this.slides.eq(this.current));
-            }
-
-            this.container.on({
-                mouseenter: function() { if ($this.options.pauseOnHover) $this.hovering = true;  },
-                mouseleave: function() { $this.hovering = false; }
-            });
-
-            this.on('swipeRight swipeLeft', function(e) {
-                $this[e.type=='swipeLeft' ? 'next' : 'previous']();
-            });
-
-            this.on('display.uk.check', function(){
-                if ($this.element.is(":visible")) {
-
-                    $this.resize();
-
-                    if ($this.fixFullscreen) {
-                        $this.container.css('height', window.innerHeight);
-                        $this.slides.css('height', window.innerHeight);
-                    }
-                }
-            });
         },
-
 
         resize: function() {
 
