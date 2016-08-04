@@ -337,12 +337,6 @@
             }
         });
 
-        modal.on('show.uk.modal', function(){
-            setTimeout(function(){
-                input.focus();
-            }, 50);
-        });
-
         return modal.show();
     };
 
