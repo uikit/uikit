@@ -138,7 +138,7 @@ UIkit.component('sortable', {
                 previous = getSortable(this.element[0]),
                 move = sortable !== previous;
 
-            if (!sortable || this.element.has(target).length || move && (!sortable.group || sortable.group !== previous.group)) {
+            if (!sortable || isWithin(target, this.element) || move && (!sortable.group || sortable.group !== previous.group)) {
                 return;
             }
 
