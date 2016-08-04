@@ -142,7 +142,7 @@ UIkit.component('sortable', {
                 return;
             }
 
-            target = sortable.$el.children().has(target);
+            target = sortable.$el.is(target.parentNode) && $(target) || sortable.$el.children().has(target);
 
             if (move) {
                 previous.remove(this.element);
