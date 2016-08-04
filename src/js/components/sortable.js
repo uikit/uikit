@@ -99,10 +99,7 @@ UIkit.component('sortable', {
                 .css({
                     width: this.element.width(),
                     height: this.element.height(),
-                    paddingTop: this.element.css('paddingTop'),
-                    paddingBottom: this.element.css('paddingBottom'),
-                    paddingLeft: this.element.css('paddingLeft'),
-                    paddingRight: this.element.css('paddingRight')
+                    paddingLeft: this.element.css('paddingLeft')
                 })
                 .append(this.element.html()).appendTo('body');
 
