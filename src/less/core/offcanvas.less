@@ -79,6 +79,7 @@
  * Prepares the whole HTML page to slide-out
  * 1. Fix the main page and disallow scrolling
  * 2. Side-out transition
+ * 3. Needed for the transition to work instead of just letting it pop to the side
  */
 
 .uk-offcanvas-page {
@@ -87,6 +88,8 @@
     /* 2 */
     -webkit-transition: margin-left 0.3s ease-in-out;
     transition: margin-left 0.3s ease-in-out;
+    /* 3 */
+    margin-left: 0;
 }
 
 
