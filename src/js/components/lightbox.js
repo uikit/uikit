@@ -21,10 +21,10 @@
     UI.component('lightbox', {
 
         defaults: {
-            "allowfullscreen" : true,
-            "duration"        : 400,
-            "group"           : false,
-            "keyboard"        : true
+            allowfullscreen : true,
+            duration        : 400,
+            group           : false,
+            keyboard        : true
         },
 
         index : 0,

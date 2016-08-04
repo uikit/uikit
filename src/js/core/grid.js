@@ -7,10 +7,10 @@
     UI.component('gridMatchHeight', {
 
         defaults: {
-            "target"        : false,
-            "row"           : true,
-            "ignorestacked" : false,
-            "observe"       : false
+            target        : false,
+            row           : true,
+            ignorestacked : false,
+            observe       : false
         },
 
         boot: function() {

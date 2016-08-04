@@ -187,7 +187,10 @@
             if (settings.type=="json") {
                 xhr.setRequestHeader("Accept", "application/json");
             }
-            for (var h in settings.headers) { xhr.setRequestHeader(h, settings.headers[h]); }
+
+            for (var h in settings.headers) {
+                xhr.setRequestHeader(h, settings.headers[h]);
+            }
 
             xhr.onreadystatechange = function() {
 
@@ -214,30 +217,30 @@
     }
 
     xhrupload.defaults = {
-        'action': '',
-        'single': true,
-        'method': 'POST',
-        'param' : 'files[]',
-        'params': {},
-        'allow' : '*.*',
-        'type'  : 'text',
-        'filelimit': false,
-        'headers': {},
+        action: '',
+        single: true,
+        method: 'POST',
+        param : 'files[]',
+        params: {},
+        allow : '*.*',
+        type  : 'text',
+        filelimit: false,
+        headers: {},
 
         // events
-        'before'          : function(o){},
-        'beforeSend'      : function(xhr){},
-        'beforeAll'       : function(){},
-        'loadstart'       : function(){},
-        'load'            : function(){},
-        'loadend'         : function(){},
-        'error'           : function(){},
-        'abort'           : function(){},
-        'progress'        : function(){},
-        'complete'        : function(){},
-        'allcomplete'     : function(){},
-        'readystatechange': function(){},
-        'notallowed'      : function(file, settings){ alert('Only the following file types are allowed: '+settings.allow); }
+        before          : function(o){},
+        beforeSend      : function(xhr){},
+        beforeAll       : function(){},
+        loadstart       : function(){},
+        load            : function(){},
+        loadend         : function(){},
+        error           : function(){},
+        abort           : function(){},
+        progress        : function(){},
+        complete        : function(){},
+        allcomplete     : function(){},
+        readystatechange: function(){},
+        notallowed      : function(file, settings){ alert('Only the following file types are allowed: '+settings.allow); }
     };
 
     function matchName(pattern, path) {

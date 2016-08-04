@@ -5,9 +5,9 @@
     UI.component('nav', {
 
         defaults: {
-            "toggle": ">li.uk-parent > a[href='#']",
-            "lists": ">li.uk-parent > ul",
-            "multiple": false
+            toggle: ">li.uk-parent > a[href='#']",
+            lists: ">li.uk-parent > ul",
+            multiple: false
         },
 
         boot: function() {
@@ -113,6 +113,7 @@
     // helper
 
     function getHeight(ele) {
+        
         var $ele = UI.$(ele), height = "auto";
 
         if ($ele.is(":visible")) {

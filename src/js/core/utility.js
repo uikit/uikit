@@ -167,7 +167,7 @@
     UI.Utils.stackMargin = function(elements, options) {
 
         options = UI.$.extend({
-            'cls': 'uk-margin-small-top'
+            cls: 'uk-margin-small-top'
         }, options);
 
         elements = UI.$(elements).removeClass(options.cls);

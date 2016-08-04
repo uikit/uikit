@@ -53,8 +53,8 @@
         check: function() {
 
             this.element.css({
-                'width'  : '',
-                'height' : ''
+                width  : '',
+                height : ''
             });
 
             this.dimension = {w: this.element.width(), h: this.element.height()};

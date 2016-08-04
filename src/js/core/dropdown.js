@@ -3,7 +3,7 @@
     "use strict";
 
     var active = false, hoverIdle, flips = {
-        'x': {
+        x: {
             "bottom-left"   : 'bottom-right',
             "bottom-right"  : 'bottom-left',
             "bottom-center" : 'bottom-center',
@@ -17,7 +17,7 @@
             "right-bottom"  : 'left-bottom',
             "right-center"  : 'left-center'
         },
-        'y': {
+        y: {
             "bottom-left"   : 'top-left',
             "bottom-right"  : 'top-right',
             "bottom-center" : 'top-center',
@@ -31,7 +31,7 @@
             "right-bottom"  : 'right-top',
             "right-center"  : 'right-center'
         },
-        'xy': {
+        xy: {
             "bottom-left"   : 'top-right',
             "bottom-right"  : 'top-left',
             "bottom-center" : 'top-center',
@@ -50,16 +50,16 @@
     UI.component('dropdown', {
 
         defaults: {
-           'mode'            : 'hover',
-           'pos'             : 'bottom-left',
-           'offset'          : 0,
-           'remaintime'      : 800,
-           'justify'         : false,
-           'boundary'        : UI.$win,
-           'delay'           : 0,
-           'dropdownSelector': '.uk-dropdown,.uk-dropdown-blank',
-           'hoverDelayIdle'  : 250,
-           'preventflip'     : false
+           mode            : 'hover',
+           pos             : 'bottom-left',
+           offset          : 0,
+           remaintime      : 800,
+           justify         : false,
+           boundary        : UI.$win,
+           delay           : 0,
+           dropdownSelector: '.uk-dropdown,.uk-dropdown-blank',
+           hoverDelayIdle  : 250,
+           preventflip     : false
         },
 
         remainIdle: false,
@@ -398,9 +398,9 @@
     UI.component('dropdownOverlay', {
 
         defaults: {
-           'justify' : false,
-           'cls'     : '',
-           'duration': 200
+           justify : false,
+           cls     : '',
+           duration: 200
         },
 
         boot: function() {

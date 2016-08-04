@@ -697,7 +697,7 @@
                         // Trigger the scroll event, this could probably be sent using memory.clone() but this is
                         // more explicit and easier to see exactly what is being sent in the event.
                         UI.$doc.trigger('scrolling.uk.document', [{
-                            "dir": {"x": memory.dir.x, "y": memory.dir.y}, "x": wpxo, "y": wpyo
+                            dir: {x: memory.dir.x, y: memory.dir.y}, x: wpxo, y: wpyo
                         }]);
                     }
 

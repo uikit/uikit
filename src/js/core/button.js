@@ -5,8 +5,8 @@
     UI.component('buttonRadio', {
 
         defaults: {
-            "activeClass": 'uk-active',
-            "target": ".uk-button"
+            activeClass: 'uk-active',
+            target: '.uk-button'
         },
 
         boot: function() {
@@ -61,8 +61,8 @@
     UI.component('buttonCheckbox', {
 
         defaults: {
-            "activeClass": 'uk-active',
-            "target": ".uk-button"
+            activeClass: 'uk-active',
+            target: '.uk-button'
         },
 
         boot: function() {
@@ -153,4 +153,3 @@
     });
 
 })(UIkit);
-
