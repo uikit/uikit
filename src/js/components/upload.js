@@ -187,6 +187,7 @@
             if (settings.type=="json") {
                 xhr.setRequestHeader("Accept", "application/json");
             }
+            for (var h in settings.headers) { xhr.setRequestHeader(h, settings.headers[h]); }
 
             xhr.onreadystatechange = function() {
 
@@ -221,6 +222,7 @@
         'allow' : '*.*',
         'type'  : 'text',
         'filelimit': false,
+        'headers': {},
 
         // events
         'before'          : function(o){},
