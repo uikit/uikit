@@ -136,11 +136,8 @@
                 this.start();
             }
 
-            var tmpitems = this.list.children().length;
-
             UI.domObserve(this.list, function(e) {
-                if (tmpitems != $this.list.children().length) {
-                    tmpitems = $this.list.children().length;
+                if ($this.list.children(':visible:not(.uk-active)').length) {
                     $this.updateSets(false,true);
                 }
             });

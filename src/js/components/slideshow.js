@@ -156,7 +156,9 @@
             });
 
             UI.domObserve(this.element, function(e) {
-                $this.prepareSlides(true);
+                if ($this.container.children(':not([aria-hidden])').length) {
+                    $this.prepareSlides(true);
+                }
             });
         },
 
