@@ -370,8 +370,6 @@
         return data ? fn(data) : fn;
     };
 
-    var tabindex = 1000;
-
     UI.Utils.focus = function(element, extra) {
 
         element = $(element);
@@ -389,7 +387,7 @@
         }
 
         if (!element.attr('tabindex')) {
-            tabidx = tabindex++;
+            tabidx = 1000;
             element.attr('tabindex', tabidx);
         }
 
