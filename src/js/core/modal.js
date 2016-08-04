@@ -86,9 +86,11 @@
                 this.hasTransitioned = false;
                 this.element.one(UI.support.transition.end, function(){
                     $this.hasTransitioned = true;
+                    UI.Utils.focus($this.dialog, 'a[href]');
                 }).addClass("uk-open");
             } else {
                 this.element.addClass("uk-open");
+                UI.Utils.focus(this.dialog, 'a[href]');
             }
 
             $html.addClass("uk-modal-page").height(); // force browser engine redraw

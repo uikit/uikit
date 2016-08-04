@@ -370,6 +370,32 @@
         return data ? fn(data) : fn;
     };
 
+    var tabindex = 1000;
+
+    UI.Utils.focus = function(element, extra) {
+
+        element = $(element);
+
+        var autofocus = element.find('[autofocus]:first');
+
+        if (autofocus.length) {
+            return autofocus.focus();
+        }
+
+        autofocus = element.find(':input'+(extra && (','+extra) || '')).first();
+
+        if (autofocus.length) {
+            return autofocus.focus();
+        }
+
+        if (!element.attr('tabindex')) {
+            element.attr('tabindex', tabindex++)
+        }
+
+        element[0].focus();
+        return element.attr('tabindex', '');
+    }
+
     UI.Utils.events       = {};
     UI.Utils.events.click = UI.support.touch ? 'tap' : 'click';
 

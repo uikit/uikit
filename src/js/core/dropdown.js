@@ -238,6 +238,7 @@
             this.trigger('show.uk.dropdown', [this]);
 
             UI.Utils.checkDisplay(this.dropdown, true);
+            UI.Utils.focus(this.dropdown);
             active = this;
 
             this.registerOuterClick();
