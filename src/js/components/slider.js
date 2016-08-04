@@ -512,6 +512,9 @@
 
                     z = z+1 == dragging.items.length ? 0:z+1;
                 }
+                if (!dragging.options.infinite && !focus) {
+                    focus = dragging.items.length;
+                }
 
             } else {
 
@@ -525,6 +528,9 @@
                     }
 
                     z = z-1 == -1 ? dragging.items.length-1:z-1;
+                }
+                if (!dragging.options.infinite && !focus) {
+                    focus = 0
                 }
             }
 
