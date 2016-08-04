@@ -70,10 +70,11 @@ UIkit.component('sortable', {
 
             this.touched = [this];
             this.element = $(e.currentTarget);
-            this.origin = extend({target, index: this.element.index()}, getPos(e));
+            this.origin = extend({target, index: this.element.index()}, this.setPos(e));
 
             doc.on(pointerMove, this.move);
             doc.on(pointerUp, this.end);
+            win.on('scroll', this.scroll);
 
             if (!this.threshold) {
                 this.start(e);
@@ -93,7 +94,7 @@ UIkit.component('sortable', {
 
             this.ghost.children().first().height(this.element.children().height());
 
-            var {left, top} = this.element.offset(), {x, y} = getPos(e);
+            var {left, top} = this.element.offset(), {x, y} = this.setPos(e);
             extend(this.origin, {left: left - x, top: top - y});
 
             this.element.addClass(this.clsPlaceholder);
@@ -107,31 +108,18 @@ UIkit.component('sortable', {
 
         move(e) {
 
-            var pos = getPos(e);
+            this.setPos(e);
 
             if (!this.ghost) {
 
-                if (Math.abs(pos.x - this.origin.x) > this.threshold || Math.abs(pos.y - this.origin.y) > this.threshold) {
+                if (Math.abs(this.pos.x - this.origin.x) > this.threshold || Math.abs(this.pos.y - this.origin.y) > this.threshold) {
                     this.start(e);
                 }
 
                 return;
             }
 
-            var top = pos.y + this.origin.top,
-                height = this.ghost.height() / 3,
-                scroll = win.scrollTop();
-
-            this.ghost.offset({top, left: pos.x + this.origin.left});
-
-            // TODO make smooth
-            if (top + height <= document.body.offsetHeight) {
-                if (top < scroll) {
-                    win.scrollTop(scroll - height);
-                } else if (top + height > window.innerHeight + scroll) {
-                    win.scrollTop(scroll + height);
-                }
-            }
+            this.update();
 
             var target = e.type === 'mousemove' ? e.target : elementFromPoint(e),
                 sortable = getSortable(target),
@@ -158,14 +146,38 @@ UIkit.component('sortable', {
 
         },
 
+        scroll() {
+            var scroll = win.scrollTop();
+            if (scroll !== this.scrollY) {
+                this.pos.y += scroll - this.scrollY;
+                this.scrollY = scroll;
+                this.update();
+            }
+        },
+
+        update() {
+
+            this.ghost.offset({top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
+
+            var top = this.ghost.offset().top, bottom = top + this.ghost.outerHeight();
+
+            if (top > 0 && top < this.scrollY) {
+                setTimeout(() => win.scrollTop(this.scrollY - 5), 5);
+            } else if (bottom < doc[0].offsetHeight && bottom > window.innerHeight + this.scrollY) {
+                setTimeout(() => win.scrollTop(this.scrollY + 5), 5);
+            }
+        },
+
         end(e) {
+
+            this.setPos(e);
 
             doc.off(pointerMove, this.move);
             doc.off(pointerUp, this.end);
+            win.off('scroll', this.scroll);
 
-            var pos = getPos(e);
             if (isWithin(this.origin.target, 'a[href]')) {
-                if (pos.x !== this.origin.x || pos.y !== this.origin.y) {
+                if (this.pos.x !== this.origin.x || this.pos.y !== this.origin.y) {
                     $(e.target).one('click', e => e.preventDefault());
                 } else if (e.type !== 'mouseup') {
                     location.href = this.origin.target.closest('a[href]').attr('href');
@@ -279,6 +291,11 @@ UIkit.component('sortable', {
                 this.$updateParents();
             });
 
+        },
+
+        setPos(e) {
+            this.scrollY = win.scrollTop();
+            return this.pos = getPos(e);
         }
 
     }
