@@ -6,7 +6,7 @@
   - Added headers option to upload component
   - Updated modal + dropdown components to get focus when shown
   - Updated dragging behavior on infinite sliders
-  - Updated slideshow component to recalculate if a new slide was added via dom manipulation
+  - Updated slideshow + slideset component to recalculate if a new slide/item was added via dom manipulation
   - Updated icon component to FontAwesome 4.6.3
   - Fixed slideset showing horizontal scrollbar on animation
   - Fixed sticky element disappearing on scroll in iOS browsers

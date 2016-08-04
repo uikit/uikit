@@ -135,6 +135,15 @@
             if (this.options.autoplay) {
                 this.start();
             }
+
+            var tmpitems = this.list.children().length;
+
+            UI.domObserve(this.list, function(e) {
+                if (tmpitems != $this.list.children().length) {
+                    tmpitems = $this.list.children().length;
+                    $this.updateSets(false,true);
+                }
+            });
         },
 
         updateSets: function(animate, force) {
