@@ -31,6 +31,7 @@
     "babel-preset-es2015-rollup": "1.1.1",
     "glob": "^7.0.3",
     "jquery": "^2.2.1",
+    "less": "^2.7.1",
     "rollup": "^0.31.1",
     "rollup-plugin-babel": "2.5.1",
     "rollup-plugin-node-resolve": "1.7.0",
