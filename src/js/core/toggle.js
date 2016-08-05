@@ -42,10 +42,12 @@
 
             this.aria = (this.options.cls.indexOf('uk-hidden') !== -1);
 
-            this.getToggles();
-
             this.on("click", function(e) {
-                if ($this.element.is('a[href="#"]')) e.preventDefault();
+
+                if ($this.element.is('a[href="#"]')) {
+                    e.preventDefault();
+                }
+
                 $this.toggle();
             });
 
@@ -53,6 +55,8 @@
         },
 
         toggle: function() {
+
+            this.getToggles();
 
             if(!this.totoggle.length) return;
 
@@ -109,7 +113,7 @@
 
         updateAria: function() {
             if (this.aria && this.totoggle.length) {
-                this.totoggle.each(function(){
+                this.totoggle.not('[aria-hidden]').each(function(){
                     UI.$(this).attr('aria-hidden', UI.$(this).hasClass('uk-hidden'));
                 });
             }

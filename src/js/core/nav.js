@@ -35,20 +35,33 @@
                 $this.open(ele.parent()[0] == $this.element[0] ? ele : ele.parent("li"));
             });
 
+            this.update(true);
+
+            UI.domObserve(this.element, function(e) {
+                if ($this.element.find(this.options.lists).not('[role]').length) {
+                    $this.update();
+                }
+            });
+        },
+
+        update: function(init) {
+
             this.find(this.options.lists).each(function() {
-                var $ele   = UI.$(this),
-                    parent = $ele.parent(),
+
+                var $ele   = UI.$(this).attr('role', 'menu'),
+                    parent = $ele.closest('li'),
                     active = parent.hasClass("uk-active");
 
-                $ele.wrap('<div style="overflow:hidden;height:0;position:relative;"></div>');
-                parent.data("list-container", $ele.parent()[active ? 'removeClass':'addClass']('uk-hidden'));
+                if (!parent.data('list-container')) {
+                    $ele.wrap('<div style="overflow:hidden;height:0;position:relative;"></div>');
+                    parent.data('list-container', $ele.parent()[active ? 'removeClass':'addClass']('uk-hidden'));
+                }
 
                 // Init ARIA
                 parent.attr('aria-expanded', parent.hasClass("uk-open"));
 
                 if (active) $this.open(parent, true);
             });
-
         },
 
         open: function(li, noanimation) {
@@ -113,7 +126,7 @@
     // helper
 
     function getHeight(ele) {
-        
+
         var $ele = UI.$(ele), height = "auto";
 
         if ($ele.is(":visible")) {
