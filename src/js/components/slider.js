@@ -158,6 +158,12 @@
                 this.start();
             }
 
+            UI.domObserve(this.element, function(e) {
+                if ($this.element.children(':not([data-slide])').length) {
+                    $this.resize(true);
+                }
+            });
+
         },
 
         resize: function(focus) {
@@ -171,7 +177,7 @@
 
             this.items.each(function(idx){
 
-                item      = UI.$(this);
+                item      = UI.$(this).attr('data-slide', idx);
                 size      = item.css({'left': '', 'width':''})[0].getBoundingClientRect();
                 width     = size.width;
                 cwidth    = item.width();
