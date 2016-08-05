@@ -85,7 +85,7 @@
                 }
             }
 
-            this.prepareSlides();
+            this.update();
 
             this.on("click.uk.slideshow", '[data-uk-slideshow-item]', function(e) {
 
@@ -157,12 +157,12 @@
 
             UI.domObserve(this.element, function(e) {
                 if ($this.container.children(':not([data-slide])').length) {
-                    $this.prepareSlides(true);
+                    $this.update(true);
                 }
             });
         },
 
-        prepareSlides: function(resize) {
+        update: function(resize) {
 
             var $this = this, canvas, processed = 0;
 
