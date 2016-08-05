@@ -14,10 +14,6 @@ export default function (UIkit) {
                     apply(mutation.addedNodes[i], attachComponents);
                 }
 
-                for (let i = 0; i < mutation.removedNodes.length; ++i) {
-                    apply(mutation.removedNodes[i], removeComponents);
-                }
-
             })
 
         )).observe(document, {childList: true, subtree: true});
@@ -27,7 +23,6 @@ export default function (UIkit) {
         ready(() => {
             apply(document.body, attachComponents);
             document.body.addEventListener('DOMNodeInserted', e => apply(e.target, attachComponents));
-            document.body.addEventListener('DOMNodeRemoved', e => apply(e.target, removeComponents));
         });
 
     }
@@ -48,14 +43,6 @@ export default function (UIkit) {
                 if (UIkit[name]) {
                     UIkit[name](node);
                 }
-            }
-        }
-    }
-
-    function removeComponents(node) {
-        if (node[DATA]) {
-            for (let name in node[DATA]) {
-                node[DATA][name].$destroy();
             }
         }
     }
