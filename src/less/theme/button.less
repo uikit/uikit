@@ -97,11 +97,33 @@
 // Text modifier
 // ========================================================================
 
-.hook-button-text() { text-decoration: underline; }
+.hook-button-text() {
+    position: relative;
 
-.hook-button-text-hover() { text-decoration: underline; }
+    &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 100%;
+        border-bottom: @global-border-width solid @global-color;
+        -webkit-transition: right 0.2s ease-out;
+        transition: right 0.3s ease-out;
+    }
 
-.hook-button-text-disabled() { text-decoration: none; }
+}
+
+.hook-button-text-hover() {
+
+    &::before { right: 0; }
+
+}
+
+.hook-button-text-disabled() {
+
+    &::before { display: none; }
+
+}
 
 
 // Link modifier
