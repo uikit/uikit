@@ -6,7 +6,7 @@
 
     UI.$win.on("resize orientationchange", UI.Utils.debounce(function(){
         UI.$('.uk-modal.uk-open').each(function(){
-            UI.$(this).data('modal').resize();
+            return UI.$(this).data('modal') && UI.$(this).data('modal').resize();
         });
     }, 150));
 
