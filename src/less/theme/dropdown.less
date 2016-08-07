@@ -21,6 +21,8 @@
 @dropdown-nav-item-padding-vertical:            6px;
 @dropdown-nav-item-padding-horizontal:          25px;
 
+@dropdown-nav-item-hover-background:            @global-muted-background;
+
 @dropdown-nav-sublist-padding-left:             40px;
 
 
@@ -37,7 +39,7 @@
 
 .hook-dropdown-nav-item() { padding: @dropdown-nav-item-padding-vertical @dropdown-nav-item-padding-horizontal; }
 
-.hook-dropdown-nav-item-hover() { background: @global-muted-background; }
+.hook-dropdown-nav-item-hover() { background: @dropdown-nav-item-hover-background; }
 
 .hook-dropdown-nav-header() { padding: @dropdown-nav-item-padding-vertical @dropdown-nav-item-padding-horizontal; }
 
