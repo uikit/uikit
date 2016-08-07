@@ -15,6 +15,8 @@
 @spinner-circumference:                         round(2 * 3.141 * @spinner-radius);
 @spinner-duration:                              1.4s;
 
+@internal-image-spinner:                        "../../images/spinner.svg";
+
 
 /* ========================================================================
    Component: Spinner
@@ -24,7 +26,7 @@
  * Icon
  */
 
-.uk-spinner::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/spinner.svg"); }
+.uk-spinner::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-spinner); }
 
 /*
  * Adopts `uk-icon`

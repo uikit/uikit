@@ -22,6 +22,8 @@
 @overlay-primary-background:                    fade(@global-secondary-background, 80%);
 @overlay-primary-color-mode:                    'light';
 
+@internal-image-overlay:                        "../../images/overlay.svg";
+
 
 /* ========================================================================
    Component: Overlay
@@ -42,7 +44,7 @@
 /* Icon
  ========================================================================== */
 
-.uk-overlay-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/overlay.svg"); }
+.uk-overlay-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-overlay); }
 
 .uk-overlay-icon {
     .hook-overlay-icon;

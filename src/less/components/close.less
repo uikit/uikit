@@ -12,6 +12,8 @@
 @close-color:                                   @global-muted-color;
 @close-hover-color:                             @global-color;
 
+@internal-image-close:                          "../../images/close.svg";
+
 
 /* ========================================================================
    Component: Close
@@ -21,7 +23,7 @@
  * Icon
  */
 
-.uk-close::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/close.svg"); }
+.uk-close::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-close); }
 
 /*
  * Adopts `uk-icon`

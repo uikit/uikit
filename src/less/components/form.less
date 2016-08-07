@@ -93,6 +93,11 @@
 @form-icon-color:                               @global-muted-color;
 @form-icon-hover-color:                         @global-color;
 
+@internal-image-form-select:                     "../../images/form-select.svg";
+@internal-image-form-radio:                      "../../images/form-radio.svg";
+@internal-image-form-checkbox:                   "../../images/form-checkbox.svg";
+@internal-image-form-checkbox-ideterminate:      "../../images/form-checkbox-indeterminate.svg";
+
 
 /* ========================================================================
    Component: Form
@@ -378,7 +383,7 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
     -moz-appearance: none;
     /* 2 */
     padding-right: @form-select-padding-right;
-    .svg-fill("../../images/form-select.svg", "#000", @form-select-icon-color);
+    .svg-fill(@internal-image-form-select, "#000", @form-select-icon-color);
     background-repeat: no-repeat;
     background-position: 100% 50%;
 }
@@ -390,7 +395,7 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
  * Disabled
  */
 
-.uk-select:not([multiple]):not([size]):disabled { .svg-fill("../../images/form-select.svg", "#000", @form-select-disabled-icon-color); }
+.uk-select:not([multiple]):not([size]):disabled { .svg-fill(@internal-image-form-select, "#000", @form-select-disabled-icon-color); }
 
 
 /* Radio and checkbox
@@ -459,9 +464,9 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
  * Icons
  */
 
-.uk-radio:checked { .svg-fill("../../images/form-radio.svg", "#000", @form-radio-checked-icon-color); }
-.uk-checkbox:checked { .svg-fill("../../images/form-checkbox.svg", "#000", @form-radio-checked-icon-color); }
-.uk-checkbox:indeterminate { .svg-fill("../../images/form-checkbox-indeterminate.svg", "#000", @form-radio-checked-icon-color); }
+.uk-radio:checked { .svg-fill(@internal-image-form-radio, "#000", @form-radio-checked-icon-color); }
+.uk-checkbox:checked { .svg-fill(@internal-image-form-checkbox, "#000", @form-radio-checked-icon-color); }
+.uk-checkbox:indeterminate { .svg-fill(@internal-image-form-checkbox-ideterminate, "#000", @form-radio-checked-icon-color); }
 
 /*
  * Disabled
@@ -473,9 +478,9 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
     .hook-form-radio-disabled;
 }
 
-.uk-radio:disabled:checked { .svg-fill("../../images/form-radio.svg", "#000", @form-radio-disabled-icon-color); }
-.uk-checkbox:disabled:checked { .svg-fill("../../images/form-checkbox.svg", "#000", @form-radio-disabled-icon-color); }
-.uk-checkbox:disabled:indeterminate { .svg-fill("../../images/form-checkbox-indeterminate.svg", "#000", @form-radio-disabled-icon-color); }
+.uk-radio:disabled:checked { .svg-fill(@internal-image-form-radio, "#000", @form-radio-disabled-icon-color); }
+.uk-checkbox:disabled:checked { .svg-fill(@internal-image-form-checkbox, "#000", @form-radio-disabled-icon-color); }
+.uk-checkbox:disabled:indeterminate { .svg-fill(@internal-image-form-checkbox-ideterminate, "#000", @form-radio-disabled-icon-color); }
 
 
 /* Legend
@@ -743,7 +748,7 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
     // Radio and checkbox
     //
 
-    .uk-select:not([multiple]):not([size]) { .svg-fill("../../images/form-select.svg", "#000", @form-select-icon-color); }
+    .uk-select:not([multiple]):not([size]) { .svg-fill(@internal-image-form-select, "#000", @form-select-icon-color); }
 
 
     //
@@ -770,9 +775,9 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
     }
 
     // Icon
-    .uk-radio:checked { .svg-fill("../../images/form-radio.svg", "#000", @form-radio-checked-icon-color); }
-    .uk-checkbox:checked { .svg-fill("../../images/form-checkbox.svg", "#000", @form-radio-checked-icon-color); }
-    .uk-checkbox:indeterminate { .svg-fill("../../images/form-checkbox-indeterminate.svg", "#000", @form-radio-checked-icon-color); }
+    .uk-radio:checked { .svg-fill(@internal-image-form-radio, "#000", @form-radio-checked-icon-color); }
+    .uk-checkbox:checked { .svg-fill(@internal-image-form-checkbox, "#000", @form-radio-checked-icon-color); }
+    .uk-checkbox:indeterminate { .svg-fill(@internal-image-form-checkbox-ideterminate, "#000", @form-radio-checked-icon-color); }
 
 }
 

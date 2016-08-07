@@ -16,6 +16,8 @@
 
 @totop-active-color:                            fadeout(@global-color, 10%);
 
+@internal-image-totop:                          "../../images/totop.svg";
+
 
 /* ========================================================================
    Component: Totop
@@ -25,7 +27,7 @@
  * Icon
  */
 
-.uk-totop::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/totop.svg"); }
+.uk-totop::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-totop); }
 
 /*
  * Addopts `uk-icon`

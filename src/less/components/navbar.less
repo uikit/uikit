@@ -70,6 +70,8 @@
 
 @navbar-dropbar-background:                     @navbar-dropdown-background;
 
+@internal-image-navbar-toggle:                  "../../images/navbar-toggle.svg";
+
 
 /* ========================================================================
    Component: Navbar
@@ -262,7 +264,7 @@
  * Adopts `uk-icon`
  */
 
-.uk-navbar-toggle-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/navbar-toggle.svg"); }
+.uk-navbar-toggle-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-navbar-toggle); }
 
 .uk-navbar-toggle-icon {
     .hook-navbar-toggle-icon;

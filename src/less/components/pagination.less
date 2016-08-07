@@ -23,6 +23,9 @@
 @pagination-item-active-color:                  @global-color;
 @pagination-item-disabled-color:                @global-muted-color;
 
+@internal-image-pagination-next:                "../../images/pagination-next.svg";
+@internal-image-pagination-previous:            "../../images/pagination-previous.svg";
+
 
 /* ========================================================================
    Component: Pagination
@@ -102,8 +105,8 @@
  * Adopts `uk-icon`
  */
 
-.uk-pagination-next::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/pagination-next.svg"); }
-.uk-pagination-previous::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/pagination-previous.svg"); }
+.uk-pagination-next::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-pagination-next); }
+.uk-pagination-previous::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-pagination-previous); }
 
 
 

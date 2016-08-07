@@ -47,6 +47,10 @@
 @search-toggle-color:                               @global-muted-color;
 @search-toggle-hover-color:                         @global-color;
 
+@internal-image-search-default:                     "../../images/search-default.svg";
+@internal-image-search-navbar:                      "../../images/search-navbar.svg";
+@internal-image-search-large:                       "../../images/search-large.svg";
+
 
 /* ========================================================================
    Component: Search
@@ -132,8 +136,7 @@
 /* Icon
  ========================================================================== */
 
-.uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/search-default.svg"); }
-[uk-search-icon*='navbar']::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/search-navbar.svg"); }
+.uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-search-default); }
 
 /*
  * Adopts `uk-icon`
@@ -277,7 +280,7 @@
  * Icon
  */
 
-.uk-search-navbar .uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/search-navbar.svg"); }
+.uk-search-navbar .uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-search-navbar); }
 
 .uk-search-navbar .uk-search-icon { width: @search-navbar-icon-width; }
 
@@ -305,7 +308,7 @@
  * Icon
  */
 
-.uk-search-large .uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../images/search-large.svg"); }
+.uk-search-large .uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-search-large); }
 
 .uk-search-large .uk-search-icon { width: @search-large-icon-width; }
 
