@@ -10,7 +10,8 @@
 // ========================================================================
 
 @placeholder-margin-vertical:                   @global-margin;
-@placeholder-padding:                           @global-gutter;
+@placeholder-padding-vertical:                  @global-gutter;
+@placeholder-padding-horizontal:                @global-gutter;
 @placeholder-background:                        @global-muted-background;
 
 
@@ -20,7 +21,7 @@
 
 .uk-placeholder {
     margin-bottom: @placeholder-margin-vertical;
-    padding: @placeholder-padding;
+    padding: @placeholder-padding-vertical @placeholder-padding-horizontal;
     background: @placeholder-background;
     .hook-placeholder;
 }
