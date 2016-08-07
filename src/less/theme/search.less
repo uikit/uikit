@@ -7,11 +7,22 @@
 // Variables
 // ========================================================================
 
+@search-default-background:                         @global-background;
+
+//
+// New
+//
+
+@search-default-border:                             @global-border;
+@search-default-border-width:                       @global-border-width;
+
 
 /* Default modifier
  ========================================================================== */
 
-.hook-search-default-input() {}
+.hook-search-default-input() {
+    border: @search-default-border-width solid @search-default-border;
+}
 
 
 /* Navbar modifier
@@ -38,3 +49,23 @@
 // ========================================================================
 
 .hook-search-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default-theme() {}
+
+.dye-hooks() {
+
+    .hook-dye-search-default-input() { border-color: @dye-border; }
+
+    .hook-dye-search-navbar-input() {}
+
+    .hook-dye-search-large-input() {}
+
+    .hook-dye-search-toggle() {}
+
+    .hook-dye-search-toggle-hover() {}
+
+}

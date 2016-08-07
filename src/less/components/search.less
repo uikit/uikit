@@ -26,9 +26,7 @@
 @search-default-width:                              180px;
 @search-default-height:                             @global-control-height;
 @search-default-padding-horizontal:                 6px;
-@search-default-border:                             @global-border;
-@search-default-border-width:                       @global-border-width;
-@search-default-background:                         @global-background;
+@search-default-background:                         @global-muted-background;
 
 @search-default-icon-width:                         @global-control-height;
 
@@ -245,7 +243,6 @@
     height: @search-default-height;
     padding-left: @search-default-padding-horizontal;
     padding-right: @search-default-padding-horizontal;
-    border: @search-default-border-width solid @search-default-border;
     background-color: @search-default-background;
     .hook-search-default-input;
 }
@@ -345,3 +342,92 @@
 .hook-search-toggle-hover() {}
 
 .hook-search-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {
+
+    @search-color:                         @dye-color;
+    @search-placeholder-color:             @dye-muted-color;
+
+    @search-icon-color:                    @dye-muted-color;
+
+    @search-default-background:            transparent;
+
+    @search-navbar-background:             transparent;
+
+    @search-large-background:              transparent;
+
+    @search-toggle-color:                  @dye-muted-color;
+    @search-toggle-hover-color:            @dye-color;
+
+}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    //
+    // Input
+    //
+
+    .uk-search-input { color: @search-color; }
+
+    .uk-search-input:-ms-input-placeholder { color: @search-placeholder-color !important; }
+    .uk-search-input::-moz-placeholder { color: @search-placeholder-color; }
+    .uk-search-input::-webkit-input-placeholder { color: @search-placeholder-color; }
+
+
+    //
+    // Icon
+    //
+
+    .uk-search .uk-search-icon { color: @search-icon-color; }
+
+    .uk-search .uk-search-icon:hover { color: @search-icon-color; }
+
+    //
+    // Style modifier
+    //
+
+    .uk-search-default .uk-search-input {
+        border-color: @search-default-border;
+        background-color: @search-default-background;
+        .hook-dye-search-default-input;
+    }
+
+    .uk-search-navbar .uk-search-input {
+        background-color: @search-navbar-background;
+        .hook-dye-search-navbar-input;
+    }
+
+    .uk-search-large .uk-search-input {
+        background-color: @search-large-background;
+        .hook-dye-search-large-input;
+    }
+
+    //
+    // Toggle
+    //
+
+    .uk-search-toggle {
+        color: @search-toggle-color;
+        .hook-dye-search-toggle;
+    }
+
+    .uk-search-toggle:hover,
+    .uk-search-toggle:focus {
+        color: @search-toggle-hover-color;
+        .hook-dye-search-toggle-hover;
+    }
+
+}
+
+.hook-dye-search-default-input() {}
+.hook-dye-search-navbar-input() {}
+.hook-dye-search-large-input() {}
+.hook-dye-search-toggle() {}
+.hook-dye-search-toggle-hover() {}
