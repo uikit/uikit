@@ -14,28 +14,28 @@
     </symbol>
 
     <symbol id="arrow-down" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1" points="15,10 10.5,15 6,10 "></polyline>
-        <line fill="none" stroke-width="1" x1="10.5" y1="3" x2="10.5" y2="14"></line>
+        <polygon points="10.5,16.08 5.63,10.66 6.37,10 10.5,14.58 14.63,10 15.37,10.66"></polygon>
+        <line fill="none" stroke-width="1" x1="10.5" y1="4" x2="10.5" y2="15"></line>
     </symbol>
 
     <symbol id="arrow-left" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1" points="10,14 5,9.5 10,5 "></polyline>
+        <polyline fill="none" stroke-width="1" points="10 14 5 9.5 10 5"></polyline>
         <line fill="none" stroke-width="1" x1="16" y1="9.5" x2="5" y2="9.52"></line>
     </symbol>
 
     <symbol id="arrow-right" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1" points="10,5 15,9.5 10,14 "></polyline>
+        <polyline fill="none" stroke-width="1" points="10 5 15 9.5 10 14"></polyline>
         <line fill="none" stroke-width="1" x1="4" y1="9.5" x2="15" y2="9.5"></line>
     </symbol>
 
     <symbol id="arrow-up" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1" points="15.5,9 10.5,4 5.5,9"></polyline>
-        <line fill="none" stroke-width="1" x1="10.5" y1="16" x2="10.5" y2="4.5"></line>
+        <polygon points="10.5,4 15.37,9.4 14.63,10.08 10.5,5.49 6.37,10.08 5.63,9.4"></polygon>
+        <line fill="none" stroke-width="1" x1="10.5" y1="16" x2="10.5" y2="5"></line>
     </symbol>
 
     <symbol id="ban" viewBox="0 0 20 20">
         <circle fill="none" stroke-width="1.1" cx="10" cy="10" r="9"></circle>
-        <line fill="none" stroke-width="1" x1="4" y1="3.5" x2="16" y2="16.5"></line>
+        <line fill="none" stroke-width="1.1" x1="4" y1="3.5" x2="16" y2="16.5"></line>
     </symbol>
 
     <symbol id="behance" viewBox="0 0 20 20">
@@ -105,25 +105,25 @@
     </symbol>
 
     <symbol id="close" viewBox="0 0 20 20">
-        <path fill="none" stroke-width="1" d="M16,16 L4,4"></path>
-        <path fill="none" stroke-width="1" d="M16,4 L4,16"></path>
+        <path fill="none" stroke-width="1.06" d="M16,16 L4,4"></path>
+        <path fill="none" stroke-width="1.06" d="M16,4 L4,16"></path>
     </symbol>
 
     <symbol id="cloud-download" viewBox="0 0 20 20">
-        <path fill="none" stroke-width="1" d="M6.5,14.61 L3.75,14.61 C1.96,14.61 0.5,13.17 0.5,11.39 C0.5,9.76 1.72,8.41 3.3,8.2 C3.38,5.31 5.75,3 8.68,3 C11.19,3 13.31,4.71 13.89,7.02 C14.39,6.8 14.93,6.68 15.5,6.68 C17.71,6.68 19.5,8.45 19.5,10.64 C19.5,12.83 17.71,14.6 15.5,14.6 L12.5,14.6"></path>
+        <path fill="none" stroke-width="1.1" d="M6.5,14.61 L3.75,14.61 C1.96,14.61 0.5,13.17 0.5,11.39 C0.5,9.76 1.72,8.41 3.3,8.2 C3.38,5.31 5.75,3 8.68,3 C11.19,3 13.31,4.71 13.89,7.02 C14.39,6.8 14.93,6.68 15.5,6.68 C17.71,6.68 19.5,8.45 19.5,10.64 C19.5,12.83 17.71,14.6 15.5,14.6 L12.5,14.6"></path>
         <polyline fill="none" stroke-width="1" points="11.75 16 9.5 18.25 7.25 16"></polyline>
         <path fill="none" stroke-width="1" d="M9.5,18 L9.5,9.5"></path>
     </symbol>
 
     <symbol id="cloud-upload" viewBox="0 0 20 20">
-        <path fill="none" stroke-width="1" d="M6.5,14.61 L3.75,14.61 C1.96,14.61 0.5,13.17 0.5,11.39 C0.5,9.76 1.72,8.41 3.31,8.2 C3.38,5.31 5.75,3 8.68,3 C11.19,3 13.31,4.71 13.89,7.02 C14.39,6.8 14.93,6.68 15.5,6.68 C17.71,6.68 19.5,8.45 19.5,10.64 C19.5,12.83 17.71,14.6 15.5,14.6 L12.5,14.6"></path>
+        <path fill="none" stroke-width="1.1" d="M6.5,14.61 L3.75,14.61 C1.96,14.61 0.5,13.17 0.5,11.39 C0.5,9.76 1.72,8.41 3.31,8.2 C3.38,5.31 5.75,3 8.68,3 C11.19,3 13.31,4.71 13.89,7.02 C14.39,6.8 14.93,6.68 15.5,6.68 C17.71,6.68 19.5,8.45 19.5,10.64 C19.5,12.83 17.71,14.6 15.5,14.6 L12.5,14.6"></path>
         <polyline fill="none" stroke-width="1" points="7.25 11.75 9.5 9.5 11.75 11.75"></polyline>
         <path fill="none" stroke-width="1" d="M9.5,18 L9.5,9.5"></path>
     </symbol>
 
     <symbol id="code" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1.04" points="13,4 19,10 13,16 "></polyline>
-        <polyline fill="none" stroke-width="1.04" points="7,16 1,10 7,4 "></polyline>
+        <polygon points="13.35,16.35 12.65,15.65 18.29,10 12.65,4.35 13.35,3.65 19.71,10"></polygon>
+    	<polygon points="6.65,16.35 0.29,10 6.65,3.65 7.35,4.35 1.71,10 7.35,15.65"></polygon>
     </symbol>
 
     <symbol id="cog" viewBox="0 0 20 20">
@@ -277,7 +277,7 @@
     </symbol>
 
     <symbol id="home" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1.04" points="1 11 10 2 19 11"></polyline>
+        <polygon points="18.65 11.35 10 2.71 1.35 11.35 0.65 10.65 10 1.29 19.35 10.65"></polygon>
         <polygon points="15 4 18 4 18 7 17 7 17 5 15 5"></polygon>
         <polygon points="3 11 4 11 4 18 7 18 7 12 12 12 12 18 16 18 16 11 17 11 17 19 11 19 11 13 8 13 8 19 3 19"></polygon>
     </symbol>
@@ -391,7 +391,7 @@
 
     <symbol id="paint-bucket" viewBox="0 0 20 20">
         <path d="M10.21,1 L0,11.21 L8.1,19.31 L18.31,9.1 L10.21,1 L10.21,1 Z M16.89,9.1 L15,11 L1.7,11 L10.21,2.42 L16.89,9.1 Z"></path>
-        <path fill="none" stroke-width="1" d="M6.42,2.33 L11.7,7.61"></path>
+        <path fill="none" stroke-width="1.1" d="M6.42,2.33 L11.7,7.61"></path>
         <path d="M18.49,12 C18.49,12 20,14.06 20,15.36 C20,16.28 19.24,17 18.49,17 L18.49,17 C17.74,17 17,16.28 17,15.36 C17,14.06 18.49,12 18.49,12 L18.49,12 Z"></path>
     </symbol>
 
@@ -418,14 +418,14 @@
     </symbol>
 
     <symbol id="pull" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1.1" points="6.24,11.74 9.5,8.5 12.76,11.74 "></polyline>
-        <polyline fill="none" stroke-width="1" points="6,15.5 3.5,15.5 3.5,2.5 15.5,2.5 15.5,15.5 13,15.5 "></polyline>
-        <line fill="none" stroke-width="1" x1="9.5" y1="18" x2="9.5" y2="8.5"></line>
+        <polygon points="6.85,8 9.5,10.6 12.15,8 12.85,8.7 9.5,12 6.15,8.7"></polygon>
+        <line fill="none" stroke-width="1" x1="9.5" y1="11" x2="9.5" y2="2"></line>
+        <polyline fill="none" stroke-width="1" points="6,5.5 3.5,5.5 3.5,18.5 15.5,18.5 15.5,5.5 13,5.5"></polyline>
     </symbol>
 
     <symbol id="push" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1" points="6.53 3.94 9.5 1 12.42 3.94"></polyline>
-        <line fill="none" stroke-width="1" x1="9.5" y1="10.41" x2="9.5" y2="1.41"></line>
+        <polygon points="12.15,4 9.5,1.4 6.85,4 6.15,3.3 9.5,0 12.85,3.3"></polygon>
+        <line fill="none" stroke-width="1" x1="9.5" y1="10.5" x2="9.5" y2="1.5"></line>
         <polyline fill="none" stroke-width="1" points="6 5.5 3.5 5.5 3.5 18.5 15.5 18.5 15.5 5.5 13 5.5"></polyline>
     </symbol>
 
@@ -497,9 +497,8 @@
     </symbol>
 
     <symbol id="sign-in" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1.1" points="10,7 13,10.5 10,14 "></polyline>
-        <polygon  points="7,3 17,3 17,18 7,18 7,17 16,17 16,4 7,4 "></polygon>
-        <line fill="none" stroke-width="1" x1="13" y1="10.5" x2="4" y2="10.5"></line>
+        <polygon points="7 2 17 2 17 17 7 17 7 16 16 16 16 3 7 3"></polygon>
+        <polygon points="9.1 13.4 8.5 12.8 11.28 10 4 10 4 9 11.28 9 8.5 6.2 9.1 5.62 13 9.5"></polygon>
     </symbol>
 
     <symbol id="sign-out" viewBox="0 0 20 20">
@@ -598,7 +597,7 @@
     </symbol>
 
     <symbol id="upload" viewBox="0 0 20 20">
-        <polyline fill="none" stroke-width="1" points="6 7 9.5 3.5 13 7"></polyline>
+        <polyline fill="none" stroke-width="1" points="5 8 9.5 3.5 14 8 "></polyline>
         <rect x="3" y="17" width="13" height="1"></rect>
         <line fill="none" stroke-width="1" x1="9.5" y1="15" x2="9.5" y2="4"></line>
     </symbol>
@@ -611,8 +610,8 @@
     <symbol id="users" viewBox="0 0 20 20">
         <circle fill="none" stroke-width="1.1" cx="7.63" cy="7.31" r="3.32"></circle>
         <path fill="none" stroke-width="1.1" d="M14.26,18.5 L1,18.5 C1,12.98 4.03,10.63 7.63,10.63 C11.23,10.63 14.26,13 14.26,18.5 L14.26,18.5 Z"></path>
-        <path fill="none" stroke-width="1" d="M11.02,3.41 C11.49,2.57 12.4,2 13.44,2 C14.97,2 16.22,3.25 16.22,4.78 C16.22,6.32 14.97,7.56 13.44,7.56 C13.28,7.56 13.15,7.52 13,7.5"></path>
-        <path fill="none" stroke-width="1" d="M13.5,7.5 C16.52,7.5 18.92,9.97 19,13.5 L15.4,13.5"></path>
+        <path fill="none" stroke-width="1.1" d="M11.02,3.41 C11.49,2.57 12.4,2 13.44,2 C14.97,2 16.22,3.25 16.22,4.78 C16.22,6.32 14.97,7.56 13.44,7.56 C13.28,7.56 13.15,7.52 13,7.5"></path>
+        <path fill="none" stroke-width="1.1" d="M13.5,7.5 C16.52,7.5 18.92,9.97 19,13.5 L15.4,13.5"></path>
     </symbol>
 
     <symbol id="video-camera" viewBox="0 0 20 20">
