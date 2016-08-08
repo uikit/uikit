@@ -371,6 +371,36 @@
         return data ? fn(data) : fn;
     };
 
+    UI.Utils.focus = function(element, extra) {
+
+        element = $(element);
+
+        var autofocus = element.find('[autofocus]:first'), tabidx;
+
+        if (autofocus.length) {
+            return autofocus.focus();
+        }
+
+        autofocus = element.find(':input'+(extra && (','+extra) || '')).first();
+
+        if (autofocus.length) {
+            return autofocus.focus();
+        }
+
+        if (!element.attr('tabindex')) {
+            tabidx = 1000;
+            element.attr('tabindex', tabidx);
+        }
+
+        element[0].focus();
+
+        if (tabidx) {
+            element.attr('tabindex', '');
+        }
+
+        return element;
+    }
+
     UI.Utils.events       = {};
     UI.Utils.events.click = UI.support.touch ? 'tap' : 'click';
 
@@ -605,7 +635,7 @@
             try {
 
                 var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
-                    fn.apply(element, []);
+                    fn.apply(element, [$element]);
                     $element.trigger('changed.uk.dom');
                 }, 50), {childList: true, subtree: true});
 
@@ -668,7 +698,7 @@
                         // Trigger the scroll event, this could probably be sent using memory.clone() but this is
                         // more explicit and easier to see exactly what is being sent in the event.
                         UI.$doc.trigger('scrolling.uk.document', [{
-                            "dir": {"x": memory.dir.x, "y": memory.dir.y}, "x": wpxo, "y": wpyo
+                            dir: {x: memory.dir.x, y: memory.dir.y}, x: wpxo, y: wpyo
                         }]);
                     }
 
@@ -948,7 +978,7 @@
       // when the browser window loses focus,
       // for example when a modal dialog is shown,
       // cancel all ongoing events
-      .on('touchcancel MSPointerCancel', cancelAll);
+      .on('touchcancel MSPointerCancel pointercancel', cancelAll);
 
     // scrolling the window indicates intention of the user
     // to scroll, not tap or swipe, so cancel all ongoing events
@@ -1129,7 +1159,7 @@
     UI.Utils.stackMargin = function(elements, options) {
 
         options = UI.$.extend({
-            'cls': 'uk-margin-small-top'
+            cls: 'uk-margin-small-top'
         }, options);
 
         elements = UI.$(elements).removeClass(options.cls);
@@ -1357,13 +1387,13 @@
     UI.component('scrollspy', {
 
         defaults: {
-            "target"     : false,
-            "cls"        : "uk-scrollspy-inview",
-            "initcls"    : "uk-scrollspy-init-inview",
-            "topoffset"  : 0,
-            "leftoffset" : 0,
-            "repeat"     : false,
-            "delay"      : 0
+            target     : false,
+            cls        : "uk-scrollspy-inview",
+            initcls    : "uk-scrollspy-init-inview",
+            topoffset  : 0,
+            leftoffset : 0,
+            repeat     : false,
+            delay      : 0
         },
 
         boot: function() {
@@ -1594,10 +1624,12 @@
 
             this.aria = (this.options.cls.indexOf('uk-hidden') !== -1);
 
-            this.getToggles();
-
             this.on("click", function(e) {
-                if ($this.element.is('a[href="#"]')) e.preventDefault();
+
+                if ($this.element.is('a[href="#"]')) {
+                    e.preventDefault();
+                }
+
                 $this.toggle();
             });
 
@@ -1605,6 +1637,8 @@
         },
 
         toggle: function() {
+
+            this.getToggles();
 
             if(!this.totoggle.length) return;
 
@@ -1661,7 +1695,7 @@
 
         updateAria: function() {
             if (this.aria && this.totoggle.length) {
-                this.totoggle.each(function(){
+                this.totoggle.not('[aria-hidden]').each(function(){
                     UI.$(this).attr('aria-hidden', UI.$(this).hasClass('uk-hidden'));
                 });
             }
@@ -1677,9 +1711,9 @@
     UI.component('alert', {
 
         defaults: {
-            "fade": true,
-            "duration": 200,
-            "trigger": ".uk-alert-close"
+            fade: true,
+            duration: 200,
+            trigger: '.uk-alert-close'
         },
 
         boot: function() {
@@ -1743,8 +1777,8 @@
     UI.component('buttonRadio', {
 
         defaults: {
-            "activeClass": 'uk-active',
-            "target": ".uk-button"
+            activeClass: 'uk-active',
+            target: '.uk-button'
         },
 
         boot: function() {
@@ -1799,8 +1833,8 @@
     UI.component('buttonCheckbox', {
 
         defaults: {
-            "activeClass": 'uk-active',
-            "target": ".uk-button"
+            activeClass: 'uk-active',
+            target: '.uk-button'
         },
 
         boot: function() {
@@ -1892,13 +1926,12 @@
 
 })(UIkit);
 
-
 (function(UI) {
 
     "use strict";
 
     var active = false, hoverIdle, flips = {
-        'x': {
+        x: {
             "bottom-left"   : 'bottom-right',
             "bottom-right"  : 'bottom-left',
             "bottom-center" : 'bottom-center',
@@ -1912,7 +1945,7 @@
             "right-bottom"  : 'left-bottom',
             "right-center"  : 'left-center'
         },
-        'y': {
+        y: {
             "bottom-left"   : 'top-left',
             "bottom-right"  : 'top-right',
             "bottom-center" : 'top-center',
@@ -1926,7 +1959,7 @@
             "right-bottom"  : 'right-top',
             "right-center"  : 'right-center'
         },
-        'xy': {
+        xy: {
             "bottom-left"   : 'top-right',
             "bottom-right"  : 'top-left',
             "bottom-center" : 'top-center',
@@ -1945,16 +1978,16 @@
     UI.component('dropdown', {
 
         defaults: {
-           'mode'            : 'hover',
-           'pos'             : 'bottom-left',
-           'offset'          : 0,
-           'remaintime'      : 800,
-           'justify'         : false,
-           'boundary'        : UI.$win,
-           'delay'           : 0,
-           'dropdownSelector': '.uk-dropdown,.uk-dropdown-blank',
-           'hoverDelayIdle'  : 250,
-           'preventflip'     : false
+           mode            : 'hover',
+           pos             : 'bottom-left',
+           offset          : 0,
+           remaintime      : 800,
+           justify         : false,
+           boundary        : UI.$win,
+           delay           : 0,
+           dropdownSelector: '.uk-dropdown,.uk-dropdown-blank',
+           hoverDelayIdle  : 250,
+           preventflip     : false
         },
 
         remainIdle: false,
@@ -1964,7 +1997,7 @@
             var triggerevent = UI.support.touch ? "click" : "mouseenter";
 
             // init code
-            UI.$html.on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
+            UI.$html.on(triggerevent+".dropdown.uikit focus", "[data-uk-dropdown]", function(e) {
 
                 var ele = UI.$(this);
 
@@ -2015,7 +2048,8 @@
 
             // Init ARIA
             this.element.attr('aria-haspopup', 'true');
-            this.element.attr('aria-expanded', this.element.hasClass("uk-open"));
+            this.element.attr('aria-expanded', this.element.hasClass('uk-open'));
+            this.dropdown.attr('aria-hidden', 'true');
 
             if (this.options.mode == "click" || UI.support.touch) {
 
@@ -2129,10 +2163,12 @@
 
             // Update ARIA
             this.element.attr('aria-expanded', 'true');
+            this.dropdown.attr('aria-hidden', 'false');
 
             this.trigger('show.uk.dropdown', [this]);
 
             UI.Utils.checkDisplay(this.dropdown, true);
+            UI.Utils.focus(this.dropdown);
             active = this;
 
             this.registerOuterClick();
@@ -2152,6 +2188,7 @@
 
             // Update ARIA
             this.element.attr('aria-expanded', 'false');
+            this.dropdown.attr('aria-hidden', 'true');
 
             this.trigger('hide.uk.dropdown', [this, force]);
 
@@ -2292,9 +2329,9 @@
     UI.component('dropdownOverlay', {
 
         defaults: {
-           'justify' : false,
-           'cls'     : '',
-           'duration': 200
+           justify : false,
+           cls     : '',
+           duration: 200
         },
 
         boot: function() {
@@ -2427,10 +2464,10 @@
     UI.component('gridMatchHeight', {
 
         defaults: {
-            "target"        : false,
-            "row"           : true,
-            "ignorestacked" : false,
-            "observe"       : false
+            target        : false,
+            row           : true,
+            ignorestacked : false,
+            observe       : false
         },
 
         boot: function() {
@@ -2543,7 +2580,7 @@
 
     UI.$win.on("resize orientationchange", UI.Utils.debounce(function(){
         UI.$('.uk-modal.uk-open').each(function(){
-            UI.$(this).data('modal').resize();
+            return UI.$(this).data('modal') && UI.$(this).data('modal').resize();
         });
     }, 150));
 
@@ -2623,9 +2660,11 @@
                 this.hasTransitioned = false;
                 this.element.one(UI.support.transition.end, function(){
                     $this.hasTransitioned = true;
+                    UI.Utils.focus($this.dialog, 'a[href]');
                 }).addClass("uk-open");
             } else {
                 this.element.addClass("uk-open");
+                UI.Utils.focus(this.dialog, 'a[href]');
             }
 
             $html.addClass("uk-modal-page").height(); // force browser engine redraw
@@ -2872,12 +2911,6 @@
             }
         });
 
-        modal.on('show.uk.modal', function(){
-            setTimeout(function(){
-                input.focus();
-            }, 50);
-        });
-
         return modal.show();
     };
 
@@ -2935,9 +2968,9 @@
     UI.component('nav', {
 
         defaults: {
-            "toggle": ">li.uk-parent > a[href='#']",
-            "lists": ">li.uk-parent > ul",
-            "multiple": false
+            toggle: ">li.uk-parent > a[href='#']",
+            lists: ">li.uk-parent > ul",
+            multiple: false
         },
 
         boot: function() {
@@ -2965,20 +2998,33 @@
                 $this.open(ele.parent()[0] == $this.element[0] ? ele : ele.parent("li"));
             });
 
+            this.update(true);
+
+            UI.domObserve(this.element, function(e) {
+                if ($this.element.find(this.options.lists).not('[role]').length) {
+                    $this.update();
+                }
+            });
+        },
+
+        update: function(init) {
+
             this.find(this.options.lists).each(function() {
-                var $ele   = UI.$(this),
-                    parent = $ele.parent(),
+
+                var $ele   = UI.$(this).attr('role', 'menu'),
+                    parent = $ele.closest('li'),
                     active = parent.hasClass("uk-active");
 
-                $ele.wrap('<div style="overflow:hidden;height:0;position:relative;"></div>');
-                parent.data("list-container", $ele.parent()[active ? 'removeClass':'addClass']('uk-hidden'));
+                if (!parent.data('list-container')) {
+                    $ele.wrap('<div style="overflow:hidden;height:0;position:relative;"></div>');
+                    parent.data('list-container', $ele.parent()[active ? 'removeClass':'addClass']('uk-hidden'));
+                }
 
                 // Init ARIA
                 parent.attr('aria-expanded', parent.hasClass("uk-open"));
 
                 if (active) $this.open(parent, true);
             });
-
         },
 
         open: function(li, noanimation) {
@@ -3043,6 +3089,7 @@
     // helper
 
     function getHeight(ele) {
+
         var $ele = UI.$(ele), height = "auto";
 
         if ($ele.is(":visible")) {
@@ -3092,7 +3139,7 @@
 
             element.addClass("uk-active");
 
-            $body.css({"width": window.innerWidth - scrollbarwidth, "height": window.innerHeight}).addClass("uk-offcanvas-page");
+            $body.css({width: window.innerWidth - scrollbarwidth, height: window.innerHeight}).addClass("uk-offcanvas-page");
             $body.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * (bar.outerWidth() * dir)).width(); // .width() - force redraw
 
             $html.css('margin-top', scrollpos.y * -1);
@@ -3282,70 +3329,72 @@
 
             var $this = this;
 
-            this.on("click.uk.switcher", this.options.toggle, function(e) {
+            this.on('click.uk.switcher', this.options.toggle, function(e) {
                 e.preventDefault();
                 $this.show(this);
             });
 
-            if (this.options.connect) {
-
-                this.connect = UI.$(this.options.connect);
-
-                this.connect.children().removeClass("uk-active");
-
-                // delegate switch commands within container content
-                if (this.connect.length) {
-
-                    // Init ARIA for connect
-                    this.connect.children().attr('aria-hidden', 'true');
-
-                    this.connect.on("click", '[data-uk-switcher-item]', function(e) {
-
-                        e.preventDefault();
-
-                        var item = UI.$(this).attr('data-uk-switcher-item');
-
-                        if ($this.index == item) return;
-
-                        switch(item) {
-                            case 'next':
-                            case 'previous':
-                                $this.show($this.index + (item=='next' ? 1:-1));
-                                break;
-                            default:
-                                $this.show(parseInt(item, 10));
-                        }
-                    });
-
-                    if (this.options.swiping) {
-
-                        this.connect.on('swipeRight swipeLeft', function(e) {
-                            e.preventDefault();
-                            if(!window.getSelection().toString()) {
-                                $this.show($this.index + (e.type == 'swipeLeft' ? 1 : -1));
-                            }
-                        });
-                    }
-                }
-
-                var toggles = this.find(this.options.toggle),
-                    active  = toggles.filter(".uk-active");
-
-                if (active.length) {
-                    this.show(active, false);
-                } else {
-
-                    if (this.options.active===false) return;
-
-                    active = toggles.eq(this.options.active);
-                    this.show(active.length ? active : toggles.eq(0), false);
-                }
-
-                // Init ARIA for toggles
-                toggles.not(active).attr('aria-expanded', 'false');
-                active.attr('aria-expanded', 'true');
+            if (!this.options.connect) {
+                return;
             }
 
+            this.connect = UI.$(this.options.connect);
+
+            if (!this.connect.length) {
+                return;
+            }
+
+            this.connect.on('click.uk.switcher', '[data-uk-switcher-item]', function(e) {
+
+                e.preventDefault();
+
+                var item = UI.$(this).attr('data-uk-switcher-item');
+
+                if ($this.index == item) return;
+
+                switch(item) {
+                    case 'next':
+                    case 'previous':
+                        $this.show($this.index + (item=='next' ? 1:-1));
+                        break;
+                    default:
+                        $this.show(parseInt(item, 10));
+                }
+            });
+
+            if (this.options.swiping) {
+
+                this.connect.on('swipeRight swipeLeft', function(e) {
+                    e.preventDefault();
+                    if (!window.getSelection().toString()) {
+                        $this.show($this.index + (e.type == 'swipeLeft' ? 1 : -1));
+                    }
+                });
+            }
+
+            this.update();
+        },
+
+        update: function() {
+
+            this.connect.children().removeClass('uk-active').attr('aria-hidden', 'true');
+
+            var toggles = this.find(this.options.toggle),
+                active  = toggles.filter(".uk-active");
+
+            if (active.length) {
+                this.show(active, false);
+            } else {
+
+                if (this.options.active===false) return;
+
+                active = toggles.eq(this.options.active);
+                this.show(active.length ? active : toggles.eq(0), false);
+            }
+
+            // Init ARIA for toggles
+            toggles.not(active).attr('aria-expanded', 'false');
+            active.attr('aria-expanded', 'true');
         },
 
         show: function(tab, animate) {
@@ -3558,12 +3607,12 @@
     UI.component('tab', {
 
         defaults: {
-            'target'    : '>li:not(.uk-tab-responsive, .uk-disabled)',
-            'connect'   : false,
-            'active'    : 0,
-            'animation' : false,
-            'duration'  : 200,
-            'swiping'   : true
+            target    : '>li:not(.uk-tab-responsive, .uk-disabled)',
+            connect   : false,
+            active    : 0,
+            animation : false,
+            duration  : 200,
+            swiping   : true
         },
 
         boot: function() {
@@ -3773,8 +3822,8 @@
         check: function() {
 
             this.element.css({
-                'width'  : '',
-                'height' : ''
+                width  : '',
+                height : ''
             });
 
             this.dimension = {w: this.element.width(), h: this.element.height()};

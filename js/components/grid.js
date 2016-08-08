@@ -79,23 +79,23 @@
                 if ($this.currentfilter) {
                     $this.filter($this.currentfilter);
                 } else {
-                    this.updateLayout();
+                    this.update();
                 }
 
             }.bind(this), 100));
 
             this.on('display.uk.check', function(){
-                if ($this.element.is(":visible"))  $this.updateLayout();
+                if ($this.element.is(":visible"))  $this.update();
             });
 
             UI.domObserve(this.element, function(e) {
-                $this.updateLayout();
+                $this.update();
             });
 
             if (this.options.filter !== false) {
                 this.filter(this.options.filter);
             } else {
-                this.updateLayout();
+                this.update();
             }
         },
 
@@ -125,7 +125,7 @@
             children.attr('data-grid-prepared', 'true').css(css);
         },
 
-        updateLayout: function(elements) {
+        update: function(elements) {
 
             this._prepareElements();
 
@@ -261,7 +261,7 @@
             elements.hidden.attr('aria-hidden', 'true').filter(':visible').fadeOut(this.options.duration);
             elements.visible.attr('aria-hidden', 'false').filter(':hidden').css('opacity', 0).show();
 
-            $this.updateLayout(elements.visible);
+            $this.update(elements.visible);
 
             if (this.controls && this.controls.length) {
                 this.controls.find('[data-uk-filter]').removeClass('uk-active').filter('[data-uk-filter="'+filter+'"]').addClass('uk-active');
@@ -288,7 +288,7 @@
 
             }).appendTo(this.element);
 
-            this.updateLayout(elements.filter(':visible'));
+            this.update(elements.filter(':visible'));
 
             if (this.controls && this.controls.length) {
                 this.controls.find('[data-uk-sort]').removeClass('uk-active').filter('[data-uk-sort="'+by+':'+(order == -1 ? 'desc':'asc')+'"]').addClass('uk-active');

@@ -39,7 +39,7 @@
 
                         var ele = UI.$(this);
 
-                        if(!ele.data("accordion")) {
+                        if (!ele.data("accordion")) {
                             UI.accordion(ele, UI.Utils.options(ele.attr('data-uk-accordion')));
                         }
                     });
@@ -59,11 +59,13 @@
                 $this.toggleItem(UI.$(this).data('wrapper'), $this.options.animate, $this.options.collapse);
             });
 
-            this.update();
+            this.update(true);
 
-            if (this.options.showfirst) {
-                this.toggleItem(this.toggle.eq(0).data('wrapper'), false, false);
-            }
+            UI.domObserve(this.element, function(e) {
+                if ($this.element.children($this.options.containers).length) {
+                    $this.update();
+                }
+            });
         },
 
         toggleItem: function(wrapper, animated, collapse) {
@@ -113,7 +115,7 @@
             this.element.trigger('toggle.uk.accordion', [active, wrapper.data('toggle'), wrapper.data('content')]);
         },
 
-        update: function() {
+        update: function(init) {
 
             var $this = this, $content, $wrapper, $toggle;
 
@@ -142,6 +144,10 @@
             });
 
             this.element.trigger('update.uk.accordion', [this]);
+
+            if (init && this.options.showfirst) {
+                this.toggleItem(this.toggle.eq(0).data('wrapper'), false, false);
+            }
         }
 
     });

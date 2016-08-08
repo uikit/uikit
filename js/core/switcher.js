@@ -37,70 +37,72 @@
 
             var $this = this;
 
-            this.on("click.uk.switcher", this.options.toggle, function(e) {
+            this.on('click.uk.switcher', this.options.toggle, function(e) {
                 e.preventDefault();
                 $this.show(this);
             });
 
-            if (this.options.connect) {
-
-                this.connect = UI.$(this.options.connect);
-
-                this.connect.children().removeClass("uk-active");
-
-                // delegate switch commands within container content
-                if (this.connect.length) {
-
-                    // Init ARIA for connect
-                    this.connect.children().attr('aria-hidden', 'true');
-
-                    this.connect.on("click", '[data-uk-switcher-item]', function(e) {
-
-                        e.preventDefault();
-
-                        var item = UI.$(this).attr('data-uk-switcher-item');
-
-                        if ($this.index == item) return;
-
-                        switch(item) {
-                            case 'next':
-                            case 'previous':
-                                $this.show($this.index + (item=='next' ? 1:-1));
-                                break;
-                            default:
-                                $this.show(parseInt(item, 10));
-                        }
-                    });
-
-                    if (this.options.swiping) {
-
-                        this.connect.on('swipeRight swipeLeft', function(e) {
-                            e.preventDefault();
-                            if(!window.getSelection().toString()) {
-                                $this.show($this.index + (e.type == 'swipeLeft' ? 1 : -1));
-                            }
-                        });
-                    }
-                }
-
-                var toggles = this.find(this.options.toggle),
-                    active  = toggles.filter(".uk-active");
-
-                if (active.length) {
-                    this.show(active, false);
-                } else {
-
-                    if (this.options.active===false) return;
-
-                    active = toggles.eq(this.options.active);
-                    this.show(active.length ? active : toggles.eq(0), false);
-                }
-
-                // Init ARIA for toggles
-                toggles.not(active).attr('aria-expanded', 'false');
-                active.attr('aria-expanded', 'true');
+            if (!this.options.connect) {
+                return;
             }
 
+            this.connect = UI.$(this.options.connect);
+
+            if (!this.connect.length) {
+                return;
+            }
+
+            this.connect.on('click.uk.switcher', '[data-uk-switcher-item]', function(e) {
+
+                e.preventDefault();
+
+                var item = UI.$(this).attr('data-uk-switcher-item');
+
+                if ($this.index == item) return;
+
+                switch(item) {
+                    case 'next':
+                    case 'previous':
+                        $this.show($this.index + (item=='next' ? 1:-1));
+                        break;
+                    default:
+                        $this.show(parseInt(item, 10));
+                }
+            });
+
+            if (this.options.swiping) {
+
+                this.connect.on('swipeRight swipeLeft', function(e) {
+                    e.preventDefault();
+                    if (!window.getSelection().toString()) {
+                        $this.show($this.index + (e.type == 'swipeLeft' ? 1 : -1));
+                    }
+                });
+            }
+
+            this.update();
+        },
+
+        update: function() {
+
+            this.connect.children().removeClass('uk-active').attr('aria-hidden', 'true');
+
+            var toggles = this.find(this.options.toggle),
+                active  = toggles.filter(".uk-active");
+
+            if (active.length) {
+                this.show(active, false);
+            } else {
+
+                if (this.options.active===false) return;
+
+                active = toggles.eq(this.options.active);
+                this.show(active.length ? active : toggles.eq(0), false);
+            }
+
+            // Init ARIA for toggles
+            toggles.not(active).attr('aria-expanded', 'false');
+            active.attr('aria-expanded', 'true');
         },
 
         show: function(tab, animate) {

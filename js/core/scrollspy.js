@@ -15,13 +15,13 @@
     UI.component('scrollspy', {
 
         defaults: {
-            "target"     : false,
-            "cls"        : "uk-scrollspy-inview",
-            "initcls"    : "uk-scrollspy-init-inview",
-            "topoffset"  : 0,
-            "leftoffset" : 0,
-            "repeat"     : false,
-            "delay"      : 0
+            target     : false,
+            cls        : "uk-scrollspy-inview",
+            initcls    : "uk-scrollspy-init-inview",
+            topoffset  : 0,
+            leftoffset : 0,
+            repeat     : false,
+            delay      : 0
         },
 
         boot: function() {

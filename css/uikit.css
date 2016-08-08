@@ -5693,14 +5693,19 @@ select.uk-form-width-mini {
 .uk-icon-braille:before {
   content: "\f2a1";
 }
-.uk-icon-deaf:before {
-  content: "\f2a4";
-}
+.uk-icon-deaf:before,
 .uk-icon-deafness:before {
   content: "\f2a4";
 }
 .uk-icon-envira:before {
   content: "\f299";
+}
+.uk-icon-font-awesome:before,
+.uk-icon-fa:before {
+  content: "\f2b4";
+}
+.uk-icon-first-order:before {
+  content: "\f2b0";
 }
 .uk-icon-gitlab:before {
   content: "\f296";
@@ -5733,6 +5738,9 @@ select.uk-form-width-mini {
 .uk-icon-snapchat-square:before {
   content: "\f2ad";
 }
+.uk-icon-themeisle:before {
+  content: "\f2b2";
+}
 .uk-icon-universal-access:before {
   content: "\f29a";
 }
@@ -5753,6 +5761,9 @@ select.uk-form-width-mini {
 }
 .uk-icon-wpforms:before {
   content: "\f298";
+}
+.uk-icon-yoast:before {
+  content: "\f2b1";
 }
 /* ========================================================================
    Component: Close
@@ -7540,6 +7551,7 @@ a.uk-thumbnail:focus {
  * Prepares the whole HTML page to slide-out
  * 1. Fix the main page and disallow scrolling
  * 2. Side-out transition
+ * 3. Needed for the transition to work instead of just letting it pop to the side
  */
 .uk-offcanvas-page {
   /* 1 */
@@ -7547,6 +7559,8 @@ a.uk-thumbnail:focus {
   /* 2 */
   -webkit-transition: margin-left 0.3s ease-in-out;
   transition: margin-left 0.3s ease-in-out;
+  /* 3 */
+  margin-left: 0;
 }
 /* Sub-object `uk-offcanvas-bar`
  ========================================================================== */
@@ -7731,6 +7745,17 @@ a.uk-thumbnail:focus {
   -ms-hyphens: auto;
   -moz-hyphens: auto;
   hyphens: auto;
+}
+/* Transform modifiers
+ ========================================================================== */
+.uk-text-capitalize {
+  text-transform: capitalize !important;
+}
+.uk-text-lowercase {
+  text-transform: lowercase !important;
+}
+.uk-text-uppercase {
+  text-transform: uppercase !important;
 }
 /* ========================================================================
    Component: Utility

@@ -65,9 +65,11 @@
             var $this   = this,
                 select  = false,
                 trigger = UI.Utils.debounce(function(e) {
-                    if(select) {
+
+                    if (select) {
                         return (select = false);
                     }
+
                     $this.handle();
                 }, this.options.delay);
 
@@ -88,9 +90,10 @@
             this.dropdown.attr('aria-expanded', 'false');
 
             this.input.on({
-                "keydown": function(e) {
 
-                    if (e && e.which && !e.shiftKey) {
+                keydown: function(e) {
+
+                    if (e && e.which && !e.shiftKey && $this.visible) {
 
                         switch (e.which) {
                             case 13: // enter
@@ -119,7 +122,8 @@
                     }
 
                 },
-                "keyup": trigger
+                
+                keyup: trigger
             });
 
             this.dropdown.on("click", ".uk-autocomplete-results > *", function(){
@@ -209,7 +213,9 @@
         },
 
         show: function() {
+
             if (this.visible) return;
+
             this.visible = true;
             this.element.addClass("uk-open");
 

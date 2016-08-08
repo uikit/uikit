@@ -61,7 +61,7 @@
             this.controls  = this.options.controls ? UI.$(this.options.controls) : this.element;
 
             UI.$win.on("resize load", UI.Utils.debounce(function() {
-                $this.updateSets();
+                $this.update();
             }, 100));
 
             $this.list.addClass('uk-grid-width-1-'+$this.options.default);
@@ -116,7 +116,7 @@
 
                 $this._hide().then(function(){
 
-                    $this.updateSets(true, true);
+                    $this.update(true, true);
                 });
             });
 
@@ -125,7 +125,7 @@
             });
 
             this.updateFilter(this.options.filter);
-            this.updateSets();
+            this.update();
 
             this.element.on({
                 mouseenter: function() { if ($this.options.pauseOnHover) $this.hovering = true;  },
@@ -136,9 +136,15 @@
             if (this.options.autoplay) {
                 this.start();
             }
+
+            UI.domObserve(this.list, function(e) {
+                if ($this.list.children(':visible:not(.uk-active)').length) {
+                    $this.update(false,true);
+                }
+            });
         },
 
-        updateSets: function(animate, force) {
+        update: function(animate, force) {
 
             var visible = this.visible, i;
 
@@ -417,6 +423,8 @@
             clsOut = clsIn;
         }
 
+        UI.$body.css('overflow-x', 'hidden'); // prevent horizontal scrollbar on animation
+
         release = function() {
 
             if (current && current.length) {
@@ -435,6 +443,7 @@
             var finish = function() {
                 next.removeClass(''+clsIn+'').css({opacity:'', display:'', 'animation-delay':'', 'animation':''});
                 d.resolve();
+                UI.$body.css('overflow-x', '');
                 $this.element.css('min-height', '');
                 finish = false;
             };
