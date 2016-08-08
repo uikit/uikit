@@ -3,10 +3,9 @@
 //
 // Component:       `uk-icon`
 //
-// Sub-objects:     `uk-icon-button`
-//
 // Modifiers:       `uk-icon-image`
-//                  `uk-icon-hover`
+//                  `uk-icon-link`
+//                  `uk-icon-button`
 //
 // ========================================================================
 
@@ -16,8 +15,9 @@
 
 @icon-image-size:                               20px;
 
-@icon-hover-color:                              @global-muted-color;
-@icon-hover-hover-color:                        @global-color;
+@icon-link-color:                               @global-muted-color;
+@icon-link-hover-color:                         @global-color;
+@icon-link-active-color:                        darken(@global-color, 5%);
 
 @icon-button-size:                              36px;
 @icon-button-border-radius:                     500px;
@@ -84,26 +84,34 @@
 }
 
 
-/* Hover modifier
- ========================================================================== */
-
-.uk-icon-hover {
-    color: @icon-hover-color;
-    .hook-icon-hover;
-}
-
-.uk-icon-hover:hover,
-.uk-icon-hover:focus {
-    color: @icon-hover-hover-color;
-    outline: none;
-    .hook-icon-hover-hover;
-}
-
-
-/* Button
+/* Style modifiers
  ========================================================================== */
 
 /*
+ * Link
+ */
+
+.uk-icon-link {
+    color: @icon-link-color;
+    .hook-icon-link;
+}
+
+.uk-icon-link:hover,
+.uk-icon-link:focus {
+    color: @icon-link-hover-color;
+    outline: none;
+    .hook-icon-link-hover;
+}
+
+/* OnClick + Active */
+.uk-icon-link:active,
+.uk-active > .uk-icon-link {
+    color: @icon-link-active-color;
+    .hook-icon-link-active;
+}
+
+/*
+ * Button
  * 1. Center icon vertically and horizontally
  */
 
@@ -137,8 +145,9 @@
     .hook-icon-button-hover;
 }
 
-/* OnClick */
-.uk-icon-button:active {
+/* OnClick + Active */
+.uk-icon-button:active,
+.uk-active > .uk-icon-button {
     background-color: @icon-button-active-background;
     color: @icon-button-active-color;
     .hook-icon-button-active;
@@ -150,8 +159,9 @@
 
 .hook-icon-misc;
 
-.hook-icon-hover() {}
-.hook-icon-hover-hover() {}
+.hook-icon-link() {}
+.hook-icon-link-hover() {}
+.hook-icon-link-active() {}
 .hook-icon-button() {}
 .hook-icon-button-hover() {}
 .hook-icon-button-active() {}
@@ -163,8 +173,9 @@
 
 .dye-vars-default() {
 
-    @icon-hover-color:                     @dye-muted-color;
-    @icon-hover-hover-color:               @dye-color;
+    @icon-link-color:                      @dye-muted-color;
+    @icon-link-hover-color:                @dye-color;
+    @icon-link-active-color:               @dye-color;
     @icon-button-background:               @dye-primary-background;
     @icon-button-color:                    @dye-inverse-color;
     @icon-button-hover-background:         @dye-muted-background;
@@ -180,17 +191,24 @@
     .dye-hooks();
 
     //
-    // Hover
+    // Link
     //
 
-    .uk-icon-hover {
-        color: @icon-hover-color;
-        .hook-dye-icon-hover;
+    .uk-icon-link {
+        color: @icon-link-color;
+        .hook-dye-icon-link;
     }
 
-    .uk-icon-hover:hover {
-        color: @icon-hover-hover-color;
-        .hook-dye-icon-hover-hover;
+    .uk-icon-link:hover,
+    .uk-icon-link:focus {
+        color: @icon-link-hover-color;
+        .hook-dye-icon-link-hover;
+    }
+
+    .uk-icon-link:active,
+    .uk-active > .uk-icon-link {
+        color: @icon-link-active-color;
+        .hook-dye-icon-link-active;
     }
 
     //
@@ -218,8 +236,9 @@
 
 }
 
-.hook-dye-icon-hover() {}
-.hook-dye-icon-hover-hover() {}
+.hook-dye-icon-link() {}
+.hook-dye-icon-link-hover() {}
+.hook-dye-icon-link-active() {}
 .hook-dye-icon-button() {}
 .hook-dye-icon-button-hover() {}
 .hook-dye-icon-button-active() {}
