@@ -11,6 +11,7 @@
   - Fixed slideset showing horizontal scrollbar on animation
   - Fixed sticky element disappearing on scroll in iOS browsers
   - Fixed maxDate in datepicker component
+  - Fixed dynamic grid in rtl mode
 
 
 ### 2.26.4 (Jul 13, 2016)
