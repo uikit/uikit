@@ -7,5 +7,5 @@ UIkit 3 Beta
 - Clone the repo, `git clone`
 - Install with [Node](https://nodejs.org/en/): ```npm install```
 - Create ```css``` folder
-- Compile JS ```node build```
+- Compile JS ```node scripts/build```
 - Compile LESS ```npm run compile-less``` or ```npm run watch-less```
