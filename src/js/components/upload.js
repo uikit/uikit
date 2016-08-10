@@ -131,6 +131,8 @@ UIkit.component('upload', {
                 files = [files[0]];
             }
 
+            this.beforeAll && this.beforeAll(this, files);
+
             var chunks = chunk(files, this.concurrent),
                 upload = files => {
 
