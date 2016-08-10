@@ -14,6 +14,8 @@ glob('src/images/symbols/*.svg', (er, files) => {
             .replace('<svg ', `<symbol id="${path.basename(f, '.svg')}" `)
             .replace('</svg>', '</svg>')
             .replace(/ stroke="(.*?)"/g, '')
+            .replace(/<symbol(.*?) height="(.*?)"/g, '<symbol$1')
+            .replace(/<symbol(.*?) width="(.*?)"/g, '<symbol$1')
             .replace(' xmlns="http://www.w3.org/2000/svg"', '');
 
         icons.push(contents);
@@ -35,7 +37,7 @@ glob('src/images/components/*.svg', (er, files) => {
     var contents;
 
     files.forEach((f) => {
-        contents = fs.readFileSync(f).toString().replace(/ stroke="#000000"/g, '');
+        contents = fs.readFileSync(f).toString().replace(/ stroke="(.*?)"/g, '');
         fs.writeFileSync(`images/${path.basename(f)}`, contents);
     })
 });
