@@ -3,20 +3,23 @@ import { isWithin, toJQuery, transitionend } from '../util/index';
 import Class from './class';
 import Toggable from './toggable';
 
-var active = false;
+var active;
 
 $(document).on({
-    click: e => {
+
+    click(e) {
         if (active && active.bgClose && !e.isDefaultPrevented() && !isWithin(e.target, active.panel)) {
             active.hide();
         }
     },
-    keydown: e => {
+
+    keydown(e) {
         if (e.keyCode === 27 && active && active.escClose) {
             e.preventDefault();
             active.hide();
         }
     }
+
 });
 
 export default {
@@ -27,14 +30,16 @@ export default {
         clsPanel: String,
         selClose: String,
         escClose: Boolean,
-        bgClose: Boolean
+        bgClose: Boolean,
+        stack: Boolean
     },
 
     defaults: {
         cls: 'uk-open',
         escClose: true,
         bgClose: true,
-        overlay: true
+        overlay: true,
+        stack: false
     },
 
     ready() {
@@ -76,7 +81,11 @@ export default {
             active = this;
 
             if (prev) {
-                prev.hide();
+                if (this.stack) {
+                    this.prev = prev;
+                } else {
+                    prev.hide();
+                }
             }
 
             this.panel.one(transitionend, () => {
@@ -105,7 +114,7 @@ export default {
                 return;
             }
 
-            active = active && active !== this && active;
+            active = active && active !== this && active || this.prev;
 
             this.panel.one(transitionend, () => {
                 var event = $.Event('hide');
