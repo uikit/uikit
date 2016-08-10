@@ -12,7 +12,7 @@ glob('src/images/symbols/*.svg', (er, files) => {
     files.forEach((f) => {
         contents = fs.readFileSync(f).toString()
             .replace('<svg ', `<symbol id="${path.basename(f, '.svg')}" `)
-            .replace('</svg>', '</svg>')
+            .replace('</svg>', '</symbol>')
             .replace(/ stroke="(.*?)"/g, '')
             .replace(/<symbol(.*?) height="(.*?)"/g, '<symbol$1')
             .replace(/<symbol(.*?) width="(.*?)"/g, '<symbol$1')
