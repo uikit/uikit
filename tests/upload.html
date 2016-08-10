@@ -34,6 +34,62 @@
 
             <progress id="progressbar" class="uk-progress" value="0" max="100" hidden></progress>
 
+            <script>
+
+                (function ($) {
+
+                    var bar = $("#progressbar")[0];
+
+                    UIkit.upload('.test-upload', {
+
+                        url: '',
+                        multiple: true,
+
+                        beforeSend: function() { console.log('beforeSend', arguments); },
+                        beforeAll: function() { console.log('beforeAll', arguments); },
+                        load: function() { console.log('load', arguments); },
+                        loadEnd: function() { console.log('loadEnd', arguments); },
+                        error: function() { console.log('error', arguments); },
+                        complete: function() { console.log('complete', arguments); },
+
+                        loadStart: function (e) {
+                            console.log('loadStart', arguments);
+
+                            bar.removeAttribute('hidden');
+                            bar.max =  e.total;
+                            bar.value =  e.loaded;
+                        },
+
+                        progress: function (e) {
+                            console.log('progress', arguments);
+
+                            bar.max =  e.total;
+                            bar.value =  e.loaded;
+
+                        },
+
+                        loadend(e) {
+                            console.log('complete', arguments);
+
+                            bar.max =  e.total;
+                            bar.value =  e.loaded;
+                        },
+
+                        completeAll: function () {
+                            console.log('completeAll', arguments);
+
+                            setTimeout(function () {
+                                bar.setAttribute('hidden', 'hidden');
+                            }, 1000);
+
+                            alert('Upload Completed');
+                        }
+                    });
+
+                })(jQuery);
+
+            </script>
+
             <h2>Javascript Options</h2>
 
             <div class="uk-overflow-auto">
@@ -190,61 +246,6 @@
             </div>
 
         </div>
-
-        <script>
-
-            (function ($) {
-
-                var bar = $("#progressbar");
-
-                UIkit.upload('.test-upload', {
-
-                    url: '',
-                    multiple: true,
-
-                    beforeSend: function() { console.log('beforeSend', arguments); },
-                    beforeAll: function() { console.log('beforeAll', arguments); },
-                    load: function() { console.log('load', arguments); },
-                    loadEnd: function() { console.log('loadEnd', arguments); },
-                    error: function() { console.log('error', arguments); },
-                    complete: function() { console.log('complete', arguments); },
-
-                    loadStart: function (e) {
-                        console.log('loadStart', arguments);
-
-                        bar.attr('hidden', null).val(0);
-                        bar[0].max =  e.total;
-                        bar[0].value =  e.loaded;
-                    },
-
-                    progress: function (e) {
-                        console.log('progress', arguments);
-
-                        bar[0].max =  e.total;
-                        bar[0].value =  e.loaded;
-
-                    },
-
-                    loadend(e) {
-                        console.log('complete', arguments);
-
-                        bar[0].max =  e.total;
-                        bar[0].value =  e.loaded;
-                    },
-
-                    completeAll: function () {
-                        console.log('completeAll', arguments);
-
-                        setTimeout(function () {
-                            bar.attr('hidden', 'hidden');
-                        }, 1000);
-
-                        alert('Upload Completed');
-                    }
-                });
-
-            })(jQuery);
-        </script>
 
     </body>
 </html>
