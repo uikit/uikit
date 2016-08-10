@@ -37,7 +37,12 @@ glob('src/images/components/*.svg', (er, files) => {
     var contents;
 
     files.forEach((f) => {
-        contents = fs.readFileSync(f).toString().replace(/ stroke="(.*?)"/g, '');
+        contents = fs.readFileSync(f).toString()
+                    .replace(/ stroke="(.*?)"/g, '')
+                    .replace(/<svg(.*?) height="(.*?)"/g, '<svg$1')
+                    .replace(/<svg(.*?) width="(.*?)"/g, '<svg$1')
+                    .replace(' xmlns="http://www.w3.org/2000/svg"', '');
+
         fs.writeFileSync(`images/${path.basename(f)}`, contents);
     })
 });
