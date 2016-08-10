@@ -11,15 +11,15 @@ glob('src/images/symbols/*.svg', (er, files) => {
 
     files.forEach((f) => {
         contents = fs.readFileSync(f).toString()
-            .replace('<svg ', '<symbol ')
+            .replace('<svg ', `<symbol id="${path.basename(f, '.svg')}" `)
             .replace('</svg>', '</svg>')
-            .replace(/ stroke="#000000"/g, '')
+            .replace(/ stroke="(.*?)"/g, '')
             .replace(' xmlns="http://www.w3.org/2000/svg"', '');
 
         icons.push(contents);
     });
 
-    fs.writeFileSync('images/icons.svg', `<svg xmlns="http://www.w3.org/2000/svg">\n\n${icons.join("\n")}\n\n</svg>`);
+    fs.writeFileSync('images/icons.svg', `<svg xmlns="http://www.w3.org/2000/svg">\n\n${icons.join("\n\n")}\n\n</svg>`);
 
 });
 

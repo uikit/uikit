@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="schedule" viewBox="0 0 20 20">
+<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
     <path d="M1,3 L1,17 L11,17 L10,16 L2,16 L2,8 L16,8 L16,10 L17,11 L17,3 L1,3 L1,3 Z M16,7 L2,7 L2,4 L16,4 L16,7 L16,7 Z"></path>
     <rect x="5" y="2" width="1" height="3"></rect>
     <rect x="12" y="2" width="1" height="3"></rect>
-    <circle fill="none" stroke="#000000" stroke-width="1" cx="14.5" cy="14.5" r="4.5"></circle>
-    <polyline fill="none" stroke="#000000" stroke-width="1" points="14.5 12 14.5 15.5 17 15.5"></polyline>
+    <circle fill="none" stroke="#000" stroke-width="1" cx="14.5" cy="14.5" r="4.5"></circle>
+    <polyline fill="none" stroke="#000" stroke-width="1" points="14.5 12 14.5 15.5 17 15.5"></polyline>
 </svg>

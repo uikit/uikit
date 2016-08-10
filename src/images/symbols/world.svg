@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="world" viewBox="0 0 20 20">
-    <path fill="none" stroke="#000000" stroke-width="1" d="M0.5,9.5 L18.5,9.5"></path>
-    <path fill="none" stroke="#000000" stroke-width="1" d="M1.85,14.5 L17.15,14.5"></path>
-    <path fill="none" stroke="#000000" stroke-width="1" d="M1.85,4.5 L17.35,4.5"></path>
-    <path fill="none" stroke="#000000" stroke-width="1" d="M9.5,18.46 L9.48,18.46 C6.81,16.33 5.11,13.14 5.11,9.58 C5.11,6.02 6.83,2.83 9.5,0.7 C9.51,0.7 9.49,0.7 9.5,0.7 L9.5,0.7 C12.17,2.83 13.9,6.02 13.9,9.58 C13.9,13.14 12.17,16.33 9.5,18.46 L9.5,18.46 L9.5,18.46 Z"></path>
-    <circle fill="none" stroke="#000000" stroke-width="1" cx="9.5" cy="9.5" r="9"></circle>
+<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <path fill="none" stroke="#000" stroke-width="1" d="M0.5,9.5 L18.5,9.5"></path>
+    <path fill="none" stroke="#000" stroke-width="1" d="M1.85,14.5 L17.15,14.5"></path>
+    <path fill="none" stroke="#000" stroke-width="1" d="M1.85,4.5 L17.35,4.5"></path>
+    <path fill="none" stroke="#000" stroke-width="1" d="M9.5,18.46 L9.48,18.46 C6.81,16.33 5.11,13.14 5.11,9.58 C5.11,6.02 6.83,2.83 9.5,0.7 C9.51,0.7 9.49,0.7 9.5,0.7 L9.5,0.7 C12.17,2.83 13.9,6.02 13.9,9.58 C13.9,13.14 12.17,16.33 9.5,18.46 L9.5,18.46 L9.5,18.46 Z"></path>
+    <circle fill="none" stroke="#000" stroke-width="1" cx="9.5" cy="9.5" r="9"></circle>
 </svg>
