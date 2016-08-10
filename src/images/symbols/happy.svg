@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="happy" viewBox="0 0 20 20">
-    <circle cx="13" cy="7" r="1"/>
-    <circle cx="7" cy="7" r="1"/>
-    <circle fill="none" stroke="#000000" stroke-width="1" cx="10" cy="10" r="8.5"/>
-    <path fill="none" stroke="#000000" stroke-width="1" d="M14.61,11.86 C13.89,13.72 12.08,15.04 9.97,15.04 C7.85,15.04 6.05,13.72 5.33,11.86"/>
+    <circle cx="13" cy="7" r="1"></circle>
+    <circle cx="7" cy="7" r="1"></circle>
+    <circle fill="none" stroke="#000000" stroke-width="1" cx="10" cy="10" r="8.5"></circle>
+    <path fill="none" stroke="#000000" stroke-width="1" d="M14.61,11.86 C13.89,13.72 12.08,15.04 9.97,15.04 C7.85,15.04 6.05,13.72 5.33,11.86"></path>
 </svg>

@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" id="list" viewBox="0 0 20 20">
-    <circle cx="1.5" cy="4.5" r="1.5"/>
-    <circle cx="1.5" cy="10.5" r="1.5"/>
-    <circle cx="1.5" cy="16.5" r="1.5"/>
-    <rect x="6" y="4" width="13" height="1"/>
-    <rect x="6" y="10" width="13" height="1"/>
-    <rect x="6" y="16" width="13" height="1"/>
+    <circle cx="1.5" cy="4.5" r="1.5"></circle>
+    <circle cx="1.5" cy="10.5" r="1.5"></circle>
+    <circle cx="1.5" cy="16.5" r="1.5"></circle>
+    <rect x="6" y="4" width="13" height="1"></rect>
+    <rect x="6" y="10" width="13" height="1"></rect>
+    <rect x="6" y="16" width="13" height="1"></rect>
 </svg>
