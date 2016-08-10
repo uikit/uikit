@@ -48,7 +48,6 @@
                         beforeSend: function() { console.log('beforeSend', arguments); },
                         beforeAll: function() { console.log('beforeAll', arguments); },
                         load: function() { console.log('load', arguments); },
-                        loadEnd: function() { console.log('loadEnd', arguments); },
                         error: function() { console.log('error', arguments); },
                         complete: function() { console.log('complete', arguments); },
 
@@ -68,8 +67,8 @@
 
                         },
 
-                        loadend(e) {
-                            console.log('complete', arguments);
+                        loadEnd(e) {
+                            console.log('loadEnd', arguments);
 
                             bar.max =  e.total;
                             bar.value =  e.loaded;
