@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="thumbnails" viewBox="0 0 20 20">
+    <rect fill="none" stroke="#000000" stroke-width="1" x="3.5" y="3.5" width="5" height="5"/>
+    <rect fill="none" stroke="#000000" stroke-width="1" x="11.5" y="3.5" width="5" height="5"/>
+    <rect fill="none" stroke="#000000" stroke-width="1" x="11.5" y="11.5" width="5" height="5"/>
+    <rect fill="none" stroke="#000000" stroke-width="1" x="3.5" y="11.5" width="5" height="5"/>
+</svg>

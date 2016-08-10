@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" id="clock" viewBox="0 0 20 20">
+    <circle fill="none" stroke="#000000" stroke-width="1.1" r="8" cy="10" cx="10"/>
+    <rect x="9" y="4" width="1" height="7"/>
+    <rect x="10" y="10" width="5" height="1"/>
+</svg>

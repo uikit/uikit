@@ -4,7 +4,7 @@
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
   "version": "3.0.0",
   "scripts": {
-    "compile-less": "mkdir css & npm run compile-less-dists && node scripts/less",
+    "compile-less": "mkdir css & npm run images & npm run compile-less-dists && node scripts/less",
     "compile-less-dists": "npm run compile-less-core && npm run compile-less-core-all && npm run compile-less-core-site && npm run compile-less-core-app && npm run compile-less-theme && npm run compile-less-theme-all && npm run compile-less-theme-site && npm run compile-less-theme-app",
     "compile-less-watch": "mkdir css & npm run compile-less-core-all && npm run compile-less-theme-all & node scripts/less",
     "compile-less-core": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.less > css/uikit.css",
@@ -15,6 +15,7 @@
     "compile-less-theme-all": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.theme.all.less > css/uikit.theme.all.css",
     "compile-less-theme-site": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.theme.site.less > css/uikit.theme.site.css",
     "compile-less-theme-app": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.theme.app.less > css/uikit.theme.app.css",
+    "images": "mkdir images &  node scripts/images",
     "compile-js": "node scripts/build",
     "compile": "npm run compile-less && npm run compile-js",
     "watch-less": "watch-run -i -p '**/*.less' npm run compile-less-watch",

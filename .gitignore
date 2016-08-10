@@ -1,6 +1,7 @@
 /.idea
 /js
 /css/*
+/images/*
 /dist
 /node_modules
 /showcase
