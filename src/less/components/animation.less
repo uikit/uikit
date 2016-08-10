@@ -4,6 +4,7 @@
 // Component:       `uk-animation-*`
 //
 // Modifiers:       `uk-animation-reverse`
+//                  `uk-animation-fast`
 //                  `uk-animation-fade`
 //                  `uk-animation-scale-up`
 //                  `uk-animation-scale-down`
@@ -27,6 +28,7 @@
 @animation-duration:                            0.5s;
 @animation-fade-duration:                       0.8s;
 @animation-kenburns-duration:                   15s;
+@animation-fast-duration:                       0.1s;
 
 @animation-fade-small-translate:                10px;
 @animation-fade-medium-translate:               50px;
@@ -177,6 +179,15 @@
 .uk-animation-shake {
     -webkit-animation-name: uk-shake;
     animation-name: uk-shake;
+}
+
+
+/* Duration modifier
+ ========================================================================== */
+
+.uk-animation-fast {
+    -webkit-animation-duration: @animation-fast-duration;
+    animation-duration: @animation-fast-duration;
 }
 
 
