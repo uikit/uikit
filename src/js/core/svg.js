@@ -89,7 +89,7 @@ export default function (UIkit) {
                             && toJQuery((el[0].outerHTML || $('<div>').append(el.clone()).html()).replace(/symbol/g, 'svg')) // IE workaround, el[0].outerHTML
                             || !toJQuery('symbol', svg) && svg.clone(); // fallback if SVG has no symbols
 
-                    if (!el) {
+                    if (!el || !el.length) {
                         return $.Deferred().reject('SVG not found.');
                     }
 
