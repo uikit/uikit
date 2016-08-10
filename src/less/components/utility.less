@@ -5,6 +5,7 @@
 //                  `uk-clearfix`
 //                  `uk-float-*`
 //                  `uk-overflow-*`
+//                  `uk-resize-*`
 //                  `uk-display-*`
 //                  `uk-inline-*`
 //                  `uk-height-*`
@@ -30,6 +31,10 @@
 @panel-scrollable-padding:                      10px;
 @panel-scrollable-border:                       @global-border;
 @panel-scrollable-border-width:                 @global-border-width;
+
+@height-small-height:                           150px;
+@height-medium-height:                          300px;
+@height-large-height:                           450px;
 
 @border-rounded-border:                         5px;
 
@@ -146,6 +151,13 @@
 .uk-overflow-auto > :last-child { margin-bottom: 0; }
 
 
+/* Resize
+ ========================================================================== */
+
+.uk-resize { resize: both; }
+.uk-resize-vertical { resize: vertical; }
+
+
 /* Display
  ========================================================================== */
 
@@ -199,6 +211,15 @@
  */
 
 .uk-height-viewport { min-height: 100vh; }
+
+/*
+ * Pixel
+ * Useful for `overflow: auto`
+ */
+
+.uk-height-small { height: @height-small-height; }
+.uk-height-medium { height: @height-medium-height; }
+.uk-height-large { height: @height-large-height; }
 
 
 /* Responsive objects

@@ -6,7 +6,6 @@
 //                  `uk-heading-primary`
 //                  `uk-heading-divider`
 //                  `uk-divider-icon`
-//                  `uk-pre-scrollable`
 //
 // ========================================================================
 
@@ -38,8 +37,6 @@
 @divider-icon-line-width:                       100%;
 @divider-icon-line-border:                      @global-border;
 @divider-icon-line-border-width:                1px;
-
-@pre-scrollable-height:                         300px;
 
 @internal-image-divider-icon:                   "../../../images/divider-icon.svg";
 
@@ -165,21 +162,6 @@
     left: ~'calc(50% + (@{divider-icon-width} / 2))';
     width: @divider-icon-line-width;
     .hook-divider-icon-line-right;
-}
-
-
-/* Preformatted text
- ========================================================================== */
-
-/*
- * Enable scrolling for preformatted text
- */
-
-.uk-pre-scrollable {
-    height: @pre-scrollable-height;
-    overflow-y: scroll;
-    -webkit-overflow-scrolling: touch;
-    resize: both;
 }
 
 
