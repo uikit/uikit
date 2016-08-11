@@ -37,6 +37,7 @@
     "rollup-plugin-babel": "2.5.1",
     "rollup-plugin-node-resolve": "1.7.0",
     "uglify-js": "^2.6.2",
+    "watch-run": "^1.2.4",
     "webpack": "^1.13.1",
     "webpack-dev-server": "^1.14.1"
   }
