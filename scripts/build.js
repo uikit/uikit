@@ -5,6 +5,7 @@ var rollup = require('rollup');
 var uglify = require('uglify-js');
 var babel = require('rollup-plugin-babel');
 var resolve = require('rollup-plugin-node-resolve');
+var write = require('./util').write;
 var package = require('../package.json');
 var version = process.env.VERSION || package.version;
 var banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */\n`;
@@ -38,24 +39,4 @@ function compile(file, dest, external, globals) {
         }).code))
         .then(() => write(`${dest}.min.js`, `${banner}\n${uglify.minify(`${dest}.js`).code}`))
         .catch(console.log);
-}
-
-function write(dest, code) {
-    return new Promise((resolve, reject) =>
-        fs.writeFile(dest, code, err => {
-            if (err) {
-                return reject(err);
-            }
-            console.log(`${cyan(dest)} ${getSize(code)}`);
-            resolve();
-        })
-    );
-}
-
-function getSize(code) {
-    return `${(code.length / 1024).toFixed(2)}kb`;
-}
-
-function cyan(str) {
-    return `\x1b[1m\x1b[36m${str}\x1b[39m\x1b[22m`;
 }
