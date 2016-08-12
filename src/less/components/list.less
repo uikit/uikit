@@ -117,7 +117,7 @@
 
 .uk-list-bullet > li {
     position: relative;
-    padding-left: calc(@list-bullet-width ~"+" @list-bullet-margin-right);
+    padding-left: ~'calc(@{list-bullet-width} + @{list-bullet-margin-right})';
 }
 
 .uk-list-bullet > li::before {
