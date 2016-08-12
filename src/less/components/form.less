@@ -238,23 +238,26 @@
     padding-right: @form-padding-horizontal;
     background: @form-background;
     color: @form-color;
-
     .hook-form;
+}
 
-    // Focus
-    &:focus {
-        outline: 0;
-        background: @form-focus-background;
-        color: @form-focus-color;
-        .hook-form-focus;
-    }
+/* Focus */
+.uk-input:focus,
+.uk-select:focus,
+.uk-textarea:focus {
+    outline: 0;
+    background: @form-focus-background;
+    color: @form-focus-color;
+    .hook-form-focus;
+}
 
-    // Disabled
-    &:disabled {
-        background-color: @form-disabled-background;
-        color: @form-disabled-color;
-        .hook-form-disabled;
-    }
+/* Disabled */
+.uk-input:disabled,
+.uk-select:disabled,
+.uk-textarea:disabled {
+    background-color: @form-disabled-background;
+    color: @form-disabled-color;
+    .hook-form-disabled;
 }
 
 /*
