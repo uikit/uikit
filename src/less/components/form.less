@@ -262,12 +262,15 @@
 
 /*
  * Single-line
+ * 1. Make sure line-height is not larger than height
  */
 
 .uk-input,
 .uk-select:not([multiple]):not([size]) {
     height: @form-height;
     vertical-align: middle;
+    /* 1 */
+    line-height: 1;
 }
 
 /*
