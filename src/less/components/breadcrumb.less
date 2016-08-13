@@ -11,14 +11,13 @@
 // Variables
 // ========================================================================
 
-@breadcrumb-margin-horizontal:                      20px;
-
 @breadcrumb-item-color:                             @global-muted-color;
 @breadcrumb-item-hover-color:                       @global-color;
 @breadcrumb-item-hover-text-decoration:             none;
 @breadcrumb-item-active-color:                      @global-color;
 
 @breadcrumb-divider:                                "/";
+@breadcrumb-divider-margin-horizontal:              20px;
 @breadcrumb-divider-color:                          @global-muted-color;
 
 
@@ -87,7 +86,7 @@
 .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
     content: @breadcrumb-divider;
     display: inline-block;
-    margin: 0 @breadcrumb-margin-horizontal;
+    margin: 0 @breadcrumb-divider-margin-horizontal;
     color: @breadcrumb-divider-color;
     .hook-breadcrumb-divider;
 }

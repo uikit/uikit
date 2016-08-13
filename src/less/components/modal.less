@@ -37,10 +37,10 @@
 @modal-dialog-width:                            600px;
 @modal-dialog-background:                       @global-background;
 
-@modal-dialog-large-margin-horizontal:          15px;
-@modal-dialog-large-margin-horizontal-s:        @global-gutter;
-@modal-dialog-large-margin-horizontal-m:        @global-medium-gutter;
-@modal-dialog-large-margin-horizontal-l:        @global-large-gutter;
+@modal-container-margin-horizontal:             15px;
+@modal-container-margin-horizontal-s:           @global-gutter;
+@modal-container-margin-horizontal-m:           @global-medium-gutter;
+@modal-container-margin-horizontal-l:           @global-large-gutter;
 
 @modal-body-padding-horizontal:                 @global-gutter;
 @modal-body-padding-vertical:                   @global-gutter;
@@ -185,16 +185,16 @@
 }
 
 .uk-modal-container {
-    padding-left: @modal-dialog-large-margin-horizontal;
-    padding-right: @modal-dialog-large-margin-horizontal;
+    padding-left: @modal-container-margin-horizontal;
+    padding-right: @modal-container-margin-horizontal;
 }
 
 /* Phone landscape and bigger */
 @media (min-width: @breakpoint-small) {
 
     .uk-modal-container {
-        padding-left: @modal-dialog-large-margin-horizontal-s;
-        padding-right: @modal-dialog-large-margin-horizontal-s;
+        padding-left: @modal-container-margin-horizontal-s;
+        padding-right: @modal-container-margin-horizontal-s;
     }
 
 }
@@ -203,8 +203,8 @@
 @media (min-width: @breakpoint-medium) {
 
     .uk-modal-container {
-        padding-left: @modal-dialog-large-margin-horizontal-m;
-        padding-right: @modal-dialog-large-margin-horizontal-m;
+        padding-left: @modal-container-margin-horizontal-m;
+        padding-right: @modal-container-margin-horizontal-m;
     }
 
 }
@@ -213,8 +213,8 @@
 @media (min-width: @breakpoint-large) {
 
     .uk-modal-container {
-        padding-left: @modal-dialog-large-margin-horizontal-l;
-        padding-right: @modal-dialog-large-margin-horizontal-l;
+        padding-left: @modal-container-margin-horizontal-l;
+        padding-right: @modal-container-margin-horizontal-l;
     }
 
 }
