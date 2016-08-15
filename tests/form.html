@@ -352,7 +352,7 @@
 
                             <div class="uk-margin">
 
-                                <div class="uk-text-primary" uk-form-custom="target: #test">
+                                <div class="uk-text-primary" uk-form-custom="target: #test1">
                                     <select>
                                         <option value="1">Option 01</option>
                                         <option value="2">Option 02</option>
@@ -360,14 +360,14 @@
                                         <option value="4">Option 04</option>
                                     </select>
                                     <span uk-icon="icon: pencil"></span>
-                                    <span id="test"></span>
+                                    <span id="test1"></span>
                                 </div>
 
                             </div>
 
                             <div class="uk-margin">
 
-                                <button class="uk-button uk-button-default" type="button" uk-form-custom>
+                                <div uk-form-custom="target: #test2">
                                     <select>
                                         <option value="">Please select...</option>
                                         <option value="1">Option 01</option>
@@ -375,9 +375,26 @@
                                         <option value="3">Option 03</option>
                                         <option value="4">Option 04</option>
                                     </select>
-                                    <span></span>
-                                    <span uk-icon="icon: chevron-down"></span>
-                                </button>
+                                    <button class="uk-button uk-button-default" type="button">
+                                        <span id="test2"></span>
+                                        <span uk-icon="icon: chevron-down"></span>
+                                    </button>
+                                </div>
+
+                            </div>
+
+                            <div class="uk-margin">
+
+                                <div uk-form-custom>
+                                    <select>
+                                        <option value="">Please select...</option>
+                                        <option value="1">Option 01</option>
+                                        <option value="2">Option 02</option>
+                                        <option value="3">Option 03</option>
+                                        <option value="4">Option 04</option>
+                                    </select>
+                                    <a class="uk-select"></a>
+                                </div>
 
                             </div>
 
