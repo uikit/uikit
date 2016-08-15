@@ -274,6 +274,21 @@
 }
 
 /*
+ * Make an `a` element look like a select control
+ * 1. Center text vertically
+ */
+
+a.uk-select {
+    /* 1 */
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+/*
  * Multi-line
  */
 
