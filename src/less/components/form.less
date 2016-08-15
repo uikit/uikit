@@ -35,6 +35,7 @@
 // ========================================================================
 
 @form-height:                                   @global-control-height;
+@form-line-height:                              @form-height;
 @form-padding-horizontal:                       6px;
 @form-padding-vertical:                         4px;
 
@@ -51,6 +52,8 @@
 
 @form-small-height:                             @global-control-small-height;
 @form-large-height:                             @global-control-large-height;
+@form-small-line-height:                        @form-small-height;
+@form-large-line-height:                        @form-large-height;
 @form-small-font-size:                          @global-small-font-size;
 @form-large-font-size:                          @global-medium-font-size;
 
@@ -234,8 +237,7 @@
     /* 2 */
     border: none;
     /* 3 */
-    padding-left: @form-padding-horizontal;
-    padding-right: @form-padding-horizontal;
+    padding: 0 @form-padding-horizontal;
     background: @form-background;
     color: @form-color;
     .hook-form;
@@ -262,7 +264,9 @@
 
 /*
  * Single-line
- * 1. Make sure line-height is not larger than height
+ * 1. Allow an `a` element to look like a `input` or `select` element
+ * 2. Make sure line-height is not larger than height
+ *    Also needed to center the text vertically if `a` element is used
  */
 
 .uk-input,
@@ -270,22 +274,9 @@
     height: @form-height;
     vertical-align: middle;
     /* 1 */
-    line-height: 1.2;
-}
-
-/*
- * Make an `a` element look like a select control
- * 1. Center text vertically
- */
-
-a.uk-select {
-    /* 1 */
-    display: -ms-inline-flexbox;
-    display: -webkit-inline-flex;
-    display: inline-flex;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
-    align-items: center;
+    display: inline-block;
+    /* 2 */
+    line-height: @form-line-height;
 }
 
 /*
@@ -322,7 +313,10 @@ a.uk-select {
 
 .uk-form-small { font-size: @form-small-font-size; }
 
-.uk-form-small:not(textarea):not([multiple]):not([size]) { height: @form-small-height; }
+.uk-form-small:not(textarea):not([multiple]):not([size]) {
+    height: @form-small-height;
+    line-height: @form-small-line-height;
+}
 
 /*
  * Large
@@ -330,7 +324,10 @@ a.uk-select {
 
 .uk-form-large { font-size: @form-large-font-size; }
 
-.uk-form-large:not(textarea):not([multiple]):not([size]) { height: @form-large-height; }
+.uk-form-large:not(textarea):not([multiple]):not([size]) {
+    height: @form-large-height;
+    line-height: @form-large-line-height;
+}
 
 
 /* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)
