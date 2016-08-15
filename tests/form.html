@@ -301,30 +301,30 @@
 
                     <h2>Custom Controls</h2>
 
-                    <form class="uk-form-stacked uk-child-width-auto@m" uk-grid>
+                    <form class="uk-form-stacked uk-child-width-1-2@m" uk-grid>
                         <div>
 
                             <h3>File</h3>
 
                             <div class="uk-margin">
 
-                                <button class="uk-form-custom uk-button uk-button-default">
-                                    <input class="uk-form-custom-toggle" type="file">
-                                    Select
-                                </button>
+                                <div class="uk-form-custom">
+                                    <button class="uk-button uk-button-default">Select</button>
+                                    <input type="file">
+                                </div>
 
                             </div>
 
                             <div class="uk-margin">
                                 <span class="uk-text-middle">Here is a text</span>
-                                <div class="uk-form-custom uk-text-primary">upload<input class="uk-form-custom-toggle" type="file"></div>
+                                <div class="uk-form-custom uk-text-primary">upload<input type="file"></div>
                             </div>
 
                             <div class="uk-margin" uk-margin>
 
                                 <div uk-form-custom>
-                                    <input class="uk-form-custom-toggle" type="file">
-                                    <input class="uk-input uk-form-custom-disabled" type="text" placeholder="Select file" disabled>
+                                    <input type="file">
+                                    <input class="uk-input" type="text" placeholder="Select file" disabled>
                                 </div>
 
                                 <button class="uk-button uk-button-default">Submit</button>
@@ -339,7 +339,7 @@
                             <div class="uk-margin">
 
                                 <div uk-form-custom>
-                                    <select class="uk-form-custom-toggle">
+                                    <select>
                                         <option value="1">Option 01</option>
                                         <option value="2">Option 02</option>
                                         <option value="3">Option 03</option>
@@ -353,7 +353,7 @@
                             <div class="uk-margin">
 
                                 <div class="uk-text-primary" uk-form-custom="target: #test">
-                                    <select class="uk-form-custom-toggle">
+                                    <select>
                                         <option value="1">Option 01</option>
                                         <option value="2">Option 02</option>
                                         <option value="3">Option 03</option>
@@ -368,7 +368,7 @@
                             <div class="uk-margin">
 
                                 <button class="uk-button uk-button-default" type="button" uk-form-custom>
-                                    <select class="uk-form-custom-toggle">
+                                    <select>
                                         <option value="">Please select...</option>
                                         <option value="1">Option 01</option>
                                         <option value="2">Option 02</option>
@@ -379,30 +379,6 @@
                                     <span uk-icon="icon: chevron-down"></span>
                                 </button>
 
-                            </div>
-
-                        </div>
-                        <div>
-
-                            <h3>Input + Dropdown</h3>
-
-                            <div class="uk-margin" style="margin-bottom: 200px !important">
-                                <div class="uk-inline">
-
-                                    <div class="uk-inline-clip">
-                                        <a id="test-dropdown" class="uk-form-custom-toggle" href=""></a>
-                                        <input class="uk-select uk-form-custom-disabled" value="Please select..." disabled>
-                                    </div>
-
-                                    <div uk-dropdown="toggle: #test-dropdown; pos: bottom-justify; mode: click">
-                                        <ul class="uk-nav uk-dropdown-nav">
-                                            <li><a href="#">Option 1</a></li>
-                                            <li><a href="#">Option 2</a></li>
-                                            <li><a href="#">Option 3</a></li>
-                                        </ul>
-                                    </div>
-
-                                </div>
                             </div>
 
                         </div>

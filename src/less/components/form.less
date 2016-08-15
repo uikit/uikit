@@ -252,9 +252,9 @@
 }
 
 /* Disabled */
-.uk-input:disabled:not(.uk-form-custom-disabled),
-.uk-select:disabled:not(.uk-form-custom-disabled),
-.uk-textarea:disabled:not(.uk-form-custom-disabled) {
+.uk-input:disabled,
+.uk-select:disabled,
+.uk-textarea:disabled {
     background-color: @form-disabled-background;
     color: @form-disabled-color;
     .hook-form-disabled;
@@ -401,7 +401,7 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
  * Disabled
  */
 
-.uk-select:not([multiple]):not([size]):disabled:not(.uk-form-custom-disabled) { .svg-fill(@internal-image-form-select, "#000", @form-select-disabled-icon-color); }
+.uk-select:not([multiple]):not([size]):disabled { .svg-fill(@internal-image-form-select, "#000", @form-select-disabled-icon-color); }
 
 
 /* Radio and checkbox
@@ -547,7 +547,8 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
  * 5. Needed for the cursor
  */
 
-.uk-form-custom-toggle {
+.uk-form-custom select,
+.uk-form-custom input[type="file"] {
     /* 1 */
     position: absolute;
     top: 0;
@@ -564,7 +565,7 @@ select.uk-form-width-mini { width: (@form-width-mini + 25px); }
 }
 
 /* 5 */
-.uk-form-custom-toggle[type="file"] { font-size: 500px; }
+.uk-form-custom input[type="file"] { font-size: 500px; }
 
 
 /* Layout
