@@ -118,11 +118,9 @@ export default function (UIkit) {
         UIkit.modal.dialog(`
             <div class="uk-modal-body">${isString(message) ? message : $(message).html()}</div>
             <div class="uk-modal-footer uk-text-right">
-                <button class="uk-button uk-button-primary uk-modal-close">${options.labels.ok}</button>
+                <button class="uk-button uk-button-primary uk-modal-close" autofocus>${options.labels.ok}</button>
             </div>
-        `, options).$el
-            .on('hide', () => deferred.resolve())
-            .find('button:first').focus();
+        `, options).$el.on('hide', () => deferred.resolve());
 
         return deferred.promise();
     };
@@ -137,11 +135,9 @@ export default function (UIkit) {
             <div class="uk-modal-body">${isString(message) ? message : $(message).html()}</div>
             <div class="uk-modal-footer uk-text-right">
                 <button class="uk-button uk-button-default uk-modal-close">${options.labels.cancel}</button>
-                <button class="uk-button uk-button-primary uk-modal-close">${options.labels.ok}</button>
+                <button class="uk-button uk-button-primary uk-modal-close" autofocus>${options.labels.ok}</button>
             </div>
-        `, options).$el
-            .on('click', '.uk-modal-footer button', e => deferred[$(e.target).index() === 0 ? 'reject' : 'resolve']())
-            .find('button:last').focus();
+        `, options).$el.on('click', '.uk-modal-footer button', e => deferred[$(e.target).index() === 0 ? 'reject' : 'resolve']());
 
         return deferred.promise();
     };
