@@ -19,6 +19,13 @@ export default function (UIkit) {
             this.input = this.$el.find(':input:first');
             this.target = this.target && toJQuery(this.$el.find(this.target)) || this.input.next();
 
+            this.input.on({
+                focus: e => this.target.addClass('uk-focus'),
+                blur: e => this.target.removeClass('uk-focus'),
+                mouseenter: e => this.target.addClass('uk-hover'),
+                mouseleave: e => this.target.removeClass('uk-hover')
+            });
+
             this.input.trigger('change');
         },
 
