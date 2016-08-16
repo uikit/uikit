@@ -1,5 +1,4 @@
-import $ from 'jquery';
-import { camelize, isPlainObject } from '../util/index';
+import { $, camelize, isPlainObject } from '../util/index';
 
 export default function (UIkit) {
 

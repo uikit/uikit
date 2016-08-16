@@ -1,7 +1,6 @@
-import $ from 'jquery';
 import { util } from 'uikit';
 
-var {Transition} = util;
+var {$, Transition} = util;
 
 var containers = {};
 

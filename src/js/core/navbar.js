@@ -1,5 +1,4 @@
-import $ from 'jquery';
-import { extend, isWithin, toJQuery, Transition } from '../util/index';
+import { $, extend, isWithin, toJQuery, Transition } from '../util/index';
 import { Class } from '../mixin/index';
 
 export default function (UIkit) {

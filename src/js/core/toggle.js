@@ -1,5 +1,4 @@
-import $ from 'jquery';
-import { isString, getCssVar, hasTouch } from '../util/index';
+import { $, isString, getCssVar, hasTouch } from '../util/index';
 
 var vars = {}; // css vars cache
 

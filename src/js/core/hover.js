@@ -1,5 +1,4 @@
-import $ from 'jquery';
-import { hasTouch, isWithin, ready } from '../util/index';
+import { $, hasTouch, isWithin, ready } from '../util/index';
 
 export default function (UIkit) {
 

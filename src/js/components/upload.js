@@ -1,7 +1,6 @@
-import $ from 'jquery';
 import { util } from 'uikit';
 
-var {ajax} = util;
+var {$, ajax} = util;
 
 UIkit.component('upload', {
 

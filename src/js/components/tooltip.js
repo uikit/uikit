@@ -1,7 +1,6 @@
-import $ from 'jquery';
 import { util, mixin } from 'uikit';
 
-var {flipPosition} = util;
+var {$, flipPosition} = util;
 
 UIkit.component('tooltip', {
 

@@ -1,7 +1,6 @@
-import $ from 'jquery';
 import { util, mixin } from 'uikit';
 
-var {extend, isWithin, Observer, pointerDown, pointerMove, pointerUp} = util;
+var {$, extend, isWithin, Observer, pointerDown, pointerMove, pointerUp} = util;
 
 var win = $(window), doc = $(document.documentElement);
 

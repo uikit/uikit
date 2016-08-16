@@ -1,5 +1,4 @@
-import $ from 'jquery';
-import { isString, isWithin, removeClass, getDimensions, toJQuery } from '../util/index';
+import { $, isString, isWithin, removeClass, getDimensions, toJQuery } from '../util/index';
 import { Mouse, Position, Toggable } from '../mixin/index';
 
 export default function (UIkit) {

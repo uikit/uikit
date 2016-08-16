@@ -1,5 +1,4 @@
-import $ from 'jquery';
-import { isWithin, toJQuery, transitionend } from '../util/index';
+import { $, isWithin, toJQuery, transitionend } from '../util/index';
 import Class from './class';
 import Toggable from './toggable';
 

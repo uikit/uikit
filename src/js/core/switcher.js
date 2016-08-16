@@ -1,5 +1,4 @@
-import $ from 'jquery';
-import { getIndex, toJQuery } from '../util/index';
+import { $, getIndex, toJQuery } from '../util/index';
 import { Toggable } from '../mixin/index';
 
 export default function (UIkit) {
