@@ -41,9 +41,9 @@ export default function (UIkit) {
                 });
             }
 
-            this.$el.on('click', (e) => {
+            this.$el.on('click', e => {
 
-                if (String($(e.target).closest('a').attr('href'))[0] === '#') {
+                if ($(e.target).closest('a[href^="#"], button').length) {
                     e.preventDefault();
                 }
 
