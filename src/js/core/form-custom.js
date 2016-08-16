@@ -8,7 +8,7 @@ export default function (UIkit) {
         mixins: [Class],
 
         props: {
-            target: String
+            target: Boolean
         },
 
         defaults: {
@@ -17,13 +17,16 @@ export default function (UIkit) {
 
         ready() {
             this.input = this.$el.find(':input:first');
-            this.target = this.target && toJQuery(this.$el.find(this.target)) || this.input.next();
+            this.target = this.target && this.target === true
+                ? this.input.next()
+                : toJQuery(this.$el.find(this.target));
 
+            var state = this.input.next();
             this.input.on({
-                focus: e => this.target.addClass('uk-focus'),
-                blur: e => this.target.removeClass('uk-focus'),
-                mouseenter: e => this.target.addClass('uk-hover'),
-                mouseleave: e => this.target.removeClass('uk-hover')
+                focus: e => state.addClass('uk-focus'),
+                blur: e => state.removeClass('uk-focus'),
+                mouseenter: e => state.addClass('uk-hover'),
+                mouseleave: e => state.removeClass('uk-hover')
             });
 
             this.input.trigger('change');
@@ -32,6 +35,11 @@ export default function (UIkit) {
         events: {
 
             change(e) {
+
+                if (!this.target) {
+                    return;
+                }
+
                 this.target[this.target.is(':input') ? 'val' : 'text'](
                     this.input[0].files && this.input[0].files[0]
                         ? this.input[0].files[0].name

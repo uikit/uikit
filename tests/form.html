@@ -308,21 +308,21 @@
 
                             <div class="uk-margin">
 
-                                <div class="uk-form-custom">
-                                    <button class="uk-button uk-button-default">Select</button>
+                                <div uk-form-custom>
                                     <input type="file">
+                                    <button class="uk-button uk-button-default">Select</button>
                                 </div>
 
                             </div>
 
                             <div class="uk-margin">
                                 <span class="uk-text-middle">Here is a text</span>
-                                <div class="uk-form-custom uk-text-primary">upload<input type="file"></div>
+                                <div class="uk-link" uk-form-custom>upload<input type="file"></div>
                             </div>
 
                             <div class="uk-margin" uk-margin>
 
-                                <div uk-form-custom>
+                                <div uk-form-custom="target: true">
                                     <input type="file">
                                     <input class="uk-input" type="text" placeholder="Select file" disabled>
                                 </div>
@@ -338,7 +338,7 @@
 
                             <div class="uk-margin">
 
-                                <div uk-form-custom>
+                                <div uk-form-custom="target: true">
                                     <select>
                                         <option value="1">Option 01</option>
                                         <option value="2">Option 02</option>
@@ -352,15 +352,17 @@
 
                             <div class="uk-margin">
 
-                                <div class="uk-text-primary" uk-form-custom="target: #test1">
+                                <div uk-form-custom="target: #test1">
                                     <select>
                                         <option value="1">Option 01</option>
                                         <option value="2">Option 02</option>
                                         <option value="3">Option 03</option>
                                         <option value="4">Option 04</option>
                                     </select>
-                                    <span uk-icon="icon: pencil"></span>
-                                    <span id="test1"></span>
+                                    <span class="uk-link">
+                                        <span uk-icon="icon: pencil"></span>
+                                        <span id="test1"></span>
+                                    </span>
                                 </div>
 
                             </div>
@@ -375,7 +377,7 @@
                                         <option value="3">Option 03</option>
                                         <option value="4">Option 04</option>
                                     </select>
-                                    <button class="uk-button uk-button-default" type="button">
+                                    <button class="uk-button uk-button-default" type="button" tabindex="-1">
                                         <span id="test2"></span>
                                         <span uk-icon="icon: chevron-down"></span>
                                     </button>
@@ -385,7 +387,7 @@
 
                             <div class="uk-margin">
 
-                                <div uk-form-custom>
+                                <div uk-form-custom="target: true">
                                     <select>
                                         <option value="">Please select...</option>
                                         <option value="1">Option 01</option>
@@ -393,13 +395,15 @@
                                         <option value="3">Option 03</option>
                                         <option value="4">Option 04</option>
                                     </select>
-                                    <a href="" class="uk-select uk-form-width-medium"></a>
+                                    <span class="uk-select uk-form-width-medium"></span>
                                 </div>
 
                             </div>
 
                         </div>
                     </form>
+
+                    <p><span class="uk-label">Note</span> The hover and focus state for <code>uk-form-custom</code> are not styled by default, but there are the classes <code>.uk-hover</code> and <code>.uk-focus</code> in place to do so.</p>
 
                 </div>
                 <form class="uk-form-stacked uk-width-1-3@s">
