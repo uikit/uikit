@@ -4,6 +4,7 @@
 
   - Added uk-text-capitalize, uk-text-lowercase and uk-text-uppercase classes
   - Added headers option to upload component
+  - Added UIkit.Utils.getCssVar utility function
   - Updated modal + dropdown components to get focus when shown
   - Updated dragging behavior on infinite sliders
   - Updated slideshow, slider, slideset and accordion component to update if a new slide/item was added via dom manipulation
