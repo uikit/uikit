@@ -82,9 +82,9 @@ export default function (UIkit) {
 
             handler() {
                 var current = this.$el.css('max-height');
-                this.$el.css('max-height', 150).css('max-height', 150 - (this.panel.outerHeight(true) - window.innerHeight));
+                this.$el.css('max-height', 150).css('max-height', Math.max(150, 150 - (this.panel.outerHeight(true) - window.innerHeight)));
                 if (current !== this.$el.css('max-height')) {
-                    UIkit.update();
+                    this.$el.trigger('resize');
                 }
             },
 
