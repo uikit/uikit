@@ -22,9 +22,10 @@
     .dye-vars() {
 
         // Gobal variables must be defined in this scope otherwise they could not be overridden
-        @dye-color:                            @global-inverse-color;
-        @dye-inverse-color:                    @global-color;
+        @dye-color:                            fade(@global-inverse-color, 70%);
+        @dye-inverse-color:                    @global-secondary-background;
         @dye-muted-color:                      fade(@dye-color, 70%);
+        @dye-highlight-color:                  @global-inverse-color; // NEW
 
         @dye-primary-background:               @dye-color;
         @dye-muted-background:                 fade(@dye-color, 80%);
@@ -32,6 +33,11 @@
         @dye-border:                           fade(@dye-color, 20%);
 
         // Override component variables
+        @base-link-color:                      @dye-highlight-color;
+        @base-link-text-decoration:            underline;
+        @base-heading-color:                   @dye-highlight-color;
+        @base-pre-background:                  @dye-muted-background;
+
         @button-default-background:            transparent;
         @button-default-color:                 fade(@dye-color, 60%);
         @button-default-hover-background:      transparent;

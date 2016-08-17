@@ -152,9 +152,17 @@
 // Dye
 // ========================================================================
 
-.dye-vars-default-theme() {}
+.dye-vars-default-theme() {
+
+    @base-blockquote-color:                         @dye-highlight-color;
+    @base-heading-h5-color:                         @dye-highlight-color;
+    @base-heading-h6-color:                         @dye-highlight-color;
+
+}
 
 .dye-hooks() {
+
+    .dye-vars();
 
     .hook-dye-base-link() {}
     .hook-dye-base-link-hover() {}
@@ -167,5 +175,11 @@
     .hook-dye-base-heading() {}
 
     .hook-dye-base-hr() {}
+
+    blockquote { color: @base-blockquote-color; }
+
+    h5, .uk-h5 { color: @base-heading-h5-color; }
+
+    h6, .uk-h6 { color: @base-heading-h6-color; }
 
 }
