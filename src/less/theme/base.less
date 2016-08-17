@@ -24,6 +24,11 @@
 @base-code-border-width:                        @global-border-width;
 @base-code-border-radius:                       3px;
 
+@base-blockquote-color:                         @global-highlight-color;
+@base-blockquote-font-family:                   @global-font-primary-font-family;
+@base-blockquote-font-weight:                   @global-font-primary-font-weight;
+@base-blockquote-text-transform:                @global-font-primary-text-transform;
+@base-blockquote-letter-spacing:                @global-font-primary-letter-spacing;
 @base-blockquote-text-align:                    center;
 
 @base-pre-padding:                              10px;
@@ -117,7 +122,14 @@
 // Blockquotes
 // ========================================================================
 
-.hook-base-blockquote() { text-align: @base-blockquote-text-align; }
+.hook-base-blockquote() {
+    color: @base-blockquote-color;
+    font-family: @base-blockquote-font-family;
+    font-weight: @base-blockquote-font-weight;
+    text-transform: @base-blockquote-text-transform;
+    letter-spacing: @base-blockquote-letter-spacing;
+    text-align: @base-blockquote-text-align;
+}
 
 
 // Preformatted text
