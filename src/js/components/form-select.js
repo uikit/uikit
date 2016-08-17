@@ -39,34 +39,42 @@
         },
 
         init: function() {
+
             var $this = this;
 
             this.target  = this.find(this.options.target);
             this.select  = this.find('select');
 
             // init + on change event
-            this.select.on("change", (function(){
+            this.select.on({
 
-                var select = $this.select[0], fn = function(){
+                change: (function(){
 
-                    try {
-                        if($this.options.target === 'input')
-                        {
-                            $this.target.val(select.options[select.selectedIndex].text);
-                        }
-                        else
-                        {
-                            $this.target.text(select.options[select.selectedIndex].text);
-                        }
-                    } catch(e) {}
+                    var select = $this.select[0], fn = function(){
 
-                    $this.element[$this.select.val() ? 'addClass':'removeClass']($this.options.activeClass);
+                        try {
 
-                    return fn;
-                };
+                            if($this.options.target === 'input') {
+                                $this.target.val(select.options[select.selectedIndex].text);
+                            } else {
+                                $this.target.text(select.options[select.selectedIndex].text);
+                            }
 
-                return fn();
-            })());
+                        } catch(e) {}
+
+                        $this.element[$this.select.val() ? 'addClass':'removeClass']($this.options.activeClass);
+
+                        return fn;
+                    };
+
+                    return fn();
+                })(),
+
+                focus: function(){ $this.target.addClass('uk-focus') },
+                blur: function(){ $this.target.removeClass('uk-focus') },
+                mouseenter: function(){ $this.target.addClass('uk-hover') },
+                mouseleave: function(){ $this.target.removeClass('uk-hover') }
+            });
 
             this.element.data("formSelect", this);
         }
