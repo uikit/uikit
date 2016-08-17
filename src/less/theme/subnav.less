@@ -8,12 +8,35 @@
 // ========================================================================
 
 
+//
+// New
+//
+
+@subnav-font-size:                              @global-font-size;
+@subnav-font-family:                            @global-font-secondary-font-family;
+@subnav-font-weight:                            @global-font-secondary-font-weight;
+@subnav-text-transform:                         @global-font-secondary-text-transform;
+@subnav-letter-spacing:                         @global-font-secondary-letter-spacing;
+
+@subnav-onclick-color:                          @global-highlight-color;
+
+@subnav-pill-border-radius:                     @global-border-radius;
+
+@subnav-pill-onclick-color:                     @global-highlight-color;
+
+
 // Component
 // ========================================================================
 
 .hook-subnav() {}
 
-.hook-subnav-item() {}
+.hook-subnav-item() {
+    font-size: @subnav-font-size;
+    font-family: @subnav-font-family;
+    font-weight: @subnav-font-weight;
+    text-transform: @subnav-text-transform;
+    letter-spacing: @subnav-letter-spacing;
+}
 
 .hook-subnav-item-hover() {}
 
@@ -29,7 +52,7 @@
 // Pill modifier
 // ========================================================================
 
-.hook-subnav-pill-item() {}
+.hook-subnav-pill-item() { border-radius: @subnav-pill-border-radius; }
 
 .hook-subnav-pill-item-hover() {}
 
@@ -45,7 +68,14 @@
 // Miscellaneous
 // ========================================================================
 
-.hook-subnav-misc() {}
+.hook-subnav-misc() {
+    
+    // Onclick
+    .uk-subnav > * > a:active { color: @subnav-onclick-color; }
+
+    // Onclick pill
+    .uk-subnav-pill > * > a:active { color: @subnav-pill-onclick-color; }
+}
 
 
 // Dye

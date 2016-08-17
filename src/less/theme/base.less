@@ -7,6 +7,8 @@
 // Variables
 // ========================================================================
 
+@base-heading-color:                            @global-highlight-color;
+
 @base-hr-margin-vertical:                       @global-medium-margin;
 
 @base-blockquote-margin-vertical:               @global-medium-margin;
@@ -25,13 +27,34 @@
 @base-pre-background:                           @global-background;
 @base-pre-border:                               @global-border;
 @base-pre-border-width:                         @global-border-width;
-@base-pre-border-radius:                        3px;
+@base-pre-border-radius:                        @global-border-radius;
+
+@base-heading-h5-color:                         @base-heading-color;
+@base-heading-h5-font-family:                   @global-font-secondary-font-family;
+@base-heading-h5-font-weight:                   @global-font-secondary-font-weight;
+@base-heading-h5-text-transform:                @global-font-secondary-text-transform;
+@base-heading-h5-letter-spacing:                @global-font-secondary-letter-spacing;
+
+@base-heading-h6-color:                         @base-heading-color;
+@base-heading-h6-font-family:                   @global-font-secondary-font-family;
+@base-heading-h6-font-weight:                   @global-font-secondary-font-weight;
+@base-heading-h6-text-transform:                @global-font-secondary-text-transform;
+@base-heading-h6-letter-spacing:                @global-font-secondary-letter-spacing;
 
 
 // Body
 // ========================================================================
 
-.hook-base-body() {}
+/*
+ * 1. Set the text rendering to antialiased for a smoother font style
+ */
+
+.hook-base-body() {
+    /* 1 */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+}
 
 
 // Links
@@ -65,9 +88,21 @@
 
 .hook-base-h4() {}
 
-.hook-base-h5() {}
+.hook-base-h5() {
+    color: @base-heading-h5-color;
+    font-family: @base-heading-h5-font-family;
+    font-weight: @base-heading-h5-font-weight;
+    text-transform: @base-heading-h5-text-transform;
+    letter-spacing: @base-heading-h5-letter-spacing;
+}
 
-.hook-base-h6() {}
+.hook-base-h6() {
+    color: @base-heading-h6-color;
+    font-family: @base-heading-h6-font-family;
+    font-weight: @base-heading-h6-font-weight;
+    text-transform: @base-heading-h6-text-transform;
+    letter-spacing: @base-heading-h6-letter-spacing;
+}
 
 
 // Horizontal rules
@@ -79,9 +114,7 @@
 // Blockquotes
 // ========================================================================
 
-.hook-base-blockquote() {
-    text-align: @base-blockquote-text-align;
-}
+.hook-base-blockquote() { text-align: @base-blockquote-text-align; }
 
 
 // Preformatted text

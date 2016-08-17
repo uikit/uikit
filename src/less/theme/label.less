@@ -7,18 +7,32 @@
 // Variables
 // ========================================================================
 
+@label-padding-vertical:                        2px;
+@label-padding-horizontal:                      5px;
+@label-font-size:                               @global-xsmall-font-size;
+
 //
 // New
 //
 
-@label-text-transform:                          uppercase;
+@label-border-radius:                           @global-border-radius;
+@label-line-height:                             1.3;
+@label-font-family:                             @global-font-secondary-font-family;
+@label-font-weight:                             bolder;
+@label-text-transform:                          @global-font-secondary-text-transform;
+@label-letter-spacing:                          1px;
 
 
 // Component
 // ========================================================================
 
 .hook-label() {
+    border-radius: @label-border-radius;
+    line-height: @label-line-height;
+    font-family: @label-font-family;
+    font-weight: @label-font-weight;
     text-transform: @label-text-transform;
+    letter-spacing: @label-letter-spacing;
 }
 
 .hook-label-hover() {}

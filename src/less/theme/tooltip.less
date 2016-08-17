@@ -7,11 +7,29 @@
 // Variables
 // ========================================================================
 
+@tooltip-background:                            @global-secondary-background;
+@tooltip-border-radius:                         @global-border-radius;
+@tooltip-font-size:                             @global-small-font-size;
+
+//
+// New
+//
+
+@tooltip-font-family:                           @global-font-secondary-font-family;
+@tooltip-font-weight:                           @global-font-secondary-font-weight;
+@tooltip-text-transform:                        @global-font-secondary-text-transform;
+@tooltip-letter-spacing:                        @global-font-secondary-letter-spacing;
+
 
 // Component
 // ========================================================================
 
-.hook-tooltip() {}
+.hook-tooltip() {
+    font-family: @tooltip-font-family;
+    font-weight: @tooltip-font-weight;
+    text-transform: @tooltip-text-transform;
+    letter-spacing: @tooltip-letter-spacing;
+}
 
 
 // Miscellaneous

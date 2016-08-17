@@ -32,11 +32,13 @@
 @card-default-footer-border:                   @global-border;
 @card-default-footer-border-width:             @global-border-width;
 
+@card-border-radius:                           @global-border-radius;
+
 
 // Component
 // ========================================================================
 
-.hook-card() {}
+.hook-card() { border-radius: @card-border-radius; }
 
 
 // Sections

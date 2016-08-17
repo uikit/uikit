@@ -7,11 +7,27 @@
 // Variables
 // ========================================================================
 
+@badge-font-size:                               @global-xsmall-font-size;
+
+//
+// New
+//
+
+@badge-font-family:                             @global-font-secondary-font-family;
+@badge-font-weight:                             bolder;
+@badge-text-transform:                          @global-font-secondary-text-transform;
+@badge-letter-spacing:                          0;
+
 
 // Component
 // ========================================================================
 
-.hook-badge() {}
+.hook-badge() {
+    font-family: @badge-font-family;
+    font-weight: @badge-font-weight;
+    text-transform: @badge-text-transform;
+    letter-spacing: @badge-letter-spacing;
+}
 
 .hook-badge-hover() {}
 

@@ -7,12 +7,19 @@
 // Variables
 // ========================================================================
 
+@comment-meta-font-size:                        @global-small-font-size;
+
 //
 // New
 //
 
 @comment-primary-padding:                       @global-gutter;
 @comment-primary-background:                    @global-muted-background;
+
+@comment-meta-font-family:                      @global-font-secondary-font-family;
+@comment-meta-font-weight:                      @global-font-secondary-font-weight;
+@comment-meta-text-transform:                   @global-font-secondary-text-transform;
+@comment-meta-letter-spacing:                   @global-font-secondary-letter-spacing;
 
 
 // Component
@@ -38,7 +45,12 @@
 // Meta
 // ========================================================================
 
-.hook-comment-meta() {}
+.hook-comment-meta() {
+    font-family: @comment-meta-font-family;
+    font-weight: @comment-meta-font-weight;
+    text-transform: @comment-meta-text-transform;
+    letter-spacing: @comment-meta-letter-spacing;
+}
 
 
 // Avatar

@@ -10,11 +10,17 @@
 @alert-close-opacity:                           0.4;
 @alert-close-hover-opacity:                     0.8;
 
+//
+// New
+//
+
+@alert-border-radius:                           @global-border-radius;
+
 
 // Component
 // ========================================================================
 
-.hook-alert() {}
+.hook-alert() { border-radius: @alert-border-radius; }
 
 
 // Close
