@@ -183,8 +183,8 @@
                                         "show": function(){
 
                                             if (!input.spectrum('container').find('.sp-reset').length) {
-                                                
-                                                input.spectrum('container').find('.sp-cancel').after($('<a href="#" class="sp-reset">reset</a>').on("click", function(e) {
+
+                                                input.spectrum('container').find('.sp-cancel').after($('<a href="#" class="sp-reset uk-margin-small-right">reset</a>').on("click", function(e) {
                                                     e.preventDefault();
                                                     input.spectrum('set', input.data("default")=="inherit" ? "rgba(0,0,0,0)":input.data("default"));
                                                     input.spectrum('hide');
