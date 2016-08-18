@@ -108,6 +108,8 @@ jQuery(function($) {
 
     if (!$download) {
         $("a[download]").attr("href", "#modal").uk("modal");
+    } else {
+        $("a[download]").attr("href", $url.createObjectURL(new Blob([''], {type: "application/force-download"})));
     }
 
     if (window.FileReader) {
@@ -250,7 +252,7 @@ jQuery(function($) {
              });
         });
 
-        if ($download) {
+        if ($download && source.length) {
             a.attr("href", $url.createObjectURL(new Blob([source.join("\n")], {type: "application/force-download"})));
         } else {
             $("h2", $modal).text("Less Variables");
