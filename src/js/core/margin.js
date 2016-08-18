@@ -26,25 +26,27 @@ export default function (UIkit) {
                         .filter((_, el) => el.offsetHeight > 0)
                         .removeClass(this.margin)
                         .removeClass(this.firstColumn),
-                    rows = [[columns.eq(0)]];
+                    rows = [[columns.get(0)]];
 
                 columns.slice(1).each((_, el) => {
 
-                    el = $(el);
-
-                    var top = Math.ceil(el.offset().top), bottom = top + el.outerHeight(true);
+                    var top = Math.ceil(el.offsetTop), bottom = top + el.offsetHeight;
 
                     for (var index = rows.length - 1; index >= 0; index--) {
-                        var row = rows[index],
-                            rowTop = Math.ceil(row[0].offset().top),
-                            rowBottom = rowTop + row[0].outerHeight(true);
+                        var row = rows[index], rowTop = Math.ceil(row[0].offsetTop);
 
-                        if (top >= rowBottom) {
+                        if (top >= rowTop + row[0].offsetHeight) {
                             rows.push([el]);
                             break;
                         }
 
                         if (bottom > rowTop) {
+
+                            if (el.offsetLeft < row[0].offsetLeft) {
+                                row.unshift(el);
+                                break;
+                            }
+
                             row.push(el);
                             break;
                         }
@@ -58,12 +60,13 @@ export default function (UIkit) {
 
                 });
 
-                rows.forEach((row, i) => {
-                    row.sort((a, b) => a[0].offsetLeft - b[0].offsetLeft).forEach((el, j) => {
-                       el.toggleClass(this.margin, i !== 0);
-                       el.toggleClass(this.firstColumn, j === 0)
-                   });
-                });
+                rows.forEach((row, i) =>
+                    row.forEach((el, j) => {
+                        $(el)
+                            .toggleClass(this.margin, i !== 0)
+                            .toggleClass(this.firstColumn, j === 0)
+                    })
+                );
 
             },
 
