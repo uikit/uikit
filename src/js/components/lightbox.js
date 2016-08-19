@@ -25,7 +25,7 @@
             duration        : 400,
             group           : false,
             keyboard        : true,
-            keyboard_btn_delete: false
+            keyboard_btn_delete: false,
             mobile_backbtn: true
         },
 
@@ -69,7 +69,9 @@
                             $('.uk-modal-close').click();
                             break;
                         case 46:
-                            $('.uk-modal-close').click();
+                        	if(keyboard_btn_delete){
+                        		$('.uk-modal-close').click();
+                        	}
                             break;
                         case 115:
                             $('.uk-modal-close').click();
