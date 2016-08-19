@@ -155,9 +155,15 @@
 // Dye
 // ========================================================================
 
-.dye-vars-default-theme() {}
+.dye-vars-default-theme() {
+
+    @form-label-color:                              @dye-highlight-color;
+
+}
 
 .dye-hooks() {
+
+    .dye-vars();
 
     .hook-dye-form() { border-color: @dye-border; }
 
@@ -168,5 +174,7 @@
     .hook-dye-form-radio-focus() { border-color: @dye-color;; }
 
     .hook-dye-form-radio-checked() { border-color: @dye-color; }
+
+    .uk-form-label { color: @form-label-color; }
 
 }
