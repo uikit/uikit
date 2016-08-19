@@ -14,6 +14,8 @@
 
         defaults: {
             keyboard: true,
+            keyboard_btn_delete: false,
+            mobile_backbtn: true,
             bgclose: true,
             minScrollHeight: 150,
             center: false,
@@ -220,14 +222,55 @@
 
             });
 
-            // close modal on esc button
+            // close modal on back button, esc button, delete button and F4 
             UI.$html.on('keydown.modal.uikit', function (e) {
 
-                if (active && e.keyCode === 27 && active.options.keyboard) { // ESC
+                if (active && (e.keyCode === 8 || e.keyCode === 27 || e.keyCode === 115) && active.options.keyboard) { // BACK, ESC, F4 BUTTONS
+                    e.preventDefault();
+                    active.hide();
+                }
+
+
+                if (active && e.keyCode === 8 && active.options.keyboard_btn_back) { // BACK BUTTON
+                    e.preventDefault();
+                    active.hide();
+                }
+
+
+                if (active && e.keyCode === 27 && active.options.keyboard_esc) { // ESC
+                    e.preventDefault();
+                    active.hide();
+                }
+
+
+                if (active && e.keyCode === 46 && active.options.keyboard_btn_delete) { // DELETE
+                    e.preventDefault();
+                    active.hide();
+                }
+
+
+                if (active && e.keyCode === 115 && active.options.keyboard_btn_f4) { // F4
                     e.preventDefault();
                     active.hide();
                 }
             });
+            
+            
+            // close modal on mobile back button
+            window.addEventListener('popstate', function () { 
+                // check if modal is active
+                if(active && active.options.mobile_backbtn){
+                active.hide();
+                    history.pushState(null, null, document.url);
+                    // fixes scroll to top issue with back button
+                    if ('scrollRestoration' in history) {
+                      history.scrollRestoration = 'manual';
+                    }
+                } else{
+                    // modal is not active don't do anything
+                }
+            });
+
         },
 
         init: function() {
