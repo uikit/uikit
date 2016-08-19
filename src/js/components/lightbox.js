@@ -452,7 +452,7 @@
 
                         UI.$.ajax({
                             type     : 'GET',
-                            url      : 'http://vimeo.com/api/oembed.json?url=' + encodeURI(data.source),
+                            url      : '//vimeo.com/api/oembed.json?url=' + encodeURI(data.source),
                             jsonp    : 'callback',
                             dataType : 'jsonp',
                             success  : function(data) {
