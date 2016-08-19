@@ -24,7 +24,9 @@
             allowfullscreen : true,
             duration        : 400,
             group           : false,
-            keyboard        : true
+            keyboard        : true,
+            keyboard_btn_delete: false
+            mobile_backbtn: true
         },
 
         index : 0,
@@ -60,9 +62,38 @@
                         case 39:
                             modal.lightbox.next();
                             break;
+                        case 8:
+                            $('.uk-modal-close').click();
+                            break;
+                        case 27:
+                            $('.uk-modal-close').click();
+                            break;
+                        case 46:
+                            $('.uk-modal-close').click();
+                            break;
+                        case 115:
+                            $('.uk-modal-close').click();
+                            break;
                     }
                 }
             });
+            
+            
+    	    // close modal on mobile back button
+            window.addEventListener('popstate', function () { 
+            // check if modal is active
+	        if (modal && modal.is(':visible') && modal.lightbox.options.mobile_backbtn) {
+		    $('.uk-modal-close').click();
+                    history.pushState(null, null, document.url);
+                    // fixes scroll to top issue with back button
+                    if ('scrollRestoration' in history) {
+                      history.scrollRestoration = 'manual';
+                    }
+                } else{
+                    // modal is not active don't do anything
+                }
+            });
+
         },
 
         init: function() {
@@ -419,7 +450,7 @@
 
                         UI.$.ajax({
                             type     : 'GET',
-                            url      : '//vimeo.com/api/oembed.json?url=' + encodeURI(data.source),
+                            url      : 'http://vimeo.com/api/oembed.json?url=' + encodeURI(data.source),
                             jsonp    : 'callback',
                             dataType : 'jsonp',
                             success  : function(data) {
