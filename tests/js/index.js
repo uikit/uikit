@@ -72,6 +72,7 @@ $(() => {
         'height-expand',
         'height-viewport',
         'icon',
+        'iconnav',
         'label',
         'list',
         'margin',
