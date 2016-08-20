@@ -85,10 +85,14 @@
 
 /*
  * Items must target `a` elements to exclude other elements (e.g. dropdowns)
+ * 1. Prevent gap if child element is `inline-block`, e.g. an icon
+ * 2. Style
  */
 
 .uk-subnav > * > a {
-    display: inline-block;
+    /* 1 */
+    display: block;
+    /* 2 */
     color: @subnav-item-color;
     .hook-subnav-item;
 }
@@ -98,6 +102,7 @@
 .uk-subnav > * > a:focus {
     color: @subnav-item-hover-color;
     text-decoration: @subnav-item-hover-text-decoration;
+    outline: none;
     .hook-subnav-item-hover;
 }
 
@@ -152,7 +157,6 @@
 .uk-subnav-pill > * > a:focus {
     background: @subnav-pill-item-hover-background;
     color: @subnav-pill-item-hover-color;
-    outline: none;
     .hook-subnav-pill-item-hover;
 }
 

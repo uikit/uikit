@@ -58,8 +58,15 @@
 /* Items
  ========================================================================== */
 
+/*
+ * 1. Prevent gap if child element is `inline-block`, e.g. an icon
+ * 2. Style
+ */
+
 .uk-breadcrumb > * > * {
-    display: inline-block;
+    /* 1 */
+    display: block;
+    /* 2 */
     color: @breadcrumb-item-color;
     .hook-breadcrumb-item;
 }
