@@ -47,13 +47,11 @@
 
 @modal-header-padding-horizontal:               @global-gutter;
 @modal-header-padding-vertical:                 (@modal-header-padding-horizontal / 2);
-@modal-header-border:                           @global-border;
-@modal-header-border-width:                     @global-border-width;
+@modal-header-background:                       @global-muted-background;
 
 @modal-footer-padding-horizontal:               @global-gutter;
 @modal-footer-padding-vertical:                 (@modal-footer-padding-horizontal / 2);
-@modal-footer-border:                           @global-border;
-@modal-footer-border-width:                     @global-border-width;
+@modal-footer-background:                       @global-muted-background;
 
 @modal-title-font-size:                         @global-xlarge-font-size;
 @modal-title-line-height:                       1.3;
@@ -260,13 +258,13 @@
 
 .uk-modal-header {
     padding: @modal-header-padding-vertical @modal-header-padding-horizontal;
-    border-bottom: @modal-header-border-width solid @modal-header-border;
+    background: @modal-header-background;
     .hook-modal-header;
 }
 
 .uk-modal-footer {
     padding: @modal-footer-padding-vertical @modal-footer-padding-horizontal;
-    border-top: @modal-footer-border-width solid @modal-footer-border;
+    background: @modal-footer-background;
     .hook-modal-footer;
 }
 

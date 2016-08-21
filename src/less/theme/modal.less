@@ -7,9 +7,18 @@
 // Variables
 // ========================================================================
 
+@modal-header-background:                       @modal-dialog-background;
+@modal-footer-background:                       @modal-dialog-background;
+
 //
 // New
 //
+
+@modal-header-border:                          @global-border;
+@modal-header-border-width:                    @global-border-width;
+
+@modal-footer-border:                          @global-border;
+@modal-footer-border-width:                    @global-border-width;
 
 @modal-close-full-padding:                     @global-margin;
 @modal-close-full-background:                  @modal-dialog-background;
@@ -36,11 +45,11 @@
 // Sections
 // ========================================================================
 
-.hook-modal-header() {}
+.hook-modal-header() { border-bottom: @modal-header-border-width solid @modal-header-border; }
 
 .hook-modal-body() {}
 
-.hook-modal-footer() {}
+.hook-modal-footer() { border-top: @modal-footer-border-width solid @modal-footer-border; }
 
 
 // Title
