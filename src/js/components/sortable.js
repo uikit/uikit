@@ -171,8 +171,17 @@ UIkit.component('sortable', {
             win.off('scroll', this.scroll);
 
             if (isWithin(this.origin.target, 'a[href]')) {
+
                 if (this.pos.x !== this.origin.x || this.pos.y !== this.origin.y) {
-                    $(e.target).one('click', e => e.preventDefault());
+
+                    var listener = e => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        document.documentElement.removeEventListener('click', listener);
+                    };
+
+                    document.documentElement.addEventListener('click', listener, true);
+
                 } else if (e.type !== 'mouseup') {
                     location.href = this.origin.target.closest('a[href]').attr('href');
                 }
