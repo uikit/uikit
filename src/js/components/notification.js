@@ -1,4 +1,4 @@
-import { util } from 'uikit';
+import { util, container } from 'uikit';
 
 var {$, Transition} = util;
 
@@ -18,7 +18,7 @@ UIkit.component('notification', {
     created() {
 
         if (!containers[this.pos]) {
-            containers[this.pos] = $(`<div class="uk-notification uk-notification-${this.pos}"></div>`).appendTo('body');
+            containers[this.pos] = $(`<div class="uk-notification uk-notification-${this.pos}"></div>`).appendTo(container);
         }
 
         this.$el = $(

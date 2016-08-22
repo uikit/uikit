@@ -1,4 +1,4 @@
-import { util, mixin } from 'uikit';
+import { util, mixin, container } from 'uikit';
 
 var {$, extend, isWithin, Observer, pointerDown, pointerMove, pointerUp} = util;
 
@@ -101,7 +101,7 @@ UIkit.component('sortable', {
                     paddingLeft: this.placeholder.css('paddingLeft')
                 })
                 .append(this.placeholder[0].outerHTML.replace(/^<li/i, '<div').replace(/li>$/i, 'div>'))
-                .appendTo('body');
+                .appendTo(container);
 
             this.drag.children().first().children().first().height(this.placeholder.children().height());
 

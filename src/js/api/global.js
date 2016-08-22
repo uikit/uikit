@@ -42,7 +42,20 @@ export default function (UIkit) {
                 UIkit.instances[id]._callUpdate(e);
             }
         }
-    }
+    };
+
+    var container;
+    Object.defineProperty(UIkit, 'container', {
+
+        get() {
+            return container || document.body;
+        },
+
+        set(element) {
+            container = element;
+        }
+
+    });
 
 }
 

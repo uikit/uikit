@@ -1,4 +1,4 @@
-import { util, mixin } from 'uikit';
+import { util, mixin, container } from 'uikit';
 
 var {$, flipPosition} = util;
 
@@ -36,7 +36,7 @@ UIkit.component('tooltip', {
                 return;
             }
 
-            this.tooltip = $(`<div class="${this.clsPos}" aria-hidden="true"><div class="${this.clsPos}-inner">${this.content}</div></div>`).appendTo('body');
+            this.tooltip = $(`<div class="${this.clsPos}" aria-hidden="true"><div class="${this.clsPos}-inner">${this.content}</div></div>`).appendTo(container);
 
             this.$el.attr('aria-expanded', true);
 

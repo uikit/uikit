@@ -100,7 +100,7 @@ export default function (UIkit) {
             `<div class="uk-modal">
                 <div class="uk-modal-dialog">${content}</div>
              </div>`
-        ).appendTo('body'), options)[0];
+        ).appendTo(UIkit.container), options)[0];
 
         dialog.show();
         dialog.$el.on('hide', () => dialog.$destroy(true));
