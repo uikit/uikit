@@ -1,14 +1,20 @@
-// Name:            Table
-// Description:     Defines styles for tables
+// Name:             Table
+// Description:      Defines styles for tables
 //
-// Component:       `uk-table`
+// Component:        `uk-table`
 //
-// Modifiers:       `uk-table-middle`
-//                  `uk-table-striped`
-//                  `uk-table-condensed`
-//                  `uk-table-hover`
+// Modifiers:        `uk-table-middle`
+//                   `uk-table-striped`
+//                   `uk-table-condensed`
+//                   `uk-table-hover`
 //
-// States:          `uk-active`
+// Highlights:       `uk-row-success` and `uk-table-row-success`
+//                   `uk-row-danger` and `uk-table-row-danger`
+//                   `uk-row-warning` and `uk-table-row-warning`
+//                   `uk-row-primary` and `uk-table-row-primary`
+//                   `uk-row-info` and `uk-table-row-info`
+//
+// States:           `uk-active`
 //
 // ========================================================================
 
@@ -31,6 +37,12 @@
 @table-hover-background:                        #EEE;
 
 @table-active-background:                       @table-hover-background;
+
+@table-highlight-success-background:            #f2fae3;
+@table-highlight-danger-background:             #fff1f0;
+@table-highlight-warning-background:            #fffced;
+@table-highlight-primary-background:            #ebf7fd;
+@table-highlight-info-background:               #f8f8ff;
 
 
 /* ========================================================================
@@ -131,6 +143,50 @@
     background: @table-hover-background;
     .hook-table-hover;
 }
+
+
+
+
+/* Highlight: `uk-row-success` and `uk-table-row-success`
+ ========================================================================== */
+
+.uk-row-success, .uk-table-row-success {
+    background: @table-highlight-success-background !important;;
+}
+
+
+/* Highlight: `uk-row-danger` and `uk-table-row-danger`
+ ========================================================================== */
+
+.uk-row-danger, .uk-table-row-danger {
+    background: @table-highlight-danger-background !important;;
+}
+
+
+/* Highlight: `uk-row-warning` and `uk-table-row-warning`
+ ========================================================================== */
+
+.uk-row-warning, .uk-table-row-warning {
+    background: @table-highlight-warning-background !important;;
+}
+
+
+/* Highlight: `uk-row-primary` and `uk-table-row-primary`
+ ========================================================================== */
+
+.uk-row-primary, .uk-table-row-primary {
+    background: @table-highlight-primary-background !important;;
+}
+
+
+/* Highlight: `uk-row-info` and `uk-table-row-info`
+ ========================================================================== */
+
+.uk-row-info, .uk-table-row-info {
+    background: @table-highlight-info-background !important;;
+}
+
+
 
 
 
