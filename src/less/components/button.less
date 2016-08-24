@@ -7,7 +7,7 @@
 //
 // Modifiers:       `uk-button-default`
 //                  `uk-button-primary`
-//                  `uk-button-success`
+//                  `uk-button-secondary`
 //                  `uk-button-danger`
 //                  `uk-button-text`
 //                  `uk-button-link`
@@ -48,12 +48,12 @@
 @button-primary-active-background:              darken(@button-primary-background, 10%);
 @button-primary-active-color:                   @global-inverse-color;
 
-@button-success-background:                     @global-success-background;
-@button-success-color:                          @global-inverse-color;
-@button-success-hover-background:               darken(@button-success-background, 5%);
-@button-success-hover-color:                    @global-inverse-color;
-@button-success-active-background:              darken(@button-success-background, 10%);
-@button-success-active-color:                   @global-inverse-color;
+@button-secondary-background:                   @global-secondary-background;
+@button-secondary-color:                        @global-inverse-color;
+@button-secondary-hover-background:             darken(@button-secondary-background, 5%);
+@button-secondary-hover-color:                  @global-inverse-color;
+@button-secondary-active-background:            darken(@button-secondary-background, 10%);
+@button-secondary-active-color:                 @global-inverse-color;
 
 @button-danger-background:                      @global-danger-background;
 @button-danger-color:                           @global-inverse-color;
@@ -208,29 +208,29 @@
 }
 
 /*
- * Success
+ * Secondary
  */
 
-.uk-button-success {
-    background-color: @button-success-background;
-    color: @button-success-color;
-    .hook-button-success;
+.uk-button-secondary {
+    background-color: @button-secondary-background;
+    color: @button-secondary-color;
+    .hook-button-secondary;
 }
 
 /* Hover + Focus */
-.uk-button-success:hover,
-.uk-button-success:focus {
-    background-color: @button-success-hover-background;
-    color: @button-success-hover-color;
-    .hook-button-success-hover;
+.uk-button-secondary:hover,
+.uk-button-secondary:focus {
+    background-color: @button-secondary-hover-background;
+    color: @button-secondary-hover-color;
+    .hook-button-secondary-hover;
 }
 
 /* OnClick + Active */
-.uk-button-success:active,
-.uk-button-success.uk-active {
-    background-color: @button-success-active-background;
-    color: @button-success-active-color;
-    .hook-button-success-active;
+.uk-button-secondary:active,
+.uk-button-secondary.uk-active {
+    background-color: @button-secondary-active-background;
+    color: @button-secondary-active-color;
+    .hook-button-secondary-active;
 }
 
 /*
@@ -266,7 +266,7 @@
 
 .uk-button-default:disabled,
 .uk-button-primary:disabled,
-.uk-button-success:disabled,
+.uk-button-secondary:disabled,
 .uk-button-danger:disabled {
     background-color: @button-disabled-background;
     color: @button-disabled-color;
@@ -388,9 +388,9 @@
 .hook-button-primary() {}
 .hook-button-primary-hover() {}
 .hook-button-primary-active() {}
-.hook-button-success() {}
-.hook-button-success-hover() {}
-.hook-button-success-active() {}
+.hook-button-secondary() {}
+.hook-button-secondary-hover() {}
+.hook-button-secondary-active() {}
 .hook-button-danger() {}
 .hook-button-danger-hover() {}
 .hook-button-danger-active() {}
