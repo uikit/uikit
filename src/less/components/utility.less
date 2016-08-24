@@ -14,6 +14,7 @@
 //                  `uk-border-*`
 //                  `uk-dropcap`
 //                  `uk-logo`
+//                  `uk-svg`
 //                  `uk-blend-*`
 //                  `uk-transform-origin-*`
 //
@@ -319,6 +320,22 @@
 }
 
 .uk-logo-inverse { display: none; }
+
+.uk-icon [stroke-width] { stroke: currentcolor; }
+
+/* SVG
+ ========================================================================== */
+
+/*
+ * 1. Fill all SVG elements with the current text color if no `fill` attribute is set
+ * 2. Set the fill and stroke color of all SVG elements to the current text color
+ */
+
+/* 1 */
+.uk-svg,
+/* 2 */
+.uk-svg [fill*='#'] { fill: currentcolor; }
+.uk-svg [stroke*='#'] { stroke: currentcolor; }
 
 
 /* Disabled State
