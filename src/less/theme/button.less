@@ -215,7 +215,9 @@
     .hook-dye-button-primary-hover() {}
     .hook-dye-button-primary-active() {}
 
-    .hook-dye-button-text() {}
+    .hook-dye-button-text() {
+        &::before { border-bottom-color: @dye-color; }
+    }
     .hook-dye-button-text-hover() {}
     .hook-dye-button-text-disabled() {}
 
