@@ -13,7 +13,7 @@ glob('src/images/symbols/*.svg', (er, files) => {
         contents = fs.readFileSync(f).toString()
             .replace('<svg ', `<symbol id="${path.basename(f, '.svg')}" `)
             .replace('</svg>', '</symbol>')
-            .replace(/ stroke="(.*?)"/g, '')
+            //.replace(/ stroke="(.*?)"/g, '')
             .replace(/<symbol(.*?) height="(.*?)"/g, '<symbol$1')
             .replace(/<symbol(.*?) width="(.*?)"/g, '<symbol$1')
             .replace(' xmlns="http://www.w3.org/2000/svg"', '');
@@ -26,7 +26,7 @@ glob('src/images/symbols/*.svg', (er, files) => {
 });
 
 // copy images/*.svg
-glob('src/images/*.svg', (er, files) => {
+glob('src/images/backgrounds/*.svg', (er, files) => {
     files.forEach(f => fs.createReadStream(f).pipe(fs.createWriteStream(`images/${path.basename(f)}`)));
 });
 
@@ -38,10 +38,10 @@ glob('src/images/components/*.svg', (er, files) => {
 
     files.forEach((f) => {
         contents = fs.readFileSync(f).toString()
-                    .replace(/ stroke="(.*?)"/g, '')
-                    .replace(/<svg(.*?) height="(.*?)"/g, '<svg$1')
-                    .replace(/<svg(.*?) width="(.*?)"/g, '<svg$1')
-                    .replace(' xmlns="http://www.w3.org/2000/svg"', '');
+                    // .replace(/ stroke="(.*?)"/g, '')
+                    // .replace(/<svg(.*?) height="(.*?)"/g, '<svg$1')
+                    // .replace(/<svg(.*?) width="(.*?)"/g, '<svg$1')
+                    // .replace(' xmlns="http://www.w3.org/2000/svg"', '');
 
         fs.writeFileSync(`images/${path.basename(f)}`, contents);
     })
