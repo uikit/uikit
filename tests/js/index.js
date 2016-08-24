@@ -37,9 +37,9 @@ $(() => {
 
     var $body = $('body');
     var $container = $('<div class="uk-container"></div>').prependTo('body');
-    var $tests = $('<select class="uk-select"></select>').css('margin', '20px 20px 20px 0').prependTo($container);
-    var $styles = $('<select class="uk-select"></select>').css('margin', '20px').appendTo($container);
-    var $inverse = $('<select class="uk-select"></select>').css('margin', '20px').appendTo($container);
+    var $tests = $('<select class="uk-select uk-form-width-small"></select>').css('margin', '20px 20px 20px 0').prependTo($container);
+    var $styles = $('<select class="uk-select uk-form-width-small"></select>').css('margin', '20px').appendTo($container);
+    var $inverse = $('<select class="uk-select uk-form-width-small"></select>').css('margin', '20px').appendTo($container);
 
     // Tests
     // ------------------------------

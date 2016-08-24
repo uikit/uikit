@@ -224,9 +224,10 @@
 .uk-textarea { -webkit-appearance: none; }
 
 /*
- * 1. Prevent content overflow
- * 2. Reset default
- * 3. Style
+ * 1. Prevent content overflow if a fixed width is used
+ * 2. Take the full width
+ * 3. Reset default
+ * 4. Style
  */
 
 .uk-input,
@@ -235,8 +236,10 @@
     /* 1 */
     max-width: 100%;
     /* 2 */
-    border: none;
+    width: 100%;
     /* 3 */
+    border: none;
+    /* 4 */
     padding: 0 @form-padding-horizontal;
     background: @form-background;
     color: @form-color;
