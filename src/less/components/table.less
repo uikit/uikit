@@ -9,6 +9,7 @@
 //                  `uk-table-hover`
 //                  `uk-table-shrink`
 //                  `uk-table-expand`
+//                  `uk-table-link`
 //
 // States:          `uk-active`
 //
@@ -173,6 +174,17 @@
 
 .uk-table-shrink { width: 1px; }
 .uk-table-expand { min-width: @table-expand-min-width; }
+
+
+/* Cell link modifier
+ ========================================================================== */
+
+.uk-table-link { padding: 0 !important; }
+
+.uk-table-link > a {
+    display: block;
+    padding: @table-padding-vertical @table-padding-horizontal;
+}
 
 
 // Hooks
