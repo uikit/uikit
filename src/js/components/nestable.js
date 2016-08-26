@@ -49,6 +49,7 @@
             maxDepth        : 10,
             threshold       : 20,
             idlethreshold   : 10,
+            copyItem        : false,
         },
 
         boot: function() {
@@ -383,7 +384,10 @@
                 dragItem = target.closest(this.options._listItemClass),
                 offset   = dragItem.offset();
 
-            this.placeEl = dragItem;
+            if (this.options.copyItem)
+                this.placeEl = dragItem.clone();
+            else
+                this.placeEl = dragItem;
 
             mouse.offsetX = e.pageX - offset.left;
             mouse.offsetY = e.pageY - offset.top;
