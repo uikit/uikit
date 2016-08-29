@@ -349,49 +349,49 @@
     // Button
     // ========================================================================
 
-    .uk-button {
-        color: @contrast-button-color;
-        background: @contrast-button-background;
-        .hook-contrast-button;
-    }
+        .uk-button:not(.uk-button-ignore-contrast) {
+            color: @contrast-button-color;
+            background: @contrast-button-background;
+            .hook-contrast-button;
+        }
 
-    .uk-button:hover,
-    .uk-button:focus {
-        background-color: @contrast-button-hover-background;
-        color: @contrast-button-hover-color;
-        .hook-contrast-button-hover;
-    }
+        .uk-button:hover:not(.uk-button-ignore-contrast),
+        .uk-button:focus:not(.uk-button-ignore-contrast) {
+            background-color: @contrast-button-hover-background;
+            color: @contrast-button-hover-color;
+            .hook-contrast-button-hover;
+        }
 
-    .uk-button:active,
-    .uk-button.uk-active {
-        background-color: @contrast-button-active-background;
-        color: @contrast-button-active-color;
-        .hook-contrast-button-active;
-    }
+        .uk-button:active:not(.uk-button-ignore-contrast),
+        .uk-button.uk-active:not(.uk-button-ignore-contrast) {
+            background-color: @contrast-button-active-background;
+            color: @contrast-button-active-color;
+            .hook-contrast-button-active;
+        }
 
-    //
-    // Button primary
-    //
+        //
+        // Button primary
+        //
 
-    .uk-button-primary {
-        background-color: @contrast-button-primary-background;
-        color: @contrast-button-primary-color;
-        .hook-contrast-button-primary;
-    }
+        .uk-button-primary:not(.uk-button-ignore-contrast) {
+            background-color: @contrast-button-primary-background;
+            color: @contrast-button-primary-color;
+            .hook-contrast-button-primary;
+        }
 
-    .uk-button-primary:hover,
-    .uk-button-primary:focus {
-        background-color: @contrast-button-primary-hover-background;
-        color: @contrast-button-primary-hover-color;
-        .hook-contrast-button-primary-hover;
-    }
+        .uk-button-primary:hover:not(.uk-button-ignore-contrast),
+        .uk-button-primary:focus:not(.uk-button-ignore-contrast) {
+            background-color: @contrast-button-primary-hover-background;
+            color: @contrast-button-primary-hover-color;
+            .hook-contrast-button-primary-hover;
+        }
 
-    .uk-button-primary:active,
-    .uk-button-primary.uk-active {
-        background-color: @contrast-button-primary-active-background;
-        color: @contrast-button-primary-active-color;
-        .hook-contrast-button-primary-active;
-    }
+        .uk-button-primary:active:not(.uk-button-ignore-contrast),
+        .uk-button-primary.uk-active:not(.uk-button-ignore-contrast) {
+            background-color: @contrast-button-primary-active-background;
+            color: @contrast-button-primary-active-color;
+            .hook-contrast-button-primary-active;
+        }
 
 
     // Icon
