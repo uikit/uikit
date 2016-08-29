@@ -21,6 +21,7 @@
 // States:          `uk-disabled`
 //                  `uk-drag`
 //                  `uk-dragover`
+//                  `uk-preserve`
 //
 // ========================================================================
 
@@ -334,8 +335,8 @@
 /* 1 */
 .uk-svg,
 /* 2 */
-.uk-svg [fill*='#'] { fill: currentcolor; }
-.uk-svg [stroke*='#'] { stroke: currentcolor; }
+.uk-svg [fill*='#']:not(.uk-preserve) { fill: currentcolor; }
+.uk-svg [stroke*='#']:not(.uk-preserve) { stroke: currentcolor; }
 
 /*
  * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
