@@ -1,6 +1,6 @@
 # Changelog
 
-### WIP
+### 2.27.0 (Aug 29, 2016)
 
   - Added uk-text-capitalize, uk-text-lowercase and uk-text-uppercase classes
   - Added headers option to upload component
