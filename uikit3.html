@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>UIkit 3</title>
+        <link rel="shortcut icon" href="docs/images/favicon.ico" type="image/x-icon">
+        <link rel="apple-touch-icon-precomposed" href="docs/images/apple-touch-icon.png">
+        <link id="data-uikit-theme" rel="stylesheet" href="docs/css/uikit.docs.min.css">
+        <link rel="stylesheet" href="docs/css/docs.css">
+        <link rel="stylesheet" href="vendor/highlight/highlight.css">
+        <script src="vendor/jquery.js"></script>
+        <script src="docs/js/uikit.min.js"></script>
+        <script src="vendor/highlight/highlight.js"></script>
+        <script src="docs/js/docs.js"></script>
+        <style media="screen">
+
+            .twitter-tweet { visibility: hidden; }
+            .twitter-tweet:first-child { margin-top: 0 !important; }
+
+            .tm-button-primary {
+                box-shadow: 1px 1px 1px #0000001a;
+                background: #fff;
+                border: none;
+                color: #2ba3d4 !important;
+                min-height: 50px;
+                padding: 0 30px;
+                line-height: 50px;
+                font-size: 18px;
+            }
+
+            .tm-button-primary:hover {
+                background: #82cff0;
+                color: #fff !important;
+                text-shadow: 0 1px 0 rgba(0,0,0,0.1);
+                -webkit-transition: background-color .15s ease-in-out;
+                transition: background-color .15s ease-in-out;
+            }
+
+            .tm-button-primary:focus,
+            .tm-button-primary:active {
+                background: #2e93bc;
+                color: #fff !important;
+                text-shadow: 0 1px 0 rgba(0,0,0,0.1);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,0.15),
+                            inset 0 -1px 0px rgba(0,0,0,0.05),
+                            inset 1px 0px 0px rgba(0,0,0,0.05),
+                            inset -1px 0px 0px rgba(0,0,0,0.05);
+                transition: background-color .05s ease-in-out;
+            }
+
+        </style>
+    </head>
+
+    <body class="tm-background">
+
+        <nav class="tm-navbar uk-navbar uk-navbar-attached">
+            <div class="uk-container uk-container-center">
+
+                <a class="uk-navbar-brand uk-hidden-small" href="index.html"><img class="uk-margin uk-margin-remove" src="docs/images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+
+                <ul class="uk-navbar-nav uk-hidden-small">
+                    <li><a href="docs/documentation_get-started.html">Get Started</a></li>
+                    <li><a href="docs/core.html">Core</a></li>
+                    <li><a href="docs/components.html">Components</a></li>
+                    <li><a href="docs/customizer.html">Customizer</a></li>
+                    <li><a href="showcase/index.html">Showcase</a></li>
+                    <li><a href="docs/tutorials.html">Tutorials</a></li>
+                    <li class="uk-active"><a href="uikit3.html">UIkit 3</a></li>
+                </ul>
+
+                <a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
+
+                <div class="uk-navbar-brand uk-navbar-center uk-visible-small"><img src="docs/images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></div>
+
+            </div>
+        </nav>
+
+        <div class="tm-section tm-section-color-1 tm-section-colored">
+            <div class="uk-container uk-container-center uk-text-center">
+
+                <img class="tm-logo" src="docs/images/logo_uikit_large.svg" width="281" height="217" title="UIkit" alt="UIkit">
+
+                <p class="uk-margin-large-top uk-text-large uk-width-medium-1-2 uk-container-center">
+                    Subscribe to our newsletter to stay updated<br class="uk-hidden-small"> and informed about the progress of UIkit 3.
+                </p>
+
+                <form class="uk-form uk-width-medium-1-3 uk-container-center uk-text-left" method="post" action="http://newsletter.yootheme.com/form.php?form=1" onsubmit="return CheckForm(this);">
+
+                    <div class="uk-form-row">
+                        <div class="uk-form-controls"><input id="email" class="uk-form-large uk-width-1-1" type="text" name="email" value="" placeholder="Your Email Address" required /></div>
+                    </div>
+
+                    <div class="uk-form-row">
+                        <div class="uk-form-controls"><input id="name" class="uk-form-large uk-width-1-1" type="text" name="CustomFields[1]" id="CustomFields_1_1" value="" placeholder="Your Name" required></div>
+                    </div>
+
+                    <div class="uk-form-row uk-text-center">
+                        <button class="uk-button tm-button-primary uk-button-large">Subscribe</button>
+                    </div>
+
+
+                    <input type="hidden" name="format" value="h" />
+                </form>
+
+            </div>
+        </div>
+
+        <div class="tm-section tm-section-color-white">
+
+            <div class="uk-container uk-container-center uk-text-center">
+                <div class="uk-grid" data-uk-grid-margin>
+                    <div class="uk-width-1-3 uk-text-right">
+                        <div class="uk-text-large">Grid</div>
+                    </div>
+                    <div class="uk-width-2-3">
+                        <blockquote class="twitter-tweet" data-lang="de"><p lang="en" dir="ltr">Look at this beautiful site built with UIkit: <a href="https://t.co/jxBB6UZwLX">https://t.co/jxBB6UZwLX</a> 😍 More suggestions for our showcase? Send us your link!</p>&mdash; UIkit (@getuikit) <a href="https://twitter.com/getuikit/status/762676694599827457">8. August 2016</a></blockquote>
+                        <blockquote class="twitter-tweet" data-lang="de"><p lang="en" dir="ltr">UIkit 2.26.4 released - Lots of improvements and fixes <a href="https://t.co/XBv7pS4YAY">https://t.co/XBv7pS4YAY</a> Changelog <a href="https://t.co/1RL48sYliX">https://t.co/1RL48sYliX</a></p>&mdash; UIkit (@getuikit) <a href="https://twitter.com/getuikit/status/753233823425593344">13. Juli 2016</a></blockquote>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="tm-footer">
+            <div class="uk-container uk-container-center uk-text-center">
+
+                <ul class="uk-subnav uk-subnav-line uk-flex-center">
+                    <li><a href="https://github.com/uikit/uikit">GitHub</a></li>
+                    <li><a href="https://github.com/uikit/uikit/issues">Issues</a></li>
+                    <li><a href="https://github.com/uikit/uikit/blob/master/CHANGELOG.md">Changelog</a></li>
+                    <li><a href="https://twitter.com/getuikit">Twitter</a></li>
+                </ul>
+
+                <div class="uk-panel">
+                    <p>Made by <a href="http://www.yootheme.com">YOOtheme</a> with love and caffeine.<br class="uk-hidden-small">Licensed under <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
+                    <a href="index.html"><img src="docs/images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="tm-offcanvas" class="uk-offcanvas">
+
+            <div class="uk-offcanvas-bar">
+
+                <ul class="uk-nav uk-nav-offcanvas uk-nav-parent-icon" data-uk-nav="{ multiple: true }">
+                    <li class="uk-parent"><a href="#">Documentation</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="docs/documentation_get-started.html">Get started</a></li>
+                            <li><a href="docs/documentation_how-to-customize.html">How to customize</a></li>
+                            <li><a href="docs/documentation_layouts.html">Layout examples</a></li>
+                            <li><a href="docs/core.html">Core</a></li>
+                            <li><a href="docs/components.html">Components</a></li>
+                            <li><a href="docs/documentation_project-structure.html">Project structure</a></li>
+                            <li><a href="documentation_less-sass.html">Less &amp; Sass files</a></li>
+                            <li><a href="docs/documentation_create-a-theme.html">Create a theme</a></li>
+                            <li><a href="docs/documentation_create-a-style.html">Create a style</a></li>
+                            <li><a href="docs/documentation_customizer-json.html">Customizer.json</a></li>
+                            <li><a href="docs/documentation_javascript.html">Javascript</a></li>
+                            <li><a href="docs/documentation_custom-prefix.html">Custom prefix</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Core</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-wrench"></i> Defaults</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="docs/base.html">Base</a></li>
+                            <li><a href="docs/print.html">Print</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="docs/grid.html">Grid</a></li>
+                            <li><a href="docs/panel.html">Panel</a></li>
+                            <li><a href="docs/block.html">Block</a></li>
+                            <li><a href="docs/article.html">Article</a></li>
+                            <li><a href="docs/comment.html">Comment</a></li>
+                            <li><a href="docs/utility.html">Utility</a></li>
+                            <li><a href="docs/flex.html">Flex</a></li>
+                            <li><a href="docs/cover.html">Cover</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="docs/nav.html">Nav</a></li>
+                            <li><a href="docs/navbar.html">Navbar</a></li>
+                            <li><a href="docs/subnav.html">Subnav</a></li>
+                            <li><a href="docs/breadcrumb.html">Breadcrumb</a></li>
+                            <li><a href="docs/pagination.html">Pagination</a></li>
+                            <li><a href="docs/tab.html">Tab</a></li>
+                            <li><a href="docs/thumbnav.html">Thumbnav</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-check"></i> Elements</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="docs/list.html">List</a></li>
+                            <li><a href="docs/description-list.html">Description list</a></li>
+                            <li><a href="docs/table.html">Table</a></li>
+                            <li><a href="docs/form.html">Form</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="docs/button.html">Button</a></li>
+                            <li><a href="docs/icon.html">Icon</a></li>
+                            <li><a href="docs/close.html">Close</a></li>
+                            <li><a href="docs/badge.html">Badge</a></li>
+                            <li><a href="docs/alert.html">Alert</a></li>
+                            <li><a href="docs/thumbnail.html">Thumbnail</a></li>
+                            <li><a href="docs/overlay.html">Overlay</a></li>
+                            <li><a href="docs/text.html">Text</a></li>
+                            <li><a href="docs/column.html">Column</a></li>
+                            <li><a href="docs/animation.html">Animation</a></li>
+                            <li><a href="docs/contrast.html">Contrast</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="docs/dropdown.html">Dropdown</a></li>
+                            <li><a href="docs/modal.html">Modal</a></li>
+                            <li><a href="docs/offcanvas.html">Off-canvas</a></li>
+                            <li><a href="docs/switcher.html">Switcher</a></li>
+                            <li><a href="docs/toggle.html">Toggle</a></li>
+                            <li><a href="docs/scrollspy.html">Scrollspy</a></li>
+                            <li><a href="docs/smooth-scroll.html">Smooth scroll</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-header">Components</li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-th-large"></i> Layout</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="docs/grid-js.html">Dynamic Grid</a></li>
+                            <li><a href="docs/grid-parallax.html">Parallax Grid</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-bars"></i> Navigations</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="docs/dotnav.html">Dotnav</a></li>
+                            <li><a href="docs/slidenav.html">Slidenav</a></li>
+                            <li><a href="docs/pagination-js.html">Dynamic Pagination</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-folder-open"></i> Common</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="docs/form-advanced.html">Form advanced</a></li>
+                            <li><a href="docs/form-file.html">Form file</a></li>
+                            <li><a href="docs/form-password.html">Form password</a></li>
+                            <li><a href="docs/form-select.html">Form select</a></li>
+                            <li><a href="docs/placeholder.html">Placeholder</a></li>
+                            <li><a href="docs/progress.html">Progress</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-parent"><a href="#"><i class="uk-icon-magic"></i> JavaScript</a>
+                        <ul class="uk-nav-sub">
+                            <li><a href="docs/lightbox.html">Lightbox</a></li>
+                            <li><a href="docs/autocomplete.html">Autocomplete</a></li>
+                            <li><a href="docs/datepicker.html">Datepicker</a></li>
+                            <li><a href="docs/htmleditor.html">HTML editor</a></li>
+                            <li><a href="docs/slider.html">Slider</a></li>
+                            <li><a href="docs/slideset.html">Slideset</a></li>
+                            <li><a href="docs/slideshow.html">Slideshow</a></li>
+                            <li><a href="docs/parallax.html">Parallax</a></li>
+                            <li><a href="docs/accordion.html">Accordion</a></li>
+                            <li><a href="docs/notify.html">Notify</a></li>
+                            <li><a href="docs/search.html">Search</a></li>
+                            <li><a href="docs/nestable.html">Nestable</a></li>
+                            <li><a href="docs/sortable.html">Sortable</a></li>
+                            <li><a href="docs/sticky.html">Sticky</a></li>
+                            <li><a href="docs/timepicker.html">Timepicker</a></li>
+                            <li><a href="docs/tooltip.html">Tooltip</a></li>
+                            <li><a href="docs/upload.html">Upload</a></li>
+                        </ul>
+                    </li>
+                    <li class="uk-nav-divider"></li>
+                    <li><a href="showcase/index.html">Showcase</a></li>
+                    <li><a href="docs/tutorials.html">Tutorials</a></li>
+                    <li><a href="docs/uikit3.html">UIkit 3</a></li>
+                </ul>
+
+            </div>
+
+        </div>
+
+        <script type="text/javascript">
+
+            function CheckForm(f) {
+
+                var email_re = /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i;
+
+                if (!email_re.test(f.email.value)) {
+                    alert("Please enter your email address.");
+                    f.email.focus();
+                    return false;
+                }
+
+                var fname = "CustomFields_1_1";
+                var fld = document.getElementById(fname);
+                if (fld.value == "") {
+                    alert("Please enter a value for field Name");
+                    fld.focus();
+                    return false;
+                }
+
+                return true;
+            }
+
+        </script>
+
+        <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+    </body>
+</html>
