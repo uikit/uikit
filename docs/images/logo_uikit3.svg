@@ -1,0 +1,19 @@
+<svg width="201" height="210" viewBox="0 0 201 210" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<defs>
+        <linearGradient x1="19.44495%" y1="5.24517979%" x2="75.70185%" y2="74.2561795%" id="linearGradient-1">
+            <stop stop-color="#2F96C1" offset="0%"></stop>
+            <stop stop-color="#2F96C1" stop-opacity="0" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="logo_uikit3" transform="translate(0.000000, 1.000000)">
+            <g id="Group" opacity="0.9" transform="translate(0.000000, 34.000000)" fill="url(#linearGradient-1)">
+                <polygon id="Shape" points="120.006 0.75 120.006 70.25 59.107 104.99 0.433 70.044 0.344 70.134 105.759 175.846 106.756 174.846 114.733 166.846 115.731 165.846 200.344 80.994"></polygon>
+            </g>
+            <g id="Group">
+                <path d="M81.87,14.33 L58.93,1 L34.99,15.87 L58.25,28.72 L81.87,14.33 L81.87,14.33 Z M92.84,20.07 L69.15,34.48 L96,50 L96,91 L59.79,111.58 L24,91 L24,59 L0,47.08 L0,105 L58.93,140 L120,105.26 L120,35.76 L92.84,20.07 L92.84,20.07 Z" id="Shape" fill="#2C92BE"></path>
+                <path d="M81.87,13.33 L58.93,0 L34.99,14.87 L58.25,27.72 L81.87,13.33 L81.87,13.33 Z M92.84,19.07 L69.15,33.48 L96,49 L96,90 L59.79,110.58 L24,90 L24,58 L0,46.08 L0,104 L58.93,139 L120,104.26 L120,34.76 L92.84,19.07 L92.84,19.07 Z" id="Shape" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

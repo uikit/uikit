@@ -17,11 +17,60 @@
             .twitter-tweet { visibility: hidden; }
             .twitter-tweet:first-child { margin-top: 0 !important; }
 
+            .tm-button-primary {
+                box-shadow: 1px 1px 1px #0000001a;
+                background: #fff;
+                border: none;
+                color: #2ba3d4 !important;
+            }
+
+            .tm-button-primary:hover {
+                background: #82cff0;
+                color: #fff !important;
+                text-shadow: 0 1px 0 rgba(0,0,0,0.1);
+                -webkit-transition: background-color .15s ease-in-out;
+                transition: background-color .15s ease-in-out;
+            }
+
+            .tm-button-primary:focus,
+            .tm-button-primary:active {
+                background: #2e93bc;
+                color: #fff !important;
+                text-shadow: 0 1px 0 rgba(0,0,0,0.1);
+                box-shadow: inset 0 1px 1px rgba(0,0,0,0.15),
+                            inset 0 -1px 0px rgba(0,0,0,0.05),
+                            inset 1px 0px 0px rgba(0,0,0,0.05),
+                            inset -1px 0px 0px rgba(0,0,0,0.05);
+                transition: background-color .05s ease-in-out;
+            }
+
+            .tm-margin-logo {
+                margin-left: 80px;
+                margin-bottom: -50px;
+            }
+
+            .tm-margin {
+                margin-top: 30px;
+                margin-bottom: 30px !important;
+            }
+
             .uk-form input[type='text'],
             .uk-form input[type='email'] { border-color: transparent; }
 
-            @media (min-width: 768px) {
-                .uk-text-right-medium { text-align: right !important; }
+            .tm-position {
+                margin-bottom: 20px !important;
+                text-align: left;
+            }
+
+            @media (min-width: 850px) {
+
+                .tm-position {
+                    position: absolute;
+                    top: 10px;
+                    right: calc(100% + 30px);
+                    white-space: nowrap;
+                }
+
             }
 
         </style>
@@ -32,7 +81,7 @@
         <nav class="tm-navbar uk-navbar uk-navbar-attached">
             <div class="uk-container uk-container-center">
 
-                <a class="uk-navbar-brand uk-hidden-small" href="index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+                <a class="uk-navbar-brand uk-hidden-small" href="../index.html"><img class="uk-margin uk-margin-remove" src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
 
                 <ul class="uk-navbar-nav uk-hidden-small">
                     <li><a href="documentation_get-started.html">Get Started</a></li>
@@ -54,10 +103,10 @@
         <div class="tm-section tm-section-color-1 tm-section-colored">
             <div class="uk-container uk-container-center uk-text-center">
 
-                <img class="tm-logo" src="images/logo_uikit_large.svg" width="281" height="217" title="UIkit" alt="UIkit">
+                <img class="tm-margin-logo" src="images/logo_uikit3.svg" width="201" height="210" title="UIkit 3" alt="UIkit 3">
 
-                <p class="uk-margin-large-top uk-text-large uk-width-medium-1-2 uk-container-center">
-                    Subscribe to our newsletter to stay updated<br class="uk-hidden-small"> and informed about the progress of UIkit 3.
+                <p class="tm-margin uk-text-large uk-width-medium-1-2 uk-container-center">
+                    Subscribe to our newsletter to stay updated<br class="uk-hidden-small"> about the progress of UIkit 3 and its release.
                 </p>
 
                 <form class="uk-form uk-width-medium-1-3 uk-container-center uk-text-left" method="post" action="http://newsletter.yootheme.com/form.php?form=1" onsubmit="return CheckForm(this);">
@@ -70,8 +119,8 @@
                         <div class="uk-form-controls"><input id="name" class="uk-form-large uk-width-1-1" type="text" name="CustomFields[1]" id="CustomFields_1_1" value="" placeholder="Your Name" required></div>
                     </div>
 
-                    <div class="uk-form-row uk-text-right">
-                        <button class="uk-button tm-button-download">Subscribe</button>
+                    <div class="uk-form-row uk-text-center">
+                        <button class="uk-button uk-button-large tm-button-primary">Subscribe</button>
                     </div>
 
                     <input type="hidden" name="format" value="h" />
@@ -81,16 +130,30 @@
         </div>
 
         <div class="tm-section tm-section-color-white">
-
             <div class="uk-container uk-container-center">
-                <div class="uk-grid" data-uk-grid-margin>
-                    <div class="uk-width-medium-1-3">
-                        <div class="uk-text-large uk-margin-remove uk-text-right-medium">Grid</div>
-                    </div>
-                    <div class="uk-width-medium-2-3">
+
+                <h1 class="uk-article-title uk-text-center uk-margin-large-bottom">The latest sneak peeks</h1>
+
+                <div class="uk-text-center">
+                    <div class="uk-margin uk-position-relative uk-display-inline-block">
+                        <div class="uk-text-large tm-position">Grid</div>
                         <blockquote class="twitter-tweet" data-lang="de"><p lang="en" dir="ltr">Look at this beautiful site built with UIkit: <a href="https://t.co/jxBB6UZwLX">https://t.co/jxBB6UZwLX</a> 😍 More suggestions for our showcase? Send us your link!</p>&mdash; UIkit (@getuikit) <a href="https://twitter.com/getuikit/status/762676694599827457">8. August 2016</a></blockquote>
+                    </div>
+                </div>
+
+                <div class="uk-text-center">
+                    <div class="uk-margin uk-display-inline-block">
+                        <blockquote class="twitter-tweet" data-lang="de"><p lang="en" dir="ltr">Look at this beautiful site built with UIkit: <a href="https://t.co/jxBB6UZwLX">https://t.co/jxBB6UZwLX</a> 😍 More suggestions for our showcase? Send us your link!</p>&mdash; UIkit (@getuikit) <a href="https://twitter.com/getuikit/status/762676694599827457">8. August 2016</a></blockquote>
+                    </div>
+                </div>
+
+                <div class="uk-text-center">
+                    <div class="uk-margin uk-position-relative uk-display-inline-block">
+                        <div class="uk-text-large tm-position">Description List</div>
                         <blockquote class="twitter-tweet" data-lang="de"><p lang="en" dir="ltr">UIkit 2.26.4 released - Lots of improvements and fixes <a href="https://t.co/XBv7pS4YAY">https://t.co/XBv7pS4YAY</a> Changelog <a href="https://t.co/1RL48sYliX">https://t.co/1RL48sYliX</a></p>&mdash; UIkit (@getuikit) <a href="https://twitter.com/getuikit/status/753233823425593344">13. Juli 2016</a></blockquote>
                     </div>
+                </div>
+
                 </div>
 
             </div>
@@ -108,7 +171,7 @@
 
                 <div class="uk-panel">
                     <p>Made by <a href="http://www.yootheme.com">YOOtheme</a> with love and caffeine.<br class="uk-hidden-small">Licensed under <a href="http://opensource.org/licenses/MIT">MIT license</a>.</p>
-                    <a href="index.html"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
+                    <a href="../index.html"><img src="images/logo_uikit.svg" width="90" height="30" title="UIkit" alt="UIkit"></a>
                 </div>
 
             </div>
