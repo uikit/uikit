@@ -166,6 +166,25 @@
     &lt;div class="uk-offcanvas-bar"&gt;...&lt;/div&gt;
 &lt;/div&gt;</code></pre>
 
+
+                            <hr class="uk-article-divider">
+
+                            <h2 id="mode"><a href="#flip-modifier" class="uk-link-reset">Modes</a></h2>
+
+                            <p>You can choose between four different modes how the offcanvas bar should appear:</p>
+
+                            <a class="uk-button" href="#offcanvas-1" data-uk-offcanvas>Push (default)</a>
+                            <pre><code>&lt;a href="#my-id" data-uk-offcanvas="{mode:'push'}"&gt;...&lt;/a&gt;</code></pre>
+
+                            <a class="uk-button" href="#offcanvas-1" data-uk-offcanvas="mode:'slide'">Slide</a>
+                            <pre><code>&lt;a href="#my-id" data-uk-offcanvas="{mode:'slide'}"&gt;...&lt;/a&gt;</code></pre>
+
+                            <a class="uk-button" href="#offcanvas-1" data-uk-offcanvas="mode:'reveal'">Reveal</a>
+                            <pre><code>&lt;a href="#my-id" data-uk-offcanvas="{mode:'reveal'}"&gt;...&lt;/a&gt;</code></pre>
+
+                            <a class="uk-button" href="#offcanvas-1" data-uk-offcanvas="mode:'none'">None</a>
+                            <pre><code>&lt;a href="#my-id" data-uk-offcanvas="{mode:'none'}"&gt;...&lt;/a&gt;</code></pre>
+
                             <hr class="uk-article-divider">
 
                             <h2 id="flip-modifier"><a href="#flip-modifier" class="uk-link-reset">Flip modifier</a></h2>
@@ -346,6 +365,34 @@ UIkit.offcanvas.show('#my-id');
 // Hide any active offcanvas. Set force to true, if you don't want any animation.
 UIkit.offcanvas.hide([force = false])
 </code></pre>
+
+                        <hr class="uk-article-divider">
+
+                        <h2 id="javascript-options"><a href="#javascript-options" class="uk-link-reset">JavaScript options</a></h2>
+
+                        <p>This is an example of how to set options via attribute:</p>
+
+                        <pre><code>data-uk-offcanvas=&quot;{mode:'slide'}&quot;</code></pre>
+
+                        <div class="uk-overflow-container">
+                            <table class="uk-table uk-table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Option</th>
+                                        <th>Possible value</th>
+                                        <th>Default</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>mode</code></td>
+                                        <td>'push', 'slide', 'reveal', 'none'</td>
+                                        <td>push</td>
+                                        <td>Offcanvas bar appear effect mode</td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
                             <h3>Events</h3>
 
