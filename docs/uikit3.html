@@ -50,6 +50,9 @@
                 transition: background-color .05s ease-in-out;
             }
 
+            .uk-form input[type='text'],
+            .uk-form input[type='email'] { border-color: transparent; }
+
         </style>
     </head>
 
@@ -96,10 +99,9 @@
                         <div class="uk-form-controls"><input id="name" class="uk-form-large uk-width-1-1" type="text" name="CustomFields[1]" id="CustomFields_1_1" value="" placeholder="Your Name" required></div>
                     </div>
 
-                    <div class="uk-form-row uk-text-center">
-                        <button class="uk-button tm-button-primary uk-button-large">Subscribe</button>
+                    <div class="uk-form-row uk-text-right">
+                        <button class="uk-button tm-button-primary">Subscribe</button>
                     </div>
-
 
                     <input type="hidden" name="format" value="h" />
                 </form>
