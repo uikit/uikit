@@ -1,4 +1,4 @@
-/*! UIkit 2.26.4 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -315,5 +315,24 @@
         });
 
     })({});
+
+    UI.Utils.getCssVar = function(name) {
+
+        /* usage in css:  .var-name:before { content:"xyz" } */
+
+        var val, doc = document.documentElement, element = doc.appendChild(document.createElement('div'));
+
+        element.classList.add('var-'+name);
+
+        try {
+            val = JSON.parse(val = getComputedStyle(element, ':before').content.replace(/^["'](.*)["']$/, '$1'));
+        } catch (e) {
+            val = undefined;
+        }
+
+        doc.removeChild(element);
+
+        return val;
+    }
 
 })(UIkit);

@@ -1,4 +1,4 @@
-/*! UIkit 2.26.4 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -25,7 +25,8 @@
             duration  : 300,
             gutter    : 0,
             controls  : false,
-            filter    : false
+            filter    : false,
+            origin    : UI.langdirection
         },
 
         boot:  function() {
@@ -55,6 +56,7 @@
             this.element.css({'position': 'relative'});
 
             this.controls = null;
+            this.origin   = this.options.origin;
 
             if (this.options.controls) {
 
@@ -116,16 +118,18 @@
 
             if (this.options.gutter) {
 
-                css['padding-left']   = this.gutterh;
+                css['padding-'+this.origin] = this.gutterh;
                 css['padding-bottom'] = this.gutterv;
 
-                this.element.css('margin-left', this.gutterh * -1);
+                this.element.css('margin-'+this.origin, this.gutterh * -1);
             }
 
             children.attr('data-grid-prepared', 'true').css(css);
         },
 
         update: function(elements) {
+
+            var $this = this;
 
             this._prepareElements();
 
@@ -137,7 +141,7 @@
                 top       = 0,
                 positions = [],
 
-                item, width, height, pos, i, z, max, size;
+                item, width, height, pos, posi, i, z, max, size;
 
             this.trigger('beforeupdate.uk.grid', [children]);
 
@@ -160,18 +164,21 @@
                     if (top <= pos.aY) { top = pos.aY; }
                 }
 
-                positions.push({
+                posi = {
                     "ele"    : item,
                     "top"    : top,
-                    "left"   : left,
                     "width"  : width,
                     "height" : height,
                     "aY"     : (top  + height),
                     "aX"     : (left + width)
-                });
+                };
+
+                posi[$this.origin] = left;
+
+                positions.push(posi);
             });
 
-            var posPrev, maxHeight = 0;
+            var posPrev, maxHeight = 0, positionto;
 
             // fix top
             for (i=0,max=positions.length;i<max;i++) {
@@ -184,7 +191,7 @@
                     posPrev = positions[z];
 
                     // (posPrev.left + 1) fixex 1px bug when using % based widths
-                    if (pos.left < posPrev.aX && (posPrev.left +1) < pos.aX) {
+                    if (pos[this.origin] < posPrev.aX && (posPrev[this.origin] +1) < pos.aX) {
                         top = posPrev.aY;
                     }
                 }
@@ -202,7 +209,11 @@
                 this.element.stop().animate({'height': maxHeight}, 100);
 
                 positions.forEach(function(pos){
-                    pos.ele.stop().animate({"top": pos.top, "left": pos.left, opacity: 1}, this.options.duration);
+
+                    positionto = {"top": pos.top, opacity: 1};
+                    positionto[$this.origin] = pos[$this.origin];
+
+                    pos.ele.stop().animate(positionto, this.options.duration);
                 }.bind(this));
 
             } else {
@@ -210,7 +221,9 @@
                 this.element.css('height', maxHeight);
 
                 positions.forEach(function(pos){
-                    pos.ele.css({"top": pos.top, "left": pos.left, opacity: 1});
+                    positionto = {"top": pos.top, opacity: 1};
+                    positionto[$this.origin] = pos[$this.origin];
+                    pos.ele.css(positionto);
                 }.bind(this));
             }
 

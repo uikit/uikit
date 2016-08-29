@@ -1,4 +1,4 @@
-/*! UIkit 2.26.4 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -420,7 +420,7 @@
 
                         UI.$.ajax({
                             type     : 'GET',
-                            url      : 'http://vimeo.com/api/oembed.json?url=' + encodeURI(data.source),
+                            url      : '//vimeo.com/api/oembed.json?url=' + encodeURI(data.source),
                             jsonp    : 'callback',
                             dataType : 'jsonp',
                             success  : function(data) {
