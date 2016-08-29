@@ -2,19 +2,18 @@
 
 ### 2.27.0 (Aug 29, 2016)
 
-  - Added uk-text-capitalize, uk-text-lowercase and uk-text-uppercase classes
+  - Added new animation modes to offcanvas component
+  - Added text-transform classes to utility component
   - Added headers option to upload component
   - Added UIkit.Utils.getCssVar utility function
-  - Added additional offcanvas appear modes
-  - Updated modal + dropdown components to get focus when shown
+  - Updated modal and dropdown components to get focus when shown
   - Updated dragging behavior on infinite sliders
-  - Updated slideshow, slider, slideset and accordion component to update if a new slide/item was added via dom manipulation
+  - Updated slideshow, slider, slideset and accordion component to update if a new item was added via dom manipulation
   - Updated icon component to FontAwesome 4.6.3
   - Fixed slideset showing horizontal scrollbar on animation
   - Fixed sticky element disappearing on scroll in iOS browsers
   - Fixed maxDate in datepicker component
   - Fixed dynamic grid in rtl mode
-
 
 ### 2.26.4 (Jul 13, 2016)
 
