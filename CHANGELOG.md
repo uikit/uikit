@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+
+  - Fixed bug in nav.js component
+
 ### 2.27.0 (Aug 29, 2016)
 
   - Added new animation modes to offcanvas component
