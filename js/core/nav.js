@@ -1,4 +1,4 @@
-/*! UIkit 2.27.0 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -46,6 +46,8 @@
         },
 
         update: function(init) {
+
+            var $this = this;
 
             this.find(this.options.lists).each(function() {
 
