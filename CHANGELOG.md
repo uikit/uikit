@@ -1,5 +1,9 @@
 # Changelog
 
+### 2.27.1 (Aug 30, 2016)
+
+  - Fixed missing variable in nav.js
+
 ### 2.27.0 (Aug 29, 2016)
 
   - Added new animation modes to offcanvas component

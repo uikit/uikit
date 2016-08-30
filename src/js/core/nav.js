@@ -46,6 +46,8 @@
 
         update: function(init) {
 
+            var $this = this;
+
             this.find(this.options.lists).each(function() {
 
                 var $ele   = UI.$(this).attr('role', 'menu'),
