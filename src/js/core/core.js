@@ -374,6 +374,10 @@
 
         element = $(element);
 
+        if (!element.length) {
+            return element;
+        }
+
         var autofocus = element.find('[autofocus]:first'), tabidx;
 
         if (autofocus.length) {
