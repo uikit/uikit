@@ -1,5 +1,5 @@
 /***
-Spectrum Colorpicker v1.1.0
+Spectrum Colorpicker v1.8.0
 https://github.com/bgrins/spectrum
 Author: Brian Grinstead
 License: MIT
@@ -12,11 +12,20 @@ License: MIT
     display:inline-block;
     *display: inline;
     *zoom: 1;
-    z-index: 2147483647;
+    /* https://github.com/bgrins/spectrum/issues/40 */
+    z-index: 9999994;
     overflow: hidden;
 }
 .sp-container.sp-flat {
     position: relative;
+}
+
+/* Fix for * { box-sizing: border-box; } */
+.sp-container,
+.sp-container * {
+    -webkit-box-sizing: content-box;
+       -moz-box-sizing: content-box;
+            box-sizing: content-box;
 }
 
 /* http://ansciath.tumblr.com/post/7347495869/css-aspect-ratio */
@@ -47,6 +56,12 @@ License: MIT
     left:84%;
     height: 100%;
 }
+
+.sp-clear-enabled .sp-hue {
+    top:33px;
+    height: 77.5%;
+}
+
 .sp-fill {
     padding-top: 80%;
 }
@@ -58,17 +73,13 @@ License: MIT
     bottom:0;
 }
 
-.sp-alpha-enabled .sp-top
-{
+.sp-alpha-enabled .sp-top {
     margin-bottom: 18px;
 }
-.sp-alpha-enabled .sp-alpha
-{
+.sp-alpha-enabled .sp-alpha {
     display: block;
 }
-
-.sp-alpha-handle
-{
+.sp-alpha-handle {
     position:absolute;
     top:-4px;
     bottom: -4px;
@@ -79,9 +90,7 @@ License: MIT
     background: white;
     opacity: .8;
 }
-
-.sp-alpha
-{
+.sp-alpha {
     display: none;
     position: absolute;
     bottom: -14px;
@@ -89,12 +98,30 @@ License: MIT
     left: 0;
     height: 8px;
 }
-.sp-alpha-inner{
+.sp-alpha-inner {
     border: solid 1px #333;
 }
 
+.sp-clear {
+    display: none;
+}
+
+.sp-clear.sp-clear-display {
+    background-position: center;
+}
+
+.sp-clear-enabled .sp-clear {
+    display: block;
+    position:absolute;
+    top:0px;
+    right:0;
+    bottom:0;
+    left:84%;
+    height: 28px;
+}
+
 /* Don't allow text selection */
-.sp-container, .sp-replacer, .sp-preview, .sp-dragger, .sp-slider, .sp-alpha, .sp-alpha-handle, .sp-container.sp-dragging .sp-input, .sp-container button  {
+.sp-container, .sp-replacer, .sp-preview, .sp-dragger, .sp-slider, .sp-alpha, .sp-clear, .sp-alpha-handle, .sp-container.sp-dragging .sp-input, .sp-container button  {
     -webkit-user-select:none;
     -moz-user-select: -moz-none;
     -o-user-select:none;
@@ -105,6 +132,9 @@ License: MIT
     display: none;
 }
 .sp-container.sp-buttons-disabled .sp-button-container {
+    display: none;
+}
+.sp-container.sp-palette-buttons-disabled .sp-palette-button-container {
     display: none;
 }
 .sp-palette-only .sp-picker-container {
@@ -147,13 +177,13 @@ License: MIT
     background: -o-linear-gradient(top, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
     background: -webkit-gradient(linear, left top, left bottom, from(#ff0000), color-stop(0.17, #ffff00), color-stop(0.33, #00ff00), color-stop(0.5, #00ffff), color-stop(0.67, #0000ff), color-stop(0.83, #ff00ff), to(#ff0000));
     background: -webkit-linear-gradient(top, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+    background: linear-gradient(to bottom, #ff0000 0%, #ffff00 17%, #00ff00 33%, #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
 }
 
 /* IE filters do not support multiple color stops.
    Generate 6 divs, line them up, and do two color gradients for each.
    Yes, really.
  */
-
 .sp-1 {
     height:17%;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff0000', endColorstr='#ffff00');
@@ -194,7 +224,6 @@ License: MIT
     .sp-hue { left: 63%; }
     .sp-fill { padding-top: 60%; }
 }
-
 .sp-dragger {
    border-radius: 5px;
    height: 5px;
@@ -218,27 +247,29 @@ License: MIT
     opacity: .8;
 }
 
-/* Basic display options (colors, fonts, global widths) */
+/*
+Theme authors:
+Here are the basic themeable display options (colors, fonts, global widths).
+See http://bgrins.github.io/spectrum/themes/ for instructions.
+*/
+
 .sp-container {
     border-radius: 0;
     background-color: #ECECEC;
     border: solid 1px #f0c49B;
     padding: 0;
 }
-.sp-container, .sp-container button, .sp-container input, .sp-color, .sp-hue
-{
+.sp-container, .sp-container button, .sp-container input, .sp-color, .sp-hue, .sp-clear {
     font: normal 12px "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Geneva, Verdana, sans-serif;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
 }
-.sp-top
-{
+.sp-top {
     margin-bottom: 3px;
 }
-.sp-color, .sp-hue
-{
+.sp-color, .sp-hue, .sp-clear {
     border: solid 1px #666;
 }
 
@@ -264,29 +295,29 @@ License: MIT
 .sp-input:focus  {
     border: 1px solid orange;
 }
-.sp-input.sp-validation-error
-{
+.sp-input.sp-validation-error {
     border: 1px solid red;
     background: #fdd;
 }
-.sp-picker-container , .sp-palette-container
-{
+.sp-picker-container , .sp-palette-container {
     float:left;
     position: relative;
     padding: 10px;
     padding-bottom: 300px;
     margin-bottom: -290px;
 }
-.sp-picker-container
-{
-    width: 200px;
+.sp-picker-container {
+    width: 172px;
     border-left: solid 1px #fff;
 }
 
 /* Palettes */
-.sp-palette-container
-{
+.sp-palette-container {
     border-right: solid 1px #ccc;
+}
+
+.sp-palette-only .sp-palette-container {
+    border: 0;
 }
 
 .sp-palette .sp-thumb-el {
@@ -302,14 +333,12 @@ License: MIT
 .sp-palette .sp-thumb-el:hover, .sp-palette .sp-thumb-el.sp-thumb-active {
     border-color: orange;
 }
-.sp-thumb-el
-{
+.sp-thumb-el {
     position:relative;
 }
 
 /* Initial */
-.sp-initial
-{
+.sp-initial {
     float: left;
     border: solid 1px #333;
 }
@@ -322,7 +351,12 @@ License: MIT
     margin:0;
 }
 
+.sp-initial .sp-clear-display {
+    background-position: center;
+}
+
 /* Buttons */
+.sp-palette-button-container,
 .sp-button-container {
     float: right;
 }
@@ -357,8 +391,7 @@ License: MIT
     float:left;
     font-size:10px;
 }
-.sp-preview
-{
+.sp-preview {
     position:relative;
     width:25px;
     height: 20px;
@@ -368,21 +401,18 @@ License: MIT
     z-index: 0;
 }
 
-.sp-palette
-{
+.sp-palette {
     *width: 220px;
     max-width: 220px;
 }
-.sp-palette .sp-thumb-el
-{
+.sp-palette .sp-thumb-el {
     width:16px;
     height: 16px;
     margin:2px 1px;
     border: solid 1px #d0d0d0;
 }
 
-.sp-container
-{
+.sp-container {
     padding-bottom:0;
 }
 
@@ -394,7 +424,6 @@ License: MIT
   background-image: -moz-linear-gradient(top, #eeeeee, #cccccc);
   background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
   background-image: -o-linear-gradient(top, #eeeeee, #cccccc);
-  background-image: -ms-linear-gradient(top, #eeeeee, #cccccc);
   background-image: linear-gradient(to bottom, #eeeeee, #cccccc);
   border: 1px solid #ccc;
   border-bottom: 1px solid #bbb;
@@ -413,7 +442,6 @@ License: MIT
     background-image: -moz-linear-gradient(top, #dddddd, #bbbbbb);
     background-image: -ms-linear-gradient(top, #dddddd, #bbbbbb);
     background-image: -o-linear-gradient(top, #dddddd, #bbbbbb);
-    background-image: -ms-linear-gradient(top, #dddddd, #bbbbbb);
     background-image: linear-gradient(to bottom, #dddddd, #bbbbbb);
     border: 1px solid #bbb;
     border-bottom: 1px solid #999;
@@ -429,8 +457,7 @@ License: MIT
     -o-box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
     box-shadow: inset 0 0 5px 2px #aaaaaa, 0 1px 0 0 #eeeeee;
 }
-.sp-cancel, .sp-reset
-{
+.sp-cancel {
     font-size: 11px;
     color: #d93f3f !important;
     margin:0;
@@ -440,41 +467,41 @@ License: MIT
     text-decoration:none;
 
 }
-.sp-cancel:hover, .sp-reset:hover
-{
+.sp-cancel:hover {
     color: #d93f3f !important;
     text-decoration: underline;
 }
 
-.sp-palette span:hover, .sp-palette span.sp-thumb-active
-{
+
+.sp-palette span:hover, .sp-palette span.sp-thumb-active {
     border-color: #000;
 }
 
-.sp-preview, .sp-alpha, .sp-thumb-el
-{
+.sp-preview, .sp-alpha, .sp-thumb-el {
     position:relative;
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);
 }
-.sp-preview-inner, .sp-alpha-inner, .sp-thumb-inner
-{
+.sp-preview-inner, .sp-alpha-inner, .sp-thumb-inner {
     display:block;
     position:absolute;
     top:0;left:0;bottom:0;right:0;
 }
 
-.sp-palette .sp-thumb-inner
-{
+.sp-palette .sp-thumb-inner {
     background-position: 50% 50%;
     background-repeat: no-repeat;
 }
 
-.sp-palette .sp-thumb-light.sp-thumb-active .sp-thumb-inner
-{
+.sp-palette .sp-thumb-light.sp-thumb-active .sp-thumb-inner {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAIVJREFUeNpiYBhsgJFMffxAXABlN5JruT4Q3wfi/0DsT64h8UD8HmpIPCWG/KemIfOJCUB+Aoacx6EGBZyHBqI+WsDCwuQ9mhxeg2A210Ntfo8klk9sOMijaURm7yc1UP2RNCMbKE9ODK1HM6iegYLkfx8pligC9lCD7KmRof0ZhjQACDAAceovrtpVBRkAAAAASUVORK5CYII=);
 }
 
-.sp-palette .sp-thumb-dark.sp-thumb-active .sp-thumb-inner
-{
+.sp-palette .sp-thumb-dark.sp-thumb-active .sp-thumb-inner {
     background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAAadEVYdFNvZnR3YXJlAFBhaW50Lk5FVCB2My41LjEwMPRyoQAAAMdJREFUOE+tkgsNwzAMRMugEAahEAahEAZhEAqlEAZhEAohEAYh81X2dIm8fKpEspLGvudPOsUYpxE2BIJCroJmEW9qJ+MKaBFhEMNabSy9oIcIPwrB+afvAUFoK4H0tMaQ3XtlrggDhOVVMuT4E5MMG0FBbCEYzjYT7OxLEvIHQLY2zWwQ3D+9luyOQTfKDiFD3iUIfPk8VqrKjgAiSfGFPecrg6HN6m/iBcwiDAo7WiBeawa+Kwh7tZoSCGLMqwlSAzVDhoK+6vH4G0P5wdkAAAAASUVORK5CYII=);
+}
+
+.sp-clear-display {
+    background-repeat:no-repeat;
+    background-position: center;
+    background-image: url(data:image/gif;base64,R0lGODlhFAAUAPcAAAAAAJmZmZ2dnZ6enqKioqOjo6SkpKWlpaampqenp6ioqKmpqaqqqqurq/Hx8fLy8vT09PX19ff39/j4+Pn5+fr6+vv7+wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAP8ALAAAAAAUABQAAAihAP9FoPCvoMGDBy08+EdhQAIJCCMybCDAAYUEARBAlFiQQoMABQhKUJBxY0SPICEYHBnggEmDKAuoPMjS5cGYMxHW3IiT478JJA8M/CjTZ0GgLRekNGpwAsYABHIypcAgQMsITDtWJYBR6NSqMico9cqR6tKfY7GeBCuVwlipDNmefAtTrkSzB1RaIAoXodsABiZAEFB06gIBWC1mLVgBa0AAOw==);
 }

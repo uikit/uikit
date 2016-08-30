@@ -170,12 +170,10 @@
 
                                 var placeholder = $('<div class="sp-placeholder"><div class="sp-placeholder-color"></div></div>').find("div").css("background-color", value).end().on("click", function() {
 
-                                    var spectrum;
-
                                     input.spectrum({
                                         "showInput": true,
                                         "showAlpha": true,
-                                        "preferredFormat": "hex6",
+                                        "preferredFormat": "hex",
                                         "color": (value=='inherit' ? '':value),
                                         "change": function(color) {
                                             if (color.toRgb().a < 1) {
@@ -183,13 +181,14 @@
                                             }
                                         },
                                         "show": function(){
-                                            if (!spectrum) {
-                                                spectrum = $.fn.spectrum.get(input.data("spectrum.id"));
-                                                spectrum.container.find('.sp-cancel').after($('<a href="#" class="sp-reset">reset</a>').on("click", function(e) {
+
+                                            if (!input.spectrum('container').find('.sp-reset').length) {
+
+                                                input.spectrum('container').find('.sp-cancel').after($('<a href="#" class="sp-reset uk-margin-small-right">reset</a>').on("click", function(e) {
                                                     e.preventDefault();
-                                                    spectrum.set(input.data("default")=="inherit" ? "rgba(0,0,0,0)":input.data("default"));
-                                                    spectrum.hide();
-                                                    input.val("");
+                                                    input.spectrum('set', input.data("default")=="inherit" ? "rgba(0,0,0,0)":input.data("default"));
+                                                    input.spectrum('hide');
+                                                    input.val('').trigger('change');
                                                 }));
                                             }
                                         }

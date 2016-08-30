@@ -58,7 +58,7 @@
             this.focus     = 0;
 
             UI.$win.on('resize load', UI.Utils.debounce(function() {
-                $this.resize(true);
+                $this.update(true);
             }, 100));
 
             this.on('click.uk.slider', '[data-uk-slider-item]', function(e) {
@@ -142,11 +142,11 @@
                 mouseleave: function() { $this.hovering = false; }
             });
 
-            this.resize(true);
+            this.update(true);
 
             this.on('display.uk.check', function(){
                 if ($this.element.is(":visible")) {
-                    $this.resize(true);
+                    $this.update(true);
                 }
             });
 
@@ -158,9 +158,15 @@
                 this.start();
             }
 
+            UI.domObserve(this.element, function(e) {
+                if ($this.element.children(':not([data-slide])').length) {
+                    $this.update(true);
+                }
+            });
+
         },
 
-        resize: function(focus) {
+        update: function(focus) {
 
             var $this = this, pos = 0, maxheight = 0, item, width, cwidth, size;
 
@@ -171,7 +177,7 @@
 
             this.items.each(function(idx){
 
-                item      = UI.$(this);
+                item      = UI.$(this).attr('data-slide', idx);
                 size      = item.css({'left': '', 'width':''})[0].getBoundingClientRect();
                 width     = size.width;
                 cwidth    = item.width();
@@ -195,7 +201,7 @@
 
                 this.itemsResized = true;
 
-                return this.resize();
+                return this.update();
             }
 
             this.cw     = pos;
@@ -512,6 +518,9 @@
 
                     z = z+1 == dragging.items.length ? 0:z+1;
                 }
+                if (!dragging.options.infinite && !focus) {
+                    focus = dragging.items.length;
+                }
 
             } else {
 
@@ -525,6 +534,9 @@
                     }
 
                     z = z-1 == -1 ? dragging.items.length-1:z-1;
+                }
+                if (!dragging.options.infinite && !focus) {
+                    focus = 0
                 }
             }
 

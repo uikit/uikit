@@ -5,9 +5,9 @@
     UI.component('alert', {
 
         defaults: {
-            "fade": true,
-            "duration": 200,
-            "trigger": ".uk-alert-close"
+            fade: true,
+            duration: 200,
+            trigger: '.uk-alert-close'
         },
 
         boot: function() {

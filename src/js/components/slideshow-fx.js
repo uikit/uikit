@@ -19,7 +19,7 @@
     var Animations = UI.slideshow.animations;
 
     UI.$.extend(UI.slideshow.animations, {
-        'slice': function(current, next, dir, fromfx) {
+        slice: function(current, next, dir, fromfx) {
 
             if (!current.data('cover')) {
                 return Animations.fade.apply(this, arguments);
@@ -111,7 +111,7 @@
             return Animations.slice.apply(this, [current, next, dir, 'slice-up-down']);
         },
 
-        'fold': function(current, next, dir) {
+        fold: function(current, next, dir) {
 
             if (!next.data('cover')) {
                 return Animations.fade.apply(this, arguments);
@@ -168,7 +168,7 @@
             return d.promise();
         },
 
-        'puzzle': function(current, next, dir) {
+        puzzle: function(current, next, dir) {
 
             if (!next.data('cover')) {
                 return Animations.fade.apply(this, arguments);
@@ -244,7 +244,7 @@
             return d.promise();
         },
 
-        'boxes': function(current, next, dir, fromfx) {
+        boxes: function(current, next, dir, fromfx) {
 
             if (!next.data('cover')) {
                 return Animations.fade.apply(this, arguments);

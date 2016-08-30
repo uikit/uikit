@@ -255,7 +255,7 @@ gulp.task('dist-bower-file', function(done) {
             "fonts/FontAwesome.otf"
         ],
         "dependencies": {
-            "jquery": ">= 1.9.0"
+            "jquery": "~2.1.0"
         },
         "ignore": [
             "node_modules",

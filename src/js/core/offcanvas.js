@@ -8,28 +8,39 @@
         $html     = UI.$html,
         Offcanvas = {
 
-        show: function(element) {
+        show: function(element, options) {
 
             element = UI.$(element);
 
             if (!element.length) return;
 
+            options = UI.$.extend({mode: 'push'}, options);
+
             var $body     = UI.$('body'),
-                bar       = element.find(".uk-offcanvas-bar:first"),
-                rtl       = (UI.langdirection == "right"),
-                flip      = bar.hasClass("uk-offcanvas-bar-flip") ? -1:1,
+                bar       = element.find('.uk-offcanvas-bar:first'),
+                rtl       = (UI.langdirection == 'right'),
+                flip      = bar.hasClass('uk-offcanvas-bar-flip') ? -1:1,
                 dir       = flip * (rtl ? -1 : 1),
 
                 scrollbarwidth =  window.innerWidth - $body.width();
 
             scrollpos = {x: window.pageXOffset, y: window.pageYOffset};
 
+            bar.attr('mode', options.mode);
             element.addClass("uk-active");
 
-            $body.css({"width": window.innerWidth - scrollbarwidth, "height": window.innerHeight}).addClass("uk-offcanvas-page");
-            $body.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * (bar.outerWidth() * dir)).width(); // .width() - force redraw
+            $body.css({width: window.innerWidth - scrollbarwidth, height: window.innerHeight}).addClass("uk-offcanvas-page");
 
-            $html.css('margin-top', scrollpos.y * -1);
+            if (options.mode == 'push' || options.mode == 'reveal') {
+                $body.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * (bar.outerWidth() * dir));
+            }
+
+            if (options.mode == 'reveal') {
+                bar.css('clip', 'rect(0, '+bar.outerWidth()+'px, 100vh, 0)');
+            }
+
+            $html.css('margin-top', scrollpos.y * -1).width(); // .width() - force redraw
+
 
             bar.addClass("uk-offcanvas-bar-show");
 
@@ -61,15 +72,20 @@
                 };
 
             if (!panel.length) return;
+            if (bar.attr('mode') == 'none') force = true;
 
             if (UI.support.transition && !force) {
 
                 $body.one(UI.support.transition.end, function() {
                     finalize();
-                }).css((rtl ? "margin-right" : "margin-left"), "");
+                }).css((rtl ? 'margin-right' : 'margin-left'), '');
+
+                if (bar.attr('mode') == 'reveal') {
+                    bar.css('clip', '');
+                }
 
                 setTimeout(function(){
-                    bar.removeClass("uk-offcanvas-bar-show");
+                    bar.removeClass('uk-offcanvas-bar-show');
                 }, 0);
 
             } else {
@@ -79,17 +95,17 @@
 
         _initElement: function(element) {
 
-            if (element.data("OffcanvasInit")) return;
+            if (element.data('OffcanvasInit')) return;
 
-            element.on("click.uk.offcanvas swipeRight.uk.offcanvas swipeLeft.uk.offcanvas", function(e) {
+            element.on('click.uk.offcanvas swipeRight.uk.offcanvas swipeLeft.uk.offcanvas', function(e) {
 
                 var target = UI.$(e.target);
 
                 if (!e.type.match(/swipe/)) {
 
-                    if (!target.hasClass("uk-offcanvas-close")) {
-                        if (target.hasClass("uk-offcanvas-bar")) return;
-                        if (target.parents(".uk-offcanvas-bar:first").length) return;
+                    if (!target.hasClass('uk-offcanvas-close')) {
+                        if (target.hasClass('uk-offcanvas-bar')) return;
+                        if (target.parents('.uk-offcanvas-bar:first').length) return;
                     }
                 }
 
@@ -97,12 +113,12 @@
                 Offcanvas.hide();
             });
 
-            element.on("click", "a[href*='#']", function(e){
+            element.on('click', "a[href*='#']", function(e){
 
                 var link = UI.$(this),
-                    href = link.attr("href");
+                    href = link.attr('href');
 
-                if (href == "#") {
+                if (href == '#') {
                     return;
                 }
 
@@ -130,7 +146,7 @@
                 Offcanvas.hide();
             });
 
-            element.data("OffcanvasInit", true);
+            element.data('OffcanvasInit', true);
         }
     };
 
@@ -139,14 +155,14 @@
         boot: function() {
 
             // init code
-            $html.on("click.offcanvas.uikit", "[data-uk-offcanvas]", function(e) {
+            $html.on('click.offcanvas.uikit', '[data-uk-offcanvas]', function(e) {
 
                 e.preventDefault();
 
                 var ele = UI.$(this);
 
-                if (!ele.data("offcanvasTrigger")) {
-                    var obj = UI.offcanvasTrigger(ele, UI.Utils.options(ele.attr("data-uk-offcanvas")));
+                if (!ele.data('offcanvasTrigger')) {
+                    var obj = UI.offcanvasTrigger(ele, UI.Utils.options(ele.attr('data-uk-offcanvas')));
                     ele.trigger("click");
                 }
             });
@@ -164,12 +180,13 @@
             var $this = this;
 
             this.options = UI.$.extend({
-                "target": $this.element.is("a") ? $this.element.attr("href") : false
+                target: $this.element.is('a') ? $this.element.attr('href') : false,
+                mode: 'push'
             }, this.options);
 
-            this.on("click", function(e) {
+            this.on('click', function(e) {
                 e.preventDefault();
-                Offcanvas.show($this.options.target);
+                Offcanvas.show($this.options.target, $this.options);
             });
         }
     });

@@ -79,6 +79,7 @@
  * Prepares the whole HTML page to slide-out
  * 1. Fix the main page and disallow scrolling
  * 2. Side-out transition
+ * 3. Needed for the transition to work instead of just letting it pop to the side
  */
 
 .uk-offcanvas-page {
@@ -87,6 +88,8 @@
     /* 2 */
     -webkit-transition: margin-left 0.3s ease-in-out;
     transition: margin-left 0.3s ease-in-out;
+    /* 3 */
+    margin-left: 0;
 }
 
 
@@ -141,6 +144,38 @@
     transform: translateX(100%);
 }
 
+/* Offcanvase modes
+ ========================================================================== */
+.uk-offcanvas-bar[mode='none'] {
+    -webkit-transition: none;
+    transition: none;
+}
+
+.uk-offcanvas-bar[mode='reveal']{
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+    clip: rect(0, 0, 100vh, 0);
+    -webkit-transition: -webkit-transform 0.3s ease-in-out, clip 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out, clip 0.3s ease-in-out;
+}
+
+.uk-offcanvas-bar-flip[mode='reveal']{
+    clip: none;
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+}
+
+.uk-offcanvas-bar-flip[mode='reveal'] > * {
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    -webkit-transition: -webkit-transform 0.3s ease-in-out;
+    transition: transform 0.3s ease-in-out;
+}
+
+.uk-offcanvas.uk-active .uk-offcanvas-bar-flip[mode='reveal'].uk-offcanvas-bar-show > * {
+    -webkit-transform: translateX(0%);
+    transform: translateX(0%);
+}
 
 /* Panel in offcanvas
  ========================================================================== */

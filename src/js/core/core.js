@@ -43,7 +43,7 @@
 
     var UI = {}, _UI = global.UIkit ? Object.create(global.UIkit) : undefined;
 
-    UI.version = '2.26.4';
+    UI.version = '2.27.0';
 
     UI.noConflict = function() {
         // restore UIkit version
@@ -370,6 +370,36 @@
         return data ? fn(data) : fn;
     };
 
+    UI.Utils.focus = function(element, extra) {
+
+        element = $(element);
+
+        var autofocus = element.find('[autofocus]:first'), tabidx;
+
+        if (autofocus.length) {
+            return autofocus.focus();
+        }
+
+        autofocus = element.find(':input'+(extra && (','+extra) || '')).first();
+
+        if (autofocus.length) {
+            return autofocus.focus();
+        }
+
+        if (!element.attr('tabindex')) {
+            tabidx = 1000;
+            element.attr('tabindex', tabidx);
+        }
+
+        element[0].focus();
+
+        if (tabidx) {
+            element.attr('tabindex', '');
+        }
+
+        return element;
+    }
+
     UI.Utils.events       = {};
     UI.Utils.events.click = UI.support.touch ? 'tap' : 'click';
 
@@ -604,7 +634,7 @@
             try {
 
                 var observer = new UI.support.mutationobserver(UI.Utils.debounce(function(mutations) {
-                    fn.apply(element, []);
+                    fn.apply(element, [$element]);
                     $element.trigger('changed.uk.dom');
                 }, 50), {childList: true, subtree: true});
 
@@ -667,7 +697,7 @@
                         // Trigger the scroll event, this could probably be sent using memory.clone() but this is
                         // more explicit and easier to see exactly what is being sent in the event.
                         UI.$doc.trigger('scrolling.uk.document', [{
-                            "dir": {"x": memory.dir.x, "y": memory.dir.y}, "x": wpxo, "y": wpyo
+                            dir: {x: memory.dir.x, y: memory.dir.y}, x: wpxo, y: wpyo
                         }]);
                     }
 

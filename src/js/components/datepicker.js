@@ -267,12 +267,13 @@
                 data   = {"month":month, "year":year,"weekdays":[],"days":[], "maxDate": false, "minDate": false},
                 row    = [];
 
+            // We need these to be midday to avoid issues from DST transition protection.
             if (opts.maxDate!==false){
-                data.maxDate = isNaN(opts.maxDate) ? moment(opts.maxDate, opts.format) : moment().add(opts.maxDate, 'days');
+                data.maxDate = isNaN(opts.maxDate) ? moment(opts.maxDate, opts.format).startOf('day').hours(12) : moment().add(opts.maxDate, 'days').startOf('day').hours(12);
             }
 
             if (opts.minDate!==false){
-                data.minDate = isNaN(opts.minDate) ? moment(opts.minDate, opts.format) : moment().add(opts.minDate-1, 'days');
+                data.minDate = isNaN(opts.minDate) ? moment(opts.minDate, opts.format).startOf('day').hours(12) : moment().add(opts.minDate-1, 'days').startOf('day').hours(12);
             }
 
             data.weekdays = (function(){

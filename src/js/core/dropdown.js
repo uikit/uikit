@@ -3,7 +3,7 @@
     "use strict";
 
     var active = false, hoverIdle, flips = {
-        'x': {
+        x: {
             "bottom-left"   : 'bottom-right',
             "bottom-right"  : 'bottom-left',
             "bottom-center" : 'bottom-center',
@@ -17,7 +17,7 @@
             "right-bottom"  : 'left-bottom',
             "right-center"  : 'left-center'
         },
-        'y': {
+        y: {
             "bottom-left"   : 'top-left',
             "bottom-right"  : 'top-right',
             "bottom-center" : 'top-center',
@@ -31,7 +31,7 @@
             "right-bottom"  : 'right-top',
             "right-center"  : 'right-center'
         },
-        'xy': {
+        xy: {
             "bottom-left"   : 'top-right',
             "bottom-right"  : 'top-left',
             "bottom-center" : 'top-center',
@@ -50,16 +50,16 @@
     UI.component('dropdown', {
 
         defaults: {
-           'mode'            : 'hover',
-           'pos'             : 'bottom-left',
-           'offset'          : 0,
-           'remaintime'      : 800,
-           'justify'         : false,
-           'boundary'        : UI.$win,
-           'delay'           : 0,
-           'dropdownSelector': '.uk-dropdown,.uk-dropdown-blank',
-           'hoverDelayIdle'  : 250,
-           'preventflip'     : false
+           mode            : 'hover',
+           pos             : 'bottom-left',
+           offset          : 0,
+           remaintime      : 800,
+           justify         : false,
+           boundary        : UI.$win,
+           delay           : 0,
+           dropdownSelector: '.uk-dropdown,.uk-dropdown-blank',
+           hoverDelayIdle  : 250,
+           preventflip     : false
         },
 
         remainIdle: false,
@@ -69,7 +69,7 @@
             var triggerevent = UI.support.touch ? "click" : "mouseenter";
 
             // init code
-            UI.$html.on(triggerevent+".dropdown.uikit", "[data-uk-dropdown]", function(e) {
+            UI.$html.on(triggerevent+".dropdown.uikit focus", "[data-uk-dropdown]", function(e) {
 
                 var ele = UI.$(this);
 
@@ -120,7 +120,8 @@
 
             // Init ARIA
             this.element.attr('aria-haspopup', 'true');
-            this.element.attr('aria-expanded', this.element.hasClass("uk-open"));
+            this.element.attr('aria-expanded', this.element.hasClass('uk-open'));
+            this.dropdown.attr('aria-hidden', 'true');
 
             if (this.options.mode == "click" || UI.support.touch) {
 
@@ -234,10 +235,12 @@
 
             // Update ARIA
             this.element.attr('aria-expanded', 'true');
+            this.dropdown.attr('aria-hidden', 'false');
 
             this.trigger('show.uk.dropdown', [this]);
 
             UI.Utils.checkDisplay(this.dropdown, true);
+            UI.Utils.focus(this.dropdown);
             active = this;
 
             this.registerOuterClick();
@@ -257,6 +260,7 @@
 
             // Update ARIA
             this.element.attr('aria-expanded', 'false');
+            this.dropdown.attr('aria-hidden', 'true');
 
             this.trigger('hide.uk.dropdown', [this, force]);
 
@@ -397,9 +401,9 @@
     UI.component('dropdownOverlay', {
 
         defaults: {
-           'justify' : false,
-           'cls'     : '',
-           'duration': 200
+           justify : false,
+           cls     : '',
+           duration: 200
         },
 
         boot: function() {

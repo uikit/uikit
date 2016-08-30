@@ -6,7 +6,7 @@
 
     UI.$win.on("resize orientationchange", UI.Utils.debounce(function(){
         UI.$('.uk-modal.uk-open').each(function(){
-            UI.$(this).data('modal').resize();
+            return UI.$(this).data('modal') && UI.$(this).data('modal').resize();
         });
     }, 150));
 
@@ -86,9 +86,11 @@
                 this.hasTransitioned = false;
                 this.element.one(UI.support.transition.end, function(){
                     $this.hasTransitioned = true;
+                    UI.Utils.focus($this.dialog, 'a[href]');
                 }).addClass("uk-open");
             } else {
                 this.element.addClass("uk-open");
+                UI.Utils.focus(this.dialog, 'a[href]');
             }
 
             $html.addClass("uk-modal-page").height(); // force browser engine redraw
@@ -333,12 +335,6 @@
             if (onsubmit(input.val())!==false){
                 modal.hide();
             }
-        });
-
-        modal.on('show.uk.modal', function(){
-            setTimeout(function(){
-                input.focus();
-            }, 50);
         });
 
         return modal.show();

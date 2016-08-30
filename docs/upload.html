@@ -31,6 +31,7 @@
                     <li><a href="customizer.html">Customizer</a></li>
                     <li><a href="../showcase/index.html">Showcase</a></li>
                     <li><a href="tutorials.html">Tutorials</a></li>
+                    <li><a href="uikit3.html">UIkit 3</a></li>
                 </ul>
 
                 <a href="#tm-offcanvas" class="uk-navbar-toggle uk-visible-small" data-uk-offcanvas></a>
@@ -115,9 +116,15 @@
                                         bar         = progressbar.find('.uk-progress-bar'),
                                         settings    = {
 
+                                        method: 'PUT', // HTTP method, default is 'POST'
+
                                         action: '/', // upload url
 
                                         allow : '*.(jpg|gif|png)', // allow only images
+
+                                        headers: {
+                                            'Access-Control-Allow-Origin': '*'
+                                        },
 
                                         loadstart: function() {
                                             bar.css("width", "0%").text("0%");
@@ -221,6 +228,12 @@
                                     </thead>
                                     <tbody>
                                         <tr>
+                                            <td><code>method</code></td>
+                                            <td>string</td>
+                                            <td>POST</td>
+                                            <td>HTTP method used for the upload</td>
+                                        </tr>
+                                        <tr>
                                             <td><code>action</code></td>
                                             <td>string</td>
                                             <td>''</td>
@@ -245,6 +258,12 @@
                                             <td>Additional request parameters</td>
                                         </tr>
                                         <tr>
+                                        <tr>
+                                            <td><code>headers</code></td>
+                                            <td>JSON Object</td>
+                                            <td>{}</td>
+                                            <td>Additional request headers</td>
+                                        </tr>
                                             <td><code>allow</code></td>
                                             <td>string</td>
                                             <td>*.*</td>
@@ -492,6 +511,7 @@
                     <li class="uk-nav-divider"></li>
                     <li><a href="../showcase/index.html">Showcase</a></li>
                     <li><a href="tutorials.html">Tutorials</a></li>
+                    <li><a href="uikit3.html">UIkit 3</a></li>
                 </ul>
 
             </div>
