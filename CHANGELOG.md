@@ -1,8 +1,8 @@
 # Changelog
 
-### WIP
+### 2.27.1 (Aug 30, 2016)
 
-  - Fixed bug in nav.js component
+  - Fixed missing variable in nav.js
 
 ### 2.27.0 (Aug 29, 2016)
 
