@@ -1,5 +1,9 @@
 # Changelog
 
+### WIP
+
+  - Fixed variable reference in nav component when the dom changed.
+
 ### 2.27.1 (Aug 30, 2016)
 
   - Fixed missing variable in nav.js
