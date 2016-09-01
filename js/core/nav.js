@@ -36,16 +36,16 @@
                 $this.open(ele.parent()[0] == $this.element[0] ? ele : ele.parent("li"));
             });
 
-            this.update(true);
+            this.update();
 
             UI.domObserve(this.element, function(e) {
-                if ($this.element.find(this.options.lists).not('[role]').length) {
+                if ($this.element.find($this.options.lists).not('[role]').length) {
                     $this.update();
                 }
             });
         },
 
-        update: function(init) {
+        update: function() {
 
             var $this = this;
 
