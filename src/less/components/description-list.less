@@ -11,6 +11,8 @@
 // Variables
 // ========================================================================
 
+@description-list-term-color:                   @global-emphasis-color;
+
 @description-list-margin-vertical:              @global-margin;
 
 @description-list-divider-border-width:         @global-border-width;
@@ -26,6 +28,7 @@
  */
 
 .uk-description-list > dt {
+    color: @description-list-term-color;
     .hook-description-list-term;
 }
 

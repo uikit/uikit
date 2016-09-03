@@ -17,6 +17,9 @@
 
 @button-disabled-background:                    transparent;
 
+@button-text-color:                             @global-emphasis-color;
+@button-text-hover-color:                       @global-emphasis-color;
+
 //
 // New
 //
@@ -174,8 +177,8 @@
 .dye-hooks() {
 
     .hook-dye-button-default() { border-color: fade(@dye-color, 60%); }
-    .hook-dye-button-default-hover() { border-color: @dye-color; }
-    .hook-dye-button-default-active() { border-color: @dye-color; }
+    .hook-dye-button-default-hover() { border-color: @dye-emphasis-color; }
+    .hook-dye-button-default-active() { border-color: @dye-emphasis-color; }
 
     .hook-dye-button-primary() {}
     .hook-dye-button-primary-hover() {}
