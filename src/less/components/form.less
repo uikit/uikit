@@ -1,7 +1,8 @@
 // Name:            Form
 // Description:     Styles for forms
 //
-// Component:       `uk-input`
+// Component:       `uk-form-*`
+//                  `uk-input`
 //                  `uk-select`
 //                  `uk-textarea`
 //                  `uk-radio`
@@ -532,7 +533,6 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 /* Custom controls
  ========================================================================== */
 
-
 /*
  * 1. Container fits its content
  * 2. Create position context
@@ -581,6 +581,14 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 /* 5 */
 .uk-form-custom input[type="file"] { font-size: 500px; }
+
+
+/* Label
+ ========================================================================== */
+
+.uk-form-label {
+    .hook-form-label;
+}
 
 
 /* Layout
@@ -710,6 +718,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .hook-form-radio-checked-focus() {}
 .hook-form-radio-disabled() {}
 .hook-form-legend() {}
+.hook-form-label() {}
 .hook-form-stacked-label() {}
 .hook-form-horizontal-label() {}
 .hook-form-misc() {}

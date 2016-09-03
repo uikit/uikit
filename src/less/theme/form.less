@@ -48,6 +48,8 @@
 
 @form-radio-disabled-border:                    @global-border;
 
+@form-label-font-size:                          @global-small-font-size;
+
 
 // Component
 // ========================================================================
@@ -106,10 +108,16 @@
 .hook-form-legend() {}
 
 
-// Layout modifiers
+// Label
 // ========================================================================
 
-.hook-form-stacked-label() { font-size: @global-small-font-size; }
+.hook-form-label() { font-size: @form-label-font-size; }
+
+
+// Layout
+// ========================================================================
+
+.hook-form-stacked-label() {}
 
 .hook-form-horizontal-label() {}
 
