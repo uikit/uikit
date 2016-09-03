@@ -11,6 +11,7 @@
 // Variables
 // ========================================================================
 
+@breadcrumb-item-font-size:                         @global-small-font-size;
 @breadcrumb-item-color:                             @global-muted-color;
 @breadcrumb-item-hover-color:                       @global-color;
 @breadcrumb-item-hover-text-decoration:             none;
@@ -60,6 +61,7 @@
 
 .uk-breadcrumb > * > * {
     display: inline-block;
+    font-size: @breadcrumb-item-font-size;
     color: @breadcrumb-item-color;
     .hook-breadcrumb-item;
 }
