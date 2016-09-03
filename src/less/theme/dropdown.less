@@ -11,8 +11,6 @@
 
 @dropdown-nav-item-color:                       @global-color;
 
-@dropdown-nav-header-color:                     @global-muted-color;
-
 //
 // New
 //
@@ -27,38 +25,17 @@
 
 @dropdown-nav-sublist-padding-left:             40px;
 
-@dropdown-border-radius:                        @global-border-radius;
-
-@dropdown-nav-font-size:                        @global-font-size;
-@dropdown-nav-font-family:                      @global-font-secondary-font-family;
-@dropdown-nav-font-weight:                      @global-font-secondary-font-weight;
-@dropdown-nav-text-transform:                   @global-font-secondary-text-transform;
-@dropdown-nav-letter-spacing:                   @global-font-secondary-letter-spacing;
-
-@dropdown-nav-item-active-color:                @global-highlight-color;
-@dropdown-nav-item-onclick-color:               @global-muted-color;
-
 
 // Component
 // ========================================================================
 
-.hook-dropdown() {
-    border-radius: @dropdown-border-radius;
-    box-shadow: 0 5px @dropdown-box-shadow-blur @dropdown-box-shadow;
-}
+.hook-dropdown() { box-shadow: 0 5px @dropdown-box-shadow-blur @dropdown-box-shadow; }
 
 
 // Nav
 // ========================================================================
 
-.hook-dropdown-nav() {
-    margin: 0 (-@dropdown-padding);
-    font-size: @dropdown-nav-font-size;
-    font-family: @dropdown-nav-font-family;
-    font-weight: @dropdown-nav-font-weight;
-    text-transform: @dropdown-nav-text-transform;
-    letter-spacing: @dropdown-nav-letter-spacing;
-}
+.hook-dropdown-nav() { margin: 0 (-@dropdown-padding); }
 
 .hook-dropdown-nav-item() { padding: @dropdown-nav-item-padding-vertical @dropdown-nav-item-padding-horizontal; }
 
@@ -75,11 +52,5 @@
 .hook-dropdown-misc() {
 
     .uk-dropdown-nav .uk-nav-sub { padding-left: @dropdown-nav-sublist-padding-left; }
-
-    // Active
-    .uk-dropdown-nav > li.uk-active > a { color: @dropdown-nav-item-active-color; }
-
-    // Onclick
-    .uk-dropdown-nav > li > a:active { color: @dropdown-nav-item-onclick-color; }
 
 }

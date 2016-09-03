@@ -28,7 +28,6 @@
 
 @form-border:                                   @global-border;
 @form-border-width:                             @global-border-width;
-@form-border-radius:                            @global-border-radius;
 
 @form-focus-border:                             @global-primary-background;
 
@@ -49,31 +48,12 @@
 
 @form-radio-disabled-border:                    @global-border;
 
-@form-font-size:                                @global-font-size;
-@form-font-family:                              @global-font-secondary-font-family;
-@form-font-weight:                              @global-font-secondary-font-weight;
-@form-text-transform:                           none;
-@form-letter-spacing:                           0;
-
-@form-label-color:                              @global-highlight-color;
-@form-label-font-size:                          @global-xsmall-font-size;
-@form-label-font-family:                        @global-font-secondary-font-family;
-@form-label-font-weight:                        @global-font-secondary-font-weight;
-@form-label-text-transform:                     @global-font-secondary-text-transform;
-@form-label-letter-spacing:                     @global-font-secondary-letter-spacing;
-
 
 // Component
 // ========================================================================
 
 .hook-form() {
     border: @form-border-width solid @form-border;
-    border-radius: @form-border-radius;
-    font-size: @form-font-size;
-    font-family: @form-font-family;
-    font-weight: @form-font-weight;
-    text-transform: @form-text-transform;
-    letter-spacing: @form-letter-spacing;
     -webkit-transition: 0.2s ease-in-out;
     transition: 0.2s ease-in-out;
     -webkit-transition-property: color, background-color, border;
@@ -129,7 +109,7 @@
 // Layout modifiers
 // ========================================================================
 
-.hook-form-stacked-label() {}
+.hook-form-stacked-label() { font-size: @global-small-font-size; }
 
 .hook-form-horizontal-label() {}
 
@@ -137,33 +117,15 @@
 // Miscellaneous
 // ========================================================================
 
-.hook-form-misc() {
-
-    // Label style
-    .uk-form-label {
-        color: @form-label-color;
-        font-size: @form-label-font-size;
-        font-family: @form-label-font-family;
-        font-weight: @form-label-font-weight;
-        text-transform: @form-label-text-transform;
-        letter-spacing: @form-label-letter-spacing;
-    }
-
-}
+.hook-form-misc() {}
 
 
 // Dye
 // ========================================================================
 
-.dye-vars-default-theme() {
-
-    @form-label-color:                              @dye-highlight-color;
-
-}
+.dye-vars-default-theme() {}
 
 .dye-hooks() {
-
-    .dye-vars();
 
     .hook-dye-form() { border-color: @dye-border; }
 
@@ -174,7 +136,5 @@
     .hook-dye-form-radio-focus() { border-color: @dye-color;; }
 
     .hook-dye-form-radio-checked() { border-color: @dye-color; }
-
-    .uk-form-label { color: @form-label-color; }
 
 }

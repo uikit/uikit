@@ -15,27 +15,12 @@
 
 @search-default-border:                             @global-border;
 @search-default-border-width:                       @global-border-width;
-@search-default-border-radius:                      @global-border-radius;
-
-@search-font-size:                                  @global-font-size;
-@search-font-family:                                @global-font-primary-font-family;
-@search-font-weight:                                @global-font-primary-font-weight;
-@search-text-transform:                             @global-font-primary-text-transform;
-@search-letter-spacing:                             @global-font-primary-letter-spacing;
 
 
 // Default modifiers
 // ========================================================================
 
-.hook-search-default-input() {
-    border: @search-default-border-width solid @search-default-border;
-    border-radius: @search-default-border-radius;
-    font-size: @search-font-size;
-    font-family: @search-font-family;
-    font-weight: @search-font-weight;
-    text-transform: @search-text-transform;
-    letter-spacing: @search-letter-spacing;
-}
+.hook-search-default-input() { border: @search-default-border-width solid @search-default-border; }
 
 
 // Navbar modifiers

@@ -11,7 +11,6 @@
 
 @card-default-background:                      @global-background;
 @card-default-hover-background:                @card-default-background;
-@card-default-title-color:                     @global-highlight-color;
 
 @card-primary-hover-background:                @card-primary-background;
 
@@ -33,13 +32,11 @@
 @card-default-footer-border:                   @global-border;
 @card-default-footer-border-width:             @global-border-width;
 
-@card-border-radius:                           @global-border-radius;
-
 
 // Component
 // ========================================================================
 
-.hook-card() { border-radius: @card-border-radius; }
+.hook-card() {}
 
 
 // Sections
@@ -135,7 +132,6 @@
     .uk-card-body .uk-nav-default .uk-nav-divider {
         padding-left: @card-body-padding-horizontal;
         padding-right: @card-body-padding-horizontal;
-        border-radius: 0;
     }
 
     .uk-card-body .uk-nav-default .uk-nav-sub { padding-left: @nav-sublist-deeper-padding-left + @card-body-padding-horizontal; }

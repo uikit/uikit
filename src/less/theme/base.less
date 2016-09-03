@@ -7,11 +7,6 @@
 // Variables
 // ========================================================================
 
-@base-heading-font-family:                      @global-font-primary-font-family;
-@base-heading-font-weight:                      @global-font-primary-font-weight;
-@base-heading-color:                            @global-highlight-color;
-@base-heading-text-transform:                   @global-font-primary-text-transform;
-
 @base-hr-margin-vertical:                       @global-medium-margin;
 
 @base-blockquote-margin-vertical:               @global-medium-margin;
@@ -24,45 +19,19 @@
 @base-code-border-width:                        @global-border-width;
 @base-code-border-radius:                       3px;
 
-@base-blockquote-color:                         @global-highlight-color;
-@base-blockquote-font-family:                   @global-font-primary-font-family;
-@base-blockquote-font-weight:                   @global-font-primary-font-weight;
-@base-blockquote-text-transform:                @global-font-primary-text-transform;
-@base-blockquote-letter-spacing:                @global-font-primary-letter-spacing;
 @base-blockquote-text-align:                    center;
 
 @base-pre-padding:                              10px;
 @base-pre-background:                           @global-background;
 @base-pre-border:                               @global-border;
 @base-pre-border-width:                         @global-border-width;
-@base-pre-border-radius:                        @global-border-radius;
-
-@base-heading-h5-color:                         @base-heading-color;
-@base-heading-h5-font-family:                   @global-font-secondary-font-family;
-@base-heading-h5-font-weight:                   @global-font-secondary-font-weight;
-@base-heading-h5-text-transform:                @global-font-secondary-text-transform;
-@base-heading-h5-letter-spacing:                @global-font-secondary-letter-spacing;
-
-@base-heading-h6-color:                         @base-heading-color;
-@base-heading-h6-font-family:                   @global-font-secondary-font-family;
-@base-heading-h6-font-weight:                   @global-font-secondary-font-weight;
-@base-heading-h6-text-transform:                @global-font-secondary-text-transform;
-@base-heading-h6-letter-spacing:                @global-font-secondary-letter-spacing;
+@base-pre-border-radius:                        3px;
 
 
 // Body
 // ========================================================================
 
-/*
- * 1. Set the text rendering to antialiased for a smoother font style
- */
-
-.hook-base-body() {
-    /* 1 */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-}
+.hook-base-body() {}
 
 
 // Links
@@ -96,21 +65,9 @@
 
 .hook-base-h4() {}
 
-.hook-base-h5() {
-    color: @base-heading-h5-color;
-    font-family: @base-heading-h5-font-family;
-    font-weight: @base-heading-h5-font-weight;
-    text-transform: @base-heading-h5-text-transform;
-    letter-spacing: @base-heading-h5-letter-spacing;
-}
+.hook-base-h5() {}
 
-.hook-base-h6() {
-    color: @base-heading-h6-color;
-    font-family: @base-heading-h6-font-family;
-    font-weight: @base-heading-h6-font-weight;
-    text-transform: @base-heading-h6-text-transform;
-    letter-spacing: @base-heading-h6-letter-spacing;
-}
+.hook-base-h6() {}
 
 
 // Horizontal rules
@@ -123,11 +80,6 @@
 // ========================================================================
 
 .hook-base-blockquote() {
-    color: @base-blockquote-color;
-    font-family: @base-blockquote-font-family;
-    font-weight: @base-blockquote-font-weight;
-    text-transform: @base-blockquote-text-transform;
-    letter-spacing: @base-blockquote-letter-spacing;
     text-align: @base-blockquote-text-align;
 }
 
@@ -152,17 +104,9 @@
 // Dye
 // ========================================================================
 
-.dye-vars-default-theme() {
-
-    @base-blockquote-color:                         @dye-highlight-color;
-    @base-heading-h5-color:                         @dye-highlight-color;
-    @base-heading-h6-color:                         @dye-highlight-color;
-
-}
+.dye-vars-default-theme() {}
 
 .dye-hooks() {
-
-    .dye-vars();
 
     .hook-dye-base-link() {}
     .hook-dye-base-link-hover() {}
@@ -175,11 +119,5 @@
     .hook-dye-base-heading() {}
 
     .hook-dye-base-hr() {}
-
-    blockquote { color: @base-blockquote-color; }
-
-    h5, .uk-h5 { color: @base-heading-h5-color; }
-
-    h6, .uk-h6 { color: @base-heading-h6-color; }
 
 }

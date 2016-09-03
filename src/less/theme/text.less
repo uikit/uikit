@@ -14,33 +14,13 @@
 @text-meta-link-color:                          @text-meta-color;
 @text-meta-link-hover-color:                    @global-color;
 
-@text-lead-font-family:                         @global-font-primary-font-family;
-@text-lead-font-weight:                         @global-font-primary-font-weight;
-@text-lead-text-transform:                      @global-font-primary-text-transform;
-@text-lead-letter-spacing:                      @global-font-primary-letter-spacing;
-
-@text-meta-font-family:                         @global-font-secondary-font-family;
-@text-meta-font-weight:                         @global-font-secondary-font-weight;
-@text-meta-text-transform:                      @global-font-secondary-text-transform;
-@text-meta-letter-spacing:                      @global-font-secondary-letter-spacing;
-
 
 // Style modifiers
 // ========================================================================
 
-.hook-text-lead() {
-    font-family: @text-lead-font-family;
-    font-weight: @text-lead-font-weight;
-    text-transform: @text-lead-text-transform;
-    letter-spacing: @text-lead-letter-spacing;
-}
+.hook-text-lead() {}
 
 .hook-text-meta() {
-
-    font-family: @text-meta-font-family;
-    font-weight: @text-meta-font-weight;
-    text-transform: @text-meta-text-transform;
-    letter-spacing: @text-meta-letter-spacing;
 
     a { color: @text-meta-link-color; }
 

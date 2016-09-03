@@ -18,14 +18,6 @@
 
 @tab-item-active-border:                        @global-primary-background;
 
-@tab-onclick-color:                             @global-highlight-color;
-
-@tab-font-size:                                 @global-font-size;
-@tab-font-family:                               @global-font-secondary-font-family;
-@tab-font-weight:                               @global-font-secondary-font-weight;
-@tab-text-transform:                            @global-font-secondary-text-transform;
-@tab-letter-spacing:                            @global-font-secondary-letter-spacing;
-
 
 // Component
 // ========================================================================
@@ -49,14 +41,7 @@
 // Items
 // ========================================================================
 
-.hook-tab-item() {
-    border-bottom: @tab-item-border-width solid transparent;
-    font-size: @tab-font-size;
-    font-family: @tab-font-family;
-    font-weight: @tab-font-weight;
-    text-transform: @tab-text-transform;
-    letter-spacing: @tab-letter-spacing;
-}
+.hook-tab-item() { border-bottom: @tab-item-border-width solid transparent; }
 
 .hook-tab-item-hover() {}
 
@@ -125,9 +110,6 @@
 .hook-tab-misc() {
 
     .uk-tab .uk-dropdown { margin-left: (@tab-margin-horizontal + @tab-item-padding-horizontal) }
-
-    // Onclick
-    .uk-tab > * > a:active { color: @tab-onclick-color; }
 
 }
 

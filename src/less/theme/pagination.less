@@ -7,18 +7,6 @@
 // Variables
 // ========================================================================
 
-//
-// New
-//
-
-@pagination-item-font-size:                     @global-small-font-size;
-@pagination-item-font-family:                   @global-font-secondary-font-family;
-@pagination-item-font-weight:                   @global-font-secondary-font-weight;
-@pagination-item-text-transform:                @global-font-secondary-text-transform;
-@pagination-item-letter-spacing:                0;
-
-@pagination-item-onclick-color:                 @global-highlight-color;
-
 
 // Component
 // ========================================================================
@@ -29,13 +17,7 @@
 // Items
 // ========================================================================
 
-.hook-pagination-item() {
-    font-size: @pagination-item-font-size;
-    font-family: @pagination-item-font-family;
-    font-weight: @pagination-item-font-weight;
-    text-transform: @pagination-item-text-transform;
-    letter-spacing: @pagination-item-letter-spacing;
-}
+.hook-pagination-item() {}
 
 .hook-pagination-item-hover() {}
 
@@ -47,12 +29,7 @@
 // Miscellaneous
 // ========================================================================
 
-.hook-pagination-misc() {
-
-    // Onclick
-    .uk-pagination > * > :active { color: @pagination-item-onclick-color; }
-
-}
+.hook-pagination-misc() {}
 
 
 // Dye

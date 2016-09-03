@@ -7,16 +7,9 @@
 // Variables
 // ========================================================================
 
-@navbar-nav-item-font-size:                     @global-font-size;
-@navbar-nav-item-font-family:                   @global-font-primary-font-family;
-
-@navbar-nav-item-onclick-color:                 @global-highlight-color;
-
 @navbar-dropdown-margin:                        15px;
 @navbar-dropdown-background:                    @global-background;
 @navbar-dropdown-grid-gutter-horizontal:        (@navbar-dropdown-padding * 2);
-
-@navbar-dropdown-nav-header-color:              @global-muted-color;
 
 //
 // New
@@ -41,20 +34,6 @@
 @navbar-dropdown-grid-divider-border:           @navbar-dropdown-nav-divider-border;
 @navbar-dropdown-grid-divider-border-width:     @global-border-width;
 
-@navbar-nav-item-font-weight:                   @global-font-primary-font-weight;
-@navbar-nav-item-text-transform:                @global-font-primary-text-transform;
-@navbar-nav-item-letter-spacing:                @global-font-primary-letter-spacing;
-
-@navbar-dropdown-border-radius:                 @global-border-radius;
-
-@navbar-dropdown-nav-font-size:                 @global-font-size;
-@navbar-dropdown-nav-font-family:               @global-font-secondary-font-family;
-@navbar-dropdown-nav-font-weight:               @global-font-secondary-font-weight;
-@navbar-dropdown-nav-text-transform:            @global-font-secondary-text-transform;
-@navbar-dropdown-nav-letter-spacing:            @global-font-secondary-letter-spacing;
-
-@navbar-dropdown-nav-item-onclick-color:        @global-highlight-color;
-
 
 // Component
 // ========================================================================
@@ -71,11 +50,7 @@
 // Nav
 // ========================================================================
 
-.hook-navbar-nav-item() {
-    font-weight: @navbar-nav-item-font-weight;
-    text-transform: @navbar-nav-item-text-transform;
-    letter-spacing: @navbar-nav-item-letter-spacing;
-}
+.hook-navbar-nav-item() {}
 
 .hook-navbar-nav-item-hover() {}
 
@@ -117,10 +92,7 @@
 // Dropdown
 // ========================================================================
 
-.hook-navbar-dropdown() {
-    box-shadow: 0 5px @navbar-dropdown-box-shadow-blur @navbar-dropdown-box-shadow;
-    border-radius: @dropdown-border-radius;
-}
+.hook-navbar-dropdown() { box-shadow: 0 5px @navbar-dropdown-box-shadow-blur @navbar-dropdown-box-shadow; }
 
 .hook-navbar-dropdown-dropbar() {
     margin-bottom: @navbar-dropdown-dropbar-margin-bottom;
@@ -133,14 +105,7 @@
 
 .hook-navbar-dropdown-nav() { margin: 0 (-@navbar-dropdown-padding); }
 
-.hook-navbar-dropdown-nav-item() {
-    padding: @navbar-dropdown-nav-item-padding-vertical @navbar-dropdown-nav-item-padding-horizontal;
-    font-size: @navbar-dropdown-nav-font-size;
-    font-family: @navbar-dropdown-nav-font-family;
-    font-weight: @navbar-dropdown-nav-font-weight;
-    text-transform: @navbar-dropdown-nav-text-transform;
-    letter-spacing: @navbar-dropdown-nav-letter-spacing;
-}
+.hook-navbar-dropdown-nav-item() { padding: @navbar-dropdown-nav-item-padding-vertical @navbar-dropdown-nav-item-padding-horizontal; }
 
 .hook-navbar-dropdown-nav-item-hover() { background: @navbar-dropdown-nav-item-hover-background; }
 
@@ -212,9 +177,6 @@
         right: 0;
         border-top: @navbar-dropdown-grid-divider-border-width solid @navbar-dropdown-grid-divider-border;
     }
-
-    // Onclick dropdown
-    .uk-navbar-dropdown-nav > li > a:active { color: @navbar-dropdown-nav-item-onclick-color; }
 
 }
 

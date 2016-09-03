@@ -15,16 +15,8 @@
 
 @nav-divider-margin-vertical:                   15px;
 
-@nav-header-font-size:                          @global-xsmall-font-size;
-@nav-header-text-transform:                     uppercase;
-
-@nav-default-header-color:                      @global-muted-color;
-
 @nav-default-item-color:                        @global-color;
 @nav-default-item-active-color:                 @global-inverse-color;
-
-@nav-primary-item-font-size:                    @global-medium-font-size;
-@nav-primary-header-color:                      @global-muted-color;
 
 //
 // New
@@ -34,30 +26,10 @@
 
 @nav-default-item-hover-background:             @global-muted-background;
 @nav-default-item-active-background:            @global-primary-background;
-@nav-default-item-border-radius:                @global-border-radius;
 
 @nav-primary-item-padding-vertical:             5px;
 
 @nav-primary-header-padding-vertical:           5px;
-
-@nav-header-letter-spacing:                     2px;
-
-@nav-default-font-size:                         @global-font-size;
-@nav-default-font-family:                       @global-font-secondary-font-family;
-@nav-default-font-weight:                       @global-font-secondary-font-weight;
-@nav-default-text-transform:                    @global-font-secondary-text-transform;
-@nav-default-letter-spacing:                    @global-font-secondary-letter-spacing;
-
-@nav-default-item-border-radius:                @global-border-radius;
-
-@nav-default-item-onclick-color:                @global-highlight-color;
-
-@nav-primary-font-family:                       @global-font-primary-font-family;
-@nav-primary-font-weight:                       @global-font-primary-font-weight;
-@nav-primary-text-transform:                    @global-font-primary-text-transform;
-@nav-primary-letter-spacing:                    @global-font-primary-letter-spacing;
-
-@nav-primary-item-onclick-color:                @global-highlight-color;
 
 
 // Sublists
@@ -75,7 +47,7 @@
 // Header
 // ========================================================================
 
-.hook-nav-header() { letter-spacing: @nav-header-letter-spacing; }
+.hook-nav-header() {}
 
 
 // Divider
@@ -87,14 +59,7 @@
 // Default style modifier
 // ========================================================================
 
-.hook-nav-default-item() {
-    border-radius: @nav-default-item-border-radius;
-    font-size: @nav-default-font-size;
-    font-family: @nav-default-font-family;
-    font-weight: @nav-default-font-weight;
-    text-transform: @nav-default-text-transform;
-    letter-spacing: @nav-default-letter-spacing;
-}
+.hook-nav-default-item() {}
 
 .hook-nav-default-item-hover() { background: @nav-default-item-hover-background; }
 
@@ -108,13 +73,7 @@
 // Primary style modifier
 // ========================================================================
 
-.hook-nav-primary-item() {
-    padding: @nav-primary-item-padding-vertical 0;
-    font-family: @nav-primary-font-family;
-    font-weight: @nav-primary-font-weight;
-    text-transform: @nav-primary-text-transform;
-    letter-spacing: @nav-primary-letter-spacing;
-}
+.hook-nav-primary-item() { padding: @nav-primary-item-padding-vertical 0; }
 
 .hook-nav-primary-item-hover() {}
 
@@ -128,15 +87,7 @@
 // Miscellaneous
 // ========================================================================
 
-.hook-nav-misc() {
-
-    // Onclick default
-    .uk-nav-default > li > a:active { color: @nav-default-item-onclick-color; }
-
-    // Onclick primary
-    .uk-nav-primary > li > a:active { color: @nav-primary-item-onclick-color; }
-
-}
+.hook-nav-misc() {}
 
 
 // Dye
