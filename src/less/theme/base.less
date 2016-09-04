@@ -15,6 +15,8 @@
 // New
 //
 
+@base-code-padding-horizontal:                  6px;
+@base-code-padding-vertical:                    2px;
 @base-code-border:                              @global-border;
 @base-code-border-width:                        @global-border-width;
 @base-code-border-radius:                       3px;
@@ -46,7 +48,7 @@
 // ========================================================================
 
 .hook-base-code() {
-    padding: 1px 6px 3px 6px;
+    padding: @base-code-padding-vertical @base-code-padding-horizontal;
     border: @base-code-border-width solid @base-code-border;
     border-radius: @base-code-border-radius;
 }
@@ -89,9 +91,9 @@
 
 .hook-base-pre() {
     padding: @base-pre-padding;
-    background: @base-pre-background;
     border: @base-pre-border-width solid @base-pre-border;
     border-radius: @base-pre-border-radius;
+    background: @base-pre-background;
 }
 
 
@@ -117,6 +119,15 @@
     }
 
     .hook-dye-base-heading() {}
+
+    .hook-dye-base-h1() {}
+    .hook-dye-base-h2() {}
+    .hook-dye-base-h3() {}
+    .hook-dye-base-h4() {}
+    .hook-dye-base-h5() {}
+    .hook-dye-base-h6() {}
+
+    .hook-dye-base-blockquote() {}
 
     .hook-dye-base-hr() {}
 

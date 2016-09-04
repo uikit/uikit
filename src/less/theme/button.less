@@ -24,20 +24,21 @@
 // New
 //
 
-@button-border-width:                           @global-border-width;
-
 @button-default-border:                         @global-border;
+@button-default-border-width:                   @global-border-width;
 @button-default-hover-border:                   darken(@global-border, 20%);
 @button-default-active-border:                  darken(@global-border, 30%);
 
 @button-disabled-border:                        @global-border;
+
+@button-text-border:                            @global-emphasis-color;
+@button-text-border-width:                      @global-border-width;
 
 
 // Component
 // ========================================================================
 
 .hook-button() {
-    border: @button-border-width solid transparent;
     -webkit-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
     -webkit-transition-property: color, background-color, border;
@@ -54,7 +55,9 @@
 // Style modifiers
 // ========================================================================
 
-.hook-button-default() { border-color: @button-default-border; }
+.hook-button-default() {
+    border: @button-default-border-width solid @button-default-border;
+}
 
 .hook-button-default-hover() { border-color: @button-default-hover-border; }
 
@@ -64,7 +67,7 @@
 // Primary
 //
 
-.hook-button-primary() {}
+.hook-button-primary() { border: @button-default-border-width solid transparent; }
 
 .hook-button-primary-hover() {}
 
@@ -74,7 +77,7 @@
 // Secondary
 //
 
-.hook-button-secondary() {}
+.hook-button-secondary() { border: @button-default-border-width solid transparent; }
 
 .hook-button-secondary-hover() {}
 
@@ -84,7 +87,7 @@
 // Danger
 //
 
-.hook-button-danger() {}
+.hook-button-danger() { border: @button-default-border-width solid transparent; }
 
 .hook-button-danger-hover() {}
 
@@ -95,6 +98,14 @@
 // ========================================================================
 
 .hook-button-disabled() { border-color: @button-disabled-border; }
+
+
+// Size modifiers
+// ========================================================================
+
+.hook-button-small() {}
+
+.hook-button-large() {}
 
 
 // Text modifier
@@ -110,8 +121,8 @@
         bottom: 0;
         left: 0;
         right: 100%;
-        border-bottom: @global-border-width solid @global-color;
-        -webkit-transition: right 0.2s ease-out;
+        border-bottom: @button-text-border-width solid @button-text-border;
+        -webkit-transition: right 0.3s ease-out;
         transition: right 0.3s ease-out;
     }
 
@@ -149,7 +160,7 @@
      */
 
     .uk-button-group > .uk-button-default:nth-child(n+2),
-    .uk-button-group > div:nth-child(n+2) .uk-button-default { margin-left: -@button-border-width; }
+    .uk-button-group > div:nth-child(n+2) .uk-button-default { margin-left: -@button-default-border-width; }
 
     /*
      * Create position context to superimpose the successor elements border
@@ -185,7 +196,7 @@
     .hook-dye-button-primary-active() {}
 
     .hook-dye-button-text() {
-        &::before { border-bottom-color: @dye-color; }
+        &::before { border-bottom-color: @dye-emphasis-color; }
     }
     .hook-dye-button-text-hover() {}
     .hook-dye-button-text-disabled() {}
