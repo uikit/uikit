@@ -31,7 +31,7 @@
 
 @button-disabled-border:                        @global-border;
 
-@button-text-border:                            @global-emphasis-color;
+@button-text-border:                            @button-text-hover-color;
 @button-text-border-width:                      @global-border-width;
 
 
@@ -55,9 +55,7 @@
 // Style modifiers
 // ========================================================================
 
-.hook-button-default() {
-    border: @button-default-border-width solid @button-default-border;
-}
+.hook-button-default() { border: @button-default-border-width solid @button-default-border; }
 
 .hook-button-default-hover() { border-color: @button-default-hover-border; }
 
