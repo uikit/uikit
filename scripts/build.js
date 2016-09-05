@@ -27,7 +27,7 @@ function compile(file, dest, external, globals) {
         external,
         entry: `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
         plugins: [
-            babel({presets: ['es2015-rollup']}),
+            babel({presets: [['es2015', {loose: true, modules: false}]]}),
             resolve({jsnext: true})
         ]
     })
