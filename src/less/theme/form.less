@@ -36,8 +36,8 @@
 @form-danger-border:                            @global-danger-background;
 @form-success-border:                           @global-success-background;
 
-@form-blank-border:                             @global-border;
-@form-blank-border-style:                       dashed;
+@form-blank-focus-border:                       @global-border;
+@form-blank-focus-border-style:                 dashed;
 
 @form-radio-border:                             darken(@global-border, 10%);
 @form-radio-border-width:                       @global-border-width;
@@ -74,12 +74,12 @@
 
 .hook-form-success() { border-color: @form-success-border; }
 
-.hook-form-blank() {
-    border-color: transparent;
-    border-style: @form-blank-border-style;
-}
+.hook-form-blank() { border-color: transparent; }
 
-.hook-form-blank-focus() { border-color: @form-blank-border; }
+.hook-form-blank-focus() {
+    border-color: @form-blank-focus-border;
+    border-style: @form-blank-focus-border-style;
+}
 
 
 // Radio and checkbox
@@ -97,7 +97,7 @@
 
 .hook-form-radio-checked() { border-color: @form-radio-checked-border; }
 
-.hook-form-radio-checked-focus() { }
+.hook-form-radio-checked-focus() {}
 
 .hook-form-radio-disabled() { border-color: @form-radio-disabled-border; }
 
@@ -144,5 +144,7 @@
     .hook-dye-form-radio-focus() { border-color: @dye-color; }
 
     .hook-dye-form-radio-checked() { border-color: @dye-color; }
+
+    .hook-dye-form-radio-checked-focus() {}
 
 }

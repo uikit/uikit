@@ -729,16 +729,20 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 .dye-vars-default() {
 
-    @form-background:                      transparent;
+    @form-background:                      @dye-muted-background;
     @form-color:                           @dye-color;
-    @form-focus-background:                transparent;
+    @form-focus-background:                @dye-muted-background;
     @form-focus-color:                     @dye-color;
     @form-placeholder-color:               @dye-muted-color;
 
     @form-select-icon-color:               @dye-color;
 
-    @form-radio-checked-background:        transparent;
-    @form-radio-checked-icon-color:        @dye-color;
+    @form-radio-background:                darken(@dye-muted-background, 5%);
+
+    @form-radio-checked-background:        @dye-primary-background;
+    @form-radio-checked-icon-color:        @dye-inverse-color;
+
+    @form-radio-checked-focus-background:  darken(@dye-primary-background, 10%);
 
 }
 
@@ -787,6 +791,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
     .uk-radio,
     .uk-checkbox {
+        background-color: @form-radio-background;
         .hook-dye-form-radio;
     }
 
@@ -804,6 +809,15 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
         .hook-dye-form-radio-checked;
     }
 
+    // Focus
+    .uk-radio:checked:focus,
+    .uk-checkbox:checked:focus,
+    .uk-checkbox:indeterminate:focus {
+        background-color: @form-radio-checked-focus-background;
+        .hook-dye-form-radio-checked-focus;
+    }
+
+
     // Icon
     .uk-radio:checked { .svg-fill(@internal-image-form-radio, "#000", @form-radio-checked-icon-color); }
     .uk-checkbox:checked { .svg-fill(@internal-image-form-checkbox, "#000", @form-radio-checked-icon-color); }
@@ -816,3 +830,4 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .hook-dye-form-radio() {}
 .hook-dye-form-radio-focus() {}
 .hook-dye-form-radio-checked() {}
+.hook-dye-form-radio-checked-focus() {}

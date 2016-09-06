@@ -7,9 +7,9 @@
 // Variables
 // ========================================================================
 
-@button-line-height:                            (@global-control-height - 2);
-@button-small-line-height:                      (@global-control-small-height - 2);
-@button-large-line-height:                      (@global-control-large-height - 2);
+@button-line-height:                            @global-control-height - (@button-border-width * 2);
+@button-small-line-height:                      @global-control-small-height - (@button-border-width * 2);
+@button-large-line-height:                      @global-control-large-height - (@button-border-width * 2);
 
 @button-default-background:                     transparent;
 @button-default-hover-background:               transparent;
@@ -24,8 +24,9 @@
 // New
 //
 
+@button-border-width:                           @global-border-width;
+
 @button-default-border:                         @global-border;
-@button-default-border-width:                   @global-border-width;
 @button-default-hover-border:                   darken(@global-border, 20%);
 @button-default-active-border:                  darken(@global-border, 30%);
 
@@ -55,7 +56,7 @@
 // Style modifiers
 // ========================================================================
 
-.hook-button-default() { border: @button-default-border-width solid @button-default-border; }
+.hook-button-default() { border: @button-border-width solid @button-default-border; }
 
 .hook-button-default-hover() { border-color: @button-default-hover-border; }
 
@@ -65,7 +66,7 @@
 // Primary
 //
 
-.hook-button-primary() { border: @button-default-border-width solid transparent; }
+.hook-button-primary() { border: @button-border-width solid transparent; }
 
 .hook-button-primary-hover() {}
 
@@ -75,7 +76,7 @@
 // Secondary
 //
 
-.hook-button-secondary() { border: @button-default-border-width solid transparent; }
+.hook-button-secondary() { border: @button-border-width solid transparent; }
 
 .hook-button-secondary-hover() {}
 
@@ -85,7 +86,7 @@
 // Danger
 //
 
-.hook-button-danger() { border: @button-default-border-width solid transparent; }
+.hook-button-danger() { border: @button-border-width solid transparent; }
 
 .hook-button-danger-hover() {}
 
@@ -158,7 +159,7 @@
      */
 
     .uk-button-group > .uk-button-default:nth-child(n+2),
-    .uk-button-group > div:nth-child(n+2) .uk-button-default { margin-left: -@button-default-border-width; }
+    .uk-button-group > div:nth-child(n+2) .uk-button-default { margin-left: -@button-border-width; }
 
     /*
      * Create position context to superimpose the successor elements border
