@@ -172,7 +172,19 @@ UIkit.component('sortable', {
 
             if (isWithin(this.origin.target, 'a[href]')) {
                 if (this.pos.x !== this.origin.x || this.pos.y !== this.origin.y) {
-                    $(e.target).one('click', e => e.preventDefault());
+
+                    var timer = setTimeout(() => doc.trigger('click'), 0),
+                        listener = e => {
+
+                            e.preventDefault();
+                            e.stopPropagation();
+
+                            clearTimeout(timer);
+                            doc[0].removeEventListener('click', listener, true);
+                        };
+
+                    doc[0].addEventListener('click', listener, true);
+
                 } else if (e.type !== 'mouseup') {
                     location.href = this.origin.target.closest('a[href]').attr('href');
                 }
