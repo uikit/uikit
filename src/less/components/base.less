@@ -264,7 +264,8 @@ video { vertical-align: middle; }
 
 /*
  * Responsiveness
- * 1. Sets a maximum width relative to the parent and auto scales the height
+ * 1. Set a maximum width
+ * 2. Auto scale the height. Only needed if `height` attribute is present
  * 2. Corrects `max-width` behavior if padding and border are used
  */
 
@@ -274,8 +275,9 @@ img,
 video {
     /* 1 */
     max-width: 100%;
-    height: auto;
     /* 2 */
+    height: auto;
+    /* 3 */
     box-sizing: border-box;
 }
 

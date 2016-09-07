@@ -229,40 +229,11 @@
 
 
 /* Responsive objects
- * Note: Images are already responsive by default, see Base component
  ========================================================================== */
 
 /*
- * 1. Corrects `max-width` and `max-height` behavior if padding and border are used
- */
-
-.uk-responsive-width,
-.uk-responsive-height,
-[uk-responsive] { box-sizing: border-box; }
-
-/*
- * Responsiveness: Sets a maximum width relative to the parent and auto scales the height
- * `important` needed to override `uk-img-preserve img`
- */
-
-.uk-responsive-width,
-[uk-responsive] {
-    max-width: 100% !important;
-    height: auto;
-}
-
-/*
- * Responsiveness: Sets a maximum height relative to the parent and auto scales the width
- * Only works if the parent element has a fixed height.
- */
-
-.uk-responsive-height {
-    max-height: 100%;
-    width: auto;
-}
-
-/*
  * Preserve original dimensions
+ * Because `img, `video`, `canvas` and  `audio` are already responsive by default, see Base component
  */
 
 .uk-preserve-width,
@@ -271,6 +242,45 @@
 .uk-preserve-width img,
 .uk-preserve-width svg,
 .uk-preserve-width video { max-width: none; }
+
+/*
+ * Responsiveness
+ * Corrects `max-width` and `max-height` behavior if padding and border are used
+ */
+
+.uk-responsive-width,
+.uk-responsive-height,
+[uk-responsive] { box-sizing: border-box; }
+
+/*
+ * 1. Set a maximum width. `important` needed to override `uk-preserve-width img`
+ * 2. Auto scale the height. Only needed if `height` attribute is present
+ */
+
+.uk-responsive-width,
+[uk-responsive] {
+    /* 1 */
+    max-width: 100% !important;
+    /* 2 */
+    height: auto;
+}
+
+/*
+ * 1. Set a maximum height. Only works if the parent element has a fixed height
+ * 2. Auto scale the width. Only needed if `width` attribute is present
+ * 3. Reset max-width, which `img, `video`, `canvas` and  `audio` already have by default
+ */
+
+.uk-responsive-height {
+    /* 1 */
+    max-height: 100%;
+    /* 2 */
+    width: auto;
+    /* 3 */
+    max-width: none;
+}
+
+
 
 
 /* Border
