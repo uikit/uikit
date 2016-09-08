@@ -37,7 +37,7 @@
                 </div>
                 <div>
 
-                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="offset: true">
+                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="mode: offset">
                         <h1>JS Offset</h1>
                     </div>
 
@@ -58,16 +58,10 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>offset</code></td>
-                            <td>Boolean</td>
-                            <td>false</td>
-                            <td>Subtract the element's offset top from its height.</td>
-                        </tr>
-                        <tr>
-                            <td><code>expand</code></td>
-                            <td>Boolean</td>
-                            <td>false</td>
-                            <td>Expand the element to make the document fill the viewport.</td>
+                            <td><code>mode</code></td>
+                            <td>viewport|offset|expand</td>
+                            <td>viewport</td>
+                            <td>viewport: Set the element's height to viewport height.<br/>offset: Subtract the element's offset top from its height. <br/>expand: Expand the element's height to make the document fill the viewport.</td>
                         </tr>
                     </tbody>
                 </table>

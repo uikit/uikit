@@ -3,17 +3,15 @@ export default function (UIkit) {
     UIkit.component('height-viewport', {
 
         props: {
-            offset: Boolean,
-            expand: Boolean
+            mode: String
         },
 
         defaults: {
-            offset: false,
-            expand: false
+            mode: 'viewport'
         },
 
         init() {
-            if (!this.expand) {
+            if (this.mode !== 'expand') {
                 this.$el.css('min-height', this.getHeight());
             }
         },
@@ -24,7 +22,7 @@ export default function (UIkit) {
 
                 this.borderBox = this.$el.css('box-sizing') === 'border-box';
 
-                if (this.expand) {
+                if (this.mode === 'expand') {
 
                     this.$el.css('min-height', '');
                     if (document.documentElement.offsetHeight < window.innerHeight) {
@@ -54,7 +52,7 @@ export default function (UIkit) {
 
                 var height = window.innerHeight;
 
-                if (this.offset && this.$el.offset().top < height) {
+                if (this.mode === 'offset'&& this.$el.offset().top < height) {
                     height -= this.$el.offset().top + (this.borderBox ? 0 : this.$el.outerHeight() - this.$el.height());
                 }
 
