@@ -6,8 +6,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-sticky", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-sticky', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -31,7 +31,7 @@
             clsactive    : 'uk-active',
             clsinactive  : '',
             getWidthFrom : '',
-            showup      : false,
+            showup       : false,
             boundary     : false,
             media        : false,
             target       : false,
@@ -64,11 +64,11 @@
 
                 setTimeout(function(){
 
-                    UI.$("[data-uk-sticky]", context).each(function(){
+                    UI.$('[data-uk-sticky]', context).each(function(){
 
                         var $ele = UI.$(this);
 
-                        if (!$ele.data("sticky")) {
+                        if (!$ele.data('sticky')) {
                             UI.sticky($ele, UI.Utils.options($ele.attr('data-uk-sticky')));
                         }
                     });
@@ -145,7 +145,7 @@
                     this.calcTop();
 
                     var finalize = function() {
-                        this.element.css({"position":"", "top":"", "width":"", "left":"", "margin":"0"});
+                        this.element.css({position:'', top:'', width:'', left:'', margin:'0'});
                         this.element.removeClass([this.options.animation, 'uk-animation-reverse', this.options.clsactive].join(' '));
                         this.element.addClass(this.options.clsinactive);
                         this.element.trigger('inactive.uk.sticky');
@@ -268,7 +268,7 @@
 
             sticky = stickies[i];
 
-            if (!sticky.element.is(":visible") || sticky.animate) {
+            if (!sticky.element.is(':visible') || sticky.animate) {
                 continue;
             }
 
@@ -305,7 +305,7 @@
                 if (sticky.currentTop != newTop) {
 
                     sticky.element.css({
-                        position : "fixed",
+                        position : 'fixed',
                         top      : newTop,
                         width    : sticky.getWidthFrom.length ? sticky.getWidthFrom.width() : sticky.element.width()
                     });

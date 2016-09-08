@@ -6,8 +6,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-form-select", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-form-select', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -19,20 +19,20 @@
     UI.component('formSelect', {
 
         defaults: {
-            'target': '>span:first',
-            'activeClass': 'uk-active'
+            target: '>span:first',
+            activeClass: 'uk-active'
         },
 
         boot: function() {
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-form-select]", context).each(function(){
+                UI.$('[data-uk-form-select]', context).each(function(){
 
                     var ele = UI.$(this);
 
-                    if (!ele.data("formSelect")) {
-                        UI.formSelect(ele, UI.Utils.options(ele.attr("data-uk-form-select")));
+                    if (!ele.data('formSelect')) {
+                        UI.formSelect(ele, UI.Utils.options(ele.attr('data-uk-form-select')));
                     }
                 });
             });

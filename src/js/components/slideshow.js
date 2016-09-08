@@ -6,8 +6,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-slideshow", ["uikit"], function() {
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-slideshow', ['uikit'], function() {
             return component || addon(UIkit);
         });
     }
@@ -21,9 +21,9 @@
     UI.component('slideshow', {
 
         defaults: {
-            animation          : "fade",
+            animation          : 'fade',
             duration           : 500,
-            height             : "auto",
+            height             : 'auto',
             start              : 0,
             autoplay           : false,
             autoplayInterval   : 7000,
@@ -55,8 +55,8 @@
 
                     var slideshow = UI.$(this);
 
-                    if (!slideshow.data("slideshow")) {
-                        UI.slideshow(slideshow, UI.Utils.options(slideshow.attr("data-uk-slideshow")));
+                    if (!slideshow.data('slideshow')) {
+                        UI.slideshow(slideshow, UI.Utils.options(slideshow.attr('data-uk-slideshow')));
                     }
                 });
             });
@@ -87,7 +87,7 @@
 
             this.update();
 
-            this.on("click.uk.slideshow", '[data-uk-slideshow-item]', function(e) {
+            this.on('click.uk.slideshow', '[data-uk-slideshow-item]', function(e) {
 
                 e.preventDefault();
 
@@ -339,8 +339,8 @@
                         $this.playmedia(nextmedia);
                     }
 
-                    next.addClass("uk-active").attr('aria-hidden', 'false');
-                    current.removeClass("uk-active").attr('aria-hidden', 'true');
+                    next.addClass('uk-active').attr('aria-hidden', 'false');
+                    current.removeClass('uk-active').attr('aria-hidden', 'true');
 
                     $this.animating = false;
                     $this.current   = index;

@@ -6,8 +6,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-slideshow-fx", ["uikit"], function() {
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-slideshow-fx', ['uikit'], function() {
             return component || addon(UIkit);
         });
     }
@@ -88,12 +88,7 @@
             ghost.width();
 
             ghost.children().each(function() {
-                var bar = UI.$(this);
-
-                bar.css({
-                    'clip': bar.data('clip'),
-                    'opacity': 1
-                });
+                bar.css({ clip: UI.$(this).data('clip'), opacity: 1 });
             });
 
             return d.promise();
@@ -156,13 +151,11 @@
             ghost.width();
 
             ghost.children().first().on(UI.support.transition.end, function() {
-
                 setTimeout(ghost.remove.bind(ghost), 0);
-
                 d.resolve();
             }).end().css({
-                'transform': 'scaleX(1)',
-                'opacity': 1
+                transform: 'scaleX(1)',
+                opacity: 1
             });
 
             return d.promise();
@@ -239,7 +232,7 @@
 
             ghost.width();
 
-            boxes.css({'opacity': 1});
+            boxes.css({opacity: 1});
 
             return d.promise();
         },

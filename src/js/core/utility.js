@@ -17,12 +17,12 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-margin]", context).each(function() {
+                UI.$('[data-uk-margin]', context).each(function() {
 
                     var ele = UI.$(this);
 
-                    if (!ele.data("stackMargin")) {
-                        UI.stackMargin(ele, UI.Utils.options(ele.attr("data-uk-margin")));
+                    if (!ele.data('stackMargin')) {
+                        UI.stackMargin(ele, UI.Utils.options(ele.attr('data-uk-margin')));
                     }
                 });
             });
@@ -40,20 +40,20 @@
 
                 UI.$(function() {
                     fn();
-                    UI.$win.on("load", fn);
+                    UI.$win.on('load', fn);
                 });
 
                 return UI.Utils.debounce(fn, 20);
             })());
 
-            this.on("display.uk.check", function(e) {
-                if (this.element.is(":visible")) this.process();
+            this.on('display.uk.check', function(e) {
+                if (this.element.is(':visible')) this.process();
             }.bind(this));
 
             if (this.options.observe) {
 
                 UI.domObserve(this.element, function(e) {
-                    if ($this.element.is(":visible")) $this.process();
+                    if ($this.element.is(':visible')) $this.process();
                 });
             }
 
@@ -105,7 +105,7 @@
                 ratio  = (width / iwidth),
                 height = Math.floor(ratio * ele.data('height'));
 
-            ele.css({'height': (width < iwidth) ? height : ele.data('height')});
+            ele.css({height: (width < iwidth) ? height : ele.data('height')});
         };
 
         UI.component('responsiveElement', {
@@ -117,11 +117,11 @@
                 // init code
                 UI.ready(function(context) {
 
-                    UI.$("iframe.uk-responsive-width, [data-uk-responsive]", context).each(function() {
+                    UI.$('iframe.uk-responsive-width, [data-uk-responsive]', context).each(function() {
 
                         var ele = UI.$(this), obj;
 
-                        if (!ele.data("responsiveElement")) {
+                        if (!ele.data('responsiveElement')) {
                             obj = UI.responsiveElement(ele, {});
                         }
                     });
@@ -135,10 +135,8 @@
                 if (ele.attr('width') && ele.attr('height')) {
 
                     ele.data({
-
-                        'width' : ele.attr('width'),
-                        'height': ele.attr('height')
-
+                        width : ele.attr('width'),
+                        height: ele.attr('height')
                     }).on('display.uk.check', function(){
                         check(ele);
                     });
@@ -159,7 +157,6 @@
         }, 15));
 
     })();
-
 
 
     // helper
@@ -185,8 +182,8 @@
                 pos    = offset.top + height;
 
                 $ele.data({
-                    'ukMarginPos': pos,
-                    'ukMarginTop': offset.top
+                    ukMarginPos: pos,
+                    ukMarginTop: offset.top
                 });
 
                 if (min === false || (offset.top < min.top) ) {

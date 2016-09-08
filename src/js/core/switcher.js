@@ -8,7 +8,7 @@
 
         defaults: {
             connect   : false,
-            toggle    : ">*",
+            toggle    : '>*',
             active    : 0,
             animation : false,
             duration  : 200,
@@ -22,11 +22,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-switcher]", context).each(function() {
+                UI.$('[data-uk-switcher]', context).each(function() {
                     var switcher = UI.$(this);
 
-                    if (!switcher.data("switcher")) {
-                        var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr("data-uk-switcher")));
+                    if (!switcher.data('switcher')) {
+                        var obj = UI.switcher(switcher, UI.Utils.options(switcher.attr('data-uk-switcher')));
                     }
                 });
             });
@@ -87,7 +87,7 @@
             this.connect.children().removeClass('uk-active').attr('aria-hidden', 'true');
 
             var toggles = this.find(this.options.toggle),
-                active  = toggles.filter(".uk-active");
+                active  = toggles.filter('.uk-active');
 
             if (active.length) {
                 this.show(active, false);
@@ -110,18 +110,16 @@
                 return;
             }
 
+            var toggles = this.find(this.options.toggle);
+
             if (isNaN(tab)) {
                 tab = UI.$(tab);
             } else {
-
-                var toggles = this.find(this.options.toggle);
-
                 tab = tab < 0 ? toggles.length-1 : tab;
                 tab = toggles.eq(toggles[tab] ? tab : 0);
             }
 
             var $this     = this,
-                toggles   = this.find(this.options.toggle),
                 active    = UI.$(tab),
                 animation = Animations[this.options.animation] || function(current, next) {
 

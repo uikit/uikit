@@ -6,8 +6,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-search", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-search', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -46,7 +46,7 @@
 
                 var opts = this.options;
 
-                this.dropdown.append(this.template({"items":data.results || [], "msgResultsHeader":opts.msgResultsHeader, "msgMoreResults": opts.msgMoreResults, "msgNoResults": opts.msgNoResults}));
+                this.dropdown.append(this.template({items:data.results || [], msgResultsHeader:opts.msgResultsHeader, msgMoreResults: opts.msgMoreResults, msgNoResults: opts.msgNoResults}));
                 this.show();
             }
         },
@@ -54,11 +54,11 @@
         boot: function() {
 
             // init code
-            UI.$html.on("focus.search.uikit", "[data-uk-search]", function(e) {
+            UI.$html.on('focus.search.uikit', '[data-uk-search]', function(e) {
                 var ele =UI.$(this);
 
-                if (!ele.data("search")) {
-                    UI.search(ele, UI.Utils.options(ele.attr("data-uk-search")));
+                if (!ele.data('search')) {
+                    UI.search(ele, UI.Utils.options(ele.attr('data-uk-search')));
                 }
             });
         },
@@ -71,10 +71,10 @@
             this.autocomplete.dropdown.addClass('uk-dropdown-search');
 
             this.autocomplete.input.on("keyup", function(){
-                $this.element[$this.autocomplete.input.val() ? "addClass":"removeClass"]("uk-active");
+                $this.element[$this.autocomplete.input.val() ? 'addClass':'removeClass']('uk-active');
             }).closest("form").on("reset", function(){
-                $this.value="";
-                $this.element.removeClass("uk-active");
+                $this.value = '';
+                $this.element.removeClass('uk-active');
             });
 
             this.on('selectitem.uk.autocomplete', function(e, data) {
@@ -85,7 +85,7 @@
                 }
             });
 
-            this.element.data("search", this);
+            this.element.data('search', this);
         }
     });
 });

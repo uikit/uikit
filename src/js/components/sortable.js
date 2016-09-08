@@ -9,8 +9,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-sortable", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-sortable', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -69,12 +69,12 @@
             // auto init
             UI.ready(function(context) {
 
-                UI.$("[data-uk-sortable]", context).each(function(){
+                UI.$('[data-uk-sortable]', context).each(function(){
 
                     var ele = UI.$(this);
 
-                    if(!ele.data("sortable")) {
-                        UI.sortable(ele, UI.Utils.options(ele.attr("data-uk-sortable")));
+                    if(!ele.data('sortable')) {
+                        UI.sortable(ele, UI.Utils.options(ele.attr('data-uk-sortable')));
                     }
                 });
             });
@@ -107,7 +107,7 @@
                         left   = parseInt(ev.pageX, 10) + offset.left,
                         top    = parseInt(ev.pageY, 10) + offset.top;
 
-                    draggingPlaceholder.css({'left': left, 'top': top });
+                    draggingPlaceholder.css({left: left, top: top });
 
                     // adjust document scrolling
 
@@ -352,11 +352,11 @@
                         padding : $current.css('padding')
                     }).data({
                         'mouse-offset': {
-                            'left'   : offset.left - parseInt(ev.pageX, 10),
-                            'top'    : offset.top  - parseInt(ev.pageY, 10)
+                            left : offset.left - parseInt(ev.pageX, 10),
+                            top  : offset.top  - parseInt(ev.pageY, 10)
                         },
-                        'origin' : $this.element,
-                        'index'  : $current.index()
+                        origin : $this.element,
+                        index  : $current.index()
                     }).append($current.html()).appendTo('body');
 
                     draggingPlaceholder.$current  = $current;
@@ -384,10 +384,10 @@
             overElement = UI.$(document.elementFromPoint(e.pageX - (document.body.scrollLeft || document.scrollLeft || 0), e.pageY - (document.body.scrollTop || document.documentElement.scrollTop || 0)));
 
             var overRoot     = overElement.closest('.'+this.options.baseClass),
-                groupOver    = overRoot.data("sortable-group"),
+                groupOver    = overRoot.data('sortable-group'),
                 $current     = UI.$(currentlyDraggingElement),
                 currentRoot  = $current.parent(),
-                groupCurrent = $current.data("sortable-group"),
+                groupCurrent = $current.data('sortable-group'),
                 overChild;
 
             if (overRoot[0] !== currentRoot[0] && groupCurrent !== undefined && groupOver === groupCurrent) {
@@ -432,12 +432,12 @@
             if (previousCounter === 0) {
 
                 var currentlist = UI.$(elem).parent(),
-                    startlist   = UI.$(currentlyDraggingElement).data("start-list");
+                    startlist   = UI.$(currentlyDraggingElement).data('start-list');
 
                 if (currentlist[0] !== startlist[0]) {
 
                     var groupOver    = currentlist.data('sortable-group'),
-                        groupCurrent = UI.$(currentlyDraggingElement).data("sortable-group");
+                        groupCurrent = UI.$(currentlyDraggingElement).data('sortable-group');
 
                     if ((groupOver ||  groupCurrent) && (groupOver != groupCurrent)) {
                         return false;
@@ -511,7 +511,7 @@
             if (!currentlyDraggingElement) return;
 
             var $current = UI.$(currentlyDraggingElement),
-                oldRoot  = draggingPlaceholder.data("origin"),
+                oldRoot  = draggingPlaceholder.data('origin'),
                 newRoot  = $current.closest('.'+this.options.baseClass),
                 triggers = [],
                 el       = UI.$(currentlyDraggingElement);
@@ -580,7 +580,7 @@
             }).each(function() {
                 var ele    = UI.$(this),
                     before = ele.data('offset-before');
-                ele.css({'position':'absolute', 'top':before.top, 'left':before.left, 'min-width':before.width });
+                ele.css({position:'absolute', top:before.top, left:before.left, minWidth:before.width });
             });
 
             children.each(function(){
@@ -593,7 +593,7 @@
 
                     setTimeout(function(){
                         ele.animate({'top':offset.top, 'left':offset.left}, $this.options.animation, function() {
-                            ele.css({'position':'','top':'', 'left':'', 'min-width': '', 'pointer-events':''}).removeClass($this.options.overClass).removeData('child-dragenter');
+                            ele.css({position:'',top:'', left:'', minWidth: '', 'pointer-events':''}).removeClass($this.options.overClass).removeData('child-dragenter');
                             count--;
                             if (!count) {
                                 list.css('min-height', '');
