@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Fixed dropdown error if now offset element exists
   - Fixed variable reference in nav component when the dom changed.
 
 ### 2.27.1 (Aug 30, 2016)
