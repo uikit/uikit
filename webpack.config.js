@@ -7,7 +7,7 @@ var loaders = {
         {
             test: /(src|tests)(\/|\\).*\.js$/,
             loader: 'babel',
-            query: {presets: [['es2015', {loose: true, modules: false}]]}
+            query: {presets: [['es2015', {loose: true}]]}
         }
     ]
 };

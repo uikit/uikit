@@ -27,7 +27,6 @@
     "babel-core": "6.14.0",
     "babel-eslint": "5.0.4",
     "babel-loader": "6.2.5",
-    "babel-plugin-add-module-exports": "0.1.4",
     "babel-preset-es2015": "6.14.0",
     "glob": "^7.0.3",
     "jquery": "^2.2.1",
@@ -37,7 +36,7 @@
     "rollup-plugin-node-resolve": "1.7.0",
     "uglify-js": "^2.7.3",
     "watch-run": "^1.2.4",
-    "webpack": "2.1.0-beta.19",
-    "webpack-dev-server": "^2.1.0-beta.0"
+    "webpack": "2.1.0-beta.22",
+    "webpack-dev-server": "^2.1.0-beta.3"
   }
 }
