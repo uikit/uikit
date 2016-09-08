@@ -43,7 +43,16 @@ UIkit.component('tooltip', {
             this.positionAt(this.tooltip, this.$el);
             this.origin = this.getAxis() === 'y' ? `${flipPosition(this.dir)}-${this.align}` : `${this.align}-${flipPosition(this.dir)}`;
 
-            this.showTimer = setTimeout(() => this.toggleElement(this.tooltip, true), this.delay);
+            this.showTimer = setTimeout(() => {
+                this.toggleElement(this.tooltip, true);
+
+                this.hideTimer = setInterval(() => {
+                    if (!this.$el.is(':visible')) {
+                        this.hide();
+                    }
+                }, 150);
+
+            }, this.delay);
         },
 
         hide() {
@@ -53,6 +62,7 @@ UIkit.component('tooltip', {
             }
 
             clearTimeout(this.showTimer);
+            clearInterval(this.hideTimer);
             this.$el.attr('aria-expanded', false);
             this.toggleElement(this.tooltip, false);
             this.tooltip.remove();
