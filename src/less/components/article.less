@@ -105,6 +105,10 @@
     .dye-vars();
     .dye-hooks();
 
+    .uk-article-title  {
+        .hook-dye-article-title;
+    }
+
     .uk-article-meta  {
         color: @article-meta-color;
         .hook-dye-article-meta;
@@ -112,4 +116,5 @@
 
 }
 
+.hook-dye-article-title() {}
 .hook-dye-article-meta() {}
