@@ -139,7 +139,7 @@ export default function (UIkit) {
                             this.placeholder.attr('hidden', true);
                         };
 
-                        if (this.animation) {
+                        if (this.animation && scroll > this.top) {
                             Animation.cancel(this.$el).out(this.$el, this.animation).then(hide);
                         } else {
                             hide();
