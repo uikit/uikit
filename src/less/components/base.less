@@ -63,6 +63,9 @@
 @base-blockquote-line-height:                   1.5;
 @base-blockquote-font-style:                    italic;
 @base-blockquote-margin-vertical:               @global-margin;
+@base-blockquote-footer-margin-top:             @global-small-margin;
+@base-blockquote-footer-font-size:              @global-small-font-size;
+@base-blockquote-footer-line-height:            1.5;
 
 @base-pre-font-size:                            @global-small-font-size;
 @base-pre-line-height:                          1.5;
@@ -446,15 +449,28 @@ address { font-style: normal; }
  ========================================================================== */
 
 blockquote {
+    margin: 0 0 @base-blockquote-margin-vertical 0;
     font-size: @base-blockquote-font-size;
     line-height: @base-blockquote-line-height;
     font-style: @base-blockquote-font-style;
-    margin: 0 0 @base-blockquote-margin-vertical 0;
     .hook-base-blockquote;
 }
 
 /* Add margin if adjacent element */
 * + blockquote { margin-top: @base-blockquote-margin-vertical; }
+
+/*
+ * Content
+ */
+
+blockquote p:last-of-type { margin-bottom: 0; }
+
+blockquote footer {
+    margin-top:  @base-blockquote-footer-margin-top;
+    font-size: @base-blockquote-footer-font-size;
+    line-height: @base-blockquote-footer-line-height;
+    .hook-base-blockquote-footer;
+}
 
 
 /* Preformatted text
@@ -584,6 +600,7 @@ textarea { touch-action: manipulation; }
 .hook-base-h6() {}
 .hook-base-hr() {}
 .hook-base-blockquote() {}
+.hook-base-blockquote-footer() {}
 .hook-base-pre() {}
 .hook-base-misc() {}
 
@@ -702,6 +719,10 @@ textarea { touch-action: manipulation; }
         .hook-dye-base-blockquote;
     }
 
+    blockquote footer {
+        .hook-dye-base-blockquote-footer;
+    }
+
     //
     // Horizontal rules
     //
@@ -724,4 +745,5 @@ textarea { touch-action: manipulation; }
 .hook-dye-base-h5() {}
 .hook-dye-base-h6() {}
 .hook-dye-base-blockquote() {}
+.hook-dye-base-blockquote-footer() {}
 .hook-dye-base-hr() {}

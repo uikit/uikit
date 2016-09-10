@@ -85,6 +85,14 @@
     text-align: @base-blockquote-text-align;
 }
 
+.hook-base-blockquote-footer() {
+
+    &::before {
+        content: "— ";
+    }
+
+}
+
 
 // Preformatted text
 // ========================================================================
@@ -128,6 +136,7 @@
     .hook-dye-base-h6() {}
 
     .hook-dye-base-blockquote() {}
+    .hook-dye-base-blockquote-footer() {}
 
     .hook-dye-base-hr() {}
 
