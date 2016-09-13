@@ -99,16 +99,6 @@ export default function (UIkit) {
 
         events: {
 
-            beforeshow() {
-                this.initMouseTracker();
-                this.toggle.$el.addClass(this.cls).attr('aria-expanded', 'true');
-            },
-
-            beforehide() {
-                this.cancelMouseTracker();
-                this.toggle.$el.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
-            },
-
             toggle(e, toggle) {
                 e.preventDefault();
 
@@ -121,7 +111,7 @@ export default function (UIkit) {
 
             'toggleShow mouseenter'(e, toggle) {
                 e.preventDefault();
-                this.show(toggle);
+                this.show(toggle || this.toggle);
             },
 
             'toggleHide mouseleave'(e) {
@@ -155,7 +145,12 @@ export default function (UIkit) {
                     active.hide(false);
                 }
 
-                var show = () => this.toggleElement(this.$el, true);
+                var show = () => {
+                    if (this.toggleElement(this.$el, true).state() !== 'rejected') {
+                        this.initMouseTracker();
+                        this.toggle.$el.addClass(this.cls).attr('aria-expanded', 'true');
+                    }
+                };
 
                 if (delay && this.delayShow) {
                     this.showTimer = setTimeout(show, this.delayShow);
@@ -171,8 +166,11 @@ export default function (UIkit) {
                 this.clearTimers();
 
                 var hide = () => {
-                    active = this.isActive() ? null : active;
-                    this.toggleNow(this.$el, false);
+                    if (this.toggleNow(this.$el, false).state() !== 'rejected') {
+                        active = this.isActive() ? null : active;
+                        this.cancelMouseTracker();
+                        this.toggle.$el.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
+                    }
                 };
 
                 this.isDelaying = this.movesTo(this.$el);

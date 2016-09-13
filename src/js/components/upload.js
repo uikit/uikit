@@ -1,6 +1,6 @@
 import { util } from 'uikit';
 
-var {$, ajax} = util;
+var {$, ajax, on} = util;
 
 UIkit.component('upload', {
 
@@ -165,8 +165,8 @@ UIkit.component('upload', {
                         processData: false,
                         xhr: () => {
                             var xhr = $.ajaxSettings.xhr();
-                            xhr.upload && this.progress && xhr.upload.addEventListener('progress', this.progress);
-                            ['loadStart', 'load', 'loadEnd', 'error', 'abort'].forEach(type => this[type] && xhr.addEventListener(type.toLowerCase(), this[type]));
+                            xhr.upload && this.progress && on(xhr.upload, 'progress', this.progress);
+                            ['loadStart', 'load', 'loadEnd', 'error', 'abort'].forEach(type => this[type] && on(xhr, type.toLowerCase(), this[type]));
                             return xhr;
                         }
                     })

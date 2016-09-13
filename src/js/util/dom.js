@@ -10,18 +10,26 @@ export function isReady() {
 export function ready(fn) {
 
     var handle = function () {
-        document.removeEventListener('DOMContentLoaded', handle);
-        window.removeEventListener('load', handle);
+        off(document, 'DOMContentLoaded', handle);
+        off(window, 'load', handle);
         fn();
     };
 
     if (isReady()) {
         fn();
     } else {
-        document.addEventListener('DOMContentLoaded', handle);
-        window.addEventListener('load', handle);
+        on(document, 'DOMContentLoaded', handle);
+        on(window, 'load', handle);
     }
 
+}
+
+export function on(el, type, listener, useCapture) {
+    $(el)[0].addEventListener(type, listener, useCapture)
+}
+
+export function off(el, type, listener, useCapture) {
+    $(el)[0].removeEventListener(type, listener, useCapture)
 }
 
 export function transition(element, props, duration = 400, transition = 'linear') {

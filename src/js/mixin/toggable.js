@@ -87,7 +87,7 @@ export default {
             el.trigger(event, [this]);
 
             if (event.result === false) {
-                return;
+                return $.Deferred().reject();
             }
 
             if (this.animation === true && animate !== false) {

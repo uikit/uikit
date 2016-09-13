@@ -1,4 +1,4 @@
-import { camelize, matches, Observer, ready } from '../util/index';
+import { camelize, matches, Observer, on, ready } from '../util/index';
 
 export default function (UIkit) {
 
@@ -22,7 +22,7 @@ export default function (UIkit) {
 
         ready(() => {
             apply(document.body, attachComponents);
-            document.body.addEventListener('DOMNodeInserted', e => apply(e.target, attachComponents));
+            on(document.body, 'DOMNodeInserted', e => apply(e.target, attachComponents));
         });
 
     }

@@ -1,6 +1,6 @@
 import { util, mixin, container } from 'uikit';
 
-var {$, extend, isWithin, Observer, pointerDown, pointerMove, pointerUp} = util;
+var {$, extend, isWithin, Observer, on, off, pointerDown, pointerMove, pointerUp} = util;
 
 var win = $(window), doc = $(document.documentElement);
 
@@ -180,10 +180,10 @@ UIkit.component('sortable', {
                             e.stopPropagation();
 
                             clearTimeout(timer);
-                            doc[0].removeEventListener('click', listener, true);
+                            off(doc, 'click', listener, true);
                         };
 
-                    doc[0].addEventListener('click', listener, true);
+                        on(doc, 'click', listener, true);
 
                 } else if (e.type !== 'mouseup') {
                     location.href = this.origin.target.closest('a[href]').attr('href');
