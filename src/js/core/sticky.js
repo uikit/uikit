@@ -85,7 +85,11 @@ export default function (UIkit) {
                             this.top = window.innerHeight * parseFloat(this.top) / 100;
                         } else {
 
-                            el = toJQuery(this.top);
+                            el = this.top === true
+                                ? this.$el.parent()
+                                : this.top[0] === '!'
+                                    ? toJQuery(this.$el.closest(this.top.substr(1)))
+                                    : toJQuery(this.top)
 
                             if (el) {
                                 this.top = el[0].offsetTop + el[0].offsetHeight;
