@@ -149,6 +149,7 @@ export default function (UIkit) {
                     if (this.toggleElement(this.$el, true).state() !== 'rejected') {
                         this.initMouseTracker();
                         this.toggle.$el.addClass(this.cls).attr('aria-expanded', 'true');
+                        this.clearTimers();
                     }
                 };
 
@@ -168,8 +169,9 @@ export default function (UIkit) {
                 var hide = () => {
                     if (this.toggleNow(this.$el, false).state() !== 'rejected') {
                         active = this.isActive() ? null : active;
-                        this.cancelMouseTracker();
                         this.toggle.$el.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
+                        this.cancelMouseTracker();
+                        this.clearTimers();
                     }
                 };
 
@@ -187,6 +189,8 @@ export default function (UIkit) {
             clearTimers() {
                 clearTimeout(this.showTimer);
                 clearTimeout(this.hideTimer);
+                this.showTimer = null;
+                this.hideTimer = null;
             },
 
             isActive() {

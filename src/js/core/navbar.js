@@ -53,8 +53,8 @@ export default function (UIkit) {
                     UIkit.drop(drop, extend({}, this));
                 }
             }).on('mouseenter', ({target}) => {
-                var active = UIkit.drop.getActive();
-                if (active && active.mode !== 'click' && isWithin(active.toggle.$el, this.$el) && !isWithin(target, active.toggle.$el) && !active.isDelaying) {
+                var active = this.getActive();
+                if (active && !isWithin(target, active.toggle.$el) && !active.isDelaying) {
                     active.hide(false);
                 }
             });
@@ -75,8 +75,8 @@ export default function (UIkit) {
 
             this.dropbar.on({
                 mouseleave: () => {
-                    var active = UIkit.drop.getActive();
-                    if (active && isWithin(active.toggle.$el, this.$el) && !this.dropbar.is(':hover')) {
+                    var active = this.getActive();
+                    if (active && !this.dropbar.is(':hover')) {
                         active.hide();
                     }
                 },
@@ -85,7 +85,8 @@ export default function (UIkit) {
                     this.transitionTo($el.outerHeight(true));
                 },
                 beforehide: () => {
-                    if (this.dropbar.is(':hover')) {
+                    var active = this.getActive();
+                    if (this.dropbar.is(':hover') && active && active.hideTimer) {
                         return false;
                     }
                 },
@@ -108,6 +109,11 @@ export default function (UIkit) {
         },
 
         methods: {
+
+            getActive() {
+                var active = UIkit.drop.getActive();
+                return active && active.mode !== 'click' && isWithin(active.toggle.$el, this.$el) && active;
+            },
 
             transitionTo(height) {
                 var current = this.dropbar[0].offsetHeight ? this.dropbar.height() : 0;
