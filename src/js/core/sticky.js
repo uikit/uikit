@@ -119,7 +119,7 @@ export default function (UIkit) {
 
                     this.bottom = this.bottom ? this.bottom - this.$el.outerHeight() : this.bottom;
 
-                    this.mediaInactive = this.media && !window.matchMedia(this.media).matches;
+                    this.inactive = this.media && !window.matchMedia(this.media).matches;
                 }
 
                 var scroll = $(window).scrollTop();
@@ -128,7 +128,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                if (this.mediaInactive
+                if (this.inactive
                     || scroll < this.top
                     || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.offsetTop + this.$el.outerHeight())
                 ) {
