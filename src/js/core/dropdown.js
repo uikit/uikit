@@ -300,7 +300,7 @@
             if (!this.dropdown.length) return;
 
             // reset
-            this.dropdown.removeClass('uk-dropdown-top uk-dropdown-bottom uk-dropdown-left uk-dropdown-right uk-dropdown-stack').css({
+            this.dropdown.removeClass('uk-dropdown-top uk-dropdown-bottom uk-dropdown-left uk-dropdown-right uk-dropdown-stack uk-dropdown-autoflip').css({
                 topLeft :'',
                 left :'',
                 marginLeft :'',
@@ -367,6 +367,7 @@
 
                         pp  = fdpos.split('-');
                         css = variants[fdpos] ? variants[fdpos] : variants['bottom-left'];
+                        dropdown.addClass('uk-dropdown-autoflip');
 
                         // check flipped
                         if (this.checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundarywidth)) {
