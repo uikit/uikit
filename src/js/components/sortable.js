@@ -52,17 +52,6 @@ UIkit.component('sortable', {
             }
         });
 
-        var moving = false, move = this.move;
-        this.move = e => {
-            if (!moving) {
-                requestAnimationFrame(() => {
-                    move(e);
-                    moving = false;
-                });
-                moving = true;
-            }
-        };
-
         on(this.$el, pointerDown, this.init);
 
         if (this.clsEmpty) {
