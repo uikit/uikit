@@ -119,7 +119,7 @@ export default function (UIkit) {
 
                     this.bottom = this.bottom ? this.bottom - this.$el.outerHeight() : this.bottom;
 
-                    this.mediaInactive = !this.media || window.matchMedia(this.media).matches;
+                    this.mediaInactive = this.media && !window.matchMedia(this.media).matches;
                 }
 
                 var scroll = $(window).scrollTop();
