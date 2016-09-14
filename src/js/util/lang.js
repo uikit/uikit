@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { getCssVar } from './index';
 
 export {$};
 export {ajax, each, extend, map, merge, isArray, isFunction, isPlainObject} from 'jquery';
@@ -73,6 +74,16 @@ export function toJQuery(element, context) {
     return element.length ? element : null;
 }
 
+var vars = {};
+export function toMedia(value) {
+    if (isString(value) && value[0] == '@') {
+        var name = `media-${value.substr(1)}`;
+        value = vars[name] || (vars[name] = parseFloat(getCssVar(name)));
+    }
+
+    return value && !isNaN(value) ? `(min-width: ${value}px)` : false;
+}
+
 export function coerce(type, value) {
 
     if (type === Boolean) {
@@ -81,6 +92,8 @@ export function coerce(type, value) {
         return toNumber(value);
     } else if (type === 'jQuery') {
         return toJQuery(value);
+    } else if (type === 'media') {
+        return toMedia(value);
     }
 
     return type ? type(value) : value;

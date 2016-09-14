@@ -13,7 +13,7 @@ export default function (UIkit) {
             clsInactive: String,
             widthElement: 'jQuery',
             showOnUp: Boolean,
-            media: Number,
+            media: 'media',
             target: Number
         },
 

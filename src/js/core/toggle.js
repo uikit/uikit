@@ -1,6 +1,4 @@
-import { $, isString, getCssVar, hasTouch } from '../util/index';
-
-var vars = {}; // css vars cache
+import { $, hasTouch } from '../util/index';
 
 export default function (UIkit) {
 
@@ -12,7 +10,7 @@ export default function (UIkit) {
             href: 'jQuery',
             target: 'jQuery',
             mode: String,
-            media: String
+            media: 'media'
         },
 
         defaults: {
@@ -57,20 +55,6 @@ export default function (UIkit) {
 
                 if (this.mode !== 'media' || !this.media) {
                     return;
-                }
-
-                if (isString(this.media) && this.media[0] == '@') {
-
-                    var name = `media-${this.media.substr(1)}`;
-
-                    if (!vars[name] && undefined === (vars[name] = getCssVar(name))) {
-                        return;
-                    }
-
-                    this.media = `(min-width: ${vars[name]})`;
-
-                } else if (!isNaN(this.media)) {
-                    this.media = `(min-width: ${this.media}px)`;
                 }
 
                 var toggled = this.isToggled(this.target);
