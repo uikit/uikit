@@ -43,15 +43,16 @@ UIkit.component('sortable', {
         ['init', 'start', 'move', 'end'].forEach(key => {
             let fn = this[key];
             this[key] = e => {
+                e = e.originalEvent || e;
                 this.scrollY = win.scrollTop();
-                var {pageX, pageY} = e.originalEvent.touches && e.originalEvent.touches[0] || e.originalEvent;
+                var {pageX, pageY} = e.touches && e.touches[0] || e;
                 this.pos = {x: pageX, y: pageY};
 
                 fn(e);
             }
         });
 
-        this.$el.on(pointerDown, '> *', this.init);
+        on(this.$el, pointerDown, this.init);
 
         if (this.clsEmpty) {
             var empty = () => this.$el.toggleClass(this.clsEmpty, !this.$el.children().length);
@@ -65,9 +66,10 @@ UIkit.component('sortable', {
 
         init(e) {
 
-            var target = $(e.target);
+            var target = $(e.target), placeholder = this.$el.children().has(e.target);
 
-            if (target.is(':input')
+            if (!placeholder.length
+                || target.is(':input')
                 || this.handle && !isWithin(target, this.handle)
                 || e.button && e.button !== 0
                 || isWithin(target, `.${this.clsNoDrag}`)
@@ -79,7 +81,7 @@ UIkit.component('sortable', {
             e.stopPropagation();
 
             this.touched = [this];
-            this.placeholder = $(e.currentTarget);
+            this.placeholder = placeholder;
             this.origin = extend({target, index: this.placeholder.index()}, this.pos);
 
             doc.on(pointerMove, this.move);
@@ -169,7 +171,7 @@ UIkit.component('sortable', {
             }
         },
 
-        end(e) {
+        end({type}) {
 
             doc.off(pointerMove, this.move);
             doc.off(pointerUp, this.end);
@@ -190,7 +192,7 @@ UIkit.component('sortable', {
 
                         on(doc, 'click', listener, true);
 
-                } else if (e.type !== 'mouseup') {
+                } else if (type !== 'mouseup') {
                     location.href = this.origin.target.closest('a[href]').attr('href');
                 }
             }
