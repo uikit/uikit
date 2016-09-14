@@ -94,16 +94,21 @@ UIkit.component('sortable', {
 
         start(e) {
 
-            this.drag = $(`<div class="${`${this.clsDrag} ${this.clsCustom}`}" uk-no-boot></div>`)
+            this.drag = $(this.placeholder[0].outerHTML.replace(/^<li/i, '<div').replace(/li>$/i, 'div>'))
+                .attr('uk-no-boot', '')
+                .addClass(`${this.clsDrag} ${this.clsCustom}`)
                 .css({
-                    width: this.placeholder.width(),
-                    height: this.placeholder.height(),
-                    paddingLeft: this.placeholder.css('paddingLeft')
+                    boxSizing: 'border-box',
+                    width: this.placeholder.outerWidth(),
+                    height: this.placeholder.outerHeight(),
+                    paddingLeft: this.placeholder.css('paddingLeft'),
+                    paddingRight: this.placeholder.css('paddingRight'),
+                    paddingTop: this.placeholder.css('paddingTop'),
+                    paddingBottom: this.placeholder.css('paddingBottom')
                 })
-                .append(this.placeholder[0].outerHTML.replace(/^<li/i, '<div').replace(/li>$/i, 'div>'))
                 .appendTo(container);
 
-            this.drag.children().first().children().first().height(this.placeholder.children().height());
+            this.drag.children().first().height(this.placeholder.children().height());
 
             var {left, top} = this.placeholder.offset();
             extend(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
