@@ -228,6 +228,10 @@ UIkit.component('sortable', {
             if (!this.updating) {
                 requestAnimationFrame(() => {
 
+                    if (!this.drag) {
+                        return;
+                    }
+
                     this.drag.offset({top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
 
                     var top = this.drag.offset().top, bottom = top + this.drag[0].offsetHeight;
