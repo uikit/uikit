@@ -1,6 +1,6 @@
 import { util, mixin, container } from 'uikit';
 
-var {$, extend, isWithin, Observer, on, off, pointerDown, pointerMove, pointerUp} = util;
+var {$, extend, isWithin, Observer, on, off, pointerDown, pointerMove, pointerUp, requestAnimationFrame} = util;
 
 var win = $(window), doc = $(document.documentElement);
 
@@ -44,7 +44,7 @@ UIkit.component('sortable', {
             let fn = this[key];
             this[key] = e => {
                 e = e.originalEvent || e;
-                this.scrollY = win.scrollTop();
+                this.scrollY = window.scrollY;
                 var {pageX, pageY} = e.touches && e.touches[0] || e;
                 this.pos = {x: pageX, y: pageY};
 
@@ -163,7 +163,7 @@ UIkit.component('sortable', {
         },
 
         scroll() {
-            var scroll = win.scrollTop();
+            var scroll = window.scrollY;
             if (scroll !== this.scrollY) {
                 this.pos.y += scroll - this.scrollY;
                 this.scrollY = scroll;
@@ -225,15 +225,26 @@ UIkit.component('sortable', {
 
         update() {
 
-            this.drag.offset({top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
+            if (!this.updating) {
+                requestAnimationFrame(() => {
 
-            var top = this.drag.offset().top, bottom = top + this.drag.outerHeight();
+                    this.drag.offset({top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
 
-            if (top > 0 && top < this.scrollY) {
-                setTimeout(() => win.scrollTop(this.scrollY - 5), 5);
-            } else if (bottom < doc[0].offsetHeight && bottom > window.innerHeight + this.scrollY) {
-                setTimeout(() => win.scrollTop(this.scrollY + 5), 5);
+                    var top = this.drag.offset().top, bottom = top + this.drag[0].offsetHeight;
+
+                    if (top > 0 && top < this.scrollY) {
+                        setTimeout(() => win.scrollTop(this.scrollY - 5), 5);
+                    } else if (bottom < doc[0].offsetHeight && bottom > window.innerHeight + this.scrollY) {
+                        setTimeout(() => win.scrollTop(this.scrollY + 5), 5);
+                    }
+
+                    this.updating = false;
+
+                })
             }
+
+            this.updating = true;
+
         },
 
         insert(element, target) {
