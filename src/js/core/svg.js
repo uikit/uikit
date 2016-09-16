@@ -60,12 +60,11 @@ export default function (UIkit) {
 
                 if (!this.src) {
 
-                    var style = window.getComputedStyle(this.$el[0], '::before');
-                    if (!style || style && !style.backgroundImage) {
+                    this.src = getSrc(this.$el);
+
+                    if (!this.src) {
                         return;
                     }
-
-                    this.src = style.backgroundImage.slice(4, -1).replace(/"/g, '');
                 }
 
                 if (this.src.indexOf('#') !== -1) {
@@ -166,5 +165,22 @@ export default function (UIkit) {
         }
 
     });
+
+    function getSrc(el) {
+
+        var image = getBackgroundImage(el);
+
+        if (!image) {
+            el = el.clone().attr('uk-no-boot', '').appendTo(document.body).show();
+            image = getBackgroundImage(el);
+            el.remove();
+        }
+
+        return image && image.slice(4, -1).replace(/"/g, '');
+    }
+
+    function getBackgroundImage(el) {
+        return (window.getComputedStyle(el[0], '::before') || {}).backgroundImage;
+    }
 
 }
