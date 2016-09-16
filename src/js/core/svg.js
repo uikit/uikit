@@ -170,7 +170,7 @@ export default function (UIkit) {
 
         var image = getBackgroundImage(el);
 
-        if (!image) {
+        if (!image && !el.is(':visible')) {
             el = el.clone().attr('uk-no-boot', '').appendTo(document.body).show();
             image = getBackgroundImage(el);
             el.remove();
