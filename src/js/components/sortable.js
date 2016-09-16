@@ -171,35 +171,22 @@ UIkit.component('sortable', {
             }
         },
 
-        end({type}) {
+        end(e) {
 
             doc.off(pointerMove, this.move);
             doc.off(pointerUp, this.end);
             win.off('scroll', this.scroll);
 
-            if (isWithin(this.origin.target, 'a[href]')) {
-                if (this.pos.x !== this.origin.x || this.pos.y !== this.origin.y) {
-
-                    var timer = setTimeout(() => doc.trigger('click'), 0),
-                        listener = e => {
-
-                            e.preventDefault();
-                            e.stopPropagation();
-
-                            clearTimeout(timer);
-                            off(doc, 'click', listener, true);
-                        };
-
-                        on(doc, 'click', listener, true);
-
-                } else if (type !== 'mouseup') {
-                    location.href = this.origin.target.closest('a[href]').attr('href');
-                }
-            }
-
             if (!this.drag) {
+
+                if (e.type !== 'mouseup' && isWithin(e.target, 'a[href]')) {
+                    location.href = $(e.target).closest('a[href]').attr('href');
+                }
+
                 return;
             }
+
+            preventClick();
 
             var sortable = getSortable(this.placeholder[0]);
 
@@ -336,4 +323,18 @@ UIkit.component('sortable', {
 
 function getSortable(element) {
     return UIkit.getComponent(element, 'sortable') || element.parentNode && getSortable(element.parentNode);
+}
+
+function preventClick() {
+    var timer = setTimeout(() => doc.trigger('click'), 0),
+        listener = e => {
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            clearTimeout(timer);
+            off(doc, 'click', listener, true);
+        };
+
+    on(doc, 'click', listener, true);
 }
