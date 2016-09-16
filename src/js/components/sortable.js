@@ -66,7 +66,7 @@ UIkit.component('sortable', {
 
         init(e) {
 
-            var target = $(e.target), placeholder = this.$el.children().has(e.target);
+            var target = $(e.target), placeholder = this.$el.children().filter((i, el) => isWithin(e.target, el));
 
             if (!placeholder.length
                 || target.is(':input')
