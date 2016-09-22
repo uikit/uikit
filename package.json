@@ -16,6 +16,7 @@
     "compile-less-theme-site": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.theme.site.less > css/uikit.theme.site.css",
     "compile-less-theme-app": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.theme.app.less > css/uikit.theme.app.css",
     "images": "mkdir images &  node scripts/images",
+    "compile-rtl": "mkdir css & npm run images && node scripts/rtl-before && npm run compile-less-dists && node scripts/less && node scripts/rtl-after",
     "compile-js": "node scripts/build",
     "compile": "npm run compile-less && npm run compile-js",
     "watch-less": "watch-run -i -p '**/*.less' npm run compile-less-watch",
