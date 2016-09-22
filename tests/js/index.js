@@ -41,9 +41,13 @@ $(() => {
     var $styles = $('<select class="uk-select uk-form-width-small"></select>').css('margin', '20px').appendTo($container);
     var $inverse = $('<select class="uk-select uk-form-width-small"></select>').css('margin', '20px').appendTo($container);
     var $label = $('<label></label>').css('margin', '20px').appendTo($container);
-    var $rtl = $('<input type="checkbox" class="uk-checkbox uk-form-width-small"></input>').appendTo($label);
-    $('<span>RTL</span>').css('margin', '5px').appendTo($label);
+    var $rtl = $('<input type="checkbox" class="uk-checkbox uk-form-width-small"></input>');
 
+    // Display toggle only when compiled RTL version exists
+    $.ajax({url: style.file.replace('.css', '.rtl.css')}).done(() => {
+        $rtl.appendTo($label);
+        $('<span>RTL</span>').css('margin', '5px').appendTo($label);
+    });
 
     // Tests
     // ------------------------------
