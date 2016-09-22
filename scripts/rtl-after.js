@@ -1,5 +1,5 @@
-// Takes a built version of and changes the CSS files to be an RTL version.
-// Run AFTER less files have been compiled to css
+// Takes a built version and changes the CSS files to be an RTL version.
+// Run this script AFTER less files have been compiled to css
 
 var rtl = require('../src/js/util/rtl');
 
@@ -16,7 +16,6 @@ glob('css/*.css', (er, files) => {
         contents = fs.readFileSync(f).toString();
         contents = rtl.convert(contents);
         if (!f.match('.rtl.css$')) { // don't do it twice
-            console.log(f);
             fs.writeFileSync(f.replace('.css', '.rtl.css'), contents);
         }
     });
