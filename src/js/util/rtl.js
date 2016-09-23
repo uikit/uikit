@@ -68,7 +68,8 @@ var valueMap = {
     '-ms-transform': transform,
     'transform': transform,
     '-webkit-transition': transition,
-    'transition': transition
+    'transition': transition,
+    'clip': clip
 };
 
 function quad(v, m) {
@@ -233,6 +234,21 @@ function transition(v) {
     var parts = v.split(' ');
     parts = parts.map(function(part) { return propertyMap[part] || part; });
     return parts.join(' ');
+}
+
+function clip(v) {
+    var matches, values, delimiter;
+
+    if(matches = v.match(/rect\(([^\)]*)\)/)) { // only replace rect(...)
+        delimiter = v.match(',') ? ',' : ' '; // values may be separated by space or comma
+        values = matches[1].split(delimiter);
+        if (values.length == 4) { // only reorder valid values
+            values = [values[0], values[3], values[2], values[1]];
+        }
+        return 'rect(' + values.join(delimiter) + ')';
+    }
+
+    return v;
 }
 
 function convert(css) {
