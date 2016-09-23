@@ -144,7 +144,7 @@
             });
 
             this.on('display.uk.check', function(){
-                if ($this.element.is(":visible")) {
+                if ($this.element.is(':visible')) {
 
                     $this.resize();
 
@@ -156,7 +156,7 @@
             });
 
             UI.domObserve(this.element, function(e) {
-                if ($this.container.children(':not([data-slide])').length) {
+                if ($this.container.children(':not([data-slide])').not('.uk-slideshow-ghost').length) {
                     $this.update(true);
                 }
             });

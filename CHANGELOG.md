@@ -2,6 +2,7 @@
 
 ### WIP
 
+  - Fixed slideshow bug when using slideshow-fx based effects
   - Fixed dropdown error if now offset element exists
   - Fixed dropdowns on windows with touch support
   - Fixed variable reference in nav component when the dom changed.
