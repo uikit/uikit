@@ -156,7 +156,7 @@
             });
 
             UI.domObserve(this.element, function(e) {
-                if ($this.container.children(':not([data-slide])').not('.uk-slideshow-ghost').length) {
+                if ($this.container.children(':not([data-slideshow-slide])').not('.uk-slideshow-ghost').length) {
                     $this.update(true);
                 }
             });
@@ -278,7 +278,7 @@
                 }
 
                 slide.data('processed', ++processed);
-                slide.attr('data-slide', type);
+                slide.attr('data-slideshow-slide', type);
             });
 
             if (processed) {
