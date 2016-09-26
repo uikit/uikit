@@ -29,16 +29,16 @@
 
 @button-icon-color-difference:                  20%;
 
-@button-color:                                  @global-color;
-@button-background:                             @global-muted-background;
-@button-hover-color:                            @global-color;
-@button-hover-background:                       darken(@button-background, 5%);
-@button-active-color:                           @global-color;
-@button-active-background:                      darken(@button-background, 10%);
+@button-color:                                  @global-link-color;
+@button-background:                             @global-muted-background-2;
+@button-hover-color:                            @global-link-hover-color;
+@button-hover-background:                       darken(@button-background, 10%);
+@button-active-color:                           @global-link-hover-color;
+@button-active-background:                      darken(@button-background, 15%);
 
 @button-primary-background:                     @global-link-color;
-@button-primary-hover-background:               lighten(@button-primary-background, 10%);
-@button-primary-active-background:              lighten(@button-primary-background, 20%);
+@button-primary-hover-background:               darken(@button-primary-background, 10%);
+@button-primary-active-background:              darken(@button-primary-background, 15%);
 @button-primary-color:                          @global-contrast-color;
 @button-primary-hover-color:                    @global-contrast-color;
 @button-primary-active-color:                   @global-contrast-color;
@@ -46,17 +46,17 @@
 @button-success-background:                     @global-success-background;
 @button-success-color:                          @global-contrast-color;
 @button-success-hover-color:                    @global-contrast-color;
-@button-success-hover-background:               lighten(@global-success-background, 5%);
+@button-success-hover-background:               darken(@global-success-background, 10%);
 @button-success-active-color:                   @global-contrast-color;
-@button-success-active-background:              lighten(@button-success-background, 10%);
+@button-success-active-background:              darken(@button-success-background, 15%);
 
 @button-danger-background:                      @global-danger-background;
 @button-danger-color:                           @global-contrast-color;
 @button-danger-hover-color:                     @global-contrast-color;
 @button-danger-active-color:                    @global-contrast-color;
 
-@button-disabled-color:                         lighten(@global-muted-color, 5%);
-@button-disabled-background:                    @global-muted-background;
+@button-disabled-color:                         @global-muted-color;
+@button-disabled-background:                    @button-background;
 
 @button-link-color:                             @global-link-color;
 @button-link-hover-color:                       @global-link-hover-color;
@@ -87,8 +87,6 @@
     }
   }
 }
-
-
 
 .hook-button-hover() {}
 
@@ -176,4 +174,14 @@
 // Miscellaneous
 // ========================================================================
 
-.hook-button-misc() {}
+.hook-button-misc() {
+  .uk-button{
+    &:focus{
+      position: relative;
+      z-index: 10;
+      box-shadow:
+        inset 0 0 0 1px fade(#fff, 25%),
+        0 0 0 1px @global-link-color;
+    }
+  }
+}

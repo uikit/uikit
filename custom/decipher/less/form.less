@@ -10,15 +10,16 @@
 @form-padding:                                  4px 6px;
 @form-large-padding:                            4px 6px;
 
-@form-transition:                               all 0.0s linear;
-@form-hover-transition:                         all 0.0s linear;
+@form-transition:                               all .1s ease;
+@form-hover-transition:                         all .1s ease;
 
-@form-height:                                   @global-height;
+@form-height:                                   32px;
 @form-border:                                   @global-border;
 @form-background:                               @global-background;
 @form-color:                                    @global-color;
 
 @form-border-radius:                            @global-border-radius;
+@form-box-shadow:                               inset 0 1px fade(@global-color, 10%);
 
 @form-hover-color:                              @global-link-color;
 @form-hover-border:                             @global-border;
@@ -26,15 +27,16 @@
 
 @form-focus-color:                              @global-color;
 @form-focus-border:                             @global-border;
-@form-focus-background:                         lighten(@form-background, 5%);
+@form-focus-background:                         @form-background;
+@form-focus-box-shadow:                         @global-focus-box-shadow;
 
-@form-disabled-border:                          transparent;
+@form-disabled-border:                          @global-border;
 @form-disabled-color:                           @global-muted-color;
 
 @form-placeholder-color:                        @global-muted-color;
 
 @form-select-color:                             @global-color;
-@form-select-border:                            transparent;
+@form-select-border:                            @global-link-color;
 @form-select-background:                        @button-background;
 @form-select-hover-color:                       @global-link-color;
 @form-select-hover-background:                  @button-hover-background;
@@ -60,15 +62,22 @@
 @form-select-appearance:                        none;
 
 
+
 // Component
 // ========================================================================
 
 .hook-form() {
   border-radius: @form-border-radius;
+  box-shadow: @form-box-shadow;
+  transition: all .15s ease;
 }
 
 // Focus state
-.hook-form-focus() {}
+.hook-form-focus() {
+  box-shadow:
+    @form-box-shadow,
+    @form-focus-box-shadow;
+}
 
 // Disabled state
 .hook-form-disabled() {}
@@ -120,6 +129,7 @@
     color: @form-select-color;
     background-color: @form-select-background;
     text-overflow: ellipsis;
+    box-shadow: none;
 
     &::-ms-expand {
       display: none;
@@ -147,11 +157,15 @@
       background-size: 1em;
       background-repeat: no-repeat;
       background-position: 97% center;
-      background-position: right 4px center;
+      background-position: right .4em center;
     }
 
     &:hover{
       background-image: url('../images/down-arrow-highlight.png');
+    }
+
+    &:focus{
+      box-shadow: @form-focus-box-shadow;
     }
 
     &[disabled],
@@ -180,7 +194,18 @@
     }
   }
 
+  .uk-form{
+    input[type="checkbox"]{
+      &:checked,
+      &:indeterminate{
+        &:before{
+          color: @global-link-color;
+        }
+      }
+    }
+  }
 }
+
 
 .hook-form{
   transition: @form-transition;

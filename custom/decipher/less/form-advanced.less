@@ -3,6 +3,10 @@
 //
 // ========================================================================
 
+// Copied from forms.less
+@form-box-shadow:                               inset 0 1px fade(@global-color, 10%);
+@form-focus-box-shadow:                         @global-focus-box-shadow;
+
 
 // Component
 // ========================================================================
@@ -21,4 +25,38 @@
 // Miscellaneous
 // ========================================================================
 
-.hook-form-advanced-misc() {}
+.hook-form-advanced-misc() {
+
+  .uk-form input[type="checkbox"],
+  .uk-form input[type="radio"]{
+    border-color: darken(@global-border, 10%);
+    background-color: @global-muted-background;
+    box-shadow: @form-box-shadow;
+
+    &:focus{
+      box-shadow: @form-box-shadow, @form-focus-box-shadow;
+    }
+  }
+
+  .uk-form{
+    input[type="checkbox"]{
+      border-radius: @global-border-radius;
+
+      &:checked,
+      &:indeterminate{
+        &:before{
+          color: @global-link-color;
+        }
+      }
+    }
+    input[type="radio"]{
+
+      &:checked,
+      &:indeterminate{
+        &:before{
+          background-color: @global-link-color;
+        }
+      }
+    }
+  }
+}

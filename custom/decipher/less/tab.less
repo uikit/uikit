@@ -10,10 +10,13 @@
 @tab-border:                                    @global-border;
 @tab-color:                                     @global-link-color;
 @tab-hover-color:                               @global-link-hover-color;
-@tab-active-border:                             @global-border;
-@tab-active-background:                         @global-background;
+@tab-hover-background:                          transparent;
+@tab-active-border-color:                       @global-link-color;
+@tab-active-border-width:                       2px;
+@tab-active-background:                         transparent;
 @tab-active-color:                              @global-color;
 @tab-disabled-color:                            @global-muted-color;
+@tab-border-radius:                             0;
 
 
 // Component
@@ -24,14 +27,20 @@
 //
 
 .hook-tab() {
-  border-radius: @global-border-radius @global-border-radius 0 0;
+  border: 0;
+  background: transparent;
 }
 
 // Hover
-.hook-tab-hover() {}
+.hook-tab-hover() {
+}
 
 // Active
-.hook-tab-active() {}
+.hook-tab-active() {
+  font-weight: 600;
+  border-bottom: @tab-active-border-width solid @tab-active-border-color;
+  margin-bottom: -@tab-active-border-width;
+}
 
 // Disabled
 .hook-tab-disabled() {}
@@ -45,7 +54,16 @@
   // Modifier: `uk-tab-bottom'
   // ========================================================================
 
-  .uk-tab-bottom > li > a { border-radius: 0 0 @global-border-radius @global-border-radius; }
+  .uk-tab-bottom > li > a { border-radius: 0 0 @tab-border-radius @tab-border-radius; }
+
+  .uk-tab-bottom{
+    > li.uk-active > a{
+      border-top: @tab-active-border-width solid @tab-active-border-color;
+      margin-top: -@tab-active-border-width;
+      margin-bottom: 0;
+      border-bottom: 0;
+    }
+  }
 
 
   // Modifier: `uk-tab-left', `uk-tab-right'
@@ -55,9 +73,9 @@
   @media (min-width: @breakpoint-medium) {
 
     // Modifier: `uk-tab-left'
-    .uk-tab-left > li > a { border-radius: @global-border-radius 0 0 @global-border-radius; }
+    .uk-tab-left > li > a { border-radius: @tab-border-radius 0 0 @tab-border-radius; }
 
      // Modifier: `uk-tab-right'
-    .uk-tab-right > li > a { border-radius: 0 @global-border-radius @global-border-radius 0; }
+    .uk-tab-right > li > a { border-radius: 0 @tab-border-radius @tab-border-radius 0; }
   }
 }
