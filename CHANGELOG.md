@@ -2,7 +2,6 @@
 
 ### WIP
 
-  - Fixed links in slideshow and slider for Joomla
   - Fixed slideshow bug when using slideshow-fx based effects
   - Fixed dropdown error if now offset element exists
   - Fixed dropdowns on windows with touch support
