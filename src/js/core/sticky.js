@@ -68,8 +68,10 @@ export default function (UIkit) {
 
                 if (type !== 'scroll') {
 
+                    var outerHeight = this.$el.outerHeight();
+
                     this.placeholder.css({
-                        height: this.$el.css('position') !== 'absolute' ? this.$el.outerHeight() : '',
+                        height: this.$el.css('position') !== 'absolute' ? outerHeight : '',
                         marginTop: this.$el.css('marginTop'),
                         marginBottom: this.$el.css('marginBottom'),
                         marginLeft: this.$el.css('marginLeft'),
@@ -77,6 +79,7 @@ export default function (UIkit) {
                     });
 
                     this.offsetTop = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
+                    this.offsetBottom = this.offsetTop + outerHeight;
 
                     this.top = this.topProp;
 
@@ -89,7 +92,7 @@ export default function (UIkit) {
                                 ? this.$el.parent()
                                 : this.top[0] === '!'
                                     ? toJQuery(this.$el.closest(this.top.substr(1)))
-                                    : toJQuery(this.top)
+                                    : toJQuery(this.top);
 
                             if (el) {
                                 this.top = el[0].offsetTop + el[0].offsetHeight;
@@ -117,7 +120,7 @@ export default function (UIkit) {
                         }
                     }
 
-                    this.bottom = this.bottom ? this.bottom - this.$el.outerHeight() : this.bottom;
+                    this.bottom = this.bottom ? this.bottom - outerHeight : this.bottom;
 
                     this.inactive = this.media && !window.matchMedia(this.media).matches;
                 }
@@ -130,7 +133,7 @@ export default function (UIkit) {
 
                 if (this.inactive
                     || scroll < this.top
-                    || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.offsetTop + this.$el.outerHeight())
+                    || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.offsetBottom)
                 ) {
                     if (isActive) {
 
@@ -141,7 +144,7 @@ export default function (UIkit) {
                             this.placeholder.attr('hidden', true);
                         };
 
-                        if (this.animation && scroll > this.top) {
+                        if (this.animation && this.offsetBottom < this.$el.offset().top) {
                             Animation.cancel(this.$el).out(this.$el, this.animation).then(hide);
                         } else {
                             hide();
