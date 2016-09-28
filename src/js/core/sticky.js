@@ -147,7 +147,7 @@ export default function (UIkit) {
                         };
 
                         if (this.animation && this.offsetBottom < this.$el.offset().top) {
-                            Animation.cancel(this.$el).out(this.$el, this.animation, 400).then(hide);
+                            Animation.cancel(this.$el).out(this.$el, this.animation).then(hide);
                         } else {
                             hide();
                         }
@@ -175,7 +175,7 @@ export default function (UIkit) {
                 }
 
                 if (this.animation) {
-                    Animation.cancel(this.$el).in(this.$el, this.animation, 400);
+                    Animation.cancel(this.$el).in(this.$el, this.animation);
                 }
 
                 this.$el
