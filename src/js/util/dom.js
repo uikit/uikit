@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, each, extend, isNumber, isString, transitionend, requestAnimationFrame } from './index';
+import { animationend, cancelAnimationFrame, each, extend, isNumber, isString, transitionend, requestAnimationFrame } from './index';
 
 export const langDirection = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
 
@@ -109,7 +109,7 @@ export function animate(element, animation, duration = 200, origin, out) {
         .css('animation-duration', duration + 'ms')
         .addClass(animation);
 
-    requestAnimationFrame(() => element.addClass(cls));
+    var cancel = requestAnimationFrame(() => element.addClass(cls));
 
     if (!animationend) {
         requestAnimationFrame(() => Animation.cancel(element));
@@ -118,6 +118,7 @@ export function animate(element, animation, duration = 200, origin, out) {
     return d.promise();
 
     function reset() {
+        cancelAnimationFrame(cancel);
         element.css('animation-duration', '').removeClass(`${cls} ${animation}`);
     }
 }
