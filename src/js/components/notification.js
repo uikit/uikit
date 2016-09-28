@@ -21,17 +21,16 @@ UIkit.component('notification', {
             containers[this.pos] = $(`<div class="uk-notification uk-notification-${this.pos}"></div>`).appendTo(container);
         }
 
-        this.$el = $(
-                `<div class="uk-notification-message${this.status ? ` uk-notification-message-${this.status}` : ''}">
-                    <a href="#" class="uk-notification-close" uk-close></a>
-                    <div>${this.message}</div>
-                </div>`
-            )
-            .appendTo(containers[this.pos].show())
-            .on('click', e => {
-                e.preventDefault();
-                this.close();
-            });
+        this.$mount($(
+            `<div class="uk-notification-message${this.status ? ` uk-notification-message-${this.status}` : ''}">
+                <a href="#" class="uk-notification-close" uk-close></a>
+                <div>${this.message}</div>
+            </div>`
+        ).appendTo(containers[this.pos].show()));
+
+    },
+
+    ready() {
 
         var marginBottom = parseInt(this.$el.css('margin-bottom'), 10);
 
@@ -46,6 +45,15 @@ UIkit.component('notification', {
                     .on('mouseleave', () => this.timer = setTimeout(this.close, this.timeout));
             }
         });
+
+    },
+
+    events: {
+
+        click(e) {
+            e.preventDefault();
+            this.close();
+        }
 
     },
 
@@ -83,7 +91,7 @@ UIkit.notification.closeAll = function (group, immediate) {
 
     var notification;
     UIkit.elements.forEach(el => {
-        if ((notification = UIkit.getComponent(el, 'notification')) && !group || group === notification.group) {
+        if ((notification = UIkit.getComponent(el, 'notification')) && (!group || group === notification.group)) {
             notification.close(immediate);
         }
     });

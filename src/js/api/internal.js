@@ -41,7 +41,7 @@ export default function (UIkit) {
 
     UIkit.prototype._initProps = function () {
 
-        var el = this.$options.el,
+        var el = this.$el[0],
             props = this.$options.props || {},
             options = el.getAttribute(this.$name);
 
