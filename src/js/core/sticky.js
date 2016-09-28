@@ -64,7 +64,7 @@ export default function (UIkit) {
 
             handler({type, dir}) {
 
-                var isActive = this.$el.hasClass(this.clsActive), el;
+                var isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave'), el;
 
                 if (type !== 'scroll') {
 
@@ -137,10 +137,12 @@ export default function (UIkit) {
                 ) {
                     if (isActive) {
 
-                        this.$el.removeClass(this.clsActive).addClass(this.clsInactive);
-
                         var hide = () => {
-                            this.$el.css({position: '', top: '', width: ''}).trigger('inactive');
+                            this.$el
+                                .removeClass(this.clsActive)
+                                .addClass(this.clsInactive)
+                                .css({position: '', top: '', width: ''})
+                                .trigger('inactive');
                             this.placeholder.attr('hidden', true);
                         };
 
