@@ -40,11 +40,9 @@ ready(function () {
         gesture.target = document.body;
     }
 
-    $(document)
+    document.addEventListener('click', () => clicked = true);
 
-        .on('click', function () {
-            clicked = true;
-        })
+    $(document)
 
         .on('MSGestureEnd gestureend', function (e) {
 

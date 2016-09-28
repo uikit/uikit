@@ -27,5 +27,3 @@ export default function (UIkit) {
     });
 
 }
-
-
