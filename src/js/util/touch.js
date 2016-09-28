@@ -2,7 +2,7 @@
 // http://zeptojs.com/
 
 import $ from 'jquery';
-import { ready } from './index';
+import { pointerDown, pointerMove, pointerUp, ready } from './index';
 
 var touch = {}, touchTimeout, tapTimeout, swipeTimeout, longTapTimeout, longTapDelay = 750, gesture, clicked;
 
@@ -53,9 +53,9 @@ ready(function () {
                 touch.el.trigger('swipe' + swipeDirectionFromVelocity);
             }
         })
-        .on('touchstart pointerdown', function (e) {
+        .on(pointerDown, function (e) {
 
-            firstTouch = e.type == 'pointerdown' ? e : e.originalEvent.touches[0];
+            firstTouch = e.originalEvent.touches ? e.originalEvent.touches[0] : e;
 
             now = Date.now();
             delta = now - (touch.last || now);
@@ -79,9 +79,9 @@ ready(function () {
             clicked = false;
 
         })
-        .on('touchmove pointermove', function (e) {
+        .on(pointerMove, function (e) {
 
-            firstTouch = e.type == 'pointermove' ? e : e.originalEvent.touches[0];
+            firstTouch = e.originalEvent.touches ? e.originalEvent.touches[0] : e;
 
             cancelLongTap();
             touch.x2 = firstTouch.pageX;
@@ -90,7 +90,7 @@ ready(function () {
             deltaX += Math.abs(touch.x1 - touch.x2);
             deltaY += Math.abs(touch.y1 - touch.y2);
         })
-        .on('touchend pointerup', function (e) {
+        .on(pointerUp, function () {
 
             cancelLongTap();
 
