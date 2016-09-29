@@ -55,6 +55,7 @@ export default function (UIkit) {
             });
 
             if (this.toggle) {
+
                 this.toggle = query(this.toggle, this.$el);
 
                 if (this.toggle) {

@@ -2,8 +2,6 @@ import { camelize, matches, Observer, on, ready } from '../util/index';
 
 export default function (UIkit) {
 
-    const DATA = UIkit.data;
-
     if (Observer) {
 
         (new Observer(mutations =>
@@ -29,7 +27,7 @@ export default function (UIkit) {
 
     function attachComponents(node) {
 
-        if (node[DATA] || !matches(node, UIkit.component.selector)) {
+        if (!matches(node, UIkit.component.selector)) {
             return;
         }
 

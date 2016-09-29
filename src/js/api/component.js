@@ -8,14 +8,16 @@ export default function (UIkit) {
 
     UIkit.component = function (name, options) {
 
-        if (isPlainObject(options)) {
-            options.name = name;
-            options = UIkit.extend(options);
-        }
-
         UIkit.component.selector = (`${UIkit.component.selector},` || '') + `[uk-${name}]`;
 
         name = camelize(name);
+
+        if (isPlainObject(options)) {
+            options.name = name;
+            options = UIkit.extend(options);
+        } else {
+            options.options.name = name
+        }
 
         UIkit.components[name] = options;
 
