@@ -99,8 +99,8 @@ export default function (UIkit) {
 
         events: {
 
-            beforeshow(e, {$el}) {
-                if (this.dropbar && !isWithin($el, this.dropbar)) {
+            beforeshow(e, {$el, dir}) {
+                if (this.dropbar && dir === 'bottom' && !isWithin($el, this.dropbar)) {
                     $el.appendTo(this.dropbar);
                     this.dropbar.trigger('beforeshow', [{$el}]);
                 }
