@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { getCssVar } from './index';
+import { getCssVar, query } from './index';
 
 export {$};
 export {ajax, each, extend, map, merge, isArray, isFunction, isPlainObject} from 'jquery';
@@ -64,7 +64,7 @@ export function toNumber(value) {
     return !isNaN(number) ? number : false;
 }
 
-var contextSelectors = { '!': 'closest', '>': 'find', '+': 'nextAll', '-': 'prevAll'};
+var contextSelectors = { '!': 'closest', '+': 'nextAll', '-': 'prevAll'};
 export function toJQuery(element, context) {
 
     if (element === true) {
@@ -73,7 +73,7 @@ export function toJQuery(element, context) {
 
     try {
 
-        if (context && isContextSelector(element)) {
+        if (context && isContextSelector(element) && element[0] !== '>') {
             element = $(context)[contextSelectors[element[0]]](element.substr(1));
         } else {
             element = $(element, context);
@@ -103,7 +103,7 @@ export function coerce(type, value, context) {
     } else if (type === Number) {
         return toNumber(value);
     } else if (type === 'jQuery') {
-        return toJQuery(value, isContextSelector(value) ? context : undefined);
+        return query(value, context);
     } else if (type === 'media') {
         return toMedia(value);
     }

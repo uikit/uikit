@@ -1,4 +1,4 @@
-import { $, isString, isWithin, removeClass, getDimensions, toJQuery } from '../util/index';
+import { $, isWithin, removeClass, getDimensions, query } from '../util/index';
 import { Mouse, Position, Toggable } from '../mixin/index';
 
 export default function (UIkit) {
@@ -27,7 +27,7 @@ export default function (UIkit) {
 
         defaults: {
             mode: 'hover',
-            toggle: true,
+            toggle: '- :first',
             boundary: window,
             boundaryAlign: false,
             delayShow: 0,
@@ -55,7 +55,7 @@ export default function (UIkit) {
             });
 
             if (this.toggle) {
-                this.toggle = isString(this.toggle) ? toJQuery(this.toggle) : this.$el.prev();
+                this.toggle = query(this.toggle, this.$el);
 
                 if (this.toggle) {
                     this.toggle = UIkit.toggle(this.toggle, {target: this.$el, mode: this.mode})[0];

@@ -1,4 +1,4 @@
-import { $ } from '../util/index';
+import { $, query } from '../util/index';
 
 export default function (UIkit) {
 
@@ -10,15 +10,15 @@ export default function (UIkit) {
         },
 
         defaults: {
-            target: false,
+            target: '> *',
             row: true
         },
 
         update: {
 
             handler() {
-
-                let elements = (this.target ? $(this.target, this.$el) : this.$el.children()).css('min-height', '');
+                console.log(this.target)
+                let elements = query(this.target, this.$el).css('min-height', '');
 
                 if (!this.row) {
                     this.match(elements);

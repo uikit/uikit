@@ -1,4 +1,4 @@
-import { $, Animation, isNumber, isString, toJQuery, requestAnimationFrame } from '../util/index';
+import { $, Animation, isContextSelector, isNumber, isString, query, requestAnimationFrame } from '../util/index';
 
 export default function (UIkit) {
 
@@ -40,7 +40,7 @@ export default function (UIkit) {
             var scroll = $(window).scrollTop();
             if (location.hash && scroll > 0 && this.target) {
 
-                var target = toJQuery(location.hash);
+                var target = query(location.hash);
 
                 if (target) {
                     requestAnimationFrame(() => {
@@ -81,46 +81,30 @@ export default function (UIkit) {
                     this.offsetTop = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
                     this.offsetBottom = this.offsetTop + outerHeight;
 
-                    this.top = this.topProp;
+                    ['top', 'bottom'].forEach(prop => {
 
-                    if (this.top && !isNumber(this.top)) {
-                        if (isString(this.top) && this.top.match(/^-?\d+vh$/)) {
-                            this.top = window.innerHeight * parseFloat(this.top) / 100;
-                        } else {
+                        this[prop] = this[`${prop}Prop`];
 
-                            el = this.top === true
-                                ? this.$el.parent()
-                                : this.top[0] === '!'
-                                    ? toJQuery(this.$el.closest(this.top.substr(1)))
-                                    : toJQuery(this.top);
+                        if (this[prop] && !isNumber(this[prop])) {
 
-                            if (el) {
-                                this.top = el[0].offsetTop + el[0].offsetHeight;
+                            if (isString(this[prop]) && this[prop].match(/^-?\d+vh$/)) {
+                                this[prop] = window.innerHeight * parseFloat(this[prop]) / 100;
+                            } else {
+
+                                el = this[prop] === true ? this.$el.parent() : query(this[prop], this.$el);
+
+                                if (el) {
+                                    this[prop] = el.offset().top + el.outerHeight();
+                                }
+
                             }
+
                         }
-                    }
+
+                    });
 
                     this.top = Math.max(parseFloat(this.top), this.offsetTop) - this.offset;
-
-                    this.bottom = this.bottomProp;
-
-                    if (this.bottom === true || this.bottom[0] === '!') {
-                        this.bottom = this.bottom === true ? this.$el.parent() : this.$el.closest(this.bottom.substr(1));
-                        this.bottom = this.bottom.offset().top + this.bottom.height() + parseFloat(this.bottom.css('padding-top'));
-                    } else if (this.bottom && !isNumber(this.bottom)) {
-                        if (isString(this.bottom) && this.bottom.match(/^-?\d+vh$/)) {
-                            this.top = window.innerHeight * parseFloat(this.bottom) / 100;
-                        } else {
-
-                            el = toJQuery(this.bottom);
-
-                            if (el) {
-                                this.bottom = el[0].offsetTop + el[0].offsetHeight;
-                            }
-                        }
-                    }
-
-                    this.bottom = this.bottom ? this.bottom - outerHeight : this.bottom;
+                    this.bottom = this.bottom && this.bottom - outerHeight;
 
                     this.inactive = this.media && !window.matchMedia(this.media).matches;
                 }

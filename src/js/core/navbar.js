@@ -1,4 +1,4 @@
-import { $, extend, isContextSelector, isWithin, toJQuery, Transition } from '../util/index';
+import { $, extend, isWithin, query, Transition } from '../util/index';
 import { Class } from '../mixin/index';
 
 export default function (UIkit) {
@@ -23,7 +23,7 @@ export default function (UIkit) {
         },
 
         defaults: {
-            dropdown: '> .uk-navbar-nav > li',
+            dropdown: '.uk-navbar-nav > li',
             mode: 'hover',
             align: 'left',
             offset: false,
@@ -45,9 +45,9 @@ export default function (UIkit) {
             this.boundary = (this.boundary === true || this.boundaryAlign) ? this.$el : this.boundary;
             this.pos = `bottom-${this.align}`;
 
-            toJQuery(this.dropdown, this.$el).each((i, el) => {
+            query(this.dropdown, this.$el).each((i, el) => {
 
-                drop = toJQuery(`.${this.clsDrop}`, el);
+                drop = query(`.${this.clsDrop}`, el);
 
                 if (drop && !UIkit.getComponent(drop, 'drop') && !UIkit.getComponent(drop, 'dropdown')) {
                     UIkit.drop(drop, extend({}, this));
@@ -63,11 +63,7 @@ export default function (UIkit) {
                 return;
             }
 
-            this.dropbar = toJQuery(this.dropbar, isContextSelector(this.dropbar) && this.$el);
-
-            if (!this.dropbar) {
-                this.dropbar = $('<div class="uk-navbar-dropbar"></div>').insertAfter(this.$el);
-            }
+            this.dropbar = query(this.dropbar, this.$el) || $('<div class="uk-navbar-dropbar"></div>').insertAfter(this.$el);
 
             if (this.dropbarMode === 'overlay') {
                 this.dropbar.addClass('uk-navbar-dropbar-overlay');

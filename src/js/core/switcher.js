@@ -16,7 +16,7 @@ export default function (UIkit) {
 
         defaults: {
             connect: false,
-            toggle: '> *',
+            toggle: ' > *',
             active: 0,
             swiping: true,
             cls: 'uk-active',

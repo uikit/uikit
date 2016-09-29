@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { toJQuery } from '../util/index';
+import { query } from '../util/index';
 
 export default function (UIkit) {
 
@@ -17,9 +17,7 @@ export default function (UIkit) {
 
         ready() {
             this.input = this.$el.find(':input:first');
-            this.target = this.target && this.target === true
-                ? this.input.next()
-                : toJQuery(this.target, this.$el);
+            this.target = this.target && query(this.target === true ? '> :input:first + :first' : this.target, this.$el);
 
             var state = this.input.next();
             this.input.on({
