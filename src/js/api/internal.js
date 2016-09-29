@@ -34,7 +34,7 @@ export default function (UIkit) {
 
         if (defaults) {
             for (var key in defaults) {
-                this[key] = hasOwn(data, key) ? coerce(props[key], data[key]) : defaults[key];
+                this[key] = hasOwn(data, key) ? coerce(props[key], data[key], this.$options.el) : defaults[key];
             }
         }
     };
@@ -49,7 +49,7 @@ export default function (UIkit) {
             for (var key in props) {
                 var prop = hyphenate(key);
                 if (el.hasAttribute(prop)) {
-                    this[key] = coerce(props[key], el.getAttribute(prop))
+                    this[key] = coerce(props[key], el.getAttribute(prop), el)
                 }
             }
 
@@ -75,7 +75,7 @@ export default function (UIkit) {
                 for (var key in options || {}) {
                     var prop = camelize(key);
                     if (props[prop] !== undefined) {
-                        this[prop] = coerce(props[prop], options[key]);
+                        this[prop] = coerce(props[prop], options[key], el);
                     }
                 }
             }

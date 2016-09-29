@@ -45,6 +45,10 @@ export function isNumber(value) {
     return typeof value === 'number';
 }
 
+export function isContextSelector(selector) {
+    return isString(selector) && selector.match(/^(!|>|\+|-)/);
+}
+
 export function toBoolean(value) {
     return typeof value === 'boolean'
         ? value
@@ -60,13 +64,21 @@ export function toNumber(value) {
     return !isNaN(number) ? number : false;
 }
 
+var contextSelectors = { '!': 'closest', '>': 'find', '+': 'nextAll', '-': 'prevAll'};
 export function toJQuery(element, context) {
+
     if (element === true) {
         return null;
     }
 
     try {
-        element = $(element, context);
+
+        if (context && isContextSelector(element)) {
+            element = $(context)[contextSelectors[element[0]]](element.substr(1));
+        } else {
+            element = $(element, context);
+        }
+
     } catch (e) {
         return null;
     }
@@ -84,14 +96,14 @@ export function toMedia(value) {
     return value && !isNaN(value) ? `(min-width: ${value}px)` : false;
 }
 
-export function coerce(type, value) {
+export function coerce(type, value, context) {
 
     if (type === Boolean) {
         return toBoolean(value);
     } else if (type === Number) {
         return toNumber(value);
     } else if (type === 'jQuery') {
-        return toJQuery(value);
+        return toJQuery(value, isContextSelector(value) ? context : undefined);
     } else if (type === 'media') {
         return toMedia(value);
     }

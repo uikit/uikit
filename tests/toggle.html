@@ -32,10 +32,10 @@
 
                     <h3>Two items</h3>
 
-                    <button class="uk-button uk-button-default" uk-toggle="target: .toggle2">Toggle</button>
+                    <button class="uk-button uk-button-default" uk-toggle="target: +">Toggle</button>
 
-                    <p class="toggle2">Hello!</p>
-                    <p class="toggle2" hidden>Bazinga!</p>
+                    <p>Hello!</p>
+                    <p hidden>Bazinga!</p>
 
                 </div>
                 <div>
@@ -57,11 +57,11 @@
 
                     <h3>Multiple targets</h3>
 
-                    <p><button class="uk-button uk-button-default" uk-toggle="target: #toggle4-a, .toggle4-b, .toggle4-c">Go</button></p>
+                    <button class="uk-button uk-button-default uk-margin uk-display-block" uk-toggle="target: +">Go</button>
 
-                    <span id="toggle4-a">What's up?</span>
-                    <span class="toggle4-b">Hello!</span>
-                    <p class="toggle4-c" hidden>Bazinga!</p>
+                    <span>What's up?</span>
+                    <span>Hello!</span>
+                    <p hidden>Bazinga!</p>
 
                 </div>
                 <div>
@@ -86,26 +86,26 @@
 
                     <h3>In/Out Animations</h3>
 
-                    <button class="uk-button uk-button-default" uk-toggle="target: #toggle7; animation: uk-animation-slide-left, uk-animation-slide-top">Toggle</button>
+                    <button class="uk-button uk-button-default" uk-toggle="target: +; animation: uk-animation-slide-left, uk-animation-slide-top">Toggle</button>
 
-                    <p id="toggle7">Animation</p>
+                    <p>Animation</p>
 
                 </div>
                 <div>
 
                     <h3>Queued</h3>
 
-                    <p><button class="uk-button uk-button-default" uk-toggle="target: .toggle9; animation: uk-animation-fade; duration: 500; queued: true">Queued</button></p>
+                    <button class="uk-button uk-button-default" uk-toggle="target: +; animation: uk-animation-fade; duration: 500; queued: true">Queued</button>
 
-                    <span class="toggle9">Animation</span>
-                    <span class="toggle9" hidden>Bazinga!</span>
+                    <p class="toggle9">Animation</p>
+                    <p class="toggle9" hidden>Bazinga!</p>
 
                 </div>
                 <div class="uk-width-expand@m">
 
                     <h3>Mode Media</h3>
 
-                    <div id class="uk-alert uk-alert-danger" uk-toggle="cls: uk-alert-success uk-alert-danger; mode: media; media: @xl">
+                    <div class="uk-alert uk-alert-danger" uk-toggle="cls: uk-alert-success uk-alert-danger; mode: media; media: @xl">
                         Only visibly @xl
                     </div>
 

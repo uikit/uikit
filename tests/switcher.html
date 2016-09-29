@@ -15,26 +15,30 @@
 
             <h1>Switcher</h1>
 
-            <ul class="uk-tab" uk-switcher="connect: #content-1, #content-2; animation: uk-animation-fade">
-                <li><a href="#">Active</a></li>
-                <li><a href="#">Item</a></li>
-                <li><a href="#">Item</a></li>
-                <li class="uk-disabled"><a href="#">Disabled</a></li>
-            </ul>
+            <div>
 
-            <ul id="content-1" class="uk-switcher uk-margin">
-                <li>Hello! <a href="#" uk-switcher-item="2">Switch to tab 3</a></li>
-                <li>Hello again! <a href="#" uk-switcher-item="next">Next tab</a></li>
-                <li>Bazinga! <a href="#" uk-switcher-item="previous">Previous tab</a></li>
-                <li>You will never see me!</li>
-            </ul>
+                <ul class="uk-tab" uk-switcher="connect: + ul; animation: uk-animation-fade">
+                    <li><a href="#">Active</a></li>
+                    <li><a href="#">Item</a></li>
+                    <li><a href="#">Item</a></li>
+                    <li class="uk-disabled"><a href="#">Disabled</a></li>
+                </ul>
 
-            <ul id="content-2" class="uk-switcher uk-margin">
-                <li>Hello! The first item.</li>
-                <li>Hello again! The second item.</li>
-                <li>Bazinga! The third item.</li>
-                <li>You will never see me!</li>
-            </ul>
+                <ul class="uk-switcher uk-margin">
+                    <li>Hello! <a href="#" uk-switcher-item="2">Switch to tab 3</a></li>
+                    <li>Hello again! <a href="#" uk-switcher-item="next">Next tab</a></li>
+                    <li>Bazinga! <a href="#" uk-switcher-item="previous">Previous tab</a></li>
+                    <li>You will never see me!</li>
+                </ul>
+
+                <ul class="uk-switcher uk-margin">
+                    <li>Hello! The first item.</li>
+                    <li>Hello again! The second item.</li>
+                    <li>Bazinga! The third item.</li>
+                    <li>You will never see me!</li>
+                </ul>
+
+            </div>
 
             <h2>Animations</h2>
 

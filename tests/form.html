@@ -352,7 +352,7 @@
 
                             <div class="uk-margin">
 
-                                <div uk-form-custom="target: #test1">
+                                <div uk-form-custom="target: > * > span:last">
                                     <select>
                                         <option value="1">Option 01</option>
                                         <option value="2">Option 02</option>
@@ -361,7 +361,7 @@
                                     </select>
                                     <span class="uk-link">
                                         <span uk-icon="icon: pencil"></span>
-                                        <span id="test1"></span>
+                                        <span></span>
                                     </span>
                                 </div>
 
@@ -369,7 +369,7 @@
 
                             <div class="uk-margin">
 
-                                <div uk-form-custom="target: #test2">
+                                <div uk-form-custom="target: > * > span:first">
                                     <select>
                                         <option value="">Please select...</option>
                                         <option value="1">Option 01</option>
@@ -378,7 +378,7 @@
                                         <option value="4">Option 04</option>
                                     </select>
                                     <button class="uk-button uk-button-default" type="button" tabindex="-1">
-                                        <span id="test2"></span>
+                                        <span></span>
                                         <span uk-icon="icon: chevron-down"></span>
                                     </button>
                                 </div>

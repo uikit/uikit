@@ -19,7 +19,7 @@ export default function (UIkit) {
             this.input = this.$el.find(':input:first');
             this.target = this.target && this.target === true
                 ? this.input.next()
-                : toJQuery(this.$el.find(this.target));
+                : toJQuery(this.target, this.$el);
 
             var state = this.input.next();
             this.input.on({
@@ -34,13 +34,8 @@ export default function (UIkit) {
 
         events: {
 
-            change(e) {
-
-                if (!this.target) {
-                    return;
-                }
-
-                this.target[this.target.is(':input') ? 'val' : 'text'](
+            change() {
+                this.target && this.target[this.target.is(':input') ? 'val' : 'text'](
                     this.input[0].files && this.input[0].files[0]
                         ? this.input[0].files[0].name
                         : this.input.is('select')
