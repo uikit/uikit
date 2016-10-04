@@ -2,28 +2,28 @@ import { camelize, matches, Observer, on, ready } from '../util/index';
 
 export default function (UIkit) {
 
-    if (Observer) {
+    ready(() => {
 
-        (new Observer(mutations =>
+        apply(document.body, attachComponents);
 
-            mutations.forEach(mutation => {
+        if (Observer) {
 
-                for (let i = 0; i < mutation.addedNodes.length; ++i) {
-                    apply(mutation.addedNodes[i], attachComponents);
-                }
+            (new Observer(mutations =>
 
-            })
+                mutations.forEach(mutation => {
 
-        )).observe(document, {childList: true, subtree: true});
+                    for (var i = 0; i < mutation.addedNodes.length; ++i) {
+                        apply(mutation.addedNodes[i], attachComponents);
+                    }
 
-    } else {
+                })
 
-        ready(() => {
-            apply(document.body, attachComponents);
+            )).observe(document, {childList: true, subtree: true});
+
+        } else {
             on(document.body, 'DOMNodeInserted', e => apply(e.target, attachComponents));
-        });
-
-    }
+        }
+    });
 
     function attachComponents(node) {
 
