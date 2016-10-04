@@ -18,8 +18,9 @@ export default function (UIkit) {
             delayShow: Number,
             delayHide: Number,
             dropbar: Boolean,
-            duration: Number,
-            dropbarMode: String
+            dropbarMode: String,
+            dropbarAnchor: 'jQuery',
+            duration: Number
         },
 
         defaults: {
@@ -34,8 +35,9 @@ export default function (UIkit) {
             delayHide: 800,
             flip: 'x',
             dropbar: false,
+            dropbarMode: 'overlay',
+            dropbarAnchor: false,
             duration: 200,
-            dropbarMode: 'overlay'
         },
 
         ready() {
@@ -45,7 +47,7 @@ export default function (UIkit) {
             this.boundary = (this.boundary === true || this.boundaryAlign) ? this.$el : this.boundary;
             this.pos = `bottom-${this.align}`;
 
-            query(this.dropdown, this.$el).each((i, el) => {
+            $(this.dropdown, this.$el).each((i, el) => {
 
                 drop = query(`.${this.clsDrop}`, el);
 
@@ -63,7 +65,7 @@ export default function (UIkit) {
                 return;
             }
 
-            this.dropbar = query(this.dropbar, this.$el) || $('<div class="uk-navbar-dropbar"></div>').insertAfter(this.$el);
+            this.dropbar = query(this.dropbar, this.$el) || $('<div class="uk-navbar-dropbar"></div>').insertAfter(this.dropbarAnchor || this.$el);
 
             if (this.dropbarMode === 'overlay') {
                 this.dropbar.addClass('uk-navbar-dropbar-overlay');

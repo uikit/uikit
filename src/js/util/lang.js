@@ -1,8 +1,8 @@
 import $ from 'jquery';
 import { getCssVar, query } from './index';
 
-export {$};
-export {ajax, each, extend, map, merge, isArray, isFunction, isPlainObject} from 'jquery';
+export { $ };
+export { ajax, each, extend, map, merge, isArray, isFunction, isPlainObject } from 'jquery';
 
 export function bind(fn, context) {
     return function (a) {
@@ -16,24 +16,22 @@ export function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key);
 }
 
-var classifyRE = /(?:^|[-_\/])(\w)/g;
 export function classify(str) {
-    return str.replace(classifyRE, (_, c) => c ? c.toUpperCase() : '');
+    return str.replace(/(?:^|[-_\/])(\w)/g, (_, c) => c ? c.toUpperCase() : '');
 }
 
-var hyphenateRE = /([a-z\d])([A-Z])/g;
-export function hyphenate (str) {
+export function hyphenate(str) {
     return str
-        .replace(hyphenateRE, '$1-$2')
+        .replace(/([a-z\d])([A-Z])/g, '$1-$2')
         .toLowerCase()
 }
 
 var camelizeRE = /-(\w)/g;
-export function camelize (str) {
+export function camelize(str) {
     return str.replace(camelizeRE, toUpper)
 }
 
-function toUpper (_, c) {
+function toUpper(_, c) {
     return c ? c.toUpperCase() : ''
 }
 
@@ -49,22 +47,11 @@ export function isContextSelector(selector) {
     return isString(selector) && selector.match(/^(!|>|\+|-)/);
 }
 
-export function toBoolean(value) {
-    return typeof value === 'boolean'
-        ? value
-        : value === 'true' || value == '1' || value === ''
-            ? true
-            : value === 'false' || value == '0'
-                ? false
-                : value;
+export function getContextSelectors(selector) {
+    return isContextSelector(selector) && selector.split(/(?=\s(?:!|>|\+|-))/g).map(value => value.trim());
 }
 
-export function toNumber(value) {
-    var number = Number(value);
-    return !isNaN(number) ? number : false;
-}
-
-var contextSelectors = { '!': 'closest', '+': 'nextAll', '-': 'prevAll'};
+var contextSelectors = {'!': 'closest', '+': 'nextAll', '-': 'prevAll'};
 export function toJQuery(element, context) {
 
     if (element === true) {
@@ -84,6 +71,21 @@ export function toJQuery(element, context) {
     }
 
     return element.length ? element : null;
+}
+
+export function toBoolean(value) {
+    return typeof value === 'boolean'
+        ? value
+        : value === 'true' || value == '1' || value === ''
+            ? true
+            : value === 'false' || value == '0'
+                ? false
+                : value;
+}
+
+export function toNumber(value) {
+    var number = Number(value);
+    return !isNaN(number) ? number : false;
 }
 
 var vars = {};

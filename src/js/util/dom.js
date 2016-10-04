@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, cancelAnimationFrame, each, extend, isContextSelector, isNumber, isString, toJQuery, transitionend, requestAnimationFrame } from './index';
+import { animationend, cancelAnimationFrame, each, extend, getContextSelectors, isContextSelector, isNumber, isString, toJQuery, transitionend, requestAnimationFrame } from './index';
 
 export const langDirection = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
 
@@ -258,5 +258,6 @@ export const Dimensions = {
 };
 
 export function query(selector, context) {
-    return toJQuery(selector, isContextSelector(selector) && context);
+    var selectors = getContextSelectors(selector);
+    return selectors ? selectors.reduce((context, selector) => toJQuery(selector, context), context) : toJQuery(selector);
 }
