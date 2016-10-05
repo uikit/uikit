@@ -171,6 +171,8 @@ export function createEvent(e, bubbles = true, cancelable = false) {
 export function isInView(element, offsetTop, offsetLeft) {
 
     element = $(element);
+    offsetTop = offsetTop || 0;
+    offsetLeft = offsetLeft || 0;
 
     if (!element.is(':visible')) {
         return false;

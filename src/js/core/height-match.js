@@ -17,7 +17,7 @@ export default function (UIkit) {
         update: {
 
             handler() {
-                console.log(this.target)
+
                 let elements = query(this.target, this.$el).css('min-height', '');
 
                 if (!this.row) {

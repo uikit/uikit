@@ -8,6 +8,7 @@ var styles = $.extend({
     }, themes),
     component = location.pathname.split('/').pop().replace(/.html$/, ''),
     components = [
+        'gif',
         'lightbox',
         'notification',
         'sortable',
