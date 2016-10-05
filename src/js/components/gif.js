@@ -1,4 +1,6 @@
-import { isInView } from '../util/index';
+import { util } from 'uikit';
+
+var {isInView} = util;
 
 UIkit.component('gif', {
 
