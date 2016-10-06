@@ -1,4 +1,4 @@
-import { $, query } from '../util/index';
+import { $, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
@@ -18,7 +18,7 @@ export default function (UIkit) {
 
             handler() {
 
-                let elements = query(this.target, this.$el).css('min-height', '');
+                let elements = toJQuery(this.target, this.$el).css('min-height', '');
 
                 if (!this.row) {
                     this.match(elements);
