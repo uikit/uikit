@@ -1,4 +1,4 @@
-import { $, isInView } from '../util/index';
+import { $, isInView, query } from '../util/index';
 
 export default function (UIkit) {
 
@@ -6,7 +6,7 @@ export default function (UIkit) {
 
         props: {
             cls: String,
-            target: 'jQuery',
+            target: String,
             hidden: Boolean,
             offsetTop: Number,
             offsetLeft: Number,
@@ -26,7 +26,7 @@ export default function (UIkit) {
         },
 
         ready() {
-            this.elements = this.target || this.$el;
+            this.elements = this.target && query(this.target, this.$el) || this.$el;
 
             if (this.hidden) {
                 this.elements.css('visibility', 'hidden');
