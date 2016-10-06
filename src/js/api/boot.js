@@ -2,8 +2,6 @@ import { camelize, matches, Observer, on, ready } from '../util/index';
 
 export default function (UIkit) {
 
-    var next;
-
     ready(() => {
 
         apply(document.body, attachComponents);
@@ -56,9 +54,8 @@ export default function (UIkit) {
         fn(node);
         node = node.firstChild;
         while (node) {
-            next = node.nextSibling;
             apply(node, fn);
-            node = next;
+            node = node.nextSibling;
         }
     }
 

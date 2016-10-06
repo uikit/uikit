@@ -1,4 +1,4 @@
-import { $, extend, isFunction, isString, Observer, query, toJQuery } from '../util/index';
+import { $, extend, isFunction, isString, Observer, query } from '../util/index';
 import { Class, Modal } from '../mixin/index';
 
 export default function (UIkit) {
@@ -8,26 +8,14 @@ export default function (UIkit) {
         mixins: [Modal],
 
         props: {
-            center: Boolean,
-            container: Boolean
+            center: Boolean
         },
 
         defaults: {
             center: false,
             clsPage: 'uk-modal-page',
             clsPanel: 'uk-modal-dialog',
-            selClose: '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full',
-            container: true
-        },
-
-        ready() {
-
-            this.container = this.container === true && UIkit.container || this.container && toJQuery(this.container);
-
-            if (this.container && !this.$el.parent().is(this.container)) {
-                this.$el.appendTo(this.container);
-            }
-
+            selClose: '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full'
         },
 
         update: {
@@ -112,7 +100,7 @@ export default function (UIkit) {
             `<div class="uk-modal">
                 <div class="uk-modal-dialog">${content}</div>
              </div>`
-        ), options)[0];
+        ).appendTo(UIkit.container), options)[0];
 
         dialog.show();
         dialog.$el.on('hide', () => dialog.$destroy(true));
