@@ -71,6 +71,7 @@
 @navbar-dropdown-nav-sublist-item-hover-color:  @global-color;
 
 @navbar-dropbar-background:                     @navbar-dropdown-background;
+@navbar-dropbar-z-index:                        @global-z-index + 20;
 
 @internal-image-navbar-toggle:                  "../../../images/navbar-toggle.svg";
 
@@ -456,7 +457,7 @@
 
 .uk-navbar-dropbar-slide {
     position: absolute;
-    z-index: 1;
+    z-index: @navbar-dropbar-z-index;
     left: 0;
     right: 0;
 }
