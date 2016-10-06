@@ -47,6 +47,8 @@ export default function (UIkit) {
 
     function apply(node, fn) {
 
+        var next;
+
         if (node.nodeType !== Node.ELEMENT_NODE || node.hasAttribute('uk-no-boot')) {
             return;
         }
@@ -54,8 +56,9 @@ export default function (UIkit) {
         fn(node);
         node = node.firstChild;
         while (node) {
+            next = node.nextSibling;
             apply(node, fn);
-            node = node.nextSibling;
+            node = next;
         }
     }
 
