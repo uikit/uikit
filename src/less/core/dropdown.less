@@ -65,6 +65,7 @@
  * 2. Set position
  * 3. Box-sizing is needed for `uk-dropdown-justify`
  * 4. Set width
+ * 5. Reset button group whitespace hack
  */
 
 .uk-dropdown,
@@ -78,6 +79,9 @@
     box-sizing: border-box;
     /* 4 */
     width: @dropdown-width;
+    /* 5 */
+    font-size: @dropdown-font-size;
+    white-space: normal;
 }
 
 /*
@@ -90,7 +94,6 @@
     background: @dropdown-background;
     color: @dropdown-color;
     /* 1 */
-    font-size: @dropdown-font-size;
     vertical-align: top;
     .hook-dropdown;
 }
