@@ -1,4 +1,4 @@
-import { $, extend, isWithin, query, Transition } from '../util/index';
+import { $, extend, isWithin, query, toJQuery, Transition } from '../util/index';
 import { Class } from '../mixin/index';
 
 export default function (UIkit) {
@@ -49,7 +49,7 @@ export default function (UIkit) {
 
             $(this.dropdown, this.$el).each((i, el) => {
 
-                drop = query(`.${this.clsDrop}`, el);
+                drop = toJQuery(`.${this.clsDrop}`, el);
 
                 if (drop && !UIkit.getComponent(drop, 'drop') && !UIkit.getComponent(drop, 'dropdown')) {
                     UIkit.drop(drop, extend({}, this));
