@@ -35,7 +35,7 @@ export default function (UIkit) {
             delayHide: 800,
             flip: 'x',
             dropbar: false,
-            dropbarMode: 'overlay',
+            dropbarMode: 'slide',
             dropbarAnchor: false,
             duration: 200,
         },
@@ -67,8 +67,8 @@ export default function (UIkit) {
 
             this.dropbar = query(this.dropbar, this.$el) || $('<div class="uk-navbar-dropbar"></div>').insertAfter(this.dropbarAnchor || this.$el);
 
-            if (this.dropbarMode === 'overlay') {
-                this.dropbar.addClass('uk-navbar-dropbar-overlay');
+            if (this.dropbarMode === 'slide') {
+                this.dropbar.addClass('uk-navbar-dropbar-slide');
             }
 
             this.dropbar.on({
