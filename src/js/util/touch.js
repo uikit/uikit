@@ -40,7 +40,7 @@ ready(function () {
         gesture.target = document.body;
     }
 
-    document.addEventListener('click', () => clicked = true);
+    document.addEventListener('click', () => {clicked = true}, true);
 
     $(document)
 
