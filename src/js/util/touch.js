@@ -123,7 +123,7 @@ ready(function () {
                         if (touch.el !== undefined) {
 
                             if (!clicked) {
-                                touch.el.trigger('click');
+                                touch.el[0].dispatchEvent(new MouseEvent('click'));
                             }
 
                             touch.el.trigger(event);
