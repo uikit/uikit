@@ -72,6 +72,7 @@ export default function (UIkit) {
             }
 
             this.dropbar.on({
+
                 mouseleave: () => {
 
                     var active = this.getActive();
@@ -80,10 +81,12 @@ export default function (UIkit) {
                         active.hide();
                     }
                 },
+
                 beforeshow: (e, {$el}) => {
                     $el.addClass(`${this.clsDrop}-dropbar`);
                     this.transitionTo($el.outerHeight(true));
                 },
+
                 beforehide: (e, {$el}) => {
 
                     var active = this.getActive();
@@ -92,6 +95,7 @@ export default function (UIkit) {
                         return false;
                     }
                 },
+
                 hide: (e, {$el}) => {
 
                     var active = this.getActive();
@@ -100,6 +104,7 @@ export default function (UIkit) {
                         this.transitionTo(0);
                     }
                 }
+
             });
 
         },
