@@ -40,7 +40,7 @@ ready(function () {
         gesture.target = document.body;
     }
 
-    document.addEventListener('click', () => {clicked = true}, true);
+    document.addEventListener('click', () => clicked = true, true);
 
     $(document)
 
@@ -122,9 +122,11 @@ ready(function () {
 
                         if (touch.el !== undefined) {
 
-                            if (!clicked) {
-                                touch.el[0].dispatchEvent(new MouseEvent('click'));
-                            }
+                            setTimeout(function () {
+                                if (!clicked) {
+                                    touch.el.trigger('click');
+                                }
+                            }, 310); // delay for mobile browsers
 
                             touch.el.trigger(event);
                         }
@@ -143,7 +145,7 @@ ready(function () {
                                 touch = {};
                             }, 250);
                         }
-                    }, 0);
+                    });
                 } else {
                     touch = {};
                 }
