@@ -121,13 +121,6 @@ ready(function () {
                         event.cancelTouch = cancelAll;
 
                         if (touch.el !== undefined) {
-
-                            setTimeout(function () {
-                                if (!clicked) {
-                                    touch.el.trigger('click');
-                                }
-                            }, 310); // delay for mobile browsers
-
                             touch.el.trigger(event);
                         }
 
@@ -137,13 +130,20 @@ ready(function () {
                             touch = {};
                         }
 
-                        // trigger single tap after 250ms of inactivity
+                        // trigger single tap after 300ms of inactivity
                         else {
                             touchTimeout = setTimeout(function () {
                                 touchTimeout = null;
-                                if (touch.el !== undefined) touch.el.trigger('singleTap');
+                                if (touch.el !== undefined) {
+                                    touch.el.trigger('singleTap');
+
+                                    if (!clicked) {
+                                        touch.el.trigger('click');
+                                    }
+
+                                }
                                 touch = {};
-                            }, 250);
+                            }, 300);
                         }
                     });
                 } else {
