@@ -12,11 +12,11 @@
 // ========================================================================
 
 @description-list-term-color:                   @global-emphasis-color;
+@description-list-term-margin-top:              @global-margin;
 
-@description-list-margin-vertical:              @global-margin;
-
-@description-list-divider-border-width:         @global-border-width;
-@description-list-divider-border:               @global-border;
+@description-list-divider-term-margin-top:      @global-margin;
+@description-list-divider-term-border-width:    @global-border-width;
+@description-list-divider-term-border:          @global-border;
 
 
 /* ========================================================================
@@ -32,16 +32,16 @@
     .hook-description-list-term;
 }
 
+.uk-description-list > dt:nth-child(n+2) {
+    margin-top: @description-list-term-margin-top;
+}
+
 /*
  * Description
  */
 
 .uk-description-list > dd {
     .hook-description-list-description;
-}
-
-.uk-description-list > dd:nth-last-child(n+2) {
-    margin-bottom: @description-list-margin-vertical;
 }
 
 
@@ -52,10 +52,11 @@
  * Line
  */
 
-.uk-description-list-divider > dd:nth-last-child(n+2) {
-    padding-bottom: @description-list-margin-vertical;
-    border-bottom: @description-list-divider-border-width solid @description-list-divider-border;
-    .hook-description-list-divider;
+.uk-description-list-divider > dt:nth-child(n+2) {
+    margin-top: @description-list-divider-term-margin-top;
+    padding-top: @description-list-divider-term-margin-top;
+    border-top: @description-list-divider-term-border-width solid @description-list-divider-term-border;
+    .hook-description-list-divider-term;
 }
 
 
@@ -66,5 +67,5 @@
 
 .hook-description-list-term() {}
 .hook-description-list-description() {}
-.hook-description-list-divider() {}
+.hook-description-list-divider-term() {}
 .hook-description-list-misc() {}
