@@ -23,7 +23,7 @@
     UI.component('datepicker', {
 
         defaults: {
-            mobile: false,
+            mobile: true,
             weekstart: 1,
             i18n: {
                 months        : ['January','February','March','April','May','June','July','August','September','October','November','December'],
@@ -141,7 +141,7 @@
             UI.$html.on('click focus', '*', function(e) {
 
                 var target = UI.$(e.target);
-
+                target.context.setAttribute('readonly','readonly');
                 if (active && target[0] != dropdown[0] && !target.data('datepicker') && !target.parents('.uk-datepicker:first').length) {
                     active.hide();
                 }
