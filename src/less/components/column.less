@@ -16,8 +16,8 @@
 @column-gutter:                                 @global-gutter;
 @column-gutter-l:                               @global-medium-gutter;
 
-@column-rule-color:                             @global-border;
-@column-rule-width:                             1px;
+@column-divider-rule-color:                     @global-border;
+@column-divider-rule-width:                     1px;
 
 
 /* ========================================================================
@@ -56,9 +56,9 @@
  */
 
 .uk-column-divider {
-    -webkit-column-rule: @column-rule-width solid @column-rule-color;
-    -moz-column-rule: @column-rule-width solid @column-rule-color;
-    column-rule: @column-rule-width solid @column-rule-color;
+    -webkit-column-rule: @column-divider-rule-width solid @column-divider-rule-color;
+    -moz-column-rule: @column-divider-rule-width solid @column-divider-rule-color;
+    column-rule: @column-divider-rule-width solid @column-divider-rule-color;
     /* 1 */
     -webkit-column-gap: (@column-gutter * 2);
     -moz-column-gap: (@column-gutter * 2);
@@ -274,7 +274,7 @@
 
 .dye-vars-default() {
 
-    @column-rule-color:                    @dye-border;
+    @column-divider-rule-color:                    @dye-border;
 
 }
 
@@ -284,9 +284,9 @@
     .dye-hooks();
 
     .uk-column-divider {
-        -webkit-column-rule-color: @column-rule-color;
-        -moz-column-rule-color: @column-rule-color;
-        column-rule-color: @column-rule-color;
+        -webkit-column-rule-color: @column-divider-rule-color;
+        -moz-column-rule-color: @column-divider-rule-color;
+        column-rule-color: @column-divider-rule-color;
     }
 
 }
