@@ -30,6 +30,8 @@
 @subnav-pill-item-padding-horizontal:           10px;
 @subnav-pill-item-hover-background:             @global-muted-background;
 @subnav-pill-item-hover-color:                  @global-color;
+@subnav-pill-item-onclick-background:           @subnav-pill-item-hover-background;
+@subnav-pill-item-onclick-color:                @subnav-pill-item-hover-color;
 @subnav-pill-item-active-background:            @global-primary-background;
 @subnav-pill-item-active-color:                 @global-inverse-color;
 
@@ -160,6 +162,13 @@
     .hook-subnav-pill-item-hover;
 }
 
+/* OnClick */
+.uk-subnav-pill > * > a:active {
+    background: @subnav-pill-item-onclick-background;
+    color: @subnav-pill-item-onclick-color;
+    .hook-subnav-pill-item-onclick;
+}
+
 /* Active */
 .uk-subnav-pill > .uk-active > a {
     background: @subnav-pill-item-active-background;
@@ -190,6 +199,7 @@
 .hook-subnav-divider() {}
 .hook-subnav-pill-item() {}
 .hook-subnav-pill-item-hover() {}
+.hook-subnav-pill-item-onclick() {}
 .hook-subnav-pill-item-active() {}
 .hook-subnav-item-disabled() {}
 .hook-subnav-misc() {}
@@ -206,6 +216,8 @@
     @subnav-divider-border:                @dye-border;
     @subnav-pill-item-hover-background:    @dye-muted-background;
     @subnav-pill-item-hover-color:         @dye-color;
+    @subnav-pill-item-onclick-background:  @subnav-pill-item-hover-background;
+    @subnav-pill-item-onclick-color:       @subnav-pill-item-hover-color;
     @subnav-pill-item-active-background:   @dye-primary-background;
     @subnav-pill-item-active-color:        @dye-inverse-color;
     @subnav-item-disabled-color:           @dye-muted-color;
@@ -253,6 +265,12 @@
         .hook-dye-subnav-pill-item-hover;
     }
 
+    .uk-subnav-pill > * > a:active {
+        background: @subnav-pill-item-onclick-background;
+        color: @subnav-pill-item-onclick-color;
+        .hook-dye-subnav-pill-item-onclick;
+    }
+
     .uk-subnav-pill > .uk-active > a {
         background: @subnav-pill-item-active-background;
         color: @subnav-pill-item-active-color;
@@ -275,5 +293,6 @@
 .hook-dye-subnav-item-active() {}
 .hook-dye-subnav-divider() {}
 .hook-dye-subnav-pill-item-hover() {}
+.hook-dye-subnav-pill-item-onclick() {}
 .hook-dye-subnav-pill-item-active() {}
 .hook-dye-subnav-item-disabled() {}
