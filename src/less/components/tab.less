@@ -199,6 +199,10 @@
     .dye-vars();
     .dye-hooks();
 
+    .uk-tab {
+        .hook-dye-tab;
+    }
+
     .uk-tab > * > a {
         color: @tab-item-color;
         .hook-dye-tab-item;
@@ -222,6 +226,7 @@
 
 }
 
+.hook-dye-tab() {}
 .hook-dye-tab-item() {}
 .hook-dye-tab-item-hover() {}
 .hook-dye-tab-item-active() {}

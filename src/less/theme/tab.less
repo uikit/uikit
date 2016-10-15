@@ -123,15 +123,15 @@
 
 }
 
-.dye() {
+.dye-hooks() {
 
     .dye-vars();
 
-    .uk-tab::before { border-color: @tab-border; }
+    .hook-dye-tab() {
 
-}
+        &::before { border-color: @tab-border; }
 
-.dye-hooks() {
+    }
 
     .hook-dye-tab-item() {}
     .hook-dye-tab-item-hover() {}
