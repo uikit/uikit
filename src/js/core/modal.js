@@ -275,7 +275,7 @@
 
         var modal = UI.modal.dialog(([
             '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
-            '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-button-primary uk-modal-close">'+options.labels.Ok+'</button></div>'
+            '<div class="uk-modal-footer"><button class="uk-button uk-button-primary uk-modal-close">'+options.labels.Ok+'</button></div>'
         ]).join(""), options);
 
         modal.on('show.uk.modal', function(){
@@ -297,7 +297,7 @@
 
         var modal = UI.modal.dialog(([
             '<div class="uk-margin uk-modal-content">'+String(content)+'</div>',
-            '<div class="uk-modal-footer uk-text-right"><button class="uk-button js-modal-confirm-cancel">'+options.labels.Cancel+'</button> <button class="uk-button uk-button-primary js-modal-confirm">'+options.labels.Ok+'</button></div>'
+            '<div class="uk-modal-footer"><button class="uk-button js-modal-confirm-cancel">'+options.labels.Cancel+'</button> <button class="uk-button uk-button-primary js-modal-confirm">'+options.labels.Ok+'</button></div>'
         ]).join(""), options);
 
         modal.element.find(".js-modal-confirm, .js-modal-confirm-cancel").on("click", function(){
@@ -322,7 +322,7 @@
         var modal = UI.modal.dialog(([
             text ? '<div class="uk-modal-content uk-form">'+String(text)+'</div>':'',
             '<div class="uk-margin-small-top uk-modal-content uk-form"><p><input type="text" class="uk-width-1-1"></p></div>',
-            '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-modal-close">'+options.labels.Cancel+'</button> <button class="uk-button uk-button-primary js-modal-ok">'+options.labels.Ok+'</button></div>'
+            '<div class="uk-modal-footer"><button class="uk-button uk-modal-close">'+options.labels.Cancel+'</button> <button class="uk-button uk-button-primary js-modal-ok">'+options.labels.Ok+'</button></div>'
         ]).join(""), options),
 
         input = modal.element.find("input[type='text']").val(value || '').on('keyup', function(e){
