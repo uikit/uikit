@@ -784,7 +784,6 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
     .uk-select:not([multiple]):not([size]) { .svg-fill(@internal-image-form-select, "#000", @form-select-icon-color); }
 
-
     //
     // Radio and checkbox
     //
@@ -817,11 +816,15 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
         .hook-dye-form-radio-checked-focus;
     }
 
-
     // Icon
     .uk-radio:checked { .svg-fill(@internal-image-form-radio, "#000", @form-radio-checked-icon-color); }
     .uk-checkbox:checked { .svg-fill(@internal-image-form-checkbox, "#000", @form-radio-checked-icon-color); }
     .uk-checkbox:indeterminate { .svg-fill(@internal-image-form-checkbox-ideterminate, "#000", @form-radio-checked-icon-color); }
+
+    // Label
+    .uk-form-label {
+        .hook-dye-form-label;
+    }
 
 }
 
@@ -831,3 +834,4 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .hook-dye-form-radio-focus() {}
 .hook-dye-form-radio-checked() {}
 .hook-dye-form-radio-checked-focus() {}
+.hook-dye-form-label() {}
