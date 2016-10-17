@@ -17,21 +17,21 @@
 // New
 //
 
-@table-border:                                 @global-border;
-@table-border-width:                           @global-border-width;
+@table-cell-border:                             @global-border;
+@table-cell-border-width:                       @global-border-width;
 
 
 // Component
 // ========================================================================
 
 .hook-table-header-cell() {
-    border-bottom: @table-border-width solid @table-border;
+    border-bottom: @table-cell-border-width solid @table-cell-border;
     text-transform: uppercase;
 }
 
 .hook-table-cell() {}
 
-.hook-table-footer() { border-top: @table-border-width solid @table-border; }
+.hook-table-footer() { border-top: @table-cell-border-width solid @table-cell-border; }
 
 .hook-table-caption() {}
 
@@ -57,7 +57,7 @@
 
 .hook-table-misc() {
 
-    .uk-table :not(:last-child) > td { border-bottom: @table-border-width solid @table-border; }
+    .uk-table :not(:last-child) > td { border-bottom: @table-cell-border-width solid @table-cell-border; }
 
     .uk-table tbody tr {
         -webkit-transition: background-color 0.1s linear;
