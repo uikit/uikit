@@ -281,8 +281,6 @@
 }
 
 
-
-
 /* Border
  ========================================================================== */
 
@@ -478,6 +476,11 @@
     .dye-vars();
     .dye-hooks();
 
+    .uk-dropcap::first-letter,
+    .uk-dropcap p:first-of-type::first-letter {
+        .hook-dye-dropcap;
+    }
+
     .uk-logo {
         color: @logo-color;
         .hook-dye-logo;
@@ -494,5 +497,6 @@
 
 }
 
+.hook-dye-dropcap() {}
 .hook-dye-logo() {}
 .hook-dye-logo-hover() {}
