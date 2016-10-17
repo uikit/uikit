@@ -20,8 +20,9 @@
 // ========================================================================
 
 @table-margin-vertical:                         @global-margin;
-@table-padding-vertical:                        16px;
-@table-padding-horizontal:                      12px;
+
+@table-cell-padding-vertical:                   16px;
+@table-cell-padding-horizontal:                 12px;
 
 @table-header-cell-font-size:                   @global-font-size;
 @table-header-cell-font-weight:                 bold;
@@ -34,12 +35,12 @@
 
 @table-row-active-background:                   #ffd;
 
-@table-striped-background:                      @global-muted-background;
+@table-striped-row-background:                  @global-muted-background;
 
-@table-hover-background:                        @table-row-active-background;
+@table-hover-row-background:                    @table-row-active-background;
 
-@table-small-padding-vertical:                  10px;
-@table-small-padding-horizontal:                12px;
+@table-small-cell-padding-vertical:             10px;
+@table-small-cell-padding-horizontal:           12px;
 
 @table-expand-min-width:                        300px;
 
@@ -77,7 +78,7 @@
  */
 
 .uk-table th {
-    padding: @table-padding-vertical @table-padding-horizontal;
+    padding: @table-cell-padding-vertical @table-cell-padding-horizontal;
     text-align: left;
     vertical-align: bottom;
     /* 1 */
@@ -92,7 +93,7 @@
  ========================================================================== */
 
 .uk-table td {
-    padding: @table-padding-vertical @table-padding-horizontal;
+    padding: @table-cell-padding-vertical @table-cell-padding-horizontal;
     vertical-align: top;
     .hook-table-cell;
 }
@@ -144,7 +145,7 @@
 
 .uk-table-striped > tr:nth-of-type(odd),
 .uk-table-striped tbody tr:nth-of-type(odd) {
-    background: @table-striped-background;
+    background: @table-striped-row-background;
     .hook-table-striped;
 }
 
@@ -154,7 +155,7 @@
 
 .uk-table-hover > tr:hover,
 .uk-table-hover tbody tr:hover {
-    background: @table-hover-background;
+    background: @table-hover-row-background;
     .hook-table-hover;
 }
 
@@ -164,7 +165,7 @@
 
 .uk-table-small th,
 .uk-table-small td {
-    padding: @table-small-padding-vertical @table-small-padding-horizontal;
+    padding: @table-small-cell-padding-vertical @table-small-cell-padding-horizontal;
     .hook-table-small;
 }
 
@@ -183,10 +184,10 @@
 
 .uk-table-link > a {
     display: block;
-    padding: @table-padding-vertical @table-padding-horizontal;
+    padding: @table-cell-padding-vertical @table-cell-padding-horizontal;
 }
 
-.uk-table-small .uk-table-link > a { padding: @table-small-padding-vertical @table-small-padding-horizontal; }
+.uk-table-small .uk-table-link > a { padding: @table-small-cell-padding-vertical @table-small-cell-padding-horizontal; }
 
 
 // Hooks
