@@ -27,6 +27,7 @@
 @search-default-height:                             @global-control-height;
 @search-default-padding-horizontal:                 6px;
 @search-default-background:                         @global-muted-background;
+@search-default-focus-background:                   @global-muted-background;
 
 @search-default-icon-width:                         @global-control-height;
 
@@ -250,6 +251,12 @@
     .hook-search-default-input;
 }
 
+/* Focus */
+.uk-search-default .uk-search-input:focus {
+    background-color: @search-default-focus-background;
+    .hook-search-default-input-focus;
+}
+
 /*
  * Icon
  */
@@ -338,6 +345,7 @@
 .hook-search-misc;
 
 .hook-search-default-input() {}
+.hook-search-default-input-focus() {}
 .hook-search-navbar-input() {}
 .hook-search-large-input() {}
 
@@ -358,6 +366,7 @@
     @search-icon-color:                    @dye-muted-color;
 
     @search-default-background:            transparent;
+    @search-default-focus-background:      transparent;
 
     @search-navbar-background:             transparent;
 
@@ -400,6 +409,10 @@
         background-color: @search-default-background;
         .hook-dye-search-default-input;
     }
+    .uk-search-default .uk-search-input:focus {
+        background-color: @search-default-background;
+        .hook-dye-search-default-input-focus;
+    }
 
     .uk-search-navbar .uk-search-input {
         background-color: @search-navbar-background;
@@ -429,6 +442,7 @@
 }
 
 .hook-dye-search-default-input() {}
+.hook-dye-search-default-input-focus() {}
 .hook-dye-search-navbar-input() {}
 .hook-dye-search-large-input() {}
 .hook-dye-search-toggle() {}
