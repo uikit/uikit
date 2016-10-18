@@ -89,3 +89,27 @@
 .hook-accordion-title() {}
 .hook-accordion-content() {}
 .hook-accordion-misc() {}
+
+
+// Dye
+// ========================================================================
+
+.dye-vars-default() {}
+
+.dye() {
+
+    .dye-vars();
+    .dye-hooks();
+
+    .uk-accordion > :nth-child(n+2) {
+        .hook-dye-accordion-item;
+    }
+
+    .uk-accordion-title {
+        .hook-dye-accordion-title;
+    }
+
+}
+
+.hook-dye-accordion-item() {}
+.hook-dye-accordion-title() {}

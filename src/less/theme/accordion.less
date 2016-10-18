@@ -36,7 +36,23 @@
 // Title
 // ========================================================================
 
-.hook-accordion-title() { overflow: hidden; }
+.hook-accordion-title() {
+
+    overflow: hidden;
+
+    &::after {
+        content: "";
+        width: (@accordion-title-line-height * 1em);
+        height: (@accordion-title-line-height * 1em);
+        float: right;
+        .svg-fill("../../../images/accordion-close.svg", "#000", @accordion-icon-color);
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }
+
+    .uk-open > &::after { .svg-fill("../../../images/accordion-open.svg", "#000", @accordion-icon-color); }
+
+}
 
 
 // Content
@@ -48,44 +64,27 @@
 // Miscellaneous
 // ========================================================================
 
-.hook-accordion-misc() {
-
-    /*
-     * Icon
-     */
-
-    .uk-accordion-title::after {
-        content: "";
-        width: (@accordion-title-line-height * 1em);
-        height: (@accordion-title-line-height * 1em);
-        float: right;
-        .svg-fill("../../../images/accordion-close.svg", "#000", @accordion-icon-color);
-        background-repeat: no-repeat;
-        background-position: 50% 50%;
-    }
-
-    .uk-open > .uk-accordion-title::after { .svg-fill("../../../images/accordion-open.svg", "#000", @accordion-icon-color); }
-
-}
+.hook-accordion-misc() {}
 
 // Dye
 // ========================================================================
 
-.dye-vars-default-theme() {
-
-    @accordion-item-border:                @dye-border;
-    @accordion-icon-color:                 @dye-color;
-
-}
+.dye-vars-default-theme() {}
 
 .dye() {
 
     .dye-vars();
 
-    .uk-accordion > :nth-child(n+2) { border-top-color: @accordion-item-border; }
+    .uk-accordion-title::after { .svg-fill("../../../images/accordion-close.svg", "#000", @dye-color); }
 
-    .uk-accordion-title::after { .svg-fill("../../../images/accordion-close.svg", "#000", @accordion-icon-color); }
+    .uk-open > .uk-accordion-title::after { .svg-fill("../../../images/accordion-open.svg", "#000", @dye-color); }
 
-    .uk-open > .uk-accordion-title::after { .svg-fill("../../../images/accordion-open.svg", "#000", @accordion-icon-color); }
+}
+
+.dye-hooks() {
+
+    .hook-dye-accordion-item() { border-top-color: @dye-border; }
+
+    .hook-dye-accordion-title() {}
 
 }
