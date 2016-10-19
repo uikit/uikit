@@ -6,10 +6,12 @@ export default function (UIkit) {
 
         (new Observer(mutations => {
 
+            var visited = [];
+
             mutations.forEach(mutation => {
 
                 for (var i = 0; i < mutation.addedNodes.length; ++i) {
-                    apply(mutation.addedNodes[i], attachComponents);
+                    apply(mutation.addedNodes[i], attachComponents, visited);
                 }
 
             });
@@ -43,19 +45,20 @@ export default function (UIkit) {
         }
     }
 
-    function apply(node, fn) {
+    function apply(node, fn, visited = []) {
 
         var next;
 
-        if (node.nodeType !== Node.ELEMENT_NODE || node.hasAttribute('uk-no-boot')) {
+        if (node.nodeType !== Node.ELEMENT_NODE || visited.indexOf(node) !== -1 || node.hasAttribute('uk-no-boot')) {
             return;
         }
 
         fn(node);
+        visited.push(node);
         node = node.firstChild;
         while (node) {
             next = node.nextSibling;
-            apply(node, fn);
+            apply(node, fn, visited);
             node = next;
         }
     }
