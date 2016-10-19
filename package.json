@@ -20,7 +20,7 @@
     }
   ],
   "scripts": {
-    "prepublish": "gulp"
+    "postinstall": "gulp"
   },
   "main": "dist/js/uikit.js",
   "dependencies": {
