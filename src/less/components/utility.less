@@ -48,8 +48,7 @@
 @logo-color:                                    @global-color;
 @logo-hover-color:                              @global-color;
 
-@dragover-box-shadow:                           rgba(100,100,100,0.3);
-@dragover-box-shadow-blur:                      20px;
+@dragover-box-shadow:                           0 0 20px rgba(100,100,100,0.3);
 
 
 /* ========================================================================
@@ -382,7 +381,7 @@
  * Create a box-shadow when dragging a file over the upload area
  */
 
-.uk-dragover { box-shadow: 0 0 @dragover-box-shadow-blur @dragover-box-shadow; }
+.uk-dragover { box-shadow: @dragover-box-shadow; }
 
 
 /* Blend modes

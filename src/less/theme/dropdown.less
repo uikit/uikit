@@ -15,8 +15,7 @@
 // New
 //
 
-@dropdown-box-shadow:                           rgba(0,0,0,0.15);
-@dropdown-box-shadow-blur:                      12px;
+@dropdown-box-shadow:                           0 5px 12px rgba(0,0,0,0.15);
 
 @dropdown-nav-item-padding-vertical:            6px;
 @dropdown-nav-item-padding-horizontal:          25px;
@@ -29,7 +28,7 @@
 // Component
 // ========================================================================
 
-.hook-dropdown() { box-shadow: 0 5px @dropdown-box-shadow-blur @dropdown-box-shadow; }
+.hook-dropdown() { box-shadow: @dropdown-box-shadow; }
 
 
 // Nav

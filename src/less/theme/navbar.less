@@ -15,8 +15,7 @@
 // New
 //
 
-@navbar-dropdown-box-shadow:                    rgba(0,0,0,0.15);
-@navbar-dropdown-box-shadow-blur:               12px;
+@navbar-dropdown-box-shadow:                    0 5px 12px rgba(0,0,0,0.15);
 
 @navbar-dropdown-nav-item-padding-vertical:     6px;
 @navbar-dropdown-nav-item-padding-horizontal:   25px;
@@ -88,7 +87,7 @@
 // Dropdown
 // ========================================================================
 
-.hook-navbar-dropdown() { box-shadow: 0 5px @navbar-dropdown-box-shadow-blur @navbar-dropdown-box-shadow; }
+.hook-navbar-dropdown() { box-shadow: @navbar-dropdown-box-shadow; }
 
 .hook-navbar-dropdown-dropbar() { box-shadow: none; }
 
