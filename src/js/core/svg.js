@@ -180,7 +180,8 @@ export default function (UIkit) {
     }
 
     function getBackgroundImage(el) {
-        return (window.getComputedStyle(el[0], '::before') || {}).backgroundImage;
+        var image = (window.getComputedStyle(el[0], '::before') || {}).backgroundImage;
+        return image !== 'none' && image;
     }
 
 }
