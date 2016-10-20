@@ -46,6 +46,7 @@
             placeholderClass: 'uk-nestable-placeholder',
             noDragClass     : 'uk-nestable-nodrag',
             group           : false,
+            minDepth        : 0,
             maxDepth        : 10,
             threshold       : 20,
             idlethreshold   : 10,
@@ -446,10 +447,15 @@
         },
 
         dragMove: function(e) {
-            var list, parent, prev, next, depth,
+            var list, parent, prev, next, depth, level,
                 opt      = this.options,
                 mouse    = this.mouse,
+                minDepth = this.dragRootEl ? this.dragRootEl.data('nestable').options.minDepth : opt.minDepth,
                 maxDepth = this.dragRootEl ? this.dragRootEl.data('nestable').options.maxDepth : opt.maxDepth;
+
+            if (maxDepth < minDepth) {
+                maxDepth = minDepth;
+            }
 
             this.dragEl.css({
                 left : e.pageX - mouse.offsetX,
@@ -543,7 +549,7 @@
                         var surroundingLi = parentUl.closest(opt._listItemClass);
 
                         // if the ul is inside of a li (meaning it is nested)
-                        if (surroundingLi.length) {
+                        if (surroundingLi.length && depth > minDepth) {
                             // we can decrease the horizontal level
                             surroundingLi.after(this.placeEl);
                             // if the previous parent ul is now empty
@@ -605,8 +611,9 @@
 
                 // check depth limit
                 depth = this.dragDepth - 1 + this.pointEl.parents(opt._listClass+','+opt._listBaseClass).length;
+                level = this.pointEl.parents(opt._listClass+','+opt._listBaseClass).length;
 
-                if (depth > maxDepth) {
+                if (depth > maxDepth || level < minDepth) {
                     return;
                 }
 
