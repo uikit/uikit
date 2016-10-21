@@ -182,52 +182,45 @@
 .hook-tab-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-tab-item-color:                       @inverse-global-muted-color;
+@inverse-tab-item-hover-color:                 @inverse-global-color;
+@inverse-tab-item-active-color:                @inverse-global-color;
+@inverse-tab-item-disabled-color:              @inverse-global-muted-color;
 
-    @tab-item-color:                       @dye-muted-color;
-    @tab-item-hover-color:                 @dye-color;
-    @tab-item-active-color:                @dye-color;
-    @tab-item-disabled-color:              @dye-muted-color;
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     .uk-tab {
-        .hook-dye-tab;
+        .hook-inverse-tab;
     }
 
     .uk-tab > * > a {
-        color: @tab-item-color;
-        .hook-dye-tab-item;
+        color: @inverse-tab-item-color;
+        .hook-inverse-tab-item;
     }
 
     .uk-tab > * > a:hover,
     .uk-tab > * > a:focus{
-        color: @tab-item-hover-color;
-        .hook-dye-tab-item-hover;
+        color: @inverse-tab-item-hover-color;
+        .hook-inverse-tab-item-hover;
     }
 
     .uk-tab > .uk-active > a {
-        color: @tab-item-active-color;
-        .hook-dye-tab-item-active;
+        color: @inverse-tab-item-active-color;
+        .hook-inverse-tab-item-active;
     }
 
     .uk-tab > .uk-disabled > a {
-        color: @tab-item-disabled-color;
-        .hook-dye-tab-item-disabled;
+        color: @inverse-tab-item-disabled-color;
+        .hook-inverse-tab-item-disabled;
     }
 
 }
 
-.hook-dye-tab() {}
-.hook-dye-tab-item() {}
-.hook-dye-tab-item-hover() {}
-.hook-dye-tab-item-active() {}
-.hook-dye-tab-item-disabled() {}
+.hook-inverse-tab() {}
+.hook-inverse-tab-item() {}
+.hook-inverse-tab-item-hover() {}
+.hook-inverse-tab-item-active() {}
+.hook-inverse-tab-item-disabled() {}

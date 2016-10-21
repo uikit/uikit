@@ -128,25 +128,16 @@
 .hook-form-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default-theme() {}
+.hook-inverse-form() { border-color: @inverse-global-border; }
+.hook-inverse-form-focus() { border-color: @inverse-global-color; }
 
-.dye-hooks() {
+.hook-inverse-form-radio() { border-color: @inverse-global-border; }
+.hook-inverse-form-radio-focus() { border-color: @inverse-global-color; }
 
-    .hook-dye-form() { border-color: @dye-border; }
+.hook-inverse-form-radio-checked() { border-color: @inverse-global-color; }
+.hook-inverse-form-radio-checked-focus() {}
 
-    .hook-dye-form-focus() { border-color: @dye-color; }
-
-    .hook-dye-form-radio() { border-color: @dye-border; }
-
-    .hook-dye-form-radio-focus() { border-color: @dye-color; }
-
-    .hook-dye-form-radio-checked() { border-color: @dye-color; }
-
-    .hook-dye-form-radio-checked-focus() {}
-
-    .hook-dye-form-label() {}
-
-}
+.hook-inverse-form-label() {}

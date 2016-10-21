@@ -179,25 +179,33 @@
 }
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default-theme() {}
+@inverse-button-default-background:            transparent;
+@inverse-button-default-color:                 @inverse-global-emphasis-color;
+@inverse-button-default-hover-background:      transparent;
+@inverse-button-default-hover-color:           @inverse-global-emphasis-color;
+@inverse-button-default-active-background:     transparent;
+@inverse-button-default-active-color:          @inverse-global-emphasis-color;
 
-.dye-hooks() {
+@inverse-button-text-color:                    @inverse-global-emphasis-color;
+@inverse-button-text-hover-color:              @inverse-global-emphasis-color;
 
-    .hook-dye-button-default() { border-color: fade(@dye-color, 60%); }
-    .hook-dye-button-default-hover() { border-color: @dye-emphasis-color; }
-    .hook-dye-button-default-active() { border-color: @dye-emphasis-color; }
+//
+// Hooks
+//
 
-    .hook-dye-button-primary() {}
-    .hook-dye-button-primary-hover() {}
-    .hook-dye-button-primary-active() {}
+.hook-inverse-button-default() { border-color: fade(@inverse-global-color, 60%); }
+.hook-inverse-button-default-hover() { border-color: @inverse-global-emphasis-color; }
+.hook-inverse-button-default-active() { border-color: @inverse-global-emphasis-color; }
 
-    .hook-dye-button-text() {
-        &::before { border-bottom-color: @dye-emphasis-color; }
-    }
-    .hook-dye-button-text-hover() {}
-    .hook-dye-button-text-disabled() {}
+.hook-inverse-button-primary() {}
+.hook-inverse-button-primary-hover() {}
+.hook-inverse-button-primary-active() {}
 
+.hook-inverse-button-text() {
+    &::before { border-bottom-color: @inverse-global-emphasis-color; }
 }
+.hook-inverse-button-text-hover() {}
+.hook-inverse-button-text-disabled() {}

@@ -51,21 +51,15 @@
 .hook-search-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default-theme() {}
+.hook-inverse-search-default-input() { border-color: @inverse-global-border; }
+.hook-inverse-search-default-input-focus() {}
 
-.dye-hooks() {
+.hook-inverse-search-navbar-input() {}
 
-    .hook-dye-search-default-input() { border-color: @dye-border; }
-    .hook-dye-search-default-input-focus() {}
+.hook-inverse-search-large-input() {}
 
-    .hook-dye-search-navbar-input() {}
-
-    .hook-dye-search-large-input() {}
-
-    .hook-dye-search-toggle() {}
-    .hook-dye-search-toggle-hover() {}
-
-}
+.hook-inverse-search-toggle() {}
+.hook-inverse-search-toggle-hover() {}

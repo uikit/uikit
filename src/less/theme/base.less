@@ -109,33 +109,27 @@
 .hook-base-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default-theme() {}
+.hook-inverse-base-link() {}
+.hook-inverse-base-link-hover() {}
 
-.dye-hooks() {
-
-    .hook-dye-base-link() {}
-    .hook-dye-base-link-hover() {}
-
-    .hook-dye-base-code() {
-        border-color: fade(@dye-color, 20%);
-        background: fade(@dye-color, 10%);
-    }
-
-    .hook-dye-base-heading() {}
-
-    .hook-dye-base-h1() {}
-    .hook-dye-base-h2() {}
-    .hook-dye-base-h3() {}
-    .hook-dye-base-h4() {}
-    .hook-dye-base-h5() {}
-    .hook-dye-base-h6() {}
-
-    .hook-dye-base-blockquote() {}
-    .hook-dye-base-blockquote-footer() {}
-
-    .hook-dye-base-hr() {}
-
+.hook-inverse-base-code() {
+    border-color: fade(@inverse-global-color, 20%);
+    background: fade(@inverse-global-color, 10%);
 }
+
+.hook-inverse-base-heading() {}
+
+.hook-inverse-base-h1() {}
+.hook-inverse-base-h2() {}
+.hook-inverse-base-h3() {}
+.hook-inverse-base-h4() {}
+.hook-inverse-base-h5() {}
+.hook-inverse-base-h6() {}
+
+.hook-inverse-base-blockquote() {}
+.hook-inverse-base-blockquote-footer() {}
+
+.hook-inverse-base-hr() {}

@@ -342,21 +342,14 @@
 .hook-grid-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-grid-divider-border:                  @inverse-global-border;
 
-    @grid-divider-border:                  @dye-border;
+.hook-inverse() {
 
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
-
-    .uk-grid-divider > :not(.uk-grid-first)::before { border-left-color: @grid-divider-border; }
-    .uk-grid-divider > .uk-grid-first + .uk-grid-first::before { border-top-color: @grid-divider-border; }
+    .uk-grid-divider > :not(.uk-grid-first)::before { border-left-color: @inverse-grid-divider-border; }
+    .uk-grid-divider > .uk-grid-first + .uk-grid-first::before { border-top-color: @inverse-grid-divider-border; }
 
 }

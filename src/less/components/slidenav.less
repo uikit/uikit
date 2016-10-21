@@ -113,40 +113,33 @@
 .hook-slidenav-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-slidenav-color:                       fadeout(@inverse-global-color, 40%);
+@inverse-slidenav-hover-color:                 fadeout(@inverse-global-color, 20%);
+@inverse-slidenav-active-color:                fadeout(@inverse-global-color, 10%);
 
-    @slidenav-color:                       fadeout(@dye-color, 40%);
-    @slidenav-hover-color:                 fadeout(@dye-color, 20%);
-    @slidenav-active-color:                fadeout(@dye-color, 10%);
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     .uk-slidenav {
-        color: @slidenav-color;
-        .hook-dye-slidenav;
+        color: @inverse-slidenav-color;
+        .hook-inverse-slidenav;
     }
 
     .uk-slidenav:hover,
     .uk-slidenav:focus {
-        color: @slidenav-hover-color;
-        .hook-dye-slidenav-hover;
+        color: @inverse-slidenav-hover-color;
+        .hook-inverse-slidenav-hover;
     }
 
     .uk-slidenav:active {
-        color: @slidenav-active-color;
-        .hook-dye-slidenav-active;
+        color: @inverse-slidenav-active-color;
+        .hook-inverse-slidenav-active;
     }
 
 }
 
-.hook-dye-slidenav() {}
-.hook-dye-slidenav-hover() {}
-.hook-dye-slidenav-active() {}
+.hook-inverse-slidenav() {}
+.hook-inverse-slidenav-hover() {}
+.hook-inverse-slidenav-active() {}

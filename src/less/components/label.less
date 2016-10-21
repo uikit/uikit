@@ -102,34 +102,27 @@
 .hook-label-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-label-background:                     @inverse-global-primary-background;
+@inverse-label-color:                          @inverse-global-inverse-color;
+@inverse-label-hover-color:                    @inverse-global-inverse-color;
 
-    @label-background:                     @dye-primary-background;
-    @label-color:                          @dye-inverse-color;
-    @label-hover-color:                    @dye-inverse-color;
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     .uk-label {
-        background: @label-background;
-        color: @label-color;
-        .hook-dye-label;
+        background: @inverse-label-background;
+        color: @inverse-label-color;
+        .hook-inverse-label;
     }
 
     .uk-label:hover {
-        color: @label-hover-color;
-        .hook-dye-label-hover;
+        color: @inverse-label-hover-color;
+        .hook-inverse-label-hover;
     }
 
 }
 
-.hook-dye-label() {}
-.hook-dye-label-hover() {}
+.hook-inverse-label() {}
+.hook-inverse-label-hover() {}

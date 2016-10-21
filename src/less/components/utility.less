@@ -460,35 +460,28 @@
 .hook-utility-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-logo-color:                           @inverse-global-color;
+@inverse-logo-hover-color:                     @inverse-global-color;
 
-    @logo-color:                           @dye-color;
-    @logo-hover-color:                     @dye-color;
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     .uk-dropcap::first-letter,
     .uk-dropcap p:first-of-type::first-letter {
-        .hook-dye-dropcap;
+        .hook-inverse-dropcap;
     }
 
     .uk-logo {
-        color: @logo-color;
-        .hook-dye-logo;
+        color: @inverse-logo-color;
+        .hook-inverse-logo;
     }
 
     .uk-logo:hover,
     .uk-logo:focus {
-        color: @logo-hover-color;
-        .hook-dye-logo-hover;
+        color: @inverse-logo-hover-color;
+        .hook-inverse-logo-hover;
     }
 
     .uk-logo > :not(.uk-logo-inverse):not(:only-child) { display: none; }
@@ -496,6 +489,6 @@
 
 }
 
-.hook-dye-dropcap() {}
-.hook-dye-logo() {}
-.hook-dye-logo-hover() {}
+.hook-inverse-dropcap() {}
+.hook-inverse-logo() {}
+.hook-inverse-logo-hover() {}

@@ -355,73 +355,66 @@
 .hook-search-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-search-color:                         @inverse-global-color;
+@inverse-search-placeholder-color:             @inverse-global-muted-color;
 
-    @search-color:                         @dye-color;
-    @search-placeholder-color:             @dye-muted-color;
+@inverse-search-icon-color:                    @inverse-global-muted-color;
 
-    @search-icon-color:                    @dye-muted-color;
+@inverse-search-default-background:            transparent;
+@inverse-search-default-focus-background:      transparent;
 
-    @search-default-background:            transparent;
-    @search-default-focus-background:      transparent;
+@inverse-search-navbar-background:             transparent;
 
-    @search-navbar-background:             transparent;
+@inverse-search-large-background:              transparent;
 
-    @search-large-background:              transparent;
+@inverse-search-toggle-color:                  @inverse-global-muted-color;
+@inverse-search-toggle-hover-color:            @inverse-global-color;
 
-    @search-toggle-color:                  @dye-muted-color;
-    @search-toggle-hover-color:            @dye-color;
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     //
     // Input
     //
 
-    .uk-search-input { color: @search-color; }
+    .uk-search-input { color: @inverse-search-color; }
 
-    .uk-search-input:-ms-input-placeholder { color: @search-placeholder-color !important; }
-    .uk-search-input::-moz-placeholder { color: @search-placeholder-color; }
-    .uk-search-input::-webkit-input-placeholder { color: @search-placeholder-color; }
+    .uk-search-input:-ms-input-placeholder { color: @inverse-search-placeholder-color !important; }
+    .uk-search-input::-moz-placeholder { color: @inverse-search-placeholder-color; }
+    .uk-search-input::-webkit-input-placeholder { color: @inverse-search-placeholder-color; }
 
 
     //
     // Icon
     //
 
-    .uk-search .uk-search-icon { color: @search-icon-color; }
+    .uk-search .uk-search-icon { color: @inverse-search-icon-color; }
 
-    .uk-search .uk-search-icon:hover { color: @search-icon-color; }
+    .uk-search .uk-search-icon:hover { color: @inverse-search-icon-color; }
 
     //
     // Style modifier
     //
 
     .uk-search-default .uk-search-input {
-        background-color: @search-default-background;
-        .hook-dye-search-default-input;
+        background-color: @inverse-search-default-background;
+        .hook-inverse-search-default-input;
     }
     .uk-search-default .uk-search-input:focus {
-        background-color: @search-default-background;
-        .hook-dye-search-default-input-focus;
+        background-color: @inverse-search-default-background;
+        .hook-inverse-search-default-input-focus;
     }
 
     .uk-search-navbar .uk-search-input {
-        background-color: @search-navbar-background;
-        .hook-dye-search-navbar-input;
+        background-color: @inverse-search-navbar-background;
+        .hook-inverse-search-navbar-input;
     }
 
     .uk-search-large .uk-search-input {
-        background-color: @search-large-background;
-        .hook-dye-search-large-input;
+        background-color: @inverse-search-large-background;
+        .hook-inverse-search-large-input;
     }
 
     //
@@ -429,21 +422,21 @@
     //
 
     .uk-search-toggle {
-        color: @search-toggle-color;
-        .hook-dye-search-toggle;
+        color: @inverse-search-toggle-color;
+        .hook-inverse-search-toggle;
     }
 
     .uk-search-toggle:hover,
     .uk-search-toggle:focus {
-        color: @search-toggle-hover-color;
-        .hook-dye-search-toggle-hover;
+        color: @inverse-search-toggle-hover-color;
+        .hook-inverse-search-toggle-hover;
     }
 
 }
 
-.hook-dye-search-default-input() {}
-.hook-dye-search-default-input-focus() {}
-.hook-dye-search-navbar-input() {}
-.hook-dye-search-large-input() {}
-.hook-dye-search-toggle() {}
-.hook-dye-search-toggle-hover() {}
+.hook-inverse-search-default-input() {}
+.hook-inverse-search-default-input-focus() {}
+.hook-inverse-search-navbar-input() {}
+.hook-inverse-search-large-input() {}
+.hook-inverse-search-toggle() {}
+.hook-inverse-search-toggle-hover() {}

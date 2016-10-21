@@ -4,58 +4,11 @@
 // ========================================================================
 
 
-// Component
+// Variables
 // ========================================================================
 
 
-// Light colors for dark backgrounds
-.hook-light() {
+// Component
+// ========================================================================
 
-    //
-    // Notes:
-    // The `dye-hooks` mixin is needed to initialize the theme hook mixins in the `dye` mixin scope.
-    // New theme variables can be defined in the `dye-vars-default-theme` mixin.
-    //
-
-    .dye();
-
-    .dye-vars() {
-
-        // Gobal variables must be defined in this scope otherwise they could not be overridden
-        @dye-color:                            fade(@global-inverse-color, 70%);
-        @dye-emphasis-color:                   @global-inverse-color;
-        @dye-muted-color:                      fade(@global-inverse-color, 50%);
-        @dye-inverse-color:                    @global-color;
-
-        @dye-primary-background:               @global-inverse-color;
-        @dye-muted-background:                 fade(@global-inverse-color, 10%);
-
-        @dye-border:                           fade(@global-inverse-color, 20%);
-
-        // Override component variables
-        @button-default-background:            transparent;
-        @button-default-color:                 @dye-emphasis-color;
-        @button-default-hover-background:      transparent;
-        @button-default-hover-color:           @dye-emphasis-color;
-        @button-default-active-background:     transparent;
-        @button-default-active-color:          @dye-emphasis-color;
-
-        @button-text-color:                    @dye-emphasis-color;
-        @button-text-hover-color:              @dye-emphasis-color;
-
-        @nav-default-item-active-color:        @dye-inverse-color;
-
-        //
-        // Call default variables (Core and Theme)
-        // Note: Only not defined variables will get into this scope which makes overriding work
-        //
-
-        .dye-vars-default();
-        .dye-vars-default-theme();
-
-    }
-
-}
-
-// Dark colors for light backgrounds
-.hook-dark() {}
+.hook-inverse() {}

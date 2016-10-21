@@ -151,47 +151,40 @@
 .hook-dotnav-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-dotnav-item-background:               fadeout(@inverse-global-color, 60%);
+@inverse-dotnav-item-hover-background:         fadeout(@inverse-global-color, 30%);
+@inverse-dotnav-item-onclick-background:       fadeout(@inverse-global-color, 10%);
+@inverse-dotnav-item-active-background:        fadeout(@inverse-global-color, 10%);
 
-    @dotnav-item-background:               fadeout(@dye-color, 60%);
-    @dotnav-item-hover-background:         fadeout(@dye-color, 30%);
-    @dotnav-item-onclick-background:       fadeout(@dye-color, 10%);
-    @dotnav-item-active-background:        fadeout(@dye-color, 10%);
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     .uk-dotnav > * > * {
-        background: @dotnav-item-background;
-        .hook-dye-dotnav-item;
+        background: @inverse-dotnav-item-background;
+        .hook-inverse-dotnav-item;
     }
 
     .uk-dotnav > * > :hover,
     .uk-dotnav > * > :focus {
-        background: @dotnav-item-hover-background;
-        .hook-dye-dotnav-item-hover;
+        background: @inverse-dotnav-item-hover-background;
+        .hook-inverse-dotnav-item-hover;
     }
 
     .uk-dotnav > * > :active {
-        background: @dotnav-item-onclick-background;
-        .hook-dye-dotnav-item-onclick;
+        background: @inverse-dotnav-item-onclick-background;
+        .hook-inverse-dotnav-item-onclick;
     }
 
     .uk-dotnav > .uk-active > * {
-        background: @dotnav-item-active-background;
-        .hook-dye-dotnav-item-active;
+        background: @inverse-dotnav-item-active-background;
+        .hook-inverse-dotnav-item-active;
     }
 
 }
 
-.hook-dye-dotnav-item() {}
-.hook-dye-dotnav-item-hover() {}
-.hook-dye-dotnav-item-onclick() {}
-.hook-dye-dotnav-item-active() {}
+.hook-inverse-dotnav-item() {}
+.hook-inverse-dotnav-item-hover() {}
+.hook-inverse-dotnav-item-onclick() {}
+.hook-inverse-dotnav-item-active() {}

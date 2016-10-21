@@ -75,34 +75,27 @@
 .hook-badge-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-badge-background:                     @inverse-global-primary-background;
+@inverse-badge-color:                          @inverse-global-inverse-color;
+@inverse-badge-hover-color:                    @inverse-global-inverse-color;
 
-    @badge-background:                     @dye-primary-background;
-    @badge-color:                          @dye-inverse-color;
-    @badge-hover-color:                    @dye-inverse-color;
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     .uk-badge {
-        background: @badge-background;
-        color: @badge-color;
-        .hook-dye-badge;
+        background: @inverse-badge-background;
+        color: @inverse-badge-color;
+        .hook-inverse-badge;
     }
 
     .uk-badge:hover {
-        color: @badge-hover-color;
-        .hook-dye-badge-hover;
+        color: @inverse-badge-hover-color;
+        .hook-inverse-badge-hover;
     }
 
 }
 
-.hook-dye-badge() {}
-.hook-dye-badge-hover() {}
+.hook-inverse-badge() {}
+.hook-inverse-badge-hover() {}

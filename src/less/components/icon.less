@@ -171,47 +171,40 @@
 .hook-icon-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-icon-link-color:                      @inverse-global-muted-color;
+@inverse-icon-link-hover-color:                @inverse-global-color;
+@inverse-icon-link-active-color:               @inverse-global-color;
+@inverse-icon-button-background:               @inverse-global-muted-background;
+@inverse-icon-button-color:                    @inverse-global-muted-color;
+@inverse-icon-button-hover-background:         darken(@inverse-icon-button-background, 5%);
+@inverse-icon-button-hover-color:              @inverse-global-color;
+@inverse-icon-button-active-background:        darken(@inverse-icon-button-background, 10%);
+@inverse-icon-button-active-color:             @inverse-global-color;
 
-    @icon-link-color:                      @dye-muted-color;
-    @icon-link-hover-color:                @dye-color;
-    @icon-link-active-color:               @dye-color;
-    @icon-button-background:               @dye-muted-background;
-    @icon-button-color:                    @dye-muted-color;
-    @icon-button-hover-background:         darken(@icon-button-background, 5%);
-    @icon-button-hover-color:              @dye-color;
-    @icon-button-active-background:        darken(@icon-button-background, 10%);
-    @icon-button-active-color:             @dye-color;
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     //
     // Link
     //
 
     .uk-icon-link {
-        color: @icon-link-color;
-        .hook-dye-icon-link;
+        color: @inverse-icon-link-color;
+        .hook-inverse-icon-link;
     }
 
     .uk-icon-link:hover,
     .uk-icon-link:focus {
-        color: @icon-link-hover-color;
-        .hook-dye-icon-link-hover;
+        color: @inverse-icon-link-hover-color;
+        .hook-inverse-icon-link-hover;
     }
 
     .uk-icon-link:active,
     .uk-active > .uk-icon-link {
-        color: @icon-link-active-color;
-        .hook-dye-icon-link-active;
+        color: @inverse-icon-link-active-color;
+        .hook-inverse-icon-link-active;
     }
 
     //
@@ -219,29 +212,29 @@
     //
 
     .uk-icon-button {
-        background-color: @icon-button-background;
-        color: @icon-button-color;
-        .hook-dye-icon-button;
+        background-color: @inverse-icon-button-background;
+        color: @inverse-icon-button-color;
+        .hook-inverse-icon-button;
     }
 
     .uk-icon-button:hover,
     .uk-icon-button:focus {
-        background-color: @icon-button-hover-background;
-        color: @icon-button-hover-color;
-        .hook-dye-icon-button-hover;
+        background-color: @inverse-icon-button-hover-background;
+        color: @inverse-icon-button-hover-color;
+        .hook-inverse-icon-button-hover;
     }
 
     .uk-icon-button:active {
-        background-color: @icon-button-active-background;
-        color: @icon-button-active-color;
-        .hook-dye-icon-button-active;
+        background-color: @inverse-icon-button-active-background;
+        color: @inverse-icon-button-active-color;
+        .hook-inverse-icon-button-active;
     }
 
 }
 
-.hook-dye-icon-link() {}
-.hook-dye-icon-link-hover() {}
-.hook-dye-icon-link-active() {}
-.hook-dye-icon-button() {}
-.hook-dye-icon-button-hover() {}
-.hook-dye-icon-button-active() {}
+.hook-inverse-icon-link() {}
+.hook-inverse-icon-link-hover() {}
+.hook-inverse-icon-link-active() {}
+.hook-inverse-icon-button() {}
+.hook-inverse-icon-button-hover() {}
+.hook-inverse-icon-button-active() {}

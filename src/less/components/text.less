@@ -205,37 +205,30 @@ td.uk-text-break { word-break: break-all; }
 .hook-text-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-text-lead-color:                      @inverse-global-color;
+@inverse-text-meta-color:                      @inverse-global-muted-color;
+@inverse-text-muted-color:                     @inverse-global-muted-color;
+@inverse-text-primary-color:                   @inverse-global-color;
 
-    @text-lead-color:                      @dye-color;
-    @text-meta-color:                      @dye-muted-color;
-    @text-muted-color:                     @dye-muted-color;
-    @text-primary-color:                   @dye-color;
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     .uk-text-lead {
-        color: @text-lead-color;
-        .hook-dye-text-lead;
+        color: @inverse-text-lead-color;
+        .hook-inverse-text-lead;
     }
 
     .uk-text-meta {
-        color: @text-meta-color;
-        .hook-dye-text-meta;
+        color: @inverse-text-meta-color;
+        .hook-inverse-text-meta;
     }
 
-    .uk-text-muted { color: @text-muted-color !important; }
-    .uk-text-primary { color: @text-primary-color !important; }
+    .uk-text-muted { color: @inverse-text-muted-color !important; }
+    .uk-text-primary { color: @inverse-text-primary-color !important; }
 
 }
 
-.hook-dye-text-lead() {}
-.hook-dye-text-meta() {}
+.hook-inverse-text-lead() {}
+.hook-inverse-text-meta() {}

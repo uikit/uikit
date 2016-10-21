@@ -66,25 +66,17 @@
 
 .hook-accordion-misc() {}
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default-theme() {}
+.hook-inverse-accordion-item() { border-top-color: @inverse-global-border; }
 
-.dye() {
+.hook-inverse-accordion-title() {}
 
-    .dye-vars();
+.hook-inverse() {
 
-    .uk-accordion-title::after { .svg-fill("../../../images/accordion-close.svg", "#000", @dye-color); }
+    .uk-accordion-title::after { .svg-fill("../../../images/accordion-close.svg", "#000", @inverse-global-color); }
 
-    .uk-open > .uk-accordion-title::after { .svg-fill("../../../images/accordion-open.svg", "#000", @dye-color); }
-
-}
-
-.dye-hooks() {
-
-    .hook-dye-accordion-item() { border-top-color: @dye-border; }
-
-    .hook-dye-accordion-title() {}
+    .uk-open > .uk-accordion-title::after { .svg-fill("../../../images/accordion-open.svg", "#000", @inverse-global-color); }
 
 }

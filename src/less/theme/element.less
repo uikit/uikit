@@ -86,32 +86,25 @@
 .hook-element-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default-theme() {}
+.hook-inverse-link-muted() {}
+.hook-inverse-link-muted-hover() {}
 
-.dye-hooks() {
+.hook-inverse-heading-primary() {}
 
-    .hook-dye-link-muted() {}
-    .hook-dye-link-muted-hover() {}
+.hook-inverse-heading-divider() {
 
-    .hook-dye-heading-primary() {}
-
-    .hook-dye-heading-divider() {
-
-        &::before { border-bottom-color: @dye-border; }
-
-    }
-
-    .hook-dye-heading-bullet() {
-
-        &::before { border-left-color: @dye-border; }
-
-    }
-
-    .hook-dye-divider-icon() {}
-
-    .hook-dye-divider-icon-line() {}
+    &::before { border-bottom-color: @inverse-global-border; }
 
 }
+
+.hook-inverse-heading-bullet() {
+
+    &::before { border-left-color: @inverse-global-border; }
+
+}
+
+.hook-inverse-divider-icon() {}
+.hook-inverse-divider-icon-line() {}

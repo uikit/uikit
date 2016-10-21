@@ -114,28 +114,18 @@
 }
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default-theme() {
+@inverse-tab-border:                        @inverse-global-border;
 
-    @tab-border:                        @dye-border;
+.hook-inverse-tab() {
 
-}
-
-.dye-hooks() {
-
-    .dye-vars();
-
-    .hook-dye-tab() {
-
-        &::before { border-color: @tab-border; }
-
-    }
-
-    .hook-dye-tab-item() {}
-    .hook-dye-tab-item-hover() {}
-    .hook-dye-tab-item-active() { border-color: @dye-primary-background; }
-    .hook-dye-tab-item-disabled() {}
+    &::before { border-color: @inverse-tab-border; }
 
 }
+
+.hook-inverse-tab-item() {}
+.hook-inverse-tab-item-hover() {}
+.hook-inverse-tab-item-active() { border-color: @inverse-global-primary-background; }
+.hook-inverse-tab-item-disabled() {}

@@ -91,25 +91,20 @@
 .hook-accordion-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     .uk-accordion > :nth-child(n+2) {
-        .hook-dye-accordion-item;
+        .hook-inverse-accordion-item;
     }
 
     .uk-accordion-title {
-        .hook-dye-accordion-title;
+        .hook-inverse-accordion-title;
     }
 
 }
 
-.hook-dye-accordion-item() {}
-.hook-dye-accordion-title() {}
+.hook-inverse-accordion-item() {}
+.hook-inverse-accordion-title() {}

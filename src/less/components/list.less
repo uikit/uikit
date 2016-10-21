@@ -173,40 +173,33 @@
 .hook-list-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-list-divider-border:                     @inverse-global-border;
+@inverse-list-striped-background:                 @inverse-global-muted-background;
+@inverse-list-bullet-icon-color:                  @inverse-global-color;
 
-    @list-divider-border:                     @dye-border;
-    @list-striped-background:                 @dye-muted-background;
-    @list-bullet-icon-color:                  @dye-color;
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     .uk-list-divider > li:nth-child(n+2) {
-        border-top-color: @list-divider-border;
-        .hook-dye-list-divider;
+        border-top-color: @inverse-list-divider-border;
+        .hook-inverse-list-divider;
     }
 
     .uk-list-striped > li {
-        .hook-dye-list-striped;
+        .hook-inverse-list-striped;
     }
 
-    .uk-list-striped > li:nth-of-type(odd) { background: @list-striped-background; }
+    .uk-list-striped > li:nth-of-type(odd) { background: @inverse-list-striped-background; }
 
     .uk-list-bullet > li::before {
-        .svg-fill(@internal-image-list-bullet, "#000", @list-bullet-icon-color);
-        .hook-dye-list-bullet;
+        .svg-fill(@internal-image-list-bullet, "#000", @inverse-list-bullet-icon-color);
+        .hook-inverse-list-bullet;
     }
 
 }
 
-.hook-dye-list-divider() {}
-.hook-dye-list-striped() {}
-.hook-dye-list-bullet() {}
+.hook-inverse-list-divider() {}
+.hook-inverse-list-striped() {}
+.hook-inverse-list-bullet() {}

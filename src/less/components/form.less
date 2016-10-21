@@ -724,45 +724,38 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .hook-form-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-form-background:                      @inverse-global-muted-background;
+@inverse-form-color:                           @inverse-global-color;
+@inverse-form-focus-background:                @inverse-global-muted-background;
+@inverse-form-focus-color:                     @inverse-global-color;
+@inverse-form-placeholder-color:               @inverse-global-muted-color;
 
-    @form-background:                      @dye-muted-background;
-    @form-color:                           @dye-color;
-    @form-focus-background:                @dye-muted-background;
-    @form-focus-color:                     @dye-color;
-    @form-placeholder-color:               @dye-muted-color;
+@inverse-form-select-icon-color:               @inverse-global-color;
 
-    @form-select-icon-color:               @dye-color;
+@inverse-form-radio-background:                darken(@inverse-global-muted-background, 5%);
 
-    @form-radio-background:                darken(@dye-muted-background, 5%);
+@inverse-form-radio-checked-background:        @inverse-global-primary-background;
+@inverse-form-radio-checked-icon-color:        @inverse-global-inverse-color;
 
-    @form-radio-checked-background:        @dye-primary-background;
-    @form-radio-checked-icon-color:        @dye-inverse-color;
+@inverse-form-radio-checked-focus-background:  darken(@inverse-global-primary-background, 10%);
 
-    @form-radio-checked-focus-background:  darken(@dye-primary-background, 10%);
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     .uk-input,
     .uk-select,
     .uk-textarea {
-        background-color: @form-background;
-        color: @form-color;
+        background-color: @inverse-form-background;
+        color: @inverse-form-color;
         background-clip: padding-box;
-        .hook-dye-form;
+        .hook-inverse-form;
 
         &:focus {
-            background-color: @form-focus-background;
-            color: @form-focus-color;
-            .hook-dye-form-focus;
+            background-color: @inverse-form-focus-background;
+            color: @inverse-form-focus-color;
+            .hook-inverse-form-focus;
         }
     }
 
@@ -770,19 +763,19 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     // Placeholder
     //
 
-    .uk-input:-ms-input-placeholder { color: @form-placeholder-color !important; }
-    .uk-input::-moz-placeholder { color: @form-placeholder-color; }
-    .uk-input::-webkit-input-placeholder { color: @form-placeholder-color; }
+    .uk-input:-ms-input-placeholder { color: @inverse-form-placeholder-color !important; }
+    .uk-input::-moz-placeholder { color: @inverse-form-placeholder-color; }
+    .uk-input::-webkit-input-placeholder { color: @inverse-form-placeholder-color; }
 
-    .uk-textarea:-ms-input-placeholder { color: @form-placeholder-color !important; }
-    .uk-textarea::-moz-placeholder { color: @form-placeholder-color; }
-    .uk-textarea::-webkit-input-placeholder { color: @form-placeholder-color; }
+    .uk-textarea:-ms-input-placeholder { color: @inverse-form-placeholder-color !important; }
+    .uk-textarea::-moz-placeholder { color: @inverse-form-placeholder-color; }
+    .uk-textarea::-webkit-input-placeholder { color: @inverse-form-placeholder-color; }
 
     //
     // Radio and checkbox
     //
 
-    .uk-select:not([multiple]):not([size]) { .svg-fill(@internal-image-form-select, "#000", @form-select-icon-color); }
+    .uk-select:not([multiple]):not([size]) { .svg-fill(@internal-image-form-select, "#000", @inverse-form-select-icon-color); }
 
     //
     // Radio and checkbox
@@ -790,48 +783,45 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
     .uk-radio,
     .uk-checkbox {
-        background-color: @form-radio-background;
-        .hook-dye-form-radio;
+        background-color: @inverse-form-radio-background;
+        .hook-inverse-form-radio;
     }
 
     // Focus
     .uk-radio:focus,
     .uk-checkbox:focus {
-        .hook-dye-form-radio-focus;
+        .hook-inverse-form-radio-focus;
     }
 
     // Checked
     .uk-radio:checked,
     .uk-checkbox:checked,
     .uk-checkbox:indeterminate {
-        background-color: @form-radio-checked-background;
-        .hook-dye-form-radio-checked;
+        background-color: @inverse-form-radio-checked-background;
+        .hook-inverse-form-radio-checked;
     }
 
     // Focus
     .uk-radio:checked:focus,
     .uk-checkbox:checked:focus,
     .uk-checkbox:indeterminate:focus {
-        background-color: @form-radio-checked-focus-background;
-        .hook-dye-form-radio-checked-focus;
+        background-color: @inverse-form-radio-checked-focus-background;
+        .hook-inverse-form-radio-checked-focus;
     }
 
     // Icon
-    .uk-radio:checked { .svg-fill(@internal-image-form-radio, "#000", @form-radio-checked-icon-color); }
-    .uk-checkbox:checked { .svg-fill(@internal-image-form-checkbox, "#000", @form-radio-checked-icon-color); }
-    .uk-checkbox:indeterminate { .svg-fill(@internal-image-form-checkbox-ideterminate, "#000", @form-radio-checked-icon-color); }
+    .uk-radio:checked { .svg-fill(@internal-image-form-radio, "#000", @inverse-form-radio-checked-icon-color); }
+    .uk-checkbox:checked { .svg-fill(@internal-image-form-checkbox, "#000", @inverse-form-radio-checked-icon-color); }
+    .uk-checkbox:indeterminate { .svg-fill(@internal-image-form-checkbox-ideterminate, "#000", @inverse-form-radio-checked-icon-color); }
 
     // Label
     .uk-form-label {
-        .hook-dye-form-label;
+        .hook-inverse-form-label;
     }
 
 }
 
-.hook-dye-form() {}
-.hook-dye-form-focus() {}
-.hook-dye-form-radio() {}
-.hook-dye-form-radio-focus() {}
-.hook-dye-form-radio-checked() {}
-.hook-dye-form-radio-checked-focus() {}
-.hook-dye-form-label() {}
+.hook-inverse-form() {}.hook-inverse-form-focus() {}
+.hook-inverse-form-radio() {}.hook-inverse-form-radio-focus() {}
+.hook-inverse-form-radio-checked() {}.hook-inverse-form-radio-checked-focus() {}
+.hook-inverse-form-label() {}

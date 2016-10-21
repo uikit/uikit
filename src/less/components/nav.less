@@ -320,126 +320,119 @@ ul.uk-nav-sub {
 .hook-nav-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-nav-parent-icon-color:                @inverse-global-color;
+@inverse-nav-default-item-color:               @inverse-global-muted-color;
+@inverse-nav-default-item-hover-color:         @inverse-global-color;
+@inverse-nav-default-item-active-color:        @inverse-global-color;
+@inverse-nav-default-header-color:             @inverse-global-emphasis-color;
+@inverse-nav-default-divider-border:           @inverse-global-border;
+@inverse-nav-default-sublist-item-color:       @inverse-global-muted-color;
+@inverse-nav-default-sublist-item-hover-color: @inverse-global-color;
 
-    @nav-parent-icon-color:                @dye-color;
-    @nav-default-item-color:               @dye-muted-color;
-    @nav-default-item-hover-color:         @dye-color;
-    @nav-default-item-active-color:        @dye-color;
-    @nav-default-header-color:             @dye-emphasis-color;
-    @nav-default-divider-border:           @dye-border;
-    @nav-default-sublist-item-color:       @dye-muted-color;
-    @nav-default-sublist-item-hover-color: @dye-color;
+@inverse-nav-primary-item-color:               @inverse-global-muted-color;
+@inverse-nav-primary-item-hover-color:         @inverse-global-color;
+@inverse-nav-primary-item-active-color:        @inverse-global-color;
+@inverse-nav-primary-header-color:             @inverse-global-emphasis-color;
+@inverse-nav-primary-divider-border:           @inverse-global-border;
+@inverse-nav-primary-sublist-item-color:       @inverse-global-muted-color;
+@inverse-nav-primary-sublist-item-hover-color: @inverse-global-color;
 
-    @nav-primary-item-color:               @dye-muted-color;
-    @nav-primary-item-hover-color:         @dye-color;
-    @nav-primary-item-active-color:        @dye-color;
-    @nav-primary-header-color:             @dye-emphasis-color;
-    @nav-primary-divider-border:           @dye-border;
-    @nav-primary-sublist-item-color:       @dye-muted-color;
-    @nav-primary-sublist-item-hover-color: @dye-color;
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     //
     // Parent icon modifier
     //
 
     .uk-nav-parent-icon > .uk-parent > a::after {
-        .svg-fill(@internal-image-nav-parent-close, "#000", @nav-parent-icon-color);
-        .hook-dye-nav-parent-icon;
+        .svg-fill(@internal-image-nav-parent-close, "#000", @inverse-nav-parent-icon-color);
+        .hook-inverse-nav-parent-icon;
     }
 
-    .uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill(@internal-image-nav-parent-open, "#000", @nav-parent-icon-color); }
+    .uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill(@internal-image-nav-parent-open, "#000", @inverse-nav-parent-icon-color); }
 
     //
     // Default
     //
 
     .uk-nav-default > li > a {
-        color: @nav-default-item-color;
-        .hook-dye-nav-default-item;
+        color: @inverse-nav-default-item-color;
+        .hook-inverse-nav-default-item;
     }
 
     .uk-nav-default > li > a:hover,
     .uk-nav-default > li > a:focus {
-        color: @nav-default-item-hover-color;
-        .hook-dye-nav-default-item-hover;
+        color: @inverse-nav-default-item-hover-color;
+        .hook-inverse-nav-default-item-hover;
     }
 
     .uk-nav-default > li.uk-active > a {
-        color: @nav-default-item-active-color;
-        .hook-dye-nav-default-item-active;
+        color: @inverse-nav-default-item-active-color;
+        .hook-inverse-nav-default-item-active;
     }
 
     .uk-nav-default .uk-nav-header {
-        color: @nav-default-header-color;
-        .hook-dye-nav-default-header;
+        color: @inverse-nav-default-header-color;
+        .hook-inverse-nav-default-header;
     }
 
     .uk-nav-default .uk-nav-divider {
-        border-top-color: @nav-default-divider-border;
-        .hook-dye-nav-default-divider;
+        border-top-color: @inverse-nav-default-divider-border;
+        .hook-inverse-nav-default-divider;
     }
 
-    .uk-nav-default .uk-nav-sub a { color: @nav-default-sublist-item-color; }
+    .uk-nav-default .uk-nav-sub a { color: @inverse-nav-default-sublist-item-color; }
 
     .uk-nav-default .uk-nav-sub a:hover,
-    .uk-nav-default .uk-nav-sub a:focus { color: @nav-default-sublist-item-hover-color; }
+    .uk-nav-default .uk-nav-sub a:focus { color: @inverse-nav-default-sublist-item-hover-color; }
 
     //
     // Primary
     //
 
     .uk-nav-primary > li > a {
-        color: @nav-primary-item-color;
-        .hook-dye-nav-primary-item;
+        color: @inverse-nav-primary-item-color;
+        .hook-inverse-nav-primary-item;
     }
 
     .uk-nav-primary > li > a:hover,
     .uk-nav-primary > li > a:focus {
-        color: @nav-primary-item-hover-color;
-        .hook-dye-nav-primary-item-hover;
+        color: @inverse-nav-primary-item-hover-color;
+        .hook-inverse-nav-primary-item-hover;
     }
 
     .uk-nav-primary > li.uk-active > a {
-        color: @nav-primary-item-active-color;
-        .hook-dye-nav-primary-item-active;
+        color: @inverse-nav-primary-item-active-color;
+        .hook-inverse-nav-primary-item-active;
     }
 
     .uk-nav-primary .uk-nav-header {
-        color: @nav-primary-header-color;
-        .hook-dye-nav-primary-header;
+        color: @inverse-nav-primary-header-color;
+        .hook-inverse-nav-primary-header;
     }
 
     .uk-nav-primary .uk-nav-divider {
-        border-top-color: @nav-primary-divider-border;
-        .hook-dye-nav-primary-divider;
+        border-top-color: @inverse-nav-primary-divider-border;
+        .hook-inverse-nav-primary-divider;
     }
 
-    .uk-nav-primary .uk-nav-sub a { color: @nav-primary-sublist-item-color; }
+    .uk-nav-primary .uk-nav-sub a { color: @inverse-nav-primary-sublist-item-color; }
 
     .uk-nav-primary .uk-nav-sub a:hover,
-    .uk-nav-primary .uk-nav-sub a:focus { color: @nav-primary-sublist-item-hover-color; }
+    .uk-nav-primary .uk-nav-sub a:focus { color: @inverse-nav-primary-sublist-item-hover-color; }
 
 }
 
-.hook-dye-nav-parent-icon() {}
-.hook-dye-nav-default-item() {}
-.hook-dye-nav-default-item-hover() {}
-.hook-dye-nav-default-item-active() {}
-.hook-dye-nav-default-header() {}
-.hook-dye-nav-default-divider() {}
-.hook-dye-nav-primary-item() {}
-.hook-dye-nav-primary-item-hover() {}
-.hook-dye-nav-primary-item-active() {}
-.hook-dye-nav-primary-header() {}
-.hook-dye-nav-primary-divider() {}
+.hook-inverse-nav-parent-icon() {}
+.hook-inverse-nav-default-item() {}
+.hook-inverse-nav-default-item-hover() {}
+.hook-inverse-nav-default-item-active() {}
+.hook-inverse-nav-default-header() {}
+.hook-inverse-nav-default-divider() {}
+.hook-inverse-nav-primary-item() {}
+.hook-inverse-nav-primary-item-hover() {}
+.hook-inverse-nav-primary-item-active() {}
+.hook-inverse-nav-primary-header() {}
+.hook-inverse-nav-primary-divider() {}

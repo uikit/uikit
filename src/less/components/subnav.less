@@ -205,44 +205,37 @@
 .hook-subnav-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-subnav-item-color:                    @inverse-global-muted-color;
+@inverse-subnav-item-hover-color:              @inverse-global-color;
+@inverse-subnav-item-active-color:             @inverse-global-color;
+@inverse-subnav-divider-border:                @inverse-global-border;
+@inverse-subnav-pill-item-hover-background:    @inverse-global-muted-background;
+@inverse-subnav-pill-item-hover-color:         @inverse-global-color;
+@inverse-subnav-pill-item-onclick-background:  @inverse-subnav-pill-item-hover-background;
+@inverse-subnav-pill-item-onclick-color:       @inverse-subnav-pill-item-hover-color;
+@inverse-subnav-pill-item-active-background:   @inverse-global-primary-background;
+@inverse-subnav-pill-item-active-color:        @inverse-global-inverse-color;
+@inverse-subnav-item-disabled-color:           @inverse-global-muted-color;
 
-    @subnav-item-color:                    @dye-muted-color;
-    @subnav-item-hover-color:              @dye-color;
-    @subnav-item-active-color:             @dye-color;
-    @subnav-divider-border:                @dye-border;
-    @subnav-pill-item-hover-background:    @dye-muted-background;
-    @subnav-pill-item-hover-color:         @dye-color;
-    @subnav-pill-item-onclick-background:  @subnav-pill-item-hover-background;
-    @subnav-pill-item-onclick-color:       @subnav-pill-item-hover-color;
-    @subnav-pill-item-active-background:   @dye-primary-background;
-    @subnav-pill-item-active-color:        @dye-inverse-color;
-    @subnav-item-disabled-color:           @dye-muted-color;
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     .uk-subnav > * > a {
-        color: @subnav-item-color;
-        .hook-dye-subnav-item;
+        color: @inverse-subnav-item-color;
+        .hook-inverse-subnav-item;
     }
 
     .uk-subnav > * > a:hover,
     .uk-subnav > * > a:focus {
-        color: @subnav-item-hover-color;
-        .hook-dye-subnav-item-hover;
+        color: @inverse-subnav-item-hover-color;
+        .hook-inverse-subnav-item-hover;
     }
 
     .uk-subnav > .uk-active > a {
-        color: @subnav-item-active-color;
-        .hook-dye-subnav-item-active;
+        color: @inverse-subnav-item-active-color;
+        .hook-inverse-subnav-item-active;
     }
 
     //
@@ -250,8 +243,8 @@
     //
 
     .uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
-        border-left-color: @subnav-divider-border;
-        .hook-dye-subnav-divider;
+        border-left-color: @inverse-subnav-divider-border;
+        .hook-inverse-subnav-divider;
     }
 
     //
@@ -260,21 +253,21 @@
 
     .uk-subnav-pill > * > a:hover,
     .uk-subnav-pill > * > a:focus {
-        background: @subnav-pill-item-hover-background;
-        color: @subnav-pill-item-hover-color;
-        .hook-dye-subnav-pill-item-hover;
+        background: @inverse-subnav-pill-item-hover-background;
+        color: @inverse-subnav-pill-item-hover-color;
+        .hook-inverse-subnav-pill-item-hover;
     }
 
     .uk-subnav-pill > * > a:active {
-        background: @subnav-pill-item-onclick-background;
-        color: @subnav-pill-item-onclick-color;
-        .hook-dye-subnav-pill-item-onclick;
+        background: @inverse-subnav-pill-item-onclick-background;
+        color: @inverse-subnav-pill-item-onclick-color;
+        .hook-inverse-subnav-pill-item-onclick;
     }
 
     .uk-subnav-pill > .uk-active > a {
-        background: @subnav-pill-item-active-background;
-        color: @subnav-pill-item-active-color;
-        .hook-dye-subnav-pill-item-active;
+        background: @inverse-subnav-pill-item-active-background;
+        color: @inverse-subnav-pill-item-active-color;
+        .hook-inverse-subnav-pill-item-active;
     }
 
     //
@@ -282,17 +275,17 @@
     //
 
     .uk-subnav > .uk-disabled > a {
-        color: @subnav-item-disabled-color;
-        .hook-dye-subnav-item-disabled;
+        color: @inverse-subnav-item-disabled-color;
+        .hook-inverse-subnav-item-disabled;
     }
 
 }
 
-.hook-dye-subnav-item() {}
-.hook-dye-subnav-item-hover() {}
-.hook-dye-subnav-item-active() {}
-.hook-dye-subnav-divider() {}
-.hook-dye-subnav-pill-item-hover() {}
-.hook-dye-subnav-pill-item-onclick() {}
-.hook-dye-subnav-pill-item-active() {}
-.hook-dye-subnav-item-disabled() {}
+.hook-inverse-subnav-item() {}
+.hook-inverse-subnav-item-hover() {}
+.hook-inverse-subnav-item-active() {}
+.hook-inverse-subnav-divider() {}
+.hook-inverse-subnav-pill-item-hover() {}
+.hook-inverse-subnav-pill-item-onclick() {}
+.hook-inverse-subnav-pill-item-active() {}
+.hook-inverse-subnav-item-disabled() {}

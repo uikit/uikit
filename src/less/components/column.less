@@ -269,24 +269,17 @@
 .hook-column-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-column-divider-rule-color:                    @inverse-global-border;
 
-    @column-divider-rule-color:                    @dye-border;
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     .uk-column-divider {
-        -webkit-column-rule-color: @column-divider-rule-color;
-        -moz-column-rule-color: @column-divider-rule-color;
-        column-rule-color: @column-divider-rule-color;
+        -webkit-column-rule-color: @inverse-column-divider-rule-color;
+        -moz-column-rule-color: @inverse-column-divider-rule-color;
+        column-rule-color: @inverse-column-divider-rule-color;
     }
 
 }

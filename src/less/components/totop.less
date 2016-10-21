@@ -65,40 +65,33 @@
 .hook-totop-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-totop-color:                       fadeout(@inverse-global-color, 40%);
+@inverse-totop-hover-color:                 fadeout(@inverse-global-color, 20%);
+@inverse-totop-active-color:                fadeout(@inverse-global-color, 10%);
 
-    @totop-color:                       fadeout(@dye-color, 40%);
-    @totop-hover-color:                 fadeout(@dye-color, 20%);
-    @totop-active-color:                fadeout(@dye-color, 10%);
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     .uk-totop {
-        color: @totop-color;
-        .hook-dye-totop;
+        color: @inverse-totop-color;
+        .hook-inverse-totop;
     }
 
     .uk-totop:hover,
     .uk-totop:focus {
-        color: @totop-hover-color;
-        .hook-dye-totop-hover;
+        color: @inverse-totop-hover-color;
+        .hook-inverse-totop-hover;
     }
 
     .uk-totop:active {
-        color: @totop-active-color;
-        .hook-dye-totop-active;
+        color: @inverse-totop-active-color;
+        .hook-inverse-totop-active;
     }
 
 }
 
-.hook-dye-totop() {}
-.hook-dye-totop-hover() {}
-.hook-dye-totop-active() {}
+.hook-inverse-totop() {}
+.hook-inverse-totop-hover() {}
+.hook-inverse-totop-active() {}

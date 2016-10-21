@@ -605,29 +605,22 @@ textarea { touch-action: manipulation; }
 .hook-base-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-base-color:                           @inverse-global-color;
+@inverse-base-link-color:                      @inverse-global-emphasis-color;
+@inverse-base-link-text-decoration:            none;
+@inverse-base-link-hover-color:                @inverse-global-emphasis-color;
+@inverse-base-link-hover-text-decoration:      underline;
+@inverse-base-code-color:                      @inverse-global-color;
+@inverse-base-em-color:                        @inverse-global-emphasis-color;
+@inverse-base-heading-color:                   @inverse-global-emphasis-color;
+@inverse-base-hr-border:                       @inverse-global-border;
 
-    @base-color:                           @dye-color;
-    @base-link-color:                      @dye-emphasis-color;
-    @base-link-text-decoration:            none;
-    @base-link-hover-color:                @dye-emphasis-color;
-    @base-link-hover-text-decoration:      underline;
-    @base-code-color:                      @dye-color;
-    @base-em-color:                        @dye-emphasis-color;
-    @base-heading-color:                   @dye-emphasis-color;
-    @base-hr-border:                       @dye-border;
+.hook-inverse() {
 
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
-
-    color: @base-color;
+    color: @inverse-base-color;
 
     // Base
     // ========================================================================
@@ -642,18 +635,18 @@ textarea { touch-action: manipulation; }
     > a:not([class]), // 2
     > * > a:not([class]), // 2
     .uk-link  {
-        color: @base-link-color;
-        text-decoration: @base-link-text-decoration;
-        .hook-dye-base-link;
+        color: @inverse-base-link-color;
+        text-decoration: @inverse-base-link-text-decoration;
+        .hook-inverse-base-link;
     }
 
     :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]):hover, // 1
     > a:not([class]):hover, // 2
     > * > a:not([class]):hover, // 2
     .uk-link:hover {
-        color: @base-link-hover-color;
-        text-decoration: @base-link-hover-text-decoration;
-        .hook-dye-base-link-hover;
+        color: @inverse-base-link-hover-color;
+        text-decoration: @inverse-base-link-hover-text-decoration;
+        .hook-inverse-base-link-hover;
     }
 
     //
@@ -663,15 +656,15 @@ textarea { touch-action: manipulation; }
     :not(pre) > code,
     :not(pre) > kbd,
     :not(pre) > samp {
-        color: @base-code-color;
-        .hook-dye-base-code;
+        color: @inverse-base-code-color;
+        .hook-inverse-base-code;
     }
 
     //
     // Emphasize
     //
 
-    em { color: @base-em-color; }
+    em { color: @inverse-base-em-color; }
 
     //
     // Headings
@@ -683,32 +676,32 @@ textarea { touch-action: manipulation; }
     h4, .uk-h4,
     h5, .uk-h5,
     h6, .uk-h6 {
-        color: @base-heading-color;
-        .hook-dye-base-heading;
+        color: @inverse-base-heading-color;
+        .hook-inverse-base-heading;
     }
 
     h1, .uk-h1 {
-        .hook-dye-base-h1;
+        .hook-inverse-base-h1;
     }
 
     h2, .uk-h2 {
-        .hook-dye-base-h2;
+        .hook-inverse-base-h2;
     }
 
     h3, .uk-h3 {
-        .hook-dye-base-h3;
+        .hook-inverse-base-h3;
     }
 
     h4, .uk-h4 {
-        .hook-dye-base-h4;
+        .hook-inverse-base-h4;
     }
 
     h5, .uk-h5 {
-        .hook-dye-base-h5;
+        .hook-inverse-base-h5;
     }
 
     h6, .uk-h6 {
-        .hook-dye-base-h6;
+        .hook-inverse-base-h6;
     }
 
     //
@@ -716,11 +709,11 @@ textarea { touch-action: manipulation; }
     //
 
     blockquote {
-        .hook-dye-base-blockquote;
+        .hook-inverse-base-blockquote;
     }
 
     blockquote footer {
-        .hook-dye-base-blockquote-footer;
+        .hook-inverse-base-blockquote-footer;
     }
 
     //
@@ -728,22 +721,22 @@ textarea { touch-action: manipulation; }
     //
 
     hr {
-        border-top-color: @base-hr-border;
-        .hook-dye-base-hr;
+        border-top-color: @inverse-base-hr-border;
+        .hook-inverse-base-hr;
     }
 
 }
 
-.hook-dye-base-link() {}
-.hook-dye-base-link-hover() {}
-.hook-dye-base-code() {}
-.hook-dye-base-heading() {}
-.hook-dye-base-h1() {}
-.hook-dye-base-h2() {}
-.hook-dye-base-h3() {}
-.hook-dye-base-h4() {}
-.hook-dye-base-h5() {}
-.hook-dye-base-h6() {}
-.hook-dye-base-blockquote() {}
-.hook-dye-base-blockquote-footer() {}
-.hook-dye-base-hr() {}
+.hook-inverse-base-link() {}
+.hook-inverse-base-link-hover() {}
+.hook-inverse-base-code() {}
+.hook-inverse-base-heading() {}
+.hook-inverse-base-h1() {}
+.hook-inverse-base-h2() {}
+.hook-inverse-base-h3() {}
+.hook-inverse-base-h4() {}
+.hook-inverse-base-h5() {}
+.hook-inverse-base-h6() {}
+.hook-inverse-base-blockquote() {}
+.hook-inverse-base-blockquote-footer() {}
+.hook-inverse-base-hr() {}

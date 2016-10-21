@@ -130,47 +130,40 @@
 .hook-pagination-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-pagination-item-color:                @inverse-global-muted-color;
+@inverse-pagination-item-hover-color:          @inverse-global-color;
+@inverse-pagination-item-active-color:         @inverse-global-color;
+@inverse-pagination-item-disabled-color:       @inverse-global-muted-color;
 
-    @pagination-item-color:                @dye-muted-color;
-    @pagination-item-hover-color:          @dye-color;
-    @pagination-item-active-color:         @dye-color;
-    @pagination-item-disabled-color:       @dye-muted-color;
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     .uk-pagination > * > * {
-        color: @pagination-item-color;
-        .hook-dye-pagination-item;
+        color: @inverse-pagination-item-color;
+        .hook-inverse-pagination-item;
     }
 
     .uk-pagination > * > :hover,
     .uk-pagination > * > :focus {
-        color: @pagination-item-hover-color;
-        .hook-dye-pagination-item-hover;
+        color: @inverse-pagination-item-hover-color;
+        .hook-inverse-pagination-item-hover;
     }
 
     .uk-pagination > .uk-active > * {
-        color: @pagination-item-active-color;
-        .hook-dye-pagination-item-active;
+        color: @inverse-pagination-item-active-color;
+        .hook-inverse-pagination-item-active;
     }
 
     .uk-pagination > .uk-disabled > * {
-        color: @pagination-item-disabled-color;
-        .hook-dye-pagination-item-disabled;
+        color: @inverse-pagination-item-disabled-color;
+        .hook-inverse-pagination-item-disabled;
     }
 
 }
 
-.hook-dye-pagination-item() {}
-.hook-dye-pagination-item-hover() {}
-.hook-dye-pagination-item-active() {}
-.hook-dye-pagination-item-disabled() {}
+.hook-inverse-pagination-item() {}
+.hook-inverse-pagination-item-hover() {}
+.hook-inverse-pagination-item-active() {}
+.hook-inverse-pagination-item-disabled() {}

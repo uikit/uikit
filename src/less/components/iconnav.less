@@ -134,40 +134,33 @@
 .hook-iconnav-misc() {}
 
 
-// Dye
+// Inverse
 // ========================================================================
 
-.dye-vars-default() {
+@inverse-iconnav-item-color:               @inverse-global-muted-color;
+@inverse-iconnav-item-hover-color:         @inverse-global-color;
+@inverse-iconnav-item-active-color:        @inverse-global-color;
 
-    @iconnav-item-color:               @dye-muted-color;
-    @iconnav-item-hover-color:         @dye-color;
-    @iconnav-item-active-color:        @dye-color;
-
-}
-
-.dye() {
-
-    .dye-vars();
-    .dye-hooks();
+.hook-inverse() {
 
     .uk-iconnav > * > * {
-        color: @iconnav-item-color;
-        .hook-dye-iconnav-item;
+        color: @inverse-iconnav-item-color;
+        .hook-inverse-iconnav-item;
     }
 
     .uk-iconnav > * > :hover,
     .uk-iconnav > * > :focus {
-        color: @iconnav-item-hover-color;
-        .hook-dye-iconnav-item-hover;
+        color: @inverse-iconnav-item-hover-color;
+        .hook-inverse-iconnav-item-hover;
     }
 
     .uk-iconnav > .uk-active > * {
-        color: @iconnav-item-active-color;
-        .hook-dye-iconnav-item-active;
+        color: @inverse-iconnav-item-active-color;
+        .hook-inverse-iconnav-item-active;
     }
 
 }
 
-.hook-dye-iconnav-item() {}
-.hook-dye-iconnav-item-hover() {}
-.hook-dye-iconnav-item-active() {}
+.hook-inverse-iconnav-item() {}
+.hook-inverse-iconnav-item-hover() {}
+.hook-inverse-iconnav-item-active() {}
