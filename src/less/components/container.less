@@ -4,6 +4,7 @@
 // Component:       `uk-container`
 //
 // Modifier:        `uk-container-small`
+//                  `uk-container-large`
 //                  `uk-container-expand`
 //
 // ========================================================================
@@ -14,6 +15,7 @@
 
 @container-max-width:                   1200px;
 @container-small-max-width:             900px;
+@container-large-max-width:             1600px;
 
 @container-padding-horizontal:          15px;
 @container-padding-horizontal-s:        @global-gutter;
@@ -81,6 +83,8 @@
  ========================================================================== */
 
 .uk-container-small { max-width: @container-small-max-width; }
+
+.uk-container-large { max-width: @container-large-max-width; }
 
 .uk-container-expand { max-width: none; }
 
