@@ -9,8 +9,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-nestable", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-nestable', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -336,7 +336,7 @@
         },
 
         toggleItem: function(li) {
-            this[li.hasClass(this.options.collapsedClass) ? "expandItem":"collapseItem"](li);
+            this[li.hasClass(this.options.collapsedClass) ? 'expandItem':'collapseItem'](li);
         },
 
         expandItem: function(li) {
@@ -367,7 +367,7 @@
         setParent: function(li) {
 
             if (li.children(this.options._listClass).length) {
-                li.addClass("uk-parent");
+                li.addClass('uk-parent');
             }
         },
 
@@ -623,7 +623,7 @@
                 }
 
                 if (!parent.children().length) {
-                    if (!parent.data("nestable")) this.unsetParent(parent.parent());
+                    if (!parent.data('nestable')) this.unsetParent(parent.parent());
                 }
 
                 this.checkEmptyList(this.dragRootEl);

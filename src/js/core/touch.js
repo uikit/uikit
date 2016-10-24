@@ -82,7 +82,7 @@
         longTapTimeout = setTimeout(longTap, longTapDelay);
 
         // adds the current touch contact for IE gesture recognition
-        if (gesture && ( e.type == 'MSPointerDown' || e.type == 'pointerdown' || e.type == 'touchstart' ) ) {
+        if (e.originalEvent && e.originalEvent.pointerId && gesture && ( e.type == 'MSPointerDown' || e.type == 'pointerdown' || e.type == 'touchstart' ) ) {
           gesture.addPointer(e.originalEvent.pointerId);
         }
 

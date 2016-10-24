@@ -6,8 +6,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-slideshow-fx", ["uikit"], function() {
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-slideshow-fx', ['uikit'], function() {
             return component || addon(UIkit);
         });
     }
@@ -29,7 +29,7 @@
 
             var sliceWidth = Math.ceil(this.element.width() / this.options.slices),
                 bgimage    = next.data('cover').css('background-image'),
-                ghost      = UI.$('<li></li>').css({
+                ghost      = UI.$('<li class="uk-slideshow-ghost"></li>').css({
                     top    : 0,
                     left   : 0,
                     width  : this.container.width(),
@@ -80,20 +80,17 @@
 
             ghost.children().last().on(UI.support.transition.end, function() {
 
-                setTimeout(ghost.remove.bind(ghost), 0);
-
-                d.resolve();
+                setTimeout(function() {
+                    ghost.remove();
+                    d.resolve();
+                }, 0);
             });
 
             ghost.width();
 
             ghost.children().each(function() {
-                var bar = UI.$(this);
-
-                bar.css({
-                    'clip': bar.data('clip'),
-                    'opacity': 1
-                });
+                bar = UI.$(this);
+                bar.css({ clip: bar.data('clip'), opacity: 1 });
             });
 
             return d.promise();
@@ -121,7 +118,7 @@
 
             var sliceWidth = Math.ceil(this.element.width() / this.options.slices),
                 bgimage    = next.data('cover').css('background-image'),
-                ghost      = UI.$('<li></li>').css({
+                ghost      = UI.$('<li class="uk-slideshow-ghost"></li>').css({
                     width  : next.width(),
                     height : next.height(),
                     opacity: 1,
@@ -156,13 +153,13 @@
             ghost.width();
 
             ghost.children().first().on(UI.support.transition.end, function() {
-
-                setTimeout(ghost.remove.bind(ghost), 0);
-
-                d.resolve();
+                setTimeout(function() {
+                    ghost.remove();
+                    d.resolve();
+                }, 0);
             }).end().css({
-                'transform': 'scaleX(1)',
-                'opacity': 1
+                transform: 'scaleX(1)',
+                opacity: 1
             });
 
             return d.promise();
@@ -181,7 +178,7 @@
                 boxRows   = Math.round(next.height()/boxWidth),
                 boxHeight = Math.round(next.height()/boxRows)+1,
                 bgimage   = next.data('cover').css('background-image'),
-                ghost     = UI.$('<li></li>').css({
+                ghost     = UI.$('<li class="uk-slideshow-ghost"></li>').css({
                     width   : this.container.width(),
                     height  : this.container.height(),
                     opacity : 1,
@@ -232,14 +229,15 @@
                 });
             }).last().on(UI.support.transition.end, function() {
 
-                setTimeout(ghost.remove.bind(ghost), 0);
-
-                d.resolve();
+                setTimeout(function() {
+                    ghost.remove();
+                    d.resolve();
+                }, 0);
             });
 
             ghost.width();
 
-            boxes.css({'opacity': 1});
+            boxes.css({opacity: 1});
 
             return d.promise();
         },
@@ -257,7 +255,7 @@
                 boxRows   = Math.round(next.height()/boxWidth),
                 boxHeight = Math.round(next.height()/boxRows)+1,
                 bgimage   = next.data('cover').css('background-image'),
-                ghost     = UI.$('<li></li>').css({
+                ghost     = UI.$('<li class="uk-slideshow-ghost"></li>').css({
                     width   : next.width(),
                     height  : next.height(),
                     opacity : 1,
@@ -338,9 +336,10 @@
 
             boxes.last().on(UI.support.transition.end, function() {
 
-                setTimeout(ghost.remove.bind(ghost), 0);
-
-                d.resolve();
+                setTimeout(function() {
+                    ghost.remove();
+                    d.resolve();
+                }, 0);
             });
 
             ghost.width();

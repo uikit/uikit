@@ -27,12 +27,12 @@
             scrollpos = {x: window.pageXOffset, y: window.pageYOffset};
 
             bar.attr('mode', options.mode);
-            element.addClass("uk-active");
+            element.addClass('uk-active');
 
-            $body.css({width: window.innerWidth - scrollbarwidth, height: window.innerHeight}).addClass("uk-offcanvas-page");
+            $body.css({width: window.innerWidth - scrollbarwidth, height: window.innerHeight}).addClass('uk-offcanvas-page');
 
             if (options.mode == 'push' || options.mode == 'reveal') {
-                $body.css((rtl ? "margin-right" : "margin-left"), (rtl ? -1 : 1) * (bar.outerWidth() * dir));
+                $body.css((rtl ? 'margin-right' : 'margin-left'), (rtl ? -1 : 1) * (bar.outerWidth() * dir));
             }
 
             if (options.mode == 'reveal') {
@@ -42,7 +42,7 @@
             $html.css('margin-top', scrollpos.y * -1).width(); // .width() - force redraw
 
 
-            bar.addClass("uk-offcanvas-bar-show");
+            bar.addClass('uk-offcanvas-bar-show');
 
             this._initElement(element);
 
@@ -55,14 +55,14 @@
         hide: function(force) {
 
             var $body = UI.$('body'),
-                panel = UI.$(".uk-offcanvas.uk-active"),
-                rtl   = (UI.langdirection == "right"),
-                bar   = panel.find(".uk-offcanvas-bar:first"),
+                panel = UI.$('.uk-offcanvas.uk-active'),
+                rtl   = (UI.langdirection == 'right'),
+                bar   = panel.find('.uk-offcanvas-bar:first'),
                 finalize = function() {
-                    $body.removeClass("uk-offcanvas-page").css({"width": "", "height": "", "margin-left": "", "margin-right": ""});
-                    panel.removeClass("uk-active");
+                    $body.removeClass('uk-offcanvas-page').css({width: '', height: '', marginLeft: '', marginRight: ''});
+                    panel.removeClass('uk-active');
 
-                    bar.removeClass("uk-offcanvas-bar-show");
+                    bar.removeClass('uk-offcanvas-bar-show');
                     $html.css('margin-top', '');
                     window.scrollTo(scrollpos.x, scrollpos.y);
                     bar.trigger('hide.uk.offcanvas', [panel, bar]);
@@ -113,7 +113,7 @@
                 Offcanvas.hide();
             });
 
-            element.on('click', "a[href*='#']", function(e){
+            element.on('click', 'a[href*="#"]', function(e){
 
                 var link = UI.$(this),
                     href = link.attr('href');

@@ -6,8 +6,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-grid", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-grid', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -37,7 +37,7 @@
 
                     var ele = UI.$(this);
 
-                    if(!ele.data("grid")) {
+                    if(!ele.data('grid')) {
                         UI.grid(ele, UI.Utils.options(ele.attr('data-uk-grid')));
                     }
                 });
@@ -86,7 +86,7 @@
             }.bind(this), 100));
 
             this.on('display.uk.check', function(){
-                if ($this.element.is(":visible"))  $this.update();
+                if ($this.element.is(':visible'))  $this.update();
             });
 
             UI.domObserve(this.element, function(e) {
@@ -110,9 +110,9 @@
             }
 
             css = {
-                'position'   : 'absolute',
-                'box-sizing' : 'border-box',
-                'width'      : this.options.colwidth == 'auto' ? '' : this.options.colwidth
+                position  : 'absolute',
+                boxSizing : 'border-box',
+                width     : this.options.colwidth == 'auto' ? '' : this.options.colwidth
             };
 
             if (this.options.gutter) {
@@ -164,12 +164,12 @@
                 }
 
                 posi = {
-                    "ele"    : item,
-                    "top"    : top,
-                    "width"  : width,
-                    "height" : height,
-                    "aY"     : (top  + height),
-                    "aX"     : (left + width)
+                    ele    : item,
+                    top    : top,
+                    width  : width,
+                    height : height,
+                    aY     : (top  + height),
+                    aX     : (left + width)
                 };
 
                 posi[$this.origin] = left;

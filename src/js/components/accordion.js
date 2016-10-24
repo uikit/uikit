@@ -5,8 +5,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-accordion", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-accordion', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -34,11 +34,11 @@
 
                 setTimeout(function(){
 
-                    UI.$("[data-uk-accordion]", context).each(function(){
+                    UI.$('[data-uk-accordion]', context).each(function(){
 
                         var ele = UI.$(this);
 
-                        if (!ele.data("accordion")) {
+                        if (!ele.data('accordion')) {
                             UI.accordion(ele, UI.Utils.options(ele.attr('data-uk-accordion')));
                         }
                     });
@@ -162,9 +162,9 @@
         } else {
 
             var tmp = {
-                position   : $ele.css("position"),
-                visibility : $ele.css("visibility"),
-                display    : $ele.css("display")
+                position   : $ele.css('position'),
+                visibility : $ele.css('visibility'),
+                display    : $ele.css('display')
             };
 
             height = $ele.css({position: 'absolute', visibility: 'hidden', display: 'block'}).outerHeight();

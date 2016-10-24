@@ -4,46 +4,46 @@
 
     var active = false, hoverIdle, flips = {
         x: {
-            "bottom-left"   : 'bottom-right',
-            "bottom-right"  : 'bottom-left',
-            "bottom-center" : 'bottom-center',
-            "top-left"      : 'top-right',
-            "top-right"     : 'top-left',
-            "top-center"    : 'top-center',
-            "left-top"      : 'right-top',
-            "left-bottom"   : 'right-bottom',
-            "left-center"   : 'right-center',
-            "right-top"     : 'left-top',
-            "right-bottom"  : 'left-bottom',
-            "right-center"  : 'left-center'
+            'bottom-left'   : 'bottom-right',
+            'bottom-right'  : 'bottom-left',
+            'bottom-center' : 'bottom-center',
+            'top-left'      : 'top-right',
+            'top-right'     : 'top-left',
+            'top-center'    : 'top-center',
+            'left-top'      : 'right-top',
+            'left-bottom'   : 'right-bottom',
+            'left-center'   : 'right-center',
+            'right-top'     : 'left-top',
+            'right-bottom'  : 'left-bottom',
+            'right-center'  : 'left-center'
         },
         y: {
-            "bottom-left"   : 'top-left',
-            "bottom-right"  : 'top-right',
-            "bottom-center" : 'top-center',
-            "top-left"      : 'bottom-left',
-            "top-right"     : 'bottom-right',
-            "top-center"    : 'bottom-center',
-            "left-top"      : 'left-bottom',
-            "left-bottom"   : 'left-top',
-            "left-center"   : 'left-center',
-            "right-top"     : 'right-bottom',
-            "right-bottom"  : 'right-top',
-            "right-center"  : 'right-center'
+            'bottom-left'   : 'top-left',
+            'bottom-right'  : 'top-right',
+            'bottom-center' : 'top-center',
+            'top-left'      : 'bottom-left',
+            'top-right'     : 'bottom-right',
+            'top-center'    : 'bottom-center',
+            'left-top'      : 'left-bottom',
+            'left-bottom'   : 'left-top',
+            'left-center'   : 'left-center',
+            'right-top'     : 'right-bottom',
+            'right-bottom'  : 'right-top',
+            'right-center'  : 'right-center'
         },
         xy: {
-            "bottom-left"   : 'top-right',
-            "bottom-right"  : 'top-left',
-            "bottom-center" : 'top-center',
-            "top-left"      : 'bottom-right',
-            "top-right"     : 'bottom-left',
-            "top-center"    : 'bottom-center',
-            "left-top"      : 'right-bottom',
-            "left-bottom"   : 'right-top',
-            "left-center"   : 'right-center',
-            "right-top"     : 'left-bottom',
-            "right-bottom"  : 'left-top',
-            "right-center"  : 'left-center'
+            'bottom-left'   : 'top-right',
+            'bottom-right'  : 'top-left',
+            'bottom-center' : 'top-center',
+            'top-left'      : 'bottom-right',
+            'top-right'     : 'bottom-left',
+            'top-center'    : 'bottom-center',
+            'left-top'      : 'right-bottom',
+            'left-bottom'   : 'right-top',
+            'left-center'   : 'right-center',
+            'right-top'     : 'left-bottom',
+            'right-bottom'  : 'left-top',
+            'right-center'  : 'left-center'
         }
     };
 
@@ -66,22 +66,22 @@
 
         boot: function() {
 
-            var triggerevent = UI.support.touch ? "click" : "mouseenter";
+            var triggerevent = UI.support.touch ? 'click' : 'mouseenter';
 
             // init code
-            UI.$html.on(triggerevent+".dropdown.uikit focus", "[data-uk-dropdown]", function(e) {
+            UI.$html.on(triggerevent+'.dropdown.uikit focus pointerdown', '[data-uk-dropdown]', function(e) {
 
                 var ele = UI.$(this);
 
-                if (!ele.data("dropdown")) {
+                if (!ele.data('dropdown')) {
 
-                    var dropdown = UI.dropdown(ele, UI.Utils.options(ele.attr("data-uk-dropdown")));
+                    var dropdown = UI.dropdown(ele, UI.Utils.options(ele.attr('data-uk-dropdown')));
 
-                    if (triggerevent=="click" || (triggerevent=="mouseenter" && dropdown.options.mode=="hover")) {
+                    if (e.type=='click' || (e.type=='mouseenter' && dropdown.options.mode=='hover')) {
                         dropdown.element.trigger(triggerevent);
                     }
 
-                    if (dropdown.element.find(dropdown.options.dropdownSelector).length) {
+                    if (dropdown.dropdown.length) {
                         e.preventDefault();
                     }
                 }
@@ -96,6 +96,10 @@
             this.offsetParent = this.dropdown.parents().filter(function() {
                 return UI.$.inArray(UI.$(this).css('position'), ['relative', 'fixed', 'absolute']) !== -1;
             }).slice(0,1);
+
+            if (!this.offsetParent.length) {
+                this.offsetParent = this.element;
+            }
 
             this.centered  = this.dropdown.hasClass('uk-dropdown-center');
             this.justified = this.options.justify ? UI.$(this.options.justify) : false;
@@ -123,15 +127,15 @@
             this.element.attr('aria-expanded', this.element.hasClass('uk-open'));
             this.dropdown.attr('aria-hidden', 'true');
 
-            if (this.options.mode == "click" || UI.support.touch) {
+            if (this.options.mode == 'click' || UI.support.touch) {
 
-                this.on("click.uk.dropdown", function(e) {
+                this.on('click.uk.dropdown', function(e) {
 
                     var $target = UI.$(e.target);
 
                     if (!$target.parents($this.options.dropdownSelector).length) {
 
-                        if ($target.is("a[href='#']") || $target.parent().is("a[href='#']") || ($this.dropdown.length && !$this.dropdown.is(":visible")) ){
+                        if ($target.is("a[href='#']") || $target.parent().is("a[href='#']") || ($this.dropdown.length && !$this.dropdown.is(':visible')) ){
                             e.preventDefault();
                         }
 
@@ -144,7 +148,7 @@
 
                     } else {
 
-                        if (!$this.dropdown.find(e.target).length || $target.is(".uk-dropdown-close") || $target.parents(".uk-dropdown-close").length) {
+                        if (!$this.dropdown.find(e.target).length || $target.is('.uk-dropdown-close') || $target.parents('.uk-dropdown-close').length) {
                             $this.hide();
                         }
                     }
@@ -152,7 +156,7 @@
 
             } else {
 
-                this.on("mouseenter", function(e) {
+                this.on('mouseenter', function(e) {
 
                     $this.trigger('pointerenter.uk.dropdown', [$this]);
 
@@ -180,7 +184,7 @@
                         hoverIdle = setTimeout($this.show.bind($this), $this.options.delay);
                     }
 
-                }).on("mouseleave", function() {
+                }).on('mouseleave', function() {
 
                     if (hoverIdle) {
                         clearTimeout(hoverIdle);
@@ -192,7 +196,7 @@
 
                     $this.trigger('pointerleave.uk.dropdown', [$this]);
 
-                }).on("click", function(e){
+                }).on('click', function(e){
 
                     var $target = UI.$(e.target);
 
@@ -201,7 +205,7 @@
                     }
 
                     if (active && active == $this) {
-                        if (!$this.dropdown.find(e.target).length || $target.is(".uk-dropdown-close") || $target.parents(".uk-dropdown-close").length) {
+                        if (!$this.dropdown.find(e.target).length || $target.is('.uk-dropdown-close') || $target.parents('.uk-dropdown-close').length) {
                             $this.hide();
                         }
                         return;
@@ -218,7 +222,7 @@
 
         show: function(){
 
-            UI.$html.off("click.outer.dropdown");
+            UI.$html.off('click.outer.dropdown');
 
             if (active && active != this) {
                 active.hide(true);
@@ -271,11 +275,11 @@
 
             var $this = this;
 
-            UI.$html.off("click.outer.dropdown");
+            UI.$html.off('click.outer.dropdown');
 
             setTimeout(function() {
 
-                UI.$html.on("click.outer.dropdown", function(e) {
+                UI.$html.on('click.outer.dropdown', function(e) {
 
                     if (hoverIdle) {
                         clearTimeout(hoverIdle);
@@ -285,7 +289,7 @@
 
                     if (active == $this && !$this.element.find(e.target).length) {
                         $this.hide(true);
-                        UI.$html.off("click.outer.dropdown");
+                        UI.$html.off('click.outer.dropdown');
                     }
                 });
             }, 10);
@@ -296,15 +300,15 @@
             if (!this.dropdown.length) return;
 
             // reset
-            this.dropdown.removeClass('uk-dropdown-top uk-dropdown-bottom uk-dropdown-left uk-dropdown-right uk-dropdown-stack').css({
-                'top-left':'',
-                'left':'',
-                'margin-left' :'',
-                'margin-right':''
+            this.dropdown.removeClass('uk-dropdown-top uk-dropdown-bottom uk-dropdown-left uk-dropdown-right uk-dropdown-stack uk-dropdown-autoflip').css({
+                topLeft :'',
+                left :'',
+                marginLeft :'',
+                marginRight :''
             });
 
             if (this.justified && this.justified.length) {
-                this.dropdown.css("min-width", "");
+                this.dropdown.css('min-width', '');
             }
 
             var $this          = this,
@@ -319,18 +323,18 @@
                 dpos           = this.options.pos;
 
             var variants =  {
-                    "bottom-left"   : {top: 0 + pos.height + posoffset, left: 0},
-                    "bottom-right"  : {top: 0 + pos.height + posoffset, left: 0 + pos.width - width},
-                    "bottom-center" : {top: 0 + pos.height + posoffset, left: 0 + pos.width / 2 - width / 2},
-                    "top-left"      : {top: 0 - height - posoffset, left: 0},
-                    "top-right"     : {top: 0 - height - posoffset, left: 0 + pos.width - width},
-                    "top-center"    : {top: 0 - height - posoffset, left: 0 + pos.width / 2 - width / 2},
-                    "left-top"      : {top: 0, left: 0 - width - posoffset},
-                    "left-bottom"   : {top: 0 + pos.height - height, left: 0 - width - posoffset},
-                    "left-center"   : {top: 0 + pos.height / 2 - height / 2, left: 0 - width - posoffset},
-                    "right-top"     : {top: 0, left: 0 + pos.width + posoffset},
-                    "right-bottom"  : {top: 0 + pos.height - height, left: 0 + pos.width + posoffset},
-                    "right-center"  : {top: 0 + pos.height / 2 - height / 2, left: 0 + pos.width + posoffset}
+                    'bottom-left'   : {top: 0 + pos.height + posoffset, left: 0},
+                    'bottom-right'  : {top: 0 + pos.height + posoffset, left: 0 + pos.width - width},
+                    'bottom-center' : {top: 0 + pos.height + posoffset, left: 0 + pos.width / 2 - width / 2},
+                    'top-left'      : {top: 0 - height - posoffset, left: 0},
+                    'top-right'     : {top: 0 - height - posoffset, left: 0 + pos.width - width},
+                    'top-center'    : {top: 0 - height - posoffset, left: 0 + pos.width / 2 - width / 2},
+                    'left-top'      : {top: 0, left: 0 - width - posoffset},
+                    'left-bottom'   : {top: 0 + pos.height - height, left: 0 - width - posoffset},
+                    'left-center'   : {top: 0 + pos.height / 2 - height / 2, left: 0 - width - posoffset},
+                    'right-top'     : {top: 0, left: 0 + pos.width + posoffset},
+                    'right-bottom'  : {top: 0 + pos.height - height, left: 0 + pos.width + posoffset},
+                    'right-center'  : {top: 0 + pos.height / 2 - height / 2, left: 0 + pos.width + posoffset}
                 },
                 css = {},
                 pp;
@@ -363,6 +367,7 @@
 
                         pp  = fdpos.split('-');
                         css = variants[fdpos] ? variants[fdpos] : variants['bottom-left'];
+                        dropdown.addClass('uk-dropdown-autoflip');
 
                         // check flipped
                         if (this.checkBoundary(pos.left + css.left, pos.top + css.top, width, height, boundarywidth)) {
@@ -374,11 +379,11 @@
             }
 
             if (width > boundarywidth) {
-                dropdown.addClass("uk-dropdown-stack");
+                dropdown.addClass('uk-dropdown-stack');
                 this.trigger('stack.uk.dropdown', [this]);
             }
 
-            dropdown.css(css).css("display", "").addClass('uk-dropdown-'+pp[0]);
+            dropdown.css(css).css('display', '').addClass('uk-dropdown-'+pp[0]);
         },
 
         checkBoundary: function(left, top, width, height, boundarywidth) {
@@ -411,11 +416,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-dropdown-overlay]", context).each(function() {
+                UI.$('[data-uk-dropdown-overlay]', context).each(function() {
                     var ele = UI.$(this);
 
-                    if (!ele.data("dropdownOverlay")) {
-                        UI.dropdownOverlay(ele, UI.Utils.options(ele.attr("data-uk-dropdown-overlay")));
+                    if (!ele.data('dropdownOverlay')) {
+                        UI.dropdownOverlay(ele, UI.Utils.options(ele.attr('data-uk-dropdown-overlay')));
                     }
                 });
             });
@@ -440,7 +445,7 @@
                     $this.dropdown = dropdown;
 
                     if ($this.justified && $this.justified.length) {
-                        justify($this.overlay.css({'display':'block', 'margin-left':'','margin-right':''}), $this.justified, $this.justified.outerWidth());
+                        justify($this.overlay.css({display:'block', marginLeft:'', marginRight:''}), $this.justified, $this.justified.outerWidth());
                     }
                 },
 
@@ -510,17 +515,17 @@
 
             var jwidth = justifyTo.outerWidth();
 
-            ele.css("min-width", jwidth);
+            ele.css('min-width', jwidth);
 
             if (UI.langdirection == 'right') {
 
                 var right1   = boundarywidth - (justifyTo.offset().left + jwidth),
                     right2   = boundarywidth - (ele.offset().left + ele.outerWidth());
 
-                ele.css("margin-right", right1 - right2);
+                ele.css('margin-right', right1 - right2);
 
             } else {
-                ele.css("margin-left", justifyTo.offset().left - offset.left);
+                ele.css('margin-left', justifyTo.offset().left - offset.left);
             }
         }
     }

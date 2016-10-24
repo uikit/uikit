@@ -7,12 +7,12 @@
         boot: function() {
 
             // init code
-            UI.$html.on("click.smooth-scroll.uikit", "[data-uk-smooth-scroll]", function(e) {
+            UI.$html.on('click.smooth-scroll.uikit', '[data-uk-smooth-scroll]', function(e) {
                 var ele = UI.$(this);
 
-                if (!ele.data("smoothScroll")) {
-                    var obj = UI.smoothScroll(ele, UI.Utils.options(ele.attr("data-uk-smooth-scroll")));
-                    ele.trigger("click");
+                if (!ele.data('smoothScroll')) {
+                    var obj = UI.smoothScroll(ele, UI.Utils.options(ele.attr('data-uk-smooth-scroll')));
+                    ele.trigger('click');
                 }
 
                 return false;
@@ -23,9 +23,9 @@
 
             var $this = this;
 
-            this.on("click", function(e) {
+            this.on('click', function(e) {
                 e.preventDefault();
-                scrollToElement(UI.$(this.hash).length ? UI.$(this.hash) : UI.$("body"), $this.options);
+                scrollToElement(UI.$(this.hash).length ? UI.$(this.hash) : UI.$('body'), $this.options);
             });
         }
     });
@@ -49,7 +49,7 @@
         }
 
         // animate to target, fire callback when done
-        UI.$("html,body").stop().animate({scrollTop: target}, options.duration, options.transition).promise().done(options.complete);
+        UI.$('html,body').stop().animate({scrollTop: target}, options.duration, options.transition).promise().done(options.complete);
     }
 
     UI.Utils.scrollToElement = scrollToElement;

@@ -1,5 +1,14 @@
 # Changelog
 
+### 2.27.2 (Oct 24, 2016)
+
+  - Updated datepicker default value when minDate setting is set
+  - Updated tooltip word-break behavior 
+  - Fixed slideshow bug when using slideshow-fx based effects
+  - Fixed dropdown error if now offset element exists
+  - Fixed dropdowns on windows with touch support
+  - Fixed variable reference in nav component when the dom changed.
+
 ### 2.27.1 (Aug 30, 2016)
 
   - Fixed missing variable in nav.js

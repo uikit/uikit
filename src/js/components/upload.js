@@ -6,8 +6,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-upload", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-upload', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -22,7 +22,7 @@
 
             var $this = this;
 
-            this.on("change", function() {
+            this.on('change', function() {
                 xhrupload($this.element[0].files, $this.options);
                 var twin = $this.element.clone(true).data('uploadSelect', $this);
                 $this.element.replaceWith(twin);
@@ -41,7 +41,7 @@
 
             var $this = this, hasdragCls = false;
 
-            this.on("drop", function(e){
+            this.on('drop', function(e){
 
                 if (e.originalEvent.dataTransfer && e.originalEvent.dataTransfer.files) {
 
@@ -54,10 +54,10 @@
                     xhrupload(e.originalEvent.dataTransfer.files, $this.options);
                 }
 
-            }).on("dragenter", function(e){
+            }).on('dragenter', function(e){
                 e.stopPropagation();
                 e.preventDefault();
-            }).on("dragover", function(e){
+            }).on('dragover', function(e){
                 e.stopPropagation();
                 e.preventDefault();
 
@@ -65,7 +65,7 @@
                     $this.element.addClass($this.options.dragoverClass);
                     hasdragCls = true;
                 }
-            }).on("dragleave", function(e){
+            }).on('dragleave', function(e){
                 e.stopPropagation();
                 e.preventDefault();
                 $this.element.removeClass($this.options.dragoverClass);
@@ -171,21 +171,21 @@
             for (var p in settings.params) { formData.append(p, settings.params[p]); }
 
             // Add any event handlers here...
-            xhr.upload.addEventListener("progress", function(e){
+            xhr.upload.addEventListener('progress', function(e){
                 var percent = (e.loaded / e.total)*100;
                 settings.progress(percent, e);
             }, false);
 
-            xhr.addEventListener("loadstart", function(e){ settings.loadstart(e); }, false);
-            xhr.addEventListener("load",      function(e){ settings.load(e);      }, false);
-            xhr.addEventListener("loadend",   function(e){ settings.loadend(e);   }, false);
-            xhr.addEventListener("error",     function(e){ settings.error(e);     }, false);
-            xhr.addEventListener("abort",     function(e){ settings.abort(e);     }, false);
+            xhr.addEventListener('loadstart', function(e){ settings.loadstart(e); }, false);
+            xhr.addEventListener('load',      function(e){ settings.load(e);      }, false);
+            xhr.addEventListener('loadend',   function(e){ settings.loadend(e);   }, false);
+            xhr.addEventListener('error',     function(e){ settings.error(e);     }, false);
+            xhr.addEventListener('abort',     function(e){ settings.abort(e);     }, false);
 
             xhr.open(settings.method, settings.action, true);
 
-            if (settings.type=="json") {
-                xhr.setRequestHeader("Accept", "application/json");
+            if (settings.type=='json') {
+                xhr.setRequestHeader('Accept', 'application/json');
             }
 
             for (var h in settings.headers) {
@@ -200,7 +200,7 @@
 
                     var response = xhr.responseText;
 
-                    if (settings.type=="json") {
+                    if (settings.type=='json') {
                         try {
                             response = UI.$.parseJSON(response);
                         } catch(e) {

@@ -5,8 +5,8 @@
     UI.component('nav', {
 
         defaults: {
-            toggle: ">li.uk-parent > a[href='#']",
-            lists: ">li.uk-parent > ul",
+            toggle: '>li.uk-parent > a[href="#"]',
+            lists: '>li.uk-parent > ul',
             multiple: false
         },
 
@@ -15,11 +15,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-nav]", context).each(function() {
+                UI.$('[data-uk-nav]', context).each(function() {
                     var nav = UI.$(this);
 
-                    if (!nav.data("nav")) {
-                        var obj = UI.nav(nav, UI.Utils.options(nav.attr("data-uk-nav")));
+                    if (!nav.data('nav')) {
+                        var obj = UI.nav(nav, UI.Utils.options(nav.attr('data-uk-nav')));
                     }
                 });
             });
@@ -29,22 +29,22 @@
 
             var $this = this;
 
-            this.on("click.uk.nav", this.options.toggle, function(e) {
+            this.on('click.uk.nav', this.options.toggle, function(e) {
                 e.preventDefault();
                 var ele = UI.$(this);
                 $this.open(ele.parent()[0] == $this.element[0] ? ele : ele.parent("li"));
             });
 
-            this.update(true);
+            this.update();
 
             UI.domObserve(this.element, function(e) {
-                if ($this.element.find(this.options.lists).not('[role]').length) {
+                if ($this.element.find($this.options.lists).not('[role]').length) {
                     $this.update();
                 }
             });
         },
 
-        update: function(init) {
+        update: function() {
 
             var $this = this;
 
@@ -129,15 +129,16 @@
 
     function getHeight(ele) {
 
-        var $ele = UI.$(ele), height = "auto";
+        var $ele = UI.$(ele), height = 'auto';
 
-        if ($ele.is(":visible")) {
+        if ($ele.is(':visible')) {
             height = $ele.outerHeight();
         } else {
+
             var tmp = {
-                position: $ele.css("position"),
-                visibility: $ele.css("visibility"),
-                display: $ele.css("display")
+                position: $ele.css('position'),
+                visibility: $ele.css('visibility'),
+                display: $ele.css('display')
             };
 
             height = $ele.css({position: 'absolute', visibility: 'hidden', display: 'block'}).outerHeight();
