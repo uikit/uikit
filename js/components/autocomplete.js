@@ -1,4 +1,4 @@
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -7,8 +7,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-autocomplete", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-autocomplete', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -45,17 +45,17 @@
         boot: function() {
 
             // init code
-            UI.$html.on("focus.autocomplete.uikit", "[data-uk-autocomplete]", function(e) {
+            UI.$html.on('focus.autocomplete.uikit', '[data-uk-autocomplete]', function(e) {
 
                 var ele = UI.$(this);
 
-                if (!ele.data("autocomplete")) {
-                    UI.autocomplete(ele, UI.Utils.options(ele.attr("data-uk-autocomplete")));
+                if (!ele.data('autocomplete')) {
+                    UI.autocomplete(ele, UI.Utils.options(ele.attr('data-uk-autocomplete')));
                 }
             });
 
             // register outer click for autocompletes
-            UI.$html.on("click.autocomplete.uikit", function(e) {
+            UI.$html.on('click.autocomplete.uikit', function(e) {
                 if (active && e.target!=active.input[0]) active.hide();
             });
         },
@@ -122,15 +122,15 @@
                     }
 
                 },
-                
+
                 keyup: trigger
             });
 
-            this.dropdown.on("click", ".uk-autocomplete-results > *", function(){
+            this.dropdown.on('click', '.uk-autocomplete-results > *', function(){
                 $this.select();
             });
 
-            this.dropdown.on("mouseover", ".uk-autocomplete-results > *", function(){
+            this.dropdown.on('mouseover', '.uk-autocomplete-results > *', function(){
                 $this.pick(UI.$(this));
             });
 
@@ -203,7 +203,7 @@
 
             var data = this.selected.data();
 
-            this.trigger("selectitem.uk.autocomplete", [data, this]);
+            this.trigger('selectitem.uk.autocomplete', [data, this]);
 
             if (data.value) {
                 this.input.val(data.value).trigger('change');
@@ -217,7 +217,7 @@
             if (this.visible) return;
 
             this.visible = true;
-            this.element.addClass("uk-open");
+            this.element.addClass('uk-open');
 
             if (active && active!==this) {
                 active.hide();
@@ -234,7 +234,7 @@
         hide: function() {
             if (!this.visible) return;
             this.visible = false;
-            this.element.removeClass("uk-open");
+            this.element.removeClass('uk-open');
 
             if (active === this) {
                 active = false;
@@ -326,7 +326,7 @@
 
             } else if(data && data.length) {
 
-                this.dropdown.append(this.template({"items":data}));
+                this.dropdown.append(this.template({items:data}));
                 this.show();
 
                 this.trigger('show.uk.autocomplete');

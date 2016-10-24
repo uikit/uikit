@@ -1,4 +1,4 @@
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -19,11 +19,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-grid-match]", context).each(function() {
+                UI.$('[data-uk-grid-match]', context).each(function() {
                     var grid = UI.$(this), obj;
 
-                    if (!grid.data("gridMatchHeight")) {
-                        obj = UI.gridMatchHeight(grid, UI.Utils.options(grid.attr("data-uk-grid-match")));
+                    if (!grid.data('gridMatchHeight')) {
+                        obj = UI.gridMatchHeight(grid, UI.Utils.options(grid.attr('data-uk-grid-match')));
                     }
                 });
             });
@@ -41,7 +41,7 @@
             UI.$win.on('load resize orientationchange', (function() {
 
                 var fn = function() {
-                    if ($this.element.is(":visible")) $this.match();
+                    if ($this.element.is(':visible')) $this.match();
                 };
 
                 UI.$(function() { fn(); });
@@ -52,12 +52,12 @@
             if (this.options.observe) {
 
                 UI.domObserve(this.element, function(e) {
-                    if ($this.element.is(":visible")) $this.match();
+                    if ($this.element.is(':visible')) $this.match();
                 });
             }
 
-            this.on("display.uk.check", function(e) {
-                if(this.element.is(":visible")) this.match();
+            this.on('display.uk.check', function(e) {
+                if(this.element.is(':visible')) this.match();
             }.bind(this));
 
             grids.push(this);
@@ -65,7 +65,7 @@
 
         match: function() {
 
-            var firstvisible = this.columns.filter(":visible:first");
+            var firstvisible = this.columns.filter(':visible:first');
 
             if (!firstvisible.length) return;
 
@@ -98,11 +98,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-grid-margin]", context).each(function() {
+                UI.$('[data-uk-grid-margin]', context).each(function() {
                     var grid = UI.$(this), obj;
 
-                    if (!grid.data("gridMargin")) {
-                        obj = UI.gridMargin(grid, UI.Utils.options(grid.attr("data-uk-grid-margin")));
+                    if (!grid.data('gridMargin')) {
+                        obj = UI.gridMargin(grid, UI.Utils.options(grid.attr('data-uk-grid-margin')));
                     }
                 });
             });

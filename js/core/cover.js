@@ -1,4 +1,4 @@
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI){
 
     "use strict";
@@ -14,12 +14,12 @@
             // auto init
             UI.ready(function(context) {
 
-                UI.$("[data-uk-cover]", context).each(function(){
+                UI.$('[data-uk-cover]', context).each(function(){
 
                     var ele = UI.$(this);
 
-                    if(!ele.data("cover")) {
-                        var plugin = UI.cover(ele, UI.Utils.options(ele.attr("data-uk-cover")));
+                    if(!ele.data('cover')) {
+                        var plugin = UI.cover(ele, UI.Utils.options(ele.attr('data-uk-cover')));
                     }
                 });
             });
@@ -33,8 +33,8 @@
                 this.check();
             }.bind(this), 100));
 
-            this.on("display.uk.check", function(e) {
-                if(this.element.is(":visible")) this.check();
+            this.on('display.uk.check', function(e) {
+                if (this.element.is(':visible')) this.check();
             }.bind(this));
 
             this.check();
@@ -44,19 +44,14 @@
                 var src = this.element.attr('src');
 
                 this.element.attr('src', '').on('load', function(){
-
                     this.contentWindow.postMessage('{ "event": "command", "func": "mute", "method":"setVolume", "value":0}', '*');
-
                 }).attr('src', [src, (src.indexOf('?') > -1 ? '&':'?'), 'enablejsapi=1&api=1'].join(''));
             }
         },
 
         check: function() {
 
-            this.element.css({
-                width  : '',
-                height : ''
-            });
+            this.element.css({ width  : '', height : '' });
 
             this.dimension = {w: this.element.width(), h: this.element.height()};
 
@@ -68,7 +63,7 @@
                 this.dimension.h = this.element.attr('height');
             }
 
-            this.ratio     = this.dimension.w / this.dimension.h;
+            this.ratio = this.dimension.w / this.dimension.h;
 
             var w = this.parent.width(), h = this.parent.height(), width, height;
 
@@ -85,10 +80,7 @@
                 height = Math.ceil(w / this.ratio);
             }
 
-            this.element.css({
-                'width'  : width,
-                'height' : height
-            });
+            this.element.css({ width  : width, height : height });
         }
     });
 

@@ -95,6 +95,9 @@ $dropdown-scrollable-height:                     200px !default;
     @include hook-dropdown();
 }
 
+/* Focus */
+.uk-dropdown:focus { outline: none; }
+
 /*
  * 1. Show dropdown
  * 2. Set animation

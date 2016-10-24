@@ -1,4 +1,4 @@
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -16,8 +16,8 @@
 
         defaults: {
             target     : false,
-            cls        : "uk-scrollspy-inview",
-            initcls    : "uk-scrollspy-init-inview",
+            cls        : 'uk-scrollspy-inview',
+            initcls    : 'uk-scrollspy-init-inview',
             topoffset  : 0,
             leftoffset : 0,
             repeat     : false,
@@ -27,18 +27,18 @@
         boot: function() {
 
             // listen to scroll and resize
-            $doc.on("scrolling.uk.document", checkScrollSpy);
-            $win.on("load resize orientationchange", UI.Utils.debounce(checkScrollSpy, 50));
+            $doc.on('scrolling.uk.document', checkScrollSpy);
+            $win.on('load resize orientationchange', UI.Utils.debounce(checkScrollSpy, 50));
 
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-scrollspy]", context).each(function() {
+                UI.$('[data-uk-scrollspy]', context).each(function() {
 
                     var element = UI.$(this);
 
-                    if (!element.data("scrollspy")) {
-                        var obj = UI.scrollspy(element, UI.Utils.options(element.attr("data-uk-scrollspy")));
+                    if (!element.data('scrollspy')) {
+                        var obj = UI.scrollspy(element, UI.Utils.options(element.attr('data-uk-scrollspy')));
                     }
                 });
             });
@@ -66,13 +66,13 @@
                             $this.offset = element.offset();
                             initinview = true;
 
-                            element.trigger("init.uk.scrollspy");
+                            element.trigger('init.uk.scrollspy');
                         }
 
                         element.data('scrollspy-idle', setTimeout(function(){
 
-                            element.addClass("uk-scrollspy-inview").toggleClass(toggle).width();
-                            element.trigger("inview.uk.scrollspy");
+                            element.addClass('uk-scrollspy-inview').toggleClass(toggle).width();
+                            element.trigger('inview.uk.scrollspy');
 
                             element.data('scrollspy-idle', false);
                             element.data('inviewstate', true);
@@ -89,10 +89,10 @@
                             element.data('scrollspy-idle', false);
                         }
 
-                        element.removeClass("uk-scrollspy-inview").toggleClass(toggle);
+                        element.removeClass('uk-scrollspy-inview').toggleClass(toggle);
                         element.data('inviewstate', false);
 
-                        element.trigger("outview.uk.scrollspy");
+                        element.trigger('outview.uk.scrollspy');
                     }
 
                     toggleclsIdx = togglecls[toggleclsIdx + 1] ? (toggleclsIdx + 1) : 0;
@@ -119,28 +119,28 @@
     UI.component('scrollspynav', {
 
         defaults: {
-            "cls"          : 'uk-active',
-            "closest"      : false,
-            "topoffset"    : 0,
-            "leftoffset"   : 0,
-            "smoothscroll" : false
+            cls          : 'uk-active',
+            closest      : false,
+            topoffset    : 0,
+            leftoffset   : 0,
+            smoothscroll : false
         },
 
         boot: function() {
 
             // listen to scroll and resize
-            $doc.on("scrolling.uk.document", checkScrollSpyNavs);
-            $win.on("resize orientationchange", UI.Utils.debounce(checkScrollSpyNavs, 50));
+            $doc.on('scrolling.uk.document', checkScrollSpyNavs);
+            $win.on('resize orientationchange', UI.Utils.debounce(checkScrollSpyNavs, 50));
 
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-scrollspy-nav]", context).each(function() {
+                UI.$('[data-uk-scrollspy-nav]', context).each(function() {
 
                     var element = UI.$(this);
 
-                    if (!element.data("scrollspynav")) {
-                        var obj = UI.scrollspynav(element, UI.Utils.options(element.attr("data-uk-scrollspy-nav")));
+                    if (!element.data('scrollspynav')) {
+                        var obj = UI.scrollspynav(element, UI.Utils.options(element.attr('data-uk-scrollspy-nav')));
                     }
                 });
             });
@@ -149,7 +149,7 @@
         init: function() {
 
             var ids     = [],
-                links   = this.find("a[href^='#']").each(function(){ if(this.getAttribute("href").trim()!=='#') ids.push(this.getAttribute("href")); }),
+                links   = this.find("a[href^='#']").each(function(){ if(this.getAttribute('href').trim()!=='#') ids.push(this.getAttribute('href')); }),
                 targets = UI.$(ids.join(",")),
 
                 clsActive  = this.options.cls,
@@ -181,12 +181,12 @@
 
                     if ($this.options.closest) {
                         links.blur().closest(clsClosest).removeClass(clsActive);
-                        navitems = links.filter("a[href='#"+target.attr("id")+"']").closest(clsClosest).addClass(clsActive);
+                        navitems = links.filter("a[href='#"+target.attr('id')+"']").closest(clsClosest).addClass(clsActive);
                     } else {
                         navitems = links.removeClass(clsActive).filter("a[href='#"+target.attr("id")+"']").addClass(clsActive);
                     }
 
-                    $this.element.trigger("inview.uk.scrollspynav", [target, navitems]);
+                    $this.element.trigger('inview.uk.scrollspynav', [target, navitems]);
                 }
             };
 
@@ -198,7 +198,7 @@
 
             fn();
 
-            this.element.data("scrollspynav", this);
+            this.element.data('scrollspynav', this);
 
             this.check = fn;
             scrollspynavs.push(this);

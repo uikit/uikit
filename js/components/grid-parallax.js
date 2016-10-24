@@ -1,4 +1,4 @@
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -7,8 +7,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-grid-parallax", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-grid-parallax', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -28,16 +28,16 @@
     UI.component('gridparallax', {
 
         defaults: {
-            target   : false,
-            smooth   : 150,
-            translate     : 150
+            target    : false,
+            smooth    : 150,
+            translate : 150
         },
 
         boot: function() {
 
             // listen to scroll and resize
-            UI.$doc.on("scrolling.uk.document", checkParallaxes);
-            UI.$win.on("load resize orientationchange", UI.Utils.debounce(function(){
+            UI.$doc.on('scrolling.uk.document', checkParallaxes);
+            UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(){
                 checkParallaxes();
             }, 50));
 
@@ -48,8 +48,8 @@
 
                     var parallax = UI.$(this);
 
-                    if (!parallax.data("gridparallax")) {
-                        UI.gridparallax(parallax, UI.Utils.options(parallax.attr("data-uk-grid-parallax")));
+                    if (!parallax.data('gridparallax')) {
+                        UI.gridparallax(parallax, UI.Utils.options(parallax.attr('data-uk-grid-parallax')));
                     }
                 });
             });
@@ -107,7 +107,7 @@
             }
 
             while(mods.length < columns) {
-               if(!(mods[mods.length-1] - 2)) break;
+               if (!(mods[mods.length-1] - 2)) break;
                mods.push(mods[mods.length-1] - 2);
             }
 

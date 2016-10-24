@@ -1,4 +1,4 @@
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -7,8 +7,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-slider", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-slider', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -160,7 +160,7 @@
             }
 
             UI.domObserve(this.element, function(e) {
-                if ($this.element.children(':not([data-slide])').length) {
+                if ($this.element.children(':not([data-slider-slide])').length) {
                     $this.update(true);
                 }
             });
@@ -178,7 +178,7 @@
 
             this.items.each(function(idx){
 
-                item      = UI.$(this).attr('data-slide', idx);
+                item      = UI.$(this).attr('data-slider-slide', idx);
                 size      = item.css({'left': '', 'width':''})[0].getBoundingClientRect();
                 width     = size.width;
                 cwidth    = item.width();
@@ -370,9 +370,9 @@
                         var left = item.data('area');
 
                         itm.css({'left': left}).data({
-                            'left'  : left,
-                            'area'  : (left+itm.data('width')),
-                            'center': (left - ($this.vp/2 - itm.data('cwidth')/2))
+                            left  : left,
+                            area  : (left+itm.data('width')),
+                            center: (left - ($this.vp/2 - itm.data('cwidth')/2))
                         });
 
                         item = itm;
@@ -404,9 +404,9 @@
                         var left = item.data('left') - itm.data('width');
 
                         itm.css({'left': left}).data({
-                            'left'  : left,
-                            'area'  : (left+itm.data('width')),
-                            'center': (left - ($this.vp/2 - itm.data('cwidth')/2))
+                            left  : left,
+                            area  : (left+itm.data('width')),
+                            center: (left - ($this.vp/2 - itm.data('cwidth')/2))
                         });
 
                         item = itm;

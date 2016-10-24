@@ -1,4 +1,4 @@
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -7,8 +7,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-notify", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-notify', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -47,7 +47,7 @@
 
         this.options = UI.$.extend({}, Message.defaults, options);
 
-        this.uuid    = UI.Utils.uid("notifymsg");
+        this.uuid    = UI.Utils.uid('notifymsg');
         this.element = UI.$([
 
             '<div class="uk-notify-message">',
@@ -72,7 +72,7 @@
         if(!containers[this.options.pos]) {
             containers[this.options.pos] = UI.$('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", ".uk-notify-message", function(){
 
-                var message = UI.$(this).data("notifyMessage");
+                var message = UI.$(this).data('notifyMessage');
 
                 message.element.trigger('manualclose.uk.notify', [message]);
                 message.close();
@@ -91,15 +91,15 @@
 
         show: function() {
 
-            if (this.element.is(":visible")) return;
+            if (this.element.is(':visible')) return;
 
             var $this = this;
 
             containers[this.options.pos].show().prepend(this.element);
 
-            var marginbottom = parseInt(this.element.css("margin-bottom"), 10);
+            var marginbottom = parseInt(this.element.css('margin-bottom'), 10);
 
-            this.element.css({"opacity":0, "margin-top": -1*this.element.outerHeight(), "margin-bottom":0}).animate({"opacity":1, "margin-top": 0, "margin-bottom":marginbottom}, function(){
+            this.element.css({opacity:0, marginTop: -1*this.element.outerHeight(), marginBottom:0}).animate({opacity:1, marginTop:0, marginBottom:marginbottom}, function(){
 
                 if ($this.options.timeout) {
 
@@ -139,7 +139,7 @@
             if (instantly) {
                 finalize();
             } else {
-                this.element.animate({"opacity":0, "margin-top": -1* this.element.outerHeight(), "margin-bottom":0}, function(){
+                this.element.animate({opacity:0, marginTop: -1* this.element.outerHeight(), marginBottom:0}, function(){
                     finalize();
                 });
             }

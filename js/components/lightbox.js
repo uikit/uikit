@@ -1,4 +1,4 @@
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -7,8 +7,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) { // AMD
-        define("uikit-lightbox", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) { // AMD
+        define('uikit-lightbox', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -39,12 +39,12 @@
 
                 var link = UI.$(this);
 
-                if (!link.data("lightbox")) {
+                if (!link.data('lightbox')) {
 
-                    UI.lightbox(link, UI.Utils.options(link.attr("data-uk-lightbox")));
+                    UI.lightbox(link, UI.Utils.options(link.attr('data-uk-lightbox')));
                 }
 
-                link.data("lightbox").show(link);
+                link.data('lightbox').show(link);
             });
 
             // keyboard navigation
@@ -75,20 +75,17 @@
 
             if (this.element && this.element.length) {
 
-                var domSiblings  = this.options.group ? UI.$([
-                    '[data-uk-lightbox*="'+this.options.group+'"]',
-                    "[data-uk-lightbox*='"+this.options.group+"']"
-                ].join(',')) : this.element;
+                var domSiblings  = this.options.group ? UI.$('[data-uk-lightbox*="'+this.options.group+'"]') : this.element;
 
                 domSiblings.each(function() {
 
                     var ele = UI.$(this);
 
                     siblings.push({
-                        'source': ele.attr('href'),
-                        'title' : ele.attr('data-title') || ele.attr('title'),
-                        'type'  : ele.attr("data-lightbox-type") || 'auto',
-                        'link'  : ele
+                        source : ele.attr('href'),
+                        title  : ele.attr('data-title') || ele.attr('title'),
+                        type   : ele.attr("data-lightbox-type") || 'auto',
+                        link   : ele
                     });
                 });
 
@@ -205,7 +202,7 @@
                 top       : 0,
                 left      : 0,
                 width     : '100%',
-                'max-width' : $this.modal.dialog.css('max-width'),
+                maxWidth  : $this.modal.dialog.css('max-width'),
                 padding   : $this.modal.dialog.css('padding'),
                 margin    : $this.modal.dialog.css('margin')
             }), maxwidth, maxheight, w = data.meta.width, h = data.meta.height;
@@ -255,11 +252,11 @@
 
             this.modal.dialog.animate({width: w + pad, height: h + pad, top: t }, duration, 'swing', function() {
                 $this.modal.loader.addClass('uk-hidden');
-                $this.modal.content.css({width:''}).animate({'opacity': 1}, function() {
+                $this.modal.content.css({width:''}).animate({opacity: 1}, function() {
                     $this.modal.closer.removeClass('uk-hidden');
                 });
 
-                $this.modal.data({'mwidth': w, 'mheight': h});
+                $this.modal.data({mwidth: w, mheight: h});
             });
         },
 
@@ -279,7 +276,7 @@
 
         init: function(lightbox) {
 
-            lightbox.on("showitem.uk.lightbox", function(e, data){
+            lightbox.on('showitem.uk.lightbox', function(e, data){
 
                 if (data.type == 'image' || data.source && data.source.match(/\.(jpg|jpeg|png|gif|svg)$/i)) {
 
@@ -319,7 +316,7 @@
         }
     });
 
-    UI.plugin("lightbox", "youtube", {
+    UI.plugin('lightbox', 'youtube', {
 
         init: function(lightbox) {
 
@@ -327,7 +324,7 @@
                 youtubeRegExpShort = /youtu\.be\/(.*)/;
 
 
-            lightbox.on("showitem.uk.lightbox", function(e, data){
+            lightbox.on('showitem.uk.lightbox', function(e, data){
 
                 var id, matches, resolve = function(id, width, height) {
 
@@ -390,14 +387,14 @@
     });
 
 
-    UI.plugin("lightbox", "vimeo", {
+    UI.plugin('lightbox', 'vimeo', {
 
         init: function(lightbox) {
 
             var regex = /(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/, matches;
 
 
-            lightbox.on("showitem.uk.lightbox", function(e, data){
+            lightbox.on('showitem.uk.lightbox', function(e, data){
 
                 var id, resolve = function(id, width, height) {
 
@@ -439,11 +436,11 @@
         }
     });
 
-    UI.plugin("lightbox", "video", {
+    UI.plugin('lightbox', 'video', {
 
         init: function(lightbox) {
 
-            lightbox.on("showitem.uk.lightbox", function(e, data){
+            lightbox.on('showitem.uk.lightbox', function(e, data){
 
 
                 var resolve = function(source, width, height) {
@@ -485,11 +482,11 @@
     });
 
 
-    UIkit.plugin("lightbox", "iframe", {
+    UIkit.plugin('lightbox', 'iframe', {
 
         init: function (lightbox) {
 
-            lightbox.on("showitem.uk.lightbox", function (e, data) {
+            lightbox.on('showitem.uk.lightbox', function (e, data) {
 
                 var resolve = function (source, width, height) {
 
@@ -537,15 +534,15 @@
         modal.modal   = UI.modal(modal, {modal:false});
 
         // next / previous
-        modal.on("swipeRight swipeLeft", function(e) {
+        modal.on('swipeRight swipeLeft', function(e) {
             modal.lightbox[e.type=='swipeLeft' ? 'next':'previous']();
-        }).on("click", "[data-lightbox-previous], [data-lightbox-next]", function(e){
+        }).on('click', '[data-lightbox-previous], [data-lightbox-next]', function(e){
             e.preventDefault();
             modal.lightbox[UI.$(this).is('[data-lightbox-next]') ? 'next':'previous']();
         });
 
         // destroy content on modal hide
-        modal.on("hide.uk.modal", function(e) {
+        modal.on('hide.uk.modal', function(e) {
             modal.content.html('');
         });
 

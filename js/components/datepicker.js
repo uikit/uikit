@@ -1,4 +1,4 @@
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -7,8 +7,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-datepicker", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-datepicker', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -30,7 +30,7 @@
                 months        : ['January','February','March','April','May','June','July','August','September','October','November','December'],
                 weekdays      : ['Sun','Mon','Tue','Wed','Thu','Fri','Sat']
             },
-            format: "YYYY-MM-DD",
+            format: 'YYYY-MM-DD',
             offsettop: 5,
             maxDate: false,
             minDate: false,
@@ -120,7 +120,7 @@
 
         boot: function() {
 
-            UI.$win.on("resize orientationchange", function() {
+            UI.$win.on('resize orientationchange', function() {
 
                 if (active) {
                     active.hide();
@@ -128,22 +128,22 @@
             });
 
             // init code
-            UI.$html.on("focus.datepicker.uikit", "[data-uk-datepicker]", function(e) {
+            UI.$html.on('focus.datepicker.uikit', '[data-uk-datepicker]', function(e) {
 
                 var ele = UI.$(this);
 
-                if (!ele.data("datepicker")) {
+                if (!ele.data('datepicker')) {
                     e.preventDefault();
-                    UI.datepicker(ele, UI.Utils.options(ele.attr("data-uk-datepicker")));
-                    ele.trigger("focus");
+                    UI.datepicker(ele, UI.Utils.options(ele.attr('data-uk-datepicker')));
+                    ele.trigger('focus');
                 }
             });
 
-            UI.$html.on("click focus", '*', function(e) {
+            UI.$html.on('click focus', '*', function(e) {
 
                 var target = UI.$(e.target);
 
-                if (active && target[0] != dropdown[0] && !target.data("datepicker") && !target.parents(".uk-datepicker:first").length) {
+                if (active && target[0] != dropdown[0] && !target.data('datepicker') && !target.parents('.uk-datepicker:first').length) {
                     active.hide();
                 }
             });
@@ -160,9 +160,9 @@
 
             this.current  = this.element.val() ? moment(this.element.val(), this.options.format) : moment();
 
-            this.on("click focus", function(){
-                if (active!==$this) $this.pick(this.value ? this.value:($this.options.minDate ? $this.options.minDate :''));
-            }).on("change", function(){
+            this.on('click focus', function(){
+                if (active!==$this) $this.pick(this.value ? this.value:'');
+            }).on('change', function(){
 
                 if ($this.element.val() && !moment($this.element.val(), $this.options.format).isValid()) {
                    $this.element.val(moment().format($this.options.format));
@@ -174,7 +174,7 @@
 
                 dropdown = UI.$('<div class="uk-dropdown uk-datepicker"></div>');
 
-                dropdown.on("click", ".uk-datepicker-next, .uk-datepicker-previous, [data-date]", function(e){
+                dropdown.on('click', '.uk-datepicker-next, .uk-datepicker-previous, [data-date]', function(e){
 
                     e.stopPropagation();
                     e.preventDefault();
@@ -198,14 +198,14 @@
                     active[select.is('.update-picker-year') ? 'setYear':'setMonth'](Number(select.val()));
                 });
 
-                dropdown.appendTo("body");
+                dropdown.appendTo('body');
             }
         },
 
         pick: function(initdate) {
 
             var offset = this.element.offset(),
-                css    = {"left": offset.left, "right":""};
+                css    = {left: offset.left, right:''};
 
             this.current  = isNaN(initdate) ? moment(initdate, this.options.format):moment();
             this.initdate = this.current.format("YYYY-MM-DD");
@@ -214,7 +214,7 @@
 
             if (UI.langdirection == 'right') {
                 css.right = window.innerWidth - (css.left + this.element.outerWidth());
-                css.left  = "";
+                css.left  = '';
             }
 
             var posTop    = (offset.top - this.element.outerHeight() + this.element.height()) - this.options.offsettop - dropdown.outerHeight(),
@@ -265,7 +265,7 @@
                 now    = moment().format('YYYY-MM-DD'),
                 days   = [31, (year % 4 === 0 && year % 100 !== 0 || year % 400 === 0) ? 29 : 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31][month],
                 before = new Date(year, month, 1, 12).getDay(),
-                data   = {"month":month, "year":year,"weekdays":[],"days":[], "maxDate": false, "minDate": false},
+                data   = {month:month, year:year, weekdays:[], days:[], maxDate:false, minDate:false},
                 row    = [];
 
             // We need these to be midday to avoid issues from DST transition protection.
@@ -316,10 +316,10 @@
 
                 day = moment(day);
 
-                isSelected = this.initdate == day.format("YYYY-MM-DD");
-                isToday    = now == day.format("YYYY-MM-DD");
+                isSelected = this.initdate == day.format('YYYY-MM-DD');
+                isToday    = now == day.format('YYYY-MM-DD');
 
-                row.push({"selected": isSelected, "today": isToday, "disabled": isDisabled, "day":day, "inmonth":isInMonth});
+                row.push({selected: isSelected, today: isToday, disabled: isDisabled, day:day, inmonth:isInMonth});
 
                 if (++r === 7) {
                     data.days.push(row);

@@ -1,4 +1,4 @@
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI){
 
     "use strict";
@@ -19,11 +19,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-toggle]", context).each(function() {
+                UI.$('[data-uk-toggle]', context).each(function() {
                     var ele = UI.$(this);
 
-                    if (!ele.data("toggle")) {
-                        var obj = UI.toggle(ele, UI.Utils.options(ele.attr("data-uk-toggle")));
+                    if (!ele.data('toggle')) {
+                        var obj = UI.toggle(ele, UI.Utils.options(ele.attr('data-uk-toggle')));
                     }
                 });
 
@@ -43,7 +43,7 @@
 
             this.aria = (this.options.cls.indexOf('uk-hidden') !== -1);
 
-            this.on("click", function(e) {
+            this.on('click', function(e) {
 
                 if ($this.element.is('a[href="#"]')) {
                     e.preventDefault();

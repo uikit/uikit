@@ -1,4 +1,4 @@
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
  * Based on simplePagination - Copyright (c) 2012 Flavius Matis - http://flaviusmatis.github.com/simplePagination.js/ (MIT)
  */
@@ -10,8 +10,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-pagination", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-pagination', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -39,11 +39,11 @@
             // init code
             UI.ready(function(context) {
 
-                UI.$("[data-uk-pagination]", context).each(function(){
+                UI.$('[data-uk-pagination]', context).each(function(){
                     var ele = UI.$(this);
 
-                    if (!ele.data("pagination")) {
-                        UI.pagination(ele, UI.Utils.options(ele.attr("data-uk-pagination")));
+                    if (!ele.data('pagination')) {
+                        UI.pagination(ele, UI.Utils.options(ele.attr('data-uk-pagination')));
                     }
                 });
             });
@@ -57,9 +57,9 @@
             this.currentPage   = this.options.currentPage;
             this.halfDisplayed = this.options.displayedPages / 2;
 
-            this.on("click", "a[data-page]", function(e){
+            this.on('click', 'a[data-page]', function(e){
                 e.preventDefault();
-                $this.selectPage(UI.$(this).data("page"));
+                $this.selectPage(UI.$(this).data('page'));
             });
 
             this._render();

@@ -1,4 +1,4 @@
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -7,8 +7,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-slideset", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-slideset', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -40,12 +40,12 @@
             // auto init
             UI.ready(function(context) {
 
-                UI.$("[data-uk-slideset]", context).each(function(){
+                UI.$('[data-uk-slideset]', context).each(function(){
 
                     var ele = UI.$(this);
 
-                    if(!ele.data("slideset")) {
-                        UI.slideset(ele, UI.Utils.options(ele.attr("data-uk-slideset")));
+                    if(!ele.data('slideset')) {
+                        UI.slideset(ele, UI.Utils.options(ele.attr('data-uk-slideset')));
                     }
                 });
             });
@@ -60,7 +60,7 @@
             this.nav       = this.element.find('.uk-slideset-nav');
             this.controls  = this.options.controls ? UI.$(this.options.controls) : this.element;
 
-            UI.$win.on("resize load", UI.Utils.debounce(function() {
+            UI.$win.on('resize load', UI.Utils.debounce(function() {
                 $this.update();
             }, 100));
 
@@ -75,7 +75,7 @@
                 $this.list.addClass('uk-grid-width-'+bp+'-1-'+$this.options[bp]);
             });
 
-            this.on("click.uk.slideset", '[data-uk-slideset-item]', function(e) {
+            this.on('click.uk.slideset', '[data-uk-slideset-item]', function(e) {
 
                 e.preventDefault();
 

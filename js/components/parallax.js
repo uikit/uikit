@@ -1,4 +1,4 @@
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -7,8 +7,8 @@
         component = addon(UIkit);
     }
 
-    if (typeof define == "function" && define.amd) {
-        define("uikit-parallax", ["uikit"], function(){
+    if (typeof define == 'function' && define.amd) {
+        define('uikit-parallax', ['uikit'], function(){
             return component || addon(UIkit);
         });
     }
@@ -60,7 +60,7 @@
 
                 for (var t in transforms) {
                     if (el.style[t] !== undefined) {
-                        el.style[t] = "translate3d(1px,1px,1px)";
+                        el.style[t] = 'translate3d(1px,1px,1px)';
                         has3d = window.getComputedStyle(el).getPropertyValue(transforms[t]);
                     }
                 }
@@ -71,8 +71,8 @@
             })();
 
             // listen to scroll and resize
-            UI.$doc.on("scrolling.uk.document", checkParallaxes);
-            UI.$win.on("load resize orientationchange", UI.Utils.debounce(function(){
+            UI.$doc.on('scrolling.uk.document', checkParallaxes);
+            UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(){
                 wh = window.innerHeight;
                 checkParallaxes();
             }, 50));
@@ -84,8 +84,8 @@
 
                     var parallax = UI.$(this);
 
-                    if (!parallax.data("parallax")) {
-                        UI.parallax(parallax, UI.Utils.options(parallax.attr("data-uk-parallax")));
+                    if (!parallax.data('parallax')) {
+                        UI.parallax(parallax, UI.Utils.options(parallax.attr('data-uk-parallax')));
                     }
                 });
             });
@@ -122,7 +122,7 @@
                     dir   = (start < end ? 1:-1);
                 }
 
-                this.props[prop] = { 'start': start, 'end': end, 'dir': dir, 'diff': diff };
+                this.props[prop] = { start: start, end: end, dir: dir, diff: diff };
 
             }.bind(this));
 
@@ -319,7 +319,7 @@
 
         var img = new Image(), url, element, size, check, ratio, width, height;
 
-        element = obj.element.css({'background-size': 'cover',  'background-repeat': 'no-repeat'});
+        element = obj.element.css({backgroundSize: 'cover',  backgroundRepeat: 'no-repeat'});
         url     = element.css('background-image').replace(/^url\(/g, '').replace(/\)$/g, '').replace(/("|')/g, '');
         check   = function() {
 
@@ -329,7 +329,7 @@
             w += Math.ceil(extra * ratio);
 
             if (w-extra < size.w && h < size.h) {
-                return obj.element.css({'background-size': 'auto'});
+                return obj.element.css({backgroundSize: 'auto'});
             }
 
             // if element height < parent height (gap underneath)
@@ -350,7 +350,7 @@
                 height = Math.ceil(w / ratio);
             }
 
-            element.css({'background-size': (width+'px '+height+'px')}).data('bgsize', {w:width,h:height});
+            element.css({backgroundSize: (width+'px '+height+'px')}).data('bgsize', {w:width,h:height});
         };
 
         img.onerror = function(){
@@ -361,7 +361,7 @@
             size  = {w:img.width, h:img.height};
             ratio = img.width / img.height;
 
-            UI.$win.on("load resize orientationchange", UI.Utils.debounce(function(){
+            UI.$win.on('load resize orientationchange', UI.Utils.debounce(function(){
                 check();
             }, 50));
 

@@ -1,4 +1,4 @@
-/*! UIkit 2.27.1 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -7395,6 +7395,10 @@ a.uk-thumbnail:focus {
   vertical-align: top;
   border: 1px solid #ddd;
   border-radius: 4px;
+}
+/* Focus */
+.uk-dropdown:focus {
+  outline: none;
 }
 /*
  * 1. Show dropdown
