@@ -25,7 +25,7 @@ export default function (UIkit) {
             inViewClass: 'uk-scrollspy-inview'
         },
 
-        ready() {
+        init() {
             this.elements = this.target && toJQuery(this.target, this.$el) || this.$el;
 
             if (this.hidden) {
