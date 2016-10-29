@@ -26,7 +26,9 @@
 @heading-divider-border-width:                  @global-border-width;
 @heading-divider-border:                        @global-border;
 
-@heading-bullet-padding-left:                   10px;
+@heading-bullet-top:                            ~'calc(-0.1 * 1em)';
+@heading-bullet-height:                         0.9em;
+@heading-bullet-margin-right:                   10px;
 @heading-bullet-border-width:                   5px;
 @heading-bullet-border:                         @global-border;
 
@@ -118,8 +120,16 @@
  * Bullet
  */
 
-.uk-heading-bullet {
-    padding-left: @heading-bullet-padding-left;
+.uk-heading-bullet { position: relative; }
+
+.uk-heading-bullet::before {
+    content: "";
+    position: relative;
+    top: @heading-bullet-top;
+    display: inline-block;
+    height: @heading-bullet-height;
+    vertical-align: middle;
+    margin-right: @heading-bullet-margin-right;
     border-left: @heading-bullet-border-width solid @heading-bullet-border;
     .hook-heading-bullet;
 }
@@ -217,7 +227,7 @@
         .hook-inverse-heading-divider;
     }
 
-    .uk-heading-bullet {
+    .uk-heading-bullet::before {
         border-left-color: @inverse-heading-bullet-border;
         .hook-inverse-heading-bullet;
     }

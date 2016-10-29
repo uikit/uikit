@@ -15,9 +15,6 @@
 @heading-divider-bottom:                         0;
 @heading-divider-width:                         100%;
 
-@heading-bullet-top:                             15%;
-@heading-bullet-bottom:                          15%;
-
 
 // Link
 // ========================================================================
@@ -50,22 +47,7 @@
 
 }
 
-.hook-heading-bullet() {
-
-    position: relative;
-    border: none;
-    padding-left: @heading-bullet-padding-left + @heading-bullet-border-width;
-
-    &::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        top: @heading-bullet-top;
-        bottom: @heading-bullet-bottom;
-        border-left: @heading-bullet-border-width solid @heading-bullet-border;
-    }
-
-}
+.hook-heading-bullet() {}
 
 
 // Horizontal rules
@@ -100,11 +82,7 @@
 
 }
 
-.hook-inverse-heading-bullet() {
-
-    &::before { border-left-color: @inverse-global-border; }
-
-}
+.hook-inverse-heading-bullet() {}
 
 .hook-inverse-divider-icon() {}
 .hook-inverse-divider-icon-line() {}
