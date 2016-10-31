@@ -9,7 +9,7 @@ UIkit is a lightweight and modular front-end framework for developing fast and p
 * [@getuikit](https://twitter.com/getuikit) - Get the latest buzz on Twitter
 * [Google+ Community](https://plus.google.com/communities/114238665434626719878) - Share news and latest work
 
-Join our developer chat. We are online every work day between 8:00 and 18:00 UTC
+Join our developer chat. We are online every work day between 8:00 and 18:00 UTC.
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/uikit/uikit)
 
@@ -39,8 +39,8 @@ git clone git://github.com/uikit/uikit.git
 Install the Node dependencies.
 
 ```
-cd uikit
-npm install
+1. cd uikit
+2. npm install
 ```
 
 Run `gulp` to lint, build and minify the release.
