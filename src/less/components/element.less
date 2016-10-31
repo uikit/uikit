@@ -6,6 +6,7 @@
 //                  `uk-heading-primary`
 //                  `uk-heading-divider`
 //                  `uk-divider-icon`
+//                  `uk-divider-short`
 //
 // ========================================================================
 
@@ -32,6 +33,8 @@
 @heading-bullet-border-width:                   5px;
 @heading-bullet-border:                         @global-border;
 
+@divider-margin-vertical:                       @global-margin;
+
 @divider-icon-width:                            50px;
 @divider-icon-height:                           20px;
 @divider-icon-color:                            @global-border;
@@ -41,6 +44,10 @@
 @divider-icon-line-border:                      @global-border;
 
 @internal-image-divider-icon:                   "../../../images/divider-icon.svg";
+
+@divider-short-width:                           100px;
+@divider-short-border-width:                    @global-border-width;
+@divider-short-border:                          @global-border;
 
 
 /* ========================================================================
@@ -148,13 +155,27 @@
  ========================================================================== */
 
 /*
- * Divider
+ * 1. Reset default `hr`
+ * 2. Set margin if a `div` is used for semantical reason
+ */
+
+[class*='uk-divider'] {
+    /* 1 */
+    border: none;
+    /* 2 */
+    margin-bottom: @divider-margin-vertical;
+}
+
+/* Add margin if adjacent element */
+* + [class*='uk-divider'] { margin-top: @divider-margin-vertical }
+
+/*
+ * Icon
  */
 
 .uk-divider-icon {
     position: relative;
     height: @divider-icon-height;
-    border: none;
     .svg-fill(@internal-image-divider-icon, "#000", @divider-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -183,6 +204,23 @@
     .hook-divider-icon-line-right;
 }
 
+/*
+ * Short
+ * Reset child height, caused by `inline-block`
+ */
+
+.uk-divider-short { line-height: 0; }
+
+.uk-divider-short::after {
+    content: "";
+    display: inline-block;
+    width: @divider-short-width;
+    max-width: 100%;
+    border-top: @divider-short-border-width solid @divider-short-border;
+    vertical-align: top;
+    .hook-divider-short;
+}
+
 
 // Hooks
 // ========================================================================
@@ -199,7 +237,7 @@
 .hook-divider-icon-line() {}
 .hook-divider-icon-line-left() {}
 .hook-divider-icon-line-right() {}
-.hook-divider() {}
+.hook-divider-short() {}
 .hook-element-misc() {}
 
 
@@ -212,6 +250,7 @@
 @inverse-heading-bullet-border:                   @inverse-global-border;
 @inverse-divider-icon-color:                      @inverse-global-border;
 @inverse-divider-icon-line-border:                @inverse-global-border;
+@inverse-divider-short-border:                    @inverse-global-border;
 
 .hook-inverse() {
 
@@ -252,6 +291,11 @@
         .hook-inverse-divider-icon-line;
     }
 
+    .uk-divider-short::after {
+        border-top-color: @inverse-divider-short-border;
+        .hook-inverse-divider-short;
+    }
+
 }
 
 .hook-inverse-link-muted() {}
@@ -259,4 +303,6 @@
 .hook-inverse-heading-primary() {}
 .hook-inverse-heading-divider() {}
 .hook-inverse-heading-bullet() {}
-.hook-inverse-divider-icon() {}.hook-inverse-divider-icon-line() {}
+.hook-inverse-divider-icon() {}
+.hook-inverse-divider-icon-line() {}
+.hook-inverse-divider-short() {}

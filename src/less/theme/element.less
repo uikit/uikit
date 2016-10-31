@@ -7,14 +7,6 @@
 // Variables
 // ========================================================================
 
-//
-// New
-//
-
-@heading-divider-left:                           0;
-@heading-divider-bottom:                         0;
-@heading-divider-width:                         100%;
-
 
 // Link
 // ========================================================================
@@ -31,27 +23,17 @@
 
 .hook-heading-primary() {}
 
-.hook-heading-divider() {
-
-    position: relative;
-    border: none;
-
-    &::before {
-        content: "";
-        position: absolute;
-        left: @heading-divider-left;
-        bottom: @heading-divider-bottom;
-        width: @heading-divider-width;
-        border-bottom: @heading-divider-border-width solid @heading-divider-border;
-    }
-
-}
+.hook-heading-divider() {}
 
 .hook-heading-bullet() {}
 
 
 // Horizontal rules
 // ========================================================================
+
+//
+// Icon
+//
 
 .hook-divider-icon() {}
 
@@ -60,6 +42,12 @@
 .hook-divider-icon-line-left() {}
 
 .hook-divider-icon-line-right() {}
+
+//
+// Short
+//
+
+.hook-divider-short() {}
 
 
 // Miscellaneous
@@ -76,13 +64,11 @@
 
 .hook-inverse-heading-primary() {}
 
-.hook-inverse-heading-divider() {
-
-    &::before { border-bottom-color: @inverse-global-border; }
-
-}
+.hook-inverse-heading-divider() {}
 
 .hook-inverse-heading-bullet() {}
 
 .hook-inverse-divider-icon() {}
 .hook-inverse-divider-icon-line() {}
+
+.hook-inverse-divider-short() {}
