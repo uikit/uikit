@@ -8,7 +8,6 @@ var styles = $.extend({
     }, themes),
     component = location.pathname.split('/').pop().replace(/.html$/, ''),
     components = [
-        'gif',
         'lightbox',
         'notification',
         'sortable',
@@ -31,6 +30,7 @@ document.writeln(`<link rel="stylesheet" href="${style.file}">`);
 
 // add javascripts
 ['../js/uikit.js']
+    .concat(['../js/components/gif.js'])
     .concat(components.map(name => `../js/components/${name}.js`))
     .forEach(file => document.writeln(`<script src="${file}"></script>`));
 
