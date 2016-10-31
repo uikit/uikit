@@ -122,13 +122,22 @@
 
 .uk-heading-bullet { position: relative; }
 
+/*
+ * 1. Using `inline-block` to make it work with text alignment
+ * 2. Align vertically centered
+ * 3. Style
+ */
+
 .uk-heading-bullet::before {
     content: "";
+    /* 1 */
+    display: inline-block;
+    /* 2 */
     position: relative;
     top: @heading-bullet-top;
-    display: inline-block;
-    height: @heading-bullet-height;
     vertical-align: middle;
+    /* 3 */
+    height: @heading-bullet-height;
     margin-right: @heading-bullet-margin-right;
     border-left: @heading-bullet-border-width solid @heading-bullet-border;
     .hook-heading-bullet;
