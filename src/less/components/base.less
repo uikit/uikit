@@ -3,6 +3,7 @@
 //
 // Component:       `uk-link`
 //                  `uk-h1`, `uk-h2`, `uk-h3`, `uk-h4`, `uk-h5`, `uk-h6`
+//                  `uk-hr`
 //
 // ========================================================================
 
@@ -422,7 +423,7 @@ dd { margin-left: 0; }
  * 3. Style
  */
 
-hr {
+hr, .uk-hr {
     /* 1 */
     box-sizing: content-box;
     height: 0;
@@ -436,7 +437,8 @@ hr {
 }
 
 /* Add margin if adjacent element */
-* + hr { margin-top: @base-hr-margin-vertical }
+* + hr,
+* + .uk-hr { margin-top: @base-hr-margin-vertical }
 
 
 /* Address
