@@ -39,8 +39,7 @@ git clone git://github.com/uikit/uikit.git
 Install the Node dependencies.
 
 ```
-1. cd uikit
-2. npm install
+cd uikit & npm install
 ```
 
 Run `gulp` to lint, build and minify the release.
