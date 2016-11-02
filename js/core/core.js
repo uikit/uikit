@@ -59,7 +59,7 @@
     global.UIkit2 = UI;
 
     if (!_UI) {
-        global.UIkit2 = UI;
+        global.UIkit = UI;
     }
 
     // cache jQuery
