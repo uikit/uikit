@@ -6,7 +6,7 @@
 //                  `uk-heading-primary`
 //                  `uk-heading-divider`
 //                  `uk-divider-icon`
-//                  `uk-divider-short`
+//                  `uk-divider-small`
 //
 // ========================================================================
 
@@ -45,9 +45,9 @@
 
 @internal-image-divider-icon:                   "../../../images/divider-icon.svg";
 
-@divider-short-width:                           100px;
-@divider-short-border-width:                    @global-border-width;
-@divider-short-border:                          @global-border;
+@divider-small-width:                           100px;
+@divider-small-border-width:                    @global-border-width;
+@divider-small-border:                          @global-border;
 
 
 /* ========================================================================
@@ -205,20 +205,20 @@
 }
 
 /*
- * Short
+ * Small
  * Reset child height, caused by `inline-block`
  */
 
-.uk-divider-short { line-height: 0; }
+.uk-divider-small { line-height: 0; }
 
-.uk-divider-short::after {
+.uk-divider-small::after {
     content: "";
     display: inline-block;
-    width: @divider-short-width;
+    width: @divider-small-width;
     max-width: 100%;
-    border-top: @divider-short-border-width solid @divider-short-border;
+    border-top: @divider-small-border-width solid @divider-small-border;
     vertical-align: top;
-    .hook-divider-short;
+    .hook-divider-small;
 }
 
 
@@ -237,7 +237,7 @@
 .hook-divider-icon-line() {}
 .hook-divider-icon-line-left() {}
 .hook-divider-icon-line-right() {}
-.hook-divider-short() {}
+.hook-divider-small() {}
 .hook-element-misc() {}
 
 
@@ -250,7 +250,7 @@
 @inverse-heading-bullet-border:                   @inverse-global-border;
 @inverse-divider-icon-color:                      @inverse-global-border;
 @inverse-divider-icon-line-border:                @inverse-global-border;
-@inverse-divider-short-border:                    @inverse-global-border;
+@inverse-divider-small-border:                    @inverse-global-border;
 
 .hook-inverse() {
 
@@ -291,9 +291,9 @@
         .hook-inverse-divider-icon-line;
     }
 
-    .uk-divider-short::after {
-        border-top-color: @inverse-divider-short-border;
-        .hook-inverse-divider-short;
+    .uk-divider-small::after {
+        border-top-color: @inverse-divider-small-border;
+        .hook-inverse-divider-small;
     }
 
 }
@@ -305,4 +305,4 @@
 .hook-inverse-heading-bullet() {}
 .hook-inverse-divider-icon() {}
 .hook-inverse-divider-icon-line() {}
-.hook-inverse-divider-short() {}
+.hook-inverse-divider-small() {}
