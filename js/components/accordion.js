@@ -2,13 +2,13 @@
 (function(addon) {
     var component;
 
-    if (window.UIkit) {
-        component = addon(UIkit);
+    if (window.UIkit2) {
+        component = addon(UIkit2);
     }
 
     if (typeof define == 'function' && define.amd) {
         define('uikit-accordion', ['uikit'], function(){
-            return component || addon(UIkit);
+            return component || addon(UIkit2);
         });
     }
 })(function(UI){
