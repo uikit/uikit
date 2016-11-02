@@ -411,7 +411,7 @@
                     overElement.append($current);
                 }
 
-                UIkit.$doc.trigger('mouseover');
+                UI.$doc.trigger('mouseover');
             }
 
             this.checkEmptyList();

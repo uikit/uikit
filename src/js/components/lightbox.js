@@ -481,7 +481,7 @@
     });
 
 
-    UIkit.plugin('lightbox', 'iframe', {
+    UI.plugin('lightbox', 'iframe', {
 
         init: function (lightbox) {
 

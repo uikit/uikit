@@ -138,7 +138,7 @@
 
         var top       = element.offset().top,
             height    = element.outerHeight(),
-            scrolltop = UIkit.$win.scrollTop(),
+            scrolltop = UI.$win.scrollTop(),
             wh        = window.innerHeight,
             distance, percentage, percent;
 
