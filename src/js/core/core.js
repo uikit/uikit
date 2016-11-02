@@ -4,7 +4,7 @@
 
         define('uikit', function(){
 
-            var uikit = window.UIkit || core(window, window.jQuery, window.document);
+            var uikit = window.UIkit2 || core(window, window.jQuery, window.document);
 
             uikit.load = function(res, req, onload, config) {
 
@@ -29,19 +29,18 @@
     }
 
     if (!window.jQuery) {
-        throw new Error('UIkit requires jQuery');
+        throw new Error('UIkit 2.x requires jQuery');
     }
 
-    if (window && window.jQuery) {
+    if (window && window.jQuery && !window.UIkit2) {
         core(window, window.jQuery, window.document);
     }
-
 
 })(function(global, $, doc) {
 
     "use strict";
 
-    var UI = {}, _UI = global.UIkit ? Object.create(global.UIkit) : undefined;
+    var UI = {}, _UI = global.UIkit || undefined;
 
     UI.version = '2.27.2';
 
@@ -56,9 +55,11 @@
         return UI;
     };
 
-    UI.prefix = function(str) {
-        return str;
-    };
+    global.UIkit2 = UI;
+
+    if (!_UI) {
+        global.UIkit2 = UI;
+    }
 
     // cache jQuery
     UI.$ = $;
@@ -407,8 +408,6 @@
     UI.Utils.events       = {};
     UI.Utils.events.click = UI.support.touch ? 'tap' : 'click';
 
-    global.UIkit = UI;
-
     // deprecated
 
     UI.fn = function(command, options) {
@@ -434,7 +433,11 @@
 
     UI.components    = {};
 
-    UI.component = function(name, def) {
+    UI.component = function(name, def, override) {
+
+        if (UI.components[name] && !override) {
+            return UI.components[name];
+        }
 
         var fn = function(element, options) {
 

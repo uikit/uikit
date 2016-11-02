@@ -193,4 +193,4 @@
 
     UI.offcanvas = Offcanvas;
 
-})(UIkit);
+})(UIkit2);

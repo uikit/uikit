@@ -383,4 +383,4 @@
         return modal;
     }
 
-})(UIkit);
+})(UIkit2);

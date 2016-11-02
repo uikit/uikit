@@ -560,6 +560,7 @@ gulp.task('prefix', function(done) {
     gulp.src(['./dist/**/*.css', './dist/**/*.less', './dist/**/*.scss', './dist/**/*.js'])
         .pipe(replace(/(uk-([a-z\d\-]+))/g, prefix+'-$2'))
         .pipe(replace(/data-uk-/g, 'data-'+prefix+'-'))
+        .pipe(replace(/UIkit2/g, 'UIkit2'+prefix))
         .pipe(gulp.dest('./dist'))
         .on('end', done);
 });

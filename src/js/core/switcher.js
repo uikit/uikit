@@ -303,4 +303,4 @@
         return d.promise();
     }
 
-})(UIkit);
+})(UIkit2);
