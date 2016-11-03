@@ -30,8 +30,7 @@ document.writeln(`<link rel="stylesheet" href="${style.file}">`);
 
 // add javascripts
 ['../js/uikit.js']
-    .concat(['../js/components/gif.js'])
-    .concat(components.map(name => `../js/components/${name}.js`))
+    .concat(components.concat('gif').map(name => `../js/components/${name}.js`))
     .forEach(file => document.writeln(`<script src="${file}"></script>`));
 
 $(() => {
