@@ -40,6 +40,7 @@ export default function (UIkit) {
 
             this.$el.on('click', e => {
 
+                // TODO better isToggled handling
                 if ($(e.target).closest('a[href="#"], button').length || $(e.target).closest('a[href]') && !this.target.is(':visible')) {
                     e.preventDefault();
                 }
