@@ -116,7 +116,7 @@ export default function (UIkit) {
                 }
 
                 if (this.inactive
-                    || scroll <= this.top
+                    || scroll < this.top
                     || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.offsetBottom)
                 ) {
                     if (isActive) {
