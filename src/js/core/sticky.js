@@ -1,4 +1,4 @@
-import { $, Animation, isContextSelector, isNumber, isString, query, requestAnimationFrame } from '../util/index';
+import { $, Animation, isNumber, isString, query, requestAnimationFrame } from '../util/index';
 
 export default function (UIkit) {
 
@@ -116,7 +116,7 @@ export default function (UIkit) {
                 }
 
                 if (this.inactive
-                    || scroll < this.top
+                    || scroll <= this.top
                     || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.offsetBottom)
                 ) {
                     if (isActive) {
