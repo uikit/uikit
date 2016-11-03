@@ -19,6 +19,7 @@
 //                  `uk-navbar-toggle-icon`
 //
 // Modifiers:       `uk-navbar-transparent`
+//                  `uk-navbar-sticky`
 //                  `uk-navbar-dropdown-stack`
 //
 // States:          `uk-active`
@@ -299,12 +300,16 @@
 }
 
 
-/* Style modifier
+/* Style modifiers
  ========================================================================== */
 
 .uk-navbar-transparent {
     background: none;
     .hook-navbar-transparent;
+}
+
+.uk-navbar-sticky {
+    .hook-navbar-sticky;
 }
 
 
@@ -481,6 +486,7 @@
 .hook-navbar-toggle-icon-hover(){}
 .hook-navbar-subtitle() {}
 .hook-navbar-transparent(){}
+.hook-navbar-sticky(){}
 .hook-navbar-dropdown(){}
 .hook-navbar-dropdown-dropbar(){}
 .hook-navbar-dropdown-nav(){}
