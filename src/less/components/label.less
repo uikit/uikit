@@ -20,8 +20,6 @@
 @label-font-size:                               @global-small-font-size;
 @label-color:                                   @global-inverse-color;
 
-@label-hover-color:                             @global-inverse-color;
-
 @label-success-background:                      @global-success-background;
 @label-success-color:                           @global-inverse-color;
 @label-warning-background:                      @global-warning-background;
@@ -44,16 +42,6 @@
     vertical-align: middle;
     white-space: nowrap;
     .hook-label;
-}
-
-/*
- * Required for `a`
- */
-
-.uk-label:hover {
-    color: @label-hover-color;
-    text-decoration: none;
-    .hook-label-hover;
 }
 
 
@@ -97,7 +85,6 @@
 .hook-label-misc;
 
 .hook-label() {}
-.hook-label-hover() {}
 .hook-label-success() {}
 .hook-label-warning() {}
 .hook-label-danger() {}
@@ -109,7 +96,6 @@
 
 @inverse-label-background:                     @inverse-global-primary-background;
 @inverse-label-color:                          @inverse-global-inverse-color;
-@inverse-label-hover-color:                    @inverse-global-inverse-color;
 
 .hook-inverse() {
 
@@ -119,12 +105,6 @@
         .hook-inverse-label;
     }
 
-    .uk-label:hover {
-        color: @inverse-label-hover-color;
-        .hook-inverse-label-hover;
-    }
-
 }
 
 .hook-inverse-label() {}
-.hook-inverse-label-hover() {}
