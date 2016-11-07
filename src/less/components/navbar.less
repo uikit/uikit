@@ -133,6 +133,7 @@
 /*
  * Align groups
  * 1. Fix text wrapping if the centered section is larger than 50% of the navbar
+ * 2. Needed for dropdowns because a new position context is created
  */
 
 .uk-navbar-right { margin-left: auto; }
@@ -150,6 +151,8 @@
     transform: translate(-50%,-50%);
     /* 1 */
     white-space: nowrap;
+    /* 2 */
+    z-index: @navbar-dropdown-z-index;
 }
 
 
