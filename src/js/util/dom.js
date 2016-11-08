@@ -168,6 +168,7 @@ export function createEvent(e, bubbles = true, cancelable = false) {
     return e;
 }
 
+var win = $(window);
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
     element = $(element);
@@ -176,12 +177,12 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
         return false;
     }
 
-    var win = $(window), scrollLeft = win.scrollLeft(), scrollTop = win.scrollTop(), offset = element.offset();
+    var scrollLeft = win.scrollLeft(), scrollTop = win.scrollTop(), {top, left} = element.offset();
 
-    return offset.top + element.height() >= scrollTop
-        && offset.top - offsetTop <= scrollTop + win.height()
-        && offset.left + element.width() >= scrollLeft
-        && offset.left - offsetLeft <= scrollLeft + win.width();
+    return top + element.height() >= scrollTop
+        && top - offsetTop <= scrollTop + win.height()
+        && left + element.width() >= scrollLeft
+        && left - offsetLeft <= scrollLeft + win.width();
 }
 
 export function getIndex(index, elements, current = 0) {

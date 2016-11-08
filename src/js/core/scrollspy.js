@@ -26,7 +26,14 @@ export default function (UIkit) {
         },
 
         init() {
-            this.elements = this.target && toJQuery(this.target, this.$el) || this.$el;
+            if (this.hidden) {
+                this.getElements().css('visibility', 'hidden');
+            }
+        },
+
+        ready() {
+
+            this.elements = this.getElements();
 
             if (this.hidden) {
                 this.elements.css('visibility', 'hidden');
@@ -39,53 +46,64 @@ export default function (UIkit) {
 
                 var index = this.elements.length === 1 ? 1 : 0;
 
-                this.elements.each((i, el) => {
+                requestAnimationFrame(() => { // wait for other components to do their positioning (grid)
 
-                    var $el = $(el);
+                    this.elements.each((i, el) => {
 
-                    if (!el.__uk_scrollspy) {
-                        el.__uk_scrollspy = {toggles: ($el.attr('uk-scrollspy-class') ? $el.attr('uk-scrollspy-class') : this.cls).split(',')};
-                    }
+                        var $el = $(el);
 
-                    var data = el.__uk_scrollspy;
-
-                    if (isInView(el, this.offsetTop, this.offsetLeft)) {
-
-                        if (!data.inview && !data.timer) {
-
-                            data.timer = setTimeout(() => {
-
-                                $el.css('visibility', '').addClass(this.inViewClass).toggleClass(data.toggles[0]).trigger('inview'); // TODO rename event?
-
-                                data.inview = true;
-                                delete data.timer;
-
-                            }, this.delay * index);
-
-                            index++;
+                        if (!el.__uk_scrollspy) {
+                            el.__uk_scrollspy = {toggles: ($el.attr('uk-scrollspy-class') ? $el.attr('uk-scrollspy-class') : this.cls).split(',')};
                         }
 
-                    } else {
+                        var data = el.__uk_scrollspy;
 
-                        if (data.inview && this.repeat) {
+                        if (isInView(el, this.offsetTop, this.offsetLeft)) {
 
-                            if (data.timer) {
-                                clearTimeout(data.timer);
-                                delete data.timer;
+                            if (!data.inview && !data.timer) {
+
+                                data.timer = setTimeout(() => {
+
+                                    $el.css('visibility', '').addClass(this.inViewClass).toggleClass(data.toggles[0]).trigger('inview'); // TODO rename event?
+
+                                    data.inview = true;
+                                    delete data.timer;
+
+                                }, this.delay * index++);
+
                             }
 
-                            $el.removeClass(this.inViewClass).toggleClass(data.toggles[0]).css('visibility', this.hidden ? 'hidden' : '').trigger('outview'); // TODO rename event?
-                            data.inview = false;
+                        } else {
+
+                            if (data.inview && this.repeat) {
+
+                                if (data.timer) {
+                                    clearTimeout(data.timer);
+                                    delete data.timer;
+                                }
+
+                                $el.removeClass(this.inViewClass).toggleClass(data.toggles[0]).css('visibility', this.hidden ? 'hidden' : '').trigger('outview'); // TODO rename event?
+                                data.inview = false;
+                            }
+
                         }
 
-                    }
+                        data.toggles.reverse();
+                    });
 
-                    data.toggles.reverse();
                 });
 
             },
 
             events: ['scroll', 'load', 'resize', 'orientationchange']
+
+        },
+
+        methods: {
+
+            getElements() {
+                return this.target && toJQuery(this.target, this.$el) || this.$el;
+            }
 
         }
 
