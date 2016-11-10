@@ -61,11 +61,11 @@ export default function (UIkit) {
                 });
 
                 rows.forEach((row, i) =>
-                    row.forEach((el, j) => {
+                    row.forEach((el, j) =>
                         $(el)
                             .toggleClass(this.margin, i !== 0)
                             .toggleClass(this.firstColumn, j === 0)
-                    })
+                    )
                 );
 
             },

@@ -13,6 +13,20 @@ export default function (UIkit) {
             clsStack: 'uk-grid-stack'
         },
 
+        ready() {
+
+            if (this.margin === 'uk-grid-margin') {
+
+                var size = this.$el.attr('class').match(/\buk-grid-(small|medium|large|collapse)\b/);
+
+                if (size) {
+                    this.margin = `uk-grid-margin-${size[1]}`;
+                }
+
+            }
+
+        },
+
         update: {
 
             handler() {
