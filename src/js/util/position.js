@@ -74,7 +74,7 @@ export function getDimensions(elem) {
 
     var width = elem.outerWidth(),
         height = elem.outerHeight(),
-        offset = elem.offset(),
+        offset = elem[0].getClientRects ? elem.offset() : null,
         left = offset ? Math.round(offset.left) : elem.scrollLeft(),
         top = offset ? Math.round(offset.top) : elem.scrollTop();
 
