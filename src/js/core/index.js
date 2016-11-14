@@ -61,6 +61,12 @@ export default function (UIkit) {
                 document.body.style.overflowX = 'hidden';
                 target.one('animationend', () => document.body.style.overflowX = '')
             }
+        })
+        .on('webkitAnimationEnd', ({target}) => {
+            if ((getComputedStyle(target) || {}).webkitFontSmoothing === 'antialiased') {
+                target.style.webkitFontSmoothing = 'subpixel-antialiased';
+                requestAnimationFrame(() => target.style.webkitFontSmoothing = '')
+            }
         });
 
     // core components
