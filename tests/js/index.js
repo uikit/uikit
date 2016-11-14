@@ -1,6 +1,13 @@
 var storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_inverse', themes = {}, $html = $('html');
 
-$.ajax({url: '../themes.json', async: false, dataType: 'json'}).then(res => themes = res);
+// try to load themes.json
+var request = new XMLHttpRequest();
+request.open('GET', '../themes.json', false);
+request.send(null);
+
+if (request.status === 200) {
+    themes = JSON.parse(request.responseText);
+}
 
 var styles = $.extend({
         core: { file: '../css/uikit.all.css' },
