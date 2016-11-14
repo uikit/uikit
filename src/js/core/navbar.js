@@ -128,10 +128,8 @@ export default function (UIkit) {
             },
 
             transitionTo(height) {
-                var current = this.dropbar[0].offsetHeight ? this.dropbar.height() : 0;
-                Transition.stop(this.dropbar);
-                this.dropbar.height(current);
-                return Transition.start(this.dropbar, {height}, this.duration);
+                this.dropbar.height(this.dropbar[0].offsetHeight ? this.dropbar.height() : 0);
+                return Transition.cancel(this.dropbar).start(this.dropbar, {height}, this.duration);
             }
 
         }

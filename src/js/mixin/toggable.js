@@ -1,5 +1,22 @@
 import { $, Animation, extend, isString, Transition } from '../util/index';
 
+var initProps = {
+        overflow: '',
+        height: '',
+        paddingTop: '',
+        paddingBottom: '',
+        marginTop: '',
+        marginBottom: ''
+    },
+    hideProps = {
+        overflow: 'hidden',
+        height: 0,
+        paddingTop: 0,
+        paddingBottom: 0,
+        marginTop: 0,
+        marginBottom: 0
+    };
+
 export default {
 
     props: {
@@ -92,73 +109,11 @@ export default {
 
             if (this.animation === true && animate !== false) {
 
-                var inProgress = Transition.inProgress(el),
-                    inner = parseFloat(el.children().first().css('margin-top')) + parseFloat(el.children().last().css('margin-bottom')),
-                    height = el[0].offsetHeight ? el.height() + (inProgress ? 0 : inner) : 0,
-                    initProps = {
-                        overflow: '',
-                        height: '',
-                        paddingTop: '',
-                        paddingBottom: '',
-                        marginTop: '',
-                        marginBottom: ''
-                    },
-                    hideProps = {
-                        overflow: 'hidden',
-                        height: 0,
-                        paddingTop: 0,
-                        paddingBottom: 0,
-                        marginTop: 0,
-                        marginBottom: 0
-                    };
-
-                Transition.stop(el);
-
-                toggled = this.isToggled(el);
-
-                if (!toggled) {
-                    this._toggle(el, true);
-                }
-
-                el.css('height', '');
-                var endHeight = el.height() + inner;
-
-                el.height(height);
-
-                if ((!toggled && show !== false) || show === true) {
-
-                    if (!inProgress) {
-                        el.css(hideProps);
-                    }
-
-                    deferred = Transition.start(el, extend(initProps, {
-                        overflow: 'hidden',
-                        height: endHeight
-                    }), Math.round(this.duration * (1 - height / endHeight)), this.transition);
-
-                } else {
-
-                    deferred = Transition
-                        .start(el, hideProps, Math.round(this.duration * (height / endHeight)), this.transition)
-                        .then(() => {
-                            this._toggle(el, false);
-                            el.css(initProps);
-                        });
-
-                }
+                deferred = this._toggleHeight(el, !toggled);
 
             } else if (this.animation && animate !== false) {
 
-                if ((!toggled && show !== false) || show === true) {
-
-                    this._toggle(el, true);
-                    deferred = Animation.in(el, this.animation[0], this.duration, this.origin);
-
-                } else {
-                    deferred = Animation
-                        .out(el, this.animation[1], this.duration, this.origin)
-                        .then(() => this._toggle(el, false));
-                }
+                deferred = this._toggleAnimation(el, !toggled);
 
             } else {
                 this._toggle(el, !toggled);
@@ -188,6 +143,42 @@ export default {
 
             this.updateAria(el);
             this.$update(null, el);
+        },
+
+        _toggleHeight(el, show) {
+
+            var inProgress = Transition.inProgress(el),
+                inner = parseFloat(el.children().first().css('margin-top')) + parseFloat(el.children().last().css('margin-bottom')),
+                height = el[0].offsetHeight ? el.height() + (inProgress ? 0 : inner) : 0,
+                endHeight;
+
+            Transition.cancel(el);
+
+            if (!this.isToggled(el)) {
+                this._toggle(el, true);
+            }
+
+            el.css('height', '');
+            endHeight = el.height() + (inProgress ? 0 : inner);
+            el.height(height);
+
+            return show
+                ? Transition.start(el, extend(initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
+                : Transition.start(el, hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
+                        this._toggle(el, false);
+                        el.css(initProps);
+                    });
+
+        },
+
+        _toggleAnimation(el, show) {
+
+            if (show) {
+                this._toggle(el, true);
+                return Animation.in(el, this.animation[0], this.duration, this.origin);
+            }
+
+            return Animation.out(el, this.animation[1], this.duration, this.origin).then(() => this._toggle(el, false));
         },
 
         isToggled(el) {
