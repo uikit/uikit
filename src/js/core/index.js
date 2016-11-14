@@ -54,6 +54,15 @@ export default function (UIkit) {
             }
         });
 
+    $(document)
+        .on('animationstart', ({target}) => {
+            target = $(target);
+            if (target.css('animationName').lastIndexOf('uk-', 0) === 0) {
+                document.body.style.overflowX = 'hidden';
+                target.one('animationend', () => document.body.style.overflowX = '')
+            }
+        });
+
     // core components
     UIkit.use(Accordion);
     UIkit.use(Alert);

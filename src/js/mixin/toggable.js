@@ -90,6 +90,17 @@ export default {
             return this.toggleElement(el, show, false);
         },
 
+        isToggled(el) {
+            el = $(el);
+            return this.cls ? el.hasClass(this.cls.split(' ')[0]) : !el.attr('hidden');
+        },
+
+        updateAria(el) {
+            if (this.cls === false) {
+                el.attr('aria-hidden', !this.isToggled(el));
+            }
+        },
+
         _toggleElement(el, show, animate) {
 
             el = $(el);
@@ -179,17 +190,6 @@ export default {
             }
 
             return Animation.out(el, this.animation[1], this.duration, this.origin).then(() => this._toggle(el, false));
-        },
-
-        isToggled(el) {
-            el = $(el);
-            return this.cls ? el.hasClass(this.cls.split(' ')[0]) : !el.attr('hidden');
-        },
-
-        updateAria(el) {
-            if (this.cls === false) {
-                el.attr('aria-hidden', !this.isToggled(el));
-            }
         }
 
     }
