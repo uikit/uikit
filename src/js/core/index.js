@@ -1,4 +1,4 @@
-import { $, requestAnimationFrame } from '../util/index';
+import { $, on, requestAnimationFrame } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
@@ -54,20 +54,26 @@ export default function (UIkit) {
             }
         });
 
-    $(document)
-        .on('animationstart', ({target}) => {
-            target = $(target);
-            if (target.css('animationName').lastIndexOf('uk-', 0) === 0) {
-                document.body.style.overflowX = 'hidden';
-                target.one('animationend', () => document.body.style.overflowX = '')
-            }
-        })
-        .on('webkitAnimationEnd', ({target}) => {
-            if ((getComputedStyle(target) || {}).webkitFontSmoothing === 'antialiased') {
-                target.style.webkitFontSmoothing = 'subpixel-antialiased';
-                setTimeout(() => target.style.webkitFontSmoothing = '')
-            }
-        });
+    var started = 0;
+    on(document, 'animationstart', ({target}) => {
+        if ($(target).css('animationName').lastIndexOf('uk-', 0) === 0) {
+            document.body.style.overflowX = 'hidden';
+            started++;
+        }
+    }, true);
+
+    on(document, 'animationend', ({target}) => {
+        if ($(target).css('animationName').lastIndexOf('uk-', 0) === 0 && !--started) {
+            document.body.style.overflowX = '';
+        }
+    }, true);
+
+    on(document.documentElement, 'webkitAnimationEnd', ({target}) => {
+        if ((getComputedStyle(target) || {}).webkitFontSmoothing === 'antialiased') {
+            target.style.webkitFontSmoothing = 'subpixel-antialiased';
+            setTimeout(() => target.style.webkitFontSmoothing = '');
+        }
+    }, true);
 
     // core components
     UIkit.use(Accordion);
