@@ -215,6 +215,8 @@ UIkit.component('sortable', {
             if (!this.updating) {
                 requestAnimationFrame(() => {
 
+                    this.updating = false;
+
                     if (!this.drag) {
                         return;
                     }
@@ -228,8 +230,6 @@ UIkit.component('sortable', {
                     } else if (bottom < doc[0].offsetHeight && bottom > window.innerHeight + this.scrollY) {
                         setTimeout(() => win.scrollTop(this.scrollY + 5), 5);
                     }
-
-                    this.updating = false;
 
                 })
             }
