@@ -65,7 +65,7 @@ export default function (UIkit) {
         .on('webkitAnimationEnd', ({target}) => {
             if ((getComputedStyle(target) || {}).webkitFontSmoothing === 'antialiased') {
                 target.style.webkitFontSmoothing = 'subpixel-antialiased';
-                requestAnimationFrame(() => target.style.webkitFontSmoothing = '')
+                setTimeout(() => target.style.webkitFontSmoothing = '')
             }
         });
 
