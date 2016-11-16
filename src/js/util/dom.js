@@ -102,10 +102,7 @@ export function animate(element, animation, duration = 200, origin, out) {
     reset();
 
     element
-        .one(animationend || 'animationend', () => {
-            reset();
-            d.resolve();
-        })
+        .one(animationend || 'animationend', () => d.resolve().then(reset))
         .css('animation-duration', duration + 'ms')
         .addClass(animation);
 
