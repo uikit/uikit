@@ -247,6 +247,37 @@
     .hook-form;
 }
 
+/*
+ * Single-line
+ * 1. Allow an `a` element to look like a `input` or `select` element
+ * 2. Make sure line-height is not larger than height
+ *    Also needed to center the text vertically if `a` element is used
+ */
+
+.uk-input,
+.uk-select:not([multiple]):not([size]) {
+    height: @form-height;
+    vertical-align: middle;
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    line-height: @form-line-height;
+    .hook-form-single-line;
+}
+
+/*
+ * Multi-line
+ */
+
+.uk-select[multiple],
+.uk-select[size],
+.uk-textarea {
+    padding-top: @form-padding-vertical;
+    padding-bottom: @form-padding-vertical;
+    vertical-align: top;
+    .hook-form-multi-line;
+}
+
 /* Focus */
 .uk-input:focus,
 .uk-select:focus,
@@ -264,35 +295,6 @@
     background-color: @form-disabled-background;
     color: @form-disabled-color;
     .hook-form-disabled;
-}
-
-/*
- * Single-line
- * 1. Allow an `a` element to look like a `input` or `select` element
- * 2. Make sure line-height is not larger than height
- *    Also needed to center the text vertically if `a` element is used
- */
-
-.uk-input,
-.uk-select:not([multiple]):not([size]) {
-    height: @form-height;
-    vertical-align: middle;
-    /* 1 */
-    display: inline-block;
-    /* 2 */
-    line-height: @form-line-height;
-}
-
-/*
- * Multi-line
- */
-
-.uk-select[multiple],
-.uk-select[size],
-.uk-textarea {
-    padding-top: @form-padding-vertical;
-    padding-bottom: @form-padding-vertical;
-    vertical-align: top;
 }
 
 /*
@@ -538,7 +540,6 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * 2. Create position context
  * 3. Prevent content overflow
  * 4. Behave like most inline-block elements
- * 5. Clip child elements, !important needed because of button is loaded after form
  */
 
 .uk-form-custom {
@@ -550,8 +551,6 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     max-width: 100%;
     /* 4 */
     vertical-align: middle;
-    /* 5 */
-    overflow: hidden !important;
 }
 
 /*
@@ -560,6 +559,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * 3. Required for Webkit to make `height` work
  * 4. Hide controle and show cursor
  * 5. Needed for the cursor
+ * 6. Clip height caused by 5. Needed for Webkit only
  */
 
 .uk-form-custom select,
@@ -579,8 +579,12 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     cursor: pointer;
 }
 
-/* 5 */
-.uk-form-custom input[type="file"] { font-size: 500px; }
+.uk-form-custom input[type="file"] {
+    /* 5 */
+    font-size: 500px;
+    /* 6 */
+    overflow: hidden;
+}
 
 
 /* Label
@@ -706,6 +710,8 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .hook-form-misc;
 
 .hook-form() {}
+.hook-form-single-line() {}
+.hook-form-multi-line() {}
 .hook-form-focus() {}
 .hook-form-disabled() {}
 .hook-form-danger() {}
@@ -821,7 +827,10 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 }
 
-.hook-inverse-form() {}.hook-inverse-form-focus() {}
-.hook-inverse-form-radio() {}.hook-inverse-form-radio-focus() {}
-.hook-inverse-form-radio-checked() {}.hook-inverse-form-radio-checked-focus() {}
+.hook-inverse-form() {}
+.hook-inverse-form-focus() {}
+.hook-inverse-form-radio() {}
+.hook-inverse-form-radio-focus() {}
+.hook-inverse-form-radio-checked() {}
+.hook-inverse-form-radio-checked-focus() {}
 .hook-inverse-form-label() {}
