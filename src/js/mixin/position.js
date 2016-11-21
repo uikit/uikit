@@ -4,7 +4,7 @@ export default {
 
     props: {
         pos: String,
-        offset: undefined,
+        offset: null,
         flip: Boolean,
         clsPos: String
     },
