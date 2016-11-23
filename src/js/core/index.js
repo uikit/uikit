@@ -31,7 +31,7 @@ export default function (UIkit) {
     var scroll = window.pageYOffset, dir, ticking, resizing;
 
     $(window)
-        .on('load', UIkit.update)
+        .one('load', UIkit.update)
         .on('resize orientationchange', e => {
             if (!resizing) {
                 requestAnimationFrame(() => {
