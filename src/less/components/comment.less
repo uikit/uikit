@@ -121,9 +121,10 @@
 
 /*
  * Sublists
+ * Note: General sibling selector allows reply block between comment and sublist
  */
 
-.uk-comment-list .uk-comment + ul {
+.uk-comment-list .uk-comment ~ ul {
     margin: @comment-list-margin-top 0 0 0;
     padding-left: @comment-list-padding-left;
     list-style: none;
@@ -133,12 +134,12 @@
 /* Tablet and bigger */
 @media (min-width: @breakpoint-medium) {
 
-    .uk-comment-list .uk-comment + ul { padding-left: @comment-list-padding-left-m; }
+    .uk-comment-list .uk-comment ~ ul { padding-left: @comment-list-padding-left-m; }
 
 }
 
 /* Adjacent siblings */
-.uk-comment-list .uk-comment + ul > :nth-child(n+2) {
+.uk-comment-list .uk-comment ~ ul > :nth-child(n+2) {
     margin-top: @comment-list-margin-top;
     .hook-comment-list-sub-adjacent;
 }
