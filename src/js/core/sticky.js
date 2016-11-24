@@ -1,4 +1,4 @@
-import { $, Animation, isNumber, isString, query, requestAnimationFrame } from '../util/index';
+import { $, Animation, isNumeric, isString, query, requestAnimationFrame } from '../util/index';
 
 export default function (UIkit) {
 
@@ -78,14 +78,22 @@ export default function (UIkit) {
                         marginRight: this.$el.css('marginRight')
                     });
 
-                    this.offsetTop = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
-                    this.offsetBottom = this.offsetTop + outerHeight;
+                    this.topOffset = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
+                    this.bottomOffset = this.topOffset + outerHeight;
 
                     ['top', 'bottom'].forEach(prop => {
 
                         this[prop] = this[`${prop}Prop`];
 
-                        if (this[prop] && !isNumber(this[prop])) {
+                        if (!this[prop]) {
+                            return;
+                        }
+
+                        if (isNumeric(this[prop])) {
+
+                            this[prop] = this[`${prop}Offset`] + parseFloat(this[prop]);
+
+                        } else {
 
                             if (isString(this[prop]) && this[prop].match(/^-?\d+vh$/)) {
                                 this[prop] = window.innerHeight * parseFloat(this[prop]) / 100;
@@ -103,7 +111,7 @@ export default function (UIkit) {
 
                     });
 
-                    this.top = Math.max(parseFloat(this.top), this.offsetTop) - this.offset;
+                    this.top = Math.max(parseFloat(this.top), this.topOffset) - this.offset;
                     this.bottom = this.bottom && this.bottom - outerHeight;
 
                     this.inactive = this.media && !window.matchMedia(this.media).matches;
@@ -117,7 +125,7 @@ export default function (UIkit) {
 
                 if (this.inactive
                     || scroll < this.top
-                    || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.offsetBottom)
+                    || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.bottomOffset)
                 ) {
                     if (isActive) {
 
@@ -130,7 +138,7 @@ export default function (UIkit) {
                             this.placeholder.attr('hidden', true);
                         };
 
-                        if (this.animation && this.offsetBottom < this.$el.offset().top) {
+                        if (this.animation && this.bottomOffset < this.$el.offset().top) {
                             Animation.cancel(this.$el).out(this.$el, this.animation).then(hide);
                         } else {
                             hide();

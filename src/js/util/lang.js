@@ -2,7 +2,7 @@ import $ from 'jquery';
 import { getCssVar, query } from './index';
 
 export { $ };
-export { ajax, each, extend, map, merge, isArray, isFunction, isPlainObject } from 'jquery';
+export { ajax, each, extend, map, merge, isArray, isNumeric, isFunction, isPlainObject } from 'jquery';
 
 export function bind(fn, context) {
     return function (a) {
