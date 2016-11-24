@@ -11,34 +11,44 @@ export default function (UIkit) {
         },
 
         init() {
-            if (this.mode !== 'expand') {
-                this.$el.css('min-height', this.getHeight());
-            }
+            this._callUpdate();
         },
 
         update: {
 
             handler() {
 
-                this.borderBox = this.$el.css('box-sizing') === 'border-box';
+                var viewport = window.innerHeight, height, offset;
 
                 if (this.mode === 'expand') {
 
-                    this.$el.css('min-height', '');
-                    if (document.documentElement.offsetHeight < window.innerHeight) {
-                        this.$el.css('min-height', this.$el.outerHeight() + window.innerHeight - document.documentElement.offsetHeight - (this.borderBox ? 0 : this.$el.outerHeight() - this.$el.height()))
+                    this.$el.css({height: '', minHeight: ''});
+
+                    if (viewport > document.documentElement.offsetHeight) {
+                        this.$el.css('min-height', height = this.$el.outerHeight()
+                            + viewport
+                            - document.documentElement.offsetHeight
+                            - this.getPadding()
+                        )
                     }
-                    return;
+
+                } else {
+
+                    var top = this.$el[0].offsetTop, calc;
+
+                    offset = this.mode === 'offset' && top < viewport;
+                    calc = this.getPadding() + (offset ? top : 0);
+                    height = calc ? `calc(100vh - ${calc}px)` : '100vh';
+
+                    this.$el.css('min-height', height);
 
                 }
 
                 // IE 10-11 fix (min-height on a flex container won't apply to its flex items)
-                this.$el.css({height: '', minHeight: ''});
-                if (this.getHeight() >= this.$el.outerHeight()) {
-                    this.$el.css('height', this.getHeight());
+                this.$el.css('height', '');
+                if (height && viewport - (offset ? top : 0) >= this.$el.outerHeight()) {
+                    this.$el.css('height', height);
                 }
-
-                this.$el.css('min-height', this.getHeight());
 
             },
 
@@ -48,15 +58,8 @@ export default function (UIkit) {
 
         methods: {
 
-            getHeight() {
-
-                var height = window.innerHeight;
-
-                if (this.mode === 'offset' && this.$el.offset().top < height) {
-                    height -= this.$el.offset().top + (this.borderBox ? 0 : this.$el.outerHeight() - this.$el.height());
-                }
-
-                return height;
+            getPadding() {
+                return this.$el.outerHeight() - parseFloat(this.$el.css('height'));
             }
 
         }

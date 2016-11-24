@@ -84,7 +84,7 @@ export default function (UIkit) {
                     })
                     .each((i, el) => {
                         el = $(el);
-                        el.css('min-height', `${max - (el.css('box-sizing') === 'border-box' ? 0 : (el.outerHeight() - el.height()))}px`);
+                        el.css('min-height', `${max - (el.outerHeight() - parseFloat(el.css('height')))}px`);
                     });
             }
 
