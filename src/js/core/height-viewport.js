@@ -24,23 +24,19 @@ export default function (UIkit) {
 
                     this.$el.css({height: '', minHeight: ''});
 
-                    if (viewport > document.documentElement.offsetHeight) {
-                        this.$el.css('min-height', height = this.$el.outerHeight()
-                            + viewport
-                            - document.documentElement.offsetHeight
-                            - this.getPadding()
-                        )
+                    var diff = viewport - document.documentElement.offsetHeight;
+
+                    if (diff > 0) {
+                        this.$el.css('min-height', height = this.$el.outerHeight() + diff)
                     }
 
                 } else {
 
-                    var top = this.$el[0].offsetTop, calc;
+                    var top = this.$el[0].offsetTop;
 
                     offset = this.mode === 'offset' && top < viewport;
-                    calc = this.getPadding() + (offset ? top : 0);
-                    height = calc ? `calc(100vh - ${calc}px)` : '100vh';
 
-                    this.$el.css('min-height', height);
+                    this.$el.css('min-height', height = offset ? `calc(100vh - ${offset ? top : 0}px)` : '100vh');
 
                 }
 
@@ -53,14 +49,6 @@ export default function (UIkit) {
             },
 
             events: ['load', 'resize', 'orientationchange']
-
-        },
-
-        methods: {
-
-            getPadding() {
-                return this.$el.outerHeight() - parseFloat(this.$el.css('height'));
-            }
 
         }
 
