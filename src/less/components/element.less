@@ -5,6 +5,7 @@
 //                  `uk-link-reset`
 //                  `uk-heading-primary`
 //                  `uk-heading-divider`
+//                  `uk-heading-line`
 //                  `uk-divider-icon`
 //                  `uk-divider-small`
 //
@@ -32,6 +33,10 @@
 @heading-bullet-margin-right:                   10px;
 @heading-bullet-border-width:                   5px;
 @heading-bullet-border:                         @global-border;
+
+@heading-line-margin:                           10px;
+@heading-line-border:                           @global-border;
+@heading-line-border-width:                     @global-border-width;
 
 @divider-margin-vertical:                       @global-margin;
 
@@ -150,6 +155,41 @@
     .hook-heading-bullet;
 }
 
+/*
+ * Line
+ */
+
+.uk-heading-line {
+    overflow: hidden;
+}
+
+.uk-heading-line span {
+    display: inline-block;
+    position: relative;
+}
+
+.uk-heading-line span:before,
+.uk-heading-line span:after {
+    content: "";
+    position: absolute;
+    height: 1px;
+    border-bottom: @heading-line-border-width solid @heading-line-border;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 2000px;
+    .hook-heading-line;
+}
+
+.uk-heading-line span:before {
+    right: 100%;
+    margin-right: @heading-line-margin;
+}
+
+.uk-heading-line span:after {
+    left: 100%;
+    margin-left: @heading-line-margin;
+}
+
 
 /* Horizontal rules
  ========================================================================== */
@@ -233,6 +273,7 @@
 .hook-heading-primary() {}
 .hook-heading-divider() {}
 .hook-heading-bullet() {}
+.hook-heading-line() {}
 .hook-divider-icon() {}
 .hook-divider-icon-line() {}
 .hook-divider-icon-line-left() {}
