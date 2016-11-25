@@ -185,7 +185,7 @@
                 </div>
                 <div>
                     <p>Responsive Height (Image)</p>
-                    <p style="height: 100px; "><img class="uk-responsive-height" src="http://unsplash.it/1600/1202/?random" alt=""></p>
+                    <p style="height: 100px; "><img class="uk-responsive-height" src="images/photo.jpg" alt=""></p>
                 </div>
             </div>
 
@@ -201,18 +201,21 @@
                 <a class="uk-logo" href="#">Text Logo</a>
             </p>
 
-            <p>
-                <a class="uk-logo" href="#">
-                    <img src="http://unsplash.it/150/50/?random" alt="">
-                </a>
-            </p>
-
-            <p>
-                <a class="uk-logo" href="#">
-                    <img src="http://unsplash.it/150/50/?random" alt="">
-                    <img class="uk-logo-inverse" src="http://unsplash.it/151/51/?random" alt="">
-                </a>
-            </p>
+            <div class="uk-flex-inline uk-margin uk-grid-small" uk-grid>
+                <div>
+                    <p>Image</p>
+                    <a class="uk-logo" href="#">
+                        <img src="images/photo.jpg" width="200" alt="">
+                    </a>
+                </div>
+                <div>
+                    <p>+ Inverse Image</p>
+                    <a class="uk-logo" href="#">
+                        <img src="images/photo.jpg" width="200" alt="">
+                        <img class="uk-logo-inverse" src="images/dark.jpg" width="200" alt="">
+                    </a>
+                </div>
+            </div>
 
             <h2>Inline SVG</h2>
 
@@ -256,10 +259,10 @@
                 </tbody>
             </table>
 
-            <h2>Gif re-start on in-view scrolling</h2>
+            <h2>Gif</h2>
 
             <p>
-                <img src="https://i.github-camo.com/c212cd61e29c9a6b9e8fe25981df297b042d9ef6/68747470733a2f2f636c6f75642e67697468756275736572636f6e74656e742e636f6d2f6173736574732f31303539303739392f31343139313534302f38623732373566382d663735352d313165352d386561652d3933313638306635613836392e676966" alt="" uk-gif>
+                <img src="images/animated.gif" alt="" uk-gif>
             </p>
 
             <h2>Height Match</h2>

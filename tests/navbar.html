@@ -67,8 +67,43 @@
 
                     <h2>Transparent</h2>
 
-                    <div class="uk-position-relative uk-light">
-                        <img src="http://unsplash.it/1000/250/?random" alt="">
+                    <div class="uk-margin uk-position-relative uk-light">
+                        <canvas class="uk-background-cover" style="background-image: url('images/dark.jpg')" width="1000" height="200"></canvas>
+                        <div class="uk-position-top">
+                            <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
+                                <div class="uk-navbar-left">
+                                    <ul class="uk-navbar-nav">
+                                        <li class="uk-active"><a href="">Active</a></li>
+                                        <li>
+                                            <a href="">Parent</a>
+                                            <div class="uk-navbar-dropdown">
+                                                <ul class="uk-nav uk-navbar-dropdown-nav">
+                                                    <li class="uk-active"><a href="#">Active</a></li>
+                                                    <li class="uk-parent">
+                                                        <a href="#">Parent</a>
+                                                        <ul class="uk-nav-sub">
+                                                            <li><a href="#">Sub item</a></li>
+                                                            <li><a href="#">Sub item</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li class="uk-nav-header">Header</li>
+                                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                                    <li class="uk-nav-divider"></li>
+                                                    <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                                </ul>
+                                            </div>
+                                        </li>
+                                        <li><a href="">Item</a></li>
+                                        <li><a href="">Item</a></li>
+                                    </ul>
+                                </div>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <div class="uk-margin uk-position-relative uk-dark">
+                        <canvas class="uk-background-cover" style="background-image: url('images/light.jpg')" width="1000" height="200"></canvas>
                         <div class="uk-position-top">
                             <nav class="uk-navbar-container uk-navbar-transparent" uk-navbar>
                                 <div class="uk-navbar-left">
@@ -1254,7 +1289,7 @@
                     <div class="uk-navbar-item">
                         <a class="uk-icon-button" href="#" uk-icon="icon: trash"></a>
                     </div>
-                    <div class="uk-navbar-item"><img class="uk-logo uk-responsive-height" src="http://unsplash.it/600/400/?random" alt="" uk-responsive></div>
+                    <div class="uk-navbar-item"><img class="uk-logo uk-responsive-height" src="images/photo.jpg" alt="" uk-responsive></div>
                     <div class="uk-navbar-item">Search</div>
                     <div class="uk-navbar-item">
                         <form>
