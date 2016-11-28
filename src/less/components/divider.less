@@ -1,0 +1,147 @@
+// Name:            Divider
+// Description:     Styles for dividers
+//
+// Component:       `uk-divider-icon`
+//                  `uk-divider-small`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@divider-margin-vertical:                       @global-margin;
+
+@divider-icon-width:                            50px;
+@divider-icon-height:                           20px;
+@divider-icon-color:                            @global-border;
+@divider-icon-line-top:                         50%;
+@divider-icon-line-width:                       100%;
+@divider-icon-line-border-width:                @global-border-width;
+@divider-icon-line-border:                      @global-border;
+
+@internal-image-divider-icon:                   "../../../images/divider-icon.svg";
+
+@divider-small-width:                           100px;
+@divider-small-border-width:                    @global-border-width;
+@divider-small-border:                          @global-border;
+
+
+/* ========================================================================
+   Component: Divider
+ ========================================================================== */
+
+/*
+ * 1. Reset default `hr`
+ * 2. Set margin if a `div` is used for semantical reason
+ */
+
+[class*='uk-divider'] {
+    /* 1 */
+    border: none;
+    /* 2 */
+    margin-bottom: @divider-margin-vertical;
+}
+
+/* Add margin if adjacent element */
+* + [class*='uk-divider'] { margin-top: @divider-margin-vertical }
+
+
+/* Icon
+ ========================================================================== */
+
+.uk-divider-icon {
+    position: relative;
+    height: @divider-icon-height;
+    .svg-fill(@internal-image-divider-icon, "#000", @divider-icon-color);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    .hook-divider-icon;
+}
+
+.uk-divider-icon::before,
+.uk-divider-icon::after {
+    content: "";
+    position: absolute;
+    top: @divider-icon-line-top;
+    max-width: ~'calc(50% - (@{divider-icon-width} / 2))';
+    border-bottom: @divider-icon-line-border-width solid @divider-icon-line-border;
+    .hook-divider-icon-line;
+}
+
+.uk-divider-icon::before {
+    right: ~'calc(50% + (@{divider-icon-width} / 2))';
+    width: @divider-icon-line-width;
+    .hook-divider-icon-line-left;
+}
+
+.uk-divider-icon::after {
+    left: ~'calc(50% + (@{divider-icon-width} / 2))';
+    width: @divider-icon-line-width;
+    .hook-divider-icon-line-right;
+}
+
+
+/* Small
+ ========================================================================== */
+
+/*
+ * Reset child height, caused by `inline-block`
+ */
+
+.uk-divider-small { line-height: 0; }
+
+.uk-divider-small::after {
+    content: "";
+    display: inline-block;
+    width: @divider-small-width;
+    max-width: 100%;
+    border-top: @divider-small-border-width solid @divider-small-border;
+    vertical-align: top;
+    .hook-divider-small;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-divider-misc;
+
+.hook-divider-icon() {}
+.hook-divider-icon-line() {}
+.hook-divider-icon-line-left() {}
+.hook-divider-icon-line-right() {}
+.hook-divider-small() {}
+.hook-divider-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-divider-icon-color:                      @inverse-global-border;
+@inverse-divider-icon-line-border:                @inverse-global-border;
+@inverse-divider-small-border:                    @inverse-global-border;
+
+.hook-inverse() {
+
+    .uk-divider-icon {
+        .svg-fill(@internal-image-divider-icon, "#000", @inverse-divider-icon-color);
+        .hook-inverse-divider-icon;
+    }
+
+    .uk-divider-icon::before,
+    .uk-divider-icon::after {
+        border-bottom-color: @inverse-divider-icon-line-border;
+        .hook-inverse-divider-icon-line;
+    }
+
+    .uk-divider-small::after {
+        border-top-color: @inverse-divider-small-border;
+        .hook-inverse-divider-small;
+    }
+
+}
+
+.hook-inverse-divider-icon() {}
+.hook-inverse-divider-icon-line() {}
+.hook-inverse-divider-small() {}

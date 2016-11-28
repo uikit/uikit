@@ -1,0 +1,87 @@
+// Name:            Link
+// Description:     Styles for links
+//
+// Component:       `uk-link-muted`
+//                  `uk-link-reset`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@link-muted-color:                              @global-muted-color;
+@link-muted-hover-color:                        @global-color;
+
+
+/* ========================================================================
+   Component: Link
+ ========================================================================== */
+
+
+/* Muted
+ ========================================================================== */
+
+.uk-link-muted,
+.uk-link-muted a {
+    color: @link-muted-color;
+    .hook-link-muted;
+}
+
+.uk-link-muted:hover,
+.uk-link-muted a:hover {
+    color: @link-muted-hover-color;
+    .hook-link-muted-hover;
+}
+
+
+/* Reset
+ ========================================================================== */
+
+.uk-link-reset,
+.uk-link-reset:hover,
+.uk-link-reset:focus,
+.uk-link-reset a,
+.uk-link-reset a:hover,
+.uk-link-reset a:focus {
+    color: inherit;
+    text-decoration: none;
+    .hook-link-reset;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-link-misc;
+
+.hook-link-muted() {}
+.hook-link-muted-hover() {}
+.hook-link-reset() {}
+.hook-link-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-link-muted-color:                        @inverse-global-muted-color;
+@inverse-link-muted-hover-color:                  @inverse-global-color;
+
+.hook-inverse() {
+
+    .uk-link-muted,
+    .uk-link-muted a {
+        color: @inverse-link-muted-color;
+        .hook-inverse-link-muted;
+    }
+
+    .uk-link-muted:hover,
+    .uk-link-muted a:hover {
+        color: @inverse-link-muted-hover-color;
+        .hook-inverse-link-muted-hover;
+    }
+
+}
+
+.hook-inverse-link-muted() {}
+.hook-inverse-link-muted-hover() {}
