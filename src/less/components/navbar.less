@@ -34,6 +34,7 @@
 // ========================================================================
 
 @navbar-background:                             @global-muted-background;
+@navbar-color-mode:                             none;
 
 @navbar-nav-item-height:                        80px;
 @navbar-nav-item-padding-horizontal:            15px;
@@ -98,10 +99,15 @@
 /* Container
  ========================================================================== */
 
-.uk-navbar-container {
+.uk-navbar-container:not(.uk-navbar-transparent) {
     background: @navbar-background;
     .hook-navbar-container;
 }
+
+// Color Mode
+.uk-navbar-container:not(.uk-navbar-transparent):extend(.uk-light all) when (@navbar-color-mode = light) {}
+.uk-navbar-container:not(.uk-navbar-transparent):extend(.uk-dark all) when (@navbar-color-mode = dark) {}
+
 
 /*
  * Remove pseudo elements created by micro clearfix as precaution (if Container component is used)
@@ -307,7 +313,6 @@
  ========================================================================== */
 
 .uk-navbar-transparent {
-    background: none;
     .hook-navbar-transparent;
 }
 
@@ -509,6 +514,8 @@
 @inverse-navbar-nav-item-onclick-color:        @inverse-global-color;
 @inverse-navbar-nav-item-active-color:         @inverse-global-color;
 @inverse-navbar-item-color:                    @inverse-global-color;
+@inverse-navbar-toggle-color:                  @inverse-global-muted-color;
+@inverse-navbar-toggle-hover-color:            @inverse-global-color;
 
 .hook-inverse() {
 
@@ -539,6 +546,18 @@
         .hook-inverse-navbar-item;
     }
 
+    .uk-navbar-toggle {
+        color: @inverse-navbar-toggle-color;
+        .hook-inverse-navbar-toggle;
+    }
+
+    .uk-navbar-toggle:hover,
+    .uk-navbar-toggle:focus,
+    .uk-navbar-toggle.uk-open {
+        color: @inverse-navbar-toggle-hover-color;
+        .hook-inverse-navbar-toggle-hover;
+    }
+
 }
 
 .hook-inverse-navbar-nav-item() {}
@@ -546,3 +565,5 @@
 .hook-inverse-navbar-nav-item-onclick() {}
 .hook-inverse-navbar-nav-item-active() {}
 .hook-inverse-navbar-item() {}
+.hook-inverse-navbar-toggle() {}
+.hook-inverse-navbar-toggle-hover() {}
