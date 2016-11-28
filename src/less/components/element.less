@@ -34,9 +34,10 @@
 @heading-bullet-border-width:                   5px;
 @heading-bullet-border:                         @global-border;
 
-@heading-line-margin:                           10px;
-@heading-line-border:                           @global-border;
+@heading-line-height:                           @heading-line-border-width;
 @heading-line-border-width:                     @global-border-width;
+@heading-line-border:                           @global-border;
+@heading-line-margin-horizontal:                1em;
 
 @divider-margin-vertical:                       @global-margin;
 
@@ -136,7 +137,7 @@
 
 /*
  * 1. Using `inline-block` to make it work with text alignment
- * 2. Align vertically centered
+ * 2. Center vertically
  * 3. Style
  */
 
@@ -159,35 +160,47 @@
  * Line
  */
 
-.uk-heading-line {
-    overflow: hidden;
-}
+/*
+ * Clip the child element
+ */
 
-.uk-heading-line span {
+.uk-heading-line { overflow: hidden; }
+
+/*
+ * Extra markup is needed to make it work with text align
+ */
+
+.uk-heading-line > * {
     display: inline-block;
     position: relative;
 }
 
-.uk-heading-line span:before,
-.uk-heading-line span:after {
+/*
+ * 1. Center vertically
+ * 2. Make the element as large as possible. It's clipped by the container.
+ * 3. Style
+ */
+
+.uk-heading-line > :before,
+.uk-heading-line > :after {
     content: "";
+    /* 1 */
     position: absolute;
-    height: 1px;
-    border-bottom: @heading-line-border-width solid @heading-line-border;
-    top: 50%;
-    transform: translateY(-50%);
+    top: ~'calc(50% + (@{heading-line-height} / 2))';
+    /* 2 */
     width: 2000px;
+    /* 3 */
+    border-bottom: @heading-line-border-width solid @heading-line-border;
     .hook-heading-line;
 }
 
-.uk-heading-line span:before {
+.uk-heading-line > :before {
     right: 100%;
-    margin-right: @heading-line-margin;
+    margin-right: @heading-line-margin-horizontal;
 }
-
-.uk-heading-line span:after {
+.uk-heading-line > :after {
     left: 100%;
-    margin-left: @heading-line-margin;
+    margin-left: @heading-line-margin-horizontal;
 }
 
 
