@@ -9,6 +9,7 @@
 //                  `uk-section-primary`
 //                  `uk-section-secondary`
 //                  `uk-section-media`
+//                  `uk-preserve-color`
 //
 // ========================================================================
 
@@ -26,9 +27,14 @@
 @section-large-padding-vertical-m:                @global-xlarge-margin;
 
 @section-default-background:                      @global-background;
+
 @section-muted-background:                        @global-muted-background;
+
 @section-primary-background:                      @global-primary-background;
+@section-primary-color-mode:                      light;
+
 @section-secondary-background:                    @global-secondary-background;
+@section-secondary-color-mode:                    light;
 
 
 /* ========================================================================
@@ -147,6 +153,10 @@
     .hook-section-primary;
 }
 
+.uk-section-primary:not(.uk-preserve-color):extend(.uk-light all) when (@section-primary-color-mode = light) {}
+.uk-section-primary:not(.uk-preserve-color):extend(.uk-light all) when (@section-primary-color-mode = dark) {}
+
+
 /*
  * Secondary
  */
@@ -155,6 +165,10 @@
     background: @section-secondary-background;
     .hook-section-secondary;
 }
+
+.uk-section-secondary:not(.uk-preserve-color):extend(.uk-light all) when (@section-secondary-color-mode = light) {}
+.uk-section-secondary:not(.uk-preserve-color):extend(.uk-light all) when (@section-secondary-color-mode = dark) {}
+
 
 /*
  * Indicate that an image or video is used as background
