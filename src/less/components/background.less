@@ -65,7 +65,13 @@
 /* Attachment
  ========================================================================== */
 
-.uk-background-fixed { background-attachment: fixed; }
+/*
+ * Exclude touch devices because fixed causes issues in combination with e.g. background-position: cover
+ */
+@media (pointer: fine) {
+   .uk-background-fixed { background-attachment: fixed; }
+}
+
 
 
 /* Image
