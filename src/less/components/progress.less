@@ -10,7 +10,7 @@
 // ========================================================================
 
 @progress-height:                               15px;
-@progress-margin-vertical:                      15px;
+@progress-margin-vertical:                      @global-margin;
 @progress-background:                           @global-muted-background;
 
 @progress-bar-background:                       @global-primary-background;
@@ -26,7 +26,6 @@
  * 3. Remove borders in Firefox and Edge
  * 4. Set background color for progress container in Firefox, IE11 and Edge
  * 5. Style
- * 6. Add margin if adjacent element
  */
 
 .uk-progress {
@@ -45,7 +44,7 @@
     .hook-progress;
 }
 
-/* 6 */
+/* Add margin if adjacent element */
 * + .uk-progress { margin-top: @progress-margin-vertical; }
 
 /*
