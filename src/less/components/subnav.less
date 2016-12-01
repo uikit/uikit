@@ -87,11 +87,12 @@
 
 /*
  * Items must target `a` elements to exclude other elements (e.g. dropdowns)
+ * Using `:first-child` instead of `a` to support `span` elements for text
  * 1. Prevent gap if child element is `inline-block`, e.g. an icon
  * 2. Style
  */
 
-.uk-subnav > * > a {
+.uk-subnav > * > :first-child {
     /* 1 */
     display: block;
     /* 2 */
@@ -149,7 +150,7 @@
 /* Pill modifier
  ========================================================================== */
 
-.uk-subnav-pill > * > a {
+.uk-subnav-pill > * > :first-child {
     padding: @subnav-pill-item-padding-vertical @subnav-pill-item-padding-horizontal;
     .hook-subnav-pill-item;
 }
