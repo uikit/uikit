@@ -66,12 +66,12 @@
  ========================================================================== */
 
 /*
- * Exclude touch devices because fixed causes issues in combination with e.g. background-position: cover
+ * Exclude touch devices because `fixed` doesn't work on iOS and Android
  */
+
 @media (pointer: fine) {
    .uk-background-fixed { background-attachment: fixed; }
 }
-
 
 
 /* Image
