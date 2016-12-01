@@ -299,7 +299,6 @@
  ========================================================================== */
 
 .uk-modal-title {
-    margin-top: 0;
     font-size: @modal-title-font-size;
     line-height: @modal-title-line-height;
     .hook-modal-title;
@@ -317,6 +316,16 @@
     padding: @modal-close-padding;
     .hook-modal-close;
 }
+
+/*
+ * Remove margin from adjacent element
+ */
+
+[class*='uk-modal-close-']:first-child + * { margin-top: 0; }
+
+/*
+ * Hover
+ */
 
 [class*='uk-modal-close-']:hover {
     .hook-modal-close-hover;
@@ -363,12 +372,6 @@
 .uk-modal-close-full:hover {
     .hook-modal-close-full-hover;
 }
-
-/*
- * Remove margin from adjacent element
- */
-
-[class*='uk-modal-close-'] + :not([class*='uk-modal-']) { margin-top: 0; }
 
 
 /* Caption

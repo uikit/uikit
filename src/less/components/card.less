@@ -179,7 +179,6 @@
  ========================================================================== */
 
 .uk-card-title {
-    margin-top: 0;
     font-size: @card-title-font-size;
     line-height: @card-title-line-height;
     .hook-card-title;
@@ -196,6 +195,12 @@
     z-index: 1;
     .hook-card-badge;
 }
+
+/*
+ * Remove margin from adjacent element
+ */
+
+.uk-card-badge:first-child + * { margin-top: 0; }
 
 
 /* Hover modifier
