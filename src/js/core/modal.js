@@ -86,7 +86,7 @@ export default function (UIkit) {
             this.panel = query('!.uk-modal-dialog', this.$el);
             this.$el.css('min-height', 150);
 
-            (new Observer(() => this.$update())).observe(this.panel[0], {childList: true, subtree: true});
+            (new Observer(this._callUpdate.bind(this))).observe(this.panel[0], {childList: true, subtree: true});
 
         },
 

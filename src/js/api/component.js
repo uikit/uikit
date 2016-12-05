@@ -29,7 +29,7 @@ export default function (UIkit) {
 
             var result = [];
 
-            data =  data || {};
+            data = data || {};
 
             $(element).each((i, el) => result.push(el[DATA] && el[DATA][name] || new UIkit.components[name]({el, data})));
 
@@ -39,7 +39,33 @@ export default function (UIkit) {
         return UIkit.components[name];
     };
 
-    UIkit.getComponents = (element) => element && element[DATA] || {};
+    UIkit.getComponents = element => element && element[DATA] || {};
     UIkit.getComponent = (element, name) => UIkit.getComponents(element)[name];
+
+    UIkit.attachComponents = element => {
+        if (!element[DATA]) {
+            return;
+        }
+
+        if (UIkit.elements.indexOf(element) === -1) {
+            UIkit.elements.push(element);
+        }
+
+        for (var name in element[DATA]) {
+            UIkit.instances[element[DATA][name]._uid] = element[DATA][name];
+        }
+    };
+
+    UIkit.detachComponents = element => {
+
+        var index = UIkit.elements.indexOf(element);
+        if (index !== -1) {
+            UIkit.elements.splice(index, 1);
+        }
+
+        for (var name in element[DATA]) {
+            delete UIkit.instances[element[DATA][name]._uid];
+        }
+    }
 
 }

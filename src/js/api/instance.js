@@ -74,7 +74,12 @@ export default function (UIkit) {
 
         if (!Object.keys(el[DATA]).length) {
             delete el[DATA];
-            delete UIkit.elements[UIkit.elements.indexOf(el)];
+
+            var index = UIkit.elements.indexOf(el);
+
+            if (index !== -1) {
+                UIkit.elements.splice(index, 1);
+            }
         }
 
         if (remove) {
