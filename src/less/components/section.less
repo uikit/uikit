@@ -22,9 +22,11 @@
 
 @section-small-padding-vertical:                  @global-medium-margin;
 
-@section-large-padding-vertical:                  @global-medium-margin;
-@section-large-padding-vertical-s:                @global-large-margin;
+@section-large-padding-vertical:                  @global-large-margin;
 @section-large-padding-vertical-m:                @global-xlarge-margin;
+
+@section-xlarge-padding-vertical:                 @global-xlarge-margin;
+@section-xlarge-padding-vertical-m:               (2 * @global-xlarge-margin);
 
 @section-default-background:                      @global-background;
 
@@ -102,22 +104,32 @@
     padding-bottom: @section-large-padding-vertical;
 }
 
-/* Phone landscape and bigger */
-@media (min-width: @breakpoint-small) {
-
-    .uk-section-large {
-        padding-top: @section-large-padding-vertical-s;
-        padding-bottom: @section-large-padding-vertical-s;
-    }
-
-}
-
 /* Tablet landscape and bigger */
 @media (min-width: @breakpoint-medium) {
 
     .uk-section-large {
         padding-top: @section-large-padding-vertical-m;
         padding-bottom: @section-large-padding-vertical-m;
+    }
+
+}
+
+
+/*
+ * XLarge
+ */
+
+.uk-section-xlarge {
+    padding-top: @section-xlarge-padding-vertical;
+    padding-bottom: @section-xlarge-padding-vertical;
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-section-xlarge {
+        padding-top: @section-xlarge-padding-vertical-m;
+        padding-bottom: @section-xlarge-padding-vertical-m;
     }
 
 }
