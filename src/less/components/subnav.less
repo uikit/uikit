@@ -213,6 +213,8 @@
 @inverse-subnav-item-hover-color:              @inverse-global-color;
 @inverse-subnav-item-active-color:             @inverse-global-color;
 @inverse-subnav-divider-border:                @inverse-global-border;
+@inverse-subnav-pill-item-background:          transparent;
+@inverse-subnav-pill-item-color:               @inverse-global-muted-color;
 @inverse-subnav-pill-item-hover-background:    @inverse-global-muted-background;
 @inverse-subnav-pill-item-hover-color:         @inverse-global-color;
 @inverse-subnav-pill-item-onclick-background:  @inverse-subnav-pill-item-hover-background;
@@ -252,6 +254,12 @@
     // Pill
     //
 
+    .uk-subnav-pill > * > :first-child {
+        background: @inverse-subnav-pill-item-background;
+        color: @inverse-subnav-pill-item-color;
+        .hook-inverse-subnav-pill-item;
+    }
+
     .uk-subnav-pill > * > a:hover,
     .uk-subnav-pill > * > a:focus {
         background: @inverse-subnav-pill-item-hover-background;
@@ -286,6 +294,7 @@
 .hook-inverse-subnav-item-hover() {}
 .hook-inverse-subnav-item-active() {}
 .hook-inverse-subnav-divider() {}
+.hook-inverse-subnav-pill-item() {}
 .hook-inverse-subnav-pill-item-hover() {}
 .hook-inverse-subnav-pill-item-onclick() {}
 .hook-inverse-subnav-pill-item-active() {}
