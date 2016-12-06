@@ -1,4 +1,4 @@
-import { $, Animation, extend, isString, Transition } from '../util/index';
+import { $, Animation, Deferred, extend, isString, Transition } from '../util/index';
 
 var initProps = {
         overflow: '',
@@ -57,12 +57,12 @@ export default {
 
         toggleElement(targets, show, animate) {
 
-            var all = targets => $.when.apply($, targets.toArray().map(el => this._toggleElement(el, show, animate))),
+            var all = targets => Deferred.all(targets.toArray().map(el => this._toggleElement(el, show, animate))),
                 toggles, res, body = document.body, scroll = body.scrollTop;
 
             targets = $(targets);
 
-            if (!this.queued) {
+            if (!this.queued || targets.length < 2) {
                 return all(targets);
             }
 
@@ -115,7 +115,7 @@ export default {
             el.trigger(event, [this]);
 
             if (event.result === false) {
-                return $.Deferred().reject();
+                return Deferred.reject();
             }
 
             if (this.animation === true && animate !== false) {
@@ -128,7 +128,7 @@ export default {
 
             } else {
                 this._toggle(el, !toggled);
-                deferred = $.Deferred().resolve();
+                deferred = Deferred.resolve();
             }
 
             el.trigger(toggled ? 'hide' : 'show', [this]);
@@ -179,7 +179,6 @@ export default {
                         this._toggle(el, false);
                         el.css(initProps);
                     });
-
         },
 
         _toggleAnimation(el, show) {
