@@ -28,6 +28,8 @@
 
 @subnav-pill-item-padding-vertical:             5px;
 @subnav-pill-item-padding-horizontal:           10px;
+@subnav-pill-item-background:                   transparent;
+@subnav-pill-item-color:                        @subnav-item-color;
 @subnav-pill-item-hover-background:             @global-muted-background;
 @subnav-pill-item-hover-color:                  @global-color;
 @subnav-pill-item-onclick-background:           @subnav-pill-item-hover-background;
@@ -152,6 +154,8 @@
 
 .uk-subnav-pill > * > :first-child {
     padding: @subnav-pill-item-padding-vertical @subnav-pill-item-padding-horizontal;
+    background: @subnav-pill-item-background;
+    color: @subnav-pill-item-color;
     .hook-subnav-pill-item;
 }
 
