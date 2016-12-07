@@ -57,33 +57,26 @@ export default {
 
         toggleElement(targets, show, animate) {
 
-            var all = targets => $.when.apply($, targets.toArray().map(el => this._toggleElement(el, show, animate))),
-                toggles, res, body = document.body, scroll = body.scrollTop;
+            var toggles, body = document.body, scroll = body.scrollTop,
+                all = targets => $.when.apply($, targets.toArray().map(el => this._toggleElement(el, show, animate))),
+                delay = targets => {
+                    var def = all(targets);
+                    this.queued = true;
+                    body.scrollTop = scroll;
+                    return def;
+                };
 
             targets = $(targets);
 
-            if (!this.queued) {
+            if (!this.queued || targets.length < 2) {
                 return all(targets);
-            }
-
-            if (this.queued !== true) {
-                res = all(this.queued);
-                this.queued = true;
-                body.scrollTop = scroll;
-                return res;
+            } else if (this.queued !== true) {
+                return delay(targets.not(this.queued));
             }
 
             this.queued = targets.not(toggles = targets.filter((_, el) => this.isToggled(el)));
 
-            return all(toggles).then(() => {
-                if (this.queued !== true) {
-                    res = all(this.queued);
-                    this.queued = true;
-                    body.scrollTop = scroll;
-                    return res;
-                }
-
-            });
+            return all(toggles).then(() => this.queued !== true && delay(this.queued));
         },
 
         toggleNow(el, show) {
@@ -105,33 +98,34 @@ export default {
 
             el = $(el);
 
-            var toggled, deferred;
+            var deferred;
 
-            Animation.cancel(el);
+            if (Animation.inProgress(el)) {
 
-            toggled = typeof show === 'boolean' ? !show : this.isToggled(el);
+                deferred = $.Deferred();
+                Animation.cancel(el);
+                requestAnimationFrame(() => deferred.resolve());
 
-            var event = $.Event(`before${toggled ? 'hide' : 'show'}`);
+                return deferred.then(() => this._toggleElement(el, show, animate));
+            }
+
+            show = typeof show === 'boolean' ? show : !this.isToggled(el);
+
+            var event = $.Event(`before${show ? 'show' : 'hide'}`);
             el.trigger(event, [this]);
 
             if (event.result === false) {
                 return $.Deferred().reject();
             }
 
-            if (this.animation === true && animate !== false) {
+            deferred = (this.animation === true && animate !== false
+                ? this._toggleHeight
+                : this.animation && animate !== false
+                    ? this._toggleAnimation
+                    : this._toggleImmediate
+            )(el, show);
 
-                deferred = this._toggleHeight(el, !toggled);
-
-            } else if (this.animation && animate !== false) {
-
-                deferred = this._toggleAnimation(el, !toggled);
-
-            } else {
-                this._toggle(el, !toggled);
-                deferred = $.Deferred().resolve();
-            }
-
-            el.trigger(toggled ? 'hide' : 'show', [this]);
+            el.trigger(show ? 'show' : 'hide', [this]);
             return deferred;
         },
 
@@ -154,6 +148,11 @@ export default {
 
             this.updateAria(el);
             this.$update(null, el);
+        },
+
+        _toggleImmediate(el, show) {
+            this._toggle(el, show);
+            return $.Deferred().resolve();
         },
 
         _toggleHeight(el, show) {

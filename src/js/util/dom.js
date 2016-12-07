@@ -104,9 +104,8 @@ export function animate(element, animation, duration = 200, origin, out) {
     element
         .one(animationend || 'animationend', () => d.resolve().then(reset))
         .css('animation-duration', duration + 'ms')
-        .addClass(animation);
-
-    var cancel = requestAnimationFrame(() => element.addClass(cls));
+        .addClass(animation)
+        .addClass(cls);
 
     if (!animationend) {
         requestAnimationFrame(() => Animation.cancel(element));
@@ -115,7 +114,6 @@ export function animate(element, animation, duration = 200, origin, out) {
     return d.promise();
 
     function reset() {
-        cancelAnimationFrame(cancel);
         element.css('animation-duration', '').removeClass(`${cls} ${animation}`);
     }
 }
