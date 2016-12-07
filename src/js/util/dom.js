@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, cancelAnimationFrame, Deferred, each, extend, getContextSelectors, isNumber, isString, toJQuery, transitionend, requestAnimationFrame } from './index';
+import { animationend, cancelAnimationFrame, each, extend, getContextSelectors, isNumber, isString, toJQuery, transitionend, requestAnimationFrame } from './index';
 
 export const langDirection = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
 
@@ -34,31 +34,31 @@ export function off(el, type, listener, useCapture) {
 
 export function transition(element, props, duration = 400, transition = 'linear') {
 
-    return new Deferred((resolve, reject) => {
+    var d = $.Deferred();
 
-        element = $(element);
+    element = $(element);
 
-        for (var name in props) {
-            element.css(name, element.css(name));
-        }
+    for (var name in props) {
+        element.css(name, element.css(name));
+    }
 
-        let timer = setTimeout(() => element.trigger(transitionend || 'transitionend'), duration);
+    let timer = setTimeout(() => element.trigger(transitionend || 'transitionend'), duration);
 
-        element
-            .one(transitionend || 'transitionend', (e, cancel) => {
-                clearTimeout(timer);
-                element.removeClass('uk-transition').css('transition', '');
-                if (!cancel) {
-                    resolve();
-                } else {
-                    reject();
-                }
-            })
-            .addClass('uk-transition')
-            .css('transition', `all ${duration}ms ${transition}`)
-            .css(props);
+    element
+        .one(transitionend || 'transitionend', (e, cancel) => {
+            clearTimeout(timer);
+            element.removeClass('uk-transition').css('transition', '');
+            if (!cancel) {
+                d.resolve();
+            } else {
+                d.reject();
+            }
+        })
+        .addClass('uk-transition')
+        .css('transition', `all ${duration}ms ${transition}`)
+        .css(props);
 
-    });
+    return d.promise();
 }
 
 export const Transition = {
@@ -83,44 +83,41 @@ export const Transition = {
 
 export function animate(element, animation, duration = 200, origin, out) {
 
-    return new Deferred((resolve, reject) => {
-        var cls = out ? 'uk-animation-leave' : 'uk-animation-enter';
+    var d = $.Deferred(), cls = out ? 'uk-animation-leave' : 'uk-animation-enter';
 
-        element = $(element);
+    element = $(element);
 
-        if (animation.lastIndexOf('uk-animation-', 0) === 0) {
+    if (animation.lastIndexOf('uk-animation-', 0) === 0) {
 
-            if (origin) {
-                animation += ` uk-animation-${origin}`;
-            }
-
-            if (out) {
-                animation += ' uk-animation-reverse';
-            }
-
+        if (origin) {
+            animation += ` uk-animation-${origin}`;
         }
 
-        reset();
-
-        element
-            .one(animationend || 'animationend', () => {
-                resolve().then(reset);
-            })
-            .css('animation-duration', duration + 'ms')
-            .addClass(animation);
-
-        var cancel = requestAnimationFrame(() => element.addClass(cls));
-
-        if (!animationend) {
-            requestAnimationFrame(() => Animation.cancel(element));
+        if (out) {
+            animation += ' uk-animation-reverse';
         }
 
-        function reset() {
-            cancelAnimationFrame(cancel);
-            element.css('animation-duration', '').removeClass(`${cls} ${animation}`);
-        }
-    });
+    }
 
+    reset();
+
+    element
+        .one(animationend || 'animationend', () => d.resolve().then(reset))
+        .css('animation-duration', duration + 'ms')
+        .addClass(animation);
+
+    var cancel = requestAnimationFrame(() => element.addClass(cls));
+
+    if (!animationend) {
+        requestAnimationFrame(() => Animation.cancel(element));
+    }
+
+    return d.promise();
+
+    function reset() {
+        cancelAnimationFrame(cancel);
+        element.css('animation-duration', '').removeClass(`${cls} ${animation}`);
+    }
 }
 
 export const Animation = {
