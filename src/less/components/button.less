@@ -421,6 +421,12 @@
 @inverse-button-primary-hover-color:           @inverse-global-inverse-color;
 @inverse-button-primary-active-background:     darken(@inverse-button-primary-background, 10%);
 @inverse-button-primary-active-color:          @inverse-global-inverse-color;
+@inverse-button-secondary-background:          @inverse-global-primary-background;
+@inverse-button-secondary-color:               @inverse-global-inverse-color;
+@inverse-button-secondary-hover-background:    darken(@inverse-button-secondary-background, 5%);
+@inverse-button-secondary-hover-color:         @inverse-global-inverse-color;
+@inverse-button-secondary-active-background:   darken(@inverse-button-secondary-background, 10%);
+@inverse-button-secondary-active-color:        @inverse-global-inverse-color;
 @inverse-button-text-color:                    @inverse-global-muted-color;
 @inverse-button-text-hover-color:              @inverse-global-color;
 @inverse-button-text-disabled-color:           @inverse-global-muted-color;
@@ -476,6 +482,30 @@
     }
 
     //
+    // Secondary
+    //
+
+    .uk-button-secondary {
+        background-color: @inverse-button-secondary-background;
+        color: @inverse-button-secondary-color;
+        .hook-inverse-button-secondary;
+    }
+
+    .uk-button-secondary:hover,
+    .uk-button-secondary:focus {
+        background-color: @inverse-button-secondary-hover-background;
+        color: @inverse-button-secondary-hover-color;
+        .hook-inverse-button-secondary-hover;
+    }
+
+    .uk-button-secondary:active,
+    .uk-button-secondary.uk-active {
+        background-color: @inverse-button-secondary-active-background;
+        color: @inverse-button-secondary-active-color;
+        .hook-inverse-button-secondary-active;
+    }
+
+    //
     // Text
     //
 
@@ -503,6 +533,9 @@
 .hook-inverse-button-primary() {}
 .hook-inverse-button-primary-hover() {}
 .hook-inverse-button-primary-active() {}
+.hook-inverse-button-secondary() {}
+.hook-inverse-button-secondary-hover() {}
+.hook-inverse-button-secondary-active() {}
 .hook-inverse-button-text() {}
 .hook-inverse-button-text-hover() {}
 .hook-inverse-button-text-disabled() {}
