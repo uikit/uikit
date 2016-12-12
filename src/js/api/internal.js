@@ -43,13 +43,21 @@ export default function (UIkit) {
 
         var el = this.$el[0],
             props = this.$options.props || {},
-            options = el.getAttribute(this.$name);
+            options = el.getAttribute(this.$name),
+            key, prop;
 
         if (props) {
-            for (var key in props) {
-                var prop = hyphenate(key);
+            for (key in props) {
+                prop = hyphenate(key);
                 if (el.hasAttribute(prop)) {
-                    this[key] = coerce(props[key], el.getAttribute(prop), el)
+
+                    var value = coerce(props[key], el.getAttribute(prop), el);
+
+                    if (prop === 'target' && (!value || value.lastIndexOf('_', 0) === 0)) {
+                        continue;
+                    }
+
+                    this[key] = value;
                 }
             }
 
@@ -63,7 +71,7 @@ export default function (UIkit) {
                     }
                 } else {
                     var tmp = {};
-                    options.split(';').forEach((option) => {
+                    options.split(';').forEach(option => {
                         var [key, value] = option.split(/:(.+)/);
                         if (key && value) {
                             tmp[key.trim()] = value.trim();
@@ -72,8 +80,8 @@ export default function (UIkit) {
                     options = tmp;
                 }
 
-                for (var key in options || {}) {
-                    var prop = camelize(key);
+                for (key in options || {}) {
+                    prop = camelize(key);
                     if (props[prop] !== undefined) {
                         this[prop] = coerce(props[prop], options[key], el);
                     }
