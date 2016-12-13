@@ -479,32 +479,16 @@ blockquote footer {
  ========================================================================== */
 
 /*
- * 1. Correct the inheritance and scaling of font size in all browsers.
- * 2. Correct the odd `em` font sizing in all browsers.
+ * 1. Contain overflow in all browsers.
  */
 
 pre {
-    /* 1 */
-    font-family: monospace, monospace;
-    /* 2 */
-    font-size: 1em;
-}
-
-/*
- * Using a class to prevent conflicts with syntax highlighter
- * 1. Contain overflow in all browsers.
- * 2. Allow style also on `code` elements
- */
-
-.uk-pre {
     font: @base-pre-font-size e("/") @base-pre-line-height @base-pre-font-family;
     color: @base-pre-color;
     -moz-tab-size: 4;
     tab-size: 4;
     /* 1 */
     overflow: auto;
-    /* 2 */
-    display: block;
     .hook-base-pre;
 }
 
