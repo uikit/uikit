@@ -68,7 +68,7 @@
 
         messages[this.uuid] = this;
 
-        if(!containers[this.options.pos]) {
+        if(!containers[this.options.pos]  || !document.contains(containers[this.options.pos][0])) {
             containers[this.options.pos] = UI.$('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo('body').on("click", ".uk-notify-message", function(){
 
                 var message = UI.$(this).data('notifyMessage');
