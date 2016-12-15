@@ -91,7 +91,7 @@ gulp.task('default', ['dist', 'build-docs', 'indexthemes'], function(done) {
 
 gulp.task('dist', ['dist-themes-core'], function(done) {
 
-    runSequence('sass', 'dist-core-minify', 'dist-core-header', 'dist-bower-file', function(){
+    runSequence('sass', 'dist-core-minify', 'dist-core-header', 'dist-bower-file', 'dist-npm-file', function(){
 
         if (gutil.env.m || gutil.env.min) {
             gulp.src(['./dist/**/*.css', './dist/**/*.js', '!./dist/**/*.min.css', '!./dist/**/*.min.js'])
@@ -269,6 +269,31 @@ gulp.task('dist-bower-file', function(done) {
     };
 
     fs.writeFile('./dist/bower.json', JSON.stringify(meta, " ", 4), function(){
+        done();
+    });
+});
+
+gulp.task('dist-npm-file', function(done) {
+    var meta = {
+        "name": "uikit",
+        "version": pkg.version,
+        "description": "http://getuikit.com",
+        "homepage": "http://getuikit.com",
+        "repository": "https://github.com/uikit/bower-uikit",
+        "dependencies": {
+            "jquery": "~2.1.0"
+        },
+        "ignore": [
+            "node_modules",
+            "bower_components",
+            "docs",
+            "vendor",
+            "composer.json",
+            "index.html"
+        ]
+    };
+
+    fs.writeFile('./dist/package.json', JSON.stringify(meta, " ", 4), function(){
         done();
     });
 });
