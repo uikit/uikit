@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Htmleditor - UIkit tests</title>
+        <script src="../node_modules/jquery/dist/jquery.js"></script>
+
+        <!-- Codemirror dependencies -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.21.0/codemirror.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.21.0/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.21.0/addon/mode/overlay.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.21.0/mode/htmlmixed/htmlmixed.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.21.0/mode/xml/xml.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.21.0/mode/css/css.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.21.0/mode/javascript/javascript.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.21.0/addon/edit/matchtags.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.21.0/addon/edit/closetag.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.21.0/addon/fold/xml-fold.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.21.0/addon/edit/closebrackets.min.js"></script>
+
+        <!-- tinymce dependencies -->
+        <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+
+        <script src="js/test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Htmleditor</h1>
+
+            <h3>Full editor</h3>
+
+            <textarea name="field1" uk-htmleditor><p>Bazinga!</p></textarea>
+
+            <!--<h3>Plain textarea editor</h3>-->
+
+            <!--<textarea name="field1" uk-htmleditor="detect: ''"><p>Bazinga!</p></textarea>-->
+
+            <!--<h3>Editor only codemirror</h3>-->
+
+            <!--<textarea name="field1" uk-htmleditor="detect: codemirror"><p>Bazinga!</p></textarea>-->
+
+            <!--<h3>Editor only TyinyMce</h3>-->
+
+            <!--<textarea name="field1" uk-htmleditor="detect: tinymce"><p>Bazinga!</p></textarea>-->
+
+            <!--<h3>Editor height</h3>-->
+
+            <!--<textarea name="field1" uk-htmleditor="height: 200"><p>Bazinga!</p></textarea>-->
+
+
+            <h2>Javascript Options</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Value</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td><code>detect</code></td>
+                        <td>Array</td>
+                        <td>['codemirror', 'tinymce']</td>
+                        <td>Detects and activates these editors if loaded in the current window.</td>
+                    </tr>
+                    <tr>
+                        <td><code>height</code></td>
+                        <td>Number</td>
+                        <td>500</td>
+                        <td>Height of the editor.</td>
+                    </tr>
+                    <tr>
+                        <td><code>toolbar</code></td>
+                        <td>Array</td>
+                        <td>['paragraph', 'bold', 'italic', 'strike', 'link', 'image', 'blockquote', 'listUl' ]</td>
+                        <td>Defines which buttons to show in the toolbar</td>
+                    </tr>
+                    <tr>
+                        <td><code>lblCodeview</code></td>
+                        <td>String</td>
+                        <td>Text</td>
+                        <td>Label of toggler for code-view</td>
+                    </tr>
+                    <tr>
+                        <td><code>lblWysiwyg</code></td>
+                        <td>String</td>
+                        <td>Visual</td>
+                        <td>Label of toggler for WYSIWYG-view</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </body>
+</html>

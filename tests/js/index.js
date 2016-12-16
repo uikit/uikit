@@ -20,7 +20,8 @@ var styles = $.extend({
         'sortable',
         'spinner',
         'tooltip',
-        'upload'
+        'upload',
+        'htmleditor',
     ];
 
 if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
