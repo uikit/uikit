@@ -314,15 +314,16 @@
         return modal.show();
     };
 
-    UI.modal.prompt = function(text, value, onsubmit, options) {
+    UI.modal.prompt = function(text, value, onsubmit, oncancel, options) {
 
         onsubmit = UI.$.isFunction(onsubmit) ? onsubmit : function(value){};
+        oncancel = UI.$.isFunction(oncancel) ? oncancel : function(value){};
         options  = UI.$.extend(true, {bgclose:false, keyboard:false, modal:false, labels:UI.modal.labels}, options);
 
         var modal = UI.modal.dialog(([
             text ? '<div class="uk-modal-content uk-form">'+String(text)+'</div>':'',
             '<div class="uk-margin-small-top uk-modal-content uk-form"><p><input type="text" class="uk-width-1-1"></p></div>',
-            '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-modal-close">'+options.labels.Cancel+'</button> <button class="uk-button uk-button-primary js-modal-ok">'+options.labels.Ok+'</button></div>'
+            '<div class="uk-modal-footer uk-text-right"><button class="uk-button js-modal-cancel">'+options.labels.Cancel+'</button> <button class="uk-button uk-button-primary js-modal-ok">'+options.labels.Ok+'</button></div>'
         ]).join(""), options),
 
         input = modal.element.find("input[type='text']").val(value || '').on('keyup', function(e){
@@ -331,7 +332,12 @@
             }
         });
 
-        modal.element.find('.js-modal-ok').on('click', function(){
+        modal.element.find('.js-modal-ok, .js-modal-cancel').on('click', function(){
+            if(UI.$(this).is('.js-modal-cancel')){
+                oncancel(input.val());
+                return modal.hide();
+            }
+
             if (onsubmit(input.val())!==false){
                 modal.hide();
             }

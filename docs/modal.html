@@ -421,13 +421,13 @@
 
 <pre><code>UIkit.modal.confirm("Are you sure?", function(){
     // will be executed on confirm.
-}[, oncanel, options]);</code></pre>
+}[, oncancel, options]);</code></pre>
 
                         <button type="button" class="uk-button" onclick="UIkit.modal.prompt('Name:', '', function(val){ UIkit.modal.alert('Hello '+(val || 'Mr noname')+'!'); });">Prompt</button>
 
 <pre><code>UIkit.modal.prompt("Name:", value, function(newvalue){
     // will be executed on submit.
-});</code></pre>
+}[, oncancel, options]);</code></pre>
 
                         <button type="button" class="uk-button" onclick="(function(modal){ modal = UIkit.modal.blockUI('Wait 5 sec...'); setTimeout(function(){ modal.hide() }, 5000) })();">Block UI</button>
 
