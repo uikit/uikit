@@ -100,7 +100,7 @@ export default function (UIkit) {
 
                     var active = this.getActive();
 
-                    if (active && active.$el.is($el)) {
+                    if (!active || active && active.$el.is($el)) {
                         this.transitionTo(0);
                     }
                 }
