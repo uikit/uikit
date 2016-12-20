@@ -1,4 +1,4 @@
-import { $, Animation, isNumeric, isString, offsetParent, query, requestAnimationFrame, throttleScroll } from '../util/index';
+import { $, Animation, isNumeric, isString, query, requestAnimationFrame } from '../util/index';
 
 export default function (UIkit) {
 
@@ -32,19 +32,12 @@ export default function (UIkit) {
 
         ready() {
 
-            this.container = offsetParent(this.$el);
-            this.isWindow = this.container.is(document.documentElement);
-
-            if (this.isWindow) {
-                this.container = $(window);
-            }
-
             this.placeholder = $('<div class="uk-sticky-placeholder"></div>').insertAfter(this.$el).attr('hidden', true);
             this.widthElement = this.widthElement || this.placeholder;
             this.topProp = this.top;
             this.bottomProp = this.bottom;
 
-            var scroll = $(this.container).scrollTop();
+            var scroll = $(window).scrollTop();
             if (location.hash && scroll > 0 && this.target) {
 
                 var target = query(location.hash);
@@ -58,14 +51,12 @@ export default function (UIkit) {
                             elBottom = elTop + elHeight;
 
                         if (elBottom >= top && elTop <= top + target.outerHeight()) {
-                            $(this.container).scrollTop(top - elHeight - this.target - this.offset);
+                            window.scrollTo(0, top - elHeight - this.target - this.offset);
                         }
 
                     });
                 }
             }
-
-            throttleScroll(this.container, this._callUpdate.bind(this));
 
         },
 
@@ -87,7 +78,7 @@ export default function (UIkit) {
                         marginRight: this.$el.css('marginRight')
                     });
 
-                    this.topOffset = this[isActive ? 'placeholder' : '$el'][this.isWindow ? 'offset' : 'position']().top;
+                    this.topOffset = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
                     this.bottomOffset = this.topOffset + outerHeight;
 
                     ['top', 'bottom'].forEach(prop => {
@@ -126,7 +117,7 @@ export default function (UIkit) {
                     this.inactive = this.media && !window.matchMedia(this.media).matches;
                 }
 
-                var scroll = $(this.container).scrollTop();
+                var scroll = $(window).scrollTop();
 
                 if (scroll < 0 || !this.$el.is(':visible') || this.disabled) {
                     return;
@@ -161,11 +152,6 @@ export default function (UIkit) {
                 this.placeholder.attr('hidden', false);
 
                 var top = Math.max(0, this.offset);
-
-                if (!this.isWindow) {
-                    top += this.container.offset().top;
-                }
-
                 if (this.bottom && scroll > this.bottom - this.offset) {
                     top = this.bottom - scroll;
                 }

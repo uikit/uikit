@@ -1,4 +1,4 @@
-import { $, on, requestAnimationFrame, throttleScroll } from '../util/index';
+import { $, on, requestAnimationFrame } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
@@ -28,7 +28,7 @@ import Toggle from './toggle';
 
 export default function (UIkit) {
 
-    var resizing;
+    var scroll = window.pageYOffset, dir, ticking, resizing;
 
     $(window)
         .on('load', UIkit.update)
@@ -40,9 +40,19 @@ export default function (UIkit) {
                 });
                 resizing = true;
             }
+        })
+        .on('scroll', e => {
+            dir = scroll < window.pageYOffset;
+            scroll = window.pageYOffset;
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    e.dir = dir ? 'down' : 'up';
+                    UIkit.update(e);
+                    ticking = false;
+                });
+                ticking = true;
+            }
         });
-
-    throttleScroll(window, UIkit.update);
 
     var started = 0;
     on(document, 'animationstart', ({target}) => {

@@ -257,33 +257,3 @@ export function query(selector, context) {
     var selectors = getContextSelectors(selector);
     return selectors ? selectors.reduce((context, selector) => toJQuery(selector, context), context) : toJQuery(selector);
 }
-
-export function throttleScroll(element, fn) {
-
-    element = $(element);
-
-    var scroll = element.scrollTop(), dir, ticking;
-
-    element.on('scroll', e => {
-        dir = scroll < element.scrollTop();
-        scroll = element.scrollTop();
-        if (!ticking) {
-            requestAnimationFrame(() => {
-                e.dir = dir ? 'down' : 'up';
-                fn(e);
-                ticking = false;
-            });
-            ticking = true;
-        }
-    });
-}
-
-export function offsetParent(element) {
-    var parent = $(element).parent();
-
-    while (parent.length && parent[0] !== document.documentElement && parent.css('position') === 'static') {
-        parent = parent.parent();
-    }
-
-    return parent;
-}
