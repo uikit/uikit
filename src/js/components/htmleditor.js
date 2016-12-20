@@ -23,40 +23,34 @@ UIkit.component('htmleditor', {
 
     created() {
 
-        this.textarea = $(this.$options.el);
+        this.textarea = $(this.$options.el).attr('uk-no-boot', '');
+        this.$options.el = this.textarea.wrap('<div class="uk-htmleditor"></div>').parent();
 
-        this.$mount($(`<div class="uk-htmleditor"></div>`));
-
-        //TODO how to get the new el in DOM without destroying the textarea?
-        $(this.$options.el).replaceWith(this.$el);
-
-        //prevent double mounting
-        this.$options.el = null;
     },
 
     ready() {
-        let tpl = UIkit.components.htmleditor.template;
-
-        tpl = tpl.replace(/{:lblCodeview}/g, this.lblCodeview);
-
-        //insert template
-        this.$el.append($(tpl));
-        this.textarea.css({width: '100%', height: this.height}).appendTo(this.code);
 
         this.controls = this.$el.find('.uk-htmleditor-controls');
         this.code = this.$el.find('.uk-htmleditor-code');
 
-console.log(this.detect);
+        let tpl = UIkit.components.htmleditor.template;
+
+        tpl = tpl.replace(/{:lblCodeview}/g, this.lblCodeview);
+
+        // insert template
+        this.$el.prepend($(tpl));
+        this.textarea.css({width: '100%', height: this.height}).appendTo(this.code);
+
         this.$el.trigger($.Event('initEditor'));
 
-        //add fullscreen after editors
+        // add fullscreen after editors
         this.controls.append(`<li><a data-htmleditor-fullscreen><span uk-icon="icon: expand"></span></a></li>`);
 
-        //show editor
+        // show editor
         this.$el.trigger($.Event('showEditor'), this.mode);
         this.current_mode = this.mode;
 
-        //click events
+        // click events
         const $this = this;
         this.$el.on('click', '[data-htmleditor-mode]', function () {
 
@@ -73,7 +67,7 @@ console.log(this.detect);
             $this.setControls();
 
         });
-        this.$el.on('click', '[data-htmleditor-fullscreen]',() => {
+        this.$el.on('click', '[data-htmleditor-fullscreen]', () => {
             console.log('todo');
         });
 
@@ -92,9 +86,7 @@ console.log(this.detect);
 
     },
 
-    events: {
-
-    },
+    events: {},
 
     methods: {
         setControls() {
@@ -121,7 +113,7 @@ UIkit.mixin({
     },
 
     defaults: {
-        toolbar: ['paragraph', 'bold', 'italic', 'strike', 'link', 'image', 'blockquote', 'listUl' ],
+        toolbar: ['paragraph', 'bold', 'italic', 'strike', 'link', 'image', 'blockquote', 'listUl'],
     },
 
     events: {
@@ -145,37 +137,37 @@ UIkit.mixin({
                     after: '</strong>',
                 },
                 italic: {
-                    title  : 'Italic',
+                    title: 'Italic',
                     label: '<span class="uk-icon-button" uk-icon="icon: italic"></span>',
                     before: '<em>',
                     after: '</em>',
                 },
                 strike: {
-                    title  : 'Strikethrough',
+                    title: 'Strikethrough',
                     label: '<span class="uk-icon-button" uk-icon="icon: strikethrough"></span>',
                     before: '<del>',
                     after: '</del>',
                 },
                 blockquote: {
-                    title  : 'Blockquote',
+                    title: 'Blockquote',
                     label: '<span class="uk-icon-button" uk-icon="icon: quote-right"></span>',
                     before: '<p><blockquote>',
                     after: '</blockquote></p>',
                     type: 'block',
                 },
                 link: {
-                    title  : 'Link',
+                    title: 'Link',
                     label: '<span class="uk-icon-button" uk-icon="icon: link"></span>',
                     before: '<a href="">',
                     after: '</a>',
                 },
                 image: {
-                    title  : 'Image',
+                    title: 'Image',
                     label: '<span class="uk-icon-button" uk-icon="icon: image"></span>',
                     before: '<img src="" alt=""/>',
                 },
                 listUl: {
-                    title  : 'Unordered List',
+                    title: 'Unordered List',
                     label: '<span class="uk-icon-button" uk-icon="icon: list"></span>',
                     before: '<ul>\n\t<li>',
                     after: '</li>\n</ul>',
@@ -306,12 +298,12 @@ UIkit.mixin({
 UIkit.mixin({
 
     props: {
-        codemirror:  Object,
-        Codemirror:  Object,
+        codemirror: Object,
+        Codemirror: Object,
     },
 
     defaults: {
-        Codemirror:  false,
+        Codemirror: false,
         codemirror: {
             mode: 'htmlmixed',
             lineWrapping: true,
@@ -324,7 +316,7 @@ UIkit.mixin({
             indentUnit: 4,
             indentWithTabs: false,
             tabSize: 4,
-            hintOptions: {completionSingle:false},
+            hintOptions: {completionSingle: false},
         },
     },
 
@@ -370,7 +362,7 @@ UIkit.mixin({
 
     props: {
         tinymce: Object,
-        TinyMce:  Object,
+        TinyMce: Object,
         lblWysiwyg: String,
     },
 
@@ -379,7 +371,7 @@ UIkit.mixin({
         tinymce: {
             menubar: true,
         },
-        lblWysiwyg:  'Visual',
+        lblWysiwyg: 'Visual',
     },
 
     events: {
@@ -426,7 +418,6 @@ UIkit.mixin({
 }, 'htmleditor');
 
 
-
 /**
  * @license Rangy Inputs, a jQuery plug-in for selection and caret manipulation within textareas and text inputs.
  *
@@ -443,7 +434,7 @@ UIkit.mixin({
  * Version: 1.2.0
  * Build date: 30 November 2014
  */
-(function($) {
+(function ($) {
     var UNDEF = "undefined";
     var getSelection, setSelection, deleteSelectedText, deleteText, insertText;
     var replaceSelectedText, surroundSelectedText, extractSelectedText, collapseSelection;
@@ -479,7 +470,7 @@ UIkit.mixin({
         if (end < 0) {
             end += el.value.length;
         }
-        return { start: start, end: end };
+        return {start: start, end: end};
     }
 
     function makeSelection(el, start, end) {
@@ -495,24 +486,24 @@ UIkit.mixin({
         return isHostObject(document, "body") ? document.body : document.getElementsByTagName("body")[0];
     }
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         var testTextArea = document.createElement("textarea");
 
         getBody().appendChild(testTextArea);
 
         if (isHostProperty(testTextArea, "selectionStart") && isHostProperty(testTextArea, "selectionEnd")) {
-            getSelection = function(el) {
+            getSelection = function (el) {
                 var start = el.selectionStart, end = el.selectionEnd;
                 return makeSelection(el, start, end);
             };
 
-            setSelection = function(el, startOffset, endOffset) {
+            setSelection = function (el, startOffset, endOffset) {
                 var offsets = adjustOffsets(el, startOffset, endOffset);
                 el.selectionStart = offsets.start;
                 el.selectionEnd = offsets.end;
             };
 
-            collapseSelection = function(el, toStart) {
+            collapseSelection = function (el, toStart) {
                 if (toStart) {
                     el.selectionEnd = el.selectionStart;
                 } else {
@@ -522,7 +513,7 @@ UIkit.mixin({
         } else if (isHostMethod(testTextArea, "createTextRange") && isHostObject(document, "selection") &&
             isHostMethod(document.selection, "createRange")) {
 
-            getSelection = function(el) {
+            getSelection = function (el) {
                 var start = 0, end = 0, normalizedValue, textInputRange, len, endRange;
                 var range = document.selection.createRange();
 
@@ -555,11 +546,11 @@ UIkit.mixin({
             // the textarea value is two characters. This function corrects for that by converting a text offset into a
             // range character offset by subtracting one character for every line break in the textarea prior to the
             // offset
-            var offsetToRangeCharacterMove = function(el, offset) {
+            var offsetToRangeCharacterMove = function (el, offset) {
                 return offset - (el.value.slice(0, offset).split("\r\n").length - 1);
             };
 
-            setSelection = function(el, startOffset, endOffset) {
+            setSelection = function (el, startOffset, endOffset) {
                 var offsets = adjustOffsets(el, startOffset, endOffset);
                 var range = el.createTextRange();
                 var startCharMove = offsetToRangeCharacterMove(el, offsets.start);
@@ -573,7 +564,7 @@ UIkit.mixin({
                 range.select();
             };
 
-            collapseSelection = function(el, toStart) {
+            collapseSelection = function (el, toStart) {
                 var range = document.selection.createRange();
                 range.collapse(toStart);
                 range.select();
@@ -621,7 +612,7 @@ UIkit.mixin({
             return valueAfterPaste;
         }
 
-        var pasteText = function(el, text) {
+        var pasteText = function (el, text) {
             var valueAfterPaste = getValueAfterPaste(el, text);
             try {
                 var pasteInfo = pasteTextWithCommand(el, text);
@@ -637,7 +628,7 @@ UIkit.mixin({
             return valueAfterPaste;
         };
 
-        deleteText = function(el, start, end, moveSelection) {
+        deleteText = function (el, start, end, moveSelection) {
             if (start != end) {
                 setSelection(el, start, end);
                 pasteText(el, "");
@@ -647,17 +638,17 @@ UIkit.mixin({
             }
         };
 
-        deleteSelectedText = function(el) {
+        deleteSelectedText = function (el) {
             setSelection(el, pasteText(el, "").index);
         };
 
-        extractSelectedText = function(el) {
+        extractSelectedText = function (el) {
             var pasteInfo = pasteText(el, "");
             setSelection(el, pasteInfo.index);
             return pasteInfo.replaced;
         };
 
-        var updateSelectionAfterInsert = function(el, startIndex, text, selectionBehaviour) {
+        var updateSelectionAfterInsert = function (el, startIndex, text, selectionBehaviour) {
             var endIndex = startIndex + text.length;
 
             selectionBehaviour = (typeof selectionBehaviour == "string") ?
@@ -689,7 +680,7 @@ UIkit.mixin({
             }
         };
 
-        insertText = function(el, text, index, selectionBehaviour) {
+        insertText = function (el, text, index, selectionBehaviour) {
             setSelection(el, index);
             pasteText(el, text);
             if (typeof selectionBehaviour == "boolean") {
@@ -698,12 +689,12 @@ UIkit.mixin({
             updateSelectionAfterInsert(el, index, text, selectionBehaviour);
         };
 
-        replaceSelectedText = function(el, text, selectionBehaviour) {
+        replaceSelectedText = function (el, text, selectionBehaviour) {
             var pasteInfo = pasteText(el, text);
             updateSelectionAfterInsert(el, pasteInfo.index, text, selectionBehaviour || "collapseToEnd");
         };
 
-        surroundSelectedText = function(el, before, after, selectionBehaviour) {
+        surroundSelectedText = function (el, before, after, selectionBehaviour) {
             if (typeof after == UNDEF) {
                 after = before;
             }
@@ -713,7 +704,7 @@ UIkit.mixin({
         };
 
         function jQuerify(func, returnThis) {
-            return function() {
+            return function () {
                 var el = this.jquery ? this[0] : this;
                 var nodeName = el.nodeName.toLowerCase();
 
