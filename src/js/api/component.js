@@ -42,7 +42,7 @@ export default function (UIkit) {
     UIkit.getComponents = element => element && element[DATA] || {};
     UIkit.getComponent = (element, name) => UIkit.getComponents(element)[name];
 
-    UIkit.attachComponents = element => {
+    UIkit.connect = element => {
         if (!element[DATA]) {
             return;
         }
@@ -53,11 +53,11 @@ export default function (UIkit) {
 
         for (var name in element[DATA]) {
             UIkit.instances[element[DATA][name]._uid] = element[DATA][name];
+            element[DATA][name]._callHook('connected');
         }
     };
 
-    UIkit.detachComponents = element => {
-
+    UIkit.disconnect = element => {
         var index = UIkit.elements.indexOf(element);
         if (index !== -1) {
             UIkit.elements.splice(index, 1);
@@ -65,6 +65,7 @@ export default function (UIkit) {
 
         for (var name in element[DATA]) {
             delete UIkit.instances[element[DATA][name]._uid];
+            element[DATA][name]._callHook('disconnected');
         }
     }
 

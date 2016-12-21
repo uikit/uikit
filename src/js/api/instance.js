@@ -28,6 +28,10 @@ export default function (UIkit) {
 
         this._initEvents();
 
+        if (document.documentElement.contains(el)) {
+            this._callHook('connected');
+        }
+
         ready(() => this._callReady());
 
     };

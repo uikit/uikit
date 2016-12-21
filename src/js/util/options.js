@@ -7,6 +7,8 @@ strats.created =
 strats.init =
 strats.ready =
 strats.update =
+strats.connected =
+strats.disconnected =
 strats.destroy = function (parentVal, childVal) {
     return childVal
         ? parentVal

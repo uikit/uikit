@@ -30,10 +30,13 @@ export default function (UIkit) {
             target: false
         },
 
+        connected() {
+            this.placeholder = $('<div class="uk-sticky-placeholder"></div>').insertAfter(this.$el).attr('hidden', true).attr('uid', this._uid);
+            this._widthElement = this.widthElement || this.placeholder;
+        },
+
         ready() {
 
-            this.placeholder = $('<div class="uk-sticky-placeholder"></div>').insertAfter(this.$el).attr('hidden', true);
-            this.widthElement = this.widthElement || this.placeholder;
             this.topProp = this.top;
             this.bottomProp = this.bottom;
 
@@ -159,7 +162,7 @@ export default function (UIkit) {
                 this.$el.css({
                     position: 'fixed',
                     top: top + 'px',
-                    width: this.widthElement[0].getBoundingClientRect().width
+                    width: this._widthElement[0].getBoundingClientRect().width
                 });
 
                 if (isActive) {
@@ -179,6 +182,12 @@ export default function (UIkit) {
 
             events: ['scroll', 'load', 'resize', 'orientationchange']
 
+        },
+
+        disconnected() {
+            this.placeholder.remove();
+            this.placeholder = null;
+            this._widthElement = null;
         }
 
     });

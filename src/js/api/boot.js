@@ -11,11 +11,11 @@ export default function (UIkit) {
             mutations.forEach(mutation => {
 
                 for (var i = 0; i < mutation.addedNodes.length; i++) {
-                    apply(mutation.addedNodes[i], attachComponents, visited);
+                    apply(mutation.addedNodes[i], connect, visited);
                 }
 
                 for (i = 0; i < mutation.removedNodes.length; i++) {
-                    apply(mutation.removedNodes[i], UIkit.detachComponents);
+                    apply(mutation.removedNodes[i], UIkit.disconnect);
                 }
 
             });
@@ -24,15 +24,15 @@ export default function (UIkit) {
 
     } else {
         ready(() => {
-            apply(document.body, attachComponents);
-            on(document.body, 'DOMNodeInserted', e => apply(e.target, attachComponents));
-            on(document.body, 'DOMNodeRemoved', e => apply(e.target, UIkit.detachComponents));
+            apply(document.body, connect);
+            on(document.body, 'DOMNodeInserted', e => apply(e.target, connect));
+            on(document.body, 'DOMNodeRemoved', e => apply(e.target, UIkit.disconnect));
         });
     }
 
-    function attachComponents(node) {
+    function connect(node) {
 
-        UIkit.attachComponents(node);
+        UIkit.connect(node);
 
         if (!matches(node, UIkit.component.selector)) {
             return;
