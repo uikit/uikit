@@ -133,13 +133,7 @@ export default {
             el = $(el);
 
             if (this.cls) {
-
-                if (this.cls.indexOf(' ') != -1) {
-                    el.toggleClass(this.cls);
-                } else {
-                    el.toggleClass(this.cls, toggled);
-                }
-
+                el.toggleClass(this.cls, this.cls.indexOf(' ') != -1 ? undefined : toggled);
             } else {
                 el.attr('hidden', !toggled);
             }
