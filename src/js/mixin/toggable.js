@@ -51,6 +51,8 @@ export default {
 
         }
 
+        this.queued = this.queued && !!this.animation;
+
     },
 
     methods: {
@@ -70,7 +72,9 @@ export default {
 
             if (!this.queued || targets.length < 2) {
                 return all(targets);
-            } else if (this.queued !== true) {
+            }
+
+            if (this.queued !== true) {
                 return delay(targets.not(this.queued));
             }
 

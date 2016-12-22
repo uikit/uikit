@@ -21,12 +21,12 @@ export default function (UIkit) {
             swiping: true,
             cls: 'uk-active',
             clsContainer: 'uk-switcher',
-            attrItem: 'uk-switcher-item'
+            attrItem: 'uk-switcher-item',
+            queued: true
         },
 
         ready() {
 
-            this.queued = !!this.animation;
             this.toggles = toJQuery(this.toggle, this.$el);
 
             if (!this.connect) {
@@ -78,18 +78,14 @@ export default function (UIkit) {
                     }
                 }
 
-                if (!toggle || (prev >= 0 && toggle.hasClass(this.cls)) || prev === index) {
+                if (!toggle || prev >= 0 && toggle.hasClass(this.cls) || prev === index) {
                     return;
                 }
 
                 this.toggles.removeClass(this.cls).attr('aria-expanded', false);
                 toggle.addClass(this.cls).attr('aria-expanded', true);
 
-                this.toggleElement(
-                    (hasPrev ? this.connect.children(`:nth-child(${prev + 1})`) : $([])).add(this.connect.children(`:nth-child(${index + 1})`)),
-                    null,
-                    hasPrev
-                );
+                this.toggleElement(this.connect.children(`${hasPrev ? `:nth-child(${prev + 1}),` : ''}:nth-child(${index + 1})`), null, hasPrev);
             }
 
         }
