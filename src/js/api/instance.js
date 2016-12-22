@@ -28,7 +28,7 @@ export default function (UIkit) {
 
         this._initEvents();
 
-        if (document.documentElement.contains(el)) {
+        if (document.documentElement.contains(this.$el[0])) {
             this._callHook('connected');
         }
 
