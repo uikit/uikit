@@ -11,10 +11,12 @@ export default function (UIkit) {
         options = options || {};
         options = this.$options = mergeOptions(this.constructor.options, options, this);
 
+        UIkit.instances[uid] = this;
+
         this.$el = null;
         this.$name = UIkit.prefix + hyphenate(this.$options.name);
-        this._uid = uid++;
 
+        this._uid = uid++;
         this._initData();
         this._initMethods();
         this._callHook('created');
@@ -22,8 +24,6 @@ export default function (UIkit) {
         if (options.el) {
             this.$mount(options.el);
         }
-
-        UIkit.instances[this._uid] = this;
     };
 
     UIkit.prototype._initData = function () {
