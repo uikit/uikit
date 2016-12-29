@@ -1,0 +1,42 @@
+[default]
+bears = FilenameBear, InvalidLinkBear, coalaBear
+files = **.css, **.yml, **.js, **.html, **.json, **.svg, **.md, **.scss
+ignore = vendor/**
+timeout = 15
+
+[xml]
+bears = XMLBear, LineLengthBear
+files = **.svg
+
+[yaml]
+bears = LineLengthBear, YAMLLintBear
+files = **.yml
+
+[json]
+bears = JSONFormatBear, LineLengthBear
+files = **.json
+
+[scss]
+bears = SCSSLintBear, LineLengthBear
+files = **.scss
+
+[css]
+bears = CSSLintBear
+files = **.css
+
+[markdown]
+bears = MarkdownBear, LineLengthBear
+files = **.md
+
+[html]
+bears = LineLengthBear, BootLintBear, HTMLLintBear
+files = **.html
+htmllint_ignore = indentation, tabs, concerns_separation, formatting, entities
+ignore = vendor/**, tests/core/switcher.html
+# ignoring tests/core/switcher.html, because unable to fix extra whitespace problem in line 219
+# this issue is here - https://github.com/coala/coala-bears/issues/1218
+
+[javascript]
+bears = JSComplexityBear, JSHintBear
+files = **.js
+javascript_strictness = False
