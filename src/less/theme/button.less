@@ -158,8 +158,8 @@
      * Collapse border
      */
 
-    .uk-button-group > .uk-button-default:nth-child(n+2),
-    .uk-button-group > div:nth-child(n+2) .uk-button-default { margin-left: -@button-border-width; }
+    .uk-button-group > .uk-button:nth-child(n+2),
+    .uk-button-group > div:nth-child(n+2) .uk-button { margin-left: -@button-border-width; }
 
     /*
      * Create position context to superimpose the successor elements border
@@ -168,10 +168,10 @@
      * Workaround: Just use a `button` or `input` element as button
      */
 
-    .uk-button-group .uk-button-default:hover,
-    .uk-button-group .uk-button-default:focus,
-    .uk-button-group .uk-button-default:active,
-    .uk-button-group .uk-button-default.uk-active {
+    .uk-button-group .uk-button:hover,
+    .uk-button-group .uk-button:focus,
+    .uk-button-group .uk-button:active,
+    .uk-button-group .uk-button.uk-active {
         position: relative;
         z-index: 1;
     }
@@ -196,7 +196,7 @@
 // Hooks
 //
 
-.hook-inverse-button-default() { border-color: fade(@inverse-global-color, 60%); }
+.hook-inverse-button-default() { border-color: @inverse-global-color; }
 .hook-inverse-button-default-hover() { border-color: @inverse-global-emphasis-color; }
 .hook-inverse-button-default-active() { border-color: @inverse-global-emphasis-color; }
 
