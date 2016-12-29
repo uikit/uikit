@@ -58,9 +58,11 @@
  * Required for `a`
  */
 
-.uk-badge:hover {
+.uk-badge:hover,
+.uk-badge:focus {
     color: @badge-hover-color;
     text-decoration: none;
+    outline: none;
     .hook-badge-hover;
 }
 
@@ -90,7 +92,8 @@
         .hook-inverse-badge;
     }
 
-    .uk-badge:hover {
+    .uk-badge:hover,
+    .uk-badge:focus {
         color: @inverse-badge-hover-color;
         .hook-inverse-badge-hover;
     }
