@@ -73,6 +73,7 @@
 .uk-close:focus {
     color: @close-hover-color;
     outline: none;
+    .hook-close-hover;
 }
 
 
@@ -82,11 +83,36 @@
 .uk-close-large::before { background-image: data-uri('image/svg+xml;charset=UTF-8', "../../../images/close-large.svg"); }
 
 
-
 // Hooks
 // ========================================================================
 
 .hook-close-misc;
 
 .hook-close() {}
+.hook-close-hover() {}
 .hook-close-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-close-color:                           @inverse-global-muted-color;
+@inverse-close-hover-color:                     @inverse-global-color;
+
+.hook-inverse() {
+
+    .uk-close {
+        color: @inverse-close-color;
+        .hook-inverse-close;
+    }
+
+    .uk-close:hover,
+    .uk-close:focus {
+        color: @inverse-close-hover-color;
+        .hook-inverse-close-hover;
+    }
+
+}
+
+.hook-inverse-close() {}
+.hook-inverse-close-hover() {}
