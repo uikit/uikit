@@ -9,6 +9,7 @@
 //                  `uk-section-primary`
 //                  `uk-section-secondary`
 //                  `uk-section-media`
+//                  `uk-section-overlap`
 //                  `uk-preserve-color`
 //
 // ========================================================================
@@ -201,6 +202,18 @@
     .hook-section-media;
 }
 
+/* Overlap modifier
+ ========================================================================== */
+
+/*
+ * Reserved modifier to make a section overlap another section with an border image
+ * Implemented by the theme
+ */
+
+.uk-section-overlap {
+    .hook-section-overlap;
+}
+
 
 // Hooks
 // ========================================================================
@@ -213,4 +226,5 @@
 .hook-section-secondary() {}
 .hook-section-primary() {}
 .hook-section-media() {}
+.hook-section-overlap() {}
 .hook-section-misc() {}
