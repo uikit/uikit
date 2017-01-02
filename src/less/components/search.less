@@ -48,9 +48,9 @@
 @search-toggle-color:                               @global-muted-color;
 @search-toggle-hover-color:                         @global-color;
 
-@internal-image-search-default:                     "../../../images/search-default.svg";
-@internal-image-search-navbar:                      "../../../images/search-navbar.svg";
-@internal-image-search-large:                       "../../../images/search-large.svg";
+@internal-search-default-image:                     "../../../images/search-default.svg";
+@internal-search-navbar-image:                      "../../../images/search-navbar.svg";
+@internal-search-large-image:                       "../../../images/search-large.svg";
 
 
 /* ========================================================================
@@ -137,7 +137,7 @@
 /* Icon
  ========================================================================== */
 
-.uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-search-default); }
+.uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-search-default-image); }
 
 /*
  * Adopts `uk-icon`
@@ -287,7 +287,7 @@
  * Icon
  */
 
-.uk-search-navbar .uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-search-navbar); }
+.uk-search-navbar .uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-search-navbar-image); }
 
 .uk-search-navbar .uk-search-icon { width: @search-navbar-icon-width; }
 
@@ -315,7 +315,7 @@
  * Icon
  */
 
-.uk-search-large .uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-search-large); }
+.uk-search-large .uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-search-large-image); }
 
 .uk-search-large .uk-search-icon { width: @search-large-icon-width; }
 

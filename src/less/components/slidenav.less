@@ -21,10 +21,10 @@
 
 @slidenav-active-color:                         fadeout(@global-color, 10%);
 
-@internal-image-slidenav-previous:              "../../../images/slidenav-previous.svg";
-@internal-image-slidenav-next:                  "../../../images/slidenav-next.svg";
-@internal-image-slidenav-large-previous:        "../../../images/slidenav-large-previous.svg";
-@internal-image-slidenav-large-next:            "../../../images/slidenav-large-next.svg";
+@internal-slidenav-previous-image:              "../../../images/slidenav-previous.svg";
+@internal-slidenav-next-image:                  "../../../images/slidenav-next.svg";
+@internal-slidenav-large-previous-image:        "../../../images/slidenav-large-previous.svg";
+@internal-slidenav-large-next-image:            "../../../images/slidenav-large-next.svg";
 
 
 /* ========================================================================
@@ -63,7 +63,7 @@
  * Previous
  */
 
-[uk-slidenav*='previous']::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-slidenav-previous); }
+[uk-slidenav*='previous']::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-slidenav-previous-image); }
 
 [uk-slidenav*='previous'] {
     .hook-slidenav-previous;
@@ -73,7 +73,7 @@
  * Next
  */
 
-[uk-slidenav*='next']::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-slidenav-next); }
+[uk-slidenav*='next']::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-slidenav-next-image); }
 
 [uk-slidenav*='next'] {
     .hook-slidenav-next;
@@ -83,9 +83,9 @@
 /* Size modifier
  ========================================================================== */
 
-.uk-slidenav-large[uk-slidenav*='previous']::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-slidenav-large-previous); }
+.uk-slidenav-large[uk-slidenav*='previous']::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-slidenav-large-previous-image); }
 
-.uk-slidenav-large[uk-slidenav*='next']::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-slidenav-large-next); }
+.uk-slidenav-large[uk-slidenav*='next']::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-slidenav-large-next-image); }
 
 
 /* Container
