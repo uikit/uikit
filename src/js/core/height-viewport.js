@@ -1,3 +1,5 @@
+import { fastdom } from '../util/index';
+
 export default function (UIkit) {
 
     UIkit.component('height-viewport', {
@@ -18,37 +20,39 @@ export default function (UIkit) {
 
             handler() {
 
-                var viewport = window.innerHeight, height, offset;
+                fastdom.mutate(() => {
 
-                if (this.mode === 'expand') {
+                    var viewport = window.innerHeight, height, offset;
 
-                    this.$el.css({height: '', minHeight: ''});
+                    if (this.mode === 'expand') {
 
-                    var diff = viewport - document.documentElement.offsetHeight;
+                        this.$el.css({height: '', minHeight: ''});
 
-                    if (diff > 0) {
-                        this.$el.css('min-height', height = this.$el.outerHeight() + diff)
+                        var diff = viewport - document.documentElement.offsetHeight;
+
+                        if (diff > 0) {
+                            this.$el.css('min-height', height = this.$el.outerHeight() + diff)
+                        }
+
+                    } else {
+
+                        var top = this.$el[0].offsetTop;
+
+                        offset = this.mode === 'offset' && top < viewport;
+
+                        this.$el.css('min-height', height = offset ? `calc(100vh - ${offset ? top : 0}px)` : '100vh');
+
                     }
 
-                } else {
+                    // IE 10-11 fix (min-height on a flex container won't apply to its flex items)
+                    this.$el.css('height', '');
+                    if (height && viewport - (offset ? top : 0) >= this.$el.outerHeight()) {
+                        this.$el.css('height', height);
+                    }
 
-                    var top = this.$el[0].offsetTop;
-
-                    offset = this.mode === 'offset' && top < viewport;
-
-                    this.$el.css('min-height', height = offset ? `calc(100vh - ${offset ? top : 0}px)` : '100vh');
-
-                }
-
-                // IE 10-11 fix (min-height on a flex container won't apply to its flex items)
-                this.$el.css('height', '');
-                if (height && viewport - (offset ? top : 0) >= this.$el.outerHeight()) {
-                    this.$el.css('height', height);
-                }
+                });
 
             },
-
-            delayed: true,
 
             events: ['load', 'resize', 'orientationchange']
 

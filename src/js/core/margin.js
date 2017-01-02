@@ -18,10 +18,7 @@ export default function (UIkit) {
 
             handler() {
 
-                var rows;
-
                 fastdom.clear(this._measure);
-                fastdom.clear(this._mutate);
 
                 this._measure = fastdom.measure(() => {
 
@@ -31,9 +28,8 @@ export default function (UIkit) {
 
                     this.stacks = true;
 
-                    var columns = this.$el.children().filter((_, el) => el.offsetHeight > 0);
-
-                    rows = [[columns.get(0)]];
+                    var columns = this.$el.children().filter((_, el) => el.offsetHeight > 0),
+                        rows = [[columns.get(0)]];
 
                     columns.slice(1).each((_, el) => {
 
@@ -69,17 +65,19 @@ export default function (UIkit) {
 
                     });
 
+                    fastdom.mutate(() =>
+                        rows.forEach((row, i) =>
+                            row.forEach((el, j) =>
+                                $(el)
+                                    .toggleClass(this.margin, i !== 0)
+                                    .toggleClass(this.firstColumn, j === 0)
+                            )
+                        )
+                    );
+
                 });
 
-                this._mutate = fastdom.mutate(() =>
-                    rows && rows.forEach((row, i) =>
-                        row.forEach((el, j) =>
-                            $(el)
-                                .toggleClass(this.margin, i !== 0)
-                                .toggleClass(this.firstColumn, j === 0)
-                        )
-                    )
-                );
+
 
             },
 

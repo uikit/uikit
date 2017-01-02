@@ -1,4 +1,4 @@
-import { $, isInView, toJQuery } from '../util/index';
+import { $, fastdom, isInView, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
@@ -56,42 +56,48 @@ export default function (UIkit) {
 
                     var data = el.__uk_scrollspy;
 
-                    if (isInView(el, this.offsetTop, this.offsetLeft)) {
+                    fastdom.measure(() => {
 
-                        if (!data.inview && !data.timer) {
+                        var show = isInView(el, this.offsetTop, this.offsetLeft);
 
-                            data.timer = setTimeout(() => {
+                        fastdom.mutate(() => {
+                            if (show) {
 
-                                $el.css('visibility', '').addClass(this.inViewClass).toggleClass(data.toggles[0]).trigger('inview'); // TODO rename event?
+                                if (!data.inview && !data.timer) {
 
-                                data.inview = true;
-                                delete data.timer;
+                                    data.timer = setTimeout(() => {
 
-                            }, this.delay * index++);
+                                        $el.css('visibility', '').addClass(this.inViewClass).toggleClass(data.toggles[0]).trigger('inview'); // TODO rename event?
 
-                        }
+                                        data.inview = true;
+                                        delete data.timer;
 
-                    } else {
+                                    }, this.delay * index++);
 
-                        if (data.inview && this.repeat) {
+                                }
 
-                            if (data.timer) {
-                                clearTimeout(data.timer);
-                                delete data.timer;
+                            } else {
+
+                                if (data.inview && this.repeat) {
+
+                                    if (data.timer) {
+                                        clearTimeout(data.timer);
+                                        delete data.timer;
+                                    }
+
+                                    $el.removeClass(this.inViewClass).toggleClass(data.toggles[0]).css('visibility', this.hidden ? 'hidden' : '').trigger('outview'); // TODO rename event?
+                                    data.inview = false;
+                                }
+
                             }
 
-                            $el.removeClass(this.inViewClass).toggleClass(data.toggles[0]).css('visibility', this.hidden ? 'hidden' : '').trigger('outview'); // TODO rename event?
-                            data.inview = false;
-                        }
+                            data.toggles.reverse();
+                        });
+                    });
 
-                    }
-
-                    data.toggles.reverse();
                 });
 
             },
-
-            delayed: true,
 
             events: ['scroll', 'load', 'resize', 'orientationchange']
 
