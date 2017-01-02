@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, cancelAnimationFrame, each, extend, getContextSelectors, isNumber, isString, toJQuery, transitionend, requestAnimationFrame } from './index';
+import { animationend, each, extend, getContextSelectors, isNumber, isString, toJQuery, transitionend, requestAnimationFrame } from './index';
 
 export const langDirection = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
 

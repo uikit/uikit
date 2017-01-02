@@ -1,4 +1,4 @@
-import { $, isVoidElement, toJQuery } from '../util/index';
+import { $, fastdom, isVoidElement, toJQuery } from '../util/index';
 
 var storage = window.sessionStorage || {}, svgs = {};
 
@@ -77,57 +77,59 @@ export default function (UIkit) {
                     }
                 }
 
-                this.get(this.src).then(svg => {
+                this.get(this.src).then(svg =>
+                    fastdom.mutate(() => {
 
-                    var el;
+                        var el;
 
-                    el = !this.icon
-                        ? svg.clone()
-                        : (el = toJQuery(`#${this.icon}`, svg))
-                            && toJQuery((el[0].outerHTML || $('<div>').append(el.clone()).html()).replace(/symbol/g, 'svg')) // IE workaround, el[0].outerHTML
-                            || !toJQuery('symbol', svg) && svg.clone(); // fallback if SVG has no symbols
+                        el = !this.icon
+                            ? svg.clone()
+                            : (el = toJQuery(`#${this.icon}`, svg))
+                                && toJQuery((el[0].outerHTML || $('<div>').append(el.clone()).html()).replace(/symbol/g, 'svg')) // IE workaround, el[0].outerHTML
+                                || !toJQuery('symbol', svg) && svg.clone(); // fallback if SVG has no symbols
 
-                    if (!el || !el.length) {
-                        return $.Deferred().reject('SVG not found.');
-                    }
-
-                    var dimensions = el[0].getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
-
-                    if (dimensions) {
-                        dimensions = dimensions.split(' ');
-                        this.width = this.width || dimensions[2];
-                        this.height = this.height || dimensions[3];
-                    }
-
-                    this.width *= this.ratio;
-                    this.height *= this.ratio;
-
-                    for (var prop in this.$options.props) {
-                        if (this[prop] && this.exclude.indexOf(prop) === -1) {
-                            el.attr(prop, this[prop]);
+                        if (!el || !el.length) {
+                            return $.Deferred().reject('SVG not found.');
                         }
-                    }
 
-                    if (!this.id) {
-                        el.removeAttr('id');
-                    }
+                        var dimensions = el[0].getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
 
-                    if (this.width && !this.height) {
-                        el.removeAttr('height');
-                    }
+                        if (dimensions) {
+                            dimensions = dimensions.split(' ');
+                            this.width = this.width || dimensions[2];
+                            this.height = this.height || dimensions[3];
+                        }
 
-                    if (this.height && !this.width) {
-                        el.removeAttr('width');
-                    }
+                        this.width *= this.ratio;
+                        this.height *= this.ratio;
 
-                    if (isVoidElement(this.$el)) {
-                        this.$el.attr({hidden: true, id: null});
-                        this.svg.resolve(el.insertAfter(this.$el));
-                    } else {
-                        this.svg.resolve(el.appendTo(this.$el));
-                    }
+                        for (var prop in this.$options.props) {
+                            if (this[prop] && this.exclude.indexOf(prop) === -1) {
+                                el.attr(prop, this[prop]);
+                            }
+                        }
 
-                });
+                        if (!this.id) {
+                            el.removeAttr('id');
+                        }
+
+                        if (this.width && !this.height) {
+                            el.removeAttr('height');
+                        }
+
+                        if (this.height && !this.width) {
+                            el.removeAttr('width');
+                        }
+
+                        if (isVoidElement(this.$el)) {
+                            this.$el.attr({hidden: true, id: null});
+                            this.svg.resolve(el.insertAfter(this.$el));
+                        } else {
+                            this.svg.resolve(el.appendTo(this.$el));
+                        }
+
+                    })
+                );
 
             },
 
