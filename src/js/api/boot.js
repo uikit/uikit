@@ -4,20 +4,15 @@ export default function (UIkit) {
 
     if (Observer) {
 
+        var forEach = Array.prototype.forEach;
+
         (new Observer(mutations => {
 
             var visited = [];
 
             mutations.forEach(mutation => {
-
-                for (var i = 0; i < mutation.addedNodes.length; i++) {
-                    apply(mutation.addedNodes[i], connect, visited);
-                }
-
-                for (i = 0; i < mutation.removedNodes.length; i++) {
-                    apply(mutation.removedNodes[i], UIkit.disconnect);
-                }
-
+                forEach.call(mutation.addedNodes, node => apply(node, connect, visited));
+                forEach.call(mutation.removedNodes, node => apply(node, UIkit.disconnect));
             });
 
         })).observe(document, {childList: true, subtree: true});
@@ -54,8 +49,6 @@ export default function (UIkit) {
 
     function apply(node, fn, visited = []) {
 
-        var next;
-
         if (node.nodeType !== Node.ELEMENT_NODE || visited.indexOf(node) !== -1 || node.hasAttribute('uk-no-boot')) {
             return;
         }
@@ -64,7 +57,7 @@ export default function (UIkit) {
         visited.push(node);
         node = node.firstChild;
         while (node) {
-            next = node.nextSibling;
+            var next = node.nextSibling;
             apply(node, fn, visited);
             node = next;
         }
