@@ -22,6 +22,8 @@ export default function (UIkit) {
                     return;
                 }
 
+                this.stacks = true;
+
                 var columns = this.$el.children()
                         .filter((_, el) => el.offsetHeight > 0)
                         .removeClass(this.margin)
@@ -41,6 +43,8 @@ export default function (UIkit) {
                         }
 
                         if (bottom > rowTop) {
+
+                            this.stacks = false;
 
                             if (el.offsetLeft < row[0].offsetLeft) {
                                 row.unshift(el);
