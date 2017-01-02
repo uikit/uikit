@@ -17,9 +17,11 @@ export default function (UIkit) {
 
             handler() {
 
-                this.$el.toggleClass(this.clsStack, this.stacks);
+                this.$el.toggleClass(this.clsStack, this.stacks)
 
             },
+
+            delayed: true,
 
             events: ['load', 'resize', 'orientationchange']
 

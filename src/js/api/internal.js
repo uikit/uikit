@@ -1,4 +1,4 @@
-import { bind, camelize, coerce, createEvent, extend, hasOwn, hyphenate, isArray, isPlainObject, isString, mergeOptions } from '../util/index';
+import { bind, camelize, coerce, createEvent, extend, hasOwn, hyphenate, isArray, isPlainObject, isString, mergeOptions, requestAnimationFrame } from '../util/index';
 
 export default function (UIkit) {
 
@@ -20,6 +20,8 @@ export default function (UIkit) {
         this._initData();
         this._initMethods();
         this._callHook('created');
+
+        this._frames = {};
 
         if (options.el) {
             this.$mount(options.el);
@@ -144,10 +146,22 @@ export default function (UIkit) {
             return;
         }
 
-        updates.forEach(update => {
+        updates.forEach((update, i) => {
             if (isPlainObject(update)) {
 
                 if (e.type !== 'update' && update.events && update.events.indexOf(e.type) === -1) {
+                    return;
+                }
+
+                if (update.delayed) {
+
+                    if (!this._frames[i]) {
+                        this._frames[i] = requestAnimationFrame(() => {
+                            delete this._frames[i];
+                            update.handler.call(this, e);
+                        });
+                    }
+
                     return;
                 }
 

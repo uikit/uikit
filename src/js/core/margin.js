@@ -18,16 +18,13 @@ export default function (UIkit) {
 
             handler() {
 
+                this.stacks = true;
+
                 if (this.$el[0].offsetHeight === 0) {
                     return;
                 }
 
-                this.stacks = true;
-
-                var columns = this.$el.children()
-                        .filter((_, el) => el.offsetHeight > 0)
-                        .removeClass(this.margin)
-                        .removeClass(this.firstColumn),
+                var columns = this.$el.children().filter((_, el) => el.offsetHeight > 0),
                     rows = [[columns.get(0)]];
 
                 columns.slice(1).each((_, el) => {
@@ -73,6 +70,8 @@ export default function (UIkit) {
                 );
 
             },
+
+            delayed: true,
 
             events: ['load', 'resize', 'orientationchange']
 
