@@ -28,7 +28,7 @@ import Toggle from './toggle';
 
 export default function (UIkit) {
 
-    var scroll = window.pageYOffset, dir, ticking, resizing;
+    var scroll = null, dir, ticking, resizing;
 
     $(window)
         .on('load', UIkit.update)
@@ -42,6 +42,11 @@ export default function (UIkit) {
             }
         })
         .on('scroll', e => {
+
+            if (scroll === null) {
+                scroll = window.pageYOffset;
+            }
+
             dir = scroll < window.pageYOffset;
             scroll = window.pageYOffset;
             if (!ticking) {

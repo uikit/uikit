@@ -17,6 +17,8 @@ UIkit.component('gif', {
             this.isInView = inview;
         },
 
+        delayed: true,
+
         events: ['scroll', 'load', 'resize', 'orientationchange']
     }
 

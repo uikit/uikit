@@ -65,6 +65,8 @@ export default function (UIkit) {
 
             },
 
+            delayed: true,
+
             events: ['load', 'resize', 'orientationchange']
 
         },

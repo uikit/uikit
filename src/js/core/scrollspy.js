@@ -46,54 +46,52 @@ export default function (UIkit) {
 
                 var index = this.elements.length === 1 ? 1 : 0;
 
-                requestAnimationFrame(() => { // wait for other components to do their positioning (grid)
+                this.elements.each((i, el) => {
 
-                    this.elements.each((i, el) => {
+                    var $el = $(el);
 
-                        var $el = $(el);
+                    if (!el.__uk_scrollspy) {
+                        el.__uk_scrollspy = {toggles: ($el.attr('uk-scrollspy-class') ? $el.attr('uk-scrollspy-class') : this.cls).split(',')};
+                    }
 
-                        if (!el.__uk_scrollspy) {
-                            el.__uk_scrollspy = {toggles: ($el.attr('uk-scrollspy-class') ? $el.attr('uk-scrollspy-class') : this.cls).split(',')};
-                        }
+                    var data = el.__uk_scrollspy;
 
-                        var data = el.__uk_scrollspy;
+                    if (isInView(el, this.offsetTop, this.offsetLeft)) {
 
-                        if (isInView(el, this.offsetTop, this.offsetLeft)) {
+                        if (!data.inview && !data.timer) {
 
-                            if (!data.inview && !data.timer) {
+                            data.timer = setTimeout(() => {
 
-                                data.timer = setTimeout(() => {
+                                $el.css('visibility', '').addClass(this.inViewClass).toggleClass(data.toggles[0]).trigger('inview'); // TODO rename event?
 
-                                    $el.css('visibility', '').addClass(this.inViewClass).toggleClass(data.toggles[0]).trigger('inview'); // TODO rename event?
+                                data.inview = true;
+                                delete data.timer;
 
-                                    data.inview = true;
-                                    delete data.timer;
-
-                                }, this.delay * index++);
-
-                            }
-
-                        } else {
-
-                            if (data.inview && this.repeat) {
-
-                                if (data.timer) {
-                                    clearTimeout(data.timer);
-                                    delete data.timer;
-                                }
-
-                                $el.removeClass(this.inViewClass).toggleClass(data.toggles[0]).css('visibility', this.hidden ? 'hidden' : '').trigger('outview'); // TODO rename event?
-                                data.inview = false;
-                            }
+                            }, this.delay * index++);
 
                         }
 
-                        data.toggles.reverse();
-                    });
+                    } else {
 
+                        if (data.inview && this.repeat) {
+
+                            if (data.timer) {
+                                clearTimeout(data.timer);
+                                delete data.timer;
+                            }
+
+                            $el.removeClass(this.inViewClass).toggleClass(data.toggles[0]).css('visibility', this.hidden ? 'hidden' : '').trigger('outview'); // TODO rename event?
+                            data.inview = false;
+                        }
+
+                    }
+
+                    data.toggles.reverse();
                 });
 
             },
+
+            delayed: true,
 
             events: ['scroll', 'load', 'resize', 'orientationchange']
 

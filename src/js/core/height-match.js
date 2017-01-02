@@ -49,6 +49,8 @@ export default function (UIkit) {
 
             },
 
+            delayed: true,
+
             events: ['resize', 'orientationchange']
 
         },
