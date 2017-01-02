@@ -71,15 +71,15 @@ export default function (UIkit) {
 
                 });
 
-                this._mutate = fastdom.mutate(() => {
-                    rows.forEach((row, i) =>
+                this._mutate = fastdom.mutate(() =>
+                    rows && rows.forEach((row, i) =>
                         row.forEach((el, j) =>
                             $(el)
                                 .toggleClass(this.margin, i !== 0)
                                 .toggleClass(this.firstColumn, j === 0)
                         )
-                    );
-                });
+                    )
+                );
 
             },
 
