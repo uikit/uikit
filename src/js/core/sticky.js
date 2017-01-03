@@ -37,13 +37,18 @@ export default function (UIkit) {
             this._widthElement = this.widthElement || this.placeholder;
         },
 
+        disconnected() {
+            this.placeholder.remove();
+            this.placeholder = null;
+            this._widthElement = null;
+        },
+
         ready() {
 
             this.topProp = this.top;
             this.bottomProp = this.bottom;
 
-            var scroll = win.scrollTop();
-            if (location.hash && scroll > 0 && this.target) {
+            if (this.target && location.hash && win.scrollTop() > 0) {
 
                 var target = query(location.hash);
 
@@ -181,7 +186,6 @@ export default function (UIkit) {
                     .trigger('inactive');
 
                 this.placeholder.attr('hidden', true);
-
             },
 
             update() {
@@ -202,12 +206,6 @@ export default function (UIkit) {
 
             }
 
-        },
-
-        disconnected() {
-            this.placeholder.remove();
-            this.placeholder = null;
-            this._widthElement = null;
         }
 
     });
