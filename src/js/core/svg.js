@@ -34,9 +34,7 @@ export default function (UIkit) {
         update: {
 
             handler() {
-                if (!this.src) {
-                    this.init();
-                }
+                this.init();
             },
 
             events: ['load']
@@ -58,14 +56,26 @@ export default function (UIkit) {
 
             init() {
 
-                if (!this.src) {
-
-                    this.src = getSrc(this.$el);
-
-                    if (!this.src) {
-                        return;
-                    }
+                if (this.measure) {
+                    return;
+                } else if (this.src) {
+                    this.set();
+                } else {
+                    this.measure = fastdom.measure(() => {
+                        this.src = getSrc(this.$el);
+                        this.set();
+                        delete this.measure;
+                    });
                 }
+            },
+
+            set() {
+
+                if (!this.src || this.isSet) {
+                    return;
+                }
+
+                this.isSet = true;
 
                 if (this.src.indexOf('#') !== -1) {
 
