@@ -133,8 +133,10 @@ export const Animation = {
     },
 
     cancel(element) {
+        var deferred = $.Deferred();
         $(element).trigger(animationend || 'animationend');
-        return this;
+        requestAnimationFrame(() => deferred.resolve());
+        return deferred.promise();
     }
 
 };

@@ -105,12 +105,7 @@ export default {
             var deferred;
 
             if (Animation.inProgress(el)) {
-
-                deferred = $.Deferred();
-                Animation.cancel(el);
-                requestAnimationFrame(() => deferred.resolve());
-
-                return deferred.then(() => this._toggleElement(el, show, animate));
+                return Animation.cancel(el).then(() => this._toggleElement(el, show, animate));
             }
 
             show = typeof show === 'boolean' ? show : !this.isToggled(el);

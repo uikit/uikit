@@ -142,7 +142,7 @@ export default function (UIkit) {
                         };
 
                         if (this.animation && this.bottomOffset < this.$el.offset().top) {
-                            Animation.cancel(this.$el).out(this.$el, this.animation).then(hide);
+                            Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation).then(hide));
                         } else {
                             hide();
                         }
@@ -151,8 +151,6 @@ export default function (UIkit) {
 
                     return;
                 }
-
-                this.placeholder.attr('hidden', false);
 
                 var top = Math.max(0, this.offset);
                 if (this.bottom && scroll > this.bottom - this.offset) {
@@ -169,14 +167,24 @@ export default function (UIkit) {
                     return;
                 }
 
-                if (this.animation) {
-                    Animation.cancel(this.$el).in(this.$el, this.animation);
-                }
+                var show = () => {
+                    this.$el
+                        .addClass(this.clsActive)
+                        .removeClass(this.clsInactive)
+                        .trigger('active');
+                    this.placeholder.attr('hidden', false);
+                };
 
-                this.$el
-                    .addClass(this.clsActive)
-                    .removeClass(this.clsInactive)
-                    .trigger('active');
+                if (this.animation) {
+
+                    Animation.cancel(this.$el).then(() => {
+                        show();
+                        Animation.in(this.$el, this.animation);
+                    });
+
+                } else {
+                    show();
+                }
 
             },
 
