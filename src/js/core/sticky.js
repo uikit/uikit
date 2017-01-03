@@ -158,7 +158,6 @@ export default function (UIkit) {
 
                 this.top = Math.max(parseFloat(this.top), this.topOffset) - this.offset;
                 this.bottom = this.bottom && this.bottom - outerHeight;
-
                 this.inactive = this.media && !window.matchMedia(this.media).matches;
             },
 
@@ -170,8 +169,6 @@ export default function (UIkit) {
                     .addClass(this.clsActive)
                     .removeClass(this.clsInactive)
                     .trigger('active');
-
-                this.placeholder.attr('hidden', false);
 
             },
 
@@ -188,6 +185,8 @@ export default function (UIkit) {
             },
 
             update() {
+
+                this.placeholder.attr('hidden', false);
 
                 var top = Math.max(0, this.offset), scroll = win.scrollTop();
 
