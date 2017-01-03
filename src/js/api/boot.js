@@ -4,18 +4,26 @@ export default function (UIkit) {
 
     if (Observer) {
 
-        var forEach = Array.prototype.forEach;
+        (new Observer(function () {
 
-        (new Observer(mutations => {
+            if (!document.body) {
+                return;
+            }
 
-            var visited = [];
+            this.disconnect();
 
-            mutations.forEach(mutation => {
-                forEach.call(mutation.addedNodes, node => apply(node, connect, visited));
-                forEach.call(mutation.removedNodes, node => apply(node, UIkit.disconnect));
-            });
+            apply(document.body, connect);
 
-        })).observe(document, {childList: true, subtree: true});
+            var forEach = Array.prototype.forEach;
+
+            (new Observer(mutations =>
+                mutations.forEach(mutation => {
+                    forEach.call(mutation.addedNodes, node => apply(node, connect));
+                    forEach.call(mutation.removedNodes, node => apply(node, UIkit.disconnect));
+                })
+            )).observe(document.body, {childList: true, subtree: true});
+
+        })).observe(document.documentElement, {childList: true});
 
     } else {
         ready(() => {
@@ -47,18 +55,17 @@ export default function (UIkit) {
         }
     }
 
-    function apply(node, fn, visited = []) {
+    function apply(node, fn) {
 
-        if (node.nodeType !== Node.ELEMENT_NODE || visited.indexOf(node) !== -1 || node.hasAttribute('uk-no-boot')) {
+        if (node.nodeType !== Node.ELEMENT_NODE || node.hasAttribute('uk-no-boot')) {
             return;
         }
 
         fn(node);
-        visited.push(node);
         node = node.firstChild;
         while (node) {
             var next = node.nextSibling;
-            apply(node, fn, visited);
+            apply(node, fn);
             node = next;
         }
     }
