@@ -138,8 +138,9 @@
 
 /*
  * Align groups
- * 1. Fix text wrapping if the centered section is larger than 50% of the navbar
- * 2. Needed for dropdowns because a new position context is created
+ * 1. Needed for dropdowns because a new position context is created
+ *    `z-index` must be small than off-canvas
+ * 2. Fix text wrapping if the centered section is larger than 50% of the navbar
  */
 
 .uk-navbar-right { margin-left: auto; }
@@ -156,10 +157,13 @@
     -webkit-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
     /* 1 */
-    white-space: nowrap;
-    /* 2 */
-    z-index: @navbar-dropdown-z-index;
+    z-index: @global-z-index - 10;
 }
+
+/* 2 */
+.uk-navbar-center:not(:only-child) .uk-navbar-nav > li > a,
+.uk-navbar-center:not(:only-child) .uk-navbar-item,
+.uk-navbar-center:not(:only-child) .uk-navbar-toggle { white-space: nowrap; }
 
 
 /* Nav
