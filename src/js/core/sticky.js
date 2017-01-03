@@ -175,8 +175,8 @@ export default function (UIkit) {
             hide() {
 
                 this.$el
-                    .removeClass(this.clsActive)
                     .addClass(this.clsInactive)
+                    .removeClass(this.clsActive)
                     .css({position: '', top: '', width: ''})
                     .trigger('inactive');
 
@@ -186,9 +186,9 @@ export default function (UIkit) {
 
             update() {
 
-                this.placeholder.attr('hidden', false);
-
                 var top = Math.max(0, this.offset), scroll = win.scrollTop();
+
+                this.placeholder.attr('hidden', false);
 
                 if (this.bottom && scroll > this.bottom - this.offset) {
                     top = this.bottom - scroll;
