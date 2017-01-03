@@ -31,7 +31,7 @@ export default function (UIkit) {
         },
 
         connected() {
-            this.placeholder = $('<div class="uk-sticky-placeholder"></div>').insertAfter(this.$el).attr('hidden', true).attr('uid', this._uid);
+            this.placeholder = $('<div class="uk-sticky-placeholder"></div>').insertAfter(this.$el).attr('hidden', true);
             this._widthElement = this.widthElement || this.placeholder;
         },
 
