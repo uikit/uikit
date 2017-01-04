@@ -11,6 +11,9 @@
 @button-small-line-height:                      @global-control-small-height - (@button-border-width * 2);
 @button-large-line-height:                      @global-control-large-height - (@button-border-width * 2);
 
+@button-font-size:                              @global-small-font-size;
+@button-large-font-size:                        @global-small-font-size;
+
 @button-default-background:                     transparent;
 @button-default-hover-background:               transparent;
 @button-default-active-background:              transparent;
@@ -23,6 +26,8 @@
 //
 // New
 //
+
+@button-text-transform:                         uppercase;
 
 @button-border-width:                           @global-border-width;
 
@@ -40,6 +45,7 @@
 // ========================================================================
 
 .hook-button() {
+    text-transform: @button-text-transform;
     -webkit-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
     -webkit-transition-property: color, background-color, border;
