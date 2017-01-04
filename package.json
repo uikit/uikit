@@ -8,7 +8,7 @@
     "compile-less-core": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.less > css/uikit.css",
     "compile-less-theme": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.theme.less > css/uikit.theme.css",
     "images": "mkdir images &  node scripts/images",
-    "compile-rtl": "mkdir css & npm run images && node scripts/rtl-before && npm run compile-less-dists && node scripts/less && node scripts/rtl-after",
+    "compile-rtl": "mkdir css & npm run images && node scripts/rtl-before && npm run compile-less && node scripts/rtl-after",
     "compile-js": "node scripts/build && node scripts/all",
     "compile": "npm run compile-less && npm run compile-js",
     "watch": "npm-watch"

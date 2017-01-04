@@ -25,49 +25,25 @@ export default function (UIkit) {
         },
 
         connected() {
-
             this.svg = $.Deferred();
-            this.init();
-
         },
 
         update: {
 
-            handler() {
-                this.init();
+            read() {
+
+                if (!this.src) {
+                    this.src = getSrc(this.$el);
+                }
+
+                this.set();
             },
 
             events: ['load']
 
         },
 
-        destroy() {
-
-            if (isVoidElement(this.$el)) {
-                this.$el.attr({hidden: null, id: this.id || null});
-            }
-
-            if (this.svg) {
-                this.svg.then(svg => svg.remove());
-            }
-        },
-
         methods: {
-
-            init() {
-
-                if (this.measure) {
-                    return;
-                } else if (this.src) {
-                    this.set();
-                } else {
-                    this.measure = fastdom.measure(() => {
-                        this.src = getSrc(this.$el);
-                        this.set();
-                        delete this.measure;
-                    });
-                }
-            },
 
             set() {
 
@@ -133,10 +109,12 @@ export default function (UIkit) {
 
                         if (isVoidElement(this.$el)) {
                             this.$el.attr({hidden: true, id: null});
-                            this.svg.resolve(el.insertAfter(this.$el));
+                            el.insertAfter(this.$el);
                         } else {
-                            this.svg.resolve(el.appendTo(this.$el));
+                            el.appendTo(this.$el);
                         }
+
+                        this.svg.resolve(el);
 
                     })
                 );
@@ -174,6 +152,17 @@ export default function (UIkit) {
                 }
             }
 
+        },
+
+        destroy() {
+
+            if (isVoidElement(this.$el)) {
+                this.$el.attr({hidden: null, id: this.id || null});
+            }
+
+            if (this.svg) {
+                this.svg.then(svg => svg.remove());
+            }
         }
 
     });
