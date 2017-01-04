@@ -42,7 +42,19 @@ export default function (UIkit) {
 
         update: {
 
-            handler() {
+            read() {
+                this.elements.each((i, el) => {
+
+                    if (!el.__uk_scrollspy) {
+                        el.__uk_scrollspy = {toggles: ($(el).attr('uk-scrollspy-class') || this.cls).split(',')};
+                    }
+
+                    el.__uk_scrollspy.show = isInView(el, this.offsetTop, this.offsetLeft);
+
+                });
+            },
+
+            write() {
 
                 var index = this.elements.length === 1 ? 1 : 0;
 
@@ -50,50 +62,46 @@ export default function (UIkit) {
 
                     var $el = $(el);
 
-                    if (!el.__uk_scrollspy) {
-                        el.__uk_scrollspy = {toggles: ($el.attr('uk-scrollspy-class') ? $el.attr('uk-scrollspy-class') : this.cls).split(',')};
-                    }
-
                     var data = el.__uk_scrollspy;
 
-                    fastdom.measure(() => {
+                    if (data.show) {
 
-                        var show = isInView(el, this.offsetTop, this.offsetLeft);
+                        if (!data.inview && !data.timer) {
 
-                        fastdom.mutate(() => {
-                            if (show) {
+                            data.timer = setTimeout(() => {
 
-                                if (!data.inview && !data.timer) {
+                                $el.css('visibility', '')
+                                    .addClass(this.inViewClass)
+                                    .toggleClass(data.toggles[0])
+                                    .trigger('inview');
 
-                                    data.timer = setTimeout(() => {
+                                data.inview = true;
+                                delete data.timer;
 
-                                        $el.css('visibility', '').addClass(this.inViewClass).toggleClass(data.toggles[0]).trigger('inview'); // TODO rename event?
+                            }, this.delay * index++);
 
-                                        data.inview = true;
-                                        delete data.timer;
+                        }
 
-                                    }, this.delay * index++);
+                    } else {
 
-                                }
+                        if (data.inview && this.repeat) {
 
-                            } else {
-
-                                if (data.inview && this.repeat) {
-
-                                    if (data.timer) {
-                                        clearTimeout(data.timer);
-                                        delete data.timer;
-                                    }
-
-                                    $el.removeClass(this.inViewClass).toggleClass(data.toggles[0]).css('visibility', this.hidden ? 'hidden' : '').trigger('outview'); // TODO rename event?
-                                    data.inview = false;
-                                }
-
+                            if (data.timer) {
+                                clearTimeout(data.timer);
+                                delete data.timer;
                             }
 
-                            data.toggles.reverse();
-                        });
-                    });
+                            $el.removeClass(this.inViewClass)
+                                .toggleClass(data.toggles[0])
+                                .css('visibility', this.hidden ? 'hidden' : '')
+                                .trigger('outview');
+
+                            data.inview = false;
+                        }
+
+                    }
+
+                    data.toggles.reverse();
 
                 });
 

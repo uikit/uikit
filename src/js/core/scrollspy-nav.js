@@ -32,7 +32,7 @@ export default function (UIkit) {
 
         update: {
 
-            handler() {
+            write() {
 
                 var scrollTop = $(window).scrollTop();
 
@@ -62,8 +62,6 @@ export default function (UIkit) {
                     }
                 });
             },
-
-            delayed: true,
 
             events: ['scroll', 'load', 'resize', 'orientationchange']
 

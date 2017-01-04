@@ -1,5 +1,4 @@
 import { Class } from '../mixin/index';
-import { fastdom } from '../util/index';
 
 export default function (UIkit) {
 
@@ -16,10 +15,9 @@ export default function (UIkit) {
 
         update: {
 
-            handler() {
+            write() {
 
-                fastdom.clear(this._mutateGrid);
-                this._mutateGrid = fastdom.mutate(() => this.$el.toggleClass(this.clsStack, this.stacks));
+                this.$el.toggleClass(this.clsStack, this.stacks);
 
             },
 

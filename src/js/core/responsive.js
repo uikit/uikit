@@ -8,7 +8,7 @@ export default function (UIkit) {
 
         update: {
 
-            handler() {
+            write() {
                 if (this.$el.is(':visible') && this.width && this.height) {
                     this.$el.height(Dimensions.fit(
                         {height: this.height, width: this.width},
@@ -16,8 +16,6 @@ export default function (UIkit) {
                     )['height']);
                 }
             },
-
-            delayed: true,
 
             events: ['load', 'resize', 'orientationchange']
 

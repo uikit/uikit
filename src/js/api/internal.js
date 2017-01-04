@@ -1,4 +1,4 @@
-import { bind, camelize, coerce, createEvent, extend, hasOwn, hyphenate, isArray, isPlainObject, isString, mergeOptions, requestAnimationFrame } from '../util/index';
+import { bind, camelize, coerce, createEvent, extend, fastdom, hasOwn, hyphenate, isArray, isPlainObject, isString, mergeOptions } from '../util/index';
 
 export default function (UIkit) {
 
@@ -21,7 +21,7 @@ export default function (UIkit) {
         this._initMethods();
         this._callHook('created');
 
-        this._frames = {};
+        this._frames = {reads: {}, writes: {}};
 
         if (options.el) {
             this.$mount(options.el);
@@ -149,17 +149,18 @@ export default function (UIkit) {
         updates.forEach((update, i) => {
             if (isPlainObject(update)) {
 
-                if (e.type !== 'update' && update.events && update.events.indexOf(e.type) === -1) {
+                if (e.type !== 'update' && (!update.events || update.events.indexOf(e.type) === -1)) {
                     return;
                 }
 
-                if (update.delayed) {
+                if (update.read || update.write) {
 
-                    if (!this._frames[i]) {
-                        this._frames[i] = requestAnimationFrame(() => {
-                            delete this._frames[i];
-                            update.handler.call(this, e);
-                        });
+                    if (update.read && !~(fastdom.reads.indexOf(this._frames.reads[i]))) {
+                        this._frames.reads[i] = fastdom.measure(() => update.read.call(this, e));
+                    }
+
+                    if (update.write && !~(fastdom.writes.indexOf(this._frames.writes[i]))) {
+                        this._frames.writes[i] = fastdom.mutate(() => update.write.call(this, e));
                     }
 
                     return;

@@ -52,7 +52,7 @@ export default function (UIkit) {
 
         update: {
 
-            handler() {
+            write() {
 
                 if (this.mode !== 'media' || !this.media) {
                     return;
@@ -64,8 +64,6 @@ export default function (UIkit) {
                 }
 
             },
-
-            delayed: true,
 
             events: ['load', 'resize', 'orientationchange']
 

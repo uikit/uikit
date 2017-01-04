@@ -16,7 +16,7 @@ export default function (UIkit) {
 
         update: {
 
-            handler() {
+            write() {
 
                 let elements = toJQuery(this.target, this.$el).css('min-height', '');
 
@@ -48,8 +48,6 @@ export default function (UIkit) {
                 }
 
             },
-
-            delayed: true,
 
             events: ['resize', 'orientationchange']
 

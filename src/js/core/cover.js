@@ -27,7 +27,7 @@ export default function (UIkit) {
 
         update: {
 
-            handler() {
+            write() {
 
                 if (this.$el[0].offsetHeight === 0) {
                     return;
@@ -41,8 +41,6 @@ export default function (UIkit) {
                     ));
 
             },
-
-            delayed: true,
 
             events: ['load', 'resize', 'orientationchange']
 

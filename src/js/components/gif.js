@@ -6,7 +6,7 @@ UIkit.component('gif', {
 
     update: {
 
-        handler() {
+        read() {
 
             var inview = isInView(this.$el);
 
@@ -16,8 +16,6 @@ UIkit.component('gif', {
 
             this.isInView = inview;
         },
-
-        delayed: true,
 
         events: ['scroll', 'load', 'resize', 'orientationchange']
     }

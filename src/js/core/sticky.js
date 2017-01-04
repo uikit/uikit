@@ -70,101 +70,113 @@ export default function (UIkit) {
 
         },
 
-        update: {
+        update: [
 
-            handler({type, dir}) {
+            {
 
-                var isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave'),
-                    scroll = win.scrollTop();
+                handler({type}) {
 
-                if (type !== 'scroll') {
-                    this.init(isActive);
-                }
+                    var isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave');
 
-                if (scroll < 0 || !this.$el.is(':visible') || this.disabled) {
-                    return;
-                }
+                    var el, outerHeight = this.$el.outerHeight();
 
-                if (this.inactive || scroll < this.top || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.bottomOffset)) {
+                    this.placeholder
+                        .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
+                        .css(this.$el.css(['marginTop', 'marginBottom', 'marginLeft', 'marginRight']));
 
-                    if (!isActive) {
-                        return;
-                    }
+                    this.topOffset = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
+                    this.bottomOffset = this.topOffset + outerHeight;
 
-                    if (this.animation && this.bottomOffset < this.$el.offset().top) {
-                        Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation).then(() => this.hide()));
-                    } else {
-                        this.hide();
-                    }
+                    ['top', 'bottom'].forEach(prop => {
 
-                } else if (isActive) {
+                        this[prop] = this[`${prop}Prop`];
 
-                    this.update();
+                        if (!this[prop]) {
+                            return;
+                        }
 
-                } else if (this.animation) {
+                        if (isNumeric(this[prop])) {
 
-                    Animation.cancel(this.$el).then(() => {
-                        this.show();
-                        Animation.in(this.$el, this.animation);
-                    });
+                            this[prop] = this[`${prop}Offset`] + parseFloat(this[prop]);
 
-                } else {
-                    this.show();
-                }
-
-            },
-
-            events: ['scroll', 'load', 'resize', 'orientationchange']
-
-        },
-
-        methods: {
-
-            init(isActive) {
-
-                var el, outerHeight = this.$el.outerHeight();
-
-                this.placeholder
-                    .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
-                    .css(this.$el.css(['marginTop', 'marginBottom', 'marginLeft', 'marginRight']));
-
-                this.topOffset = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
-                this.bottomOffset = this.topOffset + outerHeight;
-
-                ['top', 'bottom'].forEach(prop => {
-
-                    this[prop] = this[`${prop}Prop`];
-
-                    if (!this[prop]) {
-                        return;
-                    }
-
-                    if (isNumeric(this[prop])) {
-
-                        this[prop] = this[`${prop}Offset`] + parseFloat(this[prop]);
-
-                    } else {
-
-                        if (isString(this[prop]) && this[prop].match(/^-?\d+vh$/)) {
-                            this[prop] = window.innerHeight * parseFloat(this[prop]) / 100;
                         } else {
 
-                            el = this[prop] === true ? this.$el.parent() : query(this[prop], this.$el);
+                            if (isString(this[prop]) && this[prop].match(/^-?\d+vh$/)) {
+                                this[prop] = window.innerHeight * parseFloat(this[prop]) / 100;
+                            } else {
 
-                            if (el) {
-                                this[prop] = el.offset().top + el.outerHeight();
+                                el = this[prop] === true ? this.$el.parent() : query(this[prop], this.$el);
+
+                                if (el) {
+                                    this[prop] = el.offset().top + el.outerHeight();
+                                }
+
                             }
 
                         }
 
+                    });
+
+                    this.top = Math.max(parseFloat(this.top), this.topOffset) - this.offset;
+                    this.bottom = this.bottom && this.bottom - outerHeight;
+                    this.inactive = this.media && !window.matchMedia(this.media).matches;
+
+                    if (type !== 'update') {
+                        this._callUpdate('scroll');
+                    }
+                },
+
+                events: ['load', 'resize', 'orientationchange']
+
+            },
+
+            {
+
+                handler({dir}) {
+
+                    var isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave'),
+                        scroll = win.scrollTop();
+
+                    if (scroll < 0 || !this.$el.is(':visible') || this.disabled) {
+                        return;
                     }
 
-                });
+                    if (this.inactive || scroll < this.top || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.bottomOffset)) {
 
-                this.top = Math.max(parseFloat(this.top), this.topOffset) - this.offset;
-                this.bottom = this.bottom && this.bottom - outerHeight;
-                this.inactive = this.media && !window.matchMedia(this.media).matches;
+                        if (!isActive) {
+                            return;
+                        }
+
+                        if (this.animation && this.bottomOffset < this.$el.offset().top) {
+                            Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation).then(() => this.hide()));
+                        } else {
+                            this.hide();
+                        }
+
+                    } else if (isActive) {
+
+                        this.update();
+
+                    } else if (this.animation) {
+
+                        Animation.cancel(this.$el).then(() => {
+                            this.show();
+                            Animation.in(this.$el, this.animation);
+                        });
+
+                    } else {
+                        this.show();
+                    }
+
+                },
+
+                events: ['scroll']
+
             },
+
+        ],
+
+        methods: {
 
             show() {
 
