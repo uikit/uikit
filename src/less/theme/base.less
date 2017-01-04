@@ -7,20 +7,15 @@
 // Variables
 // ========================================================================
 
-@base-blockquote-margin-vertical:               @global-medium-margin;
-
 //
 // New
 //
 
 @base-code-padding-horizontal:                  6px;
 @base-code-padding-vertical:                    2px;
-@base-code-border-width:                        @global-border-width;
-@base-code-border:                              @global-border;
-@base-code-border-radius:                       3px;
+@base-code-background:                          @global-muted-background;
 
 @base-blockquote-color:                         @global-emphasis-color;
-@base-blockquote-text-align:                    center;
 
 @base-blockquote-footer-color:                  @global-color;
 
@@ -50,8 +45,7 @@
 
 .hook-base-code() {
     padding: @base-code-padding-vertical @base-code-padding-horizontal;
-    border: @base-code-border-width solid @base-code-border;
-    border-radius: @base-code-border-radius;
+    background: @base-code-background;
 }
 
 
@@ -84,7 +78,6 @@
 
 .hook-base-blockquote() {
     color: @base-blockquote-color;
-    text-align: @base-blockquote-text-align;
 }
 
 .hook-base-blockquote-footer() {
@@ -123,7 +116,7 @@
 .hook-inverse-base-link-hover() {}
 
 .hook-inverse-base-code() {
-    border-color: @inverse-global-border;
+    background: @inverse-global-muted-background;;
 }
 
 .hook-inverse-base-heading() {}
