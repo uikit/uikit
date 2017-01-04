@@ -26,6 +26,7 @@
             animation: false,
             delay: 0, // in miliseconds
             cls: '',
+            inline: false,
             activeClass: 'uk-active',
             src: function(ele) {
                 var title = ele.attr('title');
@@ -72,6 +73,16 @@
         show: function() {
 
             this.tip = typeof(this.options.src) === 'function' ? this.options.src(this.element) : this.options.src;
+
+            if (this.options.inline) {
+
+                var element = this.element;
+                var next = element.next();
+
+                if (next && next.hasClass('uk-tooltip')) {
+                    this.tip = next.html();
+                }
+            }
 
             if (tooltipdelay) clearTimeout(tooltipdelay);
             if (checkIdle)    clearInterval(checkIdle);
