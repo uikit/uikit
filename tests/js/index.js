@@ -18,7 +18,6 @@ var styles = $.extend({
         'lightbox',
         'notification',
         'sortable',
-        'spinner',
         'tooltip',
         'upload'
     ];
@@ -37,7 +36,7 @@ document.writeln(`<link rel="stylesheet" href="${style.file}">`);
 
 // add javascripts
 ['../js/uikit.js']
-    .concat(components.concat('gif').map(name => `../js/components/${name}.js`))
+    .concat(components.map(name => `../js/components/${name}.js`))
     .forEach(file => document.writeln(`<script src="${file}"></script>`));
 
 $(() => {
@@ -108,6 +107,7 @@ $(() => {
         'search',
         'section',
         'slidenav',
+        'spinner',
         'sticky',
         'subnav',
         'switcher',
