@@ -34,10 +34,8 @@ var style = styles[storage[key]] || styles.theme;
 // add style
 document.writeln(`<link rel="stylesheet" href="${style.file}">`);
 
-// add javascripts
-['../js/uikit.js']
-    .concat(components.map(name => `../js/components/${name}.js`))
-    .forEach(file => document.writeln(`<script src="${file}"></script>`));
+// add javascript
+document.writeln('<script src="../js/uikit.js"></script>');
 
 $(() => {
 

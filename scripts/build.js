@@ -5,10 +5,7 @@ var rollup = require('rollup');
 var uglify = require('uglify-js');
 var babel = require('rollup-plugin-babel');
 var resolve = require('rollup-plugin-node-resolve');
-var write = require('./util').write;
-var package = require('../package.json');
-var version = process.env.VERSION || package.version;
-var banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */\n`;
+var util = require('./util');
 
 ['js', 'js/components'].forEach(folder => {
     if (!fs.existsSync(folder)) {
@@ -16,8 +13,7 @@ var banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2016 Y
     }
 });
 
-compile('src/js/uikit.js', 'js/uikit', ['jquery'], {jquery: 'jQuery'});
-compile('src/js/uikit.all.js', 'js/uikit.all', ['jquery', 'uikit'], {jquery: 'jQuery', uikit: 'UIkit'});
+compile('src/js/uikit.js', 'js/uikit-core', ['jquery'], {jquery: 'jQuery'});
 compile('tests/js/index.js', 'tests/js/test', ['jquery'], {jquery: 'jQuery'});
 glob('src/js/components/**/*.js', (er, files) => files.forEach(file => compile(file, file.substring(4, file.length - 3), ['jquery', 'uikit'], {jquery: 'jQuery', uikit: 'UIkit'})));
 
@@ -31,12 +27,12 @@ function compile(file, dest, external, globals) {
             resolve({jsnext: true})
         ]
     })
-        .then(bundle => write(`${dest}.js`, bundle.generate({
+        .then(bundle => util.write(`${dest}.js`, bundle.generate({
             globals,
             format: 'umd',
-            banner: banner,
+            banner: util.banner,
             moduleName: 'UIkit'
         }).code))
-        .then(() => write(`${dest}.min.js`, `${banner}\n${uglify.minify(`${dest}.js`).code}`))
+        .then(() => util.write(`${dest}.min.js`, `${util.banner}\n${uglify.minify(`${dest}.js`).code}`))
         .catch(console.log);
 }
