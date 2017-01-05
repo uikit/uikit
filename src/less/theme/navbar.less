@@ -8,6 +8,7 @@
 // ========================================================================
 
 @navbar-dropdown-margin:                        15px;
+@navbar-dropdown-padding:                       25px;
 @navbar-dropdown-background:                    @global-background;
 @navbar-dropdown-grid-gutter-horizontal:        (@navbar-dropdown-padding * 2);
 
@@ -16,15 +17,6 @@
 //
 
 @navbar-dropdown-box-shadow:                    0 5px 12px rgba(0,0,0,0.15);
-
-@navbar-dropdown-nav-item-padding-vertical:     6px;
-@navbar-dropdown-nav-item-padding-horizontal:   25px;
-
-@navbar-dropdown-nav-item-hover-background:     @global-muted-background;
-
-@navbar-dropdown-nav-divider-margin-vertical:   8px;
-
-@navbar-dropdown-nav-sublist-padding-left:      (@navbar-dropdown-nav-item-padding-horizontal + @nav-sublist-deeper-padding-left);
 
 @navbar-dropdown-grid-divider-border-width:     @global-border-width;
 @navbar-dropdown-grid-divider-border:           @navbar-dropdown-nav-divider-border;
@@ -97,18 +89,15 @@
 // Dropdown nav
 // ========================================================================
 
-.hook-navbar-dropdown-nav() { margin: 0 (-@navbar-dropdown-padding); }
+.hook-navbar-dropdown-nav() {}
 
-.hook-navbar-dropdown-nav-item() { padding: @navbar-dropdown-nav-item-padding-vertical @navbar-dropdown-nav-item-padding-horizontal; }
+.hook-navbar-dropdown-nav-item() {}
 
-.hook-navbar-dropdown-nav-item-hover() { background: @navbar-dropdown-nav-item-hover-background; }
+.hook-navbar-dropdown-nav-item-hover() {}
 
-.hook-navbar-dropdown-nav-header() { padding: @navbar-dropdown-nav-item-padding-vertical @navbar-dropdown-nav-item-padding-horizontal; }
+.hook-navbar-dropdown-nav-header() {}
 
-.hook-navbar-dropdown-nav-divider() {
-    margin-top: @navbar-dropdown-nav-divider-margin-vertical;
-    margin-bottom: @navbar-dropdown-nav-divider-margin-vertical;
-}
+.hook-navbar-dropdown-nav-divider() {}
 
 
 // Dropbar
@@ -131,13 +120,6 @@
         margin-right: -@navbar-nav-item-padding-horizontal;
     }
     .uk-navbar-container > .uk-container .uk-navbar-right { margin-right: -@navbar-nav-item-padding-horizontal; }
-
-    /*
-     * Nav
-     */
-
-    /* Dropdown nav sub */
-    .uk-navbar-dropdown-nav .uk-nav-sub { padding-left: @navbar-dropdown-nav-sublist-padding-left; }
 
     /*
      * Grid Divider
