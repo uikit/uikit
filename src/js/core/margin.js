@@ -14,6 +14,10 @@ export default function (UIkit) {
             firstColumn: 'uk-first-column'
         },
 
+        connected() {
+            this._callUpdate();
+        },
+
         update: {
 
             read() {
