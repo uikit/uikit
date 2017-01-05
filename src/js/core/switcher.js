@@ -88,7 +88,7 @@ export default function (UIkit) {
                 if (!hasPrev) {
                     this.toggleNow(`:nth-child(${index + 1})`);
                 } else {
-                    this.toggleElement(this.connect.children(`:nth-child(${prev + 1}),:nth-child(${index + 1})`), null, true);
+                    this.toggleElement(this.connect.children(`:nth-child(${prev + 1}),:nth-child(${index + 1})`));
                 }
             }
 
