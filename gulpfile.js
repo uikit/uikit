@@ -694,3 +694,11 @@ gulp.task('sublime', ['sublime-css', 'sublime-js', 'sublime-snippets'], function
             gulp.src("dist/sublime/tmp_*.py", {read: false}).pipe(rimraf()).on('end', done);
         });
 });
+
+
+gulp.task('build-site', [], function(done) {
+
+    gulp.src(['docs/js/docs.js', 'docs/js/analytics.js'])
+        .pipe(concat('docs.js'))
+        .pipe(gulp.dest('docs/js/')).on('end', done)
+});
