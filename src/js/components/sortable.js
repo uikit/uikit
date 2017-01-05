@@ -1,6 +1,6 @@
-import { container, doc, mixin, util, win  } from 'uikit';
+import { container, mixin, util } from 'uikit';
 
-var {$, extend, isWithin, Observer, on, off, pointerDown, pointerMove, pointerUp, requestAnimationFrame} = util;
+var {$, doc, extend, isWithin, Observer, on, off, pointerDown, pointerMove, pointerUp, requestAnimationFrame, win} = util;
 
 UIkit.component('sortable', {
 
@@ -56,6 +56,28 @@ UIkit.component('sortable', {
             var empty = () => this.$el.toggleClass(this.clsEmpty, !this.$el.children().length);
             (new Observer(empty)).observe(this.$el[0], {childList: true});
             empty();
+        }
+
+    },
+
+    update: {
+
+        write() {
+
+            if (!this.drag) {
+                return;
+            }
+
+            this.drag.offset({top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
+
+            var top = this.drag.offset().top, bottom = top + this.drag[0].offsetHeight;
+
+            if (top > 0 && top < this.scrollY) {
+                setTimeout(() => win.scrollTop(this.scrollY - 5), 5);
+            } else if (bottom < doc[0].offsetHeight && bottom > window.innerHeight + this.scrollY) {
+                setTimeout(() => win.scrollTop(this.scrollY + 5), 5);
+            }
+
         }
 
     },
@@ -206,31 +228,7 @@ UIkit.component('sortable', {
         },
 
         update() {
-
-            if (!this.updating) {
-                requestAnimationFrame(() => {
-
-                    this.updating = false;
-
-                    if (!this.drag) {
-                        return;
-                    }
-
-                    this.drag.offset({top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
-
-                    var top = this.drag.offset().top, bottom = top + this.drag[0].offsetHeight;
-
-                    if (top > 0 && top < this.scrollY) {
-                        setTimeout(() => win.scrollTop(this.scrollY - 5), 5);
-                    } else if (bottom < doc[0].offsetHeight && bottom > window.innerHeight + this.scrollY) {
-                        setTimeout(() => win.scrollTop(this.scrollY + 5), 5);
-                    }
-
-                })
-            }
-
-            this.updating = true;
-
+            this._callUpdate();
         },
 
         insert(element, target) {
