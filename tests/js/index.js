@@ -47,7 +47,7 @@ $(() => {
     var $styles = $('<select class="uk-select uk-form-width-small"></select>').css('margin', '20px').appendTo($container);
     var $inverse = $('<select class="uk-select uk-form-width-small"></select>').css('margin', '20px').appendTo($container);
     var $label = $('<label></label>').css('margin', '20px').appendTo($container);
-    var $rtl = $('<input type="checkbox" class="uk-checkbox uk-form-width-small"></input>');
+    var $rtl = $('<input type="checkbox" class="uk-checkbox uk-form-width-small" />');
 
     // Display toggle only when compiled RTL version exists
     $.ajax({url: style.file.replace('.css', '.rtl.css')}).done(() => {
