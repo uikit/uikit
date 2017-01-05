@@ -15,8 +15,13 @@
 @tab-border:                                    @global-border;
 
 @tab-item-border-width:                         @global-border-width;
+@tab-item-font-size:                            @global-small-font-size;
+@tab-item-text-transform:                       uppercase;
 
 @tab-item-active-border:                        @global-primary-background;
+
+
+
 
 
 // Component
@@ -41,7 +46,11 @@
 // Items
 // ========================================================================
 
-.hook-tab-item() { border-bottom: @tab-item-border-width solid transparent; }
+.hook-tab-item() {
+    border-bottom: @tab-item-border-width solid transparent;
+    font-size: @tab-item-font-size;
+    text-transform: @tab-item-text-transform;
+}
 
 .hook-tab-item-hover() {}
 

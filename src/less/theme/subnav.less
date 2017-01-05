@@ -7,13 +7,23 @@
 // Variables
 // ========================================================================
 
+//
+// New
+//
+
+@subnav-item-font-size:                         @global-small-font-size;
+@subnav-item-text-transform:                    uppercase;
+
 
 // Component
 // ========================================================================
 
 .hook-subnav() {}
 
-.hook-subnav-item() {}
+.hook-subnav-item() {
+    font-size: @subnav-item-font-size;
+    text-transform: @subnav-item-text-transform;
+}
 
 .hook-subnav-item-hover() {}
 
