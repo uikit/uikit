@@ -16,6 +16,8 @@
 // New
 //
 
+@navbar-dropdown-nav-font-size:                 @global-small-font-size;
+
 @navbar-dropdown-box-shadow:                    0 5px 12px rgba(0,0,0,0.15);
 
 @navbar-dropdown-grid-divider-border-width:     @global-border-width;
@@ -89,7 +91,9 @@
 // Dropdown nav
 // ========================================================================
 
-.hook-navbar-dropdown-nav() {}
+.hook-navbar-dropdown-nav() {
+    font-size: @navbar-dropdown-nav-font-size;
+}
 
 .hook-navbar-dropdown-nav-item() {}
 

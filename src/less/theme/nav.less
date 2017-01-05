@@ -7,6 +7,12 @@
 // Variables
 // ========================================================================
 
+//
+// New
+//
+
+@nav-default-font-size:                         @global-small-font-size;
+
 
 // Sublists
 // ========================================================================
@@ -35,7 +41,9 @@
 // Default style modifier
 // ========================================================================
 
-.hook-nav-default() {}
+.hook-nav-default() {
+    font-size: @nav-default-font-size;
+}
 
 .hook-nav-default-item() {}
 
