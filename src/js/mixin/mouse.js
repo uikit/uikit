@@ -1,4 +1,4 @@
-import { $, getDimensions } from '../util/index';
+import { doc, getDimensions } from '../util/index';
 
 export default {
 
@@ -24,13 +24,13 @@ export default {
                 }
             };
 
-            $(document).on('mousemove', this.mouseHandler);
+            doc.on('mousemove', this.mouseHandler);
 
         },
 
         cancelMouseTracker() {
             if (this.mouseHandler) {
-                $(document).off('mousemove', this.mouseHandler);
+                doc.off('mousemove', this.mouseHandler);
             }
         },
 

@@ -1,6 +1,9 @@
 import $ from 'jquery';
 import { animationend, each, extend, getContextSelectors, isNumber, isString, toJQuery, transitionend, requestAnimationFrame } from './index';
 
+export const win = $(window);
+export const doc = $(document);
+
 export const langDirection = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
 
 export function isReady() {
@@ -165,7 +168,6 @@ export function createEvent(e, bubbles = true, cancelable = false) {
     return e;
 }
 
-var win = $(window);
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
     element = $(element);

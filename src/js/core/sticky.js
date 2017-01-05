@@ -1,6 +1,4 @@
-import { $, Animation, isNumeric, isString, query, requestAnimationFrame } from '../util/index';
-
-var win = $(window);
+import { $, Animation, isNumeric, isString, query, requestAnimationFrame, win } from '../util/index';
 
 export default function (UIkit) {
 

@@ -1,9 +1,9 @@
 import { util } from 'uikit';
 
-var {$, extend, Dimensions, getIndex, Transition} = util;
+var {$, doc, extend, Dimensions, getIndex, Transition} = util;
 var active;
 
-$(document).on({
+doc.on({
     keydown: e => {
         if (active) {
             switch (e.keyCode) {

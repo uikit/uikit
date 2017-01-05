@@ -1,10 +1,10 @@
-import { $, isWithin, toJQuery, transitionend } from '../util/index';
+import { $, doc, isWithin, toJQuery, transitionend } from '../util/index';
 import Class from './class';
 import Toggable from './toggable';
 
 var active;
 
-$(document).on({
+doc.on({
 
     click(e) {
         if (active && active.bgClose && !e.isDefaultPrevented() && !isWithin(e.target, active.panel)) {

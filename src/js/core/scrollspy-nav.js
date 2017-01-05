@@ -1,4 +1,4 @@
-import { $ } from '../util/index';
+import { $, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -34,7 +34,7 @@ export default function (UIkit) {
 
             write() {
 
-                var scrollTop = $(window).scrollTop();
+                var scrollTop = win.scrollTop();
 
                 this.links.blur();
                 this.elements.removeClass(this.cls);

@@ -1,4 +1,4 @@
-import { $, fastdom, on, requestAnimationFrame } from '../util/index';
+import { getStyle, fastdom, on, requestAnimationFrame, win } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
@@ -32,7 +32,7 @@ export default function (UIkit) {
 
     var scroll = null, dir, ticking, resizing;
 
-    $(window)
+    win
         .on('load', UIkit.update)
         .on('resize orientationchange', e => {
             if (!resizing) {
@@ -64,7 +64,7 @@ export default function (UIkit) {
     var started = 0;
     on(document, 'animationstart', ({target}) => {
         fastdom.measure(() => {
-            if ($(target).css('animationName').lastIndexOf('uk-', 0) === 0) {
+            if (hasAnimation(target)) {
                 fastdom.mutate(() => {
                     document.body.style.overflowX = 'hidden';
                     started++;
@@ -75,7 +75,7 @@ export default function (UIkit) {
 
     on(document, 'animationend', ({target}) => {
         fastdom.measure(() => {
-            if ($(target).css('animationName').lastIndexOf('uk-', 0) === 0 && !--started) {
+            if (hasAnimation(target) && !--started) {
                 fastdom.mutate(() => document.body.style.overflowX = '')
             }
         });
@@ -83,7 +83,7 @@ export default function (UIkit) {
 
     on(document.documentElement, 'webkitAnimationEnd', ({target}) => {
         fastdom.measure(() => {
-            if ((getComputedStyle(target) || {}).webkitFontSmoothing === 'antialiased') {
+            if (getStyle(target, 'webkitFontSmoothing') === 'antialiased') {
                 fastdom.mutate(() => {
                     target.style.webkitFontSmoothing = 'subpixel-antialiased';
                     setTimeout(() => target.style.webkitFontSmoothing = '');
@@ -121,4 +121,7 @@ export default function (UIkit) {
     UIkit.use(Tab);
     UIkit.use(Toggle);
 
+    function hasAnimation(target) {
+        return (getStyle(target, 'animationName') || '').lastIndexOf('uk-', 0) === 0;
+    }
 }

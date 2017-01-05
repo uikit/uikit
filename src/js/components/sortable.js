@@ -1,8 +1,6 @@
-import { util, mixin, container } from 'uikit';
+import { container, doc, mixin, util, win  } from 'uikit';
 
 var {$, extend, isWithin, Observer, on, off, pointerDown, pointerMove, pointerUp, requestAnimationFrame} = util;
-
-var win = $(window), doc = $(document.documentElement);
 
 UIkit.component('sortable', {
 

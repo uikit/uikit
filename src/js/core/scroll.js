@@ -1,4 +1,4 @@
-import { $ } from '../util/index';
+import { $, doc } from '../util/index';
 
 export default function (UIkit) {
 
@@ -23,7 +23,7 @@ export default function (UIkit) {
                 el = $(el);
 
                 // get / set parameters
-                var target = el.offset().top - this.offset, docHeight = $(document).height(), winHeight = window.innerHeight;
+                var target = el.offset().top - this.offset, docHeight = doc.height(), winHeight = window.innerHeight;
 
                 if ((target + winHeight) > docHeight) {
                     target = docHeight - winHeight;

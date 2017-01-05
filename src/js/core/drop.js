@@ -1,11 +1,11 @@
-import { $, isWithin, removeClass, getDimensions, query } from '../util/index';
+import { doc, isWithin, removeClass, getDimensions, query } from '../util/index';
 import { Mouse, Position, Toggable } from '../mixin/index';
 
 export default function (UIkit) {
 
     var active;
 
-    $(document).on('click', e => {
+    doc.on('click', e => {
         if (active && !isWithin(e.target, active.$el) && (!active.toggle || !isWithin(e.target, active.toggle.$el))) {
             active.hide(false);
         }

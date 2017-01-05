@@ -1,4 +1,4 @@
-import { $, fastdom, isVoidElement, toJQuery } from '../util/index';
+import { $, getStyle, fastdom, isVoidElement, toJQuery } from '../util/index';
 
 var storage = window.sessionStorage || {}, svgs = {};
 
@@ -181,7 +181,7 @@ export default function (UIkit) {
     }
 
     function getBackgroundImage(el) {
-        var image = (window.getComputedStyle(el[0], '::before') || {}).backgroundImage;
+        var image = getStyle(el[0], 'backgroundImage', '::before');
         return image !== 'none' && image;
     }
 

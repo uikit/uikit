@@ -58,6 +58,10 @@ export function matches(element, selector) {
     return element[matchesFn] ? element[matchesFn](selector) : false;
 }
 
+export function getStyle(element, property, pseudoElt) {
+    return (window.getComputedStyle(element, pseudoElt) || {})[property];
+}
+
 export function getCssVar(name) {
 
     /* usage in css:  .var-name:before { content:"xyz" } */
@@ -69,7 +73,8 @@ export function getCssVar(name) {
 
     try {
 
-        val = JSON.parse(val = window.getComputedStyle(element, ':before').content.replace(/^["'](.*)["']$/, '$1'));
+        val = getStyle(element, 'content', ':before').replace(/^["'](.*)["']$/, '$1');
+        val = JSON.parse(val);
 
     } catch (e) {}
 

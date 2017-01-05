@@ -1,4 +1,4 @@
-import { $, hasTouch, isWithin, ready } from '../util/index';
+import { $, doc, hasTouch, isWithin, ready } from '../util/index';
 
 export default function (UIkit) {
 
@@ -8,7 +8,9 @@ export default function (UIkit) {
             return;
         }
 
-        var cls = 'uk-hover', doc = $(document.documentElement).on('tap', ({target}) => $(`.${cls}`).filter((_, el) => !isWithin(target, el)).removeClass(cls));
+        var cls = 'uk-hover';
+
+        doc.on('tap', ({target}) => $(`.${cls}`).filter((_, el) => !isWithin(target, el)).removeClass(cls));
 
         Object.defineProperty(UIkit, 'hoverSelector', {
 
