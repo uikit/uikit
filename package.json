@@ -11,7 +11,8 @@
     "compile-rtl": "mkdir css & npm run images && node scripts/rtl-before && npm run compile-less && node scripts/rtl-after",
     "compile-js": "node scripts/build && node scripts/all",
     "compile": "npm run compile-less && npm run compile-js",
-    "watch": "npm-watch"
+    "watch": "npm-watch",
+    "test": "webpack-dev-server --inline --hot && open http://localhost:8080/tests/"
   },
   "devDependencies": {
     "babel-core": "6.14.0",
@@ -26,7 +27,9 @@
     "rollup": "^0.34.13",
     "rollup-plugin-babel": "2.6.1",
     "rollup-plugin-node-resolve": "1.7.0",
-    "uglify-js": "^2.7.3"
+    "uglify-js": "^2.7.3",
+    "webpack": "2.1.0-beta.22",
+    "webpack-dev-server": "^2.1.0-beta.3"
   },
   "watch": {
     "compile-js": "src/js/**/*.js",
