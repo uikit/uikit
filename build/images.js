@@ -12,7 +12,7 @@ var dist = 'dist/images';
 });
 
 // create icons file
-glob(`${src}/images/symbols/*.svg`, (er, files) => {
+glob(`${src}/symbols/*.svg`, (er, files) => {
 
     var icons = [], contents;
 
