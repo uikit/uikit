@@ -25,7 +25,12 @@
 // Button
 //
 
-.hook-icon-button() {}
+.hook-icon-button() {
+    -webkit-transition: 0.1s ease-in-out;
+    transition: 0.1s ease-in-out;
+    -webkit-transition-property: color, background-color;
+    transition-property: color, background-color
+}
 
 .hook-icon-button-hover() {}
 
