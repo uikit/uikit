@@ -8,14 +8,16 @@ export default function (UIkit) {
             cls: String,
             closest: String,
             scroll: Boolean,
-            overflow: Boolean
+            overflow: Boolean,
+            offset: Number
         },
 
         defaults: {
             cls: 'uk-active',
             closest: false,
             scroll: false,
-            overflow: true
+            overflow: true,
+            offset: 0
         },
 
         ready() {
@@ -24,8 +26,11 @@ export default function (UIkit) {
             this.targets = $($.map(this.links, (el) => el.hash).join(','));
 
             if (this.scroll) {
+
+                var offset = this.offset || 0;
+
                 this.links.each(function () {
-                    UIkit.scroll(this);
+                    UIkit.scroll(this, {offset});
                 });
             }
         },
@@ -34,7 +39,7 @@ export default function (UIkit) {
 
             write() {
 
-                var scrollTop = win.scrollTop(), maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                var scrollTop = win.scrollTop() + this.offset, maxScroll = this.offset + document.documentElement.scrollHeight - window.innerHeight;
                 var activeLink, activeTarget;
 
                 this.links.blur();
