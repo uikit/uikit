@@ -20,7 +20,7 @@ module.exports = [
     {
         entry: './src/js/uikit',
         output: {
-            filename: 'js/uikit-core.js',
+            filename: 'dist/js/uikit-core.js',
             library: 'UIkit',
             libraryTarget: 'umd'
         },
@@ -42,7 +42,7 @@ module.exports = [
     {
         entry: components,
         output: {
-            filename: 'js/components/[name].js'
+            filename: 'dist/js/components/[name].js'
         },
         module: loaders,
         externals: {jquery: 'jQuery', uikit: 'UIkit'}

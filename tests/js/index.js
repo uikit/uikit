@@ -10,8 +10,8 @@ if (request.status === 200) {
 }
 
 var styles = $.extend({
-        core: { file: '../css/uikit.css' },
-        theme: { file: '../css/uikit.theme.css' }
+        core: { file: '../dist/css/uikit.css' },
+        theme: { file: '../dist/css/uikit.theme.css' }
     }, themes),
     component = location.pathname.split('/').pop().replace(/.html$/, ''),
     components = [
@@ -35,8 +35,8 @@ var style = styles[storage[key]] || styles.theme;
 document.writeln(`<link rel="stylesheet" href="${style.file}">`);
 
 // add javascripts
-['../js/uikit-core.js']
-    .concat(components.map(name => `../js/components/${name}.js`))
+['../dist/js/uikit-core.js']
+    .concat(components.map(name => `../dist/js/components/${name}.js`))
     .forEach(file => document.writeln(`<script src="${file}"></script>`));
 
 $(() => {

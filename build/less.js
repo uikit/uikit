@@ -19,14 +19,14 @@ fs.readdirSync('custom').filter(file => path.join('custom', file).match(/\.less$
 
     theme = path.basename(theme, '.less');
 
-    themes[theme] = {file: `../css/uikit.${theme}.css`};
+    themes[theme] = {file: `../dist/css/uikit.${theme}.css`};
 
-    exec(`lessc --relative-urls --rootpath=../custom/ custom/${theme}.less > css/uikit.${theme}.css`, (error, stdout, stderr) => {
+    exec(`lessc --relative-urls --rootpath=../custom/ custom/${theme}.less > dist/css/uikit.${theme}.css`, (error, stdout, stderr) => {
 
         if (stderr) {
-            console.log(`Error building: ${'css/uikit.'+theme+'.css'} `, stderr);
+            console.log(`Error building: dist/css/uikit.${theme}.css `, stderr);
         } else {
-            console.log(`${'css/uikit.'+theme+'.css'} build `);
+            console.log(`dist/css/uikit.${theme}.css build `);
         }
     });
 });

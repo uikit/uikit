@@ -1,11 +1,18 @@
 var fs = require('fs');
-var exec = require('child_process').exec;
 var path = require('path');
 var glob = require('glob');
 
+var src = 'src/images';
+var dist = 'dist/images';
+
+['dist', dist].forEach(folder => {
+    if (!fs.existsSync(folder)) {
+        fs.mkdirSync(folder);
+    }
+});
 
 // create icons file
-glob('src/images/symbols/*.svg', (er, files) => {
+glob(`${src}/images/symbols/*.svg`, (er, files) => {
 
     var icons = [], contents;
 
@@ -21,18 +28,18 @@ glob('src/images/symbols/*.svg', (er, files) => {
         icons.push(contents);
     });
 
-    fs.writeFileSync('images/icons.svg', `<svg xmlns="http://www.w3.org/2000/svg">\n\n${icons.join("\n\n")}\n\n</svg>`);
+    fs.writeFileSync(`${dist}/icons.svg`, `<svg xmlns="http://www.w3.org/2000/svg">\n\n${icons.join("\n\n")}\n\n</svg>`);
 
 });
 
 // copy images/*.svg
-glob('src/images/backgrounds/*.svg', (er, files) => {
-    files.forEach(f => fs.createReadStream(f).pipe(fs.createWriteStream(`images/${path.basename(f)}`)));
+glob(`${src}/backgrounds/*.svg`, (er, files) => {
+    files.forEach(f => fs.createReadStream(f).pipe(fs.createWriteStream(`${dist}/${path.basename(f)}`)));
 });
 
 
 // copy images/*.svg
-glob('src/images/components/*.svg', (er, files) => {
+glob(`${src}/components/*.svg`, (er, files) => {
 
     var contents;
 
@@ -43,6 +50,6 @@ glob('src/images/components/*.svg', (er, files) => {
                     // .replace(/<svg(.*?) width="(.*?)"/g, '<svg$1')
                     // .replace(' xmlns="http://www.w3.org/2000/svg"', '');
 
-        fs.writeFileSync(`images/${path.basename(f)}`, contents);
+        fs.writeFileSync(`${dist}/${path.basename(f)}`, contents);
     })
 });

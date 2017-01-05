@@ -15,10 +15,12 @@ var dst, protect = {
     next: 'PROTECT_NEXT',
     prev: 'PROTECT_PREV',
     new: 'PROTECT_NEW'
-}
+};
+
+var dist = 'dist/images';
 
 // write new images with swapped names
-glob.sync('images/*-@(next|previous).svg')
+glob.sync(`${dist}/*-@(next|previous).svg`)
     .forEach(img => {
         dst = img.replace('next.svg', protect.next)
             .replace('previous.svg', protect.prev)
@@ -28,8 +30,6 @@ glob.sync('images/*-@(next|previous).svg')
     });
 
 // overwrite old with new images
-glob('images/*.svg'+protect.new, (err, files) => {
-    files.forEach(img => {
-        fs.renameSync(img, img.replace(protect.new, ''));
-    })
-})
+glob(`${dist}/*.svg${protect.new}`, (err, files) => {
+    files.forEach(img => fs.renameSync(img, img.replace(protect.new, '')))
+});

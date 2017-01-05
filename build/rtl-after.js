@@ -10,7 +10,7 @@ var glob = require('glob');
 // CSS
 // ----------------
 
-glob('css/*.css', (er, files) => {
+glob('dist/css/*.css', (er, files) => {
 
     files.forEach((f) => {
         contents = fs.readFileSync(f).toString();

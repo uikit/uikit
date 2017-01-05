@@ -38,12 +38,12 @@
         width: (@accordion-title-line-height * 1em);
         height: (@accordion-title-line-height * 1em);
         float: right;
-        .svg-fill("../../../images/accordion-close.svg", "#000", @accordion-icon-color);
+        .svg-fill("../../../dist/images/accordion-close.svg", "#000", @accordion-icon-color);
         background-repeat: no-repeat;
         background-position: 50% 50%;
     }
 
-    .uk-open > &::after { .svg-fill("../../../images/accordion-open.svg", "#000", @accordion-icon-color); }
+    .uk-open > &::after { .svg-fill("../../../dist/images/accordion-open.svg", "#000", @accordion-icon-color); }
 
 }
 
@@ -68,8 +68,8 @@
 
 .hook-inverse() {
 
-    .uk-accordion-title::after { .svg-fill("../../../images/accordion-close.svg", "#000", @inverse-global-color); }
+    .uk-accordion-title::after { .svg-fill("../../../dist/images/accordion-close.svg", "#000", @inverse-global-color); }
 
-    .uk-open > .uk-accordion-title::after { .svg-fill("../../../images/accordion-open.svg", "#000", @inverse-global-color); }
+    .uk-open > .uk-accordion-title::after { .svg-fill("../../../dist/images/accordion-open.svg", "#000", @inverse-global-color); }
 
 }

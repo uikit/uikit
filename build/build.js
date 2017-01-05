@@ -7,15 +7,18 @@ var babel = require('rollup-plugin-babel');
 var resolve = require('rollup-plugin-node-resolve');
 var util = require('./util');
 
-['js', 'js/components'].forEach(folder => {
+['dist', 'dist/js', 'dist/js/components'].forEach(folder => {
     if (!fs.existsSync(folder)) {
         fs.mkdirSync(folder);
     }
 });
 
-compile('src/js/uikit.js', 'js/uikit-core', ['jquery'], {jquery: 'jQuery'});
+compile('src/js/uikit.js', 'dist/js/uikit-core', ['jquery'], {jquery: 'jQuery'});
 compile('tests/js/index.js', 'tests/js/test', ['jquery'], {jquery: 'jQuery'});
-glob('src/js/components/**/*.js', (er, files) => files.forEach(file => compile(file, file.substring(4, file.length - 3), ['jquery', 'uikit'], {jquery: 'jQuery', uikit: 'UIkit'})));
+
+glob('src/js/components/**/*.js', (er, files) =>
+    files.forEach(file =>
+        compile(file, `dist/${file.substring(4, file.length - 3)}`, ['jquery', 'uikit'], {jquery: 'jQuery', uikit: 'UIkit'})));
 
 function compile(file, dest, external, globals) {
 
