@@ -5,8 +5,8 @@
   "version": "3.0.0",
   "scripts": {
     "compile-less": "mkdir dist & mkdir 'dist/css' & npm run images && npm run compile-less-core && npm run compile-less-theme && node build/less",
-    "compile-less-core": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.less > dist/css/uikit.css",
-    "compile-less-theme": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.theme.less > dist/css/uikit.theme.css",
+    "compile-less-core": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.less > dist/css/uikit-core.css",
+    "compile-less-theme": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.theme.less > dist/css/uikit.css",
     "images": "node build/images",
     "compile-rtl": "npm run images && node build/rtl-before && npm run compile-less && node build/rtl-after",
     "compile-js": "node build/build && node build/all",

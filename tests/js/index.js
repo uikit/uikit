@@ -10,8 +10,8 @@ if (request.status === 200) {
 }
 
 var styles = $.extend({
-        core: { file: '../dist/css/uikit.css' },
-        theme: { file: '../dist/css/uikit.theme.css' }
+        core: { file: '../dist/css/uikit-core.css' },
+        theme: { file: '../dist/css/uikit.css' }
     }, themes),
     component = location.pathname.split('/').pop().replace(/.html$/, ''),
     components = [
