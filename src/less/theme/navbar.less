@@ -7,6 +7,8 @@
 // Variables
 // ========================================================================
 
+@navbar-nav-item-font-size:                     @global-small-font-size;
+
 @navbar-dropdown-margin:                        15px;
 @navbar-dropdown-padding:                       25px;
 @navbar-dropdown-background:                    @global-background;
@@ -15,6 +17,8 @@
 //
 // New
 //
+
+@navbar-nav-item-text-transform:                uppercase;
 
 @navbar-dropdown-nav-font-size:                 @global-small-font-size;
 
@@ -39,7 +43,9 @@
 // Nav
 // ========================================================================
 
-.hook-navbar-nav-item() {}
+.hook-navbar-nav-item() {
+    text-transform: @navbar-nav-item-text-transform;
+}
 
 .hook-navbar-nav-item-hover() {}
 
