@@ -85,7 +85,11 @@ export default function (UIkit) {
                 this.toggles.removeClass(this.cls).attr('aria-expanded', false);
                 toggle.addClass(this.cls).attr('aria-expanded', true);
 
-                this.toggleElement(this.connect.children(`${hasPrev ? `:nth-child(${prev + 1}),` : ''}:nth-child(${index + 1})`), null, hasPrev);
+                if (!hasPrev) {
+                    this.toggleNow(`:nth-child(${index + 1})`);
+                } else {
+                    this.toggleElement(this.connect.children(`:nth-child(${prev + 1}),:nth-child(${index + 1})`), null, true);
+                }
             }
 
         }

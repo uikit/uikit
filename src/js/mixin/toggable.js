@@ -83,8 +83,8 @@ export default {
             return all(toggles).then(() => this.queued !== true && delay(this.queued));
         },
 
-        toggleNow(el, show) {
-            return this.toggleElement(el, show, false);
+        toggleNow(targets, show) {
+            $(targets).each((_, el) => this._toggleElement(el, show, false));
         },
 
         isToggled(el) {
