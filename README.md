@@ -21,7 +21,7 @@ You have following options to get UIkit:
 - Clone the repo, `git clone git://github.com/uikit/uikit.git`.
 - Install with [Bower](http://bower.io): ```bower install uikit```
 
-You find the compiled UIkit distribution in its own [repo](https://github.com/uikit/bower-uikit).
+You can find the compiled UIkit distribution in its own [repo](https://github.com/uikit/bower-uikit).
 
 ## Developers
 
