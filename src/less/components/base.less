@@ -480,6 +480,7 @@ blockquote footer {
 
 /*
  * 1. Contain overflow in all browsers.
+ * 2. Override UA
  */
 
 pre {
@@ -491,6 +492,8 @@ pre {
     overflow: auto;
     .hook-base-pre;
 }
+
+pre code { font-family: @base-pre-font-family; }
 
 
 /* Selection pseudo-element
