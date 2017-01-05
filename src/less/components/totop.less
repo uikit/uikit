@@ -10,11 +10,11 @@
 // ========================================================================
 
 @totop-padding:                                 5px;
-@totop-color:                                   fadeout(@global-color, 40%);
+@totop-color:                                   @global-muted-color;
 
-@totop-hover-color:                             fadeout(@global-color, 20%);
+@totop-hover-color:                             @global-color;
 
-@totop-active-color:                            fadeout(@global-color, 10%);
+@totop-active-color:                            @global-emphasis-color;
 
 @internal-totop-image:                          "../../../images/totop.svg";
 
@@ -68,9 +68,9 @@
 // Inverse
 // ========================================================================
 
-@inverse-totop-color:                       fadeout(@inverse-global-color, 40%);
-@inverse-totop-hover-color:                 fadeout(@inverse-global-color, 20%);
-@inverse-totop-active-color:                fadeout(@inverse-global-color, 10%);
+@inverse-totop-color:                       @inverse-global-muted-color;
+@inverse-totop-hover-color:                 @inverse-global-color;
+@inverse-totop-active-color:                @inverse-global-emphasis-color;
 
 .hook-inverse() {
 
