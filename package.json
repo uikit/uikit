@@ -4,7 +4,7 @@
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
   "version": "3.0.0",
   "scripts": {
-    "compile-less": "mkdir dist & mkdir 'dist/css' & npm run images && npm run compile-less-core && npm run compile-less-theme && node build/less",
+    "compile-less": "mkdir dist & mkdir 'dist/css' & npm run images && npm run compile-less-core && npm run compile-less-theme && node build/less && node build/css-minify",
     "compile-less-core": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.less > dist/css/uikit-core.css",
     "compile-less-theme": "lessc --relative-urls --rootpath=../src/less/ src/less/uikit.theme.less > dist/css/uikit.css",
     "images": "node build/images",
@@ -19,6 +19,7 @@
     "babel-eslint": "5.0.4",
     "babel-loader": "6.2.5",
     "babel-preset-es2015": "6.14.0",
+    "clean-css": "^3.4.23",
     "concat-files": "^0.1.1",
     "glob": "^7.0.3",
     "jquery": "^3.1.1",
