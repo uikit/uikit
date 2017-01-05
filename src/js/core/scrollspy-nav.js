@@ -1,4 +1,4 @@
-import { $, win } from '../util/index';
+import { $, win, isInView } from '../util/index';
 
 export default function (UIkit) {
 
@@ -34,7 +34,8 @@ export default function (UIkit) {
 
             write() {
 
-                var scrollTop = win.scrollTop();
+                var scrollTop = win.scrollTop(), maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+                var activeLink, activeTarget;
 
                 this.links.blur();
                 this.elements.removeClass(this.cls);
@@ -52,15 +53,29 @@ export default function (UIkit) {
                         return;
                     }
 
-                    var active = this.links.filter(`[href="#${el.attr('id')}"]`);
+                    var link = this.links.filter(`[href="#${el.attr('id')}"]`);
 
-                    if (active.length) {
-                        active = (this.closest ? active.closest(this.closest) : active).addClass(this.cls);
-                        this.$el.trigger('active', [el, active]);
-
+                    if (link.length) {
+                        activeLink = link;
+                        activeTarget = el;
                         return false;
                     }
                 });
+
+                if (scrollTop >= maxScroll) {
+
+                    var inview = this.targets.filter((i, el) => isInView(el)).last();
+
+                    if (inview.length) {
+                        activeTarget = inview;
+                        activeLink = this.links.filter(`[href="#${activeTarget.attr('id')}"]`);
+                    }
+                }
+
+                if (activeLink && activeLink.length) {
+                    activeLink = (this.closest ? activeLink.closest(this.closest) : activeLink).addClass(this.cls);
+                    this.$el.trigger('active', [activeTarget, activeLink]);
+                }
             },
 
             events: ['scroll', 'load', 'resize', 'orientationchange']
