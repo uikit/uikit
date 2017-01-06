@@ -17,7 +17,7 @@ export default {
     },
 
     init() {
-        this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
+        this.pos = (this.pos + (!~this.pos.indexOf('-') ? '-center' : '')).split('-');
         this.dir = this.pos[0];
         this.align = this.pos[1];
     },

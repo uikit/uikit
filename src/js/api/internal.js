@@ -153,15 +153,15 @@ export default function (UIkit) {
                 return;
             }
 
-            if (e.type !== 'update' && (!update.events || update.events.indexOf(e.type) === -1)) {
+            if (e.type !== 'update' && (!update.events || !~update.events.indexOf(e.type))) {
                 return;
             }
 
-            if (update.read && !~(fastdom.reads.indexOf(this._frames.reads[i]))) {
+            if (update.read && !~fastdom.reads.indexOf(this._frames.reads[i])) {
                 this._frames.reads[i] = fastdom.measure(() => update.read.call(this, e));
             }
 
-            if (update.write && !~(fastdom.writes.indexOf(this._frames.writes[i]))) {
+            if (update.write && !~fastdom.writes.indexOf(this._frames.writes[i])) {
                 this._frames.writes[i] = fastdom.mutate(() => update.write.call(this, e));
             }
 

@@ -36,7 +36,7 @@ export function position(element, target, attach, targetAttach, offset, targetOf
     if (flip) {
         $.each(dirs, (dir, [prop, align, alignFlip]) => {
 
-            if (!(flip === true || flip.indexOf(dir) !== -1)) {
+            if (!(flip === true || ~flip.indexOf(dir))) {
                 return;
             }
 

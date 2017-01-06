@@ -53,7 +53,7 @@ export default function (UIkit) {
 
                 this.isSet = true;
 
-                if (this.src.indexOf('#') !== -1) {
+                if (~this.src.indexOf('#')) {
 
                     var parts = this.src.split('#');
 
@@ -90,7 +90,7 @@ export default function (UIkit) {
                         this.height *= this.ratio;
 
                         for (var prop in this.$options.props) {
-                            if (this[prop] && this.exclude.indexOf(prop) === -1) {
+                            if (this[prop] && ~this.exclude.indexOf(prop)) {
                                 el.attr(prop, this[prop]);
                             }
                         }

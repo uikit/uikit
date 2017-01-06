@@ -173,7 +173,7 @@ UIkit.component('sortable', {
 
             sortable.insert(this.placeholder, target);
 
-            if (this.touched.indexOf(sortable) === -1) {
+            if (!~this.touched.indexOf(sortable)) {
                 this.touched.push(sortable);
             }
 
