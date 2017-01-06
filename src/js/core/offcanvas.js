@@ -47,7 +47,7 @@ export default function (UIkit) {
 
         update: {
 
-            handler() {
+            write() {
 
                 if (this.isActive()) {
                     this.page.width(window.innerWidth - this.getScrollbarWidth());

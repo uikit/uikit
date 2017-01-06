@@ -1,5 +1,3 @@
-import { fastdom } from '../util/index';
-
 export default function (UIkit) {
 
     UIkit.component('height-viewport', {

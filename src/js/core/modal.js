@@ -32,7 +32,7 @@ export default function (UIkit) {
 
         update: {
 
-            handler() {
+            write() {
 
                 if (this.$el.css('display') === 'block' && this.center) {
                     this.$el
@@ -92,7 +92,7 @@ export default function (UIkit) {
 
         update: {
 
-            handler() {
+            write() {
                 var current = this.$el.css('max-height');
                 this.$el.css('max-height', 150).css('max-height', Math.max(150, 150 - (this.panel.outerHeight(true) - window.innerHeight)));
                 if (current !== this.$el.css('max-height')) {

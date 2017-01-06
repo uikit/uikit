@@ -147,29 +147,24 @@ export default function (UIkit) {
         }
 
         updates.forEach((update, i) => {
-            if (isPlainObject(update)) {
 
-                if (e.type !== 'update' && (!update.events || update.events.indexOf(e.type) === -1)) {
-                    return;
-                }
-
-                if (update.read || update.write) {
-
-                    if (update.read && !~(fastdom.reads.indexOf(this._frames.reads[i]))) {
-                        this._frames.reads[i] = fastdom.measure(() => update.read.call(this, e));
-                    }
-
-                    if (update.write && !~(fastdom.writes.indexOf(this._frames.writes[i]))) {
-                        this._frames.writes[i] = fastdom.mutate(() => update.write.call(this, e));
-                    }
-
-                    return;
-                }
-
-                update = update.handler;
+            if (!isPlainObject) {
+                update.call(this, e);
+                return;
             }
 
-            update.call(this, e);
+            if (e.type !== 'update' && (!update.events || update.events.indexOf(e.type) === -1)) {
+                return;
+            }
+
+            if (update.read && !~(fastdom.reads.indexOf(this._frames.reads[i]))) {
+                this._frames.reads[i] = fastdom.measure(() => update.read.call(this, e));
+            }
+
+            if (update.write && !~(fastdom.writes.indexOf(this._frames.writes[i]))) {
+                this._frames.writes[i] = fastdom.mutate(() => update.write.call(this, e));
+            }
+
         });
 
     };

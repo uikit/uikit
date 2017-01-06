@@ -67,7 +67,7 @@ export default function (UIkit) {
 
         update: {
 
-            handler() {
+            write() {
 
                 if (!this.$el.hasClass(this.cls)) {
                     return;
@@ -168,7 +168,7 @@ export default function (UIkit) {
                 this.clearTimers();
 
                 var hide = () => {
-                    if (this.toggleNow(this.$el, false).state() !== 'rejected') {
+                    if (this.toggleElement(this.$el, false, false).state() !== 'rejected') {
                         active = this.isActive() ? null : active;
                         this.toggle.$el.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
                         this.cancelMouseTracker();

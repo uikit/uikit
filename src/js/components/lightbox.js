@@ -59,7 +59,7 @@ UIkit.component('lightbox', {
 
     update: {
 
-        handler() {
+        write() {
 
             var item = this.getItem();
 
