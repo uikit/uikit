@@ -11,4 +11,4 @@ deployment:
     branch: v2
     commands:
       - gulp build-site
-      - rsync -avz --delete --exclude ".*" --exclude "node_modules" --exclude "docs/fonts" . $UIKIT_SERVER/v2
+      - rsync -avz --delete --exclude ".*" --exclude "node_modules" --exclude "showcase" --exclude "docs/fonts" . $UIKIT_SERVER/v2
