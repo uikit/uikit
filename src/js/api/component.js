@@ -43,6 +43,7 @@ export default function (UIkit) {
     UIkit.getComponent = (element, name) => UIkit.getComponents(element)[name];
 
     UIkit.connect = element => {
+
         if (!element[DATA]) {
             return;
         }
@@ -55,10 +56,13 @@ export default function (UIkit) {
             UIkit.instances[element[DATA][name]._uid] = element[DATA][name];
             element[DATA][name]._callHook('connected');
         }
+
     };
 
     UIkit.disconnect = element => {
+
         var index = UIkit.elements.indexOf(element);
+
         if (index !== -1) {
             UIkit.elements.splice(index, 1);
         }
@@ -67,6 +71,7 @@ export default function (UIkit) {
             delete UIkit.instances[element[DATA][name]._uid];
             element[DATA][name]._callHook('disconnected');
         }
+
     }
 
 }

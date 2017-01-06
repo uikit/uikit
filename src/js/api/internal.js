@@ -34,10 +34,12 @@ export default function (UIkit) {
             data = this.$options.data || {},
             props = this.$options.props || {};
 
-        if (defaults) {
-            for (var key in defaults) {
-                this[key] = hasOwn(data, key) ? coerce(props[key], data[key], this.$options.el) : defaults[key];
-            }
+        if (!defaults) {
+            return;
+        }
+
+        for (var key in defaults) {
+            this[key] = hasOwn(data, key) ? coerce(props[key], data[key], this.$options.el) : defaults[key];
         }
     };
 
@@ -48,48 +50,53 @@ export default function (UIkit) {
             options = el.getAttribute(this.$name),
             key, prop;
 
-        if (props) {
-            for (key in props) {
-                prop = hyphenate(key);
-                if (el.hasAttribute(prop)) {
+        if (!props) {
+            return;
+        }
 
-                    var value = coerce(props[key], el.getAttribute(prop), el);
+        for (key in props) {
+            prop = hyphenate(key);
+            if (el.hasAttribute(prop)) {
 
-                    if (prop === 'target' && (!value || value.lastIndexOf('_', 0) === 0)) {
-                        continue;
-                    }
+                var value = coerce(props[key], el.getAttribute(prop), el);
 
-                    this[key] = value;
-                }
-            }
-
-            if (options) {
-                if (options[0] === '{') {
-                    try {
-                        options = JSON.parse(options);
-                    } catch (e) {
-                        console.warn(`Invalid JSON.`);
-                        options = {};
-                    }
-                } else {
-                    var tmp = {};
-                    options.split(';').forEach(option => {
-                        var [key, value] = option.split(/:(.+)/);
-                        if (key && value) {
-                            tmp[key.trim()] = value.trim();
-                        }
-                    });
-                    options = tmp;
+                if (prop === 'target' && (!value || value.lastIndexOf('_', 0) === 0)) {
+                    continue;
                 }
 
-                for (key in options || {}) {
-                    prop = camelize(key);
-                    if (props[prop] !== undefined) {
-                        this[prop] = coerce(props[prop], options[key], el);
-                    }
-                }
+                this[key] = value;
             }
         }
+
+        if (!options) {
+            return;
+        }
+
+        if (options[0] === '{') {
+            try {
+                options = JSON.parse(options);
+            } catch (e) {
+                console.warn(`Invalid JSON.`);
+                options = {};
+            }
+        } else {
+            var tmp = {};
+            options.split(';').forEach(option => {
+                var [key, value] = option.split(/:(.+)/);
+                if (key && value) {
+                    tmp[key.trim()] = value.trim();
+                }
+            });
+            options = tmp;
+        }
+
+        for (key in options || {}) {
+            prop = camelize(key);
+            if (props[prop] !== undefined) {
+                this[prop] = coerce(props[prop], options[key], el);
+            }
+        }
+
     };
 
     UIkit.prototype._initMethods = function () {
