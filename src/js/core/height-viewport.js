@@ -3,11 +3,15 @@ export default function (UIkit) {
     UIkit.component('height-viewport', {
 
         props: {
-            mode: String
+            expand: Boolean,
+            offsetTop: Boolean,
+            offsetBottom: Boolean
         },
 
         defaults: {
-            mode: 'viewport'
+            expand: false,
+            offsetTop: false,
+            offsetBottom: false
         },
 
         init() {
@@ -18,9 +22,9 @@ export default function (UIkit) {
 
             write() {
 
-                var viewport = window.innerHeight, height, offset;
+                var viewport = window.innerHeight, height, offset = 0;
 
-                if (this.mode === 'expand') {
+                if (this.expand) {
 
                     this.$el.css({height: '', minHeight: ''});
 
@@ -34,15 +38,25 @@ export default function (UIkit) {
 
                     var top = this.$el[0].offsetTop;
 
-                    offset = this.mode === 'offset' && top < viewport;
+                    if (top < viewport) {
 
-                    this.$el.css('min-height', height = offset ? `calc(100vh - ${offset ? top : 0}px)` : '100vh');
+                        if (this.offsetTop) {
+                            offset += top;
+                        }
+
+                        if (this.offsetBottom) {
+                            offset += this.$el.next().outerHeight() || 0;
+                        }
+
+                    }
+
+                    this.$el.css('min-height', height = offset ? `calc(100vh - ${offset}px)` : '100vh');
 
                 }
 
                 // IE 10-11 fix (min-height on a flex container won't apply to its flex items)
                 this.$el.css('height', '');
-                if (height && viewport - (offset ? top : 0) >= this.$el.outerHeight()) {
+                if (height && viewport - offset >= this.$el.outerHeight()) {
                     this.$el.css('height', height);
                 }
 

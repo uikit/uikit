@@ -7,11 +7,6 @@
         <title>Height Viewport - UIkit tests</title>
         <script src="../node_modules/jquery/dist/jquery.js"></script>
         <script src="js/test.js"></script>
-        <style type="text/css">
-
-            .test-bg { background-color: red; }
-
-        </style>
     </head>
 
     <body>
@@ -37,7 +32,7 @@
                 </div>
                 <div>
 
-                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="mode: offset">
+                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="offsetTop: true">
                         <h1>JS Offset</h1>
                     </div>
 
@@ -61,7 +56,7 @@
                 </div>
                 <div>
 
-                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="mode: offset">
+                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="offsetTop: true">
                         <h1>JS Offset</h1>
                     </div>
 
@@ -82,10 +77,22 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>mode</code></td>
-                            <td>viewport|offset|expand</td>
-                            <td>viewport</td>
-                            <td>viewport: Set the element's height to viewport height.<br/>offset: Subtract the element's offset top from its height. <br/>expand: Expand the element's height to make the document fill the viewport.</td>
+                            <td><code>expand</code></td>
+                            <td>false</td>
+                            <td>Boolean</td>
+                            <td>Expand the element's height to make the document fill the viewport.</td>
+                        </tr>
+                        <tr>
+                            <td><code>offset-top</code></td>
+                            <td>false</td>
+                            <td>Boolean</td>
+                            <td>Subtract the element's offset top from its height.</td>
+                        </tr>
+                        <tr>
+                            <td><code>offset-bottom</code></td>
+                            <td>false</td>
+                            <td>Boolean</td>
+                            <td>Subtract the element's immediately following sibling's height from its own height.</td>
                         </tr>
                     </tbody>
                 </table>

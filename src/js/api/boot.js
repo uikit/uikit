@@ -26,11 +26,13 @@ export default function (UIkit) {
         })).observe(document.documentElement, {childList: true});
 
     } else {
+
         ready(() => {
             apply(document.body, connect);
             on(document.body, 'DOMNodeInserted', e => apply(e.target, connect));
             on(document.body, 'DOMNodeRemoved', e => apply(e.target, UIkit.disconnect));
         });
+
     }
 
     function connect(node) {
