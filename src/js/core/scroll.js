@@ -23,14 +23,20 @@ export default function (UIkit) {
                 el = $(el);
 
                 // get / set parameters
-                var target = el.offset().top - this.offset, docHeight = doc.height(), winHeight = window.innerHeight;
+                var target = el.offset().top - this.offset,
+                    docHeight = doc.height(),
+                    winHeight = window.innerHeight;
 
-                if ((target + winHeight) > docHeight) {
+                if (target + winHeight > docHeight) {
                     target = docHeight - winHeight;
                 }
 
                 // animate to target, fire callback when done
-                $('html,body').stop().animate({scrollTop: parseInt(target, 10) || 1}, this.duration, this.transition).promise().then(() => this.$el.triggerHandler($.Event('scrolled'), [this]));
+                $('html,body')
+                    .stop()
+                    .animate({scrollTop: parseInt(target, 10) || 1}, this.duration, this.transition)
+                    .promise()
+                    .then(() => this.$el.triggerHandler($.Event('scrolled'), [this]));
 
             }
 

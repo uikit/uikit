@@ -39,8 +39,8 @@ export default function (UIkit) {
 
             write() {
 
-                var scrollTop = win.scrollTop() + this.offset, maxScroll = this.offset + document.documentElement.scrollHeight - window.innerHeight;
-                var activeLink, activeTarget;
+                var scroll = win.scrollTop() + this.offset,
+                    max = document.documentElement.scrollHeight - window.innerHeight + this.offset;
 
                 this.links.blur();
                 this.elements.removeClass(this.cls);
@@ -50,37 +50,32 @@ export default function (UIkit) {
                     el = $(el);
 
                     var offset = el.offset(), last = i + 1 === this.targets.length;
-                    if (!this.overflow && (i === 0 && offset.top > scrollTop || last && offset.top + el.outerHeight() < scrollTop)) {
+                    if (!this.overflow && (i === 0 && offset.top > scroll || last && offset.top + el.outerHeight() < scroll)) {
                         return false;
                     }
 
-                    if (!last && this.targets.eq(i + 1).offset().top <= scrollTop) {
+                    if (!last && this.targets.eq(i + 1).offset().top <= scroll) {
                         return;
                     }
 
-                    var link = this.links.filter(`[href="#${el.attr('id')}"]`);
+                    if (scroll >= max) {
+                        for (var j = this.targets.length; j > i; j--) {
+                            if (isInView(this.targets.eq(j))) {
+                                el = this.targets.eq(j);
+                                break;
+                            }
+                        }
+                    }
 
-                    if (link.length) {
-                        activeLink = link;
-                        activeTarget = el;
+                    var active = this.links.filter(`[href="#${el.attr('id')}"]`);
+
+                    if (active.length) {
+                        active = (this.closest ? active.closest(this.closest) : active).addClass(this.cls);
+                        this.$el.trigger('active', [el, active]);
+
                         return false;
                     }
                 });
-
-                if (scrollTop >= maxScroll) {
-
-                    var inview = this.targets.filter((i, el) => isInView(el)).last();
-
-                    if (inview.length) {
-                        activeTarget = inview;
-                        activeLink = this.links.filter(`[href="#${activeTarget.attr('id')}"]`);
-                    }
-                }
-
-                if (activeLink && activeLink.length) {
-                    activeLink = (this.closest ? activeLink.closest(this.closest) : activeLink).addClass(this.cls);
-                    this.$el.trigger('active', [activeTarget, activeLink]);
-                }
             },
 
             events: ['scroll', 'load', 'resize', 'orientationchange']
