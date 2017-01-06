@@ -81,7 +81,7 @@ export default function (UIkit) {
 
             var index = UIkit.elements.indexOf(el);
 
-            if (index !== -1) {
+            if (~index) {
                 UIkit.elements.splice(index, 1);
             }
         }

@@ -48,13 +48,17 @@ export default function (UIkit) {
             return;
         }
 
-        if (UIkit.elements.indexOf(element) === -1) {
+        if (!~UIkit.elements.indexOf(element)) {
             UIkit.elements.push(element);
         }
 
         for (var name in element[DATA]) {
-            UIkit.instances[element[DATA][name]._uid] = element[DATA][name];
-            element[DATA][name]._callHook('connected');
+            var component = element[DATA][name];
+            if (!(component._uid in UIkit.instances)) {
+                UIkit.instances[component._uid] = component;
+                component._callHook('connected');
+            }
+
         }
 
     };
@@ -63,13 +67,16 @@ export default function (UIkit) {
 
         var index = UIkit.elements.indexOf(element);
 
-        if (index !== -1) {
+        if (~index) {
             UIkit.elements.splice(index, 1);
         }
 
         for (var name in element[DATA]) {
-            delete UIkit.instances[element[DATA][name]._uid];
-            element[DATA][name]._callHook('disconnected');
+            var component = element[DATA][name];
+            if (component._uid in UIkit.instances) {
+                delete UIkit.instances[component._uid];
+                component._callHook('disconnected');
+            }
         }
 
     }
