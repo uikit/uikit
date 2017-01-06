@@ -1,11 +1,75 @@
-# UIkit3
+[![uikit banner](https://cloud.githubusercontent.com/assets/1716665/15009072/aa063686-11e4-11e6-8b84-272b143e293d.jpg)](http://getuikit.com/)
 
-UIkit 3 Beta
+
+# UIkit
+
+UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.
+
+* [Homepage](http://getuikit.com) - Learn more about UIkit
+* [@getuikit](https://twitter.com/getuikit) - Get the latest buzz on Twitter
+* [Google+ Community](https://plus.google.com/communities/114238665434626719878) - Share news and latest work
+
+Join our developer chat. We are online every work day between 8:00 and 18:00 UTC.
+
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/uikit/uikit)
 
 ## Getting started
 
-- Clone the repo, `git clone`
-- Install with [Node](https://nodejs.org/en/): ```npm install```
-- Create ```css``` folder
-- Compile JS ```node build/build```
-- Compile LESS ```npm run compile-less``` or ```npm run watch-less```
+You have following options to get UIkit:
+
+- Download the [latest release](https://github.com/uikit/uikit/releases/latest)
+- Clone the repo, `git clone git://github.com/uikit/uikit.git`.
+- Install with [Bower](http://bower.io): ```bower install uikit```
+
+You find the compiled UIkit distribution in its own [repo](https://github.com/uikit/bower-uikit).
+
+## Developers
+
+First of all, install [Node](http://nodejs.org/).
+
+If you haven't done so already, clone the UIkit git repo.
+
+```
+git clone git://github.com/uikit/uikit.git
+cd uikit
+```
+
+Install the Node dependencies.
+
+```
+npm install
+```
+
+Build UIkit. The result will end up in the `dist/` folder.
+
+```
+npm run compile
+```
+
+You can also watch for file changes and re-compile automatically.
+
+```
+npm run watch
+```
+
+## Contributing
+
+UIkit follows the [GitFlow branching model](http://nvie.com/posts/a-successful-git-branching-model). The ```master``` branch always reflects a production-ready state while the latest development is taking place in the ```develop``` branch.
+
+Each time you want to work on a fix or a new feature, create a new branch based on the ```develop``` branch: ```git checkout -b BRANCH_NAME develop```. Only pull requests to the ```develop``` branch will be merged.
+
+## Versioning
+
+UIkit is maintained by using the [Semantic Versioning Specification (SemVer)](http://semver.org).
+
+## Browser Support
+
+![Chrome](https://raw.github.com/alrra/browser-logos/master/src/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/src/firefox/firefox_48x48.png) | ![IE](https://raw.github.com/alrra/browser-logos/master/src/archive/internet-explorer_9-11/internet-explorer_9-11_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/src/safari/safari_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/src/opera/opera_48x48.png)
+--- | --- | --- | --- | --- |
+Latest ✔ | Latest ✔ | 9+ ✔ | 7.1+ ✔ | Latest ✔ |
+
+Tested with [BrowserStack](https://www.browserstack.com) (thanks for sponsoring!).
+
+## Copyright and License
+
+Copyright [YOOtheme](http://www.yootheme.com) GmbH under the [MIT license](LICENSE.md).
