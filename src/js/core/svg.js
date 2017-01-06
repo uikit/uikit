@@ -107,7 +107,7 @@ export default function (UIkit) {
                             el.removeAttr('width');
                         }
 
-                        if (isVoidElement(this.$el)) {
+                        if (isVoidElement(this.$el) || this.$el[0].tagName === 'CANVAS') {
                             this.$el.attr({hidden: true, id: null});
                             el.insertAfter(this.$el);
                         } else {
