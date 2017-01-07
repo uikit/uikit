@@ -1,33 +1,30 @@
 [![uikit banner](https://cloud.githubusercontent.com/assets/1716665/15009072/aa063686-11e4-11e6-8b84-272b143e293d.jpg)](http://getuikit.com/)
 
 
-# UIkit 3
+# UIkit
+
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/uikit/uikit)
 
 UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.
 
 * [Homepage](http://getuikit.com) - Learn more about UIkit
 * [@getuikit](https://twitter.com/getuikit) - Get the latest buzz on Twitter
-* [Google+ Community](https://plus.google.com/communities/114238665434626719878) - Share news and latest work
-
-Join our developer chat. We are online every work day between 8:00 and 18:00 UTC.
-
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/uikit/uikit)
+* [Gitter Chat](https://gitter.im/uikit/uikit) - Join our developer chat on Gitter.
 
 ## Getting started
 
 You have following options to get UIkit:
 
-- Download the [latest release](https://github.com/uikit/uikit/releases/latest)
-- Clone the repo, `git clone git://github.com/uikit/uikit.git`.
-- Install with [Bower](http://bower.io): ```bower install uikit```
-
-You find the compiled UIkit distribution in its own [repo](https://github.com/uikit/bower-uikit).
+- Download the [latest release](https://github.com/uikit/uikit/releases/latest) with pre-built CSS and JS.
+- Install with [Bower](https://bower.io) to get the pre-built CSS and JS, plus LESS files to compile yourself. This is recommended when using UIkit for a typical web project: ```bower install uikit```
+- Clone the repo to get all source files including build scripts. `git clone git://github.com/uikit/uikit.git`
+- Install with [Npm](https://npmjs.com) to get all source files as they are available on Github: ```npm install uikit```
 
 ## Developers
 
-First of all, install [Node](http://nodejs.org/).
+To always have the newest version of UIkit, even before a release, you may want to build it from source. If you only want to integrate the LESS sources in your own website, you should simply install the Bower package instead.
 
-If you haven't done so already, clone the UIkit git repo.
+Clone the UIkit repository.
 
 ```
 git clone git://github.com/uikit/uikit.git
@@ -54,9 +51,7 @@ npm run watch
 
 ## Contributing
 
-UIkit follows the [GitFlow branching model](http://nvie.com/posts/a-successful-git-branching-model). The ```master``` branch always reflects a production-ready state while the latest development is taking place in the ```develop``` branch.
-
-Each time you want to work on a fix or a new feature, create a new branch based on the ```develop``` branch: ```git checkout -b BRANCH_NAME develop```. Only pull requests to the ```develop``` branch will be merged.
+Finding bugs, sending pull requests or improving our docs - any contribution is welcome and highly appreciated. To get started, head over to our [contribution guidelines](CONTRIBUTING.md). Thanks!
 
 ## Versioning
 
