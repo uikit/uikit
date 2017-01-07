@@ -13,16 +13,16 @@ UIkit is a lightweight and modular front-end framework for developing fast and p
 
 ## Getting started
 
-You have following options to get UIkit:
+You have the following options to get UIkit:
 
 - Download the [latest release](https://github.com/uikit/uikit/releases/latest) with pre-built CSS and JS.
-- Install with [Bower](https://bower.io) to get the pre-built CSS and JS, plus LESS files to compile yourself. This is recommended when using UIkit for a typical web project: ```bower install uikit```
-- Clone the repo to get all source files including build scripts. `git clone git://github.com/uikit/uikit.git`
+- Install with [Bower](https://bower.io) to get the pre-built CSS and JS, plus Less files to compile yourself. This is recommended when using UIkit for a typical web project: ```bower install uikit```
+- Clone the repo to get all source files including build scripts: `git clone git://github.com/uikit/uikit.git`
 - Install with [Npm](https://npmjs.com) to get all source files as they are available on Github: ```npm install uikit```
 
 ## Developers
 
-To always have the newest version of UIkit, even before a release, you may want to build it from source. If you only want to integrate the LESS sources in your own website, you should simply install the Bower package instead.
+To always have the newest version of UIkit, even before a release, you may want to build it from source. If you only want to integrate the Less sources in your own website, you should simply install the Bower package instead.
 
 Clone the UIkit repository.
 
