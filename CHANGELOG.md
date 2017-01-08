@@ -1,7 +1,7 @@
 # Changelog
 
 
-## 1.0.0 (January 01, 2017)
+## 3.0.0 (January 09, 2017)
 
 ### Added
 
