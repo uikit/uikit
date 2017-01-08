@@ -44,9 +44,7 @@ The issue tracker is the preferred channel for [bug reports](#bugs),
 [features requests](#features) and [submitting pull
 requests](#pull-requests), but please respect the following restriction:
 
-Please **do not** use the issue tracker for personal support requests (use
-[Google+ community](https://plus.google.com/u/0/communities/114238665434626719878) or
-[Gitter chat](https://gitter.im/uikit/uikit)).
+Please **do not** use the issue tracker for personal support requests (use [Gitter chat](https://gitter.im/uikit/uikit)).
 
 <a name="bugs"></a>
 ## Bug reports
