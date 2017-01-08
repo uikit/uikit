@@ -20,7 +20,6 @@ for you to check out. You might find that others have had similar
 questions or that your question rather belongs in one place than another.
 
 * Chat: https://gitter.im/uikit/uikit
-* Community: https://plus.google.com/u/0/communities/114238665434626719878
 * Website: https://getuikit.com
 * Twitter: https://twitter.com/getuikit
 
