@@ -53,7 +53,7 @@ export default function (UIkit) {
 
                 this.isSet = true;
 
-                if (~this.src.indexOf('#')) {
+                if (!this.icon && ~this.src.indexOf('#')) {
 
                     var parts = this.src.split('#');
 
