@@ -1,0 +1,7 @@
+compile:
+  override:
+    - npm run compile
+
+test:
+  override:
+    - echo test
