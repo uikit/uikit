@@ -7443,9 +7443,6 @@ td.uk-text-break {
 .uk-logo-inverse {
   display: none;
 }
-.uk-icon [stroke-width] {
-  stroke: currentcolor;
-}
 /* SVG
  ========================================================================== */
 /*
@@ -9743,13 +9740,13 @@ td.uk-text-break {
 .uk-offcanvas-bar .uk-navbar-toggle.uk-open {
   color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-subnav > * > a,
-.uk-section-primary:not(.uk-preserve-color) .uk-subnav > * > a,
-.uk-section-secondary:not(.uk-preserve-color) .uk-subnav > * > a,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-subnav > * > a,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-subnav > * > a,
-.uk-overlay-primary .uk-subnav > * > a,
-.uk-offcanvas-bar .uk-subnav > * > a {
+.uk-light .uk-subnav > * > :first-child,
+.uk-section-primary:not(.uk-preserve-color) .uk-subnav > * > :first-child,
+.uk-section-secondary:not(.uk-preserve-color) .uk-subnav > * > :first-child,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-subnav > * > :first-child,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-subnav > * > :first-child,
+.uk-overlay-primary .uk-subnav > * > :first-child,
+.uk-offcanvas-bar .uk-subnav > * > :first-child {
   color: rgba(255, 255, 255, 0.5);
 }
 .uk-light .uk-subnav > * > a:hover,
@@ -10164,13 +10161,13 @@ td.uk-text-break {
 .uk-offcanvas-bar .uk-logo:focus {
   color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-logo > :not(.uk-logo-inverse):not(:only-child),
-.uk-section-primary:not(.uk-preserve-color) .uk-logo > :not(.uk-logo-inverse):not(:only-child),
-.uk-section-secondary:not(.uk-preserve-color) .uk-logo > :not(.uk-logo-inverse):not(:only-child),
-.uk-card-primary > :not([class*='uk-card-media']) .uk-logo > :not(.uk-logo-inverse):not(:only-child),
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-logo > :not(.uk-logo-inverse):not(:only-child),
-.uk-overlay-primary .uk-logo > :not(.uk-logo-inverse):not(:only-child),
-.uk-offcanvas-bar .uk-logo > :not(.uk-logo-inverse):not(:only-child) {
+.uk-light .uk-logo > :not(.uk-logo-inverse):not(:only-of-type),
+.uk-section-primary:not(.uk-preserve-color) .uk-logo > :not(.uk-logo-inverse):not(:only-of-type),
+.uk-section-secondary:not(.uk-preserve-color) .uk-logo > :not(.uk-logo-inverse):not(:only-of-type),
+.uk-card-primary > :not([class*='uk-card-media']) .uk-logo > :not(.uk-logo-inverse):not(:only-of-type),
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-logo > :not(.uk-logo-inverse):not(:only-of-type),
+.uk-overlay-primary .uk-logo > :not(.uk-logo-inverse):not(:only-of-type),
+.uk-offcanvas-bar .uk-logo > :not(.uk-logo-inverse):not(:only-of-type) {
   display: none;
 }
 .uk-light .uk-logo-inverse,

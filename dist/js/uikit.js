@@ -42,8 +42,8 @@ function off(el, type, listener, useCapture) {
 }
 
 function transition(element, props) {
-    var duration = arguments.length <= 2 || arguments[2] === undefined ? 400 : arguments[2];
-    var transition = arguments.length <= 3 || arguments[3] === undefined ? 'linear' : arguments[3];
+    var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 400;
+    var transition = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 'linear';
 
 
     var d = $__default.Deferred();
@@ -89,7 +89,7 @@ var Transition = {
 };
 
 function animate(element, animation) {
-    var duration = arguments.length <= 2 || arguments[2] === undefined ? 200 : arguments[2];
+    var duration = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 200;
     var origin = arguments[3];
     var out = arguments[4];
 
@@ -166,8 +166,8 @@ function removeClass(element, cls) {
 }
 
 function createEvent(e) {
-    var bubbles = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
-    var cancelable = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
+    var bubbles = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+    var cancelable = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
 
     if (isString(e)) {
         var event = document.createEvent('Event');
@@ -179,8 +179,8 @@ function createEvent(e) {
 }
 
 function isInView(element) {
-    var offsetTop = arguments.length <= 1 || arguments[1] === undefined ? 0 : arguments[1];
-    var offsetLeft = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
+    var offsetTop = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
+    var offsetLeft = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 
 
     element = $__default(element);
@@ -189,18 +189,17 @@ function isInView(element) {
         return false;
     }
 
-    var scrollLeft = win.scrollLeft();var scrollTop = win.scrollTop();
-    var _element$offset = element.offset();
-
-    var top = _element$offset.top;
-    var left = _element$offset.left;
-
+    var scrollLeft = win.scrollLeft(),
+        scrollTop = win.scrollTop(),
+        _element$offset = element.offset(),
+        top = _element$offset.top,
+        left = _element$offset.left;
 
     return top + element.height() >= scrollTop && top - offsetTop <= scrollTop + win.height() && left + element.width() >= scrollLeft && left - offsetLeft <= scrollLeft + win.width();
 }
 
 function getIndex(index, elements) {
-    var current = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
+    var current = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 0;
 
 
     elements = $__default(elements);
@@ -353,7 +352,7 @@ function getCssVar(name) {
     return val || undefined;
 }
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 // Copyright (c) 2016 Wilson Page wilsonpage@me.com
 // https://github.com/wilsonpage/fastdom
@@ -777,9 +776,9 @@ function position(element, target, attach, targetAttach, offset, targetOffset, f
 
     if (flip) {
         $__default.each(dirs, function (dir, _ref) {
-            var prop = _ref[0];
-            var align = _ref[1];
-            var alignFlip = _ref[2];
+            var prop = _ref[0],
+                align = _ref[1],
+                alignFlip = _ref[2];
 
 
             if (!(flip === true || ~flip.indexOf(dir))) {
@@ -824,9 +823,9 @@ function getDimensions(elem) {
 
 function moveTo(position, attach, dim, factor) {
     $__default.each(dirs, function (dir, _ref2) {
-        var prop = _ref2[0];
-        var align = _ref2[1];
-        var alignFlip = _ref2[2];
+        var prop = _ref2[0],
+            align = _ref2[1],
+            alignFlip = _ref2[2];
 
         if (attach[dir] === alignFlip) {
             position[align] += dim[prop] * factor;
@@ -1331,10 +1330,9 @@ function internalAPI (UIkit) {
         } else {
             var tmp = {};
             options.split(';').forEach(function (option) {
-                var _option$split = option.split(/:(.+)/);
-
-                var key = _option$split[0];
-                var value = _option$split[1];
+                var _option$split = option.split(/:(.+)/),
+                    key = _option$split[0],
+                    value = _option$split[1];
 
                 if (key && value) {
                     tmp[key.trim()] = value.trim();
@@ -1504,7 +1502,7 @@ function instanceAPI (UIkit) {
     };
 
     UIkit.prototype.$destroy = function () {
-        var remove = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+        var remove = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
 
 
         this._callHook('destroy');
@@ -1524,7 +1522,7 @@ function instanceAPI (UIkit) {
 
             var index = UIkit.elements.indexOf(el);
 
-            if (index !== -1) {
+            if (~index) {
                 UIkit.elements.splice(index, 1);
             }
         }
@@ -1589,13 +1587,16 @@ function componentAPI (UIkit) {
             return;
         }
 
-        if (UIkit.elements.indexOf(element) === -1) {
+        if (!~UIkit.elements.indexOf(element)) {
             UIkit.elements.push(element);
         }
 
         for (var name in element[DATA]) {
-            UIkit.instances[element[DATA][name]._uid] = element[DATA][name];
-            element[DATA][name]._callHook('connected');
+            var component = element[DATA][name];
+            if (!(component._uid in UIkit.instances)) {
+                UIkit.instances[component._uid] = component;
+                component._callHook('connected');
+            }
         }
     };
 
@@ -1603,13 +1604,16 @@ function componentAPI (UIkit) {
 
         var index = UIkit.elements.indexOf(element);
 
-        if (index !== -1) {
+        if (~index) {
             UIkit.elements.splice(index, 1);
         }
 
         for (var name in element[DATA]) {
-            delete UIkit.instances[element[DATA][name]._uid];
-            element[DATA][name]._callHook('disconnected');
+            var component = element[DATA][name];
+            if (component._uid in UIkit.instances) {
+                delete UIkit.instances[component._uid];
+                component._callHook('disconnected');
+            }
         }
     };
 }
@@ -2433,7 +2437,7 @@ function Drop (UIkit) {
             show: function show(toggle) {
                 var _this2 = this;
 
-                var delay = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
+                var delay = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
 
 
                 if (toggle && this.toggle && !this.toggle.$el.is(toggle.$el)) {
@@ -2472,7 +2476,7 @@ function Drop (UIkit) {
             hide: function hide() {
                 var _this3 = this;
 
-                var delay = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
+                var delay = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : true;
 
 
                 this.clearTimers();
@@ -3216,8 +3220,8 @@ function Navbar (UIkit) {
 
         events: {
             beforeshow: function beforeshow(e, _ref5) {
-                var $el = _ref5.$el;
-                var dir = _ref5.dir;
+                var $el = _ref5.$el,
+                    dir = _ref5.dir;
 
                 if (this.dropbar && dir === 'bottom' && !isWithin($el, this.dropbar)) {
                     $el.appendTo(this.dropbar);
@@ -3701,7 +3705,7 @@ function Sticky (UIkit) {
 
 
         update: [{
-            handler: function handler(_ref) {
+            write: function write(_ref) {
                 var _this2 = this;
 
                 var type = _ref.type;
@@ -3756,7 +3760,7 @@ function Sticky (UIkit) {
             events: ['load', 'resize', 'orientationchange']
 
         }, {
-            handler: function handler(_ref2) {
+            write: function write(_ref2) {
                 var _this3 = this;
 
                 var dir = _ref2.dir;
@@ -3892,7 +3896,7 @@ function Svg (UIkit) {
 
                 this.isSet = true;
 
-                if (~this.src.indexOf('#')) {
+                if (!this.icon && ~this.src.indexOf('#')) {
 
                     var parts = this.src.split('#');
 
@@ -3943,7 +3947,7 @@ function Svg (UIkit) {
                             el.removeAttr('width');
                         }
 
-                        if (isVoidElement(_this.$el)) {
+                        if (isVoidElement(_this.$el) || _this.$el[0].tagName === 'CANVAS') {
                             _this.$el.attr({ hidden: true, id: null });
                             el.insertAfter(_this.$el);
                         } else {
@@ -4360,7 +4364,6 @@ var extend = uikit.util.extend;
 var Dimensions = uikit.util.Dimensions;
 var getIndex = uikit.util.getIndex;
 var Transition = uikit.util.Transition;
-
 var active;
 
 doc.on({
@@ -4525,8 +4528,8 @@ UIkit.component('lightbox', {
             return this.items[this.index] || { source: '', title: '', type: '' };
         },
         setItem: function setItem(item, content) {
-            var width = arguments.length <= 2 || arguments[2] === undefined ? 200 : arguments[2];
-            var height = arguments.length <= 3 || arguments[3] === undefined ? 200 : arguments[3];
+            var width = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 200;
+            var height = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : 200;
 
             extend(item, { content: content, width: width, height: height });
             this.$update();
@@ -4672,8 +4675,6 @@ UIkit.mixin({
 
 var $ = uikit.util.$;
 var Transition = uikit.util.Transition;
-
-
 var containers = {};
 
 UIkit.component('notification', {
@@ -4777,8 +4778,6 @@ var pointerDown = uikit.util.pointerDown;
 var pointerMove = uikit.util.pointerMove;
 var pointerUp = uikit.util.pointerUp;
 var win = uikit.util.win;
-
-
 UIkit.component('sortable', {
 
     mixins: [uikit.mixin.class],
@@ -4822,10 +4821,9 @@ UIkit.component('sortable', {
                 e = e.originalEvent || e;
                 _this.scrollY = window.scrollY;
 
-                var _ref = e.touches && e.touches[0] || e;
-
-                var pageX = _ref.pageX;
-                var pageY = _ref.pageY;
+                var _ref = e.touches && e.touches[0] || e,
+                    pageX = _ref.pageX,
+                    pageY = _ref.pageY;
 
                 _this.pos = { x: pageX, y: pageY };
 
@@ -4907,10 +4905,9 @@ UIkit.component('sortable', {
 
             this.drag.children().first().height(this.placeholder.children().height());
 
-            var _placeholder$offset = this.placeholder.offset();
-
-            var left = _placeholder$offset.left;
-            var top = _placeholder$offset.top;
+            var _placeholder$offset = this.placeholder.offset(),
+                left = _placeholder$offset.left,
+                top = _placeholder$offset.top;
 
             extend(this.origin, { left: left - this.pos.x, top: top - this.pos.y });
 
@@ -5122,8 +5119,6 @@ function preventClick() {
 
 var $ = uikit.util.$;
 var flipPosition = uikit.util.flipPosition;
-
-
 UIkit.component('tooltip', {
 
     mixins: [uikit.mixin.toggable, uikit.mixin.position],
@@ -5207,8 +5202,6 @@ UIkit.component('tooltip', {
 var $ = uikit.util.$;
 var ajax = uikit.util.ajax;
 var on = uikit.util.on;
-
-
 UIkit.component('upload', {
 
     props: {
