@@ -18,6 +18,7 @@ You have the following options to get UIkit:
 - Install with [Bower](https://bower.io) to get the pre-built CSS and JS, plus Less files to compile yourself. This is recommended when using UIkit for a typical web project: ```bower install uikit```
 - Clone the repo to get all source files including build scripts: `git clone git://github.com/uikit/uikit.git`
 - Install with [Npm](https://npmjs.com) to get all source files as they are available on Github: ```npm install uikit```
+- Directly load UIkit from [CDNJS](https://cdnjs.com): https://cdnjs.com/libraries/uikit
 
 ## Developers
 
