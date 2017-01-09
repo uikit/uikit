@@ -8,7 +8,7 @@ test:
 
 deployment:
   production:
-    branch: v2
+    branch: v2/master
     commands:
       - gulp build-site
       - rsync -avz --delete --exclude ".*" --exclude "node_modules" --exclude "showcase" --exclude "docs/fonts" . $UIKIT_SERVER/v2
