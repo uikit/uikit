@@ -3,7 +3,7 @@ var path = require('path');
 var glob = require('glob');
 var rollup = require('rollup');
 var uglify = require('uglify-js');
-var babel = require('rollup-plugin-babel');
+var buble = require('rollup-plugin-buble');
 var resolve = require('rollup-plugin-node-resolve');
 var util = require('./util');
 
@@ -26,7 +26,7 @@ function compile(file, dest, external, globals) {
         external,
         entry: `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
         plugins: [
-            babel({presets: [['es2015', {loose: true, modules: false}]]}),
+            buble(),
             resolve({jsnext: true})
         ]
     })

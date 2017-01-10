@@ -4,11 +4,8 @@ var path = require('path');
 
 var loaders = {
     loaders: [
-        {
-            test: /(src|tests)(\/|\\).*\.js$/,
-            loader: 'babel',
-            query: {presets: [['es2015', {loose: true}]]}
-        }
+        {loader: 'buble-loader', test: /(src|tests)(\/|\\).*\.js$/},
+        {loader: 'json-loader', test: /\.json/}
     ]
 };
 
