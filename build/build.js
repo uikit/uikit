@@ -26,8 +26,7 @@ function compile(file, dest, external, globals) {
         external,
         entry: `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
         plugins: [
-            buble(),
-            resolve({jsnext: true})
+            buble()
         ]
     })
         .then(bundle => util.write(`${dest}.js`, bundle.generate({
