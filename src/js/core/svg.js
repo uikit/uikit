@@ -171,10 +171,23 @@ export default function (UIkit) {
 
         var image = getBackgroundImage(el);
 
-        if (!image && !el.is(':visible')) {
-            el = el.clone().attr('uk-no-boot', '').appendTo(document.body).show();
-            image = getBackgroundImage(el);
+        if (!image) {
+
+            el = el.clone().empty().attr('uk-no-boot', '').appendTo(document.body).show();
+
+            if (!el.is(':visible')) {
+                image = getBackgroundImage(el);
+            }
+
+            // safari workaround
+            if (!image && el[0].tagName === 'CANVAS') {
+                var span = $(el[0].outerHTML.replace(/canvas/g, 'span')).insertAfter(el);
+                image = getBackgroundImage(span);
+                span.remove();
+            }
+
             el.remove();
+
         }
 
         return image && image.slice(4, -1).replace(/"/g, '');
