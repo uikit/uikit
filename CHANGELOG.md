@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Improve relative path to icons.svg
+
 ### Fixed
 
 - Fix Icon component on canvas elements (Safari)
