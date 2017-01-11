@@ -7,6 +7,8 @@ export default function (UIkit) {
 
         mixins: [Modal],
 
+        args: 'mode',
+
         props: {
             mode: String,
             flip: Boolean,

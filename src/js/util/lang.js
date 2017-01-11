@@ -43,6 +43,10 @@ export function isNumber(value) {
     return typeof value === 'number';
 }
 
+export function isUndefined(value) {
+    return value === undefined;
+}
+
 export function isContextSelector(selector) {
     return isString(selector) && selector.match(/^(!|>|\+|-)/);
 }

@@ -29,6 +29,10 @@ export default function (UIkit) {
                 return new UIkit.components[name]({data: element});
             }
 
+            if (UIkit.components[name].options.functional) {
+                return new UIkit.components[name]({data: [...arguments]});
+            }
+
             var result = [];
 
             data = data || {};
@@ -38,7 +42,7 @@ export default function (UIkit) {
             return result;
         };
 
-        if (document.body) {
+        if (document.body && !options.options.functional) {
             UIkit[name](selector)
         }
 

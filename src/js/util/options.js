@@ -1,8 +1,9 @@
-import { extend, isArray, hasOwn } from './index';
+import { extend, isArray, isUndefined, hasOwn } from './index';
 
 var strats = {};
 
 // concat strategy
+strats.args =
 strats.created =
 strats.init =
 strats.ready =
@@ -73,7 +74,7 @@ strats.methods = function (parentVal, childVal) {
 
 // default strategy
 var defaultStrat = function (parentVal, childVal) {
-    return childVal === undefined ? parentVal : childVal;
+    return isUndefined(childVal) ? parentVal : childVal;
 };
 
 export function mergeOptions (parent, child, thisArg) {

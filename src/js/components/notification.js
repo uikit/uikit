@@ -6,6 +6,10 @@ var containers = {};
 
 UIkit.component('notification', {
 
+    functional: true,
+
+    args: ['message', 'status'],
+
     defaults: {
         message: '',
         status: '',

@@ -1,8 +1,10 @@
-import { $, fastdom, isInView, toJQuery } from '../util/index';
+import { $, isInView, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('scrollspy', {
+
+        args: 'cls',
 
         props: {
             cls: String,

@@ -1,5 +1,12 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add support for Primary Arguments in components
+- Add support for Functional Components
+
 ## 3.0.0 beta 2 (January 11, 2017)
 
 ### Added

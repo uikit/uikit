@@ -7,6 +7,8 @@ export default function (UIkit) {
 
         mixins: [Toggable],
 
+        args: 'connect',
+
         props: {
             connect: 'jQuery',
             toggle: String,

@@ -32,10 +32,18 @@ export default function (UIkit) {
 
         var defaults = extend(true, {}, this.$options.defaults),
             data = this.$options.data || {},
+            args = this.$options.args || [],
             props = this.$options.props || {};
 
         if (!defaults) {
             return;
+        }
+
+        if (args.length && isArray(data)) {
+            data = data.slice(0, args.length).reduce((data, value, index) => {
+                data[args[index]] = value;
+                return data;
+            }, {});
         }
 
         for (var key in defaults) {
@@ -46,6 +54,7 @@ export default function (UIkit) {
     UIkit.prototype._initProps = function () {
 
         var el = this.$el[0],
+            args = this.$options.args || [],
             props = this.$options.props || {},
             options = el.getAttribute(this.$name),
             key, prop;
@@ -79,6 +88,8 @@ export default function (UIkit) {
                 console.warn(`Invalid JSON.`);
                 options = {};
             }
+        } else if (args.length && !~options.indexOf(':')) {
+            options = ({[args[0]]: options});
         } else {
             var tmp = {};
             options.split(';').forEach(option => {

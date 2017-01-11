@@ -15,6 +15,8 @@ export default function (UIkit) {
 
         mixins: [Mouse, Position, Toggable],
 
+        args: 'pos',
+
         props: {
             mode: String,
             toggle: Boolean,

@@ -8,6 +8,8 @@ export default function (UIkit) {
 
         name: 'icon',
 
+        args: 'icon',
+
         props: ['icon'],
 
         defaults: {exclude: ['id', 'style', 'class', 'src']},

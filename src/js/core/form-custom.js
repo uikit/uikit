@@ -7,6 +7,8 @@ export default function (UIkit) {
 
         mixins: [Class],
 
+        args: 'target',
+
         props: {
             target: Boolean
         },
