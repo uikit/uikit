@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Enable deferred loading of UIkit 
+
 ### Changed
 
 - Improve relative path to icons.svg

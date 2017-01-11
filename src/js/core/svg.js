@@ -36,17 +36,6 @@ export default function (UIkit) {
                     this.src = getSrc(this.$el);
                 }
 
-                this.set();
-            },
-
-            events: ['load']
-
-        },
-
-        methods: {
-
-            set() {
-
                 if (!this.src || this.isSet) {
                     return;
                 }
@@ -118,8 +107,13 @@ export default function (UIkit) {
 
                     })
                 );
-
             },
+
+            events: ['load']
+
+        },
+
+        methods: {
 
             get(src) {
 
