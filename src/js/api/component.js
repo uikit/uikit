@@ -1,4 +1,4 @@
-import { $, camelize, isPlainObject } from '../util/index';
+import { $, camelize, isPlainObject, matches } from '../util/index';
 
 export default function (UIkit) {
 
@@ -8,7 +8,9 @@ export default function (UIkit) {
 
     UIkit.component = function (name, options) {
 
-        UIkit.component.selector = (`${UIkit.component.selector},` || '') + `[uk-${name}]`;
+        var selector = `[uk-${name}]`;
+
+        UIkit.component.selector = (`${UIkit.component.selector},` || '') + selector;
 
         name = camelize(name);
 
@@ -36,43 +38,64 @@ export default function (UIkit) {
             return result;
         };
 
+        if (document.body) {
+            UIkit[name](selector)
+        }
+
         return UIkit.components[name];
     };
 
     UIkit.getComponents = element => element && element[DATA] || {};
     UIkit.getComponent = (element, name) => UIkit.getComponents(element)[name];
 
-    UIkit.connect = element => {
+    UIkit.connect = node => {
 
-        if (!element[DATA]) {
+        if (node[DATA]) {
+
+            if (!~UIkit.elements.indexOf(node)) {
+                UIkit.elements.push(node);
+            }
+
+            for (var name in node[DATA]) {
+
+                var component = node[DATA][name];
+                if (!(component._uid in UIkit.instances)) {
+                    UIkit.instances[component._uid] = component;
+                    component._callHook('connected');
+                }
+
+            }
+        }
+
+        if (!matches(node, UIkit.component.selector)) {
             return;
         }
 
-        if (!~UIkit.elements.indexOf(element)) {
-            UIkit.elements.push(element);
-        }
+        for (var i = 0, name; i < node.attributes.length; i++) {
 
-        for (var name in element[DATA]) {
-            var component = element[DATA][name];
-            if (!(component._uid in UIkit.instances)) {
-                UIkit.instances[component._uid] = component;
-                component._callHook('connected');
+            name = node.attributes[i].name;
+
+            if (name.lastIndexOf('uk-', 0) === 0) {
+                name = camelize(name.replace('uk-', ''));
+
+                if (UIkit[name]) {
+                    UIkit[name](node);
+                }
             }
-
         }
 
     };
 
-    UIkit.disconnect = element => {
+    UIkit.disconnect = node => {
 
-        var index = UIkit.elements.indexOf(element);
+        var index = UIkit.elements.indexOf(node);
 
         if (~index) {
             UIkit.elements.splice(index, 1);
         }
 
-        for (var name in element[DATA]) {
-            var component = element[DATA][name];
+        for (var name in node[DATA]) {
+            var component = node[DATA][name];
             if (component._uid in UIkit.instances) {
                 delete UIkit.instances[component._uid];
                 component._callHook('disconnected');

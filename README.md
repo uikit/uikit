@@ -1,5 +1,4 @@
-[![uikit banner](https://cloud.githubusercontent.com/assets/1716665/15009072/aa063686-11e4-11e6-8b84-272b143e293d.jpg)](http://getuikit.com/)
-
+[![uikit banner](https://cloud.githubusercontent.com/assets/321047/21769911/474d7d9e-d681-11e6-9fe0-d95f8ccfd3a9.jpg)](http://getuikit.com/)
 
 # UIkit
 
@@ -19,6 +18,7 @@ You have the following options to get UIkit:
 - Install with [Bower](https://bower.io) to get the pre-built CSS and JS, plus Less files to compile yourself. This is recommended when using UIkit for a typical web project: ```bower install uikit```
 - Clone the repo to get all source files including build scripts: `git clone git://github.com/uikit/uikit.git`
 - Install with [Npm](https://npmjs.com) to get all source files as they are available on Github: ```npm install uikit```
+- Directly load UIkit from [CDNJS](https://cdnjs.com): https://cdnjs.com/libraries/uikit
 
 ## Developers
 

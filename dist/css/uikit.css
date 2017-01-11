@@ -904,7 +904,7 @@ textarea {
  * Pass image path to JS
  */
 .uk-icon::before {
-  background-image: url("../../dist/images/icons.svg");
+  background-image: url("../images/icons.svg");
 }
 /*
  * 1. Fill all SVG elements with the current text color if no `fill` attribute is set

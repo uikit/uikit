@@ -2,7 +2,17 @@ var fs = require('fs');
 var exec = require('child_process').exec;
 var path = require('path');
 var write = require('./util').write;
+var glob = require('glob');
 
+glob(`dist/css/!(*.min).css`, (err, files) =>
+    files.forEach(file =>
+        fs.readFile(file, 'utf8', (err, data) =>
+            fs.writeFile(file, data.replace(/\.\.\/dist\//g, ''), err =>
+                err && console.log(err)
+            )
+        )
+    )
+);
 
 // build custom/*
 if (!fs.existsSync('themes.json') && !fs.existsSync('custom')) {
