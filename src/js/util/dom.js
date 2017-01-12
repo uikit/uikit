@@ -3,6 +3,7 @@ import { animationend, each, extend, getContextSelectors, isNumber, isString, to
 
 export const win = $(window);
 export const doc = $(document);
+export const docElement = $(document.documentElement);
 
 export const langDirection = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
 

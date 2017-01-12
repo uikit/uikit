@@ -1,6 +1,6 @@
 import { container, mixin, util } from 'uikit';
 
-var {$, createEvent, doc, extend, isWithin, Observer, on, off, pointerDown, pointerMove, pointerUp, requestAnimationFrame, win} = util;
+var {$, createEvent, docElement: doc, extend, isWithin, Observer, on, off, pointerDown, pointerMove, pointerUp, requestAnimationFrame, win} = util;
 
 UIkit.component('sortable', {
 
