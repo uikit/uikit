@@ -26,7 +26,7 @@ export default function (UIkit) {
 
                 this.$el
                     .attr('src', `${src}${~src.indexOf('?') ? '&' : '?'}enablejsapi=1&api=1`)
-                    .on('load', ({target}) =>target.contentWindow.postMessage('{"event": "command", "func": "mute", "method":"setVolume", "value":0}', '*'));
+                    .on('load', ({target}) => target.contentWindow.postMessage('{"event": "command", "func": "mute", "method":"setVolume", "value":0}', '*'));
             }
         },
 
