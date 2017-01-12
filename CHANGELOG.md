@@ -11,12 +11,13 @@
 ### Fixed
 
 - Fix sortable behaviour
+- Fix link muted and link reset
 
 ## 3.0.0 beta 2 (January 11, 2017)
 
 ### Added
 
-- Enable deferred loading of UIkit 
+- Enable deferred loading of UIkit
 
 ### Changed
 
