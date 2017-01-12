@@ -1,4 +1,4 @@
-import { $, camelize, isPlainObject, matches } from '../util/index';
+import { $, camelize, isPlainObject } from '../util/index';
 
 export default function (UIkit) {
 
@@ -7,10 +7,6 @@ export default function (UIkit) {
     UIkit.components = {};
 
     UIkit.component = function (name, options) {
-
-        var selector = `[uk-${name}]`;
-
-        UIkit.component.selector = (`${UIkit.component.selector},` || '') + selector;
 
         name = camelize(name);
 
@@ -43,7 +39,7 @@ export default function (UIkit) {
         };
 
         if (document.body && !options.options.functional) {
-            UIkit[name](selector)
+            UIkit[name](`[uk-${name}],[data-uk-${name}]`)
         }
 
         return UIkit.components[name];
@@ -54,13 +50,15 @@ export default function (UIkit) {
 
     UIkit.connect = node => {
 
+        var name;
+
         if (node[DATA]) {
 
             if (!~UIkit.elements.indexOf(node)) {
                 UIkit.elements.push(node);
             }
 
-            for (var name in node[DATA]) {
+            for (name in node[DATA]) {
 
                 var component = node[DATA][name];
                 if (!(component._uid in UIkit.instances)) {
@@ -71,16 +69,13 @@ export default function (UIkit) {
             }
         }
 
-        if (!matches(node, UIkit.component.selector)) {
-            return;
-        }
-
-        for (var i = 0, name; i < node.attributes.length; i++) {
+        for (var i = 0, prefix; i < node.attributes.length; i++) {
 
             name = node.attributes[i].name;
 
-            if (name.lastIndexOf('uk-', 0) === 0) {
-                name = camelize(name.replace('uk-', ''));
+            if ((prefix = 'uk-') && name.lastIndexOf('uk-', 0) === 0 || (prefix = 'data-uk-') && name.lastIndexOf('data-uk-', 0) === 0) {
+
+                name = camelize(name.replace(prefix, ''));
 
                 if (UIkit[name]) {
                     UIkit[name](node);
