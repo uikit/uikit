@@ -461,7 +461,7 @@
                 $('#modal-alert').on('click', function (e) {
                     e.preventDefault();
                     $(this).blur();
-                    UIkit.modal.alert('UIkit alert!').then(function() {
+                    UIkit.modal.alert('UIkit alert!').then(function () {
                         console.log('Alert closed.')
                     });
                 });
@@ -469,7 +469,7 @@
                 $('#modal-confirm').on('click', function (e) {
                     e.preventDefault();
                     $(this).blur();
-                    UIkit.modal.confirm('UIkit confirm!').then(function() {
+                    UIkit.modal.confirm('UIkit confirm!').then(function () {
                         console.log('Confirmed.')
                     }, function () {
                         console.log('Rejected.')
@@ -479,7 +479,7 @@
                 $('#modal-prompt').on('click', function (e) {
                     e.preventDefault();
                     $(this).blur();
-                    UIkit.modal.prompt('Name:', 'Your name').then(function(name) {
+                    UIkit.modal.prompt('Name:', 'Your name').then(function (name) {
                         console.log('Prompted:', name)
                     });
                 });

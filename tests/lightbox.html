@@ -147,10 +147,12 @@
                 $('#lightbox').on('click', function (e) {
                     e.preventDefault();
 
-                    UIkit.lightbox('#lightbox', {items: [
-                        {source: 'images/size1.jpg', title: '900x600', type: 'image'},
-                        {source: 'images/size2.jpg', title: '700x500', type: 'image'},
-                    ]})[0].show();
+                    UIkit.lightbox('#lightbox', {
+                        items: [
+                            {source: 'images/size1.jpg', title: '900x600', type: 'image'},
+                            {source: 'images/size2.jpg', title: '700x500', type: 'image'},
+                        ]
+                    })[0].show();
                 });
 
             })();
