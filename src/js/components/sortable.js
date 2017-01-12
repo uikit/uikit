@@ -299,18 +299,15 @@ UIkit.component('sortable', {
             children.forEach(el => el.stop());
             this.$el.children().css(reset);
             this.$updateParents();
+            this.$el.css('min-height', this.$el.height());
 
-            requestAnimationFrame(() => {
+            var positions = children.map(el => el.position());
+            $.when.apply($, children.map((el, i) => el.css(props[i]).animate(positions[i], this.animation).promise()))
+                .then(() => {
+                    this.$el.css('min-height', '').children().css(reset);
+                    this.$updateParents();
+                });
 
-                this.$el.css('min-height', this.$el.height());
-
-                var positions = children.map(el => el.position());
-                $.when.apply($, children.map((el, i) => el.css(props[i]).animate(positions[i], this.animation).promise()))
-                    .then(() => {
-                        this.$el.css('min-height', '').children().css(reset);
-                        this.$updateParents();
-                    });
-            })
         }
 
     }
