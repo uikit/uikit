@@ -1,6 +1,6 @@
 import { container, mixin, util } from 'uikit';
 
-var {$, doc, extend, isWithin, Observer, on, off, pointerDown, pointerMove, pointerUp, requestAnimationFrame, win} = util;
+var {$, createEvent, doc, extend, isWithin, Observer, on, off, pointerDown, pointerMove, pointerUp, requestAnimationFrame, win} = util;
 
 UIkit.component('sortable', {
 
@@ -298,16 +298,23 @@ UIkit.component('sortable', {
 
             children.forEach(el => el.stop());
             this.$el.children().css(reset);
-            this.$updateParents();
-            this.$el.css('min-height', this.$el.height());
+            this._updateParents();
 
-            var positions = children.map(el => el.position());
-            $.when.apply($, children.map((el, i) => el.css(props[i]).animate(positions[i], this.animation).promise()))
-                .then(() => {
-                    this.$el.css('min-height', '').children().css(reset);
-                    this.$updateParents();
-                });
+            requestAnimationFrame(() => {
+                this.$el.css('min-height', this.$el.height());
 
+                var positions = children.map(el => el.position());
+                $.when.apply($, children.map((el, i) => el.css(props[i]).animate(positions[i], this.animation).promise()))
+                    .then(() => {
+                        this.$el.css('min-height', '').children().css(reset);
+                        this._updateParents();
+                    });
+            });
+
+        },
+
+        _updateParents() {
+            this.$updateParents(createEvent('update', true, false, {sync: true}));
         }
 
     }

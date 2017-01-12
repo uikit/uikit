@@ -166,13 +166,22 @@ export default function (UIkit) {
 
         updates.forEach((update, i) => {
 
-            if (!isPlainObject) {
-                update.call(this, e);
+            if (e.type !== 'update' && (!update.events || !~update.events.indexOf(e.type))) {
                 return;
             }
 
-            if (e.type !== 'update' && (!update.events || !~update.events.indexOf(e.type))) {
-                return;
+            if (e.sync) {
+
+                if (update.read) {
+                    update.read.call(this, e);
+                }
+
+                if (update.write) {
+                    update.write.call(this, e);
+                }
+
+                return
+
             }
 
             if (update.read && !~fastdom.reads.indexOf(this._frames.reads[i])) {
