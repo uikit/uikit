@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add support for 'data-uk-' prefixed component attributes
 - Add support for Primary Arguments in components
 - Add support for Functional Components
 
