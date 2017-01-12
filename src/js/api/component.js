@@ -69,13 +69,13 @@ export default function (UIkit) {
             }
         }
 
-        for (var i = 0, prefix; i < node.attributes.length; i++) {
+        for (var i = 0; i < node.attributes.length; i++) {
 
             name = node.attributes[i].name;
 
-            if ((prefix = 'uk-') && name.lastIndexOf('uk-', 0) === 0 || (prefix = 'data-uk-') && name.lastIndexOf('data-uk-', 0) === 0) {
+            if (name.lastIndexOf('uk-', 0) === 0 || name.lastIndexOf('data-uk-', 0) === 0) {
 
-                name = camelize(name.replace(prefix, ''));
+                name = camelize(name.replace('uk-', '').replace('data-uk-'));
 
                 if (UIkit[name]) {
                     UIkit[name](node);
