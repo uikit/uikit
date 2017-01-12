@@ -298,7 +298,7 @@ UIkit.component('sortable', {
 
             children.forEach(el => el.stop());
             this.$el.children().css(reset);
-            this._updateParents();
+            this.$updateParents(createEvent('update', true, false, {sync: true}));
 
             requestAnimationFrame(() => {
                 this.$el.css('min-height', this.$el.height());
@@ -307,14 +307,10 @@ UIkit.component('sortable', {
                 $.when.apply($, children.map((el, i) => el.css(props[i]).animate(positions[i], this.animation).promise()))
                     .then(() => {
                         this.$el.css('min-height', '').children().css(reset);
-                        this._updateParents();
+                        this.$updateParents();
                     });
             });
 
-        },
-
-        _updateParents() {
-            this.$updateParents(createEvent('update', true, false, {sync: true}));
         }
 
     }
