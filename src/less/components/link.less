@@ -22,13 +22,13 @@
 /* Muted
  ========================================================================== */
 
-.uk-link-muted,
+a.uk-link-muted,
 .uk-link-muted a {
     color: @link-muted-color;
     .hook-link-muted;
 }
 
-.uk-link-muted:hover,
+a.uk-link-muted:hover,
 .uk-link-muted a:hover {
     color: @link-muted-hover-color;
     .hook-link-muted-hover;
@@ -42,9 +42,9 @@
  * `!important` needed to override inverse component
  */
 
-.uk-link-reset,
-.uk-link-reset:hover,
-.uk-link-reset:focus,
+a.uk-link-reset,
+a.uk-link-reset:hover,
+a.uk-link-reset:focus,
 .uk-link-reset a,
 .uk-link-reset a:hover,
 .uk-link-reset a:focus {
@@ -73,13 +73,13 @@
 
 .hook-inverse() {
 
-    .uk-link-muted,
+    a.uk-link-muted,
     .uk-link-muted a {
         color: @inverse-link-muted-color;
         .hook-inverse-link-muted;
     }
 
-    .uk-link-muted:hover,
+    a.uk-link-muted:hover,
     .uk-link-muted a:hover {
         color: @inverse-link-muted-hover-color;
         .hook-inverse-link-muted-hover;
