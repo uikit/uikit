@@ -46,7 +46,7 @@ export default function (UIkit) {
         .on('scroll', e => {
 
             if (scroll === null) {
-                scroll = window.pageYOffset;
+                scroll = 0;
             }
 
             dir = scroll < window.pageYOffset;

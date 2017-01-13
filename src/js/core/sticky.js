@@ -74,15 +74,13 @@ export default function (UIkit) {
 
                 write({type}) {
 
-                    var isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave');
-
                     var el, outerHeight = this.$el.outerHeight();
 
                     this.placeholder
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
                         .css(this.$el.css(['marginTop', 'marginBottom', 'marginLeft', 'marginRight']));
 
-                    this.topOffset = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
+                    this.topOffset = (this._isActive ? this.placeholder.offset() : this.$el.offset()).top;
                     this.bottomOffset = this.topOffset + outerHeight;
 
                     ['top', 'bottom'].forEach(prop => {
@@ -132,18 +130,22 @@ export default function (UIkit) {
 
                 write({dir = 'up'} = {}) {
 
-                    var isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave'),
-                        scroll = win.scrollTop();
+                    var scroll = win.scrollTop();
 
                     if (scroll < 0 || !this.$el.is(':visible') || this.disabled) {
                         return;
                     }
 
-                    if (this.inactive || scroll < this.top || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.bottomOffset)) {
+                    if (this.inactive
+                        || scroll < this.top
+                        || this.showOnUp && (dir !== 'up' || dir === 'up' && !this._isActive && scroll <= this.bottomOffset)
+                    ) {
 
-                        if (!isActive) {
+                        if (!this._isActive) {
                             return;
                         }
+
+                        this._isActive = false;
 
                         if (this.animation && this.bottomOffset < this.$el.offset().top) {
                             Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation).then(() => this.hide()));
@@ -151,19 +153,24 @@ export default function (UIkit) {
                             this.hide();
                         }
 
-                    } else if (isActive) {
+                    } else if (this._isActive) {
 
                         this.update();
 
-                    } else if (this.animation) {
-
-                        Animation.cancel(this.$el).then(() => {
-                            this.show();
-                            Animation.in(this.$el, this.animation);
-                        });
-
                     } else {
-                        this.show();
+
+                        this._isActive = true;
+
+                        if (this.animation) {
+
+                            Animation.cancel(this.$el).then(() => {
+                                this.show();
+                                Animation.in(this.$el, this.animation);
+                            });
+
+                        } else {
+                            this.show();
+                        }
                     }
 
                 },

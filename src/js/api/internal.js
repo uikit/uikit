@@ -164,9 +164,15 @@ export default function (UIkit) {
             return;
         }
 
-        if (!e.sync && e.type in this._updates) {
+        if (!e.sync) {
+
+            if (e.type in this._updates) {
+                this._updates[e.type] = e;
+                return;
+            }
+
             this._updates[e.type] = e;
-            return;
+
         }
 
         updates.forEach(update => {
@@ -179,11 +185,7 @@ export default function (UIkit) {
                 if (e.sync) {
                     update.read.call(this, e);
                 } else {
-                    this._updates[e.type] = e;
-                    fastdom.measure(() => {
-                        update.read.call(this, this._updates[e.type]);
-                        delete this._updates[e.type];
-                    });
+                    fastdom.measure(() => update.read.call(this, this._updates[e.type]));
                 }
             }
 
@@ -191,15 +193,13 @@ export default function (UIkit) {
                 if (e.sync) {
                     update.write.call(this, e);
                 } else {
-                    this._updates[e.type] = e;
-                    fastdom.mutate(() => {
-                        update.write.call(this, this._updates[e.type]);
-                        delete this._updates[e.type];
-                    });
+                    fastdom.mutate(() => update.write.call(this, this._updates[e.type]));
                 }
             }
 
         });
+
+        !e.sync && fastdom.mutate(() => delete this._updates[e.type]);
 
     };
 
