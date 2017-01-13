@@ -181,8 +181,8 @@ export default function (UIkit) {
                 } else {
                     this._updates[e.type] = e;
                     fastdom.measure(() => {
-                        delete this._updates[e.type];
                         update.read.call(this, this._updates[e.type]);
+                        delete this._updates[e.type];
                     });
                 }
             }
@@ -193,8 +193,8 @@ export default function (UIkit) {
                 } else {
                     this._updates[e.type] = e;
                     fastdom.mutate(() => {
-                        delete this._updates[e.type];
                         update.write.call(this, this._updates[e.type]);
+                        delete this._updates[e.type];
                     });
                 }
             }
