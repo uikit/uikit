@@ -11,6 +11,7 @@
     "compile-rtl": "npm run images && node build/rtl-before && npm run compile-less && node build/rtl-after",
     "compile-js": "node build/build && node build/all",
     "compile": "npm run compile-less && npm run compile-js",
+    "sublime": "node build/sublime",
     "watch": "npm-watch",
     "test": "webpack-dev-server --inline --hot && open http://localhost:8080/tests/"
   },
