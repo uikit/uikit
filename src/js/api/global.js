@@ -1,6 +1,8 @@
-import { classify, isString, mergeOptions } from '../util/index';
+import { $, classify, createEvent, isString, mergeOptions } from '../util/index';
 
 export default function (UIkit) {
+
+    const DATA = UIkit.data;
 
     UIkit.use = function (plugin) {
 
@@ -36,12 +38,36 @@ export default function (UIkit) {
         return Sub;
     };
 
-    UIkit.update = function (e) {
-        for (var id in UIkit.instances) {
-            if (UIkit.instances[id]._isReady) {
-                UIkit.instances[id]._callUpdate(e);
+    UIkit.update = function (e, element, dir = 'down') {
+
+        e = createEvent(e || 'update');
+
+        if (!element) {
+
+            for (var id in UIkit.instances) {
+                if (UIkit.instances[id]._isReady) {
+                    UIkit.instances[id]._callUpdate(e);
+                }
             }
+
+        } else {
+
+            element = $(element)[0];
+
+            UIkit.elements.forEach(el => {
+
+                if (el[DATA] && (el === element || $.contains.apply($, dir === 'down' ? [element, el] : [el, element]))) {
+                    for (var name in el[DATA]) {
+                        if (el[DATA][name]._isReady) {
+                            el[DATA][name]._callUpdate(e);
+                        }
+                    }
+                }
+
+            });
+
         }
+
     };
 
     var container;

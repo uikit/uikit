@@ -21,7 +21,7 @@ export default function (UIkit) {
         this._initMethods();
         this._callHook('created');
 
-        this._frames = {reads: {}, writes: {}};
+        this._updates = {};
 
         if (options.el) {
             this.$mount(options.el);
@@ -164,32 +164,39 @@ export default function (UIkit) {
             return;
         }
 
-        updates.forEach((update, i) => {
+        if (!e.sync && e.type in this._updates) {
+            this._updates[e.type] = e;
+            return;
+        }
+
+        updates.forEach(update => {
 
             if (e.type !== 'update' && (!update.events || !~update.events.indexOf(e.type))) {
                 return;
             }
 
-            if (e.sync) {
-
-                if (update.read) {
+            if (update.read) {
+                if (e.sync) {
                     update.read.call(this, e);
+                } else {
+                    this._updates[e.type] = e;
+                    fastdom.measure(() => {
+                        delete this._updates[e.type];
+                        update.read.call(this, this._updates[e.type]);
+                    });
                 }
+            }
 
-                if (update.write) {
+            if (update.write) {
+                if (e.sync) {
                     update.write.call(this, e);
+                } else {
+                    this._updates[e.type] = e;
+                    fastdom.mutate(() => {
+                        delete this._updates[e.type];
+                        update.write.call(this, this._updates[e.type]);
+                    });
                 }
-
-                return
-
-            }
-
-            if (update.read && !~fastdom.reads.indexOf(this._frames.reads[i])) {
-                this._frames.reads[i] = fastdom.measure(() => update.read.call(this, e));
-            }
-
-            if (update.write && !~fastdom.writes.indexOf(this._frames.writes[i])) {
-                this._frames.writes[i] = fastdom.mutate(() => update.write.call(this, e));
             }
 
         });
