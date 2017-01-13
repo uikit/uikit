@@ -130,7 +130,7 @@ export default function (UIkit) {
 
             {
 
-                write({dir}) {
+                write({dir = 'up'} = {}) {
 
                     var isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave'),
                         scroll = win.scrollTop();
