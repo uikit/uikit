@@ -20,7 +20,7 @@ export default function (UIkit) {
             container: true
         },
 
-        ready() {
+        connected() {
 
             this.container = this.container === true && UIkit.container || this.container && toJQuery(this.container);
 

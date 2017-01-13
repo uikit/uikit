@@ -1,4 +1,4 @@
-import { $, getIndex, toJQuery, Transition } from '../util/index';
+import { $, fastdom, getIndex, toJQuery, Transition } from '../util/index';
 import { Class, Toggable } from '../mixin/index';
 
 export default function (UIkit) {
@@ -42,14 +42,18 @@ export default function (UIkit) {
                 this.show(this.items.find(this.toggle).index(e.currentTarget));
             });
 
-            this.items.each((i, el) => {
-                el = $(el);
-                this.toggleNow(el.find(this.content), el.hasClass(this.clsOpen));
+            fastdom.mutate(() => {
+                this.items.each((i, el) => {
+                    el = $(el);
+                    this.toggleNow(el.find(this.content), el.hasClass(this.clsOpen));
+                });
             });
 
             var active = this.active !== false && toJQuery(this.items.eq(Number(this.active))) || !this.collapsible && toJQuery(this.items.eq(0));
             if (active && !active.hasClass(this.clsOpen)) {
-                this.show(active, false);
+                fastdom.mutate(() => {
+                    this.show(active, false);
+                });
             }
         },
 

@@ -1,4 +1,4 @@
-import { $, getIndex, toJQuery } from '../util/index';
+import { $, getIndex, fastdom, toJQuery } from '../util/index';
 import { Toggable } from '../mixin/index';
 
 export default function (UIkit) {
@@ -59,7 +59,10 @@ export default function (UIkit) {
             }
 
             this.updateAria(this.connect.children());
-            this.show(toJQuery(this.toggles.filter(`.${this.cls}:first`)) || toJQuery(this.toggles.eq(this.active)) || this.toggles.first());
+
+            fastdom.mutate(() => {
+                this.show(toJQuery(this.toggles.filter(`.${this.cls}:first`)) || toJQuery(this.toggles.eq(this.active)) || this.toggles.first());
+            });
         },
 
         methods: {
