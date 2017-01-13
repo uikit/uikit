@@ -1,6 +1,6 @@
 import { container, mixin, util } from 'uikit';
 
-var {$, createEvent, docElement: doc, extend, isWithin, Observer, on, off, pointerDown, pointerMove, pointerUp, requestAnimationFrame, win} = util;
+var {$, createEvent, docElement: doc, extend, isWithin, Observer, on, off, pointerDown, pointerMove, pointerUp, win} = util;
 
 UIkit.component('sortable', {
 
@@ -282,6 +282,7 @@ UIkit.component('sortable', {
         animate(action) {
 
             var props = [],
+                event = createEvent('update', true, false, {sync: true}),
                 children = this.$el.children().toArray().map(el => {
                     el = $(el);
                     props.push(extend({
@@ -298,18 +299,16 @@ UIkit.component('sortable', {
 
             children.forEach(el => el.stop());
             this.$el.children().css(reset);
-            this.$updateParents(createEvent('update', true, false, {sync: true}));
+            this.$updateParents(event);
 
-            requestAnimationFrame(() => {
-                this.$el.css('min-height', this.$el.height());
+            this.$el.css('min-height', this.$el.height());
 
-                var positions = children.map(el => el.position());
-                $.when.apply($, children.map((el, i) => el.css(props[i]).animate(positions[i], this.animation).promise()))
-                    .then(() => {
-                        this.$el.css('min-height', '').children().css(reset);
-                        this.$updateParents();
-                    });
-            });
+            var positions = children.map(el => el.position());
+            $.when.apply($, children.map((el, i) => el.css(props[i]).animate(positions[i], this.animation).promise()))
+                .then(() => {
+                    this.$el.css('min-height', '').children().css(reset);
+                    this.$updateParents(event);
+                });
 
         }
 
