@@ -13,6 +13,8 @@
     "compile": "npm run compile-less && npm run compile-js",
     "release": "npm run compile && node build/release",
     "sublime": "node build/sublime",
+    "prefix": "node build/prefix",
+    "no-conflict": "node build/no-conflict && node build/css-minify",
     "watch": "npm-watch",
     "test": "webpack-dev-server --inline --hot && open http://localhost:8080/tests/"
   },
@@ -25,6 +27,7 @@
     "glob": "^7.0.3",
     "jquery": "^3.1.1",
     "less": "^2.7.1",
+    "minimist": "^1.2.0",
     "npm-watch": "^0.1.7",
     "rollup": "^0.34.13",
     "rollup-plugin-buble": "^0.15.0",
