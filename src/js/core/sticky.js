@@ -72,15 +72,16 @@ export default function (UIkit) {
 
             {
 
-                write({type}) {
+                write() {
 
-                    var el, outerHeight = this.$el.outerHeight();
+                    var el, outerHeight = this.$el.outerHeight(),
+                        isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave');
 
                     this.placeholder
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
                         .css(this.$el.css(['marginTop', 'marginBottom', 'marginLeft', 'marginRight']));
 
-                    this.topOffset = (this._isActive ? this.placeholder.offset() : this.$el.offset()).top;
+                    this.topOffset = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
                     this.bottomOffset = this.topOffset + outerHeight;
 
                     ['top', 'bottom'].forEach(prop => {
@@ -117,9 +118,6 @@ export default function (UIkit) {
                     this.bottom = this.bottom && this.bottom - outerHeight;
                     this.inactive = this.media && !window.matchMedia(this.media).matches;
 
-                    if (type !== 'update') {
-                        this._callUpdate('scroll');
-                    }
                 },
 
                 events: ['load', 'resize', 'orientationchange']
@@ -128,9 +126,10 @@ export default function (UIkit) {
 
             {
 
-                write({dir = 'up'} = {}) {
+                write({dir} = {}) {
 
-                    var scroll = win.scrollTop();
+                    var isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave'),
+                        scroll = win.scrollTop();
 
                     if (scroll < 0 || !this.$el.is(':visible') || this.disabled) {
                         return;
@@ -138,14 +137,14 @@ export default function (UIkit) {
 
                     if (this.inactive
                         || scroll < this.top
-                        || this.showOnUp && (dir !== 'up' || dir === 'up' && !this._isActive && scroll <= this.bottomOffset)
+                        || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.bottomOffset)
                     ) {
 
-                        if (!this._isActive) {
+                        if (!isActive) {
                             return;
                         }
 
-                        this._isActive = false;
+                        isActive = false;
 
                         if (this.animation && this.bottomOffset < this.$el.offset().top) {
                             Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation).then(() => this.hide()));
@@ -153,24 +152,19 @@ export default function (UIkit) {
                             this.hide();
                         }
 
-                    } else if (this._isActive) {
+                    } else if (isActive) {
 
                         this.update();
 
-                    } else {
+                    } else if (this.animation) {
 
-                        this._isActive = true;
-
-                        if (this.animation) {
-
-                            Animation.cancel(this.$el).then(() => {
-                                this.show();
-                                Animation.in(this.$el, this.animation);
-                            });
-
-                        } else {
+                        Animation.cancel(this.$el).then(() => {
                             this.show();
-                        }
+                            Animation.in(this.$el, this.animation);
+                        });
+
+                    } else {
+                        this.show();
                     }
 
                 },
