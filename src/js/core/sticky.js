@@ -139,7 +139,7 @@ export default function (UIkit) {
                         return;
                     }
 
-                    if (this.inactive || scroll < this.top || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.bottomOffset)) {
+                    if (this.inactive || scroll <= this.top || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.bottomOffset)) {
 
                         if (!isActive) {
                             return;
