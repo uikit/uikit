@@ -42,18 +42,16 @@ export default function (UIkit) {
                 this.show(this.items.find(this.toggle).index(e.currentTarget));
             });
 
-            fastdom.mutate(() => {
+            fastdom.mutate(() =>
                 this.items.each((i, el) => {
                     el = $(el);
                     this.toggleNow(el.find(this.content), el.hasClass(this.clsOpen));
-                });
-            });
+                })
+            );
 
             var active = this.active !== false && toJQuery(this.items.eq(Number(this.active))) || !this.collapsible && toJQuery(this.items.eq(0));
             if (active && !active.hasClass(this.clsOpen)) {
-                fastdom.mutate(() => {
-                    this.show(active, false);
-                });
+                fastdom.mutate(() => this.show(active, false));
             }
         },
 
