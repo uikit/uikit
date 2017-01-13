@@ -8,13 +8,14 @@ var args = require('minimist')(process.argv);
 glob('dist/**/*.css', (err, files) => {
 
     files.forEach(file => {
+
         fs.readFile(file, 'utf8', (err, data) => {
 
             let lessfile = file.replace('.css', '.less');
 
             data = `.uk-noconflict {\n${data}\n}`;
 
-            fs.writeFile(lessfile, data.replace(/(uk-([a-z\d\-]+))/g, `uk-$2`), err => {
+            fs.writeFile(lessfile, data, err => {
 
                 if (err) {
                     return console.log(err);
@@ -35,7 +36,7 @@ glob('dist/**/*.css', (err, files) => {
                             fs.writeFile(file, data);
                         });
 
-                        console.log(`${file} build `);
+                        console.log(`${file} build`);
                     }
 
                     fs.unlink(lessfile);
