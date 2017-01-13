@@ -28,7 +28,7 @@ glob('dist/**/*.css', (err, files) => {
 
                         fs.readFile(file, 'utf8', (err, data) => {
 
-                            data = data.replace(/\.uk-noconflict {(.*)}/m, '')
+                            data = data.replace(/\.uk-noconflict \{(.|[\r\n])*?\}/, '')
                                        .replace(`.uk-noconflict html`, `.uk-noconflict`)
                                        .replace(/\.uk-noconflict\s(\.(uk-(drag|modal-page)))/g, '$1');
 
