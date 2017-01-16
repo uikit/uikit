@@ -75,7 +75,7 @@ export default function (UIkit) {
 
             if (name.lastIndexOf('uk-', 0) === 0 || name.lastIndexOf('data-uk-', 0) === 0) {
 
-                name = camelize(name.replace('uk-', '').replace('data-uk-'));
+                name = camelize(name.replace('data-uk-', '').replace('uk-', ''));
 
                 if (UIkit[name]) {
                     UIkit[name](node);
