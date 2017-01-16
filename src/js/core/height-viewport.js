@@ -15,7 +15,7 @@ export default function (UIkit) {
         },
 
         init() {
-            this._callUpdate();
+            this.$emit();
         },
 
         update: {

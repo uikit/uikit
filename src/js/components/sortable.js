@@ -36,8 +36,7 @@ UIkit.component('sortable', {
         handle: false
     },
 
-    ready() {
-
+    init() {
         ['init', 'start', 'move', 'end'].forEach(key => {
             let fn = this[key];
             this[key] = e => {
@@ -49,12 +48,15 @@ UIkit.component('sortable', {
                 fn(e);
             }
         });
+    },
+
+    connected() {
 
         on(this.$el, pointerDown, this.init);
 
         if (this.clsEmpty) {
             var empty = () => this.$el.toggleClass(this.clsEmpty, !this.$el.children().length);
-            (new Observer(empty)).observe(this.$el[0], {childList: true});
+            (this._observer = new Observer(empty)).observe(this.$el[0], {childList: true});
             empty();
         }
 
@@ -152,7 +154,7 @@ UIkit.component('sortable', {
                 return;
             }
 
-            this.update();
+            this.$emit();
 
             var target = e.type === 'mousemove' ? e.target : document.elementFromPoint(this.pos.x - document.body.scrollLeft, this.pos.y - document.body.scrollTop),
                 sortable = getSortable(target),
@@ -184,7 +186,7 @@ UIkit.component('sortable', {
             if (scroll !== this.scrollY) {
                 this.pos.y += scroll - this.scrollY;
                 this.scrollY = scroll;
-                this.update();
+                this.$emit();
             }
         },
 
@@ -227,10 +229,6 @@ UIkit.component('sortable', {
 
         },
 
-        update() {
-            this._callUpdate();
-        },
-
         insert(element, target) {
 
             this.$el.children().addClass(this.clsItem);
@@ -249,7 +247,6 @@ UIkit.component('sortable', {
                     this.$el.append(element);
                 }
 
-                this.$updateParents();
             };
 
             if (this.animation) {
@@ -266,15 +263,10 @@ UIkit.component('sortable', {
                 return;
             }
 
-            var remove = () => {
-                element.remove();
-                this.$updateParents();
-            };
-
             if (this.animation) {
-                this.animate(remove);
+                this.animate(() => element.remove());
             } else {
-                remove();
+                element.remove();
             }
 
         },
@@ -299,7 +291,7 @@ UIkit.component('sortable', {
 
             children.forEach(el => el.stop());
             this.$el.children().css(reset);
-            this.$updateParents(event);
+            this.$update(event, true);
 
             this.$el.css('min-height', this.$el.height());
 
@@ -307,11 +299,20 @@ UIkit.component('sortable', {
             $.when.apply($, children.map((el, i) => el.css(props[i]).animate(positions[i], this.animation).promise()))
                 .then(() => {
                     this.$el.css('min-height', '').children().css(reset);
-                    this.$updateParents(event);
+                    this.$update(event, true);
                 });
 
         }
 
+    },
+
+    disconnected() {
+
+        off(this.$el, pointerDown, this.init);
+
+        if (this._observer) {
+            this._observer.disconnect()
+        }
     }
 
 });

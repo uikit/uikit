@@ -177,6 +177,10 @@ export default function (UIkit) {
 
         updates.forEach(update => {
 
+            if (!isPlainObject(update)) {
+                update = ({write: update});
+            }
+
             if (e.type !== 'update' && (!update.events || !~update.events.indexOf(e.type))) {
                 return;
             }

@@ -36,12 +36,12 @@ export default function (UIkit) {
 
     };
 
-    UIkit.prototype.$update = function (e) {
-        UIkit.update(e, this.$el);
+    UIkit.prototype.$emit = function (e) {
+        this._callUpdate(e);
     };
 
-    UIkit.prototype.$updateParents = function (e) {
-        UIkit.update(e, this.$el, 'up');
+    UIkit.prototype.$update = function (e, parents) {
+        UIkit.update(e, this.$el, parents);
     };
 
     UIkit.prototype.$destroy = function (remove = false) {

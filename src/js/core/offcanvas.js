@@ -30,7 +30,7 @@ export default function (UIkit) {
             selClose: '.uk-offcanvas-close'
         },
 
-        ready() {
+        init() {
 
             this.clsFlip = this.flip ? this.clsFlip : '';
             this.clsOverlay = this.overlay ? this.clsOverlay : '';

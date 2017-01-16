@@ -1,4 +1,4 @@
-import { $, extend, isFunction, isString, Observer, query, toJQuery } from '../util/index';
+import { $, extend, isFunction, isString, query, toJQuery } from '../util/index';
 import { Class, Modal } from '../mixin/index';
 
 export default function (UIkit) {
@@ -85,9 +85,6 @@ export default function (UIkit) {
         ready() {
             this.panel = query('!.uk-modal-dialog', this.$el);
             this.$el.css('min-height', 150);
-
-            (new Observer(this._callUpdate.bind(this))).observe(this.panel[0], {childList: true, subtree: true});
-
         },
 
         update: {

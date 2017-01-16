@@ -1,4 +1,4 @@
-import { $, getIndex, fastdom, toJQuery } from '../util/index';
+import { $, getIndex, toJQuery } from '../util/index';
 import { Toggable } from '../mixin/index';
 
 export default function (UIkit) {
@@ -29,28 +29,25 @@ export default function (UIkit) {
 
         ready() {
 
-            this.toggles = toJQuery(this.toggle, this.$el);
-
-            if (!this.connect) {
-                this.connect = toJQuery(this.$el.next(`.${this.clsContainer}`));
-            }
-
-            if (!this.connect || !this.toggles) {
-                return;
-            }
-
             this.$el.on('click', `${this.toggle}:not(.uk-disabled)`, e => {
                 e.preventDefault();
                 this.show(e.currentTarget);
             });
 
-            this.connect.on('click', `[${this.attrItem}]`, e => {
+        },
+
+        update() {
+
+            this.toggles = $(this.toggle, this.$el);
+            this.connects = this.connect || $(this.$el.next(`.${this.clsContainer}`));
+
+            this.connects.off('click', `[${this.attrItem}]`).on('click', `[${this.attrItem}]`, e => {
                 e.preventDefault();
                 this.show($(e.currentTarget).attr(this.attrItem));
             });
 
             if (this.swiping) {
-                this.connect.on('swipeRight swipeLeft', e => {
+                this.connects.off('swipeRight swipeLeft').on('swipeRight swipeLeft', e => {
                     e.preventDefault();
                     if (!window.getSelection().toString()) {
                         this.show(e.type == 'swipeLeft' ? 'next' : 'previous');
@@ -58,11 +55,10 @@ export default function (UIkit) {
                 });
             }
 
-            this.updateAria(this.connect.children());
+            this.updateAria(this.connects.children());
 
-            fastdom.mutate(() => {
-                this.show(toJQuery(this.toggles.filter(`.${this.cls}:first`)) || toJQuery(this.toggles.eq(this.active)) || this.toggles.first());
-            });
+            this.show(toJQuery(this.toggles.filter(`.${this.cls}:first`)) || toJQuery(this.toggles.eq(this.active)) || this.toggles.first());
+
         },
 
         methods: {
@@ -70,7 +66,7 @@ export default function (UIkit) {
             show(item) {
 
                 var length = this.toggles.length,
-                    prev = this.connect.children(`.${this.cls}`).index(),
+                    prev = this.connects.children(`.${this.cls}`).index(),
                     hasPrev = prev >= 0,
                     index = getIndex(item, this.toggles, prev),
                     dir = item === 'previous' ? -1 : 1,
@@ -91,9 +87,9 @@ export default function (UIkit) {
                 toggle.addClass(this.cls).attr('aria-expanded', true);
 
                 if (!hasPrev) {
-                    this.toggleNow(this.connect.children(`:nth-child(${index + 1})`));
+                    this.toggleNow(this.connects.children(`:nth-child(${index + 1})`));
                 } else {
-                    this.toggleElement(this.connect.children(`:nth-child(${prev + 1}),:nth-child(${index + 1})`));
+                    this.toggleElement(this.connects.children(`:nth-child(${prev + 1}),:nth-child(${index + 1})`));
                 }
             }
 

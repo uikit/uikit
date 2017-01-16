@@ -35,12 +35,6 @@ export default function (UIkit) {
             this._widthElement = this.widthElement || this.placeholder;
         },
 
-        disconnected() {
-            this.placeholder.remove();
-            this.placeholder = null;
-            this._widthElement = null;
-        },
-
         ready() {
 
             this.topProp = this.top;
@@ -217,6 +211,12 @@ export default function (UIkit) {
 
             }
 
+        },
+
+        disconnected() {
+            this.placeholder.remove();
+            this.placeholder = null;
+            this._widthElement = null;
         }
 
     });

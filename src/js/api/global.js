@@ -38,7 +38,7 @@ export default function (UIkit) {
         return Sub;
     };
 
-    UIkit.update = function (e, element, dir = 'down') {
+    UIkit.update = function (e, element, parents = false) {
 
         e = createEvent(e || 'update');
 
@@ -50,23 +50,20 @@ export default function (UIkit) {
                 }
             }
 
-        } else {
+            return;
+        }
 
-            element = $(element)[0];
+        element = $(element)[0];
 
-            UIkit.elements.forEach(el => {
-
-                if (el[DATA] && (el === element || $.contains.apply($, dir === 'down' ? [element, el] : [el, element]))) {
-                    for (var name in el[DATA]) {
-                        if (el[DATA][name]._isReady) {
-                            el[DATA][name]._callUpdate(e);
-                        }
+        UIkit.elements.forEach(el => {
+            if (el[DATA] && (el === element || $.contains.apply($, parents ? [el, element] : [element, el]))) {
+                for (var name in el[DATA]) {
+                    if (el[DATA][name]._isReady) {
+                        el[DATA][name]._callUpdate(e);
                     }
                 }
-
-            });
-
-        }
+            }
+        });
 
     };
 

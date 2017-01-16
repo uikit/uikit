@@ -27,7 +27,7 @@ UIkit.component('notification', {
 
         this.$mount($(
             `<div class="uk-notification-message${this.status ? ` uk-notification-message-${this.status}` : ''}">
-                <a href="#" class="uk-notification-close" uk-close></a>
+                <a href="#" class="uk-notification-close" data-uk-close></a>
                 <div>${this.message}</div>
             </div>`
         ).appendTo(containers[this.pos].show()));
