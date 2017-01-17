@@ -135,9 +135,9 @@ function scheduleFlush(fastdom) {
  */
 function flush(fastdom) {
 
-    var writes = fastdom.writes;
-    var reads = fastdom.reads;
-    var error;
+    var reads = fastdom.reads.splice(0, fastdom.reads.length),
+        writes = fastdom.writes.splice(0, fastdom.writes.length),
+        error;
 
     try {
         runTasks(reads);
@@ -147,7 +147,7 @@ function flush(fastdom) {
     fastdom.scheduled = false;
 
     // If the batch errored we may still have tasks queued
-    if (reads.length || writes.length) scheduleFlush(fastdom);
+    if (fastdom.reads.length || fastdom.writes.length) scheduleFlush(fastdom);
 
     if (error) {
         if (fastdom.catch) fastdom.catch(error);

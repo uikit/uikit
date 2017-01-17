@@ -21,7 +21,7 @@ export default function (UIkit) {
         this._initMethods();
         this._callHook('created');
 
-        this._updates = {};
+        this._frames = {reads: {}, writes: {}};
 
         if (options.el) {
             this.$mount(options.el);
@@ -164,46 +164,35 @@ export default function (UIkit) {
             return;
         }
 
-        if (!e.sync) {
-
-            if (e.type in this._updates) {
-                this._updates[e.type] = e;
-                return;
-            }
-
-            this._updates[e.type] = e;
-
-        }
-
-        updates.forEach(update => {
-
-            if (!isPlainObject(update)) {
-                update = ({write: update});
-            }
+        updates.forEach((update, i) => {
 
             if (e.type !== 'update' && (!update.events || !~update.events.indexOf(e.type))) {
                 return;
             }
 
-            if (update.read) {
-                if (e.sync) {
+            if (e.sync) {
+
+                if (update.read) {
                     update.read.call(this, e);
-                } else {
-                    fastdom.measure(() => update.read.call(this, this._updates[e.type]));
                 }
+
+                if (update.write) {
+                    update.write.call(this, e);
+                }
+
+                return;
+
             }
 
-            if (update.write) {
-                if (e.sync) {
-                    update.write.call(this, e);
-                } else {
-                    fastdom.mutate(() => update.write.call(this, this._updates[e.type]));
-                }
+            if (update.read && !~fastdom.reads.indexOf(this._frames.reads[i])) {
+                this._frames.reads[i] = fastdom.measure(() => update.read.call(this, e));
+            }
+
+            if (update.write && !~fastdom.writes.indexOf(this._frames.writes[i])) {
+                this._frames.writes[i] = fastdom.mutate(() => update.write.call(this, e));
             }
 
         });
-
-        !e.sync && fastdom.mutate(() => delete this._updates[e.type]);
 
     };
 

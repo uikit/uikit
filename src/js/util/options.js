@@ -1,4 +1,4 @@
-import { extend, isArray, isUndefined, hasOwn } from './index';
+import { extend, isArray, isFunction, isUndefined, hasOwn } from './index';
 
 var strats = {};
 
@@ -7,7 +7,6 @@ strats.args =
 strats.created =
 strats.init =
 strats.ready =
-strats.update =
 strats.connected =
 strats.disconnected =
 strats.destroy = function (parentVal, childVal) {
@@ -18,6 +17,10 @@ strats.destroy = function (parentVal, childVal) {
                 ? childVal
                 : [childVal]
         : parentVal;
+};
+
+strats.update = function (parentVal, childVal) {
+    return strats.args(parentVal, isFunction(childVal) ? {write: childVal} : childVal);
 };
 
 // events strategy
