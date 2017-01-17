@@ -43,10 +43,17 @@ export default function (UIkit) {
         },
 
         events: {
+
             click(e) {
+
+                if (e.isDefaultPrevented()) {
+                    return;
+                }
+
                 e.preventDefault();
                 this.scrollToElement($(this.$el[0].hash).length ? this.$el[0].hash : 'body');
             }
+
         }
 
     });
