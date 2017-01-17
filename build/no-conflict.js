@@ -1,14 +1,9 @@
 var exec = require('child_process').exec;
 var fs = require('fs');
-var path = require('path');
 var glob = require('glob');
-var args = require('minimist')(process.argv);
 
-
-glob('dist/**/*.css', (err, files) => {
-
-    files.forEach(file => {
-
+glob('dist/**/*.css', (err, files) =>
+    files.forEach(file =>
         fs.readFile(file, 'utf8', (err, data) => {
 
             let lessfile = file.replace('.css', '.less');
@@ -18,7 +13,7 @@ glob('dist/**/*.css', (err, files) => {
             fs.writeFile(lessfile, data, err => {
 
                 if (err) {
-                    return console.log(err);
+                    throw err;
                 }
 
                 exec(`lessc ${lessfile} > ${file}`, (error, stdout, stderr) => {
@@ -40,8 +35,10 @@ glob('dist/**/*.css', (err, files) => {
                     }
 
                     fs.unlink(lessfile);
+
                 });
             });
-        });
-    });
-});
+
+        })
+    )
+);

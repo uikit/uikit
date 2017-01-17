@@ -10,16 +10,20 @@ var glob = require('glob');
 // CSS
 // ----------------
 
-glob('dist/css/*.css', (er, files) => {
+glob('dist/css/!(*.rtl).css', (err, files) =>
+    files.forEach(file =>
+        fs.readFile(file, 'utf8', (err, data) => {
 
-    files.forEach((f) => {
-        contents = fs.readFileSync(f).toString();
-        contents = rtl.convert(contents);
-        if (!f.match('.rtl.css$')) { // don't do it twice
-            fs.writeFileSync(f.replace('.css', '.rtl.css'), contents);
-        }
-    });
+            var target = file.replace(/(.min)?\.css/, '.rtl$1.css');
 
-});
+            fs.writeFile(target, rtl.convert(data), err => {
+                if (err) {
+                    throw err;
+                }
+                console.log(`${target} build`);
+            })
+        })
+    )
+);
 
 
