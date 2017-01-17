@@ -52,11 +52,11 @@ export default function (UIkit) {
                 read() {
                     this.elements.each((i, el) => {
 
-                        if (!el.__uk_scrollspy) {
-                            el.__uk_scrollspy = {toggles: ($(el).attr('uk-scrollspy-class') || this.cls).split(',')};
+                        if (!el._scrollspy) {
+                            el._scrollspy = {toggles: ($(el).attr('uk-scrollspy-class') || this.cls).split(',')};
                         }
 
-                        el.__uk_scrollspy.show = isInView(el, this.offsetTop, this.offsetLeft);
+                        el._scrollspy.show = isInView(el, this.offsetTop, this.offsetLeft);
 
                     });
                 },
@@ -69,7 +69,7 @@ export default function (UIkit) {
 
                         var $el = $(el);
 
-                        var data = el.__uk_scrollspy;
+                        var data = el._scrollspy;
 
                         if (data.show) {
 
