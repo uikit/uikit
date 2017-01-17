@@ -1,4 +1,4 @@
-import { $, win, isInView } from '../util/index';
+import { $, toJQuery, win, isInView } from '../util/index';
 
 export default function (UIkit) {
 
@@ -43,13 +43,11 @@ export default function (UIkit) {
 
             {
 
-                write() {
+                read() {
 
-                    var scroll = win.scrollTop() + this.offset,
-                        max = document.documentElement.scrollHeight - window.innerHeight + this.offset;
+                    var scroll = win.scrollTop() + this.offset, max = document.documentElement.scrollHeight - window.innerHeight + this.offset;
 
-                    this.links.blur();
-                    this.elements.removeClass(this.cls);
+                    this.active = false;
 
                     this.targets.each((i, el) => {
 
@@ -73,20 +71,30 @@ export default function (UIkit) {
                             }
                         }
 
-                        var active = this.links.filter(`[href="#${el.attr('id')}"]`);
+                        return !(this.active = toJQuery(this.links.filter(`[href="#${el.attr('id')}"]`)));
 
-                        if (active.length) {
-                            active = (this.closest ? active.closest(this.closest) : active).addClass(this.cls);
-                            this.$el.trigger('active', [el, active]);
-
-                            return false;
-                        }
                     });
+
+                },
+
+                write() {
+
+                    this.links.blur();
+                    this.elements.removeClass(this.cls);
+
+                    if (this.active) {
+                        this.$el.trigger('active', [
+                            this.active,
+                            (this.closest ? this.active.closest(this.closest) : this.active).addClass(this.cls)
+                        ]);
+                    }
+
                 },
 
                 events: ['scroll', 'load', 'resize', 'orientationchange']
 
             }
+
         ]
 
     });

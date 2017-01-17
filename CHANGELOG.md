@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Scrollspy Nav within Sticky (Safari)
+
 ## 3.0.0 beta 3 (January 17, 2017)
 
 ### Added
