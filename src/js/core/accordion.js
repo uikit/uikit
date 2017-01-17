@@ -31,18 +31,16 @@ export default function (UIkit) {
 
         ready() {
 
-            this.items = toJQuery(this.targets, this.$el);
-
-            if (!this.items) {
-                return;
-            }
-
             this.$el.on('click', `${this.targets} ${this.toggle}`, e => {
                 e.preventDefault();
                 this.show(this.items.find(this.toggle).index(e.currentTarget));
             });
 
-            this.items.each((i, el) => {
+        },
+
+        update() {
+
+            this.items = $(this.targets, this.$el).each((i, el) => {
                 el = $(el);
                 this.toggleNow(el.find(this.content), el.hasClass(this.clsOpen));
             });
@@ -51,6 +49,7 @@ export default function (UIkit) {
             if (active && !active.hasClass(this.clsOpen)) {
                 this.show(active, false);
             }
+
         },
 
         methods: {

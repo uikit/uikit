@@ -6,6 +6,8 @@ export default function (UIkit) {
 
         mixins: [Class, Toggable],
 
+        args: 'animation',
+
         props: {
             animation: Boolean,
             close: String

@@ -1,8 +1,10 @@
-import { $, fastdom, isInView, toJQuery } from '../util/index';
+import { $, isInView, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('scrollspy', {
+
+        args: 'cls',
 
         props: {
             cls: String,
@@ -26,98 +28,97 @@ export default function (UIkit) {
         },
 
         init() {
-            if (this.hidden) {
-                this.getElements().css('visibility', 'hidden');
-            }
+            this.$emit();
         },
 
-        ready() {
+        update: [
 
-            this.elements = this.getElements();
+            {
 
-            if (this.hidden) {
-                this.elements.css('visibility', 'hidden');
-            }
-        },
+                read() {
+                    this.elements = this.target && toJQuery(this.target, this.$el) || this.$el;
+                },
 
-        update: {
-
-            read() {
-                this.elements.each((i, el) => {
-
-                    if (!el.__uk_scrollspy) {
-                        el.__uk_scrollspy = {toggles: ($(el).attr('uk-scrollspy-class') || this.cls).split(',')};
+                write() {
+                    if (this.hidden) {
+                        this.elements.filter(`:not(.${this.inViewClass})`).css('visibility', 'hidden');
                     }
+                }
 
-                    el.__uk_scrollspy.show = isInView(el, this.offsetTop, this.offsetLeft);
-
-                });
             },
 
-            write() {
+            {
 
-                var index = this.elements.length === 1 ? 1 : 0;
+                read() {
+                    this.elements.each((i, el) => {
 
-                this.elements.each((i, el) => {
-
-                    var $el = $(el);
-
-                    var data = el.__uk_scrollspy;
-
-                    if (data.show) {
-
-                        if (!data.inview && !data.timer) {
-
-                            data.timer = setTimeout(() => {
-
-                                $el.css('visibility', '')
-                                    .addClass(this.inViewClass)
-                                    .toggleClass(data.toggles[0])
-                                    .trigger('inview');
-
-                                data.inview = true;
-                                delete data.timer;
-
-                            }, this.delay * index++);
-
+                        if (!el.__uk_scrollspy) {
+                            el.__uk_scrollspy = {toggles: ($(el).attr('uk-scrollspy-class') || this.cls).split(',')};
                         }
 
-                    } else {
+                        el.__uk_scrollspy.show = isInView(el, this.offsetTop, this.offsetLeft);
 
-                        if (data.inview && this.repeat) {
+                    });
+                },
 
-                            if (data.timer) {
-                                clearTimeout(data.timer);
-                                delete data.timer;
+                write() {
+
+                    var index = this.elements.length === 1 ? 1 : 0;
+
+                    this.elements.each((i, el) => {
+
+                        var $el = $(el);
+
+                        var data = el.__uk_scrollspy;
+
+                        if (data.show) {
+
+                            if (!data.inview && !data.timer) {
+
+                                data.timer = setTimeout(() => {
+
+                                    $el.css('visibility', '')
+                                        .addClass(this.inViewClass)
+                                        .toggleClass(data.toggles[0])
+                                        .trigger('inview');
+
+                                    data.inview = true;
+                                    delete data.timer;
+
+                                }, this.delay * index++);
+
                             }
 
-                            $el.removeClass(this.inViewClass)
-                                .toggleClass(data.toggles[0])
-                                .css('visibility', this.hidden ? 'hidden' : '')
-                                .trigger('outview');
+                        } else {
 
-                            data.inview = false;
+                            if (data.inview && this.repeat) {
+
+                                if (data.timer) {
+                                    clearTimeout(data.timer);
+                                    delete data.timer;
+                                }
+
+                                $el.removeClass(this.inViewClass)
+                                    .toggleClass(data.toggles[0])
+                                    .css('visibility', this.hidden ? 'hidden' : '')
+                                    .trigger('outview');
+
+                                data.inview = false;
+                            }
+
                         }
 
-                    }
+                        data.toggles.reverse();
 
-                    data.toggles.reverse();
+                    });
 
-                });
+                },
 
-            },
+                events: ['scroll', 'load', 'resize', 'orientationchange']
 
-            events: ['scroll', 'load', 'resize', 'orientationchange']
-
-        },
-
-        methods: {
-
-            getElements() {
-                return this.target && toJQuery(this.target, this.$el) || this.$el;
             }
 
-        }
+        ]
 
     });
 

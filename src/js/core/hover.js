@@ -1,4 +1,4 @@
-import { $, doc, hasTouch, isWithin, ready } from '../util/index';
+import { $, docElement as doc, hasTouch, isWithin, ready } from '../util/index';
 
 export default function (UIkit) {
 

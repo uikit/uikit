@@ -40,21 +40,14 @@ export default function (UIkit) {
             duration: 200,
         },
 
-        ready() {
-
-            var drop;
-
+        init() {
             this.boundary = (this.boundary === true || this.boundaryAlign) ? this.$el : this.boundary;
             this.pos = `bottom-${this.align}`;
+        },
 
-            $(this.dropdown, this.$el).each((i, el) => {
+        ready() {
 
-                drop = toJQuery(`.${this.clsDrop}`, el);
-
-                if (drop && !UIkit.getComponent(drop, 'drop') && !UIkit.getComponent(drop, 'dropdown')) {
-                    UIkit.drop(drop, extend({}, this));
-                }
-            }).on('mouseenter', ({target}) => {
+            this.$el.on('mouseenter', this.dropdown, ({target}) => {
                 var active = this.getActive();
                 if (active && !isWithin(target, active.toggle.$el) && !active.isDelaying) {
                     active.hide(false);
@@ -66,10 +59,6 @@ export default function (UIkit) {
             }
 
             this.dropbar = query(this.dropbar, this.$el) || $('<div class="uk-navbar-dropbar"></div>').insertAfter(this.dropbarAnchor || this.$el);
-
-            if (this.dropbarMode === 'slide') {
-                this.dropbar.addClass('uk-navbar-dropbar-slide');
-            }
 
             this.dropbar.on({
 
@@ -103,6 +92,24 @@ export default function (UIkit) {
                     if (!active || active && active.$el.is($el)) {
                         this.transitionTo(0);
                     }
+                }
+
+            });
+
+            if (this.dropbarMode === 'slide') {
+                this.dropbar.addClass('uk-navbar-dropbar-slide');
+            }
+
+        },
+
+        update() {
+
+            $(this.dropdown, this.$el).each((i, el) => {
+
+                var drop = toJQuery(`.${this.clsDrop}`, el);
+
+                if (drop && !UIkit.getComponent(drop, 'drop') && !UIkit.getComponent(drop, 'dropdown')) {
+                    UIkit.drop(drop, extend({}, this));
                 }
 
             });

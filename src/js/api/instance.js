@@ -36,30 +36,12 @@ export default function (UIkit) {
 
     };
 
-    UIkit.prototype.$update = function (e, element) {
-
-        element = element ? $(element)[0] : this.$el[0];
-
-        UIkit.elements.forEach(el => {
-            if (el[DATA] && (el === element || $.contains(element, el))) {
-                for (var name in el[DATA]) {
-                    el[DATA][name]._callUpdate(e);
-                }
-            }
-        });
+    UIkit.prototype.$emit = function (e) {
+        this._callUpdate(e);
     };
 
-    UIkit.prototype.$updateParents = function (e, element) {
-
-        element = element ? $(element)[0] : this.$el[0];
-
-        UIkit.elements.forEach(el => {
-            if (el[DATA] && (el === element || $.contains(el, element))) {
-                for (var name in el[DATA]) {
-                    el[DATA][name]._callUpdate(e);
-                }
-            }
-        });
+    UIkit.prototype.$update = function (e, parents) {
+        UIkit.update(e, this.$el, parents);
     };
 
     UIkit.prototype.$destroy = function (remove = false) {

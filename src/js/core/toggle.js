@@ -6,6 +6,8 @@ export default function (UIkit) {
 
         mixins: [UIkit.mixin.toggable],
 
+        args: 'target',
+
         props: {
             href: 'jQuery',
             target: 'jQuery',

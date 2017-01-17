@@ -35,12 +35,6 @@ export default function (UIkit) {
             this._widthElement = this.widthElement || this.placeholder;
         },
 
-        disconnected() {
-            this.placeholder.remove();
-            this.placeholder = null;
-            this._widthElement = null;
-        },
-
         ready() {
 
             this.topProp = this.top;
@@ -72,11 +66,10 @@ export default function (UIkit) {
 
             {
 
-                write({type}) {
+                write() {
 
-                    var isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave');
-
-                    var el, outerHeight = this.$el.outerHeight();
+                    var el, outerHeight = this.$el.outerHeight(),
+                        isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave');
 
                     this.placeholder
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
@@ -119,9 +112,6 @@ export default function (UIkit) {
                     this.bottom = this.bottom && this.bottom - outerHeight;
                     this.inactive = this.media && !window.matchMedia(this.media).matches;
 
-                    if (type !== 'update') {
-                        this._callUpdate('scroll');
-                    }
                 },
 
                 events: ['load', 'resize', 'orientationchange']
@@ -130,7 +120,7 @@ export default function (UIkit) {
 
             {
 
-                write({dir}) {
+                write({dir} = {}) {
 
                     var isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave'),
                         scroll = win.scrollTop();
@@ -139,11 +129,16 @@ export default function (UIkit) {
                         return;
                     }
 
-                    if (this.inactive || scroll < this.top || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.bottomOffset)) {
+                    if (this.inactive
+                        || scroll < this.top
+                        || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.bottomOffset)
+                    ) {
 
                         if (!isActive) {
                             return;
                         }
+
+                        isActive = false;
 
                         if (this.animation && this.bottomOffset < this.$el.offset().top) {
                             Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation).then(() => this.hide()));
@@ -216,6 +211,12 @@ export default function (UIkit) {
 
             }
 
+        },
+
+        disconnected() {
+            this.placeholder.remove();
+            this.placeholder = null;
+            this._widthElement = null;
         }
 
     });

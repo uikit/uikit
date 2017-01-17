@@ -4,6 +4,8 @@ export default function (UIkit) {
 
     UIkit.component('height-match', {
 
+        args: 'target',
+
         props: {
             target: String,
             row: Boolean

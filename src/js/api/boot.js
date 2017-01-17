@@ -39,8 +39,14 @@ export default function (UIkit) {
 
         (new Observer(mutations =>
             mutations.forEach(mutation => {
-                forEach.call(mutation.addedNodes, node => apply(node, UIkit.connect));
-                forEach.call(mutation.removedNodes, node => apply(node, UIkit.disconnect));
+                forEach.call(mutation.addedNodes, node => {
+                    apply(node, UIkit.connect);
+                    UIkit.update('update', mutation.target, true);
+                });
+                forEach.call(mutation.removedNodes, node => {
+                    apply(node, UIkit.disconnect);
+                    UIkit.update('update', mutation.target, true);
+                });
             })
         )).observe(document.body, {childList: true, subtree: true});
 

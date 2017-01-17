@@ -13,15 +13,20 @@ export default function (UIkit) {
         defaults: {automute: true},
 
         ready() {
-            if (this.$el.is('iframe') && this.automute) {
+
+            if (!this.$el.is('iframe')) {
+                return;
+            }
+
+            this.$el.css('pointerEvents', 'none');
+
+            if (this.automute) {
 
                 var src = this.$el.attr('src');
 
-                this.$el.attr('src', '').on('load', function () {
-
-                    this.contentWindow.postMessage('{"event": "command", "func": "mute", "method":"setVolume", "value":0}', '*');
-
-                }).attr('src', [src, (~src.indexOf('?') ? '&' : '?'), 'enablejsapi=1&api=1'].join(''));
+                this.$el
+                    .attr('src', `${src}${~src.indexOf('?') ? '&' : '?'}enablejsapi=1&api=1`)
+                    .on('load', ({target}) => target.contentWindow.postMessage('{"event": "command", "func": "mute", "method":"setVolume", "value":0}', '*'));
             }
         },
 
@@ -43,6 +48,14 @@ export default function (UIkit) {
             },
 
             events: ['load', 'resize', 'orientationchange']
+
+        },
+
+        events: {
+
+            loadedmetadata() {
+                this.$emit();
+            }
 
         }
 

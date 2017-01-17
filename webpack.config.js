@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var glob = require('glob');
 var path = require('path');
+var exec = require('child_process').exec;
 
 var loaders = {
     loaders: [
@@ -22,7 +23,10 @@ module.exports = [
             libraryTarget: 'umd'
         },
         module: loaders,
-        externals: {jquery: 'jQuery'}
+        externals: {jquery: 'jQuery'},
+        plugins: [
+            new BuildAll()
+        ]
     },
 
     {
@@ -42,7 +46,16 @@ module.exports = [
             filename: 'dist/js/components/[name].js'
         },
         module: loaders,
-        externals: {jquery: 'jQuery', uikit: 'UIkit'}
+        externals: {jquery: 'jQuery', uikit: 'UIkit'},
+        plugins: [
+            new BuildAll()
+        ]
     }
 
 ];
+
+function BuildAll(options) {}
+
+BuildAll.prototype.apply = compiler =>
+    compiler.plugin('done', () =>
+        exec('node build/all'));
