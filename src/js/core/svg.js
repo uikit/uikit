@@ -167,7 +167,10 @@ export default function (UIkit) {
 
         if (!image) {
 
-            el = el.clone().empty().attr('uk-no-boot', '').appendTo(document.body).show();
+            el = el.clone().empty()
+                .attr({'uk-no-boot': '', style: `${el.attr('style')};display:block !important;`})
+                .appendTo(document.body);
+
             image = getBackgroundImage(el);
 
             // safari workaround
