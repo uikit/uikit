@@ -48,7 +48,7 @@ export default function (UIkit) {
                     UIkit.update('update', mutation.target, true);
                 });
             })
-        )).observe(document.body, {childList: true, subtree: true});
+        )).observe(document.documentElement, {childList: true, subtree: true});
 
     }
 

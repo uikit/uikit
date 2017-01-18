@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- UIkit observes body tag too now
+
 ### Fixed
 
 - Fix beta 2 regression for svg’s (Safari)
