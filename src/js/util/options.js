@@ -70,7 +70,7 @@ strats.defaults =
 strats.methods = function (parentVal, childVal) {
     return childVal
         ? parentVal
-            ? extend({}, parentVal, childVal)
+            ? extend(true, {}, parentVal, childVal)
             : childVal
         : parentVal;
 };

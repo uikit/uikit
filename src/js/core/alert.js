@@ -16,11 +16,8 @@ export default function (UIkit) {
         defaults: {
             animation: true,
             close: '.uk-alert-close',
-            duration: 150
-        },
-
-        init() {
-            this.hideProps.opacity = 0;
+            duration: 150,
+            hideProps: {opacity: 0}
         },
 
         ready() {
