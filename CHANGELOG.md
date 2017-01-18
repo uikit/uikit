@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.0.0 beta 4 (January 18, 2017)
 
 ### Fixed
 
