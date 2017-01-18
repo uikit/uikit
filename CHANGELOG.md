@@ -6,6 +6,7 @@
 
 - Fix Scrollspy Nav within Sticky (Safari)
 - Fix beta 3 regression for Accordion
+- Fix lazy initialized components
 
 ## 3.0.0 beta 3 (January 17, 2017)
 

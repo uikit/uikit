@@ -61,11 +61,12 @@ export default function (UIkit) {
             for (name in node[DATA]) {
 
                 var component = node[DATA][name];
+
                 if (!(component._uid in UIkit.instances)) {
                     UIkit.instances[component._uid] = component;
-                    component._callHook('connected');
                 }
 
+                component._callHook('connected');
             }
         }
 
