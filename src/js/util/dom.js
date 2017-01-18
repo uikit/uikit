@@ -107,7 +107,7 @@ export function animate(element, animation, duration = 200, origin, out) {
 
     element
         .one(animationend || 'animationend', () => d.resolve().then(reset))
-        .css('animation-duration', duration + 'ms')
+        .css('animation-duration', `${duration}ms`)
         .addClass(animation)
         .addClass(cls);
 
@@ -137,10 +137,8 @@ export const Animation = {
     },
 
     cancel(element) {
-        var deferred = $.Deferred();
         $(element).trigger(animationend || 'animationend');
-        requestAnimationFrame(() => deferred.resolve());
-        return deferred.promise();
+        return $.Deferred().resolve();
     }
 
 };

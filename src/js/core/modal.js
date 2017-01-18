@@ -1,5 +1,5 @@
-import { $, extend, isFunction, isString, query, toJQuery } from '../util/index';
 import { Class, Modal } from '../mixin/index';
+import { $, extend, isFunction, isString, query, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix beta 2 regression for svg’s (Safari)
+
 ## 3.0.0 beta 4 (January 18, 2017)
 
 ### Fixed

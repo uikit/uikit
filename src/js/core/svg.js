@@ -168,10 +168,7 @@ export default function (UIkit) {
         if (!image) {
 
             el = el.clone().empty().attr('uk-no-boot', '').appendTo(document.body).show();
-
-            if (!el.is(':visible')) {
-                image = getBackgroundImage(el);
-            }
+            image = getBackgroundImage(el);
 
             // safari workaround
             if (!image && el[0].tagName === 'CANVAS') {
