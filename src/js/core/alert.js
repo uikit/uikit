@@ -19,6 +19,10 @@ export default function (UIkit) {
             duration: 150
         },
 
+        init() {
+            this.hideProps.opacity = 0;
+        },
+
         ready() {
             this.$el.on('click', this.close, e => {
                 e.preventDefault();
@@ -30,7 +34,6 @@ export default function (UIkit) {
 
             closeAlert() {
                 this.toggleElement(this.$el).then(() => this.$destroy(true));
-                requestAnimationFrame(() => this.$el.css('opacity', 0));
             }
 
         }

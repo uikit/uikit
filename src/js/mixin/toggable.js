@@ -1,22 +1,5 @@
 import { $, Animation, extend, isString, Transition } from '../util/index';
 
-var initProps = {
-        overflow: '',
-        height: '',
-        paddingTop: '',
-        paddingBottom: '',
-        marginTop: '',
-        marginBottom: ''
-    },
-    hideProps = {
-        overflow: 'hidden',
-        height: 0,
-        paddingTop: 0,
-        paddingBottom: 0,
-        marginTop: 0,
-        marginBottom: 0
-    };
-
 export default {
 
     props: {
@@ -34,7 +17,26 @@ export default {
         duration: 200,
         origin: false,
         transition: 'linear',
-        queued: false
+        queued: false,
+
+        initProps: {
+            overflow: '',
+            height: '',
+            paddingTop: '',
+            paddingBottom: '',
+            marginTop: '',
+            marginBottom: ''
+        },
+
+        hideProps: {
+            overflow: 'hidden',
+            height: 0,
+            paddingTop: 0,
+            paddingBottom: 0,
+            marginTop: 0,
+            marginBottom: 0
+        }
+
     },
 
     ready() {
@@ -166,10 +168,10 @@ export default {
             el.height(height);
 
             return show
-                ? Transition.start(el, extend(initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
-                : Transition.start(el, hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
+                ? Transition.start(el, extend(this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
+                : Transition.start(el, this.hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
                         this._toggle(el, false);
-                        el.css(initProps);
+                        el.css(this.initProps);
                     });
 
         },
