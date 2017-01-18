@@ -9,18 +9,16 @@ if (!prefix) {
     return console.log('No prefix defined');
 }
 
-glob('dist/**/*.css', (err, files) => {
+glob('dist/**/*.css', (err, files) =>
+    files.forEach(file =>
+        fs.readFile(file, 'utf8', (err, data) =>
+            fs.writeFile(file, data.replace(/(uk-([a-z\d\-]+))/g, `${prefix}-$2`), err => err && console.log(err))
+        )
+    )
+);
 
-    files.forEach(file => {
-        fs.readFile(file, 'utf8', (err, data) => {
-            fs.writeFile(file, data.replace(/(uk-([a-z\d\-]+))/g, `${prefix}-$2`), err => err && console.log(err));
-        });
-    });
-});
-
-glob('dist/**/*.js', (err, files) => {
-
-    files.forEach(file => {
+glob('dist/**/*.js', (err, files) =>
+    files.forEach(file =>
         fs.readFile(file, 'utf8', (err, data) => {
 
             data = data.replace(/(uk-([a-z\d\-]+))/g, `${prefix}-$2`)
@@ -28,6 +26,7 @@ glob('dist/**/*.js', (err, files) => {
                        .replace(/UIkit/g, `${prefix}UIkit`);
 
             fs.writeFile(file, data, err => err && console.log(err));
-        });
-    });
-});
+
+        })
+    )
+);

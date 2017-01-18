@@ -68,8 +68,7 @@ export default function (UIkit) {
 
                 write() {
 
-                    var el, outerHeight = this.$el.outerHeight(),
-                        isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave');
+                    var outerHeight = this.$el.outerHeight(), isActive = this.isActive(), el;
 
                     this.placeholder
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
@@ -122,8 +121,7 @@ export default function (UIkit) {
 
                 write({dir} = {}) {
 
-                    var isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave'),
-                        scroll = win.scrollTop();
+                    var isActive = this.isActive(), scroll = win.scrollTop();
 
                     if (scroll < 0 || !this.$el.is(':visible') || this.disabled) {
                         return;
@@ -209,6 +207,10 @@ export default function (UIkit) {
                     width: this._widthElement[0].getBoundingClientRect().width
                 });
 
+            },
+
+            isActive() {
+                return this.$el.hasClass(this.clsActive) && !(this.animation && this.$el.hasClass('uk-animation-leave'));
             }
 
         },

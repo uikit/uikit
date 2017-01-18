@@ -40,7 +40,16 @@ export default function (UIkit) {
 
         update() {
 
-            this.items = $(this.targets, this.$el).each((i, el) => {
+            var items = $(this.targets, this.$el),
+                changed = !this.items || items.length !== this.items.length || items.toArray().some((el, i) => el !== this.items.get(i));
+
+            this.items = items;
+
+            if (!changed) {
+                return;
+            }
+
+            this.items.each((i, el) => {
                 el = $(el);
                 this.toggleNow(el.find(this.content), el.hasClass(this.clsOpen));
             });
@@ -49,7 +58,6 @@ export default function (UIkit) {
             if (active && !active.hasClass(this.clsOpen)) {
                 this.show(active, false);
             }
-
         },
 
         methods: {

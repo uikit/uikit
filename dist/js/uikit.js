@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.3 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.4 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
@@ -1671,11 +1671,12 @@ function componentAPI (UIkit) {
             for (name in node[DATA]) {
 
                 var component = node[DATA][name];
+
                 if (!(component._uid in UIkit.instances)) {
                     UIkit.instances[component._uid] = component;
-                    component._callHook('connected');
                 }
 
+                component._callHook('connected');
             }
         }
 
@@ -2056,12 +2057,17 @@ var Modal = {
 
             active = active && active !== this && active || this.prev;
 
-            this.panel.one(transitionend, function () {
+            var hide = function () {
                 var event = $__default.Event('hide');
                 event.isHidden = true;
                 this$1.$el.trigger(event, [this$1]);
-            });
+            };
 
+            if (parseFloat(this.panel.css('transition-duration'))) {
+                this.panel.one(transitionend, hide);
+            } else {
+                hide();
+            }
         },
 
         hide: function hide(e) {
@@ -2319,7 +2325,16 @@ function Accordion (UIkit) {
             var this$1 = this;
 
 
-            this.items = $__default(this.targets, this.$el).each(function (i, el) {
+            var items = $__default(this.targets, this.$el),
+                changed = !this.items || items.length !== this.items.length || items.toArray().some(function (el, i) { return el !== this$1.items.get(i); });
+
+            this.items = items;
+
+            if (!changed) {
+                return;
+            }
+
+            this.items.each(function (i, el) {
                 el = $__default(el);
                 this$1.toggleNow(el.find(this$1.content), el.hasClass(this$1.clsOpen));
             });
@@ -2328,7 +2343,6 @@ function Accordion (UIkit) {
             if (active && !active.hasClass(this.clsOpen)) {
                 this.show(active, false);
             }
-
         },
 
         methods: {
@@ -3660,10 +3674,17 @@ function Scroll (UIkit) {
         },
 
         events: {
+
             click: function click(e) {
+
+                if (e.isDefaultPrevented()) {
+                    return;
+                }
+
                 e.preventDefault();
                 this.scrollToElement($__default(this.$el[0].hash).length ? this.$el[0].hash : 'body');
             }
+
         }
 
     });
@@ -3730,11 +3751,11 @@ function Scrollspy (UIkit) {
 
                     this.elements.each(function (i, el) {
 
-                        if (!el.__uk_scrollspy) {
-                            el.__uk_scrollspy = {toggles: ($__default(el).attr('uk-scrollspy-class') || this$1.cls).split(',')};
+                        if (!el._scrollspy) {
+                            el._scrollspy = {toggles: ($__default(el).attr('uk-scrollspy-class') || this$1.cls).split(',')};
                         }
 
-                        el.__uk_scrollspy.show = isInView(el, this$1.offsetTop, this$1.offsetLeft);
+                        el._scrollspy.show = isInView(el, this$1.offsetTop, this$1.offsetLeft);
 
                     });
                 },
@@ -3749,7 +3770,7 @@ function Scrollspy (UIkit) {
 
                         var $el = $__default(el);
 
-                        var data = el.__uk_scrollspy;
+                        var data = el._scrollspy;
 
                         if (data.show) {
 
@@ -3847,15 +3868,13 @@ function ScrollspyNav (UIkit) {
 
             {
 
-                write: function write() {
+                read: function read() {
                     var this$1 = this;
 
 
-                    var scroll = win.scrollTop() + this.offset,
-                        max = document.documentElement.scrollHeight - window.innerHeight + this.offset;
+                    var scroll = win.scrollTop() + this.offset, max = document.documentElement.scrollHeight - window.innerHeight + this.offset;
 
-                    this.links.blur();
-                    this.elements.removeClass(this.cls);
+                    this.active = false;
 
                     this.targets.each(function (i, el) {
 
@@ -3879,20 +3898,30 @@ function ScrollspyNav (UIkit) {
                             }
                         }
 
-                        var active = this$1.links.filter(("[href=\"#" + (el.attr('id')) + "\"]"));
+                        return !(this$1.active = toJQuery(this$1.links.filter(("[href=\"#" + (el.attr('id')) + "\"]"))));
 
-                        if (active.length) {
-                            active = (this$1.closest ? active.closest(this$1.closest) : active).addClass(this$1.cls);
-                            this$1.$el.trigger('active', [el, active]);
-
-                            return false;
-                        }
                     });
+
+                },
+
+                write: function write() {
+
+                    this.links.blur();
+                    this.elements.removeClass(this.cls);
+
+                    if (this.active) {
+                        this.$el.trigger('active', [
+                            this.active,
+                            (this.closest ? this.active.closest(this.closest) : this.active).addClass(this.cls)
+                        ]);
+                    }
+
                 },
 
                 events: ['scroll', 'load', 'resize', 'orientationchange']
 
             }
+
         ]
 
     });
@@ -3999,8 +4028,7 @@ function Sticky (UIkit) {
                     var this$1 = this;
 
 
-                    var el, outerHeight = this.$el.outerHeight(),
-                        isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave');
+                    var outerHeight = this.$el.outerHeight(), isActive = this.isActive(), el;
 
                     this.placeholder
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
@@ -4057,8 +4085,7 @@ function Sticky (UIkit) {
                     var dir = ref.dir;
 
 
-                    var isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave'),
-                        scroll = win.scrollTop();
+                    var isActive = this.isActive(), scroll = win.scrollTop();
 
                     if (scroll < 0 || !this.$el.is(':visible') || this.disabled) {
                         return;
@@ -4142,6 +4169,10 @@ function Sticky (UIkit) {
                     width: this._widthElement[0].getBoundingClientRect().width
                 });
 
+            },
+
+            isActive: function isActive() {
+                return this.$el.hasClass(this.clsActive) && !(this.animation && this.$el.hasClass('uk-animation-leave'));
             }
 
         },
@@ -4687,7 +4718,7 @@ if (typeof module !== 'undefined') {
 
 return UIkit$1;
 
-})));/*! UIkit 3.0.0-beta.3 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.4 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5017,7 +5048,7 @@ UIkit.mixin({
 
 }, 'lightbox');
 
-})));/*! UIkit 3.0.0-beta.3 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.4 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5129,7 +5160,7 @@ UIkit.notification.closeAll = function (group, immediate) {
 
 };
 
-})));/*! UIkit 3.0.0-beta.3 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.4 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5497,7 +5528,7 @@ function preventClick() {
     on(doc, 'click', listener, true);
 }
 
-})));/*! UIkit 3.0.0-beta.3 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.4 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5586,7 +5617,7 @@ UIkit.component('tooltip', {
 
 });
 
-})));/*! UIkit 3.0.0-beta.3 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.4 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :

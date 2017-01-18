@@ -115,12 +115,17 @@ export default {
 
             active = active && active !== this && active || this.prev;
 
-            this.panel.one(transitionend, () => {
+            var hide = () => {
                 var event = $.Event('hide');
                 event.isHidden = true;
                 this.$el.trigger(event, [this]);
-            });
+            };
 
+            if (parseFloat(this.panel.css('transition-duration'))) {
+                this.panel.one(transitionend, hide);
+            } else {
+                hide();
+            }
         },
 
         hide(e) {

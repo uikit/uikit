@@ -14,6 +14,11 @@ glob('dist/css/{uikit-core,uikit}.css', (err, files) => {
             var dist = `${file.substr(0, file.length - 4)}.min${file.substr(-4)}`;
 
             fs.writeFile(dist, minified.styles, err => {
+
+                if (err) {
+                    throw err;
+                }
+
                 console.log(`${util.cyan(dist)} ${util.getSize(fs.readFileSync(dist))}`);
             });
         });
