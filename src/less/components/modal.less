@@ -41,6 +41,8 @@
 @modal-dialog-width:                            600px;
 @modal-dialog-background:                       @global-background;
 
+@modal-container-width:                         1200px;
+
 @modal-body-padding-horizontal:                 @global-gutter;
 @modal-body-padding-vertical:                   @global-gutter;
 
@@ -200,7 +202,7 @@
  * Take the same size as the Container component
  */
 
-.uk-modal-container .uk-modal-dialog { width: 1200px;}
+.uk-modal-container .uk-modal-dialog { width: @modal-container-width; }
 
 /*
  * Full size
