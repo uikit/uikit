@@ -2,11 +2,15 @@
 
     var uikit;
 
+    if (!window.jQuery) {
+        throw new Error('UIkit 2.x requires jQuery');
+    } else {
+        uikit = core(window.jQuery);
+    }
+
     if (typeof define == 'function' && define.amd) { // AMD
 
         define('uikit', function(){
-
-            uikit = core(window.jQuery);
 
             uikit.load = function(res, req, onload, config) {
 
@@ -28,12 +32,6 @@
 
             return uikit;
         });
-    }
-
-    if (!window.jQuery) {
-        throw new Error('UIkit 2.x requires jQuery');
-    } else {
-        uikit = core(window.jQuery);
     }
 
 })(function($) {
