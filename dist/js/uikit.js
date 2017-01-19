@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.4 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.5 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
@@ -119,12 +119,12 @@ function animate(element, animation, duration, origin, out) {
 
     element
         .one(animationend || 'animationend', function () { return d.resolve().then(reset); })
-        .css('animation-duration', duration + 'ms')
+        .css('animation-duration', (duration + "ms"))
         .addClass(animation)
         .addClass(cls);
 
     if (!animationend) {
-        requestAnimationFrame$1(function () { return Animation.cancel(element); });
+        requestAnimationFrame(function () { return Animation.cancel(element); });
     }
 
     return d.promise();
@@ -149,10 +149,8 @@ var Animation = {
     },
 
     cancel: function cancel(element) {
-        var deferred = $__default.Deferred();
         $__default(element).trigger(animationend || 'animationend');
-        requestAnimationFrame$1(function () { return deferred.resolve(); });
-        return deferred.promise();
+        return $__default.Deferred().resolve();
     }
 
 };
@@ -294,7 +292,7 @@ function query(selector, context) {
 }
 
 var Observer = window.MutationObserver || window.WebKitMutationObserver;
-var requestAnimationFrame$1 = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
+var requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
 var cancelAnimationFrame = window.cancelAnimationFrame || window.clearTimeout;
 
 var hasTouch = 'ontouchstart' in window
@@ -379,7 +377,7 @@ function FastDom() {
     var self = this;
     self.reads = [];
     self.writes = [];
-    self.raf = requestAnimationFrame$1.bind(window); // test hook
+    self.raf = requestAnimationFrame.bind(window); // test hook
 }
 
 FastDom.prototype = {
@@ -744,7 +742,7 @@ strats.defaults =
 strats.methods = function (parentVal, childVal) {
     return childVal
         ? parentVal
-            ? $.extend({}, parentVal, childVal)
+            ? $.extend(true, {}, parentVal, childVal)
             : childVal
         : parentVal;
 };
@@ -1117,7 +1115,7 @@ var util = Object.freeze({
 	Dimensions: Dimensions,
 	query: query,
 	Observer: Observer,
-	requestAnimationFrame: requestAnimationFrame$1,
+	requestAnimationFrame: requestAnimationFrame,
 	cancelAnimationFrame: cancelAnimationFrame,
 	hasTouch: hasTouch,
 	pointerDown: pointerDown,
@@ -1176,14 +1174,14 @@ function bootAPI (UIkit) {
                     init();
                 }
 
-            })).observe(document.documentElement, {childList: true});
+            })).observe(document.documentElement, {childList: true, subtree: true});
 
         }
 
     } else {
 
         ready(function () {
-            apply(document.body, connect);
+            apply(document.body, UIkit.connect);
             on(document.body, 'DOMNodeInserted', function (e) { return apply(e.target, UIkit.connect); });
             on(document.body, 'DOMNodeRemoved', function (e) { return apply(e.target, UIkit.disconnect); });
         });
@@ -1192,21 +1190,21 @@ function bootAPI (UIkit) {
 
     function init() {
 
-        var forEach = Array.prototype.forEach;
-
         apply(document.body, UIkit.connect);
 
         (new Observer(function (mutations) { return mutations.forEach(function (mutation) {
-                forEach.call(mutation.addedNodes, function (node) {
-                    apply(node, UIkit.connect);
-                    UIkit.update('update', mutation.target, true);
-                });
-                forEach.call(mutation.removedNodes, function (node) {
-                    apply(node, UIkit.disconnect);
-                    UIkit.update('update', mutation.target, true);
-                });
+
+                for (var i = 0; i < mutation.addedNodes.length; i++) {
+                    apply(mutation.addedNodes[i], UIkit.connect)
+                }
+
+                for (i = 0; i < mutation.removedNodes.length; i++) {
+                    apply(mutation.removedNodes[i], UIkit.disconnect)
+                }
+
+                UIkit.update('update', mutation.target, true);
             }); }
-        )).observe(document.body, {childList: true, subtree: true});
+        )).observe(document.documentElement, {childList: true, subtree: true});
 
     }
 
@@ -1273,26 +1271,27 @@ function globalAPI (UIkit) {
 
         if (!element) {
 
-            for (var id in UIkit.instances) {
-                if (UIkit.instances[id]._isReady) {
-                    UIkit.instances[id]._callUpdate(e);
-                }
-            }
-
+            update(UIkit.instances, e);
             return;
+
         }
 
         element = $__default(element)[0];
 
-        UIkit.elements.forEach(function (el) {
-            if (el[DATA] && (el === element || $__default.contains.apply($__default, parents ? [el, element] : [element, el]))) {
-                for (var name in el[DATA]) {
-                    if (el[DATA][name]._isReady) {
-                        el[DATA][name]._callUpdate(e);
-                    }
-                }
-            }
-        });
+        if (parents) {
+
+            do {
+
+                update(element[DATA], e);
+                element = element.parentNode;
+
+            } while (element)
+
+        } else {
+
+            apply(element, function (element) { return update(element[DATA], e); });
+
+        }
 
     };
 
@@ -1313,6 +1312,34 @@ function globalAPI (UIkit) {
 
 function createClass(name) {
     return new Function(("return function " + (classify(name)) + " (options) { this._init(options); }"))();
+}
+
+function apply(node, fn) {
+
+    if (node.nodeType !== Node.ELEMENT_NODE) {
+        return;
+    }
+
+    fn(node);
+    node = node.firstChild;
+    while (node) {
+        apply(node, fn);
+        node = node.nextSibling;
+    }
+}
+
+function update(data, e) {
+
+    if (!data) {
+        return;
+    }
+
+    for (var name in data) {
+        if (data[name]._isReady) {
+            data[name]._callUpdate(e);
+        }
+    }
+
 }
 
 function internalAPI (UIkit) {
@@ -1375,7 +1402,7 @@ function internalAPI (UIkit) {
         var el = this.$el[0],
             args = this.$options.args || [],
             props = this.$options.props || {},
-            options = el.getAttribute(this.$name),
+            options = el.getAttribute(this.$name) || el.getAttribute(("data-" + (this.$name))),
             key, prop;
 
         if (!props) {
@@ -1621,7 +1648,7 @@ function componentAPI (UIkit) {
             options.name = name;
             options = UIkit.extend(options);
         } else {
-            options.options.name = name
+            options.options.name = name;
         }
 
         UIkit.components[name] = options;
@@ -1649,7 +1676,7 @@ function componentAPI (UIkit) {
         };
 
         if (document.body && !options.options.functional) {
-            UIkit[name](("[uk-" + name + "],[data-uk-" + name + "]"))
+            UIkit[name](("[uk-" + name + "],[data-uk-" + name + "]"));
         }
 
         return UIkit.components[name];
@@ -1741,22 +1768,6 @@ var Class = {
 
 }
 
-var initProps = {
-        overflow: '',
-        height: '',
-        paddingTop: '',
-        paddingBottom: '',
-        marginTop: '',
-        marginBottom: ''
-    };
-var hideProps = {
-        overflow: 'hidden',
-        height: 0,
-        paddingTop: 0,
-        paddingBottom: 0,
-        marginTop: 0,
-        marginBottom: 0
-    };
 var Toggable = {
 
     props: {
@@ -1774,7 +1785,26 @@ var Toggable = {
         duration: 200,
         origin: false,
         transition: 'linear',
-        queued: false
+        queued: false,
+
+        initProps: {
+            overflow: '',
+            height: '',
+            paddingTop: '',
+            paddingBottom: '',
+            marginTop: '',
+            marginBottom: ''
+        },
+
+        hideProps: {
+            overflow: 'hidden',
+            height: 0,
+            paddingTop: 0,
+            paddingBottom: 0,
+            marginTop: 0,
+            marginBottom: 0
+        }
+
     },
 
     ready: function ready() {
@@ -1875,6 +1905,7 @@ var Toggable = {
         },
 
         _toggle: function _toggle(el, toggled) {
+
             el = $__default(el);
 
             if (this.cls) {
@@ -1914,10 +1945,10 @@ var Toggable = {
             el.height(height);
 
             return show
-                ? Transition.start(el, $.extend(initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
-                : Transition.start(el, hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(function () {
+                ? Transition.start(el, $.extend(this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
+                : Transition.start(el, this.hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(function () {
                         this$1._toggle(el, false);
-                        el.css(initProps);
+                        el.css(this$1.initProps);
                     });
 
         },
@@ -2122,7 +2153,7 @@ var Modal = {
 
             this.page.css('width', '');
 
-            var scrollbarWidth = window.innerWidth - this.page.width();
+            var scrollbarWidth = window.innerWidth - this.page.outerWidth(true);
 
             if (width) {
                 this.page.width(width);
@@ -2409,7 +2440,8 @@ function Alert (UIkit) {
         defaults: {
             animation: true,
             close: '.uk-alert-close',
-            duration: 150
+            duration: 150,
+            hideProps: {opacity: 0}
         },
 
         ready: function ready() {
@@ -2427,7 +2459,6 @@ function Alert (UIkit) {
                 var this$1 = this;
 
                 this.toggleElement(this.$el).then(function () { return this$1.$destroy(true); });
-                requestAnimationFrame(function () { return this$1.$el.css('opacity', 0); });
             }
 
         }
@@ -4003,7 +4034,7 @@ function Sticky (UIkit) {
                 var target = query(location.hash);
 
                 if (target) {
-                    requestAnimationFrame$1(function () {
+                    requestAnimationFrame(function () {
 
                         var top = target.offset().top,
                             elTop = this$1.$el.offset().top,
@@ -4071,6 +4102,9 @@ function Sticky (UIkit) {
                     this.bottom = this.bottom && this.bottom - outerHeight;
                     this.inactive = this.media && !window.matchMedia(this.media).matches;
 
+                    if (isActive) {
+                        this.update();
+                    }
                 },
 
                 events: ['load', 'resize', 'orientationchange']
@@ -4355,11 +4389,11 @@ function Svg (UIkit) {
 
         if (!image) {
 
-            el = el.clone().empty().attr('uk-no-boot', '').appendTo(document.body).show();
+            el = el.clone().empty()
+                .attr({'uk-no-boot': '', style: ((el.attr('style')) + ";display:block !important;")})
+                .appendTo(document.body);
 
-            if (!el.is(':visible')) {
-                image = getBackgroundImage(el);
-            }
+            image = getBackgroundImage(el);
 
             // safari workaround
             if (!image && el[0].tagName === 'CANVAS') {
@@ -4611,7 +4645,7 @@ function core (UIkit) {
         .on('load', UIkit.update)
         .on('resize orientationchange', function (e) {
             if (!resizing) {
-                requestAnimationFrame$1(function () {
+                requestAnimationFrame(function () {
                     UIkit.update(e);
                     resizing = false;
                 });
@@ -4627,7 +4661,7 @@ function core (UIkit) {
             dir = scroll < window.pageYOffset;
             scroll = window.pageYOffset;
             if (!ticking) {
-                requestAnimationFrame$1(function () {
+                requestAnimationFrame(function () {
                     e.dir = dir ? 'down' : 'up';
                     UIkit.update(e);
                     ticking = false;
@@ -4718,7 +4752,7 @@ if (typeof module !== 'undefined') {
 
 return UIkit$1;
 
-})));/*! UIkit 3.0.0-beta.4 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.5 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5048,7 +5082,7 @@ UIkit.mixin({
 
 }, 'lightbox');
 
-})));/*! UIkit 3.0.0-beta.4 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.5 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5160,7 +5194,7 @@ UIkit.notification.closeAll = function (group, immediate) {
 
 };
 
-})));/*! UIkit 3.0.0-beta.4 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.5 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5455,9 +5489,9 @@ UIkit.component('sortable', {
             }
 
             if (this.animation) {
-                this.animate(function () { return element.remove(); });
+                this.animate(function () { return element.detach(); });
             } else {
-                element.remove();
+                element.detach();
             }
 
         },
@@ -5528,7 +5562,7 @@ function preventClick() {
     on(doc, 'click', listener, true);
 }
 
-})));/*! UIkit 3.0.0-beta.4 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.5 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5604,7 +5638,7 @@ UIkit.component('tooltip', {
             clearInterval(this.hideTimer);
             this.$el.attr('aria-expanded', false);
             this.toggleElement(this.tooltip, false);
-            this.tooltip.remove();
+            this.tooltip && this.tooltip.remove();
             this.tooltip = false;
         }
 
@@ -5617,7 +5651,7 @@ UIkit.component('tooltip', {
 
 });
 
-})));/*! UIkit 3.0.0-beta.4 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.5 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
