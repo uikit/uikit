@@ -9,6 +9,7 @@
 
 ### Fixed
 
+- Fix regression with initialization (IE + Edge)
 - Fix beta 2 regression for Svg’s (Safari)
 - Fix Sticky width after resize
 - Fix page width on resizing Offcanvas

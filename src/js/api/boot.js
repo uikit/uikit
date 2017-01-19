@@ -17,14 +17,14 @@ export default function (UIkit) {
                     init();
                 }
 
-            })).observe(document.documentElement, {childList: true});
+            })).observe(document.documentElement, {childList: true, subtree: true});
 
         }
 
     } else {
 
         ready(() => {
-            apply(document.body, connect);
+            apply(document.body, UIkit.connect);
             on(document.body, 'DOMNodeInserted', e => apply(e.target, UIkit.connect));
             on(document.body, 'DOMNodeRemoved', e => apply(e.target, UIkit.disconnect));
         });
