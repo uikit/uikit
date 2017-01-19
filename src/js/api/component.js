@@ -14,7 +14,7 @@ export default function (UIkit) {
             options.name = name;
             options = UIkit.extend(options);
         } else {
-            options.options.name = name
+            options.options.name = name;
         }
 
         UIkit.components[name] = options;
@@ -39,7 +39,7 @@ export default function (UIkit) {
         };
 
         if (document.body && !options.options.functional) {
-            UIkit[name](`[uk-${name}],[data-uk-${name}]`)
+            UIkit[name](`[uk-${name}],[data-uk-${name}]`);
         }
 
         return UIkit.components[name];
