@@ -1,10 +1,12 @@
 (function(core) {
 
+    var uikit;
+
     if (typeof define == 'function' && define.amd) { // AMD
 
         define('uikit', function(){
 
-            var uikit = window.UIkit2 || core(window, window.jQuery, window.document);
+            uikit = core(window.jQuery);
 
             uikit.load = function(res, req, onload, config) {
 
@@ -30,24 +32,26 @@
 
     if (!window.jQuery) {
         throw new Error('UIkit 2.x requires jQuery');
+    } else {
+        uikit = core(window.jQuery);
     }
 
-    if (window && window.jQuery && !window.UIkit2) {
-        core(window, window.jQuery, window.document);
-    }
-
-})(function(global, $, doc) {
+})(function($) {
 
     "use strict";
 
-    var UI = {}, _UI = global.UIkit || undefined;
+    if (window.UIkit2) {
+        return window.UIkit2;
+    }
+
+    var UI = {}, _UI = window.UIkit || undefined;
 
     UI.version = '2.27.2';
 
     UI.noConflict = function() {
         // restore UIkit version
         if (_UI) {
-            global.UIkit = _UI;
+            window.UIkit = _UI;
             $.UIkit      = _UI;
             $.fn.uk      = _UI.fn;
         }
@@ -55,10 +59,10 @@
         return UI;
     };
 
-    global.UIkit2 = UI;
+    window.UIkit2 = UI;
 
     if (!_UI) {
-        global.UIkit = UI;
+        window.UIkit = UI;
     }
 
     // cache jQuery
@@ -73,7 +77,7 @@
 
         var transitionEnd = (function() {
 
-            var element = doc.body || doc.documentElement,
+            var element = document.body || document.documentElement,
                 transEndEventNames = {
                     WebkitTransition : 'webkitTransitionEnd',
                     MozTransition    : 'transitionend',
@@ -93,7 +97,7 @@
 
         var animationEnd = (function() {
 
-            var element = doc.body || doc.documentElement,
+            var element = document.body || document.documentElement,
                 animEndEventNames = {
                     WebkitAnimation : 'webkitAnimationEnd',
                     MozAnimation    : 'animationend',
@@ -137,13 +141,13 @@
 
     UI.support.touch = (
         ('ontouchstart' in document) ||
-        (global.DocumentTouch && document instanceof global.DocumentTouch)  ||
-        (global.navigator.msPointerEnabled && global.navigator.msMaxTouchPoints > 0) || //IE 10
-        (global.navigator.pointerEnabled && global.navigator.maxTouchPoints > 0) || //IE >=11
+        (window.DocumentTouch && document instanceof window.DocumentTouch)  ||
+        (window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 0) || //IE 10
+        (window.navigator.pointerEnabled && window.navigator.maxTouchPoints > 0) || //IE >=11
         false
     );
 
-    UI.support.mutationobserver = (global.MutationObserver || global.WebKitMutationObserver || null);
+    UI.support.mutationobserver = (window.MutationObserver || window.WebKitMutationObserver || null);
 
     UI.Utils = {};
 
