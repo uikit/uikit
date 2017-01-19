@@ -12,7 +12,6 @@
     "compile-js": "node build/build && node build/all",
     "compile": "npm run compile-less && npm run compile-js",
     "release": "npm run compile && node build/release",
-    "sublime": "node build/sublime",
     "prefix": "node build/prefix",
     "no-conflict": "node build/no-conflict && node build/css-minify",
     "watch": "npm-watch",
