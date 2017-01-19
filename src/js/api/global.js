@@ -103,7 +103,7 @@ function apply(node, fn) {
 
 function update(data, e) {
 
-    if (data) {
+    if (!data) {
         return;
     }
 
