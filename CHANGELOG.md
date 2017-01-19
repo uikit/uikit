@@ -12,6 +12,7 @@
 - Fix Sticky width after resize
 - Fix page width on resizing Offcanvas
 - Fix props initialization for data-uk- components
+- Fix sortable children loosing event bindings after sort
 
 ## 3.0.0 beta 4 (January 18, 2017)
 

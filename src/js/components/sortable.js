@@ -264,9 +264,9 @@ UIkit.component('sortable', {
             }
 
             if (this.animation) {
-                this.animate(() => element.remove());
+                this.animate(() => element.detach());
             } else {
-                element.remove();
+                element.detach();
             }
 
         },
