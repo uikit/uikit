@@ -11,6 +11,7 @@
 - Fix beta 2 regression for Svg’s (Safari)
 - Fix Sticky width after resize
 - Fix page width on resizing Offcanvas
+- Fix props initialization for data-uk- components
 
 ## 3.0.0 beta 4 (January 18, 2017)
 
