@@ -31,16 +31,15 @@
 @modal-z-index:                                 @global-z-index + 10;
 @modal-background:                              rgba(0,0,0,0.6);
 
+@modal-padding-horizontal:                      15px;
+@modal-padding-horizontal-s:                    @global-gutter;
+@modal-padding-horizontal-m:                    @global-medium-gutter;
+
 @modal-dialog-margin-vertical:                  50px;
 @modal-dialog-margin-vertical-xs:               15px;
 @modal-dialog-margin-horizontal:                @modal-dialog-margin-vertical-xs;
 @modal-dialog-width:                            600px;
 @modal-dialog-background:                       @global-background;
-
-@modal-container-margin-horizontal:             15px;
-@modal-container-margin-horizontal-s:           @global-gutter;
-@modal-container-margin-horizontal-m:           @global-medium-gutter;
-@modal-container-margin-horizontal-l:           @global-large-gutter;
 
 @modal-body-padding-horizontal:                 @global-gutter;
 @modal-body-padding-vertical:                   @global-gutter;
@@ -76,8 +75,9 @@
  * 1. Hide by default
  * 2. Set position
  * 3. Allow scrolling for the modal dialog
- * 4. Mask the background page
- * 5. Fade-in transition
+ * 4. Horizontal padding
+ * 5. Mask the background page
+ * 6. Fade-in transition
  */
 
 .uk-modal {
@@ -94,12 +94,35 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     /* 4 */
-    background: @modal-background;
+    padding-left: @modal-padding-horizontal;
+    padding-right: @modal-padding-horizontal;
     /* 5 */
+    background: @modal-background;
+    /* 6 */
     opacity: 0;
     -webkit-transition: opacity 0.15s linear;
     transition: opacity 0.15s linear;
     .hook-modal;
+}
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-modal {
+        padding-left: @modal-padding-horizontal-s;
+        padding-right: @modal-padding-horizontal-s;
+    }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-modal {
+        padding-left: @modal-padding-horizontal-m;
+        padding-right: @modal-padding-horizontal-m;
+    }
+
 }
 
 /*
@@ -136,7 +159,7 @@
     box-sizing: border-box;
     margin: @modal-dialog-margin-vertical auto;
     width: @modal-dialog-width;
-    max-width: ~'calc(100% - (2 * @{modal-dialog-margin-horizontal}))';
+    max-width: 100%;
     /* 3 */
     background: @modal-dialog-background;
     /* 4 */
@@ -177,54 +200,19 @@
  * Take the same size as the Container component
  */
 
-.uk-modal-container .uk-modal-dialog {
-    width: 100%;
-    max-width: 1200px;
-}
-
-.uk-modal-container {
-    padding-left: @modal-container-margin-horizontal;
-    padding-right: @modal-container-margin-horizontal;
-}
-
-/* Phone landscape and bigger */
-@media (min-width: @breakpoint-small) {
-
-    .uk-modal-container {
-        padding-left: @modal-container-margin-horizontal-s;
-        padding-right: @modal-container-margin-horizontal-s;
-    }
-
-}
-
-/* Tablet landscape and bigger */
-@media (min-width: @breakpoint-medium) {
-
-    .uk-modal-container {
-        padding-left: @modal-container-margin-horizontal-m;
-        padding-right: @modal-container-margin-horizontal-m;
-    }
-
-}
-
-/* Desktop and bigger */
-@media (min-width: @breakpoint-large) {
-
-    .uk-modal-container {
-        padding-left: @modal-container-margin-horizontal-l;
-        padding-right: @modal-container-margin-horizontal-l;
-    }
-
-}
+.uk-modal-container .uk-modal-dialog { width: 1200px;}
 
 /*
  * Full size
- * 1. Remove background from modal
+ * 1. Remove padding and background from modal
  * 2. Reset all default declarations from modal dialog
  */
 
 /* 1 */
-.uk-modal-full { background: none; }
+.uk-modal-full {
+    padding: 0;
+    background: none;
+}
 
 /* 2 */
 .uk-modal-full .uk-modal-dialog {
