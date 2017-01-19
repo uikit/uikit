@@ -131,6 +131,7 @@ export default {
         },
 
         _toggle(el, toggled) {
+
             el = $(el);
 
             if (this.cls) {

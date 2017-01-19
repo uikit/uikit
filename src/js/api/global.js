@@ -44,26 +44,27 @@ export default function (UIkit) {
 
         if (!element) {
 
-            for (var id in UIkit.instances) {
-                if (UIkit.instances[id]._isReady) {
-                    UIkit.instances[id]._callUpdate(e);
-                }
-            }
-
+            update(UIkit.instances, e);
             return;
+
         }
 
         element = $(element)[0];
 
-        UIkit.elements.forEach(el => {
-            if (el[DATA] && (el === element || $.contains.apply($, parents ? [el, element] : [element, el]))) {
-                for (var name in el[DATA]) {
-                    if (el[DATA][name]._isReady) {
-                        el[DATA][name]._callUpdate(e);
-                    }
-                }
-            }
-        });
+        if (parents) {
+
+            do {
+
+                update(element[DATA], e);
+                element = element.parentNode;
+
+            } while (element)
+
+        } else {
+
+            apply(element, element => update(element[DATA], e));
+
+        }
 
     };
 
@@ -84,4 +85,32 @@ export default function (UIkit) {
 
 function createClass(name) {
     return new Function(`return function ${classify(name)} (options) { this._init(options); }`)();
+}
+
+function apply(node, fn) {
+
+    if (node.nodeType !== Node.ELEMENT_NODE) {
+        return;
+    }
+
+    fn(node);
+    node = node.firstChild;
+    while (node) {
+        apply(node, fn);
+        node = node.nextSibling;
+    }
+}
+
+function update(data, e) {
+
+    if (data) {
+        return;
+    }
+
+    for (var name in data) {
+        if (data[name]._isReady) {
+            data[name]._callUpdate(e);
+        }
+    }
+
 }

@@ -33,20 +33,20 @@ export default function (UIkit) {
 
     function init() {
 
-        var forEach = Array.prototype.forEach;
-
         apply(document.body, UIkit.connect);
 
         (new Observer(mutations =>
             mutations.forEach(mutation => {
-                forEach.call(mutation.addedNodes, node => {
-                    apply(node, UIkit.connect);
-                    UIkit.update('update', mutation.target, true);
-                });
-                forEach.call(mutation.removedNodes, node => {
-                    apply(node, UIkit.disconnect);
-                    UIkit.update('update', mutation.target, true);
-                });
+
+                for (var i = 0; i < mutation.addedNodes.length; i++) {
+                    apply(mutation.addedNodes[i], UIkit.connect)
+                }
+
+                for (i = 0; i < mutation.removedNodes.length; i++) {
+                    apply(mutation.removedNodes[i], UIkit.disconnect)
+                }
+
+                UIkit.update('update', mutation.target, true);
             })
         )).observe(document.documentElement, {childList: true, subtree: true});
 

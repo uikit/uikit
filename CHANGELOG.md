@@ -5,6 +5,7 @@
 ### Changed
 
 - UIkit observes body tag too now
+- Performance improvements
 
 ### Fixed
 
