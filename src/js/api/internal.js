@@ -56,7 +56,7 @@ export default function (UIkit) {
         var el = this.$el[0],
             args = this.$options.args || [],
             props = this.$options.props || {},
-            options = el.getAttribute(this.$name),
+            options = el.getAttribute(this.$name) || el.getAttribute(`data-${this.$name}`),
             key, prop;
 
         if (!props) {

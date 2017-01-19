@@ -49,6 +49,12 @@ You can also watch for file changes and re-compile automatically.
 npm run watch
 ```
 
+Compile dist in rtl mode (experimental).
+
+```
+npm run compile-rtl
+```
+
 ## Contributing
 
 Finding bugs, sending pull requests or improving our docs - any contribution is welcome and highly appreciated. To get started, head over to our [contribution guidelines](CONTRIBUTING.md). Thanks!

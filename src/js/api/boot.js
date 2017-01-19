@@ -17,14 +17,14 @@ export default function (UIkit) {
                     init();
                 }
 
-            })).observe(document.documentElement, {childList: true});
+            })).observe(document.documentElement, {childList: true, subtree: true});
 
         }
 
     } else {
 
         ready(() => {
-            apply(document.body, connect);
+            apply(document.body, UIkit.connect);
             on(document.body, 'DOMNodeInserted', e => apply(e.target, UIkit.connect));
             on(document.body, 'DOMNodeRemoved', e => apply(e.target, UIkit.disconnect));
         });
@@ -33,22 +33,22 @@ export default function (UIkit) {
 
     function init() {
 
-        var forEach = Array.prototype.forEach;
-
         apply(document.body, UIkit.connect);
 
         (new Observer(mutations =>
             mutations.forEach(mutation => {
-                forEach.call(mutation.addedNodes, node => {
-                    apply(node, UIkit.connect);
-                    UIkit.update('update', mutation.target, true);
-                });
-                forEach.call(mutation.removedNodes, node => {
-                    apply(node, UIkit.disconnect);
-                    UIkit.update('update', mutation.target, true);
-                });
+
+                for (var i = 0; i < mutation.addedNodes.length; i++) {
+                    apply(mutation.addedNodes[i], UIkit.connect)
+                }
+
+                for (i = 0; i < mutation.removedNodes.length; i++) {
+                    apply(mutation.removedNodes[i], UIkit.disconnect)
+                }
+
+                UIkit.update('update', mutation.target, true);
             })
-        )).observe(document.body, {childList: true, subtree: true});
+        )).observe(document.documentElement, {childList: true, subtree: true});
 
     }
 

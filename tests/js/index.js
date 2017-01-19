@@ -47,13 +47,6 @@ $(() => {
     var $styles = $('<select class="uk-select uk-form-width-small"></select>').css('margin', '20px').appendTo($container);
     var $inverse = $('<select class="uk-select uk-form-width-small"></select>').css('margin', '20px').appendTo($container);
     var $label = $('<label></label>').css('margin', '20px').appendTo($container);
-    // var $rtl = $('<input type="checkbox" class="uk-checkbox uk-form-width-small" />');
-
-    // Display toggle only when compiled RTL version exists
-    // $.ajax({url: style.file.replace('.css', '.rtl.css')}).done(() => {
-    //     $rtl.appendTo($label);
-    //     $('<span>RTL</span>').css('margin', '5px').appendTo($label);
-    // });
 
     // Tests
     // ------------------------------
@@ -175,22 +168,23 @@ $(() => {
 
     }).val(storage[keyinverse]).trigger('change');
 
-    // // RTL toggle
-    // // ------------------------------
-    //
-    // $rtl.on('change', () => {
-    //     var isRTL = $rtl.is(':checked'),
-    //         from = isRTL ? '.css' : '.rtl.css',
-    //         to = isRTL ? '.rtl.css' : '.css';
-    //
-    //     $html.attr("dir", isRTL ? "rtl" : "ltr");
-    //     $('link[rel=stylesheet]').each((i, el) => $(el).attr('href', $(el).attr('href').replace(from, to)));
-    //
-    // });
+    // RTL
+    // ------------------------------
 
+    var dir = storage._uikit_dir || 'ltr';
+
+    var $rtl = $('<input type="checkbox" class="uk-checkbox uk-form-width-small" />').on('change', () => {
+        storage._uikit_dir = $rtl.prop('checked') ? 'rtl':'ltr';
+        location.reload();
+    }).appendTo($label).after('<span style="margin:5px;">RTL</span>');
+
+    if (dir == 'rtl') {
+        $html.attr('dir', dir);
+        $rtl.prop('checked', true);
+        $('link[rel=stylesheet]').each((i, el) => $(el).attr('href', el.href.replace('.css' , '.rtl.css')));
+    }
 
     $html.css('padding-top', '');
-
 });
 
 $html.css('padding-top', '80px');

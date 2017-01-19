@@ -111,6 +111,9 @@ export default function (UIkit) {
                     this.bottom = this.bottom && this.bottom - outerHeight;
                     this.inactive = this.media && !window.matchMedia(this.media).matches;
 
+                    if (isActive) {
+                        this.update();
+                    }
                 },
 
                 events: ['load', 'resize', 'orientationchange']

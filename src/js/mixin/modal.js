@@ -180,7 +180,7 @@ export default {
 
             this.page.css('width', '');
 
-            var scrollbarWidth = window.innerWidth - this.page.width();
+            var scrollbarWidth = window.innerWidth - this.page.outerWidth(true);
 
             if (width) {
                 this.page.width(width);

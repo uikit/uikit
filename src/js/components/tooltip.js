@@ -65,7 +65,7 @@ UIkit.component('tooltip', {
             clearInterval(this.hideTimer);
             this.$el.attr('aria-expanded', false);
             this.toggleElement(this.tooltip, false);
-            this.tooltip.remove();
+            this.tooltip && this.tooltip.remove();
             this.tooltip = false;
         }
 
