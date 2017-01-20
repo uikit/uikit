@@ -64,6 +64,11 @@ export default function (UIkit) {
         methods: {
 
             show(item) {
+                
+                if(!this.toggles) {
+                    this.active = item;
+                    return;
+                }
 
                 var length = this.toggles.length,
                     prev = this.connects.children(`.${this.cls}`).index(),
