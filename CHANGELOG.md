@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix card component extending inverse
+- Fix background-fixed for Firefox and IE
 
 ## 3.0.0 beta 5 (January 18, 2017)
 
