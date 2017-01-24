@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.5 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.6 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
@@ -1157,74 +1157,6 @@ var util = Object.freeze({
 	flipPosition: flipPosition
 });
 
-function bootAPI (UIkit) {
-
-    if (Observer) {
-
-        if (document.body) {
-
-            init();
-
-        } else {
-
-            (new Observer(function () {
-
-                if (document.body) {
-                    this.disconnect();
-                    init();
-                }
-
-            })).observe(document.documentElement, {childList: true, subtree: true});
-
-        }
-
-    } else {
-
-        ready(function () {
-            apply(document.body, UIkit.connect);
-            on(document.body, 'DOMNodeInserted', function (e) { return apply(e.target, UIkit.connect); });
-            on(document.body, 'DOMNodeRemoved', function (e) { return apply(e.target, UIkit.disconnect); });
-        });
-
-    }
-
-    function init() {
-
-        apply(document.body, UIkit.connect);
-
-        (new Observer(function (mutations) { return mutations.forEach(function (mutation) {
-
-                for (var i = 0; i < mutation.addedNodes.length; i++) {
-                    apply(mutation.addedNodes[i], UIkit.connect)
-                }
-
-                for (i = 0; i < mutation.removedNodes.length; i++) {
-                    apply(mutation.removedNodes[i], UIkit.disconnect)
-                }
-
-                UIkit.update('update', mutation.target, true);
-            }); }
-        )).observe(document.documentElement, {childList: true, subtree: true});
-
-    }
-
-    function apply(node, fn) {
-
-        if (node.nodeType !== Node.ELEMENT_NODE || node.hasAttribute('uk-no-boot')) {
-            return;
-        }
-
-        fn(node);
-        node = node.firstChild;
-        while (node) {
-            var next = node.nextSibling;
-            apply(node, fn);
-            node = next;
-        }
-    }
-
-}
-
 function globalAPI (UIkit) {
 
     var DATA = UIkit.data;
@@ -1597,8 +1529,16 @@ function instanceAPI (UIkit) {
         this._callUpdate(e);
     };
 
+    UIkit.prototype.$emitSync = function (e) {
+        this._callUpdate(createEvent(e || 'update', true, false, {sync: true}));
+    };
+
     UIkit.prototype.$update = function (e, parents) {
         UIkit.update(e, this.$el, parents);
+    };
+
+    UIkit.prototype.$updateSync = function (e, parents) {
+        UIkit.update(createEvent(e || 'update', true, false, {sync: true}), this.$el, parents);
     };
 
     UIkit.prototype.$destroy = function (remove) {
@@ -1640,9 +1580,9 @@ function componentAPI (UIkit) {
 
     UIkit.components = {};
 
-    UIkit.component = function (name, options) {
+    UIkit.component = function (id, options) {
 
-        name = camelize(name);
+        var name = camelize(id);
 
         if ($.isPlainObject(options)) {
             options.name = name;
@@ -1676,7 +1616,7 @@ function componentAPI (UIkit) {
         };
 
         if (document.body && !options.options.functional) {
-            UIkit[name](("[uk-" + name + "],[data-uk-" + name + "]"));
+            UIkit[name](("[uk-" + id + "],[data-uk-" + id + "]"));
         }
 
         return UIkit.components[name];
@@ -1758,7 +1698,6 @@ globalAPI(UIkit$1);
 internalAPI(UIkit$1);
 instanceAPI(UIkit$1);
 componentAPI(UIkit$1);
-bootAPI(UIkit$1);
 
 var Class = {
 
@@ -1901,7 +1840,7 @@ var Toggable = {
             )(el, show);
 
             el.trigger(show ? 'show' : 'hide', [this]);
-            return deferred;
+            return deferred.then(function () { return el.trigger(show ? 'shown' : 'hidden', [this$1]); });
         },
 
         _toggle: function _toggle(el, toggled) {
@@ -2381,6 +2320,10 @@ function Accordion (UIkit) {
             show: function show(item, animate) {
                 var this$1 = this;
 
+
+                if (!this.items) {
+                    this.$emitSync();
+                }
 
                 var index = getIndex(item, this.items),
                     active = this.items.filter(("." + (this.clsOpen)));
@@ -3698,7 +3641,7 @@ function Scroll (UIkit) {
                     .stop()
                     .animate({scrollTop: parseInt(target, 10) || 1}, this.duration, this.transition)
                     .promise()
-                    .then(function () { return this$1.$el.triggerHandler($__default.Event('scrolled'), [this$1]); });
+                    .then(function () { return this$1.$el.trigger('scrolled', [this$1]); });
 
             }
 
@@ -3886,12 +3829,7 @@ function ScrollspyNav (UIkit) {
                     this.targets = $__default($__default.map(this.links, function (el) { return el.hash; }).join(','));
 
                     if (this.scroll) {
-
-                        var offset = this.offset || 0;
-
-                        this.links.each(function () {
-                            UIkit.scroll(this, {offset: offset});
-                        });
+                        UIkit.scroll(this.links, {offset: this.offset || 0});
                     }
                 }
 
@@ -4486,6 +4424,10 @@ function Switcher (UIkit) {
                 var this$1 = this;
 
 
+                if (!this.toggles) {
+                    this.$emitSync();
+                }
+
                 var length = this.toggles.length,
                     prev = this.connects.children(("." + (this.cls))).index(),
                     hasPrev = prev >= 0,
@@ -4741,10 +4683,78 @@ function core (UIkit) {
     }
 }
 
+function boot (UIkit) {
+
+    if (Observer) {
+
+        if (document.body) {
+
+            init();
+
+        } else {
+
+            (new Observer(function () {
+
+                if (document.body) {
+                    this.disconnect();
+                    init();
+                }
+
+            })).observe(document.documentElement, {childList: true, subtree: true});
+
+        }
+
+    } else {
+
+        ready(function () {
+            apply(document.body, UIkit.connect);
+            on(document.documentElement, 'DOMNodeInserted', function (e) { return apply(e.target, UIkit.connect); });
+            on(document.documentElement, 'DOMNodeRemoved', function (e) { return apply(e.target, UIkit.disconnect); });
+        });
+
+    }
+
+    function init() {
+
+        apply(document.body, UIkit.connect);
+
+        (new Observer(function (mutations) { return mutations.forEach(function (mutation) {
+
+                for (var i = 0; i < mutation.addedNodes.length; i++) {
+                    apply(mutation.addedNodes[i], UIkit.connect)
+                }
+
+                for (i = 0; i < mutation.removedNodes.length; i++) {
+                    apply(mutation.removedNodes[i], UIkit.disconnect)
+                }
+
+                UIkit.update('update', mutation.target, true);
+            }); }
+        )).observe(document.documentElement, {childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['href']});
+    }
+
+    function apply(node, fn) {
+
+        if (node.nodeType !== Node.ELEMENT_NODE || node.hasAttribute('uk-no-boot')) {
+            return;
+        }
+
+        fn(node);
+        node = node.firstChild;
+        while (node) {
+            var next = node.nextSibling;
+            apply(node, fn);
+            node = next;
+        }
+    }
+
+}
+
 UIkit$1.version = '3.0.0';
 
 mixin$1(UIkit$1);
 core(UIkit$1);
+boot(UIkit$1);
 
 if (typeof module !== 'undefined') {
     module.exports = UIkit$1;
@@ -4752,7 +4762,7 @@ if (typeof module !== 'undefined') {
 
 return UIkit$1;
 
-})));/*! UIkit 3.0.0-beta.5 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.6 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5082,7 +5092,7 @@ UIkit.mixin({
 
 }, 'lightbox');
 
-})));/*! UIkit 3.0.0-beta.5 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.6 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5194,7 +5204,7 @@ UIkit.notification.closeAll = function (group, immediate) {
 
 };
 
-})));/*! UIkit 3.0.0-beta.5 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.6 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5203,7 +5213,6 @@ UIkit.notification.closeAll = function (group, immediate) {
 }(this, (function (uikit) { 'use strict';
 
 var $ = uikit.util.$;
-var createEvent = uikit.util.createEvent;
 var doc = uikit.util.docElement;
 var extend = uikit.util.extend;
 var isWithin = uikit.util.isWithin;
@@ -5501,7 +5510,6 @@ UIkit.component('sortable', {
 
 
             var props = [],
-                event = createEvent('update', true, false, {sync: true}),
                 children = this.$el.children().toArray().map(function (el) {
                     el = $(el);
                     props.push(extend({
@@ -5518,7 +5526,7 @@ UIkit.component('sortable', {
 
             children.forEach(function (el) { return el.stop(); });
             this.$el.children().css(reset);
-            this.$update(event, true);
+            this.$updateSync('update', true);
 
             this.$el.css('min-height', this.$el.height());
 
@@ -5526,7 +5534,7 @@ UIkit.component('sortable', {
             $.when.apply($, children.map(function (el, i) { return el.css(props[i]).animate(positions[i], this$1.animation).promise(); }))
                 .then(function () {
                     this$1.$el.css('min-height', '').children().css(reset);
-                    this$1.$update(event, true);
+                    this$1.$updateSync('update', true);
                 });
 
         }
@@ -5562,7 +5570,7 @@ function preventClick() {
     on(doc, 'click', listener, true);
 }
 
-})));/*! UIkit 3.0.0-beta.5 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.6 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5651,7 +5659,7 @@ UIkit.component('tooltip', {
 
 });
 
-})));/*! UIkit 3.0.0-beta.5 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.6 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
