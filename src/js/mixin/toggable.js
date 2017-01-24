@@ -127,7 +127,7 @@ export default {
             )(el, show);
 
             el.trigger(show ? 'show' : 'hide', [this]);
-            return deferred;
+            return deferred.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
         },
 
         _toggle(el, toggled) {

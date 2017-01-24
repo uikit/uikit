@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Toggable triggers 'shown'/'hidden' events, when animations complete
+
 ### Fixed
 
 - Fix component initialization
