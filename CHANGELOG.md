@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fix component initialization
 - Fix card component extending inverse
 - Fix background-fixed for Firefox and IE
 

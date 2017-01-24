@@ -6,9 +6,9 @@ export default function (UIkit) {
 
     UIkit.components = {};
 
-    UIkit.component = function (name, options) {
+    UIkit.component = function (id, options) {
 
-        name = camelize(name);
+        var name = camelize(id);
 
         if (isPlainObject(options)) {
             options.name = name;
@@ -39,7 +39,7 @@ export default function (UIkit) {
         };
 
         if (document.body && !options.options.functional) {
-            UIkit[name](`[uk-${name}],[data-uk-${name}]`);
+            UIkit[name](`[uk-${id}],[data-uk-${id}]`);
         }
 
         return UIkit.components[name];
