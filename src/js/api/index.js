@@ -1,4 +1,3 @@
-import bootAPI from './boot';
 import globalAPI from './global';
 import internalAPI from './internal';
 import instanceAPI from './instance';
@@ -20,6 +19,5 @@ globalAPI(UIkit);
 internalAPI(UIkit);
 instanceAPI(UIkit);
 componentAPI(UIkit);
-bootAPI(UIkit);
 
 export default UIkit;

@@ -212,7 +212,7 @@
  ========================================================================== */
 
 .uk-card-hover:not(.uk-card-default):not(.uk-card-primary):not(.uk-card-secondary):hover {
-    background-color: @card-hover-background;
+    background: @card-hover-background;
     .hook-card-hover;
 }
 
@@ -226,7 +226,7 @@
  */
 
 .uk-card-default {
-    background-color: @card-default-background;
+    background: @card-default-background;
     color: @card-default-color;
     .hook-card-default;
 }
@@ -254,7 +254,7 @@
  */
 
 .uk-card-primary {
-    background-color: @card-primary-background;
+    background: @card-primary-background;
     color: @card-primary-color;
     .hook-card-primary;
 }
@@ -270,7 +270,9 @@
 }
 
 // Color Mode
+.uk-card-primary.uk-card-body:extend(.uk-light all) when (@card-primary-color-mode = light) {}
 .uk-card-primary > :not([class*='uk-card-media']):extend(.uk-light all) when (@card-primary-color-mode = light) {}
+.uk-card-primary.uk-card-body:extend(.uk-dark all) when (@card-primary-color-mode = dark) {}
 .uk-card-primary > :not([class*='uk-card-media']):extend(.uk-dark all) when (@card-primary-color-mode = dark) {}
 
 /*
@@ -278,7 +280,7 @@
  */
 
 .uk-card-secondary {
-    background-color: @card-secondary-background;
+    background: @card-secondary-background;
     color: @card-secondary-color;
     .hook-card-secondary;
 }
@@ -294,7 +296,9 @@
 }
 
 // Color Mode
+.uk-card-secondary.uk-card-body:extend(.uk-light all) when (@card-secondary-color-mode = light) {}
 .uk-card-secondary > :not([class*='uk-card-media']):extend(.uk-light all) when (@card-secondary-color-mode = light) {}
+.uk-card-secondary.uk-card-body:extend(.uk-dark all) when (@card-secondary-color-mode = dark) {}
 .uk-card-secondary > :not([class*='uk-card-media']):extend(.uk-dark all) when (@card-secondary-color-mode = dark) {}
 
 

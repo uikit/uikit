@@ -65,6 +65,10 @@ export default function (UIkit) {
 
             show(item) {
 
+                if (!this.toggles) {
+                    this.$emitSync();
+                }
+
                 var length = this.toggles.length,
                     prev = this.connects.children(`.${this.cls}`).index(),
                     hasPrev = prev >= 0,

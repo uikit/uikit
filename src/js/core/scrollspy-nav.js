@@ -30,12 +30,7 @@ export default function (UIkit) {
                     this.targets = $($.map(this.links, (el) => el.hash).join(','));
 
                     if (this.scroll) {
-
-                        var offset = this.offset || 0;
-
-                        this.links.each(function () {
-                            UIkit.scroll(this, {offset});
-                        });
+                        UIkit.scroll(this.links, {offset: this.offset || 0});
                     }
                 }
 

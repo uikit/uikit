@@ -64,6 +64,10 @@ export default function (UIkit) {
 
             show(item, animate) {
 
+                if (!this.items) {
+                    this.$emitSync();
+                }
+
                 var index = getIndex(item, this.items),
                     active = this.items.filter(`.${this.clsOpen}`);
 

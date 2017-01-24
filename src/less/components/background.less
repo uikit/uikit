@@ -65,14 +65,14 @@
 /* Attachment
  ========================================================================== */
 
+.uk-background-fixed { background-attachment: fixed; }
+
 /*
  * Exclude touch devices because `fixed` doesn't work on iOS and Android
  */
 
-@media (pointer: fine) {
-
-   .uk-background-fixed { background-attachment: fixed; }
-
+@media (pointer: coarse) {
+    .uk-background-fixed { background-attachment: scroll; }
 }
 
 

@@ -36,7 +36,7 @@ export default function (UIkit) {
                     .stop()
                     .animate({scrollTop: parseInt(target, 10) || 1}, this.duration, this.transition)
                     .promise()
-                    .then(() => this.$el.triggerHandler($.Event('scrolled'), [this]));
+                    .then(() => this.$el.trigger('scrolled', [this]));
 
             }
 

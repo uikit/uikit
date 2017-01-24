@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.0.0 beta 6 (January 24, 2017)
+
+### Added
+
+- Toggable triggers 'shown'/'hidden' events, when animations complete
+
+### Fixed
+
+- Fix component initialization
+- Fix card component extending inverse
+- Fix background-fixed for Firefox and IE
+
 ## 3.0.0 beta 5 (January 18, 2017)
 
 ### Changed

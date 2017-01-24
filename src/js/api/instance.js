@@ -1,4 +1,4 @@
-import { $, ready } from '../util/index';
+import { $, createEvent, ready } from '../util/index';
 
 export default function (UIkit) {
 
@@ -40,8 +40,16 @@ export default function (UIkit) {
         this._callUpdate(e);
     };
 
+    UIkit.prototype.$emitSync = function (e) {
+        this._callUpdate(createEvent(e || 'update', true, false, {sync: true}));
+    };
+
     UIkit.prototype.$update = function (e, parents) {
         UIkit.update(e, this.$el, parents);
+    };
+
+    UIkit.prototype.$updateSync = function (e, parents) {
+        UIkit.update(createEvent(e || 'update', true, false, {sync: true}), this.$el, parents);
     };
 
     UIkit.prototype.$destroy = function (remove = false) {
