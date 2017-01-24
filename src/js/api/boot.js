@@ -25,8 +25,8 @@ export default function (UIkit) {
 
         ready(() => {
             apply(document.body, UIkit.connect);
-            on(document.body, 'DOMNodeInserted', e => apply(e.target, UIkit.connect));
-            on(document.body, 'DOMNodeRemoved', e => apply(e.target, UIkit.disconnect));
+            on(document.documentElement, 'DOMNodeInserted', e => apply(e.target, UIkit.connect));
+            on(document.documentElement, 'DOMNodeRemoved', e => apply(e.target, UIkit.disconnect));
         });
 
     }
@@ -48,8 +48,7 @@ export default function (UIkit) {
 
                 UIkit.update('update', mutation.target, true);
             })
-        )).observe(document.documentElement, {childList: true, subtree: true});
-
+        )).observe(document.documentElement, {childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['href']});
     }
 
     function apply(node, fn) {
