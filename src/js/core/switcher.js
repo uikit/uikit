@@ -64,10 +64,9 @@ export default function (UIkit) {
         methods: {
 
             show(item) {
-                
-                if(!this.toggles) {
-                    this.active = item;
-                    return;
+
+                if (!this.toggles) {
+                    this.$emitSync();
                 }
 
                 var length = this.toggles.length,
