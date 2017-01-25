@@ -45,7 +45,7 @@
  *       Just put the transition in an extra `div`
  */
 
-[class*='uk-transition-'] {
+[class*='uk-transition-']:not(.uk-transition-toggle) {
     transition-duration: @transition-duration;
     transition-timing-function: ease-out;
     transition-property: opacity, transform, filter;

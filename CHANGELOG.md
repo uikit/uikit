@@ -10,7 +10,7 @@
 
 - Fix icon 'play-circle'
 - Fix spinner when 'stroke-width' cannot be read
-
+- Prevent transition-toggle from setting a transition
 
 ## 3.0.0 beta 6 (January 24, 2017)
 
