@@ -7,6 +7,8 @@
 //                  `uk-navbar-left`
 //                  `uk-navbar-right`
 //                  `uk-navbar-center`
+//                  `uk-navbar-center-left`
+//                  `uk-navbar-center-right`
 //                  `uk-navbar-nav`
 //                  `uk-navbar-item`
 //                  `uk-navbar-toggle`
@@ -141,11 +143,13 @@
  * 1. Needed for dropdowns because a new position context is created
  *    `z-index` must be smaller than off-canvas
  * 2. Fix text wrapping if the centered section is larger than 50% of the navbar
+ * 3. Alignment groups within .uk-navbar-center
  */
 
 .uk-navbar-right { margin-left: auto; }
 
 .uk-navbar-center:only-child {
+    position: relative;
     margin-left: auto;
     margin-right: auto;
 }
@@ -165,6 +169,12 @@
 .uk-navbar-center:not(:only-child) .uk-navbar-item,
 .uk-navbar-center:not(:only-child) .uk-navbar-toggle { white-space: nowrap; }
 
+/* 3 */
+.uk-navbar-center-left,
+.uk-navbar-center-right { position: absolute; }
+
+.uk-navbar-center-left { right: 100%; }
+.uk-navbar-center-right { left: 100%; }
 
 /* Nav
  ========================================================================== */
@@ -187,7 +197,7 @@
  * Allow items to wrap into the next line
  */
 
-:not(.uk-navbar-center) > .uk-navbar-nav {
+:not(.uk-navbar-center):not(.uk-navbar-center-left):not(.uk-navbar-center-right) > .uk-navbar-nav {
     -ms-flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
