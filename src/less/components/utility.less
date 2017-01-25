@@ -41,6 +41,8 @@
 
 @border-rounded-border-radius:                  5px;
 
+@box-shadow-duration:                           0.1s;
+
 @dropcap-margin-right:                          10px;
 @dropcap-font-size:                             ((@global-line-height * 3) * 1em);
 
@@ -295,6 +297,20 @@
 .uk-box-shadow-medium { box-shadow: @global-medium-box-shadow; }
 .uk-box-shadow-large { box-shadow: @global-large-box-shadow; }
 .uk-box-shadow-xlarge { box-shadow: @global-xlarge-box-shadow; }
+
+/*
+ * Hover
+ */
+
+[class*='uk-box-shadow-hover'] {
+    -webkit-transition: box-shadow @box-shadow-duration ease-in-out;
+    transition: box-shadow @box-shadow-duration ease-in-out;
+}
+
+.uk-box-shadow-hover-small:hover { box-shadow: @global-small-box-shadow; }
+.uk-box-shadow-hover-medium:hover { box-shadow: @global-medium-box-shadow; }
+.uk-box-shadow-hover-large:hover { box-shadow: @global-large-box-shadow; }
+.uk-box-shadow-hover-xlarge:hover { box-shadow: @global-xlarge-box-shadow; }
 
 
 /* Drop cap

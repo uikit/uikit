@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add box-shadow-hover to utility component
+
 ### Fixed
 
 - Fix icon 'play-circle'
