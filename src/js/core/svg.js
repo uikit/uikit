@@ -24,7 +24,7 @@ export default function (UIkit) {
             exclude: ['src']
         },
 
-        connected() {
+        init() {
             this.svg = $.Deferred();
         },
 
