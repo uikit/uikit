@@ -1,5 +1,13 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix icon 'play-circle'
+- Fix spinner when 'stroke-width' cannot be read
+
+
 ## 3.0.0 beta 6 (January 24, 2017)
 
 ### Added

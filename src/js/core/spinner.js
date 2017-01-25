@@ -15,7 +15,8 @@ export default function (UIkit) {
                     diameter = Math.floor(this.width / 2);
 
                 svg[0].setAttribute('viewBox', `0 0 ${this.width} ${this.width}`);
-                circle.attr({cx: diameter, cy: diameter, r: diameter - parseInt(circle.css('stroke-width'), 10)});
+
+                circle.attr({cx: diameter, cy: diameter, r: diameter - parseFloat(circle.css('stroke-width') || 0)});
             });
 
         }
