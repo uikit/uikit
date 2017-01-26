@@ -44,6 +44,8 @@
  * 1. Make `width: 0` work, because according to the spec flex items won’t shrink
  *    below their minimum content size. To change this, set the min-width.
  *    Only needed for Firefox. All other browsers ignore this.
+ *
+ *    1px is needed to make cell wrap into next row if predecessor is 100% wide
  */
 
 .uk-child-width-expand > :not([class*='uk-width']) {
@@ -51,7 +53,7 @@
     -webkit-flex: 1;
     flex: 1;
     /* 1 */
-    min-width: 0;
+    min-width: 1px;
 }
 
 /* Phone landscape and bigger */
@@ -71,7 +73,7 @@
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        min-width: 0;
+        min-width: 1px;
     }
 
 }
@@ -93,7 +95,7 @@
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        min-width: 0;
+        min-width: 1px;
     }
 
 }
@@ -115,7 +117,7 @@
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        min-width: 0;
+        min-width: 1px;
     }
 
 }
@@ -137,7 +139,7 @@
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        min-width: 0;
+        min-width: 1px;
     }
 
 }
@@ -194,7 +196,7 @@
     -ms-flex: 1;
     -webkit-flex: 1;
     flex: 1;
-    min-width: 0;
+    min-width: 1px;
 }
 
 /* Phone landscape and bigger */
@@ -240,7 +242,7 @@
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        min-width: 0;
+        min-width: 1px;
     }
 
 }
@@ -288,7 +290,7 @@
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        min-width: 0;
+        min-width: 1px;
     }
 
 }
@@ -336,7 +338,7 @@
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        min-width: 0;
+        min-width: 1px;
     }
 
 }
@@ -384,7 +386,7 @@
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        min-width: 0;
+        min-width: 1px;
     }
 
 }
