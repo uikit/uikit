@@ -128,7 +128,7 @@
 
 .uk-navbar-left,
 .uk-navbar-right,
-.uk-navbar-center {
+[class*='uk-navbar-center'] {
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
@@ -202,9 +202,12 @@
 
 /*
  * Allow items to wrap into the next line
+ * Only not `absolute` positioned groups
  */
 
-:not(.uk-navbar-center):not(.uk-navbar-center-left):not(.uk-navbar-center-right) > .uk-navbar-nav {
+.uk-navbar-left,
+.uk-navbar-right,
+.uk-navbar-center:only-child {
     -ms-flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
