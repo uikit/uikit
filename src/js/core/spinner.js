@@ -5,12 +5,11 @@ export default function (UIkit) {
         name: 'spinner',
 
         init() {
-            this.height = this.width = this.$el.width();
-        },
 
-        ready() {
+            this.height = this.width = this.$el.width();
 
             this.svg.then(svg => {
+
                 var circle = svg.find('circle'),
                     diameter = Math.floor(this.width / 2);
 
@@ -18,7 +17,6 @@ export default function (UIkit) {
 
                 circle.attr({cx: diameter, cy: diameter, r: diameter - parseFloat(circle.css('stroke-width') || 0)});
             });
-
         }
 
     }));
