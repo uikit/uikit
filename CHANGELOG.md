@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add sub groups center left/right to navbar component
 - Add box-shadow-hover to utility component
 
 ### Fixed
