@@ -24,15 +24,26 @@ export default function (UIkit) {
             exclude: ['src']
         },
 
-        init() {
+        connected() {
+
             this.svg = promise((resolve, reject) => {
                 this._resolver = resolve;
                 this._rejecter = reject;
             }).catch(e => {});
+
+            this.$emitSync();
         },
 
-        connected() {
-            this.$emitSync();
+        disconnected() {
+
+            if (isVoidElement(this.$el)) {
+                this.$el.attr({hidden: null, id: this.id || null});
+            }
+
+            if (this.svg) {
+                this.svg.then(svg => svg.remove());
+                this.svg = null;
+            }
         },
 
         update: {
@@ -155,18 +166,6 @@ export default function (UIkit) {
 
             events: ['load']
 
-        },
-
-        destroy() {
-
-            if (isVoidElement(this.$el)) {
-                this.$el.attr({hidden: null, id: this.id || null});
-            }
-
-            if (this.svg) {
-                this.svg.then(svg => svg.remove());
-                this.svg = null;
-            }
         }
 
     });

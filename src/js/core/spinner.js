@@ -4,7 +4,7 @@ export default function (UIkit) {
 
         name: 'spinner',
 
-        init() {
+        connected() {
 
             this.height = this.width = this.$el.width();
 
