@@ -14,6 +14,7 @@
 - Fix memory leak in SVG component
 - Prevent transition-toggle from setting a transition
 - Fix width-expand not wrapping into next row in rare cases
+- Allow a fixed width on on nested grids with grid-match
 
 ## 3.0.0 beta 6 (January 24, 2017)
 
