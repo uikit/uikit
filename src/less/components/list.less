@@ -91,9 +91,14 @@
  * Divider
  */
 
+.uk-list-divider > li::before{
+    padding-top: @list-divider-margin-top*2;
+}
+.uk-list-divider > li{
+    padding-top: @list-divider-margin-top;
+}
 .uk-list-divider > li:nth-child(n+2) {
     margin-top: @list-divider-margin-top;
-    padding-top: @list-divider-margin-top;
     border-top: @list-divider-border-width solid @list-divider-border;
     .hook-list-divider;
 }
