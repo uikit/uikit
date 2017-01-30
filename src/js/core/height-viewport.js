@@ -1,3 +1,5 @@
+import { isNumeric } from '../util/index';
+
 export default function (UIkit) {
 
     UIkit.component('height-viewport', {
@@ -5,15 +7,13 @@ export default function (UIkit) {
         props: {
             expand: Boolean,
             offsetTop: Boolean,
-            offsetBottom: Boolean,
-            height: Number
+            offsetBottom: Boolean
         },
 
         defaults: {
             expand: false,
             offsetTop: false,
-            offsetBottom: false,
-            height: 100
+            offsetBottom: false
         },
 
         init() {
@@ -42,20 +42,22 @@ export default function (UIkit) {
 
                     var top = this.$el[0].offsetTop;
 
-                    if (top < viewport) {
-
-                        if (this.offsetTop) {
-                            offset += top;
-                        }
-
-                        if (this.offsetBottom) {
-                            offset += this.$el.next().outerHeight() || 0;
-                        }
-
+                    if (top < viewport && this.offsetTop) {
+                        offset += top;
                     }
 
-                    if (this.height !== 100) {
-                        offset += ((viewport - offset) / 100) * (100 - this.height)
+                    if (this.offsetBottom === true) {
+
+                        offset += this.$el.next().outerHeight() || 0;
+
+                    } else if (isNumeric(this.offsetBottom)) {
+
+                        offset += ((viewport - offset) / 100) * this.offsetBottom
+
+                    } else if (this.offsetBottom && this.offsetBottom.substr(-2) === 'px') {
+
+                        offset += parseFloat(this.offsetBottom);
+
                     }
 
                     this.$el.css('min-height', height = offset ? `calc(100vh - ${offset}px)` : '100vh');
