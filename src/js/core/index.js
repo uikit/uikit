@@ -30,7 +30,7 @@ import Toggle from './toggle';
 
 export default function (UIkit) {
 
-    var scroll = null, dir, ticking, resizing;
+    var scroll = null, dir, ticking, resizing, started = 0;
 
     win
         .on('load', UIkit.update)
@@ -61,7 +61,6 @@ export default function (UIkit) {
             }
         });
 
-    var started = 0;
     on(document, 'animationstart', ({target}) => {
         fastdom.measure(() => {
             if ((getStyle(target, 'animationName') || '').lastIndexOf('uk-', 0) === 0) {

@@ -6,7 +6,7 @@
 
 - Add sub groups center left/right to navbar component
 - Add box-shadow-hover to utility component
-- Add height option to Height Viewport component
+- Height Viewport component supports pixel / percentage values for Offset Bottom option
 
 ### Changed
 - Less no longer uses component attribute selectors
