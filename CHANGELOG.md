@@ -7,6 +7,9 @@
 - Add sub groups center left/right to navbar component
 - Add box-shadow-hover to utility component
 
+### Removed
+- Removed uk-cover CSS only solution
+
 ### Fixed
 
 - Fix icon 'play-circle'
