@@ -36,6 +36,8 @@ export default function (UIkit) {
 
         disconnected() {
 
+            this.isSet = false;
+
             if (isVoidElement(this.$el)) {
                 this.$el.attr({hidden: null, id: this.id || null});
             }
