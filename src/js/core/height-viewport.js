@@ -5,13 +5,15 @@ export default function (UIkit) {
         props: {
             expand: Boolean,
             offsetTop: Boolean,
-            offsetBottom: Boolean
+            offsetBottom: Boolean,
+            height: Number
         },
 
         defaults: {
             expand: false,
             offsetTop: false,
-            offsetBottom: false
+            offsetBottom: false,
+            height: 100
         },
 
         init() {
@@ -21,6 +23,8 @@ export default function (UIkit) {
         update: {
 
             write() {
+
+                this.$el.css('boxSizing', 'border-box');
 
                 var viewport = window.innerHeight, height, offset = 0;
 
@@ -48,6 +52,10 @@ export default function (UIkit) {
                             offset += this.$el.next().outerHeight() || 0;
                         }
 
+                    }
+
+                    if (this.height !== 100) {
+                        offset += ((viewport - offset) / 100) * (100 - this.height)
                     }
 
                     this.$el.css('min-height', height = offset ? `calc(100vh - ${offset}px)` : '100vh');

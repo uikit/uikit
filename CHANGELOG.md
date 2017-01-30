@@ -6,6 +6,10 @@
 
 - Add sub groups center left/right to navbar component
 - Add box-shadow-hover to utility component
+- Add height option to Height Viewport component
+
+### Changed
+- Less no longer uses component attribute selectors
 
 ### Removed
 - Removed uk-cover CSS only solution

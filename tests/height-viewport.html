@@ -15,7 +15,7 @@
 
             <h1>Height Viewport</h1>
 
-            <div class="uk-child-width-1-4@m uk-light" uk-grid>
+            <div class="uk-child-width-1-5@m uk-light" uk-grid>
                 <div>
 
                     <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center uk-height-viewport">
@@ -44,11 +44,18 @@
                     </div>
 
                     <div class="uk-padding uk-background-secondary">Lorem ipsum dolor sit amet.</div>
+
+                </div>
+                <div>
+
+                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="offset-top: true; height: 75">
+                        <h1>JS Offset Top<br/>and<br/>Height 75%</h1>
+                    </div>
 
                 </div>
             </div>
 
-            <div class="uk-child-width-1-4@m uk-light" uk-grid>
+            <div class="uk-child-width-1-5@m uk-light" uk-grid>
                 <div>
 
                     <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center uk-height-viewport">
@@ -77,6 +84,13 @@
                     </div>
 
                     <div class="uk-padding uk-background-secondary">Lorem ipsum dolor sit amet.</div>
+
+                </div>
+                <div>
+
+                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="offset-top: true; height: 75">
+                        <h1>JS Offset Top<br/>and<br/>Height 75%</h1>
+                    </div>
 
                 </div>
             </div>
@@ -111,6 +125,12 @@
                             <td>false</td>
                             <td>Boolean</td>
                             <td>Subtracts the element's immediately following sibling's height from its own height.</td>
+                        </tr>
+                        <tr>
+                            <td><code>height</code></td>
+                            <td>100</td>
+                            <td>Number</td>
+                            <td>The element's height in percent relative to its calculated height.</td>
                         </tr>
                     </tbody>
                 </table>

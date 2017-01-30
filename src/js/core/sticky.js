@@ -1,8 +1,11 @@
+import { Class } from '../mixin/index';
 import { $, Animation, isNumeric, isString, query, requestAnimationFrame, win } from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('sticky', {
+
+        mixins: [Class],
 
         props: {
             top: null,

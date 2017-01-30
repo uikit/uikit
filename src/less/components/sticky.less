@@ -25,7 +25,7 @@
  * 1. Resolve frame rate issues on devices with lower frame rates by forcing hardware acceleration
  */
 
-[uk-sticky].uk-active {
+.uk-sticky.uk-active {
     z-index: @sticky-z-index;
     box-sizing: border-box;
     margin: 0 !important;
@@ -38,12 +38,12 @@
  * Faster animations
  */
 
-[uk-sticky][class*='uk-animation-'] {
+.uk-sticky[class*='uk-animation-'] {
     -webkit-animation-duration: @sticky-animation-duration;
     animation-duration: @sticky-animation-duration;
 }
 
-[uk-sticky].uk-animation-reverse {
+.uk-sticky.uk-animation-reverse {
     -webkit-animation-duration: @sticky-reverse-animation-duration;
     animation-duration: @sticky-reverse-animation-duration;
 }
