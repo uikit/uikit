@@ -22,6 +22,7 @@
 - Prevent transition-toggle from setting a transition
 - Fix width-expand not wrapping into next row in rare cases
 - Allow a fixed width on on nested grids with grid-match
+- Fix Height Viewport offset calculation
 
 ## 3.0.0 beta 6 (January 24, 2017)
 

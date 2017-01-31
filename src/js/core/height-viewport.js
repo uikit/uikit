@@ -40,7 +40,7 @@ export default function (UIkit) {
 
                 } else {
 
-                    var top = this.$el[0].offsetTop;
+                    var top = this.$el.offset().top;
 
                     if (top < viewport && this.offsetTop) {
                         offset += top;
