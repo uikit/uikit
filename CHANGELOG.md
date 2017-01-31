@@ -10,6 +10,7 @@
 
 ### Changed
 - Less no longer uses component attribute selectors
+- Accordion close and open icons using variables
 
 ### Removed
 - Removed uk-cover CSS only solution
