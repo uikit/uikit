@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Cover component if the container has padding
+
 ## 3.0.0 beta 7 (February 1, 2017)
 
 ### Added
