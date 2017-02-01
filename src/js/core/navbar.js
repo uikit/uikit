@@ -56,7 +56,7 @@ export default function (UIkit) {
 
             if (this.dropbar) {
                 this.dropbar = query(this.dropbar, this.$el) || $('<div></div>').insertAfter(this.dropbarAnchor || this.$el);
-                UIkit.navbarDropbar(this.dropbar, {mode: this.dropbarMode, duration: 200, navbar: this});
+                UIkit.navbarDropbar(this.dropbar, {mode: this.dropbarMode, duration: this.duration, navbar: this});
             }
 
         },
@@ -155,7 +155,7 @@ export default function (UIkit) {
 
             transitionTo(height) {
                 this.$el.height(this.$el[0].offsetHeight ? this.$el.height() : 0);
-                return Transition.cancel(this.$el).start(this.$el, {height}, this.duration);
+                return Transition.cancel(this.$el).then(() => Transition.start(this.$el, {height}, this.duration));
             }
 
         }
