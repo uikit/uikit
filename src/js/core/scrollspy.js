@@ -1,4 +1,4 @@
-import { $, isInView, toJQuery } from '../util/index';
+import { $, isInView } from '../util/index';
 
 export default function (UIkit) {
 
