@@ -27,14 +27,24 @@ export default function (UIkit) {
             queued: true
         },
 
-        ready() {
+        events: [
 
-            this.$el.on('click', `${this.toggle}:not(.uk-disabled)`, e => {
-                e.preventDefault();
-                this.show(e.currentTarget);
-            });
+            {
 
-        },
+                name: 'click',
+
+                delegate() {
+                    return `${this.toggle}:not(.uk-disabled)`;
+                },
+
+                handler(e) {
+                    e.preventDefault();
+                    this.show(e.currentTarget);
+                }
+
+            }
+
+        ],
 
         update() {
 

@@ -29,14 +29,24 @@ export default function (UIkit) {
             transition: 'ease'
         },
 
-        ready() {
+        events: [
 
-            this.$el.on('click', `${this.targets} ${this.toggle}`, e => {
-                e.preventDefault();
-                this.show(this.items.find(this.toggle).index(e.currentTarget));
-            });
+            {
 
-        },
+                name: 'click',
+
+                delegate() {
+                    return `${this.targets} ${this.toggle}`;
+                },
+
+                handler(e) {
+                    e.preventDefault();
+                    this.show(this.items.find(this.toggle).index(e.currentTarget));
+                }
+
+            }
+
+        ],
 
         update() {
 

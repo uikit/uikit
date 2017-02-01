@@ -1,4 +1,4 @@
-import { $, doc, isWithin, toJQuery, transitionend } from '../util/index';
+import { $, doc, docElement, isWithin, promise, toJQuery, transitionend } from '../util/index';
 import Class from './class';
 import Toggable from './toggable';
 
@@ -43,109 +43,145 @@ export default {
 
     ready() {
 
-        this.page = $(document.documentElement);
         this.body = $(document.body);
         this.panel = toJQuery(`.${this.clsPanel}`, this.$el);
 
-        this.$el.on('click', this.selClose, e => {
-            e.preventDefault();
-            this.hide();
-        });
-
     },
 
-    events: {
+    events: [
 
-        toggle(e) {
-            e.preventDefault();
-            this.toggleNow(this.$el);
+        {
+
+            name: 'click',
+
+            delegate() {
+                return this.selClose;
+            },
+
+            handler(e) {
+                e.preventDefault();
+                this.hide();
+            }
+
         },
 
-        beforeshow(e) {
+        {
 
-            if (!this.$el.is(e.target)) {
-                return;
+            name: 'toggle',
+
+            handler(e) {
+                e.preventDefault();
+                this.toggleNow(this.$el);
             }
 
-            if (this.isActive()) {
-                return false;
+        },
+
+        {
+
+            name: 'beforeshow',
+
+            handler({target}) {
+
+                if (!this.$el.is(target)) {
+                    return;
+                }
+
+                if (this.isActive()) {
+                    return false;
+                }
+
+                var prev = active && active !== this && active;
+
+                if (!active) {
+                    this.body.css('overflow-y', this.getScrollbarWidth() && this.overlay ? 'scroll' : '');
+                }
+
+                active = this;
+
+                if (prev) {
+                    if (this.stack) {
+                        this.prev = prev;
+                    } else {
+                        prev.hide();
+                    }
+                }
+
+                this.panel.one(transitionend, () => {
+                    var event = $.Event('show');
+                    event.isShown = true;
+                    this.$el.trigger(event, [this]);
+                });
             }
 
-            var prev = active && active !== this && active;
+        },
 
-            if (!active) {
-                this.body.css('overflow-y', this.getScrollbarWidth() && this.overlay ? 'scroll' : '');
-            }
+        {
 
-            active = this;
+            name: 'show',
 
-            if (prev) {
-                if (this.stack) {
-                    this.prev = prev;
-                } else {
-                    prev.hide();
+            handler(e) {
+
+                if (!this.$el.is(e.target)) {
+                    return;
+                }
+
+                if (!e.isShown) {
+                    e.stopImmediatePropagation();
                 }
             }
 
-            this.panel.one(transitionend, () => {
-                var event = $.Event('show');
-                event.isShown = true;
-                this.$el.trigger(event, [this]);
-            });
+        },
+
+        {
+
+            name: 'beforehide',
+
+            handler(e) {
+
+                if (!this.$el.is(e.target)) {
+                    return;
+                }
+
+                active = active && active !== this && active || this.prev;
+
+                var hide = () => {
+                    var event = $.Event('hide');
+                    event.isHidden = true;
+                    this.$el.trigger(event, [this]);
+                };
+
+                if (parseFloat(this.panel.css('transition-duration'))) {
+                    this.panel.one(transitionend, hide);
+                } else {
+                    hide();
+                }
+            }
 
         },
 
-        show(e) {
+        {
 
-            if (!this.$el.is(e.target)) {
-                return;
-            }
+            name: 'hide',
 
-            if (!e.isShown) {
-                e.stopImmediatePropagation();
-            }
+            handler(e) {
 
-        },
+                if (!this.$el.is(e.target)) {
+                    return;
+                }
 
-        beforehide(e) {
+                if (!e.isHidden) {
+                    e.stopImmediatePropagation();
+                    return;
+                }
 
-            if (!this.$el.is(e.target)) {
-                return;
-            }
-
-            active = active && active !== this && active || this.prev;
-
-            var hide = () => {
-                var event = $.Event('hide');
-                event.isHidden = true;
-                this.$el.trigger(event, [this]);
-            };
-
-            if (parseFloat(this.panel.css('transition-duration'))) {
-                this.panel.one(transitionend, hide);
-            } else {
-                hide();
-            }
-        },
-
-        hide(e) {
-
-            if (!this.$el.is(e.target)) {
-                return;
-            }
-
-            if (!e.isHidden) {
-                e.stopImmediatePropagation();
-                return;
-            }
-
-            if (!active) {
-                this.body.css('overflow-y', '');
+                if (!active) {
+                    this.body.css('overflow-y', '');
+                }
             }
 
         }
 
-    },
+    ],
 
     methods: {
 
@@ -158,17 +194,17 @@ export default {
         },
 
         show() {
-            var deferred = $.Deferred();
-            this.$el.one('show', () => deferred.resolve());
-            this.toggleNow(this.$el, true);
-            return deferred.promise();
+            return promise(resolve => {
+                this.$el.one('show', resolve);
+                this.toggleNow(this.$el, true);
+            });
         },
 
         hide() {
-            var deferred = $.Deferred();
-            this.$el.one('hide', () => deferred.resolve());
-            this.toggleNow(this.$el, false);
-            return deferred.promise();
+            return promise(resolve => {
+                this.$el.one('hide', resolve);
+                this.toggleNow(this.$el, false);
+            });
         },
 
         getActive() {
@@ -176,14 +212,14 @@ export default {
         },
 
         getScrollbarWidth() {
-            var width = this.page[0].style.width;
+            var width = docElement[0].style.width;
 
-            this.page.css('width', '');
+            docElement.css('width', '');
 
-            var scrollbarWidth = window.innerWidth - this.page.outerWidth(true);
+            var scrollbarWidth = window.innerWidth - docElement.outerWidth(true);
 
             if (width) {
-                this.page.width(width);
+                docElement.width(width);
             }
 
             return scrollbarWidth;

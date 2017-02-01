@@ -1,5 +1,5 @@
 import { Modal } from '../mixin/index';
-import { transitionend } from '../util/index';
+import { docElement, transitionend } from '../util/index';
 
 export default function (UIkit) {
 
@@ -52,7 +52,7 @@ export default function (UIkit) {
             write() {
 
                 if (this.isActive()) {
-                    this.page.width(window.innerWidth - this.getScrollbarWidth());
+                    docElement.width(window.innerWidth - this.getScrollbarWidth());
                 }
 
             },
@@ -69,7 +69,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                this.page.addClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageAnimation} ${this.clsPageOverlay}`);
+                docElement.addClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageAnimation} ${this.clsPageOverlay}`);
                 this.panel.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                 this.$el.addClass(this.clsOverlay).css('display', 'block').height();
 
@@ -81,7 +81,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
+                docElement.removeClass(this.clsPageAnimation).css('margin-left', '');
 
                 if (this.mode === 'none' || this.getActive() && this.getActive() !== this) {
                     this.panel.trigger(transitionend);
@@ -95,7 +95,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                this.page.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageOverlay}`).width('');
+                docElement.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageOverlay}`).width('');
                 this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                 this.$el.removeClass(this.clsOverlay).css('display', '');
             }

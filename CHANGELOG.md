@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Update event registration
+
 ### Fixed
 
 - Fix Cover component if the container has padding
@@ -16,10 +20,12 @@
 - Height Viewport component supports pixel / percentage values for Offset Bottom option
 
 ### Changed
+
 - Less no longer uses component attribute selectors
 - Accordion close and open icons using variables
 
 ### Removed
+
 - Removed uk-cover CSS only solution
 
 ### Fixed

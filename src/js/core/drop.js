@@ -51,21 +51,71 @@ export default function (UIkit) {
 
             this.updateAria(this.$el);
 
-            this.$el.on('click', `.${this.clsDrop}-close`, e => {
-                e.preventDefault();
-                this.hide(false);
-            });
-
             if (this.toggle) {
-
-                this.toggle = query(this.toggle, this.$el);
-
-                if (this.toggle) {
-                    this.toggle = UIkit.toggle(this.toggle, {target: this.$el, mode: this.mode})[0];
-                }
+                this.toggle = UIkit.toggle(query(this.toggle, this.$el), {target: this.$el, mode: this.mode})[0];
             }
 
         },
+
+        events: [
+
+            {
+
+                name: 'click',
+
+                delegate() {
+                    return `.${this.clsDrop}-close`;
+                },
+
+                handler(e) {
+                    e.preventDefault();
+                    this.hide(false);
+                }
+
+            },
+
+            {
+
+                name: 'toggle',
+
+                handler(e, toggle) {
+                    e.preventDefault();
+
+                    if (this.isToggled(this.$el)) {
+                        this.hide(false);
+                    } else {
+                        this.show(toggle, false);
+                    }
+                }
+
+            },
+
+            {
+
+                name: 'toggleShow mouseenter',
+
+                handler(e, toggle) {
+                    e.preventDefault();
+                    this.show(toggle || this.toggle);
+                }
+
+            },
+
+            {
+
+                name: 'toggleHide mouseleave',
+
+                handler(e, toggle) {
+                    e.preventDefault();
+
+                    if (this.toggle && this.toggle.mode === 'hover') {
+                        this.hide();
+                    }
+                }
+
+            }
+
+        ],
 
         update: {
 
@@ -97,33 +147,6 @@ export default function (UIkit) {
             },
 
             events: ['resize', 'orientationchange']
-
-        },
-
-        events: {
-
-            toggle(e, toggle) {
-                e.preventDefault();
-
-                if (this.isToggled(this.$el)) {
-                    this.hide(false);
-                } else {
-                    this.show(toggle, false);
-                }
-            },
-
-            'toggleShow mouseenter'(e, toggle) {
-                e.preventDefault();
-                this.show(toggle || this.toggle);
-            },
-
-            'toggleHide mouseleave'(e) {
-                e.preventDefault();
-
-                if (this.toggle && this.toggle.mode === 'hover') {
-                    this.hide();
-                }
-            }
 
         },
 
