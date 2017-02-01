@@ -172,11 +172,11 @@ export default function (UIkit) {
                 }
 
                 var show = () => {
-                    if (this.toggleElement(this.$el, true).state() !== 'rejected') {
+                    this.toggleElement(this.$el, true).then(() => {
                         this.initMouseTracker();
                         this.toggle.$el.addClass(this.cls).attr('aria-expanded', 'true');
                         this.clearTimers();
-                    }
+                    });
                 };
 
                 if (delay && this.delayShow) {
@@ -193,12 +193,12 @@ export default function (UIkit) {
                 this.clearTimers();
 
                 var hide = () => {
-                    if (this.toggleElement(this.$el, false, false).state() !== 'rejected') {
+                    this.toggleElement(this.$el, false, false).then(() => {
                         active = this.isActive() ? null : active;
                         this.toggle.$el.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
                         this.cancelMouseTracker();
                         this.clearTimers();
-                    }
+                    });
                 };
 
                 this.isDelaying = this.movesTo(this.$el);
