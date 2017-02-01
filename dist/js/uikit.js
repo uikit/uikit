@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.6 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.7 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
@@ -571,6 +571,19 @@ function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key);
 }
 
+function promise(executor) {
+
+    if (!isUndefined(window.Promise)) {
+        return new window.Promise(executor);
+    }
+
+    var def = $__default.Deferred();
+
+    executor(def.resolve, def.reject);
+
+    return def;
+}
+
 function classify(str) {
     return str.replace(/(?:^|[-_\/])(\w)/g, function (_, c) { return c ? c.toUpperCase() : ''; });
 }
@@ -1129,6 +1142,7 @@ var util = Object.freeze({
 	$: $__default,
 	bind: bind,
 	hasOwn: hasOwn,
+	promise: promise,
 	classify: classify,
 	hyphenate: hyphenate,
 	camelize: camelize,
@@ -2414,6 +2428,8 @@ function Cover (UIkit) {
 
     UIkit.component('cover', {
 
+        mixins: [Class],
+
         props: {
             automute: Boolean,
             width: Number,
@@ -2921,6 +2937,8 @@ function HeightViewport (UIkit) {
 
             write: function write() {
 
+                this.$el.css('boxSizing', 'border-box');
+
                 var viewport = window.innerHeight, height, offset = 0;
 
                 if (this.expand) {
@@ -2935,17 +2953,23 @@ function HeightViewport (UIkit) {
 
                 } else {
 
-                    var top = this.$el[0].offsetTop;
+                    var top = this.$el.offset().top;
 
-                    if (top < viewport) {
+                    if (top < viewport && this.offsetTop) {
+                        offset += top;
+                    }
 
-                        if (this.offsetTop) {
-                            offset += top;
-                        }
+                    if (this.offsetBottom === true) {
 
-                        if (this.offsetBottom) {
-                            offset += this.$el.next().outerHeight() || 0;
-                        }
+                        offset += this.$el.next().outerHeight() || 0;
+
+                    } else if ($.isNumeric(this.offsetBottom)) {
+
+                        offset += ((viewport - offset) / 100) * this.offsetBottom
+
+                    } else if (this.offsetBottom && this.offsetBottom.substr(-2) === 'px') {
+
+                        offset += parseFloat(this.offsetBottom);
 
                     }
 
@@ -3029,10 +3053,22 @@ function Icon (UIkit) {
         'overlay-icon',
         'pagination-previous',
         'pagination-next',
-        'slidenav',
         'search-icon',
         'totop'
     ].forEach(function (name) { return UIkit.component(name, UIkit.components.icon.extend({name: name})); });
+
+    [
+        'slidenav-previous',
+        'slidenav-next'
+    ].forEach(function (name) { return UIkit.component(name, UIkit.components.icon.extend({
+
+        name: name,
+
+        init: function init() {
+            this.$el.addClass('uk-slidenav');
+        }
+
+    })); });
 
 }
 
@@ -3584,6 +3620,10 @@ function Responsive (UIkit) {
 
         props: ['width', 'height'],
 
+        init: function init() {
+            this.$el.addClass('uk-responsive-width');
+        },
+
         update: {
 
             write: function write() {
@@ -3903,22 +3943,21 @@ function Spinner (UIkit) {
 
         name: 'spinner',
 
-        init: function init() {
-            this.height = this.width = this.$el.width();
-        },
-
-        ready: function ready() {
+        connected: function connected() {
             var this$1 = this;
 
 
+            this.height = this.width = this.$el.width();
+
             this.svg.then(function (svg) {
+
                 var circle = svg.find('circle'),
                     diameter = Math.floor(this$1.width / 2);
 
                 svg[0].setAttribute('viewBox', ("0 0 " + (this$1.width) + " " + (this$1.width)));
-                circle.attr({cx: diameter, cy: diameter, r: diameter - parseInt(circle.css('stroke-width'), 10)});
-            });
 
+                circle.attr({cx: diameter, cy: diameter, r: diameter - parseFloat(circle.css('stroke-width') || 0)});
+            });
         }
 
     }));
@@ -3928,6 +3967,8 @@ function Spinner (UIkit) {
 function Sticky (UIkit) {
 
     UIkit.component('sticky', {
+
+        mixins: [Class],
 
         props: {
             top: null,
@@ -4002,6 +4043,9 @@ function Sticky (UIkit) {
                     this.placeholder
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
                         .css(this.$el.css(['marginTop', 'marginBottom', 'marginLeft', 'marginRight']));
+
+                    this.width = this._widthElement.attr('hidden', null).outerWidth();
+                    this._widthElement.attr('hidden', !isActive);
 
                     this.topOffset = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
                     this.bottomOffset = this.topOffset + outerHeight;
@@ -4108,9 +4152,11 @@ function Sticky (UIkit) {
                 this.update();
 
                 this.$el
-                    .addClass(this.clsActive)
                     .removeClass(this.clsInactive)
+                    .addClass(this.clsActive)
                     .trigger('active');
+
+                this.placeholder.attr('hidden', null);
 
             },
 
@@ -4129,16 +4175,14 @@ function Sticky (UIkit) {
 
                 var top = Math.max(0, this.offset), scroll = win.scrollTop();
 
-                this.placeholder.attr('hidden', false);
-
                 if (this.bottom && scroll > this.bottom - this.offset) {
                     top = this.bottom - scroll;
                 }
 
                 this.$el.css({
                     position: 'fixed',
-                    top: top + 'px',
-                    width: this._widthElement[0].getBoundingClientRect().width
+                    top: (top + "px"),
+                    width: this.width
                 });
 
             },
@@ -4161,6 +4205,7 @@ function Sticky (UIkit) {
 
 var storage = window.sessionStorage || {};
 var svgs = {};
+var parser = new DOMParser();
 function Svg (UIkit) {
 
     UIkit.component('svg', {
@@ -4184,7 +4229,29 @@ function Svg (UIkit) {
         },
 
         connected: function connected() {
-            this.svg = $__default.Deferred();
+            var this$1 = this;
+
+
+            this.svg = promise(function (resolve, reject) {
+                this$1._resolver = resolve;
+                this$1._rejecter = reject;
+            }).catch(function (e) {});
+
+            this.$emitSync();
+        },
+
+        disconnected: function disconnected() {
+
+            this.isSet = false;
+
+            if (isVoidElement(this.$el)) {
+                this.$el.attr({hidden: null, id: this.id || null});
+            }
+
+            if (this.svg) {
+                this.svg.then(function (svg) { return svg.remove(); });
+                this.svg = null;
+            }
         },
 
         update: {
@@ -4213,145 +4280,172 @@ function Svg (UIkit) {
                     }
                 }
 
-                this.get(this.src).then(function (svg) { return fastdom.mutate(function () {
+                getSvg(this.src).then(function (doc) {
+                    this$1._svg = doc;
+                    this$1.$emit();
+                }, function (e) {});
+            },
 
-                        var el;
+            write: function write() {
+                var this$1 = this;
 
-                        el = !this$1.icon
-                            ? svg.clone()
-                            : (el = toJQuery(("#" + (this$1.icon)), svg))
-                                && toJQuery((el[0].outerHTML || $__default('<div>').append(el.clone()).html()).replace(/symbol/g, 'svg')) // IE workaround, el[0].outerHTML
-                                || !toJQuery('symbol', svg) && svg.clone(); // fallback if SVG has no symbols
 
-                        if (!el || !el.length) {
-                            return $__default.Deferred().reject('SVG not found.');
+                if (!this._svg) {
+                    return;
+                }
+
+                var doc = this._svg, svg, el;
+
+                this._svg = null;
+
+                if (!this.icon) {
+                    el = doc.documentElement.cloneNode(true);
+                } else {
+                    svg = doc.getElementById(this.icon);
+
+                    if (!svg) {
+
+                        // fallback if SVG has no symbols
+                        if (!doc.querySelector('symbol')) {
+                            el = doc.documentElement.cloneNode(true);
                         }
 
-                        var dimensions = el[0].getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
+                    } else {
 
-                        if (dimensions) {
-                            dimensions = dimensions.split(' ');
-                            this$1.width = this$1.width || dimensions[2];
-                            this$1.height = this$1.height || dimensions[3];
+                        var html = svg.outerHTML;
+
+                        // IE workaround
+                        if (!html) {
+                            var div = document.createElement('div');
+                            div.appendChild(svg.cloneNode(true));
+                            html = div.innerHTML;
                         }
 
-                        this$1.width *= this$1.ratio;
-                        this$1.height *= this$1.ratio;
+                        html = html
+                            .replace(/<symbol/g, ("<svg" + (!~html.indexOf('xmlns') ? ' xmlns="http://www.w3.org/2000/svg"' : '')))
+                            .replace(/symbol>/g, 'svg>');
 
-                        for (var prop in this$1.$options.props) {
-                            if (this$1[prop] && !~this$1.exclude.indexOf(prop)) {
-                                el.attr(prop, this$1[prop]);
-                            }
-                        }
+                        el = parser.parseFromString(html, 'image/svg+xml').documentElement;
+                    }
 
-                        if (!this$1.id) {
-                            el.removeAttr('id');
-                        }
+                }
 
-                        if (this$1.width && !this$1.height) {
-                            el.removeAttr('height');
-                        }
+                if (!el) {
+                    this._rejecter('SVG not found.');
+                    return;
+                }
 
-                        if (this$1.height && !this$1.width) {
-                            el.removeAttr('width');
-                        }
+                var dimensions = el.getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
 
-                        if (isVoidElement(this$1.$el) || this$1.$el[0].tagName === 'CANVAS') {
-                            this$1.$el.attr({hidden: true, id: null});
-                            el.insertAfter(this$1.$el);
-                        } else {
-                            el.appendTo(this$1.$el);
-                        }
+                if (dimensions) {
+                    dimensions = dimensions.split(' ');
+                    this.width = this.width || dimensions[2];
+                    this.height = this.height || dimensions[3];
+                }
 
-                        this$1.svg.resolve(el);
+                el = $__default(el);
 
-                    }); }
-                );
+                this.width *= this.ratio;
+                this.height *= this.ratio;
+
+                for (var prop in this$1.$options.props) {
+                    if (this$1[prop] && !~this$1.exclude.indexOf(prop)) {
+                        el.attr(prop, this$1[prop]);
+                    }
+                }
+
+                if (!this.id) {
+                    el.removeAttr('id');
+                }
+
+                if (this.width && !this.height) {
+                    el.removeAttr('height');
+                }
+
+                if (this.height && !this.width) {
+                    el.removeAttr('width');
+                }
+
+                if (isVoidElement(this.$el) || this.$el[0].tagName === 'CANVAS') {
+                    this.$el.attr({hidden: true, id: null});
+                    el.insertAfter(this.$el);
+                } else {
+                    el.appendTo(this.$el);
+                }
+
+                this._resolver(el);
             },
 
             events: ['load']
 
-        },
-
-        methods: {
-
-            get: function get(src) {
-
-                if (svgs[src]) {
-                    return svgs[src];
-                }
-
-                svgs[src] = $__default.Deferred();
-
-                if (src.lastIndexOf('data:', 0) === 0) {
-                    svgs[src].resolve(getSvg(decodeURIComponent(src.split(',')[1])));
-                } else {
-
-                    var key = "uikit_" + (UIkit.version) + "_" + src;
-
-                    if (storage[key]) {
-                        svgs[src].resolve(getSvg(storage[key]));
-                    } else {
-                        $__default.get(src).then(function (doc, status, res) {
-                            storage[key] = res.responseText;
-                            svgs[src].resolve(getSvg(storage[key]));
-                        });
-                    }
-                }
-
-                return svgs[src];
-
-                function getSvg (doc) {
-                    return $__default(doc).filter('svg');
-                }
-            }
-
-        },
-
-        destroy: function destroy() {
-
-            if (isVoidElement(this.$el)) {
-                this.$el.attr({hidden: null, id: this.id || null});
-            }
-
-            if (this.svg) {
-                this.svg.then(function (svg) { return svg.remove(); });
-            }
         }
 
     });
 
-    function getSrc(el) {
+}
 
-        var image = getBackgroundImage(el);
+function getSrc(el) {
 
-        if (!image) {
+    var image = getBackgroundImage(el);
 
-            el = el.clone().empty()
-                .attr({'uk-no-boot': '', style: ((el.attr('style')) + ";display:block !important;")})
-                .appendTo(document.body);
+    if (!image) {
 
-            image = getBackgroundImage(el);
+        el = el.clone().empty()
+            .attr({'uk-no-boot': '', style: ((el.attr('style')) + ";display:block !important;")})
+            .appendTo(document.body);
 
-            // safari workaround
-            if (!image && el[0].tagName === 'CANVAS') {
-                var span = $__default(el[0].outerHTML.replace(/canvas/g, 'span')).insertAfter(el);
-                image = getBackgroundImage(span);
-                span.remove();
-            }
+        image = getBackgroundImage(el);
 
-            el.remove();
-
+        // safari workaround
+        if (!image && el[0].tagName === 'CANVAS') {
+            var span = $__default(el[0].outerHTML.replace(/canvas/g, 'span')).insertAfter(el);
+            image = getBackgroundImage(span);
+            span.remove();
         }
 
-        return image && image.slice(4, -1).replace(/"/g, '');
+        el.remove();
+
     }
 
-    function getBackgroundImage(el) {
-        var image = getStyle(el[0], 'backgroundImage', '::before');
-        return image !== 'none' && image;
+    return image && image.slice(4, -1).replace(/"/g, '');
+}
+
+function getBackgroundImage(el) {
+    var image = getStyle(el[0], 'backgroundImage', '::before');
+    return image !== 'none' && image;
+}
+
+function getSvg(src) {
+
+    if (!svgs[src]) {
+        svgs[src] = promise(function (resolve, reject) {
+
+            if (src.lastIndexOf('data:', 0) === 0) {
+                resolve(parse(decodeURIComponent(src.split(',')[1])));
+            } else {
+
+                var key = "uikit_" + (UIkit.version) + "_" + src;
+
+                if (storage[key]) {
+                    resolve(parse(storage[key]));
+                } else {
+                    $__default.ajax(src, {dataType: 'html'}).then(function (doc) {
+                        storage[key] = doc;
+                        resolve(parse(doc));
+                    }, function () {
+                        reject('SVG not found.');
+                    });
+                }
+            }
+
+        });
     }
 
+    return svgs[src];
+}
+
+function parse(doc) {
+    return parser.parseFromString(doc, 'image/svg+xml');
 }
 
 function Switcher (UIkit) {
@@ -4581,7 +4675,7 @@ function Toggle (UIkit) {
 
 function core (UIkit) {
 
-    var scroll = null, dir, ticking, resizing;
+    var scroll = null, dir, ticking, resizing, started = 0;
 
     win
         .on('load', UIkit.update)
@@ -4612,26 +4706,20 @@ function core (UIkit) {
             }
         });
 
-    var started = 0;
     on(document, 'animationstart', function (ref) {
         var target = ref.target;
 
         fastdom.measure(function () {
-            if (hasAnimation(target)) {
+            if ((getStyle(target, 'animationName') || '').lastIndexOf('uk-', 0) === 0) {
                 fastdom.mutate(function () {
-                    document.body.style.overflowX = 'hidden';
                     started++;
+                    document.body.style.overflowX = 'hidden';
+                    setTimeout(function () { return fastdom.mutate(function () {
+                        if (!--started) {
+                            document.body.style.overflowX = '';
+                        }
+                    }); }, toMs(getStyle(target, 'animationDuration')));
                 });
-            }
-        });
-    }, true);
-
-    on(document, 'animationend', function (ref) {
-        var target = ref.target;
-
-        fastdom.measure(function () {
-            if (hasAnimation(target) && !--started) {
-                fastdom.mutate(function () { return document.body.style.overflowX = ''; })
             }
         });
     }, true);
@@ -4678,8 +4766,12 @@ function core (UIkit) {
     UIkit.use(Tab);
     UIkit.use(Toggle);
 
-    function hasAnimation(target) {
-        return (getStyle(target, 'animationName') || '').lastIndexOf('uk-', 0) === 0;
+    function toMs(time) {
+        return !time
+            ? 0
+            : time.substr(-2) === 'ms'
+                ? parseFloat(time)
+                : parseFloat(time) * 1000;
     }
 }
 
@@ -4762,7 +4854,7 @@ if (typeof module !== 'undefined') {
 
 return UIkit$1;
 
-})));/*! UIkit 3.0.0-beta.6 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.7 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -4907,7 +4999,7 @@ UIkit.component('lightbox', {
                 this.modal.caption = $('<div class="uk-modal-caption" uk-transition-hide></div>').appendTo(this.modal.panel);
 
                 if (this.items.length > 1) {
-                    $(("<div class=\"" + (this.dark ? 'uk-dark' : 'uk-light') + "\" uk-transition-hide>\n                            <a href=\"#\" class=\"uk-position-center-left\" uk-slidenav=\"previous\" uk-lightbox-item=\"previous\"></a>\n                            <a href=\"#\" class=\"uk-position-center-right\" uk-slidenav=\"next\" uk-lightbox-item=\"next\"></a>\n                        </div>\n                    ")).appendTo(this.modal.panel.addClass('uk-slidenav-position'));
+                    $(("<div class=\"" + (this.dark ? 'uk-dark' : 'uk-light') + "\" uk-transition-hide>\n                            <a href=\"#\" class=\"uk-position-center-left\" uk-slidenav-previous uk-lightbox-item=\"previous\"></a>\n                            <a href=\"#\" class=\"uk-position-center-right\" uk-slidenav-next uk-lightbox-item=\"next\"></a>\n                        </div>\n                    ")).appendTo(this.modal.panel.addClass('uk-slidenav-position'));
                 }
 
                 this.modal.$el
@@ -5092,7 +5184,7 @@ UIkit.mixin({
 
 }, 'lightbox');
 
-})));/*! UIkit 3.0.0-beta.6 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.7 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5204,7 +5296,7 @@ UIkit.notification.closeAll = function (group, immediate) {
 
 };
 
-})));/*! UIkit 3.0.0-beta.6 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.7 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5570,7 +5662,7 @@ function preventClick() {
     on(doc, 'click', listener, true);
 }
 
-})));/*! UIkit 3.0.0-beta.6 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.7 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5659,7 +5751,7 @@ UIkit.component('tooltip', {
 
 });
 
-})));/*! UIkit 3.0.0-beta.6 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.7 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :

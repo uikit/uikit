@@ -41,6 +41,8 @@
 
 @border-rounded-border-radius:                  5px;
 
+@box-shadow-duration:                           0.1s;
+
 @dropcap-margin-right:                          10px;
 @dropcap-font-size:                             ((@global-line-height * 3) * 1em);
 
@@ -199,8 +201,7 @@
 /* Height
  ========================================================================== */
 
-[class*='uk-height'],
-[uk-height-viewport] { box-sizing: border-box; }
+[class*='uk-height'] { box-sizing: border-box; }
 
 /*
  * Only works if parent element has a height set
@@ -249,16 +250,14 @@
  */
 
 .uk-responsive-width,
-.uk-responsive-height,
-[uk-responsive] { box-sizing: border-box; }
+.uk-responsive-height { box-sizing: border-box; }
 
 /*
  * 1. Set a maximum width. `important` needed to override `uk-preserve-width img`
  * 2. Auto scale the height. Only needed if `height` attribute is present
  */
 
-.uk-responsive-width,
-[uk-responsive] {
+.uk-responsive-width {
     /* 1 */
     max-width: 100% !important;
     /* 2 */
@@ -295,6 +294,20 @@
 .uk-box-shadow-medium { box-shadow: @global-medium-box-shadow; }
 .uk-box-shadow-large { box-shadow: @global-large-box-shadow; }
 .uk-box-shadow-xlarge { box-shadow: @global-xlarge-box-shadow; }
+
+/*
+ * Hover
+ */
+
+[class*='uk-box-shadow-hover'] {
+    -webkit-transition: box-shadow @box-shadow-duration ease-in-out;
+    transition: box-shadow @box-shadow-duration ease-in-out;
+}
+
+.uk-box-shadow-hover-small:hover { box-shadow: @global-small-box-shadow; }
+.uk-box-shadow-hover-medium:hover { box-shadow: @global-medium-box-shadow; }
+.uk-box-shadow-hover-large:hover { box-shadow: @global-large-box-shadow; }
+.uk-box-shadow-hover-xlarge:hover { box-shadow: @global-xlarge-box-shadow; }
 
 
 /* Drop cap

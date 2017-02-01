@@ -16,6 +16,19 @@ export function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key);
 }
 
+export function promise(executor) {
+
+    if (!isUndefined(window.Promise)) {
+        return new window.Promise(executor);
+    }
+
+    var def = $.Deferred();
+
+    executor(def.resolve, def.reject);
+
+    return def;
+}
+
 export function classify(str) {
     return str.replace(/(?:^|[-_\/])(\w)/g, (_, c) => c ? c.toUpperCase() : '');
 }

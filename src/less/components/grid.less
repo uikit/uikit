@@ -317,7 +317,7 @@
 /*
  * Behave like a block element
  * 1. Wrap into the next line
- * 2. Take the full width, at least 100%
+ * 2. Take the full width, at least 100%. Only if no class from the Width component is set.
  * 3. Expand width even if larger than 100%, e.g. because of negative margin (Needed for nested grids)
  */
 
@@ -331,7 +331,7 @@
     flex-wrap: wrap;
 }
 
-.uk-grid-match > * > * {
+.uk-grid-match > * > *:not([class*='uk-width']) {
     /* 2 */
     box-sizing: border-box;
     width: 100%;

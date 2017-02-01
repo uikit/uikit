@@ -1626,7 +1626,7 @@ select.uk-form-width-xsmall {
  * Default
  */
 .uk-button-default {
-  background: transparent;
+  background-color: transparent;
   color: #333;
   border: 1px solid #e5e5e5;
 }
@@ -1648,7 +1648,7 @@ select.uk-form-width-xsmall {
  * Primary
  */
 .uk-button-primary {
-  background: #1e87f0;
+  background-color: #1e87f0;
   color: #fff;
   border: 1px solid transparent;
 }
@@ -1668,7 +1668,7 @@ select.uk-form-width-xsmall {
  * Secondary
  */
 .uk-button-secondary {
-  background: #222;
+  background-color: #222;
   color: #fff;
   border: 1px solid transparent;
 }
@@ -1688,7 +1688,7 @@ select.uk-form-width-xsmall {
  * Danger
  */
 .uk-button-danger {
-  background: #f0506e;
+  background-color: #f0506e;
   color: #fff;
   border: 1px solid transparent;
 }
@@ -2311,7 +2311,7 @@ select.uk-form-width-xsmall {
 /*
  * Behave like a block element
  * 1. Wrap into the next line
- * 2. Take the full width, at least 100%
+ * 2. Take the full width, at least 100%. Only if no class from the Width component is set.
  * 3. Expand width even if larger than 100%, e.g. because of negative margin (Needed for nested grids)
  */
 .uk-grid-match > * {
@@ -2323,7 +2323,7 @@ select.uk-form-width-xsmall {
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
 }
-.uk-grid-match > * > * {
+.uk-grid-match > * > *:not([class*='uk-width']) {
   /* 2 */
   box-sizing: border-box;
   width: 100%;
@@ -2579,7 +2579,7 @@ select.uk-form-width-xsmall {
  * Icon
  */
 .uk-close::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2214%22%20height%3D%2214%22%20viewbox%3D%220%200%2014%2014%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20x1%3D%221%22%20y1%3D%221%22%20x2%3D%2213%22%20y2%3D%2213%22%3E%3C%2Fline%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20x1%3D%2213%22%20y1%3D%221%22%20x2%3D%221%22%20y2%3D%2213%22%3E%3C%2Fline%3E%0A%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20x1%3D%221%22%20y1%3D%221%22%20x2%3D%2213%22%20y2%3D%2213%22%3E%3C%2Fline%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20x1%3D%2213%22%20y1%3D%221%22%20x2%3D%221%22%20y2%3D%2213%22%3E%3C%2Fline%3E%0A%3C%2Fsvg%3E%0A");
 }
 /*
  * Adopts `uk-icon`
@@ -2632,7 +2632,7 @@ select.uk-form-width-xsmall {
 /* Size modifier
  ========================================================================== */
 .uk-close-large::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewbox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.4%22%20x1%3D%221%22%20y1%3D%221%22%20x2%3D%2219%22%20y2%3D%2219%22%3E%3C%2Fline%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.4%22%20x1%3D%2219%22%20y1%3D%221%22%20x2%3D%221%22%20y2%3D%2219%22%3E%3C%2Fline%3E%0A%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.4%22%20x1%3D%221%22%20y1%3D%221%22%20x2%3D%2219%22%20y2%3D%2219%22%3E%3C%2Fline%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.4%22%20x1%3D%2219%22%20y1%3D%221%22%20x2%3D%221%22%20y2%3D%2219%22%3E%3C%2Fline%3E%0A%3C%2Fsvg%3E%0A");
 }
 /* ========================================================================
    Component: Spinner
@@ -2641,7 +2641,7 @@ select.uk-form-width-xsmall {
  * Icon
  */
 .uk-spinner::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2230%22%20height%3D%2230%22%20viewbox%3D%220%200%2030%2030%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22none%22%20stroke%3D%22%23000%22%20cx%3D%2215%22%20cy%3D%2215%22%20r%3D%2214%22%3E%3C%2Fcircle%3E%0A%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2230%22%20height%3D%2230%22%20viewBox%3D%220%200%2030%2030%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22none%22%20stroke%3D%22%23000%22%20cx%3D%2215%22%20cy%3D%2215%22%20r%3D%2214%22%3E%3C%2Fcircle%3E%0A%3C%2Fsvg%3E%0A");
 }
 /*
  * Adopts `uk-icon`
@@ -2713,7 +2713,7 @@ select.uk-form-width-xsmall {
  * Icon
  */
 .uk-totop::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2218%22%20height%3D%2210%22%20viewbox%3D%220%200%2018%2010%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%20points%3D%221%209%209%201%2017%209%20%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2218%22%20height%3D%2210%22%20viewBox%3D%220%200%2018%2010%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%20points%3D%221%209%209%201%2017%209%20%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E%0A");
 }
 /*
  * Addopts `uk-icon`
@@ -2919,7 +2919,7 @@ select.uk-form-width-xsmall {
 /* Icon
  ========================================================================== */
 .uk-overlay-icon::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewbox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20x%3D%2219%22%20y%3D%220%22%20width%3D%221%22%20height%3D%2240%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20x%3D%220%22%20y%3D%2219%22%20width%3D%2240%22%20height%3D%221%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20x%3D%2219%22%20y%3D%220%22%20width%3D%221%22%20height%3D%2240%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20x%3D%220%22%20y%3D%2219%22%20width%3D%2240%22%20height%3D%221%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E%0A");
 }
 /* Style modifiers
  ========================================================================== */
@@ -3141,7 +3141,7 @@ select.uk-form-width-xsmall {
 /* Icon
  ========================================================================== */
 .uk-search-icon::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewbox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20cx%3D%229%22%20cy%3D%229%22%20r%3D%227%22%3E%3C%2Fcircle%3E%0A%20%20%20%20%3Cpath%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20d%3D%22M14%2C14%20L18%2C18%20L14%2C14%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20cx%3D%229%22%20cy%3D%229%22%20r%3D%227%22%3E%3C%2Fcircle%3E%0A%20%20%20%20%3Cpath%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20d%3D%22M14%2C14%20L18%2C18%20L14%2C14%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E%0A");
 }
 /*
  * Adopts `uk-icon`
@@ -3277,7 +3277,7 @@ select.uk-form-width-xsmall {
  * Icon
  */
 .uk-search-navbar .uk-search-icon::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewbox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20cx%3D%2210.5%22%20cy%3D%2210.5%22%20r%3D%229.5%22%2F%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20x1%3D%2223%22%20y1%3D%2223%22%20x2%3D%2217%22%20y2%3D%2217%22%2F%3E%0A%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20cx%3D%2210.5%22%20cy%3D%2210.5%22%20r%3D%229.5%22%2F%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20x1%3D%2223%22%20y1%3D%2223%22%20x2%3D%2217%22%20y2%3D%2217%22%2F%3E%0A%3C%2Fsvg%3E%0A");
 }
 .uk-search-navbar .uk-search-icon {
   width: 40px;
@@ -3305,7 +3305,7 @@ select.uk-form-width-xsmall {
  * Icon
  */
 .uk-search-large .uk-search-icon::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewbox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.8%22%20cx%3D%2217.5%22%20cy%3D%2217.5%22%20r%3D%2216.5%22%3E%3C%2Fcircle%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.8%22%20x1%3D%2238%22%20y1%3D%2239%22%20x2%3D%2229%22%20y2%3D%2230%22%3E%3C%2Fline%3E%0A%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.8%22%20cx%3D%2217.5%22%20cy%3D%2217.5%22%20r%3D%2216.5%22%3E%3C%2Fcircle%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.8%22%20x1%3D%2238%22%20y1%3D%2239%22%20x2%3D%2229%22%20y2%3D%2230%22%3E%3C%2Fline%3E%0A%3C%2Fsvg%3E%0A");
 }
 .uk-search-large .uk-search-icon {
   width: 80px;
@@ -3536,7 +3536,7 @@ ul.uk-nav-sub {
  */
 .uk-navbar-left,
 .uk-navbar-right,
-.uk-navbar-center {
+[class*='uk-navbar-center'] {
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
@@ -3546,10 +3546,12 @@ ul.uk-nav-sub {
   align-items: center;
 }
 /*
- * Align groups
- * 1. Needed for dropdowns because a new position context is created
+ * Horizontal alignment
+ * 1. Create position context for centered navbar with sub groups (left/right)
+ * 2. Needed for dropdowns because a new position context is created
  *    `z-index` must be smaller than off-canvas
- * 2. Fix text wrapping if the centered section is larger than 50% of the navbar
+ * 3. Fix text wrapping if the centered section is larger than 50% of the navbar
+ * 4. Align sub groups for centered navbar
  */
 .uk-navbar-right {
   margin-left: auto;
@@ -3557,6 +3559,8 @@ ul.uk-nav-sub {
 .uk-navbar-center:only-child {
   margin-left: auto;
   margin-right: auto;
+  /* 1 */
+  position: relative;
 }
 .uk-navbar-center:not(:only-child) {
   position: absolute;
@@ -3564,13 +3568,29 @@ ul.uk-nav-sub {
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
-  /* 1 */
+  /* 2 */
   z-index: 990;
 }
-/* 2 */
+/* 3 */
 .uk-navbar-center:not(:only-child) .uk-navbar-nav > li > a,
 .uk-navbar-center:not(:only-child) .uk-navbar-item,
 .uk-navbar-center:not(:only-child) .uk-navbar-toggle {
+  white-space: nowrap;
+}
+/* 4 */
+.uk-navbar-center-left,
+.uk-navbar-center-right {
+  position: absolute;
+}
+.uk-navbar-center-left {
+  right: 100%;
+}
+.uk-navbar-center-right {
+  left: 100%;
+}
+[class*='uk-navbar-center-'] .uk-navbar-nav > li > a,
+[class*='uk-navbar-center-'] .uk-navbar-item,
+[class*='uk-navbar-center-'] .uk-navbar-toggle {
   white-space: nowrap;
 }
 /* Nav
@@ -3589,8 +3609,11 @@ ul.uk-nav-sub {
 }
 /*
  * Allow items to wrap into the next line
+ * Only not `absolute` positioned groups
  */
-:not(.uk-navbar-center) > .uk-navbar-nav {
+.uk-navbar-left,
+.uk-navbar-right,
+.uk-navbar-center:only-child {
   -ms-flex-wrap: wrap;
   -webkit-flex-wrap: wrap;
   flex-wrap: wrap;
@@ -3676,7 +3699,7 @@ ul.uk-nav-sub {
  * Adopts `uk-icon`
  */
 .uk-navbar-toggle-icon::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewbox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20y%3D%229%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20y%3D%223%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20y%3D%2215%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20y%3D%229%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20y%3D%223%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20y%3D%2215%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E%0A");
 }
 /* Hover + Focus */
 /* Subtitle
@@ -4108,10 +4131,10 @@ ul.uk-nav-sub {
  * Adopts `uk-icon`
  */
 .uk-pagination-next::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%227%22%20height%3D%2212%22%20viewbox%3D%220%200%207%2012%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%20points%3D%221%201%206%206%201%2011%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%227%22%20height%3D%2212%22%20viewBox%3D%220%200%207%2012%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%20points%3D%221%201%206%206%201%2011%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E%0A");
 }
 .uk-pagination-previous::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%227%22%20height%3D%2212%22%20viewbox%3D%220%200%207%2012%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%20points%3D%226%201%201%206%206%2011%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%227%22%20height%3D%2212%22%20viewBox%3D%220%200%207%2012%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%20points%3D%226%201%201%206%206%2011%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E%0A");
 }
 /* ========================================================================
    Component: Tab
@@ -4280,22 +4303,22 @@ ul.uk-nav-sub {
 /*
  * Previous
  */
-[uk-slidenav*='previous']::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2211%22%20height%3D%2220%22%20viewbox%3D%220%200%2011%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%20points%3D%2210%201%201%2010%2010%2019%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E");
+.uk-slidenav-previous::before {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2211%22%20height%3D%2220%22%20viewBox%3D%220%200%2011%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%20points%3D%2210%201%201%2010%2010%2019%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E%0A");
 }
 /*
  * Next
  */
-[uk-slidenav*='next']::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2211%22%20height%3D%2220%22%20viewbox%3D%220%200%2011%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%20points%3D%221%201%2010%2010%201%2019%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E");
+.uk-slidenav-next::before {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2211%22%20height%3D%2220%22%20viewBox%3D%220%200%2011%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%20points%3D%221%201%2010%2010%201%2019%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E%0A");
 }
 /* Size modifier
  ========================================================================== */
-.uk-slidenav-large[uk-slidenav*='previous']::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2218%22%20height%3D%2234%22%20viewbox%3D%220%200%2018%2034%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.4%22%20points%3D%2217%201%201%2017%2017%2033%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E");
+.uk-slidenav-large.uk-slidenav-previous::before {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2218%22%20height%3D%2234%22%20viewBox%3D%220%200%2018%2034%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.4%22%20points%3D%2217%201%201%2017%2017%2033%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E%0A");
 }
-.uk-slidenav-large[uk-slidenav*='next']::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2218%22%20height%3D%2234%22%20viewbox%3D%220%200%2018%2034%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.4%22%20points%3D%221%201%2017%2017%201%2033%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E");
+.uk-slidenav-large.uk-slidenav-next::before {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2218%22%20height%3D%2234%22%20viewBox%3D%220%200%2018%2034%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.4%22%20points%3D%221%201%2017%2017%201%2033%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E%0A");
 }
 /* Container
  ========================================================================== */
@@ -4823,7 +4846,7 @@ ul.uk-nav-sub {
 /*
  * 1. Resolve frame rate issues on devices with lower frame rates by forcing hardware acceleration
  */
-[uk-sticky].uk-active {
+.uk-sticky.uk-active {
   z-index: 980;
   box-sizing: border-box;
   margin: 0 !important;
@@ -4834,11 +4857,11 @@ ul.uk-nav-sub {
 /*
  * Faster animations
  */
-[uk-sticky][class*='uk-animation-'] {
+.uk-sticky[class*='uk-animation-'] {
   -webkit-animation-duration: 0.2s;
   animation-duration: 0.2s;
 }
-[uk-sticky].uk-animation-reverse {
+.uk-sticky.uk-animation-reverse {
   -webkit-animation-duration: 0.2s;
   animation-duration: 0.2s;
 }
@@ -5293,6 +5316,7 @@ ul.uk-nav-sub {
   /* 4 */
   background-color: #f8f8f8;
   /* 5 */
+  margin-bottom: 20px;
   height: 15px;
   border-radius: 500px;
   overflow: hidden;
@@ -5980,13 +6004,15 @@ ul.uk-nav-sub {
  * 1. Make `width: 0` work, because according to the spec flex items won’t shrink
  *    below their minimum content size. To change this, set the min-width.
  *    Only needed for Firefox. All other browsers ignore this.
+ *
+ *    1px is needed to make cell wrap into next row if predecessor is 100% wide
  */
 .uk-child-width-expand > :not([class*='uk-width']) {
   -ms-flex: 1;
   -webkit-flex: 1;
   flex: 1;
   /* 1 */
-  min-width: 0;
+  min-width: 1px;
 }
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
@@ -6018,7 +6044,7 @@ ul.uk-nav-sub {
     -ms-flex: 1;
     -webkit-flex: 1;
     flex: 1;
-    min-width: 0;
+    min-width: 1px;
   }
 }
 /* Tablet landscape and bigger */
@@ -6051,7 +6077,7 @@ ul.uk-nav-sub {
     -ms-flex: 1;
     -webkit-flex: 1;
     flex: 1;
-    min-width: 0;
+    min-width: 1px;
   }
 }
 /* Desktop and bigger */
@@ -6084,7 +6110,7 @@ ul.uk-nav-sub {
     -ms-flex: 1;
     -webkit-flex: 1;
     flex: 1;
-    min-width: 0;
+    min-width: 1px;
   }
 }
 /* Large screen and bigger */
@@ -6117,7 +6143,7 @@ ul.uk-nav-sub {
     -ms-flex: 1;
     -webkit-flex: 1;
     flex: 1;
-    min-width: 0;
+    min-width: 1px;
   }
 }
 /* Single Widths
@@ -6195,7 +6221,7 @@ ul.uk-nav-sub {
   -ms-flex: 1;
   -webkit-flex: 1;
   flex: 1;
-  min-width: 0;
+  min-width: 1px;
 }
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
@@ -6267,7 +6293,7 @@ ul.uk-nav-sub {
     -ms-flex: 1;
     -webkit-flex: 1;
     flex: 1;
-    min-width: 0;
+    min-width: 1px;
   }
 }
 /* Tablet landscape and bigger */
@@ -6340,7 +6366,7 @@ ul.uk-nav-sub {
     -ms-flex: 1;
     -webkit-flex: 1;
     flex: 1;
-    min-width: 0;
+    min-width: 1px;
   }
 }
 /* Desktop and bigger */
@@ -6413,7 +6439,7 @@ ul.uk-nav-sub {
     -ms-flex: 1;
     -webkit-flex: 1;
     flex: 1;
-    min-width: 0;
+    min-width: 1px;
   }
 }
 /* Large screen and bigger */
@@ -6486,7 +6512,7 @@ ul.uk-nav-sub {
     -ms-flex: 1;
     -webkit-flex: 1;
     flex: 1;
-    min-width: 0;
+    min-width: 1px;
   }
 }
 /* ========================================================================
@@ -6875,34 +6901,13 @@ td.uk-text-break {
    Component: Cover
  ========================================================================== */
 /*
- * Works with embedded content like images and video
- * 1. Resizes the object to always covers its container
- * 2. Reset responsiveness
- * 3. Center object
+ * Works with iframes and embedded content
+ * 1. Reset responsiveness for embedded content
+ * 2. Center object
  * Note: Percent values on the `top` property only works if this element
  *       is absolute positioned or if the container has a height
  */
 .uk-cover {
-  /* 1 */
-  width: auto;
-  height: auto;
-  min-width: 100%;
-  min-height: 100%;
-  /* 2 */
-  max-width: none;
-  /* 3 */
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
-/*
- * Works with iframes and embedded content
- * 2. Reset responsiveness for embedded content
- * 3. Center object
- */
-[uk-cover] {
   /* 1 */
   max-width: none;
   /* 2 */
@@ -7298,8 +7303,7 @@ td.uk-text-break {
 }
 /* Height
  ========================================================================== */
-[class*='uk-height'],
-[uk-height-viewport] {
+[class*='uk-height'] {
   box-sizing: border-box;
 }
 /*
@@ -7355,16 +7359,14 @@ td.uk-text-break {
  * Corrects `max-width` and `max-height` behavior if padding and border are used
  */
 .uk-responsive-width,
-.uk-responsive-height,
-[uk-responsive] {
+.uk-responsive-height {
   box-sizing: border-box;
 }
 /*
  * 1. Set a maximum width. `important` needed to override `uk-preserve-width img`
  * 2. Auto scale the height. Only needed if `height` attribute is present
  */
-.uk-responsive-width,
-[uk-responsive] {
+.uk-responsive-width {
   /* 1 */
   max-width: 100% !important;
   /* 2 */
@@ -7403,6 +7405,25 @@ td.uk-text-break {
   box-shadow: 0 14px 25px rgba(0, 0, 0, 0.16);
 }
 .uk-box-shadow-xlarge {
+  box-shadow: 0 28px 50px rgba(0, 0, 0, 0.16);
+}
+/*
+ * Hover
+ */
+[class*='uk-box-shadow-hover'] {
+  -webkit-transition: box-shadow 0.1s ease-in-out;
+  transition: box-shadow 0.1s ease-in-out;
+}
+.uk-box-shadow-hover-small:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+.uk-box-shadow-hover-medium:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+.uk-box-shadow-hover-large:hover {
+  box-shadow: 0 14px 25px rgba(0, 0, 0, 0.16);
+}
+.uk-box-shadow-hover-xlarge:hover {
   box-shadow: 0 28px 50px rgba(0, 0, 0, 0.16);
 }
 /* Drop cap
@@ -8216,7 +8237,7 @@ td.uk-text-break {
  * Note: Transitions don't work with `uk-postion-center-*` classes because they also use `transform`
  *       Just put the transition in an extra `div`
  */
-[class*='uk-transition-'] {
+[class*='uk-transition-']:not(.uk-transition-toggle) {
   transition-duration: 0.3s;
   transition-timing-function: ease-out;
   transition-property: opacity, transform, filter;

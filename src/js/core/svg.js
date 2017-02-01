@@ -1,6 +1,6 @@
-import { $, getStyle, fastdom, isVoidElement, toJQuery } from '../util/index';
+import { $, getStyle, isVoidElement, promise } from '../util/index';
 
-var storage = window.sessionStorage || {}, svgs = {};
+var storage = window.sessionStorage || {}, svgs = {}, parser = new DOMParser();
 
 export default function (UIkit) {
 
@@ -25,7 +25,27 @@ export default function (UIkit) {
         },
 
         connected() {
-            this.svg = $.Deferred();
+
+            this.svg = promise((resolve, reject) => {
+                this._resolver = resolve;
+                this._rejecter = reject;
+            }).catch(e => {});
+
+            this.$emitSync();
+        },
+
+        disconnected() {
+
+            this.isSet = false;
+
+            if (isVoidElement(this.$el)) {
+                this.$el.attr({hidden: null, id: this.id || null});
+            }
+
+            if (this.svg) {
+                this.svg.then(svg => svg.remove());
+                this.svg = null;
+            }
         },
 
         update: {
@@ -52,144 +72,169 @@ export default function (UIkit) {
                     }
                 }
 
-                this.get(this.src).then(svg =>
-                    fastdom.mutate(() => {
+                getSvg(this.src).then(doc => {
+                    this._svg = doc;
+                    this.$emit();
+                }, e => {});
+            },
 
-                        var el;
+            write() {
 
-                        el = !this.icon
-                            ? svg.clone()
-                            : (el = toJQuery(`#${this.icon}`, svg))
-                                && toJQuery((el[0].outerHTML || $('<div>').append(el.clone()).html()).replace(/symbol/g, 'svg')) // IE workaround, el[0].outerHTML
-                                || !toJQuery('symbol', svg) && svg.clone(); // fallback if SVG has no symbols
+                if (!this._svg) {
+                    return;
+                }
 
-                        if (!el || !el.length) {
-                            return $.Deferred().reject('SVG not found.');
+                var doc = this._svg, svg, el;
+
+                this._svg = null;
+
+                if (!this.icon) {
+                    el = doc.documentElement.cloneNode(true);
+                } else {
+                    svg = doc.getElementById(this.icon);
+
+                    if (!svg) {
+
+                        // fallback if SVG has no symbols
+                        if (!doc.querySelector('symbol')) {
+                            el = doc.documentElement.cloneNode(true);
                         }
 
-                        var dimensions = el[0].getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
+                    } else {
 
-                        if (dimensions) {
-                            dimensions = dimensions.split(' ');
-                            this.width = this.width || dimensions[2];
-                            this.height = this.height || dimensions[3];
+                        var html = svg.outerHTML;
+
+                        // IE workaround
+                        if (!html) {
+                            var div = document.createElement('div');
+                            div.appendChild(svg.cloneNode(true));
+                            html = div.innerHTML;
                         }
 
-                        this.width *= this.ratio;
-                        this.height *= this.ratio;
+                        html = html
+                            .replace(/<symbol/g, `<svg${!~html.indexOf('xmlns') ? ' xmlns="http://www.w3.org/2000/svg"' : ''}`)
+                            .replace(/symbol>/g, 'svg>');
 
-                        for (var prop in this.$options.props) {
-                            if (this[prop] && !~this.exclude.indexOf(prop)) {
-                                el.attr(prop, this[prop]);
-                            }
-                        }
+                        el = parser.parseFromString(html, 'image/svg+xml').documentElement;
+                    }
 
-                        if (!this.id) {
-                            el.removeAttr('id');
-                        }
+                }
 
-                        if (this.width && !this.height) {
-                            el.removeAttr('height');
-                        }
+                if (!el) {
+                    this._rejecter('SVG not found.');
+                    return;
+                }
 
-                        if (this.height && !this.width) {
-                            el.removeAttr('width');
-                        }
+                var dimensions = el.getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
 
-                        if (isVoidElement(this.$el) || this.$el[0].tagName === 'CANVAS') {
-                            this.$el.attr({hidden: true, id: null});
-                            el.insertAfter(this.$el);
-                        } else {
-                            el.appendTo(this.$el);
-                        }
+                if (dimensions) {
+                    dimensions = dimensions.split(' ');
+                    this.width = this.width || dimensions[2];
+                    this.height = this.height || dimensions[3];
+                }
 
-                        this.svg.resolve(el);
+                el = $(el);
 
-                    })
-                );
+                this.width *= this.ratio;
+                this.height *= this.ratio;
+
+                for (var prop in this.$options.props) {
+                    if (this[prop] && !~this.exclude.indexOf(prop)) {
+                        el.attr(prop, this[prop]);
+                    }
+                }
+
+                if (!this.id) {
+                    el.removeAttr('id');
+                }
+
+                if (this.width && !this.height) {
+                    el.removeAttr('height');
+                }
+
+                if (this.height && !this.width) {
+                    el.removeAttr('width');
+                }
+
+                if (isVoidElement(this.$el) || this.$el[0].tagName === 'CANVAS') {
+                    this.$el.attr({hidden: true, id: null});
+                    el.insertAfter(this.$el);
+                } else {
+                    el.appendTo(this.$el);
+                }
+
+                this._resolver(el);
             },
 
             events: ['load']
 
-        },
-
-        methods: {
-
-            get(src) {
-
-                if (svgs[src]) {
-                    return svgs[src];
-                }
-
-                svgs[src] = $.Deferred();
-
-                if (src.lastIndexOf('data:', 0) === 0) {
-                    svgs[src].resolve(getSvg(decodeURIComponent(src.split(',')[1])));
-                } else {
-
-                    var key = `uikit_${UIkit.version}_${src}`;
-
-                    if (storage[key]) {
-                        svgs[src].resolve(getSvg(storage[key]));
-                    } else {
-                        $.get(src).then((doc, status, res) => {
-                            storage[key] = res.responseText;
-                            svgs[src].resolve(getSvg(storage[key]));
-                        });
-                    }
-                }
-
-                return svgs[src];
-
-                function getSvg (doc) {
-                    return $(doc).filter('svg');
-                }
-            }
-
-        },
-
-        destroy() {
-
-            if (isVoidElement(this.$el)) {
-                this.$el.attr({hidden: null, id: this.id || null});
-            }
-
-            if (this.svg) {
-                this.svg.then(svg => svg.remove());
-            }
         }
 
     });
 
-    function getSrc(el) {
+}
 
-        var image = getBackgroundImage(el);
+function getSrc(el) {
 
-        if (!image) {
+    var image = getBackgroundImage(el);
 
-            el = el.clone().empty()
-                .attr({'uk-no-boot': '', style: `${el.attr('style')};display:block !important;`})
-                .appendTo(document.body);
+    if (!image) {
 
-            image = getBackgroundImage(el);
+        el = el.clone().empty()
+            .attr({'uk-no-boot': '', style: `${el.attr('style')};display:block !important;`})
+            .appendTo(document.body);
 
-            // safari workaround
-            if (!image && el[0].tagName === 'CANVAS') {
-                var span = $(el[0].outerHTML.replace(/canvas/g, 'span')).insertAfter(el);
-                image = getBackgroundImage(span);
-                span.remove();
-            }
+        image = getBackgroundImage(el);
 
-            el.remove();
-
+        // safari workaround
+        if (!image && el[0].tagName === 'CANVAS') {
+            var span = $(el[0].outerHTML.replace(/canvas/g, 'span')).insertAfter(el);
+            image = getBackgroundImage(span);
+            span.remove();
         }
 
-        return image && image.slice(4, -1).replace(/"/g, '');
+        el.remove();
+
     }
 
-    function getBackgroundImage(el) {
-        var image = getStyle(el[0], 'backgroundImage', '::before');
-        return image !== 'none' && image;
-    }
-
+    return image && image.slice(4, -1).replace(/"/g, '');
 }
+
+function getBackgroundImage(el) {
+    var image = getStyle(el[0], 'backgroundImage', '::before');
+    return image !== 'none' && image;
+}
+
+function getSvg(src) {
+
+    if (!svgs[src]) {
+        svgs[src] = promise((resolve, reject) => {
+
+            if (src.lastIndexOf('data:', 0) === 0) {
+                resolve(parse(decodeURIComponent(src.split(',')[1])));
+            } else {
+
+                var key = `uikit_${UIkit.version}_${src}`;
+
+                if (storage[key]) {
+                    resolve(parse(storage[key]));
+                } else {
+                    $.ajax(src, {dataType: 'html'}).then(doc => {
+                        storage[key] = doc;
+                        resolve(parse(doc));
+                    }, () => {
+                        reject('SVG not found.');
+                    });
+                }
+            }
+
+        });
+    }
+
+    return svgs[src];
+}
+
+function parse(doc) {
+    return parser.parseFromString(doc, 'image/svg+xml');
+}
+

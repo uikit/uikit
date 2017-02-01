@@ -1,8 +1,11 @@
+import { Class } from '../mixin/index';
 import { Dimensions } from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('cover', {
+
+        mixins: [Class],
 
         props: {
             automute: Boolean,

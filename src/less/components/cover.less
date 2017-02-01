@@ -13,37 +13,14 @@
  ========================================================================== */
 
 /*
- * Works with embedded content like images and video
- * 1. Resizes the object to always covers its container
- * 2. Reset responsiveness
- * 3. Center object
+ * Works with iframes and embedded content
+ * 1. Reset responsiveness for embedded content
+ * 2. Center object
  * Note: Percent values on the `top` property only works if this element
  *       is absolute positioned or if the container has a height
  */
 
 .uk-cover {
-    /* 1 */
-    width: auto;
-    height: auto;
-    min-width: 100%;
-    min-height: 100%;
-    /* 2 */
-    max-width: none;
-    /* 3 */
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    -webkit-transform: translate(-50%,-50%);
-    transform: translate(-50%,-50%);
-}
-
-/*
- * Works with iframes and embedded content
- * 2. Reset responsiveness for embedded content
- * 3. Center object
- */
-
-[uk-cover] {
     /* 1 */
     max-width: none;
     /* 2 */

@@ -1,3 +1,5 @@
+import { isNumeric } from '../util/index';
+
 export default function (UIkit) {
 
     UIkit.component('height-viewport', {
@@ -22,6 +24,8 @@ export default function (UIkit) {
 
             write() {
 
+                this.$el.css('boxSizing', 'border-box');
+
                 var viewport = window.innerHeight, height, offset = 0;
 
                 if (this.expand) {
@@ -36,17 +40,23 @@ export default function (UIkit) {
 
                 } else {
 
-                    var top = this.$el[0].offsetTop;
+                    var top = this.$el.offset().top;
 
-                    if (top < viewport) {
+                    if (top < viewport && this.offsetTop) {
+                        offset += top;
+                    }
 
-                        if (this.offsetTop) {
-                            offset += top;
-                        }
+                    if (this.offsetBottom === true) {
 
-                        if (this.offsetBottom) {
-                            offset += this.$el.next().outerHeight() || 0;
-                        }
+                        offset += this.$el.next().outerHeight() || 0;
+
+                    } else if (isNumeric(this.offsetBottom)) {
+
+                        offset += ((viewport - offset) / 100) * this.offsetBottom
+
+                    } else if (this.offsetBottom && this.offsetBottom.substr(-2) === 'px') {
+
+                        offset += parseFloat(this.offsetBottom);
 
                     }
 

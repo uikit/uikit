@@ -1,4 +1,14 @@
 /dist/*
+!/dist/css/
+/dist/css/*
+!/dist/css/uikit.css
+!/dist/css/uikit.min.css
+!/dist/images
+!/dist/images/*
+!/dist/js/
+/dist/js/*
+!/dist/js/uikit.js
+!/dist/js/uikit.min.js
 /node_modules
 /tests/js/test*
 /tests/css/*

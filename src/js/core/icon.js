@@ -26,9 +26,21 @@ export default function (UIkit) {
         'overlay-icon',
         'pagination-previous',
         'pagination-next',
-        'slidenav',
         'search-icon',
         'totop'
     ].forEach(name => UIkit.component(name, UIkit.components.icon.extend({name})));
+
+    [
+        'slidenav-previous',
+        'slidenav-next'
+    ].forEach(name => UIkit.component(name, UIkit.components.icon.extend({
+
+        name,
+
+        init() {
+            this.$el.addClass('uk-slidenav');
+        }
+
+    })));
 
 }

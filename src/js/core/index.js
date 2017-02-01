@@ -30,7 +30,7 @@ import Toggle from './toggle';
 
 export default function (UIkit) {
 
-    var scroll = null, dir, ticking, resizing;
+    var scroll = null, dir, ticking, resizing, started = 0;
 
     win
         .on('load', UIkit.update)
@@ -61,22 +61,18 @@ export default function (UIkit) {
             }
         });
 
-    var started = 0;
     on(document, 'animationstart', ({target}) => {
         fastdom.measure(() => {
-            if (hasAnimation(target)) {
+            if ((getStyle(target, 'animationName') || '').lastIndexOf('uk-', 0) === 0) {
                 fastdom.mutate(() => {
-                    document.body.style.overflowX = 'hidden';
                     started++;
+                    document.body.style.overflowX = 'hidden';
+                    setTimeout(() => fastdom.mutate(() => {
+                        if (!--started) {
+                            document.body.style.overflowX = '';
+                        }
+                    }), toMs(getStyle(target, 'animationDuration')));
                 });
-            }
-        });
-    }, true);
-
-    on(document, 'animationend', ({target}) => {
-        fastdom.measure(() => {
-            if (hasAnimation(target) && !--started) {
-                fastdom.mutate(() => document.body.style.overflowX = '')
             }
         });
     }, true);
@@ -121,7 +117,11 @@ export default function (UIkit) {
     UIkit.use(Tab);
     UIkit.use(Toggle);
 
-    function hasAnimation(target) {
-        return (getStyle(target, 'animationName') || '').lastIndexOf('uk-', 0) === 0;
+    function toMs(time) {
+        return !time
+            ? 0
+            : time.substr(-2) === 'ms'
+                ? parseFloat(time)
+                : parseFloat(time) * 1000;
     }
 }

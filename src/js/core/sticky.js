@@ -1,8 +1,11 @@
+import { Class } from '../mixin/index';
 import { $, Animation, isNumeric, isString, query, requestAnimationFrame, win } from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('sticky', {
+
+        mixins: [Class],
 
         props: {
             top: null,
@@ -73,6 +76,9 @@ export default function (UIkit) {
                     this.placeholder
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
                         .css(this.$el.css(['marginTop', 'marginBottom', 'marginLeft', 'marginRight']));
+
+                    this.width = this._widthElement.attr('hidden', null).outerWidth();
+                    this._widthElement.attr('hidden', !isActive);
 
                     this.topOffset = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
                     this.bottomOffset = this.topOffset + outerHeight;
@@ -177,9 +183,11 @@ export default function (UIkit) {
                 this.update();
 
                 this.$el
-                    .addClass(this.clsActive)
                     .removeClass(this.clsInactive)
+                    .addClass(this.clsActive)
                     .trigger('active');
+
+                this.placeholder.attr('hidden', null);
 
             },
 
@@ -198,16 +206,14 @@ export default function (UIkit) {
 
                 var top = Math.max(0, this.offset), scroll = win.scrollTop();
 
-                this.placeholder.attr('hidden', false);
-
                 if (this.bottom && scroll > this.bottom - this.offset) {
                     top = this.bottom - scroll;
                 }
 
                 this.$el.css({
                     position: 'fixed',
-                    top: top + 'px',
-                    width: this._widthElement[0].getBoundingClientRect().width
+                    top: `${top}px`,
+                    width: this.width
                 });
 
             },

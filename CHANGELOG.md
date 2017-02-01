@@ -1,5 +1,31 @@
 # Changelog
 
+## 3.0.0 beta 7 (February 1, 2017)
+
+### Added
+
+- Add sub groups center left/right to Navbar component
+- Add box-shadow-hover to Utility component
+- Height Viewport component supports pixel / percentage values for Offset Bottom option
+
+### Changed
+- Less no longer uses component attribute selectors
+- Accordion close and open icons using variables
+
+### Removed
+- Removed uk-cover CSS only solution
+
+### Fixed
+
+- Fix icon 'play-circle'
+- Fix Spinner when 'stroke-width' cannot be read
+- Fix memory leak in SVG component
+- Prevent transition-toggle from setting a transition
+- Fix width-expand not wrapping into next row in rare cases
+- Allow a fixed width on nested grids with grid-match
+- Fix Height Viewport offset calculation
+- Fix Sticky (Chrome > 55)
+
 ## 3.0.0 beta 6 (January 24, 2017)
 
 ### Added

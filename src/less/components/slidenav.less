@@ -63,9 +63,9 @@
  * Previous
  */
 
-[uk-slidenav*='previous']::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-slidenav-previous-image); }
+.uk-slidenav-previous::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-slidenav-previous-image); }
 
-[uk-slidenav*='previous'] {
+.uk-slidenav-previous {
     .hook-slidenav-previous;
 }
 
@@ -73,9 +73,9 @@
  * Next
  */
 
-[uk-slidenav*='next']::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-slidenav-next-image); }
+.uk-slidenav-next::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-slidenav-next-image); }
 
-[uk-slidenav*='next'] {
+.uk-slidenav-next {
     .hook-slidenav-next;
 }
 
@@ -83,9 +83,9 @@
 /* Size modifier
  ========================================================================== */
 
-.uk-slidenav-large[uk-slidenav*='previous']::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-slidenav-large-previous-image); }
+.uk-slidenav-large.uk-slidenav-previous::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-slidenav-large-previous-image); }
 
-.uk-slidenav-large[uk-slidenav*='next']::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-slidenav-large-next-image); }
+.uk-slidenav-large.uk-slidenav-next::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-slidenav-large-next-image); }
 
 
 /* Container
