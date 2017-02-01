@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Apply class 'uk-svg' to Svg component
+
 ### Changed
 
 - Update event registration

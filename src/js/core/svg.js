@@ -24,6 +24,10 @@ export default function (UIkit) {
             exclude: ['src']
         },
 
+        init() {
+            this.class += ' uk-svg';
+        },
+
         connected() {
 
             this.svg = promise((resolve, reject) => {
