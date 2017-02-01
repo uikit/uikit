@@ -86,7 +86,7 @@ export default {
         },
 
         toggleNow(targets, show) {
-            $(targets).each((_, el) => this._toggleElement(el, show, false));
+            return promise.all($(targets).toArray().map(el => this._toggleElement(el, show, false)));
         },
 
         isToggled(el) {
