@@ -62,7 +62,7 @@ export default {
         toggleElement(targets, show, animate) {
 
             var toggles, body = document.body, scroll = body.scrollTop,
-                all = targets => $.when.apply($, targets.toArray().map(el => this._toggleElement(el, show, animate))),
+                all = targets => promise.all(targets.toArray().map(el => this._toggleElement(el, show, animate))),
                 delay = targets => {
                     var def = all(targets);
                     this.queued = true;

@@ -41,6 +41,15 @@ promise.reject = function (value) {
     });
 };
 
+promise.all = function (iterable) {
+
+    if (!isUndefined(window.Promise)) {
+        return window.Promise.all(iterable);
+    }
+
+    return $.when.apply($, iterable);
+}
+
 export function classify(str) {
     return str.replace(/(?:^|[-_\/])(\w)/g, (_, c) => c ? c.toUpperCase() : '');
 }
