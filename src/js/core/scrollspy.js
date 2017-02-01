@@ -36,7 +36,7 @@ export default function (UIkit) {
             {
 
                 read() {
-                    this.elements = this.target && toJQuery(this.target, this.$el) || this.$el;
+                    this.elements = $(this.target || this.$el);
                 },
 
                 write() {
@@ -50,7 +50,7 @@ export default function (UIkit) {
             {
 
                 read() {
-                    this.elements.each((i, el) => {
+                    this.elements.each((_, el) => {
 
                         if (!el._scrollspy) {
                             el._scrollspy = {toggles: ($(el).attr('uk-scrollspy-class') || this.cls).split(',')};
@@ -65,7 +65,7 @@ export default function (UIkit) {
 
                     var index = this.elements.length === 1 ? 1 : 0;
 
-                    this.elements.each((i, el) => {
+                    this.elements.each((_, el) => {
 
                         var $el = $(el);
 

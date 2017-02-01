@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Cover component if the container has padding
+- Fix Scrollspy component targeting wrong elements
 
 ## 3.0.0 beta 7 (February 1, 2017)
 
