@@ -48,7 +48,7 @@ promise.all = function (iterable) {
     }
 
     return $.when.apply($, iterable);
-}
+};
 
 export function classify(str) {
     return str.replace(/(?:^|[-_\/])(\w)/g, (_, c) => c ? c.toUpperCase() : '');
