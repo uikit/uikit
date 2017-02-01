@@ -16,7 +16,7 @@ export default {
             this.positions = [];
             this.position = null;
 
-            this.mouseHandler = (e) => {
+            this.mouseHandler = e => {
                 this.positions.push({x: e.pageX, y: e.pageY});
 
                 if (this.positions.length > 5) {
