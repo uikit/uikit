@@ -10,6 +10,7 @@
 
 - Update event registration
 - Use native Promises instead of jQuery Deferred
+- Do not force 'click' mode on touch capable devices in Toggle component
 
 ### Fixed
 
