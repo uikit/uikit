@@ -1,5 +1,5 @@
 import { Mouse, Position, Toggable } from '../mixin/index';
-import { doc, getDimensions, isWithin, promise, query, removeClass } from '../util/index';
+import { doc, getDimensions, isWithin, query, removeClass } from '../util/index';
 
 export default function (UIkit) {
 
