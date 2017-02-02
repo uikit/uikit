@@ -75,13 +75,9 @@ export const Transition = {
     start: transition,
 
     stop(element, cancel) {
-        if (this.inProgress(element)) {
-            var e = $.Event(transitionend || 'transitionend');
-            $(element).trigger(e, [cancel]);
-            return e.promise.then(promise.resolve, promise.resolve);
-        } else {
-            return promise.resolve();
-        }
+        var e = $.Event(transitionend || 'transitionend');
+        $(element).triggerHandler(e, [cancel]);
+        return e.promise || promise.resolve();
     },
 
     cancel(element) {
@@ -154,13 +150,9 @@ export const Animation = {
     },
 
     cancel(element) {
-        if (this.inProgress(element)) {
-            var e = $.Event(animationend || 'animationend');
-            $(element).trigger(e);
-            return e.promise;
-        } else {
-            return promise.resolve();
-        }
+        var e = $.Event(animationend || 'animationend');
+        $(element).triggerHandler(e);
+        return e.promise || promise.resolve();
     }
 
 };
