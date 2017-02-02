@@ -9,12 +9,14 @@
 ### Changed
 
 - Update event registration
+- Use native Promises instead of jQuery Deferred
 
 ### Fixed
 
 - Fix Cover component if the container has padding
 - Fix Scrollspy component targeting wrong elements
 - Switcher supports 'data-' prefixed items now
+- Fix beta 7 regression (IE 10 + 11) 
 
 ## 3.0.0 beta 7 (February 1, 2017)
 

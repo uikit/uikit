@@ -33,7 +33,7 @@ export default function (UIkit) {
             this.svg = promise((resolve, reject) => {
                 this._resolver = resolve;
                 this._rejecter = reject;
-            }).catch(e => {});
+            }).catch(() => {});
 
             this.$emitSync();
         },
