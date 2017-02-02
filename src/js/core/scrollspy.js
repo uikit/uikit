@@ -36,7 +36,7 @@ export default function (UIkit) {
             {
 
                 read() {
-                    this.elements = $(this.target || this.$el);
+                    this.elements = this.target && $(this.target, this.$el) || this.$el;
                 },
 
                 write() {

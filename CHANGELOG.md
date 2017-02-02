@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix prefixed Javascript not working
+- Fix beta 8 regression with Scrollspy targets
 
 ## 3.0.0 beta 8 (February 2, 2017)
 
