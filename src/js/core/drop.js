@@ -1,5 +1,5 @@
 import { Mouse, Position, Toggable } from '../mixin/index';
-import { doc, isWithin, removeClass, getDimensions, query } from '../util/index';
+import { doc, getDimensions, isWithin, promise, query, removeClass } from '../util/index';
 
 export default function (UIkit) {
 
@@ -113,6 +113,31 @@ export default function (UIkit) {
                     }
                 }
 
+            },
+
+            {
+
+                name: 'show',
+
+                handler() {
+                    this.initMouseTracker();
+                    this.toggle.$el.addClass(this.cls).attr('aria-expanded', 'true');
+                    this.clearTimers();
+                }
+
+            },
+
+            {
+
+                name: 'hide',
+
+                handler() {
+                    active = this.isActive() ? null : active;
+                    this.toggle.$el.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
+                    this.cancelMouseTracker();
+                    this.clearTimers();
+                }
+
             }
 
         ],
@@ -154,52 +179,47 @@ export default function (UIkit) {
 
             show(toggle, delay = true) {
 
-                if (toggle && this.toggle && !this.toggle.$el.is(toggle.$el)) {
-                    this.hide(false);
-                }
+                var show = () => this.toggleElement(this.$el, true),
+                    tryShow = () => {
 
-                this.toggle = toggle || this.toggle;
+                    this.toggle = toggle || this.toggle;
 
-                this.clearTimers();
+                    this.clearTimers();
 
-                if (this.isActive()) {
-                    return;
-                } else if (delay && active && active !== this && active.isDelaying) {
-                    this.showTimer = setTimeout(this.show, 75);
-                    return;
-                } else if (active) {
-                    active.hide(false);
-                }
+                    if (this.isActive()) {
+                        return;
+                    } else if (delay && active && active !== this && active.isDelaying) {
+                        this.showTimer = setTimeout(this.show, 75);
+                        return;
+                    } else if (active) {
+                        active.hide(false);
+                    }
 
-                var show = () => {
-                    this.toggleElement(this.$el, true).then(() => {
-                        this.initMouseTracker();
-                        this.toggle.$el.addClass(this.cls).attr('aria-expanded', 'true');
-                        this.clearTimers();
-                    });
+                    if (delay && this.delayShow) {
+                        this.showTimer = setTimeout(show, this.delayShow);
+                    } else {
+                        show();
+                    }
+
+                    active = this;
+
                 };
 
-                if (delay && this.delayShow) {
-                    this.showTimer = setTimeout(show, this.delayShow);
-                } else {
-                    show();
-                }
+                if (toggle && this.toggle && !this.toggle.$el.is(toggle.$el)) {
 
-                active = this;
+                    this.$el.one('hide', tryShow);
+                    this.hide(false);
+
+                } else {
+                    tryShow();
+                }
             },
 
             hide(delay = true) {
 
-                this.clearTimers();
+                var hide = () => this.toggleNow(this.$el, false);
 
-                var hide = () => {
-                    this.toggleNow(this.$el, false).then(() => {
-                        active = this.isActive() ? null : active;
-                        this.toggle.$el.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
-                        this.cancelMouseTracker();
-                        this.clearTimers();
-                    });
-                };
+                this.clearTimers();
 
                 this.isDelaying = this.movesTo(this.$el);
 
