@@ -10,7 +10,6 @@ export default function (UIkit) {
 
         if (!el[DATA]) {
             el[DATA] = {};
-            UIkit.elements.push(el);
         }
 
         if (el[DATA][name]) {
@@ -26,10 +25,8 @@ export default function (UIkit) {
 
         this._callHook('init');
 
-        this._initEvents();
-
         if (document.documentElement.contains(this.$el[0])) {
-            this._callHook('connected');
+            this._callConnected();
         }
 
         ready(() => this._callReady());
@@ -54,11 +51,13 @@ export default function (UIkit) {
 
     UIkit.prototype.$destroy = function (remove = false) {
 
-        this._callHook('destroy');
-
-        delete UIkit.instances[this._uid];
-
         var el = this.$options.el;
+
+        if (el) {
+            this._callDisconnected();
+        }
+
+        this._callHook('destroy');
 
         if (!el || !el[DATA]) {
             return;
@@ -68,12 +67,6 @@ export default function (UIkit) {
 
         if (!Object.keys(el[DATA]).length) {
             delete el[DATA];
-
-            var index = UIkit.elements.indexOf(el);
-
-            if (~index) {
-                UIkit.elements.splice(index, 1);
-            }
         }
 
         if (remove) {

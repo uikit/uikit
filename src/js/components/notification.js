@@ -1,6 +1,6 @@
 import { util, container } from 'uikit';
 
-var {$, Transition} = util;
+var {$, each, Transition} = util;
 
 var containers = {};
 
@@ -92,12 +92,9 @@ UIkit.component('notification', {
 });
 
 UIkit.notification.closeAll = function (group, immediate) {
-
-    var notification;
-    UIkit.elements.forEach(el => {
-        if ((notification = UIkit.getComponent(el, 'notification')) && (!group || group === notification.group)) {
-            notification.close(immediate);
+    each(UIkit.instances, (_, component) => {
+        if (component.$options.name === 'notification' && (!group || group === component.group)) {
+            component.close(immediate);
         }
-    });
-
+    })
 };

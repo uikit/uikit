@@ -54,50 +54,9 @@ export default function (UIkit) {
                 }
             });
 
-            if (!this.dropbar) {
-                return;
-            }
-
-            this.dropbar = query(this.dropbar, this.$el) || $('<div class="uk-navbar-dropbar"></div>').insertAfter(this.dropbarAnchor || this.$el);
-
-            this.dropbar.on({
-
-                mouseleave: () => {
-
-                    var active = this.getActive();
-
-                    if (active && !this.dropbar.is(':hover')) {
-                        active.hide();
-                    }
-                },
-
-                beforeshow: (e, {$el}) => {
-                    $el.addClass(`${this.clsDrop}-dropbar`);
-                    this.transitionTo($el.outerHeight(true));
-                },
-
-                beforehide: (e, {$el}) => {
-
-                    var active = this.getActive();
-
-                    if (this.dropbar.is(':hover') && active && active.$el.is($el)) {
-                        return false;
-                    }
-                },
-
-                hide: (e, {$el}) => {
-
-                    var active = this.getActive();
-
-                    if (!active || active && active.$el.is($el)) {
-                        this.transitionTo(0);
-                    }
-                }
-
-            });
-
-            if (this.dropbarMode === 'slide') {
-                this.dropbar.addClass('uk-navbar-dropbar-slide');
+            if (this.dropbar) {
+                this.dropbar = query(this.dropbar, this.$el) || $('<div></div>').insertAfter(this.dropbarAnchor || this.$el);
+                UIkit.navbarDropbar(this.dropbar, {mode: this.dropbarMode, duration: this.duration, navbar: this});
             }
 
         },
@@ -132,11 +91,71 @@ export default function (UIkit) {
             getActive() {
                 var active = UIkit.drop.getActive();
                 return active && active.mode !== 'click' && isWithin(active.toggle.$el, this.$el) && active;
+            }
+
+        }
+
+    });
+
+    UIkit.component('navbar-dropbar', {
+
+        mixins: [Class],
+
+        defaults: {
+            mode: 'slide',
+            navbar: null,
+            duration: 200
+        },
+
+        init() {
+
+            if (this.mode === 'slide') {
+                this.$el.addClass('uk-navbar-dropbar-slide');
+            }
+
+        },
+
+        events: {
+
+            mouseleave() {
+
+                var active = this.navbar.getActive();
+
+                if (active && !this.$el.is(':hover')) {
+                    active.hide();
+                }
             },
 
+            beforeshow(e, {$el}) {
+                $el.addClass(`${this.clsDrop}-dropbar`);
+                this.transitionTo($el.outerHeight(true));
+            },
+
+            beforehide(e, {$el}) {
+
+                var active = this.navbar.getActive();
+
+                if (this.$el.is(':hover') && active && active.$el.is($el)) {
+                    return false;
+                }
+            },
+
+            hide(e, {$el}) {
+
+                var active = this.navbar.getActive();
+
+                if (!active || active && active.$el.is($el)) {
+                    this.transitionTo(0);
+                }
+            }
+
+        },
+
+        methods: {
+
             transitionTo(height) {
-                this.dropbar.height(this.dropbar[0].offsetHeight ? this.dropbar.height() : 0);
-                return Transition.cancel(this.dropbar).start(this.dropbar, {height}, this.duration);
+                this.$el.height(this.$el[0].offsetHeight ? this.$el.height() : 0);
+                return Transition.cancel(this.$el).then(() => Transition.start(this.$el, {height}, this.duration));
             }
 
         }

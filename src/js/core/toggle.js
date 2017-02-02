@@ -23,38 +23,51 @@ export default function (UIkit) {
             media: false
         },
 
-        ready() {
-
-            this.target = this.target || this.href || this.$el;
-
+        init() {
             this.mode = hasTouch && this.mode == 'hover' ? 'click' : this.mode;
+        },
 
-            if (this.mode === 'media') {
-                return;
-            }
+        events: [
 
-            if (this.mode === 'hover') {
-                this.$el.on({
-                    mouseenter: () => this.toggle('toggleShow'),
-                    mouseleave: () => this.toggle('toggleHide')
-                });
-            }
+            {
 
-            this.$el.on('click', e => {
+                name: 'mouseenter mouseleave',
 
-                // TODO better isToggled handling
-                if ($(e.target).closest('a[href="#"], button').length || $(e.target).closest('a[href]') && (this.cls || !this.target.is(':visible'))) {
-                    e.preventDefault();
+                filter() {
+                    return this.mode === 'hover';
+                },
+
+                handler({type}) {
+                    this.toggle(type === 'mouseenter' ? 'toggleShow' : 'toggleHide');
                 }
 
-                this.toggle();
-            });
+            },
 
-        },
+            {
+
+                name: 'click',
+
+                filter() {
+                    return this.mode !== 'media';
+                },
+
+                handler(e) {
+                    // TODO better isToggled handling
+                    if ($(e.target).closest('a[href="#"], button').length || $(e.target).closest('a[href]') && (this.cls || !this.target.is(':visible'))) {
+                        e.preventDefault();
+                    }
+
+                    this.toggle();
+                }
+
+            }
+        ],
 
         update: {
 
             write() {
+
+                this.target = this.target || this.href || this.$el;
 
                 if (this.mode !== 'media' || !this.media) {
                     return;

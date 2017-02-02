@@ -27,27 +27,39 @@ export default function (UIkit) {
             queued: true
         },
 
-        ready() {
+        events: [
 
-            this.$el.on('click', `${this.toggle}:not(.uk-disabled)`, e => {
-                e.preventDefault();
-                this.show(e.currentTarget);
-            });
+            {
 
-        },
+                name: 'click',
+
+                delegate() {
+                    return `${this.toggle}:not(.uk-disabled)`;
+                },
+
+                handler(e) {
+                    e.preventDefault();
+                    this.show(e.currentTarget);
+                }
+
+            }
+
+        ],
 
         update() {
 
             this.toggles = $(this.toggle, this.$el);
             this.connects = this.connect || $(this.$el.next(`.${this.clsContainer}`));
 
-            this.connects.off('click', `[${this.attrItem}]`).on('click', `[${this.attrItem}]`, e => {
+            var click = `click.${this.$options.name}`;
+            this.connects.off(click).on(click, `[${this.attrItem}],[data-${this.attrItem}]`, e => {
                 e.preventDefault();
-                this.show($(e.currentTarget).attr(this.attrItem));
+                this.show($(e.currentTarget)[e.currentTarget.hasAttribute(this.attrItem) ? 'attr' : 'data'](this.attrItem));
             });
 
             if (this.swiping) {
-                this.connects.off('swipeRight swipeLeft').on('swipeRight swipeLeft', e => {
+                var swipe = `swipeRight.${this.$options.name} swipeLeft.${this.$options.name}`;
+                this.connects.off(swipe).on(swipe, e => {
                     e.preventDefault();
                     if (!window.getSelection().toString()) {
                         this.show(e.type == 'swipeLeft' ? 'next' : 'previous');

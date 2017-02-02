@@ -24,12 +24,16 @@ export default function (UIkit) {
             exclude: ['src']
         },
 
+        init() {
+            this.class += ' uk-svg';
+        },
+
         connected() {
 
             this.svg = promise((resolve, reject) => {
                 this._resolver = resolve;
                 this._rejecter = reject;
-            }).catch(e => {});
+            }).catch(() => {});
 
             this.$emitSync();
         },
@@ -43,7 +47,7 @@ export default function (UIkit) {
             }
 
             if (this.svg) {
-                this.svg.then(svg => svg.remove());
+                this.svg.then(svg => svg && svg.remove());
                 this.svg = null;
             }
         },

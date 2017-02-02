@@ -45,7 +45,7 @@ export default function (UIkit) {
                     .css({width: '', height: ''})
                     .css(Dimensions.cover(
                         {width: this.width || this.$el.width(), height: this.height || this.$el.height()},
-                        {width: this.$el.parent().width(), height: this.$el.parent().height()}
+                        {width: this.$el.parent().outerWidth(), height: this.$el.parent().outerHeight()}
                     ));
 
             },

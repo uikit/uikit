@@ -53,20 +53,8 @@ export default function (UIkit) {
         var name;
 
         if (node[DATA]) {
-
-            if (!~UIkit.elements.indexOf(node)) {
-                UIkit.elements.push(node);
-            }
-
             for (name in node[DATA]) {
-
-                var component = node[DATA][name];
-
-                if (!(component._uid in UIkit.instances)) {
-                    UIkit.instances[component._uid] = component;
-                }
-
-                component._callHook('connected');
+                node[DATA][name]._callConnected();
             }
         }
 
@@ -87,21 +75,9 @@ export default function (UIkit) {
     };
 
     UIkit.disconnect = node => {
-
-        var index = UIkit.elements.indexOf(node);
-
-        if (~index) {
-            UIkit.elements.splice(index, 1);
-        }
-
         for (var name in node[DATA]) {
-            var component = node[DATA][name];
-            if (component._uid in UIkit.instances) {
-                delete UIkit.instances[component._uid];
-                component._callHook('disconnected');
-            }
+            node[DATA][name]._callDisconnected();
         }
-
     }
 
 }

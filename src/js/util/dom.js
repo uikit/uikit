@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, each, extend, getContextSelectors, isNumber, isString, toJQuery, transitionend, requestAnimationFrame } from './index';
+import { animationend, each, extend, getContextSelectors, isNumber, isString, promise, requestAnimationFrame, toJQuery, transitionend } from './index';
 
 export const win = $(window);
 export const doc = $(document);
@@ -38,45 +38,50 @@ export function off(el, type, listener, useCapture) {
 
 export function transition(element, props, duration = 400, transition = 'linear') {
 
-    var d = $.Deferred();
+    var p = promise((resolve, reject) => {
 
-    element = $(element);
+        element = $(element);
 
-    for (var name in props) {
-        element.css(name, element.css(name));
-    }
+        for (var name in props) {
+            element.css(name, element.css(name));
+        }
 
-    let timer = setTimeout(() => element.trigger(transitionend || 'transitionend'), duration);
+        let timer = setTimeout(() => element.trigger(transitionend || 'transitionend'), duration);
 
-    element
-        .one(transitionend || 'transitionend', (e, cancel) => {
-            clearTimeout(timer);
-            element.removeClass('uk-transition').css('transition', '');
-            if (!cancel) {
-                d.resolve();
-            } else {
-                d.reject();
-            }
-        })
-        .addClass('uk-transition')
-        .css('transition', `all ${duration}ms ${transition}`)
-        .css(props);
+        element
+            .one(transitionend || 'transitionend', (e, cancel) => {
 
-    return d.promise();
+                e.promise = p;
+
+                clearTimeout(timer);
+                element.removeClass('uk-transition').css('transition', '');
+                if (!cancel) {
+                    resolve();
+                } else {
+                    reject();
+                }
+            })
+            .addClass('uk-transition')
+            .css('transition', `all ${duration}ms ${transition}`)
+            .css(props);
+
+    }).catch(() => {});
+
+    return p;
 }
 
 export const Transition = {
 
     start: transition,
 
-    stop(element) {
-        $(element).trigger(transitionend || 'transitionend');
-        return this;
+    stop(element, cancel) {
+        var e = $.Event(transitionend || 'transitionend');
+        $(element).triggerHandler(e, [cancel]);
+        return e.promise || promise.resolve();
     },
 
     cancel(element) {
-        $(element).trigger(transitionend || 'transitionend', [true]);
-        return this;
+        return this.stop(element, true);
     },
 
     inProgress(element) {
@@ -87,39 +92,47 @@ export const Transition = {
 
 export function animate(element, animation, duration = 200, origin, out) {
 
-    var d = $.Deferred(), cls = out ? 'uk-animation-leave' : 'uk-animation-enter';
+    var p = promise(resolve => {
 
-    element = $(element);
+        var cls = out ? 'uk-animation-leave' : 'uk-animation-enter';
 
-    if (animation.lastIndexOf('uk-animation-', 0) === 0) {
+        element = $(element);
 
-        if (origin) {
-            animation += ` uk-animation-${origin}`;
+        if (animation.lastIndexOf('uk-animation-', 0) === 0) {
+
+            if (origin) {
+                animation += ` uk-animation-${origin}`;
+            }
+
+            if (out) {
+                animation += ' uk-animation-reverse';
+            }
+
         }
 
-        if (out) {
-            animation += ' uk-animation-reverse';
+        reset();
+
+        element
+            .one(animationend || 'animationend', e => {
+                e.promise = p;
+                p.then(reset);
+                resolve();
+            })
+            .css('animation-duration', `${duration}ms`)
+            .addClass(animation)
+            .addClass(cls);
+
+        if (!animationend) {
+            requestAnimationFrame(() => Animation.cancel(element));
         }
 
-    }
+        function reset() {
+            element.css('animation-duration', '').removeClass(`${cls} ${animation}`);
+        }
 
-    reset();
+    });
 
-    element
-        .one(animationend || 'animationend', () => d.resolve().then(reset))
-        .css('animation-duration', `${duration}ms`)
-        .addClass(animation)
-        .addClass(cls);
-
-    if (!animationend) {
-        requestAnimationFrame(() => Animation.cancel(element));
-    }
-
-    return d.promise();
-
-    function reset() {
-        element.css('animation-duration', '').removeClass(`${cls} ${animation}`);
-    }
+    return p;
 }
 
 export const Animation = {
@@ -137,8 +150,9 @@ export const Animation = {
     },
 
     cancel(element) {
-        $(element).trigger(animationend || 'animationend');
-        return $.Deferred().resolve();
+        var e = $.Event(animationend || 'animationend');
+        $(element).triggerHandler(e);
+        return e.promise || promise.resolve();
     }
 
 };

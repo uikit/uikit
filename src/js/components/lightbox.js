@@ -39,23 +39,48 @@ UIkit.component('lightbox', {
 
     ready() {
 
-        this.toggles = $(this.toggle, this.$el);
-
-        this.toggles.each((i, el) => {
-            el = $(el);
-            this.items.push({
-                source: el.attr('href'),
-                title: el.attr('title'),
-                type: el.attr('type')
-            })
-        });
-
-        this.$el.on('click', `${this.toggle}:not(.uk-disabled)`, e => {
-            e.preventDefault();
-            this.show(this.toggles.index(e.currentTarget));
-        });
+        this.toggles = $(this.toggle, this.$el).each((_, el) => this.items.push({
+            source: el.getAttribute('href'),
+            title: el.getAttribute('title'),
+            type: el.getAttribute('type')
+        }));
 
     },
+
+    events: [
+
+        {
+
+            name: 'click',
+
+            delegate() {
+                return `${this.toggle}:not(.uk-disabled)`;
+            },
+
+            handler(e) {
+                e.preventDefault();
+                this.show(this.toggles.index(e.currentTarget));
+            }
+
+        },
+
+        {
+
+            name: 'showitem',
+
+            handler(e) {
+
+                var item = this.getItem();
+
+                if (item.content) {
+                    this.$update();
+                    e.stopImmediatePropagation();
+                }
+            }
+
+        }
+
+    ],
 
     update: {
 
@@ -96,20 +121,6 @@ UIkit.component('lightbox', {
         },
 
         events: ['resize', 'orientationchange']
-
-    },
-
-    events: {
-
-        showitem(e) {
-
-            var item = this.getItem();
-
-            if (item.content) {
-                this.$update();
-                e.stopImmediatePropagation();
-            }
-        }
 
     },
 

@@ -1,6 +1,6 @@
 import { container, mixin, util } from 'uikit';
 
-var {$, docElement: doc, extend, isWithin, Observer, on, off, pointerDown, pointerMove, pointerUp, win} = util;
+var {$, docElement: doc, extend, isWithin, on, off, pointerDown, pointerMove, pointerUp, win} = util;
 
 UIkit.component('sortable', {
 
@@ -50,21 +50,19 @@ UIkit.component('sortable', {
         });
     },
 
-    connected() {
+    events: {
 
-        on(this.$el, pointerDown, this.init);
-
-        if (this.clsEmpty) {
-            var empty = () => this.$el.toggleClass(this.clsEmpty, !this.$el.children().length);
-            (this._observer = new Observer(empty)).observe(this.$el[0], {childList: true});
-            empty();
-        }
+        [pointerDown]: 'init'
 
     },
 
     update: {
 
         write() {
+
+            if (this.clsEmpty) {
+                this.$el.toggleClass(this.clsEmpty, !this.$el.children().length);
+            }
 
             if (!this.drag) {
                 return;
@@ -303,15 +301,6 @@ UIkit.component('sortable', {
 
         }
 
-    },
-
-    disconnected() {
-
-        off(this.$el, pointerDown, this.init);
-
-        if (this._observer) {
-            this._observer.disconnect()
-        }
     }
 
 });

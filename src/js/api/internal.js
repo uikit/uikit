@@ -11,8 +11,6 @@ export default function (UIkit) {
         options = options || {};
         options = this.$options = mergeOptions(this.constructor.options, options, this);
 
-        UIkit.instances[uid] = this;
-
         this.$el = null;
         this.$name = UIkit.prefix + hyphenate(this.$options.name);
 
@@ -121,28 +119,54 @@ export default function (UIkit) {
         }
     };
 
-    UIkit.prototype._initEvents = function () {
+    UIkit.prototype._initEvents = function (unbind) {
 
         var events = this.$options.events,
-            register = (name, fn) => this.$el.on(name, isString(fn) ? this[fn] : bind(fn, this));
+            connect = (key, event) => {
 
-        if (events) {
-            for (var key in events) {
-
-                if (isArray(events[key])) {
-                    events[key].forEach(event => register(key, event));
-                } else {
-                    register(key, events[key]);
+                if (!isPlainObject(event)) {
+                    event = ({name: key, handler: event});
                 }
 
-            }
-        }
-    };
+                var {name, delegate, filter, handler} = event;
 
-    UIkit.prototype._callReady = function () {
-        this._isReady = true;
-        this._callHook('ready');
-        this._callUpdate();
+                name += `.${this.$options.name}`;
+
+                if (unbind) {
+
+                    this.$el.off(name);
+
+                } else {
+
+                    if (filter && !filter.call(this)) {
+                        return;
+                    }
+
+                    handler = isString(handler) ? this[handler] : bind(handler, this);
+
+                    if (delegate) {
+                        this.$el.on(name, isString(delegate) ? delegate : delegate.call(this), handler);
+                    } else {
+                        this.$el.on(name, handler);
+                    }
+                }
+
+            };
+
+        if (events) {
+
+            events.forEach(events => {
+
+                if (isArray(events)) {
+                    events.forEach((event, key) => connect(key, event));
+                } else {
+                    for (var key in events) {
+                        connect(key, events[key]);
+                    }
+                }
+
+            });
+        }
     };
 
     UIkit.prototype._callHook = function (hook) {
@@ -152,6 +176,51 @@ export default function (UIkit) {
         if (handlers) {
             handlers.forEach(handler => handler.call(this));
         }
+    };
+
+    UIkit.prototype._callReady = function () {
+        this._isReady = true;
+        this._callHook('ready');
+        this._callUpdate();
+    };
+
+    UIkit.prototype._callConnected = function () {
+
+        if (this._connected) {
+            return;
+        }
+
+        if (!~UIkit.elements.indexOf(this.$options.$el)) {
+            UIkit.elements.push(this.$options.$el);
+        }
+
+        UIkit.instances[this._uid] = this;
+
+        this._initEvents();
+        this._callHook('connected');
+
+        this._connected = true;
+
+    };
+
+    UIkit.prototype._callDisconnected = function () {
+
+        if (!this._connected) {
+            return;
+        }
+
+        var index = UIkit.elements.indexOf(this.$options.$el);
+
+        if (~index) {
+            UIkit.elements.splice(index, 1);
+        }
+
+        delete UIkit.instances[this._uid];
+
+        this._initEvents(true);
+        this._callHook('disconnected');
+
+        this._connected = false;
     };
 
     UIkit.prototype._callUpdate = function (e) {

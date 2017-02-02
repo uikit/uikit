@@ -25,41 +25,21 @@ strats.update = function (parentVal, childVal) {
 
 // events strategy
 strats.events = function (parentVal, childVal) {
-
-    if (!childVal) {
-        return parentVal;
-    }
-
-    if (!parentVal) {
-        return childVal;
-    }
-
-    var ret = extend({}, parentVal);
-
-    for (var key in childVal) {
-        var parent = ret[key], child = childVal[key];
-
-        if (parent && !isArray(parent)) {
-            parent = [parent]
-        }
-
-        ret[key] = parent
-            ? parent.concat(child)
-            : [child]
-    }
-
-    return ret;
+    return childVal
+        ? parentVal
+            ? parentVal.push(childVal) && parentVal
+            : [childVal]
+        : parentVal;
 };
 
 // property strategy
 strats.props = function (parentVal, childVal) {
 
     if (isArray(childVal)) {
-        var ret = {};
-        childVal.forEach(val => {
-            ret[val] = String;
-        });
-        childVal = ret;
+        childVal = childVal.reduce((value, key) => {
+            value[key] = String;
+            return value;
+        }, {});
     }
 
     return strats.methods(parentVal, childVal);

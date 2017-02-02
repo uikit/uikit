@@ -24,10 +24,37 @@ export function promise(executor) {
 
     var def = $.Deferred();
 
+    if (!def.catch) {
+        def.catch = function (fn) {
+            return this.then(null, fn);
+        }
+    }
+
     executor(def.resolve, def.reject);
 
     return def;
 }
+
+promise.resolve = function (value) {
+    return promise(function (resolve) {
+        resolve(value);
+    });
+};
+
+promise.reject = function (value) {
+    return promise(function (_, reject) {
+        reject(value);
+    });
+};
+
+promise.all = function (iterable) {
+
+    if (!isUndefined(window.Promise)) {
+        return window.Promise.all(iterable);
+    }
+
+    return $.when.apply($, iterable);
+};
 
 export function classify(str) {
     return str.replace(/(?:^|[-_\/])(\w)/g, (_, c) => c ? c.toUpperCase() : '');

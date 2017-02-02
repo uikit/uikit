@@ -1,4 +1,4 @@
-import { $, Animation, extend, isString, Transition } from '../util/index';
+import { $, Animation, extend, isString, promise, Transition } from '../util/index';
 
 export default {
 
@@ -62,7 +62,7 @@ export default {
         toggleElement(targets, show, animate) {
 
             var toggles, body = document.body, scroll = body.scrollTop,
-                all = targets => $.when.apply($, targets.toArray().map(el => this._toggleElement(el, show, animate))),
+                all = targets => promise.all(targets.toArray().map(el => this._toggleElement(el, show, animate))).catch(() => {}),
                 delay = targets => {
                     var def = all(targets);
                     this.queued = true;
@@ -86,7 +86,7 @@ export default {
         },
 
         toggleNow(targets, show) {
-            $(targets).each((_, el) => this._toggleElement(el, show, false));
+            return promise.all($(targets).toArray().map(el => this._toggleElement(el, show, false))).catch(() => {});
         },
 
         isToggled(el) {
@@ -104,8 +104,6 @@ export default {
 
             el = $(el);
 
-            var deferred;
-
             if (Animation.inProgress(el)) {
                 return Animation.cancel(el).then(() => this._toggleElement(el, show, animate));
             }
@@ -116,10 +114,10 @@ export default {
             el.trigger(event, [this]);
 
             if (event.result === false) {
-                return $.Deferred().reject();
+                return promise.reject();
             }
 
-            deferred = (this.animation === true && animate !== false
+            var promise = (this.animation === true && animate !== false
                 ? this._toggleHeight
                 : this.animation && animate !== false
                     ? this._toggleAnimation
@@ -127,7 +125,7 @@ export default {
             )(el, show);
 
             el.trigger(show ? 'show' : 'hide', [this]);
-            return deferred.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
+            return promise.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
         },
 
         _toggle(el, toggled) {
@@ -148,7 +146,7 @@ export default {
 
         _toggleImmediate(el, show) {
             this._toggle(el, show);
-            return $.Deferred().resolve();
+            return promise.resolve();
         },
 
         _toggleHeight(el, show) {
@@ -158,22 +156,24 @@ export default {
                 height = el[0].offsetHeight ? el.height() + (inProgress ? 0 : inner) : 0,
                 endHeight;
 
-            Transition.cancel(el);
+            return Transition.cancel(el).then(() => {
 
-            if (!this.isToggled(el)) {
-                this._toggle(el, true);
-            }
+                if (!this.isToggled(el)) {
+                    this._toggle(el, true);
+                }
 
-            el.css('height', '');
-            endHeight = el.height() + (inProgress ? 0 : inner);
-            el.height(height);
+                el.css('height', '');
+                endHeight = el.height() + (inProgress ? 0 : inner);
+                el.height(height);
 
-            return show
-                ? Transition.start(el, extend(this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
-                : Transition.start(el, this.hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
-                        this._toggle(el, false);
-                        el.css(this.initProps);
-                    });
+                return show
+                    ? Transition.start(el, extend(this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
+                    : Transition.start(el, this.hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
+                            this._toggle(el, false);
+                            el.css(this.initProps);
+                        });
+
+            });
 
         },
 
