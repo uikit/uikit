@@ -47,7 +47,7 @@ export default function (UIkit) {
             }
 
             if (this.svg) {
-                this.svg.then(svg => svg.remove());
+                this.svg.then(svg => svg && svg.remove());
                 this.svg = null;
             }
         },
