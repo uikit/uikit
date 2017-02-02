@@ -1,4 +1,4 @@
-import { $ } from '../util/index';
+import { $, hasTouch } from '../util/index';
 
 export default function (UIkit) {
 
@@ -21,6 +21,10 @@ export default function (UIkit) {
             mode: 'click',
             queued: true,
             media: false
+        },
+
+        init() {
+            this.mode = hasTouch && this.mode == 'hover' ? 'click' : this.mode;
         },
 
         events: [
