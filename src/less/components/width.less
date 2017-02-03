@@ -38,14 +38,21 @@
 .uk-child-width-1-6 > * { width: ~'calc(100% * 1 / 6)'; }
 
 .uk-child-width-auto > * { width: auto; }
-.uk-child-width-expand > * { width: 0; }
 
 /*
- * 1. Make `width: 0` work, because according to the spec flex items won’t shrink
+ *    Instead of 0, 1px is needed to make cell wrap into next row if predecessor is 100% wide
+ *    and the grid gutter is 0 pixels wide
+ */
+
+.uk-child-width-expand > * { width: 1px; }
+
+/*
+ * 1. Make `width: 1px` work, because according to the spec flex items won’t shrink
  *    below their minimum content size. To change this, set the min-width.
  *    Only needed for Firefox. All other browsers ignore this.
  *
- *    1px is needed to make cell wrap into next row if predecessor is 100% wide
+ * 2. `width` is ignored when wrapping flex items in Safari
+ *    https://github.com/philipwalton/flexbugs#11-min-and-max-size-declarations-are-ignored-when-wrapping-flex-items
  */
 
 .uk-child-width-expand > :not([class*='uk-width']) {
@@ -53,7 +60,9 @@
     -webkit-flex: 1;
     flex: 1;
     /* 1 */
-    min-width: 1px;
+    min-width: 0;
+    /* 2 */
+    flex-basis: 1px;
 }
 
 /* Phone landscape and bigger */
@@ -67,13 +76,14 @@
     .uk-child-width-1-6\@s > * { width: ~'calc(100% * 1 / 6)'; }
 
     .uk-child-width-auto\@s > * { width: auto; }
-    .uk-child-width-expand\@s > * { width: 0; }
+    .uk-child-width-expand\@s > * { width: 1px; }
 
     .uk-child-width-expand\@s > :not([class*='uk-width']) {
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        min-width: 1px;
+        min-width: 0;
+        flex-basis: 1px;
     }
 
 }
@@ -89,13 +99,14 @@
     .uk-child-width-1-6\@m > * { width: ~'calc(100% * 1 / 6)'; }
 
     .uk-child-width-auto\@m > * { width: auto; }
-    .uk-child-width-expand\@m > * { width: 0; }
+    .uk-child-width-expand\@m > * { width: 1px; }
 
     .uk-child-width-expand\@m > :not([class*='uk-width']) {
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        min-width: 1px;
+        min-width: 0;
+        flex-basis: 1px;
     }
 
 }
@@ -111,13 +122,14 @@
     .uk-child-width-1-6\@l > * { width: ~'calc(100% * 1 / 6)'; }
 
     .uk-child-width-auto\@l > * { width: auto; }
-    .uk-child-width-expand\@l > * { width: 0; }
+    .uk-child-width-expand\@l > * { width: 1px; }
 
     .uk-child-width-expand\@l > :not([class*='uk-width']) {
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        min-width: 1px;
+        min-width: 0;
+        flex-basis: 1px;
     }
 
 }
@@ -133,13 +145,14 @@
     .uk-child-width-1-6\@xl > * { width: ~'calc(100% * 1 / 6)'; }
 
     .uk-child-width-auto\@xl > * { width: auto; }
-    .uk-child-width-expand\@xl > * { width: 0; }
+    .uk-child-width-expand\@xl > * { width: 1px; }
 
     .uk-child-width-expand\@xl > :not([class*='uk-width']) {
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        min-width: 1px;
+        min-width: 0;
+        flex-basis: 1px;
     }
 
 }
@@ -192,11 +205,12 @@
 
 /* Expand */
 .uk-width-expand {
-    width: 0;
+    width: 1px;
     -ms-flex: 1;
     -webkit-flex: 1;
     flex: 1;
-    min-width: 1px;
+    min-width: 0;
+    flex-basis: 1px;
 }
 
 /* Phone landscape and bigger */
@@ -238,11 +252,12 @@
 
     /* Expand */
     .uk-width-expand\@s {
-        width: 0;
+        width: 1px;
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        min-width: 1px;
+        min-width: 0;
+        flex-basis: 1px;
     }
 
 }
@@ -286,11 +301,12 @@
 
     /* Expand */
     .uk-width-expand\@m {
-        width: 0;
+        width: 1px;
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        min-width: 1px;
+        min-width: 0;
+        flex-basis: 1px;
     }
 
 }
@@ -334,11 +350,12 @@
 
     /* Expand */
     .uk-width-expand\@l {
-        width: 0;
+        width: 1px;
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        min-width: 1px;
+        min-width: 0;
+        flex-basis: 1px;
     }
 
 }
@@ -382,11 +399,12 @@
 
     /* Expand */
     .uk-width-expand\@xl {
-        width: 0;
+        width: 1px;
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
-        min-width: 1px;
+        min-width: 0;
+        flex-basis: 1px;
     }
 
 }

@@ -21,8 +21,7 @@ glob('dist/**/*.js', (err, files) =>
     files.forEach(file =>
         fs.readFile(file, 'utf8', (err, data) => {
 
-            data = data.replace(/(uk-([a-z\d\-]+))/g, `${prefix}-$2`)
-                       .replace(/data-uk-/g, `data-${prefix}-`)
+            data = data.replace(/uk-/g, `${prefix}-`)
                        .replace(/UIkit/g, `${prefix}UIkit`);
 
             fs.writeFile(file, data, err => err && console.log(err));
