@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix beta 8 regression with missing class in Navbar component
+
 ## 3.0.0 beta 9 (February 3, 2017)
 
 ### Fixed
