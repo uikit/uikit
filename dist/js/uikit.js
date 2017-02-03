@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.8 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.9 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
@@ -3940,7 +3940,7 @@ function Scrollspy (UIkit) {
             {
 
                 read: function read() {
-                    this.elements = $__default(this.target || this.$el);
+                    this.elements = this.target && $__default(this.target, this.$el) || this.$el;
                 },
 
                 write: function write() {
@@ -5074,7 +5074,7 @@ if (typeof module !== 'undefined') {
 
 return UIkit$1;
 
-})));/*! UIkit 3.0.0-beta.8 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.9 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5415,7 +5415,7 @@ UIkit.mixin({
 
 }, 'lightbox');
 
-})));/*! UIkit 3.0.0-beta.8 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.9 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5525,7 +5525,7 @@ UIkit.notification.closeAll = function (group, immediate) {
     })
 };
 
-})));/*! UIkit 3.0.0-beta.8 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.9 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5874,7 +5874,7 @@ function preventClick() {
     on(doc, 'click', listener, true);
 }
 
-})));/*! UIkit 3.0.0-beta.8 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.9 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
@@ -5963,7 +5963,7 @@ UIkit.component('tooltip', {
 
 });
 
-})));/*! UIkit 3.0.0-beta.8 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.9 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(require('uikit')) :
