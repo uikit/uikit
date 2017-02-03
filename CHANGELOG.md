@@ -6,6 +6,7 @@
 
 - Fix prefixed Javascript not working
 - Fix beta 8 regression with Scrollspy targets
+- Fix width-expand not wrapping into next row in rare cases in Safari
 
 ## 3.0.0 beta 8 (February 2, 2017)
 
