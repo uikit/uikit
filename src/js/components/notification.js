@@ -14,6 +14,8 @@ UIkit.component('notification', {
         message: '',
         status: '',
         timeout: 5000,
+        duration: 500,
+        transition: 'linear',
         group: null,
         pos: 'top-center',
         onClose: null
@@ -40,7 +42,7 @@ UIkit.component('notification', {
 
         Transition.start(
             this.$el.css({opacity: 0, marginTop: -1 * this.$el.outerHeight(), marginBottom: 0}),
-            {opacity: 1, marginTop: 0, marginBottom}
+            {opacity: 1, marginTop: 0, marginBottom: marginBottom}, this.duration, this.transition
         ).then(() => {
             if (this.timeout) {
                 this.timer = setTimeout(this.close, this.timeout);
@@ -83,7 +85,7 @@ UIkit.component('notification', {
             if (immediate) {
                 remove();
             } else {
-                Transition.start(this.$el, {opacity: 0, marginTop: -1 * this.$el.outerHeight(), marginBottom: 0}).then(remove)
+                Transition.start(this.$el, {opacity: 0, marginTop: -1 * this.$el.outerHeight(), marginBottom: 0}, this.duration, this.transition).then(remove)
             }
         }
 
