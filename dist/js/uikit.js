@@ -1350,11 +1350,7 @@ function internalAPI (UIkit) {
 
         if (args.length && $.isArray(data)) {
             data = data.slice(0, args.length).reduce(function (data, value, index) {
-                if ($.isPlainObject(value)) {
-                    $.extend(data, value);
-                } else {
-                    data[args[index]] = value;
-                }
+                data[args[index]] = value;
                 return data;
             }, {});
         }
@@ -3585,7 +3581,7 @@ function Navbar (UIkit) {
 
             if (this.dropbar) {
                 this.dropbar = query(this.dropbar, this.$el) || $__default('<div></div>').insertAfter(this.dropbarAnchor || this.$el);
-                UIkit.navbarDropbar(this.dropbar, {clsDrop: this.clsDrop, mode: this.dropbarMode, duration: this.duration, navbar: this});
+                UIkit.navbarDropbar(this.dropbar, {mode: this.dropbarMode, duration: this.duration, navbar: this});
             }
 
         },
@@ -3636,7 +3632,6 @@ function Navbar (UIkit) {
         mixins: [Class],
 
         defaults: {
-            clsDrop: '',
             mode: 'slide',
             navbar: null,
             duration: 200
@@ -3664,7 +3659,7 @@ function Navbar (UIkit) {
             beforeshow: function beforeshow(e, ref) {
                 var $el = ref.$el;
 
-                this.clsDrop && $el.addClass(((this.clsDrop) + "-dropbar"));
+                $el.addClass(((this.clsDrop) + "-dropbar"));
                 this.transitionTo($el.outerHeight(true));
             },
 
@@ -5444,8 +5439,6 @@ UIkit.component('notification', {
         message: '',
         status: '',
         timeout: 5000,
-        duration: 500,
-        transition: 'linear',
         group: null,
         pos: 'top-center',
         onClose: null
@@ -5471,7 +5464,7 @@ UIkit.component('notification', {
 
         Transition.start(
             this.$el.css({opacity: 0, marginTop: -1 * this.$el.outerHeight(), marginBottom: 0}),
-            {opacity: 1, marginTop: 0, marginBottom: marginBottom}, this.duration, this.transition
+            {opacity: 1, marginTop: 0, marginBottom: marginBottom}
         ).then(function () {
             if (this$1.timeout) {
                 this$1.timer = setTimeout(this$1.close, this$1.timeout);
@@ -5516,7 +5509,7 @@ UIkit.component('notification', {
             if (immediate) {
                 remove();
             } else {
-                Transition.start(this.$el, {opacity: 0, marginTop: -1 * this.$el.outerHeight(), marginBottom: 0}, this.duration, this.transition).then(remove)
+                Transition.start(this.$el, {opacity: 0, marginTop: -1 * this.$el.outerHeight(), marginBottom: 0}).then(remove)
             }
         }
 
