@@ -6,6 +6,10 @@
 
 - Height Viewport component supports selector for Offset Bottom option
 
+### Changed
+
+- Percentage value for Offset Bottom in Height Viewport component is calculated against the whole viewport 
+
 ### Fixed
 
 - Fix Notification component initialization

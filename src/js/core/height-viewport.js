@@ -52,7 +52,7 @@ export default function (UIkit) {
 
                     } else if (isNumeric(this.offsetBottom)) {
 
-                        offset += ((viewport - offset) / 100) * this.offsetBottom;
+                        offset += (viewport / 100) * this.offsetBottom;
 
                     } else if (this.offsetBottom && this.offsetBottom.substr(-2) === 'px') {
 
