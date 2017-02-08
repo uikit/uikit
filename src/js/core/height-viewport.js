@@ -50,7 +50,6 @@ export default function (UIkit) {
 
                         offset += this.$el.next().outerHeight() || 0;
 
-
                     } else if (isNumeric(this.offsetBottom)) {
 
                         offset += ((viewport - offset) / 100) * this.offsetBottom;
