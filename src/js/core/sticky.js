@@ -33,6 +33,10 @@ export default function (UIkit) {
             target: false
         },
 
+        init() {
+            this.$el.addClass(this.clsInactive);
+        },
+
         connected() {
             this.placeholder = $('<div class="uk-sticky-placeholder"></div>').insertAfter(this.$el).attr('hidden', true);
             this._widthElement = this.widthElement || this.placeholder;
