@@ -1,4 +1,4 @@
-import { isNumeric } from '../util/index';
+import { isNumeric, isString, query } from '../util/index';
 
 export default function (UIkit) {
 
@@ -50,9 +50,15 @@ export default function (UIkit) {
 
                         offset += this.$el.next().outerHeight() || 0;
 
+
                     } else if (isNumeric(this.offsetBottom)) {
 
-                        offset += ((viewport - offset) / 100) * this.offsetBottom
+                        offset += ((viewport - offset) / 100) * this.offsetBottom;
+
+                    } else if (isString(this.offsetBottom)) {
+
+                        var el = query(this.offsetBottom, this.$el);
+                        offset += el && el.outerHeight() || 0;
 
                     } else if (this.offsetBottom && this.offsetBottom.substr(-2) === 'px') {
 

@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Height Viewport component supports selector for Offset Bottom option
+
 ### Fixed
 
 - Fix Notification component initialization
