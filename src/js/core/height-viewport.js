@@ -55,14 +55,14 @@ export default function (UIkit) {
 
                         offset += ((viewport - offset) / 100) * this.offsetBottom;
 
+                    } else if (this.offsetBottom && this.offsetBottom.substr(-2) === 'px') {
+
+                        offset += parseFloat(this.offsetBottom);
+
                     } else if (isString(this.offsetBottom)) {
 
                         var el = query(this.offsetBottom, this.$el);
                         offset += el && el.outerHeight() || 0;
-
-                    } else if (this.offsetBottom && this.offsetBottom.substr(-2) === 'px') {
-
-                        offset += parseFloat(this.offsetBottom);
 
                     }
 
