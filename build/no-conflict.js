@@ -26,7 +26,7 @@ glob('dist/**/*.css', (err, files) =>
 
                             data = data.replace(/\.uk-noconflict \{(.|[\r\n])*?\}/, '')
                                        .replace(`.uk-noconflict html`, `.uk-noconflict`)
-                                       .replace(/\.uk-noconflict\s(\.(uk-(drag|modal-page)))/g, '$1');
+                                       .replace(/\.uk-noconflict\s(\.(uk-(drag|modal-page|offcanvas-page)))/g, '$1');
 
                             fs.writeFile(file, data);
                         });
