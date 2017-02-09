@@ -100,9 +100,8 @@ UIkit.component('lightbox', {
                 },
                 newDim = Dimensions.fit({width: item.width, height: item.height}, max);
 
-            Transition
-                .stop(panel)
-                .stop(this.modal.content);
+            Transition.stop(panel);
+            Transition.stop(this.modal.content);
 
             if (this.modal.content) {
                 this.modal.content.remove();
