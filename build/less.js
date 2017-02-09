@@ -41,8 +41,6 @@ glob.sync('custom/*.less').forEach(file => {
             paths: ['custom/']
         }).then(output => {
 
-            file = file.replace(/\.less$/, '.css');
-
             fs.writeFile(dist, output.css, err => {
 
                 if (err) {
