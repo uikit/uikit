@@ -10,6 +10,7 @@ var src = `${dist}/uikit.js`;
 glob(`${dist}/components/**/!(*.min).js`, (err, files) => {
 
     concat([`${dist}/uikit-core.js`].concat(files), src, err => {
+
         if (err) {
             throw err;
         }

@@ -9,18 +9,6 @@ glob('dist/css/{uikit-core,uikit}.css', (err, files) => {
             advanced: false,
             keepSpecialComments: 0,
             rebase: false
-        }).minify([file], (err, minified) => {
-
-            var dist = `${file.substr(0, file.length - 4)}.min${file.substr(-4)}`;
-
-            fs.writeFile(dist, minified.styles, err => {
-
-                if (err) {
-                    throw err;
-                }
-
-                console.log(`${util.cyan(dist)} ${util.getSize(fs.readFileSync(dist))}`);
-            });
-        });
+        }).minify([file], (err, minified) => util.write(`${file.substr(0, file.length - 4)}.min${file.substr(-4)}`, minified.styles));
     })
 });

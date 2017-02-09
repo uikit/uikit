@@ -5,6 +5,18 @@ var banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2016 Y
 
 exports.banner = banner;
 
+exports.read = function(file, callback) {
+    return fs.readFile(file, 'utf8', (err, data) => {
+
+        if (err) {
+            throw err;
+        }
+
+        callback(data);
+
+    });
+};
+
 exports.write = function (dest, code) {
     return new Promise((resolve, reject) =>
         fs.writeFile(dest, code, err => {
@@ -15,6 +27,11 @@ exports.write = function (dest, code) {
             resolve();
         })
     );
+};
+
+exports.writeSync = function (dest, code) {
+    fs.writeFileSync(dest, code);
+    console.log(`${exports.cyan(dest)} ${exports.getSize(code)}`);
 };
 
 exports.getSize = function (code) {

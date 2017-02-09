@@ -1,61 +1,40 @@
 var fs = require('fs');
-var util = require('./util');
 var glob = require('glob');
 var less = require('less');
+var path = require('path');
+var {read, write, writeSync} = require('./util');
 
-var write = util.write;
-
-glob(`dist/css/!(*.min).css`, (err, files) =>
-    files.forEach(file =>
-        fs.readFile(file, 'utf8', (err, data) =>
-            fs.writeFile(file, data.replace(/\.\.\/dist\//g, ''), err =>
-                err && console.log(err)
-            )
-        )
-    )
-);
-
-// build custom/*
-if (!fs.existsSync('themes.json') && !fs.existsSync('custom')) {
-    return write('themes.json', '{}');
-}
-
-if (!fs.existsSync('custom')) {
-    return;
-}
-
-var themes = {};
+var themes = {}, promises = [];
 
 glob.sync('custom/*.less').forEach(file => {
 
-    var theme = file.match(/custom\/(.*)\.less$/)[1],
-        dist = `dist/css/uikit.${theme}.css`;
+    var theme = path.basename(file, '.less'),
+        dist = `dist/css/uikit.${theme}.css`,
+        data = fs.readFileSync(file, 'utf8');
 
     themes[theme] = {file: `../${dist}`};
 
-    fs.readFile(file, 'utf8', (err, data) => {
+    promises.push(less.render(data, {
+        relativeUrls: true,
+        rootpath: '../../dist',
+        paths: ['custom/']
+    }).then(
+        output => writeSync(dist, output.css),
+        error => console.log(error)
+    ));
 
-        less.render(data, {
-            relativeUrls: true,
-            rootpath: '../custom/',
-            paths: ['custom/']
-        }).then(output => {
-
-            fs.writeFile(dist, output.css, err => {
-
-                if (err) {
-                    throw err;
-                }
-
-                console.log(`${util.cyan(dist)} ${util.getSize(output.css)}`);
-
-            });
-
-        }, error => console.log(error))
-    })
-    }
-);
+});
 
 if (Object.keys(themes).length) {
     write('themes.json', JSON.stringify(themes));
 }
+
+Promise.all(promises).then(() => {
+    glob(`dist/css/!(*.min).css`, (err, files) =>
+        files.forEach(file =>
+            read(file, data =>
+                write(file, data.replace(/\.\.\/dist\//g, ''))
+            )
+        )
+    );
+});

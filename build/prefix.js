@@ -2,6 +2,7 @@ var fs = require('fs');
 var path = require('path');
 var glob = require('glob');
 var args = require('minimist')(process.argv);
+var {read, write} = require('./util');
 
 let prefix = args.p || args.prefix || false;
 
@@ -11,21 +12,17 @@ if (!prefix) {
 
 glob('dist/**/*.css', (err, files) =>
     files.forEach(file =>
-        fs.readFile(file, 'utf8', (err, data) =>
-            fs.writeFile(file, data.replace(/(uk-([a-z\d\-]+))/g, `${prefix}-$2`), err => err && console.log(err))
+        read(file, data =>
+            write(file, data.replace(/(uk-([a-z\d\-]+))/g, `${prefix}-$2`)
+            )
         )
     )
 );
 
 glob('dist/**/*.js', (err, files) =>
     files.forEach(file =>
-        fs.readFile(file, 'utf8', (err, data) => {
-
-            data = data.replace(/uk-/g, `${prefix}-`)
-                       .replace(/UIkit/g, `${prefix}UIkit`);
-
-            fs.writeFile(file, data, err => err && console.log(err));
-
-        })
+        read(file, data =>
+            write(file, data.replace(/uk-/g, `${prefix}-`).replace(/UIkit/g, `${prefix}UIkit`))
+        )
     )
 );
