@@ -23,7 +23,7 @@ glob('dist/**/*.css', (err, files) =>
 
                 });
 
-            });
+            }, error => console.log(error));
 
         })
     )

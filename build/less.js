@@ -1,8 +1,9 @@
 var fs = require('fs');
-var exec = require('child_process').exec;
-var path = require('path');
-var write = require('./util').write;
+var util = require('./util');
 var glob = require('glob');
+var less = require('less');
+
+var write = util.write;
 
 glob(`dist/css/!(*.min).css`, (err, files) =>
     files.forEach(file =>
@@ -25,21 +26,37 @@ if (!fs.existsSync('custom')) {
 
 var themes = {};
 
-fs.readdirSync('custom').filter(file => path.join('custom', file).match(/\.less$/)).forEach(theme => {
+glob.sync('custom/*.less').forEach(file => {
 
-    theme = path.basename(theme, '.less');
+    var theme = file.match(/custom\/(.*)\.less$/)[1],
+        dist = `dist/css/uikit.${theme}.css`;
 
-    themes[theme] = {file: `../dist/css/uikit.${theme}.css`};
+    themes[theme] = {file: `../${dist}`};
 
-    exec(`lessc --relative-urls --rootpath=../custom/ custom/${theme}.less > dist/css/uikit.${theme}.css`, (error, stdout, stderr) => {
+    fs.readFile(file, 'utf8', (err, data) => {
 
-        if (stderr) {
-            console.log(`Error building: dist/css/uikit.${theme}.css `, stderr);
-        } else {
-            console.log(`dist/css/uikit.${theme}.css build `);
-        }
-    });
-});
+        less.render(data, {
+            relativeUrls: true,
+            rootpath: '../custom/',
+            paths: ['custom/']
+        }).then(output => {
+
+            file = file.replace(/\.less$/, '.css');
+
+            fs.writeFile(dist, output.css, err => {
+
+                if (err) {
+                    throw err;
+                }
+
+                console.log(`${util.cyan(dist)} ${util.getSize(output.css)}`);
+
+            });
+
+        }, error => console.log(error))
+    })
+    }
+);
 
 if (Object.keys(themes).length) {
     write('themes.json', JSON.stringify(themes));
