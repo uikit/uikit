@@ -14,7 +14,7 @@
     "compile": "npm run compile-less && npm run compile-js",
     "release": "npm run compile && node build/release",
     "prefix": "node build/prefix",
-    "no-conflict": "node build/no-conflict && node build/css-minify",
+    "scope": "node build/scope && node build/css-minify",
     "watch": "npm-watch",
     "test": "webpack-dev-server --inline --hot && open http://localhost:8080/tests/"
   },
