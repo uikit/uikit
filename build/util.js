@@ -1,19 +1,24 @@
 var fs = require('fs');
+var glob = require('glob');
+var CleanCSS = require('clean-css');
 var package = require('../package.json');
 var version = process.env.VERSION || package.version;
 var banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */\n`;
 
 exports.banner = banner;
 
-exports.read = function(file, callback) {
-    return fs.readFile(file, 'utf8', (err, data) => {
+exports.read = function (file, callback) {
+    return new Promise((resolve, reject) => {
+        fs.readFile(file, 'utf8', (err, data) => {
 
-        if (err) {
-            throw err;
-        }
+            if (err) {
+                return reject(err);
+            }
 
-        callback(data);
+            resolve(data);
+            callback && callback(data);
 
+        });
     });
 };
 
@@ -24,14 +29,9 @@ exports.write = function (dest, code) {
                 return reject(err);
             }
             console.log(`${exports.cyan(dest)} ${exports.getSize(code)}`);
-            resolve();
+            resolve(dest);
         })
     );
-};
-
-exports.writeSync = function (dest, code) {
-    fs.writeFileSync(dest, code);
-    console.log(`${exports.cyan(dest)} ${exports.getSize(code)}`);
 };
 
 exports.getSize = function (code) {
@@ -40,4 +40,32 @@ exports.getSize = function (code) {
 
 exports.cyan = function (str) {
     return `\x1b[1m\x1b[36m${str}\x1b[39m\x1b[22m`;
+};
+
+exports.makeRelative = function (files) {
+    return new Promise((resolve, reject) => {
+        glob(files, (err, files) =>
+            Promise.all(files.map(file =>
+                exports.read(file).then(data =>
+                    exports.write(file, data.replace(/\.\.\/dist\//g, ''))
+                )
+            )).then(resolve, reject)
+        );
+    });
+};
+
+exports.minify = function (files) {
+    return new Promise((resolve, reject) => {
+        glob(files, (err, files) => {
+            Promise.all(files.map(file =>
+                new Promise((resolve, reject) =>
+                    new CleanCSS({
+                        advanced: false,
+                        keepSpecialComments: 0,
+                        rebase: false
+                    }).minify([file], (err, minified) => exports.write(`${file.substr(0, file.length - 4)}.min${file.substr(-4)}`, minified.styles).then(resolve, reject))
+                )
+            )).then(resolve, reject)
+        });
+    });
 };

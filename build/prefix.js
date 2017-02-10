@@ -13,8 +13,7 @@ if (!prefix) {
 glob('dist/**/*.css', (err, files) =>
     files.forEach(file =>
         read(file, data =>
-            write(file, data.replace(/(uk-([a-z\d\-]+))/g, `${prefix}-$2`)
-            )
+            write(file, data.replace(/(uk-([a-z\d\-]+))/g, `${prefix}-$2`))
         )
     )
 );

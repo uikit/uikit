@@ -2,7 +2,7 @@ var fs = require('fs');
 var glob = require('glob');
 var less = require('less');
 var path = require('path');
-var {read, write, writeSync} = require('./util');
+var {makeRelative, write} = require('./util');
 
 var themes = {}, promises = [];
 
@@ -16,25 +16,17 @@ glob.sync('custom/*.less').forEach(file => {
 
     promises.push(less.render(data, {
         relativeUrls: true,
-        rootpath: '../../dist',
+        rootpath: '../../',
         paths: ['custom/']
     }).then(
-        output => writeSync(dist, output.css),
+        output => write(dist, output.css),
         error => console.log(error)
     ));
 
 });
 
+Promise.all(promises).then(() => makeRelative('dist/css/!(*.min).css'));
+
 if (Object.keys(themes).length) {
     write('themes.json', JSON.stringify(themes));
 }
-
-Promise.all(promises).then(() => {
-    glob(`dist/css/!(*.min).css`, (err, files) =>
-        files.forEach(file =>
-            read(file, data =>
-                write(file, data.replace(/\.\.\/dist\//g, ''))
-            )
-        )
-    );
-});

@@ -30,6 +30,6 @@ glob(`${src}/symbols/*.svg`, (err, files) =>
 // copy background's and component's svgs
 glob(`${src}/{backgrounds,components}/*.svg`, (err, files) =>
     files.forEach(file =>
-        util.writeSync(`${dist}/${path.basename(file)}`, fs.readFileSync(file))
+        util.write(`${dist}/${path.basename(file)}`, fs.readFileSync(file))
     )
 );
