@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.10 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.11 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
@@ -4505,7 +4505,7 @@ function Svg (UIkit) {
                 getSvg(this.src).then(function (doc) {
                     this$1._svg = doc;
                     this$1.$emit();
-                }, function (e) {});
+                }, function (e) { return console.log(e); });
             },
 
             write: function write() {
@@ -4604,70 +4604,70 @@ function Svg (UIkit) {
 
     });
 
-}
+    function getSrc(el) {
 
-function getSrc(el) {
+        var image = getBackgroundImage(el);
 
-    var image = getBackgroundImage(el);
+        if (!image) {
 
-    if (!image) {
+            el = el.clone().empty()
+                .attr({'uk-no-boot': '', style: ((el.attr('style')) + ";display:block !important;")})
+                .appendTo(document.body);
 
-        el = el.clone().empty()
-            .attr({'uk-no-boot': '', style: ((el.attr('style')) + ";display:block !important;")})
-            .appendTo(document.body);
+            image = getBackgroundImage(el);
 
-        image = getBackgroundImage(el);
-
-        // safari workaround
-        if (!image && el[0].tagName === 'CANVAS') {
-            var span = $__default(el[0].outerHTML.replace(/canvas/g, 'span')).insertAfter(el);
-            image = getBackgroundImage(span);
-            span.remove();
-        }
-
-        el.remove();
-
-    }
-
-    return image && image.slice(4, -1).replace(/"/g, '');
-}
-
-function getBackgroundImage(el) {
-    var image = getStyle(el[0], 'backgroundImage', '::before');
-    return image !== 'none' && image;
-}
-
-function getSvg(src) {
-
-    if (!svgs[src]) {
-        svgs[src] = promise(function (resolve, reject) {
-
-            if (src.lastIndexOf('data:', 0) === 0) {
-                resolve(parse(decodeURIComponent(src.split(',')[1])));
-            } else {
-
-                var key = "uikit_" + (UIkit.version) + "_" + src;
-
-                if (storage[key]) {
-                    resolve(parse(storage[key]));
-                } else {
-                    $__default.ajax(src, {dataType: 'html'}).then(function (doc) {
-                        storage[key] = doc;
-                        resolve(parse(doc));
-                    }, function () {
-                        reject('SVG not found.');
-                    });
-                }
+            // safari workaround
+            if (!image && el[0].tagName === 'CANVAS') {
+                var span = $__default(el[0].outerHTML.replace(/canvas/g, 'span')).insertAfter(el);
+                image = getBackgroundImage(span);
+                span.remove();
             }
 
-        });
+            el.remove();
+
+        }
+
+        return image && image.slice(4, -1).replace(/"/g, '');
     }
 
-    return svgs[src];
-}
+    function getBackgroundImage(el) {
+        var image = getStyle(el[0], 'backgroundImage', '::before');
+        return image !== 'none' && image;
+    }
 
-function parse(doc) {
-    return parser.parseFromString(doc, 'image/svg+xml');
+    function getSvg(src) {
+
+        if (!svgs[src]) {
+            svgs[src] = promise(function (resolve, reject) {
+
+                if (src.lastIndexOf('data:', 0) === 0) {
+                    resolve(parse(decodeURIComponent(src.split(',')[1])));
+                } else {
+
+                    var key = "uikit_" + (UIkit.version) + "_" + src;
+
+                    if (storage[key]) {
+                        resolve(parse(storage[key]));
+                    } else {
+                        $__default.ajax(src, {dataType: 'html'}).then(function (doc) {
+                            storage[key] = doc;
+                            resolve(parse(doc));
+                        }, function () {
+                            reject('SVG not found.');
+                        });
+                    }
+                }
+
+            });
+        }
+
+        return svgs[src];
+    }
+
+    function parse(doc) {
+        return parser.parseFromString(doc, 'image/svg+xml');
+    }
+
 }
 
 function Switcher (UIkit) {
@@ -5095,7 +5095,7 @@ boot(UIkit$1);
 
 return UIkit$1;
 
-})));/*! UIkit 3.0.0-beta.10 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.11 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -5450,7 +5450,7 @@ if (typeof window !== 'undefined' && window.UIkit) {
 
 return plugin;
 
-})));/*! UIkit 3.0.0-beta.10 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.11 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -5574,7 +5574,7 @@ if (typeof window !== 'undefined' && window.UIkit) {
 
 return plugin;
 
-})));/*! UIkit 3.0.0-beta.10 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.11 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -5939,7 +5939,7 @@ if (typeof window !== 'undefined' && window.UIkit) {
 
 return plugin;
 
-})));/*! UIkit 3.0.0-beta.10 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.11 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -6044,7 +6044,7 @@ if (typeof window !== 'undefined' && window.UIkit) {
 
 return plugin;
 
-})));/*! UIkit 3.0.0-beta.10 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.11 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
