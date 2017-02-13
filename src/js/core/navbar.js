@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, extend, isWithin, query, toJQuery, Transition } from '../util/index';
+import { $, extend, isRtl, isWithin, query, toJQuery, Transition } from '../util/index';
 
 export default function (UIkit) {
 
@@ -26,7 +26,7 @@ export default function (UIkit) {
         defaults: {
             dropdown: '.uk-navbar-nav > li',
             mode: 'hover',
-            align: 'left',
+            align: !isRtl ? 'left' : 'right',
             offset: false,
             boundary: true,
             boundaryAlign: false,
@@ -56,7 +56,7 @@ export default function (UIkit) {
 
             if (this.dropbar) {
                 this.dropbar = query(this.dropbar, this.$el) || $('<div></div>').insertAfter(this.dropbarAnchor || this.$el);
-                UIkit.navbarDropbar(this.dropbar, {mode: this.dropbarMode, duration: this.duration, navbar: this});
+                UIkit.navbarDropbar(this.dropbar, {clsDrop: this.clsDrop, mode: this.dropbarMode, duration: this.duration, navbar: this});
             }
 
         },
@@ -102,6 +102,7 @@ export default function (UIkit) {
         mixins: [Class],
 
         defaults: {
+            clsDrop: '',
             mode: 'slide',
             navbar: null,
             duration: 200
@@ -127,7 +128,7 @@ export default function (UIkit) {
             },
 
             beforeshow(e, {$el}) {
-                $el.addClass(`${this.clsDrop}-dropbar`);
+                this.clsDrop && $el.addClass(`${this.clsDrop}-dropbar`);
                 this.transitionTo($el.outerHeight(true));
             },
 

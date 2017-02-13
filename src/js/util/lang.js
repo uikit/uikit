@@ -105,7 +105,18 @@ export function toJQuery(element, context) {
     try {
 
         if (context && isContextSelector(element) && element[0] !== '>') {
-            element = $(context)[contextSelectors[element[0]]](element.substr(1));
+
+            var fn = contextSelectors[element[0]], selector = element.substr(1);
+
+            context = $(context);
+
+            if (fn === 'closest') {
+                context = context.parent();
+                selector = selector || '*';
+            }
+
+            element = context[fn](selector);
+
         } else {
             element = $(element, context);
         }

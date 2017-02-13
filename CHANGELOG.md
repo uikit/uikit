@@ -1,5 +1,25 @@
 # Changelog
 
+## 3.0.0 beta 10 (February 13, 2017)
+
+### Added
+
+- Height Viewport component supports selector for Offset Bottom option
+- Allow to preserve all color with one class when using uk-svg
+- Add RTL support (RTL first)
+
+### Changed
+
+- Percentage value for Offset Bottom in Height Viewport component is calculated against the whole viewport 
+
+### Fixed
+
+- Fix Notification component initialization
+- Fix beta 8 regression with missing class in Navbar component
+- Fix context selectors
+- Sticky components sets inactive class initially
+- Fix path to icons.svg in /custom folder
+
 ## 3.0.0 beta 9 (February 3, 2017)
 
 ### Fixed

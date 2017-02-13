@@ -39,7 +39,11 @@ export default function (UIkit) {
 
         if (args.length && isArray(data)) {
             data = data.slice(0, args.length).reduce((data, value, index) => {
-                data[args[index]] = value;
+                if (isPlainObject(value)) {
+                    extend(data, value);
+                } else {
+                    data[args[index]] = value;
+                }
                 return data;
             }, {});
         }

@@ -81,7 +81,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                docElement.removeClass(this.clsPageAnimation).css('margin-left', '');
+                docElement.removeClass(this.clsPageAnimation);
 
                 if (this.mode === 'none' || this.getActive() && this.getActive() !== this) {
                     this.panel.trigger(transitionend);
