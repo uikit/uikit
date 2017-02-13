@@ -33,7 +33,8 @@ function compile(file, dest, external, globals) {
             globals,
             format: 'umd',
             banner: util.banner,
-            moduleName: 'UIkit'
+            moduleName: 'UIkit',
+            moduleId: 'uikit'
         }).code))
         .then(() => util.write(`${dest}.min.js`, `${util.banner}\n${uglify.minify(`${dest}.js`).code}`))
         .catch(console.log);
