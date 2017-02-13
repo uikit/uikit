@@ -2,7 +2,7 @@
   "name": "uikit",
   "title": "UIkit",
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
-  "version": "3.0.0-beta.9",
+  "version": "3.0.0-beta.10",
   "main": "dist/js/uikit.js",
   "scripts": {
     "compile-less": "mkdir dist & mkdir dist/css & npm run images && npm run compile-less-core && npm run compile-less-theme && node build/less && node build/css-minify",
