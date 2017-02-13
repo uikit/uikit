@@ -10,7 +10,3 @@ core(UIkit);
 boot(UIkit);
 
 export default UIkit;
-
-if (typeof module !== 'undefined') {
-    module.exports = UIkit;
-}

@@ -69,3 +69,7 @@ exports.minify = function (files) {
         });
     });
 };
+
+exports.ucfirst= function (str) {
+    return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : '';
+};

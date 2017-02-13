@@ -14,13 +14,13 @@ var util = require('./util');
 });
 
 compile('src/js/uikit.js', 'dist/js/uikit-core', ['jquery'], {jquery: 'jQuery'});
-compile('tests/js/index.js', 'tests/js/test', ['jquery'], {jquery: 'jQuery'});
+compile('tests/js/index.js', 'tests/js/test', ['jquery'], {jquery: 'jQuery'}, 'test');
 
 glob('src/js/components/**/*.js', (er, files) =>
     files.forEach(file =>
-        compile(file, `dist/${file.substring(4, file.length - 3)}`, ['jquery', 'uikit'], {jquery: 'jQuery', uikit: 'UIkit'})));
+        compile(file, `dist/${file.substring(4, file.length - 3)}`, ['jquery', 'uikit'], {jquery: 'jQuery', uikit: 'UIkit'}, path.basename(file, '.js').replace())));
 
-function compile(file, dest, external, globals) {
+function compile(file, dest, external, globals, name) {
 
     rollup.rollup({
         external,
@@ -33,7 +33,7 @@ function compile(file, dest, external, globals) {
             globals,
             format: 'umd',
             banner: util.banner,
-            moduleName: 'UIkit'
+            moduleName: `UIkit${name ? '' + util.ucfirst(name) : ''}`
         }).code))
         .then(() => util.write(`${dest}.min.js`, `${util.banner}\n${uglify.minify(`${dest}.js`).code}`))
         .catch(console.log);
