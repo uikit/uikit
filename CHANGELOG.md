@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.0 beta 11 (February 13, 2017)
+
+### Fixed
+
+- Fix icons not showing
+
 ## 3.0.0 beta 10 (February 13, 2017)
 
 ### Added
@@ -10,7 +16,7 @@
 
 ### Changed
 
-- Percentage value for Offset Bottom in Height Viewport component is calculated against the whole viewport 
+- Percentage value for Offset Bottom in Height Viewport component is calculated against the whole viewport
 
 ### Fixed
 
@@ -19,6 +25,7 @@
 - Fix context selectors
 - Sticky components sets inactive class initially
 - Fix path to icons.svg in /custom folder
+- Fix wrapping grid columns in IE and Edge
 
 ## 3.0.0 beta 9 (February 3, 2017)
 

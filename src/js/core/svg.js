@@ -79,7 +79,7 @@ export default function (UIkit) {
                 getSvg(this.src).then(doc => {
                     this._svg = doc;
                     this.$emit();
-                }, e => {});
+                }, e => console.log(e));
             },
 
             write() {
@@ -176,69 +176,68 @@ export default function (UIkit) {
 
     });
 
-}
+    function getSrc(el) {
 
-function getSrc(el) {
+        var image = getBackgroundImage(el);
 
-    var image = getBackgroundImage(el);
+        if (!image) {
 
-    if (!image) {
+            el = el.clone().empty()
+                .attr({'uk-no-boot': '', style: `${el.attr('style')};display:block !important;`})
+                .appendTo(document.body);
 
-        el = el.clone().empty()
-            .attr({'uk-no-boot': '', style: `${el.attr('style')};display:block !important;`})
-            .appendTo(document.body);
+            image = getBackgroundImage(el);
 
-        image = getBackgroundImage(el);
-
-        // safari workaround
-        if (!image && el[0].tagName === 'CANVAS') {
-            var span = $(el[0].outerHTML.replace(/canvas/g, 'span')).insertAfter(el);
-            image = getBackgroundImage(span);
-            span.remove();
-        }
-
-        el.remove();
-
-    }
-
-    return image && image.slice(4, -1).replace(/"/g, '');
-}
-
-function getBackgroundImage(el) {
-    var image = getStyle(el[0], 'backgroundImage', '::before');
-    return image !== 'none' && image;
-}
-
-function getSvg(src) {
-
-    if (!svgs[src]) {
-        svgs[src] = promise((resolve, reject) => {
-
-            if (src.lastIndexOf('data:', 0) === 0) {
-                resolve(parse(decodeURIComponent(src.split(',')[1])));
-            } else {
-
-                var key = `uikit_${UIkit.version}_${src}`;
-
-                if (storage[key]) {
-                    resolve(parse(storage[key]));
-                } else {
-                    $.ajax(src, {dataType: 'html'}).then(doc => {
-                        storage[key] = doc;
-                        resolve(parse(doc));
-                    }, () => {
-                        reject('SVG not found.');
-                    });
-                }
+            // safari workaround
+            if (!image && el[0].tagName === 'CANVAS') {
+                var span = $(el[0].outerHTML.replace(/canvas/g, 'span')).insertAfter(el);
+                image = getBackgroundImage(span);
+                span.remove();
             }
 
-        });
+            el.remove();
+
+        }
+
+        return image && image.slice(4, -1).replace(/"/g, '');
     }
 
-    return svgs[src];
-}
+    function getBackgroundImage(el) {
+        var image = getStyle(el[0], 'backgroundImage', '::before');
+        return image !== 'none' && image;
+    }
 
-function parse(doc) {
-    return parser.parseFromString(doc, 'image/svg+xml');
-}
+    function getSvg(src) {
 
+        if (!svgs[src]) {
+            svgs[src] = promise((resolve, reject) => {
+
+                if (src.lastIndexOf('data:', 0) === 0) {
+                    resolve(parse(decodeURIComponent(src.split(',')[1])));
+                } else {
+
+                    var key = `uikit_${UIkit.version}_${src}`;
+
+                    if (storage[key]) {
+                        resolve(parse(storage[key]));
+                    } else {
+                        $.ajax(src, {dataType: 'html'}).then(doc => {
+                            storage[key] = doc;
+                            resolve(parse(doc));
+                        }, () => {
+                            reject('SVG not found.');
+                        });
+                    }
+                }
+
+            });
+        }
+
+        return svgs[src];
+    }
+
+    function parse(doc) {
+        return parser.parseFromString(doc, 'image/svg+xml');
+    }
+
+}

@@ -16,7 +16,7 @@ glob.sync('./src/js/components/**/*.js').forEach(file => components[path.basenam
 module.exports = [
 
     {
-        entry: './src/js/uikit',
+        entry: './tests/js/uikit',
         output: {
             filename: 'dist/js/uikit-core.js',
             library: 'UIkit',
