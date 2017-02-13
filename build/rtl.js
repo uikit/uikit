@@ -7,7 +7,7 @@ var exec = require('child_process').exec;
 var fs = require('fs');
 var glob = require('glob');
 var less = require('less');
-var {read, makeRelative, write} = require('./util');
+var util = require('./util');
 var postcss = require('postcss');
 var rtlcss = require('rtlcss');
 var path = require('path');
@@ -42,7 +42,7 @@ exec('npm run images', (error, stdout, stderr) => {
     });
 
     for (let file in files) {
-        read(file, data => {
+        util.read(file, data => {
             less.render(data, {
                 relativeUrls: true,
                 rootpath: '../../',
@@ -57,7 +57,7 @@ exec('npm run images', (error, stdout, stderr) => {
                     rtlcss()
                 ]).process(output.css).css;
 
-                write(files[file], css).then(makeRelative);
+                util.write(files[file], css).then(util.makeRelative);
 
             }, error => console.log(error))
         })

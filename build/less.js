@@ -2,7 +2,7 @@ var fs = require('fs');
 var glob = require('glob');
 var less = require('less');
 var path = require('path');
-var {makeRelative, write} = require('./util');
+var util = require('./util');
 
 var themes = {}, promises = [];
 
@@ -19,14 +19,14 @@ glob.sync('custom/*.less').forEach(file => {
         rootpath: '../../',
         paths: ['custom/']
     }).then(
-        output => write(dist, output.css),
+        output => util.write(dist, output.css),
         error => console.log(error)
     ));
 
 });
 
-Promise.all(promises).then(() => makeRelative('dist/css/!(*.min).css'));
+Promise.all(promises).then(() => util.makeRelative('dist/css/!(*.min).css'));
 
 if (Object.keys(themes).length) {
-    write('themes.json', JSON.stringify(themes));
+    util.write('themes.json', JSON.stringify(themes));
 }
