@@ -9,7 +9,7 @@
     "compile-less-core": "./node_modules/.bin/lessc --relative-urls --rootpath=../../src/less/ src/less/uikit.less > dist/css/uikit-core.css",
     "compile-less-theme": "./node_modules/.bin/lessc --relative-urls --rootpath=../../src/less/ src/less/uikit.theme.less > dist/css/uikit.css",
     "images": "node build/images",
-    "compile-rtl": "node build/rtl && node build/css-minify",
+    "compile-rtl": "npm run images && node build/rtl && node build/css-minify",
     "compile-js": "node build/build && node build/all",
     "compile": "npm run compile-less && npm run compile-js",
     "release": "npm run compile && node build/release",
