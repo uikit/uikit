@@ -5,7 +5,7 @@ export const win = $(window);
 export const doc = $(document);
 export const docElement = $(document.documentElement);
 
-export const langDirection = $('html').attr('dir') == 'rtl' ? 'right' : 'left';
+export const isRtl = $('html').attr('dir') === 'rtl';
 
 export function isReady() {
     return document.readyState === 'complete' || document.readyState !== 'loading' && !document.documentElement.doScroll;

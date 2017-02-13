@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, extend, isWithin, query, toJQuery, Transition } from '../util/index';
+import { $, extend, isRtl, isWithin, query, toJQuery, Transition } from '../util/index';
 
 export default function (UIkit) {
 
@@ -26,7 +26,7 @@ export default function (UIkit) {
         defaults: {
             dropdown: '.uk-navbar-nav > li',
             mode: 'hover',
-            align: 'left',
+            align: !isRtl ? 'left' : 'right',
             offset: false,
             boundary: true,
             boundaryAlign: false,

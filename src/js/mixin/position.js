@@ -1,4 +1,4 @@
-import { flipPosition, position, removeClass, toNumber } from '../util/index';
+import { isRtl, flipPosition, position, removeClass, toNumber } from '../util/index';
 
 export default {
 
@@ -10,7 +10,7 @@ export default {
     },
 
     defaults: {
-        pos: 'bottom-left',
+        pos: !isRtl ? 'bottom-left' : 'bottom-right',
         flip: true,
         offset: false,
         clsPos: ''

@@ -10,8 +10,8 @@ if (request.status === 200) {
 }
 
 var styles = $.extend({
-        core: { file: '../dist/css/uikit-core.css' },
-        theme: { file: '../dist/css/uikit.css' }
+        core: {file: '../dist/css/uikit-core.css'},
+        theme: {file: '../dist/css/uikit.css'}
     }, themes),
     component = location.pathname.split('/').pop().replace(/.html$/, ''),
     components = [
@@ -28,6 +28,11 @@ if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
 
 storage[key] = storage[key] || 'core';
 storage[keyinverse] = storage[keyinverse] || 'default';
+
+var dir = storage._uikit_dir || 'ltr';
+
+// set dir
+$html.attr('dir', dir);
 
 var style = styles[storage[key]] || styles.theme;
 
@@ -171,17 +176,14 @@ $(() => {
     // RTL
     // ------------------------------
 
-    var dir = storage._uikit_dir || 'ltr';
-
     var $rtl = $('<input type="checkbox" class="uk-checkbox uk-form-width-small" />').on('change', () => {
-        storage._uikit_dir = $rtl.prop('checked') ? 'rtl':'ltr';
+        storage._uikit_dir = $rtl.prop('checked') ? 'rtl' : 'ltr';
         location.reload();
     }).appendTo($label).after('<span style="margin:5px;">RTL</span>');
 
     if (dir == 'rtl') {
-        $html.attr('dir', dir);
         $rtl.prop('checked', true);
-        $('link[rel=stylesheet]').each((i, el) => $(el).attr('href', el.href.replace('.css' , '.rtl.css')));
+        $('link[rel=stylesheet]').each((i, el) => $(el).attr('href', el.href.replace('.css', '.rtl.css')));
     }
 
     $html.css('padding-top', '');

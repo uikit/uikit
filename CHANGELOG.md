@@ -6,6 +6,7 @@
 
 - Height Viewport component supports selector for Offset Bottom option
 - Allow to preserve all color with one class when using uk-svg
+- Add RTL support (RTL first)
 
 ### Changed
 
