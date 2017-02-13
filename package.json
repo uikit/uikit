@@ -34,8 +34,8 @@
     "rollup-plugin-node-resolve": "1.7.0",
     "rtlcss": "^2.1.2",
     "uglify-js": "^2.7.3",
-    "webpack": "^2.2.0-rc.3",
-    "webpack-dev-server": "^2.2.0-rc.0"
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.3.0"
   },
   "watch": {
     "compile-js": "src/js/**/*.js",
