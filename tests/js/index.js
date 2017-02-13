@@ -39,10 +39,8 @@ var style = styles[storage[key]] || styles.theme;
 // add style
 document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.file : style.file.replace('.css', '').concat('.rtl.css')}">`);
 
-// add javascripts
-['../dist/js/uikit-core.js']
-    .concat(components.map(name => `../dist/js/components/${name}.js`))
-    .forEach(file => document.writeln(`<script src="${file}"></script>`));
+// add javascript
+document.writeln(`<script src="../dist/js/uikit.js"></script>`);
 
 $(() => {
 
