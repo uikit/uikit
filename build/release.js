@@ -13,5 +13,6 @@ var archive = archiver('zip');
 archive.pipe(output);
 archive.file('dist/js/uikit.min.js', {name: '/js/uikit.min.js'});
 archive.file('dist/css/uikit.min.css', {name: '/css/uikit.min.css'});
+archive.file('dist/css/uikit.rtl.min.css', {name: '/css/uikit.rtl.min.css'});
 archive.directory('dist/images', '/images');
 archive.finalize();

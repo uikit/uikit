@@ -7,8 +7,9 @@ var exec = require('child_process').exec;
 var fs = require('fs');
 var glob = require('glob');
 var less = require('less');
-var {read, makeRelative, minify, write} = require('./util');
-var rtl = require('./lib/rtlcss/rtlcss');
+var {read, makeRelative, write} = require('./util');
+var postcss = require('postcss');
+var rtlcss = require('rtlcss');
 var path = require('path');
 
 exec('npm run images', (error, stdout, stderr) => {
@@ -48,7 +49,13 @@ exec('npm run images', (error, stdout, stderr) => {
                 paths: ['src/less/', 'custom/'],
             }).then(output => {
 
-                var css = rtl.process(output.css, {ignore: true});
+                var css = postcss([
+                    css => {
+                        css.insertBefore(css.nodes[0], postcss.comment({text: 'rtl:begin:rename'}));
+                        css.insertAfter(css.nodes[css.nodes.length - 1], postcss.comment({text: 'rtl:end:rename'}));
+                    },
+                    rtlcss()
+                ]).process(output.css).css;
 
                 write(files[file], css).then(makeRelative);
 
