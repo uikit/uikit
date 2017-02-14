@@ -73,4 +73,4 @@ Tested with [BrowserStack](https://www.browserstack.com) (thanks for sponsoring!
 
 ## Copyright and License
 
-Copyright [YOOtheme](http://www.yootheme.com) GmbH under the [MIT license](LICENSE.md).
+Copyright [YOOtheme](https://yootheme.com) GmbH under the [MIT license](LICENSE.md).
