@@ -216,7 +216,7 @@ export default function (UIkit) {
                     resolve(parse(decodeURIComponent(src.split(',')[1])));
                 } else {
 
-                    var key = `uikit_${UIkit.version}_${src}`;
+                    var key = `${UIkit.data}${UIkit.version}_${src}`;
 
                     if (storage[key]) {
                         resolve(parse(storage[key]));
@@ -238,6 +238,15 @@ export default function (UIkit) {
 
     function parse(doc) {
         return parser.parseFromString(doc, 'image/svg+xml');
+    }
+
+    // workaround for Safari's private browsing mode
+    try {
+        var key = `${UIkit.data}test`;
+        storage[key] = 1;
+        delete storage[key];
+    } catch (e) {
+        storage = {};
     }
 
 }

@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix icons in Safari's private browsing mode
+
 ## 3.0.0 beta 11 (February 13, 2017)
 
 ### Fixed
