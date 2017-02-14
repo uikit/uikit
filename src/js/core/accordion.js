@@ -99,12 +99,12 @@ export default function (UIkit) {
                         content.wrap('<div>').parent().attr('hidden', state);
                     }
 
-                    this.toggleNow(content, true);
+                    this._toggleImmediate(content, true);
                     this.toggleElement(content.parent(), state, animate).then(() => {
                         if (el.hasClass(this.clsOpen) === state) {
 
                             if (!state) {
-                                this.toggleNow(content, false);
+                                this._toggleImmediate(content, false);
                             }
 
                             content.unwrap();
