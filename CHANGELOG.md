@@ -6,6 +6,10 @@
 
 - Add nested Drops
 
+### Changed
+
+- Make Accordion selectors more specific
+
 ### Fixed
 
 - Fix icons in Safari's private browsing mode
