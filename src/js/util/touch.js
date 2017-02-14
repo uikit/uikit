@@ -75,7 +75,7 @@ ready(function () {
                 gesture.addPointer(e.originalEvent.pointerId);
             }
 
-            clicked = false;
+            clicked = e.button > 0;
 
         })
         .on(pointerMove, function (e) {

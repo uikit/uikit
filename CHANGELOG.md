@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix icons in Safari's private browsing mode
+- Fix right click triggers click event
 
 ## 3.0.0 beta 11 (February 13, 2017)
 
