@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add nested Drops
+
 ### Fixed
 
 - Fix icons in Safari's private browsing mode

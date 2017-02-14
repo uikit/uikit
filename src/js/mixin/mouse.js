@@ -66,7 +66,7 @@ export default {
                 }, 0);
 
             this.position = delay ? position : null;
-            return delay;
+            return !!delay;
         }
 
     }

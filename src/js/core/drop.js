@@ -6,7 +6,9 @@ export default function (UIkit) {
     var active;
 
     doc.on('click', e => {
-        if (active && !isWithin(e.target, active.$el) && (!active.toggle || !isWithin(e.target, active.toggle.$el))) {
+        var prev;
+        while (active && active !== prev && !isWithin(e.target, active.$el) && (!active.toggle || !isWithin(e.target, active.toggle.$el))) {
+            prev = active;
             active.hide(false);
         }
     });
@@ -79,6 +81,11 @@ export default function (UIkit) {
                 name: 'toggle',
 
                 handler(e, toggle) {
+
+                    if (toggle && !this.$el.is(toggle.target)) {
+                        return;
+                    }
+
                     e.preventDefault();
 
                     if (this.isToggled(this.$el)) {
@@ -95,6 +102,22 @@ export default function (UIkit) {
                 name: 'toggleShow mouseenter',
 
                 handler(e, toggle) {
+
+                    if (toggle && !this.$el.is(toggle.target)) {
+                        return;
+                    }
+
+                    if (e.type === 'mouseenter'
+                        && active
+                        && active !== this
+                        && active.toggle
+                        && active.toggle.mode === 'hover'
+                        && !isWithin(e.target, active.$el)
+                        && !isWithin(e.target, active.toggle.$el)
+                    ) {
+                        active.hide(false);
+                    }
+
                     e.preventDefault();
                     this.show(toggle || this.toggle);
                 }
@@ -106,6 +129,11 @@ export default function (UIkit) {
                 name: 'toggleHide mouseleave',
 
                 handler(e, toggle) {
+
+                    if (toggle && !this.$el.is(toggle.target)) {
+                        return;
+                    }
+
                     e.preventDefault();
 
                     if (this.toggle && this.toggle.mode === 'hover') {
@@ -119,7 +147,12 @@ export default function (UIkit) {
 
                 name: 'show',
 
-                handler() {
+                handler({target}) {
+
+                    if (!this.$el.is(target)) {
+                        return;
+                    }
+
                     this.initMouseTracker();
                     this.toggle.$el.addClass(this.cls).attr('aria-expanded', 'true');
                     this.clearTimers();
@@ -131,7 +164,13 @@ export default function (UIkit) {
 
                 name: 'hide',
 
-                handler() {
+                handler({target}) {
+
+                    if (!this.$el.is(target)) {
+                        active = active === null && isWithin(target, this.$el) && this.isToggled(this.$el) ? this : active;
+                        return;
+                    }
+
                     active = this.isActive() ? null : active;
                     this.toggle.$el.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
                     this.cancelMouseTracker();
@@ -163,7 +202,7 @@ export default function (UIkit) {
                     var prop = this.getAxis() === 'y' ? 'width' : 'height';
                     this.$el.css(prop, alignTo[prop]);
                 } else if (this.$el.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
-                    this.$el.addClass(this.clsDrop + '-stack');
+                    this.$el.addClass(`${this.clsDrop}-stack`);
                     this.$el.trigger('stack', [this]);
                 }
 
@@ -179,7 +218,7 @@ export default function (UIkit) {
 
             show(toggle, delay = true) {
 
-                var show = () => this.toggleElement(this.$el, true),
+                var show = () => !this.isToggled(this.$el) && this.toggleElement(this.$el, true),
                     tryShow = () => {
 
                     this.toggle = toggle || this.toggle;
@@ -191,8 +230,20 @@ export default function (UIkit) {
                     } else if (delay && active && active !== this && active.isDelaying) {
                         this.showTimer = setTimeout(this.show, 75);
                         return;
-                    } else if (active) {
-                        active.hide(false);
+                    } else if (this.isParentOf(active)) {
+
+                        if (active.hideTimer) {
+                            active.hide(false);
+                        } else {
+                            return;
+                        }
+
+                    } else if (active && !this.isChildOf(active) && !this.isParentOf(active)) {
+                        var prev;
+                        while (active && active !== prev) {
+                            prev = active;
+                            active.hide(false);
+                        }
                     }
 
                     if (delay && this.delayShow) {
@@ -202,7 +253,6 @@ export default function (UIkit) {
                     }
 
                     active = this;
-
                 };
 
                 if (toggle && this.toggle && !this.toggle.$el.is(toggle.$el)) {
@@ -237,10 +287,19 @@ export default function (UIkit) {
                 clearTimeout(this.hideTimer);
                 this.showTimer = null;
                 this.hideTimer = null;
+                this.isDelaying = false;
             },
 
             isActive() {
                 return active === this;
+            },
+
+            isChildOf(drop) {
+                return drop && drop !== this && isWithin(this.$el, drop.$el);
+            },
+
+            isParentOf(drop) {
+                return drop && drop !== this && isWithin(drop.$el, this.$el);
             }
 
         }
