@@ -24,8 +24,8 @@ export default function (UIkit) {
             collapsible: true,
             multiple: false,
             clsOpen: 'uk-open',
-            toggle: '.uk-accordion-title',
-            content: '.uk-accordion-content',
+            toggle: '> .uk-accordion-title',
+            content: '> .uk-accordion-content',
             transition: 'ease'
         },
 
