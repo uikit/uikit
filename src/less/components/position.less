@@ -101,6 +101,7 @@
 
 /*
  * Center
+ * 1. Fix text wrapping if content is larger than 50% of the container
  */
 
 .uk-position-center {
@@ -108,6 +109,8 @@
     left: 50%;
     -webkit-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
+    /* 1 */
+    display: table;
 }
 
 /* Vertical */
@@ -127,6 +130,8 @@
     left: 50%;
     -webkit-transform: translateX(-50%);
     transform: translateX(-50%);
+    /* 1 */
+    display: table;
 }
 
 .uk-position-top-center { top: 0; }
