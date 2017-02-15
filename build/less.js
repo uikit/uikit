@@ -27,6 +27,6 @@ glob.sync('custom/*.less').forEach(file => {
 
 Promise.all(promises).then(() => util.makeRelative('dist/css/!(*.min).css'));
 
-if (Object.keys(themes).length) {
+if (Object.keys(themes).length || !fs.existsSync('themes.json')) {
     util.write('themes.json', JSON.stringify(themes));
 }
