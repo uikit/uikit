@@ -77,17 +77,6 @@ export default function (UIkit) {
         });
     }, true);
 
-    on(document.documentElement, 'webkitAnimationEnd', ({target}) => {
-        fastdom.measure(() => {
-            if (getStyle(target, 'webkitFontSmoothing') === 'antialiased') {
-                fastdom.mutate(() => {
-                    target.style.webkitFontSmoothing = 'subpixel-antialiased';
-                    setTimeout(() => target.style.webkitFontSmoothing = '');
-                })
-            }
-        });
-    }, true);
-
     // core components
     UIkit.use(Accordion);
     UIkit.use(Alert);

@@ -10,6 +10,10 @@
 
 - Make Accordion selectors more specific
 
+### Removed
+
+- Remove obsolete webkitFontSmoothing workaround
+
 ### Fixed
 
 - Fix icons in Safari's private browsing mode
