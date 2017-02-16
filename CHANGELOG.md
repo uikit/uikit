@@ -9,6 +9,7 @@
 ### Changed
 
 - Make Accordion selectors more specific
+- Optimized margin modifier in Position component
 
 ### Removed
 
