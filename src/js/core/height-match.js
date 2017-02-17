@@ -1,4 +1,4 @@
-import { $, toJQuery } from '../util/index';
+import { $ } from '../util/index';
 
 export default function (UIkit) {
 
@@ -20,7 +20,7 @@ export default function (UIkit) {
 
             write() {
 
-                let elements = toJQuery(this.target, this.$el).css('min-height', '');
+                var elements = $(this.target, this.$el).css('min-height', '');
 
                 if (!this.row) {
                     this.match(elements);
