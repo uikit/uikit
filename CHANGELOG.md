@@ -5,6 +5,7 @@
 ### Added
 
 - Add nested Drops
+- Add text primary hook
 
 ### Changed
 
