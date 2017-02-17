@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, each, Transition} = UIkit.util;
+    var {$, each, pointerEnter, pointerLeave, Transition} = UIkit.util;
     var containers = {};
 
     UIkit.component('notification', {
@@ -48,8 +48,8 @@ function plugin(UIkit) {
                 if (this.timeout) {
                     this.timer = setTimeout(this.close, this.timeout);
                     this.$el
-                        .on('mouseenter', () => clearTimeout(this.timer))
-                        .on('mouseleave', () => this.timer = setTimeout(this.close, this.timeout));
+                        .on(pointerEnter, () => clearTimeout(this.timer))
+                        .on(pointerLeave, () => this.timer = setTimeout(this.close, this.timeout));
                 }
             });
 

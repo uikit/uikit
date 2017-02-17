@@ -160,3 +160,21 @@ ready(function () {
     // to scroll, not tap or swipe, so cancel all ongoing events
     win.on('scroll', cancelAll);
 });
+
+var touching = false;
+
+doc.on({
+
+    touchstart() {
+        touching = true;
+    },
+
+    click() {
+        touching = false;
+    }
+
+});
+
+export function isTouch(e) {
+    return touching || e.originalEvent && e.originalEvent.pointerType === 'touch';
+}

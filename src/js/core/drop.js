@@ -1,5 +1,5 @@
 import { Mouse, Position, Toggable } from '../mixin/index';
-import { doc, getDimensions, isWithin, query, removeClass } from '../util/index';
+import { doc, getDimensions, isWithin, isTouch, pointerEnter, pointerLeave, query, removeClass } from '../util/index';
 
 export default function (UIkit) {
 
@@ -99,16 +99,19 @@ export default function (UIkit) {
 
             {
 
-                name: 'toggleShow mouseenter',
+                name: pointerEnter,
 
-                handler(e, toggle) {
+                filter() {
+                    return this.mode === 'hover';
+                },
 
-                    if (toggle && !this.$el.is(toggle.target)) {
+                handler(e) {
+
+                    if (isTouch(e)) {
                         return;
                     }
 
-                    if (e.type === 'mouseenter'
-                        && active
+                    if (active
                         && active !== this
                         && active.toggle
                         && active.toggle.mode === 'hover'
@@ -119,6 +122,22 @@ export default function (UIkit) {
                     }
 
                     e.preventDefault();
+                    this.show(this.toggle);
+                }
+
+            },
+
+            {
+
+                name: 'toggleShow',
+
+                handler(e, toggle) {
+
+                    if (toggle && !this.$el.is(toggle.target)) {
+                        return;
+                    }
+
+                    e.preventDefault();
                     this.show(toggle || this.toggle);
                 }
 
@@ -126,11 +145,11 @@ export default function (UIkit) {
 
             {
 
-                name: 'toggleHide mouseleave',
+                name: `toggleHide ${pointerLeave}`,
 
                 handler(e, toggle) {
 
-                    if (toggle && !this.$el.is(toggle.target)) {
+                    if (isTouch(e) || toggle && !this.$el.is(toggle.target)) {
                         return;
                     }
 

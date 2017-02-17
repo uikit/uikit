@@ -15,11 +15,7 @@ export default function (UIkit) {
         Object.defineProperty(UIkit, 'hoverSelector', {
 
             set(selector) {
-
-                doc.on('tap', selector, function () {
-                    this.classList.add(cls);
-                });
-
+                doc.on('tap', selector, ({currentTarget}) => currentTarget.classList.add(cls));
             }
 
         });

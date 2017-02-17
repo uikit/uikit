@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, extend, isRtl, isWithin, query, toJQuery, Transition } from '../util/index';
+import { $, extend, isRtl, isWithin, pointerEnter, query, toJQuery, Transition } from '../util/index';
 
 export default function (UIkit) {
 
@@ -47,7 +47,7 @@ export default function (UIkit) {
 
         ready() {
 
-            this.$el.on('mouseenter', this.dropdown, ({target}) => {
+            this.$el.on(pointerEnter, this.dropdown, ({target}) => {
                 var active = this.getActive();
                 if (active && !isWithin(target, active.toggle.$el) && !active.isDelaying) {
                     active.hide(false);
