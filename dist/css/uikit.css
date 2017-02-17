@@ -8143,12 +8143,15 @@ td.uk-text-break {
 }
 /*
  * Center
+ * 1. Fix text wrapping if content is larger than 50% of the container
  */
 .uk-position-center {
   top: 50%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
+  /* 1 */
+  display: table;
 }
 /* Vertical */
 .uk-position-center-left,
@@ -8169,6 +8172,8 @@ td.uk-text-break {
   left: 50%;
   -webkit-transform: translateX(-50%);
   transform: translateX(-50%);
+  /* 1 */
+  display: table;
 }
 .uk-position-top-center {
   top: 0;
@@ -8204,63 +8209,57 @@ td.uk-text-break {
 /*
  * Small
  */
-.uk-position-small[class*='uk-position-top']:not(.uk-position-top-center),
-.uk-position-small[class*='uk-position-bottom']:not(.uk-position-bottom-center),
-.uk-position-small[class*='uk-position-left'],
-.uk-position-small[class*='uk-position-right'],
-.uk-position-small.uk-position-cover {
+.uk-position-small {
   margin: 15px;
 }
-.uk-position-small[class*='uk-position-top'] {
-  margin-top: 15px;
+.uk-position-small.uk-position-center {
+  -webkit-transform: translate(calc(-50% - 15px), calc(-50% - 15px));
+  transform: translate(calc(-50% - 15px), calc(-50% - 15px));
 }
-.uk-position-small[class*='uk-position-bottom'] {
-  margin-bottom: 15px;
-}
-.uk-position-small.uk-position-center-left {
-  margin-left: 15px;
-}
+.uk-position-small.uk-position-center-left,
 .uk-position-small.uk-position-center-right {
-  margin-right: 15px;
+  -webkit-transform: translateY(calc(-50% - 15px));
+  transform: translateY(calc(-50% - 15px));
+}
+.uk-position-small.uk-position-top-center,
+.uk-position-small.uk-position-bottom-center {
+  -webkit-transform: translateX(calc(-50% - 15px));
+  transform: translateX(calc(-50% - 15px));
 }
 /*
  * Medium
  */
-.uk-position-medium[class*='uk-position-top']:not(.uk-position-top-center),
-.uk-position-medium[class*='uk-position-bottom']:not(.uk-position-bottom-center),
-.uk-position-medium[class*='uk-position-left'],
-.uk-position-medium[class*='uk-position-right'],
-.uk-position-medium.uk-position-cover {
+.uk-position-medium {
   margin: 30px;
 }
-.uk-position-medium[class*='uk-position-top'] {
-  margin-top: 30px;
+.uk-position-medium.uk-position-center {
+  -webkit-transform: translate(calc(-50% - 30px), calc(-50% - 30px));
+  transform: translate(calc(-50% - 30px), calc(-50% - 30px));
 }
-.uk-position-medium[class*='uk-position-bottom'] {
-  margin-bottom: 30px;
-}
-.uk-position-medium.uk-position-center-left {
-  margin-left: 30px;
-}
+.uk-position-medium.uk-position-center-left,
 .uk-position-medium.uk-position-center-right {
-  margin-right: 30px;
+  -webkit-transform: translateY(calc(-50% - 30px));
+  transform: translateY(calc(-50% - 30px));
+}
+.uk-position-medium.uk-position-top-center,
+.uk-position-medium.uk-position-bottom-center {
+  -webkit-transform: translateX(calc(-50% - 30px));
+  transform: translateX(calc(-50% - 30px));
 }
 /* ========================================================================
    Component: Transition
  ========================================================================== */
 /*
- * 1. Switches on the hardware compositing mode from the beginning to assure a smooth transition when hovering.
- *
+ * Using multiple selectors to exclude `uk-transition-toggle`
  * Note: Transitions don't work with `uk-postion-center-*` classes because they also use `transform`
  *       Just put the transition in an extra `div`
  */
-[class*='uk-transition-']:not(.uk-transition-toggle) {
+.uk-transition-fade,
+[class*='uk-transition-scale'],
+[class*='uk-transition-slide'] {
   transition-duration: 0.3s;
   transition-timing-function: ease-out;
   transition-property: opacity, transform, filter;
-  /* 1 */
-  -webkit-transform: translateZ(0);
-  transform: translateZ(0);
 }
 /*
  * Fade
