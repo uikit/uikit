@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.11 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.12 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
@@ -317,6 +317,8 @@ var hasTouch = 'ontouchstart' in window
 var pointerDown = !hasTouch ? 'mousedown' : window.PointerEvent ? 'pointerdown' : 'touchstart';
 var pointerMove = !hasTouch ? 'mousemove' : window.PointerEvent ? 'pointermove' : 'touchmove';
 var pointerUp = !hasTouch ? 'mouseup' : window.PointerEvent ? 'pointerup' : 'touchend';
+var pointerEnter = hasTouch && window.PointerEvent ? 'pointerenter' : 'mouseenter';
+var pointerLeave = hasTouch && window.PointerEvent ? 'pointerleave' : 'mouseleave';
 
 var transitionend = (function () {
 
@@ -742,11 +744,15 @@ var strats = {};
 // concat strategy
 strats.args =
 strats.created =
+strats.events =
 strats.init =
 strats.ready =
 strats.connected =
 strats.disconnected =
 strats.destroy = function (parentVal, childVal) {
+
+    parentVal = parentVal && !$.isArray(parentVal) ? [parentVal] : parentVal;
+
     return childVal
         ? parentVal
             ? parentVal.concat(childVal)
@@ -756,17 +762,9 @@ strats.destroy = function (parentVal, childVal) {
         : parentVal;
 };
 
+// update strategy
 strats.update = function (parentVal, childVal) {
     return strats.args(parentVal, $.isFunction(childVal) ? {write: childVal} : childVal);
-};
-
-// events strategy
-strats.events = function (parentVal, childVal) {
-    return childVal
-        ? parentVal
-            ? parentVal.push(childVal) && parentVal
-            : [childVal]
-        : parentVal;
 };
 
 // property strategy
@@ -797,13 +795,13 @@ var defaultStrat = function (parentVal, childVal) {
     return isUndefined(childVal) ? parentVal : childVal;
 };
 
-function mergeOptions (parent, child, thisArg) {
+function mergeOptions(parent, child) {
 
     var options = {}, key;
 
     if (child.mixins) {
         for (var i = 0, l = child.mixins.length; i < l; i++) {
-            parent = mergeOptions(parent, child.mixins[i], thisArg);
+            parent = mergeOptions(parent, child.mixins[i]);
         }
     }
 
@@ -817,8 +815,8 @@ function mergeOptions (parent, child, thisArg) {
         }
     }
 
-    function mergeKey (key) {
-        options[key] = (strats[key] || defaultStrat)(parent[key], child[key], thisArg, key);
+    function mergeKey(key) {
+        options[key] = (strats[key] || defaultStrat)(parent[key], child[key]);
     }
 
     return options;
@@ -902,7 +900,7 @@ function getDimensions(elem) {
 
     var width = Math.round(elem.outerWidth()),
         height = Math.round(elem.outerHeight()),
-        offset = elem[0].getClientRects ? elem.offset() : null,
+        offset = elem[0] && elem[0].getClientRects ? elem.offset() : null,
         left = offset ? Math.round(offset.left) : elem.scrollLeft(),
         top = offset ? Math.round(offset.top) : elem.scrollTop();
 
@@ -1049,7 +1047,7 @@ ready(function () {
                 gesture.addPointer(e.originalEvent.pointerId);
             }
 
-            clicked = false;
+            clicked = e.button > 0;
 
         })
         .on(pointerMove, function (e) {
@@ -1135,6 +1133,24 @@ ready(function () {
     win.on('scroll', cancelAll);
 });
 
+var touching = false;
+
+doc.on({
+
+    touchstart: function touchstart() {
+        touching = true;
+    },
+
+    click: function click() {
+        touching = false;
+    }
+
+});
+
+function isTouch(e) {
+    return touching || e.originalEvent && e.originalEvent.pointerType === 'touch';
+}
+
 
 
 var util = Object.freeze({
@@ -1166,6 +1182,8 @@ var util = Object.freeze({
 	pointerDown: pointerDown,
 	pointerMove: pointerMove,
 	pointerUp: pointerUp,
+	pointerEnter: pointerEnter,
+	pointerLeave: pointerLeave,
 	transitionend: transitionend,
 	animationend: animationend,
 	getStyle: getStyle,
@@ -1200,7 +1218,8 @@ var util = Object.freeze({
 	mergeOptions: mergeOptions,
 	position: position,
 	getDimensions: getDimensions,
-	flipPosition: flipPosition
+	flipPosition: flipPosition,
+	isTouch: isTouch
 });
 
 function globalAPI (UIkit) {
@@ -1221,7 +1240,10 @@ function globalAPI (UIkit) {
 
     UIkit.mixin = function (mixin, component) {
         component = (isString(component) ? UIkit.components[component] : component) || this;
-        component.options = mergeOptions(component.options, mixin);
+        mixin = mergeOptions({}, mixin);
+        mixin.mixins = component.options.mixins;
+        delete component.options.mixins;
+        component.options = mergeOptions(mixin, component.options);
     };
 
     UIkit.extend = function (options) {
@@ -1457,7 +1479,7 @@ function internalAPI (UIkit) {
 
 
         var events = this.$options.events,
-            connect = function (key, event) {
+            connect = function (event, key) {
 
                 if (!$.isPlainObject(event)) {
                     event = ({name: key, handler: event});
@@ -1492,15 +1514,14 @@ function internalAPI (UIkit) {
             };
 
         if (events) {
+            events.forEach(function (event) {
 
-            events.forEach(function (events) {
-
-                if ($.isArray(events)) {
-                    events.forEach(function (event, key) { return connect(key, event); });
-                } else {
-                    for (var key in events) {
-                        connect(key, events[key]);
+                if (!('handler' in event)) {
+                    for (var key in event) {
+                        connect(event[key], key);
                     }
+                } else {
+                    connect(event);
                 }
 
             });
@@ -2302,7 +2323,7 @@ var Mouse = {
                 }, 0);
 
             this.position = delay ? position : null;
-            return delay;
+            return !!delay;
         }
 
     }
@@ -2405,8 +2426,8 @@ function Accordion (UIkit) {
             collapsible: true,
             multiple: false,
             clsOpen: 'uk-open',
-            toggle: '.uk-accordion-title',
-            content: '.uk-accordion-content',
+            toggle: '> .uk-accordion-title',
+            content: '> .uk-accordion-content',
             transition: 'ease'
         },
 
@@ -2484,12 +2505,12 @@ function Accordion (UIkit) {
                         content.wrap('<div>').parent().attr('hidden', state);
                     }
 
-                    this$1.toggleNow(content, true);
+                    this$1._toggleImmediate(content, true);
                     this$1.toggleElement(content.parent(), state, animate).then(function () {
                         if (el.hasClass(this$1.clsOpen) === state) {
 
                             if (!state) {
-                                this$1.toggleNow(content, false);
+                                this$1._toggleImmediate(content, false);
                             }
 
                             content.unwrap();
@@ -2632,7 +2653,9 @@ function Drop (UIkit) {
     var active;
 
     doc.on('click', function (e) {
-        if (active && !isWithin(e.target, active.$el) && (!active.toggle || !isWithin(e.target, active.toggle.$el))) {
+        var prev;
+        while (active && active !== prev && !isWithin(e.target, active.$el) && (!active.toggle || !isWithin(e.target, active.toggle.$el))) {
+            prev = active;
             active.hide(false);
         }
     });
@@ -2705,6 +2728,11 @@ function Drop (UIkit) {
                 name: 'toggle',
 
                 handler: function handler(e, toggle) {
+
+                    if (toggle && !this.$el.is(toggle.target)) {
+                        return;
+                    }
+
                     e.preventDefault();
 
                     if (this.isToggled(this.$el)) {
@@ -2718,9 +2746,44 @@ function Drop (UIkit) {
 
             {
 
-                name: 'toggleShow mouseenter',
+                name: pointerEnter,
+
+                filter: function filter() {
+                    return this.mode === 'hover';
+                },
+
+                handler: function handler(e) {
+
+                    if (isTouch(e)) {
+                        return;
+                    }
+
+                    if (active
+                        && active !== this
+                        && active.toggle
+                        && active.toggle.mode === 'hover'
+                        && !isWithin(e.target, active.$el)
+                        && !isWithin(e.target, active.toggle.$el)
+                    ) {
+                        active.hide(false);
+                    }
+
+                    e.preventDefault();
+                    this.show(this.toggle);
+                }
+
+            },
+
+            {
+
+                name: 'toggleShow',
 
                 handler: function handler(e, toggle) {
+
+                    if (toggle && !this.$el.is(toggle.target)) {
+                        return;
+                    }
+
                     e.preventDefault();
                     this.show(toggle || this.toggle);
                 }
@@ -2729,9 +2792,14 @@ function Drop (UIkit) {
 
             {
 
-                name: 'toggleHide mouseleave',
+                name: ("toggleHide " + pointerLeave),
 
                 handler: function handler(e, toggle) {
+
+                    if (isTouch(e) || toggle && !this.$el.is(toggle.target)) {
+                        return;
+                    }
+
                     e.preventDefault();
 
                     if (this.toggle && this.toggle.mode === 'hover') {
@@ -2745,7 +2813,14 @@ function Drop (UIkit) {
 
                 name: 'show',
 
-                handler: function handler() {
+                handler: function handler(ref) {
+                    var target = ref.target;
+
+
+                    if (!this.$el.is(target)) {
+                        return;
+                    }
+
                     this.initMouseTracker();
                     this.toggle.$el.addClass(this.cls).attr('aria-expanded', 'true');
                     this.clearTimers();
@@ -2757,7 +2832,15 @@ function Drop (UIkit) {
 
                 name: 'hide',
 
-                handler: function handler() {
+                handler: function handler(ref) {
+                    var target = ref.target;
+
+
+                    if (!this.$el.is(target)) {
+                        active = active === null && isWithin(target, this.$el) && this.isToggled(this.$el) ? this : active;
+                        return;
+                    }
+
                     active = this.isActive() ? null : active;
                     this.toggle.$el.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
                     this.cancelMouseTracker();
@@ -2789,7 +2872,7 @@ function Drop (UIkit) {
                     var prop = this.getAxis() === 'y' ? 'width' : 'height';
                     this.$el.css(prop, alignTo[prop]);
                 } else if (this.$el.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
-                    this.$el.addClass(this.clsDrop + '-stack');
+                    this.$el.addClass(((this.clsDrop) + "-stack"));
                     this.$el.trigger('stack', [this]);
                 }
 
@@ -2808,7 +2891,7 @@ function Drop (UIkit) {
                 if ( delay === void 0 ) delay = true;
 
 
-                var show = function () { return this$1.toggleElement(this$1.$el, true); },
+                var show = function () { return !this$1.isToggled(this$1.$el) && this$1.toggleElement(this$1.$el, true); },
                     tryShow = function () {
 
                     this$1.toggle = toggle || this$1.toggle;
@@ -2820,8 +2903,20 @@ function Drop (UIkit) {
                     } else if (delay && active && active !== this$1 && active.isDelaying) {
                         this$1.showTimer = setTimeout(this$1.show, 75);
                         return;
-                    } else if (active) {
-                        active.hide(false);
+                    } else if (this$1.isParentOf(active)) {
+
+                        if (active.hideTimer) {
+                            active.hide(false);
+                        } else {
+                            return;
+                        }
+
+                    } else if (active && !this$1.isChildOf(active) && !this$1.isParentOf(active)) {
+                        var prev;
+                        while (active && active !== prev) {
+                            prev = active;
+                            active.hide(false);
+                        }
                     }
 
                     if (delay && this$1.delayShow) {
@@ -2831,7 +2926,6 @@ function Drop (UIkit) {
                     }
 
                     active = this$1;
-
                 };
 
                 if (toggle && this.toggle && !this.toggle.$el.is(toggle.$el)) {
@@ -2869,10 +2963,19 @@ function Drop (UIkit) {
                 clearTimeout(this.hideTimer);
                 this.showTimer = null;
                 this.hideTimer = null;
+                this.isDelaying = false;
             },
 
             isActive: function isActive() {
                 return active === this;
+            },
+
+            isChildOf: function isChildOf(drop) {
+                return drop && drop !== this && isWithin(this.$el, drop.$el);
+            },
+
+            isParentOf: function isParentOf(drop) {
+                return drop && drop !== this && isWithin(drop.$el, this.$el);
             }
 
         }
@@ -3025,7 +3128,7 @@ function HeightMatch (UIkit) {
                 var this$1 = this;
 
 
-                var elements = toJQuery(this.target, this.$el).css('min-height', '');
+                var elements = $__default(this.target, this.$el).css('min-height', '');
 
                 if (!this.row) {
                     this.match(elements);
@@ -3205,11 +3308,11 @@ function Hover (UIkit) {
         Object.defineProperty(UIkit, 'hoverSelector', {
 
             set: function set(selector) {
+                docElement.on('tap', selector, function (ref) {
+                    var currentTarget = ref.currentTarget;
 
-                docElement.on('tap', selector, function () {
-                    this.classList.add(cls);
+                    return currentTarget.classList.add(cls);
                 });
-
             }
 
         });
@@ -3566,15 +3669,15 @@ function Navbar (UIkit) {
 
         defaults: {
             dropdown: '.uk-navbar-nav > li',
-            mode: 'hover',
             align: !isRtl ? 'left' : 'right',
-            offset: false,
-            boundary: true,
-            boundaryAlign: false,
             clsDrop: 'uk-navbar-dropdown',
-            delayShow: 0,
-            delayHide: 800,
+            mode: undefined,
+            offset: undefined,
+            delayShow: undefined,
+            delayHide: undefined,
+            boundaryAlign: undefined,
             flip: 'x',
+            boundary: true,
             dropbar: false,
             dropbarMode: 'slide',
             dropbarAnchor: false,
@@ -3590,7 +3693,7 @@ function Navbar (UIkit) {
             var this$1 = this;
 
 
-            this.$el.on('mouseenter', this.dropdown, function (ref) {
+            this.$el.on(pointerEnter, this.dropdown, function (ref) {
                 var target = ref.target;
 
                 var active = this$1.getActive();
@@ -4644,7 +4747,7 @@ function Svg (UIkit) {
                     resolve(parse(decodeURIComponent(src.split(',')[1])));
                 } else {
 
-                    var key = "uikit_" + (UIkit.version) + "_" + src;
+                    var key = "" + (UIkit.data) + (UIkit.version) + "_" + src;
 
                     if (storage[key]) {
                         resolve(parse(storage[key]));
@@ -4666,6 +4769,15 @@ function Svg (UIkit) {
 
     function parse(doc) {
         return parser.parseFromString(doc, 'image/svg+xml');
+    }
+
+    // workaround for Safari's private browsing mode
+    try {
+        var key = (UIkit.data) + "test";
+        storage[key] = 1;
+        delete storage[key];
+    } catch (e) {
+        storage = {};
     }
 
 }
@@ -4837,24 +4949,20 @@ function Toggle (UIkit) {
             media: false
         },
 
-        init: function init() {
-            this.mode = hasTouch && this.mode == 'hover' ? 'click' : this.mode;
-        },
-
         events: [
 
             {
 
-                name: 'mouseenter mouseleave',
+                name: (pointerEnter + " " + pointerLeave),
 
                 filter: function filter() {
                     return this.mode === 'hover';
                 },
 
-                handler: function handler(ref) {
-                    var type = ref.type;
-
-                    this.toggle(type === 'mouseenter' ? 'toggleShow' : 'toggleHide');
+                handler: function handler(e) {
+                    if (!isTouch(e)) {
+                        this.toggle(e.type === pointerEnter ? 'toggleShow' : 'toggleHide');
+                    }
                 }
 
             },
@@ -4965,19 +5073,6 @@ function core (UIkit) {
                         }
                     }); }, toMs(getStyle(target, 'animationDuration')));
                 });
-            }
-        });
-    }, true);
-
-    on(document.documentElement, 'webkitAnimationEnd', function (ref) {
-        var target = ref.target;
-
-        fastdom.measure(function () {
-            if (getStyle(target, 'webkitFontSmoothing') === 'antialiased') {
-                fastdom.mutate(function () {
-                    target.style.webkitFontSmoothing = 'subpixel-antialiased';
-                    setTimeout(function () { return target.style.webkitFontSmoothing = ''; });
-                })
             }
         });
     }, true);
@@ -5095,7 +5190,7 @@ boot(UIkit$1);
 
 return UIkit$1;
 
-})));/*! UIkit 3.0.0-beta.11 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.12 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -5450,7 +5545,7 @@ if (typeof window !== 'undefined' && window.UIkit) {
 
 return plugin;
 
-})));/*! UIkit 3.0.0-beta.11 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.12 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -5467,6 +5562,8 @@ function plugin(UIkit) {
     var ref = UIkit.util;
     var $ = ref.$;
     var each = ref.each;
+    var pointerEnter = ref.pointerEnter;
+    var pointerLeave = ref.pointerLeave;
     var Transition = ref.Transition;
     var containers = {};
 
@@ -5510,8 +5607,8 @@ function plugin(UIkit) {
                 if (this$1.timeout) {
                     this$1.timer = setTimeout(this$1.close, this$1.timeout);
                     this$1.$el
-                        .on('mouseenter', function () { return clearTimeout(this$1.timer); })
-                        .on('mouseleave', function () { return this$1.timer = setTimeout(this$1.close, this$1.timeout); });
+                        .on(pointerEnter, function () { return clearTimeout(this$1.timer); })
+                        .on(pointerLeave, function () { return this$1.timer = setTimeout(this$1.close, this$1.timeout); });
                 }
             });
 
@@ -5574,7 +5671,7 @@ if (typeof window !== 'undefined' && window.UIkit) {
 
 return plugin;
 
-})));/*! UIkit 3.0.0-beta.11 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.12 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -5939,7 +6036,7 @@ if (typeof window !== 'undefined' && window.UIkit) {
 
 return plugin;
 
-})));/*! UIkit 3.0.0-beta.11 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.12 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -5956,7 +6053,21 @@ function plugin(UIkit) {
     var util = UIkit.util;
     var mixin = UIkit.mixin;
     var $ = util.$;
+    var doc = util.doc;
     var flipPosition = util.flipPosition;
+    var isTouch = util.isTouch;
+    var isWithin = util.isWithin;
+    var pointerDown = util.pointerDown;
+    var pointerEnter = util.pointerEnter;
+    var pointerLeave = util.pointerLeave;
+
+    var active;
+
+    doc.on('click', function (e) {
+        if (active && !isWithin(e.target, active.$el)) {
+            active.hide();
+        }
+    });
 
     UIkit.component('tooltip', {
 
@@ -5988,11 +6099,17 @@ function plugin(UIkit) {
                 var this$1 = this;
 
 
-                clearTimeout(this.showTimer);
-
-                if (this.$el.attr('aria-expanded') === 'true') {
+                if (active === this) {
                     return;
                 }
+
+                if (active) {
+                    active.hide();
+                }
+
+                active = this;
+
+                clearTimeout(this.showTimer);
 
                 this.tooltip = $(("<div class=\"" + (this.clsPos) + "\" aria-hidden=\"true\"><div class=\"" + (this.clsPos) + "-inner\">" + (this.content) + "</div></div>")).appendTo(UIkit.container);
 
@@ -6019,6 +6136,8 @@ function plugin(UIkit) {
                     return;
                 }
 
+                active = active !== this && active || false;
+
                 clearTimeout(this.showTimer);
                 clearInterval(this.hideTimer);
                 this.$el.attr('aria-expanded', false);
@@ -6029,12 +6148,20 @@ function plugin(UIkit) {
 
         },
 
-        events: {
-            'focus mouseenter': 'show',
-            'blur mouseleave': 'hide'
-        }
+        events: ( obj = {
+            'blur': 'hide'
+        }, obj[("focus " + pointerEnter + " " + pointerDown)] = function (e) {
+                if (e.type !== pointerDown || !isTouch(e)) {
+                    this.show();
+                }
+            }, obj[pointerLeave] = function (e) {
+                if (!isTouch(e)) {
+                    this.hide()
+                }
+            }, obj )
 
     });
+    var obj;
 
 }
 
@@ -6044,7 +6171,7 @@ if (typeof window !== 'undefined' && window.UIkit) {
 
 return plugin;
 
-})));/*! UIkit 3.0.0-beta.11 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));/*! UIkit 3.0.0-beta.12 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
