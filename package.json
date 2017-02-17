@@ -39,6 +39,9 @@
   },
   "watch": {
     "compile-js": "src/js/**/*.js",
-    "compile-less": "**/*.less"
+    "compile-less": {
+      "patterns": "**/*.less",
+      "extensions": "less"
+    }
   }
 }

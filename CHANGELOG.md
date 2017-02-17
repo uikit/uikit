@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix npm not watching less
+
 ## 3.0.0 beta 12 (February 17, 2017)
 
 ### Added
