@@ -18,7 +18,10 @@ export default function (UIkit) {
 
     UIkit.mixin = function (mixin, component) {
         component = (isString(component) ? UIkit.components[component] : component) || this;
-        component.options = mergeOptions(component.options, mixin);
+        mixin = mergeOptions({}, mixin);
+        mixin.mixins = component.options.mixins;
+        delete component.options.mixins;
+        component.options = mergeOptions(mixin, component.options);
     };
 
     UIkit.extend = function (options) {

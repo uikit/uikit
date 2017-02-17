@@ -10,6 +10,8 @@ export const hasTouch = 'ontouchstart' in window
 export const pointerDown = !hasTouch ? 'mousedown' : window.PointerEvent ? 'pointerdown' : 'touchstart';
 export const pointerMove = !hasTouch ? 'mousemove' : window.PointerEvent ? 'pointermove' : 'touchmove';
 export const pointerUp = !hasTouch ? 'mouseup' : window.PointerEvent ? 'pointerup' : 'touchend';
+export const pointerEnter = hasTouch && window.PointerEvent ? 'pointerenter' : 'mouseenter';
+export const pointerLeave = hasTouch && window.PointerEvent ? 'pointerleave' : 'mouseleave';
 
 export const transitionend = (function () {
 

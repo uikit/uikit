@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, extend, isRtl, isWithin, query, toJQuery, Transition } from '../util/index';
+import { $, extend, isRtl, isWithin, pointerEnter, query, toJQuery, Transition } from '../util/index';
 
 export default function (UIkit) {
 
@@ -25,15 +25,15 @@ export default function (UIkit) {
 
         defaults: {
             dropdown: '.uk-navbar-nav > li',
-            mode: 'hover',
             align: !isRtl ? 'left' : 'right',
-            offset: false,
-            boundary: true,
-            boundaryAlign: false,
             clsDrop: 'uk-navbar-dropdown',
-            delayShow: 0,
-            delayHide: 800,
+            mode: undefined,
+            offset: undefined,
+            delayShow: undefined,
+            delayHide: undefined,
+            boundaryAlign: undefined,
             flip: 'x',
+            boundary: true,
             dropbar: false,
             dropbarMode: 'slide',
             dropbarAnchor: false,
@@ -47,7 +47,7 @@ export default function (UIkit) {
 
         ready() {
 
-            this.$el.on('mouseenter', this.dropdown, ({target}) => {
+            this.$el.on(pointerEnter, this.dropdown, ({target}) => {
                 var active = this.getActive();
                 if (active && !isWithin(target, active.toggle.$el) && !active.isDelaying) {
                     active.hide(false);

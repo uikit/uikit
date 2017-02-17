@@ -5,11 +5,15 @@ var strats = {};
 // concat strategy
 strats.args =
 strats.created =
+strats.events =
 strats.init =
 strats.ready =
 strats.connected =
 strats.disconnected =
 strats.destroy = function (parentVal, childVal) {
+
+    parentVal = parentVal && !isArray(parentVal) ? [parentVal] : parentVal;
+
     return childVal
         ? parentVal
             ? parentVal.concat(childVal)
@@ -19,17 +23,9 @@ strats.destroy = function (parentVal, childVal) {
         : parentVal;
 };
 
+// update strategy
 strats.update = function (parentVal, childVal) {
     return strats.args(parentVal, isFunction(childVal) ? {write: childVal} : childVal);
-};
-
-// events strategy
-strats.events = function (parentVal, childVal) {
-    return childVal
-        ? parentVal
-            ? parentVal.push(childVal) && parentVal
-            : [childVal]
-        : parentVal;
 };
 
 // property strategy
@@ -60,13 +56,13 @@ var defaultStrat = function (parentVal, childVal) {
     return isUndefined(childVal) ? parentVal : childVal;
 };
 
-export function mergeOptions (parent, child, thisArg) {
+export function mergeOptions(parent, child) {
 
     var options = {}, key;
 
     if (child.mixins) {
         for (let i = 0, l = child.mixins.length; i < l; i++) {
-            parent = mergeOptions(parent, child.mixins[i], thisArg);
+            parent = mergeOptions(parent, child.mixins[i]);
         }
     }
 
@@ -80,8 +76,8 @@ export function mergeOptions (parent, child, thisArg) {
         }
     }
 
-    function mergeKey (key) {
-        options[key] = (strats[key] || defaultStrat)(parent[key], child[key], thisArg, key);
+    function mergeKey(key) {
+        options[key] = (strats[key] || defaultStrat)(parent[key], child[key]);
     }
 
     return options;

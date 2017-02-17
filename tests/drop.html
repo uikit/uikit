@@ -26,15 +26,49 @@
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Hover</button>
-                    <div uk-drop>
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                    <div id="parent-drop" uk-drop>
+                        <div id="parent-drop-card" class="uk-card uk-card-body uk-card-default">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                            <button class="uk-button uk-button-primary uk-width-1-1" type="button">Hover</button>
+                            <div id="child-drop" uk-drop="pos: right-center; offset: 50">
+                                <div id="child-drop-card" class="uk-card uk-card-body uk-card-default">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                                    <button class="uk-button uk-button-primary uk-width-1-1" type="button">Hover</button>
+                                    <div id="child-child-drop" uk-drop="pos: right-center; offset: 50">
+                                        <div id="child-child-drop-card" class="uk-card uk-card-body uk-card-default">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 
                 <div class="uk-inline">
                     <button class="uk-button uk-button-default" type="button">Click</button>
-                    <div uk-drop="mode: click">
-                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                    <div id="parent-drop-click" uk-drop="mode: click">
+                        <div id="parent-drop-card-click" class="uk-card uk-card-body uk-card-default">
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                            <button class="uk-button uk-button-primary uk-width-1-1" type="button">Click</button>
+                            <div id="child-drop-click" uk-drop="pos: right-center; offset: 50; mode: click">
+                                <div id="child-drop-card-click" class="uk-card uk-card-body uk-card-default">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                                    <button class="uk-button uk-button-primary uk-width-1-1" type="button">Click</button>
+                                    <div id="child-child-drop-click" uk-drop="pos: right-center; offset: 50; mode: click">
+                                        <div id="child-child-drop-card-click" class="uk-card uk-card-body uk-card-default">
+                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
 

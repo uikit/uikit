@@ -1,4 +1,4 @@
-import { $, hasTouch } from '../util/index';
+import { $, isTouch, pointerEnter, pointerLeave } from '../util/index';
 
 export default function (UIkit) {
 
@@ -23,22 +23,20 @@ export default function (UIkit) {
             media: false
         },
 
-        init() {
-            this.mode = hasTouch && this.mode == 'hover' ? 'click' : this.mode;
-        },
-
         events: [
 
             {
 
-                name: 'mouseenter mouseleave',
+                name: `${pointerEnter} ${pointerLeave}`,
 
                 filter() {
                     return this.mode === 'hover';
                 },
 
-                handler({type}) {
-                    this.toggle(type === 'mouseenter' ? 'toggleShow' : 'toggleHide');
+                handler(e) {
+                    if (!isTouch(e)) {
+                        this.toggle(e.type === pointerEnter ? 'toggleShow' : 'toggleHide');
+                    }
                 }
 
             },

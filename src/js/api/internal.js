@@ -126,7 +126,7 @@ export default function (UIkit) {
     UIkit.prototype._initEvents = function (unbind) {
 
         var events = this.$options.events,
-            connect = (key, event) => {
+            connect = (event, key) => {
 
                 if (!isPlainObject(event)) {
                     event = ({name: key, handler: event});
@@ -158,15 +158,14 @@ export default function (UIkit) {
             };
 
         if (events) {
+            events.forEach(event => {
 
-            events.forEach(events => {
-
-                if (isArray(events)) {
-                    events.forEach((event, key) => connect(key, event));
-                } else {
-                    for (var key in events) {
-                        connect(key, events[key]);
+                if (!('handler' in event)) {
+                    for (var key in event) {
+                        connect(event[key], key);
                     }
+                } else {
+                    connect(event);
                 }
 
             });

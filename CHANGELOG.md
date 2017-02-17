@@ -1,5 +1,30 @@
 # Changelog
 
+## 3.0.0 beta 12 (February 17, 2017)
+
+### Added
+
+- Add nested Drops
+- Add text primary hook
+
+### Changed
+
+- Make Accordion selectors more specific
+- Optimized margin modifier in Position component
+- Drop component no longer forces 'click' on touch devices
+
+### Removed
+
+- Remove obsolete webkitFontSmoothing workaround
+
+### Fixed
+
+- Fix text wrapping in Position component
+- Fix icons in Safari's private browsing mode
+- Fix right click triggers click event
+- Fix empty targets in HeightMatch component
+- Fix Tooltip component on touch devices
+
 ## 3.0.0 beta 11 (February 13, 2017)
 
 ### Fixed

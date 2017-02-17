@@ -5,7 +5,15 @@ function plugin(UIkit) {
     }
 
     var { util, mixin } = UIkit;
-    var {$, flipPosition} = util;
+    var {$, doc, flipPosition, isTouch, isWithin, pointerDown, pointerEnter, pointerLeave} = util;
+
+    var active;
+
+    doc.on('click', e => {
+        if (active && !isWithin(e.target, active.$el)) {
+            active.hide();
+        }
+    });
 
     UIkit.component('tooltip', {
 
@@ -35,11 +43,17 @@ function plugin(UIkit) {
 
             show() {
 
-                clearTimeout(this.showTimer);
-
-                if (this.$el.attr('aria-expanded') === 'true') {
+                if (active === this) {
                     return;
                 }
+
+                if (active) {
+                    active.hide();
+                }
+
+                active = this;
+
+                clearTimeout(this.showTimer);
 
                 this.tooltip = $(`<div class="${this.clsPos}" aria-hidden="true"><div class="${this.clsPos}-inner">${this.content}</div></div>`).appendTo(UIkit.container);
 
@@ -66,6 +80,8 @@ function plugin(UIkit) {
                     return;
                 }
 
+                active = active !== this && active || false;
+
                 clearTimeout(this.showTimer);
                 clearInterval(this.hideTimer);
                 this.$el.attr('aria-expanded', false);
@@ -77,8 +93,17 @@ function plugin(UIkit) {
         },
 
         events: {
-            'focus mouseenter': 'show',
-            'blur mouseleave': 'hide'
+            [`focus ${pointerEnter} ${pointerDown}`](e) {
+                if (e.type !== pointerDown || !isTouch(e)) {
+                    this.show();
+                }
+            },
+            'blur': 'hide',
+            [pointerLeave](e) {
+                if (!isTouch(e)) {
+                    this.hide()
+                }
+            }
         }
 
     });
