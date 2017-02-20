@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Rename function "show" to "toggle" in Accordion component
+
 ### Fixed
 
 - Fix npm not watching less

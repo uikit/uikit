@@ -45,7 +45,7 @@ export default function (UIkit) {
 
                 handler(e) {
                     e.preventDefault();
-                    this.show(this.items.find(this.toggle).index(e.currentTarget));
+                    this.toggle(this.items.find(this.toggle).index(e.currentTarget));
                 }
 
             }
@@ -70,13 +70,13 @@ export default function (UIkit) {
 
             var active = this.active !== false && toJQuery(this.items.eq(Number(this.active))) || !this.collapsible && toJQuery(this.items.eq(0));
             if (active && !active.hasClass(this.clsOpen)) {
-                this.show(active, false);
+                this.toggle(active, false);
             }
         },
 
         methods: {
 
-            show(item, animate) {
+            toggle(item, animate) {
 
                 var index = getIndex(item, this.items),
                     active = this.items.filter(`.${this.clsOpen}`);
