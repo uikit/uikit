@@ -7,6 +7,7 @@
 - Fix npm not watching less
 - Modal no longer closes immediately when toggled from custom 'click' handler
 - Fix Accordion component
+- Fix container for Tooltip component
 
 ## 3.0.0 beta 12 (February 17, 2017)
 

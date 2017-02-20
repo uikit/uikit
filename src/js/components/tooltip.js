@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var { util, mixin } = UIkit;
-    var {$, doc, flipPosition, isTouch, isWithin, pointerDown, pointerEnter, pointerLeave} = util;
+    var {$, doc, flipPosition, isTouch, isWithin, pointerDown, pointerEnter, pointerLeave, toJQuery} = util;
 
     var active;
 
@@ -20,7 +20,8 @@ function plugin(UIkit) {
         mixins: [mixin.toggable, mixin.position],
 
         props: {
-            delay: Number
+            delay: Number,
+            container: Boolean
         },
 
         defaults: {
@@ -29,7 +30,12 @@ function plugin(UIkit) {
             animation: 'uk-animation-scale-up',
             duration: 100,
             cls: 'uk-active',
-            clsPos: 'uk-tooltip'
+            clsPos: 'uk-tooltip',
+            container: true
+        },
+
+        init() {
+            this.container = this.container === true && UIkit.container || this.container && toJQuery(this.container);
         },
 
         ready() {
@@ -55,7 +61,7 @@ function plugin(UIkit) {
 
                 clearTimeout(this.showTimer);
 
-                this.tooltip = $(`<div class="${this.clsPos}" aria-hidden="true"><div class="${this.clsPos}-inner">${this.content}</div></div>`).appendTo(UIkit.container);
+                this.tooltip = $(`<div class="${this.clsPos}" aria-hidden="true"><div class="${this.clsPos}-inner">${this.content}</div></div>`).appendTo(this.container);
 
                 this.$el.attr('aria-expanded', true);
 
