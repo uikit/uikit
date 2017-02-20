@@ -56,7 +56,6 @@ export default function (UIkit) {
                     return;
                 }
 
-                docElement.addClass(this.clsPage);
                 this.$el.css('display', 'block');
                 this.$el.height();
             },
@@ -65,10 +64,6 @@ export default function (UIkit) {
 
                 if (!this.$el.is(e.target)) {
                     return;
-                }
-
-                if (!this.getActive()) {
-                    docElement.removeClass(this.clsPage);
                 }
 
                 this.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');

@@ -29,13 +29,9 @@ export default function (UIkit) {
                 return new UIkit.components[name]({data: [...arguments]});
             }
 
-            var result = [];
-
             data = data || {};
 
-            $(element).each((i, el) => result.push(el[DATA] && el[DATA][name] || new UIkit.components[name]({el, data})));
-
-            return result;
+            return $(element).toArray().map(el => el[DATA] && el[DATA][name] || new UIkit.components[name]({el, data}));
         };
 
         if (document.body && !options.options.functional) {

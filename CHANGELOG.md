@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix npm not watching less
+- Modal no longer closes immediately when toggled from custom 'click' handler
 
 ## 3.0.0 beta 12 (February 17, 2017)
 

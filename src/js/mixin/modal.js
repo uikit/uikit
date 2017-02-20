@@ -1,25 +1,8 @@
-import { $, doc, docElement, isWithin, promise, toJQuery, transitionend } from '../util/index';
+import { $, doc, docElement, isWithin, promise, toJQuery, toMs, transitionend } from '../util/index';
 import Class from './class';
 import Toggable from './toggable';
 
 var active;
-
-doc.on({
-
-    click(e) {
-        if (active && active.bgClose && !e.isDefaultPrevented() && !isWithin(e.target, active.panel)) {
-            active.hide();
-        }
-    },
-
-    keydown(e) {
-        if (e.keyCode === 27 && active && active.escClose) {
-            e.preventDefault();
-            active.hide();
-        }
-    }
-
-});
 
 export default {
 
@@ -104,30 +87,12 @@ export default {
                     } else {
                         prev.hide();
                     }
+                } else {
+                    requestAnimationFrame(() => register(this.$options.name));
                 }
 
-                this.panel.one(transitionend, () => {
-                    var event = $.Event('show');
-                    event.isShown = true;
-                    this.$el.trigger(event, [this]);
-                });
-            }
+                docElement.addClass(this.clsPage);
 
-        },
-
-        {
-
-            name: 'show',
-
-            handler(e) {
-
-                if (!this.$el.is(e.target)) {
-                    return;
-                }
-
-                if (!e.isShown) {
-                    e.stopImmediatePropagation();
-                }
             }
 
         },
@@ -136,25 +101,32 @@ export default {
 
             name: 'beforehide',
 
-            handler(e) {
+            handler({target}) {
 
-                if (!this.$el.is(e.target)) {
+                if (!this.$el.is(target)) {
                     return;
+                }
+
+                if (!this.isActive()) {
+                    return false;
                 }
 
                 active = active && active !== this && active || this.prev;
 
-                var hide = () => {
-                    var event = $.Event('hide');
-                    event.isHidden = true;
-                    this.$el.trigger(event, [this]);
-                };
-
-                if (parseFloat(this.panel.css('transition-duration'))) {
-                    this.panel.one(transitionend, hide);
-                } else {
-                    hide();
+                if (!active) {
+                    deregister(this.$options.name);
                 }
+
+                var duration = toMs(this.panel.css('transition-duration'));
+
+                return duration ? promise(resolve => {
+                        this.panel.one(transitionend, resolve);
+                        setTimeout(() => {
+                            resolve();
+                            this.panel.off(transitionend, resolve);
+                        }, duration);
+                    }) : true;
+
             }
 
         },
@@ -163,18 +135,14 @@ export default {
 
             name: 'hide',
 
-            handler(e) {
+            handler({target}) {
 
-                if (!this.$el.is(e.target)) {
-                    return;
-                }
-
-                if (!e.isHidden) {
-                    e.stopImmediatePropagation();
+                if (!this.$el.is(target)) {
                     return;
                 }
 
                 if (!active) {
+                    docElement.removeClass(this.clsPage);
                     this.body.css('overflow-y', '');
                 }
             }
@@ -194,17 +162,11 @@ export default {
         },
 
         show() {
-            return promise(resolve => {
-                this.$el.one('show', resolve);
-                this.toggleNow(this.$el, true);
-            });
+            return this.toggleNow(this.$el, true);
         },
 
         hide() {
-            return promise(resolve => {
-                this.$el.one('hide', resolve);
-                this.toggleNow(this.$el, false);
-            });
+            return this.toggleNow(this.$el, false);
         },
 
         getActive() {
@@ -226,4 +188,27 @@ export default {
         }
     }
 
+}
+
+function register(name) {
+    doc.on({
+
+        [`click.${name}`](e) {
+            if (active && active.bgClose && !e.isDefaultPrevented() && !isWithin(e.target, active.panel)) {
+                active.hide();
+            }
+        },
+
+        [`keydown.${name}`](e) {
+            if (e.keyCode === 27 && active && active.escClose) {
+                e.preventDefault();
+                active.hide();
+            }
+        }
+
+    });
+}
+
+function deregister(name) {
+    doc.off(`click.${name}`).off(`keydown.${name}`);
 }

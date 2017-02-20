@@ -69,7 +69,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                docElement.addClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageAnimation} ${this.clsPageOverlay}`);
+                docElement.addClass(`${this.clsFlip} ${this.clsPageAnimation} ${this.clsPageOverlay}`);
                 this.panel.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                 this.$el.addClass(this.clsOverlay).css('display', 'block').height();
 
@@ -95,7 +95,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                docElement.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageOverlay}`).width('');
+                docElement.removeClass(`${this.clsFlip} ${this.clsPageOverlay}`).width('');
                 this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                 this.$el.removeClass(this.clsOverlay).css('display', '');
             }

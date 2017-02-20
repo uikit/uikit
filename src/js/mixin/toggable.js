@@ -113,8 +113,11 @@ export default {
             var event = $.Event(`before${show ? 'show' : 'hide'}`);
             el.trigger(event, [this]);
 
+            var delay = false;
             if (event.result === false) {
                 return promise.reject();
+            } else if (event.result && event.result.then) {
+                delay = event.result;
             }
 
             var promise = (this.animation === true && animate !== false
@@ -124,8 +127,12 @@ export default {
                     : this._toggleImmediate
             )(el, show);
 
-            el.trigger(show ? 'show' : 'hide', [this]);
-            return promise.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
+            var handler = () => {
+                el.trigger(show ? 'show' : 'hide', [this]);
+                return promise.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
+            };
+
+            return delay ? delay.then(handler) : handler();
         },
 
         _toggle(el, toggled) {

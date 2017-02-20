@@ -1,4 +1,4 @@
-import { getStyle, fastdom, on, requestAnimationFrame, win } from '../util/index';
+import { animationstart, getStyle, fastdom, on, requestAnimationFrame, toMs, win } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
@@ -61,7 +61,7 @@ export default function (UIkit) {
             }
         });
 
-    on(document, 'animationstart', ({target}) => {
+    on(document, animationstart, ({target}) => {
         fastdom.measure(() => {
             if ((getStyle(target, 'animationName') || '').lastIndexOf('uk-', 0) === 0) {
                 fastdom.mutate(() => {
@@ -106,11 +106,4 @@ export default function (UIkit) {
     UIkit.use(Tab);
     UIkit.use(Toggle);
 
-    function toMs(time) {
-        return !time
-            ? 0
-            : time.substr(-2) === 'ms'
-                ? parseFloat(time)
-                : parseFloat(time) * 1000;
-    }
 }
