@@ -27,6 +27,10 @@ export default function (UIkit) {
             queued: true
         },
 
+        connected() {
+            this.$emitSync();
+        },
+
         events: [
 
             {
@@ -76,10 +80,6 @@ export default function (UIkit) {
         methods: {
 
             show(item) {
-
-                if (!this.toggles) {
-                    this.$emitSync();
-                }
 
                 var length = this.toggles.length,
                     prev = this.connects.children(`.${this.cls}`).index(),

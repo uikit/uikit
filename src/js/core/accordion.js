@@ -29,6 +29,10 @@ export default function (UIkit) {
             transition: 'ease'
         },
 
+        connected() {
+            this.$emitSync();
+        },
+
         events: [
 
             {
@@ -73,10 +77,6 @@ export default function (UIkit) {
         methods: {
 
             show(item, animate) {
-
-                if (!this.items) {
-                    this.$emitSync();
-                }
 
                 var index = getIndex(item, this.items),
                     active = this.items.filter(`.${this.clsOpen}`);
