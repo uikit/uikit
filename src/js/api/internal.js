@@ -132,7 +132,7 @@ export default function (UIkit) {
                     event = ({name: key, handler: event});
                 }
 
-                var {name, delegate, filter, handler} = event;
+                var {name, delegate, self, filter, handler} = event;
 
                 name += `.${this.$options.name}`;
 
@@ -147,6 +147,18 @@ export default function (UIkit) {
                     }
 
                     handler = isString(handler) ? this[handler] : bind(handler, this);
+
+                    if (self) {
+                        var fn = handler;
+                        handler = (e) => {
+
+                            if (!this.$el.is(e.target)) {
+                                return;
+                            }
+
+                            fn.call(this, e);
+                        }
+                    }
 
                     if (delegate) {
                         this.$el.on(name, isString(delegate) ? delegate : delegate.call(this), handler);

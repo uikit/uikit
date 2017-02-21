@@ -61,46 +61,47 @@ export default function (UIkit) {
 
         },
 
-        events: {
+        events: [
 
-            beforeshow(e) {
+            {
+                name: 'beforeshow',
 
-                if (!this.$el.is(e.target)) {
-                    return;
+                self: true,
+
+                handler() {
+                    docElement.addClass(`${this.clsFlip} ${this.clsPageAnimation} ${this.clsPageOverlay}`);
+                    this.panel.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
+                    this.$el.addClass(this.clsOverlay).css('display', 'block').height();
                 }
-
-                docElement.addClass(`${this.clsFlip} ${this.clsPageAnimation} ${this.clsPageOverlay}`);
-                this.panel.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
-                this.$el.addClass(this.clsOverlay).css('display', 'block').height();
-
             },
 
-            beforehide(e) {
+            {
+                name: 'beforehide',
 
-                if (!this.$el.is(e.target)) {
-                    return;
+                self: true,
+
+                handler() {
+                    docElement.removeClass(this.clsPageAnimation);
+
+                    if (this.mode === 'none' || this.getActive() && this.getActive() !== this) {
+                        this.panel.trigger(transitionend);
+                    }
                 }
-
-                docElement.removeClass(this.clsPageAnimation);
-
-                if (this.mode === 'none' || this.getActive() && this.getActive() !== this) {
-                    this.panel.trigger(transitionend);
-                }
-
             },
 
-            hide(e) {
+            {
+                name: 'hide',
 
-                if (!this.$el.is(e.target)) {
-                    return;
+                self: true,
+
+                handler() {
+                    docElement.removeClass(`${this.clsFlip} ${this.clsPageOverlay}`).width('');
+                    this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
+                    this.$el.removeClass(this.clsOverlay).css('display', '');
                 }
-
-                docElement.removeClass(`${this.clsFlip} ${this.clsPageOverlay}`).width('');
-                this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
-                this.$el.removeClass(this.clsOverlay).css('display', '');
             }
 
-        }
+        ]
 
     });
 

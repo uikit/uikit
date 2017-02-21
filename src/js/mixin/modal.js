@@ -63,11 +63,9 @@ export default {
 
             name: 'beforeshow',
 
-            handler({target}) {
+            self: true,
 
-                if (!this.$el.is(target)) {
-                    return;
-                }
+            handler() {
 
                 if (this.isActive()) {
                     return false;
@@ -101,11 +99,9 @@ export default {
 
             name: 'beforehide',
 
-            handler({target}) {
+            self: true,
 
-                if (!this.$el.is(target)) {
-                    return;
-                }
+            handler() {
 
                 if (!this.isActive()) {
                     return false;
@@ -135,12 +131,9 @@ export default {
 
             name: 'hide',
 
-            handler({target}) {
+            self: true,
 
-                if (!this.$el.is(target)) {
-                    return;
-                }
-
+            handler() {
                 if (!active) {
                     docElement.removeClass(this.clsPage);
                     this.body.css('overflow-y', '');

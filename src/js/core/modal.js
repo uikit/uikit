@@ -48,28 +48,29 @@ export default function (UIkit) {
 
         },
 
-        events: {
+        events: [
 
-            beforeshow(e) {
+            {
+                name: 'beforeshow',
 
-                if (!this.$el.is(e.target)) {
-                    return;
+                self: true,
+
+                handler() {
+                    this.$el.css('display', 'block').height();
                 }
-
-                this.$el.css('display', 'block');
-                this.$el.height();
             },
 
-            hide(e) {
+            {
+                name: 'hide',
 
-                if (!this.$el.is(e.target)) {
-                    return;
+                self: true,
+
+                handler() {
+                    this.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
                 }
-
-                this.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
             }
 
-        }
+        ]
 
     });
 

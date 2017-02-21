@@ -78,6 +78,33 @@ export default function (UIkit) {
 
             {
 
+                name: 'click',
+
+                delegate() {
+                    return 'a[href^="#"]';
+                },
+
+                handler(e) {
+
+                    if (e.isDefaultPrevented()) {
+                        return;
+                    }
+
+                    var id = $(e.target).attr('href');
+
+                    if (id.length === 1) {
+                        e.preventDefault();
+                    }
+
+                    if (id.length === 1 || !isWithin(id, this.$el)) {
+                        this.hide(false);
+                    }
+                }
+
+            },
+
+            {
+
                 name: 'toggle',
 
                 handler(e, toggle) {
@@ -166,12 +193,9 @@ export default function (UIkit) {
 
                 name: 'show',
 
-                handler({target}) {
+                self: true,
 
-                    if (!this.$el.is(target)) {
-                        return;
-                    }
-
+                handler() {
                     this.initMouseTracker();
                     this.toggle.$el.addClass(this.cls).attr('aria-expanded', 'true');
                     this.clearTimers();
