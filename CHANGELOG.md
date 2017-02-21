@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add ID for AMD bundles
+
 ### Changed
 
 - Rename function "show" to "toggle" in Accordion component

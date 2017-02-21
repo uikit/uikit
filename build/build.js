@@ -29,12 +29,18 @@ function compile(file, dest, external, globals, name) {
             buble()
         ]
     })
-        .then(bundle => util.write(`${dest}.js`, bundle.generate({
-            globals,
-            format: 'umd',
-            banner: util.banner,
-            moduleName: `UIkit${name ? '' + util.ucfirst(name) : ''}`
-        }).code))
+        .then(bundle => {
+
+            var moduleName = `UIkit${name ? '' + util.ucfirst(name) : ''}`;
+
+            util.write(`${dest}.js`, bundle.generate({
+                globals,
+                moduleName,
+                format: 'umd',
+                banner: util.banner,
+                moduleId: moduleName.toLowerCase(),
+            }).code)}
+        )
         .then(() => util.write(`${dest}.min.js`, `${util.banner}\n${uglify.minify(`${dest}.js`).code}`))
         .catch(console.log);
 }
