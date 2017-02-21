@@ -15,6 +15,7 @@
 - Fix container for Tooltip component
 - Fix Dropdowns closing in Navbar component
 - Fix Drops closing on click on hash links
+- Fix Tab component not initializing
 
 ## 3.0.0 beta 12 (February 17, 2017)
 
