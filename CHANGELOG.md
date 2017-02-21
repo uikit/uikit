@@ -5,6 +5,7 @@
 ### Changed
 
 - Rename function "show" to "toggle" in Accordion component
+- Switcher no longers "swipes" with mouse
 
 ### Fixed
 

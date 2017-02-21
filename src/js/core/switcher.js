@@ -1,5 +1,5 @@
 import { Toggable } from '../mixin/index';
-import { $, getIndex, toJQuery } from '../util/index';
+import { $, getIndex, isTouch, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
@@ -64,6 +64,11 @@ export default function (UIkit) {
             if (this.swiping) {
                 var swipe = `swipeRight.${this.$options.name} swipeLeft.${this.$options.name}`;
                 this.connects.off(swipe).on(swipe, e => {
+
+                    if (!isTouch(e)) {
+                        return;
+                    }
+
                     e.preventDefault();
                     if (!window.getSelection().toString()) {
                         this.show(e.type == 'swipeLeft' ? 'next' : 'previous');
