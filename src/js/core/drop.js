@@ -1,5 +1,5 @@
-import { Mouse, Position, Toggable } from '../mixin/index';
-import { doc, getDimensions, isWithin, isTouch, pointerEnter, pointerLeave, query, removeClass } from '../util/index';
+import { Position, Toggable } from '../mixin/index';
+import { doc, getDimensions, isWithin, isTouch, MouseTracker, pointerEnter, pointerLeave, query, removeClass } from '../util/index';
 
 export default function (UIkit) {
 
@@ -15,7 +15,7 @@ export default function (UIkit) {
 
     UIkit.component('drop', {
 
-        mixins: [Mouse, Position, Toggable],
+        mixins: [Position, Toggable],
 
         args: 'pos',
 
@@ -43,6 +43,7 @@ export default function (UIkit) {
         },
 
         init() {
+            this.tracker = new MouseTracker();
             this.clsDrop = this.clsDrop || `uk-${this.$options.name}`;
             this.clsPos = this.clsDrop;
 
@@ -191,13 +192,36 @@ export default function (UIkit) {
 
             {
 
+                name: 'beforeshow',
+
+                self: true,
+
+                handler() {
+                    this.clearTimers();
+                }
+
+            },
+
+            {
+
                 name: 'show',
 
                 self: true,
 
                 handler() {
-                    this.initMouseTracker();
+                    this.tracker.init();
                     this.toggle.$el.addClass(this.cls).attr('aria-expanded', 'true');
+                }
+
+            },
+
+            {
+
+                name: 'beforehide',
+
+                self: true,
+
+                handler() {
                     this.clearTimers();
                 }
 
@@ -216,8 +240,7 @@ export default function (UIkit) {
 
                     active = this.isActive() ? null : active;
                     this.toggle.$el.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
-                    this.cancelMouseTracker();
-                    this.clearTimers();
+                    this.tracker.cancel();
                 }
 
             }
@@ -271,7 +294,7 @@ export default function (UIkit) {
                     if (this.isActive()) {
                         return;
                     } else if (delay && active && active !== this && active.isDelaying) {
-                        this.showTimer = setTimeout(this.show, 75);
+                        this.showTimer = setTimeout(this.show, 10);
                         return;
                     } else if (this.isParentOf(active)) {
 
@@ -314,7 +337,7 @@ export default function (UIkit) {
 
                 this.clearTimers();
 
-                this.isDelaying = this.movesTo(this.$el);
+                this.isDelaying = this.tracker.movesTo(this.$el);
 
                 if (delay && this.isDelaying) {
                     this.hideTimer = setTimeout(this.hide, this.hoverIdle);

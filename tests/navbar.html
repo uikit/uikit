@@ -1971,5 +1971,34 @@
 
         </div>
 
+        <h2>JavaScript</h2>
+
+        <div class="uk-container">
+
+            <div id="mousetracker" class="uk-inline">
+                <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
+                <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-center" style="height: 150px; width: 150px;">
+                    <div id="mousetarget" class="uk-position-center"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <script>
+
+            var tracker = new UIkit.util.MouseTracker(),
+                target = $('#mousetarget');
+
+            $('#mousetracker')
+                .on('mouseenter', function () {tracker.init()})
+                .on('mouseleave', function () {tracker.cancel()})
+                .on('mousemove', function (e) {
+                    if (!UIkit.util.isWithin(e.target, target.parent())) {
+                        target.text(tracker.movesTo(target.parent()) ? 'Moves to' : 'Moves away');
+                    }
+                });
+
+        </script>
+
     </body>
 </html>

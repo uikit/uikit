@@ -12,6 +12,8 @@
 - Modal no longer closes immediately when toggled from custom 'click' handler
 - Fix Accordion component
 - Fix container for Tooltip component
+- Fix Dropdowns closing in Navbar component
+- Fix Drops closing on click on hash links
 
 ## 3.0.0 beta 12 (February 17, 2017)
 
