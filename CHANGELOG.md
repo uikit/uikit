@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add hero heading modifier
 - Add ID for AMD bundles
 
 ### Changed

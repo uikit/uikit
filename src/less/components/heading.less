@@ -2,6 +2,7 @@
 // Description:     Styles for headings
 //
 // Component:       `uk-heading-primary`
+//                  `uk-heading-hero`
 //                  `uk-heading-divider`
 //                  `uk-heading-bullet`
 //                  `uk-heading-line`
@@ -17,6 +18,15 @@
 
 @heading-primary-font-size-m:                   3.75rem; // 54px
 @heading-primary-line-height-m:                 1.1;
+
+@heading-hero-font-size:                        4rem; // 64px
+@heading-hero-line-height:                      1.1;
+
+@heading-hero-font-size-s:                      6rem; // 96px
+@heading-hero-line-height-s:                    1;
+
+@heading-hero-font-size-m:                      8rem; // 128px
+@heading-hero-line-height-m:                    1;
 
 @heading-divider-padding-bottom:                10px;
 @heading-divider-border-width:                  @global-border-width;
@@ -54,6 +64,36 @@
     .uk-heading-primary {
         font-size: @heading-primary-font-size-m;
         line-height: @heading-primary-line-height-m;
+    }
+
+}
+
+
+/* Hero
+ ========================================================================== */
+
+.uk-heading-hero {
+    font-size: @heading-hero-font-size;
+    line-height: @heading-hero-line-height;
+    .hook-heading-hero;
+}
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-heading-hero {
+        font-size: @heading-hero-font-size-s;
+        line-height: @heading-hero-line-height-s;
+    }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-heading-hero {
+        font-size: @heading-hero-font-size-m;
+        line-height: @heading-hero-line-height-m;
     }
 
 }
@@ -149,6 +189,7 @@
 .hook-heading-misc;
 
 .hook-heading-primary() {}
+.hook-heading-hero() {}
 .hook-heading-divider() {}
 .hook-heading-bullet() {}
 .hook-heading-line() {}
@@ -166,6 +207,10 @@
 
     .uk-heading-primary {
         .hook-inverse-heading-primary;
+    }
+
+    .uk-heading-hero {
+        .hook-inverse-heading-hero;
     }
 
     .uk-heading-divider {
@@ -187,6 +232,7 @@
 }
 
 .hook-inverse-heading-primary() {}
+.hook-inverse-heading-hero() {}
 .hook-inverse-heading-divider() {}
 .hook-inverse-heading-bullet() {}
 .hook-inverse-heading-line() {}
