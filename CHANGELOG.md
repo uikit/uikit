@@ -11,6 +11,7 @@
 
 - Rename function "show" to "toggle" in Accordion component
 - Switcher no longers "swipes" with mouse
+- Sticky component applies active class after scrolling below top
 
 ### Fixed
 

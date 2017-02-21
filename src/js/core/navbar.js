@@ -67,7 +67,7 @@ export default function (UIkit) {
 
                 var drop = toJQuery(`.${this.clsDrop}`, el);
 
-                if (drop && !UIkit.getComponent(drop, 'drop') && !UIkit.getComponent(drop, 'dropdown')) {
+                if (drop) {
                     UIkit.drop(drop, extend({}, this));
                 }
 
