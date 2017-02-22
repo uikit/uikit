@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add phone receiver icon
 - Add hero heading modifier
 - Add ID for AMD bundles
 
