@@ -35,6 +35,9 @@ export default function (UIkit) {
 
         init() {
             this.$el.addClass(this.clsInactive);
+
+            this.topProp = this.top;
+            this.bottomProp = this.bottom;
         },
 
         connected() {
@@ -44,27 +47,25 @@ export default function (UIkit) {
 
         ready() {
 
-            this.topProp = this.top;
-            this.bottomProp = this.bottom;
+            if (!(this.target && location.hash && win.scrollTop() > 0)) {
+                return;
+            }
 
-            if (this.target && location.hash && win.scrollTop() > 0) {
+            var target = query(location.hash);
 
-                var target = query(location.hash);
+            if (target) {
+                requestAnimationFrame(() => {
 
-                if (target) {
-                    requestAnimationFrame(() => {
+                    var top = target.offset().top,
+                        elTop = this.$el.offset().top,
+                        elHeight = this.$el.outerHeight(),
+                        elBottom = elTop + elHeight;
 
-                        var top = target.offset().top,
-                            elTop = this.$el.offset().top,
-                            elHeight = this.$el.outerHeight(),
-                            elBottom = elTop + elHeight;
+                    if (elBottom >= top && elTop <= top + target.outerHeight()) {
+                        window.scrollTo(0, top - elHeight - this.target - this.offset);
+                    }
 
-                        if (elBottom >= top && elTop <= top + target.outerHeight()) {
-                            window.scrollTo(0, top - elHeight - this.target - this.offset);
-                        }
-
-                    });
-                }
+                });
             }
 
         },
@@ -131,7 +132,6 @@ export default function (UIkit) {
             },
 
             {
-
 
                 write({dir} = {}) {
 
