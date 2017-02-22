@@ -135,13 +135,11 @@ function scheduleFlush(fastdom) {
  */
 function flush(fastdom) {
 
-    var reads = fastdom.reads.splice(0, fastdom.reads.length),
-        writes = fastdom.writes.splice(0, fastdom.writes.length),
-        error;
+    var error;
 
     try {
-        runTasks(reads);
-        runTasks(writes);
+        runTasks(fastdom.reads);
+        runTasks(fastdom.writes.splice(0, fastdom.writes.length));
     } catch (e) { error = e; }
 
     fastdom.scheduled = false;
