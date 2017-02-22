@@ -1,4 +1,4 @@
-import { bind, camelize, coerce, createEvent, extend, fastdom, hasOwn, hyphenate, isArray, isPlainObject, isString, mergeOptions } from '../util/index';
+import { bind, camelize, coerce, createEvent, extend, fastdom, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, mergeOptions, ready } from '../util/index';
 
 export default function (UIkit) {
 
@@ -13,6 +13,7 @@ export default function (UIkit) {
 
         this.$el = null;
         this.$name = UIkit.prefix + hyphenate(this.$options.name);
+        this.$props = {};
 
         this._uid = uid++;
         this._initData();
@@ -49,20 +50,27 @@ export default function (UIkit) {
         }
 
         for (var key in defaults) {
-            this[key] = hasOwn(data, key) ? coerce(props[key], data[key], this.$options.el) : defaults[key];
+            this.$props[key] = this[key] = hasOwn(data, key) ? coerce(props[key], data[key], this.$options.el) : defaults[key];
         }
     };
 
-    UIkit.prototype._initProps = function () {
+    UIkit.prototype._initProps = function (props) {
+        props = props || this._getProps();
+        extend(this, props);
+        extend(this.$props, props);
+    };
 
-        var el = this.$el[0],
+    UIkit.prototype._getProps = function (attrs = false) {
+
+        var data = {},
+            el = this.$el[0],
             args = this.$options.args || [],
             props = this.$options.props || {},
             options = el.getAttribute(this.$name) || el.getAttribute(`data-${this.$name}`),
             key, prop;
 
         if (!props) {
-            return;
+            return data;
         }
 
         for (key in props) {
@@ -75,12 +83,12 @@ export default function (UIkit) {
                     continue;
                 }
 
-                this[key] = value;
+                data[key] = value;
             }
         }
 
-        if (!options) {
-            return;
+        if (attrs || !options) {
+            return data;
         }
 
         if (options[0] === '{') {
@@ -106,10 +114,11 @@ export default function (UIkit) {
         for (key in options || {}) {
             prop = camelize(key);
             if (props[prop] !== undefined) {
-                this[prop] = coerce(props[prop], options[key], el);
+                data[prop] = coerce(props[prop], options[key], el);
             }
         }
 
+        return data;
     };
 
     UIkit.prototype._initMethods = function () {
@@ -184,7 +193,37 @@ export default function (UIkit) {
         }
     };
 
-    UIkit.prototype._callHook = function (hook) {
+    UIkit.prototype._initAttrs = function () {
+
+        if (!this.$options.props || !this.$options.attrs || this._observer) {
+            return;
+        }
+
+        var connect = () => this._observer.observe(this.$options.el, {attributes: true, attributeFilter: Object.keys(this.$options.props).map(key => hyphenate(key))});
+
+        this._observer = (new MutationObserver(mutations => {
+
+            var prev = mutations.reduce((prev, mutation) => {
+                var key = camelize(mutation.attributeName);
+                prev[key] = this.$props[key];
+                return prev;
+            }, {}), data = this._getProps(true);
+
+            if (Object.keys(prev).some(key => isJQuery(prev[key]) && isJQuery(data[key]) ? prev[key].is(data[key]) : prev[key] !== data[key])) {
+                this._initProps(data);
+                this._observer.disconnect();
+                this._callDisconnected();
+                this._callConnected();
+                this._callUpdate();
+                connect();
+            }
+
+        }));
+
+        connect();
+    };
+
+    UIkit.prototype._callHook = function (hook, params) {
 
         var handlers = this.$options[hook];
 
@@ -194,6 +233,11 @@ export default function (UIkit) {
     };
 
     UIkit.prototype._callReady = function () {
+
+        if (this._isReady) {
+            return;
+        }
+
         this._isReady = true;
         this._callHook('ready');
         this._callUpdate();
@@ -216,12 +260,23 @@ export default function (UIkit) {
 
         this._connected = true;
 
+        this._initAttrs();
+
+        if (!this._isReady) {
+            ready(() => this._callReady());
+        }
+
     };
 
     UIkit.prototype._callDisconnected = function () {
 
         if (!this._connected) {
             return;
+        }
+
+        if (this._observer) {
+            this._observer.disconnect();
+            this._observer = null;
         }
 
         var index = UIkit.elements.indexOf(this.$options.$el);
@@ -236,6 +291,7 @@ export default function (UIkit) {
         this._callHook('disconnected');
 
         this._connected = false;
+
     };
 
     UIkit.prototype._callUpdate = function (e) {

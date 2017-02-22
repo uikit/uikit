@@ -1,10 +1,12 @@
-import { $, getStyle, isVoidElement, promise } from '../util/index';
+import { $, fastdom, getStyle, isVoidElement, promise } from '../util/index';
 
 var storage = window.sessionStorage || {}, svgs = {}, parser = new DOMParser();
 
 export default function (UIkit) {
 
     UIkit.component('svg', {
+
+        attrs: true,
 
         props: {
             id: String,
@@ -30,67 +32,25 @@ export default function (UIkit) {
 
         connected() {
 
-            this.svg = promise((resolve, reject) => {
-                this._resolver = resolve;
-                this._rejecter = reject;
-            }).catch(() => {});
-
-            this.$emitSync();
-        },
-
-        disconnected() {
-
-            this.isSet = false;
+            if (this._rejecter) {
+                this._rejecter();
+            }
 
             if (isVoidElement(this.$el)) {
-                this.$el.attr({hidden: null, id: this.id || null});
+                this.$el.attr({hidden: true, id: null});
             }
 
-            if (this.svg) {
-                this.svg.then(svg => svg && svg.remove());
-                this.svg = null;
-            }
-        },
+            this.width = this.$props.width;
+            this.height = this.$props.height;
 
-        update: {
+            this.svg = promise((resolve, reject) => {
 
-            read() {
+                this._resolver = resolve;
+                this._rejecter = reject;
 
-                if (!this.src) {
-                    this.src = getSrc(this.$el);
-                }
+            }).then(doc => promise((resolve, reject) => fastdom.mutate(() => {
 
-                if (!this.src || this.isSet) {
-                    return;
-                }
-
-                this.isSet = true;
-
-                if (!this.icon && ~this.src.indexOf('#')) {
-
-                    var parts = this.src.split('#');
-
-                    if (parts.length > 1) {
-                        this.src = parts[0];
-                        this.icon = parts[1];
-                    }
-                }
-
-                getSvg(this.src).then(doc => {
-                    this._svg = doc;
-                    this.$emit();
-                }, e => console.log(e));
-            },
-
-            write() {
-
-                if (!this._svg) {
-                    return;
-                }
-
-                var doc = this._svg, svg, el;
-
-                this._svg = null;
+                var svg, el;
 
                 if (!this.icon) {
                     el = doc.documentElement.cloneNode(true);
@@ -125,7 +85,7 @@ export default function (UIkit) {
                 }
 
                 if (!el) {
-                    this._rejecter('SVG not found.');
+                    reject('SVG not found.');
                     return;
                 }
 
@@ -161,13 +121,61 @@ export default function (UIkit) {
                 }
 
                 if (isVoidElement(this.$el) || this.$el[0].tagName === 'CANVAS') {
-                    this.$el.attr({hidden: true, id: null});
                     el.insertAfter(this.$el);
                 } else {
                     el.appendTo(this.$el);
                 }
 
-                this._resolver(el);
+                resolve(el);
+
+            }))).catch(() => {});
+
+            if (!this._isReady) {
+                this.$emitSync();
+            }
+        },
+
+        disconnected() {
+
+            this.isSet = false;
+
+            if (isVoidElement(this.$el)) {
+                this.$el.attr({hidden: null, id: this.id || null});
+            }
+
+            if (this.svg) {
+                this.svg.then(svg => {
+                    svg && svg.remove();
+                });
+                this.svg = null;
+            }
+        },
+
+        update: {
+
+            read() {
+
+                if (!this.src) {
+                    this.src = getSrc(this.$el);
+                }
+
+                if (!this.src || this.isSet) {
+                    return;
+                }
+
+                this.isSet = true;
+
+                if (!this.icon && ~this.src.indexOf('#')) {
+
+                    var parts = this.src.split('#');
+
+                    if (parts.length > 1) {
+                        this.src = parts[0];
+                        this.icon = parts[1];
+                    }
+                }
+
+                this._resolver(getSvg(this.src));
             },
 
             events: ['load']

@@ -7,6 +7,8 @@ export default function (UIkit) {
 
         mixins: [Class],
 
+        attrs: true,
+
         props: {
             top: null,
             bottom: Boolean,
@@ -35,14 +37,17 @@ export default function (UIkit) {
 
         init() {
             this.$el.addClass(this.clsInactive);
-
-            this.topProp = this.top;
-            this.bottomProp = this.bottom;
         },
 
         connected() {
             this.placeholder = $('<div class="uk-sticky-placeholder"></div>').insertAfter(this.$el).attr('hidden', true);
-            this._widthElement = this.widthElement || this.placeholder;
+            this.widthElement = this.$props.widthElement || this.placeholder;
+        },
+
+        disconnected() {
+            this.placeholder.remove();
+            this.placeholder = null;
+            this.widthElement = null;
         },
 
         ready() {
@@ -82,15 +87,15 @@ export default function (UIkit) {
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
                         .css(this.$el.css(['marginTop', 'marginBottom', 'marginLeft', 'marginRight']));
 
-                    this.width = this._widthElement.attr('hidden', null).outerWidth();
-                    this._widthElement.attr('hidden', !this.isActive);
+                    this.width = this.widthElement.attr('hidden', null).outerWidth();
+                    this.widthElement.attr('hidden', !this.isActive);
 
                     this.topOffset = (this.isActive ? this.placeholder.offset() : this.$el.offset()).top;
                     this.bottomOffset = this.topOffset + outerHeight;
 
                     ['top', 'bottom'].forEach(prop => {
 
-                        this[prop] = this[`${prop}Prop`];
+                        this[prop] = this.$props[prop];
 
                         if (!this[prop]) {
                             return;
@@ -225,12 +230,6 @@ export default function (UIkit) {
 
             }
 
-        },
-
-        disconnected() {
-            this.placeholder.remove();
-            this.placeholder = null;
-            this._widthElement = null;
         }
 
     });

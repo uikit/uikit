@@ -157,9 +157,13 @@ export const Animation = {
 
 };
 
+export function isJQuery(obj) {
+    return obj instanceof $;
+}
+
 export function isWithin(element, selector) {
     element = $(element);
-    return element.is(selector) || !!(isString(selector) ? element.parents(selector).length : $.contains(selector instanceof $ ? selector[0] : selector, element[0]));
+    return element.is(selector) || !!(isString(selector) ? element.parents(selector).length : $.contains(isJQuery(selector) ? selector[0] : selector, element[0]));
 }
 
 export function attrFilter(element, attr, pattern, replacement) {
