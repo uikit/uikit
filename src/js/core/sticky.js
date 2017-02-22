@@ -189,9 +189,7 @@ export default function (UIkit) {
 
                 this.update();
 
-                this.$el
-                    .removeClass(this.clsInactive)
-                    .trigger('active');
+                this.$el.trigger('active');
 
                 this.placeholder.attr('hidden', null);
 
@@ -210,17 +208,20 @@ export default function (UIkit) {
 
             update() {
 
-                var top = Math.max(0, this.offset), scroll = win.scrollTop();
+                var top = Math.max(0, this.offset), scroll = win.scrollTop(), active = win.scrollTop() > this.top;
 
                 if (this.bottom && scroll > this.bottom - this.offset) {
                     top = this.bottom - scroll;
                 }
 
-                this.$el.css({
-                    position: 'fixed',
-                    top: `${top}px`,
-                    width: this.width
-                }).toggleClass(this.clsActive, win.scrollTop() > this.top);
+                this.$el
+                    .css({
+                        position: 'fixed',
+                        top: `${top}px`,
+                        width: this.width
+                    })
+                    .toggleClass(this.clsActive, active)
+                    .toggleClass(this.clsInactive, !active);
 
             }
 
