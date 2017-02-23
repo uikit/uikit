@@ -62,7 +62,7 @@ export default {
         toggleElement(targets, show, animate) {
 
             var toggles, body = document.body, scroll = body.scrollTop,
-                all = targets => promise.all(targets.toArray().map(el => this._toggleElement(el, show, animate))).catch(() => {}),
+                all = targets => promise.all(targets.toArray().map(el => this._toggleElement(el, show, animate))).then(null, () => {}),
                 delay = targets => {
                     var def = all(targets);
                     this.queued = true;
@@ -86,7 +86,7 @@ export default {
         },
 
         toggleNow(targets, show) {
-            return promise.all($(targets).toArray().map(el => this._toggleElement(el, show, false))).catch(() => {});
+            return promise.all($(targets).toArray().map(el => this._toggleElement(el, show, false))).then(null, () => {});
         },
 
         isToggled(el) {

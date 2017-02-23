@@ -65,7 +65,7 @@ export function transition(element, props, duration = 400, transition = 'linear'
             .css('transition', `all ${duration}ms ${transition}`)
             .css(props);
 
-    }).catch(() => {});
+    }).then(null, () => {});
 
     return p;
 }

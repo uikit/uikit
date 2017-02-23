@@ -1,4 +1,4 @@
-import { bind, camelize, coerce, createEvent, extend, fastdom, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, mergeOptions, ready } from '../util/index';
+import { bind, camelize, coerce, createEvent, extend, fastdom, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, mergeOptions, Observer, ready } from '../util/index';
 
 export default function (UIkit) {
 
@@ -195,13 +195,13 @@ export default function (UIkit) {
 
     UIkit.prototype._initAttrs = function () {
 
-        if (!this.$options.props || !this.$options.attrs || this._observer) {
+        if (!Observer || !this.$options.props || !this.$options.attrs) {
             return;
         }
 
         var connect = () => this._observer.observe(this.$options.el, {attributes: true, attributeFilter: Object.keys(this.$options.props).map(key => hyphenate(key))});
 
-        this._observer = (new MutationObserver(mutations => {
+        this._observer = (new Observer(mutations => {
 
             var prev = mutations.reduce((prev, mutation) => {
                 var key = camelize(mutation.attributeName);

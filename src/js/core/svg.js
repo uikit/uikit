@@ -52,6 +52,11 @@ export default function (UIkit) {
 
                 var svg, el;
 
+                if (!doc.documentElement) {
+                    reject('SVG not found.');
+                    return;
+                }
+
                 if (!this.icon) {
                     el = doc.documentElement.cloneNode(true);
                 } else {
@@ -128,7 +133,7 @@ export default function (UIkit) {
 
                 resolve(el);
 
-            }))).catch(() => {});
+            })), this.$destroy);
 
             if (!this._isReady) {
                 this.$emitSync();

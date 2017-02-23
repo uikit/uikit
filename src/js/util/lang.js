@@ -24,12 +24,6 @@ export function promise(executor) {
 
     var def = $.Deferred();
 
-    if (!def.catch) {
-        def.catch = function (fn) {
-            return this.then(null, fn);
-        }
-    }
-
     executor(def.resolve, def.reject);
 
     return def;
