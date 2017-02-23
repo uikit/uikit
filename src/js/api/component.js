@@ -36,7 +36,7 @@ export default function (UIkit) {
                     ? element[0]
                     : element;
 
-            return element[DATA] && element[DATA][name] || new UIkit.components[name]({el: element, data});
+            return element && element[DATA] && element[DATA][name] || new UIkit.components[name]({el: element, data});
         };
 
         if (document.body && !options.options.functional) {
