@@ -33,7 +33,7 @@ function compile(file, dest, external, globals, name) {
 
             var moduleName = `UIkit${name ? '' + util.ucfirst(name) : ''}`;
 
-            util.write(`${dest}.js`, bundle.generate({
+            return util.write(`${dest}.js`, bundle.generate({
                 globals,
                 moduleName,
                 format: 'umd',
