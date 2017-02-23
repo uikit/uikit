@@ -4,14 +4,14 @@
 
 ### Added
 
-- Add phone receiver icon
+- Add receiver icon
 - Add hero heading modifier
 - Add ID for AMD bundles
 
 ### Changed
 
 - Move Icons into JavaScript
-- Component Constructor initializes and returns single component only 
+- Component Constructor initializes and returns single component only
 - Rename function "show" to "toggle" in Accordion component
 - Switcher no longers "swipes" with mouse
 - Sticky component applies active class after scrolling below top
