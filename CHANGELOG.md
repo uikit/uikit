@@ -10,6 +10,7 @@
 
 ### Changed
 
+- Component Constructor initializes and returns single component only 
 - Rename function "show" to "toggle" in Accordion component
 - Switcher no longers "swipes" with mouse
 - Sticky component applies active class after scrolling below top
@@ -23,6 +24,7 @@
 - Fix Dropdowns closing in Navbar component
 - Fix Drops closing on click on hash links
 - Fix Tab component not initializing
+- Fix icon duplication
 
 ## 3.0.0 beta 12 (February 17, 2017)
 

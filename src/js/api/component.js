@@ -1,4 +1,4 @@
-import { $, camelize, isPlainObject } from '../util/index';
+import { $, camelize, isJQuery, isPlainObject, isString, toNode } from '../util/index';
 
 export default function (UIkit) {
 
@@ -30,8 +30,13 @@ export default function (UIkit) {
             }
 
             data = data || {};
+            element = isString
+                ? $(element)[0]
+                : isJQuery(element)
+                    ? element[0]
+                    : element;
 
-            return $(element).toArray().map(el => el[DATA] && el[DATA][name] || new UIkit.components[name]({el, data}));
+            return element[DATA] && element[DATA][name] || new UIkit.components[name]({el: element, data});
         };
 
         if (document.body && !options.options.functional) {
@@ -41,8 +46,8 @@ export default function (UIkit) {
         return UIkit.components[name];
     };
 
-    UIkit.getComponents = element => element && element[DATA] || {};
-    UIkit.getComponent = (element, name) => UIkit.getComponents(element)[name];
+    UIkit.getComponents = element => element && toNode(element)[DATA] || {};
+    UIkit.getComponent = (element, name) => element && UIkit.getComponents(element)[name];
 
     UIkit.connect = node => {
 

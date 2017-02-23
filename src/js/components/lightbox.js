@@ -243,8 +243,8 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var vid = $('<video class="uk-responsive-width" controls></video>')
-                    .on('loadedmetadata', () => this.setItem(item, vid.attr({width: vid[0].videoWidth, height: vid[0].videoHeight}), vid[0].videoWidth, vid[0].videoHeight))
+                var video = $('<video class="uk-responsive-width" controls></video>')
+                    .on('loadedmetadata', () => this.setItem(item, video.attr({width: video[0].videoWidth, height: video[0].videoHeight}), video[0].videoWidth, video[0].videoHeight))
                     .attr('src', item.source);
 
                 e.stopImmediatePropagation();

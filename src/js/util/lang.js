@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { getCssVar, query } from './index';
+import { getCssVar, isJQuery, query } from './index';
 
 export { $ };
 export { ajax, each, extend, map, merge, isArray, isNumeric, isFunction, isPlainObject } from 'jquery';
@@ -126,6 +126,10 @@ export function toJQuery(element, context) {
     }
 
     return element.length ? element : null;
+}
+
+export function toNode(element) {
+    return element && (isJQuery(element) ? element[0] : element);
 }
 
 export function toBoolean(value) {

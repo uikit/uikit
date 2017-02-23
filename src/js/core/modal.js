@@ -105,10 +105,10 @@ export default function (UIkit) {
             `<div class="uk-modal">
                 <div class="uk-modal-dialog">${content}</div>
              </div>`
-        , options)[0];
+        , options);
 
-        requestAnimationFrame(dialog.show);
         dialog.$el.on('hide', () => dialog.$destroy(true));
+        dialog.show();
 
         return dialog;
     };

@@ -1,4 +1,4 @@
-import { $, classify, createEvent, isString, mergeOptions } from '../util/index';
+import { classify, createEvent, isString, mergeOptions, toNode } from '../util/index';
 
 export default function (UIkit) {
 
@@ -52,7 +52,7 @@ export default function (UIkit) {
 
         }
 
-        element = $(element)[0];
+        element = toNode(element);
 
         if (parents) {
 

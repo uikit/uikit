@@ -45,6 +45,13 @@ export default function (UIkit) {
         },
 
         disconnected() {
+
+            if (this.isActive) {
+                this.isActive = false;
+                this.hide();
+                this.$el.removeClass(this.clsInactive);
+            }
+
             this.placeholder.remove();
             this.placeholder = null;
             this.widthElement = null;
@@ -191,11 +198,8 @@ export default function (UIkit) {
             show() {
 
                 this.isActive = true;
-
                 this.update();
-
                 this.$el.trigger('active');
-
                 this.placeholder.attr('hidden', null);
 
             },
@@ -209,6 +213,7 @@ export default function (UIkit) {
                     .trigger('inactive');
 
                 this.placeholder.attr('hidden', true);
+
             },
 
             update() {

@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, each, extend, getContextSelectors, isNumber, isString, promise, requestAnimationFrame, toJQuery, transitionend } from './index';
+import { animationend, each, extend, getContextSelectors, isNumber, isString, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
 
 export const win = $(window);
 export const doc = $(document);
@@ -29,11 +29,11 @@ export function ready(fn) {
 }
 
 export function on(el, type, listener, useCapture) {
-    $(el)[0].addEventListener(type, listener, useCapture)
+    toNode(el).addEventListener(type, listener, useCapture)
 }
 
 export function off(el, type, listener, useCapture) {
-    $(el)[0].removeEventListener(type, listener, useCapture)
+    toNode(el).removeEventListener(type, listener, useCapture)
 }
 
 export function transition(element, props, duration = 400, transition = 'linear') {
@@ -163,7 +163,9 @@ export function isJQuery(obj) {
 
 export function isWithin(element, selector) {
     element = $(element);
-    return element.is(selector) || !!(isString(selector) ? element.parents(selector).length : $.contains(isJQuery(selector) ? selector[0] : selector, element[0]));
+    return element.is(selector) || !!(isString(selector)
+            ? element.parents(selector).length
+            : $.contains(toNode(selector), element[0]));
 }
 
 export function attrFilter(element, attr, pattern, replacement) {
@@ -244,8 +246,7 @@ var voidElements = {
     wbr: true
 };
 export function isVoidElement(element) {
-    element = $(element);
-    return voidElements[element[0].tagName.toLowerCase()];
+    return voidElements[toNode(element).tagName.toLowerCase()];
 }
 
 export const Dimensions = {
