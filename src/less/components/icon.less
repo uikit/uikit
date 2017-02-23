@@ -32,18 +32,10 @@
 @icon-button-active-background:                 darken(@icon-button-background, 10%);
 @icon-button-active-color:                      @global-color;
 
-@internal-icon-image:                           "../../../dist/images/icons.svg";
-
 
 /* ========================================================================
    Component: Icon
  ========================================================================== */
-
-/*
- * Pass image path to JS
- */
-
-.uk-icon::before { background-image: url("@{internal-icon-image}"); }
 
 /*
  * 1. Fill all SVG elements with the current text color if no `fill` attribute is set

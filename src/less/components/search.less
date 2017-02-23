@@ -48,10 +48,6 @@
 @search-toggle-color:                               @global-muted-color;
 @search-toggle-hover-color:                         @global-color;
 
-@internal-search-default-image:                     "../../images/components/search-default.svg";
-@internal-search-navbar-image:                      "../../images/components/search-navbar.svg";
-@internal-search-large-image:                       "../../images/components/search-large.svg";
-
 
 /* ========================================================================
    Component: Search
@@ -136,8 +132,6 @@
 
 /* Icon
  ========================================================================== */
-
-.uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-search-default-image); }
 
 /*
  * Adopts `uk-icon`
@@ -287,8 +281,6 @@
  * Icon
  */
 
-.uk-search-navbar .uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-search-navbar-image); }
-
 .uk-search-navbar .uk-search-icon { width: @search-navbar-icon-width; }
 
 .uk-search-navbar .uk-search-icon:not(.uk-search-icon-flip) + .uk-search-input { padding-left: (@search-navbar-icon-width); }
@@ -314,8 +306,6 @@
 /*
  * Icon
  */
-
-.uk-search-large .uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-search-large-image); }
 
 .uk-search-large .uk-search-icon { width: @search-large-icon-width; }
 

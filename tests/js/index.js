@@ -41,6 +41,7 @@ document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.file : st
 
 // add javascript
 document.writeln(`<script src="../dist/js/uikit.js"></script>`);
+document.writeln(`<script src="../dist/js/uikit-icons.js"></script>`);
 
 $(() => {
 

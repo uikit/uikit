@@ -1,6 +1,6 @@
-import { $, fastdom, getStyle, isVoidElement, promise } from '../util/index';
+import { $, fastdom, isVoidElement, promise } from '../util/index';
 
-var storage = window.sessionStorage || {}, svgs = {}, parser = new DOMParser();
+var svgs = {}, parser = new DOMParser();
 
 export default function (UIkit) {
 
@@ -32,8 +32,14 @@ export default function (UIkit) {
 
         connected() {
 
-            if (this._rejecter) {
-                this._rejecter();
+            if (!this.icon && this.src && ~this.src.indexOf('#')) {
+
+                var parts = this.src.split('#');
+
+                if (parts.length > 1) {
+                    this.src = parts[0];
+                    this.icon = parts[1];
+                }
             }
 
             if (isVoidElement(this.$el)) {
@@ -43,12 +49,7 @@ export default function (UIkit) {
             this.width = this.$props.width;
             this.height = this.$props.height;
 
-            this.svg = promise((resolve, reject) => {
-
-                this._resolver = resolve;
-                this._rejecter = reject;
-
-            }).then(doc => promise((resolve, reject) => fastdom.mutate(() => {
+            this.svg = this.getSvg().then(doc => promise((resolve, reject) => fastdom.mutate(() => {
 
                 var svg, el;
 
@@ -133,7 +134,7 @@ export default function (UIkit) {
 
                 resolve(el);
 
-            })), this.$destroy);
+            }))).then(null, () => this.$destroy());
 
             if (!this._isReady) {
                 this.$emitSync();
@@ -141,8 +142,6 @@ export default function (UIkit) {
         },
 
         disconnected() {
-
-            this.isSet = false;
 
             if (isVoidElement(this.$el)) {
                 this.$el.attr({hidden: null, id: this.id || null});
@@ -156,110 +155,44 @@ export default function (UIkit) {
             }
         },
 
-        update: {
+        methods: {
 
-            read() {
+            getSvg() {
 
                 if (!this.src) {
-                    this.src = getSrc(this.$el);
+                    return promise.reject();
                 }
 
-                if (!this.src || this.isSet) {
-                    return;
+                if (svgs[this.src]) {
+                    return svgs[this.src];
                 }
 
-                this.isSet = true;
+                svgs[this.src] = promise((resolve, reject) => {
 
-                if (!this.icon && ~this.src.indexOf('#')) {
+                    if (this.src.lastIndexOf('data:', 0) === 0) {
+                        resolve(this.parse(decodeURIComponent(this.src.split(',')[1])));
+                    } else {
 
-                    var parts = this.src.split('#');
+                        $.ajax(this.src, {dataType: 'html'}).then(doc => {
+                            resolve(this.parse(doc));
+                        }, () => {
+                            reject('SVG not found.');
+                        });
 
-                    if (parts.length > 1) {
-                        this.src = parts[0];
-                        this.icon = parts[1];
                     }
-                }
 
-                this._resolver(getSvg(this.src));
+                });
+
+                return svgs[this.src];
+
             },
 
-            events: ['load']
+            parse(doc) {
+                return parser.parseFromString(doc, 'image/svg+xml');
+            }
 
         }
 
     });
-
-    function getSrc(el) {
-
-        var image = getBackgroundImage(el);
-
-        if (!image) {
-
-            el = el.clone().empty()
-                .attr({'uk-no-boot': '', style: `${el.attr('style')};display:block !important;`})
-                .appendTo(document.body);
-
-            image = getBackgroundImage(el);
-
-            // safari workaround
-            if (!image && el[0].tagName === 'CANVAS') {
-                var span = $(el[0].outerHTML.replace(/canvas/g, 'span')).insertAfter(el);
-                image = getBackgroundImage(span);
-                span.remove();
-            }
-
-            el.remove();
-
-        }
-
-        return image && image.slice(4, -1).replace(/"/g, '');
-    }
-
-    function getBackgroundImage(el) {
-        var image = getStyle(el[0], 'backgroundImage', '::before');
-        return image !== 'none' && image;
-    }
-
-    function getSvg(src) {
-
-        if (!svgs[src]) {
-            svgs[src] = promise((resolve, reject) => {
-
-                if (src.lastIndexOf('data:', 0) === 0) {
-                    resolve(parse(decodeURIComponent(src.split(',')[1])));
-                } else {
-
-                    var key = `${UIkit.data}${UIkit.version}_${src}`;
-
-                    if (storage[key]) {
-                        resolve(parse(storage[key]));
-                    } else {
-                        $.ajax(src, {dataType: 'html'}).then(doc => {
-                            storage[key] = doc;
-                            resolve(parse(doc));
-                        }, () => {
-                            reject('SVG not found.');
-                        });
-                    }
-                }
-
-            });
-        }
-
-        return svgs[src];
-    }
-
-    function parse(doc) {
-        return parser.parseFromString(doc, 'image/svg+xml');
-    }
-
-    // workaround for Safari's private browsing mode
-    try {
-        var key = `${UIkit.data}test`;
-        storage[key] = 1;
-        delete storage[key];
-    } catch (e) {
-        storage = {};
-    }
 
 }

@@ -21,11 +21,6 @@
 
 @slidenav-active-color:                         fadeout(@global-color, 10%);
 
-@internal-slidenav-previous-image:              "../../images/components/slidenav-previous.svg";
-@internal-slidenav-next-image:                  "../../images/components/slidenav-next.svg";
-@internal-slidenav-large-previous-image:        "../../images/components/slidenav-large-previous.svg";
-@internal-slidenav-large-next-image:            "../../images/components/slidenav-large-next.svg";
-
 
 /* ========================================================================
    Component: Slidenav
@@ -63,8 +58,6 @@
  * Previous
  */
 
-.uk-slidenav-previous::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-slidenav-previous-image); }
-
 .uk-slidenav-previous {
     .hook-slidenav-previous;
 }
@@ -73,19 +66,9 @@
  * Next
  */
 
-.uk-slidenav-next::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-slidenav-next-image); }
-
 .uk-slidenav-next {
     .hook-slidenav-next;
 }
-
-
-/* Size modifier
- ========================================================================== */
-
-.uk-slidenav-large.uk-slidenav-previous::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-slidenav-large-previous-image); }
-
-.uk-slidenav-large.uk-slidenav-next::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-slidenav-large-next-image); }
 
 
 /* Container

@@ -10,6 +10,7 @@
 
 ### Changed
 
+- Move Icons into JavaScript
 - Component Constructor initializes and returns single component only 
 - Rename function "show" to "toggle" in Accordion component
 - Switcher no longers "swipes" with mouse

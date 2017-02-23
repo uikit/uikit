@@ -23,9 +23,6 @@
 @pagination-item-active-color:                  @global-color;
 @pagination-item-disabled-color:                @global-muted-color;
 
-@internal-pagination-next-image:                "../../images/components/pagination-next.svg";
-@internal-pagination-previous-image:            "../../images/components/pagination-previous.svg";
-
 
 /* ========================================================================
    Component: Pagination
@@ -106,15 +103,6 @@
     color: @pagination-item-disabled-color;
     .hook-pagination-item-disabled;
 }
-
-/*
- * Icon
- * Adopts `uk-icon`
- */
-
-.uk-pagination-next::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-pagination-next-image); }
-.uk-pagination-previous::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-pagination-previous-image); }
-
 
 
 // Hooks

@@ -201,7 +201,7 @@ export default function (UIkit) {
 
         var connect = () => this._observer.observe(this.$options.el, {attributes: true, attributeFilter: Object.keys(this.$options.props).map(key => hyphenate(key))});
 
-        this._observer = (new Observer(mutations => {
+        this._observer = new Observer(mutations => {
 
             var prev = mutations.reduce((prev, mutation) => {
                 var key = camelize(mutation.attributeName);
@@ -218,7 +218,7 @@ export default function (UIkit) {
                 connect();
             }
 
-        }));
+        });
 
         connect();
     };

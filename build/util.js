@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 var glob = require('glob');
 var CleanCSS = require('clean-css');
 var package = require('../package.json');
@@ -70,6 +71,13 @@ exports.minify = function (files) {
     });
 };
 
-exports.ucfirst= function (str) {
+exports.ucfirst = function (str) {
     return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : '';
+};
+
+exports.icons = function (src) {
+    return JSON.stringify(glob.sync(src).reduce((icons, file) => {
+        icons[path.basename(file, '.svg')] = fs.readFileSync(file).toString().trim().replace(/\n/g, '').replace(/>\s+</g, '><');
+        return icons;
+    }, {}), null, '    ');
 };

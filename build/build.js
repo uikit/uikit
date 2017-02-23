@@ -3,7 +3,9 @@ var path = require('path');
 var glob = require('glob');
 var rollup = require('rollup');
 var uglify = require('uglify-js');
+var json = require('rollup-plugin-json');
 var buble = require('rollup-plugin-buble');
+var alias = require('rollup-plugin-import-alias');
 var resolve = require('rollup-plugin-node-resolve');
 var util = require('./util');
 
@@ -14,6 +16,7 @@ var util = require('./util');
 });
 
 compile('src/js/uikit.js', 'dist/js/uikit-core', ['jquery'], {jquery: 'jQuery'});
+compile('src/js/icons.js', 'dist/js/uikit-icons', ['jquery'], {jquery: 'jQuery'}, 'icons');
 compile('tests/js/index.js', 'tests/js/test', ['jquery'], {jquery: 'jQuery'}, 'test');
 
 glob('src/js/components/**/*.js', (er, files) =>
@@ -22,16 +25,24 @@ glob('src/js/components/**/*.js', (er, files) =>
 
 function compile(file, dest, external, globals, name) {
 
-    rollup.rollup({
+    return rollup.rollup({
         external,
         entry: `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
         plugins: [
+            alias({
+                Paths: {
+                    components: 'dist/icons/components',
+                    icons: 'dist/icons/icons'
+                },
+                Extensions: ['json']
+            }),
+            json(),
             buble()
         ]
     })
         .then(bundle => {
 
-            var moduleName = `UIkit${name ? '' + util.ucfirst(name) : ''}`;
+            var moduleName = `UIkit${name ? util.ucfirst(name) : ''}`;
 
             return util.write(`${dest}.js`, bundle.generate({
                 globals,

@@ -21,7 +21,6 @@ import Responsive from './responsive';
 import Scroll from './scroll';
 import Scrollspy from './scrollspy';
 import ScrollspyNav from './scrollspy-nav';
-import Spinner from './spinner';
 import Sticky from './sticky';
 import Svg from './svg';
 import Switcher from './switcher';
@@ -102,7 +101,6 @@ export default function (UIkit) {
     UIkit.use(Sticky);
     UIkit.use(Svg);
     UIkit.use(Icon);
-    UIkit.use(Spinner);
     UIkit.use(Switcher);
     UIkit.use(Tab);
 
