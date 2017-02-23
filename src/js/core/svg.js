@@ -42,10 +42,6 @@ export default function (UIkit) {
                 }
             }
 
-            if (isVoidElement(this.$el)) {
-                this.$el.attr({hidden: true, id: null});
-            }
-
             this.width = this.$props.width;
             this.height = this.$props.height;
 
@@ -127,6 +123,7 @@ export default function (UIkit) {
                 }
 
                 if (isVoidElement(this.$el) || this.$el[0].tagName === 'CANVAS') {
+                    this.$el.attr({hidden: true, id: null});
                     el.insertAfter(this.$el);
                 } else {
                     el.appendTo(this.$el);
