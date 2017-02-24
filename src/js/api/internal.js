@@ -1,4 +1,4 @@
-import { bind, camelize, coerce, createEvent, extend, fastdom, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, mergeOptions, Observer, ready } from '../util/index';
+import { bind, camelize, coerce, createEvent, extend, fastdom, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer, ready } from '../util/index';
 
 export default function (UIkit) {
 
@@ -148,7 +148,10 @@ export default function (UIkit) {
                 return prev;
             }, {}), data = this._getProps(true);
 
-            if (Object.keys(prev).some(key => isJQuery(prev[key]) && isJQuery(data[key]) ? prev[key].is(data[key]) : prev[key] !== data[key])) {
+            if (Object.keys(prev).some(key => isJQuery(prev[key]) && isJQuery(data[key])
+                ? prev[key].is(data[key])
+                : (!isUndefined(data[key]) && prev[key] !== data[key])
+            )) {
                 this._initProps(data);
                 this._observer.disconnect();
                 this._callDisconnected();
