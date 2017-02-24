@@ -1,7 +1,10 @@
 var webpack = require('webpack');
 var glob = require('glob');
 var path = require('path');
-var exec = require('child_process').exec;
+
+var util = require('./build/util');
+var concat = require('concat');
+
 
 var loaders = {
     loaders: [
@@ -78,4 +81,9 @@ function BuildAll(options) {}
 
 BuildAll.prototype.apply = compiler =>
     compiler.plugin('done', () =>
-        exec('node build/all'));
+        glob('dist/js/components/**/!(*.min).js', (err, files) =>
+            concat(['dist/js/uikit-core.js'].concat(files))
+                .then(data => util.write('dist/js/uikit.js', data))
+                .then(util.uglify)
+        )
+    )
