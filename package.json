@@ -8,7 +8,7 @@
     "compile": "npm run compile-less && npm run compile-js",
     "compile-js": "node build/build",
     "compile-less": "node build/less",
-    "compile-rtl": "node build/rtl",
+    "compile-rtl": "npm run compile-less -- rtl",
     "icons": "node build/icons",
     "prefix": "node build/prefix",
     "scope": "node build/scope",
