@@ -9,7 +9,6 @@ var cwd = args.cwd;
 if (cwd) {
     process.chdir(cwd);
 }
-console.log(process.cwd(), args, fs.existsSync(src))
 
 if (!src || !dest) {
     return console.log('Invalid arguments');
