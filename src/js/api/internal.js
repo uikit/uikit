@@ -138,7 +138,10 @@ export default function (UIkit) {
             return;
         }
 
-        var connect = () => this._observer.observe(this.$options.el, {attributes: true, attributeFilter: Object.keys(this.$options.props).map(key => hyphenate(key))});
+        var connect = () =>  this._observer.observe(this.$options.el, {
+            attributes: true,
+            attributeFilter: Object.keys(this.$options.props).map(key => hyphenate(key))
+        });
 
         this._observer = new Observer(mutations => {
 
@@ -148,10 +151,7 @@ export default function (UIkit) {
                 return prev;
             }, {}), data = this._getProps(true);
 
-            if (Object.keys(prev).some(key => isJQuery(prev[key]) && isJQuery(data[key])
-                ? prev[key].is(data[key])
-                : (!isUndefined(data[key]) && prev[key] !== data[key])
-            )) {
+            if (Object.keys(prev).some(key => !equals(data[key], prev[key]))) {
                 this._initProps(data);
                 this._observer.disconnect();
                 this._callDisconnected();
@@ -339,4 +339,8 @@ export default function (UIkit) {
         return data;
     };
 
+}
+
+function equals(a, b) {
+    return isUndefined(a) || a === b || isJQuery(a) && isJQuery(b) && a.is(b);
 }
