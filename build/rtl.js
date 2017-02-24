@@ -3,58 +3,47 @@
 // Run AFTER images have been created, but BEFORE less files are compiled
 // This is needed because some images are inlined during less compilation
 
-var fs = require('fs');
-var glob = require('glob');
-var less = require('less');
-var util = require('./util');
-var postcss = require('postcss');
-var rtlcss = require('rtlcss');
 var path = require('path');
-
-['dist', 'dist/css'].forEach(folder => {
-    if (!fs.existsSync(folder)) {
-        fs.mkdirSync(folder);
-    }
-});
+var glob = require('glob');
+var util = require('./util');
+var rtlcss = require('rtlcss');
+var postcss = require('postcss');
 
 var files = {
     'src/less/uikit.less': 'dist/css/uikit-core.rtl.css',
     'src/less/uikit.theme.less': 'dist/css/uikit.rtl.css'
 };
 
-glob.sync('custom/*.less').forEach(file => {
-    files[file] = `dist/css/uikit.${path.basename(file, '.less')}.rtl.css`;
-});
+glob.sync('custom/*.less').forEach(file => files[file] = `dist/css/uikit.${path.basename(file, '.less')}.rtl.css`);
 
 for (let file in files) {
-    util.read(file, data => {
-        less.render(data, {
+    util.read(file, data =>
+        util.renderLess(data, {
             relativeUrls: true,
             rootpath: '../../',
             paths: ['src/less/', 'custom/'],
-        }).then(output => {
-
-            var css = postcss([
+        })
+            .then(util.makeRelative)
+            .then(output => postcss([
                 css => {
                     css.insertBefore(css.nodes[0], postcss.comment({text: 'rtl:begin:rename'}));
                     css.insertAfter(css.nodes[css.nodes.length - 1], postcss.comment({text: 'rtl:end:rename'}));
                 },
                 rtlcss({
                     stringMap: [{
-                        name    : 'previous-next',
+                        name: 'previous-next',
                         priority: 100,
-                        search  : ['previous', 'Previous', 'PREVIOUS'],
-                        replace : ['next', 'Next', 'NEXT'],
-                        options : {
-                            scope : '*',
-                            ignoreCase : false
+                        search: ['previous', 'Previous', 'PREVIOUS'],
+                        replace: ['next', 'Next', 'NEXT'],
+                        options: {
+                            scope: '*',
+                            ignoreCase: false
                         }
                     }]
                 })
-            ]).process(output.css).css;
-
-            util.write(files[file], css).then(util.makeRelative);
-
-        }, error => console.log(error))
-    })
+            ]).process(output).css)
+            .then(output => util.write(files[file], output))
+            .then(util.minify),
+        error => console.log(error)
+    );
 }

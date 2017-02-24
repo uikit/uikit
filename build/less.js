@@ -1,32 +1,42 @@
 var fs = require('fs');
 var glob = require('glob');
-var less = require('less');
 var path = require('path');
 var util = require('./util');
 
-var themes = {}, promises = [];
+[
+
+    {src: 'src/less/uikit.less', dist: 'dist/css/uikit-core.css'},
+    {src: 'src/less/uikit.theme.less', dist: 'dist/css/uikit.css'}
+
+].forEach(config => compile(config.src, config.dist));
+
+var themes = {};
 
 glob.sync('custom/*.less').forEach(file => {
 
     var theme = path.basename(file, '.less'),
-        dist = `dist/css/uikit.${theme}.css`,
-        data = fs.readFileSync(file, 'utf8');
+        dist = `dist/css/uikit.${theme}.css`;
 
     themes[theme] = {file: `../${dist}`};
 
-    promises.push(less.render(data, {
-        relativeUrls: true,
-        rootpath: '../../',
-        paths: ['custom/']
-    }).then(
-        output => util.write(dist, output.css),
-        error => console.log(error)
-    ));
+    return compile(file, dist);
 
 });
 
-Promise.all(promises).then(() => util.makeRelative('dist/css/!(*.min).css'));
-
 if (Object.keys(themes).length || !fs.existsSync('themes.json')) {
     util.write('themes.json', JSON.stringify(themes));
+}
+
+function compile(file, dist) {
+    return util.read(file).then(data =>
+        util.renderLess(data, {
+            relativeUrls: true,
+            rootpath: '../../',
+            paths: ['custom/', 'src/less/']
+        })
+            .then(util.makeRelative)
+            .then(output => util.write(dist, output))
+            .then(util.minify),
+        error => console.log(error)
+    );
 }

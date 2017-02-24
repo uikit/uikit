@@ -60,67 +60,6 @@ export default function (UIkit) {
         extend(this.$props, props);
     };
 
-    UIkit.prototype._getProps = function (attrs = false) {
-
-        var data = {},
-            el = this.$el[0],
-            args = this.$options.args || [],
-            props = this.$options.props || {},
-            options = el.getAttribute(this.$name) || el.getAttribute(`data-${this.$name}`),
-            key, prop;
-
-        if (!props) {
-            return data;
-        }
-
-        for (key in props) {
-            prop = hyphenate(key);
-            if (el.hasAttribute(prop)) {
-
-                var value = coerce(props[key], el.getAttribute(prop), el);
-
-                if (prop === 'target' && (!value || value.lastIndexOf('_', 0) === 0)) {
-                    continue;
-                }
-
-                data[key] = value;
-            }
-        }
-
-        if (attrs || !options) {
-            return data;
-        }
-
-        if (options[0] === '{') {
-            try {
-                options = JSON.parse(options);
-            } catch (e) {
-                console.warn(`Invalid JSON.`);
-                options = {};
-            }
-        } else if (args.length && !~options.indexOf(':')) {
-            options = ({[args[0]]: options});
-        } else {
-            var tmp = {};
-            options.split(';').forEach(option => {
-                var [key, value] = option.split(/:(.+)/);
-                if (key && value) {
-                    tmp[key.trim()] = value.trim();
-                }
-            });
-            options = tmp;
-        }
-
-        for (key in options || {}) {
-            prop = camelize(key);
-            if (props[prop] !== undefined) {
-                data[prop] = coerce(props[prop], options[key], el);
-            }
-        }
-
-        return data;
-    };
-
     UIkit.prototype._initMethods = function () {
 
         var methods = this.$options.methods;
@@ -334,6 +273,67 @@ export default function (UIkit) {
 
         });
 
+    };
+
+    UIkit.prototype._getProps = function (attrs = false) {
+
+        var data = {},
+            el = this.$el[0],
+            args = this.$options.args || [],
+            props = this.$options.props || {},
+            options = el.getAttribute(this.$name) || el.getAttribute(`data-${this.$name}`),
+            key, prop;
+
+        if (!props) {
+            return data;
+        }
+
+        for (key in props) {
+            prop = hyphenate(key);
+            if (el.hasAttribute(prop)) {
+
+                var value = coerce(props[key], el.getAttribute(prop), el);
+
+                if (prop === 'target' && (!value || value.lastIndexOf('_', 0) === 0)) {
+                    continue;
+                }
+
+                data[key] = value;
+            }
+        }
+
+        if (attrs || !options) {
+            return data;
+        }
+
+        if (options[0] === '{') {
+            try {
+                options = JSON.parse(options);
+            } catch (e) {
+                console.warn(`Invalid JSON.`);
+                options = {};
+            }
+        } else if (args.length && !~options.indexOf(':')) {
+            options = ({[args[0]]: options});
+        } else {
+            var tmp = {};
+            options.split(';').forEach(option => {
+                var [key, value] = option.split(/:(.+)/);
+                if (key && value) {
+                    tmp[key.trim()] = value.trim();
+                }
+            });
+            options = tmp;
+        }
+
+        for (key in options || {}) {
+            prop = camelize(key);
+            if (props[prop] !== undefined) {
+                data[prop] = coerce(props[prop], options[key], el);
+            }
+        }
+
+        return data;
     };
 
 }

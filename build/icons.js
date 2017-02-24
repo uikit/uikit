@@ -1,12 +1,11 @@
-var fs = require('fs');
-var glob = require('glob');
 var util = require('./util');
+var args = require('minimist')(process.argv);
 
-['dist', 'dist/icons'].forEach(folder => {
-    if (!fs.existsSync(folder)) {
-        fs.mkdirSync(folder);
-    }
-});
+var src = args.s || args.src || false;
+var dest = args.d || args.dest || false;
 
-fs.writeFileSync('dist/icons/components.json', util.icons('src/images/components/*.svg'));
-fs.writeFileSync('dist/icons/icons.json', util.icons('src/images/icons/*.svg'));
+if (!src || !dest) {
+    return console.log('Invalid arguments');
+}
+
+util.write(dest, util.icons(src));
