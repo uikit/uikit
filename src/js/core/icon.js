@@ -73,7 +73,7 @@ export default function (UIkit) {
         init() {
             if (this.$el.hasClass('uk-search-icon') && this.$el.parents('.uk-search-large').length) {
                 this.icon = 'search-large';
-            } else if (this.$el.hasClass('uk-search-navbar')) {
+            } else if (this.$el.parents('.uk-search-navbar')) {
                 this.icon = 'search-navbar';
             }
         }
@@ -83,7 +83,7 @@ export default function (UIkit) {
     registerComponent('close', {
 
         init() {
-            if (this.$el.hasClass('.uk-close-large')) {
+            if (this.$el.hasClass('uk-close-large')) {
                 this.icon = 'close-large';
             }
         }
