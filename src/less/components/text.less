@@ -87,15 +87,20 @@
  ========================================================================== */
 
 .uk-text-muted { color: @text-muted-color !important; }
-
-.uk-text-primary {
-    color: @text-primary-color !important;
-    .hook-text-primary;
-}
-
+.uk-text-primary { color: @text-primary-color !important; }
 .uk-text-success { color: @text-success-color !important; }
 .uk-text-warning { color: @text-warning-color !important; }
 .uk-text-danger { color: @text-danger-color !important; }
+
+
+/* Background modifier
+ ========================================================================== */
+
+.uk-text-background {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    .hook-text-background;
+}
 
 
 /* Alignment modifiers
@@ -241,14 +246,9 @@ td.uk-text-break { word-break: break-all; }
     }
 
     .uk-text-muted { color: @inverse-text-muted-color !important; }
-
-    .uk-text-primary {
-        color: @inverse-text-primary-color !important;
-        .hook-inverse-text-primary;
-    }
+    .uk-text-primary { color: @inverse-text-primary-color !important; }
 
 }
 
 .hook-inverse-text-lead() {}
 .hook-inverse-text-meta() {}
-.hook-inverse-text-primary() {}
