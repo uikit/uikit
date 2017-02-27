@@ -61,7 +61,7 @@ export default function (UIkit) {
         init() {
             this.$el.addClass('uk-slidenav');
 
-            if (this.$el.parents(`.uk-${name}-large`).length) {
+            if (this.$el.hasClass('uk-slidenav-large')) {
                 this.icon = `${name}-large`;
             }
         }
@@ -73,7 +73,7 @@ export default function (UIkit) {
         init() {
             if (this.$el.hasClass('uk-search-icon') && this.$el.parents('.uk-search-large').length) {
                 this.icon = 'search-large';
-            } else if (this.$el.parents('.uk-search-navbar')) {
+            } else if (this.$el.parents('.uk-search-navbar').length) {
                 this.icon = 'search-navbar';
             }
         }
