@@ -132,37 +132,32 @@ export default function (UIkit) {
         }
     };
 
-    UIkit.prototype._initAttrs = function () {
+    UIkit.prototype._initObserver = function () {
 
-        if (!Observer || !this.$options.props || !this.$options.attrs) {
+        if (this._observer || !Observer || !this.$options.props || !this.$options.attrs) {
             return;
         }
 
-        var connect = () =>  this._observer.observe(this.$options.el, {
-            attributes: true,
-            attributeFilter: Object.keys(this.$options.props).map(key => hyphenate(key))
-        });
-
         this._observer = new Observer(mutations => {
 
-            var prev = mutations.reduce((prev, mutation) => {
-                var key = camelize(mutation.attributeName);
-                prev[key] = this.$props[key];
-                return prev;
-            }, {}), data = this._getProps(true);
+            var data = this._getProps(true);
 
-            if (Object.keys(prev).some(key => !equals(data[key], prev[key]))) {
-                this._initProps(data);
-                this._observer.disconnect();
+            if (mutations
+                .map(mutation => camelize(mutation.attributeName))
+                .some(key => !equals(data[key], this.$props[key]))
+            ) {
                 this._callDisconnected();
+                this._initProps(data);
                 this._callConnected();
                 this._callUpdate();
-                connect();
             }
 
         });
 
-        connect();
+        this._observer.observe(this.$options.el, {
+            attributes: true,
+            attributeFilter: Object.keys(this.$options.props).map(key => hyphenate(key))
+        });
     };
 
     UIkit.prototype._callHook = function (hook, params) {
@@ -202,7 +197,7 @@ export default function (UIkit) {
 
         this._connected = true;
 
-        this._initAttrs();
+        this._initObserver();
 
         if (!this._isReady) {
             ready(() => this._callReady());
