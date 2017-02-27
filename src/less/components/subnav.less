@@ -22,6 +22,7 @@
 @subnav-item-hover-text-decoration:             none;
 @subnav-item-active-color:                      @global-emphasis-color;
 
+@subnav-divider-margin-horizontal:              @subnav-margin-horizontal;
 @subnav-divider-border-height:                  1.5em;
 @subnav-divider-border-width:                   @global-border-width;
 @subnav-divider-border:                         @global-border;
@@ -143,7 +144,8 @@
 .uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
     content: "";
     height: @subnav-divider-border-height;
-    margin-right: @subnav-margin-horizontal;
+    margin-left: (@subnav-divider-margin-horizontal - @subnav-margin-horizontal);
+    margin-right: @subnav-divider-margin-horizontal;
     border-left: @subnav-divider-border-width solid @subnav-divider-border;
     .hook-subnav-divider;
 }
