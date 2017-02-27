@@ -40,12 +40,12 @@ export default function (UIkit) {
                 name: 'click',
 
                 delegate() {
-                    return `${this.targets} ${this.toggle}`;
+                    return `${this.$props.targets} ${this.$props.toggle}`;
                 },
 
                 handler(e) {
                     e.preventDefault();
-                    this.toggle(this.items.find(this.toggle).index(e.currentTarget));
+                    this.toggle(this.items.find(this.$props.toggle).index(e.currentTarget));
                 }
 
             }

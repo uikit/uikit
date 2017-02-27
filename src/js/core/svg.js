@@ -49,7 +49,7 @@ export default function (UIkit) {
 
                 var svg, el;
 
-                if (!doc.documentElement) {
+                if (!doc || !doc.documentElement) {
                     reject('SVG not found.');
                     return;
                 }
@@ -185,7 +185,8 @@ export default function (UIkit) {
             },
 
             parse(doc) {
-                return parser.parseFromString(doc, 'image/svg+xml');
+                var parsed = parser.parseFromString(doc, 'image/svg+xml');
+                return parsed.nodeName === 'svg' ? parsed : null;
             }
 
         }

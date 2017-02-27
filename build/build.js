@@ -3,17 +3,13 @@ var glob = require('glob');
 var util = require('./util');
 var rollup = require('rollup');
 var concat = require('concat');
+var html = require('rollup-plugin-html');
 var json = require('rollup-plugin-json');
 var buble = require('rollup-plugin-buble');
 var alias = require('rollup-plugin-import-alias');
 var resolve = require('rollup-plugin-node-resolve');
 
-Promise.all([
-
-    util.write('dist/icons/icons.json', util.icons('{src/images,custom}/icons/*.svg')),
-    util.write('dist/icons/components.json', util.icons('src/images/components/*.svg'))
-
-]).then(() =>
+util.write('dist/icons/icons.json', util.icons('{src/images,custom}/icons/*.svg')).then(() =>
 
     Promise.all([
 
@@ -37,6 +33,7 @@ Promise.all([
         )
 
     )
+
 );
 
 function compile(file, dest, external, globals, name) {
@@ -50,6 +47,12 @@ function compile(file, dest, external, globals, name) {
                     icons: 'dist/icons/icons'
                 },
                 Extensions: ['json']
+            }),
+            html({
+                include: '**/*.svg',
+                htmlMinifierOptions: {
+                    collapseWhitespace: true
+                }
             }),
             json(),
             buble()

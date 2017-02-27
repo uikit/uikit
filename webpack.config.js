@@ -9,7 +9,8 @@ var concat = require('concat');
 var loaders = {
     loaders: [
         {loader: 'buble-loader', test: /(src|tests)(\/|\\).*\.js$/},
-        {loader: 'json-loader', test: /\.json/}
+        {loader: 'json-loader', test: /\.json/},
+        {loader: 'html-loader', test: /\.svg/}
     ]
 };
 

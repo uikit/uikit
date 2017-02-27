@@ -1,10 +1,41 @@
-import Components from 'components';
 import { Class } from '../mixin/index';
 import { extend, isRtl, promise, swap } from '../util/index';
+import close from '../../images/components/close.svg';
+import closeLarge from '../../images/components/close-large.svg';
+import navbarToggleIcon from '../../images/components/navbar-toggle-icon.svg';
+import overlayIcon from '../../images/components/overlay-icon.svg';
+import paginationNext from '../../images/components/pagination-next.svg';
+import paginationPrevious from '../../images/components/pagination-previous.svg';
+import searchIcon from '../../images/components/search-icon.svg';
+import searchLarge from '../../images/components/search-large.svg';
+import searchNavbar from '../../images/components/search-navbar.svg';
+import slidenavNext from '../../images/components/slidenav-next.svg';
+import slidenavNextLarge from '../../images/components/slidenav-next-large.svg';
+import slidenavPrevious from '../../images/components/slidenav-previous.svg';
+import slidenavPreviousLarge from '../../images/components/slidenav-previous-large.svg';
+import spinner from '../../images/components/spinner.svg';
+import totop from '../../images/components/totop.svg';
 
 export default function (UIkit) {
 
-    var icons = Components, parsed = {};
+    var parsed = {},
+        icons = {
+            close,
+            spinner,
+            totop,
+            'close-large': closeLarge,
+            'navbar-toggle-icon': navbarToggleIcon,
+            'overlay-icon': overlayIcon,
+            'pagination-next': paginationNext,
+            'pagination-previous': paginationPrevious,
+            'search-icon': searchIcon,
+            'search-large': searchLarge,
+            'search-navbar': searchNavbar,
+            'slidenav-next': slidenavNext,
+            'slidenav-next-large': slidenavNextLarge,
+            'slidenav-previous': slidenavPrevious,
+            'slidenav-previous-large': slidenavPreviousLarge
+        };
 
     UIkit.component('icon', UIkit.components.svg.extend({
 
@@ -123,20 +154,6 @@ export default function (UIkit) {
 
             defaults: {
                 icon: name
-            },
-
-            init() {
-
-                if (this.$options.large && this.$el.parents(`uk-`).hasClass()) {
-
-                } else if (this.$options.modifiers) {
-                    this.$options.modifiers.forEach(modifier => {
-                        if (this.$el.hasClass(modifier[0])) {
-                            this.icon = modifier[1];
-                        }
-                    });
-                }
-
             }
 
         }));
