@@ -83,10 +83,6 @@ exports.icons = function (src) {
     }, {}), null, '    ');
 };
 
-exports.makeRelative = function (data) {
-    return data.replace(/\.\.\/dist\//g, '');
-};
-
 exports.ucfirst = function (str) {
     return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : '';
 };

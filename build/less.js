@@ -39,7 +39,7 @@ function compile(file, dist) {
             rootpath: '../../',
             paths: ['src/less/', 'custom/']
         })
-            .then(util.makeRelative)
+            .then(output => output.replace(/\.\.\/dist\//g, ''))
             .then(output => !rtl && output || postcss([
                 css => {
                     css.insertBefore(css.nodes[0], postcss.comment({text: 'rtl:begin:rename'}));

@@ -57,19 +57,55 @@ export default function (UIkit) {
             }
         },
 
+        update: {
+
+            read() {
+
+                if (this.delay) {
+                    var icon = this.getIcon();
+
+                    if (icon) {
+                        this.delay(icon);
+                    }
+                }
+            },
+
+            events: ['load']
+
+        },
+
         methods: {
 
             getSvg() {
 
-                if (!icons[this.icon]) {
+                var icon = this.getIcon();
+
+                if (!icon) {
+
+                    if (document.readyState !== 'complete') {
+                        return promise(resolve => {
+                            this.delay = resolve;
+                        });
+                    }
+
                     return promise.reject('Icon not found.');
+
+                }
+
+                return promise.resolve(icon);
+            },
+
+            getIcon() {
+
+                if (!icons[this.icon]) {
+                    return null;
                 }
 
                 if (!parsed[this.icon]) {
                     parsed[this.icon] = this.parse(icons[this.icon]);
                 }
 
-                return promise.resolve(parsed[this.icon]);
+                return parsed[this.icon];
             }
 
         }
