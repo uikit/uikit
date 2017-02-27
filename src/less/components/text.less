@@ -29,6 +29,8 @@
 @text-warning-color:                            @global-warning-background;
 @text-danger-color:                             @global-danger-background;
 
+@text-background-color:                         @global-color;
+
 
 /* ========================================================================
    Component: Text
@@ -96,9 +98,21 @@
 /* Background modifier
  ========================================================================== */
 
+/*
+ * 1. The background clips to the foreground text. Works in Chrome, Firefox, Safari, Edge and Opera
+ *    Default color is set to transparent
+ * 2. Container fits the text
+ * 3. Fallback color for IE11
+ */
+
 .uk-text-background {
+    /* 1 */
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    /* 2 */
+    display: inline-block;
+    /* 3 */
+    color: @text-background-color !important;;
     .hook-text-background;
 }
 
