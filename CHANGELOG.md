@@ -4,6 +4,7 @@
 ### WIP
 
   - Fixed init UIkit twice (using with Webpack)
+  - Fixed custom prefix issue with scrollspy component
   - Added global object UIkit2, so internal code is not dependent on the UIkit object
   - Updated prefix behaviour to also create a global UIkit2{prefix} object
 
