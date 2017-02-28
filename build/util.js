@@ -82,7 +82,10 @@ exports.renderLess = function (data, options) {
     return less.render(data, options).then(output => output.css);
 };
 
-exports.compile = function (file, dest, external, globals, name, aliases = {}) {
+exports.compile = function (file, dest, external, globals, name, aliases) {
+
+    aliases = aliases || {};
+
     return rollup.rollup({
         external,
         entry: `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
