@@ -1135,17 +1135,16 @@ ready(function () {
 
 var touching = false;
 
-doc.on({
+doc.on(( obj = {
 
     touchstart: function touchstart() {
         touching = true;
-    },
-
-    click: function click() {
-        touching = false;
     }
 
-});
+}, obj['click touchcancel'] = function () {
+        touching = false;
+    }, obj ));
+var obj;
 
 function isTouch(e) {
     return touching || e.originalEvent && e.originalEvent.pointerType === 'touch';
