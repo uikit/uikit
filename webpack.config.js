@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var fs = require('fs');
 var glob = require('glob');
 var path = require('path');
 
@@ -46,9 +47,21 @@ module.exports = [
             libraryTarget: 'umd'
         },
         module: loaders,
+        plugins: [
+            {
+
+                apply(compiler) {
+
+                    compiler.plugin('before-run', () => util.write(`dist/icons.json`, util.icons('src/images/icons/*.svg')));
+                    compiler.plugin('done', () => fs.unlink(`dist/icons.json`, () => {}));
+
+                }
+
+            }
+        ],
         resolve: {
             alias: {
-                "icons$": __dirname + "/dist/icons/icons.json",
+                "icons$": __dirname + "/dist/icons.json",
             }
         }
     },

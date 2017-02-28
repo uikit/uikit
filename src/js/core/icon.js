@@ -129,7 +129,7 @@ export default function (UIkit) {
             this.$el.addClass('uk-slidenav');
 
             if (this.$el.hasClass('uk-slidenav-large')) {
-                this.icon = `${this.icon}-large`;
+                this.icon += '-large';
             }
         }
 
