@@ -83,15 +83,12 @@ exports.renderLess = function (data, options) {
 };
 
 exports.compile = function (file, dest, external, globals, name, aliases) {
-
-    aliases = aliases || {};
-
     return rollup.rollup({
         external,
         entry: `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
         plugins: [
             alias({
-                Paths: aliases,
+                Paths: aliases || {},
                 Extensions: ['js', 'json']
             }),
             html({
