@@ -7,7 +7,7 @@
   "scripts": {
     "compile": "npm run compile-less && npm run compile-js",
     "compile-js": "node build/build",
-    "compile-less": "node build/less",
+    "compile-less": "npm run icons && node build/less",
     "compile-rtl": "npm run compile-less -- rtl",
     "icons": "node build/icons",
     "prefix": "node build/prefix",

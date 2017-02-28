@@ -87,4 +87,4 @@ BuildAll.prototype.apply = compiler =>
                 .then(data => util.write('dist/js/uikit.js', data))
                 .then(util.uglify)
         )
-    )
+    );

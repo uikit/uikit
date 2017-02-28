@@ -10,8 +10,8 @@ if (request.status === 200) {
 }
 
 var styles = $.extend({
-        core: {file: '../dist/css/uikit-core.css'},
-        theme: {file: '../dist/css/uikit.css'}
+        core: {css: '../dist/css/uikit-core.css'},
+        theme: {css: '../dist/css/uikit.css'}
     }, themes),
     component = location.pathname.split('/').pop().replace(/.html$/, ''),
     components = [
@@ -37,11 +37,11 @@ $html.attr('dir', dir);
 var style = styles[storage[key]] || styles.theme;
 
 // add style
-document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.file : style.file.replace('.css', '').concat('.rtl.css')}">`);
+document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : style.css.replace('.css', '').concat('.rtl.css')}">`);
 
 // add javascript
 document.writeln(`<script src="../dist/js/uikit.js"></script>`);
-document.writeln(`<script src="../dist/js/uikit-icons.js"></script>`);
+document.writeln(`<script src="${style.icons ? style.icons : '../dist/js/uikit-icons.js'}"></script>`);
 
 $(() => {
 

@@ -15,14 +15,18 @@ var rtl = ~args.indexOf('rtl');
 
 ].forEach(config => compile(config.src, config.dist));
 
-var themes = {};
+var themes = fs.existsSync('themes.json') ? JSON.parse(fs.readFileSync('themes.json')) : {};
 
 glob.sync('custom/*.less').forEach(file => {
 
     var theme = path.basename(file, '.less'),
         dist = `dist/css/uikit.${theme}${rtl ? '.rtl' : ''}.css`;
 
-    themes[theme] = {file: `../${dist}`};
+    themes[theme] = {css: `../${dist}`};
+
+    if (fs.existsSync(`dist/js/uikit-icons-${theme}.js`)) {
+        themes[theme].icons = `dist/js/uikit-icons-${theme}.js`;
+    }
 
     return compile(file, dist);
 

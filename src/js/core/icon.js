@@ -1,6 +1,6 @@
 import { Class } from '../mixin/index';
 import { extend, isRtl, promise, swap } from '../util/index';
-import close from '../../images/components/close.svg';
+import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
 import navbarToggleIcon from '../../images/components/navbar-toggle-icon.svg';
 import overlayIcon from '../../images/components/overlay-icon.svg';
@@ -20,9 +20,9 @@ export default function (UIkit) {
 
     var parsed = {},
         icons = {
-            close,
             spinner,
             totop,
+            'close-icon': closeIcon,
             'close-large': closeLarge,
             'navbar-toggle-icon': navbarToggleIcon,
             'overlay-icon': overlayIcon,
@@ -150,9 +150,7 @@ export default function (UIkit) {
     registerComponent('close', {
 
         init() {
-            if (this.$el.hasClass('uk-close-large')) {
-                this.icon = 'close-large';
-            }
+            this.icon = `close-${this.$el.hasClass('uk-close-large') ? 'large' : 'icon'}`;
         }
 
     });

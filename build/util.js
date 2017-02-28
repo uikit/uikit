@@ -3,9 +3,15 @@ var path = require('path');
 var glob = require('glob');
 var less = require('less');
 var mkdirp = require('mkdirp');
+var rollup = require('rollup');
 var uglify = require('uglify-js');
 var CleanCSS = require('clean-css');
 var package = require('../package.json');
+var html = require('rollup-plugin-html');
+var json = require('rollup-plugin-json');
+var buble = require('rollup-plugin-buble');
+var alias = require('rollup-plugin-import-alias');
+var resolve = require('rollup-plugin-node-resolve');
 var version = process.env.VERSION || package.version;
 var banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */\n`;
 
@@ -74,6 +80,36 @@ exports.uglify = function (file) {
 
 exports.renderLess = function (data, options) {
     return less.render(data, options).then(output => output.css);
+};
+
+exports.compile = function (file, dest, external, globals, name, aliases = {}) {
+    return rollup.rollup({
+        external,
+        entry: `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
+        plugins: [
+            alias({
+                Paths: aliases,
+                Extensions: ['js', 'json']
+            }),
+            html({
+                include: '**/*.svg',
+                htmlMinifierOptions: {
+                    collapseWhitespace: true
+                }
+            }),
+            json(),
+            buble()
+        ]
+    })
+        .then(bundle => exports.write(`${dest}.js`, bundle.generate({
+            globals,
+            format: 'umd',
+            banner: exports.banner,
+            moduleId: `UIkit${name}`.toLowerCase(),
+            moduleName: `UIkit${name ? exports.ucfirst(name) : ''}`,
+        }).code))
+        .then(exports.uglify)
+        .catch(console.log);
 };
 
 exports.icons = function (src) {
