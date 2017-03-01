@@ -1,5 +1,12 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Notification component
+
+
 ## 3.0.0 beta 15 (March 01, 2017)
 
 ### Fixed
