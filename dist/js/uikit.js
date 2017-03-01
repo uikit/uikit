@@ -1,8 +1,8 @@
-/*! UIkit 3.0.0-beta.13 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.14 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
-   typeof define === 'function' && define.amd ? define('uikitundefined', ['jquery'], factory) :
+   typeof define === 'function' && define.amd ? define('uikit', ['jquery'], factory) :
    (global.UIkit = factory(global.jQuery));
 }(this, (function ($$1) { 'use strict';
 
@@ -4541,6 +4541,7 @@ function Sticky (UIkit) {
             animation: String,
             clsActive: String,
             clsInactive: String,
+            clsFixed: String,
             widthElement: 'jQuery',
             showOnUp: Boolean,
             media: 'media',
@@ -4554,6 +4555,7 @@ function Sticky (UIkit) {
             animation: '',
             clsActive: 'uk-active',
             clsInactive: '',
+            clsFixed: 'uk-sticky-fixed',
             widthElement: false,
             showOnUp: false,
             media: false,
@@ -4688,7 +4690,7 @@ function Sticky (UIkit) {
 
                     if (this.inactive
                         || scroll < this.top
-                        || this.showOnUp && (dir !== 'up' || dir === 'up' && !this.isActive && scroll <= this.bottomOffset)
+                        || this.showOnUp && (dir && dir !== 'up' || dir === 'up' && !this.isActive && scroll <= this.bottomOffset)
                     ) {
 
                         if (!this.isActive) {
@@ -4739,6 +4741,7 @@ function Sticky (UIkit) {
 
                 this.$el
                     .addClass(this.clsInactive)
+                    .removeClass(this.clsFixed)
                     .removeClass(this.clsActive)
                     .css({position: '', top: '', width: ''})
                     .trigger('inactive');
@@ -4761,6 +4764,7 @@ function Sticky (UIkit) {
                         top: (top + "px"),
                         width: this.width
                     })
+                    .addClass(this.clsFixed)
                     .toggleClass(this.clsActive, active)
                     .toggleClass(this.clsInactive, !active);
 
@@ -5374,17 +5378,6 @@ mixin$1(UIkit$1);
 core(UIkit$1);
 boot(UIkit$1);
 
-return UIkit$1;
-
-})));
-/*! UIkit 3.0.0-beta.13 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
-
-(function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define('uikitlightbox', factory) :
-    (global.UIkitLightbox = factory());
-}(this, (function () { 'use strict';
-
 function plugin(UIkit) {
 
     if (plugin.installed) {
@@ -5730,20 +5723,9 @@ if (typeof window !== 'undefined' && window.UIkit) {
     window.UIkit.use(plugin);
 }
 
-return plugin;
+function plugin$1(UIkit) {
 
-})));
-/*! UIkit 3.0.0-beta.13 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
-
-(function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define('uikitnotification', factory) :
-    (global.UIkitNotification = factory());
-}(this, (function () { 'use strict';
-
-function plugin(UIkit) {
-
-    if (plugin.installed) {
+    if (plugin$1.installed) {
         return;
     }
 
@@ -5854,23 +5836,12 @@ function plugin(UIkit) {
 }
 
 if (typeof window !== 'undefined' && window.UIkit) {
-    window.UIkit.use(plugin);
+    window.UIkit.use(plugin$1);
 }
 
-return plugin;
+function plugin$2(UIkit) {
 
-})));
-/*! UIkit 3.0.0-beta.13 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
-
-(function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define('uikitsortable', factory) :
-    (global.UIkitSortable = factory());
-}(this, (function () { 'use strict';
-
-function plugin(UIkit) {
-
-    if (plugin.installed) {
+    if (plugin$2.installed) {
         return;
     }
 
@@ -6220,23 +6191,12 @@ function plugin(UIkit) {
 }
 
 if (typeof window !== 'undefined' && window.UIkit) {
-    window.UIkit.use(plugin);
+    window.UIkit.use(plugin$2);
 }
 
-return plugin;
+function plugin$3(UIkit) {
 
-})));
-/*! UIkit 3.0.0-beta.13 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
-
-(function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define('uikittooltip', factory) :
-    (global.UIkitTooltip = factory());
-}(this, (function () { 'use strict';
-
-function plugin(UIkit) {
-
-    if (plugin.installed) {
+    if (plugin$3.installed) {
         return;
     }
 
@@ -6362,23 +6322,12 @@ function plugin(UIkit) {
 }
 
 if (typeof window !== 'undefined' && window.UIkit) {
-    window.UIkit.use(plugin);
+    window.UIkit.use(plugin$3);
 }
 
-return plugin;
+function plugin$4(UIkit) {
 
-})));
-/*! UIkit 3.0.0-beta.13 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
-
-(function (global, factory) {
-    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define('uikitupload', factory) :
-    (global.UIkitUpload = factory());
-}(this, (function () { 'use strict';
-
-function plugin(UIkit) {
-
-    if (plugin.installed) {
+    if (plugin$4.installed) {
         return;
     }
 
@@ -6587,9 +6536,15 @@ function plugin(UIkit) {
 }
 
 if (typeof window !== 'undefined' && window.UIkit) {
-    window.UIkit.use(plugin);
+    window.UIkit.use(plugin$4);
 }
 
-return plugin;
+UIkit$1.use(plugin);
+UIkit$1.use(plugin$1);
+UIkit$1.use(plugin$2);
+UIkit$1.use(plugin$3);
+UIkit$1.use(plugin$4);
+
+return UIkit$1;
 
 })));
