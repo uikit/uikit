@@ -22,7 +22,7 @@ module.exports = [
     {
         entry: './tests/js/uikit',
         output: {
-            filename: 'dist/js/uikit-core.js',
+            filename: 'dist/js/uikit.js',
             library: 'UIkit',
             libraryTarget: 'umd'
         },
@@ -32,10 +32,7 @@ module.exports = [
             alias: {
                 "components$": __dirname + "/dist/icons/components.json",
             }
-        },
-        plugins: [
-            new BuildAll()
-        ]
+        }
     },
 
     {
@@ -74,29 +71,6 @@ module.exports = [
         },
         module: loaders,
         externals: {jquery: 'jQuery', uikit: 'UIkit'}
-    },
-
-    {
-        entry: components,
-        output: {
-            filename: 'dist/js/components/[name].js'
-        },
-        module: loaders,
-        externals: {jquery: 'jQuery', uikit: 'UIkit'},
-        plugins: [
-            new BuildAll()
-        ]
     }
 
 ];
-
-function BuildAll(options) {}
-
-BuildAll.prototype.apply = compiler =>
-    compiler.plugin('done', () =>
-        glob('dist/js/components/**/!(*.min).js', (err, files) =>
-            concat(['dist/js/uikit-core.js'].concat(files))
-                .then(data => util.write('dist/js/uikit.js', data))
-                .then(util.uglify)
-        )
-    );

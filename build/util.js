@@ -105,7 +105,7 @@ exports.compile = function (file, dest, external, globals, name, aliases) {
             globals,
             format: 'umd',
             banner: exports.banner,
-            moduleId: `UIkit${name}`.toLowerCase(),
+            moduleId: `UIkit${name || ''}`.toLowerCase(),
             moduleName: `UIkit${name ? exports.ucfirst(name) : ''}`,
         }).code))
         .then(exports.uglify)
