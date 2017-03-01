@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.14 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.15 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
@@ -1957,21 +1957,21 @@ function componentAPI (UIkit) {
 
 }
 
-var UIkit$1 = function (options) {
+var UIkit = function (options) {
     this._init(options);
 };
 
-UIkit$1.util = util;
-UIkit$1.data = '__uikit__';
-UIkit$1.prefix = 'uk-';
-UIkit$1.options = {};
-UIkit$1.instances = {};
-UIkit$1.elements = [];
+UIkit.util = util;
+UIkit.data = '__uikit__';
+UIkit.prefix = 'uk-';
+UIkit.options = {};
+UIkit.instances = {};
+UIkit.elements = [];
 
-globalAPI(UIkit$1);
-internalAPI(UIkit$1);
-instanceAPI(UIkit$1);
-componentAPI(UIkit$1);
+globalAPI(UIkit);
+internalAPI(UIkit);
+instanceAPI(UIkit);
+componentAPI(UIkit);
 
 var Class = {
 
@@ -5372,11 +5372,11 @@ function boot (UIkit) {
 
 }
 
-UIkit$1.version = '3.0.0';
+UIkit.version = '3.0.0';
 
-mixin$1(UIkit$1);
-core(UIkit$1);
-boot(UIkit$1);
+mixin$1(UIkit);
+core(UIkit);
+boot(UIkit);
 
 function plugin(UIkit) {
 
@@ -6539,12 +6539,12 @@ if (typeof window !== 'undefined' && window.UIkit) {
     window.UIkit.use(plugin$4);
 }
 
-UIkit$1.use(plugin);
-UIkit$1.use(plugin$1);
-UIkit$1.use(plugin$2);
-UIkit$1.use(plugin$3);
-UIkit$1.use(plugin$4);
+UIkit.use(plugin);
+UIkit.use(plugin$1);
+UIkit.use(plugin$2);
+UIkit.use(plugin$3);
+UIkit.use(plugin$4);
 
-return UIkit$1;
+return UIkit;
 
 })));
