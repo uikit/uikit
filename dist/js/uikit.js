@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.15 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.16 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
@@ -5760,7 +5760,7 @@ function plugin$1(UIkit) {
 
             this.$mount($(
                 ("<div class=\"uk-notification-message" + (this.status ? (" uk-notification-message-" + (this.status)) : '') + "\">\n                    <a href=\"#\" class=\"uk-notification-close\" data-uk-close></a>\n                    <div>" + (this.message) + "</div>\n                </div>")
-            ).appendTo(containers[this.pos].show()));
+            ).appendTo(containers[this.pos].show())[0]);
 
         },
 
