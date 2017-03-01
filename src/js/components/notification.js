@@ -33,7 +33,7 @@ function plugin(UIkit) {
                     <a href="#" class="uk-notification-close" data-uk-close></a>
                     <div>${this.message}</div>
                 </div>`
-            ).appendTo(containers[this.pos].show()));
+            ).appendTo(containers[this.pos].show())[0]);
 
         },
 
