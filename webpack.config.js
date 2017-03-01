@@ -6,7 +6,6 @@ var path = require('path');
 var util = require('./build/util');
 var concat = require('concat');
 
-
 var loaders = {
     loaders: [
         {loader: 'buble-loader', test: /(src|tests)(\/|\\).*\.js$/},
@@ -52,7 +51,7 @@ module.exports = [
 
                 apply(compiler) {
 
-                    compiler.plugin('before-run', () => util.write(`dist/icons.json`, util.icons('src/images/icons/*.svg')));
+                    compiler.plugin('after-plugins', () => util.write(`dist/icons.json`, util.icons('src/images/icons/*.svg')));
                     compiler.plugin('done', () => fs.unlink(`dist/icons.json`, () => {}));
 
                 }
