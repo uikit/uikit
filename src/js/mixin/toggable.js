@@ -1,3 +1,4 @@
+import UIkit from '../api/index';
 import { $, Animation, extend, isString, promise, Transition } from '../util/index';
 
 export default {

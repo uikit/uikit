@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix dist
+
 ## 3.0.0 beta 14 (March 01, 2017)
 
 ### Changed
