@@ -519,6 +519,26 @@ a.uk-link-reset:focus,
     line-height: 1.1;
   }
 }
+/* Hero
+ ========================================================================== */
+.uk-heading-hero {
+  font-size: 4rem;
+  line-height: 1.1;
+}
+/* Phone landscape and bigger */
+@media (min-width: 640px) {
+  .uk-heading-hero {
+    font-size: 6rem;
+    line-height: 1;
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-heading-hero {
+    font-size: 8rem;
+    line-height: 1;
+  }
+}
 /* Divider
  ========================================================================== */
 .uk-heading-divider {
@@ -573,7 +593,7 @@ a.uk-link-reset:focus,
   content: "";
   /* 1 */
   position: absolute;
-  top: calc(50% + (1px / 2));
+  top: calc(50% - (1px / 2));
   /* 2 */
   width: 2000px;
   /* 3 */
@@ -900,12 +920,6 @@ a.uk-link-reset:focus,
 /* ========================================================================
    Component: Icon
  ========================================================================== */
-/*
- * Pass image path to JS
- */
-.uk-icon::before {
-  background-image: url("../images/icons.svg");
-}
 /*
  * 1. Fill all SVG elements with the current text color if no `fill` attribute is set
  * 2. Let the container fit the height of the icon
@@ -2576,12 +2590,6 @@ select.uk-form-width-xsmall {
    Component: Close
  ========================================================================== */
 /*
- * Icon
- */
-.uk-close::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20x1%3D%221%22%20y1%3D%221%22%20x2%3D%2213%22%20y2%3D%2213%22%3E%3C%2Fline%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20x1%3D%2213%22%20y1%3D%221%22%20x2%3D%221%22%20y2%3D%2213%22%3E%3C%2Fline%3E%0A%3C%2Fsvg%3E%0A");
-}
-/*
  * Adopts `uk-icon`
  * 1. Remove margins in Chrome, Safari and Opera.
  * 2. Remove borders for `button`.
@@ -2629,20 +2637,9 @@ select.uk-form-width-xsmall {
   color: #666;
   outline: none;
 }
-/* Size modifier
- ========================================================================== */
-.uk-close-large::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.4%22%20x1%3D%221%22%20y1%3D%221%22%20x2%3D%2219%22%20y2%3D%2219%22%3E%3C%2Fline%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.4%22%20x1%3D%2219%22%20y1%3D%221%22%20x2%3D%221%22%20y2%3D%2219%22%3E%3C%2Fline%3E%0A%3C%2Fsvg%3E%0A");
-}
 /* ========================================================================
    Component: Spinner
  ========================================================================== */
-/*
- * Icon
- */
-.uk-spinner::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2230%22%20height%3D%2230%22%20viewBox%3D%220%200%2030%2030%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22none%22%20stroke%3D%22%23000%22%20cx%3D%2215%22%20cy%3D%2215%22%20r%3D%2214%22%3E%3C%2Fcircle%3E%0A%3C%2Fsvg%3E%0A");
-}
 /*
  * Adopts `uk-icon`
  */
@@ -2709,12 +2706,6 @@ select.uk-form-width-xsmall {
 /* ========================================================================
    Component: Totop
  ========================================================================== */
-/*
- * Icon
- */
-.uk-totop::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2218%22%20height%3D%2210%22%20viewBox%3D%220%200%2018%2010%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%20points%3D%221%209%209%201%2017%209%20%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E%0A");
-}
 /*
  * Addopts `uk-icon`
  */
@@ -2918,9 +2909,6 @@ select.uk-form-width-xsmall {
 }
 /* Icon
  ========================================================================== */
-.uk-overlay-icon::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20x%3D%2219%22%20y%3D%220%22%20width%3D%221%22%20height%3D%2240%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20x%3D%220%22%20y%3D%2219%22%20width%3D%2240%22%20height%3D%221%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E%0A");
-}
 /* Style modifiers
  ========================================================================== */
 /*
@@ -3140,9 +3128,6 @@ select.uk-form-width-xsmall {
 }
 /* Icon
  ========================================================================== */
-.uk-search-icon::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20cx%3D%229%22%20cy%3D%229%22%20r%3D%227%22%3E%3C%2Fcircle%3E%0A%20%20%20%20%3Cpath%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20d%3D%22M14%2C14%20L18%2C18%20L14%2C14%20Z%22%3E%3C%2Fpath%3E%0A%3C%2Fsvg%3E%0A");
-}
 /*
  * Adopts `uk-icon`
  * Required for `button`
@@ -3276,9 +3261,6 @@ select.uk-form-width-xsmall {
 /*
  * Icon
  */
-.uk-search-navbar .uk-search-icon::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20cx%3D%2210.5%22%20cy%3D%2210.5%22%20r%3D%229.5%22%2F%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.1%22%20x1%3D%2223%22%20y1%3D%2223%22%20x2%3D%2217%22%20y2%3D%2217%22%2F%3E%0A%3C%2Fsvg%3E%0A");
-}
 .uk-search-navbar .uk-search-icon {
   width: 40px;
 }
@@ -3304,9 +3286,6 @@ select.uk-form-width-xsmall {
 /*
  * Icon
  */
-.uk-search-large .uk-search-icon::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2240%22%20height%3D%2240%22%20viewBox%3D%220%200%2040%2040%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.8%22%20cx%3D%2217.5%22%20cy%3D%2217.5%22%20r%3D%2216.5%22%3E%3C%2Fcircle%3E%0A%20%20%20%20%3Cline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.8%22%20x1%3D%2238%22%20y1%3D%2239%22%20x2%3D%2229%22%20y2%3D%2230%22%3E%3C%2Fline%3E%0A%3C%2Fsvg%3E%0A");
-}
 .uk-search-large .uk-search-icon {
   width: 80px;
 }
@@ -3699,9 +3678,6 @@ ul.uk-nav-sub {
  * Icon
  * Adopts `uk-icon`
  */
-.uk-navbar-toggle-icon::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20y%3D%229%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20y%3D%223%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%20%20%20%20%3Crect%20y%3D%2215%22%20width%3D%2220%22%20height%3D%222%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E%0A");
-}
 /* Hover + Focus */
 /* Subtitle
  ========================================================================== */
@@ -3976,6 +3952,7 @@ ul.uk-nav-sub {
 .uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
   content: "";
   height: 1.5em;
+  margin-right: 0px;
   margin-left: 20px;
   border-right: 1px solid #e5e5e5;
 }
@@ -4126,16 +4103,6 @@ ul.uk-nav-sub {
 /* Disabled */
 .uk-pagination > .uk-disabled > * {
   color: #999;
-}
-/*
- * Icon
- * Adopts `uk-icon`
- */
-.uk-pagination-previous::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%227%22%20height%3D%2212%22%20viewBox%3D%220%200%207%2012%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%20points%3D%221%201%206%206%201%2011%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E%0A");
-}
-.uk-pagination-next::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%227%22%20height%3D%2212%22%20viewBox%3D%220%200%207%2012%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%20points%3D%226%201%201%206%206%2011%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E%0A");
 }
 /* ========================================================================
    Component: Tab
@@ -4304,23 +4271,9 @@ ul.uk-nav-sub {
 /*
  * Previous
  */
-.uk-slidenav-next::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2211%22%20height%3D%2220%22%20viewBox%3D%220%200%2011%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%20points%3D%2210%201%201%2010%2010%2019%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E%0A");
-}
 /*
  * Next
  */
-.uk-slidenav-previous::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2211%22%20height%3D%2220%22%20viewBox%3D%220%200%2011%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.2%22%20points%3D%221%201%2010%2010%201%2019%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E%0A");
-}
-/* Size modifier
- ========================================================================== */
-.uk-slidenav-large.uk-slidenav-next::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2218%22%20height%3D%2234%22%20viewBox%3D%220%200%2018%2034%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.4%22%20points%3D%2217%201%201%2017%2017%2033%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E%0A");
-}
-.uk-slidenav-large.uk-slidenav-previous::before {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2218%22%20height%3D%2234%22%20viewBox%3D%220%200%2018%2034%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22%23000%22%20stroke-width%3D%221.4%22%20points%3D%221%201%2017%2017%201%2033%22%3E%3C%2Fpolyline%3E%0A%3C%2Fsvg%3E%0A");
-}
 /* Container
  ========================================================================== */
 .uk-slidenav-container {
@@ -6596,6 +6549,23 @@ ul.uk-nav-sub {
 }
 .uk-text-danger {
   color: #f0506e !important;
+}
+/* Background modifier
+ ========================================================================== */
+/*
+ * 1. The background clips to the foreground text. Works in Chrome, Firefox, Safari, Edge and Opera
+ *    Default color is set to transparent
+ * 2. Container fits the text
+ * 3. Fallback color for IE11
+ */
+.uk-text-background {
+  /* 1 */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  /* 2 */
+  display: inline-block;
+  /* 3 */
+  color: #1e87f0 !important;
 }
 /* Alignment modifiers
  ========================================================================== */
