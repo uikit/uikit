@@ -1,10 +1,12 @@
-import { $, getStyle, isVoidElement, promise } from '../util/index';
+import { $, fastdom, isVoidElement, promise } from '../util/index';
 
-var storage = window.sessionStorage || {}, svgs = {}, parser = new DOMParser();
+var svgs = {}, parser = new DOMParser();
 
 export default function (UIkit) {
 
     UIkit.component('svg', {
+
+        attrs: true,
 
         props: {
             id: String,
@@ -30,67 +32,27 @@ export default function (UIkit) {
 
         connected() {
 
-            this.svg = promise((resolve, reject) => {
-                this._resolver = resolve;
-                this._rejecter = reject;
-            }).catch(() => {});
+            if (!this.icon && this.src && ~this.src.indexOf('#')) {
 
-            this.$emitSync();
-        },
+                var parts = this.src.split('#');
 
-        disconnected() {
-
-            this.isSet = false;
-
-            if (isVoidElement(this.$el)) {
-                this.$el.attr({hidden: null, id: this.id || null});
+                if (parts.length > 1) {
+                    this.src = parts[0];
+                    this.icon = parts[1];
+                }
             }
 
-            if (this.svg) {
-                this.svg.then(svg => svg && svg.remove());
-                this.svg = null;
-            }
-        },
+            this.width = this.$props.width;
+            this.height = this.$props.height;
 
-        update: {
+            this.svg = this.getSvg().then(doc => promise((resolve, reject) => fastdom.mutate(() => {
 
-            read() {
+                var svg, el;
 
-                if (!this.src) {
-                    this.src = getSrc(this.$el);
-                }
-
-                if (!this.src || this.isSet) {
+                if (!doc) {
+                    reject('SVG not found.');
                     return;
                 }
-
-                this.isSet = true;
-
-                if (!this.icon && ~this.src.indexOf('#')) {
-
-                    var parts = this.src.split('#');
-
-                    if (parts.length > 1) {
-                        this.src = parts[0];
-                        this.icon = parts[1];
-                    }
-                }
-
-                getSvg(this.src).then(doc => {
-                    this._svg = doc;
-                    this.$emit();
-                }, e => console.log(e));
-            },
-
-            write() {
-
-                if (!this._svg) {
-                    return;
-                }
-
-                var doc = this._svg, svg, el;
-
-                this._svg = null;
 
                 if (!this.icon) {
                     el = doc.documentElement.cloneNode(true);
@@ -125,7 +87,7 @@ export default function (UIkit) {
                 }
 
                 if (!el) {
-                    this._rejecter('SVG not found.');
+                    reject('SVG not found.');
                     return;
                 }
 
@@ -167,86 +129,68 @@ export default function (UIkit) {
                     el.appendTo(this.$el);
                 }
 
-                this._resolver(el);
+                resolve(el);
+
+            }))).then(null, () => this.$destroy());
+
+            if (!this._isReady) {
+                this.$emitSync();
+            }
+        },
+
+        disconnected() {
+
+            if (isVoidElement(this.$el)) {
+                this.$el.attr({hidden: null, id: this.id || null});
+            }
+
+            if (this.svg) {
+                this.svg.then(svg => {
+                    svg && svg.remove();
+                });
+                this.svg = null;
+            }
+        },
+
+        methods: {
+
+            getSvg() {
+
+                if (!this.src) {
+                    return promise.reject();
+                }
+
+                if (svgs[this.src]) {
+                    return svgs[this.src];
+                }
+
+                svgs[this.src] = promise((resolve, reject) => {
+
+                    if (this.src.lastIndexOf('data:', 0) === 0) {
+                        resolve(this.parse(decodeURIComponent(this.src.split(',')[1])));
+                    } else {
+
+                        $.ajax(this.src, {dataType: 'html'}).then(doc => {
+                            resolve(this.parse(doc));
+                        }, () => {
+                            reject('SVG not found.');
+                        });
+
+                    }
+
+                });
+
+                return svgs[this.src];
+
             },
 
-            events: ['load']
+            parse(doc) {
+                var parsed = parser.parseFromString(doc, 'image/svg+xml');
+                return parsed.documentElement && parsed.documentElement.nodeName === 'svg' ? parsed : null;
+            }
 
         }
 
     });
-
-    function getSrc(el) {
-
-        var image = getBackgroundImage(el);
-
-        if (!image) {
-
-            el = el.clone().empty()
-                .attr({'uk-no-boot': '', style: `${el.attr('style')};display:block !important;`})
-                .appendTo(document.body);
-
-            image = getBackgroundImage(el);
-
-            // safari workaround
-            if (!image && el[0].tagName === 'CANVAS') {
-                var span = $(el[0].outerHTML.replace(/canvas/g, 'span')).insertAfter(el);
-                image = getBackgroundImage(span);
-                span.remove();
-            }
-
-            el.remove();
-
-        }
-
-        return image && image.slice(4, -1).replace(/"/g, '');
-    }
-
-    function getBackgroundImage(el) {
-        var image = getStyle(el[0], 'backgroundImage', '::before');
-        return image !== 'none' && image;
-    }
-
-    function getSvg(src) {
-
-        if (!svgs[src]) {
-            svgs[src] = promise((resolve, reject) => {
-
-                if (src.lastIndexOf('data:', 0) === 0) {
-                    resolve(parse(decodeURIComponent(src.split(',')[1])));
-                } else {
-
-                    var key = `${UIkit.data}${UIkit.version}_${src}`;
-
-                    if (storage[key]) {
-                        resolve(parse(storage[key]));
-                    } else {
-                        $.ajax(src, {dataType: 'html'}).then(doc => {
-                            storage[key] = doc;
-                            resolve(parse(doc));
-                        }, () => {
-                            reject('SVG not found.');
-                        });
-                    }
-                }
-
-            });
-        }
-
-        return svgs[src];
-    }
-
-    function parse(doc) {
-        return parser.parseFromString(doc, 'image/svg+xml');
-    }
-
-    // workaround for Safari's private browsing mode
-    try {
-        var key = `${UIkit.data}test`;
-        storage[key] = 1;
-        delete storage[key];
-    } catch (e) {
-        storage = {};
-    }
 
 }

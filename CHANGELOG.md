@@ -1,5 +1,37 @@
 # Changelog
 
+## 3.0.0 beta 13 (March 01, 2017)
+
+### Added
+
+- Add receiver icon
+- Add hero heading modifier
+- Add text background
+- Add ID for AMD bundles
+
+### Changed
+
+- Move Icons into JavaScript
+- Component Constructor initializes and returns single component only
+- Rename function "show" to "toggle" in Accordion component
+- Switcher no longers "swipes" with mouse
+- Sticky component applies active class after scrolling below top
+
+### Removed
+
+- Remove text primary hook
+
+### Fixed
+
+- Fix npm not watching less
+- Modal no longer closes immediately when toggled from custom 'click' handler
+- Fix Accordion component
+- Fix container for Tooltip component
+- Fix Dropdowns closing in Navbar component
+- Fix Drops closing on click on hash links
+- Fix Tab component not initializing
+- Fix icon duplication
+
 ## 3.0.0 beta 12 (February 17, 2017)
 
 ### Added

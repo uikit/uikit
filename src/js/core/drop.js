@@ -1,5 +1,5 @@
-import { Mouse, Position, Toggable } from '../mixin/index';
-import { doc, getDimensions, isWithin, isTouch, pointerEnter, pointerLeave, query, removeClass } from '../util/index';
+import { Position, Toggable } from '../mixin/index';
+import { doc, getDimensions, isWithin, isTouch, MouseTracker, pointerEnter, pointerLeave, query, removeClass } from '../util/index';
 
 export default function (UIkit) {
 
@@ -15,7 +15,7 @@ export default function (UIkit) {
 
     UIkit.component('drop', {
 
-        mixins: [Mouse, Position, Toggable],
+        mixins: [Position, Toggable],
 
         args: 'pos',
 
@@ -43,6 +43,7 @@ export default function (UIkit) {
         },
 
         init() {
+            this.tracker = new MouseTracker();
             this.clsDrop = this.clsDrop || `uk-${this.$options.name}`;
             this.clsPos = this.clsDrop;
 
@@ -54,7 +55,7 @@ export default function (UIkit) {
             this.updateAria(this.$el);
 
             if (this.toggle) {
-                this.toggle = UIkit.toggle(query(this.toggle, this.$el), {target: this.$el, mode: this.mode})[0];
+                this.toggle = UIkit.toggle(query(this.toggle, this.$el), {target: this.$el, mode: this.mode});
             }
 
         },
@@ -72,6 +73,33 @@ export default function (UIkit) {
                 handler(e) {
                     e.preventDefault();
                     this.hide(false);
+                }
+
+            },
+
+            {
+
+                name: 'click',
+
+                delegate() {
+                    return 'a[href^="#"]';
+                },
+
+                handler(e) {
+
+                    if (e.isDefaultPrevented()) {
+                        return;
+                    }
+
+                    var id = $(e.target).attr('href');
+
+                    if (id.length === 1) {
+                        e.preventDefault();
+                    }
+
+                    if (id.length === 1 || !isWithin(id, this.$el)) {
+                        this.hide(false);
+                    }
                 }
 
             },
@@ -164,16 +192,36 @@ export default function (UIkit) {
 
             {
 
+                name: 'beforeshow',
+
+                self: true,
+
+                handler() {
+                    this.clearTimers();
+                }
+
+            },
+
+            {
+
                 name: 'show',
 
-                handler({target}) {
+                self: true,
 
-                    if (!this.$el.is(target)) {
-                        return;
-                    }
-
-                    this.initMouseTracker();
+                handler() {
+                    this.tracker.init();
                     this.toggle.$el.addClass(this.cls).attr('aria-expanded', 'true');
+                }
+
+            },
+
+            {
+
+                name: 'beforehide',
+
+                self: true,
+
+                handler() {
                     this.clearTimers();
                 }
 
@@ -192,8 +240,7 @@ export default function (UIkit) {
 
                     active = this.isActive() ? null : active;
                     this.toggle.$el.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
-                    this.cancelMouseTracker();
-                    this.clearTimers();
+                    this.tracker.cancel();
                 }
 
             }
@@ -247,7 +294,7 @@ export default function (UIkit) {
                     if (this.isActive()) {
                         return;
                     } else if (delay && active && active !== this && active.isDelaying) {
-                        this.showTimer = setTimeout(this.show, 75);
+                        this.showTimer = setTimeout(this.show, 10);
                         return;
                     } else if (this.isParentOf(active)) {
 
@@ -290,7 +337,7 @@ export default function (UIkit) {
 
                 this.clearTimers();
 
-                this.isDelaying = this.movesTo(this.$el);
+                this.isDelaying = this.tracker.movesTo(this.$el);
 
                 if (delay && this.isDelaying) {
                     this.hideTimer = setTimeout(this.hide, this.hoverIdle);

@@ -1,5 +1,5 @@
 import { Class, Modal } from '../mixin/index';
-import { $, docElement, extend, isFunction, isString, promise, query, toJQuery } from '../util/index';
+import { $, extend, isFunction, isString, promise, query, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
@@ -48,33 +48,29 @@ export default function (UIkit) {
 
         },
 
-        events: {
+        events: [
 
-            beforeshow(e) {
+            {
+                name: 'beforeshow',
 
-                if (!this.$el.is(e.target)) {
-                    return;
+                self: true,
+
+                handler() {
+                    this.$el.css('display', 'block').height();
                 }
-
-                docElement.addClass(this.clsPage);
-                this.$el.css('display', 'block');
-                this.$el.height();
             },
 
-            hide(e) {
+            {
+                name: 'hide',
 
-                if (!this.$el.is(e.target)) {
-                    return;
+                self: true,
+
+                handler() {
+                    this.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
                 }
-
-                if (!this.getActive()) {
-                    docElement.removeClass(this.clsPage);
-                }
-
-                this.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
             }
 
-        }
+        ]
 
     });
 
@@ -109,10 +105,10 @@ export default function (UIkit) {
             `<div class="uk-modal">
                 <div class="uk-modal-dialog">${content}</div>
              </div>`
-        , options)[0];
+        , options);
 
-        requestAnimationFrame(dialog.show);
         dialog.$el.on('hide', () => dialog.$destroy(true));
+        dialog.show();
 
         return dialog;
     };

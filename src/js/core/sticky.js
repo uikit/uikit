@@ -7,6 +7,8 @@ export default function (UIkit) {
 
         mixins: [Class],
 
+        attrs: true,
+
         props: {
             top: null,
             bottom: Boolean,
@@ -39,32 +41,43 @@ export default function (UIkit) {
 
         connected() {
             this.placeholder = $('<div class="uk-sticky-placeholder"></div>').insertAfter(this.$el).attr('hidden', true);
-            this._widthElement = this.widthElement || this.placeholder;
+            this.widthElement = this.$props.widthElement || this.placeholder;
+        },
+
+        disconnected() {
+
+            if (this.isActive) {
+                this.isActive = false;
+                this.hide();
+                this.$el.removeClass(this.clsInactive);
+            }
+
+            this.placeholder.remove();
+            this.placeholder = null;
+            this.widthElement = null;
         },
 
         ready() {
 
-            this.topProp = this.top;
-            this.bottomProp = this.bottom;
+            if (!(this.target && location.hash && win.scrollTop() > 0)) {
+                return;
+            }
 
-            if (this.target && location.hash && win.scrollTop() > 0) {
+            var target = query(location.hash);
 
-                var target = query(location.hash);
+            if (target) {
+                requestAnimationFrame(() => {
 
-                if (target) {
-                    requestAnimationFrame(() => {
+                    var top = target.offset().top,
+                        elTop = this.$el.offset().top,
+                        elHeight = this.$el.outerHeight(),
+                        elBottom = elTop + elHeight;
 
-                        var top = target.offset().top,
-                            elTop = this.$el.offset().top,
-                            elHeight = this.$el.outerHeight(),
-                            elBottom = elTop + elHeight;
+                    if (elBottom >= top && elTop <= top + target.outerHeight()) {
+                        window.scrollTo(0, top - elHeight - this.target - this.offset);
+                    }
 
-                        if (elBottom >= top && elTop <= top + target.outerHeight()) {
-                            window.scrollTo(0, top - elHeight - this.target - this.offset);
-                        }
-
-                    });
-                }
+                });
             }
 
         },
@@ -75,21 +88,21 @@ export default function (UIkit) {
 
                 write() {
 
-                    var outerHeight = this.$el.outerHeight(), isActive = this.isActive(), el;
+                    var outerHeight = this.$el.outerHeight(), el;
 
                     this.placeholder
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
                         .css(this.$el.css(['marginTop', 'marginBottom', 'marginLeft', 'marginRight']));
 
-                    this.width = this._widthElement.attr('hidden', null).outerWidth();
-                    this._widthElement.attr('hidden', !isActive);
+                    this.width = this.widthElement.attr('hidden', null).outerWidth();
+                    this.widthElement.attr('hidden', !this.isActive);
 
-                    this.topOffset = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
+                    this.topOffset = (this.isActive ? this.placeholder.offset() : this.$el.offset()).top;
                     this.bottomOffset = this.topOffset + outerHeight;
 
                     ['top', 'bottom'].forEach(prop => {
 
-                        this[prop] = this[`${prop}Prop`];
+                        this[prop] = this.$props[prop];
 
                         if (!this[prop]) {
                             return;
@@ -121,7 +134,7 @@ export default function (UIkit) {
                     this.bottom = this.bottom && this.bottom - outerHeight;
                     this.inactive = this.media && !window.matchMedia(this.media).matches;
 
-                    if (isActive) {
+                    if (this.isActive) {
                         this.update();
                     }
                 },
@@ -134,7 +147,7 @@ export default function (UIkit) {
 
                 write({dir} = {}) {
 
-                    var isActive = this.isActive(), scroll = win.scrollTop();
+                    var scroll = win.scrollTop();
 
                     if (scroll < 0 || !this.$el.is(':visible') || this.disabled) {
                         return;
@@ -142,14 +155,14 @@ export default function (UIkit) {
 
                     if (this.inactive
                         || scroll < this.top
-                        || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.bottomOffset)
+                        || this.showOnUp && (dir !== 'up' || dir === 'up' && !this.isActive && scroll <= this.bottomOffset)
                     ) {
 
-                        if (!isActive) {
+                        if (!this.isActive) {
                             return;
                         }
 
-                        isActive = false;
+                        this.isActive = false;
 
                         if (this.animation && this.bottomOffset < this.$el.offset().top) {
                             Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation).then(() => this.hide()));
@@ -157,7 +170,7 @@ export default function (UIkit) {
                             this.hide();
                         }
 
-                    } else if (isActive) {
+                    } else if (this.isActive) {
 
                         this.update();
 
@@ -184,13 +197,9 @@ export default function (UIkit) {
 
             show() {
 
+                this.isActive = true;
                 this.update();
-
-                this.$el
-                    .removeClass(this.clsInactive)
-                    .addClass(this.clsActive)
-                    .trigger('active');
-
+                this.$el.trigger('active');
                 this.placeholder.attr('hidden', null);
 
             },
@@ -204,34 +213,28 @@ export default function (UIkit) {
                     .trigger('inactive');
 
                 this.placeholder.attr('hidden', true);
+
             },
 
             update() {
 
-                var top = Math.max(0, this.offset), scroll = win.scrollTop();
+                var top = Math.max(0, this.offset), scroll = win.scrollTop(), active = win.scrollTop() > this.top;
 
                 if (this.bottom && scroll > this.bottom - this.offset) {
                     top = this.bottom - scroll;
                 }
 
-                this.$el.css({
-                    position: 'fixed',
-                    top: `${top}px`,
-                    width: this.width
-                });
+                this.$el
+                    .css({
+                        position: 'fixed',
+                        top: `${top}px`,
+                        width: this.width
+                    })
+                    .toggleClass(this.clsActive, active)
+                    .toggleClass(this.clsInactive, !active);
 
-            },
-
-            isActive() {
-                return this.$el.hasClass(this.clsActive) && !(this.animation && this.$el.hasClass('uk-animation-leave'));
             }
 
-        },
-
-        disconnected() {
-            this.placeholder.remove();
-            this.placeholder = null;
-            this._widthElement = null;
         }
 
     });

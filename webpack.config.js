@@ -1,12 +1,17 @@
 var webpack = require('webpack');
+var fs = require('fs');
 var glob = require('glob');
 var path = require('path');
-var exec = require('child_process').exec;
+
+var util = require('./build/util');
+var concat = require('concat');
+
 
 var loaders = {
     loaders: [
         {loader: 'buble-loader', test: /(src|tests)(\/|\\).*\.js$/},
-        {loader: 'json-loader', test: /\.json/}
+        {loader: 'json-loader', test: /\.json$/},
+        {loader: 'html-loader', test: /\.svg$/}
     ]
 };
 
@@ -24,9 +29,41 @@ module.exports = [
         },
         module: loaders,
         externals: {jquery: 'jQuery'},
+        resolve: {
+            alias: {
+                "components$": __dirname + "/dist/icons/components.json",
+            }
+        },
         plugins: [
             new BuildAll()
         ]
+    },
+
+    {
+        entry: './src/js/icons',
+        output: {
+            filename: 'dist/js/uikit-icons.js',
+            library: 'UIkitIcons',
+            libraryTarget: 'umd'
+        },
+        module: loaders,
+        plugins: [
+            {
+
+                apply(compiler) {
+
+                    compiler.plugin('before-run', () => util.write(`dist/icons.json`, util.icons('src/images/icons/*.svg')));
+                    compiler.plugin('done', () => fs.unlink(`dist/icons.json`, () => {}));
+
+                }
+
+            }
+        ],
+        resolve: {
+            alias: {
+                "icons$": __dirname + "/dist/icons.json",
+            }
+        }
     },
 
     {
@@ -58,4 +95,9 @@ function BuildAll(options) {}
 
 BuildAll.prototype.apply = compiler =>
     compiler.plugin('done', () =>
-        exec('node build/all'));
+        glob('dist/js/components/**/!(*.min).js', (err, files) =>
+            concat(['dist/js/uikit-core.js'].concat(files))
+                .then(data => util.write('dist/js/uikit.js', data))
+                .then(util.uglify)
+        )
+    );

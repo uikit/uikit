@@ -1,18 +1,18 @@
-/*! UIkit 3.0.0-beta.12 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.13 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
-   typeof define === 'function' && define.amd ? define(['jquery'], factory) :
+   typeof define === 'function' && define.amd ? define('uikitundefined', ['jquery'], factory) :
    (global.UIkit = factory(global.jQuery));
-}(this, (function ($) { 'use strict';
+}(this, (function ($$1) { 'use strict';
 
-var $__default = 'default' in $ ? $['default'] : $;
+var $$1__default = 'default' in $$1 ? $$1['default'] : $$1;
 
-var win = $__default(window);
-var doc = $__default(document);
-var docElement = $__default(document.documentElement);
+var win = $$1__default(window);
+var doc = $$1__default(document);
+var docElement = $$1__default(document.documentElement);
 
-var isRtl = $__default('html').attr('dir') === 'rtl';
+var isRtl = $$1__default('html').attr('dir') === 'rtl';
 
 function isReady() {
     return document.readyState === 'complete' || document.readyState !== 'loading' && !document.documentElement.doScroll;
@@ -36,11 +36,11 @@ function ready(fn) {
 }
 
 function on(el, type, listener, useCapture) {
-    $__default(el)[0].addEventListener(type, listener, useCapture)
+    toNode(el).addEventListener(type, listener, useCapture)
 }
 
 function off(el, type, listener, useCapture) {
-    $__default(el)[0].removeEventListener(type, listener, useCapture)
+    toNode(el).removeEventListener(type, listener, useCapture)
 }
 
 function transition(element, props, duration, transition) {
@@ -50,7 +50,7 @@ function transition(element, props, duration, transition) {
 
     var p = promise(function (resolve, reject) {
 
-        element = $__default(element);
+        element = $$1__default(element);
 
         for (var name in props) {
             element.css(name, element.css(name));
@@ -75,7 +75,7 @@ function transition(element, props, duration, transition) {
             .css('transition', ("all " + duration + "ms " + transition))
             .css(props);
 
-    }).catch(function () {});
+    }).then(null, function () {});
 
     return p;
 }
@@ -85,8 +85,8 @@ var Transition = {
     start: transition,
 
     stop: function stop(element, cancel) {
-        var e = $__default.Event(transitionend || 'transitionend');
-        $__default(element).triggerHandler(e, [cancel]);
+        var e = $$1__default.Event(transitionend || 'transitionend');
+        $$1__default(element).triggerHandler(e, [cancel]);
         return e.promise || promise.resolve();
     },
 
@@ -95,7 +95,7 @@ var Transition = {
     },
 
     inProgress: function inProgress(element) {
-        return $__default(element).hasClass('uk-transition');
+        return $$1__default(element).hasClass('uk-transition');
     }
 
 };
@@ -108,7 +108,7 @@ function animate(element, animation, duration, origin, out) {
 
         var cls = out ? 'uk-animation-leave' : 'uk-animation-enter';
 
-        element = $__default(element);
+        element = $$1__default(element);
 
         if (animation.lastIndexOf('uk-animation-', 0) === 0) {
 
@@ -158,24 +158,30 @@ var Animation = {
     },
 
     inProgress: function inProgress(element) {
-        return $__default(element).hasClass('uk-animation-enter') || $__default(element).hasClass('uk-animation-leave');
+        return $$1__default(element).hasClass('uk-animation-enter') || $$1__default(element).hasClass('uk-animation-leave');
     },
 
     cancel: function cancel(element) {
-        var e = $__default.Event(animationend || 'animationend');
-        $__default(element).triggerHandler(e);
+        var e = $$1__default.Event(animationend || 'animationend');
+        $$1__default(element).triggerHandler(e);
         return e.promise || promise.resolve();
     }
 
 };
 
+function isJQuery(obj) {
+    return obj instanceof $$1__default;
+}
+
 function isWithin(element, selector) {
-    element = $__default(element);
-    return element.is(selector) || !!(isString(selector) ? element.parents(selector).length : $__default.contains(selector instanceof $__default ? selector[0] : selector, element[0]));
+    element = $$1__default(element);
+    return element.is(selector) || !!(isString(selector)
+            ? element.parents(selector).length
+            : $$1__default.contains(toNode(selector), element[0]));
 }
 
 function attrFilter(element, attr, pattern, replacement) {
-    element = $__default(element);
+    element = $$1__default(element);
     return element.attr(attr, function (i, value) { return value ? value.replace(pattern, replacement) : value; });
 }
 
@@ -195,7 +201,7 @@ function createEvent(e, bubbles, cancelable, data) {
     }
 
     if (data) {
-        $__default.extend(e, data);
+        $$1__default.extend(e, data);
     }
 
     return e;
@@ -206,7 +212,7 @@ function isInView(element, offsetTop, offsetLeft) {
     if ( offsetLeft === void 0 ) offsetLeft = 0;
 
 
-    element = $__default(element);
+    element = $$1__default(element);
 
     if (!element.is(':visible')) {
         return false;
@@ -227,9 +233,9 @@ function getIndex(index, elements, current) {
     if ( current === void 0 ) current = 0;
 
 
-    elements = $__default(elements);
+    elements = $$1__default(elements);
 
-    var length = $__default(elements).length;
+    var length = $$1__default(elements).length;
 
     index = (isNumber(index)
         ? index
@@ -264,8 +270,7 @@ var voidElements = {
     wbr: true
 };
 function isVoidElement(element) {
-    element = $__default(element);
-    return voidElements[element[0].tagName.toLowerCase()];
+    return voidElements[toNode(element).tagName.toLowerCase()];
 }
 
 var Dimensions = {
@@ -281,9 +286,9 @@ var Dimensions = {
     fit: function fit(dimensions, maxDimensions) {
         var this$1 = this;
 
-        dimensions = $.extend({}, dimensions);
+        dimensions = $$1.extend({}, dimensions);
 
-        $.each(dimensions, function (prop) { return dimensions = dimensions[prop] > maxDimensions[prop] ? this$1.ratio(dimensions, prop, maxDimensions[prop]) : dimensions; });
+        $$1.each(dimensions, function (prop) { return dimensions = dimensions[prop] > maxDimensions[prop] ? this$1.ratio(dimensions, prop, maxDimensions[prop]) : dimensions; });
 
         return dimensions;
     },
@@ -293,7 +298,7 @@ var Dimensions = {
 
         dimensions = this.fit(dimensions, maxDimensions);
 
-        $.each(dimensions, function (prop) { return dimensions = dimensions[prop] < maxDimensions[prop] ? this$1.ratio(dimensions, prop, maxDimensions[prop]) : dimensions; });
+        $$1.each(dimensions, function (prop) { return dimensions = dimensions[prop] < maxDimensions[prop] ? this$1.ratio(dimensions, prop, maxDimensions[prop]) : dimensions; });
 
         return dimensions;
     }
@@ -303,6 +308,182 @@ var Dimensions = {
 function query(selector, context) {
     var selectors = getContextSelectors(selector);
     return selectors ? selectors.reduce(function (context, selector) { return toJQuery(selector, context); }, context) : toJQuery(selector);
+}
+
+function bind(fn, context) {
+    return function (a) {
+        var l = arguments.length;
+        return l ? l > 1 ? fn.apply(context, arguments) : fn.call(context, a) : fn.call(context);
+    };
+}
+
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+function hasOwn(obj, key) {
+    return hasOwnProperty.call(obj, key);
+}
+
+function promise(executor) {
+
+    if (!isUndefined(window.Promise)) {
+        return new window.Promise(executor);
+    }
+
+    var def = $$1__default.Deferred();
+
+    executor(def.resolve, def.reject);
+
+    return def;
+}
+
+promise.resolve = function (value) {
+    return promise(function (resolve) {
+        resolve(value);
+    });
+};
+
+promise.reject = function (value) {
+    return promise(function (_, reject) {
+        reject(value);
+    });
+};
+
+promise.all = function (iterable) {
+
+    if (!isUndefined(window.Promise)) {
+        return window.Promise.all(iterable);
+    }
+
+    return $$1__default.when.apply($$1__default, iterable);
+};
+
+function classify(str) {
+    return str.replace(/(?:^|[-_\/])(\w)/g, function (_, c) { return c ? c.toUpperCase() : ''; });
+}
+
+function hyphenate(str) {
+    return str
+        .replace(/([a-z\d])([A-Z])/g, '$1-$2')
+        .toLowerCase()
+}
+
+var camelizeRE = /-(\w)/g;
+function camelize(str) {
+    return str.replace(camelizeRE, toUpper)
+}
+
+function toUpper(_, c) {
+    return c ? c.toUpperCase() : ''
+}
+
+function isString(value) {
+    return typeof value === 'string';
+}
+
+function isNumber(value) {
+    return typeof value === 'number';
+}
+
+function isUndefined(value) {
+    return value === undefined;
+}
+
+function isContextSelector(selector) {
+    return isString(selector) && selector.match(/^(!|>|\+|-)/);
+}
+
+function getContextSelectors(selector) {
+    return isContextSelector(selector) && selector.split(/(?=\s(?:!|>|\+|-))/g).map(function (value) { return value.trim(); });
+}
+
+var contextSelectors = {'!': 'closest', '+': 'nextAll', '-': 'prevAll'};
+function toJQuery(element, context) {
+
+    if (element === true) {
+        return null;
+    }
+
+    try {
+
+        if (context && isContextSelector(element) && element[0] !== '>') {
+
+            var fn = contextSelectors[element[0]], selector = element.substr(1);
+
+            context = $$1__default(context);
+
+            if (fn === 'closest') {
+                context = context.parent();
+                selector = selector || '*';
+            }
+
+            element = context[fn](selector);
+
+        } else {
+            element = $$1__default(element, context);
+        }
+
+    } catch (e) {
+        return null;
+    }
+
+    return element.length ? element : null;
+}
+
+function toNode(element) {
+    return element && (isJQuery(element) ? element[0] : element);
+}
+
+function toBoolean(value) {
+    return typeof value === 'boolean'
+        ? value
+        : value === 'true' || value == '1' || value === ''
+            ? true
+            : value === 'false' || value == '0'
+                ? false
+                : value;
+}
+
+function toNumber(value) {
+    var number = Number(value);
+    return !isNaN(number) ? number : false;
+}
+
+var vars = {};
+function toMedia(value) {
+    if (isString(value) && value[0] == '@') {
+        var name = "media-" + (value.substr(1));
+        value = vars[name] || (vars[name] = parseFloat(getCssVar(name)));
+    }
+
+    return value && !isNaN(value) ? ("(min-width: " + value + "px)") : false;
+}
+
+function coerce(type, value, context) {
+
+    if (type === Boolean) {
+        return toBoolean(value);
+    } else if (type === Number) {
+        return toNumber(value);
+    } else if (type === 'jQuery') {
+        return query(value, context);
+    } else if (type === 'media') {
+        return toMedia(value);
+    }
+
+    return type ? type(value) : value;
+}
+
+function toMs(time) {
+    return !time
+        ? 0
+        : time.substr(-2) === 'ms'
+            ? parseFloat(time)
+            : parseFloat(time) * 1000;
+}
+
+function swap(value, a, b) {
+    return value.replace(new RegExp((a + "|" + b), 'mg'), function (match) {
+        return match === a ? b : a
+    });
 }
 
 var Observer = window.MutationObserver || window.WebKitMutationObserver;
@@ -320,41 +501,10 @@ var pointerUp = !hasTouch ? 'mouseup' : window.PointerEvent ? 'pointerup' : 'tou
 var pointerEnter = hasTouch && window.PointerEvent ? 'pointerenter' : 'mouseenter';
 var pointerLeave = hasTouch && window.PointerEvent ? 'pointerleave' : 'mouseleave';
 
-var transitionend = (function () {
-
-    var element = document.body || document.documentElement,
-        names = {
-            WebkitTransition: 'webkitTransitionEnd',
-            MozTransition: 'transitionend',
-            OTransition: 'oTransitionEnd otransitionend',
-            transition: 'transitionend'
-        }, name;
-
-    for (name in names) {
-        if (element.style[name] !== undefined) {
-            return names[name];
-        }
-    }
-
-})();
-
-var animationend = (function () {
-
-    var element = document.body || document.documentElement,
-        names = {
-            WebkitAnimation: 'webkitAnimationEnd',
-            MozAnimation: 'animationend',
-            OAnimation: 'oAnimationEnd oanimationend',
-            animation: 'animationend'
-        }, name;
-
-    for (name in names) {
-        if (element.style[name] !== undefined) {
-            return names[name];
-        }
-    }
-
-})();
+var transitionstart = prefix('transition', 'transition-start');
+var transitionend = prefix('transition', 'transition-end');
+var animationstart = prefix('animation', 'animation-start');
+var animationend = prefix('animation', 'animation-end');
 
 function getStyle(element, property, pseudoElt) {
     return (window.getComputedStyle(element, pseudoElt) || {})[property];
@@ -379,6 +529,22 @@ function getCssVar(name) {
     doc.removeChild(element);
 
     return val || undefined;
+}
+
+function prefix(name, event) {
+
+    var ucase = classify(name),
+        lowered = classify(event).toLowerCase(),
+        classified = classify(event),
+        element = document.body || document.documentElement,
+        names = ( obj = {}, obj[("Webkit" + ucase)] = ("webkit" + classified), obj[("Moz" + ucase)] = lowered, obj[("o" + ucase)] = ("o" + classified + " o" + lowered), obj[name] = lowered, obj );
+    var obj;
+
+    for (name in names) {
+        if (element.style[name] !== undefined) {
+            return names[name];
+        }
+    }
 }
 
 // Copyright (c) 2016 Wilson Page wilsonpage@me.com
@@ -516,13 +682,11 @@ function scheduleFlush(fastdom) {
  */
 function flush(fastdom) {
 
-    var reads = fastdom.reads.splice(0, fastdom.reads.length),
-        writes = fastdom.writes.splice(0, fastdom.writes.length),
-        error;
+    var error;
 
     try {
-        runTasks(reads);
-        runTasks(writes);
+        runTasks(fastdom.reads);
+        runTasks(fastdom.writes.splice(0, fastdom.writes.length));
     } catch (e) { error = e; }
 
     fastdom.scheduled = false;
@@ -575,174 +739,95 @@ function mixin(target, source) {
 
 var fastdom = new FastDom();
 
-function bind(fn, context) {
-    return function (a) {
-        var l = arguments.length;
-        return l ? l > 1 ? fn.apply(context, arguments) : fn.call(context, a) : fn.call(context);
-    };
-}
+function MouseTracker() {}
 
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-function hasOwn(obj, key) {
-    return hasOwnProperty.call(obj, key);
-}
+MouseTracker.prototype = {
 
-function promise(executor) {
+    positions: [],
+    position: null,
 
-    if (!isUndefined(window.Promise)) {
-        return new window.Promise(executor);
-    }
+    init: function init() {
+        var this$1 = this;
 
-    var def = $__default.Deferred();
 
-    if (!def.catch) {
-        def.catch = function (fn) {
-            return this.then(null, fn);
-        }
-    }
+        this.positions = [];
+        this.position = null;
 
-    executor(def.resolve, def.reject);
+        var ticking = false;
+        this.handler = function (e) {
 
-    return def;
-}
+            if (!ticking) {
+                setTimeout(function () {
 
-promise.resolve = function (value) {
-    return promise(function (resolve) {
-        resolve(value);
-    });
-};
+                    var time = Date.now(), length = this$1.positions.length;
+                    if (length && (time - this$1.positions[length - 1].time > 100)) {
+                        this$1.positions.splice(0, length);
+                    }
 
-promise.reject = function (value) {
-    return promise(function (_, reject) {
-        reject(value);
-    });
-};
+                    this$1.positions.push({time: time, x: e.pageX, y: e.pageY});
 
-promise.all = function (iterable) {
+                    if (this$1.positions.length > 5) {
+                        this$1.positions.shift();
+                    }
 
-    if (!isUndefined(window.Promise)) {
-        return window.Promise.all(iterable);
-    }
-
-    return $__default.when.apply($__default, iterable);
-};
-
-function classify(str) {
-    return str.replace(/(?:^|[-_\/])(\w)/g, function (_, c) { return c ? c.toUpperCase() : ''; });
-}
-
-function hyphenate(str) {
-    return str
-        .replace(/([a-z\d])([A-Z])/g, '$1-$2')
-        .toLowerCase()
-}
-
-var camelizeRE = /-(\w)/g;
-function camelize(str) {
-    return str.replace(camelizeRE, toUpper)
-}
-
-function toUpper(_, c) {
-    return c ? c.toUpperCase() : ''
-}
-
-function isString(value) {
-    return typeof value === 'string';
-}
-
-function isNumber(value) {
-    return typeof value === 'number';
-}
-
-function isUndefined(value) {
-    return value === undefined;
-}
-
-function isContextSelector(selector) {
-    return isString(selector) && selector.match(/^(!|>|\+|-)/);
-}
-
-function getContextSelectors(selector) {
-    return isContextSelector(selector) && selector.split(/(?=\s(?:!|>|\+|-))/g).map(function (value) { return value.trim(); });
-}
-
-var contextSelectors = {'!': 'closest', '+': 'nextAll', '-': 'prevAll'};
-function toJQuery(element, context) {
-
-    if (element === true) {
-        return null;
-    }
-
-    try {
-
-        if (context && isContextSelector(element) && element[0] !== '>') {
-
-            var fn = contextSelectors[element[0]], selector = element.substr(1);
-
-            context = $__default(context);
-
-            if (fn === 'closest') {
-                context = context.parent();
-                selector = selector || '*';
+                    ticking = false;
+                }, 5);
             }
 
-            element = context[fn](selector);
+            ticking = true;
+        };
 
-        } else {
-            element = $__default(element, context);
+        doc.on('mousemove', this.handler);
+
+    },
+
+    cancel: function cancel() {
+        if (this.handler) {
+            doc.off('mousemove', this.handler);
+        }
+    },
+
+    movesTo: function movesTo(target) {
+
+        if (this.positions.length < 2) {
+            return false;
         }
 
-    } catch (e) {
-        return null;
+        var p = getDimensions(target),
+            points = [
+                [{x: p.left, y: p.top}, {x: p.right, y: p.bottom}],
+                [{x: p.right, y: p.top}, {x: p.left, y: p.bottom}]
+            ],
+            position = this.positions[this.positions.length - 1],
+            prevPos = this.positions[0];
+
+        if (p.right <= position.x) {
+
+        } else if (p.left >= position.x) {
+            points[0].reverse();
+            points[1].reverse();
+        } else if (p.bottom <= position.y) {
+            points[0].reverse();
+        } else if (p.top >= position.y) {
+            points[1].reverse();
+        }
+
+        return !!points.reduce(function (result, point) {
+            return result + (slope(prevPos, point[0]) < slope(position, point[0]) && slope(prevPos, point[1]) > slope(position, point[1]));
+        }, 0);
     }
 
-    return element.length ? element : null;
-}
+};
 
-function toBoolean(value) {
-    return typeof value === 'boolean'
-        ? value
-        : value === 'true' || value == '1' || value === ''
-            ? true
-            : value === 'false' || value == '0'
-                ? false
-                : value;
-}
-
-function toNumber(value) {
-    var number = Number(value);
-    return !isNaN(number) ? number : false;
-}
-
-var vars = {};
-function toMedia(value) {
-    if (isString(value) && value[0] == '@') {
-        var name = "media-" + (value.substr(1));
-        value = vars[name] || (vars[name] = parseFloat(getCssVar(name)));
-    }
-
-    return value && !isNaN(value) ? ("(min-width: " + value + "px)") : false;
-}
-
-function coerce(type, value, context) {
-
-    if (type === Boolean) {
-        return toBoolean(value);
-    } else if (type === Number) {
-        return toNumber(value);
-    } else if (type === 'jQuery') {
-        return query(value, context);
-    } else if (type === 'media') {
-        return toMedia(value);
-    }
-
-    return type ? type(value) : value;
+function slope(a, b) {
+    return (b.y - a.y) / (b.x - a.x);
 }
 
 var strats = {};
 
 // concat strategy
 strats.args =
+strats.attrs =
 strats.created =
 strats.events =
 strats.init =
@@ -751,12 +836,12 @@ strats.connected =
 strats.disconnected =
 strats.destroy = function (parentVal, childVal) {
 
-    parentVal = parentVal && !$.isArray(parentVal) ? [parentVal] : parentVal;
+    parentVal = parentVal && !$$1.isArray(parentVal) ? [parentVal] : parentVal;
 
     return childVal
         ? parentVal
             ? parentVal.concat(childVal)
-            : $.isArray(childVal)
+            : $$1.isArray(childVal)
                 ? childVal
                 : [childVal]
         : parentVal;
@@ -764,13 +849,13 @@ strats.destroy = function (parentVal, childVal) {
 
 // update strategy
 strats.update = function (parentVal, childVal) {
-    return strats.args(parentVal, $.isFunction(childVal) ? {write: childVal} : childVal);
+    return strats.args(parentVal, $$1.isFunction(childVal) ? {write: childVal} : childVal);
 };
 
 // property strategy
 strats.props = function (parentVal, childVal) {
 
-    if ($.isArray(childVal)) {
+    if ($$1.isArray(childVal)) {
         childVal = childVal.reduce(function (value, key) {
             value[key] = String;
             return value;
@@ -785,7 +870,7 @@ strats.defaults =
 strats.methods = function (parentVal, childVal) {
     return childVal
         ? parentVal
-            ? $.extend(true, {}, parentVal, childVal)
+            ? $$1.extend(true, {}, parentVal, childVal)
             : childVal
         : parentVal;
 };
@@ -829,9 +914,9 @@ var dirs = {
 
 function position(element, target, attach, targetAttach, offset, targetOffset, flip, boundary) {
 
-    element = $__default(element);
-    target = $__default(target);
-    boundary = boundary && $__default(boundary);
+    element = $$1__default(element);
+    target = $$1__default(target);
+    boundary = boundary && $$1__default(boundary);
     attach = getPos(attach);
     targetAttach = getPos(targetAttach);
 
@@ -856,7 +941,7 @@ function position(element, target, attach, targetAttach, offset, targetOffset, f
     var flipped = {element: attach, target: targetAttach};
 
     if (flip) {
-        $__default.each(dirs, function (dir, ref) {
+        $$1__default.each(dirs, function (dir, ref) {
             var prop = ref[0];
             var align = ref[1];
             var alignFlip = ref[2];
@@ -896,7 +981,7 @@ function position(element, target, attach, targetAttach, offset, targetOffset, f
 
 function getDimensions(elem) {
 
-    elem = $__default(elem);
+    elem = $$1__default(elem);
 
     var width = Math.round(elem.outerWidth()),
         height = Math.round(elem.outerHeight()),
@@ -908,7 +993,7 @@ function getDimensions(elem) {
 }
 
 function moveTo(position, attach, dim, factor) {
-    $__default.each(dirs, function (dir, ref) {
+    $$1__default.each(dirs, function (dir, ref) {
         var prop = ref[0];
         var align = ref[1];
         var alignFlip = ref[2];
@@ -1030,7 +1115,7 @@ ready(function () {
 
             now = Date.now();
             delta = now - (touch.last || now);
-            touch.el = $__default('tagName' in firstTouch.target ? firstTouch.target : firstTouch.target.parentNode);
+            touch.el = $$1__default('tagName' in firstTouch.target ? firstTouch.target : firstTouch.target.parentNode);
 
             if (touchTimeout) { clearTimeout(touchTimeout); }
 
@@ -1088,7 +1173,7 @@ ready(function () {
 
                         // trigger universal 'tap' with the option to cancelTouch()
                         // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
-                        var event = $__default.Event('tap');
+                        var event = $$1__default.Event('tap');
                         event.cancelTouch = cancelAll;
 
                         if (touch.el !== undefined) {
@@ -1135,17 +1220,16 @@ ready(function () {
 
 var touching = false;
 
-doc.on({
+doc.on(( obj = {
 
     touchstart: function touchstart() {
         touching = true;
-    },
-
-    click: function click() {
-        touching = false;
     }
 
-});
+}, obj['click touchcancel'] = function () {
+        touching = false;
+    }, obj ));
+var obj;
 
 function isTouch(e) {
     return touching || e.originalEvent && e.originalEvent.pointerType === 'touch';
@@ -1166,6 +1250,7 @@ var util = Object.freeze({
 	Transition: Transition,
 	animate: animate,
 	Animation: Animation,
+	isJQuery: isJQuery,
 	isWithin: isWithin,
 	attrFilter: attrFilter,
 	removeClass: removeClass,
@@ -1184,12 +1269,14 @@ var util = Object.freeze({
 	pointerUp: pointerUp,
 	pointerEnter: pointerEnter,
 	pointerLeave: pointerLeave,
+	transitionstart: transitionstart,
 	transitionend: transitionend,
+	animationstart: animationstart,
 	animationend: animationend,
 	getStyle: getStyle,
 	getCssVar: getCssVar,
 	fastdom: fastdom,
-	$: $__default,
+	$: $$1__default,
 	bind: bind,
 	hasOwn: hasOwn,
 	promise: promise,
@@ -1202,19 +1289,23 @@ var util = Object.freeze({
 	isContextSelector: isContextSelector,
 	getContextSelectors: getContextSelectors,
 	toJQuery: toJQuery,
+	toNode: toNode,
 	toBoolean: toBoolean,
 	toNumber: toNumber,
 	toMedia: toMedia,
 	coerce: coerce,
-	ajax: $.ajax,
-	each: $.each,
-	extend: $.extend,
-	map: $.map,
-	merge: $.merge,
-	isArray: $.isArray,
-	isNumeric: $.isNumeric,
-	isFunction: $.isFunction,
-	isPlainObject: $.isPlainObject,
+	toMs: toMs,
+	swap: swap,
+	ajax: $$1.ajax,
+	each: $$1.each,
+	extend: $$1.extend,
+	map: $$1.map,
+	merge: $$1.merge,
+	isArray: $$1.isArray,
+	isNumeric: $$1.isNumeric,
+	isFunction: $$1.isFunction,
+	isPlainObject: $$1.isPlainObject,
+	MouseTracker: MouseTracker,
 	mergeOptions: mergeOptions,
 	position: position,
 	getDimensions: getDimensions,
@@ -1276,7 +1367,7 @@ function globalAPI (UIkit) {
 
         }
 
-        element = $__default(element)[0];
+        element = toNode(element);
 
         if (parents) {
 
@@ -1355,6 +1446,7 @@ function internalAPI (UIkit) {
 
         this.$el = null;
         this.$name = UIkit.prefix + hyphenate(this.$options.name);
+        this.$props = {};
 
         this._uid = uid++;
         this._initData();
@@ -1372,7 +1464,7 @@ function internalAPI (UIkit) {
         var this$1 = this;
 
 
-        var defaults = $.extend(true, {}, this.$options.defaults),
+        var defaults = $$1.extend(true, {}, this.$options.defaults),
             data = this.$options.data || {},
             args = this.$options.args || [],
             props = this.$options.props || {};
@@ -1381,10 +1473,10 @@ function internalAPI (UIkit) {
             return;
         }
 
-        if (args.length && $.isArray(data)) {
+        if (args.length && $$1.isArray(data)) {
             data = data.slice(0, args.length).reduce(function (data, value, index) {
-                if ($.isPlainObject(value)) {
-                    $.extend(data, value);
+                if ($$1.isPlainObject(value)) {
+                    $$1.extend(data, value);
                 } else {
                     data[args[index]] = value;
                 }
@@ -1393,72 +1485,14 @@ function internalAPI (UIkit) {
         }
 
         for (var key in defaults) {
-            this$1[key] = hasOwn(data, key) ? coerce(props[key], data[key], this$1.$options.el) : defaults[key];
+            this$1.$props[key] = this$1[key] = hasOwn(data, key) ? coerce(props[key], data[key], this$1.$options.el) : defaults[key];
         }
     };
 
-    UIkit.prototype._initProps = function () {
-        var this$1 = this;
-
-
-        var el = this.$el[0],
-            args = this.$options.args || [],
-            props = this.$options.props || {},
-            options = el.getAttribute(this.$name) || el.getAttribute(("data-" + (this.$name))),
-            key, prop;
-
-        if (!props) {
-            return;
-        }
-
-        for (key in props) {
-            prop = hyphenate(key);
-            if (el.hasAttribute(prop)) {
-
-                var value = coerce(props[key], el.getAttribute(prop), el);
-
-                if (prop === 'target' && (!value || value.lastIndexOf('_', 0) === 0)) {
-                    continue;
-                }
-
-                this$1[key] = value;
-            }
-        }
-
-        if (!options) {
-            return;
-        }
-
-        if (options[0] === '{') {
-            try {
-                options = JSON.parse(options);
-            } catch (e) {
-                console.warn("Invalid JSON.");
-                options = {};
-            }
-        } else if (args.length && !~options.indexOf(':')) {
-            options = (( obj = {}, obj[args[0]] = options, obj ));
-            var obj;
-        } else {
-            var tmp = {};
-            options.split(';').forEach(function (option) {
-                var ref = option.split(/:(.+)/);
-                var key = ref[0];
-                var value = ref[1];
-                if (key && value) {
-                    tmp[key.trim()] = value.trim();
-                }
-            });
-            options = tmp;
-        }
-
-        for (key in options || {}) {
-            prop = camelize(key);
-            if (props[prop] !== undefined) {
-                this$1[prop] = coerce(props[prop], options[key], el);
-            }
-        }
-
+    UIkit.prototype._initProps = function (props) {
+        props = props || this._getProps();
+        $$1.extend(this, props);
+        $$1.extend(this.$props, props);
     };
 
     UIkit.prototype._initMethods = function () {
@@ -1481,12 +1515,13 @@ function internalAPI (UIkit) {
         var events = this.$options.events,
             connect = function (event, key) {
 
-                if (!$.isPlainObject(event)) {
+                if (!$$1.isPlainObject(event)) {
                     event = ({name: key, handler: event});
                 }
 
                 var name = event.name;
                 var delegate = event.delegate;
+                var self = event.self;
                 var filter = event.filter;
                 var handler = event.handler;
 
@@ -1503,6 +1538,18 @@ function internalAPI (UIkit) {
                     }
 
                     handler = isString(handler) ? this$1[handler] : bind(handler, this$1);
+
+                    if (self) {
+                        var fn = handler;
+                        handler = function (e) {
+
+                            if (!this$1.$el.is(e.target)) {
+                                return;
+                            }
+
+                            fn.call(this$1, e);
+                        }
+                    }
 
                     if (delegate) {
                         this$1.$el.on(name, isString(delegate) ? delegate : delegate.call(this$1), handler);
@@ -1528,7 +1575,37 @@ function internalAPI (UIkit) {
         }
     };
 
-    UIkit.prototype._callHook = function (hook) {
+    UIkit.prototype._initObserver = function () {
+        var this$1 = this;
+
+
+        if (this._observer || !Observer || !this.$options.props || !this.$options.attrs) {
+            return;
+        }
+
+        this._observer = new Observer(function (mutations) {
+
+            var data = this$1._getProps(true);
+
+            if (mutations
+                .map(function (mutation) { return camelize(mutation.attributeName); })
+                .some(function (key) { return !equals(data[key], this$1.$props[key]); })
+            ) {
+                this$1._callDisconnected();
+                this$1._initProps(data);
+                this$1._callConnected();
+                this$1._callUpdate();
+            }
+
+        });
+
+        this._observer.observe(this.$options.el, {
+            attributes: true,
+            attributeFilter: Object.keys(this.$options.props).map(function (key) { return hyphenate(key); })
+        });
+    };
+
+    UIkit.prototype._callHook = function (hook, params) {
         var this$1 = this;
 
 
@@ -1540,12 +1617,19 @@ function internalAPI (UIkit) {
     };
 
     UIkit.prototype._callReady = function () {
+
+        if (this._isReady) {
+            return;
+        }
+
         this._isReady = true;
         this._callHook('ready');
         this._callUpdate();
     };
 
     UIkit.prototype._callConnected = function () {
+        var this$1 = this;
+
 
         if (this._connected) {
             return;
@@ -1562,12 +1646,23 @@ function internalAPI (UIkit) {
 
         this._connected = true;
 
+        this._initObserver();
+
+        if (!this._isReady) {
+            ready(function () { return this$1._callReady(); });
+        }
+
     };
 
     UIkit.prototype._callDisconnected = function () {
 
         if (!this._connected) {
             return;
+        }
+
+        if (this._observer) {
+            this._observer.disconnect();
+            this._observer = null;
         }
 
         var index = UIkit.elements.indexOf(this.$options.$el);
@@ -1582,6 +1677,7 @@ function internalAPI (UIkit) {
         this._callHook('disconnected');
 
         this._connected = false;
+
     };
 
     UIkit.prototype._callUpdate = function (e) {
@@ -1628,6 +1724,76 @@ function internalAPI (UIkit) {
 
     };
 
+    UIkit.prototype._getProps = function (attrs) {
+        if ( attrs === void 0 ) attrs = false;
+
+
+        var data = {},
+            el = this.$el[0],
+            args = this.$options.args || [],
+            props = this.$options.props || {},
+            options = el.getAttribute(this.$name) || el.getAttribute(("data-" + (this.$name))),
+            key, prop;
+
+        if (!props) {
+            return data;
+        }
+
+        for (key in props) {
+            prop = hyphenate(key);
+            if (el.hasAttribute(prop)) {
+
+                var value = coerce(props[key], el.getAttribute(prop), el);
+
+                if (prop === 'target' && (!value || value.lastIndexOf('_', 0) === 0)) {
+                    continue;
+                }
+
+                data[key] = value;
+            }
+        }
+
+        if (attrs || !options) {
+            return data;
+        }
+
+        if (options[0] === '{') {
+            try {
+                options = JSON.parse(options);
+            } catch (e) {
+                console.warn("Invalid JSON.");
+                options = {};
+            }
+        } else if (args.length && !~options.indexOf(':')) {
+            options = (( obj = {}, obj[args[0]] = options, obj ));
+            var obj;
+        } else {
+            var tmp = {};
+            options.split(';').forEach(function (option) {
+                var ref = option.split(/:(.+)/);
+                var key = ref[0];
+                var value = ref[1];
+                if (key && value) {
+                    tmp[key.trim()] = value.trim();
+                }
+            });
+            options = tmp;
+        }
+
+        for (key in options || {}) {
+            prop = camelize(key);
+            if (props[prop] !== undefined) {
+                data[prop] = coerce(props[prop], options[key], el);
+            }
+        }
+
+        return data;
+    };
+
+}
+
+function equals(a, b) {
+    return isUndefined(a) || a === b || isJQuery(a) && isJQuery(b) && a.is(b);
 }
 
 function instanceAPI (UIkit) {
@@ -1635,8 +1801,6 @@ function instanceAPI (UIkit) {
     var DATA = UIkit.data;
 
     UIkit.prototype.$mount = function (el) {
-        var this$1 = this;
-
 
         var name = this.$options.name;
 
@@ -1651,18 +1815,15 @@ function instanceAPI (UIkit) {
 
         el[DATA][name] = this;
 
-        this.$el = $__default(el);
+        this.$el = $$1__default(el);
 
         this._initProps();
 
         this._callHook('init');
 
-        if (document.documentElement.contains(this.$el[0])) {
+        if (document.documentElement.contains(el)) {
             this._callConnected();
         }
-
-        ready(function () { return this$1._callReady(); });
-
     };
 
     UIkit.prototype.$emit = function (e) {
@@ -1720,7 +1881,7 @@ function componentAPI (UIkit) {
 
         var name = camelize(id);
 
-        if ($.isPlainObject(options)) {
+        if ($$1.isPlainObject(options)) {
             options.name = name;
             options = UIkit.extend(options);
         } else {
@@ -1734,7 +1895,7 @@ function componentAPI (UIkit) {
             while ( i-- ) argsArray[i] = arguments[i];
 
 
-            if ($.isPlainObject(element)) {
+            if ($$1.isPlainObject(element)) {
                 return new UIkit.components[name]({data: element});
             }
 
@@ -1742,13 +1903,14 @@ function componentAPI (UIkit) {
                 return new UIkit.components[name]({data: [].concat( argsArray )});
             }
 
-            var result = [];
-
             data = data || {};
+            element = isString
+                ? $$1__default(element)[0]
+                : isJQuery(element)
+                    ? element[0]
+                    : element;
 
-            $__default(element).each(function (i, el) { return result.push(el[DATA] && el[DATA][name] || new UIkit.components[name]({el: el, data: data})); });
-
-            return result;
+            return element && element[DATA] && element[DATA][name] || new UIkit.components[name]({el: element, data: data});
         };
 
         if (document.body && !options.options.functional) {
@@ -1758,8 +1920,8 @@ function componentAPI (UIkit) {
         return UIkit.components[name];
     };
 
-    UIkit.getComponents = function (element) { return element && element[DATA] || {}; };
-    UIkit.getComponent = function (element, name) { return UIkit.getComponents(element)[name]; };
+    UIkit.getComponents = function (element) { return element && toNode(element)[DATA] || {}; };
+    UIkit.getComponent = function (element, name) { return element && UIkit.getComponents(element)[name]; };
 
     UIkit.connect = function (node) {
 
@@ -1883,7 +2045,7 @@ var Toggable = {
 
 
             var toggles, body = document.body, scroll = body.scrollTop,
-                all = function (targets) { return promise.all(targets.toArray().map(function (el) { return this$1._toggleElement(el, show, animate); })).catch(function () {}); },
+                all = function (targets) { return promise.all(targets.toArray().map(function (el) { return this$1._toggleElement(el, show, animate); })).then(null, function () {}); },
                 delay = function (targets) {
                     var def = all(targets);
                     this$1.queued = true;
@@ -1891,7 +2053,7 @@ var Toggable = {
                     return def;
                 };
 
-            targets = $__default(targets);
+            targets = $$1__default(targets);
 
             if (!this.queued || targets.length < 2) {
                 return all(targets);
@@ -1909,11 +2071,11 @@ var Toggable = {
         toggleNow: function toggleNow(targets, show) {
             var this$1 = this;
 
-            return promise.all($__default(targets).toArray().map(function (el) { return this$1._toggleElement(el, show, false); })).catch(function () {});
+            return promise.all($$1__default(targets).toArray().map(function (el) { return this$1._toggleElement(el, show, false); })).then(null, function () {});
         },
 
         isToggled: function isToggled(el) {
-            el = $__default(el);
+            el = $$1__default(el);
             return this.cls ? el.hasClass(this.cls.split(' ')[0]) : !el.attr('hidden');
         },
 
@@ -1927,7 +2089,7 @@ var Toggable = {
             var this$1 = this;
 
 
-            el = $__default(el);
+            el = $$1__default(el);
 
             if (Animation.inProgress(el)) {
                 return Animation.cancel(el).then(function () { return this$1._toggleElement(el, show, animate); });
@@ -1935,11 +2097,14 @@ var Toggable = {
 
             show = typeof show === 'boolean' ? show : !this.isToggled(el);
 
-            var event = $__default.Event(("before" + (show ? 'show' : 'hide')));
+            var event = $$1__default.Event(("before" + (show ? 'show' : 'hide')));
             el.trigger(event, [this]);
 
+            var delay = false;
             if (event.result === false) {
                 return promise.reject();
+            } else if (event.result && event.result.then) {
+                delay = event.result;
             }
 
             var promise = (this.animation === true && animate !== false
@@ -1949,13 +2114,17 @@ var Toggable = {
                     : this._toggleImmediate
             )(el, show);
 
-            el.trigger(show ? 'show' : 'hide', [this]);
-            return promise.then(function () { return el.trigger(show ? 'shown' : 'hidden', [this$1]); });
+            var handler = function () {
+                el.trigger(show ? 'show' : 'hide', [this$1]);
+                return promise.then(function () { return el.trigger(show ? 'shown' : 'hidden', [this$1]); });
+            };
+
+            return delay ? delay.then(handler) : handler();
         },
 
         _toggle: function _toggle(el, toggled) {
 
-            el = $__default(el);
+            el = $$1__default(el);
 
             if (this.cls) {
                 el.toggleClass(this.cls, ~this.cls.indexOf(' ') ? undefined : toggled);
@@ -1994,7 +2163,7 @@ var Toggable = {
                 el.height(height);
 
                 return show
-                    ? Transition.start(el, $.extend(this$1.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this$1.duration * (1 - height / endHeight)), this$1.transition)
+                    ? Transition.start(el, $$1.extend(this$1.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this$1.duration * (1 - height / endHeight)), this$1.transition)
                     : Transition.start(el, this$1.hideProps, Math.round(this$1.duration * (height / endHeight)), this$1.transition).then(function () {
                             this$1._toggle(el, false);
                             el.css(this$1.initProps);
@@ -2022,23 +2191,6 @@ var Toggable = {
 
 var active;
 
-doc.on({
-
-    click: function click(e) {
-        if (active && active.bgClose && !e.isDefaultPrevented() && !isWithin(e.target, active.panel)) {
-            active.hide();
-        }
-    },
-
-    keydown: function keydown(e) {
-        if (e.keyCode === 27 && active && active.escClose) {
-            e.preventDefault();
-            active.hide();
-        }
-    }
-
-});
-
 var Modal = {
 
     mixins: [Class, Toggable],
@@ -2061,7 +2213,7 @@ var Modal = {
 
     ready: function ready() {
 
-        this.body = $__default(document.body);
+        this.body = $$1__default(document.body);
         this.panel = toJQuery(("." + (this.clsPanel)), this.$el);
 
     },
@@ -2098,14 +2250,11 @@ var Modal = {
 
             name: 'beforeshow',
 
-            handler: function handler(ref) {
+            self: true,
+
+            handler: function handler() {
                 var this$1 = this;
-                var target = ref.target;
 
-
-                if (!this.$el.is(target)) {
-                    return;
-                }
 
                 if (this.isActive()) {
                     return false;
@@ -2125,30 +2274,12 @@ var Modal = {
                     } else {
                         prev.hide();
                     }
+                } else {
+                    requestAnimationFrame(function () { return register(this$1.$options.name); });
                 }
 
-                this.panel.one(transitionend, function () {
-                    var event = $__default.Event('show');
-                    event.isShown = true;
-                    this$1.$el.trigger(event, [this$1]);
-                });
-            }
+                docElement.addClass(this.clsPage);
 
-        },
-
-        {
-
-            name: 'show',
-
-            handler: function handler(e) {
-
-                if (!this.$el.is(e.target)) {
-                    return;
-                }
-
-                if (!e.isShown) {
-                    e.stopImmediatePropagation();
-                }
             }
 
         },
@@ -2157,27 +2288,32 @@ var Modal = {
 
             name: 'beforehide',
 
-            handler: function handler(e) {
+            self: true,
+
+            handler: function handler() {
                 var this$1 = this;
 
 
-                if (!this.$el.is(e.target)) {
-                    return;
+                if (!this.isActive()) {
+                    return false;
                 }
 
                 active = active && active !== this && active || this.prev;
 
-                var hide = function () {
-                    var event = $__default.Event('hide');
-                    event.isHidden = true;
-                    this$1.$el.trigger(event, [this$1]);
-                };
-
-                if (parseFloat(this.panel.css('transition-duration'))) {
-                    this.panel.one(transitionend, hide);
-                } else {
-                    hide();
+                if (!active) {
+                    deregister(this.$options.name);
                 }
+
+                var duration = toMs(this.panel.css('transition-duration'));
+
+                return duration ? promise(function (resolve) {
+                        this$1.panel.one(transitionend, resolve);
+                        setTimeout(function () {
+                            resolve();
+                            this$1.panel.off(transitionend, resolve);
+                        }, duration);
+                    }) : true;
+
             }
 
         },
@@ -2186,18 +2322,11 @@ var Modal = {
 
             name: 'hide',
 
-            handler: function handler(e) {
+            self: true,
 
-                if (!this.$el.is(e.target)) {
-                    return;
-                }
-
-                if (!e.isHidden) {
-                    e.stopImmediatePropagation();
-                    return;
-                }
-
+            handler: function handler() {
                 if (!active) {
+                    docElement.removeClass(this.clsPage);
                     this.body.css('overflow-y', '');
                 }
             }
@@ -2217,21 +2346,11 @@ var Modal = {
         },
 
         show: function show() {
-            var this$1 = this;
-
-            return promise(function (resolve) {
-                this$1.$el.one('show', resolve);
-                this$1.toggleNow(this$1.$el, true);
-            });
+            return this.toggleNow(this.$el, true);
         },
 
         hide: function hide() {
-            var this$1 = this;
-
-            return promise(function (resolve) {
-                this$1.$el.one('hide', resolve);
-                this$1.toggleNow(this$1.$el, false);
-            });
+            return this.toggleNow(this.$el, false);
         },
 
         getActive: function getActive() {
@@ -2255,83 +2374,22 @@ var Modal = {
 
 }
 
-var Mouse = {
-
-    defaults: {
-
-        positions: [],
-        position: null
-
-    },
-
-    methods: {
-
-        initMouseTracker: function initMouseTracker() {
-            var this$1 = this;
-
-
-            this.positions = [];
-            this.position = null;
-
-            this.mouseHandler = function (e) {
-                this$1.positions.push({x: e.pageX, y: e.pageY});
-
-                if (this$1.positions.length > 5) {
-                    this$1.positions.shift();
-                }
-            };
-
-            doc.on('mousemove', this.mouseHandler);
-
-        },
-
-        cancelMouseTracker: function cancelMouseTracker() {
-            if (this.mouseHandler) {
-                doc.off('mousemove', this.mouseHandler);
+function register(name) {
+    doc.on(( obj = {}, obj[("click." + name)] = function (e) {
+            if (active && active.bgClose && !e.isDefaultPrevented() && !isWithin(e.target, active.panel)) {
+                active.hide();
             }
-        },
-
-        movesTo: function movesTo(target) {
-
-            var p = getDimensions(target),
-                points = [
-                    [{x: p.left, y: p.top}, {x: p.right, y: p.bottom}],
-                    [{x: p.right, y: p.top}, {x: p.left, y: p.bottom}]
-                ],
-                position = this.positions[this.positions.length - 1],
-                prevPos = this.positions[0] || position;
-
-            if (!position) {
-                return false;
+        }, obj[("keydown." + name)] = function (e) {
+            if (e.keyCode === 27 && active && active.escClose) {
+                e.preventDefault();
+                active.hide();
             }
-
-            if (p.right <= position.x) {
-
-            } else if (p.left >= position.x) {
-                points[0].reverse();
-                points[1].reverse();
-            } else if (p.bottom <= position.y) {
-                points[0].reverse();
-            } else if (p.top >= position.y) {
-                points[1].reverse();
-            }
-
-            var delay = position
-                && !(this.position && position.x === this.position.x && position.y === this.position.y)
-                && points.reduce(function (result, point) {
-                    return result + (slope(prevPos, point[0]) < slope(position, point[0]) && slope(prevPos, point[1]) > slope(position, point[1]));
-                }, 0);
-
-            this.position = delay ? position : null;
-            return !!delay;
-        }
-
-    }
-
+        }, obj ));
+    var obj;
 }
 
-function slope(a, b) {
-    return (b.y - a.y) / (b.x - a.x);
+function deregister(name) {
+    doc.off(("click." + name)).off(("keydown." + name));
 }
 
 var Position = {
@@ -2397,7 +2455,6 @@ function mixin$1 (UIkit) {
 
     UIkit.mixin.class = Class;
     UIkit.mixin.modal = Modal;
-    UIkit.mixin.mouse = Mouse;
     UIkit.mixin.position = Position;
     UIkit.mixin.toggable = Toggable;
 
@@ -2431,6 +2488,10 @@ function Accordion (UIkit) {
             transition: 'ease'
         },
 
+        connected: function connected() {
+            this.$emitSync();
+        },
+
         events: [
 
             {
@@ -2438,12 +2499,12 @@ function Accordion (UIkit) {
                 name: 'click',
 
                 delegate: function delegate() {
-                    return ((this.targets) + " " + (this.toggle));
+                    return ((this.$props.targets) + " " + (this.$props.toggle));
                 },
 
                 handler: function handler(e) {
                     e.preventDefault();
-                    this.show(this.items.find(this.toggle).index(e.currentTarget));
+                    this.toggle(this.items.find(this.$props.toggle).index(e.currentTarget));
                 }
 
             }
@@ -2454,7 +2515,7 @@ function Accordion (UIkit) {
             var this$1 = this;
 
 
-            var items = $__default(this.targets, this.$el),
+            var items = $$1__default(this.targets, this.$el),
                 changed = !this.items || items.length !== this.items.length || items.toArray().some(function (el, i) { return el !== this$1.items.get(i); });
 
             this.items = items;
@@ -2464,25 +2525,21 @@ function Accordion (UIkit) {
             }
 
             this.items.each(function (i, el) {
-                el = $__default(el);
+                el = $$1__default(el);
                 this$1.toggleNow(el.find(this$1.content), el.hasClass(this$1.clsOpen));
             });
 
             var active = this.active !== false && toJQuery(this.items.eq(Number(this.active))) || !this.collapsible && toJQuery(this.items.eq(0));
             if (active && !active.hasClass(this.clsOpen)) {
-                this.show(active, false);
+                this.toggle(active, false);
             }
         },
 
         methods: {
 
-            show: function show(item, animate) {
+            toggle: function toggle(item, animate) {
                 var this$1 = this;
 
-
-                if (!this.items) {
-                    this.$emitSync();
-                }
 
                 var index = getIndex(item, this.items),
                     active = this.items.filter(("." + (this.clsOpen)));
@@ -2491,9 +2548,9 @@ function Accordion (UIkit) {
 
                 item.add(!this.multiple && active).each(function (i, el) {
 
-                    el = $__default(el);
+                    el = $$1__default(el);
 
-                    var content = el.find(this$1.content), isItem = el.is(item), state = isItem && !el.hasClass(this$1.clsOpen);
+                    var isItem = el.is(item), state = isItem && !el.hasClass(this$1.clsOpen);
 
                     if (!state && isItem && !this$1.collapsible && active.length < 2) {
                         return;
@@ -2501,18 +2558,21 @@ function Accordion (UIkit) {
 
                     el.toggleClass(this$1.clsOpen, state);
 
-                    if (!Transition.inProgress(content.parent())) {
-                        content.wrap('<div>').parent().attr('hidden', state);
+                    var content = el[0]._wrapper ? el[0]._wrapper.children().first() : el.find(this$1.content);
+
+                    if (!el[0]._wrapper) {
+                        el[0]._wrapper = content.wrap('<div>').parent().attr('hidden', state);
                     }
 
                     this$1._toggleImmediate(content, true);
-                    this$1.toggleElement(content.parent(), state, animate).then(function () {
+                    this$1.toggleElement(el[0]._wrapper, state, animate).then(function () {
                         if (el.hasClass(this$1.clsOpen) === state) {
 
                             if (!state) {
                                 this$1._toggleImmediate(content, false);
                             }
 
+                            el[0]._wrapper = null;
                             content.unwrap();
                         }
                     });
@@ -2662,7 +2722,7 @@ function Drop (UIkit) {
 
     UIkit.component('drop', {
 
-        mixins: [Mouse, Position, Toggable],
+        mixins: [Position, Toggable],
 
         args: 'pos',
 
@@ -2690,6 +2750,7 @@ function Drop (UIkit) {
         },
 
         init: function init() {
+            this.tracker = new MouseTracker();
             this.clsDrop = this.clsDrop || ("uk-" + (this.$options.name));
             this.clsPos = this.clsDrop;
 
@@ -2701,7 +2762,7 @@ function Drop (UIkit) {
             this.updateAria(this.$el);
 
             if (this.toggle) {
-                this.toggle = UIkit.toggle(query(this.toggle, this.$el), {target: this.$el, mode: this.mode})[0];
+                this.toggle = UIkit.toggle(query(this.toggle, this.$el), {target: this.$el, mode: this.mode});
             }
 
         },
@@ -2719,6 +2780,33 @@ function Drop (UIkit) {
                 handler: function handler(e) {
                     e.preventDefault();
                     this.hide(false);
+                }
+
+            },
+
+            {
+
+                name: 'click',
+
+                delegate: function delegate() {
+                    return 'a[href^="#"]';
+                },
+
+                handler: function handler(e) {
+
+                    if (e.isDefaultPrevented()) {
+                        return;
+                    }
+
+                    var id = $(e.target).attr('href');
+
+                    if (id.length === 1) {
+                        e.preventDefault();
+                    }
+
+                    if (id.length === 1 || !isWithin(id, this.$el)) {
+                        this.hide(false);
+                    }
                 }
 
             },
@@ -2811,18 +2899,36 @@ function Drop (UIkit) {
 
             {
 
+                name: 'beforeshow',
+
+                self: true,
+
+                handler: function handler() {
+                    this.clearTimers();
+                }
+
+            },
+
+            {
+
                 name: 'show',
 
-                handler: function handler(ref) {
-                    var target = ref.target;
+                self: true,
 
-
-                    if (!this.$el.is(target)) {
-                        return;
-                    }
-
-                    this.initMouseTracker();
+                handler: function handler() {
+                    this.tracker.init();
                     this.toggle.$el.addClass(this.cls).attr('aria-expanded', 'true');
+                }
+
+            },
+
+            {
+
+                name: 'beforehide',
+
+                self: true,
+
+                handler: function handler() {
                     this.clearTimers();
                 }
 
@@ -2843,8 +2949,7 @@ function Drop (UIkit) {
 
                     active = this.isActive() ? null : active;
                     this.toggle.$el.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
-                    this.cancelMouseTracker();
-                    this.clearTimers();
+                    this.tracker.cancel();
                 }
 
             }
@@ -2901,7 +3006,7 @@ function Drop (UIkit) {
                     if (this$1.isActive()) {
                         return;
                     } else if (delay && active && active !== this$1 && active.isDelaying) {
-                        this$1.showTimer = setTimeout(this$1.show, 75);
+                        this$1.showTimer = setTimeout(this$1.show, 10);
                         return;
                     } else if (this$1.isParentOf(active)) {
 
@@ -2947,7 +3052,7 @@ function Drop (UIkit) {
 
                 this.clearTimers();
 
-                this.isDelaying = this.movesTo(this.$el);
+                this.isDelaying = this.tracker.movesTo(this.$el);
 
                 if (delay && this.isDelaying) {
                     this.hideTimer = setTimeout(this.hide, this.hoverIdle);
@@ -3128,7 +3233,7 @@ function HeightMatch (UIkit) {
                 var this$1 = this;
 
 
-                var elements = $__default(this.target, this.$el).css('min-height', '');
+                var elements = $$1__default(this.target, this.$el).css('min-height', '');
 
                 if (!this.row) {
                     this.match(elements);
@@ -3139,12 +3244,12 @@ function HeightMatch (UIkit) {
 
                 elements.each(function (i, el) {
 
-                    el = $__default(el);
+                    el = $$1__default(el);
 
                     var offset = el.offset().top;
 
                     if (offset != lastOffset && group.length) {
-                        this$1.match($__default(group));
+                        this$1.match($$1__default(group));
                         group = [];
                         offset = el.offset().top;
                     }
@@ -3154,7 +3259,7 @@ function HeightMatch (UIkit) {
                 });
 
                 if (group.length) {
-                    this.match($__default(group));
+                    this.match($$1__default(group));
                 }
 
             },
@@ -3176,7 +3281,7 @@ function HeightMatch (UIkit) {
                 elements
                     .each(function (i, el) {
 
-                        el = $__default(el);
+                        el = $$1__default(el);
 
                         var height;
 
@@ -3193,7 +3298,7 @@ function HeightMatch (UIkit) {
 
                     })
                     .each(function (i, el) {
-                        el = $__default(el);
+                        el = $$1__default(el);
                         el.css('min-height', ((max - (el.outerHeight() - parseFloat(el.css('height')))) + "px"));
                     });
             }
@@ -3254,7 +3359,7 @@ function HeightViewport (UIkit) {
 
                         offset += this.$el.next().outerHeight() || 0;
 
-                    } else if ($.isNumeric(this.offsetBottom)) {
+                    } else if ($$1.isNumeric(this.offsetBottom)) {
 
                         offset += (viewport / 100) * this.offsetBottom;
 
@@ -3302,7 +3407,7 @@ function Hover (UIkit) {
         docElement.on('tap', function (ref) {
             var target = ref.target;
 
-            return $__default(("." + cls)).filter(function (_, el) { return !isWithin(target, el); }).removeClass(cls);
+            return $$1__default(("." + cls)).filter(function (_, el) { return !isWithin(target, el); }).removeClass(cls);
         });
 
         Object.defineProperty(UIkit, 'hoverSelector', {
@@ -3323,7 +3428,56 @@ function Hover (UIkit) {
 
 }
 
+var closeIcon = "<svg width=\"14\" height=\"14\" viewBox=\"0 0 14 14\" xmlns=\"http://www.w3.org/2000/svg\"><line fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" x1=\"1\" y1=\"1\" x2=\"13\" y2=\"13\"></line><line fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" x1=\"13\" y1=\"1\" x2=\"1\" y2=\"13\"></line></svg>";
+
+var closeLarge = "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><line fill=\"none\" stroke=\"#000\" stroke-width=\"1.4\" x1=\"1\" y1=\"1\" x2=\"19\" y2=\"19\"></line><line fill=\"none\" stroke=\"#000\" stroke-width=\"1.4\" x1=\"19\" y1=\"1\" x2=\"1\" y2=\"19\"></line></svg>";
+
+var navbarToggleIcon = "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><rect y=\"9\" width=\"20\" height=\"2\"></rect><rect y=\"3\" width=\"20\" height=\"2\"></rect><rect y=\"15\" width=\"20\" height=\"2\"></rect></svg>";
+
+var overlayIcon = "<svg width=\"40\" height=\"40\" viewBox=\"0 0 40 40\" xmlns=\"http://www.w3.org/2000/svg\"><rect x=\"19\" y=\"0\" width=\"1\" height=\"40\"></rect><rect x=\"0\" y=\"19\" width=\"40\" height=\"1\"></rect></svg>";
+
+var paginationNext = "<svg width=\"7\" height=\"12\" viewBox=\"0 0 7 12\" xmlns=\"http://www.w3.org/2000/svg\"><polyline fill=\"none\" stroke=\"#000\" stroke-width=\"1.2\" points=\"1 1 6 6 1 11\"></polyline></svg>";
+
+var paginationPrevious = "<svg width=\"7\" height=\"12\" viewBox=\"0 0 7 12\" xmlns=\"http://www.w3.org/2000/svg\"><polyline fill=\"none\" stroke=\"#000\" stroke-width=\"1.2\" points=\"6 1 1 6 6 11\"></polyline></svg>";
+
+var searchIcon = "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" xmlns=\"http://www.w3.org/2000/svg\"><circle fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" cx=\"9\" cy=\"9\" r=\"7\"></circle><path fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" d=\"M14,14 L18,18 L14,14 Z\"></path></svg>";
+
+var searchLarge = "<svg width=\"40\" height=\"40\" viewBox=\"0 0 40 40\" xmlns=\"http://www.w3.org/2000/svg\"><circle fill=\"none\" stroke=\"#000\" stroke-width=\"1.8\" cx=\"17.5\" cy=\"17.5\" r=\"16.5\"></circle><line fill=\"none\" stroke=\"#000\" stroke-width=\"1.8\" x1=\"38\" y1=\"39\" x2=\"29\" y2=\"30\"></line></svg>";
+
+var searchNavbar = "<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" xmlns=\"http://www.w3.org/2000/svg\"><circle fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" cx=\"10.5\" cy=\"10.5\" r=\"9.5\"/><line fill=\"none\" stroke=\"#000\" stroke-width=\"1.1\" x1=\"23\" y1=\"23\" x2=\"17\" y2=\"17\"/></svg>";
+
+var slidenavNext = "<svg width=\"11\" height=\"20\" viewBox=\"0 0 11 20\" xmlns=\"http://www.w3.org/2000/svg\"><polyline fill=\"none\" stroke=\"#000\" stroke-width=\"1.2\" points=\"1 1 10 10 1 19\"></polyline></svg>";
+
+var slidenavNextLarge = "<svg width=\"18\" height=\"34\" viewBox=\"0 0 18 34\" xmlns=\"http://www.w3.org/2000/svg\"><polyline fill=\"none\" stroke=\"#000\" stroke-width=\"1.4\" points=\"1 1 17 17 1 33\"></polyline></svg>";
+
+var slidenavPrevious = "<svg width=\"11\" height=\"20\" viewBox=\"0 0 11 20\" xmlns=\"http://www.w3.org/2000/svg\"><polyline fill=\"none\" stroke=\"#000\" stroke-width=\"1.2\" points=\"10 1 1 10 10 19\"></polyline></svg>";
+
+var slidenavPreviousLarge = "<svg width=\"18\" height=\"34\" viewBox=\"0 0 18 34\" xmlns=\"http://www.w3.org/2000/svg\"><polyline fill=\"none\" stroke=\"#000\" stroke-width=\"1.4\" points=\"17 1 1 17 17 33\"></polyline></svg>";
+
+var spinner = "<svg width=\"30\" height=\"30\" viewBox=\"0 0 30 30\" xmlns=\"http://www.w3.org/2000/svg\"><circle fill=\"none\" stroke=\"#000\" cx=\"15\" cy=\"15\" r=\"14\"></circle></svg>";
+
+var totop = "<svg width=\"18\" height=\"10\" viewBox=\"0 0 18 10\" xmlns=\"http://www.w3.org/2000/svg\"><polyline fill=\"none\" stroke=\"#000\" stroke-width=\"1.2\" points=\"1 9 9 1 17 9 \"></polyline></svg>";
+
 function Icon (UIkit) {
+
+    var parsed = {},
+        icons = {
+            spinner: spinner,
+            totop: totop,
+            'close-icon': closeIcon,
+            'close-large': closeLarge,
+            'navbar-toggle-icon': navbarToggleIcon,
+            'overlay-icon': overlayIcon,
+            'pagination-next': paginationNext,
+            'pagination-previous': paginationPrevious,
+            'search-icon': searchIcon,
+            'search-large': searchLarge,
+            'search-navbar': searchNavbar,
+            'slidenav-next': slidenavNext,
+            'slidenav-next-large': slidenavNextLarge,
+            'slidenav-previous': slidenavPrevious,
+            'slidenav-previous-large': slidenavPreviousLarge
+        };
 
     UIkit.component('icon', UIkit.components.svg.extend({
 
@@ -3339,32 +3493,151 @@ function Icon (UIkit) {
 
         init: function init() {
             this.$el.addClass('uk-icon');
+
+            if (isRtl) {
+                this.icon = swap(swap(this.icon, 'left', 'right'), 'previous', 'next');
+            }
+        },
+
+        update: {
+
+            read: function read() {
+
+                if (this.delay) {
+                    var icon = this.getIcon();
+
+                    if (icon) {
+                        this.delay(icon);
+                    }
+                }
+            },
+
+            events: ['load']
+
+        },
+
+        methods: {
+
+            getSvg: function getSvg() {
+                var this$1 = this;
+
+
+                var icon = this.getIcon();
+
+                if (!icon) {
+
+                    if (document.readyState !== 'complete') {
+                        return promise(function (resolve) {
+                            this$1.delay = resolve;
+                        });
+                    }
+
+                    return promise.reject('Icon not found.');
+
+                }
+
+                return promise.resolve(icon);
+            },
+
+            getIcon: function getIcon() {
+
+                if (!icons[this.icon]) {
+                    return null;
+                }
+
+                if (!parsed[this.icon]) {
+                    parsed[this.icon] = this.parse(icons[this.icon]);
+                }
+
+                return parsed[this.icon];
+            }
+
         }
 
     }));
 
     [
-        'close',
         'navbar-toggle-icon',
         'overlay-icon',
         'pagination-previous',
         'pagination-next',
-        'search-icon',
         'totop'
-    ].forEach(function (name) { return UIkit.component(name, UIkit.components.icon.extend({name: name})); });
+    ].forEach(function (name) { return registerComponent(name); });
 
     [
         'slidenav-previous',
         'slidenav-next'
-    ].forEach(function (name) { return UIkit.component(name, UIkit.components.icon.extend({
-
-        name: name,
+    ].forEach(function (name) { return registerComponent(name, {
 
         init: function init() {
             this.$el.addClass('uk-slidenav');
+
+            if (this.$el.hasClass('uk-slidenav-large')) {
+                this.icon += '-large';
+            }
         }
 
-    })); });
+    }); });
+
+    registerComponent('search-icon', {
+
+        init: function init() {
+            if (this.$el.hasClass('uk-search-icon') && this.$el.parents('.uk-search-large').length) {
+                this.icon = 'search-large';
+            } else if (this.$el.parents('.uk-search-navbar').length) {
+                this.icon = 'search-navbar';
+            }
+        }
+
+    });
+
+    registerComponent('close', {
+
+        init: function init() {
+            this.icon = "close-" + (this.$el.hasClass('uk-close-large') ? 'large' : 'icon');
+        }
+
+    });
+
+    registerComponent('spinner', {
+
+        connected: function connected() {
+            var this$1 = this;
+
+
+            this.height = this.width = this.$el.width();
+
+            this.svg.then(function (svg) {
+
+                var circle = svg.find('circle'),
+                    diameter = Math.floor(this$1.width / 2);
+
+                svg[0].setAttribute('viewBox', ("0 0 " + (this$1.width) + " " + (this$1.width)));
+
+                circle.attr({cx: diameter, cy: diameter, r: diameter - parseFloat(circle.css('stroke-width') || 0)});
+            });
+        }
+
+    });
+
+    UIkit.icon.add = function (added) {
+        $$1.extend(icons, added)
+    };
+
+    function registerComponent(name, mixin) {
+
+        UIkit.component(name, UIkit.components.icon.extend({
+
+            name: name,
+
+            mixins: mixin ? [mixin] : [],
+
+            defaults: {
+                icon: name
+            }
+
+        }));
+    }
 
 }
 
@@ -3448,7 +3721,7 @@ function Margin (UIkit) {
                     return;
                 }
 
-                this.rows.forEach(function (row, i) { return row.forEach(function (el, j) { return $__default(el)
+                this.rows.forEach(function (row, i) { return row.forEach(function (el, j) { return $$1__default(el)
                             .toggleClass(this$1.margin, i !== 0)
                             .toggleClass(this$1.firstColumn, j === 0); }
                     ); }
@@ -3511,33 +3784,29 @@ function Modal$1 (UIkit) {
 
         },
 
-        events: {
+        events: [
 
-            beforeshow: function beforeshow(e) {
+            {
+                name: 'beforeshow',
 
-                if (!this.$el.is(e.target)) {
-                    return;
+                self: true,
+
+                handler: function handler() {
+                    this.$el.css('display', 'block').height();
                 }
-
-                docElement.addClass(this.clsPage);
-                this.$el.css('display', 'block');
-                this.$el.height();
             },
 
-            hide: function hide(e) {
+            {
+                name: 'hide',
 
-                if (!this.$el.is(e.target)) {
-                    return;
+                self: true,
+
+                handler: function handler() {
+                    this.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
                 }
-
-                if (!this.getActive()) {
-                    docElement.removeClass(this.clsPage);
-                }
-
-                this.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
             }
 
-        }
+        ]
 
     });
 
@@ -3570,40 +3839,40 @@ function Modal$1 (UIkit) {
 
         var dialog = UIkit.modal(
             ("<div class=\"uk-modal\">\n                <div class=\"uk-modal-dialog\">" + content + "</div>\n             </div>")
-        , options)[0];
+        , options);
 
-        requestAnimationFrame(dialog.show);
         dialog.$el.on('hide', function () { return dialog.$destroy(true); });
+        dialog.show();
 
         return dialog;
     };
 
     UIkit.modal.alert = function (message, options) {
 
-        options = $.extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
+        options = $$1.extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
         return promise(
-            function (resolve) { return UIkit.modal.dialog(("\n                <div class=\"uk-modal-body\">" + (isString(message) ? message : $__default(message).html()) + "</div>\n                <div class=\"uk-modal-footer uk-text-right\">\n                    <button class=\"uk-button uk-button-primary uk-modal-close\" autofocus>" + (options.labels.ok) + "</button>\n                </div>\n            "), options).$el.on('hide', resolve); }
+            function (resolve) { return UIkit.modal.dialog(("\n                <div class=\"uk-modal-body\">" + (isString(message) ? message : $$1__default(message).html()) + "</div>\n                <div class=\"uk-modal-footer uk-text-right\">\n                    <button class=\"uk-button uk-button-primary uk-modal-close\" autofocus>" + (options.labels.ok) + "</button>\n                </div>\n            "), options).$el.on('hide', resolve); }
         );
     };
 
     UIkit.modal.confirm = function (message, options) {
 
-        options = $.extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
+        options = $$1.extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
         return promise(
-            function (resolve, reject) { return UIkit.modal.dialog(("\n                <div class=\"uk-modal-body\">" + (isString(message) ? message : $__default(message).html()) + "</div>\n                <div class=\"uk-modal-footer uk-text-right\">\n                    <button class=\"uk-button uk-button-default uk-modal-close\">" + (options.labels.cancel) + "</button>\n                    <button class=\"uk-button uk-button-primary uk-modal-close\" autofocus>" + (options.labels.ok) + "</button>\n                </div>\n            "), options).$el.on('click', '.uk-modal-footer button', function (e) { return $__default(e.target).index() === 0 ? reject() : resolve(); }); }
+            function (resolve, reject) { return UIkit.modal.dialog(("\n                <div class=\"uk-modal-body\">" + (isString(message) ? message : $$1__default(message).html()) + "</div>\n                <div class=\"uk-modal-footer uk-text-right\">\n                    <button class=\"uk-button uk-button-default uk-modal-close\">" + (options.labels.cancel) + "</button>\n                    <button class=\"uk-button uk-button-primary uk-modal-close\" autofocus>" + (options.labels.ok) + "</button>\n                </div>\n            "), options).$el.on('click', '.uk-modal-footer button', function (e) { return $$1__default(e.target).index() === 0 ? reject() : resolve(); }); }
         );
     };
 
     UIkit.modal.prompt = function (message, value, options) {
 
-        options = $.extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
+        options = $$1.extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
         return promise(function (resolve, reject) {
 
             var resolved = false,
-                prompt = UIkit.modal.dialog(("\n                <form class=\"uk-form-stacked\">\n                    <div class=\"uk-modal-body\">\n                        <label>" + (isString(message) ? message : $__default(message).html()) + "</label>\n                        <input class=\"uk-input\" type=\"text\" autofocus>\n                    </div>\n                    <div class=\"uk-modal-footer uk-text-right\">\n                        <button class=\"uk-button uk-button-default uk-modal-close\" type=\"button\">" + (options.labels.cancel) + "</button>\n                        <button class=\"uk-button uk-button-primary\" type=\"submit\">" + (options.labels.ok) + "</button>\n                    </div>\n                </form>\n            "), options),
+                prompt = UIkit.modal.dialog(("\n                <form class=\"uk-form-stacked\">\n                    <div class=\"uk-modal-body\">\n                        <label>" + (isString(message) ? message : $$1__default(message).html()) + "</label>\n                        <input class=\"uk-input\" type=\"text\" autofocus>\n                    </div>\n                    <div class=\"uk-modal-footer uk-text-right\">\n                        <button class=\"uk-button uk-button-default uk-modal-close\" type=\"button\">" + (options.labels.cancel) + "</button>\n                        <button class=\"uk-button uk-button-primary\" type=\"submit\">" + (options.labels.ok) + "</button>\n                    </div>\n                </form>\n            "), options),
                 input = prompt.$el.find('input').val(value);
 
             prompt.$el
@@ -3696,14 +3965,14 @@ function Navbar (UIkit) {
             this.$el.on(pointerEnter, this.dropdown, function (ref) {
                 var target = ref.target;
 
-                var active = this$1.getActive();
-                if (active && !isWithin(target, active.toggle.$el) && !active.isDelaying) {
+                var active = this$1.getActive(), dropdown = active && active.$el.closest(this$1.dropdown);
+                if (active && dropdown.length && !isWithin(target, dropdown) && !active.isDelaying) {
                     active.hide(false);
                 }
             });
 
             if (this.dropbar) {
-                this.dropbar = query(this.dropbar, this.$el) || $__default('<div></div>').insertAfter(this.dropbarAnchor || this.$el);
+                this.dropbar = query(this.dropbar, this.$el) || $$1__default('<div></div>').insertAfter(this.dropbarAnchor || this.$el);
                 UIkit.navbarDropbar(this.dropbar, {clsDrop: this.clsDrop, mode: this.dropbarMode, duration: this.duration, navbar: this});
             }
 
@@ -3713,12 +3982,12 @@ function Navbar (UIkit) {
             var this$1 = this;
 
 
-            $__default(this.dropdown, this.$el).each(function (i, el) {
+            $$1__default(this.dropdown, this.$el).each(function (i, el) {
 
                 var drop = toJQuery(("." + (this$1.clsDrop)), el);
 
-                if (drop && !UIkit.getComponent(drop, 'drop') && !UIkit.getComponent(drop, 'dropdown')) {
-                    UIkit.drop(drop, $.extend({}, this$1));
+                if (drop) {
+                    UIkit.drop(drop, $$1.extend({}, this$1));
                 }
 
             });
@@ -3886,46 +4155,47 @@ function Offcanvas (UIkit) {
 
         },
 
-        events: {
+        events: [
 
-            beforeshow: function beforeshow(e) {
+            {
+                name: 'beforeshow',
 
-                if (!this.$el.is(e.target)) {
-                    return;
+                self: true,
+
+                handler: function handler() {
+                    docElement.addClass(((this.clsFlip) + " " + (this.clsPageAnimation) + " " + (this.clsPageOverlay)));
+                    this.panel.addClass(((this.clsSidebarAnimation) + " " + (this.clsMode)));
+                    this.$el.addClass(this.clsOverlay).css('display', 'block').height();
                 }
-
-                docElement.addClass(((this.clsPage) + " " + (this.clsFlip) + " " + (this.clsPageAnimation) + " " + (this.clsPageOverlay)));
-                this.panel.addClass(((this.clsSidebarAnimation) + " " + (this.clsMode)));
-                this.$el.addClass(this.clsOverlay).css('display', 'block').height();
-
             },
 
-            beforehide: function beforehide(e) {
+            {
+                name: 'beforehide',
 
-                if (!this.$el.is(e.target)) {
-                    return;
+                self: true,
+
+                handler: function handler() {
+                    docElement.removeClass(this.clsPageAnimation);
+
+                    if (this.mode === 'none' || this.getActive() && this.getActive() !== this) {
+                        this.panel.trigger(transitionend);
+                    }
                 }
-
-                docElement.removeClass(this.clsPageAnimation);
-
-                if (this.mode === 'none' || this.getActive() && this.getActive() !== this) {
-                    this.panel.trigger(transitionend);
-                }
-
             },
 
-            hide: function hide(e) {
+            {
+                name: 'hide',
 
-                if (!this.$el.is(e.target)) {
-                    return;
+                self: true,
+
+                handler: function handler() {
+                    docElement.removeClass(((this.clsFlip) + " " + (this.clsPageOverlay))).width('');
+                    this.panel.removeClass(((this.clsSidebarAnimation) + " " + (this.clsMode)));
+                    this.$el.removeClass(this.clsOverlay).css('display', '');
                 }
-
-                docElement.removeClass(((this.clsPage) + " " + (this.clsFlip) + " " + (this.clsPageOverlay))).width('');
-                this.panel.removeClass(((this.clsSidebarAnimation) + " " + (this.clsMode)));
-                this.$el.removeClass(this.clsOverlay).css('display', '');
             }
 
-        }
+        ]
 
     });
 
@@ -3982,7 +4252,7 @@ function Scroll (UIkit) {
                 var this$1 = this;
 
 
-                el = $__default(el);
+                el = $$1__default(el);
 
                 // get / set parameters
                 var target = el.offset().top - this.offset,
@@ -3994,7 +4264,7 @@ function Scroll (UIkit) {
                 }
 
                 // animate to target, fire callback when done
-                $__default('html,body')
+                $$1__default('html,body')
                     .stop()
                     .animate({scrollTop: parseInt(target, 10) || 1}, this.duration, this.transition)
                     .promise()
@@ -4013,15 +4283,15 @@ function Scroll (UIkit) {
                 }
 
                 e.preventDefault();
-                this.scrollToElement($__default(this.$el[0].hash).length ? this.$el[0].hash : 'body');
+                this.scrollToElement($$1__default(this.$el[0].hash).length ? this.$el[0].hash : 'body');
             }
 
         }
 
     });
 
-    if (!$__default.easing.easeOutExpo) {
-        $__default.easing.easeOutExpo = function (x, t, b, c, d) {
+    if (!$$1__default.easing.easeOutExpo) {
+        $$1__default.easing.easeOutExpo = function (x, t, b, c, d) {
             return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
         };
     }
@@ -4064,7 +4334,7 @@ function Scrollspy (UIkit) {
             {
 
                 read: function read() {
-                    this.elements = this.target && $__default(this.target, this.$el) || this.$el;
+                    this.elements = this.target && $$1__default(this.target, this.$el) || this.$el;
                 },
 
                 write: function write() {
@@ -4083,7 +4353,7 @@ function Scrollspy (UIkit) {
                     this.elements.each(function (_, el) {
 
                         if (!el._scrollspy) {
-                            el._scrollspy = {toggles: ($__default(el).attr('uk-scrollspy-class') || this$1.cls).split(',')};
+                            el._scrollspy = {toggles: ($$1__default(el).attr('uk-scrollspy-class') || this$1.cls).split(',')};
                         }
 
                         el._scrollspy.show = isInView(el, this$1.offsetTop, this$1.offsetLeft);
@@ -4099,7 +4369,7 @@ function Scrollspy (UIkit) {
 
                     this.elements.each(function (_, el) {
 
-                        var $el = $__default(el);
+                        var $el = $$1__default(el);
 
                         var data = el._scrollspy;
 
@@ -4181,12 +4451,14 @@ function ScrollspyNav (UIkit) {
             {
 
                 read: function read() {
+                    var this$1 = this;
+
                     this.links = this.$el.find('a[href^="#"]').filter(function (i, el) { return el.hash; });
                     this.elements = (this.closest ? this.links.closest(this.closest) : this.links);
-                    this.targets = $__default($__default.map(this.links, function (el) { return el.hash; }).join(','));
+                    this.targets = $$1__default($$1__default.map(this.links, function (el) { return el.hash; }).join(','));
 
                     if (this.scroll) {
-                        UIkit.scroll(this.links, {offset: this.offset || 0});
+                        this.links.each(function (_, el) { return UIkit.scroll(el, {offset: this$1.offset || 0}); });
                     }
                 }
 
@@ -4204,7 +4476,7 @@ function ScrollspyNav (UIkit) {
 
                     this.targets.each(function (i, el) {
 
-                        el = $__default(el);
+                        el = $$1__default(el);
 
                         var offset = el.offset(), last = i + 1 === this$1.targets.length;
                         if (!this$1.overflow && (i === 0 && offset.top > scroll || last && offset.top + el.outerHeight() < scroll)) {
@@ -4254,38 +4526,13 @@ function ScrollspyNav (UIkit) {
 
 }
 
-function Spinner (UIkit) {
-
-    UIkit.component('spinner', UIkit.components.icon.extend({
-
-        name: 'spinner',
-
-        connected: function connected() {
-            var this$1 = this;
-
-
-            this.height = this.width = this.$el.width();
-
-            this.svg.then(function (svg) {
-
-                var circle = svg.find('circle'),
-                    diameter = Math.floor(this$1.width / 2);
-
-                svg[0].setAttribute('viewBox', ("0 0 " + (this$1.width) + " " + (this$1.width)));
-
-                circle.attr({cx: diameter, cy: diameter, r: diameter - parseFloat(circle.css('stroke-width') || 0)});
-            });
-        }
-
-    }));
-
-}
-
 function Sticky (UIkit) {
 
     UIkit.component('sticky', {
 
         mixins: [Class],
+
+        attrs: true,
 
         props: {
             top: null,
@@ -4318,35 +4565,46 @@ function Sticky (UIkit) {
         },
 
         connected: function connected() {
-            this.placeholder = $__default('<div class="uk-sticky-placeholder"></div>').insertAfter(this.$el).attr('hidden', true);
-            this._widthElement = this.widthElement || this.placeholder;
+            this.placeholder = $$1__default('<div class="uk-sticky-placeholder"></div>').insertAfter(this.$el).attr('hidden', true);
+            this.widthElement = this.$props.widthElement || this.placeholder;
+        },
+
+        disconnected: function disconnected() {
+
+            if (this.isActive) {
+                this.isActive = false;
+                this.hide();
+                this.$el.removeClass(this.clsInactive);
+            }
+
+            this.placeholder.remove();
+            this.placeholder = null;
+            this.widthElement = null;
         },
 
         ready: function ready() {
             var this$1 = this;
 
 
-            this.topProp = this.top;
-            this.bottomProp = this.bottom;
+            if (!(this.target && location.hash && win.scrollTop() > 0)) {
+                return;
+            }
 
-            if (this.target && location.hash && win.scrollTop() > 0) {
+            var target = query(location.hash);
 
-                var target = query(location.hash);
+            if (target) {
+                requestAnimationFrame$1(function () {
 
-                if (target) {
-                    requestAnimationFrame$1(function () {
+                    var top = target.offset().top,
+                        elTop = this$1.$el.offset().top,
+                        elHeight = this$1.$el.outerHeight(),
+                        elBottom = elTop + elHeight;
 
-                        var top = target.offset().top,
-                            elTop = this$1.$el.offset().top,
-                            elHeight = this$1.$el.outerHeight(),
-                            elBottom = elTop + elHeight;
+                    if (elBottom >= top && elTop <= top + target.outerHeight()) {
+                        window.scrollTo(0, top - elHeight - this$1.target - this$1.offset);
+                    }
 
-                        if (elBottom >= top && elTop <= top + target.outerHeight()) {
-                            window.scrollTo(0, top - elHeight - this$1.target - this$1.offset);
-                        }
-
-                    });
-                }
+                });
             }
 
         },
@@ -4359,27 +4617,27 @@ function Sticky (UIkit) {
                     var this$1 = this;
 
 
-                    var outerHeight = this.$el.outerHeight(), isActive = this.isActive(), el;
+                    var outerHeight = this.$el.outerHeight(), el;
 
                     this.placeholder
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
                         .css(this.$el.css(['marginTop', 'marginBottom', 'marginLeft', 'marginRight']));
 
-                    this.width = this._widthElement.attr('hidden', null).outerWidth();
-                    this._widthElement.attr('hidden', !isActive);
+                    this.width = this.widthElement.attr('hidden', null).outerWidth();
+                    this.widthElement.attr('hidden', !this.isActive);
 
-                    this.topOffset = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
+                    this.topOffset = (this.isActive ? this.placeholder.offset() : this.$el.offset()).top;
                     this.bottomOffset = this.topOffset + outerHeight;
 
                     ['top', 'bottom'].forEach(function (prop) {
 
-                        this$1[prop] = this$1[(prop + "Prop")];
+                        this$1[prop] = this$1.$props[prop];
 
                         if (!this$1[prop]) {
                             return;
                         }
 
-                        if ($.isNumeric(this$1[prop])) {
+                        if ($$1.isNumeric(this$1[prop])) {
 
                             this$1[prop] = this$1[(prop + "Offset")] + parseFloat(this$1[prop]);
 
@@ -4405,7 +4663,7 @@ function Sticky (UIkit) {
                     this.bottom = this.bottom && this.bottom - outerHeight;
                     this.inactive = this.media && !window.matchMedia(this.media).matches;
 
-                    if (isActive) {
+                    if (this.isActive) {
                         this.update();
                     }
                 },
@@ -4422,7 +4680,7 @@ function Sticky (UIkit) {
                     var dir = ref.dir;
 
 
-                    var isActive = this.isActive(), scroll = win.scrollTop();
+                    var scroll = win.scrollTop();
 
                     if (scroll < 0 || !this.$el.is(':visible') || this.disabled) {
                         return;
@@ -4430,14 +4688,14 @@ function Sticky (UIkit) {
 
                     if (this.inactive
                         || scroll < this.top
-                        || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.bottomOffset)
+                        || this.showOnUp && (dir !== 'up' || dir === 'up' && !this.isActive && scroll <= this.bottomOffset)
                     ) {
 
-                        if (!isActive) {
+                        if (!this.isActive) {
                             return;
                         }
 
-                        isActive = false;
+                        this.isActive = false;
 
                         if (this.animation && this.bottomOffset < this.$el.offset().top) {
                             Animation.cancel(this.$el).then(function () { return Animation.out(this$1.$el, this$1.animation).then(function () { return this$1.hide(); }); });
@@ -4445,7 +4703,7 @@ function Sticky (UIkit) {
                             this.hide();
                         }
 
-                    } else if (isActive) {
+                    } else if (this.isActive) {
 
                         this.update();
 
@@ -4470,13 +4728,9 @@ function Sticky (UIkit) {
 
             show: function show() {
 
+                this.isActive = true;
                 this.update();
-
-                this.$el
-                    .removeClass(this.clsInactive)
-                    .addClass(this.clsActive)
-                    .trigger('active');
-
+                this.$el.trigger('active');
                 this.placeholder.attr('hidden', null);
 
             },
@@ -4490,46 +4744,41 @@ function Sticky (UIkit) {
                     .trigger('inactive');
 
                 this.placeholder.attr('hidden', true);
+
             },
 
             update: function update() {
 
-                var top = Math.max(0, this.offset), scroll = win.scrollTop();
+                var top = Math.max(0, this.offset), scroll = win.scrollTop(), active = win.scrollTop() > this.top;
 
                 if (this.bottom && scroll > this.bottom - this.offset) {
                     top = this.bottom - scroll;
                 }
 
-                this.$el.css({
-                    position: 'fixed',
-                    top: (top + "px"),
-                    width: this.width
-                });
+                this.$el
+                    .css({
+                        position: 'fixed',
+                        top: (top + "px"),
+                        width: this.width
+                    })
+                    .toggleClass(this.clsActive, active)
+                    .toggleClass(this.clsInactive, !active);
 
-            },
-
-            isActive: function isActive() {
-                return this.$el.hasClass(this.clsActive) && !(this.animation && this.$el.hasClass('uk-animation-leave'));
             }
 
-        },
-
-        disconnected: function disconnected() {
-            this.placeholder.remove();
-            this.placeholder = null;
-            this._widthElement = null;
         }
 
     });
 
 }
 
-var storage = window.sessionStorage || {};
 var svgs = {};
 var parser = new DOMParser();
 function Svg (UIkit) {
 
     UIkit.component('svg', {
+
+        attrs: true,
 
         props: {
             id: String,
@@ -4557,76 +4806,32 @@ function Svg (UIkit) {
             var this$1 = this;
 
 
-            this.svg = promise(function (resolve, reject) {
-                this$1._resolver = resolve;
-                this$1._rejecter = reject;
-            }).catch(function () {});
+            if (!this.icon && this.src && ~this.src.indexOf('#')) {
 
-            this.$emitSync();
-        },
+                var parts = this.src.split('#');
 
-        disconnected: function disconnected() {
-
-            this.isSet = false;
-
-            if (isVoidElement(this.$el)) {
-                this.$el.attr({hidden: null, id: this.id || null});
-            }
-
-            if (this.svg) {
-                this.svg.then(function (svg) { return svg && svg.remove(); });
-                this.svg = null;
-            }
-        },
-
-        update: {
-
-            read: function read() {
-                var this$1 = this;
-
-
-                if (!this.src) {
-                    this.src = getSrc(this.$el);
+                if (parts.length > 1) {
+                    this.src = parts[0];
+                    this.icon = parts[1];
                 }
+            }
 
-                if (!this.src || this.isSet) {
+            this.width = this.$props.width;
+            this.height = this.$props.height;
+
+            this.svg = this.getSvg().then(function (doc) { return promise(function (resolve, reject) { return fastdom.mutate(function () {
+
+                var svg, el;
+
+                if (!doc) {
+                    reject('SVG not found.');
                     return;
                 }
 
-                this.isSet = true;
-
-                if (!this.icon && ~this.src.indexOf('#')) {
-
-                    var parts = this.src.split('#');
-
-                    if (parts.length > 1) {
-                        this.src = parts[0];
-                        this.icon = parts[1];
-                    }
-                }
-
-                getSvg(this.src).then(function (doc) {
-                    this$1._svg = doc;
-                    this$1.$emit();
-                }, function (e) { return console.log(e); });
-            },
-
-            write: function write() {
-                var this$1 = this;
-
-
-                if (!this._svg) {
-                    return;
-                }
-
-                var doc = this._svg, svg, el;
-
-                this._svg = null;
-
-                if (!this.icon) {
+                if (!this$1.icon) {
                     el = doc.documentElement.cloneNode(true);
                 } else {
-                    svg = doc.getElementById(this.icon);
+                    svg = doc.getElementById(this$1.icon);
 
                     if (!svg) {
 
@@ -4656,7 +4861,7 @@ function Svg (UIkit) {
                 }
 
                 if (!el) {
-                    this._rejecter('SVG not found.');
+                    reject('SVG not found.');
                     return;
                 }
 
@@ -4664,14 +4869,14 @@ function Svg (UIkit) {
 
                 if (dimensions) {
                     dimensions = dimensions.split(' ');
-                    this.width = this.width || dimensions[2];
-                    this.height = this.height || dimensions[3];
+                    this$1.width = this$1.width || dimensions[2];
+                    this$1.height = this$1.height || dimensions[3];
                 }
 
-                el = $__default(el);
+                el = $$1__default(el);
 
-                this.width *= this.ratio;
-                this.height *= this.ratio;
+                this$1.width *= this$1.ratio;
+                this$1.height *= this$1.ratio;
 
                 for (var prop in this$1.$options.props) {
                     if (this$1[prop] && !~this$1.exclude.indexOf(prop)) {
@@ -4679,106 +4884,90 @@ function Svg (UIkit) {
                     }
                 }
 
-                if (!this.id) {
+                if (!this$1.id) {
                     el.removeAttr('id');
                 }
 
-                if (this.width && !this.height) {
+                if (this$1.width && !this$1.height) {
                     el.removeAttr('height');
                 }
 
-                if (this.height && !this.width) {
+                if (this$1.height && !this$1.width) {
                     el.removeAttr('width');
                 }
 
-                if (isVoidElement(this.$el) || this.$el[0].tagName === 'CANVAS') {
-                    this.$el.attr({hidden: true, id: null});
-                    el.insertAfter(this.$el);
+                if (isVoidElement(this$1.$el) || this$1.$el[0].tagName === 'CANVAS') {
+                    this$1.$el.attr({hidden: true, id: null});
+                    el.insertAfter(this$1.$el);
                 } else {
-                    el.appendTo(this.$el);
+                    el.appendTo(this$1.$el);
                 }
 
-                this._resolver(el);
+                resolve(el);
+
+            }); }); }).then(null, function () { return this$1.$destroy(); });
+
+            if (!this._isReady) {
+                this.$emitSync();
+            }
+        },
+
+        disconnected: function disconnected() {
+
+            if (isVoidElement(this.$el)) {
+                this.$el.attr({hidden: null, id: this.id || null});
+            }
+
+            if (this.svg) {
+                this.svg.then(function (svg) {
+                    svg && svg.remove();
+                });
+                this.svg = null;
+            }
+        },
+
+        methods: {
+
+            getSvg: function getSvg() {
+                var this$1 = this;
+
+
+                if (!this.src) {
+                    return promise.reject();
+                }
+
+                if (svgs[this.src]) {
+                    return svgs[this.src];
+                }
+
+                svgs[this.src] = promise(function (resolve, reject) {
+
+                    if (this$1.src.lastIndexOf('data:', 0) === 0) {
+                        resolve(this$1.parse(decodeURIComponent(this$1.src.split(',')[1])));
+                    } else {
+
+                        $$1__default.ajax(this$1.src, {dataType: 'html'}).then(function (doc) {
+                            resolve(this$1.parse(doc));
+                        }, function () {
+                            reject('SVG not found.');
+                        });
+
+                    }
+
+                });
+
+                return svgs[this.src];
+
             },
 
-            events: ['load']
+            parse: function parse(doc) {
+                var parsed = parser.parseFromString(doc, 'image/svg+xml');
+                return parsed.documentElement && parsed.documentElement.nodeName === 'svg' ? parsed : null;
+            }
 
         }
 
     });
-
-    function getSrc(el) {
-
-        var image = getBackgroundImage(el);
-
-        if (!image) {
-
-            el = el.clone().empty()
-                .attr({'uk-no-boot': '', style: ((el.attr('style')) + ";display:block !important;")})
-                .appendTo(document.body);
-
-            image = getBackgroundImage(el);
-
-            // safari workaround
-            if (!image && el[0].tagName === 'CANVAS') {
-                var span = $__default(el[0].outerHTML.replace(/canvas/g, 'span')).insertAfter(el);
-                image = getBackgroundImage(span);
-                span.remove();
-            }
-
-            el.remove();
-
-        }
-
-        return image && image.slice(4, -1).replace(/"/g, '');
-    }
-
-    function getBackgroundImage(el) {
-        var image = getStyle(el[0], 'backgroundImage', '::before');
-        return image !== 'none' && image;
-    }
-
-    function getSvg(src) {
-
-        if (!svgs[src]) {
-            svgs[src] = promise(function (resolve, reject) {
-
-                if (src.lastIndexOf('data:', 0) === 0) {
-                    resolve(parse(decodeURIComponent(src.split(',')[1])));
-                } else {
-
-                    var key = "" + (UIkit.data) + (UIkit.version) + "_" + src;
-
-                    if (storage[key]) {
-                        resolve(parse(storage[key]));
-                    } else {
-                        $__default.ajax(src, {dataType: 'html'}).then(function (doc) {
-                            storage[key] = doc;
-                            resolve(parse(doc));
-                        }, function () {
-                            reject('SVG not found.');
-                        });
-                    }
-                }
-
-            });
-        }
-
-        return svgs[src];
-    }
-
-    function parse(doc) {
-        return parser.parseFromString(doc, 'image/svg+xml');
-    }
-
-    // workaround for Safari's private browsing mode
-    try {
-        var key = (UIkit.data) + "test";
-        storage[key] = 1;
-        delete storage[key];
-    } catch (e) {
-        storage = {};
-    }
 
 }
 
@@ -4808,6 +4997,10 @@ function Switcher (UIkit) {
             queued: true
         },
 
+        connected: function connected() {
+            this.$emitSync();
+        },
+
         events: [
 
             {
@@ -4831,18 +5024,23 @@ function Switcher (UIkit) {
             var this$1 = this;
 
 
-            this.toggles = $__default(this.toggle, this.$el);
-            this.connects = this.connect || $__default(this.$el.next(("." + (this.clsContainer))));
+            this.toggles = $$1__default(this.toggle, this.$el);
+            this.connects = this.connect || $$1__default(this.$el.next(("." + (this.clsContainer))));
 
             var click = "click." + (this.$options.name);
             this.connects.off(click).on(click, ("[" + (this.attrItem) + "],[data-" + (this.attrItem) + "]"), function (e) {
                 e.preventDefault();
-                this$1.show($__default(e.currentTarget)[e.currentTarget.hasAttribute(this$1.attrItem) ? 'attr' : 'data'](this$1.attrItem));
+                this$1.show($$1__default(e.currentTarget)[e.currentTarget.hasAttribute(this$1.attrItem) ? 'attr' : 'data'](this$1.attrItem));
             });
 
             if (this.swiping) {
                 var swipe = "swipeRight." + (this.$options.name) + " swipeLeft." + (this.$options.name);
                 this.connects.off(swipe).on(swipe, function (e) {
+
+                    if (!isTouch(e)) {
+                        return;
+                    }
+
                     e.preventDefault();
                     if (!window.getSelection().toString()) {
                         this$1.show(e.type == 'swipeLeft' ? 'next' : 'previous');
@@ -4861,10 +5059,6 @@ function Switcher (UIkit) {
             show: function show(item) {
                 var this$1 = this;
 
-
-                if (!this.toggles) {
-                    this.$emitSync();
-                }
 
                 var length = this.toggles.length,
                     prev = this.connects.children(("." + (this.cls))).index(),
@@ -4977,7 +5171,7 @@ function Toggle (UIkit) {
 
                 handler: function handler(e) {
                     // TODO better isToggled handling
-                    if ($__default(e.target).closest('a[href="#"], button').length || $__default(e.target).closest('a[href]') && (this.cls || !this.target.is(':visible'))) {
+                    if ($$1__default(e.target).closest('a[href="#"], button').length || $$1__default(e.target).closest('a[href]') && (this.cls || !this.target.is(':visible'))) {
                         e.preventDefault();
                     }
 
@@ -5012,7 +5206,7 @@ function Toggle (UIkit) {
 
             toggle: function toggle(type) {
 
-                var event = $__default.Event(type || 'toggle');
+                var event = $$1__default.Event(type || 'toggle');
                 this.target.triggerHandler(event, [this]);
 
                 if (!event.isDefaultPrevented()) {
@@ -5059,7 +5253,7 @@ function core (UIkit) {
             }
         });
 
-    on(document, 'animationstart', function (ref) {
+    on(document, animationstart, function (ref) {
         var target = ref.target;
 
         fastdom.measure(function () {
@@ -5078,6 +5272,7 @@ function core (UIkit) {
     }, true);
 
     // core components
+    UIkit.use(Toggle);
     UIkit.use(Accordion);
     UIkit.use(Alert);
     UIkit.use(Cover);
@@ -5101,18 +5296,9 @@ function core (UIkit) {
     UIkit.use(Sticky);
     UIkit.use(Svg);
     UIkit.use(Icon);
-    UIkit.use(Spinner);
     UIkit.use(Switcher);
     UIkit.use(Tab);
-    UIkit.use(Toggle);
 
-    function toMs(time) {
-        return !time
-            ? 0
-            : time.substr(-2) === 'ms'
-                ? parseFloat(time)
-                : parseFloat(time) * 1000;
-    }
 }
 
 function boot (UIkit) {
@@ -5190,11 +5376,12 @@ boot(UIkit$1);
 
 return UIkit$1;
 
-})));/*! UIkit 3.0.0-beta.12 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));
+/*! UIkit 3.0.0-beta.13 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define(factory) :
+    typeof define === 'function' && define.amd ? define('uikitlightbox', factory) :
     (global.UIkitLightbox = factory());
 }(this, (function () { 'use strict';
 
@@ -5457,8 +5644,8 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var vid = $('<video class="uk-responsive-width" controls></video>')
-                    .on('loadedmetadata', function () { return this$1.setItem(item, vid.attr({width: vid[0].videoWidth, height: vid[0].videoHeight}), vid[0].videoWidth, vid[0].videoHeight); })
+                var video = $('<video class="uk-responsive-width" controls></video>')
+                    .on('loadedmetadata', function () { return this$1.setItem(item, video.attr({width: video[0].videoWidth, height: video[0].videoHeight}), video[0].videoWidth, video[0].videoHeight); })
                     .attr('src', item.source);
 
                 e.stopImmediatePropagation();
@@ -5545,11 +5732,12 @@ if (typeof window !== 'undefined' && window.UIkit) {
 
 return plugin;
 
-})));/*! UIkit 3.0.0-beta.12 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));
+/*! UIkit 3.0.0-beta.13 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define(factory) :
+    typeof define === 'function' && define.amd ? define('uikitnotification', factory) :
     (global.UIkitNotification = factory());
 }(this, (function () { 'use strict';
 
@@ -5671,11 +5859,12 @@ if (typeof window !== 'undefined' && window.UIkit) {
 
 return plugin;
 
-})));/*! UIkit 3.0.0-beta.12 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));
+/*! UIkit 3.0.0-beta.13 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define(factory) :
+    typeof define === 'function' && define.amd ? define('uikitsortable', factory) :
     (global.UIkitSortable = factory());
 }(this, (function () { 'use strict';
 
@@ -6036,11 +6225,12 @@ if (typeof window !== 'undefined' && window.UIkit) {
 
 return plugin;
 
-})));/*! UIkit 3.0.0-beta.12 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));
+/*! UIkit 3.0.0-beta.13 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define(factory) :
+    typeof define === 'function' && define.amd ? define('uikittooltip', factory) :
     (global.UIkitTooltip = factory());
 }(this, (function () { 'use strict';
 
@@ -6054,12 +6244,14 @@ function plugin(UIkit) {
     var mixin = UIkit.mixin;
     var $ = util.$;
     var doc = util.doc;
+    var fastdom = util.fastdom;
     var flipPosition = util.flipPosition;
     var isTouch = util.isTouch;
     var isWithin = util.isWithin;
     var pointerDown = util.pointerDown;
     var pointerEnter = util.pointerEnter;
     var pointerLeave = util.pointerLeave;
+    var toJQuery = util.toJQuery;
 
     var active;
 
@@ -6074,23 +6266,27 @@ function plugin(UIkit) {
         mixins: [mixin.toggable, mixin.position],
 
         props: {
-            delay: Number
+            delay: Number,
+            container: Boolean,
+            title: String
         },
 
         defaults: {
             pos: 'top',
+            title: '',
             delay: 0,
             animation: 'uk-animation-scale-up',
             duration: 100,
             cls: 'uk-active',
-            clsPos: 'uk-tooltip'
+            clsPos: 'uk-tooltip',
+            container: true,
         },
 
-        ready: function ready() {
-            this.content = this.$el.attr('title');
-            this.$el
-                .removeAttr('title')
-                .attr('aria-expanded', false);
+        init: function init() {
+            var this$1 = this;
+
+            this.container = this.container === true && UIkit.container || this.container && toJQuery(this.container);
+            fastdom.mutate(function () { return this$1.$el.removeAttr('title').attr('aria-expanded', false); });
         },
 
         methods: {
@@ -6111,7 +6307,7 @@ function plugin(UIkit) {
 
                 clearTimeout(this.showTimer);
 
-                this.tooltip = $(("<div class=\"" + (this.clsPos) + "\" aria-hidden=\"true\"><div class=\"" + (this.clsPos) + "-inner\">" + (this.content) + "</div></div>")).appendTo(UIkit.container);
+                this.tooltip = $(("<div class=\"" + (this.clsPos) + "\" aria-hidden=\"true\"><div class=\"" + (this.clsPos) + "-inner\">" + (this.title) + "</div></div>")).appendTo(this.container);
 
                 this.$el.attr('aria-expanded', true);
 
@@ -6171,11 +6367,12 @@ if (typeof window !== 'undefined' && window.UIkit) {
 
 return plugin;
 
-})));/*! UIkit 3.0.0-beta.12 | http://www.getuikit.com | (c) 2014 - 2016 YOOtheme | MIT License */
+})));
+/*! UIkit 3.0.0-beta.13 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
-    typeof define === 'function' && define.amd ? define(factory) :
+    typeof define === 'function' && define.amd ? define('uikitupload', factory) :
     (global.UIkitUpload = factory());
 }(this, (function () { 'use strict';
 

@@ -62,7 +62,7 @@ export default {
         toggleElement(targets, show, animate) {
 
             var toggles, body = document.body, scroll = body.scrollTop,
-                all = targets => promise.all(targets.toArray().map(el => this._toggleElement(el, show, animate))).catch(() => {}),
+                all = targets => promise.all(targets.toArray().map(el => this._toggleElement(el, show, animate))).then(null, () => {}),
                 delay = targets => {
                     var def = all(targets);
                     this.queued = true;
@@ -86,7 +86,7 @@ export default {
         },
 
         toggleNow(targets, show) {
-            return promise.all($(targets).toArray().map(el => this._toggleElement(el, show, false))).catch(() => {});
+            return promise.all($(targets).toArray().map(el => this._toggleElement(el, show, false))).then(null, () => {});
         },
 
         isToggled(el) {
@@ -113,8 +113,11 @@ export default {
             var event = $.Event(`before${show ? 'show' : 'hide'}`);
             el.trigger(event, [this]);
 
+            var delay = false;
             if (event.result === false) {
                 return promise.reject();
+            } else if (event.result && event.result.then) {
+                delay = event.result;
             }
 
             var promise = (this.animation === true && animate !== false
@@ -124,8 +127,12 @@ export default {
                     : this._toggleImmediate
             )(el, show);
 
-            el.trigger(show ? 'show' : 'hide', [this]);
-            return promise.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
+            var handler = () => {
+                el.trigger(show ? 'show' : 'hide', [this]);
+                return promise.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
+            };
+
+            return delay ? delay.then(handler) : handler();
         },
 
         _toggle(el, toggled) {

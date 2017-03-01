@@ -1,10 +1,10 @@
 var fs = require('fs');
 var path = require('path');
 var glob = require('glob');
-var args = require('minimist')(process.argv);
 var util = require('./util');
+var args = require('minimist')(process.argv);
 
-let prefix = args.p || args.prefix || false;
+var prefix = args.p || args.prefix || false;
 
 if (!prefix) {
     return console.log('No prefix defined');

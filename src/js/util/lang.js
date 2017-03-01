@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { getCssVar, query } from './index';
+import { getCssVar, isJQuery, query } from './index';
 
 export { $ };
 export { ajax, each, extend, map, merge, isArray, isNumeric, isFunction, isPlainObject } from 'jquery';
@@ -23,12 +23,6 @@ export function promise(executor) {
     }
 
     var def = $.Deferred();
-
-    if (!def.catch) {
-        def.catch = function (fn) {
-            return this.then(null, fn);
-        }
-    }
 
     executor(def.resolve, def.reject);
 
@@ -128,6 +122,10 @@ export function toJQuery(element, context) {
     return element.length ? element : null;
 }
 
+export function toNode(element) {
+    return element && (isJQuery(element) ? element[0] : element);
+}
+
 export function toBoolean(value) {
     return typeof value === 'boolean'
         ? value
@@ -166,4 +164,18 @@ export function coerce(type, value, context) {
     }
 
     return type ? type(value) : value;
+}
+
+export function toMs(time) {
+    return !time
+        ? 0
+        : time.substr(-2) === 'ms'
+            ? parseFloat(time)
+            : parseFloat(time) * 1000;
+}
+
+export function swap(value, a, b) {
+    return value.replace(new RegExp(`${a}|${b}`, 'mg'), function (match) {
+        return match === a ? b : a
+    });
 }

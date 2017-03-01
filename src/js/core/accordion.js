@@ -1,5 +1,5 @@
 import { Class, Toggable } from '../mixin/index';
-import { $, getIndex, toJQuery, Transition } from '../util/index';
+import { $, getIndex, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
@@ -29,6 +29,10 @@ export default function (UIkit) {
             transition: 'ease'
         },
 
+        connected() {
+            this.$emitSync();
+        },
+
         events: [
 
             {
@@ -36,12 +40,12 @@ export default function (UIkit) {
                 name: 'click',
 
                 delegate() {
-                    return `${this.targets} ${this.toggle}`;
+                    return `${this.$props.targets} ${this.$props.toggle}`;
                 },
 
                 handler(e) {
                     e.preventDefault();
-                    this.show(this.items.find(this.toggle).index(e.currentTarget));
+                    this.toggle(this.items.find(this.$props.toggle).index(e.currentTarget));
                 }
 
             }
@@ -66,17 +70,13 @@ export default function (UIkit) {
 
             var active = this.active !== false && toJQuery(this.items.eq(Number(this.active))) || !this.collapsible && toJQuery(this.items.eq(0));
             if (active && !active.hasClass(this.clsOpen)) {
-                this.show(active, false);
+                this.toggle(active, false);
             }
         },
 
         methods: {
 
-            show(item, animate) {
-
-                if (!this.items) {
-                    this.$emitSync();
-                }
+            toggle(item, animate) {
 
                 var index = getIndex(item, this.items),
                     active = this.items.filter(`.${this.clsOpen}`);
@@ -87,7 +87,7 @@ export default function (UIkit) {
 
                     el = $(el);
 
-                    var content = el.find(this.content), isItem = el.is(item), state = isItem && !el.hasClass(this.clsOpen);
+                    var isItem = el.is(item), state = isItem && !el.hasClass(this.clsOpen);
 
                     if (!state && isItem && !this.collapsible && active.length < 2) {
                         return;
@@ -95,18 +95,21 @@ export default function (UIkit) {
 
                     el.toggleClass(this.clsOpen, state);
 
-                    if (!Transition.inProgress(content.parent())) {
-                        content.wrap('<div>').parent().attr('hidden', state);
+                    var content = el[0]._wrapper ? el[0]._wrapper.children().first() : el.find(this.content);
+
+                    if (!el[0]._wrapper) {
+                        el[0]._wrapper = content.wrap('<div>').parent().attr('hidden', state);
                     }
 
                     this._toggleImmediate(content, true);
-                    this.toggleElement(content.parent(), state, animate).then(() => {
+                    this.toggleElement(el[0]._wrapper, state, animate).then(() => {
                         if (el.hasClass(this.clsOpen) === state) {
 
                             if (!state) {
                                 this._toggleImmediate(content, false);
                             }
 
+                            el[0]._wrapper = null;
                             content.unwrap();
                         }
                     });

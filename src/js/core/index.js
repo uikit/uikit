@@ -1,4 +1,4 @@
-import { getStyle, fastdom, on, requestAnimationFrame, win } from '../util/index';
+import { animationstart, getStyle, fastdom, on, requestAnimationFrame, toMs, win } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
@@ -21,7 +21,6 @@ import Responsive from './responsive';
 import Scroll from './scroll';
 import Scrollspy from './scrollspy';
 import ScrollspyNav from './scrollspy-nav';
-import Spinner from './spinner';
 import Sticky from './sticky';
 import Svg from './svg';
 import Switcher from './switcher';
@@ -61,7 +60,7 @@ export default function (UIkit) {
             }
         });
 
-    on(document, 'animationstart', ({target}) => {
+    on(document, animationstart, ({target}) => {
         fastdom.measure(() => {
             if ((getStyle(target, 'animationName') || '').lastIndexOf('uk-', 0) === 0) {
                 fastdom.mutate(() => {
@@ -78,6 +77,7 @@ export default function (UIkit) {
     }, true);
 
     // core components
+    UIkit.use(Toggle);
     UIkit.use(Accordion);
     UIkit.use(Alert);
     UIkit.use(Cover);
@@ -101,16 +101,7 @@ export default function (UIkit) {
     UIkit.use(Sticky);
     UIkit.use(Svg);
     UIkit.use(Icon);
-    UIkit.use(Spinner);
     UIkit.use(Switcher);
     UIkit.use(Tab);
-    UIkit.use(Toggle);
 
-    function toMs(time) {
-        return !time
-            ? 0
-            : time.substr(-2) === 'ms'
-                ? parseFloat(time)
-                : parseFloat(time) * 1000;
-    }
 }

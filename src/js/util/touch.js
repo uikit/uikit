@@ -169,7 +169,7 @@ doc.on({
         touching = true;
     },
 
-    click() {
+    ['click touchcancel']() {
         touching = false;
     }
 

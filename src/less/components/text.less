@@ -29,6 +29,8 @@
 @text-warning-color:                            @global-warning-background;
 @text-danger-color:                             @global-danger-background;
 
+@text-background-color:                         @global-primary-background;
+
 
 /* ========================================================================
    Component: Text
@@ -87,15 +89,32 @@
  ========================================================================== */
 
 .uk-text-muted { color: @text-muted-color !important; }
-
-.uk-text-primary {
-    color: @text-primary-color !important;
-    .hook-text-primary;
-}
-
+.uk-text-primary { color: @text-primary-color !important; }
 .uk-text-success { color: @text-success-color !important; }
 .uk-text-warning { color: @text-warning-color !important; }
 .uk-text-danger { color: @text-danger-color !important; }
+
+
+/* Background modifier
+ ========================================================================== */
+
+/*
+ * 1. The background clips to the foreground text. Works in Chrome, Firefox, Safari, Edge and Opera
+ *    Default color is set to transparent
+ * 2. Container fits the text
+ * 3. Fallback color for IE11
+ */
+
+.uk-text-background {
+    /* 1 */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* 2 */
+    display: inline-block;
+    /* 3 */
+    color: @text-background-color !important;;
+    .hook-text-background;
+}
 
 
 /* Alignment modifiers
@@ -216,7 +235,7 @@ td.uk-text-break { word-break: break-all; }
 .hook-text-meta() {}
 .hook-text-small() {}
 .hook-text-large() {}
-.hook-text-primary() {}
+.hook-text-background() {}
 .hook-text-misc() {}
 
 
@@ -241,14 +260,9 @@ td.uk-text-break { word-break: break-all; }
     }
 
     .uk-text-muted { color: @inverse-text-muted-color !important; }
-
-    .uk-text-primary {
-        color: @inverse-text-primary-color !important;
-        .hook-inverse-text-primary;
-    }
+    .uk-text-primary { color: @inverse-text-primary-color !important; }
 
 }
 
 .hook-inverse-text-lead() {}
 .hook-inverse-text-meta() {}
-.hook-inverse-text-primary() {}

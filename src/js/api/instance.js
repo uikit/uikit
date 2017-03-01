@@ -1,4 +1,4 @@
-import { $, createEvent, ready } from '../util/index';
+import { $, createEvent } from '../util/index';
 
 export default function (UIkit) {
 
@@ -25,12 +25,9 @@ export default function (UIkit) {
 
         this._callHook('init');
 
-        if (document.documentElement.contains(this.$el[0])) {
+        if (document.documentElement.contains(el)) {
             this._callConnected();
         }
-
-        ready(() => this._callReady());
-
     };
 
     UIkit.prototype.$emit = function (e) {
