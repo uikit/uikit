@@ -1,12 +1,14 @@
-import UIkit from './api/index';
-import mixin from './mixin/index';
-import core from './core/index';
-import boot from './api/boot';
+import UIkit from './uikit-core';
+import Lightbox from './components/lightbox';
+import Notification from './components/notification';
+import Sortable from './components/sortable';
+import Tooltip from './components/tooltip';
+import Upload from './components/upload';
 
-UIkit.version = '3.0.0';
-
-mixin(UIkit);
-core(UIkit);
-boot(UIkit);
+UIkit.use(Lightbox);
+UIkit.use(Notification);
+UIkit.use(Sortable);
+UIkit.use(Tooltip);
+UIkit.use(Upload);
 
 export default UIkit;

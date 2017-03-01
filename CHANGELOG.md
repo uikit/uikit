@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.0.0 beta 14 (March 01, 2017)
+
+### Changed
+
+- Rename ".rtl" dist files to "-rtl"
+- Include none minified JS files in dist
+
+### Fixed
+
+- Fix UMD/AMD dist
+
 ## 3.0.0 beta 13 (March 01, 2017)
 
 ### Added

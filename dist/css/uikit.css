@@ -4800,7 +4800,7 @@ ul.uk-nav-sub {
 /*
  * 1. Resolve frame rate issues on devices with lower frame rates by forcing hardware acceleration
  */
-.uk-sticky.uk-active {
+.uk-sticky-fixed {
   z-index: 980;
   box-sizing: border-box;
   margin: 0 !important;

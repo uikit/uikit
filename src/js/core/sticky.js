@@ -16,6 +16,7 @@ export default function (UIkit) {
             animation: String,
             clsActive: String,
             clsInactive: String,
+            clsFixed: String,
             widthElement: 'jQuery',
             showOnUp: Boolean,
             media: 'media',
@@ -29,6 +30,7 @@ export default function (UIkit) {
             animation: '',
             clsActive: 'uk-active',
             clsInactive: '',
+            clsFixed: 'uk-sticky-fixed',
             widthElement: false,
             showOnUp: false,
             media: false,
@@ -155,7 +157,7 @@ export default function (UIkit) {
 
                     if (this.inactive
                         || scroll < this.top
-                        || this.showOnUp && (dir !== 'up' || dir === 'up' && !this.isActive && scroll <= this.bottomOffset)
+                        || this.showOnUp && (dir && dir !== 'up' || dir === 'up' && !this.isActive && scroll <= this.bottomOffset)
                     ) {
 
                         if (!this.isActive) {
@@ -208,6 +210,7 @@ export default function (UIkit) {
 
                 this.$el
                     .addClass(this.clsInactive)
+                    .removeClass(this.clsFixed)
                     .removeClass(this.clsActive)
                     .css({position: '', top: '', width: ''})
                     .trigger('inactive');
@@ -230,6 +233,7 @@ export default function (UIkit) {
                         top: `${top}px`,
                         width: this.width
                     })
+                    .addClass(this.clsFixed)
                     .toggleClass(this.clsActive, active)
                     .toggleClass(this.clsInactive, !active);
 

@@ -8,7 +8,8 @@ util.write('dist/icons.json', util.icons('{src/images,custom}/icons/*.svg')).the
 
     Promise.all([
 
-        util.compile('src/js/uikit.js', 'dist/js/uikit-core', ['jquery'], {jquery: 'jQuery'}),
+        util.compile('src/js/uikit-core.js', 'dist/js/uikit-core', ['jquery'], {jquery: 'jQuery'}),
+        util.compile('src/js/uikit.js', 'dist/js/uikit', ['jquery'], {jquery: 'jQuery'}),
         util.compile('src/js/icons.js', 'dist/js/uikit-icons', ['jquery'], {jquery: 'jQuery'}, 'icons', {icons: 'dist/icons'}),
         util.compile('tests/js/index.js', 'tests/js/test', ['jquery'], {jquery: 'jQuery'}, 'test')
 
@@ -19,12 +20,5 @@ util.write('dist/icons.json', util.icons('{src/images,custom}/icons/*.svg')).the
         {jquery: 'jQuery', uikit: 'UIkit'},
         path.basename(file, '.js')
     ))))
-        .then(() =>
 
-            glob('dist/js/components/**/!(*.min).js', (err, files) =>
-                concat(['dist/js/uikit-core.js'].concat(files))
-                    .then(data => util.write('dist/js/uikit.js', data))
-                    .then(util.uglify)
-            )
-        )
 ).then(() => fs.unlink('dist/icons.json', () => {}));

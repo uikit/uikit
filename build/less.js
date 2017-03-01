@@ -10,8 +10,8 @@ var rtl = ~args.indexOf('rtl');
 
 [
 
-    {src: 'src/less/uikit.less', dist: `dist/css/uikit-core${rtl ? '.rtl' : ''}.css`},
-    {src: 'src/less/uikit.theme.less', dist: `dist/css/uikit${rtl ? '.rtl' : ''}.css`}
+    {src: 'src/less/uikit.less', dist: `dist/css/uikit-core${rtl ? '-rtl' : ''}.css`},
+    {src: 'src/less/uikit.theme.less', dist: `dist/css/uikit${rtl ? '-rtl' : ''}.css`}
 
 ].forEach(config => compile(config.src, config.dist));
 
@@ -20,7 +20,7 @@ var themes = fs.existsSync('themes.json') ? JSON.parse(fs.readFileSync('themes.j
 glob.sync('custom/*.less').forEach(file => {
 
     var theme = path.basename(file, '.less'),
-        dist = `dist/css/uikit.${theme}${rtl ? '.rtl' : ''}.css`;
+        dist = `dist/css/uikit.${theme}${rtl ? '-rtl' : ''}.css`;
 
     themes[theme] = {css: `../${dist}`};
 
