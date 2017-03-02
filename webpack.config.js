@@ -1,10 +1,10 @@
-var webpack = require('webpack');
 var fs = require('fs');
 var glob = require('glob');
 var path = require('path');
-
-var util = require('./build/util');
 var concat = require('concat');
+var webpack = require('webpack');
+var util = require('./build/util');
+var version = require('./package.json').version;
 
 var loaders = {
     loaders: [
@@ -32,7 +32,13 @@ module.exports = [
             alias: {
                 "components$": __dirname + "/dist/icons/components.json",
             }
-        }
+        },
+        plugins: [
+            new webpack.DefinePlugin({
+                BUNDLED: true,
+                VERSION: `'${version}'`
+            })
+        ]
     },
 
     {

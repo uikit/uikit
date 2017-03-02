@@ -104,7 +104,7 @@ function plugin(UIkit) {
 
 }
 
-if (typeof window !== 'undefined' && window.UIkit && window.UIkit.use) {
+if (!BUNDLED && typeof window !== 'undefined' && window.UIkit) {
     window.UIkit.use(plugin);
 }
 

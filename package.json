@@ -36,6 +36,7 @@
     "rollup-plugin-import-alias": "^1.0.3",
     "rollup-plugin-json": "^2.1.0",
     "rollup-plugin-node-resolve": "1.7.0",
+    "rollup-plugin-replace": "^1.1.1",
     "rtlcss": "^2.1.2",
     "uglify-js": "^2.7.5",
     "webpack": "^2.2.1",

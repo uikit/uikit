@@ -9,7 +9,7 @@ util.write('dist/icons.json', util.icons('{src/images,custom}/icons/*.svg')).the
     Promise.all([
 
         util.compile('src/js/uikit-core.js', 'dist/js/uikit-core', ['jquery'], {jquery: 'jQuery'}),
-        util.compile('src/js/uikit.js', 'dist/js/uikit', ['jquery'], {jquery: 'jQuery'}),
+        util.compile('src/js/uikit.js', 'dist/js/uikit', ['jquery'], {jquery: 'jQuery'}, undefined, undefined, true),
         util.compile('src/js/icons.js', 'dist/js/uikit-icons', ['jquery'], {jquery: 'jQuery'}, 'icons', {icons: 'dist/icons'}),
         util.compile('tests/js/index.js', 'tests/js/test', ['jquery'], {jquery: 'jQuery'}, 'test')
 
