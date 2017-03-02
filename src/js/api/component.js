@@ -1,4 +1,4 @@
-import { $, camelize, isJQuery, isPlainObject, isString, toNode } from '../util/index';
+import { $, camelize, isJQuery, isPlainObject, isString } from '../util/index';
 
 export default function (UIkit) {
 
@@ -46,8 +46,8 @@ export default function (UIkit) {
         return UIkit.components[name];
     };
 
-    UIkit.getComponents = element => element && toNode(element)[DATA] || {};
-    UIkit.getComponent = (element, name) => element && UIkit.getComponents(element)[name];
+    UIkit.getComponents = element => element && (isJQuery(element) ? element[0] : element) && element[DATA] || {};
+    UIkit.getComponent = (element, name) => UIkit.getComponents(element)[name];
 
     UIkit.connect = node => {
 
