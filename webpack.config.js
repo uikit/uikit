@@ -54,7 +54,7 @@ module.exports = [
 
                 apply(compiler) {
 
-                    compiler.plugin('after-plugins', () => util.write(`dist/icons.json`, util.icons('src/images/icons/*.svg')));
+                    compiler.plugin('after-plugins', () => fs.writeFileSync(`dist/icons.json`, util.icons('src/images/icons/*.svg')));
                     compiler.plugin('done', () => fs.unlink(`dist/icons.json`, () => {}));
 
                 }
