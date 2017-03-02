@@ -53,12 +53,17 @@ MouseTracker.prototype = {
         }
 
         var p = getDimensions(target),
-            points = [
-                [{x: p.left, y: p.top}, {x: p.right, y: p.bottom}],
-                [{x: p.right, y: p.top}, {x: p.left, y: p.bottom}]
-            ],
             position = this.positions[this.positions.length - 1],
             prevPos = this.positions[0];
+
+        if (p.left <= position.x && position.x <= p.right && p.top <= position.y && position.y <= p.bottom) {
+            return false;
+        }
+
+        var points = [
+            [{x: p.left, y: p.top}, {x: p.right, y: p.bottom}],
+            [{x: p.right, y: p.top}, {x: p.left, y: p.bottom}]
+        ];
 
         if (p.right <= position.x) {
 

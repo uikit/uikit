@@ -49,7 +49,7 @@ export default function (UIkit) {
 
             this.$el.on(pointerEnter, this.dropdown, ({currentTarget}) => {
                 var active = this.getActive();
-                if (active && active.toggle && !isWithin(active.toggle.$el, currentTarget) && !active.isDelaying) {
+                if (active && active.toggle && !isWithin(active.toggle.$el, currentTarget) && !active.tracker.movesTo(active.$el)) {
                     active.hide(false);
                 }
             });
