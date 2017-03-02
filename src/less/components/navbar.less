@@ -122,11 +122,15 @@
 
 /*
  * 1. Align navs and items vertically if they have a different height
+ * 2. Note: IE 11 requires an extra `div` which affects the center selector
  */
 
 .uk-navbar-left,
 .uk-navbar-right,
-[class*='uk-navbar-center'] {
+// 2. [class*='uk-navbar-center'],
+.uk-navbar-center,
+.uk-navbar-center-left > *,
+.uk-navbar-center-right > *, {
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
