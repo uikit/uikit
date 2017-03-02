@@ -103,7 +103,6 @@
  *    Default color is set to transparent
  * 2. Container fits the text
  * 3. Fallback color for IE11
- * 4. Fallback if no background-image is set
  */
 
 .uk-text-background {
@@ -114,9 +113,15 @@
     display: inline-block;
     /* 3 */
     color: @text-background-color !important;
-    /* 4 */
-    background-color: @text-background-color;
-    .hook-text-background;
+}
+
+@supports (-webkit-background-clip: text) {
+
+    .uk-text-background {
+        background-color: @text-background-color;
+        .hook-text-background;
+    }
+
 }
 
 
