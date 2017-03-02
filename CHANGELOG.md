@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Dropdowns not closing immediate upon hovering other navbar item in Navbar component
+
 ## 3.0.0 beta 16 (March 01, 2017)
 
 ### Fixed
