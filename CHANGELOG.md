@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add tile component
+
 ### Fixed
 
 - Fix Dropdowns not closing immediate upon hovering other navbar item in Navbar component
