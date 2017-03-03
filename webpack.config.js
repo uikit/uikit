@@ -42,6 +42,29 @@ module.exports = [
     },
 
     {
+        entry: './tests/js/uikit',
+        output: {
+            filename: 'dist/js/uikit.min.js',
+            library: 'UIkit',
+            libraryTarget: 'umd'
+        },
+        module: loaders,
+        externals: {jquery: 'jQuery'},
+        resolve: {
+            alias: {
+                "components$": __dirname + "/dist/icons/components.json",
+            }
+        },
+        plugins: [
+            new webpack.optimize.UglifyJsPlugin,
+            new webpack.DefinePlugin({
+                BUNDLED: true,
+                VERSION: `'${version}'`
+            })
+        ]
+    },
+
+    {
         entry: './src/js/icons',
         output: {
             filename: 'dist/js/uikit-icons.js',
