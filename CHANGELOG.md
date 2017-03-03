@@ -6,6 +6,10 @@
 
 - Add tile component
 
+### Changed
+
+- Rename uk-background to uk-background-default
+
 ### Fixed
 
 - Fix Dropdowns not closing immediate upon hovering other navbar item in Navbar component
