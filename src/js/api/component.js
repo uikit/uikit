@@ -46,7 +46,7 @@ export default function (UIkit) {
         return UIkit.components[name];
     };
 
-    UIkit.getComponents = element => element && (isJQuery(element) ? element[0] : element) && element[DATA] || {};
+    UIkit.getComponents = element => element && (element = isJQuery(element) ? element[0] : element) && element[DATA] || {};
     UIkit.getComponent = (element, name) => UIkit.getComponents(element)[name];
 
     UIkit.connect = node => {
