@@ -115,20 +115,6 @@
 .uk-tile-secondary:extend(.uk-light all) when (@tile-secondary-color-mode = light) {}
 .uk-tile-secondary:extend(.uk-dark all) when (@tile-secondary-color-mode = dark) {}
 
-/*
- * Scrollable
- */
-
-.uk-tile-scrollable {
-    height: @tile-scrollable-height;
-    padding: @tile-scrollable-padding;
-    border: @tile-scrollable-border-width solid @tile-scrollable-border;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    resize: both;
-    .hook-tile-scrollable;
-}
-
 
 // Hooks
 // ========================================================================
@@ -140,5 +126,4 @@
 .hook-tile-muted() {}
 .hook-tile-primary() {}
 .hook-tile-secondary() {}
-.hook-tile-scrollable() {}
 .hook-tile-misc() {}
