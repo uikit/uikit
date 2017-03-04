@@ -8,6 +8,8 @@
 //                  `uk-tile-primary`
 //                  `uk-tile-secondary`
 //
+// States:          `uk-preserve-color`
+//
 // ========================================================================
 
 
@@ -99,8 +101,8 @@
 }
 
 // Color Mode
-.uk-tile-primary:extend(.uk-light all) when (@tile-primary-color-mode = light) {}
-.uk-tile-primary:extend(.uk-dark all) when (@tile-primary-color-mode = dark) {}
+.uk-tile-primary:not(.uk-preserve-color):extend(.uk-light all) when (@tile-primary-color-mode = light) {}
+.uk-tile-primary:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-primary-color-mode = dark) {}
 
 /*
  * Secondary
@@ -112,8 +114,8 @@
 }
 
 // Color Mode
-.uk-tile-secondary:extend(.uk-light all) when (@tile-secondary-color-mode = light) {}
-.uk-tile-secondary:extend(.uk-dark all) when (@tile-secondary-color-mode = dark) {}
+.uk-tile-secondary:not(.uk-preserve-color):extend(.uk-light all) when (@tile-secondary-color-mode = light) {}
+.uk-tile-secondary:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-secondary-color-mode = dark) {}
 
 
 // Hooks
