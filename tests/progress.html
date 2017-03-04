@@ -7,25 +7,6 @@
         <title>Progress - UIkit tests</title>
         <script src="../node_modules/jquery/dist/jquery.js"></script>
         <script src="js/test.js"></script>
-
-        <script>
-
-            jQuery(function () {
-
-                var animate = setInterval(function () {
-
-                    test.value += 10;
-
-                    if (test.value >= test.max) {
-                        clearInterval(animate);
-                    }
-
-                }, 1000);
-
-            });
-
-        </script>
-
     </head>
 
     <body>
@@ -54,6 +35,25 @@
             </div>
 
         </div>
+
+        <script>
+
+            jQuery(function () {
+
+                var animate = setInterval(function () {
+
+                    test.value += 10;
+
+                    if (test.value >= test.max) {
+                        clearInterval(animate);
+                    }
+
+                }, 1000);
+
+            });
+
+        </script>
+
 
     </body>
 </html>

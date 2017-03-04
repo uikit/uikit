@@ -1,4 +1,4 @@
-import { $, ready } from '../util/index';
+import { $, createEvent } from '../util/index';
 
 export default function (UIkit) {
 
@@ -10,7 +10,6 @@ export default function (UIkit) {
 
         if (!el[DATA]) {
             el[DATA] = {};
-            UIkit.elements.push(el);
         }
 
         if (el[DATA][name]) {
@@ -26,45 +25,36 @@ export default function (UIkit) {
 
         this._callHook('init');
 
-        this._initEvents();
-
-        ready(() => this._callReady());
-
+        if (document.documentElement.contains(el)) {
+            this._callConnected();
+        }
     };
 
-    UIkit.prototype.$update = function (e, element) {
-
-        element = element ? $(element)[0] : this.$el[0];
-
-        UIkit.elements.forEach(el => {
-            if (el[DATA] && (el === element || $.contains(element, el))) {
-                for (var name in el[DATA]) {
-                    el[DATA][name]._callUpdate(e);
-                }
-            }
-        });
+    UIkit.prototype.$emit = function (e) {
+        this._callUpdate(e);
     };
 
-    UIkit.prototype.$updateParents = function (e, element) {
+    UIkit.prototype.$emitSync = function (e) {
+        this._callUpdate(createEvent(e || 'update', true, false, {sync: true}));
+    };
 
-        element = element ? $(element)[0] : this.$el[0];
+    UIkit.prototype.$update = function (e, parents) {
+        UIkit.update(e, this.$el, parents);
+    };
 
-        UIkit.elements.forEach(el => {
-            if (el[DATA] && (el === element || $.contains(el, element))) {
-                for (var name in el[DATA]) {
-                    el[DATA][name]._callUpdate(e);
-                }
-            }
-        });
+    UIkit.prototype.$updateSync = function (e, parents) {
+        UIkit.update(createEvent(e || 'update', true, false, {sync: true}), this.$el, parents);
     };
 
     UIkit.prototype.$destroy = function (remove = false) {
 
-        this._callHook('destroy');
-
-        delete UIkit.instances[this._uid];
-
         var el = this.$options.el;
+
+        if (el) {
+            this._callDisconnected();
+        }
+
+        this._callHook('destroy');
 
         if (!el || !el[DATA]) {
             return;
@@ -74,12 +64,6 @@ export default function (UIkit) {
 
         if (!Object.keys(el[DATA]).length) {
             delete el[DATA];
-
-            var index = UIkit.elements.indexOf(el);
-
-            if (index !== -1) {
-                UIkit.elements.splice(index, 1);
-            }
         }
 
         if (remove) {

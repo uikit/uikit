@@ -6,9 +6,13 @@ export default function (UIkit) {
 
         props: ['width', 'height'],
 
+        init() {
+            this.$el.addClass('uk-responsive-width');
+        },
+
         update: {
 
-            handler() {
+            write() {
                 if (this.$el.is(':visible') && this.width && this.height) {
                     this.$el.height(Dimensions.fit(
                         {height: this.height, width: this.width},

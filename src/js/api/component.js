@@ -1,4 +1,4 @@
-import { $, camelize, isPlainObject } from '../util/index';
+import { $, camelize, isJQuery, isPlainObject, isString } from '../util/index';
 
 export default function (UIkit) {
 
@@ -6,17 +6,15 @@ export default function (UIkit) {
 
     UIkit.components = {};
 
-    UIkit.component = function (name, options) {
+    UIkit.component = function (id, options) {
 
-        UIkit.component.selector = (`${UIkit.component.selector},` || '') + `[uk-${name}]`;
-
-        name = camelize(name);
+        var name = camelize(id);
 
         if (isPlainObject(options)) {
             options.name = name;
             options = UIkit.extend(options);
         } else {
-            options.options.name = name
+            options.options.name = name;
         }
 
         UIkit.components[name] = options;
@@ -27,44 +25,59 @@ export default function (UIkit) {
                 return new UIkit.components[name]({data: element});
             }
 
-            var result = [];
+            if (UIkit.components[name].options.functional) {
+                return new UIkit.components[name]({data: [...arguments]});
+            }
 
             data = data || {};
+            element = isString
+                ? $(element)[0]
+                : isJQuery(element)
+                    ? element[0]
+                    : element;
 
-            $(element).each((i, el) => result.push(el[DATA] && el[DATA][name] || new UIkit.components[name]({el, data})));
-
-            return result;
+            return element && element[DATA] && element[DATA][name] || new UIkit.components[name]({el: element, data});
         };
+
+        if (document.body && !options.options.functional) {
+            UIkit[name](`[uk-${id}],[data-uk-${id}]`);
+        }
 
         return UIkit.components[name];
     };
 
-    UIkit.getComponents = element => element && element[DATA] || {};
+    UIkit.getComponents = element => element && (element = isJQuery(element) ? element[0] : element) && element[DATA] || {};
     UIkit.getComponent = (element, name) => UIkit.getComponents(element)[name];
 
-    UIkit.attachComponents = element => {
-        if (!element[DATA]) {
-            return;
+    UIkit.connect = node => {
+
+        var name;
+
+        if (node[DATA]) {
+            for (name in node[DATA]) {
+                node[DATA][name]._callConnected();
+            }
         }
 
-        if (UIkit.elements.indexOf(element) === -1) {
-            UIkit.elements.push(element);
+        for (var i = 0; i < node.attributes.length; i++) {
+
+            name = node.attributes[i].name;
+
+            if (name.lastIndexOf('uk-', 0) === 0 || name.lastIndexOf('data-uk-', 0) === 0) {
+
+                name = camelize(name.replace('data-uk-', '').replace('uk-', ''));
+
+                if (UIkit[name]) {
+                    UIkit[name](node);
+                }
+            }
         }
 
-        for (var name in element[DATA]) {
-            UIkit.instances[element[DATA][name]._uid] = element[DATA][name];
-        }
     };
 
-    UIkit.detachComponents = element => {
-
-        var index = UIkit.elements.indexOf(element);
-        if (index !== -1) {
-            UIkit.elements.splice(index, 1);
-        }
-
-        for (var name in element[DATA]) {
-            delete UIkit.instances[element[DATA][name]._uid];
+    UIkit.disconnect = node => {
+        for (var name in node[DATA]) {
+            node[DATA][name]._callDisconnected();
         }
     }
 

@@ -1,13 +1,20 @@
-import { extend, isArray, hasOwn } from './index';
+import { extend, isArray, isFunction, isUndefined, hasOwn } from './index';
 
 var strats = {};
 
 // concat strategy
+strats.args =
+strats.attrs =
 strats.created =
+strats.events =
 strats.init =
 strats.ready =
-strats.update =
+strats.connected =
+strats.disconnected =
 strats.destroy = function (parentVal, childVal) {
+
+    parentVal = parentVal && !isArray(parentVal) ? [parentVal] : parentVal;
+
     return childVal
         ? parentVal
             ? parentVal.concat(childVal)
@@ -17,43 +24,19 @@ strats.destroy = function (parentVal, childVal) {
         : parentVal;
 };
 
-// events strategy
-strats.events = function (parentVal, childVal) {
-
-    if (!childVal) {
-        return parentVal;
-    }
-
-    if (!parentVal) {
-        return childVal;
-    }
-
-    var ret = extend({}, parentVal);
-
-    for (var key in childVal) {
-        var parent = ret[key], child = childVal[key];
-
-        if (parent && !isArray(parent)) {
-            parent = [parent]
-        }
-
-        ret[key] = parent
-            ? parent.concat(child)
-            : [child]
-    }
-
-    return ret;
+// update strategy
+strats.update = function (parentVal, childVal) {
+    return strats.args(parentVal, isFunction(childVal) ? {write: childVal} : childVal);
 };
 
 // property strategy
 strats.props = function (parentVal, childVal) {
 
     if (isArray(childVal)) {
-        var ret = {};
-        childVal.forEach(val => {
-            ret[val] = String;
-        });
-        childVal = ret;
+        childVal = childVal.reduce((value, key) => {
+            value[key] = String;
+            return value;
+        }, {});
     }
 
     return strats.methods(parentVal, childVal);
@@ -64,23 +47,23 @@ strats.defaults =
 strats.methods = function (parentVal, childVal) {
     return childVal
         ? parentVal
-            ? extend({}, parentVal, childVal)
+            ? extend(true, {}, parentVal, childVal)
             : childVal
         : parentVal;
 };
 
 // default strategy
 var defaultStrat = function (parentVal, childVal) {
-    return childVal === undefined ? parentVal : childVal;
+    return isUndefined(childVal) ? parentVal : childVal;
 };
 
-export function mergeOptions (parent, child, thisArg) {
+export function mergeOptions(parent, child) {
 
     var options = {}, key;
 
     if (child.mixins) {
         for (let i = 0, l = child.mixins.length; i < l; i++) {
-            parent = mergeOptions(parent, child.mixins[i], thisArg);
+            parent = mergeOptions(parent, child.mixins[i]);
         }
     }
 
@@ -94,8 +77,8 @@ export function mergeOptions (parent, child, thisArg) {
         }
     }
 
-    function mergeKey (key) {
-        options[key] = (strats[key] || defaultStrat)(parent[key], child[key], thisArg, key);
+    function mergeKey(key) {
+        options[key] = (strats[key] || defaultStrat)(parent[key], child[key]);
     }
 
     return options;

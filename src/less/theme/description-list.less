@@ -7,11 +7,19 @@
 // Variables
 // ========================================================================
 
+@description-list-term-font-size:                      @global-small-font-size;
+@description-list-term-font-weight:                    normal;
+@description-list-term-text-transform:                 uppercase;
+
 
 // Component
 // ========================================================================
 
-.hook-description-list-term() {}
+.hook-description-list-term() {
+    font-size: @description-list-term-font-size;
+    font-weight: @description-list-term-font-weight;
+    text-transform: @description-list-term-text-transform;
+}
 
 .hook-description-list-description() {}
 

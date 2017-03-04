@@ -46,6 +46,7 @@
 
                     <p uk-margin>
                         <a class="uk-button uk-button-default" href="#modal-container" uk-toggle>Container</a>
+                        <a class="uk-button uk-button-default" href="#modal-expand" uk-toggle>Expand</a>
                         <a class="uk-button uk-button-default" href="#modal-widths" uk-toggle>Widths</a>
                         <a class="uk-button uk-button-default" href="#modal-full" uk-toggle>Full</a>
                         <a class="uk-button uk-button-default" href="#modal-full-split" uk-toggle>Full Split</a>
@@ -108,7 +109,7 @@
         <div class="uk-container">
 
             <p>
-                <button class="uk-button uk-button-default" uk-toggle="target: #scrollbar">Toggle scrollbar</button>
+                <button class="uk-button uk-button-default" type="button" uk-toggle="target: #scrollbar">Toggle scrollbar</button>
             </p>
 
             <div id="scrollbar">
@@ -159,13 +160,13 @@
                             <td></td>
                         </tr>
                         <tr>
-                            <td><code>escClose</code></td>
+                            <td><code>esc-close</code></td>
                             <td>Boolean</td>
                             <td>true</td>
                             <td>Close the modal when <em>Esc</em> key is pressed.</td>
                         </tr>
                         <tr>
-                            <td><code>bgClose</code></td>
+                            <td><code>bg-close</code></td>
                             <td>Boolean</td>
                             <td>true</td>
                             <td>Close the modal when background is clicked.</td>
@@ -248,6 +249,13 @@
 
         <div id="modal-container" class="uk-modal-container" uk-modal>
             <div class="uk-modal-dialog uk-modal-body">
+                <button class="uk-modal-close-default" type="button" uk-close></button>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            </div>
+        </div>
+
+        <div id="modal-expand" uk-modal>
+            <div class="uk-modal-dialog uk-modal-body uk-width-1-1">
                 <button class="uk-modal-close-default" type="button" uk-close></button>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </div>
@@ -461,7 +469,7 @@
                 $('#modal-alert').on('click', function (e) {
                     e.preventDefault();
                     $(this).blur();
-                    UIkit.modal.alert('UIkit alert!').then(function() {
+                    UIkit.modal.alert('UIkit alert!').then(function () {
                         console.log('Alert closed.')
                     });
                 });
@@ -469,7 +477,7 @@
                 $('#modal-confirm').on('click', function (e) {
                     e.preventDefault();
                     $(this).blur();
-                    UIkit.modal.confirm('UIkit confirm!').then(function() {
+                    UIkit.modal.confirm('UIkit confirm!').then(function () {
                         console.log('Confirmed.')
                     }, function () {
                         console.log('Rejected.')
@@ -479,7 +487,7 @@
                 $('#modal-prompt').on('click', function (e) {
                     e.preventDefault();
                     $(this).blur();
-                    UIkit.modal.prompt('Name:', 'Your name').then(function(name) {
+                    UIkit.modal.prompt('Name:', 'Your name').then(function (name) {
                         console.log('Prompted:', name)
                     });
                 });

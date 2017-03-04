@@ -9,7 +9,9 @@
 //                  `uk-section-primary`
 //                  `uk-section-secondary`
 //                  `uk-section-media`
-//                  `uk-preserve-color`
+//                  `uk-section-overlap`
+//
+// States:          `uk-preserve-color`
 //
 // ========================================================================
 
@@ -19,6 +21,8 @@
 
 @section-padding-vertical:                        @global-medium-margin;
 @section-padding-vertical-m:                      @global-large-margin;
+
+@section-xsmall-padding-vertical:                 @global-margin;
 
 @section-small-padding-vertical:                  @global-medium-margin;
 
@@ -85,6 +89,15 @@
 
 /* Size modifiers
  ========================================================================== */
+
+/*
+ * XSmall
+ */
+
+.uk-section-xsmall {
+    padding-top: @section-xsmall-padding-vertical;
+    padding-bottom: @section-xsmall-padding-vertical;
+}
 
 /*
  * Small
@@ -166,7 +179,7 @@
 }
 
 .uk-section-primary:not(.uk-preserve-color):extend(.uk-light all) when (@section-primary-color-mode = light) {}
-.uk-section-primary:not(.uk-preserve-color):extend(.uk-light all) when (@section-primary-color-mode = dark) {}
+.uk-section-primary:not(.uk-preserve-color):extend(.uk-dark all) when (@section-primary-color-mode = dark) {}
 
 
 /*
@@ -179,7 +192,7 @@
 }
 
 .uk-section-secondary:not(.uk-preserve-color):extend(.uk-light all) when (@section-secondary-color-mode = light) {}
-.uk-section-secondary:not(.uk-preserve-color):extend(.uk-light all) when (@section-secondary-color-mode = dark) {}
+.uk-section-secondary:not(.uk-preserve-color):extend(.uk-dark all) when (@section-secondary-color-mode = dark) {}
 
 
 /*
@@ -188,6 +201,18 @@
 
 .uk-section-media {
     .hook-section-media;
+}
+
+/* Overlap modifier
+ ========================================================================== */
+
+/*
+ * Reserved modifier to make a section overlap another section with an border image
+ * Implemented by the theme
+ */
+
+.uk-section-overlap {
+    .hook-section-overlap;
 }
 
 
@@ -202,4 +227,5 @@
 .hook-section-secondary() {}
 .hook-section-primary() {}
 .hook-section-media() {}
+.hook-section-overlap() {}
 .hook-section-misc() {}

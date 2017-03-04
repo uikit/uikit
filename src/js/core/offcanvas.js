@@ -1,11 +1,13 @@
-import { transitionend } from '../util/index';
 import { Modal } from '../mixin/index';
+import { docElement, transitionend } from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('offcanvas', {
 
         mixins: [Modal],
+
+        args: 'mode',
 
         props: {
             mode: String,
@@ -28,7 +30,7 @@ export default function (UIkit) {
             selClose: '.uk-offcanvas-close'
         },
 
-        ready() {
+        init() {
 
             this.clsFlip = this.flip ? this.clsFlip : '';
             this.clsOverlay = this.overlay ? this.clsOverlay : '';
@@ -47,10 +49,10 @@ export default function (UIkit) {
 
         update: {
 
-            handler() {
+            write() {
 
                 if (this.isActive()) {
-                    this.page.width(window.innerWidth - this.getScrollbarWidth());
+                    docElement.width(window.innerWidth - this.getScrollbarWidth());
                 }
 
             },
@@ -59,46 +61,47 @@ export default function (UIkit) {
 
         },
 
-        events: {
+        events: [
 
-            beforeshow(e) {
+            {
+                name: 'beforeshow',
 
-                if (!this.$el.is(e.target)) {
-                    return;
+                self: true,
+
+                handler() {
+                    docElement.addClass(`${this.clsFlip} ${this.clsPageAnimation} ${this.clsPageOverlay}`);
+                    this.panel.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
+                    this.$el.addClass(this.clsOverlay).css('display', 'block').height();
                 }
-
-                this.page.addClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageAnimation} ${this.clsPageOverlay}`);
-                this.panel.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
-                this.$el.addClass(this.clsOverlay).css('display', 'block').height();
-
             },
 
-            beforehide(e) {
+            {
+                name: 'beforehide',
 
-                if (!this.$el.is(e.target)) {
-                    return;
+                self: true,
+
+                handler() {
+                    docElement.removeClass(this.clsPageAnimation);
+
+                    if (this.mode === 'none' || this.getActive() && this.getActive() !== this) {
+                        this.panel.trigger(transitionend);
+                    }
                 }
-
-                this.page.removeClass(this.clsPageAnimation).css('margin-left', '');
-
-                if (this.mode === 'none' || this.getActive() && this.getActive() !== this) {
-                    this.panel.trigger(transitionend);
-                }
-
             },
 
-            hide(e) {
+            {
+                name: 'hide',
 
-                if (!this.$el.is(e.target)) {
-                    return;
+                self: true,
+
+                handler() {
+                    docElement.removeClass(`${this.clsFlip} ${this.clsPageOverlay}`).width('');
+                    this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
+                    this.$el.removeClass(this.clsOverlay).css('display', '');
                 }
-
-                this.page.removeClass(`${this.clsPage} ${this.clsFlip} ${this.clsPageOverlay}`).width('');
-                this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
-                this.$el.removeClass(this.clsOverlay).css('display', '');
             }
 
-        }
+        ]
 
     });
 

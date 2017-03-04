@@ -1,0 +1,131 @@
+// Name:            Tile
+// Description:     Component to create tiled boxes
+//
+// Component:       `uk-tile`
+//
+// Modifiers:       `uk-tile-default`
+//                  `uk-tile-muted`
+//                  `uk-tile-primary`
+//                  `uk-tile-secondary`
+//
+// States:          `uk-preserve-color`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@tile-padding-horizontal:                      @global-gutter;
+@tile-padding-vertical:                        @global-gutter;
+
+@tile-padding-horizontal-l:                    @global-medium-gutter;
+@tile-padding-vertical-l:                      @global-medium-gutter;
+
+@tile-default-background:                      @global-background;
+
+@tile-muted-background:                        @global-muted-background;
+
+@tile-primary-background:                      @global-primary-background;
+@tile-primary-color-mode:                      light;
+
+@tile-secondary-background:                    @global-secondary-background;
+@tile-secondary-color-mode:                    light;
+
+
+/* ========================================================================
+   Component: Tile
+ ========================================================================== */
+
+.uk-tile {
+    position: relative;
+    box-sizing: border-box;
+    padding: @tile-padding-vertical @tile-padding-horizontal;
+    .hook-tile;
+}
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-tile { padding: @tile-padding-vertical-l @tile-padding-horizontal-l; }
+
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-tile::before,
+.uk-tile::after {
+    content: "";
+    display: table;
+}
+
+.uk-tile::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-tile > :last-child { margin-bottom: 0; }
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+.uk-tile-default {
+    background: @tile-default-background;
+    .hook-tile-default;
+}
+
+/*
+ * Muted
+ */
+
+.uk-tile-muted {
+    background: @tile-muted-background;
+    .hook-tile-muted;
+}
+
+/*
+ * Primary
+ */
+
+.uk-tile-primary {
+    background: @tile-primary-background;
+    .hook-tile-primary;
+}
+
+// Color Mode
+.uk-tile-primary:not(.uk-preserve-color):extend(.uk-light all) when (@tile-primary-color-mode = light) {}
+.uk-tile-primary:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-primary-color-mode = dark) {}
+
+/*
+ * Secondary
+ */
+
+.uk-tile-secondary {
+    background: @tile-secondary-background;
+    .hook-tile-secondary;
+}
+
+// Color Mode
+.uk-tile-secondary:not(.uk-preserve-color):extend(.uk-light all) when (@tile-secondary-color-mode = light) {}
+.uk-tile-secondary:not(.uk-preserve-color):extend(.uk-dark all) when (@tile-secondary-color-mode = dark) {}
+
+
+// Hooks
+// ========================================================================
+
+.hook-tile-misc;
+
+.hook-tile() {}
+.hook-tile-default() {}
+.hook-tile-muted() {}
+.hook-tile-primary() {}
+.hook-tile-secondary() {}
+.hook-tile-misc() {}

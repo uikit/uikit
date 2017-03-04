@@ -1,8 +1,7 @@
 // Copyright (c) 2010-2016 Thomas Fuchs
 // http://zeptojs.com/
 
-import $ from 'jquery';
-import { pointerDown, pointerMove, pointerUp, ready } from './index';
+import { $, doc, pointerDown, pointerMove, pointerUp, ready, win } from './index';
 
 var touch = {}, touchTimeout, tapTimeout, swipeTimeout, longTapTimeout, longTapDelay = 750, gesture, clicked;
 
@@ -42,7 +41,7 @@ ready(function () {
 
     document.addEventListener('click', () => clicked = true, true);
 
-    $(document)
+    doc
 
         .on('MSGestureEnd gestureend', function (e) {
 
@@ -76,7 +75,7 @@ ready(function () {
                 gesture.addPointer(e.originalEvent.pointerId);
             }
 
-            clicked = false;
+            clicked = e.button > 0;
 
         })
         .on(pointerMove, function (e) {
@@ -159,5 +158,23 @@ ready(function () {
 
     // scrolling the window indicates intention of the user
     // to scroll, not tap or swipe, so cancel all ongoing events
-    $(window).on('scroll', cancelAll);
+    win.on('scroll', cancelAll);
 });
+
+var touching = false;
+
+doc.on({
+
+    touchstart() {
+        touching = true;
+    },
+
+    ['click touchcancel']() {
+        touching = false;
+    }
+
+});
+
+export function isTouch(e) {
+    return touching || e.originalEvent && e.originalEvent.pointerType === 'touch';
+}

@@ -7,11 +7,6 @@
         <title>Height Viewport - UIkit tests</title>
         <script src="../node_modules/jquery/dist/jquery.js"></script>
         <script src="js/test.js"></script>
-        <style type="text/css">
-
-            .test-bg { background-color: red; }
-
-        </style>
     </head>
 
     <body>
@@ -20,7 +15,7 @@
 
             <h1>Height Viewport</h1>
 
-            <div class="uk-child-width-1-3@m uk-light" uk-grid>
+            <div class="uk-child-width-1-6@m uk-light" uk-grid>
                 <div>
 
                     <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center uk-height-viewport">
@@ -37,14 +32,52 @@
                 </div>
                 <div>
 
-                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="mode: offset">
-                        <h1>JS Offset</h1>
+                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="offset-top: true">
+                        <div>
+                            <h1>JS</h1>
+                            <div>top: true</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="offset-top: true; offset-bottom: true">
+                        <div>
+                            <h1>JS</h1>
+                            <div>top: true</div>
+                            <div>bottom: true</div>
+                        </div>
+                    </div>
+
+                    <div class="uk-padding uk-background-secondary">Lorem ipsum dolor sit amet.</div>
+
+                </div>
+                <div>
+
+                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="offset-top: true; offset-bottom: 10">
+                        <div>
+                            <h1>JS</h1>
+                            <div>top: true</div>
+                            <div>bottom: 10%</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="offset-top: true; offset-bottom: 50px">
+                        <div>
+                            <h1>JS</h1>
+                            <div>top: true</div>
+                            <div>bottom: 50px</div>
+                        </div>
                     </div>
 
                 </div>
             </div>
 
-            <div class="uk-child-width-1-3@m uk-light" uk-grid>
+            <div class="uk-child-width-1-6@m uk-light" uk-grid>
                 <div>
 
                     <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center uk-height-viewport">
@@ -61,8 +94,46 @@
                 </div>
                 <div>
 
-                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="mode: offset">
-                        <h1>JS Offset</h1>
+                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="offset-top: true">
+                        <div>
+                            <h1>JS</h1>
+                            <div>top: true</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="offset-top: true; offset-bottom: true">
+                        <div>
+                            <h1>JS</h1>
+                            <div>top: true</div>
+                            <div>bottom: true</div>
+                        </div>
+                    </div>
+
+                    <div class="uk-padding uk-background-secondary">Lorem ipsum dolor sit amet.</div>
+
+                </div>
+                <div>
+
+                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="offset-top: true; offset-bottom: 10">
+                        <div>
+                            <h1>JS</h1>
+                            <div>top: true</div>
+                            <div>bottom: 10%</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <div class="uk-section uk-section-primary uk-flex uk-flex-center uk-flex-middle uk-text-center" uk-height-viewport="offset-top: true; offset-bottom: 50px">
+                        <div>
+                            <h1>JS</h1>
+                            <div>top: true</div>
+                            <div>bottom: 50px</div>
+                        </div>
                     </div>
 
                 </div>
@@ -82,10 +153,22 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>mode</code></td>
-                            <td>viewport|offset|expand</td>
-                            <td>viewport</td>
-                            <td>viewport: Set the element's height to viewport height.<br/>offset: Subtract the element's offset top from its height. <br/>expand: Expand the element's height to make the document fill the viewport.</td>
+                            <td><code>expand</code></td>
+                            <td>false</td>
+                            <td>Boolean</td>
+                            <td>Expands the element's height to make the document fill the viewport.</td>
+                        </tr>
+                        <tr>
+                            <td><code>offset-top</code></td>
+                            <td>false</td>
+                            <td>Boolean</td>
+                            <td>Subtracts the element's offset top from its height.</td>
+                        </tr>
+                        <tr>
+                            <td><code>offset-bottom</code></td>
+                            <td>false</td>
+                            <td>Boolean|Number|Pixel|selector</td>
+                            <td>Subtracts the element's immediately following sibling's height (true), the given percentage (Number), Pixel (px) value from its own height or the given element's height.</td>
                         </tr>
                     </tbody>
                 </table>

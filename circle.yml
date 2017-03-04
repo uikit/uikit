@@ -1,0 +1,11 @@
+machine:
+  node:
+    version: 6.1.0
+
+compile:
+  override:
+    - npm run compile
+
+test:
+  override:
+    - echo test

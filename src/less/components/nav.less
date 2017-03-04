@@ -46,7 +46,7 @@
 
 @nav-default-item-color:                        @global-muted-color;
 @nav-default-item-hover-color:                  @global-color;
-@nav-default-item-active-color:                 @global-color;
+@nav-default-item-active-color:                 @global-emphasis-color;
 @nav-default-header-color:                      @global-emphasis-color;
 @nav-default-divider-border-width:              @global-border-width;
 @nav-default-divider-border:                    @global-border;
@@ -56,15 +56,15 @@
 @nav-primary-item-font-size:                    @global-large-font-size;
 @nav-primary-item-color:                        @global-muted-color;
 @nav-primary-item-hover-color:                  @global-color;
-@nav-primary-item-active-color:                 @global-color;
+@nav-primary-item-active-color:                 @global-emphasis-color;
 @nav-primary-header-color:                      @global-emphasis-color;
 @nav-primary-divider-border-width:              @global-border-width;
 @nav-primary-divider-border:                    @global-border;
 @nav-primary-sublist-item-color:                @global-muted-color;
 @nav-primary-sublist-item-hover-color:          @global-color;
 
-@internal-image-nav-parent-close:               "../../../images/nav-parent-close.svg";
-@internal-image-nav-parent-open:                "../../../images/nav-parent-open.svg";
+@internal-nav-parent-close-image:               "../../images/backgrounds/nav-parent-close.svg";
+@internal-nav-parent-open-image:                "../../images/backgrounds/nav-parent-open.svg";
 
 
 /* ========================================================================
@@ -137,13 +137,13 @@ ul.uk-nav-sub {
     width: @nav-parent-icon-width;
     height: @nav-parent-icon-height;
     float: right;
-    .svg-fill(@internal-image-nav-parent-close, "#000", @nav-parent-icon-color);
+    .svg-fill(@internal-nav-parent-close-image, "#000", @nav-parent-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
     .hook-nav-parent-icon;
 }
 
-.uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill(@internal-image-nav-parent-open, "#000", @nav-parent-icon-color); }
+.uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill(@internal-nav-parent-open-image, "#000", @nav-parent-icon-color); }
 
 
 /* Header
@@ -326,7 +326,7 @@ ul.uk-nav-sub {
 @inverse-nav-parent-icon-color:                @inverse-global-color;
 @inverse-nav-default-item-color:               @inverse-global-muted-color;
 @inverse-nav-default-item-hover-color:         @inverse-global-color;
-@inverse-nav-default-item-active-color:        @inverse-global-color;
+@inverse-nav-default-item-active-color:        @inverse-global-emphasis-color;
 @inverse-nav-default-header-color:             @inverse-global-emphasis-color;
 @inverse-nav-default-divider-border:           @inverse-global-border;
 @inverse-nav-default-sublist-item-color:       @inverse-global-muted-color;
@@ -334,7 +334,7 @@ ul.uk-nav-sub {
 
 @inverse-nav-primary-item-color:               @inverse-global-muted-color;
 @inverse-nav-primary-item-hover-color:         @inverse-global-color;
-@inverse-nav-primary-item-active-color:        @inverse-global-color;
+@inverse-nav-primary-item-active-color:        @inverse-global-emphasis-color;
 @inverse-nav-primary-header-color:             @inverse-global-emphasis-color;
 @inverse-nav-primary-divider-border:           @inverse-global-border;
 @inverse-nav-primary-sublist-item-color:       @inverse-global-muted-color;
@@ -347,11 +347,11 @@ ul.uk-nav-sub {
     //
 
     .uk-nav-parent-icon > .uk-parent > a::after {
-        .svg-fill(@internal-image-nav-parent-close, "#000", @inverse-nav-parent-icon-color);
+        .svg-fill(@internal-nav-parent-close-image, "#000", @inverse-nav-parent-icon-color);
         .hook-inverse-nav-parent-icon;
     }
 
-    .uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill(@internal-image-nav-parent-open, "#000", @inverse-nav-parent-icon-color); }
+    .uk-nav-parent-icon > .uk-parent.uk-open > a::after { .svg-fill(@internal-nav-parent-open-image, "#000", @inverse-nav-parent-icon-color); }
 
     //
     // Default

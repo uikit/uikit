@@ -15,9 +15,6 @@
 @form-small-line-height:                        @form-small-height - (2* @form-border-width);
 @form-large-line-height:                        @form-large-height - (2* @form-border-width);
 
-@form-danger-color:                             @form-color;
-@form-success-color:                            @form-color;
-
 @form-radio-background:                         transparent;
 
 @form-stacked-margin-bottom:                    5px;
@@ -48,6 +45,7 @@
 
 @form-radio-disabled-border:                    @global-border;
 
+@form-label-color:                              @global-emphasis-color;
 @form-label-font-size:                          @global-small-font-size;
 
 
@@ -115,7 +113,10 @@
 // Label
 // ========================================================================
 
-.hook-form-label() { font-size: @form-label-font-size; }
+.hook-form-label() {
+    color: @form-label-color;
+    font-size: @form-label-font-size;
+}
 
 
 // Layout
@@ -135,6 +136,8 @@
 // Inverse
 // ========================================================================
 
+@inverse-form-label-color:                      @inverse-global-emphasis-color;
+
 .hook-inverse-form() { border-color: @inverse-global-border; }
 .hook-inverse-form-focus() { border-color: @inverse-global-color; }
 
@@ -144,4 +147,4 @@
 .hook-inverse-form-radio-checked() { border-color: @inverse-global-color; }
 .hook-inverse-form-radio-checked-focus() {}
 
-.hook-inverse-form-label() {}
+.hook-inverse-form-label() { color: @inverse-form-label-color; }

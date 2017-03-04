@@ -12,6 +12,7 @@
 //                  `uk-responsive-*`
 //                  `uk-preserve-width`
 //                  `uk-border-*`
+//                  `uk-box-shadow-*`
 //                  `uk-dropcap`
 //                  `uk-logo`
 //                  `uk-svg`
@@ -39,6 +40,8 @@
 @height-large-height:                           450px;
 
 @border-rounded-border-radius:                  5px;
+
+@box-shadow-duration:                           0.1s;
 
 @dropcap-margin-right:                          10px;
 @dropcap-font-size:                             ((@global-line-height * 3) * 1em);
@@ -198,8 +201,7 @@
 /* Height
  ========================================================================== */
 
-[class*='uk-height'],
-[uk-height-viewport] { box-sizing: border-box; }
+[class*='uk-height'] { box-sizing: border-box; }
 
 /*
  * Only works if parent element has a height set
@@ -248,16 +250,14 @@
  */
 
 .uk-responsive-width,
-.uk-responsive-height,
-[uk-responsive] { box-sizing: border-box; }
+.uk-responsive-height { box-sizing: border-box; }
 
 /*
  * 1. Set a maximum width. `important` needed to override `uk-preserve-width img`
  * 2. Auto scale the height. Only needed if `height` attribute is present
  */
 
-.uk-responsive-width,
-[uk-responsive] {
+.uk-responsive-width {
     /* 1 */
     max-width: 100% !important;
     /* 2 */
@@ -285,6 +285,29 @@
 
 .uk-border-circle { border-radius: 50%; }
 .uk-border-rounded { border-radius: @border-rounded-border-radius; }
+
+
+/* Box-shadow
+ ========================================================================== */
+
+.uk-box-shadow-small { box-shadow: @global-small-box-shadow; }
+.uk-box-shadow-medium { box-shadow: @global-medium-box-shadow; }
+.uk-box-shadow-large { box-shadow: @global-large-box-shadow; }
+.uk-box-shadow-xlarge { box-shadow: @global-xlarge-box-shadow; }
+
+/*
+ * Hover
+ */
+
+[class*='uk-box-shadow-hover'] {
+    -webkit-transition: box-shadow @box-shadow-duration ease-in-out;
+    transition: box-shadow @box-shadow-duration ease-in-out;
+}
+
+.uk-box-shadow-hover-small:hover { box-shadow: @global-small-box-shadow; }
+.uk-box-shadow-hover-medium:hover { box-shadow: @global-medium-box-shadow; }
+.uk-box-shadow-hover-large:hover { box-shadow: @global-large-box-shadow; }
+.uk-box-shadow-hover-xlarge:hover { box-shadow: @global-xlarge-box-shadow; }
 
 
 /* Drop cap
@@ -329,7 +352,6 @@
 
 .uk-logo-inverse { display: none; }
 
-.uk-icon [stroke-width] { stroke: currentcolor; }
 
 /* SVG
  ========================================================================== */
@@ -342,8 +364,8 @@
 /* 1 */
 .uk-svg,
 /* 2 */
-.uk-svg [fill*='#']:not(.uk-preserve) { fill: currentcolor; }
-.uk-svg [stroke*='#']:not(.uk-preserve) { stroke: currentcolor; }
+.uk-svg:not(.uk-preserve) [fill*='#']:not(.uk-preserve) { fill: currentcolor; }
+.uk-svg:not(.uk-preserve) [stroke*='#']:not(.uk-preserve) { stroke: currentcolor; }
 
 /*
  * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
@@ -484,7 +506,7 @@
         .hook-inverse-logo-hover;
     }
 
-    .uk-logo > :not(.uk-logo-inverse):not(:only-child) { display: none; }
+    .uk-logo > :not(.uk-logo-inverse):not(:only-of-type) { display: none; }
     .uk-logo-inverse { display: inline; }
 
 }

@@ -20,9 +20,10 @@
 // New
 //
 
-@card-hover-box-shadow:                        0 14px 25px rgba(0,0,0,0.16);
+@card-hover-box-shadow:                        @global-large-box-shadow;
 
-@card-default-box-shadow:                      0 14px 15px rgba(0,0,0,0.08);
+@card-default-box-shadow:                      @global-medium-box-shadow;
+@card-default-hover-box-shadow:                @global-large-box-shadow;
 
 @card-default-header-border-width:             @global-border-width;
 @card-default-header-border:                   @global-border;
@@ -30,14 +31,20 @@
 @card-default-footer-border-width:             @global-border-width;
 @card-default-footer-border:                   @global-border;
 
-@card-primary-box-shadow:                      0 5px 15px rgba(0,0,0,0.08);
-@card-secondary-box-shadow:                    0 5px 15px rgba(0,0,0,0.08);
+@card-primary-box-shadow:                      @global-medium-box-shadow;
+@card-primary-hover-box-shadow:                @global-large-box-shadow;
+
+@card-secondary-box-shadow:                    @global-medium-box-shadow;
+@card-secondary-hover-box-shadow:              @global-large-box-shadow;
 
 
 // Component
 // ========================================================================
 
-.hook-card() {}
+.hook-card() {
+    -webkit-transition: box-shadow 0.1s ease-in-out;
+    transition: box-shadow 0.1s ease-in-out;
+}
 
 
 // Sections
@@ -89,7 +96,7 @@
 
 .hook-card-default-title() {}
 
-.hook-card-default-hover() {}
+.hook-card-default-hover() { box-shadow: @card-default-hover-box-shadow; }
 
 .hook-card-default-header() { border-bottom: @card-default-header-border-width solid @card-default-header-border; }
 
@@ -103,7 +110,7 @@
 
 .hook-card-primary-title() {}
 
-.hook-card-primary-hover() {}
+.hook-card-primary-hover() { box-shadow: @card-primary-hover-box-shadow; }
 
 //
 // Secondary
@@ -113,7 +120,7 @@
 
 .hook-card-secondary-title() {}
 
-.hook-card-secondary-hover() {}
+.hook-card-secondary-hover() { box-shadow: @card-secondary-hover-box-shadow; }
 
 
 // Miscellaneous

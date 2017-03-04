@@ -10,11 +10,8 @@
 
         <style>
 
-            .test-item > * {
-                display: block;
-                padding: 5px 15px;
-                background: red !important;
-                color: #444;
+            .test-item {
+                font-size: 0.875rem;
             }
 
         </style>
@@ -131,7 +128,7 @@
 
             <h2>Nav + Custom Drag Class</h2>
 
-            <ul class="uk-nav uk-nav-default uk-width-1-4@m" uk-sortable="clsCustom: test-item">
+            <ul class="uk-nav uk-nav-default uk-width-1-4@m" uk-sortable="cls-custom: test-item uk-box-shadow-small uk-link-muted uk-flex uk-flex-middle uk-background-default">
                 <li class="uk-active"><a href="#">Active</a></li>
                 <li><a href="#">Item</a></li>
                 <li><a href="#">Item</a></li>
@@ -239,49 +236,49 @@
                             <td>Mouse move threshold before dragging starts.</td>
                         </tr>
                         <tr>
-                            <td><code>clsItem</code></td>
+                            <td><code>cls-item</code></td>
                             <td>String</td>
                             <td>uk-sortable-item</td>
                             <td>The item class.</td>
                         </tr>
                         <tr>
-                            <td><code>clsPlaceholder</code></td>
+                            <td><code>cls-placeholder</code></td>
                             <td>String</td>
                             <td>uk-sortable-placeholder</td>
                             <td>The placeholder class.</td>
                         </tr>
                         <tr>
-                            <td><code>clsDrag</code></td>
+                            <td><code>cls-drag</code></td>
                             <td>String</td>
                             <td>uk-sortable-drag</td>
                             <td>The ghost class.</td>
                         </tr>
                         <tr>
-                            <td><code>clsDragState</code></td>
+                            <td><code>clsDrag-state</code></td>
                             <td>String</td>
                             <td>uk-sortable-dragging</td>
                             <td>The body's dragging class.</td>
                         </tr>
                         <tr>
-                            <td><code>clsBase</code></td>
+                            <td><code>cls-base</code></td>
                             <td>String</td>
                             <td>uk-sortable</td>
                             <td>The list's class.</td>
                         </tr>
                         <tr>
-                            <td><code>clsNoDrag</code></td>
+                            <td><code>clsNo-drag</code></td>
                             <td>String</td>
                             <td>uk-sortable-nodrag</td>
                             <td>Prevent dragging on elements with this class.</td>
                         </tr>
                         <tr>
-                            <td><code>clsEmpty</code></td>
+                            <td><code>cls-empty</code></td>
                             <td>String</td>
                             <td>uk-sortable-empty</td>
                             <td>The empty list class.</td>
                         </tr>
                         <tr>
-                            <td><code>clsCustom</code></td>
+                            <td><code>cls-custom</code></td>
                             <td>String</td>
                             <td>''</td>
                             <td>The ghost's custom class.</td>

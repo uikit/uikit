@@ -1,21 +1,5 @@
-import { $, Animation, extend, isString, Transition } from '../util/index';
-
-var initProps = {
-        overflow: '',
-        height: '',
-        paddingTop: '',
-        paddingBottom: '',
-        marginTop: '',
-        marginBottom: ''
-    },
-    hideProps = {
-        overflow: 'hidden',
-        height: 0,
-        paddingTop: 0,
-        paddingBottom: 0,
-        marginTop: 0,
-        marginBottom: 0
-    };
+import UIkit from '../api/index';
+import { $, Animation, extend, isString, promise, Transition } from '../util/index';
 
 export default {
 
@@ -34,7 +18,26 @@ export default {
         duration: 200,
         origin: false,
         transition: 'linear',
-        queued: false
+        queued: false,
+
+        initProps: {
+            overflow: '',
+            height: '',
+            paddingTop: '',
+            paddingBottom: '',
+            marginTop: '',
+            marginBottom: ''
+        },
+
+        hideProps: {
+            overflow: 'hidden',
+            height: 0,
+            paddingTop: 0,
+            paddingBottom: 0,
+            marginTop: 0,
+            marginBottom: 0
+        }
+
     },
 
     ready() {
@@ -51,6 +54,8 @@ export default {
 
         }
 
+        this.queued = this.queued && !!this.animation;
+
     },
 
     methods: {
@@ -58,7 +63,7 @@ export default {
         toggleElement(targets, show, animate) {
 
             var toggles, body = document.body, scroll = body.scrollTop,
-                all = targets => $.when.apply($, targets.toArray().map(el => this._toggleElement(el, show, animate))),
+                all = targets => promise.all(targets.toArray().map(el => this._toggleElement(el, show, animate))).then(null, () => {}),
                 delay = targets => {
                     var def = all(targets);
                     this.queued = true;
@@ -70,7 +75,9 @@ export default {
 
             if (!this.queued || targets.length < 2) {
                 return all(targets);
-            } else if (this.queued !== true) {
+            }
+
+            if (this.queued !== true) {
                 return delay(targets.not(this.queued));
             }
 
@@ -79,8 +86,8 @@ export default {
             return all(toggles).then(() => this.queued !== true && delay(this.queued));
         },
 
-        toggleNow(el, show) {
-            return this.toggleElement(el, show, false);
+        toggleNow(targets, show) {
+            return promise.all($(targets).toArray().map(el => this._toggleElement(el, show, false))).then(null, () => {});
         },
 
         isToggled(el) {
@@ -98,15 +105,8 @@ export default {
 
             el = $(el);
 
-            var deferred;
-
             if (Animation.inProgress(el)) {
-
-                deferred = $.Deferred();
-                Animation.cancel(el);
-                requestAnimationFrame(() => deferred.resolve());
-
-                return deferred.then(() => this._toggleElement(el, show, animate));
+                return Animation.cancel(el).then(() => this._toggleElement(el, show, animate));
             }
 
             show = typeof show === 'boolean' ? show : !this.isToggled(el);
@@ -114,32 +114,34 @@ export default {
             var event = $.Event(`before${show ? 'show' : 'hide'}`);
             el.trigger(event, [this]);
 
+            var delay = false;
             if (event.result === false) {
-                return $.Deferred().reject();
+                return promise.reject();
+            } else if (event.result && event.result.then) {
+                delay = event.result;
             }
 
-            deferred = (this.animation === true && animate !== false
+            var promise = (this.animation === true && animate !== false
                 ? this._toggleHeight
                 : this.animation && animate !== false
                     ? this._toggleAnimation
                     : this._toggleImmediate
             )(el, show);
 
-            el.trigger(show ? 'show' : 'hide', [this]);
-            return deferred;
+            var handler = () => {
+                el.trigger(show ? 'show' : 'hide', [this]);
+                return promise.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
+            };
+
+            return delay ? delay.then(handler) : handler();
         },
 
         _toggle(el, toggled) {
+
             el = $(el);
 
             if (this.cls) {
-
-                if (this.cls.indexOf(' ') != -1) {
-                    el.toggleClass(this.cls);
-                } else {
-                    el.toggleClass(this.cls, toggled);
-                }
-
+                el.toggleClass(this.cls, ~this.cls.indexOf(' ') ? undefined : toggled);
             } else {
                 el.attr('hidden', !toggled);
             }
@@ -147,12 +149,12 @@ export default {
             el.find('[autofocus]:visible').focus();
 
             this.updateAria(el);
-            this.$update(null, el);
+            UIkit.update(null, el);
         },
 
         _toggleImmediate(el, show) {
             this._toggle(el, show);
-            return $.Deferred().resolve();
+            return promise.resolve();
         },
 
         _toggleHeight(el, show) {
@@ -162,22 +164,24 @@ export default {
                 height = el[0].offsetHeight ? el.height() + (inProgress ? 0 : inner) : 0,
                 endHeight;
 
-            Transition.cancel(el);
+            return Transition.cancel(el).then(() => {
 
-            if (!this.isToggled(el)) {
-                this._toggle(el, true);
-            }
+                if (!this.isToggled(el)) {
+                    this._toggle(el, true);
+                }
 
-            el.css('height', '');
-            endHeight = el.height() + (inProgress ? 0 : inner);
-            el.height(height);
+                el.css('height', '');
+                endHeight = el.height() + (inProgress ? 0 : inner);
+                el.height(height);
 
-            return show
-                ? Transition.start(el, extend(initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
-                : Transition.start(el, hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
-                        this._toggle(el, false);
-                        el.css(initProps);
-                    });
+                return show
+                    ? Transition.start(el, extend(this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
+                    : Transition.start(el, this.hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
+                            this._toggle(el, false);
+                            el.css(this.initProps);
+                        });
+
+            });
 
         },
 

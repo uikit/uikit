@@ -25,8 +25,8 @@
 
 @base-code-font-size:                           @global-small-font-size;
 @base-code-font-family:                         Consolas, monaco, monospace;
-@base-code-color:                               #e66;
-@base-em-color:                                 #e66;
+@base-code-color:                               @global-danger-background;
+@base-em-color:                                 @global-danger-background;
 @base-ins-background:                           #ffd;
 @base-ins-color:                                @global-color;
 @base-mark-background:                          #ffd;
@@ -335,7 +335,7 @@ h4, .uk-h4,
 h5, .uk-h5,
 h6, .uk-h6 {
     margin: 0 0 @base-margin-vertical 0;
-    font-family:  @base-heading-font-family;
+    font-family: @base-heading-font-family;
     font-weight: @base-heading-font-weight;
     color: @base-heading-color;
     text-transform: @base-heading-text-transform;
@@ -480,6 +480,7 @@ blockquote footer {
 
 /*
  * 1. Contain overflow in all browsers.
+ * 2. Override UA
  */
 
 pre {
@@ -491,6 +492,8 @@ pre {
     overflow: auto;
     .hook-base-pre;
 }
+
+pre code { font-family: @base-pre-font-family; }
 
 
 /* Selection pseudo-element
@@ -612,9 +615,7 @@ textarea { touch-action: manipulation; }
 
 @inverse-base-color:                           @inverse-global-color;
 @inverse-base-link-color:                      @inverse-global-emphasis-color;
-@inverse-base-link-text-decoration:            none;
 @inverse-base-link-hover-color:                @inverse-global-emphasis-color;
-@inverse-base-link-hover-text-decoration:      underline;
 @inverse-base-code-color:                      @inverse-global-color;
 @inverse-base-em-color:                        @inverse-global-emphasis-color;
 @inverse-base-heading-color:                   @inverse-global-emphasis-color;
@@ -629,25 +630,17 @@ textarea { touch-action: manipulation; }
 
     //
     // Link
-    // 1. Select only `a` element which doesn't have any class but also exclude components where this is the case
-    // 2. Re-select `a` element which are excluded because of the descendant depth caused by 1.
     //
 
-    :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]), // 1
-    > a:not([class]), // 2
-    > * > a:not([class]), // 2
+    a,
     .uk-link  {
         color: @inverse-base-link-color;
-        text-decoration: @inverse-base-link-text-decoration;
         .hook-inverse-base-link;
     }
 
-    :not(.uk-nav):not(.uk-nav-sub):not(.uk-navbar-nav):not(.uk-subnav):not(.uk-breadcrumb):not(.uk-pagination):not(.uk-tab) > * > a:not([class]):hover, // 1
-    > a:not([class]):hover, // 2
-    > * > a:not([class]):hover, // 2
+    a:hover,
     .uk-link:hover {
         color: @inverse-base-link-hover-color;
-        text-decoration: @inverse-base-link-hover-text-decoration;
         .hook-inverse-base-link-hover;
     }
 

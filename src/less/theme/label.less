@@ -11,13 +11,17 @@
 // New
 //
 
+@label-border-radius:                           2px;
 @label-text-transform:                          uppercase;
 
 
 // Component
 // ========================================================================
 
-.hook-label() { text-transform: @label-text-transform; }
+.hook-label() {
+    border-radius: @label-border-radius;
+    text-transform: @label-text-transform;
+}
 
 
 // Color modifiers

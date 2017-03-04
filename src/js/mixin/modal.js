@@ -1,25 +1,8 @@
-import { $, isWithin, toJQuery, transitionend } from '../util/index';
+import { $, doc, docElement, isWithin, promise, toJQuery, toMs, transitionend } from '../util/index';
 import Class from './class';
 import Toggable from './toggable';
 
 var active;
-
-$(document).on({
-
-    click(e) {
-        if (active && active.bgClose && !e.isDefaultPrevented() && !isWithin(e.target, active.panel)) {
-            active.hide();
-        }
-    },
-
-    keydown(e) {
-        if (e.keyCode === 27 && active && active.escClose) {
-            e.preventDefault();
-            active.hide();
-        }
-    }
-
-});
 
 export default {
 
@@ -43,104 +26,123 @@ export default {
 
     ready() {
 
-        this.page = $(document.documentElement);
         this.body = $(document.body);
         this.panel = toJQuery(`.${this.clsPanel}`, this.$el);
 
-        this.$el.on('click', this.selClose, e => {
-            e.preventDefault();
-            this.hide();
-        });
-
     },
 
-    events: {
+    events: [
 
-        toggle(e) {
-            e.preventDefault();
-            this.toggleNow(this.$el);
+        {
+
+            name: 'click',
+
+            delegate() {
+                return this.selClose;
+            },
+
+            handler(e) {
+                e.preventDefault();
+                this.hide();
+            }
+
         },
 
-        beforeshow(e) {
+        {
 
-            if (!this.$el.is(e.target)) {
-                return;
+            name: 'toggle',
+
+            handler(e) {
+                e.preventDefault();
+                this.toggleNow(this.$el);
             }
 
-            if (this.isActive()) {
-                return false;
-            }
+        },
 
-            var prev = active && active !== this && active;
+        {
 
-            if (!active) {
-                this.body.css('overflow-y', this.getScrollbarWidth() && this.overlay ? 'scroll' : '');
-            }
+            name: 'beforeshow',
 
-            active = this;
+            self: true,
 
-            if (prev) {
-                if (this.stack) {
-                    this.prev = prev;
-                } else {
-                    prev.hide();
+            handler() {
+
+                if (this.isActive()) {
+                    return false;
                 }
-            }
 
-            this.panel.one(transitionend, () => {
-                var event = $.Event('show');
-                event.isShown = true;
-                this.$el.trigger(event, [this]);
-            });
+                var prev = active && active !== this && active;
+
+                if (!active) {
+                    this.body.css('overflow-y', this.getScrollbarWidth() && this.overlay ? 'scroll' : '');
+                }
+
+                active = this;
+
+                if (prev) {
+                    if (this.stack) {
+                        this.prev = prev;
+                    } else {
+                        prev.hide();
+                    }
+                } else {
+                    requestAnimationFrame(() => register(this.$options.name));
+                }
+
+                docElement.addClass(this.clsPage);
+
+            }
 
         },
 
-        show(e) {
+        {
 
-            if (!this.$el.is(e.target)) {
-                return;
-            }
+            name: 'beforehide',
 
-            if (!e.isShown) {
-                e.stopImmediatePropagation();
+            self: true,
+
+            handler() {
+
+                if (!this.isActive()) {
+                    return false;
+                }
+
+                active = active && active !== this && active || this.prev;
+
+                if (!active) {
+                    deregister(this.$options.name);
+                }
+
+                var duration = toMs(this.panel.css('transition-duration'));
+
+                return duration ? promise(resolve => {
+                        this.panel.one(transitionend, resolve);
+                        setTimeout(() => {
+                            resolve();
+                            this.panel.off(transitionend, resolve);
+                        }, duration);
+                    }) : true;
+
             }
 
         },
 
-        beforehide(e) {
+        {
 
-            if (!this.$el.is(e.target)) {
-                return;
-            }
+            name: 'hide',
 
-            active = active && active !== this && active || this.prev;
+            self: true,
 
-            this.panel.one(transitionend, () => {
-                var event = $.Event('hide');
-                event.isHidden = true;
-                this.$el.trigger(event, [this]);
-            });
-
-        },
-
-        hide(e) {
-
-            if (!this.$el.is(e.target)) {
-                return;
-            }
-
-            if (!e.isHidden) {
-                e.stopImmediatePropagation();
-                return;
-            }
-
-            if (!active) {
-                this.body.css('overflow-y', '');
+            handler() {
+                if (!active) {
+                    docElement.removeClass(this.clsPage);
+                    this.body.css('overflow-y', '');
+                }
             }
 
         }
 
-    },
+    ],
 
     methods: {
 
@@ -153,17 +155,11 @@ export default {
         },
 
         show() {
-            var deferred = $.Deferred();
-            this.$el.one('show', () => deferred.resolve());
-            this.toggleNow(this.$el, true);
-            return deferred.promise();
+            return this.toggleNow(this.$el, true);
         },
 
         hide() {
-            var deferred = $.Deferred();
-            this.$el.one('hide', () => deferred.resolve());
-            this.toggleNow(this.$el, false);
-            return deferred.promise();
+            return this.toggleNow(this.$el, false);
         },
 
         getActive() {
@@ -171,18 +167,41 @@ export default {
         },
 
         getScrollbarWidth() {
-            var width = this.page[0].style.width;
+            var width = docElement[0].style.width;
 
-            this.page.css('width', '');
+            docElement.css('width', '');
 
-            var scrollbarWidth = window.innerWidth - this.page.width();
+            var scrollbarWidth = window.innerWidth - docElement.outerWidth(true);
 
             if (width) {
-                this.page.width(width);
+                docElement.width(width);
             }
 
             return scrollbarWidth;
         }
     }
 
+}
+
+function register(name) {
+    doc.on({
+
+        [`click.${name}`](e) {
+            if (active && active.bgClose && !e.isDefaultPrevented() && !isWithin(e.target, active.panel)) {
+                active.hide();
+            }
+        },
+
+        [`keydown.${name}`](e) {
+            if (e.keyCode === 27 && active && active.escClose) {
+                e.preventDefault();
+                active.hide();
+            }
+        }
+
+    });
+}
+
+function deregister(name) {
+    doc.off(`click.${name}`).off(`keydown.${name}`);
 }

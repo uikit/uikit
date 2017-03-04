@@ -11,10 +11,24 @@
 // Component
 // ========================================================================
 
-.hook-close() {}
+.hook-close() {
+    -webkit-transition: 0.1s ease-in-out;
+    transition: 0.1s ease-in-out;
+    -webkit-transition-property: color, opacity;
+    transition-property: color, opacity;
+}
+
+.hook-close-hover() {}
 
 
 // Miscellaneous
 // ========================================================================
 
 .hook-close-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-inverse-close() {}
+.hook-inverse-close-hover() {}

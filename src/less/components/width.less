@@ -32,18 +32,27 @@
 }
 
 .uk-child-width-1-2 > * { width: 50%; }
-.uk-child-width-1-3 > * { width: ~'calc(100% * 1 / 3)'; }
+.uk-child-width-1-3 > * { width: ~'calc(100% * 1 / 3.001)'; }
 .uk-child-width-1-4 > * { width: 25%; }
 .uk-child-width-1-5 > * { width: 20%; }
-.uk-child-width-1-6 > * { width: ~'calc(100% * 1 / 6)'; }
+.uk-child-width-1-6 > * { width: ~'calc(100% * 1 / 6.001)'; }
 
 .uk-child-width-auto > * { width: auto; }
-.uk-child-width-expand > * { width: 0; }
 
 /*
- * 1. Make `width: 0` work, because according to the spec flex items won’t shrink
+ *    Instead of 0, 1px is needed to make cell wrap into next row if predecessor is 100% wide
+ *    and the grid gutter is 0 pixels wide
+ */
+
+.uk-child-width-expand > * { width: 1px; }
+
+/*
+ * 1. Make `width: 1px` work, because according to the spec flex items won’t shrink
  *    below their minimum content size. To change this, set the min-width.
  *    Only needed for Firefox. All other browsers ignore this.
+ *
+ * 2. `width` is ignored when wrapping flex items in Safari
+ *    https://github.com/philipwalton/flexbugs#11-min-and-max-size-declarations-are-ignored-when-wrapping-flex-items
  */
 
 .uk-child-width-expand > :not([class*='uk-width']) {
@@ -52,6 +61,8 @@
     flex: 1;
     /* 1 */
     min-width: 0;
+    /* 2 */
+    flex-basis: 1px;
 }
 
 /* Phone landscape and bigger */
@@ -59,19 +70,20 @@
 
     .uk-child-width-1-1\@s > * { width: 100%; }
     .uk-child-width-1-2\@s > * { width: 50%; }
-    .uk-child-width-1-3\@s > * { width: ~'calc(100% * 1 / 3)'; }
+    .uk-child-width-1-3\@s > * { width: ~'calc(100% * 1 / 3.001)'; }
     .uk-child-width-1-4\@s > * { width: 25%; }
     .uk-child-width-1-5\@s > * { width: 20%; }
-    .uk-child-width-1-6\@s > * { width: ~'calc(100% * 1 / 6)'; }
+    .uk-child-width-1-6\@s > * { width: ~'calc(100% * 1 / 6.001)'; }
 
     .uk-child-width-auto\@s > * { width: auto; }
-    .uk-child-width-expand\@s > * { width: 0; }
+    .uk-child-width-expand\@s > * { width: 1px; }
 
     .uk-child-width-expand\@s > :not([class*='uk-width']) {
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
         min-width: 0;
+        flex-basis: 1px;
     }
 
 }
@@ -81,19 +93,20 @@
 
     .uk-child-width-1-1\@m > * { width: 100%; }
     .uk-child-width-1-2\@m > * { width: 50%; }
-    .uk-child-width-1-3\@m > * { width: ~'calc(100% * 1 / 3)'; }
+    .uk-child-width-1-3\@m > * { width: ~'calc(100% * 1 / 3.001)'; }
     .uk-child-width-1-4\@m > * { width: 25%; }
     .uk-child-width-1-5\@m > * { width: 20%; }
-    .uk-child-width-1-6\@m > * { width: ~'calc(100% * 1 / 6)'; }
+    .uk-child-width-1-6\@m > * { width: ~'calc(100% * 1 / 6.001)'; }
 
     .uk-child-width-auto\@m > * { width: auto; }
-    .uk-child-width-expand\@m > * { width: 0; }
+    .uk-child-width-expand\@m > * { width: 1px; }
 
     .uk-child-width-expand\@m > :not([class*='uk-width']) {
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
         min-width: 0;
+        flex-basis: 1px;
     }
 
 }
@@ -103,19 +116,20 @@
 
     .uk-child-width-1-1\@l > * { width: 100%; }
     .uk-child-width-1-2\@l > * { width: 50%; }
-    .uk-child-width-1-3\@l > * { width: ~'calc(100% * 1 / 3)'; }
+    .uk-child-width-1-3\@l > * { width: ~'calc(100% * 1 / 3.001)'; }
     .uk-child-width-1-4\@l > * { width: 25%; }
     .uk-child-width-1-5\@l > * { width: 20%; }
-    .uk-child-width-1-6\@l > * { width: ~'calc(100% * 1 / 6)'; }
+    .uk-child-width-1-6\@l > * { width: ~'calc(100% * 1 / 6.001)'; }
 
     .uk-child-width-auto\@l > * { width: auto; }
-    .uk-child-width-expand\@l > * { width: 0; }
+    .uk-child-width-expand\@l > * { width: 1px; }
 
     .uk-child-width-expand\@l > :not([class*='uk-width']) {
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
         min-width: 0;
+        flex-basis: 1px;
     }
 
 }
@@ -125,19 +139,20 @@
 
     .uk-child-width-1-1\@xl > * { width: 100%; }
     .uk-child-width-1-2\@xl > * { width: 50%; }
-    .uk-child-width-1-3\@xl > * { width: ~'calc(100% * 1 / 3)'; }
+    .uk-child-width-1-3\@xl > * { width: ~'calc(100% * 1 / 3.001)'; }
     .uk-child-width-1-4\@xl > * { width: 25%; }
     .uk-child-width-1-5\@xl > * { width: 20%; }
-    .uk-child-width-1-6\@xl > * { width: ~'calc(100% * 1 / 6)'; }
+    .uk-child-width-1-6\@xl > * { width: ~'calc(100% * 1 / 6.001)'; }
 
     .uk-child-width-auto\@xl > * { width: auto; }
-    .uk-child-width-expand\@xl > * { width: 0; }
+    .uk-child-width-expand\@xl > * { width: 1px; }
 
     .uk-child-width-expand\@xl > :not([class*='uk-width']) {
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
         min-width: 0;
+        flex-basis: 1px;
     }
 
 }
@@ -161,8 +176,8 @@
 .uk-width-1-2 { width: 50%; }
 
 /* Thirds */
-.uk-width-1-3 { width: ~'calc(100% * 1 / 3)'; }
-.uk-width-2-3 { width: ~'calc(100% * 2 / 3)'; }
+.uk-width-1-3 { width: ~'calc(100% * 1 / 3.001)'; }
+.uk-width-2-3 { width: ~'calc(100% * 2 / 3.001)'; }
 
 /* Quarters */
 .uk-width-1-4 { width: 25%; }
@@ -175,8 +190,8 @@
 .uk-width-4-5 { width: 80%; }
 
 /* Sixths */
-.uk-width-1-6 { width: ~'calc(100% * 1 / 6)'; }
-.uk-width-5-6 { width: ~'calc(100% * 5 / 6)'; }
+.uk-width-1-6 { width: ~'calc(100% * 1 / 6.001)'; }
+.uk-width-5-6 { width: ~'calc(100% * 5 / 6.001)'; }
 
 /* Pixel */
 .uk-width-small { width: @width-small-width; }
@@ -190,11 +205,12 @@
 
 /* Expand */
 .uk-width-expand {
-    width: 0;
+    width: 1px;
     -ms-flex: 1;
     -webkit-flex: 1;
     flex: 1;
     min-width: 0;
+    flex-basis: 1px;
 }
 
 /* Phone landscape and bigger */
@@ -207,8 +223,8 @@
     .uk-width-1-2\@s { width: 50%; }
 
     /* Thirds */
-    .uk-width-1-3\@s { width: ~'calc(100% * 1 / 3)'; }
-    .uk-width-2-3\@s { width: ~'calc(100% * 2 / 3)'; }
+    .uk-width-1-3\@s { width: ~'calc(100% * 1 / 3.001)'; }
+    .uk-width-2-3\@s { width: ~'calc(100% * 2 / 3.001)'; }
 
     /* Quarters */
     .uk-width-1-4\@s { width: 25%; }
@@ -221,8 +237,8 @@
     .uk-width-4-5\@s { width: 80%; }
 
     /* Sixths */
-    .uk-width-1-6\@s { width: ~'calc(100% * 1 / 6)'; }
-    .uk-width-5-6\@s { width: ~'calc(100% * 5 / 6)'; }
+    .uk-width-1-6\@s { width: ~'calc(100% * 1 / 6.001)'; }
+    .uk-width-5-6\@s { width: ~'calc(100% * 5 / 6.001)'; }
 
     /* Pixel */
     .uk-width-small\@s { width: @width-small-width; }
@@ -236,11 +252,12 @@
 
     /* Expand */
     .uk-width-expand\@s {
-        width: 0;
+        width: 1px;
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
         min-width: 0;
+        flex-basis: 1px;
     }
 
 }
@@ -255,8 +272,8 @@
     .uk-width-1-2\@m { width: 50%; }
 
     /* Thirds */
-    .uk-width-1-3\@m { width: ~'calc(100% * 1 / 3)'; }
-    .uk-width-2-3\@m { width: ~'calc(100% * 2 / 3)'; }
+    .uk-width-1-3\@m { width: ~'calc(100% * 1 / 3.001)'; }
+    .uk-width-2-3\@m { width: ~'calc(100% * 2 / 3.001)'; }
 
     /* Quarters */
     .uk-width-1-4\@m { width: 25%; }
@@ -269,8 +286,8 @@
     .uk-width-4-5\@m { width: 80%; }
 
     /* Sixths */
-    .uk-width-1-6\@m { width: ~'calc(100% * 1 / 6)'; }
-    .uk-width-5-6\@m { width: ~'calc(100% * 5 / 6)'; }
+    .uk-width-1-6\@m { width: ~'calc(100% * 1 / 6.001)'; }
+    .uk-width-5-6\@m { width: ~'calc(100% * 5 / 6.001)'; }
 
     /* Pixel */
     .uk-width-small\@m { width: @width-small-width; }
@@ -284,11 +301,12 @@
 
     /* Expand */
     .uk-width-expand\@m {
-        width: 0;
+        width: 1px;
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
         min-width: 0;
+        flex-basis: 1px;
     }
 
 }
@@ -303,8 +321,8 @@
     .uk-width-1-2\@l { width: 50%; }
 
     /* Thirds */
-    .uk-width-1-3\@l { width: ~'calc(100% * 1 / 3)'; }
-    .uk-width-2-3\@l { width: ~'calc(100% * 2 / 3)'; }
+    .uk-width-1-3\@l { width: ~'calc(100% * 1 / 3.001)'; }
+    .uk-width-2-3\@l { width: ~'calc(100% * 2 / 3.001)'; }
 
     /* Quarters */
     .uk-width-1-4\@l { width: 25%; }
@@ -317,8 +335,8 @@
     .uk-width-4-5\@l { width: 80%; }
 
     /* Sixths */
-    .uk-width-1-6\@l { width: ~'calc(100% * 1 / 6)'; }
-    .uk-width-5-6\@l { width: ~'calc(100% * 5 / 6)'; }
+    .uk-width-1-6\@l { width: ~'calc(100% * 1 / 6.001)'; }
+    .uk-width-5-6\@l { width: ~'calc(100% * 5 / 6.001)'; }
 
     /* Pixel */
     .uk-width-small\@l { width: @width-small-width; }
@@ -332,11 +350,12 @@
 
     /* Expand */
     .uk-width-expand\@l {
-        width: 0;
+        width: 1px;
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
         min-width: 0;
+        flex-basis: 1px;
     }
 
 }
@@ -351,8 +370,8 @@
     .uk-width-1-2\@xl { width: 50%; }
 
     /* Thirds */
-    .uk-width-1-3\@xl { width: ~'calc(100% * 1 / 3)'; }
-    .uk-width-2-3\@xl { width: ~'calc(100% * 2 / 3)'; }
+    .uk-width-1-3\@xl { width: ~'calc(100% * 1 / 3.001)'; }
+    .uk-width-2-3\@xl { width: ~'calc(100% * 2 / 3.001)'; }
 
     /* Quarters */
     .uk-width-1-4\@xl { width: 25%; }
@@ -365,8 +384,8 @@
     .uk-width-4-5\@xl { width: 80%; }
 
     /* Sixths */
-    .uk-width-1-6\@xl { width: ~'calc(100% * 1 / 6)'; }
-    .uk-width-5-6\@xl { width: ~'calc(100% * 5 / 6)'; }
+    .uk-width-1-6\@xl { width: ~'calc(100% * 1 / 6.001)'; }
+    .uk-width-5-6\@xl { width: ~'calc(100% * 5 / 6.001)'; }
 
     /* Pixel */
     .uk-width-small\@xl { width: @width-small-width; }
@@ -380,11 +399,12 @@
 
     /* Expand */
     .uk-width-expand\@xl {
-        width: 0;
+        width: 1px;
         -ms-flex: 1;
         -webkit-flex: 1;
         flex: 1;
         min-width: 0;
+        flex-basis: 1px;
     }
 
 }

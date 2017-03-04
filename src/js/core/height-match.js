@@ -1,8 +1,10 @@
-import { $, toJQuery } from '../util/index';
+import { $ } from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('height-match', {
+
+        args: 'target',
 
         props: {
             target: String,
@@ -16,9 +18,9 @@ export default function (UIkit) {
 
         update: {
 
-            handler() {
+            write() {
 
-                let elements = toJQuery(this.target, this.$el).css('min-height', '');
+                var elements = $(this.target, this.$el).css('min-height', '');
 
                 if (!this.row) {
                     this.match(elements);

@@ -7,19 +7,17 @@
 // Variables
 // ========================================================================
 
-@base-blockquote-margin-vertical:               @global-medium-margin;
-
 //
 // New
 //
 
 @base-code-padding-horizontal:                  6px;
 @base-code-padding-vertical:                    2px;
-@base-code-border-width:                        @global-border-width;
-@base-code-border:                              @global-border;
-@base-code-border-radius:                       3px;
+@base-code-background:                          @global-muted-background;
 
-@base-blockquote-text-align:                    center;
+@base-blockquote-color:                         @global-emphasis-color;
+
+@base-blockquote-footer-color:                  @global-color;
 
 @base-pre-padding:                              10px;
 @base-pre-background:                           @global-background;
@@ -47,8 +45,7 @@
 
 .hook-base-code() {
     padding: @base-code-padding-vertical @base-code-padding-horizontal;
-    border: @base-code-border-width solid @base-code-border;
-    border-radius: @base-code-border-radius;
+    background: @base-code-background;
 }
 
 
@@ -80,10 +77,12 @@
 // ========================================================================
 
 .hook-base-blockquote() {
-    text-align: @base-blockquote-text-align;
+    color: @base-blockquote-color;
 }
 
 .hook-base-blockquote-footer() {
+
+    color: @base-blockquote-footer-color;
 
     &::before { content: "— "; }
 
@@ -110,12 +109,14 @@
 // Inverse
 // ========================================================================
 
+@inverse-base-blockquote-color:                @inverse-global-emphasis-color;
+@inverse-base-blockquote-footer-color:         @inverse-global-color;
+
 .hook-inverse-base-link() {}
 .hook-inverse-base-link-hover() {}
 
 .hook-inverse-base-code() {
-    border-color: fade(@inverse-global-color, 20%);
-    background: fade(@inverse-global-color, 10%);
+    background: @inverse-global-muted-background;
 }
 
 .hook-inverse-base-heading() {}
@@ -127,7 +128,7 @@
 .hook-inverse-base-h5() {}
 .hook-inverse-base-h6() {}
 
-.hook-inverse-base-blockquote() {}
-.hook-inverse-base-blockquote-footer() {}
+.hook-inverse-base-blockquote() { color: @inverse-base-blockquote-color; }
+.hook-inverse-base-blockquote-footer() { color: @inverse-base-blockquote-footer-color; }
 
 .hook-inverse-base-hr() {}

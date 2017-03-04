@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { getCssVar, query } from './index';
+import { getCssVar, isJQuery, query } from './index';
 
 export { $ };
 export { ajax, each, extend, map, merge, isArray, isNumeric, isFunction, isPlainObject } from 'jquery';
@@ -15,6 +15,40 @@ var hasOwnProperty = Object.prototype.hasOwnProperty;
 export function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key);
 }
+
+export function promise(executor) {
+
+    if (!isUndefined(window.Promise)) {
+        return new window.Promise(executor);
+    }
+
+    var def = $.Deferred();
+
+    executor(def.resolve, def.reject);
+
+    return def;
+}
+
+promise.resolve = function (value) {
+    return promise(function (resolve) {
+        resolve(value);
+    });
+};
+
+promise.reject = function (value) {
+    return promise(function (_, reject) {
+        reject(value);
+    });
+};
+
+promise.all = function (iterable) {
+
+    if (!isUndefined(window.Promise)) {
+        return window.Promise.all(iterable);
+    }
+
+    return $.when.apply($, iterable);
+};
 
 export function classify(str) {
     return str.replace(/(?:^|[-_\/])(\w)/g, (_, c) => c ? c.toUpperCase() : '');
@@ -43,6 +77,10 @@ export function isNumber(value) {
     return typeof value === 'number';
 }
 
+export function isUndefined(value) {
+    return value === undefined;
+}
+
 export function isContextSelector(selector) {
     return isString(selector) && selector.match(/^(!|>|\+|-)/);
 }
@@ -61,7 +99,18 @@ export function toJQuery(element, context) {
     try {
 
         if (context && isContextSelector(element) && element[0] !== '>') {
-            element = $(context)[contextSelectors[element[0]]](element.substr(1));
+
+            var fn = contextSelectors[element[0]], selector = element.substr(1);
+
+            context = $(context);
+
+            if (fn === 'closest') {
+                context = context.parent();
+                selector = selector || '*';
+            }
+
+            element = context[fn](selector);
+
         } else {
             element = $(element, context);
         }
@@ -71,6 +120,10 @@ export function toJQuery(element, context) {
     }
 
     return element.length ? element : null;
+}
+
+export function toNode(element) {
+    return element && (isJQuery(element) ? element[0] : element);
 }
 
 export function toBoolean(value) {
@@ -111,4 +164,18 @@ export function coerce(type, value, context) {
     }
 
     return type ? type(value) : value;
+}
+
+export function toMs(time) {
+    return !time
+        ? 0
+        : time.substr(-2) === 'ms'
+            ? parseFloat(time)
+            : parseFloat(time) * 1000;
+}
+
+export function swap(value, a, b) {
+    return value.replace(new RegExp(`${a}|${b}`, 'mg'), function (match) {
+        return match === a ? b : a
+    });
 }

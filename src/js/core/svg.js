@@ -1,10 +1,12 @@
-import { $, isVoidElement, toJQuery } from '../util/index';
+import { $, fastdom, isVoidElement, promise } from '../util/index';
 
-var storage = window.sessionStorage || {}, svgs = {};
+var svgs = {}, parser = new DOMParser();
 
 export default function (UIkit) {
 
     UIkit.component('svg', {
+
+        attrs: true,
 
         props: {
             id: String,
@@ -24,164 +26,171 @@ export default function (UIkit) {
             exclude: ['src']
         },
 
-        ready() {
-
-            this.svg = $.Deferred();
-            this.init();
-
+        init() {
+            this.class += ' uk-svg';
         },
 
-        update: {
+        connected() {
 
-            handler() {
-                if (!this.src) {
-                    this.init();
+            if (!this.icon && this.src && ~this.src.indexOf('#')) {
+
+                var parts = this.src.split('#');
+
+                if (parts.length > 1) {
+                    this.src = parts[0];
+                    this.icon = parts[1];
                 }
-            },
+            }
 
-            events: ['load']
+            this.width = this.$props.width;
+            this.height = this.$props.height;
 
+            this.svg = this.getSvg().then(doc => promise((resolve, reject) => fastdom.mutate(() => {
+
+                var svg, el;
+
+                if (!doc) {
+                    reject('SVG not found.');
+                    return;
+                }
+
+                if (!this.icon) {
+                    el = doc.documentElement.cloneNode(true);
+                } else {
+                    svg = doc.getElementById(this.icon);
+
+                    if (!svg) {
+
+                        // fallback if SVG has no symbols
+                        if (!doc.querySelector('symbol')) {
+                            el = doc.documentElement.cloneNode(true);
+                        }
+
+                    } else {
+
+                        var html = svg.outerHTML;
+
+                        // IE workaround
+                        if (!html) {
+                            var div = document.createElement('div');
+                            div.appendChild(svg.cloneNode(true));
+                            html = div.innerHTML;
+                        }
+
+                        html = html
+                            .replace(/<symbol/g, `<svg${!~html.indexOf('xmlns') ? ' xmlns="http://www.w3.org/2000/svg"' : ''}`)
+                            .replace(/symbol>/g, 'svg>');
+
+                        el = parser.parseFromString(html, 'image/svg+xml').documentElement;
+                    }
+
+                }
+
+                if (!el) {
+                    reject('SVG not found.');
+                    return;
+                }
+
+                var dimensions = el.getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
+
+                if (dimensions) {
+                    dimensions = dimensions.split(' ');
+                    this.width = this.width || dimensions[2];
+                    this.height = this.height || dimensions[3];
+                }
+
+                el = $(el);
+
+                this.width *= this.ratio;
+                this.height *= this.ratio;
+
+                for (var prop in this.$options.props) {
+                    if (this[prop] && !~this.exclude.indexOf(prop)) {
+                        el.attr(prop, this[prop]);
+                    }
+                }
+
+                if (!this.id) {
+                    el.removeAttr('id');
+                }
+
+                if (this.width && !this.height) {
+                    el.removeAttr('height');
+                }
+
+                if (this.height && !this.width) {
+                    el.removeAttr('width');
+                }
+
+                if (isVoidElement(this.$el) || this.$el[0].tagName === 'CANVAS') {
+                    this.$el.attr({hidden: true, id: null});
+                    el.insertAfter(this.$el);
+                } else {
+                    el.appendTo(this.$el);
+                }
+
+                resolve(el);
+
+            }))).then(null, () => this.$destroy());
+
+            if (!this._isReady) {
+                this.$emitSync();
+            }
         },
 
-        destroy() {
+        disconnected() {
 
             if (isVoidElement(this.$el)) {
                 this.$el.attr({hidden: null, id: this.id || null});
             }
 
             if (this.svg) {
-                this.svg.then(svg => svg.remove());
+                this.svg.then(svg => {
+                    svg && svg.remove();
+                });
+                this.svg = null;
             }
         },
 
         methods: {
 
-            init() {
+            getSvg() {
 
                 if (!this.src) {
-
-                    this.src = getSrc(this.$el);
-
-                    if (!this.src) {
-                        return;
-                    }
+                    return promise.reject();
                 }
 
-                if (this.src.indexOf('#') !== -1) {
-
-                    var parts = this.src.split('#');
-
-                    if (parts.length > 1) {
-                        this.src = parts[0];
-                        this.icon = parts[1];
-                    }
+                if (svgs[this.src]) {
+                    return svgs[this.src];
                 }
 
-                this.get(this.src).then(svg => {
+                svgs[this.src] = promise((resolve, reject) => {
 
-                    var el;
-
-                    el = !this.icon
-                        ? svg.clone()
-                        : (el = toJQuery(`#${this.icon}`, svg))
-                            && toJQuery((el[0].outerHTML || $('<div>').append(el.clone()).html()).replace(/symbol/g, 'svg')) // IE workaround, el[0].outerHTML
-                            || !toJQuery('symbol', svg) && svg.clone(); // fallback if SVG has no symbols
-
-                    if (!el || !el.length) {
-                        return $.Deferred().reject('SVG not found.');
-                    }
-
-                    var dimensions = el[0].getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
-
-                    if (dimensions) {
-                        dimensions = dimensions.split(' ');
-                        this.width = this.width || dimensions[2];
-                        this.height = this.height || dimensions[3];
-                    }
-
-                    this.width *= this.ratio;
-                    this.height *= this.ratio;
-
-                    for (var prop in this.$options.props) {
-                        if (this[prop] && this.exclude.indexOf(prop) === -1) {
-                            el.attr(prop, this[prop]);
-                        }
-                    }
-
-                    if (!this.id) {
-                        el.removeAttr('id');
-                    }
-
-                    if (this.width && !this.height) {
-                        el.removeAttr('height');
-                    }
-
-                    if (this.height && !this.width) {
-                        el.removeAttr('width');
-                    }
-
-                    if (isVoidElement(this.$el)) {
-                        this.$el.attr({hidden: true, id: null});
-                        this.svg.resolve(el.insertAfter(this.$el));
+                    if (this.src.lastIndexOf('data:', 0) === 0) {
+                        resolve(this.parse(decodeURIComponent(this.src.split(',')[1])));
                     } else {
-                        this.svg.resolve(el.appendTo(this.$el));
+
+                        $.ajax(this.src, {dataType: 'html'}).then(doc => {
+                            resolve(this.parse(doc));
+                        }, () => {
+                            reject('SVG not found.');
+                        });
+
                     }
 
                 });
 
+                return svgs[this.src];
+
             },
 
-            get(src) {
-
-                if (svgs[src]) {
-                    return svgs[src];
-                }
-
-                svgs[src] = $.Deferred();
-
-                if (src.lastIndexOf('data:', 0) === 0) {
-                    svgs[src].resolve(getSvg(decodeURIComponent(src.split(',')[1])));
-                } else {
-
-                    var key = `uikit_${UIkit.version}_${src}`;
-
-                    if (storage[key]) {
-                        svgs[src].resolve(getSvg(storage[key]));
-                    } else {
-                        $.get(src).then((doc, status, res) => {
-                            storage[key] = res.responseText;
-                            svgs[src].resolve(getSvg(storage[key]));
-                        });
-                    }
-                }
-
-                return svgs[src];
-
-                function getSvg (doc) {
-                    return $(doc).filter('svg');
-                }
+            parse(doc) {
+                var parsed = parser.parseFromString(doc, 'image/svg+xml');
+                return parsed.documentElement && parsed.documentElement.nodeName === 'svg' ? parsed : null;
             }
 
         }
 
     });
-
-    function getSrc(el) {
-
-        var image = getBackgroundImage(el);
-
-        if (!image && !el.is(':visible')) {
-            el = el.clone().attr('uk-no-boot', '').appendTo(document.body).show();
-            image = getBackgroundImage(el);
-            el.remove();
-        }
-
-        return image && image.slice(4, -1).replace(/"/g, '');
-    }
-
-    function getBackgroundImage(el) {
-        var image = (window.getComputedStyle(el[0], '::before') || {}).backgroundImage;
-        return image !== 'none' && image;
-    }
 
 }

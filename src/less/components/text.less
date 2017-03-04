@@ -11,7 +11,7 @@
 
 @text-lead-font-size:                           @global-large-font-size;
 @text-lead-line-height:                         1.5;
-@text-lead-color:                               @global-color;
+@text-lead-color:                               @global-emphasis-color;
 
 @text-meta-font-size:                           @global-small-font-size;
 @text-meta-line-height:                         1.4;
@@ -28,6 +28,8 @@
 @text-success-color:                            @global-success-background;
 @text-warning-color:                            @global-warning-background;
 @text-danger-color:                             @global-danger-background;
+
+@text-background-color:                         @global-primary-background;
 
 
 /* ========================================================================
@@ -91,6 +93,36 @@
 .uk-text-success { color: @text-success-color !important; }
 .uk-text-warning { color: @text-warning-color !important; }
 .uk-text-danger { color: @text-danger-color !important; }
+
+
+/* Background modifier
+ ========================================================================== */
+
+/*
+ * 1. The background clips to the foreground text. Works in Chrome, Firefox, Safari, Edge and Opera
+ *    Default color is set to transparent
+ * 2. Container fits the text
+ * 3. Fallback color for IE11
+ */
+
+.uk-text-background {
+    /* 1 */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* 2 */
+    display: inline-block;
+    /* 3 */
+    color: @text-background-color !important;
+}
+
+@supports (-webkit-background-clip: text) {
+
+    .uk-text-background {
+        background-color: @text-background-color;
+        .hook-text-background;
+    }
+
+}
 
 
 /* Alignment modifiers
@@ -211,6 +243,7 @@ td.uk-text-break { word-break: break-all; }
 .hook-text-meta() {}
 .hook-text-small() {}
 .hook-text-large() {}
+.hook-text-background() {}
 .hook-text-misc() {}
 
 

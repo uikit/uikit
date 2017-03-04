@@ -48,10 +48,6 @@
 @search-toggle-color:                               @global-muted-color;
 @search-toggle-hover-color:                         @global-color;
 
-@internal-image-search-default:                     "../../../images/search-default.svg";
-@internal-image-search-navbar:                      "../../../images/search-navbar.svg";
-@internal-image-search-large:                       "../../../images/search-large.svg";
-
 
 /* ========================================================================
    Component: Search
@@ -136,8 +132,6 @@
 
 /* Icon
  ========================================================================== */
-
-.uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-search-default); }
 
 /*
  * Adopts `uk-icon`
@@ -247,7 +241,7 @@
     height: @search-default-height;
     padding-left: @search-default-padding-horizontal;
     padding-right: @search-default-padding-horizontal;
-    background-color: @search-default-background;
+    background: @search-default-background;
     .hook-search-default-input;
 }
 
@@ -278,7 +272,7 @@
 
 .uk-search-navbar .uk-search-input {
     height: @search-navbar-height;
-    background-color: @search-navbar-background;
+    background: @search-navbar-background;
     font-size: @search-navbar-font-size;
     .hook-search-navbar-input;
 }
@@ -286,8 +280,6 @@
 /*
  * Icon
  */
-
-.uk-search-navbar .uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-search-navbar); }
 
 .uk-search-navbar .uk-search-icon { width: @search-navbar-icon-width; }
 
@@ -306,7 +298,7 @@
 
 .uk-search-large .uk-search-input {
     height: @search-large-height;
-    background-color: @search-large-background;
+    background: @search-large-background;
     font-size: @search-large-font-size;
     .hook-search-large-input;
 }
@@ -314,8 +306,6 @@
 /*
  * Icon
  */
-
-.uk-search-large .uk-search-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-search-large); }
 
 .uk-search-large .uk-search-icon { width: @search-large-icon-width; }
 

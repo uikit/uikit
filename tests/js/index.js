@@ -10,15 +10,14 @@ if (request.status === 200) {
 }
 
 var styles = $.extend({
-        core: { file: '../css/uikit.all.css' },
-        theme: { file: '../css/uikit.theme.all.css' }
+        core: {css: '../dist/css/uikit-core.css'},
+        theme: {css: '../dist/css/uikit.css'}
     }, themes),
     component = location.pathname.split('/').pop().replace(/.html$/, ''),
     components = [
         'lightbox',
         'notification',
         'sortable',
-        'spinner',
         'tooltip',
         'upload',
         'htmleditor',
@@ -31,15 +30,19 @@ if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
 storage[key] = storage[key] || 'core';
 storage[keyinverse] = storage[keyinverse] || 'default';
 
+var dir = storage._uikit_dir || 'ltr';
+
+// set dir
+$html.attr('dir', dir);
+
 var style = styles[storage[key]] || styles.theme;
 
 // add style
-document.writeln(`<link rel="stylesheet" href="${style.file}">`);
+document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : style.css.replace('.css', '').concat('-rtl.css')}">`);
 
-// add javascripts
-['../js/uikit.js']
-    .concat(components.concat('gif').map(name => `../js/components/${name}.js`))
-    .forEach(file => document.writeln(`<script src="${file}"></script>`));
+// add javascript
+document.writeln(`<script src="../dist/js/uikit.js"></script>`);
+document.writeln(`<script src="${style.icons ? style.icons : '../dist/js/uikit-icons.js'}"></script>`);
 
 $(() => {
 
@@ -49,13 +52,6 @@ $(() => {
     var $styles = $('<select class="uk-select uk-form-width-small"></select>').css('margin', '20px').appendTo($container);
     var $inverse = $('<select class="uk-select uk-form-width-small"></select>').css('margin', '20px').appendTo($container);
     var $label = $('<label></label>').css('margin', '20px').appendTo($container);
-    var $rtl = $('<input type="checkbox" class="uk-checkbox uk-form-width-small"></input>');
-
-    // Display toggle only when compiled RTL version exists
-    $.ajax({url: style.file.replace('.css', '.rtl.css')}).done(() => {
-        $rtl.appendTo($label);
-        $('<span>RTL</span>').css('margin', '5px').appendTo($label);
-    });
 
     // Tests
     // ------------------------------
@@ -109,12 +105,14 @@ $(() => {
         'search',
         'section',
         'slidenav',
+        'spinner',
         'sticky',
         'subnav',
         'switcher',
         'tab',
         'table',
         'text',
+        'tile',
         'toggle',
         'totop',
         'transition',
@@ -176,22 +174,19 @@ $(() => {
 
     }).val(storage[keyinverse]).trigger('change');
 
-    // RTL toggle
+    // RTL
     // ------------------------------
 
-    $rtl.on('change', () => {
-        var isRTL = $rtl.is(':checked'),
-            from = isRTL ? '.css' : '.rtl.css',
-            to = isRTL ? '.rtl.css' : '.css';
+    var $rtl = $('<input type="checkbox" class="uk-checkbox uk-form-width-small" />').on('change', () => {
+        storage._uikit_dir = $rtl.prop('checked') ? 'rtl' : 'ltr';
+        location.reload();
+    }).appendTo($label).after('<span style="margin:5px;">RTL</span>');
 
-        $html.attr("dir", isRTL ? "rtl" : "ltr");
-        $('link[rel=stylesheet]').each((i, el) => $(el).attr('href', $(el).attr('href').replace(from, to)));
-
-    });
-
+    if (dir == 'rtl') {
+        $rtl.prop('checked', true);
+    }
 
     $html.css('padding-top', '');
-
 });
 
 $html.css('padding-top', '80px');

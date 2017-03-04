@@ -7,6 +7,8 @@
 //                  `uk-navbar-left`
 //                  `uk-navbar-right`
 //                  `uk-navbar-center`
+//                  `uk-navbar-center-left`
+//                  `uk-navbar-center-right`
 //                  `uk-navbar-nav`
 //                  `uk-navbar-item`
 //                  `uk-navbar-toggle`
@@ -42,8 +44,8 @@
 @navbar-nav-item-font-size:                     @global-font-size;
 @navbar-nav-item-font-family:                   @global-font-family;
 @navbar-nav-item-hover-color:                   @global-color;
-@navbar-nav-item-onclick-color:                 @global-color;
-@navbar-nav-item-active-color:                  @global-color;
+@navbar-nav-item-onclick-color:                 @global-emphasis-color;
+@navbar-nav-item-active-color:                  @global-emphasis-color;
 
 @navbar-item-color:                             @global-color;
 
@@ -65,7 +67,7 @@
 
 @navbar-dropdown-nav-item-color:                @global-muted-color;
 @navbar-dropdown-nav-item-hover-color:          @global-color;
-@navbar-dropdown-nav-item-active-color:         @global-color;
+@navbar-dropdown-nav-item-active-color:         @global-emphasis-color;
 @navbar-dropdown-nav-header-color:              @global-emphasis-color;
 @navbar-dropdown-nav-divider-border-width:      @global-border-width;
 @navbar-dropdown-nav-divider-border:            @global-border;
@@ -74,8 +76,6 @@
 
 @navbar-dropbar-background:                     @navbar-dropdown-background;
 @navbar-dropbar-z-index:                        @global-z-index + 20;
-
-@internal-image-navbar-toggle:                  "../../../images/navbar-toggle.svg";
 
 
 /* ========================================================================
@@ -122,11 +122,15 @@
 
 /*
  * 1. Align navs and items vertically if they have a different height
+ * 2. Note: IE 11 requires an extra `div` which affects the center selector
  */
 
 .uk-navbar-left,
 .uk-navbar-right,
-.uk-navbar-center {
+// 2. [class*='uk-navbar-center'],
+.uk-navbar-center,
+.uk-navbar-center-left > *,
+.uk-navbar-center-right > *, {
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
@@ -137,9 +141,12 @@
 }
 
 /*
- * Align groups
- * 1. Fix text wrapping if the centered section is larger than 50% of the navbar
+ * Horizontal alignment
+ * 1. Create position context for centered navbar with sub groups (left/right)
  * 2. Needed for dropdowns because a new position context is created
+ *    `z-index` must be smaller than off-canvas
+ * 3. Fix text wrapping if the centered section is larger than 50% of the navbar
+ * 4. Align sub groups for centered navbar
  */
 
 .uk-navbar-right { margin-left: auto; }
@@ -147,6 +154,8 @@
 .uk-navbar-center:only-child {
     margin-left: auto;
     margin-right: auto;
+    /* 1 */
+    position: relative;
 }
 
 .uk-navbar-center:not(:only-child) {
@@ -155,11 +164,28 @@
     left: 50%;
     -webkit-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
-    /* 1 */
-    white-space: nowrap;
     /* 2 */
-    z-index: @navbar-dropdown-z-index;
+    z-index: @global-z-index - 10;
 }
+
+/* 3 */
+.uk-navbar-center:not(:only-child) .uk-navbar-nav > li > a,
+.uk-navbar-center:not(:only-child) .uk-navbar-item,
+.uk-navbar-center:not(:only-child) .uk-navbar-toggle { white-space: nowrap; }
+
+/* 4 */
+.uk-navbar-center-left,
+.uk-navbar-center-right {
+   position: absolute;
+   top: 0;
+}
+
+.uk-navbar-center-left { right: 100%; }
+.uk-navbar-center-right { left: 100%; }
+
+[class*='uk-navbar-center-'] .uk-navbar-nav > li > a,
+[class*='uk-navbar-center-'] .uk-navbar-item,
+[class*='uk-navbar-center-'] .uk-navbar-toggle { white-space: nowrap; }
 
 
 /* Nav
@@ -181,9 +207,12 @@
 
 /*
  * Allow items to wrap into the next line
+ * Only not `absolute` positioned groups
  */
 
-:not(.uk-navbar-center) > .uk-navbar-nav {
+.uk-navbar-left,
+.uk-navbar-right,
+.uk-navbar-center:only-child {
     -ms-flex-wrap: wrap;
     -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
@@ -286,8 +315,6 @@
  * Icon
  * Adopts `uk-icon`
  */
-
-.uk-navbar-toggle-icon::before { background-image: data-uri('image/svg+xml;charset=UTF-8', @internal-image-navbar-toggle); }
 
 .uk-navbar-toggle-icon {
     .hook-navbar-toggle-icon;
@@ -511,8 +538,8 @@
 
 @inverse-navbar-nav-item-color:                @inverse-global-muted-color;
 @inverse-navbar-nav-item-hover-color:          @inverse-global-color;
-@inverse-navbar-nav-item-onclick-color:        @inverse-global-color;
-@inverse-navbar-nav-item-active-color:         @inverse-global-color;
+@inverse-navbar-nav-item-onclick-color:        @inverse-global-emphasis-color;
+@inverse-navbar-nav-item-active-color:         @inverse-global-emphasis-color;
 @inverse-navbar-item-color:                    @inverse-global-color;
 @inverse-navbar-toggle-color:                  @inverse-global-muted-color;
 @inverse-navbar-toggle-hover-color:            @inverse-global-color;

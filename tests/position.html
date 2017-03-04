@@ -257,24 +257,26 @@
         </div>
 
         <script>
+
             (function ($) {
 
                 var ticking, boundary = $('#boundary'), target = $('#target'), offsetX, offsetY;
 
                 function position() {
                     UIkit.util.position(
-                            '#element',
-                            target,
-                            $('#element_x').val() + ' ' + $('#element_y').val(),
-                            $('#target_x').val() + ' ' + $('#target_y').val(),
-                            $('#offset_x').val() + ' ' + $('#offset_y').val(),
-                            null,
-                            $('#flip_x').val() + $('#flip_y').val(),
-                            boundary
+                        '#element',
+                        target,
+                        $('#element_x').val() + ' ' + $('#element_y').val(),
+                        $('#target_x').val() + ' ' + $('#target_y').val(),
+                        $('#offset_x').val() + ' ' + $('#offset_y').val(),
+                        null,
+                        $('#flip_x').val() + $('#flip_y').val(),
+                        boundary
                     );
                 }
 
                 $(window).on('dragstart', function (e) {
+                    e.originalEvent.dataTransfer.setDragImage(new Image(), 0, 0);
 
                     offsetX = Math.round(e.pageX - target.offset().left);
                     offsetY = Math.round(e.pageY - target.offset().top);
@@ -286,11 +288,11 @@
                     if (!ticking) {
                         requestAnimationFrame(function () {
                             UIkit.util.position(
-                                    target,
-                                    boundary,
-                                    'left top',
-                                    'left top',
-                                    (e.pageX - boundary.offset().left - offsetX) + ' ' + (e.pageY - boundary.offset().top - offsetY)
+                                target,
+                                boundary,
+                                'left top',
+                                'left top',
+                                (e.pageX - boundary.offset().left - offsetX) + ' ' + (e.pageY - boundary.offset().top - offsetY)
                             );
 
                             position();
@@ -309,6 +311,7 @@
                 position();
 
             })(jQuery);
+
         </script>
 
     </body>

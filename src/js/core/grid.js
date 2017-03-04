@@ -15,9 +15,9 @@ export default function (UIkit) {
 
         update: {
 
-            handler() {
+            write() {
 
-                this.$el.toggleClass(this.clsStack, !this.$el.children().filter((i, el) => el.offsetHeight).not(`.${this.firstColumn}`).length);
+                this.$el.toggleClass(this.clsStack, this.stacks);
 
             },
 

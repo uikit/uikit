@@ -310,14 +310,17 @@
 
                                 <div uk-form-custom>
                                     <input type="file">
-                                    <button class="uk-button uk-button-default">Select</button>
+                                    <button class="uk-button uk-button-default" type="button" tabindex="-1">Select</button>
                                 </div>
 
                             </div>
 
                             <div class="uk-margin">
                                 <span class="uk-text-middle">Here is a text</span>
-                                <div class="uk-link" uk-form-custom>upload<input type="file"></div>
+                                <div uk-form-custom>
+                                    <input type="file">
+                                    <span class="uk-link">upload</span>
+                                </div>
                             </div>
 
                             <div class="uk-margin" uk-margin>
@@ -573,6 +576,29 @@
                     </fieldset>
 
                 </form>
+            </div>
+
+            <h2>Javascript Options</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>target</code></td>
+                            <td>CSS selector | Boolean</td>
+                            <td>false</td>
+                            <td>Value display target.</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
         </div>

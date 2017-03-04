@@ -36,7 +36,7 @@
 @list-large-striped-padding-vertical:           @global-margin;
 @list-large-striped-padding-horizontal:         @global-small-margin;
 
-@internal-image-list-bullet:                    "../../../images/list-bullet.svg";
+@internal-list-bullet-image:                    "../../images/backgrounds/list-bullet.svg";
 
 
 /* ========================================================================
@@ -127,7 +127,7 @@
     left: 0;
     width: @list-bullet-width;
     height: @list-bullet-height;
-    .svg-fill(@internal-image-list-bullet, "#000", @list-bullet-icon-color);
+    .svg-fill(@internal-list-bullet-image, "#000", @list-bullet-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
     float: left;
@@ -191,10 +191,10 @@
         .hook-inverse-list-striped;
     }
 
-    .uk-list-striped > li:nth-of-type(odd) { background: @inverse-list-striped-background; }
+    .uk-list-striped > li:nth-of-type(odd) { background-color: @inverse-list-striped-background; }
 
     .uk-list-bullet > li::before {
-        .svg-fill(@internal-image-list-bullet, "#000", @inverse-list-bullet-icon-color);
+        .svg-fill(@internal-list-bullet-image, "#000", @inverse-list-bullet-icon-color);
         .hook-inverse-list-bullet;
     }
 

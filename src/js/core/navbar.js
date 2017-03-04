@@ -1,5 +1,5 @@
-import { $, extend, isWithin, query, toJQuery, Transition } from '../util/index';
 import { Class } from '../mixin/index';
+import { $, extend, isRtl, isWithin, pointerEnter, query, toJQuery, Transition } from '../util/index';
 
 export default function (UIkit) {
 
@@ -25,84 +25,50 @@ export default function (UIkit) {
 
         defaults: {
             dropdown: '.uk-navbar-nav > li',
-            mode: 'hover',
-            align: 'left',
-            offset: false,
-            boundary: true,
-            boundaryAlign: false,
+            align: !isRtl ? 'left' : 'right',
             clsDrop: 'uk-navbar-dropdown',
-            delayShow: 0,
-            delayHide: 800,
+            mode: undefined,
+            offset: undefined,
+            delayShow: undefined,
+            delayHide: undefined,
+            boundaryAlign: undefined,
             flip: 'x',
+            boundary: true,
             dropbar: false,
             dropbarMode: 'slide',
             dropbarAnchor: false,
             duration: 200,
         },
 
-        ready() {
-
-            var drop;
-
+        init() {
             this.boundary = (this.boundary === true || this.boundaryAlign) ? this.$el : this.boundary;
             this.pos = `bottom-${this.align}`;
+        },
 
-            $(this.dropdown, this.$el).each((i, el) => {
+        ready() {
 
-                drop = toJQuery(`.${this.clsDrop}`, el);
-
-                if (drop && !UIkit.getComponent(drop, 'drop') && !UIkit.getComponent(drop, 'dropdown')) {
-                    UIkit.drop(drop, extend({}, this));
-                }
-            }).on('mouseenter', ({target}) => {
+            this.$el.on(pointerEnter, this.dropdown, ({currentTarget}) => {
                 var active = this.getActive();
-                if (active && !isWithin(target, active.toggle.$el) && !active.isDelaying) {
+                if (active && active.toggle && !isWithin(active.toggle.$el, currentTarget) && !active.tracker.movesTo(active.$el)) {
                     active.hide(false);
                 }
             });
 
-            if (!this.dropbar) {
-                return;
+            if (this.dropbar) {
+                this.dropbar = query(this.dropbar, this.$el) || $('<div></div>').insertAfter(this.dropbarAnchor || this.$el);
+                UIkit.navbarDropbar(this.dropbar, {clsDrop: this.clsDrop, mode: this.dropbarMode, duration: this.duration, navbar: this});
             }
 
-            this.dropbar = query(this.dropbar, this.$el) || $('<div class="uk-navbar-dropbar"></div>').insertAfter(this.dropbarAnchor || this.$el);
+        },
 
-            if (this.dropbarMode === 'slide') {
-                this.dropbar.addClass('uk-navbar-dropbar-slide');
-            }
+        update() {
 
-            this.dropbar.on({
+            $(this.dropdown, this.$el).each((i, el) => {
 
-                mouseleave: () => {
+                var drop = toJQuery(`.${this.clsDrop}`, el);
 
-                    var active = this.getActive();
-
-                    if (active && !this.dropbar.is(':hover')) {
-                        active.hide();
-                    }
-                },
-
-                beforeshow: (e, {$el}) => {
-                    $el.addClass(`${this.clsDrop}-dropbar`);
-                    this.transitionTo($el.outerHeight(true));
-                },
-
-                beforehide: (e, {$el}) => {
-
-                    var active = this.getActive();
-
-                    if (this.dropbar.is(':hover') && active && active.$el.is($el)) {
-                        return false;
-                    }
-                },
-
-                hide: (e, {$el}) => {
-
-                    var active = this.getActive();
-
-                    if (active && active.$el.is($el)) {
-                        this.transitionTo(0);
-                    }
+                if (drop) {
+                    UIkit.drop(drop, extend({}, this));
                 }
 
             });
@@ -125,11 +91,72 @@ export default function (UIkit) {
             getActive() {
                 var active = UIkit.drop.getActive();
                 return active && active.mode !== 'click' && isWithin(active.toggle.$el, this.$el) && active;
+            }
+
+        }
+
+    });
+
+    UIkit.component('navbar-dropbar', {
+
+        mixins: [Class],
+
+        defaults: {
+            clsDrop: '',
+            mode: 'slide',
+            navbar: null,
+            duration: 200
+        },
+
+        init() {
+
+            if (this.mode === 'slide') {
+                this.$el.addClass('uk-navbar-dropbar-slide');
+            }
+
+        },
+
+        events: {
+
+            mouseleave() {
+
+                var active = this.navbar.getActive();
+
+                if (active && !this.$el.is(':hover')) {
+                    active.hide();
+                }
             },
 
+            beforeshow(e, {$el}) {
+                this.clsDrop && $el.addClass(`${this.clsDrop}-dropbar`);
+                this.transitionTo($el.outerHeight(true));
+            },
+
+            beforehide(e, {$el}) {
+
+                var active = this.navbar.getActive();
+
+                if (this.$el.is(':hover') && active && active.$el.is($el)) {
+                    return false;
+                }
+            },
+
+            hide(e, {$el}) {
+
+                var active = this.navbar.getActive();
+
+                if (!active || active && active.$el.is($el)) {
+                    this.transitionTo(0);
+                }
+            }
+
+        },
+
+        methods: {
+
             transitionTo(height) {
-                this.dropbar.height(this.dropbar[0].offsetHeight ? this.dropbar.height() : 0);
-                return Transition.cancel(this.dropbar).start(this.dropbar, {height}, this.duration);
+                this.$el.height(this.$el[0].offsetHeight ? this.$el.height() : 0);
+                return Transition.cancel(this.$el).then(() => Transition.start(this.$el, {height}, this.duration));
             }
 
         }

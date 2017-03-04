@@ -20,8 +20,9 @@
 @subnav-item-color:                             @global-muted-color;
 @subnav-item-hover-color:                       @global-color;
 @subnav-item-hover-text-decoration:             none;
-@subnav-item-active-color:                      @global-color;
+@subnav-item-active-color:                      @global-emphasis-color;
 
+@subnav-divider-margin-horizontal:              @subnav-margin-horizontal;
 @subnav-divider-border-height:                  1.5em;
 @subnav-divider-border-width:                   @global-border-width;
 @subnav-divider-border:                         @global-border;
@@ -143,7 +144,8 @@
 .uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
     content: "";
     height: @subnav-divider-border-height;
-    margin-right: @subnav-margin-horizontal;
+    margin-left: (@subnav-divider-margin-horizontal - @subnav-margin-horizontal);
+    margin-right: @subnav-divider-margin-horizontal;
     border-left: @subnav-divider-border-width solid @subnav-divider-border;
     .hook-subnav-divider;
 }
@@ -162,21 +164,21 @@
 /* Hover + Focus */
 .uk-subnav-pill > * > a:hover,
 .uk-subnav-pill > * > a:focus {
-    background: @subnav-pill-item-hover-background;
+    background-color: @subnav-pill-item-hover-background;
     color: @subnav-pill-item-hover-color;
     .hook-subnav-pill-item-hover;
 }
 
 /* OnClick */
 .uk-subnav-pill > * > a:active {
-    background: @subnav-pill-item-onclick-background;
+    background-color: @subnav-pill-item-onclick-background;
     color: @subnav-pill-item-onclick-color;
     .hook-subnav-pill-item-onclick;
 }
 
 /* Active */
 .uk-subnav-pill > .uk-active > a {
-    background: @subnav-pill-item-active-background;
+    background-color: @subnav-pill-item-active-background;
     color: @subnav-pill-item-active-color;
     .hook-subnav-pill-item-active;
 }
@@ -215,7 +217,7 @@
 
 @inverse-subnav-item-color:                    @inverse-global-muted-color;
 @inverse-subnav-item-hover-color:              @inverse-global-color;
-@inverse-subnav-item-active-color:             @inverse-global-color;
+@inverse-subnav-item-active-color:             @inverse-global-emphasis-color;
 @inverse-subnav-divider-border:                @inverse-global-border;
 @inverse-subnav-pill-item-background:          transparent;
 @inverse-subnav-pill-item-color:               @inverse-global-muted-color;
@@ -229,7 +231,7 @@
 
 .hook-inverse() {
 
-    .uk-subnav > * > a {
+    .uk-subnav > * > :first-child {
         color: @inverse-subnav-item-color;
         .hook-inverse-subnav-item;
     }
@@ -259,26 +261,26 @@
     //
 
     .uk-subnav-pill > * > :first-child {
-        background: @inverse-subnav-pill-item-background;
+        background-color: @inverse-subnav-pill-item-background;
         color: @inverse-subnav-pill-item-color;
         .hook-inverse-subnav-pill-item;
     }
 
     .uk-subnav-pill > * > a:hover,
     .uk-subnav-pill > * > a:focus {
-        background: @inverse-subnav-pill-item-hover-background;
+        background-color: @inverse-subnav-pill-item-hover-background;
         color: @inverse-subnav-pill-item-hover-color;
         .hook-inverse-subnav-pill-item-hover;
     }
 
     .uk-subnav-pill > * > a:active {
-        background: @inverse-subnav-pill-item-onclick-background;
+        background-color: @inverse-subnav-pill-item-onclick-background;
         color: @inverse-subnav-pill-item-onclick-color;
         .hook-inverse-subnav-pill-item-onclick;
     }
 
     .uk-subnav-pill > .uk-active > a {
-        background: @inverse-subnav-pill-item-active-background;
+        background-color: @inverse-subnav-pill-item-active-background;
         color: @inverse-subnav-pill-item-active-color;
         .hook-inverse-subnav-pill-item-active;
     }

@@ -47,46 +47,93 @@
                 <div>
 
                     <p uk-margin>
-                        <button class="uk-button uk-button-default" data-message="Message" data-pos="top-left">Top Left</button>
-                        <button class="uk-button uk-button-default" data-message="Message" data-pos="top-center">Top Center</button>
-                        <button class="uk-button uk-button-default" data-message="Message" data-pos="top-right">Top Right</button>
+                        <button class="uk-button uk-button-default" type="button" data-message="Message" data-pos="top-left">Top Left</button>
+                        <button class="uk-button uk-button-default" type="button" data-message="Message" data-pos="top-center">Top Center</button>
+                        <button class="uk-button uk-button-default" type="button" data-message="Message" data-pos="top-right">Top Right</button>
                     </p>
 
                     <p uk-margin>
-                        <button class="uk-button uk-button-default" data-message="Message" data-pos="bottom-left">Bottom Left</button>
-                        <button class="uk-button uk-button-default" data-message="Message" data-pos="bottom-center">Bottom Center</button>
-                        <button class="uk-button uk-button-default" data-message="Message" data-pos="bottom-right">Bottom Right</button>
+                        <button class="uk-button uk-button-default" type="button" data-message="Message" data-pos="bottom-left">Bottom Left</button>
+                        <button class="uk-button uk-button-default" type="button" data-message="Message" data-pos="bottom-center">Bottom Center</button>
+                        <button class="uk-button uk-button-default" type="button" data-message="Message" data-pos="bottom-right">Bottom Right</button>
                     </p>
 
                     <h2>Styles</h2>
 
                     <p uk-margin>
-                        <button class="uk-button uk-button-default" data-message="Primary message" data-status="primary">Primary</button>
-                        <button class="uk-button uk-button-default" data-message="Success message" data-status="success">Success</button>
-                        <button class="uk-button uk-button-default" data-message="Warning message" data-status="warning">Warning</button>
-                        <button class="uk-button uk-button-default" data-message="Danger message" data-status="danger">Danger</button>
+                        <button class="uk-button uk-button-default" type="button" data-message="Primary message" data-status="primary">Primary</button>
+                        <button class="uk-button uk-button-default" type="button" data-message="Success message" data-status="success">Success</button>
+                        <button class="uk-button uk-button-default" type="button" data-message="Warning message" data-status="warning">Warning</button>
+                        <button class="uk-button uk-button-default" type="button" data-message="Danger message" data-status="danger">Danger</button>
                     </p>
 
                     <h2>Specials</h2>
 
                     <p uk-margin>
-                        <button class="uk-button uk-button-default" data-message="<span uk-icon='icon: check'></span> Message with an icon">With icon</button>
-                        <button class="uk-button uk-button-default" data-message="Message without timeout" data-timeout="0">No Timeout</button>
+                        <button class="uk-button uk-button-default" type="button" data-message="<span uk-icon='icon: check'></span> Message with an icon">With icon</button>
+                        <button class="uk-button uk-button-default" type="button" data-message="Message without timeout" data-timeout="0">No Timeout</button>
                         <a id="close-all" class="uk-button uk-button-default">Close All</a>
                     </p>
 
                 </div>
             </div>
 
+            <h2>Javascript Options</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>message</code></td>
+                            <td>string</td>
+                            <td>false</td>
+                            <td>Notification message to show.</td>
+                        </tr>
+                        <tr>
+                            <td><code>status</code></td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Notification status color.</td>
+                        </tr>
+                        <tr>
+                            <td><code>timeout</code></td>
+                            <td>integer</td>
+                            <td>5000</td>
+                            <td>Visibility duration before a notification disappears.</td>
+                        </tr>
+                        <tr>
+                            <td><code>group</code></td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>Useful if you want to close all notifications in a specific group.</td>
+                        </tr>
+                        <tr>
+                            <td><code>pos</code></td>
+                            <td>string</td>
+                            <td>top-center</td>
+                            <td>Notification display position.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
         </div>
 
         <script>
 
-            jQuery('button').on('click', function() {
+            jQuery('button').on('click', function () {
                 UIkit.notification($(this).data());
             });
 
-            jQuery('#close-all').on('click',  function () {
+            jQuery('#close-all').on('click', function () {
                 UIkit.notification.closeAll();
             });
 

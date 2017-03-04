@@ -1,14 +1,16 @@
-var webpack = require('webpack');
+var fs = require('fs');
 var glob = require('glob');
 var path = require('path');
+var concat = require('concat');
+var webpack = require('webpack');
+var util = require('./build/util');
+var version = require('./package.json').version;
 
 var loaders = {
     loaders: [
-        {
-            test: /(src|tests)(\/|\\).*\.js$/,
-            loader: 'babel',
-            query: {presets: [['es2015', {loose: true}]]}
-        }
+        {loader: 'buble-loader', test: /(src|tests)(\/|\\).*\.js$/},
+        {loader: 'json-loader', test: /\.json$/},
+        {loader: 'html-loader', test: /\.svg$/}
     ]
 };
 
@@ -18,14 +20,75 @@ glob.sync('./src/js/components/**/*.js').forEach(file => components[path.basenam
 module.exports = [
 
     {
-        entry: './src/js/uikit',
+        entry: './tests/js/uikit',
         output: {
-            filename: 'js/uikit.js',
+            filename: 'dist/js/uikit.js',
             library: 'UIkit',
             libraryTarget: 'umd'
         },
         module: loaders,
-        externals: {jquery: 'jQuery'}
+        externals: {jquery: 'jQuery'},
+        resolve: {
+            alias: {
+                "components$": __dirname + "/dist/icons/components.json",
+            }
+        },
+        plugins: [
+            new webpack.DefinePlugin({
+                BUNDLED: true,
+                VERSION: `'${version}'`
+            })
+        ]
+    },
+
+    {
+        entry: './tests/js/uikit',
+        output: {
+            filename: 'dist/js/uikit.min.js',
+            library: 'UIkit',
+            libraryTarget: 'umd'
+        },
+        module: loaders,
+        externals: {jquery: 'jQuery'},
+        resolve: {
+            alias: {
+                "components$": __dirname + "/dist/icons/components.json",
+            }
+        },
+        plugins: [
+            new webpack.optimize.UglifyJsPlugin,
+            new webpack.DefinePlugin({
+                BUNDLED: true,
+                VERSION: `'${version}'`
+            })
+        ]
+    },
+
+    {
+        entry: './src/js/icons',
+        output: {
+            filename: 'dist/js/uikit-icons.js',
+            library: 'UIkitIcons',
+            libraryTarget: 'umd'
+        },
+        module: loaders,
+        plugins: [
+            {
+
+                apply(compiler) {
+
+                    compiler.plugin('after-plugins', () => fs.writeFileSync(`dist/icons.json`, util.icons('src/images/icons/*.svg')));
+                    compiler.plugin('done', () => fs.unlink(`dist/icons.json`, () => {}));
+
+                }
+
+            }
+        ],
+        resolve: {
+            alias: {
+                "icons$": __dirname + "/dist/icons.json",
+            }
+        }
     },
 
     {
@@ -34,15 +97,6 @@ module.exports = [
         },
         output: {
             filename: 'tests/js/test.js'
-        },
-        module: loaders,
-        externals: {jquery: 'jQuery', uikit: 'UIkit'}
-    },
-
-    {
-        entry: components,
-        output: {
-            filename: 'js/components/[name].js'
         },
         module: loaders,
         externals: {jquery: 'jQuery', uikit: 'UIkit'}

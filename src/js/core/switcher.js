@@ -1,11 +1,13 @@
-import { $, getIndex, toJQuery } from '../util/index';
 import { Toggable } from '../mixin/index';
+import { $, getIndex, isTouch, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('switcher', {
 
         mixins: [Toggable],
+
+        args: 'connect',
 
         props: {
             connect: 'jQuery',
@@ -21,33 +23,52 @@ export default function (UIkit) {
             swiping: true,
             cls: 'uk-active',
             clsContainer: 'uk-switcher',
-            attrItem: 'uk-switcher-item'
+            attrItem: 'uk-switcher-item',
+            queued: true
         },
 
-        ready() {
+        connected() {
+            this.$emitSync();
+        },
 
-            this.toggles = toJQuery(this.toggle, this.$el);
+        events: [
 
-            if (!this.connect) {
-                this.connect = toJQuery(this.$el.next(`.${this.clsContainer}`));
+            {
+
+                name: 'click',
+
+                delegate() {
+                    return `${this.toggle}:not(.uk-disabled)`;
+                },
+
+                handler(e) {
+                    e.preventDefault();
+                    this.show(e.currentTarget);
+                }
+
             }
 
-            if (!this.connect || !this.toggles) {
-                return;
-            }
+        ],
 
-            this.$el.on('click', `${this.toggle}:not(.uk-disabled)`, e => {
-                e.preventDefault();
-                this.show(e.currentTarget);
-            });
+        update() {
 
-            this.connect.on('click', `[${this.attrItem}]`, e => {
+            this.toggles = $(this.toggle, this.$el);
+            this.connects = this.connect || $(this.$el.next(`.${this.clsContainer}`));
+
+            var click = `click.${this.$options.name}`;
+            this.connects.off(click).on(click, `[${this.attrItem}],[data-${this.attrItem}]`, e => {
                 e.preventDefault();
-                this.show($(e.currentTarget).attr(this.attrItem));
+                this.show($(e.currentTarget)[e.currentTarget.hasAttribute(this.attrItem) ? 'attr' : 'data'](this.attrItem));
             });
 
             if (this.swiping) {
-                this.connect.on('swipeRight swipeLeft', e => {
+                var swipe = `swipeRight.${this.$options.name} swipeLeft.${this.$options.name}`;
+                this.connects.off(swipe).on(swipe, e => {
+
+                    if (!isTouch(e)) {
+                        return;
+                    }
+
                     e.preventDefault();
                     if (!window.getSelection().toString()) {
                         this.show(e.type == 'swipeLeft' ? 'next' : 'previous');
@@ -55,8 +76,10 @@ export default function (UIkit) {
                 });
             }
 
-            this.updateAria(this.connect.children());
+            this.updateAria(this.connects.children());
+
             this.show(toJQuery(this.toggles.filter(`.${this.cls}:first`)) || toJQuery(this.toggles.eq(this.active)) || this.toggles.first());
+
         },
 
         methods: {
@@ -64,7 +87,7 @@ export default function (UIkit) {
             show(item) {
 
                 var length = this.toggles.length,
-                    prev = this.connect.children(`.${this.cls}`).index(),
+                    prev = this.connects.children(`.${this.cls}`).index(),
                     hasPrev = prev >= 0,
                     index = getIndex(item, this.toggles, prev),
                     dir = item === 'previous' ? -1 : 1,
@@ -77,17 +100,18 @@ export default function (UIkit) {
                     }
                 }
 
-                if (!toggle || (prev >= 0 && toggle.hasClass(this.cls)) || prev === index) {
+                if (!toggle || prev >= 0 && toggle.hasClass(this.cls) || prev === index) {
                     return;
                 }
 
                 this.toggles.removeClass(this.cls).attr('aria-expanded', false);
                 toggle.addClass(this.cls).attr('aria-expanded', true);
 
-                this.toggleElement(hasPrev ? this.connect.children(`:nth-child(${prev + 1})`) : undefined, null, hasPrev).then(() => {
-                    this.toggleElement(this.connect.children(`:nth-child(${index + 1})`), null, hasPrev);
-                });
-
+                if (!hasPrev) {
+                    this.toggleNow(this.connects.children(`:nth-child(${index + 1})`));
+                } else {
+                    this.toggleElement(this.connects.children(`:nth-child(${prev + 1}),:nth-child(${index + 1})`));
+                }
             }
 
         }

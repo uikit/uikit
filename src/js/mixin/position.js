@@ -1,4 +1,4 @@
-import { flipPosition, position, removeClass, toNumber } from '../util/index';
+import { isRtl, flipPosition, position, removeClass, toNumber } from '../util/index';
 
 export default {
 
@@ -10,14 +10,14 @@ export default {
     },
 
     defaults: {
-        pos: 'bottom-left',
+        pos: !isRtl ? 'bottom-left' : 'bottom-right',
         flip: true,
         offset: false,
         clsPos: ''
     },
 
     init() {
-        this.pos = (this.pos + (this.pos.indexOf('-') === -1 ? '-center' : '')).split('-');
+        this.pos = (this.pos + (!~this.pos.indexOf('-') ? '-center' : '')).split('-');
         this.dir = this.pos[0];
         this.align = this.pos[1];
     },

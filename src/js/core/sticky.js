@@ -1,8 +1,13 @@
-import { $, Animation, isNumeric, isString, query, requestAnimationFrame } from '../util/index';
+import { Class } from '../mixin/index';
+import { $, Animation, isNumeric, isString, query, requestAnimationFrame, win } from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('sticky', {
+
+        mixins: [Class],
+
+        attrs: true,
 
         props: {
             top: null,
@@ -11,6 +16,7 @@ export default function (UIkit) {
             animation: String,
             clsActive: String,
             clsInactive: String,
+            clsFixed: String,
             widthElement: 'jQuery',
             showOnUp: Boolean,
             media: 'media',
@@ -24,66 +30,81 @@ export default function (UIkit) {
             animation: '',
             clsActive: 'uk-active',
             clsInactive: '',
+            clsFixed: 'uk-sticky-fixed',
             widthElement: false,
             showOnUp: false,
             media: false,
             target: false
         },
 
+        init() {
+            this.$el.addClass(this.clsInactive);
+        },
+
+        connected() {
+            this.placeholder = $('<div class="uk-sticky-placeholder"></div>').insertAfter(this.$el).attr('hidden', true);
+            this.widthElement = this.$props.widthElement || this.placeholder;
+        },
+
+        disconnected() {
+
+            if (this.isActive) {
+                this.isActive = false;
+                this.hide();
+                this.$el.removeClass(this.clsInactive);
+            }
+
+            this.placeholder.remove();
+            this.placeholder = null;
+            this.widthElement = null;
+        },
+
         ready() {
 
-            this.placeholder = $('<div class="uk-sticky-placeholder"></div>').insertAfter(this.$el).attr('hidden', true);
-            this.widthElement = this.widthElement || this.placeholder;
-            this.topProp = this.top;
-            this.bottomProp = this.bottom;
+            if (!(this.target && location.hash && win.scrollTop() > 0)) {
+                return;
+            }
 
-            var scroll = $(window).scrollTop();
-            if (location.hash && scroll > 0 && this.target) {
+            var target = query(location.hash);
 
-                var target = query(location.hash);
+            if (target) {
+                requestAnimationFrame(() => {
 
-                if (target) {
-                    requestAnimationFrame(() => {
+                    var top = target.offset().top,
+                        elTop = this.$el.offset().top,
+                        elHeight = this.$el.outerHeight(),
+                        elBottom = elTop + elHeight;
 
-                        var top = target.offset().top,
-                            elTop = this.$el.offset().top,
-                            elHeight = this.$el.outerHeight(),
-                            elBottom = elTop + elHeight;
+                    if (elBottom >= top && elTop <= top + target.outerHeight()) {
+                        window.scrollTo(0, top - elHeight - this.target - this.offset);
+                    }
 
-                        if (elBottom >= top && elTop <= top + target.outerHeight()) {
-                            window.scrollTo(0, top - elHeight - this.target - this.offset);
-                        }
-
-                    });
-                }
+                });
             }
 
         },
 
-        update: {
+        update: [
 
-            handler({type, dir}) {
+            {
 
-                var isActive = this.$el.hasClass(this.clsActive) && !this.$el.hasClass('uk-animation-leave'), el;
+                write() {
 
-                if (type !== 'scroll') {
+                    var outerHeight = this.$el.outerHeight(), el;
 
-                    var outerHeight = this.$el.outerHeight();
+                    this.placeholder
+                        .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
+                        .css(this.$el.css(['marginTop', 'marginBottom', 'marginLeft', 'marginRight']));
 
-                    this.placeholder.css({
-                        height: this.$el.css('position') !== 'absolute' ? outerHeight : '',
-                        marginTop: this.$el.css('marginTop'),
-                        marginBottom: this.$el.css('marginBottom'),
-                        marginLeft: this.$el.css('marginLeft'),
-                        marginRight: this.$el.css('marginRight')
-                    });
+                    this.width = this.widthElement.attr('hidden', null).outerWidth();
+                    this.widthElement.attr('hidden', !this.isActive);
 
-                    this.topOffset = (isActive ? this.placeholder.offset() : this.$el.offset()).top;
+                    this.topOffset = (this.isActive ? this.placeholder.offset() : this.$el.offset()).top;
                     this.bottomOffset = this.topOffset + outerHeight;
 
                     ['top', 'bottom'].forEach(prop => {
 
-                        this[prop] = this[`${prop}Prop`];
+                        this[prop] = this.$props[prop];
 
                         if (!this[prop]) {
                             return;
@@ -113,71 +134,110 @@ export default function (UIkit) {
 
                     this.top = Math.max(parseFloat(this.top), this.topOffset) - this.offset;
                     this.bottom = this.bottom && this.bottom - outerHeight;
-
                     this.inactive = this.media && !window.matchMedia(this.media).matches;
-                }
 
-                var scroll = $(window).scrollTop();
+                    if (this.isActive) {
+                        this.update();
+                    }
+                },
 
-                if (scroll < 0 || !this.$el.is(':visible') || this.disabled) {
-                    return;
-                }
+                events: ['load', 'resize', 'orientationchange']
 
-                if (this.inactive
-                    || scroll < this.top
-                    || this.showOnUp && (dir !== 'up' || dir === 'up' && !isActive && scroll <= this.bottomOffset)
-                ) {
-                    if (isActive) {
+            },
 
-                        var hide = () => {
-                            this.$el
-                                .removeClass(this.clsActive)
-                                .addClass(this.clsInactive)
-                                .css({position: '', top: '', width: ''})
-                                .trigger('inactive');
-                            this.placeholder.attr('hidden', true);
-                        };
+            {
 
-                        if (this.animation && this.bottomOffset < this.$el.offset().top) {
-                            Animation.cancel(this.$el).out(this.$el, this.animation).then(hide);
-                        } else {
-                            hide();
-                        }
+                write({dir} = {}) {
 
+                    var scroll = win.scrollTop();
+
+                    if (scroll < 0 || !this.$el.is(':visible') || this.disabled) {
+                        return;
                     }
 
-                    return;
-                }
+                    if (this.inactive
+                        || scroll < this.top
+                        || this.showOnUp && (scroll <= this.top || dir ==='down' || dir === 'up' && !this.isActive && scroll <= this.bottomOffset)
+                    ) {
 
-                this.placeholder.attr('hidden', false);
+                        if (!this.isActive) {
+                            return;
+                        }
 
-                var top = Math.max(0, this.offset);
+                        this.isActive = false;
+
+                        if (this.animation && this.bottomOffset < this.$el.offset().top) {
+                            Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation).then(() => this.hide()));
+                        } else {
+                            this.hide();
+                        }
+
+                    } else if (this.isActive) {
+
+                        this.update();
+
+                    } else if (this.animation) {
+
+                        Animation.cancel(this.$el).then(() => {
+                            this.show();
+                            Animation.in(this.$el, this.animation);
+                        });
+
+                    } else {
+                        this.show();
+                    }
+
+                },
+
+                events: ['scroll']
+
+            },
+
+        ],
+
+        methods: {
+
+            show() {
+
+                this.isActive = true;
+                this.update();
+                this.$el.trigger('active');
+                this.placeholder.attr('hidden', null);
+
+            },
+
+            hide() {
+
+                this.$el
+                    .addClass(this.clsInactive)
+                    .removeClass(this.clsFixed)
+                    .removeClass(this.clsActive)
+                    .css({position: '', top: '', width: ''})
+                    .trigger('inactive');
+
+                this.placeholder.attr('hidden', true);
+
+            },
+
+            update() {
+
+                var top = Math.max(0, this.offset), scroll = win.scrollTop(), active = win.scrollTop() > this.top;
+
                 if (this.bottom && scroll > this.bottom - this.offset) {
                     top = this.bottom - scroll;
                 }
 
-                this.$el.css({
-                    position: 'fixed',
-                    top: top + 'px',
-                    width: this.widthElement[0].getBoundingClientRect().width
-                });
-
-                if (isActive) {
-                    return;
-                }
-
-                if (this.animation) {
-                    Animation.cancel(this.$el).in(this.$el, this.animation);
-                }
-
                 this.$el
-                    .addClass(this.clsActive)
-                    .removeClass(this.clsInactive)
-                    .trigger('active');
+                    .css({
+                        position: 'fixed',
+                        top: `${top}px`,
+                        width: this.width
+                    })
+                    .addClass(this.clsFixed)
+                    .toggleClass(this.clsActive, active)
+                    .toggleClass(this.clsInactive, !active);
 
-            },
-
-            events: ['scroll', 'load', 'resize', 'orientationchange']
+            }
 
         }
 

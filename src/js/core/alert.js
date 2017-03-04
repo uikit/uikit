@@ -6,6 +6,8 @@ export default function (UIkit) {
 
         mixins: [Class, Toggable],
 
+        args: 'animation',
+
         props: {
             animation: Boolean,
             close: String
@@ -14,21 +16,33 @@ export default function (UIkit) {
         defaults: {
             animation: true,
             close: '.uk-alert-close',
-            duration: 150
+            duration: 150,
+            hideProps: {opacity: 0}
         },
 
-        ready() {
-            this.$el.on('click', this.close, e => {
-                e.preventDefault();
-                this.closeAlert();
-            });
-        },
+        events: [
+
+            {
+
+                name: 'click',
+
+                delegate() {
+                    return this.close;
+                },
+
+                handler(e) {
+                    e.preventDefault();
+                    this.closeAlert();
+                }
+
+            }
+
+        ],
 
         methods: {
 
             closeAlert() {
                 this.toggleElement(this.$el).then(() => this.$destroy(true));
-                requestAnimationFrame(() => this.$el.css('opacity', 0));
             }
 
         }

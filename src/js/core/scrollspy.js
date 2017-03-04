@@ -1,8 +1,10 @@
-import { $, isInView, toJQuery } from '../util/index';
+import { $, isInView } from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('scrollspy', {
+
+        args: 'cls',
 
         props: {
             cls: String,
@@ -26,45 +28,59 @@ export default function (UIkit) {
         },
 
         init() {
-            if (this.hidden) {
-                this.getElements().css('visibility', 'hidden');
-            }
+            this.$emit();
         },
 
-        ready() {
+        update: [
 
-            this.elements = this.getElements();
+            {
 
-            if (this.hidden) {
-                this.elements.css('visibility', 'hidden');
-            }
-        },
+                read() {
+                    this.elements = this.target && $(this.target, this.$el) || this.$el;
+                },
 
-        update: {
+                write() {
+                    if (this.hidden) {
+                        this.elements.filter(`:not(.${this.inViewClass})`).css('visibility', 'hidden');
+                    }
+                }
 
-            handler() {
+            },
 
-                var index = this.elements.length === 1 ? 1 : 0;
+            {
 
-                requestAnimationFrame(() => { // wait for other components to do their positioning (grid)
+                read() {
+                    this.elements.each((_, el) => {
 
-                    this.elements.each((i, el) => {
+                        if (!el._scrollspy) {
+                            el._scrollspy = {toggles: ($(el).attr('uk-scrollspy-class') || this.cls).split(',')};
+                        }
+
+                        el._scrollspy.show = isInView(el, this.offsetTop, this.offsetLeft);
+
+                    });
+                },
+
+                write() {
+
+                    var index = this.elements.length === 1 ? 1 : 0;
+
+                    this.elements.each((_, el) => {
 
                         var $el = $(el);
 
-                        if (!el.__uk_scrollspy) {
-                            el.__uk_scrollspy = {toggles: ($el.attr('uk-scrollspy-class') ? $el.attr('uk-scrollspy-class') : this.cls).split(',')};
-                        }
+                        var data = el._scrollspy;
 
-                        var data = el.__uk_scrollspy;
-
-                        if (isInView(el, this.offsetTop, this.offsetLeft)) {
+                        if (data.show) {
 
                             if (!data.inview && !data.timer) {
 
                                 data.timer = setTimeout(() => {
 
-                                    $el.css('visibility', '').addClass(this.inViewClass).toggleClass(data.toggles[0]).trigger('inview'); // TODO rename event?
+                                    $el.css('visibility', '')
+                                        .addClass(this.inViewClass)
+                                        .toggleClass(data.toggles[0])
+                                        .trigger('inview');
 
                                     data.inview = true;
                                     delete data.timer;
@@ -82,30 +98,27 @@ export default function (UIkit) {
                                     delete data.timer;
                                 }
 
-                                $el.removeClass(this.inViewClass).toggleClass(data.toggles[0]).css('visibility', this.hidden ? 'hidden' : '').trigger('outview'); // TODO rename event?
+                                $el.removeClass(this.inViewClass)
+                                    .toggleClass(data.toggles[0])
+                                    .css('visibility', this.hidden ? 'hidden' : '')
+                                    .trigger('outview');
+
                                 data.inview = false;
                             }
 
                         }
 
                         data.toggles.reverse();
+
                     });
 
-                });
+                },
 
-            },
+                events: ['scroll', 'load', 'resize', 'orientationchange']
 
-            events: ['scroll', 'load', 'resize', 'orientationchange']
-
-        },
-
-        methods: {
-
-            getElements() {
-                return this.target && toJQuery(this.target, this.$el) || this.$el;
             }
 
-        }
+        ]
 
     });
 
