@@ -40,7 +40,7 @@ export default function (UIkit) {
         };
 
         if (document.body && !options.options.functional) {
-            UIkit[name](`[uk-${id}],[data-uk-${id}]`);
+            $(`[uk-${id}],[data-uk-${id}]`).each((_, el) => UIkit[name](el));
         }
 
         return UIkit.components[name];

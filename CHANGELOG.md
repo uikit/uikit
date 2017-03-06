@@ -12,6 +12,7 @@
 
 ### Fixed
 
+- Fix deferred UIKit loading
 - Fix Dropdowns not closing immediate upon hovering other navbar item in Navbar component
 - Fix navbar groups center left/right in IE 11
 - Fix "sticky on up" behaviour in Sticky component
