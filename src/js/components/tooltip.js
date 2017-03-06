@@ -17,6 +17,8 @@ function plugin(UIkit) {
 
     UIkit.component('tooltip', {
 
+        attrs: true,
+
         mixins: [mixin.toggable, mixin.position],
 
         props: {
@@ -38,7 +40,14 @@ function plugin(UIkit) {
 
         init() {
             this.container = this.container === true && UIkit.container || this.container && toJQuery(this.container);
+        },
+
+        connected() {
             fastdom.mutate(() => this.$el.removeAttr('title').attr('aria-expanded', false));
+        },
+
+        disconnected() {
+            this.hide();
         },
 
         methods: {
