@@ -121,8 +121,7 @@ export default {
                             resolve();
                             this.panel.off(transitionend, resolve);
                         }, duration);
-                    }) : true;
-
+                    }) : undefined;
             }
 
         },

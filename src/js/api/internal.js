@@ -104,7 +104,7 @@ export default function (UIkit) {
                                 return;
                             }
 
-                            fn.call(this, e);
+                            return fn.call(this, e);
                         }
                     }
 
