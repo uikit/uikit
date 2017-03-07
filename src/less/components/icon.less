@@ -63,6 +63,23 @@
 
 .uk-icon > * { transform: translate(0,0); }
 
+/*
+ * We can use css 'font-size'
+ */
+:not(code) > .uk-icon > [ratio="1"] {
+
+    /* Inherit the text’s size too. Also allows sizing the icon by changing its font-size. */
+    width: 1em;
+    height: 1em;
+
+    /* Nice visual alignment for icons alongside text. (I got a few questions about
+        this and: with most fonts and styles, this works better than just
+       vertical-align:middle. Try it and see what you like best. */
+    vertical-align: -0.15em;
+
+    /* default: 100%  -> 16px but needed 20px to not break compatibility */
+    font-size: 1.25em;
+}
 
 /* Image modifier
  ========================================================================== */
