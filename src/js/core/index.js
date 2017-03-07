@@ -1,4 +1,4 @@
-import { animationstart, fastdom, getStyle, on, toMs, win } from '../util/index';
+import { animationstart, getStyle, on, requestAnimationFrame, toMs, win } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
@@ -35,7 +35,7 @@ export default function (UIkit) {
         .on('load', UIkit.update)
         .on('resize orientationchange', e => {
             if (!resizing) {
-                fastdom.measure(() => {
+                requestAnimationFrame(() => {
                     UIkit.update(e);
                     resizing = false;
                 });
@@ -48,14 +48,10 @@ export default function (UIkit) {
                 scroll = 0;
             }
 
-            if (scroll === window.pageYOffset) {
-                return;
-            }
-
             dir = scroll < window.pageYOffset;
             scroll = window.pageYOffset;
             if (!ticking) {
-                fastdom.measure(() => {
+                requestAnimationFrame(() => {
                     e.dir = dir ? 'down' : 'up';
                     UIkit.update(e);
                     ticking = false;
