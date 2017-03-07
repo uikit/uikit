@@ -5,6 +5,7 @@
 ### Added
 
 - Add tile component
+- Tooltip is now attribute reactive
 
 ### Changed
 

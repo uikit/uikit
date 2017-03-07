@@ -1,4 +1,4 @@
-import { animationstart, getStyle, fastdom, on, requestAnimationFrame, toMs, win } from '../util/index';
+import { animationstart, fastdom, getStyle, on, toMs, win } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
@@ -35,7 +35,7 @@ export default function (UIkit) {
         .on('load', UIkit.update)
         .on('resize orientationchange', e => {
             if (!resizing) {
-                requestAnimationFrame(() => {
+                fastdom.measure(() => {
                     UIkit.update(e);
                     resizing = false;
                 });
@@ -48,10 +48,14 @@ export default function (UIkit) {
                 scroll = 0;
             }
 
+            if (scroll === window.pageYOffset) {
+                return;
+            }
+
             dir = scroll < window.pageYOffset;
             scroll = window.pageYOffset;
             if (!ticking) {
-                requestAnimationFrame(() => {
+                fastdom.measure(() => {
                     e.dir = dir ? 'down' : 'up';
                     UIkit.update(e);
                     ticking = false;
@@ -61,19 +65,15 @@ export default function (UIkit) {
         });
 
     on(document, animationstart, ({target}) => {
-        fastdom.measure(() => {
-            if ((getStyle(target, 'animationName') || '').lastIndexOf('uk-', 0) === 0) {
-                fastdom.mutate(() => {
-                    started++;
-                    document.body.style.overflowX = 'hidden';
-                    setTimeout(() => fastdom.mutate(() => {
-                        if (!--started) {
-                            document.body.style.overflowX = '';
-                        }
-                    }), toMs(getStyle(target, 'animationDuration')));
-                });
-            }
-        });
+        if ((getStyle(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
+            started++;
+            document.body.style.overflowX = 'hidden';
+            setTimeout(() => {
+                if (!--started) {
+                    document.body.style.overflowX = '';
+                }
+            }, toMs(getStyle(target, 'animationDuration')) + 100);
+        }
     }, true);
 
     // core components

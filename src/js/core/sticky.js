@@ -37,13 +37,14 @@ export default function (UIkit) {
             target: false
         },
 
-        init() {
-            this.$el.addClass(this.clsInactive);
-        },
-
         connected() {
-            this.placeholder = $('<div class="uk-sticky-placeholder"></div>').insertAfter(this.$el).attr('hidden', true);
+
+            this.placeholder = $('<div class="uk-sticky-placeholder"></div>');
             this.widthElement = this.$props.widthElement || this.placeholder;
+
+            if (!this.isActive) {
+                this.$el.addClass(this.clsInactive);
+            }
         },
 
         disconnected() {
@@ -95,6 +96,10 @@ export default function (UIkit) {
                     this.placeholder
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
                         .css(this.$el.css(['marginTop', 'marginBottom', 'marginLeft', 'marginRight']));
+
+                    if (!document.documentElement.contains(this.placeholder[0])) {
+                        this.placeholder.insertAfter(this.$el).attr('hidden', true);
+                    }
 
                     this.width = this.widthElement.attr('hidden', null).outerWidth();
                     this.widthElement.attr('hidden', !this.isActive);
@@ -151,7 +156,7 @@ export default function (UIkit) {
 
                     var scroll = win.scrollTop();
 
-                    if (scroll < 0 || !this.$el.is(':visible') || this.disabled) {
+                    if (scroll < 0 || !this.$el.is(':visible') || this.disabled || this.showOnUp && !dir) {
                         return;
                     }
 
