@@ -48,6 +48,10 @@ export default function (UIkit) {
                 scroll = 0;
             }
 
+            if (scroll === window.pageYOffset) {
+                return;
+            }
+
             dir = scroll < window.pageYOffset;
             scroll = window.pageYOffset;
             if (!ticking) {
