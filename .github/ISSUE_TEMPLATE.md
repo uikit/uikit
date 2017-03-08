@@ -4,7 +4,6 @@ The issue list of this repo is **exclusively** for bug reports and feature reque
 
 - Read the docs: https://getuikit.com/docs
 - Ask in the Gitter chat room: https://gitter.im/uikit/uikit
-- Ask on the forums: http://forum.vuejs.org/
 - Look for/ask questions on stack overflow: https://stackoverflow.com/questions/ask?tags=getuikit
 
 Reporting a bug?
