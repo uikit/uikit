@@ -139,10 +139,21 @@
                         </div>
 
                         <div class="uk-inline">
-                            <button class="uk-button uk-button-default" type="button" uk-toggle="target: #test; mode: hover">Same</button>
-                            <a class="uk-button uk-button-default" type="button" href="#test" uk-toggle="mode: hover">Same</a>
+                            <button class="uk-button uk-button-default" type="button">Hover only</button>
+                            <div uk-dropdown="mode: hover; delayHide: 0">
+                                <ul class="uk-nav uk-dropdown-nav">
+                                    <li class="uk-active"><a href="#">Active</a></li>
+                                    <li><a href="#">Item</a></li>
+                                    <li><a href="#">Item</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="uk-inline">
+                            <button class="uk-button uk-button-default" type="button" uk-toggle="target: +div; mode: click,hover">Same</button>
+                            <button class="uk-button uk-button-default" type="button" uk-toggle="target: +div; mode: click,hover">Same</button>
                             <button class="uk-button uk-button-default" type="button">Target</button>
-                            <div id="test" uk-dropdown>
+                            <div uk-dropdown>
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -356,8 +367,8 @@
                         <tr>
                             <td><code>mode</code></td>
                             <td>hover | click</td>
-                            <td>hover</td>
-                            <td>Dropdown trigger behaviour.</td>
+                            <td>click,hover</td>
+                            <td>Comma separated list of dropdown trigger behaviour modes.</td>
                         </tr>
                         <tr>
                             <td><code>delay-show</code></td>

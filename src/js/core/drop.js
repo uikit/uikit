@@ -20,7 +20,7 @@ export default function (UIkit) {
         args: 'pos',
 
         props: {
-            mode: String,
+            mode: 'list',
             toggle: Boolean,
             boundary: 'jQuery',
             boundaryAlign: Boolean,
@@ -30,7 +30,7 @@ export default function (UIkit) {
         },
 
         defaults: {
-            mode: 'hover',
+            mode: ['click', 'hover'],
             toggle: '- :first',
             boundary: window,
             boundaryAlign: false,
@@ -38,7 +38,7 @@ export default function (UIkit) {
             delayHide: 800,
             clsDrop: false,
             hoverIdle: 200,
-            animation: 'uk-animation-fade',
+            animation: ['uk-animation-fade'],
             cls: 'uk-open'
         },
 
@@ -130,7 +130,7 @@ export default function (UIkit) {
                 name: pointerEnter,
 
                 filter() {
-                    return this.mode === 'hover';
+                    return ~this.mode.indexOf('hover');
                 },
 
                 handler(e) {
@@ -142,7 +142,7 @@ export default function (UIkit) {
                     if (active
                         && active !== this
                         && active.toggle
-                        && active.toggle.mode === 'hover'
+                        && ~active.toggle.mode.indexOf('hover')
                         && !isWithin(e.target, active.$el)
                         && !isWithin(e.target, active.toggle.$el)
                     ) {
@@ -183,7 +183,7 @@ export default function (UIkit) {
 
                     e.preventDefault();
 
-                    if (this.toggle && this.toggle.mode === 'hover') {
+                    if (this.toggle && ~this.toggle.mode.indexOf('hover')) {
                         this.hide();
                     }
                 }

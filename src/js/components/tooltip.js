@@ -31,7 +31,7 @@ function plugin(UIkit) {
             pos: 'top',
             title: '',
             delay: 0,
-            animation: 'uk-animation-scale-up',
+            animation: ['uk-animation-scale-up'],
             duration: 100,
             cls: 'uk-active',
             clsPos: 'uk-tooltip',

@@ -73,10 +73,17 @@
                 </div>
 
                 <div class="uk-inline">
-                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: #test; mode: hover">Same</button>
-                    <a class="uk-button uk-button-default" type="button" href="#test" uk-toggle="mode: hover">Same</a>
+                    <button class="uk-button uk-button-default" type="button">Hover only</button>
+                    <div uk-drop="mode: hover; delayHide: 0">
+                        <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                    </div>
+                </div>
+
+                <div class="uk-inline">
+                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: +div; mode: click,hover">Same</button>
+                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: +div; mode: click,hover">Same</button>
                     <button class="uk-button uk-button-default" type="button">Target</button>
-                    <div id="test" uk-drop>
+                    <div uk-drop>
                         <div class="uk-card uk-card-body uk-card-default">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
                     </div>
                 </div>
@@ -335,8 +342,8 @@
                         <tr>
                             <td><code>mode</code></td>
                             <td>hover | click</td>
-                            <td>hover</td>
-                            <td>Drop trigger behaviour.</td>
+                            <td>click,hover</td>
+                            <td>Comma separated list of drop trigger behaviour modes.</td>
                         </tr>
                         <tr>
                             <td><code>delay-show</code></td>

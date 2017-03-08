@@ -9,7 +9,7 @@ export default function (UIkit) {
 
         props: {
             dropdown: String,
-            mode: String,
+            mode: 'list',
             align: String,
             offset: Number,
             boundary: Boolean,

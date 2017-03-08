@@ -1,4 +1,4 @@
-import $ from 'jquery';
+import $, { isArray } from 'jquery';
 import { getCssVar, isJQuery, query } from './index';
 
 export { $ };
@@ -141,6 +141,14 @@ export function toNumber(value) {
     return !isNaN(number) ? number : false;
 }
 
+export function toList(value) {
+    return isArray(value)
+        ? value
+        : isString(value)
+            ? value.split(',').map(value => value.trim())
+            : [value];
+}
+
 var vars = {};
 export function toMedia(value) {
     if (isString(value) && value[0] == '@') {
@@ -159,6 +167,8 @@ export function coerce(type, value, context) {
         return toNumber(value);
     } else if (type === 'jQuery') {
         return query(value, context);
+    } else if (type === 'list') {
+        return toList(value);
     } else if (type === 'media') {
         return toMedia(value);
     }

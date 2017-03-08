@@ -10,6 +10,7 @@
 ### Changed
 
 - Rename uk-background to uk-background-default
+- Drop, Dropdown, Toggle component's mode is a comma separated list now (to support hover only mode)
 
 ### Fixed
 

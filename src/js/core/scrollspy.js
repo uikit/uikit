@@ -7,7 +7,7 @@ export default function (UIkit) {
         args: 'cls',
 
         props: {
-            cls: String,
+            cls: 'list',
             target: String,
             hidden: Boolean,
             offsetTop: Number,
@@ -17,7 +17,7 @@ export default function (UIkit) {
         },
 
         defaults: {
-            cls: 'uk-scrollspy-inview',
+            cls: ['uk-scrollspy-inview'],
             target: false,
             hidden: true,
             offsetTop: 0,
@@ -53,7 +53,7 @@ export default function (UIkit) {
                     this.elements.each((_, el) => {
 
                         if (!el._scrollspy) {
-                            el._scrollspy = {toggles: ($(el).attr('uk-scrollspy-class') || this.cls).split(',')};
+                            el._scrollspy = {toggles: $(el).attr('uk-scrollspy-class').split(',') || this.cls};
                         }
 
                         el._scrollspy.show = isInView(el, this.offsetTop, this.offsetLeft);

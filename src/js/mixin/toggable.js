@@ -1,11 +1,11 @@
 import UIkit from '../api/index';
-import { $, Animation, extend, isString, promise, Transition } from '../util/index';
+import { $, Animation, extend, promise, Transition } from '../util/index';
 
 export default {
 
     props: {
         cls: Boolean,
-        animation: Boolean,
+        animation: 'list',
         duration: Number,
         origin: String,
         transition: String,
@@ -14,7 +14,7 @@ export default {
 
     defaults: {
         cls: false,
-        animation: false,
+        animation: [false],
         duration: 200,
         origin: false,
         transition: 'linear',
@@ -40,50 +40,32 @@ export default {
 
     },
 
-    ready() {
-
-        if (isString(this.animation)) {
-
-            this.animation = this.animation.split(',');
-
-            if (this.animation.length === 1) {
-                this.animation[1] = this.animation[0];
-            }
-
-            this.animation = this.animation.map(animation => animation.trim());
-
-        }
-
-        this.queued = this.queued && !!this.animation;
-
-    },
-
     methods: {
 
         toggleElement(targets, show, animate) {
 
-            var toggles, body = document.body, scroll = body.scrollTop,
+            var queued = this.queued && !!this.animation[0], toggles, body = document.body, scroll = body.scrollTop,
                 all = targets => promise.all(targets.toArray().map(el => this._toggleElement(el, show, animate))).then(null, () => {}),
                 delay = targets => {
                     var def = all(targets);
-                    this.queued = true;
+                    queued = true;
                     body.scrollTop = scroll;
                     return def;
                 };
 
             targets = $(targets);
 
-            if (!this.queued || targets.length < 2) {
+            if (!queued || targets.length < 2) {
                 return all(targets);
             }
 
-            if (this.queued !== true) {
-                return delay(targets.not(this.queued));
+            if (queued !== true) {
+                return delay(targets.not(queued));
             }
 
-            this.queued = targets.not(toggles = targets.filter((_, el) => this.isToggled(el)));
+            queued = targets.not(toggles = targets.filter((_, el) => this.isToggled(el)));
 
-            return all(toggles).then(() => this.queued !== true && delay(this.queued));
+            return all(toggles).then(() => queued !== true && delay(queued));
         },
 
         toggleNow(targets, show) {
@@ -121,9 +103,9 @@ export default {
                 delay = event.result;
             }
 
-            var promise = (this.animation === true && animate !== false
+            var promise = (this.animation[0] === true && animate !== false
                 ? this._toggleHeight
-                : this.animation && animate !== false
+                : this.animation[0] && animate !== false
                     ? this._toggleAnimation
                     : this._toggleImmediate
             )(el, show);
@@ -192,7 +174,7 @@ export default {
                 return Animation.in(el, this.animation[0], this.duration, this.origin);
             }
 
-            return Animation.out(el, this.animation[1], this.duration, this.origin).then(() => this._toggle(el, false));
+            return Animation.out(el, this.animation[1] || this.animation[0], this.duration, this.origin).then(() => this._toggle(el, false));
         }
 
     }
