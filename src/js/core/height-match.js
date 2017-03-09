@@ -16,38 +16,40 @@ export default function (UIkit) {
             row: true
         },
 
+        connected() {
+            this.$emit();
+        },
+
         update: {
+
+            read() {
+
+                var lastOffset = false, elements = $(this.target, this.$el).css('minHeight', '');
+
+                this.rows = !this.row
+                    ? [this.match(elements)]
+                    : elements.toArray().reduce((rows, el) => {
+
+                        if (lastOffset !== el.offsetTop) {
+                            rows.push([el]);
+                        } else {
+                            rows[rows.length - 1].push(el);
+                        }
+
+                        lastOffset = el.offsetTop;
+
+                        return rows;
+
+                    }, []).map(elements => this.match($(elements)));
+            },
 
             write() {
 
-                var elements = $(this.target, this.$el).css('min-height', '');
-
-                if (!this.row) {
-                    this.match(elements);
-                    return this;
-                }
-
-                var lastOffset = false, group = [];
-
-                elements.each((i, el) => {
-
-                    el = $(el);
-
-                    var offset = el.offset().top;
-
-                    if (offset != lastOffset && group.length) {
-                        this.match($(group));
-                        group = [];
-                        offset = el.offset().top;
-                    }
-
-                    group.push(el);
-                    lastOffset = offset;
-                });
-
-                if (group.length) {
-                    this.match($(group));
-                }
+                this.rows.forEach(({height, elements}) =>
+                    elements.each((_, el) =>
+                        $(el).css('minHeight', height)
+                    )
+                );
 
             },
 
@@ -63,33 +65,36 @@ export default function (UIkit) {
                     return;
                 }
 
-                var max = 0;
+                var max = 0, heights = [];
 
-                elements
-                    .each((i, el) => {
+                elements = elements
+                    .each((_, el) => {
 
-                        el = $(el);
+                        var $el, style, hidden;
 
-                        var height;
+                        if (el.offsetHeight === 0) {
+                            $el = $(el);
+                            style = $el.attr('style') || null;
+                            hidden = $el.attr('hidden') || null;
 
-                        if (el.css('display') === 'none') {
-                            var style = el.attr('style');
-                            el.attr('style', `${style};display:block !important;`);
-                            height = el.outerHeight();
-                            el.attr('style', style || '');
-                        } else {
-                            height = el.outerHeight();
+                            $el.attr({
+                                style: `${style};display:block !important;`,
+                                hidden: null
+                            });
                         }
 
-                        max = Math.max(max, height);
+                        max = Math.max(max, el.offsetHeight);
+                        heights.push(el.offsetHeight);
+
+                        if ($el) {
+                            $el.attr({style, hidden});
+                        }
 
                     })
-                    .each((i, el) => {
-                        el = $(el);
-                        el.css('min-height', `${max - (el.outerHeight() - parseFloat(el.css('height')))}px`);
-                    });
-            }
+                    .filter(i => heights[i] < max);
 
+                return {height: max, elements};
+            }
         }
 
     });
