@@ -19,7 +19,8 @@ function plugin(UIkit) {
             timeout: 5000,
             group: null,
             pos: 'top-center',
-            onClose: null
+            onClose: null,
+            clsClose: 'uk-notification-close'
         },
 
         created() {
@@ -30,7 +31,7 @@ function plugin(UIkit) {
 
             this.$mount($(
                 `<div class="uk-notification-message${this.status ? ` uk-notification-message-${this.status}` : ''}">
-                    <a href="#" class="uk-notification-close" data-uk-close></a>
+                    <a href="#" class="${this.clsClose}" data-uk-close></a>
                     <div>${this.message}</div>
                 </div>`
             ).appendTo(containers[this.pos].show())[0]);
@@ -58,7 +59,9 @@ function plugin(UIkit) {
         events: {
 
             click(e) {
-                e.preventDefault();
+                if ($(e.target).closest('a[href="#"]').length) {
+                    e.preventDefault();
+                }
                 this.close();
             }
 

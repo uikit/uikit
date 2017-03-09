@@ -20,6 +20,7 @@
 - Fix navbar groups center left/right in IE 11
 - Fix "sticky on up" behaviour in Sticky component
 - Fix Offcanvas closing without animation
+- Fix links in Notification message clickable
 
 ## 3.0.0 beta 16 (March 01, 2017)
 
