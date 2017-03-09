@@ -21,6 +21,7 @@
 - Fix "sticky on up" behaviour in Sticky component
 - Fix Offcanvas closing without animation
 - Fix links in Notification message clickable
+- Fix overriding default icons
 
 ## 3.0.0 beta 16 (March 01, 2017)
 

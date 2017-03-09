@@ -117,7 +117,7 @@ exports.compile = function (file, dest, external, globals, name, aliases, bundle
 };
 
 exports.icons = function (src) {
-    return JSON.stringify(glob.sync(src).reduce((icons, file) => {
+    return JSON.stringify(glob.sync(src, {nosort: true}).reduce((icons, file) => {
         icons[path.basename(file, '.svg')] = fs.readFileSync(file).toString().trim().replace(/\n/g, '').replace(/>\s+</g, '><');
         return icons;
     }, {}), null, '    ');
