@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import { each, toNode, win } from './index';
 
 var dirs = {
     x: ['width', 'left', 'right'],
@@ -7,15 +8,12 @@ var dirs = {
 
 export function position(element, target, attach, targetAttach, offset, targetOffset, flip, boundary) {
 
-    element = $(element);
-    target = $(target);
-    boundary = boundary && $(boundary);
-    attach = getPos(attach);
-    targetAttach = getPos(targetAttach);
-
     var dim = getDimensions(element),
         targetDim = getDimensions(target),
         position = targetDim;
+
+    attach = getPos(attach);
+    targetAttach = getPos(targetAttach);
 
     moveTo(position, attach, dim, -1);
     moveTo(position, targetAttach, targetDim, 1);
@@ -34,7 +32,7 @@ export function position(element, target, attach, targetAttach, offset, targetOf
     var flipped = {element: attach, target: targetAttach};
 
     if (flip) {
-        $.each(dirs, (dir, [prop, align, alignFlip]) => {
+        each(dirs, (dir, [prop, align, alignFlip]) => {
 
             if (!(flip === true || ~flip.indexOf(dir))) {
                 return;
@@ -63,26 +61,42 @@ export function position(element, target, attach, targetAttach, offset, targetOf
         });
     }
 
-    element.offset({left: position.left, top: position.top});
+    $(element).offset({left: position.left, top: position.top});
 
     return flipped;
 }
 
-export function getDimensions(elem) {
+export function getDimensions(element) {
 
-    elem = $(elem);
+    element = toNode(element);
 
-    var width = Math.round(elem.outerWidth()),
-        height = Math.round(elem.outerHeight()),
-        offset = elem[0] && elem[0].getClientRects ? elem.offset() : null,
-        left = offset ? Math.round(offset.left) : elem.scrollLeft(),
-        top = offset ? Math.round(offset.top) : elem.scrollTop();
+    var top = win.scrollTop(), left = win.scrollLeft();
 
-    return {width, height, left, top, right: left + width, bottom: top + height};
+    if (element === window) {
+        return {
+            top,
+            left,
+            height: window.innerHeight,
+            width: window.innerWidth,
+            bottom: top + window.innerHeight,
+            right: left + window.innerWidth,
+        }
+    }
+
+    var rect = element.getBoundingClientRect();
+
+    return {
+        height: rect.height,
+        width: rect.width,
+        top: rect.top + top,
+        left: rect.left + left,
+        bottom: rect.bottom + top,
+        right: rect.right + left,
+    }
 }
 
 function moveTo(position, attach, dim, factor) {
-    $.each(dirs, function (dir, [prop, align, alignFlip]) {
+    each(dirs, function (dir, [prop, align, alignFlip]) {
         if (attach[dir] === alignFlip) {
             position[align] += dim[prop] * factor;
         } else if (attach[dir] === 'center') {
