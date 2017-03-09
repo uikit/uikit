@@ -22,6 +22,7 @@
 - Fix Offcanvas closing without animation
 - Fix links in Notification message clickable
 - Fix overriding default icons
+- Fix Scrollspy nav when scrolling beyond last item
 
 ## 3.0.0 beta 16 (March 01, 2017)
 

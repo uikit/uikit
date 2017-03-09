@@ -58,7 +58,7 @@ export default function (UIkit) {
                         }
 
                         if (scroll >= max) {
-                            for (var j = this.targets.length; j > i; j--) {
+                            for (var j = this.targets.length - 1; j > i; j--) {
                                 if (isInView(this.targets.eq(j))) {
                                     el = this.targets.eq(j);
                                     break;
