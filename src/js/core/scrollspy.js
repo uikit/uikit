@@ -53,7 +53,8 @@ export default function (UIkit) {
                     this.elements.each((_, el) => {
 
                         if (!el._scrollspy) {
-                            el._scrollspy = {toggles: ($(el).attr('uk-scrollspy-class') || '').split(',') || this.cls};
+                            var cls = $(el).attr('uk-scrollspy-class');
+                            el._scrollspy = {toggles: cls && cls.split(',') || this.cls};
                         }
 
                         el._scrollspy.show = isInView(el, this.offsetTop, this.offsetLeft);
