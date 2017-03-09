@@ -16,6 +16,8 @@
 //                  `uk-grid-margin-large`
 //                  `uk-grid-margin-collapse`
 //
+// Sub-modifier:    `uk-grid-item-match`
+//
 // States:          `uk-first-column`
 //
 // ========================================================================
@@ -321,7 +323,8 @@
  * 3. Expand width even if larger than 100%, e.g. because of negative margin (Needed for nested grids)
  */
 
-.uk-grid-match > * {
+.uk-grid-match > *,
+.uk-grid-item-match {
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
@@ -331,7 +334,8 @@
     flex-wrap: wrap;
 }
 
-.uk-grid-match > * > *:not([class*='uk-width']) {
+.uk-grid-match > * > :not([class*='uk-width']),
+.uk-grid-item-match > :not([class*='uk-width']) {
     /* 2 */
     box-sizing: border-box;
     width: 100%;

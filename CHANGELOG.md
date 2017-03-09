@@ -5,6 +5,7 @@
 ### Added
 
 - Add tile component
+- Add grid item match modifier to grid component
 - Tooltip is now attribute reactive
 
 ### Changed
