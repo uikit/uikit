@@ -111,7 +111,7 @@ export function offsetTop(element) {
 }
 
 function getWindow(element) {
-    return element.ownerDocument ? element.ownerDocument.defaultView : window;
+    return element && element.ownerDocument ? element.ownerDocument.defaultView : window;
 }
 
 function moveTo(position, attach, dim, factor) {
