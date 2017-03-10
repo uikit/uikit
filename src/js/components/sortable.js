@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var { mixin, util } = UIkit;
-    var {$, docElement: doc, extend, isWithin, on, off, offsetTop, pointerDown, pointerMove, pointerUp, win} = util;
+    var {$, docElement: doc, extend, getDimensions, isWithin, on, off, offsetTop, pointerDown, pointerMove, pointerUp, win} = util;
 
     UIkit.component('sortable', {
 
@@ -134,7 +134,7 @@ function plugin(UIkit) {
 
                 this.drag.children().first().height(this.placeholder.children().height());
 
-                var {left, top} = this.placeholder.offset();
+                var {left, top} = getDimensions(this.placeholder);
                 extend(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
 
                 this.placeholder.addClass(this.clsPlaceholder);
