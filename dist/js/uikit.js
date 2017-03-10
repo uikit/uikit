@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.16 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.17 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
@@ -135,7 +135,7 @@ function animate(element, animation, duration, origin, out) {
             .addClass(cls);
 
         if (!animationend) {
-            requestAnimationFrame$1(function () { return Animation.cancel(element); });
+            requestAnimationFrame(function () { return Animation.cancel(element); });
         }
 
         function reset() {
@@ -212,21 +212,12 @@ function isInView(element, offsetTop, offsetLeft) {
     if ( offsetLeft === void 0 ) offsetLeft = 0;
 
 
-    element = $$1__default(element);
+    var rect = toNode(element).getBoundingClientRect();
 
-    if (!element.is(':visible')) {
-        return false;
-    }
-
-    var scrollLeft = win.scrollLeft(), scrollTop = win.scrollTop();
-    var ref = element.offset();
-    var top = ref.top;
-    var left = ref.left;
-
-    return top + element.height() >= scrollTop
-        && top - offsetTop <= scrollTop + win.height()
-        && left + element.width() >= scrollLeft
-        && left - offsetLeft <= scrollLeft + win.width();
+    return rect.top >= -1 * offsetTop
+        && rect.left >= -1 * offsetLeft
+        && rect.top <= (window.innerHeight || document.documentElement.clientHeight) + offsetTop
+        && rect.left <= (window.innerWidth || document.documentElement.clientWidth) + offsetLeft;
 }
 
 function getIndex(index, elements, current) {
@@ -447,6 +438,14 @@ function toNumber(value) {
     return !isNaN(number) ? number : false;
 }
 
+function toList(value) {
+    return $$1.isArray(value)
+        ? value
+        : isString(value)
+            ? value.split(',').map(function (value) { return value.trim(); })
+            : [value];
+}
+
 var vars = {};
 function toMedia(value) {
     if (isString(value) && value[0] == '@') {
@@ -465,6 +464,8 @@ function coerce(type, value, context) {
         return toNumber(value);
     } else if (type === 'jQuery') {
         return query(value, context);
+    } else if (type === 'list') {
+        return toList(value);
     } else if (type === 'media') {
         return toMedia(value);
     }
@@ -487,7 +488,7 @@ function swap(value, a, b) {
 }
 
 var Observer = window.MutationObserver || window.WebKitMutationObserver;
-var requestAnimationFrame$1 = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
+var requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
 var cancelAnimationFrame = window.cancelAnimationFrame || window.clearTimeout;
 
 var hasTouch = 'ontouchstart' in window
@@ -559,7 +560,7 @@ function FastDom() {
     var self = this;
     self.reads = [];
     self.writes = [];
-    self.raf = requestAnimationFrame$1.bind(window); // test hook
+    self.raf = requestAnimationFrame.bind(window); // test hook
 }
 
 FastDom.prototype = {
@@ -794,12 +795,17 @@ MouseTracker.prototype = {
         }
 
         var p = getDimensions(target),
-            points = [
-                [{x: p.left, y: p.top}, {x: p.right, y: p.bottom}],
-                [{x: p.right, y: p.top}, {x: p.left, y: p.bottom}]
-            ],
             position = this.positions[this.positions.length - 1],
             prevPos = this.positions[0];
+
+        if (p.left <= position.x && position.x <= p.right && p.top <= position.y && position.y <= p.bottom) {
+            return false;
+        }
+
+        var points = [
+            [{x: p.left, y: p.top}, {x: p.right, y: p.bottom}],
+            [{x: p.right, y: p.top}, {x: p.left, y: p.bottom}]
+        ];
 
         if (p.right <= position.x) {
 
@@ -914,15 +920,12 @@ var dirs = {
 
 function position(element, target, attach, targetAttach, offset, targetOffset, flip, boundary) {
 
-    element = $$1__default(element);
-    target = $$1__default(target);
-    boundary = boundary && $$1__default(boundary);
-    attach = getPos(attach);
-    targetAttach = getPos(targetAttach);
-
     var dim = getDimensions(element),
         targetDim = getDimensions(target),
         position = targetDim;
+
+    attach = getPos(attach);
+    targetAttach = getPos(targetAttach);
 
     moveTo(position, attach, dim, -1);
     moveTo(position, targetAttach, targetDim, 1);
@@ -941,7 +944,7 @@ function position(element, target, attach, targetAttach, offset, targetOffset, f
     var flipped = {element: attach, target: targetAttach};
 
     if (flip) {
-        $$1__default.each(dirs, function (dir, ref) {
+        $$1.each(dirs, function (dir, ref) {
             var prop = ref[0];
             var align = ref[1];
             var alignFlip = ref[2];
@@ -974,26 +977,51 @@ function position(element, target, attach, targetAttach, offset, targetOffset, f
         });
     }
 
-    element.offset({left: position.left, top: position.top});
+    $$1__default(element).offset({left: position.left, top: position.top});
 
     return flipped;
 }
 
-function getDimensions(elem) {
+function getDimensions(element) {
 
-    elem = $$1__default(elem);
+    element = toNode(element);
 
-    var width = Math.round(elem.outerWidth()),
-        height = Math.round(elem.outerHeight()),
-        offset = elem[0] && elem[0].getClientRects ? elem.offset() : null,
-        left = offset ? Math.round(offset.left) : elem.scrollLeft(),
-        top = offset ? Math.round(offset.top) : elem.scrollTop();
+    var window = getWindow(element), top = window.pageYOffset, left = window.pageXOffset;
 
-    return {width: width, height: height, left: left, top: top, right: left + width, bottom: top + height};
+    if (!element.ownerDocument) {
+        return {
+            top: top,
+            left: left,
+            height: window.innerHeight,
+            width: window.innerWidth,
+            bottom: top + window.innerHeight,
+            right: left + window.innerWidth,
+        }
+    }
+
+    var rect = element.getBoundingClientRect();
+
+    return {
+        height: rect.height,
+        width: rect.width,
+        top: rect.top + top,
+        left: rect.left + left,
+        bottom: rect.bottom + top,
+        right: rect.right + left,
+    }
+}
+
+function offsetTop(element) {
+    element = toNode(element);
+    return element.getBoundingClientRect().top + getWindow(element).pageYOffset;
+}
+
+function getWindow(element) {
+    return element.ownerDocument ? element.ownerDocument.defaultView : window;
 }
 
 function moveTo(position, attach, dim, factor) {
-    $$1__default.each(dirs, function (dir, ref) {
+    $$1.each(dirs, function (dir, ref) {
         var prop = ref[0];
         var align = ref[1];
         var alignFlip = ref[2];
@@ -1051,8 +1079,11 @@ function flipPosition(pos) {
     }
 }
 
-// Copyright (c) 2010-2016 Thomas Fuchs
-// http://zeptojs.com/
+/*
+Based on:
+Copyright (c) 2010-2016 Thomas Fuchs
+http://zeptojs.com/
+*/
 
 var touch = {};
 var touchTimeout;
@@ -1096,7 +1127,7 @@ ready(function () {
         gesture.target = document.body;
     }
 
-    document.addEventListener('click', function () { return clicked = true; }, true);
+    on(document, 'click', function () { return clicked = true; }, true);
 
     doc
 
@@ -1220,16 +1251,9 @@ ready(function () {
 
 var touching = false;
 
-doc.on(( obj = {
-
-    touchstart: function touchstart() {
-        touching = true;
-    }
-
-}, obj['click touchcancel'] = function () {
-        touching = false;
-    }, obj ));
-var obj;
+on(document, 'touchstart', function () { return touching = true; }, true);
+on(document, 'click', function () { return touching = false; });
+on(document, 'touchcancel', function () { return touching = false; }, true);
 
 function isTouch(e) {
     return touching || e.originalEvent && e.originalEvent.pointerType === 'touch';
@@ -1261,7 +1285,7 @@ var util = Object.freeze({
 	Dimensions: Dimensions,
 	query: query,
 	Observer: Observer,
-	requestAnimationFrame: requestAnimationFrame$1,
+	requestAnimationFrame: requestAnimationFrame,
 	cancelAnimationFrame: cancelAnimationFrame,
 	hasTouch: hasTouch,
 	pointerDown: pointerDown,
@@ -1292,6 +1316,7 @@ var util = Object.freeze({
 	toNode: toNode,
 	toBoolean: toBoolean,
 	toNumber: toNumber,
+	toList: toList,
 	toMedia: toMedia,
 	coerce: coerce,
 	toMs: toMs,
@@ -1309,6 +1334,7 @@ var util = Object.freeze({
 	mergeOptions: mergeOptions,
 	position: position,
 	getDimensions: getDimensions,
+	offsetTop: offsetTop,
 	flipPosition: flipPosition,
 	isTouch: isTouch
 });
@@ -1547,7 +1573,7 @@ function internalAPI (UIkit) {
                                 return;
                             }
 
-                            fn.call(this$1, e);
+                            return fn.call(this$1, e);
                         }
                     }
 
@@ -1579,7 +1605,7 @@ function internalAPI (UIkit) {
         var this$1 = this;
 
 
-        if (this._observer || !Observer || !this.$options.props || !this.$options.attrs) {
+        if (this._observer || !this.$options.props || !this.$options.attrs || !Observer) {
             return;
         }
 
@@ -1591,10 +1617,7 @@ function internalAPI (UIkit) {
                 .map(function (mutation) { return camelize(mutation.attributeName); })
                 .some(function (key) { return !equals(data[key], this$1.$props[key]); })
             ) {
-                this$1._callDisconnected();
-                this$1._initProps(data);
-                this$1._callConnected();
-                this$1._callUpdate();
+                this$1.$reset(data);
             }
 
         });
@@ -1842,6 +1865,13 @@ function instanceAPI (UIkit) {
         UIkit.update(createEvent(e || 'update', true, false, {sync: true}), this.$el, parents);
     };
 
+    UIkit.prototype.$reset = function (data) {
+        this._callDisconnected();
+        this._initProps(data);
+        this._callConnected();
+        this._callUpdate();
+    };
+
     UIkit.prototype.$destroy = function (remove) {
         if ( remove === void 0 ) remove = false;
 
@@ -1914,14 +1944,14 @@ function componentAPI (UIkit) {
         };
 
         if (document.body && !options.options.functional) {
-            UIkit[name](("[uk-" + id + "],[data-uk-" + id + "]"));
+            $$1__default(("[uk-" + id + "],[data-uk-" + id + "]")).each(function (_, el) { return UIkit[name](el); });
         }
 
         return UIkit.components[name];
     };
 
-    UIkit.getComponents = function (element) { return element && toNode(element)[DATA] || {}; };
-    UIkit.getComponent = function (element, name) { return element && UIkit.getComponents(element)[name]; };
+    UIkit.getComponents = function (element) { return element && (element = isJQuery(element) ? element[0] : element) && element[DATA] || {}; };
+    UIkit.getComponent = function (element, name) { return UIkit.getComponents(element)[name]; };
 
     UIkit.connect = function (node) {
 
@@ -1985,7 +2015,7 @@ var Toggable = {
 
     props: {
         cls: Boolean,
-        animation: Boolean,
+        animation: 'list',
         duration: Number,
         origin: String,
         transition: String,
@@ -1994,7 +2024,7 @@ var Toggable = {
 
     defaults: {
         cls: false,
-        animation: false,
+        animation: [false],
         duration: 200,
         origin: false,
         transition: 'linear',
@@ -2020,52 +2050,34 @@ var Toggable = {
 
     },
 
-    ready: function ready() {
-
-        if (isString(this.animation)) {
-
-            this.animation = this.animation.split(',');
-
-            if (this.animation.length === 1) {
-                this.animation[1] = this.animation[0];
-            }
-
-            this.animation = this.animation.map(function (animation) { return animation.trim(); });
-
-        }
-
-        this.queued = this.queued && !!this.animation;
-
-    },
-
     methods: {
 
         toggleElement: function toggleElement(targets, show, animate) {
             var this$1 = this;
 
 
-            var toggles, body = document.body, scroll = body.scrollTop,
+            var queued = this.queued && !!this.animation[0], toggles, body = document.body, scroll = body.scrollTop,
                 all = function (targets) { return promise.all(targets.toArray().map(function (el) { return this$1._toggleElement(el, show, animate); })).then(null, function () {}); },
                 delay = function (targets) {
                     var def = all(targets);
-                    this$1.queued = true;
+                    queued = true;
                     body.scrollTop = scroll;
                     return def;
                 };
 
             targets = $$1__default(targets);
 
-            if (!this.queued || targets.length < 2) {
+            if (!queued || targets.length < 2) {
                 return all(targets);
             }
 
-            if (this.queued !== true) {
-                return delay(targets.not(this.queued));
+            if (queued !== true) {
+                return delay(targets.not(queued));
             }
 
-            this.queued = targets.not(toggles = targets.filter(function (_, el) { return this$1.isToggled(el); }));
+            queued = targets.not(toggles = targets.filter(function (_, el) { return this$1.isToggled(el); }));
 
-            return all(toggles).then(function () { return this$1.queued !== true && delay(this$1.queued); });
+            return all(toggles).then(function () { return queued !== true && delay(queued); });
         },
 
         toggleNow: function toggleNow(targets, show) {
@@ -2107,9 +2119,9 @@ var Toggable = {
                 delay = event.result;
             }
 
-            var promise = (this.animation === true && animate !== false
+            var promise = (this.animation[0] === true && animate !== false
                 ? this._toggleHeight
-                : this.animation && animate !== false
+                : this.animation[0] && animate !== false
                     ? this._toggleAnimation
                     : this._toggleImmediate
             )(el, show);
@@ -2182,7 +2194,7 @@ var Toggable = {
                 return Animation.in(el, this.animation[0], this.duration, this.origin);
             }
 
-            return Animation.out(el, this.animation[1], this.duration, this.origin).then(function () { return this$1._toggle(el, false); });
+            return Animation.out(el, this.animation[1] || this.animation[0], this.duration, this.origin).then(function () { return this$1._toggle(el, false); });
         }
 
     }
@@ -2312,8 +2324,7 @@ var Modal = {
                             resolve();
                             this$1.panel.off(transitionend, resolve);
                         }, duration);
-                    }) : true;
-
+                    }) : undefined;
             }
 
         },
@@ -2479,7 +2490,7 @@ function Accordion (UIkit) {
         defaults: {
             targets: '> *',
             active: false,
-            animation: true,
+            animation: [true],
             collapsible: true,
             multiple: false,
             clsOpen: 'uk-open',
@@ -2595,12 +2606,11 @@ function Alert (UIkit) {
         args: 'animation',
 
         props: {
-            animation: Boolean,
             close: String
         },
 
         defaults: {
-            animation: true,
+            animation: [true],
             close: '.uk-alert-close',
             duration: 150,
             hideProps: {opacity: 0}
@@ -2727,7 +2737,7 @@ function Drop (UIkit) {
         args: 'pos',
 
         props: {
-            mode: String,
+            mode: 'list',
             toggle: Boolean,
             boundary: 'jQuery',
             boundaryAlign: Boolean,
@@ -2737,7 +2747,7 @@ function Drop (UIkit) {
         },
 
         defaults: {
-            mode: 'hover',
+            mode: ['click', 'hover'],
             toggle: '- :first',
             boundary: window,
             boundaryAlign: false,
@@ -2745,7 +2755,7 @@ function Drop (UIkit) {
             delayHide: 800,
             clsDrop: false,
             hoverIdle: 200,
-            animation: 'uk-animation-fade',
+            animation: ['uk-animation-fade'],
             cls: 'uk-open'
         },
 
@@ -2837,7 +2847,7 @@ function Drop (UIkit) {
                 name: pointerEnter,
 
                 filter: function filter() {
-                    return this.mode === 'hover';
+                    return ~this.mode.indexOf('hover');
                 },
 
                 handler: function handler(e) {
@@ -2849,7 +2859,7 @@ function Drop (UIkit) {
                     if (active
                         && active !== this
                         && active.toggle
-                        && active.toggle.mode === 'hover'
+                        && ~active.toggle.mode.indexOf('hover')
                         && !isWithin(e.target, active.$el)
                         && !isWithin(e.target, active.toggle.$el)
                     ) {
@@ -2890,7 +2900,7 @@ function Drop (UIkit) {
 
                     e.preventDefault();
 
-                    if (this.toggle && this.toggle.mode === 'hover') {
+                    if (this.toggle && ~this.toggle.mode.indexOf('hover')) {
                         this.hide();
                     }
                 }
@@ -3227,40 +3237,45 @@ function HeightMatch (UIkit) {
             row: true
         },
 
+        connected: function connected() {
+            this.$emit();
+        },
+
         update: {
 
-            write: function write() {
+            read: function read() {
                 var this$1 = this;
 
 
-                var elements = $$1__default(this.target, this.$el).css('min-height', '');
+                var lastOffset = false, elements = $$1__default(this.target, this.$el).css('minHeight', '');
 
-                if (!this.row) {
-                    this.match(elements);
-                    return this;
+                this.rows = !this.row
+                    ? [this.match(elements)]
+                    : elements.toArray().reduce(function (rows, el) {
+
+                        if (lastOffset !== el.offsetTop) {
+                            rows.push([el]);
+                        } else {
+                            rows[rows.length - 1].push(el);
+                        }
+
+                        lastOffset = el.offsetTop;
+
+                        return rows;
+
+                    }, []).map(function (elements) { return this$1.match($$1__default(elements)); });
+            },
+
+            write: function write() {
+
+                this.rows.forEach(function (ref) {
+                        var height = ref.height;
+                        var elements = ref.elements;
+
+                        return elements.each(function (_, el) { return $$1__default(el).css('minHeight', height); }
+                    );
                 }
-
-                var lastOffset = false, group = [];
-
-                elements.each(function (i, el) {
-
-                    el = $$1__default(el);
-
-                    var offset = el.offset().top;
-
-                    if (offset != lastOffset && group.length) {
-                        this$1.match($$1__default(group));
-                        group = [];
-                        offset = el.offset().top;
-                    }
-
-                    group.push(el);
-                    lastOffset = offset;
-                });
-
-                if (group.length) {
-                    this.match($$1__default(group));
-                }
+                );
 
             },
 
@@ -3276,33 +3291,36 @@ function HeightMatch (UIkit) {
                     return;
                 }
 
-                var max = 0;
+                var max = 0, heights = [];
 
-                elements
-                    .each(function (i, el) {
+                elements = elements
+                    .each(function (_, el) {
 
-                        el = $$1__default(el);
+                        var $el, style, hidden;
 
-                        var height;
+                        if (el.offsetHeight === 0) {
+                            $el = $$1__default(el);
+                            style = $el.attr('style') || null;
+                            hidden = $el.attr('hidden') || null;
 
-                        if (el.css('display') === 'none') {
-                            var style = el.attr('style');
-                            el.attr('style', (style + ";display:block !important;"));
-                            height = el.outerHeight();
-                            el.attr('style', style || '');
-                        } else {
-                            height = el.outerHeight();
+                            $el.attr({
+                                style: (style + ";display:block !important;"),
+                                hidden: null
+                            });
                         }
 
-                        max = Math.max(max, height);
+                        max = Math.max(max, el.offsetHeight);
+                        heights.push(el.offsetHeight);
+
+                        if ($el) {
+                            $el.attr({style: style, hidden: hidden});
+                        }
 
                     })
-                    .each(function (i, el) {
-                        el = $$1__default(el);
-                        el.css('min-height', ((max - (el.outerHeight() - parseFloat(el.css('height')))) + "px"));
-                    });
-            }
+                    .filter(function (i) { return heights[i] < max; });
 
+                return {height: max, elements: elements};
+            }
         }
 
     });
@@ -3325,7 +3343,7 @@ function HeightViewport (UIkit) {
             offsetBottom: false
         },
 
-        init: function init() {
+        connected: function connected() {
             this.$emit();
         },
 
@@ -3349,7 +3367,7 @@ function HeightViewport (UIkit) {
 
                 } else {
 
-                    var top = this.$el.offset().top;
+                    var top = offsetTop(this.$el);
 
                     if (top < viewport && this.offsetTop) {
                         offset += top;
@@ -3922,7 +3940,7 @@ function Navbar (UIkit) {
 
         props: {
             dropdown: String,
-            mode: String,
+            mode: 'list',
             align: String,
             offset: Number,
             boundary: Boolean,
@@ -3963,10 +3981,10 @@ function Navbar (UIkit) {
 
 
             this.$el.on(pointerEnter, this.dropdown, function (ref) {
-                var target = ref.target;
+                var currentTarget = ref.currentTarget;
 
-                var active = this$1.getActive(), dropdown = active && active.$el.closest(this$1.dropdown);
-                if (active && dropdown.length && !isWithin(target, dropdown) && !active.isDelaying) {
+                var active = this$1.getActive();
+                if (active && active.toggle && !isWithin(active.toggle.$el, currentTarget) && !active.tracker.movesTo(active.$el)) {
                     active.hide(false);
                 }
             });
@@ -4255,8 +4273,8 @@ function Scroll (UIkit) {
                 el = $$1__default(el);
 
                 // get / set parameters
-                var target = el.offset().top - this.offset,
-                    docHeight = doc.height(),
+                var target = offsetTop(el) - this.offset,
+                    docHeight = document.documentElement.offsetHeight,
                     winHeight = window.innerHeight;
 
                 if (target + winHeight > docHeight) {
@@ -4305,7 +4323,7 @@ function Scrollspy (UIkit) {
         args: 'cls',
 
         props: {
-            cls: String,
+            cls: 'list',
             target: String,
             hidden: Boolean,
             offsetTop: Number,
@@ -4315,7 +4333,7 @@ function Scrollspy (UIkit) {
         },
 
         defaults: {
-            cls: 'uk-scrollspy-inview',
+            cls: ['uk-scrollspy-inview'],
             target: false,
             hidden: true,
             offsetTop: 0,
@@ -4353,7 +4371,8 @@ function Scrollspy (UIkit) {
                     this.elements.each(function (_, el) {
 
                         if (!el._scrollspy) {
-                            el._scrollspy = {toggles: ($$1__default(el).attr('uk-scrollspy-class') || this$1.cls).split(',')};
+                            var cls = $$1__default(el).attr('uk-scrollspy-class');
+                            el._scrollspy = {toggles: cls && cls.split(',') || this$1.cls};
                         }
 
                         el._scrollspy.show = isInView(el, this$1.offsetTop, this$1.offsetLeft);
@@ -4470,7 +4489,7 @@ function ScrollspyNav (UIkit) {
                     var this$1 = this;
 
 
-                    var scroll = win.scrollTop() + this.offset, max = document.documentElement.scrollHeight - window.innerHeight + this.offset;
+                    var scroll = window.pageYOffset + this.offset, max = document.documentElement.scrollHeight - window.innerHeight + this.offset;
 
                     this.active = false;
 
@@ -4478,17 +4497,17 @@ function ScrollspyNav (UIkit) {
 
                         el = $$1__default(el);
 
-                        var offset = el.offset(), last = i + 1 === this$1.targets.length;
-                        if (!this$1.overflow && (i === 0 && offset.top > scroll || last && offset.top + el.outerHeight() < scroll)) {
+                        var top = offsetTop(el), last = i + 1 === this$1.targets.length;
+                        if (!this$1.overflow && (i === 0 && top > scroll || last && top + el[0].offsetTop < scroll)) {
                             return false;
                         }
 
-                        if (!last && this$1.targets.eq(i + 1).offset().top <= scroll) {
+                        if (!last && offsetTop(this$1.targets.eq(i + 1)) <= scroll) {
                             return;
                         }
 
                         if (scroll >= max) {
-                            for (var j = this$1.targets.length; j > i; j--) {
+                            for (var j = this$1.targets.length - 1; j > i; j--) {
                                 if (isInView(this$1.targets.eq(j))) {
                                     el = this$1.targets.eq(j);
                                     break;
@@ -4562,13 +4581,14 @@ function Sticky (UIkit) {
             target: false
         },
 
-        init: function init() {
-            this.$el.addClass(this.clsInactive);
-        },
-
         connected: function connected() {
-            this.placeholder = $$1__default('<div class="uk-sticky-placeholder"></div>').insertAfter(this.$el).attr('hidden', true);
+
+            this.placeholder = $$1__default('<div class="uk-sticky-placeholder"></div>');
             this.widthElement = this.$props.widthElement || this.placeholder;
+
+            if (!this.isActive) {
+                this.$el.addClass(this.clsInactive);
+            }
         },
 
         disconnected: function disconnected() {
@@ -4588,21 +4608,21 @@ function Sticky (UIkit) {
             var this$1 = this;
 
 
-            if (!(this.target && location.hash && win.scrollTop() > 0)) {
+            if (!(this.target && location.hash && window.pageYOffset > 0)) {
                 return;
             }
 
             var target = query(location.hash);
 
             if (target) {
-                requestAnimationFrame$1(function () {
+                requestAnimationFrame(function () {
 
-                    var top = target.offset().top,
-                        elTop = this$1.$el.offset().top,
-                        elHeight = this$1.$el.outerHeight(),
+                    var top = offsetTop(target),
+                        elTop = offsetTop(this$1.$el),
+                        elHeight = this$1.$el[0].offsetHeight,
                         elBottom = elTop + elHeight;
 
-                    if (elBottom >= top && elTop <= top + target.outerHeight()) {
+                    if (elBottom >= top && elTop <= top + target[0].offsetHeight) {
                         window.scrollTo(0, top - elHeight - this$1.target - this$1.offset);
                     }
 
@@ -4619,16 +4639,20 @@ function Sticky (UIkit) {
                     var this$1 = this;
 
 
-                    var outerHeight = this.$el.outerHeight(), el;
+                    var outerHeight = this.$el[0].offsetHeight, el;
 
                     this.placeholder
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
                         .css(this.$el.css(['marginTop', 'marginBottom', 'marginLeft', 'marginRight']));
 
-                    this.width = this.widthElement.attr('hidden', null).outerWidth();
+                    if (!document.documentElement.contains(this.placeholder[0])) {
+                        this.placeholder.insertAfter(this.$el).attr('hidden', true);
+                    }
+
+                    this.width = this.widthElement.attr('hidden', null)[0].offsetWidth;
                     this.widthElement.attr('hidden', !this.isActive);
 
-                    this.topOffset = (this.isActive ? this.placeholder.offset() : this.$el.offset()).top;
+                    this.topOffset = offsetTop(this.isActive ? this.placeholder : this.$el);
                     this.bottomOffset = this.topOffset + outerHeight;
 
                     ['top', 'bottom'].forEach(function (prop) {
@@ -4652,7 +4676,7 @@ function Sticky (UIkit) {
                                 el = this$1[prop] === true ? this$1.$el.parent() : query(this$1[prop], this$1.$el);
 
                                 if (el) {
-                                    this$1[prop] = el.offset().top + el.outerHeight();
+                                    this$1[prop] = offsetTop(el) + el[0].offsetHeight;
                                 }
 
                             }
@@ -4676,21 +4700,25 @@ function Sticky (UIkit) {
 
             {
 
+                read: function read() {
+                    this.offsetTop = offsetTop(this.$el)
+                },
+
                 write: function write(ref) {
                     var this$1 = this;
                     if ( ref === void 0 ) ref = {};
                     var dir = ref.dir;
 
 
-                    var scroll = win.scrollTop();
+                    var scroll = window.pageYOffset;
 
-                    if (scroll < 0 || !this.$el.is(':visible') || this.disabled) {
+                    if (scroll < 0 || !this.$el.is(':visible') || this.disabled || this.showOnUp && !dir) {
                         return;
                     }
 
                     if (this.inactive
                         || scroll < this.top
-                        || this.showOnUp && (dir && dir !== 'up' || dir === 'up' && !this.isActive && scroll <= this.bottomOffset)
+                        || this.showOnUp && (scroll <= this.top || dir ==='down' || dir === 'up' && !this.isActive && scroll <= this.bottomOffset)
                     ) {
 
                         if (!this.isActive) {
@@ -4699,7 +4727,7 @@ function Sticky (UIkit) {
 
                         this.isActive = false;
 
-                        if (this.animation && this.bottomOffset < this.$el.offset().top) {
+                        if (this.animation && this.bottomOffset < this.offsetTop) {
                             Animation.cancel(this.$el).then(function () { return Animation.out(this$1.$el, this$1.animation).then(function () { return this$1.hide(); }); });
                         } else {
                             this.hide();
@@ -4752,7 +4780,7 @@ function Sticky (UIkit) {
 
             update: function update() {
 
-                var top = Math.max(0, this.offset), scroll = win.scrollTop(), active = win.scrollTop() > this.top;
+                var top = Math.max(0, this.offset), scroll = window.pageYOffset, active = scroll > this.top;
 
                 if (this.bottom && scroll > this.bottom - this.offset) {
                     top = this.bottom - scroll;
@@ -5135,7 +5163,7 @@ function Toggle (UIkit) {
         props: {
             href: 'jQuery',
             target: 'jQuery',
-            mode: String,
+            mode: 'list',
             media: 'media'
         },
 
@@ -5154,7 +5182,7 @@ function Toggle (UIkit) {
                 name: (pointerEnter + " " + pointerLeave),
 
                 filter: function filter() {
-                    return this.mode === 'hover';
+                    return ~this.mode.indexOf('hover');
                 },
 
                 handler: function handler(e) {
@@ -5170,12 +5198,20 @@ function Toggle (UIkit) {
                 name: 'click',
 
                 filter: function filter() {
-                    return this.mode !== 'media';
+                    return ~this.mode.indexOf('click') || hasTouch;
                 },
 
                 handler: function handler(e) {
+
+                    if (!isTouch(e) && !~this.mode.indexOf('click')) {
+                        return;
+                    }
+
                     // TODO better isToggled handling
-                    if ($$1__default(e.target).closest('a[href="#"], button').length || $$1__default(e.target).closest('a[href]') && (this.cls || !this.target.is(':visible'))) {
+                    if (this.href
+                        || $$1__default(e.target).closest('a[href="#"], button').length
+                        || $$1__default(e.target).closest('a[href]') && (this.cls || !this.target.is(':visible'))
+                    ) {
                         e.preventDefault();
                     }
 
@@ -5191,7 +5227,7 @@ function Toggle (UIkit) {
 
                 this.target = this.target || this.href || this.$el;
 
-                if (this.mode !== 'media' || !this.media) {
+                if (!~this.mode.indexOf('media') || !this.media) {
                     return;
                 }
 
@@ -5232,7 +5268,7 @@ function core (UIkit) {
         .on('load', UIkit.update)
         .on('resize orientationchange', function (e) {
             if (!resizing) {
-                requestAnimationFrame$1(function () {
+                requestAnimationFrame(function () {
                     UIkit.update(e);
                     resizing = false;
                 });
@@ -5245,10 +5281,14 @@ function core (UIkit) {
                 scroll = 0;
             }
 
+            if (scroll === window.pageYOffset) {
+                return;
+            }
+
             dir = scroll < window.pageYOffset;
             scroll = window.pageYOffset;
             if (!ticking) {
-                requestAnimationFrame$1(function () {
+                requestAnimationFrame(function () {
                     e.dir = dir ? 'down' : 'up';
                     UIkit.update(e);
                     ticking = false;
@@ -5260,19 +5300,15 @@ function core (UIkit) {
     on(document, animationstart, function (ref) {
         var target = ref.target;
 
-        fastdom.measure(function () {
-            if ((getStyle(target, 'animationName') || '').lastIndexOf('uk-', 0) === 0) {
-                fastdom.mutate(function () {
-                    started++;
-                    document.body.style.overflowX = 'hidden';
-                    setTimeout(function () { return fastdom.mutate(function () {
-                        if (!--started) {
-                            document.body.style.overflowX = '';
-                        }
-                    }); }, toMs(getStyle(target, 'animationDuration')));
-                });
-            }
-        });
+        if ((getStyle(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
+            started++;
+            document.body.style.overflowX = 'hidden';
+            setTimeout(function () {
+                if (!--started) {
+                    document.body.style.overflowX = '';
+                }
+            }, toMs(getStyle(target, 'animationDuration')) + 100);
+        }
     }, true);
 
     // core components
@@ -5372,7 +5408,7 @@ function boot (UIkit) {
 
 }
 
-UIkit.version = '3.0.0';
+UIkit.version = '3.0.0-beta.17';
 
 mixin$1(UIkit);
 core(UIkit);
@@ -5719,10 +5755,6 @@ function plugin(UIkit) {
 
 }
 
-if (typeof window !== 'undefined' && window.UIkit) {
-    window.UIkit.use(plugin);
-}
-
 function plugin$1(UIkit) {
 
     if (plugin$1.installed) {
@@ -5749,7 +5781,8 @@ function plugin$1(UIkit) {
             timeout: 5000,
             group: null,
             pos: 'top-center',
-            onClose: null
+            onClose: null,
+            clsClose: 'uk-notification-close'
         },
 
         created: function created() {
@@ -5759,7 +5792,7 @@ function plugin$1(UIkit) {
             }
 
             this.$mount($(
-                ("<div class=\"uk-notification-message" + (this.status ? (" uk-notification-message-" + (this.status)) : '') + "\">\n                    <a href=\"#\" class=\"uk-notification-close\" data-uk-close></a>\n                    <div>" + (this.message) + "</div>\n                </div>")
+                ("<div class=\"uk-notification-message" + (this.status ? (" uk-notification-message-" + (this.status)) : '') + "\">\n                    <a href=\"#\" class=\"" + (this.clsClose) + "\" data-uk-close></a>\n                    <div>" + (this.message) + "</div>\n                </div>")
             ).appendTo(containers[this.pos].show())[0]);
 
         },
@@ -5787,7 +5820,9 @@ function plugin$1(UIkit) {
         events: {
 
             click: function click(e) {
-                e.preventDefault();
+                if ($(e.target).closest('a[href="#"]').length) {
+                    e.preventDefault();
+                }
                 this.close();
             }
 
@@ -5835,10 +5870,6 @@ function plugin$1(UIkit) {
 
 }
 
-if (typeof window !== 'undefined' && window.UIkit) {
-    window.UIkit.use(plugin$1);
-}
-
 function plugin$2(UIkit) {
 
     if (plugin$2.installed) {
@@ -5850,12 +5881,15 @@ function plugin$2(UIkit) {
     var $ = util.$;
     var doc = util.docElement;
     var extend = util.extend;
+    var getDimensions = util.getDimensions;
     var isWithin = util.isWithin;
     var on = util.on;
     var off = util.off;
+    var offsetTop = util.offsetTop;
     var pointerDown = util.pointerDown;
     var pointerMove = util.pointerMove;
     var pointerUp = util.pointerUp;
+    var promise = util.promise;
     var win = util.win;
 
     UIkit.component('sortable', {
@@ -5928,7 +5962,7 @@ function plugin$2(UIkit) {
 
                 this.drag.offset({top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
 
-                var top = this.drag.offset().top, bottom = top + this.drag[0].offsetHeight;
+                var top = offsetTop(this.drag), bottom = top + this.drag[0].offsetHeight;
 
                 if (top > 0 && top < this.scrollY) {
                     setTimeout(function () { return win.scrollTop(this$1.scrollY - 5); }, 5);
@@ -5987,7 +6021,7 @@ function plugin$2(UIkit) {
 
                 this.drag.children().first().height(this.placeholder.children().height());
 
-                var ref = this.placeholder.offset();
+                var ref = getDimensions(this.placeholder);
                 var left = ref.left;
                 var top = ref.top;
                 extend(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
@@ -6157,7 +6191,7 @@ function plugin$2(UIkit) {
                 this.$el.css('min-height', this.$el.height());
 
                 var positions = children.map(function (el) { return el.position(); });
-                $.when.apply($, children.map(function (el, i) { return el.css(props[i]).animate(positions[i], this$1.animation).promise(); }))
+                promise.all(children.map(function (el, i) { return el.css(props[i]).animate(positions[i], this$1.animation).promise(); }))
                     .then(function () {
                         this$1.$el.css('min-height', '').children().css(reset);
                         this$1.$updateSync('update', true);
@@ -6190,10 +6224,6 @@ function plugin$2(UIkit) {
 
 }
 
-if (typeof window !== 'undefined' && window.UIkit) {
-    window.UIkit.use(plugin$2);
-}
-
 function plugin$3(UIkit) {
 
     if (plugin$3.installed) {
@@ -6223,6 +6253,8 @@ function plugin$3(UIkit) {
 
     UIkit.component('tooltip', {
 
+        attrs: true,
+
         mixins: [mixin.toggable, mixin.position],
 
         props: {
@@ -6235,7 +6267,7 @@ function plugin$3(UIkit) {
             pos: 'top',
             title: '',
             delay: 0,
-            animation: 'uk-animation-scale-up',
+            animation: ['uk-animation-scale-up'],
             duration: 100,
             cls: 'uk-active',
             clsPos: 'uk-tooltip',
@@ -6243,10 +6275,17 @@ function plugin$3(UIkit) {
         },
 
         init: function init() {
+            this.container = this.container === true && UIkit.container || this.container && toJQuery(this.container);
+        },
+
+        connected: function connected() {
             var this$1 = this;
 
-            this.container = this.container === true && UIkit.container || this.container && toJQuery(this.container);
             fastdom.mutate(function () { return this$1.$el.removeAttr('title').attr('aria-expanded', false); });
+        },
+
+        disconnected: function disconnected() {
+            this.hide();
         },
 
         methods: {
@@ -6319,10 +6358,6 @@ function plugin$3(UIkit) {
     });
     var obj;
 
-}
-
-if (typeof window !== 'undefined' && window.UIkit) {
-    window.UIkit.use(plugin$3);
 }
 
 function plugin$4(UIkit) {
@@ -6533,10 +6568,6 @@ function plugin$4(UIkit) {
         return chunks;
     }
 
-}
-
-if (typeof window !== 'undefined' && window.UIkit) {
-    window.UIkit.use(plugin$4);
 }
 
 UIkit.use(plugin);
