@@ -8,6 +8,10 @@ export default function (UIkit) {
 
         name: 'tab',
 
+        props: {
+            media: 'media'
+        },
+
         defaults: {
             media: 960,
             attrItem: 'uk-tab-item'
