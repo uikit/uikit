@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var { mixin, util } = UIkit;
-    var {$, docElement: doc, extend, isWithin, on, off, pointerDown, pointerMove, pointerUp, win} = util;
+    var {$, docElement: doc, extend, isWithin, on, off, offsetTop, pointerDown, pointerMove, pointerUp, win} = util;
 
     UIkit.component('sortable', {
 
@@ -75,7 +75,7 @@ function plugin(UIkit) {
 
                 this.drag.offset({top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
 
-                var top = this.drag.offset().top, bottom = top + this.drag[0].offsetHeight;
+                var top = offsetTop(this.drag), bottom = top + this.drag[0].offsetHeight;
 
                 if (top > 0 && top < this.scrollY) {
                     setTimeout(() => win.scrollTop(this.scrollY - 5), 5);

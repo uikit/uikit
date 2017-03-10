@@ -16,7 +16,7 @@ export default function (UIkit) {
             offsetBottom: false
         },
 
-        init() {
+        connected() {
             this.$emit();
         },
 

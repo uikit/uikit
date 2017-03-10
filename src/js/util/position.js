@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { each, toNode, win } from './index';
+import { each, toNode } from './index';
 
 var dirs = {
     x: ['width', 'left', 'right'],
@@ -70,7 +70,7 @@ export function getDimensions(element) {
 
     element = toNode(element);
 
-    var top = win.scrollTop(), left = win.scrollLeft();
+    var top = window.pageYOffset, left = window.pageXOffset;
 
     if (element === window) {
         return {
@@ -93,6 +93,10 @@ export function getDimensions(element) {
         bottom: rect.bottom + top,
         right: rect.right + left,
     }
+}
+
+export function offsetTop(element) {
+    return toNode(element).getBoundingClientRect().top + window.pageYOffset;
 }
 
 function moveTo(position, attach, dim, factor) {

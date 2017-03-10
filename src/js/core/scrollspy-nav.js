@@ -1,4 +1,4 @@
-import { $, toJQuery, win, isInView } from '../util/index';
+import { $, offsetTop, toJQuery, isInView } from '../util/index';
 
 export default function (UIkit) {
 
@@ -40,7 +40,7 @@ export default function (UIkit) {
 
                 read() {
 
-                    var scroll = win.scrollTop() + this.offset, max = document.documentElement.scrollHeight - window.innerHeight + this.offset;
+                    var scroll = window.pageYOffset + this.offset, max = document.documentElement.scrollHeight - window.innerHeight + this.offset;
 
                     this.active = false;
 
@@ -48,12 +48,12 @@ export default function (UIkit) {
 
                         el = $(el);
 
-                        var offset = el.offset(), last = i + 1 === this.targets.length;
-                        if (!this.overflow && (i === 0 && offset.top > scroll || last && offset.top + el.outerHeight() < scroll)) {
+                        var top = offsetTop(el), last = i + 1 === this.targets.length;
+                        if (!this.overflow && (i === 0 && top > scroll || last && top + el[0].offsetTop < scroll)) {
                             return false;
                         }
 
-                        if (!last && this.targets.eq(i + 1).offset().top <= scroll) {
+                        if (!last && offsetTop(this.targets.eq(i + 1)) <= scroll) {
                             return;
                         }
 

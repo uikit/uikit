@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, Animation, isNumeric, isString, query, requestAnimationFrame, win } from '../util/index';
+import { $, Animation, isNumeric, isString, offsetTop, query, requestAnimationFrame } from '../util/index';
 
 export default function (UIkit) {
 
@@ -62,7 +62,7 @@ export default function (UIkit) {
 
         ready() {
 
-            if (!(this.target && location.hash && win.scrollTop() > 0)) {
+            if (!(this.target && location.hash && window.pageYOffset > 0)) {
                 return;
             }
 
@@ -71,12 +71,12 @@ export default function (UIkit) {
             if (target) {
                 requestAnimationFrame(() => {
 
-                    var top = target.offset().top,
-                        elTop = this.$el.offset().top,
-                        elHeight = this.$el.outerHeight(),
+                    var top = offsetTop(target),
+                        elTop = offsetTop(this.$el),
+                        elHeight = this.$el[0].offsetHeight,
                         elBottom = elTop + elHeight;
 
-                    if (elBottom >= top && elTop <= top + target.outerHeight()) {
+                    if (elBottom >= top && elTop <= top + target[0].offsetHeight) {
                         window.scrollTo(0, top - elHeight - this.target - this.offset);
                     }
 
@@ -91,7 +91,7 @@ export default function (UIkit) {
 
                 write() {
 
-                    var outerHeight = this.$el.outerHeight(), el;
+                    var outerHeight = this.$el[0].offsetHeight, el;
 
                     this.placeholder
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
@@ -101,10 +101,10 @@ export default function (UIkit) {
                         this.placeholder.insertAfter(this.$el).attr('hidden', true);
                     }
 
-                    this.width = this.widthElement.attr('hidden', null).outerWidth();
+                    this.width = this.widthElement.attr('hidden', null)[0].offsetWidth;
                     this.widthElement.attr('hidden', !this.isActive);
 
-                    this.topOffset = (this.isActive ? this.placeholder.offset() : this.$el.offset()).top;
+                    this.topOffset = offsetTop(this.isActive ? this.placeholder : this.$el);
                     this.bottomOffset = this.topOffset + outerHeight;
 
                     ['top', 'bottom'].forEach(prop => {
@@ -128,7 +128,7 @@ export default function (UIkit) {
                                 el = this[prop] === true ? this.$el.parent() : query(this[prop], this.$el);
 
                                 if (el) {
-                                    this[prop] = el.offset().top + el.outerHeight();
+                                    this[prop] = offsetTop(el) + el[0].offsetHeight;
                                 }
 
                             }
@@ -152,9 +152,13 @@ export default function (UIkit) {
 
             {
 
+                read() {
+                    this.offsetTop = offsetTop(this.$el)
+                },
+
                 write({dir} = {}) {
 
-                    var scroll = win.scrollTop();
+                    var scroll = window.pageYOffset;
 
                     if (scroll < 0 || !this.$el.is(':visible') || this.disabled || this.showOnUp && !dir) {
                         return;
@@ -171,7 +175,7 @@ export default function (UIkit) {
 
                         this.isActive = false;
 
-                        if (this.animation && this.bottomOffset < this.$el.offset().top) {
+                        if (this.animation && this.bottomOffset < this.offsetTop) {
                             Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation).then(() => this.hide()));
                         } else {
                             this.hide();
@@ -226,7 +230,7 @@ export default function (UIkit) {
 
             update() {
 
-                var top = Math.max(0, this.offset), scroll = win.scrollTop(), active = win.scrollTop() > this.top;
+                var top = Math.max(0, this.offset), scroll = window.pageYOffset, active = scroll > this.top;
 
                 if (this.bottom && scroll > this.bottom - this.offset) {
                     top = this.bottom - scroll;
