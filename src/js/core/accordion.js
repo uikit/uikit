@@ -20,7 +20,7 @@ export default function (UIkit) {
         defaults: {
             targets: '> *',
             active: false,
-            animation: true,
+            animation: [true],
             collapsible: true,
             multiple: false,
             clsOpen: 'uk-open',

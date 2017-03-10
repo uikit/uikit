@@ -9,12 +9,11 @@ export default function (UIkit) {
         args: 'animation',
 
         props: {
-            animation: Boolean,
             close: String
         },
 
         defaults: {
-            animation: true,
+            animation: [true],
             close: '.uk-alert-close',
             duration: 150,
             hideProps: {opacity: 0}

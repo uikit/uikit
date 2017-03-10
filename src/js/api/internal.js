@@ -104,7 +104,7 @@ export default function (UIkit) {
                                 return;
                             }
 
-                            fn.call(this, e);
+                            return fn.call(this, e);
                         }
                     }
 
@@ -134,7 +134,7 @@ export default function (UIkit) {
 
     UIkit.prototype._initObserver = function () {
 
-        if (this._observer || !Observer || !this.$options.props || !this.$options.attrs) {
+        if (this._observer || !this.$options.props || !this.$options.attrs || !Observer) {
             return;
         }
 
@@ -146,10 +146,7 @@ export default function (UIkit) {
                 .map(mutation => camelize(mutation.attributeName))
                 .some(key => !equals(data[key], this.$props[key]))
             ) {
-                this._callDisconnected();
-                this._initProps(data);
-                this._callConnected();
-                this._callUpdate();
+                this.$reset(data);
             }
 
         });

@@ -1,7 +1,10 @@
-// Copyright (c) 2010-2016 Thomas Fuchs
-// http://zeptojs.com/
+/*
+Based on:
+Copyright (c) 2010-2016 Thomas Fuchs
+http://zeptojs.com/
+*/
 
-import { $, doc, pointerDown, pointerMove, pointerUp, ready, win } from './index';
+import { $, doc, on, pointerDown, pointerMove, pointerUp, ready, win } from './index';
 
 var touch = {}, touchTimeout, tapTimeout, swipeTimeout, longTapTimeout, longTapDelay = 750, gesture, clicked;
 
@@ -39,7 +42,7 @@ ready(function () {
         gesture.target = document.body;
     }
 
-    document.addEventListener('click', () => clicked = true, true);
+    on(document, 'click', () => clicked = true, true);
 
     doc
 
@@ -163,17 +166,9 @@ ready(function () {
 
 var touching = false;
 
-doc.on({
-
-    touchstart() {
-        touching = true;
-    },
-
-    ['click touchcancel']() {
-        touching = false;
-    }
-
-});
+on(document, 'touchstart', () => touching = true, true);
+on(document, 'click', () => touching = false);
+on(document, 'touchcancel', () => touching = false, true);
 
 export function isTouch(e) {
     return touching || e.originalEvent && e.originalEvent.pointerType === 'touch';

@@ -193,18 +193,12 @@ export function createEvent(e, bubbles = true, cancelable = false, data = false)
 
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
-    element = $(element);
+    var rect = toNode(element).getBoundingClientRect();
 
-    if (!element.is(':visible')) {
-        return false;
-    }
-
-    var scrollLeft = win.scrollLeft(), scrollTop = win.scrollTop(), {top, left} = element.offset();
-
-    return top + element.height() >= scrollTop
-        && top - offsetTop <= scrollTop + win.height()
-        && left + element.width() >= scrollLeft
-        && left - offsetLeft <= scrollLeft + win.width();
+    return rect.top >= -1 * offsetTop
+        && rect.left >= -1 * offsetLeft
+        && rect.top <= (window.innerHeight || document.documentElement.clientHeight) + offsetTop
+        && rect.left <= (window.innerWidth || document.documentElement.clientWidth) + offsetLeft;
 }
 
 export function getIndex(index, elements, current = 0) {

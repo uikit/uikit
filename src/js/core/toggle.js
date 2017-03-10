@@ -1,4 +1,4 @@
-import { $, isTouch, pointerEnter, pointerLeave } from '../util/index';
+import { $, hasTouch, isTouch, pointerEnter, pointerLeave } from '../util/index';
 
 export default function (UIkit) {
 
@@ -11,7 +11,7 @@ export default function (UIkit) {
         props: {
             href: 'jQuery',
             target: 'jQuery',
-            mode: String,
+            mode: 'list',
             media: 'media'
         },
 
@@ -30,7 +30,7 @@ export default function (UIkit) {
                 name: `${pointerEnter} ${pointerLeave}`,
 
                 filter() {
-                    return this.mode === 'hover';
+                    return ~this.mode.indexOf('hover');
                 },
 
                 handler(e) {
@@ -46,12 +46,20 @@ export default function (UIkit) {
                 name: 'click',
 
                 filter() {
-                    return this.mode !== 'media';
+                    return ~this.mode.indexOf('click') || hasTouch;
                 },
 
                 handler(e) {
+
+                    if (!isTouch(e) && !~this.mode.indexOf('click')) {
+                        return;
+                    }
+
                     // TODO better isToggled handling
-                    if ($(e.target).closest('a[href="#"], button').length || $(e.target).closest('a[href]') && (this.cls || !this.target.is(':visible'))) {
+                    if (this.href
+                        || $(e.target).closest('a[href="#"], button').length
+                        || $(e.target).closest('a[href]') && (this.cls || !this.target.is(':visible'))
+                    ) {
                         e.preventDefault();
                     }
 
@@ -67,7 +75,7 @@ export default function (UIkit) {
 
                 this.target = this.target || this.href || this.$el;
 
-                if (this.mode !== 'media' || !this.media) {
+                if (!~this.mode.indexOf('media') || !this.media) {
                     return;
                 }
 

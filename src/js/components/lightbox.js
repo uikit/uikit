@@ -321,7 +321,7 @@ function plugin(UIkit) {
 
 }
 
-if (typeof window !== 'undefined' && window.UIkit) {
+if (!BUNDLED && typeof window !== 'undefined' && window.UIkit) {
     window.UIkit.use(plugin);
 }
 

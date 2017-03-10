@@ -9,7 +9,7 @@ export default function (UIkit) {
 
         props: {
             dropdown: String,
-            mode: String,
+            mode: 'list',
             align: String,
             offset: Number,
             boundary: Boolean,
@@ -47,9 +47,9 @@ export default function (UIkit) {
 
         ready() {
 
-            this.$el.on(pointerEnter, this.dropdown, ({target}) => {
-                var active = this.getActive(), dropdown = active && active.$el.closest(this.dropdown);
-                if (active && dropdown.length && !isWithin(target, dropdown) && !active.isDelaying) {
+            this.$el.on(pointerEnter, this.dropdown, ({currentTarget}) => {
+                var active = this.getActive();
+                if (active && active.toggle && !isWithin(active.toggle.$el, currentTarget) && !active.tracker.movesTo(active.$el)) {
                     active.hide(false);
                 }
             });

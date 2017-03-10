@@ -1,4 +1,4 @@
-import { isNumeric, isString, query } from '../util/index';
+import { isNumeric, isString, offsetTop, query } from '../util/index';
 
 export default function (UIkit) {
 
@@ -16,7 +16,7 @@ export default function (UIkit) {
             offsetBottom: false
         },
 
-        init() {
+        connected() {
             this.$emit();
         },
 
@@ -40,7 +40,7 @@ export default function (UIkit) {
 
                 } else {
 
-                    var top = this.$el.offset().top;
+                    var top = offsetTop(this.$el);
 
                     if (top < viewport && this.offsetTop) {
                         offset += top;

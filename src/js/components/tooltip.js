@@ -17,6 +17,8 @@ function plugin(UIkit) {
 
     UIkit.component('tooltip', {
 
+        attrs: true,
+
         mixins: [mixin.toggable, mixin.position],
 
         props: {
@@ -29,7 +31,7 @@ function plugin(UIkit) {
             pos: 'top',
             title: '',
             delay: 0,
-            animation: 'uk-animation-scale-up',
+            animation: ['uk-animation-scale-up'],
             duration: 100,
             cls: 'uk-active',
             clsPos: 'uk-tooltip',
@@ -38,7 +40,14 @@ function plugin(UIkit) {
 
         init() {
             this.container = this.container === true && UIkit.container || this.container && toJQuery(this.container);
+        },
+
+        connected() {
             fastdom.mutate(() => this.$el.removeAttr('title').attr('aria-expanded', false));
+        },
+
+        disconnected() {
+            this.hide();
         },
 
         methods: {
@@ -112,7 +121,7 @@ function plugin(UIkit) {
 
 }
 
-if (typeof window !== 'undefined' && window.UIkit) {
+if (!BUNDLED && typeof window !== 'undefined' && window.UIkit) {
     window.UIkit.use(plugin);
 }
 

@@ -286,6 +286,12 @@
 .uk-border-circle { border-radius: 50%; }
 .uk-border-rounded { border-radius: @border-rounded-border-radius; }
 
+/*
+ * Fix `overflow: hidden` to be ignored with border-radius and CSS transforms in Webkit
+ */
+
+.uk-inline-clip[class*='uk-border-'] { -webkit-transform: translateZ(0); }
+
 
 /* Box-shadow
  ========================================================================== */

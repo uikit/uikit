@@ -1,4 +1,4 @@
-import { $, doc, docElement, isWithin, promise, toJQuery, toMs, transitionend } from '../util/index';
+import { $, doc, docElement, isWithin, promise, requestAnimationFrame, toJQuery, toMs, transitionend } from '../util/index';
 import Class from './class';
 import Toggable from './toggable';
 
@@ -121,8 +121,7 @@ export default {
                             resolve();
                             this.panel.off(transitionend, resolve);
                         }, duration);
-                    }) : true;
-
+                    }) : undefined;
             }
 
         },

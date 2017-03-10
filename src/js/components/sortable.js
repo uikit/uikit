@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var { mixin, util } = UIkit;
-    var {$, docElement: doc, extend, isWithin, on, off, pointerDown, pointerMove, pointerUp, win} = util;
+    var {$, docElement: doc, extend, getDimensions, isWithin, on, off, offsetTop, pointerDown, pointerMove, pointerUp, promise, win} = util;
 
     UIkit.component('sortable', {
 
@@ -75,7 +75,7 @@ function plugin(UIkit) {
 
                 this.drag.offset({top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
 
-                var top = this.drag.offset().top, bottom = top + this.drag[0].offsetHeight;
+                var top = offsetTop(this.drag), bottom = top + this.drag[0].offsetHeight;
 
                 if (top > 0 && top < this.scrollY) {
                     setTimeout(() => win.scrollTop(this.scrollY - 5), 5);
@@ -134,7 +134,7 @@ function plugin(UIkit) {
 
                 this.drag.children().first().height(this.placeholder.children().height());
 
-                var {left, top} = this.placeholder.offset();
+                var {left, top} = getDimensions(this.placeholder);
                 extend(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
 
                 this.placeholder.addClass(this.clsPlaceholder);
@@ -298,7 +298,7 @@ function plugin(UIkit) {
                 this.$el.css('min-height', this.$el.height());
 
                 var positions = children.map(el => el.position());
-                $.when.apply($, children.map((el, i) => el.css(props[i]).animate(positions[i], this.animation).promise()))
+                promise.all(children.map((el, i) => el.css(props[i]).animate(positions[i], this.animation).promise()))
                     .then(() => {
                         this.$el.css('min-height', '').children().css(reset);
                         this.$updateSync('update', true);
@@ -330,7 +330,7 @@ function plugin(UIkit) {
 
 }
 
-if (typeof window !== 'undefined' && window.UIkit) {
+if (!BUNDLED && typeof window !== 'undefined' && window.UIkit) {
     window.UIkit.use(plugin);
 }
 

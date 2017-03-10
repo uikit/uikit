@@ -1,10 +1,10 @@
-var webpack = require('webpack');
 var fs = require('fs');
 var glob = require('glob');
 var path = require('path');
-
-var util = require('./build/util');
 var concat = require('concat');
+var webpack = require('webpack');
+var util = require('./build/util');
+var version = require('./package.json').version;
 
 var loaders = {
     loaders: [
@@ -32,7 +32,36 @@ module.exports = [
             alias: {
                 "components$": __dirname + "/dist/icons/components.json",
             }
-        }
+        },
+        plugins: [
+            new webpack.DefinePlugin({
+                BUNDLED: true,
+                VERSION: `'${version}'`
+            })
+        ]
+    },
+
+    {
+        entry: './tests/js/uikit',
+        output: {
+            filename: 'dist/js/uikit.min.js',
+            library: 'UIkit',
+            libraryTarget: 'umd'
+        },
+        module: loaders,
+        externals: {jquery: 'jQuery'},
+        resolve: {
+            alias: {
+                "components$": __dirname + "/dist/icons/components.json",
+            }
+        },
+        plugins: [
+            new webpack.optimize.UglifyJsPlugin,
+            new webpack.DefinePlugin({
+                BUNDLED: true,
+                VERSION: `'${version}'`
+            })
+        ]
     },
 
     {
@@ -48,7 +77,7 @@ module.exports = [
 
                 apply(compiler) {
 
-                    compiler.plugin('after-plugins', () => util.write(`dist/icons.json`, util.icons('src/images/icons/*.svg')));
+                    compiler.plugin('after-plugins', () => fs.writeFileSync(`dist/icons.json`, util.icons('src/images/icons/*.svg')));
                     compiler.plugin('done', () => fs.unlink(`dist/icons.json`, () => {}));
 
                 }

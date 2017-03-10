@@ -1,5 +1,29 @@
 # Changelog
 
+## 3.0.0 beta 17 (March 10, 2017)
+
+### Added
+
+- Add tile component
+- Add grid item match modifier to grid component
+- Tooltip is now attribute reactive
+
+### Changed
+
+- Rename uk-background to uk-background-default
+- Drop, Dropdown, Toggle component's mode is a comma separated list now (to support hover only mode)
+
+### Fixed
+
+- Fix deferred UIKit loading
+- Fix Dropdowns not closing immediate upon hovering other navbar item in Navbar component
+- Fix navbar groups center left/right in IE 11
+- Fix "sticky on up" behaviour in Sticky component
+- Fix Offcanvas closing without animation
+- Fix links in Notification message clickable
+- Fix overriding default icons
+- Fix Scrollspy nav when scrolling beyond last item
+
 ## 3.0.0 beta 16 (March 01, 2017)
 
 ### Fixed
