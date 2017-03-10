@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.0 beta 18 (March 10, 2017)
+
+### Fixed
+
+- Fix regression with positioning
+
 ## 3.0.0 beta 17 (March 10, 2017)
 
 ### Added
@@ -16,7 +22,7 @@
 ### Fixed
 
 - Fix deferred UIKit loading
-- Fix Dropdowns not closing immediate upon hovering other navbar item in Navbar component
+- Fix Dropdowns not closing immediately upon hovering other navbar item in Navbar component
 - Fix navbar groups center left/right in IE 11
 - Fix "sticky on up" behaviour in Sticky component
 - Fix Offcanvas closing without animation
