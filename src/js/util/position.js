@@ -83,7 +83,17 @@ export function getDimensions(element) {
         }
     }
 
+    var display;
+    if (!element.offsetHeight) {
+        display = getComputedStyle(element).display;
+        element.style.display = 'block';
+    }
+
     var rect = element.getBoundingClientRect();
+
+    if (display) {
+        element.style.display = display;
+    }
 
     return {
         height: rect.height,
