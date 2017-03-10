@@ -70,9 +70,9 @@ export function getDimensions(element) {
 
     element = toNode(element);
 
-    var top = window.pageYOffset, left = window.pageXOffset;
+    var window = getWindow(element), top = window.pageYOffset, left = window.pageXOffset;
 
-    if (element === window) {
+    if (!element.ownerDocument) {
         return {
             top,
             left,
@@ -96,7 +96,12 @@ export function getDimensions(element) {
 }
 
 export function offsetTop(element) {
-    return toNode(element).getBoundingClientRect().top + window.pageYOffset;
+    element = toNode(element);
+    return element.getBoundingClientRect().top + getWindow(element).pageYOffset;
+}
+
+function getWindow(element) {
+    return element.ownerDocument ? element.ownerDocument.defaultView : window;
 }
 
 function moveTo(position, attach, dim, factor) {
