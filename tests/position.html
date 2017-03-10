@@ -260,11 +260,11 @@
 
             (function ($) {
 
-                var ticking, boundary = $('#boundary'), target = $('#target'), offsetX, offsetY;
+                var ticking, element = $('#element'), boundary = $('#boundary'), target = $('#target'), offsetX, offsetY;
 
                 function position() {
                     UIkit.util.position(
-                        '#element',
+                        element,
                         target,
                         $('#element_x').val() + ' ' + $('#element_y').val(),
                         $('#target_x').val() + ' ' + $('#target_y').val(),
