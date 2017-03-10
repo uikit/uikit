@@ -83,6 +83,9 @@ exports.renderLess = function (data, options) {
 };
 
 exports.compile = function (file, dest, external, globals, name, aliases, bundled) {
+
+    name = name.replace(/[^\w]/g, '_');
+
     return rollup.rollup({
         external,
         entry: `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
