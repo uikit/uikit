@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.17 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.18 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
    typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
@@ -999,7 +999,17 @@ function getDimensions(element) {
         }
     }
 
+    var display;
+    if (!element.offsetHeight) {
+        display = getComputedStyle(element).display;
+        element.style.display = 'block';
+    }
+
     var rect = element.getBoundingClientRect();
+
+    if (display) {
+        element.style.display = display;
+    }
 
     return {
         height: rect.height,
@@ -5408,7 +5418,7 @@ function boot (UIkit) {
 
 }
 
-UIkit.version = '3.0.0-beta.17';
+UIkit.version = '3.0.0-beta.18';
 
 mixin$1(UIkit);
 core(UIkit);
