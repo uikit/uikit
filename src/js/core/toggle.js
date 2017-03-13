@@ -10,7 +10,7 @@ export default function (UIkit) {
 
         props: {
             href: String,
-            target: String,
+            target: null,
             mode: 'list',
             media: 'media'
         },
