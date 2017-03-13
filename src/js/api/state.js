@@ -211,6 +211,10 @@ function registerComputed(component, key, cb) {
             }
 
             return component._computeds[key];
+        },
+
+        set(value) {
+            component._computeds[key] = value;
         }
 
     });
