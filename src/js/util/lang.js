@@ -151,9 +151,14 @@ export function toList(value) {
 
 var vars = {};
 export function toMedia(value) {
-    if (isString(value) && value[0] == '@') {
-        var name = `media-${value.substr(1)}`;
-        value = vars[name] || (vars[name] = parseFloat(getCssVar(name)));
+
+    if (isString(value)) {
+        if (value[0] == '@') {
+            var name = `media-${value.substr(1)}`;
+            value = vars[name] || (vars[name] = parseFloat(getCssVar(name)));
+        } else if (value.match(/^\(min-width:/)) {
+            return value;
+        }
     }
 
     return value && !isNaN(value) ? `(min-width: ${value}px)` : false;
