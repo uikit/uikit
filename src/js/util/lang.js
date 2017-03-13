@@ -145,7 +145,7 @@ export function toList(value) {
     return isArray(value)
         ? value
         : isString(value)
-            ? value.split(',').map(value => value.trim())
+            ? value.split(',').map(value => toBoolean(value.trim()))
             : [value];
 }
 

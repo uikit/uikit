@@ -29,6 +29,16 @@ export default function (UIkit) {
             transition: 'ease'
         },
 
+        computed: {
+
+            items() {
+                var items = $(this.targets, this.$el);
+                this._changed = !this._items || items.length !== this._items.length || items.toArray().some((el, i) => el !== this._items.get(i));
+                return this._items = items;
+            }
+
+        },
+
         connected() {
             this.$emitSync();
         },
@@ -40,7 +50,7 @@ export default function (UIkit) {
                 name: 'click',
 
                 delegate() {
-                    return `${this.$props.targets} ${this.$props.toggle}`;
+                    return `${this.targets} ${this.$props.toggle}`;
                 },
 
                 handler(e) {
@@ -54,12 +64,7 @@ export default function (UIkit) {
 
         update() {
 
-            var items = $(this.targets, this.$el),
-                changed = !this.items || items.length !== this.items.length || items.toArray().some((el, i) => el !== this.items.get(i));
-
-            this.items = items;
-
-            if (!changed) {
+            if (!this.items || !this._changed) {
                 return;
             }
 
@@ -72,6 +77,7 @@ export default function (UIkit) {
             if (active && !active.hasClass(this.clsOpen)) {
                 this.toggle(active, false);
             }
+
         },
 
         methods: {

@@ -1,4 +1,4 @@
-import { $, hasTouch, isTouch, pointerEnter, pointerLeave } from '../util/index';
+import { $, hasTouch, isTouch, pointerEnter, pointerLeave, query } from '../util/index';
 
 export default function (UIkit) {
 
@@ -9,8 +9,8 @@ export default function (UIkit) {
         args: 'target',
 
         props: {
-            href: 'jQuery',
-            target: 'jQuery',
+            href: String,
+            target: String,
             mode: 'list',
             media: 'media'
         },
@@ -21,6 +21,14 @@ export default function (UIkit) {
             mode: 'click',
             queued: true,
             media: false
+        },
+
+        computed: {
+
+            target() {
+                return query(this.$props.target || this.href, this.$el) || this.$el;
+            }
+
         },
 
         events: [
@@ -72,8 +80,6 @@ export default function (UIkit) {
         update: {
 
             write() {
-
-                this.target = this.target || this.href || this.$el;
 
                 if (!~this.mode.indexOf('media') || !this.media) {
                     return;

@@ -31,13 +31,17 @@ export default function (UIkit) {
             this.$emit();
         },
 
+        computed: {
+
+            elements() {
+                return this.target && $(this.target, this.$el) || this.$el;
+            }
+
+        },
+
         update: [
 
             {
-
-                read() {
-                    this.elements = this.target && $(this.target, this.$el) || this.$el;
-                },
 
                 write() {
                     if (this.hidden) {

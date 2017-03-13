@@ -40,11 +40,23 @@ export default {
 
     },
 
+    computed: {
+
+        hasAnimation() {
+            return !!this.animation[0];
+        },
+
+        hasTransition() {
+            return this.hasAnimation && this.animation[0] === true;
+        }
+
+    },
+
     methods: {
 
         toggleElement(targets, show, animate) {
 
-            var queued = this.queued && !!this.animation[0], toggles, body = document.body, scroll = body.scrollTop,
+            var queued = this.queued && this.hasAnimation, toggles, body = document.body, scroll = body.scrollTop,
                 all = targets => promise.all(targets.toArray().map(el => this._toggleElement(el, show, animate))).then(null, () => {}),
                 delay = targets => {
                     var def = all(targets);
@@ -103,11 +115,11 @@ export default {
                 delay = event.result;
             }
 
-            var promise = (this.animation[0] === true && animate !== false
-                ? this._toggleHeight
-                : this.animation[0] && animate !== false
-                    ? this._toggleAnimation
-                    : this._toggleImmediate
+            var promise = (animate === false || !this.hasAnimation
+                    ? this._toggleImmediate
+                    : this.hasTransition
+                        ? this._toggleHeight
+                        : this._toggleAnimation
             )(el, show);
 
             var handler = () => {

@@ -1,5 +1,16 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add computed properties
+
+### Fixed
+
+- Fix Scrollspy in view check
+- Fix closing Accordion without animation
+
 ## 3.0.0 beta 18 (March 10, 2017)
 
 ### Fixed

@@ -24,10 +24,15 @@ export default {
         stack: false
     },
 
-    ready() {
+    computed: {
 
-        this.body = $(document.body);
-        this.panel = toJQuery(`.${this.clsPanel}`, this.$el);
+        body() {
+            return $(document.body);
+        },
+
+        panel() {
+            return toJQuery(`.${this.clsPanel}`, this.$el);
+        }
 
     },
 

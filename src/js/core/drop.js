@@ -259,9 +259,6 @@ export default function (UIkit) {
 
                 this.$el.toggleClass(`${this.clsDrop}-boundary`, this.boundaryAlign);
 
-                this.dir = this.pos[0];
-                this.align = this.pos[1];
-
                 var boundary = getDimensions(this.boundary), alignTo = this.boundaryAlign ? boundary : getDimensions(this.toggle.$el);
 
                 if (this.align === 'justify') {
