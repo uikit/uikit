@@ -4,6 +4,7 @@
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
   "version": "3.0.0-beta.18",
   "main": "dist/js/uikit.js",
+  "style": "dist/css/uikit.css",
   "scripts": {
     "compile": "npm run compile-less && npm run compile-js",
     "compile-js": "node build/build",
@@ -48,5 +49,14 @@
       "patterns": "**/*.less",
       "extensions": "less"
     }
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uikit/uikit.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/uikit/uikit/issues"
+  },
+  "homepage": "https://getuikit.com"
 }
