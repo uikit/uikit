@@ -17,7 +17,7 @@ export default function (UIkit) {
             target: false
         },
 
-        computeds: {
+        computed: {
 
             input() {
                 return this.$el.find(':input:first');
