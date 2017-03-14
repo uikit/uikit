@@ -1,5 +1,5 @@
 import { Class, Modal } from '../mixin/index';
-import { $, extend, isFunction, isString, promise, query, toJQuery } from '../util/index';
+import { $, extend, isFunction, isString, isWithin, promise, query, requestAnimationFrame, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
@@ -20,12 +20,10 @@ export default function (UIkit) {
             container: true
         },
 
-        init() {
+        computed: {
 
-            this.container = this.container === true && UIkit.container || this.container && toJQuery(this.container);
-
-            if (this.container && !this.$el.parent().is(this.container)) {
-                this.$el.appendTo(this.container);
+            container() {
+                return this.$props.container === true && UIkit.container || this.$props.container && toJQuery(this.$props.container);
             }
 
         },
@@ -70,7 +68,25 @@ export default function (UIkit) {
                 }
             }
 
-        ]
+        ],
+
+        methods: {
+
+            show() {
+
+                if (this.container && !isWithin(this.$el, this.container)) {
+                    this.$el.appendTo(this.container);
+                    return promise(resolve =>
+                        requestAnimationFrame(() =>
+                            resolve(this.show())
+                        )
+                    )
+                }
+
+                return this.toggleNow(this.$el, true);
+            },
+
+        }
 
     });
 

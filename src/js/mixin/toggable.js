@@ -115,7 +115,7 @@ export default {
                 delay = event.result;
             }
 
-            var promise = (animate === false || !this.hasAnimation
+            var def = (animate === false || !this.hasAnimation
                     ? this._toggleImmediate
                     : this.hasTransition
                         ? this._toggleHeight
@@ -124,7 +124,7 @@ export default {
 
             var handler = () => {
                 el.trigger(show ? 'show' : 'hide', [this]);
-                return promise.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
+                return def.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
             };
 
             return delay ? delay.then(handler) : handler();

@@ -164,8 +164,8 @@ export function isJQuery(obj) {
 export function isWithin(element, selector) {
     element = $(element);
     return element.is(selector) || !!(isString(selector)
-            ? element.parents(selector).length
-            : $.contains(toNode(selector), element[0]));
+        ? element.parents(selector).length
+        : $.contains(toNode(selector), element[0]));
 }
 
 export function attrFilter(element, attr, pattern, replacement) {
