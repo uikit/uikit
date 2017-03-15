@@ -28,8 +28,8 @@ export default function (UIkit) {
             return;
         }
 
-        if (!~UIkit.elements.indexOf(this.$options.$el)) {
-            UIkit.elements.push(this.$options.$el);
+        if (!~UIkit.elements.indexOf(this.$options.el)) {
+            UIkit.elements.push(this.$options.el);
         }
 
         UIkit.instances[this._uid] = this;
@@ -58,7 +58,7 @@ export default function (UIkit) {
             this._observer = null;
         }
 
-        var index = UIkit.elements.indexOf(this.$options.$el);
+        var index = UIkit.elements.indexOf(this.$options.el);
 
         if (~index) {
             UIkit.elements.splice(index, 1);
