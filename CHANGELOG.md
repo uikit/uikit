@@ -6,6 +6,10 @@
 
 - Add computed properties
 
+### Changed
+
+- Component Constructor initializes multiple components at once
+
 ### Fixed
 
 - Fix Scrollspy in view check

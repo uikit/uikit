@@ -57,7 +57,7 @@ export default function (UIkit) {
 
                 this.rows.forEach(({height, elements}) =>
                     elements && elements.each((_, el) =>
-                        $(el).css('minHeight', height)
+                        el.style.minHeight = `${height}px`
                     )
                 );
 

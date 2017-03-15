@@ -42,7 +42,7 @@ export default function (UIkit) {
 
                 read() {
                     if (this.scroll) {
-                        this.links.each((_, el) => UIkit.scroll(el, {offset: this.offset || 0}));
+                        UIkit.scroll(this.links, {offset: this.offset || 0});
                     }
                 }
 

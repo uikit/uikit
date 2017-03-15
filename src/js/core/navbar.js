@@ -65,9 +65,7 @@ export default function (UIkit) {
 
         update() {
 
-            $(`${this.dropdown} .${this.clsDrop}`, this.$el).each((i, el) =>
-                UIkit.drop(el, extend({}, this))
-            );
+            UIkit.drop($(`${this.dropdown} .${this.clsDrop}`, this.$el), extend({}, this))
 
         },
 
