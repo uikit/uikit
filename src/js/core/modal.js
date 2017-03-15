@@ -94,8 +94,15 @@ export default function (UIkit) {
 
         mixins: [Class],
 
-        ready() {
-            this.panel = query('!.uk-modal-dialog', this.$el);
+        computed: {
+
+            panel() {
+                return query('!.uk-modal-dialog', this.$el);
+            }
+
+        },
+
+        connected() {
             this.$el.css('min-height', 150);
         },
 

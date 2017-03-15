@@ -1,4 +1,4 @@
-import { classify } from './lang';
+import { classify, isUndefined, promise } from './lang';
 
 export const Observer = window.MutationObserver || window.WebKitMutationObserver;
 export const requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
@@ -14,6 +14,8 @@ export const pointerMove = !hasTouch ? 'mousemove' : window.PointerEvent ? 'poin
 export const pointerUp = !hasTouch ? 'mouseup' : window.PointerEvent ? 'pointerup' : 'touchend';
 export const pointerEnter = hasTouch && window.PointerEvent ? 'pointerenter' : 'mouseenter';
 export const pointerLeave = hasTouch && window.PointerEvent ? 'pointerleave' : 'mouseleave';
+
+export const hasPromise = !isUndefined(window.Promise);
 
 export const transitionstart = prefix('transition', 'transition-start');
 export const transitionend = prefix('transition', 'transition-end');
