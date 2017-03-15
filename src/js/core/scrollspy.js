@@ -28,7 +28,7 @@ export default function (UIkit) {
         },
 
         init() {
-            this.$emit();
+            this.$emitSync();
         },
 
         computed: {
