@@ -191,24 +191,25 @@
 
 /*
  * Reveal Animation
- * 1. Set the bar to target position
- * 2. Clip the bar with `clip-path` and use `clip` as fallback
- * 3. Animation
- * Note: Future `clip-path` is commented out (it's not working on iOS)
+ * 1. Reset position
+ * 2. Using `clip` as fallback
  */
 
 .uk-offcanvas-reveal {
     /* 1 */
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
+    -webkit-transform: translateX(0) !important;
+    transform: translateX(0) !important;
     /* 2 */
     clip: rect(0, 0, 100vh, 0);
-    //-webkit-clip-path: inset(0 @offcanvas-bar-width 0 0);
-    //clip-path: inset(0 @offcanvas-bar-width 0 0);
-    /* 3 */
-    -webkit-transition: clip 0.3s ease-out; //, -webkit-clip-path 0.3s ease-out;
-    transition: clip 0.3s ease-out; //, -webkit-clip-path 0.3s ease-out, clip-path 0.3s ease-out;
+    -webkit-transition: clip 0.3s ease-out;
+    transition: clip 0.3s ease-out;
 }
+
+.uk-open > .uk-offcanvas-reveal { clip: rect(0, @offcanvas-bar-width, 100vh, 0); }
+
+/* Flip modifier */
+.uk-offcanvas-flip .uk-offcanvas-reveal { clip: rect(0, @offcanvas-bar-width, 100vh, @offcanvas-bar-width); }
+.uk-offcanvas-flip .uk-open > .uk-offcanvas-reveal { clip: rect(0, @offcanvas-bar-width, 100vh, 0); }
 
 /* Fix weird scrollbar bug in Chrome if overlay is used */
 .uk-offcanvas-page:not(.uk-offcanvas-flip) .uk-offcanvas-reveal {
@@ -216,27 +217,37 @@
     backface-visibility: hidden;
 }
 
-.uk-open > .uk-offcanvas-reveal {
-    clip: rect(0, @offcanvas-bar-width, 100vh, 0);
-    //-webkit-clip-path: inset(0);
-    //clip-path: inset(0);
-}
+@supports (clip-path: inset(0 0)) or (-webkit-clip-path: inset(0 0) ) {
 
-/* Flip modifier */
-.uk-offcanvas-flip .uk-offcanvas-reveal {
-    /* 1 */
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-    /* 2 */
-    clip: rect(0, @offcanvas-bar-width, 100vh, @offcanvas-bar-width);
-    //-webkit-clip-path: inset(0 0 0 @offcanvas-bar-width);
-    //clip-path: inset(0 0 0 @offcanvas-bar-width);
-}
+    /*
+     * Reset `clip` and animate `clip-path` instead.
+     */
 
-.uk-offcanvas-flip .uk-open > .uk-offcanvas-reveal {
-    clip: rect(0, @offcanvas-bar-width, 100vh, 0);
-    //-webkit-clip-path: inset(0);
-    //clip-path: inset(0);
+    .uk-offcanvas-reveal {
+        -webkit-clip-path: inset(0 @offcanvas-bar-width 0 0);
+        clip-path: inset(0 @offcanvas-bar-width 0 0);
+        /* 1 */
+        clip: auto !important;
+        -webkit-transition: -webkit-clip-path 0.3s ease-out;
+        transition: -webkit-clip-path 0.3s ease-out, clip-path 0.3s ease-out;
+    }
+
+    .uk-open > .uk-offcanvas-reveal {
+        -webkit-clip-path: inset(0);
+        clip-path: inset(0);
+    }
+
+    /* Flip modifier */
+    .uk-offcanvas-flip .uk-offcanvas-reveal {
+        -webkit-clip-path: inset(0 0 0 @offcanvas-bar-width);
+        clip-path: inset(0 0 0 @offcanvas-bar-width);
+    }
+
+    .uk-offcanvas-flip .uk-open > .uk-offcanvas-reveal {
+        -webkit-clip-path: inset(0);
+        clip-path: inset(0);
+    }
+
 }
 
 
