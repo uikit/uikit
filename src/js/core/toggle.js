@@ -64,7 +64,7 @@ export default function (UIkit) {
                     }
 
                     // TODO better isToggled handling
-                    if ($(e.target).closest('a[href="#"], button').length || $(e.target).closest('a[href]') && !this.isToggled(this.target)) {
+                    if ($(e.target).closest('a[href="#"], button').length || $(e.target).closest('a[href]') && (this.cls || !this.target.is(':visible'))) {
                         e.preventDefault();
                     }
 
