@@ -17,7 +17,7 @@ export default function (UIkit) {
         },
 
         connected() {
-            this.$emit();
+            this.$emitSync();
         },
 
         update: {
