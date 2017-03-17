@@ -30,19 +30,30 @@ export default function (UIkit) {
             selClose: '.uk-offcanvas-close'
         },
 
-        init() {
+        computed: {
 
-            this.clsFlip = this.flip ? this.clsFlip : '';
-            this.clsOverlay = this.overlay ? this.clsOverlay : '';
-            this.clsPageOverlay = this.overlay ? this.clsPageOverlay : '';
-            this.clsMode = `${this.clsMode}-${this.mode}`;
+            clsFlip() {
+                return this.flip ? this.$props.clsFlip : '';
+            },
 
-            if (this.mode === 'none' || this.mode === 'reveal') {
-                this.clsSidebarAnimation = '';
-            }
+            clsOverlay() {
+                return this.overlay ? this.$props.clsOverlay : '';
+            },
 
-            if (this.mode !== 'push' && this.mode !== 'reveal') {
-                this.clsPageAnimation = '';
+            clsPageOverlay() {
+                return this.overlay ? this.$props.clsPageOverlay : '';
+            },
+
+            clsMode() {
+                return `${this.$props.clsMode}-${this.mode}`;
+            },
+
+            clsSidebarAnimation() {
+                return this.mode === 'none' || this.mode === 'reveal' ? '' : this.$props.clsSidebarAnimation;
+            },
+
+            clsPageAnimation() {
+                return this.mode !== 'push' && this.mode !== 'reveal' ? '' : this.$props.clsPageAnimation
             }
 
         },
@@ -52,7 +63,7 @@ export default function (UIkit) {
             write() {
 
                 if (this.isActive()) {
-                    docElement.width(window.innerWidth - this.getScrollbarWidth());
+                    docElement.width(window.innerWidth - this.scrollbarWidth);
                 }
 
             },
@@ -90,7 +101,7 @@ export default function (UIkit) {
             },
 
             {
-                name: 'hide',
+                name: 'hidden',
 
                 self: true,
 

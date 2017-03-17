@@ -1,4 +1,4 @@
-import { $, doc, docElement, isWithin, promise, requestAnimationFrame, toJQuery, toMs, transitionend } from '../util/index';
+import { $, doc, docElement, isWithin, promise, requestAnimationFrame, toMs, transitionend } from '../util/index';
 import Class from './class';
 import Toggable from './toggable';
 
@@ -31,8 +31,26 @@ export default {
         },
 
         panel() {
-            return toJQuery(`.${this.clsPanel}`, this.$el);
-        }
+            return this.$el.find(`.${this.clsPanel}`);
+        },
+
+        transitionDuration() {
+            return toMs(this.panel.css('transition-duration'));
+        },
+
+        scrollbarWidth() {
+            var width = docElement[0].style.width;
+
+            docElement.css('width', '');
+
+            var scrollbarWidth = window.innerWidth - docElement.outerWidth(true);
+
+            if (width) {
+                docElement.width(width);
+            }
+
+            return scrollbarWidth;
+        },
 
     },
 
@@ -79,7 +97,7 @@ export default {
                 var prev = active && active !== this && active;
 
                 if (!active) {
-                    this.body.css('overflow-y', this.getScrollbarWidth() && this.overlay ? 'scroll' : '');
+                    this.body.css('overflow-y', this.scrollbarWidth && this.overlay ? 'scroll' : '');
                 }
 
                 active = this;
@@ -118,22 +136,13 @@ export default {
                     deregister(this.$options.name);
                 }
 
-                var duration = toMs(this.panel.css('transition-duration'));
-
-                return duration ? promise(resolve => {
-                        this.panel.one(transitionend, resolve);
-                        setTimeout(() => {
-                            resolve();
-                            this.panel.off(transitionend, resolve);
-                        }, duration);
-                    }) : undefined;
             }
 
         },
 
         {
 
-            name: 'hide',
+            name: 'hidden',
 
             self: true,
 
@@ -170,19 +179,17 @@ export default {
             return active;
         },
 
-        getScrollbarWidth() {
-            var width = docElement[0].style.width;
+        _toggleImmediate(el, show) {
+            this._toggle(el, show);
 
-            docElement.css('width', '');
-
-            var scrollbarWidth = window.innerWidth - docElement.outerWidth(true);
-
-            if (width) {
-                docElement.width(width);
-            }
-
-            return scrollbarWidth;
-        }
+            return this.transitionDuration ? promise(resolve => {
+                this.panel.one(transitionend, resolve);
+                setTimeout(() => {
+                    resolve();
+                    this.panel.off(transitionend, resolve);
+                }, this.transitionDuration);
+            }) : promise.resolve();
+        },
     }
 
 }

@@ -157,7 +157,7 @@ export default function (UIkit) {
 
             {
 
-                name: 'toggleShow',
+                name: 'toggleshow',
 
                 handler(e, toggle) {
 
@@ -173,7 +173,7 @@ export default function (UIkit) {
 
             {
 
-                name: `toggleHide ${pointerLeave}`,
+                name: `togglehide ${pointerLeave}`,
 
                 handler(e, toggle) {
 

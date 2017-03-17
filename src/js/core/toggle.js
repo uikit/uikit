@@ -43,7 +43,7 @@ export default function (UIkit) {
 
                 handler(e) {
                     if (!isTouch(e)) {
-                        this.toggle(e.type === pointerEnter ? 'toggleShow' : 'toggleHide');
+                        this.toggle(e.type === pointerEnter ? 'toggleshow' : 'togglehide');
                     }
                 }
 

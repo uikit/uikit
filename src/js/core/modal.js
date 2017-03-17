@@ -1,5 +1,5 @@
 import { Class, Modal } from '../mixin/index';
-import { $, extend, isFunction, isString, isWithin, promise, query, requestAnimationFrame, toJQuery } from '../util/index';
+import { $, extend, isFunction, isString, isWithin, promise, requestAnimationFrame, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
@@ -59,7 +59,7 @@ export default function (UIkit) {
             },
 
             {
-                name: 'hide',
+                name: 'hidden',
 
                 self: true,
 
@@ -97,7 +97,7 @@ export default function (UIkit) {
         computed: {
 
             panel() {
-                return query('!.uk-modal-dialog', this.$el);
+                return this.$el.closest('.uk-modal-dialog');
             }
 
         },
@@ -130,7 +130,7 @@ export default function (UIkit) {
              </div>`
         , options);
 
-        dialog.$el.on('hide', () => dialog.$destroy(true));
+        dialog.$el.on('hidden', () => dialog.$destroy(true));
         dialog.show();
 
         return dialog;
@@ -169,7 +169,7 @@ export default function (UIkit) {
 
         options = extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
-        return promise((resolve, reject) => {
+        return promise(resolve => {
 
             var resolved = false,
                 prompt = UIkit.modal.dialog(`
