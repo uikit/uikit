@@ -120,7 +120,7 @@ export default function (UIkit) {
                 },
 
                 handler() {
-                    this.panel.children().wrapAll('<div>');
+                    this.panel.wrap('<div>').removeClass(this.clsMode).parent().addClass(this.clsMode);
                 }
 
             },
@@ -135,7 +135,7 @@ export default function (UIkit) {
                 },
 
                 handler() {
-                    this.panel.children().first().children().unwrap();
+                    this.panel.unwrap();
                 }
 
             }
