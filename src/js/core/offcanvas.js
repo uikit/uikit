@@ -111,6 +111,32 @@ export default function (UIkit) {
                     this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                     this.$el.removeClass(this.clsOverlay).css('display', '');
                 }
+            },
+
+            {
+                name: 'show hide',
+
+                filter() {
+                    return this.mode === 'reveal';
+                },
+
+                handler(e) {
+                    this.panel.children().wrapAll('<div>');
+                }
+
+            },
+
+            {
+                name: 'shown hidden',
+
+                filter() {
+                    return this.mode === 'reveal';
+                },
+
+                handler(e) {
+                    this.panel.children().first().children().unwrap();
+                }
+
             }
 
         ]
