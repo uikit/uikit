@@ -62,92 +62,6 @@
 }
 
 
-/* Page
- ========================================================================== */
-
-/*
- * 1. Prevent horizontal scrollbar when page is slide-out
- * 2. Prepare slide-out animation (Used in reveal and push mode)
- * Note: JS sets a fixed width so the page can slide-out without shinking
- */
-
-/* 1 */
-.uk-offcanvas-container { overflow-x: hidden; }
-
-.uk-offcanvas-content {
-    /* 2 */
-    -webkit-transition: padding-left 0.3s ease-out;
-    transition: padding-left 0.3s ease-out;
-}
-
-/*
- * Prevent vertical scrolling on touch devices
- * 1. Enable horizontal scrolling when position is fixed
- */
-
-@media (pointer: coarse) {
-
-    .uk-offcanvas-content {
-        position: fixed;
-        /* 1 */
-        height: 100vh;
-        overflow-y: scroll;
-    }
-}
-
-
-/*
- * Activate slide-out animation
- */
-
-.uk-offcanvas-content-animation { padding-left: @offcanvas-bar-width; }
-
-/* Flip modifier */
-.uk-offcanvas-flip > .uk-offcanvas-content-animation { padding-left: -@offcanvas-bar-width; }
-
-/*
- * Prevent scrollbar on page if overlay is used
- */
-
-// .uk-offcanvas-overlay { overflow: hidden; }
-
-// .uk-offcanvas-overlay > * { overflow: hidden; }
-
-
-/* Overlay
- ========================================================================== */
-
-/*
- * Overlay the whole page. Needed for the `::before`
- * Using `100vw` so no modification is needed when off-canvas is flipped
- */
-
-.uk-offcanvas-overlay { width: 100vw; }
-
-/*
- * 1. Mask the whole page
- * 2. Fade-in transition
- */
-
-.uk-offcanvas-overlay::before {
-    /* 1 */
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: @offcanvas-overlay-background;
-    /* 2 */
-    opacity: 0;
-    -webkit-transition: opacity 0.15s linear;
-    transition: opacity 0.15s linear;
-    .hook-offcanvas-overlay;
-}
-
-.uk-offcanvas-overlay.uk-open::before { opacity: 1; }
-
-
 /* Bar
  ========================================================================== */
 
@@ -257,6 +171,105 @@
     //-webkit-clip-path: inset(0);
     //clip-path: inset(0);
 }
+
+
+/* Overlay
+ ========================================================================== */
+
+/*
+ * Overlay the whole page. Needed for the `::before`
+ * Using `100vw` so no modification is needed when off-canvas is flipped
+ */
+
+.uk-offcanvas-overlay { width: 100vw; }
+
+/*
+ * 1. Mask the whole page
+ * 2. Fade-in transition
+ */
+
+.uk-offcanvas-overlay::before {
+    /* 1 */
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: @offcanvas-overlay-background;
+    /* 2 */
+    opacity: 0;
+    -webkit-transition: opacity 0.15s linear;
+    transition: opacity 0.15s linear;
+    .hook-offcanvas-overlay;
+}
+
+.uk-offcanvas-overlay.uk-open::before { opacity: 1; }
+
+
+
+
+/* Container
+ ========================================================================== */
+
+/*
+ * Prevent horizontal scrollbar when the content is slide-out
+ */
+
+.uk-offcanvas-container { overflow-x: hidden; }
+
+
+/* Content
+ ========================================================================== */
+
+/*
+ * Prepare slide-out animation (Used in reveal and push mode)
+ * Note: JS sets a fixed width so the page can slide-out without shinking
+ */
+
+.uk-offcanvas-content {
+    -webkit-transition: 0.3s ease-out;
+   transition: 0.3s ease-out;
+   -webkit-transition-property: padding-left, padding-right;
+   transition-property: padding-left, padding-right;
+}
+
+/*
+ * Prevent vertical scrolling on touch devices
+ * 1. Enable horizontal scrolling when position is fixed
+ */
+
+@media (pointer: coarse) {
+
+    .uk-offcanvas-content {
+        position: fixed;
+        /* 1 */
+        height: 100vh;
+        overflow-y: scroll;
+    }
+}
+
+
+/*
+ * Activate slide-out animation
+ */
+
+.uk-offcanvas-content-animation { padding-left: @offcanvas-bar-width; }
+
+/* Flip modifier */
+.uk-offcanvas-flip > .uk-offcanvas-content-animation { padding-right: @offcanvas-bar-width; }
+
+/*
+ * Prevent scrollbar on page if overlay is used
+ */
+
+// .uk-offcanvas-overlay { overflow: hidden; }
+
+// .uk-offcanvas-overlay > * { overflow: hidden; }
+
+
+
+
 
 
 // Hooks
