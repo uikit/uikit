@@ -41,7 +41,9 @@ export default {
         scrollbarWidth() {
             var width = docElement[0].style.width;
 
-            docElement.css('width', '');
+            if (width) {
+                docElement[0].style.width = '';
+            }
 
             var scrollbarWidth = window.innerWidth - docElement.outerWidth(true);
 

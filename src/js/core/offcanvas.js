@@ -63,7 +63,7 @@ export default function (UIkit) {
             write() {
 
                 if (this.isActive()) {
-                    docElement.width(window.innerWidth - this.scrollbarWidth);
+                    this.body.width(window.innerWidth - this.scrollbarWidth);
                 }
 
             },
@@ -106,7 +106,8 @@ export default function (UIkit) {
                 self: true,
 
                 handler() {
-                    docElement.removeClass(`${this.clsFlip} ${this.clsPageOverlay}`).width('');
+                    docElement.removeClass(`${this.clsFlip} ${this.clsPageOverlay}`);
+                    this.body.width('');
                     this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                     this.$el.removeClass(this.clsOverlay).css('display', '');
                 }
