@@ -19,14 +19,14 @@ export default function (UIkit) {
             mode: 'slide',
             flip: false,
             overlay: false,
-            clsPage: 'uk-offcanvas-page',
+            clsPage: 'uk-offcanvas-container',
             clsPanel: 'uk-offcanvas-bar',
             clsFlip: 'uk-offcanvas-flip',
-            clsPageAnimation: 'uk-offcanvas-page-animation',
+            clsContent: 'uk-offcanvas-content',
+            clsContentAnimation: 'uk-offcanvas-content-animation',
             clsSidebarAnimation: 'uk-offcanvas-bar-animation',
             clsMode: 'uk-offcanvas',
             clsOverlay: 'uk-offcanvas-overlay',
-            clsPageOverlay: 'uk-offcanvas-page-overlay',
             selClose: '.uk-offcanvas-close'
         },
 
@@ -40,10 +40,6 @@ export default function (UIkit) {
                 return this.overlay ? this.$props.clsOverlay : '';
             },
 
-            clsPageOverlay() {
-                return this.overlay ? this.$props.clsPageOverlay : '';
-            },
-
             clsMode() {
                 return `${this.$props.clsMode}-${this.mode}`;
             },
@@ -52,8 +48,8 @@ export default function (UIkit) {
                 return this.mode === 'none' || this.mode === 'reveal' ? '' : this.$props.clsSidebarAnimation;
             },
 
-            clsPageAnimation() {
-                return this.mode !== 'push' && this.mode !== 'reveal' ? '' : this.$props.clsPageAnimation
+            clsContentAnimation() {
+                return this.mode !== 'push' && this.mode !== 'reveal' ? '' : this.$props.clsContentAnimation
             }
 
         },
@@ -80,7 +76,8 @@ export default function (UIkit) {
                 self: true,
 
                 handler() {
-                    docElement.addClass(`${this.clsFlip} ${this.clsPageAnimation} ${this.clsPageOverlay}`);
+                    docElement.addClass(`${this.clsFlip} ${this.clsOverlay}`);
+                    this.body.addClass(`${this.clsContent} ${this.clsContentAnimation}`);
                     this.panel.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                     this.$el.addClass(this.clsOverlay).css('display', 'block').height();
                 }
@@ -92,7 +89,7 @@ export default function (UIkit) {
                 self: true,
 
                 handler() {
-                    docElement.removeClass(this.clsPageAnimation);
+                    this.body.removeClass(this.clsContentAnimation);
 
                     if (this.mode === 'none' || this.getActive() && this.getActive() !== this) {
                         this.panel.trigger(transitionend);
@@ -106,8 +103,8 @@ export default function (UIkit) {
                 self: true,
 
                 handler() {
-                    docElement.removeClass(`${this.clsFlip} ${this.clsPageOverlay}`);
-                    this.body.width('');
+                    docElement.removeClass(`${this.clsFlip} ${this.clsOverlay}`);
+                    this.body.removeClass(this.clsContent).width('');
                     this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                     this.$el.removeClass(this.clsOverlay).css('display', '');
                 }
@@ -116,11 +113,13 @@ export default function (UIkit) {
             {
                 name: 'show hide',
 
+                self: true,
+
                 filter() {
                     return this.mode === 'reveal';
                 },
 
-                handler(e) {
+                handler() {
                     this.panel.children().wrapAll('<div>');
                 }
 
@@ -129,11 +128,13 @@ export default function (UIkit) {
             {
                 name: 'shown hidden',
 
+                self: true,
+
                 filter() {
                     return this.mode === 'reveal';
                 },
 
-                handler(e) {
+                handler() {
                     this.panel.children().first().children().unwrap();
                 }
 
