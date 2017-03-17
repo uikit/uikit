@@ -66,33 +66,57 @@
  ========================================================================== */
 
 /*
- * 1. Prepare slide-out animation (Used in reveal and push mode)
- * 2. Prevent horizontal scrollbar when page is slide-out
+ * 1. Prevent horizontal scrollbar when page is slide-out
+ *    `overflow` must be set on `html` and `body` to make it work on touch devices
+ * 4. Prepare slide-out animation (Used in reveal and push mode)
  * Note: JS sets a fixed width so the page can slide-out without shinking
  */
 
-.uk-offcanvas-page {
+/* 1 */
+.uk-offcanvas-page { overflow-x: hidden; width: auto !important; }
+
+.uk-offcanvas-page > body {
     /* 1 */
-    -webkit-transition: margin-left 0.3s ease-out;
-    transition: margin-left 0.3s ease-out;
-    /* 2 */
-    overflow-x: hidden;
+
+    /* 4 */
+    -webkit-transition: padding-left 0.3s ease-out;
+    transition: padding-left 0.3s ease-out;
 }
+
+/*
+ * Prevent vertical scrolling on touch devices
+ * 1. Enable horizontal scrolling when position is fixed
+ */
+
+@media (pointer: coarse) {
+
+    .uk-offcanvas-page > body {
+        position: fixed;
+        /* 1 */
+        height: 100vh;
+
+        overflow-y: scroll;
+
+    }
+}
+
 
 /*
  * Activate slide-out animation
  */
 
-.uk-offcanvas-page-animation { margin-left: @offcanvas-bar-width; }
+.uk-offcanvas-page-animation > body { padding-left: @offcanvas-bar-width; }
 
 /* Flip modifier */
-.uk-offcanvas-flip.uk-offcanvas-page-animation { margin-left: -@offcanvas-bar-width; }
+.uk-offcanvas-flip.uk-offcanvas-page-animation > body { padding-left: -@offcanvas-bar-width; }
 
 /*
  * Prevent scrollbar on page if overlay is used
  */
 
 .uk-offcanvas-page-overlay { overflow: hidden; }
+
+.uk-offcanvas-page-overlay > body { overflow: hidden; }
 
 
 /* Overlay
