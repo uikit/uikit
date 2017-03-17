@@ -1,5 +1,5 @@
 import { Modal } from '../mixin/index';
-import { docElement, transitionend } from '../util/index';
+import { docElement, toMs, transitionend } from '../util/index';
 
 export default function (UIkit) {
 
@@ -50,7 +50,11 @@ export default function (UIkit) {
 
             clsContentAnimation() {
                 return this.mode !== 'push' && this.mode !== 'reveal' ? '' : this.$props.clsContentAnimation
-            }
+            },
+
+            transitionDuration() {
+                return toMs(this.body.css('transition-duration'));
+            },
 
         },
 
@@ -75,10 +79,41 @@ export default function (UIkit) {
 
                 self: true,
 
+                filter() {
+                    return this.mode === 'reveal';
+                },
+
                 handler() {
+                    this.panel.wrap('<div>').parent().addClass(this.clsMode);
+                }
+
+            },
+
+            {
+                name: 'hidden',
+
+                self: true,
+
+                filter() {
+                    return this.mode === 'reveal';
+                },
+
+                handler() {
+                    this.panel.unwrap();
+                }
+
+            },
+
+            {
+                name: 'beforeshow',
+
+                self: true,
+
+                handler() {
+
                     docElement.addClass(`${this.clsFlip} ${this.clsOverlay}`);
                     this.body.addClass(`${this.clsContent} ${this.clsContentAnimation}`);
-                    this.panel.addClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
+                    this.panel.addClass(`${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
                     this.$el.addClass(this.clsOverlay).css('display', 'block').height();
                 }
             },
@@ -108,36 +143,6 @@ export default function (UIkit) {
                     this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                     this.$el.removeClass(this.clsOverlay).css('display', '');
                 }
-            },
-
-            {
-                name: 'show hide',
-
-                self: true,
-
-                filter() {
-                    return this.mode === 'reveal';
-                },
-
-                handler() {
-                    this.panel.wrap('<div>').removeClass(this.clsMode).parent().addClass(this.clsMode);
-                }
-
-            },
-
-            {
-                name: 'shown hidden',
-
-                self: true,
-
-                filter() {
-                    return this.mode === 'reveal';
-                },
-
-                handler() {
-                    this.panel.unwrap();
-                }
-
             }
 
         ]

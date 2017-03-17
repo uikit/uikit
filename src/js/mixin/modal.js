@@ -187,8 +187,8 @@ export default {
             return this.transitionDuration ? promise(resolve => {
                 this.panel.one(transitionend, resolve);
                 setTimeout(() => {
-                    resolve();
                     this.panel.off(transitionend, resolve);
+                    resolve();
                 }, this.transitionDuration);
             }) : promise.resolve();
         },
