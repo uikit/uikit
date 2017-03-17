@@ -31,13 +31,11 @@ function plugin(UIkit) {
 
             initItems: function() {
 
-                var smooth = this.smooth;
+                var transition = `transform ${this.smooth}ms linear`;
 
-                this.items = (this.target ? this.$el.find(this.target) : this.$el.children()).each(function(){
-                    $(this).css({
-                        transition: `transform ${smooth}ms linear`,
-                        transform: ''
-                    });
+                this.items = (this.target ? this.$el.find(this.target) : this.$el.children()).css({
+                    transition,
+                    transform: ''
                 });
 
                 return this;
@@ -50,11 +48,11 @@ function plugin(UIkit) {
 
                 write() {
 
-                    var columns  = getColumnsCount(this.$el);
+                    var columns = getColumnsCount(this.$el);
                     var margin = '';
 
                     if (columns > 1) {
-                         margin = this.translate + parseInt(this.$el.css('margin-bottom'));
+                        margin = this.translate + parseInt(this.$el.css('margin-bottom'));
                     }
 
                     this.$el.css('margin-bottom', margin);
@@ -70,7 +68,6 @@ function plugin(UIkit) {
                     var percent = percentageInViewport(this.$el);
                     var columns = getColumnsCount(this.$el);
                     var mods = [(columns-1)];
-
 
                     if (columns == 1 || !percent) {
                         this.items.css('transform', '');
