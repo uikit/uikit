@@ -3,13 +3,13 @@
 //
 // Component:       `uk-offcanvas`
 //
-// Sub-objects:     `uk-offcanvas-page`
+// Sub-objects:     `uk-offcanvas-container`
 //                  `uk-offcanvas-overlay`
 //                  `uk-offcanvas-bar`
 //
 // Modifiers:       `uk-offcanvas-flip`
-//                  `uk-offcanvas-page-animation`
-//                  `uk-offcanvas-page-overlay`
+//                  `uk-offcanvas-content-animation`
+//                  `uk-offcanvas-overlay`
 //                  `uk-offcanvas-bar-animation`
 //                  `uk-offcanvas-reveal`
 //
@@ -72,9 +72,9 @@
  */
 
 /* 1 */
-.uk-offcanvas-page { overflow-x: hidden; }
+.uk-offcanvas-container { overflow-x: hidden; }
 
-.uk-offcanvas-page > body {
+.uk-offcanvas-content {
     /* 2 */
     -webkit-transition: padding-left 0.3s ease-out;
     transition: padding-left 0.3s ease-out;
@@ -87,7 +87,7 @@
 
 @media (pointer: coarse) {
 
-    .uk-offcanvas-page > body {
+    .uk-offcanvas-content {
         position: fixed;
         /* 1 */
         height: 100vh;
@@ -100,18 +100,18 @@
  * Activate slide-out animation
  */
 
-.uk-offcanvas-page-animation > body { padding-left: @offcanvas-bar-width; }
+.uk-offcanvas-content-animation { padding-left: @offcanvas-bar-width; }
 
 /* Flip modifier */
-.uk-offcanvas-flip.uk-offcanvas-page-animation > body { padding-left: -@offcanvas-bar-width; }
+.uk-offcanvas-flip > .uk-offcanvas-content-animation { padding-left: -@offcanvas-bar-width; }
 
 /*
  * Prevent scrollbar on page if overlay is used
  */
 
-.uk-offcanvas-page-overlay { overflow: hidden; }
+.uk-offcanvas-overlay { overflow: hidden; }
 
-.uk-offcanvas-page-overlay > body { overflow: hidden; }
+.uk-offcanvas-overlay > * { overflow: hidden; }
 
 
 /* Overlay
@@ -230,7 +230,7 @@
 }
 
 /* Fix weird scrollbar bug in Chrome if overlay is used */
-.uk-offcanvas-page:not(.uk-offcanvas-flip) .uk-offcanvas-reveal {
+.uk-offcanvas-container:not(.uk-offcanvas-flip) .uk-offcanvas-reveal {
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
 }
