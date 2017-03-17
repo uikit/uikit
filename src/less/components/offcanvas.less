@@ -124,53 +124,34 @@
 
 /*
  * Reveal Animation
- * 1. Set the bar to target position
- * 2. Clip the bar with `clip-path` and use `clip` as fallback
- * 3. Animation
- * Note: Future `clip-path` is commented out (it's not working on iOS)
+ * 1. Clip the bar
+ * 2. Animation
+ * 3. Reset transform
  */
 
 .uk-offcanvas-reveal {
     /* 1 */
+    width: 0;
+    overflow: hidden;
+    /* 2 */
+    -webkit-transition: width 0.3s ease-out;
+    transition: width 0.3s ease-out;
+}
+
+.uk-offcanvas-reveal .uk-offcanvas-bar {
+    /* 3 */
     -webkit-transform: translateX(0);
     transform: translateX(0);
-    /* 2 */
-    clip: rect(0, 0, 100vh, 0);
-    //-webkit-clip-path: inset(0 @offcanvas-bar-width 0 0);
-    //clip-path: inset(0 @offcanvas-bar-width 0 0);
-    /* 3 */
-    -webkit-transition: clip 0.3s ease-out; //, -webkit-clip-path 0.3s ease-out;
-    transition: clip 0.3s ease-out; //, -webkit-clip-path 0.3s ease-out, clip-path 0.3s ease-out;
 }
+
+.uk-open > .uk-offcanvas-reveal { width: @offcanvas-bar-width; }
+
 
 /* Fix weird scrollbar bug in Chrome if overlay is used */
-.uk-offcanvas-container:not(.uk-offcanvas-flip) .uk-offcanvas-reveal {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}
-
-.uk-open > .uk-offcanvas-reveal {
-    clip: rect(0, @offcanvas-bar-width, 100vh, 0);
-    //-webkit-clip-path: inset(0);
-    //clip-path: inset(0);
-}
-
-/* Flip modifier */
-.uk-offcanvas-flip .uk-offcanvas-reveal {
-    /* 1 */
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-    /* 2 */
-    clip: rect(0, @offcanvas-bar-width, 100vh, @offcanvas-bar-width);
-    //-webkit-clip-path: inset(0 0 0 @offcanvas-bar-width);
-    //clip-path: inset(0 0 0 @offcanvas-bar-width);
-}
-
-.uk-offcanvas-flip .uk-open > .uk-offcanvas-reveal {
-    clip: rect(0, @offcanvas-bar-width, 100vh, 0);
-    //-webkit-clip-path: inset(0);
-    //clip-path: inset(0);
-}
+// .uk-offcanvas-container:not(.uk-offcanvas-flip) .uk-offcanvas-reveal {
+//     -webkit-backface-visibility: hidden;
+//     backface-visibility: hidden;
+// }
 
 
 /* Overlay
