@@ -218,6 +218,12 @@
 
 .uk-offcanvas-container { overflow-x: hidden; }
 
+/*
+ * Prevent all scrollbars if overlay is used
+ */
+
+.uk-offcanvas-container-overlay { overflow: hidden; }
+
 
 /* Content
  ========================================================================== */
@@ -247,6 +253,13 @@
         height: 100vh;
         overflow-y: scroll;
     }
+
+    /*
+     * Prevent all scrollbars if overlay is used
+     */
+
+    .uk-offcanvas-container-overlay .uk-offcanvas-content { height: auto; }
+
 }
 
 
@@ -258,18 +271,6 @@
 
 /* Flip modifier */
 .uk-offcanvas-flip > .uk-offcanvas-content-animation { padding-right: @offcanvas-bar-width; }
-
-/*
- * Prevent scrollbar on page if overlay is used
- */
-
-// .uk-offcanvas-overlay { overflow: hidden; }
-
-// .uk-offcanvas-overlay > * { overflow: hidden; }
-
-
-
-
 
 
 // Hooks
