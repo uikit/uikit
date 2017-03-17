@@ -18,11 +18,11 @@ export default function (UIkit) {
         computed: {
 
             el() {
-                return this.$el;
+                return this.$el[0];
             },
 
             parent() {
-                return this.$el.parent();
+                return this.$el.parent()[0];
             }
 
         },
