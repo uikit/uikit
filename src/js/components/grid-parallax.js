@@ -7,18 +7,20 @@ function plugin(UIkit) {
     var { util } = UIkit;
     var { $ } = util;
 
+    var supports3d = 'transformOrigin' in document.documentElement.style;
+
     UIkit.component('grid-parallax', {
 
         props: {
+            target: String,
             translate: Number,
-            smooth: Number,
-            target: String
+            smooth: Number
         },
 
         defaults: {
             target    : false,
-            smooth    : 150,
-            translate : 150
+            translate : 150,
+            smooth    : 150
         },
 
         connected() {
@@ -48,7 +50,7 @@ function plugin(UIkit) {
 
                 write() {
 
-                    var columns  = getcolumns(this.$el);
+                    var columns  = getColumnsCount(this.$el);
                     var margin = '';
 
                     if (columns > 1) {
@@ -66,7 +68,7 @@ function plugin(UIkit) {
                 write() {
 
                     var percent = percentageInViewport(this.$el);
-                    var columns = getcolumns(this.$el);
+                    var columns = getColumnsCount(this.$el);
                     var mods = [(columns-1)];
 
 
@@ -75,8 +77,12 @@ function plugin(UIkit) {
                         return;
                     }
 
-                    while(mods.length < columns) {
-                       if (!(mods[mods.length-1] - 2)) break;
+                    while (mods.length < columns) {
+
+                       if (!(mods[mods.length-1] - 2)) {
+                           break;
+                       }
+
                        mods.push(mods[mods.length-1] - 2);
                     }
 
@@ -84,7 +90,7 @@ function plugin(UIkit) {
 
                     this.items.each(function(index) {
                         translate = mods.indexOf((index+1) % columns) != -1 ? percentTranslate : percentTranslate / 8;
-                        $(this).css('transform', `translate3d(0, ${translate}px, 0)`);
+                        $(this).css('transform', supports3d ? `translate3d(0, ${translate}px, 0)` : `translateY(${translate}px)`);
                     });
                 },
 
@@ -96,15 +102,17 @@ function plugin(UIkit) {
 
 }
 
+function getColumnsCount(element) {
 
-function getcolumns(element) {
-
-    var children = element.children(),
-        first    = children.filter(':visible:first'),
-        top      = first[0].offsetTop + first.outerHeight();
+    var children = element.children();
+    var first = children.filter(':visible:first');
+    var top = first[0].offsetTop + first.outerHeight();
 
     for (var column=0;column<children.length;column++) {
-        if (children[column].offsetTop >= top)  break;
+
+        if (children[column].offsetTop >= top)  {
+            break;
+        }
     }
 
     return column || 1;
@@ -112,11 +120,12 @@ function getcolumns(element) {
 
 function percentageInViewport(element) {
 
-    var top       = element.offset().top,
-        height    = element.outerHeight(),
-        scrolltop = $(window).scrollTop(),
-        wh        = window.innerHeight,
-        distance, percentage, percent;
+    var top = element.offset().top;
+    var height = element.outerHeight();
+    var scrolltop = $(window).scrollTop();
+    var wh = window.innerHeight;
+
+    var distance, percentage, percent;
 
     if (top > (scrolltop + wh)) {
         percent = 0;
