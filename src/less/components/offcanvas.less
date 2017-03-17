@@ -67,18 +67,15 @@
 
 /*
  * 1. Prevent horizontal scrollbar when page is slide-out
- *    `overflow` must be set on `html` and `body` to make it work on touch devices
- * 4. Prepare slide-out animation (Used in reveal and push mode)
+ * 2. Prepare slide-out animation (Used in reveal and push mode)
  * Note: JS sets a fixed width so the page can slide-out without shinking
  */
 
 /* 1 */
-.uk-offcanvas-page { overflow-x: hidden; width: auto !important; }
+.uk-offcanvas-page { overflow-x: hidden; }
 
 .uk-offcanvas-page > body {
-    /* 1 */
-
-    /* 4 */
+    /* 2 */
     -webkit-transition: padding-left 0.3s ease-out;
     transition: padding-left 0.3s ease-out;
 }
@@ -94,9 +91,7 @@
         position: fixed;
         /* 1 */
         height: 100vh;
-
         overflow-y: scroll;
-
     }
 }
 
