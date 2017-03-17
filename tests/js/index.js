@@ -17,6 +17,8 @@ var styles = $.extend({
     components = [
         'lightbox',
         'notification',
+        'grid-parallax',
+        'parallax',
         'sortable',
         'tooltip',
         'upload'

@@ -201,6 +201,30 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
         && rect.left <= (window.innerWidth || document.documentElement.clientWidth) + offsetLeft;
 }
 
+export function percentageInViewport(element) {
+
+    element = toNode(element)
+
+    var top = element.getBoundingClientRect().top;
+    var height = element.offsetHeight;
+    var wh = window.innerHeight;
+    var scrolltop = window.scrollY;
+
+    var percent;
+
+    if (top > wh) {
+        percent = 0;
+    } else if ((top + height) < 0) {
+        percent = 1;
+    } else {
+        var distance = wh - top;
+        var percentage = Math.round(distance / ((wh + height) / 100));
+        percent = percentage/100;
+    }
+
+    return percent;
+}
+
 export function getIndex(index, elements, current = 0) {
 
     elements = $(elements);

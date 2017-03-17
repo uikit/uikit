@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width;initial-scale=1">
+        <title>Parallax - UIkit tests</title>
+        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="js/test.js"></script>
+
+        <style media="screen">
+
+            body {
+                min-height: 400vh;
+            }
+
+            .test-hero-bg {
+                height: 70vh;
+                background-image: url('images/photo.jpg');
+                background-size: cover;
+                background-color: red;
+            }
+
+            .test-bg {
+                height: 400px;
+                background-image: url('images/photo.jpg');
+            }
+
+            .test-color {
+                height: 400px;
+                border: 10px #fff solid;
+            }
+
+            .test-filter {
+                height: 400px;
+                background-image: url('images/photo.jpg');
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Parallax</h1>
+
+            <h2>Background Image</h2>
+
+            <div class="test-bg uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" uk-parallax="bg:-200;sepia:100">
+                <div class="uk-width-medium-1-2">
+                    <h1 class="uk-text-contrast">Title</h1>
+                    <p class="uk-text-large">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </div>
+
+            <h2>Target</h2>
+
+            <div id="test-target" class="test-bg uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" uk-parallax="bg:-200">
+                <div class="uk-width-medium-1-2">
+                    <h1 class="uk-text-contrast" uk-parallax="target:#test-target;opacity:0;y:-200;scale:2">Title</h1>
+                    <p class="uk-text-large" uk-parallax="target:#test-target;opacity:0;y:200;scale:0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </div>
+
+            <h2>Start + End (Reverse)</h2>
+
+            <div id="test-reverse" class="test-bg uk-margin uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" uk-parallax="bg:-200">
+                <div class="uk-width-medium-1-2">
+                    <h1 class="uk-text-contrast" uk-parallax="target:#test-reverse;opacity:0,1;y:-200,0;scale:2,1;viewport:0.5">Title</h1>
+                    <p class="uk-text-large" uk-parallax="target:#test-reverse;opacity:0,1;y:200,0;scale:0,1;viewport:0.5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+            </div>
+
+            <h2>Velocity</h2>
+
+            <div id="test-velocity" class="test-bg uk-text-contrast uk-text-center uk-flex uk-flex-center uk-flex-middle" uk-parallax="bg:-200">
+                <div class="uk-grid uk-flex-center uk-flex-middle">
+                    <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="target:#test-velocity;y:200;velocity:0">0</div></div>
+                    <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="target:#test-velocity;y:200;velocity:0.2">0.2</div></div>
+                    <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="target:#test-velocity;y:200;velocity:0.4">0.4</div></div>
+                    <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="target:#test-velocity;y:200;velocity:0.6">0.6</div></div>
+                    <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="target:#test-velocity;y:200;velocity:0.8">0.8</div></div>
+                    <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="target:#test-velocity;y:200;velocity:1">1</div></div>
+                    <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="target:#test-velocity;y:200;velocity:2">2</div></div>
+                    <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="target:#test-velocity;y:200;velocity:3">3</div></div>
+                    <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="target:#test-velocity;y:200;velocity:4">4</div></div>
+                    <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="target:#test-velocity;y:200;velocity:5">5</div></div>
+                </div>
+            </div>
+
+            <h2>Color and Viewport</h2>
+
+            <div id="test-color" class="test-color uk-text-center uk-flex uk-flex-center uk-flex-middle" uk-parallax="backgroundColor:white,yellow;borderColor:#00f,#f00;viewport:0.5">
+                <div class="uk-width-medium-1-2">
+                    <h1 uk-parallax="target:#test-color;opacity:0,1;yp:-200,0;viewport:0.5">Title</h1>
+                    <p class="uk-text-large" uk-parallax="target:#test-color;opacity:0,1;viewport:0.5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p uk-parallax="target:#test-color;yp:200,0;color:#0f0;viewport:0.5">
+                        <span uk-icon="icon: uikit; ratio: 2"></span>
+                        <span uk-icon="icon: heart; ratio: 2"></span>
+                        <span uk-icon="icon: check; ratio: 2"></span>
+                    </p>
+                </div>
+            </div>
+
+            <h2>Filter</h2>
+
+            <div id="test-filter" class="test-filter uk-text-center uk-flex uk-flex-center uk-flex-middle" uk-parallax="invert:100;viewport:0.5">
+                <div class="uk-width-medium-1-2">
+                    <h1 uk-parallax="target:#test-filter;opacity:0,1;yp:-200,0;viewport:0.5">Title</h1>
+                    <p class="uk-text-large" uk-parallax="target:#test-color;opacity:0,1">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <p uk-parallax="target:#test-filter;blur: 20,0;viewport:0.5">
+                        <span uk-icon="icon: uikit; ratio: 2"></span>
+                        <span uk-icon="icon: heart; ratio: 2"></span>
+                        <span uk-icon="icon: check; ratio: 2"></span>
+                    </p>
+                </div>
+            </div>
+
+
+            <h2>Javascript Options</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>velocity</code></td>
+                            <td>Number</td>
+                            <td>1</td>
+                            <td>Animation velocity during scrolling</td>
+                        </tr>
+                        <tr>
+                            <td><code>target</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>Element dimension reference for animation duration.</td>
+                        </tr>
+                        <tr>
+                            <td><code>viewport</code></td>
+                            <td>Number</td>
+                            <td>1</td>
+                            <td>Animation range depending on the viewport.</td>
+                        </tr>
+                        <tr>
+                            <td><code>media</code></td>
+                            <td>Mixed</td>
+                            <td>false</td>
+                            <td>Condition for the active status with a width as integer (e.g. 640) or a css media query</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>Animated properties</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-text-nowrap">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>x</code></td>
+                            <td>Animate translateX in pixels.</td>
+                        </tr>
+                        <tr>
+                            <td><code>xp</code></td>
+                            <td>Animate translateX in percent.</td>
+                        </tr>
+                        <tr>
+                            <td><code>y</code></td>
+                            <td>Animate translateY in pixels.</td>
+                        </tr>
+                        <tr>
+                            <td><code>yp</code></td>
+                            <td>Animate translateY in percent.</td>
+                        </tr>
+                        <tr>
+                            <td><code>bg</code></td>
+                            <td>Animate a background image.</td>
+                        </tr>
+                        <tr>
+                            <td><code>bgp</code></td>
+                            <td>Animate a background image in percent.</td>
+                        </tr>
+                        <tr>
+                            <td><code>rotate</code></td>
+                            <td>Animate rotation clockwise in degree.</td>
+                        </tr>
+                        <tr>
+                            <td><code>scale</code></td>
+                            <td>Animate scaling.</td>
+                        </tr>
+                        <tr>
+                            <td><code>color</code></td>
+                            <td>Animate color (needs start and stop value).</td>
+                        </tr>
+                        <tr>
+                            <td><code>backgroundColor</code></td>
+                            <td>Animate background-color (needs start and stop value).</td>
+                        </tr>
+                        <tr>
+                            <td><code>borderColor</code></td>
+                            <td>Animate border color (needs start and stop value).</td>
+                        </tr>
+                        <tr>
+                            <td><code>opacity</code></td>
+                            <td>Animate the opacity.</td>
+                        </tr>
+                        <tr>
+                            <td><code>blur</code></td>
+                            <td>Animate the blur filter.</td>
+                        </tr>
+                        <tr>
+                            <td><code>hue</code></td>
+                            <td>Animate the hue rotation filter.</td>
+                        </tr>
+                        <tr>
+                            <td><code>grayscale</code></td>
+                            <td>Animate the grayscale filter.</td>
+                        </tr>
+                        <tr>
+                            <td><code>invert</code></td>
+                            <td>Animate the invert filter.</td>
+                        </tr>
+                        <tr>
+                            <td><code>saturate</code></td>
+                            <td>Animate the saturate filter.</td>
+                        </tr>
+                        <tr>
+                            <td><code>sepia</code></td>
+                            <td>Animate the sepia filter.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </body>
+</html>
