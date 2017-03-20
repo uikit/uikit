@@ -31,6 +31,10 @@
 @offcanvas-bar-background:                      @global-secondary-background;
 @offcanvas-bar-color-mode:                      light;
 
+@offcanvas-bar-width-m:                         350px;
+@offcanvas-bar-padding-vertical-m:              @global-medium-gutter;
+@offcanvas-bar-padding-horizontal-m:            @global-medium-gutter;
+
 @offcanvas-overlay-background:                  rgba(0,0,0,0.1);
 
 @offcanvas-close-position:                      @global-small-margin;
@@ -97,6 +101,16 @@
     .hook-offcanvas-bar;
 }
 
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-offcanvas-bar {
+        width: @offcanvas-bar-width-m;
+        padding: @offcanvas-bar-padding-vertical-m @offcanvas-bar-padding-horizontal-m;
+    }
+
+}
+
 // Color Mode
 .uk-offcanvas-bar:extend(.uk-light all) when (@offcanvas-bar-color-mode = light) {}
 .uk-offcanvas-bar:extend(.uk-dark all) when (@offcanvas-bar-color-mode = dark) {}
@@ -152,6 +166,13 @@
 }
 
 .uk-open > .uk-offcanvas-reveal { width: @offcanvas-bar-width; }
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-open > .uk-offcanvas-reveal { width: @offcanvas-bar-width-m; }
+
+}
 
 
 /* Fix weird scrollbar bug in Chrome if overlay is used */
