@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add trip advisor and yelp icons
 - Add computed properties
 
 ### Changed
