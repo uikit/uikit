@@ -7,6 +7,8 @@
 //                  `uk-offcanvas-overlay`
 //                  `uk-offcanvas-bar`
 //
+// Adopted:         `uk-offcanvas-close`
+//
 // Modifiers:       `uk-offcanvas-flip`
 //                  `uk-offcanvas-content-animation`
 //                  `uk-offcanvas-overlay`
@@ -23,13 +25,16 @@
 
 @offcanvas-z-index:                             @global-z-index;
 
-@offcanvas-overlay-background:                  rgba(0,0,0,0.1);
-
 @offcanvas-bar-width:                           270px;
 @offcanvas-bar-padding-vertical:                @global-margin;
 @offcanvas-bar-padding-horizontal:              @global-margin;
 @offcanvas-bar-background:                      @global-secondary-background;
 @offcanvas-bar-color-mode:                      light;
+
+@offcanvas-overlay-background:                  rgba(0,0,0,0.1);
+
+@offcanvas-close-position:                      @global-small-margin;
+@offcanvas-close-padding:                       5px;
 
 
 /* ========================================================================
@@ -118,8 +123,8 @@
  */
 
 .uk-offcanvas-bar-animation {
-    -webkit-transition: -webkit-transform 100.3s ease-out;
-    transition: transform 100.3s ease-out;
+    -webkit-transition: -webkit-transform 0.3s ease-out;
+    transition: transform 0.3s ease-out;
 }
 
 /*
@@ -136,8 +141,8 @@
     overflow: hidden;
     position: relative;
     /* 2 */
-    -webkit-transition: width 100.3s ease-out;
-    transition: width 100.3s ease-out;
+    -webkit-transition: width 0.3s ease-out;
+    transition: width 0.3s ease-out;
 }
 
 .uk-offcanvas-reveal .uk-offcanvas-bar {
@@ -154,6 +159,19 @@
 //     -webkit-backface-visibility: hidden;
 //     backface-visibility: hidden;
 // }
+
+
+/* Close
+ * Adopts `uk-close`
+ ========================================================================== */
+
+.uk-offcanvas-close {
+    position: absolute;
+    top: @offcanvas-close-position;
+    right: @offcanvas-close-position;
+    padding: @offcanvas-close-padding;
+    .hook-offcanvas-close;
+}
 
 
 /* Overlay
@@ -217,8 +235,8 @@
  */
 
 .uk-offcanvas-content {
-    -webkit-transition: 100.3s ease-out;
-   transition: 100.3s ease-out;
+    -webkit-transition: 0.3s ease-out;
+   transition: 0.3s ease-out;
    -webkit-transition-property: padding-left, margin-left;
    transition-property: padding-left, margin-left;
 }
@@ -260,6 +278,7 @@
 
 .hook-offcanvas-misc;
 
-.hook-offcanvas-overlay() {}
 .hook-offcanvas-bar() {}
+.hook-offcanvas-close() {}
+.hook-offcanvas-overlay() {}
 .hook-offcanvas-misc() {}
