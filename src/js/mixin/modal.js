@@ -114,6 +114,8 @@ export default {
 
                 active = this;
 
+                docElement.addClass(this.clsPage);
+
                 if (prev) {
                     if (this.stack) {
                         this.prev = prev;
@@ -123,8 +125,6 @@ export default {
                 } else {
                     requestAnimationFrame(() => register(this.$options.name));
                 }
-
-                docElement.addClass(this.clsPage);
 
             }
 

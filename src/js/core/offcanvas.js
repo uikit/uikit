@@ -1,6 +1,8 @@
 import { Modal } from '../mixin/index';
 import { isTouch, query, transitionend } from '../util/index';
 
+var scroll;
+
 export default function (UIkit) {
 
     UIkit.component('offcanvas', {
@@ -17,7 +19,7 @@ export default function (UIkit) {
         },
 
         defaults: {
-            content: 'body > div:first',
+            content: '.uk-offcanvas-content:first',
             mode: 'slide',
             flip: false,
             overlay: false,
@@ -88,19 +90,19 @@ export default function (UIkit) {
 
                 handler() {
 
+                    scroll = scroll || {x: window.pageXOffset, y: window.pageYOffset};
+
                     if (this.mode === 'reveal' && !this.panel.parent().hasClass(this.clsMode)) {
                         this.panel.wrap('<div>').parent().addClass(this.clsMode);
                     }
 
-                    this.scroll = {x: window.pageXOffset, y: window.pageYOffset};
-
-                    this.body.addClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
-                    this.content.addClass(`${this.clsContent} ${this.clsContentAnimation}`)/*.css('marginTop', -1 * this.scroll.y)*/;
+                    this.body.addClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`).height();
+                    this.content.addClass(this.clsContentAnimation);
                     this.panel.addClass(`${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
                     this.$el.addClass(this.clsOverlay).css('display', 'block');
 
-                    this.content[0].scrollTop = this.scroll.y;
-                    this.content.on(`scroll.${this._uid}`, () => this.scroll = {x: this.content[0].scrollLeft, y: this.content[0].scrollTop})
+                    this.content[0].scrollTop = scroll.y;
+                    this.content.on(`scroll.${this._uid}`, () => scroll = {x: this.content[0].scrollLeft, y: this.content[0].scrollTop})
                 }
             },
 
@@ -129,14 +131,15 @@ export default function (UIkit) {
                         this.panel.unwrap();
                     }
 
-                    this.body.removeClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`).scrollTop(this.scroll.y);
-                    this.content.removeClass(this.clsContent).off(`scroll.${this._uid}`);
+                    this.content.off(`scroll.${this._uid}`);
                     this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                     this.$el.removeClass(this.clsOverlay).css('display', '');
-                    window.scrollTo(this.scroll.x, this.scroll.y);
 
                     if (!this.getActive()) {
+                        this.body.removeClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`).scrollTop(scroll.y);
+                        window.scrollTo(scroll.x, scroll.y);
                         this.content.width('');
+                        scroll = null;
                     }
 
                 }
