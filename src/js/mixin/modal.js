@@ -108,23 +108,24 @@ export default {
 
                 var prev = active && active !== this && active;
 
-                if (!active) {
-                    this.body.css('overflow-y', this.scrollbarWidth && this.overlay ? 'scroll' : '');
-                }
-
                 active = this;
-
-                docElement.addClass(this.clsPage);
 
                 if (prev) {
                     if (this.stack) {
                         this.prev = prev;
                     } else {
-                        prev.hide();
+                        prev.hide().then(this.show);
+                        return false;
                     }
                 } else {
                     requestAnimationFrame(() => register(this.$options.name));
                 }
+
+                if (!prev) {
+                    this.body.css('overflow-y', this.scrollbarWidth && this.overlay ? 'scroll' : '');
+                }
+
+                docElement.addClass(this.clsPage);
 
             }
 
@@ -172,7 +173,7 @@ export default {
     methods: {
 
         isActive() {
-            return this.$el.hasClass(this.cls);
+            return this.isToggled(this.$el);
         },
 
         toggle() {

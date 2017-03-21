@@ -134,13 +134,11 @@ export default function (UIkit) {
                     this.content.off(`scroll.${this._uid}`);
                     this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                     this.$el.removeClass(this.clsOverlay).css('display', '');
+                    this.body.removeClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`).scrollTop(scroll.y);
 
-                    if (!this.getActive()) {
-                        this.body.removeClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`).scrollTop(scroll.y);
-                        window.scrollTo(scroll.x, scroll.y);
-                        this.content.width('');
-                        scroll = null;
-                    }
+                    window.scrollTo(scroll.x, scroll.y);
+                    this.content.width('');
+                    scroll = null;
 
                 }
             },
