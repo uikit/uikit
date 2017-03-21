@@ -102,7 +102,7 @@ export default {
 
             handler() {
 
-                if (this.isActive()) {
+                if (this.isToggled()) {
                     return false;
                 }
 
@@ -139,7 +139,7 @@ export default {
 
             handler() {
 
-                if (!this.isActive()) {
+                if (!this.isToggled()) {
                     return false;
                 }
 
@@ -172,12 +172,8 @@ export default {
 
     methods: {
 
-        isActive() {
-            return this.isToggled(this.$el);
-        },
-
         toggle() {
-            return this.isActive() ? this.hide() : this.show();
+            return this.isToggled() ? this.hide() : this.show();
         },
 
         show() {

@@ -71,7 +71,7 @@ export default function (UIkit) {
 
             write() {
 
-                if (this.isActive()) {
+                if (this.isToggled()) {
                     this.content.width(window.innerWidth - this.scrollbarWidth);
                 }
 
@@ -148,7 +148,7 @@ export default function (UIkit) {
 
                 handler(e) {
 
-                    if (this.isActive() && isTouch(e) && (e.type === 'swipeLeft' && !this.flip || e.type === 'swipeRight' && this.flip)) {
+                    if (this.isToggled() && isTouch(e) && (e.type === 'swipeLeft' && !this.flip || e.type === 'swipeRight' && this.flip)) {
                         this.hide();
                     }
 

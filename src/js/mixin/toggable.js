@@ -85,7 +85,7 @@ export default {
         },
 
         isToggled(el) {
-            el = $(el);
+            el = el && $(el) || this.$el;
             return this.cls ? el.hasClass(this.cls.split(' ')[0]) : !el.attr('hidden');
         },
 
