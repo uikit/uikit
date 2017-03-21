@@ -1,5 +1,5 @@
 import { Modal } from '../mixin/index';
-import { docElement, query, transitionend } from '../util/index';
+import { isTouch, query, transitionend } from '../util/index';
 
 export default function (UIkit) {
 
@@ -137,6 +137,18 @@ export default function (UIkit) {
 
                     if (!this.getActive()) {
                         this.content.width('');
+                    }
+
+                }
+            },
+
+            {
+                name: 'swipeLeft swipeRight',
+
+                handler(e) {
+
+                    if (this.isActive() && isTouch(e) && (e.type === 'swipeLeft' && !this.flip || e.type === 'swipeRight' && this.flip)) {
+                        this.hide();
                     }
 
                 }
