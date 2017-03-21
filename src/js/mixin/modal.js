@@ -180,9 +180,6 @@ export default {
         },
 
         show() {
-
-            console.log(this.container, this.$el.parent().is(this.container))
-
             if (this.container && !this.$el.parent().is(this.container)) {
                 this.$el.appendTo(this.container);
                 return promise(resolve =>
