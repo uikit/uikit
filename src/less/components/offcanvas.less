@@ -229,14 +229,14 @@
 .uk-offcanvas-overlay.uk-open::before { opacity: 1; }
 
 
-
-
 /* Container
  ========================================================================== */
 
 /*
  * Prevent horizontal scrollbar when the content is slide-out
  */
+
+.uk-offcanvas-page { overflow-x: hidden; }
 
 .uk-offcanvas-container { overflow-x: hidden; }
 
@@ -256,6 +256,8 @@
  */
 
 .uk-offcanvas-content {
+    overflow-y: scroll;
+    height: 100vh;
     -webkit-transition: 0.3s ease-out;
    transition: 0.3s ease-out;
    -webkit-transition-property: padding-left, margin-left;
@@ -269,18 +271,18 @@
 
 @media (pointer: coarse) {
 
-    .uk-offcanvas-content {
-        position: fixed;
-        /* 1 */
-        height: 100vh;
-        overflow-y: scroll;
-    }
+    //.uk-offcanvas-content {
+    //    position: fixed;
+    //    /* 1 */
+    //    height: 100vh;
+    //    overflow-y: scroll;
+    //}
 
     /*
      * Prevent all scrollbars if overlay is used
      */
 
-    .uk-offcanvas-container-overlay .uk-offcanvas-content { height: auto; }
+    //.uk-offcanvas-container-overlay .uk-offcanvas-content { height: auto; }
 
 }
 

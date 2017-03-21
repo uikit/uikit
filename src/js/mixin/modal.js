@@ -13,7 +13,8 @@ export default {
         selClose: String,
         escClose: Boolean,
         bgClose: Boolean,
-        stack: Boolean
+        stack: Boolean,
+        container: Boolean
     },
 
     defaults: {
@@ -21,7 +22,8 @@ export default {
         escClose: true,
         bgClose: true,
         overlay: true,
-        stack: false
+        stack: false,
+        container: true
     },
 
     computed: {
@@ -34,8 +36,16 @@ export default {
             return this.$el.find(`.${this.clsPanel}`);
         },
 
+        container() {
+            return this.$props.container === true && UIkit.container || this.$props.container && toJQuery(this.$props.container);
+        },
+
+        transitionElement() {
+            return this.panel;
+        },
+
         transitionDuration() {
-            return toMs(this.panel.css('transition-duration'));
+            return toMs(this.transitionElement.css('transition-duration'));
         },
 
         scrollbarWidth() {
@@ -79,7 +89,7 @@ export default {
 
             handler(e) {
                 e.preventDefault();
-                this.toggleNow(this.$el);
+                this.toggle();
             }
 
         },
@@ -170,6 +180,18 @@ export default {
         },
 
         show() {
+
+            console.log(this.container, this.$el.parent().is(this.container))
+
+            if (this.container && !this.$el.parent().is(this.container)) {
+                this.$el.appendTo(this.container);
+                return promise(resolve =>
+                    requestAnimationFrame(() =>
+                        resolve(this.show())
+                    )
+                )
+            }
+
             return this.toggleNow(this.$el, true);
         },
 
@@ -184,12 +206,23 @@ export default {
         _toggleImmediate(el, show) {
             this._toggle(el, show);
 
-            return this.transitionDuration ? promise(resolve => {
-                this.panel.one(transitionend, resolve);
-                setTimeout(() => {
-                    this.panel.off(transitionend, resolve);
-                    resolve();
-                }, this.transitionDuration);
+            return this.transitionDuration ? promise((resolve, reject) => {
+
+                if (this._transition) {
+                    this.transitionElement.off(transitionend, this._transition.handler);
+                    this._transition.reject();
+                }
+
+                this._transition = {
+                    reject,
+                    handler: () => {
+                        resolve();
+                        this._transition = null;
+                    }
+                };
+
+                this.transitionElement.one(transitionend, this._transition.handler);
+
             }) : promise.resolve();
         },
     }

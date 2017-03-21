@@ -1,5 +1,5 @@
 import { Modal } from '../mixin/index';
-import { docElement, toMs, transitionend } from '../util/index';
+import { docElement, query, transitionend } from '../util/index';
 
 export default function (UIkit) {
 
@@ -10,16 +10,19 @@ export default function (UIkit) {
         args: 'mode',
 
         props: {
+            content: String,
             mode: String,
             flip: Boolean,
             overlay: Boolean
         },
 
         defaults: {
+            content: 'body > div:first',
             mode: 'slide',
             flip: false,
             overlay: false,
-            clsPage: 'uk-offcanvas-container',
+            clsPage: 'uk-offcanvas-page',
+            clsContainer: 'uk-offcanvas-container',
             clsPanel: 'uk-offcanvas-bar',
             clsFlip: 'uk-offcanvas-flip',
             clsContent: 'uk-offcanvas-content',
@@ -31,6 +34,10 @@ export default function (UIkit) {
         },
 
         computed: {
+
+            content() {
+                return query(this.$props.content, this.$el);
+            },
 
             clsFlip() {
                 return this.flip ? this.$props.clsFlip : '';
@@ -52,9 +59,9 @@ export default function (UIkit) {
                 return this.mode !== 'push' && this.mode !== 'reveal' ? '' : this.$props.clsContentAnimation
             },
 
-            transitionDuration() {
-                return toMs(this.body.css('transition-duration'));
-            },
+            transitionElement() {
+                return this.mode === 'reveal' ? this.panel.parent() : this.panel;
+            }
 
         },
 
@@ -63,7 +70,7 @@ export default function (UIkit) {
             write() {
 
                 if (this.isActive()) {
-                    this.body.width(window.innerWidth - this.scrollbarWidth);
+                    this.content.width(window.innerWidth - this.scrollbarWidth);
                 }
 
             },
@@ -79,42 +86,21 @@ export default function (UIkit) {
 
                 self: true,
 
-                filter() {
-                    return this.mode === 'reveal';
-                },
-
-                handler() {
-                    this.panel.wrap('<div>').parent().addClass(this.clsMode);
-                }
-
-            },
-
-            {
-                name: 'hidden',
-
-                self: true,
-
-                filter() {
-                    return this.mode === 'reveal';
-                },
-
-                handler() {
-                    this.panel.unwrap();
-                }
-
-            },
-
-            {
-                name: 'beforeshow',
-
-                self: true,
-
                 handler() {
 
-                    docElement.addClass(`${this.clsFlip} ${this.clsOverlay}`);
-                    this.body.addClass(`${this.clsContent} ${this.clsContentAnimation}`);
+                    if (this.mode === 'reveal' && !this.panel.parent().hasClass(this.clsMode)) {
+                        this.panel.wrap('<div>').parent().addClass(this.clsMode);
+                    }
+
+                    this.scroll = {x: window.pageXOffset, y: window.pageYOffset};
+
+                    this.body.addClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
+                    this.content.addClass(`${this.clsContent} ${this.clsContentAnimation}`)/*.css('marginTop', -1 * this.scroll.y)*/;
                     this.panel.addClass(`${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
-                    this.$el.addClass(this.clsOverlay).css('display', 'block').height();
+                    this.$el.addClass(this.clsOverlay).css('display', 'block');
+
+                    this.content[0].scrollTop = this.scroll.y;
+                    this.content.on(`scroll.${this._uid}`, () => this.scroll = {x: this.content[0].scrollLeft, y: this.content[0].scrollTop})
                 }
             },
 
@@ -124,7 +110,7 @@ export default function (UIkit) {
                 self: true,
 
                 handler() {
-                    this.body.removeClass(this.clsContentAnimation);
+                    this.content.removeClass(this.clsContentAnimation);
 
                     if (this.mode === 'none' || this.getActive() && this.getActive() !== this) {
                         this.panel.trigger(transitionend);
@@ -138,10 +124,16 @@ export default function (UIkit) {
                 self: true,
 
                 handler() {
-                    docElement.removeClass(`${this.clsFlip} ${this.clsOverlay}`);
-                    this.body.removeClass(this.clsContent).width('');
+
+                    if (this.mode === 'reveal') {
+                        this.panel.unwrap();
+                    }
+
+                    this.body.removeClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`).scrollTop(this.scroll.y);
+                    this.content.removeClass(this.clsContent).width('').off(`scroll.${this._uid}`);;
                     this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
                     this.$el.removeClass(this.clsOverlay).css('display', '');
+                    window.scrollTo(this.scroll.x, this.scroll.y);
                 }
             }
 
