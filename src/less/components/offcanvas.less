@@ -3,17 +3,18 @@
 //
 // Component:       `uk-offcanvas`
 //
-// Sub-objects:     `uk-offcanvas-container`
-//                  `uk-offcanvas-overlay`
-//                  `uk-offcanvas-bar`
+// Sub-objects:     `uk-offcanvas-bar`
+//                  `uk-offcanvas-container`
+//                  `uk-offcanvas-content`
+//                  `uk-offcanvas-page`
 //
 // Adopted:         `uk-offcanvas-close`
 //
 // Modifiers:       `uk-offcanvas-flip`
-//                  `uk-offcanvas-content-animation`
-//                  `uk-offcanvas-overlay`
 //                  `uk-offcanvas-bar-animation`
 //                  `uk-offcanvas-reveal`
+//                  `uk-offcanvas-overlay`
+//                  `uk-offcanvas-content-animation`
 //
 // States:          `uk-open`
 //
@@ -35,10 +36,10 @@
 @offcanvas-bar-padding-vertical-m:              @global-medium-gutter;
 @offcanvas-bar-padding-horizontal-m:            @global-medium-gutter;
 
-@offcanvas-overlay-background:                  rgba(0,0,0,0.1);
-
 @offcanvas-close-position:                      20px;
 @offcanvas-close-padding:                       5px;
+
+@offcanvas-overlay-background:                  rgba(0,0,0,0.1);
 
 
 /* ========================================================================
@@ -175,13 +176,6 @@
 }
 
 
-/* Fix weird scrollbar bug in Chrome if overlay is used */
-// .uk-offcanvas-container:not(.uk-offcanvas-flip) .uk-offcanvas-reveal {
-//     -webkit-backface-visibility: hidden;
-//     backface-visibility: hidden;
-// }
-
-
 /* Close
  * Adopts `uk-close`
  ========================================================================== */
@@ -234,10 +228,10 @@
 
 /*
  * Prevent horizontal scrollbar when the content is slide-out
+ * Has to be on the `html` element too to make it work on the `body`
  */
 
-.uk-offcanvas-page { overflow-x: hidden; }
-
+.uk-offcanvas-page,
 .uk-offcanvas-container { overflow-x: hidden; }
 
 /*
@@ -262,28 +256,6 @@
     left: 0;
     -webkit-transition: left 0.3s ease-out;
     transition: left 0.3s ease-out;
-}
-
-/*
- * Prevent vertical scrolling on touch devices
- * 1. Enable horizontal scrolling when position is fixed
- */
-
-@media (pointer: coarse) {
-
-    //.uk-offcanvas-content {
-    //    position: fixed;
-    //    /* 1 */
-    //    height: 100vh;
-    //    overflow-y: scroll;
-    //}
-
-    /*
-     * Prevent all scrollbars if overlay is used
-     */
-
-    //.uk-offcanvas-container-overlay .uk-offcanvas-content { height: auto; }
-
 }
 
 /*
