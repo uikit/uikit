@@ -68,12 +68,8 @@ function plugin(UIkit) {
 
                 if (prop.match(/color/i)) {
 
-                    start = startend[1] ? startend[0] : getStartValue(prop),
-                    end   = startend[1] ? startend[1] : startend[0];
-
-                    if (!start) {
-                        start = 'rgba(255,255,255,0)';
-                    }
+                    start = parseColor(startend[1] ? startend[0] : getStartValue(prop)),
+                    end   = parseColor(startend[1] ? startend[1] : startend[0]);
 
                 } else {
                     start = parseFloat(startend[1] ? startend[0] : getStartValue(prop)),
@@ -152,7 +148,7 @@ function plugin(UIkit) {
                         case 'color':
                         case 'background-color':
                         case 'border-color':
-                            css[prop] = calculateColor(parseColor(opts.start), parseColor(opts.end), compercent || 0);
+                            css[prop] = calculateColor(opts.start, opts.end, compercent || 0);
                             break;
 
                         // CSS Filter
@@ -271,8 +267,8 @@ function initBgImageParallax(instance, prop, opts) {
 
 // Calculate an in-between color. Returns "#aabbcc"-like string.
 function calculateColor(begin, end, pos) {
-    var color = `rgba(${parseInt((begin[0] + pos * (end[0] - begin[0])), 10)},${parseInt((begin[1] + pos * (end[1] - begin[1])), 10)},${parseInt((begin[2] + pos * (end[2] - begin[2])), 10)},${begin && end ? parseFloat(begin[3] + pos * (end[3] - begin[3])) : 1}`;
-    return `${color})`;
+    var color = `${parseInt((begin[0] + pos * (end[0] - begin[0])), 10)},${parseInt((begin[1] + pos * (end[1] - begin[1])), 10)},${parseInt((begin[2] + pos * (end[2] - begin[2])), 10)},${begin && end ? parseFloat(begin[3] + pos * (end[3] - begin[3])) : 1}`;
+    return `rgba(${color})`;
 }
 
 // Parse an CSS-syntax color. Outputs an array [r, g, b]
