@@ -49,20 +49,8 @@ export default {
         },
 
         scrollbarWidth() {
-            var width = docElement[0].style.width;
-
-            if (width) {
-                docElement[0].style.width = '';
-            }
-
-            var scrollbarWidth = window.innerWidth - docElement.outerWidth(true);
-
-            if (width) {
-                docElement.width(width);
-            }
-
-            return scrollbarWidth;
-        },
+            return window.innerWidth - docElement[0].offsetWidth;
+        }
 
     },
 

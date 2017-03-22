@@ -72,7 +72,9 @@ export default function (UIkit) {
             write() {
 
                 if (this.isToggled()) {
-                    this.content.width(window.innerWidth - this.scrollbarWidth);
+                    this.content.width(window.innerWidth);
+                    this.content.height(window.innerHeight);
+                    this.content[0].scrollTop = scroll.y;
                 }
 
             },
@@ -99,10 +101,18 @@ export default function (UIkit) {
                     this.body.addClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`).height();
                     this.content.addClass(this.clsContentAnimation);
                     this.panel.addClass(`${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
-                    this.$el.addClass(this.clsOverlay).css('display', 'block');
+                    this.$el.addClass(this.clsOverlay).css('display', 'block').height();
 
-                    this.content[0].scrollTop = scroll.y;
-                    this.content.on(`scroll.${this._uid}`, () => scroll = {x: this.content[0].scrollLeft, y: this.content[0].scrollTop})
+                }
+            },
+
+            {
+                name: 'shown',
+
+                self: true,
+
+                handler() {
+                    this.content.on(`scroll.${this._uid}`, () => scroll = {x: this.content[0].scrollLeft, y: this.content[0].scrollTop});
                 }
             },
 
@@ -136,8 +146,8 @@ export default function (UIkit) {
                     this.$el.removeClass(this.clsOverlay).css('display', '');
                     this.body.removeClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`).scrollTop(scroll.y);
 
+                    this.content.width('').height('');
                     window.scrollTo(scroll.x, scroll.y);
-                    this.content.width('');
                     scroll = null;
 
                 }
