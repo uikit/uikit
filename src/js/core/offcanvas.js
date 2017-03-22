@@ -1,5 +1,5 @@
 import { Modal } from '../mixin/index';
-import { docElement, isTouch, query, transitionend } from '../util/index';
+import { $, docElement, isTouch, query, transitionend } from '../util/index';
 
 var scroll;
 
@@ -38,7 +38,7 @@ export default function (UIkit) {
         computed: {
 
             content() {
-                return query(this.$props.content, this.$el);
+                return $(query(this.$props.content, this.$el));
             },
 
             clsFlip() {
@@ -74,7 +74,7 @@ export default function (UIkit) {
                 if (this.isToggled()) {
                     this.content.width(window.innerWidth - (this.overlay ? this.scrollbarWidth : 0));
                     this.content.height(window.innerHeight);
-                    this.content[0].scrollTop = scroll.y;
+                    this.content.scrollTop(scroll.y);
                 }
 
             },
@@ -114,7 +114,7 @@ export default function (UIkit) {
                 self: true,
 
                 handler() {
-                    this.content.on(`scroll.${this._uid}`, () => scroll = {x: this.content[0].scrollLeft, y: this.content[0].scrollTop});
+                    this.content.on(`scroll.${this._uid}`, () => scroll = {x: this.content.scrollLeft(), y: this.content.scrollTop()});
                 }
             },
 
