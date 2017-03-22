@@ -1,5 +1,5 @@
 import { Modal } from '../mixin/index';
-import { isTouch, query, transitionend } from '../util/index';
+import { docElement, isTouch, query, transitionend } from '../util/index';
 
 var scroll;
 
@@ -72,7 +72,7 @@ export default function (UIkit) {
             write() {
 
                 if (this.isToggled()) {
-                    this.content.width(window.innerWidth);
+                    this.content.width(window.innerWidth - (this.overlay ? this.scrollbarWidth : 0));
                     this.content.height(window.innerHeight);
                     this.content[0].scrollTop = scroll.y;
                 }
@@ -97,6 +97,8 @@ export default function (UIkit) {
                     if (this.mode === 'reveal' && !this.panel.parent().hasClass(this.clsMode)) {
                         this.panel.wrap('<div>').parent().addClass(this.clsMode);
                     }
+
+                    docElement.css('overflow-y', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
 
                     this.body.addClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`).height();
                     this.content.addClass(this.clsContentAnimation);
@@ -146,6 +148,7 @@ export default function (UIkit) {
                     this.$el.removeClass(this.clsOverlay).css('display', '');
                     this.body.removeClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`).scrollTop(scroll.y);
 
+                    docElement.css('overflow-y', '');
                     this.content.width('').height('');
                     window.scrollTo(scroll.x, scroll.y);
                     scroll = null;
