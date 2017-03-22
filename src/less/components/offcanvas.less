@@ -259,7 +259,7 @@
 
 /*
  * Prepare slide-out animation (Used in reveal and push mode)
- * Note: JS sets a fixed width so the page can slide-out without shrinking
+ * Note: JS sets a fixed width and height so the page can slide-out without shrinking
  * 1. Smooth scrolling
  */
 
@@ -273,12 +273,8 @@
     -webkit-overflow-scrolling: touch;
 }
 
-.uk-offcanvas-overlay .uk-offcanvas-content {
-    overflow: hidden;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-}
+/* Disable scrolling if overlay mode */
+.uk-offcanvas-overlay .uk-offcanvas-content { overflow-y: hidden; }
 
 /*
  * Activate slide-out animation
