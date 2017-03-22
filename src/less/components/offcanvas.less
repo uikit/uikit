@@ -144,24 +144,28 @@
 
 /*
  * Reveal Animation
- * 1. Clip the bar
- * 2. Animation
- * 3. Reset transform
+ * 1. Set position
+ * 2. Clip the bar
+ * 3. Animation
+ * 4. Reset transform
  */
 
 .uk-offcanvas-reveal {
     /* 1 */
-    width: 0;
-    height: 100vh;
-    overflow: hidden;
-    position: relative;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
     /* 2 */
+    width: 0;
+    overflow: hidden;
+    /* 3 */
     -webkit-transition: width 0.3s ease-out;
     transition: width 0.3s ease-out;
 }
 
 .uk-offcanvas-reveal .uk-offcanvas-bar {
-    /* 3 */
+    /* 4 */
     -webkit-transform: translateX(0);
     transform: translateX(0);
 }
@@ -179,7 +183,10 @@
  * Flip modifier
  */
 
-.uk-offcanvas-flip .uk-offcanvas-reveal { margin-left: auto; }
+.uk-offcanvas-flip .uk-offcanvas-reveal {
+    right: 0;
+    left: auto;
+}
 
 
 /* Close
@@ -253,6 +260,7 @@
 /*
  * Prepare slide-out animation (Used in reveal and push mode)
  * Note: JS sets a fixed width so the page can slide-out without shrinking
+ * 1. Smooth scrolling
  */
 
 .uk-offcanvas-container .uk-offcanvas-content {
@@ -262,6 +270,8 @@
     left: 0;
     -webkit-transition: left 0.3s ease-out;
     transition: left 0.3s ease-out;
+    /* 1 */
+    -webkit-overflow-scrolling: touch;
 }
 
 /*
