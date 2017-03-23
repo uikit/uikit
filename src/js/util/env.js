@@ -1,9 +1,10 @@
-import { classify, isUndefined, promise } from './lang';
+import { classify } from './lang';
 
 export const Observer = window.MutationObserver || window.WebKitMutationObserver;
 export const requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
 export const cancelAnimationFrame = window.cancelAnimationFrame || window.clearTimeout;
 
+export const hasPromise = 'Promise' in window;
 export const hasTouch = 'ontouchstart' in window
     || window.DocumentTouch && document instanceof DocumentTouch
     || navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0 // IE 10
@@ -14,8 +15,6 @@ export const pointerMove = !hasTouch ? 'mousemove' : window.PointerEvent ? 'poin
 export const pointerUp = !hasTouch ? 'mouseup' : window.PointerEvent ? 'pointerup' : 'touchend';
 export const pointerEnter = hasTouch && window.PointerEvent ? 'pointerenter' : 'mouseenter';
 export const pointerLeave = hasTouch && window.PointerEvent ? 'pointerleave' : 'mouseleave';
-
-export const hasPromise = !isUndefined(window.Promise);
 
 export const transitionstart = prefix('transition', 'transition-start');
 export const transitionend = prefix('transition', 'transition-end');
