@@ -70,7 +70,7 @@ export default function (UIkit) {
                 if (this.isToggled()) {
 
                     if (this.clsPageAnimation || this.overlay) {
-                        this.body.width(window.innerWidth - (this.overlay ? this.scrollbarWidth : 0));
+                        this.body.width(window.innerWidth - this.scrollbarWidth);
                     }
 
                     if (this.overlay) {
