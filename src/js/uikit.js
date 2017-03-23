@@ -1,3 +1,4 @@
+import boot from './api/boot';
 import UIkit from './uikit-core';
 import Lightbox from './components/lightbox';
 import Notification from './components/notification';
@@ -10,5 +11,9 @@ UIkit.use(Notification);
 UIkit.use(Sortable);
 UIkit.use(Tooltip);
 UIkit.use(Upload);
+
+if (BUNDLED) {
+    boot(UIkit);
+}
 
 export default UIkit;

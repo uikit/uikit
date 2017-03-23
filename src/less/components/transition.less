@@ -47,8 +47,9 @@
 .uk-transition-fade,
 [class*='uk-transition-scale'],
 [class*='uk-transition-slide'] {
-    transition-duration: @transition-duration;
-    transition-timing-function: ease-out;
+    -webkit-transition: @transition-duration ease-out;
+    transition: @transition-duration ease-out;
+    -webkit-transition-property: opacity, transform, filter;
     transition-property: opacity, transform, filter;
 }
 

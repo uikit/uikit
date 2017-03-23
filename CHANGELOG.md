@@ -6,6 +6,7 @@
 
 - Add trip advisor and yelp icons
 - Add computed properties
+- Add offcanvas close button
 
 ### Changed
 

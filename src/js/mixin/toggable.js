@@ -85,7 +85,7 @@ export default {
         },
 
         isToggled(el) {
-            el = $(el);
+            el = el && $(el) || this.$el;
             return this.cls ? el.hasClass(this.cls.split(' ')[0]) : !el.attr('hidden');
         },
 
@@ -112,7 +112,7 @@ export default {
                 return promise.reject();
             }
 
-            var def = (animate === false || !this.hasAnimation
+            var promise = (animate === false || !this.hasAnimation
                     ? this._toggleImmediate
                     : this.hasTransition
                         ? this._toggleHeight
@@ -120,7 +120,7 @@ export default {
             )(el, show);
 
             el.trigger(show ? 'show' : 'hide', [this]);
-            return def.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
+            return promise.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
         },
 
         _toggle(el, toggled) {

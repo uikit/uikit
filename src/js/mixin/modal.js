@@ -13,7 +13,8 @@ export default {
         selClose: String,
         escClose: Boolean,
         bgClose: Boolean,
-        stack: Boolean
+        stack: Boolean,
+        container: Boolean
     },
 
     defaults: {
@@ -21,7 +22,8 @@ export default {
         escClose: true,
         bgClose: true,
         overlay: true,
-        stack: false
+        stack: false,
+        container: true
     },
 
     computed: {
@@ -34,23 +36,21 @@ export default {
             return this.$el.find(`.${this.clsPanel}`);
         },
 
+        container() {
+            return this.$props.container === true && UIkit.container || this.$props.container && toJQuery(this.$props.container);
+        },
+
+        transitionElement() {
+            return this.panel;
+        },
+
         transitionDuration() {
-            return toMs(this.panel.css('transition-duration'));
+            return toMs(this.transitionElement.css('transition-duration'));
         },
 
         scrollbarWidth() {
-            var width = docElement[0].style.width;
-
-            docElement.css('width', '');
-
-            var scrollbarWidth = window.innerWidth - docElement.outerWidth(true);
-
-            if (width) {
-                docElement.width(width);
-            }
-
-            return scrollbarWidth;
-        },
+            return window.innerWidth - docElement[0].offsetWidth;
+        }
 
     },
 
@@ -77,7 +77,7 @@ export default {
 
             handler(e) {
                 e.preventDefault();
-                this.toggleNow(this.$el);
+                this.toggle();
             }
 
         },
@@ -90,15 +90,11 @@ export default {
 
             handler() {
 
-                if (this.isActive()) {
+                if (this.isToggled()) {
                     return false;
                 }
 
                 var prev = active && active !== this && active;
-
-                if (!active) {
-                    this.body.css('overflow-y', this.scrollbarWidth && this.overlay ? 'scroll' : '');
-                }
 
                 active = this;
 
@@ -106,10 +102,15 @@ export default {
                     if (this.stack) {
                         this.prev = prev;
                     } else {
-                        prev.hide();
+                        prev.hide().then(this.show);
+                        return false;
                     }
                 } else {
                     requestAnimationFrame(() => register(this.$options.name));
+                }
+
+                if (!prev) {
+                    this.body.css('overflow-y', this.scrollbarWidth && this.overlay ? 'scroll' : '');
                 }
 
                 docElement.addClass(this.clsPage);
@@ -126,7 +127,7 @@ export default {
 
             handler() {
 
-                if (!this.isActive()) {
+                if (!this.isToggled()) {
                     return false;
                 }
 
@@ -159,15 +160,20 @@ export default {
 
     methods: {
 
-        isActive() {
-            return this.$el.hasClass(this.cls);
-        },
-
         toggle() {
-            return this.isActive() ? this.hide() : this.show();
+            return this.isToggled() ? this.hide() : this.show();
         },
 
         show() {
+            if (this.container && !this.$el.parent().is(this.container)) {
+                this.$el.appendTo(this.container);
+                return promise(resolve =>
+                    requestAnimationFrame(() =>
+                        resolve(this.show())
+                    )
+                )
+            }
+
             return this.toggleNow(this.$el, true);
         },
 
@@ -182,12 +188,23 @@ export default {
         _toggleImmediate(el, show) {
             this._toggle(el, show);
 
-            return this.transitionDuration ? promise(resolve => {
-                this.panel.one(transitionend, resolve);
-                setTimeout(() => {
-                    resolve();
-                    this.panel.off(transitionend, resolve);
-                }, this.transitionDuration);
+            return this.transitionDuration ? promise((resolve, reject) => {
+
+                if (this._transition) {
+                    this.transitionElement.off(transitionend, this._transition.handler);
+                    this._transition.reject();
+                }
+
+                this._transition = {
+                    reject,
+                    handler: () => {
+                        resolve();
+                        this._transition = null;
+                    }
+                };
+
+                this.transitionElement.one(transitionend, this._transition.handler);
+
             }) : promise.resolve();
         },
     }
