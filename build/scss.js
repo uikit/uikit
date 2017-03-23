@@ -291,26 +291,26 @@ Promise.all(glob.sync('src/less/**/*.less').map(file =>
             scssData = mixinTemplate;
         }
 
-        return write(file.replace(/less/g, 'scss') , scssData);
+        return write(file.replace(/less/g, 'scss').replace('.theme.', '-theme.') , scssData);
     })
 
 )).then( () => {
     /* Second Step write all new needed files for SASS */
 
     /* write mixins into new file */
-    write('src/scss/uikit-mixins.scss', Array.from(mixins).join('\n'));
+    write('src/scss/mixins.scss', Array.from(mixins).join('\n'));
 
     /* write core variables */
     compactCoreVar = new Set();
     Object.keys(coreVar).map(key => getAllDependencies(coreVar, key).forEach(dependency => compactCoreVar.add(dependency)));
 
-    write('src/scss/uikit-variables.scss', Array.from(compactCoreVar).join('\n'));
+    write('src/scss/variables.scss', Array.from(compactCoreVar).join('\n'));
 
     /* write theme variables */
     compactThemeVar = new Set();
     Object.keys(themeVar).map(key => getAllDependencies(themeVar, key).forEach(dependency => compactThemeVar.add(dependency)));
 
-    write('src/scss/uikit-theme-variables.scss', Array.from(compactThemeVar).join('\n'));
+    write('src/scss/variables-theme.scss', Array.from(compactThemeVar).join('\n'));
 
     /* write the core inverse-hook into components/inverse.scss file */
     coreHooks = new Set();
