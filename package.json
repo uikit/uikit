@@ -5,7 +5,7 @@
   "version": "3.0.0-beta.18",
   "main": "dist/js/uikit.js",
   "scripts": {
-    "build-scss":"mkdir src/ & mkdir src/scss/ & mkdir src/scss/theme/ & mkdir src/scss/components/ & node build/scss",
+    "build-scss":"mkdir -p src/scss/theme & mkdir -p src/scss/components & node build/scss",
     "compile": "npm run compile-less && npm run compile-js",
     "compile-js": "node build/build",
     "compile-less": "npm run icons && node build/less",
