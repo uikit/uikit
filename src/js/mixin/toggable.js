@@ -112,15 +112,15 @@ export default {
                 return promise.reject();
             }
 
-            var promise = (animate === false || !this.hasAnimation
-                    ? this._toggleImmediate
-                    : this.hasTransition
-                        ? this._toggleHeight
-                        : this._toggleAnimation
+            var def = (animate === false || !this.hasAnimation
+                ? this._toggleImmediate
+                : this.hasTransition
+                    ? this._toggleHeight
+                    : this._toggleAnimation
             )(el, show);
 
             el.trigger(show ? 'show' : 'hide', [this]);
-            return promise.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
+            return def.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
         },
 
         _toggle(el, toggled) {
