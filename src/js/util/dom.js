@@ -197,32 +197,16 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
     return rect.bottom >= -1 * offsetTop
         && rect.right >= -1 * offsetLeft
-        && rect.top <= (window.innerHeight || document.documentElement.clientHeight) + offsetTop
-        && rect.left <= (window.innerWidth || document.documentElement.clientWidth) + offsetLeft;
+        && rect.top <= window.innerHeight + offsetTop
+        && rect.left <= window.innerWidth + offsetLeft;
 }
 
-export function percentageInViewport(element) {
+export function scrolledOver(element) {
 
-    element = toNode(element)
+    var rect = toNode(element).getBoundingClientRect(),
+        vh = window.innerHeight;
 
-    var top = element.getBoundingClientRect().top;
-    var height = element.offsetHeight;
-    var wh = window.innerHeight;
-    var scrolltop = window.scrollY;
-
-    var percent;
-
-    if (top > wh) {
-        percent = 0;
-    } else if ((top + height) < 0) {
-        percent = 1;
-    } else {
-        var distance = wh - top;
-        var percentage = Math.round(distance / ((wh + height) / 100));
-        percent = percentage/100;
-    }
-
-    return percent;
+    return Math.min(1, Math.max(0, Math.round(((vh - rect.top) / ((vh + rect.height) / 100))) / 100));
 }
 
 export function getIndex(index, elements, current = 0) {
