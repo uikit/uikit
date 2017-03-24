@@ -252,21 +252,21 @@
     transition: margin-left 0.3s ease-out;
 }
 
+.uk-offcanvas-page { position: fixed; }
+
 /* 1 */
 .uk-offcanvas-page:not(.uk-offcanvas-page-overlay) {
-    position: fixed;
-    overflow: auto;
+    overflow-y: auto;
     top: 0;
     bottom: 0;
 }
 
 .uk-offcanvas-page:not(.uk-offcanvas-page-overlay) > body {
     height: 100%;
-    overflow: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
-/* 2 */
-.uk-offcanvas-page-overlay body { position: fixed; }
 
 /*
  * Activate slide-out animation
