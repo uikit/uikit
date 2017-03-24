@@ -71,10 +71,19 @@ export default function (UIkit) {
 
             write() {
 
-                if (this.isToggled() && this.overlay) {
-                    this.content.width(window.innerWidth - (this.overlay ? this.scrollbarWidth : 0));
-                    this.content.height(window.innerHeight);
-                    this.content.scrollTop(scroll.y);
+                if (this.isToggled()) {
+
+                    if (this.overlay || this.clsContentAnimation) {
+                        console.log()
+                        this.content.width(window.innerWidth - (this.overlay ? this.scrollbarWidth : 0));
+                    }
+
+                    if (this.overlay) {
+                        this.content.height(window.innerHeight);
+                        this.content.scrollTop(scroll.y);
+                    }
+
+
                 }
 
             },
