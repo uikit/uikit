@@ -12,27 +12,34 @@ export default function (UIkit) {
         args: 'mode',
 
         props: {
+            content: String,
             mode: String,
             flip: Boolean,
             overlay: Boolean
         },
 
         defaults: {
+            content: '.uk-offcanvas-content:first',
             mode: 'slide',
             flip: false,
             overlay: false,
             clsPage: 'uk-offcanvas-page',
+            clsContainer: 'uk-offcanvas-container',
             clsPanel: 'uk-offcanvas-bar',
             clsFlip: 'uk-offcanvas-flip',
-            clsPageAnimation: 'uk-offcanvas-page-animation',
+            clsContent: 'uk-offcanvas-content',
+            clsContentAnimation: 'uk-offcanvas-content-animation',
             clsSidebarAnimation: 'uk-offcanvas-bar-animation',
             clsMode: 'uk-offcanvas',
             clsOverlay: 'uk-offcanvas-overlay',
-            clsPageOverlay: 'uk-offcanvas-page-overlay',
             selClose: '.uk-offcanvas-close'
         },
 
         computed: {
+
+            content() {
+                return $(query(this.$props.content, this.$el));
+            },
 
             clsFlip() {
                 return this.flip ? this.$props.clsFlip : '';
@@ -40,10 +47,6 @@ export default function (UIkit) {
 
             clsOverlay() {
                 return this.overlay ? this.$props.clsOverlay : '';
-            },
-
-            clsPageOverlay() {
-                return this.overlay ? this.$props.clsPageOverlay : '';
             },
 
             clsMode() {
@@ -54,13 +57,14 @@ export default function (UIkit) {
                 return this.mode === 'none' || this.mode === 'reveal' ? '' : this.$props.clsSidebarAnimation;
             },
 
-            clsPageAnimation() {
-                return this.mode !== 'push' && this.mode !== 'reveal' ? '' : this.$props.clsPageAnimation
+            clsContentAnimation() {
+                return this.mode !== 'push' && this.mode !== 'reveal' ? '' : this.$props.clsContentAnimation
             },
 
             transitionElement() {
                 return this.mode === 'reveal' ? this.panel.parent() : this.panel;
             }
+
         },
 
         update: {
@@ -70,12 +74,12 @@ export default function (UIkit) {
                 if (this.isToggled()) {
 
                     if (this.clsPageAnimation || this.overlay) {
-                        this.body.width(window.innerWidth - this.scrollbarWidth);
+                        this.content.width(window.innerWidth - (this.overlay ? this.scrollbarWidth : 0));
                     }
 
                     if (this.overlay) {
-                        this.body.height(window.innerHeight);
-                        docElement.css('marginTop', -1 * scroll.y);
+                        this.content.height(window.innerHeight);
+                        this.content.scrollTop(scroll.y);
                     }
 
                 }
@@ -101,7 +105,10 @@ export default function (UIkit) {
                         this.panel.wrap('<div>').parent().addClass(this.clsMode);
                     }
 
-                    docElement.addClass(`${this.clsFlip} ${this.clsPageAnimation} ${this.clsPageOverlay}`).height();
+                    docElement.css('overflow-y', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
+
+                    this.body.addClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`).height();
+                    this.content.addClass(this.clsContentAnimation);
                     this.panel.addClass(`${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
                     this.$el.addClass(this.clsOverlay).css('display', 'block').height();
 
@@ -114,7 +121,7 @@ export default function (UIkit) {
                 self: true,
 
                 handler() {
-                    docElement.removeClass(this.clsPageAnimation);
+                    this.content.removeClass(this.clsContentAnimation);
 
                     if (this.mode === 'none' || this.getActive() && this.getActive() !== this) {
                         this.panel.trigger(transitionend);
@@ -133,14 +140,18 @@ export default function (UIkit) {
                         this.panel.unwrap();
                     }
 
-                    this.$el.removeClass(this.clsOverlay).css('display', '');
-                    this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
-                    this.body.width('').height('');
-                    docElement.removeClass(`${this.clsFlip} ${this.clsPageOverlay}`).css('marginTop', '');
-
-                    if (this.overlay) {
-                        window.scrollTo(scroll.x, scroll.y);
+                    if (!this.overlay) {
+                        scroll = {x: window.pageXOffset, y: window.pageYOffset}
                     }
+
+                    this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
+                    this.$el.removeClass(this.clsOverlay).css('display', '');
+                    this.body.removeClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`).scrollTop(scroll.y);
+
+                    docElement.css('overflow-y', '');
+                    this.content.width('').height('');
+
+                    window.scrollTo(scroll.x, scroll.y);
 
                     scroll = null;
 
