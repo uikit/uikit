@@ -1,5 +1,8 @@
-// Copyright (c) 2016 Wilson Page wilsonpage@me.com
-// https://github.com/wilsonpage/fastdom
+/*
+    Based on:
+    Copyright (c) 2016 Wilson Page wilsonpage@me.com
+    https://github.com/wilsonpage/fastdom
+*/
 
 import { requestAnimationFrame } from './index';
 
