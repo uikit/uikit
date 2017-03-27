@@ -17,7 +17,7 @@ export default function (UIkit) {
                 this.isInView = inview;
             },
 
-            events: ['scroll', 'load', 'resize', 'orientationchange']
+            events: ['scroll', 'load', 'resize']
         }
 
     });

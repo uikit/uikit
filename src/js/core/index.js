@@ -33,7 +33,7 @@ export default function (UIkit) {
 
     win
         .on('load', UIkit.update)
-        .on('resize orientationchange', e => {
+        .on('resize', e => {
             if (!resizing) {
                 requestAnimationFrame(() => {
                     UIkit.update(e);
