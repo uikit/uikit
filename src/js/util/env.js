@@ -1,4 +1,4 @@
-import { classify, isUndefined, promise } from './lang';
+import { classify, isUndefined } from './lang';
 
 export const Observer = window.MutationObserver || window.WebKitMutationObserver;
 export const requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
