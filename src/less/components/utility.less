@@ -48,6 +48,7 @@
 @dropcap-font-size:                             ((@global-line-height * 3) * 1em);
 
 @leader-fill-content:                           '.';
+@leader-fill-margin-left:                       @global-small-gutter;
 
 @logo-font-size:                                @global-large-font-size;
 @logo-font-family:                              @global-font-family;
@@ -340,6 +341,7 @@
 
 .uk-leader-fill {
     display: inline-block;
+    margin-left: @leader-fill-margin-left;
     .hook-leader;
 }
 
