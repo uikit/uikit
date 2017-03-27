@@ -26,6 +26,7 @@ import Svg from './svg';
 import Switcher from './switcher';
 import Tab from './tab';
 import Toggle from './toggle';
+import Leader from './leader';
 
 export default function (UIkit) {
 
@@ -90,6 +91,7 @@ export default function (UIkit) {
     UIkit.use(Margin);
     UIkit.use(Gif);
     UIkit.use(Grid);
+    UIkit.use(Leader);
     UIkit.use(Modal);
     UIkit.use(Nav);
     UIkit.use(Navbar);
