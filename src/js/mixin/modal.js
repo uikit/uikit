@@ -46,10 +46,6 @@ export default {
 
         transitionDuration() {
             return toMs(this.transitionElement.css('transition-duration'));
-        },
-
-        scrollbarWidth() {
-            return window.innerWidth - docElement[0].offsetWidth;
         }
 
     },
@@ -110,6 +106,7 @@ export default {
                 }
 
                 if (!prev) {
+                    this.scrollbarWidth = window.innerWidth - docElement[0].offsetWidth;
                     this.body.css('overflow-y', this.scrollbarWidth && this.overlay ? 'scroll' : '');
                 }
 

@@ -264,11 +264,8 @@
  */
 
 .uk-offcanvas-container .uk-offcanvas-content {
-    overflow-y: scroll;
-    position: relative;
-    left: 0;
-    -webkit-transition: left 0.3s ease-out;
-    transition: left 0.3s ease-out;
+    -webkit-transition: margin-left 0.3s ease-out;
+    transition: margin-left 0.3s ease-out;
     /* 1 */
     -webkit-overflow-scrolling: touch;
 }
@@ -280,16 +277,16 @@
  * Activate slide-out animation
  */
 
-:not(.uk-offcanvas-flip) > .uk-offcanvas-content-animation { left: @offcanvas-bar-width; }
+:not(.uk-offcanvas-flip) > .uk-offcanvas-content-animation { margin-left: @offcanvas-bar-width; }
 
-.uk-offcanvas-flip > .uk-offcanvas-content-animation { left: -@offcanvas-bar-width; }
+.uk-offcanvas-flip > .uk-offcanvas-content-animation { margin-left: -@offcanvas-bar-width; }
 
 /* Tablet landscape and bigger */
 @media (min-width: @breakpoint-medium) {
 
-    :not(.uk-offcanvas-flip) > .uk-offcanvas-content-animation { left: @offcanvas-bar-width-m; }
+    :not(.uk-offcanvas-flip) > .uk-offcanvas-content-animation { margin-left: @offcanvas-bar-width-m; }
 
-    .uk-offcanvas-flip > .uk-offcanvas-content-animation { left: -@offcanvas-bar-width-m; }
+    .uk-offcanvas-flip > .uk-offcanvas-content-animation { margin-left: -@offcanvas-bar-width-m; }
 
 }
 
