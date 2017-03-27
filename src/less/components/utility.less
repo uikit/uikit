@@ -14,6 +14,7 @@
 //                  `uk-border-*`
 //                  `uk-box-shadow-*`
 //                  `uk-dropcap`
+//                  `uk-leader`
 //                  `uk-logo`
 //                  `uk-svg`
 //                  `uk-blend-*`
@@ -45,6 +46,8 @@
 
 @dropcap-margin-right:                          10px;
 @dropcap-font-size:                             ((@global-line-height * 3) * 1em);
+
+@leader-fill-content:                           '.';
 
 @logo-font-size:                                @global-large-font-size;
 @logo-font-family:                              @global-font-family;
@@ -330,6 +333,19 @@
 }
 
 
+/* Leader
+ ========================================================================== */
+
+.uk-leader {}
+
+.uk-leader-fill {
+    display: inline-block;
+    .hook-leader;
+}
+
+.uk-leader-fill::after { content: @leader-fill-content; }
+
+
 /* Logo
  ========================================================================== */
 
@@ -483,6 +499,7 @@
 
 .hook-panel-scrollable() {}
 .hook-dropcap() {}
+.hook-leader() {}
 .hook-logo() {}
 .hook-logo-hover() {}
 .hook-utility-misc() {}
