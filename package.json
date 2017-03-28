@@ -13,7 +13,7 @@
     "icons": "node build/icons",
     "prefix": "node build/prefix",
     "scope": "node build/scope",
-    "release": "npm run compile && npm run compile-rtl && node build/release",
+    "release": "npm run compile && npm run compile-rtl && npm run build-scss && node build/release",
     "watch": "npm-watch",
     "test": "webpack-dev-server --inline --hot && open http://localhost:8080/tests/"
   },
