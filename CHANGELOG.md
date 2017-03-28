@@ -7,6 +7,7 @@
 - Add trip advisor and yelp icons
 - Add computed properties
 - Add offcanvas close button
+- Add margin auto vertical classes
 
 ### Changed
 
