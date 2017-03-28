@@ -47,7 +47,7 @@
 @dropcap-margin-right:                          10px;
 @dropcap-font-size:                             ((@global-line-height * 3) * 1em);
 
-@leader-fill-content:                           '.';
+@leader-fill-content:                           .;
 @leader-fill-margin-left:                       @global-small-gutter;
 
 @logo-font-size:                                @global-large-font-size;
@@ -337,21 +337,16 @@
 /* Leader
  ========================================================================== */
 
+.var-leader-fill:before { content: '@{leader-fill-content}'; }
+
 .uk-leader {}
 
 .uk-leader-fill {
     display: inline-block;
-    margin-left: @leader-fill-margin-left;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
     .hook-leader;
 }
 
-.uk-leader-fill:empty { visibility: hidden; }
-
-.uk-leader-fill::after { content: @leader-fill-content; }
+.uk-leader-fill:after { content: attr(data-fill); }
 
 
 /* Logo
