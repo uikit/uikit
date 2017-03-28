@@ -342,8 +342,14 @@
 .uk-leader-fill {
     display: inline-block;
     margin-left: @leader-fill-margin-left;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
     .hook-leader;
 }
+
+.uk-leader-fill:empty { visibility: hidden; }
 
 .uk-leader-fill::after { content: @leader-fill-content; }
 

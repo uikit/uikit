@@ -26,9 +26,18 @@ export default function (UIkit) {
             fill() {
 
                 var lw = this.$el.width();
-                var mw = this.filler.text('').width();
-                var fill = this.filler.offset().left - this.$el.offset().left;
+                var mw = this.filler.removeClass('uk-hidden').text('').width();
+                var oe = this.$el.offset().left;
+                var of = this.filler.offset().left;
+                var fill = of - oe;
+                var maxtimes = Math.floor(lw/mw);
                 var times = Math.floor((lw - fill)/mw);
+
+                // is filler alone in next row?
+                if (times/maxtimes > 0.9) {
+                    this.filler.addClass('uk-hidden')
+                }
+
                 var filltext = '';
 
                 for (var i=0;i<times;i++) {
