@@ -35,7 +35,7 @@ export default function (UIkit) {
 
                 // is filler alone in next row?
                 if (times/maxtimes > 0.9) {
-                    this.filler.addClass('uk-hidden')
+                    return this.filler.addClass('uk-hidden')
                 }
 
                 var filltext = '';
