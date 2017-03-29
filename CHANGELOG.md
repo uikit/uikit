@@ -11,6 +11,7 @@
 
 ### Changed
 
+- Update Instagram, Tumblr and Vimeo icons
 - Component Constructor initializes multiple components at once
 
 ### Fixed
