@@ -12,11 +12,14 @@
 
 ### Changed
 
+- IMPORTANT: Offcanvas requires to wrap page in extra div
+- Refactored Offcanvas component
 - Update instagram, tumblr and vimeo icons
 - Component Constructor initializes multiple components at once
 
 ### Fixed
 
+- Fix Offcanvas scrolling on touch devices
 - Fix Scrollspy in view check
 - Fix closing Accordion without animation
 
