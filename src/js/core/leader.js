@@ -24,7 +24,7 @@ export default function (UIkit) {
         },
 
         disconnected() {
-            this.filler.children().appendTo(this.$el).end().remove();
+            this.filler.contents().unwrap();
         },
 
         update: [
@@ -37,31 +37,20 @@ export default function (UIkit) {
                         return;
                     }
 
-                    this.filler.attr('data-fill', this.fillChar);
-
-                    var lw = this.$el.width() - (this.$el.outerWidth() - this.$el.width());
-                    var rects = this.filler[0].getClientRects();
-                    var f = rects[rects.length-1];
-                    var mw = f.width;
-                    var fill = (lw - (f.left - this.filler[0].getBoundingClientRect().left)) + mw;
-                    var times = Math.ceil(fill / mw);
                     var filltext = '';
+                    var height = this.filler.attr('data-fill', this.fillChar).height();
+                    var h = 0;
 
-                    if (times < 3) {
-                        times = 0;
+                    if (!height) {
+                        return;
                     }
 
-                    while (filltext.length < times) {
+                    while (h <= height) {
                         filltext += this.fillChar;
+                        h = this.filler.attr('data-fill', filltext).height();
                     }
 
-                    this.filler.attr('data-fill', filltext);
-
-                    rects = this.filler[0].getClientRects();
-
-                    if (f.top != rects[rects.length-1].top) {
-                        this.filler.attr('data-fill', '');
-                    }
+                    this.filler.attr('data-fill', filltext.substring(1));
                 },
 
                 events: ['load', 'resize']
