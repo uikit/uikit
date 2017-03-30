@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add SASS support
 - Add leader to utility component
 - Add offcanvas close button
 - Add margin auto vertical classes
