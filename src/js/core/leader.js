@@ -18,16 +18,13 @@ export default function (UIkit) {
         },
 
         connected() {
-
-            this.filler = $('<span class="uk-leader-fill"></span>')
-                            .html(this.$el.html())
-                            .appendTo(this.$el.html(''));
-
+            this.$el.wrapInner('<span class="uk-leader-fill"></span>');
+            this.filler = this.$el.children().eq(0);
             this.fillChar = this.fill || getCssVar('leader-fill');
         },
 
         disconnected() {
-            this.filler.remove();
+            this.filler.children().appendTo(this.$el).end().remove();
         },
 
         update: [
@@ -42,11 +39,11 @@ export default function (UIkit) {
 
                     this.filler.attr('data-fill', this.fillChar);
 
-                    var lw = this.$el.width();
+                    var lw = this.$el.width() - (this.$el.outerWidth() - this.$el.width());
                     var rects = this.filler[0].getClientRects();
                     var f = rects[rects.length-1];
                     var mw = f.width;
-                    var fill = (lw - f.left) + mw;
+                    var fill = (lw - (f.left - this.filler[0].getBoundingClientRect().left)) + mw;
                     var times = Math.ceil(fill / mw);
                     var filltext = '';
 
@@ -63,7 +60,7 @@ export default function (UIkit) {
                     rects = this.filler[0].getClientRects();
 
                     if (f.top != rects[rects.length-1].top) {
-                        this.filler.attr('data-fill', '');
+                        //this.filler.attr('data-fill', '');
                     }
                 },
 
