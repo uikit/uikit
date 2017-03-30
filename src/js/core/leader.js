@@ -18,13 +18,7 @@ export default function (UIkit) {
         },
 
         connected() {
-            this.$el.wrapInner('<span class="uk-leader-fill"></span>');
-            this.filler = this.$el.children().eq(0);
             this.fillChar = this.fill || getCssVar('leader-fill');
-        },
-
-        disconnected() {
-            this.filler.contents().unwrap();
         },
 
         update: [
@@ -33,12 +27,12 @@ export default function (UIkit) {
                 write() {
 
                     if (this.media && !window.matchMedia(this.media).matches) {
-                        this.filler.attr('data-fill', '');
+                        this.$el.attr('data-fill', '');
                         return;
                     }
 
                     var filltext = '';
-                    var height = this.filler.attr('data-fill', this.fillChar).height();
+                    var height = this.$el.attr('data-fill', this.fillChar).height();
                     var h = 0;
 
                     if (!height) {
@@ -47,10 +41,10 @@ export default function (UIkit) {
 
                     while (h <= height) {
                         filltext += this.fillChar;
-                        h = this.filler.attr('data-fill', filltext).height();
+                        h = this.$el.attr('data-fill', filltext).height();
                     }
 
-                    this.filler.attr('data-fill', filltext.substring(1));
+                    this.$el.attr('data-fill', filltext.substring(1));
                 },
 
                 events: ['load', 'resize']
