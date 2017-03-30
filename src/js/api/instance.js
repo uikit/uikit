@@ -50,7 +50,6 @@ export default function (UIkit) {
         this._callDisconnected();
         this._initProps(data);
         this._callConnected();
-        this._callUpdate();
     };
 
     UIkit.prototype.$destroy = function (remove = false) {

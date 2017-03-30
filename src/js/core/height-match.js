@@ -16,10 +16,6 @@ export default function (UIkit) {
             row: true
         },
 
-        connected() {
-            this.$emit();
-        },
-
         computed: {
 
             elements() {

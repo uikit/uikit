@@ -28,12 +28,12 @@ export default function (UIkit) {
             },
 
             target() {
-                this.$props.target && query(this.$props.target === true ? '> :input:first + :first' : this.$props.target, this.$el)
+                return this.$props.target && query(this.$props.target === true ? '> :input:first + :first' : this.$props.target, this.$el)
             }
 
         },
 
-        ready() {
+        connected() {
             this.input.trigger('change');
         },
 

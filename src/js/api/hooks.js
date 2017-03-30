@@ -35,8 +35,8 @@ export default function (UIkit) {
         UIkit.instances[this._uid] = this;
 
         this._initEvents();
-        this._callHook('connected');
 
+        this._callHook('connected');
         this._connected = true;
 
         this._initObserver();
@@ -45,6 +45,7 @@ export default function (UIkit) {
             ready(() => this._callReady());
         }
 
+        this._callUpdate();
     };
 
     UIkit.prototype._callDisconnected = function () {
