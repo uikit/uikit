@@ -4,14 +4,15 @@
 
 ### Added
 
-- Add trip advisor and yelp icons
-- Add computed properties
+- Add leader to utility component
 - Add offcanvas close button
 - Add margin auto vertical classes
+- Add tripadvisor and yelp icons
+- Add computed properties
 
 ### Changed
 
-- Update Instagram, Tumblr and Vimeo icons
+- Update instagram, tumblr and vimeo icons
 - Component Constructor initializes multiple components at once
 
 ### Fixed
