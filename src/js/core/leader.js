@@ -7,9 +7,23 @@ export default function (UIkit) {
 
         mixins: [Class],
 
+        props: {
+            fill: String,
+            media: 'media'
+        },
+
+        defaults: {
+            fill: '',
+            media: false
+        },
+
         connected() {
-            this.filler = $('<span class="uk-leader-fill"></span>').appendTo(this.$el);
-            this.fillChar = getCssVar('leader-fill');
+
+            this.filler = $('<span class="uk-leader-fill"></span>')
+                            .html(this.$el.html())
+                            .appendTo(this.$el.html(''));
+
+            this.fillChar = this.fill || getCssVar('leader-fill');
         },
 
         disconnected() {
@@ -21,24 +35,36 @@ export default function (UIkit) {
             {
                 write() {
 
-                    var lw = this.$el.width();
-                    var mw = this.filler.removeClass('uk-hidden').attr('data-fill', this.fillChar).width();
-                    var fill = this.filler.offset().left - this.$el.offset().left;;
-                    var maxtimes = Math.floor(lw / mw);
-                    var times = Math.floor((lw - fill) / mw);
-
-                    if (times == 1 || times/maxtimes > 0.9) {
-                        this.filler.addClass('uk-hidden');
+                    if (this.media && !window.matchMedia(this.media).matches) {
+                        this.filler.attr('data-fill', '');
                         return;
                     }
 
+                    this.filler.attr('data-fill', this.fillChar);
+
+                    var lw = this.$el.width();
+                    var rects = this.filler[0].getClientRects();
+                    var f = rects[rects.length-1];
+                    var mw = f.width;
+                    var fill = (lw - f.left) + mw;
+                    var times = Math.ceil(fill / mw);
                     var filltext = '';
 
-                    for (var i=0;i<times;i++) {
+                    if (times < 3) {
+                        times = 0;
+                    }
+
+                    for (var i=0;i < times;i++) {
                         filltext += this.fillChar;
                     }
 
                     this.filler.attr('data-fill', filltext);
+
+                    rects = this.filler[0].getClientRects();
+
+                    if (f.top != rects[rects.length-1].top) {
+                        this.filler.attr('data-fill', '');
+                    }
                 },
 
                 events: ['load', 'resize']
