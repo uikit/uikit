@@ -51,7 +51,7 @@ export default function (UIkit) {
                         times = 0;
                     }
 
-                    for (var i=0;i < times;i++) {
+                    while (filltext.length < times) {
                         filltext += this.fillChar;
                     }
 
@@ -60,7 +60,7 @@ export default function (UIkit) {
                     rects = this.filler[0].getClientRects();
 
                     if (f.top != rects[rects.length-1].top) {
-                        //this.filler.attr('data-fill', '');
+                        this.filler.attr('data-fill', '');
                     }
                 },
 
