@@ -1,7 +1,7 @@
 /*
-Based on:
-Copyright (c) 2010-2016 Thomas Fuchs
-http://zeptojs.com/
+    Based on:
+    Copyright (c) 2010-2016 Thomas Fuchs
+    http://zeptojs.com/
 */
 
 import { $, doc, on, pointerDown, pointerMove, pointerUp, ready, win } from './index';

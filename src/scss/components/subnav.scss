@@ -1,0 +1,242 @@
+// Name:            Subnav
+// Description:     Component to create a sub navigation
+//
+// Component:       `uk-subnav`
+//
+// Modifiers:       `uk-subnav-divider`
+//                  `uk-subnav-pill`
+//
+// States:          `uk-active`
+//                  `uk-first-column`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$subnav-margin-horizontal:                       20px !default;
+
+$subnav-item-color:                              $global-muted-color !default;
+$subnav-item-hover-color:                        $global-color !default;
+$subnav-item-hover-text-decoration:              none !default;
+$subnav-item-active-color:                       $global-emphasis-color !default;
+
+$subnav-divider-margin-horizontal:               $subnav-margin-horizontal !default;
+$subnav-divider-border-height:                   1.5em !default;
+$subnav-divider-border-width:                    $global-border-width !default;
+$subnav-divider-border:                          $global-border !default;
+
+$subnav-pill-item-padding-vertical:              5px !default;
+$subnav-pill-item-padding-horizontal:            10px !default;
+$subnav-pill-item-background:                    transparent !default;
+$subnav-pill-item-color:                         $subnav-item-color !default;
+$subnav-pill-item-hover-background:              $global-muted-background !default;
+$subnav-pill-item-hover-color:                   $global-color !default;
+$subnav-pill-item-onclick-background:            $subnav-pill-item-hover-background !default;
+$subnav-pill-item-onclick-color:                 $subnav-pill-item-hover-color !default;
+$subnav-pill-item-active-background:             $global-primary-background !default;
+$subnav-pill-item-active-color:                  $global-inverse-color !default;
+
+$subnav-item-disabled-color:                     $global-muted-color !default;
+
+
+/* ========================================================================
+   Component: Subnav
+ ========================================================================== */
+
+/*
+ * 1. Allow items to wrap into the next line
+ * 2. Gutter
+ * 3. Reset lists
+ */
+
+.uk-subnav {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /* 1 */
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    /* 2 */
+    margin-left: (-$subnav-margin-horizontal);
+    /* 3 */
+    padding: 0;
+    list-style: none;
+    @if(mixin-exists(hook-subnav)) {@include hook-subnav();}
+}
+
+/*
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Gutter
+ * 3. Create position context for dropdowns
+ */
+
+.uk-subnav > * {
+    /* 1 */
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+    /* 2 */
+    padding-left: $subnav-margin-horizontal;
+    /* 3 */
+    position: relative;
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * Items must target `a` elements to exclude other elements (e.g. dropdowns)
+ * Using `:first-child` instead of `a` to support `span` elements for text
+ * 1. Prevent gap if child element is `inline-block`, e.g. an icon
+ * 2. Style
+ */
+
+.uk-subnav > * > :first-child {
+    /* 1 */
+    display: block;
+    /* 2 */
+    color: $subnav-item-color;
+    @if(mixin-exists(hook-subnav-item)) {@include hook-subnav-item();}
+}
+
+/* Hover + Focus */
+.uk-subnav > * > a:hover,
+.uk-subnav > * > a:focus {
+    color: $subnav-item-hover-color;
+    text-decoration: $subnav-item-hover-text-decoration;
+    outline: none;
+    @if(mixin-exists(hook-subnav-item-hover)) {@include hook-subnav-item-hover();}
+}
+
+/* Active */
+.uk-subnav > .uk-active > a {
+    color: $subnav-item-active-color;
+    @if(mixin-exists(hook-subnav-item-active)) {@include hook-subnav-item-active();}
+}
+
+
+/* Divider modifier
+ ========================================================================== */
+
+/*
+ * 1. Align items and divider vertically
+ */
+
+.uk-subnav-divider > * {
+    /* 1 */
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+/*
+ * Divider
+ * `nth-child` makes it also work without JS if it's only one row
+ */
+
+.uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
+    content: "";
+    height: $subnav-divider-border-height;
+    margin-left: ($subnav-divider-margin-horizontal - $subnav-margin-horizontal);
+    margin-right: $subnav-divider-margin-horizontal;
+    border-left: $subnav-divider-border-width solid $subnav-divider-border;
+    @if(mixin-exists(hook-subnav-divider)) {@include hook-subnav-divider();}
+}
+
+
+/* Pill modifier
+ ========================================================================== */
+
+.uk-subnav-pill > * > :first-child {
+    padding: $subnav-pill-item-padding-vertical $subnav-pill-item-padding-horizontal;
+    background: $subnav-pill-item-background;
+    color: $subnav-pill-item-color;
+    @if(mixin-exists(hook-subnav-pill-item)) {@include hook-subnav-pill-item();}
+}
+
+/* Hover + Focus */
+.uk-subnav-pill > * > a:hover,
+.uk-subnav-pill > * > a:focus {
+    background-color: $subnav-pill-item-hover-background;
+    color: $subnav-pill-item-hover-color;
+    @if(mixin-exists(hook-subnav-pill-item-hover)) {@include hook-subnav-pill-item-hover();}
+}
+
+/* OnClick */
+.uk-subnav-pill > * > a:active {
+    background-color: $subnav-pill-item-onclick-background;
+    color: $subnav-pill-item-onclick-color;
+    @if(mixin-exists(hook-subnav-pill-item-onclick)) {@include hook-subnav-pill-item-onclick();}
+}
+
+/* Active */
+.uk-subnav-pill > .uk-active > a {
+    background-color: $subnav-pill-item-active-background;
+    color: $subnav-pill-item-active-color;
+    @if(mixin-exists(hook-subnav-pill-item-active)) {@include hook-subnav-pill-item-active();}
+}
+
+
+/* Disabled
+ * The same for all style modifiers
+ ========================================================================== */
+
+.uk-subnav > .uk-disabled > a {
+    color: $subnav-item-disabled-color;
+    @if(mixin-exists(hook-subnav-item-disabled)) {@include hook-subnav-item-disabled();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-subnav-misc)) {@include hook-subnav-misc();}
+
+// @mixin hook-subnav(){}
+// @mixin hook-subnav-item(){}
+// @mixin hook-subnav-item-hover(){}
+// @mixin hook-subnav-item-active(){}
+// @mixin hook-subnav-divider(){}
+// @mixin hook-subnav-pill-item(){}
+// @mixin hook-subnav-pill-item-hover(){}
+// @mixin hook-subnav-pill-item-onclick(){}
+// @mixin hook-subnav-pill-item-active(){}
+// @mixin hook-subnav-item-disabled(){}
+// @mixin hook-subnav-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-subnav-item-color:                     $inverse-global-muted-color !default;
+$inverse-subnav-item-hover-color:               $inverse-global-color !default;
+$inverse-subnav-item-active-color:              $inverse-global-emphasis-color !default;
+$inverse-subnav-divider-border:                 $inverse-global-border !default;
+$inverse-subnav-pill-item-background:           transparent !default;
+$inverse-subnav-pill-item-color:                $inverse-global-muted-color !default;
+$inverse-subnav-pill-item-hover-background:     $inverse-global-muted-background !default;
+$inverse-subnav-pill-item-hover-color:          $inverse-global-color !default;
+$inverse-subnav-pill-item-onclick-background:   $inverse-subnav-pill-item-hover-background !default;
+$inverse-subnav-pill-item-onclick-color:        $inverse-subnav-pill-item-hover-color !default;
+$inverse-subnav-pill-item-active-background:    $inverse-global-primary-background !default;
+$inverse-subnav-pill-item-active-color:         $inverse-global-inverse-color !default;
+$inverse-subnav-item-disabled-color:            $inverse-global-muted-color !default;
+
+
+
+// @mixin hook-inverse-subnav-item(){}
+// @mixin hook-inverse-subnav-item-hover(){}
+// @mixin hook-inverse-subnav-item-active(){}
+// @mixin hook-inverse-subnav-divider(){}
+// @mixin hook-inverse-subnav-pill-item(){}
+// @mixin hook-inverse-subnav-pill-item-hover(){}
+// @mixin hook-inverse-subnav-pill-item-onclick(){}
+// @mixin hook-inverse-subnav-pill-item-active(){}
+// @mixin hook-inverse-subnav-item-disabled(){}

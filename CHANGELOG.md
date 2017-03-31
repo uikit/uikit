@@ -1,5 +1,31 @@
 # Changelog
 
+## 3.0.0 beta 19 (March 31, 2017)
+
+### Added
+
+- Add SASS support
+- Add leader to utility component
+- Add offcanvas close button
+- Add margin auto vertical classes
+- Add padding left/right remove classes
+- Add tripadvisor and yelp icons
+- Add computed properties
+
+### Changed
+
+- IMPORTANT: Offcanvas requires to wrap page in extra div
+- Refactored Offcanvas component
+- Update instagram, tumblr and vimeo icons
+- Component Constructor initializes multiple components at once
+
+### Fixed
+
+- Fix Offcanvas scrolling on touch devices
+- Fix Scrollspy in view check
+- Fix text wrapping for Firefox in position component
+- Fix closing Accordion without animation
+
 ## 3.0.0 beta 18 (March 10, 2017)
 
 ### Fixed

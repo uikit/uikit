@@ -1,5 +1,5 @@
 import $, { isArray } from 'jquery';
-import { getCssVar, isJQuery, query } from './index';
+import { getCssVar, hasPromise, isJQuery, query } from './index';
 
 export { $ };
 export { ajax, each, extend, map, merge, isArray, isNumeric, isFunction, isPlainObject } from 'jquery';
@@ -18,8 +18,8 @@ export function hasOwn(obj, key) {
 
 export function promise(executor) {
 
-    if (!isUndefined(window.Promise)) {
-        return new window.Promise(executor);
+    if (hasPromise) {
+        return new Promise(executor);
     }
 
     var def = $.Deferred();
@@ -42,12 +42,9 @@ promise.reject = function (value) {
 };
 
 promise.all = function (iterable) {
-
-    if (!isUndefined(window.Promise)) {
-        return window.Promise.all(iterable);
-    }
-
-    return $.when.apply($, iterable);
+    return hasPromise
+        ? Promise.all(iterable)
+        : $.when.apply($, iterable);
 };
 
 export function classify(str) {
@@ -145,15 +142,20 @@ export function toList(value) {
     return isArray(value)
         ? value
         : isString(value)
-            ? value.split(',').map(value => value.trim())
+            ? value.split(',').map(value => toBoolean(value.trim()))
             : [value];
 }
 
 var vars = {};
 export function toMedia(value) {
-    if (isString(value) && value[0] == '@') {
-        var name = `media-${value.substr(1)}`;
-        value = vars[name] || (vars[name] = parseFloat(getCssVar(name)));
+
+    if (isString(value)) {
+        if (value[0] == '@') {
+            var name = `media-${value.substr(1)}`;
+            value = vars[name] || (vars[name] = parseFloat(getCssVar(name)));
+        } else if (value.match(/^\(min-width:/)) {
+            return value;
+        }
     }
 
     return value && !isNaN(value) ? `(min-width: ${value}px)` : false;

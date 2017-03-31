@@ -28,16 +28,20 @@ export default function (UIkit) {
         },
 
         init() {
-            this.$emit();
+            this.$emitSync();
+        },
+
+        computed: {
+
+            elements() {
+                return this.target && $(this.target, this.$el) || this.$el;
+            }
+
         },
 
         update: [
 
             {
-
-                read() {
-                    this.elements = this.target && $(this.target, this.$el) || this.$el;
-                },
 
                 write() {
                     if (this.hidden) {
@@ -115,7 +119,7 @@ export default function (UIkit) {
 
                 },
 
-                events: ['scroll', 'load', 'resize', 'orientationchange']
+                events: ['scroll', 'load', 'resize']
 
             }
 

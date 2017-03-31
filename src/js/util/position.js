@@ -8,12 +8,18 @@ var dirs = {
 
 export function position(element, target, attach, targetAttach, offset, targetOffset, flip, boundary) {
 
+    attach = getPos(attach);
+    targetAttach = getPos(targetAttach);
+
+    var flipped = {element: attach, target: targetAttach};
+
+    if (!element) {
+        return flipped;
+    }
+
     var dim = getDimensions(element),
         targetDim = getDimensions(target),
         position = targetDim;
-
-    attach = getPos(attach);
-    targetAttach = getPos(targetAttach);
 
     moveTo(position, attach, dim, -1);
     moveTo(position, targetAttach, targetDim, 1);
@@ -28,8 +34,6 @@ export function position(element, target, attach, targetAttach, offset, targetOf
     position.top += offset['y'];
 
     boundary = getDimensions(boundary || window);
-
-    var flipped = {element: attach, target: targetAttach};
 
     if (flip) {
         each(dirs, (dir, [prop, align, alignFlip]) => {
@@ -111,7 +115,7 @@ export function offsetTop(element) {
 }
 
 function getWindow(element) {
-    return element.ownerDocument ? element.ownerDocument.defaultView : window;
+    return element && element.ownerDocument ? element.ownerDocument.defaultView : window;
 }
 
 function moveTo(position, attach, dim, factor) {

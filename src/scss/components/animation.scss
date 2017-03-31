@@ -1,0 +1,638 @@
+// Name:            Animation
+// Description:     Utilities for keyframe animations
+//
+// Component:       `uk-animation-*`
+//
+// Modifiers:       `uk-animation-reverse`
+//                  `uk-animation-fast`
+//                  `uk-animation-fade`
+//                  `uk-animation-scale-up`
+//                  `uk-animation-scale-down`
+//                  `uk-animation-slide-top-*`
+//                  `uk-animation-slide-bottom-*`
+//                  `uk-animation-slide-left-*`
+//                  `uk-animation-slide-right-*`
+//                  `uk-animation-kenburns`
+//                  `uk-animation-shake`
+//
+// Sub-objects:     `uk-animation-toggle`
+//
+// States:          `uk-hover`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$animation-duration:                             0.5s !default;
+$animation-fade-duration:                        0.8s !default;
+$animation-kenburns-duration:                    15s !default;
+$animation-fast-duration:                        0.1s !default;
+
+$animation-slide-small-translate:                10px !default;
+$animation-slide-medium-translate:               50px !default;
+
+
+/* ========================================================================
+   Component: Animation
+ ========================================================================== */
+
+[class*='uk-animation-'] {
+    -webkit-animation-duration: $animation-duration;
+    animation-duration: $animation-duration;
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+
+/* Direction modifier
+ ========================================================================== */
+
+.uk-animation-reverse {
+    -webkit-animation-direction: reverse;
+    animation-direction: reverse;
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+}
+
+
+/* Animations for scrollspy
+ ========================================================================== */
+
+/*
+ * Fade
+ */
+
+.uk-animation-fade {
+    -webkit-animation-name: uk-fade;
+    animation-name: uk-fade;
+    -webkit-animation-duration: $animation-fade-duration;
+    animation-duration: $animation-fade-duration;
+    -webkit-animation-timing-function: linear;
+    animation-timing-function: linear;
+}
+
+/*
+ * Scale
+ */
+
+.uk-animation-scale-up {
+    -webkit-animation-name: uk-fade-scale-02;
+    animation-name: uk-fade-scale-02;
+}
+
+.uk-animation-scale-down {
+    -webkit-animation-name: uk-fade-scale-18;
+    animation-name: uk-fade-scale-18;
+}
+
+/*
+ * Slide
+ */
+
+.uk-animation-slide-top {
+    -webkit-animation-name: uk-fade-top;
+    animation-name: uk-fade-top;
+}
+
+.uk-animation-slide-bottom {
+    -webkit-animation-name: uk-fade-bottom;
+    animation-name: uk-fade-bottom;
+}
+
+.uk-animation-slide-left {
+    -webkit-animation-name: uk-fade-left;
+    animation-name: uk-fade-left;
+}
+
+.uk-animation-slide-right {
+    -webkit-animation-name: uk-fade-right;
+    animation-name: uk-fade-right;
+}
+
+/*
+ * Slide Small
+ */
+
+.uk-animation-slide-top-small {
+    -webkit-animation-name: uk-fade-top-small;
+    animation-name: uk-fade-top-small;
+}
+
+.uk-animation-slide-bottom-small {
+    -webkit-animation-name: uk-fade-bottom-small;
+    animation-name: uk-fade-bottom-small;
+}
+
+.uk-animation-slide-left-small {
+    -webkit-animation-name: uk-fade-left-small;
+    animation-name: uk-fade-left-small;
+}
+
+.uk-animation-slide-right-small {
+    -webkit-animation-name: uk-fade-right-small;
+    animation-name: uk-fade-right-small;
+}
+
+/*
+ * Slide Medium
+ */
+
+.uk-animation-slide-top-medium {
+    -webkit-animation-name: uk-fade-top-medium;
+    animation-name: uk-fade-top-medium;
+}
+
+.uk-animation-slide-bottom-medium {
+    -webkit-animation-name: uk-fade-bottom-medium;
+    animation-name: uk-fade-bottom-medium;
+}
+
+.uk-animation-slide-left-medium {
+    -webkit-animation-name: uk-fade-left-medium;
+    animation-name: uk-fade-left-medium;
+}
+
+.uk-animation-slide-right-medium {
+    -webkit-animation-name: uk-fade-right-medium;
+    animation-name: uk-fade-right-medium;
+}
+
+/*
+ * Kenburns
+ */
+
+.uk-animation-kenburns {
+    -webkit-animation-name: uk-scale-kenburns;
+    animation-name: uk-scale-kenburns;
+    -webkit-animation-duration: $animation-kenburns-duration;
+    animation-duration: $animation-kenburns-duration;
+}
+
+/*
+ * Shake
+ */
+
+.uk-animation-shake {
+    -webkit-animation-name: uk-shake;
+    animation-name: uk-shake;
+}
+
+
+/* Duration modifier
+ ========================================================================== */
+
+.uk-animation-fast {
+    -webkit-animation-duration: $animation-fast-duration;
+    animation-duration: $animation-fast-duration;
+}
+
+
+/* Enable animation only on hover
+========================================================================== */
+
+/*
+ * Note: Firefox and IE needs this because animations are not triggered when switching between display `none` and `block`
+ */
+
+.uk-animation-toggle:not(:hover):not(.uk-hover) [class*='uk-animation-'] {
+    -webkit-animation-name: none;
+    animation-name: none;
+}
+
+
+/* Keyframes used by animation classes
+ ========================================================================== */
+
+/*
+ * Fade
+ */
+
+@-webkit-keyframes uk-fade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+@keyframes uk-fade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/*
+ * Slide Top
+ */
+
+@-webkit-keyframes uk-fade-top {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+@keyframes uk-fade-top {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Bottom
+ */
+
+@-webkit-keyframes uk-fade-bottom {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(100%);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+@keyframes uk-fade-bottom {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Left
+ */
+
+@-webkit-keyframes uk-fade-left {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+    }
+}
+
+@keyframes uk-fade-left {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Slide Right
+ */
+
+@-webkit-keyframes uk-fade-right {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+    }
+}
+
+@keyframes uk-fade-right {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Slide Top Small
+ */
+
+@-webkit-keyframes uk-fade-top-small {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(-$animation-slide-small-translate);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+@keyframes uk-fade-top-small {
+    0% {
+        opacity: 0;
+        transform: translateY(-$animation-slide-small-translate);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Bottom Small
+ */
+
+@-webkit-keyframes uk-fade-bottom-small {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY($animation-slide-small-translate);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+@keyframes uk-fade-bottom-small {
+    0% {
+        opacity: 0;
+        transform: translateY($animation-slide-small-translate);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Left Small
+ */
+
+@-webkit-keyframes uk-fade-left-small {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(-$animation-slide-small-translate);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+    }
+}
+
+@keyframes uk-fade-left-small {
+    0% {
+        opacity: 0;
+        transform: translateX(-$animation-slide-small-translate);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Slide Right Small
+ */
+
+@-webkit-keyframes uk-fade-right-small {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX($animation-slide-small-translate);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+    }
+}
+
+@keyframes uk-fade-right-small {
+    0% {
+        opacity: 0;
+        transform: translateX($animation-slide-small-translate);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Slide Top Medium
+ */
+
+@-webkit-keyframes uk-fade-top-medium {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY(-$animation-slide-medium-translate);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+@keyframes uk-fade-top-medium {
+    0% {
+        opacity: 0;
+        transform: translateY(-$animation-slide-medium-translate);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Bottom Medium
+ */
+
+@-webkit-keyframes uk-fade-bottom-medium {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateY($animation-slide-medium-translate);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateY(0);
+    }
+}
+
+@keyframes uk-fade-bottom-medium {
+    0% {
+        opacity: 0;
+        transform: translateY($animation-slide-medium-translate);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Left Medium
+ */
+
+@-webkit-keyframes uk-fade-left-medium {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX(-$animation-slide-medium-translate);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+    }
+}
+
+@keyframes uk-fade-left-medium {
+    0% {
+        opacity: 0;
+        transform: translateX(-$animation-slide-medium-translate);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Slide Right Medium
+ */
+
+@-webkit-keyframes uk-fade-right-medium {
+    0% {
+        opacity: 0;
+        -webkit-transform: translateX($animation-slide-medium-translate);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translateX(0);
+    }
+}
+
+@keyframes uk-fade-right-medium {
+    0% {
+        opacity: 0;
+        transform: translateX($animation-slide-medium-translate);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Scale Up
+ */
+
+@-webkit-keyframes uk-fade-scale-02 {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale(0.2);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+    }
+}
+
+@keyframes uk-fade-scale-02 {
+    0% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/*
+ * Scale Down
+ */
+
+@-webkit-keyframes uk-fade-scale-18 {
+    0% {
+        opacity: 0;
+        -webkit-transform: scale(1.8);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: scale(1);
+    }
+}
+
+@keyframes uk-fade-scale-18 {
+    0% {
+        opacity: 0;
+        transform: scale(1.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/*
+ * Kenburns
+ */
+
+@-webkit-keyframes uk-scale-kenburns {
+    0% { -webkit-transform: scale(1); }
+    100% { -webkit-transform: scale(1.2); }
+}
+
+@keyframes uk-scale-kenburns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.2); }
+}
+
+/*
+ * Shake
+ */
+
+@-webkit-keyframes uk-shake {
+    0%, 100% { -webkit-transform: translateX(0); }
+    10% { -webkit-transform: translateX(-9px); }
+    20% { -webkit-transform: translateX(8px); }
+    30% { -webkit-transform: translateX(-7px); }
+    40% { -webkit-transform: translateX(6px); }
+    50% { -webkit-transform: translateX(-5px); }
+    60% { -webkit-transform: translateX(4px); }
+    70% { -webkit-transform: translateX(-3px); }
+    80% { -webkit-transform: translateX(2px); }
+    90% { -webkit-transform: translateX(-1px); }
+}
+
+@keyframes uk-shake {
+    0%, 100% { transform: translateX(0); }
+    10% { transform: translateX(-9px); }
+    20% { transform: translateX(8px); }
+    30% { transform: translateX(-7px); }
+    40% { transform: translateX(6px); }
+    50% { transform: translateX(-5px); }
+    60% { transform: translateX(4px); }
+    70% { transform: translateX(-3px); }
+    80% { transform: translateX(2px); }
+    90% { transform: translateX(-1px); }
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-animation-misc)) {@include hook-animation-misc();}
+
+// @mixin hook-animation-misc(){}

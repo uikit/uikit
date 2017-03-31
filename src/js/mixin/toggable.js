@@ -40,11 +40,23 @@ export default {
 
     },
 
+    computed: {
+
+        hasAnimation() {
+            return !!this.animation[0];
+        },
+
+        hasTransition() {
+            return this.hasAnimation && this.animation[0] === true;
+        }
+
+    },
+
     methods: {
 
         toggleElement(targets, show, animate) {
 
-            var queued = this.queued && !!this.animation[0], toggles, body = document.body, scroll = body.scrollTop,
+            var queued = this.queued && this.hasAnimation, toggles, body = document.body, scroll = body.scrollTop,
                 all = targets => promise.all(targets.toArray().map(el => this._toggleElement(el, show, animate))).then(null, () => {}),
                 delay = targets => {
                     var def = all(targets);
@@ -73,7 +85,7 @@ export default {
         },
 
         isToggled(el) {
-            el = $(el);
+            el = el && $(el) || this.$el;
             return this.cls ? el.hasClass(this.cls.split(' ')[0]) : !el.attr('hidden');
         },
 
@@ -96,26 +108,19 @@ export default {
             var event = $.Event(`before${show ? 'show' : 'hide'}`);
             el.trigger(event, [this]);
 
-            var delay = false;
             if (event.result === false) {
                 return promise.reject();
-            } else if (event.result && event.result.then) {
-                delay = event.result;
             }
 
-            var promise = (this.animation[0] === true && animate !== false
-                ? this._toggleHeight
-                : this.animation[0] && animate !== false
-                    ? this._toggleAnimation
-                    : this._toggleImmediate
+            var def = (animate === false || !this.hasAnimation
+                ? this._toggleImmediate
+                : this.hasTransition
+                    ? this._toggleHeight
+                    : this._toggleAnimation
             )(el, show);
 
-            var handler = () => {
-                el.trigger(show ? 'show' : 'hide', [this]);
-                return promise.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
-            };
-
-            return delay ? delay.then(handler) : handler();
+            el.trigger(show ? 'show' : 'hide', [this]);
+            return def.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
         },
 
         _toggle(el, toggled) {

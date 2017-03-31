@@ -116,7 +116,7 @@ export default function (UIkit) {
 
                     e.preventDefault();
 
-                    if (this.isToggled(this.$el)) {
+                    if (this.isToggled()) {
                         this.hide(false);
                     } else {
                         this.show(toggle, false);
@@ -157,7 +157,7 @@ export default function (UIkit) {
 
             {
 
-                name: 'toggleShow',
+                name: 'toggleshow',
 
                 handler(e, toggle) {
 
@@ -173,7 +173,7 @@ export default function (UIkit) {
 
             {
 
-                name: `toggleHide ${pointerLeave}`,
+                name: `togglehide ${pointerLeave}`,
 
                 handler(e, toggle) {
 
@@ -234,7 +234,7 @@ export default function (UIkit) {
                 handler({target}) {
 
                     if (!this.$el.is(target)) {
-                        active = active === null && isWithin(target, this.$el) && this.isToggled(this.$el) ? this : active;
+                        active = active === null && isWithin(target, this.$el) && this.isToggled() ? this : active;
                         return;
                     }
 
@@ -259,9 +259,6 @@ export default function (UIkit) {
 
                 this.$el.toggleClass(`${this.clsDrop}-boundary`, this.boundaryAlign);
 
-                this.dir = this.pos[0];
-                this.align = this.pos[1];
-
                 var boundary = getDimensions(this.boundary), alignTo = this.boundaryAlign ? boundary : getDimensions(this.toggle.$el);
 
                 if (this.align === 'justify') {
@@ -276,7 +273,7 @@ export default function (UIkit) {
 
             },
 
-            events: ['resize', 'orientationchange']
+            events: ['resize']
 
         },
 
@@ -284,7 +281,7 @@ export default function (UIkit) {
 
             show(toggle, delay = true) {
 
-                var show = () => !this.isToggled(this.$el) && this.toggleElement(this.$el, true),
+                var show = () => !this.isToggled() && this.toggleElement(this.$el, true),
                     tryShow = () => {
 
                     this.toggle = toggle || this.toggle;

@@ -1,0 +1,207 @@
+// Name:            Table
+// Description:     Styles for tables
+//
+// Component:       `uk-table`
+//
+// Modifiers:       `uk-table-middle`
+//                  `uk-table-striped`
+//                  `uk-table-small`
+//                  `uk-table-hover`
+//                  `uk-table-shrink`
+//                  `uk-table-expand`
+//                  `uk-table-link`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$table-margin-vertical:                          $global-margin !default;
+
+$table-cell-padding-vertical:                    16px !default;
+$table-cell-padding-horizontal:                  12px !default;
+
+$table-header-cell-font-size:                    $global-font-size !default;
+$table-header-cell-font-weight:                  bold !default;
+$table-header-cell-color:                        $global-color !default;
+
+$table-footer-font-size:                         $global-small-font-size !default;
+
+$table-caption-font-size:                        $global-small-font-size !default;
+$table-caption-color:                            $global-muted-color !default;
+
+$table-row-active-background:                    #ffd !default;
+
+$table-striped-row-background:                   $global-muted-background !default;
+
+$table-hover-row-background:                     $table-row-active-background !default;
+
+$table-small-cell-padding-vertical:              10px !default;
+$table-small-cell-padding-horizontal:            12px !default;
+
+$table-expand-min-width:                         300px !default;
+
+
+/* ========================================================================
+   Component: Table
+ ========================================================================== */
+
+/*
+ * 1. Remove most spacing between table cells.
+ * 2. Behave like a block element
+ * 3. Style
+ */
+
+.uk-table {
+    /* 1 */
+    border-collapse: collapse;
+    border-spacing: 0;
+    /* 2 */
+    width: 100%;
+    /* 3 */
+    margin-bottom: $table-margin-vertical;
+}
+
+/* Add margin if adjacent element */
+* + .uk-table { margin-top: $table-margin-vertical; }
+
+
+/* Header cell
+ ========================================================================== */
+
+/*
+ * 1. Style
+ */
+
+.uk-table th {
+    padding: $table-cell-padding-vertical $table-cell-padding-horizontal;
+    text-align: left;
+    vertical-align: bottom;
+    /* 1 */
+    font-size: $table-header-cell-font-size;
+    font-weight: $table-header-cell-font-weight;
+    color: $table-header-cell-color;
+    @if(mixin-exists(hook-table-header-cell)) {@include hook-table-header-cell();}
+}
+
+
+/* Cell
+ ========================================================================== */
+
+.uk-table td {
+    padding: $table-cell-padding-vertical $table-cell-padding-horizontal;
+    vertical-align: top;
+    @if(mixin-exists(hook-table-cell)) {@include hook-table-cell();}
+}
+
+
+/* Footer
+ ========================================================================== */
+
+.uk-table tfoot {
+    font-size: $table-footer-font-size;
+    @if(mixin-exists(hook-table-footer)) {@include hook-table-footer();}
+}
+
+
+/* Caption
+ ========================================================================== */
+
+.uk-table caption {
+    font-size: $table-caption-font-size;
+    text-align: left;
+    color: $table-caption-color;
+    @if(mixin-exists(hook-table-caption)) {@include hook-table-caption();}
+}
+
+
+/* Row
+ ========================================================================== */
+
+.uk-table > tr.uk-active,
+.uk-table tbody tr.uk-active {
+    background: $table-row-active-background;
+    @if(mixin-exists(hook-table-row-active)) {@include hook-table-row-active();}
+}
+
+
+/* Alignment modifier
+ ========================================================================== */
+
+.uk-table-middle,
+.uk-table-middle td { vertical-align: middle !important; }
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Striped
+ */
+
+.uk-table-striped > tr:nth-of-type(odd),
+.uk-table-striped tbody tr:nth-of-type(odd) {
+    background: $table-striped-row-background;
+    @if(mixin-exists(hook-table-striped)) {@include hook-table-striped();}
+}
+
+/*
+ * Hover
+ */
+
+.uk-table-hover > tr:hover,
+.uk-table-hover tbody tr:hover {
+    background: $table-hover-row-background;
+    @if(mixin-exists(hook-table-hover)) {@include hook-table-hover();}
+}
+
+
+/* Size modifier
+ ========================================================================== */
+
+.uk-table-small th,
+.uk-table-small td {
+    padding: $table-small-cell-padding-vertical $table-small-cell-padding-horizontal;
+    @if(mixin-exists(hook-table-small)) {@include hook-table-small();}
+}
+
+
+/* Cell size modifier
+ ========================================================================== */
+
+.uk-table-shrink { width: 1px; }
+.uk-table-expand { min-width: $table-expand-min-width; }
+
+
+/* Cell link modifier
+ ========================================================================== */
+
+.uk-table-link { padding: 0 !important; }
+
+.uk-table-link > a {
+    display: block;
+    padding: $table-cell-padding-vertical $table-cell-padding-horizontal;
+}
+
+.uk-table-small .uk-table-link > a { padding: $table-small-cell-padding-vertical $table-small-cell-padding-horizontal; }
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-table-misc)) {@include hook-table-misc();}
+
+// @mixin hook-table(){}
+// @mixin hook-table-header-cell(){}
+// @mixin hook-table-cell(){}
+// @mixin hook-table-footer(){}
+// @mixin hook-table-caption(){}
+// @mixin hook-table-row-active(){}
+// @mixin hook-table-striped(){}
+// @mixin hook-table-small(){}
+// @mixin hook-table-hover(){}
+// @mixin hook-table-small(){}
+// @mixin hook-table-misc(){}

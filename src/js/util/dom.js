@@ -164,8 +164,8 @@ export function isJQuery(obj) {
 export function isWithin(element, selector) {
     element = $(element);
     return element.is(selector) || !!(isString(selector)
-            ? element.parents(selector).length
-            : $.contains(toNode(selector), element[0]));
+        ? element.parents(selector).length
+        : $.contains(toNode(selector), element[0]));
 }
 
 export function attrFilter(element, attr, pattern, replacement) {
@@ -195,8 +195,8 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
     var rect = toNode(element).getBoundingClientRect();
 
-    return rect.top >= -1 * offsetTop
-        && rect.left >= -1 * offsetLeft
+    return rect.bottom >= -1 * offsetTop
+        && rect.right >= -1 * offsetLeft
         && rect.top <= (window.innerHeight || document.documentElement.clientHeight) + offsetTop
         && rect.left <= (window.innerWidth || document.documentElement.clientWidth) + offsetLeft;
 }

@@ -1,5 +1,5 @@
 import { Toggable } from '../mixin/index';
-import { $, getIndex, isTouch, toJQuery } from '../util/index';
+import { $, getIndex, isTouch, toJQuery, query } from '../util/index';
 
 export default function (UIkit) {
 
@@ -10,7 +10,7 @@ export default function (UIkit) {
         args: 'connect',
 
         props: {
-            connect: 'jQuery',
+            connect: String,
             toggle: String,
             active: Number,
             swiping: Boolean
@@ -31,6 +31,18 @@ export default function (UIkit) {
             this.$emitSync();
         },
 
+        computed: {
+
+            connects() {
+                return query(this.connect, this.$el) || $(this.$el.next(`.${this.clsContainer}`));
+            },
+
+            toggles() {
+                return $(this.toggle, this.$el);
+            }
+
+        },
+
         events: [
 
             {
@@ -46,25 +58,41 @@ export default function (UIkit) {
                     this.show(e.currentTarget);
                 }
 
-            }
+            },
 
-        ],
+            {
+                name: 'click',
 
-        update() {
+                el() {
+                    return this.connects;
+                },
 
-            this.toggles = $(this.toggle, this.$el);
-            this.connects = this.connect || $(this.$el.next(`.${this.clsContainer}`));
+                delegate() {
+                    return `[${this.attrItem}],[data-${this.attrItem}]`;
+                },
 
-            var click = `click.${this.$options.name}`;
-            this.connects.off(click).on(click, `[${this.attrItem}],[data-${this.attrItem}]`, e => {
-                e.preventDefault();
-                this.show($(e.currentTarget)[e.currentTarget.hasAttribute(this.attrItem) ? 'attr' : 'data'](this.attrItem));
-            });
+                handler(e) {
+                    e.preventDefault();
+                    this.show($(e.currentTarget)[e.currentTarget.hasAttribute(this.attrItem) ? 'attr' : 'data'](this.attrItem));
+                }
+            },
 
-            if (this.swiping) {
-                var swipe = `swipeRight.${this.$options.name} swipeLeft.${this.$options.name}`;
-                this.connects.off(swipe).on(swipe, e => {
+            {
+                name: 'swipeRight swipeLeft',
 
+                filter() {
+                    return this.swiping;
+                },
+
+                el() {
+                    return this.connects;
+                },
+
+                delegate() {
+                    return `[${this.attrItem}],[data-${this.attrItem}]`;
+                },
+
+                handler(e) {
                     if (!isTouch(e)) {
                         return;
                     }
@@ -73,11 +101,14 @@ export default function (UIkit) {
                     if (!window.getSelection().toString()) {
                         this.show(e.type == 'swipeLeft' ? 'next' : 'previous');
                     }
-                });
+                }
             }
 
-            this.updateAria(this.connects.children());
+        ],
 
+        update() {
+
+            this.updateAria(this.connects.children());
             this.show(toJQuery(this.toggles.filter(`.${this.cls}:first`)) || toJQuery(this.toggles.eq(this.active)) || this.toggles.first());
 
         },

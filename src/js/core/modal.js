@@ -1,5 +1,5 @@
 import { Class, Modal } from '../mixin/index';
-import { $, extend, isFunction, isString, promise, query, toJQuery } from '../util/index';
+import { $, extend, isFunction, isString, promise } from '../util/index';
 
 export default function (UIkit) {
 
@@ -8,26 +8,14 @@ export default function (UIkit) {
         mixins: [Modal],
 
         props: {
-            center: Boolean,
-            container: Boolean
+            center: Boolean
         },
 
         defaults: {
             center: false,
             clsPage: 'uk-modal-page',
             clsPanel: 'uk-modal-dialog',
-            selClose: '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full',
-            container: true
-        },
-
-        init() {
-
-            this.container = this.container === true && UIkit.container || this.container && toJQuery(this.container);
-
-            if (this.container && !this.$el.parent().is(this.container)) {
-                this.$el.appendTo(this.container);
-            }
-
+            selClose: '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full'
         },
 
         update: {
@@ -44,7 +32,7 @@ export default function (UIkit) {
 
             },
 
-            events: ['resize', 'orientationchange']
+            events: ['resize']
 
         },
 
@@ -61,7 +49,7 @@ export default function (UIkit) {
             },
 
             {
-                name: 'hide',
+                name: 'hidden',
 
                 self: true,
 
@@ -78,8 +66,15 @@ export default function (UIkit) {
 
         mixins: [Class],
 
-        ready() {
-            this.panel = query('!.uk-modal-dialog', this.$el);
+        computed: {
+
+            panel() {
+                return this.$el.closest('.uk-modal-dialog');
+            }
+
+        },
+
+        connected() {
             this.$el.css('min-height', 150);
         },
 
@@ -93,7 +88,7 @@ export default function (UIkit) {
                 }
             },
 
-            events: ['load', 'resize', 'orientationchange']
+            events: ['load', 'resize']
 
         }
 
@@ -107,7 +102,7 @@ export default function (UIkit) {
              </div>`
         , options);
 
-        dialog.$el.on('hide', () => dialog.$destroy(true));
+        dialog.$el.on('hidden', () => dialog.$destroy(true));
         dialog.show();
 
         return dialog;
@@ -146,7 +141,7 @@ export default function (UIkit) {
 
         options = extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
-        return promise((resolve, reject) => {
+        return promise(resolve => {
 
             var resolved = false,
                 prompt = UIkit.modal.dialog(`

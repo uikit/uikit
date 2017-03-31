@@ -1,0 +1,188 @@
+// Name:            Icon
+// Description:     Component to create icons
+//
+// Component:       `uk-icon`
+//
+// Modifiers:       `uk-icon-image`
+//                  `uk-icon-link`
+//                  `uk-icon-button`
+//
+// States:          `uk-preserve`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$icon-image-size:                                20px !default;
+
+$icon-link-color:                                $global-muted-color !default;
+$icon-link-hover-color:                          $global-color !default;
+$icon-link-active-color:                         darken($global-color, 5%) !default;
+
+$icon-button-size:                               36px !default;
+$icon-button-border-radius:                      500px !default;
+$icon-button-background:                         $global-muted-background !default;
+$icon-button-color:                              $global-muted-color !default;
+
+$icon-button-hover-background:                   darken($icon-button-background, 5%) !default;
+$icon-button-hover-color:                        $global-color !default;
+
+$icon-button-active-background:                  darken($icon-button-background, 10%) !default;
+$icon-button-active-color:                       $global-color !default;
+
+
+/* ========================================================================
+   Component: Icon
+ ========================================================================== */
+
+/*
+ * 1. Fill all SVG elements with the current text color if no `fill` attribute is set
+ * 2. Let the container fit the height of the icon
+ */
+
+.uk-icon {
+    display: inline-block;
+    /* 1 */
+    fill: currentcolor;
+    /* 2 */
+    line-height: 0;
+}
+
+/*
+ * Set the fill and stroke color of all SVG elements to the current text color
+ */
+
+.uk-icon [fill*='#']:not(.uk-preserve) { fill: currentcolor; }
+.uk-icon [stroke*='#']:not(.uk-preserve) { stroke: currentcolor; }
+
+/*
+ * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
+ */
+
+.uk-icon > * { transform: translate(0,0); }
+
+
+/* Image modifier
+ ========================================================================== */
+
+/*
+ * Display images in icon dimensions
+ */
+
+.uk-icon-image {
+    width: $icon-image-size;
+    height: $icon-image-size;
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    vertical-align: middle;
+}
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Link
+ */
+
+.uk-icon-link {
+    color: $icon-link-color;
+    @if(mixin-exists(hook-icon-link)) {@include hook-icon-link();}
+}
+
+.uk-icon-link:hover,
+.uk-icon-link:focus {
+    color: $icon-link-hover-color;
+    outline: none;
+    @if(mixin-exists(hook-icon-link-hover)) {@include hook-icon-link-hover();}
+}
+
+/* OnClick + Active */
+.uk-icon-link:active,
+.uk-active > .uk-icon-link {
+    color: $icon-link-active-color;
+    @if(mixin-exists(hook-icon-link-active)) {@include hook-icon-link-active();}
+}
+
+/*
+ * Button
+ * 1. Center icon vertically and horizontally
+ */
+
+.uk-icon-button {
+    box-sizing: border-box;
+    width: $icon-button-size;
+    height: $icon-button-size;
+    border-radius: $icon-button-border-radius;
+    background: $icon-button-background;
+    color: $icon-button-color;
+    vertical-align: middle;
+    /* 1 */
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    @if(mixin-exists(hook-icon-button)) {@include hook-icon-button();}
+}
+
+/* Hover + Focus */
+.uk-icon-button:hover,
+.uk-icon-button:focus {
+    background-color: $icon-button-hover-background;
+    color: $icon-button-hover-color;
+    outline: none;
+    @if(mixin-exists(hook-icon-button-hover)) {@include hook-icon-button-hover();}
+}
+
+/* OnClick + Active */
+.uk-icon-button:active,
+.uk-active > .uk-icon-button {
+    background-color: $icon-button-active-background;
+    color: $icon-button-active-color;
+    @if(mixin-exists(hook-icon-button-active)) {@include hook-icon-button-active();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-icon-misc)) {@include hook-icon-misc();}
+
+// @mixin hook-icon-link(){}
+// @mixin hook-icon-link-hover(){}
+// @mixin hook-icon-link-active(){}
+// @mixin hook-icon-button(){}
+// @mixin hook-icon-button-hover(){}
+// @mixin hook-icon-button-active(){}
+// @mixin hook-icon-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-icon-link-color:                       $inverse-global-muted-color !default;
+$inverse-icon-link-hover-color:                 $inverse-global-color !default;
+$inverse-icon-link-active-color:                $inverse-global-color !default;
+$inverse-icon-button-background:                $inverse-global-muted-background !default;
+$inverse-icon-button-color:                     $inverse-global-muted-color !default;
+$inverse-icon-button-hover-background:          darken($inverse-icon-button-background, 5%) !default;
+$inverse-icon-button-hover-color:               $inverse-global-color !default;
+$inverse-icon-button-active-background:         darken($inverse-icon-button-background, 10%) !default;
+$inverse-icon-button-active-color:              $inverse-global-color !default;
+
+
+
+// @mixin hook-inverse-icon-link(){}
+// @mixin hook-inverse-icon-link-hover(){}
+// @mixin hook-inverse-icon-link-active(){}
+// @mixin hook-inverse-icon-button(){}
+// @mixin hook-inverse-icon-button-hover(){}
+// @mixin hook-inverse-icon-button-active(){}

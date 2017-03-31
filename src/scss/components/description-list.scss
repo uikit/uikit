@@ -1,0 +1,71 @@
+// Name:            Description list
+// Description:     Styles for description lists
+//
+// Component:       `uk-description-list`
+//
+// Modifiers:       `uk-description-list-divider`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$description-list-term-color:                    $global-emphasis-color !default;
+$description-list-term-margin-top:               $global-margin !default;
+
+$description-list-divider-term-margin-top:       $global-margin !default;
+$description-list-divider-term-border-width:     $global-border-width !default;
+$description-list-divider-term-border:           $global-border !default;
+
+
+/* ========================================================================
+   Component: Description list
+ ========================================================================== */
+
+/*
+ * Term
+ */
+
+.uk-description-list > dt {
+    color: $description-list-term-color;
+    @if(mixin-exists(hook-description-list-term)) {@include hook-description-list-term();}
+}
+
+.uk-description-list > dt:nth-child(n+2) {
+    margin-top: $description-list-term-margin-top;
+}
+
+/*
+ * Description
+ */
+
+.uk-description-list > dd {
+    @if(mixin-exists(hook-description-list-description)) {@include hook-description-list-description();}
+}
+
+
+/* Style modifier
+ ========================================================================== */
+
+/*
+ * Line
+ */
+
+.uk-description-list-divider > dt:nth-child(n+2) {
+    margin-top: $description-list-divider-term-margin-top;
+    padding-top: $description-list-divider-term-margin-top;
+    border-top: $description-list-divider-term-border-width solid $description-list-divider-term-border;
+    @if(mixin-exists(hook-description-list-divider-term)) {@include hook-description-list-divider-term();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-description-list-misc)) {@include hook-description-list-misc();}
+
+// @mixin hook-description-list-term(){}
+// @mixin hook-description-list-description(){}
+// @mixin hook-description-list-divider-term(){}
+// @mixin hook-description-list-misc(){}

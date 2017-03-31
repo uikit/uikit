@@ -174,9 +174,7 @@ export default function (UIkit) {
 
     });
 
-    UIkit.icon.add = added => {
-        extend(icons, added)
-    };
+    UIkit.icon.add = added => extend(icons, added);
 
     function registerComponent(name, mixin) {
 

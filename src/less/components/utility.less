@@ -14,6 +14,7 @@
 //                  `uk-border-*`
 //                  `uk-box-shadow-*`
 //                  `uk-dropcap`
+//                  `uk-leader`
 //                  `uk-logo`
 //                  `uk-svg`
 //                  `uk-blend-*`
@@ -45,6 +46,9 @@
 
 @dropcap-margin-right:                          10px;
 @dropcap-font-size:                             ((@global-line-height * 3) * 1em);
+
+@leader-fill-content:                           '.';
+@leader-fill-margin-left:                       @global-small-gutter;
 
 @logo-font-size:                                @global-large-font-size;
 @logo-font-family:                              @global-font-family;
@@ -330,6 +334,40 @@
 }
 
 
+/* Leader
+ ========================================================================== */
+
+.uk-leader { overflow: hidden; }
+
+/*
+ * 1. Place element in text flow
+ * 2. Never break into a new line
+ * 3. Get a string back with as many repeating characters to fill the container
+ * 4. Prevent wrapping. Overflowing characters will be clipped by the container
+ */
+
+.uk-leader-fill::after {
+    /* 1 */
+    display: inline-block;
+    margin-left: @leader-fill-margin-left;
+    /* 2 */
+    width: 0;
+    /* 3 */
+    content: attr(data-fill);
+    /* 4 */
+    white-space: nowrap;
+    .hook-leader;
+}
+
+/*
+ * Hide if media does not match
+ */
+.uk-leader-fill.uk-leader-hide::after { display: none; }
+
+/* Pass fill character to JS */
+.var-leader-fill:before { content: @leader-fill-content; }
+
+
 /* Logo
  ========================================================================== */
 
@@ -483,6 +521,7 @@
 
 .hook-panel-scrollable() {}
 .hook-dropcap() {}
+.hook-leader() {}
 .hook-logo() {}
 .hook-logo-hover() {}
 .hook-utility-misc() {}
@@ -499,6 +538,10 @@
     .uk-dropcap::first-letter,
     .uk-dropcap p:first-of-type::first-letter {
         .hook-inverse-dropcap;
+    }
+
+    .uk-leader-fill {
+        .hook-inverse-leader;
     }
 
     .uk-logo {
@@ -518,5 +561,6 @@
 }
 
 .hook-inverse-dropcap() {}
+.hook-inverse-leader() {}
 .hook-inverse-logo() {}
 .hook-inverse-logo-hover() {}

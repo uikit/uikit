@@ -3,15 +3,18 @@
 //
 // Component:       `uk-offcanvas`
 //
-// Sub-objects:     `uk-offcanvas-page`
-//                  `uk-offcanvas-overlay`
-//                  `uk-offcanvas-bar`
+// Sub-objects:     `uk-offcanvas-bar`
+//                  `uk-offcanvas-container`
+//                  `uk-offcanvas-content`
+//                  `uk-offcanvas-page`
+//
+// Adopted:         `uk-offcanvas-close`
 //
 // Modifiers:       `uk-offcanvas-flip`
-//                  `uk-offcanvas-page-animation`
-//                  `uk-offcanvas-page-overlay`
 //                  `uk-offcanvas-bar-animation`
 //                  `uk-offcanvas-reveal`
+//                  `uk-offcanvas-overlay`
+//                  `uk-offcanvas-content-animation`
 //
 // States:          `uk-open`
 //
@@ -23,13 +26,20 @@
 
 @offcanvas-z-index:                             @global-z-index;
 
-@offcanvas-overlay-background:                  rgba(0,0,0,0.1);
-
 @offcanvas-bar-width:                           270px;
 @offcanvas-bar-padding-vertical:                @global-margin;
 @offcanvas-bar-padding-horizontal:              @global-margin;
 @offcanvas-bar-background:                      @global-secondary-background;
 @offcanvas-bar-color-mode:                      light;
+
+@offcanvas-bar-width-m:                         350px;
+@offcanvas-bar-padding-vertical-m:              @global-medium-gutter;
+@offcanvas-bar-padding-horizontal-m:            @global-medium-gutter;
+
+@offcanvas-close-position:                      20px;
+@offcanvas-close-padding:                       5px;
+
+@offcanvas-overlay-background:                  rgba(0,0,0,0.1);
 
 
 /* ========================================================================
@@ -62,37 +72,135 @@
 }
 
 
-/* Page
+/* Bar
  ========================================================================== */
 
 /*
- * 1. Prepare slide-out animation (Used in reveal and push mode)
- * 2. Prevent horizontal scrollbar when page is slide-out
- * Note: JS sets a fixed width so the page can slide-out without shinking
+ * 1. Set position
+ * 2. Size and style
+ * 3. Allow scrolling
+ * 4. Transform
  */
 
-.uk-offcanvas-page {
+.uk-offcanvas-bar {
     /* 1 */
-    -webkit-transition: margin-left 0.3s ease-in-out;
-    transition: margin-left 0.3s ease-in-out;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
     /* 2 */
-    overflow-x: hidden;
+    box-sizing: border-box;
+    width: @offcanvas-bar-width;
+    padding: @offcanvas-bar-padding-vertical @offcanvas-bar-padding-horizontal;
+    background: @offcanvas-bar-background;
+    /* 3 */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* 4 */
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    .hook-offcanvas-bar;
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-offcanvas-bar {
+        width: @offcanvas-bar-width-m;
+        padding: @offcanvas-bar-padding-vertical-m @offcanvas-bar-padding-horizontal-m;
+    }
+
+}
+
+// Color Mode
+.uk-offcanvas-bar:extend(.uk-light all) when (@offcanvas-bar-color-mode = light) {}
+.uk-offcanvas-bar:extend(.uk-dark all) when (@offcanvas-bar-color-mode = dark) {}
+
+/* Flip modifier */
+.uk-offcanvas-flip .uk-offcanvas-bar {
+    left: auto;
+    right: 0;
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
 }
 
 /*
- * Activate slide-out animation
+ * Open
  */
 
-.uk-offcanvas-page-animation { margin-left: @offcanvas-bar-width; }
-
-/* Flip modifier */
-.uk-offcanvas-flip.uk-offcanvas-page-animation { margin-left: -@offcanvas-bar-width; }
+.uk-open > .uk-offcanvas-bar {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+}
 
 /*
- * Prevent scrollbar on page if overlay is used
+ * Slide Animation (Used in slide and push mode)
  */
 
-.uk-offcanvas-page-overlay { overflow: hidden; }
+.uk-offcanvas-bar-animation {
+    -webkit-transition: -webkit-transform 0.3s ease-out;
+    transition: transform 0.3s ease-out;
+}
+
+/*
+ * Reveal Animation
+ * 1. Set position
+ * 2. Clip the bar
+ * 3. Animation
+ * 4. Reset transform
+ */
+
+.uk-offcanvas-reveal {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    /* 2 */
+    width: 0;
+    overflow: hidden;
+    /* 3 */
+    -webkit-transition: width 0.3s ease-out;
+    transition: width 0.3s ease-out;
+}
+
+.uk-offcanvas-reveal .uk-offcanvas-bar {
+    /* 4 */
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+}
+
+.uk-open > .uk-offcanvas-reveal { width: @offcanvas-bar-width; }
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-open > .uk-offcanvas-reveal { width: @offcanvas-bar-width-m; }
+
+}
+
+/*
+ * Flip modifier
+ */
+
+.uk-offcanvas-flip .uk-offcanvas-reveal {
+    right: 0;
+    left: auto;
+}
+
+
+/* Close
+ * Adopts `uk-close`
+ ========================================================================== */
+
+.uk-offcanvas-close {
+    position: absolute;
+    z-index: @offcanvas-z-index;
+    top: @offcanvas-close-position;
+    right: @offcanvas-close-position;
+    padding: @offcanvas-close-padding;
+    .hook-offcanvas-close;
+}
 
 
 /* Overlay
@@ -129,114 +237,62 @@
 .uk-offcanvas-overlay.uk-open::before { opacity: 1; }
 
 
-/* Bar
+/* Container
  ========================================================================== */
 
 /*
- * 1. Set position
- * 2. Size and style
- * 3. Allow scrolling
- * 4. Transform
+ * Prevent horizontal scrollbar when the content is slide-out
+ * Has to be on the `html` element too to make it work on the `body`
  */
 
-.uk-offcanvas-bar {
-    /* 1 */
-    position: absolute;
-    top: 0;
-    bottom: 0;
+.uk-offcanvas-page,
+.uk-offcanvas-container { overflow-x: hidden; }
+
+/*
+ * Prevent all scrollbars if overlay is used
+ */
+
+.uk-offcanvas-container-overlay { overflow: hidden; }
+
+
+/* Content
+ ========================================================================== */
+
+/*
+ * Prepare slide-out animation (Used in reveal and push mode)
+ * Using `position: left` instead of `transform` because position `fixed` elements like sticky navbars
+ * lose their fixed state and behaves like `absolute` within a transformed container
+ * Note: JS sets a fixed width and height so the page can slide-out without shrinking
+ * 1. Smooth scrolling
+ */
+
+.uk-offcanvas-container .uk-offcanvas-content {
+    position: relative;
     left: 0;
-    /* 2 */
-    box-sizing: border-box;
-    width: @offcanvas-bar-width;
-    padding: @offcanvas-bar-padding-vertical @offcanvas-bar-padding-horizontal;
-    background: @offcanvas-bar-background;
-    /* 3 */
-    overflow-y: auto;
+    -webkit-transition: left 0.3s ease-out;
+    transition: left 0.3s ease-out;
+    /* 1 */
     -webkit-overflow-scrolling: touch;
-    /* 4 */
-    -webkit-transform: translateX(-100%);
-    transform: translateX(-100%);
-    .hook-offcanvas-bar;
 }
 
-// Color Mode
-.uk-offcanvas-bar:extend(.uk-light all) when (@offcanvas-bar-color-mode = light) {}
-.uk-offcanvas-bar:extend(.uk-dark all) when (@offcanvas-bar-color-mode = dark) {}
-
-/* Flip modifier */
-.uk-offcanvas-flip .uk-offcanvas-bar {
-    left: auto;
-    right: 0;
-    -webkit-transform: translateX(100%);
-    transform: translateX(100%);
-}
+/* Disable scrolling if overlay mode */
+.uk-offcanvas-overlay .uk-offcanvas-content { overflow-y: hidden; }
 
 /*
- * Open
+ * Activate slide-out animation
  */
 
-.uk-open > .uk-offcanvas-bar {
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-}
+:not(.uk-offcanvas-flip) > .uk-offcanvas-content-animation { left: @offcanvas-bar-width; }
 
-/*
- * Slide Animation (Used in slide and push mode)
- */
+.uk-offcanvas-flip > .uk-offcanvas-content-animation { left: -@offcanvas-bar-width; }
 
-.uk-offcanvas-bar-animation {
-    -webkit-transition: -webkit-transform 0.3s ease-in-out;
-    transition: transform 0.3s ease-in-out;
-}
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
 
-/*
- * Reveal Animation
- * 1. Set the bar to target position
- * 2. Clip the bar with `clip-path` and use `clip` as fallback
- * 3. Animation
- * Note: Future `clip-path` is commented out (it's not working on iOS)
- */
+    :not(.uk-offcanvas-flip) > .uk-offcanvas-content-animation { left: @offcanvas-bar-width-m; }
 
-.uk-offcanvas-reveal {
-    /* 1 */
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-    /* 2 */
-    clip: rect(0, 0, 100vh, 0);
-    //-webkit-clip-path: inset(0 @offcanvas-bar-width 0 0);
-    //clip-path: inset(0 @offcanvas-bar-width 0 0);
-    /* 3 */
-    -webkit-transition: clip 0.3s ease-in-out; //, -webkit-clip-path 0.3s ease-in-out;
-    transition: clip 0.3s ease-in-out; //, -webkit-clip-path 0.3s ease-in-out, clip-path 0.3s ease-in-out;
-}
+    .uk-offcanvas-flip > .uk-offcanvas-content-animation { left: -@offcanvas-bar-width-m; }
 
-/* Fix weird scrollbar bug in Chrome if overlay is used */
-.uk-offcanvas-page:not(.uk-offcanvas-flip) .uk-offcanvas-reveal {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}
-
-.uk-open > .uk-offcanvas-reveal {
-    clip: rect(0, @offcanvas-bar-width, 100vh, 0);
-    //-webkit-clip-path: inset(0);
-    //clip-path: inset(0);
-}
-
-/* Flip modifier */
-.uk-offcanvas-flip .uk-offcanvas-reveal {
-    /* 1 */
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-    /* 2 */
-    clip: rect(0, @offcanvas-bar-width, 100vh, @offcanvas-bar-width);
-    //-webkit-clip-path: inset(0 0 0 @offcanvas-bar-width);
-    //clip-path: inset(0 0 0 @offcanvas-bar-width);
-}
-
-.uk-offcanvas-flip .uk-open > .uk-offcanvas-reveal {
-    clip: rect(0, @offcanvas-bar-width, 100vh, 0);
-    //-webkit-clip-path: inset(0);
-    //clip-path: inset(0);
 }
 
 
@@ -245,6 +301,7 @@
 
 .hook-offcanvas-misc;
 
-.hook-offcanvas-overlay() {}
 .hook-offcanvas-bar() {}
+.hook-offcanvas-close() {}
+.hook-offcanvas-overlay() {}
 .hook-offcanvas-misc() {}

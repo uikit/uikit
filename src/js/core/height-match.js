@@ -16,19 +16,25 @@ export default function (UIkit) {
             row: true
         },
 
-        connected() {
-            this.$emit();
+        computed: {
+
+            elements() {
+                return $(this.target, this.$el);
+            }
+
         },
 
         update: {
 
             read() {
 
-                var lastOffset = false, elements = $(this.target, this.$el).css('minHeight', '');
+                var lastOffset = false;
+
+                this.elements.css('minHeight', '');
 
                 this.rows = !this.row
-                    ? [this.match(elements)]
-                    : elements.toArray().reduce((rows, el) => {
+                    ? [this.match(this.elements)]
+                    : this.elements.toArray().reduce((rows, el) => {
 
                         if (lastOffset !== el.offsetTop) {
                             rows.push([el]);
@@ -46,14 +52,14 @@ export default function (UIkit) {
             write() {
 
                 this.rows.forEach(({height, elements}) =>
-                    elements.each((_, el) =>
-                        $(el).css('minHeight', height)
+                    elements && elements.each((_, el) =>
+                        el.style.minHeight = `${height}px`
                     )
                 );
 
             },
 
-            events: ['resize', 'orientationchange']
+            events: ['resize']
 
         },
 
@@ -62,7 +68,7 @@ export default function (UIkit) {
             match(elements) {
 
                 if (elements.length < 2) {
-                    return;
+                    return {};
                 }
 
                 var max = 0, heights = [];

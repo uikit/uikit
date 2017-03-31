@@ -2,9 +2,10 @@
   "name": "uikit",
   "title": "UIkit",
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
-  "version": "3.0.0-beta.18",
+  "version": "3.0.0-beta.19",
   "main": "dist/js/uikit.js",
   "scripts": {
+    "build-scss":"mkdir -p src/scss/theme & mkdir -p src/scss/components & node build/scss",
     "compile": "npm run compile-less && npm run compile-js",
     "compile-js": "node build/build",
     "compile-less": "npm run icons && node build/less",
@@ -12,7 +13,7 @@
     "icons": "node build/icons",
     "prefix": "node build/prefix",
     "scope": "node build/scope",
-    "release": "npm run compile && npm run compile-rtl && node build/release",
+    "release": "npm run compile && npm run compile-rtl && npm run build-scss && node build/release",
     "watch": "npm-watch",
     "test": "webpack-dev-server --inline --hot && open http://localhost:8080/tests/"
   },
@@ -35,7 +36,6 @@
     "rollup-plugin-html": "^0.2.1",
     "rollup-plugin-import-alias": "^1.0.3",
     "rollup-plugin-json": "^2.1.0",
-    "rollup-plugin-node-resolve": "1.7.0",
     "rollup-plugin-replace": "^1.1.1",
     "rtlcss": "^2.1.2",
     "uglify-js": "^2.7.5",

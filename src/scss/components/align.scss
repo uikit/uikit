@@ -1,0 +1,142 @@
+// Name:            Align
+// Description:     Utilities to align embedded content
+//
+// Component:       `uk-align-left-*`
+//                  `uk-align-right-*`
+//                  `uk-align-center`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$align-margin-horizontal:                        $global-gutter !default;
+$align-margin-vertical:                          $global-gutter !default;
+
+$align-margin-horizontal-l:                      $global-medium-gutter !default;
+
+
+/* ========================================================================
+   Component: Align
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+[class*='uk-align'] {
+    display: block;
+    margin-bottom: $align-margin-vertical;
+}
+
+* + [class*='uk-align'] { margin-top: $align-margin-vertical; }
+
+/*
+ * Center
+ */
+
+.uk-align-center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*
+ * Left/Right
+ */
+
+.uk-align-left {
+    margin-top: 0;
+    margin-right: $align-margin-horizontal;
+    float: left;
+}
+
+.uk-align-right {
+    margin-top: 0;
+    margin-left: $align-margin-horizontal;
+    float: right;
+}
+
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-small) {
+
+    .uk-align-left\@s {
+        margin-top: 0;
+        margin-right: $align-margin-horizontal;
+        float: left;
+    }
+
+    .uk-align-right\@s {
+        margin-top: 0;
+        margin-left: $align-margin-horizontal;
+        float: right;
+    }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-align-left\@m {
+        margin-top: 0;
+        margin-right: $align-margin-horizontal;
+        float: left;
+    }
+
+    .uk-align-right\@m {
+        margin-top: 0;
+        margin-left: $align-margin-horizontal;
+        float: right;
+    }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-align-left\@l {
+        margin-top: 0;
+        float: left;
+    }
+
+    .uk-align-right\@l {
+        margin-top: 0;
+        float: right;
+    }
+
+    .uk-align-left,
+    .uk-align-left\@s,
+    .uk-align-left\@m,
+    .uk-align-left\@l { margin-right: $align-margin-horizontal-l; }
+
+    .uk-align-right,
+    .uk-align-right\@s,
+    .uk-align-right\@m,
+    .uk-align-right\@l { margin-left: $align-margin-horizontal-l; }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: $breakpoint-xlarge) {
+
+    .uk-align-left\@xl {
+        margin-top: 0;
+        margin-right: $align-margin-horizontal-l;
+        float: left;
+    }
+
+    .uk-align-right\@xl {
+        margin-top: 0;
+        margin-left: $align-margin-horizontal-l;
+        float: right;
+    }
+
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-align-misc)) {@include hook-align-misc();}
+
+// @mixin hook-align-misc(){}

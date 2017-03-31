@@ -15,6 +15,18 @@ export default function (UIkit) {
 
         defaults: {automute: true},
 
+        computed: {
+
+            el() {
+                return this.$el[0];
+            },
+
+            parent() {
+                return this.$el.parent()[0];
+            }
+
+        },
+
         ready() {
 
             if (!this.$el.is('iframe')) {
@@ -37,20 +49,20 @@ export default function (UIkit) {
 
             write() {
 
-                if (this.$el[0].offsetHeight === 0) {
+                if (this.el.offsetHeight === 0) {
                     return;
                 }
 
                 this.$el
                     .css({width: '', height: ''})
                     .css(Dimensions.cover(
-                        {width: this.width || this.$el.width(), height: this.height || this.$el.height()},
-                        {width: this.$el.parent().outerWidth(), height: this.$el.parent().outerHeight()}
+                        {width: this.width || this.el.clientWidth, height: this.height || this.el.clientHeight},
+                        {width: this.parent.offsetWidth, height: this.parent.offsetHeight}
                     ));
 
             },
 
-            events: ['load', 'resize', 'orientationchange']
+            events: ['load', 'resize']
 
         },
 

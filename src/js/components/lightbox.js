@@ -41,13 +41,15 @@ function plugin(UIkit) {
             index: 0
         },
 
-        ready() {
+        computed: {
 
-            this.toggles = $(this.toggle, this.$el).each((_, el) => this.items.push({
-                source: el.getAttribute('href'),
-                title: el.getAttribute('title'),
-                type: el.getAttribute('type')
-            }));
+            toggles() {
+                return $(this.toggle, this.$el).each((_, el) => this.items.push({
+                    source: el.getAttribute('href'),
+                    title: el.getAttribute('title'),
+                    type: el.getAttribute('type')
+                }));
+            }
 
         },
 
@@ -123,7 +125,7 @@ function plugin(UIkit) {
 
             },
 
-            events: ['resize', 'orientationchange']
+            events: ['resize']
 
         },
 
@@ -136,7 +138,7 @@ function plugin(UIkit) {
                 if (!this.modal) {
                     this.modal = UIkit.modal.dialog(`
                     <button class="uk-modal-close-outside" uk-transition-hide type="button" uk-close></button>
-                    <span class="uk-position-center" uk-transition-show uk-icon="icon: trash"></span>
+                    <span class="uk-position-center" uk-transition-show uk-spinner></span>
                     `, {center: true});
                     this.modal.$el.css('overflow', 'hidden').addClass('uk-modal-lightbox');
                     this.modal.panel.css({width: 200, height: 200});

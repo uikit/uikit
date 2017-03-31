@@ -17,7 +17,7 @@ export default function (UIkit) {
         },
 
         connected() {
-            this.$emit();
+            this.$emitSync();
         },
 
         update: {
@@ -77,7 +77,7 @@ export default function (UIkit) {
 
             },
 
-            events: ['load', 'resize', 'orientationchange']
+            events: ['load', 'resize']
 
         }
 

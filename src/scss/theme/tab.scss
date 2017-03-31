@@ -1,0 +1,74 @@
+//
+// Component: Tab
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+//
+// New
+//
+
+$tab-border-width:                               $global-border-width !default;
+$tab-border:                                     $global-border !default;
+
+$tab-item-border-width:                          $global-border-width !default;
+$tab-item-font-size:                             $global-small-font-size !default;
+$tab-item-text-transform:                        uppercase !default;
+
+$tab-item-active-border:                         $global-primary-background !default;
+
+
+// Component
+// ========================================================================
+
+
+
+
+// Items
+// ========================================================================
+
+
+
+// @mixin hook-tab-item-hover(){}
+
+
+
+// @mixin hook-tab-item-disabled(){}
+
+
+// Position modifiers
+// ========================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Miscellaneous
+// ========================================================================
+
+
+
+
+// Inverse
+// ========================================================================
+
+$inverse-tab-border:                         $inverse-global-border !default;
+
+
+
+// @mixin hook-inverse-tab-item(){}
+// @mixin hook-inverse-tab-item-hover(){}
+
+// @mixin hook-inverse-tab-item-disabled(){}

@@ -101,7 +101,8 @@
 
 /*
  * Center
- * 1. Fix text wrapping if content is larger than 50% of the container
+ * 1. Fix text wrapping if content is larger than 50% of the container (Not working in Firefox)
+ * 2. Fix text wrapping for Firefox
  */
 
 .uk-position-center {
@@ -111,6 +112,9 @@
     transform: translate(-50%,-50%);
     /* 1 */
     display: table;
+    /* 2 */
+    width: -moz-max-content;
+    max-width: 100%
 }
 
 /* Vertical */

@@ -1,4 +1,4 @@
-import { $, camelize, isJQuery, isPlainObject, isString } from '../util/index';
+import { $, camelize, isArray, isJQuery, isPlainObject, isString } from '../util/index';
 
 export default function (UIkit) {
 
@@ -29,18 +29,13 @@ export default function (UIkit) {
                 return new UIkit.components[name]({data: [...arguments]});
             }
 
-            data = data || {};
-            element = isString
-                ? $(element)[0]
-                : isJQuery(element)
-                    ? element[0]
-                    : element;
-
-            return element && element[DATA] && element[DATA][name] || new UIkit.components[name]({el: element, data});
+            return $(element).toArray().map(element =>
+                UIkit.getComponent(element, name) || new UIkit.components[name]({el: element, data: data || {}})
+            )[0];
         };
 
         if (document.body && !options.options.functional) {
-            $(`[uk-${id}],[data-uk-${id}]`).each((_, el) => UIkit[name](el));
+            UIkit[name](`[uk-${id}],[data-uk-${id}]`);
         }
 
         return UIkit.components[name];

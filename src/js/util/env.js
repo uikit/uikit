@@ -4,6 +4,7 @@ export const Observer = window.MutationObserver || window.WebKitMutationObserver
 export const requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
 export const cancelAnimationFrame = window.cancelAnimationFrame || window.clearTimeout;
 
+export const hasPromise = 'Promise' in window;
 export const hasTouch = 'ontouchstart' in window
     || window.DocumentTouch && document instanceof DocumentTouch
     || navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0 // IE 10

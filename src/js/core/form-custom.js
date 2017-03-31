@@ -17,11 +17,23 @@ export default function (UIkit) {
             target: false
         },
 
-        ready() {
-            this.input = this.$el.find(':input:first');
-            this.state = this.input.next();
-            this.target = this.target && query(this.target === true ? '> :input:first + :first' : this.target, this.$el);
+        computed: {
 
+            input() {
+                return this.$el.find(':input:first');
+            },
+
+            state() {
+                return this.input.next();
+            },
+
+            target() {
+                return this.$props.target && query(this.$props.target === true ? '> :input:first + :first' : this.$props.target, this.$el)
+            }
+
+        },
+
+        connected() {
             this.input.trigger('change');
         },
 

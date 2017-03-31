@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, extend, isRtl, isWithin, pointerEnter, query, toJQuery, Transition } from '../util/index';
+import { $, extend, isRtl, isWithin, pointerEnter, query, Transition } from '../util/index';
 
 export default function (UIkit) {
 
@@ -40,51 +40,54 @@ export default function (UIkit) {
             duration: 200,
         },
 
-        init() {
-            this.boundary = (this.boundary === true || this.boundaryAlign) ? this.$el : this.boundary;
-            this.pos = `bottom-${this.align}`;
+        computed: {
+
+            boundary() {
+                return (this.$props.boundary === true || this.boundaryAlign) ? this.$el : this.$props.boundary
+            },
+
+            pos() {
+                return `bottom-${this.align}`;
+            }
+
         },
 
         ready() {
 
-            this.$el.on(pointerEnter, this.dropdown, ({currentTarget}) => {
-                var active = this.getActive();
-                if (active && active.toggle && !isWithin(active.toggle.$el, currentTarget) && !active.tracker.movesTo(active.$el)) {
-                    active.hide(false);
-                }
-            });
-
             if (this.dropbar) {
-                this.dropbar = query(this.dropbar, this.$el) || $('<div></div>').insertAfter(this.dropbarAnchor || this.$el);
-                UIkit.navbarDropbar(this.dropbar, {clsDrop: this.clsDrop, mode: this.dropbarMode, duration: this.duration, navbar: this});
+                UIkit.navbarDropbar(
+                    query(this.dropbar, this.$el) || $('<div></div>').insertAfter(this.dropbarAnchor || this.$el),
+                    {clsDrop: this.clsDrop, mode: this.dropbarMode, duration: this.duration, navbar: this}
+                );
             }
 
         },
 
         update() {
 
-            $(this.dropdown, this.$el).each((i, el) => {
-
-                var drop = toJQuery(`.${this.clsDrop}`, el);
-
-                if (drop) {
-                    UIkit.drop(drop, extend({}, this));
-                }
-
-            });
+            UIkit.drop($(`${this.dropdown} .${this.clsDrop}`, this.$el), extend({}, this))
 
         },
 
-        events: {
+        events: [
 
-            beforeshow(e, {$el, dir}) {
-                if (this.dropbar && dir === 'bottom' && !isWithin($el, this.dropbar)) {
-                    $el.appendTo(this.dropbar);
-                    this.dropbar.trigger('beforeshow', [{$el}]);
+            {
+                name: pointerEnter,
+
+                delegate() {
+                    return this.dropdown;
+                },
+
+                handler({currentTarget}) {
+                    var active = this.getActive();
+                    if (active && active.toggle && !isWithin(active.toggle.$el, currentTarget) && !active.tracker.movesTo(active.$el)) {
+                        active.hide(false);
+                    }
                 }
+
             }
 
-        },
+        ],
 
         methods: {
 
@@ -116,41 +119,71 @@ export default function (UIkit) {
 
         },
 
-        events: {
+        events: [
 
-            mouseleave() {
+            {
+                name: 'beforeshow',
 
-                var active = this.navbar.getActive();
+                el() {
+                    return this.navbar.$el;
+                },
 
-                if (active && !this.$el.is(':hover')) {
-                    active.hide();
+                handler(_, {$el, dir}) {
+                    if (dir === 'bottom' && !isWithin($el, this.$el)) {
+                        $el.appendTo(this.$el);
+                        this.$el.trigger('beforeshow', [{$el}]);
+                    }
                 }
             },
 
-            beforeshow(e, {$el}) {
-                this.clsDrop && $el.addClass(`${this.clsDrop}-dropbar`);
-                this.transitionTo($el.outerHeight(true));
-            },
+            {
+                name: 'mouseleave',
 
-            beforehide(e, {$el}) {
+                handler() {
+                    var active = this.navbar.getActive();
 
-                var active = this.navbar.getActive();
-
-                if (this.$el.is(':hover') && active && active.$el.is($el)) {
-                    return false;
+                    if (active && !this.$el.is(':hover')) {
+                        active.hide();
+                    }
                 }
             },
 
-            hide(e, {$el}) {
+            {
+                name: 'beforeshow',
 
-                var active = this.navbar.getActive();
+                handler(e, {$el}) {
+                    this.clsDrop && $el.addClass(`${this.clsDrop}-dropbar`);
+                    this.transitionTo($el.outerHeight(true));
+                }
+            },
 
-                if (!active || active && active.$el.is($el)) {
-                    this.transitionTo(0);
+            {
+                name: 'beforehide',
+
+                handler(e, {$el}) {
+
+                    var active = this.navbar.getActive();
+
+                    if (this.$el.is(':hover') && active && active.$el.is($el)) {
+                        return false;
+                    }
+                }
+            },
+
+            {
+                name: 'hide',
+
+                handler(e, {$el}) {
+
+                    var active = this.navbar.getActive();
+
+                    if (!active || active && active.$el.is($el)) {
+                        this.transitionTo(0);
+                    }
                 }
             }
 
-        },
+        ],
 
         methods: {
 

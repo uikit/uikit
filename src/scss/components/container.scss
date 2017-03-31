@@ -1,0 +1,106 @@
+// Name:            Container
+// Description:     Component to align and center your site and grid content
+//
+// Component:       `uk-container`
+//
+// Modifier:        `uk-container-small`
+//                  `uk-container-large`
+//                  `uk-container-expand`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$container-max-width:                    1200px !default;
+$container-small-max-width:              900px !default;
+$container-large-max-width:              1600px !default;
+
+$container-padding-horizontal:           15px !default;
+$container-padding-horizontal-s:         $global-gutter !default;
+$container-padding-horizontal-m:         $global-medium-gutter !default;
+
+
+/* ========================================================================
+   Component: Container
+ ========================================================================== */
+
+/*
+ * 1. Box sizing has to be `content-box` so the max-width is always the same and
+ *    unaffected by the padding on different breakpoints. It's important for the size modifiers.
+ */
+
+.uk-container {
+    box-sizing: content-box; /* 1 */
+    max-width: $container-max-width;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: $container-padding-horizontal;
+    padding-right: $container-padding-horizontal;
+}
+
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-small) {
+
+    .uk-container {
+        padding-left: $container-padding-horizontal-s;
+        padding-right: $container-padding-horizontal-s;
+    }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-container {
+        padding-left: $container-padding-horizontal-m;
+        padding-right: $container-padding-horizontal-m;
+    }
+
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-container::before,
+.uk-container::after {
+    content: "";
+    display: table;
+}
+
+.uk-container::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-container > :last-child { margin-bottom: 0; }
+
+/*
+ * Remove padding from nested containers
+ */
+
+.uk-container .uk-container {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
+/* Size modifier
+ ========================================================================== */
+
+.uk-container-small { max-width: $container-small-max-width; }
+
+.uk-container-large { max-width: $container-large-max-width; }
+
+.uk-container-expand { max-width: none; }
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-container-misc)) {@include hook-container-misc();}
+
+// @mixin hook-container-misc(){}

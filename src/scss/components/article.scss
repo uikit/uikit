@@ -1,0 +1,102 @@
+// Name:            Article
+// Description:     Component to create articles
+//
+// Component:       `uk-article`
+//
+// Sub-objects:     `uk-article-title`
+//                  `uk-article-meta`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$article-margin-top:                             $global-large-margin !default;
+
+$article-title-font-size:                        $global-xxlarge-font-size !default;
+$article-title-line-height:                      1.2 !default;
+
+$article-meta-font-size:                         $global-small-font-size !default;
+$article-meta-line-height:                       1.4 !default;
+$article-meta-color:                             $global-muted-color !default;
+
+
+/* ========================================================================
+   Component: Article
+ ========================================================================== */
+
+.uk-article {
+    @if(mixin-exists(hook-article)) {@include hook-article();}
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-article::before,
+.uk-article::after {
+    content: "";
+    display: table;
+}
+
+.uk-article::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-article > :last-child { margin-bottom: 0; }
+
+
+/* Adjacent sibling
+ ========================================================================== */
+
+.uk-article + .uk-article {
+    margin-top: $article-margin-top;
+    @if(mixin-exists(hook-article-adjacent)) {@include hook-article-adjacent();}
+}
+
+
+/* Title
+ ========================================================================== */
+
+.uk-article-title {
+    font-size: $article-title-font-size;
+    line-height: $article-title-line-height;
+    @if(mixin-exists(hook-article-title)) {@include hook-article-title();}
+}
+
+
+/* Meta
+ ========================================================================== */
+
+.uk-article-meta {
+    font-size: $article-meta-font-size;
+    line-height: $article-meta-line-height;
+    color: $article-meta-color;
+    @if(mixin-exists(hook-article-meta)) {@include hook-article-meta();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-article-misc)) {@include hook-article-misc();}
+
+// @mixin hook-article(){}
+// @mixin hook-article-adjacent(){}
+// @mixin hook-article-title(){}
+// @mixin hook-article-meta(){}
+// @mixin hook-article-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-article-meta-color:                    $inverse-global-muted-color !default;
+
+
+
+// @mixin hook-inverse-article-title(){}
+// @mixin hook-inverse-article-meta(){}
