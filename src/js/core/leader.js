@@ -32,27 +32,25 @@ export default function (UIkit) {
 
                 write() {
 
+                    this.filler.attr('data-fill', '');
+
                     if (this.media && !window.matchMedia(this.media).matches) {
-                        this.filler.attr('data-fill', '');
                         return;
                     }
 
-                   var lw = this.$el.width();
-                   var mw = this.filler.attr('data-fill', this.fillChar).width();
-                   var fill = this.filler.offset().left - this.$el.offset().left;
-                   var times = Math.ceil((lw - fill) / mw);
-                   var filltext = '';
+                    var height = this.$el.height();
+                    var times = this.$el.width();
+                    var filltext = '';
 
-                   if (times < 3) {
-                       this.filler.attr('data-fill', '');
-                       return;
-                   }
+                    while (filltext.length < times) {
+                        filltext += this.fillChar;
+                    }
 
-                   while (filltext.length < times) {
-                       filltext += this.fillChar;
-                   }
+                    this.filler.attr('data-fill', filltext);
 
-                   this.filler.attr('data-fill', filltext);
+                    if (height != this.$el.height()) {
+                        this.filler.attr('data-fill', '');
+                    }
                },
 
                 events: ['load', 'resize']
