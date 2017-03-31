@@ -8,6 +8,7 @@
 - Add leader to utility component
 - Add offcanvas close button
 - Add margin auto vertical classes
+- Add padding left/right remove classes
 - Add tripadvisor and yelp icons
 - Add computed properties
 
