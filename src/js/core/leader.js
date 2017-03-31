@@ -19,33 +19,41 @@ export default function (UIkit) {
 
         connected() {
             this.fillChar = this.fill || getCssVar('leader-fill');
+            this.filler = $('<span class="uk-leader-fill"></span>').appendTo(this.$el);
+        },
+
+        disconnected() {
+            this.filler.remove();
         },
 
         update: [
 
             {
+
                 write() {
 
                     if (this.media && !window.matchMedia(this.media).matches) {
-                        this.$el.attr('data-fill', '');
+                        this.filler.attr('data-fill', '');
                         return;
                     }
 
-                    var filltext = '';
-                    var height = this.$el.attr('data-fill', this.fillChar).height();
-                    var h = 0;
+                   var lw = this.$el.width();
+                   var mw = this.filler.attr('data-fill', this.fillChar).width();
+                   var fill = this.filler.offset().left - this.$el.offset().left;
+                   var times = Math.ceil((lw - fill) / mw);
+                   var filltext = '';
 
-                    if (!height) {
-                        return;
-                    }
+                   if (times < 3) {
+                       this.filler.attr('data-fill', '');
+                       return;
+                   }
 
-                    while (h <= height) {
-                        filltext += this.fillChar;
-                        h = this.$el.attr('data-fill', filltext).height();
-                    }
+                   while (filltext.length < times) {
+                       filltext += this.fillChar;
+                   }
 
-                    this.$el.attr('data-fill', filltext.substring(1));
-                },
+                   this.filler.attr('data-fill', filltext);
+               },
 
                 events: ['load', 'resize']
 

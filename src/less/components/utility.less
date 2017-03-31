@@ -341,14 +341,17 @@
 
 .uk-leader {}
 
-.uk-leader:after {
-    content: attr(data-fill);
+.uk-leader-fill {
     display: inline-block;
     margin-left: @leader-fill-margin-left;
     .hook-leader;
 }
 
-.uk-leader[data-fill=""]:after { display:none; }
+.uk-leader-fill[data-fill=""] { display:none; }
+
+.uk-leader-fill:after {
+    content: attr(data-fill);
+}
 
 
 /* Logo
