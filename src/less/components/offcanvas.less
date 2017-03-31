@@ -260,6 +260,8 @@
 
 /*
  * Prepare slide-out animation (Used in reveal and push mode)
+ * Using `position: left` instead of `transform` because position `fixed` elements like sticky navbars
+ * lose their fixed state and behaves like `absolute` within a transformed container
  * Note: JS sets a fixed width and height so the page can slide-out without shrinking
  * 1. Smooth scrolling
  */
