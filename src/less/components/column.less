@@ -48,6 +48,23 @@
 [class*='uk-column-'] img { transform: translate3d(0,0,0); }
 
 
+/* Column break
+ ========================================================================== */
+
+/*
+ * Add break-before and break-after utility classes
+ * uk-column-break-before
+ * uk-column-break-after
+ */
+
+[class*='uk-column-'] .uk-column-break-before {
+    break-before: column;
+}
+
+[class*='uk-column-'] .uk-column-break-after {
+    break-after: column;
+}
+
 /* Divider
  ========================================================================== */
 
