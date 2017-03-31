@@ -22,6 +22,7 @@
 
 - Fix Offcanvas scrolling on touch devices
 - Fix Scrollspy in view check
+- Fix text wrapping for Firefox in position component
 - Fix closing Accordion without animation
 
 ## 3.0.0 beta 18 (March 10, 2017)
