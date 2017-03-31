@@ -342,35 +342,30 @@
 /*
  * 1. Place element in text flow
  * 2. Never break into a new line
- * 3. Hide if the character string is 0
+ * 3. Get a string back with as many repeating characters to fill the container
+ * 4. Prevent wrapping. Overflowing characters will be clipped by the container
  */
 
-.uk-leader-fill {
+.uk-leader-fill::after {
     /* 1 */
     display: inline-block;
     margin-left: @leader-fill-margin-left;
     /* 2 */
     width: 0;
+    /* 3 */
+    content: attr(data-fill);
+    /* 4 */
+    white-space: nowrap;
     .hook-leader;
 }
 
-/* 3 */
-.uk-leader-fill[data-fill=""] { display: none; }
+/*
+ * Hide if media does not match
+ */
+.uk-leader-fill.uk-leader-hide::after { display: none; }
 
 /* Pass fill character to JS */
 .var-leader-fill:before { content: @leader-fill-content; }
-
-/*
- * 1. Get a string back with as many repeating characters to fill the container
- * 2. Prevent wrapping. Overflowing characters will be clipped by the container
- */
-
-.uk-leader-fill:after {
-    /* 1 */
-    content: attr(data-fill);
-    /* 2 */
-    white-space: nowrap;
-}
 
 
 /* Logo

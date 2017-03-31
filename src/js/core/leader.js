@@ -14,43 +14,47 @@ export default function (UIkit) {
 
         defaults: {
             fill: '',
-            media: false
+            media: false,
+            clsWrapper: 'uk-leader-fill',
+            clsHide: 'uk-leader-hide',
+            attrFill: 'data-fill'
+        },
+
+        computed: {
+
+            fill() {
+                return this.$props.fill || getCssVar('leader-fill');
+            }
+
         },
 
         connected() {
-            this.fillChar = this.fill || getCssVar('leader-fill');
-            this.filler = $('<span class="uk-leader-fill"></span>').appendTo(this.$el);
+            this.wrapper = this.$el.wrapInner(`<span class="${this.clsWrapper}">`).children().first();
         },
 
         disconnected() {
-            this.filler.remove();
+            this.wrapper.contents().unwrap();
         },
 
         update: [
 
             {
 
+                read() {
+                    var prev = this._width;
+                    this._width = Math.floor(this.$el[0].offsetWidth / 2);
+                    this._changed = prev !== this._width;
+                    this._hide = this.media && !window.matchMedia(this.media).matches;
+                },
+
                 write() {
 
-                    this.filler.attr('data-fill', '');
+                    this.wrapper.toggleClass(this.clsHide, this._hide);
 
-                    if (this.media && !window.matchMedia(this.media).matches) {
-                        return;
+                    if (this._changed) {
+                        this.wrapper.attr(this.attrFill, Array(this._width).join(this.fill));
                     }
 
-                    var height = this.$el.height();
-                    var times = this.$el.width();
-                    var filltext = '';
-
-                    while (filltext.length < times) {
-                        filltext += this.fillChar;
-                    }
-
-                    this.filler.attr('data-fill', filltext);
-
-                    if (height != this.$el.height()) {
-                        this.filler.attr('data-fill', '');
-                    }
                },
 
                 events: ['load', 'resize']
