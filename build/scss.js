@@ -101,6 +101,10 @@ Promise.all(glob.sync('src/less/**/*.less').map(file =>
             .replace(/[^\(](\-\$[\w\-]*)/g, ' ($1)')                                                                                                                                                                      // surround negative variables with brackets
             .replace(/~('[^']+')/g, 'unquote($1)');                                                                                                                                                                       // string literals: for real
 
+        /* @leader-fill-content needs special treatment */
+        scssData = scssData.replace(/ \. !default/g, ' "." !default')
+            .replace('\'#{$leader-fill-content}\'', '#{$leader-fill-content}');
+
         /* File name of the current file */
         var filename = file.split('/').pop().split('.less')[0];
 
