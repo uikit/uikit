@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.0.0 beta 19 (March 31, 2017)
 
 ### Added
 

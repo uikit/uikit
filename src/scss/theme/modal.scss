@@ -1,0 +1,90 @@
+//
+// Component: Modal
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$modal-header-background:                        $modal-dialog-background !default;
+$modal-footer-background:                        $modal-dialog-background !default;
+
+//
+// New
+//
+
+$modal-header-border-width:                     $global-border-width !default;
+$modal-header-border:                           $global-border !default;
+
+$modal-footer-border-width:                     $global-border-width !default;
+$modal-footer-border:                           $global-border !default;
+
+$modal-close-full-padding:                      $global-margin !default;
+$modal-close-full-background:                   $modal-dialog-background !default;
+
+
+// Component
+// ========================================================================
+
+// @mixin hook-modal(){}
+
+
+// Dialog
+// ========================================================================
+
+// @mixin hook-modal-dialog(){}
+
+
+// Full
+// ========================================================================
+
+// @mixin hook-modal-full(){}
+
+
+// Sections
+// ========================================================================
+
+
+
+// @mixin hook-modal-body(){}
+
+
+
+
+// Title
+// ========================================================================
+
+// @mixin hook-modal-title(){}
+
+
+// Close
+// ========================================================================
+
+// @mixin hook-modal-close(){}
+
+// @mixin hook-modal-close-hover(){}
+
+// @mixin hook-modal-close-default(){}
+
+// @mixin hook-modal-close-default-hover(){}
+
+// @mixin hook-modal-close-outside(){}
+
+// @mixin hook-modal-close-outside-hover(){}
+
+
+
+// @mixin hook-modal-close-full-hover(){}
+
+
+// Caption
+// ========================================================================
+
+// @mixin hook-modal-caption(){}
+
+
+// Miscellaneous
+// ========================================================================
+
+// @mixin hook-modal-misc(){}

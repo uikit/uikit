@@ -1,0 +1,404 @@
+// Name:            Modal
+// Description:     Component to create modal dialogs
+//
+// Component:       `uk-modal`
+//
+// Sub-objects:     `uk-modal-page`
+//                  `uk-modal-dialog`
+//                  `uk-modal-header`
+//                  `uk-modal-body`
+//                  `uk-modal-footer`
+//                  `uk-modal-title`
+//                  `uk-modal-close`
+//                  `uk-modal-caption`
+//
+// Adopted:         `uk-modal-close-default`
+//                  `uk-modal-close-outside`
+//                  `uk-modal-close-full`
+//
+// Modifiers:       `uk-modal-container`
+//                  `uk-modal-full`
+//                  `uk-modal-lightbox`
+//
+// States:          `uk-open`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$modal-z-index:                                  $global-z-index + 10 !default;
+$modal-background:                               rgba(0,0,0,0.6) !default;
+
+$modal-padding-horizontal:                       15px !default;
+$modal-padding-horizontal-s:                     $global-gutter !default;
+$modal-padding-horizontal-m:                     $global-medium-gutter !default;
+
+$modal-dialog-margin-vertical:                   50px !default;
+$modal-dialog-margin-vertical-xs:                15px !default;
+$modal-dialog-margin-horizontal:                 $modal-dialog-margin-vertical-xs !default;
+$modal-dialog-width:                             600px !default;
+$modal-dialog-background:                        $global-background !default;
+
+$modal-container-width:                          1200px !default;
+
+$modal-body-padding-horizontal:                  $global-gutter !default;
+$modal-body-padding-vertical:                    $global-gutter !default;
+
+$modal-header-padding-horizontal:                $global-gutter !default;
+$modal-header-padding-vertical:                  ($modal-header-padding-horizontal / 2) !default;
+$modal-header-background:                        $global-muted-background !default;
+
+$modal-footer-padding-horizontal:                $global-gutter !default;
+$modal-footer-padding-vertical:                  ($modal-footer-padding-horizontal / 2) !default;
+$modal-footer-background:                        $global-muted-background !default;
+
+$modal-title-font-size:                          $global-xlarge-font-size !default;
+$modal-title-line-height:                        1.3 !default;
+
+$modal-close-position:                           $global-small-margin !default;
+$modal-close-padding:                            5px !default;
+
+$modal-close-outside-position:                   0 !default;
+$modal-close-outside-translate:                  100% !default;
+$modal-close-outside-color:                      lighten($global-inverse-color, 20%) !default;
+$modal-close-outside-hover-color:                $global-inverse-color !default;
+
+$modal-caption-margin-top:                       $global-margin !default;
+$modal-caption-color:                            #fff !default;
+
+
+/* ========================================================================
+   Component: Modal
+ ========================================================================== */
+
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Allow scrolling for the modal dialog
+ * 4. Horizontal padding
+ * 5. Mask the background page
+ * 6. Fade-in transition
+ */
+
+.uk-modal {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: $modal-z-index;
+    /* 3 */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* 4 */
+    padding-left: $modal-padding-horizontal;
+    padding-right: $modal-padding-horizontal;
+    /* 5 */
+    background: $modal-background;
+    /* 6 */
+    opacity: 0;
+    -webkit-transition: opacity 0.15s linear;
+    transition: opacity 0.15s linear;
+    @if(mixin-exists(hook-modal)) {@include hook-modal();}
+}
+
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-small) {
+
+    .uk-modal {
+        padding-left: $modal-padding-horizontal-s;
+        padding-right: $modal-padding-horizontal-s;
+    }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-modal {
+        padding-left: $modal-padding-horizontal-m;
+        padding-right: $modal-padding-horizontal-m;
+    }
+
+}
+
+/*
+ * Open
+ */
+
+.uk-modal.uk-open { opacity: 1; }
+
+
+/* Page
+ ========================================================================== */
+
+/*
+ * Prevent scrollbars
+ */
+
+.uk-modal-page { overflow: hidden; }
+
+
+/* Dialog
+ ========================================================================== */
+
+/*
+ * 1. Create position context for caption, spinner and close button
+ * 2. Dimensions
+ * 3. Style
+ * 4. Slide-in transition
+ */
+
+.uk-modal-dialog {
+    /* 1 */
+    position: relative;
+    /* 2 */
+    box-sizing: border-box;
+    margin: $modal-dialog-margin-vertical auto;
+    width: $modal-dialog-width;
+    max-width: 100%;
+    /* 3 */
+    background: $modal-dialog-background;
+    /* 4 */
+    opacity: 0;
+    -webkit-transform: translateY(-100px);
+    transform: translateY(-100px);
+    -webkit-transition: opacity 0.3s linear, -webkit-transform 0.3s ease-out;
+    transition: opacity 0.3s linear, transform 0.3s ease-out;
+    @if(mixin-exists(hook-modal-dialog)) {@include hook-modal-dialog();}
+}
+
+/* Phone portrait and smaller */
+@media (max-width: $breakpoint-xsmall-max) {
+
+    .uk-modal-dialog {
+        margin-top: $modal-dialog-margin-vertical-xs;
+        margin-bottom: $modal-dialog-margin-vertical-xs;
+    }
+
+}
+
+/*
+ * Open
+ */
+
+.uk-open > .uk-modal-dialog {
+    opacity: 1;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+}
+
+
+/* Size modifier
+ ========================================================================== */
+
+/*
+ * Container size
+ * Take the same size as the Container component
+ */
+
+.uk-modal-container .uk-modal-dialog { width: $modal-container-width; }
+
+/*
+ * Full size
+ * 1. Remove padding and background from modal
+ * 2. Reset all default declarations from modal dialog
+ */
+
+/* 1 */
+.uk-modal-full {
+    padding: 0;
+    background: none;
+}
+
+/* 2 */
+.uk-modal-full .uk-modal-dialog {
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    @if(mixin-exists(hook-modal-full)) {@include hook-modal-full();}
+}
+
+
+/* Lightbox modifier
+ ========================================================================== */
+
+.uk-modal-lightbox { background: rgba(0,0,0,0.9); }
+
+.uk-modal-lightbox .uk-modal-dialog {
+    margin-left: $modal-dialog-margin-horizontal;
+    margin-right: $modal-dialog-margin-horizontal;
+}
+
+
+/* Sections
+ ========================================================================== */
+
+.uk-modal-body {
+    padding: $modal-body-padding-vertical $modal-body-padding-horizontal;
+    @if(mixin-exists(hook-modal-body)) {@include hook-modal-body();}
+}
+
+.uk-modal-header {
+    padding: $modal-header-padding-vertical $modal-header-padding-horizontal;
+    background: $modal-header-background;
+    @if(mixin-exists(hook-modal-header)) {@include hook-modal-header();}
+}
+
+.uk-modal-footer {
+    padding: $modal-footer-padding-vertical $modal-footer-padding-horizontal;
+    background: $modal-footer-background;
+    @if(mixin-exists(hook-modal-footer)) {@include hook-modal-footer();}
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-modal-body::before,
+.uk-modal-body::after,
+.uk-modal-header::before,
+.uk-modal-header::after,
+.uk-modal-footer::before,
+.uk-modal-footer::after {
+    content: "";
+    display: table;
+}
+
+.uk-modal-body::after,
+.uk-modal-header::after,
+.uk-modal-footer::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-modal-body > :last-child,
+.uk-modal-header > :last-child,
+.uk-modal-footer > :last-child { margin-bottom: 0; }
+
+
+/* Title
+ ========================================================================== */
+
+.uk-modal-title {
+    font-size: $modal-title-font-size;
+    line-height: $modal-title-line-height;
+    @if(mixin-exists(hook-modal-title)) {@include hook-modal-title();}
+}
+
+
+/* Close
+ * Adopts `uk-close`
+ ========================================================================== */
+
+[class*='uk-modal-close-'] {
+    position: absolute;
+    z-index: $modal-z-index;
+    top: $modal-close-position;
+    right: $modal-close-position;
+    padding: $modal-close-padding;
+    @if(mixin-exists(hook-modal-close)) {@include hook-modal-close();}
+}
+
+/*
+ * Remove margin from adjacent element
+ */
+
+[class*='uk-modal-close-']:first-child + * { margin-top: 0; }
+
+/*
+ * Hover
+ */
+
+[class*='uk-modal-close-']:hover {
+    @if(mixin-exists(hook-modal-close-hover)) {@include hook-modal-close-hover();}
+}
+
+/*
+ * Default
+ */
+
+.uk-modal-close-default {
+    @if(mixin-exists(hook-modal-close-default)) {@include hook-modal-close-default();}
+}
+
+.uk-modal-close-default:hover {
+    @if(mixin-exists(hook-modal-close-default-hover)) {@include hook-modal-close-default-hover();}
+}
+
+/*
+ * Outside
+ */
+
+.uk-modal-close-outside {
+    top: $modal-close-outside-position;
+    right: $modal-close-outside-position;
+    -webkit-transform: translate($modal-close-outside-translate, -($modal-close-outside-translate));
+    transform: translate($modal-close-outside-translate, -($modal-close-outside-translate));
+    color: $modal-close-outside-color;
+    @if(mixin-exists(hook-modal-close-outside)) {@include hook-modal-close-outside();}
+}
+
+.uk-modal-close-outside:hover {
+    color: $modal-close-outside-hover-color;
+    @if(mixin-exists(hook-modal-close-outside-hover)) {@include hook-modal-close-outside-hover();}
+}
+
+/*
+ * Full
+ */
+
+.uk-modal-close-full {
+    @if(mixin-exists(hook-modal-close-full)) {@include hook-modal-close-full();}
+}
+
+.uk-modal-close-full:hover {
+    @if(mixin-exists(hook-modal-close-full-hover)) {@include hook-modal-close-full-hover();}
+}
+
+
+/* Caption
+ ========================================================================== */
+
+.uk-modal-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    margin-top: $modal-caption-margin-top;
+    color: $modal-caption-color;
+    text-align: center;
+    @if(mixin-exists(hook-modal-caption)) {@include hook-modal-caption();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-modal-misc)) {@include hook-modal-misc();}
+
+// @mixin hook-modal(){}
+// @mixin hook-modal-dialog(){}
+// @mixin hook-modal-full(){}
+// @mixin hook-modal-header(){}
+// @mixin hook-modal-body(){}
+// @mixin hook-modal-footer(){}
+// @mixin hook-modal-title(){}
+// @mixin hook-modal-close(){}
+// @mixin hook-modal-close-hover(){}
+// @mixin hook-modal-close-default(){}
+// @mixin hook-modal-close-default-hover(){}
+// @mixin hook-modal-close-outside(){}
+// @mixin hook-modal-close-outside-hover(){}
+// @mixin hook-modal-close-full(){}
+// @mixin hook-modal-close-full-hover(){}
+// @mixin hook-modal-caption(){}
+// @mixin hook-modal-misc(){}

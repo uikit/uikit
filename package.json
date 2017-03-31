@@ -2,7 +2,7 @@
   "name": "uikit",
   "title": "UIkit",
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
-  "version": "3.0.0-beta.18",
+  "version": "3.0.0-beta.19",
   "main": "dist/js/uikit.js",
   "scripts": {
     "build-scss":"mkdir -p src/scss/theme & mkdir -p src/scss/components & node build/scss",

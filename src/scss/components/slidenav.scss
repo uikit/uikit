@@ -1,0 +1,110 @@
+// Name:            Slidenav
+// Description:     Component to create previous/next icon navigations
+//
+// Component:       `uk-slidenav`
+//
+// Sub-objects:     `uk-slidenav-container`
+//
+// Modifiers:       `uk-slidenav-previous`
+//                  `uk-slidenav-next`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$slidenav-padding:                               5px !default;
+$slidenav-color:                                 fade-out($global-color, 0.4) !default;
+
+$slidenav-hover-color:                           fade-out($global-color, 0.2) !default;
+
+$slidenav-active-color:                          fade-out($global-color, 0.1) !default;
+
+
+/* ========================================================================
+   Component: Slidenav
+ ========================================================================== */
+
+/*
+ * Adopts `uk-icon`
+ */
+
+.uk-slidenav {
+    padding: $slidenav-padding;
+    color: $slidenav-color;
+    @if(mixin-exists(hook-slidenav)) {@include hook-slidenav();}
+}
+
+/* Hover + Focus */
+.uk-slidenav:hover,
+.uk-slidenav:focus {
+    color: $slidenav-hover-color;
+    outline: none;
+    @if(mixin-exists(hook-slidenav-hover)) {@include hook-slidenav-hover();}
+}
+
+/* OnClick */
+.uk-slidenav:active {
+    color: $slidenav-active-color;
+    @if(mixin-exists(hook-slidenav-active)) {@include hook-slidenav-active();}
+}
+
+
+/* Icon modifier
+ ========================================================================== */
+
+/*
+ * Previous
+ */
+
+.uk-slidenav-previous {
+    @if(mixin-exists(hook-slidenav-previous)) {@include hook-slidenav-previous();}
+}
+
+/*
+ * Next
+ */
+
+.uk-slidenav-next {
+    @if(mixin-exists(hook-slidenav-next)) {@include hook-slidenav-next();}
+}
+
+
+/* Container
+ ========================================================================== */
+
+.uk-slidenav-container {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    @if(mixin-exists(hook-slidenav-container)) {@include hook-slidenav-container();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-slidenav-misc)) {@include hook-slidenav-misc();}
+
+// @mixin hook-slidenav(){}
+// @mixin hook-slidenav-hover(){}
+// @mixin hook-slidenav-active(){}
+// @mixin hook-slidenav-previous(){}
+// @mixin hook-slidenav-next(){}
+// @mixin hook-slidenav-container(){}
+// @mixin hook-slidenav-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-slidenav-color:                        fade-out($inverse-global-color, 0.4) !default;
+$inverse-slidenav-hover-color:                  fade-out($inverse-global-color, 0.2) !default;
+$inverse-slidenav-active-color:                 fade-out($inverse-global-color, 0.1) !default;
+
+
+
+// @mixin hook-inverse-slidenav(){}
+// @mixin hook-inverse-slidenav-hover(){}
+// @mixin hook-inverse-slidenav-active(){}

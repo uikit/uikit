@@ -1,0 +1,225 @@
+// Name:            Position
+// Description:     Utilities to position content
+//
+// Component:       `uk-position-absolute`
+//                  `uk-position-relative`
+//                  `uk-position-z-index`
+//                  `uk-position-top`
+//                  `uk-position-bottom`
+//                  `uk-position-left`
+//                  `uk-position-right`
+//                  `uk-position-top-left`
+//                  `uk-position-top-center`
+//                  `uk-position-top-right`
+//                  `uk-position-bottom-left`
+//                  `uk-position-bottom-center`
+//                  `uk-position-bottom-right`
+//                  `uk-position-center`
+//                  `uk-position-center-left`
+//                  `uk-position-center-right`
+//                  `uk-position-cover`
+//
+// Modifiers:       `uk-position-small`
+//                  `uk-position-medium`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$position-small-margin:                                 $global-small-gutter !default;
+$position-medium-margin:                                $global-gutter !default;
+
+
+/* ========================================================================
+   Component: Position
+ ========================================================================== */
+
+
+/* Directions
+ ========================================================================== */
+
+[class*='uk-position-top'],
+[class*='uk-position-bottom'],
+[class*='uk-position-left'],
+[class*='uk-position-right'],
+[class*='uk-position-center'] { position: absolute !important; }
+
+
+/* Edges
+ ========================================================================== */
+
+/* Don't use `width: 100%` because it is wrong if the parent has padding. */
+.uk-position-top {
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.uk-position-bottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.uk-position-left {
+    top: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.uk-position-right {
+    top: 0;
+    bottom: 0;
+    right: 0;
+}
+
+
+/* Corners
+ ========================================================================== */
+
+.uk-position-top-left {
+    top: 0;
+    left: 0;
+}
+
+.uk-position-top-right {
+    top: 0;
+    right: 0;
+}
+
+.uk-position-bottom-left {
+    bottom: 0;
+    left: 0;
+}
+
+.uk-position-bottom-right {
+    bottom: 0;
+    right: 0;
+}
+
+/*
+ * Center
+ * 1. Fix text wrapping if content is larger than 50% of the container (Not working in Firefox)
+ * 2. Fix text wrapping for Firefox
+ */
+
+.uk-position-center {
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    /* 1 */
+    display: table;
+    /* 2 */
+    width: -moz-max-content;
+    max-width: 100%
+}
+
+/* Vertical */
+.uk-position-center-left,
+.uk-position-center-right {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.uk-position-center-left { left: 0; }
+.uk-position-center-right { right: 0; }
+
+/* Horizontal */
+.uk-position-top-center,
+.uk-position-bottom-center {
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    /* 1 */
+    display: table;
+}
+
+.uk-position-top-center { top: 0; }
+.uk-position-bottom-center { bottom: 0; }
+
+
+/* Cover
+ ========================================================================== */
+
+.uk-position-cover {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+
+/* Utility
+ ========================================================================== */
+
+.uk-position-relative { position: relative !important; }
+
+.uk-position-absolute { position: absolute !important; }
+
+.uk-position-fixed { position: fixed !important; }
+
+.uk-position-z-index { z-index: 1; }
+
+
+
+/* Margin modifier
+ ========================================================================== */
+
+/*
+ * Small
+ */
+
+.uk-position-small { margin: $position-small-margin; }
+
+.uk-position-small.uk-position-center {
+    -webkit-transform: translate(unquote('calc(-50% - #{$position-small-margin})'), unquote('calc(-50% - #{$position-small-margin})'));
+    transform: translate(unquote('calc(-50% - #{$position-small-margin})'), unquote('calc(-50% - #{$position-small-margin})'));
+}
+
+.uk-position-small.uk-position-center-left,
+.uk-position-small.uk-position-center-right {
+    -webkit-transform: translateY(unquote('calc(-50% - #{$position-small-margin})'));
+    transform: translateY(unquote('calc(-50% - #{$position-small-margin})'));
+}
+
+.uk-position-small.uk-position-top-center,
+.uk-position-small.uk-position-bottom-center {
+    -webkit-transform: translateX(unquote('calc(-50% - #{$position-small-margin})'));
+    transform: translateX(unquote('calc(-50% - #{$position-small-margin})'));
+}
+
+/*
+ * Medium
+ */
+
+.uk-position-medium { margin: $position-medium-margin; }
+
+.uk-position-medium.uk-position-center {
+    -webkit-transform: translate(unquote('calc(-50% - #{$position-medium-margin})'), unquote('calc(-50% - #{$position-medium-margin})'));
+    transform: translate(unquote('calc(-50% - #{$position-medium-margin})'), unquote('calc(-50% - #{$position-medium-margin})'));
+}
+
+.uk-position-medium.uk-position-center-left,
+.uk-position-medium.uk-position-center-right {
+    -webkit-transform: translateY(unquote('calc(-50% - #{$position-medium-margin})'));
+    transform: translateY(unquote('calc(-50% - #{$position-medium-margin})'));
+}
+
+.uk-position-medium.uk-position-top-center,
+.uk-position-medium.uk-position-bottom-center {
+    -webkit-transform: translateX(unquote('calc(-50% - #{$position-medium-margin})'));
+    transform: translateX(unquote('calc(-50% - #{$position-medium-margin})'));
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-position-misc)) {@include hook-position-misc();}
+
+// @mixin hook-position-misc(){}
