@@ -1,0 +1,212 @@
+// Name:            Heading
+// Description:     Styles for headings
+//
+// Component:       `uk-heading-primary`
+//                  `uk-heading-hero`
+//                  `uk-heading-divider`
+//                  `uk-heading-bullet`
+//                  `uk-heading-line`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$heading-primary-font-size:                      $global-xxlarge-font-size !default;
+$heading-primary-line-height:                    1.2 !default;
+
+$heading-primary-font-size-m:                    3.75rem !default; // 54px
+$heading-primary-line-height-m:                  1.1 !default;
+
+$heading-hero-font-size:                         4rem !default; // 64px
+$heading-hero-line-height:                       1.1 !default;
+
+$heading-hero-font-size-s:                       6rem !default; // 96px
+$heading-hero-line-height-s:                     1 !default;
+
+$heading-hero-font-size-m:                       8rem !default; // 128px
+$heading-hero-line-height-m:                     1 !default;
+
+$heading-divider-padding-bottom:                 10px !default;
+$heading-divider-border-width:                   $global-border-width !default;
+$heading-divider-border:                         $global-border !default;
+
+$heading-bullet-top:                             unquote('calc(-0.1 * 1em)') !default;
+$heading-bullet-height:                          0.9em !default;
+$heading-bullet-margin-right:                    10px !default;
+$heading-bullet-border-width:                    5px !default;
+$heading-bullet-border:                          $global-border !default;
+
+$heading-line-border-width:                      $global-border-width !default;
+$heading-line-border:                            $global-border !default;
+$heading-line-height:                            $heading-line-border-width !default;
+$heading-line-margin-horizontal:                 0.6em !default;
+
+
+/* ========================================================================
+   Component: Heading
+ ========================================================================== */
+
+
+/* Primary
+ ========================================================================== */
+
+.uk-heading-primary {
+    font-size: $heading-primary-font-size;
+    line-height: $heading-primary-line-height;
+    @if(mixin-exists(hook-heading-primary)) {@include hook-heading-primary();}
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-heading-primary {
+        font-size: $heading-primary-font-size-m;
+        line-height: $heading-primary-line-height-m;
+    }
+
+}
+
+
+/* Hero
+ ========================================================================== */
+
+.uk-heading-hero {
+    font-size: $heading-hero-font-size;
+    line-height: $heading-hero-line-height;
+    @if(mixin-exists(hook-heading-hero)) {@include hook-heading-hero();}
+}
+
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-small) {
+
+    .uk-heading-hero {
+        font-size: $heading-hero-font-size-s;
+        line-height: $heading-hero-line-height-s;
+    }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-heading-hero {
+        font-size: $heading-hero-font-size-m;
+        line-height: $heading-hero-line-height-m;
+    }
+
+}
+
+
+/* Divider
+ ========================================================================== */
+
+.uk-heading-divider {
+    padding-bottom: $heading-divider-padding-bottom;
+    border-bottom: $heading-divider-border-width solid $heading-divider-border;
+    @if(mixin-exists(hook-heading-divider)) {@include hook-heading-divider();}
+}
+
+
+/* Bullet
+ ========================================================================== */
+
+.uk-heading-bullet { position: relative; }
+
+/*
+ * 1. Using `inline-block` to make it work with text alignment
+ * 2. Center vertically
+ * 3. Style
+ */
+
+.uk-heading-bullet::before {
+    content: "";
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    position: relative;
+    top: $heading-bullet-top;
+    vertical-align: middle;
+    /* 3 */
+    height: $heading-bullet-height;
+    margin-right: $heading-bullet-margin-right;
+    border-left: $heading-bullet-border-width solid $heading-bullet-border;
+    @if(mixin-exists(hook-heading-bullet)) {@include hook-heading-bullet();}
+}
+
+
+/* Line
+ ========================================================================== */
+
+/*
+ * Clip the child element
+ */
+
+.uk-heading-line { overflow: hidden; }
+
+/*
+ * Extra markup is needed to make it work with text align
+ */
+
+.uk-heading-line > * {
+    display: inline-block;
+    position: relative;
+}
+
+/*
+ * 1. Center vertically
+ * 2. Make the element as large as possible. It's clipped by the container.
+ * 3. Style
+ */
+
+.uk-heading-line > :before,
+.uk-heading-line > :after {
+    content: "";
+    /* 1 */
+    position: absolute;
+    top: unquote('calc(50% - (#{$heading-line-height} / 2))');
+    /* 2 */
+    width: 2000px;
+    /* 3 */
+    border-bottom: $heading-line-border-width solid $heading-line-border;
+    @if(mixin-exists(hook-heading-line)) {@include hook-heading-line();}
+}
+
+.uk-heading-line > :before {
+    right: 100%;
+    margin-right: $heading-line-margin-horizontal;
+}
+.uk-heading-line > :after {
+    left: 100%;
+    margin-left: $heading-line-margin-horizontal;
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-heading-misc)) {@include hook-heading-misc();}
+
+// @mixin hook-heading-primary(){}
+// @mixin hook-heading-hero(){}
+// @mixin hook-heading-divider(){}
+// @mixin hook-heading-bullet(){}
+// @mixin hook-heading-line(){}
+// @mixin hook-heading-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-heading-divider-border:                   $inverse-global-border !default;
+$inverse-heading-bullet-border:                    $inverse-global-border !default;
+$inverse-heading-line-border:                      $inverse-global-border !default;
+
+
+
+// @mixin hook-inverse-heading-primary(){}
+// @mixin hook-inverse-heading-hero(){}
+// @mixin hook-inverse-heading-divider(){}
+// @mixin hook-inverse-heading-bullet(){}
+// @mixin hook-inverse-heading-line(){}

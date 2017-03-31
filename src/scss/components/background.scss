@@ -1,0 +1,136 @@
+// Name:            Background
+// Description:     Utilities for backgrounds
+//
+// Component:       `uk-background-*`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$background-default-background:                  $global-background !default;
+$background-muted-background:                    $global-muted-background !default;
+$background-primary-background:                  $global-primary-background !default;
+$background-secondary-background:                $global-secondary-background !default;
+
+
+/* ========================================================================
+   Component: Background
+ ========================================================================== */
+
+
+/* Color
+ ========================================================================== */
+
+.uk-background-default { background-color: $background-default-background; }
+.uk-background-muted { background-color: $background-muted-background; }
+.uk-background-primary { background-color: $background-primary-background; }
+.uk-background-secondary { background-color: $background-secondary-background; }
+
+
+/* Size
+ ========================================================================== */
+
+.uk-background-cover,
+.uk-background-contain {
+    background-position: 50% 50%;
+    background-repeat: no-repeat;
+}
+
+.uk-background-cover { background-size: cover; }
+.uk-background-contain { background-size: contain; }
+
+
+/* Position
+ ========================================================================== */
+
+.uk-background-top-left { background-position: 0 0; }
+.uk-background-top-center { background-position: 50% 0; }
+.uk-background-top-right { background-position: 100% 0; }
+.uk-background-center-left { background-position: 0 50%; }
+.uk-background-center-center { background-position: 50% 50%; }
+.uk-background-center-right { background-position: 100% 50%; }
+.uk-background-bottom-left { background-position: 0 100%; }
+.uk-background-bottom-center { background-position: 50% 100%; }
+.uk-background-bottom-right { background-position: 100% 100%; }
+
+
+/* Repeat
+ ========================================================================== */
+
+.uk-background-norepeat { background-repeat: no-repeat; }
+
+
+/* Attachment
+ ========================================================================== */
+
+.uk-background-fixed { background-attachment: fixed; }
+
+/*
+ * Exclude touch devices because `fixed` doesn't work on iOS and Android
+ */
+
+@media (pointer: coarse) {
+    .uk-background-fixed { background-attachment: scroll; }
+}
+
+
+/* Image
+ ========================================================================== */
+
+/* Phone portrait and smaller */
+@media (max-width: $breakpoint-xsmall-max) {
+
+    .uk-background-image\@s { background-image: none !important; }
+
+}
+
+/* Phone landscape and smaller */
+@media (max-width: $breakpoint-small-max) {
+
+    .uk-background-image\@m { background-image: none !important; }
+
+}
+
+/* Tablet landscape and smaller */
+@media (max-width: $breakpoint-medium-max) {
+
+    .uk-background-image\@l { background-image: none !important; }
+
+}
+
+/* Desktop and smaller */
+@media (max-width: $breakpoint-large-max) {
+
+    .uk-background-image\@xl {background-image: none !important; }
+
+}
+
+
+/* Blend modes
+ ========================================================================== */
+
+.uk-background-blend-multiply { background-blend-mode: multiply; }
+.uk-background-blend-screen { background-blend-mode: screen; }
+.uk-background-blend-overlay { background-blend-mode: overlay; }
+.uk-background-blend-darken { background-blend-mode: darken; }
+.uk-background-blend-lighten { background-blend-mode: lighten; }
+.uk-background-blend-color-dodge { background-blend-mode: color-dodge; }
+.uk-background-blend-color-burn { background-blend-mode: color-burn; }
+.uk-background-blend-hard-light { background-blend-mode: hard-light; }
+.uk-background-blend-soft-light { background-blend-mode: soft-light; }
+.uk-background-blend-difference { background-blend-mode: difference; }
+.uk-background-blend-exclusion { background-blend-mode: exclusion; }
+.uk-background-blend-hue { background-blend-mode: hue; }
+.uk-background-blend-saturation { background-blend-mode: saturation; }
+.uk-background-blend-color { background-blend-mode: color; }
+.uk-background-blend-luminosity { background-blend-mode: luminosity; }
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-background-misc)) {@include hook-background-misc();}
+
+// @mixin hook-background-misc(){}

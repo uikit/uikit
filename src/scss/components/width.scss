@@ -1,0 +1,418 @@
+// Name:            Width
+// Description:     Utilities for widths
+//
+// Component:       `uk-child-width-*`
+//                  `uk-width-*`
+//
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$width-small-width:                              150px !default;
+$width-medium-width:                             300px !default;
+$width-large-width:                              450px !default;
+$width-xlarge-width:                             600px !default;
+$width-xxlarge-width:                            750px !default;
+
+
+/* ========================================================================
+   Component: Width
+ ========================================================================== */
+
+
+/* Equal child widths
+ ========================================================================== */
+
+[class*='uk-child-width'] > * {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.uk-child-width-1-2 > * { width: 50%; }
+.uk-child-width-1-3 > * { width: unquote('calc(100% * 1 / 3.001)'); }
+.uk-child-width-1-4 > * { width: 25%; }
+.uk-child-width-1-5 > * { width: 20%; }
+.uk-child-width-1-6 > * { width: unquote('calc(100% * 1 / 6.001)'); }
+
+.uk-child-width-auto > * { width: auto; }
+
+/*
+ *    Instead of 0, 1px is needed to make cell wrap into next row if predecessor is 100% wide
+ *    and the grid gutter is 0 pixels wide
+ */
+
+.uk-child-width-expand > * { width: 1px; }
+
+/*
+ * 1. Make `width: 1px` work, because according to the spec flex items won’t shrink
+ *    below their minimum content size. To change this, set the min-width.
+ *    Only needed for Firefox. All other browsers ignore this.
+ *
+ * 2. `width` is ignored when wrapping flex items in Safari
+ *    https://github.com/philipwalton/flexbugs#11-min-and-max-size-declarations-are-ignored-when-wrapping-flex-items
+ */
+
+.uk-child-width-expand > :not([class*='uk-width']) {
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    /* 1 */
+    min-width: 0;
+    /* 2 */
+    flex-basis: 1px;
+}
+
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-small) {
+
+    .uk-child-width-1-1\@s > * { width: 100%; }
+    .uk-child-width-1-2\@s > * { width: 50%; }
+    .uk-child-width-1-3\@s > * { width: unquote('calc(100% * 1 / 3.001)'); }
+    .uk-child-width-1-4\@s > * { width: 25%; }
+    .uk-child-width-1-5\@s > * { width: 20%; }
+    .uk-child-width-1-6\@s > * { width: unquote('calc(100% * 1 / 6.001)'); }
+
+    .uk-child-width-auto\@s > * { width: auto; }
+    .uk-child-width-expand\@s > * { width: 1px; }
+
+    .uk-child-width-expand\@s > :not([class*='uk-width']) {
+        -ms-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        min-width: 0;
+        flex-basis: 1px;
+    }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-child-width-1-1\@m > * { width: 100%; }
+    .uk-child-width-1-2\@m > * { width: 50%; }
+    .uk-child-width-1-3\@m > * { width: unquote('calc(100% * 1 / 3.001)'); }
+    .uk-child-width-1-4\@m > * { width: 25%; }
+    .uk-child-width-1-5\@m > * { width: 20%; }
+    .uk-child-width-1-6\@m > * { width: unquote('calc(100% * 1 / 6.001)'); }
+
+    .uk-child-width-auto\@m > * { width: auto; }
+    .uk-child-width-expand\@m > * { width: 1px; }
+
+    .uk-child-width-expand\@m > :not([class*='uk-width']) {
+        -ms-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        min-width: 0;
+        flex-basis: 1px;
+    }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-child-width-1-1\@l > * { width: 100%; }
+    .uk-child-width-1-2\@l > * { width: 50%; }
+    .uk-child-width-1-3\@l > * { width: unquote('calc(100% * 1 / 3.001)'); }
+    .uk-child-width-1-4\@l > * { width: 25%; }
+    .uk-child-width-1-5\@l > * { width: 20%; }
+    .uk-child-width-1-6\@l > * { width: unquote('calc(100% * 1 / 6.001)'); }
+
+    .uk-child-width-auto\@l > * { width: auto; }
+    .uk-child-width-expand\@l > * { width: 1px; }
+
+    .uk-child-width-expand\@l > :not([class*='uk-width']) {
+        -ms-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        min-width: 0;
+        flex-basis: 1px;
+    }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: $breakpoint-xlarge) {
+
+    .uk-child-width-1-1\@xl > * { width: 100%; }
+    .uk-child-width-1-2\@xl > * { width: 50%; }
+    .uk-child-width-1-3\@xl > * { width: unquote('calc(100% * 1 / 3.001)'); }
+    .uk-child-width-1-4\@xl > * { width: 25%; }
+    .uk-child-width-1-5\@xl > * { width: 20%; }
+    .uk-child-width-1-6\@xl > * { width: unquote('calc(100% * 1 / 6.001)'); }
+
+    .uk-child-width-auto\@xl > * { width: auto; }
+    .uk-child-width-expand\@xl > * { width: 1px; }
+
+    .uk-child-width-expand\@xl > :not([class*='uk-width']) {
+        -ms-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        min-width: 0;
+        flex-basis: 1px;
+    }
+
+}
+
+
+/* Single Widths
+ ========================================================================== */
+
+/*
+ * 1. `max-width` is needed for the pixel-based classes
+ */
+
+[class*='uk-width'] {
+    box-sizing: border-box;
+    width: 100%;
+    /* 1 */
+   max-width: 100%;
+}
+
+/* Halves */
+.uk-width-1-2 { width: 50%; }
+
+/* Thirds */
+.uk-width-1-3 { width: unquote('calc(100% * 1 / 3.001)'); }
+.uk-width-2-3 { width: unquote('calc(100% * 2 / 3.001)'); }
+
+/* Quarters */
+.uk-width-1-4 { width: 25%; }
+.uk-width-3-4 { width: 75%; }
+
+/* Fifths */
+.uk-width-1-5 { width: 20%; }
+.uk-width-2-5 { width: 40%; }
+.uk-width-3-5 { width: 60%; }
+.uk-width-4-5 { width: 80%; }
+
+/* Sixths */
+.uk-width-1-6 { width: unquote('calc(100% * 1 / 6.001)'); }
+.uk-width-5-6 { width: unquote('calc(100% * 5 / 6.001)'); }
+
+/* Pixel */
+.uk-width-small { width: $width-small-width; }
+.uk-width-medium { width: $width-medium-width; }
+.uk-width-large { width: $width-large-width; }
+.uk-width-xlarge { width: $width-xlarge-width; }
+.uk-width-xxlarge { width: $width-xxlarge-width; }
+
+/* Auto */
+.uk-width-auto { width: auto; }
+
+/* Expand */
+.uk-width-expand {
+    width: 1px;
+    -ms-flex: 1;
+    -webkit-flex: 1;
+    flex: 1;
+    min-width: 0;
+    flex-basis: 1px;
+}
+
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-small) {
+
+    /* Whole */
+    .uk-width-1-1\@s { width: 100%; }
+
+    /* Halves */
+    .uk-width-1-2\@s { width: 50%; }
+
+    /* Thirds */
+    .uk-width-1-3\@s { width: unquote('calc(100% * 1 / 3.001)'); }
+    .uk-width-2-3\@s { width: unquote('calc(100% * 2 / 3.001)'); }
+
+    /* Quarters */
+    .uk-width-1-4\@s { width: 25%; }
+    .uk-width-3-4\@s { width: 75%; }
+
+    /* Fifths */
+    .uk-width-1-5\@s { width: 20%; }
+    .uk-width-2-5\@s { width: 40%; }
+    .uk-width-3-5\@s { width: 60%; }
+    .uk-width-4-5\@s { width: 80%; }
+
+    /* Sixths */
+    .uk-width-1-6\@s { width: unquote('calc(100% * 1 / 6.001)'); }
+    .uk-width-5-6\@s { width: unquote('calc(100% * 5 / 6.001)'); }
+
+    /* Pixel */
+    .uk-width-small\@s { width: $width-small-width; }
+    .uk-width-medium\@s { width: $width-medium-width; }
+    .uk-width-large\@s { width: $width-large-width; }
+    .uk-width-xlarge\@s { width: $width-xlarge-width; }
+    .uk-width-xxlarge\@s { width: $width-xxlarge-width; }
+
+    /* Auto */
+    .uk-width-auto\@s { width: auto; }
+
+    /* Expand */
+    .uk-width-expand\@s {
+        width: 1px;
+        -ms-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        min-width: 0;
+        flex-basis: 1px;
+    }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    /* Whole */
+    .uk-width-1-1\@m { width: 100%; }
+
+    /* Halves */
+    .uk-width-1-2\@m { width: 50%; }
+
+    /* Thirds */
+    .uk-width-1-3\@m { width: unquote('calc(100% * 1 / 3.001)'); }
+    .uk-width-2-3\@m { width: unquote('calc(100% * 2 / 3.001)'); }
+
+    /* Quarters */
+    .uk-width-1-4\@m { width: 25%; }
+    .uk-width-3-4\@m { width: 75%; }
+
+    /* Fifths */
+    .uk-width-1-5\@m { width: 20%; }
+    .uk-width-2-5\@m { width: 40%; }
+    .uk-width-3-5\@m { width: 60%; }
+    .uk-width-4-5\@m { width: 80%; }
+
+    /* Sixths */
+    .uk-width-1-6\@m { width: unquote('calc(100% * 1 / 6.001)'); }
+    .uk-width-5-6\@m { width: unquote('calc(100% * 5 / 6.001)'); }
+
+    /* Pixel */
+    .uk-width-small\@m { width: $width-small-width; }
+    .uk-width-medium\@m { width: $width-medium-width; }
+    .uk-width-large\@m { width: $width-large-width; }
+    .uk-width-xlarge\@m { width: $width-xlarge-width; }
+    .uk-width-xxlarge\@m { width: $width-xxlarge-width; }
+
+     /* Auto */
+    .uk-width-auto\@m { width: auto; }
+
+    /* Expand */
+    .uk-width-expand\@m {
+        width: 1px;
+        -ms-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        min-width: 0;
+        flex-basis: 1px;
+    }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    /* Whole */
+    .uk-width-1-1\@l { width: 100%; }
+
+    /* Halves */
+    .uk-width-1-2\@l { width: 50%; }
+
+    /* Thirds */
+    .uk-width-1-3\@l { width: unquote('calc(100% * 1 / 3.001)'); }
+    .uk-width-2-3\@l { width: unquote('calc(100% * 2 / 3.001)'); }
+
+    /* Quarters */
+    .uk-width-1-4\@l { width: 25%; }
+    .uk-width-3-4\@l { width: 75%; }
+
+    /* Fifths */
+    .uk-width-1-5\@l { width: 20%; }
+    .uk-width-2-5\@l { width: 40%; }
+    .uk-width-3-5\@l { width: 60%; }
+    .uk-width-4-5\@l { width: 80%; }
+
+    /* Sixths */
+    .uk-width-1-6\@l { width: unquote('calc(100% * 1 / 6.001)'); }
+    .uk-width-5-6\@l { width: unquote('calc(100% * 5 / 6.001)'); }
+
+    /* Pixel */
+    .uk-width-small\@l { width: $width-small-width; }
+    .uk-width-medium\@l { width: $width-medium-width; }
+    .uk-width-large\@l { width: $width-large-width; }
+    .uk-width-xlarge\@l { width: $width-xlarge-width; }
+    .uk-width-xxlarge\@l { width: $width-xxlarge-width; }
+
+    /* Auto */
+    .uk-width-auto\@l { width: auto; }
+
+    /* Expand */
+    .uk-width-expand\@l {
+        width: 1px;
+        -ms-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        min-width: 0;
+        flex-basis: 1px;
+    }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: $breakpoint-xlarge) {
+
+    /* Whole */
+    .uk-width-1-1\@xl { width: 100%; }
+
+    /* Halves */
+    .uk-width-1-2\@xl { width: 50%; }
+
+    /* Thirds */
+    .uk-width-1-3\@xl { width: unquote('calc(100% * 1 / 3.001)'); }
+    .uk-width-2-3\@xl { width: unquote('calc(100% * 2 / 3.001)'); }
+
+    /* Quarters */
+    .uk-width-1-4\@xl { width: 25%; }
+    .uk-width-3-4\@xl { width: 75%; }
+
+    /* Fifths */
+    .uk-width-1-5\@xl { width: 20%; }
+    .uk-width-2-5\@xl { width: 40%; }
+    .uk-width-3-5\@xl { width: 60%; }
+    .uk-width-4-5\@xl { width: 80%; }
+
+    /* Sixths */
+    .uk-width-1-6\@xl { width: unquote('calc(100% * 1 / 6.001)'); }
+    .uk-width-5-6\@xl { width: unquote('calc(100% * 5 / 6.001)'); }
+
+    /* Pixel */
+    .uk-width-small\@xl { width: $width-small-width; }
+    .uk-width-medium\@xl { width: $width-medium-width; }
+    .uk-width-large\@xl { width: $width-large-width; }
+    .uk-width-xlarge\@xl { width: $width-xlarge-width; }
+    .uk-width-xxlarge\@xl { width: $width-xxlarge-width; }
+
+    /* Auto */
+    .uk-width-auto\@xl { width: auto; }
+
+    /* Expand */
+    .uk-width-expand\@xl {
+        width: 1px;
+        -ms-flex: 1;
+        -webkit-flex: 1;
+        flex: 1;
+        min-width: 0;
+        flex-basis: 1px;
+    }
+
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-width-misc)) {@include hook-width-misc();}
+
+// @mixin hook-width-misc(){}

@@ -1,0 +1,167 @@
+// Name:            Dotnav
+// Description:     Component to create dot navigations
+//
+// Component:       `uk-dotnav`
+//
+// Modifier:        `uk-dotnav-vertical`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$dotnav-margin-horizontal:                       15px !default;
+$dotnav-margin-vertical:                         $dotnav-margin-horizontal !default;
+
+$dotnav-item-width:                              16px !default;
+$dotnav-item-height:                             $dotnav-item-width !default;
+$dotnav-item-border-radius:                      50% !default;
+$dotnav-item-background:                         fade-out($global-color, 0.9) !default;
+
+$dotnav-item-hover-background:                   fade-out($global-color, 0.6) !default;
+
+$dotnav-item-onclick-background:                 fade-out($global-color, 0.4) !default;
+
+$dotnav-item-active-background:                  fade-out($global-color, 0.6) !default;
+
+
+/* ========================================================================
+   Component: Dotnav
+ ========================================================================== */
+
+/*
+ * 1. Allow items to wrap into the next line
+ * 2. Reset lists
+ * 3. Gutter
+ */
+
+.uk-dotnav {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /* 1 */
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    /* 2 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 3 */
+    margin-left: (-$dotnav-margin-horizontal);
+    @if(mixin-exists(hook-dotnav)) {@include hook-dotnav();}
+}
+
+/*
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Gutter
+ */
+
+.uk-dotnav > * {
+    /* 1 */
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+    /* 2 */
+    padding-left: $dotnav-margin-horizontal;
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * Items
+ * 1. Hide text if present
+ */
+
+.uk-dotnav > * > * {
+    display: block;
+    box-sizing: content-box;
+    width: $dotnav-item-width;
+    height: $dotnav-item-height;
+    border-radius: $dotnav-item-border-radius;
+    background: $dotnav-item-background;
+    /* 1 */
+    text-indent: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    @if(mixin-exists(hook-dotnav-item)) {@include hook-dotnav-item();}
+}
+
+/* Hover + Focus */
+.uk-dotnav > * > :hover,
+.uk-dotnav > * > :focus {
+    background-color: $dotnav-item-hover-background;
+    outline: none;
+    @if(mixin-exists(hook-dotnav-item-hover)) {@include hook-dotnav-item-hover();}
+}
+
+/* OnClick */
+.uk-dotnav > * > :active {
+    background-color: $dotnav-item-onclick-background;
+    @if(mixin-exists(hook-dotnav-item-onclick)) {@include hook-dotnav-item-onclick();}
+}
+
+/* Active */
+.uk-dotnav > .uk-active > * {
+    background-color: $dotnav-item-active-background;
+    @if(mixin-exists(hook-dotnav-item-active)) {@include hook-dotnav-item-active();}
+}
+
+
+/* Modifier: 'uk-dotnav-vertical'
+ ========================================================================== */
+
+/*
+ * 1. Change direction
+ * 2. Gutter
+ */
+
+.uk-dotnav-vertical {
+    /* 1 */
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+    /* 2 */
+    margin-left: 0;
+    margin-top: (-$dotnav-margin-vertical);
+}
+
+/* 2 */
+.uk-dotnav-vertical > * {
+    padding-left: 0;
+    padding-top: $dotnav-margin-vertical;
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-dotnav-misc)) {@include hook-dotnav-misc();}
+
+// @mixin hook-dotnav(){}
+// @mixin hook-dotnav-item(){}
+// @mixin hook-dotnav-item-hover(){}
+// @mixin hook-dotnav-item-onclick(){}
+// @mixin hook-dotnav-item-active(){}
+// @mixin hook-dotnav-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-dotnav-item-background:                fade-out($inverse-global-color, 0.6) !default;
+$inverse-dotnav-item-hover-background:          fade-out($inverse-global-color, 0.3) !default;
+$inverse-dotnav-item-onclick-background:        fade-out($inverse-global-color, 0.1) !default;
+$inverse-dotnav-item-active-background:         fade-out($inverse-global-color, 0.1) !default;
+
+
+
+// @mixin hook-inverse-dotnav-item(){}
+// @mixin hook-inverse-dotnav-item-hover(){}
+// @mixin hook-inverse-dotnav-item-onclick(){}
+// @mixin hook-inverse-dotnav-item-active(){}

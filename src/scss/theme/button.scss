@@ -1,0 +1,163 @@
+//
+// Component: Button
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$button-line-height:                             $global-control-height - ($button-border-width * 2) !default;
+$button-small-line-height:                       $global-control-small-height - ($button-border-width * 2) !default;
+$button-large-line-height:                       $global-control-large-height - ($button-border-width * 2) !default;
+
+$button-font-size:                               $global-small-font-size !default;
+$button-large-font-size:                         $global-small-font-size !default;
+
+$button-default-background:                      transparent !default;
+$button-default-hover-background:                transparent !default;
+$button-default-active-background:               transparent !default;
+
+$button-disabled-background:                     transparent !default;
+
+$button-text-color:                              $global-emphasis-color !default;
+$button-text-hover-color:                        $global-emphasis-color !default;
+
+//
+// New
+//
+
+$button-text-transform:                          uppercase !default;
+
+$button-border-width:                            $global-border-width !default;
+
+$button-default-border:                          $global-border !default;
+$button-default-hover-border:                    darken($global-border, 20%) !default;
+$button-default-active-border:                   darken($global-border, 30%) !default;
+
+$button-disabled-border:                         $global-border !default;
+
+$button-text-border-width:                       $global-border-width !default;
+$button-text-border:                             $button-text-hover-color !default;
+
+
+// Component
+// ========================================================================
+
+
+
+// @mixin hook-button-hover(){}
+
+// @mixin hook-button-focus(){}
+
+// @mixin hook-button-active(){}
+
+
+// Style modifiers
+// ========================================================================
+
+
+
+
+
+
+
+//
+// Primary
+//
+
+
+
+// @mixin hook-button-primary-hover(){}
+
+// @mixin hook-button-primary-active(){}
+
+//
+// Secondary
+//
+
+
+
+// @mixin hook-button-secondary-hover(){}
+
+// @mixin hook-button-secondary-active(){}
+
+//
+// Danger
+//
+
+
+
+// @mixin hook-button-danger-hover(){}
+
+// @mixin hook-button-danger-active(){}
+
+
+// Disabled
+// ========================================================================
+
+
+
+
+// Size modifiers
+// ========================================================================
+
+// @mixin hook-button-small(){}
+
+// @mixin hook-button-large(){}
+
+
+// Text modifier
+// ========================================================================
+
+
+
+
+
+
+
+
+// Link modifier
+// ========================================================================
+
+// @mixin hook-button-link(){}
+
+
+// Miscellaneous
+// ========================================================================
+
+
+
+
+// Inverse
+// ========================================================================
+
+$inverse-button-default-background:             transparent !default;
+$inverse-button-default-color:                  $inverse-global-emphasis-color !default;
+$inverse-button-default-hover-background:       transparent !default;
+$inverse-button-default-hover-color:            $inverse-global-emphasis-color !default;
+$inverse-button-default-active-background:      transparent !default;
+$inverse-button-default-active-color:           $inverse-global-emphasis-color !default;
+
+$inverse-button-text-color:                     $inverse-global-emphasis-color !default;
+$inverse-button-text-hover-color:               $inverse-global-emphasis-color !default;
+
+//
+// Hooks
+//
+
+
+
+
+
+// @mixin hook-inverse-button-primary(){}
+// @mixin hook-inverse-button-primary-hover(){}
+// @mixin hook-inverse-button-primary-active(){}
+
+// @mixin hook-inverse-button-secondary(){}
+// @mixin hook-inverse-button-secondary-hover(){}
+// @mixin hook-inverse-button-secondary-active(){}
+
+
+// @mixin hook-inverse-button-text-hover(){}
+// @mixin hook-inverse-button-text-disabled(){}

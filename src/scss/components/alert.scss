@@ -1,0 +1,147 @@
+// Name:            Alert
+// Description:     Component to create alert messages
+//
+// Component:       `uk-alert`
+//
+// Adopted:         `uk-alert-close`
+//
+// Modifiers:       `uk-alert-primary`
+//                  `uk-alert-success`
+//                  `uk-alert-warning`
+//                  `uk-alert-danger`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$alert-margin-vertical:                          $global-margin !default;
+$alert-padding:                                  $global-small-gutter !default;
+$alert-padding-right:                            $alert-padding + 14px !default;
+$alert-background:                               $global-muted-background !default;
+$alert-color:                                    $global-color !default;
+
+$alert-close-top:                                $alert-padding + 5px !default;
+$alert-close-right:                              $alert-padding !default;
+
+$alert-primary-background:                       lighten(mix(white, $global-primary-background, 40%), 20%) !default;
+$alert-primary-color:                            $global-primary-background !default;
+
+$alert-success-background:                       lighten(mix(white, $global-success-background, 40%), 25%) !default;
+$alert-success-color:                            $global-success-background !default;
+
+$alert-warning-background:                       lighten(mix(white, $global-warning-background, 45%), 15%) !default;
+$alert-warning-color:                            $global-warning-background !default;
+
+$alert-danger-background:                        lighten(mix(white, $global-danger-background, 40%), 20%) !default;
+$alert-danger-color:                             $global-danger-background !default;
+
+
+/* ========================================================================
+   Component: Alert
+ ========================================================================== */
+
+.uk-alert {
+    position: relative;
+    margin-bottom: $alert-margin-vertical;
+    padding: $alert-padding $alert-padding-right $alert-padding $alert-padding;
+    background: $alert-background;
+    color: $alert-color;
+    @if(mixin-exists(hook-alert)) {@include hook-alert();}
+}
+
+/* Add margin if adjacent element */
+* + .uk-alert { margin-top: $alert-margin-vertical; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-alert > :last-child { margin-bottom: 0; }
+
+
+/* Close
+ * Adopts `uk-close`
+ ========================================================================== */
+
+.uk-alert-close {
+    position: absolute;
+    top: $alert-close-top;
+    right: $alert-close-right;
+    @if(mixin-exists(hook-alert-close)) {@include hook-alert-close();}
+}
+
+/*
+ * Remove margin from adjacent element
+ */
+
+.uk-alert-close:first-child + * { margin-top: 0; }
+
+/*
+ * Hover + Focus
+ */
+
+.uk-alert-close:hover,
+.uk-alert-close:focus {
+    @if(mixin-exists(hook-alert-close-hover)) {@include hook-alert-close-hover();}
+}
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Primary
+ */
+
+.uk-alert-primary {
+    background: $alert-primary-background;
+    color: $alert-primary-color;
+    @if(mixin-exists(hook-alert-primary)) {@include hook-alert-primary();}
+}
+
+/*
+ * Success
+ */
+
+.uk-alert-success {
+    background: $alert-success-background;
+    color: $alert-success-color;
+    @if(mixin-exists(hook-alert-success)) {@include hook-alert-success();}
+}
+
+/*
+ * Warning
+ */
+
+.uk-alert-warning {
+    background: $alert-warning-background;
+    color: $alert-warning-color;
+    @if(mixin-exists(hook-alert-warning)) {@include hook-alert-warning();}
+}
+
+/*
+ * Danger
+ */
+
+.uk-alert-danger {
+    background: $alert-danger-background;
+    color: $alert-danger-color;
+    @if(mixin-exists(hook-alert-danger)) {@include hook-alert-danger();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-alert-misc)) {@include hook-alert-misc();}
+
+// @mixin hook-alert(){}
+// @mixin hook-alert-close(){}
+// @mixin hook-alert-close-hover(){}
+// @mixin hook-alert-primary(){}
+// @mixin hook-alert-success(){}
+// @mixin hook-alert-warning(){}
+// @mixin hook-alert-danger(){}
+// @mixin hook-alert-misc(){}

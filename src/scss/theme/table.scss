@@ -1,0 +1,52 @@
+//
+// Component: Table
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$table-header-cell-font-size:                    $global-small-font-size !default;
+$table-header-cell-font-weight:                  normal !default;
+$table-header-cell-color:                        $global-muted-color !default;
+
+//
+// New
+//
+
+$table-cell-border-width:                        $global-border-width !default;
+$table-cell-border:                              $global-border !default;
+
+
+// Component
+// ========================================================================
+
+
+
+// @mixin hook-table-cell(){}
+
+
+
+// @mixin hook-table-caption(){}
+
+// @mixin hook-table-row-active(){}
+
+
+// Style modifiers
+// ========================================================================
+
+// @mixin hook-table-striped(){}
+
+// @mixin hook-table-hover(){}
+
+
+// Size modifier
+// ========================================================================
+
+// @mixin hook-table-small(){}
+
+
+// Miscellaneous
+// ========================================================================
+
