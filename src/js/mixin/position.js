@@ -54,7 +54,7 @@ export default {
             this.dir = axis === 'x' ? flipped.target.x : flipped.target.y;
             this.align = axis === 'x' ? flipped.target.y : flipped.target.x;
 
-            element.css('display', '').toggleClass(`${this.clsPos}-${this.dir}-${this.align}`, this.offset === false);
+            element.toggleClass(`${this.clsPos}-${this.dir}-${this.align}`, this.offset === false);
 
         },
 
