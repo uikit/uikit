@@ -131,7 +131,7 @@ export default function (UIkit) {
 
                 resolve(el);
 
-            }))).then(null, () => this.$destroy());
+            }))).then(null, () => {});
 
             if (!this._isReady) {
                 this.$emitSync();
