@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add breakpoint classes for flex alignment
+
 ### Fixed
 
 - Fix Drop positioning
