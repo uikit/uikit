@@ -1,3 +1,4 @@
+import UIkit from '../api/index';
 import { $, doc, docElement, isWithin, promise, requestAnimationFrame, toJQuery, toMs, transitionend } from '../util/index';
 import Class from './class';
 import Toggable from './toggable';
