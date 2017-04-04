@@ -4,17 +4,17 @@
 
 ### Fixed
 
-- Fix modal
-- Fix drop positioning
-- Fix imports in modal
+- Fix Drop positioning
+- Fix imports in Modal
+- Fix click preventition in Toggle
 
 ## 3.0.0 beta 19 (March 31, 2017)
 
 ### Added
 
 - Add SASS support
-- Add leader to utility component
-- Add offcanvas close button
+- Add Leader to utility component
+- Add Offcanvas close button
 - Add margin auto vertical classes
 - Add padding left/right remove classes
 - Add tripadvisor and yelp icons

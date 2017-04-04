@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, Animation, extend, promise, Transition } from '../util/index';
+import { $, Animation, extend, promise, requestAnimationFrame, Transition } from '../util/index';
 
 export default {
 
@@ -157,16 +157,24 @@ export default {
                     this._toggle(el, true);
                 }
 
-                el.css('height', '');
-                endHeight = el.height() + (inProgress ? 0 : inner);
-                el.height(height);
+                el.height('');
 
-                return show
-                    ? Transition.start(el, extend(this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
-                    : Transition.start(el, this.hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
-                            this._toggle(el, false);
-                            el.css(this.initProps);
-                        });
+                return promise(resolve =>
+                    // Allow for child components to update first
+                    requestAnimationFrame(() => {
+
+                        endHeight = el.height() + (inProgress ? 0 : inner);
+                        el.height(height);
+
+                        (show
+                            ? Transition.start(el, extend(this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
+                            : Transition.start(el, this.hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
+                                this._toggle(el, false);
+                                el.css(this.initProps);
+                            })).then(resolve);
+
+                    })
+                );
 
             });
 

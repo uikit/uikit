@@ -1,5 +1,5 @@
 import { Position, Toggable } from '../mixin/index';
-import { doc, getDimensions, isWithin, isTouch, MouseTracker, pointerEnter, pointerLeave, query, removeClass } from '../util/index';
+import { $, doc, getDimensions, isWithin, isTouch, MouseTracker, pointerEnter, pointerLeave, query, removeClass } from '../util/index';
 
 export default function (UIkit) {
 

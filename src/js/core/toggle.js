@@ -43,7 +43,7 @@ export default function (UIkit) {
 
                 handler(e) {
                     if (!isTouch(e)) {
-                        this.toggle(e.type === pointerEnter ? 'toggleshow' : 'togglehide');
+                        this.toggle(`toggle${e.type === pointerEnter ? 'show' : 'hide'}`);
                     }
                 }
 
@@ -64,7 +64,14 @@ export default function (UIkit) {
                     }
 
                     // TODO better isToggled handling
-                    if ($(e.target).closest('a[href="#"], button').length || $(e.target).closest('a[href]') && (this.cls || !this.target.is(':visible'))) {
+                    var link = $(e.target).closest('a[href]');
+                    if ($(e.target).closest('a[href="#"], button').length
+                        || link.length && (
+                            this.cls
+                            || !this.target.is(':visible')
+                            || this.target.is(link.attr('href'))
+                        )
+                    ) {
                         e.preventDefault();
                     }
 

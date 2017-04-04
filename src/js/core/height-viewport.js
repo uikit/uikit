@@ -70,9 +70,9 @@ export default function (UIkit) {
                 }
 
                 // IE 10-11 fix (min-height on a flex container won't apply to its flex items)
-                this.$el.css('height', '');
+                this.$el.height('');
                 if (height && viewport - offset >= this.$el.outerHeight()) {
-                    this.$el.css('height', height);
+                    this.$el.height(height);
                 }
 
             },
