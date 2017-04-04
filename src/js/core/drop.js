@@ -284,39 +284,39 @@ export default function (UIkit) {
                 var show = () => !this.isToggled() && this.toggleElement(this.$el, true),
                     tryShow = () => {
 
-                    this.toggle = toggle || this.toggle;
+                        this.toggle = toggle || this.toggle;
 
-                    this.clearTimers();
+                        this.clearTimers();
 
-                    if (this.isActive()) {
-                        return;
-                    } else if (delay && active && active !== this && active.isDelaying) {
-                        this.showTimer = setTimeout(this.show, 10);
-                        return;
-                    } else if (this.isParentOf(active)) {
-
-                        if (active.hideTimer) {
-                            active.hide(false);
-                        } else {
+                        if (this.isActive()) {
                             return;
+                        } else if (delay && active && active !== this && active.isDelaying) {
+                            this.showTimer = setTimeout(this.show, 10);
+                            return;
+                        } else if (this.isParentOf(active)) {
+
+                            if (active.hideTimer) {
+                                active.hide(false);
+                            } else {
+                                return;
+                            }
+
+                        } else if (active && !this.isChildOf(active) && !this.isParentOf(active)) {
+                            var prev;
+                            while (active && active !== prev) {
+                                prev = active;
+                                active.hide(false);
+                            }
                         }
 
-                    } else if (active && !this.isChildOf(active) && !this.isParentOf(active)) {
-                        var prev;
-                        while (active && active !== prev) {
-                            prev = active;
-                            active.hide(false);
+                        if (delay && this.delayShow) {
+                            this.showTimer = setTimeout(show, this.delayShow);
+                        } else {
+                            show();
                         }
-                    }
 
-                    if (delay && this.delayShow) {
-                        this.showTimer = setTimeout(show, this.delayShow);
-                    } else {
-                        show();
-                    }
-
-                    active = this;
-                };
+                        active = this;
+                    };
 
                 if (toggle && this.toggle && !this.toggle.$el.is(toggle.$el)) {
 

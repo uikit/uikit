@@ -112,7 +112,7 @@ export function animate(element, animation, duration = 200, origin, out) {
 
         reset();
 
-        element
+        requestAnimationFrame(() => element
             .one(animationend || 'animationend', e => {
                 e.promise = p;
                 p.then(reset);
@@ -120,7 +120,8 @@ export function animate(element, animation, duration = 200, origin, out) {
             })
             .css('animation-duration', `${duration}ms`)
             .addClass(animation)
-            .addClass(cls);
+            .addClass(cls)
+        );
 
         if (!animationend) {
             requestAnimationFrame(() => Animation.cancel(element));

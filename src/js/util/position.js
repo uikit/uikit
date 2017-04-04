@@ -42,8 +42,16 @@ export function position(element, target, attach, targetAttach, offset, targetOf
                 return;
             }
 
-            var elemOffset = attach[dir] === align ? -dim[prop] : attach[dir] === alignFlip ? dim[prop] : 0,
-                targetOffset = targetAttach[dir] === align ? targetDim[prop] : targetAttach[dir] === alignFlip ? -targetDim[prop] : 0;
+            var elemOffset = attach[dir] === align
+                    ? -dim[prop]
+                    : attach[dir] === alignFlip
+                        ? dim[prop]
+                        : 0,
+                targetOffset = targetAttach[dir] === align
+                    ? targetDim[prop]
+                    : targetAttach[dir] === alignFlip
+                        ? -targetDim[prop]
+                        : 0;
 
             if (position[align] < boundary[align] || position[align] + dim[prop] > boundary[alignFlip]) {
 
