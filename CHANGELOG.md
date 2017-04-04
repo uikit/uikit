@@ -6,7 +6,7 @@
 
 - Fix Drop positioning
 - Fix imports in Modal
-- Fix click preventition in Toggle
+- Fix 'click' default behaviour preventition in Toggle
 
 ## 3.0.0 beta 19 (March 31, 2017)
 
