@@ -94,7 +94,7 @@ export default function (UIkit) {
                     var outerHeight = this.$el[0].offsetHeight, el;
 
                     this.placeholder
-                        .height(this.$el.css('position') !== 'absolute' ? outerHeight : '')
+                        .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
                         .css(this.$el.css(['marginTop', 'marginBottom', 'marginLeft', 'marginRight']));
 
                     if (!document.documentElement.contains(this.placeholder[0])) {
