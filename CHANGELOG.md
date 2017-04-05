@@ -10,7 +10,7 @@
 
 - Fix Drop positioning
 - Fix imports in Modal
-- Fix 'click' default behaviour preventition in Toggle
+- Fix 'click' default behaviour prevention in Toggle
 - Fix queued Toggle
 - Fix closing Offcanvas with swipe gesture (Android)
 - Fix Toggle icons preventing Drops from opening
