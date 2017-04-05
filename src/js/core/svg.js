@@ -12,18 +12,18 @@ export default function (UIkit) {
             id: String,
             icon: String,
             src: String,
-            class: String,
             style: String,
             width: Number,
             height: Number,
-            ratio: Number
+            ratio: Number,
+            'class': String
         },
 
         defaults: {
             ratio: 1,
             id: false,
-            class: '',
-            exclude: ['src']
+            exclude: ['src'],
+            'class': ''
         },
 
         init() {
