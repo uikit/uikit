@@ -1,18 +1,18 @@
-/*! UIkit 3.0.0-beta.19 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.20 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
     typeof define === 'function' && define.amd ? define('uikit', ['jquery'], factory) :
     (global.UIkit = factory(global.jQuery));
-}(this, (function ($$1) { 'use strict';
+}(this, (function ($) { 'use strict';
 
-var $$1__default = 'default' in $$1 ? $$1['default'] : $$1;
+var $__default = 'default' in $ ? $['default'] : $;
 
-var win = $$1__default(window);
-var doc = $$1__default(document);
-var docElement = $$1__default(document.documentElement);
+var win = $__default(window);
+var doc = $__default(document);
+var docElement = $__default(document.documentElement);
 
-var isRtl = $$1__default('html').attr('dir') === 'rtl';
+var isRtl = $__default('html').attr('dir') === 'rtl';
 
 function isReady() {
     return document.readyState === 'complete' || document.readyState !== 'loading' && !document.documentElement.doScroll;
@@ -50,7 +50,7 @@ function transition(element, props, duration, transition) {
 
     var p = promise(function (resolve, reject) {
 
-        element = $$1__default(element);
+        element = $__default(element);
 
         for (var name in props) {
             element.css(name, element.css(name));
@@ -85,8 +85,8 @@ var Transition = {
     start: transition,
 
     stop: function stop(element, cancel) {
-        var e = $$1__default.Event(transitionend || 'transitionend');
-        $$1__default(element).triggerHandler(e, [cancel]);
+        var e = $__default.Event(transitionend || 'transitionend');
+        $__default(element).triggerHandler(e, [cancel]);
         return e.promise || promise.resolve();
     },
 
@@ -95,7 +95,7 @@ var Transition = {
     },
 
     inProgress: function inProgress(element) {
-        return $$1__default(element).hasClass('uk-transition');
+        return $__default(element).hasClass('uk-transition');
     }
 
 };
@@ -108,7 +108,7 @@ function animate(element, animation, duration, origin, out) {
 
         var cls = out ? 'uk-animation-leave' : 'uk-animation-enter';
 
-        element = $$1__default(element);
+        element = $__default(element);
 
         if (animation.lastIndexOf('uk-animation-', 0) === 0) {
 
@@ -124,7 +124,7 @@ function animate(element, animation, duration, origin, out) {
 
         reset();
 
-        element
+        requestAnimationFrame(function () { return element
             .one(animationend || 'animationend', function (e) {
                 e.promise = p;
                 p.then(reset);
@@ -132,7 +132,8 @@ function animate(element, animation, duration, origin, out) {
             })
             .css('animation-duration', (duration + "ms"))
             .addClass(animation)
-            .addClass(cls);
+            .addClass(cls); }
+        );
 
         if (!animationend) {
             requestAnimationFrame(function () { return Animation.cancel(element); });
@@ -158,30 +159,30 @@ var Animation = {
     },
 
     inProgress: function inProgress(element) {
-        return $$1__default(element).hasClass('uk-animation-enter') || $$1__default(element).hasClass('uk-animation-leave');
+        return $__default(element).hasClass('uk-animation-enter') || $__default(element).hasClass('uk-animation-leave');
     },
 
     cancel: function cancel(element) {
-        var e = $$1__default.Event(animationend || 'animationend');
-        $$1__default(element).triggerHandler(e);
+        var e = $__default.Event(animationend || 'animationend');
+        $__default(element).triggerHandler(e);
         return e.promise || promise.resolve();
     }
 
 };
 
 function isJQuery(obj) {
-    return obj instanceof $$1__default;
+    return obj instanceof $__default;
 }
 
 function isWithin(element, selector) {
-    element = $$1__default(element);
+    element = $__default(element);
     return element.is(selector) || !!(isString(selector)
         ? element.parents(selector).length
-        : $$1__default.contains(toNode(selector), element[0]));
+        : $__default.contains(toNode(selector), element[0]));
 }
 
 function attrFilter(element, attr, pattern, replacement) {
-    element = $$1__default(element);
+    element = $__default(element);
     return element.attr(attr, function (i, value) { return value ? value.replace(pattern, replacement) : value; });
 }
 
@@ -201,7 +202,7 @@ function createEvent(e, bubbles, cancelable, data) {
     }
 
     if (data) {
-        $$1__default.extend(e, data);
+        $__default.extend(e, data);
     }
 
     return e;
@@ -224,9 +225,9 @@ function getIndex(index, elements, current) {
     if ( current === void 0 ) current = 0;
 
 
-    elements = $$1__default(elements);
+    elements = $__default(elements);
 
-    var length = $$1__default(elements).length;
+    var length = $__default(elements).length;
 
     index = (isNumber(index)
         ? index
@@ -277,9 +278,9 @@ var Dimensions = {
     fit: function fit(dimensions, maxDimensions) {
         var this$1 = this;
 
-        dimensions = $$1.extend({}, dimensions);
+        dimensions = $.extend({}, dimensions);
 
-        $$1.each(dimensions, function (prop) { return dimensions = dimensions[prop] > maxDimensions[prop] ? this$1.ratio(dimensions, prop, maxDimensions[prop]) : dimensions; });
+        $.each(dimensions, function (prop) { return dimensions = dimensions[prop] > maxDimensions[prop] ? this$1.ratio(dimensions, prop, maxDimensions[prop]) : dimensions; });
 
         return dimensions;
     },
@@ -289,7 +290,7 @@ var Dimensions = {
 
         dimensions = this.fit(dimensions, maxDimensions);
 
-        $$1.each(dimensions, function (prop) { return dimensions = dimensions[prop] < maxDimensions[prop] ? this$1.ratio(dimensions, prop, maxDimensions[prop]) : dimensions; });
+        $.each(dimensions, function (prop) { return dimensions = dimensions[prop] < maxDimensions[prop] ? this$1.ratio(dimensions, prop, maxDimensions[prop]) : dimensions; });
 
         return dimensions;
     }
@@ -298,7 +299,7 @@ var Dimensions = {
 
 function query(selector, context) {
     var selectors = getContextSelectors(selector);
-    return selectors ? selectors.reduce(function (context, selector) { return toJQuery$1(selector, context); }, context) : toJQuery$1(selector);
+    return selectors ? selectors.reduce(function (context, selector) { return toJQuery(selector, context); }, context) : toJQuery(selector);
 }
 
 function bind(fn, context) {
@@ -319,7 +320,7 @@ function promise(executor) {
         return new Promise(executor);
     }
 
-    var def = $$1__default.Deferred();
+    var def = $__default.Deferred();
 
     executor(def.resolve, def.reject);
 
@@ -341,7 +342,7 @@ promise.reject = function (value) {
 promise.all = function (iterable) {
     return hasPromise
         ? Promise.all(iterable)
-        : $$1__default.when.apply($$1__default, iterable);
+        : $__default.when.apply($__default, iterable);
 };
 
 function classify(str) {
@@ -384,7 +385,7 @@ function getContextSelectors(selector) {
 }
 
 var contextSelectors = {'!': 'closest', '+': 'nextAll', '-': 'prevAll'};
-function toJQuery$1(element, context) {
+function toJQuery(element, context) {
 
     if (element === true) {
         return null;
@@ -396,7 +397,7 @@ function toJQuery$1(element, context) {
 
             var fn = contextSelectors[element[0]], selector = element.substr(1);
 
-            context = $$1__default(context);
+            context = $__default(context);
 
             if (fn === 'closest') {
                 context = context.parent();
@@ -406,7 +407,7 @@ function toJQuery$1(element, context) {
             element = context[fn](selector);
 
         } else {
-            element = $$1__default(element, context);
+            element = $__default(element, context);
         }
 
     } catch (e) {
@@ -436,7 +437,7 @@ function toNumber(value) {
 }
 
 function toList(value) {
-    return $$1.isArray(value)
+    return $.isArray(value)
         ? value
         : isString(value)
             ? value.split(',').map(function (value) { return toBoolean(value.trim()); })
@@ -493,17 +494,20 @@ var Observer = window.MutationObserver || window.WebKitMutationObserver;
 var requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
 var cancelAnimationFrame = window.cancelAnimationFrame || window.clearTimeout;
 
+var hasTouchEvents = 'ontouchstart' in window;
+var hasPointerEvents = window.PointerEvent;
 var hasPromise = 'Promise' in window;
-var hasTouch = 'ontouchstart' in window
+var hasTouch = hasTouchEvents
     || window.DocumentTouch && document instanceof DocumentTouch
     || navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0 // IE 10
     || navigator.pointerEnabled && navigator.maxTouchPoints > 0; // IE >=11
 
-var pointerDown = !hasTouch ? 'mousedown' : window.PointerEvent ? 'pointerdown' : 'touchstart';
-var pointerMove = !hasTouch ? 'mousemove' : window.PointerEvent ? 'pointermove' : 'touchmove';
-var pointerUp = !hasTouch ? 'mouseup' : window.PointerEvent ? 'pointerup' : 'touchend';
-var pointerEnter = hasTouch && window.PointerEvent ? 'pointerenter' : 'mouseenter';
-var pointerLeave = hasTouch && window.PointerEvent ? 'pointerleave' : 'mouseleave';
+var pointerDown = !hasTouch ? 'mousedown' : hasTouchEvents ? 'touchstart' : 'pointerdown';
+var pointerMove = !hasTouch ? 'mousemove' : hasTouchEvents ? 'touchmove' : 'pointermove';
+var pointerUp = !hasTouch ? 'mouseup' : hasTouchEvents ? 'touchend' : 'pointerup';
+var pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mouseenter';
+var pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
+var pointerCancel = hasTouch && hasTouchEvents ? 'touchcancel' : 'pointercancel';
 
 var transitionstart = prefix('transition', 'transition-start');
 var transitionend = prefix('transition', 'transition-end');
@@ -714,12 +718,12 @@ strats.connected =
 strats.disconnected =
 strats.destroy = function (parentVal, childVal) {
 
-    parentVal = parentVal && !$$1.isArray(parentVal) ? [parentVal] : parentVal;
+    parentVal = parentVal && !$.isArray(parentVal) ? [parentVal] : parentVal;
 
     return childVal
         ? parentVal
             ? parentVal.concat(childVal)
-            : $$1.isArray(childVal)
+            : $.isArray(childVal)
                 ? childVal
                 : [childVal]
         : parentVal;
@@ -727,13 +731,13 @@ strats.destroy = function (parentVal, childVal) {
 
 // update strategy
 strats.update = function (parentVal, childVal) {
-    return strats.args(parentVal, $$1.isFunction(childVal) ? {write: childVal} : childVal);
+    return strats.args(parentVal, $.isFunction(childVal) ? {write: childVal} : childVal);
 };
 
 // property strategy
 strats.props = function (parentVal, childVal) {
 
-    if ($$1.isArray(childVal)) {
+    if ($.isArray(childVal)) {
         childVal = childVal.reduce(function (value, key) {
             value[key] = String;
             return value;
@@ -749,7 +753,7 @@ strats.defaults =
 strats.methods = function (parentVal, childVal) {
     return childVal
         ? parentVal
-            ? $$1.extend(true, {}, parentVal, childVal)
+            ? $.extend(true, {}, parentVal, childVal)
             : childVal
         : parentVal;
 };
@@ -821,7 +825,7 @@ function position(element, target, attach, targetAttach, offset, targetOffset, f
     boundary = getDimensions(boundary || window);
 
     if (flip) {
-        $$1.each(dirs, function (dir, ref) {
+        $.each(dirs, function (dir, ref) {
             var prop = ref[0];
             var align = ref[1];
             var alignFlip = ref[2];
@@ -831,8 +835,16 @@ function position(element, target, attach, targetAttach, offset, targetOffset, f
                 return;
             }
 
-            var elemOffset = attach[dir] === align ? -dim[prop] : attach[dir] === alignFlip ? dim[prop] : 0,
-                targetOffset = targetAttach[dir] === align ? targetDim[prop] : targetAttach[dir] === alignFlip ? -targetDim[prop] : 0;
+            var elemOffset = attach[dir] === align
+                    ? -dim[prop]
+                    : attach[dir] === alignFlip
+                        ? dim[prop]
+                        : 0,
+                targetOffset = targetAttach[dir] === align
+                    ? targetDim[prop]
+                    : targetAttach[dir] === alignFlip
+                        ? -targetDim[prop]
+                        : 0;
 
             if (position[align] < boundary[align] || position[align] + dim[prop] > boundary[alignFlip]) {
 
@@ -854,7 +866,7 @@ function position(element, target, attach, targetAttach, offset, targetOffset, f
         });
     }
 
-    $$1__default(element).offset({left: position.left, top: position.top});
+    $__default(element).offset({left: position.left, top: position.top});
 
     return flipped;
 }
@@ -876,15 +888,15 @@ function getDimensions(element) {
         }
     }
 
-    var display;
+    var display = false;
     if (!element.offsetHeight) {
-        display = getComputedStyle(element).display;
+        display = element.style.display;
         element.style.display = 'block';
     }
 
     var rect = element.getBoundingClientRect();
 
-    if (display) {
+    if (display !== false) {
         element.style.display = display;
     }
 
@@ -908,7 +920,7 @@ function getWindow(element) {
 }
 
 function moveTo(position, attach, dim, factor) {
-    $$1.each(dirs, function (dir, ref) {
+    $.each(dirs, function (dir, ref) {
         var prop = ref[0];
         var align = ref[1];
         var alignFlip = ref[2];
@@ -976,37 +988,22 @@ var touch = {};
 var touchTimeout;
 var tapTimeout;
 var swipeTimeout;
-var longTapTimeout;
-var longTapDelay = 750;
 var gesture;
 var clicked;
 function swipeDirection(x1, x2, y1, y2) {
     return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down');
 }
 
-function longTap() {
-    longTapTimeout = null;
-    if (touch.last) {
-        if (touch.el !== undefined) { touch.el.trigger('longTap'); }
-        touch = {};
-    }
-}
-
-function cancelLongTap() {
-    if (longTapTimeout) { clearTimeout(longTapTimeout); }
-    longTapTimeout = null;
-}
-
 function cancelAll() {
-    if (touchTimeout)   { clearTimeout(touchTimeout); }
-    if (tapTimeout)     { clearTimeout(tapTimeout); }
-    if (swipeTimeout)   { clearTimeout(swipeTimeout); }
-    if (longTapTimeout) { clearTimeout(longTapTimeout); }
-    touchTimeout = tapTimeout = swipeTimeout = longTapTimeout = null;
+    if (touchTimeout) { clearTimeout(touchTimeout); }
+    if (tapTimeout) { clearTimeout(tapTimeout); }
+    if (swipeTimeout) { clearTimeout(swipeTimeout); }
+    touchTimeout = tapTimeout = swipeTimeout = null;
     touch = {};
 }
 
 ready(function () {
+
     var now, delta, deltaX = 0, deltaY = 0, firstTouch;
 
     if ('MSGesture' in window) {
@@ -1016,134 +1013,134 @@ ready(function () {
 
     on(document, 'click', function () { return clicked = true; }, true);
 
-    doc
+    var gestureHandler = function (e) {
 
-        .on('MSGestureEnd gestureend', function (e) {
+        var swipeDirectionFromVelocity = e.velocityX > 1 ? 'Right' : e.velocityX < -1 ? 'Left' : e.velocityY > 1 ? 'Down' : e.velocityY < -1 ? 'Up' : null;
 
-            var swipeDirectionFromVelocity = e.originalEvent.velocityX > 1 ? 'Right' : e.originalEvent.velocityX < -1 ? 'Left' : e.originalEvent.velocityY > 1 ? 'Down' : e.originalEvent.velocityY < -1 ? 'Up' : null;
+        if (swipeDirectionFromVelocity && touch.el !== undefined) {
+            touch.el.trigger('swipe');
+            touch.el.trigger(("swipe" + swipeDirectionFromVelocity));
+        }
+    };
 
-            if (swipeDirectionFromVelocity && touch.el !== undefined) {
-                touch.el.trigger('swipe');
-                touch.el.trigger('swipe' + swipeDirectionFromVelocity);
-            }
-        })
-        .on(pointerDown, function (e) {
+    on(document, 'MSGestureEnd', gestureHandler);
+    on(document, 'gestureend', gestureHandler);
 
-            firstTouch = e.originalEvent.touches ? e.originalEvent.touches[0] : e;
+    on(document, pointerDown, function (e) {
 
-            now = Date.now();
-            delta = now - (touch.last || now);
-            touch.el = $$1__default('tagName' in firstTouch.target ? firstTouch.target : firstTouch.target.parentNode);
+        firstTouch = e.touches ? e.touches[0] : e;
 
-            if (touchTimeout) { clearTimeout(touchTimeout); }
+        now = Date.now();
+        delta = now - (touch.last || now);
+        touch.el = $__default('tagName' in firstTouch.target ? firstTouch.target : firstTouch.target.parentNode);
 
-            touch.x1 = firstTouch.pageX;
-            touch.y1 = firstTouch.pageY;
+        if (touchTimeout) { clearTimeout(touchTimeout); }
 
-            if (delta > 0 && delta <= 250) { touch.isDoubleTap = true; }
+        touch.x1 = firstTouch.pageX;
+        touch.y1 = firstTouch.pageY;
 
-            touch.last = now;
-            longTapTimeout = setTimeout(longTap, longTapDelay);
+        if (delta > 0 && delta <= 250) { touch.isDoubleTap = true; }
 
-            // adds the current touch contact for IE gesture recognition
-            if (gesture && ( e.type == 'pointerdown' || e.type == 'touchstart' )) {
-                gesture.addPointer(e.originalEvent.pointerId);
-            }
+        touch.last = now;
 
-            clicked = e.button > 0;
+        // adds the current touch contact for IE gesture recognition
+        if (gesture && ( e.type == 'pointerdown' || e.type == 'touchstart' )) {
+            gesture.addPointer(e.pointerId);
+        }
 
-        })
-        .on(pointerMove, function (e) {
+        clicked = e.button > 0;
 
-            firstTouch = e.originalEvent.touches ? e.originalEvent.touches[0] : e;
+    });
 
-            cancelLongTap();
-            touch.x2 = firstTouch.pageX;
-            touch.y2 = firstTouch.pageY;
+    on(document, pointerMove, function (e) {
 
-            deltaX += Math.abs(touch.x1 - touch.x2);
-            deltaY += Math.abs(touch.y1 - touch.y2);
-        })
-        .on(pointerUp, function () {
+        firstTouch = e.touches ? e.touches[0] : e;
 
-            cancelLongTap();
+        touch.x2 = firstTouch.pageX;
+        touch.y2 = firstTouch.pageY;
 
-            // swipe
-            if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) || (touch.y2 && Math.abs(touch.y1 - touch.y2) > 30)) {
+        deltaX += Math.abs(touch.x1 - touch.x2);
+        deltaY += Math.abs(touch.y1 - touch.y2);
+    });
 
-                swipeTimeout = setTimeout(function () {
-                    if (touch.el !== undefined) {
-                        touch.el.trigger('swipe');
-                        touch.el.trigger('swipe' + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)));
-                    }
-                    touch = {};
-                }, 0);
+    on(document, pointerUp, function () {
 
-                // normal tap
-            } else if ('last' in touch) {
+        // swipe
+        if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) || (touch.y2 && Math.abs(touch.y1 - touch.y2) > 30)) {
 
-                // don't fire tap when delta position changed by more than 30 pixels,
-                // for instance when moving to a point and back to origin
-                if (isNaN(deltaX) || (deltaX < 30 && deltaY < 30)) {
-                    // delay by one tick so we can cancel the 'tap' event if 'scroll' fires
-                    // ('tap' fires before 'scroll')
-                    tapTimeout = setTimeout(function () {
-
-                        // trigger universal 'tap' with the option to cancelTouch()
-                        // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
-                        var event = $$1__default.Event('tap');
-                        event.cancelTouch = cancelAll;
-
-                        if (touch.el !== undefined) {
-                            touch.el.trigger(event);
-                        }
-
-                        // trigger double tap immediately
-                        if (touch.isDoubleTap) {
-                            if (touch.el !== undefined) { touch.el.trigger('doubleTap'); }
-                            touch = {};
-                        }
-
-                        // trigger single tap after 300ms of inactivity
-                        else {
-                            touchTimeout = setTimeout(function () {
-                                touchTimeout = null;
-                                if (touch.el !== undefined) {
-                                    touch.el.trigger('singleTap');
-
-                                    if (!clicked) {
-                                        touch.el.trigger('click');
-                                    }
-
-                                }
-                                touch = {};
-                            }, 300);
-                        }
-                    });
-                } else {
-                    touch = {};
+            swipeTimeout = setTimeout(function () {
+                if (touch.el !== undefined) {
+                    touch.el.trigger('swipe');
+                    touch.el.trigger(("swipe" + (swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2))));
                 }
-                deltaX = deltaY = 0;
+                touch = {};
+            }, 0);
+
+            // normal tap
+        } else if ('last' in touch) {
+
+            // don't fire tap when delta position changed by more than 30 pixels,
+            // for instance when moving to a point and back to origin
+            if (isNaN(deltaX) || (deltaX < 30 && deltaY < 30)) {
+                // delay by one tick so we can cancel the 'tap' event if 'scroll' fires
+                // ('tap' fires before 'scroll')
+                tapTimeout = setTimeout(function () {
+
+                    // trigger universal 'tap' with the option to cancelTouch()
+                    // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
+                    var event = $__default.Event('tap');
+                    event.cancelTouch = cancelAll;
+
+                    if (touch.el !== undefined) {
+                        touch.el.trigger(event);
+                    }
+
+                    // trigger double tap immediately
+                    if (touch.isDoubleTap) {
+                        if (touch.el !== undefined) { touch.el.trigger('doubleTap'); }
+                        touch = {};
+                    }
+
+                    // trigger single tap after 300ms of inactivity
+                    else {
+                        touchTimeout = setTimeout(function () {
+                            touchTimeout = null;
+                            if (touch.el !== undefined) {
+                                touch.el.trigger('singleTap');
+
+                                if (!clicked) {
+                                    touch.el.trigger('click');
+                                }
+
+                            }
+                            touch = {};
+                        }, 300);
+                    }
+                });
+            } else {
+                touch = {};
             }
-        })
-        // when the browser window loses focus,
-        // for example when a modal dialog is shown,
-        // cancel all ongoing events
-        .on('touchcancel pointercancel', cancelAll);
+            deltaX = deltaY = 0;
+        }
+    });
+
+    // when the browser window loses focus,
+    // for example when a modal dialog is shown,
+    // cancel all ongoing events
+    on(document, pointerCancel, cancelAll);
 
     // scrolling the window indicates intention of the user
     // to scroll, not tap or swipe, so cancel all ongoing events
-    win.on('scroll', cancelAll);
+    on(window, 'scroll', cancelAll);
 });
 
 var touching = false;
-
 on(document, 'touchstart', function () { return touching = true; }, true);
-on(document, 'click', function () { return touching = false; });
+on(document, 'click', function () {touching = false});
 on(document, 'touchcancel', function () { return touching = false; }, true);
 
 function isTouch(e) {
-    return touching || e.originalEvent && e.originalEvent.pointerType === 'touch';
+    return touching || (e.originalEvent || e).pointerType === 'touch';
 }
 
 
@@ -1181,6 +1178,7 @@ var util = Object.freeze({
 	pointerUp: pointerUp,
 	pointerEnter: pointerEnter,
 	pointerLeave: pointerLeave,
+	pointerCancel: pointerCancel,
 	transitionstart: transitionstart,
 	transitionend: transitionend,
 	animationstart: animationstart,
@@ -1188,7 +1186,7 @@ var util = Object.freeze({
 	getStyle: getStyle,
 	getCssVar: getCssVar,
 	fastdom: fastdom,
-	$: $$1__default,
+	$: $__default,
 	bind: bind,
 	hasOwn: hasOwn,
 	promise: promise,
@@ -1200,7 +1198,7 @@ var util = Object.freeze({
 	isUndefined: isUndefined,
 	isContextSelector: isContextSelector,
 	getContextSelectors: getContextSelectors,
-	toJQuery: toJQuery$1,
+	toJQuery: toJQuery,
 	toNode: toNode,
 	toBoolean: toBoolean,
 	toNumber: toNumber,
@@ -1209,15 +1207,15 @@ var util = Object.freeze({
 	coerce: coerce,
 	toMs: toMs,
 	swap: swap,
-	ajax: $$1.ajax,
-	each: $$1.each,
-	extend: $$1.extend,
-	map: $$1.map,
-	merge: $$1.merge,
-	isArray: $$1.isArray,
-	isNumeric: $$1.isNumeric,
-	isFunction: $$1.isFunction,
-	isPlainObject: $$1.isPlainObject,
+	ajax: $.ajax,
+	each: $.each,
+	extend: $.extend,
+	map: $.map,
+	merge: $.merge,
+	isArray: $.isArray,
+	isNumeric: $.isNumeric,
+	isFunction: $.isFunction,
+	isPlainObject: $.isPlainObject,
 	MouseTracker: MouseTracker,
 	mergeOptions: mergeOptions,
 	position: position,
@@ -1275,6 +1273,8 @@ function boot (UIkit) {
                 UIkit.update('update', mutation.target, true);
             }); }
         )).observe(document.documentElement, {childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['href']});
+
+        UIkit._initialized = true;
     }
 
     function apply(node, fn) {
@@ -1574,7 +1574,7 @@ function stateAPI (UIkit) {
         var this$1 = this;
 
 
-        var defaults = $$1.extend(true, {}, this.$options.defaults),
+        var defaults = $.extend(true, {}, this.$options.defaults),
             data = this.$options.data || {},
             args = this.$options.args || [],
             props = this.$options.props || {};
@@ -1583,10 +1583,10 @@ function stateAPI (UIkit) {
             return;
         }
 
-        if (args.length && $$1.isArray(data)) {
+        if (args.length && $.isArray(data)) {
             data = data.slice(0, args.length).reduce(function (data, value, index) {
-                if ($$1.isPlainObject(value)) {
-                    $$1.extend(data, value);
+                if ($.isPlainObject(value)) {
+                    $.extend(data, value);
                 } else {
                     data[args[index]] = value;
                 }
@@ -1632,7 +1632,7 @@ function stateAPI (UIkit) {
 
 
         this._computeds = {};
-        $$1.extend(this.$props, props || this._getProps());
+        $.extend(this.$props, props || this._getProps());
 
         var exclude = [this.$options.computed, this.$options.methods];
         for (var key in this$1.$props) {
@@ -1686,7 +1686,7 @@ function stateAPI (UIkit) {
 
         this._observer.observe(this.$options.el, {
             attributes: true,
-            attributeFilter: Object.keys(this.$options.props).map(function (key) { return hyphenate(key); })
+            attributeFilter: $.isArray(this.$options.attrs) ? this.$options.attrs : Object.keys(this.$options.props).map(function (key) { return hyphenate(key); })
         });
     };
 
@@ -1781,7 +1781,7 @@ function registerComputed(component, key, cb) {
 
 function registerEvent(component, unbind, event, key) {
 
-    if (!$$1.isPlainObject(event)) {
+    if (!$.isPlainObject(event)) {
         event = ({name: key, handler: event});
     }
 
@@ -1856,7 +1856,7 @@ function instanceAPI (UIkit) {
 
         el[DATA][name] = this;
 
-        this.$el = $$1__default(el);
+        this.$el = $__default(el);
 
         this._initProps();
 
@@ -1928,7 +1928,7 @@ function componentAPI (UIkit) {
 
         var name = camelize(id);
 
-        if ($$1.isPlainObject(options)) {
+        if ($.isPlainObject(options)) {
             options.name = name;
             options = UIkit.extend(options);
         } else {
@@ -1942,7 +1942,7 @@ function componentAPI (UIkit) {
             while ( i-- ) argsArray[i] = arguments[i];
 
 
-            if ($$1.isPlainObject(element)) {
+            if ($.isPlainObject(element)) {
                 return new UIkit.components[name]({data: element});
             }
 
@@ -1950,12 +1950,12 @@ function componentAPI (UIkit) {
                 return new UIkit.components[name]({data: [].concat( argsArray )});
             }
 
-            return $$1__default(element).toArray().map(function (element) { return UIkit.getComponent(element, name) || new UIkit.components[name]({el: element, data: data || {}}); }
+            return $__default(element).toArray().map(function (element) { return UIkit.getComponent(element, name) || new UIkit.components[name]({el: element, data: data || {}}); }
             )[0];
         };
 
-        if (document.body && !options.options.functional) {
-            UIkit[name](("[uk-" + id + "],[data-uk-" + id + "]"));
+        if (UIkit._initialized && !options.options.functional) {
+            fastdom.measure(function () { return UIkit[name](("[uk-" + id + "],[data-uk-" + id + "]")); });
         }
 
         return UIkit.components[name];
@@ -1998,22 +1998,22 @@ function componentAPI (UIkit) {
 
 }
 
-var UIkit$1 = function (options) {
+var UIkit = function (options) {
     this._init(options);
 };
 
-UIkit$1.util = util;
-UIkit$1.data = '__uikit__';
-UIkit$1.prefix = 'uk-';
-UIkit$1.options = {};
-UIkit$1.instances = {};
-UIkit$1.elements = [];
+UIkit.util = util;
+UIkit.data = '__uikit__';
+UIkit.prefix = 'uk-';
+UIkit.options = {};
+UIkit.instances = {};
+UIkit.elements = [];
 
-globalAPI(UIkit$1);
-hooksAPI(UIkit$1);
-stateAPI(UIkit$1);
-instanceAPI(UIkit$1);
-componentAPI(UIkit$1);
+globalAPI(UIkit);
+hooksAPI(UIkit);
+stateAPI(UIkit);
+instanceAPI(UIkit);
+componentAPI(UIkit);
 
 var Class = {
 
@@ -2080,38 +2080,38 @@ var Toggable = {
             var this$1 = this;
 
 
-            var queued = this.queued && this.hasAnimation, toggles, body = document.body, scroll = body.scrollTop,
+            var toggles, body = document.body, scroll = body.scrollTop,
                 all = function (targets) { return promise.all(targets.toArray().map(function (el) { return this$1._toggleElement(el, show, animate); })).then(null, function () {}); },
                 delay = function (targets) {
                     var def = all(targets);
-                    queued = true;
+                    this$1._queued = null;
                     body.scrollTop = scroll;
                     return def;
                 };
 
-            targets = $$1__default(targets);
+            targets = $__default(targets);
 
-            if (!queued || targets.length < 2) {
+            if (!this.hasAnimation || !this.queued || targets.length < 2) {
                 return all(targets);
             }
 
-            if (queued !== true) {
-                return delay(targets.not(queued));
+            if (this._queued) {
+                return delay(targets.not(this._queued));
             }
 
-            queued = targets.not(toggles = targets.filter(function (_, el) { return this$1.isToggled(el); }));
+            this._queued = targets.not(toggles = targets.filter(function (_, el) { return this$1.isToggled(el); }));
 
-            return all(toggles).then(function () { return queued !== true && delay(queued); });
+            return all(toggles).then(function () { return this$1._queued && delay(this$1._queued); });
         },
 
         toggleNow: function toggleNow(targets, show) {
             var this$1 = this;
 
-            return promise.all($$1__default(targets).toArray().map(function (el) { return this$1._toggleElement(el, show, false); })).then(null, function () {});
+            return promise.all($__default(targets).toArray().map(function (el) { return this$1._toggleElement(el, show, false); })).then(null, function () {});
         },
 
         isToggled: function isToggled(el) {
-            el = el && $$1__default(el) || this.$el;
+            el = el && $__default(el) || this.$el;
             return this.cls ? el.hasClass(this.cls.split(' ')[0]) : !el.attr('hidden');
         },
 
@@ -2125,7 +2125,7 @@ var Toggable = {
             var this$1 = this;
 
 
-            el = $$1__default(el);
+            el = $__default(el);
 
             if (Animation.inProgress(el)) {
                 return Animation.cancel(el).then(function () { return this$1._toggleElement(el, show, animate); });
@@ -2133,7 +2133,7 @@ var Toggable = {
 
             show = typeof show === 'boolean' ? show : !this.isToggled(el);
 
-            var event = $$1__default.Event(("before" + (show ? 'show' : 'hide')));
+            var event = $__default.Event(("before" + (show ? 'show' : 'hide')));
             el.trigger(event, [this]);
 
             if (event.result === false) {
@@ -2153,7 +2153,7 @@ var Toggable = {
 
         _toggle: function _toggle(el, toggled) {
 
-            el = $$1__default(el);
+            el = $__default(el);
 
             if (this.cls) {
                 el.toggleClass(this.cls, ~this.cls.indexOf(' ') ? undefined : toggled);
@@ -2164,7 +2164,7 @@ var Toggable = {
             el.find('[autofocus]:visible').focus();
 
             this.updateAria(el);
-            UIkit$1.update(null, el);
+            UIkit.update(null, el);
         },
 
         _toggleImmediate: function _toggleImmediate(el, show) {
@@ -2187,16 +2187,22 @@ var Toggable = {
                     this$1._toggle(el, true);
                 }
 
-                el.css('height', '');
-                endHeight = el.height() + (inProgress ? 0 : inner);
-                el.height(height);
+                el.height('');
 
-                return show
-                    ? Transition.start(el, $$1.extend(this$1.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this$1.duration * (1 - height / endHeight)), this$1.transition)
-                    : Transition.start(el, this$1.hideProps, Math.round(this$1.duration * (height / endHeight)), this$1.transition).then(function () {
-                            this$1._toggle(el, false);
-                            el.css(this$1.initProps);
-                        });
+                return promise(function (resolve) { return requestAnimationFrame(function () {
+
+                        endHeight = el.height() + (inProgress ? 0 : inner);
+                        el.height(height);
+
+                        (show
+                            ? Transition.start(el, $.extend(this$1.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this$1.duration * (1 - height / endHeight)), this$1.transition)
+                            : Transition.start(el, this$1.hideProps, Math.round(this$1.duration * (height / endHeight)), this$1.transition).then(function () {
+                                this$1._toggle(el, false);
+                                el.css(this$1.initProps);
+                            })).then(resolve);
+
+                    }); }
+                );
 
             });
 
@@ -2245,7 +2251,7 @@ var Modal = {
     computed: {
 
         body: function body() {
-            return $$1__default(document.body);
+            return $__default(document.body);
         },
 
         panel: function panel() {
@@ -2500,7 +2506,7 @@ var Position = {
             this.dir = axis === 'x' ? flipped.target.x : flipped.target.y;
             this.align = axis === 'x' ? flipped.target.y : flipped.target.x;
 
-            element.css('display', '').toggleClass(((this.clsPos) + "-" + (this.dir) + "-" + (this.align)), this.offset === false);
+            element.toggleClass(((this.clsPos) + "-" + (this.dir) + "-" + (this.align)), this.offset === false);
 
         },
 
@@ -2554,7 +2560,7 @@ function Accordion (UIkit) {
             items: function items() {
                 var this$1 = this;
 
-                var items = $$1__default(this.targets, this.$el);
+                var items = $__default(this.targets, this.$el);
                 this._changed = !this._items || items.length !== this._items.length || items.toArray().some(function (el, i) { return el !== this$1._items.get(i); });
                 return this._items = items;
             }
@@ -2593,11 +2599,11 @@ function Accordion (UIkit) {
             }
 
             this.items.each(function (i, el) {
-                el = $$1__default(el);
+                el = $__default(el);
                 this$1.toggleNow(el.find(this$1.content), el.hasClass(this$1.clsOpen));
             });
 
-            var active = this.active !== false && toJQuery$1(this.items.eq(Number(this.active))) || !this.collapsible && toJQuery$1(this.items.eq(0));
+            var active = this.active !== false && toJQuery(this.items.eq(Number(this.active))) || !this.collapsible && toJQuery(this.items.eq(0));
             if (active && !active.hasClass(this.clsOpen)) {
                 this.toggle(active, false);
             }
@@ -2617,7 +2623,7 @@ function Accordion (UIkit) {
 
                 item.add(!this.multiple && active).each(function (i, el) {
 
-                    el = $$1__default(el);
+                    el = $__default(el);
 
                     var isItem = el.is(item), state = isItem && !el.hasClass(this$1.clsOpen);
 
@@ -2794,7 +2800,7 @@ function Drop (UIkit) {
 
     doc.on('click', function (e) {
         var prev;
-        while (active && active !== prev && !isWithin(e.target, active.$el) && (!active.toggle || !isWithin(e.target, active.toggle.$el))) {
+        while (active && active !== prev && !isWithin(e.target, active.$el) && !(active.toggle && isWithin(e.target, active.toggle.$el))) {
             prev = active;
             active.hide(false);
         }
@@ -2878,7 +2884,7 @@ function Drop (UIkit) {
                         return;
                     }
 
-                    var id = $(e.target).attr('href');
+                    var id = $__default(e.target).attr('href');
 
                     if (id.length === 1) {
                         e.preventDefault();
@@ -3076,39 +3082,39 @@ function Drop (UIkit) {
                 var show = function () { return !this$1.isToggled() && this$1.toggleElement(this$1.$el, true); },
                     tryShow = function () {
 
-                    this$1.toggle = toggle || this$1.toggle;
+                        this$1.toggle = toggle || this$1.toggle;
 
-                    this$1.clearTimers();
+                        this$1.clearTimers();
 
-                    if (this$1.isActive()) {
-                        return;
-                    } else if (delay && active && active !== this$1 && active.isDelaying) {
-                        this$1.showTimer = setTimeout(this$1.show, 10);
-                        return;
-                    } else if (this$1.isParentOf(active)) {
-
-                        if (active.hideTimer) {
-                            active.hide(false);
-                        } else {
+                        if (this$1.isActive()) {
                             return;
+                        } else if (delay && active && active !== this$1 && active.isDelaying) {
+                            this$1.showTimer = setTimeout(this$1.show, 10);
+                            return;
+                        } else if (this$1.isParentOf(active)) {
+
+                            if (active.hideTimer) {
+                                active.hide(false);
+                            } else {
+                                return;
+                            }
+
+                        } else if (active && !this$1.isChildOf(active) && !this$1.isParentOf(active)) {
+                            var prev;
+                            while (active && active !== prev) {
+                                prev = active;
+                                active.hide(false);
+                            }
                         }
 
-                    } else if (active && !this$1.isChildOf(active) && !this$1.isParentOf(active)) {
-                        var prev;
-                        while (active && active !== prev) {
-                            prev = active;
-                            active.hide(false);
+                        if (delay && this$1.delayShow) {
+                            this$1.showTimer = setTimeout(show, this$1.delayShow);
+                        } else {
+                            show();
                         }
-                    }
 
-                    if (delay && this$1.delayShow) {
-                        this$1.showTimer = setTimeout(show, this$1.delayShow);
-                    } else {
-                        show();
-                    }
-
-                    active = this$1;
-                };
+                        active = this$1;
+                    };
 
                 if (toggle && this.toggle && !this.toggle.$el.is(toggle.$el)) {
 
@@ -3319,7 +3325,7 @@ function HeightMatch (UIkit) {
         computed: {
 
             elements: function elements() {
-                return $$1__default(this.target, this.$el);
+                return $__default(this.target, this.$el);
             }
 
         },
@@ -3348,7 +3354,7 @@ function HeightMatch (UIkit) {
 
                         return rows;
 
-                    }, []).map(function (elements) { return this$1.match($$1__default(elements)); });
+                    }, []).map(function (elements) { return this$1.match($__default(elements)); });
             },
 
             write: function write() {
@@ -3384,7 +3390,7 @@ function HeightMatch (UIkit) {
                         var $el, style, hidden;
 
                         if (el.offsetHeight === 0) {
-                            $el = $$1__default(el);
+                            $el = $__default(el);
                             style = $el.attr('style') || null;
                             hidden = $el.attr('hidden') || null;
 
@@ -3462,7 +3468,7 @@ function HeightViewport (UIkit) {
 
                         offset += this.$el.next().outerHeight() || 0;
 
-                    } else if ($$1.isNumeric(this.offsetBottom)) {
+                    } else if ($.isNumeric(this.offsetBottom)) {
 
                         offset += (viewport / 100) * this.offsetBottom;
 
@@ -3482,7 +3488,7 @@ function HeightViewport (UIkit) {
                 }
 
                 // IE 10-11 fix (min-height on a flex container won't apply to its flex items)
-                this.$el.css('height', '');
+                this.$el.height('');
                 if (height && viewport - offset >= this.$el.outerHeight()) {
                     this.$el.css('height', height);
                 }
@@ -3510,7 +3516,7 @@ function Hover (UIkit) {
         docElement.on('tap', function (ref) {
             var target = ref.target;
 
-            return $$1__default(("." + cls)).filter(function (_, el) { return !isWithin(target, el); }).removeClass(cls);
+            return $__default(("." + cls)).filter(function (_, el) { return !isWithin(target, el); }).removeClass(cls);
         });
 
         Object.defineProperty(UIkit, 'hoverSelector', {
@@ -3583,6 +3589,8 @@ function Icon (UIkit) {
         };
 
     UIkit.component('icon', UIkit.components.svg.extend({
+
+        attrs: ['icon', 'ratio'],
 
         mixins: [Class],
 
@@ -3723,7 +3731,7 @@ function Icon (UIkit) {
 
     });
 
-    UIkit.icon.add = function (added) { return $$1.extend(icons, added); };
+    UIkit.icon.add = function (added) { return $.extend(icons, added); };
 
     function registerComponent(name, mixin) {
 
@@ -3818,7 +3826,7 @@ function Margin (UIkit) {
                     return;
                 }
 
-                this.rows.forEach(function (row, i) { return row.forEach(function (el, j) { return $$1__default(el)
+                this.rows.forEach(function (row, i) { return row.forEach(function (el, j) { return $__default(el)
                             .toggleClass(this$1.margin, i !== 0)
                             .toggleClass(this$1.firstColumn, j === 0); }
                     ); }
@@ -3941,30 +3949,30 @@ function Modal$1 (UIkit) {
 
     UIkit.modal.alert = function (message, options) {
 
-        options = $$1.extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
+        options = $.extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
         return promise(
-            function (resolve) { return UIkit.modal.dialog(("\n                <div class=\"uk-modal-body\">" + (isString(message) ? message : $$1__default(message).html()) + "</div>\n                <div class=\"uk-modal-footer uk-text-right\">\n                    <button class=\"uk-button uk-button-primary uk-modal-close\" autofocus>" + (options.labels.ok) + "</button>\n                </div>\n            "), options).$el.on('hide', resolve); }
+            function (resolve) { return UIkit.modal.dialog(("\n                <div class=\"uk-modal-body\">" + (isString(message) ? message : $__default(message).html()) + "</div>\n                <div class=\"uk-modal-footer uk-text-right\">\n                    <button class=\"uk-button uk-button-primary uk-modal-close\" autofocus>" + (options.labels.ok) + "</button>\n                </div>\n            "), options).$el.on('hide', resolve); }
         );
     };
 
     UIkit.modal.confirm = function (message, options) {
 
-        options = $$1.extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
+        options = $.extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
         return promise(
-            function (resolve, reject) { return UIkit.modal.dialog(("\n                <div class=\"uk-modal-body\">" + (isString(message) ? message : $$1__default(message).html()) + "</div>\n                <div class=\"uk-modal-footer uk-text-right\">\n                    <button class=\"uk-button uk-button-default uk-modal-close\">" + (options.labels.cancel) + "</button>\n                    <button class=\"uk-button uk-button-primary uk-modal-close\" autofocus>" + (options.labels.ok) + "</button>\n                </div>\n            "), options).$el.on('click', '.uk-modal-footer button', function (e) { return $$1__default(e.target).index() === 0 ? reject() : resolve(); }); }
+            function (resolve, reject) { return UIkit.modal.dialog(("\n                <div class=\"uk-modal-body\">" + (isString(message) ? message : $__default(message).html()) + "</div>\n                <div class=\"uk-modal-footer uk-text-right\">\n                    <button class=\"uk-button uk-button-default uk-modal-close\">" + (options.labels.cancel) + "</button>\n                    <button class=\"uk-button uk-button-primary uk-modal-close\" autofocus>" + (options.labels.ok) + "</button>\n                </div>\n            "), options).$el.on('click', '.uk-modal-footer button', function (e) { return $__default(e.target).index() === 0 ? reject() : resolve(); }); }
         );
     };
 
     UIkit.modal.prompt = function (message, value, options) {
 
-        options = $$1.extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
+        options = $.extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
         return promise(function (resolve) {
 
             var resolved = false,
-                prompt = UIkit.modal.dialog(("\n                <form class=\"uk-form-stacked\">\n                    <div class=\"uk-modal-body\">\n                        <label>" + (isString(message) ? message : $$1__default(message).html()) + "</label>\n                        <input class=\"uk-input\" type=\"text\" autofocus>\n                    </div>\n                    <div class=\"uk-modal-footer uk-text-right\">\n                        <button class=\"uk-button uk-button-default uk-modal-close\" type=\"button\">" + (options.labels.cancel) + "</button>\n                        <button class=\"uk-button uk-button-primary\" type=\"submit\">" + (options.labels.ok) + "</button>\n                    </div>\n                </form>\n            "), options),
+                prompt = UIkit.modal.dialog(("\n                <form class=\"uk-form-stacked\">\n                    <div class=\"uk-modal-body\">\n                        <label>" + (isString(message) ? message : $__default(message).html()) + "</label>\n                        <input class=\"uk-input\" type=\"text\" autofocus>\n                    </div>\n                    <div class=\"uk-modal-footer uk-text-right\">\n                        <button class=\"uk-button uk-button-default uk-modal-close\" type=\"button\">" + (options.labels.cancel) + "</button>\n                        <button class=\"uk-button uk-button-primary\" type=\"submit\">" + (options.labels.ok) + "</button>\n                    </div>\n                </form>\n            "), options),
                 input = prompt.$el.find('input').val(value);
 
             prompt.$el
@@ -4061,7 +4069,7 @@ function Navbar (UIkit) {
 
             if (this.dropbar) {
                 UIkit.navbarDropbar(
-                    query(this.dropbar, this.$el) || $$1__default('<div></div>').insertAfter(this.dropbarAnchor || this.$el),
+                    query(this.dropbar, this.$el) || $__default('<div></div>').insertAfter(this.dropbarAnchor || this.$el),
                     {clsDrop: this.clsDrop, mode: this.dropbarMode, duration: this.duration, navbar: this}
                 );
             }
@@ -4070,7 +4078,7 @@ function Navbar (UIkit) {
 
         update: function update() {
 
-            UIkit.drop($$1__default(((this.dropdown) + " ." + (this.clsDrop)), this.$el), $$1.extend({}, this))
+            UIkit.drop($__default(((this.dropdown) + " ." + (this.clsDrop)), this.$el), $.extend({}, this))
 
         },
 
@@ -4253,7 +4261,7 @@ function Offcanvas (UIkit) {
         computed: {
 
             content: function content() {
-                return $$1__default(query(this.$props.content, this.$el));
+                return $__default(query(this.$props.content, this.$el));
             },
 
             clsFlip: function clsFlip() {
@@ -4294,7 +4302,7 @@ function Offcanvas (UIkit) {
 
                     if (this.overlay) {
                         this.content.height(window.innerHeight);
-                        this.content.scrollTop(scroll.y);
+                        scroll && this.content.scrollTop(scroll.y);
                     }
 
 
@@ -4443,7 +4451,7 @@ function Scroll (UIkit) {
                 var this$1 = this;
 
 
-                el = $$1__default(el);
+                el = $__default(el);
 
                 // get / set parameters
                 var target = offsetTop(el) - this.offset,
@@ -4455,7 +4463,7 @@ function Scroll (UIkit) {
                 }
 
                 // animate to target, fire callback when done
-                $$1__default('html,body')
+                $__default('html,body')
                     .stop()
                     .animate({scrollTop: parseInt(target, 10) || 1}, this.duration, this.transition)
                     .promise()
@@ -4474,15 +4482,15 @@ function Scroll (UIkit) {
                 }
 
                 e.preventDefault();
-                this.scrollToElement($$1__default(this.$el[0].hash).length ? this.$el[0].hash : 'body');
+                this.scrollToElement($__default(this.$el[0].hash).length ? this.$el[0].hash : 'body');
             }
 
         }
 
     });
 
-    if (!$$1__default.easing.easeOutExpo) {
-        $$1__default.easing.easeOutExpo = function (x, t, b, c, d) {
+    if (!$__default.easing.easeOutExpo) {
+        $__default.easing.easeOutExpo = function (x, t, b, c, d) {
             return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
         };
     }
@@ -4523,7 +4531,7 @@ function Scrollspy (UIkit) {
         computed: {
 
             elements: function elements() {
-                return this.target && $$1__default(this.target, this.$el) || this.$el;
+                return this.target && $__default(this.target, this.$el) || this.$el;
             }
 
         },
@@ -4548,7 +4556,7 @@ function Scrollspy (UIkit) {
                     this.elements.each(function (_, el) {
 
                         if (!el._scrollspy) {
-                            var cls = $$1__default(el).attr('uk-scrollspy-class');
+                            var cls = $__default(el).attr('uk-scrollspy-class');
                             el._scrollspy = {toggles: cls && cls.split(',') || this$1.cls};
                         }
 
@@ -4565,7 +4573,7 @@ function Scrollspy (UIkit) {
 
                     this.elements.each(function (_, el) {
 
-                        var $el = $$1__default(el);
+                        var $el = $__default(el);
 
                         var data = el._scrollspy;
 
@@ -4653,7 +4661,7 @@ function ScrollspyNav (UIkit) {
             },
 
             targets: function targets() {
-                return $$1__default(this.links.toArray().map(function (el) { return el.hash; }).join(','));
+                return $__default(this.links.toArray().map(function (el) { return el.hash; }).join(','));
             }
 
         },
@@ -4682,7 +4690,7 @@ function ScrollspyNav (UIkit) {
 
                     this.targets.each(function (i, el) {
 
-                        el = $$1__default(el);
+                        el = $__default(el);
 
                         var top = offsetTop(el), last = i + 1 === this$1.targets.length;
                         if (!this$1.overflow && (i === 0 && top > scroll || last && top + el[0].offsetTop < scroll)) {
@@ -4702,7 +4710,7 @@ function ScrollspyNav (UIkit) {
                             }
                         }
 
-                        return !(this$1.active = toJQuery$1(this$1.links.filter(("[href=\"#" + (el.attr('id')) + "\"]"))));
+                        return !(this$1.active = toJQuery(this$1.links.filter(("[href=\"#" + (el.attr('id')) + "\"]"))));
 
                     });
 
@@ -4770,7 +4778,7 @@ function Sticky (UIkit) {
 
         connected: function connected() {
 
-            this.placeholder = $$1__default('<div class="uk-sticky-placeholder"></div>');
+            this.placeholder = $__default('<div class="uk-sticky-placeholder"></div>');
             this.widthElement = this.$props.widthElement || this.placeholder;
 
             if (!this.isActive) {
@@ -4850,7 +4858,7 @@ function Sticky (UIkit) {
                             return;
                         }
 
-                        if ($$1.isNumeric(this$1[prop])) {
+                        if ($.isNumeric(this$1[prop])) {
 
                             this$1[prop] = this$1[(prop + "Offset")] + parseFloat(this$1[prop]);
 
@@ -5003,18 +5011,18 @@ function Svg (UIkit) {
             id: String,
             icon: String,
             src: String,
-            class: String,
             style: String,
             width: Number,
             height: Number,
-            ratio: Number
+            ratio: Number,
+            'class': String
         },
 
         defaults: {
             ratio: 1,
             id: false,
-            class: '',
-            exclude: ['src']
+            exclude: ['src'],
+            'class': ''
         },
 
         init: function init() {
@@ -5092,7 +5100,7 @@ function Svg (UIkit) {
                     this$1.height = this$1.height || dimensions[3];
                 }
 
-                el = $$1__default(el);
+                el = $__default(el);
 
                 this$1.width *= this$1.ratio;
                 this$1.height *= this$1.ratio;
@@ -5124,7 +5132,7 @@ function Svg (UIkit) {
 
                 resolve(el);
 
-            }); }); }).then(null, function () { return this$1.$destroy(); });
+            }); }); }).then(null, function () {});
 
             if (!this._isReady) {
                 this.$emitSync();
@@ -5165,7 +5173,7 @@ function Svg (UIkit) {
                         resolve(this$1.parse(decodeURIComponent(this$1.src.split(',')[1])));
                     } else {
 
-                        $$1__default.ajax(this$1.src, {dataType: 'html'}).then(function (doc) {
+                        $__default.ajax(this$1.src, {dataType: 'html'}).then(function (doc) {
                             resolve(this$1.parse(doc));
                         }, function () {
                             reject('SVG not found.');
@@ -5223,11 +5231,11 @@ function Switcher (UIkit) {
         computed: {
 
             connects: function connects() {
-                return query(this.connect, this.$el) || $$1__default(this.$el.next(("." + (this.clsContainer))));
+                return query(this.connect, this.$el) || $__default(this.$el.next(("." + (this.clsContainer))));
             },
 
             toggles: function toggles() {
-                return $$1__default(this.toggle, this.$el);
+                return $__default(this.toggle, this.$el);
             }
 
         },
@@ -5262,7 +5270,7 @@ function Switcher (UIkit) {
 
                 handler: function handler(e) {
                     e.preventDefault();
-                    this.show($$1__default(e.currentTarget)[e.currentTarget.hasAttribute(this.attrItem) ? 'attr' : 'data'](this.attrItem));
+                    this.show($__default(e.currentTarget)[e.currentTarget.hasAttribute(this.attrItem) ? 'attr' : 'data'](this.attrItem));
                 }
             },
 
@@ -5298,7 +5306,7 @@ function Switcher (UIkit) {
         update: function update() {
 
             this.updateAria(this.connects.children());
-            this.show(toJQuery$1(this.toggles.filter(("." + (this.cls) + ":first"))) || toJQuery$1(this.toggles.eq(this.active)) || this.toggles.first());
+            this.show(toJQuery(this.toggles.filter(("." + (this.cls) + ":first"))) || toJQuery(this.toggles.eq(this.active)) || this.toggles.first());
 
         },
 
@@ -5415,7 +5423,7 @@ function Toggle (UIkit) {
 
                 handler: function handler(e) {
                     if (!isTouch(e)) {
-                        this.toggle(e.type === pointerEnter ? 'toggleshow' : 'togglehide');
+                        this.toggle(("toggle" + (e.type === pointerEnter ? 'show' : 'hide')));
                     }
                 }
 
@@ -5436,7 +5444,14 @@ function Toggle (UIkit) {
                     }
 
                     // TODO better isToggled handling
-                    if ($$1__default(e.target).closest('a[href="#"], button').length || $$1__default(e.target).closest('a[href]') && (this.cls || !this.target.is(':visible'))) {
+                    var link = $__default(e.target).closest('a[href]');
+                    if ($__default(e.target).closest('a[href="#"], button').length
+                        || link.length && (
+                            this.cls
+                            || !this.target.is(':visible')
+                            || this.target.is(link.attr('href'))
+                        )
+                    ) {
                         e.preventDefault();
                     }
 
@@ -5469,7 +5484,7 @@ function Toggle (UIkit) {
 
             toggle: function toggle(type) {
 
-                var event = $$1__default.Event(type || 'toggle');
+                var event = $__default.Event(type || 'toggle');
                 this.target.triggerHandler(event, [this]);
 
                 if (!event.isDefaultPrevented()) {
@@ -5629,10 +5644,10 @@ function core (UIkit) {
 
 }
 
-UIkit$1.version = '3.0.0-beta.19';
+UIkit.version = '3.0.0-beta.20';
 
-mixin(UIkit$1);
-core(UIkit$1);
+mixin(UIkit);
+core(UIkit);
 
 function plugin(UIkit) {
 
@@ -5784,17 +5799,17 @@ function plugin(UIkit) {
                 this.index = getIndex(index, this.items, this.index);
 
                 if (!this.modal) {
-                    this.modal = UIkit.modal.dialog("\n                    <button class=\"uk-modal-close-outside\" uk-transition-hide type=\"button\" uk-close></button>\n                    <span class=\"uk-position-center\" uk-transition-show uk-spinner></span>\n                    ", {center: true});
+                    this.modal = UIkit.modal.dialog("\n                        <button class=\"uk-modal-close-outside\" uk-transition-hide type=\"button\" uk-close></button>\n                        <span class=\"uk-position-center\" uk-transition-show uk-spinner></span>\n                    ", {center: true});
                     this.modal.$el.css('overflow', 'hidden').addClass('uk-modal-lightbox');
                     this.modal.panel.css({width: 200, height: 200});
                     this.modal.caption = $('<div class="uk-modal-caption" uk-transition-hide></div>').appendTo(this.modal.panel);
 
                     if (this.items.length > 1) {
-                        $(("<div class=\"" + (this.dark ? 'uk-dark' : 'uk-light') + "\" uk-transition-hide>\n                            <a href=\"#\" class=\"uk-position-center-left\" uk-slidenav-previous uk-lightbox-item=\"previous\"></a>\n                            <a href=\"#\" class=\"uk-position-center-right\" uk-slidenav-next uk-lightbox-item=\"next\"></a>\n                        </div>\n                    ")).appendTo(this.modal.panel.addClass('uk-slidenav-position'));
+                        $(("<div class=\"" + (this.dark ? 'uk-dark' : 'uk-light') + "\" uk-transition-hide>\n                                <a href=\"#\" class=\"uk-position-center-left\" uk-slidenav-previous uk-lightbox-item=\"previous\"></a>\n                                <a href=\"#\" class=\"uk-position-center-right\" uk-slidenav-next uk-lightbox-item=\"next\"></a>\n                            </div>\n                        ")).appendTo(this.modal.panel.addClass('uk-slidenav-position'));
                     }
 
                     this.modal.$el
-                        .on('hide', this.hide)
+                        .on('hidden', this.hide)
                         .on('click', ("[" + (this.attrItem) + "]"), function (e) {
                             e.preventDefault();
                             this$1.show($(e.currentTarget).attr(this$1.attrItem));
@@ -6792,16 +6807,16 @@ function plugin$4(UIkit) {
 
 }
 
-UIkit$1.use(plugin);
-UIkit$1.use(plugin$1);
-UIkit$1.use(plugin$2);
-UIkit$1.use(plugin$3);
-UIkit$1.use(plugin$4);
+UIkit.use(plugin);
+UIkit.use(plugin$1);
+UIkit.use(plugin$2);
+UIkit.use(plugin$3);
+UIkit.use(plugin$4);
 
 if (true) {
-    boot(UIkit$1);
+    boot(UIkit);
 }
 
-return UIkit$1;
+return UIkit;
 
 })));

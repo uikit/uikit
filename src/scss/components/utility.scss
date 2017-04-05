@@ -362,6 +362,7 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
 /*
  * Hide if media does not match
  */
+
 .uk-leader-fill.uk-leader-hide::after { display: none; }
 
 /* Pass fill character to JS */

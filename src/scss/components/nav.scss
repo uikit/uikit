@@ -54,6 +54,7 @@ $nav-default-sublist-item-color:                 $global-muted-color !default;
 $nav-default-sublist-item-hover-color:           $global-color !default;
 
 $nav-primary-item-font-size:                     $global-large-font-size !default;
+$nav-primary-item-line-height:                   $global-line-height !default;
 $nav-primary-item-color:                         $global-muted-color !default;
 $nav-primary-item-hover-color:                   $global-color !default;
 $nav-primary-item-active-color:                  $global-emphasis-color !default;
@@ -238,6 +239,7 @@ ul.uk-nav-sub {
 
 .uk-nav-primary > li > a {
     font-size: $nav-primary-item-font-size;
+    line-height: $nav-primary-item-line-height;
     color: $nav-primary-item-color;
     @if(mixin-exists(hook-nav-primary-item)) {@include hook-nav-primary-item();}
 }

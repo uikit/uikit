@@ -24,8 +24,8 @@
 @mixin hook-alert-warning(){}
 @mixin hook-alert-danger(){}
 @mixin hook-alert-misc(){}
-@mixin hook-align-misc(){}
 @mixin hook-animation-misc(){}
+@mixin hook-align-misc(){}
 @mixin hook-article(){}
 @mixin hook-article-adjacent(){}
 @mixin hook-article-title(){}
@@ -388,6 +388,16 @@
 @mixin hook-card-secondary-title(){}
 @mixin hook-card-secondary-hover(){}
 @mixin hook-card-misc(){}
+@mixin hook-column-misc(){}
+@mixin hook-inverse-component-column(){
+
+    .uk-column-divider {
+        -webkit-column-rule-color: $inverse-column-divider-rule-color;
+        -moz-column-rule-color: $inverse-column-divider-rule-color;
+        column-rule-color: $inverse-column-divider-rule-color;
+    }
+
+}
 @mixin hook-close(){}
 @mixin hook-close-hover(){}
 @mixin hook-close-misc(){}
@@ -404,16 +414,6 @@
     .uk-close:focus {
         color: $inverse-close-hover-color;
         @if(mixin-exists(hook-inverse-close-hover)) {@include hook-inverse-close-hover();}
-    }
-
-}
-@mixin hook-column-misc(){}
-@mixin hook-inverse-component-column(){
-
-    .uk-column-divider {
-        -webkit-column-rule-color: $inverse-column-divider-rule-color;
-        -moz-column-rule-color: $inverse-column-divider-rule-color;
-        column-rule-color: $inverse-column-divider-rule-color;
     }
 
 }
