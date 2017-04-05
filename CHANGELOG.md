@@ -14,6 +14,7 @@
 - Fix queued Toggle
 - Fix closing Offcanvas with swipe gesture (Android)
 - Fix Toggle icons preventing Drops from opening
+- Fix loading UIkit deferred
 
 ## 3.0.0 beta 19 (March 31, 2017)
 

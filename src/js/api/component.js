@@ -1,4 +1,4 @@
-import { $, camelize, isArray, isJQuery, isPlainObject, isString } from '../util/index';
+import { $, camelize, fastdom, isArray, isJQuery, isPlainObject } from '../util/index';
 
 export default function (UIkit) {
 
@@ -34,8 +34,8 @@ export default function (UIkit) {
             )[0];
         };
 
-        if (document.body && !options.options.functional) {
-            UIkit[name](`[uk-${id}],[data-uk-${id}]`);
+        if (UIkit._initialized && !options.options.functional) {
+            fastdom.measure(() => UIkit[name](`[uk-${id}],[data-uk-${id}]`));
         }
 
         return UIkit.components[name];
