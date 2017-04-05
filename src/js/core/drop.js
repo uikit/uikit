@@ -7,7 +7,7 @@ export default function (UIkit) {
 
     doc.on('click', e => {
         var prev;
-        while (active && active !== prev && !isWithin(e.target, active.$el) && (!active.toggle || !isWithin(e.target, active.toggle.$el))) {
+        while (active && active !== prev && !isWithin(e.target, active.$el) && !(active.toggle && isWithin(e.target, active.toggle.$el))) {
             prev = active;
             active.hide(false);
         }
