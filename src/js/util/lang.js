@@ -57,7 +57,7 @@ export function hyphenate(str) {
         .toLowerCase()
 }
 
-var camelizeRE = /-(\w)/g;
+const camelizeRE = /-(\w)/g;
 export function camelize(str) {
     return str.replace(camelizeRE, toUpper)
 }
@@ -86,7 +86,7 @@ export function getContextSelectors(selector) {
     return isContextSelector(selector) && selector.split(/(?=\s(?:!|>|\+|-))/g).map(value => value.trim());
 }
 
-var contextSelectors = {'!': 'closest', '+': 'nextAll', '-': 'prevAll'};
+const contextSelectors = {'!': 'closest', '+': 'nextAll', '-': 'prevAll'};
 export function toJQuery(element, context) {
 
     if (element === true) {

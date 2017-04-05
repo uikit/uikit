@@ -49,6 +49,8 @@ export default function (UIkit) {
                 UIkit.update('update', mutation.target, true);
             })
         )).observe(document.documentElement, {childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['href']});
+
+        UIkit._initialized = true;
     }
 
     function apply(node, fn) {

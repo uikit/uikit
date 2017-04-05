@@ -1,12 +1,28 @@
 # Changelog
 
+## 3.0.0 beta 20 (April 5, 2017)
+
+### Added
+
+- Add breakpoint classes for flex alignment
+
+### Fixed
+
+- Fix Drop positioning
+- Fix imports in Modal
+- Fix 'click' default behaviour prevention in Toggle
+- Fix queued Toggle
+- Fix closing Offcanvas with swipe gesture (Android)
+- Fix Toggle icons preventing Drops from opening
+- Fix loading UIkit deferred
+
 ## 3.0.0 beta 19 (March 31, 2017)
 
 ### Added
 
 - Add SASS support
-- Add leader to utility component
-- Add offcanvas close button
+- Add Leader to utility component
+- Add Offcanvas close button
 - Add margin auto vertical classes
 - Add padding left/right remove classes
 - Add tripadvisor and yelp icons

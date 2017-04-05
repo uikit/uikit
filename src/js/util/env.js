@@ -4,17 +4,20 @@ export const Observer = window.MutationObserver || window.WebKitMutationObserver
 export const requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
 export const cancelAnimationFrame = window.cancelAnimationFrame || window.clearTimeout;
 
+var hasTouchEvents = 'ontouchstart' in window;
+var hasPointerEvents = window.PointerEvent;
 export const hasPromise = 'Promise' in window;
-export const hasTouch = 'ontouchstart' in window
+export const hasTouch = hasTouchEvents
     || window.DocumentTouch && document instanceof DocumentTouch
     || navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0 // IE 10
     || navigator.pointerEnabled && navigator.maxTouchPoints > 0; // IE >=11
 
-export const pointerDown = !hasTouch ? 'mousedown' : window.PointerEvent ? 'pointerdown' : 'touchstart';
-export const pointerMove = !hasTouch ? 'mousemove' : window.PointerEvent ? 'pointermove' : 'touchmove';
-export const pointerUp = !hasTouch ? 'mouseup' : window.PointerEvent ? 'pointerup' : 'touchend';
-export const pointerEnter = hasTouch && window.PointerEvent ? 'pointerenter' : 'mouseenter';
-export const pointerLeave = hasTouch && window.PointerEvent ? 'pointerleave' : 'mouseleave';
+export const pointerDown = !hasTouch ? 'mousedown' : hasTouchEvents ? 'touchstart' : 'pointerdown';
+export const pointerMove = !hasTouch ? 'mousemove' : hasTouchEvents ? 'touchmove' : 'pointermove';
+export const pointerUp = !hasTouch ? 'mouseup' : hasTouchEvents ? 'touchend' : 'pointerup';
+export const pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mouseenter';
+export const pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
+export const pointerCancel = hasTouch && hasTouchEvents ? 'touchcancel' : 'pointercancel';
 
 export const transitionstart = prefix('transition', 'transition-start');
 export const transitionend = prefix('transition', 'transition-end');

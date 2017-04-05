@@ -79,7 +79,7 @@ export default function (UIkit) {
 
                     if (this.overlay) {
                         this.content.height(window.innerHeight);
-                        this.content.scrollTop(scroll.y);
+                        scroll && this.content.scrollTop(scroll.y);
                     }
 
 

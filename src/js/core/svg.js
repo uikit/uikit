@@ -12,18 +12,18 @@ export default function (UIkit) {
             id: String,
             icon: String,
             src: String,
-            class: String,
             style: String,
             width: Number,
             height: Number,
-            ratio: Number
+            ratio: Number,
+            'class': String
         },
 
         defaults: {
             ratio: 1,
             id: false,
-            class: '',
-            exclude: ['src']
+            exclude: ['src'],
+            'class': ''
         },
 
         init() {
@@ -131,7 +131,7 @@ export default function (UIkit) {
 
                 resolve(el);
 
-            }))).then(null, () => this.$destroy());
+            }))).then(null, () => {});
 
             if (!this._isReady) {
                 this.$emitSync();

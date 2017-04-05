@@ -137,8 +137,8 @@ function plugin(UIkit) {
 
                 if (!this.modal) {
                     this.modal = UIkit.modal.dialog(`
-                    <button class="uk-modal-close-outside" uk-transition-hide type="button" uk-close></button>
-                    <span class="uk-position-center" uk-transition-show uk-spinner></span>
+                        <button class="uk-modal-close-outside" uk-transition-hide type="button" uk-close></button>
+                        <span class="uk-position-center" uk-transition-show uk-spinner></span>
                     `, {center: true});
                     this.modal.$el.css('overflow', 'hidden').addClass('uk-modal-lightbox');
                     this.modal.panel.css({width: 200, height: 200});
@@ -146,14 +146,14 @@ function plugin(UIkit) {
 
                     if (this.items.length > 1) {
                         $(`<div class="${this.dark ? 'uk-dark' : 'uk-light'}" uk-transition-hide>
-                            <a href="#" class="uk-position-center-left" uk-slidenav-previous uk-lightbox-item="previous"></a>
-                            <a href="#" class="uk-position-center-right" uk-slidenav-next uk-lightbox-item="next"></a>
-                        </div>
-                    `).appendTo(this.modal.panel.addClass('uk-slidenav-position'));
+                                <a href="#" class="uk-position-center-left" uk-slidenav-previous uk-lightbox-item="previous"></a>
+                                <a href="#" class="uk-position-center-right" uk-slidenav-next uk-lightbox-item="next"></a>
+                            </div>
+                        `).appendTo(this.modal.panel.addClass('uk-slidenav-position'));
                     }
 
                     this.modal.$el
-                        .on('hide', this.hide)
+                        .on('hidden', this.hide)
                         .on('click', `[${this.attrItem}]`, e => {
                             e.preventDefault();
                             this.show($(e.currentTarget).attr(this.attrItem));

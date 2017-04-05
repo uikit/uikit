@@ -132,7 +132,7 @@ export default function (UIkit) {
 
         this._observer.observe(this.$options.el, {
             attributes: true,
-            attributeFilter: Object.keys(this.$options.props).map(key => hyphenate(key))
+            attributeFilter: isArray(this.$options.attrs) ? this.$options.attrs : Object.keys(this.$options.props).map(key => hyphenate(key))
         });
     };
 
