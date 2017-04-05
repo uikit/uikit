@@ -12,6 +12,7 @@
 - Fix imports in Modal
 - Fix 'click' default behaviour preventition in Toggle
 - Fix queued Toggle
+- Fix closing Offcanvas with swipe gesture (Android)
 
 ## 3.0.0 beta 19 (March 31, 2017)
 
