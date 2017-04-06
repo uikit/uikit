@@ -117,26 +117,24 @@ export default function (UIkit) {
             return;
         }
 
-        this._observer = new Observer(mutations => {
+        var attrs = (isArray(this.$options.attrs)
+            ? this.$options.attrs
+            : Object.keys(this.$options.props).map(key => hyphenate(key))
+        );
 
-            var data = this._getProps(true),
-                changed = mutations
-                    .map(mutation => camelize(mutation.attributeName))
-                    .some(key => !equals(data[key], this.$props[key]));
+        this._observer = new Observer(() => {
 
-            if (changed) {
+            var data = this._getProps();
+            if (attrs.some(key => !equals(data[key], this.$props[key]))) {
                 this.$reset(data);
             }
 
         });
 
-        this._observer.observe(this.$options.el, {
-            attributes: true,
-            attributeFilter: isArray(this.$options.attrs) ? this.$options.attrs : Object.keys(this.$options.props).map(key => hyphenate(key))
-        });
+        this._observer.observe(this.$options.el, {attributes: true, attributeFilter: attrs.concat([this.$name, `data-${this.$name}`])});
     };
 
-    UIkit.prototype._getProps = function (attrs = false) {
+    UIkit.prototype._getProps = function () {
 
         var data = {},
             el = this.$el[0],
@@ -163,7 +161,7 @@ export default function (UIkit) {
             }
         }
 
-        if (attrs || !options) {
+        if (!options) {
             return data;
         }
 

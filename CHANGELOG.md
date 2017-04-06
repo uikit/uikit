@@ -1,5 +1,9 @@
 # Changelog
 
+### Added
+
+- Attribute observer listens for changes to 'component' attribute too
+
 ### Fixed
 
 - Fix unexpected closing of Modal Dialog
