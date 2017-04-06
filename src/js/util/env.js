@@ -2,7 +2,6 @@ import { classify } from './lang';
 
 export const Observer = window.MutationObserver || window.WebKitMutationObserver;
 export const requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
-export const cancelAnimationFrame = window.cancelAnimationFrame || window.clearTimeout;
 
 var hasTouchEvents = 'ontouchstart' in window;
 var hasPointerEvents = window.PointerEvent;
@@ -19,7 +18,6 @@ export const pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mou
 export const pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
 export const pointerCancel = hasTouch && hasTouchEvents ? 'touchcancel' : 'pointercancel';
 
-export const transitionstart = prefix('transition', 'transition-start');
 export const transitionend = prefix('transition', 'transition-end');
 export const animationstart = prefix('animation', 'animation-start');
 export const animationend = prefix('animation', 'animation-end');

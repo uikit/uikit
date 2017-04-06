@@ -79,11 +79,11 @@ export function isUndefined(value) {
 }
 
 export function isContextSelector(selector) {
-    return isString(selector) && selector.match(/^(!|>|\+|-)/);
+    return isString(selector) && selector.match(/^[!>+-]/);
 }
 
 export function getContextSelectors(selector) {
-    return isContextSelector(selector) && selector.split(/(?=\s(?:!|>|\+|-))/g).map(value => value.trim());
+    return isContextSelector(selector) && selector.split(/(?=\s[!>+-])/g).map(value => value.trim());
 }
 
 const contextSelectors = {'!': 'closest', '+': 'nextAll', '-': 'prevAll'};

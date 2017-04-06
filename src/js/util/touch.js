@@ -62,7 +62,7 @@ ready(function () {
         touch.last = now;
 
         // adds the current touch contact for IE gesture recognition
-        if (gesture && ( e.type == 'pointerdown' || e.type == 'touchstart' )) {
+        if (gesture && (e.type === 'pointerdown' || e.type === 'touchstart')) {
             gesture.addPointer(e.pointerId);
         }
 
