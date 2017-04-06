@@ -160,7 +160,7 @@ function plugin(UIkit) {
                         }).on('swipeRight swipeLeft', e => {
                         e.preventDefault();
                         if (!window.getSelection().toString()) {
-                            this.show(e.type == 'swipeLeft' ? 'next' : 'previous');
+                            this.show(e.type === 'swipeLeft' ? 'next' : 'previous');
                         }
                     });
                 }

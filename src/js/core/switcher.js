@@ -99,7 +99,7 @@ export default function (UIkit) {
 
                     e.preventDefault();
                     if (!window.getSelection().toString()) {
-                        this.show(e.type == 'swipeLeft' ? 'next' : 'previous');
+                        this.show(e.type === 'swipeLeft' ? 'next' : 'previous');
                     }
                 }
             }
