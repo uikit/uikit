@@ -1,5 +1,9 @@
 # Changelog
 
+### Fixed
+
+- Fix unexpected closing of Modal Dialog
+
 ## 3.0.0 beta 20 (April 5, 2017)
 
 ### Added

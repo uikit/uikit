@@ -102,7 +102,11 @@ export default function (UIkit) {
              </div>`
         , options);
 
-        dialog.$el.on('hidden', () => dialog.$destroy(true));
+        dialog.$el.on('hidden', e => {
+            if (dialog.$el.is(e.target)) {
+                dialog.$destroy(true);
+            }
+        });
         dialog.show();
 
         return dialog;
