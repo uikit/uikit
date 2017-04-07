@@ -69,7 +69,7 @@ export default function (UIkit) {
                         || link.length && (
                             this.cls
                             || !this.target.is(':visible')
-                            || this.target.is(link.attr('href'))
+                            || link.attr('href')[0] === '#' && this.target.is(link.attr('href'))
                         )
                     ) {
                         e.preventDefault();
