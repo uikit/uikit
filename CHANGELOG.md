@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add Gitter icon
 - Attribute observer listens for changes to 'component' attribute too
 
 ### Fixed
