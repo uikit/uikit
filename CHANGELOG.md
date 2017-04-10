@@ -8,6 +8,7 @@
 
 ### Fixed
 
+- Fix instagram, tumblr and vimeo icons
 - Fix unexpected closing of Modal Dialog
 - Fix 'click' default behaviour prevention in Toggle
 
