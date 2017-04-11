@@ -12,6 +12,7 @@
 - Fix instagram, tumblr and vimeo icons
 - Fix unexpected closing of Modal Dialog
 - Fix 'click' default behaviour prevention in Toggle
+- Fix memory leak in Icons
 
 ## 3.0.0 beta 20 (April 5, 2017)
 
