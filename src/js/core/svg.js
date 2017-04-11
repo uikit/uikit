@@ -99,34 +99,37 @@ export default function (UIkit) {
                     this.height = this.height || dimensions[3];
                 }
 
-                el = $(el);
-
                 this.width *= this.ratio;
                 this.height *= this.ratio;
 
                 for (var prop in this.$options.props) {
                     if (this[prop] && !~this.exclude.indexOf(prop)) {
-                        el.attr(prop, this[prop]);
+                        el.setAttribute(prop, this[prop]);
                     }
                 }
 
                 if (!this.id) {
-                    el.removeAttr('id');
+                    el.removeAttribute('id');
                 }
 
                 if (this.width && !this.height) {
-                    el.removeAttr('height');
+                    el.removeAttribute('height');
                 }
 
                 if (this.height && !this.width) {
-                    el.removeAttr('width');
+                    el.removeAttribute('width');
                 }
 
-                if (isVoidElement(this.$el) || this.$el[0].tagName === 'CANVAS') {
+                var root = this.$el[0];
+                if (isVoidElement(root) || root.tagName === 'CANVAS') {
                     this.$el.attr({hidden: true, id: null});
-                    el.insertAfter(this.$el);
+                    if (root.nextSibling) {
+                        root.parentNode.insertBefore(el, root.nextSibling);
+                    } else {
+                        root.parentNode.appendChild(el);
+                    }
                 } else {
-                    el.appendTo(this.$el);
+                    root.appendChild(el);
                 }
 
                 resolve(el);
@@ -145,9 +148,7 @@ export default function (UIkit) {
             }
 
             if (this.svg) {
-                this.svg.then(svg => {
-                    svg && svg.remove();
-                });
+                this.svg.then(svg => svg && svg.parentNode && svg.parentNode.removeChild(svg));
                 this.svg = null;
             }
         },

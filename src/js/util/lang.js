@@ -79,11 +79,11 @@ export function isUndefined(value) {
 }
 
 export function isContextSelector(selector) {
-    return isString(selector) && selector.match(/^(!|>|\+|-)/);
+    return isString(selector) && selector.match(/^[!>+-]/);
 }
 
 export function getContextSelectors(selector) {
-    return isContextSelector(selector) && selector.split(/(?=\s(?:!|>|\+|-))/g).map(value => value.trim());
+    return isContextSelector(selector) && selector.split(/(?=\s[!>+-])/g).map(value => value.trim());
 }
 
 const contextSelectors = {'!': 'closest', '+': 'nextAll', '-': 'prevAll'};
@@ -150,7 +150,7 @@ var vars = {};
 export function toMedia(value) {
 
     if (isString(value)) {
-        if (value[0] == '@') {
+        if (value[0] === '@') {
             var name = `media-${value.substr(1)}`;
             value = vars[name] || (vars[name] = parseFloat(getCssVar(name)));
         } else if (value.match(/^\(min-width:/)) {

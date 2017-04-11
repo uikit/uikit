@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.0.0 beta 21 (April 11, 2017)
+
+### Added
+
+- Add Gitter icon
+- Attribute observer listens for changes to 'component' attribute too
+
+### Fixed
+
+- Fix instagram, tumblr and vimeo icons
+- Fix unexpected closing of Modal Dialog
+- Fix 'click' default behaviour prevention in Toggle
+- Fix memory leak in Icons
+
 ## 3.0.0 beta 20 (April 5, 2017)
 
 ### Added

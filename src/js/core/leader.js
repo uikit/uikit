@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, getCssVar } from '../util/index';
+import { getCssVar } from '../util/index';
 
 export default function (UIkit) {
 
