@@ -3,15 +3,7 @@ import { $, Animation, doc, getDimensions, isWithin, isTouch, MouseTracker, poin
 
 export default function (UIkit) {
 
-    var active;
-
-    doc.on('click', e => {
-        var prev;
-        while (active && active !== prev && !isWithin(e.target, active.$el) && !(active.toggle && isWithin(e.target, active.toggle.$el))) {
-            prev = active;
-            active.hide(false);
-        }
-    });
+    var active, handler;
 
     UIkit.component('drop', {
 
@@ -211,6 +203,8 @@ export default function (UIkit) {
                 handler() {
                     this.tracker.init();
                     this.toggle.$el.addClass(this.cls).attr('aria-expanded', 'true');
+
+                    !handler && register();
                 }
 
             },
@@ -241,6 +235,8 @@ export default function (UIkit) {
                     active = this.isActive() ? null : active;
                     this.toggle.$el.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
                     this.tracker.cancel();
+
+                    !active && deregister();
                 }
 
             }
@@ -381,4 +377,19 @@ export default function (UIkit) {
     });
 
     UIkit.drop.getActive = () => active;
+
+    function register() {
+        doc.on('click', handler = e => {
+            var prev;
+            while (active && active !== prev && !isWithin(e.target, active.$el) && !(active.toggle && isWithin(e.target, active.toggle.$el))) {
+                prev = active;
+                active.hide(false);
+            }
+        });
+    }
+
+    function deregister() {
+        handler && doc.off('click', handler);
+    }
+
 }

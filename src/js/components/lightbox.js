@@ -5,22 +5,6 @@ function plugin(UIkit) {
     }
 
     var {$, doc, extend, Dimensions, getIndex, Transition} = UIkit.util;
-    var active;
-
-    doc.on({
-        keydown: e => {
-            if (active) {
-                switch (e.keyCode) {
-                    case 37:
-                        active.show('previous');
-                        break;
-                    case 39:
-                        active.show('next');
-                        break;
-                }
-            }
-        }
-    });
 
     UIkit.component('lightbox', {
 
@@ -178,11 +162,22 @@ function plugin(UIkit) {
                 if (!event.isImmediatePropagationStopped()) {
                     this.setError(this.getItem());
                 }
+
+                doc.on(`keydown.${this.$options.name}`, e => {
+                    switch (e.keyCode) {
+                        case 37:
+                            this.show('previous');
+                            break;
+                        case 39:
+                            this.show('next');
+                            break;
+                    }
+                });
             },
 
             hide() {
 
-                active = active && active !== this && active;
+                doc.off(`keydown.${this.$options.name}`);
 
                 this.modal.hide().then(() => {
                     this.modal.$destroy(true);
