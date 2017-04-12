@@ -1,4 +1,4 @@
-import { bind, camelize, coerce, extend, hasOwn, hyphenate, isArray, isFunction, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer } from '../util/index';
+import { bind, camelize, coerce, extend, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer } from '../util/index';
 
 export default function (UIkit) {
 
@@ -243,15 +243,7 @@ function registerEvent(component, unbind, event, key) {
         handler = isString(handler) ? component[handler] : bind(handler, component);
 
         if (self) {
-            var fn = handler;
-            handler = (e) => {
-
-                if (!el.is(e.target)) {
-                    return;
-                }
-
-                return fn.call(component, e);
-            }
+            handler = selfFilter(handler, component);
         }
 
         if (delegate) {
@@ -261,6 +253,14 @@ function registerEvent(component, unbind, event, key) {
         }
     }
 
+}
+
+function selfFilter(handler, context) {
+    return function selfHandler (e) {
+        if (e.target === e.currentTarget) {
+            return handler.call(context, e)
+        }
+    }
 }
 
 function notIn(options, key) {
