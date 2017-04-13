@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix swiping in Switcher
+
 ## 3.0.0 beta 21 (April 11, 2017)
 
 ### Added
