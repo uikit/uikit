@@ -34,7 +34,7 @@ export default function (UIkit) {
                 // animate to target, fire callback when done
                 $('html,body')
                     .stop()
-                    .animate({scrollTop: parseInt(target, 10) || 1}, this.duration, this.transition)
+                    .animate({scrollTop: Math.round(target)}, this.duration, this.transition)
                     .promise()
                     .then(() => this.$el.trigger('scrolled', [this]));
 
