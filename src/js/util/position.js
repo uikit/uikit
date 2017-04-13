@@ -119,7 +119,7 @@ export function getDimensions(element) {
 
 export function offsetTop(element) {
     element = toNode(element);
-    return element.getBoundingClientRect().top + getWindow(element).pageYOffset;
+    return Math.round(element.getBoundingClientRect().top) + getWindow(element).pageYOffset;
 }
 
 function getWindow(element) {

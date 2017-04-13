@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix swiping in Switcher
+- Fix scrolling in Scrollspy Nav (FF)
 
 ## 3.0.0 beta 21 (April 11, 2017)
 
