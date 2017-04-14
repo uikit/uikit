@@ -13,10 +13,13 @@
 
         <div class="uk-container">
 
+        <button class="uk-button uk-button-default uk-float-right uk-margin-small-left" type="button" uk-toggle="target: .uk-table; cls: uk-table-small">Small</button>
+        <button class="uk-button uk-button-default uk-float-right uk-margin-remove-adjacent" type="button" uk-toggle="target: .uk-table; cls: uk-table-justify">Justify</button>
+
             <h1>Table</h1>
 
             <div class="uk-overflow-auto">
-                <table class="uk-table">
+                <table class="uk-table uk-table-hover">
                     <caption>Table caption</caption>
                     <thead>
                         <tr>
@@ -81,10 +84,10 @@
                 </table>
             </div>
 
-            <h2>Table Hover + Striped</h2>
+            <h2>Table Divider</h2>
 
             <div class="uk-overflow-auto">
-                <table class="uk-table uk-table-hover uk-table-striped">
+                <table class="uk-table uk-table-divider uk-table-hover">
                     <thead>
                         <tr>
                             <th>Table Heading</th>
@@ -132,10 +135,10 @@
                 </table>
             </div>
 
-            <h2>Table Small</h2>
+            <h2>Table Striped</h2>
 
             <div class="uk-overflow-auto">
-                <table class="uk-table uk-table-hover uk-table-small">
+                <table class="uk-table uk-table-striped uk-table-hover ">
                     <thead>
                         <tr>
                             <th>Table Heading</th>
@@ -186,7 +189,66 @@
             <h2>Widths</h2>
 
             <div class="uk-overflow-auto">
-                <table class="uk-table uk-table-hover">
+                <table class="uk-table uk-table-divider uk-table-hover">
+                    <thead>
+                        <tr>
+                            <th class="uk-table-shrink"></th>
+                            <th class="uk-table-shrink"></th>
+                            <th class="uk-table-expand">Expand</th>
+                            <th class="uk-width-small">Truncate</th>
+                            <th class="uk-width-medium">Width Medium</th>
+                            <th class="uk-table-shrink uk-text-nowrap">Shrink + Nowrap</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><input class="uk-checkbox" type="checkbox"></td>
+                            <td><img class="uk-preserve-width uk-border-circle" src="images/avatar.jpg" width="40" alt=""></td>
+                            <td class="uk-table-link">
+                                <a class="uk-link-reset" href="">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
+                            </td>
+                            <td class="uk-text-truncate">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                            <td class="uk-text-nowrap">Lorem ipsum dolor</td>
+                        </tr>
+                        <tr>
+                            <td><input class="uk-checkbox" type="checkbox"></td>
+                            <td><img class="uk-preserve-width uk-border-circle" src="images/avatar.jpg" width="40" alt=""></td>
+                            <td class="uk-table-link">
+                                <a class="uk-link-reset" href="">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
+                            </td>
+                            <td class="uk-text-truncate">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                            <td class="uk-text-nowrap">Lorem ipsum dolor</td>
+                        </tr>
+                        <tr>
+                            <td><input class="uk-checkbox" type="checkbox"></td>
+                            <td><img class="uk-preserve-width uk-border-circle" src="images/avatar.jpg" width="40" alt=""></td>
+                            <td class="uk-table-link">
+                                <a class="uk-link-reset" href="">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
+                            </td>
+                            <td class="uk-text-truncate">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                            <td class="uk-text-nowrap">Lorem ipsum dolor</td>
+                        </tr>
+                        <tr>
+                            <td><input class="uk-checkbox" type="checkbox"></td>
+                            <td><img class="uk-preserve-width uk-border-circle" src="images/avatar.jpg" width="40" alt=""></td>
+                            <td class="uk-table-link">
+                                <a class="uk-link-reset" href="">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
+                            </td>
+                            <td class="uk-text-truncate">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                            <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
+                            <td class="uk-text-nowrap">Lorem ipsum dolor</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h2>Responsive</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-divider uk-table-hover uk-table-responsive">
                     <thead>
                         <tr>
                             <th class="uk-table-shrink"></th>

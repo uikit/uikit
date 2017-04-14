@@ -2,6 +2,17 @@
 
 ## WIP
 
+### Added
+
+- Add divider, justify and responsive modifier to table component
+- Add inverse support for table component
+
+### Changed
+
+- IMPORTANT: Remove style from default table component. Use `uk-table-divider` modifier
+- Move border style to table row instead of table cell
+- Remove margin from the last-child in table component cell
+
 ### Fixed
 
 - Fix swiping in Switcher
