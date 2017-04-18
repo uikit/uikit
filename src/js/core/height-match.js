@@ -59,7 +59,7 @@ export default function (UIkit) {
 
             },
 
-            events: ['resize']
+            events: ['load', 'resize']
 
         },
 
