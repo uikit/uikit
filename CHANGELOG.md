@@ -17,6 +17,7 @@
 
 - Fix swiping in Switcher
 - Fix scrolling in Scrollspy Nav (FF)
+- Fix Navbar Dropbar
 
 ## 3.0.0 beta 21 (April 11, 2017)
 
