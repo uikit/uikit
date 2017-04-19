@@ -6,7 +6,7 @@
   "main": "dist/js/uikit.js",
   "style": "dist/css/uikit.css",
   "scripts": {
-    "build-scss":"mkdir -p src/scss/theme & mkdir -p src/scss/components & node build/scss",
+    "build-scss": "mkdir -p src/scss/theme & mkdir -p src/scss/components & node build/scss",
     "compile": "npm run compile-less && npm run compile-js",
     "compile-js": "node build/build",
     "compile-less": "npm run icons && node build/less",
@@ -48,6 +48,7 @@
     "rollup-plugin-json": "^2.1.0",
     "rollup-plugin-replace": "^1.1.1",
     "rtlcss": "^2.1.2",
+    "shortid": "^2.2.8",
     "uglify-js": "^2.7.5",
     "webpack": "^2.2.1",
     "webpack-dev-server": "^2.3.0"
