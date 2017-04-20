@@ -1,0 +1,91 @@
+// Name:            Countdown
+// Description:     Component to create countdown timers
+//
+// Component:       `uk-countdown`
+//
+// Sub-objects:     `uk-countdown-separator`
+//                  `uk-countdown-label`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+
+
+/* ========================================================================
+   Component: Countdown
+ ========================================================================== */
+
+.uk-countdown {
+    .hook-countdown;
+}
+
+
+/* Separator
+ ========================================================================== */
+
+.uk-countdown-separator {
+    .hook-countdown-separator;
+}
+
+
+/* Label
+ ========================================================================== */
+
+.uk-countdown-label {
+    .hook-countdown-label;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-countdown-misc;
+
+.hook-countdown() {}
+.hook-countdown-separator() {}
+.hook-countdown-label() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-heading-divider-border:                  @inverse-global-border;
+@inverse-heading-bullet-border:                   @inverse-global-border;
+@inverse-heading-line-border:                     @inverse-global-border;
+
+.hook-inverse() {
+
+    .uk-heading-primary {
+        .hook-inverse-heading-primary;
+    }
+
+    .uk-heading-hero {
+        .hook-inverse-heading-hero;
+    }
+
+    .uk-heading-divider {
+        border-bottom-color: @inverse-heading-divider-border;
+        .hook-inverse-heading-divider;
+    }
+
+    .uk-heading-bullet::before {
+        border-left-color: @inverse-heading-bullet-border;
+        .hook-inverse-heading-bullet;
+    }
+
+    .uk-heading-line > :before,
+    .uk-heading-line > :after {
+        border-bottom-color: @inverse-heading-line-border;
+        .hook-inverse-heading-line;
+    }
+
+}
+
+.hook-inverse-heading-primary() {}
+.hook-inverse-heading-hero() {}
+.hook-inverse-heading-divider() {}
+.hook-inverse-heading-bullet() {}
+.hook-inverse-heading-line() {}
