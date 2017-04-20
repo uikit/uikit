@@ -13,6 +13,7 @@
 //                  `uk-preserve-width`
 //                  `uk-border-*`
 //                  `uk-box-shadow-*`
+//                  `uk-shadow-float`
 //                  `uk-dropcap`
 //                  `uk-leader`
 //                  `uk-logo`
@@ -43,6 +44,11 @@
 @border-rounded-border-radius:                  5px;
 
 @box-shadow-duration:                           0.1s;
+
+@shadow-float-height:                           30px;
+@shadow-float-border-radius:                    100%;
+@shadow-float-background:                       #444;
+@shadow-float-blur:                             20px;
 
 @dropcap-margin-right:                          10px;
 @dropcap-font-size:                             ((@global-line-height * 3) * 1em);
@@ -320,6 +326,41 @@
 .uk-box-shadow-hover-xlarge:hover { box-shadow: @global-xlarge-box-shadow; }
 
 
+/* Shadow float
+ ========================================================================== */
+
+/*
+ * 1. Set position.
+ * 2. Set style
+ * 3. Blur doesn't work on pseudo elements with negative `z-index` in Edge.
+ *    Solved by using `before` and add position context to child elements.
+ */
+
+@supports (filter: blur(0)) {
+
+    .uk-shadow-float { position: relative; }
+
+    .uk-shadow-float::before {
+        content: '';
+        /* 1 */
+        position: absolute;
+        bottom: -@shadow-float-height;
+        left: 0;
+        right: 0;
+        /* 2 */
+        height: @shadow-float-height;
+        border-radius: @shadow-float-border-radius;
+        background: @shadow-float-background;
+        filter: blur(@shadow-float-blur);
+        .hook-shadow-float;
+    }
+
+    /* 3 */
+    .uk-shadow-float > * { position: relative; }
+
+}
+
+
 /* Drop cap
  ========================================================================== */
 
@@ -521,6 +562,7 @@
 .hook-utility-misc;
 
 .hook-panel-scrollable() {}
+.hook-shadow-float() {}
 .hook-dropcap() {}
 .hook-leader() {}
 .hook-logo() {}

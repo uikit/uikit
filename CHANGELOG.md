@@ -6,6 +6,7 @@
 
 - Add divider, justify and responsive modifier to table component
 - Add inverse support for table component
+- Add shadow float to utility component
 
 ### Changed
 
