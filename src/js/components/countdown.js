@@ -23,7 +23,10 @@ function plugin(UIkit) {
 
         connected() {
 
-            this.$el.html(`<span class="uk-countdown-days">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-hours">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-minutes">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-seconds">00</span>`);
+
+            if (!this.$el.html().trim()) {
+                this.$el.html(`<span class="uk-countdown-days">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-hours">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-minutes">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-seconds">00</span>`);
+            }
 
             this.days = this.$el.find('.uk-countdown-days');
             this.hours = this.$el.find('.uk-countdown-hours');
