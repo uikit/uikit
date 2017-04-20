@@ -110,17 +110,21 @@ function plugin(UIkit) {
         },
 
         events: {
+
             [`focus ${pointerEnter} ${pointerDown}`](e) {
                 if (e.type !== pointerDown || !isTouch(e)) {
                     this.show();
                 }
             },
+
             'blur': 'hide',
+
             [pointerLeave](e) {
                 if (!isTouch(e)) {
                     this.hide()
                 }
             }
+
         }
 
     });
