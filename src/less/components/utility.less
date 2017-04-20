@@ -338,7 +338,12 @@
 
 @supports (filter: blur(0)) {
 
-    .uk-box-shadow-bottom { position: relative; }
+    .uk-box-shadow-bottom {
+        display: inline-block;
+        position: relative;
+        max-width: 100%;
+        vertical-align: middle;
+    }
 
     .uk-box-shadow-bottom::before {
         content: '';
