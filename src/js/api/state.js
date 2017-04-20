@@ -97,6 +97,7 @@ export default function (UIkit) {
         var events = this.$options.events;
 
         if (events) {
+
             events.forEach(event => {
 
                 if (!hasOwn(event, 'handler')) {
@@ -228,7 +229,7 @@ function registerEvent(component, unbind, event, key) {
 
     el = el && el.call(component) || component.$el;
 
-    name += `.${component.$options.name}.${component._uid}`;
+    name = name.split(' ').map(name => `${name}.${component.$options.name}.${component._uid}`).join(' ');
 
     if (unbind) {
 
