@@ -3,7 +3,8 @@
 //
 // Component:       `uk-countdown`
 //
-// Sub-objects:     `uk-countdown-separator`
+// Sub-objects:     `uk-countdown-number`
+//                  `uk-countdown-separator`
 //                  `uk-countdown-label`
 //
 // ========================================================================
@@ -12,6 +13,14 @@
 // Variables
 // ========================================================================
 
+@countdown-number-font-size:                    @global-xxlarge-font-size;
+@countdown-number-line-height:                  1.2;
+
+@countdown-separator-font-size:                 @global-large-font-size;
+@countdown-separator-line-height:               1.2;
+
+@countdown-label-font-size:                     @global-xxlarge-font-size;
+@countdown-label-line-height:                   1.2;
 
 
 /* ========================================================================
@@ -22,10 +31,13 @@
     .hook-countdown;
 }
 
+
 /* Number
  ========================================================================== */
 
 .uk-countdown-number {
+    font-size: @countdown-number-font-size;
+    line-height: @countdown-number-line-height;
     .hook-countdown-number;
 }
 
@@ -34,6 +46,8 @@
  ========================================================================== */
 
 .uk-countdown-separator {
+    font-size: @countdown-separator-font-size;
+    line-height: @countdown-separator-line-height;
     .hook-countdown-separator;
 }
 
@@ -42,6 +56,8 @@
  ========================================================================== */
 
 .uk-countdown-label {
+    font-size: @countdown-label-font-size;
+    line-height: @countdown-label-line-height;
     .hook-countdown-label;
 }
 
@@ -55,45 +71,29 @@
 .hook-countdown-number() {}
 .hook-countdown-separator() {}
 .hook-countdown-label() {}
+.hook-countdown-misc() {}
 
 
 // Inverse
 // ========================================================================
 
-@inverse-heading-divider-border:                  @inverse-global-border;
-@inverse-heading-bullet-border:                   @inverse-global-border;
-@inverse-heading-line-border:                     @inverse-global-border;
 
 .hook-inverse() {
 
-    .uk-heading-primary {
-        .hook-inverse-heading-primary;
+    .uk-countdown-number {
+        .hook-inverse-countdown-number;
     }
 
-    .uk-heading-hero {
-        .hook-inverse-heading-hero;
+    .uk-countdown-separator {
+        .hook-inverse-countdown-separator;
     }
 
-    .uk-heading-divider {
-        border-bottom-color: @inverse-heading-divider-border;
-        .hook-inverse-heading-divider;
-    }
-
-    .uk-heading-bullet::before {
-        border-left-color: @inverse-heading-bullet-border;
-        .hook-inverse-heading-bullet;
-    }
-
-    .uk-heading-line > :before,
-    .uk-heading-line > :after {
-        border-bottom-color: @inverse-heading-line-border;
-        .hook-inverse-heading-line;
+    .uk-countdown-label {
+        .hook-inverse-countdown-label;
     }
 
 }
 
-.hook-inverse-heading-primary() {}
-.hook-inverse-heading-hero() {}
-.hook-inverse-heading-divider() {}
-.hook-inverse-heading-bullet() {}
-.hook-inverse-heading-line() {}
+.hook-inverse-countdown-number() {}
+.hook-inverse-countdown-separator() {}
+.hook-inverse-countdown-label() {}
