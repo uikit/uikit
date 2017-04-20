@@ -15,24 +15,45 @@
 
             <h1>Countdown</h1>
 
-            <div uk-countdown="endtime: 2017-05-04"></div>
+            <h2>Text</h2>
+
+            <div class="uk-margin" uk-countdown="endtime: 2017-05-04">
+                <span class="uk-countdown-number uk-countdown-days"></span>
+                <span class="uk-countdown-separator">:</span>
+                <span class="uk-countdown-number uk-countdown-hours"></span>
+                <span class="uk-countdown-separator">:</span>
+                <span class="uk-countdown-number uk-countdown-minutes"></span>
+                <span class="uk-countdown-separator">:</span>
+                <span class="uk-countdown-number uk-countdown-seconds"></span>
+            </div>
+
+            <div class="uk-margin" uk-countdown="endtime: 2017-05-04">
+                <span class="uk-countdown-number uk-countdown-days"></span>d
+                <span class="uk-countdown-number uk-countdown-hours"></span>h
+                <span class="uk-countdown-number uk-countdown-minutes"></span>m
+                <span class="uk-countdown-number uk-countdown-seconds"></span>s
+            </div>
+
+            <h2>Grid</h2>
+
+            <div class="uk-flex-inline" uk-grid uk-countdown="endtime: 2017-05-04">
                 <div>
-                    <div uk-countdown-days></div>
+                    <div class="uk-countdown-number uk-countdown-days"></div>
                     <div class="uk-countdown-label">Days</div>
                 </div>
                 <div class="uk-countdown-separator">:</div>
                 <div>
-                    <div uk-countdown-hours></div>
+                    <div class="uk-countdown-number uk-countdown-hours"></div>
                     <div class="uk-countdown-label">Hours</div>
                 </div>
                 <div class="uk-countdown-separator">:</div>
                 <div>
-                    <div uk-countdown-days></div>
+                    <div class="uk-countdown-number uk-countdown-minutes"></div>
                     <div class="uk-countdown-label">Minutes</div>
                 </div>
                 <div class="uk-countdown-separator">:</div>
                 <div>
-                    <div uk-countdown-days></div>
+                    <div class="uk-countdown-number uk-countdown-seconds"></div>
                     <div class="uk-countdown-label">Seconds</div>
                 </div>
             </div>
