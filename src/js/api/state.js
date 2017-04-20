@@ -225,11 +225,12 @@ function registerEvent(component, unbind, event, key) {
         event = ({name: key, handler: event});
     }
 
-    var {name, el, delegate, self, filter, handler} = event;
+    var {name, el, delegate, self, filter, handler} = event,
+        namespace = `.${component.$options.name}.${component._uid}`;
 
     el = el && el.call(component) || component.$el;
 
-    name = name.split(' ').map(name => `${name}.${component.$options.name}.${component._uid}`).join(' ');
+    name = name.split(' ').map(name => `${name}.${namespace}`).join(' ');
 
     if (unbind) {
 
