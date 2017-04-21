@@ -23,7 +23,6 @@ function plugin(UIkit) {
 
         connected() {
 
-
             if (!this.$el.html().trim()) {
                 this.$el.html(`<span class="uk-countdown-days">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-hours">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-minutes">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-seconds">00</span>`);
             }
@@ -64,7 +63,7 @@ function plugin(UIkit) {
 
             update(){
 
-                var t = this.getDifference();
+                var t = this.getDifference(), digit;
 
                 if (t.total <= 0){
                     t.total = t.days = t.hours = t.minutes = t.seconds = 0;
@@ -72,8 +71,11 @@ function plugin(UIkit) {
 
                 ['days','hours','minutes','seconds'].forEach(item => {
 
-                    if (Number(this[item].text()) !== Number(t[item])) {
-                        this[item].html(('00'+t[item]).slice(-2).split('').map(n => `<span>${n}</span>`).join(''));
+                    if (!this[item].text().trim() || Number(this[item].text()) !== Number(t[item])) {
+
+                        digit = String(t[item] < 10 ? '0'+t[item]: t[item]);
+
+                        this[item].html(digit.split('').map(n => `<span>${n}</span>`).join(''));
                     }
                 });
 
