@@ -1,4 +1,4 @@
-import { $, hasTouch, isTouch, pointerEnter, pointerLeave, query } from '../util/index';
+import { $, Event, hasTouch, isTouch, pointerEnter, pointerLeave, query } from '../util/index';
 
 export default function (UIkit) {
 
@@ -104,7 +104,7 @@ export default function (UIkit) {
 
             toggle(type) {
 
-                var event = $.Event(type || 'toggle');
+                var event = Event(type || 'toggle');
                 this.target.triggerHandler(event, [this]);
 
                 if (!event.isDefaultPrevented()) {

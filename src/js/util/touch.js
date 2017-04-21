@@ -4,7 +4,7 @@
     http://zeptojs.com/
 */
 
-import { $, on, pointerCancel, pointerDown, pointerMove, pointerUp, ready } from './index';
+import { $, Event, on, pointerCancel, pointerDown, pointerMove, pointerUp, ready } from './index';
 
 var touch = {}, touchTimeout, tapTimeout, swipeTimeout, gesture, clicked;
 
@@ -106,7 +106,7 @@ ready(function () {
 
                     // trigger universal 'tap' with the option to cancelTouch()
                     // (cancelTouch cancels processing of single vs double taps for faster 'tap' response)
-                    var event = $.Event('tap');
+                    var event = Event('tap');
                     event.cancelTouch = cancelAll;
 
                     if (touch.el !== undefined) {

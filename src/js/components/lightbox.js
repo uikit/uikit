@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, doc, extend, Dimensions, getIndex, Transition} = UIkit.util;
+    var {$, ajax, doc, Event, extend, Dimensions, getIndex, Transition} = UIkit.util;
 
     UIkit.component('lightbox', {
 
@@ -155,7 +155,7 @@ function plugin(UIkit) {
                 this.modal.content && this.modal.content.remove();
                 this.modal.caption.text(this.getItem().title);
 
-                var event = $.Event('showitem');
+                var event = Event('showitem');
                 this.$el.trigger(event);
                 if (!event.isImmediatePropagationStopped()) {
                     this.setError(this.getItem());
@@ -305,7 +305,7 @@ function plugin(UIkit) {
                 let id = matches[2],
                     setIframe = (width, height) => this.setItem(item, `<iframe src="//player.vimeo.com/video/${id}" width="${width}" height="${height}" style="max-width:100%;box-sizing:border-box;"></iframe>`, width, height);
 
-                $.ajax({type: 'GET', url: `http://vimeo.com/api/oembed.json?url=${encodeURI(item.source)}`, jsonp: 'callback', dataType: 'jsonp'}).then((res) => setIframe(res.width, res.height));
+                ajax({type: 'GET', url: `http://vimeo.com/api/oembed.json?url=${encodeURI(item.source)}`, jsonp: 'callback', dataType: 'jsonp'}).then((res) => setIframe(res.width, res.height));
 
                 e.stopImmediatePropagation();
             }
