@@ -73,7 +73,7 @@ function plugin(UIkit) {
                 ['days','hours','minutes','seconds'].forEach(item => {
 
                     if (Number(this[item].text()) !== Number(t[item])) {
-                        this[item].text(('00'+t[item]).slice(-2));
+                        this[item].html(('00'+t[item]).slice(-2).split('').map(n => `<span>${n}</span>`).join(''));
                     }
                 });
 
