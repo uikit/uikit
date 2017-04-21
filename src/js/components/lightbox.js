@@ -149,8 +149,6 @@ function plugin(UIkit) {
                     });
                 }
 
-                active = this;
-
                 this.modal.panel.find('[uk-transition-hide]').hide();
                 this.modal.panel.find('[uk-transition-show]').show();
 
