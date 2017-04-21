@@ -13,14 +13,10 @@
 // Variables
 // ========================================================================
 
-@countdown-number-font-size:                    @global-xxlarge-font-size;
-@countdown-number-line-height:                  1.2;
+@countdown-number-line-height:                  70px;
+@countdown-number-font-size:                    5rem; // 96px
 
 @countdown-separator-font-size:                 @global-large-font-size;
-@countdown-separator-line-height:               1.2;
-
-@countdown-label-font-size:                     @global-xxlarge-font-size;
-@countdown-label-line-height:                   1.2;
 
 
 /* ========================================================================
@@ -35,9 +31,16 @@
 /* Number
  ========================================================================== */
 
+/*
+ * 1. Center numbers and separators vertically
+ * 2. Set style
+ */
+
 .uk-countdown-number {
-    font-size: @countdown-number-font-size;
+    /* 1 */
     line-height: @countdown-number-line-height;
+    /* 2 */
+    font-size: @countdown-number-font-size;
     .hook-countdown-number;
 }
 
@@ -45,9 +48,16 @@
 /* Separator
  ========================================================================== */
 
+/*
+ * 1. Center numbers and separators vertically
+ * 2. Set style
+ */
+
 .uk-countdown-separator {
+    /* 1 */
+    line-height: @countdown-number-line-height;
+    /* 2 */
     font-size: @countdown-separator-font-size;
-    line-height: @countdown-separator-line-height;
     .hook-countdown-separator;
 }
 
@@ -56,8 +66,6 @@
  ========================================================================== */
 
 .uk-countdown-label {
-    font-size: @countdown-label-font-size;
-    line-height: @countdown-label-line-height;
     .hook-countdown-label;
 }
 

@@ -15,46 +15,81 @@
 
             <h1>Countdown</h1>
 
-            <h2>Text</h2>
-
-            <div class="uk-margin" uk-countdown="endtime: 2017-05-04">
-                <span class="uk-countdown-number uk-countdown-days"></span>
-                <span class="uk-countdown-separator">:</span>
-                <span class="uk-countdown-number uk-countdown-hours"></span>
-                <span class="uk-countdown-separator">:</span>
-                <span class="uk-countdown-number uk-countdown-minutes"></span>
-                <span class="uk-countdown-separator">:</span>
-                <span class="uk-countdown-number uk-countdown-seconds"></span>
-            </div>
-
-            <div class="uk-margin" uk-countdown="endtime: 2017-05-04">
-                <span class="uk-countdown-number uk-countdown-days"></span>d
-                <span class="uk-countdown-number uk-countdown-hours"></span>h
-                <span class="uk-countdown-number uk-countdown-minutes"></span>m
-                <span class="uk-countdown-number uk-countdown-seconds"></span>s
-            </div>
-
-            <h2>Grid</h2>
-
-            <div class="uk-grid-small uk-flex-inline" uk-grid uk-countdown="endtime: 2017-05-04">
+            <div class="uk-child-width-expand@m" uk-grid>
                 <div>
-                    <div class="uk-countdown-number uk-countdown-days"></div>
-                    <div class="uk-countdown-label">Days</div>
+
+                    <h2>Grid</h2>
+
+                    <div class="uk-grid-small uk-flex-middle uk-flex-inline" uk-grid uk-countdown="endtime: 2017-05-04">
+                        <div>
+                            <div class="uk-countdown-number uk-countdown-days"></div>
+                        </div>
+                        <div class="uk-countdown-separator">:</div>
+                        <div>
+                            <div class="uk-countdown-number uk-countdown-hours"></div>
+                        </div>
+                        <div class="uk-countdown-separator">:</div>
+                        <div>
+                            <div class="uk-countdown-number uk-countdown-minutes"></div>
+                        </div>
+                        <div class="uk-countdown-separator">:</div>
+                        <div>
+                            <div class="uk-countdown-number uk-countdown-seconds"></div>
+                        </div>
+                    </div>
+
+                    <div class="uk-grid-small uk-flex-inline" uk-grid uk-countdown="endtime: 2017-05-04">
+                        <div>
+                            <div class="uk-countdown-number uk-countdown-days"></div>
+                            <div class="uk-countdown-label uk-text-center">Days</div>
+                        </div>
+                        <div class="uk-countdown-separator">:</div>
+                        <div>
+                            <div class="uk-countdown-number uk-countdown-hours"></div>
+                            <div class="uk-countdown-label uk-text-center">Hours</div>
+                        </div>
+                        <div class="uk-countdown-separator">:</div>
+                        <div>
+                            <div class="uk-countdown-number uk-countdown-minutes"></div>
+                            <div class="uk-countdown-label uk-text-center">Minutes</div>
+                        </div>
+                        <div class="uk-countdown-separator">:</div>
+                        <div>
+                            <div class="uk-countdown-number uk-countdown-seconds"></div>
+                            <div class="uk-countdown-label uk-text-center">Seconds</div>
+                        </div>
+                    </div>
+
                 </div>
-                <div class="uk-countdown-separator">:</div>
                 <div>
-                    <div class="uk-countdown-number uk-countdown-hours"></div>
-                    <div class="uk-countdown-label">Hours</div>
-                </div>
-                <div class="uk-countdown-separator">:</div>
-                <div>
-                    <div class="uk-countdown-number uk-countdown-minutes"></div>
-                    <div class="uk-countdown-label">Minutes</div>
-                </div>
-                <div class="uk-countdown-separator">:</div>
-                <div>
-                    <div class="uk-countdown-number uk-countdown-seconds"></div>
-                    <div class="uk-countdown-label">Seconds</div>
+
+                    <h2>Text</h2>
+
+                    <div class="uk-margin" uk-countdown="endtime: 2017-05-04">
+                        <span class="uk-countdown-number uk-countdown-days uk-text-middle"></span>
+                        <span class="uk-countdown-separator uk-text-middle">:</span>
+                        <span class="uk-countdown-number uk-countdown-hours uk-text-middle"></span>
+                        <span class="uk-countdown-separator uk-text-middle">:</span>
+                        <span class="uk-countdown-number uk-countdown-minutes uk-text-middle"></span>
+                        <span class="uk-countdown-separator uk-text-middle">:</span>
+                        <span class="uk-countdown-number uk-countdown-seconds uk-text-middle"></span>
+                    </div>
+
+                    <div class="uk-margin" uk-countdown="endtime: 2017-05-04">
+                        <span class="uk-countdown-number">
+                            <span class="uk-countdown-days"></span><small>d</small>
+                        </span>
+                        <span class="uk-countdown-number">
+                            <span class="uk-countdown-hours"></span><small>h</small>
+                        </span>
+                        <span class="uk-countdown-number">
+                            <span class="uk-countdown-minutes"></span><small>m</small>
+                        </span>
+                        <span class="uk-countdown-number">
+                            <span class="uk-countdown-seconds"></span><small>s</small>
+                        </span>
+                    </div>
+
                 </div>
             </div>
 
