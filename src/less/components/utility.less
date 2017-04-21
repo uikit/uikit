@@ -336,7 +336,7 @@
  *    Solved by using `before` and add position context to child elements.
  */
 
-@supports (filter: blur(0)) {
+@supports (filter: blur(0)) or (-webkit-filter: blur(0)) {
 
     .uk-box-shadow-bottom {
         display: inline-block;
@@ -356,6 +356,7 @@
         height: @box-shadow-bottom-height;
         border-radius: @box-shadow-bottom-border-radius;
         background: @box-shadow-bottom-background;
+        -webkit-filter: blur(@box-shadow-bottom-blur);
         filter: blur(@box-shadow-bottom-blur);
         .hook-box-shadow-bottom;
     }
