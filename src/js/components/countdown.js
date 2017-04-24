@@ -100,7 +100,7 @@ function plugin(UIkit) {
 
                 this.units.forEach(unit => {
 
-                    var digits = String(timespan[unit]);
+                    var digits = String(Math.floor(timespan[unit]));
 
                     digits = digits.length < 2 ? `0${digits}` : digits;
 
@@ -122,10 +122,10 @@ function plugin(UIkit) {
 
         return {
             total,
-            seconds: Math.floor(total / 1000 % 60),
-            minutes: Math.floor(total / 1000 / 60 % 60),
-            hours: Math.floor(total / 1000 / 60 / 60 % 24),
-            days: Math.floor(total / 1000 / 60 / 60 / 24)
+            seconds: total / 1000 % 60,
+            minutes: total / 1000 / 60 % 60,
+            hours: total / 1000 / 60 / 60 % 24,
+            days: total / 1000 / 60 / 60 / 24
         };
     }
 
