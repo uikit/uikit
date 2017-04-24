@@ -20,6 +20,7 @@
 - Fix scrolling in Scrollspy Nav (FF)
 - Fix Navbar Dropbar
 - Fix Tooltip with different animations
+- Fix sass showing error when using different color mode in certain components
 
 ## 3.0.0 beta 21 (April 11, 2017)
 
