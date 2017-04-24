@@ -24,7 +24,8 @@ function plugin(UIkit) {
         connected() {
 
             if (!this.$el.html().trim()) {
-                this.$el.html(`<span class="uk-countdown-days">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-hours">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-minutes">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-seconds">00</span>`);
+                this.placeholder = $(`<span class="uk-countdown-days">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-hours">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-minutes">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-seconds">00</span>`);
+                this.$el.append(this.placeholder);
             }
 
             this.days = this.$el.find('.uk-countdown-days');
@@ -37,8 +38,12 @@ function plugin(UIkit) {
         },
 
         disconnected() {
+
             this.stop();
-            this.$el.html('');
+
+            if (this.placeholder) {
+                this.placeholder.remove();
+            }
         },
 
         methods: {
