@@ -69,8 +69,8 @@ $overlay-primary-color-mode:                     light !default;
 }
 
 // Color Mode
-@if ( $overlay-primary-color-mode == light ) { .uk-overlay-primary { @extend .uk-light;} }
-@if ( $overlay-primary-color-mode == dark ) { .uk-overlay-primary { @extend .uk-dark;} }
+@if ( $overlay-primary-color-mode == light ) { .uk-overlay-primary { @extend .uk-light !optional;} }
+@if ( $overlay-primary-color-mode == dark ) { .uk-overlay-primary { @extend .uk-dark !optional;} }
 
 
 // Hooks
