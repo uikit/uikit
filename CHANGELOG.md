@@ -7,6 +7,7 @@
 - Add divider, justify and responsive modifier to table component
 - Add inverse support for table component
 - Add box-shadow bottom to utility component
+- Add Countdown component
 
 ### Changed
 

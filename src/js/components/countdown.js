@@ -11,8 +11,6 @@ function plugin(UIkit) {
 
         mixins: [mixin.class],
 
-        args: 'date',
-
         attrs: true,
 
         props: {
