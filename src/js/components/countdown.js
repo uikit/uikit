@@ -4,46 +4,61 @@ function plugin(UIkit) {
         return;
     }
 
-    var { util, mixin } = UIkit;
-    var {$, doc, toJQuery} = util;
+    var {util, mixin} = UIkit;
+    var {$} = util;
 
     UIkit.component('countdown', {
 
-        attrs: true,
-
         mixins: [mixin.class],
 
+        args: 'date',
+
+        attrs: true,
+
         props: {
-            endtime: String
+            date: String,
+            clsWrapper: String
         },
 
         defaults: {
-            endtime: ''
+            date: '',
+            clsWrapper: '.uk-countdown-%unit%'
+        },
+
+        computed: {
+
+            date() {
+                return Date.parse(this.$props.date);
+            },
+
+            days() {
+                return this.$el.find(this.clsWrapper.replace('%unit%', 'days'));
+            },
+
+            hours() {
+                return this.$el.find(this.clsWrapper.replace('%unit%', 'hours'));
+            },
+
+            minutes() {
+                return this.$el.find(this.clsWrapper.replace('%unit%', 'minutes'));
+            },
+
+            seconds() {
+                return this.$el.find(this.clsWrapper.replace('%unit%', 'seconds'));
+            },
+
+            units() {
+                return ['days', 'hours', 'minutes', 'seconds'].filter(unit => this[unit].length);
+            }
+
         },
 
         connected() {
-
-            if (!this.$el.html().trim()) {
-                this.placeholder = $(`<span class="uk-countdown-days">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-hours">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-minutes">00</span><span class="uk-countdown-colon">:</span><span class="uk-countdown-seconds">00</span>`);
-                this.$el.append(this.placeholder);
-            }
-
-            this.days = this.$el.find('.uk-countdown-days');
-            this.hours = this.$el.find('.uk-countdown-hours');
-            this.minutes = this.$el.find('.uk-countdown-minutes');
-            this.seconds = this.$el.find('.uk-countdown-seconds');
-
-            this.update();
             this.start();
         },
 
         disconnected() {
-
             this.stop();
-
-            if (this.placeholder) {
-                this.placeholder.remove();
-            }
         },
 
         methods: {
@@ -52,56 +67,67 @@ function plugin(UIkit) {
 
                 this.stop();
 
-                if (!this.endtime) {
-                    return;
+                if (this.date && this.units.length) {
+                    this.update();
+                    this.timer = setInterval(this.update, 1000);
                 }
 
-                this.timer = setInterval(() => this.update(), 100);
             },
 
             stop() {
 
                 if (this.timer) {
                     clearInterval(this.timer);
+                    this.timer = null;
                 }
+
             },
 
             update(){
 
-                var t = this.getDifference(), digit;
+                var timespan = getTimeSpan(this.date);
 
-                if (t.total <= 0){
-                    t.total = t.days = t.hours = t.minutes = t.seconds = 0;
+                if (timespan.total <= 0) {
+
+                    this.stop();
+
+                    timespan.days
+                        = timespan.hours
+                        = timespan.minutes
+                        = timespan.seconds
+                        = 0;
                 }
 
-                ['days','hours','minutes','seconds'].forEach(item => {
+                this.units.forEach(unit => {
 
-                    if (!this[item].text().trim() || Number(this[item].text()) !== Number(t[item])) {
+                    var digits = String(timespan[unit]);
 
-                        digit = String(t[item] < 10 ? '0'+t[item]: t[item]);
+                    digits = digits.length < 2 ? `0${digits}` : digits;
 
-                        this[item].html(digit.split('').map(n => `<span>${n}</span>`).join(''));
+                    if (this[unit].text() !== digits) {
+                        this[unit].html(digits.split('').map(digit => `<span>${digit}</span>`).join(''));
                     }
+
                 });
 
-                if (t.total <= 0){
-                    this.stop();
-                }
-            },
-
-            getDifference() {
-
-                  var total = Date.parse(this.endtime) - Date.parse(new Date());
-                  var seconds = Math.floor((total/1000) % 60);
-                  var minutes = Math.floor((total/1000/60) % 60);
-                  var hours = Math.floor((total/(1000*60*60)) % 24);
-                  var days = Math.floor(total/(1000*60*60*24));
-
-                  return {total, days, hours,  minutes, seconds};
             }
+
         }
 
     });
+
+    function getTimeSpan(date) {
+
+        var total = date - Date.now();
+
+        return {
+            total,
+            seconds: Math.floor(total / 1000 % 60),
+            minutes: Math.floor(total / 1000 / 60 % 60),
+            hours: Math.floor(total / 1000 / 60 / 60 % 24),
+            days: Math.floor(total / 1000 / 60 / 60 / 24)
+        };
+    }
 
 }
 
