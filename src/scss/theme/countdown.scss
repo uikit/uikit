@@ -1,5 +1,5 @@
 //
-// Component: Utility
+// Component: Countdown
 //
 // ========================================================================
 
@@ -8,50 +8,46 @@
 // ========================================================================
 
 
-// Panel
+// Component
 // ========================================================================
 
-// @mixin hook-panel-scrollable(){}
+// @mixin hook-countdown(){}
 
 
-// Box-shadow bottom
+// Item
 // ========================================================================
 
-// @mixin hook-box-shadow-bottom(){}
+// @mixin hook-countdown-item(){}
 
 
-// Drop cap
+// Number
 // ========================================================================
 
+// @mixin hook-countdown-number(){}
 
 
-
-// Leader
+// Separator
 // ========================================================================
 
-// @mixin hook-leader(){}
+// @mixin hook-countdown-separator(){}
 
 
-// Logo
+// Label
 // ========================================================================
 
-// @mixin hook-logo(){}
-
-// @mixin hook-logo-hover(){}
+// @mixin hook-countdown-label(){}
 
 
 // Miscellaneous
 // ========================================================================
 
-// @mixin hook-utility-misc(){}
+// @mixin hook-countdown-misc(){}
 
 
 // Inverse
 // ========================================================================
 
-// @mixin hook-inverse-dropcap(){}
-
-// @mixin hook-inverse-leader(){}
-
-// @mixin hook-inverse-logo(){}
-// @mixin hook-inverse-logo-hover(){}
+// @mixin hook-inverse-countdown-item(){}
+// @mixin hook-inverse-countdown-number(){}
+// @mixin hook-inverse-countdown-separator(){}
+// @mixin hook-inverse-countdown-label(){}

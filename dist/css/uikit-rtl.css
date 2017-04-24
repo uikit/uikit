@@ -719,6 +719,9 @@ a.uk-link-reset:focus,
  */
 .uk-list-striped > li {
   padding: 10px 10px;
+}
+.uk-list-striped > li:nth-of-type(odd) {
+  border-top: 1px solid #e5e5e5;
   border-bottom: 1px solid #e5e5e5;
 }
 .uk-list-striped > li:nth-of-type(odd) {
@@ -764,13 +767,13 @@ a.uk-link-reset:focus,
  */
 .uk-list-large.uk-list-striped > li {
   padding: 20px 10px;
+}
+.uk-list-large.uk-list-striped > li:nth-of-type(odd) {
+  border-top: 1px solid #e5e5e5;
   border-bottom: 1px solid #e5e5e5;
 }
 .uk-list-large.uk-list-striped > li:nth-child(n+2) {
   margin-top: 0;
-}
-.uk-list-striped > li:first-child {
-  border-top: 1px solid #e5e5e5;
 }
 /* ========================================================================
    Component: Description list
@@ -834,7 +837,6 @@ a.uk-link-reset:focus,
   font-size: 0.875rem;
   font-weight: normal;
   color: #999;
-  border-bottom: 1px solid #e5e5e5;
   text-transform: uppercase;
 }
 /* Cell
@@ -843,11 +845,16 @@ a.uk-link-reset:focus,
   padding: 16px 12px;
   vertical-align: top;
 }
+/*
+ * Remove margin from the last-child
+ */
+.uk-table td > :last-child {
+  margin-bottom: 0;
+}
 /* Footer
  ========================================================================== */
 .uk-table tfoot {
   font-size: 0.875rem;
-  border-top: 1px solid #e5e5e5;
 }
 /* Caption
  ========================================================================== */
@@ -871,11 +878,21 @@ a.uk-link-reset:focus,
 /* Style modifiers
  ========================================================================== */
 /*
+ * Divider
+ */
+.uk-table-divider > tr:not(:first-child),
+.uk-table-divider > :not(:first-child) > tr,
+.uk-table-divider > :first-child > tr:not(:first-child) {
+  border-top: 1px solid #e5e5e5;
+}
+/*
  * Striped
  */
 .uk-table-striped > tr:nth-of-type(odd),
 .uk-table-striped tbody tr:nth-of-type(odd) {
   background: #f8f8f8;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
 }
 /*
  * Hover
@@ -890,6 +907,16 @@ a.uk-link-reset:focus,
 .uk-table-small td {
   padding: 10px 12px;
 }
+/* Justify modifier
+ ========================================================================== */
+.uk-table-justify th:first-child,
+.uk-table-justify td:first-child {
+  padding-right: 0;
+}
+.uk-table-justify th:last-child,
+.uk-table-justify td:last-child {
+  padding-left: 0;
+}
 /* Cell size modifier
  ========================================================================== */
 .uk-table-shrink {
@@ -900,6 +927,9 @@ a.uk-link-reset:focus,
 }
 /* Cell link modifier
  ========================================================================== */
+/*
+ * Does not work with `uk-table-justify` at the moment
+ */
 .uk-table-link {
   padding: 0 !important;
 }
@@ -910,8 +940,43 @@ a.uk-link-reset:focus,
 .uk-table-small .uk-table-link > a {
   padding: 10px 12px;
 }
-.uk-table :not(:last-child) > td {
-  border-bottom: 1px solid #e5e5e5;
+/* Responsive table
+ ========================================================================== */
+/* Phone landscape and smaller */
+@media (max-width: 959px) {
+  .uk-table-responsive,
+  .uk-table-responsive tbody,
+  .uk-table-responsive th,
+  .uk-table-responsive td,
+  .uk-table-responsive tr {
+    display: block;
+  }
+  .uk-table-responsive thead {
+    display: none;
+  }
+  .uk-table-responsive th,
+  .uk-table-responsive td {
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    overflow: visible !important;
+    white-space: normal !important;
+  }
+  .uk-table-responsive th:not(:first-child):not(.uk-table-link),
+  .uk-table-responsive td:not(:first-child):not(.uk-table-link),
+  .uk-table-responsive .uk-table-link:not(:first-child) > a {
+    padding-top: 5px !important;
+  }
+  .uk-table-responsive th:not(:last-child):not(.uk-table-link),
+  .uk-table-responsive td:not(:last-child):not(.uk-table-link),
+  .uk-table-responsive .uk-table-link:not(:last-child) > a {
+    padding-bottom: 5px !important;
+  }
+  .uk-table-justify.uk-table-responsive th,
+  .uk-table-justify.uk-table-responsive td {
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
 .uk-table tbody tr {
   -webkit-transition: background-color 0.1s linear;
@@ -5478,6 +5543,55 @@ ul.uk-nav-sub {
   cursor: move;
 }
 /* ========================================================================
+   Component: Countdown
+ ========================================================================== */
+/* Item
+ ========================================================================== */
+/*
+ * 1. Center numbers and separators vertically
+ */
+.uk-countdown-number,
+.uk-countdown-separator {
+  /* 1 */
+  line-height: 70px;
+}
+/* Number
+ ========================================================================== */
+.uk-countdown-number {
+  font-size: 2rem;
+}
+/* Phone landscape and bigger */
+@media (min-width: 640px) {
+  .uk-countdown-number {
+    font-size: 4rem;
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-countdown-number {
+    font-size: 6rem;
+  }
+}
+/* Separator
+ ========================================================================== */
+.uk-countdown-separator {
+  font-size: 1rem;
+}
+/* Phone landscape and bigger */
+@media (min-width: 640px) {
+  .uk-countdown-separator {
+    font-size: 2rem;
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-countdown-separator {
+    font-size: 3rem;
+  }
+}
+/* Label
+ ========================================================================== */
+/* ========================================================================
    Component: Animation
  ========================================================================== */
 [class*='uk-animation-'] {
@@ -7539,6 +7653,40 @@ td.uk-text-break {
 .uk-box-shadow-hover-xlarge:hover {
   box-shadow: 0 28px 50px rgba(0, 0, 0, 0.16);
 }
+/* Box-shadow bottom
+ ========================================================================== */
+/*
+ * 1. Set position.
+ * 2. Set style
+ * 3. Blur doesn't work on pseudo elements with negative `z-index` in Edge.
+ *    Solved by using `before` and add position context to child elements.
+ */
+@supports (filter: blur(0)) or (-webkit-filter: blur(0)) {
+  .uk-box-shadow-bottom {
+    display: inline-block;
+    position: relative;
+    max-width: 100%;
+    vertical-align: middle;
+  }
+  .uk-box-shadow-bottom::before {
+    content: '';
+    /* 1 */
+    position: absolute;
+    bottom: -30px;
+    right: 0;
+    left: 0;
+    /* 2 */
+    height: 30px;
+    border-radius: 100%;
+    background: #444;
+    -webkit-filter: blur(20px);
+    filter: blur(20px);
+  }
+  /* 3 */
+  .uk-box-shadow-bottom > * {
+    position: relative;
+  }
+}
 /* Drop cap
  ========================================================================== */
 .uk-dropcap::first-letter,
@@ -9155,31 +9303,19 @@ td.uk-text-break {
 .uk-offcanvas-bar .uk-list-divider > li:nth-child(n+2) {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-list-striped > li,
-.uk-section-primary:not(.uk-preserve-color) .uk-list-striped > li,
-.uk-section-secondary:not(.uk-preserve-color) .uk-list-striped > li,
-.uk-tile-primary:not(.uk-preserve-color) .uk-list-striped > li,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-list-striped > li,
-.uk-card-primary.uk-card-body .uk-list-striped > li,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-list-striped > li,
-.uk-card-secondary.uk-card-body .uk-list-striped > li,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-list-striped > li,
-.uk-overlay-primary .uk-list-striped > li,
-.uk-offcanvas-bar .uk-list-striped > li {
-  border-bottom-color: rgba(255, 255, 255, 0.2);
-}
-.uk-light .uk-list-striped > li:first-child,
-.uk-section-primary:not(.uk-preserve-color) .uk-list-striped > li:first-child,
-.uk-section-secondary:not(.uk-preserve-color) .uk-list-striped > li:first-child,
-.uk-tile-primary:not(.uk-preserve-color) .uk-list-striped > li:first-child,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-list-striped > li:first-child,
-.uk-card-primary.uk-card-body .uk-list-striped > li:first-child,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-list-striped > li:first-child,
-.uk-card-secondary.uk-card-body .uk-list-striped > li:first-child,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-list-striped > li:first-child,
-.uk-overlay-primary .uk-list-striped > li:first-child,
-.uk-offcanvas-bar .uk-list-striped > li:first-child {
+.uk-light .uk-list-striped > li:nth-of-type(odd),
+.uk-section-primary:not(.uk-preserve-color) .uk-list-striped > li:nth-of-type(odd),
+.uk-section-secondary:not(.uk-preserve-color) .uk-list-striped > li:nth-of-type(odd),
+.uk-tile-primary:not(.uk-preserve-color) .uk-list-striped > li:nth-of-type(odd),
+.uk-tile-secondary:not(.uk-preserve-color) .uk-list-striped > li:nth-of-type(odd),
+.uk-card-primary.uk-card-body .uk-list-striped > li:nth-of-type(odd),
+.uk-card-primary > :not([class*='uk-card-media']) .uk-list-striped > li:nth-of-type(odd),
+.uk-card-secondary.uk-card-body .uk-list-striped > li:nth-of-type(odd),
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-list-striped > li:nth-of-type(odd),
+.uk-overlay-primary .uk-list-striped > li:nth-of-type(odd),
+.uk-offcanvas-bar .uk-list-striped > li:nth-of-type(odd) {
   border-top-color: rgba(255, 255, 255, 0.2);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
 }
 .uk-light .uk-list-striped > li:nth-of-type(odd),
 .uk-section-primary:not(.uk-preserve-color) .uk-list-striped > li:nth-of-type(odd),
@@ -9206,6 +9342,141 @@ td.uk-text-break {
 .uk-overlay-primary .uk-list-bullet > li::before,
 .uk-offcanvas-bar .uk-list-bullet > li::before {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%226%22%20height%3D%226%22%20viewBox%3D%220%200%206%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20cx%3D%223%22%20cy%3D%223%22%20r%3D%223%22%3E%3C%2Fcircle%3E%0A%3C%2Fsvg%3E");
+}
+.uk-light .uk-table th,
+.uk-section-primary:not(.uk-preserve-color) .uk-table th,
+.uk-section-secondary:not(.uk-preserve-color) .uk-table th,
+.uk-tile-primary:not(.uk-preserve-color) .uk-table th,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table th,
+.uk-card-primary.uk-card-body .uk-table th,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table th,
+.uk-card-secondary.uk-card-body .uk-table th,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table th,
+.uk-overlay-primary .uk-table th,
+.uk-offcanvas-bar .uk-table th {
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-light .uk-table caption,
+.uk-section-primary:not(.uk-preserve-color) .uk-table caption,
+.uk-section-secondary:not(.uk-preserve-color) .uk-table caption,
+.uk-tile-primary:not(.uk-preserve-color) .uk-table caption,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table caption,
+.uk-card-primary.uk-card-body .uk-table caption,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table caption,
+.uk-card-secondary.uk-card-body .uk-table caption,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table caption,
+.uk-overlay-primary .uk-table caption,
+.uk-offcanvas-bar .uk-table caption {
+  color: rgba(255, 255, 255, 0.5);
+}
+.uk-light .uk-table > tr.uk-active,
+.uk-light .uk-table tbody tr.uk-active,
+.uk-section-primary:not(.uk-preserve-color) .uk-table > tr.uk-active,
+.uk-section-primary:not(.uk-preserve-color) .uk-table tbody tr.uk-active,
+.uk-section-secondary:not(.uk-preserve-color) .uk-table > tr.uk-active,
+.uk-section-secondary:not(.uk-preserve-color) .uk-table tbody tr.uk-active,
+.uk-tile-primary:not(.uk-preserve-color) .uk-table > tr.uk-active,
+.uk-tile-primary:not(.uk-preserve-color) .uk-table tbody tr.uk-active,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table > tr.uk-active,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table tbody tr.uk-active,
+.uk-card-primary.uk-card-body .uk-table > tr.uk-active,
+.uk-card-primary.uk-card-body .uk-table tbody tr.uk-active,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table > tr.uk-active,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table tbody tr.uk-active,
+.uk-card-secondary.uk-card-body .uk-table > tr.uk-active,
+.uk-card-secondary.uk-card-body .uk-table tbody tr.uk-active,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table > tr.uk-active,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table tbody tr.uk-active,
+.uk-overlay-primary .uk-table > tr.uk-active,
+.uk-overlay-primary .uk-table tbody tr.uk-active,
+.uk-offcanvas-bar .uk-table > tr.uk-active,
+.uk-offcanvas-bar .uk-table tbody tr.uk-active {
+  background: rgba(255, 255, 255, 0.08);
+}
+.uk-light .uk-table-divider > tr:not(:first-child),
+.uk-light .uk-table-divider > :not(:first-child) > tr,
+.uk-light .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-section-primary:not(.uk-preserve-color) .uk-table-divider > tr:not(:first-child),
+.uk-section-primary:not(.uk-preserve-color) .uk-table-divider > :not(:first-child) > tr,
+.uk-section-primary:not(.uk-preserve-color) .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-section-secondary:not(.uk-preserve-color) .uk-table-divider > tr:not(:first-child),
+.uk-section-secondary:not(.uk-preserve-color) .uk-table-divider > :not(:first-child) > tr,
+.uk-section-secondary:not(.uk-preserve-color) .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-tile-primary:not(.uk-preserve-color) .uk-table-divider > tr:not(:first-child),
+.uk-tile-primary:not(.uk-preserve-color) .uk-table-divider > :not(:first-child) > tr,
+.uk-tile-primary:not(.uk-preserve-color) .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table-divider > tr:not(:first-child),
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table-divider > :not(:first-child) > tr,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-card-primary.uk-card-body .uk-table-divider > tr:not(:first-child),
+.uk-card-primary.uk-card-body .uk-table-divider > :not(:first-child) > tr,
+.uk-card-primary.uk-card-body .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table-divider > tr:not(:first-child),
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table-divider > :not(:first-child) > tr,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-card-secondary.uk-card-body .uk-table-divider > tr:not(:first-child),
+.uk-card-secondary.uk-card-body .uk-table-divider > :not(:first-child) > tr,
+.uk-card-secondary.uk-card-body .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table-divider > tr:not(:first-child),
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table-divider > :not(:first-child) > tr,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-overlay-primary .uk-table-divider > tr:not(:first-child),
+.uk-overlay-primary .uk-table-divider > :not(:first-child) > tr,
+.uk-overlay-primary .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-offcanvas-bar .uk-table-divider > tr:not(:first-child),
+.uk-offcanvas-bar .uk-table-divider > :not(:first-child) > tr,
+.uk-offcanvas-bar .uk-table-divider > :first-child > tr:not(:first-child) {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-table-striped > tr:nth-of-type(odd),
+.uk-light .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-section-primary:not(.uk-preserve-color) .uk-table-striped > tr:nth-of-type(odd),
+.uk-section-primary:not(.uk-preserve-color) .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-section-secondary:not(.uk-preserve-color) .uk-table-striped > tr:nth-of-type(odd),
+.uk-section-secondary:not(.uk-preserve-color) .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-tile-primary:not(.uk-preserve-color) .uk-table-striped > tr:nth-of-type(odd),
+.uk-tile-primary:not(.uk-preserve-color) .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table-striped > tr:nth-of-type(odd),
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-card-primary.uk-card-body .uk-table-striped > tr:nth-of-type(odd),
+.uk-card-primary.uk-card-body .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table-striped > tr:nth-of-type(odd),
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-card-secondary.uk-card-body .uk-table-striped > tr:nth-of-type(odd),
+.uk-card-secondary.uk-card-body .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table-striped > tr:nth-of-type(odd),
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-overlay-primary .uk-table-striped > tr:nth-of-type(odd),
+.uk-overlay-primary .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-offcanvas-bar .uk-table-striped > tr:nth-of-type(odd),
+.uk-offcanvas-bar .uk-table-striped tbody tr:nth-of-type(odd) {
+  background: rgba(255, 255, 255, 0.1);
+  border-top-color: rgba(255, 255, 255, 0.2);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-table-hover > tr:hover,
+.uk-light .uk-table-hover tbody tr:hover,
+.uk-section-primary:not(.uk-preserve-color) .uk-table-hover > tr:hover,
+.uk-section-primary:not(.uk-preserve-color) .uk-table-hover tbody tr:hover,
+.uk-section-secondary:not(.uk-preserve-color) .uk-table-hover > tr:hover,
+.uk-section-secondary:not(.uk-preserve-color) .uk-table-hover tbody tr:hover,
+.uk-tile-primary:not(.uk-preserve-color) .uk-table-hover > tr:hover,
+.uk-tile-primary:not(.uk-preserve-color) .uk-table-hover tbody tr:hover,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table-hover > tr:hover,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table-hover tbody tr:hover,
+.uk-card-primary.uk-card-body .uk-table-hover > tr:hover,
+.uk-card-primary.uk-card-body .uk-table-hover tbody tr:hover,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table-hover > tr:hover,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table-hover tbody tr:hover,
+.uk-card-secondary.uk-card-body .uk-table-hover > tr:hover,
+.uk-card-secondary.uk-card-body .uk-table-hover tbody tr:hover,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table-hover > tr:hover,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table-hover tbody tr:hover,
+.uk-overlay-primary .uk-table-hover > tr:hover,
+.uk-overlay-primary .uk-table-hover tbody tr:hover,
+.uk-offcanvas-bar .uk-table-hover > tr:hover,
+.uk-offcanvas-bar .uk-table-hover tbody tr:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 .uk-light .uk-icon-link,
 .uk-section-primary:not(.uk-preserve-color) .uk-icon-link,

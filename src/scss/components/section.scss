@@ -178,8 +178,8 @@ $section-secondary-color-mode:                     light !default;
     @if(mixin-exists(hook-section-primary)) {@include hook-section-primary();}
 }
 
-@if ( $section-primary-color-mode == light ) { .uk-section-primary:not(.uk-preserve-color) { @extend .uk-light;} }
-@if ( $section-primary-color-mode == dark ) { .uk-section-primary:not(.uk-preserve-color) { @extend .uk-dark;} }
+@if ( $section-primary-color-mode == light ) { .uk-section-primary:not(.uk-preserve-color) { @extend .uk-light !optional;} }
+@if ( $section-primary-color-mode == dark ) { .uk-section-primary:not(.uk-preserve-color) { @extend .uk-dark !optional;} }
 
 
 /*
@@ -191,8 +191,8 @@ $section-secondary-color-mode:                     light !default;
     @if(mixin-exists(hook-section-secondary)) {@include hook-section-secondary();}
 }
 
-@if ( $section-secondary-color-mode == light ) { .uk-section-secondary:not(.uk-preserve-color) { @extend .uk-light;} }
-@if ( $section-secondary-color-mode == dark ) { .uk-section-secondary:not(.uk-preserve-color) { @extend .uk-dark;} }
+@if ( $section-secondary-color-mode == light ) { .uk-section-secondary:not(.uk-preserve-color) { @extend .uk-light !optional;} }
+@if ( $section-secondary-color-mode == dark ) { .uk-section-secondary:not(.uk-preserve-color) { @extend .uk-dark !optional;} }
 
 
 /*

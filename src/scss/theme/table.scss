@@ -15,8 +15,8 @@ $table-header-cell-color:                        $global-muted-color !default;
 // New
 //
 
-$table-cell-border-width:                        $global-border-width !default;
-$table-cell-border:                              $global-border !default;
+$table-striped-border-width:                     $global-border-width !default;
+$table-striped-border:                           $global-border !default;
 
 
 // Component
@@ -26,7 +26,7 @@ $table-cell-border:                              $global-border !default;
 
 // @mixin hook-table-cell(){}
 
-
+// @mixin hook-table-footer(){}
 
 // @mixin hook-table-caption(){}
 
@@ -36,7 +36,9 @@ $table-cell-border:                              $global-border !default;
 // Style modifiers
 // ========================================================================
 
-// @mixin hook-table-striped(){}
+// @mixin hook-table-divider(){}
+
+
 
 // @mixin hook-table-hover(){}
 
@@ -50,3 +52,15 @@ $table-cell-border:                              $global-border !default;
 // Miscellaneous
 // ========================================================================
 
+
+
+
+// Inverse
+// ========================================================================
+
+// @mixin hook-inverse-table-header-cell(){}
+// @mixin hook-inverse-table-caption(){}
+// @mixin hook-inverse-table-row-active(){}
+// @mixin hook-inverse-table-divider(){}
+
+// @mixin hook-inverse-table-hover(){}

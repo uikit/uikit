@@ -13,6 +13,7 @@
 //                  `uk-preserve-width`
 //                  `uk-border-*`
 //                  `uk-box-shadow-*`
+//                  `uk-box-shadow-bottom`
 //                  `uk-dropcap`
 //                  `uk-leader`
 //                  `uk-logo`
@@ -43,6 +44,11 @@ $height-large-height:                            450px !default;
 $border-rounded-border-radius:                   5px !default;
 
 $box-shadow-duration:                            0.1s !default;
+
+$box-shadow-bottom-height:                            30px !default;
+$box-shadow-bottom-border-radius:                     100% !default;
+$box-shadow-bottom-background:                        #444 !default;
+$box-shadow-bottom-blur:                              20px !default;
 
 $dropcap-margin-right:                           10px !default;
 $dropcap-font-size:                              (($global-line-height * 3) * 1em) !default;
@@ -320,6 +326,47 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
 .uk-box-shadow-hover-xlarge:hover { box-shadow: $global-xlarge-box-shadow; }
 
 
+/* Box-shadow bottom
+ ========================================================================== */
+
+/*
+ * 1. Set position.
+ * 2. Set style
+ * 3. Blur doesn't work on pseudo elements with negative `z-index` in Edge.
+ *    Solved by using `before` and add position context to child elements.
+ */
+
+@supports (filter: blur(0)) or (-webkit-filter: blur(0)) {
+
+    .uk-box-shadow-bottom {
+        display: inline-block;
+        position: relative;
+        max-width: 100%;
+        vertical-align: middle;
+    }
+
+    .uk-box-shadow-bottom::before {
+        content: '';
+        /* 1 */
+        position: absolute;
+        bottom: (-$box-shadow-bottom-height);
+        left: 0;
+        right: 0;
+        /* 2 */
+        height: $box-shadow-bottom-height;
+        border-radius: $box-shadow-bottom-border-radius;
+        background: $box-shadow-bottom-background;
+        -webkit-filter: blur($box-shadow-bottom-blur);
+        filter: blur($box-shadow-bottom-blur);
+        @if(mixin-exists(hook-box-shadow-bottom)) {@include hook-box-shadow-bottom();}
+    }
+
+    /* 3 */
+    .uk-box-shadow-bottom > * { position: relative; }
+
+}
+
+
 /* Drop cap
  ========================================================================== */
 
@@ -521,6 +568,7 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
 @if(mixin-exists(hook-utility-misc)) {@include hook-utility-misc();}
 
 // @mixin hook-panel-scrollable(){}
+// @mixin hook-box-shadow-bottom(){}
 // @mixin hook-dropcap(){}
 // @mixin hook-leader(){}
 // @mixin hook-logo(){}

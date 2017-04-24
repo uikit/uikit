@@ -101,8 +101,8 @@ $tile-secondary-color-mode:                     light !default;
 }
 
 // Color Mode
-@if ( $tile-primary-color-mode == light ) { .uk-tile-primary:not(.uk-preserve-color) { @extend .uk-light;} }
-@if ( $tile-primary-color-mode == dark ) { .uk-tile-primary:not(.uk-preserve-color) { @extend .uk-dark;} }
+@if ( $tile-primary-color-mode == light ) { .uk-tile-primary:not(.uk-preserve-color) { @extend .uk-light !optional;} }
+@if ( $tile-primary-color-mode == dark ) { .uk-tile-primary:not(.uk-preserve-color) { @extend .uk-dark !optional;} }
 
 /*
  * Secondary
@@ -114,8 +114,8 @@ $tile-secondary-color-mode:                     light !default;
 }
 
 // Color Mode
-@if ( $tile-secondary-color-mode == light ) { .uk-tile-secondary:not(.uk-preserve-color) { @extend .uk-light;} }
-@if ( $tile-secondary-color-mode == dark ) { .uk-tile-secondary:not(.uk-preserve-color) { @extend .uk-dark;} }
+@if ( $tile-secondary-color-mode == light ) { .uk-tile-secondary:not(.uk-preserve-color) { @extend .uk-light !optional;} }
+@if ( $tile-secondary-color-mode == dark ) { .uk-tile-secondary:not(.uk-preserve-color) { @extend .uk-dark !optional;} }
 
 
 // Hooks

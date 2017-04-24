@@ -113,8 +113,8 @@ $offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
 }
 
 // Color Mode
-@if ( $offcanvas-bar-color-mode == light ) { .uk-offcanvas-bar { @extend .uk-light;} }
-@if ( $offcanvas-bar-color-mode == dark ) { .uk-offcanvas-bar { @extend .uk-dark;} }
+@if ( $offcanvas-bar-color-mode == light ) { .uk-offcanvas-bar { @extend .uk-light !optional;} }
+@if ( $offcanvas-bar-color-mode == dark ) { .uk-offcanvas-bar { @extend .uk-dark !optional;} }
 
 /* Flip modifier */
 .uk-offcanvas-flip .uk-offcanvas-bar {
