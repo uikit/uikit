@@ -88,10 +88,6 @@ export default function (UIkit) {
                     return this.connects;
                 },
 
-                delegate() {
-                    return `[${this.attrItem}],[data-${this.attrItem}]`;
-                },
-
                 handler(e) {
                     if (!isTouch(e)) {
                         return;

@@ -128,10 +128,12 @@ export default function (UIkit) {
                     return this.navbar.$el;
                 },
 
-                handler(_, {$el, dir}) {
+                handler(_, drop) {
+                    var {$el, dir} = drop;
                     if (dir === 'bottom' && !isWithin($el, this.$el)) {
                         $el.appendTo(this.$el);
-                        this.$el.trigger('beforeshow', [{$el}]);
+                        drop.show();
+                        return false;
                     }
                 }
             },

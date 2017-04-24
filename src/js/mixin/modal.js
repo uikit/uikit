@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, doc, docElement, isWithin, promise, requestAnimationFrame, toJQuery, toMs, transitionend } from '../util/index';
+import { $, doc, docElement, isWithin, promise, requestAnimationFrame, toNode, toJQuery, toMs, transitionend } from '../util/index';
 import Class from './class';
 import Toggable from './toggable';
 
@@ -38,7 +38,8 @@ export default {
         },
 
         container() {
-            return this.$props.container === true && UIkit.container || this.$props.container && toJQuery(this.$props.container);
+            var container = this.$props.container === true && UIkit.container || this.$props.container && toJQuery(this.$props.container);
+            return container && toNode(container);
         },
 
         transitionElement() {
@@ -164,7 +165,7 @@ export default {
 
         show() {
             if (this.container && !this.$el.parent().is(this.container)) {
-                this.$el.appendTo(this.container);
+                this.container.appendChild(this.$el[0]);
                 return promise(resolve =>
                     requestAnimationFrame(() =>
                         resolve(this.show())

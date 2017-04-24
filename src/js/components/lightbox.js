@@ -4,23 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, doc, extend, Dimensions, getIndex, Transition} = UIkit.util;
-    var active;
-
-    doc.on({
-        keydown: e => {
-            if (active) {
-                switch (e.keyCode) {
-                    case 37:
-                        active.show('previous');
-                        break;
-                    case 39:
-                        active.show('next');
-                        break;
-                }
-            }
-        }
-    });
+    var {$, ajax, doc, Event, extend, Dimensions, getIndex, Transition} = UIkit.util;
 
     UIkit.component('lightbox', {
 
@@ -165,24 +149,33 @@ function plugin(UIkit) {
                     });
                 }
 
-                active = this;
-
                 this.modal.panel.find('[uk-transition-hide]').hide();
                 this.modal.panel.find('[uk-transition-show]').show();
 
                 this.modal.content && this.modal.content.remove();
                 this.modal.caption.text(this.getItem().title);
 
-                var event = $.Event('showitem');
+                var event = Event('showitem');
                 this.$el.trigger(event);
                 if (!event.isImmediatePropagationStopped()) {
                     this.setError(this.getItem());
                 }
+
+                doc.on(`keydown.${this.$options.name}`, e => {
+                    switch (e.keyCode) {
+                        case 37:
+                            this.show('previous');
+                            break;
+                        case 39:
+                            this.show('next');
+                            break;
+                    }
+                });
             },
 
             hide() {
 
-                active = active && active !== this && active;
+                doc.off(`keydown.${this.$options.name}`);
 
                 this.modal.hide().then(() => {
                     this.modal.$destroy(true);
@@ -312,7 +305,7 @@ function plugin(UIkit) {
                 let id = matches[2],
                     setIframe = (width, height) => this.setItem(item, `<iframe src="//player.vimeo.com/video/${id}" width="${width}" height="${height}" style="max-width:100%;box-sizing:border-box;"></iframe>`, width, height);
 
-                $.ajax({type: 'GET', url: `http://vimeo.com/api/oembed.json?url=${encodeURI(item.source)}`, jsonp: 'callback', dataType: 'jsonp'}).then((res) => setIframe(res.width, res.height));
+                ajax({type: 'GET', url: `http://vimeo.com/api/oembed.json?url=${encodeURI(item.source)}`, jsonp: 'callback', dataType: 'jsonp'}).then((res) => setIframe(res.width, res.height));
 
                 e.stopImmediatePropagation();
             }

@@ -2,7 +2,7 @@ import $, { isArray } from 'jquery';
 import { getCssVar, hasPromise, isJQuery, query } from './index';
 
 export { $ };
-export { ajax, each, extend, map, merge, isArray, isNumeric, isFunction, isPlainObject } from 'jquery';
+export { ajax, contains, each, Event, extend, map, merge, isArray, isNumeric, isFunction, isPlainObject } from 'jquery';
 
 export function bind(fn, context) {
     return function (a) {
@@ -126,9 +126,9 @@ export function toNode(element) {
 export function toBoolean(value) {
     return typeof value === 'boolean'
         ? value
-        : value === 'true' || value == '1' || value === ''
+        : value === 'true' || value === '1' || value === ''
             ? true
-            : value === 'false' || value == '0'
+            : value === 'false' || value === '0'
                 ? false
                 : value;
 }

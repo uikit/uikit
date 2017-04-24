@@ -1,4 +1,4 @@
-import { createEvent, extend, fastdom, isArray, isFunction, isPlainObject, ready } from '../util/index';
+import { createEvent, fastdom, isPlainObject, ready } from '../util/index';
 
 export default function (UIkit) {
 
@@ -109,11 +109,17 @@ export default function (UIkit) {
             }
 
             if (update.read && !~fastdom.reads.indexOf(this._frames.reads[i])) {
-                this._frames.reads[i] = fastdom.measure(() => update.read.call(this, e));
+                this._frames.reads[i] = fastdom.measure(() => {
+                    update.read.call(this, e);
+                    delete this._frames.reads[i];
+                });
             }
 
             if (update.write && !~fastdom.writes.indexOf(this._frames.writes[i])) {
-                this._frames.writes[i] = fastdom.mutate(() => update.write.call(this, e));
+                this._frames.writes[i] = fastdom.mutate(() => {
+                    update.write.call(this, e);
+                    delete this._frames.writes[i];
+                });
             }
 
         });

@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, Animation, extend, promise, requestAnimationFrame, Transition } from '../util/index';
+import { $, Animation, Event, extend, promise, requestAnimationFrame, Transition } from '../util/index';
 
 export default {
 
@@ -105,7 +105,7 @@ export default {
 
             show = typeof show === 'boolean' ? show : !this.isToggled(el);
 
-            var event = $.Event(`before${show ? 'show' : 'hide'}`);
+            var event = Event(`before${show ? 'show' : 'hide'}`);
             el.trigger(event, [this]);
 
             if (event.result === false) {

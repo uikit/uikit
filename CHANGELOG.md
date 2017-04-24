@@ -1,5 +1,27 @@
 # Changelog
 
+## 3.0.0 beta 22 (April 24, 2017)
+
+### Added
+
+- Add divider, justify and responsive modifier to table component
+- Add inverse support for table component
+- Add box-shadow bottom to utility component
+
+### Changed
+
+- IMPORTANT: Remove style from default table component. Use `uk-table-divider` modifier
+- Move border style to table row instead of table cell
+- Remove margin from the last-child in table component cell
+
+### Fixed
+
+- Fix swiping in Switcher
+- Fix scrolling in Scrollspy Nav (FF)
+- Fix Navbar Dropbar
+- Fix Tooltip with different animations
+- Fix sass showing error when using different color mode in certain components
+
 ## 3.0.0 beta 21 (April 11, 2017)
 
 ### Added

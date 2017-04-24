@@ -5,14 +5,6 @@ export default function (UIkit) {
 
     var active;
 
-    doc.on('click', e => {
-        var prev;
-        while (active && active !== prev && !isWithin(e.target, active.$el) && !(active.toggle && isWithin(e.target, active.toggle.$el))) {
-            prev = active;
-            active.hide(false);
-        }
-    });
-
     UIkit.component('drop', {
 
         mixins: [Position, Toggable],
@@ -211,6 +203,7 @@ export default function (UIkit) {
                 handler() {
                     this.tracker.init();
                     this.toggle.$el.addClass(this.cls).attr('aria-expanded', 'true');
+                    registerEvent();
                 }
 
             },
@@ -381,4 +374,22 @@ export default function (UIkit) {
     });
 
     UIkit.drop.getActive = () => active;
+
+    var registered;
+    function registerEvent() {
+
+        if (registered) {
+            return;
+        }
+
+        registered = true;
+        doc.on('click', e => {
+            var prev;
+            while (active && active !== prev && !isWithin(e.target, active.$el) && !(active.toggle && isWithin(e.target, active.toggle.$el))) {
+                prev = active;
+                active.hide(false);
+            }
+        });
+    }
+
 }

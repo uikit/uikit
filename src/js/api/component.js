@@ -1,4 +1,4 @@
-import { $, camelize, fastdom, isArray, isJQuery, isPlainObject } from '../util/index';
+import { $, camelize, fastdom, isJQuery, isPlainObject } from '../util/index';
 
 export default function (UIkit) {
 

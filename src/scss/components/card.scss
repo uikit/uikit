@@ -271,10 +271,10 @@ $card-large-footer-padding-vertical-l:          round($global-large-gutter / 2) 
 }
 
 // Color Mode
-@if ( $card-primary-color-mode == light ) { .uk-card-primary.uk-card-body { @extend .uk-light;} }
-@if ( $card-primary-color-mode == light ) { .uk-card-primary > :not([class*='uk-card-media']) { @extend .uk-light;} }
-@if ( $card-primary-color-mode == dark ) { .uk-card-primary.uk-card-body { @extend .uk-dark;} }
-@if ( $card-primary-color-mode == dark ) { .uk-card-primary > :not([class*='uk-card-media']) { @extend .uk-dark;} }
+@if ( $card-primary-color-mode == light ) { .uk-card-primary.uk-card-body { @extend .uk-light !optional;} }
+@if ( $card-primary-color-mode == light ) { .uk-card-primary > :not([class*='uk-card-media']) { @extend .uk-light !optional;} }
+@if ( $card-primary-color-mode == dark ) { .uk-card-primary.uk-card-body { @extend .uk-dark !optional;} }
+@if ( $card-primary-color-mode == dark ) { .uk-card-primary > :not([class*='uk-card-media']) { @extend .uk-dark !optional;} }
 
 /*
  * Secondary
@@ -297,10 +297,10 @@ $card-large-footer-padding-vertical-l:          round($global-large-gutter / 2) 
 }
 
 // Color Mode
-@if ( $card-secondary-color-mode == light ) { .uk-card-secondary.uk-card-body { @extend .uk-light;} }
-@if ( $card-secondary-color-mode == light ) { .uk-card-secondary > :not([class*='uk-card-media']) { @extend .uk-light;} }
-@if ( $card-secondary-color-mode == dark ) { .uk-card-secondary.uk-card-body { @extend .uk-dark;} }
-@if ( $card-secondary-color-mode == dark ) { .uk-card-secondary > :not([class*='uk-card-media']) { @extend .uk-dark;} }
+@if ( $card-secondary-color-mode == light ) { .uk-card-secondary.uk-card-body { @extend .uk-light !optional;} }
+@if ( $card-secondary-color-mode == light ) { .uk-card-secondary > :not([class*='uk-card-media']) { @extend .uk-light !optional;} }
+@if ( $card-secondary-color-mode == dark ) { .uk-card-secondary.uk-card-body { @extend .uk-dark !optional;} }
+@if ( $card-secondary-color-mode == dark ) { .uk-card-secondary > :not([class*='uk-card-media']) { @extend .uk-dark !optional;} }
 
 
 /* Size modifier

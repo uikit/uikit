@@ -1,4 +1,4 @@
-import { $, fastdom, isVoidElement, promise } from '../util/index';
+import { ajax, fastdom, isVoidElement, promise } from '../util/index';
 
 var svgs = {}, parser = new DOMParser();
 
@@ -171,7 +171,7 @@ export default function (UIkit) {
                         resolve(this.parse(decodeURIComponent(this.src.split(',')[1])));
                     } else {
 
-                        $.ajax(this.src, {dataType: 'html'}).then(doc => {
+                        ajax(this.src, {dataType: 'html'}).then(doc => {
                             resolve(this.parse(doc));
                         }, () => {
                             reject('SVG not found.');

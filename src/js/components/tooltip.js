@@ -9,12 +9,6 @@ function plugin(UIkit) {
 
     var active;
 
-    doc.on('click', e => {
-        if (active && !isWithin(e.target, active.$el)) {
-            active.hide();
-        }
-    });
-
     UIkit.component('tooltip', {
 
         attrs: true,
@@ -38,8 +32,12 @@ function plugin(UIkit) {
             container: true,
         },
 
-        init() {
-            this.container = this.container === true && UIkit.container || this.container && toJQuery(this.container);
+        computed: {
+
+            container() {
+                return toJQuery(this.$props.container === true && UIkit.container || this.$props.container || UIkit.container);
+            }
+
         },
 
         connected() {
@@ -63,6 +61,12 @@ function plugin(UIkit) {
                 }
 
                 active = this;
+
+                doc.on(`click.${this.$options.name}`, e => {
+                    if (!isWithin(e.target, this.$el)) {
+                        this.hide();
+                    }
+                });
 
                 clearTimeout(this.showTimer);
 
@@ -99,22 +103,28 @@ function plugin(UIkit) {
                 this.toggleElement(this.tooltip, false);
                 this.tooltip && this.tooltip.remove();
                 this.tooltip = false;
+                doc.off(`click.${this.$options.name}`);
+
             }
 
         },
 
         events: {
+
             [`focus ${pointerEnter} ${pointerDown}`](e) {
                 if (e.type !== pointerDown || !isTouch(e)) {
                     this.show();
                 }
             },
+
             'blur': 'hide',
+
             [pointerLeave](e) {
                 if (!isTouch(e)) {
                     this.hide()
                 }
             }
+
         }
 
     });

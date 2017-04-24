@@ -120,6 +120,7 @@ $search-toggle-hover-color:                          $global-color !default;
     /* 9 */
     border: none;
     color: $search-color;
+    @if(mixin-exists(hook-search-input)) {@include hook-search-input();}
 }
 
 .uk-search-input:focus { outline: 0; }
@@ -334,6 +335,7 @@ $search-toggle-hover-color:                          $global-color !default;
 
 @if(mixin-exists(hook-search-misc)) {@include hook-search-misc();}
 
+// @mixin hook-search-input(){}
 // @mixin hook-search-default-input(){}
 // @mixin hook-search-default-input-focus(){}
 // @mixin hook-search-navbar-input(){}

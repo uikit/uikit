@@ -71,6 +71,7 @@ $(() => {
         'column',
         'comment',
         'container',
+        'countdown',
         'cover',
         'description-list',
         'divider',
