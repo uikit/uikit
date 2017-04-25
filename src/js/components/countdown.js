@@ -4,12 +4,9 @@ function plugin(UIkit) {
         return;
     }
 
-    var {util, mixin} = UIkit;
-    var {$} = util;
-
     UIkit.component('countdown', {
 
-        mixins: [mixin.class],
+        mixins: [UIkit.mixin.class],
 
         attrs: true,
 
@@ -52,36 +49,18 @@ function plugin(UIkit) {
         },
 
         connected() {
+            this.units.forEach(unit => this[unit].empty().append('<span></span><span></span>'));
             this.start();
         },
 
         disconnected() {
             this.stop();
+            this.units.forEach(unit => this[unit].empty());
         },
 
-        methods: {
+        update: {
 
-            start() {
-
-                this.stop();
-
-                if (this.date && this.units.length) {
-                    this.update();
-                    this.timer = setInterval(this.update, 1000);
-                }
-
-            },
-
-            stop() {
-
-                if (this.timer) {
-                    clearInterval(this.timer);
-                    this.timer = null;
-                }
-
-            },
-
-            update(){
+            write() {
 
                 var timespan = getTimeSpan(this.date);
 
@@ -103,10 +82,34 @@ function plugin(UIkit) {
                     digits = digits.length < 2 ? `0${digits}` : digits;
 
                     if (this[unit].text() !== digits) {
-                        this[unit].html(digits.split('').map(digit => `<span>${digit}</span>`).join(''));
+                        digits.split('').forEach((digit, i) => this[unit][0].childNodes[i].innerText = digit);
                     }
 
                 });
+
+            }
+
+        },
+
+        methods: {
+
+            start() {
+
+                this.stop();
+
+                if (this.date && this.units.length) {
+                    this.$emit();
+                    this.timer = setInterval(() => this.$emit(), 1000);
+                }
+
+            },
+
+            stop() {
+
+                if (this.timer) {
+                    clearInterval(this.timer);
+                    this.timer = null;
+                }
 
             }
 

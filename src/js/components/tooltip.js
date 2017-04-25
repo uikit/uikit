@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var { util, mixin } = UIkit;
-    var {$, doc, fastdom, flipPosition, isTouch, isWithin, pointerDown, pointerEnter, pointerLeave, toJQuery} = util;
+    var {$, doc, fastdom, flipPosition, isTouch, isWithin, pointerDown, pointerEnter, pointerLeave} = util;
 
     var active;
 
@@ -35,7 +35,7 @@ function plugin(UIkit) {
         computed: {
 
             container() {
-                return toJQuery(this.$props.container === true && UIkit.container || this.$props.container || UIkit.container);
+                return $(this.$props.container === true && UIkit.container || this.$props.container || UIkit.container);
             }
 
         },
