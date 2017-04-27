@@ -49,7 +49,6 @@ function plugin(UIkit) {
         },
 
         connected() {
-            this.units.forEach(unit => this[unit].empty().append('<span></span><span></span>'));
             this.start();
         },
 
@@ -82,7 +81,14 @@ function plugin(UIkit) {
                     digits = digits.length < 2 ? `0${digits}` : digits;
 
                     if (this[unit].text() !== digits) {
-                        digits.split('').forEach((digit, i) => this[unit][0].childNodes[i].innerText = digit);
+                        var el = this[unit];
+                        digits = digits.split('');
+
+                        if (digits.length !== el.children().length) {
+                            el.empty().append(digits.map(() => '<span></span>').join(''));
+                        }
+
+                        digits.forEach((digit, i) => el[0].childNodes[i].innerText = digit);
                     }
 
                 });
