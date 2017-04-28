@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix support for more than two digits in Countdown component
+- Fix typo in Togglable mixin name
 
 ## 3.0.0 beta 22 (April 24, 2017)
 
@@ -280,7 +281,7 @@
 
 ### Added
 
-- Toggable triggers 'shown'/'hidden' events, when animations complete
+- Togglable triggers 'shown'/'hidden' events, when animations complete
 
 ### Fixed
 

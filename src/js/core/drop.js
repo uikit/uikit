@@ -1,4 +1,4 @@
-import { Position, Toggable } from '../mixin/index';
+import { Position, Togglable } from '../mixin/index';
 import { $, Animation, doc, getDimensions, isWithin, isTouch, MouseTracker, pointerEnter, pointerLeave, query, removeClass } from '../util/index';
 
 export default function (UIkit) {
@@ -7,7 +7,7 @@ export default function (UIkit) {
 
     UIkit.component('drop', {
 
-        mixins: [Position, Toggable],
+        mixins: [Position, Togglable],
 
         args: 'pos',
 

@@ -1,13 +1,13 @@
 import UIkit from '../api/index';
 import { $, doc, docElement, isWithin, promise, requestAnimationFrame, toNode, toJQuery, toMs, transitionend } from '../util/index';
 import Class from './class';
-import Toggable from './toggable';
+import Togglable from './togglable';
 
 var active;
 
 export default {
 
-    mixins: [Class, Toggable],
+    mixins: [Class, Togglable],
 
     props: {
         clsPanel: String,
