@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add hidden classes for touch devices to utility component
+
 ### Fixed
 
 - Fix support for more than two digits in Countdown component
