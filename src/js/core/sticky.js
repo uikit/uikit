@@ -17,6 +17,7 @@ export default function (UIkit) {
             clsActive: String,
             clsInactive: String,
             clsFixed: String,
+            clsBelow: String,
             widthElement: 'jQuery',
             showOnUp: Boolean,
             media: 'media',
@@ -31,6 +32,7 @@ export default function (UIkit) {
             clsActive: 'uk-active',
             clsInactive: '',
             clsFixed: 'uk-sticky-fixed',
+            clsBelow: 'uk-sticky-below',
             widthElement: false,
             showOnUp: false,
             media: false,
@@ -153,7 +155,7 @@ export default function (UIkit) {
             {
 
                 read() {
-                    this.offsetTop = offsetTop(this.$el)
+                    this.offsetTop = offsetTop(this.$el);
                 },
 
                 write({dir} = {}) {
@@ -244,7 +246,8 @@ export default function (UIkit) {
                     })
                     .addClass(this.clsFixed)
                     .toggleClass(this.clsActive, active)
-                    .toggleClass(this.clsInactive, !active);
+                    .toggleClass(this.clsInactive, !active)
+                    .toggleClass(this.clsBelow, scroll > this.bottomOffset);
 
             }
 
