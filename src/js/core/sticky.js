@@ -223,6 +223,7 @@ export default function (UIkit) {
                     .addClass(this.clsInactive)
                     .removeClass(this.clsFixed)
                     .removeClass(this.clsActive)
+                    .removeClass(this.clsBelow)
                     .css({position: '', top: '', width: ''})
                     .trigger('inactive');
 
