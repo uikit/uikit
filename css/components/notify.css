@@ -1,4 +1,4 @@
-/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /* ========================================================================
    Component: Notify
  ========================================================================== */
@@ -66,13 +66,13 @@
 .uk-notify-message:hover > .uk-close {
   visibility: visible;
 }
-/* Modifier: `uk-alert-info`
+/* Modifier: `uk-notify-message-primary`
  ========================================================================== */
 .uk-notify-message-primary {
   background: #ebf7fd;
   color: #2d7091;
 }
-/* Modifier: `uk-alert-success`
+/* Modifier: `uk-notify-message-success`
  ========================================================================== */
 .uk-notify-message-success {
   background: #f2fae3;

@@ -1,11 +1,17 @@
-/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
+
+    var uikit;
+
+    if (!window.jQuery) {
+        throw new Error('UIkit 2.x requires jQuery');
+    } else {
+        uikit = core(window.jQuery);
+    }
 
     if (typeof define == 'function' && define.amd) { // AMD
 
         define('uikit', function(){
-
-            var uikit = window.UIkit2 || core(window, window.jQuery, window.document);
 
             uikit.load = function(res, req, onload, config) {
 
@@ -29,26 +35,22 @@
         });
     }
 
-    if (!window.jQuery) {
-        throw new Error('UIkit 2.x requires jQuery');
-    }
-
-    if (window && window.jQuery && !window.UIkit2) {
-        core(window, window.jQuery, window.document);
-    }
-
-})(function(global, $, doc) {
+})(function($) {
 
     "use strict";
 
-    var UI = {}, _UI = global.UIkit || undefined;
+    if (window.UIkit2) {
+        return window.UIkit2;
+    }
+
+    var UI = {}, _UI = window.UIkit || undefined;
 
     UI.version = '2.27.2';
 
     UI.noConflict = function() {
         // restore UIkit version
         if (_UI) {
-            global.UIkit = _UI;
+            window.UIkit = _UI;
             $.UIkit      = _UI;
             $.fn.uk      = _UI.fn;
         }
@@ -56,10 +58,10 @@
         return UI;
     };
 
-    global.UIkit2 = UI;
+    window.UIkit2 = UI;
 
     if (!_UI) {
-        global.UIkit = UI;
+        window.UIkit = UI;
     }
 
     // cache jQuery
@@ -74,7 +76,7 @@
 
         var transitionEnd = (function() {
 
-            var element = doc.body || doc.documentElement,
+            var element = document.body || document.documentElement,
                 transEndEventNames = {
                     WebkitTransition : 'webkitTransitionEnd',
                     MozTransition    : 'transitionend',
@@ -94,7 +96,7 @@
 
         var animationEnd = (function() {
 
-            var element = doc.body || doc.documentElement,
+            var element = document.body || document.documentElement,
                 animEndEventNames = {
                     WebkitAnimation : 'webkitAnimationEnd',
                     MozAnimation    : 'animationend',
@@ -138,13 +140,13 @@
 
     UI.support.touch = (
         ('ontouchstart' in document) ||
-        (global.DocumentTouch && document instanceof global.DocumentTouch)  ||
-        (global.navigator.msPointerEnabled && global.navigator.msMaxTouchPoints > 0) || //IE 10
-        (global.navigator.pointerEnabled && global.navigator.maxTouchPoints > 0) || //IE >=11
+        (window.DocumentTouch && document instanceof window.DocumentTouch)  ||
+        (window.navigator.msPointerEnabled && window.navigator.msMaxTouchPoints > 0) || //IE 10
+        (window.navigator.pointerEnabled && window.navigator.maxTouchPoints > 0) || //IE >=11
         false
     );
 
-    UI.support.mutationobserver = (global.MutationObserver || global.WebKitMutationObserver || null);
+    UI.support.mutationobserver = (window.MutationObserver || window.WebKitMutationObserver || null);
 
     UI.Utils = {};
 
@@ -834,6 +836,12 @@
 
 
   var touch = {}, touchTimeout, tapTimeout, swipeTimeout, longTapTimeout, longTapDelay = 750, gesture;
+  var hasTouchEvents = 'ontouchstart' in window,
+      hasPointerEvents = window.PointerEvent,
+      hasTouch = hasTouchEvents
+      || window.DocumentTouch && document instanceof DocumentTouch
+      || navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0 // IE 10
+      || navigator.pointerEnabled && navigator.maxTouchPoints > 0; // IE >=11
 
   function swipeDirection(x1, x2, y1, y2) {
     return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down');
@@ -985,7 +993,14 @@
       // when the browser window loses focus,
       // for example when a modal dialog is shown,
       // cancel all ongoing events
-      .on('touchcancel MSPointerCancel pointercancel', cancelAll);
+      .on('touchcancel MSPointerCancel pointercancel', function(e){
+
+        // Ignore pointercancel if the event supports touch events, to prevent pointercancel in swipe gesture
+        if ((e.type == 'touchcancel' && hasTouchEvents && hasTouch) || (!hasTouchEvents && e.type == 'pointercancel' && hasPointerEvents)) {
+          cancelAll();
+        }
+
+    });
 
     // scrolling the window indicates intention of the user
     // to scroll, not tap or swipe, so cancel all ongoing events
@@ -1452,7 +1467,7 @@
                     var element     = UI.$(this),
                         inviewstate = element.data('inviewstate'),
                         inview      = UI.Utils.isInView(element, $this.options),
-                        toggle      = element.data('ukScrollspyCls') || togglecls[toggleclsIdx].trim();
+                        toggle      = element.attr('data-uk-scrollspy-cls') || togglecls[toggleclsIdx].trim();
 
                     if (inview && !inviewstate && !element.data('scrollspy-idle')) {
 

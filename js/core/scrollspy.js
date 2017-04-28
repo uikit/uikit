@@ -1,4 +1,4 @@
-/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -57,7 +57,7 @@
                     var element     = UI.$(this),
                         inviewstate = element.data('inviewstate'),
                         inview      = UI.Utils.isInView(element, $this.options),
-                        toggle      = element.data('ukScrollspyCls') || togglecls[toggleclsIdx].trim();
+                        toggle      = element.attr('data-uk-scrollspy-cls') || togglecls[toggleclsIdx].trim();
 
                     if (inview && !inviewstate && !element.data('scrollspy-idle')) {
 

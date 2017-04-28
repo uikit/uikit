@@ -1,4 +1,4 @@
-/*! UIkit 2.27.2 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 //  Based on Zeptos touch.js
 //  https://raw.github.com/madrobby/zepto/master/src/touch.js
 //  Zepto.js may be freely distributed under the MIT license.
@@ -11,6 +11,12 @@
 
 
   var touch = {}, touchTimeout, tapTimeout, swipeTimeout, longTapTimeout, longTapDelay = 750, gesture;
+  var hasTouchEvents = 'ontouchstart' in window,
+      hasPointerEvents = window.PointerEvent,
+      hasTouch = hasTouchEvents
+      || window.DocumentTouch && document instanceof DocumentTouch
+      || navigator.msPointerEnabled && navigator.msMaxTouchPoints > 0 // IE 10
+      || navigator.pointerEnabled && navigator.maxTouchPoints > 0; // IE >=11
 
   function swipeDirection(x1, x2, y1, y2) {
     return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down');
@@ -162,7 +168,14 @@
       // when the browser window loses focus,
       // for example when a modal dialog is shown,
       // cancel all ongoing events
-      .on('touchcancel MSPointerCancel pointercancel', cancelAll);
+      .on('touchcancel MSPointerCancel pointercancel', function(e){
+
+        // Ignore pointercancel if the event supports touch events, to prevent pointercancel in swipe gesture
+        if ((e.type == 'touchcancel' && hasTouchEvents && hasTouch) || (!hasTouchEvents && e.type == 'pointercancel' && hasPointerEvents)) {
+          cancelAll();
+        }
+
+    });
 
     // scrolling the window indicates intention of the user
     // to scroll, not tap or swipe, so cancel all ongoing events
