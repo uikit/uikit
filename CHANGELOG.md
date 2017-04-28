@@ -10,6 +10,7 @@
 
 - Fix support for more than two digits in Countdown component
 - Fix typo in Togglable mixin name
+- Fix form select image for RTL
 
 ## 3.0.0 beta 22 (April 24, 2017)
 
