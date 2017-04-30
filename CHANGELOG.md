@@ -4,7 +4,8 @@
 
 ### Added
 
-- Add hidden classes for touch devices to utility component
+- Add hidden classes for touch devices to visiblity component
+- Add transform center to utility component
 - Add clsBelow option for Sticky component (uk-sticky-below)
 
 ### Fixed
