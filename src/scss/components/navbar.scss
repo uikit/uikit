@@ -1,0 +1,555 @@
+// Name:            Navbar
+// Description:     Component to create horizontal navigation bars
+//
+// Component:       `uk-navbar`
+//
+// Sub-objects:     `uk-navbar-container`
+//                  `uk-navbar-left`
+//                  `uk-navbar-right`
+//                  `uk-navbar-center`
+//                  `uk-navbar-center-left`
+//                  `uk-navbar-center-right`
+//                  `uk-navbar-nav`
+//                  `uk-navbar-item`
+//                  `uk-navbar-toggle`
+//                  `uk-navbar-subtitle`
+//                  `uk-navbar-dropbar`
+//
+// Adopted:         `uk-navbar-dropdown` + Modifiers
+//                  `uk-navbar-dropdown-nav`
+//                  `uk-navbar-dropdown-grid`
+//                  `uk-navbar-toggle-icon`
+//
+// Modifiers:       `uk-navbar-transparent`
+//                  `uk-navbar-sticky`
+//                  `uk-navbar-dropdown-stack`
+//
+// States:          `uk-active`
+//                  `uk-parent`
+//                  `uk-open`
+//
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$navbar-background:                              $global-muted-background !default;
+$navbar-color-mode:                              none !default;
+
+$navbar-nav-item-height:                         80px !default;
+$navbar-nav-item-padding-horizontal:             15px !default;
+$navbar-nav-item-color:                          $global-muted-color !default;
+$navbar-nav-item-font-size:                      $global-font-size !default;
+$navbar-nav-item-font-family:                    $global-font-family !default;
+$navbar-nav-item-hover-color:                    $global-color !default;
+$navbar-nav-item-onclick-color:                  $global-emphasis-color !default;
+$navbar-nav-item-active-color:                   $global-emphasis-color !default;
+
+$navbar-item-color:                              $global-color !default;
+
+$navbar-toggle-color:                            $global-muted-color !default;
+$navbar-toggle-hover-color:                      $global-color !default;
+
+$navbar-subtitle-font-size:                      $global-small-font-size !default;
+
+$navbar-dropdown-z-index:                        $global-z-index + 20 !default;
+$navbar-dropdown-width:                          200px !default;
+$navbar-dropdown-margin:                         0 !default;
+$navbar-dropdown-padding:                        15px !default;
+$navbar-dropdown-background:                     $global-muted-background !default;
+$navbar-dropdown-color:                          $global-color !default;
+$navbar-dropdown-grid-gutter-horizontal:         $global-gutter !default;
+$navbar-dropdown-grid-gutter-vertical:           $navbar-dropdown-grid-gutter-horizontal !default;
+
+$navbar-dropdown-dropbar-margin-bottom:          30px !default;
+
+$navbar-dropdown-nav-item-color:                 $global-muted-color !default;
+$navbar-dropdown-nav-item-hover-color:           $global-color !default;
+$navbar-dropdown-nav-item-active-color:          $global-emphasis-color !default;
+$navbar-dropdown-nav-header-color:               $global-emphasis-color !default;
+$navbar-dropdown-nav-divider-border-width:       $global-border-width !default;
+$navbar-dropdown-nav-divider-border:             $global-border !default;
+$navbar-dropdown-nav-sublist-item-color:         $global-muted-color !default;
+$navbar-dropdown-nav-sublist-item-hover-color:   $global-color !default;
+
+$navbar-dropbar-background:                      $navbar-dropdown-background !default;
+$navbar-dropbar-z-index:                         $global-z-index + 20 !default;
+
+
+/* ========================================================================
+   Component: Navbar
+ ========================================================================== */
+
+/*
+ * 1. Create position context to center navbar group
+ */
+
+.uk-navbar {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /* 1 */
+    position: relative;
+    @if(mixin-exists(hook-navbar)) {@include hook-navbar();}
+}
+
+
+/* Container
+ ========================================================================== */
+
+.uk-navbar-container:not(.uk-navbar-transparent) {
+    background: $navbar-background;
+    @if(mixin-exists(hook-navbar-container)) {@include hook-navbar-container();}
+}
+
+// Color Mode
+@if ( $navbar-color-mode == light ) { .uk-navbar-container:not(.uk-navbar-transparent) { @extend .uk-light !optional;} }
+@if ( $navbar-color-mode == dark ) { .uk-navbar-container:not(.uk-navbar-transparent) { @extend .uk-dark !optional;} }
+
+
+/*
+ * Remove pseudo elements created by micro clearfix as precaution (if Container component is used)
+ */
+
+.uk-navbar-container > ::before,
+.uk-navbar-container > ::after { display: none !important; }
+
+
+/* Groups
+ ========================================================================== */
+
+/*
+ * 1. Align navs and items vertically if they have a different height
+ * 2. Note: IE 11 requires an extra `div` which affects the center selector
+ */
+
+.uk-navbar-left,
+.uk-navbar-right,
+// 2. [class*='uk-navbar-center'],
+.uk-navbar-center,
+.uk-navbar-center-left > *,
+.uk-navbar-center-right > *, {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /* 1 */
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+/*
+ * Horizontal alignment
+ * 1. Create position context for centered navbar with sub groups (left/right)
+ * 2. Needed for dropdowns because a new position context is created
+ *    `z-index` must be smaller than off-canvas
+ * 3. Fix text wrapping if the centered section is larger than 50% of the navbar
+ * 4. Align sub groups for centered navbar
+ */
+
+.uk-navbar-right { margin-left: auto; }
+
+.uk-navbar-center:only-child {
+    margin-left: auto;
+    margin-right: auto;
+    /* 1 */
+    position: relative;
+}
+
+.uk-navbar-center:not(:only-child) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+    /* 2 */
+    z-index: $global-z-index - 10;
+}
+
+/* 3 */
+.uk-navbar-center:not(:only-child) .uk-navbar-nav > li > a,
+.uk-navbar-center:not(:only-child) .uk-navbar-item,
+.uk-navbar-center:not(:only-child) .uk-navbar-toggle { white-space: nowrap; }
+
+/* 4 */
+.uk-navbar-center-left,
+.uk-navbar-center-right {
+   position: absolute;
+   top: 0;
+}
+
+.uk-navbar-center-left { right: 100%; }
+.uk-navbar-center-right { left: 100%; }
+
+[class*='uk-navbar-center-'] .uk-navbar-nav > li > a,
+[class*='uk-navbar-center-'] .uk-navbar-item,
+[class*='uk-navbar-center-'] .uk-navbar-toggle { white-space: nowrap; }
+
+
+/* Nav
+ ========================================================================== */
+
+/*
+ * 1. Reset lists
+ */
+
+.uk-navbar-nav {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /* 1 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/*
+ * Allow items to wrap into the next line
+ * Only not `absolute` positioned groups
+ */
+
+.uk-navbar-left,
+.uk-navbar-right,
+.uk-navbar-center:only-child {
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+/*
+ * Items
+ * 1. Center content vertically and horizontally
+ * 2. Dimensions
+ * 3. Style
+ * 4. Required for `a`
+ */
+
+.uk-navbar-nav > li > a,    // Nav item
+.uk-navbar-item,            // Content item
+.uk-navbar-toggle {         // Clickable item
+    /* 1 */
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    /* 2 */
+    box-sizing: border-box;
+    height: $navbar-nav-item-height;
+    padding: 0 $navbar-nav-item-padding-horizontal;
+    /* 3 */
+    font-size: $navbar-nav-item-font-size;
+    font-family: $navbar-nav-item-font-family;
+    /* 4 */
+    text-decoration: none;
+}
+
+/*
+ * Nav items
+ */
+
+.uk-navbar-nav > li > a {
+    color: $navbar-nav-item-color;
+    @if(mixin-exists(hook-navbar-nav-item)) {@include hook-navbar-nav-item();}
+}
+
+/*
+ * Hover
+ * Apply hover style also to focus state and if dropdown is opened
+ */
+
+.uk-navbar-nav > li:hover > a,
+.uk-navbar-nav > li > a:focus,
+.uk-navbar-nav > li > a.uk-open {
+    color: $navbar-nav-item-hover-color;
+    outline: none;
+    @if(mixin-exists(hook-navbar-nav-item-hover)) {@include hook-navbar-nav-item-hover();}
+}
+
+/* OnClick */
+.uk-navbar-nav > li > a:active {
+    color: $navbar-nav-item-onclick-color;
+    @if(mixin-exists(hook-navbar-nav-item-onclick)) {@include hook-navbar-nav-item-onclick();}
+}
+
+/* Active */
+.uk-navbar-nav > li.uk-active > a {
+    color: $navbar-nav-item-active-color;
+    @if(mixin-exists(hook-navbar-nav-item-active)) {@include hook-navbar-nav-item-active();}
+}
+
+
+/* Item
+ ========================================================================== */
+
+.uk-navbar-item {
+    color: $navbar-item-color;
+    @if(mixin-exists(hook-navbar-item)) {@include hook-navbar-item();}
+}
+
+
+/* Toggle
+ ========================================================================== */
+
+.uk-navbar-toggle {
+    color: $navbar-toggle-color;
+    @if(mixin-exists(hook-navbar-toggle)) {@include hook-navbar-toggle();}
+}
+
+.uk-navbar-toggle:hover,
+.uk-navbar-toggle:focus,
+.uk-navbar-toggle.uk-open {
+    color: $navbar-toggle-hover-color;
+    outline: none;
+    text-decoration: none;
+    @if(mixin-exists(hook-navbar-toggle-hover)) {@include hook-navbar-toggle-hover();}
+}
+
+/*
+ * Icon
+ * Adopts `uk-icon`
+ */
+
+.uk-navbar-toggle-icon {
+    @if(mixin-exists(hook-navbar-toggle-icon)) {@include hook-navbar-toggle-icon();}
+}
+
+/* Hover + Focus */
+:hover > .uk-navbar-toggle-icon,
+:focus > .uk-navbar-toggle-icon {
+    @if(mixin-exists(hook-navbar-toggle-icon-hover)) {@include hook-navbar-toggle-icon-hover();}
+}
+
+
+/* Subtitle
+ ========================================================================== */
+
+.uk-navbar-subtitle {
+    font-size: $navbar-subtitle-font-size;
+    @if(mixin-exists(hook-navbar-subtitle)) {@include hook-navbar-subtitle();}
+}
+
+
+/* Style modifiers
+ ========================================================================== */
+
+.uk-navbar-transparent {
+    @if(mixin-exists(hook-navbar-transparent)) {@include hook-navbar-transparent();}
+}
+
+.uk-navbar-sticky {
+    @if(mixin-exists(hook-navbar-sticky)) {@include hook-navbar-sticky();}
+}
+
+
+/* Dropdown
+ ========================================================================== */
+
+/*
+ * Adopts `uk-dropdown`
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Set a default width
+ * 4. Style
+ */
+
+.uk-navbar-dropdown {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: absolute;
+    z-index: $navbar-dropdown-z-index;
+    /* 3 */
+    box-sizing: border-box;
+    width: $navbar-dropdown-width;
+    /* 4 */
+    padding: $navbar-dropdown-padding;
+    background: $navbar-dropdown-background;
+    color: $navbar-dropdown-color;
+    @if(mixin-exists(hook-navbar-dropdown)) {@include hook-navbar-dropdown();}
+}
+
+/* Show */
+.uk-navbar-dropdown.uk-open { display: block; }
+
+/*
+ * Direction / Alignment modifiers
+ */
+
+/* Direction */
+[class*='uk-navbar-dropdown-top'] { margin-top: (-$navbar-dropdown-margin); }
+[class*='uk-navbar-dropdown-bottom'] { margin-top: $navbar-dropdown-margin; }
+[class*='uk-navbar-dropdown-left'] { margin-left: (-$navbar-dropdown-margin); }
+[class*='uk-navbar-dropdown-right'] { margin-left: $navbar-dropdown-margin; }
+
+/*
+ * Grid
+ * Adopts `uk-grid`
+ */
+
+/* Gutter Horizontal */
+.uk-navbar-dropdown-grid { margin-left: (-$navbar-dropdown-grid-gutter-horizontal); }
+.uk-navbar-dropdown-grid > * { padding-left: $navbar-dropdown-grid-gutter-horizontal; }
+
+/* Gutter Vertical */
+.uk-navbar-dropdown-grid > .uk-grid-margin { margin-top: $navbar-dropdown-grid-gutter-vertical; }
+
+/* Stack */
+.uk-navbar-dropdown-stack .uk-navbar-dropdown-grid > * { width: 100% !important; }
+
+/*
+ * Width modifier
+ */
+
+.uk-navbar-dropdown-width-2:not(.uk-navbar-dropdown-stack) { width: ($navbar-dropdown-width * 2); }
+.uk-navbar-dropdown-width-3:not(.uk-navbar-dropdown-stack) { width: ($navbar-dropdown-width * 3); }
+.uk-navbar-dropdown-width-4:not(.uk-navbar-dropdown-stack) { width: ($navbar-dropdown-width * 4); }
+.uk-navbar-dropdown-width-5:not(.uk-navbar-dropdown-stack) { width: ($navbar-dropdown-width * 5); }
+
+/*
+ * Dropbar modifier
+ */
+
+.uk-navbar-dropdown-dropbar {
+    margin-bottom: $navbar-dropdown-dropbar-margin-bottom;
+    @if(mixin-exists(hook-navbar-dropdown-dropbar)) {@include hook-navbar-dropdown-dropbar();}
+}
+
+
+/* Dropdown Nav
+ * Adopts `uk-nav`
+ ========================================================================== */
+
+.uk-navbar-dropdown-nav {
+    @if(mixin-exists(hook-navbar-dropdown-nav)) {@include hook-navbar-dropdown-nav();}
+}
+
+/*
+ * Items
+ */
+
+.uk-navbar-dropdown-nav > li > a {
+    color: $navbar-dropdown-nav-item-color;
+    @if(mixin-exists(hook-navbar-dropdown-nav-item)) {@include hook-navbar-dropdown-nav-item();}
+}
+
+/* Hover + Focus */
+.uk-navbar-dropdown-nav > li > a:hover,
+.uk-navbar-dropdown-nav > li > a:focus {
+    color: $navbar-dropdown-nav-item-hover-color;
+    @if(mixin-exists(hook-navbar-dropdown-nav-item-hover)) {@include hook-navbar-dropdown-nav-item-hover();}
+}
+
+/* Active */
+.uk-navbar-dropdown-nav > li.uk-active > a {
+    color: $navbar-dropdown-nav-item-active-color;
+    @if(mixin-exists(hook-navbar-dropdown-nav-item-active)) {@include hook-navbar-dropdown-nav-item-active();}
+}
+
+/*
+ * Header
+ */
+
+.uk-navbar-dropdown-nav .uk-nav-header {
+    color: $navbar-dropdown-nav-header-color;
+    @if(mixin-exists(hook-navbar-dropdown-nav-header)) {@include hook-navbar-dropdown-nav-header();}
+}
+
+/*
+ * Divider
+ */
+
+.uk-navbar-dropdown-nav .uk-nav-divider {
+    border-top: $navbar-dropdown-nav-divider-border-width solid $navbar-dropdown-nav-divider-border;
+    @if(mixin-exists(hook-navbar-dropdown-nav-divider)) {@include hook-navbar-dropdown-nav-divider();}
+}
+
+/*
+ * Sublists
+ */
+
+.uk-navbar-dropdown-nav .uk-nav-sub a { color: $navbar-dropdown-nav-sublist-item-color; }
+
+.uk-navbar-dropdown-nav .uk-nav-sub a:hover,
+.uk-navbar-dropdown-nav .uk-nav-sub a:focus { color: $navbar-dropdown-nav-sublist-item-hover-color; }
+
+
+/* Dropbar
+ ========================================================================== */
+
+.uk-navbar-dropbar {
+    position: relative;
+    background: $navbar-dropbar-background;
+    overflow: hidden;
+    @if(mixin-exists(hook-navbar-dropbar)) {@include hook-navbar-dropbar();}
+}
+
+/*
+ * Slide modifier
+ */
+
+.uk-navbar-dropbar-slide {
+    position: absolute;
+    z-index: $navbar-dropbar-z-index;
+    left: 0;
+    right: 0;
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-navbar-misc)) {@include hook-navbar-misc();}
+
+// @mixin hook-navbar(){}
+// @mixin hook-navbar-container(){}
+// @mixin hook-navbar-nav-item(){}
+// @mixin hook-navbar-nav-item-hover(){}
+// @mixin hook-navbar-nav-item-onclick(){}
+// @mixin hook-navbar-nav-item-active(){}
+// @mixin hook-navbar-item(){}
+// @mixin hook-navbar-toggle(){}
+// @mixin hook-navbar-toggle-hover(){}
+// @mixin hook-navbar-toggle-icon(){}
+// @mixin hook-navbar-toggle-icon-hover(){}
+// @mixin hook-navbar-subtitle(){}
+// @mixin hook-navbar-transparent(){}
+// @mixin hook-navbar-sticky(){}
+// @mixin hook-navbar-dropdown(){}
+// @mixin hook-navbar-dropdown-dropbar(){}
+// @mixin hook-navbar-dropdown-nav(){}
+// @mixin hook-navbar-dropdown-nav-item(){}
+// @mixin hook-navbar-dropdown-nav-item-hover(){}
+// @mixin hook-navbar-dropdown-nav-item-active(){}
+// @mixin hook-navbar-dropdown-nav-header(){}
+// @mixin hook-navbar-dropdown-nav-divider(){}
+// @mixin hook-navbar-dropbar(){}
+// @mixin hook-navbar-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-navbar-nav-item-color:                 $inverse-global-muted-color !default;
+$inverse-navbar-nav-item-hover-color:           $inverse-global-color !default;
+$inverse-navbar-nav-item-onclick-color:         $inverse-global-emphasis-color !default;
+$inverse-navbar-nav-item-active-color:          $inverse-global-emphasis-color !default;
+$inverse-navbar-item-color:                     $inverse-global-color !default;
+$inverse-navbar-toggle-color:                   $inverse-global-muted-color !default;
+$inverse-navbar-toggle-hover-color:             $inverse-global-color !default;
+
+
+
+// @mixin hook-inverse-navbar-nav-item(){}
+// @mixin hook-inverse-navbar-nav-item-hover(){}
+// @mixin hook-inverse-navbar-nav-item-onclick(){}
+// @mixin hook-inverse-navbar-nav-item-active(){}
+// @mixin hook-inverse-navbar-item(){}
+// @mixin hook-inverse-navbar-toggle(){}
+// @mixin hook-inverse-navbar-toggle-hover(){}

@@ -1,5 +1,5 @@
 import { Class, Modal } from '../mixin/index';
-import { $, extend, isFunction, isString, isWithin, promise, requestAnimationFrame, toJQuery } from '../util/index';
+import { $, extend, isString, promise } from '../util/index';
 
 export default function (UIkit) {
 
@@ -8,24 +8,14 @@ export default function (UIkit) {
         mixins: [Modal],
 
         props: {
-            center: Boolean,
-            container: Boolean
+            center: Boolean
         },
 
         defaults: {
             center: false,
             clsPage: 'uk-modal-page',
             clsPanel: 'uk-modal-dialog',
-            selClose: '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full',
-            container: true
-        },
-
-        computed: {
-
-            container() {
-                return this.$props.container === true && UIkit.container || this.$props.container && toJQuery(this.$props.container);
-            }
-
+            selClose: '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full'
         },
 
         update: {
@@ -42,7 +32,7 @@ export default function (UIkit) {
 
             },
 
-            events: ['resize', 'orientationchange']
+            events: ['resize']
 
         },
 
@@ -68,25 +58,7 @@ export default function (UIkit) {
                 }
             }
 
-        ],
-
-        methods: {
-
-            show() {
-
-                if (this.container && !isWithin(this.$el, this.container)) {
-                    this.$el.appendTo(this.container);
-                    return promise(resolve =>
-                        requestAnimationFrame(() =>
-                            resolve(this.show())
-                        )
-                    )
-                }
-
-                return this.toggleNow(this.$el, true);
-            },
-
-        }
+        ]
 
     });
 
@@ -116,7 +88,7 @@ export default function (UIkit) {
                 }
             },
 
-            events: ['load', 'resize', 'orientationchange']
+            events: ['load', 'resize']
 
         }
 
@@ -130,7 +102,11 @@ export default function (UIkit) {
              </div>`
         , options);
 
-        dialog.$el.on('hidden', () => dialog.$destroy(true));
+        dialog.$el.on('hidden', e => {
+            if (e.target === e.currentTarget) {
+                dialog.$destroy(true);
+            }
+        });
         dialog.show();
 
         return dialog;

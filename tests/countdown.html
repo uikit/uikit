@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Countdown - UIkit tests</title>
+        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="js/test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Countdown</h1>
+
+            <h2>Grid</h2>
+
+            <div class="uk-grid-small uk-child-width-auto uk-margin" uk-grid countdown>
+                <div>
+                    <div class="uk-countdown-number uk-countdown-days"></div>
+                </div>
+                <div class="uk-countdown-separator">:</div>
+                <div>
+                    <div class="uk-countdown-number uk-countdown-hours"></div>
+                </div>
+                <div class="uk-countdown-separator">:</div>
+                <div>
+                    <div class="uk-countdown-number uk-countdown-minutes"></div>
+                </div>
+                <div class="uk-countdown-separator">:</div>
+                <div>
+                    <div class="uk-countdown-number uk-countdown-seconds"></div>
+                </div>
+            </div>
+
+            <div class="uk-grid-small uk-child-width-auto" uk-grid countdown>
+                <div>
+                    <div class="uk-countdown-number uk-countdown-days"></div>
+                    <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Days</div>
+                </div>
+                <div class="uk-countdown-separator">:</div>
+                <div>
+                    <div class="uk-countdown-number uk-countdown-hours"></div>
+                    <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Hours</div>
+                </div>
+                <div class="uk-countdown-separator">:</div>
+                <div>
+                    <div class="uk-countdown-number uk-countdown-minutes"></div>
+                    <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Minutes</div>
+                </div>
+                <div class="uk-countdown-separator">:</div>
+                <div>
+                    <div class="uk-countdown-number uk-countdown-seconds"></div>
+                    <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Seconds</div>
+                </div>
+            </div>
+
+            <h2>Text</h2>
+
+            <div class="uk-margin" countdown>
+                <span class="uk-countdown-number uk-countdown-days uk-text-middle"></span>
+                <span class="uk-countdown-separator uk-text-middle">:</span>
+                <span class="uk-countdown-number uk-countdown-hours uk-text-middle"></span>
+                <span class="uk-countdown-separator uk-text-middle">:</span>
+                <span class="uk-countdown-number uk-countdown-minutes uk-text-middle"></span>
+                <span class="uk-countdown-separator uk-text-middle">:</span>
+                <span class="uk-countdown-number uk-countdown-seconds uk-text-middle"></span>
+            </div>
+
+            <div countdown>
+                <span class="uk-countdown-number">
+                    <span class="uk-countdown-days"></span><small>d</small>
+                </span>
+                <span class="uk-countdown-number">
+                    <span class="uk-countdown-hours"></span><small>h</small>
+                </span>
+                <span class="uk-countdown-number">
+                    <span class="uk-countdown-minutes"></span><small>m</small>
+                </span>
+                <span class="uk-countdown-number">
+                    <span class="uk-countdown-seconds"></span><small>s</small>
+                </span>
+            </div>
+
+            <h2>Javascript Options</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>date</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>Any string parsable by <code>Date.parse</code> - <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Date/parse" target="_blank">Reference</a>.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <script>
+
+            var demodate = (new Date(Date.now() + 864e5 * 7)).toISOString();
+
+            $('[countdown]').each(function() {
+                UIkit.countdown(this, {date:demodate});
+            })
+
+        </script>
+    </body>
+</html>

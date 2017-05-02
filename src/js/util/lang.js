@@ -2,7 +2,7 @@ import $, { isArray, isNumeric } from 'jquery';
 import { getCssVar, hasPromise, isJQuery, query } from './index';
 
 export { $ };
-export { ajax, each, extend, map, merge, isArray, isNumeric, isFunction, isPlainObject } from 'jquery';
+export { ajax, contains, each, Event, extend, map, merge, isArray, isNumeric, isFunction, isPlainObject } from 'jquery';
 
 export function bind(fn, context) {
     return function (a) {
@@ -57,7 +57,7 @@ export function hyphenate(str) {
         .toLowerCase()
 }
 
-var camelizeRE = /-(\w)/g;
+const camelizeRE = /-(\w)/g;
 export function camelize(str) {
     return str.replace(camelizeRE, toUpper)
 }
@@ -79,14 +79,14 @@ export function isUndefined(value) {
 }
 
 export function isContextSelector(selector) {
-    return isString(selector) && selector.match(/^(!|>|\+|-)/);
+    return isString(selector) && selector.match(/^[!>+-]/);
 }
 
 export function getContextSelectors(selector) {
-    return isContextSelector(selector) && selector.split(/(?=\s(?:!|>|\+|-))/g).map(value => value.trim());
+    return isContextSelector(selector) && selector.split(/(?=\s[!>+-])/g).map(value => value.trim());
 }
 
-var contextSelectors = {'!': 'closest', '+': 'nextAll', '-': 'prevAll'};
+const contextSelectors = {'!': 'closest', '+': 'nextAll', '-': 'prevAll'};
 export function toJQuery(element, context) {
 
     if (element === true) {
@@ -126,9 +126,9 @@ export function toNode(element) {
 export function toBoolean(value) {
     return typeof value === 'boolean'
         ? value
-        : value === 'true' || value == '1' || value === ''
+        : value === 'true' || value === '1' || value === ''
             ? true
-            : value === 'false' || value == '0'
+            : value === 'false' || value === '0'
                 ? false
                 : value;
 }
@@ -152,7 +152,7 @@ var vars = {};
 export function toMedia(value) {
 
     if (isString(value)) {
-        if (value[0] == '@') {
+        if (value[0] === '@') {
             var name = `media-${value.substr(1)}`;
             value = vars[name] || (vars[name] = parseFloat(getCssVar(name)));
         } else if (value.match(/^\(min-width:/)) {

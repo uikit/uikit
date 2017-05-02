@@ -28,12 +28,12 @@ export default function (UIkit) {
             },
 
             target() {
-                this.$props.target && query(this.$props.target === true ? '> :input:first + :first' : this.$props.target, this.$el)
+                return this.$props.target && query(this.$props.target === true ? '> :input:first + :first' : this.$props.target, this.$el)
             }
 
         },
 
-        ready() {
+        connected() {
             this.input.trigger('change');
         },
 
@@ -41,12 +41,12 @@ export default function (UIkit) {
 
             {
 
-                name: 'focus blur mouseenter mouseleave',
+                name: 'focusin focusout mouseenter mouseleave',
 
                 delegate: ':input:first',
 
                 handler({type}) {
-                    this.state.toggleClass(`uk-${~['focus', 'blur'].indexOf(type) ? 'focus' : 'hover'}`, ~['focus', 'mouseenter'].indexOf(type));
+                    this.state.toggleClass(`uk-${~type.indexOf('focus') ? 'focus' : 'hover'}`, ~['focusin', 'mouseenter'].indexOf(type));
                 }
 
             },

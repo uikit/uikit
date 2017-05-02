@@ -1,10 +1,10 @@
-import { $, hasTouch, isTouch, pointerEnter, pointerLeave, query } from '../util/index';
+import { $, Event, hasTouch, isTouch, pointerEnter, pointerLeave, query } from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('toggle', {
 
-        mixins: [UIkit.mixin.toggable],
+        mixins: [UIkit.mixin.togglable],
 
         args: 'target',
 
@@ -43,7 +43,7 @@ export default function (UIkit) {
 
                 handler(e) {
                     if (!isTouch(e)) {
-                        this.toggle(e.type === pointerEnter ? 'toggleshow' : 'togglehide');
+                        this.toggle(`toggle${e.type === pointerEnter ? 'show' : 'hide'}`);
                     }
                 }
 
@@ -64,7 +64,14 @@ export default function (UIkit) {
                     }
 
                     // TODO better isToggled handling
-                    if ($(e.target).closest('a[href="#"], button').length || $(e.target).closest('a[href]') && (this.cls || !this.target.is(':visible'))) {
+                    var link = $(e.target).closest('a[href]');
+                    if ($(e.target).closest('a[href="#"], button').length
+                        || link.length && (
+                            this.cls
+                            || !this.target.is(':visible')
+                            || link.attr('href')[0] === '#' && this.target.is(link.attr('href'))
+                        )
+                    ) {
                         e.preventDefault();
                     }
 
@@ -89,7 +96,7 @@ export default function (UIkit) {
 
             },
 
-            events: ['load', 'resize', 'orientationchange']
+            events: ['load', 'resize']
 
         },
 
@@ -97,7 +104,7 @@ export default function (UIkit) {
 
             toggle(type) {
 
-                var event = $.Event(type || 'toggle');
+                var event = Event(type || 'toggle');
                 this.target.triggerHandler(event, [this]);
 
                 if (!event.isDefaultPrevented()) {

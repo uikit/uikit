@@ -11,7 +11,6 @@ var json = require('rollup-plugin-json');
 var buble = require('rollup-plugin-buble');
 var replace = require('rollup-plugin-replace');
 var alias = require('rollup-plugin-import-alias');
-var resolve = require('rollup-plugin-node-resolve');
 var version = require('../package.json').version;
 var banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */\n`;
 

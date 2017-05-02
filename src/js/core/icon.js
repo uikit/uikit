@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { extend, isRtl, promise, swap } from '../util/index';
+import { $, extend, isRtl, promise, swap } from '../util/index';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
 import navbarToggleIcon from '../../images/components/navbar-toggle-icon.svg';
@@ -38,6 +38,8 @@ export default function (UIkit) {
         };
 
     UIkit.component('icon', UIkit.components.svg.extend({
+
+        attrs: ['icon', 'ratio'],
 
         mixins: [Class],
 
@@ -163,10 +165,10 @@ export default function (UIkit) {
 
             this.svg.then(svg => {
 
-                var circle = svg.find('circle'),
+                var circle = $(svg).find('circle'),
                     diameter = Math.floor(this.width / 2);
 
-                svg[0].setAttribute('viewBox', `0 0 ${this.width} ${this.width}`);
+                svg.setAttribute('viewBox', `0 0 ${this.width} ${this.width}`);
 
                 circle.attr({cx: diameter, cy: diameter, r: diameter - parseFloat(circle.css('stroke-width') || 0)});
             });

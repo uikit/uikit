@@ -3,15 +3,18 @@
 //
 // Component:       `uk-offcanvas`
 //
-// Sub-objects:     `uk-offcanvas-page`
-//                  `uk-offcanvas-overlay`
-//                  `uk-offcanvas-bar`
+// Sub-objects:     `uk-offcanvas-bar`
+//                  `uk-offcanvas-container`
+//                  `uk-offcanvas-content`
+//                  `uk-offcanvas-page`
+//
+// Adopted:         `uk-offcanvas-close`
 //
 // Modifiers:       `uk-offcanvas-flip`
-//                  `uk-offcanvas-page-animation`
-//                  `uk-offcanvas-page-overlay`
 //                  `uk-offcanvas-bar-animation`
 //                  `uk-offcanvas-reveal`
+//                  `uk-offcanvas-overlay`
+//                  `uk-offcanvas-content-animation`
 //
 // States:          `uk-open`
 //
@@ -23,13 +26,20 @@
 
 @offcanvas-z-index:                             @global-z-index;
 
-@offcanvas-overlay-background:                  rgba(0,0,0,0.1);
-
 @offcanvas-bar-width:                           270px;
 @offcanvas-bar-padding-vertical:                @global-margin;
 @offcanvas-bar-padding-horizontal:              @global-margin;
 @offcanvas-bar-background:                      @global-secondary-background;
 @offcanvas-bar-color-mode:                      light;
+
+@offcanvas-bar-width-m:                         350px;
+@offcanvas-bar-padding-vertical-m:              @global-medium-gutter;
+@offcanvas-bar-padding-horizontal-m:            @global-medium-gutter;
+
+@offcanvas-close-position:                      20px;
+@offcanvas-close-padding:                       5px;
+
+@offcanvas-overlay-background:                  rgba(0,0,0,0.1);
 
 
 /* ========================================================================
@@ -62,73 +72,6 @@
 }
 
 
-/* Page
- ========================================================================== */
-
-/*
- * 1. Prepare slide-out animation (Used in reveal and push mode)
- * 2. Prevent horizontal scrollbar when page is slide-out
- * Note: JS sets a fixed width so the page can slide-out without shinking
- */
-
-.uk-offcanvas-page {
-    /* 1 */
-    -webkit-transition: margin-left 0.3s ease-out;
-    transition: margin-left 0.3s ease-out;
-    /* 2 */
-    overflow-x: hidden;
-}
-
-/*
- * Activate slide-out animation
- */
-
-.uk-offcanvas-page-animation { margin-left: @offcanvas-bar-width; }
-
-/* Flip modifier */
-.uk-offcanvas-flip.uk-offcanvas-page-animation { margin-left: -@offcanvas-bar-width; }
-
-/*
- * Prevent scrollbar on page if overlay is used
- */
-
-.uk-offcanvas-page-overlay { overflow: hidden; }
-
-
-/* Overlay
- ========================================================================== */
-
-/*
- * Overlay the whole page. Needed for the `::before`
- * Using `100vw` so no modification is needed when off-canvas is flipped
- */
-
-.uk-offcanvas-overlay { width: 100vw; }
-
-/*
- * 1. Mask the whole page
- * 2. Fade-in transition
- */
-
-.uk-offcanvas-overlay::before {
-    /* 1 */
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: @offcanvas-overlay-background;
-    /* 2 */
-    opacity: 0;
-    -webkit-transition: opacity 0.15s linear;
-    transition: opacity 0.15s linear;
-    .hook-offcanvas-overlay;
-}
-
-.uk-offcanvas-overlay.uk-open::before { opacity: 1; }
-
-
 /* Bar
  ========================================================================== */
 
@@ -157,6 +100,16 @@
     -webkit-transform: translateX(-100%);
     transform: translateX(-100%);
     .hook-offcanvas-bar;
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-offcanvas-bar {
+        width: @offcanvas-bar-width-m;
+        padding: @offcanvas-bar-padding-vertical-m @offcanvas-bar-padding-horizontal-m;
+    }
+
 }
 
 // Color Mode
@@ -191,52 +144,161 @@
 
 /*
  * Reveal Animation
- * 1. Set the bar to target position
- * 2. Clip the bar with `clip-path` and use `clip` as fallback
+ * 1. Set position
+ * 2. Clip the bar
  * 3. Animation
- * Note: Future `clip-path` is commented out (it's not working on iOS)
+ * 4. Reset transform
  */
 
 .uk-offcanvas-reveal {
     /* 1 */
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
     /* 2 */
-    clip: rect(0, 0, 100vh, 0);
-    //-webkit-clip-path: inset(0 @offcanvas-bar-width 0 0);
-    //clip-path: inset(0 @offcanvas-bar-width 0 0);
+    width: 0;
+    overflow: hidden;
     /* 3 */
-    -webkit-transition: clip 0.3s ease-out; //, -webkit-clip-path 0.3s ease-out;
-    transition: clip 0.3s ease-out; //, -webkit-clip-path 0.3s ease-out, clip-path 0.3s ease-out;
+    -webkit-transition: width 0.3s ease-out;
+    transition: width 0.3s ease-out;
 }
 
-/* Fix weird scrollbar bug in Chrome if overlay is used */
-.uk-offcanvas-page:not(.uk-offcanvas-flip) .uk-offcanvas-reveal {
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-}
-
-.uk-open > .uk-offcanvas-reveal {
-    clip: rect(0, @offcanvas-bar-width, 100vh, 0);
-    //-webkit-clip-path: inset(0);
-    //clip-path: inset(0);
-}
-
-/* Flip modifier */
-.uk-offcanvas-flip .uk-offcanvas-reveal {
-    /* 1 */
+.uk-offcanvas-reveal .uk-offcanvas-bar {
+    /* 4 */
     -webkit-transform: translateX(0);
     transform: translateX(0);
-    /* 2 */
-    clip: rect(0, @offcanvas-bar-width, 100vh, @offcanvas-bar-width);
-    //-webkit-clip-path: inset(0 0 0 @offcanvas-bar-width);
-    //clip-path: inset(0 0 0 @offcanvas-bar-width);
 }
 
-.uk-offcanvas-flip .uk-open > .uk-offcanvas-reveal {
-    clip: rect(0, @offcanvas-bar-width, 100vh, 0);
-    //-webkit-clip-path: inset(0);
-    //clip-path: inset(0);
+.uk-open > .uk-offcanvas-reveal { width: @offcanvas-bar-width; }
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-open > .uk-offcanvas-reveal { width: @offcanvas-bar-width-m; }
+
+}
+
+/*
+ * Flip modifier
+ */
+
+.uk-offcanvas-flip .uk-offcanvas-reveal {
+    right: 0;
+    left: auto;
+}
+
+
+/* Close
+ * Adopts `uk-close`
+ ========================================================================== */
+
+.uk-offcanvas-close {
+    position: absolute;
+    z-index: @offcanvas-z-index;
+    top: @offcanvas-close-position;
+    right: @offcanvas-close-position;
+    padding: @offcanvas-close-padding;
+    .hook-offcanvas-close;
+}
+
+
+/* Overlay
+ ========================================================================== */
+
+/*
+ * Overlay the whole page. Needed for the `::before`
+ * 1. Using `100vw` so no modification is needed when off-canvas is flipped
+ * 2. Allow for closing with swipe gesture on devices with pointer events.
+ */
+
+.uk-offcanvas-overlay {
+    /* 1 */
+    width: 100vw;
+    /* 2 */
+    touch-action: none;
+}
+
+/*
+ * 1. Mask the whole page
+ * 2. Fade-in transition
+ */
+
+.uk-offcanvas-overlay::before {
+    /* 1 */
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: @offcanvas-overlay-background;
+    /* 2 */
+    opacity: 0;
+    -webkit-transition: opacity 0.15s linear;
+    transition: opacity 0.15s linear;
+    .hook-offcanvas-overlay;
+}
+
+.uk-offcanvas-overlay.uk-open::before { opacity: 1; }
+
+
+/* Container
+ ========================================================================== */
+
+/*
+ * Prevent horizontal scrollbar when the content is slide-out
+ * Has to be on the `html` element too to make it work on the `body`
+ */
+
+.uk-offcanvas-page,
+.uk-offcanvas-container { overflow-x: hidden; }
+
+/*
+ * Prevent all scrollbars if overlay is used
+ */
+
+.uk-offcanvas-container-overlay { overflow: hidden; }
+
+
+/* Content
+ ========================================================================== */
+
+/*
+ * Prepare slide-out animation (Used in reveal and push mode)
+ * Using `position: left` instead of `transform` because position `fixed` elements like sticky navbars
+ * lose their fixed state and behaves like `absolute` within a transformed container
+ * Note: JS sets a fixed width and height so the page can slide-out without shrinking
+ * 1. Smooth scrolling
+ */
+
+.uk-offcanvas-container .uk-offcanvas-content {
+    position: relative;
+    left: 0;
+    -webkit-transition: left 0.3s ease-out;
+    transition: left 0.3s ease-out;
+    /* 1 */
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Disable scrolling if overlay mode */
+.uk-offcanvas-overlay .uk-offcanvas-content { overflow-y: hidden; }
+
+/*
+ * Activate slide-out animation
+ */
+
+:not(.uk-offcanvas-flip) > .uk-offcanvas-content-animation { left: @offcanvas-bar-width; }
+
+.uk-offcanvas-flip > .uk-offcanvas-content-animation { left: -@offcanvas-bar-width; }
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    :not(.uk-offcanvas-flip) > .uk-offcanvas-content-animation { left: @offcanvas-bar-width-m; }
+
+    .uk-offcanvas-flip > .uk-offcanvas-content-animation { left: -@offcanvas-bar-width-m; }
+
 }
 
 
@@ -245,6 +307,7 @@
 
 .hook-offcanvas-misc;
 
-.hook-offcanvas-overlay() {}
 .hook-offcanvas-bar() {}
+.hook-offcanvas-close() {}
+.hook-offcanvas-overlay() {}
 .hook-offcanvas-misc() {}

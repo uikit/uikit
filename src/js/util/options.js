@@ -4,7 +4,6 @@ var strats = {};
 
 // concat strategy
 strats.args =
-strats.attrs =
 strats.created =
 strats.events =
 strats.init =

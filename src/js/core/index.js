@@ -1,4 +1,4 @@
-import { animationstart, getStyle, on, requestAnimationFrame, toMs, win } from '../util/index';
+import { animationstart, getStyle, on, toMs, win } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
@@ -26,42 +26,19 @@ import Svg from './svg';
 import Switcher from './switcher';
 import Tab from './tab';
 import Toggle from './toggle';
+import Leader from './leader';
 
 export default function (UIkit) {
 
-    var scroll = null, dir, ticking, resizing, started = 0;
+    var scroll = 0, started = 0;
 
     win
         .on('load', UIkit.update)
-        .on('resize orientationchange', e => {
-            if (!resizing) {
-                requestAnimationFrame(() => {
-                    UIkit.update(e);
-                    resizing = false;
-                });
-                resizing = true;
-            }
-        })
+        .on('resize', UIkit.update)
         .on('scroll', e => {
-
-            if (scroll === null) {
-                scroll = 0;
-            }
-
-            if (scroll === window.pageYOffset) {
-                return;
-            }
-
-            dir = scroll < window.pageYOffset;
+            e.dir = scroll < window.pageYOffset ? 'down' : 'up';
             scroll = window.pageYOffset;
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    e.dir = dir ? 'down' : 'up';
-                    UIkit.update(e);
-                    ticking = false;
-                });
-                ticking = true;
-            }
+            UIkit.update(e);
         });
 
     on(document, animationstart, ({target}) => {
@@ -90,6 +67,7 @@ export default function (UIkit) {
     UIkit.use(Margin);
     UIkit.use(Gif);
     UIkit.use(Grid);
+    UIkit.use(Leader);
     UIkit.use(Modal);
     UIkit.use(Nav);
     UIkit.use(Navbar);

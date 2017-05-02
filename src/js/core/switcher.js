@@ -1,11 +1,11 @@
-import { Toggable } from '../mixin/index';
+import { Togglable } from '../mixin/index';
 import { $, getIndex, isTouch, toJQuery, query } from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('switcher', {
 
-        mixins: [Toggable],
+        mixins: [Togglable],
 
         args: 'connect',
 
@@ -88,10 +88,6 @@ export default function (UIkit) {
                     return this.connects;
                 },
 
-                delegate() {
-                    return `[${this.attrItem}],[data-${this.attrItem}]`;
-                },
-
                 handler(e) {
                     if (!isTouch(e)) {
                         return;
@@ -99,7 +95,7 @@ export default function (UIkit) {
 
                     e.preventDefault();
                     if (!window.getSelection().toString()) {
-                        this.show(e.type == 'swipeLeft' ? 'next' : 'previous');
+                        this.show(e.type === 'swipeLeft' ? 'next' : 'previous');
                     }
                 }
             }

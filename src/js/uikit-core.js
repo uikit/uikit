@@ -7,6 +7,9 @@ UIkit.version = VERSION;
 
 mixin(UIkit);
 core(UIkit);
-boot(UIkit);
+
+if (!BUNDLED) {
+    boot(UIkit);
+}
 
 export default UIkit;

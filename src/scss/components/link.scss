@@ -1,0 +1,77 @@
+// Name:            Link
+// Description:     Styles for links
+//
+// Component:       `uk-link-muted`
+//                  `uk-link-reset`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$link-muted-color:                               $global-muted-color !default;
+$link-muted-hover-color:                         $global-color !default;
+
+
+/* ========================================================================
+   Component: Link
+ ========================================================================== */
+
+
+/* Muted
+ ========================================================================== */
+
+a.uk-link-muted,
+.uk-link-muted a {
+    color: $link-muted-color;
+    @if(mixin-exists(hook-link-muted)) {@include hook-link-muted();}
+}
+
+a.uk-link-muted:hover,
+.uk-link-muted a:hover {
+    color: $link-muted-hover-color;
+    @if(mixin-exists(hook-link-muted-hover)) {@include hook-link-muted-hover();}
+}
+
+
+/* Reset
+ ========================================================================== */
+
+/*
+ * `!important` needed to override inverse component
+ */
+
+a.uk-link-reset,
+a.uk-link-reset:hover,
+a.uk-link-reset:focus,
+.uk-link-reset a,
+.uk-link-reset a:hover,
+.uk-link-reset a:focus {
+    color: inherit !important;
+    text-decoration: none !important;
+    @if(mixin-exists(hook-link-reset)) {@include hook-link-reset();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-link-misc)) {@include hook-link-misc();}
+
+// @mixin hook-link-muted(){}
+// @mixin hook-link-muted-hover(){}
+// @mixin hook-link-reset(){}
+// @mixin hook-link-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-link-muted-color:                         $inverse-global-muted-color !default;
+$inverse-link-muted-hover-color:                   $inverse-global-color !default;
+
+
+
+// @mixin hook-inverse-link-muted(){}
+// @mixin hook-inverse-link-muted-hover(){}

@@ -1,0 +1,305 @@
+// Name:            Table
+// Description:     Styles for tables
+//
+// Component:       `uk-table`
+//
+// Modifiers:       `uk-table-middle`
+//                  `uk-table-divider`
+//                  `uk-table-striped`
+//                  `uk-table-hover`
+//                  `uk-table-small`
+//                  `uk-table-justify`
+//                  `uk-table-shrink`
+//                  `uk-table-expand`
+//                  `uk-table-link`
+//                  `uk-table-responsive`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$table-margin-vertical:                          $global-margin !default;
+
+$table-cell-padding-vertical:                    16px !default;
+$table-cell-padding-horizontal:                  12px !default;
+
+$table-header-cell-font-size:                    $global-font-size !default;
+$table-header-cell-font-weight:                  bold !default;
+$table-header-cell-color:                        $global-color !default;
+
+$table-footer-font-size:                         $global-small-font-size !default;
+
+$table-caption-font-size:                        $global-small-font-size !default;
+$table-caption-color:                            $global-muted-color !default;
+
+$table-row-active-background:                    #ffd !default;
+
+$table-divider-border-width:                     $global-border-width !default;
+$table-divider-border:                           $global-border !default;
+
+$table-striped-row-background:                   $global-muted-background !default;
+
+$table-hover-row-background:                     $table-row-active-background !default;
+
+$table-small-cell-padding-vertical:              10px !default;
+$table-small-cell-padding-horizontal:            12px !default;
+
+$table-expand-min-width:                         300px !default;
+
+
+/* ========================================================================
+   Component: Table
+ ========================================================================== */
+
+/*
+ * 1. Remove most spacing between table cells.
+ * 2. Behave like a block element
+ * 3. Style
+ */
+
+.uk-table {
+    /* 1 */
+    border-collapse: collapse;
+    border-spacing: 0;
+    /* 2 */
+    width: 100%;
+    /* 3 */
+    margin-bottom: $table-margin-vertical;
+}
+
+/* Add margin if adjacent element */
+* + .uk-table { margin-top: $table-margin-vertical; }
+
+
+/* Header cell
+ ========================================================================== */
+
+/*
+ * 1. Style
+ */
+
+.uk-table th {
+    padding: $table-cell-padding-vertical $table-cell-padding-horizontal;
+    text-align: left;
+    vertical-align: bottom;
+    /* 1 */
+    font-size: $table-header-cell-font-size;
+    font-weight: $table-header-cell-font-weight;
+    color: $table-header-cell-color;
+    @if(mixin-exists(hook-table-header-cell)) {@include hook-table-header-cell();}
+}
+
+
+/* Cell
+ ========================================================================== */
+
+.uk-table td {
+    padding: $table-cell-padding-vertical $table-cell-padding-horizontal;
+    vertical-align: top;
+    @if(mixin-exists(hook-table-cell)) {@include hook-table-cell();}
+}
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-table td > :last-child { margin-bottom: 0; }
+
+
+/* Footer
+ ========================================================================== */
+
+.uk-table tfoot {
+    font-size: $table-footer-font-size;
+    @if(mixin-exists(hook-table-footer)) {@include hook-table-footer();}
+}
+
+
+/* Caption
+ ========================================================================== */
+
+.uk-table caption {
+    font-size: $table-caption-font-size;
+    text-align: left;
+    color: $table-caption-color;
+    @if(mixin-exists(hook-table-caption)) {@include hook-table-caption();}
+}
+
+
+/* Row
+ ========================================================================== */
+
+.uk-table > tr.uk-active,
+.uk-table tbody tr.uk-active {
+    background: $table-row-active-background;
+    @if(mixin-exists(hook-table-row-active)) {@include hook-table-row-active();}
+}
+
+
+/* Alignment modifier
+ ========================================================================== */
+
+.uk-table-middle,
+.uk-table-middle td { vertical-align: middle !important; }
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Divider
+ */
+
+.uk-table-divider > tr:not(:first-child),
+.uk-table-divider > :not(:first-child) > tr,
+.uk-table-divider > :first-child > tr:not(:first-child) {
+    border-top: $table-divider-border-width solid $table-divider-border;
+    @if(mixin-exists(hook-table-divider)) {@include hook-table-divider();}
+}
+
+/*
+ * Striped
+ */
+
+.uk-table-striped > tr:nth-of-type(odd),
+.uk-table-striped tbody tr:nth-of-type(odd) {
+    background: $table-striped-row-background;
+    @if(mixin-exists(hook-table-striped)) {@include hook-table-striped();}
+}
+
+/*
+ * Hover
+ */
+
+.uk-table-hover > tr:hover,
+.uk-table-hover tbody tr:hover {
+    background: $table-hover-row-background;
+    @if(mixin-exists(hook-table-hover)) {@include hook-table-hover();}
+}
+
+
+/* Size modifier
+ ========================================================================== */
+
+.uk-table-small th,
+.uk-table-small td {
+    padding: $table-small-cell-padding-vertical $table-small-cell-padding-horizontal;
+    @if(mixin-exists(hook-table-small)) {@include hook-table-small();}
+}
+
+
+/* Justify modifier
+ ========================================================================== */
+
+.uk-table-justify th:first-child,
+.uk-table-justify td:first-child { padding-left: 0; }
+
+.uk-table-justify th:last-child,
+.uk-table-justify td:last-child { padding-right: 0; }
+
+
+/* Cell size modifier
+ ========================================================================== */
+
+.uk-table-shrink { width: 1px; }
+.uk-table-expand { min-width: $table-expand-min-width; }
+
+
+/* Cell link modifier
+ ========================================================================== */
+
+/*
+ * Does not work with `uk-table-justify` at the moment
+ */
+
+.uk-table-link { padding: 0 !important; }
+
+.uk-table-link > a {
+    display: block;
+    padding: $table-cell-padding-vertical $table-cell-padding-horizontal;
+}
+
+.uk-table-small .uk-table-link > a { padding: $table-small-cell-padding-vertical $table-small-cell-padding-horizontal; }
+
+
+/* Responsive table
+ ========================================================================== */
+
+
+/* Phone landscape and smaller */
+@media (max-width: $breakpoint-small-max) {
+
+    .uk-table-responsive,
+    .uk-table-responsive tbody,
+    .uk-table-responsive th,
+    .uk-table-responsive td,
+    .uk-table-responsive tr { display: block; }
+
+    .uk-table-responsive thead { display: none; }
+
+    .uk-table-responsive th,
+    .uk-table-responsive td {
+        width: auto !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        overflow: visible !important;
+        white-space: normal !important;
+    }
+
+    .uk-table-responsive th:not(:first-child):not(.uk-table-link),
+    .uk-table-responsive td:not(:first-child):not(.uk-table-link),
+    .uk-table-responsive .uk-table-link:not(:first-child) > a { padding-top: round($table-cell-padding-vertical / 3) !important; }
+
+    .uk-table-responsive th:not(:last-child):not(.uk-table-link),
+    .uk-table-responsive td:not(:last-child):not(.uk-table-link),
+    .uk-table-responsive .uk-table-link:not(:last-child) > a { padding-bottom: round($table-cell-padding-vertical / 3) !important; }
+
+    .uk-table-justify.uk-table-responsive th,
+    .uk-table-justify.uk-table-responsive td {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-table-misc)) {@include hook-table-misc();}
+
+// @mixin hook-table(){}
+// @mixin hook-table-header-cell(){}
+// @mixin hook-table-cell(){}
+// @mixin hook-table-footer(){}
+// @mixin hook-table-caption(){}
+// @mixin hook-table-row-active(){}
+// @mixin hook-table-divider(){}
+// @mixin hook-table-striped(){}
+// @mixin hook-table-hover(){}
+// @mixin hook-table-small(){}
+// @mixin hook-table-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-table-header-cell-color:                        $inverse-global-color !default;
+$inverse-table-caption-color:                            $inverse-global-muted-color !default;
+$inverse-table-row-active-background:                    fade-out($inverse-global-muted-background, 0.02) !default;
+$inverse-table-divider-border:                           $inverse-global-border !default;
+$inverse-table-striped-row-background:                   $inverse-global-muted-background !default;
+$inverse-table-hover-row-background:                     $inverse-table-row-active-background !default;
+
+
+
+// @mixin hook-inverse-table-header-cell(){}
+// @mixin hook-inverse-table-caption(){}
+// @mixin hook-inverse-table-row-active(){}
+// @mixin hook-inverse-table-divider(){}
+// @mixin hook-inverse-table-striped(){}
+// @mixin hook-inverse-table-hover(){}

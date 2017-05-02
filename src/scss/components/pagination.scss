@@ -1,0 +1,134 @@
+// Name:            Pagination
+// Description:     Component to create a page navigation
+//
+// Component:       `uk-pagination`
+//
+// Adopted:         `uk-pagination-next`
+//                  `uk-pagination-previous`
+//
+// States:          `uk-active`
+//                  `uk-disabled`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$pagination-margin-horizontal:                   20px !default;
+
+$pagination-item-color:                          $global-muted-color !default;
+$pagination-item-hover-color:                    $global-color !default;
+$pagination-item-hover-text-decoration:          none !default;
+$pagination-item-active-color:                   $global-color !default;
+$pagination-item-disabled-color:                 $global-muted-color !default;
+
+
+/* ========================================================================
+   Component: Pagination
+ ========================================================================== */
+
+/*
+ * 1. Allow items to wrap into the next line
+ * 2. Gutter
+ * 3. Reset lists
+ */
+
+.uk-pagination {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    /* 1 */
+    -ms-flex-wrap: wrap;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+    /* 2 */
+    margin-left: (-$pagination-margin-horizontal);
+    /* 3 */
+    padding: 0;
+    list-style: none;
+    @if(mixin-exists(hook-pagination)) {@include hook-pagination();}
+}
+
+/*
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Gutter
+ * 3. Create position context for dropdowns
+ */
+
+.uk-pagination > * {
+    /* 1 */
+    -ms-flex: none;
+    -webkit-flex: none;
+    flex: none;
+    /* 2 */
+    padding-left: $pagination-margin-horizontal;
+    /* 3 */
+    position: relative;
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * 1. Prevent gap if child element is `inline-block`, e.g. an icon
+ * 2. Style
+ */
+
+.uk-pagination > * > * {
+    /* 1 */
+    display: block;
+    /* 2 */
+    color: $pagination-item-color;
+    @if(mixin-exists(hook-pagination-item)) {@include hook-pagination-item();}
+}
+
+/* Hover + Focus */
+.uk-pagination > * > :hover,
+.uk-pagination > * > :focus {
+    color: $pagination-item-hover-color;
+    text-decoration: $pagination-item-hover-text-decoration;
+    @if(mixin-exists(hook-pagination-item-hover)) {@include hook-pagination-item-hover();}
+}
+
+/* Active */
+.uk-pagination > .uk-active > * {
+    color: $pagination-item-active-color;
+    @if(mixin-exists(hook-pagination-item-active)) {@include hook-pagination-item-active();}
+}
+
+/* Disabled */
+.uk-pagination > .uk-disabled > * {
+    color: $pagination-item-disabled-color;
+    @if(mixin-exists(hook-pagination-item-disabled)) {@include hook-pagination-item-disabled();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-pagination-misc)) {@include hook-pagination-misc();}
+
+// @mixin hook-pagination(){}
+// @mixin hook-pagination-item(){}
+// @mixin hook-pagination-item-hover(){}
+// @mixin hook-pagination-item-active(){}
+// @mixin hook-pagination-item-disabled(){}
+// @mixin hook-pagination-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-pagination-item-color:                 $inverse-global-muted-color !default;
+$inverse-pagination-item-hover-color:           $inverse-global-color !default;
+$inverse-pagination-item-active-color:          $inverse-global-color !default;
+$inverse-pagination-item-disabled-color:        $inverse-global-muted-color !default;
+
+
+
+// @mixin hook-inverse-pagination-item(){}
+// @mixin hook-inverse-pagination-item-hover(){}
+// @mixin hook-inverse-pagination-item-active(){}
+// @mixin hook-inverse-pagination-item-disabled(){}

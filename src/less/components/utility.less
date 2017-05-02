@@ -13,10 +13,13 @@
 //                  `uk-preserve-width`
 //                  `uk-border-*`
 //                  `uk-box-shadow-*`
+//                  `uk-box-shadow-bottom`
 //                  `uk-dropcap`
+//                  `uk-leader`
 //                  `uk-logo`
 //                  `uk-svg`
 //                  `uk-blend-*`
+//                  `uk-transform-*`
 //                  `uk-transform-origin-*`
 //
 // States:          `uk-disabled`
@@ -43,8 +46,16 @@
 
 @box-shadow-duration:                           0.1s;
 
+@box-shadow-bottom-height:                           30px;
+@box-shadow-bottom-border-radius:                    100%;
+@box-shadow-bottom-background:                       #444;
+@box-shadow-bottom-blur:                             20px;
+
 @dropcap-margin-right:                          10px;
 @dropcap-font-size:                             ((@global-line-height * 3) * 1em);
+
+@leader-fill-content:                           '.';
+@leader-fill-margin-left:                       @global-small-gutter;
 
 @logo-font-size:                                @global-large-font-size;
 @logo-font-family:                              @global-font-family;
@@ -316,6 +327,47 @@
 .uk-box-shadow-hover-xlarge:hover { box-shadow: @global-xlarge-box-shadow; }
 
 
+/* Box-shadow bottom
+ ========================================================================== */
+
+/*
+ * 1. Set position.
+ * 2. Set style
+ * 3. Blur doesn't work on pseudo elements with negative `z-index` in Edge.
+ *    Solved by using `before` and add position context to child elements.
+ */
+
+@supports (filter: blur(0)) or (-webkit-filter: blur(0)) {
+
+    .uk-box-shadow-bottom {
+        display: inline-block;
+        position: relative;
+        max-width: 100%;
+        vertical-align: middle;
+    }
+
+    .uk-box-shadow-bottom::before {
+        content: '';
+        /* 1 */
+        position: absolute;
+        bottom: -@box-shadow-bottom-height;
+        left: 0;
+        right: 0;
+        /* 2 */
+        height: @box-shadow-bottom-height;
+        border-radius: @box-shadow-bottom-border-radius;
+        background: @box-shadow-bottom-background;
+        -webkit-filter: blur(@box-shadow-bottom-blur);
+        filter: blur(@box-shadow-bottom-blur);
+        .hook-box-shadow-bottom;
+    }
+
+    /* 3 */
+    .uk-box-shadow-bottom > * { position: relative; }
+
+}
+
+
 /* Drop cap
  ========================================================================== */
 
@@ -328,6 +380,41 @@
     line-height: 1;
     .hook-dropcap;
 }
+
+
+/* Leader
+ ========================================================================== */
+
+.uk-leader { overflow: hidden; }
+
+/*
+ * 1. Place element in text flow
+ * 2. Never break into a new line
+ * 3. Get a string back with as many repeating characters to fill the container
+ * 4. Prevent wrapping. Overflowing characters will be clipped by the container
+ */
+
+.uk-leader-fill::after {
+    /* 1 */
+    display: inline-block;
+    margin-left: @leader-fill-margin-left;
+    /* 2 */
+    width: 0;
+    /* 3 */
+    content: attr(data-fill);
+    /* 4 */
+    white-space: nowrap;
+    .hook-leader;
+}
+
+/*
+ * Hide if media does not match
+ */
+
+.uk-leader-fill.uk-leader-hide::after { display: none; }
+
+/* Pass fill character to JS */
+.var-leader-fill:before { content: @leader-fill-content; }
 
 
 /* Logo
@@ -432,6 +519,15 @@
 .uk-blend-luminosity { mix-blend-mode: luminosity; }
 
 
+/* Transform
+========================================================================== */
+
+.uk-transform-center {
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+
 /* Transform Origin
 ========================================================================== */
 
@@ -482,7 +578,9 @@
 .hook-utility-misc;
 
 .hook-panel-scrollable() {}
+.hook-box-shadow-bottom() {}
 .hook-dropcap() {}
+.hook-leader() {}
 .hook-logo() {}
 .hook-logo-hover() {}
 .hook-utility-misc() {}
@@ -499,6 +597,10 @@
     .uk-dropcap::first-letter,
     .uk-dropcap p:first-of-type::first-letter {
         .hook-inverse-dropcap;
+    }
+
+    .uk-leader-fill {
+        .hook-inverse-leader;
     }
 
     .uk-logo {
@@ -518,5 +620,6 @@
 }
 
 .hook-inverse-dropcap() {}
+.hook-inverse-leader() {}
 .hook-inverse-logo() {}
 .hook-inverse-logo-hover() {}

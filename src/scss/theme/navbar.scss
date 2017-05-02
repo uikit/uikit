@@ -1,0 +1,132 @@
+//
+// Component: Navbar
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$navbar-nav-item-font-size:                      $global-small-font-size !default;
+
+$navbar-dropdown-margin:                         15px !default;
+$navbar-dropdown-padding:                        25px !default;
+$navbar-dropdown-background:                     $global-background !default;
+$navbar-dropdown-grid-gutter-horizontal:         ($navbar-dropdown-padding * 2) !default;
+
+//
+// New
+//
+
+$navbar-nav-item-text-transform:                 uppercase !default;
+
+$navbar-dropdown-nav-font-size:                  $global-small-font-size !default;
+
+$navbar-dropdown-box-shadow:                     0 5px 12px rgba(0,0,0,0.15) !default;
+
+$navbar-dropdown-grid-divider-border-width:      $global-border-width !default;
+$navbar-dropdown-grid-divider-border:            $navbar-dropdown-nav-divider-border !default;
+
+
+// Component
+// ========================================================================
+
+// @mixin hook-navbar(){}
+
+
+// Container
+// ========================================================================
+
+// @mixin hook-navbar-container(){}
+
+
+// Nav
+// ========================================================================
+
+
+
+// @mixin hook-navbar-nav-item-hover(){}
+
+// @mixin hook-navbar-nav-item-onclick(){}
+
+// @mixin hook-navbar-nav-item-active(){}
+
+
+// Item
+// ========================================================================
+
+// @mixin hook-navbar-item(){}
+
+
+// Toggle
+// ========================================================================
+
+// @mixin hook-navbar-toggle(){}
+
+// @mixin hook-navbar-toggle-hover(){}
+
+// @mixin hook-navbar-toggle-icon(){}
+
+// @mixin hook-navbar-toggle-icon-hover(){}
+
+
+// Subtitle
+// ========================================================================
+
+// @mixin hook-navbar-subtitle(){}
+
+
+// Style modifiers
+// ========================================================================
+
+// @mixin hook-navbar-transparent(){}
+
+// @mixin hook-navbar-sticky(){}
+
+
+// Dropdown
+// ========================================================================
+
+
+
+
+
+
+// Dropdown nav
+// ========================================================================
+
+
+
+// @mixin hook-navbar-dropdown-nav-item(){}
+
+// @mixin hook-navbar-dropdown-nav-item-hover(){}
+
+// @mixin hook-navbar-dropdown-nav-header(){}
+
+// @mixin hook-navbar-dropdown-nav-divider(){}
+
+
+// Dropbar
+// ========================================================================
+
+// @mixin hook-navbar-dropbar(){}
+
+
+// Miscellaneous
+// ========================================================================
+
+
+
+
+// Inverse
+// ========================================================================
+
+// @mixin hook-inverse-navbar-nav-item(){}
+// @mixin hook-inverse-navbar-nav-item-hover(){}
+// @mixin hook-inverse-navbar-nav-item-onclick(){}
+// @mixin hook-inverse-navbar-nav-item-active(){}
+
+// @mixin hook-inverse-navbar-item(){}
+
+// @mixin hook-inverse-navbar-toggle(){}
+// @mixin hook-inverse-navbar-toggle-hover(){}

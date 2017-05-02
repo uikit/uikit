@@ -43,14 +43,13 @@ export default function (UIkit) {
     };
 
     UIkit.prototype.$updateSync = function (e, parents) {
-        UIkit.update(createEvent(e || 'update', true, false, {sync: true}), this.$el, parents);
+        this.$update(createEvent(e || 'update', true, false, {sync: true}), parents);
     };
 
     UIkit.prototype.$reset = function (data) {
         this._callDisconnected();
         this._initProps(data);
         this._callConnected();
-        this._callUpdate();
     };
 
     UIkit.prototype.$destroy = function (remove = false) {

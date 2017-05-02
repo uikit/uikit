@@ -42,8 +42,16 @@ export function position(element, target, attach, targetAttach, offset, targetOf
                 return;
             }
 
-            var elemOffset = attach[dir] === align ? -dim[prop] : attach[dir] === alignFlip ? dim[prop] : 0,
-                targetOffset = targetAttach[dir] === align ? targetDim[prop] : targetAttach[dir] === alignFlip ? -targetDim[prop] : 0;
+            var elemOffset = attach[dir] === align
+                    ? -dim[prop]
+                    : attach[dir] === alignFlip
+                        ? dim[prop]
+                        : 0,
+                targetOffset = targetAttach[dir] === align
+                    ? targetDim[prop]
+                    : targetAttach[dir] === alignFlip
+                        ? -targetDim[prop]
+                        : 0;
 
             if (position[align] < boundary[align] || position[align] + dim[prop] > boundary[alignFlip]) {
 
@@ -87,15 +95,15 @@ export function getDimensions(element) {
         }
     }
 
-    var display;
+    var display = false;
     if (!element.offsetHeight) {
-        display = getComputedStyle(element).display;
+        display = element.style.display;
         element.style.display = 'block';
     }
 
     var rect = element.getBoundingClientRect();
 
-    if (display) {
+    if (display !== false) {
         element.style.display = display;
     }
 

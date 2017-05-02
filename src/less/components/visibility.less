@@ -7,6 +7,8 @@
 //                  `uk-visible-toggle`
 //                  `uk-hidden-hover`
 //                  `uk-invisible-hover`
+//                  `uk-invisible-touch`
+//                  `uk-invisible-notouch`
 //
 // ========================================================================
 
@@ -99,6 +101,31 @@
 /* Invisible */
 .uk-visible-toggle:not(:hover):not(.uk-hover) .uk-invisible-hover { visibility: hidden !important; }
 
+
+/* Touch
+ ========================================================================== */
+
+/*
+ * Hide if primary pointing device has limited accuracy, e.g. a touch screen.
+ * Works on mobile browsers: Safari, Chrome and Android browser
+ */
+
+@media (pointer: coarse) {
+    .uk-hidden-touch { display: none !important; }
+}
+
+/*
+ * Hide if primary pointing device is accurate, e.g. mouse.
+ * 1. Fallback for IE11 and Firefox, because `pointer` is not supported
+ * 2. Reset if supported
+ */
+
+/* 1 */
+.uk-hidden-notouch { display: none !important; }
+
+@media (pointer: coarse) {
+    .uk-hidden-notouch { display: block !important; }
+}
 
 
 // Hooks

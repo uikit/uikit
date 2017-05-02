@@ -1,0 +1,116 @@
+//
+// Component: Base
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+//
+// New
+//
+
+$base-code-padding-horizontal:                   6px !default;
+$base-code-padding-vertical:                     2px !default;
+$base-code-background:                           $global-muted-background !default;
+
+$base-blockquote-color:                          $global-emphasis-color !default;
+
+$base-blockquote-footer-color:                   $global-color !default;
+
+$base-pre-padding:                               10px !default;
+$base-pre-background:                            $global-background !default;
+$base-pre-border-width:                          $global-border-width !default;
+$base-pre-border:                                $global-border !default;
+$base-pre-border-radius:                         3px !default;
+
+
+// Body
+// ========================================================================
+
+// @mixin hook-base-body(){}
+
+
+// Links
+// ========================================================================
+
+// @mixin hook-base-link(){}
+
+// @mixin hook-base-link-hover(){}
+
+
+// Text-level semantics
+// ========================================================================
+
+
+
+
+// Headings
+// ========================================================================
+
+// @mixin hook-base-heading(){}
+
+// @mixin hook-base-h1(){}
+
+// @mixin hook-base-h2(){}
+
+// @mixin hook-base-h3(){}
+
+// @mixin hook-base-h4(){}
+
+// @mixin hook-base-h5(){}
+
+// @mixin hook-base-h6(){}
+
+
+// Horizontal rules
+// ========================================================================
+
+// @mixin hook-base-hr(){}
+
+
+// Blockquotes
+// ========================================================================
+
+
+
+
+
+
+// Preformatted text
+// ========================================================================
+
+
+
+
+// Miscellaneous
+// ========================================================================
+
+// @mixin hook-base-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-base-blockquote-color:                 $inverse-global-emphasis-color !default;
+$inverse-base-blockquote-footer-color:          $inverse-global-color !default;
+
+// @mixin hook-inverse-base-link(){}
+// @mixin hook-inverse-base-link-hover(){}
+
+
+
+// @mixin hook-inverse-base-heading(){}
+
+// @mixin hook-inverse-base-h1(){}
+// @mixin hook-inverse-base-h2(){}
+// @mixin hook-inverse-base-h3(){}
+// @mixin hook-inverse-base-h4(){}
+// @mixin hook-inverse-base-h5(){}
+// @mixin hook-inverse-base-h6(){}
+
+
+
+
+// @mixin hook-inverse-base-hr(){}

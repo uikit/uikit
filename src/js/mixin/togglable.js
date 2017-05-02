@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, Animation, extend, promise, Transition } from '../util/index';
+import { $, Animation, Event, extend, promise, requestAnimationFrame, Transition } from '../util/index';
 
 export default {
 
@@ -56,28 +56,28 @@ export default {
 
         toggleElement(targets, show, animate) {
 
-            var queued = this.queued && this.hasAnimation, toggles, body = document.body, scroll = body.scrollTop,
+            var toggles, body = document.body, scroll = body.scrollTop,
                 all = targets => promise.all(targets.toArray().map(el => this._toggleElement(el, show, animate))).then(null, () => {}),
                 delay = targets => {
                     var def = all(targets);
-                    queued = true;
+                    this._queued = null;
                     body.scrollTop = scroll;
                     return def;
                 };
 
             targets = $(targets);
 
-            if (!queued || targets.length < 2) {
+            if (!this.hasAnimation || !this.queued || targets.length < 2) {
                 return all(targets);
             }
 
-            if (queued !== true) {
-                return delay(targets.not(queued));
+            if (this._queued) {
+                return delay(targets.not(this._queued));
             }
 
-            queued = targets.not(toggles = targets.filter((_, el) => this.isToggled(el)));
+            this._queued = targets.not(toggles = targets.filter((_, el) => this.isToggled(el)));
 
-            return all(toggles).then(() => queued !== true && delay(queued));
+            return all(toggles).then(() => this._queued && delay(this._queued));
         },
 
         toggleNow(targets, show) {
@@ -85,7 +85,7 @@ export default {
         },
 
         isToggled(el) {
-            el = $(el);
+            el = el && $(el) || this.$el;
             return this.cls ? el.hasClass(this.cls.split(' ')[0]) : !el.attr('hidden');
         },
 
@@ -105,7 +105,7 @@ export default {
 
             show = typeof show === 'boolean' ? show : !this.isToggled(el);
 
-            var event = $.Event(`before${show ? 'show' : 'hide'}`);
+            var event = Event(`before${show ? 'show' : 'hide'}`);
             el.trigger(event, [this]);
 
             if (event.result === false) {
@@ -113,10 +113,10 @@ export default {
             }
 
             var def = (animate === false || !this.hasAnimation
-                    ? this._toggleImmediate
-                    : this.hasTransition
-                        ? this._toggleHeight
-                        : this._toggleAnimation
+                ? this._toggleImmediate
+                : this.hasTransition
+                    ? this._toggleHeight
+                    : this._toggleAnimation
             )(el, show);
 
             el.trigger(show ? 'show' : 'hide', [this]);
@@ -157,16 +157,24 @@ export default {
                     this._toggle(el, true);
                 }
 
-                el.css('height', '');
-                endHeight = el.height() + (inProgress ? 0 : inner);
-                el.height(height);
+                el.height('');
 
-                return show
-                    ? Transition.start(el, extend(this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
-                    : Transition.start(el, this.hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
-                            this._toggle(el, false);
-                            el.css(this.initProps);
-                        });
+                return promise(resolve =>
+                    // Allow for child components to update first
+                    requestAnimationFrame(() => {
+
+                        endHeight = el.height() + (inProgress ? 0 : inner);
+                        el.height(height);
+
+                        (show
+                            ? Transition.start(el, extend(this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
+                            : Transition.start(el, this.hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
+                                this._toggle(el, false);
+                                el.css(this.initProps);
+                            })).then(resolve);
+
+                    })
+                );
 
             });
 

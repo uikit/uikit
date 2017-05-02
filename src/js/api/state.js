@@ -1,4 +1,4 @@
-import { bind, camelize, coerce, extend, hasOwn, hyphenate, isArray, isFunction, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer } from '../util/index';
+import { bind, camelize, coerce, extend, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer } from '../util/index';
 
 export default function (UIkit) {
 
@@ -93,6 +93,7 @@ export default function (UIkit) {
         var events = this.$options.events;
 
         if (events) {
+
             events.forEach(event => {
 
                 if (!hasOwn(event, 'handler')) {
@@ -113,26 +114,24 @@ export default function (UIkit) {
             return;
         }
 
-        this._observer = new Observer(mutations => {
+        var attrs = (isArray(this.$options.attrs)
+            ? this.$options.attrs
+            : Object.keys(this.$options.props).map(key => hyphenate(key))
+        );
 
-            var data = this._getProps(true),
-                changed = mutations
-                    .map(mutation => camelize(mutation.attributeName))
-                    .some(key => !equals(data[key], this.$props[key]));
+        this._observer = new Observer(() => {
 
-            if (changed) {
+            var data = this._getProps();
+            if (attrs.some(key => !equals(data[key], this.$props[key]))) {
                 this.$reset(data);
             }
 
         });
 
-        this._observer.observe(this.$options.el, {
-            attributes: true,
-            attributeFilter: Object.keys(this.$options.props).map(key => hyphenate(key))
-        });
+        this._observer.observe(this.$options.el, {attributes: true, attributeFilter: attrs.concat([this.$name, `data-${this.$name}`])});
     };
 
-    UIkit.prototype._getProps = function (attrs = false) {
+    UIkit.prototype._getProps = function () {
 
         var data = {},
             el = this.$el[0],
@@ -159,7 +158,7 @@ export default function (UIkit) {
             }
         }
 
-        if (attrs || !options) {
+        if (!options) {
             return data;
         }
 
@@ -222,11 +221,12 @@ function registerEvent(component, unbind, event, key) {
         event = ({name: key, handler: event});
     }
 
-    var {name, el, delegate, self, filter, handler} = event;
+    var {name, el, delegate, self, filter, handler} = event,
+        namespace = `.${component.$options.name}.${component._uid}`;
 
     el = el && el.call(component) || component.$el;
 
-    name += `.${component.$options.name}.${component._uid}`;
+    name = name.split(' ').map(name => `${name}.${namespace}`).join(' ');
 
     if (unbind) {
 
@@ -241,15 +241,7 @@ function registerEvent(component, unbind, event, key) {
         handler = isString(handler) ? component[handler] : bind(handler, component);
 
         if (self) {
-            var fn = handler;
-            handler = (e) => {
-
-                if (!el.is(e.target)) {
-                    return;
-                }
-
-                return fn.call(component, e);
-            }
+            handler = selfFilter(handler, component);
         }
 
         if (delegate) {
@@ -259,6 +251,14 @@ function registerEvent(component, unbind, event, key) {
         }
     }
 
+}
+
+function selfFilter(handler, context) {
+    return function selfHandler (e) {
+        if (e.target === e.currentTarget) {
+            return handler.call(context, e)
+        }
+    }
 }
 
 function notIn(options, key) {

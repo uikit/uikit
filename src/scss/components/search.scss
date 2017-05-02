@@ -1,0 +1,375 @@
+// Name:            Search
+// Description:     Component to create the search
+//
+// Component:       `uk-search`
+//
+// Sub-objects:     `uk-search-input`
+//                  `uk-search-toggle`
+//
+// Adopted:         `uk-search-icon`
+//
+// Modifier:        `uk-search-default`
+//                  `uk-search-navbar`
+//                  `uk-search-large`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$search-color:                                       $global-color !default;
+$search-placeholder-color:                           $global-muted-color !default;
+
+$search-icon-color:                                  $global-muted-color !default;
+
+$search-default-width:                               180px !default;
+$search-default-height:                              $global-control-height !default;
+$search-default-padding-horizontal:                  6px !default;
+$search-default-background:                          $global-muted-background !default;
+$search-default-focus-background:                    $search-default-background !default;
+
+$search-default-icon-width:                          $global-control-height !default;
+
+$search-navbar-width:                                400px !default;
+$search-navbar-height:                               40px !default;
+$search-navbar-background:                           transparent !default;
+$search-navbar-font-size:                            $global-large-font-size !default;
+
+$search-navbar-icon-width:                           40px !default;
+
+$search-large-width:                                 500px !default;
+$search-large-height:                                80px !default;
+$search-large-background:                            transparent !default;
+$search-large-font-size:                             $global-xxlarge-font-size !default;
+
+$search-large-icon-width:                            80px !default;
+
+$search-toggle-color:                                $global-muted-color !default;
+$search-toggle-hover-color:                          $global-color !default;
+
+
+/* ========================================================================
+   Component: Search
+ ========================================================================== */
+
+/*
+ * 1. Container fits its content
+ * 2. Create position context
+ * 3. Prevent content overflow
+ * 4. Reset `form`
+ */
+
+.uk-search {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    max-width: 100%;
+    /* 4 */
+    margin: 0;
+}
+
+
+/* Input
+ ========================================================================== */
+
+/*
+ * Remove the inner padding and cancel buttons in Chrome on OS X and Safari on OS X.
+ */
+
+.uk-search-input::-webkit-search-cancel-button,
+.uk-search-input::-webkit-search-decoration { -webkit-appearance: none; }
+
+/*
+ * Removes placeholder transparency in Firefox.
+ */
+
+.uk-search-input::-moz-placeholder { opacity: 1; }
+
+/*
+ * 1. Define consistent box sizing.
+ * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
+ * 3. Remove `border-radius` in iOS.
+ * 4. Change font properties to `inherit` in all browsers
+ * 5. Show the overflow in Edge.
+ * 6. Remove default style in iOS.
+ * 7. Vertical alignment
+ * 8. Take the full container width
+ * 9. Style
+ */
+
+.uk-search-input {
+    /* 1 */
+    box-sizing: border-box;
+    /* 2 */
+    margin: 0;
+    /* 3 */
+    border-radius: 0;
+    /* 4 */
+    font: inherit;
+    /* 5 */
+    overflow: visible;
+    /* 6 */
+    -webkit-appearance: none;
+    /* 7 */
+    vertical-align: middle;
+    /* 8 */
+    width: 100%;
+    /* 9 */
+    border: none;
+    color: $search-color;
+    @if(mixin-exists(hook-search-input)) {@include hook-search-input();}
+}
+
+.uk-search-input:focus { outline: 0; }
+
+/* Placeholder */
+.uk-search-input:-ms-input-placeholder { color: $search-placeholder-color !important; }
+.uk-search-input::-moz-placeholder { color: $search-placeholder-color; }
+.uk-search-input::-webkit-input-placeholder { color: $search-placeholder-color; }
+
+
+/* Icon
+ ========================================================================== */
+
+/*
+ * Adopts `uk-icon`
+ * Required for `button`
+ * 1. Remove margins in Chrome, Safari and Opera.
+ * 2. Remove borders for `button`.
+ * 3. Address `overflow` set to `hidden` in IE.
+ * 4. Correct `font` properties and `color` not being inherited for `button`.
+ * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 6. Remove default `button` padding and background color
+ * 7. Required for `button`.
+ */
+
+.uk-search-icon {
+    /* 1 */
+    margin: 0;
+    /* 2 */
+    border: none;
+    /* 3 */
+    overflow: visible;
+    /* 4 */
+    font: inherit;
+    color: inherit;
+    /* 5 */
+    text-transform: none;
+    /* 6. */
+    padding: 0;
+    background-color: transparent;
+    /* 7 */
+    cursor: pointer;
+}
+
+/*
+ * Remove the inner border and padding in Firefox. Required for `button`.
+ */
+
+.uk-search-icon::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+/*
+ * Remove default focus style
+ */
+
+.uk-search-icon:focus { outline: none; }
+
+/*
+ * Position above input
+ * 1. Set position
+ * 2. Center icon vertically and horizontally
+ * 3. Style
+ */
+
+.uk-search .uk-search-icon {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    /* 2 */
+    display: -ms-inline-flexbox;
+    display: -webkit-inline-flex;
+    display: inline-flex;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    /* 3 */
+    color: $search-icon-color;
+}
+
+/*
+ * Required for `a`.
+ */
+
+.uk-search .uk-search-icon:hover { color: $search-icon-color; }
+
+/*
+ * Make `input` element clickable through icon, e.g. if it's a `span`
+ */
+
+.uk-search .uk-search-icon:not(a):not(button):not(input) { pointer-events: none; }
+
+/*
+ * Position modifier
+ */
+
+.uk-search .uk-search-icon-flip {
+    right: 0;
+    left: auto;
+}
+
+
+/* Default modifier
+ ========================================================================== */
+
+.uk-search-default { width: $search-default-width; }
+
+/*
+ * Input
+ */
+
+.uk-search-default .uk-search-input {
+    height: $search-default-height;
+    padding-left: $search-default-padding-horizontal;
+    padding-right: $search-default-padding-horizontal;
+    background: $search-default-background;
+    @if(mixin-exists(hook-search-default-input)) {@include hook-search-default-input();}
+}
+
+/* Focus */
+.uk-search-default .uk-search-input:focus {
+    background-color: $search-default-focus-background;
+    @if(mixin-exists(hook-search-default-input-focus)) {@include hook-search-default-input-focus();}
+}
+
+/*
+ * Icon
+ */
+
+.uk-search-default .uk-search-icon { width: $search-default-icon-width; }
+
+.uk-search-default .uk-search-icon:not(.uk-search-icon-flip) + .uk-search-input { padding-left: ($search-default-icon-width); }
+.uk-search-default .uk-search-icon-flip + .uk-search-input { padding-right: ($search-default-icon-width); }
+
+
+/* Navbar modifier
+ ========================================================================== */
+
+.uk-search-navbar { width: $search-navbar-width; }
+
+/*
+ * Input
+ */
+
+.uk-search-navbar .uk-search-input {
+    height: $search-navbar-height;
+    background: $search-navbar-background;
+    font-size: $search-navbar-font-size;
+    @if(mixin-exists(hook-search-navbar-input)) {@include hook-search-navbar-input();}
+}
+
+/*
+ * Icon
+ */
+
+.uk-search-navbar .uk-search-icon { width: $search-navbar-icon-width; }
+
+.uk-search-navbar .uk-search-icon:not(.uk-search-icon-flip) + .uk-search-input { padding-left: ($search-navbar-icon-width); }
+.uk-search-navbar .uk-search-icon-flip + .uk-search-input { padding-right: ($search-navbar-icon-width); }
+
+
+/* Large modifier
+ ========================================================================== */
+
+.uk-search-large { width: $search-large-width; }
+
+/*
+ * Input
+ */
+
+.uk-search-large .uk-search-input {
+    height: $search-large-height;
+    background: $search-large-background;
+    font-size: $search-large-font-size;
+    @if(mixin-exists(hook-search-large-input)) {@include hook-search-large-input();}
+}
+
+/*
+ * Icon
+ */
+
+.uk-search-large .uk-search-icon { width: $search-large-icon-width; }
+
+.uk-search-large .uk-search-icon:not(.uk-search-icon-flip) + .uk-search-input { padding-left: ($search-large-icon-width); }
+.uk-search-large .uk-search-icon-flip + .uk-search-input { padding-right: ($search-large-icon-width); }
+
+
+/* Toggle
+ ========================================================================== */
+
+.uk-search-toggle {
+    color: $search-toggle-color;
+    @if(mixin-exists(hook-search-toggle)) {@include hook-search-toggle();}
+}
+
+/* Hover + Focus */
+.uk-search-toggle:hover,
+.uk-search-toggle:focus {
+    color: $search-toggle-hover-color;
+    @if(mixin-exists(hook-search-toggle-hover)) {@include hook-search-toggle-hover();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-search-misc)) {@include hook-search-misc();}
+
+// @mixin hook-search-input(){}
+// @mixin hook-search-default-input(){}
+// @mixin hook-search-default-input-focus(){}
+// @mixin hook-search-navbar-input(){}
+// @mixin hook-search-large-input(){}
+
+// @mixin hook-search-toggle(){}
+// @mixin hook-search-toggle-hover(){}
+
+// @mixin hook-search-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-search-color:                          $inverse-global-color !default;
+$inverse-search-placeholder-color:              $inverse-global-muted-color !default;
+
+$inverse-search-icon-color:                     $inverse-global-muted-color !default;
+
+$inverse-search-default-background:             $inverse-global-muted-background !default;
+$inverse-search-default-focus-background:       $inverse-search-default-background !default;
+
+$inverse-search-navbar-background:              transparent !default;
+
+$inverse-search-large-background:               transparent !default;
+
+$inverse-search-toggle-color:                   $inverse-global-muted-color !default;
+$inverse-search-toggle-hover-color:             $inverse-global-color !default;
+
+
+
+// @mixin hook-inverse-search-default-input(){}
+// @mixin hook-inverse-search-default-input-focus(){}
+// @mixin hook-inverse-search-navbar-input(){}
+// @mixin hook-inverse-search-large-input(){}
+// @mixin hook-inverse-search-toggle(){}
+// @mixin hook-inverse-search-toggle-hover(){}

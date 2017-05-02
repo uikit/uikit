@@ -14,10 +14,6 @@ export default function (UIkit) {
             firstColumn: 'uk-first-column'
         },
 
-        connected() {
-            this.$emit();
-        },
-
         update: {
 
             read() {
@@ -86,7 +82,7 @@ export default function (UIkit) {
 
             },
 
-            events: ['load', 'resize', 'orientationchange']
+            events: ['load', 'resize']
 
         }
 

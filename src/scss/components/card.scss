@@ -1,0 +1,363 @@
+// Name:            Card
+// Description:     Component to create boxed content containers
+//
+// Component:       `uk-card`
+//
+// Sub-objects:     `uk-card-body`
+//                  `uk-card-header`
+//                  `uk-card-footer`
+//                  `uk-card-media-*`
+//                  `uk-card-title`
+//                  `uk-card-badge`
+//
+// Modifiers:       `uk-card-hover`
+//                  `uk-card-default`
+//                  `uk-card-primary`
+//                  `uk-card-secondary`
+//                  `uk-card-small`
+//                  `uk-card-large`
+//
+// Uses:            `uk-grid-stack`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$card-body-padding-horizontal:                  $global-gutter !default;
+$card-body-padding-vertical:                    $global-gutter !default;
+
+$card-body-padding-horizontal-l:                $global-medium-gutter !default;
+$card-body-padding-vertical-l:                  $global-medium-gutter !default;
+
+$card-header-padding-horizontal:                $global-gutter !default;
+$card-header-padding-vertical:                  round($global-gutter / 2) !default;
+
+$card-header-padding-horizontal-l:              $global-medium-gutter !default;
+$card-header-padding-vertical-l:                round($global-medium-gutter / 2) !default;
+
+$card-footer-padding-horizontal:                $global-gutter !default;
+$card-footer-padding-vertical:                  ($global-gutter / 2) !default;
+
+$card-footer-padding-horizontal-l:              $global-medium-gutter !default;
+$card-footer-padding-vertical-l:                round($global-medium-gutter / 2) !default;
+
+$card-title-font-size:                          $global-large-font-size !default;
+$card-title-line-height:                        1.4 !default;
+
+$card-badge-top:                                $global-gutter !default;
+$card-badge-right:                              $card-badge-top !default;
+
+$card-hover-background:                         $global-muted-background !default;
+
+$card-default-background:                       $global-muted-background !default;
+$card-default-color:                            $global-color !default;
+$card-default-title-color:                      $global-emphasis-color !default;
+$card-default-hover-background:                 darken($card-default-background, 5%) !default;
+
+$card-primary-background:                       $global-primary-background !default;
+$card-primary-color:                            $global-inverse-color !default;
+$card-primary-title-color:                      $card-primary-color !default;
+$card-primary-hover-background:                 darken($card-primary-background, 5%) !default;
+$card-primary-color-mode:                       light !default;
+
+$card-secondary-background:                     $global-secondary-background !default;
+$card-secondary-color:                          $global-inverse-color !default;
+$card-secondary-title-color:                    $card-secondary-color !default;
+$card-secondary-hover-background:               darken($card-secondary-background, 5%) !default;
+$card-secondary-color-mode:                     light !default;
+
+$card-small-body-padding-horizontal:            $global-margin !default;
+$card-small-body-padding-vertical:              $global-margin !default;
+$card-small-header-padding-horizontal:          $global-margin !default;
+$card-small-header-padding-vertical:            round($global-margin / 1.5) !default;
+$card-small-footer-padding-horizontal:          $global-margin !default;
+$card-small-footer-padding-vertical:            round($global-margin / 1.5) !default;
+
+$card-large-body-padding-horizontal-l:          $global-large-gutter !default;
+$card-large-body-padding-vertical-l:            $global-large-gutter !default;
+$card-large-header-padding-horizontal-l:        $global-large-gutter !default;
+$card-large-header-padding-vertical-l:          round($global-large-gutter / 2) !default;
+$card-large-footer-padding-horizontal-l:        $global-large-gutter !default;
+$card-large-footer-padding-vertical-l:          round($global-large-gutter / 2) !default;
+
+
+/* ========================================================================
+   Component: Card
+ ========================================================================== */
+
+.uk-card {
+    position: relative;
+    box-sizing: border-box;
+    @if(mixin-exists(hook-card)) {@include hook-card();}
+}
+
+
+/* Sections
+ ========================================================================== */
+
+.uk-card-body {
+    padding: $card-body-padding-vertical $card-body-padding-horizontal;
+    @if(mixin-exists(hook-card-body)) {@include hook-card-body();}
+}
+
+.uk-card-header {
+    padding: $card-header-padding-vertical $card-header-padding-horizontal;
+    @if(mixin-exists(hook-card-header)) {@include hook-card-header();}
+}
+
+.uk-card-footer {
+    padding: $card-footer-padding-vertical $card-footer-padding-horizontal;
+    @if(mixin-exists(hook-card-footer)) {@include hook-card-footer();}
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-card-body { padding: $card-body-padding-vertical-l $card-body-padding-horizontal-l; }
+
+    .uk-card-header { padding: $card-header-padding-vertical-l $card-header-padding-horizontal-l; }
+
+    .uk-card-footer { padding: $card-footer-padding-vertical-l $card-footer-padding-horizontal-l; }
+
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-card-body::before,
+.uk-card-body::after,
+.uk-card-header::before,
+.uk-card-header::after,
+.uk-card-footer::before,
+.uk-card-footer::after {
+    content: "";
+    display: table;
+}
+
+.uk-card-body::after,
+.uk-card-header::after,
+.uk-card-footer::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-card-body > :last-child,
+.uk-card-header > :last-child,
+.uk-card-footer > :last-child { margin-bottom: 0; }
+
+
+/* Media
+ ========================================================================== */
+
+/*
+ * Reserved alignment modifier to style the media element, e.g. with `border-radius`
+ * Implemented by the theme
+ */
+
+[class*='uk-card-media'] {
+    @if(mixin-exists(hook-card-media)) {@include hook-card-media();}
+}
+
+.uk-card-media-top,
+.uk-grid-stack > .uk-card-media-left,
+.uk-grid-stack > .uk-card-media-right  {
+    @if(mixin-exists(hook-card-media-top)) {@include hook-card-media-top();}
+}
+
+.uk-card-media-bottom {
+    @if(mixin-exists(hook-card-media-bottom)) {@include hook-card-media-bottom();}
+}
+
+:not(.uk-grid-stack) > .uk-card-media-left {
+    @if(mixin-exists(hook-card-media-left)) {@include hook-card-media-left();}
+}
+
+:not(.uk-grid-stack) > .uk-card-media-right {
+    @if(mixin-exists(hook-card-media-right)) {@include hook-card-media-right();}
+}
+
+
+/* Title
+ ========================================================================== */
+
+.uk-card-title {
+    font-size: $card-title-font-size;
+    line-height: $card-title-line-height;
+    @if(mixin-exists(hook-card-title)) {@include hook-card-title();}
+}
+
+
+/* Badge
+ ========================================================================== */
+
+.uk-card-badge {
+    position: absolute;
+    top: $card-badge-top;
+    right: $card-badge-right;
+    z-index: 1;
+    @if(mixin-exists(hook-card-badge)) {@include hook-card-badge();}
+}
+
+/*
+ * Remove margin from adjacent element
+ */
+
+.uk-card-badge:first-child + * { margin-top: 0; }
+
+
+/* Hover modifier
+ ========================================================================== */
+
+.uk-card-hover:not(.uk-card-default):not(.uk-card-primary):not(.uk-card-secondary):hover {
+    background: $card-hover-background;
+    @if(mixin-exists(hook-card-hover)) {@include hook-card-hover();}
+}
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Default
+ * Note: Header and Footer are only implemented for the default style
+ */
+
+.uk-card-default {
+    background: $card-default-background;
+    color: $card-default-color;
+    @if(mixin-exists(hook-card-default)) {@include hook-card-default();}
+}
+
+.uk-card-default .uk-card-title {
+    color: $card-default-title-color;
+    @if(mixin-exists(hook-card-default-title)) {@include hook-card-default-title();}
+}
+
+.uk-card-default.uk-card-hover:hover {
+    background-color: $card-default-hover-background;
+    @if(mixin-exists(hook-card-default-hover)) {@include hook-card-default-hover();}
+}
+
+.uk-card-default .uk-card-header {
+    @if(mixin-exists(hook-card-default-header)) {@include hook-card-default-header();}
+}
+
+.uk-card-default .uk-card-footer {
+    @if(mixin-exists(hook-card-default-footer)) {@include hook-card-default-footer();}
+}
+
+/*
+ * Primary
+ */
+
+.uk-card-primary {
+    background: $card-primary-background;
+    color: $card-primary-color;
+    @if(mixin-exists(hook-card-primary)) {@include hook-card-primary();}
+}
+
+.uk-card-primary .uk-card-title {
+    color: $card-primary-title-color;
+    @if(mixin-exists(hook-card-primary-title)) {@include hook-card-primary-title();}
+}
+
+.uk-card-primary.uk-card-hover:hover {
+    background-color: $card-primary-hover-background;
+    @if(mixin-exists(hook-card-primary-hover)) {@include hook-card-primary-hover();}
+}
+
+// Color Mode
+@if ( $card-primary-color-mode == light ) { .uk-card-primary.uk-card-body { @extend .uk-light !optional;} }
+@if ( $card-primary-color-mode == light ) { .uk-card-primary > :not([class*='uk-card-media']) { @extend .uk-light !optional;} }
+@if ( $card-primary-color-mode == dark ) { .uk-card-primary.uk-card-body { @extend .uk-dark !optional;} }
+@if ( $card-primary-color-mode == dark ) { .uk-card-primary > :not([class*='uk-card-media']) { @extend .uk-dark !optional;} }
+
+/*
+ * Secondary
+ */
+
+.uk-card-secondary {
+    background: $card-secondary-background;
+    color: $card-secondary-color;
+    @if(mixin-exists(hook-card-secondary)) {@include hook-card-secondary();}
+}
+
+.uk-card-secondary .uk-card-title {
+    color: $card-secondary-title-color;
+    @if(mixin-exists(hook-card-secondary-title)) {@include hook-card-secondary-title();}
+}
+
+.uk-card-secondary.uk-card-hover:hover {
+    background-color: $card-secondary-hover-background;
+    @if(mixin-exists(hook-card-secondary-hover)) {@include hook-card-secondary-hover();}
+}
+
+// Color Mode
+@if ( $card-secondary-color-mode == light ) { .uk-card-secondary.uk-card-body { @extend .uk-light !optional;} }
+@if ( $card-secondary-color-mode == light ) { .uk-card-secondary > :not([class*='uk-card-media']) { @extend .uk-light !optional;} }
+@if ( $card-secondary-color-mode == dark ) { .uk-card-secondary.uk-card-body { @extend .uk-dark !optional;} }
+@if ( $card-secondary-color-mode == dark ) { .uk-card-secondary > :not([class*='uk-card-media']) { @extend .uk-dark !optional;} }
+
+
+/* Size modifier
+ ========================================================================== */
+
+/*
+ * Small
+ */
+
+.uk-card-small.uk-card-body,
+.uk-card-small .uk-card-body { padding: $card-small-body-padding-vertical $card-small-body-padding-horizontal; }
+
+.uk-card-small .uk-card-header { padding: $card-small-header-padding-vertical $card-small-header-padding-horizontal; }
+.uk-card-small .uk-card-footer { padding: $card-small-footer-padding-vertical $card-small-footer-padding-horizontal; }
+
+/*
+ * Large
+ */
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-card-large.uk-card-body,
+    .uk-card-large .uk-card-body { padding: $card-large-body-padding-vertical-l $card-large-body-padding-horizontal-l; }
+
+    .uk-card-large .uk-card-header { padding: $card-large-header-padding-vertical-l $card-large-header-padding-horizontal-l; }
+    .uk-card-large .uk-card-footer { padding: $card-large-footer-padding-vertical-l $card-large-footer-padding-horizontal-l; }
+
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-card-misc)) {@include hook-card-misc();}
+
+// @mixin hook-card(){}
+// @mixin hook-card-body(){}
+// @mixin hook-card-header(){}
+// @mixin hook-card-footer(){}
+// @mixin hook-card-media(){}
+// @mixin hook-card-media-top(){}
+// @mixin hook-card-media-bottom(){}
+// @mixin hook-card-media-left(){}
+// @mixin hook-card-media-right(){}
+// @mixin hook-card-title(){}
+// @mixin hook-card-badge(){}
+// @mixin hook-card-hover(){}
+// @mixin hook-card-default(){}
+// @mixin hook-card-default-title(){}
+// @mixin hook-card-default-hover(){}
+// @mixin hook-card-default-header(){}
+// @mixin hook-card-default-footer(){}
+// @mixin hook-card-primary(){}
+// @mixin hook-card-primary-title(){}
+// @mixin hook-card-primary-hover(){}
+// @mixin hook-card-secondary(){}
+// @mixin hook-card-secondary-title(){}
+// @mixin hook-card-secondary-hover(){}
+// @mixin hook-card-misc(){}

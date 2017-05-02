@@ -1,0 +1,85 @@
+// Name:            Overlay
+// Description:     Component to create content areas overlaying an image
+//
+// Component:       `uk-overlay`
+//
+// Adopted:         `uk-overlay-icon`
+//
+// Modifier:        `uk-overlay-default`
+//                  `uk-overlay-primary`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$overlay-padding-horizontal:                     $global-gutter !default;
+$overlay-padding-vertical:                       $global-gutter !default;
+
+$overlay-default-background:                     rgba($global-background, 0.8) !default;
+
+$overlay-primary-background:                     rgba($global-secondary-background, 0.8) !default;
+$overlay-primary-color-mode:                     light !default;
+
+
+/* ========================================================================
+   Component: Overlay
+ ========================================================================== */
+
+.uk-overlay {
+    padding: $overlay-padding-vertical $overlay-padding-horizontal;
+    @if(mixin-exists(hook-overlay)) {@include hook-overlay();}
+}
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-overlay > :last-child { margin-bottom: 0; }
+
+
+/* Icon
+ ========================================================================== */
+
+.uk-overlay-icon {
+    @if(mixin-exists(hook-overlay-icon)) {@include hook-overlay-icon();}
+}
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+.uk-overlay-default {
+    background: $overlay-default-background;
+    @if(mixin-exists(hook-overlay-default)) {@include hook-overlay-default();}
+}
+
+/*
+ * Primary
+ */
+
+.uk-overlay-primary {
+    background: $overlay-primary-background;
+    @if(mixin-exists(hook-overlay-primary)) {@include hook-overlay-primary();}
+}
+
+// Color Mode
+@if ( $overlay-primary-color-mode == light ) { .uk-overlay-primary { @extend .uk-light !optional;} }
+@if ( $overlay-primary-color-mode == dark ) { .uk-overlay-primary { @extend .uk-dark !optional;} }
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-overlay-misc)) {@include hook-overlay-misc();}
+
+// @mixin hook-overlay(){}
+// @mixin hook-overlay-icon(){}
+// @mixin hook-overlay-default(){}
+// @mixin hook-overlay-primary(){}
+// @mixin hook-overlay-misc(){}

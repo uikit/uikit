@@ -719,6 +719,9 @@ a.uk-link-reset:focus,
  */
 .uk-list-striped > li {
   padding: 10px 10px;
+}
+.uk-list-striped > li:nth-of-type(odd) {
+  border-top: 1px solid #e5e5e5;
   border-bottom: 1px solid #e5e5e5;
 }
 .uk-list-striped > li:nth-of-type(odd) {
@@ -764,13 +767,13 @@ a.uk-link-reset:focus,
  */
 .uk-list-large.uk-list-striped > li {
   padding: 20px 10px;
+}
+.uk-list-large.uk-list-striped > li:nth-of-type(odd) {
+  border-top: 1px solid #e5e5e5;
   border-bottom: 1px solid #e5e5e5;
 }
 .uk-list-large.uk-list-striped > li:nth-child(n+2) {
   margin-top: 0;
-}
-.uk-list-striped > li:first-child {
-  border-top: 1px solid #e5e5e5;
 }
 /* ========================================================================
    Component: Description list
@@ -834,7 +837,6 @@ a.uk-link-reset:focus,
   font-size: 0.875rem;
   font-weight: normal;
   color: #999;
-  border-bottom: 1px solid #e5e5e5;
   text-transform: uppercase;
 }
 /* Cell
@@ -843,11 +845,16 @@ a.uk-link-reset:focus,
   padding: 16px 12px;
   vertical-align: top;
 }
+/*
+ * Remove margin from the last-child
+ */
+.uk-table td > :last-child {
+  margin-bottom: 0;
+}
 /* Footer
  ========================================================================== */
 .uk-table tfoot {
   font-size: 0.875rem;
-  border-top: 1px solid #e5e5e5;
 }
 /* Caption
  ========================================================================== */
@@ -871,11 +878,21 @@ a.uk-link-reset:focus,
 /* Style modifiers
  ========================================================================== */
 /*
+ * Divider
+ */
+.uk-table-divider > tr:not(:first-child),
+.uk-table-divider > :not(:first-child) > tr,
+.uk-table-divider > :first-child > tr:not(:first-child) {
+  border-top: 1px solid #e5e5e5;
+}
+/*
  * Striped
  */
 .uk-table-striped > tr:nth-of-type(odd),
 .uk-table-striped tbody tr:nth-of-type(odd) {
   background: #f8f8f8;
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
 }
 /*
  * Hover
@@ -890,6 +907,16 @@ a.uk-link-reset:focus,
 .uk-table-small td {
   padding: 10px 12px;
 }
+/* Justify modifier
+ ========================================================================== */
+.uk-table-justify th:first-child,
+.uk-table-justify td:first-child {
+  padding-right: 0;
+}
+.uk-table-justify th:last-child,
+.uk-table-justify td:last-child {
+  padding-left: 0;
+}
 /* Cell size modifier
  ========================================================================== */
 .uk-table-shrink {
@@ -900,6 +927,9 @@ a.uk-link-reset:focus,
 }
 /* Cell link modifier
  ========================================================================== */
+/*
+ * Does not work with `uk-table-justify` at the moment
+ */
 .uk-table-link {
   padding: 0 !important;
 }
@@ -910,8 +940,43 @@ a.uk-link-reset:focus,
 .uk-table-small .uk-table-link > a {
   padding: 10px 12px;
 }
-.uk-table :not(:last-child) > td {
-  border-bottom: 1px solid #e5e5e5;
+/* Responsive table
+ ========================================================================== */
+/* Phone landscape and smaller */
+@media (max-width: 959px) {
+  .uk-table-responsive,
+  .uk-table-responsive tbody,
+  .uk-table-responsive th,
+  .uk-table-responsive td,
+  .uk-table-responsive tr {
+    display: block;
+  }
+  .uk-table-responsive thead {
+    display: none;
+  }
+  .uk-table-responsive th,
+  .uk-table-responsive td {
+    width: auto !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    overflow: visible !important;
+    white-space: normal !important;
+  }
+  .uk-table-responsive th:not(:first-child):not(.uk-table-link),
+  .uk-table-responsive td:not(:first-child):not(.uk-table-link),
+  .uk-table-responsive .uk-table-link:not(:first-child) > a {
+    padding-top: 5px !important;
+  }
+  .uk-table-responsive th:not(:last-child):not(.uk-table-link),
+  .uk-table-responsive td:not(:last-child):not(.uk-table-link),
+  .uk-table-responsive .uk-table-link:not(:last-child) > a {
+    padding-bottom: 5px !important;
+  }
+  .uk-table-justify.uk-table-responsive th,
+  .uk-table-justify.uk-table-responsive td {
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
 .uk-table tbody tr {
   -webkit-transition: background-color 0.1s linear;
@@ -3495,6 +3560,7 @@ ul.uk-nav-sub {
  */
 .uk-nav-primary > li > a {
   font-size: 1.5rem;
+  line-height: 1.5;
   color: #999;
 }
 /* Hover + Focus */
@@ -4807,6 +4873,7 @@ ul.uk-nav-sub {
  ========================================================================== */
 [class*='uk-modal-close-'] {
   position: absolute;
+  z-index: 1010;
   top: 10px;
   left: 10px;
   padding: 5px;
@@ -4905,66 +4972,6 @@ ul.uk-nav-sub {
   left: 0;
   right: auto;
 }
-/* Page
- ========================================================================== */
-/*
- * 1. Prepare slide-out animation (Used in reveal and push mode)
- * 2. Prevent horizontal scrollbar when page is slide-out
- * Note: JS sets a fixed width so the page can slide-out without shinking
- */
-.uk-offcanvas-page {
-  /* 1 */
-  -webkit-transition: margin-right 0.3s ease-in-out;
-  transition: margin-right 0.3s ease-in-out;
-  /* 2 */
-  overflow-x: hidden;
-}
-/*
- * Activate slide-out animation
- */
-.uk-offcanvas-page-animation {
-  margin-right: 270px;
-}
-/* Flip modifier */
-.uk-offcanvas-flip.uk-offcanvas-page-animation {
-  margin-right: -270px;
-}
-/*
- * Prevent scrollbar on page if overlay is used
- */
-.uk-offcanvas-page-overlay {
-  overflow: hidden;
-}
-/* Overlay
- ========================================================================== */
-/*
- * Overlay the whole page. Needed for the `::before`
- * Using `100vw` so no modification is needed when off-canvas is flipped
- */
-.uk-offcanvas-overlay {
-  width: 100vw;
-}
-/*
- * 1. Mask the whole page
- * 2. Fade-in transition
- */
-.uk-offcanvas-overlay::before {
-  /* 1 */
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.1);
-  /* 2 */
-  opacity: 0;
-  -webkit-transition: opacity 0.15s linear;
-  transition: opacity 0.15s linear;
-}
-.uk-offcanvas-overlay.uk-open::before {
-  opacity: 1;
-}
 /* Bar
  ========================================================================== */
 /*
@@ -4991,6 +4998,13 @@ ul.uk-nav-sub {
   -webkit-transform: translateX(100%);
   transform: translateX(100%);
 }
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-offcanvas-bar {
+    width: 350px;
+    padding: 40px 40px;
+  }
+}
 /* Flip modifier */
 .uk-offcanvas-flip .uk-offcanvas-bar {
   right: auto;
@@ -5009,44 +5023,148 @@ ul.uk-nav-sub {
  * Slide Animation (Used in slide and push mode)
  */
 .uk-offcanvas-bar-animation {
-  -webkit-transition: -webkit-transform 0.3s ease-in-out;
-  transition: transform 0.3s ease-in-out;
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
 }
 /*
  * Reveal Animation
- * 1. Set the bar to target position
- * 2. Clip the bar with `clip-path` and use `clip` as fallback
+ * 1. Set position
+ * 2. Clip the bar
  * 3. Animation
- * Note: Future `clip-path` is commented out (it's not working on iOS)
+ * 4. Reset transform
  */
 .uk-offcanvas-reveal {
   /* 1 */
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  /* 2 */
+  width: 0;
+  overflow: hidden;
+  /* 3 */
+  -webkit-transition: width 0.3s ease-out;
+  transition: width 0.3s ease-out;
+}
+.uk-offcanvas-reveal .uk-offcanvas-bar {
+  /* 4 */
   -webkit-transform: translateX(0);
   transform: translateX(0);
-  /* 2 */
-  clip: rect(0, 0, 100vh, 0);
-  /* 3 */
-  -webkit-transition: clip 0.3s ease-in-out;
-  transition: clip 0.3s ease-in-out;
-}
-/* Fix weird scrollbar bug in Chrome if overlay is used */
-.uk-offcanvas-page:not(.uk-offcanvas-flip) .uk-offcanvas-reveal {
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
 }
 .uk-open > .uk-offcanvas-reveal {
-  clip: rect(0, 270px, 100vh, 0);
+  width: 270px;
 }
-/* Flip modifier */
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-open > .uk-offcanvas-reveal {
+    width: 350px;
+  }
+}
+/*
+ * Flip modifier
+ */
 .uk-offcanvas-flip .uk-offcanvas-reveal {
-  /* 1 */
-  -webkit-transform: translateX(0);
-  transform: translateX(0);
-  /* 2 */
-  clip: rect(0, 270px, 100vh, 270px);
+  left: 0;
+  right: auto;
 }
-.uk-offcanvas-flip .uk-open > .uk-offcanvas-reveal {
-  clip: rect(0, 270px, 100vh, 0);
+/* Close
+ * Adopts `uk-close`
+ ========================================================================== */
+.uk-offcanvas-close {
+  position: absolute;
+  z-index: 1000;
+  top: 20px;
+  left: 20px;
+  padding: 5px;
+}
+/* Overlay
+ ========================================================================== */
+/*
+ * Overlay the whole page. Needed for the `::before`
+ * 1. Using `100vw` so no modification is needed when off-canvas is flipped
+ * 2. Allow for closing with swipe gesture on devices with pointer events.
+ */
+.uk-offcanvas-overlay {
+  /* 1 */
+  width: 100vw;
+  /* 2 */
+  touch-action: none;
+}
+/*
+ * 1. Mask the whole page
+ * 2. Fade-in transition
+ */
+.uk-offcanvas-overlay::before {
+  /* 1 */
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.1);
+  /* 2 */
+  opacity: 0;
+  -webkit-transition: opacity 0.15s linear;
+  transition: opacity 0.15s linear;
+}
+.uk-offcanvas-overlay.uk-open::before {
+  opacity: 1;
+}
+/* Container
+ ========================================================================== */
+/*
+ * Prevent horizontal scrollbar when the content is slide-out
+ * Has to be on the `html` element too to make it work on the `body`
+ */
+.uk-offcanvas-page,
+.uk-offcanvas-container {
+  overflow-x: hidden;
+}
+/*
+ * Prevent all scrollbars if overlay is used
+ */
+.uk-offcanvas-container-overlay {
+  overflow: hidden;
+}
+/* Content
+ ========================================================================== */
+/*
+ * Prepare slide-out animation (Used in reveal and push mode)
+ * Using `position: left` instead of `transform` because position `fixed` elements like sticky navbars
+ * lose their fixed state and behaves like `absolute` within a transformed container
+ * Note: JS sets a fixed width and height so the page can slide-out without shrinking
+ * 1. Smooth scrolling
+ */
+.uk-offcanvas-container .uk-offcanvas-content {
+  position: relative;
+  right: 0;
+  -webkit-transition: right 0.3s ease-out;
+  transition: right 0.3s ease-out;
+  /* 1 */
+  -webkit-overflow-scrolling: touch;
+}
+/* Disable scrolling if overlay mode */
+.uk-offcanvas-overlay .uk-offcanvas-content {
+  overflow-y: hidden;
+}
+/*
+ * Activate slide-out animation
+ */
+:not(.uk-offcanvas-flip) > .uk-offcanvas-content-animation {
+  right: 270px;
+}
+.uk-offcanvas-flip > .uk-offcanvas-content-animation {
+  right: -270px;
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  :not(.uk-offcanvas-flip) > .uk-offcanvas-content-animation {
+    right: 350px;
+  }
+  .uk-offcanvas-flip > .uk-offcanvas-content-animation {
+    right: -350px;
+  }
 }
 /* ========================================================================
    Component: Switcher
@@ -5424,6 +5542,55 @@ ul.uk-nav-sub {
 .uk-sortable-handle:hover {
   cursor: move;
 }
+/* ========================================================================
+   Component: Countdown
+ ========================================================================== */
+/* Item
+ ========================================================================== */
+/*
+ * 1. Center numbers and separators vertically
+ */
+.uk-countdown-number,
+.uk-countdown-separator {
+  /* 1 */
+  line-height: 70px;
+}
+/* Number
+ ========================================================================== */
+.uk-countdown-number {
+  font-size: 2rem;
+}
+/* Phone landscape and bigger */
+@media (min-width: 640px) {
+  .uk-countdown-number {
+    font-size: 4rem;
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-countdown-number {
+    font-size: 6rem;
+  }
+}
+/* Separator
+ ========================================================================== */
+.uk-countdown-separator {
+  font-size: 1rem;
+}
+/* Phone landscape and bigger */
+@media (min-width: 640px) {
+  .uk-countdown-separator {
+    font-size: 2rem;
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-countdown-separator {
+    font-size: 3rem;
+  }
+}
+/* Label
+ ========================================================================== */
 /* ========================================================================
    Component: Animation
  ========================================================================== */
@@ -7486,6 +7653,40 @@ td.uk-text-break {
 .uk-box-shadow-hover-xlarge:hover {
   box-shadow: 0 28px 50px rgba(0, 0, 0, 0.16);
 }
+/* Box-shadow bottom
+ ========================================================================== */
+/*
+ * 1. Set position.
+ * 2. Set style
+ * 3. Blur doesn't work on pseudo elements with negative `z-index` in Edge.
+ *    Solved by using `before` and add position context to child elements.
+ */
+@supports (filter: blur(0)) or (-webkit-filter: blur(0)) {
+  .uk-box-shadow-bottom {
+    display: inline-block;
+    position: relative;
+    max-width: 100%;
+    vertical-align: middle;
+  }
+  .uk-box-shadow-bottom::before {
+    content: '';
+    /* 1 */
+    position: absolute;
+    bottom: -30px;
+    right: 0;
+    left: 0;
+    /* 2 */
+    height: 30px;
+    border-radius: 100%;
+    background: #444;
+    -webkit-filter: blur(20px);
+    filter: blur(20px);
+  }
+  /* 3 */
+  .uk-box-shadow-bottom > * {
+    position: relative;
+  }
+}
 /* Drop cap
  ========================================================================== */
 .uk-dropcap::first-letter,
@@ -7496,6 +7697,38 @@ td.uk-text-break {
   font-size: 4.5em;
   line-height: 1;
   margin-bottom: -2px;
+}
+/* Leader
+ ========================================================================== */
+.uk-leader {
+  overflow: hidden;
+}
+/*
+ * 1. Place element in text flow
+ * 2. Never break into a new line
+ * 3. Get a string back with as many repeating characters to fill the container
+ * 4. Prevent wrapping. Overflowing characters will be clipped by the container
+ */
+.uk-leader-fill::after {
+  /* 1 */
+  display: inline-block;
+  margin-right: 15px;
+  /* 2 */
+  width: 0;
+  /* 3 */
+  content: attr(data-fill);
+  /* 4 */
+  white-space: nowrap;
+}
+/*
+ * Hide if media does not match
+ */
+.uk-leader-fill.uk-leader-hide::after {
+  display: none;
+}
+/* Pass fill character to JS */
+.var-leader-fill:before {
+  content: '.';
 }
 /* Logo
  ========================================================================== */
@@ -7700,6 +7933,118 @@ td.uk-text-break {
   -ms-flex-pack: distribute;
   -webkit-justify-content: space-around;
   justify-content: space-around;
+}
+/* Phone landscape and bigger */
+@media (min-width: 640px) {
+  .uk-flex-right\@s {
+    -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+  }
+  .uk-flex-center\@s {
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+  .uk-flex-left\@s {
+    -ms-flex-pack: end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+  }
+  .uk-flex-between\@s {
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+  }
+  .uk-flex-around\@s {
+    -ms-flex-pack: distribute;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-flex-right\@m {
+    -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+  }
+  .uk-flex-center\@m {
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+  .uk-flex-left\@m {
+    -ms-flex-pack: end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+  }
+  .uk-flex-between\@m {
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+  }
+  .uk-flex-around\@m {
+    -ms-flex-pack: distribute;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+  }
+}
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  .uk-flex-right\@l {
+    -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+  }
+  .uk-flex-center\@l {
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+  .uk-flex-left\@l {
+    -ms-flex-pack: end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+  }
+  .uk-flex-between\@l {
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+  }
+  .uk-flex-around\@l {
+    -ms-flex-pack: distribute;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+  }
+}
+/* Large screen and bigger */
+@media (min-width: 1600px) {
+  .uk-flex-right\@xl {
+    -ms-flex-pack: start;
+    -webkit-justify-content: flex-start;
+    justify-content: flex-start;
+  }
+  .uk-flex-center\@xl {
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+  }
+  .uk-flex-left\@xl {
+    -ms-flex-pack: end;
+    -webkit-justify-content: flex-end;
+    justify-content: flex-end;
+  }
+  .uk-flex-between\@xl {
+    -ms-flex-pack: justify;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+  }
+  .uk-flex-around\@xl {
+    -ms-flex-pack: distribute;
+    -webkit-justify-content: space-around;
+    justify-content: space-around;
+  }
 }
 /*
  * Align items in the cross axis of the current line of the flex container
@@ -8074,6 +8419,12 @@ td.uk-text-break {
   margin-right: auto !important;
   margin-left: auto !important;
 }
+.uk-margin-auto-top {
+  margin-top: auto !important;
+}
+.uk-margin-auto-bottom {
+  margin-bottom: auto !important;
+}
 .uk-margin-auto-right {
   margin-right: auto !important;
 }
@@ -8122,6 +8473,12 @@ td.uk-text-break {
 }
 .uk-padding-remove-bottom {
   padding-bottom: 0 !important;
+}
+.uk-padding-remove-right {
+  padding-right: 0 !important;
+}
+.uk-padding-remove-left {
+  padding-left: 0 !important;
 }
 .uk-padding-remove-vertical {
   padding-top: 0 !important;
@@ -8186,7 +8543,8 @@ td.uk-text-break {
 }
 /*
  * Center
- * 1. Fix text wrapping if content is larger than 50% of the container
+ * 1. Fix text wrapping if content is larger than 50% of the container (Not working in Firefox)
+ * 2. Fix text wrapping for Firefox
  */
 .uk-position-center {
   top: 50%;
@@ -8195,6 +8553,9 @@ td.uk-text-break {
   transform: translate(50%, -50%);
   /* 1 */
   display: table;
+  /* 2 */
+  width: -moz-max-content;
+  max-width: 100%;
 }
 /* Vertical */
 .uk-position-center-right,
@@ -8300,8 +8661,9 @@ td.uk-text-break {
 .uk-transition-fade,
 [class*='uk-transition-scale'],
 [class*='uk-transition-slide'] {
-  transition-duration: 0.3s;
-  transition-timing-function: ease-out;
+  -webkit-transition: 0.3s ease-out;
+  transition: 0.3s ease-out;
+  -webkit-transition-property: opacity, transform, filter;
   transition-property: opacity, transform, filter;
 }
 /*
@@ -8941,31 +9303,19 @@ td.uk-text-break {
 .uk-offcanvas-bar .uk-list-divider > li:nth-child(n+2) {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-list-striped > li,
-.uk-section-primary:not(.uk-preserve-color) .uk-list-striped > li,
-.uk-section-secondary:not(.uk-preserve-color) .uk-list-striped > li,
-.uk-tile-primary:not(.uk-preserve-color) .uk-list-striped > li,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-list-striped > li,
-.uk-card-primary.uk-card-body .uk-list-striped > li,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-list-striped > li,
-.uk-card-secondary.uk-card-body .uk-list-striped > li,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-list-striped > li,
-.uk-overlay-primary .uk-list-striped > li,
-.uk-offcanvas-bar .uk-list-striped > li {
-  border-bottom-color: rgba(255, 255, 255, 0.2);
-}
-.uk-light .uk-list-striped > li:first-child,
-.uk-section-primary:not(.uk-preserve-color) .uk-list-striped > li:first-child,
-.uk-section-secondary:not(.uk-preserve-color) .uk-list-striped > li:first-child,
-.uk-tile-primary:not(.uk-preserve-color) .uk-list-striped > li:first-child,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-list-striped > li:first-child,
-.uk-card-primary.uk-card-body .uk-list-striped > li:first-child,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-list-striped > li:first-child,
-.uk-card-secondary.uk-card-body .uk-list-striped > li:first-child,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-list-striped > li:first-child,
-.uk-overlay-primary .uk-list-striped > li:first-child,
-.uk-offcanvas-bar .uk-list-striped > li:first-child {
+.uk-light .uk-list-striped > li:nth-of-type(odd),
+.uk-section-primary:not(.uk-preserve-color) .uk-list-striped > li:nth-of-type(odd),
+.uk-section-secondary:not(.uk-preserve-color) .uk-list-striped > li:nth-of-type(odd),
+.uk-tile-primary:not(.uk-preserve-color) .uk-list-striped > li:nth-of-type(odd),
+.uk-tile-secondary:not(.uk-preserve-color) .uk-list-striped > li:nth-of-type(odd),
+.uk-card-primary.uk-card-body .uk-list-striped > li:nth-of-type(odd),
+.uk-card-primary > :not([class*='uk-card-media']) .uk-list-striped > li:nth-of-type(odd),
+.uk-card-secondary.uk-card-body .uk-list-striped > li:nth-of-type(odd),
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-list-striped > li:nth-of-type(odd),
+.uk-overlay-primary .uk-list-striped > li:nth-of-type(odd),
+.uk-offcanvas-bar .uk-list-striped > li:nth-of-type(odd) {
   border-top-color: rgba(255, 255, 255, 0.2);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
 }
 .uk-light .uk-list-striped > li:nth-of-type(odd),
 .uk-section-primary:not(.uk-preserve-color) .uk-list-striped > li:nth-of-type(odd),
@@ -8992,6 +9342,141 @@ td.uk-text-break {
 .uk-overlay-primary .uk-list-bullet > li::before,
 .uk-offcanvas-bar .uk-list-bullet > li::before {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%226%22%20height%3D%226%22%20viewBox%3D%220%200%206%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20cx%3D%223%22%20cy%3D%223%22%20r%3D%223%22%3E%3C%2Fcircle%3E%0A%3C%2Fsvg%3E");
+}
+.uk-light .uk-table th,
+.uk-section-primary:not(.uk-preserve-color) .uk-table th,
+.uk-section-secondary:not(.uk-preserve-color) .uk-table th,
+.uk-tile-primary:not(.uk-preserve-color) .uk-table th,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table th,
+.uk-card-primary.uk-card-body .uk-table th,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table th,
+.uk-card-secondary.uk-card-body .uk-table th,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table th,
+.uk-overlay-primary .uk-table th,
+.uk-offcanvas-bar .uk-table th {
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-light .uk-table caption,
+.uk-section-primary:not(.uk-preserve-color) .uk-table caption,
+.uk-section-secondary:not(.uk-preserve-color) .uk-table caption,
+.uk-tile-primary:not(.uk-preserve-color) .uk-table caption,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table caption,
+.uk-card-primary.uk-card-body .uk-table caption,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table caption,
+.uk-card-secondary.uk-card-body .uk-table caption,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table caption,
+.uk-overlay-primary .uk-table caption,
+.uk-offcanvas-bar .uk-table caption {
+  color: rgba(255, 255, 255, 0.5);
+}
+.uk-light .uk-table > tr.uk-active,
+.uk-light .uk-table tbody tr.uk-active,
+.uk-section-primary:not(.uk-preserve-color) .uk-table > tr.uk-active,
+.uk-section-primary:not(.uk-preserve-color) .uk-table tbody tr.uk-active,
+.uk-section-secondary:not(.uk-preserve-color) .uk-table > tr.uk-active,
+.uk-section-secondary:not(.uk-preserve-color) .uk-table tbody tr.uk-active,
+.uk-tile-primary:not(.uk-preserve-color) .uk-table > tr.uk-active,
+.uk-tile-primary:not(.uk-preserve-color) .uk-table tbody tr.uk-active,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table > tr.uk-active,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table tbody tr.uk-active,
+.uk-card-primary.uk-card-body .uk-table > tr.uk-active,
+.uk-card-primary.uk-card-body .uk-table tbody tr.uk-active,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table > tr.uk-active,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table tbody tr.uk-active,
+.uk-card-secondary.uk-card-body .uk-table > tr.uk-active,
+.uk-card-secondary.uk-card-body .uk-table tbody tr.uk-active,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table > tr.uk-active,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table tbody tr.uk-active,
+.uk-overlay-primary .uk-table > tr.uk-active,
+.uk-overlay-primary .uk-table tbody tr.uk-active,
+.uk-offcanvas-bar .uk-table > tr.uk-active,
+.uk-offcanvas-bar .uk-table tbody tr.uk-active {
+  background: rgba(255, 255, 255, 0.08);
+}
+.uk-light .uk-table-divider > tr:not(:first-child),
+.uk-light .uk-table-divider > :not(:first-child) > tr,
+.uk-light .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-section-primary:not(.uk-preserve-color) .uk-table-divider > tr:not(:first-child),
+.uk-section-primary:not(.uk-preserve-color) .uk-table-divider > :not(:first-child) > tr,
+.uk-section-primary:not(.uk-preserve-color) .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-section-secondary:not(.uk-preserve-color) .uk-table-divider > tr:not(:first-child),
+.uk-section-secondary:not(.uk-preserve-color) .uk-table-divider > :not(:first-child) > tr,
+.uk-section-secondary:not(.uk-preserve-color) .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-tile-primary:not(.uk-preserve-color) .uk-table-divider > tr:not(:first-child),
+.uk-tile-primary:not(.uk-preserve-color) .uk-table-divider > :not(:first-child) > tr,
+.uk-tile-primary:not(.uk-preserve-color) .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table-divider > tr:not(:first-child),
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table-divider > :not(:first-child) > tr,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-card-primary.uk-card-body .uk-table-divider > tr:not(:first-child),
+.uk-card-primary.uk-card-body .uk-table-divider > :not(:first-child) > tr,
+.uk-card-primary.uk-card-body .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table-divider > tr:not(:first-child),
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table-divider > :not(:first-child) > tr,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-card-secondary.uk-card-body .uk-table-divider > tr:not(:first-child),
+.uk-card-secondary.uk-card-body .uk-table-divider > :not(:first-child) > tr,
+.uk-card-secondary.uk-card-body .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table-divider > tr:not(:first-child),
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table-divider > :not(:first-child) > tr,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-overlay-primary .uk-table-divider > tr:not(:first-child),
+.uk-overlay-primary .uk-table-divider > :not(:first-child) > tr,
+.uk-overlay-primary .uk-table-divider > :first-child > tr:not(:first-child),
+.uk-offcanvas-bar .uk-table-divider > tr:not(:first-child),
+.uk-offcanvas-bar .uk-table-divider > :not(:first-child) > tr,
+.uk-offcanvas-bar .uk-table-divider > :first-child > tr:not(:first-child) {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-table-striped > tr:nth-of-type(odd),
+.uk-light .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-section-primary:not(.uk-preserve-color) .uk-table-striped > tr:nth-of-type(odd),
+.uk-section-primary:not(.uk-preserve-color) .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-section-secondary:not(.uk-preserve-color) .uk-table-striped > tr:nth-of-type(odd),
+.uk-section-secondary:not(.uk-preserve-color) .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-tile-primary:not(.uk-preserve-color) .uk-table-striped > tr:nth-of-type(odd),
+.uk-tile-primary:not(.uk-preserve-color) .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table-striped > tr:nth-of-type(odd),
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-card-primary.uk-card-body .uk-table-striped > tr:nth-of-type(odd),
+.uk-card-primary.uk-card-body .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table-striped > tr:nth-of-type(odd),
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-card-secondary.uk-card-body .uk-table-striped > tr:nth-of-type(odd),
+.uk-card-secondary.uk-card-body .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table-striped > tr:nth-of-type(odd),
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-overlay-primary .uk-table-striped > tr:nth-of-type(odd),
+.uk-overlay-primary .uk-table-striped tbody tr:nth-of-type(odd),
+.uk-offcanvas-bar .uk-table-striped > tr:nth-of-type(odd),
+.uk-offcanvas-bar .uk-table-striped tbody tr:nth-of-type(odd) {
+  background: rgba(255, 255, 255, 0.1);
+  border-top-color: rgba(255, 255, 255, 0.2);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+.uk-light .uk-table-hover > tr:hover,
+.uk-light .uk-table-hover tbody tr:hover,
+.uk-section-primary:not(.uk-preserve-color) .uk-table-hover > tr:hover,
+.uk-section-primary:not(.uk-preserve-color) .uk-table-hover tbody tr:hover,
+.uk-section-secondary:not(.uk-preserve-color) .uk-table-hover > tr:hover,
+.uk-section-secondary:not(.uk-preserve-color) .uk-table-hover tbody tr:hover,
+.uk-tile-primary:not(.uk-preserve-color) .uk-table-hover > tr:hover,
+.uk-tile-primary:not(.uk-preserve-color) .uk-table-hover tbody tr:hover,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table-hover > tr:hover,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-table-hover tbody tr:hover,
+.uk-card-primary.uk-card-body .uk-table-hover > tr:hover,
+.uk-card-primary.uk-card-body .uk-table-hover tbody tr:hover,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table-hover > tr:hover,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-table-hover tbody tr:hover,
+.uk-card-secondary.uk-card-body .uk-table-hover > tr:hover,
+.uk-card-secondary.uk-card-body .uk-table-hover tbody tr:hover,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table-hover > tr:hover,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-table-hover tbody tr:hover,
+.uk-overlay-primary .uk-table-hover > tr:hover,
+.uk-overlay-primary .uk-table-hover tbody tr:hover,
+.uk-offcanvas-bar .uk-table-hover > tr:hover,
+.uk-offcanvas-bar .uk-table-hover tbody tr:hover {
+  background: rgba(255, 255, 255, 0.08);
 }
 .uk-light .uk-icon-link,
 .uk-section-primary:not(.uk-preserve-color) .uk-icon-link,

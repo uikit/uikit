@@ -1,0 +1,91 @@
+// Name:            Close
+// Description:     Component to create a close button
+//
+// Component:       `uk-close`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$close-color:                                    $global-muted-color !default;
+$close-hover-color:                              $global-color !default;
+
+
+/* ========================================================================
+   Component: Close
+ ========================================================================== */
+
+/*
+ * Adopts `uk-icon`
+ * 1. Remove margins in Chrome, Safari and Opera.
+ * 2. Remove borders for `button`.
+ * 3. Address `overflow` set to `hidden` in IE.
+ * 4. Correct `font` properties and `color` not being inherited for `button`.
+ * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 6. Remove default `button` padding and background color
+ * 7. Required for `button`.
+ * 8. Re-reset `line-height` for icon
+ */
+
+.uk-close {
+    /* 1 */
+    margin: 0;
+    /* 2 */
+    border: none;
+    /* 3 */
+    overflow: visible;
+    /* 4 */
+    font: inherit;
+    color: $close-color;
+    /* 5 */
+    text-transform: none;
+    /* 6. */
+    padding: 0;
+    background-color: transparent;
+    /* 7 */
+    cursor: pointer;
+    /* 8 */
+    line-height: 0;
+    @if(mixin-exists(hook-close)) {@include hook-close();}
+}
+
+/*
+ * Remove the inner border and padding in Firefox.
+ */
+
+.uk-close::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+}
+
+ /* Hover + Focus */
+.uk-close:hover,
+.uk-close:focus {
+    color: $close-hover-color;
+    outline: none;
+    @if(mixin-exists(hook-close-hover)) {@include hook-close-hover();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-close-misc)) {@include hook-close-misc();}
+
+// @mixin hook-close(){}
+// @mixin hook-close-hover(){}
+// @mixin hook-close-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-close-color:                            $inverse-global-muted-color !default;
+$inverse-close-hover-color:                      $inverse-global-color !default;
+
+
+
+// @mixin hook-inverse-close(){}
+// @mixin hook-inverse-close-hover(){}

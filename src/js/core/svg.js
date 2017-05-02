@@ -1,4 +1,4 @@
-import { $, fastdom, isVoidElement, promise } from '../util/index';
+import { ajax, fastdom, isVoidElement, promise } from '../util/index';
 
 var svgs = {}, parser = new DOMParser();
 
@@ -12,18 +12,18 @@ export default function (UIkit) {
             id: String,
             icon: String,
             src: String,
-            class: String,
             style: String,
             width: Number,
             height: Number,
-            ratio: Number
+            ratio: Number,
+            'class': String
         },
 
         defaults: {
             ratio: 1,
             id: false,
-            class: '',
-            exclude: ['src']
+            exclude: ['src'],
+            'class': ''
         },
 
         init() {
@@ -99,39 +99,42 @@ export default function (UIkit) {
                     this.height = this.height || dimensions[3];
                 }
 
-                el = $(el);
-
                 this.width *= this.ratio;
                 this.height *= this.ratio;
 
                 for (var prop in this.$options.props) {
                     if (this[prop] && !~this.exclude.indexOf(prop)) {
-                        el.attr(prop, this[prop]);
+                        el.setAttribute(prop, this[prop]);
                     }
                 }
 
                 if (!this.id) {
-                    el.removeAttr('id');
+                    el.removeAttribute('id');
                 }
 
                 if (this.width && !this.height) {
-                    el.removeAttr('height');
+                    el.removeAttribute('height');
                 }
 
                 if (this.height && !this.width) {
-                    el.removeAttr('width');
+                    el.removeAttribute('width');
                 }
 
-                if (isVoidElement(this.$el) || this.$el[0].tagName === 'CANVAS') {
+                var root = this.$el[0];
+                if (isVoidElement(root) || root.tagName === 'CANVAS') {
                     this.$el.attr({hidden: true, id: null});
-                    el.insertAfter(this.$el);
+                    if (root.nextSibling) {
+                        root.parentNode.insertBefore(el, root.nextSibling);
+                    } else {
+                        root.parentNode.appendChild(el);
+                    }
                 } else {
-                    el.appendTo(this.$el);
+                    root.appendChild(el);
                 }
 
                 resolve(el);
 
-            }))).then(null, () => this.$destroy());
+            }))).then(null, () => {});
 
             if (!this._isReady) {
                 this.$emitSync();
@@ -145,9 +148,7 @@ export default function (UIkit) {
             }
 
             if (this.svg) {
-                this.svg.then(svg => {
-                    svg && svg.remove();
-                });
+                this.svg.then(svg => svg && svg.parentNode && svg.parentNode.removeChild(svg));
                 this.svg = null;
             }
         },
@@ -170,7 +171,7 @@ export default function (UIkit) {
                         resolve(this.parse(decodeURIComponent(this.src.split(',')[1])));
                     } else {
 
-                        $.ajax(this.src, {dataType: 'html'}).then(doc => {
+                        ajax(this.src, {dataType: 'html'}).then(doc => {
                             resolve(this.parse(doc));
                         }, () => {
                             reject('SVG not found.');

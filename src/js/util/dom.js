@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, each, extend, getContextSelectors, isNumber, isString, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
+import { animationend, contains, each, Event, extend, getContextSelectors, isNumber, isString, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
 
 export const win = $(window);
 export const doc = $(document);
@@ -75,7 +75,7 @@ export const Transition = {
     start: transition,
 
     stop(element, cancel) {
-        var e = $.Event(transitionend || 'transitionend');
+        var e = Event(transitionend || 'transitionend');
         $(element).triggerHandler(e, [cancel]);
         return e.promise || promise.resolve();
     },
@@ -122,6 +122,7 @@ export function animate(element, animation, duration = 200, origin, out) {
             .addClass(animation)
             .addClass(cls);
 
+
         if (!animationend) {
             requestAnimationFrame(() => Animation.cancel(element));
         }
@@ -150,7 +151,7 @@ export const Animation = {
     },
 
     cancel(element) {
-        var e = $.Event(animationend || 'animationend');
+        var e = Event(animationend || 'animationend');
         $(element).triggerHandler(e);
         return e.promise || promise.resolve();
     }
@@ -165,7 +166,7 @@ export function isWithin(element, selector) {
     element = $(element);
     return element.is(selector) || !!(isString(selector)
         ? element.parents(selector).length
-        : $.contains(toNode(selector), element[0]));
+        : contains(toNode(selector), element[0]));
 }
 
 export function attrFilter(element, attr, pattern, replacement) {
@@ -185,7 +186,7 @@ export function createEvent(e, bubbles = true, cancelable = false, data = false)
     }
 
     if (data) {
-        $.extend(e, data);
+        extend(e, data);
     }
 
     return e;

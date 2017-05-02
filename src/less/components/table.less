@@ -4,12 +4,15 @@
 // Component:       `uk-table`
 //
 // Modifiers:       `uk-table-middle`
+//                  `uk-table-divider`
 //                  `uk-table-striped`
-//                  `uk-table-small`
 //                  `uk-table-hover`
+//                  `uk-table-small`
+//                  `uk-table-justify`
 //                  `uk-table-shrink`
 //                  `uk-table-expand`
 //                  `uk-table-link`
+//                  `uk-table-responsive`
 //
 // States:          `uk-active`
 //
@@ -34,6 +37,9 @@
 @table-caption-color:                           @global-muted-color;
 
 @table-row-active-background:                   #ffd;
+
+@table-divider-border-width:                    @global-border-width;
+@table-divider-border:                          @global-border;
 
 @table-striped-row-background:                  @global-muted-background;
 
@@ -97,6 +103,12 @@
     .hook-table-cell;
 }
 
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-table td > :last-child { margin-bottom: 0; }
+
 
 /* Footer
  ========================================================================== */
@@ -139,6 +151,17 @@
  ========================================================================== */
 
 /*
+ * Divider
+ */
+
+.uk-table-divider > tr:not(:first-child),
+.uk-table-divider > :not(:first-child) > tr,
+.uk-table-divider > :first-child > tr:not(:first-child) {
+    border-top: @table-divider-border-width solid @table-divider-border;
+    .hook-table-divider;
+}
+
+/*
  * Striped
  */
 
@@ -169,6 +192,16 @@
 }
 
 
+/* Justify modifier
+ ========================================================================== */
+
+.uk-table-justify th:first-child,
+.uk-table-justify td:first-child { padding-left: 0; }
+
+.uk-table-justify th:last-child,
+.uk-table-justify td:last-child { padding-right: 0; }
+
+
 /* Cell size modifier
  ========================================================================== */
 
@@ -179,6 +212,10 @@
 /* Cell link modifier
  ========================================================================== */
 
+/*
+ * Does not work with `uk-table-justify` at the moment
+ */
+
 .uk-table-link { padding: 0 !important; }
 
 .uk-table-link > a {
@@ -187,6 +224,47 @@
 }
 
 .uk-table-small .uk-table-link > a { padding: @table-small-cell-padding-vertical @table-small-cell-padding-horizontal; }
+
+
+/* Responsive table
+ ========================================================================== */
+
+
+/* Phone landscape and smaller */
+@media (max-width: @breakpoint-small-max) {
+
+    .uk-table-responsive,
+    .uk-table-responsive tbody,
+    .uk-table-responsive th,
+    .uk-table-responsive td,
+    .uk-table-responsive tr { display: block; }
+
+    .uk-table-responsive thead { display: none; }
+
+    .uk-table-responsive th,
+    .uk-table-responsive td {
+        width: auto !important;
+        max-width: none !important;
+        min-width: 0 !important;
+        overflow: visible !important;
+        white-space: normal !important;
+    }
+
+    .uk-table-responsive th:not(:first-child):not(.uk-table-link),
+    .uk-table-responsive td:not(:first-child):not(.uk-table-link),
+    .uk-table-responsive .uk-table-link:not(:first-child) > a { padding-top: round(@table-cell-padding-vertical / 3) !important; }
+
+    .uk-table-responsive th:not(:last-child):not(.uk-table-link),
+    .uk-table-responsive td:not(:last-child):not(.uk-table-link),
+    .uk-table-responsive .uk-table-link:not(:last-child) > a { padding-bottom: round(@table-cell-padding-vertical / 3) !important; }
+
+    .uk-table-justify.uk-table-responsive th,
+    .uk-table-justify.uk-table-responsive td {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+}
 
 
 // Hooks
@@ -200,8 +278,65 @@
 .hook-table-footer() {}
 .hook-table-caption() {}
 .hook-table-row-active() {}
+.hook-table-divider() {}
 .hook-table-striped() {}
-.hook-table-small() {}
 .hook-table-hover() {}
 .hook-table-small() {}
 .hook-table-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-table-header-cell-color:                       @inverse-global-color;
+@inverse-table-caption-color:                           @inverse-global-muted-color;
+@inverse-table-row-active-background:                   fadeout(@inverse-global-muted-background, 2%);
+@inverse-table-divider-border:                          @inverse-global-border;
+@inverse-table-striped-row-background:                  @inverse-global-muted-background;
+@inverse-table-hover-row-background:                    @inverse-table-row-active-background;
+
+.hook-inverse() {
+
+    .uk-table th {
+        color: @inverse-table-header-cell-color;
+        .hook-inverse-table-header-cell;
+    }
+
+    .uk-table caption {
+        color: @inverse-table-caption-color;
+        .hook-inverse-table-caption;
+    }
+
+    .uk-table > tr.uk-active,
+    .uk-table tbody tr.uk-active {
+        background: @inverse-table-row-active-background;
+        .hook-inverse-table-row-active;
+    }
+
+    .uk-table-divider > tr:not(:first-child),
+    .uk-table-divider > :not(:first-child) > tr,
+    .uk-table-divider > :first-child > tr:not(:first-child) {
+        border-top-color: @inverse-table-divider-border;
+        .hook-inverse-table-divider;
+    }
+
+    .uk-table-striped > tr:nth-of-type(odd),
+    .uk-table-striped tbody tr:nth-of-type(odd) {
+        background: @inverse-table-striped-row-background;
+        .hook-inverse-table-striped;
+    }
+
+    .uk-table-hover > tr:hover,
+    .uk-table-hover tbody tr:hover {
+        background: @inverse-table-hover-row-background;
+        .hook-inverse-table-hover;
+    }
+
+}
+
+.hook-inverse-table-header-cell() {}
+.hook-inverse-table-caption() {}
+.hook-inverse-table-row-active() {}
+.hook-inverse-table-divider() {}
+.hook-inverse-table-striped() {}
+.hook-inverse-table-hover() {}

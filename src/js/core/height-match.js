@@ -16,10 +16,6 @@ export default function (UIkit) {
             row: true
         },
 
-        connected() {
-            this.$emit();
-        },
-
         computed: {
 
             elements() {
@@ -63,7 +59,7 @@ export default function (UIkit) {
 
             },
 
-            events: ['resize', 'orientationchange']
+            events: ['resize']
 
         },
 

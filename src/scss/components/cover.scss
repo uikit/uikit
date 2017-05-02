@@ -1,0 +1,56 @@
+// Name:            Cover
+// Description:     Utilities to let embedded content cover their container in a centered position
+//
+// Component:       `uk-cover`
+//
+// Sub-object:      `uk-cover-container`
+//
+// ========================================================================
+
+
+/* ========================================================================
+   Component: Cover
+ ========================================================================== */
+
+/*
+ * Works with iframes and embedded content
+ * 1. Reset responsiveness for embedded content
+ * 2. Center object
+ * Note: Percent values on the `top` property only works if this element
+ *       is absolute positioned or if the container has a height
+ */
+
+.uk-cover {
+    /* 1 */
+    max-width: none;
+    /* 2 */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+
+/* Container
+ ========================================================================== */
+
+/*
+ * 1. Parent container which clips resized object
+ * 2. Needed if the child is positioned absolute. See note above
+ */
+
+.uk-cover-container {
+    /* 1 */
+    overflow: hidden;
+    /* 2 */
+    position: relative;
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-cover-misc)) {@include hook-cover-misc();}
+
+// @mixin hook-cover-misc(){}

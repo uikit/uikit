@@ -1,0 +1,313 @@
+// Name:            Off-canvas
+// Description:     Component to create an off-canvas sidebar
+//
+// Component:       `uk-offcanvas`
+//
+// Sub-objects:     `uk-offcanvas-bar`
+//                  `uk-offcanvas-container`
+//                  `uk-offcanvas-content`
+//                  `uk-offcanvas-page`
+//
+// Adopted:         `uk-offcanvas-close`
+//
+// Modifiers:       `uk-offcanvas-flip`
+//                  `uk-offcanvas-bar-animation`
+//                  `uk-offcanvas-reveal`
+//                  `uk-offcanvas-overlay`
+//                  `uk-offcanvas-content-animation`
+//
+// States:          `uk-open`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$offcanvas-z-index:                              $global-z-index !default;
+
+$offcanvas-bar-width:                            270px !default;
+$offcanvas-bar-padding-vertical:                 $global-margin !default;
+$offcanvas-bar-padding-horizontal:               $global-margin !default;
+$offcanvas-bar-background:                       $global-secondary-background !default;
+$offcanvas-bar-color-mode:                       light !default;
+
+$offcanvas-bar-width-m:                          350px !default;
+$offcanvas-bar-padding-vertical-m:               $global-medium-gutter !default;
+$offcanvas-bar-padding-horizontal-m:             $global-medium-gutter !default;
+
+$offcanvas-close-position:                       20px !default;
+$offcanvas-close-padding:                        5px !default;
+
+$offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
+
+
+/* ========================================================================
+   Component: Off-canvas
+ ========================================================================== */
+
+/*
+ * 1. Hide by default
+ * 2. Set position
+ */
+
+.uk-offcanvas {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: $offcanvas-z-index;
+}
+
+/*
+ * Flip modifier
+ */
+
+.uk-offcanvas-flip .uk-offcanvas {
+    right: 0;
+    left: auto;
+}
+
+
+/* Bar
+ ========================================================================== */
+
+/*
+ * 1. Set position
+ * 2. Size and style
+ * 3. Allow scrolling
+ * 4. Transform
+ */
+
+.uk-offcanvas-bar {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    /* 2 */
+    box-sizing: border-box;
+    width: $offcanvas-bar-width;
+    padding: $offcanvas-bar-padding-vertical $offcanvas-bar-padding-horizontal;
+    background: $offcanvas-bar-background;
+    /* 3 */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    /* 4 */
+    -webkit-transform: translateX(-100%);
+    transform: translateX(-100%);
+    @if(mixin-exists(hook-offcanvas-bar)) {@include hook-offcanvas-bar();}
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-offcanvas-bar {
+        width: $offcanvas-bar-width-m;
+        padding: $offcanvas-bar-padding-vertical-m $offcanvas-bar-padding-horizontal-m;
+    }
+
+}
+
+// Color Mode
+@if ( $offcanvas-bar-color-mode == light ) { .uk-offcanvas-bar { @extend .uk-light !optional;} }
+@if ( $offcanvas-bar-color-mode == dark ) { .uk-offcanvas-bar { @extend .uk-dark !optional;} }
+
+/* Flip modifier */
+.uk-offcanvas-flip .uk-offcanvas-bar {
+    left: auto;
+    right: 0;
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+}
+
+/*
+ * Open
+ */
+
+.uk-open > .uk-offcanvas-bar {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+}
+
+/*
+ * Slide Animation (Used in slide and push mode)
+ */
+
+.uk-offcanvas-bar-animation {
+    -webkit-transition: -webkit-transform 0.3s ease-out;
+    transition: transform 0.3s ease-out;
+}
+
+/*
+ * Reveal Animation
+ * 1. Set position
+ * 2. Clip the bar
+ * 3. Animation
+ * 4. Reset transform
+ */
+
+.uk-offcanvas-reveal {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    /* 2 */
+    width: 0;
+    overflow: hidden;
+    /* 3 */
+    -webkit-transition: width 0.3s ease-out;
+    transition: width 0.3s ease-out;
+}
+
+.uk-offcanvas-reveal .uk-offcanvas-bar {
+    /* 4 */
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+}
+
+.uk-open > .uk-offcanvas-reveal { width: $offcanvas-bar-width; }
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-open > .uk-offcanvas-reveal { width: $offcanvas-bar-width-m; }
+
+}
+
+/*
+ * Flip modifier
+ */
+
+.uk-offcanvas-flip .uk-offcanvas-reveal {
+    right: 0;
+    left: auto;
+}
+
+
+/* Close
+ * Adopts `uk-close`
+ ========================================================================== */
+
+.uk-offcanvas-close {
+    position: absolute;
+    z-index: $offcanvas-z-index;
+    top: $offcanvas-close-position;
+    right: $offcanvas-close-position;
+    padding: $offcanvas-close-padding;
+    @if(mixin-exists(hook-offcanvas-close)) {@include hook-offcanvas-close();}
+}
+
+
+/* Overlay
+ ========================================================================== */
+
+/*
+ * Overlay the whole page. Needed for the `::before`
+ * 1. Using `100vw` so no modification is needed when off-canvas is flipped
+ * 2. Allow for closing with swipe gesture on devices with pointer events.
+ */
+
+.uk-offcanvas-overlay {
+    /* 1 */
+    width: 100vw;
+    /* 2 */
+    touch-action: none;
+}
+
+/*
+ * 1. Mask the whole page
+ * 2. Fade-in transition
+ */
+
+.uk-offcanvas-overlay::before {
+    /* 1 */
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: $offcanvas-overlay-background;
+    /* 2 */
+    opacity: 0;
+    -webkit-transition: opacity 0.15s linear;
+    transition: opacity 0.15s linear;
+    @if(mixin-exists(hook-offcanvas-overlay)) {@include hook-offcanvas-overlay();}
+}
+
+.uk-offcanvas-overlay.uk-open::before { opacity: 1; }
+
+
+/* Container
+ ========================================================================== */
+
+/*
+ * Prevent horizontal scrollbar when the content is slide-out
+ * Has to be on the `html` element too to make it work on the `body`
+ */
+
+.uk-offcanvas-page,
+.uk-offcanvas-container { overflow-x: hidden; }
+
+/*
+ * Prevent all scrollbars if overlay is used
+ */
+
+.uk-offcanvas-container-overlay { overflow: hidden; }
+
+
+/* Content
+ ========================================================================== */
+
+/*
+ * Prepare slide-out animation (Used in reveal and push mode)
+ * Using `position: left` instead of `transform` because position `fixed` elements like sticky navbars
+ * lose their fixed state and behaves like `absolute` within a transformed container
+ * Note: JS sets a fixed width and height so the page can slide-out without shrinking
+ * 1. Smooth scrolling
+ */
+
+.uk-offcanvas-container .uk-offcanvas-content {
+    position: relative;
+    left: 0;
+    -webkit-transition: left 0.3s ease-out;
+    transition: left 0.3s ease-out;
+    /* 1 */
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Disable scrolling if overlay mode */
+.uk-offcanvas-overlay .uk-offcanvas-content { overflow-y: hidden; }
+
+/*
+ * Activate slide-out animation
+ */
+
+:not(.uk-offcanvas-flip) > .uk-offcanvas-content-animation { left: $offcanvas-bar-width; }
+
+.uk-offcanvas-flip > .uk-offcanvas-content-animation { left: (-$offcanvas-bar-width); }
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    :not(.uk-offcanvas-flip) > .uk-offcanvas-content-animation { left: $offcanvas-bar-width-m; }
+
+    .uk-offcanvas-flip > .uk-offcanvas-content-animation { left: (-$offcanvas-bar-width-m); }
+
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-offcanvas-misc)) {@include hook-offcanvas-misc();}
+
+// @mixin hook-offcanvas-bar(){}
+// @mixin hook-offcanvas-close(){}
+// @mixin hook-offcanvas-overlay(){}
+// @mixin hook-offcanvas-misc(){}

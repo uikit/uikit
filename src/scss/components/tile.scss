@@ -1,0 +1,131 @@
+// Name:            Tile
+// Description:     Component to create tiled boxes
+//
+// Component:       `uk-tile`
+//
+// Modifiers:       `uk-tile-default`
+//                  `uk-tile-muted`
+//                  `uk-tile-primary`
+//                  `uk-tile-secondary`
+//
+// States:          `uk-preserve-color`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$tile-padding-horizontal:                       $global-gutter !default;
+$tile-padding-vertical:                         $global-gutter !default;
+
+$tile-padding-horizontal-l:                     $global-medium-gutter !default;
+$tile-padding-vertical-l:                       $global-medium-gutter !default;
+
+$tile-default-background:                       $global-background !default;
+
+$tile-muted-background:                         $global-muted-background !default;
+
+$tile-primary-background:                       $global-primary-background !default;
+$tile-primary-color-mode:                       light !default;
+
+$tile-secondary-background:                     $global-secondary-background !default;
+$tile-secondary-color-mode:                     light !default;
+
+
+/* ========================================================================
+   Component: Tile
+ ========================================================================== */
+
+.uk-tile {
+    position: relative;
+    box-sizing: border-box;
+    padding: $tile-padding-vertical $tile-padding-horizontal;
+    @if(mixin-exists(hook-tile)) {@include hook-tile();}
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-tile { padding: $tile-padding-vertical-l $tile-padding-horizontal-l; }
+
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-tile::before,
+.uk-tile::after {
+    content: "";
+    display: table;
+}
+
+.uk-tile::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-tile > :last-child { margin-bottom: 0; }
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+.uk-tile-default {
+    background: $tile-default-background;
+    @if(mixin-exists(hook-tile-default)) {@include hook-tile-default();}
+}
+
+/*
+ * Muted
+ */
+
+.uk-tile-muted {
+    background: $tile-muted-background;
+    @if(mixin-exists(hook-tile-muted)) {@include hook-tile-muted();}
+}
+
+/*
+ * Primary
+ */
+
+.uk-tile-primary {
+    background: $tile-primary-background;
+    @if(mixin-exists(hook-tile-primary)) {@include hook-tile-primary();}
+}
+
+// Color Mode
+@if ( $tile-primary-color-mode == light ) { .uk-tile-primary:not(.uk-preserve-color) { @extend .uk-light !optional;} }
+@if ( $tile-primary-color-mode == dark ) { .uk-tile-primary:not(.uk-preserve-color) { @extend .uk-dark !optional;} }
+
+/*
+ * Secondary
+ */
+
+.uk-tile-secondary {
+    background: $tile-secondary-background;
+    @if(mixin-exists(hook-tile-secondary)) {@include hook-tile-secondary();}
+}
+
+// Color Mode
+@if ( $tile-secondary-color-mode == light ) { .uk-tile-secondary:not(.uk-preserve-color) { @extend .uk-light !optional;} }
+@if ( $tile-secondary-color-mode == dark ) { .uk-tile-secondary:not(.uk-preserve-color) { @extend .uk-dark !optional;} }
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-tile-misc)) {@include hook-tile-misc();}
+
+// @mixin hook-tile(){}
+// @mixin hook-tile-default(){}
+// @mixin hook-tile-muted(){}
+// @mixin hook-tile-primary(){}
+// @mixin hook-tile-secondary(){}
+// @mixin hook-tile-misc(){}

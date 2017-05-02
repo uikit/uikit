@@ -4,23 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, doc, extend, Dimensions, getIndex, Transition} = UIkit.util;
-    var active;
-
-    doc.on({
-        keydown: e => {
-            if (active) {
-                switch (e.keyCode) {
-                    case 37:
-                        active.show('previous');
-                        break;
-                    case 39:
-                        active.show('next');
-                        break;
-                }
-            }
-        }
-    });
+    var {$, ajax, doc, Event, extend, Dimensions, getIndex, Transition} = UIkit.util;
 
     UIkit.component('lightbox', {
 
@@ -125,7 +109,7 @@ function plugin(UIkit) {
 
             },
 
-            events: ['resize', 'orientationchange']
+            events: ['resize']
 
         },
 
@@ -137,8 +121,8 @@ function plugin(UIkit) {
 
                 if (!this.modal) {
                     this.modal = UIkit.modal.dialog(`
-                    <button class="uk-modal-close-outside" uk-transition-hide type="button" uk-close></button>
-                    <span class="uk-position-center" uk-transition-show uk-spinner></span>
+                        <button class="uk-modal-close-outside" uk-transition-hide type="button" uk-close></button>
+                        <span class="uk-position-center" uk-transition-show uk-spinner></span>
                     `, {center: true});
                     this.modal.$el.css('overflow', 'hidden').addClass('uk-modal-lightbox');
                     this.modal.panel.css({width: 200, height: 200});
@@ -146,26 +130,24 @@ function plugin(UIkit) {
 
                     if (this.items.length > 1) {
                         $(`<div class="${this.dark ? 'uk-dark' : 'uk-light'}" uk-transition-hide>
-                            <a href="#" class="uk-position-center-left" uk-slidenav-previous uk-lightbox-item="previous"></a>
-                            <a href="#" class="uk-position-center-right" uk-slidenav-next uk-lightbox-item="next"></a>
-                        </div>
-                    `).appendTo(this.modal.panel.addClass('uk-slidenav-position'));
+                                <a href="#" class="uk-position-center-left" uk-slidenav-previous uk-lightbox-item="previous"></a>
+                                <a href="#" class="uk-position-center-right" uk-slidenav-next uk-lightbox-item="next"></a>
+                            </div>
+                        `).appendTo(this.modal.panel.addClass('uk-slidenav-position'));
                     }
 
                     this.modal.$el
-                        .on('hide', this.hide)
+                        .on('hidden', this.hide)
                         .on('click', `[${this.attrItem}]`, e => {
                             e.preventDefault();
                             this.show($(e.currentTarget).attr(this.attrItem));
                         }).on('swipeRight swipeLeft', e => {
                         e.preventDefault();
                         if (!window.getSelection().toString()) {
-                            this.show(e.type == 'swipeLeft' ? 'next' : 'previous');
+                            this.show(e.type === 'swipeLeft' ? 'next' : 'previous');
                         }
                     });
                 }
-
-                active = this;
 
                 this.modal.panel.find('[uk-transition-hide]').hide();
                 this.modal.panel.find('[uk-transition-show]').show();
@@ -173,16 +155,27 @@ function plugin(UIkit) {
                 this.modal.content && this.modal.content.remove();
                 this.modal.caption.text(this.getItem().title);
 
-                var event = $.Event('showitem');
+                var event = Event('showitem');
                 this.$el.trigger(event);
                 if (!event.isImmediatePropagationStopped()) {
                     this.setError(this.getItem());
                 }
+
+                doc.on(`keydown.${this.$options.name}`, e => {
+                    switch (e.keyCode) {
+                        case 37:
+                            this.show('previous');
+                            break;
+                        case 39:
+                            this.show('next');
+                            break;
+                    }
+                });
             },
 
             hide() {
 
-                active = active && active !== this && active;
+                doc.off(`keydown.${this.$options.name}`);
 
                 this.modal.hide().then(() => {
                     this.modal.$destroy(true);
@@ -312,7 +305,7 @@ function plugin(UIkit) {
                 let id = matches[2],
                     setIframe = (width, height) => this.setItem(item, `<iframe src="//player.vimeo.com/video/${id}" width="${width}" height="${height}" style="max-width:100%;box-sizing:border-box;"></iframe>`, width, height);
 
-                $.ajax({type: 'GET', url: `http://vimeo.com/api/oembed.json?url=${encodeURI(item.source)}`, jsonp: 'callback', dataType: 'jsonp'}).then((res) => setIframe(res.width, res.height));
+                ajax({type: 'GET', url: `http://vimeo.com/api/oembed.json?url=${encodeURI(item.source)}`, jsonp: 'callback', dataType: 'jsonp'}).then((res) => setIframe(res.width, res.height));
 
                 e.stopImmediatePropagation();
             }
