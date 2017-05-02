@@ -78,8 +78,7 @@ export default function (UIkit) {
 
                             if (!data.inview && !data.timer) {
 
-                                data.timer = setTimeout(() => {
-
+                                var show = () => {
                                     $el.css('visibility', '')
                                         .addClass(this.inViewClass)
                                         .toggleClass(cls)
@@ -87,8 +86,15 @@ export default function (UIkit) {
 
                                     data.inview = true;
                                     delete data.timer;
+                                };
 
-                                }, this.delay * index++);
+                                if (this.delay && index) {
+                                    data.timer = setTimeout(show, this.delay * index);
+                                } else {
+                                    show();
+                                }
+
+                                index++;
 
                             }
 
