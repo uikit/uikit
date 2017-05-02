@@ -14,6 +14,7 @@
 - Fix typo in Togglable mixin name
 - Fix form select image for RTL
 - Fix scrollspy 'cls' option
+- Fix HeightMatch not working on initial page load
 
 ## 3.0.0 beta 22 (April 24, 2017)
 
