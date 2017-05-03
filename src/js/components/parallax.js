@@ -90,7 +90,7 @@ function plugin(UIkit) {
                     if (!this._bgImage && this.bgProp) {
                         this._bgImage = promise(resolve => {
 
-                            var url = this.$el.css('backgroundImage').replace(/^url\(["']?/, '').replace(/["']?\)$/, ''),
+                            var url = this.$el.css('background-image').replace(/^url\(["']?/, '').replace(/["']?\)$/, ''),
                                 img = new Image();
 
                             on(img, 'load', () => resolve({width: img.naturalWidth, height: img.naturalHeight}));
@@ -108,12 +108,12 @@ function plugin(UIkit) {
                                 width = this.$el.innerWidth(),
                                 height = this.$el.innerHeight(),
                                 diff = this.props[this.bgProp].diff,
-                                extra = this.bgProp === 'bg' ? diff : height * diff / 100;
+                                extra = this.bgProp === 'bg' ? diff : height * diff / 100,
+                                size;
 
                             height += extra;
                             width += Math.ceil(extra * ratio);
 
-                            var size;
                             if (width - extra < image.width && height < image.height) {
                                 size = 'auto';
                             } else {
@@ -121,7 +121,7 @@ function plugin(UIkit) {
                                 size = `${dim.width}px ${dim.height}px`;
                             }
 
-                            this.$el.css('backgroundSize', size);
+                            this.$el.css('background-size', size);
 
                         });
 
