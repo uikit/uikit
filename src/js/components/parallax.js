@@ -91,9 +91,10 @@ function plugin(UIkit) {
                         this._bgImage = promise(resolve => {
 
                             var url = this.$el.css('background-image').replace(/^url\(["']?/, '').replace(/["']?\)$/, ''),
+                                isCover = this.$el.css('background-size') === 'cover',
                                 img = new Image();
 
-                            on(img, 'load', () => resolve({width: img.naturalWidth, height: img.naturalHeight}));
+                            on(img, 'load', () => resolve({width: img.naturalWidth, height: img.naturalHeight, cover: isCover}));
                             img.src = url;
                         });
 
@@ -115,7 +116,7 @@ function plugin(UIkit) {
                             width += Math.ceil(extra * ratio);
 
                             if (width - extra < image.width && height < image.height) {
-                                size = 'auto';
+                                size = image.cover ? 'cover' : 'auto';
                             } else {
                                 var dim = Dimensions.cover(image, {width, height});
                                 size = `${dim.width}px ${dim.height}px`;
