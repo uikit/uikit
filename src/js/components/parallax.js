@@ -45,12 +45,12 @@ function plugin(UIkit) {
                     }
 
                     var values = this.$props[prop],
-                        start = (values[1]
+                        start = (values[1] !== undefined
                             ? values[0]
                             : prop === 'scale'
                                 ? 1
                                 : this.$el.css(prop)) || 0,
-                        end = values[1] ? values[1] : values[0],
+                        end = values[1] !== undefined ? values[1] : values[0],
                         diff;
 
                     if (prop.match(/color/i)) {
