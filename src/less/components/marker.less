@@ -13,7 +13,6 @@
 @marker-background:                              @global-secondary-background;
 @marker-color:                                   @global-inverse-color;
 
-@marker-hover-background:                        darken(@marker-background, 5%);
 @marker-hover-color:                             @global-inverse-color;
 
 
@@ -35,16 +34,9 @@
 /* Hover + Focus */
 .uk-marker:hover,
 .uk-marker:focus {
-    background: @marker-hover-background;
     color: @marker-hover-color;
     outline: none;
     .hook-marker-hover;
-}
-
-/*  OnClick + Active */
-.uk-marker:active,
-.uk-marker.uk-active {
-    .hook-marker-active;
 }
 
 
@@ -55,7 +47,6 @@
 
 .hook-marker() {}
 .hook-marker-hover() {}
-.hook-marker-active() {}
 .hook-marker-misc() {}
 
 
@@ -64,7 +55,6 @@
 
 @inverse-marker-background:                  @global-muted-background;
 @inverse-marker-color:                       @global-color;
-@inverse-marker-hover-background:            darken(@inverse-marker-background, 5%);
 @inverse-marker-hover-color:                 @global-color;
 
 .hook-inverse() {
@@ -77,18 +67,11 @@
 
     .uk-marker:hover,
     .uk-marker:focus {
-        background: @inverse-marker-hover-background;
         color: @inverse-marker-hover-color;
         .hook-inverse-marker-hover;
-    }
-
-    .uk-marker:active,
-    .uk-marker.uk-active {
-        .hook-inverse-marker-active;
     }
 
 }
 
 .hook-inverse-marker() {}
 .hook-inverse-marker-hover() {}
-.hook-inverse-marker-active() {}
