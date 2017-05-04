@@ -4,7 +4,7 @@
     http://zeptojs.com/
 */
 
-import { $, Event, on, pointerCancel, pointerDown, pointerMove, pointerUp, ready } from './index';
+import { $, Event, on, ready } from './index';
 
 var touch = {}, touchTimeout, tapTimeout, swipeTimeout, gesture, clicked;
 
@@ -22,7 +22,7 @@ function cancelAll() {
 
 ready(function () {
 
-    var now, delta, deltaX = 0, deltaY = 0, firstTouch;
+    var now, delta, deltaX = 0, deltaY = 0;
 
     if ('MSGesture' in window) {
         gesture = new MSGesture();
@@ -33,29 +33,37 @@ ready(function () {
 
     var gestureHandler = function (e) {
 
-        var swipeDirectionFromVelocity = e.velocityX > 1 ? 'Right' : e.velocityX < -1 ? 'Left' : e.velocityY > 1 ? 'Down' : e.velocityY < -1 ? 'Up' : null;
+        var dir = e.velocityX > 1
+            ? 'Right'
+            : e.velocityX < -1
+                ? 'Left'
+                : e.velocityY > 1
+                    ? 'Down'
+                    : e.velocityY < -1
+                        ? 'Up'
+                        : null;
 
-        if (swipeDirectionFromVelocity && touch.el !== undefined) {
+        if (dir && touch.el !== undefined) {
             touch.el.trigger('swipe');
-            touch.el.trigger(`swipe${swipeDirectionFromVelocity}`);
+            touch.el.trigger(`swipe${dir}`);
         }
     };
 
     on(document, 'MSGestureEnd', gestureHandler);
     on(document, 'gestureend', gestureHandler);
 
-    on(document, pointerDown, function (e) {
+    on(document, 'mousedown pointerdown touchstart', function (e) {
 
-        firstTouch = e.touches ? e.touches[0] : e;
+        var {target, pageX, pageY} = e.touches ? e.touches[0] : e;
 
         now = Date.now();
         delta = now - (touch.last || now);
-        touch.el = $('tagName' in firstTouch.target ? firstTouch.target : firstTouch.target.parentNode);
+        touch.el = $('tagName' in target ? target : target.parentNode);
 
         if (touchTimeout) clearTimeout(touchTimeout);
 
-        touch.x1 = firstTouch.pageX;
-        touch.y1 = firstTouch.pageY;
+        touch.x1 = pageX;
+        touch.y1 = pageY;
 
         if (delta > 0 && delta <= 250) touch.isDoubleTap = true;
 
@@ -70,18 +78,18 @@ ready(function () {
 
     });
 
-    on(document, pointerMove, function (e) {
+    on(document, 'mousemove pointermove touchmove', function (e) {
 
-        firstTouch = e.touches ? e.touches[0] : e;
+        var {pageX, pageY} = e.touches ? e.touches[0] : e;
 
-        touch.x2 = firstTouch.pageX;
-        touch.y2 = firstTouch.pageY;
+        touch.x2 = pageX;
+        touch.y2 = pageY;
 
         deltaX += Math.abs(touch.x1 - touch.x2);
         deltaY += Math.abs(touch.y1 - touch.y2);
     });
 
-    on(document, pointerUp, function () {
+    on(document, 'mouseup pointerup touchend', function () {
 
         // swipe
         if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) || (touch.y2 && Math.abs(touch.y1 - touch.y2) > 30)) {
@@ -92,7 +100,7 @@ ready(function () {
                     touch.el.trigger(`swipe${swipeDirection(touch.x1, touch.x2, touch.y1, touch.y2)}`);
                 }
                 touch = {};
-            }, 0);
+            });
 
             // normal tap
         } else if ('last' in touch) {
@@ -145,7 +153,7 @@ ready(function () {
     // when the browser window loses focus,
     // for example when a modal dialog is shown,
     // cancel all ongoing events
-    on(document, pointerCancel, cancelAll);
+    on(document, 'touchcancel', cancelAll);
 
     // scrolling the window indicates intention of the user
     // to scroll, not tap or swipe, so cancel all ongoing events
