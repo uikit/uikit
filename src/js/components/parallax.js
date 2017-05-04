@@ -51,6 +51,7 @@ function plugin(UIkit) {
                                 ? 1
                                 : this.$el.css(prop)) || 0,
                         end = values[1] !== undefined ? values[1] : values[0],
+                        percent = values.join('').indexOf('%') !== -1,
                         diff;
 
                     if (prop.match(/color/i)) {
@@ -68,7 +69,7 @@ function plugin(UIkit) {
                         diff = Math.abs(start - end);
                     }
 
-                    props[prop] = {start, end, diff};
+                    props[prop] = {start, end, diff, percent};
                     return props;
 
                 }, {});
@@ -186,13 +187,11 @@ function plugin(UIkit) {
 
                 // transforms
                 case 'x':
-                case 'xp':
                 case 'y':
-                case 'yp':
                     var dir = prop.charAt(0).toUpperCase();
                     css.transform += ` translate${has3D
-                        ? `3d(${dir === 'Y' ? '0,' : ''}${value}${getUnit(prop)}, ${dir === 'X' ? '0,' : ''} 0)`
-                        : `${dir}(${value}${getUnit(prop)})`
+                        ? `3d(${dir === 'Y' ? '0,' : ''}${value}${getUnit(values)}, ${dir === 'X' ? '0,' : ''} 0)`
+                        : `${dir}(${value}${getUnit(values)})`
                     }`;
                     break;
                 case 'rotate':
@@ -204,8 +203,7 @@ function plugin(UIkit) {
 
                 // bg image
                 case 'bg':
-                case 'bgp':
-                    css.backgroundPosition = `50% ${value}${getUnit(prop)}`;
+                    css.backgroundPosition = `50% ${value}${getUnit(values)}`;
                     break;
 
                 // color
@@ -247,8 +245,8 @@ function plugin(UIkit) {
 
     }
 
-    function getUnit(prop) {
-        return prop.slice(-1) === 'p' ? '%' : 'px';
+    function getUnit(v) {
+        return v.percent ? '%' : 'px';
     }
 
 }
