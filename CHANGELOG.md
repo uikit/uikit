@@ -6,6 +6,7 @@
 
 - Add hidden classes for touch devices to visiblity component
 - Add transform center to utility component
+- Add Marker Component
 - Add clsBelow option for Sticky component (uk-sticky-below)
 
 ### Fixed
