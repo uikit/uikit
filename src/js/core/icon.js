@@ -2,6 +2,7 @@ import { Class } from '../mixin/index';
 import { $, extend, isRtl, promise, swap } from '../util/index';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
+import marker from '../../images/components/marker.svg';
 import navbarToggleIcon from '../../images/components/navbar-toggle-icon.svg';
 import overlayIcon from '../../images/components/overlay-icon.svg';
 import paginationNext from '../../images/components/pagination-next.svg';
@@ -22,6 +23,7 @@ export default function (UIkit) {
         icons = {
             spinner,
             totop,
+            marker,
             'close-icon': closeIcon,
             'close-large': closeLarge,
             'navbar-toggle-icon': navbarToggleIcon,
@@ -115,6 +117,7 @@ export default function (UIkit) {
     }));
 
     [
+        'marker',
         'navbar-toggle-icon',
         'overlay-icon',
         'pagination-previous',
