@@ -12,11 +12,15 @@
 // ========================================================================
 
 .hook-marker() {
-    -webkit-transition: color 0.1s ease-in-out;
-    transition: color 0.1s ease-in-out;
+    -webkit-transition: 0.1s ease-in-out;
+    transition: 0.1s ease-in-out;
+    -webkit-transition-property: color, background-color;
+    transition-property: color, background-color;
 }
 
 .hook-marker-hover() {}
+
+.hook-marker-active() {}
 
 
 // Miscellaneous
@@ -30,3 +34,4 @@
 
 .hook-inverse-marker() {}
 .hook-inverse-marker-hover() {}
+.hook-inverse-marker-active() {}
