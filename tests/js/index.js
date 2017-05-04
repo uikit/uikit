@@ -16,6 +16,7 @@ var styles = $.extend({
     component = location.pathname.split('/').pop().replace(/.html$/, ''),
     components = [
         'lightbox',
+        'marker',
         'notification',
         'grid-parallax',
         'parallax',

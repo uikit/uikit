@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add Marker component
 - Add hidden classes for touch devices to visiblity component
 - Add transform center to utility component
 - Add clsBelow option for Sticky component (uk-sticky-below)
@@ -13,6 +14,9 @@
 - Fix support for more than two digits in Countdown component
 - Fix typo in Togglable mixin name
 - Fix form select image for RTL
+- Fix scrollspy 'cls' option
+- Fix HeightMatch not working on initial page load
+- Fix touch events
 
 ## 3.0.0 beta 22 (April 24, 2017)
 

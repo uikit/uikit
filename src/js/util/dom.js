@@ -29,11 +29,11 @@ export function ready(fn) {
 }
 
 export function on(el, type, listener, useCapture) {
-    toNode(el).addEventListener(type, listener, useCapture)
+    type.split(' ').forEach(type => toNode(el).addEventListener(type, listener, useCapture));
 }
 
 export function off(el, type, listener, useCapture) {
-    toNode(el).removeEventListener(type, listener, useCapture)
+    type.split(' ').forEach(type => toNode(el).removeEventListener(type, listener, useCapture));
 }
 
 export function transition(element, props, duration = 400, transition = 'linear') {

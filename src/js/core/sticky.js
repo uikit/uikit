@@ -93,7 +93,7 @@ export default function (UIkit) {
 
                 write() {
 
-                    var outerHeight = this.$el[0].offsetHeight, el;
+                    var outerHeight = (this.isActive ? this.placeholder : this.$el)[0].offsetHeight, el;
 
                     this.placeholder
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
@@ -177,7 +177,7 @@ export default function (UIkit) {
 
                         this.isActive = false;
 
-                        if (this.animation && this.bottomOffset < this.offsetTop) {
+                        if (this.animation) {
                             Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation).then(() => this.hide()));
                         } else {
                             this.hide();
