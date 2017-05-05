@@ -204,10 +204,30 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
 export function scrolledOver(element) {
 
-    var rect = toNode(element).getBoundingClientRect(),
-        vh = window.innerHeight;
+    var element = toJQuery(element);
 
-    return Math.min(1, Math.max(0, Math.round(((vh - rect.top) / ((vh + rect.height) / 100))) / 100));
+    var top = element.offset().top;
+    var height = element.outerHeight();
+    var wh = window.innerHeight;
+    var scrollTop = window.scrollY;
+    var distance, percentage, percent;
+
+    if (top > (scrollTop + wh)) {
+        percent = 0;
+    } else if ((top + height) < scrollTop) {
+        percent = 1;
+    } else {
+
+        if ((top + height) < wh) {
+            percent = (scrollTop < wh ? scrollTop : scrollTop - wh) / (top+height);
+        } else {
+            distance   = (scrollTop + wh) - top;
+            percentage = Math.round(distance / ((wh + height) / 100));
+            percent    = percentage/100;
+        }
+    }
+
+    return percent;
 }
 
 export function getIndex(index, elements, current = 0) {
