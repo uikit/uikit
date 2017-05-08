@@ -5,6 +5,7 @@
 ### Changed
 
 - IMPORTANT: Remove caption from modal component. Use lightbox component instead
+- IMPORTANT: Remove lightbox modifier from modal component. Use lightbox component instead
 
 ## WIP
 
