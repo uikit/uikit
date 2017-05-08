@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP Lightbox
+
+### Changed
+
+- IMPORTANT: Remove caption from modal component. Use lightbox component instead
+
 ## WIP
 
 ### Added
