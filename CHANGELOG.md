@@ -2,6 +2,10 @@
 
 ## WIP Lightbox
 
+### Added
+
+- Add Lightbox component
+
 ### Changed
 
 - IMPORTANT: Remove caption from modal component. Use lightbox component instead
