@@ -70,10 +70,10 @@
                     return fn();
                 })(),
 
-                focus: function(){ $this.target.addClass('uk-focus'); },
-                blur: function(){ $this.target.removeClass('uk-focus'); },
-                mouseenter: function(){ $this.target.addClass('uk-hover'); },
-                mouseleave: function(){ $this.target.removeClass('uk-hover'); }
+                focus: function(){ $this.target.addClass('uk-focus') },
+                blur: function(){ $this.target.removeClass('uk-focus') },
+                mouseenter: function(){ $this.target.addClass('uk-hover') },
+                mouseleave: function(){ $this.target.removeClass('uk-hover') }
             });
 
             this.element.data("formSelect", this);
