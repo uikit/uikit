@@ -56,7 +56,7 @@
                     var element     = UI.$(this),
                         inviewstate = element.data('inviewstate'),
                         inview      = UI.Utils.isInView(element, $this.options),
-                        toggle      = element.data('ukScrollspyCls') || togglecls[toggleclsIdx].trim();
+                        toggle      = element.attr('data-uk-scrollspy-cls') || togglecls[toggleclsIdx].trim();
 
                     if (inview && !inviewstate && !element.data('scrollspy-idle')) {
 

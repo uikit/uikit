@@ -1,8 +1,11 @@
 # Changelog
 
 
-### WIP
+### 2.27.3
 
+  - Fixed init UIkit twice (using with Webpack)
+  - Fixed custom prefix issue with scrollspy component
+  - Fixed swipe events on mobile devices
   - Added global object UIkit2, so internal code is not dependent on the UIkit object
   - Updated prefix behaviour to also create a global UIkit2{prefix} object
 

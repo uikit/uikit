@@ -220,7 +220,7 @@
 
             function translateOffset(offset) {
                 var result = editor.getValue().substring(0, offset).split('\n');
-                return { line: result.length - 1, ch: result[result.length - 1].length }
+                return { line: result.length - 1, ch: result[result.length - 1].length; }
             }
 
             return results;
