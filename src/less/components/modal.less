@@ -32,10 +32,9 @@
 @modal-padding-horizontal:                      15px;
 @modal-padding-horizontal-s:                    @global-gutter;
 @modal-padding-horizontal-m:                    @global-medium-gutter;
+@modal-padding-vertical:                        @modal-padding-horizontal;
+@modal-padding-vertical-s:                      50px;
 
-@modal-dialog-margin-vertical:                  50px;
-@modal-dialog-margin-vertical-xs:               15px;
-@modal-dialog-margin-horizontal:                @modal-dialog-margin-vertical-xs;
 @modal-dialog-width:                            600px;
 @modal-dialog-background:                       @global-background;
 
@@ -91,8 +90,7 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     /* 4 */
-    padding-left: @modal-padding-horizontal;
-    padding-right: @modal-padding-horizontal;
+    padding: @modal-padding-vertical @modal-padding-horizontal;
     /* 5 */
     background: @modal-background;
     /* 6 */
@@ -105,10 +103,7 @@
 /* Phone landscape and bigger */
 @media (min-width: @breakpoint-small) {
 
-    .uk-modal {
-        padding-left: @modal-padding-horizontal-s;
-        padding-right: @modal-padding-horizontal-s;
-    }
+    .uk-modal { padding: @modal-padding-vertical-s @modal-padding-horizontal-s; }
 
 }
 
@@ -154,7 +149,7 @@
     position: relative;
     /* 2 */
     box-sizing: border-box;
-    margin: @modal-dialog-margin-vertical auto;
+    margin: 0 auto;
     width: @modal-dialog-width;
     max-width: 100%;
     /* 3 */
@@ -168,16 +163,6 @@
     -webkit-transition-property: opacity, transform;
     transition-property: opacity, transform;
     .hook-modal-dialog;
-}
-
-/* Phone portrait and smaller */
-@media (max-width: @breakpoint-xsmall-max) {
-
-    .uk-modal-dialog {
-        margin-top: @modal-dialog-margin-vertical-xs;
-        margin-bottom: @modal-dialog-margin-vertical-xs;
-    }
-
 }
 
 /*

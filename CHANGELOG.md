@@ -8,8 +8,12 @@
 
 ### Changed
 
-- IMPORTANT: Remove caption from modal component. Use lightbox component instead
-- IMPORTANT: Remove lightbox modifier from modal component. Use lightbox component instead
+- IMPORTANT: Remove caption from Modal component. Use Lightbox component instead
+- IMPORTANT: Remove lightbox modifier from Modal component. Use Lightbox component instead
+- IMPORTANT: Remove center option from Modal component. Use `uk-margin-auto-vertical` modifier
+- IMPORTANT: Renamed `@modal-dialog-margin-vertical` to `@modal-padding-vertical-s`
+- IMPORTANT: Renamed `@modal-dialog-margin-vertical-xs` to `@modal-padding-vertical`
+- Refactored Modal component
 
 ## WIP
 
