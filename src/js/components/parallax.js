@@ -6,7 +6,7 @@ function plugin(UIkit) {
 
     var {$, has3D, Dimensions, on, promise, scrolledOver, query} = UIkit.util;
 
-    var props = ['x', 'xp', 'y', 'yp', 'bg', 'bgp', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
+    var props = ['x', 'y', 'bg', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
     UIkit.component('parallax', {
 
@@ -45,13 +45,10 @@ function plugin(UIkit) {
                     }
 
                     var values = this.$props[prop],
-                        start = (values[1] !== undefined
-                            ? values[0]
-                            : prop === 'scale'
-                                ? 1
-                                : this.$el.css(prop)) || 0,
+                        $start = getStyleValue(this.$el, prop),
+                        start = $start,
                         end = values[1] !== undefined ? values[1] : values[0],
-                        percent = values.join('').indexOf('%') !== -1,
+                        unit = values.join('').indexOf('%') !== -1 ? '%' : 'px',
                         diff;
 
                     if (prop.match(/color/i)) {
@@ -69,7 +66,7 @@ function plugin(UIkit) {
                         diff = Math.abs(start - end);
                     }
 
-                    props[prop] = {start, end, diff, percent};
+                    props[prop] = {start, end, diff, unit, $start};
                     return props;
 
                 }, {});
@@ -77,7 +74,7 @@ function plugin(UIkit) {
             },
 
             bgProp() {
-                return ['bg', 'bgp'].filter(bg => bg in this.props)[0];
+                return ['bg', 'bgx', 'bgy'].filter(bg => bg in this.props)[0];
             }
 
         },
@@ -106,25 +103,24 @@ function plugin(UIkit) {
 
                         this._bgImage.then(image => {
 
+                            if (!image.cover) {
+                                return;
+                            }
+
                             var ratio = image.width / image.height,
-                                width = this.$el.innerWidth(),
-                                height = this.$el.innerHeight(),
-                                diff = this.props[this.bgProp].diff,
-                                extra = this.bgProp === 'bg' ? diff : height * diff / 100,
-                                size;
+                                width = this.$el.outerWidth(),
+                                height = this.$el.outerHeight(),
+                                diff = this.props[this.bgProp].diff * 1.2,
+                                extra = this.props[this.bgProp].unit == '%' ? height * diff / 100 : diff,
+                                size, dim;
 
                             height += extra;
                             width += Math.ceil(extra * ratio);
 
-                            if (width - extra < image.width && height < image.height) {
-                                size = image.cover ? 'cover' : 'auto';
-                            } else {
-                                var dim = Dimensions.cover(image, {width, height});
-                                size = `${dim.width}px ${dim.height}px`;
-                            }
+                            dim = Dimensions.cover(image, {width, height});
+                            size = `${dim.width}px ${dim.height}px`;
 
-                            this.$el.css('background-size', size);
-
+                            this.$el.css({backgroundSize: size});
                         });
 
                     }
@@ -190,8 +186,8 @@ function plugin(UIkit) {
                 case 'y':
                     var dir = prop.charAt(0).toUpperCase();
                     css.transform += ` translate${has3D
-                        ? `3d(${dir === 'Y' ? '0,' : ''}${value}${getUnit(values)}, ${dir === 'X' ? '0,' : ''} 0)`
-                        : `${dir}(${value}${getUnit(values)})`
+                        ? `3d(${dir === 'Y' ? '0,' : ''}${value}${values.unit}, ${dir === 'X' ? '0,' : ''} 0)`
+                        : `${dir}(${value}${values.unit})`
                     }`;
                     break;
                 case 'rotate':
@@ -203,7 +199,14 @@ function plugin(UIkit) {
 
                 // bg image
                 case 'bg':
-                    css.backgroundPosition = `50% ${value}${getUnit(values)}`;
+                case 'bgy':
+
+                    var calc = [values.$start, value < 0 ? '-':'+', Math.abs(value)+values.unit].join(' ');
+                    css.backgroundPositionY = `calc(${calc})`;
+                    break;
+                case 'bgx':
+                    var calc = [values.$start, value < 0 ? '-':'+', Math.abs(value)+values.unit].join(' ');
+                    css.backgroundPositionX = `calc(${calc})`;
                     break;
 
                 // color
@@ -245,8 +248,36 @@ function plugin(UIkit) {
 
     }
 
-    function getUnit(v) {
-        return v.percent ? '%' : 'px';
+    function getStyleValue(element, prop) {
+
+        var value = 0;
+
+        switch(prop) {
+            case 'scale':
+                value = 1;
+                break;
+            case 'bgy':
+                value = element.css('background-postion-y');
+                break;
+            case 'bgx':
+                value = element.css('background-postion-x');
+                break;
+            default:
+                value = element.css(prop);
+        }
+
+        value = value || 0;
+
+        if (prop.match(/^bg/)) {
+
+            if (value === 0) {
+                value = '50%';
+            } else if (value == 'center') {
+                value = '50%';
+            }
+        }
+
+        return value;
     }
 
 }
