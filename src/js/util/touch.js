@@ -140,7 +140,7 @@ ready(function () {
 
                             }
                             touch = {};
-                        }, 300);
+                        }, 350);
                     }
                 });
             } else {

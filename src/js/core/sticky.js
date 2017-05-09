@@ -177,7 +177,7 @@ export default function (UIkit) {
 
                         this.isActive = false;
 
-                        if (this.animation) {
+                        if (this.animation && scroll > this.topOffset) {
                             Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation).then(() => this.hide()));
                         } else {
                             this.hide();
