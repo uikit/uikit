@@ -1,7 +1,7 @@
 # Changelog
 
 
-### WIP
+### 2.27.3
 
   - Fixed init UIkit twice (using with Webpack)
   - Fixed custom prefix issue with scrollspy component
