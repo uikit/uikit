@@ -55,6 +55,18 @@ export function position(element, target, attach, targetAttach, offset, targetOf
 
             if (position[align] < boundary[align] || position[align] + dim[prop] > boundary[alignFlip]) {
 
+                var centerOffset = dim[prop] / 2,
+                    centerTargetOffset = targetAttach[dir] === 'center' ? -targetDim[prop] / 2 : 0;
+
+                attach[dir] === 'center' && (
+                    apply(centerOffset, centerTargetOffset)
+                    || apply(-centerOffset, -centerTargetOffset)
+                ) || apply(elemOffset, targetOffset);
+
+            }
+
+            function apply(elemOffset, targetOffset) {
+
                 var newVal = position[align] + elemOffset + targetOffset - offset[dir] * 2;
 
                 if (newVal >= boundary[align] && newVal + dim[prop] <= boundary[alignFlip]) {
@@ -67,7 +79,10 @@ export function position(element, target, attach, targetAttach, offset, targetOf
                                 ? dirs[dir][2]
                                 : dirs[dir][1];
                     });
+
+                    return true;
                 }
+
             }
 
         });
