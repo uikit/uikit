@@ -114,7 +114,7 @@ function plugin(UIkit) {
                                 extra = this.props[this.bgProp].unit == '%' ? height * diff / 100 : diff,
                                 size, dim;
 
-                            height += (extra * 2);
+                            height += (extra * (width/height < ratio ? 2 : 1));
                             width += Math.ceil(extra * ratio);
 
                             dim = Dimensions.cover(image, {width, height});
