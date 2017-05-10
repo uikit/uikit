@@ -27,10 +27,6 @@ export default function (UIkit) {
             queued: true
         },
 
-        connected() {
-            this.$emitSync();
-        },
-
         computed: {
 
             connects() {

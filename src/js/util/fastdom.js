@@ -25,6 +25,17 @@ export const fastdom = {
 
     clear: function(task) {
         return remove(this.reads, task) || remove(this.writes, task);
+    },
+
+    flush: function() {
+        runTasks(this.reads);
+        runTasks(this.writes.splice(0, this.writes.length));
+
+        this.scheduled = false;
+
+        if (this.reads.length || this.writes.length) {
+            scheduleFlush(this);
+        }
     }
 
 };
@@ -34,19 +45,6 @@ function scheduleFlush(fastdom) {
         fastdom.scheduled = true;
         requestAnimationFrame(flush.bind(null, fastdom));
     }
-}
-
-function flush(fastdom) {
-
-    runTasks(fastdom.reads);
-    runTasks(fastdom.writes.splice(0, fastdom.writes.length));
-
-    fastdom.scheduled = false;
-
-    if (fastdom.reads.length || fastdom.writes.length) {
-        scheduleFlush(fastdom);
-    }
-
 }
 
 function runTasks(tasks) {

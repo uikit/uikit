@@ -23,6 +23,7 @@
 - Fix HeightMatch not working on initial page load
 - Fix touch events
 - Fix click event firing twice in iOS <= 9.2
+- Prevent inital page jump (Safari)
 
 ## 3.0.0 beta 22 (April 24, 2017)
 
