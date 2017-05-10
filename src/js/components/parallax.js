@@ -110,11 +110,11 @@ function plugin(UIkit) {
                             var ratio = image.width / image.height,
                                 width = this.$el.outerWidth(),
                                 height = this.$el.outerHeight(),
-                                diff = this.props[this.bgProp].diff * 1.2,
+                                diff = this.props[this.bgProp].diff,
                                 extra = this.props[this.bgProp].unit == '%' ? height * diff / 100 : diff,
                                 size, dim;
 
-                            height += extra;
+                            height += (extra * 2);
                             width += Math.ceil(extra * ratio);
 
                             dim = Dimensions.cover(image, {width, height});
@@ -256,11 +256,12 @@ function plugin(UIkit) {
             case 'scale':
                 value = 1;
                 break;
+            case 'bg':
             case 'bgy':
-                value = element.css('background-postion-y');
+                value = element.css('background-position-y') || '0px';
                 break;
             case 'bgx':
-                value = element.css('background-postion-x');
+                value = element.css('background-position-x') || '0px';
                 break;
             default:
                 value = element.css(prop);
@@ -268,12 +269,14 @@ function plugin(UIkit) {
 
         value = value || 0;
 
-        if (prop.match(/^bg/)) {
+        if (['bg','bgy','bgx'].indexOf(prop) > -1) {
 
             if (value === 0) {
-                value = '50%';
+                value = '0px';
             } else if (value == 'center') {
                 value = '50%';
+            } else if (value == 'top' || value == 'left') {
+                value = '0px';
             }
         }
 
