@@ -28,14 +28,7 @@ export const fastdom = {
     },
 
     flush: function() {
-        runTasks(this.reads);
-        runTasks(this.writes.splice(0, this.writes.length));
-
-        this.scheduled = false;
-
-        if (this.reads.length || this.writes.length) {
-            scheduleFlush(this);
-        }
+        flush(this);
     }
 
 };
@@ -43,8 +36,21 @@ export const fastdom = {
 function scheduleFlush(fastdom) {
     if (!fastdom.scheduled) {
         fastdom.scheduled = true;
-        requestAnimationFrame(fastdom.flush.bind(null, fastdom));
+        requestAnimationFrame(flush.bind(null, fastdom));
     }
+}
+
+function flush(fastdom) {
+
+    runTasks(fastdom.reads);
+    runTasks(fastdom.writes.splice(0, fastdom.writes.length));
+
+    fastdom.scheduled = false;
+
+    if (fastdom.reads.length || fastdom.writes.length) {
+        scheduleFlush(fastdom);
+    }
+
 }
 
 function runTasks(tasks) {
