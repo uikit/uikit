@@ -282,7 +282,7 @@
 .uk-input:focus,
 .uk-select:focus,
 .uk-textarea:focus {
-    outline: 0;
+    outline: none;
     background-color: @form-focus-background;
     color: @form-focus-color;
     .hook-form-focus;
@@ -379,17 +379,18 @@
 /*
  * Fixed widths
  * Different widths for mini sized `input` and `select` elements
+ * `!important` needed for to override `uk-range` in form range component
  */
 
 input.uk-form-width-xsmall { width: @form-width-xsmall; }
 
 select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
-.uk-form-width-small { width: @form-width-small; }
+.uk-form-width-small { width: @form-width-small !important; }
 
-.uk-form-width-medium { width: @form-width-medium; }
+.uk-form-width-medium { width: @form-width-medium !important; }
 
-.uk-form-width-large { width: @form-width-large; }
+.uk-form-width-large { width: @form-width-large !important; }
 
 
 /* Select

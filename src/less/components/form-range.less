@@ -1,0 +1,185 @@
+// Name:            Form Range
+// Description:     Styles for the range input type
+//
+// Component:       `uk-range`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@form-range-thumb-height:                       15px;
+@form-range-thumb-border-radius:                500px;
+@form-range-thumb-background:                   @global-color;
+
+@form-range-track-height:                       3px;
+@form-range-track-background:                   darken(@global-muted-background, 5%);
+@form-range-track-focus-background:             darken(@global-muted-background, 15%);
+
+
+/* ========================================================================
+   Component: Form Range
+ ========================================================================== */
+
+/*
+ * 1. Normalize and defaults
+ * 2. Prevent content overflow if a fixed width is used
+ * 3. Take the full width
+ * 4. Remove default style
+ * 5. Remove white background in Chrome
+ * 6. Remove padding in IE11
+ */
+
+.uk-range {
+    /* 1 */
+    box-sizing: border-box;
+    margin: 0;
+    vertical-align: middle;
+    /* 2 */
+    max-width: 100%;
+    /* 3 */
+    width: 100%;
+    /* 4 */
+    -webkit-appearance: none;
+    /* 5 */
+    background: transparent;
+    /* 6 */
+    padding: 0;
+    .hook-form-range;
+}
+
+/* Focus */
+.uk-range:focus { outline: none; }
+.uk-range::-moz-focus-outer { border: none; }
+
+/* IE11 Reset */
+.uk-range::-ms-track {
+    height: @form-range-thumb-height;
+    background: transparent;
+    border-color: transparent;
+    color: transparent;
+}
+
+/*
+ * Improves consistency of cursor style for clickable elements
+ */
+
+.uk-range:not(:disabled)::-webkit-slider-thumb { cursor: pointer; }
+.uk-range:not(:disabled)::-moz-range-thumb { cursor: pointer; }
+.uk-range:not(:disabled)::-ms-thumb { cursor: pointer; }
+
+
+/* Thumb
+ ========================================================================== */
+
+/*
+ * 1. Reset
+ * 2. Style
+ */
+
+/* Webkit */
+.uk-range::-webkit-slider-thumb {
+    /* 1 */
+    -webkit-appearance: none;
+    margin-top: (floor(@form-range-thumb-height / 2) * -1);
+    /* 2 */
+    height: @form-range-thumb-height;
+    width: @form-range-thumb-height;
+    border-radius: @form-range-thumb-border-radius;
+    background: @form-range-thumb-background;
+    .hook-form-range-thumb;
+}
+
+/* Firefox */
+.uk-range::-moz-range-thumb {
+    /* 1 */
+    border: none;
+    /* 2 */
+    height: @form-range-thumb-height;
+    width: @form-range-thumb-height;
+    border-radius: @form-range-thumb-border-radius;
+    background: @form-range-thumb-background;
+    .hook-form-range-thumb;
+}
+
+/* Edge */
+.uk-range::-ms-thumb {
+    /* 1 */
+    margin-top: 0;
+}
+
+/* IE11 */
+.uk-range::-ms-thumb {
+    /* 1 */
+    border: none;
+    /* 2 */
+    height: @form-range-thumb-height;
+    width: @form-range-thumb-height;
+    border-radius: @form-range-thumb-border-radius;
+    background: @form-range-thumb-background;
+    .hook-form-range-thumb;
+}
+
+/* Edge + IE11 */
+.uk-range::-ms-tooltip { display: none; }
+
+
+/* Track
+ ========================================================================== */
+
+/*
+ * 1. Safari doesn't have a focus state. Using active instead.
+ */
+
+/* Webkit */
+.uk-range::-webkit-slider-runnable-track {
+    height: @form-range-track-height;
+    background: @form-range-track-background;
+    .hook-form-range-track;
+}
+
+.uk-range:focus::-webkit-slider-runnable-track,
+/* 1 */
+.uk-range:active::-webkit-slider-runnable-track {
+    background: @form-range-track-focus-background;
+    .hook-form-range-track-focus;
+}
+
+/* Firefox */
+.uk-range::-moz-range-track {
+    height: @form-range-track-height;
+    background: @form-range-track-background;
+    .hook-form-range-track;
+}
+
+.uk-range:focus::-moz-range-track {
+    background: @form-range-track-focus-background;
+    .hook-form-range-track-focus;
+}
+
+/* Edge */
+.uk-range::-ms-fill-lower,
+.uk-range::-ms-fill-upper {
+    height: @form-range-track-height;
+    background: @form-range-track-background;
+    .hook-form-range-track;
+}
+
+.uk-range:focus::-ms-fill-lower,
+.uk-range:focus::-ms-fill-upper {
+    background: @form-range-track-focus-background;
+    .hook-form-range-track-focus;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-form-range-misc;
+
+.hook-form-range() {}
+.hook-form-range-thumb() {}
+.hook-form-range-track() {}
+.hook-form-range-track-focus() {}
+.hook-form-range-misc() {}
