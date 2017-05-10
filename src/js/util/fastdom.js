@@ -43,7 +43,7 @@ export const fastdom = {
 function scheduleFlush(fastdom) {
     if (!fastdom.scheduled) {
         fastdom.scheduled = true;
-        requestAnimationFrame(flush.bind(null, fastdom));
+        requestAnimationFrame(fastdom.flush.bind(null, fastdom));
     }
 }
 
