@@ -9,6 +9,10 @@
 - Add transform center to utility component
 - Add clsBelow option for Sticky component (uk-sticky-below)
 
+### Changed
+
+- Improved flip behaviour in Drop component
+
 ### Fixed
 
 - Fix support for more than two digits in Countdown component
