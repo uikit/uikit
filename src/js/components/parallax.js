@@ -45,7 +45,7 @@ function plugin(UIkit) {
                     }
 
                     var values = this.$props[prop],
-                        $start = getStyleValue(this.$el, prop),
+                        $start = values[1] !== undefined ? values[0] : getStyleValue(this.$el, prop),
                         start = $start,
                         end = values[1] !== undefined ? values[1] : values[0],
                         unit = values.join('').indexOf('%') !== -1 ? '%' : 'px',
@@ -88,15 +88,15 @@ function plugin(UIkit) {
                     if (!this._bgImage && this.bgProp) {
                         this._bgImage = promise(resolve => {
 
-                            var url = this.$el.css('background-image').replace(/^url\(["']?/, '').replace(/["']?\)$/, ''),
-                                isCover = this.$el.css('background-size') === 'cover',
+                            var url = this.$el.css('backgroundImage').replace(/^url\(["']?/, '').replace(/["']?\)$/, ''),
+                                isCover = this.$el.css('backgroundSize') === 'cover',
                                 img = new Image();
 
                             on(img, 'load', () => resolve({width: img.naturalWidth, height: img.naturalHeight, cover: isCover}));
                             img.src = url;
                         });
 
-                        this.$el.css({backgroundSize: 'cover', backgroundRepeat: 'no-repeat'});
+                        this.$el.css({backgroundRepeat: 'no-repeat'});
                     }
 
                     if (this._bgImage) {
@@ -200,13 +200,9 @@ function plugin(UIkit) {
                 // bg image
                 case 'bg':
                 case 'bgy':
-
-                    var calc = [values.$start, value < 0 ? '-':'+', Math.abs(value)+values.unit].join(' ');
-                    css.backgroundPositionY = `calc(${calc})`;
-                    break;
                 case 'bgx':
                     var calc = [values.$start, value < 0 ? '-':'+', Math.abs(value)+values.unit].join(' ');
-                    css.backgroundPositionX = `calc(${calc})`;
+                    css[`backgroundPosition${prop =='bgx' ? 'X' : 'Y'}`] = `calc(${calc})`;
                     break;
 
                 // color
