@@ -12,6 +12,7 @@
 
 ### Changed
 
+- IMPORTANT: Move Less/Sass imports into one file. Use `components/_import.less`
 - Improved flip behaviour in Drop component
 
 ### Fixed
