@@ -16,10 +16,6 @@ export default function (UIkit) {
             offsetBottom: false
         },
 
-        connected() {
-            this.$emitSync();
-        },
-
         update: {
 
             write() {

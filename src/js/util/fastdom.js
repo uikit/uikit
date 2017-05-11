@@ -25,6 +25,10 @@ export const fastdom = {
 
     clear: function(task) {
         return remove(this.reads, task) || remove(this.writes, task);
+    },
+
+    flush: function() {
+        flush(this);
     }
 
 };

@@ -5,9 +5,15 @@
 ### Added
 
 - Add Marker component
+- Add Form Range component
 - Add hidden classes for touch devices to visiblity component
 - Add transform center to utility component
 - Add clsBelow option for Sticky component (uk-sticky-below)
+
+### Changed
+
+- IMPORTANT: Move Less/Sass imports into one file. Use `components/_import.less`
+- Improved flip behaviour in Drop component
 
 ### Fixed
 
@@ -18,6 +24,7 @@
 - Fix HeightMatch not working on initial page load
 - Fix touch events
 - Fix click event firing twice in iOS <= 9.2
+- Prevent inital page jump (Safari)
 
 ## 3.0.0 beta 22 (April 24, 2017)
 

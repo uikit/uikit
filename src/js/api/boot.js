@@ -1,4 +1,4 @@
-import { Observer, on, ready } from '../util/index';
+import { fastdom, Observer, on, ready } from '../util/index';
 
 export default function (UIkit) {
 
@@ -34,6 +34,8 @@ export default function (UIkit) {
     function init() {
 
         apply(document.body, UIkit.connect);
+
+        fastdom.flush();
 
         (new Observer(mutations =>
             mutations.forEach(({addedNodes, removedNodes, target}) => {

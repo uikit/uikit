@@ -39,10 +39,6 @@ export default function (UIkit) {
 
         },
 
-        connected() {
-            this.$emitSync();
-        },
-
         events: [
 
             {
