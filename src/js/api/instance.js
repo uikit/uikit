@@ -54,7 +54,7 @@ export default function (UIkit) {
 
     UIkit.prototype.$destroy = function (remove = false) {
 
-        var el = this.$options.el;
+        var {el, name} = this.$options;
 
         if (el) {
             this._callDisconnected();
@@ -66,7 +66,7 @@ export default function (UIkit) {
             return;
         }
 
-        delete el[DATA][this.$options.name];
+        delete el[DATA][name];
 
         if (!Object.keys(el[DATA]).length) {
             delete el[DATA];

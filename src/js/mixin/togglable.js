@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, Animation, Event, extend, promise, requestAnimationFrame, Transition } from '../util/index';
+import { $, Animation, assign, Event, promise, requestAnimationFrame, Transition } from '../util/index';
 
 export default {
 
@@ -167,7 +167,7 @@ export default {
                         el.height(height);
 
                         (show
-                            ? Transition.start(el, extend(this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
+                            ? Transition.start(el, assign(this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
                             : Transition.start(el, this.hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
                                 this._toggle(el, false);
                                 el.css(this.initProps);

@@ -191,3 +191,18 @@ export function swap(value, a, b) {
         return match === a ? b : a
     });
 }
+
+export function assign(target, ...args) {
+    target = Object(target);
+    for (var i = 0; i < args.length; i++) {
+        var source = args[i];
+        if (source !== null) {
+            for (var key in source) {
+                if (hasOwn(source, key)) {
+                    target[key] = source[key];
+                }
+            }
+        }
+    }
+    return target;
+}

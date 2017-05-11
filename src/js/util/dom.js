@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, contains, each, Event, extend, getContextSelectors, isNumber, isString, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
+import { animationend, assign, contains, each, Event, getContextSelectors, isNumber, isString, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
 
 export const win = $(window);
 export const doc = $(document);
@@ -186,7 +186,7 @@ export function createEvent(e, bubbles = true, cancelable = false, data = false)
     }
 
     if (data) {
-        extend(e, data);
+        assign(e, data);
     }
 
     return e;
@@ -257,7 +257,7 @@ export const Dimensions = {
     },
 
     fit(dimensions, maxDimensions) {
-        dimensions = extend({}, dimensions);
+        dimensions = assign({}, dimensions);
 
         each(dimensions, prop => dimensions = dimensions[prop] > maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
 

@@ -31,7 +31,7 @@ ready(function () {
 
     on(document, 'click', () => clicked = true, true);
 
-    var gestureHandler = function (e) {
+    on(document, 'MSGestureEnd gestureend', function (e) {
 
         var dir = e.velocityX > 1
             ? 'Right'
@@ -47,10 +47,8 @@ ready(function () {
             touch.el.trigger('swipe');
             touch.el.trigger(`swipe${dir}`);
         }
-    };
 
-    on(document, 'MSGestureEnd', gestureHandler);
-    on(document, 'gestureend', gestureHandler);
+    });
 
     on(document, 'mousedown pointerdown touchstart', function (e) {
 

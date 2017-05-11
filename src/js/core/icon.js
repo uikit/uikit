@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, extend, isRtl, promise, swap } from '../util/index';
+import { $, assign, isRtl, promise, swap } from '../util/index';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
 import marker from '../../images/components/marker.svg';
@@ -179,7 +179,7 @@ export default function (UIkit) {
 
     });
 
-    UIkit.icon.add = added => extend(icons, added);
+    UIkit.icon.add = added => assign(icons, added);
 
     function registerComponent(name, mixin) {
 
