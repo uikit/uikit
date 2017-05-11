@@ -192,7 +192,7 @@ export function swap(value, a, b) {
     });
 }
 
-export function assign(target, ...args) {
+export const assign = Object.assign || function (target, ...args) {
     target = Object(target);
     for (var i = 0; i < args.length; i++) {
         var source = args[i];
@@ -205,4 +205,4 @@ export function assign(target, ...args) {
         }
     }
     return target;
-}
+};
