@@ -15,6 +15,7 @@
 - IMPORTANT: Move Less/Sass imports into one file. Use `components/_import.less`
 - IMPORTANT: Renamed 'transition' option to 'easing' in Scroll component
 - Improved flip behaviour in Drop component
+- Improved 'class' handling
 
 ### Fixed
 

@@ -39,7 +39,7 @@ export default function (UIkit) {
             this.clsDrop = this.clsDrop || `uk-${this.$options.name}`;
             this.clsPos = this.clsDrop;
 
-            this.$el.addClass(this.clsDrop);
+            this.$addClass(this.clsDrop);
         },
 
         ready() {
@@ -359,7 +359,7 @@ export default function (UIkit) {
                     var prop = this.getAxis() === 'y' ? 'width' : 'height';
                     this.$el.css(prop, alignTo[prop]);
                 } else if (this.$el.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
-                    this.$el.addClass(`${this.clsDrop}-stack`);
+                    this.$addClass(`${this.clsDrop}-stack`);
                     this.$el.trigger('stack', [this]);
                 }
 

@@ -73,11 +73,10 @@ export default function (UIkit) {
                 }
 
                 this.rows.forEach((row, i) =>
-                    row.forEach((el, j) =>
-                        $(el)
-                            .toggleClass(this.margin, i !== 0)
-                            .toggleClass(this.firstColumn, j === 0)
-                    )
+                    row.forEach((el, j) => {
+                        this.$toggleClass(el, this.margin, i !== 0);
+                        this.$toggleClass(el, this.firstColumn, j === 0);
+                    })
                 )
 
             },

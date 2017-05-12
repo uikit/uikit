@@ -45,7 +45,7 @@ export default function (UIkit) {
             this.widthElement = this.$props.widthElement || this.placeholder;
 
             if (!this.isActive) {
-                this.$el.addClass(this.clsInactive);
+                this.$addClass(this.clsInactive);
             }
         },
 
@@ -54,7 +54,7 @@ export default function (UIkit) {
             if (this.isActive) {
                 this.isActive = false;
                 this.hide();
-                this.$el.removeClass(this.clsInactive);
+                this.$removeClass(this.clsInactive);
             }
 
             this.placeholder.remove();
@@ -219,14 +219,9 @@ export default function (UIkit) {
 
             hide() {
 
-                this.$el
-                    .addClass(this.clsInactive)
-                    .removeClass(this.clsFixed)
-                    .removeClass(this.clsActive)
-                    .removeClass(this.clsBelow)
-                    .css({position: '', top: '', width: ''})
-                    .trigger('inactive');
-
+                this.$addClass(this.clsInactive);
+                this.$removeClass(this.clsFixed, this.clsActive, this.clsBelow);
+                this.$el.css({position: '', top: '', width: ''}).trigger('inactive');
                 this.placeholder.attr('hidden', true);
 
             },
@@ -239,16 +234,16 @@ export default function (UIkit) {
                     top = this.bottom - scroll;
                 }
 
-                this.$el
-                    .css({
-                        position: 'fixed',
-                        top: `${top}px`,
-                        width: this.width
-                    })
-                    .addClass(this.clsFixed)
-                    .toggleClass(this.clsActive, active)
-                    .toggleClass(this.clsInactive, !active)
-                    .toggleClass(this.clsBelow, scroll > this.bottomOffset);
+                this.$el.css({
+                    position: 'fixed',
+                    top: `${top}px`,
+                    width: this.width
+                });
+
+                this.$addClass(this.clsFixed);
+                this.$toggleClass(this.clsActive, active);
+                this.$toggleClass(this.clsInactive, !active);
+                this.$toggleClass(this.clsBelow, scroll > this.bottomOffset);
 
             }
 

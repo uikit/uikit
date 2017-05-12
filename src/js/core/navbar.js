@@ -114,7 +114,7 @@ export default function (UIkit) {
         init() {
 
             if (this.mode === 'slide') {
-                this.$el.addClass('uk-navbar-dropbar-slide');
+                this.$addClass('uk-navbar-dropbar-slide');
             }
 
         },

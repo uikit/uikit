@@ -54,7 +54,7 @@ export default function (UIkit) {
         defaults: {exclude: ['id', 'style', 'class', 'src', 'icon']},
 
         init() {
-            this.$el.addClass('uk-icon');
+            this.$addClass('uk-icon');
 
             if (isRtl) {
                 this.icon = swap(swap(this.icon, 'left', 'right'), 'previous', 'next');
@@ -131,9 +131,9 @@ export default function (UIkit) {
     ].forEach(name => registerComponent(name, {
 
         init() {
-            this.$el.addClass('uk-slidenav');
+            this.$addClass('uk-slidenav');
 
-            if (this.$el.hasClass('uk-slidenav-large')) {
+            if (this.$hasClass('uk-slidenav-large')) {
                 this.icon += '-large';
             }
         }
@@ -143,7 +143,7 @@ export default function (UIkit) {
     registerComponent('search-icon', {
 
         init() {
-            if (this.$el.hasClass('uk-search-icon') && this.$el.parents('.uk-search-large').length) {
+            if (this.$hasClass('uk-search-icon') && this.$el.parents('.uk-search-large').length) {
                 this.icon = 'search-large';
             } else if (this.$el.parents('.uk-search-navbar').length) {
                 this.icon = 'search-navbar';
@@ -155,7 +155,7 @@ export default function (UIkit) {
     registerComponent('close', {
 
         init() {
-            this.icon = `close-${this.$el.hasClass('uk-close-large') ? 'large' : 'icon'}`;
+            this.icon = `close-${this.$hasClass('uk-close-large') ? 'large' : 'icon'}`;
         }
 
     });

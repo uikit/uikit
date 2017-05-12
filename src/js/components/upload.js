@@ -78,7 +78,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                this.$el.removeClass(this.clsDragover);
+                this.$removeClass(this.clsDragover);
 
                 this.upload(transfer.files);
             },
@@ -91,13 +91,13 @@ function plugin(UIkit) {
             dragover(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                this.$el.addClass(this.clsDragover);
+                this.$addClass(this.clsDragover);
             },
 
             dragleave(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                this.$el.removeClass(this.clsDragover);
+                this.$removeClass(this.clsDragover);
             }
 
         },
