@@ -6,7 +6,7 @@ function plugin(UIkit) {
 
     var {$, has3D, Dimensions, on, promise, scrolledOver, query} = UIkit.util;
 
-    var props = ['x', 'y', 'bg', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
+    var props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
     UIkit.component('parallax', {
 
@@ -14,7 +14,7 @@ function plugin(UIkit) {
             props[prop] = 'list';
             return props;
         }, {
-            velocity: Number,
+            easing: Number,
             target: String,
             viewport: Number,
             media: 'media'
@@ -24,7 +24,7 @@ function plugin(UIkit) {
             defaults[prop] = undefined;
             return defaults;
         }, {
-            velocity: 1,
+            easing: 1,
             target: false,
             viewport: 1,
             media: false
@@ -74,7 +74,7 @@ function plugin(UIkit) {
             },
 
             bgProp() {
-                return ['bg', 'bgx', 'bgy'].filter(bg => bg in this.props)[0];
+                return ['bgx', 'bgy'].filter(bg => bg in this.props);
             }
 
         },
@@ -85,7 +85,7 @@ function plugin(UIkit) {
 
                 read() {
 
-                    if (!this._bgImage && this.bgProp) {
+                    if (!this._bgImage && this.bgProp.length) {
                         this._bgImage = promise(resolve => {
 
                             var url = this.$el.css('backgroundImage').replace(/^url\(["']?/, '').replace(/["']?\)$/, ''),
@@ -110,12 +110,20 @@ function plugin(UIkit) {
                             var ratio = image.width / image.height,
                                 width = this.$el.outerWidth(),
                                 height = this.$el.outerHeight(),
-                                diff = this.props[this.bgProp].diff,
-                                extra = this.props[this.bgProp].unit == '%' ? height * diff / 100 : diff,
-                                size, dim;
+                                whRatio  = width/height,
+                                diff, extra, size, dim;
 
-                            height += (extra * (width/height < ratio ? 2 : 1));
-                            width += Math.ceil(extra * ratio);
+                            this.bgProp.forEach(prop => {
+                                diff = this.props[prop].diff;
+                                extra = this.props[prop].unit == '%' ? (prop == 'bgy' ? height : width) * diff / 100 : diff;
+                                extra += .75 * extra;
+
+                                if (prop == 'bgy') {
+                                    height += extra;
+                                } else {
+                                    width += extra;
+                                }
+                            });
 
                             dim = Dimensions.cover(image, {width, height});
                             size = `${dim.width}px ${dim.height}px`;
@@ -145,7 +153,7 @@ function plugin(UIkit) {
                         percent = this.viewport === 0 ? 1 : percent / this.viewport;
                     }
 
-                    percent = percent * (1 - (this.velocity - this.velocity * percent));
+                    percent = percent * (1 - (this.easing - this.easing * percent));
                     percent = percent < 0 ? 0 : percent > 1 ? 1 : percent;
 
                     if (this._prev === percent) {
@@ -198,7 +206,6 @@ function plugin(UIkit) {
                     break;
 
                 // bg image
-                case 'bg':
                 case 'bgy':
                 case 'bgx':
                     var calc = [values.$start, value < 0 ? '-':'+', Math.abs(value)+values.unit].join(' ');
@@ -277,6 +284,33 @@ function plugin(UIkit) {
         }
 
         return value;
+    }
+
+}
+
+function easeOutBounce( t ) {
+
+    const scaledTime = t / 1;
+
+    if( scaledTime < ( 1 / 2.75 ) ) {
+
+        return 7.5625 * scaledTime * scaledTime;
+
+    } else if( scaledTime < ( 2 / 2.75 ) ) {
+
+        const scaledTime2 = scaledTime - ( 1.5 / 2.75 );
+        return ( 7.5625 * scaledTime2 * scaledTime2 ) + 0.75;
+
+    } else if( scaledTime < ( 2.5 / 2.75 ) ) {
+
+        const scaledTime2 = scaledTime - ( 2.25 / 2.75 );
+        return ( 7.5625 * scaledTime2 * scaledTime2 ) + 0.9375;
+
+    } else {
+
+        const scaledTime2 = scaledTime - ( 2.625 / 2.75 );
+        return ( 7.5625 * scaledTime2 * scaledTime2 ) + 0.984375;
+
     }
 
 }
