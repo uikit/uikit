@@ -26,8 +26,9 @@
 - Fix HeightMatch not working on initial page load
 - Fix touch events
 - Fix click event firing twice in iOS <= 9.2
-- Fix missing table hook
+- Fix missing table hook at less
 - Prevent inital page jump (Safari)
+- Fix missing table hook at scss
 
 ## 3.0.0 beta 22 (April 24, 2017)
 
