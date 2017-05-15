@@ -34,6 +34,7 @@
             maxDate: false,
             minDate: false,
             pos: 'auto',
+            container: 'body',
             template: function(data, opts) {
 
                 var content = '', i;
@@ -197,7 +198,7 @@
                     active[select.is('.update-picker-year') ? 'setYear':'setMonth'](Number(select.val()));
                 });
 
-                dropdown.appendTo('body');
+                dropdown.appendTo(this.options.container);
             }
         },
 
