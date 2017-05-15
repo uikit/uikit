@@ -5,54 +5,45 @@ var supportsMultiple, supportsForce;
 export default function (UIkit) {
 
     UIkit.prototype.$addClass = function (...args) {
-        var el = getEl(args, this.$el);
-
-        if (!args[0]) {
-            return;
-        }
-
-        if (~args[0].indexOf(' ')) {
-            args = args[0].split(' ').concat(args.slice(1));
-        }
-
-        supportsMultiple
-            ? el.classList.add.apply(el.classList, args)
-            : args.forEach(cls => args[0].classList.add(cls));
+        (args = getArgs(args, this.$el)) && supportsMultiple
+            ? args[0].add.apply(args[0], args.slice(1))
+            : args.slice(1).forEach(cls => args[0].add(cls));
     };
 
     UIkit.prototype.$removeClass = function (...args) {
-        var el = getEl(args, this.$el);
-
-        if (!args[0]) {
-            return;
-        }
-
-        if (~args[0].indexOf(' ')) {
-            args = args[0].split(' ').concat(args.slice(1));
-        }
-
-        supportsMultiple
-            ? el.classList.remove.apply(el.classList, args)
-            : args.forEach(cls => el.classList.remove(cls));
+        (args = getArgs(args, this.$el)) && supportsMultiple
+            ? args[0].remove.apply(args[0], args.slice(1))
+            : args.slice(1).forEach(cls => args[0].remove(cls));
     };
 
     UIkit.prototype.$hasClass = function (...args) {
-        var el = getEl(args, this.$el);
-        return args.length && el.classList.contains(args[0]);
+        return (args = getArgs(args, this.$el)) && args[0].contains(args[1]);
     };
 
     UIkit.prototype.$toggleClass = function (...args) {
-        var el = getEl(args, this.$el);
+        args = getArgs(args, this.$el);
 
-        args[0] && supportsForce
-            ? el.classList.toggle(args[0], args[1])
-            : (el.classList[(!isUndefined(args[1]) ? args[1] : !el.classList.contains(args[0])) ? 'add' : 'remove'](args[0]));
+        var force = !isString(args[args.length - 1]) ? args.pop() : undefined;
+
+        for (var i = 1; i < args.length; i++) {
+            args[0] && supportsForce
+                ? args[0].toggle(args[i], force)
+                : (args[0][(!isUndefined(force) ? force : !args[0].contains(args[i])) ? 'add' : 'remove'](args[i]));
+        }
     };
 
 }
 
-function getEl(args, el) {
-    return toNode(isString(args[0]) ? el : args.shift());
+function getArgs(args, el) {
+
+    isString(args[0]) && args.unshift(el);
+    args[0] = toNode(args[0]).classList;
+
+    if (args[1] && ~args[1].indexOf(' ')) {
+        args = [args[0]].concat(args[1].split(' '), args.slice(2));
+    }
+
+    return args[1] && args.length > 1 ? args : false;
 }
 
 (function() {
@@ -61,7 +52,7 @@ function getEl(args, el) {
     el.classList.add('c1', 'c2');
     supportsMultiple = el.classList.contains('c2');
     el.classList.toggle('c3', false);
-    supportsForce = el.classList.contains('c3')
+    supportsForce = el.classList.contains('c3');
     el = null;
 
 })();
