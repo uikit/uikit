@@ -16,6 +16,7 @@ export const pointerUp = !hasTouch ? 'mouseup' : hasPointerEvents ? 'pointerup' 
 export const pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mouseenter';
 export const pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
 
+export const has3D = 'transformOrigin' in document.documentElement.style;
 export const transitionend = prefix('transition', 'transition-end');
 export const animationstart = prefix('animation', 'animation-start');
 export const animationend = prefix('animation', 'animation-end');

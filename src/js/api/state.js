@@ -32,10 +32,6 @@ export default function (UIkit) {
 
         var {defaults, data = {}, args = [], props = {}, el} = this.$options;
 
-        if (!defaults) {
-            return;
-        }
-
         if (args.length && isArray(data)) {
             data = data.slice(0, args.length).reduce((data, value, index) => {
                 if (isPlainObject(value)) {

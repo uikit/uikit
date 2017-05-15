@@ -1,4 +1,4 @@
-import $, { isArray } from 'jquery';
+import $, { isArray, isNumeric } from 'jquery';
 import { getCssVar, hasPromise, isJQuery, query } from './index';
 
 export { $ };
@@ -142,7 +142,9 @@ export function toList(value) {
     return isArray(value)
         ? value
         : isString(value)
-            ? value.split(',').map(value => toBoolean(value.trim()))
+            ? value.split(',').map(value => isNumeric(value)
+                ? toNumber(value)
+                : toBoolean(value.trim()))
             : [value];
 }
 

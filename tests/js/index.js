@@ -18,6 +18,8 @@ var styles = $.extend({
         'lightbox',
         'marker',
         'notification',
+        'grid-parallax',
+        'parallax',
         'sortable',
         'tooltip',
         'upload'
