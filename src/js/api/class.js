@@ -5,17 +5,11 @@ var supportsMultiple, supportsForce;
 export default function (UIkit) {
 
     UIkit.prototype.$addClass = function (...args) {
-        args = getArgs(args, this.$el);
-        supportsMultiple
-            ? args[0].add.apply(args[0], args.slice(1))
-            : args.slice(1).forEach(cls => args[0].add(cls));
+        apply(this.$el, args, 'add');
     };
 
     UIkit.prototype.$removeClass = function (...args) {
-        args = getArgs(args, this.$el);
-        supportsMultiple
-            ? args[0].remove.apply(args[0], args.slice(1))
-            : args.slice(1).forEach(cls => args[0].remove(cls));
+        apply(this.$el, args, 'remove');
     };
 
     UIkit.prototype.$hasClass = function (...args) {
@@ -34,6 +28,12 @@ export default function (UIkit) {
         }
     };
 
+}
+
+function apply(el, args, fn) {
+    (args = getArgs(args, el)) && (supportsMultiple
+        ? args[0][fn].apply(args[0], args.slice(1))
+        : args.slice(1).forEach(cls => args[0][fn](cls)));
 }
 
 function getArgs(args, el) {
