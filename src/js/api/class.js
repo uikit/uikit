@@ -50,11 +50,11 @@ function getArgs(args, el) {
 
 (function() {
 
-    var el = document.createElement('_');
-    el.classList.add('c1', 'c2');
-    supportsMultiple = el.classList.contains('c2');
-    el.classList.toggle('c3', false);
-    supportsForce = el.classList.contains('c3');
-    el = null;
+    var list = document.createElement('_').classList;
+    list.add('a', 'b');
+    list.toggle('c', false);
+    supportsMultiple = list.contains('b');
+    supportsForce = !list.contains('c');
+    list = null;
 
 })();
