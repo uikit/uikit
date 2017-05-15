@@ -6,7 +6,7 @@
     $.get(root+"/package.json", {nocache: Math.random()}, function(data){
 
         $(function(){
-            $("[data-uikit-download]").attr("href", "https://github.com/uikit/uikit/releases/download/v"+data.version+"/uikit-"+data.version+".zip")
+            $("[data-uikit-download]").attr("href", "https://github.com/uikit/uikit/releases/download/v"+data.version+"-src/uikit-"+data.version+".zip")
             $("[data-uikit-version]").text("Version "+data.version);
         });
 
