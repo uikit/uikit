@@ -4,6 +4,8 @@
 
 ### Added
 
+- Add Parallax component
+- Add Grid Parallax component
 - Add Marker component
 - Add Form Range component
 - Add hidden classes for touch devices to visiblity component
