@@ -1,9 +1,5 @@
 import $ from 'jquery';
-<<<<<<< HEAD
-import { animationend, assign, contains, each, Event, getContextSelectors, isNumber, isString, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
-=======
-import { animationend, contains, each, Event, extend, getContextSelectors, isNumber, isString, offsetTop, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
->>>>>>> feature/gridparallax
+import { animationend, assign, contains, each, Event, extend, getContextSelectors, isNumber, isString, offsetTop, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
 
 export const win = $(window);
 export const doc = $(document);
