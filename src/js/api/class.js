@@ -7,7 +7,7 @@ export default function (UIkit) {
     UIkit.prototype.$addClass = function (...args) {
         var el = getEl(args, this.$el);
 
-        if (!args.length) {
+        if (!args[0]) {
             return;
         }
 
@@ -23,7 +23,7 @@ export default function (UIkit) {
     UIkit.prototype.$removeClass = function (...args) {
         var el = getEl(args, this.$el);
 
-        if (!args.length) {
+        if (!args[0]) {
             return;
         }
 
@@ -44,11 +44,7 @@ export default function (UIkit) {
     UIkit.prototype.$toggleClass = function (...args) {
         var el = getEl(args, this.$el);
 
-        if (!args.length) {
-            return;
-        }
-
-        supportsForce
+        args[0] && supportsForce
             ? el.classList.toggle(args[0], args[1])
             : (el.classList[(!isUndefined(args[1]) ? args[1] : !el.classList.contains(args[0])) ? 'add' : 'remove'](args[0]));
     };
