@@ -40,7 +40,7 @@ function plugin(UIkit) {
 
                 return props.reduce((props, prop) => {
 
-                    if (!(prop in this.$props)) {
+                    if (isUndefined(this.$props[prop])) {
                         return props;
                     }
 

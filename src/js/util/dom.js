@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, assign, contains, each, Event, extend, getContextSelectors, isNumber, isString, offsetTop, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
+import { animationend, assign, contains, each, Event, getContextSelectors, isNumber, isString, offsetTop, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
 
 export const win = $(window);
 export const doc = $(document);
