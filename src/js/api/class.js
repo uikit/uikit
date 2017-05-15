@@ -19,7 +19,7 @@ export default function (UIkit) {
     UIkit.prototype.$toggleClass = function (...args) {
         args = getArgs(args, this.$el);
 
-        var force = !isString(args[args.length - 1]) ? args.pop() : undefined;
+        var force = args && !isString(args[args.length - 1]) ? args.pop() : undefined;
 
         for (var i = 1; i < args.length; i++) {
             args[0] && supportsForce
