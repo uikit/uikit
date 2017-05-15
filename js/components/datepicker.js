@@ -1,4 +1,4 @@
-/*! UIkit 2.27.3 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.4 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(addon) {
 
     var component;
@@ -35,6 +35,7 @@
             maxDate: false,
             minDate: false,
             pos: 'auto',
+            container: 'body',
             template: function(data, opts) {
 
                 var content = '', i;
@@ -198,7 +199,7 @@
                     active[select.is('.update-picker-year') ? 'setYear':'setMonth'](Number(select.val()));
                 });
 
-                dropdown.appendTo('body');
+                dropdown.appendTo(this.options.container);
             }
         },
 
