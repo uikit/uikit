@@ -7,6 +7,10 @@ export default function (UIkit) {
     UIkit.prototype.$addClass = function (...args) {
         var el = getEl(args, this.$el);
 
+        if (~args[0].indexOf(' ')) {
+            args = args[0].split(' ').concat(args.slice(1));
+        }
+
         supportsMultiple
             ? el.classList.add.apply(el.classList, args)
             : args.forEach(cls => args[0].classList.add(cls));
@@ -14,6 +18,11 @@ export default function (UIkit) {
 
     UIkit.prototype.$removeClass = function (...args) {
         var el = getEl(args, this.$el);
+
+        if (~args[0].indexOf(' ')) {
+            args = args[0].split(' ').concat(args.slice(1));
+        }
+
         supportsMultiple
             ? el.classList.remove.apply(el.classList, args)
             : args.forEach(cls => el.classList.remove(cls));
