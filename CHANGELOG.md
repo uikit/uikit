@@ -9,6 +9,7 @@
 - Add Form Range component
 - Add Marker component
 - Add hidden classes for touch devices to visiblity component
+- Add padding xlarge to padding component
 - Add transform center to utility component
 - Add clsBelow option for Sticky component (uk-sticky-below)
 
