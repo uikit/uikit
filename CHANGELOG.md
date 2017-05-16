@@ -19,10 +19,21 @@
 
 ### Added
 
+- Add Parallax component
+- Add Grid Parallax component
+- Add Form Range component
 - Add Marker component
 - Add hidden classes for touch devices to visiblity component
+- Add padding xlarge to padding component
 - Add transform center to utility component
 - Add clsBelow option for Sticky component (uk-sticky-below)
+
+### Changed
+
+- IMPORTANT: Move Less/Sass imports into one file. Use `components/_import.less`
+- IMPORTANT: Renamed `transition` option to `easing` in Scroll component
+- Improved flip behaviour in Drop component
+- Improved 'class' handling
 
 ### Fixed
 
@@ -32,6 +43,9 @@
 - Fix scrollspy 'cls' option
 - Fix HeightMatch not working on initial page load
 - Fix touch events
+- Fix click event firing twice in iOS <= 9.2
+- Fix missing table hook
+- Prevent inital page jump (Safari)
 
 ## 3.0.0 beta 22 (April 24, 2017)
 

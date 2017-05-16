@@ -18,6 +18,8 @@ var styles = $.extend({
         'lightbox',
         'marker',
         'notification',
+        'grid-parallax',
+        'parallax',
         'sortable',
         'tooltip',
         'upload'
@@ -178,7 +180,7 @@ $(() => {
     // RTL
     // ------------------------------
 
-    var $rtl = $('<input type="checkbox" class="uk-checkbox uk-form-width-small" />').on('change', () => {
+    var $rtl = $('<input type="checkbox" class="uk-checkbox" />').on('change', () => {
         storage._uikit_dir = $rtl.prop('checked') ? 'rtl' : 'ltr';
         location.reload();
     }).appendTo($label).after('<span style="margin:5px;">RTL</span>');

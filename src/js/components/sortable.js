@@ -66,7 +66,7 @@ function plugin(UIkit) {
             write() {
 
                 if (this.clsEmpty) {
-                    this.$el.toggleClass(this.clsEmpty, !this.$el.children().length);
+                    this.$toggleClass(this.clsEmpty, !this.$el.children().length);
                 }
 
                 if (!this.drag) {

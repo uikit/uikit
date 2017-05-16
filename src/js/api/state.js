@@ -1,4 +1,4 @@
-import { bind, camelize, coerce, extend, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer } from '../util/index';
+import { assign, bind, camelize, coerce, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer } from '../util/index';
 
 export default function (UIkit) {
 
@@ -30,19 +30,12 @@ export default function (UIkit) {
 
     UIkit.prototype._initData = function () {
 
-        var defaults = extend(true, {}, this.$options.defaults),
-            data = this.$options.data || {},
-            args = this.$options.args || [],
-            props = this.$options.props || {};
-
-        if (!defaults) {
-            return;
-        }
+        var {defaults, data = {}, args = [], props = {}, el} = this.$options;
 
         if (args.length && isArray(data)) {
             data = data.slice(0, args.length).reduce((data, value, index) => {
                 if (isPlainObject(value)) {
-                    extend(data, value);
+                    assign(data, value);
                 } else {
                     data[args[index]] = value;
                 }
@@ -51,7 +44,11 @@ export default function (UIkit) {
         }
 
         for (var key in defaults) {
-            this.$props[key] = this[key] = hasOwn(data, key) ? coerce(props[key], data[key], this.$options.el) : defaults[key];
+            this.$props[key] = this[key] = hasOwn(data, key) && !isUndefined(data[key])
+                ? coerce(props[key], data[key], el)
+                : isArray(defaults[key])
+                    ? defaults[key].concat()
+                    : defaults[key];
         }
     };
 
@@ -82,7 +79,7 @@ export default function (UIkit) {
     UIkit.prototype._initProps = function (props) {
 
         this._computeds = {};
-        extend(this.$props, props || this._getProps());
+        assign(this.$props, props || this._getProps());
 
         var exclude = [this.$options.computed, this.$options.methods];
         for (var key in this.$props) {
@@ -114,14 +111,12 @@ export default function (UIkit) {
 
     UIkit.prototype._initObserver = function () {
 
-        if (this._observer || !this.$options.props || !this.$options.attrs || !Observer) {
+        var {attrs, props, el} = this.$options;
+        if (this._observer || !props || !attrs || !Observer) {
             return;
         }
 
-        var attrs = (isArray(this.$options.attrs)
-            ? this.$options.attrs
-            : Object.keys(this.$options.props).map(key => hyphenate(key))
-        );
+        attrs = isArray(attrs) ? attrs : Object.keys(props).map(key => hyphenate(key));
 
         this._observer = new Observer(() => {
 
@@ -132,15 +127,13 @@ export default function (UIkit) {
 
         });
 
-        this._observer.observe(this.$options.el, {attributes: true, attributeFilter: attrs.concat([this.$name, `data-${this.$name}`])});
+        this._observer.observe(el, {attributes: true, attributeFilter: attrs.concat([this.$name, `data-${this.$name}`])});
     };
 
     UIkit.prototype._getProps = function () {
 
         var data = {},
-            el = this.$el[0],
-            args = this.$options.args || [],
-            props = this.$options.props || {},
+            {args = [], props = {}, el} = this.$options,
             options = el.getAttribute(this.$name) || el.getAttribute(`data-${this.$name}`),
             key, prop;
 

@@ -1,4 +1,4 @@
-import { extend, isArray, isFunction, isUndefined, hasOwn } from './index';
+import { assign, isArray, isFunction, isUndefined, hasOwn } from './index';
 
 var strats = {};
 
@@ -47,7 +47,7 @@ strats.defaults =
 strats.methods = function (parentVal, childVal) {
     return childVal
         ? parentVal
-            ? extend(true, {}, parentVal, childVal)
+            ? assign({}, parentVal, childVal)
             : childVal
         : parentVal;
 };

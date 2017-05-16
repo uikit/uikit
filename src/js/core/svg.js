@@ -136,9 +136,6 @@ export default function (UIkit) {
 
             }))).then(null, () => {});
 
-            if (!this._isReady) {
-                this.$emitSync();
-            }
         },
 
         disconnected() {

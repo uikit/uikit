@@ -1,4 +1,4 @@
-import { classify } from './lang';
+import { classify, toNode } from './lang';
 
 export const Observer = window.MutationObserver || window.WebKitMutationObserver;
 export const requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
@@ -16,12 +16,13 @@ export const pointerUp = !hasTouch ? 'mouseup' : hasPointerEvents ? 'pointerup' 
 export const pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mouseenter';
 export const pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
 
+export const has3D = 'transformOrigin' in document.documentElement.style;
 export const transitionend = prefix('transition', 'transition-end');
 export const animationstart = prefix('animation', 'animation-start');
 export const animationend = prefix('animation', 'animation-end');
 
 export function getStyle(element, property, pseudoElt) {
-    return (window.getComputedStyle(element, pseudoElt) || {})[property];
+    return (window.getComputedStyle(toNode(element), pseudoElt) || {})[property];
 }
 
 export function getCssVar(name) {

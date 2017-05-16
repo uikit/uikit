@@ -1,4 +1,4 @@
-import $, { isArray } from 'jquery';
+import $, { isArray, isNumeric } from 'jquery';
 import { getCssVar, hasPromise, isJQuery, query } from './index';
 
 export { $ };
@@ -142,7 +142,9 @@ export function toList(value) {
     return isArray(value)
         ? value
         : isString(value)
-            ? value.split(',').map(value => toBoolean(value.trim()))
+            ? value.split(',').map(value => isNumeric(value)
+                ? toNumber(value)
+                : toBoolean(value.trim()))
             : [value];
 }
 
@@ -191,3 +193,18 @@ export function swap(value, a, b) {
         return match === a ? b : a
     });
 }
+
+export const assign = Object.assign || function (target, ...args) {
+    target = Object(target);
+    for (var i = 0; i < args.length; i++) {
+        var source = args[i];
+        if (source !== null) {
+            for (var key in source) {
+                if (hasOwn(source, key)) {
+                    target[key] = source[key];
+                }
+            }
+        }
+    }
+    return target;
+};

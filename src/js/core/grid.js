@@ -17,7 +17,7 @@ export default function (UIkit) {
 
             write() {
 
-                this.$el.toggleClass(this.clsStack, this.stacks);
+                this.$toggleClass(this.clsStack, this.stacks);
 
             },
 

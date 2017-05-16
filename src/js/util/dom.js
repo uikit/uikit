@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, contains, each, Event, extend, getContextSelectors, isNumber, isString, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
+import { animationend, assign, contains, each, Event, getContextSelectors, isNumber, isString, offsetTop, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
 
 export const win = $(window);
 export const doc = $(document);
@@ -186,7 +186,7 @@ export function createEvent(e, bubbles = true, cancelable = false, data = false)
     }
 
     if (data) {
-        extend(e, data);
+        assign(e, data);
     }
 
     return e;
@@ -198,8 +198,16 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
     return rect.bottom >= -1 * offsetTop
         && rect.right >= -1 * offsetLeft
-        && rect.top <= (window.innerHeight || document.documentElement.clientHeight) + offsetTop
-        && rect.left <= (window.innerWidth || document.documentElement.clientWidth) + offsetLeft;
+        && rect.top <= window.innerHeight + offsetTop
+        && rect.left <= window.innerWidth + offsetLeft;
+}
+
+export function scrolledOver(element) {
+
+    var rect = toNode(element).getBoundingClientRect(),
+        vh = window.innerHeight + Math.min(0, offsetTop(element) - window.innerHeight);
+
+    return Math.min(1, Math.max(0, Math.round(((vh - rect.top) / ((vh + rect.height ) / 100))) / 100));
 }
 
 export function getIndex(index, elements, current = 0) {
@@ -257,7 +265,7 @@ export const Dimensions = {
     },
 
     fit(dimensions, maxDimensions) {
-        dimensions = extend({}, dimensions);
+        dimensions = assign({}, dimensions);
 
         each(dimensions, prop => dimensions = dimensions[prop] > maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
 
