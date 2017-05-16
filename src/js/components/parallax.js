@@ -115,7 +115,7 @@ function plugin(UIkit) {
                         return;
                     }
 
-                    var src = this.$el.css('backgroundImage').replace(/^url\(["']?(.+?)["']?\)$/, '$1'), size;
+                    var src = this.$el.css('backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1'), size;
 
                     size = ~['contain', 'cover'].indexOf(size = this.$el.css('backgroundSize')) ? size : false;
 
