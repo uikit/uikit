@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var { mixin, util } = UIkit;
-    var {$, docElement: doc, extend, getDimensions, isWithin, on, off, offsetTop, pointerDown, pointerMove, pointerUp, promise, win} = util;
+    var {$, assign, docElement: doc, getDimensions, isWithin, on, off, offsetTop, pointerDown, pointerMove, pointerUp, promise, win} = util;
 
     UIkit.component('sortable', {
 
@@ -107,7 +107,7 @@ function plugin(UIkit) {
 
                 this.touched = [this];
                 this.placeholder = placeholder;
-                this.origin = extend({target, index: this.placeholder.index()}, this.pos);
+                this.origin = assign({target, index: this.placeholder.index()}, this.pos);
 
                 doc.on(pointerMove, this.move);
                 doc.on(pointerUp, this.end);
@@ -135,7 +135,7 @@ function plugin(UIkit) {
                 this.drag.children().first().height(this.placeholder.children().height());
 
                 var {left, top} = getDimensions(this.placeholder);
-                extend(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
+                assign(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
 
                 this.placeholder.addClass(this.clsPlaceholder);
                 this.$el.children().addClass(this.clsItem);
@@ -279,7 +279,7 @@ function plugin(UIkit) {
                 var props = [],
                     children = this.$el.children().toArray().map(el => {
                         el = $(el);
-                        props.push(extend({
+                        props.push(assign({
                             position: 'absolute',
                             pointerEvents: 'none',
                             width: el.outerWidth(),

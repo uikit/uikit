@@ -1,4 +1,4 @@
-import { classify, toNode } from './lang';
+import { classify, promise, toNode } from './lang';
 
 export const Observer = window.MutationObserver || window.WebKitMutationObserver;
 export const requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
@@ -16,7 +16,6 @@ export const pointerUp = !hasTouch ? 'mouseup' : hasPointerEvents ? 'pointerup' 
 export const pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mouseenter';
 export const pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
 
-export const has3D = 'transformOrigin' in document.documentElement.style;
 export const transitionend = prefix('transition', 'transition-end');
 export const animationstart = prefix('animation', 'animation-start');
 export const animationend = prefix('animation', 'animation-end');
@@ -44,6 +43,19 @@ export function getCssVar(name) {
     doc.removeChild(element);
 
     return val || undefined;
+}
+
+export function getImage(src) {
+
+    return promise((resolve, reject) => {
+        var img = new Image();
+
+        img.onerror = reject;
+        img.onload = () => resolve(img);
+
+        img.src = src;
+    });
+
 }
 
 function prefix(name, event) {
