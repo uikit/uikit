@@ -150,7 +150,7 @@ function plugin(UIkit) {
 
                         var dim = size === 'cover'
                             ? Dimensions.cover(image, dimEl)
-                            : Dimensions.cover(dimEl, image);
+                            : Dimensions.fit(image, dimEl);
 
                         this.$el.css('backgroundSize', `${dim.width}px ${dim.height}px`);
                     }
