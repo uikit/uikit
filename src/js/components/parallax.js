@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, Dimensions, getImage, isUndefined, scrolledOver, query} = UIkit.util;
+    var {$, clamp, Dimensions, getImage, isUndefined, scrolledOver, query} = UIkit.util;
 
     var props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
@@ -175,8 +175,7 @@ function plugin(UIkit) {
                         percent = this.viewport === 0 ? 1 : percent / this.viewport;
                     }
 
-                    percent = percent * (1 - (this.easing - this.easing * percent));
-                    percent = percent < 0 ? 0 : percent > 1 ? 1 : percent;
+                    percent = clamp(percent * (1 - (this.easing - this.easing * percent);
 
                     if (this._prev === percent) {
                         return;

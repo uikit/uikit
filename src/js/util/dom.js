@@ -210,7 +210,11 @@ export function scrolledOver(element) {
     var rect = toNode(element).getBoundingClientRect(),
         vh = window.innerHeight + Math.min(0, offsetTop(element) - window.innerHeight);
 
-    return Math.min(1, Math.max(0, Math.round(((vh - rect.top) / ((vh + rect.height ) / 100))) / 100));
+    return clamp(Math.round(((vh - rect.top) / ((vh + rect.height ) / 100))) / 100);
+}
+
+export function clamp(number, min = 0, max = 1) {
+    return Math.min(Math.max(number, min), max);
 }
 
 export function getIndex(index, elements, current = 0) {
