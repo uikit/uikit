@@ -220,7 +220,7 @@ export default function (UIkit) {
             hide() {
 
                 this.$addClass(this.clsInactive);
-                this.$removeClass(`${this.clsFixed} ${this.clsActive} ${this.clsBelow}`);
+                this.$removeClass(this.clsFixed, this.clsActive, this.clsBelow);
                 this.$el.css({position: '', top: '', width: ''}).trigger('inactive');
                 this.placeholder.attr('hidden', true);
 

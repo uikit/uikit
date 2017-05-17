@@ -39,9 +39,9 @@ export default function (UIkit) {
         isString(args[0]) && args.unshift(el);
         args[0] = toNode(args[0]).classList;
 
-        if (args[1] && ~args[1].indexOf(' ')) {
-            args = [args[0]].concat(args[1].split(' '), args.slice(2));
-        }
+        args.forEach((arg, i) =>
+            i > 0 && isString(arg) && ~arg.indexOf(' ') && Array.prototype.splice.apply(args, [i, 1].concat(args[i].split(' ')))
+        );
 
         return args[1] && args.length > 1 ? args : false;
     }
