@@ -135,24 +135,31 @@ function plugin(UIkit) {
                         this.$emit();
                     });
 
-                    this.$el.css('backgroundRepeat', 'no-repeat');
-
                 },
 
                 write() {
 
                     if (this._image) {
 
-                        var image = this._image,
-                            {dimEl, size} = image;
+                        if (!this.media || window.matchMedia(this.media).matches) {
 
-                        this.bgProps.forEach(prop => dimEl[prop === 'bgy' ? 'height' : 'width'] += this.props[prop].diff);
+                            var image = this._image, {dimEl, size} = image;
 
-                        var dim = size === 'cover'
-                            ? Dimensions.cover(image, dimEl)
-                            : Dimensions.fit(image, dimEl);
+                            this.bgProps.forEach(prop => dimEl[prop === 'bgy' ? 'height' : 'width'] += this.props[prop].diff);
 
-                        this.$el.css('backgroundSize', `${dim.width}px ${dim.height}px`);
+                            var dim = size === 'cover'
+                                ? Dimensions.cover(image, dimEl)
+                                : Dimensions.fit(image, dimEl);
+
+                            this.$el.css({
+                                backgroundSize: `${dim.width}px ${dim.height}px`,
+                                backgroundRepeat: 'no-repeat'
+                            });
+
+                        } else {
+                            this.$el.css({backgroundSize: '', backgroundRepeat: ''});
+                        }
+
                     }
 
                 },
@@ -165,7 +172,9 @@ function plugin(UIkit) {
 
                 write() {
 
-                    if (this.media && window.matchMedia(this.media).matches) {
+                    if (this.media && !window.matchMedia(this.media).matches) {
+                        this._prev = undefined;
+                        Object.keys(getCss(this.props, 0)).forEach(prop => this.$el.css(prop, ''));
                         return;
                     }
 
