@@ -175,7 +175,7 @@ function plugin(UIkit) {
                         percent = this.viewport === 0 ? 1 : percent / this.viewport;
                     }
 
-                    percent = clamp(percent * (1 - (this.easing - this.easing * percent);
+                    percent = clamp(percent * (1 - (this.easing - this.easing * percent)));
 
                     if (this._prev === percent) {
                         return;
