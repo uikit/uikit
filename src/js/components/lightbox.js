@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, ajax, doc, Event, extend, Dimensions, getIndex, Transition} = UIkit.util;
+    var {$, ajax, assign, doc, Event, Dimensions, getIndex, Transition} = UIkit.util;
 
     UIkit.component('lightbox', {
 
@@ -188,7 +188,7 @@ function plugin(UIkit) {
             },
 
             setItem(item, content, width = 200, height = 200) {
-                extend(item, {content, width, height});
+                assign(item, {content, width, height});
                 this.$update();
             },
 

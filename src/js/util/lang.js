@@ -1,8 +1,8 @@
-import $, { isArray, isNumeric } from 'jquery';
+import $, { isNumeric } from 'jquery';
 import { getCssVar, hasPromise, isJQuery, query } from './index';
 
 export { $ };
-export { ajax, contains, each, Event, extend, map, merge, isArray, isNumeric, isFunction, isPlainObject } from 'jquery';
+export { ajax, each, Event, isNumeric } from 'jquery';
 
 export function bind(fn, context) {
     return function (a) {
@@ -64,6 +64,16 @@ export function camelize(str) {
 
 function toUpper(_, c) {
     return c ? c.toUpperCase() : ''
+}
+
+export const isArray = Array.isArray;
+
+export function isFunction(obj) {
+    return typeof obj === 'function';
+}
+
+export function isObject(obj) {
+    return obj !== null && typeof obj === 'object';
 }
 
 export function isString(value) {

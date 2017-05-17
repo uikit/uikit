@@ -1,14 +1,15 @@
 import $ from 'jquery';
-import { animationend, assign, contains, each, Event, getContextSelectors, isNumber, isString, offsetTop, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
+import { animationend, assign, each, Event, getContextSelectors, isNumber, isString, offsetTop, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
 
+var docEl = document.documentElement;
 export const win = $(window);
 export const doc = $(document);
-export const docElement = $(document.documentElement);
+export const docElement = $(docEl);
 
-export const isRtl = $('html').attr('dir') === 'rtl';
+export const isRtl = docEl.getAttribute('dir') === 'rtl';
 
 export function isReady() {
-    return document.readyState === 'complete' || document.readyState !== 'loading' && !document.documentElement.doScroll;
+    return document.readyState === 'complete' || document.readyState !== 'loading' && !docEl.doScroll;
 }
 
 export function ready(fn) {
@@ -164,9 +165,11 @@ export function isJQuery(obj) {
 
 export function isWithin(element, selector) {
     element = $(element);
-    return element.is(selector) || !!(isString(selector)
-        ? element.parents(selector).length
-        : contains(toNode(selector), element[0]));
+    return element.is(selector)
+        ? true
+        : isString(selector)
+            ? element.parents(selector).length
+            : toNode(selector).contains(element[0]);
 }
 
 export function attrFilter(element, attr, pattern, replacement) {

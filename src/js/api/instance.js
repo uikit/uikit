@@ -39,7 +39,7 @@ export default function (UIkit) {
     };
 
     UIkit.prototype.$update = function (e, parents) {
-        UIkit.update(e, this.$el, parents);
+        UIkit.update(e, this.$options.el, parents);
     };
 
     UIkit.prototype.$updateSync = function (e, parents) {
