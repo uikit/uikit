@@ -1,5 +1,3 @@
-import { $ } from '../util/index';
-
 export default function (UIkit) {
 
     UIkit.component('margin', {
@@ -14,11 +12,19 @@ export default function (UIkit) {
             firstColumn: 'uk-first-column'
         },
 
+        computed: {
+
+            items() {
+                return this.$el[0].children;
+            }
+
+        },
+
         update: {
 
             read() {
 
-                if (this.$el[0].offsetHeight === 0) {
+                if (!this.items.length || this.$el[0].offsetHeight === 0) {
                     this.hidden = true;
                     return;
                 }
@@ -26,27 +32,39 @@ export default function (UIkit) {
                 this.hidden = false;
                 this.stacks = true;
 
-                var columns = this.$el.children().filter((_, el) => el.offsetHeight > 0);
+                var rows = [[]];
 
-                this.rows = [[columns.get(0)]];
+                for (var i = 0; i < this.items.length; i++) {
 
-                columns.slice(1).each((_, el) => {
+                    var el = this.items[i],
+                        dim = el.getBoundingClientRect();
 
-                    var top = Math.ceil(el.offsetTop), bottom = top + el.offsetHeight;
+                    if (!dim.height) {
+                        return;
+                    }
 
-                    for (var index = this.rows.length - 1; index >= 0; index--) {
-                        var row = this.rows[index], rowTop = Math.ceil(row[0].offsetTop);
+                    for (var j = rows.length - 1; j >= 0; j--) {
 
-                        if (top >= rowTop + row[0].offsetHeight) {
-                            this.rows.push([el]);
+                        var row = rows[j],
+                            left = row[0];
+
+                        if (!row[0]) {
+                            row.push(el);
                             break;
                         }
 
-                        if (bottom > rowTop) {
+                        var leftDim = row[0].getBoundingClientRect();
+
+                        if (dim.top >= leftDim.bottom) {
+                            rows.push([el]);
+                            break;
+                        }
+
+                        if (dim.bottom > leftDim.top) {
 
                             this.stacks = false;
 
-                            if (el.offsetLeft < row[0].offsetLeft) {
+                            if (dim.left < leftDim.left) {
                                 row.unshift(el);
                                 break;
                             }
@@ -55,14 +73,16 @@ export default function (UIkit) {
                             break;
                         }
 
-                        if (index === 0) {
-                            this.rows.splice(index, 0, [el]);
+                        if (j === 0) {
+                            rows.unshift([el]);
                             break;
                         }
 
                     }
 
-                });
+                }
+
+                this.rows = rows;
 
             },
 

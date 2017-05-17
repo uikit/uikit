@@ -4,149 +4,91 @@ function plugin(UIkit) {
         return;
     }
 
-    var { util } = UIkit;
-    var { $ } = util;
+    var {scrolledOver} = UIkit.util;
 
-    var supports3d = 'transformOrigin' in document.documentElement.style;
-
-    UIkit.component('grid-parallax', {
+    UIkit.component('grid-parallax', UIkit.components.grid.extend({
 
         props: {
             target: String,
-            translate: Number,
-            smooth: Number
+            translate: Number
         },
 
         defaults: {
-            target    : false,
-            translate : 150,
-            smooth    : 150
+            target: false,
+            translate: 150
         },
 
-        connected() {
-            this.initItems();
+        init() {
+            this.$addClass('uk-grid');
         },
 
-        methods: {
+        computed: {
 
-            initItems: function() {
+            items() {
+                return (this.target ? this.$el.find(this.target) : this.$el.children()).toArray();
+            },
 
-                var transition = `transform ${this.smooth}ms linear`;
-
-                this.items = (this.target ? this.$el.find(this.target) : this.$el.children()).css({
-                    transition,
-                    transform: ''
-                });
-
-                return this;
+            columns() {
+                return this.rows && this.rows[0] && this.rows[0].length || 0;
             }
+
         },
 
         update: [
 
             {
 
-                write() {
-
-                    var columns = getColumnsCount(this.$el);
-                    var margin = '';
-
-                    this.$el.css('margin-bottom', '');
-
-                    if (columns > 1) {
-                        margin = this.translate + parseInt(this.$el.css('margin-bottom'));
-                    }
-
-                    this.$el.css('margin-bottom', margin);
+                read() {
+                    this.rows = this.rows && this.rows.map(elements => sortBy(elements, 'offsetLeft'));
                 },
 
-                events: ['load', 'resize', 'orientationchange']
+                write() {
+                    this.$el
+                        .css('margin-bottom', '')
+                        .css('margin-bottom', this.columns > 1 ? this.translate + parseFloat(this.$el.css('margin-bottom')) : '');
+                },
+
+                events: ['load', 'resize']
             },
 
             {
 
                 write() {
 
-                    var percent = percentageInViewport(this.$el);
-                    var columns = getColumnsCount(this.$el);
-                    var mods = [(columns-1)];
+                    var translate = scrolledOver(this.$el) * this.translate;
 
-                    if (columns == 1 || !percent) {
-                        this.items.css('transform', '');
+                    if (!this.rows || this.columns === 1 || !translate) {
+                        this.items.forEach(item => item.style.transform = '');
                         return;
                     }
 
-                    while (mods.length < columns) {
+                    this.rows.forEach(row =>
+                        row.forEach((el, i) =>
+                            el.style.transform = `translateY(${i % 2 ? translate : translate / 8}px)`
+                        )
+                    );
 
-                       if (!(mods[mods.length-1] - 2)) {
-                           break;
-                       }
-
-                       mods.push(mods[mods.length-1] - 2);
-                    }
-
-                    var percentTranslate = percent * this.translate, $translate = this.translate, translate;
-
-                    this.items.each(function(index) {
-                        translate = mods.indexOf((index+1) % columns) != -1 ? percentTranslate : percentTranslate / 8;
-                        translate = translate > $translate ? $translate : translate;
-                        $(this).css('transform', supports3d ? `translate3d(0, ${translate}px, 0)` : `translateY(${translate}px)`);
-                    });
                 },
 
                 events: ['scroll']
             }
         ]
 
-    });
+    }));
 
-}
-
-function getColumnsCount(element) {
-
-    var children = element.children();
-    var first = children.filter(':visible:first');
-    var top = first[0].offsetTop + first[0].offsetHeight;
-
-    for (var column=0;column<children.length;column++) {
-        if (children[column].offsetTop >= top)  {
-            break;
-        }
+    function sortBy(collection, prop) {
+        return collection.sort((a,b) =>
+            a[prop] > b[prop]
+                ? 1
+                : b[prop] > a[prop]
+                    ? -1
+                    : 0
+        )
     }
 
-    return column || 1;
 }
 
-function percentageInViewport(element) {
 
-    var top       = element.offset().top,
-        height    = element.outerHeight(),
-        scrolltop = window.scrollY,
-        wh        = window.innerHeight,
-        distance, percentage, percent;
-
-    if (top > (scrolltop + wh)) {
-        percent = 0;
-    } else if ((top + height) < scrolltop) {
-        percent = 1;
-    } else {
-
-        if ((top + height) < wh) {
-            percent = (scrolltop < wh ? scrolltop : scrolltop - wh) / (top+height);
-        } else {
-
-            distance   = (scrolltop + wh) - top;
-            percentage = Math.round(distance / ((wh + height) / 100));
-            percent    = percentage/100;
-        }
-
-        if (top < wh) {
-            percent = percent * scrolltop / ((top + height) - wh);
-        }
-    }
-
-    return percent;
-}
 
 if (!BUNDLED && typeof window !== 'undefined' && window.UIkit) {
     window.UIkit.use(plugin);

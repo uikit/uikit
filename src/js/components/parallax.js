@@ -157,7 +157,7 @@ function plugin(UIkit) {
 
                 },
 
-                events: ['load', 'resize', 'orientationchange']
+                events: ['load', 'resize']
 
             },
 
@@ -187,7 +187,7 @@ function plugin(UIkit) {
 
                 },
 
-                events: ['scroll', 'load', 'resize', 'orientationchange']
+                events: ['scroll', 'load', 'resize']
             }
         ]
     });
@@ -210,7 +210,7 @@ function plugin(UIkit) {
                 // transforms
                 case 'x':
                 case 'y':
-                    css.transform += ` translate3d(${prop === 'y' ? '0,x' : 'x,0'},0)`.replace('x', value + values.unit);
+                    css.transform += ` translate${prop.toUpperCase()}(${value + values.unit})`;
                     break;
                 case 'rotate':
                     css.transform += ` rotate(${value}deg)`;
