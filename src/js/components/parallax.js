@@ -178,11 +178,7 @@ function plugin(UIkit) {
                         return;
                     }
 
-                    var percent = scrolledOver(this.target);
-
-                    if (this.viewport !== false) {
-                        percent = this.viewport === 0 ? 1 : percent / this.viewport;
-                    }
+                    var percent = scrolledOver(this.target) / (this.viewport || 1);
 
                     percent = clamp(percent * (1 - (this.easing - this.easing * percent)));
 
