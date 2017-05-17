@@ -1,4 +1,4 @@
-import { assign, bind, camelize, coerce, hasOwn, hyphenate, isArray, isJQuery, isObject, isString, isUndefined, mergeOptions, Observer } from '../util/index';
+import { assign, bind, camelize, coerce, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer } from '../util/index';
 
 export default function (UIkit) {
 
@@ -34,7 +34,7 @@ export default function (UIkit) {
 
         if (args.length && isArray(data)) {
             data = data.slice(0, args.length).reduce((data, value, index) => {
-                if (isObject(value)) {
+                if (isPlainObject(value)) {
                     assign(data, value);
                 } else {
                     data[args[index]] = value;
@@ -212,7 +212,7 @@ export default function (UIkit) {
 
     function registerEvent(component, unbind, event, key) {
 
-        if (!isObject(event)) {
+        if (!isPlainObject(event)) {
             event = ({name: key, handler: event});
         }
 

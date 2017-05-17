@@ -76,6 +76,10 @@ export function isObject(obj) {
     return obj !== null && typeof obj === 'object';
 }
 
+export function isPlainObject(obj) {
+    return isObject(obj) && Object.getPrototypeOf(obj) == Object.prototype;
+}
+
 export function isString(value) {
     return typeof value === 'string';
 }

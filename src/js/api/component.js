@@ -1,4 +1,4 @@
-import { $, camelize, fastdom, isArray, isJQuery, isObject } from '../util/index';
+import { $, camelize, fastdom, isArray, isJQuery, isPlainObject } from '../util/index';
 
 export default function (UIkit) {
 
@@ -10,7 +10,7 @@ export default function (UIkit) {
 
         var name = camelize(id);
 
-        if (isObject(options)) {
+        if (isPlainObject(options)) {
             options.name = name;
             options = UIkit.extend(options);
         } else {
@@ -21,7 +21,7 @@ export default function (UIkit) {
 
         UIkit[name] = function (element, data) {
 
-            if (isObject(element) && !isJQuery(element) && !element.nodeType && !isArray(element)) {
+            if (isPlainObject(element)) {
                 return new UIkit.components[name]({data: element});
             }
 
