@@ -20,9 +20,29 @@ function plugin(UIkit) {
 
         init() {
             this.$addClass('uk-grid');
+
+            this.$options.update.unshift({
+
+                read() {
+                    this.reset();
+                },
+
+                events: ['load', 'resize']
+
+            });
+
+        },
+
+        disconnected() {
+            this.reset();
+            this.$el.css('margin-bottom', '');
         },
 
         computed: {
+
+            translate() {
+                return Math.abs(this.$props.translate);
+            },
 
             items() {
                 return (this.target ? this.$el.find(this.target) : this.$el.children()).toArray();
@@ -58,8 +78,7 @@ function plugin(UIkit) {
                     var translate = scrolledOver(this.$el) * this.translate;
 
                     if (!this.rows || this.columns === 1 || !translate) {
-                        this.items.forEach(item => item.style.transform = '');
-                        return;
+                        return this.reset();
                     }
 
                     this.rows.forEach(row =>
@@ -70,9 +89,17 @@ function plugin(UIkit) {
 
                 },
 
-                events: ['scroll']
+                events: ['scroll', 'load', 'resize']
             }
-        ]
+        ],
+
+        methods: {
+
+            reset() {
+                this.items.forEach(item => item.style.transform = '');
+            }
+
+        }
 
     }));
 
