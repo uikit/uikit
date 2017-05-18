@@ -1,5 +1,5 @@
 import { Class, Modal } from '../mixin/index';
-import { $, extend, isString, promise } from '../util/index';
+import { $, assign, isString, promise } from '../util/index';
 
 export default function (UIkit) {
 
@@ -114,7 +114,7 @@ export default function (UIkit) {
 
     UIkit.modal.alert = function (message, options) {
 
-        options = extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
+        options = assign({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
         return promise(
             resolve => UIkit.modal.dialog(`
@@ -128,7 +128,7 @@ export default function (UIkit) {
 
     UIkit.modal.confirm = function (message, options) {
 
-        options = extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
+        options = assign({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
         return promise(
             (resolve, reject) => UIkit.modal.dialog(`
@@ -143,7 +143,7 @@ export default function (UIkit) {
 
     UIkit.modal.prompt = function (message, value, options) {
 
-        options = extend({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
+        options = assign({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
         return promise(resolve => {
 

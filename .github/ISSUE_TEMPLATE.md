@@ -13,9 +13,9 @@ The issue list of this repo is exclusively for bug reports and feature requests.
 <!-- BUG REPORT TEMPLATE -->
 ### UIkit version
 <!-- Check if the issue is reproducible with the latest stable version. -->
-3.0.0-beta.22
+3.0.0-beta.23
 
-### What browser are you using?
+### Browser
 
 ### Reproduction Link
 <!-- A minimal Codepen that can reproduce the bug. -->

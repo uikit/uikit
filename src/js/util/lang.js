@@ -1,8 +1,8 @@
-import $, { isArray } from 'jquery';
+import $, { isNumeric } from 'jquery';
 import { getCssVar, hasPromise, isJQuery, query } from './index';
 
 export { $ };
-export { ajax, contains, each, Event, extend, map, merge, isArray, isNumeric, isFunction, isPlainObject } from 'jquery';
+export { ajax, each, Event, isNumeric } from 'jquery';
 
 export function bind(fn, context) {
     return function (a) {
@@ -64,6 +64,20 @@ export function camelize(str) {
 
 function toUpper(_, c) {
     return c ? c.toUpperCase() : ''
+}
+
+export const isArray = Array.isArray;
+
+export function isFunction(obj) {
+    return typeof obj === 'function';
+}
+
+export function isObject(obj) {
+    return obj !== null && typeof obj === 'object';
+}
+
+export function isPlainObject(obj) {
+    return isObject(obj) && Object.getPrototypeOf(obj) === Object.prototype;
 }
 
 export function isString(value) {
@@ -142,7 +156,9 @@ export function toList(value) {
     return isArray(value)
         ? value
         : isString(value)
-            ? value.split(',').map(value => toBoolean(value.trim()))
+            ? value.split(',').map(value => isNumeric(value)
+                ? toNumber(value)
+                : toBoolean(value.trim()))
             : [value];
 }
 
@@ -191,3 +207,18 @@ export function swap(value, a, b) {
         return match === a ? b : a
     });
 }
+
+export const assign = Object.assign || function (target, ...args) {
+    target = Object(target);
+    for (var i = 0; i < args.length; i++) {
+        var source = args[i];
+        if (source !== null) {
+            for (var key in source) {
+                if (hasOwn(source, key)) {
+                    target[key] = source[key];
+                }
+            }
+        }
+    }
+    return target;
+};

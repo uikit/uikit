@@ -1,14 +1,15 @@
 import $ from 'jquery';
-import { animationend, contains, each, Event, extend, getContextSelectors, isNumber, isString, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
+import { animationend, assign, each, Event, getContextSelectors, isNumber, isString, offsetTop, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
 
+var docEl = document.documentElement;
 export const win = $(window);
 export const doc = $(document);
-export const docElement = $(document.documentElement);
+export const docElement = $(docEl);
 
-export const isRtl = $('html').attr('dir') === 'rtl';
+export const isRtl = docEl.getAttribute('dir') === 'rtl';
 
 export function isReady() {
-    return document.readyState === 'complete' || document.readyState !== 'loading' && !document.documentElement.doScroll;
+    return document.readyState === 'complete' || document.readyState !== 'loading' && !docEl.doScroll;
 }
 
 export function ready(fn) {
@@ -29,11 +30,11 @@ export function ready(fn) {
 }
 
 export function on(el, type, listener, useCapture) {
-    toNode(el).addEventListener(type, listener, useCapture)
+    type.split(' ').forEach(type => toNode(el).addEventListener(type, listener, useCapture));
 }
 
 export function off(el, type, listener, useCapture) {
-    toNode(el).removeEventListener(type, listener, useCapture)
+    type.split(' ').forEach(type => toNode(el).removeEventListener(type, listener, useCapture));
 }
 
 export function transition(element, props, duration = 400, transition = 'linear') {
@@ -164,9 +165,11 @@ export function isJQuery(obj) {
 
 export function isWithin(element, selector) {
     element = $(element);
-    return element.is(selector) || !!(isString(selector)
-        ? element.parents(selector).length
-        : contains(toNode(selector), element[0]));
+    return element.is(selector)
+        ? true
+        : isString(selector)
+            ? element.parents(selector).length
+            : toNode(selector).contains(element[0]);
 }
 
 export function attrFilter(element, attr, pattern, replacement) {
@@ -186,7 +189,7 @@ export function createEvent(e, bubbles = true, cancelable = false, data = false)
     }
 
     if (data) {
-        extend(e, data);
+        assign(e, data);
     }
 
     return e;
@@ -198,8 +201,27 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
     return rect.bottom >= -1 * offsetTop
         && rect.right >= -1 * offsetLeft
-        && rect.top <= (window.innerHeight || document.documentElement.clientHeight) + offsetTop
-        && rect.left <= (window.innerWidth || document.documentElement.clientWidth) + offsetLeft;
+        && rect.top <= window.innerHeight + offsetTop
+        && rect.left <= window.innerWidth + offsetLeft;
+}
+
+export function scrolledOver(element) {
+
+    var {top, height} = toNode(element).getBoundingClientRect(),
+        topOffset = offsetTop(element),
+        vp = window.innerHeight,
+        vh = vp + Math.min(0, topOffset - vp),
+        diff = Math.max(0, vp - (docHeight() - (topOffset + height)));
+
+    return clamp(((vh - top) / ((vh + (height - (diff < vp ? diff : 0)) ) / 100)) / 100);
+}
+
+export function clamp(number, min = 0, max = 1) {
+    return Math.min(Math.max(number, min), max);
+}
+
+export function docHeight() {
+    return Math.max(docEl.offsetHeight, docEl.scrollHeight);
 }
 
 export function getIndex(index, elements, current = 0) {
@@ -257,7 +279,7 @@ export const Dimensions = {
     },
 
     fit(dimensions, maxDimensions) {
-        dimensions = extend({}, dimensions);
+        dimensions = assign({}, dimensions);
 
         each(dimensions, prop => dimensions = dimensions[prop] > maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
 

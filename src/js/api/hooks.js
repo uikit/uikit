@@ -1,4 +1,4 @@
-import { createEvent, fastdom, isPlainObject, ready } from '../util/index';
+import { createEvent, fastdom, ready } from '../util/index';
 
 export default function (UIkit) {
 

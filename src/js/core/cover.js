@@ -22,7 +22,7 @@ export default function (UIkit) {
             },
 
             parent() {
-                return this.$el.parent()[0];
+                return this.el.parentNode;
             }
 
         },

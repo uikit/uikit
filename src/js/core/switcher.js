@@ -1,11 +1,11 @@
-import { Toggable } from '../mixin/index';
+import { Togglable } from '../mixin/index';
 import { $, getIndex, isTouch, toJQuery, query } from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('switcher', {
 
-        mixins: [Toggable],
+        mixins: [Togglable],
 
         args: 'connect',
 
@@ -25,10 +25,6 @@ export default function (UIkit) {
             clsContainer: 'uk-switcher',
             attrItem: 'uk-switcher-item',
             queued: true
-        },
-
-        connected() {
-            this.$emitSync();
         },
 
         computed: {

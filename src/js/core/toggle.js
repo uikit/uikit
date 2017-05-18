@@ -4,7 +4,7 @@ export default function (UIkit) {
 
     UIkit.component('toggle', {
 
-        mixins: [UIkit.mixin.toggable],
+        mixins: [UIkit.mixin.togglable],
 
         args: 'target',
 

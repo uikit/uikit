@@ -5,15 +5,15 @@ function plugin(UIkit) {
     }
 
     var { util, mixin } = UIkit;
-    var {$, doc, fastdom, flipPosition, isTouch, isWithin, pointerDown, pointerEnter, pointerLeave, toJQuery} = util;
+    var {$, doc, fastdom, flipPosition, isTouch, isWithin, pointerDown, pointerEnter, pointerLeave} = util;
 
-    var active;
+    var actives = [];
 
     UIkit.component('tooltip', {
 
         attrs: true,
 
-        mixins: [mixin.toggable, mixin.position],
+        mixins: [mixin.togglable, mixin.position],
 
         props: {
             delay: Number,
@@ -35,7 +35,7 @@ function plugin(UIkit) {
         computed: {
 
             container() {
-                return toJQuery(this.$props.container === true && UIkit.container || this.$props.container || UIkit.container);
+                return $(this.$props.container === true && UIkit.container || this.$props.container || UIkit.container);
             }
 
         },
@@ -52,15 +52,12 @@ function plugin(UIkit) {
 
             show() {
 
-                if (active === this) {
+                if (~actives.indexOf(this)) {
                     return;
                 }
 
-                if (active) {
-                    active.hide();
-                }
-
-                active = this;
+                actives.forEach(active => active.hide());
+                actives.push(this);
 
                 doc.on(`click.${this.$options.name}`, e => {
                     if (!isWithin(e.target, this.$el)) {
@@ -91,11 +88,13 @@ function plugin(UIkit) {
 
             hide() {
 
-                if (this.$el.is('input') && this.$el[0] === document.activeElement) {
+                var index = actives.indexOf(this);
+
+                if (!~index || this.$el.is('input') && this.$el[0] === document.activeElement) {
                     return;
                 }
 
-                active = active !== this && active || false;
+                actives.splice(index, 1);
 
                 clearTimeout(this.showTimer);
                 clearInterval(this.hideTimer);

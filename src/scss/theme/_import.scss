@@ -10,6 +10,7 @@
 @import "description-list.scss";
 @import "table.scss";
 @import "icon.scss";
+@import "form-range.scss";
 @import "form.scss";
 @import "button.scss";
 
@@ -23,6 +24,7 @@
 // Common
 @import "close.scss";
 @import "spinner.scss";
+@import "marker.scss";
 @import "totop.scss";
 @import "alert.scss";
 @import "badge.scss";
@@ -50,7 +52,7 @@
 @import "sticky.scss";
 @import "offcanvas.scss";
 
-// Optional components
+// Additional
 @import "iconnav.scss";
 @import "notification.scss";
 @import "tooltip.scss";

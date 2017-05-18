@@ -84,36 +84,36 @@ export default function (UIkit) {
 
     });
 
-}
-
-function createClass(name) {
-    return new Function(`return function ${classify(name)} (options) { this._init(options); }`)();
-}
-
-function apply(node, fn) {
-
-    if (node.nodeType !== Node.ELEMENT_NODE) {
-        return;
+    function createClass(name) {
+        return new Function(`return function ${classify(name)} (options) { this._init(options); }`)();
     }
 
-    fn(node);
-    node = node.firstChild;
-    while (node) {
-        apply(node, fn);
-        node = node.nextSibling;
-    }
-}
+    function apply(node, fn) {
 
-function update(data, e) {
-
-    if (!data) {
-        return;
-    }
-
-    for (var name in data) {
-        if (data[name]._isReady) {
-            data[name]._callUpdate(e);
+        if (node.nodeType !== Node.ELEMENT_NODE) {
+            return;
         }
+
+        fn(node);
+        node = node.firstChild;
+        while (node) {
+            apply(node, fn);
+            node = node.nextSibling;
+        }
+    }
+
+    function update(data, e) {
+
+        if (!data) {
+            return;
+        }
+
+        for (var name in data) {
+            if (data[name]._isReady) {
+                data[name]._callUpdate(e);
+            }
+        }
+
     }
 
 }

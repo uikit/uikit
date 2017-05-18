@@ -11,20 +11,33 @@ export const fastdom = {
     reads: [],
     writes: [],
 
-    measure: function(task) {
+    measure(task) {
         this.reads.push(task);
         scheduleFlush(this);
         return task;
     },
 
-    mutate: function(task) {
+    mutate(task) {
         this.writes.push(task);
         scheduleFlush(this);
         return task;
     },
 
-    clear: function(task) {
+    clear(task) {
         return remove(this.reads, task) || remove(this.writes, task);
+    },
+
+    flush() {
+
+        runTasks(this.reads);
+        runTasks(this.writes.splice(0, this.writes.length));
+
+        this.scheduled = false;
+
+        if (this.reads.length || this.writes.length) {
+            scheduleFlush(this);
+        }
+
     }
 
 };
@@ -32,21 +45,8 @@ export const fastdom = {
 function scheduleFlush(fastdom) {
     if (!fastdom.scheduled) {
         fastdom.scheduled = true;
-        requestAnimationFrame(flush.bind(null, fastdom));
+        requestAnimationFrame(fastdom.flush.bind(fastdom));
     }
-}
-
-function flush(fastdom) {
-
-    runTasks(fastdom.reads);
-    runTasks(fastdom.writes.splice(0, fastdom.writes.length));
-
-    fastdom.scheduled = false;
-
-    if (fastdom.reads.length || fastdom.writes.length) {
-        scheduleFlush(fastdom);
-    }
-
 }
 
 function runTasks(tasks) {

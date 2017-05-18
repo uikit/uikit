@@ -1,10 +1,10 @@
-import { Class, Toggable } from '../mixin/index';
+import { Class, Togglable } from '../mixin/index';
 
 export default function (UIkit) {
 
     UIkit.component('alert', {
 
-        mixins: [Class, Toggable],
+        mixins: [Class, Togglable],
 
         args: 'animation',
 

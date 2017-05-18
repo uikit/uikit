@@ -17,6 +17,7 @@ export default function (UIkit) {
             clsActive: String,
             clsInactive: String,
             clsFixed: String,
+            clsBelow: String,
             widthElement: 'jQuery',
             showOnUp: Boolean,
             media: 'media',
@@ -31,6 +32,7 @@ export default function (UIkit) {
             clsActive: 'uk-active',
             clsInactive: '',
             clsFixed: 'uk-sticky-fixed',
+            clsBelow: 'uk-sticky-below',
             widthElement: false,
             showOnUp: false,
             media: false,
@@ -43,7 +45,7 @@ export default function (UIkit) {
             this.widthElement = this.$props.widthElement || this.placeholder;
 
             if (!this.isActive) {
-                this.$el.addClass(this.clsInactive);
+                this.$addClass(this.clsInactive);
             }
         },
 
@@ -52,7 +54,7 @@ export default function (UIkit) {
             if (this.isActive) {
                 this.isActive = false;
                 this.hide();
-                this.$el.removeClass(this.clsInactive);
+                this.$removeClass(this.clsInactive);
             }
 
             this.placeholder.remove();
@@ -73,10 +75,9 @@ export default function (UIkit) {
 
                     var top = offsetTop(target),
                         elTop = offsetTop(this.$el),
-                        elHeight = this.$el[0].offsetHeight,
-                        elBottom = elTop + elHeight;
+                        elHeight = this.$el[0].offsetHeight;
 
-                    if (elBottom >= top && elTop <= top + target[0].offsetHeight) {
+                    if (elTop + elHeight >= top && elTop <= top + target[0].offsetHeight) {
                         window.scrollTo(0, top - elHeight - this.target - this.offset);
                     }
 
@@ -91,7 +92,7 @@ export default function (UIkit) {
 
                 write() {
 
-                    var outerHeight = this.$el[0].offsetHeight, el;
+                    var outerHeight = (this.isActive ? this.placeholder : this.$el)[0].offsetHeight, el;
 
                     this.placeholder
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
@@ -153,7 +154,7 @@ export default function (UIkit) {
             {
 
                 read() {
-                    this.offsetTop = offsetTop(this.$el)
+                    this.offsetTop = offsetTop(this.$el);
                 },
 
                 write({dir} = {}) {
@@ -175,7 +176,7 @@ export default function (UIkit) {
 
                         this.isActive = false;
 
-                        if (this.animation && this.bottomOffset < this.offsetTop) {
+                        if (this.animation && scroll > this.topOffset) {
                             Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation).then(() => this.hide()));
                         } else {
                             this.hide();
@@ -217,13 +218,9 @@ export default function (UIkit) {
 
             hide() {
 
-                this.$el
-                    .addClass(this.clsInactive)
-                    .removeClass(this.clsFixed)
-                    .removeClass(this.clsActive)
-                    .css({position: '', top: '', width: ''})
-                    .trigger('inactive');
-
+                this.$addClass(this.clsInactive);
+                this.$removeClass(this.clsFixed, this.clsActive, this.clsBelow);
+                this.$el.css({position: '', top: '', width: ''}).trigger('inactive');
                 this.placeholder.attr('hidden', true);
 
             },
@@ -236,15 +233,16 @@ export default function (UIkit) {
                     top = this.bottom - scroll;
                 }
 
-                this.$el
-                    .css({
-                        position: 'fixed',
-                        top: `${top}px`,
-                        width: this.width
-                    })
-                    .addClass(this.clsFixed)
-                    .toggleClass(this.clsActive, active)
-                    .toggleClass(this.clsInactive, !active);
+                this.$el.css({
+                    position: 'fixed',
+                    top: `${top}px`,
+                    width: this.width
+                });
+
+                this.$addClass(this.clsFixed);
+                this.$toggleClass(this.clsActive, active);
+                this.$toggleClass(this.clsInactive, !active);
+                this.$toggleClass(this.clsBelow, scroll > this.bottomOffset);
 
             }
 

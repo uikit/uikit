@@ -1,4 +1,4 @@
-import { Position, Toggable } from '../mixin/index';
+import { Position, Togglable } from '../mixin/index';
 import { $, Animation, doc, getDimensions, isWithin, isTouch, MouseTracker, pointerEnter, pointerLeave, query, removeClass } from '../util/index';
 
 export default function (UIkit) {
@@ -7,7 +7,7 @@ export default function (UIkit) {
 
     UIkit.component('drop', {
 
-        mixins: [Position, Toggable],
+        mixins: [Position, Togglable],
 
         args: 'pos',
 
@@ -39,7 +39,7 @@ export default function (UIkit) {
             this.clsDrop = this.clsDrop || `uk-${this.$options.name}`;
             this.clsPos = this.clsDrop;
 
-            this.$el.addClass(this.clsDrop);
+            this.$addClass(this.clsDrop);
         },
 
         ready() {
@@ -359,7 +359,7 @@ export default function (UIkit) {
                     var prop = this.getAxis() === 'y' ? 'width' : 'height';
                     this.$el.css(prop, alignTo[prop]);
                 } else if (this.$el.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
-                    this.$el.addClass(`${this.clsDrop}-stack`);
+                    this.$addClass(`${this.clsDrop}-stack`);
                     this.$el.trigger('stack', [this]);
                 }
 

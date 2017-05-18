@@ -70,27 +70,31 @@ export default function (UIkit) {
 
                     var index = this.elements.length === 1 ? 1 : 0;
 
-                    this.elements.each((_, el) => {
+                    this.elements.each((i, el) => {
 
-                        var $el = $(el);
-
-                        var data = el._scrollspy;
+                        var $el = $(el), data = el._scrollspy, cls = data.toggles[i] || data.toggles[0];
 
                         if (data.show) {
 
                             if (!data.inview && !data.timer) {
 
-                                data.timer = setTimeout(() => {
-
+                                var show = () => {
                                     $el.css('visibility', '')
                                         .addClass(this.inViewClass)
-                                        .toggleClass(data.toggles[0])
+                                        .toggleClass(cls)
                                         .trigger('inview');
 
                                     data.inview = true;
                                     delete data.timer;
+                                };
 
-                                }, this.delay * index++);
+                                if (this.delay && index) {
+                                    data.timer = setTimeout(show, this.delay * index);
+                                } else {
+                                    show();
+                                }
+
+                                index++;
 
                             }
 
@@ -104,16 +108,15 @@ export default function (UIkit) {
                                 }
 
                                 $el.removeClass(this.inViewClass)
-                                    .toggleClass(data.toggles[0])
+                                    .toggleClass(cls)
                                     .css('visibility', this.hidden ? 'hidden' : '')
                                     .trigger('outview');
 
                                 data.inview = false;
+
                             }
 
                         }
-
-                        data.toggles.reverse();
 
                     });
 

@@ -1,4 +1,4 @@
-import { animationstart, getStyle, on, requestAnimationFrame, toMs, win } from '../util/index';
+import { animationstart, getStyle, on, toMs } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
@@ -30,40 +30,14 @@ import Leader from './leader';
 
 export default function (UIkit) {
 
-    var scroll = null, dir, ticking, resizing, started = 0;
+    var scroll = 0, started = 0;
 
-    win
-        .on('load', UIkit.update)
-        .on('resize', e => {
-            if (!resizing) {
-                requestAnimationFrame(() => {
-                    UIkit.update(e);
-                    resizing = false;
-                });
-                resizing = true;
-            }
-        })
-        .on('scroll', e => {
-
-            if (scroll === null) {
-                scroll = 0;
-            }
-
-            if (scroll === window.pageYOffset) {
-                return;
-            }
-
-            dir = scroll < window.pageYOffset;
-            scroll = window.pageYOffset;
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    e.dir = dir ? 'down' : 'up';
-                    UIkit.update(e);
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
+    on(window, 'load resize', UIkit.update);
+    on(window, 'scroll', e => {
+        e.dir = scroll < window.pageYOffset ? 'down' : 'up';
+        scroll = window.pageYOffset;
+        UIkit.update(e);
+    });
 
     on(document, animationstart, ({target}) => {
         if ((getStyle(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {

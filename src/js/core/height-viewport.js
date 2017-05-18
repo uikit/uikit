@@ -1,4 +1,4 @@
-import { isNumeric, isString, offsetTop, query } from '../util/index';
+import { docHeight, isNumeric, isString, offsetTop, query } from '../util/index';
 
 export default function (UIkit) {
 
@@ -16,10 +16,6 @@ export default function (UIkit) {
             offsetBottom: false
         },
 
-        connected() {
-            this.$emitSync();
-        },
-
         update: {
 
             write() {
@@ -32,7 +28,7 @@ export default function (UIkit) {
 
                     this.$el.css({height: '', minHeight: ''});
 
-                    var diff = viewport - document.documentElement.offsetHeight;
+                    var diff = viewport - docHeight();
 
                     if (diff > 0) {
                         this.$el.css('min-height', height = this.$el.outerHeight() + diff)

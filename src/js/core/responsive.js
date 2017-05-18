@@ -7,7 +7,7 @@ export default function (UIkit) {
         props: ['width', 'height'],
 
         init() {
-            this.$el.addClass('uk-responsive-width');
+            this.$addClass('uk-responsive-width');
         },
 
         update: {
