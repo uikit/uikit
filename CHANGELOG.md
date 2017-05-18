@@ -18,14 +18,14 @@
 - IMPORTANT: Move Less/Sass imports into one file. Use `components/_import.less`
 - IMPORTANT: Renamed `transition` option to `easing` in Scroll component
 - Improved flip behaviour in Drop component
-- Improved 'class' handling
+- Improved `class` handling
 
 ### Fixed
 
 - Fix support for more than two digits in Countdown component
 - Fix typo in Togglable mixin name
 - Fix form select image for RTL
-- Fix scrollspy 'cls' option
+- Fix scrollspy `cls` option
 - Fix HeightMatch not working on initial page load
 - Fix touch events
 - Fix click event firing twice (iOS <= 9.2)
