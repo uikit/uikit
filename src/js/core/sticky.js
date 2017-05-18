@@ -75,10 +75,9 @@ export default function (UIkit) {
 
                     var top = offsetTop(target),
                         elTop = offsetTop(this.$el),
-                        elHeight = this.$el[0].offsetHeight,
-                        elBottom = elTop + elHeight;
+                        elHeight = this.$el[0].offsetHeight;
 
-                    if (elBottom >= top && elTop <= top + target[0].offsetHeight) {
+                    if (elTop + elHeight >= top && elTop <= top + target[0].offsetHeight) {
                         window.scrollTo(0, top - elHeight - this.target - this.offset);
                     }
 

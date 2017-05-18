@@ -211,13 +211,17 @@ export function scrolledOver(element) {
         topOffset = offsetTop(element),
         vp = window.innerHeight,
         vh = vp + Math.min(0, topOffset - vp),
-        diff = Math.max(0, vp - (docEl.scrollHeight - (topOffset + height)));
+        diff = Math.max(0, vp - (docHeight() - (topOffset + height)));
 
     return clamp(((vh - top) / ((vh + (height - (diff < vp ? diff : 0)) ) / 100)) / 100);
 }
 
 export function clamp(number, min = 0, max = 1) {
     return Math.min(Math.max(number, min), max);
+}
+
+export function docHeight() {
+    return Math.max(docEl.offsetHeight, docEl.scrollHeight);
 }
 
 export function getIndex(index, elements, current = 0) {

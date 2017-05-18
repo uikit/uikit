@@ -1,4 +1,4 @@
-import { $, offsetTop } from '../util/index';
+import { $, docHeight, offsetTop } from '../util/index';
 
 export default function (UIkit) {
 
@@ -22,11 +22,11 @@ export default function (UIkit) {
 
                 // get / set parameters
                 var target = offsetTop($(el)) - this.offset,
-                    docHeight = document.documentElement.offsetHeight,
-                    winHeight = window.innerHeight;
+                    document = docHeight(),
+                    viewport = window.innerHeight;
 
-                if (target + winHeight > docHeight) {
-                    target = docHeight - winHeight;
+                if (target + viewport > document) {
+                    target = document - viewport;
                 }
 
                 // animate to target, fire callback when done

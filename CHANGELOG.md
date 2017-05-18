@@ -28,9 +28,10 @@
 - Fix scrollspy 'cls' option
 - Fix HeightMatch not working on initial page load
 - Fix touch events
-- Fix click event firing twice in iOS <= 9.2
+- Fix click event firing twice (iOS <= 9.2)
 - Fix missing table hook
 - Prevent inital page jump (Safari)
+- Fix document height calculation (IE 10)
 
 ## 3.0.0 beta 22 (April 24, 2017)
 
@@ -50,7 +51,7 @@
 ### Fixed
 
 - Fix swiping in Switcher
-- Fix scrolling in Scrollspy Nav (FF)
+- Fix scrolling in Scrollspy Nav (Firefox)
 - Fix Navbar Dropbar
 - Fix Tooltip with different animations
 - Fix sass showing error when using different color mode in certain components
@@ -134,7 +135,7 @@
 
 - Fix deferred UIKit loading
 - Fix Dropdowns not closing immediately upon hovering other navbar item in Navbar component
-- Fix navbar groups center left/right in IE 11
+- Fix navbar groups center left/right (IE 11)
 - Fix "sticky on up" behaviour in Sticky component
 - Fix Offcanvas closing without animation
 - Fix links in Notification message clickable
@@ -246,7 +247,7 @@
 - Fix context selectors
 - Sticky components sets inactive class initially
 - Fix path to icons.svg in /custom folder
-- Fix wrapping grid columns in IE and Edge
+- Fix wrapping grid columns (IE + Edge)
 
 ## 3.0.0 beta 9 (February 3, 2017)
 
@@ -254,7 +255,7 @@
 
 - Fix prefixed Javascript not working
 - Fix beta 8 regression with Scrollspy targets
-- Fix width-expand not wrapping into next row in rare cases in Safari
+- Fix width-expand not wrapping into next row in rare cases (Safari)
 
 ## 3.0.0 beta 8 (February 2, 2017)
 
@@ -272,7 +273,7 @@
 - Fix Cover component if the container has padding
 - Fix Scrollspy component targeting wrong elements
 - Switcher supports 'data-' prefixed items now
-- Fix beta 7 regression (IE 10 + 11)
+- Fix beta 7 regression (IE <= 11)
 
 ## 3.0.0 beta 7 (February 1, 2017)
 
@@ -312,7 +313,7 @@
 
 - Fix component initialization
 - Fix card component extending inverse
-- Fix background-fixed for Firefox and IE
+- Fix background-fixed (Firefox + IE)
 
 ## 3.0.0 beta 5 (January 18, 2017)
 
