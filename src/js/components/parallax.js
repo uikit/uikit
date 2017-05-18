@@ -80,6 +80,11 @@ function plugin(UIkit) {
 
                     }
 
+                    if (prop.match(/^bg/)) {
+                        end = start <= end ? diff : -diff;
+                        start = 0;
+                    }
+
                     props[prop] = {start, end, diff, unit};
 
                     return props;
