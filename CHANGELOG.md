@@ -32,6 +32,7 @@
 - Fix missing table hook
 - Prevent inital page jump (Safari)
 - Fix document height calculation (IE 10)
+- Fix Tooltip recreates on hovering the already focused input
 
 ## 3.0.0 beta 22 (April 24, 2017)
 

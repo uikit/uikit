@@ -7,7 +7,7 @@ function plugin(UIkit) {
     var { util, mixin } = UIkit;
     var {$, doc, fastdom, flipPosition, isTouch, isWithin, pointerDown, pointerEnter, pointerLeave} = util;
 
-    var active;
+    var actives = [];
 
     UIkit.component('tooltip', {
 
@@ -51,16 +51,14 @@ function plugin(UIkit) {
         methods: {
 
             show() {
+                console.log('show', actives, actives.length);
 
-                if (active === this) {
+                if (~actives.indexOf(this)) {
                     return;
                 }
 
-                if (active) {
-                    active.hide();
-                }
-
-                active = this;
+                actives.forEach(active => active.hide());
+                actives.push(this);
 
                 doc.on(`click.${this.$options.name}`, e => {
                     if (!isWithin(e.target, this.$el)) {
@@ -91,11 +89,15 @@ function plugin(UIkit) {
 
             hide() {
 
-                if (this.$el.is('input') && this.$el[0] === document.activeElement) {
+                console.log('hide', actives, actives.length);
+
+                var index = actives.indexOf(this);
+
+                if (!~index || this.$el.is('input') && this.$el[0] === document.activeElement) {
                     return;
                 }
 
-                active = active !== this && active || false;
+                actives.splice(index, 1);
 
                 clearTimeout(this.showTimer);
                 clearInterval(this.hideTimer);
@@ -112,6 +114,9 @@ function plugin(UIkit) {
         events: {
 
             [`focus ${pointerEnter} ${pointerDown}`](e) {
+
+                console.log(e.type);
+
                 if (e.type !== pointerDown || !isTouch(e)) {
                     this.show();
                 }
@@ -120,6 +125,9 @@ function plugin(UIkit) {
             'blur': 'hide',
 
             [pointerLeave](e) {
+
+                console.log(e.type);
+
                 if (!isTouch(e)) {
                     this.hide()
                 }
