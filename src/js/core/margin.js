@@ -44,8 +44,7 @@ export default function (UIkit) {
 
                     for (var j = rows.length - 1; j >= 0; j--) {
 
-                        var row = rows[j],
-                            left = row[0];
+                        var row = rows[j];
 
                         if (!row[0]) {
                             row.push(el);

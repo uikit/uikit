@@ -20,17 +20,6 @@ function plugin(UIkit) {
 
         init() {
             this.$addClass('uk-grid');
-
-            this.$options.update.unshift({
-
-                read() {
-                    this.reset();
-                },
-
-                events: ['load', 'resize']
-
-            });
-
         },
 
         disconnected() {
@@ -102,6 +91,16 @@ function plugin(UIkit) {
         }
 
     }));
+
+    UIkit.component('grid-parallax').options.update.unshift({
+
+        read() {
+            this.reset();
+        },
+
+        events: ['load', 'resize']
+
+    });
 
     function sortBy(collection, prop) {
         return collection.sort((a,b) =>

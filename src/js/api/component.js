@@ -1,4 +1,4 @@
-import { $, camelize, fastdom, isArray, isJQuery, isPlainObject } from '../util/index';
+import { $, camelize, fastdom, isJQuery, isPlainObject, isUndefined } from '../util/index';
 
 export default function (UIkit) {
 
@@ -13,6 +13,8 @@ export default function (UIkit) {
         if (isPlainObject(options)) {
             options.name = name;
             options = UIkit.extend(options);
+        } else if (isUndefined(options)) {
+            return UIkit.components[name]
         } else {
             options.options.name = name;
         }
