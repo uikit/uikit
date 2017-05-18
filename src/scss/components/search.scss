@@ -123,7 +123,7 @@ $search-toggle-hover-color:                          $global-color !default;
     @if(mixin-exists(hook-search-input)) {@include hook-search-input();}
 }
 
-.uk-search-input:focus { outline: 0; }
+.uk-search-input:focus { outline: none; }
 
 /* Placeholder */
 .uk-search-input:-ms-input-placeholder { color: $search-placeholder-color !important; }
