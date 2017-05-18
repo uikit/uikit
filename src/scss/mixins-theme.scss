@@ -96,26 +96,6 @@
 
 }
 @mixin hook-background-misc(){}
-@mixin hook-badge(){}
-@mixin hook-badge-hover(){}
-@mixin hook-badge-misc(){}
-@mixin hook-inverse-badge(){}
-@mixin hook-inverse-badge-hover(){}
-@mixin hook-inverse-component-badge(){
-
-    .uk-badge {
-        background-color: $inverse-badge-background;
-        color: $inverse-badge-color;
-        @if(mixin-exists(hook-inverse-badge)) {@include hook-inverse-badge();}
-    }
-
-    .uk-badge:hover,
-    .uk-badge:focus {
-        color: $inverse-badge-hover-color;
-        @if(mixin-exists(hook-inverse-badge-hover)) {@include hook-inverse-badge-hover();}
-    }
-
-}
 @mixin hook-base-body(){}
 @mixin hook-base-link(){}
 @mixin hook-base-link-hover(){}
@@ -260,6 +240,26 @@
     hr {
         border-top-color: $inverse-base-hr-border;
         @if(mixin-exists(hook-inverse-base-hr)) {@include hook-inverse-base-hr();}
+    }
+
+}
+@mixin hook-badge(){}
+@mixin hook-badge-hover(){}
+@mixin hook-badge-misc(){}
+@mixin hook-inverse-badge(){}
+@mixin hook-inverse-badge-hover(){}
+@mixin hook-inverse-component-badge(){
+
+    .uk-badge {
+        background-color: $inverse-badge-background;
+        color: $inverse-badge-color;
+        @if(mixin-exists(hook-inverse-badge)) {@include hook-inverse-badge();}
+    }
+
+    .uk-badge:hover,
+    .uk-badge:focus {
+        color: $inverse-badge-hover-color;
+        @if(mixin-exists(hook-inverse-badge-hover)) {@include hook-inverse-badge-hover();}
     }
 
 }
@@ -753,6 +753,11 @@
 @mixin hook-dropdown-nav-divider(){}
 @mixin hook-dropdown-misc(){}
 @mixin hook-flex-misc(){}
+@mixin hook-form-range(){}
+@mixin hook-form-range-thumb(){ border: $form-range-thumb-border-width solid $form-range-thumb-border; }
+@mixin hook-form-range-track(){ border-radius: $form-range-track-border-radius; }
+@mixin hook-form-range-track-focus(){}
+@mixin hook-form-range-misc(){}
 @mixin hook-form(){
     border: $form-border-width solid $form-border;
     -webkit-transition: 0.2s ease-in-out;
@@ -1506,6 +1511,28 @@
 }
 @mixin hook-inverse-list-bullet(){}
 @mixin hook-margin-misc(){}
+@mixin hook-marker(){
+    border-radius: 500px;
+}
+@mixin hook-marker-hover(){}
+@mixin hook-marker-misc(){}
+@mixin hook-inverse-marker(){}
+@mixin hook-inverse-marker-hover(){}
+@mixin hook-inverse-component-marker(){
+
+    .uk-marker {
+        background: $inverse-marker-background;
+        color: $inverse-marker-color;
+        @if(mixin-exists(hook-inverse-marker)) {@include hook-inverse-marker();}
+    }
+
+    .uk-marker:hover,
+    .uk-marker:focus {
+        color: $inverse-marker-hover-color;
+        @if(mixin-exists(hook-inverse-marker-hover)) {@include hook-inverse-marker-hover();}
+    }
+
+}
 @mixin hook-modal(){}
 @mixin hook-modal-dialog(){}
 @mixin hook-modal-full(){}
@@ -1824,6 +1851,7 @@
 @mixin hook-inverse-tab-item-hover(){}
 @mixin hook-inverse-tab-item-active(){ border-color: $inverse-global-primary-background; }
 @mixin hook-inverse-tab-item-disabled(){}
+@mixin hook-table(){}
 @mixin hook-table-header-cell(){ text-transform: uppercase; }
 @mixin hook-table-cell(){}
 @mixin hook-table-footer(){}

@@ -1,0 +1,63 @@
+// Name:            Marker
+// Description:     Component to create a marker icon
+//
+// Component:       `uk-marker`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$marker-padding:                                  5px !default;
+$marker-background:                               $global-secondary-background !default;
+$marker-color:                                    $global-inverse-color !default;
+
+$marker-hover-color:                              $global-inverse-color !default;
+
+
+/* ========================================================================
+   Component: Marker
+ ========================================================================== */
+
+/*
+ * Addopts `uk-icon`
+ */
+
+.uk-marker {
+    padding: $marker-padding;
+    background: $marker-background;
+    color: $marker-color;
+    @if(mixin-exists(hook-marker)) {@include hook-marker();}
+}
+
+/* Hover + Focus */
+.uk-marker:hover,
+.uk-marker:focus {
+    color: $marker-hover-color;
+    outline: none;
+    @if(mixin-exists(hook-marker-hover)) {@include hook-marker-hover();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-marker-misc)) {@include hook-marker-misc();}
+
+// @mixin hook-marker(){}
+// @mixin hook-marker-hover(){}
+// @mixin hook-marker-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-marker-background:                   $global-muted-background !default;
+$inverse-marker-color:                        $global-color !default;
+$inverse-marker-hover-color:                  $global-color !default;
+
+
+
+// @mixin hook-inverse-marker(){}
+// @mixin hook-inverse-marker-hover(){}

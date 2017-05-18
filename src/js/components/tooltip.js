@@ -51,7 +51,6 @@ function plugin(UIkit) {
         methods: {
 
             show() {
-                console.log('show', actives, actives.length);
 
                 if (~actives.indexOf(this)) {
                     return;
@@ -89,8 +88,6 @@ function plugin(UIkit) {
 
             hide() {
 
-                console.log('hide', actives, actives.length);
-
                 var index = actives.indexOf(this);
 
                 if (!~index || this.$el.is('input') && this.$el[0] === document.activeElement) {
@@ -114,9 +111,6 @@ function plugin(UIkit) {
         events: {
 
             [`focus ${pointerEnter} ${pointerDown}`](e) {
-
-                console.log(e.type);
-
                 if (e.type !== pointerDown || !isTouch(e)) {
                     this.show();
                 }
@@ -125,9 +119,6 @@ function plugin(UIkit) {
             'blur': 'hide',
 
             [pointerLeave](e) {
-
-                console.log(e.type);
-
                 if (!isTouch(e)) {
                     this.hide()
                 }
