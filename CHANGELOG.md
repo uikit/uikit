@@ -8,7 +8,7 @@
 - Add Grid Parallax component
 - Add Form Range component
 - Add Marker component
-- Add hidden classes for touch devices to visiblity component
+- Add hidden classes for touch devices to visibility component
 - Add padding xlarge to padding component
 - Add transform center to utility component
 - Add clsBelow option for Sticky component (uk-sticky-below)
@@ -25,7 +25,7 @@
 - Fix support for more than two digits in Countdown component
 - Fix typo in Togglable mixin name
 - Fix form select image for RTL
-- Fix scrollspy `cls` option
+- Fix Scrollspy `cls` option
 - Fix HeightMatch not working on initial page load
 - Fix touch events
 - Fix click event firing twice (iOS <= 9.2)
@@ -180,7 +180,7 @@
 - Move Icons into JavaScript
 - Component Constructor initializes and returns single component only
 - Rename function "show" to "toggle" in Accordion component
-- Switcher no longers "swipes" with mouse
+- Switcher no longer "swipes" with mouse
 - Sticky component applies active class after scrolling below top
 
 ### Removed
