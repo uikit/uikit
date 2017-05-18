@@ -25,11 +25,10 @@ export default function (UIkit) {
             read() {
 
                 if (!this.items.length || this.$el[0].offsetHeight === 0) {
-                    this.hidden = true;
+                    this.rows = false;
                     return;
                 }
 
-                this.hidden = false;
                 this.stacks = true;
 
                 var rows = [[]];
@@ -88,11 +87,7 @@ export default function (UIkit) {
 
             write() {
 
-                if (this.hidden) {
-                    return;
-                }
-
-                this.rows.forEach((row, i) =>
+                this.rows && this.rows.forEach((row, i) =>
                     row.forEach((el, j) => {
                         this.$toggleClass(el, this.margin, i !== 0);
                         this.$toggleClass(el, this.firstColumn, j === 0);
