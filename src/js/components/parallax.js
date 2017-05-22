@@ -80,12 +80,16 @@ function plugin(UIkit) {
 
                     }
 
-                    if (prop.match(/^bg/)) {
-                        end = start <= end ? diff : -diff;
-                        start = 0;
-                    }
-
                     props[prop] = {start, end, diff, unit};
+
+                    if (prop.match(/^bg/)) {
+                        if (this.covers) {
+                            props[prop].end = start <= end ? diff : -diff;
+                            props[prop].start = 0;
+                        } else {
+                            props[prop].pos = this.$el.css(`background-position-${prop[2]}`);
+                        }
+                    }
 
                     return props;
 
@@ -95,6 +99,11 @@ function plugin(UIkit) {
 
             bgProps() {
                 return ['bgx', 'bgy'].filter(bg => bg in this.props);
+            },
+
+            covers() {
+                var size = this.$el.css('backgroundSize');
+                return ~['contain', 'cover'].indexOf(size) ? size : false;
             }
 
         },
@@ -120,11 +129,9 @@ function plugin(UIkit) {
                         return;
                     }
 
-                    var src = this.$el.css('backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1'), size;
+                    var src = this.$el.css('backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
 
-                    size = ~['contain', 'cover'].indexOf(size = this.$el.css('backgroundSize')) ? size : false;
-
-                    if (!src || !size) {
+                    if (!src || !this.covers) {
                         return;
                     }
 
@@ -132,7 +139,6 @@ function plugin(UIkit) {
 
                     getImage(src).then(img => {
                         this._image = {
-                            size,
                             width: img.naturalWidth,
                             height: img.naturalHeight
                         };
@@ -148,11 +154,11 @@ function plugin(UIkit) {
 
                         if (!this.media || window.matchMedia(this.media).matches) {
 
-                            var image = this._image, {dimEl, size} = image;
+                            var image = this._image, {dimEl} = image;
 
                             this.bgProps.forEach(prop => dimEl[prop === 'bgy' ? 'height' : 'width'] += this.props[prop].diff);
 
-                            var dim = size === 'cover'
+                            var dim = this.covers === 'cover'
                                 ? Dimensions.cover(image, dimEl)
                                 : Dimensions.fit(image, dimEl);
 
@@ -191,7 +197,7 @@ function plugin(UIkit) {
                         return;
                     }
 
-                    this.$el.css(getCss(this.props, percent));
+                    this.$el.css(getCss(this.props, percent, this.covers));
                     this._prev = percent;
 
                 },
@@ -205,7 +211,7 @@ function plugin(UIkit) {
         return color.split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => parseFloat(n));
     }
 
-    function getCss(props, percent) {
+    function getCss(props, percent, covers) {
 
         return Object.keys(props).reduce((css, prop) => {
 
@@ -219,7 +225,7 @@ function plugin(UIkit) {
                 // transforms
                 case 'x':
                 case 'y':
-                    css.transform += ` translate${prop.toUpperCase()}(${value + values.unit})`;
+                    css.transform += ` translate${prop}(${value + values.unit})`;
                     break;
                 case 'rotate':
                     css.transform += ` rotate(${value}deg)`;
@@ -231,7 +237,13 @@ function plugin(UIkit) {
                 // bg image
                 case 'bgy':
                 case 'bgx':
-                    css[`backgroundPosition${prop === 'bgx' ? 'X' : 'Y'}`] = `calc(${values.start < values.end ? '100%' : '0%'} + ${value + values.unit})`;
+                    css[`background-position-${prop[2]}`] = `calc(${
+                        !covers
+                            ? values.pos
+                            : values.start < values.end 
+                                ? '100%' 
+                                : '0%'
+                    } + ${value + values.unit})`;
                     break;
 
                 // color
