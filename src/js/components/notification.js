@@ -20,7 +20,8 @@ function plugin(UIkit) {
             group: null,
             pos: 'top-center',
             onClose: null,
-            clsClose: 'uk-notification-close'
+            clsClose: 'uk-notification-close',
+            clsMsg: 'uk-notification-message'
         },
 
         created() {
@@ -30,7 +31,7 @@ function plugin(UIkit) {
             }
 
             this.$mount($(
-                `<div class="uk-notification-message${this.status ? ` uk-notification-message-${this.status}` : ''}">
+                `<div class="${this.clsMsg}${this.status ? ` ${this.clsMsg}-${this.status}` : ''}">
                     <a href="#" class="${this.clsClose}" data-uk-close></a>
                     <div>${this.message}</div>
                 </div>`

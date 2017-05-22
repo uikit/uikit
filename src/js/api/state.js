@@ -15,13 +15,13 @@ export default function (UIkit) {
         this.$name = UIkit.prefix + hyphenate(this.$options.name);
         this.$props = {};
 
+        this._frames = {reads: {}, writes: {}};
+
         this._uid = uid++;
         this._initData();
         this._initMethods();
         this._initComputeds();
         this._callHook('created');
-
-        this._frames = {reads: {}, writes: {}};
 
         if (options.el) {
             this.$mount(options.el);
