@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Make Icon component work with button elements
+
 ### Fixed
 
 - Fix margin bottom behaviour in Grid Parallax
