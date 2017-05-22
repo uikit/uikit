@@ -25,7 +25,7 @@ strats.destroy = function (parentVal, childVal) {
 
 // update strategy
 strats.update = function (parentVal, childVal) {
-    return strats.args(parentVal, isFunction(childVal) ? {write: childVal} : childVal);
+    return strats.args(parentVal, isFunction(childVal) ? {read: childVal} : childVal);
 };
 
 // property strategy

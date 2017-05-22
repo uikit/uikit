@@ -11,7 +11,7 @@
 - Add hidden classes for touch devices to visibility component
 - Add padding xlarge to padding component
 - Add transform center to utility component
-- Add clsBelow option for Sticky component (uk-sticky-below)
+- Add `clsBelow` option for Sticky component (uk-sticky-below)
 
 ### Changed
 
