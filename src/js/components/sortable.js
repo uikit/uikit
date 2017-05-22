@@ -226,7 +226,8 @@ function plugin(UIkit) {
                 this.drag.remove();
                 this.drag = null;
 
-                this.touched.forEach(sortable => sortable.$el.children().removeClass(`${sortable.clsPlaceholder} ${sortable.clsItem}`));
+                var classes = this.touched.map(sortable => `${sortable.clsPlaceholder} ${sortable.clsItem}`).join(' ');
+                this.touched.forEach(sortable => sortable.$el.children().removeClass(classes));
 
                 doc.removeClass(this.clsDragState);
 
