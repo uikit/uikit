@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.23 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.24 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
@@ -800,7 +800,7 @@ strats.destroy = function (parentVal, childVal) {
 
 // update strategy
 strats.update = function (parentVal, childVal) {
-    return strats.args(parentVal, isFunction(childVal) ? {write: childVal} : childVal);
+    return strats.args(parentVal, isFunction(childVal) ? {read: childVal} : childVal);
 };
 
 // property strategy
@@ -1670,13 +1670,13 @@ function stateAPI (UIkit) {
         this.$name = UIkit.prefix + hyphenate(this.$options.name);
         this.$props = {};
 
+        this._frames = {reads: {}, writes: {}};
+
         this._uid = uid++;
         this._initData();
         this._initMethods();
         this._initComputeds();
         this._callHook('created');
-
-        this._frames = {reads: {}, writes: {}};
 
         if (options.el) {
             this.$mount(options.el);
@@ -1965,12 +1965,12 @@ function instanceAPI (UIkit) {
         }
 
         if (el[DATA][name]) {
-            console.warn(("Component \"" + name + "\" is already mounted on element: "), el);
             return;
         }
 
         el[DATA][name] = this;
 
+        this.$options.el = this.$options.el || el;
         this.$el = $__default(el);
 
         this._initProps();
@@ -3659,7 +3659,7 @@ function HeightViewport (UIkit) {
 
                     this.$el.css({height: '', minHeight: ''});
 
-                    var diff = viewport - docHeight();
+                    var diff = viewport - document.documentElement.offsetHeight;
 
                     if (diff > 0) {
                         this.$el.css('min-height', height = this.$el.outerHeight() + diff)
@@ -5589,7 +5589,7 @@ function Tab (UIkit) {
 
         init: function init() {
 
-            var cls = this.$el.hasClass('uk-tab-left') && 'uk-tab-left' || this.$el.hasClass('uk-tab-right') && 'uk-tab-right';
+            var cls = this.$hasClass('uk-tab-left') && 'uk-tab-left' || this.$hasClass('uk-tab-right') && 'uk-tab-right';
 
             if (cls) {
                 UIkit.toggle(this.$el, {cls: cls, mode: 'media', media: this.media});
@@ -5838,7 +5838,7 @@ function core (UIkit) {
 
 }
 
-UIkit.version = '3.0.0-beta.23';
+UIkit.version = '3.0.0-beta.24';
 
 mixin(UIkit);
 core(UIkit);
@@ -6356,7 +6356,8 @@ function plugin$2(UIkit) {
             group: null,
             pos: 'top-center',
             onClose: null,
-            clsClose: 'uk-notification-close'
+            clsClose: 'uk-notification-close',
+            clsMsg: 'uk-notification-message'
         },
 
         created: function created() {
@@ -6366,7 +6367,7 @@ function plugin$2(UIkit) {
             }
 
             this.$mount($(
-                ("<div class=\"uk-notification-message" + (this.status ? (" uk-notification-message-" + (this.status)) : '') + "\">\n                    <a href=\"#\" class=\"" + (this.clsClose) + "\" data-uk-close></a>\n                    <div>" + (this.message) + "</div>\n                </div>")
+                ("<div class=\"" + (this.clsMsg) + (this.status ? (" " + (this.clsMsg) + "-" + (this.status)) : '') + "\">\n                    <a href=\"#\" class=\"" + (this.clsClose) + "\" data-uk-close></a>\n                    <div>" + (this.message) + "</div>\n                </div>")
             ).appendTo(containers[this.pos].show())[0]);
 
         },
@@ -6690,7 +6691,8 @@ function plugin$3(UIkit) {
                 this.drag.remove();
                 this.drag = null;
 
-                this.touched.forEach(function (sortable) { return sortable.$el.children().removeClass(((sortable.clsPlaceholder) + " " + (sortable.clsItem))); });
+                var classes = this.touched.map(function (sortable) { return ((sortable.clsPlaceholder) + " " + (sortable.clsItem)); }).join(' ');
+                this.touched.forEach(function (sortable) { return sortable.$el.children().removeClass(classes); });
 
                 doc.removeClass(this.clsDragState);
 
@@ -7189,10 +7191,6 @@ function plugin$6(UIkit) {
 
             items: function items() {
                 return (this.target ? this.$el.find(this.target) : this.$el.children()).toArray();
-            },
-
-            columns: function columns() {
-                return this.rows && this.rows[0] && this.rows[0].length || 0;
             }
 
         },
@@ -7202,6 +7200,7 @@ function plugin$6(UIkit) {
             {
 
                 read: function read() {
+                    this.columns = this.rows && this.rows[0] && this.rows[0].length || 0;
                     this.rows = this.rows && this.rows.map(function (elements) { return sortBy(elements, 'offsetLeft'); });
                 },
 
@@ -7356,12 +7355,16 @@ function plugin$7(UIkit) {
 
                     }
 
-                    if (prop.match(/^bg/)) {
-                        end = start <= end ? diff : -diff;
-                        start = 0;
-                    }
-
                     props[prop] = {start: start, end: end, diff: diff, unit: unit};
+
+                    if (prop.match(/^bg/)) {
+                        if (this$1.covers) {
+                            props[prop].end = start <= end ? diff : -diff;
+                            props[prop].start = 0;
+                        } else {
+                            props[prop].pos = this$1.$el.css(("background-position-" + (prop[2])));
+                        }
+                    }
 
                     return props;
 
@@ -7373,6 +7376,11 @@ function plugin$7(UIkit) {
                 var this$1 = this;
 
                 return ['bgx', 'bgy'].filter(function (bg) { return bg in this$1.props; });
+            },
+
+            covers: function covers() {
+                var size = this.$el.css('backgroundSize');
+                return ~['contain', 'cover'].indexOf(size) ? size : false;
             }
 
         },
@@ -7400,11 +7408,9 @@ function plugin$7(UIkit) {
                         return;
                     }
 
-                    var src = this.$el.css('backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1'), size;
+                    var src = this.$el.css('backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
 
-                    size = ~['contain', 'cover'].indexOf(size = this.$el.css('backgroundSize')) ? size : false;
-
-                    if (!src || !size) {
+                    if (!src || !this.covers) {
                         return;
                     }
 
@@ -7412,7 +7418,6 @@ function plugin$7(UIkit) {
 
                     getImage(src).then(function (img) {
                         this$1._image = {
-                            size: size,
                             width: img.naturalWidth,
                             height: img.naturalHeight
                         };
@@ -7432,11 +7437,10 @@ function plugin$7(UIkit) {
 
                             var image = this._image;
                             var dimEl = image.dimEl;
-                            var size = image.size;
 
                             this.bgProps.forEach(function (prop) { return dimEl[prop === 'bgy' ? 'height' : 'width'] += this$1.props[prop].diff; });
 
-                            var dim = size === 'cover'
+                            var dim = this.covers === 'cover'
                                 ? Dimensions.cover(image, dimEl)
                                 : Dimensions.fit(image, dimEl);
 
@@ -7477,7 +7481,7 @@ function plugin$7(UIkit) {
                         return;
                     }
 
-                    this.$el.css(getCss(this.props, percent));
+                    this.$el.css(getCss(this.props, percent, this.covers));
                     this._prev = percent;
 
                 },
@@ -7491,7 +7495,7 @@ function plugin$7(UIkit) {
         return color.split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(function (n) { return parseFloat(n); });
     }
 
-    function getCss(props, percent) {
+    function getCss(props, percent, covers) {
 
         return Object.keys(props).reduce(function (css, prop) {
 
@@ -7505,7 +7509,7 @@ function plugin$7(UIkit) {
                 // transforms
                 case 'x':
                 case 'y':
-                    css.transform += " translate" + (prop.toUpperCase()) + "(" + (value + values.unit) + ")";
+                    css.transform += " translate" + prop + "(" + (value + values.unit) + ")";
                     break;
                 case 'rotate':
                     css.transform += " rotate(" + value + "deg)";
@@ -7517,7 +7521,11 @@ function plugin$7(UIkit) {
                 // bg image
                 case 'bgy':
                 case 'bgx':
-                    css[("backgroundPosition" + (prop === 'bgx' ? 'X' : 'Y'))] = "calc(" + (values.start < values.end ? '100%' : '0%') + " + " + (value + values.unit) + ")";
+                    css[("background-position-" + (prop[2]))] = "calc(" + (!covers
+                            ? values.pos
+                            : values.start < values.end 
+                                ? '100%' 
+                                : '0%') + " + " + (value + values.unit) + ")";
                     break;
 
                 // color
