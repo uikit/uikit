@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.0.0 beta 24 (May 22, 2017)
+
+### Changed
+
+- Make Icon component work with button elements
+
+### Fixed
+
+- Fix margin bottom behaviour in Grid Parallax
+- Fix error thrown by Notification component
+- Fix `expand` mode in Height Viewport component
+- Fix background position behaviour in Parallax component
+- Fix removal of classes after sorting in Sortable component
+
 ## 3.0.0 beta 23 (May 18, 2017)
 
 ### Added
@@ -11,7 +25,7 @@
 - Add hidden classes for touch devices to visibility component
 - Add padding xlarge to padding component
 - Add transform center to utility component
-- Add clsBelow option for Sticky component (uk-sticky-below)
+- Add `clsBelow` option for Sticky component (uk-sticky-below)
 
 ### Changed
 

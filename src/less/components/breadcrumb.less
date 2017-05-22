@@ -74,6 +74,11 @@
     .hook-breadcrumb-item-hover;
 }
 
+/* Disabled */
+.uk-breadcrumb > .uk-disabled > * {
+    .hook-breadcrumb-item-disabled;
+}
+
 /* Active */
 .uk-breadcrumb > :last-child > * {
     color: @breadcrumb-item-active-color;
@@ -102,6 +107,7 @@
 .hook-breadcrumb() {}
 .hook-breadcrumb-item() {}
 .hook-breadcrumb-item-hover() {}
+.hook-breadcrumb-item-disabled() {}
 .hook-breadcrumb-item-active() {}
 .hook-breadcrumb-divider() {}
 .hook-breadcrumb-misc() {}
@@ -128,6 +134,11 @@
         .hook-inverse-breadcrumb-item-hover;
     }
 
+
+    .uk-breadcrumb > .uk-disabled > * {
+        .hook-inverse-breadcrumb-item-disabled;
+    }
+
     .uk-breadcrumb > :last-child > * {
         color: @inverse-breadcrumb-item-active-color;
         .hook-inverse-breadcrumb-item-active;
@@ -146,5 +157,6 @@
 
 .hook-inverse-breadcrumb-item() {}
 .hook-inverse-breadcrumb-item-hover() {}
+.hook-inverse-breadcrumb-item-disabled() {}
 .hook-inverse-breadcrumb-item-active() {}
 .hook-inverse-breadcrumb-divider() {}

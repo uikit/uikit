@@ -986,15 +986,48 @@ a.uk-link-reset:focus,
    Component: Icon
  ========================================================================== */
 /*
- * 1. Fill all SVG elements with the current text color if no `fill` attribute is set
- * 2. Let the container fit the height of the icon
+ * Note: 1. - 7. is required for `button` elements. Needed for Close and Form Icon component.
+ * 1. Remove margins in Chrome, Safari and Opera.
+ * 2. Remove borders for `button`.
+ * 3. Address `overflow` set to `hidden` in IE.
+ * 4. Correct `font` properties and `color` not being inherited for `button`.
+ * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 6. Remove default `button` padding and background color
+ * 7. Required for `button`.
+ * 8. Style
+ * 9. Fill all SVG elements with the current text color if no `fill` attribute is set
+ * 10. Let the container fit the height of the icon
  */
 .uk-icon {
-  display: inline-block;
   /* 1 */
-  fill: currentcolor;
+  margin: 0;
   /* 2 */
+  border: none;
+  /* 3 */
+  overflow: visible;
+  /* 4 */
+  font: inherit;
+  color: inherit;
+  /* 5 */
+  text-transform: none;
+  /* 6. */
+  padding: 0;
+  background-color: transparent;
+  /* 7 */
+  cursor: pointer;
+  /* 8 */
+  display: inline-block;
+  /* 9 */
+  fill: currentcolor;
+  /* 10 */
   line-height: 0;
+}
+/*
+ * Remove the inner border and padding in Firefox.
+ */
+.uk-icon::-moz-focus-inner {
+  border: 0;
+  padding: 0;
 }
 /*
  * Set the fill and stroke color of all SVG elements to the current text color
@@ -2852,45 +2885,13 @@ select.uk-form-width-xsmall {
  ========================================================================== */
 /*
  * Adopts `uk-icon`
- * 1. Remove margins in Chrome, Safari and Opera.
- * 2. Remove borders for `button`.
- * 3. Address `overflow` set to `hidden` in IE.
- * 4. Correct `font` properties and `color` not being inherited for `button`.
- * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
- * 6. Remove default `button` padding and background color
- * 7. Required for `button`.
- * 8. Re-reset `line-height` for icon
  */
 .uk-close {
-  /* 1 */
-  margin: 0;
-  /* 2 */
-  border: none;
-  /* 3 */
-  overflow: visible;
-  /* 4 */
-  font: inherit;
   color: #999;
-  /* 5 */
-  text-transform: none;
-  /* 6. */
-  padding: 0;
-  background-color: transparent;
-  /* 7 */
-  cursor: pointer;
-  /* 8 */
-  line-height: 0;
   -webkit-transition: 0.1s ease-in-out;
   transition: 0.1s ease-in-out;
   -webkit-transition-property: color, opacity;
   transition-property: color, opacity;
-}
-/*
- * Remove the inner border and padding in Firefox.
- */
-.uk-close::-moz-focus-inner {
-  border: 0;
-  padding: 0;
 }
 /* Hover + Focus */
 .uk-close:hover,
@@ -4308,6 +4309,7 @@ ul.uk-nav-sub {
   color: #666;
   text-decoration: none;
 }
+/* Disabled */
 /* Active */
 .uk-breadcrumb > :last-child > * {
   color: #666;

@@ -35,10 +35,6 @@ function plugin(UIkit) {
 
             items() {
                 return (this.target ? this.$el.find(this.target) : this.$el.children()).toArray();
-            },
-
-            columns() {
-                return this.rows && this.rows[0] && this.rows[0].length || 0;
             }
 
         },
@@ -48,6 +44,7 @@ function plugin(UIkit) {
             {
 
                 read() {
+                    this.columns = this.rows && this.rows[0] && this.rows[0].length || 0;
                     this.rows = this.rows && this.rows.map(elements => sortBy(elements, 'offsetLeft'));
                 },
 
