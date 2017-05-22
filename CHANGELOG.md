@@ -6,6 +6,7 @@
 
 - Fix margin bottom behaviour in Grid Parallax
 - Fix error thrown by Notification component
+- Fix `expand` mode in Height Viewport component
 
 ## 3.0.0 beta 23 (May 18, 2017)
 
