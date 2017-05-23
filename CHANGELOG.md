@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Improve Parallax Background Position behaviour
+
 ## 3.0.0 beta 24 (May 22, 2017)
 
 ### Changed
@@ -31,8 +37,8 @@
 
 - IMPORTANT: Move Less/Sass imports into one file. Use `components/_import.less`
 - IMPORTANT: Renamed `transition` option to `easing` in Scroll component
-- Improved flip behaviour in Drop component
-- Improved `class` handling
+- Improve flip behaviour in Drop component
+- Improve `class` handling
 
 ### Fixed
 

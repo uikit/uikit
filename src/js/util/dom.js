@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, assign, each, Event, getContextSelectors, isNumber, isString, offsetTop, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
+import { animationend, assign, clamp, each, Event, getContextSelectors, isNumber, isString, offsetTop, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
 
 var docEl = document.documentElement;
 export const win = $(window);
@@ -214,10 +214,6 @@ export function scrolledOver(element) {
         diff = Math.max(0, vp - (docHeight() - (topOffset + height)));
 
     return clamp(((vh - top) / ((vh + (height - (diff < vp ? diff : 0)) ) / 100)) / 100);
-}
-
-export function clamp(number, min = 0, max = 1) {
-    return Math.min(Math.max(number, min), max);
 }
 
 export function docHeight() {

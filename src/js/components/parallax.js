@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, clamp, Dimensions, getImage, isUndefined, scrolledOver, query} = UIkit.util;
+    var {$, assign, clamp, Dimensions, getImage, isUndefined, scrolledOver, query} = UIkit.util;
 
     var props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
@@ -83,12 +83,15 @@ function plugin(UIkit) {
                     props[prop] = {start, end, diff, unit};
 
                     if (prop.match(/^bg/)) {
+
                         if (this.covers) {
                             props[prop].end = start <= end ? diff : -diff;
                             props[prop].start = 0;
-                        } else {
-                            props[prop].pos = this.$el.css(`background-position-${prop[2]}`);
                         }
+
+                        var attr = `background-position-${prop[2]}`;
+                        props[prop].pos = this.$el.css(attr, '').css(attr);
+
                     }
 
                     return props;
@@ -102,13 +105,14 @@ function plugin(UIkit) {
             },
 
             covers() {
-                var size = this.$el.css('backgroundSize');
+                var size = this.$el.css('backgroundSize', '').css('backgroundSize');
                 return ~['contain', 'cover'].indexOf(size) ? size : false;
             }
 
         },
 
         disconnected() {
+            this._prev = undefined;
             this._image = undefined;
         },
 
@@ -117,6 +121,8 @@ function plugin(UIkit) {
             {
 
                 read() {
+
+                    this._prev = undefined;
 
                     if (this._image) {
                         this._image.dimEl = {
@@ -154,13 +160,32 @@ function plugin(UIkit) {
 
                         if (!this.media || window.matchMedia(this.media).matches) {
 
-                            var image = this._image, {dimEl} = image;
+                            var image = this._image,
+                                dimEl = image.dimEl,
+                                dim = Dimensions[this.covers === 'cover' ? 'cover' : 'fit'](image, dimEl);
 
-                            this.bgProps.forEach(prop => dimEl[prop === 'bgy' ? 'height' : 'width'] += this.props[prop].diff);
+                            this.bgProps.forEach(prop => {
 
-                            var dim = this.covers === 'cover'
-                                ? Dimensions.cover(image, dimEl)
-                                : Dimensions.fit(image, dimEl);
+                                var {start, end, pos, diff} = this.props[prop];
+
+                                if (start < end || !pos.match(/%$/)) {
+                                    return;
+                                }
+
+                                var attr = prop === 'bgy' ? 'height' : 'width',
+                                    span = dim[attr] - dimEl[attr];
+
+                                if (span < diff) {
+                                    dimEl[attr] = dim[attr] + diff - span;
+                                    this.props[prop].pos = '0px';
+                                } else {
+                                    pos = -1 * span / 100 * parseFloat(pos);
+                                    pos = clamp(pos, diff - span, 0);
+                                    this.props[prop].pos = `${pos}px`;
+                                }
+
+                                dim = Dimensions[this.covers === 'cover' ? 'cover' : 'fit'](image, dimEl);
+                            });
 
                             this.$el.css({
                                 backgroundSize: `${dim.width}px ${dim.height}px`,
@@ -184,7 +209,6 @@ function plugin(UIkit) {
                 write() {
 
                     if (this.media && !window.matchMedia(this.media).matches) {
-                        this._prev = undefined;
                         Object.keys(getCss(this.props, 0)).forEach(prop => this.$el.css(prop, ''));
                         return;
                     }
@@ -237,13 +261,7 @@ function plugin(UIkit) {
                 // bg image
                 case 'bgy':
                 case 'bgx':
-                    css[`background-position-${prop[2]}`] = `calc(${
-                        !covers
-                            ? values.pos
-                            : values.start < values.end 
-                                ? '100%' 
-                                : '0%'
-                    } + ${value + values.unit})`;
+                    css[`background-position-${prop[2]}`] = `calc(${values.pos} + ${value + values.unit})`;
                     break;
 
                 // color
