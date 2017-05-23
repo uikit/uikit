@@ -6,6 +6,10 @@
 
 - Improve Parallax Background Position behaviour
 
+### Fixed
+
+- Fix touch event handling
+
 ## 3.0.0 beta 24 (May 22, 2017)
 
 ### Changed
