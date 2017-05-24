@@ -37,7 +37,7 @@
 
 @form-height:                                   @global-control-height;
 @form-line-height:                              @form-height;
-@form-padding-horizontal:                       6px;
+@form-padding-horizontal:                       10px;
 @form-padding-vertical:                         4px;
 
 @form-background:                               @global-muted-background;
@@ -52,10 +52,13 @@
 @form-placeholder-color:                        @global-muted-color;
 
 @form-small-height:                             @global-control-small-height;
-@form-large-height:                             @global-control-large-height;
+@form-small-padding-horizontal:                 8px;
 @form-small-line-height:                        @form-small-height;
-@form-large-line-height:                        @form-large-height;
 @form-small-font-size:                          @global-small-font-size;
+
+@form-large-height:                             @global-control-large-height;
+@form-large-padding-horizontal:                 12px;
+@form-large-line-height:                        @form-large-height;
 @form-large-font-size:                          @global-medium-font-size;
 
 @form-danger-color:                             @global-danger-background;
@@ -321,6 +324,8 @@
 
 .uk-form-small:not(textarea):not([multiple]):not([size]) {
     height: @form-small-height;
+    padding-left: @form-small-padding-horizontal;
+    padding-right: @form-small-padding-horizontal;
     line-height: @form-small-line-height;
 }
 
@@ -332,6 +337,8 @@
 
 .uk-form-large:not(textarea):not([multiple]):not([size]) {
     height: @form-large-height;
+    padding-left: @form-large-padding-horizontal;
+    padding-right: @form-large-padding-horizontal;
     line-height: @form-large-line-height;
 }
 

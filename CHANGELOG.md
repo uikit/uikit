@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Larger horizontal padding for form input, select and textarea
 - Improve Parallax Background Position behaviour
 
 ### Fixed
