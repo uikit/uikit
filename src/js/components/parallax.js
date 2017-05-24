@@ -85,12 +85,11 @@ function plugin(UIkit) {
                     if (prop.match(/^bg/)) {
 
                         var attr = `background-position-${prop[2]}`;
-                        assign(props[prop], {
-                            start: 0,
-                            end: start <= end ? diff : -diff,
-                            pos: this.$el.css(attr, '').css(attr)
-                        });
+                        props[prop].pos = this.$el.css(attr, '').css(attr);
 
+                        if (this.covers) {
+                            assign(props[prop], {start: 0, end: start <= end ? diff : -diff});
+                        }
                     }
 
                     return props;
@@ -101,6 +100,10 @@ function plugin(UIkit) {
 
             bgProps() {
                 return ['bgx', 'bgy'].filter(bg => bg in this.props);
+            },
+
+            covers() {
+                return this.$el.css('backgroundSize', '').css('backgroundSize') === 'cover';
             }
 
         },
@@ -125,17 +128,16 @@ function plugin(UIkit) {
                         }
                     }
 
-                    if (!isUndefined(this._image) || !this.bgProps.some(prop => {
-                        var {start, end, pos} = this.props[prop];
-                        return start >= end && pos.match(/%$/);
-                    })) {
+                    if (!isUndefined(this._image) || !this.covers || !this.bgProps.some(prop => {
+                            var {start, end, pos} = this.props[prop];
+                            return start >= end && pos.match(/%$/);
+                        })) {
                         return;
                     }
 
-                    var src = this.$el.css('backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1'),
-                        size = this.$el.css('backgroundSize', '').css('backgroundSize');
+                    var src = this.$el.css('backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
 
-                    if (!src || !~['contain', 'cover'].indexOf(size)) {
+                    if (!src) {
                         return;
                     }
 
@@ -143,7 +145,6 @@ function plugin(UIkit) {
 
                     getImage(src).then(img => {
                         this._image = {
-                            size,
                             width: img.naturalWidth,
                             height: img.naturalHeight
                         };
@@ -165,14 +166,13 @@ function plugin(UIkit) {
                     }
 
                     var image = this._image,
-                        {dimEl, size} = image,
-                        dim = Dimensions[size](image, dimEl);
+                        dimEl = image.dimEl,
+                        dim = Dimensions.cover(image, dimEl);
 
                     this.bgProps.forEach(prop => {
 
-                        var {pos, diff} = this.props[prop];
-
-                        var attr = prop === 'bgy' ? 'height' : 'width',
+                        var {pos, diff} = this.props[prop],
+                            attr = prop === 'bgy' ? 'height' : 'width',
                             span = dim[attr] - dimEl[attr];
 
                         if (span < diff) {
@@ -184,7 +184,7 @@ function plugin(UIkit) {
                             this.props[prop].pos = `${pos}px`;
                         }
 
-                        dim = Dimensions[size](image, dimEl);
+                        dim = Dimensions.cover(image, dimEl);
                     });
 
                     this.$el.css({
