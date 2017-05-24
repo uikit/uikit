@@ -84,13 +84,12 @@ function plugin(UIkit) {
 
                     if (prop.match(/^bg/)) {
 
-                        if (this.covers) {
-                            props[prop].end = start <= end ? diff : -diff;
-                            props[prop].start = 0;
-                        }
-
                         var attr = `background-position-${prop[2]}`;
-                        props[prop].pos = this.$el.css(attr, '').css(attr);
+                        assign(props[prop], {
+                            start: 0,
+                            end: start <= end ? diff : -diff,
+                            pos: this.$el.css(attr, '').css(attr)
+                        });
 
                     }
 
@@ -102,11 +101,6 @@ function plugin(UIkit) {
 
             bgProps() {
                 return ['bgx', 'bgy'].filter(bg => bg in this.props);
-            },
-
-            covers() {
-                var size = this.$el.css('backgroundSize', '').css('backgroundSize');
-                return ~['contain', 'cover'].indexOf(size) ? size : false;
             }
 
         },
@@ -131,13 +125,17 @@ function plugin(UIkit) {
                         }
                     }
 
-                    if (!isUndefined(this._image) || !this.bgProps.length) {
+                    if (!isUndefined(this._image) || !this.bgProps.some(prop => {
+                        var {start, end, pos} = this.props[prop];
+                        return start >= end && pos.match(/%$/);
+                    })) {
                         return;
                     }
 
-                    var src = this.$el.css('backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
+                    var src = this.$el.css('backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1'),
+                        size = this.$el.css('backgroundSize', '').css('backgroundSize');
 
-                    if (!src || !this.covers) {
+                    if (!src || !~['contain', 'cover'].indexOf(size)) {
                         return;
                     }
 
@@ -145,6 +143,7 @@ function plugin(UIkit) {
 
                     getImage(src).then(img => {
                         this._image = {
+                            size,
                             width: img.naturalWidth,
                             height: img.naturalHeight
                         };
@@ -156,47 +155,42 @@ function plugin(UIkit) {
 
                 write() {
 
-                    if (this._image) {
+                    if (!this._image) {
+                        return;
+                    }
 
-                        if (!this.media || window.matchMedia(this.media).matches) {
+                    if (this.media && !window.matchMedia(this.media).matches) {
+                        this.$el.css({backgroundSize: '', backgroundRepeat: ''});
+                        return;
+                    }
 
-                            var image = this._image,
-                                dimEl = image.dimEl,
-                                dim = Dimensions[this.covers === 'cover' ? 'cover' : 'fit'](image, dimEl);
+                    var image = this._image,
+                        {dimEl, size} = image,
+                        dim = Dimensions[size](image, dimEl);
 
-                            this.bgProps.forEach(prop => {
+                    this.bgProps.forEach(prop => {
 
-                                var {start, end, pos, diff} = this.props[prop];
+                        var {pos, diff} = this.props[prop];
 
-                                if (start < end || !pos.match(/%$/)) {
-                                    return;
-                                }
+                        var attr = prop === 'bgy' ? 'height' : 'width',
+                            span = dim[attr] - dimEl[attr];
 
-                                var attr = prop === 'bgy' ? 'height' : 'width',
-                                    span = dim[attr] - dimEl[attr];
-
-                                if (span < diff) {
-                                    dimEl[attr] = dim[attr] + diff - span;
-                                    this.props[prop].pos = '0px';
-                                } else {
-                                    pos = -1 * span / 100 * parseFloat(pos);
-                                    pos = clamp(pos, diff - span, 0);
-                                    this.props[prop].pos = `${pos}px`;
-                                }
-
-                                dim = Dimensions[this.covers === 'cover' ? 'cover' : 'fit'](image, dimEl);
-                            });
-
-                            this.$el.css({
-                                backgroundSize: `${dim.width}px ${dim.height}px`,
-                                backgroundRepeat: 'no-repeat'
-                            });
-
+                        if (span < diff) {
+                            dimEl[attr] = dim[attr] + diff - span;
+                            this.props[prop].pos = '0px';
                         } else {
-                            this.$el.css({backgroundSize: '', backgroundRepeat: ''});
+                            pos = -1 * span / 100 * parseFloat(pos);
+                            pos = clamp(pos, diff - span, 0);
+                            this.props[prop].pos = `${pos}px`;
                         }
 
-                    }
+                        dim = Dimensions[size](image, dimEl);
+                    });
+
+                    this.$el.css({
+                        backgroundSize: `${dim.width}px ${dim.height}px`,
+                        backgroundRepeat: 'no-repeat'
+                    });
 
                 },
 
@@ -221,7 +215,7 @@ function plugin(UIkit) {
                         return;
                     }
 
-                    this.$el.css(getCss(this.props, percent, this.covers));
+                    this.$el.css(getCss(this.props, percent));
                     this._prev = percent;
 
                 },
@@ -235,7 +229,7 @@ function plugin(UIkit) {
         return color.split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => parseFloat(n));
     }
 
-    function getCss(props, percent, covers) {
+    function getCss(props, percent) {
 
         return Object.keys(props).reduce((css, prop) => {
 

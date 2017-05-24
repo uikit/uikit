@@ -274,7 +274,7 @@ export const Dimensions = {
         };
     },
 
-    fit(dimensions, maxDimensions) {
+    contain(dimensions, maxDimensions) {
         dimensions = assign({}, dimensions);
 
         each(dimensions, prop => dimensions = dimensions[prop] > maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
@@ -283,7 +283,7 @@ export const Dimensions = {
     },
 
     cover(dimensions, maxDimensions) {
-        dimensions = this.fit(dimensions, maxDimensions);
+        dimensions = this.contain(dimensions, maxDimensions);
 
         each(dimensions, prop => dimensions = dimensions[prop] < maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
 
