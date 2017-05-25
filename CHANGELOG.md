@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add link text to link component
+
 ### Changed
 
 - Larger horizontal padding for form input, select and textarea
