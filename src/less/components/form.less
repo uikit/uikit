@@ -252,9 +252,9 @@
 
 /*
  * Single-line
- * 1. Allow an `a` element to look like a `input` or `select` element
+ * 1. Allow any element to look like an `input` or `select` element
  * 2. Make sure line-height is not larger than height
- *    Also needed to center the text vertically if `a` element is used
+ *    Also needed to center the text vertically
  */
 
 .uk-input,
@@ -263,10 +263,12 @@
     vertical-align: middle;
     /* 1 */
     display: inline-block;
-    /* 2 */
-    line-height: @form-line-height;
     .hook-form-single-line;
 }
+
+/* 2 */
+.uk-input:not(input),
+.uk-select:not(select) { line-height: @form-line-height; }
 
 /*
  * Multi-line
@@ -326,8 +328,9 @@
     height: @form-small-height;
     padding-left: @form-small-padding-horizontal;
     padding-right: @form-small-padding-horizontal;
-    line-height: @form-small-line-height;
 }
+
+.uk-form-small:not(select):not(input):not(textarea) { @form-small-line-height; }
 
 /*
  * Large
@@ -339,8 +342,9 @@
     height: @form-large-height;
     padding-left: @form-large-padding-horizontal;
     padding-right: @form-large-padding-horizontal;
-    line-height: @form-large-line-height;
 }
+
+.uk-form-large:not(select):not(input):not(textarea) { @form-large-line-height; }
 
 
 /* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)

@@ -14,6 +14,7 @@
 ### Fixed
 
 - Fix touch event handling
+- Fix cursor height for active forms in Safari
 
 ## 3.0.0 beta 24 (May 22, 2017)
 
