@@ -53,12 +53,12 @@ function plugin(UIkit) {
                     }
 
                     var start = (!isUndefined(values[1])
-                                ? values[0]
-                                : prop === 'scale'
-                                    ? 1
-                                    : isCssProp
-                                        ? this.$el.css(prop)
-                                        : 0) || 0,
+                            ? values[0]
+                            : prop === 'scale'
+                                ? 1
+                                : isCssProp
+                                    ? this.$el.css(prop)
+                                    : 0) || 0,
                         end = isUndefined(values[1]) ? values[0] : values[1],
                         unit = ~values.join('').indexOf('%') ? '%' : 'px',
                         diff;
@@ -128,10 +128,7 @@ function plugin(UIkit) {
                         }
                     }
 
-                    if (!isUndefined(this._image) || !this.covers || !this.bgProps.some(prop => {
-                            var {start, end, pos} = this.props[prop];
-                            return start >= end && pos.match(/%$/);
-                        })) {
+                    if (!isUndefined(this._image) || !this.covers || !this.bgProps.length) {
                         return;
                     }
 
@@ -171,17 +168,34 @@ function plugin(UIkit) {
 
                     this.bgProps.forEach(prop => {
 
-                        var {pos, diff} = this.props[prop],
+                        var {start, end, pos, diff} = this.props[prop],
                             attr = prop === 'bgy' ? 'height' : 'width',
                             span = dim[attr] - dimEl[attr];
 
-                        if (span < diff) {
-                            dimEl[attr] = dim[attr] + diff - span;
-                            this.props[prop].pos = '0px';
+                        if (!pos.match(/%$/)) {
+                            return;
+                        }
+
+                        if (start >= end) {
+
+                            if (span < diff) {
+                                dimEl[attr] = dim[attr] + diff - span;
+                                this.props[prop].pos = '0px';
+                            } else {
+                                pos = -1 * span / 100 * parseFloat(pos);
+                                pos = clamp(pos, diff - span, 0);
+                                this.props[prop].pos = `${pos}px`;
+                            }
+
                         } else {
-                            pos = -1 * span / 100 * parseFloat(pos);
-                            pos = clamp(pos, diff - span, 0);
-                            this.props[prop].pos = `${pos}px`;
+
+                            if (span < diff) {
+                                dimEl[attr] = dim[attr] + diff - span;
+                                this.props[prop].pos = `-${diff}px`;
+                            } else {
+                                this.props[prop].pos = `${Math.min(-1 * span / 100 * parseFloat(pos), -1 * diff)}px`;
+                            }
+
                         }
 
                         dim = Dimensions.cover(image, dimEl);
