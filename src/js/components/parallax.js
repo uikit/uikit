@@ -109,8 +109,8 @@ function plugin(UIkit) {
         },
 
         disconnected() {
-            this._prev = undefined;
-            this._image = undefined;
+            delete this._prev;
+            delete this._image;
         },
 
         update: [
@@ -119,7 +119,7 @@ function plugin(UIkit) {
 
                 read() {
 
-                    this._prev = undefined;
+                    delete this._prev;
 
                     if (this._image) {
                         this._image.dimEl = {
