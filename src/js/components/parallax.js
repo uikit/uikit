@@ -191,10 +191,11 @@ function plugin(UIkit) {
 
                             if (span < diff) {
                                 dimEl[attr] = dim[attr] + diff - span;
-                                this.props[prop].pos = `-${diff}px`;
-                            } else {
-                                this.props[prop].pos = `${Math.min(-1 * span / 100 * parseFloat(pos), -1 * diff)}px`;
+                            } else if ((span / 100 * parseFloat(pos)) > diff) {
+                                return;
                             }
+
+                            this.props[prop].pos = `-${diff}px`;
 
                         }
 
