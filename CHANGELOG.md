@@ -4,12 +4,17 @@
 
 ### Added
 
+- Add size modifier to tile component
 - Add link text to link component
 
 ### Changed
 
 - Larger horizontal padding for form input, select and textarea
 - Improve Parallax Background Position behaviour
+
+### Removed
+
+- Remove padding xlarge from padding component
 
 ### Fixed
 
