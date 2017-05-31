@@ -249,19 +249,29 @@ function plugin(UIkit) {
 
     function getCss(props, percent) {
 
+        var translated = false;
         return Object.keys(props).reduce((css, prop) => {
 
             var values = props[prop],
-                value = +(!isUndefined(values.diff)
-                    ? values.start + values.diff * percent * (values.start < values.end ? 1 : -1)
-                    : +values.end).toFixed(2);
+                value = getValue(values, percent);
 
             switch (prop) {
 
                 // transforms
                 case 'x':
                 case 'y':
-                    css.transform += ` translate${prop}(${value + values.unit})`;
+                    if (translated) {
+                        break;
+                    }
+
+                    var [x, y] = ['x', 'y'].map(dir => prop === dir
+                        ? value + values.unit
+                        : props[dir]
+                            ? getValue(props[dir], percent) + props[dir].unit
+                            : 0
+                    );
+
+                    translated = css.transform += ` translate3d(${x}, ${y}, 0)`;
                     break;
                 case 'rotate':
                     css.transform += ` rotate(${value}deg)`;
@@ -313,6 +323,12 @@ function plugin(UIkit) {
 
         }, {transform: '', filter: ''});
 
+    }
+
+    function getValue(prop, percent) {
+        return +(!isUndefined(prop.diff)
+            ? prop.start + prop.diff * percent * (prop.start < prop.end ? 1 : -1)
+            : +prop.end).toFixed(2);
     }
 
 }
