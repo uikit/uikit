@@ -252,9 +252,9 @@ function plugin(UIkit) {
         return Object.keys(props).reduce((css, prop) => {
 
             var values = props[prop],
-                value = !isUndefined(values.diff)
+                value = Math.round((!isUndefined(values.diff)
                     ? values.start + values.diff * percent * (values.start < values.end ? 1 : -1)
-                    : values.end;
+                    : values.end) * 100) / 100;
 
             switch (prop) {
 
