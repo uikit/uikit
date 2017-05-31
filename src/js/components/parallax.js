@@ -121,6 +121,8 @@ function plugin(UIkit) {
 
                     delete this._prev;
 
+                    this._active = !this.media || window.matchMedia(this.media).matches;
+
                     if (this._image) {
                         this._image.dimEl = {
                             width: this.$el[0].offsetWidth,
@@ -157,7 +159,7 @@ function plugin(UIkit) {
                         return;
                     }
 
-                    if (this.media && !window.matchMedia(this.media).matches) {
+                    if (!this._active) {
                         this.$el.css({backgroundSize: '', backgroundRepeat: ''});
                         return;
                     }
@@ -215,23 +217,24 @@ function plugin(UIkit) {
 
             {
 
+                read() {
+
+                    var percent = scrolledOver(this.target) / (this.viewport || 1);
+                    this._percent = clamp(percent * (1 - (this.easing - this.easing * percent)));
+
+                },
+
                 write() {
 
-                    if (this.media && !window.matchMedia(this.media).matches) {
+                    if (!this._active) {
                         Object.keys(getCss(this.props, 0)).forEach(prop => this.$el.css(prop, ''));
                         return;
                     }
 
-                    var percent = scrolledOver(this.target) / (this.viewport || 1);
-
-                    percent = clamp(percent * (1 - (this.easing - this.easing * percent)));
-
-                    if (this._prev === percent) {
-                        return;
+                    if (this._prev !== this._percent) {
+                        this.$el.css(getCss(this.props, this._percent));
+                        this._prev = this._percent;
                     }
-
-                    this.$el.css(getCss(this.props, percent));
-                    this._prev = percent;
 
                 },
 
