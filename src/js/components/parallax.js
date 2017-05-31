@@ -254,7 +254,7 @@ function plugin(UIkit) {
             var values = props[prop],
                 value = +(!isUndefined(values.diff)
                     ? values.start + values.diff * percent * (values.start < values.end ? 1 : -1)
-                    : values.end).toFixed(2);
+                    : +values.end).toFixed(2);
 
             switch (prop) {
 
