@@ -6,6 +6,7 @@
 
 - Add size modifier to tile component
 - Add link text to link component
+- Add 500px icon
 
 ### Changed
 
