@@ -39,7 +39,7 @@ export default function (UIkit) {
                         dim = el.getBoundingClientRect();
 
                     if (!dim.height) {
-                        break;
+                        continue;
                     }
 
                     for (var j = rows.length - 1; j >= 0; j--) {
