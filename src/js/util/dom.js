@@ -207,13 +207,15 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
 export function scrolledOver(element) {
 
-    var {top, height} = toNode(element).getBoundingClientRect(),
-        topOffset = offsetTop(element),
-        vp = window.innerHeight,
-        vh = vp + Math.min(0, topOffset - vp),
-        diff = Math.max(0, vp - (docHeight() - (topOffset + height)));
+    element = toNode(element);
 
-    return clamp(((vh - top) / ((vh + (height - (diff < vp ? diff : 0)) ) / 100)) / 100);
+    var height = element.offsetHeight,
+        top = positionTop(element),
+        vp = window.innerHeight,
+        vh = vp + Math.min(0, top - vp),
+        diff = Math.max(0, vp - (docHeight() - (top + height)));
+
+    return clamp(((vh + window.pageYOffset - top) / ((vh + (height - (diff < vp ? diff : 0)) ) / 100)) / 100);
 }
 
 export function docHeight() {
@@ -295,4 +297,16 @@ export const Dimensions = {
 export function query(selector, context) {
     var selectors = getContextSelectors(selector);
     return selectors ? selectors.reduce((context, selector) => toJQuery(selector, context), context) : toJQuery(selector);
+}
+
+function positionTop(element) {
+    var top = 0;
+
+    do {
+
+        top += element.offsetTop;
+
+    } while (element = element.offsetParent);
+
+    return top;
 }

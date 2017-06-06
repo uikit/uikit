@@ -22,6 +22,7 @@
 - Fix touch event handling
 - Fix cursor height for active forms in Safari
 - Fix Grid and Margin component for cells with no height
+- Fix Parallax if element is translated vertical
 
 ## 3.0.0 beta 24 (May 22, 2017)
 
