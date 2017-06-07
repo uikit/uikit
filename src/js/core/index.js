@@ -1,4 +1,4 @@
-import { animationstart, getStyle, on, toMs } from '../util/index';
+import { animationstart, fastdom, getStyle, on, toMs } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
@@ -37,6 +37,7 @@ export default function (UIkit) {
         e.dir = scroll < window.pageYOffset ? 'down' : 'up';
         scroll = window.pageYOffset;
         UIkit.update(e);
+        fastdom.flush();
     });
 
     on(document, animationstart, ({target}) => {
