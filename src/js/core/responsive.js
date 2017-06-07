@@ -12,13 +12,20 @@ export default function (UIkit) {
 
         update: {
 
+            read() {
+
+                this.dim = this.$el.is(':visible') && this.width && this.height
+                    ? {width: this.$el.parent().width(), height: this.height}
+                    : false;
+
+            },
+
             write() {
-                if (this.$el.is(':visible') && this.width && this.height) {
-                    this.$el.height(Dimensions.contain(
-                        {height: this.height, width: this.width},
-                        {width: this.$el.parent().width(), height: this.height || this.$el.height()}
-                    )['height']);
+
+                if (this.dim) {
+                    this.$el.height(Dimensions.contain({height: this.height, width: this.width}, this.dim).height);
                 }
+
             },
 
             events: ['load', 'resize']
