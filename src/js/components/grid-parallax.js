@@ -4,149 +4,118 @@ function plugin(UIkit) {
         return;
     }
 
-    var { util } = UIkit;
-    var { $ } = util;
+    var {scrolledOver} = UIkit.util;
 
-    var supports3d = 'transformOrigin' in document.documentElement.style;
-
-    UIkit.component('grid-parallax', {
+    UIkit.component('grid-parallax', UIkit.components.grid.extend({
 
         props: {
             target: String,
-            translate: Number,
-            smooth: Number
+            translate: Number
         },
 
         defaults: {
-            target    : false,
-            translate : 150,
-            smooth    : 150
+            target: false,
+            translate: 150
         },
 
-        connected() {
-            this.initItems();
+        init() {
+            this.$addClass('uk-grid');
         },
 
-        methods: {
+        disconnected() {
+            this.reset();
+            this.$el.css('margin-bottom', '');
+        },
 
-            initItems: function() {
+        computed: {
 
-                var transition = `transform ${this.smooth}ms linear`;
+            translate() {
+                return Math.abs(this.$props.translate);
+            },
 
-                this.items = (this.target ? this.$el.find(this.target) : this.$el.children()).css({
-                    transition,
-                    transform: ''
-                });
-
-                return this;
+            items() {
+                return (this.target ? this.$el.find(this.target) : this.$el.children()).toArray();
             }
+
         },
 
         update: [
 
             {
 
-                write() {
-
-                    var columns = getColumnsCount(this.$el);
-                    var margin = '';
-
-                    this.$el.css('margin-bottom', '');
-
-                    if (columns > 1) {
-                        margin = this.translate + parseInt(this.$el.css('margin-bottom'));
-                    }
-
-                    this.$el.css('margin-bottom', margin);
+                read() {
+                    this.columns = this.rows && this.rows[0] && this.rows[0].length || 0;
+                    this.rows = this.rows && this.rows.map(elements => sortBy(elements, 'offsetLeft'));
                 },
 
-                events: ['load', 'resize', 'orientationchange']
+                write() {
+                    this.$el
+                        .css('margin-bottom', '')
+                        .css('margin-bottom', this.columns > 1 ? this.translate + parseFloat(this.$el.css('margin-bottom')) : '');
+                },
+
+                events: ['load', 'resize']
             },
 
             {
 
-                write() {
+                read() {
 
-                    var percent = percentageInViewport(this.$el);
-                    var columns = getColumnsCount(this.$el);
-                    var mods = [(columns-1)];
+                    this.scrolled = scrolledOver(this.$el) * this.translate;
 
-                    if (columns == 1 || !percent) {
-                        this.items.css('transform', '');
-                        return;
-                    }
-
-                    while (mods.length < columns) {
-
-                       if (!(mods[mods.length-1] - 2)) {
-                           break;
-                       }
-
-                       mods.push(mods[mods.length-1] - 2);
-                    }
-
-                    var percentTranslate = percent * this.translate, $translate = this.translate, translate;
-
-                    this.items.each(function(index) {
-                        translate = mods.indexOf((index+1) % columns) != -1 ? percentTranslate : percentTranslate / 8;
-                        translate = translate > $translate ? $translate : translate;
-                        $(this).css('transform', supports3d ? `translate3d(0, ${translate}px, 0)` : `translateY(${translate}px)`);
-                    });
                 },
 
-                events: ['scroll']
+                write() {
+
+                    if (!this.rows || this.columns === 1 || !this.scrolled) {
+                        return this.reset();
+                    }
+
+                    this.rows.forEach(row =>
+                        row.forEach((el, i) =>
+                            el.style.transform = `translateY(${i % 2 ? this.scrolled : this.scrolled / 8}px)`
+                        )
+                    );
+
+                },
+
+                events: ['scroll', 'load', 'resize']
             }
-        ]
+        ],
+
+        methods: {
+
+            reset() {
+                this.items.forEach(item => item.style.transform = '');
+            }
+
+        }
+
+    }));
+
+    UIkit.component('grid-parallax').options.update.unshift({
+
+        read() {
+            this.reset();
+        },
+
+        events: ['load', 'resize']
 
     });
 
-}
-
-function getColumnsCount(element) {
-
-    var children = element.children();
-    var first = children.filter(':visible:first');
-    var top = first[0].offsetTop + first[0].offsetHeight;
-
-    for (var column=0;column<children.length;column++) {
-        if (children[column].offsetTop >= top)  {
-            break;
-        }
+    function sortBy(collection, prop) {
+        return collection.sort((a,b) =>
+            a[prop] > b[prop]
+                ? 1
+                : b[prop] > a[prop]
+                    ? -1
+                    : 0
+        )
     }
 
-    return column || 1;
 }
 
-function percentageInViewport(element) {
 
-    var top       = element.offset().top,
-        height    = element.outerHeight(),
-        scrolltop = window.scrollY,
-        wh        = window.innerHeight,
-        distance, percentage, percent;
-
-    if (top > (scrolltop + wh)) {
-        percent = 0;
-    } else if ((top + height) < scrolltop) {
-        percent = 1;
-    } else {
-
-        if ((top + height) < wh) {
-            percent = (scrolltop < wh ? scrolltop : scrolltop - wh) / (top+height);
-        } else {
-
-            distance   = (scrolltop + wh) - top;
-            percentage = Math.round(distance / ((wh + height) / 100));
-            percent    = percentage/100;
-        }
-
-        if (top < wh) {
-            percent = percent * scrolltop / ((top + height) - wh);
-        }
-    }
-
-    return percent;
-}
 
 if (!BUNDLED && typeof window !== 'undefined' && window.UIkit) {
     window.UIkit.use(plugin);

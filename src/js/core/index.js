@@ -1,4 +1,4 @@
-import { animationstart, getStyle, on, toMs, win } from '../util/index';
+import { animationstart, fastdom, getStyle, on, toMs } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
@@ -32,14 +32,13 @@ export default function (UIkit) {
 
     var scroll = 0, started = 0;
 
-    win
-        .on('load', UIkit.update)
-        .on('resize', UIkit.update)
-        .on('scroll', e => {
-            e.dir = scroll < window.pageYOffset ? 'down' : 'up';
-            scroll = window.pageYOffset;
-            UIkit.update(e);
-        });
+    on(window, 'load resize', UIkit.update);
+    on(window, 'scroll', e => {
+        e.dir = scroll < window.pageYOffset ? 'down' : 'up';
+        scroll = window.pageYOffset;
+        UIkit.update(e);
+        fastdom.flush();
+    });
 
     on(document, animationstart, ({target}) => {
         if ((getStyle(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {

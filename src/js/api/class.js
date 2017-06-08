@@ -5,19 +5,19 @@ var supportsMultiple, supportsForce;
 export default function (UIkit) {
 
     UIkit.prototype.$addClass = function (...args) {
-        apply(this.$el, args, 'add');
+        apply(this.$options.el, args, 'add');
     };
 
     UIkit.prototype.$removeClass = function (...args) {
-        apply(this.$el, args, 'remove');
+        apply(this.$options.el, args, 'remove');
     };
 
     UIkit.prototype.$hasClass = function (...args) {
-        return (args = getArgs(args, this.$el)) && args[0].contains(args[1]);
+        return (args = getArgs(args, this.$options.el)) && args[0].contains(args[1]);
     };
 
     UIkit.prototype.$toggleClass = function (...args) {
-        args = getArgs(args, this.$el);
+        args = getArgs(args, this.$options.el);
 
         var force = args && !isString(args[args.length - 1]) ? args.pop() : undefined;
 
@@ -28,25 +28,25 @@ export default function (UIkit) {
         }
     };
 
-}
-
-function apply(el, args, fn) {
-    (args = getArgs(args, el)) && (supportsMultiple
-        ? args[0][fn].apply(args[0], args.slice(1))
-        : args.slice(1).forEach(cls => args[0][fn](cls)));
-}
-
-function getArgs(args, el) {
-
-    isString(args[0]) && args.unshift(el);
-    args[0] = toNode(args[0]).classList;
-
-    if (args[1] && ~args[1].indexOf(' ')) {
-        args = [args[0]].concat(args[1].split(' '), args.slice(2));
+    function apply(el, args, fn) {
+        (args = getArgs(args, el)) && (supportsMultiple
+            ? args[0][fn].apply(args[0], args.slice(1))
+            : args.slice(1).forEach(cls => args[0][fn](cls)));
     }
 
-    return args[1] && args.length > 1 ? args : false;
-}
+    function getArgs(args, el) {
+
+        isString(args[0]) && args.unshift(el);
+        args[0] = toNode(args[0]).classList;
+
+        args.forEach((arg, i) =>
+            i > 0 && isString(arg) && ~arg.indexOf(' ') && Array.prototype.splice.apply(args, [i, 1].concat(args[i].split(' ')))
+        );
+
+        return args[1] && args.length > 1 ? args : false;
+    }
+
+};
 
 (function() {
 

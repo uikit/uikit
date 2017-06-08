@@ -84,6 +84,8 @@ export default function (UIkit) {
                                         .toggleClass(cls)
                                         .trigger('inview');
 
+                                    this.$update();
+
                                     data.inview = true;
                                     delete data.timer;
                                 };
@@ -111,6 +113,8 @@ export default function (UIkit) {
                                     .toggleClass(cls)
                                     .css('visibility', this.hidden ? 'hidden' : '')
                                     .trigger('outview');
+
+                                this.$update();
 
                                 data.inview = false;
 

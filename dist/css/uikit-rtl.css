@@ -43,7 +43,7 @@ a {
  */
 a:active,
 a:hover {
-  outline: 0;
+  outline: none;
 }
 /*
  * Style
@@ -986,15 +986,48 @@ a.uk-link-reset:focus,
    Component: Icon
  ========================================================================== */
 /*
- * 1. Fill all SVG elements with the current text color if no `fill` attribute is set
- * 2. Let the container fit the height of the icon
+ * Note: 1. - 7. is required for `button` elements. Needed for Close and Form Icon component.
+ * 1. Remove margins in Chrome, Safari and Opera.
+ * 2. Remove borders for `button`.
+ * 3. Address `overflow` set to `hidden` in IE.
+ * 4. Correct `font` properties and `color` not being inherited for `button`.
+ * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 6. Remove default `button` padding and background color
+ * 7. Required for `button`.
+ * 8. Style
+ * 9. Fill all SVG elements with the current text color if no `fill` attribute is set
+ * 10. Let the container fit the height of the icon
  */
 .uk-icon {
-  display: inline-block;
   /* 1 */
-  fill: currentcolor;
+  margin: 0;
   /* 2 */
+  border: none;
+  /* 3 */
+  overflow: visible;
+  /* 4 */
+  font: inherit;
+  color: inherit;
+  /* 5 */
+  text-transform: none;
+  /* 6. */
+  padding: 0;
+  background-color: transparent;
+  /* 7 */
+  cursor: pointer;
+  /* 8 */
+  display: inline-block;
+  /* 9 */
+  fill: currentcolor;
+  /* 10 */
   line-height: 0;
+}
+/*
+ * Remove the inner border and padding in Firefox.
+ */
+.uk-icon::-moz-focus-inner {
+  border: 0;
+  padding: 0;
 }
 /*
  * Set the fill and stroke color of all SVG elements to the current text color
@@ -1081,6 +1114,143 @@ a.uk-link-reset:focus,
 .uk-active > .uk-icon-button {
   background-color: #dfdfdf;
   color: #666;
+}
+/* ========================================================================
+   Component: Form Range
+ ========================================================================== */
+/*
+ * 1. Normalize and defaults
+ * 2. Prevent content overflow if a fixed width is used
+ * 3. Take the full width
+ * 4. Remove default style
+ * 5. Remove white background in Chrome
+ * 6. Remove padding in IE11
+ */
+.uk-range {
+  /* 1 */
+  box-sizing: border-box;
+  margin: 0;
+  vertical-align: middle;
+  /* 2 */
+  max-width: 100%;
+  /* 3 */
+  width: 100%;
+  /* 4 */
+  -webkit-appearance: none;
+  /* 5 */
+  background: transparent;
+  /* 6 */
+  padding: 0;
+}
+/* Focus */
+.uk-range:focus {
+  outline: none;
+}
+.uk-range::-moz-focus-outer {
+  border: none;
+}
+/* IE11 Reset */
+.uk-range::-ms-track {
+  height: 15px;
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+/*
+ * Improves consistency of cursor style for clickable elements
+ */
+.uk-range:not(:disabled)::-webkit-slider-thumb {
+  cursor: pointer;
+}
+.uk-range:not(:disabled)::-moz-range-thumb {
+  cursor: pointer;
+}
+.uk-range:not(:disabled)::-ms-thumb {
+  cursor: pointer;
+}
+/* Thumb
+ ========================================================================== */
+/*
+ * 1. Reset
+ * 2. Style
+ */
+/* Webkit */
+.uk-range::-webkit-slider-thumb {
+  /* 1 */
+  -webkit-appearance: none;
+  margin-top: -7px;
+  /* 2 */
+  height: 15px;
+  width: 15px;
+  border-radius: 500px;
+  background: #fff;
+  border: 1px solid #cccccc;
+}
+/* Firefox */
+.uk-range::-moz-range-thumb {
+  /* 1 */
+  border: none;
+  /* 2 */
+  height: 15px;
+  width: 15px;
+  border-radius: 500px;
+  background: #fff;
+  border: 1px solid #cccccc;
+}
+/* Edge */
+.uk-range::-ms-thumb {
+  /* 1 */
+  margin-top: 0;
+}
+/* IE11 */
+.uk-range::-ms-thumb {
+  /* 1 */
+  border: none;
+  /* 2 */
+  height: 15px;
+  width: 15px;
+  border-radius: 500px;
+  background: #fff;
+  border: 1px solid #cccccc;
+}
+/* Edge + IE11 */
+.uk-range::-ms-tooltip {
+  display: none;
+}
+/* Track
+ ========================================================================== */
+/*
+ * 1. Safari doesn't have a focus state. Using active instead.
+ */
+/* Webkit */
+.uk-range::-webkit-slider-runnable-track {
+  height: 3px;
+  background: #ebebeb;
+  border-radius: 500px;
+}
+.uk-range:focus::-webkit-slider-runnable-track,
+.uk-range:active::-webkit-slider-runnable-track {
+  background: #d2d2d2;
+}
+/* Firefox */
+.uk-range::-moz-range-track {
+  height: 3px;
+  background: #ebebeb;
+  border-radius: 500px;
+}
+.uk-range:focus::-moz-range-track {
+  background: #d2d2d2;
+}
+/* Edge */
+.uk-range::-ms-fill-lower,
+.uk-range::-ms-fill-upper {
+  height: 3px;
+  background: #ebebeb;
+  border-radius: 500px;
+}
+.uk-range:focus::-ms-fill-lower,
+.uk-range:focus::-ms-fill-upper {
+  background: #d2d2d2;
 }
 /* ========================================================================
    Component: Form
@@ -1247,7 +1417,7 @@ a.uk-link-reset:focus,
 .uk-input:focus,
 .uk-select:focus,
 .uk-textarea:focus {
-  outline: 0;
+  outline: none;
   background-color: #fff;
   color: #666;
   border-color: #1e87f0;
@@ -1366,7 +1536,7 @@ select.uk-form-width-xsmall {
   -moz-appearance: none;
   /* 2 */
   padding-left: 20px;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666%22%20points%3D%224%201%201%206%207%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666%22%20points%3D%224%2013%201%208%207%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666%22%20points%3D%2212%201%209%206%2015%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666%22%20points%3D%2212%2013%209%208%2015%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E%0A");
   background-repeat: no-repeat;
   background-position: 0% 50%;
 }
@@ -1378,7 +1548,7 @@ select.uk-form-width-xsmall {
  * Disabled
  */
 .uk-select:not([multiple]):not([size]):disabled {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%224%201%201%206%207%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%224%2013%201%208%207%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%2212%201%209%206%2015%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%2212%2013%209%208%2015%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E%0A");
 }
 /* Radio and checkbox
  * Note: Only works in Chrome, Safari, Opera and Edge
@@ -2715,45 +2885,13 @@ select.uk-form-width-xsmall {
  ========================================================================== */
 /*
  * Adopts `uk-icon`
- * 1. Remove margins in Chrome, Safari and Opera.
- * 2. Remove borders for `button`.
- * 3. Address `overflow` set to `hidden` in IE.
- * 4. Correct `font` properties and `color` not being inherited for `button`.
- * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
- * 6. Remove default `button` padding and background color
- * 7. Required for `button`.
- * 8. Re-reset `line-height` for icon
  */
 .uk-close {
-  /* 1 */
-  margin: 0;
-  /* 2 */
-  border: none;
-  /* 3 */
-  overflow: visible;
-  /* 4 */
-  font: inherit;
   color: #999;
-  /* 5 */
-  text-transform: none;
-  /* 6. */
-  padding: 0;
-  background-color: transparent;
-  /* 7 */
-  cursor: pointer;
-  /* 8 */
-  line-height: 0;
   -webkit-transition: 0.1s ease-in-out;
   transition: 0.1s ease-in-out;
   -webkit-transition-property: color, opacity;
   transition-property: color, opacity;
-}
-/*
- * Remove the inner border and padding in Firefox.
- */
-.uk-close::-moz-focus-inner {
-  border: 0;
-  padding: 0;
 }
 /* Hover + Focus */
 .uk-close:hover,
@@ -2848,6 +2986,24 @@ select.uk-form-width-xsmall {
 /* OnClick */
 .uk-totop:active {
   color: #333;
+}
+/* ========================================================================
+   Component: Marker
+ ========================================================================== */
+/*
+ * Addopts `uk-icon`
+ */
+.uk-marker {
+  padding: 5px;
+  background: #222;
+  color: #fff;
+  border-radius: 500px;
+}
+/* Hover + Focus */
+.uk-marker:hover,
+.uk-marker:focus {
+  color: #fff;
+  outline: none;
 }
 /* ========================================================================
    Component: Alert
@@ -3238,7 +3394,7 @@ select.uk-form-width-xsmall {
   color: #666;
 }
 .uk-search-input:focus {
-  outline: 0;
+  outline: none;
 }
 /* Placeholder */
 .uk-search-input:-ms-input-placeholder {
@@ -4153,6 +4309,7 @@ ul.uk-nav-sub {
   color: #666;
   text-decoration: none;
 }
+/* Disabled */
 /* Active */
 .uk-breadcrumb > :last-child > * {
   color: #666;
@@ -7847,6 +8004,12 @@ td.uk-text-break {
 .uk-blend-luminosity {
   mix-blend-mode: luminosity;
 }
+/* Transform
+========================================================================== */
+.uk-transform-center {
+  -webkit-transform: translate(50%, -50%);
+  transform: translate(50%, -50%);
+}
 /* Transform Origin
 ========================================================================== */
 .uk-transform-origin-top-right {
@@ -8463,6 +8626,23 @@ td.uk-text-break {
     padding: 70px;
   }
 }
+/* XLarge
+ ========================================================================== */
+.uk-padding-xlarge {
+  padding: 30px;
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-padding-xlarge {
+    padding: 70px;
+  }
+}
+/* Desktop and bigger */
+@media (min-width: 1200px) {
+  .uk-padding-xlarge {
+    padding: 140px;
+  }
+}
 /* Remove
  ========================================================================== */
 .uk-padding-remove {
@@ -8850,6 +9030,31 @@ td.uk-text-break {
 /* Invisible */
 .uk-visible-toggle:not(:hover):not(.uk-hover) .uk-invisible-hover {
   visibility: hidden !important;
+}
+/* Touch
+ ========================================================================== */
+/*
+ * Hide if primary pointing device has limited accuracy, e.g. a touch screen.
+ * Works on mobile browsers: Safari, Chrome and Android browser
+ */
+@media (pointer: coarse) {
+  .uk-hidden-touch {
+    display: none !important;
+  }
+}
+/*
+ * Hide if primary pointing device is accurate, e.g. mouse.
+ * 1. Fallback for IE11 and Firefox, because `pointer` is not supported
+ * 2. Reset if supported
+ */
+/* 1 */
+.uk-hidden-notouch {
+  display: none !important;
+}
+@media (pointer: coarse) {
+  .uk-hidden-notouch {
+    display: block !important;
+  }
 }
 /* ========================================================================
    Component: Inverse
@@ -9756,7 +9961,7 @@ td.uk-text-break {
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-select:not([multiple]):not([size]),
 .uk-overlay-primary .uk-select:not([multiple]):not([size]),
 .uk-offcanvas-bar .uk-select:not([multiple]):not([size]) {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20points%3D%224%201%201%206%207%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20points%3D%224%2013%201%208%207%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E");
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20points%3D%2212%201%209%206%2015%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20points%3D%2212%2013%209%208%2015%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E%0A");
 }
 .uk-light .uk-radio,
 .uk-light .uk-checkbox,
@@ -10300,6 +10505,44 @@ td.uk-text-break {
 .uk-overlay-primary .uk-totop:active,
 .uk-offcanvas-bar .uk-totop:active {
   color: #fff;
+}
+.uk-light .uk-marker,
+.uk-section-primary:not(.uk-preserve-color) .uk-marker,
+.uk-section-secondary:not(.uk-preserve-color) .uk-marker,
+.uk-tile-primary:not(.uk-preserve-color) .uk-marker,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-marker,
+.uk-card-primary.uk-card-body .uk-marker,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-marker,
+.uk-card-secondary.uk-card-body .uk-marker,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-marker,
+.uk-overlay-primary .uk-marker,
+.uk-offcanvas-bar .uk-marker {
+  background: #f8f8f8;
+  color: #666;
+}
+.uk-light .uk-marker:hover,
+.uk-light .uk-marker:focus,
+.uk-section-primary:not(.uk-preserve-color) .uk-marker:hover,
+.uk-section-primary:not(.uk-preserve-color) .uk-marker:focus,
+.uk-section-secondary:not(.uk-preserve-color) .uk-marker:hover,
+.uk-section-secondary:not(.uk-preserve-color) .uk-marker:focus,
+.uk-tile-primary:not(.uk-preserve-color) .uk-marker:hover,
+.uk-tile-primary:not(.uk-preserve-color) .uk-marker:focus,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-marker:hover,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-marker:focus,
+.uk-card-primary.uk-card-body .uk-marker:hover,
+.uk-card-primary.uk-card-body .uk-marker:focus,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-marker:hover,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-marker:focus,
+.uk-card-secondary.uk-card-body .uk-marker:hover,
+.uk-card-secondary.uk-card-body .uk-marker:focus,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-marker:hover,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-marker:focus,
+.uk-overlay-primary .uk-marker:hover,
+.uk-overlay-primary .uk-marker:focus,
+.uk-offcanvas-bar .uk-marker:hover,
+.uk-offcanvas-bar .uk-marker:focus {
+  color: #666;
 }
 .uk-light .uk-badge,
 .uk-section-primary:not(.uk-preserve-color) .uk-badge,

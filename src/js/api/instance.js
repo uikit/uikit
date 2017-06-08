@@ -13,12 +13,12 @@ export default function (UIkit) {
         }
 
         if (el[DATA][name]) {
-            console.warn(`Component "${name}" is already mounted on element: `, el);
             return;
         }
 
         el[DATA][name] = this;
 
+        this.$options.el = this.$options.el || el;
         this.$el = $(el);
 
         this._initProps();
@@ -39,7 +39,7 @@ export default function (UIkit) {
     };
 
     UIkit.prototype.$update = function (e, parents) {
-        UIkit.update(e, this.$el, parents);
+        UIkit.update(e, this.$options.el, parents);
     };
 
     UIkit.prototype.$updateSync = function (e, parents) {

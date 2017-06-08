@@ -52,7 +52,7 @@ export default function (UIkit) {
                     this.wrapper.toggleClass(this.clsHide, this._hide);
 
                     if (this._changed) {
-                        this.wrapper.attr(this.attrFill, Array(this._width).join(this.fill));
+                        this.wrapper.attr(this.attrFill, new Array(this._width).join(this.fill));
                     }
 
                },

@@ -1,8 +1,9 @@
-import { classify, toNode } from './lang';
+import { classify, promise, toNode } from './lang';
 
 export const Observer = window.MutationObserver || window.WebKitMutationObserver;
 export const requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
 
+var hasTouchEvents = 'ontouchstart' in window;
 var hasPointerEvents = window.PointerEvent;
 export const hasPromise = 'Promise' in window;
 export const hasTouch = 'ontouchstart' in window
@@ -10,13 +11,12 @@ export const hasTouch = 'ontouchstart' in window
     || navigator.msPointerEnabled && navigator.msMaxTouchPoints // IE 10
     || navigator.pointerEnabled && navigator.maxTouchPoints; // IE >=11
 
-export const pointerDown = !hasTouch ? 'mousedown' : hasPointerEvents ? 'pointerdown' : 'touchstart';
-export const pointerMove = !hasTouch ? 'mousemove' : hasPointerEvents ? 'pointermove' : 'touchmove';
-export const pointerUp = !hasTouch ? 'mouseup' : hasPointerEvents ? 'pointerup' : 'touchend';
+export const pointerDown = !hasTouch ? 'mousedown' : `mousedown ${hasTouchEvents ? 'touchstart' : 'pointerdown'}`;
+export const pointerMove = !hasTouch ? 'mousemove' : `mousemove ${hasTouchEvents ? 'touchmove' : 'pointermove'}`;
+export const pointerUp = !hasTouch ? 'mouseup' :  `mouseup ${hasTouchEvents ? 'touchend' : 'pointerup'}`;
 export const pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mouseenter';
 export const pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
 
-export const has3D = 'transformOrigin' in document.documentElement.style;
 export const transitionend = prefix('transition', 'transition-end');
 export const animationstart = prefix('animation', 'animation-start');
 export const animationend = prefix('animation', 'animation-end');
@@ -44,6 +44,19 @@ export function getCssVar(name) {
     doc.removeChild(element);
 
     return val || undefined;
+}
+
+export function getImage(src) {
+
+    return promise((resolve, reject) => {
+        var img = new Image();
+
+        img.onerror = reject;
+        img.onload = () => resolve(img);
+
+        img.src = src;
+    });
+
 }
 
 function prefix(name, event) {

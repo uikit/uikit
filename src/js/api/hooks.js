@@ -1,4 +1,4 @@
-import { createEvent, fastdom, isPlainObject, ready } from '../util/index';
+import { createEvent, fastdom, ready } from '../util/index';
 
 export default function (UIkit) {
 
@@ -78,7 +78,7 @@ export default function (UIkit) {
 
         e = createEvent(e || 'update');
 
-        if (e.type === 'update') {
+        if (~['update', 'resize', 'load'].indexOf(e.type)) {
             this._computeds = {};
         }
 

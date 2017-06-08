@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, ajax, doc, Event, extend, Dimensions, getIndex, Transition} = UIkit.util;
+    var {$, ajax, assign, doc, Event, Dimensions, getIndex, Transition} = UIkit.util;
 
     UIkit.component('lightbox', {
 
@@ -88,7 +88,7 @@ function plugin(UIkit) {
                         width: window.innerWidth - (panel.outerWidth(true) - dim.width),
                         height: window.innerHeight - (panel.outerHeight(true) - dim.height)
                     },
-                    newDim = Dimensions.fit({width: item.width, height: item.height}, max);
+                    newDim = Dimensions.contain({width: item.width, height: item.height}, max);
 
                 Transition.stop(panel);
                 Transition.stop(this.modal.content);
@@ -188,7 +188,7 @@ function plugin(UIkit) {
             },
 
             setItem(item, content, width = 200, height = 200) {
-                extend(item, {content, width, height});
+                assign(item, {content, width, height});
                 this.$update();
             },
 

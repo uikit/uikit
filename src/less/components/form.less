@@ -37,7 +37,7 @@
 
 @form-height:                                   @global-control-height;
 @form-line-height:                              @form-height;
-@form-padding-horizontal:                       6px;
+@form-padding-horizontal:                       10px;
 @form-padding-vertical:                         4px;
 
 @form-background:                               @global-muted-background;
@@ -52,10 +52,13 @@
 @form-placeholder-color:                        @global-muted-color;
 
 @form-small-height:                             @global-control-small-height;
-@form-large-height:                             @global-control-large-height;
+@form-small-padding-horizontal:                 8px;
 @form-small-line-height:                        @form-small-height;
-@form-large-line-height:                        @form-large-height;
 @form-small-font-size:                          @global-small-font-size;
+
+@form-large-height:                             @global-control-large-height;
+@form-large-padding-horizontal:                 12px;
+@form-large-line-height:                        @form-large-height;
 @form-large-font-size:                          @global-medium-font-size;
 
 @form-danger-color:                             @global-danger-background;
@@ -92,7 +95,7 @@
 @form-horizontal-controls-margin-left:          215px;
 @form-horizontal-controls-text-padding-top:     7px;
 
-@form-icon-width:                               30px;
+@form-icon-width:                               @form-height;
 @form-icon-font-size:                           @global-font-size;
 @form-icon-color:                               @global-muted-color;
 @form-icon-hover-color:                         @global-color;
@@ -249,9 +252,9 @@
 
 /*
  * Single-line
- * 1. Allow an `a` element to look like a `input` or `select` element
+ * 1. Allow any element to look like an `input` or `select` element
  * 2. Make sure line-height is not larger than height
- *    Also needed to center the text vertically if `a` element is used
+ *    Also needed to center the text vertically
  */
 
 .uk-input,
@@ -260,10 +263,12 @@
     vertical-align: middle;
     /* 1 */
     display: inline-block;
-    /* 2 */
-    line-height: @form-line-height;
     .hook-form-single-line;
 }
+
+/* 2 */
+.uk-input:not(input),
+.uk-select:not(select) { line-height: @form-line-height; }
 
 /*
  * Multi-line
@@ -321,8 +326,11 @@
 
 .uk-form-small:not(textarea):not([multiple]):not([size]) {
     height: @form-small-height;
-    line-height: @form-small-line-height;
+    padding-left: @form-small-padding-horizontal;
+    padding-right: @form-small-padding-horizontal;
 }
+
+.uk-form-small:not(select):not(input):not(textarea) { line-height: @form-small-line-height; }
 
 /*
  * Large
@@ -332,8 +340,11 @@
 
 .uk-form-large:not(textarea):not([multiple]):not([size]) {
     height: @form-large-height;
-    line-height: @form-large-line-height;
+    padding-left: @form-large-padding-horizontal;
+    padding-right: @form-large-padding-horizontal;
 }
+
+.uk-form-large:not(select):not(input):not(textarea) { line-height: @form-large-line-height; }
 
 
 /* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)

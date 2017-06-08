@@ -75,10 +75,9 @@ export default function (UIkit) {
 
                     var top = offsetTop(target),
                         elTop = offsetTop(this.$el),
-                        elHeight = this.$el[0].offsetHeight,
-                        elBottom = elTop + elHeight;
+                        elHeight = this.$el[0].offsetHeight;
 
-                    if (elBottom >= top && elTop <= top + target[0].offsetHeight) {
+                    if (elTop + elHeight >= top && elTop <= top + target[0].offsetHeight) {
                         window.scrollTo(0, top - elHeight - this.target - this.offset);
                     }
 
@@ -156,13 +155,15 @@ export default function (UIkit) {
 
                 read() {
                     this.offsetTop = offsetTop(this.$el);
+                    this.scroll = window.pageYOffset;
+                    this.visible = this.$el.is(':visible');
                 },
 
                 write({dir} = {}) {
 
-                    var scroll = window.pageYOffset;
+                    var scroll = this.scroll;
 
-                    if (scroll < 0 || !this.$el.is(':visible') || this.disabled || this.showOnUp && !dir) {
+                    if (scroll < 0 || !this.visible || this.disabled || this.showOnUp && !dir) {
                         return;
                     }
 
@@ -228,10 +229,10 @@ export default function (UIkit) {
 
             update() {
 
-                var top = Math.max(0, this.offset), scroll = window.pageYOffset, active = scroll > this.top;
+                var top = Math.max(0, this.offset), active = this.scroll > this.top;
 
-                if (this.bottom && scroll > this.bottom - this.offset) {
-                    top = this.bottom - scroll;
+                if (this.bottom && this.scroll > this.bottom - this.offset) {
+                    top = this.bottom - this.scroll;
                 }
 
                 this.$el.css({
@@ -243,7 +244,7 @@ export default function (UIkit) {
                 this.$addClass(this.clsFixed);
                 this.$toggleClass(this.clsActive, active);
                 this.$toggleClass(this.clsInactive, !active);
-                this.$toggleClass(this.clsBelow, scroll > this.bottomOffset);
+                this.$toggleClass(this.clsBelow, this.scroll > this.bottomOffset);
 
             }
 

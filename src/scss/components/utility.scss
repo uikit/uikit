@@ -19,6 +19,7 @@
 //                  `uk-logo`
 //                  `uk-svg`
 //                  `uk-blend-*`
+//                  `uk-transform-*`
 //                  `uk-transform-origin-*`
 //
 // States:          `uk-disabled`
@@ -516,6 +517,15 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
 .uk-blend-saturation { mix-blend-mode: saturation; }
 .uk-blend-color { mix-blend-mode: color; }
 .uk-blend-luminosity { mix-blend-mode: luminosity; }
+
+
+/* Transform
+========================================================================== */
+
+.uk-transform-center {
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
 
 
 /* Transform Origin

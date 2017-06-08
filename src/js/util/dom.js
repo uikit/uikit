@@ -1,14 +1,15 @@
 import $ from 'jquery';
-import { animationend, assign, contains, each, Event, getContextSelectors, isNumber, isString, offsetTop, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
+import { animationend, assign, clamp, each, Event, getContextSelectors, isNumber, isString, offsetTop, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
 
+var docEl = document.documentElement;
 export const win = $(window);
 export const doc = $(document);
-export const docElement = $(document.documentElement);
+export const docElement = $(docEl);
 
-export const isRtl = $('html').attr('dir') === 'rtl';
+export const isRtl = docEl.getAttribute('dir') === 'rtl';
 
 export function isReady() {
-    return document.readyState === 'complete' || document.readyState !== 'loading' && !document.documentElement.doScroll;
+    return document.readyState === 'complete' || document.readyState !== 'loading' && !docEl.doScroll;
 }
 
 export function ready(fn) {
@@ -164,9 +165,11 @@ export function isJQuery(obj) {
 
 export function isWithin(element, selector) {
     element = $(element);
-    return element.is(selector) || !!(isString(selector)
-        ? element.parents(selector).length
-        : contains(toNode(selector), element[0]));
+    return element.is(selector)
+        ? true
+        : isString(selector)
+            ? element.parents(selector).length
+            : toNode(selector).contains(element[0]);
 }
 
 export function attrFilter(element, attr, pattern, replacement) {
@@ -204,10 +207,19 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
 export function scrolledOver(element) {
 
-    var rect = toNode(element).getBoundingClientRect(),
-        vh = window.innerHeight + Math.min(0, offsetTop(element) - window.innerHeight);
+    element = toNode(element);
 
-    return Math.min(1, Math.max(0, Math.round(((vh - rect.top) / ((vh + rect.height ) / 100))) / 100));
+    var height = element.offsetHeight,
+        top = positionTop(element),
+        vp = window.innerHeight,
+        vh = vp + Math.min(0, top - vp),
+        diff = Math.max(0, vp - (docHeight() - (top + height)));
+
+    return clamp(((vh + window.pageYOffset - top) / ((vh + (height - (diff < vp ? diff : 0)) ) / 100)) / 100);
+}
+
+export function docHeight() {
+    return Math.max(docEl.offsetHeight, docEl.scrollHeight);
 }
 
 export function getIndex(index, elements, current = 0) {
@@ -264,7 +276,7 @@ export const Dimensions = {
         };
     },
 
-    fit(dimensions, maxDimensions) {
+    contain(dimensions, maxDimensions) {
         dimensions = assign({}, dimensions);
 
         each(dimensions, prop => dimensions = dimensions[prop] > maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
@@ -273,7 +285,7 @@ export const Dimensions = {
     },
 
     cover(dimensions, maxDimensions) {
-        dimensions = this.fit(dimensions, maxDimensions);
+        dimensions = this.contain(dimensions, maxDimensions);
 
         each(dimensions, prop => dimensions = dimensions[prop] < maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
 
@@ -285,4 +297,16 @@ export const Dimensions = {
 export function query(selector, context) {
     var selectors = getContextSelectors(selector);
     return selectors ? selectors.reduce((context, selector) => toJQuery(selector, context), context) : toJQuery(selector);
+}
+
+function positionTop(element) {
+    var top = 0;
+
+    do {
+
+        top += element.offsetTop;
+
+    } while (element = element.offsetParent);
+
+    return top;
 }

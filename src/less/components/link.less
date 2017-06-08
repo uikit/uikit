@@ -2,6 +2,7 @@
 // Description:     Styles for links
 //
 // Component:       `uk-link-muted`
+//                  `uk-link-text`
 //                  `uk-link-reset`
 //
 // ========================================================================
@@ -12,6 +13,8 @@
 
 @link-muted-color:                              @global-muted-color;
 @link-muted-hover-color:                        @global-color;
+
+@link-text-hover-color:                         @global-muted-color;
 
 
 /* ========================================================================
@@ -35,6 +38,26 @@ a.uk-link-muted:hover,
 }
 
 
+/* Text
+ ========================================================================== */
+
+/*
+ * `!important` needed to override inverse component
+ */
+
+a.uk-link-text:not(:hover),
+.uk-link-text a:not(:hover) {
+    color: inherit !important;
+    .hook-link-text;
+}
+
+a.uk-link-text:hover,
+.uk-link-text a:hover {
+    color: @link-text-hover-color;
+    .hook-link-text-hover;
+}
+
+
 /* Reset
  ========================================================================== */
 
@@ -44,10 +67,8 @@ a.uk-link-muted:hover,
 
 a.uk-link-reset,
 a.uk-link-reset:hover,
-a.uk-link-reset:focus,
 .uk-link-reset a,
-.uk-link-reset a:hover,
-.uk-link-reset a:focus {
+.uk-link-reset a:hover {
     color: inherit !important;
     text-decoration: none !important;
     .hook-link-reset;
@@ -61,6 +82,8 @@ a.uk-link-reset:focus,
 
 .hook-link-muted() {}
 .hook-link-muted-hover() {}
+.hook-link-text() {}
+.hook-link-text-hover() {}
 .hook-link-reset() {}
 .hook-link-misc() {}
 
@@ -70,6 +93,7 @@ a.uk-link-reset:focus,
 
 @inverse-link-muted-color:                        @inverse-global-muted-color;
 @inverse-link-muted-hover-color:                  @inverse-global-color;
+@inverse-link-text-hover-color:                   @inverse-global-muted-color;
 
 .hook-inverse() {
 
@@ -85,7 +109,14 @@ a.uk-link-reset:focus,
         .hook-inverse-link-muted-hover;
     }
 
+    a.uk-link-text:hover,
+    .uk-link-text a:hover {
+        color: @inverse-link-text-hover-color;
+        .hook-inverse-link-text-hover;
+    }
+
 }
 
 .hook-inverse-link-muted() {}
 .hook-inverse-link-muted-hover() {}
+.hook-inverse-link-text-hover() {}

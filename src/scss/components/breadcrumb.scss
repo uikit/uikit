@@ -74,6 +74,11 @@ $breadcrumb-divider-color:                           $global-muted-color !defaul
     @if(mixin-exists(hook-breadcrumb-item-hover)) {@include hook-breadcrumb-item-hover();}
 }
 
+/* Disabled */
+.uk-breadcrumb > .uk-disabled > * {
+    @if(mixin-exists(hook-breadcrumb-item-disabled)) {@include hook-breadcrumb-item-disabled();}
+}
+
 /* Active */
 .uk-breadcrumb > :last-child > * {
     color: $breadcrumb-item-active-color;
@@ -102,6 +107,7 @@ $breadcrumb-divider-color:                           $global-muted-color !defaul
 // @mixin hook-breadcrumb(){}
 // @mixin hook-breadcrumb-item(){}
 // @mixin hook-breadcrumb-item-hover(){}
+// @mixin hook-breadcrumb-item-disabled(){}
 // @mixin hook-breadcrumb-item-active(){}
 // @mixin hook-breadcrumb-divider(){}
 // @mixin hook-breadcrumb-misc(){}
@@ -119,5 +125,6 @@ $inverse-breadcrumb-divider-color:              $inverse-global-muted-color !def
 
 // @mixin hook-inverse-breadcrumb-item(){}
 // @mixin hook-inverse-breadcrumb-item-hover(){}
+// @mixin hook-inverse-breadcrumb-item-disabled(){}
 // @mixin hook-inverse-breadcrumb-item-active(){}
 // @mixin hook-inverse-breadcrumb-divider(){}
