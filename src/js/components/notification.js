@@ -49,9 +49,6 @@ function plugin(UIkit) {
             ).then(() => {
                 if (this.timeout) {
                     this.timer = setTimeout(this.close, this.timeout);
-                    this.$el
-                        .on(pointerEnter, () => clearTimeout(this.timer))
-                        .on(pointerLeave, () => this.timer = setTimeout(this.close, this.timeout));
                 }
             });
 
@@ -64,6 +61,18 @@ function plugin(UIkit) {
                     e.preventDefault();
                 }
                 this.close();
+            },
+
+            [pointerEnter]() {
+                if (this.timer) {
+                    clearTimeout(this.timer);
+                }
+            },
+
+            [pointerLeave]() {
+                if (this.timeout) {
+                    this.timer = setTimeout(this.close, this.timeout);
+                }
             }
 
         },

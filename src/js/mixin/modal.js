@@ -38,8 +38,7 @@ export default {
         },
 
         container() {
-            var container = this.$props.container === true && UIkit.container || this.$props.container && toJQuery(this.$props.container);
-            return container && toNode(container);
+            return toNode(this.$props.container === true && UIkit.container || this.$props.container && toJQuery(this.$props.container));
         },
 
         transitionElement() {
