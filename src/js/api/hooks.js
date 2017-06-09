@@ -78,7 +78,7 @@ export default function (UIkit) {
 
         e = createEvent(e || 'update');
 
-        if (~['update', 'resize', 'load'].indexOf(e.type)) {
+        if (e.type === 'update') {
             this._computeds = {};
         }
 
