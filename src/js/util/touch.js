@@ -4,7 +4,7 @@
     http://zeptojs.com/
 */
 
-import { $, Event, on, ready } from './index';
+import { $, Event, on, pointerDown, pointerMove, pointerUp, ready } from './index';
 
 var touch = {}, touchTimeout, tapTimeout, swipeTimeout, gesture, clicked;
 
@@ -50,7 +50,7 @@ ready(function () {
 
     });
 
-    on(document, 'mousedown pointerdown touchstart', function (e) {
+    on(document, pointerDown, function (e) {
 
         var {target, pageX, pageY} = e.touches ? e.touches[0] : e;
 
@@ -76,7 +76,7 @@ ready(function () {
 
     });
 
-    on(document, 'mousemove pointermove touchmove', function (e) {
+    on(document, pointerMove, function (e) {
 
         var {pageX, pageY} = e.touches ? e.touches[0] : e;
 
@@ -87,7 +87,7 @@ ready(function () {
         deltaY += Math.abs(touch.y1 - touch.y2);
     });
 
-    on(document, 'mouseup pointerup touchend', function () {
+    on(document, pointerUp, function () {
 
         // swipe
         if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) || (touch.y2 && Math.abs(touch.y1 - touch.y2) > 30)) {

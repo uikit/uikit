@@ -1,7 +1,6 @@
 var fs = require('fs');
 var glob = require('glob');
 var path = require('path');
-var concat = require('concat');
 var webpack = require('webpack');
 var util = require('./build/util');
 var version = require('./package.json').version;

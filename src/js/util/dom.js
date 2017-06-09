@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, assign, each, Event, getContextSelectors, isNumber, isString, offsetTop, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
+import { animationend, assign, clamp, each, Event, getContextSelectors, isNumber, isString, offsetTop, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
 
 var docEl = document.documentElement;
 export const win = $(window);
@@ -207,17 +207,15 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
 export function scrolledOver(element) {
 
-    var {top, height} = toNode(element).getBoundingClientRect(),
-        topOffset = offsetTop(element),
+    element = toNode(element);
+
+    var height = element.offsetHeight,
+        top = positionTop(element),
         vp = window.innerHeight,
-        vh = vp + Math.min(0, topOffset - vp),
-        diff = Math.max(0, vp - (docHeight() - (topOffset + height)));
+        vh = vp + Math.min(0, top - vp),
+        diff = Math.max(0, vp - (docHeight() - (top + height)));
 
-    return clamp(((vh - top) / ((vh + (height - (diff < vp ? diff : 0)) ) / 100)) / 100);
-}
-
-export function clamp(number, min = 0, max = 1) {
-    return Math.min(Math.max(number, min), max);
+    return clamp(((vh + window.pageYOffset - top) / ((vh + (height - (diff < vp ? diff : 0)) ) / 100)) / 100);
 }
 
 export function docHeight() {
@@ -278,7 +276,7 @@ export const Dimensions = {
         };
     },
 
-    fit(dimensions, maxDimensions) {
+    contain(dimensions, maxDimensions) {
         dimensions = assign({}, dimensions);
 
         each(dimensions, prop => dimensions = dimensions[prop] > maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
@@ -287,7 +285,7 @@ export const Dimensions = {
     },
 
     cover(dimensions, maxDimensions) {
-        dimensions = this.fit(dimensions, maxDimensions);
+        dimensions = this.contain(dimensions, maxDimensions);
 
         each(dimensions, prop => dimensions = dimensions[prop] < maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
 
@@ -299,4 +297,16 @@ export const Dimensions = {
 export function query(selector, context) {
     var selectors = getContextSelectors(selector);
     return selectors ? selectors.reduce((context, selector) => toJQuery(selector, context), context) : toJQuery(selector);
+}
+
+function positionTop(element) {
+    var top = 0;
+
+    do {
+
+        top += element.offsetTop;
+
+    } while (element = element.offsetParent);
+
+    return top;
 }

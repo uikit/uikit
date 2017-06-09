@@ -2,7 +2,6 @@ var fs = require('fs');
 var path = require('path');
 var glob = require('glob');
 var util = require('./util');
-var concat = require('concat');
 
 util.write('dist/icons.json', util.icons('{src/images,custom}/icons/*.svg')).then(() =>
 

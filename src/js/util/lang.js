@@ -222,3 +222,7 @@ export const assign = Object.assign || function (target, ...args) {
     }
     return target;
 };
+
+export function clamp(number, min = 0, max = 1) {
+    return Math.min(Math.max(number, min), max);
+}

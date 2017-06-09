@@ -59,17 +59,21 @@ function plugin(UIkit) {
 
             {
 
+                read() {
+
+                    this.scrolled = scrolledOver(this.$el) * this.translate;
+
+                },
+
                 write() {
 
-                    var translate = scrolledOver(this.$el) * this.translate;
-
-                    if (!this.rows || this.columns === 1 || !translate) {
+                    if (!this.rows || this.columns === 1 || !this.scrolled) {
                         return this.reset();
                     }
 
                     this.rows.forEach(row =>
                         row.forEach((el, i) =>
-                            el.style.transform = `translateY(${i % 2 ? translate : translate / 8}px)`
+                            el.style.transform = `translateY(${i % 2 ? this.scrolled : this.scrolled / 8}px)`
                         )
                     );
 

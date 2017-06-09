@@ -88,7 +88,7 @@ function plugin(UIkit) {
                         width: window.innerWidth - (panel.outerWidth(true) - dim.width),
                         height: window.innerHeight - (panel.outerHeight(true) - dim.height)
                     },
-                    newDim = Dimensions.fit({width: item.width, height: item.height}, max);
+                    newDim = Dimensions.contain({width: item.width, height: item.height}, max);
 
                 Transition.stop(panel);
                 Transition.stop(this.modal.content);

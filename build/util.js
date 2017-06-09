@@ -74,7 +74,7 @@ exports.minify = function (file) {
 
 exports.uglify = function (file) {
     file = path.join(path.dirname(file), path.basename(file, '.js'));
-    return exports.write(`${file}.min.js`, `${exports.banner}\n${uglify.minify(`${file}.js`).code}`);
+    return exports.write(`${file}.min.js`, uglify.minify(fs.readFileSync(`${file}.js`).toString(), {output: {preamble: exports.banner}}).code);
 };
 
 exports.renderLess = function (data, options) {

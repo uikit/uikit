@@ -489,6 +489,19 @@ a.uk-link-muted:hover,
 .uk-link-muted a:hover {
   color: #666;
 }
+/* Text
+ ========================================================================== */
+/*
+ * `!important` needed to override inverse component
+ */
+a.uk-link-text:not(:hover),
+.uk-link-text a:not(:hover) {
+  color: inherit !important;
+}
+a.uk-link-text:hover,
+.uk-link-text a:hover {
+  color: #999;
+}
 /* Reset
  ========================================================================== */
 /*
@@ -496,10 +509,8 @@ a.uk-link-muted:hover,
  */
 a.uk-link-reset,
 a.uk-link-reset:hover,
-a.uk-link-reset:focus,
 .uk-link-reset a,
-.uk-link-reset a:hover,
-.uk-link-reset a:focus {
+.uk-link-reset a:hover {
   color: inherit !important;
   text-decoration: none !important;
 }
@@ -1379,7 +1390,7 @@ a.uk-link-reset:focus,
   /* 3 */
   border: 0 none;
   /* 4 */
-  padding: 0 6px;
+  padding: 0 10px;
   background: #fff;
   color: #666;
   border: 1px solid #e5e5e5;
@@ -1390,9 +1401,9 @@ a.uk-link-reset:focus,
 }
 /*
  * Single-line
- * 1. Allow an `a` element to look like a `input` or `select` element
+ * 1. Allow any element to look like an `input` or `select` element
  * 2. Make sure line-height is not larger than height
- *    Also needed to center the text vertically if `a` element is used
+ *    Also needed to center the text vertically
  */
 .uk-input,
 .uk-select:not([multiple]):not([size]) {
@@ -1400,7 +1411,10 @@ a.uk-link-reset:focus,
   vertical-align: middle;
   /* 1 */
   display: inline-block;
-  /* 2 */
+}
+/* 2 */
+.uk-input:not(input),
+.uk-select:not(select) {
   line-height: 38px;
 }
 /*
@@ -1461,6 +1475,10 @@ a.uk-link-reset:focus,
 }
 .uk-form-small:not(textarea):not([multiple]):not([size]) {
   height: 30px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+.uk-form-small:not(select):not(input):not(textarea) {
   line-height: 28px;
 }
 /*
@@ -1471,6 +1489,10 @@ a.uk-link-reset:focus,
 }
 .uk-form-large:not(textarea):not([multiple]):not([size]) {
   height: 55px;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+.uk-form-large:not(select):not(input):not(textarea) {
   line-height: 53px;
 }
 /* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)
@@ -1762,7 +1784,7 @@ select.uk-form-width-xsmall {
   bottom: 0;
   left: 0;
   /* 2 */
-  width: 30px;
+  width: 40px;
   /* 3 */
   display: -ms-inline-flexbox;
   display: -webkit-inline-flex;
@@ -1792,7 +1814,7 @@ select.uk-form-width-xsmall {
  * Input padding
  */
 .uk-form-icon:not(.uk-form-icon-flip) + .uk-input {
-  padding-left: 30px;
+  padding-left: 40px;
 }
 /*
  * Position modifier
@@ -1802,7 +1824,7 @@ select.uk-form-width-xsmall {
   left: auto;
 }
 .uk-form-icon-flip + .uk-input {
-  padding-right: 30px;
+  padding-right: 40px;
 }
 /* ========================================================================
    Component: Button
@@ -2589,12 +2611,25 @@ select.uk-form-width-xsmall {
 .uk-tile {
   position: relative;
   box-sizing: border-box;
-  padding: 30px 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
-/* Desktop and bigger */
-@media (min-width: 1200px) {
+/* Phone landscape and bigger */
+@media (min-width: 640px) {
   .uk-tile {
-    padding: 40px 40px;
+    padding-left: 30px;
+    padding-right: 30px;
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-tile {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 70px;
+    padding-bottom: 70px;
   }
 }
 /*
@@ -2613,6 +2648,50 @@ select.uk-form-width-xsmall {
  */
 .uk-tile > :last-child {
   margin-bottom: 0;
+}
+/* Size modifiers
+ ========================================================================== */
+/*
+ * XSmall
+ */
+.uk-tile-xsmall {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+/*
+ * Small
+ */
+.uk-tile-small {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+/*
+ * Large
+ */
+.uk-tile-large {
+  padding-top: 70px;
+  padding-bottom: 70px;
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-tile-large {
+    padding-top: 140px;
+    padding-bottom: 140px;
+  }
+}
+/*
+ * XLarge
+ */
+.uk-tile-xlarge {
+  padding-top: 140px;
+  padding-bottom: 140px;
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-tile-xlarge {
+    padding-top: 210px;
+    padding-bottom: 210px;
+  }
 }
 /* Style modifiers
  ========================================================================== */
@@ -8626,23 +8705,6 @@ td.uk-text-break {
     padding: 70px;
   }
 }
-/* XLarge
- ========================================================================== */
-.uk-padding-xlarge {
-  padding: 30px;
-}
-/* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-padding-xlarge {
-    padding: 70px;
-  }
-}
-/* Desktop and bigger */
-@media (min-width: 1200px) {
-  .uk-padding-xlarge {
-    padding: 140px;
-  }
-}
 /* Remove
  ========================================================================== */
 .uk-padding-remove {
@@ -9394,6 +9456,30 @@ td.uk-text-break {
 .uk-offcanvas-bar a.uk-link-muted:hover,
 .uk-offcanvas-bar .uk-link-muted a:hover {
   color: rgba(255, 255, 255, 0.7);
+}
+.uk-light a.uk-link-text:hover,
+.uk-light .uk-link-text a:hover,
+.uk-section-primary:not(.uk-preserve-color) a.uk-link-text:hover,
+.uk-section-primary:not(.uk-preserve-color) .uk-link-text a:hover,
+.uk-section-secondary:not(.uk-preserve-color) a.uk-link-text:hover,
+.uk-section-secondary:not(.uk-preserve-color) .uk-link-text a:hover,
+.uk-tile-primary:not(.uk-preserve-color) a.uk-link-text:hover,
+.uk-tile-primary:not(.uk-preserve-color) .uk-link-text a:hover,
+.uk-tile-secondary:not(.uk-preserve-color) a.uk-link-text:hover,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-link-text a:hover,
+.uk-card-primary.uk-card-body a.uk-link-text:hover,
+.uk-card-primary.uk-card-body .uk-link-text a:hover,
+.uk-card-primary > :not([class*='uk-card-media']) a.uk-link-text:hover,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-link-text a:hover,
+.uk-card-secondary.uk-card-body a.uk-link-text:hover,
+.uk-card-secondary.uk-card-body .uk-link-text a:hover,
+.uk-card-secondary > :not([class*='uk-card-media']) a.uk-link-text:hover,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-link-text a:hover,
+.uk-overlay-primary a.uk-link-text:hover,
+.uk-overlay-primary .uk-link-text a:hover,
+.uk-offcanvas-bar a.uk-link-text:hover,
+.uk-offcanvas-bar .uk-link-text a:hover {
+  color: rgba(255, 255, 255, 0.5);
 }
 .uk-light .uk-heading-divider,
 .uk-section-primary:not(.uk-preserve-color) .uk-heading-divider,

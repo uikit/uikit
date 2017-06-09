@@ -1,5 +1,30 @@
 # Changelog
 
+## 3.0.0 beta 25 (June 9, 2017)
+
+### Added
+
+- Add size modifier to tile component
+- Add link text to link component
+- Add 500px icon
+
+### Changed
+
+- Larger horizontal padding for form input, select and textarea
+- Improve Parallax Background Position behaviour
+
+### Removed
+
+- Remove padding xlarge from padding component
+
+### Fixed
+
+- Fix touch event handling
+- Fix cursor height for active forms in Safari
+- Fix Grid and Margin component for cells with no height
+- Fix Parallax if element is translated vertical
+- Fix Grid divider in rtl mode
+
 ## 3.0.0 beta 24 (May 22, 2017)
 
 ### Changed
@@ -31,8 +56,8 @@
 
 - IMPORTANT: Move Less/Sass imports into one file. Use `components/_import.less`
 - IMPORTANT: Renamed `transition` option to `easing` in Scroll component
-- Improved flip behaviour in Drop component
-- Improved `class` handling
+- Improve flip behaviour in Drop component
+- Improve `class` handling
 
 ### Fixed
 

@@ -1,3 +1,5 @@
+import { isRtl } from '../util/index';
+
 export default function (UIkit) {
 
     UIkit.component('margin', {
@@ -39,7 +41,7 @@ export default function (UIkit) {
                         dim = el.getBoundingClientRect();
 
                     if (!dim.height) {
-                        return;
+                        continue;
                     }
 
                     for (var j = rows.length - 1; j >= 0; j--) {
@@ -62,7 +64,7 @@ export default function (UIkit) {
 
                             this.stacks = false;
 
-                            if (dim.left < leftDim.left) {
+                            if (dim.left < leftDim.left && !isRtl) {
                                 row.unshift(el);
                                 break;
                             }
