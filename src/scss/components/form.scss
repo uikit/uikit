@@ -37,7 +37,7 @@
 
 $form-height:                                    $global-control-height !default;
 $form-line-height:                               $form-height !default;
-$form-padding-horizontal:                        6px !default;
+$form-padding-horizontal:                        10px !default;
 $form-padding-vertical:                          4px !default;
 
 $form-background:                                $global-muted-background !default;
@@ -52,10 +52,13 @@ $form-disabled-color:                            $global-muted-color !default;
 $form-placeholder-color:                         $global-muted-color !default;
 
 $form-small-height:                              $global-control-small-height !default;
-$form-large-height:                              $global-control-large-height !default;
+$form-small-padding-horizontal:                  8px !default;
 $form-small-line-height:                         $form-small-height !default;
-$form-large-line-height:                         $form-large-height !default;
 $form-small-font-size:                           $global-small-font-size !default;
+
+$form-large-height:                              $global-control-large-height !default;
+$form-large-padding-horizontal:                  12px !default;
+$form-large-line-height:                         $form-large-height !default;
 $form-large-font-size:                           $global-medium-font-size !default;
 
 $form-danger-color:                              $global-danger-background !default;
@@ -92,7 +95,7 @@ $form-horizontal-label-margin-top:               7px !default;
 $form-horizontal-controls-margin-left:           215px !default;
 $form-horizontal-controls-text-padding-top:      7px !default;
 
-$form-icon-width:                                30px !default;
+$form-icon-width:                                $form-height !default;
 $form-icon-font-size:                            $global-font-size !default;
 $form-icon-color:                                $global-muted-color !default;
 $form-icon-hover-color:                          $global-color !default;
@@ -249,9 +252,9 @@ $internal-form-checkbox-indeterminate-image: "data:image/svg+xml;charset=UTF-8,%
 
 /*
  * Single-line
- * 1. Allow an `a` element to look like a `input` or `select` element
+ * 1. Allow any element to look like an `input` or `select` element
  * 2. Make sure line-height is not larger than height
- *    Also needed to center the text vertically if `a` element is used
+ *    Also needed to center the text vertically
  */
 
 .uk-input,
@@ -260,10 +263,12 @@ $internal-form-checkbox-indeterminate-image: "data:image/svg+xml;charset=UTF-8,%
     vertical-align: middle;
     /* 1 */
     display: inline-block;
-    /* 2 */
-    line-height: $form-line-height;
     @if(mixin-exists(hook-form-single-line)) {@include hook-form-single-line();}
 }
+
+/* 2 */
+.uk-input:not(input),
+.uk-select:not(select) { line-height: $form-line-height; }
 
 /*
  * Multi-line
@@ -321,8 +326,11 @@ $internal-form-checkbox-indeterminate-image: "data:image/svg+xml;charset=UTF-8,%
 
 .uk-form-small:not(textarea):not([multiple]):not([size]) {
     height: $form-small-height;
-    line-height: $form-small-line-height;
+    padding-left: $form-small-padding-horizontal;
+    padding-right: $form-small-padding-horizontal;
 }
+
+.uk-form-small:not(select):not(input):not(textarea) { line-height: $form-small-line-height; }
 
 /*
  * Large
@@ -332,8 +340,11 @@ $internal-form-checkbox-indeterminate-image: "data:image/svg+xml;charset=UTF-8,%
 
 .uk-form-large:not(textarea):not([multiple]):not([size]) {
     height: $form-large-height;
-    line-height: $form-large-line-height;
+    padding-left: $form-large-padding-horizontal;
+    padding-right: $form-large-padding-horizontal;
 }
+
+.uk-form-large:not(select):not(input):not(textarea) { line-height: $form-large-line-height; }
 
 
 /* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)
