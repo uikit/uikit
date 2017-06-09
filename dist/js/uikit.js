@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.24 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.25 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
@@ -226,22 +226,15 @@ function isInView(element, offsetTop, offsetLeft) {
 
 function scrolledOver(element) {
 
-    var ref = toNode(element).getBoundingClientRect();
-    var top = ref.top;
-    var height = ref.height;
-    var topOffset = offsetTop(element),
+    element = toNode(element);
+
+    var height = element.offsetHeight,
+        top = positionTop(element),
         vp = window.innerHeight,
-        vh = vp + Math.min(0, topOffset - vp),
-        diff = Math.max(0, vp - (docHeight() - (topOffset + height)));
+        vh = vp + Math.min(0, top - vp),
+        diff = Math.max(0, vp - (docHeight() - (top + height)));
 
-    return clamp(((vh - top) / ((vh + (height - (diff < vp ? diff : 0)) ) / 100)) / 100);
-}
-
-function clamp(number, min, max) {
-    if ( min === void 0 ) min = 0;
-    if ( max === void 0 ) max = 1;
-
-    return Math.min(Math.max(number, min), max);
+    return clamp(((vh + window.pageYOffset - top) / ((vh + (height - (diff < vp ? diff : 0)) ) / 100)) / 100);
 }
 
 function docHeight() {
@@ -302,7 +295,7 @@ var Dimensions = {
         var obj;
     },
 
-    fit: function fit(dimensions, maxDimensions) {
+    contain: function contain(dimensions, maxDimensions) {
         var this$1 = this;
 
         dimensions = assign({}, dimensions);
@@ -315,7 +308,7 @@ var Dimensions = {
     cover: function cover(dimensions, maxDimensions) {
         var this$1 = this;
 
-        dimensions = this.fit(dimensions, maxDimensions);
+        dimensions = this.contain(dimensions, maxDimensions);
 
         $.each(dimensions, function (prop) { return dimensions = dimensions[prop] < maxDimensions[prop] ? this$1.ratio(dimensions, prop, maxDimensions[prop]) : dimensions; });
 
@@ -327,6 +320,18 @@ var Dimensions = {
 function query(selector, context) {
     var selectors = getContextSelectors(selector);
     return selectors ? selectors.reduce(function (context, selector) { return toJQuery(selector, context); }, context) : toJQuery(selector);
+}
+
+function positionTop(element) {
+    var top = 0;
+
+    do {
+
+        top += element.offsetTop;
+
+    } while (element = element.offsetParent);
+
+    return top;
 }
 
 function bind(fn, context) {
@@ -551,9 +556,17 @@ var assign = Object.assign || function (target) {
     return target;
 };
 
+function clamp(number, min, max) {
+    if ( min === void 0 ) min = 0;
+    if ( max === void 0 ) max = 1;
+
+    return Math.min(Math.max(number, min), max);
+}
+
 var Observer = window.MutationObserver || window.WebKitMutationObserver;
 var requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
 
+var hasTouchEvents = 'ontouchstart' in window;
 var hasPointerEvents = window.PointerEvent;
 var hasPromise = 'Promise' in window;
 var hasTouch = 'ontouchstart' in window
@@ -561,9 +574,9 @@ var hasTouch = 'ontouchstart' in window
     || navigator.msPointerEnabled && navigator.msMaxTouchPoints // IE 10
     || navigator.pointerEnabled && navigator.maxTouchPoints; // IE >=11
 
-var pointerDown = !hasTouch ? 'mousedown' : hasPointerEvents ? 'pointerdown' : 'touchstart';
-var pointerMove = !hasTouch ? 'mousemove' : hasPointerEvents ? 'pointermove' : 'touchmove';
-var pointerUp = !hasTouch ? 'mouseup' : hasPointerEvents ? 'pointerup' : 'touchend';
+var pointerDown = !hasTouch ? 'mousedown' : ("mousedown " + (hasTouchEvents ? 'touchstart' : 'pointerdown'));
+var pointerMove = !hasTouch ? 'mousemove' : ("mousemove " + (hasTouchEvents ? 'touchmove' : 'pointermove'));
+var pointerUp = !hasTouch ? 'mouseup' :  ("mouseup " + (hasTouchEvents ? 'touchend' : 'pointerup'));
 var pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mouseenter';
 var pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
 
@@ -638,13 +651,13 @@ var fastdom = {
 
     measure: function measure(task) {
         this.reads.push(task);
-        scheduleFlush(this);
+        scheduleFlush();
         return task;
     },
 
     mutate: function mutate(task) {
         this.writes.push(task);
-        scheduleFlush(this);
+        scheduleFlush();
         return task;
     },
 
@@ -660,14 +673,14 @@ var fastdom = {
         this.scheduled = false;
 
         if (this.reads.length || this.writes.length) {
-            scheduleFlush(this);
+            scheduleFlush();
         }
 
     }
 
 };
 
-function scheduleFlush(fastdom) {
+function scheduleFlush() {
     if (!fastdom.scheduled) {
         fastdom.scheduled = true;
         requestAnimationFrame(fastdom.flush.bind(fastdom));
@@ -1116,7 +1129,7 @@ ready(function () {
 
     });
 
-    on(document, 'mousedown pointerdown touchstart', function (e) {
+    on(document, pointerDown, function (e) {
 
         var ref = e.touches ? e.touches[0] : e;
         var target = ref.target;
@@ -1145,7 +1158,7 @@ ready(function () {
 
     });
 
-    on(document, 'mousemove pointermove touchmove', function (e) {
+    on(document, pointerMove, function (e) {
 
         var ref = e.touches ? e.touches[0] : e;
         var pageX = ref.pageX;
@@ -1158,7 +1171,7 @@ ready(function () {
         deltaY += Math.abs(touch.y1 - touch.y2);
     });
 
-    on(document, 'mouseup pointerup touchend', function () {
+    on(document, pointerUp, function () {
 
         // swipe
         if ((touch.x2 && Math.abs(touch.x1 - touch.x2) > 30) || (touch.y2 && Math.abs(touch.y1 - touch.y2) > 30)) {
@@ -1260,7 +1273,6 @@ var util = Object.freeze({
 	createEvent: createEvent,
 	isInView: isInView,
 	scrolledOver: scrolledOver,
-	clamp: clamp,
 	docHeight: docHeight,
 	getIndex: getIndex,
 	isVoidElement: isVoidElement,
@@ -1308,6 +1320,7 @@ var util = Object.freeze({
 	toMs: toMs,
 	swap: swap,
 	assign: assign,
+	clamp: clamp,
 	ajax: $.ajax,
 	each: $.each,
 	Event: $.Event,
@@ -1619,20 +1632,6 @@ function hooksAPI (UIkit) {
 
             if (e.type !== 'update' && (!update.events || !~update.events.indexOf(e.type))) {
                 return;
-            }
-
-            if (e.sync) {
-
-                if (update.read) {
-                    update.read.call(this$1, e);
-                }
-
-                if (update.write) {
-                    update.write.call(this$1, e);
-                }
-
-                return;
-
             }
 
             if (update.read && !~fastdom.reads.indexOf(this$1._frames.reads[i])) {
@@ -1986,16 +1985,8 @@ function instanceAPI (UIkit) {
         this._callUpdate(e);
     };
 
-    UIkit.prototype.$emitSync = function (e) {
-        this._callUpdate(createEvent(e || 'update', true, false, {sync: true}));
-    };
-
     UIkit.prototype.$update = function (e, parents) {
         UIkit.update(e, this.$options.el, parents);
-    };
-
-    UIkit.prototype.$updateSync = function (e, parents) {
-        this.$update(createEvent(e || 'update', true, false, {sync: true}), parents);
     };
 
     UIkit.prototype.$reset = function (data) {
@@ -2453,8 +2444,7 @@ var Modal = {
         },
 
         container: function container() {
-            var container = this.$props.container === true && UIkit.container || this.$props.container && toJQuery(this.$props.container);
-            return container && toNode(container);
+            return toNode(this.$props.container === true && UIkit.container || this.$props.container && toJQuery(this.$props.container));
         },
 
         transitionElement: function transitionElement() {
@@ -2756,7 +2746,9 @@ function Accordion (UIkit) {
                 var this$1 = this;
 
                 var items = $__default(this.targets, this.$el);
-                this._changed = !this._items || items.length !== this._items.length || items.toArray().some(function (el, i) { return el !== this$1._items.get(i); });
+                this._changed = !this._items
+                    || items.length !== this._items.length
+                    || items.toArray().some(function (el, i) { return el !== this$1._items.get(i); });
                 return this._items = items;
             }
 
@@ -2785,7 +2777,7 @@ function Accordion (UIkit) {
             var this$1 = this;
 
 
-            if (!this.items || !this._changed) {
+            if (!this.items.length || !this._changed) {
                 return;
             }
 
@@ -4006,7 +3998,7 @@ function Margin (UIkit) {
                         dim = el.getBoundingClientRect();
 
                     if (!dim.height) {
-                        return;
+                        continue;
                     }
 
                     for (var j = rows.length - 1; j >= 0; j--) {
@@ -4029,7 +4021,7 @@ function Margin (UIkit) {
 
                             this$1.stacks = false;
 
-                            if (dim.left < leftDim.left) {
+                            if (dim.left < leftDim.left && !isRtl) {
                                 row.unshift(el);
                                 break;
                             }
@@ -4645,13 +4637,20 @@ function Responsive (UIkit) {
 
         update: {
 
+            read: function read() {
+
+                this.dim = this.$el.is(':visible') && this.width && this.height
+                    ? {width: this.$el.parent().width(), height: this.height}
+                    : false;
+
+            },
+
             write: function write() {
-                if (this.$el.is(':visible') && this.width && this.height) {
-                    this.$el.height(Dimensions.fit(
-                        {height: this.height, width: this.width},
-                        {width: this.$el.parent().width(), height: this.height || this.$el.height()}
-                    )['height']);
+
+                if (this.dim) {
+                    this.$el.height(Dimensions.contain({height: this.height, width: this.width}, this.dim).height);
                 }
+
             },
 
             events: ['load', 'resize']
@@ -4753,10 +4752,6 @@ function Scrollspy (UIkit) {
             inViewClass: 'uk-scrollspy-inview'
         },
 
-        init: function init() {
-            this.$emitSync();
-        },
-
         computed: {
 
             elements: function elements() {
@@ -4814,6 +4809,8 @@ function Scrollspy (UIkit) {
                                         .toggleClass(cls)
                                         .trigger('inview');
 
+                                    this$1.$update();
+
                                     data.inview = true;
                                     delete data.timer;
                                 };
@@ -4841,6 +4838,8 @@ function Scrollspy (UIkit) {
                                     .toggleClass(cls)
                                     .css('visibility', this$1.hidden ? 'hidden' : '')
                                     .trigger('outview');
+
+                                this$1.$update();
 
                                 data.inview = false;
 
@@ -5130,6 +5129,8 @@ function Sticky (UIkit) {
 
                 read: function read() {
                     this.offsetTop = offsetTop(this.$el);
+                    this.scroll = window.pageYOffset;
+                    this.visible = this.$el.is(':visible');
                 },
 
                 write: function write(ref) {
@@ -5138,9 +5139,9 @@ function Sticky (UIkit) {
                     var dir = ref.dir;
 
 
-                    var scroll = window.pageYOffset;
+                    var scroll = this.scroll;
 
-                    if (scroll < 0 || !this.$el.is(':visible') || this.disabled || this.showOnUp && !dir) {
+                    if (scroll < 0 || !this.visible || this.disabled || this.showOnUp && !dir) {
                         return;
                     }
 
@@ -5204,10 +5205,10 @@ function Sticky (UIkit) {
 
             update: function update() {
 
-                var top = Math.max(0, this.offset), scroll = window.pageYOffset, active = scroll > this.top;
+                var top = Math.max(0, this.offset), active = this.scroll > this.top;
 
-                if (this.bottom && scroll > this.bottom - this.offset) {
-                    top = this.bottom - scroll;
+                if (this.bottom && this.scroll > this.bottom - this.offset) {
+                    top = this.bottom - this.scroll;
                 }
 
                 this.$el.css({
@@ -5219,7 +5220,7 @@ function Sticky (UIkit) {
                 this.$addClass(this.clsFixed);
                 this.$toggleClass(this.clsActive, active);
                 this.$toggleClass(this.clsInactive, !active);
-                this.$toggleClass(this.clsBelow, scroll > this.bottomOffset);
+                this.$toggleClass(this.clsBelow, this.scroll > this.bottomOffset);
 
             }
 
@@ -5791,6 +5792,7 @@ function core (UIkit) {
         e.dir = scroll < window.pageYOffset ? 'down' : 'up';
         scroll = window.pageYOffset;
         UIkit.update(e);
+        fastdom.flush();
     });
 
     on(document, animationstart, function (ref) {
@@ -5838,7 +5840,7 @@ function core (UIkit) {
 
 }
 
-UIkit.version = '3.0.0-beta.24';
+UIkit.version = '3.0.0-beta.25';
 
 mixin(UIkit);
 core(UIkit);
@@ -6093,7 +6095,7 @@ function plugin$1(UIkit) {
                         width: window.innerWidth - (panel.outerWidth(true) - dim.width),
                         height: window.innerHeight - (panel.outerHeight(true) - dim.height)
                     },
-                    newDim = Dimensions.fit({width: item.width, height: item.height}, max);
+                    newDim = Dimensions.contain({width: item.width, height: item.height}, max);
 
                 Transition.stop(panel);
                 Transition.stop(this.modal.content);
@@ -6384,15 +6386,12 @@ function plugin$2(UIkit) {
             ).then(function () {
                 if (this$1.timeout) {
                     this$1.timer = setTimeout(this$1.close, this$1.timeout);
-                    this$1.$el
-                        .on(pointerEnter, function () { return clearTimeout(this$1.timer); })
-                        .on(pointerLeave, function () { return this$1.timer = setTimeout(this$1.close, this$1.timeout); });
                 }
             });
 
         },
 
-        events: {
+        events: ( obj = {
 
             click: function click(e) {
                 if ($(e.target).closest('a[href="#"]').length) {
@@ -6401,7 +6400,15 @@ function plugin$2(UIkit) {
                 this.close();
             }
 
-        },
+        }, obj[pointerEnter] = function () {
+                if (this.timer) {
+                    clearTimeout(this.timer);
+                }
+            }, obj[pointerLeave] = function () {
+                if (this.timeout) {
+                    this.timer = setTimeout(this.close, this.timeout);
+                }
+            }, obj ),
 
         methods: {
 
@@ -6434,6 +6441,7 @@ function plugin$2(UIkit) {
         }
 
     });
+    var obj;
 
     UIkit.notification.closeAll = function (group, immediate) {
         each(UIkit.instances, function (_, component) {
@@ -6457,6 +6465,7 @@ function plugin$3(UIkit) {
     var assign = util.assign;
     var doc = util.docElement;
     var docHeight = util.docHeight;
+    var fastdom = util.fastdom;
     var getDimensions = util.getDimensions;
     var isWithin = util.isWithin;
     var on = util.on;
@@ -6763,7 +6772,8 @@ function plugin$3(UIkit) {
 
                 children.forEach(function (el) { return el.stop(); });
                 this.$el.children().css(reset);
-                this.$updateSync('update', true);
+                this.$update('update', true);
+                fastdom.flush();
 
                 this.$el.css('min-height', this.$el.height());
 
@@ -6771,7 +6781,8 @@ function plugin$3(UIkit) {
                 promise.all(children.map(function (el, i) { return el.css(props[i]).animate(positions[i], this$1.animation).promise(); }))
                     .then(function () {
                         this$1.$el.css('min-height', '').children().css(reset);
-                        this$1.$updateSync('update', true);
+                        this$1.$update('update', true);
+                        fastdom.flush();
                     });
 
             }
@@ -7215,15 +7226,21 @@ function plugin$6(UIkit) {
 
             {
 
+                read: function read() {
+
+                    this.scrolled = scrolledOver(this.$el) * this.translate;
+
+                },
+
                 write: function write() {
+                    var this$1 = this;
 
-                    var translate = scrolledOver(this.$el) * this.translate;
 
-                    if (!this.rows || this.columns === 1 || !translate) {
+                    if (!this.rows || this.columns === 1 || !this.scrolled) {
                         return this.reset();
                     }
 
-                    this.rows.forEach(function (row) { return row.forEach(function (el, i) { return el.style.transform = "translateY(" + (i % 2 ? translate : translate / 8) + "px)"; }
+                    this.rows.forEach(function (row) { return row.forEach(function (el, i) { return el.style.transform = "translateY(" + (i % 2 ? this$1.scrolled : this$1.scrolled / 8) + "px)"; }
                         ); }
                     );
 
@@ -7272,6 +7289,7 @@ function plugin$7(UIkit) {
 
     var ref = UIkit.util;
     var $ = ref.$;
+    var assign = ref.assign;
     var clamp = ref.clamp;
     var Dimensions = ref.Dimensions;
     var getImage = ref.getImage;
@@ -7328,12 +7346,12 @@ function plugin$7(UIkit) {
                     }
 
                     var start = (!isUndefined(values[1])
-                                ? values[0]
-                                : prop === 'scale'
-                                    ? 1
-                                    : isCssProp
-                                        ? this$1.$el.css(prop)
-                                        : 0) || 0,
+                            ? values[0]
+                            : prop === 'scale'
+                                ? 1
+                                : isCssProp
+                                    ? this$1.$el.css(prop)
+                                    : 0) || 0,
                         end = isUndefined(values[1]) ? values[0] : values[1],
                         unit = ~values.join('').indexOf('%') ? '%' : 'px',
                         diff;
@@ -7358,11 +7376,12 @@ function plugin$7(UIkit) {
                     props[prop] = {start: start, end: end, diff: diff, unit: unit};
 
                     if (prop.match(/^bg/)) {
+
+                        var attr = "background-position-" + (prop[2]);
+                        props[prop].pos = this$1.$el.css(attr, '').css(attr);
+
                         if (this$1.covers) {
-                            props[prop].end = start <= end ? diff : -diff;
-                            props[prop].start = 0;
-                        } else {
-                            props[prop].pos = this$1.$el.css(("background-position-" + (prop[2])));
+                            assign(props[prop], {start: 0, end: start <= end ? diff : -diff});
                         }
                     }
 
@@ -7379,14 +7398,14 @@ function plugin$7(UIkit) {
             },
 
             covers: function covers() {
-                var size = this.$el.css('backgroundSize');
-                return ~['contain', 'cover'].indexOf(size) ? size : false;
+                return this.$el.css('backgroundSize', '').css('backgroundSize') === 'cover';
             }
 
         },
 
         disconnected: function disconnected() {
-            this._image = undefined;
+            delete this._prev;
+            delete this._image;
         },
 
         update: [
@@ -7397,6 +7416,11 @@ function plugin$7(UIkit) {
                     var this$1 = this;
 
 
+                    delete this._prev;
+                    delete this._computeds.props;
+
+                    this._active = !this.media || window.matchMedia(this.media).matches;
+
                     if (this._image) {
                         this._image.dimEl = {
                             width: this.$el[0].offsetWidth,
@@ -7404,13 +7428,13 @@ function plugin$7(UIkit) {
                         }
                     }
 
-                    if (!isUndefined(this._image) || !this.bgProps.length) {
+                    if (!isUndefined(this._image) || !this.covers || !this.bgProps.length) {
                         return;
                     }
 
                     var src = this.$el.css('backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
 
-                    if (!src || !this.covers) {
+                    if (!src) {
                         return;
                     }
 
@@ -7431,29 +7455,63 @@ function plugin$7(UIkit) {
                     var this$1 = this;
 
 
-                    if (this._image) {
+                    if (!this._image) {
+                        return;
+                    }
 
-                        if (!this.media || window.matchMedia(this.media).matches) {
+                    if (!this._active) {
+                        this.$el.css({backgroundSize: '', backgroundRepeat: ''});
+                        return;
+                    }
 
-                            var image = this._image;
-                            var dimEl = image.dimEl;
+                    var image = this._image,
+                        dimEl = image.dimEl,
+                        dim = Dimensions.cover(image, dimEl);
 
-                            this.bgProps.forEach(function (prop) { return dimEl[prop === 'bgy' ? 'height' : 'width'] += this$1.props[prop].diff; });
+                    this.bgProps.forEach(function (prop) {
 
-                            var dim = this.covers === 'cover'
-                                ? Dimensions.cover(image, dimEl)
-                                : Dimensions.fit(image, dimEl);
+                        var ref = this$1.props[prop];
+                        var start = ref.start;
+                        var end = ref.end;
+                        var pos = ref.pos;
+                        var diff = ref.diff;
+                        var attr = prop === 'bgy' ? 'height' : 'width',
+                            span = dim[attr] - dimEl[attr];
 
-                            this.$el.css({
-                                backgroundSize: ((dim.width) + "px " + (dim.height) + "px"),
-                                backgroundRepeat: 'no-repeat'
-                            });
-
-                        } else {
-                            this.$el.css({backgroundSize: '', backgroundRepeat: ''});
+                        if (!pos.match(/%$/)) {
+                            return;
                         }
 
-                    }
+                        if (start >= end) {
+
+                            if (span < diff) {
+                                dimEl[attr] = dim[attr] + diff - span;
+                                this$1.props[prop].pos = '0px';
+                            } else {
+                                pos = -1 * span / 100 * parseFloat(pos);
+                                pos = clamp(pos, diff - span, 0);
+                                this$1.props[prop].pos = pos + "px";
+                            }
+
+                        } else {
+
+                            if (span < diff) {
+                                dimEl[attr] = dim[attr] + diff - span;
+                            } else if ((span / 100 * parseFloat(pos)) > diff) {
+                                return;
+                            }
+
+                            this$1.props[prop].pos = "-" + diff + "px";
+
+                        }
+
+                        dim = Dimensions.cover(image, dimEl);
+                    });
+
+                    this.$el.css({
+                        backgroundSize: ((dim.width) + "px " + (dim.height) + "px"),
+                        backgroundRepeat: 'no-repeat'
+                    });
 
                 },
 
@@ -7463,26 +7521,26 @@ function plugin$7(UIkit) {
 
             {
 
+                read: function read() {
+
+                    var percent = scrolledOver(this.target) / (this.viewport || 1);
+                    this._percent = clamp(percent * (1 - (this.easing - this.easing * percent)));
+
+                },
+
                 write: function write() {
                     var this$1 = this;
 
 
-                    if (this.media && !window.matchMedia(this.media).matches) {
-                        this._prev = undefined;
+                    if (!this._active) {
                         Object.keys(getCss(this.props, 0)).forEach(function (prop) { return this$1.$el.css(prop, ''); });
                         return;
                     }
 
-                    var percent = scrolledOver(this.target) / (this.viewport || 1);
-
-                    percent = clamp(percent * (1 - (this.easing - this.easing * percent)));
-
-                    if (this._prev === percent) {
-                        return;
+                    if (this._prev !== this._percent) {
+                        this.$el.css(getCss(this.props, this._percent));
+                        this._prev = this._percent;
                     }
-
-                    this.$el.css(getCss(this.props, percent, this.covers));
-                    this._prev = percent;
 
                 },
 
@@ -7495,21 +7553,33 @@ function plugin$7(UIkit) {
         return color.split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(function (n) { return parseFloat(n); });
     }
 
-    function getCss(props, percent, covers) {
+    function getCss(props, percent) {
 
+        var translated = false;
         return Object.keys(props).reduce(function (css, prop) {
 
             var values = props[prop],
-                value = !isUndefined(values.diff)
-                    ? values.start + values.diff * percent * (values.start < values.end ? 1 : -1)
-                    : values.end;
+                value = getValue(values, percent);
 
             switch (prop) {
 
                 // transforms
                 case 'x':
                 case 'y':
-                    css.transform += " translate" + prop + "(" + (value + values.unit) + ")";
+                    if (translated) {
+                        break;
+                    }
+
+                    var ref = ['x', 'y'].map(function (dir) { return prop === dir
+                        ? value + values.unit
+                        : props[dir]
+                            ? getValue(props[dir], percent) + props[dir].unit
+                            : 0; }
+                    );
+            var x = ref[0];
+            var y = ref[1];
+
+                    translated = css.transform += " translate3d(" + x + ", " + y + ", 0)";
                     break;
                 case 'rotate':
                     css.transform += " rotate(" + value + "deg)";
@@ -7521,11 +7591,7 @@ function plugin$7(UIkit) {
                 // bg image
                 case 'bgy':
                 case 'bgx':
-                    css[("background-position-" + (prop[2]))] = "calc(" + (!covers
-                            ? values.pos
-                            : values.start < values.end 
-                                ? '100%' 
-                                : '0%') + " + " + (value + values.unit) + ")";
+                    css[("background-position-" + (prop[2]))] = "calc(" + (values.pos) + " + " + (value + values.unit) + ")";
                     break;
 
                 // color
@@ -7563,6 +7629,12 @@ function plugin$7(UIkit) {
 
         }, {transform: '', filter: ''});
 
+    }
+
+    function getValue(prop, percent) {
+        return +(!isUndefined(prop.diff)
+            ? prop.start + prop.diff * percent * (prop.start < prop.end ? 1 : -1)
+            : +prop.end).toFixed(2);
     }
 
 }

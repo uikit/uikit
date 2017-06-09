@@ -27,10 +27,6 @@ export default function (UIkit) {
             inViewClass: 'uk-scrollspy-inview'
         },
 
-        init() {
-            this.$emitSync();
-        },
-
         computed: {
 
             elements() {

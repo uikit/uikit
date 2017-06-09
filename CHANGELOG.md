@@ -15,7 +15,7 @@
 - IMPORTANT: Renamed `@modal-dialog-margin-vertical-xs` to `@modal-padding-vertical`
 - Refactored Modal component
 
-## WIP
+## 3.0.0 beta 25 (June 9, 2017)
 
 ### Added
 

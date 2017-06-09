@@ -33,7 +33,9 @@ export default function (UIkit) {
 
             items() {
                 var items = $(this.targets, this.$el);
-                this._changed = !this._items || items.length !== this._items.length || items.toArray().some((el, i) => el !== this._items.get(i));
+                this._changed = !this._items
+                    || items.length !== this._items.length
+                    || items.toArray().some((el, i) => el !== this._items.get(i));
                 return this._items = items;
             }
 
@@ -60,7 +62,7 @@ export default function (UIkit) {
 
         update() {
 
-            if (!this.items || !this._changed) {
+            if (!this.items.length || !this._changed) {
                 return;
             }
 

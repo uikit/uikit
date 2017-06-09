@@ -120,6 +120,7 @@ function plugin(UIkit) {
                 read() {
 
                     delete this._prev;
+                    delete this._computeds.props;
 
                     this._active = !this.media || window.matchMedia(this.media).matches;
 

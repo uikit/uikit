@@ -13,13 +13,13 @@ export const fastdom = {
 
     measure(task) {
         this.reads.push(task);
-        scheduleFlush(this);
+        scheduleFlush();
         return task;
     },
 
     mutate(task) {
         this.writes.push(task);
-        scheduleFlush(this);
+        scheduleFlush();
         return task;
     },
 
@@ -35,14 +35,14 @@ export const fastdom = {
         this.scheduled = false;
 
         if (this.reads.length || this.writes.length) {
-            scheduleFlush(this);
+            scheduleFlush();
         }
 
     }
 
 };
 
-function scheduleFlush(fastdom) {
+function scheduleFlush() {
     if (!fastdom.scheduled) {
         fastdom.scheduled = true;
         requestAnimationFrame(fastdom.flush.bind(fastdom));

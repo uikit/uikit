@@ -34,16 +34,8 @@ export default function (UIkit) {
         this._callUpdate(e);
     };
 
-    UIkit.prototype.$emitSync = function (e) {
-        this._callUpdate(createEvent(e || 'update', true, false, {sync: true}));
-    };
-
     UIkit.prototype.$update = function (e, parents) {
         UIkit.update(e, this.$options.el, parents);
-    };
-
-    UIkit.prototype.$updateSync = function (e, parents) {
-        this.$update(createEvent(e || 'update', true, false, {sync: true}), parents);
     };
 
     UIkit.prototype.$reset = function (data) {

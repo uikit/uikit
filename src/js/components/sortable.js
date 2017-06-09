@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var { mixin, util } = UIkit;
-    var {$, assign, docElement: doc, docHeight, getDimensions, isWithin, on, off, offsetTop, pointerDown, pointerMove, pointerUp, promise, win} = util;
+    var {$, assign, docElement: doc, docHeight, fastdom, getDimensions, isWithin, on, off, offsetTop, pointerDown, pointerMove, pointerUp, promise, win} = util;
 
     UIkit.component('sortable', {
 
@@ -294,7 +294,8 @@ function plugin(UIkit) {
 
                 children.forEach(el => el.stop());
                 this.$el.children().css(reset);
-                this.$updateSync('update', true);
+                this.$update('update', true);
+                fastdom.flush();
 
                 this.$el.css('min-height', this.$el.height());
 
@@ -302,7 +303,8 @@ function plugin(UIkit) {
                 promise.all(children.map((el, i) => el.css(props[i]).animate(positions[i], this.animation).promise()))
                     .then(() => {
                         this.$el.css('min-height', '').children().css(reset);
-                        this.$updateSync('update', true);
+                        this.$update('update', true);
+                        fastdom.flush();
                     });
 
             }
