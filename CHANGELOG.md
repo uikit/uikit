@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- `offsetTop` in Height Viewport component only applies if its element's top position is smaller than half the viewport 
+
 ## 3.0.0 beta 25 (June 9, 2017)
 
 ### Added

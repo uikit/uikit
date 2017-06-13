@@ -38,7 +38,7 @@ export default function (UIkit) {
 
                     var top = offsetTop(this.$el);
 
-                    if (top < viewport && this.offsetTop) {
+                    if (top < viewport / 2 && this.offsetTop) {
                         offset += top;
                     }
 
