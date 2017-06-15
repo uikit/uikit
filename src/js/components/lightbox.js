@@ -318,6 +318,9 @@ function plugin(UIkit) {
                     }
 
                     switch (e.keyCode) {
+                        case 27:
+                            this.hide();
+                            break;
                         case 37:
                             this.show('previous');
                             break;
