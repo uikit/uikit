@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, assign, clamp, each, Event, getContextSelectors, isNumber, isString, offsetTop, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
+import { animationend, assign, clamp, each, Event, getContextSelectors, isNumber, isString, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
 
 var docEl = document.documentElement;
 export const win = $(window);
@@ -37,9 +37,15 @@ export function off(el, type, listener, useCapture) {
     type.split(' ').forEach(type => toNode(el).removeEventListener(type, listener, useCapture));
 }
 
+export function $trigger(element, event, data, local = false) {
+    var e = Event(event);
+    $(element)[local ? 'triggerHandler' : 'trigger'](e, data);
+    return e;
+}
+
 export function transition(element, props, duration = 400, transition = 'linear') {
 
-    var p = promise((resolve, reject) => {
+    return promise((resolve, reject) => {
 
         element = $(element);
 
@@ -47,12 +53,10 @@ export function transition(element, props, duration = 400, transition = 'linear'
             element.css(name, element.css(name));
         }
 
-        let timer = setTimeout(() => element.trigger(transitionend || 'transitionend'), duration);
+        let timer = setTimeout(() => element.trigger(transitionend), duration);
 
         element
-            .one(transitionend || 'transitionend', (e, cancel) => {
-
-                e.promise = p;
+            .one(transitionend, (e, cancel) => {
 
                 clearTimeout(timer);
                 element.removeClass('uk-transition').css('transition', '');
@@ -61,14 +65,14 @@ export function transition(element, props, duration = 400, transition = 'linear'
                 } else {
                     reject();
                 }
+
             })
             .addClass('uk-transition')
             .css('transition', `all ${duration}ms ${transition}`)
             .css(props);
 
-    }).then(null, () => {});
+    });
 
-    return p;
 }
 
 export const Transition = {
@@ -76,9 +80,8 @@ export const Transition = {
     start: transition,
 
     stop(element, cancel) {
-        var e = Event(transitionend || 'transitionend');
-        $(element).triggerHandler(e, [cancel]);
-        return e.promise || promise.resolve();
+        $trigger(element, transitionend, [cancel], true);
+        return promise.resolve();
     },
 
     cancel(element) {
@@ -152,8 +155,7 @@ export const Animation = {
     },
 
     cancel(element) {
-        var e = Event(animationend || 'animationend');
-        $(element).triggerHandler(e);
+        var e = $trigger(element, animationend || 'animationend', null, true);
         return e.promise || promise.resolve();
     }
 
@@ -299,14 +301,16 @@ export function query(selector, context) {
     return selectors ? selectors.reduce((context, selector) => toJQuery(selector, context), context) : toJQuery(selector);
 }
 
-function positionTop(element) {
-    var top = 0;
+export function preventClick() {
+    var timer = setTimeout(() => doc.trigger('click'), 0),
+        listener = e => {
 
-    do {
+            e.preventDefault();
+            e.stopPropagation();
 
-        top += element.offsetTop;
+            clearTimeout(timer);
+            off(doc, 'click', listener, true);
+        };
 
-    } while (element = element.offsetParent);
-
-    return top;
+    on(doc, 'click', listener, true);
 }

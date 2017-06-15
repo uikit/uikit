@@ -1,4 +1,4 @@
-import { ajax, fastdom, isVoidElement, promise } from '../util/index';
+import { ajax, fastdom, isVoidElement, noop, promise } from '../util/index';
 
 var svgs = {}, parser = new DOMParser();
 
@@ -134,7 +134,7 @@ export default function (UIkit) {
 
                 resolve(el);
 
-            }))).then(null, () => {});
+            }))).then(null, noop);
 
         },
 

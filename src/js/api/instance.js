@@ -1,4 +1,4 @@
-import { $, createEvent } from '../util/index';
+import { $ } from '../util/index';
 
 export default function (UIkit) {
 

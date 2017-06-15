@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-gb" dir="ltr" class="uk-lightbox-page">
+<html lang="en-gb" dir="ltr">
 
     <head>
         <meta charset="utf-8">
@@ -15,30 +15,15 @@
 
             <h1>Lightbox</h1>
 
-            <div class="uk-lightbox uk-open uk-overflow-hidden uk-transition-toggle">
+            <h2>Animations</h2>
 
-                <div class="uk-lightbox-item">
-<!--                     <img width="900" height="600" src="images/size1.jpg">
-                    <img width="700" height="500" src="images/size2.jpg">
-                    <img width="500" height="2000" src="images/size-v.jpg">
-                    <img width="2000" height="500" src="images/size-h.jpg"> -->
-                    <img width="1800" height="1200" src="images/photo.jpg">
-                </div>
+            <select id="animation-switcher" class="uk-select uk-form-width-small" style="margin: 20px 0">
+                <option value="slide">Slide</option>
+                <option value="fade">Fade</option>
+                <option value="scale">Scale</option>
+            </select>
 
-                <div class="uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top">
-                    <button class="uk-lightbox-toolbar-icon uk-close-large" type="button" uk-close></button>
-                </div>
-
-                <div class="uk-lightbox-toolbar uk-position-bottom uk-text-center uk-transition-slide-bottom">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div>
-
-                <a class="uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade" href="#" uk-slidenav-previous></a>
-                <a class="uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade" href="#" uk-slidenav-next></a>
-
-             </div>
-
-            <h2>Dimensions</h2>
-
-            <div class="uk-child-width-1-5" uk-grid uk-lightbox>
+            <div id="lightbox-animation" class="uk-child-width-1-5" uk-grid uk-lightbox="animation: slide">
                 <div>
 
                     <a class="uk-link-muted uk-text-center" href="images/size1.jpg" title="900x600" type="image">
@@ -69,26 +54,26 @@
                     </a>
 
                 </div>
-                <div>
+                <!--<div>-->
 
-                    <a class="uk-link-muted uk-text-center" href="images/size-v.jpg" title="500x2000" type="image">
-                        <figure>
-                            <img src="images/photo.jpg" width="400" alt="">
-                            <figcaption class="uk-margin-small">500x2000</figcaption>
-                        </figure>
-                    </a>
+                    <!--<a class="uk-link-muted uk-text-center" href="images/size-v.jpg" title="500x2000" type="image">-->
+                        <!--<figure>-->
+                            <!--<img src="images/photo.jpg" width="400" alt="">-->
+                            <!--<figcaption class="uk-margin-small">500x2000</figcaption>-->
+                        <!--</figure>-->
+                    <!--</a>-->
 
-                </div>
-                <div>
+                <!--</div>-->
+                <!--<div>-->
 
-                    <a class="uk-link-muted uk-text-center" href="images/size-h.jpg" title="2000x500" type="image">
-                        <figure>
-                            <img src="images/photo.jpg" width="400" alt="">
-                            <figcaption class="uk-margin-small">2000x500</figcaption>
-                        </figure>
-                    </a>
+                    <!--<a class="uk-link-muted uk-text-center" href="images/size-h.jpg" title="2000x500" type="image">-->
+                        <!--<figure>-->
+                            <!--<img src="images/photo.jpg" width="400" alt="">-->
+                            <!--<figcaption class="uk-margin-small">2000x500</figcaption>-->
+                        <!--</figure>-->
+                    <!--</a>-->
 
-                </div>
+                <!--</div>-->
             </div>
 
             <h2>Content Sources</h2>
@@ -154,7 +139,18 @@
                         </tr>
                     </thead>
                     <tbody>
-
+                        <tr>
+                            <td><code>animation</code></td>
+                            <td>String</td>
+                            <td>slide</td>
+                            <td>The animation to use. (fade, slide, scale)</td>
+                        </tr>
+                        <tr>
+                            <td><code>toggle</code></td>
+                            <td>CSS selector</td>
+                            <td>a</td>
+                            <td>Toggle selector - triggers the lightbox.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -165,10 +161,14 @@
 
             (function () {
 
+                $('#animation-switcher').on('change', function() {
+                    $('#lightbox-animation').attr('uk-lightbox', 'animation: ' + this.value);
+                });
+
                 $('#lightbox').on('click', function (e) {
                     e.preventDefault();
 
-                    UIkit.lightbox('#lightbox', {
+                    UIkit.lightboxPanel({
                         items: [
                             {source: 'images/size1.jpg', title: '900x600', type: 'image'},
                             {source: 'images/size2.jpg', title: '700x500', type: 'image'},
