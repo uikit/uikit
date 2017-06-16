@@ -446,7 +446,7 @@ function plugin(UIkit) {
 
             show(index, force = false) {
 
-                var hasPrev = true;
+                var hasPrev = this.items.length > 1;
                 if (!this.isToggled()) {
                     this.toggleNow(this.$el, true);
                     hasPrev = false;
@@ -512,6 +512,7 @@ function plugin(UIkit) {
                     .each((_, el) => Transition.stop(el));
 
                 delete this.index;
+                delete this.percent;
                 delete this._animation;
 
             },
@@ -535,8 +536,8 @@ function plugin(UIkit) {
                 return this.items[index] || {source: '', title: '', type: ''};
             },
 
-            setItem(item, content, width = 100, height = 100) {
-                assign(item, {content, width, height});
+            setItem(item, content) {
+                assign(item, {content});
                 this.slides.eq(this.items.indexOf(item)).html(content);
             },
 
@@ -678,7 +679,6 @@ function plugin(UIkit) {
                     {transform: `translate3d(${dir * 100 * percent}%, 0, 0)`},
                     {transform: `translate3d(${dir * -100 * (1 - percent)}%, 0, 0)`}
                 ];
-
             }
 
         },
@@ -721,7 +721,7 @@ function plugin(UIkit) {
                 }
 
                 getImage(item.source).then(
-                    img => this.setItem(item, `<img class="uk-responsive-width" width="${img.width}" height="${img.height}" src ="${item.source}">`, img.width, img.height),
+                    img => this.setItem(item, `<img class="uk-responsive-width" width="${img.width}" height="${img.height}" src ="${item.source}">`),
                     () => this.setError(item)
                 );
 
@@ -743,7 +743,8 @@ function plugin(UIkit) {
                 }
 
                 var video = $('<video class="uk-responsive-width" controls></video>')
-                    .on('loadedmetadata', () => this.setItem(item, video.attr({width: video[0].videoWidth, height: video[0].videoHeight}), video[0].videoWidth, video[0].videoHeight))
+                    .on('loadedmetadata', () => this.setItem(item, video.attr({width: video[0].videoWidth, height: video[0].videoHeight})))
+                    .on('error', () => this.setError(item))
                     .attr('src', item.source);
 
                 e.stopImmediatePropagation();
@@ -766,26 +767,22 @@ function plugin(UIkit) {
                 }
 
                 let id = matches[1],
-                    img = new Image(),
-                    lowres = false,
-                    setIframe = (width, height) => this.setItem(item, `<iframe src="//www.youtube.com/embed/${id}" width="${width}" height="${height}" style="max-width:100%;box-sizing:border-box;"></iframe>`, width, height);
+                    setIframe = (width = 640, height = 320) => this.setItem(item, getIframe(`//www.youtube.com/embed/${id}`, width, height));
 
-                img.onerror = () => setIframe(640, 320);
-                img.onload = () => {
-                    //youtube default 404 thumb, fall back to lowres
-                    if (img.width === 120 && img.height === 90) {
-                        if (!lowres) {
-                            lowres = true;
-                            img.src = `//img.youtube.com/vi/${id}/0.jpg`;
+                getImage(`//img.youtube.com/vi/${id}/maxresdefault.jpg`).then(
+                    img => {
+                        //youtube default 404 thumb, fall back to lowres
+                        if (img.width === 120 && img.height === 90) {
+                            getImage(`//img.youtube.com/vi/${id}/0.jpg`).then(
+                                () => setIframe(img.width, img.height),
+                                setIframe
+                            );
                         } else {
-                            setIframe(640, 320);
+                            setIframe(img.width, img.height);
                         }
-                    } else {
-                        setIframe(img.width, img.height);
-                    }
-                };
-
-                img.src = `//img.youtube.com/vi/${id}/maxresdefault.jpg`;
+                    },
+                    setIframe
+                );
 
                 e.stopImmediatePropagation();
             }
@@ -806,10 +803,8 @@ function plugin(UIkit) {
                     return;
                 }
 
-                let id = matches[2],
-                    setIframe = (width, height) => this.setItem(item, `<iframe src="//player.vimeo.com/video/${id}" width="${width}" height="${height}" style="max-width:100%;box-sizing:border-box;"></iframe>`, width, height);
-
-                ajax({type: 'GET', url: `http://vimeo.com/api/oembed.json?url=${encodeURI(item.source)}`, jsonp: 'callback', dataType: 'jsonp'}).then((res) => setIframe(res.width, res.height));
+                ajax({type: 'GET', url: `http://vimeo.com/api/oembed.json?url=${encodeURI(item.source)}`, jsonp: 'callback', dataType: 'jsonp'})
+                    .then(({height, width}) => this.setItem(item, getIframe(`//player.vimeo.com/video/${matches[2]}`, width, height)));
 
                 e.stopImmediatePropagation();
             }
@@ -817,6 +812,10 @@ function plugin(UIkit) {
         }
 
     }, 'lightboxPanel');
+
+    function getIframe(src, width, height) {
+        return `<iframe src="${src}" width="${width}" height="${height}" style="max-width: 100%; box-sizing: border-box;"></iframe>`;
+    }
 
 }
 
