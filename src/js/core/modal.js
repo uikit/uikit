@@ -18,6 +18,13 @@ export default function (UIkit) {
             selClose: '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full'
         },
 
+        ready() {
+
+            this.$el.find('iframe[uk-autoplay]').each(function() {
+                this.src = [this.src, (this.src.indexOf('?') > -1 ? '&':'?'), 'enablejsapi=1&api=1'].join('')
+            });
+        },
+
         events: [
 
             {
@@ -32,6 +39,14 @@ export default function (UIkit) {
                     } else {
                         this.$el.css('display', 'block').height();
                     }
+
+                    this.$el.find('iframe[uk-autoplay]').each(function() {
+                        this.contentWindow.postMessage('{ "event": "command", "func": "playVideo", "method":"play"}', '*');
+                    });
+
+                    this.$el.find('video[uk-autoplay], audio[uk-autoplay]').each(function() {
+                        this.play();
+                    });
                 }
             },
 
@@ -45,7 +60,15 @@ export default function (UIkit) {
                     this.$el.css('display', '').removeClass('uk-flex');
 
                     this.$el.find('iframe').each(function() {
-                        this.src = this.src;
+
+                        if (
+                            this.src.match(/\/\/.*?youtube\.[a-z]+\/watch\?v=([^&\s]+)/) ||
+                            this.src.match(/\/\/.*?youtube\.[a-z]+\/embed/) ||
+                            this.src.match(/youtu\.be\/(.*)/) ||
+                            this.src.match(/vimeo\.com\/video\/(.*)/)
+                        ) {
+                            this.src = this.src;
+                        }
                     });
 
                     this.$el.find('video, audio').each(function() {
