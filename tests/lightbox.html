@@ -23,10 +23,10 @@
                 <option value="scale">Scale</option>
             </select>
 
-            <div id="lightbox-animation" class="uk-child-width-1-5" uk-grid uk-lightbox="animation: slide">
+            <div id="lightbox-animation" class="uk-child-width-1-5" uk-grid uk-lightbox>
                 <div>
 
-                    <a class="uk-link-muted uk-text-center" href="images/size1.jpg" title="900x600" type="image">
+                    <a class="uk-link-muted uk-text-center" href="images/size1.jpg" title="900x600">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
                             <figcaption class="uk-margin-small">900x600</figcaption>
@@ -162,7 +162,7 @@
             (function () {
 
                 $('#animation-switcher').on('change', function() {
-                    $('#lightbox-animation').attr('uk-lightbox', 'animation: ' + this.value);
+                    $('#lightbox-animation').attr('animation', this.value);
                 });
 
                 $('#lightbox').on('click', function (e) {

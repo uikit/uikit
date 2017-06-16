@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {mixin, util} = UIkit;
-    var {$, $trigger, Animation, ajax, assign, clamp, doc, docElement, getImage, getIndex, noop, on, off, pointerDown, pointerMove, pointerUp, preventClick, promise, requestAnimationFrame, Transition} = util;
+    var {$, $trigger, Animation, ajax, assign, doc, docElement, getImage, getIndex, noop, on, off, pointerDown, pointerMove, pointerUp, preventClick, promise, requestAnimationFrame, Transition} = util;
 
     UIkit.component('lightbox', {
 
@@ -123,6 +123,7 @@ function plugin(UIkit) {
 
         defaults: {
             animation: 'slide',
+            transition: 'ease',
             cls: 'uk-open',
             duration: 400,
             attrItem: 'uk-lightbox-item',
@@ -155,10 +156,6 @@ function plugin(UIkit) {
 
             slides() {
                 return this.list.children(`.${this.clsItem}`);
-            },
-
-            animation() {
-                return (this.$props.animation in Animations ? Animations[this.$props.animation] : Animations.fade);
             }
 
         },
@@ -399,7 +396,9 @@ function plugin(UIkit) {
                 next.css('visibility', percent >= 0 ? 'visible' : '');
                 prev.css('visibility', percent < 0 ? 'visible' : '');
 
-                this.animation(
+                new Translator(
+                    this.animation,
+                    this.transition,
                     current,
                     percent >= 0 ? next : prev,
                     percent < 0 ? -1 : 1,
@@ -457,7 +456,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                this.stack.push(index);
+                this.stack[force ? 'unshift' : 'push'](index);
 
                 if (!force && this.stack.length > 1) {
 
@@ -473,21 +472,18 @@ function plugin(UIkit) {
                 index = this.getIndex(index);
 
                 let prev = hasPrev && this.slides.eq(this.index),
-                    el = this.slides.eq(index);
+                    next = this.slides.eq(index);
 
                 this.index = index;
 
-                el.css('visibility', 'visible');
+                next.css('visibility', 'visible');
                 this.caption.text(this.getItem(index).title);
 
-                var animation = !prev ? Animations.scale : this.animation;
-
-                this._animation = animation(prev || el, el, dir, () => {
+                this._animation = new Translator(!prev ? 'scale' : this.animation, this.transition, prev || next, next, dir, () => {
 
                     prev && prev.css('visibility', '');
 
                     this.stack.shift();
-
                     if (this.stack.length) {
                         requestAnimationFrame(() => this.show(this.stack.shift(), true));
                     } else {
@@ -496,7 +492,7 @@ function plugin(UIkit) {
 
                 });
 
-                this._animation.show((this.stack.length > 1 ? 100 : 400) * (1 - (this.percent || 0)), this.percent);
+                this._animation.show(this.stack.length > 1 ? 100 : 400, this.percent);
 
                 for (var i = 0; i <= this.preload; i++) {
                     this.loadItem(this.getIndex(index + i));
@@ -591,127 +587,124 @@ function plugin(UIkit) {
 
     });
 
-    var Animations = {
+    function Translator (animation, transition, current, next, dir, cb) {
 
-        fade: (current, next, dir, cb) => {
+        animation = animation in this ? this[animation] : this.slide;
 
-            return {
+        return {
 
-                show(duration = 400, percent = 0) {
+            show(duration = 400, percent = 0) {
 
-                    this.translate(percent);
+                duration -= Math.round(duration * percent);
 
-                    return promise.all([
-                        Transition.start(current, {opacity: 0}, duration),
-                        Transition.start(next, {opacity: 1}, duration)
-                    ]).then(() => {
-                        $([next[0], current[0]]).css('opacity', '');
-                        cb();
-                    }, noop);
-                },
+                let props = animation.show(dir);
 
-                forward(duration = 100) {
+                this.translate(percent);
 
-                    let percent = current.css('opacity');
+                return promise.all([
+                    Transition.start(current, props[0], duration, transition),
+                    Transition.start(next, props[1], duration, transition)
+                ]).then(() => {
+                    for (var prop in props[0]) {
+                        $([next[0], current[0]]).css(prop, '');
+                    }
+                    cb();
+                }, noop);
+            },
 
-                    return promise.all([
-                        Transition.cancel(next),
-                        Transition.cancel(current)
-                    ]).then(() => this.show(Math.round(duration * percent), 1 - percent));
+            forward(duration = 100) {
 
-                },
+                let percent = animation.percent(current);
 
-                translate(percent) {
+                return promise.all([
+                    Transition.cancel(next),
+                    Transition.cancel(current)
+                ]).then(() => this.show(duration, percent));
 
-                    current.css({opacity: clamp(1 - percent)});
-                    next.css({opacity: clamp(percent)});
+            },
 
-                }
+            translate(percent) {
 
-            };
+                var props = animation.translate(percent, dir);
+                current.css(props[0]);
+                next.css(props[1]);
 
+            }
 
-        },
+        }
 
-        slide: (current, next, dir, cb) => {
+    }
 
-            return {
+    var diff = 0.2;
+    Translator.prototype = {
 
-                show(duration = 400, percent = 0) {
+        fade: {
 
-                    this.translate(percent);
+            show() {
+                return [
+                    {opacity: 0},
+                    {opacity: 1}
+                ];
+            },
 
-                    return promise.all([
-                        Transition.start(current, {transform: `translate3d(${dir * 100}%, 0, 0)`}, duration),
-                        Transition.start(next, {transform: 'translate3d(0, 0, 0)'}, duration)
-                    ]).then(() => {
-                        $([next[0], current[0]]).css('transform', '');
-                        cb();
-                    }, noop);
-                },
+            percent(current) {
+                return 1 - current.css('opacity');
+            },
 
-                forward(duration = 100) {
-
-                    let percent = Math.abs(current.css('transform').split(',')[4] / current.outerWidth());
-
-                    return promise.all([
-                        Transition.cancel(next),
-                        Transition.cancel(current)
-                    ]).then(() => this.show(duration - Math.round(duration * percent), percent));
-
-                },
-
-                translate(percent) {
-
-                    current.css({transform: `translate3d(${dir * 100 * percent}%, 0, 0)`});
-                    next.css({transform: `translate3d(${dir * -100 * (1 - percent)}%, 0, 0)`});
-
-                }
-
-            };
+            translate(percent) {
+                return [
+                    {opacity: 1 - percent},
+                    {opacity: percent}
+                ];
+            }
 
         },
 
-        scale: (current, next, dir, cb) => {
+        slide: {
 
-            var diff = 0.2;
+            show(dir) {
+                return [
+                    {transform: `translate3d(${dir * 100}%, 0, 0)`},
+                    {transform: 'translate3d(0, 0, 0)'}
+                ];
+            },
 
-            return {
+            percent(current) {
+                return Math.abs(current.css('transform').split(',')[4] / current.outerWidth());
+            },
 
-                show(duration = 400, percent = 0) {
+            translate(percent, dir) {
+                return [
+                    {transform: `translate3d(${dir * 100 * percent}%, 0, 0)`},
+                    {transform: `translate3d(${dir * -100 * (1 - percent)}%, 0, 0)`}
+                ];
 
-                    this.translate(percent);
+            }
 
-                    return promise.all([
-                        Transition.start(current, {transform: `scale3d(${1 - diff}, ${1 - diff}, 1)`, opacity: 0}, duration),
-                        Transition.start(next, {transform: 'scale3d(1, 1, 1)', opacity: 1}, duration)
-                    ]).then(() => {
-                        $([next[0], current[0]]).css({transform: '', opacity: ''});
-                        cb();
-                    }, noop);
-                },
+        },
 
-                forward(duration = 100) {
+        scale: {
 
-                    let percent = current.css('opacity');
+            show() {
+                return [
+                    {opacity: 0, transform: `scale3d(${1 - diff}, ${1 - diff}, 1)`},
+                    {opacity: 1, transform: 'scale3d(1, 1, 1)'}
+                ];
+            },
 
-                    return promise.all([
-                        Transition.cancel(next),
-                        Transition.cancel(current)
-                    ]).then(() => this.show(Math.round(duration * percent), 1 - percent));
+            percent(current) {
+                return 1 - current.css('opacity');
+            },
 
-                },
+            translate(percent) {
+                var scale1 = 1 - diff * percent,
+                    scale2 = 1 - diff + diff * percent;
 
-                translate(percent) {
-
-                    var scale1 = 1 - diff * percent, scale2 = 1 - diff + diff * percent;
-
-                    current.css({transform: `scale3d(${scale1}, ${scale1}, 1)`, opacity: 1 - percent});
-                    next.css({transform: `scale3d(${scale2}, ${scale2}, 1)`, opacity: percent});
-
-                }
-
-            };
+                return [
+                    {opacity: 1 - percent, transform: `scale3d(${scale1}, ${scale1}, 1)`},
+                    {opacity: percent, transform: `scale3d(${scale2}, ${scale2}, 1)`}
+                ];
+            }
 
         },
 
@@ -723,7 +716,7 @@ function plugin(UIkit) {
 
             loaditem(e, item) {
 
-                if (item.type !== 'image' && item.source && !item.source.match(/\.(jp(e)?g|png|gif|svg)$/i)) {
+                if (!(item.type === 'image' || item.source && item.source.match(/\.(jp(e)?g|png|gif|svg)$/i))) {
                     return;
                 }
 
@@ -745,7 +738,7 @@ function plugin(UIkit) {
 
             loaditem(e, item) {
 
-                if (item.type !== 'video' && item.source && !item.source.match(/\.(mp4|webm|ogv)$/i)) {
+                if (!(item.type === 'video' || item.source && item.source.match(/\.(mp4|webm|ogv)$/i))) {
                     return;
                 }
 
