@@ -22,9 +22,10 @@
     var supportsTouch       = ('ontouchstart' in window || 'MSGesture' in window) || (window.DocumentTouch && document instanceof DocumentTouch),
         draggingPlaceholder, currentlyDraggingElement, currentlyDraggingTarget, dragging, moving, clickedlink, delayIdle, touchedlists, moved, overElement, startEvent;
 
-    var POINTER_DOWN = supportsTouch ? ('MSGesture' in window ? 'pointerdown':'touchstart') : 'mousedown',
-        POINTER_MOVE = supportsTouch ? ('MSGesture' in window ? 'pointermove':'touchmove') : 'mousemove',
-        POINTER_UP   = supportsTouch ? ('MSGesture' in window ? 'pointerup':'touchend') : 'mouseup';
+    var POINTER_DOWN = supportsTouch ? ('MSGesture' in window || window.PointerEvent ? 'pointerdown':'touchstart') : 'mousedown',
+        POINTER_MOVE = supportsTouch ? ('MSGesture' in window || window.PointerEvent ? 'pointermove':'touchmove') : 'mousemove',
+        POINTER_UP   = supportsTouch ? ('MSGesture' in window || window.PointerEvent ? 'pointerup':'touchend') : 'mouseup';
+
 
     function closestSortable(ele) {
 
