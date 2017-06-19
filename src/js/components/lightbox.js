@@ -147,6 +147,17 @@ function plugin(UIkit) {
                             this.show(e.type === 'swipeLeft' ? 'next' : 'previous');
                         }
                     });
+
+                    doc.on(`keydown.${this.$options.name}`, e => {
+                        switch (e.keyCode) {
+                            case 37:
+                                this.show('previous');
+                                break;
+                            case 39:
+                                this.show('next');
+                                break;
+                        }
+                    });
                 }
 
                 this.modal.panel.find('[uk-transition-hide]').hide();
@@ -160,17 +171,6 @@ function plugin(UIkit) {
                 if (!event.isImmediatePropagationStopped()) {
                     this.setError(this.getItem());
                 }
-
-                doc.on(`keydown.${this.$options.name}`, e => {
-                    switch (e.keyCode) {
-                        case 37:
-                            this.show('previous');
-                            break;
-                        case 39:
-                            this.show('next');
-                            break;
-                    }
-                });
             },
 
             hide() {
