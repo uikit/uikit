@@ -220,6 +220,18 @@ export function scrolledOver(element) {
     return clamp(((vh + window.pageYOffset - top) / ((vh + (height - (diff < vp ? diff : 0)) ) / 100)) / 100);
 }
 
+function positionTop(element) {
+    var top = 0;
+
+    do {
+
+        top += element.offsetTop;
+
+    } while (element = element.offsetParent);
+
+    return top;
+}
+
 export function docHeight() {
     return Math.max(docEl.offsetHeight, docEl.scrollHeight);
 }
