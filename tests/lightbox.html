@@ -128,6 +128,8 @@
 
             <h2>Javascript Options</h2>
 
+            <h3>Lightbox</h3>
+
             <div class="uk-overflow-auto">
                 <table class="uk-table uk-table-striped">
                     <thead>
@@ -150,6 +152,65 @@
                             <td>CSS selector</td>
                             <td>a</td>
                             <td>Toggle selector - triggers the lightbox.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <h3>Lightbox Panel</h3>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>animation</code></td>
+                            <td>String</td>
+                            <td>slide</td>
+                            <td>The animation to use. (fade, slide, scale)</td>
+                        </tr>
+                        <tr>
+                            <td><code>duration</code></td>
+                            <td>Number</td>
+                            <td>400</td>
+                            <td>The animation duration.</td>
+                        </tr>
+                        <tr>
+                            <td><code>index</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>The initial item to show. (zero based)</td>
+                        </tr>
+                        <tr>
+                            <td><code>preload</code></td>
+                            <td>Number</td>
+                            <td>1</td>
+                            <td>The number of items to preload. (left and right of the currently active item)</td>
+                        </tr>
+                        <tr>
+                            <td><code>items</code></td>
+                            <td>Array</td>
+                            <td>[]</td>
+                            <td>An array of items to display. ([{source: 'images/size1.jpg', title: '900x600'}])</td>
+                        </tr>
+                        <tr>
+                            <td><code>template</code></td>
+                            <td>String</td>
+                            <td></td>
+                            <td>The template string.</td>
+                        </tr>
+                        <tr>
+                            <td><code>delay-controls</code></td>
+                            <td>Number</td>
+                            <td>3000</td>
+                            <td>Delay time before controls fade out in ms.</td>
                         </tr>
                     </tbody>
                 </table>

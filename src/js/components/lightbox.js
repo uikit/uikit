@@ -135,7 +135,7 @@ function plugin(UIkit) {
             stack: [],
             threshold: 15,
             percent: 0,
-            controlsDelay: 5000,
+            delayControls: 3000,
             template: `
                 <div class="uk-lightbox uk-overflow-hidden">                    
                     <ul></ul>
@@ -156,6 +156,10 @@ function plugin(UIkit) {
 
             slides() {
                 return this.list.children(`.${this.clsItem}`);
+            },
+
+            forwardDuration() {
+                return this.duration / 4;
             }
 
         },
@@ -461,7 +465,7 @@ function plugin(UIkit) {
                 if (!force && this.stack.length > 1) {
 
                     if (this._animation && this.stack.length === 2) {
-                        this._animation.forward(100);
+                        this._animation.forward(this.forwardDuration);
                     }
 
                     return;
@@ -492,7 +496,7 @@ function plugin(UIkit) {
 
                 });
 
-                this._animation.show(this.stack.length > 1 ? 100 : 400, this.percent);
+                this._animation.show(this.stack.length > 1 ? this.forwardDuration : this.duration, this.percent);
 
                 for (var i = 0; i <= this.preload; i++) {
                     this.loadItem(this.getIndex(index + i));
@@ -552,7 +556,7 @@ function plugin(UIkit) {
             showControls() {
 
                 clearTimeout(this.controlsTimer);
-                this.controlsTimer = setTimeout(this.hideControls, this.controlsDelay);
+                this.controlsTimer = setTimeout(this.hideControls, this.delayControls);
 
                 if (!this.toolbar.attr('hidden')) {
                     return;
