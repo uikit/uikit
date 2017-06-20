@@ -85,11 +85,10 @@ function plugin(UIkit) {
                 return this.panel = this.panel || UIkit.lightboxPanel({
                         animation: this.animation,
                         items: this.toggles.toArray().reduce((items, el) => {
-                            items.push({
-                                source: el.getAttribute('href'),
-                                title: el.getAttribute('title'),
-                                type: el.getAttribute('type')
-                            });
+                            items.push(['href', 'caption', 'type'].reduce((obj, attr) => {
+                                obj[attr === 'href' ? 'source' : attr] = el.getAttribute(attr) || el.getAttribute(`data-${attr}`);
+                                return obj;
+                            }, {}));
                             return items;
                         }, [])
                     });
@@ -169,7 +168,7 @@ function plugin(UIkit) {
             this.$mount($(this.template).appendTo(this.container)[0]);
 
             this.list = this.$el.find('.uk-lightbox-items');
-            this.toolbar = this.$el.find('.uk-lightbox-toolbar.uk-position-top');
+            this.toolbars = this.$el.find('.uk-lightbox-toolbar');
             this.nav = this.$el.find('a[uk-lightbox-item]');
             this.caption = this.$el.find('.uk-lightbox-caption');
 
@@ -269,7 +268,7 @@ function plugin(UIkit) {
                 handler() {
 
                     this.$addClass(this.caption, 'uk-animation-slide-bottom');
-                    this.toolbar.attr('hidden', true);
+                    this.toolbars.attr('hidden', true);
                     this.nav.attr('hidden', true);
                     this.showControls();
 
@@ -285,7 +284,7 @@ function plugin(UIkit) {
                 handler() {
 
                     this.$removeClass(this.caption, 'uk-animation-slide-bottom');
-                    this.toolbar.attr('hidden', true);
+                    this.toolbars.attr('hidden', true);
                     this.nav.attr('hidden', true);
 
                 }
@@ -481,7 +480,9 @@ function plugin(UIkit) {
                 this.index = index;
 
                 next.css('visibility', 'visible');
-                this.caption.text(this.getItem(index).title);
+
+                var caption = this.getItem(index).caption;
+                this.caption.toggle(!!caption).text(caption);
 
                 this._animation = new Translator(!prev ? 'scale' : this.animation, this.transition, prev || next, next, dir, () => {
 
@@ -544,7 +545,7 @@ function plugin(UIkit) {
             },
 
             getItem(index = this.index) {
-                return this.items[index] || {source: '', title: '', type: ''};
+                return this.items[index] || {source: '', caption: '', type: ''};
             },
 
             setItem(item, content) {
@@ -567,32 +568,34 @@ function plugin(UIkit) {
                 clearTimeout(this.controlsTimer);
                 this.controlsTimer = setTimeout(this.hideControls, this.delayControls);
 
-                if (!this.toolbar.attr('hidden')) {
+                if (!this.toolbars.attr('hidden')) {
                     return;
                 }
 
-                Animation.in(this.toolbar.attr('hidden', false), 'uk-animation-slide-top');
+                animate(this.toolbars.eq(0), 'uk-animation-slide-top');
+                animate(this.toolbars.eq(1), 'uk-animation-slide-bottom');
 
                 this.nav.attr('hidden', this.items.length <= 1);
 
                 if (this.items.length > 1) {
-                    Animation.in(this.nav.eq(0), 'uk-animation-fade');
-                    Animation.in(this.nav.eq(1), 'uk-animation-fade');
+                    animate(this.nav.eq(0), 'uk-animation-fade');
+                    animate(this.nav.eq(1), 'uk-animation-fade');
                 }
 
             },
 
             hideControls() {
 
-                if (this.toolbar.attr('hidden')) {
+                if (this.toolbars.attr('hidden')) {
                     return;
                 }
 
-                Animation.out(this.toolbar, 'uk-animation-slide-top').then(() => this.toolbar.attr('hidden', true));
+                animate(this.toolbars.eq(0), 'uk-animation-slide-top', 'out');
+                animate(this.toolbars.eq(1), 'uk-animation-slide-bottom', 'out');
 
                 if (this.items.length > 1) {
-                    Animation.out(this.nav.eq(0), 'uk-animation-fade').then(() => this.nav.eq(0).attr('hidden', true));
-                    Animation.out(this.nav.eq(1), 'uk-animation-fade').then(() => this.nav.eq(1).attr('hidden', true));
+                    animate(this.nav.eq(0), 'uk-animation-fade', 'out');
+                    animate(this.nav.eq(1), 'uk-animation-fade', 'out');
                 }
 
             }
@@ -600,6 +603,10 @@ function plugin(UIkit) {
         }
 
     });
+
+    function animate(el, animation, dir = 'in') {
+        Animation[dir](el.attr('hidden', false), animation).then(() => { dir === 'out' && el.attr('hidden', true)})
+    }
 
     function Translator (animation, transition, current, next, dir, cb) {
 

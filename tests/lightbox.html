@@ -28,7 +28,7 @@
             <div id="lightbox-animation" class="uk-child-width-1-5@m" uk-grid uk-lightbox>
                 <div>
 
-                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size1.jpg" title="900x600">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size1.jpg" caption="900x600">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
                             <figcaption class="uk-margin-small-top">900x600</figcaption>
@@ -38,7 +38,7 @@
                 </div>
                 <div>
 
-                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size2.jpg" title="700x500" type="image">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size2.jpg" caption="700x500">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
                             <figcaption class="uk-margin-small-top">700x500</figcaption>
@@ -48,7 +48,7 @@
                 </div>
                 <div>
 
-                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/photo.jpg" title="1800x1200" type="image">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/photo.jpg" caption="1800x1200">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
                             <figcaption class="uk-margin-small-top">1800x1200</figcaption>
@@ -58,7 +58,7 @@
                 </div>
                 <div>
 
-                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size-v.jpg" title="500x2000" type="image">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size-v.jpg" caption="500x2000">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
                             <figcaption class="uk-margin-small-top">500x2000</figcaption>
@@ -68,7 +68,7 @@
                 </div>
                 <div>
 
-                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size-h.jpg" title="2000x500" type="image">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size-h.jpg" caption="2000x500">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
                             <figcaption class="uk-margin-small-top">2000x500</figcaption>
@@ -83,7 +83,7 @@
             <div class="uk-child-width-1-5@m" uk-grid uk-lightbox>
                 <div>
 
-                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size1.jpg" title="Image" type="image">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size1.jpg" caption="Image">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
                             <figcaption class="uk-margin-small-top">Image</figcaption>
@@ -93,7 +93,7 @@
                 </div>
                 <div>
 
-                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" title="Video">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" caption="Video">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
                             <figcaption class="uk-margin-small-top">Video</figcaption>
@@ -103,7 +103,7 @@
                 </div>
                 <div>
 
-                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="https://www.youtube.com/watch?v=YE7VzlLtp-4" title="YouTube">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="https://www.youtube.com/watch?v=YE7VzlLtp-4" caption="YouTube">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
                             <figcaption class="uk-margin-small-top">YouTube</figcaption>
@@ -113,7 +113,7 @@
                 </div>
                 <div>
 
-                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="http://vimeo.com/1084537" title="Vimeo">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="http://vimeo.com/1084537" caption="Vimeo">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
                             <figcaption class="uk-margin-small-top">Vimeo</figcaption>
@@ -200,7 +200,7 @@
                             <td><code>items</code></td>
                             <td>Array</td>
                             <td>[]</td>
-                            <td>An array of items to display. ([{source: 'images/size1.jpg', title: '900x600'}])</td>
+                            <td>An array of items to display. ([{source: 'images/size1.jpg', caption: '900x600'}])</td>
                         </tr>
                         <tr>
                             <td><code>template</code></td>
@@ -233,8 +233,8 @@
 
                     UIkit.lightboxPanel({
                         items: [
-                            {source: 'images/size1.jpg', title: '900x600', type: 'image'},
-                            {source: 'images/size2.jpg', title: '700x500', type: 'image'},
+                            {source: 'images/size1.jpg', caption: '900x600'},
+                            {source: 'images/size2.jpg', caption: '700x500'},
                         ]
                     }).show();
                 });
