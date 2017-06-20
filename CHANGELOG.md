@@ -5,6 +5,7 @@
 ### Added
 
 - Add Lightbox component
+- Add Video component
 
 ### Changed
 
