@@ -117,7 +117,10 @@ export default {
             )(el, show);
 
             el.trigger(show ? 'show' : 'hide', [this]);
-            return def.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
+            return def.then(() => {
+                el.trigger(show ? 'shown' : 'hidden', [this]);
+                UIkit.update(null, el);
+            });
         },
 
         _toggle(el, toggled) {

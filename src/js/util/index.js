@@ -4,5 +4,6 @@ export * from './fastdom';
 export * from './lang';
 export * from './mouse';
 export * from './options';
+export * from './player';
 export * from './position';
 export * from './touch';

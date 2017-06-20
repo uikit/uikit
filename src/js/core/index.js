@@ -27,6 +27,7 @@ import Switcher from './switcher';
 import Tab from './tab';
 import Toggle from './toggle';
 import Leader from './leader';
+import Video from './video';
 
 export default function (UIkit) {
 
@@ -56,6 +57,7 @@ export default function (UIkit) {
     UIkit.use(Toggle);
     UIkit.use(Accordion);
     UIkit.use(Alert);
+    UIkit.use(Video);
     UIkit.use(Cover);
     UIkit.use(Drop);
     UIkit.use(Dropdown);

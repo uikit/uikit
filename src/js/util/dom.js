@@ -29,11 +29,11 @@ export function ready(fn) {
 
 }
 
-export function on(el, type, listener, useCapture) {
+export function on(el, type, listener, useCapture = false) {
     type.split(' ').forEach(type => toNode(el).addEventListener(type, listener, useCapture));
 }
 
-export function off(el, type, listener, useCapture) {
+export function off(el, type, listener, useCapture = false) {
     type.split(' ').forEach(type => toNode(el).removeEventListener(type, listener, useCapture));
 }
 

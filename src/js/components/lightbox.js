@@ -494,6 +494,10 @@ function plugin(UIkit) {
                         this._animation = null;
                     }
 
+                    this.$el.trigger('itemshown', [this, next]);
+                    prev && this.$el.trigger('itemhidden', [this, prev]);
+                    this.$update();
+
                 });
 
                 this._animation.show(this.stack.length > 1 ? this.forwardDuration : this.duration, this.percent);
@@ -503,6 +507,9 @@ function plugin(UIkit) {
                     this.loadItem(this.getIndex(index - i));
                 }
 
+                this.$el.trigger('itemshow', [this, next]);
+                prev && this.$el.trigger('itemhide', [this, prev]);
+                this.$update();
             },
 
             hide() {
@@ -531,7 +538,7 @@ function plugin(UIkit) {
 
                 this.setItem(item, '<span uk-spinner></span>');
 
-                if (!$trigger(this.$el, 'loaditem', [item], true).isImmediatePropagationStopped()) {
+                if (!$trigger(this.$el, 'itemload', [item], true).isImmediatePropagationStopped()) {
                     this.setError(item);
                 }
             },
@@ -542,7 +549,9 @@ function plugin(UIkit) {
 
             setItem(item, content) {
                 assign(item, {content});
-                this.slides.eq(this.items.indexOf(item)).html(content);
+                var el = this.slides.eq(this.items.indexOf(item)).html(content);
+                this.$el.trigger('itemloaded', [this, el]);
+                this.$update();
             },
 
             setError(item) {
@@ -718,7 +727,7 @@ function plugin(UIkit) {
 
         events: {
 
-            loaditem(e, item) {
+            itemload(e, item) {
 
                 if (!(item.type === 'image' || item.source && item.source.match(/\.(jp(e)?g|png|gif|svg)$/i))) {
                     return;
@@ -740,13 +749,13 @@ function plugin(UIkit) {
 
         events: {
 
-            loaditem(e, item) {
+            itemload(e, item) {
 
                 if (!(item.type === 'video' || item.source && item.source.match(/\.(mp4|webm|ogv)$/i))) {
                     return;
                 }
 
-                var video = $('<video class="uk-responsive-width" controls></video>')
+                var video = $('<video class="uk-responsive-width" controls uk-video></video>')
                     .on('loadedmetadata', () => this.setItem(item, video.attr({width: video[0].videoWidth, height: video[0].videoHeight})))
                     .on('error', () => this.setError(item))
                     .attr('src', item.source);
@@ -762,7 +771,7 @@ function plugin(UIkit) {
 
         events: {
 
-            loaditem(e, item) {
+            itemload(e, item) {
 
                 let matches = item.source.match(/\/\/.*?youtube\.[a-z]+\/watch\?v=([^&\s]+)/) || item.source.match(/youtu\.be\/(.*)/);
 
@@ -799,7 +808,7 @@ function plugin(UIkit) {
 
         events: {
 
-            loaditem(e, item) {
+            itemload(e, item) {
 
                 let matches = item.source.match(/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/);
 
@@ -818,7 +827,7 @@ function plugin(UIkit) {
     }, 'lightboxPanel');
 
     function getIframe(src, width, height) {
-        return `<iframe src="${src}" width="${width}" height="${height}" style="max-width: 100%; box-sizing: border-box;"></iframe>`;
+        return `<iframe src="${src}" width="${width}" height="${height}" style="max-width: 100%; box-sizing: border-box;" uk-video></iframe>`;
     }
 
 }
