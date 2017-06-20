@@ -137,14 +137,14 @@ function plugin(UIkit) {
             percent: 0,
             delayControls: 3000,
             template: `
-                <div class="uk-lightbox uk-overflow-hidden">                    
-                    <ul></ul>
+                <div class="uk-lightbox uk-overflow-hidden">
+                    <ul class="uk-lightbox-items"></ul>
                     <div class="uk-lightbox-toolbar uk-position-top uk-text-right">
                         <button class="uk-lightbox-toolbar-icon uk-close-large" type="button" uk-close uk-toggle="!.uk-lightbox"></button>
                      </div>
                     <a class="uk-lightbox-button uk-position-center-left uk-position-medium" href="#" uk-slidenav-previous uk-lightbox-item="previous"></a>
                     <a class="uk-lightbox-button uk-position-center-right uk-position-medium" href="#" uk-slidenav-next uk-lightbox-item="next"></a>
-                    <div class="uk-lightbox-toolbar uk-position-bottom uk-text-center"></div>
+                    <div class="uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center"></div>
                 </div>`
         },
 
@@ -168,10 +168,10 @@ function plugin(UIkit) {
 
             this.$mount($(this.template).appendTo(this.container)[0]);
 
-            this.list = this.$el.find('ul:first');
-            this.toolbar = this.$el.find('.uk-lightbox-toolbar:first');
+            this.list = this.$el.find('.uk-lightbox-items');
+            this.toolbar = this.$el.find('.uk-lightbox-toolbar.uk-position-top');
             this.nav = this.$el.find('a[uk-lightbox-item]');
-            this.caption = this.$el.find('.uk-lightbox-toolbar').eq(1);
+            this.caption = this.$el.find('.uk-lightbox-caption');
 
             this.items.forEach((el, i) => this.list.append(`<li class="${this.clsItem} item-${i}"></li>`));
 
@@ -734,7 +734,7 @@ function plugin(UIkit) {
                 }
 
                 getImage(item.source).then(
-                    img => this.setItem(item, `<img class="uk-responsive-width" width="${img.width}" height="${img.height}" src ="${item.source}">`),
+                    img => this.setItem(item, `<img width="${img.width}" height="${img.height}" src ="${item.source}">`),
                     () => this.setError(item)
                 );
 
@@ -755,7 +755,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var video = $('<video class="uk-responsive-width" controls uk-video></video>')
+                var video = $('<video controls uk-video></video>')
                     .on('loadedmetadata', () => this.setItem(item, video.attr({width: video[0].videoWidth, height: video[0].videoHeight})))
                     .on('error', () => this.setError(item))
                     .attr('src', item.source);
