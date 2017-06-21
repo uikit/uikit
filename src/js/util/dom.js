@@ -326,3 +326,12 @@ export function preventClick() {
 
     on(doc, 'click', listener, true);
 }
+
+export function getData(el, attribute) {
+    el = toNode(el);
+    for (var i = 0, attrs = [attribute, `data-${attribute}`]; i < attrs.length; i++) {
+        if (el.hasAttribute(attrs[i])) {
+            return el.getAttribute(attrs[i]);
+        }
+    }
+}

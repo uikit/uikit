@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {mixin, util} = UIkit;
-    var {$, $trigger, Animation, ajax, assign, doc, docElement, getImage, getIndex, noop, on, off, pointerDown, pointerMove, pointerUp, preventClick, promise, requestAnimationFrame, Transition} = util;
+    var {$, $trigger, Animation, ajax, assign, doc, docElement, getData, getImage, getIndex, noop, on, off, pointerDown, pointerMove, pointerUp, preventClick, promise, requestAnimationFrame, Transition} = util;
 
     UIkit.component('lightbox', {
 
@@ -86,7 +86,7 @@ function plugin(UIkit) {
                         animation: this.animation,
                         items: this.toggles.toArray().reduce((items, el) => {
                             items.push(['href', 'caption', 'type'].reduce((obj, attr) => {
-                                obj[attr === 'href' ? 'source' : attr] = el.getAttribute(attr) || el.getAttribute(`data-${attr}`);
+                                obj[attr === 'href' ? 'source' : attr] = getData(el, attr);
                                 return obj;
                             }, {}));
                             return items;

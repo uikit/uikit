@@ -1,4 +1,4 @@
-import { assign, bind, camelize, coerce, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer } from '../util/index';
+import { assign, bind, camelize, coerce, getData, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer } from '../util/index';
 
 export default function (UIkit) {
 
@@ -134,7 +134,7 @@ export default function (UIkit) {
 
         var data = {},
             {args = [], props = {}, el} = this.$options,
-            options = el.getAttribute(this.$name) || el.getAttribute(`data-${this.$name}`),
+            options = getData(el, this.$name),
             key, prop;
 
         if (!props) {
