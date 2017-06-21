@@ -81,7 +81,7 @@ UIkit is maintained by using the [Semantic Versioning Specification (SemVer)](ht
 --- | --- | --- | --- | --- | --- |
 Latest ✔ | Latest ✔ | Latest ✔ | 10+ ✔ | 7.1+ ✔ | Latest ✔ |
 
-Tested with [BrowserStack](https://www.browserstack.com) (thanks for sponsoring!).
+Tested With<br>[<img alt="BrowserStack" height="43" width="188" src="https://d3but80xmlhqzj.cloudfront.net/production/images/static/header/header-logo.svg">](https://www.browserstack.com)<br>(thanks for sponsoring!)
 
 ## Copyright and License
 
