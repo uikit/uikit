@@ -37,6 +37,12 @@ export function off(el, type, listener, useCapture = false) {
     type.split(' ').forEach(type => toNode(el).removeEventListener(type, listener, useCapture));
 }
 
+export function trigger(element, event) {
+    var e = createEvent(event);
+    toNode(element).dispatchEvent(e);
+    return e;
+}
+
 export function $trigger(element, event, data, local = false) {
     var e = Event(event);
     $(element)[local ? 'triggerHandler' : 'trigger'](e, data);
@@ -314,9 +320,8 @@ export function query(selector, context) {
 }
 
 export function preventClick() {
-    var timer = setTimeout(() => doc.trigger('click'), 0),
+    var timer = setTimeout(() => trigger(doc, 'click'), 0),
         listener = e => {
-
             e.preventDefault();
             e.stopPropagation();
 
