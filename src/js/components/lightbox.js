@@ -367,7 +367,8 @@ function plugin(UIkit) {
                 e.stopPropagation();
 
                 if (this.stack.length) {
-                    this._animation.stop().then(() => this.start(e));
+                    this.stack.splice(1);
+                    this._animation && this._animation.stop().then(() => this.start(e));
                     return;
                 }
 
@@ -401,15 +402,15 @@ function plugin(UIkit) {
 
                 this.percent = percent;
 
-                next.css('visibility', percent >= 0 ? 'visible' : '');
-                prev.css('visibility', percent < 0 ? 'visible' : '');
+                next.css('visibility', percent < 0 ? 'visible' : '');
+                prev.css('visibility', percent >= 0 ? 'visible' : '');
 
                 new Translator(
                     this.animation,
                     this.transition,
                     current,
-                    percent >= 0 ? next : prev,
-                    percent < 0 ? -1 : 1,
+                    percent >= 0 ? prev : next,
+                    percent < 0 ? 1 : -1,
                     noop
                 ).translate(Math.abs(percent));
 
@@ -427,13 +428,13 @@ function plugin(UIkit) {
                     this.percent = Math.abs(this.percent);
 
                     if (this.percent < 0.3) {
-                        this.index = this.getIndex(percent < 0 ? 'previous' : 'next');
+                        this.index = this.getIndex(percent > 0 ? 'previous' : 'next');
                         this.percent = 1 - this.percent;
                         percent *= -1;
 
                     }
 
-                    this.show(percent < 0 ? 'previous': 'next', true);
+                    this.show(percent > 0 ? 'previous': 'next', true);
 
                     preventClick();
 
@@ -475,7 +476,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var dir = index === 'previous' ? -1 : 1;
+                var dir = index === 'next' ? 1 : -1;
 
                 index = this.getIndex(index);
 
@@ -697,7 +698,7 @@ function plugin(UIkit) {
 
             show(dir) {
                 return [
-                    {transform: `translate3d(${dir * 100}%, 0, 0)`},
+                    {transform: `translate3d(${-1 * dir * 100}%, 0, 0)`},
                     {transform: 'translate3d(0, 0, 0)'}
                 ];
             },
@@ -708,8 +709,8 @@ function plugin(UIkit) {
 
             translate(percent, dir) {
                 return [
-                    {transform: `translate3d(${dir * 100 * percent}%, 0, 0)`},
-                    {transform: `translate3d(${dir * -100 * (1 - percent)}%, 0, 0)`}
+                    {transform: `translate3d(${dir * -100 * percent}%, 0, 0)`},
+                    {transform: `translate3d(${dir * 100 * (1 - percent)}%, 0, 0)`}
                 ];
             }
 
