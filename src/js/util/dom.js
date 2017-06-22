@@ -320,14 +320,15 @@ export function query(selector, context) {
 }
 
 export function preventClick() {
-    var timer = setTimeout(() => trigger(doc, 'click'), 0),
-        listener = e => {
+    var listener = e => {
             e.preventDefault();
-            e.stopPropagation();
+            e.stopImmediatePropagation();
 
             clearTimeout(timer);
-            off(doc, 'click', listener, true);
-        };
+            remove();
+        },
+        remove = () => off(doc, 'click', listener, true),
+        timer = setTimeout(remove, 0);
 
     on(doc, 'click', listener, true);
 }
