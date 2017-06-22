@@ -359,12 +359,17 @@ function plugin(UIkit) {
 
             start(e) {
 
-                if (this.stack.length || e.button && e.button !== 0) {
+                if (e.button && e.button !== 0) {
                     return;
                 }
 
                 e.preventDefault();
                 e.stopPropagation();
+
+                if (this.stack.length) {
+                    this._animation.stop().then(() => this.start(e));
+                    return;
+                }
 
                 on(doc, pointerMove, this.move, true);
                 on(doc, pointerUp, this.end, true);
@@ -463,7 +468,7 @@ function plugin(UIkit) {
 
                 if (!force && this.stack.length > 1) {
 
-                    if (this._animation && this.stack.length === 2) {
+                    if (this.stack.length === 2) {
                         this._animation.forward(this.forwardDuration);
                     }
 
@@ -610,11 +615,11 @@ function plugin(UIkit) {
 
     function Translator (animation, transition, current, next, dir, cb) {
 
-        animation = animation in this ? this[animation] : this.slide;
+        animation = animation in Animations ? Animations[animation] : Animations.slide;
 
         return {
 
-            show(duration = 400, percent = 0) {
+            show(duration, percent = 0) {
 
                 duration -= Math.round(duration * percent);
 
@@ -633,7 +638,14 @@ function plugin(UIkit) {
                 }, noop);
             },
 
-            forward(duration = 100) {
+            stop() {
+                return promise.all([
+                    Transition.stop(next),
+                    Transition.stop(current)
+                ])
+            },
+
+            forward(duration) {
 
                 let percent = animation.percent(current);
 
@@ -657,7 +669,7 @@ function plugin(UIkit) {
     }
 
     var diff = 0.2;
-    Translator.prototype = {
+    var Animations = {
 
         fade: {
 
@@ -726,9 +738,10 @@ function plugin(UIkit) {
                 ];
             }
 
-        },
+        }
 
     };
+
 
     UIkit.mixin({
 
