@@ -59,7 +59,7 @@ export function transition(element, props, duration = 400, transition = 'linear'
             element.css(name, element.css(name));
         }
 
-        let timer = setTimeout(() => element.trigger(transitionend), duration);
+        var timer = setTimeout(() => element.trigger(transitionend), duration);
 
         element
             .one(transitionend, (e, cancel) => {

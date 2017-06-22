@@ -178,7 +178,7 @@ function plugin(UIkit) {
 
         init() {
             ['start', 'move', 'end'].forEach(key => {
-                let fn = this[key];
+                var fn = this[key];
                 this[key] = e => {
 
                     e = e.originalEvent || e;
@@ -479,7 +479,7 @@ function plugin(UIkit) {
 
                 index = this.getIndex(index);
 
-                let prev = hasPrev && this.slides.eq(this.index),
+                var prev = hasPrev && this.slides.eq(this.index),
                     next = this.slides.eq(index);
 
                 this.index = index;
@@ -623,7 +623,7 @@ function plugin(UIkit) {
 
                 duration -= Math.round(duration * percent);
 
-                let props = animation.show(dir);
+                var props = animation.show(dir);
 
                 this.translate(percent);
 
@@ -647,7 +647,7 @@ function plugin(UIkit) {
 
             forward(duration) {
 
-                let percent = animation.percent(current);
+                var percent = animation.percent(current);
 
                 return promise.all([
                     Transition.cancel(next),
@@ -793,13 +793,13 @@ function plugin(UIkit) {
 
             itemload(e, item) {
 
-                let matches = item.source.match(/\/\/.*?youtube\.[a-z]+\/watch\?v=([^&\s]+)/) || item.source.match(/youtu\.be\/(.*)/);
+                var matches = item.source.match(/\/\/.*?youtube\.[a-z]+\/watch\?v=([^&\s]+)/) || item.source.match(/youtu\.be\/(.*)/);
 
                 if (!matches) {
                     return;
                 }
 
-                let id = matches[1],
+                var id = matches[1],
                     setIframe = (width = 640, height = 320) => this.setItem(item, getIframe(`//www.youtube.com/embed/${id}`, width, height));
 
                 getImage(`//img.youtube.com/vi/${id}/maxresdefault.jpg`).then(
@@ -830,7 +830,7 @@ function plugin(UIkit) {
 
             itemload(e, item) {
 
-                let matches = item.source.match(/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/);
+                var matches = item.source.match(/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/);
 
                 if (!matches) {
                     return;

@@ -31,13 +31,11 @@ export class Player {
 
     enableApi() {
 
-        let poller;
-
         if (this.ready) {
             return this.ready;
         }
 
-        var youtube = this.isYoutube(), vimeo = this.isVimeo();
+        var youtube = this.isYoutube(), vimeo = this.isVimeo(), poller;
 
         if (youtube || vimeo) {
 

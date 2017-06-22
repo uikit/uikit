@@ -43,7 +43,7 @@ function plugin(UIkit) {
 
         init() {
             ['init', 'start', 'move', 'end'].forEach(key => {
-                let fn = this[key];
+                var fn = this[key];
                 this[key] = e => {
                     e = e.originalEvent || e;
                     this.scrollY = window.scrollY;
