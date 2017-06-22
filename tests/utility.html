@@ -497,6 +497,31 @@
                 </div>
             </div>
 
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Value</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>target</code></td>
+                        <td>CSS selector</td>
+                        <td>false</td>
+                        <td>Elements that should match. By default the children will match.</td>
+                    </tr>
+                    <tr>
+                        <td><code>row</code></td>
+                        <td>Boolean</td>
+                        <td>true</td>
+                        <td>If your targets wrap into multiple rows, only grid columns within the same row are matched.</td>
+                    </tr>
+                </tbody>
+            </table>
+
             <h2>Video</h2>
 
             <div class="uk-grid uk-child-width-1-2@s">
@@ -528,16 +553,16 @@
                 </thead>
                 <tbody>
                     <tr>
-                        <td><code>target</code></td>
-                        <td>CSS selector</td>
-                        <td>false</td>
-                        <td>Elements that should match. By default the children will match.</td>
+                        <td><code>autoplay</code></td>
+                        <td>Boolean</td>
+                        <td><code>true</code></td>
+                        <td>Automatically start the video. Pauses the video if it is not visible.</td>
                     </tr>
                     <tr>
-                        <td><code>row</code></td>
+                        <td><code>automute</code></td>
                         <td>Boolean</td>
-                        <td>true</td>
-                        <td>If your targets wrap into multiple rows, only grid columns within the same row are matched.</td>
+                        <td><code>false</code></td>
+                        <td>Automatically mute the video.</td>
                     </tr>
                 </tbody>
             </table>
