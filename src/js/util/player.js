@@ -1,4 +1,4 @@
-import { assign, isString, off, on, promise, toNode } from './index';
+import { assign, isString, one, promise, toNode } from './index';
 
 var id = 0;
 
@@ -41,46 +41,21 @@ export class Player {
 
             return this.ready = promise(resolve => {
 
-                var loadHandler = () => {
-
+                one(this.el, 'load', () => {
                     if (youtube) {
                         var listener = () => post(this.el, {event: 'listening', id: this.id});
                         poller = setInterval(listener, 100);
                         listener();
                     }
+                });
 
-                    off(this.el, 'load', loadHandler);
-                };
-
-                on(this.el, 'load', loadHandler);
-
-                this.el.setAttribute('src', `${this.el.src}${~this.el.src.indexOf('?') ? '&' : '?'}${youtube ? 'enablejsapi=1' : `api=1&player_id=${id}`}`);
-
-                var msgHandler = (e) => {
-
-                    var data = e.data;
-
-                    if (!data || !isString(data)) {
-                        return;
-                    }
-
-                    try {
-                        data = JSON.parse(data);
-                    } catch(err) {
-                        return;
-                    }
-
-                    if ((youtube && data.id === this.id && data.event === 'onReady')
-                        || (vimeo && Number(data.player_id) === this.id)
-                    ) {
+                listen(data => youtube && data.id === this.id && data.event === 'onReady' || vimeo && Number(data.player_id) === this.id)
+                    .then(() => {
                         resolve();
                         poller && clearInterval(poller);
-                        off(window, 'message', msgHandler)
-                    }
+                    });
 
-                };
-
-                on(window, 'message', msgHandler);
+                this.el.setAttribute('src', `${this.el.src}${~this.el.src.indexOf('?') ? '&' : '?'}${youtube ? 'enablejsapi=1' : `api=1&player_id=${id}`}`);
 
             });
 
@@ -134,4 +109,28 @@ export class Player {
 
 function post(el, cmd) {
     el.contentWindow.postMessage(JSON.stringify(assign({event: 'command'}, cmd)), '*');
+}
+
+function listen(cb) {
+
+    return promise(resolve => {
+
+        one(window, 'message', data => resolve(data), false, ({data}) => {
+
+            if (!data || !isString(data)) {
+                return;
+            }
+
+            try {
+                data = JSON.parse(data);
+            } catch(err) {
+                return;
+            }
+
+            return data && cb(data);
+
+        });
+
+    });
+
 }

@@ -99,8 +99,8 @@
 
 /*
  * 1. Center child within the viewport
- * 2. Color needed for spinner icon
- * 3. Not visible by default
+ * 2. Not visible by default
+ * 3. Color needed for spinner icon
  * 4. Responsiveness
  *    Using `vh` for `max-height` to fix image proportions after resize in Safari and Opera
  *    Using `vh` and `vw` to make responsive image work in IE11
@@ -113,9 +113,8 @@
     right: 0;
     bottom: 0;
     left: 0;
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
+    /* 2 */
+    display: none;
     -ms-flex-pack: center;
     -webkit-justify-content: center;
     justify-content: center;
@@ -124,8 +123,6 @@
     align-items: center;
     /* 2 */
     color: @lightbox-item-color;
-    /* 3 */
-    visibility: hidden;
     .hook-lightbox-item;
 }
 
@@ -140,6 +137,11 @@
     height: auto;
 }
 
+.uk-lightbox-item.uk-active {
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
 
 /* Toolbar
  ========================================================================== */

@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {mixin, util} = UIkit;
-    var {$, $trigger, Animation, ajax, assign, doc, docElement, getData, getImage, getIndex, noop, on, off, pointerDown, pointerMove, pointerUp, preventClick, promise, requestAnimationFrame, Transition} = util;
+    var {$, $trigger, Animation, ajax, assign, doc, docElement, fastdom, getData, getImage, getIndex, noop, on, off, pointerDown, pointerMove, pointerUp, preventClick, promise, requestAnimationFrame, Transition} = util;
 
     UIkit.component('lightbox', {
 
@@ -123,7 +123,6 @@ function plugin(UIkit) {
         defaults: {
             animation: 'slide',
             transition: 'ease',
-            cls: 'uk-open',
             duration: 400,
             attrItem: 'uk-lightbox-item',
             preload: 1,
@@ -134,6 +133,8 @@ function plugin(UIkit) {
             stack: [],
             threshold: 15,
             percent: 0,
+            cls: 'uk-open',
+            clsActive: 'uk-active',
             delayControls: 3000,
             template: `
                 <div class="uk-lightbox uk-overflow-hidden">
@@ -364,7 +365,6 @@ function plugin(UIkit) {
                 }
 
                 e.preventDefault();
-                e.stopPropagation();
 
                 if (this.stack.length) {
                     this.stack.splice(1);
@@ -402,8 +402,8 @@ function plugin(UIkit) {
 
                 this.percent = percent;
 
-                next.css('visibility', percent < 0 ? 'visible' : '');
-                prev.css('visibility', percent >= 0 ? 'visible' : '');
+                this.$toggleClass(next, this.clsActive, percent < 0);
+                this.$toggleClass(prev, this.clsActive, percent >= 0);
 
                 new Translator(
                     this.animation,
@@ -416,7 +416,9 @@ function plugin(UIkit) {
 
             },
 
-            end() {
+            end(e) {
+
+                e.preventDefault();
 
                 off(doc, pointerMove, this.move, true);
                 off(doc, pointerUp, this.end, true);
@@ -427,7 +429,7 @@ function plugin(UIkit) {
 
                     this.percent = Math.abs(this.percent);
 
-                    if (this.percent < 0.3) {
+                    if (this.percent < 0.2) {
                         this.index = this.getIndex(percent > 0 ? 'previous' : 'next');
                         this.percent = 1 - this.percent;
                         percent *= -1;
@@ -485,14 +487,14 @@ function plugin(UIkit) {
 
                 this.index = index;
 
-                next.css('visibility', 'visible');
+                this.$addClass(next, this.clsActive);
 
                 var caption = this.getItem(index).caption;
                 this.caption.toggle(!!caption).text(caption);
 
                 this._animation = new Translator(!prev ? 'scale' : this.animation, this.transition, prev || next, next, dir, () => {
 
-                    prev && prev.css('visibility', '');
+                    prev && this.$removeClass(prev, this.clsActive);
 
                     this.stack.shift();
                     if (this.stack.length) {
@@ -502,8 +504,11 @@ function plugin(UIkit) {
                     }
 
                     this.$el.trigger('itemshown', [this, next]);
-                    prev && this.$el.trigger('itemhidden', [this, prev]);
-                    this.$update();
+
+                    if (prev) {
+                        this.$el.trigger('itemhidden', [this, prev]);
+                        UIkit.update(null, prev);
+                    }
 
                 });
 
@@ -516,7 +521,8 @@ function plugin(UIkit) {
 
                 this.$el.trigger('itemshow', [this, next]);
                 prev && this.$el.trigger('itemhide', [this, prev]);
-                this.$update();
+                UIkit.update(null, next);
+                fastdom.flush(); // iOS 10+ will honor the video.play only if called from a gesture handler
             },
 
             hide() {
@@ -526,7 +532,7 @@ function plugin(UIkit) {
                 }
 
                 this.slides
-                    .css('visibility', '')
+                    .removeClass(this.clsActive)
                     .each((_, el) => Transition.stop(el));
 
                 delete this.index;
@@ -558,7 +564,7 @@ function plugin(UIkit) {
                 assign(item, {content});
                 var el = this.slides.eq(this.items.indexOf(item)).html(content);
                 this.$el.trigger('itemloaded', [this, el]);
-                this.$update();
+                UIkit.update(null, el);
             },
 
             setError(item) {
@@ -776,7 +782,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var video = $('<video controls uk-video></video>')
+                var video = $('<video controls playsinline uk-video></video>')
                     .on('loadedmetadata', () => this.setItem(item, video.attr({width: video[0].videoWidth, height: video[0].videoHeight})))
                     .on('error', () => this.setError(item))
                     .attr('src', item.source);
@@ -848,7 +854,7 @@ function plugin(UIkit) {
     }, 'lightboxPanel');
 
     function getIframe(src, width, height) {
-        return `<iframe src="${src}" width="${width}" height="${height}" style="max-width: 100%; box-sizing: border-box;" uk-video></iframe>`;
+        return `<iframe src="${src}" width="${width}" height="${height}" style="max-width: 100%; box-sizing: border-box;" uk-video uk-responsive></iframe>`;
     }
 
 }

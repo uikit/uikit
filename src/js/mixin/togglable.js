@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, $trigger, Animation, assign, noop, promise, requestAnimationFrame, Transition } from '../util/index';
+import { $, $trigger, Animation, assign, isBoolean, noop, promise, requestAnimationFrame, Transition } from '../util/index';
 
 export default {
 
@@ -103,7 +103,7 @@ export default {
                 return Animation.cancel(el).then(() => this._toggleElement(el, show, animate));
             }
 
-            show = typeof show === 'boolean' ? show : !this.isToggled(el);
+            show = isBoolean(show) ? show : !this.isToggled(el);
 
             if ($trigger(el, `before${show ? 'show' : 'hide'}`, [this]).result === false) {
                 return promise.reject();

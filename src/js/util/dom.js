@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, assign, clamp, each, Event, getContextSelectors, isNumber, isString, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
+import { animationend, assign, clamp, each, Event, getContextSelectors, isBoolean, isNumber, isString, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
 
 var docEl = document.documentElement;
 export const win = $(window);
@@ -35,6 +35,20 @@ export function on(el, type, listener, useCapture = false) {
 
 export function off(el, type, listener, useCapture = false) {
     type.split(' ').forEach(type => toNode(el).removeEventListener(type, listener, useCapture));
+}
+
+export function one(el, type, listener, useCapture, condition) {
+    type.split(' ').forEach(type => {
+        var handler = e => {
+            var result = !condition || condition(e);
+            if (result) {
+                off(el, type, handler, useCapture);
+                listener(isBoolean(result) ? e : result);
+            }
+        };
+
+        on(el, type, handler, useCapture);
+    });
 }
 
 export function trigger(element, event) {
