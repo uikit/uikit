@@ -334,17 +334,16 @@ export function query(selector, context) {
 }
 
 export function preventClick() {
-    var listener = e => {
-            e.preventDefault();
-            e.stopImmediatePropagation();
 
-            clearTimeout(timer);
-            remove();
-        },
-        remove = () => off(doc, 'click', listener, true),
-        timer = setTimeout(remove, 0);
+    var timer = setTimeout(() => trigger(doc, 'click'), 0);
 
-    on(doc, 'click', listener, true);
+    one(doc, 'click', e => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        clearTimeout(timer);
+    }, true);
+
 }
 
 export function getData(el, attribute) {
