@@ -110,6 +110,7 @@ export default function (UIkit) {
 
                     if (link.length && this.content.find(link.attr('href')).length) {
                         scroll = null;
+                        this.hide();
                     }
                 }
 
