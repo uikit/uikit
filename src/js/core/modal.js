@@ -58,6 +58,10 @@ export default function (UIkit) {
 
         computed: {
 
+            modal() {
+                return this.$el.closest('.uk-modal');
+            },
+
             panel() {
                 return this.$el.closest('.uk-modal-dialog');
             }
@@ -72,7 +76,8 @@ export default function (UIkit) {
 
             write() {
                 var current = this.$el.css('max-height');
-                this.$el.css('max-height', 150).css('max-height', Math.max(150, 150 - (this.panel.outerHeight(true) - window.innerHeight)));
+
+                this.$el.css('max-height', 150).css('max-height', Math.max(150, 150 + this.modal.height() - this.panel.outerHeight(true)));
                 if (current !== this.$el.css('max-height')) {
                     this.$el.trigger('resize');
                 }
