@@ -139,17 +139,17 @@ export default function (UIkit) {
 
             var resolved = false,
                 prompt = UIkit.modal.dialog(`
-                <form class="uk-form-stacked">
-                    <div class="uk-modal-body">
-                        <label>${isString(message) ? message : $(message).html()}</label>
-                        <input class="uk-input" type="text" autofocus>
-                    </div>
-                    <div class="uk-modal-footer uk-text-right">
-                        <button class="uk-button uk-button-default uk-modal-close" type="button">${options.labels.cancel}</button>
-                        <button class="uk-button uk-button-primary" type="submit">${options.labels.ok}</button>
-                    </div>
-                </form>
-            `, options),
+                    <form class="uk-form-stacked">
+                        <div class="uk-modal-body">
+                            <label>${isString(message) ? message : $(message).html()}</label>
+                            <input class="uk-input" type="text" autofocus>
+                        </div>
+                        <div class="uk-modal-footer uk-text-right">
+                            <button class="uk-button uk-button-default uk-modal-close" type="button">${options.labels.cancel}</button>
+                            <button class="uk-button uk-button-primary" type="submit">${options.labels.ok}</button>
+                        </div>
+                    </form>
+                `, options),
                 input = prompt.$el.find('input').val(value);
 
             prompt.$el

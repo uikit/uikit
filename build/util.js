@@ -114,7 +114,7 @@ exports.compile = function (file, dest, external, globals, name, aliases, bundle
             amd: {id: `UIkit${name}`.toLowerCase()},
             moduleName: `UIkit${exports.ucfirst(name)}`
         }))
-        .then(({code}) => exports.write(`${dest}.js`, code))
+        .then(({code}) => exports.write(`${dest}.js`, code.replace(/(>)\\n\s+|\\n\s+(<)/g, '><')))
         .then(exports.uglify)
         .catch(console.log);
 };

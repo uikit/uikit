@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, assign, clamp, Dimensions, getImage, isUndefined, scrolledOver, query} = UIkit.util;
+    var {assign, clamp, Dimensions, getImage, isUndefined, scrolledOver, query} = UIkit.util;
 
     var props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
