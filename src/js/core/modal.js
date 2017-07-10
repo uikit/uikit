@@ -7,12 +7,7 @@ export default function (UIkit) {
 
         mixins: [Modal],
 
-        props: {
-            center: Boolean
-        },
-
         defaults: {
-            center: false,
             clsPage: 'uk-modal-page',
             clsPanel: 'uk-modal-dialog',
             selClose: '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full'
@@ -91,11 +86,11 @@ export default function (UIkit) {
 
     UIkit.modal.dialog = function (content, options) {
 
-        var dialog = UIkit.modal(
-            `<div class="uk-modal">
+        var dialog = UIkit.modal(`
+            <div class="uk-modal">
                 <div class="uk-modal-dialog">${content}</div>
-             </div>`
-        , options);
+             </div>
+        `, options);
 
         dialog.$el.on('hidden', e => {
             if (e.target === e.currentTarget) {
