@@ -50,7 +50,7 @@
     "shortid": "^2.2.8",
     "webpack": "^2.6.1",
     "webpack-dev-server": "^2.4.5",
-    "uglify-js": "^3.0.24",
+    "uglify-js": "^3.0.24"
   },
   "watch": {
     "compile-js": "src/js/**/*.js",
