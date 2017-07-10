@@ -107,13 +107,14 @@ exports.compile = function (file, dest, external, globals, name, aliases, bundle
             buble(),
         ]
     })
-        .then(bundle => exports.write(`${dest}.js`, bundle.generate({
+        .then(bundle => bundle.generate({
             globals,
             format: 'umd',
             banner: exports.banner,
-            moduleId: `UIkit${name}`.toLowerCase(),
-            moduleName: `UIkit${exports.ucfirst(name)}`,
-        }).code))
+            amd: {id: `UIkit${name}`.toLowerCase()},
+            moduleName: `UIkit${exports.ucfirst(name)}`
+        }))
+        .then(({code}) => exports.write(`${dest}.js`, code))
         .then(exports.uglify)
         .catch(console.log);
 };
