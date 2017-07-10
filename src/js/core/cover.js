@@ -8,12 +8,9 @@ export default function (UIkit) {
         mixins: [Class],
 
         props: {
-            automute: Boolean,
             width: Number,
             height: Number
         },
-
-        defaults: {automute: true},
 
         computed: {
 

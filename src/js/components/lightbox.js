@@ -800,6 +800,25 @@ function plugin(UIkit) {
 
             itemload(e, item) {
 
+                if (item.type !== 'iframe') {
+                    return;
+                }
+
+                this.setItem(item, `<iframe class="uk-lightbox-iframe" src="${item.source}" frameborder="0" allowfullscreen></iframe>`);
+
+                e.stopImmediatePropagation();
+            }
+
+        }
+
+    }, 'lightboxPanel');
+
+    UIkit.mixin({
+
+        events: {
+
+            itemload(e, item) {
+
                 var matches = item.source.match(/\/\/.*?youtube\.[a-z]+\/watch\?v=([^&\s]+)/) || item.source.match(/youtu\.be\/(.*)/);
 
                 if (!matches) {
@@ -807,7 +826,7 @@ function plugin(UIkit) {
                 }
 
                 var id = matches[1],
-                    setIframe = (width = 640, height = 320) => this.setItem(item, getIframe(`//www.youtube.com/embed/${id}`, width, height));
+                    setIframe = (width = 640, height = 450) => this.setItem(item, getIframe(`//www.youtube.com/embed/${id}`, width, height));
 
                 getImage(`//img.youtube.com/vi/${id}/maxresdefault.jpg`).then(
                     img => {
