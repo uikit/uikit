@@ -490,7 +490,7 @@ function plugin(UIkit) {
                 this.$addClass(next, this.clsActive);
 
                 var caption = this.getItem(index).caption;
-                this.caption.toggle(!!caption).text(caption);
+                this.caption.toggle(!!caption).html(caption);
 
                 this._animation = new Translator(!prev ? 'scale' : this.animation, this.transition, prev || next, next, dir, () => {
 
