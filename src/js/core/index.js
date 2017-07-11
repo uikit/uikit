@@ -41,7 +41,7 @@ export default function (UIkit) {
         fastdom.flush();
     });
 
-    on(document, animationstart, ({target}) => {
+    animationstart && on(document, animationstart, ({target}) => {
         if ((getStyle(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
             started++;
             document.body.style.overflowX = 'hidden';
