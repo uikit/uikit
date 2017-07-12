@@ -21,7 +21,7 @@ export default function (UIkit) {
 
         var force = args && !isString(args[args.length - 1]) ? args.pop() : undefined;
 
-        for (var i = 1; i < args && args.length; i++) {
+        for (var i = 1; i < (args && args.length); i++) {
             args[0] && supportsForce
                 ? args[0].toggle(args[i], force)
                 : (args[0][(!isUndefined(force) ? force : !args[0].contains(args[i])) ? 'add' : 'remove'](args[i]));
