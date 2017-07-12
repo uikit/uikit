@@ -833,7 +833,7 @@ function plugin(UIkit) {
                         //youtube default 404 thumb, fall back to lowres
                         if (img.width === 120 && img.height === 90) {
                             getImage(`//img.youtube.com/vi/${id}/0.jpg`).then(
-                                () => setIframe(img.width, img.height),
+                                img => setIframe(img.width, img.height),
                                 setIframe
                             );
                         } else {
