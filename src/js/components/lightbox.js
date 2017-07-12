@@ -352,6 +352,68 @@ function plugin(UIkit) {
                 },
 
                 handler: 'start'
+            },
+
+            {
+
+                name: 'itemload',
+
+                handler(_, item) {
+
+                    var {source, type} = item, matches;
+
+                    // Image
+                    if (type === 'image' || source && source.match(/\.(jp(e)?g|png|gif|svg)$/i)) {
+
+                        getImage(source).then(
+                            img => this.setItem(item, `<img width="${img.width}" height="${img.height}" src ="${source}">`),
+                            () => this.setError(item)
+                        );
+
+                    // Video
+                    } else if (type === 'video' || source && source.match(/\.(mp4|webm|ogv)$/i)) {
+
+                        var video = $('<video controls playsinline uk-video></video>')
+                            .on('loadedmetadata', () => this.setItem(item, video.attr({width: video[0].videoWidth, height: video[0].videoHeight})))
+                            .on('error', () => this.setError(item))
+                            .attr('src', source);
+
+                    // Iframe
+                    } else if (type === 'iframe') {
+
+                        this.setItem(item, `<iframe class="uk-lightbox-iframe" src="${source}" frameborder="0" allowfullscreen></iframe>`);
+
+                    // Youtube
+                    } else if (matches = source.match(/\/\/.*?youtube\.[a-z]+\/watch\?v=([^&\s]+)/) || source.match(/youtu\.be\/(.*)/)) {
+
+                        var id = matches[1],
+                            setIframe = (width = 640, height = 450) => this.setItem(item, getIframe(`//www.youtube.com/embed/${id}`, width, height));
+
+                        getImage(`//img.youtube.com/vi/${id}/maxresdefault.jpg`).then(
+                            img => {
+                                //youtube default 404 thumb, fall back to lowres
+                                if (img.width === 120 && img.height === 90) {
+                                    getImage(`//img.youtube.com/vi/${id}/0.jpg`).then(
+                                        img => setIframe(img.width, img.height),
+                                        setIframe
+                                    );
+                                } else {
+                                    setIframe(img.width, img.height);
+                                }
+                            },
+                            setIframe
+                        );
+
+                    // Vimeo
+                    } else if (matches = source.match(/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/)) {
+
+                        ajax({type: 'GET', url: `http://vimeo.com/api/oembed.json?url=${encodeURI(source)}`, jsonp: 'callback', dataType: 'jsonp'})
+                            .then(({height, width}) => this.setItem(item, getIframe(`//player.vimeo.com/video/${matches[2]}`, width, height)));
+
+                    }
+
+                }
+
             }
 
         ],
@@ -748,129 +810,6 @@ function plugin(UIkit) {
         }
 
     };
-
-
-    UIkit.mixin({
-
-        events: {
-
-            itemload(e, item) {
-
-                if (!(item.type === 'image' || item.source && item.source.match(/\.(jp(e)?g|png|gif|svg)$/i))) {
-                    return;
-                }
-
-                getImage(item.source).then(
-                    img => this.setItem(item, `<img width="${img.width}" height="${img.height}" src ="${item.source}">`),
-                    () => this.setError(item)
-                );
-
-                e.stopImmediatePropagation();
-            }
-
-        }
-
-    }, 'lightboxPanel');
-
-    UIkit.mixin({
-
-        events: {
-
-            itemload(e, item) {
-
-                if (!(item.type === 'video' || item.source && item.source.match(/\.(mp4|webm|ogv)$/i))) {
-                    return;
-                }
-
-                var video = $('<video controls playsinline uk-video></video>')
-                    .on('loadedmetadata', () => this.setItem(item, video.attr({width: video[0].videoWidth, height: video[0].videoHeight})))
-                    .on('error', () => this.setError(item))
-                    .attr('src', item.source);
-
-                e.stopImmediatePropagation();
-            }
-
-        }
-
-    }, 'lightboxPanel');
-
-    UIkit.mixin({
-
-        events: {
-
-            itemload(e, item) {
-
-                if (item.type !== 'iframe') {
-                    return;
-                }
-
-                this.setItem(item, `<iframe class="uk-lightbox-iframe" src="${item.source}" frameborder="0" allowfullscreen></iframe>`);
-
-                e.stopImmediatePropagation();
-            }
-
-        }
-
-    }, 'lightboxPanel');
-
-    UIkit.mixin({
-
-        events: {
-
-            itemload(e, item) {
-
-                var matches = item.source.match(/\/\/.*?youtube\.[a-z]+\/watch\?v=([^&\s]+)/) || item.source.match(/youtu\.be\/(.*)/);
-
-                if (!matches) {
-                    return;
-                }
-
-                var id = matches[1],
-                    setIframe = (width = 640, height = 450) => this.setItem(item, getIframe(`//www.youtube.com/embed/${id}`, width, height));
-
-                getImage(`//img.youtube.com/vi/${id}/maxresdefault.jpg`).then(
-                    img => {
-                        //youtube default 404 thumb, fall back to lowres
-                        if (img.width === 120 && img.height === 90) {
-                            getImage(`//img.youtube.com/vi/${id}/0.jpg`).then(
-                                img => setIframe(img.width, img.height),
-                                setIframe
-                            );
-                        } else {
-                            setIframe(img.width, img.height);
-                        }
-                    },
-                    setIframe
-                );
-
-                e.stopImmediatePropagation();
-            }
-
-        }
-
-    }, 'lightboxPanel');
-
-    UIkit.mixin({
-
-        events: {
-
-            itemload(e, item) {
-
-                var matches = item.source.match(/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/);
-
-                if (!matches) {
-                    return;
-                }
-
-                ajax({type: 'GET', url: `http://vimeo.com/api/oembed.json?url=${encodeURI(item.source)}`, jsonp: 'callback', dataType: 'jsonp'})
-                    .then(({height, width}) => this.setItem(item, getIframe(`//player.vimeo.com/video/${matches[2]}`, width, height)));
-
-                e.stopImmediatePropagation();
-            }
-
-        }
-
-    }, 'lightboxPanel');
 
     function getIframe(src, width, height) {
         return `<iframe src="${src}" width="${width}" height="${height}" style="max-width: 100%; box-sizing: border-box;" uk-video uk-responsive></iframe>`;
