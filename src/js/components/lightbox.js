@@ -234,7 +234,7 @@ function plugin(UIkit) {
 
             {
 
-                name: 'click',
+                name: pointerDown,
 
                 delegate() {
                     return `[${this.attrItem}]`;
@@ -652,8 +652,7 @@ function plugin(UIkit) {
                 this.nav.attr('hidden', this.items.length <= 1);
 
                 if (this.items.length > 1) {
-                    animate(this.nav.eq(0), 'uk-animation-fade');
-                    animate(this.nav.eq(1), 'uk-animation-fade');
+                    animate(this.nav, 'uk-animation-fade');
                 }
 
             },
@@ -668,8 +667,7 @@ function plugin(UIkit) {
                 animate(this.toolbars.eq(1), 'uk-animation-slide-bottom', 'out');
 
                 if (this.items.length > 1) {
-                    animate(this.nav.eq(0), 'uk-animation-fade', 'out');
-                    animate(this.nav.eq(1), 'uk-animation-fade', 'out');
+                    animate(this.nav, 'uk-animation-fade', 'out');
                 }
 
             }
@@ -679,7 +677,7 @@ function plugin(UIkit) {
     });
 
     function animate(el, animation, dir = 'in') {
-        Animation[dir](el.attr('hidden', false), animation).then(() => { dir === 'out' && el.attr('hidden', true)})
+        el.each(i => Animation[dir](el.eq(i).attr('hidden', false), animation).then(() => { dir === 'out' && el.eq(i).attr('hidden', true)}));
     }
 
     function Translator (animation, transition, current, next, dir, cb) {
