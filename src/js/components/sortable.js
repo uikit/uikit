@@ -98,12 +98,12 @@ function plugin(UIkit) {
                     || this.handle && !isWithin(target, this.handle)
                     || e.button && e.button !== 0
                     || isWithin(target, `.${this.clsNoDrag}`)
+                    || e.defaultPrevented
                 ) {
                     return;
                 }
 
                 e.preventDefault();
-                e.stopPropagation();
 
                 this.touched = [this];
                 this.placeholder = placeholder;
