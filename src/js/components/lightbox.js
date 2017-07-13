@@ -56,7 +56,7 @@ function plugin(UIkit) {
 
                 handler(e) {
                     e.preventDefault();
-                    this.show(this.toggles.index(e.currentTarget));
+                    this.show(this.toggles.index($(e.currentTarget).blur()));
                 }
 
             }
@@ -234,7 +234,7 @@ function plugin(UIkit) {
 
             {
 
-                name: pointerDown,
+                name: 'click',
 
                 delegate() {
                     return `[${this.attrItem}]`;
@@ -242,7 +242,7 @@ function plugin(UIkit) {
 
                 handler(e) {
                     e.preventDefault();
-                    this.show($(e.currentTarget).attr(this.attrItem));
+                    this.show($(e.currentTarget).blur().attr(this.attrItem));
                 }
 
             },
