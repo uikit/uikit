@@ -410,7 +410,13 @@ function plugin(UIkit) {
                         ajax({type: 'GET', url: `http://vimeo.com/api/oembed.json?url=${encodeURI(source)}`, jsonp: 'callback', dataType: 'jsonp'})
                             .then(({height, width}) => this.setItem(item, getIframe(`//player.vimeo.com/video/${matches[2]}`, width, height)));
 
+                    } else {
+
+                        return;
+
                     }
+
+                    return true
 
                 }
 
@@ -583,6 +589,7 @@ function plugin(UIkit) {
 
                 this.$el.trigger('itemshow', [this, next]);
                 prev && this.$el.trigger('itemhide', [this, prev]);
+
                 UIkit.update(null, next);
                 fastdom.flush(); // iOS 10+ will honor the video.play only if called from a gesture handler
             },
@@ -613,7 +620,7 @@ function plugin(UIkit) {
 
                 this.setItem(item, '<span uk-spinner></span>');
 
-                if (!$trigger(this.$el, 'itemload', [item], true).isImmediatePropagationStopped()) {
+                if (!$trigger(this.$el, 'itemload', [item], true).result) {
                     this.setError(item);
                 }
             },
@@ -764,7 +771,7 @@ function plugin(UIkit) {
 
             show(dir) {
                 return [
-                    {transform: `translate3d(${-1 * dir * 100}%, 0, 0)`},
+                    {transform: `translate3d(${dir * -100}%, 0, 0)`},
                     {transform: 'translate3d(0, 0, 0)'}
                 ];
             },
