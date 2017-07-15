@@ -8,6 +8,8 @@
 //                  `uk-lightbox-toolbar`
 //                  `uk-lightbox-toolbar-icon`
 //                  `uk-lightbox-button`
+//                  `uk-lightbox-caption`
+//                  `uk-lightbox-iframe`
 //
 // States:          `uk-open`
 //
@@ -153,6 +155,8 @@
     .hook-lightbox-toolbar;
 }
 
+.uk-lightbox-toolbar * { color: @lightbox-toolbar-color; }
+
 
 /* Toolbar Icon (Close)
  ========================================================================== */
@@ -210,10 +214,20 @@
 }
 
 
+/* Caption
+ ========================================================================== */
+
+.uk-lightbox-caption {}
+
+
+/* Iframe
+ ========================================================================== */
+
 .uk-lightbox-iframe {
     width: 80%;
     height: 80%;
 }
+
 
 // Hooks
 // ========================================================================
