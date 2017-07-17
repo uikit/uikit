@@ -100,6 +100,7 @@ export class Player {
         if (this.isIFrame()) {
             this.enableApi().then(() => post(this.el, {func: 'mute', method: 'setVolume', value: 0}))
         } else if (this.isHTML5()) {
+            this.el.muted = true;
             this.el.setAttribute('muted', '');
         }
 

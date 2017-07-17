@@ -432,8 +432,6 @@ function plugin(UIkit) {
                     return;
                 }
 
-                e.preventDefault();
-
                 if (this.stack.length) {
                     this.stack.splice(1);
                     this._animation && this._animation.stop().then(() => this.start(e));
@@ -452,7 +450,9 @@ function plugin(UIkit) {
 
             },
 
-            move() {
+            move(e) {
+
+                e.preventDefault();
 
                 var {start, current, next, prev} = this.touch;
 
@@ -501,7 +501,6 @@ function plugin(UIkit) {
                         this.index = this.getIndex(percent > 0 ? 'previous' : 'next');
                         this.percent = 1 - this.percent;
                         percent *= -1;
-
                     }
 
                     this.show(percent > 0 ? 'previous': 'next', true);
@@ -549,6 +548,11 @@ function plugin(UIkit) {
                 var dir = index === 'next' ? 1 : -1;
 
                 index = this.getIndex(index);
+
+                if (hasPrev && index === this.index) {
+                    this.stack[force ? 'shift' : 'pop']();
+                    return;
+                }
 
                 var prev = hasPrev && this.slides.eq(this.index),
                     next = this.slides.eq(index);
