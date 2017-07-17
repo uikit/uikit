@@ -471,7 +471,7 @@ function plugin(UIkit) {
                 this.percent = percent;
 
                 this.$toggleClass(next, this.clsActive, percent < 0);
-                this.$toggleClass(prev, this.clsActive, percent >= 0);
+                this.$toggleClass(prev, this.clsActive, percent >= 0 || prev.is(next));
 
                 new Translator(
                     this.animation,
