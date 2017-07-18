@@ -21,6 +21,8 @@
 ### Fixed
 
 - Offcanvas will keep scroll position if anchor link was clicked
+- Fix margin modifier in position component for IE11
+- Fix divider-small text alignment for `hr` elements Edge and IE
 - Fix setting the ratio of Spinner component
 - Fix event handling in Sortable component
 - Fix grid calculation (Firefox)
