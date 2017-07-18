@@ -2,9 +2,10 @@ import $ from 'jquery';
 import { each, toNode } from './index';
 
 var dirs = {
-    x: ['width', 'left', 'right'],
-    y: ['height', 'top', 'bottom']
-};
+        x: ['width', 'left', 'right'],
+        y: ['height', 'top', 'bottom']
+    },
+    docEl = document.documentElement;
 
 export function position(element, target, attach, targetAttach, offset, targetOffset, flip, boundary) {
 
@@ -97,7 +98,9 @@ export function getDimensions(element) {
 
     element = toNode(element);
 
-    var window = getWindow(element), top = window.pageYOffset, left = window.pageXOffset;
+    var window = getWindow(element),
+        top = window.pageYOffset - docEl.clientTop,
+        left = window.pageXOffset - docEl.clientLeft;
 
     if (!element.ownerDocument) {
         return {
