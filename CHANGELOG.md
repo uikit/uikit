@@ -23,6 +23,7 @@
 - Offcanvas will keep scroll position if anchor link was clicked
 - Fix setting the ratio of Spinner component
 - Fix event handling in Sortable component
+- Fix grid calculation (Firefox)
 
 ## 3.0.0 beta 25 (June 9, 2017)
 
