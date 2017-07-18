@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var { mixin, util } = UIkit;
-    var {$, assign, docElement: doc, docHeight, fastdom, getDimensions, isWithin, offsetTop, pointerDown, pointerMove, pointerUp, preventClick, promise, win} = util;
+    var {$, assign, docElement: doc, docHeight, fastdom, getDimensions, isWithin, offset, offsetTop, pointerDown, pointerMove, pointerUp, preventClick, promise, win} = util;
 
     UIkit.component('sortable', {
 
@@ -73,7 +73,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                this.drag.offset({top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
+                offset(this.drag, {top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
 
                 var top = offsetTop(this.drag), bottom = top + this.drag[0].offsetHeight;
 
