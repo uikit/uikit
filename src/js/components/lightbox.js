@@ -362,16 +362,20 @@ function plugin(UIkit) {
 
                     var {source, type} = item, matches;
 
+                    if (!source) {
+                        return;
+                    }
+
                     // Image
-                    if (type === 'image' || source && source.match(/\.(jp(e)?g|png|gif|svg)$/i)) {
+                    if (type === 'image' || source.match(/\.(jp(e)?g|png|gif|svg)$/i)) {
 
                         getImage(source).then(
-                            img => this.setItem(item, `<img width="${img.width}" height="${img.height}" src ="${source}">`),
+                            img => this.setItem(item, `<img width="${img.width}" height="${img.height}" src="${source}">`),
                             () => this.setError(item)
                         );
 
                     // Video
-                    } else if (type === 'video' || source && source.match(/\.(mp4|webm|ogv)$/i)) {
+                    } else if (type === 'video' || source.match(/\.(mp4|webm|ogv)$/i)) {
 
                         var video = $('<video controls playsinline uk-video></video>')
                             .on('loadedmetadata', () => this.setItem(item, video.attr({width: video[0].videoWidth, height: video[0].videoHeight})))
