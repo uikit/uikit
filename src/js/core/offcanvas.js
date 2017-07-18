@@ -106,9 +106,9 @@ export default function (UIkit) {
                 },
 
                 handler({target}) {
-                    var link = $(target).closest('a[href^=#]');
+                    var link = $(target).closest('a[href^=#]'), href = link.attr('href');
 
-                    if (link.length && this.content.find(link.attr('href')).length) {
+                    if (href.length > 1 && this.content.find(href).length) {
                         scroll = null;
                         this.hide();
                     }
