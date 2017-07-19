@@ -101,10 +101,6 @@ export default function (UIkit) {
                     return this.panel;
                 },
 
-                filter() {
-                    return this.overlay;
-                },
-
                 handler({target}) {
                     var link = $(target).closest('a[href^=#]'), href = link.attr('href');
 

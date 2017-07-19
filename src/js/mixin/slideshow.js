@@ -175,8 +175,8 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var changed = Math.trunc(this.percent) !== Math.trunc(percent),
-                    index = this.getIndex(this.index - Math.trunc(percent)),
+                var changed = trunc(this.percent) !== trunc(percent),
+                    index = this.getIndex(this.index - trunc(percent)),
                     current = this.slides.eq(index),
                     dir = percent < 0 ? 1 : -1,
                     nextIndex = getIndex(percent < 0 ? 'next' : 'previous', this.slides, index),
@@ -209,7 +209,7 @@ function plugin(UIkit) {
                     var percent = this.percent;
 
                     this.percent = Math.abs(this.percent) % 1;
-                    this.index = this.getIndex(this.index - Math.trunc(percent));
+                    this.index = this.getIndex(this.index - trunc(percent));
 
                     if (this.percent < 0.2) {
                         this.index = this.getIndex(percent > 0 ? 'previous' : 'next');
@@ -527,6 +527,11 @@ function plugin(UIkit) {
 
         }
 
+    }
+
+    // polyfill for Math.trunc (IE)
+    function trunc(x) {
+        return ~~x;
     }
 
 }
