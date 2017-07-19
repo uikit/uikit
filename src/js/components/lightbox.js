@@ -87,15 +87,15 @@ function plugin(UIkit) {
 
             _init() {
                 return this.panel = this.panel || UIkit.lightboxPanel({
-                        animation: this.animation,
-                        items: this.toggles.toArray().reduce((items, el) => {
-                            items.push(['href', 'caption', 'type'].reduce((obj, attr) => {
-                                obj[attr === 'href' ? 'source' : attr] = getData(el, attr);
-                                return obj;
-                            }, {}));
-                            return items;
-                        }, [])
-                    });
+                    animation: this.animation,
+                    items: this.toggles.toArray().reduce((items, el) => {
+                        items.push(['href', 'caption', 'type'].reduce((obj, attr) => {
+                            obj[attr === 'href' ? 'source' : attr] = getData(el, attr);
+                            return obj;
+                        }, {}));
+                        return items;
+                    }, [])
+                });
             },
 
             show(index) {
@@ -501,7 +501,11 @@ function plugin(UIkit) {
     });
 
     function animate(el, animation, dir = 'in') {
-        el.each(i => Animation[dir](el.eq(i).attr('hidden', false), animation).then(() => { dir === 'out' && el.eq(i).attr('hidden', true)}));
+        el.each(i =>
+            Animation[dir](el.eq(i).attr('hidden', false), animation).then(() =>
+                dir === 'out' && el.eq(i).attr('hidden', true)
+            )
+        );
     }
 
     function getIframe(src, width, height) {

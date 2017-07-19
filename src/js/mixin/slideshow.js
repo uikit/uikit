@@ -217,7 +217,7 @@ function plugin(UIkit) {
                         percent *= -1;
                     }
 
-                    this.show(percent > 0 ? 'previous': 'next', true);
+                    this.show(percent > 0 ? 'previous' : 'next', true);
 
                     preventClick();
 
@@ -251,12 +251,12 @@ function plugin(UIkit) {
 
                 var hasPrev = this.slides.hasClass('uk-active'),
                     dir = index === 'next'
-                            ? 1
-                            : index === 'previous'
+                        ? 1
+                        : index === 'previous'
+                            ? -1
+                            : index < this.index
                                 ? -1
-                                : index < this.index
-                                    ? -1
-                                    : 1;
+                                : 1;
 
                 index = this.getIndex(index);
 
@@ -318,7 +318,7 @@ function plugin(UIkit) {
                 this.stopAutoplay();
 
                 if (this.autoplay) {
-                    this.interval = setInterval(() => {!this.isHovering && this.show('next')}, this.autoplay);
+                    this.interval = setInterval(() => !this.isHovering && this.show('next'), this.autoplay);
                 }
 
             },
@@ -362,8 +362,8 @@ function plugin(UIkit) {
 
             show(dir) {
                 return [
-                    {transform: `translate3d(${dir * -100}%, 0, 0)`},
-                    {transform: 'translate3d(0, 0, 0)'}
+                    {transform: translate3d(dir * -100)},
+                    {transform: translate3d()}
                 ];
             },
 
@@ -373,8 +373,8 @@ function plugin(UIkit) {
 
             translate(percent, dir) {
                 return [
-                    {transform: `translate3d(${dir * -100 * percent}%, 0, 0)`},
-                    {transform: `translate3d(${dir * 100 * (1 - percent)}%, 0, 0)`}
+                    {transform: translate3d(dir * -100 * percent)},
+                    {transform: translate3d(dir * 100 * (1 - percent))}
                 ];
             }
 
@@ -384,8 +384,8 @@ function plugin(UIkit) {
 
             show() {
                 return [
-                    {opacity: 0, transform: `scale3d(${1 - diff}, ${1 - diff}, 1)`},
-                    {opacity: 1, transform: 'scale3d(1, 1, 1)'}
+                    {opacity: 0, transform: scale3d(1 - diff)},
+                    {opacity: 1, transform: scale3d(1)}
                 ];
             },
 
@@ -394,12 +394,9 @@ function plugin(UIkit) {
             },
 
             translate(percent) {
-                var scale1 = 1 - diff * percent,
-                    scale2 = 1 - diff + diff * percent;
-
                 return [
-                    {opacity: 1 - percent, transform: `scale3d(${scale1}, ${scale1}, 1)`},
-                    {opacity: percent, transform: `scale3d(${scale2}, ${scale2}, 1)`}
+                    {opacity: 1 - percent, transform: scale3d(1 - diff * percent)},
+                    {opacity: percent, transform: scale3d(1 - diff + diff * percent)}
                 ];
             }
 
@@ -409,19 +406,15 @@ function plugin(UIkit) {
 
             show(dir) {
 
-                if (dir < 0) {
-                    return [
-                        {opacity: 1, transform: `translate3d(100%, 0, 0)`, zIndex: 0},
-                        {opacity: 1, transform: `scale3d(1, 1, 1) translate3d(0, 0, 0)`, zIndex: -1},
+                return dir < 0
+                    ? [
+                        {opacity: 1, transform: translate3d(100), zIndex: 0},
+                        {opacity: 1, transform: `${scale3d(1)} ${translate3d()}`, zIndex: -1},
+                    ]
+                    : [
+                        {opacity: 0.3, transform: `${scale3d(1 - diff)} ${translate3d(-20)}`, zIndex: -1},
+                        {opacity: 1, transform: translate3d(), zIndex: 0}
                     ];
-                } else {
-                    return [
-                        {opacity: 0.3, transform: `scale3d(${1 - diff}, ${1 - diff}, 1) translate3d(-20%, 0, 0)`, zIndex: -1},
-                        {opacity: 1, transform: 'translate3d(0, 0, 0)', zIndex: 0}
-                    ];
-                }
-
-
             },
 
             percent(current, next, dir) {
@@ -433,29 +426,22 @@ function plugin(UIkit) {
             },
 
             translate(percent, dir) {
-                var scale;
-
-                if (dir < 0) {
-                    scale = 1 - diff * (1 - percent);
-                    return [
-                        {opacity: 1, transform: `translate3d(${100 * percent}%, 0, 0)`, zIndex: 0},
-                        {opacity: 0.3 + 0.7 * percent, transform: `scale3d(${scale}, ${scale}, 1) translate3d(${-20 * (1 - percent)}%, 0, 0)`, zIndex: -1},
+                return dir < 0
+                    ? [
+                        {opacity: 1, transform: translate3d(100 * percent), zIndex: 0},
+                        {opacity: 0.3 + 0.7 * percent, transform: `${scale3d(1 - diff * (1 - percent))} ${translate3d(-20 * (1 - percent))}`, zIndex: -1},
+                    ]
+                    : [
+                        {opacity: 1 - 0.7 * percent, transform: `${scale3d(1 - diff * percent)} ${translate3d(-20 * percent)}`, zIndex: -1},
+                        {opacity: 1, transform: translate3d(100 * (1 - percent)), zIndex: 0}
                     ];
-                } else {
-                    scale = 1 - diff * percent;
-                    return [
-                        {opacity: 1 - 0.7 * percent, transform: `scale3d(${scale}, ${scale}, 1) translate3d(${-20 * percent}%, 0, 0)`, zIndex: -1},
-                        {opacity: 1, transform: `translate3d(${100 * (1 - percent)}%, 0, 0)`, zIndex: 0}
-                    ];
-                }
-
             }
 
-        },
+        }
 
     };
 
-    function Transitioner (animation, transition, current, next, dir, cb) {
+    function Transitioner(animation, transition, current, next, dir, cb) {
 
         animation = animation in Animations ? Animations[animation] : Animations.slide;
 
@@ -527,6 +513,14 @@ function plugin(UIkit) {
 
         }
 
+    }
+
+    function scale3d(value) {
+        return `scale3d(${value}, ${value}, 1)`;
+    }
+
+    function translate3d(value = 0) {
+        return `translate3d(${value}${value ? '%' : ''}, 0, 0)`;
     }
 
 }

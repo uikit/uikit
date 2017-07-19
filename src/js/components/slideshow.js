@@ -23,7 +23,7 @@ function plugin(UIkit) {
 
         defaults: {
             animation: 'swipe',
-            duration: 5000,
+            duration: 800,
             width: 1900,
             height: 1200,
             clsSlides: 'uk-slideshow-items',
@@ -103,18 +103,25 @@ function plugin(UIkit) {
 
                     var percent = _animation.percent();
                     this._percent = dir > 0 ? 1 - percent : percent;
+                    this._active = true;
 
                 },
 
                 write() {
 
                     if (this._percent === false) {
+
+                        if (this._active) {
+                            this.reset();
+                            this._active = false;
+                        }
+
                         return;
                     }
 
                     this.$emit();
 
-                     if (this._prev !== this._percent) {
+                    if (this._prev !== this._percent) {
                         this.$el.css(this.getCss(this._percent));
                         this._prev = this._percent;
                     }
