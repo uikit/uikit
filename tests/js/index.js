@@ -103,6 +103,7 @@ $(() => {
         'search',
         'section',
         'slidenav',
+        'slideshow',
         'sortable',
         'spinner',
         'sticky',
@@ -120,7 +121,7 @@ $(() => {
         'upload',
         'visibility',
         'width'
-    ].sort().forEach(name => $(`<option value="${name}.html">${name.split('-').map(ucfirst).join(' ')}</option>`).appendTo($tests));
+    ].forEach(name => $(`<option value="${name}.html">${name.split('-').map(ucfirst).join(' ')}</option>`).appendTo($tests));
 
     $tests.on('change', () => {
         if ($tests.val()) {

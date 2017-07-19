@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Slideshow - UIkit tests</title>
+        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="js/test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Slideshow</h1>
+
+            <h2>Animations</h2>
+
+            <div class="uk-margin">
+                <select id="animation-switcher" class="uk-select uk-form-width-small">
+                    <option value="swipe">Swipe</option>
+                    <option value="slide">Slide</option>
+                    <option value="fade">Fade</option>
+                    <option value="scale">Scale</option>
+                </select>
+            </div>
+
+            <div class="uk-child-width-1-2@m" uk-grid>
+
+                <div>
+                    <div class="slideshow-animation uk-visible-toggle" uk-slideshow="">
+
+                        <div class="uk-slideshow-items">
+                            <div id="item-1" class="uk-slideshow-item">
+                                <img src="images/size1.jpg" alt uk-cover>
+                                <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
+                                    <div>
+                                        <h3>Image</h3>
+                                        <p id="1" class="uk-light" uk-slideshow-parallax="x: 50;">Animation</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="item-2" class="uk-slideshow-item">
+                                <img src="images/size2.jpg" alt uk-cover>
+                                <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
+                                    <div>
+                                        <h3>Image</h3>
+                                        <p id="2" class="uk-light" uk-slideshow-parallax="x: 50;">Animation</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="item-3" class="uk-slideshow-item">
+                                <img src="images/photo.jpg" alt uk-cover>
+                                <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
+                                    <div>
+                                        <h3>Image</h3>
+                                        <p id="3" class="uk-light" uk-slideshow-parallax="x: 50;">Animation</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="uk-slideshow-item">-->
+                                <!--<video src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" loop uk-video="automute: true" uk-cover></video>-->
+                                <!--<div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">-->
+                                    <!--<div>-->
+                                        <!--<h3>Video</h3>-->
+                                        <!--<p class="uk-animation-slide-bottom uk-light">Animation</p>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        </div>
+
+                        <a class="uk-position-center-left uk-slidenav-large uk-hidden-hover uk-light" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                        <a class="uk-position-center-right uk-slidenav-large uk-hidden-hover uk-light" uk-slidenav-next uk-slideshow-item="next"></a>
+
+                        <ul class="uk-dotnav uk-margin uk-flex-center">
+                            <li uk-slideshow-item="0"><a href="#">Item 1</a></li>
+                            <li uk-slideshow-item="1"><a href="#">Item 2</a></li>
+                            <li uk-slideshow-item="2"><a href="#">Item 3</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+
+                <div>
+                    <div class="slideshow-animation uk-visible-toggle" uk-slideshow>
+
+                        <div class="uk-slideshow-items">
+                            <div class="uk-slideshow-item" data-source="images/size1.jpg">
+                                <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
+                                    <div>
+                                        <h3>Image</h3>
+                                        <p class="uk-animation-slide-top uk-light">Animation</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="uk-slideshow-item" data-source="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4">
+                                <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
+                                    <div>
+                                        <h3>Video</h3>
+                                        <p class="uk-animation-slide-bottom uk-light">Animation</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <a class="uk-position-center-left uk-slidenav-large uk-hidden-hover uk-light" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                        <a class="uk-position-center-right uk-slidenav-large uk-hidden-hover uk-light" uk-slidenav-next uk-slideshow-item="next"></a>
+
+                        <ul class="uk-dotnav uk-margin uk-flex-center">
+                            <li uk-slideshow-item="0"><a href="#">Item 1</a></li>
+                            <li uk-slideshow-item="1"><a href="#">Item 2</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <h2>Viewport Height</h2>
+
+        </div>
+
+        <div class="uk-margin" uk-slideshow>
+            <div class="uk-slideshow-items" uk-height-viewport>
+                <div class="uk-slideshow-item">
+                    <img src="images/size1.jpg" alt uk-cover>
+                    <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
+                        <div>
+                            <h3>Image</h3>
+                            <p class="uk-animation-slide-top uk-light">Animation</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="uk-slideshow-item">
+                    <video src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" loop uk-video="automute: true" uk-cover></video>
+                    <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
+                        <div>
+                            <h3>Video</h3>
+                            <p class="uk-animation-slide-bottom uk-light">Animation</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="uk-position-center-left uk-slidenav-large uk-hidden-hover uk-light" uk-slidenav-previous uk-slideshow-item="previous"></a>
+            <a class="uk-position-center-right uk-slidenav-large uk-hidden-hover uk-light" uk-slidenav-next uk-slideshow-item="next"></a>
+        </div>
+
+        <div class="uk-container">
+
+            <h3>Slideshow</h3>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>animation</code></td>
+                            <td>String</td>
+                            <td>slide</td>
+                            <td>The animation to use. (fade, slide, scale)</td>
+                        </tr>
+                        <tr>
+                            <td><code>duration</code></td>
+                            <td>Number</td>
+                            <td>400</td>
+                            <td>The animation duration.</td>
+                        </tr>
+                        <tr>
+                            <td><code>index</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>The initial item to show. (zero based)</td>
+                        </tr>
+                        <tr>
+                            <td><code>preload</code></td>
+                            <td>Number</td>
+                            <td>1</td>
+                            <td>The number of items to preload. (left and right of the currently active item)</td>
+                        </tr>
+                        <tr>
+                            <td><code>items</code></td>
+                            <td>Array</td>
+                            <td>[]</td>
+                            <td>An array of items to display. ([{source: 'images/size1.jpg', caption: '900x600'}])</td>
+                        </tr>
+                        <tr>
+                            <td><code>template</code></td>
+                            <td>String</td>
+                            <td></td>
+                            <td>The template string.</td>
+                        </tr>
+                        <tr>
+                            <td><code>delay-controls</code></td>
+                            <td>Number</td>
+                            <td>3000</td>
+                            <td>Delay time before controls fade out in ms.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <script>
+
+            (function () {
+
+                $('#animation-switcher').on('change', function() {
+                    $('.slideshow-animation').attr('animation', this.value);
+                });
+
+            })();
+
+        </script>
+
+    </body>
+</html>
