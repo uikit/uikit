@@ -79,7 +79,7 @@ export default function (UIkit) {
     UIkit.prototype._initProps = function (props) {
 
         this._computeds = {};
-        assign(this.$props, props || this._getProps());
+        assign(this.$props, props || getProps(this.$options, this.$name));
 
         var exclude = [this.$options.computed, this.$options.methods];
         for (var key in this.$props) {
@@ -120,7 +120,7 @@ export default function (UIkit) {
 
         this._observer = new Observer(() => {
 
-            var data = this._getProps();
+            var data = getProps(this.$options, this.$name);
             if (attrs.some(key => !equals(data[key], this.$props[key]))) {
                 this.$reset(data);
             }
@@ -130,11 +130,10 @@ export default function (UIkit) {
         this._observer.observe(el, {attributes: true, attributeFilter: attrs.concat([this.$name, `data-${this.$name}`])});
     };
 
-    UIkit.prototype._getProps = function () {
+    function getProps(opts, name) {
 
         var data = {},
-            {args = [], props = {}, el} = this.$options,
-            options = getData(el, this.$name),
+            {args = [], props = {}, el} = opts,
             key, prop;
 
         if (!props) {
@@ -155,31 +154,9 @@ export default function (UIkit) {
             }
         }
 
-        if (!options) {
-            return data;
-        }
+        var options = parseOptions(getData(el, name), args);
 
-        if (options[0] === '{') {
-            try {
-                options = JSON.parse(options);
-            } catch (e) {
-                console.warn(`Invalid JSON.`);
-                options = {};
-            }
-        } else if (args.length && !~options.indexOf(':')) {
-            options = ({[args[0]]: options});
-        } else {
-            var tmp = {};
-            options.split(';').forEach(option => {
-                var [key, value] = option.split(/:(.+)/);
-                if (key && value) {
-                    tmp[key.trim()] = value.trim();
-                }
-            });
-            options = tmp;
-        }
-
-        for (key in options || {}) {
+        for (key in options) {
             prop = camelize(key);
             if (props[prop] !== undefined) {
                 data[prop] = coerce(props[prop], options[key], el);
@@ -187,7 +164,31 @@ export default function (UIkit) {
         }
 
         return data;
-    };
+    }
+
+    function parseOptions(options, args = []) {
+
+        try {
+
+            return !options
+                ? {}
+                : options[0] === '{'
+                    ? JSON.parse(options)
+                    : args.length && !~options.indexOf(':')
+                        ? ({[args[0]]: options})
+                        : options.split(';').reduce((options, option) => {
+                            var [key, value] = option.split(/:(.+)/);
+                            if (key && value) {
+                                options[key.trim()] = value.trim();
+                            }
+                            return options;
+                        }, {});
+
+        } catch (e) {
+            return {};
+        }
+
+    }
 
     function registerComputed(component, key, cb) {
         Object.defineProperty(component, key, {
@@ -249,7 +250,7 @@ export default function (UIkit) {
     }
 
     function selfFilter(handler, context) {
-        return function selfHandler (e) {
+        return function selfHandler(e) {
             if (e.target === e.currentTarget) {
                 return handler.call(context, e)
             }

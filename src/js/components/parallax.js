@@ -4,19 +4,18 @@ function plugin(UIkit) {
         return;
     }
 
-    var {assign, clamp, Dimensions, getImage, isUndefined, scrolledOver, query} = UIkit.util;
+    var {mixin, util} = UIkit;
+    var {assign, clamp, Dimensions, getImage, isUndefined, scrolledOver, query} = util;
 
     var props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
-    UIkit.component('parallax', {
+    mixin.parallax = {
 
         props: props.reduce((props, prop) => {
             props[prop] = 'list';
             return props;
         }, {
             easing: Number,
-            target: String,
-            viewport: Number,
             media: 'media'
         }),
 
@@ -25,16 +24,10 @@ function plugin(UIkit) {
             return defaults;
         }, {
             easing: 1,
-            target: false,
-            viewport: 1,
             media: false
         }),
 
         computed: {
-
-            target() {
-                return this.$props.target && query(this.$props.target, this.$el) || this.$el;
-            },
 
             props() {
 
@@ -109,7 +102,6 @@ function plugin(UIkit) {
         },
 
         disconnected() {
-            delete this._prev;
             delete this._image;
         },
 
@@ -119,7 +111,6 @@ function plugin(UIkit) {
 
                 read() {
 
-                    delete this._prev;
                     delete this._computeds.props;
 
                     this._active = !this.media || window.matchMedia(this.media).matches;
@@ -214,6 +205,132 @@ function plugin(UIkit) {
 
                 events: ['load', 'resize']
 
+            }
+
+        ],
+
+        methods: {
+
+            reset() {
+                Object.keys(this.getCss(0)).forEach(prop => this.$el.css(prop, ''));
+            },
+
+            getCss(percent) {
+
+                var translated = false, props = this.props;
+                return Object.keys(props).reduce((css, prop) => {
+
+                    var values = props[prop],
+                        value = getValue(values, percent);
+
+                    switch (prop) {
+
+                        // transforms
+                        case 'x':
+                        case 'y':
+                            if (translated) {
+                                break;
+                            }
+
+                            var [x, y] = ['x', 'y'].map(dir => prop === dir
+                                ? value + values.unit
+                                : props[dir]
+                                    ? getValue(props[dir], percent) + props[dir].unit
+                                    : 0
+                            );
+
+                            translated = css.transform += ` translate3d(${x}, ${y}, 0)`;
+                            break;
+                        case 'rotate':
+                            css.transform += ` rotate(${value}deg)`;
+                            break;
+                        case 'scale':
+                            css.transform += ` scale(${value})`;
+                            break;
+
+                        // bg image
+                        case 'bgy':
+                        case 'bgx':
+                            css[`background-position-${prop[2]}`] = `calc(${values.pos} + ${value + values.unit})`;
+                            break;
+
+                        // color
+                        case 'color':
+                        case 'backgroundColor':
+                        case 'borderColor':
+                            css[prop] = `rgba(${
+                                values.start.map((value, i) => {
+                                    value = value + percent * (values.end[i] - value);
+                                    return i === 3 ? parseFloat(value) : parseInt(value, 10);
+                                }).join(',')
+                                })`;
+                            break;
+
+                        // CSS Filter
+                        case 'blur':
+                            css.filter += ` blur(${value}px)`;
+                            break;
+                        case 'hue':
+                            css.filter += ` hue-rotate(${value}deg)`;
+                            break;
+                        case 'fopacity':
+                            css.filter += ` opacity(${value}%)`;
+                            break;
+                        case 'grayscale':
+                        case 'invert':
+                        case 'saturate':
+                        case 'sepia':
+                            css.filter += ` ${prop}(${value}%)`;
+                            break;
+
+                        default:
+                            css[prop] = value;
+                    }
+
+                    return css;
+
+                }, {transform: '', filter: ''});
+
+            }
+
+        }
+
+    };
+
+    UIkit.component('parallax', {
+
+        mixins: [mixin.parallax],
+
+        props: {
+            target: String,
+            viewport: Number
+        },
+
+        defaults: {
+            target: false,
+            viewport: 1
+        },
+
+        computed: {
+
+            target() {
+                return this.$props.target && query(this.$props.target, this.$el) || this.$el;
+            }
+
+        },
+
+        disconnected() {
+            delete this._prev;
+        },
+
+        update: [
+
+            {
+
+                read() {
+                    delete this._prev;
+                }
+
             },
 
             {
@@ -228,12 +345,12 @@ function plugin(UIkit) {
                 write() {
 
                     if (!this._active) {
-                        Object.keys(getCss(this.props, 0)).forEach(prop => this.$el.css(prop, ''));
+                        this.reset();
                         return;
                     }
 
                     if (this._prev !== this._percent) {
-                        this.$el.css(getCss(this.props, this._percent));
+                        this.$el.css(this.getCss(this._percent));
                         this._prev = this._percent;
                     }
 
@@ -241,89 +358,13 @@ function plugin(UIkit) {
 
                 events: ['scroll', 'load', 'resize']
             }
+
         ]
+
     });
 
     function parseColor(color) {
         return color.split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => parseFloat(n));
-    }
-
-    function getCss(props, percent) {
-
-        var translated = false;
-        return Object.keys(props).reduce((css, prop) => {
-
-            var values = props[prop],
-                value = getValue(values, percent);
-
-            switch (prop) {
-
-                // transforms
-                case 'x':
-                case 'y':
-                    if (translated) {
-                        break;
-                    }
-
-                    var [x, y] = ['x', 'y'].map(dir => prop === dir
-                        ? value + values.unit
-                        : props[dir]
-                            ? getValue(props[dir], percent) + props[dir].unit
-                            : 0
-                    );
-
-                    translated = css.transform += ` translate3d(${x}, ${y}, 0)`;
-                    break;
-                case 'rotate':
-                    css.transform += ` rotate(${value}deg)`;
-                    break;
-                case 'scale':
-                    css.transform += ` scale(${value})`;
-                    break;
-
-                // bg image
-                case 'bgy':
-                case 'bgx':
-                    css[`background-position-${prop[2]}`] = `calc(${values.pos} + ${value + values.unit})`;
-                    break;
-
-                // color
-                case 'color':
-                case 'backgroundColor':
-                case 'borderColor':
-                    css[prop] = `rgba(${
-                        values.start.map((value, i) => {
-                            value = value + percent * (values.end[i] - value);
-                            return i === 3 ? parseFloat(value) : parseInt(value, 10);
-                        }).join(',')
-                    })`;
-                    break;
-
-                // CSS Filter
-                case 'blur':
-                    css.filter += ` blur(${value}px)`;
-                    break;
-                case 'hue':
-                    css.filter += ` hue-rotate(${value}deg)`;
-                    break;
-                case 'fopacity':
-                    css.filter += ` opacity(${value}%)`;
-                    break;
-                case 'grayscale':
-                case 'invert':
-                case 'saturate':
-                case 'sepia':
-                    css.filter += ` ${prop}(${value}%)`;
-                    break;
-
-                default:
-                    css[prop] = value;
-            }
-
-            return css;
-
-        }, {transform: '', filter: ''});
-
     }
 
     function getValue(prop, percent) {
