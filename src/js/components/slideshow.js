@@ -71,7 +71,7 @@ function plugin(UIkit) {
             },
 
             item() {
-                return this.slideshow && this.slideshow.slides.has(this.$el);
+                return this.slideshow && this.slideshow.slides.has(this.$el)[0];
             }
 
         },
@@ -97,7 +97,7 @@ function plugin(UIkit) {
                     var {current, next, dir} = _animation,
                         el = dir > 0 ? next : current;
 
-                    if (!el.is(this.item)) {
+                    if (this.item !== el[0]) {
                         return;
                     }
 
