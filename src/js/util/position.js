@@ -89,7 +89,7 @@ export function position(element, target, elAttach, targetAttach, elOffset, targ
         });
     }
 
-    offset(element, {left: position.left, top: position.top});
+    offset(element, position);
 
     return flipped;
 }

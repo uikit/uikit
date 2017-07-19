@@ -1,11 +1,15 @@
+import Slideshow from '../mixin/slideshow';
+
 function plugin(UIkit) {
 
     if (plugin.installed) {
         return;
     }
 
+    UIkit.use(Slideshow);
+
     var {mixin, util} = UIkit;
-    var {$, $trigger, Animation, ajax, assign, doc, docElement, fastdom, getData, getImage, getIndex, noop, on, off, pointerDown, pointerMove, pointerUp, preventClick, promise, requestAnimationFrame, Transition} = util;
+    var {$, $trigger, Animation, ajax, assign, doc, docElement, getData, getImage, pointerDown, pointerMove, Transition} = util;
 
     UIkit.component('lightbox', {
 
@@ -116,26 +120,18 @@ function plugin(UIkit) {
 
     UIkit.component('lightbox-panel', {
 
-        mixins: [mixin.togglable],
+        mixins: [mixin.togglable, mixin.slideshow],
 
         functional: true,
 
         defaults: {
-            animation: 'slide',
-            transition: 'ease',
-            duration: 400,
-            attrItem: 'uk-lightbox-item',
             preload: 1,
+            delayControls: 3000,
             items: [],
-            index: 0,
+            cls: 'uk-open',
             clsPage: 'uk-lightbox-page',
             clsItem: 'uk-lightbox-item',
-            stack: [],
-            threshold: 15,
-            percent: 0,
-            cls: 'uk-open',
-            clsActive: 'uk-active',
-            delayControls: 3000,
+            attrItem: 'uk-lightbox-item',
             template: `
                 <div class="uk-lightbox uk-overflow-hidden">
                     <ul class="uk-lightbox-items"></ul>
@@ -152,14 +148,6 @@ function plugin(UIkit) {
 
             container() {
                 return $(this.$props.container === true && UIkit.container || this.$props.container || UIkit.container);
-            },
-
-            slides() {
-                return this.list.children(`.${this.clsItem}`);
-            },
-
-            forwardDuration() {
-                return this.duration / 4;
             }
 
         },
@@ -175,21 +163,6 @@ function plugin(UIkit) {
 
             this.items.forEach((el, i) => this.list.append(`<li class="${this.clsItem} item-${i}"></li>`));
 
-        },
-
-        init() {
-            ['start', 'move', 'end'].forEach(key => {
-                var fn = this[key];
-                this[key] = e => {
-
-                    e = e.originalEvent || e;
-
-                    this.prevPos = this.pos;
-                    this.pos = (e.touches && e.touches[0] || e).pageX;
-
-                    fn(e);
-                }
-            });
         },
 
         events: [
@@ -228,21 +201,6 @@ function plugin(UIkit) {
                 handler(e) {
                     e.preventDefault();
                     this.hide();
-                }
-
-            },
-
-            {
-
-                name: 'click',
-
-                delegate() {
-                    return `[${this.attrItem}]`;
-                },
-
-                handler(e) {
-                    e.preventDefault();
-                    this.show($(e.currentTarget).blur().attr(this.attrItem));
                 }
 
             },
@@ -345,13 +303,36 @@ function plugin(UIkit) {
 
             {
 
-                name: pointerDown,
+                name: 'beforeitemshow',
 
-                delegate() {
-                    return `.${this.clsItem}`;
-                },
+                self: true,
 
-                handler: 'start'
+                handler() {
+                    if (!this.isToggled()) {
+                        this.toggleNow(this.$el, true);
+                    }
+                }
+
+            },
+
+            {
+
+                name: 'itemshow',
+
+                self: true,
+
+                handler() {
+
+                    var caption = this.getItem().caption;
+                    this.caption.toggle(!!caption).html(caption);
+
+                    for (var i = 0; i <= this.preload; i++) {
+                        this.loadItem(this.getIndex(this.index + i));
+                        this.loadItem(this.getIndex(this.index - i));
+                    }
+
+                }
+
             },
 
             {
@@ -361,6 +342,8 @@ function plugin(UIkit) {
                 handler(_, item) {
 
                     var {source, type} = item, matches;
+
+                    this.setItem(item, '<span uk-spinner></span>');
 
                     if (!source) {
                         return;
@@ -420,7 +403,7 @@ function plugin(UIkit) {
 
                     }
 
-                    return true
+                    return true;
 
                 }
 
@@ -430,176 +413,8 @@ function plugin(UIkit) {
 
         methods: {
 
-            start(e) {
-
-                if (e.button && e.button !== 0) {
-                    return;
-                }
-
-                if (this.stack.length) {
-                    this.stack.splice(1);
-                    this._animation && this._animation.stop().then(() => this.start(e));
-                    return;
-                }
-
-                on(doc, pointerMove, this.move, true);
-                on(doc, pointerUp, this.end, true);
-
-                this.touch = {
-                    start: this.pos,
-                    current: this.slides.eq(this.index),
-                    prev: this.slides.eq(this.getIndex('previous')),
-                    next: this.slides.eq(this.getIndex('next'))
-                };
-
-            },
-
-            move(e) {
-
-                e.preventDefault();
-
-                var {start, current, next, prev} = this.touch;
-
-                if (this.pos === this.prevPos || (!this.touching && Math.abs(start - this.pos) < this.threshold)) {
-                    return;
-                }
-
-                this.touching = true;
-
-                var percent = (this.pos - start) / current.outerWidth();
-
-                if (this.percent === percent) {
-                    return;
-                }
-
-                this.percent = percent;
-
-                this.$toggleClass(next, this.clsActive, percent < 0);
-                this.$toggleClass(prev, this.clsActive, percent >= 0 || prev.is(next));
-
-                new Translator(
-                    this.animation,
-                    this.transition,
-                    current,
-                    percent >= 0 ? prev : next,
-                    percent < 0 ? 1 : -1,
-                    noop
-                ).translate(Math.abs(percent));
-
-            },
-
-            end(e) {
-
-                e.preventDefault();
-
-                off(doc, pointerMove, this.move, true);
-                off(doc, pointerUp, this.end, true);
-
-                if (this.touching) {
-
-                    var percent = this.percent;
-
-                    this.percent = Math.abs(this.percent);
-
-                    if (this.percent < 0.2) {
-                        this.index = this.getIndex(percent > 0 ? 'previous' : 'next');
-                        this.percent = 1 - this.percent;
-                        percent *= -1;
-                    }
-
-                    this.show(percent > 0 ? 'previous': 'next', true);
-
-                    preventClick();
-
-                }
-
-                this.pos
-                    = this.prevPos
-                    = this.touch
-                    = this.touching
-                    = this.percent
-                    = null;
-
-            },
-
             toggle() {
                 return this.isToggled() ? this.hide() : this.show();
-            },
-
-            show(index, force = false) {
-
-                var hasPrev = this.items.length > 1;
-                if (!this.isToggled()) {
-                    this.toggleNow(this.$el, true);
-                    hasPrev = false;
-                }
-
-                if (!force && this.touch) {
-                    return;
-                }
-
-                this.stack[force ? 'unshift' : 'push'](index);
-
-                if (!force && this.stack.length > 1) {
-
-                    if (this.stack.length === 2) {
-                        this._animation.forward(this.forwardDuration);
-                    }
-
-                    return;
-                }
-
-                var dir = index === 'next' ? 1 : -1;
-
-                index = this.getIndex(index);
-
-                if (hasPrev && index === this.index) {
-                    this.stack[force ? 'shift' : 'pop']();
-                    return;
-                }
-
-                var prev = hasPrev && this.slides.eq(this.index),
-                    next = this.slides.eq(index);
-
-                this.index = index;
-
-                this.$addClass(next, this.clsActive);
-
-                var caption = this.getItem(index).caption;
-                this.caption.toggle(!!caption).html(caption);
-
-                this._animation = new Translator(!prev ? 'scale' : this.animation, this.transition, prev || next, next, dir, () => {
-
-                    prev && this.$removeClass(prev, this.clsActive);
-
-                    this.stack.shift();
-                    if (this.stack.length) {
-                        requestAnimationFrame(() => this.show(this.stack.shift(), true));
-                    } else {
-                        this._animation = null;
-                    }
-
-                    this.$el.trigger('itemshown', [this, next]);
-
-                    if (prev) {
-                        this.$el.trigger('itemhidden', [this, prev]);
-                        UIkit.update(null, prev);
-                    }
-
-                });
-
-                this._animation.show(this.stack.length > 1 ? this.forwardDuration : this.duration, this.percent);
-
-                for (var i = 0; i <= this.preload; i++) {
-                    this.loadItem(this.getIndex(index + i));
-                    this.loadItem(this.getIndex(index - i));
-                }
-
-                this.$el.trigger('itemshow', [this, next]);
-                prev && this.$el.trigger('itemhide', [this, prev]);
-
-                UIkit.update(null, next);
-                fastdom.flush(); // iOS 10+ will honor the video.play only if called from a gesture handler
             },
 
             hide() {
@@ -626,15 +441,13 @@ function plugin(UIkit) {
                     return;
                 }
 
-                this.setItem(item, '<span uk-spinner></span>');
-
                 if (!$trigger(this.$el, 'itemload', [item], true).result) {
                     this.setError(item);
                 }
             },
 
             getItem(index = this.index) {
-                return this.items[index] || {source: '', caption: '', type: ''};
+                return this.items[index] || {};
             },
 
             setItem(item, content) {
@@ -646,10 +459,6 @@ function plugin(UIkit) {
 
             setError(item) {
                 this.setItem(item, '<span uk-icon="icon: bolt; ratio: 2"></span>');
-            },
-
-            getIndex(index = this.index) {
-                return getIndex(index, this.items, this.index);
             },
 
             showControls() {
@@ -694,135 +503,6 @@ function plugin(UIkit) {
     function animate(el, animation, dir = 'in') {
         el.each(i => Animation[dir](el.eq(i).attr('hidden', false), animation).then(() => { dir === 'out' && el.eq(i).attr('hidden', true)}));
     }
-
-    function Translator (animation, transition, current, next, dir, cb) {
-
-        animation = animation in Animations ? Animations[animation] : Animations.slide;
-
-        return {
-
-            show(duration, percent = 0) {
-
-                duration -= Math.round(duration * percent);
-
-                var props = animation.show(dir);
-
-                this.translate(percent);
-
-                return promise.all([
-                    Transition.start(current, props[0], duration, transition),
-                    Transition.start(next, props[1], duration, transition)
-                ]).then(() => {
-                    for (var prop in props[0]) {
-                        $([next[0], current[0]]).css(prop, '');
-                    }
-                    cb();
-                }, noop);
-            },
-
-            stop() {
-                return promise.all([
-                    Transition.stop(next),
-                    Transition.stop(current)
-                ])
-            },
-
-            forward(duration) {
-
-                var percent = animation.percent(current);
-
-                return promise.all([
-                    Transition.cancel(next),
-                    Transition.cancel(current)
-                ]).then(() => this.show(duration, percent));
-
-            },
-
-            translate(percent) {
-
-                var props = animation.translate(percent, dir);
-                current.css(props[0]);
-                next.css(props[1]);
-
-            }
-
-        }
-
-    }
-
-    var diff = 0.2;
-    var Animations = {
-
-        fade: {
-
-            show() {
-                return [
-                    {opacity: 0},
-                    {opacity: 1}
-                ];
-            },
-
-            percent(current) {
-                return 1 - current.css('opacity');
-            },
-
-            translate(percent) {
-                return [
-                    {opacity: 1 - percent},
-                    {opacity: percent}
-                ];
-            }
-
-        },
-
-        slide: {
-
-            show(dir) {
-                return [
-                    {transform: `translate3d(${dir * -100}%, 0, 0)`},
-                    {transform: 'translate3d(0, 0, 0)'}
-                ];
-            },
-
-            percent(current) {
-                return Math.abs(current.css('transform').split(',')[4] / current.outerWidth());
-            },
-
-            translate(percent, dir) {
-                return [
-                    {transform: `translate3d(${dir * -100 * percent}%, 0, 0)`},
-                    {transform: `translate3d(${dir * 100 * (1 - percent)}%, 0, 0)`}
-                ];
-            }
-
-        },
-
-        scale: {
-
-            show() {
-                return [
-                    {opacity: 0, transform: `scale3d(${1 - diff}, ${1 - diff}, 1)`},
-                    {opacity: 1, transform: 'scale3d(1, 1, 1)'}
-                ];
-            },
-
-            percent(current) {
-                return 1 - current.css('opacity');
-            },
-
-            translate(percent) {
-                var scale1 = 1 - diff * percent,
-                    scale2 = 1 - diff + diff * percent;
-
-                return [
-                    {opacity: 1 - percent, transform: `scale3d(${scale1}, ${scale1}, 1)`},
-                    {opacity: percent, transform: `scale3d(${scale2}, ${scale2}, 1)`}
-                ];
-            }
-
-        }
-
-    };
 
     function getIframe(src, width, height) {
         return `<iframe src="${src}" width="${width}" height="${height}" style="max-width: 100%; box-sizing: border-box;" uk-video uk-responsive></iframe>`;

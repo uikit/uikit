@@ -37,7 +37,7 @@ export default function (UIkit) {
     function getArgs(args, el) {
 
         isString(args[0]) && args.unshift(el);
-        args[0] = toNode(args[0]).classList;
+        args[0] = (toNode(args[0]) || {}).classList;
 
         args.forEach((arg, i) =>
             i > 0 && isString(arg) && ~arg.indexOf(' ') && Array.prototype.splice.apply(args, [i, 1].concat(args[i].split(' ')))
