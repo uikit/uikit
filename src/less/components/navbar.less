@@ -63,7 +63,8 @@
 @navbar-dropdown-grid-gutter-horizontal:        @global-gutter;
 @navbar-dropdown-grid-gutter-vertical:          @navbar-dropdown-grid-gutter-horizontal;
 
-@navbar-dropdown-dropbar-margin-bottom:         30px;
+@navbar-dropdown-dropbar-margin-top:            0;
+@navbar-dropdown-dropbar-margin-bottom:         @navbar-dropdown-dropbar-margin-top;
 
 @navbar-dropdown-nav-item-color:                @global-muted-color;
 @navbar-dropdown-nav-item-hover-color:          @global-color;
@@ -417,6 +418,8 @@
  */
 
 .uk-navbar-dropdown-dropbar {
+    top: 0 !important;
+    margin-top: @navbar-dropdown-dropbar-margin-top;
     margin-bottom: @navbar-dropdown-dropbar-margin-bottom;
     .hook-navbar-dropdown-dropbar;
 }
