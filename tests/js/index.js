@@ -36,7 +36,7 @@ document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : sty
 document.writeln(`<script src="../dist/js/uikit.js"></script>`);
 document.writeln(`<script src="${style.icons ? style.icons : '../dist/js/uikit-icons.js'}"></script>`);
 
-$(() => {
+jQuery(($) => {
 
     var $body = $('body');
     var $container = $('<div class="uk-container"></div>').prependTo('body');
