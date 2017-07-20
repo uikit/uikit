@@ -63,7 +63,8 @@ $navbar-dropdown-color:                          $global-color !default;
 $navbar-dropdown-grid-gutter-horizontal:         $global-gutter !default;
 $navbar-dropdown-grid-gutter-vertical:           $navbar-dropdown-grid-gutter-horizontal !default;
 
-$navbar-dropdown-dropbar-margin-bottom:          30px !default;
+$navbar-dropdown-dropbar-margin-top:             0 !default;
+$navbar-dropdown-dropbar-margin-bottom:          $navbar-dropdown-dropbar-margin-top !default;
 
 $navbar-dropdown-nav-item-color:                 $global-muted-color !default;
 $navbar-dropdown-nav-item-hover-color:           $global-color !default;
@@ -417,6 +418,8 @@ $navbar-dropbar-z-index:                         $global-z-index + 20 !default;
  */
 
 .uk-navbar-dropdown-dropbar {
+    top: 0 !important;
+    margin-top: $navbar-dropdown-dropbar-margin-top;
     margin-bottom: $navbar-dropdown-dropbar-margin-bottom;
     @if(mixin-exists(hook-navbar-dropdown-dropbar)) {@include hook-navbar-dropdown-dropbar();}
 }

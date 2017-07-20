@@ -13,17 +13,7 @@ var styles = $.extend({
         core: {css: '../dist/css/uikit-core.css'},
         theme: {css: '../dist/css/uikit.css'}
     }, themes),
-    component = location.pathname.split('/').pop().replace(/.html$/, ''),
-    components = [
-        'lightbox',
-        'marker',
-        'notification',
-        'grid-parallax',
-        'parallax',
-        'sortable',
-        'tooltip',
-        'upload'
-    ];
+    component = location.pathname.split('/').pop().replace(/.html$/, '');
 
 if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
     styles.custom = getParam('style');
@@ -46,7 +36,7 @@ document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : sty
 document.writeln(`<script src="../dist/js/uikit.js"></script>`);
 document.writeln(`<script src="${style.icons ? style.icons : '../dist/js/uikit-icons.js'}"></script>`);
 
-$(() => {
+jQuery(($) => {
 
     var $body = $('body');
     var $container = $('<div class="uk-container"></div>').prependTo('body');
@@ -84,22 +74,27 @@ $(() => {
         'flex',
         'form',
         'grid',
+        'grid-parallax',
         'heading',
         'height-expand',
         'height-viewport',
         'icon',
         'iconnav',
         'label',
+        'lightbox',
         'link',
         'list',
         'margin',
+        'marker',
         'modal',
         'nav',
         'navbar',
+        'notification',
         'offcanvas',
         'overlay',
         'padding',
         'pagination',
+        'parallax',
         'position',
         'placeholder',
         'progress',
@@ -108,6 +103,7 @@ $(() => {
         'search',
         'section',
         'slidenav',
+        'sortable',
         'spinner',
         'sticky',
         'subnav',
@@ -117,12 +113,14 @@ $(() => {
         'text',
         'tile',
         'toggle',
+        'tooltip',
         'totop',
         'transition',
         'utility',
+        'upload',
         'visibility',
         'width'
-    ].concat(components).sort().forEach(name => $(`<option value="${name}.html">${name.split('-').map(ucfirst).join(' ')}</option>`).appendTo($tests));
+    ].sort().forEach(name => $(`<option value="${name}.html">${name.split('-').map(ucfirst).join(' ')}</option>`).appendTo($tests));
 
     $tests.on('change', () => {
         if ($tests.val()) {

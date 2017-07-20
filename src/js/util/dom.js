@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, assign, clamp, each, Event, getContextSelectors, isNumber, isString, offsetTop, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
+import { animationend, assign, clamp, each, Event, getContextSelectors, isBoolean, isNumber, isString, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
 
 var docEl = document.documentElement;
 export const win = $(window);
@@ -29,17 +29,43 @@ export function ready(fn) {
 
 }
 
-export function on(el, type, listener, useCapture) {
+export function on(el, type, listener, useCapture = false) {
     type.split(' ').forEach(type => toNode(el).addEventListener(type, listener, useCapture));
 }
 
-export function off(el, type, listener, useCapture) {
+export function off(el, type, listener, useCapture = false) {
     type.split(' ').forEach(type => toNode(el).removeEventListener(type, listener, useCapture));
+}
+
+export function one(el, type, listener, useCapture, condition) {
+    type.split(' ').forEach(type => {
+        var handler = e => {
+            var result = !condition || condition(e);
+            if (result) {
+                off(el, type, handler, useCapture);
+                listener(isBoolean(result) ? e : result);
+            }
+        };
+
+        on(el, type, handler, useCapture);
+    });
+}
+
+export function trigger(element, event) {
+    var e = createEvent(event);
+    toNode(element).dispatchEvent(e);
+    return e;
+}
+
+export function $trigger(element, event, data, local = false) {
+    var e = Event(event);
+    $(element)[local ? 'triggerHandler' : 'trigger'](e, data);
+    return e;
 }
 
 export function transition(element, props, duration = 400, transition = 'linear') {
 
-    var p = promise((resolve, reject) => {
+    return promise((resolve, reject) => {
 
         element = $(element);
 
@@ -47,12 +73,10 @@ export function transition(element, props, duration = 400, transition = 'linear'
             element.css(name, element.css(name));
         }
 
-        let timer = setTimeout(() => element.trigger(transitionend || 'transitionend'), duration);
+        var timer = setTimeout(() => element.trigger(transitionend), duration);
 
         element
-            .one(transitionend || 'transitionend', (e, cancel) => {
-
-                e.promise = p;
+            .one(transitionend, (e, cancel) => {
 
                 clearTimeout(timer);
                 element.removeClass('uk-transition').css('transition', '');
@@ -61,14 +85,14 @@ export function transition(element, props, duration = 400, transition = 'linear'
                 } else {
                     reject();
                 }
+
             })
             .addClass('uk-transition')
             .css('transition', `all ${duration}ms ${transition}`)
             .css(props);
 
-    }).then(null, () => {});
+    });
 
-    return p;
 }
 
 export const Transition = {
@@ -76,9 +100,8 @@ export const Transition = {
     start: transition,
 
     stop(element, cancel) {
-        var e = Event(transitionend || 'transitionend');
-        $(element).triggerHandler(e, [cancel]);
-        return e.promise || promise.resolve();
+        $trigger(element, transitionend, [cancel], true);
+        return promise.resolve();
     },
 
     cancel(element) {
@@ -152,8 +175,7 @@ export const Animation = {
     },
 
     cancel(element) {
-        var e = Event(animationend || 'animationend');
-        $(element).triggerHandler(e);
+        var e = $trigger(element, animationend || 'animationend', null, true);
         return e.promise || promise.resolve();
     }
 
@@ -216,6 +238,18 @@ export function scrolledOver(element) {
         diff = Math.max(0, vp - (docHeight() - (top + height)));
 
     return clamp(((vh + window.pageYOffset - top) / ((vh + (height - (diff < vp ? diff : 0)) ) / 100)) / 100);
+}
+
+function positionTop(element) {
+    var top = 0;
+
+    do {
+
+        top += element.offsetTop;
+
+    } while (element = element.offsetParent);
+
+    return top;
 }
 
 export function docHeight() {
@@ -299,14 +333,24 @@ export function query(selector, context) {
     return selectors ? selectors.reduce((context, selector) => toJQuery(selector, context), context) : toJQuery(selector);
 }
 
-function positionTop(element) {
-    var top = 0;
+export function preventClick() {
 
-    do {
+    var timer = setTimeout(() => trigger(doc, 'click'), 0);
 
-        top += element.offsetTop;
+    one(doc, 'click', e => {
+        e.preventDefault();
+        e.stopImmediatePropagation();
 
-    } while (element = element.offsetParent);
+        clearTimeout(timer);
+    }, true);
 
-    return top;
+}
+
+export function getData(el, attribute) {
+    el = toNode(el);
+    for (var i = 0, attrs = [attribute, `data-${attribute}`]; i < attrs.length; i++) {
+        if (el.hasAttribute(attrs[i])) {
+            return el.getAttribute(attrs[i]);
+        }
+    }
 }

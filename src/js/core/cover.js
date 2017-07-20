@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { Dimensions } from '../util/index';
+import { Dimensions, Player } from '../util/index';
 
 export default function (UIkit) {
 
@@ -8,12 +8,9 @@ export default function (UIkit) {
         mixins: [Class],
 
         props: {
-            automute: Boolean,
             width: Number,
             height: Number
         },
-
-        defaults: {automute: true},
 
         computed: {
 
@@ -29,20 +26,16 @@ export default function (UIkit) {
 
         ready() {
 
-            if (!this.$el.is('iframe')) {
-                return;
+            if (this.$el.is('iframe')) {
+                this.$el.css('pointerEvents', 'none');
             }
 
-            this.$el.css('pointerEvents', 'none');
+            var player = new Player(this.$el);
 
-            if (this.automute) {
-
-                var src = this.$el.attr('src');
-
-                this.$el
-                    .attr('src', `${src}${~src.indexOf('?') ? '&' : '?'}enablejsapi=1&api=1`)
-                    .on('load', ({target}) => target.contentWindow.postMessage('{"event": "command", "func": "mute", "method":"setVolume", "value":0}', '*'));
+            if (player.isVideo()) {
+                player.mute();
             }
+
         },
 
         update: {

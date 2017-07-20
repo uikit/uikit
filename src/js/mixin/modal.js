@@ -47,6 +47,10 @@ export default {
 
         transitionDuration() {
             return toMs(this.transitionElement.css('transition-duration'));
+        },
+
+        component() {
+            return UIkit[this.$options.name];
         }
 
     },
@@ -94,6 +98,7 @@ export default {
                 var prev = active && active !== this && active;
 
                 active = this;
+                this.component.active = this;
 
                 if (prev) {
                     if (this.stack) {
@@ -146,9 +151,10 @@ export default {
             self: true,
 
             handler() {
-                if (!active) {
+                if (this.component.active === this) {
                     docElement.removeClass(this.clsPage);
                     this.body.css('overflow-y', '');
+                    this.component.active = null;
                 }
             }
 

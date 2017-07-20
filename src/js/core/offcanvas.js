@@ -94,6 +94,25 @@ export default function (UIkit) {
         events: [
 
             {
+
+                name: 'click',
+
+                delegate() {
+                    return this.panel;
+                },
+
+                handler({target}) {
+                    var link = $(target).closest('a[href^=#]'), href = link.attr('href');
+
+                    if (href && href.length > 1 && this.content.find(href).length) {
+                        scroll = null;
+                        this.hide();
+                    }
+                }
+
+            },
+
+            {
                 name: 'beforeshow',
 
                 self: true,
@@ -143,6 +162,9 @@ export default function (UIkit) {
 
                     if (!this.overlay) {
                         scroll = {x: window.pageXOffset, y: window.pageYOffset}
+                    } else if (!scroll) {
+                        var {scrollLeft: x, scrollTop: y} = this.content[0];
+                        scroll = {x, y};
                     }
 
                     this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);

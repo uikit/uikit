@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var { mixin, util } = UIkit;
-    var {$, assign, docElement: doc, docHeight, fastdom, getDimensions, isWithin, on, off, offsetTop, pointerDown, pointerMove, pointerUp, promise, win} = util;
+    var {$, assign, docElement: doc, docHeight, fastdom, getDimensions, isWithin, offset, offsetTop, pointerDown, pointerMove, pointerUp, preventClick, promise, win} = util;
 
     UIkit.component('sortable', {
 
@@ -43,12 +43,12 @@ function plugin(UIkit) {
 
         init() {
             ['init', 'start', 'move', 'end'].forEach(key => {
-                let fn = this[key];
+                var fn = this[key];
                 this[key] = e => {
                     e = e.originalEvent || e;
                     this.scrollY = window.scrollY;
-                    var {pageX, pageY} = e.touches && e.touches[0] || e;
-                    this.pos = {x: pageX, y: pageY};
+                    var {pageX: x, pageY: y} = e.touches && e.touches[0] || e;
+                    this.pos = {x, y};
 
                     fn(e);
                 }
@@ -73,7 +73,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                this.drag.offset({top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
+                offset(this.drag, {top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
 
                 var top = offsetTop(this.drag), bottom = top + this.drag[0].offsetHeight;
 
@@ -98,12 +98,12 @@ function plugin(UIkit) {
                     || this.handle && !isWithin(target, this.handle)
                     || e.button && e.button !== 0
                     || isWithin(target, `.${this.clsNoDrag}`)
+                    || e.defaultPrevented
                 ) {
                     return;
                 }
 
                 e.preventDefault();
-                e.stopPropagation();
 
                 this.touched = [this];
                 this.placeholder = placeholder;
@@ -315,20 +315,6 @@ function plugin(UIkit) {
 
     function getSortable(element) {
         return UIkit.getComponent(element, 'sortable') || element.parentNode && getSortable(element.parentNode);
-    }
-
-    function preventClick() {
-        var timer = setTimeout(() => doc.trigger('click'), 0),
-            listener = e => {
-
-                e.preventDefault();
-                e.stopPropagation();
-
-                clearTimeout(timer);
-                off(doc, 'click', listener, true);
-            };
-
-        on(doc, 'click', listener, true);
     }
 
 }

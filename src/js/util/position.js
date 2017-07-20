@@ -2,16 +2,17 @@ import $ from 'jquery';
 import { each, toNode } from './index';
 
 var dirs = {
-    x: ['width', 'left', 'right'],
-    y: ['height', 'top', 'bottom']
-};
+        x: ['width', 'left', 'right'],
+        y: ['height', 'top', 'bottom']
+    },
+    docEl = document.documentElement;
 
-export function position(element, target, attach, targetAttach, offset, targetOffset, flip, boundary) {
+export function position(element, target, elAttach, targetAttach, elOffset, targetOffset, flip, boundary) {
 
-    attach = getPos(attach);
+    elAttach = getPos(elAttach);
     targetAttach = getPos(targetAttach);
 
-    var flipped = {element: attach, target: targetAttach};
+    var flipped = {element: elAttach, target: targetAttach};
 
     if (!element) {
         return flipped;
@@ -21,17 +22,17 @@ export function position(element, target, attach, targetAttach, offset, targetOf
         targetDim = getDimensions(target),
         position = targetDim;
 
-    moveTo(position, attach, dim, -1);
+    moveTo(position, elAttach, dim, -1);
     moveTo(position, targetAttach, targetDim, 1);
 
-    offset = getOffsets(offset, dim.width, dim.height);
+    elOffset = getOffsets(elOffset, dim.width, dim.height);
     targetOffset = getOffsets(targetOffset, targetDim.width, targetDim.height);
 
-    offset['x'] += targetOffset['x'];
-    offset['y'] += targetOffset['y'];
+    elOffset['x'] += targetOffset['x'];
+    elOffset['y'] += targetOffset['y'];
 
-    position.left += offset['x'];
-    position.top += offset['y'];
+    position.left += elOffset['x'];
+    position.top += elOffset['y'];
 
     boundary = getDimensions(boundary || window);
 
@@ -42,9 +43,9 @@ export function position(element, target, attach, targetAttach, offset, targetOf
                 return;
             }
 
-            var elemOffset = attach[dir] === align
+            var elemOffset = elAttach[dir] === align
                     ? -dim[prop]
-                    : attach[dir] === alignFlip
+                    : elAttach[dir] === alignFlip
                         ? dim[prop]
                         : 0,
                 targetOffset = targetAttach[dir] === align
@@ -58,7 +59,7 @@ export function position(element, target, attach, targetAttach, offset, targetOf
                 var centerOffset = dim[prop] / 2,
                     centerTargetOffset = targetAttach[dir] === 'center' ? -targetDim[prop] / 2 : 0;
 
-                attach[dir] === 'center' && (
+                elAttach[dir] === 'center' && (
                     apply(centerOffset, centerTargetOffset)
                     || apply(-centerOffset, -centerTargetOffset)
                 ) || apply(elemOffset, targetOffset);
@@ -67,7 +68,7 @@ export function position(element, target, attach, targetAttach, offset, targetOf
 
             function apply(elemOffset, targetOffset) {
 
-                var newVal = position[align] + elemOffset + targetOffset - offset[dir] * 2;
+                var newVal = position[align] + elemOffset + targetOffset - elOffset[dir] * 2;
 
                 if (newVal >= boundary[align] && newVal + dim[prop] <= boundary[alignFlip]) {
                     position[align] = newVal;
@@ -88,7 +89,7 @@ export function position(element, target, attach, targetAttach, offset, targetOf
         });
     }
 
-    $(element).offset({left: position.left, top: position.top});
+    offset(element, position);
 
     return flipped;
 }
@@ -130,6 +131,10 @@ export function getDimensions(element) {
         bottom: rect.bottom + top,
         right: rect.right + left,
     }
+}
+
+export function offset(element, {left, top}) {
+    $(element).offset({left: left - docEl.clientLeft, top: top - docEl.clientTop});
 }
 
 export function offsetTop(element) {

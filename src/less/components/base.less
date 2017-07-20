@@ -420,7 +420,8 @@ dd { margin-left: 0; }
 /*
  * 1. Add the correct box sizing and height in Firefox.
  * 2. Show the overflow in Edge and IE.
- * 3. Style
+ * 3. Add the correct text-align in Edge and IE.
+ * 4. Style
  */
 
 hr, .uk-hr {
@@ -430,6 +431,8 @@ hr, .uk-hr {
     /* 2 */
     overflow: visible;
     /* 3 */
+    text-align: inherit;
+    /* 4 */
     margin: 0 0 @base-hr-margin-vertical 0;
     border: 0;
     border-top: @base-hr-border-width solid @base-hr-border;

@@ -21,7 +21,7 @@ export default function (UIkit) {
 
         var force = args && !isString(args[args.length - 1]) ? args.pop() : undefined;
 
-        for (var i = 1; i < args.length; i++) {
+        for (var i = 1; i < (args && args.length); i++) {
             args[0] && supportsForce
                 ? args[0].toggle(args[i], force)
                 : (args[0][(!isUndefined(force) ? force : !args[0].contains(args[i])) ? 'add' : 'remove'](args[i]));
@@ -37,13 +37,13 @@ export default function (UIkit) {
     function getArgs(args, el) {
 
         isString(args[0]) && args.unshift(el);
-        args[0] = toNode(args[0]).classList;
+        args[0] = (toNode(args[0]) || {}).classList;
 
         args.forEach((arg, i) =>
             i > 0 && isString(arg) && ~arg.indexOf(' ') && Array.prototype.splice.apply(args, [i, 1].concat(args[i].split(' ')))
         );
 
-        return args[1] && args.length > 1 ? args : false;
+        return args[0] && args[1] && args.length > 1 && args;
     }
 
 };
@@ -51,10 +51,12 @@ export default function (UIkit) {
 (function() {
 
     var list = document.createElement('_').classList;
-    list.add('a', 'b');
-    list.toggle('c', false);
-    supportsMultiple = list.contains('b');
-    supportsForce = !list.contains('c');
+    if (list) {
+        list.add('a', 'b');
+        list.toggle('c', false);
+        supportsMultiple = list.contains('b');
+        supportsForce = !list.contains('c');
+    }
     list = null;
 
 })();

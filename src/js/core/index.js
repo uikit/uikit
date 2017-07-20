@@ -27,6 +27,7 @@ import Switcher from './switcher';
 import Tab from './tab';
 import Toggle from './toggle';
 import Leader from './leader';
+import Video from './video';
 
 export default function (UIkit) {
 
@@ -40,7 +41,7 @@ export default function (UIkit) {
         fastdom.flush();
     });
 
-    on(document, animationstart, ({target}) => {
+    animationstart && on(document, animationstart, ({target}) => {
         if ((getStyle(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
             started++;
             document.body.style.overflowX = 'hidden';
@@ -56,6 +57,7 @@ export default function (UIkit) {
     UIkit.use(Toggle);
     UIkit.use(Accordion);
     UIkit.use(Alert);
+    UIkit.use(Video);
     UIkit.use(Cover);
     UIkit.use(Drop);
     UIkit.use(Dropdown);

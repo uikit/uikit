@@ -80,6 +80,10 @@ export function isPlainObject(obj) {
     return isObject(obj) && Object.getPrototypeOf(obj) === Object.prototype;
 }
 
+export function isBoolean(value) {
+    return typeof value === 'boolean';
+}
+
 export function isString(value) {
     return typeof value === 'string';
 }
@@ -138,7 +142,7 @@ export function toNode(element) {
 }
 
 export function toBoolean(value) {
-    return typeof value === 'boolean'
+    return isBoolean(value)
         ? value
         : value === 'true' || value === '1' || value === ''
             ? true
@@ -226,3 +230,5 @@ export const assign = Object.assign || function (target, ...args) {
 export function clamp(number, min = 0, max = 1) {
     return Math.min(Math.max(number, min), max);
 }
+
+export function noop() {}

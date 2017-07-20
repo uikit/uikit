@@ -55,12 +55,12 @@ export default function (UIkit) {
 
                         var leftDim = row[0].getBoundingClientRect();
 
-                        if (dim.top >= leftDim.bottom) {
+                        if (dim.top >= Math.floor(leftDim.bottom)) {
                             rows.push([el]);
                             break;
                         }
 
-                        if (dim.bottom > leftDim.top) {
+                        if (Math.floor(dim.bottom) > leftDim.top) {
 
                             this.stacks = false;
 

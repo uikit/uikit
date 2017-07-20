@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, Animation, assign, Event, promise, requestAnimationFrame, Transition } from '../util/index';
+import { $, $trigger, Animation, assign, isBoolean, noop, promise, requestAnimationFrame, Transition } from '../util/index';
 
 export default {
 
@@ -57,7 +57,7 @@ export default {
         toggleElement(targets, show, animate) {
 
             var toggles, body = document.body, scroll = body.scrollTop,
-                all = targets => promise.all(targets.toArray().map(el => this._toggleElement(el, show, animate))).then(null, () => {}),
+                all = targets => promise.all(targets.toArray().map(el => this._toggleElement(el, show, animate))).then(null, noop),
                 delay = targets => {
                     var def = all(targets);
                     this._queued = null;
@@ -81,7 +81,7 @@ export default {
         },
 
         toggleNow(targets, show) {
-            return promise.all($(targets).toArray().map(el => this._toggleElement(el, show, false))).then(null, () => {});
+            return promise.all($(targets).toArray().map(el => this._toggleElement(el, show, false))).then(null, noop);
         },
 
         isToggled(el) {
@@ -103,12 +103,9 @@ export default {
                 return Animation.cancel(el).then(() => this._toggleElement(el, show, animate));
             }
 
-            show = typeof show === 'boolean' ? show : !this.isToggled(el);
+            show = isBoolean(show) ? show : !this.isToggled(el);
 
-            var event = Event(`before${show ? 'show' : 'hide'}`);
-            el.trigger(event, [this]);
-
-            if (event.result === false) {
+            if ($trigger(el, `before${show ? 'show' : 'hide'}`, [this]).result === false) {
                 return promise.reject();
             }
 
@@ -120,7 +117,10 @@ export default {
             )(el, show);
 
             el.trigger(show ? 'show' : 'hide', [this]);
-            return def.then(() => el.trigger(show ? 'shown' : 'hidden', [this]));
+            return def.then(() => {
+                el.trigger(show ? 'shown' : 'hidden', [this]);
+                UIkit.update(null, el);
+            });
         },
 
         _toggle(el, toggled) {

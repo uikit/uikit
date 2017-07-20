@@ -7,33 +7,10 @@ export default function (UIkit) {
 
         mixins: [Modal],
 
-        props: {
-            center: Boolean
-        },
-
         defaults: {
-            center: false,
             clsPage: 'uk-modal-page',
             clsPanel: 'uk-modal-dialog',
             selClose: '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full'
-        },
-
-        update: {
-
-            write() {
-
-                if (this.$el.css('display') === 'block' && this.center) {
-                    this.$el
-                        .removeClass('uk-flex uk-flex-center uk-flex-middle')
-                        .css('display', 'block')
-                        .toggleClass('uk-flex uk-flex-center uk-flex-middle', window.innerHeight > this.panel.outerHeight(true))
-                        .css('display', this.$el.hasClass('uk-flex') ? '' : 'block');
-                }
-
-            },
-
-            events: ['resize']
-
         },
 
         events: [
@@ -44,7 +21,13 @@ export default function (UIkit) {
                 self: true,
 
                 handler() {
-                    this.$el.css('display', 'block').height();
+
+                    if (this.panel.hasClass('uk-margin-auto-vertical')) {
+                        this.$el.addClass('uk-flex').height();
+                    } else {
+                        this.$el.css('display', 'block').height();
+                    }
+
                 }
             },
 
@@ -54,7 +37,9 @@ export default function (UIkit) {
                 self: true,
 
                 handler() {
-                    this.$el.css('display', '').removeClass('uk-flex uk-flex-center uk-flex-middle');
+
+                    this.$el.css('display', '').removeClass('uk-flex');
+
                 }
             }
 
@@ -67,6 +52,10 @@ export default function (UIkit) {
         mixins: [Class],
 
         computed: {
+
+            modal() {
+                return this.$el.closest('.uk-modal');
+            },
 
             panel() {
                 return this.$el.closest('.uk-modal-dialog');
@@ -82,7 +71,8 @@ export default function (UIkit) {
 
             write() {
                 var current = this.$el.css('max-height');
-                this.$el.css('max-height', 150).css('max-height', Math.max(150, 150 - (this.panel.outerHeight(true) - window.innerHeight)));
+
+                this.$el.css('max-height', 150).css('max-height', Math.max(150, 150 + this.modal.height() - this.panel.outerHeight(true)));
                 if (current !== this.$el.css('max-height')) {
                     this.$el.trigger('resize');
                 }
@@ -96,11 +86,11 @@ export default function (UIkit) {
 
     UIkit.modal.dialog = function (content, options) {
 
-        var dialog = UIkit.modal(
-            `<div class="uk-modal">
+        var dialog = UIkit.modal(`
+            <div class="uk-modal">
                 <div class="uk-modal-dialog">${content}</div>
-             </div>`
-        , options);
+             </div>
+        `, options);
 
         dialog.$el.on('hidden', e => {
             if (e.target === e.currentTarget) {
@@ -149,17 +139,17 @@ export default function (UIkit) {
 
             var resolved = false,
                 prompt = UIkit.modal.dialog(`
-                <form class="uk-form-stacked">
-                    <div class="uk-modal-body">
-                        <label>${isString(message) ? message : $(message).html()}</label>
-                        <input class="uk-input" type="text" autofocus>
-                    </div>
-                    <div class="uk-modal-footer uk-text-right">
-                        <button class="uk-button uk-button-default uk-modal-close" type="button">${options.labels.cancel}</button>
-                        <button class="uk-button uk-button-primary" type="submit">${options.labels.ok}</button>
-                    </div>
-                </form>
-            `, options),
+                    <form class="uk-form-stacked">
+                        <div class="uk-modal-body">
+                            <label>${isString(message) ? message : $(message).html()}</label>
+                            <input class="uk-input" type="text" autofocus>
+                        </div>
+                        <div class="uk-modal-footer uk-text-right">
+                            <button class="uk-button uk-button-default uk-modal-close" type="button">${options.labels.cancel}</button>
+                            <button class="uk-button uk-button-primary" type="submit">${options.labels.ok}</button>
+                        </div>
+                    </form>
+                `, options),
                 input = prompt.$el.find('input').val(value);
 
             prompt.$el

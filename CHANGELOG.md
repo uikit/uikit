@@ -1,5 +1,34 @@
 # Changelog
 
+## 3.0.0 beta 26 (July 20, 2017)
+
+### Added
+
+- Add Lightbox component
+- Add Video component
+
+### Changed
+
+- IMPORTANT: Remove caption from Modal component. Use Lightbox component instead
+- IMPORTANT: Remove lightbox modifier from Modal component. Use Lightbox component instead
+- IMPORTANT: Remove center option from Modal component. Use `uk-margin-auto-vertical` modifier
+- IMPORTANT: Renamed `@modal-dialog-margin-vertical` to `@modal-padding-vertical-s`
+- IMPORTANT: Renamed `@modal-dialog-margin-vertical-xs` to `@modal-padding-vertical`
+- Refactored Modal component
+- `offsetTop` in Height Viewport component only applies if its element's top position is smaller than half the viewport
+- Larger width for form width x-small
+
+### Fixed
+
+- Offcanvas will keep scroll position if anchor link was clicked
+- Fix margin modifier in position component for IE11
+- Fix divider-small text alignment for `hr` elements Edge and IE
+- Fix setting the ratio of Spinner component
+- Fix event handling in Sortable component
+- Fix grid calculation (Firefox)
+- Fix dropdown margins in the dropbar
+- Fix opening Modals from Offcanvas'
+
 ## 3.0.0 beta 25 (June 9, 2017)
 
 ### Added

@@ -10,7 +10,6 @@
 //                  `uk-modal-footer`
 //                  `uk-modal-title`
 //                  `uk-modal-close`
-//                  `uk-modal-caption`
 //
 // Adopted:         `uk-modal-close-default`
 //                  `uk-modal-close-outside`
@@ -18,7 +17,6 @@
 //
 // Modifiers:       `uk-modal-container`
 //                  `uk-modal-full`
-//                  `uk-modal-lightbox`
 //
 // States:          `uk-open`
 //
@@ -34,10 +32,9 @@ $modal-background:                               rgba(0,0,0,0.6) !default;
 $modal-padding-horizontal:                       15px !default;
 $modal-padding-horizontal-s:                     $global-gutter !default;
 $modal-padding-horizontal-m:                     $global-medium-gutter !default;
+$modal-padding-vertical:                         $modal-padding-horizontal !default;
+$modal-padding-vertical-s:                       50px !default;
 
-$modal-dialog-margin-vertical:                   50px !default;
-$modal-dialog-margin-vertical-xs:                15px !default;
-$modal-dialog-margin-horizontal:                 $modal-dialog-margin-vertical-xs !default;
 $modal-dialog-width:                             600px !default;
 $modal-dialog-background:                        $global-background !default;
 
@@ -64,9 +61,6 @@ $modal-close-outside-position:                   0 !default;
 $modal-close-outside-translate:                  100% !default;
 $modal-close-outside-color:                      lighten($global-inverse-color, 20%) !default;
 $modal-close-outside-hover-color:                $global-inverse-color !default;
-
-$modal-caption-margin-top:                       $global-margin !default;
-$modal-caption-color:                            #fff !default;
 
 
 /* ========================================================================
@@ -96,8 +90,7 @@ $modal-caption-color:                            #fff !default;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     /* 4 */
-    padding-left: $modal-padding-horizontal;
-    padding-right: $modal-padding-horizontal;
+    padding: $modal-padding-vertical $modal-padding-horizontal;
     /* 5 */
     background: $modal-background;
     /* 6 */
@@ -110,10 +103,7 @@ $modal-caption-color:                            #fff !default;
 /* Phone landscape and bigger */
 @media (min-width: $breakpoint-small) {
 
-    .uk-modal {
-        padding-left: $modal-padding-horizontal-s;
-        padding-right: $modal-padding-horizontal-s;
-    }
+    .uk-modal { padding: $modal-padding-vertical-s $modal-padding-horizontal-s; }
 
 }
 
@@ -148,7 +138,7 @@ $modal-caption-color:                            #fff !default;
  ========================================================================== */
 
 /*
- * 1. Create position context for caption, spinner and close button
+ * 1. Create position context for spinner and close button
  * 2. Dimensions
  * 3. Style
  * 4. Slide-in transition
@@ -159,7 +149,7 @@ $modal-caption-color:                            #fff !default;
     position: relative;
     /* 2 */
     box-sizing: border-box;
-    margin: $modal-dialog-margin-vertical auto;
+    margin: 0 auto;
     width: $modal-dialog-width;
     max-width: 100%;
     /* 3 */
@@ -168,19 +158,11 @@ $modal-caption-color:                            #fff !default;
     opacity: 0;
     -webkit-transform: translateY(-100px);
     transform: translateY(-100px);
-    -webkit-transition: opacity 0.3s linear, -webkit-transform 0.3s ease-out;
-    transition: opacity 0.3s linear, transform 0.3s ease-out;
+    -webkit-transition: 0.3s linear;
+    transition: 0.3s linear;
+    -webkit-transition-property: opacity, transform;
+    transition-property: opacity, transform;
     @if(mixin-exists(hook-modal-dialog)) {@include hook-modal-dialog();}
-}
-
-/* Phone portrait and smaller */
-@media (max-width: $breakpoint-xsmall-max) {
-
-    .uk-modal-dialog {
-        margin-top: $modal-dialog-margin-vertical-xs;
-        margin-bottom: $modal-dialog-margin-vertical-xs;
-    }
-
 }
 
 /*
@@ -224,17 +206,6 @@ $modal-caption-color:                            #fff !default;
     -webkit-transform: translateY(0);
     transform: translateY(0);
     @if(mixin-exists(hook-modal-full)) {@include hook-modal-full();}
-}
-
-
-/* Lightbox modifier
- ========================================================================== */
-
-.uk-modal-lightbox { background: rgba(0,0,0,0.9); }
-
-.uk-modal-lightbox .uk-modal-dialog {
-    margin-left: $modal-dialog-margin-horizontal;
-    margin-right: $modal-dialog-margin-horizontal;
 }
 
 
@@ -365,21 +336,6 @@ $modal-caption-color:                            #fff !default;
 }
 
 
-/* Caption
- ========================================================================== */
-
-.uk-modal-caption {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 100%;
-    margin-top: $modal-caption-margin-top;
-    color: $modal-caption-color;
-    text-align: center;
-    @if(mixin-exists(hook-modal-caption)) {@include hook-modal-caption();}
-}
-
-
 // Hooks
 // ========================================================================
 
@@ -400,5 +356,4 @@ $modal-caption-color:                            #fff !default;
 // @mixin hook-modal-close-outside-hover(){}
 // @mixin hook-modal-close-full(){}
 // @mixin hook-modal-close-full-hover(){}
-// @mixin hook-modal-caption(){}
 // @mixin hook-modal-misc(){}

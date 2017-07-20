@@ -458,6 +458,48 @@
                 <img src="images/animated.gif" alt="" uk-gif>
             </p>
 
+            <h2>Video</h2>
+
+            <div class="uk-grid uk-child-width-1-2@s">
+                <div>
+
+                    <button class="uk-button uk-button-default uk-margin-bottom" type="button" uk-toggle="target: +video">Toggle Video</button>
+                    <video src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" width="640" height="360" controls uk-video="automute: true"></video>
+
+                </div>
+                <div>
+
+                    <button class="uk-button uk-button-default uk-margin-bottom" type="button" uk-toggle="target: +iframe">Toggle Video</button>
+                    <iframe src="http://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;showinfo=0&amp;rel=0&amp;modestbranding=1" width="640" height="360" frameborder="0" allowfullscreen uk-responsive uk-video="automute: true"></iframe>
+
+                </div>
+            </div>
+
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Value</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>autoplay</code></td>
+                        <td>Boolean</td>
+                        <td><code>true</code></td>
+                        <td>Automatically start the video. Pauses the video if it is not visible.</td>
+                    </tr>
+                    <tr>
+                        <td><code>automute</code></td>
+                        <td>Boolean</td>
+                        <td><code>false</code></td>
+                        <td>Automatically mute the video.</td>
+                    </tr>
+                </tbody>
+            </table>
+
             <h2>Height Match</h2>
 
             <div class="uk-grid uk-child-width-1-2@s">
