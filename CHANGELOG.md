@@ -27,6 +27,7 @@
 - Fix event handling in Sortable component
 - Fix grid calculation (Firefox)
 - Fix dropdown margins in the dropbar
+- Fix opening Modal from Offcanvas'
 
 ## 3.0.0 beta 25 (June 9, 2017)
 
