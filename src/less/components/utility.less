@@ -189,7 +189,8 @@
  * 2. Create position context
  * 3. Prevent content overflow
  * 4. Behave like most inline-block elements
- * 5. Fix 1px glitch when combined with overlays and transitions in Webkit
+ * 5. Force hardware acceleration without creating a new stacking context
+ *    to fix 1px glitch when combined with overlays and transitions in Webkit
  * 6. Clip child elements
  */
 
@@ -203,7 +204,7 @@
     /* 4 */
     vertical-align: middle;
     /* 5 */
-    -webkit-transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
 }
 
 .uk-inline-clip {

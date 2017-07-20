@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.26 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.27 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
@@ -6049,7 +6049,7 @@ var core = function (UIkit) {
 
 };
 
-UIkit$2.version = '3.0.0-beta.26';
+UIkit$2.version = '3.0.0-beta.27';
 
 mixin(UIkit$2);
 core(UIkit$2);
@@ -6346,7 +6346,7 @@ function plugin$2(UIkit) {
 
             start: function start(e) {
 
-                if (e.button && e.button !== 0) {
+                if (e.button && e.button !== 0 || this.slides.length < 2) {
                     return;
                 }
 
@@ -7184,7 +7184,7 @@ function plugin$1(UIkit) {
                     // Vimeo
                     } else if (matches = source.match(/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/)) {
 
-                        ajax$$1({type: 'GET', url: ("http://vimeo.com/api/oembed.json?url=" + (encodeURI(source))), jsonp: 'callback', dataType: 'jsonp'})
+                        ajax$$1({type: 'GET', url: ("//vimeo.com/api/oembed.json?url=" + (encodeURI(source))), jsonp: 'callback', dataType: 'jsonp'})
                             .then(function (ref) {
                                 var height = ref.height;
                                 var width = ref.width;
