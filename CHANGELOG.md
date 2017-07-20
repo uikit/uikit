@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Remove stacking context for `uk-inline`
 - Prevent scrolling in Lightboxes with one slide only
 
 ## 3.0.0 beta 26 (July 20, 2017)
