@@ -45,7 +45,7 @@ export default function (UIkit) {
             this.widthElement = this.$props.widthElement || this.placeholder;
 
             if (!this.isActive) {
-                this.$addClass(this.clsInactive);
+                this.hide();
             }
         },
 
