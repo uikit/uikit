@@ -58,7 +58,7 @@ export function trigger(element, event) {
 }
 
 export function $trigger(element, event, data, local = false) {
-    var e = Event(event);
+    var e = event instanceof Event ? event : Event(event);
     $(element)[local ? 'triggerHandler' : 'trigger'](e, data);
     return e;
 }

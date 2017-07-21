@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, $trigger, Animation, assign, isBoolean, noop, promise, requestAnimationFrame, Transition } from '../util/index';
+import { $, $trigger, Animation, assign, Event, isBoolean, noop, promise, requestAnimationFrame, Transition } from '../util/index';
 
 export default {
 
@@ -116,9 +116,12 @@ export default {
                     : this._toggleAnimation
             )(el, show);
 
-            el.trigger(show ? 'show' : 'hide', [this]);
+            var e = Event(show ? 'show' : 'hide');
+            e.preventDefault(); // workaround for Prototype and MooTools: it keeps jQuery from calling show or hide on the Element itself
+            $trigger(el, e, [this]);
+
             return def.then(() => {
-                el.trigger(show ? 'shown' : 'hidden', [this]);
+                $trigger(el, show ? 'shown' : 'hidden', [this]);
                 UIkit.update(null, el);
             });
         },
@@ -171,7 +174,7 @@ export default {
                             : Transition.start(el, this.hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
                                 this._toggle(el, false);
                                 el.css(this.initProps);
-                            })).then(resolve);
+                            })).then(resolve, noop);
 
                     })
                 );
