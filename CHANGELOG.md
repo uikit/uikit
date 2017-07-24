@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add sticky navbar test
+
 ### Fixed
 
 - Add workaround to mitigate the duplicating icons issue

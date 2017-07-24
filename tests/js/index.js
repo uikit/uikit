@@ -106,6 +106,7 @@ jQuery(($) => {
         'sortable',
         'spinner',
         'sticky',
+        'sticky-navbar',
         'subnav',
         'switcher',
         'tab',
