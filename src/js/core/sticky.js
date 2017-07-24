@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, Animation, isNumeric, isString, offsetTop, query, requestAnimationFrame } from '../util/index';
+import { $, Animation, isNumeric, isString, offsetTop, query, requestAnimationFrame, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
@@ -18,6 +18,8 @@ export default function (UIkit) {
             clsInactive: String,
             clsFixed: String,
             clsBelow: String,
+            clsNavbar: String,
+            clsNavbarContainer: String,
             widthElement: 'jQuery',
             showOnUp: Boolean,
             media: 'media',
@@ -33,10 +35,20 @@ export default function (UIkit) {
             clsInactive: '',
             clsFixed: 'uk-sticky-fixed',
             clsBelow: 'uk-sticky-below',
+            clsNavbar: 'uk-navbar-sticky',
+            clsNavbarContainer: 'uk-navbar-container',
             widthElement: false,
             showOnUp: false,
             media: false,
             target: false
+        },
+
+        computed: {
+
+            navbar() {
+                return toJQuery('.'+this.clsNavbarContainer, this.$el);
+            }
+
         },
 
         connected() {
@@ -85,6 +97,38 @@ export default function (UIkit) {
             }
 
         },
+
+        events: [
+
+            {
+                name: 'active',
+
+                handler() {
+                    this.$addClass(this.clsActive);
+                    this.$removeClass(this.clsInactive);
+
+                    if (this.navbar) {
+                        this.$addClass(this.navbar, this.clsNavbar);
+                    }
+                }
+
+            },
+
+            {
+                name: 'inactive',
+
+                handler() {
+                    this.$addClass(this.clsInactive);
+                    this.$removeClass(this.clsActive);
+
+                    if (this.navbar) {
+                        this.$removeClass(this.navbar, this.clsNavbar);
+                    }
+                }
+
+            }
+
+        ],
 
         update: [
 
@@ -223,8 +267,7 @@ export default function (UIkit) {
                     this.$el.trigger('inactive');
                 }
 
-                this.$addClass(this.clsInactive);
-                this.$removeClass(this.clsFixed, this.clsActive, this.clsBelow);
+                this.$removeClass(this.clsFixed, this.clsBelow);
                 this.$el.css({position: '', top: '', width: ''});
                 this.placeholder.attr('hidden', true);
 
@@ -257,8 +300,6 @@ export default function (UIkit) {
                     }
                 }
 
-                this.$toggleClass(this.clsActive, active);
-                this.$toggleClass(this.clsInactive, !active);
                 this.$toggleClass(this.clsBelow, this.scroll > this.bottomOffset);
 
                 if (this.showOnUp) {
