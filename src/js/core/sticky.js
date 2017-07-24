@@ -263,7 +263,7 @@ export default function (UIkit) {
 
             hide() {
 
-                if (this.$hasClass(this.clsActive)) {
+                if (!this.isActive || this.$hasClass(this.clsActive)) {
                     this.$el.trigger('inactive');
                 }
 
