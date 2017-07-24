@@ -7,6 +7,7 @@
 - Add workaround to mitigate the duplicating icons issue
 - Fix issue with multilevel dropdown
 - Fix compatibility issue with Prototype and MooTools
+- Fix sticky navbar behaviour
 
 ## 3.0.0 beta 27 (July 20, 2017)
 

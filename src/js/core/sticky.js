@@ -213,16 +213,19 @@ export default function (UIkit) {
 
                 this.isActive = true;
                 this.update();
-                this.$el.trigger('active');
                 this.placeholder.attr('hidden', null);
 
             },
 
             hide() {
 
+                if (this.$hasClass(this.clsActive)) {
+                    this.$el.trigger('inactive');
+                }
+
                 this.$addClass(this.clsInactive);
                 this.$removeClass(this.clsFixed, this.clsActive, this.clsBelow);
-                this.$el.css({position: '', top: '', width: ''}).trigger('inactive');
+                this.$el.css({position: '', top: '', width: ''});
                 this.placeholder.attr('hidden', true);
 
             },
@@ -241,11 +244,28 @@ export default function (UIkit) {
                     width: this.width
                 });
 
-                this.$addClass(this.clsFixed);
+                if (this.$hasClass(this.clsActive)) {
+
+                    if (!active) {
+                        this.$el.trigger('inactive');
+                    }
+
+                } else {
+
+                    if (active) {
+                        this.$el.trigger('active');
+                    }
+                }
+
                 this.$toggleClass(this.clsActive, active);
                 this.$toggleClass(this.clsInactive, !active);
                 this.$toggleClass(this.clsBelow, this.scroll > this.bottomOffset);
 
+                if (this.showOnUp) {
+                    requestAnimationFrame(() => this.$addClass(this.clsFixed));
+                } else {
+                    this.$addClass(this.clsFixed);
+                }
             }
 
         }
