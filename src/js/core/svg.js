@@ -122,7 +122,9 @@ export default function (UIkit) {
 
                 var root = this.$el[0];
                 if (isVoidElement(root) || root.tagName === 'CANVAS') {
+
                     this.$el.attr({hidden: true, id: null});
+
                     if (root.nextSibling) {
 
                         if (el.isEqualNode(root.nextSibling)) {
@@ -136,7 +138,7 @@ export default function (UIkit) {
                     }
                 } else {
 
-                    if (el.isEqualNode(root.lastChild)) {
+                    if (root.lastChild && el.isEqualNode(root.lastChild)) {
                         el = root.lastChild;
                     } else {
                         root.appendChild(el);
