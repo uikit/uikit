@@ -18,8 +18,7 @@ export default function (UIkit) {
             clsInactive: String,
             clsFixed: String,
             clsBelow: String,
-            clsNavbar: String,
-            clsNavbarContainer: String,
+            clsTarget: Boolean,
             widthElement: 'jQuery',
             showOnUp: Boolean,
             media: 'media',
@@ -35,8 +34,7 @@ export default function (UIkit) {
             clsInactive: '',
             clsFixed: 'uk-sticky-fixed',
             clsBelow: 'uk-sticky-below',
-            clsNavbar: 'uk-navbar-sticky',
-            clsNavbarContainer: 'uk-navbar-container',
+            clsTarget: false,
             widthElement: false,
             showOnUp: false,
             media: false,
@@ -45,8 +43,8 @@ export default function (UIkit) {
 
         computed: {
 
-            navbar() {
-                return toJQuery('.'+this.clsNavbarContainer, this.$el);
+            clsTarget() {
+                return toJQuery('.'+this.$props.clsTarget, this.$el);
             }
 
         },
@@ -104,12 +102,8 @@ export default function (UIkit) {
                 name: 'active',
 
                 handler() {
-                    this.$addClass(this.clsActive);
-                    this.$removeClass(this.clsInactive);
-
-                    if (this.navbar) {
-                        this.$addClass(this.navbar, this.clsNavbar);
-                    }
+                    this.$addClass(this.clsTarget || this.$el, this.clsActive);
+                    this.$removeClass(this.clsTarget || this.$el, this.clsInactive);
                 }
 
             },
@@ -118,12 +112,8 @@ export default function (UIkit) {
                 name: 'inactive',
 
                 handler() {
-                    this.$addClass(this.clsInactive);
-                    this.$removeClass(this.clsActive);
-
-                    if (this.navbar) {
-                        this.$removeClass(this.navbar, this.clsNavbar);
-                    }
+                    this.$addClass(this.clsTarget || this.$el, this.clsInactive);
+                    this.$removeClass(this.clsTarget || this.$el, this.clsActive);
                 }
 
             }
