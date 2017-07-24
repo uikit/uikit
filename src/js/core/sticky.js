@@ -18,7 +18,7 @@ export default function (UIkit) {
             clsInactive: String,
             clsFixed: String,
             clsBelow: String,
-            clsTarget: Boolean,
+            clsTarget: String,
             widthElement: 'jQuery',
             showOnUp: Boolean,
             media: 'media',
@@ -34,7 +34,7 @@ export default function (UIkit) {
             clsInactive: '',
             clsFixed: 'uk-sticky-fixed',
             clsBelow: 'uk-sticky-below',
-            clsTarget: false,
+            clsTarget: '',
             widthElement: false,
             showOnUp: false,
             media: false,
@@ -44,7 +44,7 @@ export default function (UIkit) {
         computed: {
 
             clsTarget() {
-                return toJQuery('.'+this.$props.clsTarget, this.$el);
+                return this.$props.clsTarget && toJQuery(`.${this.$props.clsTarget}`, this.$el);
             }
 
         },
