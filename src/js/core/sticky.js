@@ -18,7 +18,7 @@ export default function (UIkit) {
             clsInactive: String,
             clsFixed: String,
             clsBelow: String,
-            clsTarget: String,
+            selTarget: String,
             widthElement: 'jQuery',
             showOnUp: Boolean,
             media: 'media',
@@ -34,7 +34,7 @@ export default function (UIkit) {
             clsInactive: '',
             clsFixed: 'uk-sticky-fixed',
             clsBelow: 'uk-sticky-below',
-            clsTarget: '',
+            selTarget: '',
             widthElement: false,
             showOnUp: false,
             media: false,
@@ -43,8 +43,8 @@ export default function (UIkit) {
 
         computed: {
 
-            clsTarget() {
-                return this.$props.clsTarget && toJQuery(`.${this.$props.clsTarget}`, this.$el);
+            selTarget() {
+                return this.$props.selTarget && toJQuery(this.$props.selTarget, this.$el) || this.$el;
             }
 
         },
@@ -102,8 +102,8 @@ export default function (UIkit) {
                 name: 'active',
 
                 handler() {
-                    this.$addClass(this.clsTarget || this.$el, this.clsActive);
-                    this.$removeClass(this.clsTarget || this.$el, this.clsInactive);
+                    this.$addClass(this.selTarget, this.clsActive);
+                    this.$removeClass(this.selTarget, this.clsInactive);
                 }
 
             },
@@ -112,8 +112,8 @@ export default function (UIkit) {
                 name: 'inactive',
 
                 handler() {
-                    this.$addClass(this.clsTarget || this.$el, this.clsInactive);
-                    this.$removeClass(this.clsTarget || this.$el, this.clsActive);
+                    this.$addClass(this.selTarget, this.clsInactive);
+                    this.$removeClass(this.selTarget, this.clsActive);
                 }
 
             }
