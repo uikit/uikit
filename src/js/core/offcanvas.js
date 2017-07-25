@@ -98,13 +98,11 @@ export default function (UIkit) {
                 name: 'click',
 
                 delegate() {
-                    return this.panel;
+                    return 'a[href^="#"]';
                 },
 
-                handler({target}) {
-                    var link = $(target).closest('a[href^=#]'), href = link.attr('href');
-
-                    if (href && href.length > 1 && this.content.find(href).length) {
+                handler({currentTarget}) {
+                    if (currentTarget.hash && this.content.find(currentTarget.hash).length) {
                         scroll = null;
                         this.hide();
                     }
