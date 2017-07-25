@@ -78,7 +78,7 @@ function plugin(UIkit) {
                     if (prop.match(/^bg/)) {
 
                         var attr = `background-position-${prop[2]}`;
-                        props[prop].pos = this.$el.css(attr, '').css(attr);
+                        props[prop].pos = this.$el.css(attr, '').css('background-position').split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
 
                         if (this.covers) {
                             assign(props[prop], {start: 0, end: start <= end ? diff : -diff});
@@ -228,6 +228,7 @@ function plugin(UIkit) {
                         // transforms
                         case 'x':
                         case 'y':
+
                             if (translated) {
                                 break;
                             }
