@@ -17,6 +17,7 @@
 - Fix compatibility issue with Prototype and MooTools
 - Fix Sticky Navbar behaviour
 - Fix Parallax (IE11)
+- Fix swiping in Lightbox
 
 ## 3.0.0 beta 27 (July 20, 2017)
 

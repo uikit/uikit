@@ -128,6 +128,8 @@ function plugin(UIkit) {
                     return;
                 }
 
+                e.preventDefault();
+
                 var percent = 0;
                 if (this.stack.length) {
 
