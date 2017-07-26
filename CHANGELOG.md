@@ -6,6 +6,10 @@
 
 - Add sticky navbar test
 
+### Changed
+
+- Add box-shadow to dropbar slide
+
 ### Fixed
 
 - Add workaround to mitigate the duplicating icons issue
