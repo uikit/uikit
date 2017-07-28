@@ -4,6 +4,7 @@
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
   "version": "3.0.0-beta.27",
   "main": "dist/js/uikit.js",
+  "main-integrity": "sha384-Qo1gElgDqcVHwwHHE3MuWdD8lzJC24E/tU7Yj4MyIawGdfDFbYmPNCbkDDVM6Yge",
   "style": "dist/css/uikit.css",
   "scripts": {
     "build-scss": "mkdir -p src/scss/theme & mkdir -p src/scss/components & node build/scss",
