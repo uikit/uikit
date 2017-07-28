@@ -12,6 +12,7 @@
 
 ### Fixed
 
+- Fix icon color in Edge
 - Add workaround to mitigate the duplicating icons issue
 - Fix issue with multilevel dropdown
 - Fix compatibility issue with Prototype and MooTools
