@@ -49,7 +49,8 @@ export default function (UIkit) {
                 }
 
                 e.preventDefault();
-                this.scrollToElement($(this.$el[0].hash).length ? this.$el[0].hash : 'body');
+                var elHash = this.$el[0].hash.replace(/\//g, '\\/');
+                this.scrollToElement($(elHash).length ? elHash : 'body');
             }
 
         }
