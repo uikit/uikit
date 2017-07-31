@@ -9,6 +9,9 @@
 
 ### Changed
 
+- IMPORTANT: Renamed method `closeAlert` to `close` in Alert component
+- IMPORTANT: Renamed `close` param to `selClose` in Alert component
+- IMPORTANT: Renamed method `scrollToElement` to `scrollTo` in Scroll component
 - Add box-shadow to dropbar slide
 
 ### Fixed
@@ -20,6 +23,7 @@
 - Fix Sticky Navbar behaviour
 - Fix Parallax (IE11)
 - Fix swiping in Lightbox
+- Fix alert close animation
 
 ## 3.0.0 beta 27 (July 20, 2017)
 
