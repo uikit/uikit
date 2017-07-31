@@ -5,6 +5,7 @@
 ### Added
 
 - Add sticky navbar test
+- Add inverse style for button link
 
 ### Changed
 
