@@ -9,9 +9,9 @@
 
 ### Changed
 
-- IMPORTANT: Renamed method `closeAlert` to `close` in Alert component
-- IMPORTANT: Renamed `close` param to `selClose` in Alert component
-- IMPORTANT: Renamed method `scrollToElement` to `scrollTo` in Scroll component
+- IMPORTANT: Rename `closeAlert` method to `close` in Alert component
+- IMPORTANT: Rename `close` param to `selClose` in Alert component
+- IMPORTANT: Rename `scrollToElement` method to `scrollTo` in Scroll component
 - Add box-shadow to dropbar slide
 
 ### Fixed

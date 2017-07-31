@@ -33,7 +33,7 @@
     "buble-loader": "^0.4.1",
     "clean-css": "^4.1.7",
     "glob": "^7.1.2",
-    "html-loader": "^0.4.5",
+    "html-loader": "^0.5.0",
     "jquery": "^3.2.1",
     "less": "^2.7.1",
     "minimist": "^1.2.0",
@@ -48,8 +48,8 @@
     "rollup-plugin-replace": "^1.1.1",
     "rtlcss": "^2.2.0",
     "shortid": "^2.2.8",
-    "uglify-js": "^3.0.25",
-    "webpack": "^2.6.1",
+    "uglify-js": "^3.0.27",
+    "webpack": "^3.4.1",
     "webpack-dev-server": "^2.4.5"
   },
   "watch": {
