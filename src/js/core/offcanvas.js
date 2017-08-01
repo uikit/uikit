@@ -82,7 +82,6 @@ export default function (UIkit) {
                         scroll && this.content.scrollTop(scroll.y);
                     }
 
-
                 }
 
             },
