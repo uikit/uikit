@@ -327,7 +327,8 @@
             </div>
         </div>
 
-        <div id="modal-center" uk-modal>
+        <!-- uk-flex-top is needed to make vertical margin work for IE11 -->
+        <div id="modal-center" class="uk-flex-top" uk-modal>
             <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
 
                 <button class="uk-modal-close-default" type="button" uk-close></button>
@@ -337,7 +338,7 @@
             </div>
         </div>
 
-        <div id="modal-center-scrollbar" uk-modal>
+        <div id="modal-center-scrollbar" class="uk-flex-top" uk-modal>
             <div class="uk-modal-dialog uk-modal-body uk-margin-auto-vertical">
 
                 <button class="uk-modal-close-default" type="button" uk-close></button>
@@ -365,14 +366,14 @@
             </div>
         </div>
 
-        <div id="modal-media-image" uk-modal>
+        <div id="modal-media-image" class="uk-flex-top" uk-modal>
             <div class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical">
                 <button class="uk-modal-close-outside" type="button" uk-close></button>
                 <img src="images/photo.jpg" alt="">
             </div>
         </div>
 
-        <div id="modal-media-video" uk-modal>
+        <div id="modal-media-video" class="uk-flex-top" uk-modal>
             <div class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical">
                 <button class="uk-modal-close-outside" type="button" uk-close></button>
                 <video controls uk-video>
@@ -382,14 +383,14 @@
             </div>
         </div>
 
-        <div id="modal-media-youtube" uk-modal>
+        <div id="modal-media-youtube" class="uk-flex-top" uk-modal>
             <div class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical">
                 <button class="uk-modal-close-outside" type="button" uk-close></button>
                 <iframe src="//www.youtube.com/embed/YE7VzlLtp-4" width="560" height="315" frameborder="0" uk-video></iframe>
             </div>
         </div>
 
-        <div id="modal-media-vimeo" uk-modal>
+        <div id="modal-media-vimeo" class="uk-flex-top" uk-modal>
             <div class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical">
                 <button class="uk-modal-close-outside" type="button" uk-close></button>
                 <iframe src="//player.vimeo.com/video/1084537" width="500" height="281" frameborder="0" uk-video></iframe>

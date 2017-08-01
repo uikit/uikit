@@ -24,6 +24,8 @@
 
 @navbar-dropdown-box-shadow:                    0 5px 12px rgba(0,0,0,0.15);
 
+@navbar-dropbar-box-shadow:                     0 5px 7px rgba(0, 0, 0, 0.05);
+
 @navbar-dropdown-grid-divider-border-width:     @global-border-width;
 @navbar-dropdown-grid-divider-border:           @navbar-dropdown-nav-divider-border;
 
@@ -116,6 +118,8 @@
 // ========================================================================
 
 .hook-navbar-dropbar() {}
+
+.hook-navbar-dropbar-slide() { box-shadow: @navbar-dropbar-box-shadow; }
 
 
 // Miscellaneous

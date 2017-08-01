@@ -58,7 +58,7 @@ export function trigger(element, event) {
 }
 
 export function $trigger(element, event, data, local = false) {
-    var e = Event(event);
+    var e = event instanceof Event ? event : Event(event);
     $(element)[local ? 'triggerHandler' : 'trigger'](e, data);
     return e;
 }
@@ -118,18 +118,18 @@ export function animate(element, animation, duration = 200, origin, out) {
 
     var p = promise(resolve => {
 
-        var cls = out ? 'uk-animation-leave' : 'uk-animation-enter';
+        var cls = `${animation}${out ? ' uk-animation-leave' : ' uk-animation-enter'}`;
 
         element = $(element);
 
         if (animation.lastIndexOf('uk-animation-', 0) === 0) {
 
             if (origin) {
-                animation += ` uk-animation-${origin}`;
+                cls += ` uk-animation-${origin}`;
             }
 
             if (out) {
-                animation += ' uk-animation-reverse';
+                cls += ' uk-animation-reverse';
             }
 
         }
@@ -137,22 +137,19 @@ export function animate(element, animation, duration = 200, origin, out) {
         reset();
 
         element
-            .one(animationend || 'animationend', e => {
-                e.promise = p;
+            .one(animationend || 'animationend', () => {
                 p.then(reset);
                 resolve();
             })
             .css('animation-duration', `${duration}ms`)
-            .addClass(animation)
             .addClass(cls);
-
 
         if (!animationend) {
             requestAnimationFrame(() => Animation.cancel(element));
         }
 
         function reset() {
-            element.css('animation-duration', '').removeClass(`${cls} ${animation}`);
+            element.css('animation-duration', '').removeClass(cls);
         }
 
     });
@@ -175,8 +172,8 @@ export const Animation = {
     },
 
     cancel(element) {
-        var e = $trigger(element, animationend || 'animationend', null, true);
-        return e.promise || promise.resolve();
+        $trigger(element, animationend || 'animationend', null, true);
+        return promise(resolve => requestAnimationFrame(resolve));
     }
 
 };

@@ -45,6 +45,7 @@
     }
 
 }
+@mixin hook-background-misc(){}
 @mixin hook-badge(){}
 @mixin hook-badge-hover(){}
 @mixin hook-badge-misc(){}
@@ -65,7 +66,6 @@
     }
 
 }
-@mixin hook-background-misc(){}
 @mixin hook-base-body(){}
 @mixin hook-base-link(){}
 @mixin hook-base-link-hover(){}
@@ -276,6 +276,7 @@
 @mixin hook-inverse-button-text(){}
 @mixin hook-inverse-button-text-hover(){}
 @mixin hook-inverse-button-text-disabled(){}
+@mixin hook-inverse-button-link(){}
 @mixin hook-inverse-component-button(){
 
     //
@@ -369,6 +370,19 @@
         color: $inverse-button-text-disabled-color;
         @if(mixin-exists(hook-inverse-button-text-disabled)) {@include hook-inverse-button-text-disabled();}
     }
+
+    //
+    // Link
+    //
+
+    .uk-button-link {
+        color: $inverse-button-link-color;
+        @if(mixin-exists(hook-inverse-button-link)) {@include hook-inverse-button-link();}
+    }
+
+    .uk-button-link:hover,
+    .uk-button-link:focus { color: $inverse-button-link-hover-color; }
+
 
 }
 @mixin hook-card(){}
@@ -1270,14 +1284,6 @@
 @mixin hook-lightbox-button(){}
 @mixin hook-lightbox-button-hover(){}
 @mixin hook-lightbox-misc(){}
-@mixin hook-list-divider(){}
-@mixin hook-list-striped(){}
-@mixin hook-list-bullet(){}
-@mixin hook-list-misc(){}
-@mixin hook-inverse-list-divider(){}
-@mixin hook-inverse-list-striped(){}
-@mixin hook-inverse-list-bullet(){}
-@mixin hook-margin-misc(){}
 @mixin hook-link-muted(){}
 @mixin hook-link-muted-hover(){}
 @mixin hook-link-text(){}
@@ -1287,6 +1293,14 @@
 @mixin hook-inverse-link-muted(){}
 @mixin hook-inverse-link-muted-hover(){}
 @mixin hook-inverse-link-text-hover(){}
+@mixin hook-list-divider(){}
+@mixin hook-list-striped(){}
+@mixin hook-list-bullet(){}
+@mixin hook-list-misc(){}
+@mixin hook-inverse-list-divider(){}
+@mixin hook-inverse-list-striped(){}
+@mixin hook-inverse-list-bullet(){}
+@mixin hook-margin-misc(){}
 @mixin hook-marker(){}
 @mixin hook-marker-hover(){}
 @mixin hook-marker-misc(){}
@@ -1374,6 +1388,7 @@
 @mixin hook-navbar-dropdown-nav-header(){}
 @mixin hook-navbar-dropdown-nav-divider(){}
 @mixin hook-navbar-dropbar(){}
+@mixin hook-navbar-dropbar-slide(){}
 @mixin hook-navbar-misc(){}
 @mixin hook-inverse-navbar-nav-item(){}
 @mixin hook-inverse-navbar-nav-item-hover(){}

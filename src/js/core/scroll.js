@@ -18,7 +18,7 @@ export default function (UIkit) {
 
         methods: {
 
-            scrollToElement(el) {
+            scrollTo(el) {
 
                 // get / set parameters
                 var target = offsetTop($(el)) - this.offset,
@@ -49,7 +49,7 @@ export default function (UIkit) {
                 }
 
                 e.preventDefault();
-                this.scrollToElement($(this.$el[0].hash).length ? this.$el[0].hash : 'body');
+                this.scrollTo($(this.$el[0].hash).length ? this.$el[0].hash : 'body');
             }
 
         }

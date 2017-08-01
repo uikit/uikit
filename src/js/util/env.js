@@ -66,10 +66,10 @@ function prefix(name, event) {
         classified = classify(event),
         element = document.body || document.documentElement,
         names = {
+            [name]: lowered,
             [`Webkit${ucase}`]: `webkit${classified}`,
             [`Moz${ucase}`]: lowered,
-            [`o${ucase}`]: `o${classified} o${lowered}`,
-            [name]: lowered
+            [`o${ucase}`]: `o${classified} o${lowered}`
         };
 
     for (name in names) {

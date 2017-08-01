@@ -1,5 +1,30 @@
 # Changelog
 
+## 3.0.0 beta 28 (August 01, 2017)
+
+### Added
+
+- Add sticky navbar test
+- Add inverse style for button link
+
+### Changed
+
+- IMPORTANT: Rename `closeAlert` method to `close` in Alert component
+- IMPORTANT: Rename `close` param to `selClose` in Alert component
+- IMPORTANT: Rename `scrollToElement` method to `scrollTo` in Scroll component
+- Add box-shadow to dropbar slide
+
+### Fixed
+
+- Fix icon color in Edge
+- Add workaround to mitigate the duplicating icons issue
+- Fix issue with multilevel dropdown
+- Fix compatibility issue with Prototype and MooTools
+- Fix Sticky Navbar behaviour
+- Fix Parallax (IE11)
+- Fix swiping in Lightbox
+- Fix alert close animation
+
 ## 3.0.0 beta 27 (July 20, 2017)
 
 ### Fixed

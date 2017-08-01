@@ -109,7 +109,9 @@ export class Player {
 }
 
 function post(el, cmd) {
-    el.contentWindow.postMessage(JSON.stringify(assign({event: 'command'}, cmd)), '*');
+    try {
+        el.contentWindow.postMessage(JSON.stringify(assign({event: 'command'}, cmd)), '*');
+    } catch (e) {}
 }
 
 function listen(cb) {

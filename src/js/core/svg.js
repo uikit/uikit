@@ -122,14 +122,28 @@ export default function (UIkit) {
 
                 var root = this.$el[0];
                 if (isVoidElement(root) || root.tagName === 'CANVAS') {
+
                     this.$el.attr({hidden: true, id: null});
+
                     if (root.nextSibling) {
-                        root.parentNode.insertBefore(el, root.nextSibling);
+
+                        if (el.isEqualNode(root.nextSibling)) {
+                            el = root.nextSibling;
+                        } else {
+                            root.parentNode.insertBefore(el, root.nextSibling);
+                        }
+
                     } else {
                         root.parentNode.appendChild(el);
                     }
                 } else {
-                    root.appendChild(el);
+
+                    if (root.lastChild && el.isEqualNode(root.lastChild)) {
+                        el = root.lastChild;
+                    } else {
+                        root.appendChild(el);
+                    }
+
                 }
 
                 resolve(el);

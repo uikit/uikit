@@ -284,11 +284,13 @@ export default function (UIkit) {
                             }
 
                         } else if (active && !this.isChildOf(active) && !this.isParentOf(active)) {
+
                             var prev;
-                            while (active && active !== prev) {
+                            while (active && active !== prev && !this.isChildOf(active)) {
                                 prev = active;
                                 active.hide(false);
                             }
+
                         }
 
                         if (delay && this.delayShow) {

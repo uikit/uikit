@@ -430,6 +430,8 @@
 @inverse-button-text-color:                    @inverse-global-muted-color;
 @inverse-button-text-hover-color:              @inverse-global-color;
 @inverse-button-text-disabled-color:           @inverse-global-muted-color;
+@inverse-button-link-color:                    @inverse-global-muted-color;
+@inverse-button-link-hover-color:              @inverse-global-color;
 
 .hook-inverse() {
 
@@ -525,6 +527,19 @@
         .hook-inverse-button-text-disabled;
     }
 
+    //
+    // Link
+    //
+
+    .uk-button-link {
+        color: @inverse-button-link-color;
+        .hook-inverse-button-link;
+    }
+
+    .uk-button-link:hover,
+    .uk-button-link:focus { color: @inverse-button-link-hover-color; }
+
+
 }
 
 .hook-inverse-button-default() {}
@@ -539,3 +554,4 @@
 .hook-inverse-button-text() {}
 .hook-inverse-button-text-hover() {}
 .hook-inverse-button-text-disabled() {}
+.hook-inverse-button-link() {}
