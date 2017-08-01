@@ -502,6 +502,7 @@ $navbar-dropbar-z-index:                         $global-z-index + 20 !default;
     z-index: $navbar-dropbar-z-index;
     left: 0;
     right: 0;
+    @if(mixin-exists(hook-navbar-dropbar-slide)) {@include hook-navbar-dropbar-slide();}
 }
 
 
@@ -533,6 +534,7 @@ $navbar-dropbar-z-index:                         $global-z-index + 20 !default;
 // @mixin hook-navbar-dropdown-nav-header(){}
 // @mixin hook-navbar-dropdown-nav-divider(){}
 // @mixin hook-navbar-dropbar(){}
+// @mixin hook-navbar-dropbar-slide(){}
 // @mixin hook-navbar-misc(){}
 
 

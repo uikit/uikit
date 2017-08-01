@@ -1045,11 +1045,14 @@ a.uk-link-reset:hover,
 }
 /*
  * Set the fill and stroke color of all SVG elements to the current text color
+ * 1. Fix for uppercase attribute names in Edge. Will be fixed in Windows 10 builds 16251+
  */
-.uk-icon [fill*='#']:not(.uk-preserve) {
+.uk-icon [fill*='#']:not(.uk-preserve),
+.uk-icon [FILL*='#']:not(.uk-preserve) {
   fill: currentcolor;
 }
-.uk-icon [stroke*='#']:not(.uk-preserve) {
+.uk-icon [stroke*='#']:not(.uk-preserve),
+.uk-icon [STROKE*='#']:not(.uk-preserve) {
   stroke: currentcolor;
 }
 /*
@@ -4197,6 +4200,7 @@ ul.uk-nav-sub {
   z-index: 1020;
   right: 0;
   left: 0;
+  box-shadow: 0 5px 7px rgba(0, 0, 0, 0.05);
 }
 /*
      * Navbar
@@ -8122,13 +8126,16 @@ td.uk-text-break {
 /*
  * 1. Fill all SVG elements with the current text color if no `fill` attribute is set
  * 2. Set the fill and stroke color of all SVG elements to the current text color
+ * 3. Fix for uppercase attribute names in Edge. Will be fixed in Windows 10 builds 16251+
  */
 /* 1 */
 .uk-svg,
-.uk-svg:not(.uk-preserve) [fill*='#']:not(.uk-preserve) {
+.uk-svg:not(.uk-preserve) [fill*='#']:not(.uk-preserve),
+.uk-svg:not(.uk-preserve) [FILL*='#']:not(.uk-preserve) {
   fill: currentcolor;
 }
-.uk-svg:not(.uk-preserve) [stroke*='#']:not(.uk-preserve) {
+.uk-svg:not(.uk-preserve) [stroke*='#']:not(.uk-preserve),
+.uk-svg:not(.uk-preserve) [STROKE*='#']:not(.uk-preserve) {
   stroke: currentcolor;
 }
 /*
@@ -10606,6 +10613,43 @@ td.uk-text-break {
 .uk-overlay-primary .uk-button-text:disabled,
 .uk-offcanvas-bar .uk-button-text:disabled {
   color: rgba(255, 255, 255, 0.5);
+}
+.uk-light .uk-button-link,
+.uk-section-primary:not(.uk-preserve-color) .uk-button-link,
+.uk-section-secondary:not(.uk-preserve-color) .uk-button-link,
+.uk-tile-primary:not(.uk-preserve-color) .uk-button-link,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-button-link,
+.uk-card-primary.uk-card-body .uk-button-link,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-button-link,
+.uk-card-secondary.uk-card-body .uk-button-link,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-button-link,
+.uk-overlay-primary .uk-button-link,
+.uk-offcanvas-bar .uk-button-link {
+  color: rgba(255, 255, 255, 0.5);
+}
+.uk-light .uk-button-link:hover,
+.uk-light .uk-button-link:focus,
+.uk-section-primary:not(.uk-preserve-color) .uk-button-link:hover,
+.uk-section-primary:not(.uk-preserve-color) .uk-button-link:focus,
+.uk-section-secondary:not(.uk-preserve-color) .uk-button-link:hover,
+.uk-section-secondary:not(.uk-preserve-color) .uk-button-link:focus,
+.uk-tile-primary:not(.uk-preserve-color) .uk-button-link:hover,
+.uk-tile-primary:not(.uk-preserve-color) .uk-button-link:focus,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-button-link:hover,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-button-link:focus,
+.uk-card-primary.uk-card-body .uk-button-link:hover,
+.uk-card-primary.uk-card-body .uk-button-link:focus,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-button-link:hover,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-button-link:focus,
+.uk-card-secondary.uk-card-body .uk-button-link:hover,
+.uk-card-secondary.uk-card-body .uk-button-link:focus,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-button-link:hover,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-button-link:focus,
+.uk-overlay-primary .uk-button-link:hover,
+.uk-overlay-primary .uk-button-link:focus,
+.uk-offcanvas-bar .uk-button-link:hover,
+.uk-offcanvas-bar .uk-button-link:focus {
+  color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-grid-divider > :not(.uk-first-column)::before,
 .uk-section-primary:not(.uk-preserve-color) .uk-grid-divider > :not(.uk-first-column)::before,
