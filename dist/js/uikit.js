@@ -71,7 +71,7 @@ function trigger$$1(element, event) {
 function $trigger$$1(element, event, data, local) {
     if ( local === void 0 ) local = false;
 
-    var e = $.Event(event);
+    var e = event instanceof $.Event ? event : $.Event(event);
     $__default(element)[local ? 'triggerHandler' : 'trigger'](e, data);
     return e;
 }
@@ -136,18 +136,18 @@ function animate$$1(element, animation, duration, origin, out) {
 
     var p = promise$$1(function (resolve) {
 
-        var cls = out ? 'uk-animation-leave' : 'uk-animation-enter';
+        var cls = "" + animation + (out ? ' uk-animation-leave' : ' uk-animation-enter');
 
         element = $__default(element);
 
         if (animation.lastIndexOf('uk-animation-', 0) === 0) {
 
             if (origin) {
-                animation += " uk-animation-" + origin;
+                cls += " uk-animation-" + origin;
             }
 
             if (out) {
-                animation += ' uk-animation-reverse';
+                cls += ' uk-animation-reverse';
             }
 
         }
@@ -155,22 +155,19 @@ function animate$$1(element, animation, duration, origin, out) {
         reset();
 
         element
-            .one(animationend || 'animationend', function (e) {
-                e.promise = p;
+            .one(animationend || 'animationend', function () {
                 p.then(reset);
                 resolve();
             })
             .css('animation-duration', (duration + "ms"))
-            .addClass(animation)
             .addClass(cls);
-
 
         if (!animationend) {
             requestAnimationFrame(function () { return Animation$$1.cancel(element); });
         }
 
         function reset() {
-            element.css('animation-duration', '').removeClass((cls + " " + animation));
+            element.css('animation-duration', '').removeClass(cls);
         }
 
     });
@@ -193,8 +190,8 @@ var Animation$$1 = {
     },
 
     cancel: function cancel(element) {
-        var e = $trigger$$1(element, animationend || 'animationend', null, true);
-        return e.promise || promise$$1.resolve();
+        $trigger$$1(element, animationend || 'animationend', null, true);
+        return promise$$1(function (resolve) { return requestAnimationFrame(resolve); });
     }
 
 };
@@ -684,7 +681,7 @@ function prefix(name, event) {
         lowered = classify$$1(event).toLowerCase(),
         classified = classify$$1(event),
         element = document.body || document.documentElement,
-        names = ( obj = {}, obj[("Webkit" + ucase)] = ("webkit" + classified), obj[("Moz" + ucase)] = lowered, obj[("o" + ucase)] = ("o" + classified + " o" + lowered), obj[name] = lowered, obj );
+        names = ( obj = {}, obj[name] = lowered, obj[("Webkit" + ucase)] = ("webkit" + classified), obj[("Moz" + ucase)] = lowered, obj[("o" + ucase)] = ("o" + classified + " o" + lowered), obj );
     var obj;
 
     for (name in names) {
@@ -1041,7 +1038,9 @@ Player$$1.prototype.mute = function mute () {
 };
 
 function post(el, cmd) {
-    el.contentWindow.postMessage(JSON.stringify(assign$$1({event: 'command'}, cmd)), '*');
+    try {
+        el.contentWindow.postMessage(JSON.stringify(assign$$1({event: 'command'}, cmd)), '*');
+    } catch (e) {}
 }
 
 function listen(cb) {
@@ -2425,35 +2424,38 @@ var Togglable = {
         toggleElement: function toggleElement(targets, show, animate) {
             var this$1 = this;
 
+            return promise$$1(function (resolve) {
 
-            var toggles, body = document.body, scroll = body.scrollTop,
-                all = function (targets) { return promise$$1.all(targets.toArray().map(function (el) { return this$1._toggleElement(el, show, animate); })).then(null, noop$$1); },
-                delay = function (targets) {
-                    var def = all(targets);
-                    this$1._queued = null;
-                    body.scrollTop = scroll;
-                    return def;
-                };
+                var toggles, body = document.body, scroll = body.scrollTop,
+                    all = function (targets) { return promise$$1.all(targets.toArray().map(function (el) { return this$1._toggleElement(el, show, animate); })); },
+                    delay = function (targets) {
+                        var def = all(targets);
+                        this$1._queued = null;
+                        body.scrollTop = scroll;
+                        return def;
+                    };
 
-            targets = $__default(targets);
+                targets = $__default(targets);
 
-            if (!this.hasAnimation || !this.queued || targets.length < 2) {
-                return all(targets);
-            }
+                if (!this$1.hasAnimation || !this$1.queued || targets.length < 2) {
+                    return all(targets).then(resolve, noop$$1);
+                }
 
-            if (this._queued) {
-                return delay(targets.not(this._queued));
-            }
+                if (this$1._queued) {
+                    return delay(targets.not(this$1._queued)).then(resolve, noop$$1);
+                }
 
-            this._queued = targets.not(toggles = targets.filter(function (_, el) { return this$1.isToggled(el); }));
+                this$1._queued = targets.not(toggles = targets.filter(function (_, el) { return this$1.isToggled(el); }));
 
-            return all(toggles).then(function () { return this$1._queued && delay(this$1._queued); });
+                return all(toggles).then(function () { return this$1._queued && delay(this$1._queued); }).then(resolve, noop$$1);
+
+            });
         },
 
         toggleNow: function toggleNow(targets, show) {
             var this$1 = this;
 
-            return promise$$1.all($__default(targets).toArray().map(function (el) { return this$1._toggleElement(el, show, false); })).then(null, noop$$1);
+            return promise$$1(function (resolve) { return promise$$1.all($__default(targets).toArray().map(function (el) { return this$1._toggleElement(el, show, false); })).then(resolve, noop$$1); });
         },
 
         isToggled: function isToggled(el) {
@@ -2490,9 +2492,12 @@ var Togglable = {
                     : this._toggleAnimation
             )(el, show);
 
-            el.trigger(show ? 'show' : 'hide', [this]);
+            var e = $.Event(show ? 'show' : 'hide');
+            e.preventDefault(); // workaround for Prototype and MooTools: it keeps jQuery from calling show or hide on the Element itself
+            $trigger$$1(el, e, [this]);
+
             return def.then(function () {
-                el.trigger(show ? 'shown' : 'hidden', [this$1]);
+                $trigger$$1(el, show ? 'shown' : 'hidden', [this$1]);
                 UIkit$2.update(null, el);
             });
         },
@@ -2529,27 +2534,28 @@ var Togglable = {
 
             return Transition$$1.cancel(el).then(function () {
 
+                if (Transition$$1.inProgress(el)) {
+                    return promise$$1.resolve().then(function () { return this$1._toggleHeight(el, show); });
+                }
+
                 if (!this$1.isToggled(el)) {
                     this$1._toggle(el, true);
                 }
 
                 el.height('');
 
-                return promise$$1(function (resolve) { return requestAnimationFrame(function () {
+                // Update child components first
+                fastdom$$1.flush();
 
-                        endHeight = el.height() + (inProgress ? 0 : inner);
-                        el.height(height);
+                endHeight = el.height() + (inProgress ? 0 : inner);
+                el.height(height);
 
-                        (show
-                            ? Transition$$1.start(el, assign$$1(this$1.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this$1.duration * (1 - height / endHeight)), this$1.transition)
-                            : Transition$$1.start(el, this$1.hideProps, Math.round(this$1.duration * (height / endHeight)), this$1.transition).then(function () {
-                                this$1._toggle(el, false);
-                                el.css(this$1.initProps);
-                            })).then(resolve);
-
-                    }); }
-                );
-
+                return (show
+                    ? Transition$$1.start(el, assign$$1(this$1.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this$1.duration * (1 - height / endHeight)), this$1.transition)
+                    : Transition$$1.start(el, this$1.hideProps, Math.round(this$1.duration * (height / endHeight)), this$1.transition).then(function () {
+                        this$1._toggle(el, false);
+                        el.css(this$1.initProps);
+                    }));
             });
 
         },
@@ -3015,6 +3021,8 @@ var Alert = function (UIkit) {
 
     UIkit.component('alert', {
 
+        attrs: true,
+
         mixins: [Class, Togglable],
 
         args: 'animation',
@@ -3025,9 +3033,9 @@ var Alert = function (UIkit) {
 
         defaults: {
             animation: [true],
-            close: '.uk-alert-close',
+            selClose: '.uk-alert-close',
             duration: 150,
-            hideProps: {opacity: 0}
+            hideProps: assign$$1({opacity: 0}, Togglable.defaults.hideProps)
         },
 
         events: [
@@ -3037,12 +3045,12 @@ var Alert = function (UIkit) {
                 name: 'click',
 
                 delegate: function delegate() {
-                    return this.close;
+                    return this.selClose;
                 },
 
                 handler: function handler(e) {
                     e.preventDefault();
-                    this.closeAlert();
+                    this.close();
                 }
 
             }
@@ -3051,7 +3059,7 @@ var Alert = function (UIkit) {
 
         methods: {
 
-            closeAlert: function closeAlert() {
+            close: function close() {
                 var this$1 = this;
 
                 this.toggleElement(this.$el).then(function () { return this$1.$destroy(true); });
@@ -3421,11 +3429,13 @@ var Drop = function (UIkit) {
                             }
 
                         } else if (active && !this$1.isChildOf(active) && !this$1.isParentOf(active)) {
+
                             var prev;
-                            while (active && active !== prev) {
+                            while (active && active !== prev && !this$1.isChildOf(active)) {
                                 prev = active;
                                 active.hide(false);
                             }
+
                         }
 
                         if (delay && this$1.delayShow) {
@@ -4679,15 +4689,13 @@ var Offcanvas = function (UIkit) {
                 name: 'click',
 
                 delegate: function delegate() {
-                    return this.panel;
+                    return 'a[href^="#"]';
                 },
 
                 handler: function handler(ref) {
-                    var target = ref.target;
+                    var currentTarget = ref.currentTarget;
 
-                    var link = $__default(target).closest('a[href^=#]'), href = link.attr('href');
-
-                    if (href && href.length > 1 && this.content.find(href).length) {
+                    if (currentTarget.hash && this.content.find(currentTarget.hash).length) {
                         scroll = null;
                         this.hide();
                     }
@@ -4838,7 +4846,7 @@ var Scroll = function (UIkit) {
 
         methods: {
 
-            scrollToElement: function scrollToElement(el) {
+            scrollTo: function scrollTo(el) {
                 var this$1 = this;
 
 
@@ -4871,7 +4879,7 @@ var Scroll = function (UIkit) {
                 }
 
                 e.preventDefault();
-                this.scrollToElement($__default(this.$el[0].hash).length ? this.$el[0].hash : 'body');
+                this.scrollTo($__default(this.$el[0].hash).length ? this.$el[0].hash : 'body');
             }
 
         }
@@ -5147,6 +5155,7 @@ var Sticky = function (UIkit) {
             clsInactive: String,
             clsFixed: String,
             clsBelow: String,
+            selTarget: String,
             widthElement: 'jQuery',
             showOnUp: Boolean,
             media: 'media',
@@ -5162,10 +5171,19 @@ var Sticky = function (UIkit) {
             clsInactive: '',
             clsFixed: 'uk-sticky-fixed',
             clsBelow: 'uk-sticky-below',
+            selTarget: '',
             widthElement: false,
             showOnUp: false,
             media: false,
             target: false
+        },
+
+        computed: {
+
+            selTarget: function selTarget() {
+                return this.$props.selTarget && toJQuery$$1(this.$props.selTarget, this.$el) || this.$el;
+            }
+
         },
 
         connected: function connected() {
@@ -5174,7 +5192,7 @@ var Sticky = function (UIkit) {
             this.widthElement = this.$props.widthElement || this.placeholder;
 
             if (!this.isActive) {
-                this.$addClass(this.clsInactive);
+                this.hide();
             }
         },
 
@@ -5216,6 +5234,30 @@ var Sticky = function (UIkit) {
             }
 
         },
+
+        events: [
+
+            {
+                name: 'active',
+
+                handler: function handler() {
+                    this.$addClass(this.selTarget, this.clsActive);
+                    this.$removeClass(this.selTarget, this.clsInactive);
+                }
+
+            },
+
+            {
+                name: 'inactive',
+
+                handler: function handler() {
+                    this.$addClass(this.selTarget, this.clsInactive);
+                    this.$removeClass(this.selTarget, this.clsActive);
+                }
+
+            }
+
+        ],
 
         update: [
 
@@ -5316,7 +5358,7 @@ var Sticky = function (UIkit) {
                         this.isActive = false;
 
                         if (this.animation && scroll > this.topOffset) {
-                            Animation$$1.cancel(this.$el).then(function () { return Animation$$1.out(this$1.$el, this$1.animation).then(function () { return this$1.hide(); }); });
+                            Animation$$1.cancel(this.$el).then(function () { return Animation$$1.out(this$1.$el, this$1.animation); }).then(function () { return this$1.hide(); });
                         } else {
                             this.hide();
                         }
@@ -5348,21 +5390,25 @@ var Sticky = function (UIkit) {
 
                 this.isActive = true;
                 this.update();
-                this.$el.trigger('active');
                 this.placeholder.attr('hidden', null);
 
             },
 
             hide: function hide() {
 
-                this.$addClass(this.clsInactive);
-                this.$removeClass(this.clsFixed, this.clsActive, this.clsBelow);
-                this.$el.css({position: '', top: '', width: ''}).trigger('inactive');
+                if (!this.isActive || this.$hasClass(this.clsActive)) {
+                    this.$el.trigger('inactive');
+                }
+
+                this.$removeClass(this.clsFixed, this.clsBelow);
+                this.$el.css({position: '', top: '', width: ''});
                 this.placeholder.attr('hidden', true);
 
             },
 
             update: function update() {
+                var this$1 = this;
+
 
                 var top = Math.max(0, this.offset), active = this.scroll > this.top;
 
@@ -5376,11 +5422,26 @@ var Sticky = function (UIkit) {
                     width: this.width
                 });
 
-                this.$addClass(this.clsFixed);
-                this.$toggleClass(this.clsActive, active);
-                this.$toggleClass(this.clsInactive, !active);
+                if (this.$hasClass(this.clsActive)) {
+
+                    if (!active) {
+                        this.$el.trigger('inactive');
+                    }
+
+                } else {
+
+                    if (active) {
+                        this.$el.trigger('active');
+                    }
+                }
+
                 this.$toggleClass(this.clsBelow, this.scroll > this.bottomOffset);
 
+                if (this.showOnUp) {
+                    requestAnimationFrame(function () { return this$1.$addClass(this$1.clsFixed); });
+                } else {
+                    this.$addClass(this.clsFixed);
+                }
             }
 
         }
@@ -5514,14 +5575,28 @@ var Svg = function (UIkit) {
 
                 var root = this$1.$el[0];
                 if (isVoidElement$$1(root) || root.tagName === 'CANVAS') {
+
                     this$1.$el.attr({hidden: true, id: null});
+
                     if (root.nextSibling) {
-                        root.parentNode.insertBefore(el, root.nextSibling);
+
+                        if (el.isEqualNode(root.nextSibling)) {
+                            el = root.nextSibling;
+                        } else {
+                            root.parentNode.insertBefore(el, root.nextSibling);
+                        }
+
                     } else {
                         root.parentNode.appendChild(el);
                     }
                 } else {
-                    root.appendChild(el);
+
+                    if (root.lastChild && el.isEqualNode(root.lastChild)) {
+                        el = root.lastChild;
+                    } else {
+                        root.appendChild(el);
+                    }
+
                 }
 
                 resolve(el);
@@ -5825,12 +5900,12 @@ var Toggle = function (UIkit) {
                     }
 
                     // TODO better isToggled handling
-                    var link = $__default(e.target).closest('a[href]');
+                    var link = $__default(e.target).closest('a[href]')[0];
                     if ($__default(e.target).closest('a[href="#"], button').length
-                        || link.length && (
+                        || link && (
                             this.cls
                             || !this.target.is(':visible')
-                            || link.attr('href')[0] === '#' && this.target.is(link.attr('href'))
+                            || link.hash && this.target.is(link.hash)
                         )
                     ) {
                         e.preventDefault();
@@ -6349,6 +6424,8 @@ function plugin$2(UIkit) {
                 if (e.button && e.button !== 0 || this.slides.length < 2) {
                     return;
                 }
+
+                e.preventDefault();
 
                 var percent = 0;
                 if (this.stack.length) {
@@ -8362,7 +8439,7 @@ function plugin$8(UIkit) {
                     if (prop.match(/^bg/)) {
 
                         var attr = "background-position-" + (prop[2]);
-                        props[prop].pos = this$1.$el.css(attr, '').css(attr);
+                        props[prop].pos = this$1.$el.css(attr, '').css('background-position').split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
 
                         if (this$1.covers) {
                             assign(props[prop], {start: 0, end: start <= end ? diff : -diff});
@@ -8524,6 +8601,7 @@ function plugin$8(UIkit) {
                         // transforms
                         case 'x':
                         case 'y':
+
                             if (translated) {
                                 break;
                             }
