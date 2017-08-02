@@ -1,6 +1,5 @@
 import UIkit from '../api/index';
 import { $, $trigger, Animation, assign, Event, fastdom, isBoolean, isUndefined, noop, promise, Transition } from '../util/index';
-import { isUndefined } from "../util/lang";
 
 export default {
 
