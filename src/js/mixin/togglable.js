@@ -1,5 +1,6 @@
 import UIkit from '../api/index';
-import { $, $trigger, Animation, assign, Event, fastdom, isBoolean, noop, promise, Transition } from '../util/index';
+import { $, $trigger, Animation, assign, Event, fastdom, isBoolean, isUndefined, noop, promise, Transition } from '../util/index';
+import { isUndefined } from "../util/lang";
 
 export default {
 
@@ -57,28 +58,31 @@ export default {
         toggleElement(targets, show, animate) {
             return promise(resolve => {
 
-                var toggles, body = document.body, scroll = body.scrollTop,
-                    all = targets => promise.all(targets.toArray().map(el => this._toggleElement(el, show, animate))),
-                    delay = targets => {
-                        var def = all(targets);
-                        this._queued = null;
+                var body = document.body,
+                    scroll = body.scrollTop,
+                    all = targets => promise.all(targets.map(el => this._toggleElement(el, show, animate)));
+
+                targets = $(targets).toArray();
+
+                if (!this.queued || !isUndefined(animate) || !isUndefined(show) || !this.hasAnimation || targets.length < 2) {
+                    all(targets).then(resolve, noop);
+                    return;
+                }
+
+                var toggled = targets.filter(el => this.isToggled(el)),
+                    el = toggled[0],
+                    inProgress = Animation.inProgress(el) && this.$hasClass(el, 'uk-animation-leave')
+                        || Transition.inProgress(el) && el.style.height === '0px',
+                    p = all(toggled);
+
+                if (!inProgress) {
+                    p = p.then(() => {
                         body.scrollTop = scroll;
-                        return def;
-                    };
-
-                targets = $(targets);
-
-                if (!this.hasAnimation || !this.queued || targets.length < 2) {
-                    return all(targets).then(resolve, noop);
+                        return all(targets.filter(el => !~toggled.indexOf(el)));
+                    });
                 }
 
-                if (this._queued) {
-                    return delay(targets.not(this._queued)).then(resolve, noop);
-                }
-
-                this._queued = targets.not(toggles = targets.filter((_, el) => this.isToggled(el)));
-
-                return all(toggles).then(() => this._queued && delay(this._queued)).then(resolve, noop);
+                p.then(resolve, noop);
 
             });
         },
@@ -102,11 +106,13 @@ export default {
 
             el = $(el);
 
-            if (Animation.inProgress(el)) {
-                return Animation.cancel(el).then(() => this._toggleElement(el, show, animate));
-            }
-
-            show = isBoolean(show) ? show : !this.isToggled(el);
+            show = isBoolean(show)
+                ? show
+                : Animation.inProgress(el)
+                    ? this.$hasClass(el, 'uk-animation-leave')
+                    : Transition.inProgress(el)
+                        ? el[0].style.height === '0px'
+                        : !this.isToggled(el);
 
             if ($trigger(el, `before${show ? 'show' : 'hide'}`, [this]).result === false) {
                 return promise.reject();
@@ -152,8 +158,9 @@ export default {
 
         _toggleHeight(el, show) {
 
-            var inProgress = Transition.inProgress(el),
-                inner = parseFloat(el.children().first().css('margin-top')) + parseFloat(el.children().last().css('margin-bottom')),
+            var children = el.children(),
+                inProgress = Transition.inProgress(el),
+                inner = children.length ? parseFloat(children.first().css('margin-top')) + parseFloat(children.last().css('margin-bottom')) : 0,
                 height = el[0].offsetHeight ? el.height() + (inProgress ? 0 : inner) : 0,
                 endHeight;
 
@@ -186,6 +193,17 @@ export default {
         },
 
         _toggleAnimation(el, show) {
+
+            if (Animation.inProgress(el)) {
+                return Animation.cancel(el).then(() => {
+
+                    if (Animation.inProgress(el)) {
+                        return promise.resolve().then(() => this._toggleAnimation(el, show));
+                    }
+
+                    return this._toggleAnimation(el, show);
+                });
+            }
 
             if (show) {
                 this._toggle(el, true);

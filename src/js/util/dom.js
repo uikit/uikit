@@ -77,15 +77,9 @@ export function transition(element, props, duration = 400, transition = 'linear'
 
         element
             .one(transitionend, (e, cancel) => {
-
                 clearTimeout(timer);
                 element.removeClass('uk-transition').css('transition', '');
-                if (!cancel) {
-                    resolve();
-                } else {
-                    reject();
-                }
-
+                cancel ? reject() : resolve();
             })
             .addClass('uk-transition')
             .css('transition', `all ${duration}ms ${transition}`)
@@ -116,7 +110,7 @@ export const Transition = {
 
 export function animate(element, animation, duration = 200, origin, out) {
 
-    var p = promise(resolve => {
+    return promise((resolve, reject) => {
 
         var cls = `${animation}${out ? ' uk-animation-leave' : ' uk-animation-enter'}`;
 
@@ -137,9 +131,9 @@ export function animate(element, animation, duration = 200, origin, out) {
         reset();
 
         element
-            .one(animationend || 'animationend', () => {
-                p.then(reset);
-                resolve();
+            .one(animationend || 'animationend', (e, cancel) => {
+                reset();
+                cancel ? reject() : resolve();
             })
             .css('animation-duration', `${duration}ms`)
             .addClass(cls);
@@ -154,7 +148,6 @@ export function animate(element, animation, duration = 200, origin, out) {
 
     });
 
-    return p;
 }
 
 export const Animation = {
@@ -172,8 +165,8 @@ export const Animation = {
     },
 
     cancel(element) {
-        $trigger(element, animationend || 'animationend', null, true);
-        return promise(resolve => requestAnimationFrame(resolve));
+        $trigger(element, animationend || 'animationend', [true], true);
+        return promise.resolve();
     }
 
 };

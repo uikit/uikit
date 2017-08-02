@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, Animation, isNumeric, isString, offsetTop, query, requestAnimationFrame, toJQuery } from '../util/index';
+import { $, Animation, isNumeric, isString, noop, offsetTop, query, requestAnimationFrame, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
@@ -213,7 +213,7 @@ export default function (UIkit) {
                         this.isActive = false;
 
                         if (this.animation && scroll > this.topOffset) {
-                            Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation)).then(() => this.hide());
+                            Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation).then(() => this.hide(), noop));
                         } else {
                             this.hide();
                         }
@@ -226,7 +226,7 @@ export default function (UIkit) {
 
                         Animation.cancel(this.$el).then(() => {
                             this.show();
-                            Animation.in(this.$el, this.animation);
+                            Animation.in(this.$el, this.animation).then(null, noop);
                         });
 
                     } else {
