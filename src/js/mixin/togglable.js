@@ -182,11 +182,9 @@ export default {
                 el.height(height);
 
                 return (show
-                    ? Transition.start(el, assign(this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
-                    : Transition.start(el, this.hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => {
-                        this._toggle(el, false);
-                        el.css(this.initProps);
-                    }));
+                    ? Transition.start(el, assign({}, this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
+                    : Transition.start(el, this.hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => this._toggle(el, false))
+                ).then(() => el.css(this.initProps));
             });
 
         },
