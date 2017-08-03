@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix whitespace trimming in dist
+
 ## 3.0.0 beta 28 (August 01, 2017)
 
 ### Added
