@@ -93,7 +93,7 @@ export default function (UIkit) {
 
             getActive() {
                 var active = UIkit.drop.getActive();
-                return active && active.mode !== 'click' && isWithin(active.toggle.$el, this.$el) && active;
+                return active && !~active.mode.indexOf('click') && isWithin(active.toggle.$el, this.$el) && active;
             }
 
         }
