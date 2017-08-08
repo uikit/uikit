@@ -253,7 +253,7 @@ export default function (UIkit) {
 
             hide() {
 
-                if (!this.isActive || this.$hasClass(this.clsActive)) {
+                if (!this.isActive || this.$hasClass(this.selTarget, this.clsActive)) {
                     this.$el.trigger('inactive');
                 }
 
@@ -277,7 +277,7 @@ export default function (UIkit) {
                     width: this.width
                 });
 
-                if (this.$hasClass(this.clsActive)) {
+                if (this.$hasClass(this.selTarget, this.clsActive)) {
 
                     if (!active) {
                         this.$el.trigger('inactive');
