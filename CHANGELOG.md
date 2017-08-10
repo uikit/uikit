@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Media options now support any valid media query syntax
+
 ### Fixed
 
 - Fix whitespace trimming in dist
