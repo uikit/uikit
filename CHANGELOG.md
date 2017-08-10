@@ -7,6 +7,7 @@
 - Fix whitespace trimming in dist
 - Fix active drop in click mode close on hover in Navbar component
 - Fix selTarget option in Sticky component
+- Fix icons not displaying if connected/disconnected from DOM twice in succession 
 
 ## 3.0.0 beta 28 (August 01, 2017)
 

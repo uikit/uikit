@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, assign, isRtl, promise, swap } from '../util/index';
+import { $, assign, isRtl, noop, promise, swap } from '../util/index';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
 import marker from '../../images/components/marker.svg';
@@ -70,6 +70,7 @@ export default function (UIkit) {
 
                     if (icon) {
                         this.delay(icon);
+                        this.delay = false;
                     }
                 }
             },
@@ -163,7 +164,7 @@ export default function (UIkit) {
     registerComponent('spinner', {
 
         connected() {
-            this.svg.then(svg => this.ratio !== 1 && $(svg).find('circle').css('stroke-width', 1 / this.ratio));
+            this.svg.then(svg => this.ratio !== 1 && $(svg).find('circle').css('stroke-width', 1 / this.ratio), noop);
         }
 
     });

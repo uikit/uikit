@@ -148,7 +148,7 @@ export default function (UIkit) {
 
                 resolve(el);
 
-            }))).then(null, noop);
+            })));
 
         },
 
@@ -159,7 +159,7 @@ export default function (UIkit) {
             }
 
             if (this.svg) {
-                this.svg.then(svg => svg && svg.parentNode && svg.parentNode.removeChild(svg));
+                this.svg.then(svg => !this._connected && svg.parentNode && svg.parentNode.removeChild(svg), noop);
                 this.svg = null;
             }
         },
