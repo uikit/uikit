@@ -65,7 +65,10 @@ export default function (UIkit) {
 
         update() {
 
-            UIkit.drop($(`${this.dropdown} .${this.clsDrop}`, this.$el), assign({}, this.$props, {boundary: this.boundary, pos: this.pos}));
+            UIkit.drop(
+                $(`${this.dropdown} .${this.clsDrop}`, this.$el).filter((_, el) => !UIkit.getComponent(el, 'dropdown')),
+                assign({}, this.$props, {boundary: this.boundary, pos: this.pos})
+            );
 
         },
 
