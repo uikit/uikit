@@ -57,28 +57,34 @@ export default {
         toggleElement(targets, show, animate) {
             return promise(resolve => {
 
-                var body = document.body,
-                    scroll = body.scrollTop,
-                    all = targets => promise.all(targets.map(el => this._toggleElement(el, show, animate)));
-
                 targets = $(targets).toArray();
 
-                if (!this.queued || !isUndefined(animate) || !isUndefined(show) || !this.hasAnimation || targets.length < 2) {
-                    all(targets).then(resolve, noop);
-                    return;
-                }
+                var all = targets => promise.all(targets.map(el => this._toggleElement(el, show, animate))),
+                    toggled = targets.filter(el => this.isToggled(el)),
+                    p;
 
-                var toggled = targets.filter(el => this.isToggled(el)),
-                    el = toggled[0],
-                    inProgress = Animation.inProgress(el) && this.$hasClass(el, 'uk-animation-leave')
-                        || Transition.inProgress(el) && el.style.height === '0px',
+                if (!this.queued || !isUndefined(animate) || !isUndefined(show) || !this.hasAnimation || targets.length < 2) {
+
+                    p = all(targets.filter(el => !~toggled.indexOf(el)).concat(toggled));
+
+                } else {
+
+                    var body = document.body,
+                        scroll = body.scrollTop,
+                        el = toggled[0],
+                        inProgress = Animation.inProgress(el) && this.$hasClass(el, 'uk-animation-leave')
+                            || Transition.inProgress(el) && el.style.height === '0px';
+
                     p = all(toggled);
 
-                if (!inProgress) {
-                    p = p.then(() => {
-                        body.scrollTop = scroll;
-                        return all(targets.filter(el => !~toggled.indexOf(el)));
-                    });
+                    if (!inProgress) {
+                        p = p.then(() => {
+                            var p = all(targets.filter(el => !~toggled.indexOf(el)));
+                            body.scrollTop = scroll;
+                            return p;
+                        });
+                    }
+
                 }
 
                 p.then(resolve, noop);
