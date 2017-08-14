@@ -61,11 +61,12 @@ export default {
 
                 var all = targets => promise.all(targets.map(el => this._toggleElement(el, show, animate))),
                     toggled = targets.filter(el => this.isToggled(el)),
+                    untoggled = targets.filter(el => !~toggled.indexOf(el)),
                     p;
 
                 if (!this.queued || !isUndefined(animate) || !isUndefined(show) || !this.hasAnimation || targets.length < 2) {
 
-                    p = all(targets.filter(el => !~toggled.indexOf(el)).concat(toggled));
+                    p = all(untoggled.concat(toggled));
 
                 } else {
 
@@ -79,7 +80,7 @@ export default {
 
                     if (!inProgress) {
                         p = p.then(() => {
-                            var p = all(targets.filter(el => !~toggled.indexOf(el)));
+                            var p = all(untoggled);
                             body.scrollTop = scroll;
                             return p;
                         });
