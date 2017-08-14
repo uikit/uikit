@@ -110,6 +110,23 @@ export default function (UIkit) {
             },
 
             {
+
+                name: 'beforescroll',
+
+                filter() {
+                    return this.overlay;
+                },
+
+                handler(_, scroll, target) {
+                    if (scroll && target && this.isToggled() && this.content.find(target).length) {
+                        this.$el.one('hidden', () => scroll.scrollTo(target));
+                        return false;
+                    }
+                }
+
+            },
+
+            {
                 name: 'show',
 
                 self: true,

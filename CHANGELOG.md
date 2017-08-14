@@ -14,6 +14,7 @@
 - Fix icons not displaying if connected/disconnected in rapid succession
 - Ensure Navbar component does not initialze Drop components if Dropdown is already present
 - Fix scrollbar jumping in Switcher
+- Fix compatibility Offcanvas in overlay mode and Scroll component
 
 ## 3.0.0 beta 28 (August 01, 2017)
 
