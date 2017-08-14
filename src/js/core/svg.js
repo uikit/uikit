@@ -1,4 +1,4 @@
-import { ajax, fastdom, isVoidElement, noop, promise } from '../util/index';
+import { ajax, isVoidElement, noop, promise } from '../util/index';
 
 var svgs = {}, parser = new DOMParser();
 
@@ -45,7 +45,7 @@ export default function (UIkit) {
             this.width = this.$props.width;
             this.height = this.$props.height;
 
-            this.svg = this.getSvg().then(doc => promise((resolve, reject) => fastdom.mutate(() => {
+            this.svg = this.getSvg().then(doc => promise((resolve, reject) => {
 
                 var svg, el;
 
@@ -148,7 +148,7 @@ export default function (UIkit) {
 
                 resolve(el);
 
-            })));
+            }));
 
         },
 
@@ -159,7 +159,7 @@ export default function (UIkit) {
             }
 
             if (this.svg) {
-                this.svg.then(svg => !this._connected && svg.parentNode && svg.parentNode.removeChild(svg), noop);
+                this.svg.then(svg => svg.parentNode && svg.parentNode.removeChild(svg), noop);
                 this.svg = null;
             }
         },
