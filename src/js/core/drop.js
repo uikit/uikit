@@ -387,6 +387,11 @@ export default function (UIkit) {
         registered = true;
         doc.on('click', e => {
             var prev;
+
+            if (e.isDefaultPrevented()) {
+                return;
+            }
+
             while (active && active !== prev && !isWithin(e.target, active.$el) && !(active.toggle && isWithin(e.target, active.toggle.$el))) {
                 prev = active;
                 active.hide(false);

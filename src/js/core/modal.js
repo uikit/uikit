@@ -16,18 +16,19 @@ export default function (UIkit) {
         events: [
 
             {
-                name: 'beforeshow',
+                name: 'show',
 
                 self: true,
 
                 handler() {
 
                     if (this.panel.hasClass('uk-margin-auto-vertical')) {
-                        this.$el.addClass('uk-flex').height();
+                        this.$el.addClass('uk-flex');
                     } else {
-                        this.$el.css('display', 'block').height();
+                        this.$el.css('display', 'block');
                     }
 
+                    this.$el.height(); // force reflow
                 }
             },
 

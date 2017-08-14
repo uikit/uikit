@@ -110,7 +110,7 @@ export default function (UIkit) {
             },
 
             {
-                name: 'beforeshow',
+                name: 'show',
 
                 self: true,
 
@@ -133,7 +133,7 @@ export default function (UIkit) {
             },
 
             {
-                name: 'beforehide',
+                name: 'hide',
 
                 self: true,
 
