@@ -136,7 +136,9 @@ export default {
             $trigger(el, e, [this]);
 
             return def.then(() => {
-                $trigger(el, show ? 'shown' : 'hidden', [this]);
+                var e = Event(show ? 'shown' : 'hidden');
+                e.stopPropagation();
+                $trigger(el, e, [this]);
                 UIkit.update(null, el);
             });
         },
