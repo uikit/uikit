@@ -38,17 +38,16 @@ export function off(el, type, listener, useCapture = false) {
 }
 
 export function one(el, type, listener, useCapture, condition) {
-    type.split(' ').forEach(type => {
-        var handler = e => {
-            var result = !condition || condition(e);
-            if (result) {
-                off(el, type, handler, useCapture);
-                listener(isBoolean(result) ? e : result);
-            }
-        };
 
-        on(el, type, handler, useCapture);
-    });
+    var handler = e => {
+        var result = !condition || condition(e);
+        if (result) {
+            type.split(' ').forEach(type => off(el, type, handler, useCapture));
+            listener(e, result);
+        }
+    };
+
+    type.split(' ').forEach(type => on(el, type, handler, useCapture));
 }
 
 export function trigger(element, event) {

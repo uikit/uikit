@@ -118,7 +118,7 @@ function listen(cb) {
 
     return promise(resolve => {
 
-        one(window, 'message', data => resolve(data), false, ({data}) => {
+        one(window, 'message', (_, data) => resolve(data), false, ({data}) => {
 
             if (!data || !isString(data)) {
                 return;
