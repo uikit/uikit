@@ -52,7 +52,7 @@ export default function (UIkit) {
 
                 read() {
 
-                    var scroll = window.pageYOffset + this.offset, max = docHeight() - window.innerHeight + this.offset;
+                    var scroll = window.pageYOffset + this.offset + 1, max = docHeight() - window.innerHeight + this.offset;
 
                     this.active = false;
 

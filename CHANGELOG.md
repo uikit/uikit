@@ -16,6 +16,7 @@
 - Fix scrollbar jumping in Switcher
 - Fix compatibility Offcanvas in overlay mode and Scroll component
 - Fix cursor set to pointer for icons
+- Fix Scrollspy nav not working correctly when zoomed in
 
 ## 3.0.0 beta 28 (August 01, 2017)
 
