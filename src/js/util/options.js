@@ -1,4 +1,4 @@
-import { assign, isArray, isFunction, isUndefined, hasOwn } from './index';
+import { assign, hasOwn, isArray, isFunction, isUndefined } from './index';
 
 var strats = {};
 

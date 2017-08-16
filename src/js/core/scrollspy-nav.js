@@ -1,4 +1,4 @@
-import { $, docHeight, offsetTop, toJQuery, isInView } from '../util/index';
+import { $, docHeight, isInView, offsetTop, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 

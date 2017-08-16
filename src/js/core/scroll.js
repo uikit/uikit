@@ -1,4 +1,4 @@
-import { $, docHeight, offsetTop, $trigger } from '../util/index';
+import { $, $trigger, docHeight, offsetTop } from '../util/index';
 
 export default function (UIkit) {
 
