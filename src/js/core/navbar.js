@@ -194,7 +194,8 @@ export default function (UIkit) {
 
             transitionTo(height) {
                 this.$el.height(this.$el[0].offsetHeight ? this.$el.height() : 0);
-                return Transition.cancel(this.$el).then(() => Transition.start(this.$el, {height}, this.duration).then(null, noop));
+                Transition.cancel(this.$el);
+                return Transition.start(this.$el, {height}, this.duration).then(null, noop);
             }
 
         }

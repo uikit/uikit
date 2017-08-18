@@ -33,14 +33,14 @@
     "buble-loader": "^0.4.1",
     "clean-css": "^4.1.7",
     "glob": "^7.1.2",
-    "html-loader": "^0.5.0",
+    "html-loader": "^0.5.1",
     "jquery": "^3.2.1",
     "less": "^2.7.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",
     "npm-watch": "^0.2.0",
-    "postcss": "^6.0.8",
-    "rollup": "^0.45.2",
+    "postcss": "^6.0.9",
+    "rollup": "^0.47.6",
     "rollup-plugin-buble": "^0.15.0",
     "rollup-plugin-html": "^0.2.1",
     "rollup-plugin-import-alias": "^1.0.3",
@@ -49,8 +49,8 @@
     "rtlcss": "^2.2.0",
     "shortid": "^2.2.8",
     "uglify-js": "^3.0.27",
-    "webpack": "^3.4.1",
-    "webpack-dev-server": "^2.4.5"
+    "webpack": "^3.5.5",
+    "webpack-dev-server": "^2.7.1"
   },
   "watch": {
     "compile-js": "src/js/**/*.js",
