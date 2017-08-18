@@ -45,10 +45,9 @@ $icon-button-active-color:                       $global-color !default;
  * 4. Correct `font` properties and `color` not being inherited for `button`.
  * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
  * 6. Remove default `button` padding and background color
- * 7. Required for `button`.
- * 8. Style
- * 9. Fill all SVG elements with the current text color if no `fill` attribute is set
- * 10. Let the container fit the height of the icon
+ * 7. Style
+ * 8. Fill all SVG elements with the current text color if no `fill` attribute is set
+ * 9. Let the container fit the height of the icon
  */
 
 .uk-icon {
@@ -67,14 +66,15 @@ $icon-button-active-color:                       $global-color !default;
     padding: 0;
     background-color: transparent;
     /* 7 */
-    cursor: pointer;
-    /* 8 */
     display: inline-block;
-    /* 9 */
+    /* 8 */
     fill: currentcolor;
-    /* 10 */
+    /* 9 */
     line-height: 0;
 }
+
+/* Required for `button`. */
+button.uk-icon:not(:disabled) { cursor: pointer; }
 
 /*
  * Remove the inner border and padding in Firefox.

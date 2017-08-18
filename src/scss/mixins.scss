@@ -780,33 +780,6 @@
     }
 
 }
-@mixin hook-iconnav(){}
-@mixin hook-iconnav-item(){}
-@mixin hook-iconnav-item-hover(){}
-@mixin hook-iconnav-item-active(){}
-@mixin hook-iconnav-misc(){}
-@mixin hook-inverse-iconnav-item(){}
-@mixin hook-inverse-iconnav-item-hover(){}
-@mixin hook-inverse-iconnav-item-active(){}
-@mixin hook-inverse-component-iconnav(){
-
-    .uk-iconnav > * > * {
-        color: $inverse-iconnav-item-color;
-        @if(mixin-exists(hook-inverse-iconnav-item)) {@include hook-inverse-iconnav-item();}
-    }
-
-    .uk-iconnav > * > :hover,
-    .uk-iconnav > * > :focus {
-        color: $inverse-iconnav-item-hover-color;
-        @if(mixin-exists(hook-inverse-iconnav-item-hover)) {@include hook-inverse-iconnav-item-hover();}
-    }
-
-    .uk-iconnav > .uk-active > * {
-        color: $inverse-iconnav-item-active-color;
-        @if(mixin-exists(hook-inverse-iconnav-item-active)) {@include hook-inverse-iconnav-item-active();}
-    }
-
-}
 @mixin hook-inverse-component-link(){
 
     a.uk-link-muted,
@@ -1198,6 +1171,25 @@
     }
 
 }
+@mixin hook-inverse-component-iconnav(){
+
+    .uk-iconnav > * > * {
+        color: $inverse-iconnav-item-color;
+        @if(mixin-exists(hook-inverse-iconnav-item)) {@include hook-inverse-iconnav-item();}
+    }
+
+    .uk-iconnav > * > :hover,
+    .uk-iconnav > * > :focus {
+        color: $inverse-iconnav-item-hover-color;
+        @if(mixin-exists(hook-inverse-iconnav-item-hover)) {@include hook-inverse-iconnav-item-hover();}
+    }
+
+    .uk-iconnav > .uk-active > * {
+        color: $inverse-iconnav-item-active-color;
+        @if(mixin-exists(hook-inverse-iconnav-item-active)) {@include hook-inverse-iconnav-item-active();}
+    }
+
+}
 @mixin hook-inverse-component-text(){
 
     .uk-text-lead {
@@ -1270,6 +1262,14 @@
     @include hook-inverse-component-column();
     @include hook-inverse-component-utility();
 }
+@mixin hook-iconnav(){}
+@mixin hook-iconnav-item(){}
+@mixin hook-iconnav-item-hover(){}
+@mixin hook-iconnav-item-active(){}
+@mixin hook-iconnav-misc(){}
+@mixin hook-inverse-iconnav-item(){}
+@mixin hook-inverse-iconnav-item-hover(){}
+@mixin hook-inverse-iconnav-item-active(){}
 @mixin hook-label(){}
 @mixin hook-label-success(){}
 @mixin hook-label-warning(){}
@@ -1284,6 +1284,13 @@
 @mixin hook-lightbox-button(){}
 @mixin hook-lightbox-button-hover(){}
 @mixin hook-lightbox-misc(){}
+@mixin hook-list-divider(){}
+@mixin hook-list-striped(){}
+@mixin hook-list-bullet(){}
+@mixin hook-list-misc(){}
+@mixin hook-inverse-list-divider(){}
+@mixin hook-inverse-list-striped(){}
+@mixin hook-inverse-list-bullet(){}
 @mixin hook-link-muted(){}
 @mixin hook-link-muted-hover(){}
 @mixin hook-link-text(){}
@@ -1293,13 +1300,6 @@
 @mixin hook-inverse-link-muted(){}
 @mixin hook-inverse-link-muted-hover(){}
 @mixin hook-inverse-link-text-hover(){}
-@mixin hook-list-divider(){}
-@mixin hook-list-striped(){}
-@mixin hook-list-bullet(){}
-@mixin hook-list-misc(){}
-@mixin hook-inverse-list-divider(){}
-@mixin hook-inverse-list-striped(){}
-@mixin hook-inverse-list-bullet(){}
 @mixin hook-margin-misc(){}
 @mixin hook-marker(){}
 @mixin hook-marker-hover(){}
