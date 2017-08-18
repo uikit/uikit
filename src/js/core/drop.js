@@ -83,15 +83,25 @@ export default function (UIkit) {
                         return;
                     }
 
-                    var id = $(e.target).attr('href');
+                    var id = e.target.hash;
 
-                    if (id.length === 1) {
+                    if (!id) {
                         e.preventDefault();
                     }
 
-                    if (id.length === 1 || !isWithin(id, this.$el)) {
+                    if (!id || !isWithin(id, this.$el)) {
                         this.hide(false);
                     }
+                }
+
+            },
+
+            {
+
+                name: 'beforescroll',
+
+                handler() {
+                    this.hide(false);
                 }
 
             },

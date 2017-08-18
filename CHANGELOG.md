@@ -14,7 +14,7 @@
 - Fix icons not displaying if connected/disconnected in rapid succession
 - Ensure Navbar component does not initialze Drop components if Dropdown is already present
 - Fix scrollbar jumping in Switcher
-- Fix compatibility Offcanvas in overlay mode and Scroll component
+- Fix usage of Scroll component in Drop, Dropdown, Navbar and Offcanvas in overlay mode
 - Fix cursor set to pointer for icons
 - Fix Scrollspy nav not working correctly when zoomed in
 - Fix animations (FF)
