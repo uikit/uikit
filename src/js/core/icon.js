@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, assign, isRtl, noop, promise, swap } from '../util/index';
+import { $, assign, each, isRtl, noop, promise, swap } from '../util/index';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
 import marker from '../../images/components/marker.svg';
@@ -61,6 +61,10 @@ export default function (UIkit) {
             }
         },
 
+        disconnected() {
+            delete this.delay;
+        },
+
         update: {
 
             read() {
@@ -70,7 +74,7 @@ export default function (UIkit) {
 
                     if (icon) {
                         this.delay(icon);
-                        this.delay = false;
+                        delete this.delay;
                     }
                 }
             },
@@ -169,7 +173,18 @@ export default function (UIkit) {
 
     });
 
-    UIkit.icon.add = added => assign(icons, added);
+    UIkit.icon.add = added => {
+        assign(icons, added);
+        Object.keys(added).forEach(name => delete parsed[name]);
+
+        if (UIkit._initialized) {
+            each(UIkit.instances, (_, component) => {
+                if (component.$options.name === 'icon') {
+                    component.$reset();
+                }
+            });
+        }
+    };
 
     function registerComponent(name, mixin) {
 

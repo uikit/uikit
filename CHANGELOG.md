@@ -18,6 +18,7 @@
 - Fix cursor set to pointer for icons
 - Fix Scrollspy nav not working correctly when zoomed in
 - Fix animations (FF)
+- Fix icons not displaying if lazy loaded
 
 ## 3.0.0 beta 28 (August 01, 2017)
 
