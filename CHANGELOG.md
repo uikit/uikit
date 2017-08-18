@@ -2,6 +2,12 @@
 
 ## 3.0.0 beta 29 (August 18, 2017)
 
+### Fixed
+
+- Fix regression (IE11)
+
+## 3.0.0 beta 29 (August 18, 2017)
+
 ### Changed
 
 - Media options now support any valid media query syntax
