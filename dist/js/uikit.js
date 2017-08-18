@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.29 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.30 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory(require('jquery')) :
@@ -183,7 +183,7 @@ function animate(element, animation, duration, origin, out) {
                 }
             });
 
-            Promise.resolve().then(function () {
+            promise.resolve().then(function () {
                 hasReset = true;
                 reset();
             });
@@ -6218,7 +6218,7 @@ var core = function (UIkit) {
 
 };
 
-UIkit$2.version = '3.0.0-beta.29';
+UIkit$2.version = '3.0.0-beta.30';
 
 mixin(UIkit$2);
 core(UIkit$2);
