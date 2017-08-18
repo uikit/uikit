@@ -82,7 +82,6 @@ export default function (UIkit) {
                         scroll && this.content.scrollTop(scroll.y);
                     }
 
-
                 }
 
             },
@@ -111,7 +110,24 @@ export default function (UIkit) {
             },
 
             {
-                name: 'beforeshow',
+
+                name: 'beforescroll',
+
+                filter() {
+                    return this.overlay;
+                },
+
+                handler(_, scroll, target) {
+                    if (scroll && target && this.isToggled() && this.content.find(target).length) {
+                        this.$el.one('hidden', () => scroll.scrollTo(target));
+                        return false;
+                    }
+                }
+
+            },
+
+            {
+                name: 'show',
 
                 self: true,
 
@@ -134,7 +150,7 @@ export default function (UIkit) {
             },
 
             {
-                name: 'beforehide',
+                name: 'hide',
 
                 self: true,
 

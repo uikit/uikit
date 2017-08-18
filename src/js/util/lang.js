@@ -173,7 +173,7 @@ export function toMedia(value) {
         if (value[0] === '@') {
             var name = `media-${value.substr(1)}`;
             value = vars[name] || (vars[name] = parseFloat(getCssVar(name)));
-        } else if (value.match(/^\(min-width:/)) {
+        } else if (isNaN(value)) {
             return value;
         }
     }

@@ -1,4 +1,4 @@
-import { $, docHeight, offsetTop } from '../util/index';
+import { $, $trigger, docHeight, offsetTop } from '../util/index';
 
 export default function (UIkit) {
 
@@ -20,7 +20,6 @@ export default function (UIkit) {
 
             scrollTo(el) {
 
-                // get / set parameters
                 var target = offsetTop($(el)) - this.offset,
                     document = docHeight(),
                     viewport = window.innerHeight;
@@ -29,12 +28,15 @@ export default function (UIkit) {
                     target = document - viewport;
                 }
 
-                // animate to target, fire callback when done
+                if ($trigger(this.$el, 'beforescroll', [this, el]).result === false) {
+                    return;
+                }
+
                 $('html,body')
                     .stop()
                     .animate({scrollTop: Math.round(target)}, this.duration, this.easing)
                     .promise()
-                    .then(() => this.$el.trigger('scrolled', [this]));
+                    .then(() => this.$el.trigger('scrolled', [this, el]));
 
             }
 

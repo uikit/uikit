@@ -114,14 +114,14 @@ exports.compile = function (file, dest, external, globals, name, aliases, bundle
             amd: {id: `UIkit${name}`.toLowerCase()},
             moduleName: `UIkit${exports.ucfirst(name)}`
         }))
-        .then(({code}) => exports.write(`${dest}.js`, code.replace(/(>)\\n\s+|\\n\s+(<)/g, '$1$2')))
+        .then(({code}) => exports.write(`${dest}.js`, code.replace(/(>)\\n\s+|\\n\s+(<)/g, '$1 $2')))
         .then(exports.uglify)
         .catch(console.log);
 };
 
 exports.icons = function (src) {
     return JSON.stringify(glob.sync(src, {nosort: true}).reduce((icons, file) => {
-        icons[path.basename(file, '.svg')] = fs.readFileSync(file).toString().trim().replace(/\n/g, '').replace(/>\s+</g, '><');
+        icons[path.basename(file, '.svg')] = fs.readFileSync(file).toString().trim().replace(/\n/g, '').replace(/>\s+</g, '> <');
         return icons;
     }, {}), null, '    ');
 };

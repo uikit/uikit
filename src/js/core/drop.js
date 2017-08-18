@@ -1,5 +1,5 @@
 import { Position, Togglable } from '../mixin/index';
-import { $, Animation, doc, getDimensions, isWithin, isTouch, MouseTracker, pointerEnter, pointerLeave, query, removeClass } from '../util/index';
+import { $, Animation, doc, getDimensions, isTouch, isWithin, MouseTracker, pointerEnter, pointerLeave, query, removeClass } from '../util/index';
 
 export default function (UIkit) {
 
@@ -83,15 +83,25 @@ export default function (UIkit) {
                         return;
                     }
 
-                    var id = $(e.target).attr('href');
+                    var id = e.target.hash;
 
-                    if (id.length === 1) {
+                    if (!id) {
                         e.preventDefault();
                     }
 
-                    if (id.length === 1 || !isWithin(id, this.$el)) {
+                    if (!id || !isWithin(id, this.$el)) {
                         this.hide(false);
                     }
+                }
+
+            },
+
+            {
+
+                name: 'beforescroll',
+
+                handler() {
+                    this.hide(false);
                 }
 
             },
@@ -387,6 +397,11 @@ export default function (UIkit) {
         registered = true;
         doc.on('click', e => {
             var prev;
+
+            if (e.isDefaultPrevented()) {
+                return;
+            }
+
             while (active && active !== prev && !isWithin(e.target, active.$el) && !(active.toggle && isWithin(e.target, active.toggle.$el))) {
                 prev = active;
                 active.hide(false);

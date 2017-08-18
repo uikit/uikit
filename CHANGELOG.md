@@ -1,5 +1,25 @@
 # Changelog
 
+## 3.0.0 beta 29 (August 18, 2017)
+
+### Changed
+
+- Media options now support any valid media query syntax
+
+### Fixed
+
+- Fix whitespace trimming in dist
+- Fix active drop in click mode close on hover in Navbar component
+- Fix selTarget option in Sticky component
+- Fix icons not displaying if connected/disconnected in rapid succession
+- Ensure Navbar component does not initialze Drop components if Dropdown is already present
+- Fix scrollbar jumping in Switcher
+- Fix usage of Scroll component in Drop, Dropdown, Navbar and Offcanvas in overlay mode
+- Fix cursor set to pointer for icons
+- Fix Scrollspy nav not working correctly when zoomed in
+- Fix animations (FF)
+- Fix icons not displaying if lazy loaded
+
 ## 3.0.0 beta 28 (August 01, 2017)
 
 ### Added

@@ -65,7 +65,10 @@ export default function (UIkit) {
 
         update() {
 
-            UIkit.drop($(`${this.dropdown} .${this.clsDrop}`, this.$el), assign({}, this.$props, {boundary: this.boundary, pos: this.pos}));
+            UIkit.drop(
+                $(`${this.dropdown} .${this.clsDrop}`, this.$el).filter((_, el) => !UIkit.getComponent(el, 'dropdown')),
+                assign({}, this.$props, {boundary: this.boundary, pos: this.pos})
+            );
 
         },
 
@@ -93,7 +96,7 @@ export default function (UIkit) {
 
             getActive() {
                 var active = UIkit.drop.getActive();
-                return active && active.mode !== 'click' && isWithin(active.toggle.$el, this.$el) && active;
+                return active && !~active.mode.indexOf('click') && isWithin(active.toggle.$el, this.$el) && active;
             }
 
         }
@@ -191,7 +194,8 @@ export default function (UIkit) {
 
             transitionTo(height) {
                 this.$el.height(this.$el[0].offsetHeight ? this.$el.height() : 0);
-                return Transition.cancel(this.$el).then(() => Transition.start(this.$el, {height}, this.duration).then(null, noop));
+                Transition.cancel(this.$el);
+                return Transition.start(this.$el, {height}, this.duration).then(null, noop);
             }
 
         }
