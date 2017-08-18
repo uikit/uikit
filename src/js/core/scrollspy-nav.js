@@ -58,10 +58,8 @@ export default function (UIkit) {
 
                     this.targets.each((i, el) => {
 
-                        el = $(el);
-
                         var top = offsetTop(el), last = i + 1 === this.targets.length;
-                        if (!this.overflow && (i === 0 && top > scroll || last && top + el[0].offsetTop < scroll)) {
+                        if (!this.overflow && (i === 0 && top > scroll || last && top + el.offsetTop < scroll)) {
                             return false;
                         }
 
@@ -71,14 +69,14 @@ export default function (UIkit) {
 
                         if (scroll >= max) {
                             for (var j = this.targets.length - 1; j > i; j--) {
-                                if (isInView(this.targets.eq(j))) {
-                                    el = this.targets.eq(j);
+                                if (isInView(this.targets[j])) {
+                                    el = this.targets[j];
                                     break;
                                 }
                             }
                         }
 
-                        return !(this.active = toJQuery(this.links.filter(`[href="#${el.attr('id')}"]`)));
+                        return !(this.active = toJQuery(this.links.filter(`[href="#${el.id}"]`)));
 
                     });
 
