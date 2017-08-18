@@ -158,7 +158,7 @@ export function animate(element, animation, duration = 200, origin, out) {
                 }
             });
 
-            Promise.resolve().then(() => {
+            promise.resolve().then(() => {
                 hasReset = true;
                 reset();
             });

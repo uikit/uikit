@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.0 beta 30 (August 18, 2017)
+
+### Fixed
+
+- Fix regression (IE11)
+
 ## 3.0.0 beta 29 (August 18, 2017)
 
 ### Changed
