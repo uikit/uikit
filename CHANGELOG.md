@@ -1,10 +1,16 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add style support for radio and checkbox in Firefox
+
 ## 3.0.0 beta 30 (August 18, 2017)
 
 ### Fixed
 
-- Fix regression (IE11)
+- Fix regression for IE11
 
 ## 3.0.0 beta 29 (August 18, 2017)
 
@@ -23,7 +29,7 @@
 - Fix usage of Scroll component in Drop, Dropdown, Navbar and Offcanvas in overlay mode
 - Fix cursor set to pointer for icons
 - Fix Scrollspy nav not working correctly when zoomed in
-- Fix animations (FF)
+- Fix animations for Firefox
 - Fix icons not displaying if lazy loaded
 
 ## 3.0.0 beta 28 (August 01, 2017)
@@ -42,12 +48,12 @@
 
 ### Fixed
 
-- Fix icon color in Edge
+- Fix icon color for Edge
 - Add workaround to mitigate the duplicating icons issue
 - Fix issue with multilevel dropdown
 - Fix compatibility issue with Prototype and MooTools
 - Fix Sticky Navbar behaviour
-- Fix Parallax (IE11)
+- Fix Parallax for IE11
 - Fix swiping in Lightbox
 - Fix alert close animation
 

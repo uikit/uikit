@@ -434,7 +434,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 
 /* Radio and checkbox
- * Note: Only works in Chrome, Safari, Opera and Edge
+ * Note: Does not work in IE11
  ========================================================================== */
 
 /*
@@ -459,6 +459,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     vertical-align: middle;
     /* 4 */
     -webkit-appearance: none;
+    -moz-appearance: none;
     /* 5 */
     background-color: @form-radio-background;
     /* 6 */
