@@ -51,7 +51,7 @@ export default function (UIkit) {
 
                 handler(e) {
                     e.preventDefault();
-                    this.show(e.currentTarget);
+                    this.show(e.current);
                 }
 
             },
@@ -69,7 +69,7 @@ export default function (UIkit) {
 
                 handler(e) {
                     e.preventDefault();
-                    this.show($(e.currentTarget)[e.currentTarget.hasAttribute(this.attrItem) ? 'attr' : 'data'](this.attrItem));
+                    this.show($(e.current)[e.current.hasAttribute(this.attrItem) ? 'attr' : 'data'](this.attrItem));
                 }
             },
 

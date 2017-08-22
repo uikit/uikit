@@ -1,4 +1,4 @@
-import { assign, bind, camelize, coerce, getData, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer } from '../util/index';
+import { assign, bind, camelize, coerce, getData, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer, on } from '../util/index';
 
 export default function (UIkit) {
 
@@ -16,6 +16,7 @@ export default function (UIkit) {
         this.$props = {};
 
         this._frames = {reads: {}, writes: {}};
+        this._events = [];
 
         this._uid = uid++;
         this._initData();
@@ -89,7 +90,7 @@ export default function (UIkit) {
         }
     };
 
-    UIkit.prototype._initEvents = function (unbind) {
+    UIkit.prototype._initEvents = function () {
 
         var events = this.$options.events;
 
@@ -99,14 +100,19 @@ export default function (UIkit) {
 
                 if (!hasOwn(event, 'handler')) {
                     for (var key in event) {
-                        registerEvent(this, unbind, event[key], key);
+                        registerEvent(this, event[key], key);
                     }
                 } else {
-                    registerEvent(this, unbind, event);
+                    registerEvent(this, event);
                 }
 
             });
         }
+    };
+
+    UIkit.prototype._unbindEvents = function () {
+        this._events.forEach(unbind => unbind());
+        this._events = [];
     };
 
     UIkit.prototype._initObserver = function () {
@@ -211,41 +217,38 @@ export default function (UIkit) {
         });
     }
 
-    function registerEvent(component, unbind, event, key) {
+    function registerEvent(component, event, key) {
 
         if (!isPlainObject(event)) {
             event = ({name: key, handler: event});
         }
 
-        var {name, el, delegate, self, filter, handler} = event,
-            namespace = `.${component.$options.name}.${component._uid}`;
+        var {name, el, delegate, self, filter, handler} = event;
 
         el = el && el.call(component) || component.$el;
 
-        name = name.split(' ').map(name => `${name}.${namespace}`).join(' ');
-
-        if (unbind) {
-
-            el.off(name);
-
-        } else {
-
-            if (filter && !filter.call(component)) {
-                return;
-            }
-
-            handler = isString(handler) ? component[handler] : bind(handler, component);
-
-            if (self) {
-                handler = selfFilter(handler, component);
-            }
-
-            if (delegate) {
-                el.on(name, isString(delegate) ? delegate : delegate.call(component), handler);
-            } else {
-                el.on(name, handler);
-            }
+        if (filter && !filter.call(component)) {
+            return;
         }
+
+        handler = isString(handler) ? component[handler] : bind(handler, component);
+
+        if (self) {
+            handler = selfFilter(handler, component);
+        }
+
+        component._events.push(
+            on(
+                el,
+                name,
+                !delegate
+                    ? null
+                    : isString(delegate)
+                        ? delegate
+                        : delegate.call(component),
+                handler
+            )
+        );
 
     }
 

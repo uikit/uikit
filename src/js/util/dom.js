@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, assign, clamp, each, Event, getContextSelectors, isNumber, isString, promise, requestAnimationFrame, toJQuery, toNode, transitionend } from './index';
+import { animationend, assign, clamp, each, getContextSelectors, isNumber, isString, off, on, one, promise, requestAnimationFrame, toJQuery, toNode, transitionend, trigger } from './index';
 
 var docEl = document.documentElement;
 export const win = $(window);
@@ -27,39 +27,6 @@ export function ready(fn) {
         on(window, 'load', handle);
     }
 
-}
-
-export function on(el, type, listener, useCapture = false) {
-    type.split(' ').forEach(type => toNode(el).addEventListener(type, listener, useCapture));
-}
-
-export function off(el, type, listener, useCapture = false) {
-    type.split(' ').forEach(type => toNode(el).removeEventListener(type, listener, useCapture));
-}
-
-export function one(el, type, listener, useCapture, condition) {
-
-    var handler = e => {
-        var result = !condition || condition(e);
-        if (result) {
-            off(el, type, handler, useCapture);
-            listener(e, result);
-        }
-    };
-
-    on(el, type, handler, useCapture);
-}
-
-export function trigger(element, event) {
-    var e = createEvent(event);
-    toNode(element).dispatchEvent(e);
-    return e;
-}
-
-export function $trigger(element, event, data, local = false) {
-    var e = event instanceof Event ? event : Event(event);
-    $(element)[local ? 'triggerHandler' : 'trigger'](e, data);
-    return e;
 }
 
 var transitioncancel = 'transitioncancel';
@@ -175,7 +142,7 @@ export function animate(element, animation, duration = 200, origin, out) {
 
         function reset() {
             element.css('animation-duration', '');
-            removeClass(element, `${animationprefix}\\S*`);
+            removeClasses(element, `${animationprefix}\\S*`);
         }
 
     });
@@ -222,22 +189,8 @@ export function attrFilter(element, attr, pattern, replacement) {
     return element.attr(attr, (i, value) => value ? value.replace(pattern, replacement) : value);
 }
 
-export function removeClass(element, cls) {
+export function removeClasses(element, cls) {
     return attrFilter(element, 'class', new RegExp(`(^|\\s)${cls}(?!\\S)`, 'g'), '');
-}
-
-export function createEvent(e, bubbles = true, cancelable = false, data = false) {
-    if (isString(e)) {
-        var event = document.createEvent('Event');
-        event.initEvent(e, bubbles, cancelable);
-        e = event;
-    }
-
-    if (data) {
-        assign(e, data);
-    }
-
-    return e;
 }
 
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {

@@ -1,5 +1,5 @@
 import { Class, Modal } from '../mixin/index';
-import { $, assign, isString, promise } from '../util/index';
+import { $, assign, isString, on, promise } from '../util/index';
 
 export default function (UIkit) {
 
@@ -93,8 +93,8 @@ export default function (UIkit) {
              </div>
         `, options);
 
-        dialog.$el.on('hidden', e => {
-            if (e.target === e.currentTarget) {
+        on(dialog.$el, 'hidden', ({target, current}) => {
+            if (target === current) {
                 dialog.$destroy(true);
             }
         });

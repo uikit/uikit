@@ -102,8 +102,7 @@ export default function (UIkit) {
                 name: 'active',
 
                 handler() {
-                    this.$addClass(this.selTarget, this.clsActive);
-                    this.$removeClass(this.selTarget, this.clsInactive);
+                    this.replaceClass(this.selTarget, this.clsInactive, this.clsActive);
                 }
 
             },
@@ -112,8 +111,7 @@ export default function (UIkit) {
                 name: 'inactive',
 
                 handler() {
-                    this.$addClass(this.selTarget, this.clsInactive);
-                    this.$removeClass(this.selTarget, this.clsActive);
+                    this.replaceClass(this.selTarget, this.clsActive, this.clsInactive);
                 }
 
             }

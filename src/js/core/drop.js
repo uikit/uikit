@@ -1,5 +1,5 @@
 import { Position, Togglable } from '../mixin/index';
-import { $, Animation, doc, getDimensions, isTouch, isWithin, MouseTracker, pointerEnter, pointerLeave, query, removeClass } from '../util/index';
+import { Animation, doc, getDimensions, isTouch, isWithin, MouseTracker, pointerEnter, pointerLeave, query, removeClasses } from '../util/index';
 
 export default function (UIkit) {
 
@@ -361,7 +361,7 @@ export default function (UIkit) {
 
             position() {
 
-                removeClass(this.$el, `${this.clsDrop}-(stack|boundary)`).css({top: '', left: ''});
+                removeClasses(this.$el, `${this.clsDrop}-(stack|boundary)`).css({top: '', left: ''});
 
                 this.$el.show().toggleClass(`${this.clsDrop}-boundary`, this.boundaryAlign);
 

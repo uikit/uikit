@@ -60,7 +60,7 @@ function plugin(UIkit) {
 
                 handler(e) {
                     e.preventDefault();
-                    this.show(this.toggles.index($(e.currentTarget).blur()));
+                    this.show(this.toggles.index($(e.current).blur()));
                 }
 
             }

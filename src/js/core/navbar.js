@@ -81,9 +81,9 @@ export default function (UIkit) {
                     return this.dropdown;
                 },
 
-                handler({currentTarget}) {
+                handler({current}) {
                     var active = this.getActive();
-                    if (active && active.toggle && !isWithin(active.toggle.$el, currentTarget) && !active.tracker.movesTo(active.$el)) {
+                    if (active && active.toggle && !isWithin(active.toggle.$el, current) && !active.tracker.movesTo(active.$el)) {
                         active.hide(false);
                     }
                 }

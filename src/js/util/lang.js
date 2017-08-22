@@ -1,8 +1,8 @@
-import $, { isNumeric } from 'jquery';
+import $ from 'jquery';
 import { getCssVar, hasPromise, isJQuery, query } from './index';
 
 export { $ };
-export { ajax, each, Event, isNumeric } from 'jquery';
+export { ajax, each, Event } from 'jquery';
 
 export function bind(fn, context) {
     return function (a) {
@@ -90,6 +90,10 @@ export function isString(value) {
 
 export function isNumber(value) {
     return typeof value === 'number';
+}
+
+export function isNumeric(value) {
+    return isNumber(value) || isString(value) && !isNaN(value - parseFloat(value));
 }
 
 export function isUndefined(value) {

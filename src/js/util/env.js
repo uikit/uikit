@@ -21,6 +21,11 @@ export const transitionend = prefix('transition', 'transition-end');
 export const animationstart = prefix('animation', 'animation-start');
 export const animationend = prefix('animation', 'animation-end');
 
+var match = Element.prototype.matches || Element.prototype.msMatchesSelector;
+export function matches(element, selector) {
+    return match.call(element, selector);
+}
+
 export function getStyle(element, property, pseudoElt) {
     return (window.getComputedStyle(toNode(element), pseudoElt) || {})[property];
 }

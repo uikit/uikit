@@ -53,7 +53,7 @@ export default function (UIkit) {
 
                 handler(e) {
                     e.preventDefault();
-                    this.toggle(this.items.find(this.$props.toggle).index(e.currentTarget));
+                    this.toggle(this.items.find(this.$props.toggle).index(e.current));
                 }
 
             }

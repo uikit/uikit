@@ -100,8 +100,8 @@ export default function (UIkit) {
                     return 'a[href^="#"]';
                 },
 
-                handler({currentTarget}) {
-                    if (currentTarget.hash && this.content.find(currentTarget.hash).length) {
+                handler({current}) {
+                    if (current.hash && this.content.find(current.hash).length) {
                         scroll = null;
                         this.hide();
                     }

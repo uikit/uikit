@@ -67,7 +67,7 @@ export default function (UIkit) {
 
         delete UIkit.instances[this._uid];
 
-        this._initEvents(true);
+        this._unbindEvents();
         this._callHook('disconnected');
 
         this._connected = false;
