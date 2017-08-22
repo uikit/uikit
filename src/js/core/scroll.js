@@ -1,4 +1,4 @@
-import { $, $trigger, docHeight, offsetTop } from '../util/index';
+import { $, $trigger, docHeight, offset } from '../util/index';
 
 export default function (UIkit) {
 
@@ -20,7 +20,7 @@ export default function (UIkit) {
 
             scrollTo(el) {
 
-                var target = offsetTop($(el)) - this.offset,
+                var target = offset($(el)).top - this.offset,
                     document = docHeight(),
                     viewport = window.innerHeight;
 

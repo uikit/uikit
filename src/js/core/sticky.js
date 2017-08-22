@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, Animation, isNumeric, isString, noop, offsetTop, query, requestAnimationFrame, toJQuery } from '../util/index';
+import { $, Animation, isNumeric, isString, noop, offset, query, requestAnimationFrame, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
@@ -83,8 +83,8 @@ export default function (UIkit) {
             if (target) {
                 requestAnimationFrame(() => {
 
-                    var top = offsetTop(target),
-                        elTop = offsetTop(this.$el),
+                    var top = offset(target).top,
+                        elTop = offset(this.$el).top,
                         elHeight = this.$el[0].offsetHeight;
 
                     if (elTop + elHeight >= top && elTop <= top + target[0].offsetHeight) {
@@ -137,7 +137,7 @@ export default function (UIkit) {
                     this.width = this.widthElement.attr('hidden', null)[0].offsetWidth;
                     this.widthElement.attr('hidden', !this.isActive);
 
-                    this.topOffset = offsetTop(this.isActive ? this.placeholder : this.$el);
+                    this.topOffset = offset(this.isActive ? this.placeholder : this.$el).top;
                     this.bottomOffset = this.topOffset + outerHeight;
 
                     ['top', 'bottom'].forEach(prop => {
@@ -161,7 +161,7 @@ export default function (UIkit) {
                                 el = this[prop] === true ? this.$el.parent() : query(this[prop], this.$el);
 
                                 if (el) {
-                                    this[prop] = offsetTop(el) + el[0].offsetHeight;
+                                    this[prop] = offset(el).top + el[0].offsetHeight;
                                 }
 
                             }
@@ -186,7 +186,7 @@ export default function (UIkit) {
             {
 
                 read() {
-                    this.offsetTop = offsetTop(this.$el);
+                    this.offsetTop = offset(this.$el).top;
                     this.scroll = window.pageYOffset;
                     this.visible = this.$el.is(':visible');
                 },

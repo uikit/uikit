@@ -1,4 +1,4 @@
-import { $, docHeight, isInView, offsetTop, toJQuery } from '../util/index';
+import { $, docHeight, isInView, offset, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
@@ -58,12 +58,12 @@ export default function (UIkit) {
 
                     this.targets.each((i, el) => {
 
-                        var top = offsetTop(el), last = i + 1 === this.targets.length;
+                        var top = offset(el).top, last = i + 1 === this.targets.length;
                         if (!this.overflow && (i === 0 && top > scroll || last && top + el.offsetTop < scroll)) {
                             return false;
                         }
 
-                        if (!last && offsetTop(this.targets.eq(i + 1)) <= scroll) {
+                        if (!last && offset(this.targets.eq(i + 1)).top <= scroll) {
                             return;
                         }
 

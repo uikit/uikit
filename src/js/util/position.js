@@ -4,8 +4,7 @@ import { each, toNode } from './index';
 var dirs = {
         x: ['width', 'left', 'right'],
         y: ['height', 'top', 'bottom']
-    },
-    docEl = document.documentElement;
+    };
 
 export function position(element, target, elAttach, targetAttach, elOffset, targetOffset, flip, boundary) {
 
@@ -133,13 +132,29 @@ export function getDimensions(element) {
     }
 }
 
-export function offset(element, {left, top}) {
-    $(element).offset({left: left - docEl.clientLeft, top: top - docEl.clientTop});
-}
+export function offset(element, coordinates) {
 
-export function offsetTop(element) {
     element = toNode(element);
-    return element.getBoundingClientRect().top + getWindow(element).pageYOffset;
+
+    if (coordinates) {
+
+        var currentOffset = offset(element);
+
+        ['left', 'top'].forEach(prop => {
+            if (prop in coordinates) {
+                element.style[prop] = `${(coordinates[prop] - currentOffset[prop]) + parseFloat($(element).css(prop))}px`;
+            }
+        });
+
+    }
+
+    var rect = element.getBoundingClientRect(),
+        win = getWindow(element);
+
+    return {
+        top: rect.top + win.pageYOffset,
+        left: rect.left + win.pageXOffset
+    };
 }
 
 function getWindow(element) {
