@@ -1,4 +1,4 @@
-import { $, $trigger, hasTouch, isTouch, pointerEnter, pointerLeave, query } from '../util/index';
+import { $, hasTouch, isTouch, pointerEnter, pointerLeave, query, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -103,7 +103,7 @@ export default function (UIkit) {
         methods: {
 
             toggle(type) {
-                if (!$trigger(this.target, type || 'toggle', [this], true).isDefaultPrevented()) {
+                if (!trigger(this.target, type || 'toggle', [this]).defaultPrevented) {
                     this.toggleElement(this.target);
                 }
             }

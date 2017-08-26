@@ -97,7 +97,7 @@ export function isNumeric(value) {
 }
 
 export function isUndefined(value) {
-    return value === undefined;
+    return value === void 0;
 }
 
 export function isContextSelector(selector) {

@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, assign, isRtl, isWithin, noop, pointerEnter, query, Transition } from '../util/index';
+import { $, assign, isRtl, isWithin, noop, query, Transition } from '../util/index';
 
 export default function (UIkit) {
 
@@ -75,7 +75,7 @@ export default function (UIkit) {
         events: [
 
             {
-                name: pointerEnter,
+                name: 'mouseover',
 
                 delegate() {
                     return this.dropdown;
@@ -96,7 +96,7 @@ export default function (UIkit) {
 
             getActive() {
                 var active = UIkit.drop.getActive();
-                return active && !~active.mode.indexOf('click') && isWithin(active.toggle.$el, this.$el) && active;
+                return active && ~active.mode.indexOf('hover') && isWithin(active.toggle.$el, this.$el) && active;
             }
 
         }
@@ -131,12 +131,12 @@ export default function (UIkit) {
                     return this.navbar.$el;
                 },
 
-                handler(_, drop) {
+                handler(e, drop) {
                     var {$el, dir} = drop;
                     if (dir === 'bottom' && !isWithin($el, this.$el)) {
                         $el.appendTo(this.$el);
                         drop.show();
-                        return false;
+                        e.preventDefault();
                     }
                 }
             },
@@ -156,7 +156,7 @@ export default function (UIkit) {
             {
                 name: 'beforeshow',
 
-                handler(e, {$el}) {
+                handler(_, {$el}) {
                     this.clsDrop && $el.addClass(`${this.clsDrop}-dropbar`);
                     this.transitionTo($el.outerHeight(true));
                 }
@@ -170,7 +170,7 @@ export default function (UIkit) {
                     var active = this.navbar.getActive();
 
                     if (this.$el.is(':hover') && active && active.$el.is($el)) {
-                        return false;
+                        e.preventDefault();
                     }
                 }
             },
@@ -178,7 +178,7 @@ export default function (UIkit) {
             {
                 name: 'hide',
 
-                handler(e, {$el}) {
+                handler(_, {$el}) {
 
                     var active = this.navbar.getActive();
 

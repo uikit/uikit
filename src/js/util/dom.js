@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, assign, clamp, each, getContextSelectors, isNumber, isString, off, on, one, promise, requestAnimationFrame, toJQuery, toNode, transitionend, trigger } from './index';
+import { animationend, assign, clamp, each, getContextSelectors, isNumber, isString, on, one, promise, requestAnimationFrame, toJQuery, toNode, transitionend, trigger } from './index';
 
 var docEl = document.documentElement;
 export const win = $(window);
@@ -14,19 +14,18 @@ export function isReady() {
 
 export function ready(fn) {
 
-    var handle = function () {
-        off(document, 'DOMContentLoaded', handle);
-        off(window, 'load', handle);
-        fn();
-    };
-
     if (isReady()) {
         fn();
-    } else {
-        on(document, 'DOMContentLoaded', handle);
-        on(window, 'load', handle);
+        return;
     }
 
+    var handle = function () {
+            unbind1();
+            unbind2();
+            fn();
+        },
+        unbind1 = on(document, 'DOMContentLoaded', handle),
+        unbind2 = on(window, 'load', handle);
 }
 
 var transitioncancel = 'transitioncancel';
@@ -40,7 +39,7 @@ export function transition(element, props, duration = 400, transition = 'linear'
             element.css(name, element.css(name));
         }
 
-        var timer = setTimeout(() => element.trigger(transitionend), duration);
+        var timer = setTimeout(() => trigger(element, transitionend), duration);
 
         one(element, `${transitionend} ${transitioncancel}`, ({type}) => {
             clearTimeout(timer);

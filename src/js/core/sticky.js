@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, Animation, isNumeric, isString, noop, offset, query, requestAnimationFrame, toJQuery } from '../util/index';
+import { $, Animation, isNumeric, isString, noop, offset, query, requestAnimationFrame, toJQuery, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -102,7 +102,7 @@ export default function (UIkit) {
                 name: 'active',
 
                 handler() {
-                    this.replaceClass(this.selTarget, this.clsInactive, this.clsActive);
+                    this.$replaceClass(this.selTarget, this.clsInactive, this.clsActive);
                 }
 
             },
@@ -111,7 +111,7 @@ export default function (UIkit) {
                 name: 'inactive',
 
                 handler() {
-                    this.replaceClass(this.selTarget, this.clsActive, this.clsInactive);
+                    this.$replaceClass(this.selTarget, this.clsActive, this.clsInactive);
                 }
 
             }
@@ -252,7 +252,7 @@ export default function (UIkit) {
             hide() {
 
                 if (!this.isActive || this.$hasClass(this.selTarget, this.clsActive)) {
-                    this.$el.trigger('inactive');
+                    trigger(this.$el, 'inactive');
                 }
 
                 this.$removeClass(this.clsFixed, this.clsBelow);
@@ -278,13 +278,13 @@ export default function (UIkit) {
                 if (this.$hasClass(this.selTarget, this.clsActive)) {
 
                     if (!active) {
-                        this.$el.trigger('inactive');
+                        trigger(this.$el, 'inactive');
                     }
 
                 } else {
 
                     if (active) {
-                        this.$el.trigger('active');
+                        trigger(this.$el, 'active');
                     }
                 }
 

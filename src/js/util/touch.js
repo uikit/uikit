@@ -98,5 +98,5 @@ on(document, 'click', () => {touching = false});
 on(document, 'touchcancel', () => touching = false, true);
 
 export function isTouch(e) {
-    return touching || (e.originalEvent || e).pointerType === 'touch';
+    return touching || e.pointerType === 'touch';
 }

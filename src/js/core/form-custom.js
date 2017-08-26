@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { query } from '../util/index';
+import { query, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -34,7 +34,7 @@ export default function (UIkit) {
         },
 
         connected() {
-            this.input.trigger('change');
+            trigger(this.input, 'change');
         },
 
         events: [

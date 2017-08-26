@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, doc, fastdom, getIndex, noop, on, off, pointerDown, pointerMove, pointerUp, preventClick, promise, requestAnimationFrame, Transition} = UIkit.util;
+    var {$, doc, fastdom, getIndex, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, promise, requestAnimationFrame, Transition, trigger} = UIkit.util;
 
     UIkit.mixin.slideshow = {
 
@@ -46,8 +46,6 @@ function plugin(UIkit) {
                 var fn = this[key];
                 this[key] = e => {
 
-                    e = e.originalEvent || e;
-
                     this.prevPos = this.pos;
                     this.pos = (e.touches && e.touches[0] || e).pageX;
 
@@ -72,7 +70,7 @@ function plugin(UIkit) {
 
                 handler(e) {
                     e.preventDefault();
-                    this.show($(e.currentTarget).blur().attr(this.attrItem));
+                    this.show($(e.current).blur().attr(this.attrItem));
                 }
 
             },
@@ -86,15 +84,18 @@ function plugin(UIkit) {
                 },
 
                 handler: 'start'
+
             },
 
             {
 
                 name: pointerDown,
                 handler: 'stopAutoplay'
+
             },
 
             {
+
                 name: 'mouseenter',
 
                 filter() {
@@ -104,9 +105,11 @@ function plugin(UIkit) {
                 handler() {
                     this.isHovering = true;
                 }
+
             },
 
             {
+
                 name: 'mouseleave',
 
                 filter() {
@@ -116,6 +119,7 @@ function plugin(UIkit) {
                 handler() {
                     this.isHovering = false;
                 }
+
             },
 
         ],
@@ -270,8 +274,8 @@ function plugin(UIkit) {
                 var prev = hasPrev && this.slides.eq(this.index),
                     next = this.slides.eq(index);
 
-                this.$el.trigger('beforeitemshow', [this, next]);
-                prev && this.$el.trigger('beforeitemhide', [this, prev]);
+                trigger(this.$el, 'beforeitemshow', [this, next]);
+                prev && trigger(this.$el, 'beforeitemhide', [this, prev]);
 
                 this.index = index;
 
@@ -288,11 +292,11 @@ function plugin(UIkit) {
                         this._animation = null;
                     }
 
-                    this.$el.trigger('itemshown', [this, next]);
+                    trigger(this.$el, 'itemshown', [this, next]);
                     UIkit.update(null, next);
 
                     if (prev) {
-                        this.$el.trigger('itemhidden', [this, prev]);
+                        trigger(this.$el, 'itemhidden', [this, prev]);
                         UIkit.update(null, prev);
                     }
 
@@ -300,10 +304,10 @@ function plugin(UIkit) {
 
                 this._animation.show(this.stack.length > 1 ? this.forwardDuration : this.duration, this.percent);
 
-                this.$el.trigger('itemshow', [this, next]);
+                trigger(this.$el, 'itemshow', [this, next]);
 
                 if (prev) {
-                    this.$el.trigger('itemhide', [this, prev]);
+                    trigger(this.$el, 'itemhide', [this, prev]);
                     UIkit.update(null, prev);
                 }
 

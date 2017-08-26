@@ -9,7 +9,7 @@ function plugin(UIkit) {
     UIkit.use(Slideshow);
 
     var {mixin, util} = UIkit;
-    var {$, $trigger, Animation, ajax, assign, doc, docElement, getData, getImage, pointerDown, pointerMove, Transition} = util;
+    var {$, Animation, ajax, assign, doc, docElement, getData, getImage, on, pointerDown, pointerMove, Transition, trigger} = util;
 
     UIkit.component('lightbox', {
 
@@ -172,19 +172,6 @@ function plugin(UIkit) {
                 name: `${pointerMove} ${pointerDown} keydown`,
 
                 handler: 'showControls'
-
-            },
-
-            {
-
-                name: 'click',
-
-                self: true,
-
-                handler(e) {
-                    e.preventDefault();
-                    this.hide();
-                }
 
             },
 
@@ -360,10 +347,10 @@ function plugin(UIkit) {
                     // Video
                     } else if (type === 'video' || source.match(/\.(mp4|webm|ogv)$/i)) {
 
-                        var video = $('<video controls playsinline uk-video></video>')
-                            .on('loadedmetadata', () => this.setItem(item, video.attr({width: video[0].videoWidth, height: video[0].videoHeight})))
-                            .on('error', () => this.setError(item))
-                            .attr('src', source);
+                        var video = $('<video controls playsinline uk-video></video>').attr('src', source);
+
+                        on(video, 'error', () => this.setError(item));
+                        on(video, 'loadedmetadata', () => this.setItem(item, video.attr({width: video[0].videoWidth, height: video[0].videoHeight})));
 
                     // Iframe
                     } else if (type === 'iframe') {
@@ -441,7 +428,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                if (!$trigger(this.$el, 'itemload', [item], true).result) {
+                if (!trigger(this.$el, 'itemload', [item]).defaultPrevented) {
                     this.setError(item);
                 }
             },
@@ -453,7 +440,7 @@ function plugin(UIkit) {
             setItem(item, content) {
                 assign(item, {content});
                 var el = this.slides.eq(this.items.indexOf(item)).html(content);
-                this.$el.trigger('itemloaded', [this, el]);
+                trigger(this.$el, 'itemloaded', [this, el]);
                 UIkit.update(null, el);
             },
 

@@ -1,4 +1,4 @@
-import { $, isInView } from '../util/index';
+import { $, isInView, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -77,8 +77,9 @@ export default function (UIkit) {
                                 var show = () => {
                                     $el.css('visibility', '')
                                         .addClass(this.inViewClass)
-                                        .toggleClass(cls)
-                                        .trigger('inview');
+                                        .toggleClass(cls);
+
+                                    trigger($el, 'inview');
 
                                     this.$update();
 
@@ -107,8 +108,9 @@ export default function (UIkit) {
 
                                 $el.removeClass(this.inViewClass)
                                     .toggleClass(cls)
-                                    .css('visibility', this.hidden ? 'hidden' : '')
-                                    .trigger('outview');
+                                    .css('visibility', this.hidden ? 'hidden' : '');
+
+                                trigger($el, 'outview');
 
                                 this.$update();
 

@@ -1,5 +1,5 @@
 import { Position, Togglable } from '../mixin/index';
-import { Animation, doc, getDimensions, isTouch, isWithin, MouseTracker, pointerEnter, pointerLeave, query, removeClasses } from '../util/index';
+import { Animation, doc, getDimensions, isTouch, isWithin, MouseTracker, on, one, pointerEnter, pointerLeave, query, removeClasses, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -79,7 +79,7 @@ export default function (UIkit) {
 
                 handler(e) {
 
-                    if (e.isDefaultPrevented()) {
+                    if (e.defaultPrevented) {
                         return;
                     }
 
@@ -110,11 +110,9 @@ export default function (UIkit) {
 
                 name: 'toggle',
 
-                handler(e, toggle) {
+                self: true,
 
-                    if (toggle && !this.$el.is(toggle.target)) {
-                        return;
-                    }
+                handler(e, toggle) {
 
                     e.preventDefault();
 
@@ -147,6 +145,7 @@ export default function (UIkit) {
                         && ~active.toggle.mode.indexOf('hover')
                         && !isWithin(e.target, active.$el)
                         && !isWithin(e.target, active.toggle.$el)
+                        && !isWithin(document.elementFromPoint(e.pageX, e.pageY), active.$el)
                     ) {
                         active.hide(false);
                     }
@@ -314,7 +313,7 @@ export default function (UIkit) {
 
                 if (toggle && this.toggle && !this.toggle.$el.is(toggle.$el)) {
 
-                    this.$el.one('hide', tryShow);
+                    one(this.$el, 'hide', tryShow);
                     this.hide(false);
 
                 } else {
@@ -372,7 +371,7 @@ export default function (UIkit) {
                     this.$el.css(prop, alignTo[prop]);
                 } else if (this.$el.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
                     this.$addClass(`${this.clsDrop}-stack`);
-                    this.$el.trigger('stack', [this]);
+                    trigger(this.$el, 'stack', [this]);
                 }
 
                 this.positionAt(this.$el, this.boundaryAlign ? this.boundary : this.toggle.$el, this.boundary);
@@ -395,14 +394,14 @@ export default function (UIkit) {
         }
 
         registered = true;
-        doc.on('click', e => {
+        on(doc, 'click', ({target, defaultPrevented}) => {
             var prev;
 
-            if (e.isDefaultPrevented()) {
+            if (defaultPrevented) {
                 return;
             }
 
-            while (active && active !== prev && !isWithin(e.target, active.$el) && !(active.toggle && isWithin(e.target, active.toggle.$el))) {
+            while (active && active !== prev && !isWithin(target, active.$el) && !(active.toggle && isWithin(target, active.toggle.$el))) {
                 prev = active;
                 active.hide(false);
             }

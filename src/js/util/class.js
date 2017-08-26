@@ -1,4 +1,4 @@
-import { isString, isUndefined, toNode } from '../util/index';
+import { isString, isUndefined, toNode } from './index';
 
 var supportsMultiple, supportsForce;
 
@@ -11,10 +11,8 @@ export function removeClass(element, ...args) {
 }
 
 export function replaceClass(element, ...args) {
-    args = getArgs(element, args);
-    apply(element, args.slice(0, 2), 'remove');
-    args.splice(1,1);
-    apply(element, args, 'add');
+    removeClass(element, args[0]);
+    addClass(element, args[1]);
 }
 
 export function hasClass(element, ...args) {

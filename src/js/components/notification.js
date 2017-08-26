@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, each, pointerEnter, pointerLeave, Transition} = UIkit.util;
+    var {$, each, pointerEnter, pointerLeave, Transition, trigger} = UIkit.util;
     var containers = {};
 
     UIkit.component('notification', {
@@ -19,7 +19,6 @@ function plugin(UIkit) {
             timeout: 5000,
             group: null,
             pos: 'top-center',
-            onClose: null,
             clsClose: 'uk-notification-close',
             clsMsg: 'uk-notification-message'
         },
@@ -83,8 +82,8 @@ function plugin(UIkit) {
 
                 var remove = () => {
 
-                    this.onClose && this.onClose();
-                    this.$el.trigger('close', [this]).remove();
+                    trigger(this.$el, 'close', [this]);
+                    this.$el.remove();
 
                     if (!containers[this.pos].children().length) {
                         containers[this.pos].hide();

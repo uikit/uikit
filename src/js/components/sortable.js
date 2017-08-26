@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var { mixin, util } = UIkit;
-    var {$, assign, docElement: doc, docHeight, fastdom, getDimensions, isWithin, offset, pointerDown, pointerMove, pointerUp, preventClick, promise, win} = util;
+    var {$, assign, docElement: doc, docHeight, fastdom, getDimensions, isWithin, offset, off, on, pointerDown, pointerMove, pointerUp, preventClick, promise, trigger, win} = util;
 
     UIkit.component('sortable', {
 
@@ -45,7 +45,6 @@ function plugin(UIkit) {
             ['init', 'start', 'move', 'end'].forEach(key => {
                 var fn = this[key];
                 this[key] = e => {
-                    e = e.originalEvent || e;
                     this.scrollY = window.scrollY;
                     var {pageX: x, pageY: y} = e.touches && e.touches[0] || e;
                     this.pos = {x, y};
@@ -109,9 +108,9 @@ function plugin(UIkit) {
                 this.placeholder = placeholder;
                 this.origin = assign({target, index: this.placeholder.index()}, this.pos);
 
-                doc.on(pointerMove, this.move);
-                doc.on(pointerUp, this.end);
-                win.on('scroll', this.scroll);
+                on(doc, pointerMove, this.move),
+                on(doc, pointerUp, this.end),
+                on(win, 'scroll', this.scroll)
 
                 if (!this.threshold) {
                     this.start(e);
@@ -141,7 +140,7 @@ function plugin(UIkit) {
                 this.$el.children().addClass(this.clsItem);
                 doc.addClass(this.clsDragState);
 
-                this.$el.trigger('start', [this, this.placeholder, this.drag]);
+                trigger(this.$el, 'start', [this, this.placeholder, this.drag]);
 
                 this.move(e);
             },
@@ -195,9 +194,9 @@ function plugin(UIkit) {
 
             end(e) {
 
-                doc.off(pointerMove, this.move);
-                doc.off(pointerUp, this.end);
-                win.off('scroll', this.scroll);
+                off(doc, pointerMove, this.move);
+                off(doc, pointerUp, this.end);
+                off(win, 'scroll', this.scroll);
 
                 if (!this.drag) {
 
@@ -214,14 +213,14 @@ function plugin(UIkit) {
 
                 if (this === sortable) {
                     if (this.origin.index !== this.placeholder.index()) {
-                        this.$el.trigger('change', [this, this.placeholder, 'moved']);
+                        trigger(this.$el, 'change', [this, this.placeholder, 'moved']);
                     }
                 } else {
-                    sortable.$el.trigger('change', [sortable, this.placeholder, 'added']);
-                    this.$el.trigger('change', [this, this.placeholder, 'removed']);
+                    trigger(sortable.$el, 'change', [sortable, this.placeholder, 'added']);
+                    trigger(this.$el, 'change', [this, this.placeholder, 'removed']);
                 }
 
-                this.$el.trigger('stop', [this]);
+                trigger(this.$el, 'stop', [this]);
 
                 this.drag.remove();
                 this.drag = null;

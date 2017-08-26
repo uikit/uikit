@@ -1,4 +1,4 @@
-import { $, docHeight, isInView, offset, toJQuery } from '../util/index';
+import { $, docHeight, isInView, offset, toJQuery, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -88,7 +88,7 @@ export default function (UIkit) {
                     this.elements.removeClass(this.cls);
 
                     if (this.active) {
-                        this.$el.trigger('active', [
+                        trigger(this.$el, 'active', [
                             this.active,
                             (this.closest ? this.active.closest(this.closest) : this.active).addClass(this.cls)
                         ]);

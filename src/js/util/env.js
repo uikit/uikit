@@ -23,7 +23,10 @@ export const animationend = prefix('animation', 'animation-end');
 
 var match = Element.prototype.matches || Element.prototype.msMatchesSelector;
 export function matches(element, selector) {
-    return match.call(element, selector);
+    try {
+        return match.call(element, selector);
+    } catch (e) {}
+    return false;
 }
 
 export function getStyle(element, property, pseudoElt) {

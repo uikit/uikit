@@ -1,5 +1,4 @@
-import $ from 'jquery';
-import { Event, isContextSelector, isFunction, isString, matches, toJQuery, toNode } from './index';
+import { isContextSelector, isFunction, isString, matches, toNode, query } from './index';
 
 export function on(...args) {
 
@@ -8,26 +7,7 @@ export function on(...args) {
     element = toNode(element);
 
     if (selector) {
-        var fn = listener, contextSelector = isContextSelector(selector);
-        listener = e => {
-
-            var target = e.target;
-            var query = contextSelector && toJQuery(selector, element);
-
-            while (element !== target) {
-
-                if (query && query.is(target) || !contextSelector && matches(target, selector)) {
-
-                    e.delegate = element;
-                    e.current = target;
-
-                    fn(e);
-                    break;
-                }
-
-                target = target.parentNode;
-            }
-        }
+        listener = delegate(element, selector, listener);
     }
 
     type.split(' ').forEach(type => element.addEventListener(type, listener, useCapture));
@@ -40,21 +20,20 @@ export function off(element, type, listener, useCapture = false) {
 
 export function one(...args) {
 
-    var [element, type, selector, listener, useCapture, condition] = getArgs(args);
+    var [element, type, selector, listener, useCapture, condition] = getArgs(args),
+        off = on(element, type, selector, e => {
+            var result = !condition || condition(e);
+            if (result) {
+                off();
+                listener(e, result);
+            }
+        }, useCapture);
 
-    var handler = e => {
-        var result = !condition || condition(e);
-        if (result) {
-            off();
-            listener(e, result);
-        }
-    };
-
-    var off = on(element, type, selector, handler, useCapture);
+    return off;
 }
 
-export function trigger(element, event) {
-    var e = createEvent(event);
+export function trigger(element, event, detail) {
+    var e = createEvent(event, true, true, detail);
     toNode(element).dispatchEvent(e);
     return e;
 }
@@ -69,15 +48,33 @@ export function createEvent(e, bubbles = true, cancelable = false, detail) {
     return e;
 }
 
-export function $trigger(element, event, data, local = false) {
-    var e = event instanceof Event ? event : Event(event);
-    $(element)[local ? 'triggerHandler' : 'trigger'](e, data);
-    return e;
-}
-
 function getArgs(args) {
     if (isFunction(args[2])) {
         args.splice(2, 0, false);
     }
     return args;
+}
+
+function delegate(element, selector, listener) {
+    var contextSelector = isContextSelector(selector);
+
+    return e => {
+
+        var target = e.target,
+            queried = contextSelector && query(selector, element);
+
+        while (element !== target) {
+
+            if (queried && queried.is(target) || !contextSelector && matches(target, selector)) {
+
+                e.delegate = element;
+                e.current = target;
+
+                listener(e);
+                break;
+            }
+
+            target = target.parentNode;
+        }
+    }
 }

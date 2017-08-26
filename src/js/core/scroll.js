@@ -1,4 +1,4 @@
-import { $, $trigger, docHeight, offset } from '../util/index';
+import { $, docHeight, offset, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -28,7 +28,7 @@ export default function (UIkit) {
                     target = document - viewport;
                 }
 
-                if ($trigger(this.$el, 'beforescroll', [this, el]).result === false) {
+                if (trigger(this.$el, 'beforescroll', [this, el]).defaultPrevented) {
                     return;
                 }
 
@@ -36,7 +36,7 @@ export default function (UIkit) {
                     .stop()
                     .animate({scrollTop: Math.round(target)}, this.duration, this.easing)
                     .promise()
-                    .then(() => this.$el.trigger('scrolled', [this, el]));
+                    .then(() => trigger(this.$el, 'scrolled', [this, el]));
 
             }
 
@@ -46,7 +46,7 @@ export default function (UIkit) {
 
             click(e) {
 
-                if (e.isDefaultPrevented()) {
+                if (e.defaultPrevented) {
                     return;
                 }
 

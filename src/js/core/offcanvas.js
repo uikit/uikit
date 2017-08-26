@@ -1,5 +1,5 @@
 import { Modal } from '../mixin/index';
-import { $, docElement, isTouch, query, transitionend } from '../util/index';
+import { $, docElement, isTouch, one, query, transitionend, trigger } from '../util/index';
 
 var scroll;
 
@@ -117,10 +117,10 @@ export default function (UIkit) {
                     return this.overlay;
                 },
 
-                handler(_, scroll, target) {
+                handler(e, scroll, target) {
                     if (scroll && target && this.isToggled() && this.content.find(target).length) {
-                        this.$el.one('hidden', () => scroll.scrollTo(target));
-                        return false;
+                        one(this.$el, 'hidden', () => scroll.scrollTo(target));
+                        e.preventDefault();
                     }
                 }
 
@@ -158,7 +158,7 @@ export default function (UIkit) {
                     this.content.removeClass(this.clsContentAnimation);
 
                     if (this.mode === 'none' || this.getActive() && this.getActive() !== this) {
-                        this.panel.trigger(transitionend);
+                        trigger(this.panel, transitionend);
                     }
                 }
             },

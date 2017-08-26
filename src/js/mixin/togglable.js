@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, $trigger, Animation, assign, Event, fastdom, isBoolean, isUndefined, noop, promise, Transition } from '../util/index';
+import { $, Animation, assign, fastdom, isBoolean, isUndefined, noop, promise, Transition, trigger } from '../util/index';
 
 export default {
 
@@ -120,7 +120,7 @@ export default {
                         ? el[0].style.height === '0px'
                         : !this.isToggled(el);
 
-            if ($trigger(el, `before${show ? 'show' : 'hide'}`, [this]).result === false) {
+            if (trigger(el, `before${show ? 'show' : 'hide'}`, [this]).defaultPrevented) {
                 return promise.reject();
             }
 
@@ -131,12 +131,10 @@ export default {
                     : this._toggleAnimation
             )(el, show);
 
-            var e = Event(show ? 'show' : 'hide');
-            e.preventDefault(); // workaround for Prototype and MooTools: it keeps jQuery from calling show or hide on the Element itself
-            $trigger(el, e, [this]);
+            trigger(el, show ? 'show' : 'hide', [this]);
 
             return def.then(() => {
-                $trigger(el, show ? 'shown' : 'hidden', [this]);
+                trigger(el, show ? 'shown' : 'hidden', [this]);
                 UIkit.update(null, el);
             });
         },

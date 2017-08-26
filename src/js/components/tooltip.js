@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var { util, mixin } = UIkit;
-    var {$, doc, fastdom, flipPosition, isTouch, isWithin, pointerDown, pointerEnter, pointerLeave} = util;
+    var {$, doc, fastdom, flipPosition, isTouch, isWithin, on, pointerDown, pointerEnter, pointerLeave} = util;
 
     var actives = [];
 
@@ -59,11 +59,7 @@ function plugin(UIkit) {
                 actives.forEach(active => active.hide());
                 actives.push(this);
 
-                doc.on(`click.${this.$options.name}`, e => {
-                    if (!isWithin(e.target, this.$el)) {
-                        this.hide();
-                    }
-                });
+                this._unbind = on(doc, 'click', e => !isWithin(e.target, this.$el) && this.hide());
 
                 clearTimeout(this.showTimer);
 
@@ -71,16 +67,22 @@ function plugin(UIkit) {
 
                 this.$el.attr('aria-expanded', true);
 
+                this.tooltip.show();
                 this.positionAt(this.tooltip, this.$el);
+                this.tooltip[0].style.display = '';
+
                 this.origin = this.getAxis() === 'y' ? `${flipPosition(this.dir)}-${this.align}` : `${this.align}-${flipPosition(this.dir)}`;
 
                 this.showTimer = setTimeout(() => {
+
                     this.toggleElement(this.tooltip, true);
 
                     this.hideTimer = setInterval(() => {
+
                         if (!this.$el.is(':visible')) {
                             this.hide();
                         }
+
                     }, 150);
 
                 }, this.delay);
@@ -102,7 +104,7 @@ function plugin(UIkit) {
                 this.toggleElement(this.tooltip, false);
                 this.tooltip && this.tooltip.remove();
                 this.tooltip = false;
-                doc.off(`click.${this.$options.name}`);
+                this._unbind();
 
             }
 

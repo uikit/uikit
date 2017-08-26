@@ -1,5 +1,5 @@
 import { Class, Modal } from '../mixin/index';
-import { $, assign, isString, on, promise } from '../util/index';
+import { $, assign, isString, on, promise, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -75,7 +75,7 @@ export default function (UIkit) {
 
                 this.$el.css('max-height', 150).css('max-height', Math.max(150, 150 + this.modal.height() - this.panel.outerHeight(true)));
                 if (current !== this.$el.css('max-height')) {
-                    this.$el.trigger('resize');
+                    trigger(this.$el, 'resize');
                 }
             },
 
@@ -108,12 +108,12 @@ export default function (UIkit) {
         options = assign({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
         return promise(
-            resolve => UIkit.modal.dialog(`
+            resolve => on(UIkit.modal.dialog(`
                 <div class="uk-modal-body">${isString(message) ? message : $(message).html()}</div>
                 <div class="uk-modal-footer uk-text-right">
                     <button class="uk-button uk-button-primary uk-modal-close" autofocus>${options.labels.ok}</button>
                 </div>
-            `, options).$el.on('hide', resolve)
+            `, options).$el, 'hide', resolve)
         );
     };
 
@@ -122,13 +122,13 @@ export default function (UIkit) {
         options = assign({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
         return promise(
-            (resolve, reject) => UIkit.modal.dialog(`
+            (resolve, reject) => on(UIkit.modal.dialog(`
                 <div class="uk-modal-body">${isString(message) ? message : $(message).html()}</div>
                 <div class="uk-modal-footer uk-text-right">
                     <button class="uk-button uk-button-default uk-modal-close">${options.labels.cancel}</button>
                     <button class="uk-button uk-button-primary uk-modal-close" autofocus>${options.labels.ok}</button>
                 </div>
-            `, options).$el.on('click', '.uk-modal-footer button', e => $(e.target).index() === 0 ? reject() : resolve())
+            `, options).$el, 'click', '.uk-modal-footer button', ({target}) => $(target).index() === 0 ? reject() : resolve())
         );
     };
 
@@ -153,18 +153,17 @@ export default function (UIkit) {
                 `, options),
                 input = prompt.$el.find('input').val(value);
 
-            prompt.$el
-                .on('submit', 'form', e => {
-                    e.preventDefault();
-                    resolve(input.val());
-                    resolved = true;
-                    prompt.hide()
-                })
-                .on('hide', () => {
-                    if (!resolved) {
-                        resolve(null);
-                    }
-                });
+            on(prompt.$el, 'submit', 'form', e => {
+                e.preventDefault();
+                resolve(input.val());
+                resolved = true;
+                prompt.hide()
+            });
+            on(prompt.$el, 'hide', () => {
+                if (!resolved) {
+                    resolve(null);
+                }
+            });
 
         });
     };

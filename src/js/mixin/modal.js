@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, doc, docElement, isWithin, promise, requestAnimationFrame, toJQuery, toMs, toNode, transitionend } from '../util/index';
+import { $, doc, docElement, isWithin, on, one, promise, requestAnimationFrame, toJQuery, toMs, toNode, transitionend } from '../util/index';
 import Class from './class';
 import Togglable from './togglable';
 
@@ -186,19 +186,17 @@ export default {
             return this.transitionDuration ? promise((resolve, reject) => {
 
                 if (this._transition) {
-                    this.transitionElement.off(transitionend, this._transition.handler);
+                    this._transition.unbind();
                     this._transition.reject();
                 }
 
                 this._transition = {
                     reject,
-                    handler: () => {
+                    unbind: one(this.transitionElement, transitionend, () => {
                         resolve();
                         this._transition = null;
-                    }
+                    })
                 };
-
-                this.transitionElement.one(transitionend, this._transition.handler);
 
             }) : promise.resolve();
 
@@ -207,25 +205,24 @@ export default {
 
 }
 
+var events = {};
 function register(name) {
-    doc.on({
-
-        [`click.${name}`](e) {
-            if (active && active.bgClose && !e.isDefaultPrevented() && !isWithin(e.target, active.panel)) {
+    events[name] = [
+        on(doc, 'click', ({target, defaultPrevented}) => {
+            if (active && active.bgClose && !defaultPrevented && !isWithin(target, active.panel)) {
                 active.hide();
             }
-        },
-
-        [`keydown.${name}`](e) {
+        }),
+        on(doc, 'keydown', e => {
             if (e.keyCode === 27 && active && active.escClose) {
                 e.preventDefault();
                 active.hide();
             }
-        }
-
-    });
+        })
+    ];
 }
 
 function deregister(name) {
-    doc.off(`click.${name}`).off(`keydown.${name}`);
+    events[name].forEach(unbind => unbind());
+    delete events[name];
 }

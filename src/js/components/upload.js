@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, ajax, on} = UIkit.util;
+    var {$, ajax, on, trigger} = UIkit.util;
 
     UIkit.component('upload', {
 
@@ -69,10 +69,9 @@ function plugin(UIkit) {
             },
 
             drop(e) {
-                e.preventDefault();
-                e.stopPropagation();
+                stop(e);
 
-                var transfer = e.originalEvent.dataTransfer;
+                var transfer = e.dataTransfer;
 
                 if (!transfer || !transfer.files) {
                     return;
@@ -84,19 +83,16 @@ function plugin(UIkit) {
             },
 
             dragenter(e) {
-                e.preventDefault();
-                e.stopPropagation();
+                stop(e);
             },
 
             dragover(e) {
-                e.preventDefault();
-                e.stopPropagation();
+                stop(e);
                 this.$addClass(this.clsDragover);
             },
 
             dragleave(e) {
-                e.preventDefault();
-                e.stopPropagation();
+                stop(e);
                 this.$removeClass(this.clsDragover);
             }
 
@@ -110,7 +106,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                this.$el.trigger('upload', [files]);
+                trigger(this.$el, 'upload', [files]);
 
                 for (var i = 0; i < files.length; i++) {
 
@@ -199,6 +195,11 @@ function plugin(UIkit) {
             chunks.push(chunk);
         }
         return chunks;
+    }
+
+    function stop(e) {
+        e.preventDefault();
+        e.stopPropagation();
     }
 
 }
