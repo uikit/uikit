@@ -67,9 +67,7 @@ function plugin(UIkit) {
 
                 this.$el.attr('aria-expanded', true);
 
-                this.tooltip.show();
                 this.positionAt(this.tooltip, this.$el);
-                this.tooltip[0].style.display = '';
 
                 this.origin = this.getAxis() === 'y' ? `${flipPosition(this.dir)}-${this.align}` : `${this.align}-${flipPosition(this.dir)}`;
 

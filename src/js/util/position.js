@@ -138,11 +138,11 @@ export function offset(element, coordinates) {
 
     if (coordinates) {
 
-        var currentOffset = offset(element);
+        var parentOffset = offset(offsetParent(element));
 
         ['left', 'top'].forEach(prop => {
             if (prop in coordinates) {
-                element.style[prop] = `${(coordinates[prop] - currentOffset[prop]) + parseFloat($(element).css(prop))}px`;
+                element.style[prop] = `${(coordinates[prop] - parentOffset[prop])}px`;
             }
         });
 
@@ -155,6 +155,14 @@ export function offset(element, coordinates) {
         top: rect.top + win.pageYOffset,
         left: rect.left + win.pageXOffset
     };
+}
+
+function offsetParent(element) {
+    var parent = element.offsetParent || document.body;
+    while (parent && parent !== document.body && $(parent).css('position') === 'static') {
+        parent = parent.offsetParent;
+    }
+    return parent;
 }
 
 function getWindow(element) {
