@@ -6,6 +6,10 @@
 
 - Add style support for radio and checkbox in Firefox
 
+### Changed
+
+- Change `uk-tab-left` text alignment to left
+
 ## 3.0.0 beta 30 (August 18, 2017)
 
 ### Fixed
