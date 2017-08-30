@@ -1,4 +1,4 @@
-import { $ } from '../util/index';
+import { $, isVisible } from '../util/index';
 
 export default function (UIkit) {
 
@@ -78,7 +78,7 @@ export default function (UIkit) {
 
                         var $el, style, hidden;
 
-                        if (el.offsetHeight === 0) {
+                        if (!isVisible(el)) {
                             $el = $(el);
                             style = $el.attr('style') || null;
                             hidden = $el.attr('hidden') || null;

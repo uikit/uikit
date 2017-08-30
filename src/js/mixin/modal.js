@@ -1,7 +1,6 @@
 import UIkit from '../api/index';
+import {Class, Togglable} from './index';
 import { $, contains, doc, docEl, on, one, promise, requestAnimationFrame, toJQuery, toMs, toNode, transitionend, width, win } from '../util/index';
-import Class from './class';
-import Togglable from './togglable';
 
 var active;
 

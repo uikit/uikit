@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { each, isDocument, isUndefined, isWindow, toFloat, toNode, ucfirst } from './index';
+import { each, isDocument, isUndefined, isVisible, isWindow, toFloat, toNode, ucfirst } from './index';
 
 var dirs = {
         width: ['x', 'left', 'right'],
@@ -140,7 +140,7 @@ function getDimensions(element) {
     }
 
     var display = false;
-    if (!element.offsetHeight) {
+    if (!isVisible(element)) {
         display = element.style.display;
         element.style.display = 'block';
     }

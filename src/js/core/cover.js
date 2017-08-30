@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { Dimensions, Player } from '../util/index';
+import { Dimensions, isVisible, Player } from '../util/index';
 
 export default function (UIkit) {
 
@@ -42,7 +42,7 @@ export default function (UIkit) {
 
             write() {
 
-                if (this.el.offsetHeight === 0) {
+                if (!isVisible(this.el)) {
                     return;
                 }
 

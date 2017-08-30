@@ -144,19 +144,21 @@ export default function (UIkit) {
                     <form class="uk-form-stacked">
                         <div class="uk-modal-body">
                             <label>${isString(message) ? message : $(message).html()}</label>
-                            <input class="uk-input" type="text" autofocus>
+                            <input class="uk-input" autofocus>
                         </div>
                         <div class="uk-modal-footer uk-text-right">
                             <button class="uk-button uk-button-default uk-modal-close" type="button">${options.labels.cancel}</button>
-                            <button class="uk-button uk-button-primary" type="submit">${options.labels.ok}</button>
+                            <button class="uk-button uk-button-primary">${options.labels.ok}</button>
                         </div>
                     </form>
                 `, options),
-                input = prompt.$el.find('input').val(value);
+                input = prompt.$el.find('input');
+
+            input.value = value;
 
             on(prompt.$el, 'submit', 'form', e => {
                 e.preventDefault();
-                resolve(input.val());
+                resolve(input.value);
                 resolved = true;
                 prompt.hide()
             });

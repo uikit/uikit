@@ -61,7 +61,7 @@ export default function (UIkit) {
                             ? this.input[0].files[0].name
                             : this.input.is('select')
                                 ? this.input.find('option:selected').text()
-                                : this.input.val()
+                                : this.input[0].value
                     );
                 }
 

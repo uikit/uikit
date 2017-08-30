@@ -1,4 +1,4 @@
-import { isRtl } from '../util/index';
+import { isRtl, isVisible } from '../util/index';
 
 export default function (UIkit) {
 
@@ -26,7 +26,7 @@ export default function (UIkit) {
 
             read() {
 
-                if (!this.items.length || this.$el[0].offsetHeight === 0) {
+                if (!this.items.length || !isVisible(this.$el)) {
                     this.rows = false;
                     return;
                 }

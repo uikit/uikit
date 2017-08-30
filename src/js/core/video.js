@@ -1,4 +1,4 @@
-import { Player } from '../util/index';
+import { isVisible, Player } from '../util/index';
 
 export default function (UIkit) {
 
@@ -11,16 +11,8 @@ export default function (UIkit) {
 
         defaults: {automute: false, autoplay: true},
 
-        computed: {
-
-            el() {
-                return this.$el[0];
-            }
-
-        },
-
         ready() {
-            this.player = new Player(this.el);
+            this.player = new Player(this.$el);
 
             if (this.automute) {
                 this.player.mute();
@@ -36,7 +28,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                if (this.el.offsetHeight === 0 || this.$el.css('visibility') === 'hidden') {
+                if (!isVisible(this.$el) || this.$el.css('visibility') === 'hidden') {
                     this.player.pause();
                 } else {
                     this.player.play();

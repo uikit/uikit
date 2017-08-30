@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, Animation, assign, doc, fastdom, height, isBoolean, isUndefined, noop, promise, toFloat, Transition, trigger } from '../util/index';
+import { $, Animation, assign, doc, fastdom, height, isBoolean, isUndefined, isVisible, noop, promise, toFloat, Transition, trigger } from '../util/index';
 
 export default {
 
@@ -165,7 +165,7 @@ export default {
             var children = el.children(),
                 inProgress = Transition.inProgress(el),
                 inner = children.length ? toFloat(children.first().css('marginTop')) + toFloat(children.last().css('marginBottom')) : 0,
-                currentHeight = el[0].offsetHeight ? height(el) + (inProgress ? 0 : inner) : 0,
+                currentHeight = isVisible(el) ? height(el) + (inProgress ? 0 : inner) : 0,
                 endHeight;
 
             Transition.cancel(el);
