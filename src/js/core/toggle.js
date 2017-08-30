@@ -1,4 +1,4 @@
-import { $, hasTouch, isTouch, pointerEnter, pointerLeave, query, trigger } from '../util/index';
+import { $, hasTouch, isTouch, pointerEnter, pointerLeave, query, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -90,7 +90,7 @@ export default function (UIkit) {
                 }
 
                 var toggled = this.isToggled(this.target);
-                if (window.matchMedia(this.media).matches ? !toggled : toggled) {
+                if (win.matchMedia(this.media).matches ? !toggled : toggled) {
                     this.toggle();
                 }
 

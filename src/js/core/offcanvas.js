@@ -1,5 +1,5 @@
 import { Modal } from '../mixin/index';
-import { $, docElement, isTouch, one, query, transitionend, trigger } from '../util/index';
+import { $, docEl, height, isTouch, one, query, transitionend, trigger, width, win } from '../util/index';
 
 var scroll;
 
@@ -74,11 +74,11 @@ export default function (UIkit) {
                 if (this.isToggled()) {
 
                     if (this.overlay || this.clsContentAnimation) {
-                        this.content.width(window.innerWidth - this.scrollbarWidth);
+                        width(this.content, width(win) - this.scrollbarWidth);
                     }
 
                     if (this.overlay) {
-                        this.content.height(window.innerHeight);
+                        height(this.content, height(win));
                         scroll && this.content.scrollTop(scroll.y);
                     }
 
@@ -133,18 +133,20 @@ export default function (UIkit) {
 
                 handler() {
 
-                    scroll = scroll || {x: window.pageXOffset, y: window.pageYOffset};
+                    scroll = scroll || {x: win.pageXOffset, y: win.pageYOffset};
 
                     if (this.mode === 'reveal' && !this.panel.parent().hasClass(this.clsMode)) {
                         this.panel.wrap('<div>').parent().addClass(this.clsMode);
                     }
 
-                    docElement.css('overflow-y', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
+                    $(docEl).css('overflow-y', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
 
-                    this.body.addClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`).height();
+                    this.body.addClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
+                    height(this.body); // force reflow
                     this.content.addClass(this.clsContentAnimation);
                     this.panel.addClass(`${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
-                    this.$el.addClass(this.clsOverlay).css('display', 'block').height();
+                    this.$el.addClass(this.clsOverlay).css('display', 'block');
+                    height(this.$el); // force reflow
 
                 }
             },
@@ -175,7 +177,7 @@ export default function (UIkit) {
                     }
 
                     if (!this.overlay) {
-                        scroll = {x: window.pageXOffset, y: window.pageYOffset}
+                        scroll = {x: win.pageXOffset, y: win.pageYOffset}
                     } else if (!scroll) {
                         var {scrollLeft: x, scrollTop: y} = this.content[0];
                         scroll = {x, y};
@@ -185,10 +187,12 @@ export default function (UIkit) {
                     this.$el.removeClass(this.clsOverlay).css('display', '');
                     this.body.removeClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`).scrollTop(scroll.y);
 
-                    docElement.css('overflow-y', '');
-                    this.content.width('').height('');
+                    $(docEl).css('overflow-y', '');
 
-                    window.scrollTo(scroll.x, scroll.y);
+                    width(this.content, '');
+                    height(this.content, '');
+
+                    win.scrollTo(scroll.x, scroll.y);
 
                     scroll = null;
 

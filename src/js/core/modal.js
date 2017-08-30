@@ -1,5 +1,5 @@
 import { Class, Modal } from '../mixin/index';
-import { $, assign, isString, on, promise, trigger } from '../util/index';
+import { $, assign, height, isString, on, promise, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -28,7 +28,7 @@ export default function (UIkit) {
                         this.$el.css('display', 'block');
                     }
 
-                    this.$el.height(); // force reflow
+                    height(this.$el); // force reflow
                 }
             },
 
@@ -73,7 +73,7 @@ export default function (UIkit) {
             write() {
                 var current = this.$el.css('max-height');
 
-                this.$el.css('max-height', 150).css('max-height', Math.max(150, 150 + this.modal.height() - this.panel.outerHeight(true)));
+                this.$el.css('max-height', 150).css('max-height', Math.max(150, 150 + height(this.modal) - this.panel[0].offsetHeight));
                 if (current !== this.$el.css('max-height')) {
                     trigger(this.$el, 'resize');
                 }

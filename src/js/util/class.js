@@ -1,4 +1,4 @@
-import { isString, isUndefined, toNode } from './index';
+import { doc, isString, isUndefined, toNode } from './index';
 
 var supportsMultiple, supportsForce;
 
@@ -51,7 +51,7 @@ function getArgs(element, args) {
 
 (function() {
 
-    var list = document.createElement('_').classList;
+    var list = doc.createElement('_').classList;
     if (list) {
         list.add('a', 'b');
         list.toggle('c', false);

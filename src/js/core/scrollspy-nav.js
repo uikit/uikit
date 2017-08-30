@@ -1,4 +1,4 @@
-import { $, docHeight, isInView, offset, toJQuery, trigger } from '../util/index';
+import { $, doc, height, isInView, offset, toJQuery, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -52,7 +52,7 @@ export default function (UIkit) {
 
                 read() {
 
-                    var scroll = window.pageYOffset + this.offset + 1, max = docHeight() - window.innerHeight + this.offset;
+                    var scroll = win.pageYOffset + this.offset + 1, max = height(doc) - height(win) + this.offset;
 
                     this.active = false;
 

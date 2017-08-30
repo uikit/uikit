@@ -1,4 +1,4 @@
-import { animationstart, fastdom, getStyle, on, toMs } from '../util/index';
+import { animationstart, doc, fastdom, getStyle, on, toMs, win } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
@@ -33,21 +33,21 @@ export default function (UIkit) {
 
     var scroll = 0, started = 0;
 
-    on(window, 'load resize', UIkit.update);
-    on(window, 'scroll', e => {
-        e.dir = scroll < window.pageYOffset ? 'down' : 'up';
-        scroll = window.pageYOffset;
+    on(win, 'load resize', UIkit.update);
+    on(win, 'scroll', e => {
+        e.dir = scroll < win.pageYOffset ? 'down' : 'up';
+        scroll = win.pageYOffset;
         UIkit.update(e);
         fastdom.flush();
     });
 
-    animationstart && on(document, animationstart, ({target}) => {
+    animationstart && on(doc, animationstart, ({target}) => {
         if ((getStyle(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
             started++;
-            document.body.style.overflowX = 'hidden';
+            doc.body.style.overflowX = 'hidden';
             setTimeout(() => {
                 if (!--started) {
-                    document.body.style.overflowX = '';
+                    doc.body.style.overflowX = '';
                 }
             }, toMs(getStyle(target, 'animationDuration')) + 100);
         }

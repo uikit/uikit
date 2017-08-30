@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var { util, mixin } = UIkit;
-    var {$, doc, fastdom, flipPosition, isTouch, isWithin, on, pointerDown, pointerEnter, pointerLeave} = util;
+    var {$, doc, fastdom, flipPosition, isTouch, contains, on, pointerDown, pointerEnter, pointerLeave} = util;
 
     var actives = [];
 
@@ -59,7 +59,7 @@ function plugin(UIkit) {
                 actives.forEach(active => active.hide());
                 actives.push(this);
 
-                this._unbind = on(doc, 'click', e => !isWithin(e.target, this.$el) && this.hide());
+                this._unbind = on(doc, 'click', e => !contains(e.target, this.$el) && this.hide());
 
                 clearTimeout(this.showTimer);
 
@@ -90,7 +90,7 @@ function plugin(UIkit) {
 
                 var index = actives.indexOf(this);
 
-                if (!~index || this.$el.is('input') && this.$el[0] === document.activeElement) {
+                if (!~index || this.$el.is('input') && this.$el[0] === doc.activeElement) {
                     return;
                 }
 

@@ -1,5 +1,5 @@
 import { Position, Togglable } from '../mixin/index';
-import { Animation, doc, getDimensions, isTouch, isWithin, MouseTracker, on, one, pointerEnter, pointerLeave, query, removeClasses, trigger } from '../util/index';
+import { Animation, contains, doc, isTouch, MouseTracker, offset, on, one, pointerEnter, pointerLeave, query, removeClasses, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -24,7 +24,7 @@ export default function (UIkit) {
         defaults: {
             mode: ['click', 'hover'],
             toggle: '- :first',
-            boundary: window,
+            boundary: win,
             boundaryAlign: false,
             delayShow: 0,
             delayHide: 800,
@@ -89,7 +89,7 @@ export default function (UIkit) {
                         e.preventDefault();
                     }
 
-                    if (!id || !isWithin(id, this.$el)) {
+                    if (!id || !contains(id, this.$el)) {
                         this.hide(false);
                     }
                 }
@@ -143,9 +143,9 @@ export default function (UIkit) {
                         && active !== this
                         && active.toggle
                         && ~active.toggle.mode.indexOf('hover')
-                        && !isWithin(e.target, active.$el)
-                        && !isWithin(e.target, active.toggle.$el)
-                        && !isWithin(document.elementFromPoint(e.pageX, e.pageY), active.$el)
+                        && !contains(e.target, active.$el)
+                        && !contains(e.target, active.toggle.$el)
+                        && !contains(doc.elementFromPoint(e.pageX, e.pageY), active.$el)
                     ) {
                         active.hide(false);
                     }
@@ -236,7 +236,7 @@ export default function (UIkit) {
                 handler({target}) {
 
                     if (!this.$el.is(target)) {
-                        active = active === null && isWithin(target, this.$el) && this.isToggled() ? this : active;
+                        active = active === null && contains(target, this.$el) && this.isToggled() ? this : active;
                         return;
                     }
 
@@ -351,11 +351,11 @@ export default function (UIkit) {
             },
 
             isChildOf(drop) {
-                return drop && drop !== this && isWithin(this.$el, drop.$el);
+                return drop && drop !== this && contains(this.$el, drop.$el);
             },
 
             isParentOf(drop) {
-                return drop && drop !== this && isWithin(drop.$el, this.$el);
+                return drop && drop !== this && contains(drop.$el, this.$el);
             },
 
             position() {
@@ -364,12 +364,12 @@ export default function (UIkit) {
 
                 this.$el.show().toggleClass(`${this.clsDrop}-boundary`, this.boundaryAlign);
 
-                var boundary = getDimensions(this.boundary), alignTo = this.boundaryAlign ? boundary : getDimensions(this.toggle.$el);
+                var boundary = offset(this.boundary), alignTo = this.boundaryAlign ? boundary : offset(this.toggle.$el);
 
                 if (this.align === 'justify') {
                     var prop = this.getAxis() === 'y' ? 'width' : 'height';
                     this.$el.css(prop, alignTo[prop]);
-                } else if (this.$el.outerWidth() > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
+                } else if (this.$el[0].offsetWidth > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
                     this.$addClass(`${this.clsDrop}-stack`);
                     trigger(this.$el, 'stack', [this]);
                 }
@@ -401,7 +401,7 @@ export default function (UIkit) {
                 return;
             }
 
-            while (active && active !== prev && !isWithin(target, active.$el) && !(active.toggle && isWithin(target, active.toggle.$el))) {
+            while (active && active !== prev && !contains(target, active.$el) && !(active.toggle && contains(target, active.toggle.$el))) {
                 prev = active;
                 active.hide(false);
             }

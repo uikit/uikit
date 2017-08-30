@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var { mixin, util } = UIkit;
-    var {$, assign, docElement: doc, docHeight, fastdom, getDimensions, isWithin, noop, offset, off, on, pointerDown, pointerMove, pointerUp, preventClick, promise, Transition, trigger, win} = util;
+    var {$, assign, doc, docEl, height, fastdom, contains, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, promise, Transition, trigger, win} = util;
 
     UIkit.component('sortable', {
 
@@ -45,7 +45,7 @@ function plugin(UIkit) {
             ['init', 'start', 'move', 'end'].forEach(key => {
                 var fn = this[key];
                 this[key] = e => {
-                    this.scrollY = window.scrollY;
+                    this.scrollY = win.scrollY;
                     var {pageX: x, pageY: y} = e.touches && e.touches[0] || e;
                     this.pos = {x, y};
 
@@ -78,7 +78,7 @@ function plugin(UIkit) {
 
                 if (top > 0 && top < this.scrollY) {
                     setTimeout(() => win.scrollTop(this.scrollY - 5), 5);
-                } else if (bottom < docHeight() && bottom > window.innerHeight + this.scrollY) {
+                } else if (bottom < height(doc) && bottom > height(win) + this.scrollY) {
                     setTimeout(() => win.scrollTop(this.scrollY + 5), 5);
                 }
 
@@ -90,13 +90,13 @@ function plugin(UIkit) {
 
             init(e) {
 
-                var target = $(e.target), placeholder = this.$el.children().filter((i, el) => isWithin(e.target, el));
+                var target = $(e.target), placeholder = this.$el.children().filter((i, el) => contains(e.target, el));
 
                 if (!placeholder.length
                     || target.is(':input')
-                    || this.handle && !isWithin(target, this.handle)
+                    || this.handle && !contains(target, this.handle)
                     || e.button && e.button !== 0
-                    || isWithin(target, `.${this.clsNoDrag}`)
+                    || contains(target, `.${this.clsNoDrag}`)
                     || e.defaultPrevented
                 ) {
                     return;
@@ -108,8 +108,8 @@ function plugin(UIkit) {
                 this.placeholder = placeholder;
                 this.origin = assign({target, index: this.placeholder.index()}, this.pos);
 
-                on(doc, pointerMove, this.move),
-                on(doc, pointerUp, this.end),
+                on(docEl, pointerMove, this.move),
+                on(docEl, pointerUp, this.end),
                 on(win, 'scroll', this.scroll)
 
                 if (!this.threshold) {
@@ -125,20 +125,20 @@ function plugin(UIkit) {
                     .addClass(`${this.clsDrag} ${this.clsCustom}`)
                     .css({
                         boxSizing: 'border-box',
-                        width: this.placeholder.outerWidth(),
-                        height: this.placeholder.outerHeight()
+                        width: this.placeholder[0].offsetWidth,
+                        height: this.placeholder[0].offsetHeight
                     })
                     .css(this.placeholder.css(['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom']))
                     .appendTo(UIkit.container);
 
-                this.drag.children().first().height(this.placeholder.children().height());
+                height(this.drag.children().first(), height(this.placeholder.children().first()));
 
-                var {left, top} = getDimensions(this.placeholder);
+                var {left, top} = offset(this.placeholder);
                 assign(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
 
-                this.placeholder.addClass(this.clsPlaceholder);
+                this.$addClass(this.placeholder, this.clsPlaceholder);
                 this.$el.children().addClass(this.clsItem);
-                doc.addClass(this.clsDragState);
+                this.$addClass(docEl, this.clsDragState);
 
                 trigger(this.$el, 'start', [this, this.placeholder, this.drag]);
 
@@ -158,12 +158,12 @@ function plugin(UIkit) {
 
                 this.$emit();
 
-                var target = e.type === 'mousemove' ? e.target : document.elementFromPoint(this.pos.x - document.body.scrollLeft, this.pos.y - document.body.scrollTop),
+                var target = e.type === 'mousemove' ? e.target : doc.elementFromPoint(this.pos.x - doc.body.scrollLeft, this.pos.y - doc.body.scrollTop),
                     sortable = getSortable(target),
                     previous = getSortable(this.placeholder[0]),
                     move = sortable !== previous;
 
-                if (!sortable || isWithin(target, this.placeholder) || move && (!sortable.group || sortable.group !== previous.group)) {
+                if (!sortable || contains(target, this.placeholder) || move && (!sortable.group || sortable.group !== previous.group)) {
                     return;
                 }
 
@@ -184,7 +184,7 @@ function plugin(UIkit) {
             },
 
             scroll() {
-                var scroll = window.scrollY;
+                var scroll = win.scrollY;
                 if (scroll !== this.scrollY) {
                     this.pos.y += scroll - this.scrollY;
                     this.scrollY = scroll;
@@ -194,13 +194,13 @@ function plugin(UIkit) {
 
             end(e) {
 
-                off(doc, pointerMove, this.move);
-                off(doc, pointerUp, this.end);
+                off(docEl, pointerMove, this.move);
+                off(docEl, pointerUp, this.end);
                 off(win, 'scroll', this.scroll);
 
                 if (!this.drag) {
 
-                    if (e.type !== 'mouseup' && isWithin(e.target, 'a[href]')) {
+                    if (e.type !== 'mouseup' && contains(e.target, 'a[href]')) {
                         location.href = $(e.target).closest('a[href]').attr('href');
                     }
 
@@ -228,7 +228,7 @@ function plugin(UIkit) {
                 var classes = this.touched.map(sortable => `${sortable.clsPlaceholder} ${sortable.clsItem}`).join(' ');
                 this.touched.forEach(sortable => sortable.$el.children().removeClass(classes));
 
-                doc.removeClass(this.clsDragState);
+                this.$removeClass(docEl, this.clsDragState);
 
             },
 
@@ -282,9 +282,9 @@ function plugin(UIkit) {
                         props.push(assign({
                             position: 'absolute',
                             pointerEvents: 'none',
-                            width: el.outerWidth(),
-                            height: el.outerHeight()
-                        }, el.position()));
+                            width: el[0].offsetWidth,
+                            height: el[0].offsetHeight
+                        }, position(el)));
                         return el;
                     }),
                     reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: ''};
@@ -296,9 +296,9 @@ function plugin(UIkit) {
                 this.$update('update', true);
                 fastdom.flush();
 
-                this.$el.css('min-height', this.$el.height());
+                this.$el.css('min-height', height(this.$el));
 
-                var positions = children.map(el => el.position());
+                var positions = children.map(el => position(el));
                 promise.all(children.map((el, i) => Transition.start(el.css(props[i]), positions[i], this.animation)))
                     .then(() => {
                         this.$el.css('min-height', '').children().css(reset);

@@ -1,4 +1,4 @@
-import { flipPosition, isRtl, position, removeClasses, toNumber } from '../util/index';
+import { flipPosition, isRtl, positionAt, removeClasses, toNumber } from '../util/index';
 
 export default {
 
@@ -40,7 +40,7 @@ export default {
 
             var offset = toNumber(this.offset) || 0,
                 axis = this.getAxis(),
-                {x, y} = position(
+                {x, y} = positionAt(
                     element,
                     target,
                     axis === 'x' ? `${flipPosition(this.dir)} ${this.align}` : `${this.align} ${flipPosition(this.dir)}`,

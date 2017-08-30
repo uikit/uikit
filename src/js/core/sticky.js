@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, Animation, isNumeric, isString, noop, offset, query, requestAnimationFrame, toJQuery, trigger } from '../util/index';
+import { $, Animation, docEl, height, isNumeric, isString, noop, offset, query, requestAnimationFrame, toFloat, toJQuery, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -74,7 +74,7 @@ export default function (UIkit) {
 
         ready() {
 
-            if (!(this.target && location.hash && window.pageYOffset > 0)) {
+            if (!(this.target && location.hash && win.pageYOffset > 0)) {
                 return;
             }
 
@@ -88,7 +88,7 @@ export default function (UIkit) {
                         elHeight = this.$el[0].offsetHeight;
 
                     if (elTop + elHeight >= top && elTop <= top + target[0].offsetHeight) {
-                        window.scrollTo(0, top - elHeight - this.target - this.offset);
+                        win.scrollTo(0, top - elHeight - this.target - this.offset);
                     }
 
                 });
@@ -130,7 +130,7 @@ export default function (UIkit) {
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
                         .css(this.$el.css(['marginTop', 'marginBottom', 'marginLeft', 'marginRight']));
 
-                    if (!document.documentElement.contains(this.placeholder[0])) {
+                    if (!docEl.contains(this.placeholder[0])) {
                         this.placeholder.insertAfter(this.$el).attr('hidden', true);
                     }
 
@@ -150,12 +150,12 @@ export default function (UIkit) {
 
                         if (isNumeric(this[prop])) {
 
-                            this[prop] = this[`${prop}Offset`] + parseFloat(this[prop]);
+                            this[prop] = this[`${prop}Offset`] + toFloat(this[prop]);
 
                         } else {
 
                             if (isString(this[prop]) && this[prop].match(/^-?\d+vh$/)) {
-                                this[prop] = window.innerHeight * parseFloat(this[prop]) / 100;
+                                this[prop] = height(win) * toFloat(this[prop]) / 100;
                             } else {
 
                                 el = this[prop] === true ? this.$el.parent() : query(this[prop], this.$el);
@@ -170,9 +170,9 @@ export default function (UIkit) {
 
                     });
 
-                    this.top = Math.max(parseFloat(this.top), this.topOffset) - this.offset;
+                    this.top = Math.max(toFloat(this.top), this.topOffset) - this.offset;
                     this.bottom = this.bottom && this.bottom - outerHeight;
-                    this.inactive = this.media && !window.matchMedia(this.media).matches;
+                    this.inactive = this.media && !win.matchMedia(this.media).matches;
 
                     if (this.isActive) {
                         this.update();
@@ -187,7 +187,7 @@ export default function (UIkit) {
 
                 read() {
                     this.offsetTop = offset(this.$el).top;
-                    this.scroll = window.pageYOffset;
+                    this.scroll = win.pageYOffset;
                     this.visible = this.$el.is(':visible');
                 },
 

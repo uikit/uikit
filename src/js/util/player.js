@@ -1,4 +1,4 @@
-import { assign, isString, one, promise, toNode } from './index';
+import { assign, isString, one, promise, toNode, win } from './index';
 
 var id = 0;
 
@@ -118,7 +118,7 @@ function listen(cb) {
 
     return promise(resolve => {
 
-        one(window, 'message', (_, data) => resolve(data), false, ({data}) => {
+        one(win, 'message', (_, data) => resolve(data), false, ({data}) => {
 
             if (!data || !isString(data)) {
                 return;

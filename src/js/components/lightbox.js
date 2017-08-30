@@ -9,7 +9,7 @@ function plugin(UIkit) {
     UIkit.use(Slideshow);
 
     var {mixin, util} = UIkit;
-    var {$, Animation, ajax, assign, doc, docElement, getData, getImage, on, pointerDown, pointerMove, Transition, trigger} = util;
+    var {$, Animation, ajax, assign, doc, docEl, getData, getImage, on, pointerDown, pointerMove, Transition, trigger} = util;
 
     UIkit.component('lightbox', {
 
@@ -200,7 +200,7 @@ function plugin(UIkit) {
 
                 handler() {
 
-                    this.$addClass(docElement, this.clsPage);
+                    this.$addClass(docEl, this.clsPage);
 
                 }
             },
@@ -244,7 +244,7 @@ function plugin(UIkit) {
 
                 handler() {
 
-                    this.$removeClass(docElement, this.clsPage);
+                    this.$removeClass(docEl, this.clsPage);
 
                 }
             },

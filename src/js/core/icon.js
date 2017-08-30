@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, assign, each, isRtl, noop, promise, swap } from '../util/index';
+import { $, assign, doc, each, isRtl, noop, promise, swap } from '../util/index';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
 import marker from '../../images/components/marker.svg';
@@ -91,7 +91,7 @@ export default function (UIkit) {
 
                 if (!icon) {
 
-                    if (document.readyState !== 'complete') {
+                    if (doc.readyState !== 'complete') {
                         return promise(resolve => {
                             this.delay = resolve;
                         });

@@ -66,6 +66,10 @@ function toUpper(_, c) {
     return c ? c.toUpperCase() : ''
 }
 
+export function ucfirst(str) {
+    return str.length ? toUpper(null, str.charAt(0)) + str.slice(1) : '';
+};
+
 export const isArray = Array.isArray;
 
 export function isFunction(obj) {
@@ -78,6 +82,14 @@ export function isObject(obj) {
 
 export function isPlainObject(obj) {
     return isObject(obj) && Object.getPrototypeOf(obj) === Object.prototype;
+}
+
+export function isWindow(obj) {
+    return isObject(obj) && obj === obj.window;
+}
+
+export function isDocument(obj) {
+    return isObject(obj) && obj.nodeType === 9;
 }
 
 export function isBoolean(value) {
@@ -160,6 +172,10 @@ export function toNumber(value) {
     return !isNaN(number) ? number : false;
 }
 
+export function toFloat(value) {
+    return parseFloat(value) || 0;
+}
+
 export function toList(value) {
     return isArray(value)
         ? value
@@ -176,7 +192,7 @@ export function toMedia(value) {
     if (isString(value)) {
         if (value[0] === '@') {
             var name = `media-${value.substr(1)}`;
-            value = vars[name] || (vars[name] = parseFloat(getCssVar(name)));
+            value = vars[name] || (vars[name] = toFloat(getCssVar(name)));
         } else if (isNaN(value)) {
             return value;
         }
@@ -206,8 +222,8 @@ export function toMs(time) {
     return !time
         ? 0
         : time.substr(-2) === 'ms'
-            ? parseFloat(time)
-            : parseFloat(time) * 1000;
+            ? toFloat(time)
+            : toFloat(time) * 1000;
 }
 
 export function swap(value, a, b) {

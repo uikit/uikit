@@ -1,4 +1,4 @@
-import { Dimensions } from '../util/index';
+import { Dimensions, height, isVisible, width } from '../util/index';
 
 export default function (UIkit) {
 
@@ -14,8 +14,8 @@ export default function (UIkit) {
 
             read() {
 
-                this.dim = this.$el.is(':visible') && this.width && this.height
-                    ? {width: this.$el.parent().width(), height: this.height}
+                this.dim = isVisible(this.$el) && this.width && this.height
+                    ? {width: width(this.$el.parent()), height: this.height}
                     : false;
 
             },
@@ -23,7 +23,7 @@ export default function (UIkit) {
             write() {
 
                 if (this.dim) {
-                    this.$el.height(Dimensions.contain({height: this.height, width: this.width}, this.dim).height);
+                    height(this.$el, Dimensions.contain({height: this.height, width: this.width}, this.dim).height);
                 }
 
             },

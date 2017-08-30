@@ -1,5 +1,5 @@
 import { Togglable } from '../mixin/index';
-import { $, getIndex, isTouch, query, toJQuery } from '../util/index';
+import { $, getIndex, isTouch, query, toJQuery, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -90,7 +90,7 @@ export default function (UIkit) {
                     }
 
                     e.preventDefault();
-                    if (!window.getSelection().toString()) {
+                    if (!win.getSelection().toString()) {
                         this.show(e.type === 'swipeLeft' ? 'next' : 'previous');
                     }
                 }

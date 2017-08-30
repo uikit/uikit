@@ -1,4 +1,4 @@
-import { $, docHeight, offset, trigger } from '../util/index';
+import { $, doc, height, offset, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -21,11 +21,11 @@ export default function (UIkit) {
             scrollTo(el) {
 
                 var target = offset($(el)).top - this.offset,
-                    document = docHeight(),
-                    viewport = window.innerHeight;
+                    docHeight = height(doc),
+                    winHeight = height(win);
 
-                if (target + viewport > document) {
-                    target = document - viewport;
+                if (target + winHeight > docHeight) {
+                    target = docHeight - winHeight;
                 }
 
                 if (trigger(this.$el, 'beforescroll', [this, el]).defaultPrevented) {

@@ -158,7 +158,7 @@ function plugin(UIkit) {
 
                 this.touch = {
                     el,
-                    start: this.pos + (percent ? el.outerWidth() * percent : 0)
+                    start: this.pos + (percent ? el[0].offsetWidth * percent : 0)
                 }
 
             },
@@ -175,7 +175,7 @@ function plugin(UIkit) {
 
                 this.touching = true;
 
-                var percent = (this.pos - start) / el.outerWidth();
+                var percent = (this.pos - start) / el[0].offsetWidth;
 
                 if (this.percent === percent) {
                     return;
@@ -374,7 +374,7 @@ function plugin(UIkit) {
             },
 
             percent(current) {
-                return Math.abs(current.css('transform').split(',')[4] / current.outerWidth());
+                return Math.abs(current.css('transform').split(',')[4] / current[0].offsetWidth);
             },
 
             translate(percent, dir) {
@@ -433,7 +433,7 @@ function plugin(UIkit) {
             percent(current, next, dir) {
 
                 var el = dir < 0 ? current : next,
-                    percent = Math.abs(el.css('transform').split(',')[4] / el.outerWidth());
+                    percent = Math.abs(el.css('transform').split(',')[4] / el[0].offsetWidth);
 
                 return dir < 0 ? percent : 1 - percent;
             },

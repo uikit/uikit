@@ -1,4 +1,4 @@
-import { isContextSelector, isFunction, isString, matches, toNode, query } from './index';
+import { doc, isContextSelector, isFunction, isString, matches, query, toNode } from './index';
 
 export function on(...args) {
 
@@ -40,7 +40,7 @@ export function trigger(element, event, detail) {
 
 export function createEvent(e, bubbles = true, cancelable = false, detail) {
     if (isString(e)) {
-        var event = document.createEvent('CustomEvent');
+        var event = doc.createEvent('CustomEvent');
         event.initCustomEvent(e, bubbles, cancelable, detail);
         e = event;
     }
@@ -70,7 +70,7 @@ function delegate(element, selector, listener) {
                 e.delegate = element;
                 e.current = target;
 
-                listener(e);
+                listener.call(target, e);
                 break;
             }
 

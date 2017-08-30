@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, assign, isRtl, isWithin, noop, query, Transition } from '../util/index';
+import { $, assign, contains, height, isRtl, isVisible, noop, query, toFloat, Transition } from '../util/index';
 
 export default function (UIkit) {
 
@@ -83,7 +83,7 @@ export default function (UIkit) {
 
                 handler({current}) {
                     var active = this.getActive();
-                    if (active && active.toggle && !isWithin(active.toggle.$el, current) && !active.tracker.movesTo(active.$el)) {
+                    if (active && active.toggle && !contains(active.toggle.$el, current) && !active.tracker.movesTo(active.$el)) {
                         active.hide(false);
                     }
                 }
@@ -96,7 +96,7 @@ export default function (UIkit) {
 
             getActive() {
                 var active = UIkit.drop.getActive();
-                return active && ~active.mode.indexOf('hover') && isWithin(active.toggle.$el, this.$el) && active;
+                return active && ~active.mode.indexOf('hover') && contains(active.toggle.$el, this.$el) && active;
             }
 
         }
@@ -133,7 +133,7 @@ export default function (UIkit) {
 
                 handler(e, drop) {
                     var {$el, dir} = drop;
-                    if (dir === 'bottom' && !isWithin($el, this.$el)) {
+                    if (dir === 'bottom' && !contains($el, this.$el)) {
                         $el.appendTo(this.$el);
                         drop.show();
                         e.preventDefault();
@@ -158,7 +158,7 @@ export default function (UIkit) {
 
                 handler(_, {$el}) {
                     this.clsDrop && $el.addClass(`${this.clsDrop}-dropbar`);
-                    this.transitionTo($el.outerHeight(true));
+                    this.transitionTo(height($el[0]) + toFloat($el.css('marginTop')) + toFloat($el.css('marginBottom')));
                 }
             },
 
@@ -192,10 +192,10 @@ export default function (UIkit) {
 
         methods: {
 
-            transitionTo(height) {
-                this.$el.height(this.$el[0].offsetHeight ? this.$el.height() : 0);
+            transitionTo(newHeight) {
+                height(this.$el, isVisible(this.$el) ? height(this.$el) : 0);
                 Transition.cancel(this.$el);
-                return Transition.start(this.$el, {height}, this.duration).then(null, noop);
+                return Transition.start(this.$el, {height: newHeight}, this.duration).then(null, noop);
             }
 
         }

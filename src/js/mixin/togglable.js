@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, Animation, assign, fastdom, isBoolean, isUndefined, noop, promise, Transition, trigger } from '../util/index';
+import { $, Animation, assign, doc, fastdom, height, isBoolean, isUndefined, noop, promise, toFloat, Transition, trigger } from '../util/index';
 
 export default {
 
@@ -70,7 +70,7 @@ export default {
 
                 } else {
 
-                    var body = document.body,
+                    var body = doc.body,
                         scroll = body.scrollTop,
                         el = toggled[0],
                         inProgress = Animation.inProgress(el) && this.$hasClass(el, 'uk-animation-leave')
@@ -164,8 +164,8 @@ export default {
 
             var children = el.children(),
                 inProgress = Transition.inProgress(el),
-                inner = children.length ? parseFloat(children.first().css('margin-top')) + parseFloat(children.last().css('margin-bottom')) : 0,
-                height = el[0].offsetHeight ? el.height() + (inProgress ? 0 : inner) : 0,
+                inner = children.length ? toFloat(children.first().css('marginTop')) + toFloat(children.last().css('marginBottom')) : 0,
+                currentHeight = el[0].offsetHeight ? height(el) + (inProgress ? 0 : inner) : 0,
                 endHeight;
 
             Transition.cancel(el);
@@ -174,17 +174,17 @@ export default {
                 this._toggle(el, true);
             }
 
-            el.height('');
+            height(el, '');
 
             // Update child components first
             fastdom.flush();
 
-            endHeight = el.height() + (inProgress ? 0 : inner);
-            el.height(height);
+            endHeight = height(el) + (inProgress ? 0 : inner);
+            height(el, currentHeight);
 
             return (show
-                ? Transition.start(el, assign({}, this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - height / endHeight)), this.transition)
-                : Transition.start(el, this.hideProps, Math.round(this.duration * (height / endHeight)), this.transition).then(() => this._toggle(el, false))
+                ? Transition.start(el, assign({}, this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - currentHeight / endHeight)), this.transition)
+                : Transition.start(el, this.hideProps, Math.round(this.duration * (currentHeight / endHeight)), this.transition).then(() => this._toggle(el, false))
             ).then(() => el.css(this.initProps));
 
         },

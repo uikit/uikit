@@ -1,15 +1,14 @@
 import $ from 'jquery';
-import { animationend, assign, clamp, each, getContextSelectors, isNumber, isString, on, one, promise, requestAnimationFrame, toJQuery, toNode, transitionend, trigger } from './index';
+import { animationend, assign, clamp, each, getContextSelectors, height, isNumber, isString, on, one, promise, requestAnimationFrame, toJQuery, toNode, transitionend, trigger, width } from './index';
 
-var docEl = document.documentElement;
-export const win = $(window);
-export const doc = $(document);
-export const docElement = $(docEl);
+export const win = window;
+export const doc = document;
+export const docEl = doc.documentElement;
 
 export const isRtl = docEl.getAttribute('dir') === 'rtl';
 
 export function isReady() {
-    return document.readyState === 'complete' || document.readyState !== 'loading' && !docEl.doScroll;
+    return doc.readyState === 'complete' || doc.readyState !== 'loading' && !docEl.doScroll;
 }
 
 export function ready(fn) {
@@ -24,8 +23,8 @@ export function ready(fn) {
             unbind2();
             fn();
         },
-        unbind1 = on(document, 'DOMContentLoaded', handle),
-        unbind2 = on(window, 'load', handle);
+        unbind1 = on(doc, 'DOMContentLoaded', handle),
+        unbind2 = on(win, 'load', handle);
 }
 
 var transitioncancel = 'transitioncancel';
@@ -174,7 +173,7 @@ export function isJQuery(obj) {
     return obj instanceof $;
 }
 
-export function isWithin(element, selector) {
+export function contains(element, selector) {
     element = $(element);
     return element.is(selector)
         ? true
@@ -198,21 +197,21 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
     return rect.bottom >= -1 * offsetTop
         && rect.right >= -1 * offsetLeft
-        && rect.top <= window.innerHeight + offsetTop
-        && rect.left <= window.innerWidth + offsetLeft;
+        && rect.top <= height(win) + offsetTop
+        && rect.left <= width(win) + offsetLeft;
 }
 
 export function scrolledOver(element) {
 
     element = toNode(element);
 
-    var height = element.offsetHeight,
+    var elHeight = element.offsetHeight,
         top = positionTop(element),
-        vp = window.innerHeight,
+        vp = height(win),
         vh = vp + Math.min(0, top - vp),
-        diff = Math.max(0, vp - (docHeight() - (top + height)));
+        diff = Math.max(0, vp - (height(doc) - (top + elHeight)));
 
-    return clamp(((vh + window.pageYOffset - top) / ((vh + (height - (diff < vp ? diff : 0)) ) / 100)) / 100);
+    return clamp(((vh + win.pageYOffset - top) / ((vh + (elHeight - (diff < vp ? diff : 0)) ) / 100)) / 100);
 }
 
 function positionTop(element) {
@@ -225,10 +224,6 @@ function positionTop(element) {
     } while (element = element.offsetParent);
 
     return top;
-}
-
-export function docHeight() {
-    return Math.max(docEl.offsetHeight, docEl.scrollHeight);
 }
 
 export function getIndex(index, elements, current = 0) {
@@ -321,11 +316,15 @@ export function preventClick() {
 
 }
 
-export function getData(el, attribute) {
-    el = toNode(el);
+export function getData(element, attribute) {
+    element = toNode(element);
     for (var i = 0, attrs = [attribute, `data-${attribute}`]; i < attrs.length; i++) {
-        if (el.hasAttribute(attrs[i])) {
-            return el.getAttribute(attrs[i]);
+        if (element.hasAttribute(attrs[i])) {
+            return element.getAttribute(attrs[i]);
         }
     }
+}
+
+export function isVisible(element) {
+    return !!toNode(element).offsetHeight;
 }

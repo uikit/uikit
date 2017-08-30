@@ -1,4 +1,4 @@
-import { doc, getDimensions, on } from './index';
+import { doc, offset, on } from './index';
 
 export function MouseTracker() {}
 
@@ -52,7 +52,7 @@ MouseTracker.prototype = {
             return false;
         }
 
-        var p = getDimensions(target),
+        var p = offset(target),
             position = this.positions[this.positions.length - 1],
             prevPos = this.positions[0];
 

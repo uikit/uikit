@@ -1,13 +1,13 @@
-import { classify, promise, toNode } from './lang';
+import { addClass, classify, doc, docEl, promise, toNode, win } from './index';
 
-export const Observer = window.MutationObserver || window.WebKitMutationObserver;
-export const requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
+export const Observer = win.MutationObserver || win.WebKitMutationObserver;
+export const requestAnimationFrame = win.requestAnimationFrame || (fn => setTimeout(fn, 1000 / 60));
 
-var hasTouchEvents = 'ontouchstart' in window;
-var hasPointerEvents = window.PointerEvent;
-export const hasPromise = 'Promise' in window;
-export const hasTouch = 'ontouchstart' in window
-    || window.DocumentTouch && document instanceof DocumentTouch
+var hasTouchEvents = 'ontouchstart' in win;
+var hasPointerEvents = win.PointerEvent;
+export const hasPromise = 'Promise' in win;
+export const hasTouch = 'ontouchstart' in win
+    || win.DocumentTouch && doc instanceof DocumentTouch
     || navigator.msPointerEnabled && navigator.msMaxTouchPoints // IE 10
     || navigator.pointerEnabled && navigator.maxTouchPoints; // IE >=11
 
@@ -30,17 +30,16 @@ export function matches(element, selector) {
 }
 
 export function getStyle(element, property, pseudoElt) {
-    return (window.getComputedStyle(toNode(element), pseudoElt) || {})[property];
+    return (win.getComputedStyle(toNode(element), pseudoElt) || {})[property];
 }
 
 export function getCssVar(name) {
 
     /* usage in css:  .var-name:before { content:"xyz" } */
 
-    var val, doc = document.documentElement,
-        element = doc.appendChild(document.createElement('div'));
+    var val, element = docEl.appendChild(doc.createElement('div'));
 
-    element.classList.add(`var-${name}`);
+    addClass(element, `var-${name}`);
 
     try {
 
@@ -49,7 +48,7 @@ export function getCssVar(name) {
 
     } catch (e) {}
 
-    doc.removeChild(element);
+    docEl.removeChild(element);
 
     return val || undefined;
 }
@@ -72,7 +71,7 @@ function prefix(name, event) {
     var ucase = classify(name),
         lowered = classify(event).toLowerCase(),
         classified = classify(event),
-        element = document.body || document.documentElement,
+        element = doc.body || docEl,
         names = {
             [name]: lowered,
             [`Webkit${ucase}`]: `webkit${classified}`,

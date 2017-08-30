@@ -1,4 +1,4 @@
-import { $ } from '../util/index';
+import { $, docEl } from '../util/index';
 
 export default function (UIkit) {
 
@@ -25,7 +25,7 @@ export default function (UIkit) {
 
         this._callHook('init');
 
-        if (document.documentElement.contains(el)) {
+        if (docEl.contains(el)) {
             this._callConnected();
         }
     };

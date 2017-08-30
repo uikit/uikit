@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { getCssVar } from '../util/index';
+import { getCssVar, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -44,7 +44,7 @@ export default function (UIkit) {
                     var prev = this._width;
                     this._width = Math.floor(this.$el[0].offsetWidth / 2);
                     this._changed = prev !== this._width;
-                    this._hide = this.media && !window.matchMedia(this.media).matches;
+                    this._hide = this.media && !win.matchMedia(this.media).matches;
                 },
 
                 write() {

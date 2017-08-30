@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {scrolledOver} = UIkit.util;
+    var {scrolledOver, toFloat} = UIkit.util;
 
     UIkit.component('grid-parallax', UIkit.components.grid.extend({
 
@@ -51,7 +51,7 @@ function plugin(UIkit) {
                 write() {
                     this.$el
                         .css('margin-bottom', '')
-                        .css('margin-bottom', this.columns > 1 ? this.translate + parseFloat(this.$el.css('margin-bottom')) : '');
+                        .css('margin-bottom', this.columns > 1 ? this.translate + toFloat(this.$el.css('margin-bottom')) : '');
                 },
 
                 events: ['load', 'resize']

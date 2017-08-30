@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {mixin, util} = UIkit;
-    var {assign, clamp, Dimensions, getImage, isUndefined, scrolledOver, query} = util;
+    var {assign, clamp, Dimensions, getImage, isUndefined, scrolledOver, toFloat, query, win} = util;
 
     var props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
@@ -67,8 +67,8 @@ function plugin(UIkit) {
 
                     } else {
 
-                        start = parseFloat(start);
-                        end = parseFloat(end);
+                        start = toFloat(start);
+                        end = toFloat(end);
                         diff = Math.abs(start - end);
 
                     }
@@ -113,7 +113,7 @@ function plugin(UIkit) {
 
                     delete this._computeds.props;
 
-                    this._active = !this.media || window.matchMedia(this.media).matches;
+                    this._active = !this.media || win.matchMedia(this.media).matches;
 
                     if (this._image) {
                         this._image.dimEl = {
@@ -176,7 +176,7 @@ function plugin(UIkit) {
                                 dimEl[attr] = dim[attr] + diff - span;
                                 this.props[prop].pos = '0px';
                             } else {
-                                pos = -1 * span / 100 * parseFloat(pos);
+                                pos = -1 * span / 100 * toFloat(pos);
                                 pos = clamp(pos, diff - span, 0);
                                 this.props[prop].pos = `${pos}px`;
                             }
@@ -185,7 +185,7 @@ function plugin(UIkit) {
 
                             if (span < diff) {
                                 dimEl[attr] = dim[attr] + diff - span;
-                            } else if ((span / 100 * parseFloat(pos)) > diff) {
+                            } else if ((span / 100 * toFloat(pos)) > diff) {
                                 return;
                             }
 
@@ -262,7 +262,7 @@ function plugin(UIkit) {
                             css[prop] = `rgba(${
                                 values.start.map((value, i) => {
                                     value = value + percent * (values.end[i] - value);
-                                    return i === 3 ? parseFloat(value) : parseInt(value, 10);
+                                    return i === 3 ? toFloat(value) : parseInt(value, 10);
                                 }).join(',')
                                 })`;
                             break;
@@ -365,7 +365,7 @@ function plugin(UIkit) {
     });
 
     function parseColor(color) {
-        return color.split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => parseFloat(n));
+        return color.split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => toFloat(n));
     }
 
     function getValue(prop, percent) {
