@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, assign, clamp, each, getContextSelectors, height, isNumber, isString, on, one, promise, requestAnimationFrame, toJQuery, toNode, transitionend, trigger, width } from './index';
+import { addClass, animationend, assign, clamp, hasClass, each, getContextSelectors, height, isNumber, isString, on, one, promise, removeClass, requestAnimationFrame, toJQuery, toNode, transitionend, trigger, width } from './index';
 
 export const win = window;
 export const doc = document;
@@ -42,12 +42,13 @@ export function transition(element, props, duration = 400, transition = 'linear'
 
         one(element, `${transitionend} ${transitioncancel}`, ({type}) => {
             clearTimeout(timer);
-            element.removeClass('uk-transition').css('transition', '');
+            removeClass(element, 'uk-transition');
+            element.css('transition', '');
             type === transitioncancel ? reject() : resolve();
         }, false, ({target}) => element.is(target));
 
+        addClass(element, 'uk-transition');
         element
-            .addClass('uk-transition')
             .css('transition', `all ${duration}ms ${transition}`)
             .css(props);
 
@@ -70,7 +71,7 @@ export const Transition = {
     },
 
     inProgress(element) {
-        return $(element).hasClass('uk-transition');
+        return hasClass(element, 'uk-transition');
     }
 
 };
@@ -84,7 +85,7 @@ export function animate(element, animation, duration = 200, origin, out) {
 
         element = $(element);
 
-        if (element.hasClass(clsCancelAnimation)) {
+        if (hasClass(element, clsCancelAnimation)) {
             requestAnimationFrame(() =>
                 promise.resolve().then(() =>
                     animate.apply(null, arguments).then(resolve, reject)
@@ -117,9 +118,9 @@ export function animate(element, animation, duration = 200, origin, out) {
 
             requestAnimationFrame(() => {
                 if (!hasReset) {
-                    element.addClass(clsCancelAnimation);
+                    addClass(element, clsCancelAnimation);
 
-                    requestAnimationFrame(() => element.removeClass(clsCancelAnimation));
+                    requestAnimationFrame(() => removeClass(element, clsCancelAnimation));
                 }
             });
 
@@ -130,9 +131,8 @@ export function animate(element, animation, duration = 200, origin, out) {
 
         }, false, ({target}) => element.is(target));
 
-        element
-            .css('animation-duration', `${duration}ms`)
-            .addClass(cls);
+        element.css('animation-duration', `${duration}ms`);
+        addClass(element, cls);
 
         if (!animationend) {
             requestAnimationFrame(() => Animation.cancel(element));

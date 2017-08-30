@@ -6,7 +6,7 @@ export default function (UIkit) {
 
     ['add', 'remove', 'replace', 'has', 'toggle'].forEach(fn => {
         fn += 'Class';
-        UIkit.prototype[`$${fn}`] = function (...args) { apply(this.$options.el, args, fn); }
+        UIkit.prototype[`$${fn}`] = function (...args) { return apply(this.$options.el, args, fn); }
     });
 
     function apply(el, args, fn) {

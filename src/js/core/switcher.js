@@ -123,12 +123,15 @@ export default function (UIkit) {
                     }
                 }
 
-                if (!toggle || prev >= 0 && toggle.hasClass(this.cls) || prev === index) {
+                if (!toggle || prev >= 0 && this.$hasClass(toggle, this.cls) || prev === index) {
                     return;
                 }
 
-                this.toggles.removeClass(this.cls).attr('aria-expanded', false);
-                toggle.addClass(this.cls).attr('aria-expanded', true);
+                this.toggles.each((_, toggle) => {
+                    this.$removeClass(toggle, this.cls);
+                    $(toggle).attr('aria-expanded', false)});
+                this.$addClass(toggle, this.cls);
+                toggle.attr('aria-expanded', true);
 
                 if (!hasPrev) {
                     this.toggleNow(this.connects.children(`:nth-child(${index + 1})`));

@@ -211,7 +211,8 @@ export default function (UIkit) {
 
                 handler() {
                     this.tracker.init();
-                    this.toggle.$el.addClass(this.cls).attr('aria-expanded', 'true');
+                    this.$addClass(this.toggle.$el, this.cls);
+                    this.toggle.$el.attr('aria-expanded', 'true');
                     registerEvent();
                 }
 
@@ -241,7 +242,8 @@ export default function (UIkit) {
                     }
 
                     active = this.isActive() ? null : active;
-                    this.toggle.$el.removeClass(this.cls).attr('aria-expanded', 'false').blur().find('a, button').blur();
+                    this.$removeClass(this.toggle.$el, this.cls);
+                    this.toggle.$el.attr('aria-expanded', 'false').blur().find('a, button').blur();
                     this.tracker.cancel();
                 }
 
@@ -362,9 +364,11 @@ export default function (UIkit) {
 
                 removeClasses(this.$el, `${this.clsDrop}-(stack|boundary)`).css({top: '', left: ''});
 
-                this.$el.show().toggleClass(`${this.clsDrop}-boundary`, this.boundaryAlign);
+                this.$el.show();
+                this.$toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
 
-                var boundary = offset(this.boundary), alignTo = this.boundaryAlign ? boundary : offset(this.toggle.$el);
+                var boundary = offset(this.boundary),
+                    alignTo = this.boundaryAlign ? boundary : offset(this.toggle.$el);
 
                 if (this.align === 'justify') {
                     var prop = this.getAxis() === 'y' ? 'width' : 'height';

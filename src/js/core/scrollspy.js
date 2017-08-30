@@ -75,9 +75,9 @@ export default function (UIkit) {
                             if (!data.inview && !data.timer) {
 
                                 var show = () => {
-                                    $el.css('visibility', '')
-                                        .addClass(this.inViewClass)
-                                        .toggleClass(cls);
+                                    $el.css('visibility', '');
+                                    this.$addClass($el, this.inViewClass);
+                                    this.$toggleClass($el, cls);
 
                                     trigger($el, 'inview');
 
@@ -106,9 +106,9 @@ export default function (UIkit) {
                                     delete data.timer;
                                 }
 
-                                $el.removeClass(this.inViewClass)
-                                    .toggleClass(cls)
-                                    .css('visibility', this.hidden ? 'hidden' : '');
+                                $el.css('visibility', this.hidden ? 'hidden' : '');
+                                this.$removeClass($el, this.inViewClass);
+                                this.$toggleClass($el, cls);
 
                                 trigger($el, 'outview');
 

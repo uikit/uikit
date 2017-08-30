@@ -122,7 +122,6 @@ function plugin(UIkit) {
 
                 this.drag = $(this.placeholder[0].outerHTML.replace(/^<li/i, '<div').replace(/li>$/i, 'div>'))
                     .attr('uk-no-boot', '')
-                    .addClass(`${this.clsDrag} ${this.clsCustom}`)
                     .css({
                         boxSizing: 'border-box',
                         width: this.placeholder[0].offsetWidth,
@@ -131,13 +130,15 @@ function plugin(UIkit) {
                     .css(this.placeholder.css(['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom']))
                     .appendTo(UIkit.container);
 
+                this.$addClass(this.drag, `${this.clsDrag} ${this.clsCustom}`);
+
                 height(this.drag.children().first(), height(this.placeholder.children().first()));
 
                 var {left, top} = offset(this.placeholder);
                 assign(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
 
                 this.$addClass(this.placeholder, this.clsPlaceholder);
-                this.$el.children().addClass(this.clsItem);
+                this.$el.children().each((_, el) => this.$addClass(el, this.clsItem));
                 this.$addClass(docEl, this.clsDragState);
 
                 trigger(this.$el, 'start', [this, this.placeholder, this.drag]);
@@ -226,7 +227,11 @@ function plugin(UIkit) {
                 this.drag = null;
 
                 var classes = this.touched.map(sortable => `${sortable.clsPlaceholder} ${sortable.clsItem}`).join(' ');
-                this.touched.forEach(sortable => sortable.$el.children().removeClass(classes));
+                this.touched.forEach(sortable =>
+                    sortable.$el.children().each((_, el) =>
+                        this.$removeClass(el, classes)
+                    )
+                );
 
                 this.$removeClass(docEl, this.clsDragState);
 
@@ -234,7 +239,7 @@ function plugin(UIkit) {
 
             insert(element, target) {
 
-                this.$el.children().addClass(this.clsItem);
+                this.$el.children().each((_, el) => this.$addClass(el, this.clsItem));
 
                 var insert = () => {
 

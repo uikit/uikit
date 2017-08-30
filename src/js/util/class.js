@@ -46,7 +46,7 @@ function getArgs(element, args) {
         i > 0 && isString(arg) && ~arg.indexOf(' ') && Array.prototype.splice.apply(args, [i, 1].concat(args[i].split(' ')))
     );
 
-    return args[0] && args[1] && args.length > 1 && args;
+    return args[0] && args[1] && args;
 }
 
 (function() {

@@ -85,12 +85,12 @@ export default function (UIkit) {
                 write() {
 
                     this.links.blur();
-                    this.elements.removeClass(this.cls);
+                    this.elements.each((_, el) => this.$removeClass(el, this.cls));
 
                     if (this.active) {
                         trigger(this.$el, 'active', [
                             this.active,
-                            (this.closest ? this.active.closest(this.closest) : this.active).addClass(this.cls)
+                            this.$addClass(this.closest ? this.active.closest(this.closest) : this.active, this.cls)
                         ]);
                     }
 

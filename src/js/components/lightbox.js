@@ -410,9 +410,10 @@ function plugin(UIkit) {
                     this.toggleNow(this.$el, false);
                 }
 
-                this.slides
-                    .removeClass(this.clsActive)
-                    .each((_, el) => Transition.stop(el));
+                this.slides.each((_, el) => {
+                    this.$removeClass(el, this.clsActive);
+                    Transition.stop(el);
+                });
 
                 delete this.index;
                 delete this.percent;

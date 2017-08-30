@@ -22,8 +22,8 @@ export default function (UIkit) {
 
                 handler() {
 
-                    if (this.panel.hasClass('uk-margin-auto-vertical')) {
-                        this.$el.addClass('uk-flex');
+                    if (this.$hasClass(this.panel, 'uk-margin-auto-vertical')) {
+                        this.$addClass('uk-flex');
                     } else {
                         this.$el.css('display', 'block');
                     }
@@ -39,7 +39,8 @@ export default function (UIkit) {
 
                 handler() {
 
-                    this.$el.css('display', '').removeClass('uk-flex');
+                    this.$el.css('display', '');
+                    this.$removeClass('uk-flex');
 
                 }
             }

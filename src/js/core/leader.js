@@ -49,7 +49,7 @@ export default function (UIkit) {
 
                 write() {
 
-                    this.wrapper.toggleClass(this.clsHide, this._hide);
+                    this.$toggleClass(this.wrapper, this.clsHide, this._hide);
 
                     if (this._changed) {
                         this.wrapper.attr(this.attrFill, new Array(this._width).join(this.fill));

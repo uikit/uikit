@@ -99,7 +99,7 @@ export default {
 
         isToggled(el) {
             el = el && $(el) || this.$el;
-            return this.cls ? el.hasClass(this.cls.split(' ')[0]) : !el.attr('hidden');
+            return this.cls ? this.$hasClass(el, this.cls.split(' ')[0]) : !el.attr('hidden');
         },
 
         updateAria(el) {
@@ -144,7 +144,7 @@ export default {
             el = $(el);
 
             if (this.cls) {
-                el.toggleClass(this.cls, ~this.cls.indexOf(' ') ? undefined : toggled);
+                this.$toggleClass(el, this.cls, ~this.cls.indexOf(' ') ? undefined : toggled);
             } else {
                 el.attr('hidden', !toggled);
             }

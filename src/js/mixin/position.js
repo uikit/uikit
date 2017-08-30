@@ -54,7 +54,7 @@ export default {
             this.dir = axis === 'x' ? x : y;
             this.align = axis === 'x' ? y : x;
 
-            element.toggleClass(`${this.clsPos}-${this.dir}-${this.align}`, this.offset === false);
+            this.$toggleClass(element, `${this.clsPos}-${this.dir}-${this.align}`, this.offset === false);
 
         },
 

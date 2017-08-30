@@ -46,7 +46,7 @@ export default function (UIkit) {
                 delegate: ':input:first',
 
                 handler({type}) {
-                    this.state.toggleClass(`uk-${~type.indexOf('focus') ? 'focus' : 'hover'}`, ~['focusin', 'mouseenter'].indexOf(type));
+                    this.$toggleClass(this.state, `uk-${~type.indexOf('focus') ? 'focus' : 'hover'}`, ~['focusin', 'mouseenter'].indexOf(type));
                 }
 
             },

@@ -157,7 +157,7 @@ export default function (UIkit) {
                 name: 'beforeshow',
 
                 handler(_, {$el}) {
-                    this.clsDrop && $el.addClass(`${this.clsDrop}-dropbar`);
+                    this.clsDrop && this.$addClass($el, `${this.clsDrop}-dropbar`);
                     this.transitionTo(height($el[0]) + toFloat($el.css('marginTop')) + toFloat($el.css('marginBottom')));
                 }
             },

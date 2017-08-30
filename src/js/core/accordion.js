@@ -68,11 +68,11 @@ export default function (UIkit) {
 
             this.items.each((i, el) => {
                 el = $(el);
-                this.toggleNow(el.find(this.content), el.hasClass(this.clsOpen));
+                this.toggleNow(el.find(this.content), this.$hasClass(el, this.clsOpen));
             });
 
             var active = this.active !== false && toJQuery(this.items.eq(Number(this.active))) || !this.collapsible && toJQuery(this.items.eq(0));
-            if (active && !active.hasClass(this.clsOpen)) {
+            if (active && !this.$hasClass(active, this.clsOpen)) {
                 this.toggle(active, false);
             }
 
@@ -91,13 +91,13 @@ export default function (UIkit) {
 
                     el = $(el);
 
-                    var isItem = el.is(item), state = isItem && !el.hasClass(this.clsOpen);
+                    var isItem = el.is(item), state = isItem && !this.$hasClass(el, this.clsOpen);
 
                     if (!state && isItem && !this.collapsible && active.length < 2) {
                         return;
                     }
 
-                    el.toggleClass(this.clsOpen, state);
+                    this.$toggleClass(el, this.clsOpen, state);
 
                     var content = el[0]._wrapper ? el[0]._wrapper.children().first() : el.find(this.content);
 
@@ -107,7 +107,7 @@ export default function (UIkit) {
 
                     this._toggleImmediate(content, true);
                     this.toggleElement(el[0]._wrapper, state, animate).then(() => {
-                        if (el.hasClass(this.clsOpen) === state) {
+                        if (this.$hasClass(el, this.clsOpen) === state) {
 
                             if (!state) {
                                 this._toggleImmediate(content, false);

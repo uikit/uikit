@@ -255,7 +255,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var hasPrev = this.slides.hasClass('uk-active'),
+                var hasPrev = this.slides.toArray().some(slide => this.$hasClass(slide, 'uk-active')),
                     dir = index === 'next'
                             ? 1
                             : index === 'previous'
