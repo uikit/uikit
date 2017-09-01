@@ -1,11 +1,11 @@
 import $ from 'jquery';
-import { addClass, animationend, assign, clamp, hasClass, each, getContextSelectors, height, isNumber, isString, on, one, promise, removeClass, requestAnimationFrame, toJQuery, toNode, transitionend, trigger, width } from './index';
+import { addClass, animationend, assign, attr, clamp, each, getContextSelectors, hasClass, height, isNumber, isString, on, one, promise, removeClass, removeClasses, requestAnimationFrame, toJQuery, toNode, toNodes, transitionend, trigger, width } from './index';
 
 export const win = window;
 export const doc = document;
 export const docEl = doc.documentElement;
 
-export const isRtl = docEl.getAttribute('dir') === 'rtl';
+export const isRtl = attr(docEl, 'dir') === 'rtl';
 
 export function isReady() {
     return doc.readyState === 'complete' || doc.readyState !== 'loading' && !docEl.doScroll;
@@ -28,31 +28,34 @@ export function ready(fn) {
 }
 
 var transitioncancel = 'transitioncancel';
+
 export function transition(element, props, duration = 400, transition = 'linear') {
 
-    return promise((resolve, reject) => {
+    return promise.all(toNodes(element).map(element =>
+        promise((resolve, reject) => {
 
-        element = $(element);
+            element = $(element);
 
-        for (var name in props) {
-            element.css(name, element.css(name));
-        }
+            for (var name in props) {
+                element.css(name, element.css(name));
+            }
 
-        var timer = setTimeout(() => trigger(element, transitionend), duration);
+            var timer = setTimeout(() => trigger(element, transitionend), duration);
 
-        one(element, `${transitionend} ${transitioncancel}`, ({type}) => {
-            clearTimeout(timer);
-            removeClass(element, 'uk-transition');
-            element.css('transition', '');
-            type === transitioncancel ? reject() : resolve();
-        }, false, ({target}) => element.is(target));
+            one(element, `${transitionend} ${transitioncancel}`, ({type}) => {
+                clearTimeout(timer);
+                removeClass(element, 'uk-transition');
+                element.css('transition', '');
+                type === transitioncancel ? reject() : resolve();
+            }, false, ({target}) => element.is(target));
 
-        addClass(element, 'uk-transition');
-        element
-            .css('transition', `all ${duration}ms ${transition}`)
-            .css(props);
+            addClass(element, 'uk-transition');
+            element
+                .css('transition', `all ${duration}ms ${transition}`)
+                .css(props);
 
-    });
+        })
+    ));
 
 }
 
@@ -79,71 +82,74 @@ export const Transition = {
 var animationcancel = 'animationcancel',
     animationprefix = 'uk-animation-',
     clsCancelAnimation = 'uk-cancel-animation';
+
 export function animate(element, animation, duration = 200, origin, out) {
 
-    return promise((resolve, reject) => {
+    return promise.all(toNodes(element).map(element =>
+        promise((resolve, reject) => {
 
-        element = $(element);
+            element = $(element);
 
-        if (hasClass(element, clsCancelAnimation)) {
-            requestAnimationFrame(() =>
-                promise.resolve().then(() =>
-                    animate.apply(null, arguments).then(resolve, reject)
-                )
-            );
-            return;
-        }
-
-        var cls = `${animation} ${animationprefix}${out ? 'leave' : 'enter'}`;
-
-        if (animation.lastIndexOf(animationprefix, 0) === 0) {
-
-            if (origin) {
-                cls += ` ${animationprefix}${origin}`;
+            if (hasClass(element, clsCancelAnimation)) {
+                requestAnimationFrame(() =>
+                    promise.resolve().then(() =>
+                        animate.apply(null, arguments).then(resolve, reject)
+                    )
+                );
+                return;
             }
 
-            if (out) {
-                cls += ` ${animationprefix}reverse`;
-            }
+            var cls = `${animation} ${animationprefix}${out ? 'leave' : 'enter'}`;
 
-        }
+            if (animation.lastIndexOf(animationprefix, 0) === 0) {
 
-        reset();
-
-        one(element, `${animationend || 'animationend'} ${animationcancel}`, ({type}) => {
-
-            var hasReset = false;
-
-            type === animationcancel ? reject() : resolve();
-
-            requestAnimationFrame(() => {
-                if (!hasReset) {
-                    addClass(element, clsCancelAnimation);
-
-                    requestAnimationFrame(() => removeClass(element, clsCancelAnimation));
+                if (origin) {
+                    cls += ` ${animationprefix}${origin}`;
                 }
-            });
 
-            promise.resolve().then(() => {
-                hasReset = true;
-                reset();
-            });
+                if (out) {
+                    cls += ` ${animationprefix}reverse`;
+                }
 
-        }, false, ({target}) => element.is(target));
+            }
 
-        element.css('animation-duration', `${duration}ms`);
-        addClass(element, cls);
+            reset();
 
-        if (!animationend) {
-            requestAnimationFrame(() => Animation.cancel(element));
-        }
+            one(element, `${animationend || 'animationend'} ${animationcancel}`, ({type}) => {
 
-        function reset() {
-            element.css('animation-duration', '');
-            removeClasses(element, `${animationprefix}\\S*`);
-        }
+                var hasReset = false;
 
-    });
+                type === animationcancel ? reject() : resolve();
+
+                requestAnimationFrame(() => {
+                    if (!hasReset) {
+                        addClass(element, clsCancelAnimation);
+
+                        requestAnimationFrame(() => removeClass(element, clsCancelAnimation));
+                    }
+                });
+
+                promise.resolve().then(() => {
+                    hasReset = true;
+                    reset();
+                });
+
+            }, false, ({target}) => element.is(target));
+
+            element.css('animation-duration', `${duration}ms`);
+            addClass(element, cls);
+
+            if (!animationend) {
+                requestAnimationFrame(() => Animation.cancel(element));
+            }
+
+            function reset() {
+                element.css('animation-duration', '');
+                removeClasses(element, `${animationprefix}\\S*`);
+            }
+
+        })
+    ));
 
 }
 
@@ -159,7 +165,7 @@ export const Animation = {
     },
 
     inProgress(element) {
-        return inProgress.test($(element).attr('class'));
+        return inProgress.test(attr(element, 'class'));
     },
 
     cancel(element) {
@@ -169,26 +175,13 @@ export const Animation = {
 
 };
 
-export function isJQuery(obj) {
-    return obj instanceof $;
-}
-
-export function contains(element, selector) {
+export function within(element, selector) {
     element = $(element);
     return element.is(selector)
         ? true
         : isString(selector)
             ? element.parents(selector).length
             : toNode(selector).contains(element[0]);
-}
-
-export function attrFilter(element, attr, pattern, replacement) {
-    element = $(element);
-    return element.attr(attr, (i, value) => value ? value.replace(pattern, replacement) : value);
-}
-
-export function removeClasses(element, cls) {
-    return attrFilter(element, 'class', new RegExp(`(^|\\s)${cls}(?!\\S)`, 'g'), '');
 }
 
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
@@ -233,39 +226,40 @@ export function getIndex(index, elements, current = 0) {
     var length = $(elements).length;
 
     index = (isNumber(index)
-        ? index
-        : index === 'next'
-            ? current + 1
-            : index === 'previous'
-                ? current - 1
-                : isString(index)
-                    ? parseInt(index, 10)
-                    : elements.index(index)
+            ? index
+            : index === 'next'
+                ? current + 1
+                : index === 'previous'
+                    ? current - 1
+                    : isString(index)
+                        ? parseInt(index, 10)
+                        : elements.index(index)
     ) % length;
 
     return index < 0 ? index + length : index;
 }
 
-var voidElements = {
-    area: true,
-    base: true,
-    br: true,
-    col: true,
-    embed: true,
-    hr: true,
-    img: true,
-    input: true,
-    keygen: true,
-    link: true,
-    menuitem: true,
-    meta: true,
-    param: true,
-    source: true,
-    track: true,
-    wbr: true
-};
+var voidElements = [
+    'area',
+    'base',
+    'br',
+    'col',
+    'embed',
+    'hr',
+    'img',
+    'input',
+    'keygen',
+    'link',
+    'menuitem',
+    'meta',
+    'param',
+    'source',
+    'track',
+    'wbr'
+];
+
 export function isVoidElement(element) {
-    return voidElements[toNode(element).tagName.toLowerCase()];
+    return ~voidElements.indexOf(toNode(element).tagName.toLowerCase());
 }
 
 export const Dimensions = {
@@ -314,15 +308,6 @@ export function preventClick() {
         clearTimeout(timer);
     }, true);
 
-}
-
-export function getData(element, attribute) {
-    element = toNode(element);
-    for (var i = 0, attrs = [attribute, `data-${attribute}`]; i < attrs.length; i++) {
-        if (element.hasAttribute(attrs[i])) {
-            return element.getAttribute(attrs[i]);
-        }
-    }
 }
 
 export function isVisible(element) {

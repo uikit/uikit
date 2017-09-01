@@ -4,8 +4,8 @@ function plugin(UIkit) {
         return;
     }
 
-    var { mixin, util } = UIkit;
-    var {$, assign, doc, docEl, height, fastdom, contains, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, promise, Transition, trigger, win} = util;
+    var {mixin, util} = UIkit;
+    var {$, addClass, assign, attr, doc, docEl, height, fastdom, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, promise, removeClass, toggleClass, Transition, trigger, win, within} = util;
 
     UIkit.component('sortable', {
 
@@ -65,7 +65,7 @@ function plugin(UIkit) {
             write() {
 
                 if (this.clsEmpty) {
-                    this.$toggleClass(this.clsEmpty, !this.$el.children().length);
+                    toggleClass(this.$el, this.clsEmpty, !this.$el.children().length);
                 }
 
                 if (!this.drag) {
@@ -90,13 +90,13 @@ function plugin(UIkit) {
 
             init(e) {
 
-                var target = $(e.target), placeholder = this.$el.children().filter((i, el) => contains(e.target, el));
+                var target = $(e.target), placeholder = this.$el.children().filter((i, el) => within(e.target, el));
 
                 if (!placeholder.length
                     || target.is(':input')
-                    || this.handle && !contains(target, this.handle)
+                    || this.handle && !within(target, this.handle)
                     || e.button && e.button !== 0
-                    || contains(target, `.${this.clsNoDrag}`)
+                    || within(target, `.${this.clsNoDrag}`)
                     || e.defaultPrevented
                 ) {
                     return;
@@ -108,9 +108,9 @@ function plugin(UIkit) {
                 this.placeholder = placeholder;
                 this.origin = assign({target, index: this.placeholder.index()}, this.pos);
 
-                on(docEl, pointerMove, this.move),
-                on(docEl, pointerUp, this.end),
-                on(win, 'scroll', this.scroll)
+                on(docEl, pointerMove, this.move);
+                on(docEl, pointerUp, this.end);
+                on(win, 'scroll', this.scroll);
 
                 if (!this.threshold) {
                     this.start(e);
@@ -121,25 +121,25 @@ function plugin(UIkit) {
             start(e) {
 
                 this.drag = $(this.placeholder[0].outerHTML.replace(/^<li/i, '<div').replace(/li>$/i, 'div>'))
-                    .attr('uk-no-boot', '')
                     .css({
                         boxSizing: 'border-box',
                         width: this.placeholder[0].offsetWidth,
                         height: this.placeholder[0].offsetHeight
                     })
-                    .css(this.placeholder.css(['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom']))
-                    .appendTo(UIkit.container);
+                    .css(this.placeholder.css(['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom']));
 
-                this.$addClass(this.drag, `${this.clsDrag} ${this.clsCustom}`);
+                attr(this.drag, 'uk-no-boot', '');
+                this.drag.appendTo(UIkit.container);
+                addClass(this.drag, `${this.clsDrag} ${this.clsCustom}`);
 
                 height(this.drag.children().first(), height(this.placeholder.children().first()));
 
                 var {left, top} = offset(this.placeholder);
                 assign(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
 
-                this.$addClass(this.placeholder, this.clsPlaceholder);
-                this.$el.children().each((_, el) => this.$addClass(el, this.clsItem));
-                this.$addClass(docEl, this.clsDragState);
+                addClass(this.placeholder, this.clsPlaceholder);
+                addClass(this.$el.children(), this.clsItem);
+                addClass(docEl, this.clsDragState);
 
                 trigger(this.$el, 'start', [this, this.placeholder, this.drag]);
 
@@ -164,7 +164,7 @@ function plugin(UIkit) {
                     previous = getSortable(this.placeholder[0]),
                     move = sortable !== previous;
 
-                if (!sortable || contains(target, this.placeholder) || move && (!sortable.group || sortable.group !== previous.group)) {
+                if (!sortable || within(target, this.placeholder) || move && (!sortable.group || sortable.group !== previous.group)) {
                     return;
                 }
 
@@ -201,8 +201,8 @@ function plugin(UIkit) {
 
                 if (!this.drag) {
 
-                    if (e.type !== 'mouseup' && contains(e.target, 'a[href]')) {
-                        location.href = $(e.target).closest('a[href]').attr('href');
+                    if (e.type !== 'mouseup' && within(e.target, 'a[href]')) {
+                        location.href = $(e.target).closest('a[href]')[0].href;
                     }
 
                     return;
@@ -227,19 +227,15 @@ function plugin(UIkit) {
                 this.drag = null;
 
                 var classes = this.touched.map(sortable => `${sortable.clsPlaceholder} ${sortable.clsItem}`).join(' ');
-                this.touched.forEach(sortable =>
-                    sortable.$el.children().each((_, el) =>
-                        this.$removeClass(el, classes)
-                    )
-                );
+                this.touched.forEach(sortable => removeClass(sortable.$el.children(), classes));
 
-                this.$removeClass(docEl, this.clsDragState);
+                removeClass(docEl, this.clsDragState);
 
             },
 
             insert(element, target) {
 
-                this.$el.children().each((_, el) => this.$addClass(el, this.clsItem));
+                addClass(this.$el.children(), this.clsItem);
 
                 var insert = () => {
 

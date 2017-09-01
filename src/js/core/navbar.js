@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, assign, contains, height, isRtl, isVisible, noop, query, toFloat, Transition } from '../util/index';
+import { $, addClass, assign, within, height, isRtl, isVisible, noop, query, toFloat, Transition } from '../util/index';
 
 export default function (UIkit) {
 
@@ -83,7 +83,7 @@ export default function (UIkit) {
 
                 handler({current}) {
                     var active = this.getActive();
-                    if (active && active.toggle && !contains(active.toggle.$el, current) && !active.tracker.movesTo(active.$el)) {
+                    if (active && active.toggle && !within(active.toggle.$el, current) && !active.tracker.movesTo(active.$el)) {
                         active.hide(false);
                     }
                 }
@@ -96,7 +96,7 @@ export default function (UIkit) {
 
             getActive() {
                 var active = UIkit.drop.getActive();
-                return active && ~active.mode.indexOf('hover') && contains(active.toggle.$el, this.$el) && active;
+                return active && ~active.mode.indexOf('hover') && within(active.toggle.$el, this.$el) && active;
             }
 
         }
@@ -117,7 +117,7 @@ export default function (UIkit) {
         init() {
 
             if (this.mode === 'slide') {
-                this.$addClass('uk-navbar-dropbar-slide');
+                addClass(this.$el, 'uk-navbar-dropbar-slide');
             }
 
         },
@@ -133,7 +133,7 @@ export default function (UIkit) {
 
                 handler(e, drop) {
                     var {$el, dir} = drop;
-                    if (dir === 'bottom' && !contains($el, this.$el)) {
+                    if (dir === 'bottom' && !within($el, this.$el)) {
                         $el.appendTo(this.$el);
                         drop.show();
                         e.preventDefault();
@@ -157,7 +157,7 @@ export default function (UIkit) {
                 name: 'beforeshow',
 
                 handler(_, {$el}) {
-                    this.clsDrop && this.$addClass($el, `${this.clsDrop}-dropbar`);
+                    this.clsDrop && addClass($el, `${this.clsDrop}-dropbar`);
                     this.transitionTo(height($el[0]) + toFloat($el.css('marginTop')) + toFloat($el.css('marginBottom')));
                 }
             },

@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Rename 'isWithin' to 'within'
+
 ## 3.0.0 beta 30 (August 18, 2017)
 
 ### Fixed

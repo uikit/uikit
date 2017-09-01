@@ -1,4 +1,4 @@
-import { $, isInView, trigger } from '../util/index';
+import { $, addClass, attr, isInView, removeClass, toggleClass, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -53,7 +53,7 @@ export default function (UIkit) {
                     this.elements.each((_, el) => {
 
                         if (!el._scrollspy) {
-                            var cls = $(el).attr('uk-scrollspy-class');
+                            var cls = attr(el, 'uk-scrollspy-class');
                             el._scrollspy = {toggles: cls && cls.split(',') || this.cls};
                         }
 
@@ -76,8 +76,8 @@ export default function (UIkit) {
 
                                 var show = () => {
                                     $el.css('visibility', '');
-                                    this.$addClass($el, this.inViewClass);
-                                    this.$toggleClass($el, cls);
+                                    addClass($el, this.inViewClass);
+                                    toggleClass($el, cls);
 
                                     trigger($el, 'inview');
 
@@ -107,8 +107,8 @@ export default function (UIkit) {
                                 }
 
                                 $el.css('visibility', this.hidden ? 'hidden' : '');
-                                this.$removeClass($el, this.inViewClass);
-                                this.$toggleClass($el, cls);
+                                removeClass($el, this.inViewClass);
+                                toggleClass($el, cls);
 
                                 trigger($el, 'outview');
 

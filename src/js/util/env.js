@@ -13,7 +13,7 @@ export const hasTouch = 'ontouchstart' in win
 
 export const pointerDown = !hasTouch ? 'mousedown' : `mousedown ${hasTouchEvents ? 'touchstart' : 'pointerdown'}`;
 export const pointerMove = !hasTouch ? 'mousemove' : `mousemove ${hasTouchEvents ? 'touchmove' : 'pointermove'}`;
-export const pointerUp = !hasTouch ? 'mouseup' :  `mouseup ${hasTouchEvents ? 'touchend' : 'pointerup'}`;
+export const pointerUp = !hasTouch ? 'mouseup' : `mouseup ${hasTouchEvents ? 'touchend' : 'pointerup'}`;
 export const pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mouseenter';
 export const pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
 
@@ -22,6 +22,7 @@ export const animationstart = prefix('animation', 'animation-start');
 export const animationend = prefix('animation', 'animation-end');
 
 var match = Element.prototype.matches || Element.prototype.msMatchesSelector;
+
 export function matches(element, selector) {
     try {
         return match.call(element, selector);

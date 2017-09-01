@@ -1,5 +1,5 @@
 import { Position, Togglable } from '../mixin/index';
-import { Animation, contains, doc, isTouch, MouseTracker, offset, on, one, pointerEnter, pointerLeave, query, removeClasses, trigger, win } from '../util/index';
+import { addClass, Animation, attr, within, doc, isTouch, MouseTracker, offset, on, one, pointerEnter, pointerLeave, query, removeClass, removeClasses, toggleClass, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -39,7 +39,7 @@ export default function (UIkit) {
             this.clsDrop = this.clsDrop || `uk-${this.$options.name}`;
             this.clsPos = this.clsDrop;
 
-            this.$addClass(this.clsDrop);
+            addClass(this.$el, this.clsDrop);
         },
 
         ready() {
@@ -89,7 +89,7 @@ export default function (UIkit) {
                         e.preventDefault();
                     }
 
-                    if (!id || !contains(id, this.$el)) {
+                    if (!id || !within(id, this.$el)) {
                         this.hide(false);
                     }
                 }
@@ -143,9 +143,9 @@ export default function (UIkit) {
                         && active !== this
                         && active.toggle
                         && ~active.toggle.mode.indexOf('hover')
-                        && !contains(e.target, active.$el)
-                        && !contains(e.target, active.toggle.$el)
-                        && !contains(doc.elementFromPoint(e.pageX, e.pageY), active.$el)
+                        && !within(e.target, active.$el)
+                        && !within(e.target, active.toggle.$el)
+                        && !within(doc.elementFromPoint(e.pageX, e.pageY), active.$el)
                     ) {
                         active.hide(false);
                     }
@@ -211,8 +211,8 @@ export default function (UIkit) {
 
                 handler() {
                     this.tracker.init();
-                    this.$addClass(this.toggle.$el, this.cls);
-                    this.toggle.$el.attr('aria-expanded', 'true');
+                    addClass(this.toggle.$el, this.cls);
+                    attr(this.toggle.$el, 'aria-expanded', 'true');
                     registerEvent();
                 }
 
@@ -237,13 +237,14 @@ export default function (UIkit) {
                 handler({target}) {
 
                     if (!this.$el.is(target)) {
-                        active = active === null && contains(target, this.$el) && this.isToggled() ? this : active;
+                        active = active === null && within(target, this.$el) && this.isToggled() ? this : active;
                         return;
                     }
 
                     active = this.isActive() ? null : active;
-                    this.$removeClass(this.toggle.$el, this.cls);
-                    this.toggle.$el.attr('aria-expanded', 'false').blur().find('a, button').blur();
+                    removeClass(this.toggle.$el, this.cls);
+                    attr(this.toggle.$el, 'aria-expanded', 'false');
+                    this.toggle.$el.blur().find('a, button').blur();
                     this.tracker.cancel();
                 }
 
@@ -353,19 +354,20 @@ export default function (UIkit) {
             },
 
             isChildOf(drop) {
-                return drop && drop !== this && contains(this.$el, drop.$el);
+                return drop && drop !== this && within(this.$el, drop.$el);
             },
 
             isParentOf(drop) {
-                return drop && drop !== this && contains(drop.$el, this.$el);
+                return drop && drop !== this && within(drop.$el, this.$el);
             },
 
             position() {
 
-                removeClasses(this.$el, `${this.clsDrop}-(stack|boundary)`).css({top: '', left: ''});
+                removeClasses(this.$el, `${this.clsDrop}-(stack|boundary)`);
+                this.$el.css({top: '', left: ''});
 
                 this.$el.show();
-                this.$toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
+                toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
 
                 var boundary = offset(this.boundary),
                     alignTo = this.boundaryAlign ? boundary : offset(this.toggle.$el);
@@ -374,7 +376,7 @@ export default function (UIkit) {
                     var prop = this.getAxis() === 'y' ? 'width' : 'height';
                     this.$el.css(prop, alignTo[prop]);
                 } else if (this.$el[0].offsetWidth > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
-                    this.$addClass(`${this.clsDrop}-stack`);
+                    addClass(this.$el, `${this.clsDrop}-stack`);
                     trigger(this.$el, 'stack', [this]);
                 }
 
@@ -391,6 +393,7 @@ export default function (UIkit) {
     UIkit.drop.getActive = () => active;
 
     var registered;
+
     function registerEvent() {
 
         if (registered) {
@@ -405,7 +408,7 @@ export default function (UIkit) {
                 return;
             }
 
-            while (active && active !== prev && !contains(target, active.$el) && !(active.toggle && contains(target, active.toggle.$el))) {
+            while (active && active !== prev && !within(target, active.$el) && !(active.toggle && within(target, active.toggle.$el))) {
                 prev = active;
                 active.hide(false);
             }

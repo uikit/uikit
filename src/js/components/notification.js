@@ -98,7 +98,11 @@ function plugin(UIkit) {
                 if (immediate) {
                     remove();
                 } else {
-                    Transition.start(this.$el, {opacity: 0, marginTop: -1 * this.$el[0].offsetHeight, marginBottom: 0}).then(remove)
+                    Transition.start(this.$el, {
+                        opacity: 0,
+                        marginTop: -1 * this.$el[0].offsetHeight,
+                        marginBottom: 0
+                    }).then(remove)
                 }
             }
 

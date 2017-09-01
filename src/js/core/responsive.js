@@ -1,4 +1,4 @@
-import { Dimensions, height, isVisible, width } from '../util/index';
+import { addClass, Dimensions, height, isVisible, width } from '../util/index';
 
 export default function (UIkit) {
 
@@ -7,7 +7,7 @@ export default function (UIkit) {
         props: ['width', 'height'],
 
         init() {
-            this.$addClass('uk-responsive-width');
+            addClass(this.$el, 'uk-responsive-width');
         },
 
         update: {

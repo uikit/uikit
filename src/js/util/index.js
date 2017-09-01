@@ -1,4 +1,5 @@
 export * from './lang';
+export * from './attr';
 export * from './dom';
 export * from './class';
 export * from './env';

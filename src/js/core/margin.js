@@ -1,4 +1,4 @@
-import { isRtl, isVisible } from '../util/index';
+import { isRtl, isVisible, toggleClass } from '../util/index';
 
 export default function (UIkit) {
 
@@ -90,8 +90,8 @@ export default function (UIkit) {
 
                 this.rows && this.rows.forEach((row, i) =>
                     row.forEach((el, j) => {
-                        this.$toggleClass(el, this.margin, i !== 0);
-                        this.$toggleClass(el, this.firstColumn, j === 0);
+                        toggleClass(el, this.margin, i !== 0);
+                        toggleClass(el, this.firstColumn, j === 0);
                     })
                 )
 

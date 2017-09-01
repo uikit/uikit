@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { getCssVar, win } from '../util/index';
+import { attr, getCssVar, toggleClass, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -49,13 +49,13 @@ export default function (UIkit) {
 
                 write() {
 
-                    this.$toggleClass(this.wrapper, this.clsHide, this._hide);
+                    toggleClass(this.wrapper, this.clsHide, this._hide);
 
                     if (this._changed) {
-                        this.wrapper.attr(this.attrFill, new Array(this._width).join(this.fill));
+                        attr(this.wrapper, this.attrFill, new Array(this._width).join(this.fill));
                     }
 
-               },
+                },
 
                 events: ['load', 'resize']
 

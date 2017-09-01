@@ -1,6 +1,7 @@
 import UIkit from '../api/index';
-import {Class, Togglable} from './index';
-import { $, contains, doc, docEl, on, one, promise, requestAnimationFrame, toJQuery, toMs, toNode, transitionend, width, win } from '../util/index';
+import { $, addClass, within, doc, docEl, hasClass, on, one, promise, removeClass, requestAnimationFrame, toJQuery, toMs, toNode, transitionend, width, win } from '../util/index';
+import Class from './class';
+import Togglable from './togglable';
 
 var active;
 
@@ -90,12 +91,12 @@ export default {
 
             handler() {
 
-                if (!this.$hasClass(docEl, this.clsPage)) {
+                if (!hasClass(docEl, this.clsPage)) {
                     this.scrollbarWidth = width(win) - docEl.offsetWidth;
                     this.body.css('overflow-y', this.scrollbarWidth && this.overlay ? 'scroll' : '');
                 }
 
-                this.$addClass(docEl, this.clsPage);
+                addClass(docEl, this.clsPage);
 
             }
 
@@ -109,7 +110,7 @@ export default {
 
             handler() {
                 if (this.component.active === this) {
-                    this.$removeClass(docEl, this.clsPage);
+                    removeClass(docEl, this.clsPage);
                     this.body.css('overflow-y', '');
                     this.component.active = null;
                 }
@@ -205,10 +206,11 @@ export default {
 }
 
 var events = {};
+
 function register(name) {
     events[name] = [
         on(doc, 'click', ({target, defaultPrevented}) => {
-            if (active && active.bgClose && !defaultPrevented && !contains(target, active.panel)) {
+            if (active && active.bgClose && !defaultPrevented && !within(target, active.panel)) {
                 active.hide();
             }
         }),

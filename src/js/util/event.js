@@ -1,4 +1,4 @@
-import { doc, isContextSelector, isFunction, isString, matches, query, toNode } from './index';
+import { doc, isContextSelector, isFunction, isString, matches, query, toNode, toNodes } from './index';
 
 export function on(...args) {
 
@@ -33,9 +33,11 @@ export function one(...args) {
 }
 
 export function trigger(element, event, detail) {
-    var e = createEvent(event, true, true, detail);
-    toNode(element).dispatchEvent(e);
-    return e;
+    return toNodes(element).map(element => {
+        var e = createEvent(event, true, true, detail);
+        toNode(element).dispatchEvent(e);
+        return e;
+    })[0];
 }
 
 export function createEvent(e, bubbles = true, cancelable = false, detail) {

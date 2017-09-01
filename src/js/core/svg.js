@@ -1,4 +1,4 @@
-import { ajax, isVoidElement, noop, promise } from '../util/index';
+import { ajax, attr, isVoidElement, noop, promise, removeAttr } from '../util/index';
 
 var svgs = {}, parser = new DOMParser();
 
@@ -91,7 +91,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                var dimensions = el.getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
+                var dimensions = attr(el, 'viewBox'); // jQuery workaround, el.attr('viewBox')
 
                 if (dimensions) {
                     dimensions = dimensions.split(' ');
@@ -104,26 +104,26 @@ export default function (UIkit) {
 
                 for (var prop in this.$options.props) {
                     if (this[prop] && !~this.exclude.indexOf(prop)) {
-                        el.setAttribute(prop, this[prop]);
+                        attr(el, prop, this[prop]);
                     }
                 }
 
                 if (!this.id) {
-                    el.removeAttribute('id');
+                    removeAttr(el, 'id');
                 }
 
                 if (this.width && !this.height) {
-                    el.removeAttribute('height');
+                    removeAttr(el, 'height');
                 }
 
                 if (this.height && !this.width) {
-                    el.removeAttribute('width');
+                    removeAttr(el, 'width');
                 }
 
                 var root = this.$el[0];
                 if (isVoidElement(root) || root.tagName === 'CANVAS') {
 
-                    this.$el.attr({hidden: true, id: null});
+                    attr(this.$el, {hidden: true, id: null});
 
                     if (root.nextSibling) {
 
@@ -155,7 +155,7 @@ export default function (UIkit) {
         disconnected() {
 
             if (isVoidElement(this.$el)) {
-                this.$el.attr({hidden: null, id: this.id || null});
+                attr(this.$el, {hidden: null, id: this.id || null});
             }
 
             if (this.svg) {

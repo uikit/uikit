@@ -1,5 +1,5 @@
 import { Class, Modal } from '../mixin/index';
-import { $, assign, height, isString, on, promise, trigger } from '../util/index';
+import { $, addClass, assign, hasClass, height, isString, on, promise, removeClass, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -22,8 +22,8 @@ export default function (UIkit) {
 
                 handler() {
 
-                    if (this.$hasClass(this.panel, 'uk-margin-auto-vertical')) {
-                        this.$addClass('uk-flex');
+                    if (hasClass(this.panel, 'uk-margin-auto-vertical')) {
+                        addClass(this.$el, 'uk-flex');
                     } else {
                         this.$el.css('display', 'block');
                     }
@@ -40,7 +40,7 @@ export default function (UIkit) {
                 handler() {
 
                     this.$el.css('display', '');
-                    this.$removeClass('uk-flex');
+                    removeClass(this.$el, 'uk-flex');
 
                 }
             }

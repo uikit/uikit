@@ -1,8 +1,8 @@
 import $ from 'jquery';
-import { getCssVar, hasPromise, isJQuery, query } from './index';
+import { getCssVar, hasPromise, query } from './index';
 
 export { $ };
-export { ajax, each, Event } from 'jquery';
+export { ajax, each } from 'jquery';
 
 export function bind(fn, context) {
     return function (a) {
@@ -12,6 +12,7 @@ export function bind(fn, context) {
 }
 
 var hasOwnProperty = Object.prototype.hasOwnProperty;
+
 export function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key);
 }
@@ -58,6 +59,7 @@ export function hyphenate(str) {
 }
 
 const camelizeRE = /-(\w)/g;
+
 export function camelize(str) {
     return str.replace(camelizeRE, toUpper)
 }
@@ -112,6 +114,10 @@ export function isUndefined(value) {
     return value === void 0;
 }
 
+export function isJQuery(obj) {
+    return obj instanceof $;
+}
+
 export function isContextSelector(selector) {
     return isString(selector) && selector.match(/^[!>+-]/);
 }
@@ -121,6 +127,7 @@ export function getContextSelectors(selector) {
 }
 
 const contextSelectors = {'!': 'closest', '+': 'nextAll', '-': 'prevAll'};
+
 export function toJQuery(element, context) {
 
     if (element === true) {
@@ -157,6 +164,14 @@ export function toNode(element) {
     return element && (isJQuery(element) ? element[0] : element);
 }
 
+export function toNodes(element) {
+    return isJQuery(element)
+        ? element.toArray()
+        : isArray(element)
+            ? element
+            : [element];
+}
+
 export function toBoolean(value) {
     return isBoolean(value)
         ? value
@@ -187,6 +202,7 @@ export function toList(value) {
 }
 
 var vars = {};
+
 export function toMedia(value) {
 
     if (isString(value)) {

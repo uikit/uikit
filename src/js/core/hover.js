@@ -1,4 +1,4 @@
-import { $, addClass, contains, doc, hasTouch, on, ready, removeClass } from '../util/index';
+import { $, addClass, within, doc, hasTouch, on, ready, removeClass } from '../util/index';
 
 export default function (UIkit) {
 
@@ -12,7 +12,7 @@ export default function (UIkit) {
 
         on(doc, 'tap', ({target}) =>
             $(`.${cls}`).each((_, el) =>
-                !contains(target, el) && removeClass(el, cls)
+                !within(target, el) && removeClass(el, cls)
             )
         );
 

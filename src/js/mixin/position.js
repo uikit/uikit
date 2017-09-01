@@ -1,4 +1,4 @@
-import { flipPosition, isRtl, positionAt, removeClasses, toNumber } from '../util/index';
+import { flipPosition, isRtl, positionAt, removeClasses, toggleClass, toNumber } from '../util/index';
 
 export default {
 
@@ -36,7 +36,8 @@ export default {
 
         positionAt(element, target, boundary) {
 
-            removeClasses(element, `${this.clsPos}-(top|bottom|left|right)(-[a-z]+)?`).css({top: '', left: ''});
+            removeClasses(element, `${this.clsPos}-(top|bottom|left|right)(-[a-z]+)?`);
+            element.css({top: '', left: ''});
 
             var offset = toNumber(this.offset) || 0,
                 axis = this.getAxis(),
@@ -54,7 +55,7 @@ export default {
             this.dir = axis === 'x' ? x : y;
             this.align = axis === 'x' ? y : x;
 
-            this.$toggleClass(element, `${this.clsPos}-${this.dir}-${this.align}`, this.offset === false);
+            toggleClass(element, `${this.clsPos}-${this.dir}-${this.align}`, this.offset === false);
 
         },
 

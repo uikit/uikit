@@ -1,4 +1,4 @@
-import { assign, bind, camelize, coerce, getData, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer, on } from '../util/index';
+import { assign, attr, bind, camelize, coerce, data as getData, hasAttr, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer, on } from '../util/index';
 
 export default function (UIkit) {
 
@@ -148,9 +148,9 @@ export default function (UIkit) {
 
         for (key in props) {
             prop = hyphenate(key);
-            if (el.hasAttribute(prop)) {
+            if (hasAttr(el, prop)) {
 
-                var value = coerce(props[key], el.getAttribute(prop), el);
+                var value = coerce(props[key], attr(el, prop), el);
 
                 if (prop === 'target' && (!value || value.lastIndexOf('_', 0) === 0)) {
                     continue;

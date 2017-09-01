@@ -1,4 +1,4 @@
-import { $, isVisible } from '../util/index';
+import { $, attr, isVisible } from '../util/index';
 
 export default function (UIkit) {
 
@@ -51,11 +51,7 @@ export default function (UIkit) {
 
             write() {
 
-                this.rows.forEach(({height, elements}) =>
-                    elements && elements.each((_, el) =>
-                        el.style.minHeight = `${height}px`
-                    )
-                );
+                this.rows.forEach(({height, elements}) => elements && elements.css('minHeight', height));
 
             },
 
@@ -76,14 +72,13 @@ export default function (UIkit) {
                 elements = elements
                     .each((_, el) => {
 
-                        var $el, style, hidden;
+                        var style, hidden;
 
                         if (!isVisible(el)) {
-                            $el = $(el);
-                            style = $el.attr('style') || null;
-                            hidden = $el.attr('hidden') || null;
+                            style = attr(el, 'style');
+                            hidden = attr(el, 'hidden') || null;
 
-                            $el.attr({
+                            attr(el, {
                                 style: `${style};display:block !important;`,
                                 hidden: null
                             });
@@ -92,8 +87,8 @@ export default function (UIkit) {
                         max = Math.max(max, el.offsetHeight);
                         heights.push(el.offsetHeight);
 
-                        if ($el) {
-                            $el.attr({style, hidden});
+                        if (style || hidden) {
+                            attr(el, {style, hidden});
                         }
 
                     })

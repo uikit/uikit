@@ -1,4 +1,4 @@
-import { $, doc, height, isInView, offset, toJQuery, trigger, win } from '../util/index';
+import { $, addClass, doc, height, isInView, offset, removeClass, toJQuery, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -85,12 +85,12 @@ export default function (UIkit) {
                 write() {
 
                     this.links.blur();
-                    this.elements.each((_, el) => this.$removeClass(el, this.cls));
+                    removeClass(this.elements, this.cls);
 
                     if (this.active) {
                         trigger(this.$el, 'active', [
                             this.active,
-                            this.$addClass(this.closest ? this.active.closest(this.closest) : this.active, this.cls)
+                            addClass(this.closest ? this.active.closest(this.closest) : this.active, this.cls)
                         ]);
                     }
 

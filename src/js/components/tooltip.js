@@ -4,8 +4,8 @@ function plugin(UIkit) {
         return;
     }
 
-    var { util, mixin } = UIkit;
-    var {$, doc, fastdom, flipPosition, isTouch, contains, on, pointerDown, pointerEnter, pointerLeave} = util;
+    var {util, mixin} = UIkit;
+    var {$, attr, doc, fastdom, flipPosition, isTouch, on, pointerDown, pointerEnter, pointerLeave, within} = util;
 
     var actives = [];
 
@@ -41,7 +41,7 @@ function plugin(UIkit) {
         },
 
         connected() {
-            fastdom.mutate(() => this.$el.removeAttr('title').attr('aria-expanded', false));
+            fastdom.mutate(() => attr(this.$el, {title: null, 'aria-expanded': false}));
         },
 
         disconnected() {
@@ -59,13 +59,13 @@ function plugin(UIkit) {
                 actives.forEach(active => active.hide());
                 actives.push(this);
 
-                this._unbind = on(doc, 'click', e => !contains(e.target, this.$el) && this.hide());
+                this._unbind = on(doc, 'click', e => !within(e.target, this.$el) && this.hide());
 
                 clearTimeout(this.showTimer);
 
                 this.tooltip = $(`<div class="${this.clsPos}" aria-hidden><div class="${this.clsPos}-inner">${this.title}</div></div>`).appendTo(this.container);
 
-                this.$el.attr('aria-expanded', true);
+                attr(this.$el, 'aria-expanded', true);
 
                 this.positionAt(this.tooltip, this.$el);
 
@@ -98,7 +98,7 @@ function plugin(UIkit) {
 
                 clearTimeout(this.showTimer);
                 clearInterval(this.hideTimer);
-                this.$el.attr('aria-expanded', false);
+                attr(this.$el, 'aria-expanded', false);
                 this.toggleElement(this.tooltip, false);
                 this.tooltip && this.tooltip.remove();
                 this.tooltip = false;

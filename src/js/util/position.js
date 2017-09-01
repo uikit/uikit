@@ -105,8 +105,7 @@ export function offset(element, coordinates) {
         ['left', 'top'].forEach(prop => {
             if (prop in coordinates) {
                 var value = $(element).css(prop);
-                element.style[prop] = `${(coordinates[prop] 
-                    - currentOffset[prop]) 
+                element.style[prop] = `${(coordinates[prop] - currentOffset[prop]) 
                     + toFloat(pos === 'absolute' && value === 'auto' ? position(element)[prop] : value)
                 }px`;
             }
@@ -183,6 +182,7 @@ function offsetParent(element) {
     while (parent && $(parent).css('position') === 'static') {
         parent = parent.offsetParent;
     }
+
     return parent || document(element).documentElement;
 }
 
@@ -290,5 +290,6 @@ export function flipPosition(pos) {
 }
 
 function document(element) {
+    element = toNode(element);
     return element && element.ownerDocument;
 }

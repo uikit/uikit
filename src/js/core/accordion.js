@@ -1,5 +1,5 @@
 import { Class, Togglable } from '../mixin/index';
-import { $, getIndex, toJQuery } from '../util/index';
+import { $, attr, getIndex, hasClass, toggleClass, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
@@ -68,11 +68,11 @@ export default function (UIkit) {
 
             this.items.each((i, el) => {
                 el = $(el);
-                this.toggleNow(el.find(this.content), this.$hasClass(el, this.clsOpen));
+                this.toggleNow(el.find(this.content), hasClass(el, this.clsOpen));
             });
 
             var active = this.active !== false && toJQuery(this.items.eq(Number(this.active))) || !this.collapsible && toJQuery(this.items.eq(0));
-            if (active && !this.$hasClass(active, this.clsOpen)) {
+            if (active && !hasClass(active, this.clsOpen)) {
                 this.toggle(active, false);
             }
 
@@ -91,23 +91,24 @@ export default function (UIkit) {
 
                     el = $(el);
 
-                    var isItem = el.is(item), state = isItem && !this.$hasClass(el, this.clsOpen);
+                    var isItem = el.is(item), state = isItem && !hasClass(el, this.clsOpen);
 
                     if (!state && isItem && !this.collapsible && active.length < 2) {
                         return;
                     }
 
-                    this.$toggleClass(el, this.clsOpen, state);
+                    toggleClass(el, this.clsOpen, state);
 
                     var content = el[0]._wrapper ? el[0]._wrapper.children().first() : el.find(this.content);
 
                     if (!el[0]._wrapper) {
-                        el[0]._wrapper = content.wrap('<div>').parent().attr('hidden', state);
+                        el[0]._wrapper = content.wrap('<div>').parent();
+                        attr(el[0]._wrapper, 'hidden', state ? '' : null);
                     }
 
                     this._toggleImmediate(content, true);
                     this.toggleElement(el[0]._wrapper, state, animate).then(() => {
-                        if (this.$hasClass(el, this.clsOpen) === state) {
+                        if (hasClass(el, this.clsOpen) === state) {
 
                             if (!state) {
                                 this._toggleImmediate(content, false);

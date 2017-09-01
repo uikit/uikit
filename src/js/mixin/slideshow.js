@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, doc, fastdom, getIndex, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, promise, requestAnimationFrame, Transition, trigger} = UIkit.util;
+    var {addClass, hasClass, removeClass, toggleClass, $, attr, doc, fastdom, getIndex, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, promise, requestAnimationFrame, Transition, trigger} = UIkit.util;
 
     UIkit.mixin.slideshow = {
 
@@ -70,7 +70,8 @@ function plugin(UIkit) {
 
                 handler(e) {
                     e.preventDefault();
-                    this.show($(e.current).blur().attr(this.attrItem));
+                    e.current.blur();
+                    this.show(attr(e.current, this.attrItem));
                 }
 
             },
@@ -188,7 +189,7 @@ function plugin(UIkit) {
                     nextIndex = getIndex(percent < 0 ? 'next' : 'previous', this.slides, index),
                     next = this.slides.eq(nextIndex);
 
-                this.slides.each((i, el) => this.$toggleClass(el, this.clsActive, i === index || i === nextIndex));
+                this.slides.each((i, el) => toggleClass(el, this.clsActive, i === index || i === nextIndex));
 
                 if (changed && this._animation) {
                     this._animation.reset();
@@ -223,7 +224,7 @@ function plugin(UIkit) {
                         percent *= -1;
                     }
 
-                    this.show(percent > 0 ? 'previous': 'next', true);
+                    this.show(percent > 0 ? 'previous' : 'next', true);
 
                     preventClick();
 
@@ -255,7 +256,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var hasPrev = this.slides.toArray().some(slide => this.$hasClass(slide, 'uk-active')),
+                var hasPrev = hasClass(this.slides, 'uk-active'),
                     dir = index === 'next'
                             ? 1
                             : index === 'previous'
@@ -279,11 +280,11 @@ function plugin(UIkit) {
 
                 this.index = index;
 
-                this.$addClass(next, this.clsActive);
+                addClass(next, this.clsActive);
 
                 this._animation = new Transitioner(!prev ? 'scale' : this.animation, this.transition, prev || next, next, dir, () => {
 
-                    prev && this.$removeClass(prev, this.clsActive);
+                    prev && removeClass(prev, this.clsActive);
 
                     this.stack.shift();
                     if (this.stack.length) {
@@ -324,7 +325,7 @@ function plugin(UIkit) {
                 this.stopAutoplay();
 
                 if (this.autoplay) {
-                    this.interval = setInterval(() => {!this.isHovering && this.show('next')}, this.autoplay);
+                    this.interval = setInterval(() => !this.isHovering && this.show('next'), this.autoplay);
                 }
 
             },
@@ -461,7 +462,7 @@ function plugin(UIkit) {
 
     };
 
-    function Transitioner (animation, transition, current, next, dir, cb) {
+    function Transitioner(animation, transition, current, next, dir, cb) {
 
         animation = animation in Animations ? Animations[animation] : Animations.slide;
 

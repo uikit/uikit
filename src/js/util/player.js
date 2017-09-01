@@ -1,4 +1,4 @@
-import { assign, isString, one, promise, toNode, win } from './index';
+import { assign, attr, isString, one, promise, toNode, win } from './index';
 
 var id = 0;
 
@@ -55,7 +55,7 @@ export class Player {
                         poller && clearInterval(poller);
                     });
 
-                this.el.setAttribute('src', `${this.el.src}${~this.el.src.indexOf('?') ? '&' : '?'}${youtube ? 'enablejsapi=1' : `api=1&player_id=${id}`}`);
+                attr(this.el, 'src', `${this.el.src}${~this.el.src.indexOf('?') ? '&' : '?'}${youtube ? 'enablejsapi=1' : `api=1&player_id=${id}`}`);
 
             });
 
@@ -101,7 +101,7 @@ export class Player {
             this.enableApi().then(() => post(this.el, {func: 'mute', method: 'setVolume', value: 0}))
         } else if (this.isHTML5()) {
             this.el.muted = true;
-            this.el.setAttribute('muted', '');
+            attr(this.el, 'muted', '');
         }
 
     }
@@ -126,7 +126,7 @@ function listen(cb) {
 
             try {
                 data = JSON.parse(data);
-            } catch(err) {
+            } catch (e) {
                 return;
             }
 

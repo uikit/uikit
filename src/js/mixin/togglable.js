@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, Animation, assign, doc, fastdom, height, isBoolean, isUndefined, isVisible, noop, promise, toFloat, Transition, trigger } from '../util/index';
+import { $, Animation, assign, attr, doc, fastdom, hasClass, height, isBoolean, isUndefined, isVisible, noop, promise, toFloat, toggleClass, Transition, trigger } from '../util/index';
 
 export default {
 
@@ -73,7 +73,7 @@ export default {
                     var body = doc.body,
                         scroll = body.scrollTop,
                         el = toggled[0],
-                        inProgress = Animation.inProgress(el) && this.$hasClass(el, 'uk-animation-leave')
+                        inProgress = Animation.inProgress(el) && hasClass(el, 'uk-animation-leave')
                             || Transition.inProgress(el) && el.style.height === '0px';
 
                     p = all(toggled);
@@ -98,13 +98,13 @@ export default {
         },
 
         isToggled(el) {
-            el = el && $(el) || this.$el;
-            return this.cls ? this.$hasClass(el, this.cls.split(' ')[0]) : !el.attr('hidden');
+            el = el || this.$el;
+            return this.cls ? hasClass(el, this.cls.split(' ')[0]) : !attr(el, 'hidden');
         },
 
         updateAria(el) {
             if (this.cls === false) {
-                el.attr('aria-hidden', !this.isToggled(el));
+                attr(el, 'aria-hidden', !this.isToggled(el));
             }
         },
 
@@ -115,7 +115,7 @@ export default {
             show = isBoolean(show)
                 ? show
                 : Animation.inProgress(el)
-                    ? this.$hasClass(el, 'uk-animation-leave')
+                    ? hasClass(el, 'uk-animation-leave')
                     : Transition.inProgress(el)
                         ? el[0].style.height === '0px'
                         : !this.isToggled(el);
@@ -125,10 +125,10 @@ export default {
             }
 
             var def = (animate === false || !this.hasAnimation
-                ? this._toggleImmediate
-                : this.hasTransition
-                    ? this._toggleHeight
-                    : this._toggleAnimation
+                    ? this._toggleImmediate
+                    : this.hasTransition
+                        ? this._toggleHeight
+                        : this._toggleAnimation
             )(el, show);
 
             trigger(el, show ? 'show' : 'hide', [this]);
@@ -141,15 +141,13 @@ export default {
 
         _toggle(el, toggled) {
 
-            el = $(el);
-
             if (this.cls) {
-                this.$toggleClass(el, this.cls, ~this.cls.indexOf(' ') ? undefined : toggled);
+                toggleClass(el, this.cls, ~this.cls.indexOf(' ') ? undefined : toggled);
             } else {
-                el.attr('hidden', !toggled);
+                attr(el, 'hidden', !toggled);
             }
 
-            el.find('[autofocus]:visible').focus();
+            $(el).find('[autofocus]:visible').focus();
 
             this.updateAria(el);
             UIkit.update(null, el);

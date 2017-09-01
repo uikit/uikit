@@ -9,7 +9,7 @@ function plugin(UIkit) {
     UIkit.use(Slideshow);
 
     var {mixin, util} = UIkit;
-    var {$, Animation, ajax, assign, doc, docEl, getData, getImage, on, pointerDown, pointerMove, Transition, trigger} = util;
+    var {$, addClass, Animation, ajax, assign, attr, doc, docEl, data, getImage, hasAttr, on, pointerDown, pointerMove, removeClass, Transition, trigger} = util;
 
     UIkit.component('lightbox', {
 
@@ -60,7 +60,8 @@ function plugin(UIkit) {
 
                 handler(e) {
                     e.preventDefault();
-                    this.show(this.toggles.index($(e.current).blur()));
+                    e.current.blur();
+                    this.show(this.toggles.index(e.current));
                 }
 
             }
@@ -87,15 +88,15 @@ function plugin(UIkit) {
 
             _init() {
                 return this.panel = this.panel || UIkit.lightboxPanel({
-                        animation: this.animation,
-                        items: this.toggles.toArray().reduce((items, el) => {
-                            items.push(['href', 'caption', 'type'].reduce((obj, attr) => {
-                                obj[attr === 'href' ? 'source' : attr] = getData(el, attr);
-                                return obj;
-                            }, {}));
-                            return items;
-                        }, [])
-                    });
+                    animation: this.animation,
+                    items: this.toggles.toArray().reduce((items, el) => {
+                        items.push(['href', 'caption', 'type'].reduce((obj, attr) => {
+                            obj[attr === 'href' ? 'source' : attr] = data(el, attr);
+                            return obj;
+                        }, {}));
+                        return items;
+                    }, [])
+                });
             },
 
             show(index) {
@@ -200,7 +201,7 @@ function plugin(UIkit) {
 
                 handler() {
 
-                    this.$addClass(docEl, this.clsPage);
+                    addClass(docEl, this.clsPage);
 
                 }
             },
@@ -213,9 +214,9 @@ function plugin(UIkit) {
 
                 handler() {
 
-                    this.$addClass(this.caption, 'uk-animation-slide-bottom');
-                    this.toolbars.attr('hidden', true);
-                    this.nav.attr('hidden', true);
+                    addClass(this.caption, 'uk-animation-slide-bottom');
+                    attr(this.toolbars, 'hidden', '');
+                    attr(this.nav, 'hidden', '');
                     this.showControls();
 
                 }
@@ -229,9 +230,9 @@ function plugin(UIkit) {
 
                 handler() {
 
-                    this.$removeClass(this.caption, 'uk-animation-slide-bottom');
-                    this.toolbars.attr('hidden', true);
-                    this.nav.attr('hidden', true);
+                    removeClass(this.caption, 'uk-animation-slide-bottom');
+                    attr(this.toolbars, 'hidden', '');
+                    attr(this.nav, 'hidden', '');
 
                 }
             },
@@ -244,7 +245,7 @@ function plugin(UIkit) {
 
                 handler() {
 
-                    this.$removeClass(docEl, this.clsPage);
+                    removeClass(docEl, this.clsPage);
 
                 }
             },
@@ -347,10 +348,14 @@ function plugin(UIkit) {
                     // Video
                     } else if (type === 'video' || source.match(/\.(mp4|webm|ogv)$/i)) {
 
-                        var video = $('<video controls playsinline uk-video></video>').attr('src', source);
+                        var video = $('<video controls playsinline uk-video></video>');
+                        attr(video, 'src', source);
 
                         on(video, 'error', () => this.setError(item));
-                        on(video, 'loadedmetadata', () => this.setItem(item, video.attr({width: video[0].videoWidth, height: video[0].videoHeight})));
+                        on(video, 'loadedmetadata', () => {
+                            attr(video, {width: video[0].videoWidth, height: video[0].videoHeight});
+                            this.setItem(item, video);
+                        });
 
                     // Iframe
                     } else if (type === 'iframe') {
@@ -410,10 +415,8 @@ function plugin(UIkit) {
                     this.toggleNow(this.$el, false);
                 }
 
-                this.slides.each((_, el) => {
-                    this.$removeClass(el, this.clsActive);
-                    Transition.stop(el);
-                });
+                removeClass(this.slides, this.clsActive);
+                Transition.stop(this.slides);
 
                 delete this.index;
                 delete this.percent;
@@ -454,14 +457,14 @@ function plugin(UIkit) {
                 clearTimeout(this.controlsTimer);
                 this.controlsTimer = setTimeout(this.hideControls, this.delayControls);
 
-                if (!this.toolbars.attr('hidden')) {
+                if (!hasAttr(this.toolbars, 'hidden')) {
                     return;
                 }
 
                 animate(this.toolbars.eq(0), 'uk-animation-slide-top');
                 animate(this.toolbars.eq(1), 'uk-animation-slide-bottom');
 
-                this.nav.attr('hidden', this.items.length <= 1);
+                attr(this.nav, 'hidden', this.items.length <= 1 ? '' : null);
 
                 if (this.items.length > 1) {
                     animate(this.nav, 'uk-animation-fade');
@@ -471,7 +474,7 @@ function plugin(UIkit) {
 
             hideControls() {
 
-                if (this.toolbars.attr('hidden')) {
+                if (hasAttr(this.toolbars, 'hidden')) {
                     return;
                 }
 
@@ -489,7 +492,8 @@ function plugin(UIkit) {
     });
 
     function animate(el, animation, dir = 'in') {
-        el.each(i => Animation[dir](el.eq(i).attr('hidden', false), animation).then(() => { dir === 'out' && el.eq(i).attr('hidden', true)}));
+        attr(el, 'hidden', null);
+        Animation[dir](el, animation).then(() => dir === 'out' && attr(el, 'hidden', ''));
     }
 
     function getIframe(src, width, height) {

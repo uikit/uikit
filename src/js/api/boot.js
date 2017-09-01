@@ -1,4 +1,4 @@
-import { doc, docEl, fastdom, Observer, on, ready } from '../util/index';
+import { doc, docEl, fastdom, hasAttr, Observer, on, ready } from '../util/index';
 
 export default function (UIkit) {
 
@@ -53,14 +53,20 @@ export default function (UIkit) {
                 UIkit.update('update', target, true);
 
             })
-        )).observe(docEl, {childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['href']});
+        )).observe(docEl, {
+            childList: true,
+            subtree: true,
+            characterData: true,
+            attributes: true,
+            attributeFilter: ['href']
+        });
 
         UIkit._initialized = true;
     }
 
     function apply(node, fn) {
 
-        if (node.nodeType !== 1 || node.hasAttribute('uk-no-boot')) {
+        if (node.nodeType !== 1 || hasAttr(node, 'uk-no-boot')) {
             return;
         }
 

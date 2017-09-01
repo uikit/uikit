@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, ajax, on, trigger} = UIkit.util;
+    var {$, addClass, ajax, on, removeClass, trigger} = UIkit.util;
 
     UIkit.component('upload', {
 
@@ -77,7 +77,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                this.$removeClass(this.clsDragover);
+                removeClass(this.$el, this.clsDragover);
 
                 this.upload(transfer.files);
             },
@@ -88,12 +88,12 @@ function plugin(UIkit) {
 
             dragover(e) {
                 stop(e);
-                this.$addClass(this.clsDragover);
+                addClass(this.$el, this.clsDragover);
             },
 
             dragleave(e) {
                 stop(e);
-                this.$removeClass(this.clsDragover);
+                removeClass(this.$el, this.clsDragover);
             }
 
         },
@@ -190,7 +190,7 @@ function plugin(UIkit) {
         for (var i = 0; i < files.length; i += size) {
             var chunk = [];
             for (var j = 0; j < size; j++) {
-                chunk.push(files[i+j]);
+                chunk.push(files[i + j]);
             }
             chunks.push(chunk);
         }

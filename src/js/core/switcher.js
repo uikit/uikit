@@ -1,5 +1,5 @@
 import { Togglable } from '../mixin/index';
-import { $, getIndex, isTouch, query, toJQuery, win } from '../util/index';
+import { $, addClass, attr, data, getIndex, hasClass, isTouch, query, removeClass, toJQuery, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -69,7 +69,7 @@ export default function (UIkit) {
 
                 handler(e) {
                     e.preventDefault();
-                    this.show($(e.current)[e.current.hasAttribute(this.attrItem) ? 'attr' : 'data'](this.attrItem));
+                    this.show(data(e.current, this.attrItem));
                 }
             },
 
@@ -123,15 +123,14 @@ export default function (UIkit) {
                     }
                 }
 
-                if (!toggle || prev >= 0 && this.$hasClass(toggle, this.cls) || prev === index) {
+                if (!toggle || prev >= 0 && hasClass(toggle, this.cls) || prev === index) {
                     return;
                 }
 
-                this.toggles.each((_, toggle) => {
-                    this.$removeClass(toggle, this.cls);
-                    $(toggle).attr('aria-expanded', false)});
-                this.$addClass(toggle, this.cls);
-                toggle.attr('aria-expanded', true);
+                removeClass(this.toggles, this.cls);
+                attr(this.toggles, 'aria-expanded', false);
+                addClass(toggle, this.cls);
+                attr(toggle, 'aria-expanded', true);
 
                 if (!hasPrev) {
                     this.toggleNow(this.connects.children(`:nth-child(${index + 1})`));

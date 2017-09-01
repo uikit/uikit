@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, Animation, docEl, height, isNumeric, isString, noop, offset, query, requestAnimationFrame, toFloat, toJQuery, trigger, win } from '../util/index';
+import { $, addClass, Animation, attr, docEl, hasClass, height, isNumeric, isString, noop, offset, query, removeClass, replaceClass, requestAnimationFrame, toFloat, toggleClass, toJQuery, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -64,7 +64,7 @@ export default function (UIkit) {
             if (this.isActive) {
                 this.isActive = false;
                 this.hide();
-                this.$removeClass(this.clsInactive);
+                removeClass(this.$el, this.clsInactive);
             }
 
             this.placeholder.remove();
@@ -102,7 +102,7 @@ export default function (UIkit) {
                 name: 'active',
 
                 handler() {
-                    this.$replaceClass(this.selTarget, this.clsInactive, this.clsActive);
+                    replaceClass(this.selTarget, this.clsInactive, this.clsActive);
                 }
 
             },
@@ -111,7 +111,7 @@ export default function (UIkit) {
                 name: 'inactive',
 
                 handler() {
-                    this.$replaceClass(this.selTarget, this.clsActive, this.clsInactive);
+                    replaceClass(this.selTarget, this.clsActive, this.clsInactive);
                 }
 
             }
@@ -124,20 +124,23 @@ export default function (UIkit) {
 
                 write() {
 
-                    var outerHeight = (this.isActive ? this.placeholder : this.$el)[0].offsetHeight, el;
+                    var placeholder = this.placeholder,
+                        outerHeight = (this.isActive ? placeholder : this.$el)[0].offsetHeight, el;
 
-                    this.placeholder
+                    placeholder
                         .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
                         .css(this.$el.css(['marginTop', 'marginBottom', 'marginLeft', 'marginRight']));
 
-                    if (!docEl.contains(this.placeholder[0])) {
-                        this.placeholder.insertAfter(this.$el).attr('hidden', true);
+                    if (!docEl.contains(placeholder[0])) {
+                        placeholder.insertAfter(this.$el);
+                        attr(placeholder, 'hidden', '');
                     }
 
-                    this.width = this.widthElement.attr('hidden', null)[0].offsetWidth;
-                    this.widthElement.attr('hidden', !this.isActive);
+                    attr(this.widthElement, 'hidden', null);
+                    this.width = this.widthElement[0].offsetWidth;
+                    attr(this.widthElement, 'hidden', this.isActive ? '' : null);
 
-                    this.topOffset = offset(this.isActive ? this.placeholder : this.$el).top;
+                    this.topOffset = offset(this.isActive ? placeholder : this.$el).top;
                     this.bottomOffset = this.topOffset + outerHeight;
 
                     ['top', 'bottom'].forEach(prop => {
@@ -201,7 +204,7 @@ export default function (UIkit) {
 
                     if (this.inactive
                         || scroll < this.top
-                        || this.showOnUp && (scroll <= this.top || dir ==='down' || dir === 'up' && !this.isActive && scroll <= this.bottomOffset)
+                        || this.showOnUp && (scroll <= this.top || dir === 'down' || dir === 'up' && !this.isActive && scroll <= this.bottomOffset)
                     ) {
 
                         if (!this.isActive) {
@@ -245,19 +248,19 @@ export default function (UIkit) {
 
                 this.isActive = true;
                 this.update();
-                this.placeholder.attr('hidden', null);
+                attr(this.placeholder, 'hidden', null);
 
             },
 
             hide() {
 
-                if (!this.isActive || this.$hasClass(this.selTarget, this.clsActive)) {
+                if (!this.isActive || hasClass(this.selTarget, this.clsActive)) {
                     trigger(this.$el, 'inactive');
                 }
 
-                this.$removeClass(this.clsFixed, this.clsBelow);
+                removeClass(this.$el, this.clsFixed, this.clsBelow);
                 this.$el.css({position: '', top: '', width: ''});
-                this.placeholder.attr('hidden', true);
+                attr(this.placeholder, 'hidden', '');
 
             },
 
@@ -275,7 +278,7 @@ export default function (UIkit) {
                     width: this.width
                 });
 
-                if (this.$hasClass(this.selTarget, this.clsActive)) {
+                if (hasClass(this.selTarget, this.clsActive)) {
 
                     if (!active) {
                         trigger(this.$el, 'inactive');
@@ -288,12 +291,12 @@ export default function (UIkit) {
                     }
                 }
 
-                this.$toggleClass(this.clsBelow, this.scroll > this.bottomOffset);
+                toggleClass(this.$el, this.clsBelow, this.scroll > this.bottomOffset);
 
                 if (this.showOnUp) {
-                    requestAnimationFrame(() => this.$addClass(this.clsFixed));
+                    requestAnimationFrame(() => addClass(this.$el, this.clsFixed));
                 } else {
-                    this.$addClass(this.clsFixed);
+                    addClass(this.$el, this.clsFixed);
                 }
             }
 

@@ -1,5 +1,5 @@
 import { Modal } from '../mixin/index';
-import { $, docEl, height, isTouch, one, query, transitionend, trigger, width, win } from '../util/index';
+import { $, addClass, docEl, hasClass, height, isTouch, one, query, removeClass, transitionend, trigger, width, win } from '../util/index';
 
 var scroll;
 
@@ -135,18 +135,18 @@ export default function (UIkit) {
 
                     scroll = scroll || {x: win.pageXOffset, y: win.pageYOffset};
 
-                    if (this.mode === 'reveal' && !this.$hasClass(this.panel, this.clsMode)) {
+                    if (this.mode === 'reveal' && !hasClass(this.panel, this.clsMode)) {
                         this.panel.wrap('<div>');
-                        this.$addClass(this.panel.parent(), this.clsMode);
+                        addClass(this.panel.parent(), this.clsMode);
                     }
 
                     $(docEl).css('overflow-y', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
 
-                    this.$addClass(this.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
+                    addClass(this.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
                     height(this.body); // force reflow
-                    this.$addClass(this.content, this.clsContentAnimation);
-                    this.$addClass(this.panel, `${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
-                    this.$addClass(this.clsOverlay);
+                    addClass(this.content, this.clsContentAnimation);
+                    addClass(this.panel, `${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
+                    addClass(this.clsOverlay);
                     this.$el.css('display', 'block');
                     height(this.$el); // force reflow
 
@@ -159,7 +159,7 @@ export default function (UIkit) {
                 self: true,
 
                 handler() {
-                    this.$removeClass(this.content, this.clsContentAnimation);
+                    removeClass(this.content, this.clsContentAnimation);
 
                     if (this.mode === 'none' || this.getActive() && this.getActive() !== this) {
                         trigger(this.panel, transitionend);
@@ -185,10 +185,10 @@ export default function (UIkit) {
                         scroll = {x, y};
                     }
 
-                    this.$removeClass(this.panel, `${this.clsSidebarAnimation} ${this.clsMode}`);
-                    this.$removeClass(this.clsOverlay);
+                    removeClass(this.panel, `${this.clsSidebarAnimation} ${this.clsMode}`);
+                    removeClass(this.$el, this.clsOverlay);
                     this.$el.css('display', '');
-                    this.$removeClass(this.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
+                    removeClass(this.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
                     this.body.scrollTop(scroll.y); // TODO ?
 
                     $(docEl).css('overflow-y', '');

@@ -4,7 +4,7 @@
     http://zeptojs.com/
 */
 
-import { contains, doc, on, pointerDown, pointerMove, pointerUp, ready, trigger, win } from './index';
+import { within, doc, on, pointerDown, pointerMove, pointerUp, ready, trigger, win } from './index';
 
 var touch = {}, clickTimeout, swipeTimeout, tapTimeout, clicked;
 
@@ -73,7 +73,7 @@ ready(function () {
             tapTimeout = setTimeout(() => touch.el && trigger(touch.el, 'tap'));
 
             // trigger single click after 350ms of inactivity
-            if (touch.el && contains(target, touch.el)) {
+            if (touch.el && within(target, touch.el)) {
                 clickTimeout = setTimeout(function () {
                     clickTimeout = null;
                     if (touch.el && !clicked) {
