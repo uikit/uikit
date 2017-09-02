@@ -178,7 +178,7 @@ export default function (UIkit) {
         Object.keys(added).forEach(name => delete parsed[name]);
 
         if (UIkit._initialized) {
-            each(UIkit.instances, (_, component) => {
+            each(UIkit.instances, component => {
                 if (component.$options.name === 'icon') {
                     component.$reset();
                 }

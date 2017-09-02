@@ -1,4 +1,4 @@
-import { $, hasTouch, isTouch, pointerEnter, pointerLeave, query, trigger, win } from '../util/index';
+import { $, hasTouch, includes, isTouch, pointerEnter, pointerLeave, query, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -38,7 +38,7 @@ export default function (UIkit) {
                 name: `${pointerEnter} ${pointerLeave}`,
 
                 filter() {
-                    return ~this.mode.indexOf('hover');
+                    return includes(this.mode, 'hover');
                 },
 
                 handler(e) {
@@ -54,12 +54,12 @@ export default function (UIkit) {
                 name: 'click',
 
                 filter() {
-                    return ~this.mode.indexOf('click') || hasTouch;
+                    return includes(this.mode, 'click') || hasTouch;
                 },
 
                 handler(e) {
 
-                    if (!isTouch(e) && !~this.mode.indexOf('click')) {
+                    if (!isTouch(e) && !includes(this.mode, 'click')) {
                         return;
                     }
 
@@ -85,7 +85,7 @@ export default function (UIkit) {
 
             write() {
 
-                if (!~this.mode.indexOf('media') || !this.media) {
+                if (!includes(this.mode, 'media') || !this.media) {
                     return;
                 }
 

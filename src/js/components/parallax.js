@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {mixin, util} = UIkit;
-    var {assign, clamp, Dimensions, getImage, isUndefined, scrolledOver, toFloat, query, win} = util;
+    var {assign, clamp, Dimensions, getImage, includes, isUndefined, scrolledOver, toFloat, query, win} = util;
 
     var props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
@@ -53,16 +53,14 @@ function plugin(UIkit) {
                                     ? this.$el.css(prop)
                                     : 0) || 0,
                         end = isUndefined(values[1]) ? values[0] : values[1],
-                        unit = ~values.join('').indexOf('%') ? '%' : 'px',
+                        unit = includes(values.join(''), '%') ? '%' : 'px',
                         diff;
 
                     if (isColor) {
 
                         var color = this.$el[0].style.color;
-                        this.$el[0].style.color = start;
-                        start = parseColor(this.$el.css('color'));
-                        this.$el[0].style.color = end;
-                        end = parseColor(this.$el.css('color'));
+                        start = parseColor(this.$el, start);
+                        end = parseColor(this.$el, end);
                         this.$el[0].style.color = color;
 
                     } else {
@@ -78,7 +76,7 @@ function plugin(UIkit) {
                     if (prop.match(/^bg/)) {
 
                         var attr = `background-position-${prop[2]}`;
-                        props[prop].pos = this.$el.css(attr, '').css('background-position').split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
+                        props[prop].pos = this.$el.css(attr, '').css('backgroundPosition').split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
 
                         if (this.covers) {
                             assign(props[prop], {start: 0, end: start <= end ? diff : -diff});
@@ -364,8 +362,9 @@ function plugin(UIkit) {
 
     });
 
-    function parseColor(color) {
-        return color.split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => toFloat(n));
+    function parseColor(el, color) {
+        el[0].style.color = color;
+        return el.css('color').split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => toFloat(n));
     }
 
     function getValue(prop, percent) {

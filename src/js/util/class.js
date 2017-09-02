@@ -1,4 +1,4 @@
-import { doc, filterAttr, isString, isUndefined, toNodes } from './index';
+import { doc, filterAttr, includes, isString, isUndefined, toNodes } from './index';
 
 var supportsClassList, supportsMultiple, supportsForce;
 
@@ -58,7 +58,7 @@ function apply(element, args, fn) {
 
 function getArgs(args) {
     return args.reduce((args, arg) => {
-        args.push.apply(args, isString(arg) && ~arg.indexOf(' ') ? arg.trim().split(' ') : [arg]);
+        args.push.apply(args, isString(arg) && includes(arg, ' ') ? arg.trim().split(' ') : [arg]);
         return args;
     }, []);
 }

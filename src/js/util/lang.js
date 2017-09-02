@@ -2,7 +2,7 @@ import $ from 'jquery';
 import { getCssVar, hasPromise, query } from './index';
 
 export { $ };
-export { ajax, each } from 'jquery';
+export { ajax } from 'jquery';
 
 export function bind(fn, context) {
     return function (a) {
@@ -70,7 +70,28 @@ function toUpper(_, c) {
 
 export function ucfirst(str) {
     return str.length ? toUpper(null, str.charAt(0)) + str.slice(1) : '';
-};
+}
+
+var strPrototype = String.prototype;
+var startsWithFn = strPrototype.startsWith || function (search) { return this.lastIndexOf(search, 0) === 0; };
+
+export function startsWith(str, search) {
+    return startsWithFn.call(str, search);
+}
+
+var endsWithFn = strPrototype.endsWith || function (search) { return this.substr(-1 * search.length) === search; };
+
+export function endsWith(str, search) {
+    return endsWithFn.call(str, search);
+}
+
+var includesFn = function (search) { return ~this.indexOf(search); };
+var includesStr = strPrototype.includes || includesFn;
+var includesArray = Array.prototype.includes || includesFn;
+
+export function includes(obj, search) {
+    return obj && (isString(obj) ? includesStr : includesArray).call(obj, search);
+}
 
 export const isArray = Array.isArray;
 
@@ -237,7 +258,7 @@ export function coerce(type, value, context) {
 export function toMs(time) {
     return !time
         ? 0
-        : time.substr(-2) === 'ms'
+        : endsWith(time, 'ms')
             ? toFloat(time)
             : toFloat(time) * 1000;
 }
@@ -262,6 +283,22 @@ export const assign = Object.assign || function (target, ...args) {
     }
     return target;
 };
+
+export function each(obj, cb) {
+    if (isArray(obj)) {
+        for (var i = 0; i < obj.length; i++) {
+            if (cb.call(obj[i], obj[i], i) === false) {
+                break;
+            }
+        }
+    } else {
+        for (var key in obj) {
+            if (cb.call(obj[key], obj[key], key) === false) {
+                break;
+            }
+        }
+    }
+}
 
 export function clamp(number, min = 0, max = 1) {
     return Math.min(Math.max(number, min), max);

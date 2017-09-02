@@ -24,7 +24,7 @@ function plugin(UIkit) {
 
         disconnected() {
             this.reset();
-            this.$el.css('margin-bottom', '');
+            this.$el.css('marginBottom', '');
         },
 
         computed: {
@@ -50,8 +50,8 @@ function plugin(UIkit) {
 
                 write() {
                     this.$el
-                        .css('margin-bottom', '')
-                        .css('margin-bottom', this.columns > 1 ? this.translate + toFloat(this.$el.css('margin-bottom')) : '');
+                        .css('marginBottom', '')
+                        .css('marginBottom', this.columns > 1 ? this.translate + toFloat(this.$el.css('marginBottom')) : '');
                 },
 
                 events: ['load', 'resize']

@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, Animation, assign, attr, doc, fastdom, hasClass, height, isBoolean, isUndefined, isVisible, noop, promise, toFloat, toggleClass, Transition, trigger } from '../util/index';
+import { $, Animation, assign, attr, doc, fastdom, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, promise, toFloat, toggleClass, Transition, trigger } from '../util/index';
 
 export default {
 
@@ -61,7 +61,7 @@ export default {
 
                 var all = targets => promise.all(targets.map(el => this._toggleElement(el, show, animate))),
                     toggled = targets.filter(el => this.isToggled(el)),
-                    untoggled = targets.filter(el => !~toggled.indexOf(el)),
+                    untoggled = targets.filter(el => !includes(toggled, el)),
                     p;
 
                 if (!this.queued || !isUndefined(animate) || !isUndefined(show) || !this.hasAnimation || targets.length < 2) {
@@ -142,7 +142,7 @@ export default {
         _toggle(el, toggled) {
 
             if (this.cls) {
-                toggleClass(el, this.cls, ~this.cls.indexOf(' ') ? undefined : toggled);
+                toggleClass(el, this.cls, includes(this.cls, ' ') ? undefined : toggled);
             } else {
                 attr(el, 'hidden', !toggled);
             }

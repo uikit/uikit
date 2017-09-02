@@ -140,7 +140,7 @@ export default function (UIkit) {
                         addClass(this.panel.parent(), this.clsMode);
                     }
 
-                    $(docEl).css('overflow-y', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
+                    $(docEl).css('overflowY', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
 
                     addClass(this.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
                     height(this.body); // force reflow

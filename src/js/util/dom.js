@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { addClass, animationend, assign, attr, clamp, each, getContextSelectors, hasClass, height, isNumber, isString, on, one, promise, removeClass, removeClasses, requestAnimationFrame, toJQuery, toNode, toNodes, transitionend, trigger, width } from './index';
+import { addClass, animationend, assign, attr, clamp, each, getContextSelectors, hasClass, height, includes, isNumber, isString, on, one, promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toJQuery, toNode, toNodes, transitionend, trigger, width } from './index';
 
 export const win = window;
 export const doc = document;
@@ -80,7 +80,7 @@ export const Transition = {
 };
 
 var animationcancel = 'animationcancel',
-    animationprefix = 'uk-animation-',
+    animationPrefix = 'uk-animation-',
     clsCancelAnimation = 'uk-cancel-animation';
 
 export function animate(element, animation, duration = 200, origin, out) {
@@ -99,16 +99,16 @@ export function animate(element, animation, duration = 200, origin, out) {
                 return;
             }
 
-            var cls = `${animation} ${animationprefix}${out ? 'leave' : 'enter'}`;
+            var cls = `${animation} ${animationPrefix}${out ? 'leave' : 'enter'}`;
 
-            if (animation.lastIndexOf(animationprefix, 0) === 0) {
+            if (startsWith(animation, animationPrefix)) {
 
                 if (origin) {
-                    cls += ` ${animationprefix}${origin}`;
+                    cls += ` ${animationPrefix}${origin}`;
                 }
 
                 if (out) {
-                    cls += ` ${animationprefix}reverse`;
+                    cls += ` ${animationPrefix}reverse`;
                 }
 
             }
@@ -136,7 +136,7 @@ export function animate(element, animation, duration = 200, origin, out) {
 
             }, false, ({target}) => element.is(target));
 
-            element.css('animation-duration', `${duration}ms`);
+            element.css('animationDuration', `${duration}ms`);
             addClass(element, cls);
 
             if (!animationend) {
@@ -144,8 +144,8 @@ export function animate(element, animation, duration = 200, origin, out) {
             }
 
             function reset() {
-                element.css('animation-duration', '');
-                removeClasses(element, `${animationprefix}\\S*`);
+                element.css('animationDuration', '');
+                removeClasses(element, `${animationPrefix}\\S*`);
             }
 
         })
@@ -153,7 +153,7 @@ export function animate(element, animation, duration = 200, origin, out) {
 
 }
 
-var inProgress = new RegExp(`${animationprefix}(enter|leave)`);
+var inProgress = new RegExp(`${animationPrefix}(enter|leave)`);
 export const Animation = {
 
     in(element, animation, duration, origin) {
@@ -259,7 +259,7 @@ var voidElements = [
 ];
 
 export function isVoidElement(element) {
-    return ~voidElements.indexOf(toNode(element).tagName.toLowerCase());
+    return includes(voidElements, toNode(element).tagName.toLowerCase());
 }
 
 export const Dimensions = {
@@ -277,7 +277,7 @@ export const Dimensions = {
     contain(dimensions, maxDimensions) {
         dimensions = assign({}, dimensions);
 
-        each(dimensions, prop => dimensions = dimensions[prop] > maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
+        each(dimensions, (dimension, prop) => dimensions = dimension > maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
 
         return dimensions;
     },
@@ -285,7 +285,7 @@ export const Dimensions = {
     cover(dimensions, maxDimensions) {
         dimensions = this.contain(dimensions, maxDimensions);
 
-        each(dimensions, prop => dimensions = dimensions[prop] < maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
+        each(dimensions, (dimension, prop) => dimensions = dimension < maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
 
         return dimensions;
     }

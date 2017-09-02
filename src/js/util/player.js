@@ -1,4 +1,4 @@
-import { assign, attr, isString, one, promise, toNode, win } from './index';
+import { assign, attr, includes, isString, one, promise, toNode, win } from './index';
 
 var id = 0;
 
@@ -55,7 +55,7 @@ export class Player {
                         poller && clearInterval(poller);
                     });
 
-                attr(this.el, 'src', `${this.el.src}${~this.el.src.indexOf('?') ? '&' : '?'}${youtube ? 'enablejsapi=1' : `api=1&player_id=${id}`}`);
+                attr(this.el, 'src', `${this.el.src}${includes(this.el.src, '?') ? '&' : '?'}${youtube ? 'enablejsapi=1' : `api=1&player_id=${id}`}`);
 
             });
 

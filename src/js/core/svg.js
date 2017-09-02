@@ -1,4 +1,4 @@
-import { ajax, attr, isVoidElement, noop, promise, removeAttr } from '../util/index';
+import { ajax, attr, includes, isVoidElement, noop, promise, removeAttr, startsWith } from '../util/index';
 
 var svgs = {}, parser = new DOMParser();
 
@@ -32,7 +32,7 @@ export default function (UIkit) {
 
         connected() {
 
-            if (!this.icon && this.src && ~this.src.indexOf('#')) {
+            if (!this.icon && includes(this.src, '#')) {
 
                 var parts = this.src.split('#');
 
@@ -78,7 +78,7 @@ export default function (UIkit) {
                         }
 
                         html = html
-                            .replace(/<symbol/g, `<svg${!~html.indexOf('xmlns') ? ' xmlns="http://www.w3.org/2000/svg"' : ''}`)
+                            .replace(/<symbol/g, `<svg${!includes(html, 'xmlns') ? ' xmlns="http://www.w3.org/2000/svg"' : ''}`)
                             .replace(/symbol>/g, 'svg>');
 
                         el = parser.parseFromString(html, 'image/svg+xml').documentElement;
@@ -103,7 +103,7 @@ export default function (UIkit) {
                 this.height *= this.ratio;
 
                 for (var prop in this.$options.props) {
-                    if (this[prop] && !~this.exclude.indexOf(prop)) {
+                    if (this[prop] && !includes(this.exclude, prop)) {
                         attr(el, prop, this[prop]);
                     }
                 }
@@ -178,7 +178,7 @@ export default function (UIkit) {
 
                 svgs[this.src] = promise((resolve, reject) => {
 
-                    if (this.src.lastIndexOf('data:', 0) === 0) {
+                    if (startsWith(this.src, 'data:')) {
                         resolve(this.parse(decodeURIComponent(this.src.split(',')[1])));
                     } else {
 

@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { query, toggleClass, trigger } from '../util/index';
+import { includes, query, toggleClass, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -46,7 +46,7 @@ export default function (UIkit) {
                 delegate: ':input:first',
 
                 handler({type}) {
-                    toggleClass(this.state, `uk-${~type.indexOf('focus') ? 'focus' : 'hover'}`, ~['focusin', 'mouseenter'].indexOf(type));
+                    toggleClass(this.state, `uk-${includes(type, 'focus') ? 'focus' : 'hover'}`, includes(['focusin', 'mouseenter'], type));
                 }
 
             },

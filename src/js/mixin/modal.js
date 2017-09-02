@@ -46,7 +46,7 @@ export default {
         },
 
         transitionDuration() {
-            return toMs(this.transitionElement.css('transition-duration'));
+            return toMs(this.transitionElement.css('transitionDuration'));
         },
 
         component() {
@@ -93,7 +93,7 @@ export default {
 
                 if (!hasClass(docEl, this.clsPage)) {
                     this.scrollbarWidth = width(win) - docEl.offsetWidth;
-                    this.body.css('overflow-y', this.scrollbarWidth && this.overlay ? 'scroll' : '');
+                    this.body.css('overflowY', this.scrollbarWidth && this.overlay ? 'scroll' : '');
                 }
 
                 addClass(docEl, this.clsPage);
@@ -111,7 +111,7 @@ export default {
             handler() {
                 if (this.component.active === this) {
                     removeClass(docEl, this.clsPage);
-                    this.body.css('overflow-y', '');
+                    this.body.css('overflowY', '');
                     this.component.active = null;
                 }
             }

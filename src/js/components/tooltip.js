@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {util, mixin} = UIkit;
-    var {$, attr, doc, fastdom, flipPosition, isTouch, on, pointerDown, pointerEnter, pointerLeave, within} = util;
+    var {$, attr, doc, fastdom, flipPosition, includes, isTouch, on, pointerDown, pointerEnter, pointerLeave, within} = util;
 
     var actives = [];
 
@@ -52,7 +52,7 @@ function plugin(UIkit) {
 
             show() {
 
-                if (~actives.indexOf(this)) {
+                if (includes(actives, this)) {
                     return;
                 }
 

@@ -1,4 +1,4 @@
-import { docEl, height, isNumeric, isString, offset, query, toFloat, win } from '../util/index';
+import { docEl, endsWith, height, isNumeric, isString, offset, query, toFloat, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -22,7 +22,7 @@ export default function (UIkit) {
 
                 this.$el.css('boxSizing', 'border-box');
 
-                var viewport = height(win), minheight, offsetTop = 0;
+                var viewport = height(win), minHeight, offsetTop = 0;
 
                 if (this.expand) {
 
@@ -31,7 +31,7 @@ export default function (UIkit) {
                     var diff = viewport - docEl.offsetHeight;
 
                     if (diff > 0) {
-                        this.$el.css('min-height', minheight = this.$el[0].offsetHeight + diff)
+                        this.$el.css('minHeight', minHeight = this.$el[0].offsetHeight + diff)
                     }
 
                 } else {
@@ -50,7 +50,7 @@ export default function (UIkit) {
 
                         offsetTop += (viewport / 100) * this.offsetBottom;
 
-                    } else if (this.offsetBottom && this.offsetBottom.substr(-2) === 'px') {
+                    } else if (this.offsetBottom && endsWith(this.offsetBottom, 'px')) {
 
                         offsetTop += toFloat(this.offsetBottom);
 
@@ -61,14 +61,14 @@ export default function (UIkit) {
 
                     }
 
-                    this.$el.css('min-height', minheight = offsetTop ? `calc(100vh - ${offsetTop}px)` : '100vh');
+                    this.$el.css('minHeight', minHeight = offsetTop ? `calc(100vh - ${offsetTop}px)` : '100vh');
 
                 }
 
                 // IE 10-11 fix (min-height on a flex container won't apply to its flex items)
                 height(this.$el, '');
-                if (minheight && viewport - offsetTop >= this.$el[0].offsetHeight) {
-                    this.$el.css('height', minheight);
+                if (minHeight && viewport - offsetTop >= this.$el[0].offsetHeight) {
+                    this.$el.css('height', minHeight);
                 }
 
             },

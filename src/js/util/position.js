@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { each, isDocument, isUndefined, isVisible, isWindow, toFloat, toNode, ucfirst } from './index';
+import { each, endsWith, includes, isDocument, isUndefined, isVisible, isWindow, toFloat, toNode, ucfirst } from './index';
 
 var dirs = {
         width: ['x', 'left', 'right'],
@@ -36,9 +36,9 @@ export function positionAt(element, target, elAttach, targetAttach, elOffset, ta
     boundary = getDimensions(boundary || getWindow(element));
 
     if (flip) {
-        each(dirs, (prop, [dir, align, alignFlip]) => {
+        each(dirs, ([dir, align, alignFlip], prop) => {
 
-            if (!(flip === true || ~flip.indexOf(dir))) {
+            if (!(flip === true || includes(flip, dir))) {
                 return;
             }
 
@@ -235,7 +235,7 @@ function getWindow(element) {
 }
 
 function moveTo(position, attach, dim, factor) {
-    each(dirs, function (prop, [dir, align, alignFlip]) {
+    each(dirs, function ([dir, align, alignFlip], prop) {
         if (attach[dir] === alignFlip) {
             position[align] += dim[prop] * factor;
         } else if (attach[dir] === 'center') {
@@ -269,8 +269,8 @@ function getOffsets(offsets, width, height) {
     var [x, y] = (offsets || '').split(' ');
 
     return {
-        x: x ? toFloat(x) * (x[x.length - 1] === '%' ? width / 100 : 1) : 0,
-        y: y ? toFloat(y) * (y[y.length - 1] === '%' ? height / 100 : 1) : 0
+        x: x ? toFloat(x) * (endsWith(x, '%') ? width / 100 : 1) : 0,
+        y: y ? toFloat(y) * (endsWith(y, '%') ? height / 100 : 1) : 0
     };
 }
 

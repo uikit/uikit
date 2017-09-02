@@ -111,7 +111,7 @@ function plugin(UIkit) {
     });
 
     UIkit.notification.closeAll = function (group, immediate) {
-        each(UIkit.instances, (_, component) => {
+        each(UIkit.instances, component => {
             if (component.$options.name === 'notification' && (!group || group === component.group)) {
                 component.close(immediate);
             }

@@ -1,4 +1,4 @@
-import { flipPosition, isRtl, positionAt, removeClasses, toggleClass, toNumber } from '../util/index';
+import { flipPosition, includes, isRtl, positionAt, removeClasses, toggleClass, toNumber } from '../util/index';
 
 export default {
 
@@ -10,7 +10,7 @@ export default {
     },
 
     defaults: {
-        pos: !isRtl ? 'bottom-left' : 'bottom-right',
+        pos: `bottom-${!isRtl ? 'left' : 'right'}`,
         flip: true,
         offset: false,
         clsPos: ''
@@ -19,7 +19,7 @@ export default {
     computed: {
 
         pos() {
-            return (this.$props.pos + (!~this.$props.pos.indexOf('-') ? '-center' : '')).split('-');
+            return (this.$props.pos + (!includes(this.$props.pos, '-') ? '-center' : '')).split('-');
         },
 
         dir() {
@@ -46,7 +46,7 @@ export default {
                     target,
                     axis === 'x' ? `${flipPosition(this.dir)} ${this.align}` : `${this.align} ${flipPosition(this.dir)}`,
                     axis === 'x' ? `${this.dir} ${this.align}` : `${this.align} ${this.dir}`,
-                    axis === 'x' ? `${this.dir === 'left' ? -1 * offset : offset}` : ` ${this.dir === 'top' ? -1 * offset : offset}`,
+                    this.dir === 'left' || this.dir === 'top' ? -1 * offset : offset,
                     null,
                     this.flip,
                     boundary

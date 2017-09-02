@@ -1,4 +1,4 @@
-import { assign, attr, bind, camelize, coerce, data as getData, hasAttr, hasOwn, hyphenate, isArray, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer, on } from '../util/index';
+import { assign, attr, bind, camelize, coerce, data as getData, hasAttr, hasOwn, hyphenate, includes, isArray, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer, on, startsWith } from '../util/index';
 
 export default function (UIkit) {
 
@@ -152,7 +152,7 @@ export default function (UIkit) {
 
                 var value = coerce(props[key], attr(el, prop), el);
 
-                if (prop === 'target' && (!value || value.lastIndexOf('_', 0) === 0)) {
+                if (prop === 'target' && (!value || startsWith(value, '_'))) {
                     continue;
                 }
 
@@ -178,9 +178,9 @@ export default function (UIkit) {
 
             return !options
                 ? {}
-                : options[0] === '{'
+                : startsWith(options, '{')
                     ? JSON.parse(options)
-                    : args.length && !~options.indexOf(':')
+                    : args.length && !includes(options, ':')
                         ? ({[args[0]]: options})
                         : options.split(';').reduce((options, option) => {
                             var [key, value] = option.split(/:(.+)/);

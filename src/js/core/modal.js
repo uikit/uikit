@@ -66,16 +66,16 @@ export default function (UIkit) {
         },
 
         connected() {
-            this.$el.css('min-height', 150);
+            this.$el.css('minHeight', 150);
         },
 
         update: {
 
             write() {
-                var current = this.$el.css('max-height');
+                var current = this.$el.css('maxHeight');
 
-                this.$el.css('max-height', 150).css('max-height', Math.max(150, 150 + height(this.modal) - this.panel[0].offsetHeight));
-                if (current !== this.$el.css('max-height')) {
+                this.$el.css('maxHeight', 150).css('maxHeight', Math.max(150, 150 + height(this.modal) - this.panel[0].offsetHeight));
+                if (current !== this.$el.css('maxHeight')) {
                     trigger(this.$el, 'resize');
                 }
             },

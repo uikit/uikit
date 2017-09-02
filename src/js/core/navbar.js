@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, addClass, assign, within, height, isRtl, isVisible, noop, query, toFloat, Transition } from '../util/index';
+import { $, addClass, assign, within, height, includes, isRtl, isVisible, noop, query, toFloat, Transition } from '../util/index';
 
 export default function (UIkit) {
 
@@ -96,7 +96,7 @@ export default function (UIkit) {
 
             getActive() {
                 var active = UIkit.drop.getActive();
-                return active && ~active.mode.indexOf('hover') && within(active.toggle.$el, this.$el) && active;
+                return active && includes(active.mode, 'hover') && within(active.toggle.$el, this.$el) && active;
             }
 
         }

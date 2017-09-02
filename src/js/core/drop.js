@@ -1,5 +1,5 @@
 import { Position, Togglable } from '../mixin/index';
-import { addClass, Animation, attr, within, doc, isTouch, MouseTracker, offset, on, one, pointerEnter, pointerLeave, query, removeClass, removeClasses, toggleClass, trigger, win } from '../util/index';
+import { addClass, Animation, attr, within, doc, includes, isTouch, MouseTracker, offset, on, one, pointerEnter, pointerLeave, query, removeClass, removeClasses, toggleClass, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -130,7 +130,7 @@ export default function (UIkit) {
                 name: pointerEnter,
 
                 filter() {
-                    return ~this.mode.indexOf('hover');
+                    return includes(this.mode, 'hover');
                 },
 
                 handler(e) {
@@ -142,7 +142,7 @@ export default function (UIkit) {
                     if (active
                         && active !== this
                         && active.toggle
-                        && ~active.toggle.mode.indexOf('hover')
+                        && includes(active.toggle.mode, 'hover')
                         && !within(e.target, active.$el)
                         && !within(e.target, active.toggle.$el)
                         && !within(doc.elementFromPoint(e.pageX, e.pageY), active.$el)
@@ -184,7 +184,7 @@ export default function (UIkit) {
 
                     e.preventDefault();
 
-                    if (this.toggle && ~this.toggle.mode.indexOf('hover')) {
+                    if (this.toggle && includes(this.toggle.mode, 'hover')) {
                         this.hide();
                     }
                 }
