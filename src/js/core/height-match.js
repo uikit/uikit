@@ -76,7 +76,7 @@ export default function (UIkit) {
 
                         if (!isVisible(el)) {
                             style = attr(el, 'style');
-                            hidden = attr(el, 'hidden') || null;
+                            hidden = attr(el, 'hidden');
 
                             attr(el, {
                                 style: `${style};display:block !important;`,

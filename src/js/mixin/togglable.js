@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, Animation, assign, attr, doc, fastdom, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, promise, toFloat, toggleClass, Transition, trigger } from '../util/index';
+import { $, Animation, assign, attr, doc, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, promise, toFloat, toggleClass, Transition, trigger } from '../util/index';
 
 export default {
 
@@ -99,7 +99,7 @@ export default {
 
         isToggled(el) {
             el = el || this.$el;
-            return this.cls ? hasClass(el, this.cls.split(' ')[0]) : !attr(el, 'hidden');
+            return this.cls ? hasClass(el, this.cls.split(' ')[0]) : !hasAttr(el, 'hidden');
         },
 
         updateAria(el) {
@@ -144,7 +144,7 @@ export default {
             if (this.cls) {
                 toggleClass(el, this.cls, includes(this.cls, ' ') ? undefined : toggled);
             } else {
-                attr(el, 'hidden', !toggled);
+                attr(el, 'hidden', !toggled ? '' : null);
             }
 
             $(el).find('[autofocus]:visible').focus();
