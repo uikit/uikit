@@ -68,7 +68,7 @@ export function getCssVar(name) {
 
         /* usage in css:  .var-name:before { content:"xyz" } */
 
-        var element = docEl.body.appendChild(doc.createElement('div'));
+        var element = docEl.appendChild(doc.createElement('div'));
 
         addClass(element, `var-${name}`);
 
@@ -79,7 +79,7 @@ export function getCssVar(name) {
 
         } catch (e) {}
 
-        docEl.body.removeChild(element);
+        docEl.removeChild(element);
 
     }
 

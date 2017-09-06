@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { addClass, animationend, assign, attr, clamp, css, each, getContextSelectors, hasClass, height, isNumber, isString, on, one, promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toJQuery, toNode, toNodes, transitionend, trigger, width } from './index';
+import { addClass, animationend, assign, attr, clamp, css, each, getContextSelectors, hasClass, height, isNumber, isString, on, one, Promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toJQuery, toNode, toNodes, transitionend, trigger, width } from './index';
 
 export const win = window;
 export const doc = document;
@@ -31,8 +31,8 @@ var transitioncancel = 'transitioncancel';
 
 export function transition(element, props, duration = 400, transition = 'linear') {
 
-    return promise.all(toNodes(element).map(element =>
-        promise((resolve, reject) => {
+    return Promise.all(toNodes(element).map(element =>
+        new Promise((resolve, reject) => {
 
             for (var name in props) {
                 css(element, name, css(element, name));
@@ -61,12 +61,12 @@ export const Transition = {
 
     stop(element) {
         trigger(element, transitionend);
-        return promise.resolve();
+        return Promise.resolve();
     },
 
     cancel(element) {
         trigger(element, transitioncancel);
-        return promise.resolve();
+        return Promise.resolve();
     },
 
     inProgress(element) {
@@ -81,12 +81,12 @@ var animationcancel = 'animationcancel',
 
 export function animate(element, animation, duration = 200, origin, out) {
 
-    return promise.all(toNodes(element).map(element =>
-        promise((resolve, reject) => {
+    return Promise.all(toNodes(element).map(element =>
+        new Promise((resolve, reject) => {
 
             if (hasClass(element, clsCancelAnimation)) {
                 requestAnimationFrame(() =>
-                    promise.resolve().then(() =>
+                    Promise.resolve().then(() =>
                         animate.apply(null, arguments).then(resolve, reject)
                     )
                 );
@@ -123,7 +123,7 @@ export function animate(element, animation, duration = 200, origin, out) {
                     }
                 });
 
-                promise.resolve().then(() => {
+                Promise.resolve().then(() => {
                     hasReset = true;
                     reset();
                 });
@@ -164,7 +164,7 @@ export const Animation = {
 
     cancel(element) {
         trigger(element, animationcancel);
-        return promise.resolve();
+        return Promise.resolve();
     }
 
 };

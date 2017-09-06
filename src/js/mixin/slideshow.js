@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {addClass, css, hasClass, removeClass, toggleClass, $, attr, doc, fastdom, getIndex, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, promise, requestAnimationFrame, Transition, trigger} = UIkit.util;
+    var {addClass, css, hasClass, removeClass, toggleClass, $, attr, doc, fastdom, getIndex, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, requestAnimationFrame, Transition, trigger} = UIkit.util;
 
     UIkit.mixin.slideshow = {
 
@@ -480,7 +480,7 @@ function plugin(UIkit) {
 
                 this.translate(percent);
 
-                return promise.all([
+                return Promise.all([
                     Transition.start(current, props[0], duration, transition),
                     Transition.start(next, props[1], duration, transition)
                 ]).then(() => {
@@ -490,14 +490,14 @@ function plugin(UIkit) {
             },
 
             stop() {
-                return promise.all([
+                return Promise.all([
                     Transition.stop(next),
                     Transition.stop(current)
                 ]);
             },
 
             cancel() {
-                return promise.all([
+                return Promise.all([
                     Transition.cancel(next),
                     Transition.cancel(current)
                 ]);
@@ -513,7 +513,7 @@ function plugin(UIkit) {
 
                 var percent = this.percent();
 
-                return promise.all([
+                return Promise.all([
                     Transition.cancel(next),
                     Transition.cancel(current)
                 ]).then(() => this.show(duration, percent));

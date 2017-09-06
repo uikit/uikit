@@ -1,5 +1,6 @@
 import $ from 'jquery';
-import { getCssVar, hasPromise, query } from './index';
+import { getCssVar, query } from './index';
+import promiseFn from './promise';
 
 export { $ };
 export { ajax } from 'jquery';
@@ -17,36 +18,7 @@ export function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key);
 }
 
-export function promise(executor) {
-
-    if (hasPromise) {
-        return new Promise(executor);
-    }
-
-    var def = $.Deferred();
-
-    executor(def.resolve, def.reject);
-
-    return def;
-}
-
-promise.resolve = function (value) {
-    return promise(function (resolve) {
-        resolve(value);
-    });
-};
-
-promise.reject = function (value) {
-    return promise(function (_, reject) {
-        reject(value);
-    });
-};
-
-promise.all = function (iterable) {
-    return hasPromise
-        ? Promise.all(iterable)
-        : $.when.apply($, iterable);
-};
+export const Promise = 'Promise' in window ? window.Promise : promiseFn;
 
 export function classify(str) {
     return str.replace(/(?:^|[-_\/])(\w)/g, (_, c) => c ? c.toUpperCase() : '');

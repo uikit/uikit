@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, addClass, assign, css, doc, each, hasClass, isRtl, noop, promise, swap } from '../util/index';
+import { $, addClass, assign, css, doc, each, hasClass, isRtl, noop, Promise, swap } from '../util/index';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
 import marker from '../../images/components/marker.svg';
@@ -92,16 +92,16 @@ export default function (UIkit) {
                 if (!icon) {
 
                     if (doc.readyState !== 'complete') {
-                        return promise(resolve => {
+                        return new Promise(resolve => {
                             this.delay = resolve;
                         });
                     }
 
-                    return promise.reject('Icon not found.');
+                    return Promise.reject('Icon not found.');
 
                 }
 
-                return promise.resolve(icon);
+                return Promise.resolve(icon);
             },
 
             getIcon() {

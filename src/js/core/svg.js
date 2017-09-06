@@ -1,4 +1,4 @@
-import { ajax, attr, includes, isVoidElement, noop, promise, removeAttr, startsWith } from '../util/index';
+import { ajax, attr, includes, isVoidElement, noop, Promise, removeAttr, startsWith } from '../util/index';
 
 var svgs = {}, parser = new DOMParser();
 
@@ -45,7 +45,7 @@ export default function (UIkit) {
             this.width = this.$props.width;
             this.height = this.$props.height;
 
-            this.svg = this.getSvg().then(doc => promise((resolve, reject) => {
+            this.svg = this.getSvg().then(doc => new Promise((resolve, reject) => {
 
                 var svg, el;
 
@@ -169,14 +169,14 @@ export default function (UIkit) {
             getSvg() {
 
                 if (!this.src) {
-                    return promise.reject();
+                    return Promise.reject();
                 }
 
                 if (svgs[this.src]) {
                     return svgs[this.src];
                 }
 
-                svgs[this.src] = promise((resolve, reject) => {
+                svgs[this.src] = new Promise((resolve, reject) => {
 
                     if (startsWith(this.src, 'data:')) {
                         resolve(this.parse(decodeURIComponent(this.src.split(',')[1])));

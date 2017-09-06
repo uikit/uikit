@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, Animation, assign, attr, css, doc, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, promise, toFloat, toggleClass, Transition, trigger } from '../util/index';
+import { $, Animation, assign, attr, css, doc, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, Transition, trigger } from '../util/index';
 
 export default {
 
@@ -55,11 +55,11 @@ export default {
     methods: {
 
         toggleElement(targets, show, animate) {
-            return promise(resolve => {
+            return new Promise(resolve => {
 
                 targets = $(targets).toArray();
 
-                var all = targets => promise.all(targets.map(el => this._toggleElement(el, show, animate))),
+                var all = targets => Promise.all(targets.map(el => this._toggleElement(el, show, animate))),
                     toggled = targets.filter(el => this.isToggled(el)),
                     untoggled = targets.filter(el => !includes(toggled, el)),
                     p;
@@ -94,7 +94,7 @@ export default {
         },
 
         toggleNow(targets, show) {
-            return promise(resolve => promise.all($(targets).toArray().map(el => this._toggleElement(el, show, false))).then(resolve, noop));
+            return new Promise(resolve => Promise.all($(targets).toArray().map(el => this._toggleElement(el, show, false))).then(resolve, noop));
         },
 
         isToggled(el) {
@@ -121,7 +121,7 @@ export default {
                         : !this.isToggled(el);
 
             if (!trigger(el, `before${show ? 'show' : 'hide'}`, [this])) {
-                return promise.reject();
+                return Promise.reject();
             }
 
             var def = (animate === false || !this.hasAnimation
@@ -155,7 +155,7 @@ export default {
 
         _toggleImmediate(el, show) {
             this._toggle(el, show);
-            return promise.resolve();
+            return Promise.resolve();
         },
 
         _toggleHeight(el, show) {
@@ -193,7 +193,7 @@ export default {
                 return Animation.cancel(el).then(() => {
 
                     if (Animation.inProgress(el)) {
-                        return promise.resolve().then(() => this._toggleAnimation(el, show));
+                        return Promise.resolve().then(() => this._toggleAnimation(el, show));
                     }
 
                     return this._toggleAnimation(el, show);

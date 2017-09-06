@@ -1,5 +1,5 @@
 import { Class, Modal } from '../mixin/index';
-import { $, addClass, assign, css, hasClass, height, isString, on, promise, removeClass, trigger } from '../util/index';
+import { $, addClass, assign, css, hasClass, height, isString, on, Promise, removeClass, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -108,7 +108,7 @@ export default function (UIkit) {
 
         options = assign({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
-        return promise(
+        return new Promise(
             resolve => on(UIkit.modal.dialog(`
                 <div class="uk-modal-body">${isString(message) ? message : $(message).html()}</div>
                 <div class="uk-modal-footer uk-text-right">
@@ -122,7 +122,7 @@ export default function (UIkit) {
 
         options = assign({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
-        return promise(
+        return new Promise(
             (resolve, reject) => on(UIkit.modal.dialog(`
                 <div class="uk-modal-body">${isString(message) ? message : $(message).html()}</div>
                 <div class="uk-modal-footer uk-text-right">
@@ -137,7 +137,7 @@ export default function (UIkit) {
 
         options = assign({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
-        return promise(resolve => {
+        return new Promise(resolve => {
 
             var resolved = false,
                 prompt = UIkit.modal.dialog(`

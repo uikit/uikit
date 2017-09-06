@@ -1,11 +1,10 @@
-import { classify, doc, docEl, promise, win } from './index';
+import { classify, doc, docEl, Promise, win } from './index';
 
 export const Observer = win.MutationObserver || win.WebKitMutationObserver;
 export const requestAnimationFrame = win.requestAnimationFrame || (fn => setTimeout(fn, 1000 / 60));
 
 var hasTouchEvents = 'ontouchstart' in win;
 var hasPointerEvents = win.PointerEvent;
-export const hasPromise = 'Promise' in win;
 export const hasTouch = 'ontouchstart' in win
     || win.DocumentTouch && doc instanceof DocumentTouch
     || navigator.msPointerEnabled && navigator.msMaxTouchPoints // IE 10
@@ -32,7 +31,7 @@ export function matches(element, selector) {
 
 export function getImage(src) {
 
-    return promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         var img = new Image();
 
         img.onerror = reject;

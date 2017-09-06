@@ -1,4 +1,4 @@
-import { assign, attr, includes, isString, one, promise, toNode, win } from './index';
+import { assign, attr, includes, isString, one, Promise, toNode, win } from './index';
 
 var id = 0;
 
@@ -39,7 +39,7 @@ export class Player {
 
         if (youtube || vimeo) {
 
-            return this.ready = promise(resolve => {
+            return this.ready = new Promise(resolve => {
 
                 one(this.el, 'load', () => {
                     if (youtube) {
@@ -61,7 +61,7 @@ export class Player {
 
         }
 
-        return promise.resolve();
+        return Promise.resolve();
 
     }
 
@@ -116,7 +116,7 @@ function post(el, cmd) {
 
 function listen(cb) {
 
-    return promise(resolve => {
+    return new Promise(resolve => {
 
         one(win, 'message', (_, data) => resolve(data), false, ({data}) => {
 

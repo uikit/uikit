@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {mixin, util} = UIkit;
-    var {$, addClass, assign, attr, css, doc, docEl, height, fastdom, includes, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, promise, removeClass, toggleClass, Transition, trigger, win, within} = util;
+    var {$, addClass, assign, attr, css, doc, docEl, height, fastdom, includes, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, Promise, removeClass, toggleClass, Transition, trigger, win, within} = util;
 
     UIkit.component('sortable', {
 
@@ -301,7 +301,7 @@ function plugin(UIkit) {
                 css(this.$el, 'minHeight', height(this.$el));
 
                 var positions = children.map(el => position(el));
-                promise.all(children.map((el, i) => Transition.start(css(el, props[i]), positions[i], this.animation)))
+                Promise.all(children.map((el, i) => Transition.start(css(el, props[i]), positions[i], this.animation)))
                     .then(() => {
                         css(this.$el, 'minHeight', '');
                         css(this.$el.children(), reset);

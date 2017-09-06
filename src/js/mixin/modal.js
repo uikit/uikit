@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, addClass, css, doc, docEl, hasClass, on, one, promise, removeClass, requestAnimationFrame, toJQuery, toMs, toNode, transitionend, width, win, within } from '../util/index';
+import { $, addClass, css, doc, docEl, hasClass, on, one, Promise, removeClass, requestAnimationFrame, toJQuery, toMs, toNode, transitionend, width, win, within } from '../util/index';
 import Class from './class';
 import Togglable from './togglable';
 
@@ -134,7 +134,7 @@ export default {
 
             if (this.container && !this.$el.parent().is(this.container)) {
                 this.container.appendChild(this.$el[0]);
-                return promise(resolve =>
+                return new Promise(resolve =>
                     requestAnimationFrame(() =>
                         resolve(this.show())
                     )
@@ -183,7 +183,7 @@ export default {
 
             requestAnimationFrame(() => this._toggle(el, show));
 
-            return this.transitionDuration ? promise((resolve, reject) => {
+            return this.transitionDuration ? new Promise((resolve, reject) => {
 
                 if (this._transition) {
                     this._transition.unbind();
@@ -198,7 +198,7 @@ export default {
                     })
                 };
 
-            }) : promise.resolve();
+            }) : Promise.resolve();
 
         },
     }
