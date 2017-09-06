@@ -1,4 +1,4 @@
-import { isVisible, Player } from '../util/index';
+import { css, isVisible, Player } from '../util/index';
 
 export default function (UIkit) {
 
@@ -28,7 +28,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                if (!isVisible(this.$el) || this.$el.css('visibility') === 'hidden') {
+                if (!isVisible(this.$el) || css(this.$el, 'visibility') === 'hidden') {
                     this.player.pause();
                 } else {
                     this.player.play();

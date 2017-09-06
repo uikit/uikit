@@ -1,5 +1,5 @@
 import { Class, Modal } from '../mixin/index';
-import { $, addClass, assign, hasClass, height, isString, on, promise, removeClass, trigger } from '../util/index';
+import { $, addClass, assign, css, hasClass, height, isString, on, promise, removeClass, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -25,7 +25,7 @@ export default function (UIkit) {
                     if (hasClass(this.panel, 'uk-margin-auto-vertical')) {
                         addClass(this.$el, 'uk-flex');
                     } else {
-                        this.$el.css('display', 'block');
+                        css(this.$el, 'display', 'block');
                     }
 
                     height(this.$el); // force reflow
@@ -39,7 +39,7 @@ export default function (UIkit) {
 
                 handler() {
 
-                    this.$el.css('display', '');
+                    css(this.$el, 'display', '');
                     removeClass(this.$el, 'uk-flex');
 
                 }
@@ -66,16 +66,16 @@ export default function (UIkit) {
         },
 
         connected() {
-            this.$el.css('minHeight', 150);
+            css(this.$el, 'minHeight', 150);
         },
 
         update: {
 
             write() {
-                var current = this.$el.css('maxHeight');
+                var current = css(this.$el, 'maxHeight');
 
-                this.$el.css('maxHeight', 150).css('maxHeight', Math.max(150, 150 + height(this.modal) - this.panel[0].offsetHeight));
-                if (current !== this.$el.css('maxHeight')) {
+                css(css(this.$el, 'maxHeight', 150), 'maxHeight', Math.max(150, 150 + height(this.modal) - this.panel[0].offsetHeight));
+                if (current !== css(this.$el, 'maxHeight')) {
                     trigger(this.$el, 'resize');
                 }
             },

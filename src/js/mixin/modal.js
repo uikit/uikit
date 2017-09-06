@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, addClass, within, doc, docEl, hasClass, on, one, promise, removeClass, requestAnimationFrame, toJQuery, toMs, toNode, transitionend, width, win } from '../util/index';
+import { $, addClass, css, doc, docEl, hasClass, on, one, promise, removeClass, requestAnimationFrame, toJQuery, toMs, toNode, transitionend, width, win, within } from '../util/index';
 import Class from './class';
 import Togglable from './togglable';
 
@@ -46,7 +46,7 @@ export default {
         },
 
         transitionDuration() {
-            return toMs(this.transitionElement.css('transitionDuration'));
+            return toMs(css(this.transitionElement, 'transitionDuration'));
         },
 
         component() {
@@ -93,7 +93,7 @@ export default {
 
                 if (!hasClass(docEl, this.clsPage)) {
                     this.scrollbarWidth = width(win) - docEl.offsetWidth;
-                    this.body.css('overflowY', this.scrollbarWidth && this.overlay ? 'scroll' : '');
+                    css(this.body, 'overflowY', this.scrollbarWidth && this.overlay ? 'scroll' : '');
                 }
 
                 addClass(docEl, this.clsPage);
@@ -111,7 +111,7 @@ export default {
             handler() {
                 if (this.component.active === this) {
                     removeClass(docEl, this.clsPage);
-                    this.body.css('overflowY', '');
+                    css(this.body, 'overflowY', '');
                     this.component.active = null;
                 }
             }

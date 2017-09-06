@@ -1,4 +1,4 @@
-import { animationstart, doc, fastdom, getStyle, on, toMs, win } from '../util/index';
+import { animationstart, css, doc, fastdom, on, toMs, win } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
@@ -42,14 +42,14 @@ export default function (UIkit) {
     });
 
     animationstart && on(doc, animationstart, ({target}) => {
-        if ((getStyle(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
+        if ((css(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
             started++;
             doc.body.style.overflowX = 'hidden';
             setTimeout(() => {
                 if (!--started) {
                     doc.body.style.overflowX = '';
                 }
-            }, toMs(getStyle(target, 'animationDuration')) + 100);
+            }, toMs(css(target, 'animationDuration')) + 100);
         }
     }, true);
 

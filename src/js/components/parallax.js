@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {mixin, util} = UIkit;
-    var {assign, clamp, Dimensions, getImage, includes, isUndefined, scrolledOver, toFloat, query, win} = util;
+    var {assign, clamp, css, Dimensions, each, getImage, includes, isUndefined, scrolledOver, toFloat, query, win} = util;
 
     var props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
@@ -42,7 +42,7 @@ function plugin(UIkit) {
                         values = this.$props[prop];
 
                     if (isCssProp) {
-                        this.$el.css(prop, '');
+                        css(this.$el, prop, '');
                     }
 
                     var start = (!isUndefined(values[1])
@@ -50,7 +50,7 @@ function plugin(UIkit) {
                             : prop === 'scale'
                                 ? 1
                                 : isCssProp
-                                    ? this.$el.css(prop)
+                                    ? css(this.$el, prop)
                                     : 0) || 0,
                         end = isUndefined(values[1]) ? values[0] : values[1],
                         unit = includes(values.join(''), '%') ? '%' : 'px',
@@ -75,8 +75,10 @@ function plugin(UIkit) {
 
                     if (prop.match(/^bg/)) {
 
-                        var attr = `background-position-${prop[2]}`;
-                        props[prop].pos = this.$el.css(attr, '').css('backgroundPosition').split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
+                        props[prop].pos = css(
+                            css(this.$el, `background-position-${prop[2]}`, ''),
+                            'backgroundPosition'
+                        ).split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
 
                         if (this.covers) {
                             assign(props[prop], {start: 0, end: start <= end ? diff : -diff});
@@ -94,7 +96,7 @@ function plugin(UIkit) {
             },
 
             covers() {
-                return this.$el.css('backgroundSize', '').css('backgroundSize') === 'cover';
+                return css(css(this.$el, 'backgroundSize', ''), 'backgroundSize') === 'cover';
             }
 
         },
@@ -124,7 +126,7 @@ function plugin(UIkit) {
                         return;
                     }
 
-                    var src = this.$el.css('backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
+                    var src = css(this.$el, 'backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
 
                     if (!src) {
                         return;
@@ -150,7 +152,7 @@ function plugin(UIkit) {
                     }
 
                     if (!this._active) {
-                        this.$el.css({backgroundSize: '', backgroundRepeat: ''});
+                        css(this.$el, {backgroundSize: '', backgroundRepeat: ''});
                         return;
                     }
 
@@ -194,7 +196,7 @@ function plugin(UIkit) {
                         dim = Dimensions.cover(image, dimEl);
                     });
 
-                    this.$el.css({
+                    css(this.$el, {
                         backgroundSize: `${dim.width}px ${dim.height}px`,
                         backgroundRepeat: 'no-repeat'
                     });
@@ -210,7 +212,7 @@ function plugin(UIkit) {
         methods: {
 
             reset() {
-                Object.keys(this.getCss(0)).forEach(prop => this.$el.css(prop, ''));
+                each(this.getCss(0), (_, prop) => css(this.$el, prop, ''));
             },
 
             getCss(percent) {
@@ -349,7 +351,7 @@ function plugin(UIkit) {
                     }
 
                     if (this._prev !== this._percent) {
-                        this.$el.css(this.getCss(this._percent));
+                        css(this.$el, this.getCss(this._percent));
                         this._prev = this._percent;
                     }
 
@@ -363,8 +365,7 @@ function plugin(UIkit) {
     });
 
     function parseColor(el, color) {
-        el[0].style.color = color;
-        return el.css('color').split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => toFloat(n));
+        return css(css(el, 'color', color), 'color').split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => toFloat(n));
     }
 
     function getValue(prop, percent) {

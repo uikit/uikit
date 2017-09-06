@@ -432,7 +432,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                if (!trigger(this.$el, 'itemload', [item]).defaultPrevented) {
+                if (trigger(this.$el, 'itemload', [item])) {
                     this.setError(item);
                 }
             },

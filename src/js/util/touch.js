@@ -4,7 +4,7 @@
     http://zeptojs.com/
 */
 
-import { within, doc, on, pointerDown, pointerMove, pointerUp, ready, trigger, win } from './index';
+import { doc, on, pointerDown, pointerMove, pointerUp, ready, trigger, win, within } from './index';
 
 var touch = {}, clickTimeout, swipeTimeout, tapTimeout, clicked;
 

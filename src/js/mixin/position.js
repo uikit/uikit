@@ -1,4 +1,4 @@
-import { flipPosition, includes, isRtl, positionAt, removeClasses, toggleClass, toNumber } from '../util/index';
+import { css, flipPosition, includes, isRtl, positionAt, removeClasses, toggleClass, toNumber } from '../util/index';
 
 export default {
 
@@ -37,7 +37,7 @@ export default {
         positionAt(element, target, boundary) {
 
             removeClasses(element, `${this.clsPos}-(top|bottom|left|right)(-[a-z]+)?`);
-            element.css({top: '', left: ''});
+            css(element, {top: '', left: ''});
 
             var offset = toNumber(this.offset) || 0,
                 axis = this.getAxis(),
@@ -46,7 +46,7 @@ export default {
                     target,
                     axis === 'x' ? `${flipPosition(this.dir)} ${this.align}` : `${this.align} ${flipPosition(this.dir)}`,
                     axis === 'x' ? `${this.dir} ${this.align}` : `${this.align} ${this.dir}`,
-                    this.dir === 'left' || this.dir === 'top' ? -1 * offset : offset,
+                    axis === 'x' ? `${this.dir === 'left' ? -1 * offset : offset}` : ` ${this.dir === 'top' ? -1 * offset : offset}`,
                     null,
                     this.flip,
                     boundary

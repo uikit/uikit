@@ -25,18 +25,16 @@ export function hasClass(element, cls) {
 
 export function toggleClass(element, ...args) {
 
-    args = getArgs(args);
-
-    var length = args.length;
-
-    if (!supportsClassList || !length) {
+    if (!supportsClassList || !args.length) {
         return;
     }
 
-    var force = !isString(args[length - 1]) ? args.pop() : undefined;
+    args = getArgs(args);
+
+    var force = !isString(args[args.length - 1]) ? args.pop()  : undefined;
 
     toNodes(element).forEach(({classList}) => {
-        for (var i = 0; i < length; i++) {
+        for (var i = 0; i < args.length; i++) {
             supportsForce
                 ? classList.toggle(args[i], force)
                 : (classList[(!isUndefined(force) ? force : !classList.contains(args[i])) ? 'add' : 'remove'](args[i]));
@@ -46,10 +44,9 @@ export function toggleClass(element, ...args) {
 }
 
 function apply(element, args, fn) {
+    args = getArgs(args);
+
     supportsClassList && toNodes(element).forEach(({classList}) => {
-
-        args = getArgs(args);
-
         supportsMultiple
             ? classList[fn].apply(classList, args)
             : args.forEach(cls => classList[fn](cls));

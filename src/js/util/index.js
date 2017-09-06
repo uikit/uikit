@@ -1,6 +1,7 @@
 export * from './lang';
 export * from './attr';
 export * from './dom';
+export * from './style';
 export * from './class';
 export * from './env';
 export * from './event';

@@ -1,5 +1,5 @@
 import { Position, Togglable } from '../mixin/index';
-import { addClass, Animation, attr, within, doc, includes, isTouch, MouseTracker, offset, on, one, pointerEnter, pointerLeave, query, removeClass, removeClasses, toggleClass, trigger, win } from '../util/index';
+import { addClass, Animation, attr, css, doc, includes, isTouch, MouseTracker, offset, on, one, pointerEnter, pointerLeave, query, removeClass, removeClasses, toggleClass, trigger, win, within } from '../util/index';
 
 export default function (UIkit) {
 
@@ -364,7 +364,7 @@ export default function (UIkit) {
             position() {
 
                 removeClasses(this.$el, `${this.clsDrop}-(stack|boundary)`);
-                this.$el.css({top: '', left: ''});
+                css(this.$el, {top: '', left: ''});
 
                 this.$el.show();
                 toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
@@ -374,7 +374,7 @@ export default function (UIkit) {
 
                 if (this.align === 'justify') {
                     var prop = this.getAxis() === 'y' ? 'width' : 'height';
-                    this.$el.css(prop, alignTo[prop]);
+                    css(this.$el, prop, alignTo[prop]);
                 } else if (this.$el[0].offsetWidth > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
                     addClass(this.$el, `${this.clsDrop}-stack`);
                     trigger(this.$el, 'stack', [this]);

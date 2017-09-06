@@ -1,4 +1,4 @@
-import { addClass, classify, doc, docEl, promise, toNode, win } from './index';
+import { classify, doc, docEl, promise, win } from './index';
 
 export const Observer = win.MutationObserver || win.WebKitMutationObserver;
 export const requestAnimationFrame = win.requestAnimationFrame || (fn => setTimeout(fn, 1000 / 60));
@@ -28,30 +28,6 @@ export function matches(element, selector) {
         return match.call(element, selector);
     } catch (e) {}
     return false;
-}
-
-export function getStyle(element, property, pseudoElt) {
-    return (win.getComputedStyle(toNode(element), pseudoElt) || {})[property];
-}
-
-export function getCssVar(name) {
-
-    /* usage in css:  .var-name:before { content:"xyz" } */
-
-    var val, element = docEl.appendChild(doc.createElement('div'));
-
-    addClass(element, `var-${name}`);
-
-    try {
-
-        val = getStyle(element, 'content', ':before').replace(/^["'](.*)["']$/, '$1');
-        val = JSON.parse(val);
-
-    } catch (e) {}
-
-    docEl.removeChild(element);
-
-    return val || undefined;
 }
 
 export function getImage(src) {

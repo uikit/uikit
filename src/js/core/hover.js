@@ -1,4 +1,4 @@
-import { $, addClass, within, doc, hasTouch, on, ready, removeClass } from '../util/index';
+import { $, addClass, doc, hasTouch, on, ready, removeClass, within } from '../util/index';
 
 export default function (UIkit) {
 

@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {addClass, scrolledOver, toFloat} = UIkit.util;
+    var {addClass, css, scrolledOver, toFloat} = UIkit.util;
 
     UIkit.component('grid-parallax', UIkit.components.grid.extend({
 
@@ -24,7 +24,7 @@ function plugin(UIkit) {
 
         disconnected() {
             this.reset();
-            this.$el.css('marginBottom', '');
+            css(this.$el, 'marginBottom', '');
         },
 
         computed: {
@@ -49,9 +49,9 @@ function plugin(UIkit) {
                 },
 
                 write() {
-                    this.$el
-                        .css('marginBottom', '')
-                        .css('marginBottom', this.columns > 1 ? this.translate + toFloat(this.$el.css('marginBottom')) : '');
+                    css(this.$el, 'marginBottom', this.columns > 1
+                        ? this.translate + toFloat(css(css(this.$el, 'marginBottom', ''), 'marginBottom'))
+                        : '');
                 },
 
                 events: ['load', 'resize']

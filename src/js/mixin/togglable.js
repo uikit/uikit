@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, Animation, assign, attr, doc, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, promise, toFloat, toggleClass, Transition, trigger } from '../util/index';
+import { $, Animation, assign, attr, css, doc, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, promise, toFloat, toggleClass, Transition, trigger } from '../util/index';
 
 export default {
 
@@ -120,7 +120,7 @@ export default {
                         ? el[0].style.height === '0px'
                         : !this.isToggled(el);
 
-            if (trigger(el, `before${show ? 'show' : 'hide'}`, [this]).defaultPrevented) {
+            if (!trigger(el, `before${show ? 'show' : 'hide'}`, [this])) {
                 return promise.reject();
             }
 
@@ -162,7 +162,7 @@ export default {
 
             var children = el.children(),
                 inProgress = Transition.inProgress(el),
-                inner = children.length ? toFloat(children.first().css('marginTop')) + toFloat(children.last().css('marginBottom')) : 0,
+                inner = children.length ? toFloat(css(children.first(), 'marginTop')) + toFloat(css(children.last(), 'marginBottom')) : 0,
                 currentHeight = isVisible(el) ? height(el) + (inProgress ? 0 : inner) : 0,
                 endHeight;
 
@@ -183,7 +183,7 @@ export default {
             return (show
                 ? Transition.start(el, assign({}, this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - currentHeight / endHeight)), this.transition)
                 : Transition.start(el, this.hideProps, Math.round(this.duration * (currentHeight / endHeight)), this.transition).then(() => this._toggle(el, false))
-            ).then(() => el.css(this.initProps));
+            ).then(() => css(el, this.initProps));
 
         },
 

@@ -28,7 +28,7 @@ export default function (UIkit) {
                     target = docHeight - winHeight;
                 }
 
-                if (trigger(this.$el, 'beforescroll', [this, el]).defaultPrevented) {
+                if (!trigger(this.$el, 'beforescroll', [this, el])) {
                     return;
                 }
 

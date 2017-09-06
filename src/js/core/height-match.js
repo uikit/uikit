@@ -1,4 +1,4 @@
-import { $, attr, isVisible } from '../util/index';
+import { $, attr, css, isVisible } from '../util/index';
 
 export default function (UIkit) {
 
@@ -30,7 +30,7 @@ export default function (UIkit) {
 
                 var lastOffset = false;
 
-                this.elements.css('minHeight', '');
+                css(this.elements, 'minHeight', '');
 
                 this.rows = !this.row
                     ? [this.match(this.elements)]
@@ -51,7 +51,7 @@ export default function (UIkit) {
 
             write() {
 
-                this.rows.forEach(({height, elements}) => elements && elements.css('minHeight', height));
+                this.rows.forEach(({height, elements}) => css(elements, 'minHeight', height));
 
             },
 

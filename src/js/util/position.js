@@ -1,5 +1,4 @@
-import $ from 'jquery';
-import { each, endsWith, includes, isDocument, isUndefined, isVisible, isWindow, toFloat, toNode, ucfirst } from './index';
+import { css, each, endsWith, includes, isDocument, isUndefined, isVisible, isWindow, toFloat, toNode, ucfirst } from './index';
 
 var dirs = {
         width: ['x', 'left', 'right'],
@@ -100,11 +99,11 @@ export function offset(element, coordinates) {
     if (coordinates) {
 
         var currentOffset = offset(element),
-            pos = $(element).css('position');
+            pos = css(element, 'position');
 
         ['left', 'top'].forEach(prop => {
             if (prop in coordinates) {
-                var value = $(element).css(prop);
+                var value = css(element, prop);
                 element.style[prop] = `${(coordinates[prop] - currentOffset[prop]) 
                     + toFloat(pos === 'absolute' && value === 'auto' ? position(element)[prop] : value)
                 }px`;
@@ -121,12 +120,12 @@ function getDimensions(element) {
 
     element = toNode(element);
 
-    var window = getWindow(element),
-        {pageYOffset: top, pageXOffset: left} = window;
+    var {pageYOffset: top, pageXOffset: left} = getWindow(element);
 
-    if (!document(element)) {
+    if (isWindow(element)) {
 
-        var {height, width} = window;
+        var height = element.innerHeight,
+            width = element.innerWidth;
 
         return {
             top,
@@ -161,16 +160,16 @@ function getDimensions(element) {
 }
 
 export function position(element) {
-    element = $(element);
+    element = toNode(element);
 
     var parent = offsetParent(element),
-        parentOffset = parent === document(element).documentElement ? {top: 0, left: 0} : offset(parent);
+        parentOffset = parent === docEl(element) ? {top: 0, left: 0} : offset(parent);
 
     return ['top', 'left'].reduce((props, prop) => {
         var propName = ucfirst(prop);
         props[prop] -= parentOffset[prop]
-            + (toFloat(element.css(`margin${propName}`)) || 0)
-            + (toFloat($(parent).css(`border${propName}Width`)) || 0);
+            + (toFloat(css(element, `margin${propName}`)) || 0)
+            + (toFloat(css(parent, `border${propName}Width`)) || 0);
         return props;
     }, offset(element));
 }
@@ -179,11 +178,11 @@ function offsetParent(element) {
 
     var parent = toNode(element).offsetParent;
 
-    while (parent && $(parent).css('position') === 'static') {
+    while (parent && css(parent, 'position') === 'static') {
         parent = parent.offsetParent;
     }
 
-    return parent || document(element).documentElement;
+    return parent || docEl(element);
 }
 
 export const height = dimension('height');
@@ -202,17 +201,18 @@ function dimension(prop) {
             }
 
             if (isDocument(element)) {
-                return Math.max(element.offsetHeight, element.scrollHeight);
+                var doc = element.documentElement;
+                return Math.max(doc.offsetHeight, doc.scrollHeight);
             }
 
-            value = $(element).css(prop);
+            value = css(element, prop);
             value = toFloat(value === 'auto' ? element[`offset${propName}`] : value) || 0;
 
             return getContentSize(prop, propName, element, value);
 
         } else {
 
-            $(element).css(prop, !value && value !== 0
+            css(element, prop, !value && value !== 0
                 ? ''
                 : getContentSize(prop, propName, element, value) + 'px');
 
@@ -222,16 +222,15 @@ function dimension(prop) {
 }
 
 function getContentSize(prop, propName, element, value) {
-    return $(element).css('boxSizing') === 'border-box' ? dirs[prop].slice(1).reduce((value, prop) =>
+    return css(element, 'boxSizing') === 'border-box' ? dirs[prop].slice(1).reduce((value, prop) =>
         value
-            - toFloat($(element).css(`padding${propName}`))
-            - toFloat($(element).css(`border${propName}Width`))
+            - toFloat(css(element, `padding${propName}`))
+            - toFloat(css(element, `border${propName}Width`))
     , value) : value;
 }
 
 function getWindow(element) {
-    var doc = document(element);
-    return doc && doc.defaultView || window;
+    return isWindow(element) ? element : document(element).defaultView;
 }
 
 function moveTo(position, attach, dim, factor) {
@@ -290,6 +289,9 @@ export function flipPosition(pos) {
 }
 
 function document(element) {
-    element = toNode(element);
-    return element && element.ownerDocument;
+    return toNode(element).ownerDocument;
+}
+
+function docEl(element) {
+    return document(element).documentElement;
 }

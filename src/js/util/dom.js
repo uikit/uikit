@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { addClass, animationend, assign, attr, clamp, each, getContextSelectors, hasClass, height, includes, isNumber, isString, on, one, promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toJQuery, toNode, toNodes, transitionend, trigger, width } from './index';
+import { addClass, animationend, assign, attr, clamp, css, each, getContextSelectors, hasClass, height, isNumber, isString, on, one, promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toJQuery, toNode, toNodes, transitionend, trigger, width } from './index';
 
 export const win = window;
 export const doc = document;
@@ -34,10 +34,8 @@ export function transition(element, props, duration = 400, transition = 'linear'
     return promise.all(toNodes(element).map(element =>
         promise((resolve, reject) => {
 
-            element = $(element);
-
             for (var name in props) {
-                element.css(name, element.css(name));
+                css(element, name, css(element, name));
             }
 
             var timer = setTimeout(() => trigger(element, transitionend), duration);
@@ -45,14 +43,12 @@ export function transition(element, props, duration = 400, transition = 'linear'
             one(element, `${transitionend} ${transitioncancel}`, ({type}) => {
                 clearTimeout(timer);
                 removeClass(element, 'uk-transition');
-                element.css('transition', '');
+                css(element, 'transition', '');
                 type === transitioncancel ? reject() : resolve();
-            }, false, ({target}) => element.is(target));
+            }, false, ({target}) => element === target);
 
             addClass(element, 'uk-transition');
-            element
-                .css('transition', `all ${duration}ms ${transition}`)
-                .css(props);
+            css(element, assign({transition: `all ${duration}ms ${transition}`}, props));
 
         })
     ));
@@ -87,8 +83,6 @@ export function animate(element, animation, duration = 200, origin, out) {
 
     return promise.all(toNodes(element).map(element =>
         promise((resolve, reject) => {
-
-            element = $(element);
 
             if (hasClass(element, clsCancelAnimation)) {
                 requestAnimationFrame(() =>
@@ -134,9 +128,9 @@ export function animate(element, animation, duration = 200, origin, out) {
                     reset();
                 });
 
-            }, false, ({target}) => element.is(target));
+            }, false, ({target}) => element === target);
 
-            element.css('animationDuration', `${duration}ms`);
+            css(element, 'animationDuration', `${duration}ms`);
             addClass(element, cls);
 
             if (!animationend) {
@@ -144,7 +138,7 @@ export function animate(element, animation, duration = 200, origin, out) {
             }
 
             function reset() {
-                element.css('animationDuration', '');
+                css(element, 'animationDuration', '');
                 removeClasses(element, `${animationPrefix}\\S*`);
             }
 
@@ -239,27 +233,26 @@ export function getIndex(index, elements, current = 0) {
     return index < 0 ? index + length : index;
 }
 
-var voidElements = [
-    'area',
-    'base',
-    'br',
-    'col',
-    'embed',
-    'hr',
-    'img',
-    'input',
-    'keygen',
-    'link',
-    'menuitem',
-    'meta',
-    'param',
-    'source',
-    'track',
-    'wbr'
-];
-
+var voidElements = {
+    area: true,
+    base: true,
+    br: true,
+    col: true,
+    embed: true,
+    hr: true,
+    img: true,
+    input: true,
+    keygen: true,
+    link: true,
+    menuitem: true,
+    meta: true,
+    param: true,
+    source: true,
+    track: true,
+    wbr: true
+};
 export function isVoidElement(element) {
-    return includes(voidElements, toNode(element).tagName.toLowerCase());
+    return voidElements[toNode(element).tagName.toLowerCase()];
 }
 
 export const Dimensions = {

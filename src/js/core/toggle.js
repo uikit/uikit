@@ -103,7 +103,7 @@ export default function (UIkit) {
         methods: {
 
             toggle(type) {
-                if (!trigger(this.target, type || 'toggle', [this]).defaultPrevented) {
+                if (trigger(this.target, type || 'toggle', [this])) {
                     this.toggleElement(this.target);
                 }
             }

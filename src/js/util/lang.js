@@ -190,7 +190,9 @@ export function toNodes(element) {
         ? element.toArray()
         : isArray(element)
             ? element
-            : [element];
+            : element
+                ? [element]
+                : [];
 }
 
 export function toBoolean(value) {

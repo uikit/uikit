@@ -1,4 +1,4 @@
-import { $, addClass, attr, isInView, removeClass, toggleClass, trigger } from '../util/index';
+import { $, addClass, attr, css, isInView, removeClass, toggleClass, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -41,7 +41,7 @@ export default function (UIkit) {
 
                 write() {
                     if (this.hidden) {
-                        this.elements.filter(`:not(.${this.inViewClass})`).css('visibility', 'hidden');
+                        css(this.elements.filter(`:not(.${this.inViewClass})`), 'visibility', 'hidden');
                     }
                 }
 
@@ -75,7 +75,7 @@ export default function (UIkit) {
                             if (!data.inview && !data.timer) {
 
                                 var show = () => {
-                                    $el.css('visibility', '');
+                                    css($el, 'visibility', '');
                                     addClass($el, this.inViewClass);
                                     toggleClass($el, cls);
 
@@ -106,7 +106,7 @@ export default function (UIkit) {
                                     delete data.timer;
                                 }
 
-                                $el.css('visibility', this.hidden ? 'hidden' : '');
+                                css($el, 'visibility', this.hidden ? 'hidden' : '');
                                 removeClass($el, this.inViewClass);
                                 toggleClass($el, cls);
 

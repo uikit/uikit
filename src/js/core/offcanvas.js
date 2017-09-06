@@ -1,5 +1,5 @@
 import { Modal } from '../mixin/index';
-import { $, addClass, docEl, hasClass, height, isTouch, one, query, removeClass, transitionend, trigger, width, win } from '../util/index';
+import { $, addClass, css, docEl, hasClass, height, isTouch, one, query, removeClass, transitionend, trigger, width, win } from '../util/index';
 
 var scroll;
 
@@ -79,7 +79,9 @@ export default function (UIkit) {
 
                     if (this.overlay) {
                         height(this.content, height(win));
-                        scroll && this.content.scrollTop(scroll.y);
+                        if (scroll) {
+                            this.content[0].scrollTop = scroll.y;
+                        }
                     }
 
                 }
@@ -140,14 +142,13 @@ export default function (UIkit) {
                         addClass(this.panel.parent(), this.clsMode);
                     }
 
-                    $(docEl).css('overflowY', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
-
+                    css(docEl, 'overflowY', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
                     addClass(this.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
                     height(this.body); // force reflow
                     addClass(this.content, this.clsContentAnimation);
                     addClass(this.panel, `${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
                     addClass(this.clsOverlay);
-                    this.$el.css('display', 'block');
+                    css(this.$el, 'display', 'block');
                     height(this.$el); // force reflow
 
                 }
@@ -187,11 +188,11 @@ export default function (UIkit) {
 
                     removeClass(this.panel, `${this.clsSidebarAnimation} ${this.clsMode}`);
                     removeClass(this.$el, this.clsOverlay);
-                    this.$el.css('display', '');
+                    css(this.$el, 'display', '');
                     removeClass(this.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
-                    this.body.scrollTop(scroll.y); // TODO ?
+                    this.body[0].scrollTop = scroll.y;
 
-                    $(docEl).css('overflow-y', '');
+                    css(docEl, 'overflow-y', '');
 
                     width(this.content, '');
                     height(this.content, '');

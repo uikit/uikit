@@ -33,11 +33,9 @@ export function one(...args) {
 }
 
 export function trigger(element, event, detail) {
-    return toNodes(element).map(element => {
-        var e = createEvent(event, true, true, detail);
-        toNode(element).dispatchEvent(e);
-        return e;
-    })[0];
+    return toNodes(element).reduce((notCanceled, element) =>
+        notCanceled && element.dispatchEvent(createEvent(event, true, true, detail))
+    , true);
 }
 
 export function createEvent(e, bubbles = true, cancelable = false, detail) {

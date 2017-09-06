@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, addClass, Animation, attr, docEl, hasClass, height, isNumeric, isString, noop, offset, query, removeClass, replaceClass, requestAnimationFrame, toFloat, toggleClass, toJQuery, trigger, win } from '../util/index';
+import { $, addClass, Animation, assign, attr, css, docEl, hasClass, height, isNumeric, isString, noop, offset, query, removeClass, replaceClass, requestAnimationFrame, toFloat, toggleClass, toJQuery, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -127,9 +127,10 @@ export default function (UIkit) {
                     var placeholder = this.placeholder,
                         outerHeight = (this.isActive ? placeholder : this.$el)[0].offsetHeight, el;
 
-                    placeholder
-                        .css('height', this.$el.css('position') !== 'absolute' ? outerHeight : '')
-                        .css(this.$el.css(['marginTop', 'marginBottom', 'marginLeft', 'marginRight']));
+                    css(placeholder, assign(
+                        {height: css(this.$el, 'position') !== 'absolute' ? outerHeight : ''},
+                        css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
+                    ));
 
                     if (!docEl.contains(placeholder[0])) {
                         placeholder.insertAfter(this.$el);
@@ -259,7 +260,7 @@ export default function (UIkit) {
                 }
 
                 removeClass(this.$el, this.clsFixed, this.clsBelow);
-                this.$el.css({position: '', top: '', width: ''});
+                css(this.$el, {position: '', top: '', width: ''});
                 attr(this.placeholder, 'hidden', '');
 
             },
@@ -272,7 +273,7 @@ export default function (UIkit) {
                     top = this.bottom - this.scroll;
                 }
 
-                this.$el.css({
+                css(this.$el, {
                     position: 'fixed',
                     top: `${top}px`,
                     width: this.width

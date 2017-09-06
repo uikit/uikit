@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, each, pointerEnter, pointerLeave, toFloat, Transition, trigger} = UIkit.util;
+    var {$, css, each, pointerEnter, pointerLeave, toFloat, Transition, trigger} = UIkit.util;
     var containers = {};
 
     UIkit.component('notification', {
@@ -40,10 +40,9 @@ function plugin(UIkit) {
 
         ready() {
 
-            var marginBottom = toFloat(this.$el.css('marginBottom'));
-
+            var marginBottom = toFloat(css(this.$el, 'marginBottom'));
             Transition.start(
-                this.$el.css({opacity: 0, marginTop: -1 * this.$el[0].offsetHeight, marginBottom: 0}),
+                css(this.$el, {opacity: 0, marginTop: -1 * this.$el[0].offsetHeight, marginBottom: 0}),
                 {opacity: 1, marginTop: 0, marginBottom}
             ).then(() => {
                 if (this.timeout) {

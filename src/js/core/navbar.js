@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, addClass, assign, within, height, includes, isRtl, isVisible, noop, query, toFloat, Transition } from '../util/index';
+import { $, addClass, assign, css, height, includes, isRtl, isVisible, noop, query, toFloat, Transition, within } from '../util/index';
 
 export default function (UIkit) {
 
@@ -158,7 +158,7 @@ export default function (UIkit) {
 
                 handler(_, {$el}) {
                     this.clsDrop && addClass($el, `${this.clsDrop}-dropbar`);
-                    this.transitionTo(height($el[0]) + toFloat($el.css('marginTop')) + toFloat($el.css('marginBottom')));
+                    this.transitionTo(height($el[0]) + toFloat(css($el, 'marginTop')) + toFloat(css($el, 'marginBottom')));
                 }
             },
 

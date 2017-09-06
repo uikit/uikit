@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {mixin, util} = UIkit;
-    var {$, addClass, assign, attr, doc, docEl, height, fastdom, includes, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, promise, removeClass, toggleClass, Transition, trigger, win, within} = util;
+    var {$, addClass, assign, attr, css, doc, docEl, height, fastdom, includes, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, promise, removeClass, toggleClass, Transition, trigger, win, within} = util;
 
     UIkit.component('sortable', {
 
@@ -74,14 +74,15 @@ function plugin(UIkit) {
 
                 offset(this.drag, {top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
 
-                var top = offset(this.drag).top, bottom = top + this.drag[0].offsetHeight;
+                var top = offset(this.drag).top, bottom = top + this.drag[0].offsetHeight, scroll;
 
                 if (top > 0 && top < this.scrollY) {
-                    setTimeout(() => win.scrollTop(this.scrollY - 5), 5);
+                    scroll = this.scrollY - 5;
                 } else if (bottom < height(doc) && bottom > height(win) + this.scrollY) {
-                    setTimeout(() => win.scrollTop(this.scrollY + 5), 5);
+                    scroll = this.scrollY + 5;
                 }
 
+                scroll && setTimeout(() => win.scrollTo(win.scrollX, scroll), 5);
             }
 
         },
@@ -120,17 +121,17 @@ function plugin(UIkit) {
 
             start(e) {
 
-                this.drag = $(this.placeholder[0].outerHTML.replace(/^<li/i, '<div').replace(/li>$/i, 'div>'))
-                    .css({
-                        boxSizing: 'border-box',
-                        width: this.placeholder[0].offsetWidth,
-                        height: this.placeholder[0].offsetHeight
-                    })
-                    .css(this.placeholder.css(['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom']));
+                this.drag = $(this.placeholder[0].outerHTML.replace(/^<li/i, '<div').replace(/li>$/i, 'div>'));
 
+                css(this.drag, assign({
+                    boxSizing: 'border-box',
+                    width: this.placeholder[0].offsetWidth,
+                    height: this.placeholder[0].offsetHeight
+                }, css(this.placeholder, ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom'])));
                 attr(this.drag, 'uk-no-boot', '');
-                this.drag.appendTo(UIkit.container);
                 addClass(this.drag, `${this.clsDrag} ${this.clsCustom}`);
+
+                this.drag.appendTo(UIkit.container);
 
                 height(this.drag.children().first(), height(this.placeholder.children().first()));
 
@@ -288,21 +289,22 @@ function plugin(UIkit) {
                         }, position(el)));
                         return el;
                     }),
-                    reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: ''};
+                    reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: '', bottom: '', right: ''};
 
                 action();
 
                 children.forEach(Transition.cancel);
-                this.$el.children().css(reset);
+                css(this.$el.children(), reset);
                 this.$update('update', true);
                 fastdom.flush();
 
-                this.$el.css('minHeight', height(this.$el));
+                css(this.$el, 'minHeight', height(this.$el));
 
                 var positions = children.map(el => position(el));
-                promise.all(children.map((el, i) => Transition.start(el.css(props[i]), positions[i], this.animation)))
+                promise.all(children.map((el, i) => Transition.start(css(el, props[i]), positions[i], this.animation)))
                     .then(() => {
-                        this.$el.css('minHeight', '').children().css(reset);
+                        css(this.$el, 'minHeight', '');
+                        css(this.$el.children(), reset);
                         this.$update('update', true);
                         fastdom.flush();
                     }, noop);

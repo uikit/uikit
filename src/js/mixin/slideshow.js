@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {addClass, hasClass, removeClass, toggleClass, $, attr, doc, fastdom, getIndex, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, promise, requestAnimationFrame, Transition, trigger} = UIkit.util;
+    var {addClass, css, hasClass, removeClass, toggleClass, $, attr, doc, fastdom, getIndex, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, promise, requestAnimationFrame, Transition, trigger} = UIkit.util;
 
     UIkit.mixin.slideshow = {
 
@@ -353,7 +353,7 @@ function plugin(UIkit) {
             },
 
             percent(current) {
-                return 1 - current.css('opacity');
+                return 1 - css(current, 'opacity');
             },
 
             translate(percent) {
@@ -375,7 +375,7 @@ function plugin(UIkit) {
             },
 
             percent(current) {
-                return Math.abs(current.css('transform').split(',')[4] / current[0].offsetWidth);
+                return Math.abs(css(current, 'transform').split(',')[4] / current[0].offsetWidth);
             },
 
             translate(percent, dir) {
@@ -397,7 +397,7 @@ function plugin(UIkit) {
             },
 
             percent(current) {
-                return 1 - current.css('opacity');
+                return 1 - css(current, 'opacity');
             },
 
             translate(percent) {
@@ -434,7 +434,7 @@ function plugin(UIkit) {
             percent(current, next, dir) {
 
                 var el = dir < 0 ? current : next,
-                    percent = Math.abs(el.css('transform').split(',')[4] / el[0].offsetWidth);
+                    percent = Math.abs(css(el, 'transform').split(',')[4] / el[0].offsetWidth);
 
                 return dir < 0 ? percent : 1 - percent;
             },
@@ -505,7 +505,7 @@ function plugin(UIkit) {
 
             reset() {
                 for (var prop in props[0]) {
-                    $([next[0], current[0]]).css(prop, '');
+                    css($([next[0], current[0]]), prop, '');
                 }
             },
 
@@ -523,8 +523,8 @@ function plugin(UIkit) {
             translate(percent) {
 
                 var props = animation.translate(percent, dir);
-                current.css(props[0]);
-                next.css(props[1]);
+                css(current, props[0]);
+                css(next, props[1]);
 
             },
 
