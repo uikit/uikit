@@ -34,7 +34,7 @@ function plugin(UIkit) {
                     <a href="#" class="${this.clsClose}" data-uk-close></a>
                     <div>${this.message}</div>
                 </div>`
-            ).appendTo(containers[this.pos].show())[0]);
+            ).appendTo(css(containers[this.pos], 'display', 'block'))[0]);
 
         },
 
@@ -85,7 +85,7 @@ function plugin(UIkit) {
                     this.$el.remove();
 
                     if (!containers[this.pos].children().length) {
-                        containers[this.pos].hide();
+                        css(containers[this.pos], 'display', 'none');
                     }
 
                 };

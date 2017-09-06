@@ -364,9 +364,7 @@ export default function (UIkit) {
             position() {
 
                 removeClasses(this.$el, `${this.clsDrop}-(stack|boundary)`);
-                css(this.$el, {top: '', left: ''});
-
-                this.$el.show();
+                css(this.$el, {top: '', left: '', display: 'block'});
                 toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
 
                 var boundary = offset(this.boundary),
@@ -382,7 +380,7 @@ export default function (UIkit) {
 
                 this.positionAt(this.$el, this.boundaryAlign ? this.boundary : this.toggle.$el, this.boundary);
 
-                this.$el[0].style.display = '';
+                css(this.$el, 'display', '');
 
             }
 
