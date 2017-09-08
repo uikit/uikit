@@ -1,21 +1,21 @@
 import UIkit from '../api/index';
-import { $, addClass, css, doc, docEl, hasClass, on, one, Promise, removeClass, requestAnimationFrame, toJQuery, toMs, toNode, transitionend, width, win, within } from '../util/index';
+import { $, addClass, css, doc, docEl, hasClass, on, one, Promise, removeClass, requestAnimationFrame, toMs, transitionend, width, win, within } from '../util/index';
 import Class from './class';
+import Container from './container';
 import Togglable from './togglable';
 
 var active;
 
 export default {
 
-    mixins: [Class, Togglable],
+    mixins: [Class, Container, Togglable],
 
     props: {
         clsPanel: String,
         selClose: String,
         escClose: Boolean,
         bgClose: Boolean,
-        stack: Boolean,
-        container: Boolean
+        stack: Boolean
     },
 
     defaults: {
@@ -23,22 +23,17 @@ export default {
         escClose: true,
         bgClose: true,
         overlay: true,
-        stack: false,
-        container: true
+        stack: false
     },
 
     computed: {
 
         body() {
-            return $(doc.body);
+            return doc.body;
         },
 
-        panel() {
-            return this.$el.find(`.${this.clsPanel}`);
-        },
-
-        container() {
-            return toNode(this.$props.container === true && UIkit.container || this.$props.container && toJQuery(this.$props.container));
+        panel({clsPanel}, $el) {
+            return $(`.${clsPanel}`, $el);
         },
 
         transitionElement() {
@@ -132,8 +127,8 @@ export default {
                 return;
             }
 
-            if (this.container && !this.$el.parent().is(this.container)) {
-                this.container.appendChild(this.$el[0]);
+            if (this.container && this.$el.parentNode !== this.container) {
+                this.container.appendChild(this.$el);
                 return new Promise(resolve =>
                     requestAnimationFrame(() =>
                         resolve(this.show())

@@ -20,15 +20,6 @@ export const transitionend = prefix('transition', 'transition-end');
 export const animationstart = prefix('animation', 'animation-start');
 export const animationend = prefix('animation', 'animation-end');
 
-var match = Element.prototype.matches || Element.prototype.msMatchesSelector;
-
-export function matches(element, selector) {
-    try {
-        return match.call(element, selector);
-    } catch (e) {}
-    return false;
-}
-
 export function getImage(src) {
 
     return new Promise((resolve, reject) => {

@@ -34,7 +34,6 @@
     "clean-css": "^4.1.7",
     "glob": "^7.1.2",
     "html-loader": "^0.5.1",
-    "jquery": "^3.2.1",
     "less": "^2.7.1",
     "minimist": "^1.2.0",
     "mkdirp": "^0.5.1",

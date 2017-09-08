@@ -95,10 +95,10 @@ export default function (UIkit) {
         }
 
         fn(node);
-        node = node.firstChild;
+        node = node.firstElementChild;
         while (node) {
             apply(node, fn);
-            node = node.nextSibling;
+            node = node.nextElementSibling;
         }
     }
 

@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {addClass, css, hasClass, removeClass, toggleClass, $, attr, doc, fastdom, getIndex, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, requestAnimationFrame, Transition, trigger} = UIkit.util;
+    var {addClass, css, filter, hasClass, removeClass, toggleClass, $, attr, doc, fastdom, getIndex, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, requestAnimationFrame, Transition, trigger} = UIkit.util;
 
     UIkit.mixin.slideshow = {
 
@@ -31,12 +31,12 @@ function plugin(UIkit) {
 
         computed: {
 
-            slides() {
-                return this.list.children(`.${this.clsItem}`);
+            slides({clsItem}) {
+                return filter(this.list.children, `.${clsItem}`);
             },
 
-            forwardDuration() {
-                return this.duration / 4;
+            forwardDuration({duration}) {
+                return duration / 4;
             }
 
         },
@@ -155,11 +155,11 @@ function plugin(UIkit) {
                 on(doc, pointerMove, this.move, true);
                 on(doc, pointerUp, this.end, true);
 
-                var el = this.slides.eq(this.index);
+                var el = this.slides[this.index];
 
                 this.touch = {
                     el,
-                    start: this.pos + (percent ? el[0].offsetWidth * percent : 0)
+                    start: this.pos + (percent ? el.offsetWidth * percent : 0)
                 }
 
             },
@@ -176,7 +176,7 @@ function plugin(UIkit) {
 
                 this.touching = true;
 
-                var percent = (this.pos - start) / el[0].offsetWidth;
+                var percent = (this.pos - start) / el.offsetWidth;
 
                 if (this.percent === percent) {
                     return;
@@ -184,12 +184,12 @@ function plugin(UIkit) {
 
                 var changed = trunc(this.percent) !== trunc(percent),
                     index = this.getIndex(this.index - trunc(percent)),
-                    current = this.slides.eq(index),
+                    current = this.slides[index],
                     dir = percent < 0 ? 1 : -1,
                     nextIndex = getIndex(percent < 0 ? 'next' : 'previous', this.slides, index),
-                    next = this.slides.eq(nextIndex);
+                    next = this.slides[nextIndex];
 
-                this.slides.each((i, el) => toggleClass(el, this.clsActive, i === index || i === nextIndex));
+                this.slides.forEach((el, i) => toggleClass(el, this.clsActive, i === index || i === nextIndex));
 
                 if (changed && this._animation) {
                     this._animation.reset();
@@ -272,8 +272,8 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var prev = hasPrev && this.slides.eq(this.index),
-                    next = this.slides.eq(index);
+                var prev = hasPrev && this.slides[this.index],
+                    next = this.slides[index];
 
                 trigger(this.$el, 'beforeitemshow', [this, next]);
                 prev && trigger(this.$el, 'beforeitemhide', [this, prev]);
@@ -375,7 +375,7 @@ function plugin(UIkit) {
             },
 
             percent(current) {
-                return Math.abs(css(current, 'transform').split(',')[4] / current[0].offsetWidth);
+                return Math.abs(css(current, 'transform').split(',')[4] / current.offsetWidth);
             },
 
             translate(percent, dir) {
@@ -434,7 +434,7 @@ function plugin(UIkit) {
             percent(current, next, dir) {
 
                 var el = dir < 0 ? current : next,
-                    percent = Math.abs(css(el, 'transform').split(',')[4] / el[0].offsetWidth);
+                    percent = Math.abs(css(el, 'transform').split(',')[4] / el.offsetWidth);
 
                 return dir < 0 ? percent : 1 - percent;
             },
@@ -505,7 +505,7 @@ function plugin(UIkit) {
 
             reset() {
                 for (var prop in props[0]) {
-                    css($([next[0], current[0]]), prop, '');
+                    css([next, current[0]], prop, '');
                 }
             },
 

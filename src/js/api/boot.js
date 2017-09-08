@@ -71,9 +71,9 @@ export default function (UIkit) {
         }
 
         fn(node);
-        node = node.firstChild;
+        node = node.firstElementChild;
         while (node) {
-            var next = node.nextSibling;
+            var next = node.nextElementSibling;
             apply(node, fn);
             node = next;
         }

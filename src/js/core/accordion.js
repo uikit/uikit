@@ -1,5 +1,5 @@
 import { Class, Togglable } from '../mixin/index';
-import { $, attr, getIndex, hasClass, toggleClass, toJQuery } from '../util/index';
+import { $, $$, attr, filter, getIndex, hasClass, includes, index, unwrap, toggleClass, wrapAll } from '../util/index';
 
 export default function (UIkit) {
 
@@ -31,12 +31,8 @@ export default function (UIkit) {
 
         computed: {
 
-            items() {
-                var items = $(this.targets, this.$el);
-                this._changed = !this._items
-                    || items.length !== this._items.length
-                    || items.toArray().some((el, i) => el !== this._items.get(i));
-                return this._items = items;
+            items({targets}, $el) {
+                return $$(targets, $el);
             }
 
         },
@@ -47,13 +43,15 @@ export default function (UIkit) {
 
                 name: 'click',
 
+                self: true,
+
                 delegate() {
                     return `${this.targets} ${this.$props.toggle}`;
                 },
 
                 handler(e) {
                     e.preventDefault();
-                    this.toggle(this.items.find(this.$props.toggle).index(e.current));
+                    this.toggle(index($$(`${this.targets} ${this.$props.toggle}`, this.$el), e.current));
                 }
 
             }
@@ -62,16 +60,11 @@ export default function (UIkit) {
 
         update() {
 
-            if (!this.items.length || !this._changed) {
-                return;
-            }
-
-            this.items.each((i, el) => {
-                el = $(el);
-                this.toggleNow(el.find(this.content), hasClass(el, this.clsOpen));
+            this.items.forEach(el => {
+                this.toggleNow($(this.content, el), hasClass(el, this.clsOpen));
             });
 
-            var active = this.active !== false && toJQuery(this.items.eq(Number(this.active))) || !this.collapsible && toJQuery(this.items.eq(0));
+            var active = !hasClass(this.items, this.clsOpen) && (this.active !== false && this.items[Number(this.active)] || !this.collapsible && this.items[0]);
             if (active && !hasClass(active, this.clsOpen)) {
                 this.toggle(active, false);
             }
@@ -83,43 +76,43 @@ export default function (UIkit) {
             toggle(item, animate) {
 
                 var index = getIndex(item, this.items),
-                    active = this.items.filter(`.${this.clsOpen}`);
+                    active = filter(this.items, `.${this.clsOpen}`);
 
-                item = this.items.eq(index);
+                item = this.items[index];
 
-                item.add(!this.multiple && active).each((i, el) => {
+                item && [item]
+                    .concat(!this.multiple && !includes(active, item) && active || [])
+                    .forEach(el => {
 
-                    el = $(el);
+                        var isItem = el === item, state = isItem && !hasClass(el, this.clsOpen);
 
-                    var isItem = el.is(item), state = isItem && !hasClass(el, this.clsOpen);
-
-                    if (!state && isItem && !this.collapsible && active.length < 2) {
-                        return;
-                    }
-
-                    toggleClass(el, this.clsOpen, state);
-
-                    var content = el[0]._wrapper ? el[0]._wrapper.children().first() : el.find(this.content);
-
-                    if (!el[0]._wrapper) {
-                        el[0]._wrapper = content.wrap('<div>').parent();
-                        attr(el[0]._wrapper, 'hidden', state ? '' : null);
-                    }
-
-                    this._toggleImmediate(content, true);
-                    this.toggleElement(el[0]._wrapper, state, animate).then(() => {
-                        if (hasClass(el, this.clsOpen) === state) {
-
-                            if (!state) {
-                                this._toggleImmediate(content, false);
-                            }
-
-                            el[0]._wrapper = null;
-                            content.unwrap();
+                        if (!state && isItem && !this.collapsible && active.length < 2) {
+                            return;
                         }
-                    });
 
-                })
+                        toggleClass(el, this.clsOpen, state);
+
+                        var content = el._wrapper ? el._wrapper.firstElementChild : $(this.content, el);
+
+                        if (!el._wrapper) {
+                            el._wrapper = wrapAll(content, '<div>');
+                            attr(el._wrapper, 'hidden', state ? '' : null);
+                        }
+
+                        this._toggleImmediate(content, true);
+                        this.toggleElement(el._wrapper, state, animate).then(() => {
+                            if (hasClass(el, this.clsOpen) === state) {
+
+                                if (!state) {
+                                    this._toggleImmediate(content, false);
+                                }
+
+                                el._wrapper = null;
+                                unwrap(content);
+                            }
+                        });
+
+                    })
             }
 
         }

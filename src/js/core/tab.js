@@ -20,7 +20,11 @@ export default function (UIkit) {
 
         init() {
 
-            var cls = hasClass(this.$el, 'uk-tab-left') && 'uk-tab-left' || hasClass(this.$el, 'uk-tab-right') && 'uk-tab-right';
+            var cls = hasClass(this.$el, 'uk-tab-left')
+                ? 'uk-tab-left'
+                : hasClass(this.$el, 'uk-tab-right')
+                    ? 'uk-tab-right'
+                    : false;
 
             if (cls) {
                 UIkit.toggle(this.$el, {cls, mode: 'media', media: this.media});

@@ -1,4 +1,4 @@
-import { $, addClass, attr, css, isInView, removeClass, toggleClass, trigger } from '../util/index';
+import { $$, addClass, attr, css, filter, isInView, removeClass, toggleClass, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -29,8 +29,8 @@ export default function (UIkit) {
 
         computed: {
 
-            elements() {
-                return this.target && $(this.target, this.$el) || this.$el;
+            elements({target}, $el) {
+                return target && $$(target, $el) || [$el];
             }
 
         },
@@ -41,7 +41,7 @@ export default function (UIkit) {
 
                 write() {
                     if (this.hidden) {
-                        css(this.elements.filter(`:not(.${this.inViewClass})`), 'visibility', 'hidden');
+                        css(filter(this.elements, `:not(.${this.inViewClass})`), 'visibility', 'hidden');
                     }
                 }
 
@@ -50,7 +50,7 @@ export default function (UIkit) {
             {
 
                 read() {
-                    this.elements.each((_, el) => {
+                    this.elements.forEach(el => {
 
                         if (!el._scrollspy) {
                             var cls = attr(el, 'uk-scrollspy-class');
@@ -66,20 +66,20 @@ export default function (UIkit) {
 
                     var index = this.elements.length === 1 ? 1 : 0;
 
-                    this.elements.each((i, el) => {
+                    this.elements.forEach((el, i) => {
 
-                        var $el = $(el), data = el._scrollspy, cls = data.toggles[i] || data.toggles[0];
+                        var data = el._scrollspy, cls = data.toggles[i] || data.toggles[0];
 
                         if (data.show) {
 
                             if (!data.inview && !data.timer) {
 
                                 var show = () => {
-                                    css($el, 'visibility', '');
-                                    addClass($el, this.inViewClass);
-                                    toggleClass($el, cls);
+                                    css(el, 'visibility', '');
+                                    addClass(el, this.inViewClass);
+                                    toggleClass(el, cls);
 
-                                    trigger($el, 'inview');
+                                    trigger(el, 'inview');
 
                                     this.$update();
 
@@ -106,11 +106,11 @@ export default function (UIkit) {
                                     delete data.timer;
                                 }
 
-                                css($el, 'visibility', this.hidden ? 'hidden' : '');
-                                removeClass($el, this.inViewClass);
-                                toggleClass($el, cls);
+                                css(el, 'visibility', this.hidden ? 'hidden' : '');
+                                removeClass(el, this.inViewClass);
+                                toggleClass(el, cls);
 
-                                trigger($el, 'outview');
+                                trigger(el, 'outview');
 
                                 this.$update();
 

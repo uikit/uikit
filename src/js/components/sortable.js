@@ -1,3 +1,6 @@
+import { after, append, before, index, remove } from "../util/dom";
+import { $$, toNodes } from "../util/selector";
+
 function plugin(UIkit) {
 
     if (plugin.installed) {
@@ -5,7 +8,7 @@ function plugin(UIkit) {
     }
 
     var {mixin, util} = UIkit;
-    var {$, addClass, assign, attr, css, doc, docEl, height, fastdom, includes, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, Promise, removeClass, toggleClass, Transition, trigger, win, within} = util;
+    var {addClass, assign, attr, closest, css, doc, docEl, height, fastdom, includes, isInput, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, Promise, removeClass, toggleClass, Transition, trigger, win, within} = util;
 
     UIkit.component('sortable', {
 
@@ -65,7 +68,7 @@ function plugin(UIkit) {
             write() {
 
                 if (this.clsEmpty) {
-                    toggleClass(this.$el, this.clsEmpty, !this.$el.children().length);
+                    toggleClass(this.$el, this.clsEmpty, !this.$el.children.length);
                 }
 
                 if (!this.drag) {
@@ -74,7 +77,9 @@ function plugin(UIkit) {
 
                 offset(this.drag, {top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
 
-                var top = offset(this.drag).top, bottom = top + this.drag[0].offsetHeight, scroll;
+                var top = offset(this.drag).top,
+                    bottom = top + this.drag.offsetHeight,
+                    scroll;
 
                 if (top > 0 && top < this.scrollY) {
                     scroll = this.scrollY - 5;
@@ -91,14 +96,15 @@ function plugin(UIkit) {
 
             init(e) {
 
-                var target = $(e.target), placeholder = this.$el.children().filter((i, el) => within(e.target, el));
+                var {target, button, defaultPrevented} = e,
+                    placeholder = toNodes(this.$el.children).filter(el => within(target, el))[0];
 
-                if (!placeholder.length
-                    || target.is(':input')
+                if (!placeholder
+                    || isInput(e.target)
                     || this.handle && !within(target, this.handle)
-                    || e.button && e.button !== 0
+                    || button !== 0
                     || within(target, `.${this.clsNoDrag}`)
-                    || e.defaultPrevented
+                    || defaultPrevented
                 ) {
                     return;
                 }
@@ -107,7 +113,7 @@ function plugin(UIkit) {
 
                 this.touched = [this];
                 this.placeholder = placeholder;
-                this.origin = assign({target, index: this.placeholder.index()}, this.pos);
+                this.origin = assign({target, index: index(placeholder)}, this.pos);
 
                 on(docEl, pointerMove, this.move);
                 on(docEl, pointerUp, this.end);
@@ -121,25 +127,23 @@ function plugin(UIkit) {
 
             start(e) {
 
-                this.drag = $(this.placeholder[0].outerHTML.replace(/^<li/i, '<div').replace(/li>$/i, 'div>'));
+                this.drag = append(UIkit.container, this.placeholder.outerHTML.replace(/^<li/i, '<div').replace(/li>$/i, 'div>'));
 
                 css(this.drag, assign({
                     boxSizing: 'border-box',
-                    width: this.placeholder[0].offsetWidth,
-                    height: this.placeholder[0].offsetHeight
+                    width: this.placeholder.offsetWidth,
+                    height: this.placeholder.offsetHeight
                 }, css(this.placeholder, ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom'])));
                 attr(this.drag, 'uk-no-boot', '');
                 addClass(this.drag, `${this.clsDrag} ${this.clsCustom}`);
 
-                this.drag.appendTo(UIkit.container);
-
-                height(this.drag.children().first(), height(this.placeholder.children().first()));
+                height(this.drag.firstElementChild, height(this.placeholder.firstElementChild));
 
                 var {left, top} = offset(this.placeholder);
                 assign(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
 
                 addClass(this.placeholder, this.clsPlaceholder);
-                addClass(this.$el.children(), this.clsItem);
+                addClass(this.$el.children, this.clsItem);
                 addClass(docEl, this.clsDragState);
 
                 trigger(this.$el, 'start', [this, this.placeholder, this.drag]);
@@ -162,18 +166,18 @@ function plugin(UIkit) {
 
                 var target = e.type === 'mousemove' ? e.target : doc.elementFromPoint(this.pos.x - doc.body.scrollLeft, this.pos.y - doc.body.scrollTop),
                     sortable = getSortable(target),
-                    previous = getSortable(this.placeholder[0]),
+                    previous = getSortable(this.placeholder),
                     move = sortable !== previous;
 
                 if (!sortable || within(target, this.placeholder) || move && (!sortable.group || sortable.group !== previous.group)) {
                     return;
                 }
 
-                target = sortable.$el.is(target.parentNode) && $(target) || sortable.$el.children().has(target);
+                target = sortable.$el === target.parentNode && target || toNodes(sortable.$el.children).filter(element => element.contains(target))[0];
 
                 if (move) {
                     previous.remove(this.placeholder);
-                } else if (!target.length) {
+                } else if (!target) {
                     return;
                 }
 
@@ -203,7 +207,7 @@ function plugin(UIkit) {
                 if (!this.drag) {
 
                     if (e.type !== 'mouseup' && within(e.target, 'a[href]')) {
-                        location.href = $(e.target).closest('a[href]')[0].href;
+                        location.href = closest(e.target, 'a[href]').href;
                     }
 
                     return;
@@ -211,10 +215,10 @@ function plugin(UIkit) {
 
                 preventClick();
 
-                var sortable = getSortable(this.placeholder[0]);
+                var sortable = getSortable(this.placeholder);
 
                 if (this === sortable) {
-                    if (this.origin.index !== this.placeholder.index()) {
+                    if (this.origin.index !== index(this.placeholder)) {
                         trigger(this.$el, 'change', [this, this.placeholder, 'moved']);
                     }
                 } else {
@@ -224,11 +228,11 @@ function plugin(UIkit) {
 
                 trigger(this.$el, 'stop', [this]);
 
-                this.drag.remove();
+                remove(this.drag);
                 this.drag = null;
 
                 var classes = this.touched.map(sortable => `${sortable.clsPlaceholder} ${sortable.clsItem}`).join(' ');
-                this.touched.forEach(sortable => removeClass(sortable.$el.children(), classes));
+                this.touched.forEach(sortable => removeClass(sortable.$el.children, classes));
 
                 removeClass(docEl, this.clsDragState);
 
@@ -236,20 +240,20 @@ function plugin(UIkit) {
 
             insert(element, target) {
 
-                addClass(this.$el.children(), this.clsItem);
+                addClass(this.$el.children, this.clsItem);
 
                 var insert = () => {
 
-                    if (target.length) {
+                    if (target) {
 
-                        if (!this.$el.has(element).length || element.prevAll().filter(target).length) {
-                            element.insertBefore(target);
+                        if (!this.$el.contains(element) || $$('-', element).some(element => element === target)) {
+                            before(target, element);
                         } else {
-                            element.insertAfter(target);
+                            after(target, element);
                         }
 
                     } else {
-                        this.$el.append(element);
+                        this.$el.appendChild(element);
                     }
 
                 };
@@ -264,14 +268,14 @@ function plugin(UIkit) {
 
             remove(element) {
 
-                if (!this.$el.has(element).length) {
+                if (!this.$el.contains(element)) {
                     return;
                 }
 
                 if (this.animation) {
-                    this.animate(() => element.detach());
+                    this.animate(() => remove(element));
                 } else {
-                    element.detach();
+                    remove(element);
                 }
 
             },
@@ -279,22 +283,22 @@ function plugin(UIkit) {
             animate(action) {
 
                 var props = [],
-                    children = this.$el.children().toArray().map(el => {
-                        el = $(el);
-                        props.push(assign({
-                            position: 'absolute',
-                            pointerEvents: 'none',
-                            width: el[0].offsetWidth,
-                            height: el[0].offsetHeight
-                        }, position(el)));
-                        return el;
-                    }),
+                    children = toNodes(this.$el.children),
                     reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: '', bottom: '', right: ''};
+
+                children.forEach(el => {
+                    props.push(assign({
+                        position: 'absolute',
+                        pointerEvents: 'none',
+                        width: el.offsetWidth,
+                        height: el.offsetHeight
+                    }, position(el)));
+                });
 
                 action();
 
                 children.forEach(Transition.cancel);
-                css(this.$el.children(), reset);
+                css(children, reset);
                 this.$update('update', true);
                 fastdom.flush();
 
@@ -304,7 +308,7 @@ function plugin(UIkit) {
                 Promise.all(children.map((el, i) => Transition.start(css(el, props[i]), positions[i], this.animation)))
                     .then(() => {
                         css(this.$el, 'minHeight', '');
-                        css(this.$el.children(), reset);
+                        css(children, reset);
                         this.$update('update', true);
                         fastdom.flush();
                     }, noop);

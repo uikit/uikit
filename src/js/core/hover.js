@@ -1,4 +1,4 @@
-import { $, addClass, doc, hasTouch, on, ready, removeClass, within } from '../util/index';
+import { $$, addClass, doc, hasTouch, on, ready, removeClass, within } from '../util/index';
 
 export default function (UIkit) {
 
@@ -11,7 +11,7 @@ export default function (UIkit) {
         var cls = 'uk-hover';
 
         on(doc, 'tap', ({target}) =>
-            $(`.${cls}`).each((_, el) =>
+            $$(`.${cls}`).forEach((_, el) =>
                 !within(target, el) && removeClass(el, cls)
             )
         );

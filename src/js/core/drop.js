@@ -1,5 +1,5 @@
 import { Position, Togglable } from '../mixin/index';
-import { addClass, Animation, attr, css, doc, includes, isTouch, MouseTracker, offset, on, one, pointerEnter, pointerLeave, query, removeClass, removeClasses, toggleClass, trigger, win, within } from '../util/index';
+import { $$, addClass, Animation, attr, css, doc, includes, isTouch, MouseTracker, offset, on, one, pointerEnter, pointerLeave, pointInRect, query, removeClass, removeClasses, toggleClass, trigger, win, within } from '../util/index';
 
 export default function (UIkit) {
 
@@ -14,7 +14,7 @@ export default function (UIkit) {
         props: {
             mode: 'list',
             toggle: Boolean,
-            boundary: 'jQuery',
+            boundary: 'query',
             boundaryAlign: Boolean,
             delayShow: Number,
             delayHide: Number,
@@ -23,7 +23,7 @@ export default function (UIkit) {
 
         defaults: {
             mode: ['click', 'hover'],
-            toggle: '- :first',
+            toggle: '-',
             boundary: win,
             boundaryAlign: false,
             delayShow: 0,
@@ -143,9 +143,8 @@ export default function (UIkit) {
                         && active !== this
                         && active.toggle
                         && includes(active.toggle.mode, 'hover')
-                        && !within(e.target, active.$el)
                         && !within(e.target, active.toggle.$el)
-                        && !within(doc.elementFromPoint(e.pageX, e.pageY), active.$el)
+                        && !pointInRect({x: e.pageX, y: e.pageY}, offset(active.$el))
                     ) {
                         active.hide(false);
                     }
@@ -162,7 +161,7 @@ export default function (UIkit) {
 
                 handler(e, toggle) {
 
-                    if (toggle && !this.$el.is(toggle.target)) {
+                    if (toggle && !includes(toggle.target, this.$el)) {
                         return;
                     }
 
@@ -178,7 +177,7 @@ export default function (UIkit) {
 
                 handler(e, toggle) {
 
-                    if (isTouch(e) || toggle && !this.$el.is(toggle.target)) {
+                    if (isTouch(e) || toggle && !includes(toggle.target, this.$el)) {
                         return;
                     }
 
@@ -236,7 +235,7 @@ export default function (UIkit) {
 
                 handler({target}) {
 
-                    if (!this.$el.is(target)) {
+                    if (this.$el !== target) {
                         active = active === null && within(target, this.$el) && this.isToggled() ? this : active;
                         return;
                     }
@@ -244,7 +243,8 @@ export default function (UIkit) {
                     active = this.isActive() ? null : active;
                     removeClass(this.toggle.$el, this.cls);
                     attr(this.toggle.$el, 'aria-expanded', 'false');
-                    this.toggle.$el.blur().find('a, button').blur();
+                    this.toggle.$el.blur();
+                    $$('a, button', this.toggle.$el).forEach(el => el.blur());
                     this.tracker.cancel();
                 }
 
@@ -314,7 +314,7 @@ export default function (UIkit) {
                         active = this;
                     };
 
-                if (toggle && this.toggle && !this.toggle.$el.is(toggle.$el)) {
+                if (toggle && this.toggle &&  toggle.$el !== this.toggle.$el) {
 
                     one(this.$el, 'hide', tryShow);
                     this.hide(false);
@@ -373,7 +373,7 @@ export default function (UIkit) {
                 if (this.align === 'justify') {
                     var prop = this.getAxis() === 'y' ? 'width' : 'height';
                     css(this.$el, prop, alignTo[prop]);
-                } else if (this.$el[0].offsetWidth > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
+                } else if (this.$el.offsetWidth > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
                     addClass(this.$el, `${this.clsDrop}-stack`);
                     trigger(this.$el, 'stack', [this]);
                 }

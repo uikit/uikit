@@ -15,7 +15,7 @@ export default function (UIkit) {
             read() {
 
                 this.dim = isVisible(this.$el) && this.width && this.height
-                    ? {width: width(this.$el.parent()), height: this.height}
+                    ? {width: width(this.$el.parentNode), height: this.height}
                     : false;
 
             },

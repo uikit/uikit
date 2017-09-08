@@ -1,4 +1,5 @@
-import { doc, isContextSelector, isFunction, isString, matches, query, toNode, toNodes } from './index';
+import { closest, doc, isArray, isFunction, isString, toNode, toNodes } from './index';
+import { $$, within } from "./selector";
 
 export function on(...args) {
 
@@ -8,6 +9,10 @@ export function on(...args) {
 
     if (selector) {
         listener = delegate(element, selector, listener);
+    }
+
+    if (listener.length > 1) {
+        listener = details(listener);
     }
 
     type.split(' ').forEach(type => element.addEventListener(type, listener, useCapture));
@@ -56,25 +61,22 @@ function getArgs(args) {
 }
 
 function delegate(element, selector, listener) {
-    var contextSelector = isContextSelector(selector);
-
     return e => {
 
         var target = e.target,
-            queried = contextSelector && query(selector, element);
+            current = selector[0] === '>'
+                ? $$(selector, element).filter(element => within(target, element))[0]
+                : closest(target, selector);
 
-        while (element !== target) {
+        if (current) {
+            e.delegate = element;
+            e.current = current;
 
-            if (queried && queried.is(target) || !contextSelector && matches(target, selector)) {
-
-                e.delegate = element;
-                e.current = target;
-
-                listener.call(target, e);
-                break;
-            }
-
-            target = target.parentNode;
+            listener.call(this, e);
         }
     }
+}
+
+function details(listener) {
+    return e => isArray(e.detail) ? listener.apply(listener, [e].concat(e.detail)) : listener(e);
 }

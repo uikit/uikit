@@ -206,7 +206,7 @@ function dimension(prop) {
             }
 
             value = css(element, prop);
-            value = toFloat(value === 'auto' ? element[`offset${propName}`] : value) || 0;
+            value = value === 'auto' ? element[`offset${propName}`] : toFloat(value) || 0;
 
             return getContentSize(prop, propName, element, value);
 

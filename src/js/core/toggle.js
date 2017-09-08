@@ -1,4 +1,4 @@
-import { $, hasTouch, includes, isTouch, pointerEnter, pointerLeave, query, trigger, win } from '../util/index';
+import { closest, hasTouch, includes, isTouch, isVisible, matches, pointerEnter, pointerLeave, queryAll, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -25,8 +25,9 @@ export default function (UIkit) {
 
         computed: {
 
-            target() {
-                return query(this.$props.target || this.href, this.$el) || this.$el;
+            target({href, target}, $el) {
+                target = queryAll(target || href, $el);
+                return target.length && target || [$el];
             }
 
         },
@@ -64,12 +65,12 @@ export default function (UIkit) {
                     }
 
                     // TODO better isToggled handling
-                    var link = $(e.target).closest('a[href]')[0];
-                    if ($(e.target).closest('a[href="#"], button').length
-                        || link && (
+                    var link;
+                    if (closest(e.target, 'a[href="#"], button')
+                        || (link = closest(e.target, 'a[href]')) && (
                             this.cls
-                            || !this.target.is(':visible')
-                            || link.hash && this.target.is(link.hash)
+                            || !isVisible(this.target)
+                            || link.hash && matches(this.target, link.hash)
                         )
                     ) {
                         e.preventDefault();

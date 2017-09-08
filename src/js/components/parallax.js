@@ -29,20 +29,20 @@ function plugin(UIkit) {
 
         computed: {
 
-            props() {
+            props(properties, $el) {
 
                 return props.reduce((props, prop) => {
 
-                    if (isUndefined(this.$props[prop])) {
+                    if (isUndefined(properties[prop])) {
                         return props;
                     }
 
                     var isColor = prop.match(/color/i),
                         isCssProp = isColor || prop === 'opacity',
-                        values = this.$props[prop];
+                        values = properties[prop];
 
                     if (isCssProp) {
-                        css(this.$el, prop, '');
+                        css($el, prop, '');
                     }
 
                     var start = (!isUndefined(values[1])
@@ -50,7 +50,7 @@ function plugin(UIkit) {
                             : prop === 'scale'
                                 ? 1
                                 : isCssProp
-                                    ? css(this.$el, prop)
+                                    ? css($el, prop)
                                     : 0) || 0,
                         end = isUndefined(values[1]) ? values[0] : values[1],
                         unit = includes(values.join(''), '%') ? '%' : 'px',
@@ -58,10 +58,10 @@ function plugin(UIkit) {
 
                     if (isColor) {
 
-                        var color = this.$el[0].style.color;
-                        start = parseColor(this.$el, start);
-                        end = parseColor(this.$el, end);
-                        this.$el[0].style.color = color;
+                        var color = $el.style.color;
+                        start = parseColor($el, start);
+                        end = parseColor($el, end);
+                        $el.style.color = color;
 
                     } else {
 
@@ -76,7 +76,7 @@ function plugin(UIkit) {
                     if (prop.match(/^bg/)) {
 
                         props[prop].pos = css(
-                            css(this.$el, `background-position-${prop[2]}`, ''),
+                            css($el, `background-position-${prop[2]}`, ''),
                             'backgroundPosition'
                         ).split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
 
@@ -95,8 +95,8 @@ function plugin(UIkit) {
                 return ['bgx', 'bgy'].filter(bg => bg in this.props);
             },
 
-            covers() {
-                return css(css(this.$el, 'backgroundSize', ''), 'backgroundSize') === 'cover';
+            covers(_, $el) {
+                return css(css($el, 'backgroundSize', ''), 'backgroundSize') === 'cover';
             }
 
         },
@@ -117,8 +117,8 @@ function plugin(UIkit) {
 
                     if (this._image) {
                         this._image.dimEl = {
-                            width: this.$el[0].offsetWidth,
-                            height: this.$el[0].offsetHeight
+                            width: this.$el.offsetWidth,
+                            height: this.$el.offsetHeight
                         }
                     }
 
@@ -314,8 +314,8 @@ function plugin(UIkit) {
 
         computed: {
 
-            target() {
-                return this.$props.target && query(this.$props.target, this.$el) || this.$el;
+            target({target}, $el) {
+                return target && query(target, $el) || $el;
             }
 
         },

@@ -1,4 +1,4 @@
-import { $, attr, css, isVisible } from '../util/index';
+import { $$, attr, css, isVisible } from '../util/index';
 
 export default function (UIkit) {
 
@@ -18,8 +18,8 @@ export default function (UIkit) {
 
         computed: {
 
-            elements() {
-                return $(this.target, this.$el);
+            elements({target}, $el) {
+                return $$(target, $el);
             }
 
         },
@@ -34,7 +34,7 @@ export default function (UIkit) {
 
                 this.rows = !this.row
                     ? [this.match(this.elements)]
-                    : this.elements.toArray().reduce((rows, el) => {
+                    : this.elements.reduce((rows, el) => {
 
                         if (lastOffset !== el.offsetTop) {
                             rows.push([el]);
@@ -46,7 +46,7 @@ export default function (UIkit) {
 
                         return rows;
 
-                    }, []).map(elements => this.match($(elements)));
+                    }, []).map(elements => this.match(elements));
             },
 
             write() {
@@ -69,8 +69,8 @@ export default function (UIkit) {
 
                 var max = 0, heights = [];
 
-                elements = elements
-                    .each((_, el) => {
+                elements
+                    .forEach(el => {
 
                         var style, hidden;
 
@@ -91,8 +91,9 @@ export default function (UIkit) {
                             attr(el, {style, hidden});
                         }
 
-                    })
-                    .filter(i => heights[i] < max);
+                    });
+
+                elements = elements.filter((el, i) => heights[i] < max);
 
                 return {height: max, elements};
             }

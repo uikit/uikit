@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Notification - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -130,11 +130,13 @@
 
         <script>
 
-            jQuery('button').on('click', function () {
-                UIkit.notification($(this).data());
+            var util = UIkit.util;
+
+            util.on(util.$$('button'), 'click', function () {
+                UIkit.notification({message: util.data('message'), status: util.data('status')});
             });
 
-            jQuery('#close-all').on('click', function () {
+            util.on(util.$('#close-all'), 'click', function () {
                 UIkit.notification.closeAll();
             });
 

@@ -15,8 +15,8 @@ export function removeClasses(element, cls) {
 }
 
 export function replaceClass(element, ...args) {
-    removeClass(element, args[0]);
-    addClass(element, args[1]);
+    args[0] && removeClass(element, args[0]);
+    args[1] && addClass(element, args[1]);
 }
 
 export function hasClass(element, cls) {
@@ -44,9 +44,9 @@ export function toggleClass(element, ...args) {
 }
 
 function apply(element, args, fn) {
-    args = getArgs(args);
+    args = getArgs(args).filter(arg => arg);
 
-    supportsClassList && toNodes(element).forEach(({classList}) => {
+    supportsClassList && args.length && toNodes(element).forEach(({classList}) => {
         supportsMultiple
             ? classList[fn].apply(classList, args)
             : args.forEach(cls => classList[fn](cls));

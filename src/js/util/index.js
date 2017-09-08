@@ -1,4 +1,5 @@
 export * from './lang';
+export * from './selector';
 export * from './attr';
 export * from './dom';
 export * from './style';

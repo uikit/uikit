@@ -1,4 +1,5 @@
 import Slideshow from '../mixin/slideshow';
+import { createEvent } from "../util/event";
 
 function plugin(UIkit) {
 
@@ -9,7 +10,7 @@ function plugin(UIkit) {
     UIkit.use(Slideshow);
 
     var {mixin, util} = UIkit;
-    var {$, addClass, Animation, ajax, assign, attr, doc, docEl, data, getImage, hasAttr, on, pointerDown, pointerMove, removeClass, Transition, trigger} = util;
+    var {$, $$, addClass, Animation, ajax, append, assign, attr, css, doc, docEl, data, getImage, hasAttr, html, index, on, pointerDown, pointerMove, removeClass, Transition, trigger} = util;
 
     UIkit.component('lightbox', {
 
@@ -27,12 +28,12 @@ function plugin(UIkit) {
 
         computed: {
 
-            toggles() {
-                var toggles = $(this.toggle, this.$el);
+            toggles({toggle}, $el) {
+                var toggles = $$(toggle, $el);
 
                 this._changed = !this._toggles
                     || toggles.length !== this._toggles.length
-                    || toggles.toArray().some((el, i) => el !== this._toggles.get(i));
+                    || toggles.some((el, i) => el !== this._toggles[i]);
 
                 return this._toggles = toggles;
             }
@@ -61,7 +62,7 @@ function plugin(UIkit) {
                 handler(e) {
                     e.preventDefault();
                     e.current.blur();
-                    this.show(this.toggles.index(e.current));
+                    this.show(index(this.toggles, e.current));
                 }
 
             }
@@ -89,7 +90,7 @@ function plugin(UIkit) {
             _init() {
                 return this.panel = this.panel || UIkit.lightboxPanel({
                     animation: this.animation,
-                    items: this.toggles.toArray().reduce((items, el) => {
+                    items: this.toggles.reduce((items, el) => {
                         items.push(['href', 'caption', 'type'].reduce((obj, attr) => {
                             obj[attr === 'href' ? 'source' : attr] = data(el, attr);
                             return obj;
@@ -121,7 +122,7 @@ function plugin(UIkit) {
 
     UIkit.component('lightbox-panel', {
 
-        mixins: [mixin.togglable, mixin.slideshow],
+        mixins: [mixin.container, mixin.togglable, mixin.slideshow],
 
         functional: true,
 
@@ -133,36 +134,27 @@ function plugin(UIkit) {
             clsPage: 'uk-lightbox-page',
             clsItem: 'uk-lightbox-item',
             attrItem: 'uk-lightbox-item',
-            template: `
-                <div class="uk-lightbox uk-overflow-hidden">
-                    <ul class="uk-lightbox-items"></ul>
-                    <div class="uk-lightbox-toolbar uk-position-top uk-text-right">
-                        <button class="uk-lightbox-toolbar-icon uk-close-large" type="button" uk-close uk-toggle="!.uk-lightbox"></button>
-                     </div>
-                    <a class="uk-lightbox-button uk-position-center-left uk-position-medium" href="#" uk-slidenav-previous uk-lightbox-item="previous"></a>
-                    <a class="uk-lightbox-button uk-position-center-right uk-position-medium" href="#" uk-slidenav-next uk-lightbox-item="next"></a>
-                    <div class="uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center"></div>
-                </div>`
-        },
-
-        computed: {
-
-            container() {
-                return $(this.$props.container === true && UIkit.container || this.$props.container || UIkit.container);
-            }
-
+            template: `<div class="uk-lightbox uk-overflow-hidden">
+                            <ul class="uk-lightbox-items"></ul>
+                            <div class="uk-lightbox-toolbar uk-position-top uk-text-right">
+                                <button class="uk-lightbox-toolbar-icon uk-close-large" type="button" uk-close uk-toggle="!.uk-lightbox"></button>
+                             </div>
+                            <a class="uk-lightbox-button uk-position-center-left uk-position-medium" href="#" uk-slidenav-previous uk-lightbox-item="previous"></a>
+                            <a class="uk-lightbox-button uk-position-center-right uk-position-medium" href="#" uk-slidenav-next uk-lightbox-item="next"></a>
+                            <div class="uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center"></div>
+                        </div>`
         },
 
         created() {
 
-            this.$mount($(this.template).appendTo(this.container)[0]);
+            this.$mount(append(this.container, this.template));
 
-            this.list = this.$el.find('.uk-lightbox-items');
-            this.toolbars = this.$el.find('.uk-lightbox-toolbar');
-            this.nav = this.$el.find('a[uk-lightbox-item]');
-            this.caption = this.$el.find('.uk-lightbox-caption');
+            this.list = $('.uk-lightbox-items', this.$el);
+            this.toolbars = $$('.uk-lightbox-toolbar', this.$el);
+            this.nav = $$('a[uk-lightbox-item]', this.$el);
+            this.caption = $('.uk-lightbox-caption', this.$el);
 
-            this.items.forEach((el, i) => this.list.append(`<li class="${this.clsItem} item-${i}"></li>`));
+            this.items.forEach((el, i) => append(this.list, `<li class="${this.clsItem} item-${i}"></li>`));
 
         },
 
@@ -312,7 +304,8 @@ function plugin(UIkit) {
                 handler() {
 
                     var caption = this.getItem().caption;
-                    this.caption.toggle(!!caption).html(caption);
+                    css(this.caption, 'display', caption ? '' : 'none');
+                    html(this.caption, caption);
 
                     for (var i = 0; i <= this.preload; i++) {
                         this.loadItem(this.getIndex(this.index + i));
@@ -353,7 +346,7 @@ function plugin(UIkit) {
 
                         on(video, 'error', () => this.setError(item));
                         on(video, 'loadedmetadata', () => {
-                            attr(video, {width: video[0].videoWidth, height: video[0].videoHeight});
+                            attr(video, {width: video.videoWidth, height: video.videoHeight});
                             this.setItem(item, video);
                         });
 
@@ -386,16 +379,12 @@ function plugin(UIkit) {
                     // Vimeo
                     } else if (matches = source.match(/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/)) {
 
-                        ajax({type: 'GET', url: `//vimeo.com/api/oembed.json?url=${encodeURI(source)}`, jsonp: 'callback', dataType: 'jsonp'})
-                            .then(({height, width}) => this.setItem(item, getIframe(`//player.vimeo.com/video/${matches[2]}`, width, height)));
-
-                    } else {
-
-                        return;
+                        ajax(`//vimeo.com/api/oembed.json?url=${encodeURI(source)}`, {responseType: 'json'})
+                            .then(({response: {height, width}}) =>
+                                this.setItem(item, getIframe(`//player.vimeo.com/video/${matches[2]}`, width, height))
+                            );
 
                     }
-
-                    return true;
 
                 }
 
@@ -432,9 +421,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                if (trigger(this.$el, 'itemload', [item])) {
-                    this.setError(item);
-                }
+                trigger(this.$el, 'itemload', [item]);
             },
 
             getItem(index = this.index) {
@@ -443,7 +430,7 @@ function plugin(UIkit) {
 
             setItem(item, content) {
                 assign(item, {content});
-                var el = this.slides.eq(this.items.indexOf(item)).html(content);
+                var el = html(this.slides[this.items.indexOf(item)], content);
                 trigger(this.$el, 'itemloaded', [this, el]);
                 UIkit.update(null, el);
             },
@@ -461,8 +448,8 @@ function plugin(UIkit) {
                     return;
                 }
 
-                animate(this.toolbars.eq(0), 'uk-animation-slide-top');
-                animate(this.toolbars.eq(1), 'uk-animation-slide-bottom');
+                animate(this.toolbars[0], 'uk-animation-slide-top');
+                animate(this.toolbars[1], 'uk-animation-slide-bottom');
 
                 attr(this.nav, 'hidden', this.items.length <= 1 ? '' : null);
 
@@ -478,8 +465,8 @@ function plugin(UIkit) {
                     return;
                 }
 
-                animate(this.toolbars.eq(0), 'uk-animation-slide-top', 'out');
-                animate(this.toolbars.eq(1), 'uk-animation-slide-bottom', 'out');
+                animate(this.toolbars[0], 'uk-animation-slide-top', 'out');
+                animate(this.toolbars[1], 'uk-animation-slide-bottom', 'out');
 
                 if (this.items.length > 1) {
                     animate(this.nav, 'uk-animation-fade', 'out');

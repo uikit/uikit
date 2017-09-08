@@ -1,5 +1,5 @@
 import { Class, Modal } from '../mixin/index';
-import { $, addClass, assign, css, hasClass, height, isString, on, Promise, removeClass, trigger } from '../util/index';
+import { $, addClass, assign, closest, css, hasClass, height, html, index, isString, on, Promise, removeClass, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -55,12 +55,12 @@ export default function (UIkit) {
 
         computed: {
 
-            modal() {
-                return this.$el.closest('.uk-modal');
+            modal(_, $el) {
+                return closest($el, '.uk-modal');
             },
 
-            panel() {
-                return this.$el.closest('.uk-modal-dialog');
+            panel(_, $el) {
+                return closest($el, '.uk-modal-dialog');
             }
 
         },
@@ -74,7 +74,7 @@ export default function (UIkit) {
             write() {
                 var current = css(this.$el, 'maxHeight');
 
-                css(css(this.$el, 'maxHeight', 150), 'maxHeight', Math.max(150, 150 + height(this.modal) - this.panel[0].offsetHeight));
+                css(css(this.$el, 'maxHeight', 150), 'maxHeight', Math.max(150, 150 + height(this.modal) - this.panel.offsetHeight));
                 if (current !== css(this.$el, 'maxHeight')) {
                     trigger(this.$el, 'resize');
                 }
@@ -110,7 +110,7 @@ export default function (UIkit) {
 
         return new Promise(
             resolve => on(UIkit.modal.dialog(`
-                <div class="uk-modal-body">${isString(message) ? message : $(message).html()}</div>
+                <div class="uk-modal-body">${isString(message) ? message : html(message)}</div>
                 <div class="uk-modal-footer uk-text-right">
                     <button class="uk-button uk-button-primary uk-modal-close" autofocus>${options.labels.ok}</button>
                 </div>
@@ -124,12 +124,12 @@ export default function (UIkit) {
 
         return new Promise(
             (resolve, reject) => on(UIkit.modal.dialog(`
-                <div class="uk-modal-body">${isString(message) ? message : $(message).html()}</div>
+                <div class="uk-modal-body">${isString(message) ? message : html(message)}</div>
                 <div class="uk-modal-footer uk-text-right">
                     <button class="uk-button uk-button-default uk-modal-close">${options.labels.cancel}</button>
                     <button class="uk-button uk-button-primary uk-modal-close" autofocus>${options.labels.ok}</button>
                 </div>
-            `, options).$el, 'click', '.uk-modal-footer button', ({target}) => $(target).index() === 0 ? reject() : resolve())
+            `, options).$el, 'click', '.uk-modal-footer button', ({target}) => index(target) === 0 ? reject() : resolve())
         );
     };
 
@@ -143,7 +143,7 @@ export default function (UIkit) {
                 prompt = UIkit.modal.dialog(`
                     <form class="uk-form-stacked">
                         <div class="uk-modal-body">
-                            <label>${isString(message) ? message : $(message).html()}</label>
+                            <label>${isString(message) ? message : html(message)}</label>
                             <input class="uk-input" autofocus>
                         </div>
                         <div class="uk-modal-footer uk-text-right">
@@ -152,7 +152,7 @@ export default function (UIkit) {
                         </div>
                     </form>
                 `, options),
-                input = prompt.$el.find('input');
+                input = $('input', prompt.$el);
 
             input.value = value;
 

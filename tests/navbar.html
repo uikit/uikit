@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Navbar - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
         <style type="text/css">
 
@@ -955,7 +955,7 @@
 
             <div class="uk-position-relative uk-margin">
 
-                <nav class="uk-navbar-container" uk-navbar="dropbar: + .uk-navbar-dropbar:first">
+                <nav class="uk-navbar-container" uk-navbar="dropbar: + .uk-navbar-dropbar">
                     <div class="uk-navbar-left">
 
                         <ul class="uk-navbar-nav">
@@ -1982,13 +1982,14 @@
 
         <script>
 
-            var tracker = new UIkit.util.MouseTracker(),
-                target = $('#mousetarget');
-            $('#mousetracker')
-                .on('mouseenter', function () {tracker.init()})
-                .on('mouseleave', function () {tracker.cancel()})
-                .on('mousemove', function () {
-                    target.text(tracker.movesTo(target.parent()) ? 'Moves to' : 'Moves away');
+            var util = UIkit.util;
+                tracker = new util.MouseTracker(),
+                target = util.$('#mousetarget');
+
+                util.on(target, 'mouseenter', function () {tracker.init()});
+                util.on(target, 'mouseleave', function () {tracker.cancel()});
+                util.on(target, 'mousemove', function () {
+                    target.innerText = tracker.movesTo(target.parentNode) ? 'Moves to' : 'Moves away';
                 });
 
         </script>

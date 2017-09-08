@@ -1,5 +1,4 @@
-import $ from 'jquery';
-import { addClass, animationend, assign, attr, clamp, css, each, getContextSelectors, hasClass, height, isNumber, isString, on, one, Promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toJQuery, toNode, toNodes, transitionend, trigger, width } from './index';
+import { addClass, animationend, assign, attr, clamp, css, each, hasClass, height, intersectRect, isArray, isNumeric, isString, isUndefined, matches, on, one, Promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toNode, toNodes, toNumber, transitionend, trigger, width } from './index';
 
 export const win = window;
 export const doc = document;
@@ -169,23 +168,13 @@ export const Animation = {
 
 };
 
-export function within(element, selector) {
-    element = $(element);
-    return element.is(selector)
-        ? true
-        : isString(selector)
-            ? element.parents(selector).length
-            : toNode(selector).contains(element[0]);
-}
-
-export function isInView(element, offsetTop = 0, offsetLeft = 0) {
-
-    var rect = toNode(element).getBoundingClientRect();
-
-    return rect.bottom >= -1 * offsetTop
-        && rect.right >= -1 * offsetLeft
-        && rect.top <= height(win) + offsetTop
-        && rect.left <= width(win) + offsetLeft;
+export function isInView(element, top = 0, left = 0) {
+    return intersectRect(toNode(element).getBoundingClientRect(), {
+        top,
+        left,
+        bottom: top + height(win),
+        right: left + width(win)
+    });
 }
 
 export function scrolledOver(element) {
@@ -213,24 +202,22 @@ function positionTop(element) {
     return top;
 }
 
-export function getIndex(index, elements, current = 0) {
+export function getIndex(i, elements, current = 0) {
 
-    elements = $(elements);
+    elements = toNodes(elements);
 
-    var length = $(elements).length;
+    var length = elements.length;
 
-    index = (isNumber(index)
-            ? index
-            : index === 'next'
+    i = (isNumeric(i)
+            ? toNumber(i)
+            : i === 'next'
                 ? current + 1
-                : index === 'previous'
+                : i === 'previous'
                     ? current - 1
-                    : isString(index)
-                        ? parseInt(index, 10)
-                        : elements.index(index)
+                    : index(elements, i)
     ) % length;
 
-    return index < 0 ? index + length : index;
+    return i < 0 ? i + length : i;
 }
 
 var voidElements = {
@@ -270,7 +257,10 @@ export const Dimensions = {
     contain(dimensions, maxDimensions) {
         dimensions = assign({}, dimensions);
 
-        each(dimensions, (dimension, prop) => dimensions = dimension > maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
+        each(dimensions, (dimension, prop) => dimensions = dimension > maxDimensions[prop]
+            ? this.ratio(dimensions, prop, maxDimensions[prop])
+            : dimensions
+        );
 
         return dimensions;
     },
@@ -278,17 +268,15 @@ export const Dimensions = {
     cover(dimensions, maxDimensions) {
         dimensions = this.contain(dimensions, maxDimensions);
 
-        each(dimensions, (dimension, prop) => dimensions = dimension < maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
+        each(dimensions, (dimension, prop) => dimensions = dimension < maxDimensions[prop]
+            ? this.ratio(dimensions, prop, maxDimensions[prop])
+            : dimensions
+        );
 
         return dimensions;
     }
 
 };
-
-export function query(selector, context) {
-    var selectors = getContextSelectors(selector);
-    return selectors ? selectors.reduce((context, selector) => toJQuery(selector, context), context) : toJQuery(selector);
-}
 
 export function preventClick() {
 
@@ -304,5 +292,118 @@ export function preventClick() {
 }
 
 export function isVisible(element) {
-    return !!toNode(element).offsetHeight;
+    return toNodes(element).some(element => element.offsetHeight);
+}
+
+export const selInput = 'input,select,textarea,button';
+export function isInput(element) {
+    return toNodes(element).some(element => matches(element, selInput));
+}
+
+export function empty(element) {
+    element = toNode(element);
+    element.innerHTML = '';
+    return element;
+}
+
+export function html(parent, html) {
+    parent = toNode(parent);
+    return isUndefined(html)
+        ? parent.innerHTML
+        : append(parent.hasChildNodes() ? empty(parent) : parent, html);
+}
+
+export function prepend(parent, element) {
+
+    parent = toNode(parent);
+
+    if (!parent.hasChildNodes()) {
+        return append(parent, element);
+    } else {
+        return insertNodes(element, element => parent.insertBefore(element, parent.firstChild));
+    }
+}
+
+export function append(parent, element) {
+    parent = toNode(parent);
+    return insertNodes(element, element => parent.appendChild(element));
+}
+
+export function before(ref, element) {
+    ref = toNode(ref);
+    return insertNodes(element, element => ref.parentNode.insertBefore(element, ref));
+}
+
+export function after(ref, element) {
+    ref = toNode(ref);
+    return insertNodes(element, element => ref.nextSibling
+        ? before(ref.nextSibling, element)
+        : append(ref.parentNode,element)
+    );
+}
+
+function insertNodes(element, fn) {
+    element = isString(element) ? fragment(element) : element;
+    return isArray(element) ? toNodes(element).map(fn) : fn(element);
+}
+
+export function remove(element) {
+    toNodes(element).forEach(element => element.parentNode.removeChild(element));
+}
+
+export function wrapAll(element, structure) {
+
+    structure = toNode(before(element, structure));
+
+    while (structure.firstChild) {
+        structure = structure.firstChild;
+    }
+
+    append(structure, element);
+
+    return structure;
+}
+
+export function wrapInner(element, structure) {
+    return toNodes(toNodes(element).map(element =>
+        element.hasChildNodes ? wrapAll(toNodes(element.childNodes), structure) : append(element, structure)
+    ));
+}
+
+export function unwrap(element) {
+    toNodes(element)
+        .map(element => element.parentNode)
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .forEach(parent => {
+            before(parent, parent.childNodes);
+            remove(parent);
+        });
+}
+
+var fragmentRE = /^\s*<(\w+|!)[^>]*>/,
+    singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>|)$/;
+
+export function fragment(html) {
+
+    var matches;
+
+    if (matches = singleTagRE.exec(html)) {
+        return doc.createElement(matches[1]);
+    }
+
+    var container = doc.createElement('div');
+    if (fragmentRE.test(html)) {
+        container.insertAdjacentHTML('beforeend', html.trim());
+    } else {
+        container.textContent = html;
+    }
+
+    return container.childNodes.length > 1 ? toNodes(container.childNodes) : container.firstChild;
+
+}
+
+export function index(element, ref) {
+    return ref
+        ? toNodes(element).indexOf(toNode(ref))
+        : toNodes((element = toNode(element)) && element.parentNode.children).indexOf(element);
 }

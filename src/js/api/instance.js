@@ -1,4 +1,4 @@
-import { $, docEl } from '../util/index';
+import { docEl, remove } from '../util/index';
 
 export default function (UIkit) {
 
@@ -18,8 +18,7 @@ export default function (UIkit) {
 
         el[DATA][name] = this;
 
-        this.$options.el = this.$options.el || el;
-        this.$el = $(el);
+        this.$el = this.$options.el = this.$options.el || el;
 
         this._initProps();
 
@@ -44,7 +43,7 @@ export default function (UIkit) {
         this._callConnected();
     };
 
-    UIkit.prototype.$destroy = function (remove = false) {
+    UIkit.prototype.$destroy = function (removeEl = false) {
 
         var {el, name} = this.$options;
 
@@ -64,8 +63,8 @@ export default function (UIkit) {
             delete el[DATA];
         }
 
-        if (remove) {
-            this.$el.remove();
+        if (removeEl) {
+            remove(this.$el);
         }
     };
 

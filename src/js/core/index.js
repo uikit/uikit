@@ -12,6 +12,7 @@ import HeightMatch from './height-match';
 import HeightViewport from './height-viewport';
 import Hover from './hover';
 import Icon from './icon';
+import Leader from './leader';
 import Margin from './margin';
 import Modal from './modal';
 import Nav from './nav';
@@ -26,7 +27,6 @@ import Svg from './svg';
 import Switcher from './switcher';
 import Tab from './tab';
 import Toggle from './toggle';
-import Leader from './leader';
 import Video from './video';
 
 export default function (UIkit) {

@@ -18,8 +18,8 @@ export default {
 
     computed: {
 
-        pos() {
-            return (this.$props.pos + (!includes(this.$props.pos, '-') ? '-center' : '')).split('-');
+        pos({pos}) {
+            return (pos + (!includes(pos, '-') ? '-center' : '')).split('-');
         },
 
         dir() {

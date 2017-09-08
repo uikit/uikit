@@ -14,7 +14,7 @@ export default function (UIkit) {
 
         ready() {
 
-            if (this.$el.is('iframe')) {
+            if (this.$el.tagName === 'IFRAME') {
                 css(this.$el, 'pointerEvents', 'none');
             }
 
@@ -30,20 +30,22 @@ export default function (UIkit) {
 
             write() {
 
-                if (!isVisible(this.$el)) {
+                var el = this.$el, parent = el.parentNode;
+
+                if (!isVisible(el)) {
                     return;
                 }
 
                 css(
-                    css(this.$el, {width: '', height: ''}),
+                    css(el, {width: '', height: ''}),
                     Dimensions.cover(
                         {
-                            width: this.width || this.$el[0].clientWidth,
-                            height: this.height || this.$el[0].clientHeight
+                            width: this.width || el.clientWidth,
+                            height: this.height || el.clientHeight
                         },
                         {
-                            width: this.$el.parent()[0].offsetWidth,
-                            height: this.$el.parent()[0].offsetHeight
+                            width: parent.offsetWidth,
+                            height: parent.offsetHeight
                         }
                     )
                 );

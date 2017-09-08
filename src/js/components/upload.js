@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, addClass, ajax, on, removeClass, trigger} = UIkit.util;
+    var {addClass, ajax, matches, noop, removeClass, trigger} = UIkit.util;
 
     UIkit.component('upload', {
 
@@ -12,7 +12,6 @@ function plugin(UIkit) {
             allow: String,
             clsDragover: String,
             concurrent: Number,
-            dataType: String,
             mime: String,
             msgInvalidMime: String,
             msgInvalidName: String,
@@ -27,7 +26,6 @@ function plugin(UIkit) {
             allow: false,
             clsDragover: 'uk-dragover',
             concurrent: 1,
-            dataType: undefined,
             mime: false,
             msgInvalidMime: 'Invalid File Type: %s',
             msgInvalidName: 'Invalid File Name: %s',
@@ -36,26 +34,24 @@ function plugin(UIkit) {
             params: {},
             type: 'POST',
             url: '',
-            abort: null,
-            beforeAll: null,
-            beforeSend: null,
-            complete: null,
-            completeAll: null,
-            error: null,
-            fail(msg) {
-                alert(msg);
-            },
-            load: null,
-            loadEnd: null,
-            loadStart: null,
-            progress: null
+            abort: noop,
+            beforeAll: noop,
+            beforeSend: noop,
+            complete: noop,
+            completeAll: noop,
+            error: noop,
+            fail: noop,
+            load: noop,
+            loadEnd: noop,
+            loadStart: noop,
+            progress: noop
         },
 
         events: {
 
             change(e) {
 
-                if (!$(e.target).is('input[type="file"]')) {
+                if (!matches(e.target, 'input[type="file"]')) {
                     return;
                 }
 
@@ -130,7 +126,7 @@ function plugin(UIkit) {
                     files = [files[0]];
                 }
 
-                this.beforeAll && this.beforeAll(this, files);
+                this.beforeAll(this, files);
 
                 var chunks = chunk(files, this.concurrent),
                     upload = files => {
@@ -143,33 +139,33 @@ function plugin(UIkit) {
                             data.append(key, this.params[key]);
                         }
 
-                        ajax({
+                        ajax(this.url, {
                             data,
-                            url: this.url,
-                            type: this.type,
-                            dataType: this.dataType,
-                            beforeSend: this.beforeSend,
-                            complete: [this.complete, (xhr, status) => {
-                                if (chunks.length) {
-                                    upload(chunks.shift());
-                                } else {
-                                    this.completeAll && this.completeAll(xhr);
-                                }
+                            method: this.type,
+                            beforeSend: env => {
 
-                                if (status === 'abort') {
-                                    this.abort && this.abort(xhr);
-                                }
-                            }],
-                            cache: false,
-                            contentType: false,
-                            processData: false,
-                            xhr: () => {
-                                var xhr = $.ajaxSettings.xhr();
-                                xhr.upload && this.progress && on(xhr.upload, 'progress', this.progress);
-                                ['loadStart', 'load', 'loadEnd', 'error', 'abort'].forEach(type => this[type] && on(xhr, type.toLowerCase(), this[type]));
-                                return xhr;
+                                var xhr = env.xhr;
+                                xhr.upload && xhr.upload.addEventListener('progress', this.progress);
+                                ['loadStart', 'load', 'loadEnd', 'abort'].forEach(type =>
+                                    xhr.addEventListener(type.toLowerCase(), this[type])
+                                );
+
+                                this.beforeSend(env);
+
                             }
-                        })
+                        }).then(xhr => {
+
+                            this.complete(xhr);
+
+                            if (chunks.length) {
+                                upload(chunks.shift());
+                            } else {
+                                this.completeAll(xhr);
+                            }
+
+                        }, (e) => {
+                            this.error(e.message);
+                        });
 
                     };
 

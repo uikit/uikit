@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, addClass, Animation, assign, attr, css, docEl, hasClass, height, isNumeric, isString, noop, offset, query, removeClass, replaceClass, requestAnimationFrame, toFloat, toggleClass, toJQuery, trigger, win } from '../util/index';
+import { $, addClass, Animation, assign, attr, css, docEl, hasClass, height, after, isNumeric, isString, isVisible, noop, offset, query, removeClass, replaceClass, requestAnimationFrame, toFloat, toggleClass, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -19,7 +19,7 @@ export default function (UIkit) {
             clsFixed: String,
             clsBelow: String,
             selTarget: String,
-            widthElement: 'jQuery',
+            widthElement: 'query',
             showOnUp: Boolean,
             media: 'media',
             target: Number
@@ -43,8 +43,8 @@ export default function (UIkit) {
 
         computed: {
 
-            selTarget() {
-                return this.$props.selTarget && toJQuery(this.$props.selTarget, this.$el) || this.$el;
+            selTarget({selTarget}, $el) {
+                return selTarget && $(selTarget, $el) || $el;
             }
 
         },
@@ -78,16 +78,16 @@ export default function (UIkit) {
                 return;
             }
 
-            var target = query(location.hash);
+            var target = $(location.hash);
 
             if (target) {
                 requestAnimationFrame(() => {
 
                     var top = offset(target).top,
                         elTop = offset(this.$el).top,
-                        elHeight = this.$el[0].offsetHeight;
+                        elHeight = this.$el.offsetHeight;
 
-                    if (elTop + elHeight >= top && elTop <= top + target[0].offsetHeight) {
+                    if (elTop + elHeight >= top && elTop <= top + target.offsetHeight) {
                         win.scrollTo(0, top - elHeight - this.target - this.offset);
                     }
 
@@ -125,20 +125,20 @@ export default function (UIkit) {
                 write() {
 
                     var placeholder = this.placeholder,
-                        outerHeight = (this.isActive ? placeholder : this.$el)[0].offsetHeight, el;
+                        outerHeight = (this.isActive ? placeholder : this.$el).offsetHeight, el;
 
                     css(placeholder, assign(
                         {height: css(this.$el, 'position') !== 'absolute' ? outerHeight : ''},
                         css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
                     ));
 
-                    if (!docEl.contains(placeholder[0])) {
-                        placeholder.insertAfter(this.$el);
+                    if (!docEl.contains(placeholder)) {
+                        after(this.$el, placeholder);
                         attr(placeholder, 'hidden', '');
                     }
 
                     attr(this.widthElement, 'hidden', null);
-                    this.width = this.widthElement[0].offsetWidth;
+                    this.width = this.widthElement.offsetWidth;
                     attr(this.widthElement, 'hidden', this.isActive ? '' : null);
 
                     this.topOffset = offset(this.isActive ? placeholder : this.$el).top;
@@ -162,10 +162,10 @@ export default function (UIkit) {
                                 this[prop] = height(win) * toFloat(this[prop]) / 100;
                             } else {
 
-                                el = this[prop] === true ? this.$el.parent() : query(this[prop], this.$el);
+                                el = this[prop] === true ? this.$el.parentNode : query(this[prop], this.$el);
 
                                 if (el) {
-                                    this[prop] = offset(el).top + el[0].offsetHeight;
+                                    this[prop] = offset(el).top + el.offsetHeight;
                                 }
 
                             }
@@ -192,7 +192,7 @@ export default function (UIkit) {
                 read() {
                     this.offsetTop = offset(this.$el).top;
                     this.scroll = win.pageYOffset;
-                    this.visible = this.$el.is(':visible');
+                    this.visible = isVisible(this.$el);
                 },
 
                 write({dir} = {}) {

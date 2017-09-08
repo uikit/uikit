@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Modal - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -464,23 +464,27 @@
 
             (function () {
 
-                $('#modal-dialog').on('click', function (e) {
+                var util = UIkit.util,
+                    on = util.on,
+                    $ = util.$;
+
+                on($('#modal-dialog'), 'click', function (e) {
                     e.preventDefault();
-                    $(this).blur();
+                    e.target.blur();
                     UIkit.modal.dialog('<p class="uk-modal-body">UIkit dialog!</p>');
                 });
 
-                $('#modal-alert').on('click', function (e) {
+                on($('#modal-alert'), 'click', function (e) {
                     e.preventDefault();
-                    $(this).blur();
+                    e.target.blur();
                     UIkit.modal.alert('UIkit alert!').then(function () {
                         console.log('Alert closed.')
                     });
                 });
 
-                $('#modal-confirm').on('click', function (e) {
+                on($('#modal-confirm'), 'click', function (e) {
                     e.preventDefault();
-                    $(this).blur();
+                    e.target.blur();
                     UIkit.modal.confirm('UIkit confirm!').then(function () {
                         console.log('Confirmed.')
                     }, function () {
@@ -488,9 +492,9 @@
                     });
                 });
 
-                $('#modal-prompt').on('click', function (e) {
+                on($('#modal-prompt'), 'click', function (e) {
                     e.preventDefault();
-                    $(this).blur();
+                    e.target.blur();
                     UIkit.modal.prompt('Name:', 'Your name').then(function (name) {
                         console.log('Prompted:', name)
                     });

@@ -1,4 +1,4 @@
-import { assign, attr, bind, camelize, coerce, data as getData, hasAttr, hasOwn, hyphenate, includes, isArray, isJQuery, isPlainObject, isString, isUndefined, mergeOptions, Observer, on, startsWith } from '../util/index';
+import { assign, attr, bind, camelize, coerce, data as getData, hasAttr, hasOwn, hyphenate, includes, isArray, isFunction, isPlainObject, isString, isUndefined, mergeOptions, Observer, on, startsWith } from '../util/index';
 
 export default function (UIkit) {
 
@@ -127,7 +127,7 @@ export default function (UIkit) {
         this._observer = new Observer(() => {
 
             var data = getProps(this.$options, this.$name);
-            if (attrs.some(key => !equals(data[key], this.$props[key]))) {
+            if (attrs.some(key => !isUndefined(data[key]) && data[key] !== this.$props[key])) {
                 this.$reset(data);
             }
 
@@ -203,11 +203,13 @@ export default function (UIkit) {
 
             get() {
 
-                if (!hasOwn(component._computeds, key)) {
-                    component._computeds[key] = cb.call(component);
+                var {_computeds, $props, $el} = component;
+
+                if (!hasOwn(_computeds, key)) {
+                    _computeds[key] = cb.call(component, $props, $el);
                 }
 
-                return component._computeds[key];
+                return _computeds[key];
             },
 
             set(value) {
@@ -224,8 +226,14 @@ export default function (UIkit) {
         }
 
         var {name, el, delegate, self, filter, handler} = event;
+        el = isFunction(el) && el.call(component) || el || component.$el;
 
-        el = el && el.call(component) || component.$el;
+        if (isArray(el)) {
+
+            el.forEach(el => registerEvent(component, assign(event, {el}), key));
+
+            return;
+        }
 
         if (filter && !filter.call(component)) {
             return;
@@ -260,16 +268,12 @@ export default function (UIkit) {
         }
     }
 
-    function details(handler) {
-        return e => isArray(e.detail) ? handler.apply(null, [e].concat(e.detail)) : handler(e);
-    }
-
     function notIn(options, key) {
         return options.every(arr => !arr || !hasOwn(arr, key));
     }
 
-    function equals(a, b) {
-        return isUndefined(a) || a === b || isJQuery(a) && isJQuery(b) && a.is(b);
+    function details(listener) {
+        return e => isArray(e.detail) ? listener.apply(listener, [e].concat(e.detail)) : listener(e);
     }
 
 }

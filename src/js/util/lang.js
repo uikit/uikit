@@ -1,9 +1,5 @@
-import $ from 'jquery';
 import { getCssVar, query } from './index';
 import promiseFn from './promise';
-
-export { $ };
-export { ajax } from 'jquery';
 
 export function bind(fn, context) {
     return function (a) {
@@ -20,13 +16,17 @@ export function hasOwn(obj, key) {
 
 export const Promise = 'Promise' in window ? window.Promise : promiseFn;
 
+const classifyRe = /(?:^|[-_\/])(\w)/g;
+
 export function classify(str) {
-    return str.replace(/(?:^|[-_\/])(\w)/g, (_, c) => c ? c.toUpperCase() : '');
+    return str.replace(classifyRe, (_, c) => c ? c.toUpperCase() : '');
 }
+
+const hyphenateRe = /([a-z\d])([A-Z])/g;
 
 export function hyphenate(str) {
     return str
-        .replace(/([a-z\d])([A-Z])/g, '$1-$2')
+        .replace(hyphenateRe, '$1-$2')
         .toLowerCase()
 }
 
@@ -107,66 +107,6 @@ export function isUndefined(value) {
     return value === void 0;
 }
 
-export function isJQuery(obj) {
-    return obj instanceof $;
-}
-
-export function isContextSelector(selector) {
-    return isString(selector) && selector.match(/^[!>+-]/);
-}
-
-export function getContextSelectors(selector) {
-    return isContextSelector(selector) && selector.split(/(?=\s[!>+-])/g).map(value => value.trim());
-}
-
-const contextSelectors = {'!': 'closest', '+': 'nextAll', '-': 'prevAll'};
-
-export function toJQuery(element, context) {
-
-    if (element === true) {
-        return null;
-    }
-
-    try {
-
-        if (context && isContextSelector(element) && element[0] !== '>') {
-
-            var fn = contextSelectors[element[0]], selector = element.substr(1);
-
-            context = $(context);
-
-            if (fn === 'closest') {
-                context = context.parent();
-                selector = selector || '*';
-            }
-
-            element = context[fn](selector);
-
-        } else {
-            element = $(element, context);
-        }
-
-    } catch (e) {
-        return null;
-    }
-
-    return element.length ? element : null;
-}
-
-export function toNode(element) {
-    return element && (isJQuery(element) ? element[0] : element);
-}
-
-export function toNodes(element) {
-    return isJQuery(element)
-        ? element.toArray()
-        : isArray(element)
-            ? element
-            : element
-                ? [element]
-                : [];
-}
-
 export function toBoolean(value) {
     return isBoolean(value)
         ? value
@@ -218,7 +158,7 @@ export function coerce(type, value, context) {
         return toBoolean(value);
     } else if (type === Number) {
         return toNumber(value);
-    } else if (type === 'jQuery') {
+    } else if (type === 'query') {
         return query(value, context);
     } else if (type === 'list') {
         return toList(value);
@@ -259,17 +199,9 @@ export const assign = Object.assign || function (target, ...args) {
 };
 
 export function each(obj, cb) {
-    if (isArray(obj)) {
-        for (var i = 0; i < obj.length; i++) {
-            if (cb.call(obj[i], obj[i], i) === false) {
-                break;
-            }
-        }
-    } else {
-        for (var key in obj) {
-            if (cb.call(obj[key], obj[key], key) === false) {
-                break;
-            }
+    for (var key in obj) {
+        if (cb.call(obj[key], obj[key], key) === false) {
+            break;
         }
     }
 }
@@ -279,3 +211,56 @@ export function clamp(number, min = 0, max = 1) {
 }
 
 export function noop() {}
+
+export function intersectRect(r1, r2) {
+    return r1.left <= r2.right &&
+        r2.left <= r1.right &&
+        r1.top <= r2.bottom &&
+        r2.top <= r1.bottom;
+}
+
+export function pointInRect(point, rect) {
+    return intersectRect({top: point.y, bottom: point.y, left: point.x, right: point.x}, rect)
+}
+
+export function ajax(url, options) {
+    return new Promise((resolve, reject) => {
+
+        var env = assign({
+            url: url,
+            data: null,
+            method: 'GET',
+            headers: {},
+            xhr: new XMLHttpRequest(),
+            beforeSend: noop,
+            responseType: ''
+        }, options);
+
+        env.beforeSend(env);
+
+        env.xhr.open(env.method, env.url);
+        env.xhr.responseType = env.responseType;
+
+        env.xhr.onload = function() {
+            if (this.status === 0 || this.status >= 200 && this.status < 300 || this.status === 304) {
+                resolve(this);
+            }
+            else {
+                reject(assign(Error(this.statusText), {
+                    xhr: this,
+                    status: this.status
+                }));
+            }
+        };
+
+        env.xhr.onerror = function() {
+            reject(assign(Error('Network Error'), {xhr: this}));
+        };
+
+        env.xhr.ontimeout = function() {
+            reject(assign(Error('Network Timeout'), {xhr: this}));
+        };
+
+        env.xhr.send(env.data);
+    })
+}

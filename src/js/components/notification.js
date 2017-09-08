@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, css, each, pointerEnter, pointerLeave, toFloat, Transition, trigger} = UIkit.util;
+    var {$, closest, css, each, pointerEnter, pointerLeave, toFloat, Transition, trigger} = UIkit.util;
     var containers = {};
 
     UIkit.component('notification', {
@@ -26,15 +26,19 @@ function plugin(UIkit) {
         created() {
 
             if (!containers[this.pos]) {
-                containers[this.pos] = $(`<div class="uk-notification uk-notification-${this.pos}"></div>`).appendTo(UIkit.container);
+                containers[this.pos] = UIkit.container.appendChild($(`<div class="uk-notification uk-notification-${this.pos}"></div>`));
             }
 
-            this.$mount($(
-                `<div class="${this.clsMsg}${this.status ? ` ${this.clsMsg}-${this.status}` : ''}">
-                    <a href="#" class="${this.clsClose}" data-uk-close></a>
-                    <div>${this.message}</div>
-                </div>`
-            ).appendTo(css(containers[this.pos], 'display', 'block'))[0]);
+            var container = css(containers[this.pos], 'display', 'block');
+
+            this.$mount(
+                container.appendChild(
+                    $(`<div class="${this.clsMsg}${this.status ? ` ${this.clsMsg}-${this.status}` : ''}">
+                        <a href="#" class="${this.clsClose}" data-uk-close></a>
+                        <div>${this.message}</div>
+                    </div>`)
+                )
+            );
 
         },
 
@@ -42,7 +46,7 @@ function plugin(UIkit) {
 
             var marginBottom = toFloat(css(this.$el, 'marginBottom'));
             Transition.start(
-                css(this.$el, {opacity: 0, marginTop: -1 * this.$el[0].offsetHeight, marginBottom: 0}),
+                css(this.$el, {opacity: 0, marginTop: -1 * this.$el.offsetHeight, marginBottom: 0}),
                 {opacity: 1, marginTop: 0, marginBottom}
             ).then(() => {
                 if (this.timeout) {
@@ -55,7 +59,7 @@ function plugin(UIkit) {
         events: {
 
             click(e) {
-                if ($(e.target).closest('a[href="#"]').length) {
+                if (closest(e.target, 'a[href="#"]')) {
                     e.preventDefault();
                 }
                 this.close();
@@ -82,7 +86,7 @@ function plugin(UIkit) {
                 var remove = () => {
 
                     trigger(this.$el, 'close', [this]);
-                    this.$el.remove();
+                    remove(this.$el);
 
                     if (!containers[this.pos].children().length) {
                         css(containers[this.pos], 'display', 'none');
@@ -99,7 +103,7 @@ function plugin(UIkit) {
                 } else {
                     Transition.start(this.$el, {
                         opacity: 0,
-                        marginTop: -1 * this.$el[0].offsetHeight,
+                        marginTop: -1 * this.$el.offsetHeight,
                         marginBottom: 0
                     }).then(remove)
                 }

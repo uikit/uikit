@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {util, mixin} = UIkit;
-    var {$, attr, doc, fastdom, flipPosition, includes, isTouch, on, pointerDown, pointerEnter, pointerLeave, within} = util;
+    var {append, attr, doc, fastdom, flipPosition, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, remove, within} = util;
 
     var actives = [];
 
@@ -13,11 +13,10 @@ function plugin(UIkit) {
 
         attrs: true,
 
-        mixins: [mixin.togglable, mixin.position],
+        mixins: [mixin.container, mixin.togglable, mixin.position],
 
         props: {
             delay: Number,
-            container: Boolean,
             title: String
         },
 
@@ -28,16 +27,7 @@ function plugin(UIkit) {
             animation: ['uk-animation-scale-up'],
             duration: 100,
             cls: 'uk-active',
-            clsPos: 'uk-tooltip',
-            container: true,
-        },
-
-        computed: {
-
-            container() {
-                return $(this.$props.container === true && UIkit.container || this.$props.container || UIkit.container);
-            }
-
+            clsPos: 'uk-tooltip'
         },
 
         connected() {
@@ -63,7 +53,7 @@ function plugin(UIkit) {
 
                 clearTimeout(this.showTimer);
 
-                this.tooltip = $(`<div class="${this.clsPos}" aria-hidden><div class="${this.clsPos}-inner">${this.title}</div></div>`).appendTo(this.container);
+                this.tooltip = append(this.container, `<div class="${this.clsPos}" aria-hidden><div class="${this.clsPos}-inner">${this.title}</div></div>`);
 
                 attr(this.$el, 'aria-expanded', true);
 
@@ -77,7 +67,7 @@ function plugin(UIkit) {
 
                     this.hideTimer = setInterval(() => {
 
-                        if (!this.$el.is(':visible')) {
+                        if (!isVisible(this.$el)) {
                             this.hide();
                         }
 
@@ -90,7 +80,7 @@ function plugin(UIkit) {
 
                 var index = actives.indexOf(this);
 
-                if (!~index || this.$el.is('input') && this.$el[0] === doc.activeElement) {
+                if (!~index || matches(this.$el, 'input') && this.$el === doc.activeElement) {
                     return;
                 }
 
@@ -100,7 +90,7 @@ function plugin(UIkit) {
                 clearInterval(this.hideTimer);
                 attr(this.$el, 'aria-expanded', false);
                 this.toggleElement(this.tooltip, false);
-                this.tooltip && this.tooltip.remove();
+                this.tooltip && remove(this.tooltip);
                 this.tooltip = false;
                 this._unbind();
 

@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, addClass, assign, css, height, includes, isRtl, isVisible, noop, query, toFloat, Transition, within } from '../util/index';
+import { $$, addClass, append, assign, css, height, includes, after, isRtl, isVisible, matches, noop, query, toFloat, Transition, within } from '../util/index';
 
 export default function (UIkit) {
 
@@ -19,7 +19,7 @@ export default function (UIkit) {
             delayHide: Number,
             dropbar: Boolean,
             dropbarMode: String,
-            dropbarAnchor: 'jQuery',
+            dropbarAnchor: 'query',
             duration: Number
         },
 
@@ -42,12 +42,12 @@ export default function (UIkit) {
 
         computed: {
 
-            boundary() {
-                return (this.$props.boundary === true || this.boundaryAlign) ? this.$el : this.$props.boundary
+            boundary({boundary, boundaryAlign}, $el) {
+                return (boundary === true || boundaryAlign) ? $el : boundary
             },
 
-            pos() {
-                return `bottom-${this.align}`;
+            pos({align}) {
+                return `bottom-${align}`;
             }
 
         },
@@ -56,7 +56,7 @@ export default function (UIkit) {
 
             if (this.dropbar) {
                 UIkit.navbarDropbar(
-                    query(this.dropbar, this.$el) || $('<div></div>').insertAfter(this.dropbarAnchor || this.$el),
+                    query(this.dropbar, this.$el) || after(this.dropbarAnchor || this.$el, '<div></div>'),
                     {clsDrop: this.clsDrop, mode: this.dropbarMode, duration: this.duration, navbar: this}
                 );
             }
@@ -66,7 +66,7 @@ export default function (UIkit) {
         update() {
 
             UIkit.drop(
-                $(`${this.dropdown} .${this.clsDrop}`, this.$el).filter((_, el) => !UIkit.getComponent(el, 'dropdown')),
+                $$(`${this.dropdown} .${this.clsDrop}`, this.$el).filter(el => !UIkit.getComponent(el, 'dropdown')),
                 assign({}, this.$props, {boundary: this.boundary, pos: this.pos})
             );
 
@@ -134,7 +134,7 @@ export default function (UIkit) {
                 handler(e, drop) {
                     var {$el, dir} = drop;
                     if (dir === 'bottom' && !within($el, this.$el)) {
-                        $el.appendTo(this.$el);
+                        append(this.$el, $el);
                         drop.show();
                         e.preventDefault();
                     }
@@ -147,18 +147,18 @@ export default function (UIkit) {
                 handler() {
                     var active = this.navbar.getActive();
 
-                    if (active && !this.$el.is(':hover')) {
+                    if (active && !matches(this.$el, ':hover')) {
                         active.hide();
                     }
                 }
             },
 
             {
-                name: 'beforeshow',
+                name: 'show',
 
                 handler(_, {$el}) {
                     this.clsDrop && addClass($el, `${this.clsDrop}-dropbar`);
-                    this.transitionTo(height($el[0]) + toFloat(css($el, 'marginTop')) + toFloat(css($el, 'marginBottom')));
+                    this.transitionTo(height($el) + toFloat(css($el, 'marginTop')) + toFloat(css($el, 'marginBottom')));
                 }
             },
 
@@ -169,7 +169,7 @@ export default function (UIkit) {
 
                     var active = this.navbar.getActive();
 
-                    if (this.$el.is(':hover') && active && active.$el.is($el)) {
+                    if (matches(this.$el, ':hover') && active && active.$el === $el) {
                         e.preventDefault();
                     }
                 }
@@ -182,7 +182,7 @@ export default function (UIkit) {
 
                     var active = this.navbar.getActive();
 
-                    if (!active || active && active.$el.is($el)) {
+                    if (!active || active && active.$el === $el) {
                         this.transitionTo(0);
                     }
                 }

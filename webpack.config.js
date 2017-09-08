@@ -26,7 +26,6 @@ module.exports = [
             libraryTarget: 'umd'
         },
         module: loaders,
-        externals: {jquery: 'jQuery'},
         resolve: {
             alias: {
                 "components$": __dirname + "/dist/icons/components.json",
@@ -48,7 +47,6 @@ module.exports = [
             libraryTarget: 'umd'
         },
         module: loaders,
-        externals: {jquery: 'jQuery'},
         resolve: {
             alias: {
                 "components$": __dirname + "/dist/icons/components.json",
@@ -98,7 +96,7 @@ module.exports = [
             filename: 'tests/js/test.js'
         },
         module: loaders,
-        externals: {jquery: 'jQuery', uikit: 'UIkit'}
+        externals: {uikit: 'UIkit'}
     }
 
 ];

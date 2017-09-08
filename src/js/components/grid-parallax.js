@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {addClass, css, scrolledOver, toFloat} = UIkit.util;
+    var {$$, addClass, css, scrolledOver, toFloat, toNodes} = UIkit.util;
 
     UIkit.component('grid-parallax', UIkit.components.grid.extend({
 
@@ -18,6 +18,18 @@ function plugin(UIkit) {
             translate: 150
         },
 
+        computed: {
+
+            translate({translate}) {
+                return Math.abs(translate);
+            },
+
+            items({target}, $el) {
+                return target ? $$(target, $el) : toNodes($el.children);
+            }
+
+        },
+
         init() {
             addClass(this.$el, 'uk-grid');
         },
@@ -25,18 +37,6 @@ function plugin(UIkit) {
         disconnected() {
             this.reset();
             css(this.$el, 'marginBottom', '');
-        },
-
-        computed: {
-
-            translate() {
-                return Math.abs(this.$props.translate);
-            },
-
-            items() {
-                return (this.target ? this.$el.find(this.target) : this.$el.children()).toArray();
-            }
-
         },
 
         update: [
@@ -73,7 +73,7 @@ function plugin(UIkit) {
 
                     this.rows.forEach(row =>
                         row.forEach((el, i) =>
-                            el.style.transform = `translateY(${i % 2 ? this.scrolled : this.scrolled / 8}px)`
+                            css(el, 'transform', `translateY(${i % 2 ? this.scrolled : this.scrolled / 8}px)`)
                         )
                     );
 
@@ -86,7 +86,7 @@ function plugin(UIkit) {
         methods: {
 
             reset() {
-                this.items.forEach(item => item.style.transform = '');
+                css(this.items, 'transform', '');
             }
 
         }
@@ -108,8 +108,8 @@ function plugin(UIkit) {
             a[prop] > b[prop]
                 ? 1
                 : b[prop] > a[prop]
-                    ? -1
-                    : 0
+                ? -1
+                : 0
         )
     }
 

@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, Animation, assign, attr, css, doc, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, Transition, trigger } from '../util/index';
+import { $$, Animation, assign, attr, css, doc, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger } from '../util/index';
 
 export default {
 
@@ -42,12 +42,12 @@ export default {
 
     computed: {
 
-        hasAnimation() {
-            return !!this.animation[0];
+        hasAnimation({animation}) {
+            return !!animation[0];
         },
 
-        hasTransition() {
-            return this.hasAnimation && this.animation[0] === true;
+        hasTransition({animation}) {
+            return this.hasAnimation && animation[0] === true;
         }
 
     },
@@ -57,7 +57,7 @@ export default {
         toggleElement(targets, show, animate) {
             return new Promise(resolve => {
 
-                targets = $(targets).toArray();
+                targets = toNodes(targets);
 
                 var all = targets => Promise.all(targets.map(el => this._toggleElement(el, show, animate))),
                     toggled = targets.filter(el => this.isToggled(el)),
@@ -94,12 +94,14 @@ export default {
         },
 
         toggleNow(targets, show) {
-            return new Promise(resolve => Promise.all($(targets).toArray().map(el => this._toggleElement(el, show, false))).then(resolve, noop));
+            return new Promise(resolve => Promise.all(toNodes(targets).map(el => this._toggleElement(el, show, false))).then(resolve, noop));
         },
 
         isToggled(el) {
-            el = el || this.$el;
-            return this.cls ? hasClass(el, this.cls.split(' ')[0]) : !hasAttr(el, 'hidden');
+            var nodes = toNodes(el || this.$el);
+            return this.cls
+                ? hasClass(nodes, this.cls.split(' ')[0])
+                : !hasAttr(nodes, 'hidden');
         },
 
         updateAria(el) {
@@ -110,14 +112,12 @@ export default {
 
         _toggleElement(el, show, animate) {
 
-            el = $(el);
-
             show = isBoolean(show)
                 ? show
                 : Animation.inProgress(el)
                     ? hasClass(el, 'uk-animation-leave')
                     : Transition.inProgress(el)
-                        ? el[0].style.height === '0px'
+                        ? el.style.height === '0px'
                         : !this.isToggled(el);
 
             if (!trigger(el, `before${show ? 'show' : 'hide'}`, [this])) {
@@ -147,7 +147,7 @@ export default {
                 attr(el, 'hidden', !toggled ? '' : null);
             }
 
-            $(el).find('[autofocus]:visible').focus();
+            $$('[autofocus]', el).forEach(el => isVisible(el) && el.focus());
 
             this.updateAria(el);
             UIkit.update(null, el);
@@ -160,9 +160,8 @@ export default {
 
         _toggleHeight(el, show) {
 
-            var children = el.children(),
-                inProgress = Transition.inProgress(el),
-                inner = children.length ? toFloat(css(children.first(), 'marginTop')) + toFloat(css(children.last(), 'marginBottom')) : 0,
+            var inProgress = Transition.inProgress(el),
+                inner = el.hasChildNodes ? toFloat(css(el.firstElementChild, 'marginTop')) + toFloat(css(el.lastElementChild, 'marginBottom')) : 0,
                 currentHeight = isVisible(el) ? height(el) + (inProgress ? 0 : inner) : 0,
                 endHeight;
 
