@@ -1,5 +1,5 @@
 import { Class, Togglable } from '../mixin/index';
-import { $, $$, attr, filter, getIndex, hasClass, includes, index, unwrap, toggleClass, wrapAll } from '../util/index';
+import { $, $$, attr, filter, getIndex, hasClass, includes, index, toggleClass, unwrap, wrapAll } from '../util/index';
 
 export default function (UIkit) {
 

@@ -1,6 +1,3 @@
-import { after, append, before, index, remove } from "../util/dom";
-import { $$, toNodes } from "../util/selector";
-
 function plugin(UIkit) {
 
     if (plugin.installed) {
@@ -8,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {mixin, util} = UIkit;
-    var {addClass, assign, attr, closest, css, doc, docEl, height, fastdom, includes, isInput, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, Promise, removeClass, toggleClass, Transition, trigger, win, within} = util;
+    var {$$, addClass, after, assign, append, attr, before, closest, css, doc, docEl, height, fastdom, includes, index, isInput, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, Promise, remove, removeClass, toggleClass, toNodes, Transition, trigger, win, within} = util;
 
     UIkit.component('sortable', {
 
@@ -173,7 +170,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                target = sortable.$el === target.parentNode && target || toNodes(sortable.$el.children).filter(element => element.contains(target))[0];
+                target = sortable.$el === target.parentNode && target || toNodes(sortable.$el.children).filter(element => within(target, element))[0];
 
                 if (move) {
                     previous.remove(this.placeholder);
@@ -246,14 +243,14 @@ function plugin(UIkit) {
 
                     if (target) {
 
-                        if (!this.$el.contains(element) || $$('-', element).some(element => element === target)) {
+                        if (!within(element, this.$el) || $$('-', element).some(element => element === target)) {
                             before(target, element);
                         } else {
                             after(target, element);
                         }
 
                     } else {
-                        this.$el.appendChild(element);
+                        append(this.$el, element);
                     }
 
                 };
@@ -268,7 +265,7 @@ function plugin(UIkit) {
 
             remove(element) {
 
-                if (!this.$el.contains(element)) {
+                if (!within(element, this.$el)) {
                     return;
                 }
 

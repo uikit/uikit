@@ -108,8 +108,8 @@ function plugin(UIkit) {
             a[prop] > b[prop]
                 ? 1
                 : b[prop] > a[prop]
-                ? -1
-                : 0
+                    ? -1
+                    : 0
         )
     }
 

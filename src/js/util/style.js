@@ -1,4 +1,4 @@
-import { addClass, doc, docEl, each, hyphenate, isArray, isNumeric, isObject, isString, isUndefined, toNode, toNodes } from './index';
+import { addClass, append, doc, docEl, each, hyphenate, isArray, isNumeric, isObject, isString, isUndefined, toNode, toNodes } from './index';
 
 var cssNumber = {
     animationIterationCount: true,
@@ -68,7 +68,7 @@ export function getCssVar(name) {
 
         /* usage in css:  .var-name:before { content:"xyz" } */
 
-        var element = docEl.appendChild(doc.createElement('div'));
+        var element = append(docEl, doc.createElement('div'));
 
         addClass(element, `var-${name}`);
 

@@ -1,5 +1,4 @@
 import Slideshow from '../mixin/slideshow';
-import { createEvent } from "../util/event";
 
 function plugin(UIkit) {
 

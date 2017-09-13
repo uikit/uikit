@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, closest, css, each, pointerEnter, pointerLeave, toFloat, Transition, trigger} = UIkit.util;
+    var {append, closest, css, each, pointerEnter, pointerLeave, remove, toFloat, Transition, trigger} = UIkit.util;
     var containers = {};
 
     UIkit.component('notification', {
@@ -26,19 +26,17 @@ function plugin(UIkit) {
         created() {
 
             if (!containers[this.pos]) {
-                containers[this.pos] = UIkit.container.appendChild($(`<div class="uk-notification uk-notification-${this.pos}"></div>`));
+                containers[this.pos] = append(UIkit.container, `<div class="uk-notification uk-notification-${this.pos}"></div>`);
             }
 
             var container = css(containers[this.pos], 'display', 'block');
 
-            this.$mount(
-                container.appendChild(
-                    $(`<div class="${this.clsMsg}${this.status ? ` ${this.clsMsg}-${this.status}` : ''}">
-                        <a href="#" class="${this.clsClose}" data-uk-close></a>
-                        <div>${this.message}</div>
-                    </div>`)
-                )
-            );
+            this.$mount(append(container,
+                `<div class="${this.clsMsg}${this.status ? ` ${this.clsMsg}-${this.status}` : ''}">
+                    <a href="#" class="${this.clsClose}" data-uk-close></a>
+                    <div>${this.message}</div>
+                </div>`
+            ));
 
         },
 
@@ -83,12 +81,12 @@ function plugin(UIkit) {
 
             close(immediate) {
 
-                var remove = () => {
+                var removeFn = () => {
 
                     trigger(this.$el, 'close', [this]);
                     remove(this.$el);
 
-                    if (!containers[this.pos].children().length) {
+                    if (!containers[this.pos].children.length) {
                         css(containers[this.pos], 'display', 'none');
                     }
 
@@ -99,13 +97,13 @@ function plugin(UIkit) {
                 }
 
                 if (immediate) {
-                    remove();
+                    removeFn();
                 } else {
                     Transition.start(this.$el, {
                         opacity: 0,
                         marginTop: -1 * this.$el.offsetHeight,
                         marginBottom: 0
-                    }).then(remove)
+                    }).then(removeFn)
                 }
             }
 

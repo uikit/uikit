@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, addClass, Animation, assign, attr, css, docEl, hasClass, height, after, isNumeric, isString, isVisible, noop, offset, query, removeClass, replaceClass, requestAnimationFrame, toFloat, toggleClass, trigger, win } from '../util/index';
+import { $, addClass, after, Animation, assign, attr, css, docEl, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, removeClass, replaceClass, requestAnimationFrame, toFloat, toggleClass, trigger, win, within } from '../util/index';
 
 export default function (UIkit) {
 
@@ -132,7 +132,7 @@ export default function (UIkit) {
                         css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
                     ));
 
-                    if (!docEl.contains(placeholder)) {
+                    if (!within(placeholder, docEl)) {
                         after(this.$el, placeholder);
                         attr(placeholder, 'hidden', '');
                     }

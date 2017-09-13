@@ -1,4 +1,4 @@
-import { docEl, remove } from '../util/index';
+import { docEl, remove, within } from '../util/index';
 
 export default function (UIkit) {
 
@@ -24,7 +24,7 @@ export default function (UIkit) {
 
         this._callHook('init');
 
-        if (docEl.contains(el)) {
+        if (within(el, docEl)) {
             this._callConnected();
         }
     };

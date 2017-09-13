@@ -132,8 +132,14 @@
 
             var util = UIkit.util;
 
-            util.on(util.$$('button'), 'click', function () {
-                UIkit.notification({message: util.data('message'), status: util.data('status')});
+            util.$$('button').forEach(function (button) {
+                util.on(button, 'click', function (e) {
+                    UIkit.notification({
+                        message: util.data(e.target, 'message'),
+                        status: util.data(e.target, 'status'),
+                        pos: util.data(e.target, 'pos'),
+                    });
+                })
             });
 
             util.on(util.$('#close-all'), 'click', function () {
