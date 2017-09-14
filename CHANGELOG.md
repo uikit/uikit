@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Fixed
+
+- Fix inverse style for `uk-hr`
+
 ### Added
 
 - Add style support for radio and checkbox in Firefox
