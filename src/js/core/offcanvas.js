@@ -1,5 +1,5 @@
 import { Modal } from '../mixin/index';
-import { $, addClass, css, docEl, hasClass, height, isTouch, one, removeClass, transitionend, trigger, unwrap, width, win, wrapAll } from '../util/index';
+import { $, addClass, css, docEl, hasClass, height, isTouch, once, removeClass, transitionend, trigger, unwrap, width, win, wrapAll } from '../util/index';
 
 var scroll;
 
@@ -121,7 +121,7 @@ export default function (UIkit) {
 
                 handler(e, scroll, target) {
                     if (scroll && target && this.isToggled() && $(target, this.content)) {
-                        one(this.$el, 'hidden', () => scroll.scrollTo(target));
+                        once(this.$el, 'hidden', () => scroll.scrollTo(target));
                         e.preventDefault();
                     }
                 }

@@ -147,7 +147,7 @@ export default {
                 attr(el, 'hidden', !toggled ? '' : null);
             }
 
-            $$('[autofocus]', el).forEach(el => isVisible(el) && el.focus());
+            $$('[autofocus]', el).some(el => isVisible(el) && (el.focus() || true));
 
             this.updateAria(el);
             UIkit.update(null, el);
@@ -188,16 +188,7 @@ export default {
 
         _toggleAnimation(el, show) {
 
-            if (Animation.inProgress(el)) {
-                return Animation.cancel(el).then(() => {
-
-                    if (Animation.inProgress(el)) {
-                        return Promise.resolve().then(() => this._toggleAnimation(el, show));
-                    }
-
-                    return this._toggleAnimation(el, show);
-                });
-            }
+            Animation.cancel(el);
 
             if (show) {
                 this._toggle(el, true);

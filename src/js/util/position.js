@@ -208,24 +208,24 @@ function dimension(prop) {
             value = css(element, prop);
             value = value === 'auto' ? element[`offset${propName}`] : toFloat(value) || 0;
 
-            return getContentSize(prop, propName, element, value);
+            return getContentSize(prop, element, value);
 
         } else {
 
             css(element, prop, !value && value !== 0
                 ? ''
-                : getContentSize(prop, propName, element, value) + 'px');
+                : getContentSize(prop, element, value) + 'px');
 
         }
 
     }
 }
 
-function getContentSize(prop, propName, element, value) {
-    return css(element, 'boxSizing') === 'border-box' ? dirs[prop].slice(1).reduce((value, prop) =>
+function getContentSize(prop, element, value) {
+    return css(element, 'boxSizing') === 'border-box' ? dirs[prop].slice(1).map(ucfirst).reduce((value, prop) =>
         value
-            - toFloat(css(element, `padding${propName}`))
-            - toFloat(css(element, `border${propName}Width`))
+            - toFloat(css(element, `padding${prop}`))
+            - toFloat(css(element, `border${prop}Width`))
     , value) : value;
 }
 

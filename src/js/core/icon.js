@@ -129,7 +129,7 @@ export default function (UIkit) {
     registerComponent('spinner', {
 
         connected() {
-            this.svg.then(svg => this.ratio !== 1 && css($(svg, 'circle'), 'stroke-width', 1 / this.ratio), noop);
+            this.svg.then(svg => this.ratio !== 1 && css($('circle', svg), 'stroke-width', 1 / this.ratio), noop);
         }
 
     });

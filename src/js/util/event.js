@@ -23,7 +23,7 @@ export function off(element, type, listener, useCapture = false) {
     type.split(' ').forEach(type => toNode(element).removeEventListener(type, listener, useCapture));
 }
 
-export function one(...args) {
+export function once(...args) {
 
     var [element, type, selector, listener, useCapture, condition] = getArgs(args),
         off = on(element, type, selector, e => {

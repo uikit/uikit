@@ -215,7 +215,8 @@ export default function (UIkit) {
                         this.isActive = false;
 
                         if (this.animation && scroll > this.topOffset) {
-                            Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation).then(() => this.hide(), noop));
+                            Animation.cancel(this.$el);
+                            Animation.out(this.$el, this.animation).then(() => this.hide(), noop);
                         } else {
                             this.hide();
                         }
@@ -226,10 +227,9 @@ export default function (UIkit) {
 
                     } else if (this.animation) {
 
-                        Animation.cancel(this.$el).then(() => {
-                            this.show();
-                            Animation.in(this.$el, this.animation).then(null, noop);
-                        });
+                        Animation.cancel(this.$el);
+                        this.show();
+                        Animation.in(this.$el, this.animation).then(null, noop);
 
                     } else {
                         this.show();
@@ -294,11 +294,9 @@ export default function (UIkit) {
 
                 toggleClass(this.$el, this.clsBelow, this.scroll > this.bottomOffset);
 
-                if (this.showOnUp) {
-                    requestAnimationFrame(() => addClass(this.$el, this.clsFixed));
-                } else {
+
                     addClass(this.$el, this.clsFixed);
-                }
+
             }
 
         }

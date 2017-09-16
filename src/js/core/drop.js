@@ -1,5 +1,5 @@
 import { Position, Togglable } from '../mixin/index';
-import { $$, addClass, Animation, attr, css, doc, includes, isTouch, MouseTracker, offset, on, one, pointerEnter, pointerLeave, pointInRect, query, removeClass, removeClasses, toggleClass, trigger, win, within } from '../util/index';
+import { $$, addClass, Animation, attr, css, doc, includes, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointInRect, query, removeClass, removeClasses, toggleClass, trigger, win, within } from '../util/index';
 
 export default function (UIkit) {
 
@@ -316,7 +316,7 @@ export default function (UIkit) {
 
                 if (toggle && this.toggle &&  toggle.$el !== this.toggle.$el) {
 
-                    one(this.$el, 'hide', tryShow);
+                    once(this.$el, 'hide', tryShow);
                     this.hide(false);
 
                 } else {

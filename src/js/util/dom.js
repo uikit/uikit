@@ -1,4 +1,4 @@
-import { addClass, animationend, assign, attr, clamp, css, each, hasClass, height, intersectRect, isArray, isNumeric, isString, isUndefined, matches, on, one, Promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toNode, toNodes, toNumber, transitionend, trigger, width } from './index';
+import { addClass, animationend, assign, attr, clamp, css, each, hasClass, height, intersectRect, isArray, isNumeric, isString, isUndefined, matches, on, once, Promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toNode, toNodes, toNumber, transitionend, trigger, width } from './index';
 
 export const win = window;
 export const doc = document;
@@ -39,7 +39,7 @@ export function transition(element, props, duration = 400, transition = 'linear'
 
             var timer = setTimeout(() => trigger(element, transitionend), duration);
 
-            one(element, `${transitionend} ${transitioncancel}`, ({type}) => {
+            once(element, `${transitionend} ${transitioncancel}`, ({type}) => {
                 clearTimeout(timer);
                 removeClass(element, 'uk-transition');
                 css(element, 'transition', '');
@@ -65,7 +65,6 @@ export const Transition = {
 
     cancel(element) {
         trigger(element, transitioncancel);
-        return Promise.resolve();
     },
 
     inProgress(element) {
@@ -108,11 +107,20 @@ export function animate(element, animation, duration = 200, origin, out) {
 
             reset();
 
-            one(element, `${animationend || 'animationend'} ${animationcancel}`, ({type}) => {
+            once(element, `${animationend || 'animationend'} ${animationcancel}`, ({type}) => {
 
                 var hasReset = false;
 
-                type === animationcancel ? reject() : resolve();
+                if (type === animationcancel) {
+                    reject();
+                    reset();
+                } else {
+                    resolve();
+                    Promise.resolve().then(() => {
+                        hasReset = true;
+                        reset();
+                    });
+                }
 
                 requestAnimationFrame(() => {
                     if (!hasReset) {
@@ -120,11 +128,6 @@ export function animate(element, animation, duration = 200, origin, out) {
 
                         requestAnimationFrame(() => removeClass(element, clsCancelAnimation));
                     }
-                });
-
-                Promise.resolve().then(() => {
-                    hasReset = true;
-                    reset();
                 });
 
             }, false, ({target}) => element === target);
@@ -163,7 +166,6 @@ export const Animation = {
 
     cancel(element) {
         trigger(element, animationcancel);
-        return Promise.resolve();
     }
 
 };
@@ -257,7 +259,7 @@ export const Dimensions = {
     contain(dimensions, maxDimensions) {
         dimensions = assign({}, dimensions);
 
-        each(dimensions, (dimension, prop) => dimensions = dimension > maxDimensions[prop]
+        each(dimensions, (_, prop) => dimensions = dimensions[prop] > maxDimensions[prop]
             ? this.ratio(dimensions, prop, maxDimensions[prop])
             : dimensions
         );
@@ -268,7 +270,7 @@ export const Dimensions = {
     cover(dimensions, maxDimensions) {
         dimensions = this.contain(dimensions, maxDimensions);
 
-        each(dimensions, (dimension, prop) => dimensions = dimension < maxDimensions[prop]
+        each(dimensions, (_, prop) => dimensions = dimensions[prop] < maxDimensions[prop]
             ? this.ratio(dimensions, prop, maxDimensions[prop])
             : dimensions
         );
@@ -282,7 +284,7 @@ export function preventClick() {
 
     var timer = setTimeout(() => trigger(doc, 'click'), 0);
 
-    one(doc, 'click', e => {
+    once(doc, 'click', e => {
         e.preventDefault();
         e.stopImmediatePropagation();
 
@@ -344,7 +346,7 @@ export function after(ref, element) {
 
 function insertNodes(element, fn) {
     element = isString(element) ? fragment(element) : element;
-    return isArray(element) ? toNodes(element).map(fn) : fn(element);
+    return 'length' in element ? toNodes(element).map(fn) : fn(element);
 }
 
 export function remove(element) {

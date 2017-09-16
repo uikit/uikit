@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, addClass, append, css, doc, docEl, hasClass, on, one, Promise, removeClass, requestAnimationFrame, toMs, transitionend, width, win, within } from '../util/index';
+import { $, addClass, append, css, doc, docEl, hasClass, on, once, Promise, removeClass, requestAnimationFrame, toMs, transitionend, width, win, within } from '../util/index';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
@@ -187,7 +187,7 @@ export default {
 
                 this._transition = {
                     reject,
-                    unbind: one(this.transitionElement, transitionend, () => {
+                    unbind: once(this.transitionElement, transitionend, () => {
                         resolve();
                         this._transition = null;
                     })

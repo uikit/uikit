@@ -13,10 +13,15 @@ export function attr(element, name, value) {
         return toNode(element).getAttribute(name);
     } else {
         toNodes(element).forEach(element => {
+
+            if (isFunction(value)) {
+                value = value.call(element, attr(element, name));
+            }
+
             if (value === null) {
                 removeAttr(element, name);
             } else {
-                element.setAttribute(name, isFunction(value) ? value.call(element, attr(element, name)) : value);
+                element.setAttribute(name, value);
             }
         });
     }

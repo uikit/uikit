@@ -1,19 +1,19 @@
 import { addClass, append, doc, docEl, each, hyphenate, isArray, isNumeric, isObject, isString, isUndefined, toNode, toNodes } from './index';
 
 var cssNumber = {
-    animationIterationCount: true,
-    columnCount: true,
-    fillOpacity: true,
-    flexGrow: true,
-    flexShrink: true,
-    fontWeight: true,
-    lineHeight: true,
-    opacity: true,
-    order: true,
-    orphans: true,
-    widows: true,
-    zIndex: true,
-    zoom: true
+    'animation-iteration-count': true,
+    'column-count': true,
+    'fill-opacity': true,
+    'flex-grow': true,
+    'flex-shrink': true,
+    'font-weight': true,
+    'line-height': true,
+    'opacity': true,
+    'order': true,
+    'orphans': true,
+    'widows': true,
+    'z-index': true,
+    'zoom': true
 };
 
 export function css(element, property, value) {

@@ -58,17 +58,21 @@ export default function (UIkit) {
 
         ],
 
-        update() {
-
-            this.items.forEach(el => {
-                this.toggleNow($(this.content, el), hasClass(el, this.clsOpen));
-            });
-
-            var active = !hasClass(this.items, this.clsOpen) && (this.active !== false && this.items[Number(this.active)] || !this.collapsible && this.items[0]);
-            if (active && !hasClass(active, this.clsOpen)) {
+        ready() {
+            var active = this.active !== false && this.items[Number(this.active)] && !hasClass(active, this.clsOpen);
+            if (active) {
                 this.toggle(active, false);
             }
+        },
 
+        update() {
+
+            this.items.forEach(el => this.toggleNow($(this.content, el), hasClass(el, this.clsOpen)));
+
+            var active = !this.collapsible && !hasClass(this.items, this.clsOpen) && this.items[0];
+            if (active) {
+                this.toggle(active, false);
+            }
         },
 
         methods: {

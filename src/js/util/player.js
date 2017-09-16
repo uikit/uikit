@@ -1,4 +1,4 @@
-import { assign, attr, includes, isString, one, Promise, toNode, win } from './index';
+import { assign, attr, includes, isString, once, Promise, toNode, win } from './index';
 
 var id = 0;
 
@@ -41,7 +41,7 @@ export class Player {
 
             return this.ready = new Promise(resolve => {
 
-                one(this.el, 'load', () => {
+                once(this.el, 'load', () => {
                     if (youtube) {
                         var listener = () => post(this.el, {event: 'listening', id: this.id});
                         poller = setInterval(listener, 100);
@@ -118,7 +118,7 @@ function listen(cb) {
 
     return new Promise(resolve => {
 
-        one(win, 'message', (_, data) => resolve(data), false, ({data}) => {
+        once(win, 'message', (_, data) => resolve(data), false, ({data}) => {
 
             if (!data || !isString(data)) {
                 return;
