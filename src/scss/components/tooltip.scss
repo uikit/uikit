@@ -58,6 +58,7 @@ $tooltip-margin:                                 10px !default;
     border-radius: $tooltip-border-radius;
     color: $tooltip-color;
     font-size: $tooltip-font-size;
+    word-wrap: break-word;
     @if(mixin-exists(hook-tooltip)) {@include hook-tooltip();}
 }
 
