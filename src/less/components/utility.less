@@ -165,6 +165,13 @@
 
 .uk-overflow-auto > :last-child { margin-bottom: 0; }
 
+/*
+ * Fix scrollbars caused by child content with box-shadows in Chrome 61
+ * https://bugs.chromium.org/p/chromium/issues/detail?id=769697
+ */
+
+.uk-overflow-auto > table { overflow: hidden; }
+
 
 /* Resize
  ========================================================================== */
