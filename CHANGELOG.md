@@ -13,6 +13,7 @@
 ### Changed
 
 - Change `uk-tab-left` text alignment to left
+- Update overview in tests
 
 ## 3.0.0 beta 30 (August 18, 2017)
 
