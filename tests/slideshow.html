@@ -27,87 +27,98 @@
             </div>
 
             <div class="uk-child-width-1-2@m" uk-grid>
-
                 <div>
-                    <div class="slideshow-animation uk-visible-toggle" uk-slideshow>
 
-                        <div class="uk-slideshow-items">
-                            <div id="item-1" class="uk-slideshow-item">
-                                <img src="images/size1.jpg" alt uk-cover>
-                                <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
-                                    <div>
-                                        <h3>Image</h3>
-                                        <p id="1" class="uk-light" uk-slideshow-parallax="x: 100;">Animation</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="item-2" class="uk-slideshow-item">
-                                <img src="images/size2.jpg" alt uk-cover>
-                                <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
-                                    <div>
-                                        <h3>Image</h3>
-                                        <p id="2" class="uk-light" uk-slideshow-parallax="x: 100;">Animation</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="item-3" class="uk-slideshow-item">
-                                <img src="images/photo.jpg" alt uk-cover>
-                                <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
-                                    <div>
-                                        <h3>Image</h3>
-                                        <p id="3" class="uk-light" uk-slideshow-parallax="x: 100;">Animation</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <!--<div class="uk-slideshow-item">-->
-                                <!--<video src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" loop uk-video="automute: true" uk-cover></video>-->
-                                <!--<div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">-->
-                                    <!--<div>-->
-                                        <!--<h3>Video</h3>-->
-                                        <!--<p class="uk-animation-slide-bottom uk-light">Animation</p>-->
-                                    <!--</div>-->
-                                <!--</div>-->
-                            <!--</div>-->
-                        </div>
+                    <div class="slideshow-animation" uk-slideshow>
 
-                        <a class="uk-position-center-left uk-slidenav-large uk-hidden-hover uk-light" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                        <a class="uk-position-center-right uk-slidenav-large uk-hidden-hover uk-light" uk-slidenav-next uk-slideshow-item="next"></a>
+                        <!-- <div class="uk-inline uk-visible-toggle uk-light"> -->
 
-                        <ul class="uk-dotnav uk-margin uk-flex-center">
+                            <ul class="uk-slideshow-items">
+                                <li id="item-1" class="uk-slideshow-item">
+                                    <img src="images/size1.jpg" alt uk-cover>
+                                    <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
+                                        <div>
+                                            <h3>Image</h3>
+                                            <p id="1" uk-slideshow-parallax="x: 100;">Animation</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li id="item-2" class="uk-slideshow-item">
+                                    <img src="images/size2.jpg" alt uk-cover>
+                                    <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
+                                        <div>
+                                            <h3>Image</h3>
+                                            <p id="2" uk-slideshow-parallax="x: 100;">Animation</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li id="item-3" class="uk-slideshow-item">
+                                    <img src="images/photo.jpg" alt uk-cover>
+                                    <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
+                                        <div>
+                                            <h3>Image</h3>
+                                            <p id="3" uk-slideshow-parallax="x: 100;">Animation</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <!--
+                                <li class="uk-slideshow-item">
+                                    <video src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" loop uk-video="automute: true" uk-cover></video>
+                                    <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
+                                        <div>
+                                            <h3>Video</h3>
+                                            <p class="uk-animation-slide-bottom">Animation</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                 -->
+                            </ul>
+
+                            <a class="uk-position-center-left  uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                            <a class="uk-position-center-right uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
+
+                        <!-- </div> -->
+
+                        <ul class="uk-dotnav uk-flex-center uk-margin">
                             <li uk-slideshow-item="0"><a href="#">Item 1</a></li>
                             <li uk-slideshow-item="1"><a href="#">Item 2</a></li>
                             <li uk-slideshow-item="2"><a href="#">Item 3</a></li>
                         </ul>
 
                     </div>
+
                 </div>
-
                 <div>
-                    <div class="slideshow-animation uk-visible-toggle" uk-slideshow>
 
-                        <div class="uk-slideshow-items">
-                            <div class="uk-slideshow-item" data-source="images/size1.jpg">
-                                <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
-                                    <div>
-                                        <h3>Image</h3>
-                                        <p class="uk-animation-slide-top uk-light">Animation</p>
+                    <div class="slideshow-animation" uk-slideshow>
+
+                        <!-- <div class="uk-inline uk-visible-toggle uk-light"> -->
+
+                            <ul class="uk-slideshow-items">
+                                <li class="uk-slideshow-item" data-source="images/size1.jpg">
+                                    <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
+                                        <div>
+                                            <h3>Image</h3>
+                                            <p class="uk-animation-slide-top">Animation</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="uk-slideshow-item" data-source="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4">
-                                <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
-                                    <div>
-                                        <h3>Video</h3>
-                                        <p class="uk-animation-slide-bottom uk-light">Animation</p>
+                                </li>
+                                <li class="uk-slideshow-item" data-source="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4">
+                                    <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
+                                        <div>
+                                            <h3>Video</h3>
+                                            <p class="uk-animation-slide-bottom">Animation</p>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
+                                </li>
+                            </ul>
 
-                        <a class="uk-position-center-left uk-slidenav-large uk-hidden-hover uk-light" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                        <a class="uk-position-center-right uk-slidenav-large uk-hidden-hover uk-light" uk-slidenav-next uk-slideshow-item="next"></a>
+                            <a class="uk-position-center-left uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                            <a class="uk-position-center-right uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
 
-                        <ul class="uk-dotnav uk-margin uk-flex-center">
+                        <!-- </div> -->
+
+                        <ul class="uk-dotnav uk-flex-center uk-margin">
                             <li uk-slideshow-item="0"><a href="#">Item 1</a></li>
                             <li uk-slideshow-item="1"><a href="#">Item 2</a></li>
                         </ul>
@@ -122,28 +133,35 @@
         </div>
 
         <div class="uk-margin" uk-slideshow>
-            <div class="uk-slideshow-items" uk-height-viewport>
-                <div class="uk-slideshow-item">
-                    <img src="images/size1.jpg" alt uk-cover>
-                    <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
-                        <div>
-                            <h3>Image</h3>
-                            <p class="uk-animation-slide-top uk-light">Animation</p>
+
+            <!-- <div class="uk-inline uk-visible-toggle uk-light"> -->
+
+                <ul class="uk-slideshow-items" uk-height-viewport>
+                    <li class="uk-slideshow-item">
+                        <img src="images/size1.jpg" alt uk-cover>
+                        <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
+                            <div>
+                                <h3>Image</h3>
+                                <p class="uk-animation-slide-top">Animation</p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="uk-slideshow-item">
-                    <video src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" loop uk-video="automute: true" uk-cover></video>
-                    <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
-                        <div>
-                            <h3>Video</h3>
-                            <p class="uk-animation-slide-bottom uk-light">Animation</p>
+                    </li>
+                    <li class="uk-slideshow-item">
+                        <video src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" loop uk-video="automute: true" uk-cover></video>
+                        <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
+                            <div>
+                                <h3>Video</h3>
+                                <p class="uk-animation-slide-bottom">Animation</p>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <a class="uk-position-center-left uk-slidenav-large uk-hidden-hover uk-light" uk-slidenav-previous uk-slideshow-item="previous"></a>
-            <a class="uk-position-center-right uk-slidenav-large uk-hidden-hover uk-light" uk-slidenav-next uk-slideshow-item="next"></a>
+                    </li>
+                </ul>
+
+                <a class="uk-position-center-left uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                <a class="uk-position-center-right uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
+
+            <!-- </div> -->
+
         </div>
 
         <div class="uk-container">
