@@ -15,6 +15,11 @@
 - Change `uk-tab-left` text alignment to left
 - Update overview in tests
 
+### Fixed
+
+- Fix responsive images in modal for IE11
+- Fix close button outside causing a scrollbar on small devices
+
 ## 3.0.0 beta 30 (August 18, 2017)
 
 ### Fixed
