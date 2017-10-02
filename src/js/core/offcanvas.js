@@ -1,5 +1,5 @@
 import { Modal } from '../mixin/index';
-import { $, addClass, css, docEl, hasClass, height, isTouch, once, removeClass, transitionend, trigger, unwrap, width, win, wrapAll } from '../util/index';
+import { $, addClass, css, doc, docEl, hasClass, height, isTouch, once, removeClass, transitionend, trigger, unwrap, width, win, wrapAll } from '../util/index';
 
 var scroll;
 
@@ -143,8 +143,8 @@ export default function (UIkit) {
                     }
 
                     css(docEl, 'overflowY', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
-                    addClass(this.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
-                    height(this.body); // force reflow
+                    addClass(doc.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
+                    height(doc.body); // force reflow
                     addClass(this.content, this.clsContentAnimation);
                     addClass(this.panel, `${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
                     addClass(this.clsOverlay);
@@ -189,8 +189,8 @@ export default function (UIkit) {
                     removeClass(this.panel, `${this.clsSidebarAnimation} ${this.clsMode}`);
                     removeClass(this.$el, this.clsOverlay);
                     css(this.$el, 'display', '');
-                    removeClass(this.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
-                    this.body.scrollTop = scroll.y;
+                    removeClass(doc.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
+                    doc.body.scrollTop = scroll.y;
 
                     css(docEl, 'overflow-y', '');
 

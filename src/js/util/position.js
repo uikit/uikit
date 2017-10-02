@@ -12,7 +12,7 @@ export function positionAt(element, target, elAttach, targetAttach, elOffset, ta
 
     var flipped = {element: elAttach, target: targetAttach};
 
-    if (!element) {
+    if (!element || !target) {
         return flipped;
     }
 

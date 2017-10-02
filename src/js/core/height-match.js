@@ -1,4 +1,4 @@
-import { $$, attr, css, isVisible } from '../util/index';
+import { $$, attr, css, isUndefined, isVisible } from '../util/index';
 
 export default function (UIkit) {
 
@@ -79,7 +79,7 @@ export default function (UIkit) {
                             hidden = attr(el, 'hidden');
 
                             attr(el, {
-                                style: `${style};display:block !important;`,
+                                style: `${style || ''};display:block !important;`,
                                 hidden: null
                             });
                         }
@@ -87,7 +87,7 @@ export default function (UIkit) {
                         max = Math.max(max, el.offsetHeight);
                         heights.push(el.offsetHeight);
 
-                        if (style || hidden) {
+                        if (!isUndefined(style)) {
                             attr(el, {style, hidden});
                         }
 

@@ -67,7 +67,7 @@ export function within(element, selector) {
         : matches(element, selector) || closest(element, selector);
 }
 
-var contextSelector = '^,?\\s*>|(^|\\s)[!+-]',
+var contextSelector = '^,?[!+-]?\\s*>|(?:^|\\s)[!+-]',
     contextSelectorRe = new RegExp(contextSelector),
     contextSplitRe = new RegExp(`(?=${contextSelector})`, 'g');
 
@@ -87,7 +87,7 @@ function resolveQuery(query, context) {
 
     query = query.trim();
 
-    var selectors = query.substr(1).trim().split (' '),
+    var selectors = query.substr(1).trim().split(' '),
         contextSelector = selectors[0] || '*',
         selector = selectors.slice(1).join(' ');
     switch (query[0]) {
@@ -154,7 +154,7 @@ export function closest(element, selector) {
 export function parents(element, selector) {
     var elements = [], parent = toNode(element).parentNode;
 
-    while (parent) {
+    while (parent && parent.nodeType === 1) {
 
         if (matches(parent, selector)) {
             elements.push(parent);
@@ -171,7 +171,7 @@ export function isJQuery(obj) {
 }
 
 function isNode(element) {
-    return element instanceof Node;
+    return element instanceof Node || isObject(element) && element.nodeType === 1;
 }
 
 function isNodeCollection(element) {
@@ -189,7 +189,7 @@ export function toNode(element) {
 }
 
 export function toNodes(element) {
-    return  isNode(element)
+    return isNode(element)
         ? [element]
         : isNodeCollection(element)
             ? arrayProto.slice.call(element)

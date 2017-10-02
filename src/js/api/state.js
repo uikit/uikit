@@ -254,7 +254,7 @@ export default function (UIkit) {
                     : isString(delegate)
                         ? delegate
                         : delegate.call(component),
-                details(handler)
+                detail(handler)
             )
         );
 
@@ -272,7 +272,7 @@ export default function (UIkit) {
         return options.every(arr => !arr || !hasOwn(arr, key));
     }
 
-    function details(listener) {
+    function detail(listener) {
         return e => isArray(e.detail) ? listener.apply(listener, [e].concat(e.detail)) : listener(e);
     }
 

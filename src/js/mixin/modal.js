@@ -28,10 +28,6 @@ export default {
 
     computed: {
 
-        body() {
-            return doc.body;
-        },
-
         panel({clsPanel}, $el) {
             return $(`.${clsPanel}`, $el);
         },
@@ -88,7 +84,7 @@ export default {
 
                 if (!hasClass(docEl, this.clsPage)) {
                     this.scrollbarWidth = width(win) - docEl.offsetWidth;
-                    css(this.body, 'overflowY', this.scrollbarWidth && this.overlay ? 'scroll' : '');
+                    css(doc.body, 'overflowY', this.scrollbarWidth && this.overlay ? 'scroll' : '');
                 }
 
                 addClass(docEl, this.clsPage);
@@ -106,7 +102,7 @@ export default {
             handler() {
                 if (this.component.active === this) {
                     removeClass(docEl, this.clsPage);
-                    css(this.body, 'overflowY', '');
+                    css(doc.body, 'overflowY', '');
                     this.component.active = null;
                 }
             }

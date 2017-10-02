@@ -72,6 +72,11 @@ export default function (UIkit) {
         update: {
 
             write() {
+
+                if (!this.panel || !this.modal) {
+                    return;
+                }
+
                 var current = css(this.$el, 'maxHeight');
 
                 css(css(this.$el, 'maxHeight', 150), 'maxHeight', Math.max(150, 150 + height(this.modal) - this.panel.offsetHeight));

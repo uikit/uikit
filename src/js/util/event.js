@@ -12,7 +12,7 @@ export function on(...args) {
     }
 
     if (listener.length > 1) {
-        listener = details(listener);
+        listener = detail(listener);
     }
 
     type.split(' ').forEach(type => element.addEventListener(type, listener, useCapture));
@@ -77,6 +77,6 @@ function delegate(element, selector, listener) {
     }
 }
 
-function details(listener) {
+function detail(listener) {
     return e => isArray(e.detail) ? listener.apply(listener, [e].concat(e.detail)) : listener(e);
 }
