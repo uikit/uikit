@@ -18,7 +18,7 @@
             <h2>Animations</h2>
 
             <div class="uk-margin">
-                <select id="animation-switcher" class="uk-select uk-form-width-small">
+                <select id="js-animation-switcher" class="uk-select uk-form-width-small">
                     <option value="swipe">Swipe</option>
                     <option value="slide">Slide</option>
                     <option value="fade">Fade</option>
@@ -29,7 +29,7 @@
             <div class="uk-child-width-1-2@m" uk-grid>
                 <div>
 
-                    <div class="slideshow-animation" uk-slideshow>
+                    <div class="js-slideshow-animation" uk-slideshow>
 
                         <!-- <div class="uk-inline uk-visible-toggle uk-light"> -->
 
@@ -90,7 +90,7 @@
                 </div>
                 <div>
 
-                    <div class="slideshow-animation" uk-slideshow>
+                    <div class="js-slideshow-animation" uk-slideshow>
 
                         <!-- <div class="uk-inline uk-visible-toggle uk-light"> -->
 
@@ -231,8 +231,8 @@
 
             (function () {
 
-                $('#animation-switcher').on('change', function() {
-                    $('.slideshow-animation').attr('animation', this.value);
+                $('#js-animation-switcher').on('change', function() {
+                    $('.js-slideshow-animation').attr('animation', this.value);
                 });
 
             })();
