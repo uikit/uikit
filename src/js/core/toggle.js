@@ -64,12 +64,12 @@ export default function (UIkit) {
                     }
 
                     // TODO better isToggled handling
-                    var link = $(e.target).closest('a[href]');
+                    var link = $(e.target).closest('a[href]')[0];
                     if ($(e.target).closest('a[href="#"], button').length
-                        || link.length && (
+                        || link && (
                             this.cls
                             || !this.target.is(':visible')
-                            || link.attr('href')[0] === '#' && this.target.is(link.attr('href'))
+                            || link.hash && this.target.is(link.hash)
                         )
                     ) {
                         e.preventDefault();

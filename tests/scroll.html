@@ -16,7 +16,7 @@
             <h1>Scroll</h1>
 
             <a class="uk-button uk-button-default" href="#bottom" uk-scroll>Go Down!</a>
-            <a id="top-callback" class="uk-button uk-button-default" href="#bottom" >Go Down with callback!</a>
+            <a id="js-top-callback" class="uk-button uk-button-default" href="#bottom" >Go Down with callback!</a>
 
             <div style="height: 2000px;"></div>
 
@@ -25,7 +25,7 @@
             <script type="text/javascript">
                 jQuery(function ($) {
 
-                    UIkit.scroll($('#top-callback')).$el.on('scrolled', function () {
+                    UIkit.scroll($('#js-top-callback')).$el.on('scrolled', function () {
                         alert('I\'m down!');
                     });
 

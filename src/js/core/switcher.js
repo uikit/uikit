@@ -1,5 +1,5 @@
 import { Togglable } from '../mixin/index';
-import { $, getIndex, isTouch, toJQuery, query } from '../util/index';
+import { $, getIndex, isTouch, query, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 

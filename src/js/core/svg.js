@@ -1,4 +1,4 @@
-import { ajax, fastdom, isVoidElement, noop, promise } from '../util/index';
+import { ajax, isVoidElement, noop, promise } from '../util/index';
 
 var svgs = {}, parser = new DOMParser();
 
@@ -45,7 +45,7 @@ export default function (UIkit) {
             this.width = this.$props.width;
             this.height = this.$props.height;
 
-            this.svg = this.getSvg().then(doc => promise((resolve, reject) => fastdom.mutate(() => {
+            this.svg = this.getSvg().then(doc => promise((resolve, reject) => {
 
                 var svg, el;
 
@@ -122,19 +122,33 @@ export default function (UIkit) {
 
                 var root = this.$el[0];
                 if (isVoidElement(root) || root.tagName === 'CANVAS') {
+
                     this.$el.attr({hidden: true, id: null});
+
                     if (root.nextSibling) {
-                        root.parentNode.insertBefore(el, root.nextSibling);
+
+                        if (el.isEqualNode(root.nextSibling)) {
+                            el = root.nextSibling;
+                        } else {
+                            root.parentNode.insertBefore(el, root.nextSibling);
+                        }
+
                     } else {
                         root.parentNode.appendChild(el);
                     }
                 } else {
-                    root.appendChild(el);
+
+                    if (root.lastChild && el.isEqualNode(root.lastChild)) {
+                        el = root.lastChild;
+                    } else {
+                        root.appendChild(el);
+                    }
+
                 }
 
                 resolve(el);
 
-            }))).then(null, noop);
+            }));
 
         },
 
@@ -145,7 +159,7 @@ export default function (UIkit) {
             }
 
             if (this.svg) {
-                this.svg.then(svg => svg && svg.parentNode && svg.parentNode.removeChild(svg));
+                this.svg.then(svg => svg.parentNode && svg.parentNode.removeChild(svg), noop);
                 this.svg = null;
             }
         },

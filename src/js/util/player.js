@@ -109,14 +109,16 @@ export class Player {
 }
 
 function post(el, cmd) {
-    el.contentWindow.postMessage(JSON.stringify(assign({event: 'command'}, cmd)), '*');
+    try {
+        el.contentWindow.postMessage(JSON.stringify(assign({event: 'command'}, cmd)), '*');
+    } catch (e) {}
 }
 
 function listen(cb) {
 
     return promise(resolve => {
 
-        one(window, 'message', data => resolve(data), false, ({data}) => {
+        one(window, 'message', (_, data) => resolve(data), false, ({data}) => {
 
             if (!data || !isString(data)) {
                 return;

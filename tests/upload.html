@@ -17,14 +17,14 @@
 
             <h2>Select</h2>
 
-            <div class="test-upload" uk-form-custom>
+            <div class="js-upload" uk-form-custom>
                 <input type="file" multiple>
                 <button class="uk-button uk-button-default" type="button" tabindex="-1">Select</button>
             </div>
 
             <h2>Drop Area</h2>
 
-            <div class="test-upload uk-placeholder uk-text-center">
+            <div class="js-upload uk-placeholder uk-text-center">
                 <span uk-icon="icon: cloud-upload"></span>
                 <span class="uk-text-middle">Attach binaries by dropping them here or</span>
                 <div uk-form-custom>
@@ -33,15 +33,15 @@
                 </div>
             </div>
 
-            <progress id="progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+            <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
 
             <script>
 
                 (function ($) {
 
-                    var bar = $("#progressbar")[0];
+                    var bar = $("#js-progressbar")[0];
 
-                    UIkit.upload('.test-upload', {
+                    UIkit.upload('.js-upload', {
 
                         url: '',
                         multiple: true,

@@ -394,7 +394,7 @@ function plugin(UIkit) {
                     // Vimeo
                     } else if (matches = source.match(/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/)) {
 
-                        ajax({type: 'GET', url: `http://vimeo.com/api/oembed.json?url=${encodeURI(source)}`, jsonp: 'callback', dataType: 'jsonp'})
+                        ajax({type: 'GET', url: `//vimeo.com/api/oembed.json?url=${encodeURI(source)}`, jsonp: 'callback', dataType: 'jsonp'})
                             .then(({height, width}) => this.setItem(item, getIframe(`//player.vimeo.com/video/${matches[2]}`, width, height)));
 
                     } else {

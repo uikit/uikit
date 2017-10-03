@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import { animationend, assign, clamp, each, Event, getContextSelectors, isBoolean, isNumber, isString, promise, requestAnimationFrame, toNode, toJQuery, transitionend } from './index';
+import { animationend, assign, clamp, each, Event, getContextSelectors, isNumber, isString, promise, requestAnimationFrame, toJQuery, toNode, transitionend } from './index';
 
 var docEl = document.documentElement;
 export const win = $(window);
@@ -38,17 +38,16 @@ export function off(el, type, listener, useCapture = false) {
 }
 
 export function one(el, type, listener, useCapture, condition) {
-    type.split(' ').forEach(type => {
-        var handler = e => {
-            var result = !condition || condition(e);
-            if (result) {
-                off(el, type, handler, useCapture);
-                listener(isBoolean(result) ? e : result);
-            }
-        };
 
-        on(el, type, handler, useCapture);
-    });
+    var handler = e => {
+        var result = !condition || condition(e);
+        if (result) {
+            off(el, type, handler, useCapture);
+            listener(e, result);
+        }
+    };
+
+    on(el, type, handler, useCapture);
 }
 
 export function trigger(element, event) {
@@ -58,11 +57,12 @@ export function trigger(element, event) {
 }
 
 export function $trigger(element, event, data, local = false) {
-    var e = Event(event);
+    var e = event instanceof Event ? event : Event(event);
     $(element)[local ? 'triggerHandler' : 'trigger'](e, data);
     return e;
 }
 
+var transitioncancel = 'transitioncancel';
 export function transition(element, props, duration = 400, transition = 'linear') {
 
     return promise((resolve, reject) => {
@@ -75,18 +75,13 @@ export function transition(element, props, duration = 400, transition = 'linear'
 
         var timer = setTimeout(() => element.trigger(transitionend), duration);
 
+        one(element, `${transitionend} ${transitioncancel}`, ({type}) => {
+            clearTimeout(timer);
+            element.removeClass('uk-transition').css('transition', '');
+            type === transitioncancel ? reject() : resolve();
+        }, false, ({target}) => element.is(target));
+
         element
-            .one(transitionend, (e, cancel) => {
-
-                clearTimeout(timer);
-                element.removeClass('uk-transition').css('transition', '');
-                if (!cancel) {
-                    resolve();
-                } else {
-                    reject();
-                }
-
-            })
             .addClass('uk-transition')
             .css('transition', `all ${duration}ms ${transition}`)
             .css(props);
@@ -99,13 +94,14 @@ export const Transition = {
 
     start: transition,
 
-    stop(element, cancel) {
-        $trigger(element, transitionend, [cancel], true);
+    stop(element) {
+        trigger(element, transitionend);
         return promise.resolve();
     },
 
     cancel(element) {
-        return this.stop(element, true);
+        trigger(element, transitioncancel);
+        return promise.resolve();
     },
 
     inProgress(element) {
@@ -114,52 +110,79 @@ export const Transition = {
 
 };
 
+var animationcancel = 'animationcancel',
+    animationprefix = 'uk-animation-',
+    clsCancelAnimation = 'uk-cancel-animation';
 export function animate(element, animation, duration = 200, origin, out) {
 
-    var p = promise(resolve => {
-
-        var cls = out ? 'uk-animation-leave' : 'uk-animation-enter';
+    return promise((resolve, reject) => {
 
         element = $(element);
 
-        if (animation.lastIndexOf('uk-animation-', 0) === 0) {
+        if (element.hasClass(clsCancelAnimation)) {
+            requestAnimationFrame(() =>
+                promise.resolve().then(() =>
+                    animate.apply(null, arguments).then(resolve, reject)
+                )
+            );
+            return;
+        }
+
+        var cls = `${animation} ${animationprefix}${out ? 'leave' : 'enter'}`;
+
+        if (animation.lastIndexOf(animationprefix, 0) === 0) {
 
             if (origin) {
-                animation += ` uk-animation-${origin}`;
+                cls += ` ${animationprefix}${origin}`;
             }
 
             if (out) {
-                animation += ' uk-animation-reverse';
+                cls += ` ${animationprefix}reverse`;
             }
 
         }
 
         reset();
 
-        element
-            .one(animationend || 'animationend', e => {
-                e.promise = p;
-                p.then(reset);
-                resolve();
-            })
-            .css('animation-duration', `${duration}ms`)
-            .addClass(animation)
-            .addClass(cls);
+        one(element, `${animationend || 'animationend'} ${animationcancel}`, ({type}) => {
 
+            var hasReset = false;
+
+            type === animationcancel ? reject() : resolve();
+
+            requestAnimationFrame(() => {
+                if (!hasReset) {
+                    element.addClass(clsCancelAnimation);
+
+                    requestAnimationFrame(() => element.removeClass(clsCancelAnimation));
+                }
+            });
+
+            promise.resolve().then(() => {
+                hasReset = true;
+                reset();
+            });
+
+        }, false, ({target}) => element.is(target));
+
+        element
+            .css('animation-duration', `${duration}ms`)
+            .addClass(cls);
 
         if (!animationend) {
             requestAnimationFrame(() => Animation.cancel(element));
         }
 
         function reset() {
-            element.css('animation-duration', '').removeClass(`${cls} ${animation}`);
+            element.css('animation-duration', '');
+            removeClass(element, `${animationprefix}\\S*`);
         }
 
     });
 
-    return p;
 }
 
+var inProgress = new RegExp(`${animationprefix}(enter|leave)`);
 export const Animation = {
 
     in(element, animation, duration, origin) {
@@ -171,12 +194,12 @@ export const Animation = {
     },
 
     inProgress(element) {
-        return $(element).hasClass('uk-animation-enter') || $(element).hasClass('uk-animation-leave');
+        return inProgress.test($(element).attr('class'));
     },
 
     cancel(element) {
-        var e = $trigger(element, animationend || 'animationend', null, true);
-        return e.promise || promise.resolve();
+        trigger(element, animationcancel);
+        return promise.resolve();
     }
 
 };

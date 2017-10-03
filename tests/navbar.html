@@ -1969,16 +1969,12 @@
                 </table>
             </div>
 
-        </div>
+            <h2>Mouse Tracker</h2>
 
-        <h2>JavaScript</h2>
-
-        <div class="uk-container">
-
-            <div id="mousetracker" class="uk-inline">
-                <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
+            <div id="js-mousetracker" class="uk-position-relative">
+                <img src="images/photo.jpg" alt="">
                 <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-center" style="height: 150px; width: 150px;">
-                    <div id="mousetarget" class="uk-position-center"></div>
+                    <div id="js-mousetarget" class="uk-position-center"></div>
                 </div>
             </div>
 
@@ -1987,8 +1983,8 @@
         <script>
 
             var tracker = new UIkit.util.MouseTracker(),
-                target = $('#mousetarget');
-            $('#mousetracker')
+                target = $('#js-mousetarget');
+            $('#js-mousetracker')
                 .on('mouseenter', function () {tracker.init()})
                 .on('mouseleave', function () {tracker.cancel()})
                 .on('mousemove', function () {

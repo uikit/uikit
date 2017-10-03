@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, Animation, isNumeric, isString, offsetTop, query, requestAnimationFrame } from '../util/index';
+import { $, Animation, isNumeric, isString, noop, offsetTop, query, requestAnimationFrame, toJQuery } from '../util/index';
 
 export default function (UIkit) {
 
@@ -18,6 +18,7 @@ export default function (UIkit) {
             clsInactive: String,
             clsFixed: String,
             clsBelow: String,
+            selTarget: String,
             widthElement: 'jQuery',
             showOnUp: Boolean,
             media: 'media',
@@ -33,10 +34,19 @@ export default function (UIkit) {
             clsInactive: '',
             clsFixed: 'uk-sticky-fixed',
             clsBelow: 'uk-sticky-below',
+            selTarget: '',
             widthElement: false,
             showOnUp: false,
             media: false,
             target: false
+        },
+
+        computed: {
+
+            selTarget() {
+                return this.$props.selTarget && toJQuery(this.$props.selTarget, this.$el) || this.$el;
+            }
+
         },
 
         connected() {
@@ -45,7 +55,7 @@ export default function (UIkit) {
             this.widthElement = this.$props.widthElement || this.placeholder;
 
             if (!this.isActive) {
-                this.$addClass(this.clsInactive);
+                this.hide();
             }
         },
 
@@ -85,6 +95,30 @@ export default function (UIkit) {
             }
 
         },
+
+        events: [
+
+            {
+                name: 'active',
+
+                handler() {
+                    this.$addClass(this.selTarget, this.clsActive);
+                    this.$removeClass(this.selTarget, this.clsInactive);
+                }
+
+            },
+
+            {
+                name: 'inactive',
+
+                handler() {
+                    this.$addClass(this.selTarget, this.clsInactive);
+                    this.$removeClass(this.selTarget, this.clsActive);
+                }
+
+            }
+
+        ],
 
         update: [
 
@@ -179,7 +213,7 @@ export default function (UIkit) {
                         this.isActive = false;
 
                         if (this.animation && scroll > this.topOffset) {
-                            Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation).then(() => this.hide()));
+                            Animation.cancel(this.$el).then(() => Animation.out(this.$el, this.animation).then(() => this.hide(), noop));
                         } else {
                             this.hide();
                         }
@@ -192,7 +226,7 @@ export default function (UIkit) {
 
                         Animation.cancel(this.$el).then(() => {
                             this.show();
-                            Animation.in(this.$el, this.animation);
+                            Animation.in(this.$el, this.animation).then(null, noop);
                         });
 
                     } else {
@@ -213,16 +247,18 @@ export default function (UIkit) {
 
                 this.isActive = true;
                 this.update();
-                this.$el.trigger('active');
                 this.placeholder.attr('hidden', null);
 
             },
 
             hide() {
 
-                this.$addClass(this.clsInactive);
-                this.$removeClass(this.clsFixed, this.clsActive, this.clsBelow);
-                this.$el.css({position: '', top: '', width: ''}).trigger('inactive');
+                if (!this.isActive || this.$hasClass(this.selTarget, this.clsActive)) {
+                    this.$el.trigger('inactive');
+                }
+
+                this.$removeClass(this.clsFixed, this.clsBelow);
+                this.$el.css({position: '', top: '', width: ''});
                 this.placeholder.attr('hidden', true);
 
             },
@@ -241,11 +277,26 @@ export default function (UIkit) {
                     width: this.width
                 });
 
-                this.$addClass(this.clsFixed);
-                this.$toggleClass(this.clsActive, active);
-                this.$toggleClass(this.clsInactive, !active);
+                if (this.$hasClass(this.selTarget, this.clsActive)) {
+
+                    if (!active) {
+                        this.$el.trigger('inactive');
+                    }
+
+                } else {
+
+                    if (active) {
+                        this.$el.trigger('active');
+                    }
+                }
+
                 this.$toggleClass(this.clsBelow, this.scroll > this.bottomOffset);
 
+                if (this.showOnUp) {
+                    requestAnimationFrame(() => this.$addClass(this.clsFixed));
+                } else {
+                    this.$addClass(this.clsFixed);
+                }
             }
 
         }

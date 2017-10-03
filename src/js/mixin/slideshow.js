@@ -124,9 +124,11 @@ function plugin(UIkit) {
 
             start(e) {
 
-                if (e.button && e.button !== 0) {
+                if (e.button && e.button !== 0 || this.slides.length < 2) {
                     return;
                 }
+
+                e.preventDefault();
 
                 var percent = 0;
                 if (this.stack.length) {

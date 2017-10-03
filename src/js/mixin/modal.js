@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $, doc, docElement, isWithin, promise, requestAnimationFrame, toNode, toJQuery, toMs, transitionend } from '../util/index';
+import { $, doc, docElement, isWithin, promise, requestAnimationFrame, toJQuery, toMs, toNode, transitionend } from '../util/index';
 import Class from './class';
 import Togglable from './togglable';
 
@@ -47,6 +47,10 @@ export default {
 
         transitionDuration() {
             return toMs(this.transitionElement.css('transition-duration'));
+        },
+
+        component() {
+            return UIkit[this.$options.name];
         }
 
     },
@@ -81,32 +85,13 @@ export default {
 
         {
 
-            name: 'beforeshow',
+            name: 'show',
 
             self: true,
 
             handler() {
 
-                if (this.isToggled()) {
-                    return false;
-                }
-
-                var prev = active && active !== this && active;
-
-                active = this;
-
-                if (prev) {
-                    if (this.stack) {
-                        this.prev = prev;
-                    } else {
-                        prev.hide().then(this.show);
-                        return false;
-                    }
-                } else {
-                    requestAnimationFrame(() => register(this.$options.name));
-                }
-
-                if (!prev) {
+                if (!docElement.hasClass(this.clsPage)) {
                     this.scrollbarWidth = window.innerWidth - docElement[0].offsetWidth;
                     this.body.css('overflow-y', this.scrollbarWidth && this.overlay ? 'scroll' : '');
                 }
@@ -119,36 +104,15 @@ export default {
 
         {
 
-            name: 'beforehide',
-
-            self: true,
-
-            handler() {
-
-                if (!this.isToggled()) {
-                    return false;
-                }
-
-                active = active && active !== this && active || this.prev;
-
-                if (!active) {
-                    deregister(this.$options.name);
-                }
-
-            }
-
-        },
-
-        {
-
             name: 'hidden',
 
             self: true,
 
             handler() {
-                if (!active) {
+                if (this.component.active === this) {
                     docElement.removeClass(this.clsPage);
                     this.body.css('overflow-y', '');
+                    this.component.active = null;
                 }
             }
 
@@ -163,6 +127,11 @@ export default {
         },
 
         show() {
+
+            if (this.isToggled()) {
+                return;
+            }
+
             if (this.container && !this.$el.parent().is(this.container)) {
                 this.container.appendChild(this.$el[0]);
                 return promise(resolve =>
@@ -172,10 +141,37 @@ export default {
                 )
             }
 
+            var prev = active && active !== this && active;
+
+            active = this;
+            this.component.active = this;
+
+            if (prev) {
+                if (this.stack) {
+                    this.prev = prev;
+                } else {
+                    prev.hide().then(this.show);
+                    return;
+                }
+            } else {
+                requestAnimationFrame(() => register(this.$options.name)); // TODO improve
+            }
+
             return this.toggleNow(this.$el, true);
         },
 
         hide() {
+
+            if (!this.isToggled()) {
+                return;
+            }
+
+            active = active && active !== this && active || this.prev;
+
+            if (!active) {
+                deregister(this.$options.name);
+            }
+
             return this.toggleNow(this.$el, false);
         },
 
@@ -184,7 +180,8 @@ export default {
         },
 
         _toggleImmediate(el, show) {
-            this._toggle(el, show);
+
+            requestAnimationFrame(() => this._toggle(el, show));
 
             return this.transitionDuration ? promise((resolve, reject) => {
 
@@ -204,6 +201,7 @@ export default {
                 this.transitionElement.one(transitionend, this._transition.handler);
 
             }) : promise.resolve();
+
         },
     }
 
