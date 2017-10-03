@@ -110,9 +110,13 @@ export default {
 
             handler() {
                 if (this.component.active === this) {
-                    docElement.removeClass(this.clsPage);
-                    this.body.css('overflow-y', '');
-                    this.component.active = null;
+                    if (this.stack) {
+                        this.component.active = this.prev;
+                    } else {
+                        docElement.removeClass(this.clsPage);
+                        this.body.css('overflow-y', '');
+                        this.component.active = null;
+                    }
                 }
             }
 
