@@ -621,7 +621,7 @@
                 <div class="uk-grid-divider uk-child-width-expand@m" uk-grid>
                     <div>
 
-                        <div class="uk-grid-small uk-child-width-auto uk-margin" uk-grid countdown>
+                        <div class="uk-grid-small uk-child-width-auto uk-margin" uk-grid js-countdown>
                             <div>
                                 <div class="uk-countdown-number uk-countdown-days"></div>
                             </div>
@@ -643,7 +643,7 @@
 
                             var demodate = (new Date(Date.now() + 864e5 * 7)).toISOString();
 
-                            $('[countdown]').each(function() {
+                            $('[js-countdown]').each(function() {
                                 UIkit.countdown(this, {date:demodate});
                             })
 
