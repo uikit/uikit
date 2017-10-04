@@ -1,4 +1,4 @@
-import { addClass, animationend, assign, attr, clamp, css, each, hasClass, height, intersectRect, isArray, isNumeric, isString, isUndefined, matches, on, once, Promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toNode, toNodes, toNumber, transitionend, trigger, width } from './index';
+import { addClass, animationend, assign, attr, clamp, css, each, hasClass, height, intersectRect, isNumeric, isString, isUndefined, matches, on, once, Promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toNode, toNodes, toNumber, transitionend, trigger, width } from './index';
 
 export const win = window;
 export const doc = document;
