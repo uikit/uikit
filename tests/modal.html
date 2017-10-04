@@ -80,10 +80,10 @@
                     <h2>Dialogs</h2>
 
                     <p uk-margin>
-                        <a id="modal-dialog" class="uk-button uk-button-default" href="#">Dialog</a>
-                        <a id="modal-alert" class="uk-button uk-button-default" href="#">Alert</a>
-                        <a id="modal-confirm" class="uk-button uk-button-default" href="#">Confirm</a>
-                        <a id="modal-prompt" class="uk-button uk-button-default" href="#">Prompt</a>
+                        <a id="js-modal-dialog" class="uk-button uk-button-default" href="#">Dialog</a>
+                        <a id="js-modal-alert" class="uk-button uk-button-default" href="#">Alert</a>
+                        <a id="js-modal-confirm" class="uk-button uk-button-default" href="#">Confirm</a>
+                        <a id="js-modal-prompt" class="uk-button uk-button-default" href="#">Prompt</a>
                     </p>
 
                 </div>
@@ -376,7 +376,7 @@
         <div id="modal-media-video" class="uk-flex-top" uk-modal>
             <div class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical">
                 <button class="uk-modal-close-outside" type="button" uk-close></button>
-                <video controls uk-video>
+                <video controls playsinline uk-video>
                     <source src="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test1" type="video/mp4">
                     <source src="//www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test1" type="video/ogg">
                 </video>
@@ -468,13 +468,13 @@
                     on = util.on,
                     $ = util.$;
 
-                on($('#modal-dialog'), 'click', function (e) {
+                on($('#js-modal-dialog'), 'click', function (e) {
                     e.preventDefault();
                     e.target.blur();
                     UIkit.modal.dialog('<p class="uk-modal-body">UIkit dialog!</p>');
                 });
 
-                on($('#modal-alert'), 'click', function (e) {
+                on($('#js-modal-alert'), 'click', function (e) {
                     e.preventDefault();
                     e.target.blur();
                     UIkit.modal.alert('UIkit alert!').then(function () {
@@ -482,7 +482,7 @@
                     });
                 });
 
-                on($('#modal-confirm'), 'click', function (e) {
+                on($('#js-modal-confirm'), 'click', function (e) {
                     e.preventDefault();
                     e.target.blur();
                     UIkit.modal.confirm('UIkit confirm!').then(function () {
@@ -492,7 +492,7 @@
                     });
                 });
 
-                on($('#modal-prompt'), 'click', function (e) {
+                on($('#js-modal-prompt'), 'click', function (e) {
                     e.preventDefault();
                     e.target.blur();
                     UIkit.modal.prompt('Name:', 'Your name').then(function (name) {

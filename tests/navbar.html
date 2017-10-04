@@ -1971,10 +1971,10 @@
 
             <h2>Mouse Tracker</h2>
 
-            <div id="mousetracker" class="uk-position-relative">
+            <div id="js-mousetracker" class="uk-position-relative">
                 <img src="images/photo.jpg" alt="">
                 <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-center" style="height: 150px; width: 150px;">
-                    <div id="mousetarget" class="uk-position-center"></div>
+                    <div id="js-mousetarget" class="uk-position-center"></div>
                 </div>
             </div>
 
@@ -1982,15 +1982,22 @@
 
         <script>
 
-            var util = UIkit.util;
+            var util = UIkit.util,
                 tracker = new util.MouseTracker(),
-                target = util.$('#mousetarget');
+                el = util.$('#js-mousetracker'),
+                target = util.$('#js-mousetarget');
 
-                util.on(target, 'mouseenter', function () {tracker.init()});
-                util.on(target, 'mouseleave', function () {tracker.cancel()});
-                util.on(target, 'mousemove', function () {
-                    target.innerText = tracker.movesTo(target.parentNode) ? 'Moves to' : 'Moves away';
-                });
+            util.on(el, 'mouseenter', function () {
+                tracker.init()
+            });
+
+            util.on(el, 'mouseleave', function () {
+                tracker.cancel()
+            });
+
+            util.on(el, 'mousemove', function () {
+                target.innerText = tracker.movesTo(target.parentNode) ? 'Moves to' : 'Moves away';
+            });
 
         </script>
 

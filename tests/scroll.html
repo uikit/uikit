@@ -16,15 +16,15 @@
             <h1>Scroll</h1>
 
             <a class="uk-button uk-button-default" href="#bottom" uk-scroll>Go Down!</a>
-            <a id="top-callback" class="uk-button uk-button-default" href="#bottom" >Go Down with callback!</a>
+            <a id="js-top-callback" class="uk-button uk-button-default" href="#bottom" >Go Down with callback!</a>
 
             <div style="height: 2000px;"></div>
 
             <a id="bottom" class="uk-button uk-button-default" href="#top" uk-scroll>Go Up!</a>
 
-            <script type="text/javascript">
+            <script>
 
-                    var scroll = UIkit.scroll('#top-callback');
+                    var scroll = UIkit.scroll('#js-top-callback');
 
                     UIkit.util.on(scroll.$el, 'scrolled', function () {
                         alert('I\'m down!');

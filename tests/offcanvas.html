@@ -60,7 +60,7 @@
                 <p uk-margin>
                     <button class="uk-button uk-button-default" type="button" uk-toggle="target: #scrollbar">Toggle scrollbar</button>
                     <button class="uk-button uk-button-primary" type="button" uk-toggle="target: #offcanvas-slide">Button Test</button>
-                    <a id="toggle" class="uk-button uk-button-secondary">Via Code</a>
+                    <a id="js-toggle" class="uk-button uk-button-secondary">Via Code</a>
                 </p>
 
                 <div id="scrollbar">
@@ -720,7 +720,7 @@
                     </div>
                 </div>
 
-                <div id="offcanvas-toggle" class="uk-offcanvas">
+                <div id="js-offcanvas-toggle" class="uk-offcanvas">
                     <div class="uk-offcanvas-bar">
 
                         <button class="uk-offcanvas-close" type="button" uk-close></button>
@@ -756,12 +756,12 @@
 
             util.ready(function () {
                 util.prepend(util.$('.uk-offcanvas-content'), util.$('div'));
-            })
+            });
 
-            util.on(util.$('#toggle'), 'click', function (e) {
+            util.on(util.$('#js-toggle'), 'click', function (e) {
 
                 e.preventDefault();
-                UIkit.offcanvas('#offcanvas-toggle').toggle();
+                UIkit.offcanvas('#js-offcanvas-toggle').toggle();
 
             });
 

@@ -18,7 +18,7 @@
             <h2>Animations</h2>
 
             <div class="uk-margin">
-                <select id="animation-switcher" class="uk-select uk-form-width-small">
+                <select id="js-animation-switcher" class="uk-select uk-form-width-small">
                     <option value="slide">Slide</option>
                     <option value="swipe">Swipe</option>
                     <option value="fade">Fade</option>
@@ -26,7 +26,7 @@
                 </select>
             </div>
 
-            <div id="lightbox-animation" class="uk-child-width-1-5@m" uk-grid uk-lightbox>
+            <div id="js-lightbox-animation" class="uk-child-width-1-5@m" uk-grid uk-lightbox>
                 <div>
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size1.jpg" caption="900x600">
@@ -136,7 +136,7 @@
 
             <h2>Dynamic lightbox</h2>
 
-            <button id="lightbox" class="uk-button uk-button-default" type="button">Dynamic lightbox</button>
+            <button id="js-lightbox" class="uk-button uk-button-default" type="button">Dynamic lightbox</button>
 
             <h2>Javascript Options</h2>
 
@@ -238,11 +238,11 @@
                     on = util.on,
                     $ = util.$;
 
-                on($('#animation-switcher'), 'change', function() {
-                    attr($('#lightbox-animation'), 'animation', this.value);
+                on($('#js-animation-switcher'), 'change', function() {
+                    util.attr($('#js-lightbox-animation'), 'animation', this.value);
                 });
 
-                on($('#lightbox'), 'click', function (e) {
+                on($('#js-lightbox'), 'click', function (e) {
                     e.preventDefault();
 
                     UIkit.lightboxPanel({
