@@ -350,7 +350,7 @@ function insertNodes(element, fn) {
 }
 
 export function remove(element) {
-    toNodes(element).forEach(element => element.parentNode.removeChild(element));
+    return toNodes(element).map(element => element.parentNode.removeChild(element));
 }
 
 export function wrapAll(element, structure) {

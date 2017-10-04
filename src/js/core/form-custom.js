@@ -66,7 +66,7 @@ export default function (UIkit) {
 
                 handler() {
 
-                    var target = this.target, input = this.input;
+                    var target = this.target, input = this.input, option;
 
                     if (!target) {
                         return;
@@ -74,8 +74,8 @@ export default function (UIkit) {
 
                     target[isInput(target) ? 'value' : 'innerText'] = input.files && input.files[0]
                         ? input.files[0].name
-                        : matches(input, 'select') && input.hasChildNodes
-                            ? $$('option', input).filter(el => el.selected)[0].innerText
+                        : matches(input, 'select') && (option = $$('option', input).filter(el => el.selected)[0])
+                            ? option.innerText
                             : input.value;
                 }
 
