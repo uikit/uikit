@@ -1580,7 +1580,7 @@ select.uk-form-width-xsmall {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%2212%201%209%206%2015%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%2212%2013%209%208%2015%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E%0A");
 }
 /* Radio and checkbox
- * Note: Only works in Chrome, Safari, Opera and Edge
+ * Note: Does not work in IE11
  ========================================================================== */
 /*
  * 1. Style
@@ -1603,6 +1603,7 @@ select.uk-form-width-xsmall {
   vertical-align: middle;
   /* 4 */
   -webkit-appearance: none;
+  -moz-appearance: none;
   /* 5 */
   background-color: transparent;
   /* 6 */
@@ -2296,7 +2297,7 @@ select.uk-form-width-xsmall {
  ========================================================================== */
 /*
  * 1. Allow cells to wrap into the next line
- * 2. Reset lists
+ * 2. Reset list
  */
 .uk-grid {
   display: -ms-flexbox;
@@ -3946,7 +3947,7 @@ ul.uk-nav-sub {
 /* Nav
  ========================================================================== */
 /*
- * 1. Reset lists
+ * 1. Reset list
  */
 .uk-navbar-nav {
   display: -ms-flexbox;
@@ -4242,7 +4243,7 @@ ul.uk-nav-sub {
 /*
  * 1. Allow items to wrap into the next line
  * 2. Gutter
- * 3. Reset lists
+ * 3. Reset list
  */
 .uk-subnav {
   display: -ms-flexbox;
@@ -4363,7 +4364,7 @@ ul.uk-nav-sub {
  ========================================================================== */
 /*
  * 1. Allow items to wrap into the next line
- * 2. Reset lists
+ * 2. Reset list
  */
 .uk-breadcrumb {
   display: -ms-flexbox;
@@ -4419,7 +4420,7 @@ ul.uk-nav-sub {
 /*
  * 1. Allow items to wrap into the next line
  * 2. Gutter
- * 3. Reset lists
+ * 3. Reset list
  */
 .uk-pagination {
   display: -ms-flexbox;
@@ -4484,7 +4485,7 @@ ul.uk-nav-sub {
 /*
  * 1. Allow items to wrap into the next line
  * 2. Gutter
- * 3. Reset lists
+ * 3. Reset list
  */
 .uk-tab {
   display: -ms-flexbox;
@@ -4606,7 +4607,7 @@ ul.uk-nav-sub {
   border-bottom: none;
 }
 .uk-tab-left > * > a {
-  text-align: right;
+  text-align: left;
   border-right: 1px solid transparent;
   border-bottom: none;
 }
@@ -4660,7 +4661,7 @@ ul.uk-nav-sub {
  ========================================================================== */
 /*
  * 1. Allow items to wrap into the next line
- * 2. Reset lists
+ * 2. Reset list
  * 3. Gutter
  */
 .uk-dotnav {
@@ -4995,8 +4996,10 @@ ul.uk-nav-sub {
 /*
  * 1. Create position context for spinner and close button
  * 2. Dimensions
- * 3. Style
- * 4. Slide-in transition
+ * 3. Fix `max-width: 100%` not working in combination with flex and responsive images in IE11
+ *    `!important` needed to overwrite `uk-width-auto`. See `#modal-media-image` in tests
+ * 4. Style
+ * 5. Slide-in transition
  */
 .uk-modal-dialog {
   /* 1 */
@@ -5005,10 +5008,11 @@ ul.uk-nav-sub {
   box-sizing: border-box;
   margin: 0 auto;
   width: 600px;
-  max-width: 100%;
   /* 3 */
-  background: #fff;
+  max-width: calc(100% - 0.01px) !important;
   /* 4 */
+  background: #fff;
+  /* 5 */
   opacity: 0;
   -webkit-transform: translateY(-100px);
   transform: translateY(-100px);
@@ -5122,16 +5126,27 @@ ul.uk-nav-sub {
  */
 /*
  * Outside
+ * 1. Prevent scrollbar on small devices
  */
 .uk-modal-close-outside {
   top: 0;
-  right: 0;
-  -webkit-transform: translate(100%, -100%);
-  transform: translate(100%, -100%);
+  /* 1 */
+  right: -5px;
+  -webkit-transform: translate(0, -100%);
+  transform: translate(0, -100%);
   color: #ffffff;
 }
 .uk-modal-close-outside:hover {
   color: #fff;
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  /* 1 */
+  .uk-modal-close-outside {
+    right: 0;
+    -webkit-transform: translate(100%, -100%);
+    transform: translate(100%, -100%);
+  }
 }
 /*
  * Full
@@ -5535,7 +5550,7 @@ ul.uk-nav-sub {
    Component: Switcher
  ========================================================================== */
 /*
- * Reset lists
+ * Reset list
  */
 .uk-switcher {
   margin: 0;
@@ -5561,7 +5576,7 @@ ul.uk-nav-sub {
  ========================================================================== */
 /*
  * 1. Allow items to wrap into the next line
- * 2. Reset lists
+ * 2. Reset list
  * 3. Gutter
  */
 .uk-iconnav {
@@ -7665,6 +7680,1175 @@ td.uk-text-break {
 .uk-background-blend-luminosity {
   background-blend-mode: luminosity;
 }
+.uk-color-red {
+  background-color: #f44336;
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-red-100,
+.uk-color-red-200,
+.uk-color-red-300,
+.uk-color-red-400,
+.uk-color-red-50 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-red-50 {
+  background-color: #ffebee;
+}
+.uk-color-red-100 {
+  background-color: #ffcdd2;
+}
+.uk-color-red-200 {
+  background-color: #ef9a9a;
+}
+.uk-color-red-300 {
+  background-color: #e57373;
+}
+.uk-color-red-400 {
+  background-color: #ef5350;
+}
+.uk-color-red-500,
+.uk-color-red-600,
+.uk-color-red-700,
+.uk-color-red-800,
+.uk-color-red-900 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-red-500 {
+  background-color: #f44336;
+}
+.uk-color-red-600 {
+  background-color: #e53935;
+}
+.uk-color-red-700 {
+  background-color: #d32f2f;
+}
+.uk-color-red-800 {
+  background-color: #c62828;
+}
+.uk-color-red-900 {
+  background-color: #b71c1c;
+}
+.uk-color-red-A100 {
+  background-color: #ff8a80;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-pink,
+.uk-color-red-A200,
+.uk-color-red-A400,
+.uk-color-red-A700 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-red-A200 {
+  background-color: #ff5252;
+}
+.uk-color-red-A400 {
+  background-color: #ff1744;
+}
+.uk-color-red-A700 {
+  background-color: #d50000;
+}
+.uk-color-pink {
+  background-color: #e91e63;
+}
+.uk-color-pink-100,
+.uk-color-pink-200,
+.uk-color-pink-300,
+.uk-color-pink-400,
+.uk-color-pink-50 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-pink-50 {
+  background-color: #fce4ec;
+}
+.uk-color-pink-100 {
+  background-color: #f8bbd0;
+}
+.uk-color-pink-200 {
+  background-color: #f48fb1;
+}
+.uk-color-pink-300 {
+  background-color: #f06292;
+}
+.uk-color-pink-400 {
+  background-color: #ec407a;
+}
+.uk-color-pink-500,
+.uk-color-pink-600,
+.uk-color-pink-700,
+.uk-color-pink-800,
+.uk-color-pink-900 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-pink-500 {
+  background-color: #e91e63;
+}
+.uk-color-pink-600 {
+  background-color: #d81b60;
+}
+.uk-color-pink-700 {
+  background-color: #c2185b;
+}
+.uk-color-pink-800 {
+  background-color: #ad1457;
+}
+.uk-color-pink-900 {
+  background-color: #880e4f;
+}
+.uk-color-pink-A100 {
+  background-color: #ff80ab;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-pink-A200,
+.uk-color-pink-A400,
+.uk-color-pink-A700,
+.uk-color-purple {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-pink-A200 {
+  background-color: #ff4081;
+}
+.uk-color-pink-A400 {
+  background-color: #f50057;
+}
+.uk-color-pink-A700 {
+  background-color: #c51162;
+}
+.uk-color-purple {
+  background-color: #9c27b0;
+}
+.uk-color-purple-100,
+.uk-color-purple-200,
+.uk-color-purple-50 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-purple-50 {
+  background-color: #f3e5f5;
+}
+.uk-color-purple-100 {
+  background-color: #e1bee7;
+}
+.uk-color-purple-200 {
+  background-color: #ce93d8;
+}
+.uk-color-purple-300,
+.uk-color-purple-400,
+.uk-color-purple-500,
+.uk-color-purple-600,
+.uk-color-purple-700,
+.uk-color-purple-800,
+.uk-color-purple-900 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-purple-300 {
+  background-color: #ba68c8;
+}
+.uk-color-purple-400 {
+  background-color: #ab47bc;
+}
+.uk-color-purple-500 {
+  background-color: #9c27b0;
+}
+.uk-color-purple-600 {
+  background-color: #8e24aa;
+}
+.uk-color-purple-700 {
+  background-color: #7b1fa2;
+}
+.uk-color-purple-800 {
+  background-color: #6a1b9a;
+}
+.uk-color-purple-900 {
+  background-color: #4a148c;
+}
+.uk-color-purple-A100 {
+  background-color: #ea80fc;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-deep-purple,
+.uk-color-purple-A200,
+.uk-color-purple-A400,
+.uk-color-purple-A700 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-purple-A200 {
+  background-color: #e040fb;
+}
+.uk-color-purple-A400 {
+  background-color: #d500f9;
+}
+.uk-color-purple-A700 {
+  background-color: #a0f;
+}
+.uk-color-deep-purple {
+  background-color: #673ab7;
+}
+.uk-color-deep-purple-50 {
+  background-color: #ede7f6;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-deep-purple-100 {
+  background-color: #d1c4e9;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-deep-purple-200 {
+  background-color: #b39ddb;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-deep-purple-300,
+.uk-color-deep-purple-400,
+.uk-color-deep-purple-500,
+.uk-color-deep-purple-600,
+.uk-color-deep-purple-700,
+.uk-color-deep-purple-800,
+.uk-color-deep-purple-900 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-deep-purple-300 {
+  background-color: #9575cd;
+}
+.uk-color-deep-purple-400 {
+  background-color: #7e57c2;
+}
+.uk-color-deep-purple-500 {
+  background-color: #673ab7;
+}
+.uk-color-deep-purple-600 {
+  background-color: #5e35b1;
+}
+.uk-color-deep-purple-700 {
+  background-color: #512da8;
+}
+.uk-color-deep-purple-800 {
+  background-color: #4527a0;
+}
+.uk-color-deep-purple-900 {
+  background-color: #311b92;
+}
+.uk-color-deep-purple-A100 {
+  background-color: #b388ff;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-deep-purple-A200,
+.uk-color-deep-purple-A400,
+.uk-color-deep-purple-A700,
+.uk-color-indigo {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-deep-purple-A200 {
+  background-color: #7c4dff;
+}
+.uk-color-deep-purple-A400 {
+  background-color: #651fff;
+}
+.uk-color-deep-purple-A700 {
+  background-color: #6200ea;
+}
+.uk-color-indigo {
+  background-color: #3f51b5;
+}
+.uk-color-indigo-100,
+.uk-color-indigo-200,
+.uk-color-indigo-50 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-indigo-50 {
+  background-color: #e8eaf6;
+}
+.uk-color-indigo-100 {
+  background-color: #c5cae9;
+}
+.uk-color-indigo-200 {
+  background-color: #9fa8da;
+}
+.uk-color-indigo-300,
+.uk-color-indigo-400,
+.uk-color-indigo-500,
+.uk-color-indigo-600,
+.uk-color-indigo-700,
+.uk-color-indigo-800,
+.uk-color-indigo-900 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-indigo-300 {
+  background-color: #7986cb;
+}
+.uk-color-indigo-400 {
+  background-color: #5c6bc0;
+}
+.uk-color-indigo-500 {
+  background-color: #3f51b5;
+}
+.uk-color-indigo-600 {
+  background-color: #3949ab;
+}
+.uk-color-indigo-700 {
+  background-color: #303f9f;
+}
+.uk-color-indigo-800 {
+  background-color: #283593;
+}
+.uk-color-indigo-900 {
+  background-color: #1a237e;
+}
+.uk-color-indigo-A100 {
+  background-color: #8c9eff;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-blue,
+.uk-color-indigo-A200,
+.uk-color-indigo-A400,
+.uk-color-indigo-A700 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-indigo-A200 {
+  background-color: #536dfe;
+}
+.uk-color-indigo-A400 {
+  background-color: #3d5afe;
+}
+.uk-color-indigo-A700 {
+  background-color: #304ffe;
+}
+.uk-color-blue-100,
+.uk-color-blue-200,
+.uk-color-blue-300,
+.uk-color-blue-400,
+.uk-color-blue-50 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-blue-50 {
+  background-color: #e3f2fd;
+}
+.uk-color-blue-100 {
+  background-color: #bbdefb;
+}
+.uk-color-blue-200 {
+  background-color: #90caf9;
+}
+.uk-color-blue-300 {
+  background-color: #64b5f6;
+}
+.uk-color-blue-400 {
+  background-color: #42a5f5;
+}
+.uk-color-blue-500,
+.uk-color-blue-600,
+.uk-color-blue-700,
+.uk-color-blue-800,
+.uk-color-blue-900 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-blue-500 {
+  background-color: #2196f3;
+}
+.uk-color-blue-600 {
+  background-color: #1e88e5;
+}
+.uk-color-blue-700 {
+  background-color: #1976d2;
+}
+.uk-color-blue-800 {
+  background-color: #1565c0;
+}
+.uk-color-blue-900 {
+  background-color: #0d47a1;
+}
+.uk-color-blue-A100 {
+  background-color: #82b1ff;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-blue-A200,
+.uk-color-blue-A400,
+.uk-color-blue-A700,
+.uk-color-light-blue {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-blue-A200 {
+  background-color: #448aff;
+}
+.uk-color-blue-A400 {
+  background-color: #2979ff;
+}
+.uk-color-blue-A700 {
+  background-color: #2962ff;
+}
+.uk-color-light-blue {
+  background-color: #03a9f4;
+}
+.uk-color-light-blue-100,
+.uk-color-light-blue-200,
+.uk-color-light-blue-300,
+.uk-color-light-blue-400,
+.uk-color-light-blue-50 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-light-blue-50 {
+  background-color: #e1f5fe;
+}
+.uk-color-light-blue-100 {
+  background-color: #b3e5fc;
+}
+.uk-color-light-blue-200 {
+  background-color: #81d4fa;
+}
+.uk-color-light-blue-300 {
+  background-color: #4fc3f7;
+}
+.uk-color-light-blue-400 {
+  background-color: #29b6f6;
+}
+.uk-color-light-blue-500,
+.uk-color-light-blue-600,
+.uk-color-light-blue-700,
+.uk-color-light-blue-800,
+.uk-color-light-blue-900 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-light-blue-500 {
+  background-color: #03a9f4;
+}
+.uk-color-light-blue-600 {
+  background-color: #039be5;
+}
+.uk-color-light-blue-700 {
+  background-color: #0288d1;
+}
+.uk-color-light-blue-800 {
+  background-color: #0277bd;
+}
+.uk-color-light-blue-900 {
+  background-color: #01579b;
+}
+.uk-color-light-blue-A100 {
+  background-color: #80d8ff;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-light-blue-A200 {
+  background-color: #40c4ff;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-light-blue-A400 {
+  background-color: #00b0ff;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-cyan,
+.uk-color-light-blue-A700 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-light-blue-A700 {
+  background-color: #0091ea;
+}
+.uk-color-cyan {
+  background-color: #00bcd4;
+}
+.uk-color-cyan-100,
+.uk-color-cyan-200,
+.uk-color-cyan-300,
+.uk-color-cyan-400,
+.uk-color-cyan-50 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-cyan-50 {
+  background-color: #e0f7fa;
+}
+.uk-color-cyan-100 {
+  background-color: #b2ebf2;
+}
+.uk-color-cyan-200 {
+  background-color: #80deea;
+}
+.uk-color-cyan-300 {
+  background-color: #4dd0e1;
+}
+.uk-color-cyan-400 {
+  background-color: #26c6da;
+}
+.uk-color-cyan-500,
+.uk-color-cyan-600,
+.uk-color-cyan-700,
+.uk-color-cyan-800,
+.uk-color-cyan-900 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-cyan-500 {
+  background-color: #00bcd4;
+}
+.uk-color-cyan-600 {
+  background-color: #00acc1;
+}
+.uk-color-cyan-700 {
+  background-color: #0097a7;
+}
+.uk-color-cyan-800 {
+  background-color: #00838f;
+}
+.uk-color-cyan-900 {
+  background-color: #006064;
+}
+.uk-color-cyan-A100,
+.uk-color-cyan-A200,
+.uk-color-cyan-A400,
+.uk-color-cyan-A700 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-cyan-A100 {
+  background-color: #84ffff;
+}
+.uk-color-cyan-A200 {
+  background-color: #18ffff;
+}
+.uk-color-cyan-A400 {
+  background-color: #00e5ff;
+}
+.uk-color-cyan-A700 {
+  background-color: #00b8d4;
+}
+.uk-color-teal {
+  background-color: #009688;
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-teal-100,
+.uk-color-teal-200,
+.uk-color-teal-300,
+.uk-color-teal-400,
+.uk-color-teal-50 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-teal-50 {
+  background-color: #e0f2f1;
+}
+.uk-color-teal-100 {
+  background-color: #b2dfdb;
+}
+.uk-color-teal-200 {
+  background-color: #80cbc4;
+}
+.uk-color-teal-300 {
+  background-color: #4db6ac;
+}
+.uk-color-teal-400 {
+  background-color: #26a69a;
+}
+.uk-color-teal-500,
+.uk-color-teal-600,
+.uk-color-teal-700,
+.uk-color-teal-800,
+.uk-color-teal-900 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-teal-500 {
+  background-color: #009688;
+}
+.uk-color-teal-600 {
+  background-color: #00897b;
+}
+.uk-color-teal-700 {
+  background-color: #00796b;
+}
+.uk-color-teal-800 {
+  background-color: #00695c;
+}
+.uk-color-teal-900 {
+  background-color: #004d40;
+}
+.uk-color-teal-A100,
+.uk-color-teal-A200,
+.uk-color-teal-A400,
+.uk-color-teal-A700 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-teal-A100 {
+  background-color: #a7ffeb;
+}
+.uk-color-teal-A200 {
+  background-color: #64ffda;
+}
+.uk-color-teal-A400 {
+  background-color: #1de9b6;
+}
+.uk-color-teal-A700 {
+  background-color: #00bfa5;
+}
+.uk-color-green {
+  background-color: #4caf50;
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-green-100,
+.uk-color-green-200,
+.uk-color-green-300,
+.uk-color-green-400,
+.uk-color-green-50 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-green-50 {
+  background-color: #e8f5e9;
+}
+.uk-color-green-100 {
+  background-color: #c8e6c9;
+}
+.uk-color-green-200 {
+  background-color: #a5d6a7;
+}
+.uk-color-green-300 {
+  background-color: #81c784;
+}
+.uk-color-green-400 {
+  background-color: #66bb6a;
+}
+.uk-color-green-500,
+.uk-color-green-600,
+.uk-color-green-700,
+.uk-color-green-800,
+.uk-color-green-900 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-green-500 {
+  background-color: #4caf50;
+}
+.uk-color-green-600 {
+  background-color: #43a047;
+}
+.uk-color-green-700 {
+  background-color: #388e3c;
+}
+.uk-color-green-800 {
+  background-color: #2e7d32;
+}
+.uk-color-green-900 {
+  background-color: #1b5e20;
+}
+.uk-color-green-A100,
+.uk-color-green-A200,
+.uk-color-green-A400,
+.uk-color-green-A700,
+.uk-color-light-green,
+.uk-color-light-green-200,
+.uk-color-light-green-300,
+.uk-color-light-green-400,
+.uk-color-light-green-50,
+.uk-color-light-green-500,
+.uk-color-light-green-600,
+.uk-color-light-green-700 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-green-A100 {
+  background-color: #b9f6ca;
+}
+.uk-color-green-A200 {
+  background-color: #69f0ae;
+}
+.uk-color-green-A400 {
+  background-color: #00e676;
+}
+.uk-color-green-A700 {
+  background-color: #00c853;
+}
+.uk-color-light-green {
+  background-color: #8bc34a;
+}
+.uk-color-light-green-50 {
+  background-color: #f1f8e9;
+}
+.uk-color-light-green-100 {
+  background-color: #dcedc8;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-light-green-200 {
+  background-color: #c5e1a5;
+}
+.uk-color-light-green-300 {
+  background-color: #aed581;
+}
+.uk-color-light-green-400 {
+  background-color: #9ccc65;
+}
+.uk-color-light-green-500 {
+  background-color: #8bc34a;
+}
+.uk-color-light-green-600 {
+  background-color: #7cb342;
+}
+.uk-color-light-green-700 {
+  background-color: #689f38;
+}
+.uk-color-light-green-800 {
+  background-color: #558b2f;
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-light-green-900 {
+  background-color: #33691e;
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-light-green-A100,
+.uk-color-light-green-A200,
+.uk-color-light-green-A400,
+.uk-color-light-green-A700,
+.uk-color-lime,
+.uk-color-lime-200,
+.uk-color-lime-300,
+.uk-color-lime-400,
+.uk-color-lime-50,
+.uk-color-lime-500,
+.uk-color-lime-600,
+.uk-color-lime-700,
+.uk-color-lime-800 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-light-green-A100 {
+  background-color: #ccff90;
+}
+.uk-color-light-green-A200 {
+  background-color: #b2ff59;
+}
+.uk-color-light-green-A400 {
+  background-color: #76ff03;
+}
+.uk-color-light-green-A700 {
+  background-color: #64dd17;
+}
+.uk-color-lime {
+  background-color: #cddc39;
+}
+.uk-color-lime-50 {
+  background-color: #f9fbe7;
+}
+.uk-color-lime-100 {
+  background-color: #f0f4c3;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-lime-200 {
+  background-color: #e6ee9c;
+}
+.uk-color-lime-300 {
+  background-color: #dce775;
+}
+.uk-color-lime-400 {
+  background-color: #d4e157;
+}
+.uk-color-lime-500 {
+  background-color: #cddc39;
+}
+.uk-color-lime-600 {
+  background-color: #c0ca33;
+}
+.uk-color-lime-700 {
+  background-color: #afb42b;
+}
+.uk-color-lime-800 {
+  background-color: #9e9d24;
+}
+.uk-color-lime-900 {
+  background-color: #827717;
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-amber,
+.uk-color-amber-200,
+.uk-color-amber-300,
+.uk-color-amber-400,
+.uk-color-amber-50,
+.uk-color-amber-500,
+.uk-color-amber-600,
+.uk-color-amber-700,
+.uk-color-amber-800,
+.uk-color-amber-900,
+.uk-color-amber-A100,
+.uk-color-amber-A200,
+.uk-color-amber-A400,
+.uk-color-amber-A700,
+.uk-color-lime-A100,
+.uk-color-lime-A200,
+.uk-color-lime-A400,
+.uk-color-lime-A700,
+.uk-color-orange,
+.uk-color-orange-100,
+.uk-color-orange-200,
+.uk-color-orange-300,
+.uk-color-orange-400,
+.uk-color-orange-50,
+.uk-color-orange-500,
+.uk-color-orange-600,
+.uk-color-orange-700,
+.uk-color-yellow,
+.uk-color-yellow-100,
+.uk-color-yellow-200,
+.uk-color-yellow-300,
+.uk-color-yellow-400,
+.uk-color-yellow-50,
+.uk-color-yellow-500,
+.uk-color-yellow-600,
+.uk-color-yellow-700,
+.uk-color-yellow-800,
+.uk-color-yellow-900,
+.uk-color-yellow-A100,
+.uk-color-yellow-A200,
+.uk-color-yellow-A400,
+.uk-color-yellow-A700 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-lime-A100 {
+  background-color: #f4ff81;
+}
+.uk-color-lime-A200 {
+  background-color: #eeff41;
+}
+.uk-color-lime-A400 {
+  background-color: #c6ff00;
+}
+.uk-color-lime-A700 {
+  background-color: #aeea00;
+}
+.uk-color-yellow {
+  background-color: #ffeb3b;
+}
+.uk-color-yellow-50 {
+  background-color: #fffde7;
+}
+.uk-color-yellow-100 {
+  background-color: #fff9c4;
+}
+.uk-color-yellow-200 {
+  background-color: #fff59d;
+}
+.uk-color-yellow-300 {
+  background-color: #fff176;
+}
+.uk-color-yellow-400 {
+  background-color: #ffee58;
+}
+.uk-color-yellow-500 {
+  background-color: #ffeb3b;
+}
+.uk-color-yellow-600 {
+  background-color: #fdd835;
+}
+.uk-color-yellow-700 {
+  background-color: #fbc02d;
+}
+.uk-color-yellow-800 {
+  background-color: #f9a825;
+}
+.uk-color-yellow-900 {
+  background-color: #f57f17;
+}
+.uk-color-yellow-A100 {
+  background-color: #ffff8d;
+}
+.uk-color-yellow-A200 {
+  background-color: #ff0;
+}
+.uk-color-yellow-A400 {
+  background-color: #ffea00;
+}
+.uk-color-yellow-A700 {
+  background-color: #ffd600;
+}
+.uk-color-amber {
+  background-color: #ffc107;
+}
+.uk-color-amber-50 {
+  background-color: #fff8e1;
+}
+.uk-color-amber-100 {
+  background-color: #ffecb3;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-amber-200 {
+  background-color: #ffe082;
+}
+.uk-color-amber-300 {
+  background-color: #ffd54f;
+}
+.uk-color-amber-400 {
+  background-color: #ffca28;
+}
+.uk-color-amber-500 {
+  background-color: #ffc107;
+}
+.uk-color-amber-600 {
+  background-color: #ffb300;
+}
+.uk-color-amber-700 {
+  background-color: #ffa000;
+}
+.uk-color-amber-800 {
+  background-color: #ff8f00;
+}
+.uk-color-amber-900 {
+  background-color: #ff6f00;
+}
+.uk-color-amber-A100 {
+  background-color: #ffe57f;
+}
+.uk-color-amber-A200 {
+  background-color: #ffd740;
+}
+.uk-color-amber-A400 {
+  background-color: #ffc400;
+}
+.uk-color-amber-A700 {
+  background-color: #ffab00;
+}
+.uk-color-orange {
+  background-color: #ff9800;
+}
+.uk-color-orange-50 {
+  background-color: #fff3e0;
+}
+.uk-color-orange-100 {
+  background-color: #ffe0b2;
+}
+.uk-color-orange-200 {
+  background-color: #ffcc80;
+}
+.uk-color-orange-300 {
+  background-color: #ffb74d;
+}
+.uk-color-orange-400 {
+  background-color: #ffa726;
+}
+.uk-color-orange-500 {
+  background-color: #ff9800;
+}
+.uk-color-orange-600 {
+  background-color: #fb8c00;
+}
+.uk-color-orange-700 {
+  background-color: #f57c00;
+}
+.uk-color-orange-800,
+.uk-color-orange-900 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-orange-800 {
+  background-color: #ef6c00;
+}
+.uk-color-orange-900 {
+  background-color: #e65100;
+}
+.uk-color-orange-A100,
+.uk-color-orange-A200,
+.uk-color-orange-A400,
+.uk-color-orange-A700 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-orange-A100 {
+  background-color: #ffd180;
+}
+.uk-color-orange-A200 {
+  background-color: #ffab40;
+}
+.uk-color-orange-A400 {
+  background-color: #ff9100;
+}
+.uk-color-orange-A700 {
+  background-color: #ff6d00;
+}
+.uk-color-deep-orange {
+  background-color: #ff5722;
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-deep-orange-100,
+.uk-color-deep-orange-200,
+.uk-color-deep-orange-300,
+.uk-color-deep-orange-400,
+.uk-color-deep-orange-50 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-deep-orange-50 {
+  background-color: #fbe9e7;
+}
+.uk-color-deep-orange-100 {
+  background-color: #ffccbc;
+}
+.uk-color-deep-orange-200 {
+  background-color: #ffab91;
+}
+.uk-color-deep-orange-300 {
+  background-color: #ff8a65;
+}
+.uk-color-deep-orange-400 {
+  background-color: #ff7043;
+}
+.uk-color-deep-orange-500,
+.uk-color-deep-orange-600,
+.uk-color-deep-orange-700,
+.uk-color-deep-orange-800,
+.uk-color-deep-orange-900 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-deep-orange-500 {
+  background-color: #ff5722;
+}
+.uk-color-deep-orange-600 {
+  background-color: #f4511e;
+}
+.uk-color-deep-orange-700 {
+  background-color: #e64a19;
+}
+.uk-color-deep-orange-800 {
+  background-color: #d84315;
+}
+.uk-color-deep-orange-900 {
+  background-color: #bf360c;
+}
+.uk-color-deep-orange-A100 {
+  background-color: #ff9e80;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-deep-orange-A200 {
+  background-color: #ff6e40;
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-brown,
+.uk-color-deep-orange-A400,
+.uk-color-deep-orange-A700 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-deep-orange-A400 {
+  background-color: #ff3d00;
+}
+.uk-color-deep-orange-A700 {
+  background-color: #dd2c00;
+}
+.uk-color-brown {
+  background-color: #795548;
+}
+.uk-color-brown-100,
+.uk-color-brown-200,
+.uk-color-brown-50 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-brown-50 {
+  background-color: #efebe9;
+}
+.uk-color-brown-100 {
+  background-color: #d7ccc8;
+}
+.uk-color-brown-200 {
+  background-color: #bcaaa4;
+}
+.uk-color-blue-grey,
+.uk-color-brown-300,
+.uk-color-brown-400,
+.uk-color-brown-500,
+.uk-color-brown-600,
+.uk-color-brown-700,
+.uk-color-brown-800,
+.uk-color-brown-900 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-brown-300 {
+  background-color: #a1887f;
+}
+.uk-color-brown-400 {
+  background-color: #8d6e63;
+}
+.uk-color-brown-500 {
+  background-color: #795548;
+}
+.uk-color-brown-600 {
+  background-color: #6d4c41;
+}
+.uk-color-brown-700 {
+  background-color: #5d4037;
+}
+.uk-color-brown-800 {
+  background-color: #4e342e;
+}
+.uk-color-brown-900 {
+  background-color: #3e2723;
+}
+.uk-color-blue-grey {
+  background-color: #607d8b;
+}
+.uk-color-blue-grey-100,
+.uk-color-blue-grey-200,
+.uk-color-blue-grey-300,
+.uk-color-blue-grey-50 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-blue-grey-50 {
+  background-color: #eceff1;
+}
+.uk-color-blue-grey-100 {
+  background-color: #cfd8dc;
+}
+.uk-color-blue-grey-200 {
+  background-color: #b0bec5;
+}
+.uk-color-blue-grey-300 {
+  background-color: #90a4ae;
+}
+.uk-color-blue-grey-400,
+.uk-color-blue-grey-500,
+.uk-color-blue-grey-600,
+.uk-color-blue-grey-700,
+.uk-color-blue-grey-800,
+.uk-color-blue-grey-900 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-blue-grey-400 {
+  background-color: #78909c;
+}
+.uk-color-blue-grey-500 {
+  background-color: #607d8b;
+}
+.uk-color-blue-grey-600 {
+  background-color: #546e7a;
+}
+.uk-color-blue-grey-700 {
+  background-color: #455a64;
+}
+.uk-color-blue-grey-800 {
+  background-color: #37474f;
+}
+.uk-color-blue-grey-900 {
+  background-color: #263238;
+}
+.uk-color-grey-100,
+.uk-color-grey-200,
+.uk-color-grey-300,
+.uk-color-grey-400,
+.uk-color-grey-50,
+.uk-color-grey-500 {
+  color: rgba(0, 0, 0, 0.87);
+}
+.uk-color-grey-50 {
+  background-color: #fafafa;
+}
+.uk-color-grey-100 {
+  background-color: #f5f5f5;
+}
+.uk-color-grey-200 {
+  background-color: #eee;
+}
+.uk-color-grey-300 {
+  background-color: #e0e0e0;
+}
+.uk-color-grey-400 {
+  background-color: #bdbdbd;
+}
+.uk-color-grey-500 {
+  background-color: #9e9e9e;
+}
+.uk-color-grey-600,
+.uk-color-grey-700,
+.uk-color-grey-800,
+.uk-color-grey-900 {
+  color: rgba(255, 255, 255, 0.87);
+}
+.uk-color-grey-600 {
+  background-color: #757575;
+}
+.uk-color-grey-700 {
+  background-color: #616161;
+}
+.uk-color-grey-800 {
+  background-color: #424242;
+}
+.uk-color-grey-900 {
+  background-color: #212121;
+}
 /* ========================================================================
    Component: Align
  ========================================================================== */
@@ -9533,16 +10717,27 @@ td.uk-text-break {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light hr,
+.uk-light .uk-hr,
 .uk-section-primary:not(.uk-preserve-color) hr,
+.uk-section-primary:not(.uk-preserve-color) .uk-hr,
 .uk-section-secondary:not(.uk-preserve-color) hr,
+.uk-section-secondary:not(.uk-preserve-color) .uk-hr,
 .uk-tile-primary:not(.uk-preserve-color) hr,
+.uk-tile-primary:not(.uk-preserve-color) .uk-hr,
 .uk-tile-secondary:not(.uk-preserve-color) hr,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-hr,
 .uk-card-primary.uk-card-body hr,
+.uk-card-primary.uk-card-body .uk-hr,
 .uk-card-primary > :not([class*='uk-card-media']) hr,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-hr,
 .uk-card-secondary.uk-card-body hr,
+.uk-card-secondary.uk-card-body .uk-hr,
 .uk-card-secondary > :not([class*='uk-card-media']) hr,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-hr,
 .uk-overlay-primary hr,
-.uk-offcanvas-bar hr {
+.uk-overlay-primary .uk-hr,
+.uk-offcanvas-bar hr,
+.uk-offcanvas-bar .uk-hr {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
 .uk-light a.uk-link-muted,
