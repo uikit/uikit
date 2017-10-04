@@ -26,8 +26,33 @@
 @color-blue-grey:       @global-color-blue-grey;
 @color-grey:            @global-color-grey;
 
-@color-text-light: color: rgba(255, 255, 255, .87);
-@color-text-dark: #0a0a0a;
+@color-text-light:      color: rgba(255, 255, 255, .87);
+@color-text-dark:       #0a0a0a;
+
+/* =========================================
+    Functions
+==============================
+*/
+
+// genetate colors levels ligth
+.levels-colors-light(@color, @level, @percent, @color-name) 
+  when(@level >0){
+	.levels-colors-light(@color, @level - 1, @percent - 5%,@color-name);
+    .color-@{color-name}-light-@{level} {
+    	backgournd-color: lighten(@color, @percent);
+     }
+     
+   	
+  }
+ 
+// generate colors levels dark
+.levels-colors-dark(@color, @level, @percent, @color-name) 
+  when(@level >0){
+	.levels-colors-dark(@color, @level - 1, @percent - 5%,@color-name);
+    .color-@{color-name}-dark-@{level} {
+    	backgournd-color: darken(@color, @percent);
+     }
+  }
 
 /* ========================================================================
    Component: Color
@@ -38,154 +63,48 @@
     Text-color
 ===========================================================================
 */
-.uk-color-text-dark {
-    color: @color-text-dark;
-}
-
-.uk-color-text-light {
-    color: @color-text-light;
-}
-
-.uk-color-text-red {
-    color: @color-red;
-}
-
-.uk-color-text-pink {
-    color: @color-prink;
-}
-
-.uk-color-text-purple {
-    color: @color-purple;
-}
-
-.uk-color-text-deep-purple {
-    color: @color-deep-purple;
-}
-
-.uk-color-text-indigo {
-    color: @color-indigo;
-}
-
-.uk-color-text-blue {
-    color: @color-blue;
-}
-
-.uk-color-text-light-blue {
-    color: @color-light-blue;
-}
-
-.uk-color-text-cyan {
-    color: @color-cyan;
-}
-
-.uk-color-text-teal {
-    color: @color-cyan;
-}
-
-.uk-color-text-green {
-    color: @color-green;
-}
-
-.uk-color-text-light-green {
-    color: @color-light-green;
-}
-
-.uk-color-text-lime {
-    color: @color-lime;
-}
-
-.uk-color-text-orange {
-    color: @color-orange;
-}
-
-.uk-color-text-deep-orange {
-    color: @color-deep-orange;
-}
-
-.uk-color-text-brown {
-    color: @color-brown;
-}
-
-.uk-color-text-blue-grey {
-    color: @color-blue-grey;
-}
-
-.uk-color-text-grey {
-    color: @color-grey;
-}
+.uk-color-text-dark { color: @color-text-dark; }
+.uk-color-text-light { color: @color-text-light; }
+.uk-color-text-red { color: @color-red; }
+.uk-color-text-pink { color: @color-prink; }
+.uk-color-text-purple { color: @color-purple; }
+.uk-color-text-deep-purple { color: @color-deep-purple; }
+.uk-color-text-indigo { color: @color-indigo; }
+.uk-color-text-blue { color: @color-blue; }
+.uk-color-text-light-blue { color: @color-light-blue; }
+.uk-color-text-cyan { color: @color-cyan; }
+.uk-color-text-teal { color: @color-cyan; }
+.uk-color-text-green { color: @color-green; }
+.uk-color-text-light-green { color: @color-light-green; }
+.uk-color-text-lime { color: @color-lime; }
+.uk-color-text-orange { color: @color-orange; }
+.uk-color-text-deep-orange { color: @color-deep-orange; }
+.uk-color-text-brown { color: @color-brown; }
+.uk-color-text-blue-grey { color: @color-blue-grey; }
+.uk-color-text-grey { color: @color-grey; }
 
 /*
     border color
 =============================================
 */
 
-.uk-color-border-red {
-    border-color: @color-red;
-}
-
-.uk-color-border-pink {
-    border-color: @color-pink;
-}
-
-.uk-color-border-purple {
-    border-color: @color-purple;
-}
-
-.uk-color-border-deep-purple {
-    border-color: @color-deep-purple;
-}
-
-.uk-color-border-indigo {
-    border-color: @color-indigo;
-}
-
-.uk-color-border-blue {
-    border-color: @color-blue;
-}
-
-.uk-color-border-light-blue {
-    border-color: @color-light-blue;
-}
-
-.uk-color-border-cyan {
-    border-color: @color-cyan;
-}
-
-.uk-color-border-teal {
-    border-color: @color-teal;
-}
-
-.uk-color-border-green {
-    border-color: @color-green;
-}
-
-.uk-color-border-light-green {
-    border-color: @color-light-green;
-}
-
-.uk-color-border-lime {
-    border-color: @color-lime;
-}
-
-.uk-color-border-orange {
-    border-color: @color-orange;
-}
-
-.uk-color-border-deep-orange {
-    border-color: @color-deep-orange;
-}
-
-.uk-color-border-brown {
-    border-color: @color-brown;
-}
-
-.uk-color-border-grey {
-    border-color: @color-grey;
-}
-
-.uk-color-border-blue-grey {
-    border-color: @blue-grey;
-}
+.uk-color-border-red { border-color: @color-red; }
+.uk-color-border-pink { border-color: @color-pink; }
+.uk-color-border-purple { border-color: @color-purple; }
+.uk-color-border-deep-purple { border-color: @color-deep-purple; }
+.uk-color-border-indigo { border-color: @color-indigo; }
+.uk-color-border-blue { border-color: @color-blue; }
+.uk-color-border-light-blue { border-color: @color-light-blue; }
+.uk-color-border-cyan { border-color: @color-cyan; }
+.uk-color-border-teal { border-color: @color-teal; }
+.uk-color-border-green { border-color: @color-green; }
+.uk-color-border-light-green { border-color: @color-light-green; }
+.uk-color-border-lime { border-color: @color-lime; }
+.uk-color-border-orange { border-color: @color-orange; } 
+.uk-color-border-deep-orange { border-color: @color-deep-orange; }
+.uk-color-border-brown { border-color: @color-brown; }
+.uk-color-border-grey { border-color: @color-grey; }
+.uk-color-border-blue-grey { border-color: @blue-grey; }
 
 .uk-color-red,
 .uk-color-pink,
@@ -211,19 +130,70 @@
 }
 
 .uk-color-red { background-color: @color-red; }
+.levels-colors-light(@color-red, 6, 30%, red);
+.levels-colors-dark(@color-red, 6, 30%, red);
+
 .uk-color-pink { background-color: @color-pink; }
+.levels-colors-light(@color-pink, 6, 30%, pink);
+.levels-colors-dark(@color-pink, 6, 30%, pink);
+
 .uk-color-purple { background-color: @color-purple; }
+.levels-colors-light(@color-purple, 6, 30%, purple);
+.levels-colors-dark(@color-purple, 6, 30%, purple);
+
 .uk-color-deep-purple { background-color: @color-deep-purple; }
+.levels-colors-light(@color-deep-purple, 6, 30%, deep-purple);
+.levels-colors-dark(@color-deep-purple, 6, 30%, deep-purple);
+
 .uk-color-indigo { background-color: @color-indigo; }
+.levels-colors-light(@color-indigo, 6, 30%, indigo);
+.levels-colors-dark(@color-indigo, 6, 30%, indigo);
+
 .uk-color-blue { background-color: @color-blue; }
+.levels-colors-light(@color-blue, 6, 30%, blue);
+.levels-colors-dark(@color-blue, 6, 30%, blue);
+
 .uk-color-light-blue { background-color: @color-light-blue; }
+.levels-colors-light(@color-light-blue, 6, 30%, light-blue);
+.levels-colors-dark(@color-light-blue, 6, 30%, light-blue);
+
 .uk-color-cyan { background-color: @color-cyan; }
+.levels-colors-light(@color-cyan, 6, 30%, cyan);
+.levels-colors-dark(@color-cyan, 6, 30%, cyan);
+
 .uk-color-teal { background-color: @color-teal; }
+.levels-colors-light(@color-teal, 6, 30%, teal);
+.levels-colors-dark(@color-teal, 6, 30%, teal);
+
 .uk-color-green { background-color: @color-green; }
+.levels-colors-light(@color-green, 6, 30%, green);
+.levels-colors-dark(@color-green, 6, 30%, green);
+
 .uk-color-light-green { background-color: @color-light-green; }
+.levels-colors-light(@color-light-green, 6, 30%, light-green);
+.levels-colors-dark(@color-light-green, 6, 30%, light-green);
+
 .uk-color-lime { background-color: @color-lime; }
+.levels-colors-light(@color-lime, 6, 30%, lime);
+.levels-colors-dark(@color-lime, 6, 30%, lime);
+
 .uk-color-orange { background-color: @color-orange; }
+.levels-colors-light(@color-orange, 6, 30%, orange);
+.levels-colors-dark(@color-orange, 6, 30%, orange);
+
 .uk-color-deep-orange { background-color: @color-deep-orange; }
+.levels-colors-light(@color-deep-orange, 6, 30%, deep-orange);
+.levels-colors-dark(@color-deep-orange, 6, 30%, deep-orange);
+
 .uk-color-brown { background-color: @color-brown; }
+.levels-colors-light(@color-brown, 6, 30%, brown);
+.levels-colors-dark(@color-brown, 6, 30%, brown);
+
 .uk-color-blue-grey { background-color: @color-blue-grey; }
+.levels-colors-light(@color-blue-grey, 6, 30%, blue-grey);
+.levels-colors-dark(@color-blue-grey, 6, 30%, blue-grey);
+
 .uk-color-grey { background-color: @color-grey; }
+.levels-colors-light(@color-grey, 6, 30%, grey);
+.levels-colors-dark(@color-grey, 6, 30%, grey);
+
