@@ -162,7 +162,7 @@ export default function (UIkit) {
                 handler() {
                     removeClass(this.content, this.clsContentAnimation);
 
-                    if (this.mode === 'none' || this.getActive() && this.getActive() !== this) {
+                    if (this.mode === 'none' || (!this.stack && this.getActive() && this.getActive() !== this)) {
                         trigger(this.panel, transitionend);
                     }
                 }
