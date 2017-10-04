@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {mixin, util} = UIkit;
-    var {assign, clamp, Dimensions, getImage, isUndefined, scrolledOver, query} = util;
+    var {assign, clamp, css, Dimensions, each, getImage, includes, isUndefined, scrolledOver, toFloat, query, win} = util;
 
     var props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
@@ -29,20 +29,20 @@ function plugin(UIkit) {
 
         computed: {
 
-            props() {
+            props(properties, $el) {
 
                 return props.reduce((props, prop) => {
 
-                    if (isUndefined(this.$props[prop])) {
+                    if (isUndefined(properties[prop])) {
                         return props;
                     }
 
                     var isColor = prop.match(/color/i),
                         isCssProp = isColor || prop === 'opacity',
-                        values = this.$props[prop];
+                        values = properties[prop];
 
                     if (isCssProp) {
-                        this.$el.css(prop, '');
+                        css($el, prop, '');
                     }
 
                     var start = (!isUndefined(values[1])
@@ -50,25 +50,23 @@ function plugin(UIkit) {
                             : prop === 'scale'
                                 ? 1
                                 : isCssProp
-                                    ? this.$el.css(prop)
+                                    ? css($el, prop)
                                     : 0) || 0,
                         end = isUndefined(values[1]) ? values[0] : values[1],
-                        unit = ~values.join('').indexOf('%') ? '%' : 'px',
+                        unit = includes(values.join(''), '%') ? '%' : 'px',
                         diff;
 
                     if (isColor) {
 
-                        var color = this.$el[0].style.color;
-                        this.$el[0].style.color = start;
-                        start = parseColor(this.$el.css('color'));
-                        this.$el[0].style.color = end;
-                        end = parseColor(this.$el.css('color'));
-                        this.$el[0].style.color = color;
+                        var color = $el.style.color;
+                        start = parseColor($el, start);
+                        end = parseColor($el, end);
+                        $el.style.color = color;
 
                     } else {
 
-                        start = parseFloat(start);
-                        end = parseFloat(end);
+                        start = toFloat(start);
+                        end = toFloat(end);
                         diff = Math.abs(start - end);
 
                     }
@@ -77,8 +75,10 @@ function plugin(UIkit) {
 
                     if (prop.match(/^bg/)) {
 
-                        var attr = `background-position-${prop[2]}`;
-                        props[prop].pos = this.$el.css(attr, '').css('background-position').split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
+                        props[prop].pos = css(
+                            css($el, `background-position-${prop[2]}`, ''),
+                            'backgroundPosition'
+                        ).split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
 
                         if (this.covers) {
                             assign(props[prop], {start: 0, end: start <= end ? diff : -diff});
@@ -95,8 +95,8 @@ function plugin(UIkit) {
                 return ['bgx', 'bgy'].filter(bg => bg in this.props);
             },
 
-            covers() {
-                return this.$el.css('backgroundSize', '').css('backgroundSize') === 'cover';
+            covers(_, $el) {
+                return css(css($el, 'backgroundSize', ''), 'backgroundSize') === 'cover';
             }
 
         },
@@ -113,12 +113,12 @@ function plugin(UIkit) {
 
                     delete this._computeds.props;
 
-                    this._active = !this.media || window.matchMedia(this.media).matches;
+                    this._active = !this.media || win.matchMedia(this.media).matches;
 
                     if (this._image) {
                         this._image.dimEl = {
-                            width: this.$el[0].offsetWidth,
-                            height: this.$el[0].offsetHeight
+                            width: this.$el.offsetWidth,
+                            height: this.$el.offsetHeight
                         }
                     }
 
@@ -126,7 +126,7 @@ function plugin(UIkit) {
                         return;
                     }
 
-                    var src = this.$el.css('backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
+                    var src = css(this.$el, 'backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
 
                     if (!src) {
                         return;
@@ -152,7 +152,7 @@ function plugin(UIkit) {
                     }
 
                     if (!this._active) {
-                        this.$el.css({backgroundSize: '', backgroundRepeat: ''});
+                        css(this.$el, {backgroundSize: '', backgroundRepeat: ''});
                         return;
                     }
 
@@ -176,7 +176,7 @@ function plugin(UIkit) {
                                 dimEl[attr] = dim[attr] + diff - span;
                                 this.props[prop].pos = '0px';
                             } else {
-                                pos = -1 * span / 100 * parseFloat(pos);
+                                pos = -1 * span / 100 * toFloat(pos);
                                 pos = clamp(pos, diff - span, 0);
                                 this.props[prop].pos = `${pos}px`;
                             }
@@ -185,7 +185,7 @@ function plugin(UIkit) {
 
                             if (span < diff) {
                                 dimEl[attr] = dim[attr] + diff - span;
-                            } else if ((span / 100 * parseFloat(pos)) > diff) {
+                            } else if ((span / 100 * toFloat(pos)) > diff) {
                                 return;
                             }
 
@@ -196,7 +196,7 @@ function plugin(UIkit) {
                         dim = Dimensions.cover(image, dimEl);
                     });
 
-                    this.$el.css({
+                    css(this.$el, {
                         backgroundSize: `${dim.width}px ${dim.height}px`,
                         backgroundRepeat: 'no-repeat'
                     });
@@ -212,7 +212,7 @@ function plugin(UIkit) {
         methods: {
 
             reset() {
-                Object.keys(this.getCss(0)).forEach(prop => this.$el.css(prop, ''));
+                each(this.getCss(0), (_, prop) => css(this.$el, prop, ''));
             },
 
             getCss(percent) {
@@ -262,7 +262,7 @@ function plugin(UIkit) {
                             css[prop] = `rgba(${
                                 values.start.map((value, i) => {
                                     value = value + percent * (values.end[i] - value);
-                                    return i === 3 ? parseFloat(value) : parseInt(value, 10);
+                                    return i === 3 ? toFloat(value) : parseInt(value, 10);
                                 }).join(',')
                                 })`;
                             break;
@@ -314,8 +314,8 @@ function plugin(UIkit) {
 
         computed: {
 
-            target() {
-                return this.$props.target && query(this.$props.target, this.$el) || this.$el;
+            target({target}, $el) {
+                return target && query(target, $el) || $el;
             }
 
         },
@@ -351,7 +351,7 @@ function plugin(UIkit) {
                     }
 
                     if (this._prev !== this._percent) {
-                        this.$el.css(this.getCss(this._percent));
+                        css(this.$el, this.getCss(this._percent));
                         this._prev = this._percent;
                     }
 
@@ -364,8 +364,8 @@ function plugin(UIkit) {
 
     });
 
-    function parseColor(color) {
-        return color.split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => parseFloat(n));
+    function parseColor(el, color) {
+        return css(css(el, 'color', color), 'color').split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => toFloat(n));
     }
 
     function getValue(prop, percent) {

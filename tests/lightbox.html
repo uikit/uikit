@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Lightbox - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -234,11 +234,15 @@
 
             (function () {
 
-                $('#js-animation-switcher').on('change', function() {
-                    $('#js-lightbox-animation').attr('animation', this.value);
+                var util = UIkit.util,
+                    on = util.on,
+                    $ = util.$;
+
+                on($('#js-animation-switcher'), 'change', function() {
+                    util.attr($('#js-lightbox-animation'), 'animation', this.value);
                 });
 
-                $('#js-lightbox').on('click', function (e) {
+                on($('#js-lightbox'), 'click', function (e) {
                     e.preventDefault();
 
                     UIkit.lightboxPanel({

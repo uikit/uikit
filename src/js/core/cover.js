@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { Dimensions, Player } from '../util/index';
+import { css, Dimensions, isVisible, Player } from '../util/index';
 
 export default function (UIkit) {
 
@@ -12,22 +12,10 @@ export default function (UIkit) {
             height: Number
         },
 
-        computed: {
-
-            el() {
-                return this.$el[0];
-            },
-
-            parent() {
-                return this.el.parentNode;
-            }
-
-        },
-
         ready() {
 
-            if (this.$el.is('iframe')) {
-                this.$el.css('pointerEvents', 'none');
+            if (this.$el.tagName === 'IFRAME') {
+                css(this.$el, 'pointerEvents', 'none');
             }
 
             var player = new Player(this.$el);
@@ -42,16 +30,25 @@ export default function (UIkit) {
 
             write() {
 
-                if (this.el.offsetHeight === 0) {
+                var el = this.$el, parent = el.parentNode;
+
+                if (!isVisible(el)) {
                     return;
                 }
 
-                this.$el
-                    .css({width: '', height: ''})
-                    .css(Dimensions.cover(
-                        {width: this.width || this.el.clientWidth, height: this.height || this.el.clientHeight},
-                        {width: this.parent.offsetWidth, height: this.parent.offsetHeight}
-                    ));
+                css(
+                    css(el, {width: '', height: ''}),
+                    Dimensions.cover(
+                        {
+                            width: this.width || el.clientWidth,
+                            height: this.height || el.clientHeight
+                        },
+                        {
+                            width: parent.offsetWidth,
+                            height: parent.offsetHeight
+                        }
+                    )
+                );
 
             },
 

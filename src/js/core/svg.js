@@ -1,6 +1,6 @@
-import { ajax, isVoidElement, noop, promise } from '../util/index';
+import { $, after, ajax, append, attr, includes, isString, isVoidElement, noop, Promise, remove, removeAttr, startsWith } from '../util/index';
 
-var svgs = {}, parser = new DOMParser();
+var svgs = {};
 
 export default function (UIkit) {
 
@@ -32,7 +32,7 @@ export default function (UIkit) {
 
         connected() {
 
-            if (!this.icon && this.src && ~this.src.indexOf('#')) {
+            if (!this.icon && includes(this.src, '#')) {
 
                 var parts = this.src.split('#');
 
@@ -42,48 +42,20 @@ export default function (UIkit) {
                 }
             }
 
-            this.width = this.$props.width;
-            this.height = this.$props.height;
+            this.svg = this.getSvg().then(svg => new Promise((resolve, reject) => {
 
-            this.svg = this.getSvg().then(doc => promise((resolve, reject) => {
+                var el;
 
-                var svg, el;
+                if (isString(svg)) {
 
-                if (!doc) {
-                    reject('SVG not found.');
-                    return;
-                }
-
-                if (!this.icon) {
-                    el = doc.documentElement.cloneNode(true);
-                } else {
-                    svg = doc.getElementById(this.icon);
-
-                    if (!svg) {
-
-                        // fallback if SVG has no symbols
-                        if (!doc.querySelector('symbol')) {
-                            el = doc.documentElement.cloneNode(true);
-                        }
-
-                    } else {
-
-                        var html = svg.outerHTML;
-
-                        // IE workaround
-                        if (!html) {
-                            var div = document.createElement('div');
-                            div.appendChild(svg.cloneNode(true));
-                            html = div.innerHTML;
-                        }
-
-                        html = html
-                            .replace(/<symbol/g, `<svg${!~html.indexOf('xmlns') ? ' xmlns="http://www.w3.org/2000/svg"' : ''}`)
-                            .replace(/symbol>/g, 'svg>');
-
-                        el = parser.parseFromString(html, 'image/svg+xml').documentElement;
+                    if (this.icon && includes(svg, '<symbol')) {
+                        svg = parseSymbols(svg, this.icon) || svg;
                     }
 
+                    el = $(svg.trim());
+
+                } else {
+                    el = svg.cloneNode(true);
                 }
 
                 if (!el) {
@@ -91,75 +63,72 @@ export default function (UIkit) {
                     return;
                 }
 
-                var dimensions = el.getAttribute('viewBox'); // jQuery workaround, el.attr('viewBox')
+                var dimensions = attr(el, 'viewBox');
 
                 if (dimensions) {
                     dimensions = dimensions.split(' ');
-                    this.width = this.width || dimensions[2];
-                    this.height = this.height || dimensions[3];
+                    this.width = this.$props.width || dimensions[2];
+                    this.height = this.$props.height || dimensions[3];
                 }
 
                 this.width *= this.ratio;
                 this.height *= this.ratio;
 
                 for (var prop in this.$options.props) {
-                    if (this[prop] && !~this.exclude.indexOf(prop)) {
-                        el.setAttribute(prop, this[prop]);
+                    if (this[prop] && !includes(this.exclude, prop)) {
+                        attr(el, prop, this[prop]);
                     }
                 }
 
                 if (!this.id) {
-                    el.removeAttribute('id');
+                    removeAttr(el, 'id');
                 }
 
                 if (this.width && !this.height) {
-                    el.removeAttribute('height');
+                    removeAttr(el, 'height');
                 }
 
                 if (this.height && !this.width) {
-                    el.removeAttribute('width');
+                    removeAttr(el, 'width');
                 }
 
-                var root = this.$el[0];
+                var root = this.$el;
                 if (isVoidElement(root) || root.tagName === 'CANVAS') {
 
-                    this.$el.attr({hidden: true, id: null});
+                    attr(root, {hidden: true, id: null});
 
-                    if (root.nextSibling) {
-
-                        if (el.isEqualNode(root.nextSibling)) {
-                            el = root.nextSibling;
-                        } else {
-                            root.parentNode.insertBefore(el, root.nextSibling);
-                        }
-
+                    var next = root.nextElementSibling;
+                    if (next && el.isEqualNode(next)) {
+                        el = next;
                     } else {
-                        root.parentNode.appendChild(el);
+                        after(root, el);
                     }
+
                 } else {
 
-                    if (root.lastChild && el.isEqualNode(root.lastChild)) {
-                        el = root.lastChild;
+                    var last = root.lastElementChild;
+                    if (last && el.isEqualNode(last)) {
+                        el = last;
                     } else {
-                        root.appendChild(el);
+                        append(root, el);
                     }
 
                 }
 
                 resolve(el);
 
-            }));
+            }), noop);
 
         },
 
         disconnected() {
 
             if (isVoidElement(this.$el)) {
-                this.$el.attr({hidden: null, id: this.id || null});
+                attr(this.$el, {hidden: null, id: this.id || null});
             }
 
             if (this.svg) {
-                this.svg.then(svg => svg.parentNode && svg.parentNode.removeChild(svg), noop);
+                this.svg.then(svg => remove(svg), noop);
                 this.svg = null;
             }
         },
@@ -169,24 +138,23 @@ export default function (UIkit) {
             getSvg() {
 
                 if (!this.src) {
-                    return promise.reject();
+                    return Promise.reject();
                 }
 
                 if (svgs[this.src]) {
                     return svgs[this.src];
                 }
 
-                svgs[this.src] = promise((resolve, reject) => {
+                svgs[this.src] = new Promise((resolve, reject) => {
 
-                    if (this.src.lastIndexOf('data:', 0) === 0) {
-                        resolve(this.parse(decodeURIComponent(this.src.split(',')[1])));
+                    if (startsWith(this.src, 'data:')) {
+                        resolve(decodeURIComponent(this.src.split(',')[1]));
                     } else {
 
-                        ajax(this.src, {dataType: 'html'}).then(doc => {
-                            resolve(this.parse(doc));
-                        }, () => {
-                            reject('SVG not found.');
-                        });
+                        ajax(this.src).then(
+                            xhr => resolve(xhr.response),
+                            () => reject('SVG not found.')
+                        );
 
                     }
 
@@ -194,15 +162,29 @@ export default function (UIkit) {
 
                 return svgs[this.src];
 
-            },
-
-            parse(doc) {
-                var parsed = parser.parseFromString(doc, 'image/svg+xml');
-                return parsed.documentElement && parsed.documentElement.nodeName === 'svg' ? parsed : null;
             }
 
         }
 
     });
+
+    var symbolRe = /<symbol(.*?id=(['"])(.*?)\2[^]*?<\/)symbol>/g,
+        symbols = {};
+
+    function parseSymbols(svg, icon) {
+
+        if (!symbols[svg]) {
+
+            symbols[svg] = {};
+
+            var match;
+            while (match = symbolRe.exec(svg)) {
+                symbols[svg][match[3]] = `<svg xmlns="http://www.w3.org/2000/svg"${match[1]}svg>`;
+            }
+
+        }
+
+        return symbols[svg][icon];
+    }
 
 }

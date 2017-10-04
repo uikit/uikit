@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {scrolledOver} = UIkit.util;
+    var {$$, addClass, css, scrolledOver, toFloat, toNodes} = UIkit.util;
 
     UIkit.component('grid-parallax', UIkit.components.grid.extend({
 
@@ -18,25 +18,25 @@ function plugin(UIkit) {
             translate: 150
         },
 
+        computed: {
+
+            translate({translate}) {
+                return Math.abs(translate);
+            },
+
+            items({target}, $el) {
+                return target ? $$(target, $el) : toNodes($el.children);
+            }
+
+        },
+
         init() {
-            this.$addClass('uk-grid');
+            addClass(this.$el, 'uk-grid');
         },
 
         disconnected() {
             this.reset();
-            this.$el.css('margin-bottom', '');
-        },
-
-        computed: {
-
-            translate() {
-                return Math.abs(this.$props.translate);
-            },
-
-            items() {
-                return (this.target ? this.$el.find(this.target) : this.$el.children()).toArray();
-            }
-
+            css(this.$el, 'marginBottom', '');
         },
 
         update: [
@@ -49,9 +49,9 @@ function plugin(UIkit) {
                 },
 
                 write() {
-                    this.$el
-                        .css('margin-bottom', '')
-                        .css('margin-bottom', this.columns > 1 ? this.translate + parseFloat(this.$el.css('margin-bottom')) : '');
+                    css(this.$el, 'marginBottom', this.columns > 1
+                        ? this.translate + toFloat(css(css(this.$el, 'marginBottom', ''), 'marginBottom'))
+                        : '');
                 },
 
                 events: ['load', 'resize']
@@ -73,7 +73,7 @@ function plugin(UIkit) {
 
                     this.rows.forEach(row =>
                         row.forEach((el, i) =>
-                            el.style.transform = `translateY(${i % 2 ? this.scrolled : this.scrolled / 8}px)`
+                            css(el, 'transform', `translateY(${i % 2 ? this.scrolled : this.scrolled / 8}px)`)
                         )
                     );
 
@@ -86,7 +86,7 @@ function plugin(UIkit) {
         methods: {
 
             reset() {
-                this.items.forEach(item => item.style.transform = '');
+                css(this.items, 'transform', '');
             }
 
         }
@@ -104,7 +104,7 @@ function plugin(UIkit) {
     });
 
     function sortBy(collection, prop) {
-        return collection.sort((a,b) =>
+        return collection.sort((a, b) =>
             a[prop] > b[prop]
                 ? 1
                 : b[prop] > a[prop]
@@ -114,8 +114,6 @@ function plugin(UIkit) {
     }
 
 }
-
-
 
 if (!BUNDLED && typeof window !== 'undefined' && window.UIkit) {
     window.UIkit.use(plugin);

@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Sortable - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
 
         <style>
@@ -15,18 +15,28 @@
             }
 
         </style>
-        <script type="text/javascript">
+        <script>
 
-            jQuery(function($) {
-                 $('body').on('start', function (e, sortable, el) {
-                     console.log('start', sortable, el);
-                 }).on('move', function(e, sortable) {
-                     console.log('move', sortable);
-                 }).on('change', function(e, sortable, el, mode) {
-                     console.log('change', sortable, el, mode);
-                 }).on('stop', function(e, sortable) {
-                     console.log('stop', sortable);
-                 });
+            var util = UIkit.util;
+
+            util.ready(function () {
+
+                util.on(document.body, 'start', function (e, sortable, el) {
+                    console.log('start', sortable, el);
+                });
+
+                util.on(document.body, 'move', function(e, sortable) {
+                    console.log('move', sortable);
+                });
+
+                util.on(document.body, 'change', function(e, sortable, el, mode) {
+                    console.log('change', sortable, el, mode);
+                });
+
+                util.on(document.body, 'stop', function(e, sortable) {
+                    console.log('stop', sortable);
+                });
+
             });
 
         </script>

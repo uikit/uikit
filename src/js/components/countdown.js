@@ -4,6 +4,8 @@ function plugin(UIkit) {
         return;
     }
 
+    var { $, empty, html } = UIkit.util;
+
     UIkit.component('countdown', {
 
         mixins: [UIkit.mixin.class],
@@ -22,28 +24,28 @@ function plugin(UIkit) {
 
         computed: {
 
-            date() {
-                return Date.parse(this.$props.date);
+            date({date}) {
+                return Date.parse(date);
             },
 
-            days() {
-                return this.$el.find(this.clsWrapper.replace('%unit%', 'days'));
+            days({clsWrapper}, $el) {
+                return $(clsWrapper.replace('%unit%', 'days'), $el);
             },
 
-            hours() {
-                return this.$el.find(this.clsWrapper.replace('%unit%', 'hours'));
+            hours({clsWrapper}, $el) {
+                return $(clsWrapper.replace('%unit%', 'hours'), $el);
             },
 
-            minutes() {
-                return this.$el.find(this.clsWrapper.replace('%unit%', 'minutes'));
+            minutes({clsWrapper}, $el) {
+                return $(clsWrapper.replace('%unit%', 'minutes'), $el);
             },
 
-            seconds() {
-                return this.$el.find(this.clsWrapper.replace('%unit%', 'seconds'));
+            seconds({clsWrapper}, $el) {
+                return $(clsWrapper.replace('%unit%', 'seconds'), $el);
             },
 
             units() {
-                return ['days', 'hours', 'minutes', 'seconds'].filter(unit => this[unit].length);
+                return ['days', 'hours', 'minutes', 'seconds'].filter(unit => this[unit]);
             }
 
         },
@@ -54,7 +56,7 @@ function plugin(UIkit) {
 
         disconnected() {
             this.stop();
-            this.units.forEach(unit => this[unit].empty());
+            this.units.forEach(unit => empty(this[unit]));
         },
 
         update: {
@@ -80,15 +82,15 @@ function plugin(UIkit) {
 
                     digits = digits.length < 2 ? `0${digits}` : digits;
 
-                    if (this[unit].text() !== digits) {
-                        var el = this[unit];
+                    var el = this[unit];
+                    if (el.innerText !== digits) {
                         digits = digits.split('');
 
-                        if (digits.length !== el.children().length) {
-                            el.empty().append(digits.map(() => '<span></span>').join(''));
+                        if (digits.length !== el.children.length) {
+                            html(el, digits.map(() => '<span></span>').join(''));
                         }
 
-                        digits.forEach((digit, i) => el[0].childNodes[i].innerText = digit);
+                        digits.forEach((digit, i) => el.children[i].innerText = digit);
                     }
 
                 });

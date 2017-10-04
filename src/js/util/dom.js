@@ -1,92 +1,56 @@
-import $ from 'jquery';
-import { animationend, assign, clamp, each, Event, getContextSelectors, isNumber, isString, promise, requestAnimationFrame, toJQuery, toNode, transitionend } from './index';
+import { addClass, animationend, assign, attr, clamp, css, each, hasClass, height, intersectRect, isNumeric, isString, isUndefined, matches, on, once, Promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toNode, toNodes, toNumber, transitionend, trigger, width } from './index';
 
-var docEl = document.documentElement;
-export const win = $(window);
-export const doc = $(document);
-export const docElement = $(docEl);
+export const win = window;
+export const doc = document;
+export const docEl = doc.documentElement;
 
-export const isRtl = docEl.getAttribute('dir') === 'rtl';
+export const isRtl = attr(docEl, 'dir') === 'rtl';
 
 export function isReady() {
-    return document.readyState === 'complete' || document.readyState !== 'loading' && !docEl.doScroll;
+    return doc.readyState === 'complete' || doc.readyState !== 'loading' && !docEl.doScroll;
 }
 
 export function ready(fn) {
 
-    var handle = function () {
-        off(document, 'DOMContentLoaded', handle);
-        off(window, 'load', handle);
-        fn();
-    };
-
     if (isReady()) {
         fn();
-    } else {
-        on(document, 'DOMContentLoaded', handle);
-        on(window, 'load', handle);
+        return;
     }
 
-}
-
-export function on(el, type, listener, useCapture = false) {
-    type.split(' ').forEach(type => toNode(el).addEventListener(type, listener, useCapture));
-}
-
-export function off(el, type, listener, useCapture = false) {
-    type.split(' ').forEach(type => toNode(el).removeEventListener(type, listener, useCapture));
-}
-
-export function one(el, type, listener, useCapture, condition) {
-
-    var handler = e => {
-        var result = !condition || condition(e);
-        if (result) {
-            off(el, type, handler, useCapture);
-            listener(e, result);
-        }
-    };
-
-    on(el, type, handler, useCapture);
-}
-
-export function trigger(element, event) {
-    var e = createEvent(event);
-    toNode(element).dispatchEvent(e);
-    return e;
-}
-
-export function $trigger(element, event, data, local = false) {
-    var e = event instanceof Event ? event : Event(event);
-    $(element)[local ? 'triggerHandler' : 'trigger'](e, data);
-    return e;
+    var handle = function () {
+            unbind1();
+            unbind2();
+            fn();
+        },
+        unbind1 = on(doc, 'DOMContentLoaded', handle),
+        unbind2 = on(win, 'load', handle);
 }
 
 var transitioncancel = 'transitioncancel';
+
 export function transition(element, props, duration = 400, transition = 'linear') {
 
-    return promise((resolve, reject) => {
+    return Promise.all(toNodes(element).map(element =>
+        new Promise((resolve, reject) => {
 
-        element = $(element);
+            for (var name in props) {
+                css(element, name, css(element, name));
+            }
 
-        for (var name in props) {
-            element.css(name, element.css(name));
-        }
+            var timer = setTimeout(() => trigger(element, transitionend), duration);
 
-        var timer = setTimeout(() => element.trigger(transitionend), duration);
+            once(element, `${transitionend} ${transitioncancel}`, ({type}) => {
+                clearTimeout(timer);
+                removeClass(element, 'uk-transition');
+                css(element, 'transition', '');
+                type === transitioncancel ? reject() : resolve();
+            }, false, ({target}) => element === target);
 
-        one(element, `${transitionend} ${transitioncancel}`, ({type}) => {
-            clearTimeout(timer);
-            element.removeClass('uk-transition').css('transition', '');
-            type === transitioncancel ? reject() : resolve();
-        }, false, ({target}) => element.is(target));
+            addClass(element, 'uk-transition');
+            css(element, assign({transition: `all ${duration}ms ${transition}`}, props));
 
-        element
-            .addClass('uk-transition')
-            .css('transition', `all ${duration}ms ${transition}`)
-            .css(props);
-
-    });
+        })
+    ));
 
 }
 
@@ -96,93 +60,96 @@ export const Transition = {
 
     stop(element) {
         trigger(element, transitionend);
-        return promise.resolve();
+        return Promise.resolve();
     },
 
     cancel(element) {
         trigger(element, transitioncancel);
-        return promise.resolve();
     },
 
     inProgress(element) {
-        return $(element).hasClass('uk-transition');
+        return hasClass(element, 'uk-transition');
     }
 
 };
 
 var animationcancel = 'animationcancel',
-    animationprefix = 'uk-animation-',
+    animationPrefix = 'uk-animation-',
     clsCancelAnimation = 'uk-cancel-animation';
+
 export function animate(element, animation, duration = 200, origin, out) {
 
-    return promise((resolve, reject) => {
+    return Promise.all(toNodes(element).map(element =>
+        new Promise((resolve, reject) => {
 
-        element = $(element);
-
-        if (element.hasClass(clsCancelAnimation)) {
-            requestAnimationFrame(() =>
-                promise.resolve().then(() =>
-                    animate.apply(null, arguments).then(resolve, reject)
-                )
-            );
-            return;
-        }
-
-        var cls = `${animation} ${animationprefix}${out ? 'leave' : 'enter'}`;
-
-        if (animation.lastIndexOf(animationprefix, 0) === 0) {
-
-            if (origin) {
-                cls += ` ${animationprefix}${origin}`;
+            if (hasClass(element, clsCancelAnimation)) {
+                requestAnimationFrame(() =>
+                    Promise.resolve().then(() =>
+                        animate.apply(null, arguments).then(resolve, reject)
+                    )
+                );
+                return;
             }
 
-            if (out) {
-                cls += ` ${animationprefix}reverse`;
-            }
+            var cls = `${animation} ${animationPrefix}${out ? 'leave' : 'enter'}`;
 
-        }
+            if (startsWith(animation, animationPrefix)) {
 
-        reset();
-
-        one(element, `${animationend || 'animationend'} ${animationcancel}`, ({type}) => {
-
-            var hasReset = false;
-
-            type === animationcancel ? reject() : resolve();
-
-            requestAnimationFrame(() => {
-                if (!hasReset) {
-                    element.addClass(clsCancelAnimation);
-
-                    requestAnimationFrame(() => element.removeClass(clsCancelAnimation));
+                if (origin) {
+                    cls += ` ${animationPrefix}${origin}`;
                 }
-            });
 
-            promise.resolve().then(() => {
-                hasReset = true;
-                reset();
-            });
+                if (out) {
+                    cls += ` ${animationPrefix}reverse`;
+                }
 
-        }, false, ({target}) => element.is(target));
+            }
 
-        element
-            .css('animation-duration', `${duration}ms`)
-            .addClass(cls);
+            reset();
 
-        if (!animationend) {
-            requestAnimationFrame(() => Animation.cancel(element));
-        }
+            once(element, `${animationend || 'animationend'} ${animationcancel}`, ({type}) => {
 
-        function reset() {
-            element.css('animation-duration', '');
-            removeClass(element, `${animationprefix}\\S*`);
-        }
+                var hasReset = false;
 
-    });
+                if (type === animationcancel) {
+                    reject();
+                    reset();
+                } else {
+                    resolve();
+                    Promise.resolve().then(() => {
+                        hasReset = true;
+                        reset();
+                    });
+                }
+
+                requestAnimationFrame(() => {
+                    if (!hasReset) {
+                        addClass(element, clsCancelAnimation);
+
+                        requestAnimationFrame(() => removeClass(element, clsCancelAnimation));
+                    }
+                });
+
+            }, false, ({target}) => element === target);
+
+            css(element, 'animationDuration', `${duration}ms`);
+            addClass(element, cls);
+
+            if (!animationend) {
+                requestAnimationFrame(() => Animation.cancel(element));
+            }
+
+            function reset() {
+                css(element, 'animationDuration', '');
+                removeClasses(element, `${animationPrefix}\\S*`);
+            }
+
+        })
+    ));
 
 }
 
-var inProgress = new RegExp(`${animationprefix}(enter|leave)`);
+var inProgress = new RegExp(`${animationPrefix}(enter|leave)`);
 export const Animation = {
 
     in(element, animation, duration, origin) {
@@ -194,73 +161,35 @@ export const Animation = {
     },
 
     inProgress(element) {
-        return inProgress.test($(element).attr('class'));
+        return inProgress.test(attr(element, 'class'));
     },
 
     cancel(element) {
         trigger(element, animationcancel);
-        return promise.resolve();
     }
 
 };
 
-export function isJQuery(obj) {
-    return obj instanceof $;
-}
-
-export function isWithin(element, selector) {
-    element = $(element);
-    return element.is(selector)
-        ? true
-        : isString(selector)
-            ? element.parents(selector).length
-            : toNode(selector).contains(element[0]);
-}
-
-export function attrFilter(element, attr, pattern, replacement) {
-    element = $(element);
-    return element.attr(attr, (i, value) => value ? value.replace(pattern, replacement) : value);
-}
-
-export function removeClass(element, cls) {
-    return attrFilter(element, 'class', new RegExp(`(^|\\s)${cls}(?!\\S)`, 'g'), '');
-}
-
-export function createEvent(e, bubbles = true, cancelable = false, data = false) {
-    if (isString(e)) {
-        var event = document.createEvent('Event');
-        event.initEvent(e, bubbles, cancelable);
-        e = event;
-    }
-
-    if (data) {
-        assign(e, data);
-    }
-
-    return e;
-}
-
-export function isInView(element, offsetTop = 0, offsetLeft = 0) {
-
-    var rect = toNode(element).getBoundingClientRect();
-
-    return rect.bottom >= -1 * offsetTop
-        && rect.right >= -1 * offsetLeft
-        && rect.top <= window.innerHeight + offsetTop
-        && rect.left <= window.innerWidth + offsetLeft;
+export function isInView(element, top = 0, left = 0) {
+    return intersectRect(toNode(element).getBoundingClientRect(), {
+        top,
+        left,
+        bottom: top + height(win),
+        right: left + width(win)
+    });
 }
 
 export function scrolledOver(element) {
 
     element = toNode(element);
 
-    var height = element.offsetHeight,
+    var elHeight = element.offsetHeight,
         top = positionTop(element),
-        vp = window.innerHeight,
+        vp = height(win),
         vh = vp + Math.min(0, top - vp),
-        diff = Math.max(0, vp - (docHeight() - (top + height)));
+        diff = Math.max(0, vp - (height(doc) - (top + elHeight)));
 
-    return clamp(((vh + window.pageYOffset - top) / ((vh + (height - (diff < vp ? diff : 0)) ) / 100)) / 100);
+    return clamp(((vh + win.pageYOffset - top) / ((vh + (elHeight - (diff < vp ? diff : 0)) ) / 100)) / 100);
 }
 
 function positionTop(element) {
@@ -275,28 +204,22 @@ function positionTop(element) {
     return top;
 }
 
-export function docHeight() {
-    return Math.max(docEl.offsetHeight, docEl.scrollHeight);
-}
+export function getIndex(i, elements, current = 0) {
 
-export function getIndex(index, elements, current = 0) {
+    elements = toNodes(elements);
 
-    elements = $(elements);
+    var length = elements.length;
 
-    var length = $(elements).length;
-
-    index = (isNumber(index)
-        ? index
-        : index === 'next'
-            ? current + 1
-            : index === 'previous'
-                ? current - 1
-                : isString(index)
-                    ? parseInt(index, 10)
-                    : elements.index(index)
+    i = (isNumeric(i)
+            ? toNumber(i)
+            : i === 'next'
+                ? current + 1
+                : i === 'previous'
+                    ? current - 1
+                    : index(elements, i)
     ) % length;
 
-    return index < 0 ? index + length : index;
+    return i < 0 ? i + length : i;
 }
 
 var voidElements = {
@@ -336,7 +259,10 @@ export const Dimensions = {
     contain(dimensions, maxDimensions) {
         dimensions = assign({}, dimensions);
 
-        each(dimensions, prop => dimensions = dimensions[prop] > maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
+        each(dimensions, (_, prop) => dimensions = dimensions[prop] > maxDimensions[prop]
+            ? this.ratio(dimensions, prop, maxDimensions[prop])
+            : dimensions
+        );
 
         return dimensions;
     },
@@ -344,23 +270,21 @@ export const Dimensions = {
     cover(dimensions, maxDimensions) {
         dimensions = this.contain(dimensions, maxDimensions);
 
-        each(dimensions, prop => dimensions = dimensions[prop] < maxDimensions[prop] ? this.ratio(dimensions, prop, maxDimensions[prop]) : dimensions);
+        each(dimensions, (_, prop) => dimensions = dimensions[prop] < maxDimensions[prop]
+            ? this.ratio(dimensions, prop, maxDimensions[prop])
+            : dimensions
+        );
 
         return dimensions;
     }
 
 };
 
-export function query(selector, context) {
-    var selectors = getContextSelectors(selector);
-    return selectors ? selectors.reduce((context, selector) => toJQuery(selector, context), context) : toJQuery(selector);
-}
-
 export function preventClick() {
 
     var timer = setTimeout(() => trigger(doc, 'click'), 0);
 
-    one(doc, 'click', e => {
+    once(doc, 'click', e => {
         e.preventDefault();
         e.stopImmediatePropagation();
 
@@ -369,11 +293,119 @@ export function preventClick() {
 
 }
 
-export function getData(el, attribute) {
-    el = toNode(el);
-    for (var i = 0, attrs = [attribute, `data-${attribute}`]; i < attrs.length; i++) {
-        if (el.hasAttribute(attrs[i])) {
-            return el.getAttribute(attrs[i]);
-        }
+export function isVisible(element) {
+    return toNodes(element).some(element => element.offsetHeight);
+}
+
+export const selInput = 'input,select,textarea,button';
+export function isInput(element) {
+    return toNodes(element).some(element => matches(element, selInput));
+}
+
+export function empty(element) {
+    element = toNode(element);
+    element.innerHTML = '';
+    return element;
+}
+
+export function html(parent, html) {
+    parent = toNode(parent);
+    return isUndefined(html)
+        ? parent.innerHTML
+        : append(parent.hasChildNodes() ? empty(parent) : parent, html);
+}
+
+export function prepend(parent, element) {
+
+    parent = toNode(parent);
+
+    if (!parent.hasChildNodes()) {
+        return append(parent, element);
+    } else {
+        return insertNodes(element, element => parent.insertBefore(element, parent.firstChild));
     }
+}
+
+export function append(parent, element) {
+    parent = toNode(parent);
+    return insertNodes(element, element => parent.appendChild(element));
+}
+
+export function before(ref, element) {
+    ref = toNode(ref);
+    return insertNodes(element, element => ref.parentNode.insertBefore(element, ref));
+}
+
+export function after(ref, element) {
+    ref = toNode(ref);
+    return insertNodes(element, element => ref.nextSibling
+        ? before(ref.nextSibling, element)
+        : append(ref.parentNode,element)
+    );
+}
+
+function insertNodes(element, fn) {
+    element = isString(element) ? fragment(element) : element;
+    return 'length' in element ? toNodes(element).map(fn) : fn(element);
+}
+
+export function remove(element) {
+    toNodes(element).forEach(element => element.parentNode.removeChild(element));
+}
+
+export function wrapAll(element, structure) {
+
+    structure = toNode(before(element, structure));
+
+    while (structure.firstChild) {
+        structure = structure.firstChild;
+    }
+
+    append(structure, element);
+
+    return structure;
+}
+
+export function wrapInner(element, structure) {
+    return toNodes(toNodes(element).map(element =>
+        element.hasChildNodes ? wrapAll(toNodes(element.childNodes), structure) : append(element, structure)
+    ));
+}
+
+export function unwrap(element) {
+    toNodes(element)
+        .map(element => element.parentNode)
+        .filter((value, index, self) => self.indexOf(value) === index)
+        .forEach(parent => {
+            before(parent, parent.childNodes);
+            remove(parent);
+        });
+}
+
+var fragmentRE = /^\s*<(\w+|!)[^>]*>/,
+    singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>|)$/;
+
+export function fragment(html) {
+
+    var matches;
+
+    if (matches = singleTagRE.exec(html)) {
+        return doc.createElement(matches[1]);
+    }
+
+    var container = doc.createElement('div');
+    if (fragmentRE.test(html)) {
+        container.insertAdjacentHTML('beforeend', html.trim());
+    } else {
+        container.textContent = html;
+    }
+
+    return container.childNodes.length > 1 ? toNodes(container.childNodes) : container.firstChild;
+
+}
+
+export function index(element, ref) {
+    return ref
+        ? toNodes(element).indexOf(toNode(ref))
+        : toNodes((element = toNode(element)) && element.parentNode.children).indexOf(element);
 }

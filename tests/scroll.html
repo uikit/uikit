@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Scroll - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -22,14 +22,14 @@
 
             <a id="bottom" class="uk-button uk-button-default" href="#top" uk-scroll>Go Up!</a>
 
-            <script type="text/javascript">
-                jQuery(function ($) {
+            <script>
 
-                    UIkit.scroll($('#js-top-callback')).$el.on('scrolled', function () {
+                    var scroll = UIkit.scroll('#js-top-callback');
+
+                    UIkit.util.on(scroll.$el, 'scrolled', function () {
                         alert('I\'m down!');
                     });
 
-                });
             </script>
 
             <h2>Javascript Options</h2>
@@ -50,12 +50,6 @@
                             <td>Number</td>
                             <td>1000</td>
                             <td>The animation duration.</td>
-                        </tr>
-                        <tr>
-                            <td><code>easing</code></td>
-                            <td>String</td>
-                            <td>easeOutExpo</td>
-                            <td>The easing function for the transition.</td>
                         </tr>
                         <tr>
                             <td><code>offset</code></td>

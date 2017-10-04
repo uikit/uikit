@@ -2,23 +2,22 @@
 
 ## WIP
 
-### Fixed
-
-- Fix inverse style for `uk-hr`
-
 ### Added
 
 - Add style support for radio and checkbox in Firefox
 
 ### Changed
 
+- Remove jQuery dependency
 - Change `uk-tab-left` text alignment to left
 - Update overview in tests
+- Rename 'isWithin' to 'within'
 
 ### Fixed
 
 - Fix responsive images in modal for IE11
 - Fix close button outside causing a scrollbar on small devices
+- Fix inverse style for `uk-hr`
 
 ## 3.0.0 beta 30 (August 18, 2017)
 

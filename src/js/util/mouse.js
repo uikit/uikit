@@ -1,4 +1,4 @@
-import { doc, getDimensions } from './index';
+import { doc, offset, on } from './index';
 
 export function MouseTracker() {}
 
@@ -13,36 +13,36 @@ MouseTracker.prototype = {
         this.position = null;
 
         var ticking = false;
-        this.handler = e => {
+        this.unbind = on(doc, 'mousemove', e => {
 
-            if (!ticking) {
-                setTimeout(() => {
-
-                    var time = Date.now(), length = this.positions.length;
-                    if (length && (time - this.positions[length - 1].time > 100)) {
-                        this.positions.splice(0, length);
-                    }
-
-                    this.positions.push({time, x: e.pageX, y: e.pageY});
-
-                    if (this.positions.length > 5) {
-                        this.positions.shift();
-                    }
-
-                    ticking = false;
-                }, 5);
+            if (ticking) {
+                return;
             }
 
-            ticking = true;
-        };
+            setTimeout(() => {
 
-        doc.on('mousemove', this.handler);
+                var time = Date.now(), length = this.positions.length;
+                if (length && (time - this.positions[length - 1].time > 100)) {
+                    this.positions.splice(0, length);
+                }
+
+                this.positions.push({time, x: e.pageX, y: e.pageY});
+
+                if (this.positions.length > 5) {
+                    this.positions.shift();
+                }
+
+                ticking = false;
+            }, 5);
+
+            ticking = true;
+        });
 
     },
 
     cancel() {
-        if (this.handler) {
-            doc.off('mousemove', this.handler);
+        if (this.unbind) {
+            this.unbind();
         }
     },
 
@@ -52,7 +52,7 @@ MouseTracker.prototype = {
             return false;
         }
 
-        var p = getDimensions(target),
+        var p = offset(target),
             position = this.positions[this.positions.length - 1],
             prevPos = this.positions[0];
 
