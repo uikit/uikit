@@ -34,7 +34,7 @@ $tab-item-disabled-color:                 $global-muted-color !default;
 /*
  * 1. Allow items to wrap into the next line
  * 2. Gutter
- * 3. Reset lists
+ * 3. Reset list
  */
 
 .uk-tab {
@@ -153,7 +153,7 @@ $tab-item-disabled-color:                 $global-muted-color !default;
 }
 
 .uk-tab-left > * > a {
-    text-align: right;
+    text-align: left;
     @if(mixin-exists(hook-tab-left-item)) {@include hook-tab-left-item();}
 }
 

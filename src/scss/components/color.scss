@@ -1,0 +1,49 @@
+// Name:            Background
+// Description:     Utilities for colors
+//
+// Component:       `uk-color-*`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+$background-color-red: $global-color-red;
+$background-color-pink: $global-color-pink;
+$background-color-purple: $global-color-purple;
+$background-color-deep-purple: $global-color-deep-purple;
+$background-color-indigo: $global-color-indigo;
+$background-color-blue: $global-color-blue;
+$background-color-light-blue: $global-color-light-blue;
+$background-color-cyan: $global-color-cyan;
+$background-color-teal: $global-color-teal;
+$background-color-green: $global-color-green;
+$background-color-light-green: $global-color-light-green;
+$background-color-lime: $global-color-lime;
+$background-color-orange: $global-color-orange;
+$background-color-deep-orange: $global-color-deep-orange;
+$background-color-brown: $global-color-brown;
+$background-color-blue-grey: $global-color-blue-grey;
+$background-color-grey: $global-color-grey;
+
+/* ========================================================================
+   Component: Color
+ ========================================================================== */
+ 
+.uk-color-red { background-color: $background-color-red; }
+.uk-color-pink { background-color: $background-color-pink; }
+.uk-color-purple { background-color: $background-color-purple; }
+.uk-color-deep-purple { background-color: $background-color-deep-purple; }
+.uk-color-indigo { background-color: $background-color-indigo; }
+.uk-color-blue { background-color: $background-color-blue; }
+.uk-color-light-blue { background-color: $background-color-light-blue; }
+.uk-color-cyan { background-color: $background-color-cyan; }
+.uk-color-teal { background-color: $background-color-teal; }
+.uk-color-green { background-color: $background-color-green; }
+.uk-color-light-green { background-color: $background-color-light-green; }
+.uk-color-lime { background-color: $background-color-lime; }
+.uk-color-orange { background-color: $background-color-orange; }
+.uk-color-deep-orange { background-color: $background-color-deep-orange; }
+.uk-color-brown { background-color: $background-color-brown; }
+.uk-color-blue-grey { background-color: $background-color-blue-grey; }
+.uk-color-grey { background-color: $background-color-grey; }
