@@ -8,7 +8,8 @@
 
 ### Changed
 
-- Remove jQuery dependency
+- IMPORTANT: Remove jQuery dependency
+- Remove `uk-section-media` from Section component
 - Change `uk-tab-left` text alignment to left
 - Update overview in tests
 - Rename 'isWithin' to 'within'
