@@ -37,7 +37,7 @@
 // generate colors levels light
 .levels-colors-light(@color, @level, @percent, @color-name) 
   when(@level >0){
-	.levels-colors-light(@color, @level - 1, @percent - 5%,@color-name);
+	.levels-color-light(@color, @level - 1, @percent - 5%,@color-name);
     .uk-color-@{color-name}-light-@{level} {
     	background-color: lighten(@color, @percent);
      }
@@ -48,7 +48,7 @@
 // generate colors levels dark
 .levels-colors-dark(@color, @level, @percent, @color-name) 
   when(@level >0){
-	.levels-colors-dark(@color, @level - 1, @percent - 5%,@color-name);
+	.levels-color-dark(@color, @level - 1, @percent - 5%,@color-name);
     .uk-color-@{color-name}-dark-@{level} {
     	background-color: darken(@color, @percent);
      }
