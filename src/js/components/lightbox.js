@@ -368,15 +368,15 @@ function plugin(UIkit) {
                             setIframe = (width = 640, height = 450) => this.setItem(item, getIframe(`//www.youtube.com/embed/${id}`, width, height, this.videoAutoplay));
 
                         getImage(`//img.youtube.com/vi/${id}/maxresdefault.jpg`).then(
-                            img => {
+                            ({width, height}) => {
                                 //youtube default 404 thumb, fall back to lowres
-                                if (img.width === 120 && img.height === 90) {
+                                if (width === 120 && height === 90) {
                                     getImage(`//img.youtube.com/vi/${id}/0.jpg`).then(
-                                        img => setIframe(img.width, img.height),
+                                        ({width, height}) => setIframe(width, height),
                                         setIframe
                                     );
                                 } else {
-                                    setIframe(img.width, img.height);
+                                    setIframe(width, height);
                                 }
                             },
                             setIframe
