@@ -38,7 +38,7 @@
 .levels-colors-light(@color, @level, @percent, @color-name) 
   when(@level >0){
 	.levels-colors-light(@color, @level - 1, @percent - 5%,@color-name);
-    .color-@{color-name}-light-@{level} {
+    .uk-color-@{color-name}-light-@{level} {
     	backgournd-color: lighten(@color, @percent);
      }
      
@@ -49,7 +49,7 @@
 .levels-colors-dark(@color, @level, @percent, @color-name) 
   when(@level >0){
 	.levels-colors-dark(@color, @level - 1, @percent - 5%,@color-name);
-    .color-@{color-name}-dark-@{level} {
+    .uk-color-@{color-name}-dark-@{level} {
     	backgournd-color: darken(@color, @percent);
      }
   }
