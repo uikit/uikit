@@ -24,13 +24,13 @@ export default function (UIkit) {
 
             write() {
 
-                if (!this.player || !this.autoplay) {
+                if (!this.player) {
                     return;
                 }
 
                 if (!isVisible(this.$el) || css(this.$el, 'visibility') === 'hidden') {
                     this.player.pause();
-                } else {
+                } else if (this.autoplay) {
                     this.player.play();
                 }
 

@@ -17,12 +17,16 @@ function plugin(UIkit) {
 
         props: {
             animation: String,
-            toggle: String
+            toggle: String,
+            autoplay: Number,
+            videoAutoplay: Boolean
         },
 
         defaults: {
             animation: undefined,
-            toggle: 'a'
+            toggle: 'a',
+            autoplay: 0,
+            videoAutoplay: false
         },
 
         computed: {
@@ -88,9 +92,11 @@ function plugin(UIkit) {
 
             _init() {
                 return this.panel = this.panel || UIkit.lightboxPanel({
+                    autoplay: this.autoplay,
+                    videoAutoplay: this.videoAutoplay,
                     animation: this.animation,
                     items: this.toggles.reduce((items, el) => {
-                        items.push(['href', 'caption', 'type'].reduce((obj, attr) => {
+                        items.push(['href', 'caption', 'type', 'poster'].reduce((obj, attr) => {
                             obj[attr === 'href' ? 'source' : attr] = data(el, attr);
                             return obj;
                         }, {}));
@@ -127,6 +133,7 @@ function plugin(UIkit) {
 
         defaults: {
             preload: 1,
+            videoAutoplay: false,
             delayControls: 3000,
             items: [],
             cls: 'uk-open',
@@ -340,7 +347,7 @@ function plugin(UIkit) {
                     // Video
                     } else if (type === 'video' || source.match(/\.(mp4|webm|ogv)$/i)) {
 
-                        var video = $('<video controls playsinline uk-video></video>');
+                        var video = $(`<video controls playsinline${item.poster ? ` poster="${item.poster}"` : ''} uk-video="autoplay: ${this.videoAutoplay}"></video>`);
                         attr(video, 'src', source);
 
                         on(video, 'error', () => this.setError(item));
@@ -358,7 +365,7 @@ function plugin(UIkit) {
                     } else if (matches = source.match(/\/\/.*?youtube\.[a-z]+\/watch\?v=([^&\s]+)/) || source.match(/youtu\.be\/(.*)/)) {
 
                         var id = matches[1],
-                            setIframe = (width = 640, height = 450) => this.setItem(item, getIframe(`//www.youtube.com/embed/${id}`, width, height));
+                            setIframe = (width = 640, height = 450) => this.setItem(item, getIframe(`//www.youtube.com/embed/${id}`, width, height, this.videoAutoplay));
 
                         getImage(`//img.youtube.com/vi/${id}/maxresdefault.jpg`).then(
                             img => {
@@ -378,9 +385,9 @@ function plugin(UIkit) {
                     // Vimeo
                     } else if (matches = source.match(/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/)) {
 
-                        ajax(`//vimeo.com/api/oembed.json?url=${encodeURI(source)}`, {responseType: 'json'})
+                        ajax(`//vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURI(source)}`, {responseType: 'json'})
                             .then(({response: {height, width}}) =>
-                                this.setItem(item, getIframe(`//player.vimeo.com/video/${matches[2]}`, width, height))
+                                this.setItem(item, getIframe(`//player.vimeo.com/video/${matches[2]}`, width, height, this.videoAutoplay))
                             );
 
                     }
@@ -482,8 +489,8 @@ function plugin(UIkit) {
         Animation[dir](el, animation).then(() => dir === 'out' && attr(el, 'hidden', ''));
     }
 
-    function getIframe(src, width, height) {
-        return `<iframe src="${src}" width="${width}" height="${height}" style="max-width: 100%; box-sizing: border-box;" uk-video uk-responsive></iframe>`;
+    function getIframe(src, width, height, autoplay) {
+        return `<iframe src="${src}" width="${width}" height="${height}" style="max-width: 100%; box-sizing: border-box;" allowfullscreen uk-video="autoplay: ${autoplay}" uk-responsive></iframe>`;
     }
 
 }
