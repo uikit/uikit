@@ -490,7 +490,7 @@ function plugin(UIkit) {
     }
 
     function getIframe(src, width, height, autoplay) {
-        return `<iframe src="${src}" width="${width}" height="${height}" style="max-width: 100%; box-sizing: border-box;" allowfullscreen uk-video="autoplay: ${autoplay}" uk-responsive></iframe>`;
+        return `<iframe src="${src}" width="${width}" height="${height}" style="max-width: 100%; box-sizing: border-box;" frameborder="0" allowfullscreen uk-video="autoplay: ${autoplay}" uk-responsive></iframe>`;
     }
 
 }

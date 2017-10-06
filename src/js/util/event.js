@@ -1,5 +1,4 @@
-import { closest, doc, isArray, isFunction, isString, toNode, toNodes } from './index';
-import { $$, within } from "./selector";
+import { $, $$, closest, doc, isArray, isFunction, isString, toNode, toNodes, within } from './index';
 
 export function on(...args) {
 
@@ -54,6 +53,11 @@ export function createEvent(e, bubbles = true, cancelable = false, detail) {
 }
 
 function getArgs(args) {
+
+    if (isString(args[0])) {
+        args[0] = $(args[0]);
+    }
+
     if (isFunction(args[2])) {
         args.splice(2, 0, false);
     }

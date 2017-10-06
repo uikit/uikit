@@ -30,7 +30,7 @@
                 <progress class="uk-progress" value="100" max="100"></progress>
 
                 <p>Updating</p>
-                <progress id="test" class="uk-progress" max="100"></progress>
+                <progress id="js-progressbar" class="uk-progress" max="100"></progress>
 
             </div>
 
@@ -38,17 +38,19 @@
 
         <script>
 
+
             UIkit.util.ready(function () {
 
-                var animate = setInterval(function () {
+                var bar = document.getElementById('js-progressbar'),
+                    animate = setInterval(function () {
 
-                    test.value += 10;
+                        bar.value += 10;
 
-                    if (test.value >= test.max) {
-                        clearInterval(animate);
-                    }
+                        if (bar.value >= bar.max) {
+                            clearInterval(animate);
+                        }
 
-                }, 1000);
+                    }, 1000);
 
             });
 

@@ -32,6 +32,10 @@ export function queryAll(selector, context) {
 
 function find(selector, context = doc) {
 
+    if (!selector) {
+        return null;
+    }
+
     if (!isContextSelector(selector)) {
         return context.querySelector(selector);
     }
@@ -40,6 +44,10 @@ function find(selector, context = doc) {
 }
 
 function findAll(selector, context = doc) {
+
+    if (!selector) {
+        return [];
+    }
 
     if (!isContextSelector(selector)) {
         return $$(context.querySelectorAll(selector));

@@ -256,28 +256,22 @@
 
         <script>
 
-            (function () {
+            var util = UIkit.util;
 
-                var util = UIkit.util,
-                    on = util.on,
-                    $ = util.$;
+            util.on('#js-animation-switcher', 'change', function() {
+                util.attr(util.$('#js-lightbox-animation'), 'animation', this.value);
+            });
 
-                on($('#js-animation-switcher'), 'change', function() {
-                    util.attr($('#js-lightbox-animation'), 'animation', this.value);
-                });
+            util.on('#js-lightbox', 'click', function (e) {
+                e.preventDefault();
 
-                on($('#js-lightbox'), 'click', function (e) {
-                    e.preventDefault();
-
-                    UIkit.lightboxPanel({
-                        items: [
-                            {source: 'images/size1.jpg', caption: '900x600'},
-                            {source: 'images/size2.jpg', caption: '700x500'},
-                        ]
-                    }).show();
-                });
-
-            })();
+                UIkit.lightboxPanel({
+                    items: [
+                        {source: 'images/size1.jpg', caption: '900x600'},
+                        {source: 'images/size2.jpg', caption: '700x500'},
+                    ]
+                }).show();
+            });
 
         </script>
 

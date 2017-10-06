@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, addClass, after, Animation, assign, attr, css, docEl, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, removeClass, replaceClass, requestAnimationFrame, toFloat, toggleClass, trigger, win, within } from '../util/index';
+import { $, addClass, after, Animation, assign, attr, css, docEl, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, remove, removeClass, replaceClass, requestAnimationFrame, toFloat, toggleClass, trigger, win, within } from '../util/index';
 
 export default function (UIkit) {
 
@@ -67,7 +67,7 @@ export default function (UIkit) {
                 removeClass(this.$el, this.clsInactive);
             }
 
-            this.placeholder.remove();
+            remove(this.placeholder);
             this.placeholder = null;
             this.widthElement = null;
         },
@@ -139,7 +139,7 @@ export default function (UIkit) {
 
                     attr(this.widthElement, 'hidden', null);
                     this.width = this.widthElement.offsetWidth;
-                    attr(this.widthElement, 'hidden', this.isActive ? '' : null);
+                    attr(this.widthElement, 'hidden', this.isActive ? null : '');
 
                     this.topOffset = offset(this.isActive ? placeholder : this.$el).top;
                     this.bottomOffset = this.topOffset + outerHeight;
