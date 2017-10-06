@@ -122,3 +122,36 @@ $color-text-dark:       #0a0a0a;
 .uk-color-brown { background-color: $color-brown; }
 .uk-color-blue-grey { background-color: $color-blue-grey; }
 .uk-color-grey { background-color: $color-grey; }
+
+.uk-color-teal,
+.uk-color-green,
+.uk-color-deep-orange,
+.uk-color-brown,
+.uk-color-blue-grey {
+    color: $color-text-light;
+}
+
+.uk-color-light-green,
+.uk-color-lime,
+.uk-color-orange,
+.uk-color-grey {
+    color: $color-text-dark;
+}
+
+.uk-color-red { background-color: $color-red; }
+.uk-color-pink { background-color: $color-pink; }
+.uk-color-purple { background-color: $color-purple; }
+.uk-color-deep-purple { background-color: $color-deep-purple; }
+.uk-color-indigo { background-color: $color-indigo; }
+.uk-color-blue { background-color: $color-blue; }
+.uk-color-light-blue { background-color: $color-light-blue; }
+.uk-color-cyan { background-color: $color-cyan; }
+.uk-color-teal { background-color: $color-teal; }
+.uk-color-green { background-color: $color-green; }
+.uk-color-light-green { background-color: $color-light-green; }
+.uk-color-lime { background-color: $color-lime; }
+.uk-color-orange { background-color: $color-orange; }
+.uk-color-deep-orange { background-color: $color-deep-orange; }
+.uk-color-brown { background-color: $color-brown; }
+.uk-color-blue-grey { background-color: $color-blue-grey; }
+.uk-color-grey { background-color: $color-grey; }
