@@ -32,28 +32,33 @@ export function queryAll(selector, context) {
 
 function find(selector, context = doc) {
 
-    if (!selector) {
+    try {
+
+        return !selector
+            ? null
+            : !isContextSelector(selector)
+                ? context.querySelector(selector)
+                : $(_query(selector, context));
+
+    } catch (e) {
         return null;
     }
-
-    if (!isContextSelector(selector)) {
-        return context.querySelector(selector);
-    }
-
-    return $(_query(selector, context));
 }
 
 function findAll(selector, context = doc) {
 
-    if (!selector) {
+    try {
+
+        return !selector
+            ? []
+            : !isContextSelector(selector)
+                ? $$(context.querySelectorAll(selector))
+                : $$(_query(selector, context));
+
+    } catch (e) {
         return [];
     }
 
-    if (!isContextSelector(selector)) {
-        return $$(context.querySelectorAll(selector));
-    }
-
-    return $$(_query(selector, context));
 }
 
 function _query(selector, context) {

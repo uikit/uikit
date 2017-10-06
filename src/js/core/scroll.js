@@ -1,4 +1,4 @@
-import { $, clamp, doc, height, offset, requestAnimationFrame, trigger, win } from '../util/index';
+import { $, clamp, doc, height, isString, offset, requestAnimationFrame, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -18,7 +18,7 @@ export default function (UIkit) {
 
             scrollTo(el) {
 
-                el = $(el) || doc.body;
+                el = el && $(isString(el) ? el.replace(/\//g, '\\/') : el) || doc.body;
 
                 var target = offset(el).top - this.offset,
                     docHeight = height(doc),
@@ -66,7 +66,7 @@ export default function (UIkit) {
                 }
 
                 e.preventDefault();
-                this.scrollTo(this.$el.hash || doc.body);
+                this.scrollTo(this.$el.hash);
             }
 
         }
