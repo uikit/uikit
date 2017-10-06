@@ -1,4 +1,3 @@
-import UIkit from '../api/index';
 import { $, addClass, append, css, doc, docEl, hasClass, on, once, Promise, removeClass, requestAnimationFrame, toMs, transitionend, width, win, within } from '../util/index';
 import Class from './class';
 import Container from './container';
@@ -38,10 +37,6 @@ export default {
 
         transitionDuration() {
             return toMs(css(this.transitionElement, 'transitionDuration'));
-        },
-
-        component() {
-            return UIkit[this.$options.name];
         }
 
     },
@@ -100,11 +95,26 @@ export default {
             self: true,
 
             handler() {
-                if (this.component.active === this) {
-                    removeClass(docEl, this.clsPage);
-                    css(doc.body, 'overflowY', '');
-                    this.component.active = null;
+
+                var found, prev = this.prev;
+
+                while (prev) {
+
+                    if (prev.clsPage === this.clsPage) {
+                        found = true;
+                        break;
+                    }
+
+                    prev = prev.prev;
+
                 }
+
+                if (!found) {
+                    removeClass(docEl, this.clsPage);
+
+                }
+
+                !this.prev && css(doc.body, 'overflowY', '');
             }
 
         }
@@ -125,17 +135,12 @@ export default {
 
             if (this.container && this.$el.parentNode !== this.container) {
                 append(this.container, this.$el);
-                return new Promise(resolve =>
-                    requestAnimationFrame(() =>
-                        resolve(this.show())
-                    )
-                )
+                this._callConnected()
             }
 
             var prev = active && active !== this && active;
 
             active = this;
-            this.component.active = this;
 
             if (prev) {
                 if (this.stack) {
@@ -144,9 +149,9 @@ export default {
                     prev.hide().then(this.show);
                     return;
                 }
-            } else {
-                requestAnimationFrame(() => register(this.$options.name)); // TODO improve
             }
+
+            registerEvents();
 
             return this.toggleNow(this.$el, true);
         },
@@ -160,7 +165,7 @@ export default {
             active = active && active !== this && active || this.prev;
 
             if (!active) {
-                deregister(this.$options.name);
+                deregisterEvents();
             }
 
             return this.toggleNow(this.$el, false);
@@ -174,32 +179,24 @@ export default {
 
             requestAnimationFrame(() => this._toggle(el, show));
 
-            return this.transitionDuration ? new Promise((resolve, reject) => {
-
-                if (this._transition) {
-                    this._transition.unbind();
-                    this._transition.reject();
-                }
-
-                this._transition = {
-                    reject,
-                    unbind: once(this.transitionElement, transitionend, () => {
-                        resolve();
-                        this._transition = null;
-                    })
-                };
-
-            }) : Promise.resolve();
+            return this.transitionDuration
+                ? new Promise(resolve => once(this.transitionElement, transitionend, resolve, false, e => e.target === this.transitionElement))
+                : Promise.resolve();
 
         },
     }
 
 }
 
-var events = {};
+var events;
 
-function register(name) {
-    events[name] = [
+function registerEvents() {
+
+    if (events) {
+        return;
+    }
+
+    events = [
         on(doc, 'click', ({target, defaultPrevented}) => {
             if (active && active.bgClose && !defaultPrevented && !within(target, active.panel)) {
                 active.hide();
@@ -214,7 +211,7 @@ function register(name) {
     ];
 }
 
-function deregister(name) {
-    events[name].forEach(unbind => unbind());
-    delete events[name];
+function deregisterEvents() {
+    events && events.forEach(unbind => unbind());
+    events = null;
 }

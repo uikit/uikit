@@ -24,6 +24,7 @@
 - Fix close button outside causing a scrollbar on small devices
 - Fix inverse style for `uk-hr`
 - Fix video size of Vimeo videos in Lightbox component
+- Fix closing stacked modals
 
 ## 3.0.0 beta 30 (August 18, 2017)
 

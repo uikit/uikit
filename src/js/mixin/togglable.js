@@ -124,7 +124,7 @@ export default {
                 return Promise.reject();
             }
 
-            var def = (animate === false || !this.hasAnimation
+            var promise = (animate === false || !this.hasAnimation
                     ? this._toggleImmediate
                     : this.hasTransition
                         ? this._toggleHeight
@@ -133,7 +133,7 @@ export default {
 
             trigger(el, show ? 'show' : 'hide', [this]);
 
-            return def.then(() => {
+            return promise.then(() => {
                 trigger(el, show ? 'shown' : 'hidden', [this]);
                 UIkit.update(null, el);
             });

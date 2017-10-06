@@ -42,7 +42,9 @@ export default function (UIkit) {
                 }
             }
 
-            this.svg = this.getSvg().then(svg => new Promise((resolve, reject) => {
+            this.svg = this.getSvg();
+
+            this.svg.then(svg => {
 
                 var el;
 
@@ -59,8 +61,7 @@ export default function (UIkit) {
                 }
 
                 if (!el) {
-                    reject('SVG not found.');
-                    return;
+                    return Promise.reject('SVG not found.');
                 }
 
                 var dimensions = attr(el, 'viewBox');
@@ -115,9 +116,9 @@ export default function (UIkit) {
 
                 }
 
-                resolve(el);
+                return el;
 
-            }), noop);
+            }, noop);
 
         },
 
