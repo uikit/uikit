@@ -42,9 +42,7 @@ export default function (UIkit) {
                 }
             }
 
-            this.svg = this.getSvg();
-
-            this.svg.then(svg => {
+            this.svg = this.getSvg().then(svg => {
 
                 var el;
 
@@ -116,6 +114,8 @@ export default function (UIkit) {
 
                 }
 
+                this.svgEl = el;
+
                 return el;
 
             }, noop);
@@ -129,9 +129,11 @@ export default function (UIkit) {
             }
 
             if (this.svg) {
-                this.svg.then(svg => remove(svg), noop);
-                this.svg = null;
+                this.svg.then(svg => (!this._connected || svg !== this.svgEl) && remove(svg), noop);
             }
+
+            this.svg = this.svgEl = null;
+
         },
 
         methods: {
