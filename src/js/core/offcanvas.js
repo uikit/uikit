@@ -71,7 +71,7 @@ export default function (UIkit) {
 
             write() {
 
-                if (this.isToggled()) {
+                if (this.getActive() === this) {
 
                     if (this.overlay || this.clsContentAnimation) {
                         width(this.content, width(win) - this.scrollbarWidth);
