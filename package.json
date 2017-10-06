@@ -57,8 +57,5 @@
       "patterns": "**/*.less",
       "extensions": "less"
     }
-  },
-  "dependencies": {
-    "jquery": "^3.2.1"
   }
 }
