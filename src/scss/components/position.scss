@@ -177,20 +177,20 @@ $position-medium-margin:                                $global-gutter !default;
 .uk-position-small { margin: $position-small-margin; }
 
 .uk-position-small.uk-position-center {
-    -webkit-transform: translate(unquote('calc(-50% - #{$position-small-margin})'), unquote('calc(-50% - #{$position-small-margin})'));
-    transform: translate(unquote('calc(-50% - #{$position-small-margin})'), unquote('calc(-50% - #{$position-small-margin})'));
+    -webkit-transform: translate(-50%, -50%) translate(-$position-small-margin, (-$position-small-margin));
+    transform: translate(-50%, -50%) translate(-$position-small-margin, (-$position-small-margin));
 }
 
 .uk-position-small.uk-position-center-left,
 .uk-position-small.uk-position-center-right {
-    -webkit-transform: translateY(unquote('calc(-50% - #{$position-small-margin})'));
-    transform: translateY(unquote('calc(-50% - #{$position-small-margin})'));
+    -webkit-transform: translateY(-50%) translateY(-$position-small-margin);
+    transform: translateY(-50%) translateY(-$position-small-margin);
 }
 
 .uk-position-small.uk-position-top-center,
 .uk-position-small.uk-position-bottom-center {
-    -webkit-transform: translateX(unquote('calc(-50% - #{$position-small-margin})'));
-    transform: translateX(unquote('calc(-50% - #{$position-small-margin})'));
+    -webkit-transform: translateX(-50%) translateX(-$position-small-margin);
+    transform: translateX(-50%) translateX(-$position-small-margin);
 }
 
 /*
@@ -200,22 +200,21 @@ $position-medium-margin:                                $global-gutter !default;
 .uk-position-medium { margin: $position-medium-margin; }
 
 .uk-position-medium.uk-position-center {
-    -webkit-transform: translate(unquote('calc(-50% - #{$position-medium-margin})'), unquote('calc(-50% - #{$position-medium-margin})'));
-    transform: translate(unquote('calc(-50% - #{$position-medium-margin})'), unquote('calc(-50% - #{$position-medium-margin})'));
+    -webkit-transform: translate(-50%, -50%) translate(-$position-medium-margin, (-$position-medium-margin));
+    transform: translate(-50%, -50%) translate(-$position-medium-margin, (-$position-medium-margin));
 }
 
 .uk-position-medium.uk-position-center-left,
 .uk-position-medium.uk-position-center-right {
-    -webkit-transform: translateY(unquote('calc(-50% - #{$position-medium-margin})'));
-    transform: translateY(unquote('calc(-50% - #{$position-medium-margin})'));
+    -webkit-transform: translateY(-50%) translateY(-$position-medium-margin);
+    transform: translateY(-50%) translateY(-$position-medium-margin);
 }
 
 .uk-position-medium.uk-position-top-center,
 .uk-position-medium.uk-position-bottom-center {
-    -webkit-transform: translateX(unquote('calc(-50% - #{$position-medium-margin})'));
-    transform: translateX(unquote('calc(-50% - #{$position-medium-margin})'));
+    -webkit-transform: translateX(-50%) translateX(-$position-medium-margin);
+    transform: translateX(-50%) translateX(-$position-medium-margin);
 }
-
 
 // Hooks
 // ========================================================================

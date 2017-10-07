@@ -1,4 +1,4 @@
-import { $, docHeight, offsetTop } from '../util/index';
+import { $, clamp, doc, height, isString, offset, requestAnimationFrame, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -6,35 +6,52 @@ export default function (UIkit) {
 
         props: {
             duration: Number,
-            easing: String,
             offset: Number
         },
 
         defaults: {
             duration: 1000,
-            easing: 'easeOutExpo',
             offset: 0
         },
 
         methods: {
 
-            scrollToElement(el) {
+            scrollTo(el) {
 
-                // get / set parameters
-                var target = offsetTop($(el)) - this.offset,
-                    document = docHeight(),
-                    viewport = window.innerHeight;
+                el = el && $(isString(el) ? el.replace(/\//g, '\\/') : el) || doc.body;
 
-                if (target + viewport > document) {
-                    target = document - viewport;
+                var target = offset(el).top - this.offset,
+                    docHeight = height(doc),
+                    winHeight = height(win);
+
+                if (target + winHeight > docHeight) {
+                    target = docHeight - winHeight;
                 }
 
-                // animate to target, fire callback when done
-                $('html,body')
-                    .stop()
-                    .animate({scrollTop: Math.round(target)}, this.duration, this.easing)
-                    .promise()
-                    .then(() => this.$el.trigger('scrolled', [this]));
+                if (!trigger(this.$el, 'beforescroll', [this, el])) {
+                    return;
+                }
+
+                var start = Date.now(),
+                    startY = win.pageYOffset,
+                    step = () => {
+                        var time = Date.now(),
+                            currentY,
+                            elapsed = (time - start) / this.duration;
+
+                        currentY = startY + (target - startY) * ease(clamp(elapsed));
+
+                        win.scrollTo(win.pageXOffset, currentY);
+
+                        // scroll more if we have not reached our destination
+                        if (currentY !== target) {
+                            requestAnimationFrame(step);
+                        } else {
+                            trigger(this.$el, 'scrolled', [this, el])
+                        }
+                    };
+
+                step();
 
             }
 
@@ -44,20 +61,20 @@ export default function (UIkit) {
 
             click(e) {
 
-                if (e.isDefaultPrevented()) {
+                if (e.defaultPrevented) {
                     return;
                 }
 
                 e.preventDefault();
-                this.scrollToElement($(this.$el[0].hash).length ? this.$el[0].hash : 'body');
+                this.scrollTo(this.$el.hash);
             }
 
         }
 
     });
 
-    $.easing.easeOutExpo = $.easing.easeOutExpo || function (x, t, b, c, d) {
-        return (t === d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
-    };
+    function ease(k) {
+        return 0.5 * (1 - Math.cos(Math.PI * k));
+    }
 
 }

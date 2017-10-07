@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Parallax - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
         <style type="text/css">
 
@@ -16,8 +16,13 @@
 
     <body>
 
-        <div class="uk-section uk-section-media uk-background-cover uk-background-primary uk-overflow-hidden uk-light uk-flex" style="background-image: url('images/dark.jpg');" uk-parallax="bgy: -400; sepia:100" uk-height-viewport="offset-top: true">
-            <h1 class="uk-heading-hero uk-margin-auto uk-margin-auto-vertical">Parallax</h1>
+        <!-- uk-flex-top is needed to make vertical margin work for IE11 -->
+        <div class="uk-section-default">
+            <div class="uk-section uk-background-cover uk-background-primary uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('images/dark.jpg');" uk-parallax="bgy: -400; sepia:100" uk-height-viewport="offset-top: true">
+
+                <h1 class="uk-heading-hero uk-margin-auto uk-margin-auto-vertical">Parallax</h1>
+
+            </div>
         </div>
 
         <div class="uk-section uk-section-default">
@@ -25,7 +30,7 @@
 
                 <h2>Target</h2>
 
-                <div id="test-target" class="uk-height-large uk-background-cover uk-margin uk-overflow-hidden uk-light uk-flex" style="background-image: url('images/dark.jpg');" uk-parallax="bgx: -200">
+                <div id="test-target" class="uk-height-large uk-background-cover uk-margin uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('images/dark.jpg');" uk-parallax="bgx: -200">
                     <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
                         <h1 uk-parallax="target: #test-target; opacity: 0; y: -200; scale: 2">Headline</h1>
                         <p uk-parallax="target: #test-target; opacity: 0; y: 200; scale: 0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -34,7 +39,7 @@
 
                 <h2>Start + End (Reverse)</h2>
 
-                <div id="test-reverse" class="uk-height-large uk-background-cover uk-margin uk-overflow-hidden uk-light uk-flex" style="background-image: url('images/dark.jpg');" uk-parallax="bgy: -200">
+                <div id="test-reverse" class="uk-height-large uk-background-cover uk-margin uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('images/dark.jpg');" uk-parallax="bgy: -200">
                     <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
                         <h1 uk-parallax="target: #test-reverse; opacity: 0,1; y: -200,0; scale: 2,1; viewport: 0.5">Headline</h1>
                         <p uk-parallax="target: #test-reverse; opacity: 0,1; y: 200,0; scale: 0,1; viewport: 0.5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -43,7 +48,7 @@
 
                 <h2>Easing</h2>
 
-                <div id="test-easing" class="uk-height-large uk-background-cover uk-margin uk-overflow-hidden uk-light uk-flex" style="background-image: url('images/dark.jpg');" uk-parallax="bgy: -200">
+                <div id="test-easing" class="uk-height-large uk-background-cover uk-margin uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('images/dark.jpg');" uk-parallax="bgy: -200">
                     <div class="uk-grid uk-margin-auto uk-margin-auto-vertical uk-flex-inline">
                         <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="target: #test-easing; y: 200; easing: 0">0</div></div>
                         <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="target: #test-easing; y: 200; easing: 0.2">0.2</div></div>
@@ -60,7 +65,7 @@
 
                 <h2>Color and Viewport</h2>
 
-                <div id="test-color" class="test-color uk-height-large uk-margin uk-overflow-hidden uk-flex" uk-parallax="backgroundColor: yellow,white; borderColor: #00f,#f00; viewport: 0.5">
+                <div id="test-color" class="test-color uk-height-large uk-margin uk-overflow-hidden uk-flex uk-flex-top" uk-parallax="backgroundColor: yellow,white; borderColor: #00f,#f00; viewport: 0.5">
                     <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
                         <h1 uk-parallax="target: #test-color; opacity: 0,1; y: -200%,0; viewport: 0.5">Headline</h1>
                         <p uk-parallax="target: #test-color; opacity: 0,1; viewport: 0.5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -74,7 +79,7 @@
 
                 <h2>Filter</h2>
 
-                <div id="test-filter" class="uk-height-large uk-background-cover uk-margin uk-overflow-hidden uk-light uk-flex" style="background-image: url('images/dark.jpg');" uk-parallax="invert: 100; viewport: 0.5">
+                <div id="test-filter" class="uk-height-large uk-background-cover uk-margin uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('images/dark.jpg');" uk-parallax="invert: 100; viewport: 0.5">
                     <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
                         <h1 uk-parallax="target: #test-filter; opacity: 0,1; y: -200%,0; viewport: 0.5">Headline</h1>
                         <p uk-parallax="target: #test-filter; opacity: 0,1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>

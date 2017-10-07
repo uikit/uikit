@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Scroll - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -16,20 +16,18 @@
             <h1>Scroll</h1>
 
             <a class="uk-button uk-button-default" href="#bottom" uk-scroll>Go Down!</a>
-            <a id="top-callback" class="uk-button uk-button-default" href="#bottom" >Go Down with callback!</a>
+            <a id="js-top-callback" class="uk-button uk-button-default" href="#bottom" uk-scroll>Go Down with callback!</a>
 
             <div style="height: 2000px;"></div>
 
             <a id="bottom" class="uk-button uk-button-default" href="#top" uk-scroll>Go Up!</a>
 
-            <script type="text/javascript">
-                jQuery(function ($) {
+            <script>
 
-                    UIkit.scroll($('#top-callback')).$el.on('scrolled', function () {
-                        alert('I\'m down!');
-                    });
-
+                UIkit.util.on('#js-top-callback', 'scrolled', function () {
+                    alert('Done.');
                 });
+
             </script>
 
             <h2>Javascript Options</h2>
@@ -50,12 +48,6 @@
                             <td>Number</td>
                             <td>1000</td>
                             <td>The animation duration.</td>
-                        </tr>
-                        <tr>
-                            <td><code>easing</code></td>
-                            <td>String</td>
-                            <td>easeOutExpo</td>
-                            <td>The easing function for the transition.</td>
                         </tr>
                         <tr>
                             <td><code>offset</code></td>

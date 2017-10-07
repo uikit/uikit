@@ -1,5 +1,118 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add style support for radio and checkbox in Firefox
+- Add `autoplay` setting to Lightbox
+- Add `poster` setting to Lightbox items
+
+### Changed
+
+- IMPORTANT: Remove jQuery dependency
+- Remove `uk-section-media` from Section component
+- Change `uk-tab-left` text alignment to left
+- Update overview in tests
+- Rename `isWithin` to `within`
+- Allow fullscreen mode for YouTube and Vimeo videos in Lightbox
+- Video component now stops playing the video regardsless of the autoplay setting
+
+### Fixed
+
+- Fix responsive images in modal for IE11
+- Fix close button outside causing a scrollbar on small devices
+- Fix inverse style for `uk-hr`
+- Fix video size of Vimeo videos in Lightbox component
+- Fix closing stacked modals
+
+## 3.0.0 beta 30 (August 18, 2017)
+
+### Fixed
+
+- Fix regression for IE11
+
+## 3.0.0 beta 29 (August 18, 2017)
+
+### Changed
+
+- Media options now support any valid media query syntax
+
+### Fixed
+
+- Fix whitespace trimming in dist
+- Fix active drop in click mode close on hover in Navbar component
+- Fix selTarget option in Sticky component
+- Fix icons not displaying if connected/disconnected in rapid succession
+- Ensure Navbar component does not initialze Drop components if Dropdown is already present
+- Fix scrollbar jumping in Switcher
+- Fix usage of Scroll component in Drop, Dropdown, Navbar and Offcanvas in overlay mode
+- Fix cursor set to pointer for icons
+- Fix Scrollspy nav not working correctly when zoomed in
+- Fix animations for Firefox
+- Fix icons not displaying if lazy loaded
+
+## 3.0.0 beta 28 (August 01, 2017)
+
+### Added
+
+- Add sticky navbar test
+- Add inverse style for button link
+
+### Changed
+
+- IMPORTANT: Rename `closeAlert` method to `close` in Alert component
+- IMPORTANT: Rename `close` param to `selClose` in Alert component
+- IMPORTANT: Rename `scrollToElement` method to `scrollTo` in Scroll component
+- Add box-shadow to dropbar slide
+
+### Fixed
+
+- Fix icon color for Edge
+- Add workaround to mitigate the duplicating icons issue
+- Fix issue with multilevel dropdown
+- Fix compatibility issue with Prototype and MooTools
+- Fix Sticky Navbar behaviour
+- Fix Parallax for IE11
+- Fix swiping in Lightbox
+- Fix alert close animation
+
+## 3.0.0 beta 27 (July 20, 2017)
+
+### Fixed
+
+- Remove stacking context for `uk-inline`
+- Prevent scrolling in Lightboxes with one slide only
+
+## 3.0.0 beta 26 (July 20, 2017)
+
+### Added
+
+- Add Lightbox component
+- Add Video component
+
+### Changed
+
+- IMPORTANT: Remove caption from Modal component. Use Lightbox component instead
+- IMPORTANT: Remove lightbox modifier from Modal component. Use Lightbox component instead
+- IMPORTANT: Remove center option from Modal component. Use `uk-margin-auto-vertical` modifier
+- IMPORTANT: Renamed `@modal-dialog-margin-vertical` to `@modal-padding-vertical-s`
+- IMPORTANT: Renamed `@modal-dialog-margin-vertical-xs` to `@modal-padding-vertical`
+- Refactored Modal component
+- `offsetTop` in Height Viewport component only applies if its element's top position is smaller than half the viewport
+- Larger width for form width x-small
+
+### Fixed
+
+- Offcanvas will keep scroll position if anchor link was clicked
+- Fix margin modifier in position component for IE11
+- Fix divider-small text alignment for `hr` elements Edge and IE
+- Fix setting the ratio of Spinner component
+- Fix event handling in Sortable component
+- Fix grid calculation (Firefox)
+- Fix dropdown margins in the dropbar
+- Fix opening Modals from Offcanvas'
+
 ## 3.0.0 beta 25 (June 9, 2017)
 
 ### Added

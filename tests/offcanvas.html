@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Off-canvas - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -60,7 +60,7 @@
                 <p uk-margin>
                     <button class="uk-button uk-button-default" type="button" uk-toggle="target: #scrollbar">Toggle scrollbar</button>
                     <button class="uk-button uk-button-primary" type="button" uk-toggle="target: #offcanvas-slide">Button Test</button>
-                    <a id="toggle" class="uk-button uk-button-secondary">Via Code</a>
+                    <a id="js-toggle" class="uk-button uk-button-secondary">Via Code</a>
                 </p>
 
                 <div id="scrollbar">
@@ -85,7 +85,7 @@
 
                 </div>
 
-                <h2>Javascript Options</h2>
+                <h2 id="js-options">Javascript Options</h2>
 
                 <div class="uk-overflow-auto">
                     <table class="uk-table uk-table-striped">
@@ -143,7 +143,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="#">Item</a></li>
+                            <li><a href="#js-options">Item</a></li>
                             <li><a href="#">Item</a></li>
                         </ul>
 
@@ -190,7 +190,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="#">Item</a></li>
+                            <li><a href="#js-options">Item</a></li>
                             <li><a href="#">Item</a></li>
                         </ul>
 
@@ -237,7 +237,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="#">Item</a></li>
+                            <li><a href="#js-options">Item</a></li>
                             <li><a href="#">Item</a></li>
                         </ul>
 
@@ -284,7 +284,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="#">Item</a></li>
+                            <li><a href="#js-options">Item</a></li>
                             <li><a href="#">Item</a></li>
                         </ul>
 
@@ -331,7 +331,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="#">Item</a></li>
+                            <li><a href="#js-options">Item</a></li>
                             <li><a href="#">Item</a></li>
                         </ul>
 
@@ -378,7 +378,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="#">Item</a></li>
+                            <li><a href="#js-options">Item</a></li>
                             <li><a href="#">Item</a></li>
                         </ul>
 
@@ -425,7 +425,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="#">Item</a></li>
+                            <li><a href="#js-options">Item</a></li>
                             <li><a href="#">Item</a></li>
                         </ul>
 
@@ -472,7 +472,7 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li><a href="#">Item</a></li>
+                            <li><a href="#js-options">Item</a></li>
                             <li><a href="#">Item</a></li>
                         </ul>
 
@@ -511,7 +511,7 @@
                                 </ul>
                             </li>
                             <li class="uk-nav-header">Header</li>
-                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                            <li><a href="#js-options"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
                             <li class="uk-nav-divider"></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
@@ -539,7 +539,7 @@
                                 </ul>
                             </li>
                             <li class="uk-nav-header">Header</li>
-                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                            <li><a href="#js-options"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
                             <li class="uk-nav-divider"></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
@@ -567,7 +567,7 @@
                                 </ul>
                             </li>
                             <li class="uk-nav-header">Header</li>
-                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                            <li><a href="#js-options"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
                             <li class="uk-nav-divider"></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
@@ -595,7 +595,7 @@
                                 </ul>
                             </li>
                             <li class="uk-nav-header">Header</li>
-                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                            <li><a href="#js-options"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
                             <li class="uk-nav-divider"></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
@@ -623,7 +623,7 @@
                                 </ul>
                             </li>
                             <li class="uk-nav-header">Header</li>
-                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                            <li><a href="#js-options"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
                             <li class="uk-nav-divider"></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
@@ -651,7 +651,7 @@
                                 </ul>
                             </li>
                             <li class="uk-nav-header">Header</li>
-                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                            <li><a href="#js-options"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
                             <li class="uk-nav-divider"></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
@@ -679,7 +679,7 @@
                                 </ul>
                             </li>
                             <li class="uk-nav-header">Header</li>
-                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                            <li><a href="#js-options"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
                             <li class="uk-nav-divider"></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
@@ -707,7 +707,7 @@
                                 </ul>
                             </li>
                             <li class="uk-nav-header">Header</li>
-                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                            <li><a href="#js-options"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
                             <li class="uk-nav-divider"></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
@@ -720,7 +720,7 @@
                     </div>
                 </div>
 
-                <div id="offcanvas-toggle" class="uk-offcanvas">
+                <div id="js-offcanvas-toggle" class="uk-offcanvas">
                     <div class="uk-offcanvas-bar">
 
                         <button class="uk-offcanvas-close" type="button" uk-close></button>
@@ -735,7 +735,7 @@
                                 </ul>
                             </li>
                             <li class="uk-nav-header">Header</li>
-                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                            <li><a href="#js-options"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
                             <li class="uk-nav-divider"></li>
                             <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
@@ -752,22 +752,18 @@
         </div>
         <script>
 
-            (function () {
+            var util = UIkit.util;
 
-                $(function () {
+            util.ready(function () {
+                util.prepend(util.$('.uk-offcanvas-content'), util.$('div'));
+            });
 
-                    $('div:first').prependTo('.uk-offcanvas-content');
+            util.on(util.$('#js-toggle'), 'click', function (e) {
 
-                });
+                e.preventDefault();
+                UIkit.offcanvas('#js-offcanvas-toggle').toggle();
 
-                $('#toggle').on('click', function (e) {
-
-                    e.preventDefault();
-                    UIkit.offcanvas('#offcanvas-toggle').toggle();
-
-                });
-
-            })();
+            });
 
         </script>
 

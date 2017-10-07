@@ -189,7 +189,9 @@
  * 2. Create position context
  * 3. Prevent content overflow
  * 4. Behave like most inline-block elements
- * 5. Clip child elements
+ * 5. Force hardware acceleration without creating a new stacking context
+ *    to fix 1px glitch when combined with overlays and transitions in Webkit
+ * 6. Clip child elements
  */
 
 [class*='uk-inline'] {
@@ -201,10 +203,12 @@
     max-width: 100%;
     /* 4 */
     vertical-align: middle;
+    /* 5 */
+    -webkit-backface-visibility: hidden;
 }
 
 .uk-inline-clip {
-    /* 5 */
+    /* 6 */
     overflow: hidden;
 }
 
@@ -452,13 +456,16 @@
 /*
  * 1. Fill all SVG elements with the current text color if no `fill` attribute is set
  * 2. Set the fill and stroke color of all SVG elements to the current text color
+ * 3. Fix for uppercase attribute names in Edge. Will be fixed in Windows 10 builds 16251+
  */
 
 /* 1 */
 .uk-svg,
 /* 2 */
-.uk-svg:not(.uk-preserve) [fill*='#']:not(.uk-preserve) { fill: currentcolor; }
-.uk-svg:not(.uk-preserve) [stroke*='#']:not(.uk-preserve) { stroke: currentcolor; }
+.uk-svg:not(.uk-preserve) [fill*='#']:not(.uk-preserve),
+.uk-svg:not(.uk-preserve) [FILL*='#']:not(.uk-preserve) { fill: currentcolor; } // 3
+.uk-svg:not(.uk-preserve) [stroke*='#']:not(.uk-preserve),
+.uk-svg:not(.uk-preserve) [STROKE*='#']:not(.uk-preserve) { stroke: currentcolor; } // 3
 
 /*
  * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835

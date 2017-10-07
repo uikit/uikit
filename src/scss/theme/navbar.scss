@@ -24,6 +24,8 @@ $navbar-dropdown-nav-font-size:                  $global-small-font-size !defaul
 
 $navbar-dropdown-box-shadow:                     0 5px 12px rgba(0,0,0,0.15) !default;
 
+$navbar-dropbar-box-shadow:                      0 5px 7px rgba(0, 0, 0, 0.05) !default;
+
 $navbar-dropdown-grid-divider-border-width:      $global-border-width !default;
 $navbar-dropdown-grid-divider-border:            $navbar-dropdown-nav-divider-border !default;
 
@@ -110,6 +112,8 @@ $navbar-dropdown-grid-divider-border:            $navbar-dropdown-nav-divider-bo
 // ========================================================================
 
 // @mixin hook-navbar-dropbar(){}
+
+
 
 
 // Miscellaneous

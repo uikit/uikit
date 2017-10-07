@@ -1,5 +1,5 @@
 import { Modal } from '../mixin/index';
-import { $, docElement, isTouch, query, transitionend } from '../util/index';
+import { $, addClass, css, doc, docEl, hasClass, height, isTouch, once, removeClass, transitionend, trigger, unwrap, width, win, wrapAll } from '../util/index';
 
 var scroll;
 
@@ -19,7 +19,7 @@ export default function (UIkit) {
         },
 
         defaults: {
-            content: '.uk-offcanvas-content:first',
+            content: '.uk-offcanvas-content',
             mode: 'slide',
             flip: false,
             overlay: false,
@@ -37,32 +37,32 @@ export default function (UIkit) {
 
         computed: {
 
-            content() {
-                return $(query(this.$props.content, this.$el));
+            content({content}) {
+                return $(content);
             },
 
-            clsFlip() {
-                return this.flip ? this.$props.clsFlip : '';
+            clsFlip({flip, clsFlip}) {
+                return flip ? clsFlip : '';
             },
 
-            clsOverlay() {
-                return this.overlay ? this.$props.clsOverlay : '';
+            clsOverlay({overlay, clsOverlay}) {
+                return overlay ? clsOverlay : '';
             },
 
-            clsMode() {
-                return `${this.$props.clsMode}-${this.mode}`;
+            clsMode({mode, clsMode}) {
+                return `${clsMode}-${mode}`;
             },
 
-            clsSidebarAnimation() {
-                return this.mode === 'none' || this.mode === 'reveal' ? '' : this.$props.clsSidebarAnimation;
+            clsSidebarAnimation({mode, clsSidebarAnimation}) {
+                return mode === 'none' || mode === 'reveal' ? '' : clsSidebarAnimation;
             },
 
-            clsContentAnimation() {
-                return this.mode !== 'push' && this.mode !== 'reveal' ? '' : this.$props.clsContentAnimation
+            clsContentAnimation({mode, clsContentAnimation}) {
+                return mode !== 'push' && mode !== 'reveal' ? '' : clsContentAnimation
             },
 
-            transitionElement() {
-                return this.mode === 'reveal' ? this.panel.parent() : this.panel;
+            transitionElement({mode}) {
+                return mode === 'reveal' ? this.panel.parentNode : this.panel;
             }
 
         },
@@ -71,17 +71,18 @@ export default function (UIkit) {
 
             write() {
 
-                if (this.isToggled()) {
+                if (this.getActive() === this) {
 
                     if (this.overlay || this.clsContentAnimation) {
-                        this.content.width(window.innerWidth - this.scrollbarWidth);
+                        width(this.content, width(win) - this.scrollbarWidth);
                     }
 
                     if (this.overlay) {
-                        this.content.height(window.innerHeight);
-                        scroll && this.content.scrollTop(scroll.y);
+                        height(this.content, height(win));
+                        if (scroll) {
+                            this.content.scrollTop = scroll.y;
+                        }
                     }
-
 
                 }
 
@@ -94,38 +95,76 @@ export default function (UIkit) {
         events: [
 
             {
-                name: 'beforeshow',
+
+                name: 'click',
+
+                delegate() {
+                    return 'a[href^="#"]';
+                },
+
+                handler({current}) {
+                    if (current.hash && $(current.hash, this.content)) {
+                        scroll = null;
+                        this.hide();
+                    }
+                }
+
+            },
+
+            {
+
+                name: 'beforescroll',
+
+                filter() {
+                    return this.overlay;
+                },
+
+                handler(e, scroll, target) {
+                    if (scroll && target && this.isToggled() && $(target, this.content)) {
+                        once(this.$el, 'hidden', () => scroll.scrollTo(target));
+                        e.preventDefault();
+                    }
+                }
+
+            },
+
+            {
+                name: 'show',
 
                 self: true,
 
                 handler() {
 
-                    scroll = scroll || {x: window.pageXOffset, y: window.pageYOffset};
+                    scroll = scroll || {x: win.pageXOffset, y: win.pageYOffset};
 
-                    if (this.mode === 'reveal' && !this.panel.parent().hasClass(this.clsMode)) {
-                        this.panel.wrap('<div>').parent().addClass(this.clsMode);
+                    if (this.mode === 'reveal' && !hasClass(this.panel, this.clsMode)) {
+                        wrapAll(this.panel, '<div>');
+                        addClass(this.panel.parentNode, this.clsMode);
                     }
 
-                    docElement.css('overflow-y', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
-
-                    this.body.addClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`).height();
-                    this.content.addClass(this.clsContentAnimation);
-                    this.panel.addClass(`${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
-                    this.$el.addClass(this.clsOverlay).css('display', 'block').height();
+                    css(docEl, 'overflowY', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
+                    addClass(doc.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
+                    height(doc.body); // force reflow
+                    addClass(this.content, this.clsContentAnimation);
+                    addClass(this.panel, `${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
+                    addClass(this.clsOverlay);
+                    css(this.$el, 'display', 'block');
+                    height(this.$el); // force reflow
 
                 }
             },
 
             {
-                name: 'beforehide',
+                name: 'hide',
 
                 self: true,
 
                 handler() {
-                    this.content.removeClass(this.clsContentAnimation);
+                    removeClass(this.content, this.clsContentAnimation);
 
-                    if (this.mode === 'none' || this.getActive() && this.getActive() !== this) {
-                        this.panel.trigger(transitionend);
+                    var active = this.getActive();
+                    if (this.mode === 'none' || active && active !== this && active !== this.prev) {
+                        trigger(this.panel, transitionend);
                     }
                 }
             },
@@ -138,21 +177,28 @@ export default function (UIkit) {
                 handler() {
 
                     if (this.mode === 'reveal') {
-                        this.panel.unwrap();
+                        unwrap(this.panel);
                     }
 
                     if (!this.overlay) {
-                        scroll = {x: window.pageXOffset, y: window.pageYOffset}
+                        scroll = {x: win.pageXOffset, y: win.pageYOffset}
+                    } else if (!scroll) {
+                        var {scrollLeft: x, scrollTop: y} = this.content;
+                        scroll = {x, y};
                     }
 
-                    this.panel.removeClass(`${this.clsSidebarAnimation} ${this.clsMode}`);
-                    this.$el.removeClass(this.clsOverlay).css('display', '');
-                    this.body.removeClass(`${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`).scrollTop(scroll.y);
+                    removeClass(this.panel, `${this.clsSidebarAnimation} ${this.clsMode}`);
+                    removeClass(this.$el, this.clsOverlay);
+                    css(this.$el, 'display', '');
+                    removeClass(doc.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
+                    doc.body.scrollTop = scroll.y;
 
-                    docElement.css('overflow-y', '');
-                    this.content.width('').height('');
+                    css(docEl, 'overflow-y', '');
 
-                    window.scrollTo(scroll.x, scroll.y);
+                    width(this.content, '');
+                    height(this.content, '');
+
+                    win.scrollTo(scroll.x, scroll.y);
 
                     scroll = null;
 

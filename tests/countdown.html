@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Countdown - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -17,7 +17,7 @@
 
             <h2>Grid</h2>
 
-            <div class="uk-grid-small uk-child-width-auto uk-margin" uk-grid countdown>
+            <div class="uk-grid-small uk-child-width-auto uk-margin" uk-grid js-countdown>
                 <div>
                     <div class="uk-countdown-number uk-countdown-days"></div>
                 </div>
@@ -35,7 +35,7 @@
                 </div>
             </div>
 
-            <div class="uk-grid-small uk-child-width-auto" uk-grid countdown>
+            <div class="uk-grid-small uk-child-width-auto" uk-grid js-countdown>
                 <div>
                     <div class="uk-countdown-number uk-countdown-days"></div>
                     <div class="uk-countdown-label uk-margin-small uk-text-center uk-visible@s">Days</div>
@@ -59,7 +59,7 @@
 
             <h2>Text</h2>
 
-            <div class="uk-margin" countdown>
+            <div class="uk-margin" js-countdown>
                 <span class="uk-countdown-number uk-countdown-days uk-text-middle"></span>
                 <span class="uk-countdown-separator uk-text-middle">:</span>
                 <span class="uk-countdown-number uk-countdown-hours uk-text-middle"></span>
@@ -69,7 +69,7 @@
                 <span class="uk-countdown-number uk-countdown-seconds uk-text-middle"></span>
             </div>
 
-            <div countdown>
+            <div js-countdown>
                 <span class="uk-countdown-number">
                     <span class="uk-countdown-days"></span><small>d</small>
                 </span>
@@ -111,11 +111,11 @@
 
         <script>
 
-            var demodate = (new Date(Date.now() + 864e5 * 7)).toISOString();
+            var date = (new Date(Date.now() + 864e5 * 7)).toISOString();
 
-            $('[countdown]').each(function() {
-                UIkit.countdown(this, {date:demodate});
-            })
+            UIkit.util.$$('[js-countdown]').forEach(function(el) {
+                UIkit.countdown(el, {date: date});
+            });
 
         </script>
     </body>

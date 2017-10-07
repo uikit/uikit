@@ -5,20 +5,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Position - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
         <style>
 
             .uk-overlay { background: rgba(255,255,255,0.8); }
 
             /* JavaScript */
-            #boundary {
+            #js-boundary {
                 height: 300px;
                 outline: 1px solid rgba(0,0,0,0.1);
                 position: relative;
             }
 
-            #target {
+            #js-target {
                 position: absolute;
                 left: 0;
                 top: 0;
@@ -27,7 +27,7 @@
                 background: rgba(0,0,0,0.1);
             }
 
-            #element {
+            #js-element {
                 position: absolute;
                 display: none;
                 width: 75px;
@@ -170,11 +170,11 @@
 
             <h2>JavaScript</h2>
 
-            <div id="boundary" class="uk-margin">
-                <div id="target" class="uk-flex uk-flex-center uk-flex-middle" draggable="true">Drag me!</div>
+            <div id="js-boundary" class="uk-margin">
+                <div id="js-target" class="uk-flex uk-flex-center uk-flex-middle" draggable="true">Drag me!</div>
             </div>
 
-            <div id="element"></div>
+            <div id="js-element"></div>
 
             <div class="uk-grid uk-child-width-auto uk-form-stacked">
                 <div>
@@ -183,7 +183,7 @@
                         <span class="uk-form-label">Element</span>
                         <label>
                             Horizontal
-                            <select id="element_x" class="uk-select uk-form-small uk-form-width-xsmall">
+                            <select id="js-element_x" class="uk-select uk-form-small uk-form-width-xsmall">
                                 <option value="left">left</option>
                                 <option value="center">center</option>
                                 <option value="right">right</option>
@@ -191,7 +191,7 @@
                         </label>
                         <label>
                             Vertical
-                            <select id="element_y" class="uk-select uk-form-small uk-form-width-xsmall">
+                            <select id="js-element_y" class="uk-select uk-form-small uk-form-width-xsmall">
                                 <option value="top">top</option>
                                 <option value="center">center</option>
                                 <option value="bottom">bottom</option>
@@ -203,7 +203,7 @@
                         <span class="uk-form-label">Target</span>
                         <label>
                             Horizontal
-                            <select id="target_x" class="uk-select uk-form-small uk-form-width-xsmall">
+                            <select id="js-target_x" class="uk-select uk-form-small uk-form-width-xsmall">
                                 <option value="left">left</option>
                                 <option value="center">center</option>
                                 <option value="right">right</option>
@@ -211,7 +211,7 @@
                         </label>
                         <label>
                             Vertical
-                            <select id="target_y" class="uk-select uk-form-small uk-form-width-xsmall">
+                            <select id="js-target_y" class="uk-select uk-form-small uk-form-width-xsmall">
                                 <option value="top">top</option>
                                 <option value="center">center</option>
                                 <option value="bottom">bottom</option>
@@ -226,11 +226,11 @@
                         <span class="uk-form-label">Offset</span>
                         <label>
                             Horizontal
-                            <input id="offset_x" class="uk-input uk-form-small uk-form-width-xsmall" type="text">
+                            <input id="js-offset_x" class="uk-input uk-form-small uk-form-width-xsmall" type="text">
                         </label>
                         <label>
                             Vertical
-                            <input id="offset_y" class="uk-input uk-form-small uk-form-width-xsmall" type="text">
+                            <input id="js-offset_y" class="uk-input uk-form-small uk-form-width-xsmall" type="text">
                         </label>
                     </div>
 
@@ -238,14 +238,14 @@
                         <span class="uk-form-label">Flip</span>
                         <label>
                             Horizontal
-                            <select id="flip_x" class="uk-select uk-form-small uk-form-width-xsmall">
+                            <select id="js-flip_x" class="uk-select uk-form-small uk-form-width-xsmall">
                                 <option value="x">flip</option>
                                 <option value="">none</option>
                             </select>
                         </label>
                         <label>
                             Vertical
-                            <select id="flip_y" class="uk-select uk-form-small uk-form-width-xsmall">
+                            <select id="js-flip_y" class="uk-select uk-form-small uk-form-width-xsmall">
                                 <option value="y">flip</option>
                                 <option value="">none</option>
                             </select>
@@ -259,59 +259,66 @@
 
         <script>
 
-            (function ($) {
+            var util = UIkit.util,
+                $ = util.$,
+                on = util.on,
+                offset = util.offset,
+                ticking,
+                element = $('#js-element'),
+                boundary = $('#js-boundary'),
+                target = $('#js-target'),
+                offsetX,
+                offsetY;
 
-                var ticking, element = $('#element'), boundary = $('#boundary'), target = $('#target'), offsetX, offsetY;
+            function position() {
+                util.positionAt(
+                    element,
+                    target,
+                    $('#js-element_x').value + ' ' + $('#js-element_y').value,
+                    $('#js-target_x').value + ' ' + $('#js-target_y').value,
+                    $('#js-offset_x').value + ' ' + $('#js-offset_y').value,
+                    null,
+                    $('#js-flip_x').value + $('#js-flip_y').value,
+                    boundary
+                );
+            }
 
-                function position() {
-                    UIkit.util.position(
-                        element,
-                        target,
-                        $('#element_x').val() + ' ' + $('#element_y').val(),
-                        $('#target_x').val() + ' ' + $('#target_y').val(),
-                        $('#offset_x').val() + ' ' + $('#offset_y').val(),
-                        null,
-                        $('#flip_x').val() + $('#flip_y').val(),
-                        boundary
-                    );
+            on(window, 'dragstart', function (e) {
+                e.dataTransfer.setDragImage(new Image(), 0, 0);
+
+                offsetX = Math.round(e.pageX - offset(target).left);
+                offsetY = Math.round(e.pageY - offset(target).top);
+
+            });
+
+            on(window, 'dragover', function (e) {
+
+                e.preventDefault();
+
+                if (!ticking) {
+                    requestAnimationFrame(function () {
+
+                        util.positionAt(
+                            target,
+                            boundary,
+                            'left top',
+                            'left top',
+                            (e.pageX - offset(boundary).left - offsetX) + ' ' + (e.pageY - offset(boundary).top - offsetY)
+                        );
+
+                        position();
+
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
 
-                $(window).on('dragstart', function (e) {
-                    e.originalEvent.dataTransfer.setDragImage(new Image(), 0, 0);
+            });
 
-                    offsetX = Math.round(e.pageX - target.offset().left);
-                    offsetY = Math.round(e.pageY - target.offset().top);
+            util.$$('select,input').forEach(el => on(el, 'change', position));
 
-                }).on('dragover', function (e) {
-
-                    e.preventDefault();
-
-                    if (!ticking) {
-                        requestAnimationFrame(function () {
-                            UIkit.util.position(
-                                target,
-                                boundary,
-                                'left top',
-                                'left top',
-                                (e.pageX - boundary.offset().left - offsetX) + ' ' + (e.pageY - boundary.offset().top - offsetY)
-                            );
-
-                            position();
-
-                            ticking = false;
-                        });
-                        ticking = true;
-                    }
-
-                    return true;
-                });
-
-                $('select,input').bind('change', position);
-
-                $('#element').show();
-                position();
-
-            })(jQuery);
+            util.css(element, 'display', 'block');
+            position();
 
         </script>
 

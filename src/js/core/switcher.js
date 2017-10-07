@@ -1,5 +1,7 @@
 import { Togglable } from '../mixin/index';
-import { $, getIndex, isTouch, toJQuery, query } from '../util/index';
+import { $$, addClass, attr, data, getIndex, hasClass, isTouch, removeClass, win } from '../util/index';
+import { filter, matches, queryAll } from "../util/selector";
+import { index } from "../util/dom";
 
 export default function (UIkit) {
 
@@ -17,8 +19,8 @@ export default function (UIkit) {
         },
 
         defaults: {
-            connect: false,
-            toggle: ' > *',
+            connect: '+ .uk-switcher',
+            toggle: '> *',
             active: 0,
             swiping: true,
             cls: 'uk-active',
@@ -29,12 +31,12 @@ export default function (UIkit) {
 
         computed: {
 
-            connects() {
-                return query(this.connect, this.$el) || $(this.$el.next(`.${this.clsContainer}`));
+            connects({connect}, $el) {
+                return queryAll(connect, $el);
             },
 
-            toggles() {
-                return $(this.toggle, this.$el);
+            toggles({toggle}, $el) {
+                return $$(toggle, $el);
             }
 
         },
@@ -51,7 +53,7 @@ export default function (UIkit) {
 
                 handler(e) {
                     e.preventDefault();
-                    this.show(e.currentTarget);
+                    this.show(e.current);
                 }
 
             },
@@ -69,7 +71,7 @@ export default function (UIkit) {
 
                 handler(e) {
                     e.preventDefault();
-                    this.show($(e.currentTarget)[e.currentTarget.hasAttribute(this.attrItem) ? 'attr' : 'data'](this.attrItem));
+                    this.show(data(e.current, this.attrItem));
                 }
             },
 
@@ -90,7 +92,7 @@ export default function (UIkit) {
                     }
 
                     e.preventDefault();
-                    if (!window.getSelection().toString()) {
+                    if (!win.getSelection().toString()) {
                         this.show(e.type === 'swipeLeft' ? 'next' : 'previous');
                     }
                 }
@@ -100,8 +102,8 @@ export default function (UIkit) {
 
         update() {
 
-            this.updateAria(this.connects.children());
-            this.show(toJQuery(this.toggles.filter(`.${this.cls}:first`)) || toJQuery(this.toggles.eq(this.active)) || this.toggles.first());
+            this.connects.forEach(list => this.updateAria(list.children));
+            this.show(filter(this.toggles, `.${this.cls}`)[0] || this.toggles[this.active] || this.toggles[0]);
 
         },
 
@@ -109,32 +111,41 @@ export default function (UIkit) {
 
             show(item) {
 
+                if (!this.connects.length) {
+                    return;
+                }
+
                 var length = this.toggles.length,
-                    prev = this.connects.children(`.${this.cls}`).index(),
+                    prev = index(filter(this.connects[0].children, `.${this.cls}`)[0]),
                     hasPrev = prev >= 0,
-                    index = getIndex(item, this.toggles, prev),
+                    next = getIndex(item, this.toggles, prev),
                     dir = item === 'previous' ? -1 : 1,
                     toggle;
 
-                for (var i = 0; i < length; i++, index = (index + dir + length) % length) {
-                    if (!this.toggles.eq(index).is('.uk-disabled, [disabled]')) {
-                        toggle = this.toggles.eq(index);
+                for (var i = 0; i < length; i++, next = (next + dir + length) % length) {
+                    if (!matches(this.toggles[next], '.uk-disabled, [disabled]')) {
+                        toggle = this.toggles[next];
                         break;
                     }
                 }
 
-                if (!toggle || prev >= 0 && toggle.hasClass(this.cls) || prev === index) {
+                if (!toggle || prev >= 0 && hasClass(toggle, this.cls) || prev === next) {
                     return;
                 }
 
-                this.toggles.removeClass(this.cls).attr('aria-expanded', false);
-                toggle.addClass(this.cls).attr('aria-expanded', true);
+                removeClass(this.toggles, this.cls);
+                attr(this.toggles, 'aria-expanded', false);
+                addClass(toggle, this.cls);
+                attr(toggle, 'aria-expanded', true);
 
-                if (!hasPrev) {
-                    this.toggleNow(this.connects.children(`:nth-child(${index + 1})`));
-                } else {
-                    this.toggleElement(this.connects.children(`:nth-child(${prev + 1}),:nth-child(${index + 1})`));
-                }
+                this.connects.forEach(list => {
+                    if (!hasPrev) {
+                        this.toggleNow(list.children[next]);
+                    } else {
+                        this.toggleElement([list.children[prev], list.children[next]]);
+                    }
+                })
+
             }
 
         }

@@ -4,19 +4,18 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, assign, clamp, Dimensions, getImage, isUndefined, scrolledOver, query} = UIkit.util;
+    var {mixin, util} = UIkit;
+    var {assign, clamp, css, Dimensions, each, getImage, includes, isUndefined, scrolledOver, toFloat, query, win} = util;
 
     var props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
-    UIkit.component('parallax', {
+    mixin.parallax = {
 
         props: props.reduce((props, prop) => {
             props[prop] = 'list';
             return props;
         }, {
             easing: Number,
-            target: String,
-            viewport: Number,
             media: 'media'
         }),
 
@@ -25,31 +24,25 @@ function plugin(UIkit) {
             return defaults;
         }, {
             easing: 1,
-            target: false,
-            viewport: 1,
             media: false
         }),
 
         computed: {
 
-            target() {
-                return this.$props.target && query(this.$props.target, this.$el) || this.$el;
-            },
-
-            props() {
+            props(properties, $el) {
 
                 return props.reduce((props, prop) => {
 
-                    if (isUndefined(this.$props[prop])) {
+                    if (isUndefined(properties[prop])) {
                         return props;
                     }
 
                     var isColor = prop.match(/color/i),
                         isCssProp = isColor || prop === 'opacity',
-                        values = this.$props[prop];
+                        values = properties[prop];
 
                     if (isCssProp) {
-                        this.$el.css(prop, '');
+                        css($el, prop, '');
                     }
 
                     var start = (!isUndefined(values[1])
@@ -57,25 +50,23 @@ function plugin(UIkit) {
                             : prop === 'scale'
                                 ? 1
                                 : isCssProp
-                                    ? this.$el.css(prop)
+                                    ? css($el, prop)
                                     : 0) || 0,
                         end = isUndefined(values[1]) ? values[0] : values[1],
-                        unit = ~values.join('').indexOf('%') ? '%' : 'px',
+                        unit = includes(values.join(''), '%') ? '%' : 'px',
                         diff;
 
                     if (isColor) {
 
-                        var color = this.$el[0].style.color;
-                        this.$el[0].style.color = start;
-                        start = parseColor(this.$el.css('color'));
-                        this.$el[0].style.color = end;
-                        end = parseColor(this.$el.css('color'));
-                        this.$el[0].style.color = color;
+                        var color = $el.style.color;
+                        start = parseColor($el, start);
+                        end = parseColor($el, end);
+                        $el.style.color = color;
 
                     } else {
 
-                        start = parseFloat(start);
-                        end = parseFloat(end);
+                        start = toFloat(start);
+                        end = toFloat(end);
                         diff = Math.abs(start - end);
 
                     }
@@ -84,8 +75,10 @@ function plugin(UIkit) {
 
                     if (prop.match(/^bg/)) {
 
-                        var attr = `background-position-${prop[2]}`;
-                        props[prop].pos = this.$el.css(attr, '').css(attr);
+                        props[prop].pos = css(
+                            css($el, `background-position-${prop[2]}`, ''),
+                            'backgroundPosition'
+                        ).split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
 
                         if (this.covers) {
                             assign(props[prop], {start: 0, end: start <= end ? diff : -diff});
@@ -102,14 +95,13 @@ function plugin(UIkit) {
                 return ['bgx', 'bgy'].filter(bg => bg in this.props);
             },
 
-            covers() {
-                return this.$el.css('backgroundSize', '').css('backgroundSize') === 'cover';
+            covers(_, $el) {
+                return css(css($el, 'backgroundSize', ''), 'backgroundSize') === 'cover';
             }
 
         },
 
         disconnected() {
-            delete this._prev;
             delete this._image;
         },
 
@@ -119,15 +111,14 @@ function plugin(UIkit) {
 
                 read() {
 
-                    delete this._prev;
                     delete this._computeds.props;
 
-                    this._active = !this.media || window.matchMedia(this.media).matches;
+                    this._active = !this.media || win.matchMedia(this.media).matches;
 
                     if (this._image) {
                         this._image.dimEl = {
-                            width: this.$el[0].offsetWidth,
-                            height: this.$el[0].offsetHeight
+                            width: this.$el.offsetWidth,
+                            height: this.$el.offsetHeight
                         }
                     }
 
@@ -135,7 +126,7 @@ function plugin(UIkit) {
                         return;
                     }
 
-                    var src = this.$el.css('backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
+                    var src = css(this.$el, 'backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
 
                     if (!src) {
                         return;
@@ -161,7 +152,7 @@ function plugin(UIkit) {
                     }
 
                     if (!this._active) {
-                        this.$el.css({backgroundSize: '', backgroundRepeat: ''});
+                        css(this.$el, {backgroundSize: '', backgroundRepeat: ''});
                         return;
                     }
 
@@ -185,7 +176,7 @@ function plugin(UIkit) {
                                 dimEl[attr] = dim[attr] + diff - span;
                                 this.props[prop].pos = '0px';
                             } else {
-                                pos = -1 * span / 100 * parseFloat(pos);
+                                pos = -1 * span / 100 * toFloat(pos);
                                 pos = clamp(pos, diff - span, 0);
                                 this.props[prop].pos = `${pos}px`;
                             }
@@ -194,7 +185,7 @@ function plugin(UIkit) {
 
                             if (span < diff) {
                                 dimEl[attr] = dim[attr] + diff - span;
-                            } else if ((span / 100 * parseFloat(pos)) > diff) {
+                            } else if ((span / 100 * toFloat(pos)) > diff) {
                                 return;
                             }
 
@@ -205,7 +196,7 @@ function plugin(UIkit) {
                         dim = Dimensions.cover(image, dimEl);
                     });
 
-                    this.$el.css({
+                    css(this.$el, {
                         backgroundSize: `${dim.width}px ${dim.height}px`,
                         backgroundRepeat: 'no-repeat'
                     });
@@ -213,6 +204,133 @@ function plugin(UIkit) {
                 },
 
                 events: ['load', 'resize']
+
+            }
+
+        ],
+
+        methods: {
+
+            reset() {
+                each(this.getCss(0), (_, prop) => css(this.$el, prop, ''));
+            },
+
+            getCss(percent) {
+
+                var translated = false, props = this.props;
+                return Object.keys(props).reduce((css, prop) => {
+
+                    var values = props[prop],
+                        value = getValue(values, percent);
+
+                    switch (prop) {
+
+                        // transforms
+                        case 'x':
+                        case 'y':
+
+                            if (translated) {
+                                break;
+                            }
+
+                            var [x, y] = ['x', 'y'].map(dir => prop === dir
+                                ? value + values.unit
+                                : props[dir]
+                                    ? getValue(props[dir], percent) + props[dir].unit
+                                    : 0
+                            );
+
+                            translated = css.transform += ` translate3d(${x}, ${y}, 0)`;
+                            break;
+                        case 'rotate':
+                            css.transform += ` rotate(${value}deg)`;
+                            break;
+                        case 'scale':
+                            css.transform += ` scale(${value})`;
+                            break;
+
+                        // bg image
+                        case 'bgy':
+                        case 'bgx':
+                            css[`background-position-${prop[2]}`] = `calc(${values.pos} + ${value + values.unit})`;
+                            break;
+
+                        // color
+                        case 'color':
+                        case 'backgroundColor':
+                        case 'borderColor':
+                            css[prop] = `rgba(${
+                                values.start.map((value, i) => {
+                                    value = value + percent * (values.end[i] - value);
+                                    return i === 3 ? toFloat(value) : parseInt(value, 10);
+                                }).join(',')
+                                })`;
+                            break;
+
+                        // CSS Filter
+                        case 'blur':
+                            css.filter += ` blur(${value}px)`;
+                            break;
+                        case 'hue':
+                            css.filter += ` hue-rotate(${value}deg)`;
+                            break;
+                        case 'fopacity':
+                            css.filter += ` opacity(${value}%)`;
+                            break;
+                        case 'grayscale':
+                        case 'invert':
+                        case 'saturate':
+                        case 'sepia':
+                            css.filter += ` ${prop}(${value}%)`;
+                            break;
+
+                        default:
+                            css[prop] = value;
+                    }
+
+                    return css;
+
+                }, {transform: '', filter: ''});
+
+            }
+
+        }
+
+    };
+
+    UIkit.component('parallax', {
+
+        mixins: [mixin.parallax],
+
+        props: {
+            target: String,
+            viewport: Number
+        },
+
+        defaults: {
+            target: false,
+            viewport: 1
+        },
+
+        computed: {
+
+            target({target}, $el) {
+                return target && query(target, $el) || $el;
+            }
+
+        },
+
+        disconnected() {
+            delete this._prev;
+        },
+
+        update: [
+
+            {
+
+                read() {
+                    delete this._prev;
+                }
 
             },
 
@@ -228,12 +346,12 @@ function plugin(UIkit) {
                 write() {
 
                     if (!this._active) {
-                        Object.keys(getCss(this.props, 0)).forEach(prop => this.$el.css(prop, ''));
+                        this.reset();
                         return;
                     }
 
                     if (this._prev !== this._percent) {
-                        this.$el.css(getCss(this.props, this._percent));
+                        css(this.$el, this.getCss(this._percent));
                         this._prev = this._percent;
                     }
 
@@ -241,89 +359,13 @@ function plugin(UIkit) {
 
                 events: ['scroll', 'load', 'resize']
             }
+
         ]
+
     });
 
-    function parseColor(color) {
-        return color.split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => parseFloat(n));
-    }
-
-    function getCss(props, percent) {
-
-        var translated = false;
-        return Object.keys(props).reduce((css, prop) => {
-
-            var values = props[prop],
-                value = getValue(values, percent);
-
-            switch (prop) {
-
-                // transforms
-                case 'x':
-                case 'y':
-                    if (translated) {
-                        break;
-                    }
-
-                    var [x, y] = ['x', 'y'].map(dir => prop === dir
-                        ? value + values.unit
-                        : props[dir]
-                            ? getValue(props[dir], percent) + props[dir].unit
-                            : 0
-                    );
-
-                    translated = css.transform += ` translate3d(${x}, ${y}, 0)`;
-                    break;
-                case 'rotate':
-                    css.transform += ` rotate(${value}deg)`;
-                    break;
-                case 'scale':
-                    css.transform += ` scale(${value})`;
-                    break;
-
-                // bg image
-                case 'bgy':
-                case 'bgx':
-                    css[`background-position-${prop[2]}`] = `calc(${values.pos} + ${value + values.unit})`;
-                    break;
-
-                // color
-                case 'color':
-                case 'backgroundColor':
-                case 'borderColor':
-                    css[prop] = `rgba(${
-                        values.start.map((value, i) => {
-                            value = value + percent * (values.end[i] - value);
-                            return i === 3 ? parseFloat(value) : parseInt(value, 10);
-                        }).join(',')
-                    })`;
-                    break;
-
-                // CSS Filter
-                case 'blur':
-                    css.filter += ` blur(${value}px)`;
-                    break;
-                case 'hue':
-                    css.filter += ` hue-rotate(${value}deg)`;
-                    break;
-                case 'fopacity':
-                    css.filter += ` opacity(${value}%)`;
-                    break;
-                case 'grayscale':
-                case 'invert':
-                case 'saturate':
-                case 'sepia':
-                    css.filter += ` ${prop}(${value}%)`;
-                    break;
-
-                default:
-                    css[prop] = value;
-            }
-
-            return css;
-
-        }, {transform: '', filter: ''});
-
+    function parseColor(el, color) {
+        return css(css(el, 'color', color), 'color').split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => toFloat(n));
     }
 
     function getValue(prop, percent) {

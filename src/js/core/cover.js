@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { Dimensions } from '../util/index';
+import { css, Dimensions, isVisible, Player } from '../util/index';
 
 export default function (UIkit) {
 
@@ -8,57 +8,47 @@ export default function (UIkit) {
         mixins: [Class],
 
         props: {
-            automute: Boolean,
             width: Number,
             height: Number
         },
 
-        defaults: {automute: true},
-
-        computed: {
-
-            el() {
-                return this.$el[0];
-            },
-
-            parent() {
-                return this.el.parentNode;
-            }
-
-        },
-
         ready() {
 
-            if (!this.$el.is('iframe')) {
-                return;
+            if (this.$el.tagName === 'IFRAME') {
+                css(this.$el, 'pointerEvents', 'none');
             }
 
-            this.$el.css('pointerEvents', 'none');
+            var player = new Player(this.$el);
 
-            if (this.automute) {
-
-                var src = this.$el.attr('src');
-
-                this.$el
-                    .attr('src', `${src}${~src.indexOf('?') ? '&' : '?'}enablejsapi=1&api=1`)
-                    .on('load', ({target}) => target.contentWindow.postMessage('{"event": "command", "func": "mute", "method":"setVolume", "value":0}', '*'));
+            if (player.isVideo()) {
+                player.mute();
             }
+
         },
 
         update: {
 
             write() {
 
-                if (this.el.offsetHeight === 0) {
+                var el = this.$el, parent = el.parentNode;
+
+                if (!isVisible(el)) {
                     return;
                 }
 
-                this.$el
-                    .css({width: '', height: ''})
-                    .css(Dimensions.cover(
-                        {width: this.width || this.el.clientWidth, height: this.height || this.el.clientHeight},
-                        {width: this.parent.offsetWidth, height: this.parent.offsetHeight}
-                    ));
+                css(
+                    css(el, {width: '', height: ''}),
+                    Dimensions.cover(
+                        {
+                            width: this.width || el.clientWidth,
+                            height: this.height || el.clientHeight
+                        },
+                        {
+                            width: parent.offsetWidth,
+                            height: parent.offsetHeight
+                        }
+                    )
+                );
 
             },
 

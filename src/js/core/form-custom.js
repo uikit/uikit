@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { query } from '../util/index';
+import { $, $$, includes, isInput, matches, query, selInput, toggleClass, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -19,22 +19,25 @@ export default function (UIkit) {
 
         computed: {
 
-            input() {
-                return this.$el.find(':input:first');
+            input(_, $el) {
+                return $(selInput, $el);
             },
 
             state() {
-                return this.input.next();
+                return this.input.nextElementSibling;
             },
 
-            target() {
-                return this.$props.target && query(this.$props.target === true ? '> :input:first + :first' : this.$props.target, this.$el)
+            target({target}, $el) {
+                return target && (target === true
+                    && this.input.parentNode === $el
+                    && this.input.nextElementSibling
+                    || query(target, $el));
             }
 
         },
 
         connected() {
-            this.input.trigger('change');
+            trigger(this.input, 'change');
         },
 
         events: [
@@ -43,10 +46,16 @@ export default function (UIkit) {
 
                 name: 'focusin focusout mouseenter mouseleave',
 
-                delegate: ':input:first',
+                delegate: selInput,
 
-                handler({type}) {
-                    this.state.toggleClass(`uk-${~type.indexOf('focus') ? 'focus' : 'hover'}`, ~['focusin', 'mouseenter'].indexOf(type));
+                handler({type, current}) {
+                    if (current === this.input) {
+                        toggleClass(
+                            this.state,
+                            `uk-${includes(type, 'focus') ? 'focus' : 'hover'}`,
+                            includes(['focusin', 'mouseenter'], type)
+                        );
+                    }
                 }
 
             },
@@ -56,13 +65,18 @@ export default function (UIkit) {
                 name: 'change',
 
                 handler() {
-                    this.target && this.target[this.target.is(':input') ? 'val' : 'text'](
-                        this.input[0].files && this.input[0].files[0]
-                            ? this.input[0].files[0].name
-                            : this.input.is('select')
-                                ? this.input.find('option:selected').text()
-                                : this.input.val()
-                    );
+
+                    var target = this.target, input = this.input, option;
+
+                    if (!target) {
+                        return;
+                    }
+
+                    target[isInput(target) ? 'value' : 'innerText'] = input.files && input.files[0]
+                        ? input.files[0].name
+                        : matches(input, 'select') && (option = $$('option', input).filter(el => el.selected)[0])
+                            ? option.innerText
+                            : input.value;
                 }
 
             }

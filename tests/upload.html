@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Upload - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -17,14 +17,14 @@
 
             <h2>Select</h2>
 
-            <div class="test-upload" uk-form-custom>
+            <div class="js-upload" uk-form-custom>
                 <input type="file" multiple>
                 <button class="uk-button uk-button-default" type="button" tabindex="-1">Select</button>
             </div>
 
             <h2>Drop Area</h2>
 
-            <div class="test-upload uk-placeholder uk-text-center">
+            <div class="js-upload uk-placeholder uk-text-center">
                 <span uk-icon="icon: cloud-upload"></span>
                 <span class="uk-text-middle">Attach binaries by dropping them here or</span>
                 <div uk-form-custom>
@@ -33,71 +33,66 @@
                 </div>
             </div>
 
-            <progress id="progressbar" class="uk-progress" value="0" max="100" hidden></progress>
+            <progress id="js-progressbar" class="uk-progress" value="0" max="100" hidden></progress>
 
             <script>
 
-                (function ($) {
+                var bar = document.getElementById('js-progressbar');
 
-                    var bar = $("#progressbar")[0];
+                UIkit.upload('.js-upload', {
 
-                    UIkit.upload('.test-upload', {
+                    url: '',
+                    multiple: true,
 
-                        url: '',
-                        multiple: true,
+                    beforeSend: function () {
+                        console.log('beforeSend', arguments);
+                    },
+                    beforeAll: function () {
+                        console.log('beforeAll', arguments);
+                    },
+                    load: function () {
+                        console.log('load', arguments);
+                    },
+                    error: function () {
+                        console.log('error', arguments);
+                    },
+                    complete: function () {
+                        console.log('complete', arguments);
+                    },
 
-                        beforeSend: function () {
-                            console.log('beforeSend', arguments);
-                        },
-                        beforeAll: function () {
-                            console.log('beforeAll', arguments);
-                        },
-                        load: function () {
-                            console.log('load', arguments);
-                        },
-                        error: function () {
-                            console.log('error', arguments);
-                        },
-                        complete: function () {
-                            console.log('complete', arguments);
-                        },
+                    loadStart: function (e) {
+                        console.log('loadStart', arguments);
 
-                        loadStart: function (e) {
-                            console.log('loadStart', arguments);
+                        bar.removeAttribute('hidden');
+                        bar.max = e.total;
+                        bar.value = e.loaded;
+                    },
 
-                            bar.removeAttribute('hidden');
-                            bar.max = e.total;
-                            bar.value = e.loaded;
-                        },
+                    progress: function (e) {
+                        console.log('progress', arguments);
 
-                        progress: function (e) {
-                            console.log('progress', arguments);
+                        bar.max = e.total;
+                        bar.value = e.loaded;
+                    },
 
-                            bar.max = e.total;
-                            bar.value = e.loaded;
+                    loadEnd: function (e) {
+                        console.log('loadEnd', arguments);
 
-                        },
+                        bar.max = e.total;
+                        bar.value = e.loaded;
+                    },
 
-                        loadEnd: function (e) {
-                            console.log('loadEnd', arguments);
+                    completeAll: function () {
+                        console.log('completeAll', arguments);
 
-                            bar.max = e.total;
-                            bar.value = e.loaded;
-                        },
+                        setTimeout(function () {
+                            bar.setAttribute('hidden', 'hidden');
+                        }, 1000);
 
-                        completeAll: function () {
-                            console.log('completeAll', arguments);
+                        alert('Upload Completed');
+                    }
 
-                            setTimeout(function () {
-                                bar.setAttribute('hidden', 'hidden');
-                            }, 1000);
-
-                            alert('Upload Completed');
-                        }
-
-                    });
-
-                })(jQuery);
+                });
 
             </script>
 
