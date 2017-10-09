@@ -138,7 +138,7 @@ function plugin(UIkit) {
             items: [],
             cls: 'uk-open',
             clsPage: 'uk-lightbox-page',
-            clsItem: 'uk-lightbox-item',
+            clsList: 'uk-lightbox-items',
             attrItem: 'uk-lightbox-item',
             template: `<div class="uk-lightbox uk-overflow-hidden">
                             <ul class="uk-lightbox-items"></ul>
@@ -155,12 +155,11 @@ function plugin(UIkit) {
 
             this.$mount(append(this.container, this.template));
 
-            this.list = $('.uk-lightbox-items', this.$el);
             this.toolbars = $$('.uk-lightbox-toolbar', this.$el);
-            this.nav = $$('a[uk-lightbox-item]', this.$el);
+            this.nav = $$(`a[${this.attrItem}]`, this.$el);
             this.caption = $('.uk-lightbox-caption', this.$el);
 
-            this.items.forEach((el, i) => append(this.list, `<li class="${this.clsItem} item-${i}"></li>`));
+            this.items.forEach((el, i) => append(this.list, `<li></li>`));
 
         },
 
@@ -181,7 +180,7 @@ function plugin(UIkit) {
                 self: true,
 
                 delegate() {
-                    return `.${this.clsItem}`;
+                    return `.${this.clsList} > *`;
                 },
 
                 handler(e) {

@@ -11,6 +11,7 @@ function plugin(UIkit) {
     UIkit.use(Slideshow);
 
     var {mixin} = UIkit;
+    var {addClass, closest, css, height} = UIkit.util;
 
     UIkit.component('slideshow', {
 
@@ -26,32 +27,23 @@ function plugin(UIkit) {
             duration: 800,
             width: 1900,
             height: 1200,
-            clsSlides: 'uk-slideshow-items',
-            clsItem: 'uk-slideshow-item',
+            clsList: 'uk-slideshow-items',
             attrItem: 'uk-slideshow-item',
             clsActive: 'uk-active',
         },
 
-        computed: {
-
-            list({clsSlides}, $el) {
-                return $(`.${clsSlides}`, $el);
-            }
-
-        },
-
         connected() {
-            this.$addClass(this.slides.eq(this.index), this.clsActive);
+            addClass(this.slides[this.index], this.clsActive);
         },
 
         update: {
 
             read() {
-                this.height = this.$props.height * this.$el[0].offsetWidth / this.width;
+                this.height = this.$props.height * this.$el.offsetWidth / this.width;
             },
 
             write() {
-                this.list.height(Math.floor(this.height));
+                height(this.list, Math.floor(this.height));
             },
 
             events: ['load', 'resize']
@@ -67,11 +59,11 @@ function plugin(UIkit) {
         computed: {
 
             slideshow() {
-                return UIkit.getComponent(this.$el.closest('.uk-slideshow'), 'slideshow');
+                return UIkit.getComponent(closest(this.$el, '.uk-slideshow'), 'slideshow');
             },
 
             item() {
-                return this.slideshow && this.slideshow.slides.has(this.$el)[0];
+                return this.slideshow && this.slideshow.slides.filter(slide => slide.contains(this.$el))[0];
             }
 
         },
@@ -97,7 +89,7 @@ function plugin(UIkit) {
                     var {current, next, dir} = _animation,
                         el = dir > 0 ? next : current;
 
-                    if (this.item !== el[0]) {
+                    if (this.item !== el) {
                         return;
                     }
 
@@ -122,7 +114,7 @@ function plugin(UIkit) {
                     this.$emit();
 
                     if (this._prev !== this._percent) {
-                        this.$el.css(this.getCss(this._percent));
+                        css(this.$el, this.getCss(this._percent));
                         this._prev = this._percent;
                     }
 

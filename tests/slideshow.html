@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Slideshow - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -31,10 +31,10 @@
 
                     <div class="js-slideshow-animation" uk-slideshow>
 
-                        <!-- <div class="uk-inline uk-visible-toggle uk-light"> -->
+                         <div class="uk-position-relative uk-visible-toggle uk-light">
 
                             <ul class="uk-slideshow-items">
-                                <li id="item-1" class="uk-slideshow-item">
+                                <li>
                                     <img src="images/size1.jpg" alt uk-cover>
                                     <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
                                         <div>
@@ -43,7 +43,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li id="item-2" class="uk-slideshow-item">
+                                <li>
                                     <img src="images/size2.jpg" alt uk-cover>
                                     <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
                                         <div>
@@ -52,7 +52,7 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li id="item-3" class="uk-slideshow-item">
+                                <li>
                                     <img src="images/photo.jpg" alt uk-cover>
                                     <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
                                         <div>
@@ -61,8 +61,8 @@
                                         </div>
                                     </div>
                                 </li>
-                                <!--
-                                <li class="uk-slideshow-item">
+
+                                <li>
                                     <video src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" loop uk-video="automute: true" uk-cover></video>
                                     <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
                                         <div>
@@ -71,13 +71,13 @@
                                         </div>
                                     </div>
                                 </li>
-                                 -->
+
                             </ul>
 
                             <a class="uk-position-center-left  uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
                             <a class="uk-position-center-right uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
 
-                        <!-- </div> -->
+                         </div>
 
                         <ul class="uk-dotnav uk-flex-center uk-margin">
                             <li uk-slideshow-item="0"><a href="#">Item 1</a></li>
@@ -92,7 +92,7 @@
 
                     <div class="js-slideshow-animation" uk-slideshow>
 
-                        <!-- <div class="uk-inline uk-visible-toggle uk-light"> -->
+                         <div class="uk-position-relative uk-visible-toggle uk-light">
 
                             <ul class="uk-slideshow-items">
                                 <li class="uk-slideshow-item" data-source="images/size1.jpg">
@@ -116,7 +116,7 @@
                             <a class="uk-position-center-left uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
                             <a class="uk-position-center-right uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
 
-                        <!-- </div> -->
+                         </div>
 
                         <ul class="uk-dotnav uk-flex-center uk-margin">
                             <li uk-slideshow-item="0"><a href="#">Item 1</a></li>
@@ -134,7 +134,7 @@
 
         <div class="uk-margin" uk-slideshow>
 
-            <!-- <div class="uk-inline uk-visible-toggle uk-light"> -->
+             <div class="uk-position-relative uk-visible-toggle uk-light">
 
                 <ul class="uk-slideshow-items" uk-height-viewport>
                     <li class="uk-slideshow-item">
@@ -160,7 +160,7 @@
                 <a class="uk-position-center-left uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
                 <a class="uk-position-center-right uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
 
-            <!-- </div> -->
+             </div>
 
         </div>
 
@@ -229,13 +229,10 @@
 
         <script>
 
-            (function () {
-
-                $('#js-animation-switcher').on('change', function() {
-                    $('.js-slideshow-animation').attr('animation', this.value);
-                });
-
-            })();
+            UIkit.util.on('#js-animation-switcher', 'change', function() {
+                var value = this.value;
+                UIkit.util.$$('.js-slideshow-animation').forEach(function(slideshow) { UIkit.util.attr(slideshow, 'animation', value) });
+            });
 
         </script>
 

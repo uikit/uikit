@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {addClass, css, filter, hasClass, removeClass, toggleClass, $, attr, doc, fastdom, getIndex, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, requestAnimationFrame, Transition, trigger} = UIkit.util;
+    var {$, $$, addClass, css, hasClass, removeClass, toggleClass, attr, doc, fastdom, getIndex, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, requestAnimationFrame, Transition, trigger} = UIkit.util;
 
     UIkit.mixin.slideshow = {
 
@@ -31,8 +31,12 @@ function plugin(UIkit) {
 
         computed: {
 
-            slides({clsItem}) {
-                return filter(this.list.children, `.${clsItem}`);
+            list({clsList}, $el) {
+                return $(`.${clsList}`, $el);
+            },
+
+            slides() {
+                return $$(this.list.children);
             },
 
             forwardDuration({duration}) {
@@ -81,7 +85,7 @@ function plugin(UIkit) {
                 name: pointerDown,
 
                 delegate() {
-                    return `.${this.clsItem}`;
+                    return `.${this.clsList} > *`;
                 },
 
                 handler: 'start'

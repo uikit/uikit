@@ -50,7 +50,7 @@
  * 3. Hide by default
  */
 
-.uk-slideshow-item {
+.uk-slideshow-items > * {
     /* 1 */
     position: absolute;
     top: 0;
@@ -58,17 +58,13 @@
     /* 2 */
     right: 0;
     bottom: 0;
-    /* ? */
-    user-select: none;
-    overflow: hidden; // why again?
-    will-change: transform;
 }
 
 /*
  * Hide not active items
  */
 
-.uk-slideshow-item:not(.uk-active) { display: none; }
+.uk-slideshow-items > *:not(.uk-active) { display: none; }
 
 
 // Hooks
