@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, $$, addClass, css, hasClass, removeClass, toggleClass, attr, doc, fastdom, getIndex, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, requestAnimationFrame, Transition, trigger} = UIkit.util;
+    var {$, $$, addClass, css, hasClass, removeClass, toggleClass, attr, doc, fastdom, getIndex, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, Transition, trigger} = UIkit.util;
 
     UIkit.mixin.slideshow = {
 
@@ -292,7 +292,7 @@ function plugin(UIkit) {
 
                     this.stack.shift();
                     if (this.stack.length) {
-                        requestAnimationFrame(() => this.show(this.stack.shift(), true));
+                        this.show(this.stack.shift(), true);
                     } else {
                         this._animation = null;
                     }
@@ -487,15 +487,13 @@ function plugin(UIkit) {
             },
 
             cancel() {
-                return Promise.all([
-                    Transition.cancel(next),
-                    Transition.cancel(current)
-                ]);
+                Transition.cancel(next);
+                Transition.cancel(current);
             },
 
             reset() {
                 for (var prop in props[0]) {
-                    css([next, current[0]], prop, '');
+                    css([next, current], prop, '');
                 }
             },
 
@@ -503,10 +501,10 @@ function plugin(UIkit) {
 
                 var percent = this.percent();
 
-                return Promise.all([
-                    Transition.cancel(next),
-                    Transition.cancel(current)
-                ]).then(() => this.show(duration, percent));
+                Transition.cancel(next);
+                Transition.cancel(current);
+
+                this.show(duration, percent, true);
 
             },
 
