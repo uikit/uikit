@@ -2,23 +2,29 @@
 
 ## WIP
 
-### Fixed
-
-- Fix inverse style for `uk-hr`
-
 ### Added
 
 - Add style support for radio and checkbox in Firefox
+- Add `autoplay` setting to Lightbox
+- Add `poster` setting to Lightbox items
 
 ### Changed
 
+- IMPORTANT: Remove jQuery dependency
+- Remove `uk-section-media` from Section component
 - Change `uk-tab-left` text alignment to left
 - Update overview in tests
+- Rename `isWithin` to `within`
+- Allow fullscreen mode for YouTube and Vimeo videos in Lightbox
+- Video component now stops playing the video regardsless of the autoplay setting
 
 ### Fixed
 
 - Fix responsive images in modal for IE11
 - Fix close button outside causing a scrollbar on small devices
+- Fix inverse style for `uk-hr`
+- Fix video size of Vimeo videos in Lightbox component
+- Fix closing stacked modals
 
 ## 3.0.0 beta 30 (August 18, 2017)
 

@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Lightbox - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -94,7 +94,7 @@
                 </div>
                 <div>
 
-                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4" caption="Video">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4" caption="Video" poster="images/photo.jpg">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
                             <figcaption class="uk-margin-small-top">Video</figcaption>
@@ -160,6 +160,18 @@
                             <td>The animation to use. (fade, slide, scale)</td>
                         </tr>
                         <tr>
+                            <td><code>autoplay</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>Starts autoplaying the lightbox.</td>
+                        </tr>
+                        <tr>
+                            <td><code>video-autoplay</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Lets videos autoplay.</td>
+                        </tr>
+                        <tr>
                             <td><code>toggle</code></td>
                             <td>CSS selector</td>
                             <td>a</td>
@@ -187,6 +199,18 @@
                             <td>String</td>
                             <td>slide</td>
                             <td>The animation to use. (fade, slide, scale)</td>
+                        </tr>
+                        <tr>
+                            <td><code>autoplay</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>Starts autoplaying the lightbox.</td>
+                        </tr>
+                        <tr>
+                            <td><code>video-autoplay</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Lets videos autoplay.</td>
                         </tr>
                         <tr>
                             <td><code>duration</code></td>
@@ -232,24 +256,22 @@
 
         <script>
 
-            (function () {
+            var util = UIkit.util;
 
-                $('#js-animation-switcher').on('change', function() {
-                    $('#js-lightbox-animation').attr('animation', this.value);
-                });
+            util.on('#js-animation-switcher', 'change', function() {
+                util.attr(util.$('#js-lightbox-animation'), 'animation', this.value);
+            });
 
-                $('#js-lightbox').on('click', function (e) {
-                    e.preventDefault();
+            util.on('#js-lightbox', 'click', function (e) {
+                e.preventDefault();
 
-                    UIkit.lightboxPanel({
-                        items: [
-                            {source: 'images/size1.jpg', caption: '900x600'},
-                            {source: 'images/size2.jpg', caption: '700x500'},
-                        ]
-                    }).show();
-                });
-
-            })();
+                UIkit.lightboxPanel({
+                    items: [
+                        {source: 'images/size1.jpg', caption: '900x600'},
+                        {source: 'images/size2.jpg', caption: '700x500'},
+                    ]
+                }).show();
+            });
 
         </script>
 

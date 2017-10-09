@@ -34,8 +34,8 @@ function plugin(UIkit) {
 
         computed: {
 
-            list() {
-                return this.$el.find(`.${this.clsSlides}`);
+            list({clsSlides}, $el) {
+                return $(`.${clsSlides}`, $el);
             }
 
         },

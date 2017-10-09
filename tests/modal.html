@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Modal - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -376,7 +376,7 @@
         <div id="modal-media-video" class="uk-flex-top" uk-modal>
             <div class="uk-modal-dialog uk-width-auto uk-margin-auto-vertical">
                 <button class="uk-modal-close-outside" type="button" uk-close></button>
-                <video controls uk-video>
+                <video controls playsinline uk-video>
                     <source src="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test1" type="video/mp4">
                     <source src="//www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test1" type="video/ogg">
                 </video>
@@ -462,43 +462,39 @@
 
         <script>
 
-            (function () {
+            UIkit.util.on('#js-modal-dialog', 'click', function (e) {
+                e.preventDefault();
+                e.target.blur();
+                UIkit.modal.dialog('<p class="uk-modal-body">UIkit dialog!</p>');
+            });
 
-                $('#js-modal-dialog').on('click', function (e) {
-                    e.preventDefault();
-                    $(this).blur();
-                    UIkit.modal.dialog('<p class="uk-modal-body">UIkit dialog!</p>');
+            UIkit.util.on('#js-modal-alert', 'click', function (e) {
+                e.preventDefault();
+                e.target.blur();
+                UIkit.modal.alert('UIkit alert!').then(function () {
+                    console.log('Alert closed.')
                 });
+            });
 
-                $('#js-modal-alert').on('click', function (e) {
-                    e.preventDefault();
-                    $(this).blur();
-                    UIkit.modal.alert('UIkit alert!').then(function () {
-                        console.log('Alert closed.')
-                    });
+            UIkit.util.on('#js-modal-confirm', 'click', function (e) {
+                e.preventDefault();
+                e.target.blur();
+                UIkit.modal.confirm('UIkit confirm!').then(function () {
+                    console.log('Confirmed.')
+                }, function () {
+                    console.log('Rejected.')
                 });
+            });
 
-                $('#js-modal-confirm').on('click', function (e) {
-                    e.preventDefault();
-                    $(this).blur();
-                    UIkit.modal.confirm('UIkit confirm!').then(function () {
-                        console.log('Confirmed.')
-                    }, function () {
-                        console.log('Rejected.')
-                    });
+            UIkit.util.on('#js-modal-prompt', 'click', function (e) {
+                e.preventDefault();
+                e.target.blur();
+                UIkit.modal.prompt('Name:', 'Your name').then(function (name) {
+                    console.log('Prompted:', name)
                 });
+            });
 
-                $('#js-modal-prompt').on('click', function (e) {
-                    e.preventDefault();
-                    $(this).blur();
-                    UIkit.modal.prompt('Name:', 'Your name').then(function (name) {
-                        console.log('Prompted:', name)
-                    });
-                });
-
-            })();
-
-        </script>
+          </script>
 
     </body>
 </html>

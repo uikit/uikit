@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, assign, each, isRtl, noop, promise, swap } from '../util/index';
+import { $, addClass, css, each, hasClass, isRtl, noop, parents, Promise, swap } from '../util/index';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
 import marker from '../../images/components/marker.svg';
@@ -54,7 +54,7 @@ export default function (UIkit) {
         defaults: {exclude: ['id', 'style', 'class', 'src', 'icon']},
 
         init() {
-            this.$addClass('uk-icon');
+            addClass(this.$el, 'uk-icon');
 
             if (isRtl) {
                 this.icon = swap(swap(this.icon, 'left', 'right'), 'previous', 'next');
@@ -65,56 +65,17 @@ export default function (UIkit) {
             delete this.delay;
         },
 
-        update: {
-
-            read() {
-
-                if (this.delay) {
-                    var icon = this.getIcon();
-
-                    if (icon) {
-                        this.delay(icon);
-                        delete this.delay;
-                    }
-                }
-            },
-
-            events: ['load']
-
-        },
-
         methods: {
 
             getSvg() {
 
-                var icon = this.getIcon();
+                var icon = getIcon(this.icon);
 
                 if (!icon) {
-
-                    if (document.readyState !== 'complete') {
-                        return promise(resolve => {
-                            this.delay = resolve;
-                        });
-                    }
-
-                    return promise.reject('Icon not found.');
-
+                    return Promise.reject('Icon not found.');
                 }
 
-                return promise.resolve(icon);
-            },
-
-            getIcon() {
-
-                if (!icons[this.icon]) {
-                    return null;
-                }
-
-                if (!parsed[this.icon]) {
-                    parsed[this.icon] = this.parse(icons[this.icon]);
-                }
-
-                return parsed[this.icon];
+                return Promise.resolve(icon);
             }
 
         }
@@ -136,9 +97,9 @@ export default function (UIkit) {
     ].forEach(name => registerComponent(name, {
 
         init() {
-            this.$addClass('uk-slidenav');
+            addClass(this.$el, 'uk-slidenav');
 
-            if (this.$hasClass('uk-slidenav-large')) {
+            if (hasClass(this.$el, 'uk-slidenav-large')) {
                 this.icon += '-large';
             }
         }
@@ -148,9 +109,9 @@ export default function (UIkit) {
     registerComponent('search-icon', {
 
         init() {
-            if (this.$hasClass('uk-search-icon') && this.$el.parents('.uk-search-large').length) {
+            if (hasClass(this.$el, 'uk-search-icon') && parents(this.$el, '.uk-search-large').length) {
                 this.icon = 'search-large';
-            } else if (this.$el.parents('.uk-search-navbar').length) {
+            } else if (parents(this.$el, '.uk-search-navbar').length) {
                 this.icon = 'search-navbar';
             }
         }
@@ -160,7 +121,7 @@ export default function (UIkit) {
     registerComponent('close', {
 
         init() {
-            this.icon = `close-${this.$hasClass('uk-close-large') ? 'large' : 'icon'}`;
+            this.icon = `close-${hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon'}`;
         }
 
     });
@@ -168,17 +129,19 @@ export default function (UIkit) {
     registerComponent('spinner', {
 
         connected() {
-            this.svg.then(svg => this.ratio !== 1 && $(svg).find('circle').css('stroke-width', 1 / this.ratio), noop);
+            this.svg.then(svg => this.ratio !== 1 && css($('circle', svg), 'stroke-width', 1 / this.ratio), noop);
         }
 
     });
 
     UIkit.icon.add = added => {
-        assign(icons, added);
-        Object.keys(added).forEach(name => delete parsed[name]);
+        Object.keys(added).forEach(name => {
+            icons[name] = added[name];
+            delete parsed[name];
+        });
 
         if (UIkit._initialized) {
-            each(UIkit.instances, (_, component) => {
+            each(UIkit.instances, component => {
                 if (component.$options.name === 'icon') {
                     component.$reset();
                 }
@@ -199,6 +162,19 @@ export default function (UIkit) {
             }
 
         }));
+    }
+
+    function getIcon(icon) {
+
+        if (!icons[icon]) {
+            return null;
+        }
+
+        if (!parsed[icon]) {
+            parsed[icon] = $(icons[icon].trim());
+        }
+
+        return parsed[icon];
     }
 
 }

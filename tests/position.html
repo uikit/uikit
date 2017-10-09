@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Position - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
         <style>
 
@@ -259,59 +259,66 @@
 
         <script>
 
-            (function ($) {
+            var util = UIkit.util,
+                $ = util.$,
+                on = util.on,
+                offset = util.offset,
+                ticking,
+                element = $('#js-element'),
+                boundary = $('#js-boundary'),
+                target = $('#js-target'),
+                offsetX,
+                offsetY;
 
-                var ticking, element = $('#js-element'), boundary = $('#js-boundary'), target = $('#js-target'), offsetX, offsetY;
+            function position() {
+                util.positionAt(
+                    element,
+                    target,
+                    $('#js-element_x').value + ' ' + $('#js-element_y').value,
+                    $('#js-target_x').value + ' ' + $('#js-target_y').value,
+                    $('#js-offset_x').value + ' ' + $('#js-offset_y').value,
+                    null,
+                    $('#js-flip_x').value + $('#js-flip_y').value,
+                    boundary
+                );
+            }
 
-                function position() {
-                    UIkit.util.position(
-                        element,
-                        target,
-                        $('#js-element_x').val() + ' ' + $('#js-element_y').val(),
-                        $('#js-target_x').val() + ' ' + $('#js-target_y').val(),
-                        $('#js-offset_x').val() + ' ' + $('#js-offset_y').val(),
-                        null,
-                        $('#js-flip_x').val() + $('#js-flip_y').val(),
-                        boundary
-                    );
+            on(window, 'dragstart', function (e) {
+                e.dataTransfer.setDragImage(new Image(), 0, 0);
+
+                offsetX = Math.round(e.pageX - offset(target).left);
+                offsetY = Math.round(e.pageY - offset(target).top);
+
+            });
+
+            on(window, 'dragover', function (e) {
+
+                e.preventDefault();
+
+                if (!ticking) {
+                    requestAnimationFrame(function () {
+
+                        util.positionAt(
+                            target,
+                            boundary,
+                            'left top',
+                            'left top',
+                            (e.pageX - offset(boundary).left - offsetX) + ' ' + (e.pageY - offset(boundary).top - offsetY)
+                        );
+
+                        position();
+
+                        ticking = false;
+                    });
+                    ticking = true;
                 }
 
-                $(window).on('dragstart', function (e) {
-                    e.originalEvent.dataTransfer.setDragImage(new Image(), 0, 0);
+            });
 
-                    offsetX = Math.round(e.pageX - target.offset().left);
-                    offsetY = Math.round(e.pageY - target.offset().top);
+            util.$$('select,input').forEach(el => on(el, 'change', position));
 
-                }).on('dragover', function (e) {
-
-                    e.preventDefault();
-
-                    if (!ticking) {
-                        requestAnimationFrame(function () {
-                            UIkit.util.position(
-                                target,
-                                boundary,
-                                'left top',
-                                'left top',
-                                (e.pageX - boundary.offset().left - offsetX) + ' ' + (e.pageY - boundary.offset().top - offsetY)
-                            );
-
-                            position();
-
-                            ticking = false;
-                        });
-                        ticking = true;
-                    }
-
-                    return true;
-                });
-
-                $('select,input').bind('change', position);
-
-                $('#js-element').show();
-                position();
-
-            })(jQuery);
+            util.css(element, 'display', 'block');
+            position();
 
         </script>
 

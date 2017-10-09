@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Progress - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -30,7 +30,7 @@
                 <progress class="uk-progress" value="100" max="100"></progress>
 
                 <p>Updating</p>
-                <progress id="test" class="uk-progress" max="100"></progress>
+                <progress id="js-progressbar" class="uk-progress" max="100"></progress>
 
             </div>
 
@@ -38,17 +38,19 @@
 
         <script>
 
-            jQuery(function () {
 
-                var animate = setInterval(function () {
+            UIkit.util.ready(function () {
 
-                    test.value += 10;
+                var bar = document.getElementById('js-progressbar'),
+                    animate = setInterval(function () {
 
-                    if (test.value >= test.max) {
-                        clearInterval(animate);
-                    }
+                        bar.value += 10;
 
-                }, 1000);
+                        if (bar.value >= bar.max) {
+                            clearInterval(animate);
+                        }
+
+                    }, 1000);
 
             });
 

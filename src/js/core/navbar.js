@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, assign, isRtl, isWithin, noop, pointerEnter, query, Transition } from '../util/index';
+import { $$, addClass, after, append, assign, css, height, includes, isRtl, isVisible, matches, noop, query, toFloat, Transition, within } from '../util/index';
 
 export default function (UIkit) {
 
@@ -19,7 +19,7 @@ export default function (UIkit) {
             delayHide: Number,
             dropbar: Boolean,
             dropbarMode: String,
-            dropbarAnchor: 'jQuery',
+            dropbarAnchor: 'query',
             duration: Number
         },
 
@@ -42,12 +42,12 @@ export default function (UIkit) {
 
         computed: {
 
-            boundary() {
-                return (this.$props.boundary === true || this.boundaryAlign) ? this.$el : this.$props.boundary
+            boundary({boundary, boundaryAlign}, $el) {
+                return (boundary === true || boundaryAlign) ? $el : boundary
             },
 
-            pos() {
-                return `bottom-${this.align}`;
+            pos({align}) {
+                return `bottom-${align}`;
             }
 
         },
@@ -56,7 +56,7 @@ export default function (UIkit) {
 
             if (this.dropbar) {
                 UIkit.navbarDropbar(
-                    query(this.dropbar, this.$el) || $('<div></div>').insertAfter(this.dropbarAnchor || this.$el),
+                    query(this.dropbar, this.$el) || after(this.dropbarAnchor || this.$el, '<div></div>'),
                     {clsDrop: this.clsDrop, mode: this.dropbarMode, duration: this.duration, navbar: this}
                 );
             }
@@ -66,7 +66,7 @@ export default function (UIkit) {
         update() {
 
             UIkit.drop(
-                $(`${this.dropdown} .${this.clsDrop}`, this.$el).filter((_, el) => !UIkit.getComponent(el, 'dropdown')),
+                $$(`${this.dropdown} .${this.clsDrop}`, this.$el).filter(el => !UIkit.getComponent(el, 'dropdown')),
                 assign({}, this.$props, {boundary: this.boundary, pos: this.pos})
             );
 
@@ -75,15 +75,15 @@ export default function (UIkit) {
         events: [
 
             {
-                name: pointerEnter,
+                name: 'mouseover',
 
                 delegate() {
                     return this.dropdown;
                 },
 
-                handler({currentTarget}) {
+                handler({current}) {
                     var active = this.getActive();
-                    if (active && active.toggle && !isWithin(active.toggle.$el, currentTarget) && !active.tracker.movesTo(active.$el)) {
+                    if (active && active.toggle && !within(active.toggle.$el, current) && !active.tracker.movesTo(active.$el)) {
                         active.hide(false);
                     }
                 }
@@ -96,7 +96,7 @@ export default function (UIkit) {
 
             getActive() {
                 var active = UIkit.drop.getActive();
-                return active && !~active.mode.indexOf('click') && isWithin(active.toggle.$el, this.$el) && active;
+                return active && includes(active.mode, 'hover') && within(active.toggle.$el, this.$el) && active;
             }
 
         }
@@ -117,7 +117,7 @@ export default function (UIkit) {
         init() {
 
             if (this.mode === 'slide') {
-                this.$addClass('uk-navbar-dropbar-slide');
+                addClass(this.$el, 'uk-navbar-dropbar-slide');
             }
 
         },
@@ -131,12 +131,12 @@ export default function (UIkit) {
                     return this.navbar.$el;
                 },
 
-                handler(_, drop) {
+                handler(e, drop) {
                     var {$el, dir} = drop;
-                    if (dir === 'bottom' && !isWithin($el, this.$el)) {
-                        $el.appendTo(this.$el);
+                    if (dir === 'bottom' && !within($el, this.$el)) {
+                        append(this.$el, $el);
                         drop.show();
-                        return false;
+                        e.preventDefault();
                     }
                 }
             },
@@ -147,18 +147,18 @@ export default function (UIkit) {
                 handler() {
                     var active = this.navbar.getActive();
 
-                    if (active && !this.$el.is(':hover')) {
+                    if (active && !matches(this.$el, ':hover')) {
                         active.hide();
                     }
                 }
             },
 
             {
-                name: 'beforeshow',
+                name: 'show',
 
-                handler(e, {$el}) {
-                    this.clsDrop && $el.addClass(`${this.clsDrop}-dropbar`);
-                    this.transitionTo($el.outerHeight(true));
+                handler(_, {$el}) {
+                    this.clsDrop && addClass($el, `${this.clsDrop}-dropbar`);
+                    this.transitionTo($el.offsetHeight + toFloat(css($el, 'margin-top')) + toFloat(css($el, 'margin-bottom')));
                 }
             },
 
@@ -169,8 +169,8 @@ export default function (UIkit) {
 
                     var active = this.navbar.getActive();
 
-                    if (this.$el.is(':hover') && active && active.$el.is($el)) {
-                        return false;
+                    if (matches(this.$el, ':hover') && active && active.$el === $el) {
+                        e.preventDefault();
                     }
                 }
             },
@@ -178,11 +178,11 @@ export default function (UIkit) {
             {
                 name: 'hide',
 
-                handler(e, {$el}) {
+                handler(_, {$el}) {
 
                     var active = this.navbar.getActive();
 
-                    if (!active || active && active.$el.is($el)) {
+                    if (!active || active && active.$el === $el) {
                         this.transitionTo(0);
                     }
                 }
@@ -192,10 +192,10 @@ export default function (UIkit) {
 
         methods: {
 
-            transitionTo(height) {
-                this.$el.height(this.$el[0].offsetHeight ? this.$el.height() : 0);
+            transitionTo(newHeight) {
+                height(this.$el, isVisible(this.$el) ? height(this.$el) : 0);
                 Transition.cancel(this.$el);
-                return Transition.start(this.$el, {height}, this.duration).then(null, noop);
+                return Transition.start(this.$el, {height: newHeight}, this.duration).then(null, noop);
             }
 
         }
