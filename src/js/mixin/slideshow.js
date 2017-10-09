@@ -20,7 +20,7 @@ function plugin(UIkit) {
         defaults: {
             autoplay: 0,
             animation: 'slide',
-            transition: 'ease-out',
+            transition: 'cubic-bezier(0.165, 0.840, 0.440, 1.000)', // easeOutQuart
             duration: 500,
             index: 0,
             stack: [],
@@ -139,7 +139,7 @@ function plugin(UIkit) {
 
                 e.preventDefault();
 
-                if (this._animation && this._animation !== this.animation) {
+                if (this._animation && this._animation.animation !== this.animation) {
                     return;
                 }
 
