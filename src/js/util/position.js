@@ -214,7 +214,8 @@ function dimension(prop) {
 
             css(element, prop, !value && value !== 0
                 ? ''
-                : getContentSize(prop, element, value) + 'px');
+                : getContentSize(prop, element, value) + 'px'
+            );
 
         }
 

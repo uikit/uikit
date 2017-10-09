@@ -306,15 +306,16 @@ function plugin(UIkit) {
 
                 self: true,
 
-                handler() {
+                handler(_, __, el) {
 
-                    var caption = this.getItem().caption;
-                    css(this.caption, 'display', caption ? '' : 'none');
-                    html(this.caption, caption);
+                    var i = index(el),
+                        caption = this.getItem(i).caption;
+                        css(this.caption, 'display', caption ? '' : 'none');
+                        html(this.caption, caption);
 
-                    for (var i = 0; i <= this.preload; i++) {
-                        this.loadItem(this.getIndex(this.index + i));
-                        this.loadItem(this.getIndex(this.index - i));
+                    for (var j = 0; j <= this.preload; j++) {
+                        this.loadItem(this.getIndex(i + j));
+                        this.loadItem(this.getIndex(i - j));
                     }
 
                 }

@@ -20,8 +20,8 @@ function plugin(UIkit) {
         defaults: {
             autoplay: 0,
             animation: 'slide',
-            transition: 'linear',
-            duration: 400,
+            transition: 'ease-out',
+            duration: 500,
             index: 0,
             stack: [],
             threshold: 10,
@@ -139,32 +139,33 @@ function plugin(UIkit) {
 
                 e.preventDefault();
 
+                if (this._animation && this._animation !== this.animation) {
+                    return;
+                }
+
                 var percent = 0;
                 if (this.stack.length) {
 
-                    this.percent = this._animation.percent();
+                    var {dir, percent: getPercent, cancel, translate} = this._animation;
 
-                    var dir = this._animation.dir;
-                    percent = this.percent * dir;
+                    percent = getPercent() * dir;
+
+                    this.percent = Math.abs(percent) * -dir;
 
                     this.stack.splice(0, this.stack.length);
 
-                    this._animation.cancel();
-                    this._animation.translate(Math.abs(percent));
+                    cancel();
+                    translate(Math.abs(percent));
 
                     this.index = this.getIndex(this.index - dir);
                     this.touching = true;
+
                 }
 
                 on(doc, pointerMove, this.move, true);
                 on(doc, pointerUp, this.end, true);
 
-                var el = this.slides[this.index];
-
-                this.touch = {
-                    el,
-                    start: this.pos + (percent ? el.offsetWidth * percent : 0)
-                }
+                this.touch = this.pos + this.$el.offsetWidth * percent;
 
             },
 
@@ -172,15 +173,13 @@ function plugin(UIkit) {
 
                 e.preventDefault();
 
-                var {start, el} = this.touch;
-
-                if (this.pos === this.prevPos || (!this.touching && Math.abs(start - this.pos) < this.threshold)) {
+                if (this.pos === this.prevPos || (!this.touching && Math.abs(this.touch - this.pos) < this.threshold)) {
                     return;
                 }
 
                 this.touching = true;
 
-                var percent = (this.pos - start) / el.offsetWidth;
+                var percent = (this.pos - this.touch) / this.$el.offsetWidth;
 
                 if (this.percent === percent) {
                     return;
@@ -197,6 +196,7 @@ function plugin(UIkit) {
 
                 if (changed && this._animation) {
                     this._animation.reset();
+                    trigger(this.$el, 'itemshow', [this, current]);
                 }
 
                 this._animation = new Transitioner(this.animation, this.transition, current, next, dir, noop);
@@ -454,25 +454,27 @@ function plugin(UIkit) {
 
     function Transitioner(animation, transition, current, next, dir, cb) {
 
-        animation = animation in Animations ? Animations[animation] : Animations.slide;
+        var {percent, translate, show} = animation in Animations ? Animations[animation] : Animations.slide;
 
-        var props = animation.show(dir);
+        var props = show(dir);
 
         return {
 
+            animation,
             dir,
             current,
             next,
 
-            show(duration, percent = 0) {
+            show(duration, percent = 0, linear = false) {
 
+                var easing = linear ? 'linear' : transition;
                 duration -= Math.round(duration * percent);
 
                 this.translate(percent);
 
                 return Promise.all([
-                    Transition.start(current, props[0], duration, transition),
-                    Transition.start(next, props[1], duration, transition)
+                    Transition.start(current, props[0], duration, easing),
+                    Transition.start(next, props[1], duration, easing)
                 ]).then(() => {
                     this.reset();
                     cb();
@@ -510,14 +512,14 @@ function plugin(UIkit) {
 
             translate(percent) {
 
-                var props = animation.translate(percent, dir);
+                var props = translate(percent, dir);
                 css(current, props[0]);
                 css(next, props[1]);
 
             },
 
             percent() {
-                return animation.percent(current, next, dir);
+                return percent(current, next, dir);
             }
 
         }
