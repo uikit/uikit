@@ -4,7 +4,6 @@
 // Component:       `uk-slideshow`
 //
 // Sub-objects:     `uk-slideshow-items`
-//                  `uk-slideshow-item`
 //
 // States:          `uk-active`
 //
@@ -46,8 +45,7 @@
 
 /*
  * 1. Position items above each other
- * 3. Take the full width
- * 3. Hide by default
+ * 2. Take the full width
  */
 
 .uk-slideshow-items > * {
@@ -64,7 +62,7 @@
  * Hide not active items
  */
 
-.uk-slideshow-items > *:not(.uk-active) { display: none; }
+.uk-slideshow-items > :not(.uk-active) { display: none; }
 
 
 // Hooks
