@@ -23,7 +23,7 @@ function plugin(UIkit) {
         },
 
         defaults: {
-            animation: 'swipe',
+            animation: 'slide',
             duration: 800,
             width: 1900,
             height: 1200,
@@ -76,7 +76,7 @@ function plugin(UIkit) {
 
                     this._percent = false;
 
-                    if (!this.slideshow || !this.item) {
+                    if (!this.item) {
                         return;
                     }
 

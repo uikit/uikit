@@ -20,7 +20,7 @@ function plugin(UIkit) {
         defaults: {
             autoplay: 0,
             animation: 'slide',
-            transition: 'cubic-bezier(0.165, 0.840, 0.440, 1.000)', // easeOutQuart
+            transition: 'ease-out',
             duration: 500,
             index: 0,
             stack: [],
@@ -347,6 +347,28 @@ function plugin(UIkit) {
     var diff = 0.2;
     var Animations = {
 
+        slide: {
+
+            show(dir) {
+                return [
+                    {transform: translate3d(dir * -100)},
+                    {transform: translate3d()}
+                ];
+            },
+
+            percent(current) {
+                return translated(current);
+            },
+
+            translate(percent, dir) {
+                return [
+                    {transform: translate3d(dir * -100 * percent)},
+                    {transform: translate3d(dir * 100 * (1 - percent))}
+                ];
+            }
+
+        },
+
         fade: {
 
             show() {
@@ -369,23 +391,23 @@ function plugin(UIkit) {
 
         },
 
-        slide: {
+        fadeOut: {
 
-            show(dir) {
+            show() {
                 return [
-                    {transform: translate3d(dir * -100)},
-                    {transform: translate3d()}
+                    {opacity: 0, zIndex: 0},
+                    {zIndex: -1}
                 ];
             },
 
             percent(current) {
-                return Math.abs(css(current, 'transform').split(',')[4] / current.offsetWidth);
+                return 1 - css(current, 'opacity');
             },
 
-            translate(percent, dir) {
+            translate(percent) {
                 return [
-                    {transform: translate3d(dir * -100 * percent)},
-                    {transform: translate3d(dir * 100 * (1 - percent))}
+                    {opacity: 1 - percent, zIndex: 0},
+                    {zIndex: -1}
                 ];
             }
 
@@ -413,6 +435,93 @@ function plugin(UIkit) {
 
         },
 
+        scaleOut: {
+
+            show() {
+                return [
+                    {opacity: 0, transform: scale3d(1 + .5), zIndex: 0},
+                    {zIndex: -1}
+                ];
+            },
+
+            percent(current) {
+                return 1 - css(current, 'opacity');
+            },
+
+            translate(percent) {
+                return [
+                    {opacity: 1 - percent, transform: scale3d(1 + .5 * percent), zIndex: 0},
+                    {zIndex: -1}
+                ];
+            }
+
+        },
+
+        deck: {
+
+            show(dir) {
+                return dir < 0
+                    ? [
+                        {transform: translate3d(100), zIndex: 0},
+                        {transform: translate3d(), zIndex: -1},
+                    ]
+                    : [
+                        {transform: translate3d(-100), zIndex: 0},
+                        {transform: translate3d(), zIndex: -1}
+                    ];
+            },
+
+            percent(current) {
+                return translated(current);
+            },
+
+            translate(percent, dir) {
+                return dir < 0
+                    ? [
+                        {transform: translate3d(percent * 100), zIndex: 0},
+                        {transform: translate3d(-30 * (1 - percent)), zIndex: -1},
+                    ]
+                    : [
+                        {transform: translate3d(-percent * 100), zIndex: 0},
+                        {transform: translate3d(30 * (1 - percent)), zIndex: -1}
+                    ];
+            }
+
+        },
+
+        deckOut: {
+
+            show(dir) {
+
+                return dir < 0
+                    ? [
+                        {transform: translate3d(30), zIndex: -1},
+                        {transform: translate3d(), zIndex: 0},
+                    ]
+                    : [
+                        {transform: translate3d(-30), zIndex: -1},
+                        {transform: translate3d(), zIndex: 0}
+                    ];
+            },
+
+            percent(current, next) {
+                return 1 - translated(next);
+            },
+
+            translate(percent, dir) {
+                return dir < 0
+                    ? [
+                        {transform: translate3d(30 * percent), zIndex: -1},
+                        {transform: translate3d(-100 * (1 - percent)), zIndex: 0},
+                    ]
+                    : [
+                        {transform: translate3d(-30 * percent), zIndex: -1},
+                        {transform: translate3d(100 * (1 - percent)), zIndex: 0}
+                    ];
+            }
+
+        },
+
         swipe: {
 
             show(dir) {
@@ -430,8 +539,7 @@ function plugin(UIkit) {
 
             percent(current, next, dir) {
 
-                var el = dir < 0 ? current : next,
-                    percent = Math.abs(css(el, 'transform').split(',')[4] / el.offsetWidth);
+                var percent = translated(dir < 0 ? current : next);
 
                 return dir < 0 ? percent : 1 - percent;
             },
@@ -532,6 +640,10 @@ function plugin(UIkit) {
 
     function translate3d(value = 0) {
         return `translate3d(${value}${value ? '%' : ''}, 0, 0)`;
+    }
+
+    function translated(el) {
+        return Math.abs(css(el, 'transform').split(',')[4] / el.offsetWidth)
     }
 
     // polyfill for Math.trunc (IE)
