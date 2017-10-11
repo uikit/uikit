@@ -20,13 +20,10 @@
             <div class="uk-margin">
                 <select id="js-animation-switcher" class="uk-select uk-form-width-small">
                     <option value="slide">Slide</option>
-                    <option value="fadeOut">Fade Out</option>
-                    <option value="scaleOut">Scale Out</option>
-                    <option value="deck">Deck</option>
-                    <option value="deckOut">Deck Out</option>
                     <option value="fade">Fade</option>
-                    <option value="swipe">Swipe</option>
                     <option value="scale">Scale</option>
+                    <option value="pull">Pull</option>
+                    <option value="push">Push</option>
                 </select>
             </div>
 
@@ -121,7 +118,6 @@
                                 </li>
                                 <li>
                                     <iframe src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen uk-cover></iframe>
-                                    <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
                                     <div class="uk-position-cover uk-flex uk-flex-center uk-text-center uk-flex-middle">
                                         <div>
                                             <h2 uk-slideshow-parallax="y: -50;">YouTube</h2>
@@ -239,43 +235,43 @@
                             <td><code>animation</code></td>
                             <td>String</td>
                             <td>slide</td>
-                            <td>The animation to use. (fade, slide, scale)</td>
+                            <td>The animation to use. (slide, fade, scale, pull, push)</td>
+                        </tr>
+                        <tr>
+                            <td><code>autoplay</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>Starts autoplaying the lightbox.</td>
                         </tr>
                         <tr>
                             <td><code>duration</code></td>
                             <td>Number</td>
-                            <td>400</td>
+                            <td>600</td>
                             <td>The animation duration.</td>
                         </tr>
                         <tr>
-                            <td><code>index</code></td>
+                            <td><code>width</code></td>
                             <td>Number</td>
-                            <td>0</td>
-                            <td>The initial item to show. (zero based)</td>
+                            <td>1900</td>
+                            <td>The Slideshow's width ratio.</td>
+                        </tr>
+                        <tr>
+                            <td><code>height</code></td>
+                            <td>Number</td>
+                            <td>1200</td>
+                            <td>The Slideshow's height ratio.</td>
+                        </tr>
+                        <tr>
+                            <td><code>maxHeight</code></td>
+                            <td>Boolean</td>
+                            <td>true</td>
+                            <td>Treat the height setting as a maximum height.</td>
                         </tr>
                         <tr>
                             <td><code>preload</code></td>
                             <td>Number</td>
                             <td>1</td>
                             <td>The number of items to preload. (left and right of the currently active item)</td>
-                        </tr>
-                        <tr>
-                            <td><code>items</code></td>
-                            <td>Array</td>
-                            <td>[]</td>
-                            <td>An array of items to display. ([{source: 'images/size1.jpg', caption: '900x600'}])</td>
-                        </tr>
-                        <tr>
-                            <td><code>template</code></td>
-                            <td>String</td>
-                            <td></td>
-                            <td>The template string.</td>
-                        </tr>
-                        <tr>
-                            <td><code>delay-controls</code></td>
-                            <td>Number</td>
-                            <td>3000</td>
-                            <td>Delay time before controls fade out in ms.</td>
                         </tr>
                     </tbody>
                 </table>

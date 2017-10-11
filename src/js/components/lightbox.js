@@ -1,4 +1,4 @@
-import Slideshow from '../mixin/slideshow';
+import Slideshow, {scale3d} from '../mixin/slideshow';
 
 function plugin(UIkit) {
 
@@ -125,6 +125,54 @@ function plugin(UIkit) {
 
     });
 
+    var Animations = assign({}, mixin.slideshow.defaults.Animations, {
+
+        fade: {
+
+            show() {
+                return [
+                    {opacity: 0},
+                    {opacity: 1}
+                ];
+            },
+
+            percent(current) {
+                return 1 - css(current, 'opacity');
+            },
+
+            translate(percent) {
+                return [
+                    {opacity: 1 - percent},
+                    {opacity: percent}
+                ];
+            }
+
+        },
+
+        scale: {
+
+            show() {
+                return [
+                    {opacity: 0, transform: scale3d(1 - .2)},
+                    {opacity: 1, transform: scale3d(1)}
+                ];
+            },
+
+            percent(current) {
+                return 1 - css(current, 'opacity');
+            },
+
+            translate(percent) {
+                return [
+                    {opacity: 1 - percent, transform: scale3d(1 - .2 * percent)},
+                    {opacity: percent, transform: scale3d(1 - .2 + .2 * percent)}
+                ];
+            }
+
+        }
+
+    });
+
     UIkit.component('lightbox-panel', {
 
         mixins: [mixin.container, mixin.togglable, mixin.slideshow],
@@ -148,7 +196,8 @@ function plugin(UIkit) {
                             <a class="uk-lightbox-button uk-position-center-left uk-position-medium" href="#" uk-slidenav-previous uk-lightbox-item="previous"></a>
                             <a class="uk-lightbox-button uk-position-center-right uk-position-medium" href="#" uk-slidenav-next uk-lightbox-item="next"></a>
                             <div class="uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center"></div>
-                        </div>`
+                        </div>`,
+            Animations: Animations
         },
 
         created() {

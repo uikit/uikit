@@ -4,7 +4,37 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, $$, addClass, css, hasClass, removeClass, toggleClass, attr, doc, fastdom, getIndex, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, Transition, trigger} = UIkit.util;
+    var {$, $$, addClass, assign, css, hasClass, removeClass, toggleClass, attr, doc, fastdom, getIndex, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, Transition, trigger} = UIkit.util;
+
+    var Animations = {
+
+        slide: {
+
+            show(dir) {
+                return [
+                    {transform: translate3d(dir * -100)},
+                    {transform: translate3d()}
+                ];
+            },
+
+            percent(current) {
+                return Animations.translated(current);
+            },
+
+            translate(percent, dir) {
+                return [
+                    {transform: translate3d(dir * -100 * percent)},
+                    {transform: translate3d(dir * 100 * (1 - percent))}
+                ];
+            }
+
+        },
+
+        translated(el) {
+            return Math.abs(css(el, 'transform').split(',')[4] / el.offsetWidth)
+        }
+
+    };
 
     UIkit.mixin.slideshow = {
 
@@ -20,13 +50,15 @@ function plugin(UIkit) {
         defaults: {
             autoplay: 0,
             animation: 'slide',
-            transition: 'ease-out',
-            duration: 500,
+            transition: 'ease',
+            duration: 600,
             index: 0,
             stack: [],
             threshold: 10,
             percent: 0,
-            clsActive: 'uk-active'
+            clsActive: 'uk-active',
+            forwardDuration: 150,
+            Animations
         },
 
         computed: {
@@ -39,8 +71,8 @@ function plugin(UIkit) {
                 return $$(this.list.children);
             },
 
-            forwardDuration({duration}) {
-                return duration / 4;
+            animation({animation}) {
+                return assign(animation in this.Animations ? this.Animations[animation] : this.Animations.slide, {name: animation});
             }
 
         },
@@ -222,7 +254,7 @@ function plugin(UIkit) {
                     this.percent = Math.abs(this.percent) % 1;
                     this.index = this.getIndex(this.index - trunc(percent));
 
-                    if (this.percent < 0.2) {
+                    if (this.percent < .1) {
                         this.index = this.getIndex(percent > 0 ? 'previous' : 'next');
                         this.percent = 1 - this.percent;
                         percent *= -1;
@@ -286,7 +318,7 @@ function plugin(UIkit) {
 
                 addClass(next, this.clsActive);
 
-                this._animation = new Transitioner(!prev ? 'scale' : this.animation, this.transition, prev || next, next, dir, () => {
+                this._animation = new Transitioner(!prev ? this.Animations.scale : this.animation, force ? 'cubic-bezier(0.165, 0.840, 0.440, 1.000)' : this.transition, prev || next, next, dir, () => {
 
                     prev && removeClass(prev, this.clsActive);
 
@@ -344,226 +376,9 @@ function plugin(UIkit) {
 
     };
 
-    var diff = 0.2;
-    var Animations = {
-
-        slide: {
-
-            show(dir) {
-                return [
-                    {transform: translate3d(dir * -100)},
-                    {transform: translate3d()}
-                ];
-            },
-
-            percent(current) {
-                return translated(current);
-            },
-
-            translate(percent, dir) {
-                return [
-                    {transform: translate3d(dir * -100 * percent)},
-                    {transform: translate3d(dir * 100 * (1 - percent))}
-                ];
-            }
-
-        },
-
-        fade: {
-
-            show() {
-                return [
-                    {opacity: 0},
-                    {opacity: 1}
-                ];
-            },
-
-            percent(current) {
-                return 1 - css(current, 'opacity');
-            },
-
-            translate(percent) {
-                return [
-                    {opacity: 1 - percent},
-                    {opacity: percent}
-                ];
-            }
-
-        },
-
-        fadeOut: {
-
-            show() {
-                return [
-                    {opacity: 0, zIndex: 0},
-                    {zIndex: -1}
-                ];
-            },
-
-            percent(current) {
-                return 1 - css(current, 'opacity');
-            },
-
-            translate(percent) {
-                return [
-                    {opacity: 1 - percent, zIndex: 0},
-                    {zIndex: -1}
-                ];
-            }
-
-        },
-
-        scale: {
-
-            show() {
-                return [
-                    {opacity: 0, transform: scale3d(1 - diff)},
-                    {opacity: 1, transform: scale3d(1)}
-                ];
-            },
-
-            percent(current) {
-                return 1 - css(current, 'opacity');
-            },
-
-            translate(percent) {
-                return [
-                    {opacity: 1 - percent, transform: scale3d(1 - diff * percent)},
-                    {opacity: percent, transform: scale3d(1 - diff + diff * percent)}
-                ];
-            }
-
-        },
-
-        scaleOut: {
-
-            show() {
-                return [
-                    {opacity: 0, transform: scale3d(1 + .5), zIndex: 0},
-                    {zIndex: -1}
-                ];
-            },
-
-            percent(current) {
-                return 1 - css(current, 'opacity');
-            },
-
-            translate(percent) {
-                return [
-                    {opacity: 1 - percent, transform: scale3d(1 + .5 * percent), zIndex: 0},
-                    {zIndex: -1}
-                ];
-            }
-
-        },
-
-        deck: {
-
-            show(dir) {
-                return dir < 0
-                    ? [
-                        {transform: translate3d(100), zIndex: 0},
-                        {transform: translate3d(), zIndex: -1},
-                    ]
-                    : [
-                        {transform: translate3d(-100), zIndex: 0},
-                        {transform: translate3d(), zIndex: -1}
-                    ];
-            },
-
-            percent(current) {
-                return translated(current);
-            },
-
-            translate(percent, dir) {
-                return dir < 0
-                    ? [
-                        {transform: translate3d(percent * 100), zIndex: 0},
-                        {transform: translate3d(-30 * (1 - percent)), zIndex: -1},
-                    ]
-                    : [
-                        {transform: translate3d(-percent * 100), zIndex: 0},
-                        {transform: translate3d(30 * (1 - percent)), zIndex: -1}
-                    ];
-            }
-
-        },
-
-        deckOut: {
-
-            show(dir) {
-
-                return dir < 0
-                    ? [
-                        {transform: translate3d(30), zIndex: -1},
-                        {transform: translate3d(), zIndex: 0},
-                    ]
-                    : [
-                        {transform: translate3d(-30), zIndex: -1},
-                        {transform: translate3d(), zIndex: 0}
-                    ];
-            },
-
-            percent(current, next) {
-                return 1 - translated(next);
-            },
-
-            translate(percent, dir) {
-                return dir < 0
-                    ? [
-                        {transform: translate3d(30 * percent), zIndex: -1},
-                        {transform: translate3d(-100 * (1 - percent)), zIndex: 0},
-                    ]
-                    : [
-                        {transform: translate3d(-30 * percent), zIndex: -1},
-                        {transform: translate3d(100 * (1 - percent)), zIndex: 0}
-                    ];
-            }
-
-        },
-
-        swipe: {
-
-            show(dir) {
-
-                return dir < 0
-                    ? [
-                        {opacity: 1, transform: translate3d(100), zIndex: 0},
-                        {opacity: 1, transform: `${scale3d(1)} ${translate3d()}`, zIndex: -1},
-                    ]
-                    : [
-                        {opacity: 0.3, transform: `${scale3d(1 - diff)} ${translate3d(-20)}`, zIndex: -1},
-                        {opacity: 1, transform: translate3d(), zIndex: 0}
-                    ];
-            },
-
-            percent(current, next, dir) {
-
-                var percent = translated(dir < 0 ? current : next);
-
-                return dir < 0 ? percent : 1 - percent;
-            },
-
-            translate(percent, dir) {
-                return dir < 0
-                    ? [
-                        {opacity: 1, transform: translate3d(100 * percent), zIndex: 0},
-                        {opacity: 0.3 + 0.7 * percent, transform: `${scale3d(1 - diff * (1 - percent))} ${translate3d(-20 * (1 - percent))}`, zIndex: -1},
-                    ]
-                    : [
-                        {opacity: 1 - 0.7 * percent, transform: `${scale3d(1 - diff * percent)} ${translate3d(-20 * percent)}`, zIndex: -1},
-                        {opacity: 1, transform: translate3d(100 * (1 - percent)), zIndex: 0}
-                    ];
-            }
-
-        }
-
-    };
-
     function Transitioner(animation, transition, current, next, dir, cb) {
 
-        var {percent, translate, show} = animation in Animations ? Animations[animation] : Animations.slide;
-
+        var {percent, translate, show} = animation;
         var props = show(dir);
 
         return {
@@ -634,18 +449,6 @@ function plugin(UIkit) {
 
     }
 
-    function scale3d(value) {
-        return `scale3d(${value}, ${value}, 1)`;
-    }
-
-    function translate3d(value = 0) {
-        return `translate3d(${value}${value ? '%' : ''}, 0, 0)`;
-    }
-
-    function translated(el) {
-        return Math.abs(css(el, 'transform').split(',')[4] / el.offsetWidth)
-    }
-
     // polyfill for Math.trunc (IE)
     function trunc(x) {
         return ~~x;
@@ -654,3 +457,11 @@ function plugin(UIkit) {
 }
 
 export default plugin;
+
+export function translate3d(value = 0) {
+    return `translate3d(${value}${value ? '%' : ''}, 0, 0)`;
+}
+
+export function scale3d(value) {
+    return `scale3d(${value}, ${value}, 1)`;
+}
