@@ -211,7 +211,8 @@ function plugin(UIkit) {
                     }
 
                     var percent = _animation.percent();
-                    this._percent = dir > 0 ? 1 - percent : percent;
+                    this._percent = dir < 0 ? 1 - percent : percent;
+
                     this._active = true;
 
                 },

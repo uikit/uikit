@@ -55,12 +55,13 @@ function plugin(UIkit) {
             pauseOnHover: true,
             animation: 'slide',
             transition: 'ease',
-            duration: 600,
+            duration: 3600,
             index: 0,
             stack: [],
             threshold: 10,
             percent: 0,
             clsActive: 'uk-active',
+            clsActivated: 'uk-transition-active',
             forwardDuration: 150,
             initialAnimation: false,
             Animations
@@ -182,6 +183,18 @@ function plugin(UIkit) {
 
             {
 
+                name: 'itemshown',
+
+                self: true,
+
+                handler(e, _, el) {
+                    addClass(el, this.clsActivated);
+                }
+
+            },
+
+            {
+
                 name: 'itemshow itemhide',
 
                 self: true,
@@ -200,6 +213,7 @@ function plugin(UIkit) {
 
                 handler(e, _, el) {
                     removeClass(el, this.clsActive);
+                    removeClass(el, this.clsActivated);
                 }
 
             },
