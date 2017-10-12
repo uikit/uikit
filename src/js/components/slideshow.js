@@ -138,7 +138,7 @@ function plugin(UIkit) {
 
         defaults: {
             animation: 'slide',
-            width: 1900,
+            width: 1920,
             height: 1200,
             clsList: 'uk-slideshow-items',
             attrItem: 'uk-slideshow-item',
