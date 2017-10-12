@@ -18,7 +18,8 @@ function plugin(UIkit) {
         props: {
             animation: String,
             toggle: String,
-            autoplay: Number,
+            autoplay: Boolean,
+            autoplayInterval: Number,
             videoAutoplay: Boolean
         },
 
@@ -91,10 +92,7 @@ function plugin(UIkit) {
         methods: {
 
             _init() {
-                return this.panel = this.panel || UIkit.lightboxPanel({
-                    autoplay: this.autoplay,
-                    videoAutoplay: this.videoAutoplay,
-                    animation: this.animation,
+                return this.panel = this.panel || UIkit.lightboxPanel(assign({}, this.$props, {
                     items: this.toggles.reduce((items, el) => {
                         items.push(['href', 'caption', 'type', 'poster'].reduce((obj, attr) => {
                             obj[attr === 'href' ? 'source' : attr] = data(el, attr);
@@ -102,7 +100,7 @@ function plugin(UIkit) {
                         }, {}));
                         return items;
                     }, [])
-                });
+                }));
             },
 
             show(index) {
@@ -186,8 +184,11 @@ function plugin(UIkit) {
             items: [],
             cls: 'uk-open',
             clsPage: 'uk-lightbox-page',
-            clsList: 'uk-lightbox-items',
+            selList: '.uk-lightbox-items',
             attrItem: 'uk-lightbox-item',
+            initialAnimation: 'scale',
+            pauseOnHover: false,
+            Animations: Animations,
             template: `<div class="uk-lightbox uk-overflow-hidden">
                             <ul class="uk-lightbox-items"></ul>
                             <div class="uk-lightbox-toolbar uk-position-top uk-text-right">
@@ -196,8 +197,7 @@ function plugin(UIkit) {
                             <a class="uk-lightbox-button uk-position-center-left uk-position-medium" href="#" uk-slidenav-previous uk-lightbox-item="previous"></a>
                             <a class="uk-lightbox-button uk-position-center-right uk-position-medium" href="#" uk-slidenav-next uk-lightbox-item="next"></a>
                             <div class="uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center"></div>
-                        </div>`,
-            Animations: Animations
+                        </div>`
         },
 
         created() {
@@ -229,7 +229,7 @@ function plugin(UIkit) {
                 self: true,
 
                 delegate() {
-                    return `.${this.clsList} > *`;
+                    return `${this.selList} > *`;
                 },
 
                 handler(e) {
@@ -355,7 +355,7 @@ function plugin(UIkit) {
 
                 self: true,
 
-                handler(_, __, el) {
+                handler(e, _, el) {
 
                     var i = index(el),
                         caption = this.getItem(i).caption;

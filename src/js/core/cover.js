@@ -30,11 +30,13 @@ export default function (UIkit) {
 
             write() {
 
-                var el = this.$el, parent = el.parentNode;
+                var el = this.$el;
 
                 if (!isVisible(el)) {
                     return;
                 }
+
+                var {offsetHeight: height, offsetWidth: width} = el.parentNode;
 
                 css(
                     css(el, {width: '', height: ''}),
@@ -44,8 +46,8 @@ export default function (UIkit) {
                             height: this.height || el.clientHeight
                         },
                         {
-                            width: parent.offsetWidth,
-                            height: parent.offsetHeight
+                            width: width + (width % 2 || height % 2 ? 1 : 0),
+                            height
                         }
                     )
                 );

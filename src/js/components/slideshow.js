@@ -137,18 +137,16 @@ function plugin(UIkit) {
         },
 
         defaults: {
-            animation: 'slide',
             width: 1920,
             height: 1200,
-            clsList: 'uk-slideshow-items',
+            selList: '.uk-slideshow-items',
             attrItem: 'uk-slideshow-item',
-            clsActive: 'uk-active',
             maxHeight: true,
             Animations
         },
 
         connected() {
-            addClass(this.slides[this.index], this.clsActive);
+            this.show(this.index);
         },
 
         update: {
@@ -239,7 +237,7 @@ function plugin(UIkit) {
 
                 },
 
-                events: ['translate', 'load', 'resize']
+                events: ['load', 'resize']
             }
 
         ]
