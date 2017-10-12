@@ -46,7 +46,7 @@ export default function (UIkit) {
                             height: this.height || el.clientHeight
                         },
                         {
-                            width: width + (width % 2 || height % 2 ? 1 : 0),
+                            width: width + (width % 2 ? 1 : 0),
                             height
                         }
                     )
