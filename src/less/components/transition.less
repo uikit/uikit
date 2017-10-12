@@ -13,7 +13,8 @@
 //                  `uk-transition-opaque`
 //                  `uk-transition-slow`
 //
-// Sub-objects:     `uk-transition-toggle`
+// Sub-objects:     `uk-transition-toggle`,
+//                  `uk-transition-active`
 //
 // States:          `uk-hover`
 //                  `uk-active`
@@ -161,11 +162,14 @@
 
 /* Hover */
 .uk-transition-toggle:hover [class*='uk-transition-slide'],
-.uk-transition-toggle.uk-hover [class*='uk-transition-slide'] {
+.uk-transition-toggle.uk-hover [class*='uk-transition-slide'],
+.uk-transition-active:not(.uk-active) [class*='uk-transition-slide'] {
     opacity: 1;
     -webkit-transform: translateX(0) translateY(0);
     transform: translateX(0) translateY(0);
 }
+
+
 
 
 /* Opacity modifier

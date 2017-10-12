@@ -46,6 +46,7 @@
 /*
  * 1. Position items above each other
  * 2. Take the full width
+ * 3. Clip child elements, e.g. for `uk-cover`
  */
 
 .uk-slideshow-items > * {
@@ -56,6 +57,8 @@
     /* 2 */
     right: 0;
     bottom: 0;
+    /* 3 */
+    overflow: hidden;
 }
 
 /*
