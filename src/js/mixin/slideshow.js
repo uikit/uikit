@@ -336,20 +336,12 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var dir = index === 'next'
-                        ? 1
-                        : index === 'previous'
-                            ? -1
-                            : index < this.index
-                                ? -1
-                                : 1;
+                var prevIndex = this.index,
+                    nextIndex = this.getIndex(index),
+                    prev = hasClass(this.slides, 'uk-active') && this.slides[prevIndex],
+                    next = this.slides[nextIndex];
 
-                index = this.getIndex(index);
-
-                var prev = hasClass(this.slides, 'uk-active') && this.slides[this.index],
-                    next = this.slides[index];
-
-                if (prev && index === this.index) {
+                if (prev === next) {
                     this.stack[force ? 'shift' : 'pop']();
                     return;
                 }
@@ -357,7 +349,7 @@ function plugin(UIkit) {
                 prev && trigger(this.$el, 'beforeitemhide', [this, prev]);
                 trigger(this.$el, 'beforeitemshow', [this, next]);
 
-                this.index = index;
+                this.index = nextIndex;
 
                 var done = () => {
 
@@ -374,16 +366,14 @@ function plugin(UIkit) {
 
                 if (prev || this.initialAnimation) {
 
-                    this._animation = new Transitioner(
+                    this._show(
                         !prev ? this.Animations[this.initialAnimation] : this.animation,
                         force ? 'cubic-bezier(0.165, 0.840, 0.440, 1.000)' : this.easing,
                         prev || next,
                         next,
-                        dir,
+                        getDirection(index, prevIndex),
                         done
                     );
-
-                    this._animation.show(this.stack.length > 1 ? this.forwardDuration : this.duration, this.percent);
 
                 } else {
 
@@ -395,6 +385,21 @@ function plugin(UIkit) {
                 trigger(this.$el, 'itemshow', [this, next]);
 
                 fastdom.flush(); // iOS 10+ will honor the video.play only if called from a gesture handler
+
+            },
+
+            _show(animation, easing, prev, next, dir, done) {
+
+                this._animation = new Transitioner(
+                    animation,
+                    easing,
+                    prev,
+                    next,
+                    dir,
+                    done
+                );
+
+                this._animation.show(this.stack.length > 1 ? this.forwardDuration : this.duration, this.percent);
 
             },
 
@@ -491,6 +496,16 @@ function plugin(UIkit) {
     // polyfill for Math.trunc (IE)
     function trunc(x) {
         return ~~x;
+    }
+
+    function getDirection(index, prevIndex) {
+        return index === 'next'
+            ? 1
+            : index === 'previous'
+                ? -1
+                : index < prevIndex
+                    ? -1
+                    : 1;
     }
 
 }
