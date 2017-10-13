@@ -436,14 +436,14 @@ function plugin(UIkit) {
 
             show(duration, percent = 0, linear) {
 
-                var easing = linear ? 'linear' : easing;
+                var ease = linear ? 'linear' : easing;
                 duration -= Math.round(duration * percent);
 
                 this.translate(percent);
 
                 return Promise.all([
-                    Transition.start(current, props[0], duration, easing),
-                    Transition.start(next, props[1], duration, easing)
+                    Transition.start(current, props[0], duration, ease),
+                    Transition.start(next, props[1], duration, ease)
                 ]).then(() => {
                     this.reset();
                     cb();
