@@ -18,7 +18,7 @@ function plugin(UIkit) {
             pauseOnHover: Boolean,
             animation: String,
             easing: String,
-            duration: Number
+            velocity: Number
         },
 
         defaults: {
@@ -27,7 +27,7 @@ function plugin(UIkit) {
             pauseOnHover: true,
             animation: 'slide',
             easing: 'ease',
-            duration: 600,
+            velocity: 1,
             index: 0,
             stack: [],
             threshold: 10,
@@ -49,8 +49,12 @@ function plugin(UIkit) {
                 return $$(this.list.children);
             },
 
-            animation({animation}) {
-                return assign(animation in this.Animations ? this.Animations[animation] : this.Animations.slide, {name: animation});
+            animation({animation, Animations}) {
+                return assign(animation in Animations ? Animations[animation] : Animations.slide, {name: animation});
+            },
+
+            duration({velocity}, $el) {
+                return $el.offsetWidth / velocity;
             }
 
         },
@@ -75,6 +79,20 @@ function plugin(UIkit) {
         disconnected() {
             this.stopAutoplay();
         },
+
+        update: [
+
+            {
+
+                read() {
+                    delete this._computeds.duration;
+                },
+
+                events: ['load', 'resize']
+
+            }
+
+        ],
 
         events: [
 
@@ -372,6 +390,7 @@ function plugin(UIkit) {
                         prev || next,
                         next,
                         getDirection(index, prevIndex),
+                        this.stack.length > 1,
                         done
                     );
 
@@ -388,7 +407,7 @@ function plugin(UIkit) {
 
             },
 
-            _show(animation, easing, prev, next, dir, done) {
+            _show(animation, easing, prev, next, dir, forward, done) {
 
                 this._animation = new Transitioner(
                     animation,
@@ -399,7 +418,7 @@ function plugin(UIkit) {
                     done
                 );
 
-                this._animation.show(this.stack.length > 1 ? this.forwardDuration : this.duration, this.percent);
+                this._animation.show(forward ? this.forwardDuration : this.duration, this.percent, forward);
 
             },
 

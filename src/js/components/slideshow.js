@@ -12,7 +12,7 @@ function plugin(UIkit) {
     UIkit.use(Slideshow);
 
     var {mixin} = UIkit;
-    var {closest, css, height} = UIkit.util;
+    var {closest, css, hasClass, height} = UIkit.util;
 
     UIkit.component('slideshow', {
 
@@ -79,6 +79,7 @@ function plugin(UIkit) {
 
                 read() {
 
+                    var prev = this._percent;
                     this._percent = false;
 
                     if (!this.item) {
@@ -88,6 +89,11 @@ function plugin(UIkit) {
                     var {_animation} = this.slideshow;
 
                     if (!_animation) {
+
+                        if (hasClass(this.item, this.slideshow.clsActivated) && prev !== 1) {
+                            this._percent = 1;
+                        }
+
                         return;
                     }
 
@@ -101,19 +107,11 @@ function plugin(UIkit) {
                     var percent = _animation.percent();
                     this._percent = dir < 0 ? 1 - percent : percent;
 
-                    this._active = true;
-
                 },
 
                 write() {
 
                     if (this._percent === false) {
-
-                        if (this._active) {
-                            this.reset();
-                            this._active = false;
-                        }
-
                         return;
                     }
 
