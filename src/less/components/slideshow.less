@@ -47,6 +47,7 @@
  * 1. Position items above each other
  * 2. Take the full width
  * 3. Clip child elements, e.g. for `uk-cover`
+ * 4. Optimize animation
  */
 
 .uk-slideshow-items > * {
@@ -59,6 +60,8 @@
     bottom: 0;
     /* 3 */
     overflow: hidden;
+    /* 4 */
+    will-change: transform, opacity;
 }
 
 /*
