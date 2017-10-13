@@ -26,7 +26,7 @@ export function ready(fn) {
         unbind2 = on(win, 'load', handle);
 }
 
-var transitioncancel = 'transitioncancel';
+var transitioncancel = 'transitioncanceled';
 
 export function transition(element, props, duration = 400, transition = 'linear') {
 
