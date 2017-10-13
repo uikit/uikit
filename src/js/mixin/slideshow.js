@@ -55,7 +55,7 @@ function plugin(UIkit) {
             pauseOnHover: true,
             animation: 'slide',
             transition: 'ease',
-            duration: 3600,
+            duration: 600,
             index: 0,
             stack: [],
             threshold: 10,
