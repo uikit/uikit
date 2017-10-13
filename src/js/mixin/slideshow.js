@@ -534,7 +534,7 @@ function plugin(UIkit) {
     }
 
     function speedUp(x) {
-        return -.0001388889 * x * x + 1.0833333333 * x
+        return .0001785714 * x * x + .3214285714 * x + 342.8571428571;
     }
 
 }

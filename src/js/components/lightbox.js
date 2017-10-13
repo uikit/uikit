@@ -141,7 +141,7 @@ function plugin(UIkit) {
             attrItem: 'uk-lightbox-item',
             initialAnimation: 'scale',
             pauseOnHover: false,
-            velocity: 1.5,
+            velocity: 2,
             Animations: Animations(UIkit),
             template: `<div class="uk-lightbox uk-overflow-hidden">
                             <ul class="uk-lightbox-items"></ul>
