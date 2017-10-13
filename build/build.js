@@ -13,13 +13,13 @@ util.write('dist/icons.json', util.icons('{src/images,custom}/icons/*.svg')).the
         util.compile('tests/js/index.js', 'tests/js/test', undefined, undefined, 'test')
 
     ]
-        .concat(glob.sync('src/js/components/**/*.js').map(file => util.compile(
-        file,
-        `dist/${file.substring(4, file.length - 3)}`,
-        ['uikit'],
-        {uikit: 'UIkit'},
-        path.basename(file, '.js')
-    )))
+        .concat(glob.sync('src/js/components/*.js').map(file => util.compile(
+            file,
+            `dist/${file.substring(4, file.length - 3)}`,
+            ['uikit'],
+            {uikit: 'UIkit'},
+            path.basename(file, '.js')
+        )))
     )
 
 ).then(() => fs.unlink('dist/icons.json', () => {}));

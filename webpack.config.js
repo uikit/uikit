@@ -14,7 +14,7 @@ var loaders = {
 };
 
 var components = {};
-glob.sync('./src/js/components/**/*.js').forEach(file => components[path.basename(file, '.js')] = file.substring(0, file.length - 3));
+glob.sync('./src/js/components/*.js').forEach(file => components[path.basename(file, '.js')] = file.substring(0, file.length - 3));
 
 module.exports = [
 

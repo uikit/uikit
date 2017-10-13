@@ -1,3 +1,5 @@
+import Animations from './internal/slideshow-animations';
+
 function plugin(UIkit) {
 
     if (plugin.installed) {
@@ -5,36 +7,6 @@ function plugin(UIkit) {
     }
 
     var {$$, $, addClass, assign, attr, css, doc, endsWith, fastdom, getIndex, hasClass, index, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, Transition, trigger} = UIkit.util;
-
-    var Animations = {
-
-        slide: {
-
-            show(dir) {
-                return [
-                    {transform: translate3d(dir * -100)},
-                    {transform: translate3d()}
-                ];
-            },
-
-            percent(current) {
-                return Animations.translated(current);
-            },
-
-            translate(percent, dir) {
-                return [
-                    {transform: translate3d(dir * -100 * percent)},
-                    {transform: translate3d(dir * 100 * (1 - percent))}
-                ];
-            }
-
-        },
-
-        translated(el) {
-            return Math.abs(css(el, 'transform').split(',')[4] / el.offsetWidth)
-        }
-
-    };
 
     UIkit.mixin.slideshow = {
 
@@ -45,7 +17,7 @@ function plugin(UIkit) {
             autoplayInterval: Number,
             pauseOnHover: Boolean,
             animation: String,
-            transition: String,
+            easing: String,
             duration: Number
         },
 
@@ -54,7 +26,7 @@ function plugin(UIkit) {
             autoplayInterval: 7000,
             pauseOnHover: true,
             animation: 'slide',
-            transition: 'ease',
+            easing: 'ease',
             duration: 600,
             index: 0,
             stack: [],
@@ -64,7 +36,7 @@ function plugin(UIkit) {
             clsActivated: 'uk-transition-active',
             forwardDuration: 150,
             initialAnimation: false,
-            Animations
+            Animations: Animations(UIkit)
         },
 
         computed: {
@@ -303,7 +275,7 @@ function plugin(UIkit) {
                     trigger(this.$el, 'itemshow', [this, current]);
                 }
 
-                this._animation = new Transitioner(this.animation, this.transition, current, next, dir, noop);
+                this._animation = new Transitioner(this.animation, this.easing, current, next, dir, noop);
                 this._animation.translate(Math.abs(percent % 1));
 
                 this.percent = percent;
@@ -404,7 +376,7 @@ function plugin(UIkit) {
 
                     this._animation = new Transitioner(
                         !prev ? this.Animations[this.initialAnimation] : this.animation,
-                        force ? 'cubic-bezier(0.165, 0.840, 0.440, 1.000)' : this.transition,
+                        force ? 'cubic-bezier(0.165, 0.840, 0.440, 1.000)' : this.easing,
                         prev || next,
                         next,
                         dir,
@@ -450,7 +422,7 @@ function plugin(UIkit) {
 
     };
 
-    function Transitioner(animation, transition, current, next, dir, cb) {
+    function Transitioner(animation, easing, current, next, dir, cb) {
 
         var {percent, translate, show} = animation;
         var props = show(dir);
@@ -464,7 +436,7 @@ function plugin(UIkit) {
 
             show(duration, percent = 0, linear) {
 
-                var easing = linear ? 'linear' : transition;
+                var easing = linear ? 'linear' : easing;
                 duration -= Math.round(duration * percent);
 
                 this.translate(percent);
@@ -524,11 +496,3 @@ function plugin(UIkit) {
 }
 
 export default plugin;
-
-export function translate3d(value = 0) {
-    return `translate3d(${value}${value ? '%' : ''}, 0, 0)`;
-}
-
-export function scale3d(value) {
-    return `scale3d(${value}, ${value}, 1)`;
-}
