@@ -54,7 +54,7 @@ function plugin(UIkit) {
             },
 
             duration({velocity}, $el) {
-                return $el.offsetWidth / velocity;
+                return speedUp($el.offsetWidth / velocity);
             }
 
         },
@@ -418,7 +418,13 @@ function plugin(UIkit) {
                     done
                 );
 
-                this._animation.show(forward ? this.forwardDuration : this.duration, this.percent, forward);
+                this._animation.show(prev === next
+                    ? 300
+                    : forward
+                        ? this.forwardDuration
+                        : this.duration
+                    , this.percent, forward
+                );
 
             },
 
@@ -525,6 +531,10 @@ function plugin(UIkit) {
                 : index < prevIndex
                     ? -1
                     : 1;
+    }
+
+    function speedUp(x) {
+        return -.0001388889 * x * x + 1.0833333333 * x
     }
 
 }
