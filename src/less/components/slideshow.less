@@ -23,7 +23,7 @@
  ========================================================================== */
 
 /*
- * 1. Create position context
+ * 1. Create position and stacking context
  * 2. Reset list
  * 3. Clip child elements
  */
@@ -31,6 +31,7 @@
 .uk-slideshow-items {
     /* 1 */
     position: relative;
+    z-index: 0;
     /* 2 */
     margin: 0;
     padding: 0;
