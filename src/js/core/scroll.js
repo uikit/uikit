@@ -35,11 +35,7 @@ export default function (UIkit) {
                 var start = Date.now(),
                     startY = win.pageYOffset,
                     step = () => {
-                        var time = Date.now(),
-                            currentY,
-                            elapsed = (time - start) / this.duration;
-
-                        currentY = startY + (target - startY) * ease(clamp(elapsed));
+                        var currentY = startY + (target - startY) * ease(clamp((Date.now() - start) / this.duration));
 
                         win.scrollTo(win.pageXOffset, currentY);
 

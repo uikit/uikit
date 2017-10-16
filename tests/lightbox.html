@@ -20,7 +20,6 @@
             <div class="uk-margin">
                 <select id="js-animation-switcher" class="uk-select uk-form-width-small">
                     <option value="slide">Slide</option>
-                    <option value="swipe">Swipe</option>
                     <option value="fade">Fade</option>
                     <option value="scale">Scale</option>
                 </select>
@@ -161,9 +160,21 @@
                         </tr>
                         <tr>
                             <td><code>autoplay</code></td>
-                            <td>Number</td>
+                            <td>Boolean</td>
                             <td>0</td>
                             <td>Starts autoplaying the lightbox.</td>
+                        </tr>
+                        <tr>
+                            <td><code>autoplayInterval</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>The delay between switching slides in autoplay mode.</td>
+                        </tr>
+                        <tr>
+                            <td><code>pauseOnHover</code></td>
+                            <td>Boolean</td>
+                            <td>0</td>
+                            <td>Pause autoplay mode on hover.</td>
                         </tr>
                         <tr>
                             <td><code>video-autoplay</code></td>
@@ -198,13 +209,25 @@
                             <td><code>animation</code></td>
                             <td>String</td>
                             <td>slide</td>
+                            <td>The animation to use. (slide, fade, scale)</td>
+                        </tr>
+                        <tr>
+                            <td><code>animation</code></td>
+                            <td>String</td>
+                            <td>slide</td>
                             <td>The animation to use. (fade, slide, scale)</td>
                         </tr>
                         <tr>
                             <td><code>autoplay</code></td>
-                            <td>Number</td>
+                            <td>Boolean</td>
                             <td>0</td>
                             <td>Starts autoplaying the lightbox.</td>
+                        </tr>
+                        <tr>
+                            <td><code>autoplayInterval</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>The delay between switching slides in autoplay mode.</td>
                         </tr>
                         <tr>
                             <td><code>video-autoplay</code></td>
@@ -213,10 +236,10 @@
                             <td>Lets videos autoplay.</td>
                         </tr>
                         <tr>
-                            <td><code>duration</code></td>
+                            <td><code>velocity</code></td>
                             <td>Number</td>
-                            <td>400</td>
-                            <td>The animation duration.</td>
+                            <td>1</td>
+                            <td>The animation velocity (pixel/ms).</td>
                         </tr>
                         <tr>
                             <td><code>index</code></td>

@@ -108,6 +108,7 @@ ready(() => {
         'search',
         'section',
         'slidenav',
+        'slideshow',
         'sortable',
         'spinner',
         'sticky',

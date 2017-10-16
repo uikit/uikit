@@ -239,7 +239,7 @@ export default function (UIkit) {
             return;
         }
 
-        handler = isString(handler) ? component[handler] : bind(handler, component);
+        handler = detail(isString(handler) ? component[handler] : bind(handler, component));
 
         if (self) {
             handler = selfFilter(handler);
@@ -254,7 +254,7 @@ export default function (UIkit) {
                     : isString(delegate)
                         ? delegate
                         : delegate.call(component),
-                detail(handler)
+                handler
             )
         );
 

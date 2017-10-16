@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add Slideshow component
 - Add style support for radio and checkbox in Firefox
 - Add `autoplay` setting to Lightbox
 - Add `poster` setting to Lightbox items
