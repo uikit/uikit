@@ -1,3 +1,5 @@
+@import "components/mixin.scss";
+
 @mixin hook-accordion(){}
 @mixin hook-accordion-item(){}
 @mixin hook-accordion-title(){}
@@ -485,16 +487,6 @@
 @mixin hook-description-list-description(){}
 @mixin hook-description-list-divider-term(){}
 @mixin hook-description-list-misc(){}
-@mixin svg-fill($src, $color-default, $color-new){
-
-    $escape-color-default:  escape($color-default) !default;
-    $escape-color-new:  escape("#{$color-new}") !default;
-
-    $data-uri:  data-uri('image/svg+xml;charset=UTF-8', "#{$src}") !default;
-    $replace-src:  replace("#{$data-uri}", "#{$escape-color-default}", "#{$escape-color-new}", "g") !default;
-
-    background-image: unquote($replace-src);
-}
 @mixin hook-divider-icon(){}
 @mixin hook-divider-icon-line(){}
 @mixin hook-divider-icon-line-left(){}
