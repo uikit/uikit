@@ -639,16 +639,6 @@
                             </div>
                         </div>
 
-                        <script>
-
-                            var demodate = (new Date(Date.now() + 864e5 * 7)).toISOString();
-
-                            $('[js-countdown]').each(function() {
-                                UIkit.countdown(this, {date:demodate});
-                            })
-
-                        </script>
-
                     </div>
                 </div>
 
@@ -800,6 +790,16 @@
 
             </div>
         </div>
+
+        <script>
+
+            var date = (new Date(Date.now() + 864e5 * 7)).toISOString();
+
+            UIkit.util.$$('[js-countdown]').forEach(function(el) {
+                UIkit.countdown(el, {date: date});
+            });
+
+        </script>
 
     </body>
 </html>
