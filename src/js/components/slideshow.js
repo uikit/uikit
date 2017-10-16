@@ -19,17 +19,17 @@ function plugin(UIkit) {
         mixins: [mixin.class, mixin.slideshow],
 
         props: {
-            width: String,
-            height: Boolean,
+            ratio: String,
+            minHeight: Boolean,
             maxHeight: Boolean,
         },
 
         defaults: {
-            width: 1920,
-            height: 1200,
+            ratio: '16:9',
+            minHeight: false,
+            maxHeight: false,
             selList: '.uk-slideshow-items',
             attrItem: 'uk-slideshow-item',
-            maxHeight: true,
             Animations: Animations(UIkit)
         },
 
@@ -40,10 +40,15 @@ function plugin(UIkit) {
         update: {
 
             read() {
-                this.height = this.$props.height * this.$el.offsetWidth / this.width;
+                var [width, height] = this.ratio.split(':').map(Number);
+                this.height = height * this.$el.offsetWidth / width;
+
+                if (this.minHeight) {
+                    this.height = Math.max(this.minHeight, this.height);
+                }
 
                 if (this.maxHeight) {
-                    this.height = Math.min(this.$props.height, this.height);
+                    this.height = Math.min(this.maxHeight, this.height);
                 }
             },
 

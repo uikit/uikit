@@ -30,7 +30,7 @@
             <div class="uk-child-width-1-2@m" uk-grid>
                 <div>
 
-                    <div class="js-slideshow-animation" uk-slideshow="width: 1800; height: 1200; autoplay: 1">
+                    <div class="js-slideshow-animation" uk-slideshow="ratio: 3:2; autoplay: 1">
 
                         <div class="uk-position-relative uk-visible-toggle uk-light">
 
@@ -82,7 +82,7 @@
                 </div>
                <div>
 
-                    <div class="js-slideshow-animation" uk-slideshow="width: 1800; height: 1200">
+                    <div class="js-slideshow-animation" uk-slideshow="ratio: 3:2">
 
                         <div class="uk-position-relative uk-visible-toggle uk-light">
 
@@ -139,7 +139,7 @@
 
             <h2>Toggle Transitions + Kenburns</h2>
 
-            <div class="js-slideshow-animation" uk-slideshow="width: 1000; height: 600">
+            <div class="js-slideshow-animation" uk-slideshow="ratio: 5:3; maxHeight: 600">
 
                 <div class="uk-position-relative uk-visible-toggle uk-light">
 
@@ -200,7 +200,7 @@
 
         </div>
 
-        <div class="uk-margin js-slideshow-animation" uk-slideshow="width: 1400; height: 600">
+        <div class="uk-margin js-slideshow-animation" uk-slideshow="ratio: 7:3; maxHeight: 600">
 
             <div class="uk-position-relative uk-visible-toggle uk-light">
 
@@ -257,7 +257,7 @@
 
         </div>
 
-        <div class="uk-margin js-slideshow-animation" uk-slideshow="width: 1800; height: 1200">
+        <div class="uk-margin js-slideshow-animation" uk-slideshow="ratio: false">
 
             <div class="uk-position-relative uk-visible-toggle uk-light">
 
@@ -354,22 +354,22 @@
                             <td>The animation velocity (pixel/ms).</td>
                         </tr>
                         <tr>
-                            <td><code>width</code></td>
-                            <td>Number</td>
-                            <td>1900</td>
-                            <td>The Slideshow's width ratio.</td>
+                            <td><code>ratio</code></td>
+                            <td>Boolean, String</td>
+                            <td>16:9</td>
+                            <td>The ratio. (`false` prevents height adjustment)</td>
                         </tr>
                         <tr>
-                            <td><code>height</code></td>
-                            <td>Number</td>
-                            <td>1200</td>
-                            <td>The Slideshow's height ratio.</td>
+                            <td><code>minHeight</code></td>
+                            <td>Boolean, Number</td>
+                            <td>false</td>
+                            <td>The minimum height.</td>
                         </tr>
                         <tr>
                             <td><code>maxHeight</code></td>
-                            <td>Boolean</td>
-                            <td>true</td>
-                            <td>Treat the height setting as a maximum height.</td>
+                            <td>Boolean, Number</td>
+                            <td>false</td>
+                            <td>The maximum height.</td>
                         </tr>
                         <tr>
                             <td><code>preload</code></td>
