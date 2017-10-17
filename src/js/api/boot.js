@@ -1,4 +1,4 @@
-import { doc, docEl, fastdom, hasAttr, Observer, on, ready } from '../util/index';
+import { createEvent, doc, docEl, fastdom, hasAttr, Observer, on, ready } from '../util/index';
 
 export default function (UIkit) {
 
@@ -50,7 +50,7 @@ export default function (UIkit) {
                     apply(removedNodes[i], disconnect)
                 }
 
-                UIkit.update('update', target, true);
+                UIkit.update(createEvent('update', true, false, {mutation: true}), target, true);
 
             })
         )).observe(docEl, {
