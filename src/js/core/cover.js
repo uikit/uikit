@@ -1,27 +1,25 @@
 import { Class } from '../mixin/index';
-import { css, Dimensions, isVisible, Player } from '../util/index';
+import { css, Dimensions, isVisible } from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('cover', {
 
-        mixins: [Class],
+        mixins: [Class, UIkit.components.video.options],
 
         props: {
             width: Number,
             height: Number
         },
 
+        defaults: {
+            automute: true
+        },
+
         ready() {
 
             if (this.$el.tagName === 'IFRAME') {
                 css(this.$el, 'pointerEvents', 'none');
-            }
-
-            var player = new Player(this.$el);
-
-            if (player.isVideo()) {
-                player.mute();
             }
 
         },

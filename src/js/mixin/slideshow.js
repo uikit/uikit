@@ -472,8 +472,8 @@ function plugin(UIkit) {
                 this.translate(percent);
 
                 return Promise.all([
-                    Transition.start(current, props[0], duration, ease),
-                    Transition.start(next, props[1], duration, ease)
+                    Transition.start(next, props[1], duration, ease),
+                    Transition.start(current, props[0], duration, ease)
                 ]).then(() => {
                     this.reset();
                     cb();
@@ -505,8 +505,8 @@ function plugin(UIkit) {
             translate(percent) {
 
                 var props = translate(percent, dir);
-                css(current, props[0]);
                 css(next, props[1]);
+                css(current, props[0]);
 
             },
 
@@ -534,7 +534,7 @@ function plugin(UIkit) {
     }
 
     function speedUp(x) {
-        return .0001785714 * x * x + .3214285714 * x + 342.8571428571; // parabel through (400,500; 600,600; 1800,1500)
+        return .5 * x + 300; // parabel through (400,500; 600,600; 1800,1200)
     }
 
 }
