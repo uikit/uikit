@@ -6,7 +6,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$$, $, addClass, assign, attr, css, doc, endsWith, fastdom, getIndex, hasClass, index, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, requestAnimationFrame, toggleClass, Transition, trigger} = UIkit.util;
+    var {$$, $, addClass, assign, attr, css, doc, endsWith, fastdom, getIndex, hasClass, index, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, Transition, trigger} = UIkit.util;
 
     UIkit.mixin.slideshow = {
 
@@ -374,7 +374,7 @@ function plugin(UIkit) {
                     prev && trigger(this.$el, 'itemhidden', [this, prev]);
                     trigger(this.$el, 'itemshown', [this, next]);
 
-                    requestAnimationFrame(() => {
+                    fastdom.mutate(() => {
                         this.stack.shift();
                         if (this.stack.length) {
                             this.show(this.stack.shift(), true)
