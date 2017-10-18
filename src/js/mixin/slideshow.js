@@ -374,12 +374,14 @@ function plugin(UIkit) {
                     prev && trigger(this.$el, 'itemhidden', [this, prev]);
                     trigger(this.$el, 'itemshown', [this, next]);
 
-                    this.stack.shift();
-                    if (this.stack.length) {
-                        this.show(this.stack.shift(), true);
-                    } else {
-                        this._animation = null;
-                    }
+                    fastdom.mutate(() => {
+                        this.stack.shift();
+                        if (this.stack.length) {
+                            this.show(this.stack.shift(), true)
+                        } else {
+                            this._animation = null;
+                        }
+                    });
                 };
 
                 if (prev || this.initialAnimation) {

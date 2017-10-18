@@ -76,7 +76,7 @@ export function filter(element, selector) {
 
 export function within(element, selector) {
     return !isString(selector)
-        ? toNode(selector).contains(toNode(element))
+        ? element === selector || toNode(selector).contains(toNode(element))
         : matches(element, selector) || closest(element, selector);
 }
 
@@ -148,11 +148,14 @@ var closestFn = elProto.closest || function (selector) {
     }
 
     do {
+
         if (matches(ancestor, selector)) {
             return ancestor;
         }
-        ancestor = ancestor.parentElement;
-    } while (ancestor);
+
+        ancestor = ancestor.parentNode;
+
+    } while (ancestor && ancestor.nodeType === 1);
 };
 
 export function closest(element, selector) {
