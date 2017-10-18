@@ -12,7 +12,7 @@ function plugin(UIkit) {
     UIkit.use(Slideshow);
 
     var {mixin} = UIkit;
-    var {closest, css, endsWith, height, noop, Transition} = UIkit.util;
+    var {closest, css, fastdom, endsWith, height, isVisible, noop, Transition} = UIkit.util;
 
     UIkit.component('slideshow', {
 
@@ -34,7 +34,7 @@ function plugin(UIkit) {
         },
 
         connected() {
-            this.show(this.index);
+            fastdom.mutate(() => this.show(this.index));
         },
 
         update: {
@@ -65,6 +65,14 @@ function plugin(UIkit) {
     UIkit.component('slideshow-parallax-in', {
 
         mixins: [mixin.parallax],
+
+        connected() {
+            fastdom.mutate(() => {
+                var set;
+                fastdom.measure(() => set = isVisible(this.$el));
+                fastdom.mutate(() => set && css(this.$el, this.getCss(this.out ? 0 : 1)));
+            });
+        },
 
         computed: {
 

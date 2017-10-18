@@ -405,7 +405,7 @@ function plugin(UIkit) {
                 prev && trigger(this.$el, 'itemhide', [this, prev]);
                 trigger(this.$el, 'itemshow', [this, next]);
 
-                fastdom.flush(); // iOS 10+ will honor the video.play only if called from a gesture handler
+                prev && fastdom.flush(); // iOS 10+ will honor the video.play only if called from a gesture handler
 
             },
 
