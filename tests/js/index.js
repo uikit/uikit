@@ -41,7 +41,7 @@ document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : sty
 // add javascript
 document.writeln(`<script src="${style.icons ? style.icons : '../dist/js/uikit-icons.js'}"></script>`);
 
-ready(() => {
+window.addEventListener('load', () => setTimeout(() => {
 
     var $body = document.body;
     var $container = prepend($body, '<div class="uk-container"></div>');
@@ -199,7 +199,7 @@ ready(() => {
     $rtl.checked = dir === 'rtl';
 
     css(docEl, 'padding-top', '');
-});
+}, 100));
 
 css(docEl, 'padding-top', '80px');
 

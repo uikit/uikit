@@ -12,7 +12,7 @@ function plugin(UIkit) {
     UIkit.use(Slideshow);
 
     var {mixin} = UIkit;
-    var {closest, css, hasClass, height} = UIkit.util;
+    var {closest, css, endsWith, height, noop, Transition} = UIkit.util;
 
     UIkit.component('slideshow', {
 
@@ -62,79 +62,87 @@ function plugin(UIkit) {
 
     });
 
-    UIkit.component('slideshow-parallax', {
+    UIkit.component('slideshow-parallax-in', {
 
         mixins: [mixin.parallax],
 
         computed: {
 
-            slideshow() {
-                return UIkit.getComponent(closest(this.$el, '.uk-slideshow'), 'slideshow');
-            },
-
             item() {
-                return this.slideshow && this.slideshow.slides.filter(slide => slide.contains(this.$el))[0];
+                var slideshow = UIkit.getComponent(closest(this.$el, '.uk-slideshow'), 'slideshow');
+                return slideshow && slideshow.slides.filter(slide => slide.contains(this.$el))[0];
             }
 
         },
 
-        update: [
+        events: [
 
             {
+                name: 'itemin itemout',
 
-                read() {
+                self: true,
 
-                    var prev = this._percent;
-                    this._percent = false;
-
-                    if (!this.item) {
-                        return;
-                    }
-
-                    var {_animation} = this.slideshow;
-
-                    if (!_animation) {
-
-                        if (hasClass(this.item, this.slideshow.clsActivated) && prev !== 1) {
-                            this._percent = 1;
-                        }
-
-                        return;
-                    }
-
-                    var {current, next, dir} = _animation,
-                        el = dir > 0 ? next : current;
-
-                    if (this.item !== el) {
-                        return;
-                    }
-
-                    var percent = _animation.percent();
-                    this._percent = dir < 0 ? 1 - percent : percent;
-
+                el() {
+                    return this.item;
                 },
 
-                write() {
+                handler({type, detail: {percent, duration, ease, dir}}) {
 
-                    if (this._percent === false) {
-                        return;
+                    if (isResponsible(type, this.out, dir)) {
+                        Transition.cancel(this.$el);
+                        css(this.$el, this.getCss(dir < 0 ? 1 - percent : percent));
+                        Transition.start(this.$el, this.getCss(dir < 0 ? 0 : 1), duration, ease).catch(noop);
                     }
 
-                    this.$emit();
+                }
+            },
 
-                    if (this._prev !== this._percent) {
-                        css(this.$el, this.getCss(this._percent));
-                        this._prev = this._percent;
-                    }
+            {
+                name: 'transitioncanceled transitionend',
 
+                self: true,
+
+                el() {
+                    return this.item;
                 },
 
-                events: ['load', 'resize']
+                handler() {
+                    Transition.cancel(this.$el);
+                }
+
+            },
+
+            {
+                name: 'itemtranslatein itemtranslateout',
+
+                self: true,
+
+                el() {
+                    return this.item;
+                },
+
+                handler({type, detail: {percent, dir}}) {
+
+                    if (isResponsible(type, this.out, dir)) {
+                        Transition.cancel(this.$el);
+                        css(this.$el, this.getCss(dir < 0 ? 1 - percent : percent));
+                    }
+
+                }
             }
 
         ]
 
     });
+
+    UIkit.component('slideshow-parallax-out', UIkit.components.slideshowParallaxIn.extend({defaults: {out: true}}));
+
+    function isResponsible(type, out, dir) {
+        var isInEvent = endsWith(type, 'in'),
+            matches = isInEvent && !out || !isInEvent && out;
+
+        return matches && dir > 0 || !matches && dir < 0;
+    }
 
 }
 

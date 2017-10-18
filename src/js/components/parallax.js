@@ -15,7 +15,6 @@ function plugin(UIkit) {
             props[prop] = 'list';
             return props;
         }, {
-            easing: Number,
             media: 'media'
         }),
 
@@ -23,7 +22,6 @@ function plugin(UIkit) {
             defaults[prop] = undefined;
             return defaults;
         }, {
-            easing: 1,
             media: false
         }),
 
@@ -96,7 +94,7 @@ function plugin(UIkit) {
             },
 
             covers(_, $el) {
-                return css(css($el, 'backgroundSize', ''), 'backgroundSize') === 'cover';
+                return css($el.style.backgroundSize !== '' ? css($el, 'backgroundSize', '') : $el, 'backgroundSize') === 'cover';
             }
 
         },
@@ -304,12 +302,14 @@ function plugin(UIkit) {
 
         props: {
             target: String,
-            viewport: Number
+            viewport: Number,
+            easing: Number,
         },
 
         defaults: {
             target: false,
-            viewport: 1
+            viewport: 1,
+            easing: 1,
         },
 
         computed: {
@@ -338,8 +338,7 @@ function plugin(UIkit) {
 
                 read() {
 
-                    var percent = scrolledOver(this.target) / (this.viewport || 1);
-                    this._percent = clamp(percent * (1 - (this.easing - this.easing * percent)));
+                    this._percent = ease(scrolledOver(this.target) / (this.viewport || 1), this.easing);
 
                 },
 
@@ -363,6 +362,10 @@ function plugin(UIkit) {
         ]
 
     });
+
+    function ease(percent, easing) {
+        return clamp(percent * (1 - (easing - easing * percent)))
+    }
 
     function parseColor(el, color) {
         return css(css(el, 'color', color), 'color').split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => toFloat(n));
