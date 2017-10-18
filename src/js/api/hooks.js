@@ -78,7 +78,9 @@ export default function (UIkit) {
 
         e = createEvent(e || 'update');
 
-        if (e.type === 'update') {
+        var {type, detail} = e;
+
+        if (type === 'update' && detail && detail.mutation) {
             this._computeds = {};
         }
 
@@ -90,7 +92,7 @@ export default function (UIkit) {
 
         updates.forEach((update, i) => {
 
-            if (e.type !== 'update' && !includes(update.events, e.type)) {
+            if (type !== 'update' && !includes(update.events, type)) {
                 return;
             }
 

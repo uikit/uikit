@@ -6,7 +6,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$$, $, addClass, assign, attr, css, doc, endsWith, fastdom, getIndex, hasClass, index, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, Transition, trigger} = UIkit.util;
+    var {$$, $, addClass, assign, attr, createEvent, css, doc, endsWith, fastdom, getIndex, hasClass, index, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, Transition, trigger} = UIkit.util;
 
     UIkit.mixin.slideshow = {
 
@@ -473,6 +473,9 @@ function plugin(UIkit) {
 
                 this.translate(percent);
 
+                trigger(next, createEvent('itemin', false, false, {percent, duration, ease, dir}));
+                trigger(current, createEvent('itemout', false, false, {percent, duration, ease, dir}));
+
                 return Promise.all([
                     Transition.start(next, props[1], duration, ease),
                     Transition.start(current, props[0], duration, ease)
@@ -509,7 +512,8 @@ function plugin(UIkit) {
                 var props = translate(percent, dir);
                 css(next, props[1]);
                 css(current, props[0]);
-
+                trigger(next, createEvent('itemtranslatein', false, false, {percent, dir}));
+                trigger(current, createEvent('itemtranslateout', false, false, {percent, dir}));
             },
 
             percent() {
@@ -536,7 +540,7 @@ function plugin(UIkit) {
     }
 
     function speedUp(x) {
-        return .5 * x + 300; // parabel through (400,500; 600,600; 1800,1200)
+        return .5 * x + 300; // parabola through (400,500; 600,600; 1800,1200)
     }
 
 }
