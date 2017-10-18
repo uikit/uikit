@@ -30,7 +30,7 @@
             <div class="uk-child-width-1-2@m" uk-grid>
                 <div>
 
-                    <div class="js-slideshow-animation" uk-slideshow="ratio: 3:2; autoplay: 1">
+                    <div class="js-slideshow-animation" uk-slideshow="ratio: 3:2; velocity: 0.5">
 
                         <div class="uk-position-relative uk-visible-toggle uk-light">
 
@@ -38,8 +38,8 @@
                                 <li>
                                     <img src="images/photo.jpg" alt="" uk-cover>
                                     <div class="uk-position-center uk-position-small uk-text-center">
-                                        <h2 uk-slideshow-parallax-in="x: -100,0" uk-slideshow-parallax-out="x: 100">Heading</h2>
-                                        <p uk-slideshow-parallax-in="x: 100,0" uk-slideshow-parallax-out="x: -100">Lorem ipsum dolor sit amet.</p>
+                                        <h2 uk-slideshow-parallax-in="x: 100,0" uk-slideshow-parallax-out="x: -100">Heading</h2>
+                                        <p uk-slideshow-parallax-in="x: 200,0" uk-slideshow-parallax-out="x: -200">Lorem ipsum dolor sit amet.</p>
                                     </div>
                                 </li>
                                 <li>
@@ -52,15 +52,15 @@
                                 <li>
                                     <img src="images/size1.jpg" alt="" uk-cover>
                                     <div class="uk-position-center uk-position-small uk-text-center">
-                                        <h2 uk-slideshow-parallax-in="y: -50,0" uk-slideshow-parallax-out="y: -50">Heading</h2>
-                                        <p uk-slideshow-parallax-in="y: 50,0" uk-slideshow-parallax-out="y: 50">Lorem ipsum dolor sit amet.</p>
+                                        <h2 uk-slideshow-parallax-in="y: -50,0" uk-slideshow-parallax-out="opacity: 1,0">Heading</h2>
+                                        <p uk-slideshow-parallax-in="y: 50,0" uk-slideshow-parallax-out="opacity: 1,0">Lorem ipsum dolor sit amet.</p>
                                     </div>
                                 </li>
                                 <li>
                                     <img src="images/size2.jpg" alt="" uk-cover>
                                     <div class="uk-position-center uk-position-small uk-text-center">
-                                        <h2 uk-slideshow-parallax-in="x: 100,0" uk-slideshow-parallax-out="x: -100">Heading</h2>
-                                        <p uk-slideshow-parallax-in="x: 200,0" uk-slideshow-parallax-out="x: -200">Lorem ipsum dolor sit amet.</p>
+                                        <h2 uk-slideshow-parallax-in="x: 200,0">Heading</h2>
+                                        <p uk-slideshow-parallax-out="x: -200">Lorem ipsum dolor sit amet.</p>
                                     </div>
                                 </li>
                             </ul>
@@ -135,6 +135,60 @@
                     </div>
 
                 </div>
+            </div>
+
+            <h2>Modifing animation with parallax</h2>
+
+            <div uk-slideshow="animation: push">
+
+                <div class="uk-position-relative uk-visible-toggle uk-light">
+
+                    <ul class="uk-slideshow-items">
+                        <li>
+                            <div class="uk-position-cover" uk-slideshow-parallax-out="scale: 1.5,1">
+                                <img src="images/photo.jpg" alt="" uk-cover>
+                            </div>
+                            <div class="uk-position-cover" uk-slideshow-parallax-out="opacity: 0,1" style="background: #000; opacity: 0"></div>
+                            <div class="uk-position-center uk-position-medium uk-text-center">
+                                <h1 class="uk-heading-primary" uk-slideshow-parallax-in="x: 400,0">Heading</h1>
+                                <p class="uk-text-lead" uk-slideshow-parallax-in="x: 400,0; easing: 0.5">Lorem ipsum dolor sit amet.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="images/dark.jpg" alt="" uk-cover>
+                            <div class="uk-position-center uk-position-medium uk-text-center">
+                                <h1 class="uk-heading-primary" uk-slideshow-parallax-in="x: 400,0">Heading</h1>
+                                <p class="uk-text-lead" uk-slideshow-parallax-in="x: 400,0; easing: 0.5">Lorem ipsum dolor sit amet.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="images/size1.jpg" alt="" uk-cover>
+                            <div class="uk-position-center uk-position-medium uk-text-center">
+                                <h1 class="uk-heading-primary" uk-slideshow-parallax-in="x: 400,0">Heading</h1>
+                                <p class="uk-text-lead" uk-slideshow-parallax-in="x: 400,0; easing: 0.5">Lorem ipsum dolor sit amet.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <img src="images/size2.jpg" alt="" uk-cover>
+                            <div class="uk-position-center uk-position-medium uk-text-center">
+                                <h1 class="uk-heading-primary" uk-slideshow-parallax-in="x: 400,0">Heading</h1>
+                                <p class="uk-text-lead" uk-slideshow-parallax-in="x: 400,0; easing: 0.5">Lorem ipsum dolor sit amet.</p>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+
+                </div>
+
+                <ul class="uk-dotnav uk-flex-center uk-margin">
+                    <li uk-slideshow-item="0"><a href="#">Item 1</a></li>
+                    <li uk-slideshow-item="1"><a href="#">Item 2</a></li>
+                    <li uk-slideshow-item="2"><a href="#">Item 3</a></li>
+                    <li uk-slideshow-item="3"><a href="#">Item 4</a></li>
+                </ul>
+
             </div>
 
             <h2>Toggle Transitions + Kenburns</h2>
