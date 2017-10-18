@@ -68,9 +68,9 @@ function plugin(UIkit) {
 
         connected() {
             fastdom.mutate(() => {
-                var set;
-                fastdom.measure(() => set = isVisible(this.$el));
-                fastdom.mutate(() => set && css(this.$el, this.getCss(this.out ? 0 : 1)));
+                var visible;
+                fastdom.measure(() => visible = isVisible(this.$el));
+                fastdom.mutate(() => visible && css(this.$el, this.getCss(this.out ? 0 : 1)));
             });
         },
 
