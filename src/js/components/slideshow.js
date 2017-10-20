@@ -33,7 +33,7 @@ function plugin(UIkit) {
             Animations: Animations(UIkit)
         },
 
-        connected() {
+        ready() {
             fastdom.mutate(() => this.show(this.index));
         },
 
@@ -70,7 +70,7 @@ function plugin(UIkit) {
 
             item() {
                 var slideshow = UIkit.getComponent(closest(this.$el, '.uk-slideshow'), 'slideshow');
-                return slideshow && slideshow.slides.filter(slide => slide.contains(this.$el))[0];
+                return slideshow && closest(this.$el, `${slideshow.selList} > *`);
             }
 
         },
