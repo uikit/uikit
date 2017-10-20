@@ -6,7 +6,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$$, $, addClass, assign, attr, createEvent, css, doc, endsWith, fastdom, getIndex, hasClass, index, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, Transition, trigger} = UIkit.util;
+    var {$$, $, addClass, assign, attr, createEvent, css, doc, endsWith, fastdom, getIndex, hasClass, index, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, Transition, trigger} = UIkit.util;
 
     UIkit.mixin.slideshow = {
 
@@ -250,7 +250,9 @@ function plugin(UIkit) {
                     return;
                 }
 
-                e.preventDefault();
+                if (!isTouch(e)) {
+                    e.preventDefault();
+                }
 
                 if (this._animation && this._animation.animation !== this.animation) {
                     return;
@@ -282,9 +284,7 @@ function plugin(UIkit) {
 
             },
 
-            move(e) {
-
-                e.preventDefault();
+            move() {
 
                 if (this.pos === this.prevPos || (!this.touching && Math.abs(this.touch - this.pos) < this.threshold)) {
                     return;
@@ -322,9 +322,7 @@ function plugin(UIkit) {
                 UIkit.update(null, next);
             },
 
-            end(e) {
-
-                e.preventDefault();
+            end() {
 
                 off(doc, pointerMove, this.move, true);
                 off(doc, pointerUp, this.end, true);
@@ -493,12 +491,12 @@ function plugin(UIkit) {
 
                 this.translate(percent);
 
-                triggerUpdate(next, 'itemin', {percent, duration, ease, dir});
                 triggerUpdate(current, 'itemout', {percent: 1 - percent, duration, ease, dir});
+                triggerUpdate(next, 'itemin', {percent, duration, ease, dir});
 
                 return Promise.all([
-                    Transition.start(next, props[1], duration, ease),
-                    Transition.start(current, props[0], duration, ease)
+                    Transition.start(current, props[0], duration, ease),
+                    Transition.start(next, props[1], duration, ease)
                 ]).then(() => {
                     this.reset();
                     cb();
@@ -506,23 +504,23 @@ function plugin(UIkit) {
             },
 
             stop() {
-                return Transition.stop([next, current]);
+                return Transition.stop([current, next]);
             },
 
             cancel() {
-                Transition.cancel([next, current]);
+                Transition.cancel([current, next]);
             },
 
             reset() {
                 for (var prop in props[0]) {
-                    css([next, current], prop, '');
+                    css([current, next], prop, '');
                 }
             },
 
             forward(duration) {
 
                 var percent = this.percent();
-                Transition.cancel([next, current]);
+                Transition.cancel([current, next]);
                 this.show(duration, percent, true);
 
             },
@@ -530,10 +528,10 @@ function plugin(UIkit) {
             translate(percent) {
 
                 var props = translate(percent, dir);
-                css(next, props[1]);
                 css(current, props[0]);
-                triggerUpdate(next, 'itemtranslatein', {percent, dir});
+                css(next, props[1]);
                 triggerUpdate(current, 'itemtranslateout', {percent: 1 - percent, dir});
+                triggerUpdate(next, 'itemtranslatein', {percent, dir});
             },
 
             percent() {
