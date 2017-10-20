@@ -189,7 +189,7 @@
     // Horizontal rules
     //
 
-    hr {
+    hr, .uk-hr {
         border-top-color: $inverse-base-hr-border;
         @if(mixin-exists(hook-inverse-base-hr)) {@include hook-inverse-base-hr();}
     }
@@ -385,25 +385,6 @@
 
 
 }
-@mixin hook-close(){}
-@mixin hook-close-hover(){}
-@mixin hook-close-misc(){}
-@mixin hook-inverse-close(){}
-@mixin hook-inverse-close-hover(){}
-@mixin hook-inverse-component-close(){
-
-    .uk-close {
-        color: $inverse-close-color;
-        @if(mixin-exists(hook-inverse-close)) {@include hook-inverse-close();}
-    }
-
-    .uk-close:hover,
-    .uk-close:focus {
-        color: $inverse-close-hover-color;
-        @if(mixin-exists(hook-inverse-close-hover)) {@include hook-inverse-close-hover();}
-    }
-
-}
 @mixin hook-card(){}
 @mixin hook-card-body(){}
 @mixin hook-card-header(){}
@@ -435,6 +416,25 @@
         -webkit-column-rule-color: $inverse-column-divider-rule-color;
         -moz-column-rule-color: $inverse-column-divider-rule-color;
         column-rule-color: $inverse-column-divider-rule-color;
+    }
+
+}
+@mixin hook-close(){}
+@mixin hook-close-hover(){}
+@mixin hook-close-misc(){}
+@mixin hook-inverse-close(){}
+@mixin hook-inverse-close-hover(){}
+@mixin hook-inverse-component-close(){
+
+    .uk-close {
+        color: $inverse-close-color;
+        @if(mixin-exists(hook-inverse-close)) {@include hook-inverse-close();}
+    }
+
+    .uk-close:hover,
+    .uk-close:focus {
+        color: $inverse-close-hover-color;
+        @if(mixin-exists(hook-inverse-close-hover)) {@include hook-inverse-close-hover();}
     }
 
 }
@@ -566,11 +566,6 @@
 @mixin hook-dropdown-nav-divider(){}
 @mixin hook-dropdown-misc(){}
 @mixin hook-flex-misc(){}
-@mixin hook-form-range(){}
-@mixin hook-form-range-thumb(){}
-@mixin hook-form-range-track(){}
-@mixin hook-form-range-track-focus(){}
-@mixin hook-form-range-misc(){}
 @mixin hook-form(){}
 @mixin hook-form-single-line(){}
 @mixin hook-form-multi-line(){}
@@ -675,13 +670,11 @@
     }
 
 }
-@mixin hook-grid-misc(){}
-@mixin hook-inverse-component-grid(){
-
-    .uk-grid-divider > :not(.uk-first-column)::before { border-left-color: $inverse-grid-divider-border; }
-    .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before { border-top-color: $inverse-grid-divider-border; }
-
-}
+@mixin hook-form-range(){}
+@mixin hook-form-range-thumb(){}
+@mixin hook-form-range-track(){}
+@mixin hook-form-range-track-focus(){}
+@mixin hook-form-range-misc(){}
 @mixin hook-heading-primary(){}
 @mixin hook-heading-hero(){}
 @mixin hook-heading-divider(){}
@@ -720,64 +713,11 @@
     }
 
 }
-@mixin hook-icon-link(){}
-@mixin hook-icon-link-hover(){}
-@mixin hook-icon-link-active(){}
-@mixin hook-icon-button(){}
-@mixin hook-icon-button-hover(){}
-@mixin hook-icon-button-active(){}
-@mixin hook-icon-misc(){}
-@mixin hook-inverse-icon-link(){}
-@mixin hook-inverse-icon-link-hover(){}
-@mixin hook-inverse-icon-link-active(){}
-@mixin hook-inverse-icon-button(){}
-@mixin hook-inverse-icon-button-hover(){}
-@mixin hook-inverse-icon-button-active(){}
-@mixin hook-inverse-component-icon(){
+@mixin hook-grid-misc(){}
+@mixin hook-inverse-component-grid(){
 
-    //
-    // Link
-    //
-
-    .uk-icon-link {
-        color: $inverse-icon-link-color;
-        @if(mixin-exists(hook-inverse-icon-link)) {@include hook-inverse-icon-link();}
-    }
-
-    .uk-icon-link:hover,
-    .uk-icon-link:focus {
-        color: $inverse-icon-link-hover-color;
-        @if(mixin-exists(hook-inverse-icon-link-hover)) {@include hook-inverse-icon-link-hover();}
-    }
-
-    .uk-icon-link:active,
-    .uk-active > .uk-icon-link {
-        color: $inverse-icon-link-active-color;
-        @if(mixin-exists(hook-inverse-icon-link-active)) {@include hook-inverse-icon-link-active();}
-    }
-
-    //
-    // Button
-    //
-
-    .uk-icon-button {
-        background-color: $inverse-icon-button-background;
-        color: $inverse-icon-button-color;
-        @if(mixin-exists(hook-inverse-icon-button)) {@include hook-inverse-icon-button();}
-    }
-
-    .uk-icon-button:hover,
-    .uk-icon-button:focus {
-        background-color: $inverse-icon-button-hover-background;
-        color: $inverse-icon-button-hover-color;
-        @if(mixin-exists(hook-inverse-icon-button-hover)) {@include hook-inverse-icon-button-hover();}
-    }
-
-    .uk-icon-button:active {
-        background-color: $inverse-icon-button-active-background;
-        color: $inverse-icon-button-active-color;
-        @if(mixin-exists(hook-inverse-icon-button-active)) {@include hook-inverse-icon-button-active();}
-    }
+    .uk-grid-divider > :not(.uk-first-column)::before { border-left-color: $inverse-grid-divider-border; }
+    .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before { border-top-color: $inverse-grid-divider-border; }
 
 }
 @mixin hook-iconnav(){}
@@ -844,6 +784,53 @@
     .uk-list-bullet > li::before {
         @include svg-fill($internal-list-bullet-image, "#000", $inverse-list-bullet-icon-color);
         @if(mixin-exists(hook-inverse-list-bullet)) {@include hook-inverse-list-bullet();}
+    }
+
+}
+@mixin hook-inverse-component-icon(){
+
+    //
+    // Link
+    //
+
+    .uk-icon-link {
+        color: $inverse-icon-link-color;
+        @if(mixin-exists(hook-inverse-icon-link)) {@include hook-inverse-icon-link();}
+    }
+
+    .uk-icon-link:hover,
+    .uk-icon-link:focus {
+        color: $inverse-icon-link-hover-color;
+        @if(mixin-exists(hook-inverse-icon-link-hover)) {@include hook-inverse-icon-link-hover();}
+    }
+
+    .uk-icon-link:active,
+    .uk-active > .uk-icon-link {
+        color: $inverse-icon-link-active-color;
+        @if(mixin-exists(hook-inverse-icon-link-active)) {@include hook-inverse-icon-link-active();}
+    }
+
+    //
+    // Button
+    //
+
+    .uk-icon-button {
+        background-color: $inverse-icon-button-background;
+        color: $inverse-icon-button-color;
+        @if(mixin-exists(hook-inverse-icon-button)) {@include hook-inverse-icon-button();}
+    }
+
+    .uk-icon-button:hover,
+    .uk-icon-button:focus {
+        background-color: $inverse-icon-button-hover-background;
+        color: $inverse-icon-button-hover-color;
+        @if(mixin-exists(hook-inverse-icon-button-hover)) {@include hook-inverse-icon-button-hover();}
+    }
+
+    .uk-icon-button:active {
+        background-color: $inverse-icon-button-active-background;
+        color: $inverse-icon-button-active-color;
+        @if(mixin-exists(hook-inverse-icon-button-active)) {@include hook-inverse-icon-button-active();}
     }
 
 }
@@ -1270,6 +1257,19 @@
     @include hook-inverse-component-column();
     @include hook-inverse-component-utility();
 }
+@mixin hook-icon-link(){}
+@mixin hook-icon-link-hover(){}
+@mixin hook-icon-link-active(){}
+@mixin hook-icon-button(){}
+@mixin hook-icon-button-hover(){}
+@mixin hook-icon-button-active(){}
+@mixin hook-icon-misc(){}
+@mixin hook-inverse-icon-link(){}
+@mixin hook-inverse-icon-link-hover(){}
+@mixin hook-inverse-icon-link-active(){}
+@mixin hook-inverse-icon-button(){}
+@mixin hook-inverse-icon-button-hover(){}
+@mixin hook-inverse-icon-button-active(){}
 @mixin hook-label(){}
 @mixin hook-label-success(){}
 @mixin hook-label-warning(){}
@@ -1425,9 +1425,9 @@
 @mixin hook-inverse-pagination-item-hover(){}
 @mixin hook-inverse-pagination-item-active(){}
 @mixin hook-inverse-pagination-item-disabled(){}
-@mixin hook-position-misc(){}
 @mixin hook-placeholder(){}
 @mixin hook-placeholder-misc(){}
+@mixin hook-position-misc(){}
 @mixin hook-print(){}
 @mixin hook-progress(){}
 @mixin hook-progress-bar(){}
@@ -1451,7 +1451,6 @@
 @mixin hook-section-muted(){}
 @mixin hook-section-primary(){}
 @mixin hook-section-secondary(){}
-@mixin hook-section-media(){}
 @mixin hook-section-overlap(){}
 @mixin hook-section-misc(){}
 @mixin hook-slidenav(){}
@@ -1464,6 +1463,8 @@
 @mixin hook-inverse-slidenav(){}
 @mixin hook-inverse-slidenav-hover(){}
 @mixin hook-inverse-slidenav-active(){}
+@mixin hook-slideshow(){}
+@mixin hook-slideshow-misc(){}
 @mixin hook-sortable(){}
 @mixin hook-sortable-drag(){}
 @mixin hook-sortable-placeholder(){}
