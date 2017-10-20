@@ -64,8 +64,9 @@ function plugin(UIkit) {
                 var fn = this[key];
                 this[key] = e => {
 
-                    this.prevPos = this.pos;
-                    this.pos = (e.touches && e.touches[0] || e).pageX;
+                    var pos = (e.touches && e.touches[0] || e).pageX;
+                    this.prevPos = pos !== this.pos ? this.pos : this.prevPos;
+                    this.pos = pos;
 
                     fn(e);
                 }
@@ -334,7 +335,7 @@ function plugin(UIkit) {
                     this.percent = Math.abs(this.percent) % 1;
                     this.index = this.getIndex(this.index - trunc(percent));
 
-                    if (this.percent < .1) {
+                    if (this.percent < .1 || percent < 0 === this.pos > this.prevPos) {
                         this.index = this.getIndex(percent > 0 ? 'previous' : 'next');
                         this.percent = 1 - this.percent;
                         percent *= -1;
