@@ -26,6 +26,7 @@
  * 1. Create position and stacking context
  * 2. Reset list
  * 3. Clip child elements
+ * 4. Prevent displaying the callout information on iOS.
  */
 
 .uk-slideshow-items {
@@ -38,6 +39,8 @@
     list-style: none;
     /* 3 */
     overflow: hidden;
+    /* 4 */
+    -webkit-touch-callout: none;
 }
 
 
