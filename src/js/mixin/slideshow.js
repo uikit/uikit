@@ -165,8 +165,12 @@ function plugin(UIkit) {
 
                 self: true,
 
-                handler(e, _, el) {
-                    addClass(el, this.clsActive);
+                delegate() {
+                    return `${this.selList} > *`;
+                },
+
+                handler({target}) {
+                    addClass(target, this.clsActive);
                 }
 
             },
@@ -177,8 +181,12 @@ function plugin(UIkit) {
 
                 self: true,
 
-                handler(e, _, el) {
-                    addClass(el, this.clsActivated);
+                delegate() {
+                    return `${this.selList} > *`;
+                },
+
+                handler({target}) {
+                    addClass(target, this.clsActivated);
                 }
 
             },
@@ -189,8 +197,12 @@ function plugin(UIkit) {
 
                 self: true,
 
-                handler({type}, _, el) {
-                    toggleClass($$(`[${this.attrItem}="${index(el)}"]`, this.$el), this.clsActive, endsWith(type, 'show'));
+                delegate() {
+                    return `${this.selList} > *`;
+                },
+
+                handler({type, target}) {
+                    toggleClass($$(`[${this.attrItem}="${index(target)}"]`, this.$el), this.clsActive, endsWith(type, 'show'));
                 }
 
             },
@@ -201,9 +213,13 @@ function plugin(UIkit) {
 
                 self: true,
 
-                handler(e, _, el) {
-                    removeClass(el, this.clsActive);
-                    removeClass(el, this.clsActivated);
+                delegate() {
+                    return `${this.selList} > *`;
+                },
+
+                handler({target}) {
+                    removeClass(target, this.clsActive);
+                    removeClass(target, this.clsActivated);
                 }
 
             },
@@ -214,8 +230,12 @@ function plugin(UIkit) {
 
                 self: true,
 
-                handler(e, _, el) {
-                    UIkit.update(null, el);
+                delegate() {
+                    return `${this.selList} > *`;
+                },
+
+                handler({target}) {
+                    UIkit.update(null, target);
                 }
 
             }
@@ -289,8 +309,8 @@ function plugin(UIkit) {
 
                 if (index !== prevIndex) {
                     this._animation && this._animation.reset();
-                    trigger(this.$el, 'itemhide', [this, this.slides[prevIndex]]);
-                    trigger(this.$el, 'itemshow', [this, current]);
+                    trigger(this.slides[prevIndex], 'itemhide', [this]);
+                    trigger(current, 'itemshow', [this]);
                 }
 
                 this._animation = new Transitioner(this.animation, this.easing, current, next, dir, noop);
@@ -364,15 +384,15 @@ function plugin(UIkit) {
                     return;
                 }
 
-                prev && trigger(this.$el, 'beforeitemhide', [this, prev]);
-                trigger(this.$el, 'beforeitemshow', [this, next]);
+                prev && trigger(prev, 'beforeitemhide', [this]);
+                trigger(next, 'beforeitemshow', [this]);
 
                 this.index = nextIndex;
 
                 var done = () => {
 
-                    prev && trigger(this.$el, 'itemhidden', [this, prev]);
-                    trigger(this.$el, 'itemshown', [this, next]);
+                    prev && trigger(prev, 'itemhidden', [this]);
+                    trigger(next, 'itemshown', [this]);
 
                     fastdom.mutate(() => {
                         this.stack.shift();
@@ -396,14 +416,14 @@ function plugin(UIkit) {
                         done
                     );
 
-                } else {
-
-                    done();
-
                 }
 
-                prev && trigger(this.$el, 'itemhide', [this, prev]);
-                trigger(this.$el, 'itemshow', [this, next]);
+                prev && trigger(prev, 'itemhide', [this]);
+                trigger(next, 'itemshow', [this]);
+
+                if (!prev && !this.initialAnimation) {
+                    done();
+                }
 
                 prev && fastdom.flush(); // iOS 10+ will honor the video.play only if called from a gesture handler
 
@@ -473,8 +493,8 @@ function plugin(UIkit) {
 
                 this.translate(percent);
 
-                trigger(next, createEvent('itemin', false, false, {percent, duration, ease, dir}));
-                trigger(current, createEvent('itemout', false, false, {percent, duration, ease, dir}));
+                triggerUpdate(next, 'itemin', {percent, duration, ease, dir});
+                triggerUpdate(current, 'itemout', {percent: 1 - percent, duration, ease, dir});
 
                 return Promise.all([
                     Transition.start(next, props[1], duration, ease),
@@ -512,8 +532,8 @@ function plugin(UIkit) {
                 var props = translate(percent, dir);
                 css(next, props[1]);
                 css(current, props[0]);
-                trigger(next, createEvent('itemtranslatein', false, false, {percent, dir}));
-                trigger(current, createEvent('itemtranslateout', false, false, {percent, dir}));
+                triggerUpdate(next, 'itemtranslatein', {percent, dir});
+                triggerUpdate(current, 'itemtranslateout', {percent: 1 - percent, dir});
             },
 
             percent() {
@@ -522,6 +542,10 @@ function plugin(UIkit) {
 
         }
 
+    }
+
+    function triggerUpdate(el, type, data) {
+        trigger(el, createEvent(type, false, false, data));
     }
 
     // polyfill for Math.trunc (IE)

@@ -276,6 +276,10 @@ function plugin(UIkit) {
 
                 self: true,
 
+                delegate() {
+                    return `${this.selList} > *`;
+                },
+
                 handler() {
                     if (!this.isToggled()) {
                         this.toggleNow(this.$el, true);
@@ -290,9 +294,13 @@ function plugin(UIkit) {
 
                 self: true,
 
-                handler(e, _, el) {
+                delegate() {
+                    return `${this.selList} > *`;
+                },
 
-                    var i = index(el),
+                handler({target}) {
+
+                    var i = index(target),
                         caption = this.getItem(i).caption;
                         css(this.caption, 'display', caption ? '' : 'none');
                         html(this.caption, caption);

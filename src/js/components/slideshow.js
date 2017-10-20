@@ -12,7 +12,7 @@ function plugin(UIkit) {
     UIkit.use(Slideshow);
 
     var {mixin} = UIkit;
-    var {closest, css, fastdom, endsWith, height, isVisible, noop, Transition} = UIkit.util;
+    var {closest, css, fastdom, endsWith, height, noop, Transition} = UIkit.util;
 
     UIkit.component('slideshow', {
 
@@ -62,17 +62,9 @@ function plugin(UIkit) {
 
     });
 
-    UIkit.component('slideshow-parallax-in', {
+    UIkit.component('slideshow-parallax', {
 
         mixins: [mixin.parallax],
-
-        connected() {
-            fastdom.mutate(() => {
-                var visible;
-                fastdom.measure(() => visible = isVisible(this.$el));
-                fastdom.mutate(() => visible && css(this.$el, this.getCss(this.out ? 0 : 1)));
-            });
-        },
 
         computed: {
 
@@ -86,6 +78,22 @@ function plugin(UIkit) {
         events: [
 
             {
+
+                name: 'itemshown',
+
+                self: true,
+
+                el() {
+                    return this.item;
+                },
+
+                handler() {
+                    css(this.$el, this.getCss(.5));
+                }
+
+            },
+
+            {
                 name: 'itemin itemout',
 
                 self: true,
@@ -96,11 +104,15 @@ function plugin(UIkit) {
 
                 handler({type, detail: {percent, duration, ease, dir}}) {
 
-                    if (isResponsible(type, this.out, dir)) {
-                        Transition.cancel(this.$el);
-                        css(this.$el, this.getCss(dir < 0 ? 1 - percent : percent));
-                        Transition.start(this.$el, this.getCss(dir < 0 ? 0 : 1), duration, ease).catch(noop);
-                    }
+                    Transition.cancel(this.$el);
+                    css(this.$el, this.getCss(getCurrent(type, dir, percent)));
+
+                    Transition.start(this.$el, this.getCss(isIn(type)
+                        ? .5
+                        : dir > 0
+                            ? 1
+                            : 0
+                    ), duration, ease).catch(noop);
 
                 }
             },
@@ -130,12 +142,8 @@ function plugin(UIkit) {
                 },
 
                 handler({type, detail: {percent, dir}}) {
-
-                    if (isResponsible(type, this.out, dir)) {
-                        Transition.cancel(this.$el);
-                        css(this.$el, this.getCss(dir < 0 ? 1 - percent : percent));
-                    }
-
+                    Transition.cancel(this.$el);
+                    css(this.$el, this.getCss(getCurrent(type, dir, percent)));
                 }
             }
 
@@ -143,13 +151,21 @@ function plugin(UIkit) {
 
     });
 
-    UIkit.component('slideshow-parallax-out', UIkit.components.slideshowParallaxIn.extend({defaults: {out: true}}));
+    function isIn(type) {
+        return endsWith(type, 'in');
+    }
 
-    function isResponsible(type, out, dir) {
-        var isInEvent = endsWith(type, 'in'),
-            matches = isInEvent && !out || !isInEvent && out;
+    function getCurrent(type, dir, percent) {
 
-        return matches && dir > 0 || !matches && dir < 0;
+        percent /= 2;
+
+        return !isIn(type)
+            ? dir < 0
+                ? percent
+                : 1 - percent
+            : dir < 0
+                ? 1 - percent
+                : percent;
     }
 
 }
