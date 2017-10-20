@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {mixin, util} = UIkit;
-    var {assign, clamp, css, Dimensions, each, getImage, includes, isUndefined, scrolledOver, toFloat, query, win} = util;
+    var {assign, clamp, css, Dimensions, each, getImage, includes, isNumber, isUndefined, scrolledOver, toFloat, query, win} = util;
 
     var props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
@@ -37,51 +37,55 @@ function plugin(UIkit) {
 
                     var isColor = prop.match(/color/i),
                         isCssProp = isColor || prop === 'opacity',
-                        values = properties[prop];
+                        steps = properties[prop].slice(0),
+                        pos, diff;
 
                     if (isCssProp) {
                         css($el, prop, '');
                     }
 
-                    var start = (!isUndefined(values[1])
-                            ? values[0]
-                            : prop === 'scale'
-                                ? 1
-                                : isCssProp
-                                    ? css($el, prop)
-                                    : 0) || 0,
-                        end = isUndefined(values[1]) ? values[0] : values[1],
-                        unit = includes(values.join(''), '%') ? '%' : 'px',
-                        diff;
+                    if (steps.length < 2) {
+                        steps.unshift((prop === 'scale'
+                            ? 1
+                            : isCssProp
+                                ? css($el, prop)
+                                : 0) || 0);
+                    }
+
+                    var unit = includes(steps.join(''), '%') ? '%' : 'px';
 
                     if (isColor) {
 
                         var color = $el.style.color;
-                        start = parseColor($el, start);
-                        end = parseColor($el, end);
+                        steps = steps.map(step => parseColor($el, step));
                         $el.style.color = color;
 
                     } else {
 
-                        start = toFloat(start);
-                        end = toFloat(end);
-                        diff = Math.abs(start - end);
+                        steps = steps.map(toFloat);
 
                     }
-
-                    props[prop] = {start, end, diff, unit};
 
                     if (prop.match(/^bg/)) {
 
-                        props[prop].pos = css(
-                            css($el, `background-position-${prop[2]}`, ''),
-                            'backgroundPosition'
-                        ).split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
-
                         if (this.covers) {
-                            assign(props[prop], {start: 0, end: start <= end ? diff : -diff});
+
+                            var min = Math.min(...steps),
+                                max = Math.max(...steps);
+
+                            steps = steps.map(step => step - min);
+                            diff = max - min;
+                            pos = `${-1 * Math.max(...steps)}px`;
+
+                        } else {
+
+                            css($el, `background-position-${prop[2]}`, '');
+                            pos = css($el, 'backgroundPosition').split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
+
                         }
                     }
+
+                    props[prop] = {steps, unit, pos, diff};
 
                     return props;
 
@@ -160,35 +164,12 @@ function plugin(UIkit) {
 
                     this.bgProps.forEach(prop => {
 
-                        var {start, end, pos, diff} = this.props[prop],
+                        var {diff} = this.props[prop],
                             attr = prop === 'bgy' ? 'height' : 'width',
                             span = dim[attr] - dimEl[attr];
 
-                        if (!pos.match(/%$/)) {
-                            return;
-                        }
-
-                        if (start >= end) {
-
-                            if (span < diff) {
-                                dimEl[attr] = dim[attr] + diff - span;
-                                this.props[prop].pos = '0px';
-                            } else {
-                                pos = -1 * span / 100 * toFloat(pos);
-                                pos = clamp(pos, diff - span, 0);
-                                this.props[prop].pos = `${pos}px`;
-                            }
-
-                        } else {
-
-                            if (span < diff) {
-                                dimEl[attr] = dim[attr] + diff - span;
-                            } else if ((span / 100 * toFloat(pos)) > diff) {
-                                return;
-                            }
-
-                            this.props[prop].pos = `-${diff}px`;
-
+                        if (span < diff) {
+                            dimEl[attr] = dim[attr] + diff - span;
                         }
 
                         dim = Dimensions.cover(image, dimEl);
@@ -215,11 +196,13 @@ function plugin(UIkit) {
 
             getCss(percent) {
 
-                var translated = false, props = this.props;
+                var translated = false,
+                    props = this.props;
+
                 return Object.keys(props).reduce((css, prop) => {
 
-                    var values = props[prop],
-                        value = getValue(values, percent);
+                    var {steps, unit, pos} = props[prop],
+                        value = getValue(steps, percent);
 
                     switch (prop) {
 
@@ -232,9 +215,9 @@ function plugin(UIkit) {
                             }
 
                             var [x, y] = ['x', 'y'].map(dir => prop === dir
-                                ? value + values.unit
+                                ? value + unit
                                 : props[dir]
-                                    ? getValue(props[dir], percent) + props[dir].unit
+                                    ? getValue(props[dir].steps, percent) + props[dir].unit
                                     : 0
                             );
 
@@ -250,19 +233,22 @@ function plugin(UIkit) {
                         // bg image
                         case 'bgy':
                         case 'bgx':
-                            css[`background-position-${prop[2]}`] = `calc(${values.pos} + ${value + values.unit})`;
+                            css[`background-position-${prop[2]}`] = `calc(${pos} + ${value + unit})`;
                             break;
 
                         // color
                         case 'color':
                         case 'backgroundColor':
                         case 'borderColor':
+
+                            var [start, end, p] = getStep(steps, percent);
+
                             css[prop] = `rgba(${
-                                values.start.map((value, i) => {
-                                    value = value + percent * (values.end[i] - value);
+                                start.map((value, i) => {
+                                    value = value + p * (end[i] - value);
                                     return i === 3 ? toFloat(value) : parseInt(value, 10);
                                 }).join(',')
-                                })`;
+                            })`;
                             break;
 
                         // CSS Filter
@@ -371,10 +357,22 @@ function plugin(UIkit) {
         return css(css(el, 'color', color), 'color').split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => toFloat(n));
     }
 
-    function getValue(prop, percent) {
-        return +(!isUndefined(prop.diff)
-            ? prop.start + prop.diff * percent * (prop.start < prop.end ? 1 : -1)
-            : +prop.end).toFixed(2);
+    function getStep(steps, percent) {
+        var count = steps.length - 1,
+            index = Math.min(Math.floor(count * percent), count - 1),
+            step = steps.slice(index, index + 2);
+
+        step.push(percent === 1 ? 1 : percent % (1 / count) * count);
+
+        return step;
+    }
+
+    function getValue(steps, percent) {
+        var [start, end, p] = getStep(steps, percent);
+        return (isNumber(start)
+            ? start + Math.abs(start - end) * p * (start < end ? 1 : -1)
+            : +end
+        ).toFixed(2);
     }
 
 }
