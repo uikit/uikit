@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Improve slide dragging behaviour
+
 ## 3.0.0 beta 31 (October 20, 2017)
 
 ### Added
@@ -17,7 +23,7 @@
 - Update overview in tests
 - Rename `isWithin` to `within`
 - Allow fullscreen mode for YouTube and Vimeo videos in Lightbox
-- Video component now stops playing the video regardsless of the autoplay setting
+- Video component now stops playing the video regardless of the `autoplay` setting
 
 ### Fixed
 
