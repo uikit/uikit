@@ -13,7 +13,8 @@
 //                  `uk-transition-opaque`
 //                  `uk-transition-slow`
 //
-// Sub-objects:     `uk-transition-toggle`
+// Sub-objects:     `uk-transition-toggle`,
+//                  `uk-transition-active`
 //
 // States:          `uk-hover`
 //                  `uk-active`
@@ -60,7 +61,8 @@ $transition-slow-duration:                       0.7s !default;
 .uk-transition-fade { opacity: 0; }
 
 .uk-transition-toggle:hover [class*='uk-transition-fade'],
-.uk-transition-toggle.uk-hover [class*='uk-transition-fade'] { opacity: 1; }
+.uk-transition-toggle.uk-hover [class*='uk-transition-fade'],
+.uk-transition-active.uk-active [class*='uk-transition-fade'] { opacity: 1; }
 
 /*
  * Scale
@@ -161,11 +163,14 @@ $transition-slow-duration:                       0.7s !default;
 
 /* Hover */
 .uk-transition-toggle:hover [class*='uk-transition-slide'],
-.uk-transition-toggle.uk-hover [class*='uk-transition-slide'] {
+.uk-transition-toggle.uk-hover [class*='uk-transition-slide'],
+.uk-transition-active.uk-active [class*='uk-transition-slide'] {
     opacity: 1;
     -webkit-transform: translateX(0) translateY(0);
     transform: translateX(0) translateY(0);
 }
+
+
 
 
 /* Opacity modifier

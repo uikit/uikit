@@ -140,8 +140,10 @@ $modal-close-outside-hover-color:                $global-inverse-color !default;
 /*
  * 1. Create position context for spinner and close button
  * 2. Dimensions
- * 3. Style
- * 4. Slide-in transition
+ * 3. Fix `max-width: 100%` not working in combination with flex and responsive images in IE11
+ *    `!important` needed to overwrite `uk-width-auto`. See `#modal-media-image` in tests
+ * 4. Style
+ * 5. Slide-in transition
  */
 
 .uk-modal-dialog {
@@ -151,10 +153,11 @@ $modal-close-outside-hover-color:                $global-inverse-color !default;
     box-sizing: border-box;
     margin: 0 auto;
     width: $modal-dialog-width;
-    max-width: 100%;
     /* 3 */
-    background: $modal-dialog-background;
+    max-width: unquote('calc(100% - 0.01px)') !important;
     /* 4 */
+    background: $modal-dialog-background;
+    /* 5 */
     opacity: 0;
     -webkit-transform: translateY(-100px);
     transform: translateY(-100px);
@@ -307,13 +310,15 @@ $modal-close-outside-hover-color:                $global-inverse-color !default;
 
 /*
  * Outside
+ * 1. Prevent scrollbar on small devices
  */
 
 .uk-modal-close-outside {
     top: $modal-close-outside-position;
-    right: $modal-close-outside-position;
-    -webkit-transform: translate($modal-close-outside-translate, -($modal-close-outside-translate));
-    transform: translate($modal-close-outside-translate, -($modal-close-outside-translate));
+    /* 1 */
+    right: (-$modal-close-padding);
+    -webkit-transform: translate(0, -($modal-close-outside-translate));
+    transform: translate(0, -($modal-close-outside-translate));
     color: $modal-close-outside-color;
     @if(mixin-exists(hook-modal-close-outside)) {@include hook-modal-close-outside();}
 }
@@ -321,6 +326,18 @@ $modal-close-outside-hover-color:                $global-inverse-color !default;
 .uk-modal-close-outside:hover {
     color: $modal-close-outside-hover-color;
     @if(mixin-exists(hook-modal-close-outside-hover)) {@include hook-modal-close-outside-hover();}
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    /* 1 */
+    .uk-modal-close-outside {
+        right: $modal-close-outside-position;
+        -webkit-transform: translate($modal-close-outside-translate, -($modal-close-outside-translate));
+        transform: translate($modal-close-outside-translate, -($modal-close-outside-translate));
+    }
+
 }
 
 /*
