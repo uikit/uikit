@@ -34,7 +34,7 @@ $dotnav-item-active-background:                  fade-out($global-color, 0.6) !d
 
 /*
  * 1. Allow items to wrap into the next line
- * 2. Reset lists
+ * 2. Reset list
  * 3. Gutter
  */
 
@@ -154,8 +154,8 @@ $dotnav-item-active-background:                  fade-out($global-color, 0.6) !d
 // Inverse
 // ========================================================================
 
-$inverse-dotnav-item-background:                fade-out($inverse-global-color, 0.6) !default;
-$inverse-dotnav-item-hover-background:          fade-out($inverse-global-color, 0.3) !default;
+$inverse-dotnav-item-background:                fade-out($inverse-global-color, 0.3) !default;
+$inverse-dotnav-item-hover-background:          fade-out($inverse-global-color, 0.2) !default;
 $inverse-dotnav-item-onclick-background:        fade-out($inverse-global-color, 0.1) !default;
 $inverse-dotnav-item-active-background:         fade-out($inverse-global-color, 0.1) !default;
 

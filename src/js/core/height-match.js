@@ -1,4 +1,4 @@
-import { $ } from '../util/index';
+import { $$, attr, css, isUndefined, isVisible } from '../util/index';
 
 export default function (UIkit) {
 
@@ -18,8 +18,8 @@ export default function (UIkit) {
 
         computed: {
 
-            elements() {
-                return $(this.target, this.$el);
+            elements({target}, $el) {
+                return $$(target, $el);
             }
 
         },
@@ -30,11 +30,11 @@ export default function (UIkit) {
 
                 var lastOffset = false;
 
-                this.elements.css('minHeight', '');
+                css(this.elements, 'minHeight', '');
 
                 this.rows = !this.row
                     ? [this.match(this.elements)]
-                    : this.elements.toArray().reduce((rows, el) => {
+                    : this.elements.reduce((rows, el) => {
 
                         if (lastOffset !== el.offsetTop) {
                             rows.push([el]);
@@ -46,16 +46,12 @@ export default function (UIkit) {
 
                         return rows;
 
-                    }, []).map(elements => this.match($(elements)));
+                    }, []).map(elements => this.match(elements));
             },
 
             write() {
 
-                this.rows.forEach(({height, elements}) =>
-                    elements && elements.each((_, el) =>
-                        el.style.minHeight = `${height}px`
-                    )
-                );
+                this.rows.forEach(({height, elements}) => css(elements, 'minHeight', height));
 
             },
 
@@ -73,18 +69,17 @@ export default function (UIkit) {
 
                 var max = 0, heights = [];
 
-                elements = elements
-                    .each((_, el) => {
+                elements
+                    .forEach(el => {
 
-                        var $el, style, hidden;
+                        var style, hidden;
 
-                        if (el.offsetHeight === 0) {
-                            $el = $(el);
-                            style = $el.attr('style') || null;
-                            hidden = $el.attr('hidden') || null;
+                        if (!isVisible(el)) {
+                            style = attr(el, 'style');
+                            hidden = attr(el, 'hidden');
 
-                            $el.attr({
-                                style: `${style};display:block !important;`,
+                            attr(el, {
+                                style: `${style || ''};display:block !important;`,
                                 hidden: null
                             });
                         }
@@ -92,12 +87,13 @@ export default function (UIkit) {
                         max = Math.max(max, el.offsetHeight);
                         heights.push(el.offsetHeight);
 
-                        if ($el) {
-                            $el.attr({style, hidden});
+                        if (!isUndefined(style)) {
+                            attr(el, {style, hidden});
                         }
 
-                    })
-                    .filter(i => heights[i] < max);
+                    });
+
+                elements = elements.filter((el, i) => heights[i] < max);
 
                 return {height: max, elements};
             }

@@ -11,7 +11,7 @@ export default function (UIkit) {
                 var inview = isInView(this.$el);
 
                 if (!this.isInView && inview) {
-                    this.$el[0].src = this.$el[0].src;
+                    this.$el.src = this.$el.src;
                 }
 
                 this.isInView = inview;

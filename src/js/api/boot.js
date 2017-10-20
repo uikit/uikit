@@ -1,12 +1,12 @@
-import { fastdom, Observer, on, ready } from '../util/index';
+import { createEvent, doc, docEl, fastdom, hasAttr, Observer, on, ready } from '../util/index';
 
 export default function (UIkit) {
 
-    var doc = document.documentElement, {connect, disconnect} = UIkit;
+    var {connect, disconnect} = UIkit;
 
     if (Observer) {
 
-        if (document.body) {
+        if (doc.body) {
 
             init();
 
@@ -14,28 +14,28 @@ export default function (UIkit) {
 
             (new Observer(function () {
 
-                if (document.body) {
+                if (doc.body) {
                     this.disconnect();
                     init();
                 }
 
-            })).observe(doc, {childList: true, subtree: true});
+            })).observe(docEl, {childList: true, subtree: true});
 
         }
 
     } else {
 
         ready(() => {
-            apply(document.body, connect);
-            on(doc, 'DOMNodeInserted', e => apply(e.target, connect));
-            on(doc, 'DOMNodeRemoved', e => apply(e.target, disconnect));
+            apply(doc.body, connect);
+            on(docEl, 'DOMNodeInserted', e => apply(e.target, connect));
+            on(docEl, 'DOMNodeRemoved', e => apply(e.target, disconnect));
         });
 
     }
 
     function init() {
 
-        apply(document.body, connect);
+        apply(doc.body, connect);
 
         fastdom.flush();
 
@@ -50,24 +50,30 @@ export default function (UIkit) {
                     apply(removedNodes[i], disconnect)
                 }
 
-                UIkit.update('update', target, true);
+                UIkit.update(createEvent('update', true, false, {mutation: true}), target, true);
 
             })
-        )).observe(doc, {childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['href']});
+        )).observe(docEl, {
+            childList: true,
+            subtree: true,
+            characterData: true,
+            attributes: true,
+            attributeFilter: ['href']
+        });
 
         UIkit._initialized = true;
     }
 
     function apply(node, fn) {
 
-        if (node.nodeType !== Node.ELEMENT_NODE || node.hasAttribute('uk-no-boot')) {
+        if (node.nodeType !== 1 || hasAttr(node, 'uk-no-boot')) {
             return;
         }
 
         fn(node);
-        node = node.firstChild;
+        node = node.firstElementChild;
         while (node) {
-            var next = node.nextSibling;
+            var next = node.nextElementSibling;
             apply(node, fn);
             node = next;
         }

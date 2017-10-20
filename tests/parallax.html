@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Parallax - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
         <style type="text/css">
 
@@ -17,8 +17,12 @@
     <body>
 
         <!-- uk-flex-top is needed to make vertical margin work for IE11 -->
-        <div class="uk-section uk-section-media uk-background-cover uk-background-primary uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('images/dark.jpg');" uk-parallax="bgy: -400; sepia:100" uk-height-viewport="offset-top: true">
-            <h1 class="uk-heading-hero uk-margin-auto uk-margin-auto-vertical">Parallax</h1>
+        <div class="uk-section-default">
+            <div class="uk-section uk-background-cover uk-background-primary uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('images/dark.jpg');" uk-parallax="bgy: -400; sepia:100" uk-height-viewport="offset-top: true">
+
+                <h1 class="uk-heading-hero uk-margin-auto uk-margin-auto-vertical">Parallax</h1>
+
+            </div>
         </div>
 
         <div class="uk-section uk-section-default">
@@ -87,6 +91,15 @@
                     </div>
                 </div>
 
+                <h2>Multiple Steps</h2>
+
+                <div class="uk-height-large uk-background-cover uk-margin uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('images/dark.jpg');" uk-parallax="bgx: 0,200,0,200">
+                    <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
+                        <h1 uk-parallax="x: -200,200,-200,200; scale: 2,1,2,1;">Headline</h1>
+                        <p uk-parallax="x: 200,-200,200,-200; scale: 1,0,1,0,1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+
                 <h2>Javascript Options</h2>
 
                 <div class="uk-overflow-auto">
@@ -129,6 +142,8 @@
                 </div>
 
                 <h2>Animated properties</h2>
+
+                <p>You can define multiple steps by using a comma separated list of values. (e.g. x: 0,50,150)</p>
 
                 <div class="uk-overflow-auto">
                     <table class="uk-table uk-table-striped">

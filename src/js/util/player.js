@@ -1,4 +1,4 @@
-import { assign, isString, one, promise, toNode } from './index';
+import { assign, attr, includes, isString, once, Promise, toNode, win } from './index';
 
 var id = 0;
 
@@ -39,9 +39,9 @@ export class Player {
 
         if (youtube || vimeo) {
 
-            return this.ready = promise(resolve => {
+            return this.ready = new Promise(resolve => {
 
-                one(this.el, 'load', () => {
+                once(this.el, 'load', () => {
                     if (youtube) {
                         var listener = () => post(this.el, {event: 'listening', id: this.id});
                         poller = setInterval(listener, 100);
@@ -55,13 +55,13 @@ export class Player {
                         poller && clearInterval(poller);
                     });
 
-                this.el.setAttribute('src', `${this.el.src}${~this.el.src.indexOf('?') ? '&' : '?'}${youtube ? 'enablejsapi=1' : `api=1&player_id=${id}`}`);
+                attr(this.el, 'src', `${this.el.src}${includes(this.el.src, '?') ? '&' : '?'}${youtube ? 'enablejsapi=1' : `api=1&player_id=${id}`}`);
 
             });
 
         }
 
-        return promise.resolve();
+        return Promise.resolve();
 
     }
 
@@ -101,7 +101,7 @@ export class Player {
             this.enableApi().then(() => post(this.el, {func: 'mute', method: 'setVolume', value: 0}))
         } else if (this.isHTML5()) {
             this.el.muted = true;
-            this.el.setAttribute('muted', '');
+            attr(this.el, 'muted', '');
         }
 
     }
@@ -116,9 +116,9 @@ function post(el, cmd) {
 
 function listen(cb) {
 
-    return promise(resolve => {
+    return new Promise(resolve => {
 
-        one(window, 'message', (_, data) => resolve(data), false, ({data}) => {
+        once(win, 'message', (_, data) => resolve(data), false, ({data}) => {
 
             if (!data || !isString(data)) {
                 return;
@@ -126,7 +126,7 @@ function listen(cb) {
 
             try {
                 data = JSON.parse(data);
-            } catch(err) {
+            } catch (e) {
                 return;
             }
 

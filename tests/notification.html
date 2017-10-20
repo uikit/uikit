@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Notification - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -47,33 +47,33 @@
                 <div>
 
                     <p uk-margin>
-                        <button class="uk-button uk-button-default" type="button" data-message="Message" data-pos="top-left">Top Left</button>
-                        <button class="uk-button uk-button-default" type="button" data-message="Message" data-pos="top-center">Top Center</button>
-                        <button class="uk-button uk-button-default" type="button" data-message="Message" data-pos="top-right">Top Right</button>
+                        <button class="uk-button uk-button-default" type="button" onclick="UIkit.notification({message: 'Message', pos: 'top-left'})">Top Left</button>
+                        <button class="uk-button uk-button-default" type="button" onclick="UIkit.notification({message: 'Message', pos: 'top-center'})">Top Center</button>
+                        <button class="uk-button uk-button-default" type="button" onclick="UIkit.notification({message: 'Message', pos: 'top-right'})">Top Right</button>
                     </p>
 
                     <p uk-margin>
-                        <button class="uk-button uk-button-default" type="button" data-message="Message" data-pos="bottom-left">Bottom Left</button>
-                        <button class="uk-button uk-button-default" type="button" data-message="Message" data-pos="bottom-center">Bottom Center</button>
-                        <button class="uk-button uk-button-default" type="button" data-message="Message" data-pos="bottom-right">Bottom Right</button>
+                        <button class="uk-button uk-button-default" type="button" onclick="UIkit.notification({message: 'Message', pos: 'bottom-left'})">Bottom Left</button>
+                        <button class="uk-button uk-button-default" type="button" onclick="UIkit.notification({message: 'Message', pos: 'bottom-center'})">Bottom Center</button>
+                        <button class="uk-button uk-button-default" type="button" onclick="UIkit.notification({message: 'Message', pos: 'bottom-right'})">Bottom Right</button>
                     </p>
 
                     <h2>Styles</h2>
 
                     <p uk-margin>
-                        <button class="uk-button uk-button-default" type="button" data-message="Primary message" data-status="primary">Primary</button>
-                        <button class="uk-button uk-button-default" type="button" data-message="Success message" data-status="success">Success</button>
-                        <button class="uk-button uk-button-default" type="button" data-message="Warning message" data-status="warning">Warning</button>
-                        <button class="uk-button uk-button-default" type="button" data-message="Danger message" data-status="danger">Danger</button>
+                        <button class="uk-button uk-button-default" type="button" onclick="UIkit.notification({message: 'Primary message', status: 'primary'})">Primary</button>
+                        <button class="uk-button uk-button-default" type="button" onclick="UIkit.notification({message: 'Success message', status: 'success'})">Success</button>
+                        <button class="uk-button uk-button-default" type="button" onclick="UIkit.notification({message: 'Warning message', status: 'warning'})">Warning</button>
+                        <button class="uk-button uk-button-default" type="button" onclick="UIkit.notification({message: 'Danger message', status: 'danger'})">Danger</button>
                     </p>
 
                     <h2>Specials</h2>
 
                     <p uk-margin>
-                        <button class="uk-button uk-button-default" type="button" data-message="<span uk-icon='icon: check'></span> Message with an icon">With icon</button>
-                        <button class="uk-button uk-button-default" type="button" data-message="<a href='#new-location'>Message with a link</a>">With link</button>
-                        <button class="uk-button uk-button-default" type="button" data-message="Message without timeout" data-timeout="0">No Timeout</button>
-                        <a id="close-all" class="uk-button uk-button-default">Close All</a>
+                        <button class="uk-button uk-button-default" type="button" onclick="UIkit.notification({message: '<span uk-icon=\'icon: check\'></span> Message with an icon'})">With icon</button>
+                        <button class="uk-button uk-button-default" type="button" onclick="UIkit.notification({message: '<a href=\'#new-location\'>Message with a link</a>'})">With link</button>
+                        <button class="uk-button uk-button-default" type="button"  onclick="UIkit.notification({message: 'Message without timeout', timeout: 0})">No Timeout</button>
+                        <button class="uk-button uk-button-default" onclick="UIkit.notification.closeAll()">Close All</button>
                     </p>
 
                 </div>
@@ -128,16 +128,5 @@
 
         </div>
 
-        <script>
-
-            jQuery('button').on('click', function () {
-                UIkit.notification($(this).data());
-            });
-
-            jQuery('#close-all').on('click', function () {
-                UIkit.notification.closeAll();
-            });
-
-        </script>
     </body>
 </html>

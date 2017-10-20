@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Lightbox - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -18,15 +18,14 @@
             <h2>Animations</h2>
 
             <div class="uk-margin">
-                <select id="animation-switcher" class="uk-select uk-form-width-small">
+                <select id="js-animation-switcher" class="uk-select uk-form-width-small">
                     <option value="slide">Slide</option>
-                    <option value="swipe">Swipe</option>
                     <option value="fade">Fade</option>
                     <option value="scale">Scale</option>
                 </select>
             </div>
 
-            <div id="lightbox-animation" class="uk-child-width-1-5@m" uk-grid uk-lightbox>
+            <div id="js-lightbox-animation" class="uk-child-width-1-5@m" uk-grid uk-lightbox>
                 <div>
 
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size1.jpg" caption="900x600">
@@ -94,7 +93,7 @@
                 </div>
                 <div>
 
-                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4" caption="Video">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4" caption="Video" poster="images/photo.jpg">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
                             <figcaption class="uk-margin-small-top">Video</figcaption>
@@ -123,6 +122,7 @@
 
                 </div>
                 <div>
+
                     <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="//www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4740.819266853735!2d9.99008871708242!3d53.550454675412404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3f9d24afe84a0263!2sRathaus!5e0!3m2!1sde!2sde!4v1499675200938" caption="Iframe" type="iframe">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
@@ -136,7 +136,7 @@
 
             <h2>Dynamic lightbox</h2>
 
-            <button id="lightbox" class="uk-button uk-button-default" type="button">Dynamic lightbox</button>
+            <button id="js-lightbox" class="uk-button uk-button-default" type="button">Dynamic lightbox</button>
 
             <h2>Javascript Options</h2>
 
@@ -158,6 +158,30 @@
                             <td>String</td>
                             <td>slide</td>
                             <td>The animation to use. (fade, slide, scale)</td>
+                        </tr>
+                        <tr>
+                            <td><code>autoplay</code></td>
+                            <td>Boolean</td>
+                            <td>0</td>
+                            <td>Starts autoplaying the lightbox.</td>
+                        </tr>
+                        <tr>
+                            <td><code>autoplayInterval</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>The delay between switching slides in autoplay mode.</td>
+                        </tr>
+                        <tr>
+                            <td><code>pauseOnHover</code></td>
+                            <td>Boolean</td>
+                            <td>0</td>
+                            <td>Pause autoplay mode on hover.</td>
+                        </tr>
+                        <tr>
+                            <td><code>video-autoplay</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Lets videos autoplay.</td>
                         </tr>
                         <tr>
                             <td><code>toggle</code></td>
@@ -186,13 +210,31 @@
                             <td><code>animation</code></td>
                             <td>String</td>
                             <td>slide</td>
-                            <td>The animation to use. (fade, slide, scale)</td>
+                            <td>The animation to use. (slide, fade, scale)</td>
                         </tr>
                         <tr>
-                            <td><code>duration</code></td>
+                            <td><code>autoplay</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Starts autoplaying the lightbox.</td>
+                        </tr>
+                        <tr>
+                            <td><code>autoplayInterval</code></td>
                             <td>Number</td>
-                            <td>400</td>
-                            <td>The animation duration.</td>
+                            <td>7000</td>
+                            <td>The delay between switching slides in autoplay mode.</td>
+                        </tr>
+                        <tr>
+                            <td><code>video-autoplay</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Lightbox videos autoplay.</td>
+                        </tr>
+                        <tr>
+                            <td><code>velocity</code></td>
+                            <td>Number</td>
+                            <td>2</td>
+                            <td>The animation velocity (pixel/ms).</td>
                         </tr>
                         <tr>
                             <td><code>index</code></td>
@@ -232,24 +274,22 @@
 
         <script>
 
-            (function () {
+            var util = UIkit.util;
 
-                $('#animation-switcher').on('change', function() {
-                    $('#lightbox-animation').attr('animation', this.value);
-                });
+            util.on('#js-animation-switcher', 'change', function() {
+                util.attr(util.$('#js-lightbox-animation'), 'animation', this.value);
+            });
 
-                $('#lightbox').on('click', function (e) {
-                    e.preventDefault();
+            util.on('#js-lightbox', 'click', function (e) {
+                e.preventDefault();
 
-                    UIkit.lightboxPanel({
-                        items: [
-                            {source: 'images/size1.jpg', caption: '900x600'},
-                            {source: 'images/size2.jpg', caption: '700x500'},
-                        ]
-                    }).show();
-                });
-
-            })();
+                UIkit.lightboxPanel({
+                    items: [
+                        {source: 'images/size1.jpg', caption: '900x600'},
+                        {source: 'images/size2.jpg', caption: '700x500'},
+                    ]
+                }).show();
+            });
 
         </script>
 

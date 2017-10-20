@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Utility - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
         <style type="text/css">
 
@@ -181,7 +181,7 @@
             <div class="uk-child-width-1-3@s" uk-grid>
                 <div>
                     <p>JS Responsive Width (Iframe)</p>
-                    <iframe src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen uk-responsive></iframe>
+                    <iframe src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;showinfo=0&amp;rel=0&amp;modestbranding=1" width="560" height="315" frameborder="0" allowfullscreen uk-responsive></iframe>
                 </div>
                 <div>
                     <p>Responsive Height (Image)</p>
@@ -464,14 +464,16 @@
                 <div>
 
                     <button class="uk-button uk-button-default uk-margin-bottom" type="button" uk-toggle="target: +video">Toggle Video</button>
-                    <video src="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4" width="640" height="360" controls uk-video="automute: true"></video>
+                    <video controls playsinline uk-video="automute: true">
+                        <source src="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4" type="video/mp4">
+                        <source src="//www.quirksmode.org/html5/videos/big_buck_bunny.ogv" type="video/ogg">
+                    </video>
 
                 </div>
                 <div>
 
                     <button class="uk-button uk-button-default uk-margin-bottom" type="button" uk-toggle="target: +iframe">Toggle Video</button>
-                    <iframe src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;showinfo=0&amp;rel=0&amp;modestbranding=1" width="640" height="360" frameborder="0" allowfullscreen uk-responsive uk-video="automute: true"></iframe>
-
+                    <iframe src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;showinfo=0&amp;rel=0&amp;modestbranding=1&amp;playsinline=1" width="560" height="315" frameborder="0" allowfullscreen uk-responsive uk-video="automute: true"></iframe>
                 </div>
             </div>
 

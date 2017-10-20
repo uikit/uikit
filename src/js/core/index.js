@@ -1,4 +1,4 @@
-import { animationstart, fastdom, getStyle, on, toMs } from '../util/index';
+import { animationstart, css, doc, fastdom, on, toMs, win } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
@@ -12,6 +12,7 @@ import HeightMatch from './height-match';
 import HeightViewport from './height-viewport';
 import Hover from './hover';
 import Icon from './icon';
+import Leader from './leader';
 import Margin from './margin';
 import Modal from './modal';
 import Nav from './nav';
@@ -26,30 +27,29 @@ import Svg from './svg';
 import Switcher from './switcher';
 import Tab from './tab';
 import Toggle from './toggle';
-import Leader from './leader';
 import Video from './video';
 
 export default function (UIkit) {
 
     var scroll = 0, started = 0;
 
-    on(window, 'load resize', UIkit.update);
-    on(window, 'scroll', e => {
-        e.dir = scroll < window.pageYOffset ? 'down' : 'up';
-        scroll = window.pageYOffset;
+    on(win, 'load resize', UIkit.update);
+    on(win, 'scroll', e => {
+        e.dir = scroll < win.pageYOffset ? 'down' : 'up';
+        scroll = win.pageYOffset;
         UIkit.update(e);
         fastdom.flush();
     });
 
-    animationstart && on(document, animationstart, ({target}) => {
-        if ((getStyle(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
+    animationstart && on(doc, animationstart, ({target}) => {
+        if ((css(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
             started++;
-            document.body.style.overflowX = 'hidden';
+            doc.body.style.overflowX = 'hidden';
             setTimeout(() => {
                 if (!--started) {
-                    document.body.style.overflowX = '';
+                    doc.body.style.overflowX = '';
                 }
-            }, toMs(getStyle(target, 'animationDuration')) + 100);
+            }, toMs(css(target, 'animationDuration')) + 100);
         }
     }, true);
 

@@ -1,4 +1,4 @@
-import { createEvent, fastdom, ready } from '../util/index';
+import { createEvent, fastdom, includes, ready } from '../util/index';
 
 export default function (UIkit) {
 
@@ -28,7 +28,7 @@ export default function (UIkit) {
             return;
         }
 
-        if (!~UIkit.elements.indexOf(this.$options.el)) {
+        if (!includes(UIkit.elements, this.$options.el)) {
             UIkit.elements.push(this.$options.el);
         }
 
@@ -67,7 +67,7 @@ export default function (UIkit) {
 
         delete UIkit.instances[this._uid];
 
-        this._initEvents(true);
+        this._unbindEvents();
         this._callHook('disconnected');
 
         this._connected = false;
@@ -78,7 +78,9 @@ export default function (UIkit) {
 
         e = createEvent(e || 'update');
 
-        if (e.type === 'update') {
+        var {type, detail} = e;
+
+        if (type === 'update' && detail && detail.mutation) {
             this._computeds = {};
         }
 
@@ -90,18 +92,18 @@ export default function (UIkit) {
 
         updates.forEach((update, i) => {
 
-            if (e.type !== 'update' && (!update.events || !~update.events.indexOf(e.type))) {
+            if (type !== 'update' && !includes(update.events, type)) {
                 return;
             }
 
-            if (update.read && !~fastdom.reads.indexOf(this._frames.reads[i])) {
+            if (update.read && !includes(fastdom.reads, this._frames.reads[i])) {
                 this._frames.reads[i] = fastdom.measure(() => {
                     update.read.call(this, e);
                     delete this._frames.reads[i];
                 });
             }
 
-            if (update.write && !~fastdom.writes.indexOf(this._frames.writes[i])) {
+            if (update.write && !includes(fastdom.writes, this._frames.writes[i])) {
                 this._frames.writes[i] = fastdom.mutate(() => {
                     update.write.call(this, e);
                     delete this._frames.writes[i];

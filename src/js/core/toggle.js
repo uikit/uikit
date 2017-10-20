@@ -1,4 +1,4 @@
-import { $, $trigger, hasTouch, isTouch, pointerEnter, pointerLeave, query } from '../util/index';
+import { closest, hasTouch, includes, isTouch, isVisible, matches, pointerEnter, pointerLeave, queryAll, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -25,8 +25,9 @@ export default function (UIkit) {
 
         computed: {
 
-            target() {
-                return query(this.$props.target || this.href, this.$el) || this.$el;
+            target({href, target}, $el) {
+                target = queryAll(target || href, $el);
+                return target.length && target || [$el];
             }
 
         },
@@ -38,7 +39,7 @@ export default function (UIkit) {
                 name: `${pointerEnter} ${pointerLeave}`,
 
                 filter() {
-                    return ~this.mode.indexOf('hover');
+                    return includes(this.mode, 'hover');
                 },
 
                 handler(e) {
@@ -54,22 +55,22 @@ export default function (UIkit) {
                 name: 'click',
 
                 filter() {
-                    return ~this.mode.indexOf('click') || hasTouch;
+                    return includes(this.mode, 'click') || hasTouch;
                 },
 
                 handler(e) {
 
-                    if (!isTouch(e) && !~this.mode.indexOf('click')) {
+                    if (!isTouch(e) && !includes(this.mode, 'click')) {
                         return;
                     }
 
                     // TODO better isToggled handling
-                    var link = $(e.target).closest('a[href]')[0];
-                    if ($(e.target).closest('a[href="#"], button').length
-                        || link && (
+                    var link;
+                    if (closest(e.target, 'a[href="#"], button')
+                        || (link = closest(e.target, 'a[href]')) && (
                             this.cls
-                            || !this.target.is(':visible')
-                            || link.hash && this.target.is(link.hash)
+                            || !isVisible(this.target)
+                            || link.hash && matches(this.target, link.hash)
                         )
                     ) {
                         e.preventDefault();
@@ -85,12 +86,12 @@ export default function (UIkit) {
 
             write() {
 
-                if (!~this.mode.indexOf('media') || !this.media) {
+                if (!includes(this.mode, 'media') || !this.media) {
                     return;
                 }
 
                 var toggled = this.isToggled(this.target);
-                if (window.matchMedia(this.media).matches ? !toggled : toggled) {
+                if (win.matchMedia(this.media).matches ? !toggled : toggled) {
                     this.toggle();
                 }
 
@@ -103,7 +104,7 @@ export default function (UIkit) {
         methods: {
 
             toggle(type) {
-                if (!$trigger(this.target, type || 'toggle', [this], true).isDefaultPrevented()) {
+                if (trigger(this.target, type || 'toggle', [this])) {
                     this.toggleElement(this.target);
                 }
             }

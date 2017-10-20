@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Form - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -289,18 +289,19 @@
                         <div>
 
                             <span class="uk-form-label">Checkbox</span>
-                            <label><input class="uk-checkbox test-indeterminate" type="checkbox"> Indeterminate</label><br>
+                            <label><input class="uk-checkbox js-indeterminate" type="checkbox"> Indeterminate</label><br>
                             <label><input class="uk-checkbox" type="checkbox"> Unchecked</label><br>
                             <label><input class="uk-checkbox" type="checkbox"> Unchecked</label><br>
                             <label><input class="uk-checkbox" type="checkbox" disabled> Disabled</label><br>
-                            <label><input class="uk-checkbox test-indeterminate" type="checkbox" disabled> Disabled Indeterminate</label>
+                            <label><input class="uk-checkbox js-indeterminate" type="checkbox" disabled> Disabled Indeterminate</label>
                             <div class="uk-margin uk-grid-small uk-child-width-auto" uk-grid>
-                                <label><input class="uk-checkbox test-indeterminate" type="checkbox"> A</label>
+                                <label><input class="uk-checkbox js-indeterminate" type="checkbox"> A</label>
                                 <label><input class="uk-checkbox" type="checkbox"> B</label>
                                 <label><input class="uk-checkbox" type="checkbox" disabled> C</label>
-                                <label><input class="uk-checkbox test-indeterminate" type="checkbox" disabled> D</label>
+                                <label><input class="uk-checkbox js-indeterminate" type="checkbox" disabled> D</label>
                             </div>
-                            <script>$('.test-indeterminate').prop("indeterminate", true);</script>
+
+                            <script>UIkit.util.$$('.js-indeterminate').forEach(function (el) { el.indeterminate = true; })</script>
 
                         </div>
 
@@ -362,7 +363,7 @@
 
                             <div class="uk-margin">
 
-                                <div uk-form-custom="target: > * > span:last">
+                                <div uk-form-custom="target: > * > span:last-child">
                                     <select>
                                         <option value="1">Option 01</option>
                                         <option value="2">Option 02</option>
@@ -379,7 +380,7 @@
 
                             <div class="uk-margin">
 
-                                <div uk-form-custom="target: > * > span:first">
+                                <div uk-form-custom="target: > * > span:first-child">
                                     <select>
                                         <option value="">Please select...</option>
                                         <option value="1">Option 01</option>

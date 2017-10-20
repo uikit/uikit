@@ -1,4 +1,4 @@
-import { classify, createEvent, isString, mergeOptions, toNode } from '../util/index';
+import { classify, createEvent, doc, isString, mergeOptions, toNode } from '../util/index';
 
 export default function (UIkit) {
 
@@ -75,7 +75,7 @@ export default function (UIkit) {
     Object.defineProperty(UIkit, 'container', {
 
         get() {
-            return container || document.body;
+            return container || doc.body;
         },
 
         set(element) {
@@ -90,15 +90,15 @@ export default function (UIkit) {
 
     function apply(node, fn) {
 
-        if (node.nodeType !== Node.ELEMENT_NODE) {
+        if (node.nodeType !== 1) {
             return;
         }
 
         fn(node);
-        node = node.firstChild;
+        node = node.firstElementChild;
         while (node) {
             apply(node, fn);
-            node = node.nextSibling;
+            node = node.nextElementSibling;
         }
     }
 

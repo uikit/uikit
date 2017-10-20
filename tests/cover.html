@@ -5,7 +5,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Cover - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
         <style type="text/css">
 
@@ -40,9 +40,9 @@
                     <h3>Video</h3>
 
                     <div class="test-height uk-cover-container uk-light">
-                        <video autoplay loop muted uk-cover>
-                            <source src="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test1" type="video/mp4">
-                            <source src="//www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test1" type="video/ogg">
+                        <video autoplay loop muted playsinline uk-cover>
+                            <source src="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4" type="video/mp4">
+                            <source src="//www.quirksmode.org/html5/videos/big_buck_bunny.ogv" type="video/ogg">
                         </video>
                         <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
                             <h1>Heading</h1>
@@ -55,7 +55,7 @@
                     <h3>Iframe (YouTube)</h3>
 
                     <div class="test-height uk-cover-container uk-light">
-                        <iframe src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen uk-cover></iframe>
+                        <iframe src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent&amp;playsinline=1" width="560" height="315" frameborder="0" allowfullscreen uk-cover></iframe>
                         <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
                             <h1>Heading</h1>
                         </div>
@@ -67,7 +67,7 @@
                     <h3>Iframe (Vimeo)</h3>
 
                     <div class="test-height uk-cover-container uk-light">
-                        <iframe src="//player.vimeo.com/video/1084537?title=0&amp;byline=0&amp;autoplay=1&amp;loop=1&amp;setVolume=0" width="500" height="281" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen uk-cover></iframe>
+                        <iframe src="//player.vimeo.com/video/1084537?title=0&amp;byline=0&amp;autoplay=1&amp;loop=1&amp;setVolume=0" width="500" height="281" frameborder="0" allowfullscreen uk-cover></iframe>
                         <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
                             <h1>Heading</h1>
                         </div>
@@ -85,7 +85,7 @@
 
                     <div class="uk-cover-container uk-light">
                         <canvas width="600" height="400"></canvas>
-                        <video autoplay loop muted uk-cover>
+                        <video autoplay loop muted playsinline uk-cover>
                             <source src="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test2" type="video/mp4">
                             <source src="//www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test2" type="video/ogg">
                         </video>
@@ -101,7 +101,7 @@
 
                     <div class="uk-cover-container uk-light">
                         <canvas width="600" height="400"></canvas>
-                        <iframe src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen uk-cover></iframe>
+                        <iframe src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent&amp;playsinline=1" width="560" height="315" frameborder="0" allowfullscreen uk-cover></iframe>
                         <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
                             <h1>Heading</h1>
                         </div>
@@ -118,7 +118,7 @@
                     <h3>Video (JS)</h3>
 
                     <div class="uk-cover-container uk-light" uk-height-viewport>
-                        <video autoplay loop muted uk-cover>
+                        <video autoplay loop muted playsinline uk-cover>
                             <source src="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test3" type="video/mp4">
                             <source src="//www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test3" type="video/ogg">
                         </video>
@@ -133,7 +133,7 @@
                     <h3>Iframe (YouTube)</h3>
 
                     <div class="uk-cover-container uk-light" uk-height-viewport>
-                        <iframe src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen uk-cover></iframe>
+                        <iframe src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=1&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent&amp;playsinline=1" width="560" height="315" frameborder="0" allowfullscreen uk-cover></iframe>
                         <div class="uk-position-cover uk-flex uk-flex-center uk-flex-middle">
                             <h1>Heading</h1>
                         </div>
@@ -159,7 +159,7 @@
                             <td><code>automute</code></td>
                             <td>Boolean</td>
                             <td>true</td>
-                            <td>Tries to automute the iframe's video.</td>
+                            <td>Automutes the video.</td>
                         </tr>
                         <tr>
                             <td><code>width</code></td>

@@ -1,10 +1,37 @@
 # Changelog
 
+## 3.0.0 beta 31 (October 20, 2017)
+
+### Added
+
+- Add Slideshow component
+- Add style support for radio and checkbox in Firefox
+- Add `autoplay` setting to Lightbox
+- Add `poster` setting to Lightbox items
+
+### Changed
+
+- IMPORTANT: Remove jQuery dependency
+- Remove `uk-section-media` from Section component
+- Change `uk-tab-left` text alignment to left
+- Update overview in tests
+- Rename `isWithin` to `within`
+- Allow fullscreen mode for YouTube and Vimeo videos in Lightbox
+- Video component now stops playing the video regardsless of the autoplay setting
+
+### Fixed
+
+- Fix responsive images in modal for IE11
+- Fix close button outside causing a scrollbar on small devices
+- Fix inverse style for `uk-hr`
+- Fix video size of Vimeo videos in Lightbox component
+- Fix closing stacked modals
+
 ## 3.0.0 beta 30 (August 18, 2017)
 
 ### Fixed
 
-- Fix regression (IE11)
+- Fix regression for IE11
 
 ## 3.0.0 beta 29 (August 18, 2017)
 
@@ -23,7 +50,7 @@
 - Fix usage of Scroll component in Drop, Dropdown, Navbar and Offcanvas in overlay mode
 - Fix cursor set to pointer for icons
 - Fix Scrollspy nav not working correctly when zoomed in
-- Fix animations (FF)
+- Fix animations for Firefox
 - Fix icons not displaying if lazy loaded
 
 ## 3.0.0 beta 28 (August 01, 2017)
@@ -42,12 +69,12 @@
 
 ### Fixed
 
-- Fix icon color in Edge
+- Fix icon color for Edge
 - Add workaround to mitigate the duplicating icons issue
 - Fix issue with multilevel dropdown
 - Fix compatibility issue with Prototype and MooTools
 - Fix Sticky Navbar behaviour
-- Fix Parallax (IE11)
+- Fix Parallax for IE11
 - Fix swiping in Lightbox
 - Fix alert close animation
 

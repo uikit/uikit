@@ -1,42 +1,60 @@
+import Animations from './internal/slideshow-animations';
+
 function plugin(UIkit) {
 
     if (plugin.installed) {
         return;
     }
 
-    var {$, doc, fastdom, getIndex, noop, on, off, pointerDown, pointerMove, pointerUp, preventClick, promise, requestAnimationFrame, Transition} = UIkit.util;
+    var {$$, $, addClass, assign, attr, createEvent, css, doc, endsWith, fastdom, getIndex, hasClass, index, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, Transition, trigger} = UIkit.util;
 
     UIkit.mixin.slideshow = {
 
         attrs: true,
 
         props: {
-            autoplay: Number,
+            autoplay: Boolean,
+            autoplayInterval: Number,
+            pauseOnHover: Boolean,
             animation: String,
-            transition: String,
-            duration: Number
+            easing: String,
+            velocity: Number
         },
 
         defaults: {
-            autoplay: 0,
+            autoplay: false,
+            autoplayInterval: 7000,
+            pauseOnHover: true,
             animation: 'slide',
-            transition: 'linear',
-            duration: 400,
+            easing: 'ease',
+            velocity: 1,
             index: 0,
             stack: [],
             threshold: 10,
             percent: 0,
-            clsActive: 'uk-active'
+            clsActive: 'uk-active',
+            clsActivated: 'uk-transition-active',
+            forwardDuration: 150,
+            initialAnimation: false,
+            Animations: Animations(UIkit)
         },
 
         computed: {
 
-            slides() {
-                return this.list.children(`.${this.clsItem}`);
+            list({selList}, $el) {
+                return $(selList, $el);
             },
 
-            forwardDuration() {
-                return this.duration / 4;
+            slides() {
+                return $$(this.list.children);
+            },
+
+            animation({animation, Animations}) {
+                return assign(animation in Animations ? Animations[animation] : Animations.slide, {name: animation});
+            },
+
+            duration({velocity}, $el) {
+                return speedUp($el.offsetWidth / velocity);
             }
 
         },
@@ -45,8 +63,6 @@ function plugin(UIkit) {
             ['start', 'move', 'end'].forEach(key => {
                 var fn = this[key];
                 this[key] = e => {
-
-                    e = e.originalEvent || e;
 
                     this.prevPos = this.pos;
                     this.pos = (e.touches && e.touches[0] || e).pageX;
@@ -60,6 +76,24 @@ function plugin(UIkit) {
             this.startAutoplay();
         },
 
+        disconnected() {
+            this.stopAutoplay();
+        },
+
+        update: [
+
+            {
+
+                read() {
+                    delete this._computeds.duration;
+                },
+
+                events: ['load', 'resize']
+
+            }
+
+        ],
+
         events: [
 
             {
@@ -72,7 +106,8 @@ function plugin(UIkit) {
 
                 handler(e) {
                     e.preventDefault();
-                    this.show($(e.currentTarget).blur().attr(this.attrItem));
+                    e.current.blur();
+                    this.show(attr(e.current, this.attrItem));
                 }
 
             },
@@ -82,19 +117,22 @@ function plugin(UIkit) {
                 name: pointerDown,
 
                 delegate() {
-                    return `.${this.clsItem}`;
+                    return `${this.selList} > *`;
                 },
 
                 handler: 'start'
+
             },
 
             {
 
                 name: pointerDown,
                 handler: 'stopAutoplay'
+
             },
 
             {
+
                 name: 'mouseenter',
 
                 filter() {
@@ -104,9 +142,11 @@ function plugin(UIkit) {
                 handler() {
                     this.isHovering = true;
                 }
+
             },
 
             {
+
                 name: 'mouseleave',
 
                 filter() {
@@ -116,7 +156,89 @@ function plugin(UIkit) {
                 handler() {
                     this.isHovering = false;
                 }
+
             },
+
+            {
+
+                name: 'beforeitemshow',
+
+                self: true,
+
+                delegate() {
+                    return `${this.selList} > *`;
+                },
+
+                handler({target}) {
+                    addClass(target, this.clsActive);
+                }
+
+            },
+
+            {
+
+                name: 'itemshown',
+
+                self: true,
+
+                delegate() {
+                    return `${this.selList} > *`;
+                },
+
+                handler({target}) {
+                    addClass(target, this.clsActivated);
+                }
+
+            },
+
+            {
+
+                name: 'itemshow itemhide',
+
+                self: true,
+
+                delegate() {
+                    return `${this.selList} > *`;
+                },
+
+                handler({type, target}) {
+                    toggleClass($$(`[${this.attrItem}="${index(target)}"]`, this.$el), this.clsActive, endsWith(type, 'show'));
+                }
+
+            },
+
+            {
+
+                name: 'itemhidden',
+
+                self: true,
+
+                delegate() {
+                    return `${this.selList} > *`;
+                },
+
+                handler({target}) {
+                    removeClass(target, this.clsActive);
+                    removeClass(target, this.clsActivated);
+                }
+
+            },
+
+            {
+
+                name: 'itemshow itemhide itemshown itemhidden',
+
+                self: true,
+
+                delegate() {
+                    return `${this.selList} > *`;
+                },
+
+                handler({target}) {
+                    UIkit.update(null, target);
+                }
+
+            }
 
         ],
 
@@ -128,69 +250,70 @@ function plugin(UIkit) {
                     return;
                 }
 
-                e.preventDefault();
+                if (!isTouch(e)) {
+                    e.preventDefault();
+                }
+
+                if (this._animation && this._animation.animation !== this.animation) {
+                    return;
+                }
 
                 var percent = 0;
                 if (this.stack.length) {
 
-                    this.percent = this._animation.percent();
+                    var {dir, percent: getPercent, cancel, translate} = this._animation;
 
-                    var dir = this._animation.dir;
-                    percent = this.percent * dir;
+                    percent = getPercent() * dir;
+
+                    this.percent = Math.abs(percent) * -dir;
 
                     this.stack.splice(0, this.stack.length);
 
-                    this._animation.cancel();
-                    this._animation.translate(Math.abs(percent));
+                    cancel();
+                    translate(Math.abs(percent));
 
                     this.index = this.getIndex(this.index - dir);
                     this.touching = true;
+
                 }
 
                 on(doc, pointerMove, this.move, true);
                 on(doc, pointerUp, this.end, true);
 
-                var el = this.slides.eq(this.index);
-
-                this.touch = {
-                    el,
-                    start: this.pos + (percent ? el.outerWidth() * percent : 0)
-                }
+                this.touch = this.pos + this.$el.offsetWidth * percent;
 
             },
 
-            move(e) {
+            move() {
 
-                e.preventDefault();
-
-                var {start, el} = this.touch;
-
-                if (this.pos === this.prevPos || (!this.touching && Math.abs(start - this.pos) < this.threshold)) {
+                if (this.pos === this.prevPos || (!this.touching && Math.abs(this.touch - this.pos) < this.threshold)) {
                     return;
                 }
 
                 this.touching = true;
 
-                var percent = (this.pos - start) / el.outerWidth();
+                var percent = (this.pos - this.touch) / this.$el.offsetWidth;
 
                 if (this.percent === percent) {
                     return;
                 }
 
-                var changed = trunc(this.percent) !== trunc(percent),
+                var prevIndex = this.getIndex(this.index - trunc(this.percent)),
                     index = this.getIndex(this.index - trunc(percent)),
-                    current = this.slides.eq(index),
+                    current = this.slides[index],
                     dir = percent < 0 ? 1 : -1,
                     nextIndex = getIndex(percent < 0 ? 'next' : 'previous', this.slides, index),
-                    next = this.slides.eq(nextIndex);
+                    next = this.slides[nextIndex];
 
-                this.slides.each((i, el) => this.$toggleClass(el, this.clsActive, i === index || i === nextIndex));
+                this.slides.forEach((el, i) => toggleClass(el, this.clsActive, i === index || i === nextIndex));
 
-                if (changed && this._animation) {
-                    this._animation.reset();
+                if (index !== prevIndex) {
+                    this._animation && this._animation.reset();
+                    trigger(this.slides[prevIndex], 'itemhide', [this]);
+                    trigger(current, 'itemshow', [this]);
                 }
 
-                this._animation = new Transitioner(this.animation, this.transition, current, next, dir, noop);
+                this._animation = new Transitioner(this.animation, this.easing, current, next, dir, noop);
                 this._animation.translate(Math.abs(percent % 1));
 
                 this.percent = percent;
@@ -199,9 +322,7 @@ function plugin(UIkit) {
                 UIkit.update(null, next);
             },
 
-            end(e) {
-
-                e.preventDefault();
+            end() {
 
                 off(doc, pointerMove, this.move, true);
                 off(doc, pointerUp, this.end, true);
@@ -213,13 +334,13 @@ function plugin(UIkit) {
                     this.percent = Math.abs(this.percent) % 1;
                     this.index = this.getIndex(this.index - trunc(percent));
 
-                    if (this.percent < 0.2) {
+                    if (this.percent < .1) {
                         this.index = this.getIndex(percent > 0 ? 'previous' : 'next');
                         this.percent = 1 - this.percent;
                         percent *= -1;
                     }
 
-                    this.show(percent > 0 ? 'previous': 'next', true);
+                    this.show(percent > 0 ? 'previous' : 'next', true);
 
                     preventClick();
 
@@ -251,64 +372,80 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var hasPrev = this.slides.hasClass('uk-active'),
-                    dir = index === 'next'
-                            ? 1
-                            : index === 'previous'
-                                ? -1
-                                : index < this.index
-                                    ? -1
-                                    : 1;
+                var prevIndex = this.index,
+                    nextIndex = this.getIndex(index),
+                    prev = hasClass(this.slides, 'uk-active') && this.slides[prevIndex],
+                    next = this.slides[nextIndex];
 
-                index = this.getIndex(index);
-
-                if (hasPrev && index === this.index) {
+                if (prev === next) {
                     this.stack[force ? 'shift' : 'pop']();
                     return;
                 }
 
-                var prev = hasPrev && this.slides.eq(this.index),
-                    next = this.slides.eq(index);
+                prev && trigger(prev, 'beforeitemhide', [this]);
+                trigger(next, 'beforeitemshow', [this]);
 
-                this.$el.trigger('beforeitemshow', [this, next]);
-                prev && this.$el.trigger('beforeitemhide', [this, prev]);
+                this.index = nextIndex;
 
-                this.index = index;
+                var done = () => {
 
-                this.$addClass(next, this.clsActive);
+                    prev && trigger(prev, 'itemhidden', [this]);
+                    trigger(next, 'itemshown', [this]);
 
-                this._animation = new Transitioner(!prev ? 'scale' : this.animation, this.transition, prev || next, next, dir, () => {
+                    fastdom.mutate(() => {
+                        this.stack.shift();
+                        if (this.stack.length) {
+                            this.show(this.stack.shift(), true)
+                        } else {
+                            this._animation = null;
+                        }
+                    });
+                };
 
-                    prev && this.$removeClass(prev, this.clsActive);
+                if (prev || this.initialAnimation) {
 
-                    this.stack.shift();
-                    if (this.stack.length) {
-                        requestAnimationFrame(() => this.show(this.stack.shift(), true));
-                    } else {
-                        this._animation = null;
-                    }
+                    this._show(
+                        !prev ? this.Animations[this.initialAnimation] : this.animation,
+                        force ? 'cubic-bezier(0.165, 0.840, 0.440, 1.000)' : this.easing,
+                        prev || next,
+                        next,
+                        getDirection(index, prevIndex),
+                        this.stack.length > 1,
+                        done
+                    );
 
-                    this.$el.trigger('itemshown', [this, next]);
-                    UIkit.update(null, next);
-
-                    if (prev) {
-                        this.$el.trigger('itemhidden', [this, prev]);
-                        UIkit.update(null, prev);
-                    }
-
-                });
-
-                this._animation.show(this.stack.length > 1 ? this.forwardDuration : this.duration, this.percent);
-
-                this.$el.trigger('itemshow', [this, next]);
-
-                if (prev) {
-                    this.$el.trigger('itemhide', [this, prev]);
-                    UIkit.update(null, prev);
                 }
 
-                UIkit.update(null, next);
-                fastdom.flush(); // iOS 10+ will honor the video.play only if called from a gesture handler
+                prev && trigger(prev, 'itemhide', [this]);
+                trigger(next, 'itemshow', [this]);
+
+                if (!prev && !this.initialAnimation) {
+                    done();
+                }
+
+                prev && fastdom.flush(); // iOS 10+ will honor the video.play only if called from a gesture handler
+
+            },
+
+            _show(animation, easing, prev, next, dir, forward, done) {
+
+                this._animation = new Transitioner(
+                    animation,
+                    easing,
+                    prev,
+                    next,
+                    dir,
+                    done
+                );
+
+                this._animation.show(prev === next
+                    ? 300
+                    : forward
+                        ? this.forwardDuration
+                        : this.duration
+                    , this.percent, forward
+                );
+
             },
 
             getIndex(index = this.index) {
@@ -320,7 +457,7 @@ function plugin(UIkit) {
                 this.stopAutoplay();
 
                 if (this.autoplay) {
-                    this.interval = setInterval(() => {!this.isHovering && this.show('next')}, this.autoplay);
+                    this.interval = setInterval(() => (!this.isHovering || ! this.pauseOnHover) && this.show('next'), this.autoplayInterval);
                 }
 
             },
@@ -335,149 +472,31 @@ function plugin(UIkit) {
 
     };
 
-    var diff = 0.2;
-    var Animations = {
+    function Transitioner(animation, easing, current, next, dir, cb) {
 
-        fade: {
-
-            show() {
-                return [
-                    {opacity: 0},
-                    {opacity: 1}
-                ];
-            },
-
-            percent(current) {
-                return 1 - current.css('opacity');
-            },
-
-            translate(percent) {
-                return [
-                    {opacity: 1 - percent},
-                    {opacity: percent}
-                ];
-            }
-
-        },
-
-        slide: {
-
-            show(dir) {
-                return [
-                    {transform: `translate3d(${dir * -100}%, 0, 0)`},
-                    {transform: 'translate3d(0, 0, 0)'}
-                ];
-            },
-
-            percent(current) {
-                return Math.abs(current.css('transform').split(',')[4] / current.outerWidth());
-            },
-
-            translate(percent, dir) {
-                return [
-                    {transform: `translate3d(${dir * -100 * percent}%, 0, 0)`},
-                    {transform: `translate3d(${dir * 100 * (1 - percent)}%, 0, 0)`}
-                ];
-            }
-
-        },
-
-        scale: {
-
-            show() {
-                return [
-                    {opacity: 0, transform: `scale3d(${1 - diff}, ${1 - diff}, 1)`},
-                    {opacity: 1, transform: 'scale3d(1, 1, 1)'}
-                ];
-            },
-
-            percent(current) {
-                return 1 - current.css('opacity');
-            },
-
-            translate(percent) {
-                var scale1 = 1 - diff * percent,
-                    scale2 = 1 - diff + diff * percent;
-
-                return [
-                    {opacity: 1 - percent, transform: `scale3d(${scale1}, ${scale1}, 1)`},
-                    {opacity: percent, transform: `scale3d(${scale2}, ${scale2}, 1)`}
-                ];
-            }
-
-        },
-
-        swipe: {
-
-            show(dir) {
-
-                if (dir < 0) {
-                    return [
-                        {opacity: 1, transform: `translate3d(100%, 0, 0)`, zIndex: 0},
-                        {opacity: 1, transform: `scale3d(1, 1, 1) translate3d(0, 0, 0)`, zIndex: -1},
-                    ];
-                } else {
-                    return [
-                        {opacity: 0.3, transform: `scale3d(${1 - diff}, ${1 - diff}, 1) translate3d(-20%, 0, 0)`, zIndex: -1},
-                        {opacity: 1, transform: 'translate3d(0, 0, 0)', zIndex: 0}
-                    ];
-                }
-
-
-            },
-
-            percent(current, next, dir) {
-
-                var el = dir < 0 ? current : next,
-                    percent = Math.abs(el.css('transform').split(',')[4] / el.outerWidth());
-
-                return dir < 0 ? percent : 1 - percent;
-            },
-
-            translate(percent, dir) {
-                var scale;
-
-                if (dir < 0) {
-                    scale = 1 - diff * (1 - percent);
-                    return [
-                        {opacity: 1, transform: `translate3d(${100 * percent}%, 0, 0)`, zIndex: 0},
-                        {opacity: 0.3 + 0.7 * percent, transform: `scale3d(${scale}, ${scale}, 1) translate3d(${-20 * (1 - percent)}%, 0, 0)`, zIndex: -1},
-                    ];
-                } else {
-                    scale = 1 - diff * percent;
-                    return [
-                        {opacity: 1 - 0.7 * percent, transform: `scale3d(${scale}, ${scale}, 1) translate3d(${-20 * percent}%, 0, 0)`, zIndex: -1},
-                        {opacity: 1, transform: `translate3d(${100 * (1 - percent)}%, 0, 0)`, zIndex: 0}
-                    ];
-                }
-
-            }
-
-        },
-
-    };
-
-    function Transitioner (animation, transition, current, next, dir, cb) {
-
-        animation = animation in Animations ? Animations[animation] : Animations.slide;
-
-        var props = animation.show(dir);
+        var {percent, translate, show} = animation;
+        var props = show(dir);
 
         return {
 
+            animation,
             dir,
             current,
             next,
 
-            show(duration, percent = 0) {
+            show(duration, percent = 0, linear) {
 
+                var ease = linear ? 'linear' : easing;
                 duration -= Math.round(duration * percent);
 
                 this.translate(percent);
 
-                return promise.all([
-                    Transition.start(current, props[0], duration, transition),
-                    Transition.start(next, props[1], duration, transition)
+                triggerUpdate(current, 'itemout', {percent: 1 - percent, duration, ease, dir});
+                triggerUpdate(next, 'itemin', {percent, duration, ease, dir});
+
+                return Promise.all([
+                    Transition.start(current, props[0], duration, ease),
+                    Transition.start(next, props[1], duration, ease)
                 ]).then(() => {
                     this.reset();
                     cb();
@@ -485,55 +504,65 @@ function plugin(UIkit) {
             },
 
             stop() {
-                return promise.all([
-                    Transition.stop(next),
-                    Transition.stop(current)
-                ]);
+                return Transition.stop([current, next]);
             },
 
             cancel() {
-                return promise.all([
-                    Transition.cancel(next),
-                    Transition.cancel(current)
-                ]);
+                Transition.cancel([current, next]);
             },
 
             reset() {
                 for (var prop in props[0]) {
-                    $([next[0], current[0]]).css(prop, '');
+                    css([current, next], prop, '');
                 }
             },
 
             forward(duration) {
 
                 var percent = this.percent();
-
-                return promise.all([
-                    Transition.cancel(next),
-                    Transition.cancel(current)
-                ]).then(() => this.show(duration, percent));
+                Transition.cancel([current, next]);
+                this.show(duration, percent, true);
 
             },
 
             translate(percent) {
 
-                var props = animation.translate(percent, dir);
-                current.css(props[0]);
-                next.css(props[1]);
-
+                var props = translate(percent, dir);
+                css(current, props[0]);
+                css(next, props[1]);
+                triggerUpdate(current, 'itemtranslateout', {percent: 1 - percent, dir});
+                triggerUpdate(next, 'itemtranslatein', {percent, dir});
             },
 
             percent() {
-                return animation.percent(current, next, dir);
+                return percent(current, next, dir);
             }
 
         }
 
     }
 
+    function triggerUpdate(el, type, data) {
+        trigger(el, createEvent(type, false, false, data));
+    }
+
     // polyfill for Math.trunc (IE)
     function trunc(x) {
         return ~~x;
+    }
+
+    function getDirection(index, prevIndex) {
+        return index === 'next'
+            ? 1
+            : index === 'previous'
+                ? -1
+                : index < prevIndex
+                    ? -1
+                    : 1;
+    }
+
+    function speedUp(x) {
+        return .5 * x + 300; // parabola through (400,500; 600,600; 1800,1200)
     }
 
 }

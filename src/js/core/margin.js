@@ -1,4 +1,4 @@
-import { isRtl } from '../util/index';
+import { isRtl, isVisible, toggleClass } from '../util/index';
 
 export default function (UIkit) {
 
@@ -14,19 +14,13 @@ export default function (UIkit) {
             firstColumn: 'uk-first-column'
         },
 
-        computed: {
-
-            items() {
-                return this.$el[0].children;
-            }
-
-        },
-
         update: {
 
             read() {
 
-                if (!this.items.length || this.$el[0].offsetHeight === 0) {
+                var items = this.$el.children;
+
+                if (!items.length || !isVisible(this.$el)) {
                     this.rows = false;
                     return;
                 }
@@ -35,9 +29,9 @@ export default function (UIkit) {
 
                 var rows = [[]];
 
-                for (var i = 0; i < this.items.length; i++) {
+                for (var i = 0; i < items.length; i++) {
 
-                    var el = this.items[i],
+                    var el = items[i],
                         dim = el.getBoundingClientRect();
 
                     if (!dim.height) {
@@ -90,8 +84,8 @@ export default function (UIkit) {
 
                 this.rows && this.rows.forEach((row, i) =>
                     row.forEach((el, j) => {
-                        this.$toggleClass(el, this.margin, i !== 0);
-                        this.$toggleClass(el, this.firstColumn, j === 0);
+                        toggleClass(el, this.margin, i !== 0);
+                        toggleClass(el, this.firstColumn, j === 0);
                     })
                 )
 

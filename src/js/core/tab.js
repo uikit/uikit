@@ -1,4 +1,5 @@
 import { Class } from '../mixin/index';
+import { hasClass } from '../util/index';
 
 export default function (UIkit) {
 
@@ -19,7 +20,11 @@ export default function (UIkit) {
 
         init() {
 
-            var cls = this.$hasClass('uk-tab-left') && 'uk-tab-left' || this.$hasClass('uk-tab-right') && 'uk-tab-right';
+            var cls = hasClass(this.$el, 'uk-tab-left')
+                ? 'uk-tab-left'
+                : hasClass(this.$el, 'uk-tab-right')
+                    ? 'uk-tab-right'
+                    : false;
 
             if (cls) {
                 UIkit.toggle(this.$el, {cls, mode: 'media', media: this.media});
