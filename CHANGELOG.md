@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add `min-height`option to Height Viewport component
+
 ### Fixed
 
 - Improve slide dragging behaviour in Slideshow component
