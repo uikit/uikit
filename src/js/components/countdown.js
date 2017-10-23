@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var { $, empty, html } = UIkit.util;
+    var { $, doc, empty, html } = UIkit.util;
 
     UIkit.component('countdown', {
 
@@ -58,6 +58,26 @@ function plugin(UIkit) {
             this.stop();
             this.units.forEach(unit => empty(this[unit]));
         },
+
+        events: [
+
+            {
+
+                name: 'visibilitychange',
+
+                el: doc,
+
+                handler() {
+                    if (doc.hidden) {
+                        this.stop();
+                    } else  {
+                        this.start();
+                    }
+                }
+
+            }
+
+        ],
 
         update: {
 

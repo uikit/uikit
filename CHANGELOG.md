@@ -5,6 +5,7 @@
 ### Fixed
 
 - Improve slide dragging behaviour
+- Fix slide animations stacking when tab is not focused
 
 ## 3.0.0 beta 31 (October 20, 2017)
 
