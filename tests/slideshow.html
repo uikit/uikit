@@ -80,7 +80,7 @@
                     </div>
 
                 </div>
-               <div>
+                <div>
 
                     <div class="js-slideshow-animation" uk-slideshow="ratio: 3:2">
 
@@ -452,9 +452,9 @@
 
         <script>
 
-            UIkit.util.on('#js-animation-switcher', 'change', function() {
+            UIkit.util.on('#js-animation-switcher', 'change', function () {
                 var value = this.value;
-                UIkit.util.$$('.js-slideshow-animation').forEach(function(slideshow) { UIkit.util.attr(slideshow, 'animation', value) });
+                UIkit.util.$$('.js-slideshow-animation').forEach(function (slideshow) { UIkit.util.attr(slideshow, 'animation', value); });
             });
 
         </script>
