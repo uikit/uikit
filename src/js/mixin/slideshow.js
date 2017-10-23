@@ -127,6 +127,22 @@ function plugin(UIkit) {
 
             {
 
+                name: 'visibilitychange',
+
+                el: doc,
+
+                handler() {
+                    if (doc.hidden) {
+                        this.stopAutoplay();
+                    } else  {
+                        this.startAutoplay();
+                    }
+                }
+
+            },
+
+            {
+
                 name: pointerDown,
                 handler: 'stopAutoplay'
 
@@ -458,7 +474,7 @@ function plugin(UIkit) {
                 this.stopAutoplay();
 
                 if (this.autoplay) {
-                    this.interval = setInterval(() => (!this.isHovering || ! this.pauseOnHover) && this.show('next'), this.autoplayInterval);
+                    this.interval = setInterval(() => !(this.isHovering && this.pauseOnHover) && this.show('next'), this.autoplayInterval);
                 }
 
             },
