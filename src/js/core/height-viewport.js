@@ -67,7 +67,7 @@ export default function (UIkit) {
 
                 }
 
-                css(this.$el, 'minHeight', minHeight || '');
+                css(this.$el, 'minHeight', Math.max(minHeight, this.minHeight) || '');
 
                 // IE 10-11 fix (min-height on a flex container won't apply to its flex items)
                 height(this.$el, '');
