@@ -754,9 +754,9 @@
 
             var util = UIkit.util;
 
-            util.ready(function () {
+            setTimeout(function () {
                 util.prepend(util.$('.uk-offcanvas-content'), util.$('div'));
-            });
+            }, 200);
 
             util.on(util.$('#js-toggle'), 'click', function (e) {
 

@@ -4,8 +4,9 @@
 
 ### Fixed
 
-- Improve slide dragging behaviour
-- Fix slide animations stacking when tab is not focused
+- Improve slide dragging behaviour in Slideshow component
+- Fix slide animations stacking when tab is not focused in Slideshow component
+- Fix overlay not showing in Offcanvas compoent
 
 ## 3.0.0 beta 31 (October 20, 2017)
 
