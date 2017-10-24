@@ -6,11 +6,16 @@
 
 - Add `min-height`option to Height Viewport component
 
+### Changed
+
+- Improve accelerated slide animations in Slideshow component 
+- Improve slide dragging behaviour in Slideshow component
+
 ### Fixed
 
-- Improve slide dragging behaviour in Slideshow component
 - Fix slide animations stacking when tab is not focused in Slideshow component
 - Fix overlay not showing in Offcanvas compoent
+- Fix Slideshow Parallax in Slideshow component for IE11
 
 ## 3.0.0 beta 31 (October 20, 2017)
 

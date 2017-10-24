@@ -48,7 +48,7 @@ window.addEventListener('load', () => setTimeout(() => {
     var $tests = css(append($container, '<select class="uk-select uk-form-width-small"></select>'), 'margin', '20px 20px 20px 0');
     var $styles = css(append($container, '<select class="uk-select uk-form-width-small"></select>'), 'margin', '20px');
     var $inverse = css(append($container, '<select class="uk-select uk-form-width-small"></select>'), 'margin', '20px');
-    var $label = css(append($container, '<label></label>'), 'margin', '20px');
+    var $rtl = css(append($container, '<label></label>'), 'margin', '20px');
 
     // Tests
     // ------------------------------
@@ -189,14 +189,14 @@ window.addEventListener('load', () => setTimeout(() => {
     // RTL
     // ------------------------------
 
-    var $rtl = append($label, '<input type="checkbox" class="uk-checkbox" />');
-    append($label, '<span style="margin:5px;">RTL</span>');
-    on($rtl, 'change', () => {
-        storage._uikit_dir = $rtl.checked ? 'rtl' : 'ltr';
+    append($rtl, '<input type="checkbox" class="uk-checkbox" />');
+    append($rtl, '<span style="margin:5px;">RTL</span>');
+    on($rtl, 'change', ({target}) => {
+        storage._uikit_dir = target.checked ? 'rtl' : 'ltr';
         location.reload();
     });
 
-    $rtl.checked = dir === 'rtl';
+    $rtl.firstElementChild.checked = dir === 'rtl';
 
     css(docEl, 'padding-top', '');
 }, 100));
