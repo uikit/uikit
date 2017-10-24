@@ -56,8 +56,8 @@ export default function (UIkit) {
             show(dir) {
                 return dir < 0
                     ? [
-                        {transform: translate(100), zIndex: 0},
-                        {transform: translate(), zIndex: -1},
+                        {transform: translate(30), zIndex: -1},
+                        {transform: translate(), zIndex: 0},
                     ]
                     : [
                         {transform: translate(-100), zIndex: 0},
@@ -72,8 +72,8 @@ export default function (UIkit) {
             translate(percent, dir) {
                 return dir < 0
                     ? [
-                        {transform: translate(percent * 100), zIndex: 0},
-                        {transform: translate(-30 * (1 - percent)), zIndex: -1},
+                        {transform: translate(30 * percent), zIndex: -1},
+                        {transform: translate(-100 * (1 - percent)), zIndex: 0},
                     ]
                     : [
                         {transform: translate(-percent * 100), zIndex: 0},
@@ -86,11 +86,10 @@ export default function (UIkit) {
         push: {
 
             show(dir) {
-
                 return dir < 0
                     ? [
-                        {transform: translate(30), zIndex: -1},
-                        {transform: translate(), zIndex: 0},
+                        {transform: translate(100), zIndex: 0},
+                        {transform: translate(), zIndex: -1},
                     ]
                     : [
                         {transform: translate(-30), zIndex: -1},
@@ -105,8 +104,8 @@ export default function (UIkit) {
             translate(percent, dir) {
                 return dir < 0
                     ? [
-                        {transform: translate(30 * percent), zIndex: -1},
-                        {transform: translate(-100 * (1 - percent)), zIndex: 0},
+                        {transform: translate(percent * 100), zIndex: 0},
+                        {transform: translate(-30 * (1 - percent)), zIndex: -1},
                     ]
                     : [
                         {transform: translate(-30 * percent), zIndex: -1},
