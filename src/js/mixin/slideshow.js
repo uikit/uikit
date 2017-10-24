@@ -34,7 +34,6 @@ function plugin(UIkit) {
             percent: 0,
             clsActive: 'uk-active',
             clsActivated: 'uk-transition-active',
-            forwardDuration: 150,
             initialAnimation: false,
             Animations: Animations(UIkit)
         },
@@ -383,7 +382,7 @@ function plugin(UIkit) {
                 if (!force && this.stack.length > 1) {
 
                     if (this.stack.length === 2) {
-                        this._animation.forward(this.forwardDuration);
+                        this._animation.forward(250);
                     }
 
                     return;
@@ -455,12 +454,14 @@ function plugin(UIkit) {
                     done
                 );
 
-                this._animation.show(prev === next
-                    ? 300
-                    : forward
-                        ? this.forwardDuration
-                        : this.duration
-                    , this.percent, forward
+                this._animation.show(
+                    prev === next
+                        ? 300
+                        : forward
+                            ? 150
+                            : this.duration,
+                    this.percent,
+                    forward
                 );
 
             },

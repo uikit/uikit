@@ -8,8 +8,8 @@ export default function (UIkit) {
 
             show(dir) {
                 return [
-                    {transform: translate3d(dir * -100)},
-                    {transform: translate3d()}
+                    {transform: translate(dir * -100)},
+                    {transform: translate()}
                 ];
             },
 
@@ -19,8 +19,8 @@ export default function (UIkit) {
 
             translate(percent, dir) {
                 return [
-                    {transform: translate3d(dir * -100 * percent)},
-                    {transform: translate3d(dir * 100 * (1 - percent))}
+                    {transform: translate(dir * -100 * percent)},
+                    {transform: translate(dir * 100 * (1 - percent))}
                 ];
             }
 
@@ -36,8 +36,8 @@ export default function (UIkit) {
 
 };
 
-export function translate3d(value = 0) {
-    return `translate3d(${value}${value ? '%' : ''}, 0, 0)`;
+export function translate(value = 0) {
+    return `translate(${value}${value ? '%' : ''}, 0)`; // currently not translate3d to support IE, translate3d within translate3d does not work while transitioning
 }
 
 export function scale3d(value) {
