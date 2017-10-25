@@ -423,7 +423,7 @@ function plugin(UIkit) {
                     this._show(
                         !prev ? this.Animations[this.initialAnimation] : this.animation,
                         force ? 'cubic-bezier(0.165, 0.840, 0.440, 1.000)' : this.easing,
-                        prev || next,
+                        prev,
                         next,
                         getDirection(index, prevIndex),
                         this.stack.length > 1,
@@ -509,12 +509,12 @@ function plugin(UIkit) {
 
                 this.translate(percent);
 
-                triggerUpdate(current, 'itemout', {percent: 1 - percent, duration, ease, dir});
                 triggerUpdate(next, 'itemin', {percent, duration, ease, dir});
+                current && triggerUpdate(current, 'itemout', {percent: 1 - percent, duration, ease, dir});
 
                 return Promise.all([
-                    Transition.start(current, props[0], duration, ease),
-                    Transition.start(next, props[1], duration, ease)
+                    Transition.start(next, props[1], duration, ease),
+                    current && Transition.start(current, props[0], duration, ease)
                 ]).then(() => {
                     this.reset();
                     cb();
@@ -522,23 +522,23 @@ function plugin(UIkit) {
             },
 
             stop() {
-                return Transition.stop([current, next]);
+                return Transition.stop([next, current]);
             },
 
             cancel() {
-                Transition.cancel([current, next]);
+                Transition.cancel([next, current]);
             },
 
             reset() {
                 for (var prop in props[0]) {
-                    css([current, next], prop, '');
+                    css([next, current], prop, '');
                 }
             },
 
             forward(duration) {
 
                 var percent = this.percent();
-                Transition.cancel([current, next]);
+                Transition.cancel([next, current]);
                 this.show(duration, percent, true);
 
             },
@@ -546,10 +546,10 @@ function plugin(UIkit) {
             translate(percent) {
 
                 var props = translate(percent, dir);
-                css(current, props[0]);
                 css(next, props[1]);
-                triggerUpdate(current, 'itemtranslateout', {percent: 1 - percent, dir});
+                current && css(current, props[0]);
                 triggerUpdate(next, 'itemtranslatein', {percent, dir});
+                current && triggerUpdate(current, 'itemtranslateout', {percent: 1 - percent, dir});
             },
 
             percent() {
