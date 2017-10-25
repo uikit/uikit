@@ -8,7 +8,7 @@
 
 ### Changed
 
-- Improve accelerated slide animations in Slideshow component 
+- Improve accelerated slide animations in Slideshow component
 - Improve slide dragging behaviour in Slideshow component
 
 ### Fixed
@@ -16,6 +16,7 @@
 - Fix slide animations stacking when tab is not focused in Slideshow component
 - Fix overlay not showing in Offcanvas compoent
 - Fix Slideshow Parallax in Slideshow component for IE11
+- Fix default border-radius for button elements in Chrome 62.
 
 ## 3.0.0 beta 31 (October 20, 2017)
 

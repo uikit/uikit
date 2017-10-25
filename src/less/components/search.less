@@ -139,11 +139,12 @@
  * Required for `button`
  * 1. Remove margins in Chrome, Safari and Opera.
  * 2. Remove borders for `button`.
- * 3. Address `overflow` set to `hidden` in IE.
- * 4. Correct `font` properties and `color` not being inherited for `button`.
- * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
- * 6. Remove default `button` padding and background color
- * 7. Required for `button`.
+ * 3. Remove border-radius in Chrome.
+ * 4. Address `overflow` set to `hidden` in IE.
+ * 5. Correct `font` properties and `color` not being inherited for `button`.
+ * 6. Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 7. Remove default `button` padding and background color
+ * 8. Required for `button`.
  */
 
 .uk-search-icon {
@@ -152,16 +153,18 @@
     /* 2 */
     border: none;
     /* 3 */
-    overflow: visible;
+    border-radius: 0;
     /* 4 */
+    overflow: visible;
+    /* 5 */
     font: inherit;
     color: inherit;
-    /* 5 */
+    /* 6 */
     text-transform: none;
-    /* 6. */
+    /* 7. */
     padding: 0;
     background-color: transparent;
-    /* 7 */
+    /* 8 */
     cursor: pointer;
 }
 
