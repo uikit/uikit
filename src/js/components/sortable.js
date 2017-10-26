@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {mixin, util} = UIkit;
-    var {$$, addClass, after, assign, append, attr, before, closest, css, doc, docEl, height, fastdom, includes, index, isInput, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, Promise, remove, removeClass, toggleClass, toNodes, Transition, trigger, win, within} = util;
+    var {$$, addClass, after, assign, append, attr, before, closest, css, doc, docEl, height, fastdom, getPos, includes, index, isInput, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, Promise, remove, removeClass, toggleClass, toNodes, Transition, trigger, win, within} = util;
 
     UIkit.component('sortable', {
 
@@ -46,7 +46,7 @@ function plugin(UIkit) {
                 var fn = this[key];
                 this[key] = e => {
                     this.scrollY = win.scrollY;
-                    var {pageX: x, pageY: y} = e.touches && e.touches[0] || e;
+                    var {x, y} = getPos(e);
                     this.pos = {x, y};
 
                     fn(e);

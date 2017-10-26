@@ -6,7 +6,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$$, $, addClass, assign, attr, createEvent, css, doc, endsWith, fastdom, getIndex, hasClass, index, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, Transition, trigger} = UIkit.util;
+    var {$$, $, addClass, assign, attr, createEvent, css, doc, endsWith, fastdom, getIndex, getPos, hasClass, index, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, Transition, trigger} = UIkit.util;
 
     UIkit.mixin.slideshow = {
 
@@ -63,7 +63,8 @@ function plugin(UIkit) {
                 var fn = this[key];
                 this[key] = e => {
 
-                    var pos = (e.touches && e.touches[0] || e).pageX;
+                    var pos = getPos(e).x;
+
                     this.prevPos = pos !== this.pos ? this.pos : this.prevPos;
                     this.pos = pos;
 
