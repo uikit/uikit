@@ -1,4 +1,4 @@
-import { $, $$, closest, doc, isArray, isFunction, isString, toNode, toNodes, within } from './index';
+import { $, $$, closest, doc, isArray, isFunction, isString, toNode, toNodes, win, within } from './index';
 
 export function on(...args) {
 
@@ -85,12 +85,18 @@ function detail(listener) {
     return e => isArray(e.detail) ? listener.apply(listener, [e].concat(e.detail)) : listener(e);
 }
 
+function isEventTarget(target) {
+    return 'EventTarget' in win
+        ? target instanceof EventTarget
+        : 'addEventListener' in target;
+}
+
 function toEventTarget(target) {
-    return target instanceof EventTarget ? target : toNode(target);
+    return isEventTarget(target) ? target : toNode(target);
 }
 
 export function toEventTargets(target) {
-    return target instanceof EventTarget
+    return isEventTarget(target)
         ? [target]
         : isArray(target)
             ? target.map(toEventTarget).filter(Boolean)
