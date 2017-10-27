@@ -1,5 +1,9 @@
 # Changelog
 
+### Fixed
+
+- Prevent Modal from toggling if event was defaultPrevented
+
 ## 3.0.0 beta 32 (October 27, 2017)
 
 ### Added
