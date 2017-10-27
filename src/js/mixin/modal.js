@@ -63,6 +63,11 @@ export default {
             name: 'toggle',
 
             handler(e) {
+
+                if (e.defaultPrevented) {
+                    return;
+                }
+
                 e.preventDefault();
                 this.toggle();
             }
