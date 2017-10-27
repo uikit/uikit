@@ -13,19 +13,17 @@
 // Variables
 // ========================================================================
 
-@dotnav-margin-horizontal:                      15px;
+@dotnav-margin-horizontal:                      12px;
 @dotnav-margin-vertical:                        @dotnav-margin-horizontal;
 
-@dotnav-item-width:                             16px;
+@dotnav-item-width:                             10px;
 @dotnav-item-height:                            @dotnav-item-width;
 @dotnav-item-border-radius:                     50%;
-@dotnav-item-background:                        fadeout(@global-color, 90%);
 
-@dotnav-item-hover-background:                  fadeout(@global-color, 60%);
-
-@dotnav-item-onclick-background:                fadeout(@global-color, 40%);
-
-@dotnav-item-active-background:                 fadeout(@global-color, 60%);
+@dotnav-item-background:                        fade(@global-color, 15%);
+@dotnav-item-hover-background:                  fade(@global-color, 40%);
+@dotnav-item-onclick-background:                fade(@global-color, 20%);
+@dotnav-item-active-background:                 fade(@global-color, 60%);
 
 
 /* ========================================================================
@@ -154,10 +152,10 @@
 // Inverse
 // ========================================================================
 
-@inverse-dotnav-item-background:               fadeout(@inverse-global-color, 30%);
-@inverse-dotnav-item-hover-background:         fadeout(@inverse-global-color, 20%);
-@inverse-dotnav-item-onclick-background:       fadeout(@inverse-global-color, 10%);
-@inverse-dotnav-item-active-background:        fadeout(@inverse-global-color, 10%);
+@inverse-dotnav-item-background:               fade(@inverse-global-color, 40%);
+@inverse-dotnav-item-hover-background:         @inverse-global-emphasis-color;
+@inverse-dotnav-item-onclick-background:       @inverse-global-color;
+@inverse-dotnav-item-active-background:        @inverse-global-emphasis-color;
 
 .hook-inverse() {
 
