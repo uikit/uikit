@@ -107,7 +107,7 @@ function resolveQuery(query, context) {
         case '>':
             return merge(filter(context.children, contextSelector).map(el => !selector && el || $$(selector, el)));
         case '!':
-            return closest(context.parentNode, query.substr(1));
+            return closest(context.parentNode, query.substr(1) || '*');
         case '+':
             return findDir(context, contextSelector, selector, 'next');
         case '-':
