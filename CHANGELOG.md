@@ -10,6 +10,7 @@
 - Fix using Scrollspy Nav within Sticky component-
 - Hide slidenav in Lightbox if single item only
 - Fix Parallax background image positioning
+- Fix setting headers in AJAX request
 
 ## 3.0.0 beta 32 (October 27, 2017)
 
