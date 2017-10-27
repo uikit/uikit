@@ -251,6 +251,10 @@ export function ajax(url, options) {
 
         xhr.open(env.method.toUpperCase(), url);
 
+        for (var header in env.headers) {
+            xhr.setRequestHeader(header, env.headers[header]);
+        }
+
         on(xhr, 'load', () => {
 
             if (xhr.status === 0 || xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
