@@ -9,6 +9,7 @@
 - Prevent Modal from toggling if event was defaultPrevented
 - Fix using Scrollspy Nav within Sticky component-
 - Hide slidenav in Lightbox if single item only
+- Fix Parallax background image positioning
 
 ## 3.0.0 beta 32 (October 27, 2017)
 
