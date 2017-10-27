@@ -442,6 +442,8 @@ function plugin(UIkit) {
                 clearTimeout(this.controlsTimer);
                 this.controlsTimer = setTimeout(this.hideControls, this.delayControls);
 
+                attr($$(`[${this.attrItem}]`, this.$el), 'hidden', this.items.length < 2 ? '' : null);
+
                 addClass(this.$el, 'uk-active uk-transition-active');
 
             },
