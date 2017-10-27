@@ -68,7 +68,6 @@
 
 }
 @mixin hook-align-misc(){}
-@mixin hook-animation-misc(){}
 @mixin hook-article(){}
 @mixin hook-article-adjacent(){}
 @mixin hook-article-title(){}
@@ -115,6 +114,52 @@
     .uk-badge:focus {
         color: $inverse-badge-hover-color;
         @if(mixin-exists(hook-inverse-badge-hover)) {@include hook-inverse-badge-hover();}
+    }
+
+}
+@mixin hook-animation-misc(){}
+@mixin hook-breadcrumb(){}
+@mixin hook-breadcrumb-item(){}
+@mixin hook-breadcrumb-item-hover(){}
+@mixin hook-breadcrumb-item-disabled(){}
+@mixin hook-breadcrumb-item-active(){}
+@mixin hook-breadcrumb-divider(){}
+@mixin hook-breadcrumb-misc(){}
+@mixin hook-inverse-breadcrumb-item(){}
+@mixin hook-inverse-breadcrumb-item-hover(){}
+@mixin hook-inverse-breadcrumb-item-disabled(){}
+@mixin hook-inverse-breadcrumb-item-active(){}
+@mixin hook-inverse-breadcrumb-divider(){}
+@mixin hook-inverse-component-breadcrumb(){
+
+    .uk-breadcrumb > * > * {
+        color: $inverse-breadcrumb-item-color;
+        @if(mixin-exists(hook-inverse-breadcrumb-item)) {@include hook-inverse-breadcrumb-item();}
+    }
+
+    .uk-breadcrumb > * > :hover,
+    .uk-breadcrumb > * > :focus {
+        color: $inverse-breadcrumb-item-hover-color;
+        @if(mixin-exists(hook-inverse-breadcrumb-item-hover)) {@include hook-inverse-breadcrumb-item-hover();}
+    }
+
+
+    .uk-breadcrumb > .uk-disabled > * {
+        @if(mixin-exists(hook-inverse-breadcrumb-item-disabled)) {@include hook-inverse-breadcrumb-item-disabled();}
+    }
+
+    .uk-breadcrumb > :last-child > * {
+        color: $inverse-breadcrumb-item-active-color;
+        @if(mixin-exists(hook-inverse-breadcrumb-item-active)) {@include hook-inverse-breadcrumb-item-active();}
+    }
+
+    //
+    // Divider
+    //
+
+    .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
+        color: $inverse-breadcrumb-divider-color;
+        @if(mixin-exists(hook-inverse-breadcrumb-divider)) {@include hook-inverse-breadcrumb-divider();}
     }
 
 }
@@ -265,48 +310,118 @@
     }
 
 }
-@mixin hook-breadcrumb(){}
-@mixin hook-breadcrumb-item(){}
-@mixin hook-breadcrumb-item-hover(){}
-@mixin hook-breadcrumb-item-disabled(){}
-@mixin hook-breadcrumb-item-active(){}
-@mixin hook-breadcrumb-divider(){}
-@mixin hook-breadcrumb-misc(){}
-@mixin hook-inverse-breadcrumb-item(){}
-@mixin hook-inverse-breadcrumb-item-hover(){}
-@mixin hook-inverse-breadcrumb-item-disabled(){}
-@mixin hook-inverse-breadcrumb-item-active(){}
-@mixin hook-inverse-breadcrumb-divider(){}
-@mixin hook-inverse-component-breadcrumb(){
+@mixin hook-close(){
+    -webkit-transition: 0.1s ease-in-out;
+    transition: 0.1s ease-in-out;
+    -webkit-transition-property: color, opacity;
+    transition-property: color, opacity;
+}
+@mixin hook-close-hover(){}
+@mixin hook-close-misc(){}
+@mixin hook-inverse-close(){}
+@mixin hook-inverse-close-hover(){}
+@mixin hook-inverse-component-close(){
 
-    .uk-breadcrumb > * > * {
-        color: $inverse-breadcrumb-item-color;
-        @if(mixin-exists(hook-inverse-breadcrumb-item)) {@include hook-inverse-breadcrumb-item();}
+    .uk-close {
+        color: $inverse-close-color;
+        @if(mixin-exists(hook-inverse-close)) {@include hook-inverse-close();}
     }
 
-    .uk-breadcrumb > * > :hover,
-    .uk-breadcrumb > * > :focus {
-        color: $inverse-breadcrumb-item-hover-color;
-        @if(mixin-exists(hook-inverse-breadcrumb-item-hover)) {@include hook-inverse-breadcrumb-item-hover();}
+    .uk-close:hover,
+    .uk-close:focus {
+        color: $inverse-close-hover-color;
+        @if(mixin-exists(hook-inverse-close-hover)) {@include hook-inverse-close-hover();}
     }
 
+}
+@mixin hook-card(){
+    -webkit-transition: box-shadow 0.1s ease-in-out;
+    transition: box-shadow 0.1s ease-in-out;
+}
+@mixin hook-card-body(){}
+@mixin hook-card-header(){}
+@mixin hook-card-footer(){}
+@mixin hook-card-media(){}
+@mixin hook-card-media-top(){}
+@mixin hook-card-media-bottom(){}
+@mixin hook-card-media-left(){}
+@mixin hook-card-media-right(){}
+@mixin hook-card-title(){}
+@mixin hook-card-badge(){}
+@mixin hook-card-hover(){ box-shadow: $card-hover-box-shadow; }
+@mixin hook-card-default(){ box-shadow: $card-default-box-shadow; }
+@mixin hook-card-default-title(){}
+@mixin hook-card-default-hover(){ box-shadow: $card-default-hover-box-shadow; }
+@mixin hook-card-default-header(){ border-bottom: $card-default-header-border-width solid $card-default-header-border; }
+@mixin hook-card-default-footer(){ border-top: $card-default-footer-border-width  solid $card-default-footer-border; }
+@mixin hook-card-primary(){ box-shadow: $card-primary-box-shadow; }
+@mixin hook-card-primary-title(){}
+@mixin hook-card-primary-hover(){ box-shadow: $card-primary-hover-box-shadow; }
+@mixin hook-card-secondary(){ box-shadow: $card-secondary-box-shadow; }
+@mixin hook-card-secondary-title(){}
+@mixin hook-card-secondary-hover(){ box-shadow: $card-secondary-hover-box-shadow; }
+@mixin hook-card-misc(){
 
-    .uk-breadcrumb > .uk-disabled > * {
-        @if(mixin-exists(hook-inverse-breadcrumb-item-disabled)) {@include hook-inverse-breadcrumb-item-disabled();}
+    /*
+     * Default
+     */
+
+    .uk-card-body .uk-nav-default { margin: (-$card-body-padding-vertical + 15px) (-$card-body-padding-horizontal); }
+    .uk-card-title + .uk-nav-default { margin-top: 0; }
+
+    .uk-card-body .uk-nav-default > li > a,
+    .uk-card-body .uk-nav-default .uk-nav-header,
+    .uk-card-body .uk-nav-default .uk-nav-divider {
+        padding-left: $card-body-padding-horizontal;
+        padding-right: $card-body-padding-horizontal;
     }
 
-    .uk-breadcrumb > :last-child > * {
-        color: $inverse-breadcrumb-item-active-color;
-        @if(mixin-exists(hook-inverse-breadcrumb-item-active)) {@include hook-inverse-breadcrumb-item-active();}
+    .uk-card-body .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left + $card-body-padding-horizontal; }
+
+
+    /* Desktop and bigger */
+    @media (min-width: $breakpoint-large) {
+
+        .uk-card-body .uk-nav-default { margin: (-$card-body-padding-vertical-l + 15px) (-$card-body-padding-horizontal-l); }
+        .uk-card-title + .uk-nav-default { margin-top: 0; }
+
+        .uk-card-body .uk-nav-default > li > a,
+        .uk-card-body .uk-nav-default .uk-nav-header,
+        .uk-card-body .uk-nav-default .uk-nav-divider {
+            padding-left: $card-body-padding-horizontal-l;
+            padding-right: $card-body-padding-horizontal-l;
+        }
+
+        .uk-card-body .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left + $card-body-padding-horizontal-l; }
+
     }
 
-    //
-    // Divider
-    //
+    /*
+     * Small
+     */
 
-    .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
-        color: $inverse-breadcrumb-divider-color;
-        @if(mixin-exists(hook-inverse-breadcrumb-divider)) {@include hook-inverse-breadcrumb-divider();}
+    .uk-card-small .uk-nav-default { margin: (-$card-small-body-padding-vertical + 15px) (-$card-small-body-padding-horizontal); }
+    .uk-card-small .uk-card-title + .uk-nav-default { margin-top: 0; }
+
+    .uk-card-small .uk-nav-default > li > a,
+    .uk-card-small .uk-nav-default .uk-nav-header,
+    .uk-card-small .uk-nav-default .uk-nav-divider {
+        padding-left: $card-small-body-padding-horizontal;
+        padding-right: $card-small-body-padding-horizontal;
+    }
+
+    .uk-card-small .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left + $card-small-body-padding-horizontal; }
+
+    /*
+     * Large
+     */
+
+    /* Desktop and bigger */
+    @media (min-width: $breakpoint-large) {
+
+        .uk-card-large .uk-nav-default { margin: (-$card-large-body-padding-vertical-l + 15px) (-$card-large-body-padding-horizontal-l); }
+        .uk-card-large .uk-card-title + .uk-nav-default { margin-top: 0; }
+
     }
 
 }
@@ -513,97 +628,6 @@
 
 
 }
-@mixin hook-card(){
-    -webkit-transition: box-shadow 0.1s ease-in-out;
-    transition: box-shadow 0.1s ease-in-out;
-}
-@mixin hook-card-body(){}
-@mixin hook-card-header(){}
-@mixin hook-card-footer(){}
-@mixin hook-card-media(){}
-@mixin hook-card-media-top(){}
-@mixin hook-card-media-bottom(){}
-@mixin hook-card-media-left(){}
-@mixin hook-card-media-right(){}
-@mixin hook-card-title(){}
-@mixin hook-card-badge(){}
-@mixin hook-card-hover(){ box-shadow: $card-hover-box-shadow; }
-@mixin hook-card-default(){ box-shadow: $card-default-box-shadow; }
-@mixin hook-card-default-title(){}
-@mixin hook-card-default-hover(){ box-shadow: $card-default-hover-box-shadow; }
-@mixin hook-card-default-header(){ border-bottom: $card-default-header-border-width solid $card-default-header-border; }
-@mixin hook-card-default-footer(){ border-top: $card-default-footer-border-width  solid $card-default-footer-border; }
-@mixin hook-card-primary(){ box-shadow: $card-primary-box-shadow; }
-@mixin hook-card-primary-title(){}
-@mixin hook-card-primary-hover(){ box-shadow: $card-primary-hover-box-shadow; }
-@mixin hook-card-secondary(){ box-shadow: $card-secondary-box-shadow; }
-@mixin hook-card-secondary-title(){}
-@mixin hook-card-secondary-hover(){ box-shadow: $card-secondary-hover-box-shadow; }
-@mixin hook-card-misc(){
-
-    /*
-     * Default
-     */
-
-    .uk-card-body .uk-nav-default { margin: (-$card-body-padding-vertical + 15px) (-$card-body-padding-horizontal); }
-    .uk-card-title + .uk-nav-default { margin-top: 0; }
-
-    .uk-card-body .uk-nav-default > li > a,
-    .uk-card-body .uk-nav-default .uk-nav-header,
-    .uk-card-body .uk-nav-default .uk-nav-divider {
-        padding-left: $card-body-padding-horizontal;
-        padding-right: $card-body-padding-horizontal;
-    }
-
-    .uk-card-body .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left + $card-body-padding-horizontal; }
-
-
-    /* Desktop and bigger */
-    @media (min-width: $breakpoint-large) {
-
-        .uk-card-body .uk-nav-default { margin: (-$card-body-padding-vertical-l + 15px) (-$card-body-padding-horizontal-l); }
-        .uk-card-title + .uk-nav-default { margin-top: 0; }
-
-        .uk-card-body .uk-nav-default > li > a,
-        .uk-card-body .uk-nav-default .uk-nav-header,
-        .uk-card-body .uk-nav-default .uk-nav-divider {
-            padding-left: $card-body-padding-horizontal-l;
-            padding-right: $card-body-padding-horizontal-l;
-        }
-
-        .uk-card-body .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left + $card-body-padding-horizontal-l; }
-
-    }
-
-    /*
-     * Small
-     */
-
-    .uk-card-small .uk-nav-default { margin: (-$card-small-body-padding-vertical + 15px) (-$card-small-body-padding-horizontal); }
-    .uk-card-small .uk-card-title + .uk-nav-default { margin-top: 0; }
-
-    .uk-card-small .uk-nav-default > li > a,
-    .uk-card-small .uk-nav-default .uk-nav-header,
-    .uk-card-small .uk-nav-default .uk-nav-divider {
-        padding-left: $card-small-body-padding-horizontal;
-        padding-right: $card-small-body-padding-horizontal;
-    }
-
-    .uk-card-small .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left + $card-small-body-padding-horizontal; }
-
-    /*
-     * Large
-     */
-
-    /* Desktop and bigger */
-    @media (min-width: $breakpoint-large) {
-
-        .uk-card-large .uk-nav-default { margin: (-$card-large-body-padding-vertical-l + 15px) (-$card-large-body-padding-horizontal-l); }
-        .uk-card-large .uk-card-title + .uk-nav-default { margin-top: 0; }
-
-    }
-
-}
 @mixin hook-column-misc(){}
 @mixin hook-inverse-component-column(){
 
@@ -611,30 +635,6 @@
         -webkit-column-rule-color: $inverse-column-divider-rule-color;
         -moz-column-rule-color: $inverse-column-divider-rule-color;
         column-rule-color: $inverse-column-divider-rule-color;
-    }
-
-}
-@mixin hook-close(){
-    -webkit-transition: 0.1s ease-in-out;
-    transition: 0.1s ease-in-out;
-    -webkit-transition-property: color, opacity;
-    transition-property: color, opacity;
-}
-@mixin hook-close-hover(){}
-@mixin hook-close-misc(){}
-@mixin hook-inverse-close(){}
-@mixin hook-inverse-close-hover(){}
-@mixin hook-inverse-component-close(){
-
-    .uk-close {
-        color: $inverse-close-color;
-        @if(mixin-exists(hook-inverse-close)) {@include hook-inverse-close();}
-    }
-
-    .uk-close:hover,
-    .uk-close:focus {
-        color: $inverse-close-hover-color;
-        @if(mixin-exists(hook-inverse-close-hover)) {@include hook-inverse-close-hover();}
     }
 
 }
@@ -766,6 +766,11 @@
 @mixin hook-dropdown-nav-divider(){}
 @mixin hook-dropdown-misc(){}
 @mixin hook-flex-misc(){}
+@mixin hook-form-range(){}
+@mixin hook-form-range-thumb(){ border: $form-range-thumb-border-width solid $form-range-thumb-border; }
+@mixin hook-form-range-track(){ border-radius: $form-range-track-border-radius; }
+@mixin hook-form-range-track-focus(){}
+@mixin hook-form-range-misc(){}
 @mixin hook-form(){
     border: $form-border-width solid $form-border;
     -webkit-transition: 0.2s ease-in-out;
@@ -888,11 +893,13 @@
     }
 
 }
-@mixin hook-form-range(){}
-@mixin hook-form-range-thumb(){ border: $form-range-thumb-border-width solid $form-range-thumb-border; }
-@mixin hook-form-range-track(){ border-radius: $form-range-track-border-radius; }
-@mixin hook-form-range-track-focus(){}
-@mixin hook-form-range-misc(){}
+@mixin hook-grid-misc(){}
+@mixin hook-inverse-component-grid(){
+
+    .uk-grid-divider > :not(.uk-first-column)::before { border-left-color: $inverse-grid-divider-border; }
+    .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before { border-top-color: $inverse-grid-divider-border; }
+
+}
 @mixin hook-heading-primary(){}
 @mixin hook-heading-hero(){}
 @mixin hook-heading-divider(){}
@@ -931,11 +938,69 @@
     }
 
 }
-@mixin hook-grid-misc(){}
-@mixin hook-inverse-component-grid(){
+@mixin hook-icon-link(){}
+@mixin hook-icon-link-hover(){}
+@mixin hook-icon-link-active(){}
+@mixin hook-icon-button(){
+    -webkit-transition: 0.1s ease-in-out;
+    transition: 0.1s ease-in-out;
+    -webkit-transition-property: color, background-color;
+    transition-property: color, background-color
+}
+@mixin hook-icon-button-hover(){}
+@mixin hook-icon-button-active(){}
+@mixin hook-icon-misc(){}
+@mixin hook-inverse-icon-link(){}
+@mixin hook-inverse-icon-link-hover(){}
+@mixin hook-inverse-icon-link-active(){}
+@mixin hook-inverse-icon-button(){}
+@mixin hook-inverse-icon-button-hover(){}
+@mixin hook-inverse-icon-button-active(){}
+@mixin hook-inverse-component-icon(){
 
-    .uk-grid-divider > :not(.uk-first-column)::before { border-left-color: $inverse-grid-divider-border; }
-    .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before { border-top-color: $inverse-grid-divider-border; }
+    //
+    // Link
+    //
+
+    .uk-icon-link {
+        color: $inverse-icon-link-color;
+        @if(mixin-exists(hook-inverse-icon-link)) {@include hook-inverse-icon-link();}
+    }
+
+    .uk-icon-link:hover,
+    .uk-icon-link:focus {
+        color: $inverse-icon-link-hover-color;
+        @if(mixin-exists(hook-inverse-icon-link-hover)) {@include hook-inverse-icon-link-hover();}
+    }
+
+    .uk-icon-link:active,
+    .uk-active > .uk-icon-link {
+        color: $inverse-icon-link-active-color;
+        @if(mixin-exists(hook-inverse-icon-link-active)) {@include hook-inverse-icon-link-active();}
+    }
+
+    //
+    // Button
+    //
+
+    .uk-icon-button {
+        background-color: $inverse-icon-button-background;
+        color: $inverse-icon-button-color;
+        @if(mixin-exists(hook-inverse-icon-button)) {@include hook-inverse-icon-button();}
+    }
+
+    .uk-icon-button:hover,
+    .uk-icon-button:focus {
+        background-color: $inverse-icon-button-hover-background;
+        color: $inverse-icon-button-hover-color;
+        @if(mixin-exists(hook-inverse-icon-button-hover)) {@include hook-inverse-icon-button-hover();}
+    }
+
+    .uk-icon-button:active {
+        background-color: $inverse-icon-button-active-background;
+        color: $inverse-icon-button-active-color;
+        @if(mixin-exists(hook-inverse-icon-button-active)) {@include hook-inverse-icon-button-active();}
+    }
 
 }
 @mixin hook-iconnav(){}
@@ -1002,53 +1067,6 @@
     .uk-list-bullet > li::before {
         @include svg-fill($internal-list-bullet-image, "#000", $inverse-list-bullet-icon-color);
         @if(mixin-exists(hook-inverse-list-bullet)) {@include hook-inverse-list-bullet();}
-    }
-
-}
-@mixin hook-inverse-component-icon(){
-
-    //
-    // Link
-    //
-
-    .uk-icon-link {
-        color: $inverse-icon-link-color;
-        @if(mixin-exists(hook-inverse-icon-link)) {@include hook-inverse-icon-link();}
-    }
-
-    .uk-icon-link:hover,
-    .uk-icon-link:focus {
-        color: $inverse-icon-link-hover-color;
-        @if(mixin-exists(hook-inverse-icon-link-hover)) {@include hook-inverse-icon-link-hover();}
-    }
-
-    .uk-icon-link:active,
-    .uk-active > .uk-icon-link {
-        color: $inverse-icon-link-active-color;
-        @if(mixin-exists(hook-inverse-icon-link-active)) {@include hook-inverse-icon-link-active();}
-    }
-
-    //
-    // Button
-    //
-
-    .uk-icon-button {
-        background-color: $inverse-icon-button-background;
-        color: $inverse-icon-button-color;
-        @if(mixin-exists(hook-inverse-icon-button)) {@include hook-inverse-icon-button();}
-    }
-
-    .uk-icon-button:hover,
-    .uk-icon-button:focus {
-        background-color: $inverse-icon-button-hover-background;
-        color: $inverse-icon-button-hover-color;
-        @if(mixin-exists(hook-inverse-icon-button-hover)) {@include hook-inverse-icon-button-hover();}
-    }
-
-    .uk-icon-button:active {
-        background-color: $inverse-icon-button-active-background;
-        color: $inverse-icon-button-active-color;
-        @if(mixin-exists(hook-inverse-icon-button-active)) {@include hook-inverse-icon-button-active();}
     }
 
 }
@@ -1475,24 +1493,6 @@
     @include hook-inverse-component-column();
     @include hook-inverse-component-utility();
 }
-@mixin hook-icon-link(){}
-@mixin hook-icon-link-hover(){}
-@mixin hook-icon-link-active(){}
-@mixin hook-icon-button(){
-    -webkit-transition: 0.1s ease-in-out;
-    transition: 0.1s ease-in-out;
-    -webkit-transition-property: color, background-color;
-    transition-property: color, background-color
-}
-@mixin hook-icon-button-hover(){}
-@mixin hook-icon-button-active(){}
-@mixin hook-icon-misc(){}
-@mixin hook-inverse-icon-link(){}
-@mixin hook-inverse-icon-link-hover(){}
-@mixin hook-inverse-icon-link-active(){}
-@mixin hook-inverse-icon-button(){}
-@mixin hook-inverse-icon-button-hover(){}
-@mixin hook-inverse-icon-button-active(){}
 @mixin hook-label(){
     border-radius: $label-border-radius;
     text-transform: $label-text-transform;
