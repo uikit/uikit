@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {mixin, util} = UIkit;
-    var {assign, clamp, css, Dimensions, each, getImage, includes, isNumber, isUndefined, scrolledOver, toFloat, query, win} = util;
+    var {clamp, css, Dimensions, each, getImage, includes, isNumber, isUndefined, scrolledOver, toFloat, query, win} = util;
 
     var props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 

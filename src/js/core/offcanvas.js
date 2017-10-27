@@ -147,7 +147,7 @@ export default function (UIkit) {
                     height(doc.body); // force reflow
                     addClass(this.content, this.clsContentAnimation);
                     addClass(this.panel, `${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
-                    addClass(this.clsOverlay);
+                    addClass(this.$el, this.clsOverlay);
                     css(this.$el, 'display', 'block');
                     height(this.$el); // force reflow
 

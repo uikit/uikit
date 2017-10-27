@@ -26,15 +26,16 @@ ready(function () {
 
     on(doc, pointerDown, function (e) {
 
-        var {target, pageX, pageY} = e.touches ? e.touches[0] : e,
+        var target = e.target,
+            {x, y} = getPos(e),
             now = Date.now();
 
         touch.el = 'tagName' in target ? target : target.parentNode;
 
         clickTimeout && clearTimeout(clickTimeout);
 
-        touch.x1 = pageX;
-        touch.y1 = pageY;
+        touch.x1 = x;
+        touch.y1 = y;
 
         if (touch.last && now - touch.last <= 250) {
             touch = {};
@@ -48,10 +49,10 @@ ready(function () {
 
     on(doc, pointerMove, function (e) {
 
-        var {pageX, pageY} = e.touches ? e.touches[0] : e;
+        var {x, y} = getPos(e);
 
-        touch.x2 = pageX;
-        touch.y2 = pageY;
+        touch.x2 = x;
+        touch.y2 = y;
     });
 
     on(doc, pointerUp, function ({target}) {
@@ -99,4 +100,10 @@ on(doc, 'touchcancel', () => touching = false, true);
 
 export function isTouch(e) {
     return touching || e.pointerType === 'touch';
+}
+
+export function getPos(e) {
+    var {touches, changedTouches} = e,
+        {pageX: x, pageY: y} = touches && touches[0] || changedTouches && changedTouches[0] || e;
+    return {x, y};
 }

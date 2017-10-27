@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.31 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.32 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -766,7 +766,10 @@ function transition(element, props, duration, transition) {
     return Promise.all(toNodes(element).map(function (element) { return new Promise(function (resolve, reject) {
 
             for (var name in props) {
-                css(element, name, css(element, name));
+                var value = css(element, name);
+                if (value === '') {
+                    css(element, name, value);
+                }
             }
 
             var timer = setTimeout(function () { return trigger(element, transitionend); }, duration);
@@ -2248,18 +2251,18 @@ ready(function () {
 
     on(doc, pointerDown, function (e) {
 
-        var ref = e.touches ? e.touches[0] : e;
-        var target = ref.target;
-        var pageX = ref.pageX;
-        var pageY = ref.pageY;
+        var target = e.target;
+        var ref = getPos$1(e);
+        var x = ref.x;
+        var y = ref.y;
         var now = Date.now();
 
         touch.el = 'tagName' in target ? target : target.parentNode;
 
         clickTimeout && clearTimeout(clickTimeout);
 
-        touch.x1 = pageX;
-        touch.y1 = pageY;
+        touch.x1 = x;
+        touch.y1 = y;
 
         if (touch.last && now - touch.last <= 250) {
             touch = {};
@@ -2273,12 +2276,12 @@ ready(function () {
 
     on(doc, pointerMove, function (e) {
 
-        var ref = e.touches ? e.touches[0] : e;
-        var pageX = ref.pageX;
-        var pageY = ref.pageY;
+        var ref = getPos$1(e);
+        var x = ref.x;
+        var y = ref.y;
 
-        touch.x2 = pageX;
-        touch.y2 = pageY;
+        touch.x2 = x;
+        touch.y2 = y;
     });
 
     on(doc, pointerUp, function (ref) {
@@ -2328,6 +2331,16 @@ on(doc, 'touchcancel', function () { return touching = false; }, true);
 
 function isTouch(e) {
     return touching || e.pointerType === 'touch';
+}
+
+function getPos$1(e) {
+    var touches = e.touches;
+    var changedTouches = e.changedTouches;
+    
+    var ref = touches && touches[0] || changedTouches && changedTouches[0] || e;
+    var x = ref.pageX;
+    var y = ref.pageY;
+    return {x: x, y: y};
 }
 
 
@@ -2454,7 +2467,8 @@ var util = Object.freeze({
 	height: height,
 	width: width,
 	flipPosition: flipPosition,
-	isTouch: isTouch
+	isTouch: isTouch,
+	getPos: getPos$1
 });
 
 var boot = function (UIkit) {
@@ -3045,16 +3059,16 @@ var stateAPI = function (UIkit) {
         var self = event.self;
         var filter = event.filter;
         var handler = event.handler;
-        el = isFunction(el) && el.call(component) || el || component.$el;
+        el = isFunction(el)
+            ? el.call(component)
+            : el || component.$el;
 
         if (isArray(el)) {
-
             el.forEach(function (el) { return registerEvent(component, assign(event, {el: el}), key); });
-
             return;
         }
 
-        if (filter && !filter.call(component)) {
+        if (!el || filter && !filter.call(component)) {
             return;
         }
 
@@ -4769,13 +4783,15 @@ var HeightViewport = function (UIkit) {
         props: {
             expand: Boolean,
             offsetTop: Boolean,
-            offsetBottom: Boolean
+            offsetBottom: Boolean,
+            minHeight: Number
         },
 
         defaults: {
             expand: false,
             offsetTop: false,
-            offsetBottom: false
+            offsetBottom: false,
+            minHeight: 0
         },
 
         update: {
@@ -4784,7 +4800,7 @@ var HeightViewport = function (UIkit) {
 
                 css(this.$el, 'boxSizing', 'border-box');
 
-                var viewport = height(win), minHeight, offsetTop = 0;
+                var viewport = height(win), minHeight = 0, offsetTop = 0;
 
                 if (this.expand) {
 
@@ -4793,7 +4809,7 @@ var HeightViewport = function (UIkit) {
                     var diff = viewport - docEl.offsetHeight;
 
                     if (diff > 0) {
-                        css(this.$el, 'minHeight', minHeight = this.$el.offsetHeight + diff);
+                        minHeight = this.$el.offsetHeight + diff;
                     }
 
                 } else {
@@ -4823,9 +4839,11 @@ var HeightViewport = function (UIkit) {
 
                     }
 
-                    css(this.$el, 'minHeight', minHeight = offsetTop ? ("calc(100vh - " + offsetTop + "px)") : '100vh');
+                    minHeight = viewport - offsetTop;
 
                 }
+
+                css(this.$el, 'minHeight', Math.max(minHeight, this.minHeight) || '');
 
                 // IE 10-11 fix (min-height on a flex container won't apply to its flex items)
                 height(this.$el, '');
@@ -5807,7 +5825,7 @@ var Offcanvas = function (UIkit) {
                     height(doc.body); // force reflow
                     addClass(this.content, this.clsContentAnimation);
                     addClass(this.panel, ((this.clsSidebarAnimation) + " " + (this.mode !== 'reveal' ? this.clsMode : '')));
-                    addClass(this.clsOverlay);
+                    addClass(this.$el, this.clsOverlay);
                     css(this.$el, 'display', 'block');
                     height(this.$el); // force reflow
 
@@ -7170,7 +7188,7 @@ var core = function (UIkit) {
 
 };
 
-UIkit$2.version = '3.0.0-beta.31';
+UIkit$2.version = '3.0.0-beta.32';
 
 mixin(UIkit$2);
 core(UIkit$2);
@@ -7183,6 +7201,7 @@ function plugin(UIkit) {
 
     var ref = UIkit.util;
     var $ = ref.$;
+    var doc = ref.doc;
     var empty = ref.empty;
     var html = ref.html;
 
@@ -7252,6 +7271,26 @@ function plugin(UIkit) {
             this.stop();
             this.units.forEach(function (unit) { return empty(this$1[unit]); });
         },
+
+        events: [
+
+            {
+
+                name: 'visibilitychange',
+
+                el: doc,
+
+                handler: function handler() {
+                    if (doc.hidden) {
+                        this.stop();
+                    } else  {
+                        this.start();
+                    }
+                }
+
+            }
+
+        ],
 
         update: {
 
@@ -7483,8 +7522,8 @@ var Animations = function (UIkit) {
 
             show: function show(dir) {
                 return [
-                    {transform: translate3d(dir * -100)},
-                    {transform: translate3d()}
+                    {transform: translate(dir * -100)},
+                    {transform: translate()}
                 ];
             },
 
@@ -7492,10 +7531,10 @@ var Animations = function (UIkit) {
                 return Animations.translated(current);
             },
 
-            translate: function translate(percent, dir) {
+            translate: function translate$1(percent, dir) {
                 return [
-                    {transform: translate3d(dir * -100 * percent)},
-                    {transform: translate3d(dir * 100 * (1 - percent))}
+                    {transform: translate(dir * -100 * percent)},
+                    {transform: translate(dir * 100 * (1 - percent))}
                 ];
             }
 
@@ -7511,10 +7550,10 @@ var Animations = function (UIkit) {
 
 };
 
-function translate3d(value) {
+function translate(value) {
     if ( value === void 0 ) value = 0;
 
-    return ("translate3d(" + value + (value ? '%' : '') + ", 0, 0)");
+    return ("translate(" + value + (value ? '%' : '') + ", 0)"); // currently not translate3d to support IE, translate3d within translate3d does not work while transitioning
 }
 
 function scale3d(value) {
@@ -7539,6 +7578,7 @@ function plugin$3(UIkit) {
     var endsWith = ref.endsWith;
     var fastdom = ref.fastdom;
     var getIndex = ref.getIndex;
+    var getPos = ref.getPos;
     var hasClass = ref.hasClass;
     var index = ref.index;
     var isTouch = ref.isTouch;
@@ -7581,7 +7621,6 @@ function plugin$3(UIkit) {
             percent: 0,
             clsActive: 'uk-active',
             clsActivated: 'uk-transition-active',
-            forwardDuration: 150,
             initialAnimation: false,
             Animations: Animations(UIkit)
         },
@@ -7620,8 +7659,10 @@ function plugin$3(UIkit) {
                 var fn = this$1[key];
                 this$1[key] = function (e) {
 
-                    this$1.prevPos = this$1.pos;
-                    this$1.pos = (e.touches && e.touches[0] || e).pageX;
+                    var pos = getPos(e).x;
+
+                    this$1.prevPos = pos !== this$1.pos ? this$1.pos : this$1.prevPos;
+                    this$1.pos = pos;
 
                     fn(e);
                 };
@@ -7677,6 +7718,22 @@ function plugin$3(UIkit) {
                 },
 
                 handler: 'start'
+
+            },
+
+            {
+
+                name: 'visibilitychange',
+
+                el: doc,
+
+                handler: function handler() {
+                    if (doc.hidden) {
+                        this.stopAutoplay();
+                    } else  {
+                        this.startAutoplay();
+                    }
+                }
 
             },
 
@@ -7832,7 +7889,7 @@ function plugin$3(UIkit) {
                     var dir = ref.dir;
                     var getPercent = ref.percent;
                     var cancel = ref.cancel;
-                    var translate = ref.translate;
+                    var translate$$1 = ref.translate;
 
                     percent = getPercent() * dir;
 
@@ -7841,7 +7898,7 @@ function plugin$3(UIkit) {
                     this.stack.splice(0, this.stack.length);
 
                     cancel();
-                    translate(Math.abs(percent));
+                    translate$$1(Math.abs(percent));
 
                     this.index = this.getIndex(this.index - dir);
                     this.touching = true;
@@ -7907,7 +7964,7 @@ function plugin$3(UIkit) {
                     this.percent = Math.abs(this.percent) % 1;
                     this.index = this.getIndex(this.index - trunc(percent));
 
-                    if (this.percent < .1) {
+                    if (this.percent < .1 || percent < 0 === this.pos > this.prevPos) {
                         this.index = this.getIndex(percent > 0 ? 'previous' : 'next');
                         this.percent = 1 - this.percent;
                         percent *= -1;
@@ -7942,7 +7999,7 @@ function plugin$3(UIkit) {
                 if (!force && this.stack.length > 1) {
 
                     if (this.stack.length === 2) {
-                        this._animation.forward(this.forwardDuration);
+                        this._animation.forward(250);
                     }
 
                     return;
@@ -7983,7 +8040,7 @@ function plugin$3(UIkit) {
                     this._show(
                         !prev ? this.Animations[this.initialAnimation] : this.animation,
                         force ? 'cubic-bezier(0.165, 0.840, 0.440, 1.000)' : this.easing,
-                        prev || next,
+                        prev,
                         next,
                         getDirection(index, prevIndex),
                         this.stack.length > 1,
@@ -8014,12 +8071,14 @@ function plugin$3(UIkit) {
                     done
                 );
 
-                this._animation.show(prev === next
-                    ? 300
-                    : forward
-                        ? this.forwardDuration
-                        : this.duration
-                    , this.percent, forward
+                this._animation.show(
+                    prev === next
+                        ? 300
+                        : forward
+                            ? 150
+                            : this.duration,
+                    this.percent,
+                    forward
                 );
 
             },
@@ -8037,7 +8096,7 @@ function plugin$3(UIkit) {
                 this.stopAutoplay();
 
                 if (this.autoplay) {
-                    this.interval = setInterval(function () { return (!this$1.isHovering || ! this$1.pauseOnHover) && this$1.show('next'); }, this.autoplayInterval);
+                    this.interval = setInterval(function () { return !(this$1.isHovering && this$1.pauseOnHover) && this$1.show('next'); }, this.autoplayInterval);
                 }
 
             },
@@ -8055,7 +8114,7 @@ function plugin$3(UIkit) {
     function Transitioner(animation, easing, current, next, dir, cb) {
 
         var percent = animation.percent;
-        var translate = animation.translate;
+        var translate$$1 = animation.translate;
         var show = animation.show;
         var props = show(dir);
 
@@ -8076,12 +8135,12 @@ function plugin$3(UIkit) {
 
                 this.translate(percent);
 
-                triggerUpdate(current, 'itemout', {percent: 1 - percent, duration: duration, ease: ease, dir: dir});
                 triggerUpdate(next, 'itemin', {percent: percent, duration: duration, ease: ease, dir: dir});
+                current && triggerUpdate(current, 'itemout', {percent: 1 - percent, duration: duration, ease: ease, dir: dir});
 
                 return Promise.all([
-                    Transition.start(current, props[0], duration, ease),
-                    Transition.start(next, props[1], duration, ease)
+                    Transition.start(next, props[1], duration, ease),
+                    current && Transition.start(current, props[0], duration, ease)
                 ]).then(function () {
                     this$1.reset();
                     cb();
@@ -8089,34 +8148,34 @@ function plugin$3(UIkit) {
             },
 
             stop: function stop() {
-                return Transition.stop([current, next]);
+                return Transition.stop([next, current]);
             },
 
             cancel: function cancel() {
-                Transition.cancel([current, next]);
+                Transition.cancel([next, current]);
             },
 
             reset: function reset() {
                 for (var prop in props[0]) {
-                    css([current, next], prop, '');
+                    css([next, current], prop, '');
                 }
             },
 
             forward: function forward(duration) {
 
                 var percent = this.percent();
-                Transition.cancel([current, next]);
+                Transition.cancel([next, current]);
                 this.show(duration, percent, true);
 
             },
 
             translate: function translate$1(percent) {
 
-                var props = translate(percent, dir);
-                css(current, props[0]);
+                var props = translate$$1(percent, dir);
                 css(next, props[1]);
-                triggerUpdate(current, 'itemtranslateout', {percent: 1 - percent, dir: dir});
+                current && css(current, props[0]);
                 triggerUpdate(next, 'itemtranslatein', {percent: percent, dir: dir});
+                current && triggerUpdate(current, 'itemtranslateout', {percent: 1 - percent, dir: dir});
             },
 
             percent: function percent$1() {
@@ -8174,7 +8233,7 @@ var Animations$1 = function (UIkit) {
                 return 1 - css(current, 'opacity');
             },
 
-            translate: function translate(percent) {
+            translate: function translate$$1(percent) {
                 return [
                     {opacity: 1 - percent},
                     {opacity: percent}
@@ -8196,7 +8255,7 @@ var Animations$1 = function (UIkit) {
                 return 1 - css(current, 'opacity');
             },
 
-            translate: function translate(percent) {
+            translate: function translate$$1(percent) {
                 return [
                     {opacity: 1 - percent, transform: scale3d(1 - .2 * percent)},
                     {opacity: percent, transform: scale3d(1 - .2 + .2 * percent)}
@@ -8861,7 +8920,6 @@ function plugin$5(UIkit) {
 
     var mixin = UIkit.mixin;
     var util = UIkit.util;
-    var assign = util.assign;
     var clamp = util.clamp;
     var css = util.css;
     var Dimensions = util.Dimensions;
@@ -9293,7 +9351,7 @@ var Animations$2 = function (UIkit) {
                 return 1 - css(current, 'opacity');
             },
 
-            translate: function translate(percent) {
+            translate: function translate$$1(percent) {
                 return [
                     {opacity: 1 - percent, zIndex: 0},
                     {zIndex: -1}
@@ -9315,7 +9373,7 @@ var Animations$2 = function (UIkit) {
                 return 1 - css(current, 'opacity');
             },
 
-            translate: function translate(percent) {
+            translate: function translate$$1(percent) {
                 return [
                     {opacity: 1 - percent, transform: scale3d(1 + .5 * percent), zIndex: 0},
                     {zIndex: -1}
@@ -9329,11 +9387,11 @@ var Animations$2 = function (UIkit) {
             show: function show(dir) {
                 return dir < 0
                     ? [
-                        {transform: translate3d(100), zIndex: 0},
-                        {transform: translate3d(), zIndex: -1} ]
+                        {transform: translate(30), zIndex: -1},
+                        {transform: translate(), zIndex: 0} ]
                     : [
-                        {transform: translate3d(-100), zIndex: 0},
-                        {transform: translate3d(), zIndex: -1}
+                        {transform: translate(-100), zIndex: 0},
+                        {transform: translate(), zIndex: -1}
                     ];
             },
 
@@ -9341,14 +9399,14 @@ var Animations$2 = function (UIkit) {
                 return Animations$$1.translated(current);
             },
 
-            translate: function translate(percent, dir) {
+            translate: function translate$1(percent, dir) {
                 return dir < 0
                     ? [
-                        {transform: translate3d(percent * 100), zIndex: 0},
-                        {transform: translate3d(-30 * (1 - percent)), zIndex: -1} ]
+                        {transform: translate(30 * percent), zIndex: -1},
+                        {transform: translate(-100 * (1 - percent)), zIndex: 0} ]
                     : [
-                        {transform: translate3d(-percent * 100), zIndex: 0},
-                        {transform: translate3d(30 * (1 - percent)), zIndex: -1}
+                        {transform: translate(-percent * 100), zIndex: 0},
+                        {transform: translate(30 * (1 - percent)), zIndex: -1}
                     ];
             }
 
@@ -9357,14 +9415,13 @@ var Animations$2 = function (UIkit) {
         push: {
 
             show: function show(dir) {
-
                 return dir < 0
                     ? [
-                        {transform: translate3d(30), zIndex: -1},
-                        {transform: translate3d(), zIndex: 0} ]
+                        {transform: translate(100), zIndex: 0},
+                        {transform: translate(), zIndex: -1} ]
                     : [
-                        {transform: translate3d(-30), zIndex: -1},
-                        {transform: translate3d(), zIndex: 0}
+                        {transform: translate(-30), zIndex: -1},
+                        {transform: translate(), zIndex: 0}
                     ];
             },
 
@@ -9372,14 +9429,14 @@ var Animations$2 = function (UIkit) {
                 return 1 - Animations$$1.translated(next);
             },
 
-            translate: function translate(percent, dir) {
+            translate: function translate$2(percent, dir) {
                 return dir < 0
                     ? [
-                        {transform: translate3d(30 * percent), zIndex: -1},
-                        {transform: translate3d(-100 * (1 - percent)), zIndex: 0} ]
+                        {transform: translate(percent * 100), zIndex: 0},
+                        {transform: translate(-30 * (1 - percent)), zIndex: -1} ]
                     : [
-                        {transform: translate3d(-30 * percent), zIndex: -1},
-                        {transform: translate3d(100 * (1 - percent)), zIndex: 0}
+                        {transform: translate(-30 * percent), zIndex: -1},
+                        {transform: translate(100 * (1 - percent)), zIndex: 0}
                     ];
             }
 
@@ -9607,6 +9664,7 @@ function plugin$7(UIkit) {
     var docEl = util.docEl;
     var height = util.height;
     var fastdom = util.fastdom;
+    var getPos = util.getPos;
     var includes = util.includes;
     var index = util.index;
     var isInput = util.isInput;
@@ -9670,9 +9728,9 @@ function plugin$7(UIkit) {
                 var fn = this$1[key];
                 this$1[key] = function (e) {
                     this$1.scrollY = win.scrollY;
-                    var ref = e.touches && e.touches[0] || e;
-                    var x = ref.pageX;
-                    var y = ref.pageY;
+                    var ref = getPos(e);
+                    var x = ref.x;
+                    var y = ref.y;
                     this$1.pos = {x: x, y: y};
 
                     fn(e);

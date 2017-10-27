@@ -6,7 +6,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$$, $, addClass, assign, attr, createEvent, css, doc, endsWith, fastdom, getIndex, hasClass, index, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, Transition, trigger} = UIkit.util;
+    var {$$, $, addClass, assign, attr, createEvent, css, doc, endsWith, fastdom, getIndex, getPos, hasClass, index, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, Transition, trigger} = UIkit.util;
 
     UIkit.mixin.slideshow = {
 
@@ -34,7 +34,6 @@ function plugin(UIkit) {
             percent: 0,
             clsActive: 'uk-active',
             clsActivated: 'uk-transition-active',
-            forwardDuration: 150,
             initialAnimation: false,
             Animations: Animations(UIkit)
         },
@@ -64,8 +63,10 @@ function plugin(UIkit) {
                 var fn = this[key];
                 this[key] = e => {
 
-                    this.prevPos = this.pos;
-                    this.pos = (e.touches && e.touches[0] || e).pageX;
+                    var pos = getPos(e).x;
+
+                    this.prevPos = pos !== this.pos ? this.pos : this.prevPos;
+                    this.pos = pos;
 
                     fn(e);
                 }
@@ -121,6 +122,22 @@ function plugin(UIkit) {
                 },
 
                 handler: 'start'
+
+            },
+
+            {
+
+                name: 'visibilitychange',
+
+                el: doc,
+
+                handler() {
+                    if (doc.hidden) {
+                        this.stopAutoplay();
+                    } else  {
+                        this.startAutoplay();
+                    }
+                }
 
             },
 
@@ -334,7 +351,7 @@ function plugin(UIkit) {
                     this.percent = Math.abs(this.percent) % 1;
                     this.index = this.getIndex(this.index - trunc(percent));
 
-                    if (this.percent < .1) {
+                    if (this.percent < .1 || percent < 0 === this.pos > this.prevPos) {
                         this.index = this.getIndex(percent > 0 ? 'previous' : 'next');
                         this.percent = 1 - this.percent;
                         percent *= -1;
@@ -366,7 +383,7 @@ function plugin(UIkit) {
                 if (!force && this.stack.length > 1) {
 
                     if (this.stack.length === 2) {
-                        this._animation.forward(this.forwardDuration);
+                        this._animation.forward(250);
                     }
 
                     return;
@@ -407,7 +424,7 @@ function plugin(UIkit) {
                     this._show(
                         !prev ? this.Animations[this.initialAnimation] : this.animation,
                         force ? 'cubic-bezier(0.165, 0.840, 0.440, 1.000)' : this.easing,
-                        prev || next,
+                        prev,
                         next,
                         getDirection(index, prevIndex),
                         this.stack.length > 1,
@@ -438,12 +455,14 @@ function plugin(UIkit) {
                     done
                 );
 
-                this._animation.show(prev === next
-                    ? 300
-                    : forward
-                        ? this.forwardDuration
-                        : this.duration
-                    , this.percent, forward
+                this._animation.show(
+                    prev === next
+                        ? 300
+                        : forward
+                            ? 150
+                            : this.duration,
+                    this.percent,
+                    forward
                 );
 
             },
@@ -457,7 +476,7 @@ function plugin(UIkit) {
                 this.stopAutoplay();
 
                 if (this.autoplay) {
-                    this.interval = setInterval(() => (!this.isHovering || ! this.pauseOnHover) && this.show('next'), this.autoplayInterval);
+                    this.interval = setInterval(() => !(this.isHovering && this.pauseOnHover) && this.show('next'), this.autoplayInterval);
                 }
 
             },
@@ -491,12 +510,12 @@ function plugin(UIkit) {
 
                 this.translate(percent);
 
-                triggerUpdate(current, 'itemout', {percent: 1 - percent, duration, ease, dir});
                 triggerUpdate(next, 'itemin', {percent, duration, ease, dir});
+                current && triggerUpdate(current, 'itemout', {percent: 1 - percent, duration, ease, dir});
 
                 return Promise.all([
-                    Transition.start(current, props[0], duration, ease),
-                    Transition.start(next, props[1], duration, ease)
+                    Transition.start(next, props[1], duration, ease),
+                    current && Transition.start(current, props[0], duration, ease)
                 ]).then(() => {
                     this.reset();
                     cb();
@@ -504,23 +523,23 @@ function plugin(UIkit) {
             },
 
             stop() {
-                return Transition.stop([current, next]);
+                return Transition.stop([next, current]);
             },
 
             cancel() {
-                Transition.cancel([current, next]);
+                Transition.cancel([next, current]);
             },
 
             reset() {
                 for (var prop in props[0]) {
-                    css([current, next], prop, '');
+                    css([next, current], prop, '');
                 }
             },
 
             forward(duration) {
 
                 var percent = this.percent();
-                Transition.cancel([current, next]);
+                Transition.cancel([next, current]);
                 this.show(duration, percent, true);
 
             },
@@ -528,10 +547,10 @@ function plugin(UIkit) {
             translate(percent) {
 
                 var props = translate(percent, dir);
-                css(current, props[0]);
                 css(next, props[1]);
-                triggerUpdate(current, 'itemtranslateout', {percent: 1 - percent, dir});
+                current && css(current, props[0]);
                 triggerUpdate(next, 'itemtranslatein', {percent, dir});
+                current && triggerUpdate(current, 'itemtranslateout', {percent: 1 - percent, dir});
             },
 
             percent() {

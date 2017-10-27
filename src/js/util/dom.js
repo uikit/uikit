@@ -34,7 +34,10 @@ export function transition(element, props, duration = 400, transition = 'linear'
         new Promise((resolve, reject) => {
 
             for (var name in props) {
-                css(element, name, css(element, name));
+                var value = css(element, name);
+                if (value === '') {
+                    css(element, name, value);
+                }
             }
 
             var timer = setTimeout(() => trigger(element, transitionend), duration);

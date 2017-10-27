@@ -1,5 +1,23 @@
 # Changelog
 
+## 3.0.0 beta 32 (October 27, 2017)
+
+### Added
+
+- Add `min-height`option to Height Viewport component
+
+### Changed
+
+- Improve accelerated slide animations in Slideshow component
+- Improve slide dragging behaviour in Slideshow component
+
+### Fixed
+
+- Fix slide animations stacking when tab is not focused in Slideshow component
+- Fix overlay not showing in Offcanvas compoent
+- Fix Slideshow Parallax in Slideshow component for IE11
+- Fix default border-radius for button elements in Chrome 62.
+
 ## 3.0.0 beta 31 (October 20, 2017)
 
 ### Added
@@ -17,7 +35,7 @@
 - Update overview in tests
 - Rename `isWithin` to `within`
 - Allow fullscreen mode for YouTube and Vimeo videos in Lightbox
-- Video component now stops playing the video regardsless of the autoplay setting
+- Video component now stops playing the video regardless of the `autoplay` setting
 
 ### Fixed
 

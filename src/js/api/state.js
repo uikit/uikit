@@ -226,16 +226,16 @@ export default function (UIkit) {
         }
 
         var {name, el, delegate, self, filter, handler} = event;
-        el = isFunction(el) && el.call(component) || el || component.$el;
+        el = isFunction(el)
+            ? el.call(component)
+            : el || component.$el;
 
         if (isArray(el)) {
-
             el.forEach(el => registerEvent(component, assign(event, {el}), key));
-
             return;
         }
 
-        if (filter && !filter.call(component)) {
+        if (!el || filter && !filter.call(component)) {
             return;
         }
 
