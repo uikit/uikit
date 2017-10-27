@@ -45,7 +45,7 @@ export default function (UIkit) {
                         },
                         {
                             width: width + (width % 2 ? 1 : 0),
-                            height
+                            height: height + (height % 2 ? 1 : 0)
                         }
                     )
                 );
