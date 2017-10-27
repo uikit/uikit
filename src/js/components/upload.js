@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {addClass, ajax, matches, noop, removeClass, trigger} = UIkit.util;
+    var {addClass, ajax, matches, noop, on, removeClass, trigger} = UIkit.util;
 
     UIkit.component('upload', {
 
@@ -145,9 +145,9 @@ function plugin(UIkit) {
                             beforeSend: env => {
 
                                 var xhr = env.xhr;
-                                xhr.upload && xhr.upload.addEventListener('progress', this.progress);
+                                xhr.upload && on(xhr.upload, 'progress', this.progress);
                                 ['loadStart', 'load', 'loadEnd', 'abort'].forEach(type =>
-                                    xhr.addEventListener(type.toLowerCase(), this[type])
+                                    on(xhr, type.toLowerCase(), this[type])
                                 );
 
                                 this.beforeSend(env);

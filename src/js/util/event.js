@@ -2,24 +2,24 @@ import { $, $$, closest, doc, isArray, isFunction, isString, toNode, toNodes, wi
 
 export function on(...args) {
 
-    var [element, type, selector, listener, useCapture] = getArgs(args);
+    var [target, type, selector, listener, useCapture] = getArgs(args);
 
-    element = toNode(element);
+    target = toEventTarget(target);
 
     if (selector) {
-        listener = delegate(element, selector, listener);
+        listener = delegate(target, selector, listener);
     }
 
     if (listener.length > 1) {
         listener = detail(listener);
     }
 
-    type.split(' ').forEach(type => element.addEventListener(type, listener, useCapture));
-    return () => off(element, type, listener, useCapture);
+    type.split(' ').forEach(type => target.addEventListener(type, listener, useCapture));
+    return () => off(target, type, listener, useCapture);
 }
 
-export function off(element, type, listener, useCapture = false) {
-    type.split(' ').forEach(type => toNode(element).removeEventListener(type, listener, useCapture));
+export function off(target, type, listener, useCapture = false) {
+    type.split(' ').forEach(type => toEventTarget(target).removeEventListener(type, listener, useCapture));
 }
 
 export function once(...args) {
@@ -36,9 +36,9 @@ export function once(...args) {
     return off;
 }
 
-export function trigger(element, event, detail) {
-    return toNodes(element).reduce((notCanceled, element) =>
-        notCanceled && element.dispatchEvent(createEvent(event, true, true, detail))
+export function trigger(target, event, detail) {
+    return toEventTargets(target).reduce((notCanceled, target) =>
+        notCanceled && target.dispatchEvent(createEvent(event, true, true, detail))
     , true);
 }
 
@@ -83,4 +83,16 @@ function delegate(element, selector, listener) {
 
 function detail(listener) {
     return e => isArray(e.detail) ? listener.apply(listener, [e].concat(e.detail)) : listener(e);
+}
+
+function toEventTarget(target) {
+    return target instanceof EventTarget ? target : toNode(target);
+}
+
+export function toEventTargets(target) {
+    return target instanceof EventTarget
+        ? [target]
+        : isArray(target)
+            ? target.map(toEventTarget).filter(Boolean)
+            : toNodes(target);
 }
