@@ -170,6 +170,10 @@ function plugin(UIkit) {
                             attr = prop === 'bgy' ? 'height' : 'width',
                             span = dim[attr] - dimEl[attr];
 
+                        if (!bgPos.match(/%$/)) {
+                            return;
+                        }
+
                         if (span < diff) {
                             dimEl[attr] = dim[attr] + diff - span;
                         } else if (span > diff) {
@@ -319,20 +323,16 @@ function plugin(UIkit) {
             {
 
                 read() {
-                    delete this._prev;
-                }
-
-            },
-
-            {
-
-                read() {
 
                     this._percent = ease(scrolledOver(this.target) / (this.viewport || 1), this.easing);
 
                 },
 
-                write() {
+                write({type}) {
+
+                    if (type !== 'scroll') {
+                        delete this._prev;
+                    }
 
                     if (!this._active) {
                         this.reset();
