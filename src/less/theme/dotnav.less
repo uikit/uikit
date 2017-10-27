@@ -7,6 +7,16 @@
 // Variables
 // ========================================================================
 
+@dotnav-item-background:                             transparent;
+@dotnav-item-hover-background:                       fade(@global-color, 60%);
+
+@dotnav-item-border-width:                           1px;
+
+@dotnav-item-border:                                 fade(@global-color, 40%);
+@dotnav-item-hover-border:                           transparent;
+@dotnav-item-onclick-border:                         transparent;
+@dotnav-item-active-border:                          transparent;
+
 
 // Component
 // ========================================================================
@@ -14,15 +24,16 @@
 .hook-dotnav() {}
 
 .hook-dotnav-item() {
+    border: @dotnav-item-border-width solid @dotnav-item-border;
     -webkit-transition: background-color 0.2s ease-in-out;
     transition: background-color 0.2s ease-in-out;
 }
 
-.hook-dotnav-item-hover() {}
+.hook-dotnav-item-hover() { border-color: @dotnav-item-hover-border; }
 
-.hook-dotnav-item-onclick() {}
+.hook-dotnav-item-onclick() { border-color: @dotnav-item-onclick-border; }
 
-.hook-dotnav-item-active() {}
+.hook-dotnav-item-active() { border-color: @dotnav-item-active-border; }
 
 
 // Miscellaneous
@@ -34,8 +45,19 @@
 // Inverse
 // ========================================================================
 
+
+@inverse-dotnav-item-background:                     transparent;
+@inverse-dotnav-item-hover-background:               @inverse-global-emphasis-color;
+@inverse-dotnav-item-onclick-background:             fade(@inverse-dotnav-item-hover-background, 50%);
+@inverse-dotnav-item-active-background:              @inverse-global-emphasis-color;
+
+@inverse-dotnav-item-border:                         @inverse-global-emphasis-color;
+@inverse-dotnav-item-hover-border:                   @inverse-dotnav-item-hover-background;
+@inverse-dotnav-item-onclick-border:                 transparent;
+@inverse-dotnav-item-active-border:                  transparent;
+
 .hook-inverse-dotnav() {}
-.hook-inverse-dotnav-item() {}
-.hook-inverse-dotnav-item-hover() {}
-.hook-inverse-dotnav-item-onclick() {}
-.hook-inverse-dotnav-item-active() {}
+.hook-inverse-dotnav-item() { border-color: @inverse-dotnav-item-border; }
+.hook-inverse-dotnav-item-hover() { border-color: @inverse-dotnav-item-hover-border; }
+.hook-inverse-dotnav-item-onclick() { border-color: @inverse-dotnav-item-onclick-border; }
+.hook-inverse-dotnav-item-active() { border-color: @inverse-dotnav-item-active-border; }
