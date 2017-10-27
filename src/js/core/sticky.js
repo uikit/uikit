@@ -101,6 +101,8 @@ export default function (UIkit) {
             {
                 name: 'active',
 
+                self: true,
+
                 handler() {
                     replaceClass(this.selTarget, this.clsInactive, this.clsActive);
                 }
@@ -109,6 +111,8 @@ export default function (UIkit) {
 
             {
                 name: 'inactive',
+
+                self: true,
 
                 handler() {
                     replaceClass(this.selTarget, this.clsActive, this.clsInactive);
@@ -293,9 +297,7 @@ export default function (UIkit) {
                 }
 
                 toggleClass(this.$el, this.clsBelow, this.scroll > this.bottomOffset);
-
-
-                    addClass(this.$el, this.clsFixed);
+                addClass(this.$el, this.clsFixed);
 
             }
 
