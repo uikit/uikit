@@ -1,5 +1,9 @@
 # Changelog
 
+### Changed
+
+- Lightbox navigation no longer stacks on keyboard input
+
 ### Fixed
 
 - Prevent Modal from toggling if event was defaultPrevented

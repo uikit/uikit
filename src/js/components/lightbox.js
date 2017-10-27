@@ -233,7 +233,7 @@ function plugin(UIkit) {
 
             {
 
-                name: 'keydown',
+                name: 'keyup',
 
                 el() {
                     return doc;
