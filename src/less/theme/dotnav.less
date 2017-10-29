@@ -8,7 +8,10 @@
 // ========================================================================
 
 @dotnav-item-background:                             transparent;
-@dotnav-item-hover-background:                       fade(@global-color, 60%);
+
+//
+// New
+//
 
 @dotnav-item-border-width:                           1px;
 
@@ -25,8 +28,10 @@
 
 .hook-dotnav-item() {
     border: @dotnav-item-border-width solid @dotnav-item-border;
-    -webkit-transition: background-color 0.2s ease-in-out;
-    transition: background-color 0.2s ease-in-out;
+    -webkit-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
+    -webkit-transition-property: background-color, border-color;
+    transition-property: background-color, border-color;
 }
 
 .hook-dotnav-item-hover() { border-color: @dotnav-item-hover-border; }
@@ -45,19 +50,10 @@
 // Inverse
 // ========================================================================
 
-
 @inverse-dotnav-item-background:                     transparent;
-@inverse-dotnav-item-hover-background:               @inverse-global-emphasis-color;
-@inverse-dotnav-item-onclick-background:             fade(@inverse-dotnav-item-hover-background, 50%);
-@inverse-dotnav-item-active-background:              @inverse-global-emphasis-color;
-
-@inverse-dotnav-item-border:                         @inverse-global-emphasis-color;
-@inverse-dotnav-item-hover-border:                   @inverse-dotnav-item-hover-background;
-@inverse-dotnav-item-onclick-border:                 transparent;
-@inverse-dotnav-item-active-border:                  transparent;
 
 .hook-inverse-dotnav() {}
-.hook-inverse-dotnav-item() { border-color: @inverse-dotnav-item-border; }
-.hook-inverse-dotnav-item-hover() { border-color: @inverse-dotnav-item-hover-border; }
-.hook-inverse-dotnav-item-onclick() { border-color: @inverse-dotnav-item-onclick-border; }
-.hook-inverse-dotnav-item-active() { border-color: @inverse-dotnav-item-active-border; }
+.hook-inverse-dotnav-item() { border-color: fade(@inverse-global-color, 80%); }
+.hook-inverse-dotnav-item-hover() { border-color: transparent; }
+.hook-inverse-dotnav-item-onclick() { border-color: transparent; }
+.hook-inverse-dotnav-item-active() { border-color: transparent; }
