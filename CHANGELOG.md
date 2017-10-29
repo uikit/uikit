@@ -2,6 +2,7 @@
 
 ### Changed
 
+- Update dotnav and slidenav style
 - Lightbox navigation no longer stacks on keyboard input
 
 ### Fixed
