@@ -1,5 +1,9 @@
 # Changelog
 
+### Added
+
+- Add Thumbnav component
+
 ### Changed
 
 - IMPORTANT: Remove `@slidenav-padding`. Use new `@slidenav-padding-vertical` and `@slidenav-padding-horizontal`
