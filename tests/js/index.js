@@ -118,6 +118,7 @@ window.addEventListener('load', () => setTimeout(() => {
         'tab',
         'table',
         'text',
+        'thumbnav',
         'tile',
         'toggle',
         'tooltip',

@@ -1,0 +1,54 @@
+//
+// Component: Thumbnav
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+//
+// New
+//
+
+@thumbnav-item-background:                      fade(@global-background, 20%);
+@thumbnav-item-hover-background:                transparent;
+@thumbnav-item-active-background:               transparent;
+
+
+// Component
+// ========================================================================
+
+.hook-thumbnav() {}
+
+.hook-thumbnav-item() {
+
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: @thumbnav-item-background;
+        -webkit-transition: background-color 0.1s ease-in-out;
+        transition: background-color 0.1s ease-in-out;
+    }
+
+}
+
+.hook-thumbnav-item-hover() {
+    &::after { background-color: @thumbnav-item-hover-background; }
+}
+
+.hook-thumbnav-item-active() {
+    &::after { background-color: @thumbnav-item-active-background; }
+}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-thumbnav-misc() {}
