@@ -24,7 +24,15 @@
   @return $string;
 }
 
+
 @mixin svg-fill($src, $color-default, $color-new){
+    $color-new: quote($color-new);
+    $color-new: str-replace($color-new, " ", ""); // Replace spaces
+    $color-new: str-replace($color-new, "%", "%25"); // Replace "%" of HSL/HSLA color values
+    $color-new: str-replace($color-new, ",", "%2C"); // Replace commas
+    $color-new: str-replace($color-new, "(", "%28"); // Replace opening parentheses
+    $color-new: str-replace($color-new, ")", "%29"); // Replace closing parentheses
+    $color-new: unquote($color-new);
 
     $replace-src: str-replace($src, $color-default, $color-new) !default;
     $replace-src: str-replace($replace-src, "#", "%23");
