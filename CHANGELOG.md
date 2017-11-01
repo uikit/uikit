@@ -3,6 +3,7 @@
 ### Added
 
 - Add Thumbnav component
+- Add large margin modifier to Position component
 
 ### Changed
 

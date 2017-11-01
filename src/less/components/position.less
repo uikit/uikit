@@ -21,6 +21,7 @@
 //
 // Modifiers:       `uk-position-small`
 //                  `uk-position-medium`
+//                  `uk-position-large`
 //
 // ========================================================================
 
@@ -30,6 +31,7 @@
 
 @position-small-margin:                                @global-small-gutter;
 @position-medium-margin:                               @global-gutter;
+@position-large-margin:                                @global-medium-gutter;
 
 
 /* ========================================================================
@@ -166,7 +168,6 @@
 .uk-position-z-index { z-index: 1; }
 
 
-
 /* Margin modifier
  ========================================================================== */
 
@@ -215,6 +216,30 @@
     -webkit-transform: translateX(-50%) translateX(-@position-medium-margin);
     transform: translateX(-50%) translateX(-@position-medium-margin);
 }
+
+/*
+ * Large
+ */
+
+.uk-position-large { margin: @position-large-margin; }
+
+.uk-position-large.uk-position-center {
+    -webkit-transform: translate(-50%, -50%) translate(-@position-large-margin, -@position-large-margin);
+    transform: translate(-50%, -50%) translate(-@position-large-margin, -@position-large-margin);
+}
+
+.uk-position-large.uk-position-center-left,
+.uk-position-large.uk-position-center-right {
+    -webkit-transform: translateY(-50%) translateY(-@position-large-margin);
+    transform: translateY(-50%) translateY(-@position-large-margin);
+}
+
+.uk-position-large.uk-position-top-center,
+.uk-position-large.uk-position-bottom-center {
+    -webkit-transform: translateX(-50%) translateX(-@position-large-margin);
+    transform: translateX(-50%) translateX(-@position-large-margin);
+}
+
 
 // Hooks
 // ========================================================================
