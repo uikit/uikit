@@ -18,6 +18,7 @@
 - Hide Slidenav in Lightbox if single item only
 - Fix Parallax background image positioning
 - Fix setting headers in AJAX request
+- Fix dotnav box-sizing
 
 ## 3.0.0 beta 32 (October 27, 2017)
 
