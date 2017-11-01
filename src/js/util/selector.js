@@ -80,7 +80,7 @@ export function within(element, selector) {
         : matches(element, selector) || closest(element, selector);
 }
 
-var contextSelector = '^,?[!+-]?\\s*>|(?:^|\\s)[!+-]',
+var contextSelector = '^,?[!&-]?\\s*>|(?:^|\\s)[!&-]',
     contextSelectorRe = new RegExp(contextSelector),
     contextSplitRe = new RegExp(`(?=${contextSelector})`, 'g');
 
@@ -108,7 +108,7 @@ function resolveQuery(query, context) {
             return merge(filter(context.children, contextSelector).map(el => !selector && el || $$(selector, el)));
         case '!':
             return closest(context.parentNode, query.substr(1) || '*');
-        case '+':
+        case '&':
             return findDir(context, contextSelector, selector, 'next');
         case '-':
             return findDir(context, contextSelector, selector, 'previous');

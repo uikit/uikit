@@ -19,7 +19,7 @@ export default function (UIkit) {
         },
 
         defaults: {
-            connect: '+ .uk-switcher',
+            connect: '& .uk-switcher',
             toggle: '> *',
             active: 0,
             swiping: true,
