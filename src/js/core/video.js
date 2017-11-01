@@ -12,6 +12,7 @@ export default function (UIkit) {
         defaults: {automute: false, autoplay: true},
 
         ready() {
+
             this.player = new Player(this.$el);
 
             if (this.automute) {

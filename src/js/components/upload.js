@@ -153,19 +153,20 @@ function plugin(UIkit) {
                                 this.beforeSend(env);
 
                             }
-                        }).then(xhr => {
+                        }).then(
+                            xhr => {
 
-                            this.complete(xhr);
+                                this.complete(xhr);
 
-                            if (chunks.length) {
-                                upload(chunks.shift());
-                            } else {
-                                this.completeAll(xhr);
-                            }
+                                if (chunks.length) {
+                                    upload(chunks.shift());
+                                } else {
+                                    this.completeAll(xhr);
+                                }
 
-                        }, (e) => {
-                            this.error(e.message);
-                        });
+                            },
+                            e => this.error(e.message)
+                        );
 
                     };
 

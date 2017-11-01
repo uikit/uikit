@@ -74,11 +74,13 @@ function plugin(UIkit) {
                         if (this.covers) {
 
                             var min = Math.min(...steps),
-                                max = Math.max(...steps);
+                                max = Math.max(...steps),
+                                down = steps.indexOf(min) < steps.indexOf(max);
 
-                            steps = steps.map(step => step - min);
                             diff = max - min;
-                            pos = `${-1 * Math.max(...steps)}px`;
+
+                            steps = steps.map(step => step - (down ? min : max));
+                            pos = `${down ? -diff : 0}px`;
 
                         } else {
 
@@ -170,14 +172,19 @@ function plugin(UIkit) {
                             attr = prop === 'bgy' ? 'height' : 'width',
                             span = dim[attr] - dimEl[attr];
 
-                        if (!bgPos.match(/%$/)) {
+                        if (!bgPos.match(/%$|0px/)) {
                             return;
                         }
 
                         if (span < diff) {
                             dimEl[attr] = dim[attr] + diff - span;
                         } else if (span > diff) {
-                            this.props[prop].steps = steps.map(step => step - (span - diff) / (100 / parseFloat(bgPos)));
+
+                            bgPos = parseFloat(bgPos);
+
+                            if (bgPos) {
+                                this.props[prop].steps = steps.map(step => step - (span - diff) / (100 / bgPos));
+                            }
                         }
 
                         dim = Dimensions.cover(image, dimEl);
