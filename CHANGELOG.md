@@ -34,7 +34,7 @@
 - Fix slide animations stacking when tab is not focused in Slideshow component
 - Fix overlay not showing in Offcanvas component
 - Fix Slideshow Parallax in Slideshow component for IE11
-- Fix default `border-radius` for button elements in Chrome 62.
+- Fix default border-radius for button elements in Chrome 62.
 
 ## 3.0.0 beta 31 (October 20, 2017)
 
@@ -101,7 +101,7 @@
 - IMPORTANT: Rename `closeAlert` method to `close` in Alert component
 - IMPORTANT: Rename `close` param to `selClose` in Alert component
 - IMPORTANT: Rename `scrollToElement` method to `scrollTo` in Scroll component
-- Add `box-shadow` to dropbar slide
+- Add box-shadow to dropbar slide
 
 ### Fixed
 
@@ -142,8 +142,8 @@
 ### Fixed
 
 - Offcanvas will keep scroll position if anchor link was clicked
-- Fix `margin` modifier in Position component for IE11
-- Fix `divider-small` text alignment for `hr` elements Edge and IE
+- Fix margin modifier in Position component for IE11
+- Fix divider-small text alignment for `hr` elements Edge and IE
 - Fix setting the ratio of Spinner component
 - Fix event handling in Sortable component
 - Fix grid calculation (Firefox)
@@ -154,18 +154,18 @@
 
 ### Added
 
-- Add `size` modifier to Tile component
+- Add size modifier to Tile component
 - Add link text to Link component
 - Add 500px icon
 
 ### Changed
 
-- Larger horizontal padding for form `input`, `select` and `textarea`
+- Larger horizontal padding for form input, select and textarea
 - Improve Parallax Background Position behaviour
 
 ### Removed
 
-- Remove padding `xlarge` from Padding component
+- Remove padding xlarge from Padding component
 
 ### Fixed
 
@@ -228,9 +228,9 @@
 ### Added
 
 - Add Countdown component
-- Add `divider`, `justify` and `responsive` modifier to Table component
+- Add divider, justify and responsive modifier to Table component
 - Add inverse support for Table component
-- Add `box-shadow` bottom to Utility component
+- Add box-shadow bottom to Utility component
 
 ### Changed
 
@@ -470,7 +470,7 @@
 ### Added
 
 - Add sub groups center left/right to Navbar component
-- Add `box-shadow-hover` to Utility component
+- Add box-shadow-hover to Utility component
 - Height Viewport component supports pixel / percentage values for Offset Bottom option
 
 ### Changed
@@ -487,9 +487,9 @@
 - Fix icon `play-circle`
 - Fix Spinner when `stroke-width` cannot be read
 - Fix memory leak in SVG component
-- Prevent `transition-toggle` from setting a transition
+- Prevent transition-toggle from setting a transition
 - Fix width-expand not wrapping into next row in rare cases
-- Allow a fixed width on nested grids with `grid-match`
+- Allow a fixed width on nested grids with grid-match
 - Fix Height Viewport offset calculation
 - Fix Sticky (Chrome > 55)
 
@@ -503,13 +503,13 @@
 
 - Fix component initialization
 - Fix Card component extending inverse
-- Fix `background-fixed` (Firefox + IE)
+- Fix background-fixed (Firefox + IE)
 
 ## 3.0.0 beta 5 (January 18, 2017)
 
 ### Changed
 
-- UIkit observes `body` tag too now
+- UIkit observes `body` element too now
 - Performance improvements
 
 ### Fixed
