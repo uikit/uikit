@@ -11,7 +11,9 @@
 - IMPORTANT: Sortable component now triggers `moved`, `added` and `removed` events instead of `change`
 - Update Dotnav and Slidenav style
 - Lightbox navigation no longer stacks on keyboard input
-- Improve touch and mouse interaction in Slideshow component
+- Allow text selection within the Slideshow component
+- Prevent vertical scrolling while swiping the Slideshow
+- Remove tap highlightning when swiping the Slideshow in iOS
 
 ### Fixed
 
@@ -22,7 +24,6 @@
 - Fix setting headers in AJAX request
 - Fix dotnav box-sizing
 - Fix Slideshow animations
-- Remove tap highlightning when swiping the Slideshow in iOS
 
 ## 3.0.0 beta 32 (October 27, 2017)
 
