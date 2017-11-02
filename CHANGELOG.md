@@ -8,7 +8,6 @@
 ### Changed
 
 - IMPORTANT: Remove `@slidenav-padding`. Use new `@slidenav-padding-vertical` and `@slidenav-padding-horizontal`
-- IMPORTANT: Change custom `+` selector to `&`
 - Update Dotnav and Slidenav style
 - Lightbox navigation no longer stacks on keyboard input
 

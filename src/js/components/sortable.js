@@ -243,7 +243,7 @@ function plugin(UIkit) {
 
                     if (target) {
 
-                        if (!within(element, this.$el) || $$('-', element).some(element => element === target)) {
+                        if (!within(element, this.$el) || isPredecessor(element, target)) {
                             before(target, element);
                         } else {
                             after(target, element);
@@ -318,6 +318,10 @@ function plugin(UIkit) {
 
     function getSortable(element) {
         return UIkit.getComponent(element, 'sortable') || element.parentNode && getSortable(element.parentNode);
+    }
+
+    function isPredecessor(element, target) {
+        return element.parentNode === target.parentNode && index(element) > index(target);
     }
 
 }
