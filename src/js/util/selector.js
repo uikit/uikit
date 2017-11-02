@@ -46,50 +46,46 @@ function _query(selector, context = doc, queryFn) {
 
     selector = selector.replace(contextSanitizeRe, '$1 *');
 
-    if (!isContextSelector(selector)) {
+    var removes;
 
-        try {
+    if (isContextSelector(selector)) {
 
-            return context[queryFn](selector);
+        removes = [];
 
-        } catch (e) {
-            return null;
-        }
+        selector = selector.split(',').map((selector, i) => {
+
+            let ctx = context;
+
+            selector = selector.trim();
+
+            if (selector[0] === '!') {
+
+                var selectors = selector.substr(1).trim().split(' ');
+                ctx = closest(context.parentNode, selectors[0]);
+                selector = selectors.slice(1).join(' ');
+
+            }
+
+            if (!ctx) {
+                return null;
+            }
+
+            if (!ctx.id) {
+                ctx.id = `uk-${Date.now()}${i}`;
+                removes.push(() => removeAttr(ctx, 'id'));
+            }
+
+            return `#${ctx.id} ${selector}`;
+
+        }).filter(Boolean).join(',');
+
+        context = doc;
 
     }
 
-    var removes = [];
-
-    selector = selector.split(',').map((selector, i) => {
-
-        let ctx = context;
-
-        selector = selector.trim();
-
-        if (selector[0] === '!') {
-
-            var selectors = selector.substr(1).trim().split(' ');
-            ctx = closest(context.parentNode, selectors[0]);
-            selector = selectors.slice(1).join(' ');
-
-        }
-
-        if (!ctx) {
-            return null;
-        }
-
-        if (!ctx.id) {
-            ctx.id = `uk-${Date.now()}${i}`;
-            removes.push(() => removeAttr(ctx, 'id'));
-        }
-
-        return `#${ctx.id} ${selector}`;
-
-    }).filter(Boolean).join(',');
-
     try {
 
-        return doc[queryFn](selector);
+        return context[queryFn](selector);
 
     } catch (e) {
 
@@ -97,7 +93,7 @@ function _query(selector, context = doc, queryFn) {
 
     } finally {
 
-        removes.forEach(remove => remove());
+        removes && removes.forEach(remove => remove());
 
     }
 
