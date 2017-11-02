@@ -11,6 +11,7 @@
 - IMPORTANT: Sortable component now triggers `moved`, `added` and `removed` events instead of `change`
 - Update Dotnav and Slidenav style
 - Lightbox navigation no longer stacks on keyboard input
+- Improve touch and mouse interaction in Slideshow component
 
 ### Fixed
 
