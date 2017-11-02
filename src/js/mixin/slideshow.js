@@ -121,7 +121,13 @@ function plugin(UIkit) {
                     return `${this.selList} > *`;
                 },
 
-                handler: 'start'
+                handler(e) {
+                    if (!isTouch(e) && e.target.firstChild && e.target.firstChild.nodeType === 3) {
+                        return;
+                    }
+
+                    this.start(e);
+                }
 
             },
 
@@ -255,6 +261,14 @@ function plugin(UIkit) {
                     UIkit.update(null, target);
                 }
 
+            },
+
+            {
+                name: 'dragstart',
+
+                handler(e) {
+                    e.preventDefault();
+                }
             }
 
         ],
@@ -265,10 +279,6 @@ function plugin(UIkit) {
 
                 if (e.button && e.button !== 0 || this.slides.length < 2) {
                     return;
-                }
-
-                if (!isTouch(e)) {
-                    e.preventDefault();
                 }
 
                 if (this._animation && this._animation.animation !== this.animation) {
@@ -294,18 +304,20 @@ function plugin(UIkit) {
 
                 }
 
-                on(doc, pointerMove, this.move, true);
+                on(doc, pointerMove, this.move, {capture: true, passive: false});
                 on(doc, pointerUp, this.end, true);
 
                 this.touch = this.pos + this.$el.offsetWidth * percent;
 
             },
 
-            move() {
+            move(e) {
 
                 if (this.pos === this.prevPos || (!this.touching && Math.abs(this.touch - this.pos) < this.threshold)) {
                     return;
                 }
+
+                e.cancelable && e.preventDefault();
 
                 this.touching = true;
 
@@ -324,8 +336,9 @@ function plugin(UIkit) {
 
                 this.slides.forEach((el, i) => toggleClass(el, this.clsActive, i === index || i === nextIndex));
 
+                this._animation && this._animation.reset();
+
                 if (index !== prevIndex) {
-                    this._animation && this._animation.reset();
                     trigger(this.slides[prevIndex], 'itemhide', [this]);
                     trigger(current, 'itemshow', [this]);
                 }
