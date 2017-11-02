@@ -357,6 +357,7 @@ function plugin(UIkit) {
                         percent *= -1;
                     }
 
+                    this._animation && this._animation.reset();
                     this.show(percent > 0 ? 'previous' : 'next', true);
 
                     preventClick();
