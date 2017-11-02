@@ -22,6 +22,7 @@
 - Fix setting headers in AJAX request
 - Fix dotnav box-sizing
 - Fix Slideshow animations
+- Remove tap highlightning when swiping the Slideshow in iOS
 
 ## 3.0.0 beta 32 (October 27, 2017)
 

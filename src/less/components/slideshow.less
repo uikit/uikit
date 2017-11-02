@@ -14,7 +14,13 @@
    Component: Slideshow
  ========================================================================== */
 
+/*
+ * 1. Prevent tab highlighting on iOS.
+ */
+
 .uk-slideshow {
+    /* 1 */
+    -webkit-tap-highlight-color: transparent;
     .hook-slideshow;
 }
 
