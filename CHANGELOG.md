@@ -8,6 +8,7 @@
 ### Changed
 
 - IMPORTANT: Remove `@slidenav-padding`. Use new `@slidenav-padding-vertical` and `@slidenav-padding-horizontal`
+- IMPORTANT: Sortable component now triggers `moved`, `added` and `removed` events instead of `change`
 - Update Dotnav and Slidenav style
 - Lightbox navigation no longer stacks on keyboard input
 
@@ -19,6 +20,7 @@
 - Fix Parallax background image positioning
 - Fix setting headers in AJAX request
 - Fix dotnav box-sizing
+- Fix Slideshow animations
 
 ## 3.0.0 beta 32 (October 27, 2017)
 

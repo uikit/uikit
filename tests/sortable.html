@@ -29,8 +29,16 @@
                     console.log('move', sortable);
                 });
 
-                util.on(document.body, 'change', function(e, sortable, el, mode) {
-                    console.log('change', sortable, el, mode);
+                util.on(document.body, 'moved', function(e, sortable, el) {
+                    console.log('moved', sortable, el);
+                });
+
+                util.on(document.body, 'added', function(e, sortable, el) {
+                    console.log('added', sortable, el);
+                });
+
+                util.on(document.body, 'removed', function(e, sortable, el) {
+                    console.log('removed', sortable, el);
                 });
 
                 util.on(document.body, 'stop', function(e, sortable) {

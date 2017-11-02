@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {mixin, util} = UIkit;
-    var {$$, addClass, after, assign, append, attr, before, closest, css, doc, docEl, height, fastdom, getPos, includes, index, isInput, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, Promise, remove, removeClass, toggleClass, toNodes, Transition, trigger, win, within} = util;
+    var {addClass, after, assign, append, attr, before, closest, css, doc, docEl, height, fastdom, getPos, includes, index, isInput, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, Promise, remove, removeClass, toggleClass, toNodes, Transition, trigger, win, within} = util;
 
     UIkit.component('sortable', {
 
@@ -216,11 +216,11 @@ function plugin(UIkit) {
 
                 if (this === sortable) {
                     if (this.origin.index !== index(this.placeholder)) {
-                        trigger(this.$el, 'change', [this, this.placeholder, 'moved']);
+                        trigger(this.$el, 'moved', [this, this.placeholder]);
                     }
                 } else {
-                    trigger(sortable.$el, 'change', [sortable, this.placeholder, 'added']);
-                    trigger(this.$el, 'change', [this, this.placeholder, 'removed']);
+                    trigger(sortable.$el, 'added', [sortable, this.placeholder]);
+                    trigger(this.$el, 'removed', [this, this.placeholder]);
                 }
 
                 trigger(this.$el, 'stop', [this]);
