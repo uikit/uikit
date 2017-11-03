@@ -295,7 +295,7 @@ function plugin(UIkit) {
                 action();
 
                 children.forEach(Transition.cancel);
-                css(children, reset);
+                css(this.$el.children, reset);
                 this.$update('update', true);
                 fastdom.flush();
 
