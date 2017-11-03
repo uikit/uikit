@@ -6,7 +6,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$$, $, addClass, assign, attr, createEvent, css, doc, endsWith, fastdom, getIndex, getPos, hasClass, index, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, Transition, trigger, win} = UIkit.util;
+    var {$$, $, addClass, assign, attr, createEvent, css, doc, endsWith, fastdom, getIndex, getPos, hasClass, index, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, toNodes, Transition, trigger, win} = UIkit.util;
 
     var abs = Math.abs;
 
@@ -47,7 +47,7 @@ function plugin(UIkit) {
             },
 
             slides() {
-                return $$(this.list.children);
+                return toNodes(this.list.children);
             },
 
             animation({animation, Animations}) {
@@ -124,11 +124,9 @@ function plugin(UIkit) {
                 },
 
                 handler(e) {
-                    if (!isTouch(e) && e.target.firstChild && e.target.firstChild.nodeType === 3) {
-                        return;
+                    if (isTouch(e) || !hasTextNodesOnly(e.target)) {
+                        this.start(e);
                     }
-
-                    this.start(e);
                 }
 
             },
@@ -600,6 +598,10 @@ function plugin(UIkit) {
 
     function speedUp(x) {
         return .5 * x + 300; // parabola through (400,500; 600,600; 1800,1200)
+    }
+
+    function hasTextNodesOnly(el) {
+        return !el.children.length && el.childNodes.length;
     }
 
 }
