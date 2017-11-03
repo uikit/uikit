@@ -317,7 +317,7 @@ function plugin(UIkit) {
     });
 
     function getSortable(element) {
-        return UIkit.getComponent(element, 'sortable') || element.parentNode && getSortable(element.parentNode);
+        return element && (UIkit.getComponent(element, 'sortable') || getSortable(element.parentNode));
     }
 
     function isPredecessor(element, target) {
