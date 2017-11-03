@@ -66,13 +66,13 @@ $accordion-content-margin-top:                  $global-margin !default;
  * Micro clearfix
  */
 
-.uk-accordion-content:before,
-.uk-accordion-content:after {
+.uk-accordion-content::before,
+.uk-accordion-content::after {
     content: "";
     display: table;
 }
 
-.uk-accordion-content:after { clear: both; }
+.uk-accordion-content::after { clear: both; }
 
 /*
  * Remove margin from the last-child

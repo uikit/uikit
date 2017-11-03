@@ -13,19 +13,17 @@
 // Variables
 // ========================================================================
 
-$dotnav-margin-horizontal:                       15px !default;
+$dotnav-margin-horizontal:                       12px !default;
 $dotnav-margin-vertical:                         $dotnav-margin-horizontal !default;
 
-$dotnav-item-width:                              16px !default;
+$dotnav-item-width:                              10px !default;
 $dotnav-item-height:                             $dotnav-item-width !default;
 $dotnav-item-border-radius:                      50% !default;
-$dotnav-item-background:                         fade-out($global-color, 0.9) !default;
 
-$dotnav-item-hover-background:                   fade-out($global-color, 0.6) !default;
-
-$dotnav-item-onclick-background:                 fade-out($global-color, 0.4) !default;
-
-$dotnav-item-active-background:                  fade-out($global-color, 0.6) !default;
+$dotnav-item-background:                         rgba($global-color, 0.2) !default;
+$dotnav-item-hover-background:                   rgba($global-color, 0.6) !default;
+$dotnav-item-onclick-background:                 rgba($global-color, 0.2) !default;
+$dotnav-item-active-background:                  rgba($global-color, 0.6) !default;
 
 
 /* ========================================================================
@@ -80,7 +78,7 @@ $dotnav-item-active-background:                  fade-out($global-color, 0.6) !d
 
 .uk-dotnav > * > * {
     display: block;
-    box-sizing: content-box;
+    box-sizing: border-box;
     width: $dotnav-item-width;
     height: $dotnav-item-height;
     border-radius: $dotnav-item-border-radius;
@@ -154,10 +152,10 @@ $dotnav-item-active-background:                  fade-out($global-color, 0.6) !d
 // Inverse
 // ========================================================================
 
-$inverse-dotnav-item-background:                fade-out($inverse-global-color, 0.3) !default;
-$inverse-dotnav-item-hover-background:          fade-out($inverse-global-color, 0.2) !default;
-$inverse-dotnav-item-onclick-background:        fade-out($inverse-global-color, 0.1) !default;
-$inverse-dotnav-item-active-background:         fade-out($inverse-global-color, 0.1) !default;
+$inverse-dotnav-item-background:                rgba($inverse-global-color, 0.5) !default;
+$inverse-dotnav-item-hover-background:          rgba($inverse-global-color, 0.9) !default;
+$inverse-dotnav-item-onclick-background:        rgba($inverse-global-color, 0.5) !default;
+$inverse-dotnav-item-active-background:         rgba($inverse-global-color, 0.9) !default;
 
 
 
