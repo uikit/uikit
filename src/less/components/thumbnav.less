@@ -119,3 +119,28 @@
 .hook-thumbnav-item-hover() {}
 .hook-thumbnav-item-active() {}
 .hook-thumbnav-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-inverse() {
+
+    .uk-thumbnav > * > * {
+        .hook-inverse-thumbnav-item;
+    }
+
+    .uk-thumbnav > * > :hover,
+    .uk-thumbnav > * > :focus {
+        .hook-inverse-thumbnav-item-hover;
+    }
+
+    .uk-thumbnav > .uk-active > * {
+        .hook-inverse-thumbnav-item-active;
+    }
+
+}
+
+.hook-inverse-thumbnav-item() {}
+.hook-inverse-thumbnav-item-hover() {}
+.hook-inverse-thumbnav-item-active() {}
