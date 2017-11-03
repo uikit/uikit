@@ -6,7 +6,9 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$$, $, addClass, assign, attr, createEvent, css, doc, endsWith, fastdom, getIndex, getPos, hasClass, index, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, Transition, trigger} = UIkit.util;
+    var {$$, $, addClass, assign, attr, createEvent, css, doc, endsWith, fastdom, getIndex, getPos, hasClass, index, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, Transition, trigger, win} = UIkit.util;
+
+    var abs = Math.abs;
 
     UIkit.mixin.slideshow = {
 
@@ -292,36 +294,39 @@ function plugin(UIkit) {
 
                     percent = getPercent() * dir;
 
-                    this.percent = Math.abs(percent) * -dir;
+                    this.percent = abs(percent) * -dir;
 
                     this.stack.splice(0, this.stack.length);
 
                     cancel();
-                    translate(Math.abs(percent));
+                    translate(abs(percent));
 
                     this.index = this.getIndex(this.index - dir);
-                    this.touching = true;
+                    this.dragging = true;
 
                 }
 
-                on(doc, pointerMove, this.move, {capture: true, passive: false});
+                this.unbindMove = on(doc, pointerMove, this.move, {capture: true, passive: false});
+                on(win, 'scroll', this.unbindMove);
                 on(doc, pointerUp, this.end, true);
 
-                this.touch = this.pos + this.$el.offsetWidth * percent;
+                this.drag = this.pos + this.$el.offsetWidth * percent;
 
             },
 
             move(e) {
 
-                if (this.pos === this.prevPos || (!this.touching && Math.abs(this.touch - this.pos) < this.threshold)) {
+                var distance = this.pos - this.drag;
+
+                if (this.prevPos === this.pos || !this.dragging && abs(distance) < this.threshold) {
                     return;
                 }
 
                 e.cancelable && e.preventDefault();
 
-                this.touching = true;
+                this.dragging = true;
 
-                var percent = (this.pos - this.touch) / this.$el.offsetWidth;
+                var percent = distance / this.$el.offsetWidth;
 
                 if (this.percent === percent) {
                     return;
@@ -344,7 +349,7 @@ function plugin(UIkit) {
                 }
 
                 this._animation = new Transitioner(this.animation, this.easing, current, next, dir, noop);
-                this._animation.translate(Math.abs(percent % 1));
+                this._animation.translate(abs(percent % 1));
 
                 this.percent = percent;
 
@@ -354,14 +359,15 @@ function plugin(UIkit) {
 
             end() {
 
-                off(doc, pointerMove, this.move, true);
+                off(win, 'scroll', this.unbindMove);
+                this.unbindMove();
                 off(doc, pointerUp, this.end, true);
 
-                if (this.touching) {
+                if (this.dragging) {
 
                     var percent = this.percent;
 
-                    this.percent = Math.abs(this.percent) % 1;
+                    this.percent = abs(this.percent) % 1;
                     this.index = this.getIndex(this.index - trunc(percent));
 
                     if (this.percent < .1 || percent < 0 === this.pos > this.prevPos) {
@@ -377,10 +383,8 @@ function plugin(UIkit) {
 
                 }
 
-                this.pos
-                    = this.prevPos
-                    = this.touch
-                    = this.touching
+                this.drag
+                    = this.dragging
                     = this.percent
                     = null;
 
@@ -388,7 +392,7 @@ function plugin(UIkit) {
 
             show(index, force = false) {
 
-                if (!force && this.touch) {
+                if (!force && this.drag) {
                     return;
                 }
 
