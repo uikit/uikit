@@ -198,7 +198,3 @@ export function toNodes(element) {
                     ? element.toArray()
                     : [];
 }
-
-function merge(arrays) {
-    return arrayProto.concat.apply([], arrays);
-}
