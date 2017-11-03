@@ -1,7 +1,5 @@
 import { Togglable } from '../mixin/index';
-import { $$, addClass, attr, data, getIndex, hasClass, isTouch, removeClass, win } from '../util/index';
-import { filter, matches, queryAll } from "../util/selector";
-import { index } from "../util/dom";
+import { $$, addClass, attr, data, filter, getIndex, hasClass, index, isTouch, matches, queryAll, removeClass, win } from '../util/index';
 
 export default function (UIkit) {
 
