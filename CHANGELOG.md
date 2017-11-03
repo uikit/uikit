@@ -1,5 +1,7 @@
 # Changelog
 
+## 3.0.0 beta 33 (November 3, 2017)
+
 ### Added
 
 - Add Thumbnav component

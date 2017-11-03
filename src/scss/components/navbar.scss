@@ -131,7 +131,7 @@ $navbar-dropbar-z-index:                         $global-z-index + 20 !default;
 // 2. [class*='uk-navbar-center'],
 .uk-navbar-center,
 .uk-navbar-center-left > *,
-.uk-navbar-center-right > *, {
+.uk-navbar-center-right > * {
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;
