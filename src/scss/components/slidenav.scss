@@ -7,6 +7,7 @@
 //
 // Modifiers:       `uk-slidenav-previous`
 //                  `uk-slidenav-next`
+//                  `uk-slidenav-large`
 //
 // ========================================================================
 
@@ -14,12 +15,15 @@
 // Variables
 // ========================================================================
 
-$slidenav-padding:                               5px !default;
-$slidenav-color:                                 fade-out($global-color, 0.4) !default;
+$slidenav-padding-vertical:                      5px !default;
+$slidenav-padding-horizontal:                    10px !default;
 
-$slidenav-hover-color:                           fade-out($global-color, 0.2) !default;
+$slidenav-color:                                 rgba($global-color, 0.5) !default;
+$slidenav-hover-color:                           rgba($global-color, 0.9) !default;
+$slidenav-active-color:                          rgba($global-color, 0.5) !default;
 
-$slidenav-active-color:                          fade-out($global-color, 0.1) !default;
+$slidenav-large-padding-vertical:                10px !default;
+$slidenav-large-padding-horizontal:              $slidenav-large-padding-vertical !default;
 
 
 /* ========================================================================
@@ -31,7 +35,7 @@ $slidenav-active-color:                          fade-out($global-color, 0.1) !d
  */
 
 .uk-slidenav {
-    padding: $slidenav-padding;
+    padding: $slidenav-padding-vertical $slidenav-padding-horizontal;
     color: $slidenav-color;
     @if(mixin-exists(hook-slidenav)) {@include hook-slidenav();}
 }
@@ -71,6 +75,15 @@ $slidenav-active-color:                          fade-out($global-color, 0.1) !d
 }
 
 
+/* Size modifier
+ ========================================================================== */
+
+.uk-slidenav-large {
+    padding: $slidenav-large-padding-vertical $slidenav-large-padding-horizontal;
+    @if(mixin-exists(hook-slidenav-large)) {@include hook-slidenav-large();}
+}
+
+
 /* Container
  ========================================================================== */
 
@@ -92,6 +105,7 @@ $slidenav-active-color:                          fade-out($global-color, 0.1) !d
 // @mixin hook-slidenav-active(){}
 // @mixin hook-slidenav-previous(){}
 // @mixin hook-slidenav-next(){}
+// @mixin hook-slidenav-large(){}
 // @mixin hook-slidenav-container(){}
 // @mixin hook-slidenav-misc(){}
 
@@ -99,9 +113,9 @@ $slidenav-active-color:                          fade-out($global-color, 0.1) !d
 // Inverse
 // ========================================================================
 
-$inverse-slidenav-color:                        fade-out($inverse-global-color, 0.3) !default;
-$inverse-slidenav-hover-color:                  fade-out($inverse-global-color, 0.2) !default;
-$inverse-slidenav-active-color:                 fade-out($inverse-global-color, 0.1) !default;
+$inverse-slidenav-color:                        rgba($inverse-global-color, 0.7) !default;
+$inverse-slidenav-hover-color:                  rgba($inverse-global-color, 0.95) !default;
+$inverse-slidenav-active-color:                 rgba($inverse-global-color, 0.7) !default;
 
 
 

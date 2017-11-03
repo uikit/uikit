@@ -1,4 +1,4 @@
-import {scale3d} from '../../mixin/internal/slideshow-animations';
+import { scale3d } from '../../mixin/internal/slideshow-animations';
 
 export default function (UIkit) {
 

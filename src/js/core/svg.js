@@ -52,7 +52,7 @@ export default function (UIkit) {
                         svg = parseSymbols(svg, this.icon) || svg;
                     }
 
-                    el = $(svg.trim());
+                    el = $(svg.substr(svg.indexOf('<svg')));
 
                 } else {
                     el = svg.cloneNode(true);

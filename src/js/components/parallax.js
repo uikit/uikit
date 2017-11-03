@@ -38,7 +38,7 @@ function plugin(UIkit) {
                     var isColor = prop.match(/color/i),
                         isCssProp = isColor || prop === 'opacity',
                         steps = properties[prop].slice(0),
-                        pos, diff;
+                        pos, bgPos, diff;
 
                     if (isCssProp) {
                         css($el, prop, '');
@@ -68,24 +68,28 @@ function plugin(UIkit) {
 
                     if (prop.match(/^bg/)) {
 
+                        css($el, `background-position-${prop[2]}`, '');
+                        bgPos = css($el, 'backgroundPosition').split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
+
                         if (this.covers) {
 
                             var min = Math.min(...steps),
-                                max = Math.max(...steps);
+                                max = Math.max(...steps),
+                                down = steps.indexOf(min) < steps.indexOf(max);
 
-                            steps = steps.map(step => step - min);
                             diff = max - min;
-                            pos = `${-1 * Math.max(...steps)}px`;
+
+                            steps = steps.map(step => step - (down ? min : max));
+                            pos = `${down ? -diff : 0}px`;
 
                         } else {
 
-                            css($el, `background-position-${prop[2]}`, '');
-                            pos = css($el, 'backgroundPosition').split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
+                            pos = bgPos;
 
                         }
                     }
 
-                    props[prop] = {steps, unit, pos, diff};
+                    props[prop] = {steps, unit, pos, bgPos, diff};
 
                     return props;
 
@@ -164,12 +168,23 @@ function plugin(UIkit) {
 
                     this.bgProps.forEach(prop => {
 
-                        var {diff} = this.props[prop],
+                        var {diff, bgPos, steps} = this.props[prop],
                             attr = prop === 'bgy' ? 'height' : 'width',
                             span = dim[attr] - dimEl[attr];
 
+                        if (!bgPos.match(/%$|0px/)) {
+                            return;
+                        }
+
                         if (span < diff) {
                             dimEl[attr] = dim[attr] + diff - span;
+                        } else if (span > diff) {
+
+                            bgPos = parseFloat(bgPos);
+
+                            if (bgPos) {
+                                this.props[prop].steps = steps.map(step => step - (span - diff) / (100 / bgPos));
+                            }
                         }
 
                         dim = Dimensions.cover(image, dimEl);
@@ -315,20 +330,16 @@ function plugin(UIkit) {
             {
 
                 read() {
-                    delete this._prev;
-                }
-
-            },
-
-            {
-
-                read() {
 
                     this._percent = ease(scrolledOver(this.target) / (this.viewport || 1), this.easing);
 
                 },
 
-                write() {
+                write({type}) {
+
+                    if (type !== 'scroll') {
+                        delete this._prev;
+                    }
 
                     if (!this._active) {
                         this.reset();

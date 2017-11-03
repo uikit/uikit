@@ -1,4 +1,4 @@
-import { doc, docEl, fragment, includes, isArray, isDocument, isObject, isString, isWindow, startsWith } from './index';
+import { doc, docEl, fragment, isArray, isDocument, isObject, isString, isWindow, removeAttr, startsWith } from './index';
 
 var arrayProto = Array.prototype;
 
@@ -6,7 +6,7 @@ export function $(selector, context) {
     return !isString(selector)
         ? toNode(selector)
         : isHtml(selector)
-            ? $(fragment(selector))
+            ? toNode(fragment(selector))
             : find(selector, context);
 }
 
@@ -14,7 +14,7 @@ export function $$(selector, context) {
     return !isString(selector)
         ? toNodes(selector)
         : isHtml(selector)
-            ? $$(fragment(selector))
+            ? toNodes(fragment(selector))
             : findAll(selector, context);
 }
 
@@ -30,44 +30,73 @@ export function queryAll(selector, context) {
     return $$(selector, isContextSelector(selector) ? context : doc);
 }
 
-function find(selector, context = doc) {
+function find(selector, context) {
+    return toNode(_query(selector, context, 'querySelector'));
+}
 
-    try {
+function findAll(selector, context) {
+    return toNodes(_query(selector, context, 'querySelectorAll'));
+}
 
-        return !selector
-            ? null
-            : !isContextSelector(selector)
-                ? context.querySelector(selector)
-                : $(_query(selector, context));
+function _query(selector, context = doc, queryFn) {
 
-    } catch (e) {
+    if (!selector || !isString(selector)) {
         return null;
     }
-}
 
-function findAll(selector, context = doc) {
+    selector = selector.replace(contextSanitizeRe, '$1 *');
+
+    var removes;
+
+    if (isContextSelector(selector)) {
+
+        removes = [];
+
+        selector = selector.split(',').map((selector, i) => {
+
+            let ctx = context;
+
+            selector = selector.trim();
+
+            if (selector[0] === '!') {
+
+                var selectors = selector.substr(1).trim().split(' ');
+                ctx = closest(context.parentNode, selectors[0]);
+                selector = selectors.slice(1).join(' ');
+
+            }
+
+            if (!ctx) {
+                return null;
+            }
+
+            if (!ctx.id) {
+                ctx.id = `uk-${Date.now()}${i}`;
+                removes.push(() => removeAttr(ctx, 'id'));
+            }
+
+            return `#${ctx.id} ${selector}`;
+
+        }).filter(Boolean).join(',');
+
+        context = doc;
+
+    }
 
     try {
 
-        return !selector
-            ? []
-            : !isContextSelector(selector)
-                ? $$(context.querySelectorAll(selector))
-                : $$(_query(selector, context));
+        return context[queryFn](selector);
 
     } catch (e) {
-        return [];
+
+        return null;
+
+    } finally {
+
+        removes && removes.forEach(remove => remove());
+
     }
 
-}
-
-function _query(selector, context) {
-
-    if (includes(selector, ',')) {
-        return merge(selector.split(',').map(selector => find(selector.trim(), context)));
-    }
-
-    return getContextSelectors(selector).reduce((context, selector) => resolveQuery(selector, context), context);
 }
 
 export function filter(element, selector) {
@@ -80,57 +109,11 @@ export function within(element, selector) {
         : matches(element, selector) || closest(element, selector);
 }
 
-var contextSelector = '^,?[!+-]?\\s*>|(?:^|\\s)[!+-]',
-    contextSelectorRe = new RegExp(contextSelector),
-    contextSplitRe = new RegExp(`(?=${contextSelector})`, 'g');
+var contextSelectorRe = /(^|,)\s*[!>+~]/,
+    contextSanitizeRe = /([!>+~])(?=\s+[!>+~]|\s*$)/g;
 
 function isContextSelector(selector) {
     return isString(selector) && selector.match(contextSelectorRe);
-}
-
-function getContextSelectors(selector) {
-    return isString(selector) && selector.split(contextSplitRe);
-}
-
-function resolveQuery(query, context) {
-
-    if (!isString(query) || !context) {
-        return null;
-    }
-
-    query = query.trim();
-
-    var selectors = query.substr(1).trim().split(' '),
-        contextSelector = selectors[0] || '*',
-        selector = selectors.slice(1).join(' ');
-    switch (query[0]) {
-        case '>':
-            return merge(filter(context.children, contextSelector).map(el => !selector && el || $$(selector, el)));
-        case '!':
-            return closest(context.parentNode, query.substr(1));
-        case '+':
-            return findDir(context, contextSelector, selector, 'next');
-        case '-':
-            return findDir(context, contextSelector, selector, 'previous');
-    }
-
-    return $(query, context);
-}
-
-function findDir(element, contextSelector, selector, dir) {
-    var fn = [`${dir}ElementSibling`], nodes = [];
-
-    element = element[fn];
-
-    while (element) {
-        if (matches(element, contextSelector)) {
-            nodes = nodes.concat(selector ? $$(selector, element) : element);
-        }
-
-        element = element[fn];
-    }
-
-    return nodes;
 }
 
 var elProto = Element.prototype;
@@ -214,8 +197,4 @@ export function toNodes(element) {
                 : isJQuery(element)
                     ? element.toArray()
                     : [];
-}
-
-function merge(arrays) {
-    return arrayProto.concat.apply([], arrays);
 }

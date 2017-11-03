@@ -477,7 +477,7 @@
 
                 <hr class="uk-margin-medium">
 
-                <div class="uk-grid-divider uk-child-width-expand@m" uk-grid>
+                <div class="uk-grid-divider uk-child-width-auto@m" uk-grid>
                     <div>
 
                         <ul class="uk-dotnav">
@@ -490,7 +490,7 @@
                         </ul>
 
                     </div>
-                    <div class="uk-width-auto@m">
+                    <div>
 
                         <a href="#" uk-slidenav-previous></a>
                         <a href="#" uk-slidenav-next></a>
@@ -498,20 +498,29 @@
                     </div>
                     <div>
 
-                        <div class="uk-tooltip uk-tooltip-top-center uk-display-inline-block uk-margin-remove uk-position-relative">Tooltip</div>
+                        <ul class="uk-thumbnav">
+                            <li class="uk-active"><a href="#"><img src="images/photo.jpg" width="60" alt=""></a></li>
+                            <li><a href="#"><img src="images/dark.jpg" width="60" alt=""></a></li>
+                            <li><a href="#"><img src="images/light.jpg" width="60" alt=""></a></li>
+                        </ul>
 
                     </div>
                     <div>
 
+                        <div class="uk-tooltip uk-tooltip-top-center uk-display-inline-block uk-margin-remove uk-position-relative">Tooltip</div>
+
+                    </div>
+                    <div class="uk-width-expand@m">
+
                         <progress class="uk-progress" value="45" max="100">45%</progress>
 
                     </div>
-                    <div class="uk-width-auto@m">
+                    <div>
 
                         <button type="button" uk-close></button>
 
                     </div>
-                    <div class="uk-width-auto@m">
+                    <div>
 
                         <a href="#" uk-totop></a>
 

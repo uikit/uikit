@@ -76,20 +76,22 @@ $transition-slow-duration:                       0.7s !default;
     transform: scale3d(1,1,1);
 }
 
-.uk-transition-toggle:hover .uk-transition-scale-up,
-.uk-transition-toggle.uk-hover .uk-transition-scale-up {
-    opacity: 1;
-    -webkit-transform: scale3d($transition-scale,$transition-scale,1);
-    transform: scale3d($transition-scale,$transition-scale,1);
-}
-
 .uk-transition-scale-down {
     -webkit-transform: scale3d($transition-scale,$transition-scale,1);
     transform: scale3d($transition-scale,$transition-scale,1);
 }
 
+.uk-transition-toggle:hover .uk-transition-scale-up,
+.uk-transition-toggle.uk-hover .uk-transition-scale-up,
+.uk-transition-active.uk-active .uk-transition-scale-up {
+    opacity: 1;
+    -webkit-transform: scale3d($transition-scale,$transition-scale,1);
+    transform: scale3d($transition-scale,$transition-scale,1);
+}
+
 .uk-transition-toggle:hover .uk-transition-scale-down,
-.uk-transition-toggle.uk-hover .uk-transition-scale-down {
+.uk-transition-toggle.uk-hover .uk-transition-scale-down,
+.uk-transition-active.uk-active .uk-transition-scale-down {
     opacity: 1;
     -webkit-transform: scale3d(1,1,1);
     transform: scale3d(1,1,1);

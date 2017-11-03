@@ -1,4 +1,4 @@
-import { getCssVar, query } from './index';
+import { getCssVar, on, query } from './index';
 import promiseFn from './promise';
 
 export function bind(fn, context) {
@@ -227,7 +227,6 @@ export function ajax(url, options) {
     return new Promise((resolve, reject) => {
 
         var env = assign({
-            url: url,
             data: null,
             method: 'GET',
             headers: {},
@@ -236,31 +235,42 @@ export function ajax(url, options) {
             responseType: ''
         }, options);
 
+        var xhr = env.xhr;
+
         env.beforeSend(env);
 
-        env.xhr.open(env.method, env.url);
-        env.xhr.responseType = env.responseType;
+        for (var prop in env) {
+            if (prop in xhr) {
+                try {
 
-        env.xhr.onload = function() {
-            if (this.status === 0 || this.status >= 200 && this.status < 300 || this.status === 304) {
-                resolve(this);
+                    xhr[prop] = env[prop];
+
+                } catch (e) {}
             }
-            else {
-                reject(assign(Error(this.statusText), {
-                    xhr: this,
-                    status: this.status
+        }
+
+        xhr.open(env.method.toUpperCase(), url);
+
+        for (var header in env.headers) {
+            xhr.setRequestHeader(header, env.headers[header]);
+        }
+
+        on(xhr, 'load', () => {
+
+            if (xhr.status === 0 || xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
+                resolve(xhr);
+            } else {
+                reject(assign(Error(xhr.statusText), {
+                    xhr,
+                    status: xhr.status
                 }));
             }
-        };
 
-        env.xhr.onerror = function() {
-            reject(assign(Error('Network Error'), {xhr: this}));
-        };
+        });
 
-        env.xhr.ontimeout = function() {
-            reject(assign(Error('Network Timeout'), {xhr: this}));
-        };
+        on(xhr, 'error', () => reject(assign(Error('Network Error'), {xhr})));
+        on(xhr, 'timeout', () => reject(assign(Error('Network Timeout'), {xhr})));
 
-        env.xhr.send(env.data);
-    })
+        xhr.send(env.data);
+    });
 }

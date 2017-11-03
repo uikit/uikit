@@ -386,7 +386,7 @@ export function unwrap(element) {
 }
 
 var fragmentRE = /^\s*<(\w+|!)[^>]*>/,
-    singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>|)$/;
+    singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
 
 export function fragment(html) {
 

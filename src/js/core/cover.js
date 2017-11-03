@@ -16,14 +16,6 @@ export default function (UIkit) {
             automute: true
         },
 
-        ready() {
-
-            if (this.$el.tagName === 'IFRAME') {
-                css(this.$el, 'pointerEvents', 'none');
-            }
-
-        },
-
         update: {
 
             write() {
@@ -45,7 +37,7 @@ export default function (UIkit) {
                         },
                         {
                             width: width + (width % 2 ? 1 : 0),
-                            height
+                            height: height + (height % 2 ? 1 : 0)
                         }
                     )
                 );

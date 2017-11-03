@@ -24,16 +24,16 @@ export default function (UIkit) {
 
                 css(this.$el, 'boxSizing', 'border-box');
 
-                var viewport = height(win), minHeight = 0, offsetTop = 0;
+                var viewport = height(win), minHeight, offsetTop = 0;
 
                 if (this.expand) {
 
                     css(this.$el, {height: '', minHeight: ''});
 
-                    var diff = viewport - docEl.offsetHeight;
+                    var diff = viewport - offsetHeight(docEl);
 
                     if (diff > 0) {
-                        minHeight = this.$el.offsetHeight + diff;
+                        minHeight = offsetHeight(this.$el) + diff;
                     }
 
                 } else {
@@ -46,7 +46,7 @@ export default function (UIkit) {
 
                     if (this.offsetBottom === true) {
 
-                        offsetTop += this.$el.nextElementSibling.offsetHeight || 0;
+                        offsetTop += offsetHeight(this.$el.nextElementSibling);
 
                     } else if (isNumeric(this.offsetBottom)) {
 
@@ -58,20 +58,28 @@ export default function (UIkit) {
 
                     } else if (isString(this.offsetBottom)) {
 
-                        var el = query(this.offsetBottom, this.$el);
-                        offsetTop += el && el.offsetHeight || 0;
+                        offsetTop += offsetHeight(query(this.offsetBottom, this.$el));
 
                     }
 
-                    minHeight = viewport - offsetTop;
+                    // on mobile devices (iOS and Android) window.innerHeight !== 100vh
+                    minHeight = offsetTop ? `calc(100vh - ${offsetTop}px)` : '100vh';
 
                 }
 
-                css(this.$el, 'minHeight', Math.max(minHeight, this.minHeight) || '');
+                if (!minHeight) {
+                    return;
+                }
+
+                css(this.$el, {height: '', minHeight});
+
+                var elHeight = this.$el.offsetHeight;
+                if (this.minHeight && this.minHeight > elHeight) {
+                    css(this.$el, 'minHeight', this.minHeight);
+                }
 
                 // IE 10-11 fix (min-height on a flex container won't apply to its flex items)
-                height(this.$el, '');
-                if (minHeight && viewport - offsetTop >= this.$el.offsetHeight) {
+                if (viewport - offsetTop >= elHeight) {
                     css(this.$el, 'height', minHeight);
                 }
 
@@ -82,5 +90,9 @@ export default function (UIkit) {
         }
 
     });
+
+    function offsetHeight(el) {
+        return el && el.offsetHeight || 0;
+    }
 
 }

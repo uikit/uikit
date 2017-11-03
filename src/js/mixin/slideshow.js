@@ -6,7 +6,9 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$$, $, addClass, assign, attr, createEvent, css, doc, endsWith, fastdom, getIndex, getPos, hasClass, index, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, Transition, trigger} = UIkit.util;
+    var {$$, $, addClass, assign, createEvent, css, data, doc, endsWith, fastdom, getIndex, getPos, hasClass, index, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, toNodes, Transition, trigger, win} = UIkit.util;
+
+    var abs = Math.abs;
 
     UIkit.mixin.slideshow = {
 
@@ -45,7 +47,7 @@ function plugin(UIkit) {
             },
 
             slides() {
-                return $$(this.list.children);
+                return toNodes(this.list.children);
             },
 
             animation({animation, Animations}) {
@@ -102,13 +104,13 @@ function plugin(UIkit) {
                 name: 'click',
 
                 delegate() {
-                    return `[${this.attrItem}]`;
+                    return `[${this.attrItem}],[data-${this.attrItem}]`;
                 },
 
                 handler(e) {
                     e.preventDefault();
                     e.current.blur();
-                    this.show(attr(e.current, this.attrItem));
+                    this.show(data(e.current, this.attrItem));
                 }
 
             },
@@ -121,7 +123,11 @@ function plugin(UIkit) {
                     return `${this.selList} > *`;
                 },
 
-                handler: 'start'
+                handler(e) {
+                    if (isTouch(e) || !hasTextNodesOnly(e.target)) {
+                        this.start(e);
+                    }
+                }
 
             },
 
@@ -219,7 +225,7 @@ function plugin(UIkit) {
                 },
 
                 handler({type, target}) {
-                    toggleClass($$(`[${this.attrItem}="${index(target)}"]`, this.$el), this.clsActive, endsWith(type, 'show'));
+                    toggleClass($$(`[${this.attrItem}="${index(target)}"],[data-${this.attrItem}="${index(target)}"]`, this.$el), this.clsActive, endsWith(type, 'show'));
                 }
 
             },
@@ -255,6 +261,14 @@ function plugin(UIkit) {
                     UIkit.update(null, target);
                 }
 
+            },
+
+            {
+                name: 'dragstart',
+
+                handler(e) {
+                    e.preventDefault();
+                }
             }
 
         ],
@@ -265,10 +279,6 @@ function plugin(UIkit) {
 
                 if (e.button && e.button !== 0 || this.slides.length < 2) {
                     return;
-                }
-
-                if (!isTouch(e)) {
-                    e.preventDefault();
                 }
 
                 if (this._animation && this._animation.animation !== this.animation) {
@@ -282,34 +292,39 @@ function plugin(UIkit) {
 
                     percent = getPercent() * dir;
 
-                    this.percent = Math.abs(percent) * -dir;
+                    this.percent = abs(percent) * -dir;
 
                     this.stack.splice(0, this.stack.length);
 
                     cancel();
-                    translate(Math.abs(percent));
+                    translate(abs(percent));
 
                     this.index = this.getIndex(this.index - dir);
-                    this.touching = true;
+                    this.dragging = true;
 
                 }
 
-                on(doc, pointerMove, this.move, true);
+                this.unbindMove = on(doc, pointerMove, this.move, {capture: true, passive: false});
+                on(win, 'scroll', this.unbindMove);
                 on(doc, pointerUp, this.end, true);
 
-                this.touch = this.pos + this.$el.offsetWidth * percent;
+                this.drag = this.pos + this.$el.offsetWidth * percent;
 
             },
 
-            move() {
+            move(e) {
 
-                if (this.pos === this.prevPos || (!this.touching && Math.abs(this.touch - this.pos) < this.threshold)) {
+                var distance = this.pos - this.drag;
+
+                if (this.prevPos === this.pos || !this.dragging && abs(distance) < this.threshold) {
                     return;
                 }
 
-                this.touching = true;
+                e.cancelable && e.preventDefault();
 
-                var percent = (this.pos - this.touch) / this.$el.offsetWidth;
+                this.dragging = true;
+
+                var percent = distance / this.$el.offsetWidth;
 
                 if (this.percent === percent) {
                     return;
@@ -324,14 +339,15 @@ function plugin(UIkit) {
 
                 this.slides.forEach((el, i) => toggleClass(el, this.clsActive, i === index || i === nextIndex));
 
+                this._animation && this._animation.reset();
+
                 if (index !== prevIndex) {
-                    this._animation && this._animation.reset();
                     trigger(this.slides[prevIndex], 'itemhide', [this]);
                     trigger(current, 'itemshow', [this]);
                 }
 
                 this._animation = new Transitioner(this.animation, this.easing, current, next, dir, noop);
-                this._animation.translate(Math.abs(percent % 1));
+                this._animation.translate(abs(percent % 1));
 
                 this.percent = percent;
 
@@ -341,14 +357,15 @@ function plugin(UIkit) {
 
             end() {
 
-                off(doc, pointerMove, this.move, true);
+                off(win, 'scroll', this.unbindMove);
+                this.unbindMove();
                 off(doc, pointerUp, this.end, true);
 
-                if (this.touching) {
+                if (this.dragging) {
 
                     var percent = this.percent;
 
-                    this.percent = Math.abs(this.percent) % 1;
+                    this.percent = abs(this.percent) % 1;
                     this.index = this.getIndex(this.index - trunc(percent));
 
                     if (this.percent < .1 || percent < 0 === this.pos > this.prevPos) {
@@ -357,16 +374,15 @@ function plugin(UIkit) {
                         percent *= -1;
                     }
 
+                    this._animation && this._animation.reset();
                     this.show(percent > 0 ? 'previous' : 'next', true);
 
                     preventClick();
 
                 }
 
-                this.pos
-                    = this.prevPos
-                    = this.touch
-                    = this.touching
+                this.drag
+                    = this.dragging
                     = this.percent
                     = null;
 
@@ -374,7 +390,7 @@ function plugin(UIkit) {
 
             show(index, force = false) {
 
-                if (!force && this.touch) {
+                if (!force && this.drag) {
                     return;
                 }
 
@@ -582,6 +598,10 @@ function plugin(UIkit) {
 
     function speedUp(x) {
         return .5 * x + 300; // parabola through (400,500; 600,600; 1800,1200)
+    }
+
+    function hasTextNodesOnly(el) {
+        return !el.children.length && el.childNodes.length;
     }
 
 }

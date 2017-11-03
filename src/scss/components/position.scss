@@ -21,6 +21,7 @@
 //
 // Modifiers:       `uk-position-small`
 //                  `uk-position-medium`
+//                  `uk-position-large`
 //
 // ========================================================================
 
@@ -30,6 +31,8 @@
 
 $position-small-margin:                                 $global-small-gutter !default;
 $position-medium-margin:                                $global-gutter !default;
+$position-large-margin:                                 $global-gutter !default;
+$position-large-margin-l:                               50px !default;
 
 
 /* ========================================================================
@@ -166,7 +169,6 @@ $position-medium-margin:                                $global-gutter !default;
 .uk-position-z-index { z-index: 1; }
 
 
-
 /* Margin modifier
  ========================================================================== */
 
@@ -215,6 +217,54 @@ $position-medium-margin:                                $global-gutter !default;
     -webkit-transform: translateX(-50%) translateX(-$position-medium-margin);
     transform: translateX(-50%) translateX(-$position-medium-margin);
 }
+
+/*
+ * Large
+ */
+
+.uk-position-large { margin: $position-large-margin; }
+
+.uk-position-large.uk-position-center {
+    -webkit-transform: translate(-50%, -50%) translate(-$position-large-margin, (-$position-large-margin));
+    transform: translate(-50%, -50%) translate(-$position-large-margin, (-$position-large-margin));
+}
+
+.uk-position-large.uk-position-center-left,
+.uk-position-large.uk-position-center-right {
+    -webkit-transform: translateY(-50%) translateY(-$position-large-margin);
+    transform: translateY(-50%) translateY(-$position-large-margin);
+}
+
+.uk-position-large.uk-position-top-center,
+.uk-position-large.uk-position-bottom-center {
+    -webkit-transform: translateX(-50%) translateX(-$position-large-margin);
+    transform: translateX(-50%) translateX(-$position-large-margin);
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-position-large { margin: $position-large-margin-l; }
+
+    .uk-position-large.uk-position-center {
+        -webkit-transform: translate(-50%, -50%) translate(-$position-large-margin-l, (-$position-large-margin-l));
+        transform: translate(-50%, -50%) translate(-$position-large-margin-l, (-$position-large-margin-l));
+    }
+
+    .uk-position-large.uk-position-center-left,
+    .uk-position-large.uk-position-center-right {
+        -webkit-transform: translateY(-50%) translateY(-$position-large-margin-l);
+        transform: translateY(-50%) translateY(-$position-large-margin-l);
+    }
+
+    .uk-position-large.uk-position-top-center,
+    .uk-position-large.uk-position-bottom-center {
+        -webkit-transform: translateX(-50%) translateX(-$position-large-margin-l);
+        transform: translateX(-50%) translateX(-$position-large-margin-l);
+    }
+
+}
+
 
 // Hooks
 // ========================================================================

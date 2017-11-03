@@ -1,4 +1,4 @@
-import {scale3d, translate} from '../../mixin/internal/slideshow-animations';
+import { scale3d, translate } from '../../mixin/internal/slideshow-animations';
 
 export default function (UIkit) {
 
@@ -65,8 +65,10 @@ export default function (UIkit) {
                     ];
             },
 
-            percent(current) {
-                return Animations.translated(current);
+            percent(current, next, dir) {
+                return dir < 0
+                    ? 1 - Animations.translated(next)
+                    : Animations.translated(current);
             },
 
             translate(percent, dir) {
@@ -97,8 +99,10 @@ export default function (UIkit) {
                     ];
             },
 
-            percent(current, next) {
-                return 1 - Animations.translated(next);
+            percent(current, next, dir) {
+                return dir > 0
+                    ? 1 - Animations.translated(next)
+                    : Animations.translated(current);
             },
 
             translate(percent, dir) {
