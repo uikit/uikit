@@ -30,10 +30,10 @@ export default function (UIkit) {
 
                     css(this.$el, {height: '', minHeight: ''});
 
-                    var diff = viewport - docEl.offsetHeight;
+                    var diff = viewport - offsetHeight(docEl);
 
                     if (diff > 0) {
-                        minHeight = this.$el.offsetHeight + diff;
+                        minHeight = offsetHeight(this.$el) + diff;
                     }
 
                 } else {
@@ -46,7 +46,7 @@ export default function (UIkit) {
 
                     if (this.offsetBottom === true) {
 
-                        offsetTop += this.$el.nextElementSibling.offsetHeight || 0;
+                        offsetTop += offsetHeight(this.$el.nextElementSibling);
 
                     } else if (isNumeric(this.offsetBottom)) {
 
@@ -58,8 +58,7 @@ export default function (UIkit) {
 
                     } else if (isString(this.offsetBottom)) {
 
-                        var el = query(this.offsetBottom, this.$el);
-                        offsetTop += el && el.offsetHeight || 0;
+                        offsetTop += offsetHeight(query(this.offsetBottom, this.$el));
 
                     }
 
@@ -91,5 +90,9 @@ export default function (UIkit) {
         }
 
     });
+
+    function offsetHeight(el) {
+        return el && el.offsetHeight || 0;
+    }
 
 }
