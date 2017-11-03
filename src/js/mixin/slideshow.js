@@ -6,7 +6,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$$, $, addClass, assign, attr, createEvent, css, doc, endsWith, fastdom, getIndex, getPos, hasClass, index, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, toNodes, Transition, trigger, win} = UIkit.util;
+    var {$$, $, addClass, assign, createEvent, css, data, doc, endsWith, fastdom, getIndex, getPos, hasClass, index, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, toNodes, Transition, trigger, win} = UIkit.util;
 
     var abs = Math.abs;
 
@@ -104,13 +104,13 @@ function plugin(UIkit) {
                 name: 'click',
 
                 delegate() {
-                    return `[${this.attrItem}]`;
+                    return `[${this.attrItem}],[data-${this.attrItem}]`;
                 },
 
                 handler(e) {
                     e.preventDefault();
                     e.current.blur();
-                    this.show(attr(e.current, this.attrItem));
+                    this.show(data(e.current, this.attrItem));
                 }
 
             },
@@ -225,7 +225,7 @@ function plugin(UIkit) {
                 },
 
                 handler({type, target}) {
-                    toggleClass($$(`[${this.attrItem}="${index(target)}"]`, this.$el), this.clsActive, endsWith(type, 'show'));
+                    toggleClass($$(`[${this.attrItem}="${index(target)}"],[data-${this.attrItem}="${index(target)}"]`, this.$el), this.clsActive, endsWith(type, 'show'));
                 }
 
             },
