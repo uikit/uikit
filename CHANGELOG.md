@@ -21,7 +21,7 @@
 - Lightbox navigation no longer stacks on keyboard input
 - Allow text selection within the Slideshow component
 - Prevent vertical scrolling while swiping the Slideshow
-- Remove tap highlightning when swiping the Slideshow in iOS
+- Remove tap highlighting when swiping the Slideshow in iOS
 
 ### Fixed
 
