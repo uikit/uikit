@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix "Illegal invocation" error in Slideshow component
+
 ## 3.0.0 beta 33 (November 3, 2017)
 
 ### Added

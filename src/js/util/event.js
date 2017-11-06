@@ -67,10 +67,15 @@ function getArgs(args) {
 function delegate(element, selector, listener) {
     return e => {
 
-        var target = e.target,
-            current = selector[0] === '>'
-                ? $$(selector, element).filter(element => within(target, element))[0]
-                : closest(target, selector);
+        var target = e.target;
+
+        if (!target.parentNode) {
+            return;
+        }
+
+        var current = selector[0] === '>'
+            ? $$(selector, element).filter(element => within(target, element))[0]
+            : closest(target, selector);
 
         if (current) {
             e.delegate = element;

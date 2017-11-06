@@ -147,7 +147,9 @@ export function closest(element, selector) {
         selector = selector.slice(1);
     }
 
-    return isNode(element) ? closestFn.call(element, selector) : toNodes(element).map(element => closestFn.call(element, selector));
+    return isNode(element)
+        ? closestFn.call(element, selector)
+        : toNodes(element).map(element => closestFn.call(element, selector));
 }
 
 export function parents(element, selector) {
