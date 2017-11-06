@@ -139,17 +139,13 @@ var closestFn = elProto.closest || function (selector) {
 
 export function closest(element, selector) {
 
-    if (!docEl.contains(this)) {
-        return;
-    }
-
     if (startsWith(selector, '>')) {
         selector = selector.slice(1);
     }
 
     return isNode(element)
-        ? closestFn.call(element, selector)
-        : toNodes(element).map(element => closestFn.call(element, selector));
+        ? element.parentNode && closestFn.call(element, selector)
+        : toNodes(element).map(element => element.parentNode && closestFn.call(element, selector)).filter(Boolean);
 }
 
 export function parents(element, selector) {
