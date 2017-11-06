@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix "Illegal invocation" error in Slideshow component
+- Fix Offcanvas animations
 
 ## 3.0.0 beta 33 (November 3, 2017)
 
