@@ -6,6 +6,7 @@
 
 - Fix "Illegal invocation" error in Slideshow component
 - Fix Offcanvas animations
+- Fix Tab component if no lists are connected
 
 ## 3.0.0 beta 33 (November 3, 2017)
 
@@ -13,7 +14,6 @@
 
 - Add Thumbnav component
 - Add large margin modifier to Position component
-- Fix Tab component if no lists are connected
 
 ### Changed
 
