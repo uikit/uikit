@@ -233,7 +233,7 @@ export default function (UIkit) {
 
                         Animation.cancel(this.$el);
                         this.show();
-                        Animation.in(this.$el, this.animation).then(null, noop);
+                        Animation.in(this.$el, this.animation).catch(noop);
 
                     } else {
                         this.show();

@@ -40,6 +40,7 @@ function plugin(UIkit) {
         update: {
 
             read() {
+
                 var [width, height] = this.ratio.split(':').map(Number);
                 this.height = height * this.$el.offsetWidth / width;
 
@@ -50,6 +51,7 @@ function plugin(UIkit) {
                 if (this.maxHeight) {
                     this.height = Math.min(this.maxHeight, this.height);
                 }
+
             },
 
             write() {

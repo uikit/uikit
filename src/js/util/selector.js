@@ -126,10 +126,6 @@ export function matches(element, selector) {
 var closestFn = elProto.closest || function (selector) {
     var ancestor = this;
 
-    if (!docEl.contains(this)) {
-        return;
-    }
-
     do {
 
         if (matches(ancestor, selector)) {
@@ -147,7 +143,9 @@ export function closest(element, selector) {
         selector = selector.slice(1);
     }
 
-    return isNode(element) ? closestFn.call(element, selector) : toNodes(element).map(element => closestFn.call(element, selector));
+    return isNode(element)
+        ? element.parentNode && closestFn.call(element, selector)
+        : toNodes(element).map(element => element.parentNode && closestFn.call(element, selector)).filter(Boolean);
 }
 
 export function parents(element, selector) {

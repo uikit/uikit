@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.0 beta 34 (November 7, 2017)
+
+### Fixed
+
+- Fix "Illegal invocation" error in Slideshow component
+- Fix Offcanvas animations
+- Fix Tab component if no lists are connected
+
 ## 3.0.0 beta 33 (November 3, 2017)
 
 ### Added
@@ -15,7 +23,7 @@
 - Lightbox navigation no longer stacks on keyboard input
 - Allow text selection within the Slideshow component
 - Prevent vertical scrolling while swiping the Slideshow
-- Remove tap highlightning when swiping the Slideshow in iOS
+- Remove tap highlighting when swiping the Slideshow in iOS
 
 ### Fixed
 

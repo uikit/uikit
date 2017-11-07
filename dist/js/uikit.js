@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.33 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.34 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -592,10 +592,6 @@ function matches(element, selector) {
 var closestFn = elProto.closest || function (selector) {
     var ancestor = this;
 
-    if (!docEl.contains(this)) {
-        return;
-    }
-
     do {
 
         if (matches(ancestor, selector)) {
@@ -613,7 +609,9 @@ function closest(element, selector) {
         selector = selector.slice(1);
     }
 
-    return isNode(element) ? closestFn.call(element, selector) : toNodes(element).map(function (element) { return closestFn.call(element, selector); });
+    return isNode(element)
+        ? element.parentNode && closestFn.call(element, selector)
+        : toNodes(element).map(function (element) { return element.parentNode && closestFn.call(element, selector); }).filter(Boolean);
 }
 
 function parents(element, selector) {
@@ -3723,14 +3721,18 @@ var Modal = {
         _toggleImmediate: function _toggleImmediate(el, show) {
             var this$1 = this;
 
+            return new Promise(function (resolve) { return requestAnimationFrame(function () {
+                    this$1._toggle(el, show);
 
-            requestAnimationFrame(function () { return this$1._toggle(el, show); });
+                    if (this$1.transitionDuration) {
+                        once(this$1.transitionElement, transitionend, resolve, false, function (e) { return e.target === this$1.transitionElement; });
+                    } else {
+                        resolve();
+                    }
+                }); }
+            );
+        }
 
-            return this.transitionDuration
-                ? new Promise(function (resolve) { return once(this$1.transitionElement, transitionend, resolve, false, function (e) { return e.target === this$1.transitionElement; }); })
-                : Promise.resolve();
-
-        },
     }
 
 };
@@ -3744,7 +3746,7 @@ function registerEvents() {
     }
 
     events = [
-        on(doc, 'click', function (ref) {
+        on(docEl, 'click', function (ref) {
             var target = ref.target;
             var defaultPrevented = ref.defaultPrevented;
 
@@ -4498,7 +4500,7 @@ var Drop = function (UIkit) {
         }
 
         registered = true;
-        on(doc, 'click', function (ref) {
+        on(docEl, 'click', function (ref) {
             var target = ref.target;
             var defaultPrevented = ref.defaultPrevented;
 
@@ -5664,7 +5666,7 @@ var Navbar = function (UIkit) {
             transitionTo: function transitionTo(newHeight) {
                 height(this.$el, isVisible(this.$el) ? height(this.$el) : 0);
                 Transition.cancel(this.$el);
-                return Transition.start(this.$el, {height: newHeight}, this.duration).then(null, noop);
+                return Transition.start(this.$el, {height: newHeight}, this.duration).catch(noop);
             }
 
         }
@@ -6522,7 +6524,7 @@ var Sticky = function (UIkit) {
 
                         Animation.cancel(this.$el);
                         this.show();
-                        Animation.in(this.$el, this.animation).then(null, noop);
+                        Animation.in(this.$el, this.animation).catch(noop);
 
                     } else {
                         this.show();
@@ -6908,12 +6910,8 @@ var Switcher = function (UIkit) {
                 var this$1 = this;
 
 
-                if (!this.connects.length) {
-                    return;
-                }
-
                 var length = this.toggles.length,
-                    prev = index(filter(this.connects[0].children, ("." + (this.cls)))[0]),
+                    prev = this.connects.length && index(filter(this.connects[0].children, ("." + (this.cls)))[0]),
                     hasPrev = prev >= 0,
                     next = getIndex(item, this.toggles, prev),
                     dir = item === 'previous' ? -1 : 1,
@@ -7206,7 +7204,7 @@ var core = function (UIkit) {
 
 };
 
-UIkit$2.version = '3.0.0-beta.33';
+UIkit$2.version = '3.0.0-beta.34';
 
 mixin(UIkit$2);
 core(UIkit$2);
@@ -8132,7 +8130,11 @@ function plugin$3(UIkit) {
                 this.stopAutoplay();
 
                 if (this.autoplay) {
-                    this.interval = setInterval(function () { return !(this$1.isHovering && this$1.pauseOnHover) && this$1.show('next'); }, this.autoplayInterval);
+                    this.interval = setInterval(function () {
+                        if (!(this$1.isHovering && this$1.pauseOnHover) && !this$1.stack.length) {
+                            this$1.show('next');
+                        }
+                    }, this.autoplayInterval);
                 }
 
             },
@@ -9556,6 +9558,7 @@ function plugin$6(UIkit) {
         update: {
 
             read: function read() {
+
                 var ref = this.ratio.split(':').map(Number);
                 var width = ref[0];
                 var height = ref[1];
@@ -9568,6 +9571,7 @@ function plugin$6(UIkit) {
                 if (this.maxHeight) {
                     this.height = Math.min(this.maxHeight, this.height);
                 }
+
             },
 
             write: function write() {

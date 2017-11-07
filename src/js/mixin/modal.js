@@ -181,14 +181,19 @@ export default {
         },
 
         _toggleImmediate(el, show) {
+            return new Promise(resolve =>
+                requestAnimationFrame(() => {
+                    this._toggle(el, show);
 
-            requestAnimationFrame(() => this._toggle(el, show));
+                    if (this.transitionDuration) {
+                        once(this.transitionElement, transitionend, resolve, false, e => e.target === this.transitionElement);
+                    } else {
+                        resolve();
+                    }
+                })
+            );
+        }
 
-            return this.transitionDuration
-                ? new Promise(resolve => once(this.transitionElement, transitionend, resolve, false, e => e.target === this.transitionElement))
-                : Promise.resolve();
-
-        },
     }
 
 }
@@ -202,7 +207,7 @@ function registerEvents() {
     }
 
     events = [
-        on(doc, 'click', ({target, defaultPrevented}) => {
+        on(docEl, 'click', ({target, defaultPrevented}) => {
             if (active && active.bgClose && !defaultPrevented && !within(target, active.panel)) {
                 active.hide();
             }

@@ -492,7 +492,11 @@ function plugin(UIkit) {
                 this.stopAutoplay();
 
                 if (this.autoplay) {
-                    this.interval = setInterval(() => !(this.isHovering && this.pauseOnHover) && this.show('next'), this.autoplayInterval);
+                    this.interval = setInterval(() => {
+                        if (!(this.isHovering && this.pauseOnHover) && !this.stack.length) {
+                            this.show('next');
+                        }
+                    }, this.autoplayInterval);
                 }
 
             },
