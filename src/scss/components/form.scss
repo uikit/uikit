@@ -224,6 +224,8 @@ $internal-form-checkbox-indeterminate-image: "data:image/svg+xml;charset=UTF-8,%
  * Remove default style in iOS.
  */
 
+input[type="submit"],
+input[type="button"],
 .uk-input,
 .uk-textarea { -webkit-appearance: none; }
 
