@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Parallax supports RGB and RGBA now
+
 ### Fixed
 
 - Fix Modal toggling if Tab components media setting is active
