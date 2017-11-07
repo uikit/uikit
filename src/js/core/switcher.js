@@ -109,12 +109,8 @@ export default function (UIkit) {
 
             show(item) {
 
-                if (!this.connects.length) {
-                    return;
-                }
-
                 var length = this.toggles.length,
-                    prev = index(filter(this.connects[0].children, `.${this.cls}`)[0]),
+                    prev = this.connects.length && index(filter(this.connects[0].children, `.${this.cls}`)[0]),
                     hasPrev = prev >= 0,
                     next = getIndex(item, this.toggles, prev),
                     dir = item === 'previous' ? -1 : 1,

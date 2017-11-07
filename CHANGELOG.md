@@ -13,6 +13,7 @@
 
 - Add Thumbnav component
 - Add large margin modifier to Position component
+- Fix Tab component if no lists are connected
 
 ### Changed
 
