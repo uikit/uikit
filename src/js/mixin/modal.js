@@ -207,7 +207,7 @@ function registerEvents() {
     }
 
     events = [
-        on(doc, 'click', ({target, defaultPrevented}) => {
+        on(docEl, 'click', ({target, defaultPrevented}) => {
             if (active && active.bgClose && !defaultPrevented && !within(target, active.panel)) {
                 active.hide();
             }
