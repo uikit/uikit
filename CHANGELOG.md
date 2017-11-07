@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix Modal toggling if Tab components media setting is active
+- Fix Tab component regression
 
 ## 3.0.0 beta 34 (November 7, 2017)
 
