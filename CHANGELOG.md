@@ -11,6 +11,7 @@
 - Fix Modal toggling if Tab components media setting is active
 - Fix Tab component regression
 - Fix context selectors that are applied to elements with ids containing special characters
+- Fix reactivity in Leader component
 
 ## 3.0.0 beta 34 (November 7, 2017)
 

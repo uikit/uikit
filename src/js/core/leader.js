@@ -44,7 +44,7 @@ export default function (UIkit) {
                 read() {
                     var prev = this._width;
                     this._width = Math.floor(this.$el.offsetWidth / 2);
-                    this._changed = prev !== this._width;
+                    this._changed = this._changed || prev !== this._width;
                     this._hide = this.media && !win.matchMedia(this.media).matches;
                 },
 
@@ -53,6 +53,7 @@ export default function (UIkit) {
                     toggleClass(this.wrapper, this.clsHide, this._hide);
 
                     if (this._changed) {
+                        this._changed = false;
                         attr(this.wrapper, this.attrFill, new Array(this._width).join(this.fill));
                     }
 
