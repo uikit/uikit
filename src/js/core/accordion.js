@@ -67,7 +67,7 @@ export default function (UIkit) {
 
         update() {
 
-            this.items.forEach(el => this.toggleNow($(this.content, el), hasClass(el, this.clsOpen)));
+            this.items.forEach(el => this._toggleImmediate($(this.content, el), hasClass(el, this.clsOpen)));
 
             var active = !this.collapsible && !hasClass(this.items, this.clsOpen) && this.items[0];
             if (active) {
