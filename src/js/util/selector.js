@@ -1,4 +1,4 @@
-import { doc, docEl, fragment, isArray, isDocument, isObject, isString, isWindow, removeAttr, startsWith } from './index';
+import { doc, fragment, isArray, isDocument, isObject, isString, isWindow, removeAttr, startsWith } from './index';
 
 var arrayProto = Array.prototype;
 
@@ -75,7 +75,7 @@ function _query(selector, context = doc, queryFn) {
                 removes.push(() => removeAttr(ctx, 'id'));
             }
 
-            return `#${ctx.id} ${selector}`;
+            return `#${escape(ctx.id)} ${selector}`;
 
         }).filter(Boolean).join(',');
 
@@ -195,4 +195,9 @@ export function toNodes(element) {
                 : isJQuery(element)
                     ? element.toArray()
                     : [];
+}
+
+var escapeFn = CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, match => `\\${match}`); };
+export function escape(css) {
+    return isString(css) ? escapeFn.call(null, css) : '';
 }
