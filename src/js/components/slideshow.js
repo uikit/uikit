@@ -34,7 +34,7 @@ function plugin(UIkit) {
         },
 
         ready() {
-            fastdom.mutate(() => this.show(this.index));
+            fastdom.write(() => this.show(this.index));
         },
 
         update: {

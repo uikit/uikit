@@ -425,7 +425,7 @@ function plugin(UIkit) {
                     prev && trigger(prev, 'itemhidden', [this]);
                     trigger(next, 'itemshown', [this]);
 
-                    fastdom.mutate(() => {
+                    fastdom.write(() => {
                         this.stack.shift();
                         if (this.stack.length) {
                             this.show(this.stack.shift(), true)

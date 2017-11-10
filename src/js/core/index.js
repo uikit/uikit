@@ -36,9 +36,8 @@ export default function (UIkit) {
     on(win, 'load resize', UIkit.update);
     on(win, 'scroll', e => {
         e.dir = scroll < win.pageYOffset ? 'down' : 'up';
-        scroll = win.pageYOffset;
+        e.scrollY = scroll = win.pageYOffset;
         UIkit.update(e);
-        fastdom.flush();
     });
 
     animationstart && on(doc, animationstart, ({target}) => {

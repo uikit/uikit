@@ -11,13 +11,13 @@ export const fastdom = {
     reads: [],
     writes: [],
 
-    measure(task) {
+    read(task) {
         this.reads.push(task);
         scheduleFlush();
         return task;
     },
 
-    mutate(task) {
+    write(task) {
         this.writes.push(task);
         scheduleFlush();
         return task;

@@ -193,9 +193,9 @@ export default function (UIkit) {
 
             {
 
-                read() {
+                read({scrollY = win.pageYOffset}) {
                     this.offsetTop = offset(this.$el).top;
-                    this.scroll = win.pageYOffset;
+                    this.scroll = scrollY;
                     this.visible = isVisible(this.$el);
                 },
 
