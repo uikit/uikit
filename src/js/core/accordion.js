@@ -43,8 +43,6 @@ export default function (UIkit) {
 
                 name: 'click',
 
-                self: true,
-
                 delegate() {
                     return `${this.targets} ${this.$props.toggle}`;
                 },

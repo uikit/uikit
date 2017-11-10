@@ -15,6 +15,7 @@
 - Fix events triggered by Accordion component
 - Fix text wrapping for Firefox in Position component
 - Fix Scrollspy triggering before other components have been applied at least once
+- Fix Accordion title click behavior
 
 ## 3.0.0 beta 34 (November 7, 2017)
 
