@@ -320,7 +320,13 @@
                 return;
             }
 
-            if (target.is('.'+$this.options.noDragClass) || target.closest('.'+$this.options.noDragClass).length) {
+            if (target.is('.'+$this.options.noDragClass)) {
+                return;
+            }
+
+            var noDragParent = target.closest('.'+$this.options.noDragClass);
+
+            if (noDragParent.length && this.element.find(noDragParent[0]).length) {
                 return;
             }
 
