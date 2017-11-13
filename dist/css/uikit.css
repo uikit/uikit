@@ -9079,6 +9079,7 @@ iframe.uk-cover {
   /* 2 */
   width: -moz-max-content;
   max-width: 100%;
+  box-sizing: border-box;
 }
 /* Vertical */
 .uk-position-center-left,
@@ -9101,6 +9102,10 @@ iframe.uk-cover {
   transform: translateX(-50%);
   /* 1 */
   display: table;
+  /* 2 */
+  width: -moz-max-content;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 .uk-position-top-center {
   top: 0;

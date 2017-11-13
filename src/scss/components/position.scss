@@ -117,7 +117,8 @@ $position-large-margin-l:                               50px !default;
     display: table;
     /* 2 */
     width: -moz-max-content;
-    max-width: 100%
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 /* Vertical */
@@ -139,6 +140,10 @@ $position-large-margin-l:                               50px !default;
     transform: translateX(-50%);
     /* 1 */
     display: table;
+    /* 2 */
+    width: -moz-max-content;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .uk-position-top-center { top: 0; }
