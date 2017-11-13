@@ -51,7 +51,7 @@ export default function (UIkit) {
 
                 read() {
 
-                    if (!UIkit._initialized || !this.repeat && this.elements.every(({_scrollspy: data}) => data && data.inview)) {
+                    if (!UIkit._initialized) {
                         return false;
                     }
 

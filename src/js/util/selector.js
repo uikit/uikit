@@ -1,4 +1,5 @@
 import { doc, fragment, isArray, isDocument, isObject, isString, isWindow, removeAttr, startsWith } from './index';
+import { win } from './dom';
 
 var arrayProto = Array.prototype;
 
@@ -197,7 +198,7 @@ export function toNodes(element) {
                     : [];
 }
 
-var escapeFn = CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, match => `\\${match}`); };
+var escapeFn = win.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, match => `\\${match}`); };
 export function escape(css) {
     return isString(css) ? escapeFn.call(null, css) : '';
 }
