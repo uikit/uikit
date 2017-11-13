@@ -40,7 +40,7 @@ export default function (UIkit) {
         };
 
         if (UIkit._initialized && !options.options.functional) {
-            fastdom.measure(() => UIkit[name](`[uk-${id}],[data-uk-${id}]`));
+            fastdom.read(() => UIkit[name](`[uk-${id}],[data-uk-${id}]`));
         }
 
         return UIkit.components[name];

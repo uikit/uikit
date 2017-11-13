@@ -130,7 +130,7 @@ export function toList(value) {
     return isArray(value)
         ? value
         : isString(value)
-            ? value.split(',').map(value => isNumeric(value)
+            ? value.split(/,(?![^(]*\))/).map(value => isNumeric(value)
                 ? toNumber(value)
                 : toBoolean(value.trim()))
             : [value];

@@ -68,7 +68,7 @@ export default function (UIkit) {
 
         var computed = this.$options.computed;
 
-        this._computeds = {};
+        this._resetComputeds();
 
         if (computed) {
             for (var key in computed) {
@@ -77,9 +77,13 @@ export default function (UIkit) {
         }
     };
 
+    UIkit.prototype._resetComputeds = function () {
+        this._computeds = {};
+    };
+
     UIkit.prototype._initProps = function (props) {
 
-        this._computeds = {};
+        this._resetComputeds();
         assign(this.$props, props || getProps(this.$options, this.$name));
 
         var exclude = [this.$options.computed, this.$options.methods];

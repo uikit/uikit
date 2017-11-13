@@ -1,5 +1,24 @@
 # Changelog
 
+## 3.0.0 beta 35 (November 13, 2017)
+
+### Added
+
+- Parallax supports RGB and RGBA now
+
+### Fixed
+
+- Fix Modal toggling if Tab components media setting is active
+- Fix Tab component regression
+- Fix context selectors that are applied to elements with ids containing special characters
+- Fix reactivity in Leader component
+- Fix events triggered by Accordion component
+- Fix text wrapping for Firefox in Position component
+- Fix Scrollspy triggering before other components have been applied at least once
+- Fix Accordion title click behavior
+- Fix Sortable on iOS
+- Fix Sticky Navbar (IE 11)
+
 ## 3.0.0 beta 34 (November 7, 2017)
 
 ### Fixed

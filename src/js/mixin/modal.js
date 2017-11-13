@@ -62,6 +62,8 @@ export default {
 
             name: 'toggle',
 
+            self: true,
+
             handler(e) {
 
                 if (e.defaultPrevented) {

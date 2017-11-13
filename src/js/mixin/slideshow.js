@@ -277,7 +277,7 @@ function plugin(UIkit) {
 
             start(e) {
 
-                if (e.button && e.button !== 0 || this.slides.length < 2) {
+                if (e.button > 0 || this.slides.length < 2) {
                     return;
                 }
 
@@ -425,7 +425,7 @@ function plugin(UIkit) {
                     prev && trigger(prev, 'itemhidden', [this]);
                     trigger(next, 'itemshown', [this]);
 
-                    fastdom.mutate(() => {
+                    fastdom.write(() => {
                         this.stack.shift();
                         if (this.stack.length) {
                             this.show(this.stack.shift(), true)

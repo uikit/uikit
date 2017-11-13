@@ -141,6 +141,10 @@ export default {
 
         _toggle(el, toggled) {
 
+            if (!el) {
+                return;
+            }
+
             if (this.cls) {
                 toggleClass(el, this.cls, includes(this.cls, ' ') ? undefined : toggled);
             } else {

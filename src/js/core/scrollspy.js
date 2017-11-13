@@ -30,7 +30,7 @@ export default function (UIkit) {
         computed: {
 
             elements({target}, $el) {
-                return target && $$(target, $el) || [$el];
+                return target ? $$(target, $el) : [$el];
             }
 
         },
@@ -50,6 +50,11 @@ export default function (UIkit) {
             {
 
                 read() {
+
+                    if (!UIkit._initialized) {
+                        return false;
+                    }
+
                     this.elements.forEach(el => {
 
                         if (!el._scrollspy) {

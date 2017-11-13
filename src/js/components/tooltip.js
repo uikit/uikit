@@ -31,7 +31,7 @@ function plugin(UIkit) {
         },
 
         connected() {
-            fastdom.mutate(() => attr(this.$el, {title: null, 'aria-expanded': false}));
+            fastdom.write(() => attr(this.$el, {title: null, 'aria-expanded': false}));
         },
 
         disconnected() {
