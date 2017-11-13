@@ -35,7 +35,7 @@ export default function (UIkit) {
 
     on(win, 'load resize', UIkit.update);
     on(win, 'scroll', e => {
-        e.dir = scroll < win.pageYOffset ? 'down' : 'up';
+        e.dir = scroll <= win.pageYOffset ? 'down' : 'up';
         e.scrollY = scroll = win.pageYOffset;
         UIkit.update(e);
     });
