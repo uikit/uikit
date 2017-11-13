@@ -19,7 +19,8 @@ export default function (UIkit) {
 
         this._isReady = true;
         this._callHook('ready');
-        this._callUpdate(createEvent('update', true, false, {mutation: true}));
+        this._resetComputeds();
+        this._callUpdate();
     };
 
     UIkit.prototype._callConnected = function () {
@@ -81,7 +82,7 @@ export default function (UIkit) {
         var {type, detail} = e;
 
         if (type === 'update' && detail && detail.mutation) {
-            this._computeds = {};
+            this._resetComputeds();
         }
 
         var updates = this.$options.update, {reads, writes} = this._frames;

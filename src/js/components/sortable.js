@@ -99,7 +99,7 @@ function plugin(UIkit) {
                 if (!placeholder
                     || isInput(e.target)
                     || this.handle && !within(target, this.handle)
-                    || button !== 0
+                    || button > 0
                     || within(target, `.${this.clsNoDrag}`)
                     || defaultPrevented
                 ) {

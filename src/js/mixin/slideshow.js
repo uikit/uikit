@@ -277,7 +277,7 @@ function plugin(UIkit) {
 
             start(e) {
 
-                if (e.button && e.button !== 0 || this.slides.length < 2) {
+                if (e.button > 0 || this.slides.length < 2) {
                     return;
                 }
 
