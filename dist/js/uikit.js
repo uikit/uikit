@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.34 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.35 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -313,7 +313,7 @@ function toList(value) {
     return isArray(value)
         ? value
         : isString(value)
-            ? value.split(',').map(function (value) { return isNumeric(value)
+            ? value.split(/,(?![^(]*\))/).map(function (value) { return isNumeric(value)
                 ? toNumber(value)
                 : toBoolean(value.trim()); })
             : [value];
@@ -462,257 +462,6 @@ function ajax(url, options) {
 
         xhr.send(env.data);
     });
-}
-
-var arrayProto = Array.prototype;
-
-function $$1(selector, context) {
-    return !isString(selector)
-        ? toNode(selector)
-        : isHtml(selector)
-            ? toNode(fragment(selector))
-            : find(selector, context);
-}
-
-function $$(selector, context) {
-    return !isString(selector)
-        ? toNodes(selector)
-        : isHtml(selector)
-            ? toNodes(fragment(selector))
-            : findAll(selector, context);
-}
-
-function isHtml(str) {
-    return str[0] === '<' || str.match(/^\s*</);
-}
-
-function query(selector, context) {
-    return $$1(selector, isContextSelector(selector) ? context : doc);
-}
-
-function queryAll(selector, context) {
-    return $$(selector, isContextSelector(selector) ? context : doc);
-}
-
-function find(selector, context) {
-    return toNode(_query(selector, context, 'querySelector'));
-}
-
-function findAll(selector, context) {
-    return toNodes(_query(selector, context, 'querySelectorAll'));
-}
-
-function _query(selector, context, queryFn) {
-    if ( context === void 0 ) context = doc;
-
-
-    if (!selector || !isString(selector)) {
-        return null;
-    }
-
-    selector = selector.replace(contextSanitizeRe, '$1 *');
-
-    var removes;
-
-    if (isContextSelector(selector)) {
-
-        removes = [];
-
-        selector = selector.split(',').map(function (selector, i) {
-
-            var ctx = context;
-
-            selector = selector.trim();
-
-            if (selector[0] === '!') {
-
-                var selectors = selector.substr(1).trim().split(' ');
-                ctx = closest(context.parentNode, selectors[0]);
-                selector = selectors.slice(1).join(' ');
-
-            }
-
-            if (!ctx) {
-                return null;
-            }
-
-            if (!ctx.id) {
-                ctx.id = "uk-" + (Date.now()) + i;
-                removes.push(function () { return removeAttr(ctx, 'id'); });
-            }
-
-            return ("#" + (ctx.id) + " " + selector);
-
-        }).filter(Boolean).join(',');
-
-        context = doc;
-
-    }
-
-    try {
-
-        return context[queryFn](selector);
-
-    } catch (e) {
-
-        return null;
-
-    } finally {
-
-        removes && removes.forEach(function (remove) { return remove(); });
-
-    }
-
-}
-
-function filter(element, selector) {
-    return $$(element).filter(function (element) { return matches(element, selector); });
-}
-
-function within(element, selector) {
-    return !isString(selector)
-        ? element === selector || toNode(selector).contains(toNode(element))
-        : matches(element, selector) || closest(element, selector);
-}
-
-var contextSelectorRe = /(^|,)\s*[!>+~]/;
-var contextSanitizeRe = /([!>+~])(?=\s+[!>+~]|\s*$)/g;
-
-function isContextSelector(selector) {
-    return isString(selector) && selector.match(contextSelectorRe);
-}
-
-var elProto = Element.prototype;
-var matchesFn = elProto.matches || elProto.msMatchesSelector;
-
-function matches(element, selector) {
-    return toNodes(element).some(function (element) { return matchesFn.call(element, selector); });
-}
-
-var closestFn = elProto.closest || function (selector) {
-    var ancestor = this;
-
-    do {
-
-        if (matches(ancestor, selector)) {
-            return ancestor;
-        }
-
-        ancestor = ancestor.parentNode;
-
-    } while (ancestor && ancestor.nodeType === 1);
-};
-
-function closest(element, selector) {
-
-    if (startsWith(selector, '>')) {
-        selector = selector.slice(1);
-    }
-
-    return isNode(element)
-        ? element.parentNode && closestFn.call(element, selector)
-        : toNodes(element).map(function (element) { return element.parentNode && closestFn.call(element, selector); }).filter(Boolean);
-}
-
-function parents(element, selector) {
-    var elements = [], parent = toNode(element).parentNode;
-
-    while (parent && parent.nodeType === 1) {
-
-        if (matches(parent, selector)) {
-            elements.push(parent);
-        }
-
-        parent = parent.parentNode;
-    }
-
-    return elements;
-}
-
-function isJQuery(obj) {
-    return isObject(obj) && !!obj.jquery;
-}
-
-function isNode(element) {
-    return element instanceof Node || isObject(element) && element.nodeType === 1;
-}
-
-function isNodeCollection(element) {
-    return element instanceof NodeList || element instanceof HTMLCollection;
-}
-
-function toNode(element) {
-    return isNode(element) || isWindow(element) || isDocument(element)
-        ? element
-        : isNodeCollection(element) || isJQuery(element)
-            ? element[0]
-            : isArray(element)
-                ? toNode(element[0])
-                : null;
-}
-
-function toNodes(element) {
-    return isNode(element)
-        ? [element]
-        : isNodeCollection(element)
-            ? arrayProto.slice.call(element)
-            : isArray(element)
-                ? element.map(toNode).filter(Boolean)
-                : isJQuery(element)
-                    ? element.toArray()
-                    : [];
-}
-
-function attr(element, name, value) {
-
-    if (isObject(name)) {
-        for (var key in name) {
-            attr(element, key, name[key]);
-        }
-        return;
-    }
-
-    if (isUndefined(value)) {
-        element = toNode(element);
-        return element && element.getAttribute(name);
-    } else {
-        toNodes(element).forEach(function (element) {
-
-            if (isFunction(value)) {
-                value = value.call(element, attr(element, name));
-            }
-
-            if (value === null) {
-                removeAttr(element, name);
-            } else {
-                element.setAttribute(name, value);
-            }
-        });
-    }
-
-}
-
-function hasAttr(element, name) {
-    return toNodes(element).some(function (element) { return element.hasAttribute(name); });
-}
-
-function removeAttr(element, name) {
-    element = toNodes(element);
-    name.split(' ').forEach(function (name) { return element.forEach(function (element) { return element.removeAttribute(name); }
-        ); }
-    );
-}
-
-function filterAttr(element, attribute, pattern, replacement) {
-    attr(element, attribute, function (value) { return value ? value.replace(pattern, replacement) : value; });
-}
-
-function data(element, attribute) {
-    for (var i = 0, attrs = [attribute, ("data-" + attribute)]; i < attrs.length; i++) {
-        if (hasAttr(element, attrs[i])) {
-            return attr(element, attrs[i]);
-        }
-    }
 }
 
 var win = window;
@@ -1148,6 +897,262 @@ function index(element, ref) {
         : toNodes((element = toNode(element)) && element.parentNode.children).indexOf(element);
 }
 
+var arrayProto = Array.prototype;
+
+function $$1(selector, context) {
+    return !isString(selector)
+        ? toNode(selector)
+        : isHtml(selector)
+            ? toNode(fragment(selector))
+            : find(selector, context);
+}
+
+function $$(selector, context) {
+    return !isString(selector)
+        ? toNodes(selector)
+        : isHtml(selector)
+            ? toNodes(fragment(selector))
+            : findAll(selector, context);
+}
+
+function isHtml(str) {
+    return str[0] === '<' || str.match(/^\s*</);
+}
+
+function query(selector, context) {
+    return $$1(selector, isContextSelector(selector) ? context : doc);
+}
+
+function queryAll(selector, context) {
+    return $$(selector, isContextSelector(selector) ? context : doc);
+}
+
+function find(selector, context) {
+    return toNode(_query(selector, context, 'querySelector'));
+}
+
+function findAll(selector, context) {
+    return toNodes(_query(selector, context, 'querySelectorAll'));
+}
+
+function _query(selector, context, queryFn) {
+    if ( context === void 0 ) context = doc;
+
+
+    if (!selector || !isString(selector)) {
+        return null;
+    }
+
+    selector = selector.replace(contextSanitizeRe, '$1 *');
+
+    var removes;
+
+    if (isContextSelector(selector)) {
+
+        removes = [];
+
+        selector = selector.split(',').map(function (selector, i) {
+
+            var ctx = context;
+
+            selector = selector.trim();
+
+            if (selector[0] === '!') {
+
+                var selectors = selector.substr(1).trim().split(' ');
+                ctx = closest(context.parentNode, selectors[0]);
+                selector = selectors.slice(1).join(' ');
+
+            }
+
+            if (!ctx) {
+                return null;
+            }
+
+            if (!ctx.id) {
+                ctx.id = "uk-" + (Date.now()) + i;
+                removes.push(function () { return removeAttr(ctx, 'id'); });
+            }
+
+            return ("#" + (escape(ctx.id)) + " " + selector);
+
+        }).filter(Boolean).join(',');
+
+        context = doc;
+
+    }
+
+    try {
+
+        return context[queryFn](selector);
+
+    } catch (e) {
+
+        return null;
+
+    } finally {
+
+        removes && removes.forEach(function (remove$$1) { return remove$$1(); });
+
+    }
+
+}
+
+function filter(element, selector) {
+    return $$(element).filter(function (element) { return matches(element, selector); });
+}
+
+function within(element, selector) {
+    return !isString(selector)
+        ? element === selector || toNode(selector).contains(toNode(element))
+        : matches(element, selector) || closest(element, selector);
+}
+
+var contextSelectorRe = /(^|,)\s*[!>+~]/;
+var contextSanitizeRe = /([!>+~])(?=\s+[!>+~]|\s*$)/g;
+
+function isContextSelector(selector) {
+    return isString(selector) && selector.match(contextSelectorRe);
+}
+
+var elProto = Element.prototype;
+var matchesFn = elProto.matches || elProto.msMatchesSelector;
+
+function matches(element, selector) {
+    return toNodes(element).some(function (element) { return matchesFn.call(element, selector); });
+}
+
+var closestFn = elProto.closest || function (selector) {
+    var ancestor = this;
+
+    do {
+
+        if (matches(ancestor, selector)) {
+            return ancestor;
+        }
+
+        ancestor = ancestor.parentNode;
+
+    } while (ancestor && ancestor.nodeType === 1);
+};
+
+function closest(element, selector) {
+
+    if (startsWith(selector, '>')) {
+        selector = selector.slice(1);
+    }
+
+    return isNode(element)
+        ? element.parentNode && closestFn.call(element, selector)
+        : toNodes(element).map(function (element) { return element.parentNode && closestFn.call(element, selector); }).filter(Boolean);
+}
+
+function parents(element, selector) {
+    var elements = [], parent = toNode(element).parentNode;
+
+    while (parent && parent.nodeType === 1) {
+
+        if (matches(parent, selector)) {
+            elements.push(parent);
+        }
+
+        parent = parent.parentNode;
+    }
+
+    return elements;
+}
+
+function isJQuery(obj) {
+    return isObject(obj) && !!obj.jquery;
+}
+
+function isNode(element) {
+    return element instanceof Node || isObject(element) && element.nodeType === 1;
+}
+
+function isNodeCollection(element) {
+    return element instanceof NodeList || element instanceof HTMLCollection;
+}
+
+function toNode(element) {
+    return isNode(element) || isWindow(element) || isDocument(element)
+        ? element
+        : isNodeCollection(element) || isJQuery(element)
+            ? element[0]
+            : isArray(element)
+                ? toNode(element[0])
+                : null;
+}
+
+function toNodes(element) {
+    return isNode(element)
+        ? [element]
+        : isNodeCollection(element)
+            ? arrayProto.slice.call(element)
+            : isArray(element)
+                ? element.map(toNode).filter(Boolean)
+                : isJQuery(element)
+                    ? element.toArray()
+                    : [];
+}
+
+var escapeFn = win.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, function (match) { return ("\\" + match); }); };
+function escape(css) {
+    return isString(css) ? escapeFn.call(null, css) : '';
+}
+
+function attr(element, name, value) {
+
+    if (isObject(name)) {
+        for (var key in name) {
+            attr(element, key, name[key]);
+        }
+        return;
+    }
+
+    if (isUndefined(value)) {
+        element = toNode(element);
+        return element && element.getAttribute(name);
+    } else {
+        toNodes(element).forEach(function (element) {
+
+            if (isFunction(value)) {
+                value = value.call(element, attr(element, name));
+            }
+
+            if (value === null) {
+                removeAttr(element, name);
+            } else {
+                element.setAttribute(name, value);
+            }
+        });
+    }
+
+}
+
+function hasAttr(element, name) {
+    return toNodes(element).some(function (element) { return element.hasAttribute(name); });
+}
+
+function removeAttr(element, name) {
+    element = toNodes(element);
+    name.split(' ').forEach(function (name) { return element.forEach(function (element) { return element.removeAttribute(name); }
+        ); }
+    );
+}
+
+function filterAttr(element, attribute, pattern, replacement) {
+    attr(element, attribute, function (value) { return value ? value.replace(pattern, replacement) : value; });
+}
+
+function data(element, attribute) {
+    for (var i = 0, attrs = [attribute, ("data-" + attribute)]; i < attrs.length; i++) {
+        if (hasAttr(element, attrs[i])) {
+            return attr(element, attrs[i]);
+        }
+    }
+}
+
 var cssNumber = {
     'animation-iteration-count': true,
     'column-count': true,
@@ -1545,13 +1550,13 @@ var fastdom = {
     reads: [],
     writes: [],
 
-    measure: function measure(task) {
+    read: function read(task) {
         this.reads.push(task);
         scheduleFlush();
         return task;
     },
 
-    mutate: function mutate(task) {
+    write: function write(task) {
         this.writes.push(task);
         scheduleFlush();
         return task;
@@ -2397,6 +2402,7 @@ var util = Object.freeze({
 	isJQuery: isJQuery,
 	toNode: toNode,
 	toNodes: toNodes,
+	escape: escape,
 	attr: attr,
 	hasAttr: hasAttr,
 	removeAttr: removeAttr,
@@ -2701,6 +2707,7 @@ var hooksAPI = function (UIkit) {
 
         this._isReady = true;
         this._callHook('ready');
+        this._resetComputeds();
         this._callUpdate();
     };
 
@@ -2768,32 +2775,42 @@ var hooksAPI = function (UIkit) {
         var detail = e.detail;
 
         if (type === 'update' && detail && detail.mutation) {
-            this._computeds = {};
+            this._resetComputeds();
         }
 
         var updates = this.$options.update;
+        var ref = this._frames;
+        var reads = ref.reads;
+        var writes = ref.writes;
 
         if (!updates) {
             return;
         }
 
-        updates.forEach(function (update, i) {
+        updates.forEach(function (ref, i) {
+            var read = ref.read;
+            var write = ref.write;
+            var events = ref.events;
 
-            if (type !== 'update' && !includes(update.events, type)) {
+
+            if (type !== 'update' && !includes(events, type)) {
                 return;
             }
 
-            if (update.read && !includes(fastdom.reads, this$1._frames.reads[i])) {
-                this$1._frames.reads[i] = fastdom.measure(function () {
-                    update.read.call(this$1, e);
-                    delete this$1._frames.reads[i];
+            if (read && !includes(fastdom.reads, reads[i])) {
+                reads[i] = fastdom.read(function () {
+                    if (read.call(this$1, e) === false && write) {
+                        fastdom.clear(writes[i]);
+                        delete writes[i];
+                    }
+                    delete reads[i];
                 });
             }
 
-            if (update.write && !includes(fastdom.writes, this$1._frames.writes[i])) {
-                this$1._frames.writes[i] = fastdom.mutate(function () {
-                    update.write.call(this$1, e);
-                    delete this$1._frames.writes[i];
+            if (write && !includes(fastdom.writes, writes[i])) {
+                writes[i] = fastdom.write(function () {
+                    write.call(this$1, e);
+                    delete writes[i];
                 });
             }
 
@@ -2882,7 +2899,7 @@ var stateAPI = function (UIkit) {
 
         var computed = this.$options.computed;
 
-        this._computeds = {};
+        this._resetComputeds();
 
         if (computed) {
             for (var key in computed) {
@@ -2891,11 +2908,15 @@ var stateAPI = function (UIkit) {
         }
     };
 
+    UIkit.prototype._resetComputeds = function () {
+        this._computeds = {};
+    };
+
     UIkit.prototype._initProps = function (props) {
         var this$1 = this;
 
 
-        this._computeds = {};
+        this._resetComputeds();
         assign(this.$props, props || getProps(this.$options, this.$name));
 
         var exclude = [this.$options.computed, this.$options.methods];
@@ -3232,7 +3253,7 @@ var componentAPI = function (UIkit) {
         };
 
         if (UIkit._initialized && !options.options.functional) {
-            fastdom.measure(function () { return UIkit[name](("[uk-" + id + "],[data-uk-" + id + "]")); });
+            fastdom.read(function () { return UIkit[name](("[uk-" + id + "],[data-uk-" + id + "]")); });
         }
 
         return UIkit.components[name];
@@ -3472,6 +3493,10 @@ var Togglable = {
 
         _toggle: function _toggle(el, toggled) {
 
+            if (!el) {
+                return;
+            }
+
             if (this.cls) {
                 toggleClass(el, this.cls, includes(this.cls, ' ') ? undefined : toggled);
             } else {
@@ -3597,6 +3622,8 @@ var Modal = {
         {
 
             name: 'toggle',
+
+            self: true,
 
             handler: function handler(e) {
 
@@ -3893,8 +3920,6 @@ var Accordion = function (UIkit) {
 
                 name: 'click',
 
-                self: true,
-
                 delegate: function delegate() {
                     return ((this.targets) + " " + (this.$props.toggle));
                 },
@@ -3919,7 +3944,7 @@ var Accordion = function (UIkit) {
             var this$1 = this;
 
 
-            this.items.forEach(function (el) { return this$1.toggleNow($$1(this$1.content, el), hasClass(el, this$1.clsOpen)); });
+            this.items.forEach(function (el) { return this$1._toggleImmediate($$1(this$1.content, el), hasClass(el, this$1.clsOpen)); });
 
             var active = !this.collapsible && !hasClass(this.items, this.clsOpen) && this.items[0];
             if (active) {
@@ -5155,7 +5180,7 @@ var Leader = function (UIkit) {
                 read: function read() {
                     var prev = this._width;
                     this._width = Math.floor(this.$el.offsetWidth / 2);
-                    this._changed = prev !== this._width;
+                    this._changed = this._changed || prev !== this._width;
                     this._hide = this.media && !win.matchMedia(this.media).matches;
                 },
 
@@ -5164,6 +5189,7 @@ var Leader = function (UIkit) {
                     toggleClass(this.wrapper, this.clsHide, this._hide);
 
                     if (this._changed) {
+                        this._changed = false;
                         attr(this.wrapper, this.attrFill, new Array(this._width).join(this.fill));
                     }
 
@@ -5976,7 +6002,7 @@ var Scroll = function (UIkit) {
                 var this$1 = this;
 
 
-                el = el && $$1(isString(el) ? el.replace(/\//g, '\\/') : el) || doc.body;
+                el = el && $$1(el) || doc.body;
 
                 var target = offset(el).top - this.offset,
                     docHeight = height(doc),
@@ -6020,7 +6046,7 @@ var Scroll = function (UIkit) {
                 }
 
                 e.preventDefault();
-                this.scrollTo(this.$el.hash);
+                this.scrollTo(escape(this.$el.hash).substr(1));
             }
 
         }
@@ -6065,7 +6091,7 @@ var Scrollspy = function (UIkit) {
             elements: function elements(ref, $el) {
                 var target = ref.target;
 
-                return target && $$(target, $el) || [$el];
+                return target ? $$(target, $el) : [$el];
             }
 
         },
@@ -6086,6 +6112,11 @@ var Scrollspy = function (UIkit) {
 
                 read: function read() {
                     var this$1 = this;
+
+
+                    if (!UIkit._initialized) {
+                        return false;
+                    }
 
                     this.elements.forEach(function (el) {
 
@@ -6480,9 +6511,11 @@ var Sticky = function (UIkit) {
 
             {
 
-                read: function read() {
+                read: function read(ref) {
+                    var scrollY = ref.scrollY; if ( scrollY === void 0 ) scrollY = win.pageYOffset;
+
                     this.offsetTop = offset(this.$el).top;
-                    this.scroll = win.pageYOffset;
+                    this.scroll = scrollY;
                     this.visible = isVisible(this.$el);
                 },
 
@@ -6911,7 +6944,7 @@ var Switcher = function (UIkit) {
 
 
                 var length = this.toggles.length,
-                    prev = this.connects.length && index(filter(this.connects[0].children, ("." + (this.cls)))[0]),
+                    prev = !!this.connects.length && index(filter(this.connects[0].children, ("." + (this.cls)))[0]),
                     hasPrev = prev >= 0,
                     next = getIndex(item, this.toggles, prev),
                     dir = item === 'previous' ? -1 : 1,
@@ -7152,10 +7185,9 @@ var core = function (UIkit) {
 
     on(win, 'load resize', UIkit.update);
     on(win, 'scroll', function (e) {
-        e.dir = scroll < win.pageYOffset ? 'down' : 'up';
-        scroll = win.pageYOffset;
+        e.dir = scroll <= win.pageYOffset ? 'down' : 'up';
+        e.scrollY = scroll = win.pageYOffset;
         UIkit.update(e);
-        fastdom.flush();
     });
 
     animationstart && on(doc, animationstart, function (ref) {
@@ -7204,7 +7236,7 @@ var core = function (UIkit) {
 
 };
 
-UIkit$2.version = '3.0.0-beta.34';
+UIkit$2.version = '3.0.0-beta.35';
 
 mixin(UIkit$2);
 core(UIkit$2);
@@ -7902,7 +7934,7 @@ function plugin$3(UIkit) {
 
             start: function start(e) {
 
-                if (e.button && e.button !== 0 || this.slides.length < 2) {
+                if (e.button > 0 || this.slides.length < 2) {
                     return;
                 }
 
@@ -8059,7 +8091,7 @@ function plugin$3(UIkit) {
                     prev && trigger(prev, 'itemhidden', [this$1]);
                     trigger(next, 'itemshown', [this$1]);
 
-                    fastdom.mutate(function () {
+                    fastdom.write(function () {
                         this$1.stack.shift();
                         if (this$1.stack.length) {
                             this$1.show(this$1.stack.shift(), true);
@@ -9552,7 +9584,7 @@ function plugin$6(UIkit) {
         ready: function ready() {
             var this$1 = this;
 
-            fastdom.mutate(function () { return this$1.show(this$1.index); });
+            fastdom.write(function () { return this$1.show(this$1.index); });
         },
 
         update: {
@@ -9845,7 +9877,7 @@ function plugin$7(UIkit) {
                 if (!placeholder
                     || isInput(e.target)
                     || this.handle && !within(target, this.handle)
-                    || button !== 0
+                    || button > 0
                     || within(target, ("." + (this.clsNoDrag)))
                     || defaultPrevented
                 ) {
@@ -10133,7 +10165,7 @@ function plugin$8(UIkit) {
         connected: function connected() {
             var this$1 = this;
 
-            fastdom.mutate(function () { return attr(this$1.$el, {title: null, 'aria-expanded': false}); });
+            fastdom.write(function () { return attr(this$1.$el, {title: null, 'aria-expanded': false}); });
         },
 
         disconnected: function disconnected() {
