@@ -9,7 +9,9 @@
 ### Changed
 
 - Gif component is now deprecated
+- Fix `container` options
 
+``
 ## 3.0.0 beta 35 (November 13, 2017)
 
 ### Added

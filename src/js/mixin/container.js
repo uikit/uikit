@@ -1,4 +1,5 @@
 import UIkit from '../api/index';
+import { $ } from '../util/index';
 
 export default {
 
