@@ -4,8 +4,6 @@ var storage = window.sessionStorage,
     themes = {},
     docEl = document.documentElement;
 
-var {addClass, assign, attr, append, css, on, prepend, ready, removeClass, trigger, ucfirst} = UIkit.util;
-
 // try to load themes.json
 var request = new XMLHttpRequest();
 request.open('GET', '../themes.json', false);
@@ -15,11 +13,15 @@ if (request.status === 200) {
     themes = JSON.parse(request.responseText);
 }
 
-var styles = assign({
+var styles = {
         core: {css: '../dist/css/uikit-core.css'},
         theme: {css: '../dist/css/uikit.css'}
-    }, themes),
+    },
     component = location.pathname.split('/').pop().replace(/.html$/, '');
+
+for (var key in themes) {
+    styles[key] = themes[key];
+}
 
 if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
     styles.custom = getParam('style');
@@ -31,7 +33,7 @@ storage[keyinverse] = storage[keyinverse] || 'default';
 var dir = storage._uikit_dir || 'ltr';
 
 // set dir
-attr(docEl, 'dir', dir);
+docEl.setAttribute('dir', dir);
 
 var style = styles[storage[key]] || styles.theme;
 
@@ -42,6 +44,8 @@ document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : sty
 document.writeln(`<script src="${style.icons ? style.icons : '../dist/js/uikit-icons.js'}"></script>`);
 
 window.addEventListener('load', () => setTimeout(() => {
+
+    var {addClass, append, css, on, prepend, removeClass, trigger, ucfirst} = UIkit.util;
 
     var $body = document.body;
     var $container = prepend($body, '<div class="uk-container"></div>');
@@ -202,7 +206,7 @@ window.addEventListener('load', () => setTimeout(() => {
     css(docEl, 'padding-top', '');
 }, 100));
 
-css(docEl, 'padding-top', '80px');
+docEl.style.paddingTop = '80px';
 
 function getParam(name) {
     var match = new RegExp(`[?&]${name}=([^&]*)`).exec(window.location.search);

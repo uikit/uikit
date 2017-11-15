@@ -1,6 +1,6 @@
 import { classify, doc, docEl, Promise, win } from './index';
 
-export const Observer = win.MutationObserver || win.WebKitMutationObserver;
+export const Observer = win.MutationObserver;
 export const requestAnimationFrame = win.requestAnimationFrame || (fn => setTimeout(fn, 1000 / 60));
 
 var hasTouchEvents = 'ontouchstart' in win;
