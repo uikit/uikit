@@ -1,5 +1,15 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Video component supports play/pause video as it enters/leaves the viewport
+
+### Changed
+
+- Gif component is now deprecated
+
 ## 3.0.0 beta 35 (November 13, 2017)
 
 ### Added

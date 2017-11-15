@@ -34,24 +34,13 @@ function plugin(UIkit) {
         computed: {
 
             toggles({toggle}, $el) {
-                var toggles = $$(toggle, $el);
-
-                this._changed = !this._toggles
-                    || toggles.length !== this._toggles.length
-                    || toggles.some((el, i) => el !== this._toggles[i]);
-
-                return this._toggles = toggles;
+                return $$(toggle, $el);
             }
 
         },
 
         disconnected() {
-
-            if (this.panel) {
-                this.panel.$destroy(true);
-                this.panel = null;
-            }
-
+            this._destroy();
         },
 
         events: [
@@ -74,18 +63,19 @@ function plugin(UIkit) {
 
         ],
 
-        update() {
+        update(data) {
 
             if (this.panel && this.animation) {
                 this.panel.$props.animation = this.animation;
                 this.panel.$emit();
             }
 
-            if (!this.toggles.length || !this._changed || !this.panel) {
+            if (!this.panel || data.toggles && isEqualList(data.toggles, this.toggles)) {
                 return;
             }
 
-            this.panel.$destroy(true);
+            data.toggles = this.toggles;
+            this._destroy();
             this._init();
 
         },
@@ -102,6 +92,13 @@ function plugin(UIkit) {
                         return items;
                     }, [])
                 }));
+            },
+
+            _destroy() {
+                if (this.panel) {
+                    this.panel.$destroy(true);
+                    this.panel = null;
+                }
             },
 
             show(index) {
@@ -458,6 +455,11 @@ function plugin(UIkit) {
 
     function getIframe(src, width, height, autoplay) {
         return `<iframe src="${src}" width="${width}" height="${height}" style="max-width: 100%; box-sizing: border-box;" frameborder="0" allowfullscreen uk-video="autoplay: ${autoplay}" uk-responsive></iframe>`;
+    }
+
+    function isEqualList(listA, listB) {
+        return listA.length === listB.length
+            && listA.every((el, i) => el !== listB[i]);
     }
 
 }

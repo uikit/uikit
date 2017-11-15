@@ -1,4 +1,4 @@
-import { animationstart, css, doc, fastdom, on, toMs, win } from '../util/index';
+import { animationstart, css, doc, on, toMs, win } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';

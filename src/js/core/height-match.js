@@ -32,26 +32,28 @@ export default function (UIkit) {
 
                 css(this.elements, 'minHeight', '');
 
-                this.rows = !this.row
-                    ? [this.match(this.elements)]
-                    : this.elements.reduce((rows, el) => {
+                return {
+                    rows: !this.row
+                        ? [this.match(this.elements)]
+                        : this.elements.reduce((rows, el) => {
 
-                        if (lastOffset !== el.offsetTop) {
-                            rows.push([el]);
-                        } else {
-                            rows[rows.length - 1].push(el);
-                        }
+                            if (lastOffset !== el.offsetTop) {
+                                rows.push([el]);
+                            } else {
+                                rows[rows.length - 1].push(el);
+                            }
 
-                        lastOffset = el.offsetTop;
+                            lastOffset = el.offsetTop;
 
-                        return rows;
+                            return rows;
 
-                    }, []).map(elements => this.match(elements));
+                        }, []).map(elements => this.match(elements))
+                };
             },
 
-            write() {
+            write({rows}) {
 
-                this.rows.forEach(({height, elements}) => css(elements, 'minHeight', height));
+                rows.forEach(({height, elements}) => css(elements, 'minHeight', height));
 
             },
 

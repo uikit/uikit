@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, addClass, after, Animation, assign, attr, css, docEl, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, remove, removeClass, replaceClass, requestAnimationFrame, toFloat, toggleClass, trigger, win, within } from '../util/index';
+import { $, addClass, after, Animation, assign, attr, css, docEl, fastdom, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, remove, removeClass, replaceClass, toFloat, toggleClass, trigger, win, within } from '../util/index';
 
 export default function (UIkit) {
 
@@ -81,7 +81,7 @@ export default function (UIkit) {
             var target = $(location.hash);
 
             if (target) {
-                requestAnimationFrame(() => {
+                fastdom.read(() => {
 
                     var top = offset(target).top,
                         elTop = offset(this.$el).top,
@@ -193,17 +193,16 @@ export default function (UIkit) {
 
             {
 
-                read({scrollY = win.pageYOffset}) {
-                    this.offsetTop = offset(this.$el).top;
-                    this.scroll = scrollY;
-                    this.visible = isVisible(this.$el);
+                read(_, {scrollY = win.pageYOffset}) {
+                    return {
+                        scroll: this.scroll = scrollY,
+                        visible: isVisible(this.$el)
+                    }
                 },
 
-                write({dir} = {}) {
+                write({visible, scroll}, {dir} = {}) {
 
-                    var scroll = this.scroll;
-
-                    if (scroll < 0 || !this.visible || this.disabled || this.showOnUp && !dir) {
+                    if (scroll < 0 || !visible || this.disabled || this.showOnUp && !dir) {
                         return;
                     }
 

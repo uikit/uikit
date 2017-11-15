@@ -42,20 +42,22 @@ function plugin(UIkit) {
             read() {
 
                 var [width, height] = this.ratio.split(':').map(Number);
-                this.height = height * this.$el.offsetWidth / width;
+
+                height = height * this.$el.offsetWidth / width;
 
                 if (this.minHeight) {
-                    this.height = Math.max(this.minHeight, this.height);
+                    height = Math.max(this.minHeight, height);
                 }
 
                 if (this.maxHeight) {
-                    this.height = Math.min(this.maxHeight, this.height);
+                    height = Math.min(this.maxHeight, height);
                 }
 
+                return {height};
             },
 
-            write() {
-                height(this.list, Math.floor(this.height));
+            write({height: hgt}) {
+                height(this.list, Math.floor(hgt));
             },
 
             events: ['load', 'resize']
