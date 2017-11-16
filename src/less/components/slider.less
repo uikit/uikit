@@ -57,20 +57,31 @@
     -webkit-touch-callout: none;
 }
 
+.uk-slider-items.uk-grid {
+    -ms-flex-wrap: nowrap;
+    -webkit-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+}
+
 
 /* Item
  ========================================================================== */
 
 /*
  * 1. Let items take content dimensions (0 0 auto)
+ * 2. Create position context
+ * 3. Clip child elements
  */
 
 .uk-slider-items > * {
-    position: relative;
     /* 1 */
     -ms-flex: none;
     -webkit-flex: none;
     flex: none;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    overflow: hidden;
 }
 
 
