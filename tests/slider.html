@@ -7,6 +7,20 @@
         <title>Slider - UIkit tests</title>
         <script src="js/test.js"></script>
         <script src="../dist/js/uikit.js"></script>
+        <style type="text/css">
+
+            .test > :nth-child(10n-9) > canvas { background: rgba(0,0,0,0.1); }
+            .test > :nth-child(10n-8) > canvas { background: rgba(0,0,0,0.15); }
+            .test > :nth-child(10n-7) > canvas { background: rgba(0,0,0,0.2); }
+            .test > :nth-child(10n-6) > canvas { background: rgba(0,0,0,0.25); }
+            .test > :nth-child(10n-5) > canvas { background: rgba(0,0,0,0.3); }
+            .test > :nth-child(10n-4) > canvas { background: rgba(0,0,0,0.35); }
+            .test > :nth-child(10n-3) > canvas { background: rgba(0,0,0,0.40); }
+            .test > :nth-child(10n-2) > canvas { background: rgba(0,0,0,0.45); }
+            .test > :nth-child(10n-1) > canvas { background: rgba(0,0,0,0.50); }
+            .test > :nth-child(10n) > canvas { background: rgba(0,0,0,0.55); }
+
+        </style>
     </head>
 
     <body>
@@ -15,33 +29,362 @@
 
             <h1>Slider</h1>
 
-            <div class="uk-child-width-1-2@m" uk-grid>
-                <div>
-
-                    <div uk-slider>
-
-                        <div class="uk-position-relative uk-visible-toggle uk-light">
-
-                            <ul class="uk-slider-items">
-                                <li><img src="images/avatar.jpg" width="600" height="400" alt=""></li>
-                                <li><img src="images/dark.jpg" width="600" height="400" alt=""></li>
-                                <li><img src="images/light.jpg" width="600" height="400" alt=""></li>
-                                <li><img src="images/photo.jpg" width="600" height="400" alt=""></li>
-                                <li><img src="images/size1.jpg" width="600" height="400" alt=""></li>
-                                <li><img src="images/size2.jpg" width="600" height="400" alt=""></li>
-                                <li><img src="images/size-h.jpg" width="600" height="400" alt=""></li>
-                                <li><img src="images/size-v.jpg" width="600" height="400" alt=""></li>
-                            </ul>
-
-                            <a class="uk-position-center-left uk-position-small uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                            <a class="uk-position-center-right uk-position-small uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
-
-                        </div>
-
-                    </div>
-
-                </div>
+            <div class="uk-margin">
+                <select id="js-center-switcher" class="uk-select uk-form-width-small">
+                    <option value="">Not centered</option>
+                    <option value="center">Center</option>
+                </select>
+                <select id="js-infinite-switcher" class="uk-select uk-form-width-small">
+                    <option value="">Infinite</option>
+                    <option value="false">Finite</option>
+                </select>
             </div>
+
+            <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider>
+
+                <ul class="test uk-slider-items">
+                    <li>
+                        <canvas width="300" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>1</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="300" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>2</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="300" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>3</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="300" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>4</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="300" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>5</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="300" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>6</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="300" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>7</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="300" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>8</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="300" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>9</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="300" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>1</
+                            0</div>
+                    </li>
+                    <li>
+                        <canvas width="300" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>1</
+                            1</div>
+                    </li>
+                    <li>
+                        <canvas width="300" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>1</
+                            2</div>
+                    </li>
+                </ul>
+
+                <a class="uk-position-center-left uk-position-small uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
+
+            </div>
+
+            <h2>Custom Widths</h2>
+
+            <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider>
+
+                <ul class="test uk-slider-items">
+                    <li>
+                        <canvas width="400" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>1</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="240" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>2</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="480" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>3</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="300" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>4</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="400" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>5</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="240" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>6</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="480" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>7</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="300" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>8</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="400" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>9</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <canvas width="240" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>1</
+                            0</div>
+                    </li>
+                    <li>
+                        <canvas width="480" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>1</
+                            1</div>
+                    </li>
+                    <li>
+                        <canvas width="300" height="200"></canvas>
+                        <div class="uk-position-center uk-panel">
+                            <h1>1</
+                            2</div>
+                    </li>
+                </ul>
+
+                <a class="uk-position-center-left uk-position-small uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
+
+            </div>
+
+            <h2>Widths</h2>
+
+            <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider>
+
+                <ul class="uk-slider-items uk-child-width-1-4">
+                    <li>
+                        <img src="images/photo.jpg" alt="">
+                        <div class="uk-position-center uk-panel">
+                            <h1>1</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/dark.jpg" alt="">
+                        <div class="uk-position-center uk-panel">
+                            <h1>2</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/light.jpg" alt="">
+                        <div class="uk-position-center uk-panel">
+                            <h1>3</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/size1.jpg" alt="" uk-cover>
+                        <div class="uk-position-center uk-panel">
+                            <h1>4</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/size2.jpg" alt="" uk-cover>
+                        <div class="uk-position-center uk-panel">
+                            <h1>5</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/size-h.jpg" alt="" uk-cover>
+                        <div class="uk-position-center uk-panel">
+                            <h1>6</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/size-v.jpg" alt="" uk-cover>
+                        <div class="uk-position-center uk-panel">
+                            <h1>7</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/avatar.jpg" alt="" uk-cover>
+                        <div class="uk-position-center uk-panel">
+                            <h1>8</h1>
+                        </div>
+                    </li>
+                </ul>
+
+                <a class="uk-position-center-left uk-position-small uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
+
+            </div>
+
+            <h2>Grid</h2>
+
+            <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider>
+
+                <ul class="uk-slider-items uk-child-width-1-4" uk-grid>
+                    <li>
+                        <img src="images/photo.jpg" alt="">
+                        <div class="uk-position-center uk-panel">
+                            <h1>1</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/dark.jpg" alt="">
+                        <div class="uk-position-center uk-panel">
+                            <h1>2</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/light.jpg" alt="">
+                        <div class="uk-position-center uk-panel">
+                            <h1>3</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/size1.jpg" alt="" uk-cover>
+                        <div class="uk-position-center uk-panel">
+                            <h1>4</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/size2.jpg" alt="" uk-cover>
+                        <div class="uk-position-center uk-panel">
+                            <h1>5</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/size-h.jpg" alt="" uk-cover>
+                        <div class="uk-position-center uk-panel">
+                            <h1>6</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/size-v.jpg" alt="" uk-cover>
+                        <div class="uk-position-center uk-panel">
+                            <h1>7</h1>
+                        </div>
+                    </li>
+                    <li>
+                        <img src="images/avatar.jpg" alt="" uk-cover>
+                        <div class="uk-position-center uk-panel">
+                            <h1>8</h1>
+                        </div>
+                    </li>
+                </ul>
+
+                <a class="uk-position-center-left uk-position-small uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                <a class="uk-position-center-right uk-position-small uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
+
+            </div>
+
+            <h2>Viewport Height</h2>
+
+        </div>
+
+        <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider>
+
+            <ul class="uk-slider-items uk-child-width-1-4" uk-height-viewport>
+                <li>
+                    <img src="images/photo.jpg" alt="">
+                    <div class="uk-position-center uk-panel">
+                        <h1>1</h1>
+                    </div>
+                </li>
+                <li>
+                    <img src="images/dark.jpg" alt="">
+                    <div class="uk-position-center uk-panel">
+                        <h1>2</h1>
+                    </div>
+                </li>
+                <li>
+                    <img src="images/light.jpg" alt="">
+                    <div class="uk-position-center uk-panel">
+                        <h1>3</h1>
+                    </div>
+                </li>
+                <li>
+                    <img src="images/size1.jpg" alt="" uk-cover>
+                    <div class="uk-position-center uk-panel">
+                        <h1>4</h1>
+                    </div>
+                </li>
+                <li>
+                    <img src="images/size2.jpg" alt="" uk-cover>
+                    <div class="uk-position-center uk-panel">
+                        <h1>5</h1>
+                    </div>
+                </li>
+                <li>
+                    <img src="images/size-h.jpg" alt="" uk-cover>
+                    <div class="uk-position-center uk-panel">
+                        <h1>6</h1>
+                    </div>
+                </li>
+                <li>
+                    <img src="images/size-v.jpg" alt="" uk-cover>
+                    <div class="uk-position-center uk-panel">
+                        <h1>7</h1>
+                    </div>
+                </li>
+                <li>
+                    <img src="images/avatar.jpg" alt="" uk-cover>
+                    <div class="uk-position-center uk-panel">
+                        <h1>8</h1>
+                    </div>
+                </li>
+            </ul>
+
+            <a class="uk-position-center-left uk-position-small uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
+            <a class="uk-position-center-right uk-position-small uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
 
         </div>
 
