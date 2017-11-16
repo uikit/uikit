@@ -1,4 +1,4 @@
-import { closest, hasTouch, includes, isTouch, isVisible, matches, pointerEnter, pointerLeave, queryAll, trigger, win } from '../util/index';
+import { closest, doc, hasTouch, includes, isTouch, isVisible, matches, once, pointerEnter, pointerLeave, queryAll, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -73,7 +73,7 @@ export default function (UIkit) {
                             || link.hash && matches(this.target, link.hash)
                         )
                     ) {
-                        e.preventDefault();
+                        once(doc, 'click', e => e.preventDefault());
                     }
 
                     this.toggle();
