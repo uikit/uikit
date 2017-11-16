@@ -1,4 +1,4 @@
-import { $$, camelize, fastdom, isJQuery, isPlainObject, isUndefined, startsWith } from '../util/index';
+import { $$, isFunction, camelize, fastdom, isJQuery, isPlainObject, isUndefined, startsWith } from '../util/index';
 
 export default function (UIkit) {
 
@@ -67,7 +67,7 @@ export default function (UIkit) {
 
                 name = camelize(name.replace('data-uk-', '').replace('uk-', ''));
 
-                if (UIkit[name]) {
+                if (isFunction(UIkit[name])) {
                     UIkit[name](node);
                 }
             }
