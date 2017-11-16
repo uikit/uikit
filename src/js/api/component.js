@@ -61,16 +61,12 @@ export default function (UIkit) {
 
         for (var i = 0; i < node.attributes.length; i++) {
 
-            name = node.attributes[i].name;
+            name = getComponentName(node.attributes[i].name);
 
-            if (startsWith(name, 'uk-') || startsWith(name, 'data-uk-')) {
-
-                name = camelize(name.replace('data-uk-', '').replace('uk-', ''));
-
-                if (name in UIkit.components) {
-                    UIkit[name](node);
-                }
+            if (name && name in UIkit.components) {
+                UIkit[name](node);
             }
+
         }
 
     };
@@ -81,4 +77,10 @@ export default function (UIkit) {
         }
     }
 
+}
+
+export function getComponentName(attribute) {
+    return startsWith(attribute, 'uk-') || startsWith(attribute, 'data-uk-')
+        ? camelize(attribute.replace('data-uk-', '').replace('uk-', ''))
+        : false;
 }

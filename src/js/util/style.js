@@ -99,7 +99,7 @@ function propName(name) {
 }
 
 var cssPrefixes = ['webkit', 'moz', 'ms'],
-    style = doc.createElement('div').style;
+    style = doc.createElement('_').style;
 
 function vendorPropName(name) {
 
@@ -112,7 +112,7 @@ function vendorPropName(name) {
     var i = cssPrefixes.length, prefixedName;
 
     while (i--) {
-        prefixedName = `-${cssPrefixes[i]}${name}`;
+        prefixedName = `-${cssPrefixes[i]}-${name}`;
         if (prefixedName in style) {
             return prefixedName;
         }
