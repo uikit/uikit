@@ -67,7 +67,7 @@ export default function (UIkit) {
 
                 name = camelize(name.replace('data-uk-', '').replace('uk-', ''));
 
-                if (UIkit[name]) {
+                if (name in UIkit.components) {
                     UIkit[name](node);
                 }
             }
