@@ -60,6 +60,7 @@ function getArgs(args) {
     }, []);
 }
 
+// IE 11
 (function () {
 
     var list = doc.createElement('_').classList;

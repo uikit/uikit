@@ -4,10 +4,13 @@
 
 ### Added
 
+- Component DOM attributes are being observed too (uk-grid, ...)
 - Video component supports play/pause video as it enters/leaves the viewport
 
 ### Changed
 
+- Drop support for IE 10
+- Drop support for iOS < 9.1
 - Gif component is now deprecated
 - Fix `container` options
 

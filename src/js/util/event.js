@@ -44,7 +44,7 @@ export function trigger(target, event, detail) {
 
 export function createEvent(e, bubbles = true, cancelable = false, detail) {
     if (isString(e)) {
-        var event = doc.createEvent('CustomEvent');
+        var event = doc.createEvent('CustomEvent'); // IE 11
         event.initCustomEvent(e, bubbles, cancelable, detail);
         e = event;
     }

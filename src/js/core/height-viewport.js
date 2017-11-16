@@ -78,7 +78,7 @@ export default function (UIkit) {
                     css(this.$el, 'minHeight', this.minHeight);
                 }
 
-                // IE 10-11 fix (min-height on a flex container won't apply to its flex items)
+                // IE 11 fix (min-height on a flex container won't apply to its flex items)
                 if (viewport - offsetTop >= elHeight) {
                     css(this.$el, 'height', minHeight);
                 }

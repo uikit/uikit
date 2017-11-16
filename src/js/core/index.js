@@ -1,4 +1,4 @@
-import { animationstart, css, doc, on, toMs, win } from '../util/index';
+import { css, doc, on, toMs, win } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
@@ -40,7 +40,7 @@ export default function (UIkit) {
         UIkit.update(e);
     });
 
-    animationstart && on(doc, animationstart, ({target}) => {
+    on(doc, 'animationstart', ({target}) => {
         if ((css(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
             started++;
             doc.body.style.overflowX = 'hidden';

@@ -1,4 +1,4 @@
-import { addClass, animationend, assign, attr, clamp, css, each, hasClass, height, intersectRect, isNumeric, isString, isUndefined, matches, on, once, Promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toNode, toNodes, toNumber, transitionend, trigger, width } from './index';
+import { addClass, assign, attr, clamp, css, each, hasClass, height, intersectRect, isNumeric, isString, isUndefined, matches, on, once, Promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toNode, toNodes, toNumber, trigger, width } from './index';
 
 export const win = window;
 export const doc = document;
@@ -26,8 +26,6 @@ export function ready(fn) {
         unbind2 = on(win, 'load', handle);
 }
 
-var transitioncancel = 'transitioncanceled';
-
 export function transition(element, props, duration = 400, transition = 'linear') {
 
     return Promise.all(toNodes(element).map(element =>
@@ -40,13 +38,13 @@ export function transition(element, props, duration = 400, transition = 'linear'
                 }
             }
 
-            var timer = setTimeout(() => trigger(element, transitionend), duration);
+            var timer = setTimeout(() => trigger(element, 'transitionend'), duration);
 
-            once(element, `${transitionend} ${transitioncancel}`, ({type}) => {
+            once(element, `transitionend transitioncanceled`, ({type}) => {
                 clearTimeout(timer);
                 removeClass(element, 'uk-transition');
                 css(element, 'transition', '');
-                type === transitioncancel ? reject() : resolve();
+                type === 'transitioncanceled' ? reject() : resolve();
             }, false, ({target}) => element === target);
 
             addClass(element, 'uk-transition');
@@ -62,12 +60,12 @@ export const Transition = {
     start: transition,
 
     stop(element) {
-        trigger(element, transitionend);
+        trigger(element, 'transitionend');
         return Promise.resolve();
     },
 
     cancel(element) {
-        trigger(element, transitioncancel);
+        trigger(element, 'transitioncanceled');
     },
 
     inProgress(element) {
@@ -76,8 +74,7 @@ export const Transition = {
 
 };
 
-var animationcancel = 'animationcancel',
-    animationPrefix = 'uk-animation-',
+var animationPrefix = 'uk-animation-',
     clsCancelAnimation = 'uk-cancel-animation';
 
 export function animate(element, animation, duration = 200, origin, out) {
@@ -110,11 +107,11 @@ export function animate(element, animation, duration = 200, origin, out) {
 
             reset();
 
-            once(element, `${animationend || 'animationend'} ${animationcancel}`, ({type}) => {
+            once(element, 'animationend animationcancel', ({type}) => {
 
                 var hasReset = false;
 
-                if (type === animationcancel) {
+                if (type === 'animationcancel') {
                     reject();
                     reset();
                 } else {
@@ -137,10 +134,6 @@ export function animate(element, animation, duration = 200, origin, out) {
 
             css(element, 'animationDuration', `${duration}ms`);
             addClass(element, cls);
-
-            if (!animationend) {
-                requestAnimationFrame(() => Animation.cancel(element));
-            }
 
             function reset() {
                 css(element, 'animationDuration', '');
@@ -168,7 +161,7 @@ export const Animation = {
     },
 
     cancel(element) {
-        trigger(element, animationcancel);
+        trigger(element, 'animationcancel');
     }
 
 };
