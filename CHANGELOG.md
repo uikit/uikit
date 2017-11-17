@@ -8,8 +8,12 @@
 - Video component supports play/pause video as it enters/leaves the viewport
 
 ### Changed
-- Gif component is now deprecated
+
 - Fix `container` options
+
+### Deprecated
+
+- Deprecate `uk-gif`
 
 ### Removed
 - Remove support for IE 10
