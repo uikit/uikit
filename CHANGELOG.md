@@ -14,6 +14,7 @@
 ### Removed
 - Remove support for IE 10
 - Remove support for iOS < 9.1
+- Remove most -webkit and -moz vendor prefixes
 
 ## 3.0.0 beta 35 (November 13, 2017)
 
