@@ -41,6 +41,7 @@ var style = styles[storage[key]] || styles.theme;
 document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : style.css.replace('.css', '').concat('-rtl.css')}">`);
 
 // add javascript
+document.writeln(`<script src="../dist/js/uikit.js"></script>`);
 document.writeln(`<script src="${style.icons ? style.icons : '../dist/js/uikit-icons.js'}"></script>`);
 
 window.addEventListener('load', () => setTimeout(() => {
