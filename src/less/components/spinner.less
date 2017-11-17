@@ -32,15 +32,7 @@
 /* SVG
  ========================================================================== */
 
-.uk-spinner > * {
-    -webkit-animation: uk-spinner-rotate @spinner-duration linear infinite;
-    animation: uk-spinner-rotate @spinner-duration linear infinite;
-}
-
-@-webkit-keyframes uk-spinner-rotate {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(270deg); }
-}
+.uk-spinner > * { animation: uk-spinner-rotate @spinner-duration linear infinite; }
 
 @keyframes uk-spinner-rotate {
     0% { transform: rotate(0deg); }
@@ -55,22 +47,9 @@
     stroke-dasharray: @spinner-circumference;
     stroke-dashoffset: 0;
     transform-origin: center;
-    -webkit-animation: uk-spinner-dash @spinner-duration ease-in-out infinite;
     animation: uk-spinner-dash @spinner-duration ease-in-out infinite;
     stroke-width: @spinner-stroke-width;
     stroke-linecap: round;
-}
-
-@-webkit-keyframes uk-spinner-dash {
-    0% { stroke-dashoffset: @spinner-circumference; }
-    50% {
-        stroke-dashoffset: @spinner-circumference/4;
-        -webkit-transform:rotate(135deg);
-    }
-    100% {
-        stroke-dashoffset: @spinner-circumference;
-        -webkit-transform:rotate(450deg);
-    }
 }
 
 @keyframes uk-spinner-dash {
