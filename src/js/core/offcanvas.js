@@ -58,7 +58,7 @@ export default function (UIkit) {
             },
 
             clsContentAnimation({mode, clsContentAnimation}) {
-                return mode !== 'push' && mode !== 'reveal' ? '' : clsContentAnimation
+                return mode !== 'push' && mode !== 'reveal' ? '' : clsContentAnimation;
             },
 
             transitionElement({mode}) {
@@ -181,7 +181,7 @@ export default function (UIkit) {
                     }
 
                     if (!this.overlay) {
-                        scroll = {x: win.pageXOffset, y: win.pageYOffset}
+                        scroll = {x: win.pageXOffset, y: win.pageYOffset};
                     } else if (!scroll) {
                         var {scrollLeft: x, scrollTop: y} = this.content;
                         scroll = {x, y};

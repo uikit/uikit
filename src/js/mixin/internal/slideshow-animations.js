@@ -27,14 +27,14 @@ export default function (UIkit) {
         },
 
         translated(el) {
-            return Math.abs(css(el, 'transform').split(',')[4] / el.offsetWidth)
+            return Math.abs(css(el, 'transform').split(',')[4] / el.offsetWidth);
         }
 
     };
 
     return Animations;
 
-};
+}
 
 export function translate(value = 0) {
     return `translate(${value}${value ? '%' : ''}, 0)`; // currently not translate3d to support IE, translate3d within translate3d does not work while transitioning

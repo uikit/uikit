@@ -31,7 +31,7 @@ export function toggleClass(element, ...args) {
 
     args = getArgs(args);
 
-    var force = !isString(args[args.length - 1]) ? args.pop()  : undefined;
+    var force = !isString(args[args.length - 1]) ? args.pop() : undefined;
 
     toNodes(element).forEach(({classList}) => {
         for (var i = 0; i < args.length; i++) {

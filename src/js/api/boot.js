@@ -6,7 +6,7 @@ export default function (UIkit) {
     var {connect, disconnect} = UIkit;
 
     if (!Observer) {
-        return
+        return;
     }
 
     if (doc.body) {
@@ -100,11 +100,11 @@ export default function (UIkit) {
         var i;
 
         for (i = 0; i < addedNodes.length; i++) {
-            apply(addedNodes[i], connect)
+            apply(addedNodes[i], connect);
         }
 
         for (i = 0; i < removedNodes.length; i++) {
-            apply(removedNodes[i], disconnect)
+            apply(removedNodes[i], disconnect);
         }
 
         return true;

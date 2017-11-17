@@ -138,7 +138,7 @@ export default function (UIkit) {
                     } else {
                         this.toggleElement([list.children[prev], list.children[next]]);
                     }
-                })
+                });
 
             }
 

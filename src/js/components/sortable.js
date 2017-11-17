@@ -50,7 +50,7 @@ function plugin(UIkit) {
                     this.pos = {x, y};
 
                     fn(e);
-                }
+                };
             });
         },
 

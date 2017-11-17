@@ -1,3 +1,4 @@
+/* global setImmediate */
 import { isFunction, isObject } from './index';
 
 /**
@@ -6,7 +7,7 @@ import { isFunction, isObject } from './index';
 
 const RESOLVED = 0;
 const REJECTED = 1;
-const PENDING  = 2;
+const PENDING = 2;
 
 var async = 'setImmediate' in window ? setImmediate : setTimeout;
 

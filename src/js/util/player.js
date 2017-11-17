@@ -72,7 +72,7 @@ export class Player {
         }
 
         if (this.isIFrame()) {
-            this.enableApi().then(() => post(this.el, {func: 'playVideo', method: 'play'}))
+            this.enableApi().then(() => post(this.el, {func: 'playVideo', method: 'play'}));
         } else if (this.isHTML5()) {
             this.el.play();
         }
@@ -85,7 +85,7 @@ export class Player {
         }
 
         if (this.isIFrame()) {
-            this.enableApi().then(() => post(this.el, {func: 'pauseVideo', method: 'pause'}))
+            this.enableApi().then(() => post(this.el, {func: 'pauseVideo', method: 'pause'}));
         } else if (this.isHTML5()) {
             this.el.pause();
         }
@@ -98,7 +98,7 @@ export class Player {
         }
 
         if (this.isIFrame()) {
-            this.enableApi().then(() => post(this.el, {func: 'mute', method: 'setVolume', value: 0}))
+            this.enableApi().then(() => post(this.el, {func: 'mute', method: 'setVolume', value: 0}));
         } else if (this.isHTML5()) {
             this.el.muted = true;
             attr(this.el, 'muted', '');

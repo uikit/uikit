@@ -95,7 +95,7 @@ ready(function () {
 
 var touching = false;
 on(doc, 'touchstart', () => touching = true, true);
-on(doc, 'click', () => {touching = false});
+on(doc, 'click', () => {touching = false;});
 on(doc, 'touchcancel', () => touching = false, true);
 
 export function isTouch(e) {

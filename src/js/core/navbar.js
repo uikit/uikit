@@ -43,7 +43,7 @@ export default function (UIkit) {
         computed: {
 
             boundary({boundary, boundaryAlign}, $el) {
-                return (boundary === true || boundaryAlign) ? $el : boundary
+                return (boundary === true || boundaryAlign) ? $el : boundary;
             },
 
             pos({align}) {

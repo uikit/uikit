@@ -14,7 +14,7 @@ export default function (UIkit) {
             options.name = name;
             options = UIkit.extend(options);
         } else if (isUndefined(options)) {
-            return UIkit.components[name]
+            return UIkit.components[name];
         } else {
             options.options.name = name;
         }
@@ -75,7 +75,7 @@ export default function (UIkit) {
         for (var name in node[DATA]) {
             node[DATA][name]._callDisconnected();
         }
-    }
+    };
 
 }
 

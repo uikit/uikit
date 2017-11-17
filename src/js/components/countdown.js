@@ -70,7 +70,7 @@ function plugin(UIkit) {
                 handler() {
                     if (doc.hidden) {
                         this.stop();
-                    } else  {
+                    } else {
                         this.start();
                     }
                 }

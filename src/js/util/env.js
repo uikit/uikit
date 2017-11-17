@@ -1,3 +1,4 @@
+/* global DocumentTouch */
 import { doc, Promise, win } from './index';
 
 export const Observer = win.MutationObserver;

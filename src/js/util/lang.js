@@ -27,17 +27,17 @@ const hyphenateRe = /([a-z\d])([A-Z])/g;
 export function hyphenate(str) {
     return str
         .replace(hyphenateRe, '$1-$2')
-        .toLowerCase()
+        .toLowerCase();
 }
 
 const camelizeRE = /-(\w)/g;
 
 export function camelize(str) {
-    return str.replace(camelizeRE, toUpper)
+    return str.replace(camelizeRE, toUpper);
 }
 
 function toUpper(_, c) {
-    return c ? c.toUpperCase() : ''
+    return c ? c.toUpperCase() : '';
 }
 
 export function ucfirst(str) {
@@ -179,7 +179,7 @@ export function toMs(time) {
 
 export function swap(value, a, b) {
     return value.replace(new RegExp(`${a}|${b}`, 'mg'), function (match) {
-        return match === a ? b : a
+        return match === a ? b : a;
     });
 }
 
@@ -220,7 +220,7 @@ export function intersectRect(r1, r2) {
 }
 
 export function pointInRect(point, rect) {
-    return intersectRect({top: point.y, bottom: point.y, left: point.x, right: point.x}, rect)
+    return intersectRect({top: point.y, bottom: point.y, left: point.x, right: point.x}, rect);
 }
 
 export function ajax(url, options) {

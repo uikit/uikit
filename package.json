@@ -16,6 +16,8 @@
     "scope": "node build/scope",
     "release": "npm run compile && npm run compile-rtl && npm run build-scss && node build/release",
     "watch": "npm-watch",
+    "eslint": "cd src && eslint --quiet --ext .js * || true",
+    "eslint:fix": "cd src && eslint --fix --quiet --ext .js * || true",
     "test": "webpack-dev-server --inline --hot && open http://localhost:8080/tests/"
   },
   "repository": {
@@ -32,6 +34,7 @@
     "buble": "^0.15.1",
     "buble-loader": "^0.4.1",
     "clean-css": "^4.1.9",
+    "eslint": "^4.11.0",
     "glob": "^7.1.2",
     "html-loader": "^0.5.1",
     "less": "^2.7.1",

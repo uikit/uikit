@@ -142,7 +142,7 @@ export default {
 
             if (this.container && this.$el.parentNode !== this.container) {
                 append(this.container, this.$el);
-                this._callConnected()
+                this._callConnected();
             }
 
             var prev = active && active !== this && active;
@@ -198,7 +198,7 @@ export default {
 
     }
 
-}
+};
 
 var events;
 

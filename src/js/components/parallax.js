@@ -125,7 +125,7 @@ function plugin(UIkit) {
                         data.image.dimEl = {
                             width: this.$el.offsetWidth,
                             height: this.$el.offsetHeight
-                        }
+                        };
                     }
 
                     if ('image' in data || !this.covers || !this.bgProps.length) {
@@ -356,7 +356,7 @@ function plugin(UIkit) {
     });
 
     function ease(percent, easing) {
-        return clamp(percent * (1 - (easing - easing * percent)))
+        return clamp(percent * (1 - (easing - easing * percent)));
     }
 
     function parseColor(el, color) {

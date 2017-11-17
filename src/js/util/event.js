@@ -39,7 +39,7 @@ export function once(...args) {
 export function trigger(target, event, detail) {
     return toEventTargets(target).reduce((notCanceled, target) =>
         notCanceled && target.dispatchEvent(createEvent(event, true, true, detail))
-    , true);
+        , true);
 }
 
 export function createEvent(e, bubbles = true, cancelable = false, detail) {
@@ -78,7 +78,7 @@ function delegate(element, selector, listener) {
 
             listener.call(this, e);
         }
-    }
+    };
 }
 
 function detail(listener) {
