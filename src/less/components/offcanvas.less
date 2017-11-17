@@ -97,7 +97,6 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     /* 4 */
-    -webkit-transform: translateX(-100%);
     transform: translateX(-100%);
     .hook-offcanvas-bar;
 }
@@ -120,7 +119,6 @@
 .uk-offcanvas-flip .uk-offcanvas-bar {
     left: auto;
     right: 0;
-    -webkit-transform: translateX(100%);
     transform: translateX(100%);
 }
 
@@ -128,10 +126,7 @@
  * Open
  */
 
-.uk-open > .uk-offcanvas-bar {
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-}
+.uk-open > .uk-offcanvas-bar { transform: translateX(0); }
 
 /*
  * Slide Animation (Used in slide and push mode)
@@ -162,7 +157,6 @@
 
 .uk-offcanvas-reveal .uk-offcanvas-bar {
     /* 4 */
-    -webkit-transform: translateX(0);
     transform: translateX(0);
 }
 
