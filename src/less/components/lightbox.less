@@ -117,9 +117,7 @@
     left: 0;
     /* 2 */
     display: none;
-    -webkit-justify-content: center;
     justify-content: center;
-    -webkit-align-items: center;
     align-items: center;
     /* 3 */
     color: @lightbox-item-color;
@@ -139,10 +137,7 @@
     height: auto;
 }
 
-.uk-lightbox-items > .uk-active {
-    display: -webkit-flex;
-    display: flex;
-}
+.uk-lightbox-items > .uk-active { display: flex; }
 
 /* Toolbar
  ========================================================================== */
@@ -191,12 +186,8 @@
     background: @lightbox-button-background;
     color: @lightbox-button-color;
     /* 1 */
-    display: -ms-inline-flexbox;
-    display: -webkit-inline-flex;
     display: inline-flex;
-    -webkit-justify-content: center;
     justify-content: center;
-    -webkit-align-items: center;
     align-items: center;
     .hook-lightbox-button;
 }
