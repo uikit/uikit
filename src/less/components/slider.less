@@ -46,7 +46,6 @@
  */
 
 .uk-slider-items:not(.uk-grid) {
-    display: -webkit-flex;
     display: flex;
     /* 1 */
     margin: 0;
@@ -56,10 +55,7 @@
     -webkit-touch-callout: none;
 }
 
-.uk-slider-items.uk-grid {
-    -webkit-flex-wrap: nowrap;
-    flex-wrap: nowrap;
-}
+.uk-slider-items.uk-grid { flex-wrap: nowrap; }
 
 
 /* Item
@@ -73,7 +69,6 @@
 
 .uk-slider-items > * {
     /* 1 */
-    -webkit-flex: none;
     flex: none;
     /* 2 */
     position: relative;
