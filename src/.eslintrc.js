@@ -42,7 +42,8 @@ module.exports = {
         "no-duplicate-imports": 2,
         "no-array-constructor": 2,
         "no-multiple-empty-lines": [2, {"max": 1}],
-        "no-template-curly-in-string": 2
+        "no-template-curly-in-string": 2,
+        "no-useless-escape": 0
     }
 
 };
