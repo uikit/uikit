@@ -1,4 +1,6 @@
-import { getCssVar, on, query } from './index';
+import { on } from './event';
+import { getCssVar } from './style';
+import { query } from './selector';
 import promiseFn from './promise';
 
 export function bind(fn, context) {

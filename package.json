@@ -16,8 +16,8 @@
     "scope": "node build/scope",
     "release": "npm run compile && npm run compile-rtl && npm run build-scss && node build/release",
     "watch": "npm-watch",
-    "eslint": "cd src && eslint --quiet --ext .js * || true",
-    "eslint:fix": "cd src && eslint --fix --quiet --ext .js * || true",
+    "eslint": "eslint --quiet --ext .js * || true",
+    "eslint:fix": "eslint --fix --quiet --ext .js * || true",
     "test": "webpack-dev-server --inline --hot && open http://localhost:8080/tests/"
   },
   "repository": {
@@ -33,6 +33,7 @@
     "archiver": "^2.0.3",
     "buble": "^0.15.1",
     "buble-loader": "^0.4.1",
+    "circular-dependency-plugin": "^4.2.1",
     "clean-css": "^4.1.9",
     "eslint": "^4.11.0",
     "glob": "^7.1.2",
@@ -51,8 +52,9 @@
     "rtlcss": "^2.2.0",
     "shortid": "^2.2.8",
     "uglify-js": "^3.1.3",
-    "webpack": "^3.6.0",
-    "webpack-dev-server": "^2.9.1"
+    "uglifyjs-webpack-plugin": "^1.1.0",
+    "webpack": "^3.6.1",
+    "webpack-dev-server": "^2.9.4"
   },
   "watch": {
     "compile-js": "src/js/**/*.js",

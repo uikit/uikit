@@ -1,4 +1,6 @@
-import { $, $$, closest, doc, isArray, isFunction, isString, toNode, toNodes, win, within } from './index';
+import { $, $$, closest, toNode, toNodes, within } from './selector';
+import { doc, win } from './env';
+import {isArray, isFunction, isString} from './lang';
 
 export function on(...args) {
 

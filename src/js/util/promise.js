@@ -1,5 +1,5 @@
 /* global setImmediate */
-import { isFunction, isObject } from './index';
+import { isFunction, isObject } from './lang';
 
 /**
  * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)

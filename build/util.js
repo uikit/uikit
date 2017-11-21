@@ -45,7 +45,7 @@ exports.write = function (dest, data) {
                 }
                 exports.logFile(dest);
                 resolve(dest);
-            })
+            });
 
         })
     );
@@ -115,7 +115,7 @@ exports.compile = function (file, dest, external, globals, name, aliases, bundle
             moduleName: `UIkit${exports.ucfirst(name)}`
         }))
         .then(({code}) => exports.write(`${dest}.js`, code.replace(/(>)\\n\s+|\\n\s+(<)/g, '$1 $2')))
-        .then(code => minify ? exports.uglify(code) :code)
+        .then(code => minify ? exports.uglify(code) : code)
         .catch(console.log);
 };
 

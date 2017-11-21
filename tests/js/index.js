@@ -1,3 +1,4 @@
+/* global UIkit */
 var storage = window.sessionStorage,
     key = '_uikit_style',
     keyinverse = '_uikit_inverse',
@@ -19,8 +20,8 @@ var styles = {
     },
     component = location.pathname.split('/').pop().replace(/.html$/, '');
 
-for (var key in themes) {
-    styles[key] = themes[key];
+for (var theme in themes) {
+    styles[theme] = themes[theme];
 }
 
 if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
@@ -41,7 +42,7 @@ var style = styles[storage[key]] || styles.theme;
 document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : style.css.replace('.css', '').concat('-rtl.css')}">`);
 
 // add javascript
-document.writeln(`<script src="../dist/js/uikit.js"></script>`);
+document.writeln('<script src="../dist/js/uikit.js"></script>');
 document.writeln(`<script src="${style.icons ? style.icons : '../dist/js/uikit-icons.js'}"></script>`);
 
 window.addEventListener('load', () => setTimeout(() => {
@@ -143,7 +144,7 @@ window.addEventListener('load', () => setTimeout(() => {
 
     $tests.value = component && `${component}.html`;
 
-    prepend($tests, `<option value="index.html">Overview</option>`);
+    prepend($tests, '<option value="index.html">Overview</option>');
 
     // Styles
     // ------------------------------
@@ -172,18 +173,18 @@ window.addEventListener('load', () => setTimeout(() => {
         removeClass($body, 'uk-dark uk-light');
 
         switch ($inverse.value) {
-            case 'dark':
-                css(docEl, 'background', '#fff');
-                addClass($body, 'uk-dark');
-                break;
+        case 'dark':
+            css(docEl, 'background', '#fff');
+            addClass($body, 'uk-dark');
+            break;
 
-            case 'light':
-                css(docEl, 'background', '#222');
-                addClass($body, 'uk-light');
-                break;
+        case 'light':
+            css(docEl, 'background', '#222');
+            addClass($body, 'uk-light');
+            break;
 
-            default:
-                css(docEl, 'background', '');
+        default:
+            css(docEl, 'background', '');
         }
 
         storage[keyinverse] = $inverse.value;

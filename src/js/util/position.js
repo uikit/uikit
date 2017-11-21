@@ -1,4 +1,7 @@
-import { css, each, endsWith, includes, isDocument, isUndefined, isVisible, isWindow, toFloat, toNode, ucfirst } from './index';
+import { css } from './style';
+import { isVisible } from './dom';
+import { each, endsWith, includes, isDocument, isUndefined, isWindow, toFloat, ucfirst } from './lang';
+import { toNode } from './selector';
 
 var dirs = {
     width: ['x', 'left', 'right'],

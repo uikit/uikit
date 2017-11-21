@@ -1,5 +1,7 @@
-import { doc, fragment, isArray, isDocument, isObject, isString, isWindow, removeAttr, startsWith } from './index';
-import { win } from './dom';
+import { fragment } from './dom';
+import { doc, win } from './env';
+import { isArray, isDocument, isObject, isString, isWindow, startsWith } from './lang';
+import { removeAttr } from './attr';
 
 var arrayProto = Array.prototype;
 

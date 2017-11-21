@@ -1,8 +1,11 @@
-import { addClass, assign, attr, clamp, css, each, hasClass, height, intersectRect, isNumeric, isString, isUndefined, matches, on, once, Promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toNode, toNodes, toNumber, trigger, width } from './index';
-
-export const win = window;
-export const doc = document;
-export const docEl = doc.documentElement;
+import { attr } from './attr';
+import { hasClass, addClass, removeClass, removeClasses } from './class';
+import { css } from './style';
+import { trigger, on, once } from './event';
+import { toNodes, toNode, matches } from './selector';
+import { startsWith, isString, assign, isNumeric, toNumber, intersectRect, clamp, each, isUndefined } from './lang';
+import { height, width } from './position';
+import { docEl, doc, win } from './env';
 
 export const isRtl = attr(docEl, 'dir') === 'rtl';
 
@@ -86,7 +89,7 @@ export function animate(element, animation, duration = 200, origin, out) {
                 requestAnimationFrame(() =>
                     Promise.resolve().then(() =>
                         animate.apply(null, arguments).then(resolve, reject)
-                    )
+                    ) 
                 );
                 return;
             }
