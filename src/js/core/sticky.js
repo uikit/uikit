@@ -197,7 +197,7 @@ export default function (UIkit) {
                     return {
                         scroll: this.scroll = scrollY,
                         visible: isVisible(this.$el)
-                    }
+                    };
                 },
 
                 write({visible, scroll}, {dir} = {}) {

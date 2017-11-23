@@ -3,8 +3,10 @@
     Copyright (c) 2010-2016 Thomas Fuchs
     http://zeptojs.com/
 */
-
-import { doc, on, pointerDown, pointerMove, pointerUp, ready, trigger, win, within } from './index';
+import { pointerDown, pointerMove, pointerUp, doc, win } from './env';
+import { on, trigger } from './event';
+import { ready } from './dom';
+import { within } from './selector';
 
 var touch = {}, clickTimeout, swipeTimeout, tapTimeout, clicked;
 
@@ -95,7 +97,7 @@ ready(function () {
 
 var touching = false;
 on(doc, 'touchstart', () => touching = true, true);
-on(doc, 'click', () => {touching = false});
+on(doc, 'click', () => {touching = false;});
 on(doc, 'touchcancel', () => touching = false, true);
 
 export function isTouch(e) {

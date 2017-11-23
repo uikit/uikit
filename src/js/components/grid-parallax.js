@@ -106,7 +106,7 @@ function plugin(UIkit) {
                 : b[prop] > a[prop]
                     ? -1
                     : 0
-        )
+        );
     }
 
 }

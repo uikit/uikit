@@ -1,4 +1,5 @@
-import { isFunction, isObject } from './index';
+/* global setImmediate */
+import { isFunction, isObject } from './lang';
 
 /**
  * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)
@@ -6,7 +7,7 @@ import { isFunction, isObject } from './index';
 
 const RESOLVED = 0;
 const REJECTED = 1;
-const PENDING  = 2;
+const PENDING = 2;
 
 var async = 'setImmediate' in window ? setImmediate : setTimeout;
 

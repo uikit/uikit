@@ -110,7 +110,7 @@ function plugin(UIkit) {
 
             [pointerLeave](e) {
                 if (!isTouch(e)) {
-                    this.hide()
+                    this.hide();
                 }
             }
 

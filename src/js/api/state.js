@@ -269,7 +269,7 @@ export default function (UIkit) {
             if (e.target === e.currentTarget || e.target === e.current) {
                 return handler.call(null, e);
             }
-        }
+        };
     }
 
     function notIn(options, key) {

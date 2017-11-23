@@ -1,8 +1,11 @@
-import { addClass, assign, attr, clamp, css, each, hasClass, height, intersectRect, isNumeric, isString, isUndefined, matches, on, once, Promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toNode, toNodes, toNumber, trigger, width } from './index';
-
-export const win = window;
-export const doc = document;
-export const docEl = doc.documentElement;
+import { attr } from './attr';
+import { hasClass, addClass, removeClass, removeClasses } from './class';
+import { css } from './style';
+import { trigger, on, once } from './event';
+import { toNodes, toNode, matches } from './selector';
+import { startsWith, isString, assign, isNumeric, toNumber, intersectRect, clamp, each, isUndefined } from './lang';
+import { height, width } from './position';
+import { docEl, doc, win } from './env';
 
 export const isRtl = attr(docEl, 'dir') === 'rtl';
 
@@ -40,7 +43,7 @@ export function transition(element, props, duration = 400, transition = 'linear'
 
             var timer = setTimeout(() => trigger(element, 'transitionend'), duration);
 
-            once(element, `transitionend transitioncanceled`, ({type}) => {
+            once(element, 'transitionend transitioncanceled', ({type}) => {
                 clearTimeout(timer);
                 removeClass(element, 'uk-transition');
                 css(element, 'transition', '');
@@ -86,7 +89,7 @@ export function animate(element, animation, duration = 200, origin, out) {
                 requestAnimationFrame(() =>
                     Promise.resolve().then(() =>
                         animate.apply(null, arguments).then(resolve, reject)
-                    )
+                    ) 
                 );
                 return;
             }
@@ -185,7 +188,7 @@ export function scrolledOver(element) {
         vh = vp + Math.min(0, top - vp),
         diff = Math.max(0, vp - (height(doc) - (top + elHeight)));
 
-    return clamp(((vh + win.pageYOffset - top) / ((vh + (elHeight - (diff < vp ? diff : 0)) ) / 100)) / 100);
+    return clamp(((vh + win.pageYOffset - top) / ((vh + (elHeight - (diff < vp ? diff : 0))) / 100)) / 100);
 }
 
 function positionTop(element) {
@@ -207,12 +210,12 @@ export function getIndex(i, elements, current = 0) {
     var length = elements.length;
 
     i = (isNumeric(i)
-            ? toNumber(i)
-            : i === 'next'
-                ? current + 1
-                : i === 'previous'
-                    ? current - 1
-                    : index(elements, i)
+        ? toNumber(i)
+        : i === 'next'
+            ? current + 1
+            : i === 'previous'
+                ? current - 1
+                : index(elements, i)
     ) % length;
 
     return i < 0 ? i + length : i;
@@ -336,7 +339,7 @@ export function after(ref, element) {
     ref = toNode(ref);
     return insertNodes(element, element => ref.nextSibling
         ? before(ref.nextSibling, element)
-        : append(ref.parentNode,element)
+        : append(ref.parentNode, element)
     );
 }
 

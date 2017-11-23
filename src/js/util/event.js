@@ -1,4 +1,6 @@
-import { $, $$, closest, doc, isArray, isFunction, isString, toNode, toNodes, win, within } from './index';
+import { $, $$, closest, toNode, toNodes, within } from './selector';
+import { doc, win } from './env';
+import {isArray, isFunction, isString} from './lang';
 
 export function on(...args) {
 
@@ -39,7 +41,7 @@ export function once(...args) {
 export function trigger(target, event, detail) {
     return toEventTargets(target).reduce((notCanceled, target) =>
         notCanceled && target.dispatchEvent(createEvent(event, true, true, detail))
-    , true);
+        , true);
 }
 
 export function createEvent(e, bubbles = true, cancelable = false, detail) {
@@ -69,7 +71,7 @@ function delegate(element, selector, listener) {
 
         var target = e.target,
             current = selector[0] === '>'
-                ? $$(selector, element).filter(element => within(target, element))[0]
+                ? $$(selector, element).reverse().filter(element => within(target, element))[0]
                 : closest(target, selector);
 
         if (current) {
@@ -78,7 +80,7 @@ function delegate(element, selector, listener) {
 
             listener.call(this, e);
         }
-    }
+    };
 }
 
 function detail(listener) {

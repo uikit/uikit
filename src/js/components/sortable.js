@@ -50,7 +50,7 @@ function plugin(UIkit) {
                     this.pos = {x, y};
 
                     fn(e);
-                }
+                };
             });
         },
 
@@ -132,7 +132,7 @@ function plugin(UIkit) {
                     height: this.placeholder.offsetHeight
                 }, css(this.placeholder, ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom'])));
                 attr(this.drag, 'uk-no-boot', '');
-                addClass(this.drag, `${this.clsDrag} ${this.clsCustom}`);
+                addClass(this.drag, this.clsDrag, this.clsCustom);
 
                 height(this.drag.firstElementChild, height(this.placeholder.firstElementChild));
 

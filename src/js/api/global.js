@@ -61,7 +61,7 @@ export default function (UIkit) {
                 update(element[DATA], e);
                 element = element.parentNode;
 
-            } while (element)
+            } while (element);
 
         } else {
 

@@ -45,7 +45,7 @@ exports.write = function (dest, data) {
                 }
                 exports.logFile(dest);
                 resolve(dest);
-            })
+            });
 
         })
     );
@@ -81,7 +81,7 @@ exports.renderLess = function (data, options) {
     return less.render(data, options).then(output => output.css);
 };
 
-exports.compile = function (file, dest, external, globals, name, aliases, bundled) {
+exports.compile = function (file, dest, external, globals, name, aliases, bundled, minify) {
 
     name = (name || '').replace(/[^\w]/g, '_');
 
@@ -115,7 +115,7 @@ exports.compile = function (file, dest, external, globals, name, aliases, bundle
             moduleName: `UIkit${exports.ucfirst(name)}`
         }))
         .then(({code}) => exports.write(`${dest}.js`, code.replace(/(>)\\n\s+|\\n\s+(<)/g, '$1 $2')))
-        .then(exports.uglify)
+        .then(code => minify ? exports.uglify(code) : code)
         .catch(console.log);
 };
 

@@ -71,7 +71,7 @@ function plugin(UIkit) {
                     this.pos = pos;
 
                     fn(e);
-                }
+                };
             });
         },
 
@@ -140,7 +140,7 @@ function plugin(UIkit) {
                 handler() {
                     if (doc.hidden) {
                         this.stopAutoplay();
-                    } else  {
+                    } else {
                         this.startAutoplay();
                     }
                 }
@@ -428,7 +428,7 @@ function plugin(UIkit) {
                     fastdom.write(() => {
                         this.stack.shift();
                         if (this.stack.length) {
-                            this.show(this.stack.shift(), true)
+                            this.show(this.stack.shift(), true);
                         } else {
                             this._animation = null;
                         }
@@ -577,7 +577,7 @@ function plugin(UIkit) {
                 return percent(current, next, dir);
             }
 
-        }
+        };
 
     }
 

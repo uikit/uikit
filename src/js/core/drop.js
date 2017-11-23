@@ -314,7 +314,7 @@ export default function (UIkit) {
                         active = this;
                     };
 
-                if (toggle && this.toggle &&  toggle.$el !== this.toggle.$el) {
+                if (toggle && this.toggle && toggle.$el !== this.toggle.$el) {
 
                     once(this.$el, 'hide', tryShow);
                     this.hide(false);

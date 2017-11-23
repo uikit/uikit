@@ -22,7 +22,6 @@ export default function (UIkit) {
 
         },
 
-
         ready() {
 
             this.player = new Player(this.$el);
@@ -44,7 +43,7 @@ export default function (UIkit) {
                         : {
                             visible: isVisible(this.$el) && css(this.$el, 'visibility') !== 'hidden',
                             inView: this.inView && isInView(this.$el)
-                        }
+                        };
                 },
 
                 write({visible, inView}) {

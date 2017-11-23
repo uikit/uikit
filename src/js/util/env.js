@@ -1,4 +1,9 @@
-import { doc, Promise, win } from './index';
+/* global DocumentTouch */
+import Promise from './promise';
+
+export const win = window;
+export const doc = document;
+export const docEl = doc.documentElement;
 
 export const Observer = win.MutationObserver;
 export const requestAnimationFrame = win.requestAnimationFrame;
@@ -27,3 +32,20 @@ export function getImage(src) {
     });
 
 }
+
+export const supports = {};
+
+// IE 11
+(function () {
+
+    var list = doc.createElement('_').classList;
+    if (list) {
+        list.add('a', 'b');
+        list.toggle('c', false);
+        supports.Multiple = list.contains('b');
+        supports.Force = !list.contains('c');
+        supports.ClassList = true;
+    }
+    list = null;
+
+})();

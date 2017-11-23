@@ -4,7 +4,7 @@
     https://github.com/wilsonpage/fastdom
 */
 
-import { requestAnimationFrame } from './index';
+import { requestAnimationFrame } from './env';
 
 export const fastdom = {
 

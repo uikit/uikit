@@ -157,7 +157,7 @@ function plugin(UIkit) {
 
             this.caption = $('.uk-lightbox-caption', this.$el);
 
-            this.items.forEach((el, i) => append(this.list, `<li></li>`));
+            this.items.forEach((el, i) => append(this.list, '<li></li>'));
 
         },
 
@@ -299,8 +299,8 @@ function plugin(UIkit) {
 
                     var i = index(target),
                         caption = this.getItem(i).caption;
-                        css(this.caption, 'display', caption ? '' : 'none');
-                        html(this.caption, caption);
+                    css(this.caption, 'display', caption ? '' : 'none');
+                    html(this.caption, caption);
 
                     for (var j = 0; j <= this.preload; j++) {
                         this.loadItem(this.getIndex(i + j));
@@ -441,12 +441,12 @@ function plugin(UIkit) {
 
                 attr($$(`[${this.attrItem}],[data-${this.attrItem}]`, this.$el), 'hidden', this.items.length < 2 ? '' : null);
 
-                addClass(this.$el, 'uk-active uk-transition-active');
+                addClass(this.$el, 'uk-active', 'uk-transition-active');
 
             },
 
             hideControls() {
-                removeClass(this.$el, 'uk-active uk-transition-active');
+                removeClass(this.$el, 'uk-active', 'uk-transition-active');
             }
 
         }

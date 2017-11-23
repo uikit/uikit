@@ -43,7 +43,7 @@ export default function (UIkit) {
                         if (currentY !== target) {
                             requestAnimationFrame(step);
                         } else {
-                            trigger(this.$el, 'scrolled', [this, el])
+                            trigger(this.$el, 'scrolled', [this, el]);
                         }
                     };
 

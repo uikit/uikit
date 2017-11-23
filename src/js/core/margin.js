@@ -86,7 +86,7 @@ export default function (UIkit) {
                         toggleClass(el, this.margin, i !== 0);
                         toggleClass(el, this.firstColumn, j === 0);
                     })
-                )
+                );
 
             },
 
