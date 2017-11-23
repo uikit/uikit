@@ -143,7 +143,7 @@ export default function (UIkit) {
                     }
 
                     css(docEl, 'overflowY', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
-                    addClass(doc.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
+                    addClass(doc.body, this.clsContainer, this.clsFlip, this.clsOverlay);
                     height(doc.body); // force reflow
                     addClass(this.content, this.clsContentAnimation);
                     addClass(this.panel, `${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
@@ -187,10 +187,10 @@ export default function (UIkit) {
                         scroll = {x, y};
                     }
 
-                    removeClass(this.panel, `${this.clsSidebarAnimation} ${this.clsMode}`);
+                    removeClass(this.panel, this.clsSidebarAnimation, this.clsMode);
                     removeClass(this.$el, this.clsOverlay);
                     css(this.$el, 'display', '');
-                    removeClass(doc.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
+                    removeClass(doc.body, this.clsContainer, this.clsFlip, this.clsOverlay);
                     doc.body.scrollTop = scroll.y;
 
                     css(docEl, 'overflow-y', '');

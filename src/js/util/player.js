@@ -79,7 +79,9 @@ export class Player {
         if (this.isIFrame()) {
             this.enableApi().then(() => post(this.el, {func: 'playVideo', method: 'play'}));
         } else if (this.isHTML5()) {
-            this.el.play();
+            try {
+                this.el.play();
+            } catch (e) {}
         }
     }
 

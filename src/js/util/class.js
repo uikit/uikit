@@ -34,6 +34,8 @@ export function toggleClass(element, ...args) {
 
     var force = !isString(args[args.length - 1]) ? args.pop() : undefined;
 
+    args = args.filter(Boolean);
+
     toNodes(element).forEach(({classList}) => {
         for (var i = 0; i < args.length; i++) {
             supports.Force
@@ -45,7 +47,7 @@ export function toggleClass(element, ...args) {
 }
 
 function apply(element, args, fn) {
-    args = getArgs(args).filter(arg => arg);
+    args = getArgs(args).filter(Boolean);
 
     supports.ClassList && args.length && toNodes(element).forEach(({classList}) => {
         supports.Multiple
@@ -55,9 +57,8 @@ function apply(element, args, fn) {
 }
 
 function getArgs(args) {
-    return args.reduce((args, arg) => {
-        args.push.apply(args, isString(arg) && includes(arg, ' ') ? arg.trim().split(' ') : [arg]);
-        return args;
-    }, []);
+    return args.reduce((args, arg) =>
+        args.concat.call(args, isString(arg) && includes(arg, ' ') ? arg.trim().split(' ') : arg)
+    , []);
 }
 

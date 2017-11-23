@@ -441,12 +441,12 @@ function plugin(UIkit) {
 
                 attr($$(`[${this.attrItem}],[data-${this.attrItem}]`, this.$el), 'hidden', this.items.length < 2 ? '' : null);
 
-                addClass(this.$el, 'uk-active uk-transition-active');
+                addClass(this.$el, 'uk-active', 'uk-transition-active');
 
             },
 
             hideControls() {
-                removeClass(this.$el, 'uk-active uk-transition-active');
+                removeClass(this.$el, 'uk-active', 'uk-transition-active');
             }
 
         }

@@ -71,7 +71,7 @@ function delegate(element, selector, listener) {
 
         var target = e.target,
             current = selector[0] === '>'
-                ? $$(selector, element).filter(element => within(target, element))[0]
+                ? $$(selector, element).reverse().filter(element => within(target, element))[0]
                 : closest(target, selector);
 
         if (current) {
