@@ -18,7 +18,7 @@
     "watch": "npm-watch",
     "eslint": "eslint --quiet --ext .js * || true",
     "eslint:fix": "eslint --fix --quiet --ext .js * || true",
-    "test": "webpack-dev-server --inline --hot && open http://localhost:8080/tests/"
+    "test": "webpack-dev-server --inline --hot --watchContentBase && open http://localhost:8080/tests/"
   },
   "repository": {
     "type": "git",

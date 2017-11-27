@@ -7,7 +7,7 @@ var postcss = require('postcss');
 var args = require('minimist')(process.argv)._;
 
 var rtl = ~args.indexOf('rtl');
-
+var develop = ~args.indexOf('develop') || ~args.indexOf('debug');
 [
 
     {src: 'src/less/uikit.less', dist: `dist/css/uikit-core${rtl ? '-rtl' : ''}.css`},
@@ -63,7 +63,7 @@ function compile(file, dist) {
                 })
             ]).process(output).css)
             .then(output => util.write(dist, output))
-            .then(util.minify),
+            .then(res => !develop && util.minify(res)),
         error => console.log(error)
     );
 }
