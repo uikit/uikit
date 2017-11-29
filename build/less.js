@@ -62,7 +62,7 @@ function compile(file, dist) {
                     }]
                 })
             ]).process(output).css)
-            .then(output => util.write(dist, output))
+            .then(output => util.write(dist, util.banner + output))
             .then(res => !develop && util.minify(res)),
         error => console.log(error)
     );
