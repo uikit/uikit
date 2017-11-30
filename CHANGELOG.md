@@ -3,9 +3,13 @@
 ## WIP
 
 ### Added
-
+- Added option to pass data-alt="" to images in lightbox.
 - Component DOM attributes are being observed too (uk-grid, ...)
 - Video component supports play/pause video as it enters/leaves the viewport
+- Added config options to build scripts, type ```./build/build.js -h``` for options
+- Added UIkit version banner to generated css files
+- Improved UIkit.container setter (allows for assigning selector strings)
+- Added option to skip minification for less building (./build/less.js -d)
 
 ### Changed
 

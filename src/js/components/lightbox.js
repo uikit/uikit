@@ -85,7 +85,7 @@ function plugin(UIkit) {
             _init() {
                 return this.panel = this.panel || UIkit.lightboxPanel(assign({}, this.$props, {
                     items: this.toggles.reduce((items, el) => {
-                        items.push(['href', 'caption', 'type', 'poster'].reduce((obj, attr) => {
+                        items.push(['href', 'caption', 'type', 'poster', 'alt'].reduce((obj, attr) => {
                             obj[attr === 'href' ? 'source' : attr] = data(el, attr);
                             return obj;
                         }, {}));
@@ -317,7 +317,7 @@ function plugin(UIkit) {
 
                 handler(_, item) {
 
-                    var {source, type} = item, matches;
+                    var {source, type, alt} = item, matches;
 
                     this.setItem(item, '<span uk-spinner></span>');
 
@@ -329,7 +329,7 @@ function plugin(UIkit) {
                     if (type === 'image' || source.match(/\.(jp(e)?g|png|gif|svg)$/i)) {
 
                         getImage(source).then(
-                            img => this.setItem(item, `<img width="${img.width}" height="${img.height}" src="${source}">`),
+                            img => this.setItem(item, `<img width="${img.width}" height="${img.height}" src="${source}" alt="${alt ? alt : ''}">`),
                             () => this.setError(item)
                         );
 

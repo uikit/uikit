@@ -1,15 +1,22 @@
+/* eslint-env node */
 var fs = require('fs');
 var glob = require('glob');
 var path = require('path');
 var util = require('./util');
 var rtlcss = require('rtlcss');
 var postcss = require('postcss');
-var args = require('minimist')(process.argv)._;
-
+const argv = require('minimist')(process.argv);
+var args = argv._;
 var rtl = ~args.indexOf('rtl');
-var develop = ~args.indexOf('develop') || ~args.indexOf('debug');
-[
 
+argv._.forEach(arg => {
+    const tokens = arg.split('=');
+    argv[tokens[0]] = tokens[1] || true;
+});
+
+var develop = argv.develop || argv.debug || argv.d || argv.nominify;
+
+[
     {src: 'src/less/uikit.less', dist: `dist/css/uikit-core${rtl ? '-rtl' : ''}.css`},
     {src: 'src/less/uikit.theme.less', dist: `dist/css/uikit${rtl ? '-rtl' : ''}.css`}
 
