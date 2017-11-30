@@ -1,7 +1,7 @@
 import { fragment } from './dom';
 import { doc, win } from './env';
-import { isArray, isDocument, isObject, isString, isWindow, startsWith } from './lang';
 import { removeAttr } from './attr';
+import { isArray, isDocument, isObject, isString, isWindow, startsWith } from './lang';
 
 var arrayProto = Array.prototype;
 

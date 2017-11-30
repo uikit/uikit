@@ -1,9 +1,9 @@
 import { win } from './env';
-import { assign, includes, isString } from './lang';
-import { toNode } from './selector';
 import { attr } from './attr';
-import Promise from './promise';
 import { once } from './event';
+import Promise from './promise';
+import { toNode } from './selector';
+import { assign, includes, isString } from './lang';
 
 var id = 0;
 

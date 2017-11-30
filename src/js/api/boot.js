@@ -1,5 +1,5 @@
-import { createEvent, doc, docEl, fastdom, hasAttr, Observer } from '../util/index';
 import { getComponentName } from './component';
+import { createEvent, doc, docEl, fastdom, hasAttr, Observer } from '../util/index';
 
 export default function (UIkit) {
 
