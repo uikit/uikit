@@ -1,11 +1,11 @@
 import { attr } from './attr';
-import { hasClass, addClass, removeClass, removeClasses } from './class';
 import { css } from './style';
-import { trigger, on, once } from './event';
-import { toNodes, toNode, matches } from './selector';
-import { startsWith, isString, assign, isNumeric, toNumber, intersectRect, clamp, each, isUndefined } from './lang';
+import { doc, docEl, win } from './env';
 import { height, width } from './position';
-import { docEl, doc, win } from './env';
+import { on, once, trigger } from './event';
+import { matches, toNode, toNodes } from './selector';
+import { addClass, hasClass, removeClass, removeClasses } from './class';
+import { assign, clamp, each, intersectRect, isNumeric, isString, isUndefined, Promise, startsWith, toNumber } from './lang';
 
 export const isRtl = attr(docEl, 'dir') === 'rtl';
 
@@ -89,7 +89,7 @@ export function animate(element, animation, duration = 200, origin, out) {
                 requestAnimationFrame(() =>
                     Promise.resolve().then(() =>
                         animate.apply(null, arguments).then(resolve, reject)
-                    ) 
+                    )
                 );
                 return;
             }

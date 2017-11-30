@@ -43,7 +43,12 @@ module.exports = {
         "no-array-constructor": 2,
         "no-multiple-empty-lines": [2, {"max": 1}],
         "no-template-curly-in-string": 2,
-        "no-useless-escape": 0
+        "no-useless-escape": 0,
+        // "sort-imports": ["error", {
+        //     "ignoreCase": true,
+        //     "ignoreMemberSort": false,
+        //     "memberSyntaxSortOrder": ["none", "single", "all", "multiple"]
+        // }]
     }
 
 };

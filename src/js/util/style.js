@@ -1,8 +1,8 @@
-import { each, hyphenate, isArray, isNumeric, isObject, isString, isUndefined } from './lang';
-import { toNode, toNodes } from './selector';
-import { addClass } from './class';
 import { append } from './dom';
-import { docEl, doc } from './env';
+import { addClass } from './class';
+import { doc, docEl } from './env';
+import { toNode, toNodes } from './selector';
+import { each, hyphenate, isArray, isNumeric, isObject, isString, isUndefined } from './lang';
 
 var cssNumber = {
     'animation-iteration-count': true,

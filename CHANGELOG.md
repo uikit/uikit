@@ -3,17 +3,13 @@
 ## WIP
 
 ### Added
-- Added option to pass data-alt="" to images in lightbox.
+- Add option to pass data-alt="" to images in Lightbox.
 - Component DOM attributes are being observed too (uk-grid, ...)
 - Video component supports play/pause video as it enters/leaves the viewport
-- Added config options to build scripts, type ```./build/build.js -h``` for options
-- Added UIkit version banner to generated css files
-- Improved UIkit.container setter (allows for assigning selector strings)
-- Added option to skip minification for less building (./build/less.js -d)
-
-### Changed
-
-- Fix `container` options
+- Add config options to build scripts, type ```./build/build.js -h``` for options
+- Add UIkit version banner to generated css files
+- Improve UIkit.container setter (allows for assigning selector strings)
+- Add option to skip minification for less building (./build/less.js -d)
 
 ### Deprecated
 
@@ -23,6 +19,10 @@
 - Remove support for IE 10
 - Remove support for iOS < 9.1
 - Remove most -webkit and -moz vendor prefixes
+
+### Fixed
+- Fix scrolling with scrollbar on Modal closes Modal
+- Fix `container` options
 
 ## 3.0.0 beta 35 (November 13, 2017)
 

@@ -1,7 +1,7 @@
-import { includes, isString, isUndefined } from './lang';
-import { toNodes } from './selector';
-import { filterAttr } from './attr';
 import { supports } from './env';
+import { filterAttr } from './attr';
+import { toNodes } from './selector';
+import { includes, isString, isUndefined } from './lang';
 
 export function addClass(element, ...args) {
     apply(element, args, 'add');
@@ -59,6 +59,6 @@ function apply(element, args, fn) {
 function getArgs(args) {
     return args.reduce((args, arg) =>
         args.concat.call(args, isString(arg) && includes(arg, ' ') ? arg.trim().split(' ') : arg)
-    , []);
+        , []);
 }
 

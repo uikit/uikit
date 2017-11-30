@@ -39,7 +39,8 @@ module.exports = [
             new webpack.DefinePlugin({
                 BUNDLED: true,
                 VERSION: `'${version}'`
-            })
+            }),
+            new webpack.optimize.ModuleConcatenationPlugin()
         ]
     },
 
@@ -58,11 +59,12 @@ module.exports = [
         },
         plugins: [
             // new circular,
-            new uglify,
             new webpack.DefinePlugin({
                 BUNDLED: true,
                 VERSION: `'${version}'`
-            })
+            }),
+            new webpack.optimize.ModuleConcatenationPlugin(),
+            new uglify
         ]
     },
 

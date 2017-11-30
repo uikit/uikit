@@ -3,10 +3,10 @@
     Copyright (c) 2010-2016 Thomas Fuchs
     http://zeptojs.com/
 */
-import { pointerDown, pointerMove, pointerUp, doc, win } from './env';
-import { on, trigger } from './event';
 import { ready } from './dom';
 import { within } from './selector';
+import { on, trigger } from './event';
+import { doc, pointerDown, pointerMove, pointerUp, win } from './env';
 
 var touch = {}, clickTimeout, swipeTimeout, tapTimeout, clicked;
 
@@ -57,7 +57,7 @@ ready(function () {
         touch.y2 = y;
     });
 
-    on(doc, pointerUp, function ({target}) {
+    on(doc, pointerUp, function ({type, target}) {
 
         // swipe
         if (touch.x2 && Math.abs(touch.x1 - touch.x2) > 30 || touch.y2 && Math.abs(touch.y1 - touch.y2) > 30) {
@@ -76,7 +76,7 @@ ready(function () {
             tapTimeout = setTimeout(() => touch.el && trigger(touch.el, 'tap'));
 
             // trigger single click after 350ms of inactivity
-            if (touch.el && within(target, touch.el)) {
+            if (touch.el && type !== 'mouseup' && within(target, touch.el)) {
                 clickTimeout = setTimeout(function () {
                     clickTimeout = null;
                     if (touch.el && !clicked) {
