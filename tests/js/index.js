@@ -173,18 +173,18 @@ window.addEventListener('load', () => setTimeout(() => {
         removeClass($body, 'uk-dark uk-light');
 
         switch ($inverse.value) {
-        case 'dark':
-            css(docEl, 'background', '#fff');
-            addClass($body, 'uk-dark');
-            break;
+            case 'dark':
+                css(docEl, 'background', '#fff');
+                addClass($body, 'uk-dark');
+                break;
 
-        case 'light':
-            css(docEl, 'background', '#222');
-            addClass($body, 'uk-light');
-            break;
+            case 'light':
+                css(docEl, 'background', '#222');
+                addClass($body, 'uk-light');
+                break;
 
-        default:
-            css(docEl, 'background', '');
+            default:
+                css(docEl, 'background', '');
         }
 
         storage[keyinverse] = $inverse.value;

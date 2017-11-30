@@ -17,7 +17,7 @@
     "release": "npm run compile && npm run compile-rtl && npm run build-scss && node build/release",
     "watch": "npm-watch",
     "eslint": "eslint --quiet src/js build tests/js/index.js || true",
-    "eslint:fix": "eslint --fix --quiet src/js build tests/js/index.js || true",
+    "eslint-fix": "eslint --fix --quiet src/js build tests/js/index.js || true",
     "test": "webpack-dev-server --inline --hot --watchContentBase && open http://localhost:8080/tests/"
   },
   "repository": {
