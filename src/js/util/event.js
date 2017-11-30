@@ -16,7 +16,7 @@ export function on(...args) {
         listener = detail(listener);
     }
 
-    type.split(' ').forEach(type => target.addEventListener(type, listener, useCapture));
+    type.split(' ').forEach(type => target ? target.addEventListener(type, listener, useCapture) : null);
     return () => off(target, type, listener, useCapture);
 }
 
