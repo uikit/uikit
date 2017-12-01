@@ -18,7 +18,7 @@
     "watch": "npm-watch",
     "eslint": "eslint --quiet src/js build tests/js/index.js || true",
     "eslint-fix": "eslint --fix --quiet src/js build tests/js/index.js || true",
-    "test": "webpack-dev-server --inline --hot --watchContentBase && open http://localhost:8080/tests/"
+    "test": "webpack-dev-server --inline --hot --watchContentBase --devtool sourcemap && open http://localhost:8080/tests/"
   },
   "repository": {
     "type": "git",
@@ -62,5 +62,8 @@
       "patterns": "**/*.less",
       "extensions": "less"
     }
+  },
+  "dependencies": {
+    "inquirer": "^4.0.1"
   }
 }

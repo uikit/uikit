@@ -10,6 +10,11 @@
 - Add UIkit version banner to generated css files
 - Improve UIkit.container setter (allows for assigning selector strings)
 - Add option to skip minification for less building (./build/less.js -d)
+- Add parameterization for prefix and scope scripts. use scope/prefix -h (e.g. npm run prefix -- -h) to list the available options.
+
+### Changed
+
+- Fix `container` options
 
 ### Deprecated
 
