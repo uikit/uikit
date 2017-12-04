@@ -95,7 +95,6 @@
     }
 
 }
-@mixin hook-background-misc(){}
 @mixin hook-badge(){}
 @mixin hook-badge-hover(){}
 @mixin hook-badge-misc(){}
@@ -114,6 +113,255 @@
         color: $inverse-badge-hover-color;
         @if(mixin-exists(hook-inverse-badge-hover)) {@include hook-inverse-badge-hover();}
     }
+
+}
+@mixin hook-breadcrumb(){}
+@mixin hook-breadcrumb-item(){}
+@mixin hook-breadcrumb-item-hover(){}
+@mixin hook-breadcrumb-item-disabled(){}
+@mixin hook-breadcrumb-item-active(){}
+@mixin hook-breadcrumb-divider(){}
+@mixin hook-breadcrumb-misc(){}
+@mixin hook-inverse-breadcrumb-item(){}
+@mixin hook-inverse-breadcrumb-item-hover(){}
+@mixin hook-inverse-breadcrumb-item-disabled(){}
+@mixin hook-inverse-breadcrumb-item-active(){}
+@mixin hook-inverse-breadcrumb-divider(){}
+@mixin hook-inverse-component-breadcrumb(){
+
+    .uk-breadcrumb > * > * {
+        color: $inverse-breadcrumb-item-color;
+        @if(mixin-exists(hook-inverse-breadcrumb-item)) {@include hook-inverse-breadcrumb-item();}
+    }
+
+    .uk-breadcrumb > * > :hover,
+    .uk-breadcrumb > * > :focus {
+        color: $inverse-breadcrumb-item-hover-color;
+        @if(mixin-exists(hook-inverse-breadcrumb-item-hover)) {@include hook-inverse-breadcrumb-item-hover();}
+    }
+
+
+    .uk-breadcrumb > .uk-disabled > * {
+        @if(mixin-exists(hook-inverse-breadcrumb-item-disabled)) {@include hook-inverse-breadcrumb-item-disabled();}
+    }
+
+    .uk-breadcrumb > :last-child > * {
+        color: $inverse-breadcrumb-item-active-color;
+        @if(mixin-exists(hook-inverse-breadcrumb-item-active)) {@include hook-inverse-breadcrumb-item-active();}
+    }
+
+    //
+    // Divider
+    //
+
+    .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
+        color: $inverse-breadcrumb-divider-color;
+        @if(mixin-exists(hook-inverse-breadcrumb-divider)) {@include hook-inverse-breadcrumb-divider();}
+    }
+
+}
+@mixin hook-background-misc(){}
+@mixin hook-button(){
+    text-transform: $button-text-transform;
+    -webkit-transition: 0.1s ease-in-out;
+    transition: 0.1s ease-in-out;
+    -webkit-transition-property: color, background-color, border-color;
+    transition-property: color, background-color, border-color;
+}
+@mixin hook-button-hover(){}
+@mixin hook-button-focus(){}
+@mixin hook-button-active(){}
+@mixin hook-button-default(){ border: $button-border-width solid $button-default-border; }
+@mixin hook-button-default-hover(){ border-color: $button-default-hover-border; }
+@mixin hook-button-default-active(){ border-color: $button-default-active-border; }
+@mixin hook-button-primary(){ border: $button-border-width solid transparent; }
+@mixin hook-button-primary-hover(){}
+@mixin hook-button-primary-active(){}
+@mixin hook-button-secondary(){ border: $button-border-width solid transparent; }
+@mixin hook-button-secondary-hover(){}
+@mixin hook-button-secondary-active(){}
+@mixin hook-button-danger(){ border: $button-border-width solid transparent; }
+@mixin hook-button-danger-hover(){}
+@mixin hook-button-danger-active(){}
+@mixin hook-button-disabled(){ border-color: $button-disabled-border; }
+@mixin hook-button-small(){}
+@mixin hook-button-large(){}
+@mixin hook-button-text(){
+
+    position: relative;
+
+    &::before {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 100%;
+        border-bottom: $button-text-border-width solid $button-text-border;
+        -webkit-transition: right 0.3s ease-out;
+        transition: right 0.3s ease-out;
+    }
+
+}
+@mixin hook-button-text-hover(){
+
+    &::before { right: 0; }
+
+}
+@mixin hook-button-text-disabled(){
+
+    &::before { display: none; }
+
+}
+@mixin hook-button-link(){}
+@mixin hook-button-misc(){
+
+    /* Group
+     ========================================================================== */
+
+    /*
+     * Collapse border
+     */
+
+    .uk-button-group > .uk-button:nth-child(n+2),
+    .uk-button-group > div:nth-child(n+2) .uk-button { margin-left: (-$button-border-width); }
+
+    /*
+     * Create position context to superimpose the successor elements border
+     * Known issue: If you use an `a` element as button and an icon inside,
+     * the active state will not work if you click the icon inside the button
+     * Workaround: Just use a `button` or `input` element as button
+     */
+
+    .uk-button-group .uk-button:hover,
+    .uk-button-group .uk-button:focus,
+    .uk-button-group .uk-button:active,
+    .uk-button-group .uk-button.uk-active {
+        position: relative;
+        z-index: 1;
+    }
+
+}
+@mixin hook-inverse-button-default(){ border-color: $inverse-global-color; }
+@mixin hook-inverse-button-default-hover(){ border-color: $inverse-global-emphasis-color; }
+@mixin hook-inverse-button-default-active(){ border-color: $inverse-global-emphasis-color; }
+@mixin hook-inverse-button-primary(){}
+@mixin hook-inverse-button-primary-hover(){}
+@mixin hook-inverse-button-primary-active(){}
+@mixin hook-inverse-button-secondary(){}
+@mixin hook-inverse-button-secondary-hover(){}
+@mixin hook-inverse-button-secondary-active(){}
+@mixin hook-inverse-button-text(){
+    &::before { border-bottom-color: $inverse-global-emphasis-color; }
+}
+@mixin hook-inverse-button-text-hover(){}
+@mixin hook-inverse-button-text-disabled(){}
+@mixin hook-inverse-button-link(){}
+@mixin hook-inverse-component-button(){
+
+    //
+    // Default
+    //
+
+    .uk-button-default {
+        background-color: $inverse-button-default-background;
+        color: $inverse-button-default-color;
+        @if(mixin-exists(hook-inverse-button-default)) {@include hook-inverse-button-default();}
+    }
+
+    .uk-button-default:hover,
+    .uk-button-default:focus {
+        background-color: $inverse-button-default-hover-background;
+        color: $inverse-button-default-hover-color;
+        @if(mixin-exists(hook-inverse-button-default-hover)) {@include hook-inverse-button-default-hover();}
+    }
+
+    .uk-button-default:active,
+    .uk-button-default.uk-active {
+        background-color: $inverse-button-default-active-background;
+        color: $inverse-button-default-active-color;
+        @if(mixin-exists(hook-inverse-button-default-active)) {@include hook-inverse-button-default-active();}
+    }
+
+    //
+    // Primary
+    //
+
+    .uk-button-primary {
+        background-color: $inverse-button-primary-background;
+        color: $inverse-button-primary-color;
+        @if(mixin-exists(hook-inverse-button-primary)) {@include hook-inverse-button-primary();}
+    }
+
+    .uk-button-primary:hover,
+    .uk-button-primary:focus {
+        background-color: $inverse-button-primary-hover-background;
+        color: $inverse-button-primary-hover-color;
+        @if(mixin-exists(hook-inverse-button-primary-hover)) {@include hook-inverse-button-primary-hover();}
+    }
+
+    .uk-button-primary:active,
+    .uk-button-primary.uk-active {
+        background-color: $inverse-button-primary-active-background;
+        color: $inverse-button-primary-active-color;
+        @if(mixin-exists(hook-inverse-button-primary-active)) {@include hook-inverse-button-primary-active();}
+    }
+
+    //
+    // Secondary
+    //
+
+    .uk-button-secondary {
+        background-color: $inverse-button-secondary-background;
+        color: $inverse-button-secondary-color;
+        @if(mixin-exists(hook-inverse-button-secondary)) {@include hook-inverse-button-secondary();}
+    }
+
+    .uk-button-secondary:hover,
+    .uk-button-secondary:focus {
+        background-color: $inverse-button-secondary-hover-background;
+        color: $inverse-button-secondary-hover-color;
+        @if(mixin-exists(hook-inverse-button-secondary-hover)) {@include hook-inverse-button-secondary-hover();}
+    }
+
+    .uk-button-secondary:active,
+    .uk-button-secondary.uk-active {
+        background-color: $inverse-button-secondary-active-background;
+        color: $inverse-button-secondary-active-color;
+        @if(mixin-exists(hook-inverse-button-secondary-active)) {@include hook-inverse-button-secondary-active();}
+    }
+
+    //
+    // Text
+    //
+
+    .uk-button-text {
+        color: $inverse-button-text-color;
+        @if(mixin-exists(hook-inverse-button-text)) {@include hook-inverse-button-text();}
+    }
+
+    .uk-button-text:hover,
+    .uk-button-text:focus {
+        color: $inverse-button-text-hover-color;
+        @if(mixin-exists(hook-inverse-button-text-hover)) {@include hook-inverse-button-text-hover();}
+    }
+
+    .uk-button-text:disabled {
+        color: $inverse-button-text-disabled-color;
+        @if(mixin-exists(hook-inverse-button-text-disabled)) {@include hook-inverse-button-text-disabled();}
+    }
+
+    //
+    // Link
+    //
+
+    .uk-button-link {
+        color: $inverse-button-link-color;
+        @if(mixin-exists(hook-inverse-button-link)) {@include hook-inverse-button-link();}
+    }
+
+    .uk-button-link:hover,
+    .uk-button-link:focus { color: $inverse-button-link-hover-color; }
+
 
 }
 @mixin hook-base-body(){}
@@ -257,243 +505,9 @@
     // Horizontal rules
     //
 
-    hr {
+    hr, .uk-hr {
         border-top-color: $inverse-base-hr-border;
         @if(mixin-exists(hook-inverse-base-hr)) {@include hook-inverse-base-hr();}
-    }
-
-}
-@mixin hook-breadcrumb(){}
-@mixin hook-breadcrumb-item(){}
-@mixin hook-breadcrumb-item-hover(){}
-@mixin hook-breadcrumb-item-disabled(){}
-@mixin hook-breadcrumb-item-active(){}
-@mixin hook-breadcrumb-divider(){}
-@mixin hook-breadcrumb-misc(){}
-@mixin hook-inverse-breadcrumb-item(){}
-@mixin hook-inverse-breadcrumb-item-hover(){}
-@mixin hook-inverse-breadcrumb-item-disabled(){}
-@mixin hook-inverse-breadcrumb-item-active(){}
-@mixin hook-inverse-breadcrumb-divider(){}
-@mixin hook-inverse-component-breadcrumb(){
-
-    .uk-breadcrumb > * > * {
-        color: $inverse-breadcrumb-item-color;
-        @if(mixin-exists(hook-inverse-breadcrumb-item)) {@include hook-inverse-breadcrumb-item();}
-    }
-
-    .uk-breadcrumb > * > :hover,
-    .uk-breadcrumb > * > :focus {
-        color: $inverse-breadcrumb-item-hover-color;
-        @if(mixin-exists(hook-inverse-breadcrumb-item-hover)) {@include hook-inverse-breadcrumb-item-hover();}
-    }
-
-
-    .uk-breadcrumb > .uk-disabled > * {
-        @if(mixin-exists(hook-inverse-breadcrumb-item-disabled)) {@include hook-inverse-breadcrumb-item-disabled();}
-    }
-
-    .uk-breadcrumb > :last-child > * {
-        color: $inverse-breadcrumb-item-active-color;
-        @if(mixin-exists(hook-inverse-breadcrumb-item-active)) {@include hook-inverse-breadcrumb-item-active();}
-    }
-
-    //
-    // Divider
-    //
-
-    .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
-        color: $inverse-breadcrumb-divider-color;
-        @if(mixin-exists(hook-inverse-breadcrumb-divider)) {@include hook-inverse-breadcrumb-divider();}
-    }
-
-}
-@mixin hook-button(){
-    text-transform: $button-text-transform;
-    -webkit-transition: 0.1s ease-in-out;
-    transition: 0.1s ease-in-out;
-    -webkit-transition-property: color, background-color, border-color;
-    transition-property: color, background-color, border-color;
-}
-@mixin hook-button-hover(){}
-@mixin hook-button-focus(){}
-@mixin hook-button-active(){}
-@mixin hook-button-default(){ border: $button-border-width solid $button-default-border; }
-@mixin hook-button-default-hover(){ border-color: $button-default-hover-border; }
-@mixin hook-button-default-active(){ border-color: $button-default-active-border; }
-@mixin hook-button-primary(){ border: $button-border-width solid transparent; }
-@mixin hook-button-primary-hover(){}
-@mixin hook-button-primary-active(){}
-@mixin hook-button-secondary(){ border: $button-border-width solid transparent; }
-@mixin hook-button-secondary-hover(){}
-@mixin hook-button-secondary-active(){}
-@mixin hook-button-danger(){ border: $button-border-width solid transparent; }
-@mixin hook-button-danger-hover(){}
-@mixin hook-button-danger-active(){}
-@mixin hook-button-disabled(){ border-color: $button-disabled-border; }
-@mixin hook-button-small(){}
-@mixin hook-button-large(){}
-@mixin hook-button-text(){
-
-    position: relative;
-
-    &::before {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 100%;
-        border-bottom: $button-text-border-width solid $button-text-border;
-        -webkit-transition: right 0.3s ease-out;
-        transition: right 0.3s ease-out;
-    }
-
-}
-@mixin hook-button-text-hover(){
-
-    &::before { right: 0; }
-
-}
-@mixin hook-button-text-disabled(){
-
-    &::before { display: none; }
-
-}
-@mixin hook-button-link(){}
-@mixin hook-button-misc(){
-
-    /* Group
-     ========================================================================== */
-
-    /*
-     * Collapse border
-     */
-
-    .uk-button-group > .uk-button:nth-child(n+2),
-    .uk-button-group > div:nth-child(n+2) .uk-button { margin-left: (-$button-border-width); }
-
-    /*
-     * Create position context to superimpose the successor elements border
-     * Known issue: If you use an `a` element as button and an icon inside,
-     * the active state will not work if you click the icon inside the button
-     * Workaround: Just use a `button` or `input` element as button
-     */
-
-    .uk-button-group .uk-button:hover,
-    .uk-button-group .uk-button:focus,
-    .uk-button-group .uk-button:active,
-    .uk-button-group .uk-button.uk-active {
-        position: relative;
-        z-index: 1;
-    }
-
-}
-@mixin hook-inverse-button-default(){ border-color: $inverse-global-color; }
-@mixin hook-inverse-button-default-hover(){ border-color: $inverse-global-emphasis-color; }
-@mixin hook-inverse-button-default-active(){ border-color: $inverse-global-emphasis-color; }
-@mixin hook-inverse-button-primary(){}
-@mixin hook-inverse-button-primary-hover(){}
-@mixin hook-inverse-button-primary-active(){}
-@mixin hook-inverse-button-secondary(){}
-@mixin hook-inverse-button-secondary-hover(){}
-@mixin hook-inverse-button-secondary-active(){}
-@mixin hook-inverse-button-text(){
-    &::before { border-bottom-color: $inverse-global-emphasis-color; }
-}
-@mixin hook-inverse-button-text-hover(){}
-@mixin hook-inverse-button-text-disabled(){}
-@mixin hook-inverse-component-button(){
-
-    //
-    // Default
-    //
-
-    .uk-button-default {
-        background-color: $inverse-button-default-background;
-        color: $inverse-button-default-color;
-        @if(mixin-exists(hook-inverse-button-default)) {@include hook-inverse-button-default();}
-    }
-
-    .uk-button-default:hover,
-    .uk-button-default:focus {
-        background-color: $inverse-button-default-hover-background;
-        color: $inverse-button-default-hover-color;
-        @if(mixin-exists(hook-inverse-button-default-hover)) {@include hook-inverse-button-default-hover();}
-    }
-
-    .uk-button-default:active,
-    .uk-button-default.uk-active {
-        background-color: $inverse-button-default-active-background;
-        color: $inverse-button-default-active-color;
-        @if(mixin-exists(hook-inverse-button-default-active)) {@include hook-inverse-button-default-active();}
-    }
-
-    //
-    // Primary
-    //
-
-    .uk-button-primary {
-        background-color: $inverse-button-primary-background;
-        color: $inverse-button-primary-color;
-        @if(mixin-exists(hook-inverse-button-primary)) {@include hook-inverse-button-primary();}
-    }
-
-    .uk-button-primary:hover,
-    .uk-button-primary:focus {
-        background-color: $inverse-button-primary-hover-background;
-        color: $inverse-button-primary-hover-color;
-        @if(mixin-exists(hook-inverse-button-primary-hover)) {@include hook-inverse-button-primary-hover();}
-    }
-
-    .uk-button-primary:active,
-    .uk-button-primary.uk-active {
-        background-color: $inverse-button-primary-active-background;
-        color: $inverse-button-primary-active-color;
-        @if(mixin-exists(hook-inverse-button-primary-active)) {@include hook-inverse-button-primary-active();}
-    }
-
-    //
-    // Secondary
-    //
-
-    .uk-button-secondary {
-        background-color: $inverse-button-secondary-background;
-        color: $inverse-button-secondary-color;
-        @if(mixin-exists(hook-inverse-button-secondary)) {@include hook-inverse-button-secondary();}
-    }
-
-    .uk-button-secondary:hover,
-    .uk-button-secondary:focus {
-        background-color: $inverse-button-secondary-hover-background;
-        color: $inverse-button-secondary-hover-color;
-        @if(mixin-exists(hook-inverse-button-secondary-hover)) {@include hook-inverse-button-secondary-hover();}
-    }
-
-    .uk-button-secondary:active,
-    .uk-button-secondary.uk-active {
-        background-color: $inverse-button-secondary-active-background;
-        color: $inverse-button-secondary-active-color;
-        @if(mixin-exists(hook-inverse-button-secondary-active)) {@include hook-inverse-button-secondary-active();}
-    }
-
-    //
-    // Text
-    //
-
-    .uk-button-text {
-        color: $inverse-button-text-color;
-        @if(mixin-exists(hook-inverse-button-text)) {@include hook-inverse-button-text();}
-    }
-
-    .uk-button-text:hover,
-    .uk-button-text:focus {
-        color: $inverse-button-text-hover-color;
-        @if(mixin-exists(hook-inverse-button-text-hover)) {@include hook-inverse-button-text-hover();}
-    }
-
-    .uk-button-text:disabled {
-        color: $inverse-button-text-disabled-color;
-        @if(mixin-exists(hook-inverse-button-text-disabled)) {@include hook-inverse-button-text-disabled();}
     }
 
 }
@@ -622,21 +636,8 @@
     }
 
 }
-@mixin hook-comment(){}
-@mixin hook-comment-body(){}
-@mixin hook-comment-header(){}
-@mixin hook-comment-title(){}
-@mixin hook-comment-meta(){}
-@mixin hook-comment-avatar(){}
-@mixin hook-comment-list-adjacent(){}
-@mixin hook-comment-list-sub(){}
-@mixin hook-comment-list-sub-adjacent(){}
-@mixin hook-comment-primary(){
-    padding: $comment-primary-padding;
-    background-color: $comment-primary-background;
-}
-@mixin hook-comment-misc(){}
 @mixin hook-container-misc(){}
+@mixin hook-cover-misc(){}
 @mixin hook-countdown(){}
 @mixin hook-countdown-item(){}
 @mixin hook-countdown-number(){}
@@ -667,7 +668,20 @@
     }
 
 }
-@mixin hook-cover-misc(){}
+@mixin hook-comment(){}
+@mixin hook-comment-body(){}
+@mixin hook-comment-header(){}
+@mixin hook-comment-title(){}
+@mixin hook-comment-meta(){}
+@mixin hook-comment-avatar(){}
+@mixin hook-comment-list-adjacent(){}
+@mixin hook-comment-list-sub(){}
+@mixin hook-comment-list-sub-adjacent(){}
+@mixin hook-comment-primary(){
+    padding: $comment-primary-padding;
+    background-color: $comment-primary-background;
+}
+@mixin hook-comment-misc(){}
 @mixin hook-description-list-term(){
     font-size: $description-list-term-font-size;
     font-weight: $description-list-term-font-weight;
@@ -716,17 +730,20 @@
 }
 @mixin hook-dotnav(){}
 @mixin hook-dotnav-item(){
-    -webkit-transition: background-color 0.2s ease-in-out;
-    transition: background-color 0.2s ease-in-out;
+    border: $dotnav-item-border-width solid $dotnav-item-border;
+    -webkit-transition: 0.2s ease-in-out;
+    transition: 0.2s ease-in-out;
+    -webkit-transition-property: background-color, border-color;
+    transition-property: background-color, border-color;
 }
-@mixin hook-dotnav-item-hover(){}
-@mixin hook-dotnav-item-onclick(){}
-@mixin hook-dotnav-item-active(){}
+@mixin hook-dotnav-item-hover(){ border-color: $dotnav-item-hover-border; }
+@mixin hook-dotnav-item-onclick(){ border-color: $dotnav-item-onclick-border; }
+@mixin hook-dotnav-item-active(){ border-color: $dotnav-item-active-border; }
 @mixin hook-dotnav-misc(){}
-@mixin hook-inverse-dotnav-item(){}
-@mixin hook-inverse-dotnav-item-hover(){}
-@mixin hook-inverse-dotnav-item-onclick(){}
-@mixin hook-inverse-dotnav-item-active(){}
+@mixin hook-inverse-dotnav-item(){ border-color: rgba($inverse-global-color, 0.9); }
+@mixin hook-inverse-dotnav-item-hover(){ border-color: transparent; }
+@mixin hook-inverse-dotnav-item-onclick(){ border-color: transparent; }
+@mixin hook-inverse-dotnav-item-active(){ border-color: transparent; }
 @mixin hook-inverse-component-dotnav(){
 
     .uk-dotnav > * > * {
@@ -932,6 +949,71 @@
     }
 
 }
+@mixin hook-icon-link(){}
+@mixin hook-icon-link-hover(){}
+@mixin hook-icon-link-active(){}
+@mixin hook-icon-button(){
+    -webkit-transition: 0.1s ease-in-out;
+    transition: 0.1s ease-in-out;
+    -webkit-transition-property: color, background-color;
+    transition-property: color, background-color
+}
+@mixin hook-icon-button-hover(){}
+@mixin hook-icon-button-active(){}
+@mixin hook-icon-misc(){}
+@mixin hook-inverse-icon-link(){}
+@mixin hook-inverse-icon-link-hover(){}
+@mixin hook-inverse-icon-link-active(){}
+@mixin hook-inverse-icon-button(){}
+@mixin hook-inverse-icon-button-hover(){}
+@mixin hook-inverse-icon-button-active(){}
+@mixin hook-inverse-component-icon(){
+
+    //
+    // Link
+    //
+
+    .uk-icon-link {
+        color: $inverse-icon-link-color;
+        @if(mixin-exists(hook-inverse-icon-link)) {@include hook-inverse-icon-link();}
+    }
+
+    .uk-icon-link:hover,
+    .uk-icon-link:focus {
+        color: $inverse-icon-link-hover-color;
+        @if(mixin-exists(hook-inverse-icon-link-hover)) {@include hook-inverse-icon-link-hover();}
+    }
+
+    .uk-icon-link:active,
+    .uk-active > .uk-icon-link {
+        color: $inverse-icon-link-active-color;
+        @if(mixin-exists(hook-inverse-icon-link-active)) {@include hook-inverse-icon-link-active();}
+    }
+
+    //
+    // Button
+    //
+
+    .uk-icon-button {
+        background-color: $inverse-icon-button-background;
+        color: $inverse-icon-button-color;
+        @if(mixin-exists(hook-inverse-icon-button)) {@include hook-inverse-icon-button();}
+    }
+
+    .uk-icon-button:hover,
+    .uk-icon-button:focus {
+        background-color: $inverse-icon-button-hover-background;
+        color: $inverse-icon-button-hover-color;
+        @if(mixin-exists(hook-inverse-icon-button-hover)) {@include hook-inverse-icon-button-hover();}
+    }
+
+    .uk-icon-button:active {
+        background-color: $inverse-icon-button-active-background;
+        color: $inverse-icon-button-active-color;
+        @if(mixin-exists(hook-inverse-icon-button-active)) {@include hook-inverse-icon-button-active();}
+    }
+
+}
 @mixin hook-iconnav(){}
 @mixin hook-iconnav-item(){}
 @mixin hook-iconnav-item-hover(){}
@@ -996,53 +1078,6 @@
     .uk-list-bullet > li::before {
         @include svg-fill($internal-list-bullet-image, "#000", $inverse-list-bullet-icon-color);
         @if(mixin-exists(hook-inverse-list-bullet)) {@include hook-inverse-list-bullet();}
-    }
-
-}
-@mixin hook-inverse-component-icon(){
-
-    //
-    // Link
-    //
-
-    .uk-icon-link {
-        color: $inverse-icon-link-color;
-        @if(mixin-exists(hook-inverse-icon-link)) {@include hook-inverse-icon-link();}
-    }
-
-    .uk-icon-link:hover,
-    .uk-icon-link:focus {
-        color: $inverse-icon-link-hover-color;
-        @if(mixin-exists(hook-inverse-icon-link-hover)) {@include hook-inverse-icon-link-hover();}
-    }
-
-    .uk-icon-link:active,
-    .uk-active > .uk-icon-link {
-        color: $inverse-icon-link-active-color;
-        @if(mixin-exists(hook-inverse-icon-link-active)) {@include hook-inverse-icon-link-active();}
-    }
-
-    //
-    // Button
-    //
-
-    .uk-icon-button {
-        background-color: $inverse-icon-button-background;
-        color: $inverse-icon-button-color;
-        @if(mixin-exists(hook-inverse-icon-button)) {@include hook-inverse-icon-button();}
-    }
-
-    .uk-icon-button:hover,
-    .uk-icon-button:focus {
-        background-color: $inverse-icon-button-hover-background;
-        color: $inverse-icon-button-hover-color;
-        @if(mixin-exists(hook-inverse-icon-button-hover)) {@include hook-inverse-icon-button-hover();}
-    }
-
-    .uk-icon-button:active {
-        background-color: $inverse-icon-button-active-background;
-        color: $inverse-icon-button-active-color;
-        @if(mixin-exists(hook-inverse-icon-button-active)) {@include hook-inverse-icon-button-active();}
     }
 
 }
@@ -1469,24 +1504,6 @@
     @include hook-inverse-component-column();
     @include hook-inverse-component-utility();
 }
-@mixin hook-icon-link(){}
-@mixin hook-icon-link-hover(){}
-@mixin hook-icon-link-active(){}
-@mixin hook-icon-button(){
-    -webkit-transition: 0.1s ease-in-out;
-    transition: 0.1s ease-in-out;
-    -webkit-transition-property: color, background-color;
-    transition-property: color, background-color
-}
-@mixin hook-icon-button-hover(){}
-@mixin hook-icon-button-active(){}
-@mixin hook-icon-misc(){}
-@mixin hook-inverse-icon-link(){}
-@mixin hook-inverse-icon-link-hover(){}
-@mixin hook-inverse-icon-link-active(){}
-@mixin hook-inverse-icon-button(){}
-@mixin hook-inverse-icon-button-hover(){}
-@mixin hook-inverse-icon-button-active(){}
 @mixin hook-label(){
     border-radius: $label-border-radius;
     text-transform: $label-text-transform;
@@ -1496,6 +1513,14 @@
 @mixin hook-label-danger(){}
 @mixin hook-label-misc(){}
 @mixin hook-inverse-label(){}
+@mixin hook-lightbox(){}
+@mixin hook-lightbox-item(){}
+@mixin hook-lightbox-toolbar(){}
+@mixin hook-lightbox-toolbar-icon(){}
+@mixin hook-lightbox-toolbar-icon-hover(){}
+@mixin hook-lightbox-button(){}
+@mixin hook-lightbox-button-hover(){}
+@mixin hook-lightbox-misc(){}
 @mixin hook-link-muted(){}
 @mixin hook-link-muted-hover(){}
 @mixin hook-link-text(){}
@@ -1569,7 +1594,6 @@
     background: $modal-close-full-background;
 }
 @mixin hook-modal-close-full-hover(){}
-@mixin hook-modal-caption(){}
 @mixin hook-modal-misc(){}
 @mixin hook-nav-sub(){}
 @mixin hook-nav-parent-icon(){}
@@ -1628,6 +1652,7 @@
 @mixin hook-navbar-dropdown-nav-header(){}
 @mixin hook-navbar-dropdown-nav-divider(){}
 @mixin hook-navbar-dropbar(){}
+@mixin hook-navbar-dropbar-slide(){ box-shadow: $navbar-dropbar-box-shadow; }
 @mixin hook-navbar-misc(){
 
     /*
@@ -1733,7 +1758,6 @@
 @mixin hook-section-muted(){}
 @mixin hook-section-primary(){}
 @mixin hook-section-secondary(){}
-@mixin hook-section-media(){}
 @mixin hook-section-overlap(){}
 @mixin hook-section-misc(){}
 @mixin hook-slidenav(){
@@ -1744,11 +1768,14 @@
 @mixin hook-slidenav-active(){}
 @mixin hook-slidenav-previous(){}
 @mixin hook-slidenav-next(){}
+@mixin hook-slidenav-large(){}
 @mixin hook-slidenav-container(){}
 @mixin hook-slidenav-misc(){}
 @mixin hook-inverse-slidenav(){}
 @mixin hook-inverse-slidenav-hover(){}
 @mixin hook-inverse-slidenav-active(){}
+@mixin hook-slideshow(){}
+@mixin hook-slideshow-misc(){}
 @mixin hook-sortable(){}
 @mixin hook-sortable-drag(){}
 @mixin hook-sortable-placeholder(){}
@@ -1952,6 +1979,50 @@
 @mixin hook-text-misc(){}
 @mixin hook-inverse-text-lead(){}
 @mixin hook-inverse-text-meta(){}
+@mixin hook-thumbnav(){}
+@mixin hook-thumbnav-item(){
+
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: $thumbnav-item-background;
+        -webkit-transition: background-color 0.1s ease-in-out;
+        transition: background-color 0.1s ease-in-out;
+    }
+
+}
+@mixin hook-thumbnav-item-hover(){
+    &::after { background-color: $thumbnav-item-hover-background; }
+}
+@mixin hook-thumbnav-item-active(){
+    &::after { background-color: $thumbnav-item-active-background; }
+}
+@mixin hook-thumbnav-misc(){}
+@mixin hook-inverse-thumbnav-item(){}
+@mixin hook-inverse-thumbnav-item-hover(){}
+@mixin hook-inverse-thumbnav-item-active(){}
+@mixin hook-inverse-component-thumbnav(){
+
+    .uk-thumbnav > * > * {
+        @if(mixin-exists(hook-inverse-thumbnav-item)) {@include hook-inverse-thumbnav-item();}
+    }
+
+    .uk-thumbnav > * > :hover,
+    .uk-thumbnav > * > :focus {
+        @if(mixin-exists(hook-inverse-thumbnav-item-hover)) {@include hook-inverse-thumbnav-item-hover();}
+    }
+
+    .uk-thumbnav > .uk-active > * {
+        @if(mixin-exists(hook-inverse-thumbnav-item-active)) {@include hook-inverse-thumbnav-item-active();}
+    }
+
+}
 @mixin hook-tile(){}
 @mixin hook-tile-default(){}
 @mixin hook-tile-muted(){}
@@ -1971,6 +2042,7 @@
 @mixin hook-inverse-totop-hover(){}
 @mixin hook-inverse-totop-active(){}
 @mixin hook-transition-misc(){}
+@mixin hook-visibility-misc(){}
 @mixin hook-panel-scrollable(){}
 @mixin hook-box-shadow-bottom(){}
 @mixin hook-dropcap(){
@@ -1985,5 +2057,4 @@
 @mixin hook-inverse-leader(){}
 @mixin hook-inverse-logo(){}
 @mixin hook-inverse-logo-hover(){}
-@mixin hook-visibility-misc(){}
 @mixin hook-width-misc(){}

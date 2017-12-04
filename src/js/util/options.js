@@ -1,4 +1,4 @@
-import { assign, isArray, isFunction, isUndefined, hasOwn } from './index';
+import { assign, hasOwn, isArray, isFunction, isUndefined } from './lang';
 
 var strats = {};
 
@@ -62,7 +62,7 @@ export function mergeOptions(parent, child) {
     var options = {}, key;
 
     if (child.mixins) {
-        for (let i = 0, l = child.mixins.length; i < l; i++) {
+        for (var i = 0, l = child.mixins.length; i < l; i++) {
             parent = mergeOptions(parent, child.mixins[i]);
         }
     }

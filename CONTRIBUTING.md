@@ -34,7 +34,7 @@ are all part of YOOtheme.
 ## Documentation
 
 The UIkit documentation is maintained as a collection of Markdown files in its
-[own repository](https://github.com/uikit/docs). Any pull requests are highly appreciated.
+[own repository](https://github.com/uikit/uikit-site). Any pull requests are highly appreciated.
 
 <a name="issues"></a>
 ## Using the issue tracker

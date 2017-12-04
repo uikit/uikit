@@ -15,6 +15,7 @@ var version = require('../package.json').version;
 var banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */\n`;
 
 exports.banner = banner;
+exports.validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
 
 exports.read = function (file, callback) {
     return new Promise((resolve, reject) => {
@@ -45,7 +46,7 @@ exports.write = function (dest, data) {
                 }
                 exports.logFile(dest);
                 resolve(dest);
-            })
+            });
 
         })
     );
@@ -81,7 +82,7 @@ exports.renderLess = function (data, options) {
     return less.render(data, options).then(output => output.css);
 };
 
-exports.compile = function (file, dest, external, globals, name, aliases, bundled) {
+exports.compile = function (file, dest, external, globals, name, aliases, bundled, minify) {
 
     name = (name || '').replace(/[^\w]/g, '_');
 
@@ -107,20 +108,21 @@ exports.compile = function (file, dest, external, globals, name, aliases, bundle
             buble(),
         ]
     })
-        .then(bundle => exports.write(`${dest}.js`, bundle.generate({
+        .then(bundle => bundle.generate({
             globals,
             format: 'umd',
             banner: exports.banner,
-            moduleId: `UIkit${name}`.toLowerCase(),
-            moduleName: `UIkit${exports.ucfirst(name)}`,
-        }).code))
-        .then(exports.uglify)
+            amd: {id: `UIkit${name}`.toLowerCase()},
+            moduleName: `UIkit${exports.ucfirst(name)}`
+        }))
+        .then(({code}) => exports.write(`${dest}.js`, code.replace(/(>)\\n\s+|\\n\s+(<)/g, '$1 $2')))
+        .then(code => (minify !== false) ? exports.uglify(code) : code)
         .catch(console.log);
 };
 
 exports.icons = function (src) {
     return JSON.stringify(glob.sync(src, {nosort: true}).reduce((icons, file) => {
-        icons[path.basename(file, '.svg')] = fs.readFileSync(file).toString().trim().replace(/\n/g, '').replace(/>\s+</g, '><');
+        icons[path.basename(file, '.svg')] = fs.readFileSync(file).toString().trim().replace(/\n/g, '').replace(/>\s+</g, '> <');
         return icons;
     }, {}), null, '    ');
 };

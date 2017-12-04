@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {scrolledOver} = UIkit.util;
+    var {addClass, css, scrolledOver, toFloat} = UIkit.util;
 
     UIkit.component('grid-parallax', UIkit.components.grid.extend({
 
@@ -18,40 +18,38 @@ function plugin(UIkit) {
             translate: 150
         },
 
+        computed: {
+
+            translate({translate}) {
+                return Math.abs(translate);
+            }
+
+        },
+
         init() {
-            this.$addClass('uk-grid');
+            addClass(this.$el, 'uk-grid');
         },
 
         disconnected() {
             this.reset();
-            this.$el.css('margin-bottom', '');
-        },
-
-        computed: {
-
-            translate() {
-                return Math.abs(this.$props.translate);
-            },
-
-            items() {
-                return (this.target ? this.$el.find(this.target) : this.$el.children()).toArray();
-            }
-
+            css(this.$el, 'marginBottom', '');
         },
 
         update: [
 
             {
 
-                read() {
-                    this.columns = this.rows && this.rows[0] && this.rows[0].length || 0;
-                    this.rows = this.rows && this.rows.map(elements => sortBy(elements, 'offsetLeft'));
+                read({rows}) {
+                    return {
+                        columns: rows && rows[0] && rows[0].length || 0,
+                        rows: rows && rows.map(elements => sortBy(elements, 'offsetLeft'))
+                    };
                 },
 
-                write() {
-                    this.$el
-                        .css('margin-bottom', '')
-                        .css('margin-bottom', this.columns > 1 ? this.translate + parseFloat(this.$el.css('margin-bottom')) : '');
+                write({columns}) {
+                    css(this.$el, 'marginBottom', columns > 1
+                        ? this.translate + toFloat(css(css(this.$el, 'marginBottom', ''), 'marginBottom'))
+                        : '');
                 },
 
                 events: ['load', 'resize']
@@ -60,20 +58,18 @@ function plugin(UIkit) {
             {
 
                 read() {
-
-                    this.scrolled = scrolledOver(this.$el) * this.translate;
-
+                    return {scrolled: scrolledOver(this.$el) * this.translate};
                 },
 
-                write() {
+                write({rows, columns, scrolled}) {
 
-                    if (!this.rows || this.columns === 1 || !this.scrolled) {
+                    if (!rows || columns === 1 || !scrolled) {
                         return this.reset();
                     }
 
-                    this.rows.forEach(row =>
+                    rows.forEach(row =>
                         row.forEach((el, i) =>
-                            el.style.transform = `translateY(${i % 2 ? this.scrolled : this.scrolled / 8}px)`
+                            css(el, 'transform', `translateY(${i % 2 ? scrolled : scrolled / 8}px)`)
                         )
                     );
 
@@ -86,7 +82,7 @@ function plugin(UIkit) {
         methods: {
 
             reset() {
-                this.items.forEach(item => item.style.transform = '');
+                css(this.$el.children, 'transform', '');
             }
 
         }
@@ -104,18 +100,16 @@ function plugin(UIkit) {
     });
 
     function sortBy(collection, prop) {
-        return collection.sort((a,b) =>
+        return collection.sort((a, b) =>
             a[prop] > b[prop]
                 ? 1
                 : b[prop] > a[prop]
                     ? -1
                     : 0
-        )
+        );
     }
 
 }
-
-
 
 if (!BUNDLED && typeof window !== 'undefined' && window.UIkit) {
     window.UIkit.use(plugin);

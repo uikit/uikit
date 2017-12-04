@@ -1,15 +1,22 @@
+/* eslint-env node */
 var fs = require('fs');
 var glob = require('glob');
 var path = require('path');
 var util = require('./util');
 var rtlcss = require('rtlcss');
 var postcss = require('postcss');
-var args = require('minimist')(process.argv)._;
-
+const argv = require('minimist')(process.argv);
+var args = argv._;
 var rtl = ~args.indexOf('rtl');
 
-[
+argv._.forEach(arg => {
+    const tokens = arg.split('=');
+    argv[tokens[0]] = tokens[1] || true;
+});
 
+var develop = argv.develop || argv.debug || argv.d || argv.nominify;
+
+[
     {src: 'src/less/uikit.less', dist: `dist/css/uikit-core${rtl ? '-rtl' : ''}.css`},
     {src: 'src/less/uikit.theme.less', dist: `dist/css/uikit${rtl ? '-rtl' : ''}.css`}
 
@@ -25,7 +32,7 @@ glob.sync('custom/*.less').forEach(file => {
     themes[theme] = {css: `../${dist}`};
 
     if (fs.existsSync(`dist/js/uikit-icons-${theme}.js`)) {
-        themes[theme].icons = `dist/js/uikit-icons-${theme}.js`;
+        themes[theme].icons = `../dist/js/uikit-icons-${theme}.js`;
     }
 
     return compile(file, dist);
@@ -62,8 +69,8 @@ function compile(file, dist) {
                     }]
                 })
             ]).process(output).css)
-            .then(output => util.write(dist, output))
-            .then(util.minify),
+            .then(output => util.write(dist, util.banner + output))
+            .then(res => !develop && util.minify(res)),
         error => console.log(error)
     );
 }

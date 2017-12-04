@@ -1,19 +1,21 @@
-import $ from 'jquery';
-import { each, toNode } from './index';
+import { css } from './style';
+import { isVisible } from './dom';
+import { toNode } from './selector';
+import { each, endsWith, includes, isDocument, isUndefined, isWindow, toFloat, ucfirst } from './lang';
 
 var dirs = {
-    x: ['width', 'left', 'right'],
-    y: ['height', 'top', 'bottom']
+    width: ['x', 'left', 'right'],
+    height: ['y', 'top', 'bottom']
 };
 
-export function position(element, target, attach, targetAttach, offset, targetOffset, flip, boundary) {
+export function positionAt(element, target, elAttach, targetAttach, elOffset, targetOffset, flip, boundary) {
 
-    attach = getPos(attach);
+    elAttach = getPos(elAttach);
     targetAttach = getPos(targetAttach);
 
-    var flipped = {element: attach, target: targetAttach};
+    var flipped = {element: elAttach, target: targetAttach};
 
-    if (!element) {
+    if (!element || !target) {
         return flipped;
     }
 
@@ -21,30 +23,30 @@ export function position(element, target, attach, targetAttach, offset, targetOf
         targetDim = getDimensions(target),
         position = targetDim;
 
-    moveTo(position, attach, dim, -1);
+    moveTo(position, elAttach, dim, -1);
     moveTo(position, targetAttach, targetDim, 1);
 
-    offset = getOffsets(offset, dim.width, dim.height);
+    elOffset = getOffsets(elOffset, dim.width, dim.height);
     targetOffset = getOffsets(targetOffset, targetDim.width, targetDim.height);
 
-    offset['x'] += targetOffset['x'];
-    offset['y'] += targetOffset['y'];
+    elOffset['x'] += targetOffset['x'];
+    elOffset['y'] += targetOffset['y'];
 
-    position.left += offset['x'];
-    position.top += offset['y'];
+    position.left += elOffset['x'];
+    position.top += elOffset['y'];
 
-    boundary = getDimensions(boundary || window);
+    boundary = getDimensions(boundary || getWindow(element));
 
     if (flip) {
-        each(dirs, (dir, [prop, align, alignFlip]) => {
+        each(dirs, ([dir, align, alignFlip], prop) => {
 
-            if (!(flip === true || ~flip.indexOf(dir))) {
+            if (!(flip === true || includes(flip, dir))) {
                 return;
             }
 
-            var elemOffset = attach[dir] === align
+            var elemOffset = elAttach[dir] === align
                     ? -dim[prop]
-                    : attach[dir] === alignFlip
+                    : elAttach[dir] === alignFlip
                         ? dim[prop]
                         : 0,
                 targetOffset = targetAttach[dir] === align
@@ -58,7 +60,7 @@ export function position(element, target, attach, targetAttach, offset, targetOf
                 var centerOffset = dim[prop] / 2,
                     centerTargetOffset = targetAttach[dir] === 'center' ? -targetDim[prop] / 2 : 0;
 
-                attach[dir] === 'center' && (
+                elAttach[dir] === 'center' && (
                     apply(centerOffset, centerTargetOffset)
                     || apply(-centerOffset, -centerTargetOffset)
                 ) || apply(elemOffset, targetOffset);
@@ -67,7 +69,7 @@ export function position(element, target, attach, targetAttach, offset, targetOf
 
             function apply(elemOffset, targetOffset) {
 
-                var newVal = position[align] + elemOffset + targetOffset - offset[dir] * 2;
+                var newVal = position[align] + elemOffset + targetOffset - elOffset[dir] * 2;
 
                 if (newVal >= boundary[align] && newVal + dim[prop] <= boundary[alignFlip]) {
                     position[align] = newVal;
@@ -75,9 +77,9 @@ export function position(element, target, attach, targetAttach, offset, targetOf
                     ['element', 'target'].forEach((el) => {
                         flipped[el][dir] = !elemOffset
                             ? flipped[el][dir]
-                            : flipped[el][dir] === dirs[dir][1]
-                                ? dirs[dir][2]
-                                : dirs[dir][1];
+                            : flipped[el][dir] === dirs[prop][1]
+                                ? dirs[prop][2]
+                                : dirs[prop][1];
                     });
 
                     return true;
@@ -88,30 +90,58 @@ export function position(element, target, attach, targetAttach, offset, targetOf
         });
     }
 
-    $(element).offset({left: position.left, top: position.top});
+    offset(element, position);
 
     return flipped;
 }
 
-export function getDimensions(element) {
+export function offset(element, coordinates) {
 
     element = toNode(element);
 
-    var window = getWindow(element), top = window.pageYOffset, left = window.pageXOffset;
+    if (coordinates) {
 
-    if (!element.ownerDocument) {
+        var currentOffset = offset(element),
+            pos = css(element, 'position');
+
+        ['left', 'top'].forEach(prop => {
+            if (prop in coordinates) {
+                var value = css(element, prop);
+                element.style[prop] = `${(coordinates[prop] - currentOffset[prop])
+                    + toFloat(pos === 'absolute' && value === 'auto' ? position(element)[prop] : value)
+                }px`;
+            }
+        });
+
+        return;
+    }
+
+    return getDimensions(element);
+}
+
+function getDimensions(element) {
+
+    element = toNode(element);
+
+    var {pageYOffset: top, pageXOffset: left} = getWindow(element);
+
+    if (isWindow(element)) {
+
+        var height = element.innerHeight,
+            width = element.innerWidth;
+
         return {
             top,
             left,
-            height: window.innerHeight,
-            width: window.innerWidth,
-            bottom: top + window.innerHeight,
-            right: left + window.innerWidth,
-        }
+            height,
+            width,
+            bottom: top + height,
+            right: left + width,
+        };
     }
 
     var display = false;
-    if (!element.offsetHeight) {
+    if (!isVisible(element)) {
         display = element.style.display;
         element.style.display = 'block';
     }
@@ -129,20 +159,86 @@ export function getDimensions(element) {
         left: rect.left + left,
         bottom: rect.bottom + top,
         right: rect.right + left,
-    }
+    };
 }
 
-export function offsetTop(element) {
+export function position(element) {
     element = toNode(element);
-    return element.getBoundingClientRect().top + getWindow(element).pageYOffset;
+
+    var parent = offsetParent(element),
+        parentOffset = parent === docEl(element) ? {top: 0, left: 0} : offset(parent);
+
+    return ['top', 'left'].reduce((props, prop) => {
+        var propName = ucfirst(prop);
+        props[prop] -= parentOffset[prop]
+            + (toFloat(css(element, `margin${propName}`)) || 0)
+            + (toFloat(css(parent, `border${propName}Width`)) || 0);
+        return props;
+    }, offset(element));
+}
+
+function offsetParent(element) {
+
+    var parent = toNode(element).offsetParent;
+
+    while (parent && css(parent, 'position') === 'static') {
+        parent = parent.offsetParent;
+    }
+
+    return parent || docEl(element);
+}
+
+export const height = dimension('height');
+export const width = dimension('width');
+
+function dimension(prop) {
+    var propName = ucfirst(prop);
+    return (element, value) => {
+
+        element = toNode(element);
+
+        if (isUndefined(value)) {
+
+            if (isWindow(element)) {
+                return element[`inner${propName}`];
+            }
+
+            if (isDocument(element)) {
+                var doc = element.documentElement;
+                return Math.max(doc.offsetHeight, doc.scrollHeight);
+            }
+
+            value = css(element, prop);
+            value = value === 'auto' ? element[`offset${propName}`] : toFloat(value) || 0;
+
+            return getContentSize(prop, element, value);
+
+        } else {
+
+            css(element, prop, !value && value !== 0
+                ? ''
+                : getContentSize(prop, element, value) + 'px'
+            );
+
+        }
+
+    };
+}
+
+function getContentSize(prop, element, value) {
+    return css(element, 'boxSizing') === 'border-box' ? dirs[prop].slice(1).map(ucfirst).reduce((value, prop) =>
+        value
+            - toFloat(css(element, `padding${prop}`))
+            - toFloat(css(element, `border${prop}Width`))
+        , value) : value;
 }
 
 function getWindow(element) {
-    return element && element.ownerDocument ? element.ownerDocument.defaultView : window;
+    return isWindow(element) ? element : document(element).defaultView;
 }
 
 function moveTo(position, attach, dim, factor) {
-    each(dirs, function (dir, [prop, align, alignFlip]) {
+    each(dirs, function ([dir, align, alignFlip], prop) {
         if (attach[dir] === alignFlip) {
             position[align] += dim[prop] * factor;
         } else if (attach[dir] === 'center') {
@@ -173,11 +269,11 @@ function getPos(pos) {
 
 function getOffsets(offsets, width, height) {
 
-    offsets = (offsets || '').split(' ');
+    var [x, y] = (offsets || '').split(' ');
 
     return {
-        x: offsets[0] ? parseFloat(offsets[0]) * (offsets[0][offsets[0].length - 1] === '%' ? width / 100 : 1) : 0,
-        y: offsets[1] ? parseFloat(offsets[1]) * (offsets[1][offsets[1].length - 1] === '%' ? height / 100 : 1) : 0
+        x: x ? toFloat(x) * (endsWith(x, '%') ? width / 100 : 1) : 0,
+        y: y ? toFloat(y) * (endsWith(y, '%') ? height / 100 : 1) : 0
     };
 }
 
@@ -194,4 +290,12 @@ export function flipPosition(pos) {
         default:
             return pos;
     }
+}
+
+function document(element) {
+    return toNode(element).ownerDocument;
+}
+
+function docEl(element) {
+    return document(element).documentElement;
 }

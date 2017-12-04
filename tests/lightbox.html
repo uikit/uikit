@@ -5,7 +5,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Lightbox - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -15,55 +14,63 @@
 
             <h1>Lightbox</h1>
 
-            <h2>Dimensions</h2>
+            <h2>Animations</h2>
 
-            <div class="uk-child-width-1-5" uk-grid uk-lightbox>
+            <div class="uk-margin">
+                <select id="js-animation-switcher" class="uk-select uk-form-width-small">
+                    <option value="slide">Slide</option>
+                    <option value="fade">Fade</option>
+                    <option value="scale">Scale</option>
+                </select>
+            </div>
+
+            <div id="js-lightbox-animation" class="uk-child-width-1-5@m" uk-grid uk-lightbox>
                 <div>
 
-                    <a class="uk-link-muted uk-text-center" href="images/size1.jpg" title="900x600" type="image">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size1.jpg" caption="900x600">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
-                            <figcaption class="uk-margin-small">900x600</figcaption>
+                            <figcaption class="uk-margin-small-top">900x600</figcaption>
                         </figure>
                     </a>
 
                 </div>
                 <div>
 
-                    <a class="uk-link-muted uk-text-center" href="images/size2.jpg" title="700x500" type="image">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size2.jpg" caption="700x500">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
-                            <figcaption class="uk-margin-small">700x500</figcaption>
+                            <figcaption class="uk-margin-small-top">700x500</figcaption>
                         </figure>
                     </a>
 
                 </div>
                 <div>
 
-                    <a class="uk-link-muted uk-text-center" href="images/photo.jpg" title="1800x1200" type="image">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/photo.jpg" caption="1800x1200">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
-                            <figcaption class="uk-margin-small">1800x1200</figcaption>
+                            <figcaption class="uk-margin-small-top">1800x1200</figcaption>
                         </figure>
                     </a>
 
                 </div>
                 <div>
 
-                    <a class="uk-link-muted uk-text-center" href="images/size-v.jpg" title="500x2000" type="image">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size-v.jpg" caption="500x2000">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
-                            <figcaption class="uk-margin-small">500x2000</figcaption>
+                            <figcaption class="uk-margin-small-top">500x2000</figcaption>
                         </figure>
                     </a>
 
                 </div>
                 <div>
 
-                    <a class="uk-link-muted uk-text-center" href="images/size-h.jpg" title="2000x500" type="image">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size-h.jpg" caption="2000x500">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
-                            <figcaption class="uk-margin-small">2000x500</figcaption>
+                            <figcaption class="uk-margin-small-top">2000x500</figcaption>
                         </figure>
                     </a>
 
@@ -72,43 +79,53 @@
 
             <h2>Content Sources</h2>
 
-            <div class="uk-child-width-1-5" uk-grid uk-lightbox>
+            <div class="uk-child-width-1-5@m" uk-grid uk-lightbox>
                 <div>
 
-                    <a class="uk-link-muted uk-text-center" href="images/size1.jpg" title="Image" type="image">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="images/size1.jpg" caption="Image">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
-                            <figcaption class="uk-margin-small">Image</figcaption>
+                            <figcaption class="uk-margin-small-top">Image</figcaption>
                         </figure>
                     </a>
 
                 </div>
                 <div>
 
-                    <a class="uk-link-muted uk-text-center" href="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4" title="Video">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4" caption="Video" poster="images/photo.jpg">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
-                            <figcaption class="uk-margin-small">Video</figcaption>
+                            <figcaption class="uk-margin-small-top">Video</figcaption>
                         </figure>
                     </a>
 
                 </div>
                 <div>
 
-                    <a class="uk-link-muted uk-text-center" href="https://www.youtube.com/watch?v=YE7VzlLtp-4" title="YouTube">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="//www.youtube.com/watch?v=YE7VzlLtp-4" caption="YouTube">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
-                            <figcaption class="uk-margin-small">YouTube</figcaption>
+                            <figcaption class="uk-margin-small-top">YouTube</figcaption>
                         </figure>
                     </a>
 
                 </div>
                 <div>
 
-                    <a class="uk-link-muted uk-text-center" href="http://vimeo.com/1084537" title="Vimeo">
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="//vimeo.com/1084537" caption="Vimeo">
                         <figure>
                             <img src="images/photo.jpg" width="400" alt="">
-                            <figcaption class="uk-margin-small">Vimeo</figcaption>
+                            <figcaption class="uk-margin-small-top">Vimeo</figcaption>
+                        </figure>
+                    </a>
+
+                </div>
+                <div>
+
+                    <a class="uk-inline uk-panel uk-link-muted uk-text-center" href="//www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4740.819266853735!2d9.99008871708242!3d53.550454675412404!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x3f9d24afe84a0263!2sRathaus!5e0!3m2!1sde!2sde!4v1499675200938" caption="Iframe" type="iframe">
+                        <figure>
+                            <img src="images/photo.jpg" width="400" alt="">
+                            <figcaption class="uk-margin-small-top">Iframe</figcaption>
                         </figure>
                     </a>
 
@@ -118,9 +135,11 @@
 
             <h2>Dynamic lightbox</h2>
 
-            <button id="lightbox" class="uk-button uk-button-default" type="button">Dynamic lightbox</button>
+            <button id="js-lightbox" class="uk-button uk-button-default" type="button">Dynamic lightbox</button>
 
             <h2>Javascript Options</h2>
+
+            <h3>Lightbox</h3>
 
             <div class="uk-overflow-auto">
                 <table class="uk-table uk-table-striped">
@@ -133,7 +152,119 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td><code>animation</code></td>
+                            <td>String</td>
+                            <td>slide</td>
+                            <td>The animation to use. (fade, slide, scale)</td>
+                        </tr>
+                        <tr>
+                            <td><code>autoplay</code></td>
+                            <td>Boolean</td>
+                            <td>0</td>
+                            <td>Starts autoplaying the lightbox.</td>
+                        </tr>
+                        <tr>
+                            <td><code>autoplay-interval</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>The delay between switching slides in autoplay mode.</td>
+                        </tr>
+                        <tr>
+                            <td><code>pause-on-hover</code></td>
+                            <td>Boolean</td>
+                            <td>0</td>
+                            <td>Pause autoplay mode on hover.</td>
+                        </tr>
+                        <tr>
+                            <td><code>video-autoplay</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Lets videos autoplay.</td>
+                        </tr>
+                        <tr>
+                            <td><code>toggle</code></td>
+                            <td>CSS selector</td>
+                            <td>a</td>
+                            <td>Toggle selector - triggers the lightbox.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
+            <h3>Lightbox Panel</h3>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>animation</code></td>
+                            <td>String</td>
+                            <td>slide</td>
+                            <td>The animation to use. (slide, fade, scale)</td>
+                        </tr>
+                        <tr>
+                            <td><code>autoplay</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Starts autoplaying the lightbox.</td>
+                        </tr>
+                        <tr>
+                            <td><code>autoplay-interval</code></td>
+                            <td>Number</td>
+                            <td>7000</td>
+                            <td>The delay between switching slides in autoplay mode.</td>
+                        </tr>
+                        <tr>
+                            <td><code>video-autoplay</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Lightbox videos autoplay.</td>
+                        </tr>
+                        <tr>
+                            <td><code>velocity</code></td>
+                            <td>Number</td>
+                            <td>2</td>
+                            <td>The animation velocity (pixel/ms).</td>
+                        </tr>
+                        <tr>
+                            <td><code>index</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>The initial item to show. (zero based)</td>
+                        </tr>
+                        <tr>
+                            <td><code>preload</code></td>
+                            <td>Number</td>
+                            <td>1</td>
+                            <td>The number of items to preload. (left and right of the currently active item)</td>
+                        </tr>
+                        <tr>
+                            <td><code>items</code></td>
+                            <td>Array</td>
+                            <td>[]</td>
+                            <td>An array of items to display. ([{source: 'images/size1.jpg', caption: '900x600'}])</td>
+                        </tr>
+                        <tr>
+                            <td><code>template</code></td>
+                            <td>String</td>
+                            <td></td>
+                            <td>The template string.</td>
+                        </tr>
+                        <tr>
+                            <td><code>delay-controls</code></td>
+                            <td>Number</td>
+                            <td>3000</td>
+                            <td>Delay time before controls fade out in ms.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -142,20 +273,22 @@
 
         <script>
 
-            (function () {
+            var util = UIkit.util;
 
-                $('#lightbox').on('click', function (e) {
-                    e.preventDefault();
+            util.on('#js-animation-switcher', 'change', function() {
+                util.attr(util.$('#js-lightbox-animation'), 'animation', this.value);
+            });
 
-                    UIkit.lightbox('#lightbox', {
-                        items: [
-                            {source: 'images/size1.jpg', title: '900x600', type: 'image'},
-                            {source: 'images/size2.jpg', title: '700x500', type: 'image'},
-                        ]
-                    }).show();
-                });
+            util.on('#js-lightbox', 'click', function (e) {
+                e.preventDefault();
 
-            })();
+                UIkit.lightboxPanel({
+                    items: [
+                        {source: 'images/size1.jpg', caption: '900x600'},
+                        {source: 'images/size2.jpg', caption: '700x500'},
+                    ]
+                }).show();
+            });
 
         </script>
 

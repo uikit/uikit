@@ -114,16 +114,10 @@ body { margin: 0; }
  ========================================================================== */
 
 /*
- * 1. Remove the gray background on active links in IE 10.
- * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
+ * Remove gaps in links underline in iOS 8+ and Safari 8+.
  */
 
-a {
-    /* 1 */
-    background-color: transparent;
-    /* 2 */
-    -webkit-text-decoration-skip: objects;
-}
+a { -webkit-text-decoration-skip: objects; }
 
 /*
  * Remove the outline on focused links when they are also active or hovered
@@ -286,12 +280,6 @@ video {
 }
 
 /*
- * Remove the border on images inside links in IE 10-.
- */
-
-img { border-style: none; }
-
-/*
  * Hide the overflow in IE.
  */
 
@@ -420,7 +408,8 @@ dd { margin-left: 0; }
 /*
  * 1. Add the correct box sizing and height in Firefox.
  * 2. Show the overflow in Edge and IE.
- * 3. Style
+ * 3. Add the correct text-align in Edge and IE.
+ * 4. Style
  */
 
 hr, .uk-hr {
@@ -430,6 +419,8 @@ hr, .uk-hr {
     /* 2 */
     overflow: visible;
     /* 3 */
+    text-align: inherit;
+    /* 4 */
     margin: 0 0 @base-hr-margin-vertical 0;
     border: 0;
     border-top: @base-hr-border-width solid @base-hr-border;
@@ -516,24 +507,20 @@ pre code { font-family: @base-pre-font-family; }
  ========================================================================== */
 
 /*
- * Add the correct display in IE 9-.
  * 1. Add the correct display in Edge, IE, and Firefox.
  * 2. Add the correct display in IE.
  */
 
-article,
-aside,
 details, /* 1 */
-figcaption,
-figure,
-footer,
-header,
-main, /* 2 */
-nav,
-section,
-summary { /* 1 */
+main { /* 2 */
     display: block;
 }
+
+/*
+ * Add the correct display in all browsers.
+ */
+
+summary { display: list-item; }
 
 /*
  * Add the correct vertical alignment in Chrome, Firefox, and Opera.
@@ -542,12 +529,10 @@ summary { /* 1 */
 progress { vertical-align: baseline; }
 
 /*
- * Add the correct display in IE 10-.
- * 1. Add the correct display in IE.
+ * Add the correct display in IE.
  */
 
-template, /* 1 */
-[hidden] { display: none; }
+template { display: none; }
 
 
 /* Iframe
@@ -581,10 +566,10 @@ textarea { touch-action: manipulation; }
  * Breakpoints
  */
 
-.var-media-s:before  { content: '@{breakpoint-small}'; }
-.var-media-m:before  { content: '@{breakpoint-medium}'; }
-.var-media-l:before  { content: '@{breakpoint-large}'; }
-.var-media-xl:before { content: '@{breakpoint-xlarge}'; }
+.var-media-s::before  { content: '@{breakpoint-small}'; }
+.var-media-m::before  { content: '@{breakpoint-medium}'; }
+.var-media-l::before  { content: '@{breakpoint-large}'; }
+.var-media-xl::before { content: '@{breakpoint-xlarge}'; }
 
 
 // Hooks
@@ -715,7 +700,7 @@ textarea { touch-action: manipulation; }
     // Horizontal rules
     //
 
-    hr {
+    hr, .uk-hr {
         border-top-color: @inverse-base-hr-border;
         .hook-inverse-base-hr;
     }

@@ -46,10 +46,10 @@
 
 @box-shadow-duration:                           0.1s;
 
-@box-shadow-bottom-height:                           30px;
-@box-shadow-bottom-border-radius:                    100%;
-@box-shadow-bottom-background:                       #444;
-@box-shadow-bottom-blur:                             20px;
+@box-shadow-bottom-height:                      30px;
+@box-shadow-bottom-border-radius:               100%;
+@box-shadow-bottom-background:                  #444;
+@box-shadow-bottom-blur:                        20px;
 
 @dropcap-margin-right:                          10px;
 @dropcap-font-size:                             ((@global-line-height * 3) * 1em);
@@ -189,7 +189,9 @@
  * 2. Create position context
  * 3. Prevent content overflow
  * 4. Behave like most inline-block elements
- * 5. Clip child elements
+ * 5. Force hardware acceleration without creating a new stacking context
+ *    to fix 1px glitch when combined with overlays and transitions in Webkit
+ * 6. Clip child elements
  */
 
 [class*='uk-inline'] {
@@ -201,10 +203,12 @@
     max-width: 100%;
     /* 4 */
     vertical-align: middle;
+    /* 5 */
+    -webkit-backface-visibility: hidden;
 }
 
 .uk-inline-clip {
-    /* 5 */
+    /* 6 */
     overflow: hidden;
 }
 
@@ -316,10 +320,7 @@
  * Hover
  */
 
-[class*='uk-box-shadow-hover'] {
-    -webkit-transition: box-shadow @box-shadow-duration ease-in-out;
-    transition: box-shadow @box-shadow-duration ease-in-out;
-}
+[class*='uk-box-shadow-hover'] { transition: box-shadow @box-shadow-duration ease-in-out; }
 
 .uk-box-shadow-hover-small:hover { box-shadow: @global-small-box-shadow; }
 .uk-box-shadow-hover-medium:hover { box-shadow: @global-medium-box-shadow; }
@@ -337,7 +338,7 @@
  *    Solved by using `before` and add position context to child elements.
  */
 
-@supports (filter: blur(0)) or (-webkit-filter: blur(0)) {
+@supports (filter: blur(0)) {
 
     .uk-box-shadow-bottom {
         display: inline-block;
@@ -357,7 +358,6 @@
         height: @box-shadow-bottom-height;
         border-radius: @box-shadow-bottom-border-radius;
         background: @box-shadow-bottom-background;
-        -webkit-filter: blur(@box-shadow-bottom-blur);
         filter: blur(@box-shadow-bottom-blur);
         .hook-box-shadow-bottom;
     }
@@ -452,13 +452,16 @@
 /*
  * 1. Fill all SVG elements with the current text color if no `fill` attribute is set
  * 2. Set the fill and stroke color of all SVG elements to the current text color
+ * 3. Fix for uppercase attribute names in Edge. Will be fixed in Windows 10 builds 16251+
  */
 
 /* 1 */
 .uk-svg,
 /* 2 */
-.uk-svg:not(.uk-preserve) [fill*='#']:not(.uk-preserve) { fill: currentcolor; }
-.uk-svg:not(.uk-preserve) [stroke*='#']:not(.uk-preserve) { stroke: currentcolor; }
+.uk-svg:not(.uk-preserve) [fill*='#']:not(.uk-preserve),
+.uk-svg:not(.uk-preserve) [FILL*='#']:not(.uk-preserve) { fill: currentcolor; } // 3
+.uk-svg:not(.uk-preserve) [stroke*='#']:not(.uk-preserve),
+.uk-svg:not(.uk-preserve) [STROKE*='#']:not(.uk-preserve) { stroke: currentcolor; } // 3
 
 /*
  * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
@@ -522,54 +525,20 @@
 /* Transform
 ========================================================================== */
 
-.uk-transform-center {
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
+.uk-transform-center { transform: translate(-50%, -50%); }
 
 
 /* Transform Origin
 ========================================================================== */
 
-.uk-transform-origin-top-left {
-     -webkit-transform-origin: 0 0;
-     transform-origin: 0 0;
-}
-
-.uk-transform-origin-top-center {
-     -webkit-transform-origin: 50% 0;
-     transform-origin: 50% 0;
-}
-
-.uk-transform-origin-top-right {
-     -webkit-transform-origin: 100% 0;
-     transform-origin: 100% 0;
-}
-
-.uk-transform-origin-center-left {
-     -webkit-transform-origin: 0 50%;
-     transform-origin: 0 50%;
-}
-
-.uk-transform-origin-center-right {
-     -webkit-transform-origin: 100% 50%;
-     transform-origin: 100% 50%;
-}
-
-.uk-transform-origin-bottom-left {
-     -webkit-transform-origin: 0 100%;
-     transform-origin: 0 100%;
-}
-
-.uk-transform-origin-bottom-center {
-     -webkit-transform-origin: 50% 100%;
-     transform-origin: 50% 100%;
-}
-
-.uk-transform-origin-bottom-right {
-     -webkit-transform-origin: 100% 100%;
-     transform-origin: 100% 100%;
-}
+.uk-transform-origin-top-left { transform-origin: 0 0; }
+.uk-transform-origin-top-center { transform-origin: 50% 0; }
+.uk-transform-origin-top-right { transform-origin: 100% 0; }
+.uk-transform-origin-center-left { transform-origin: 0 50%; }
+.uk-transform-origin-center-right { transform-origin: 100% 50%; }
+.uk-transform-origin-bottom-left { transform-origin: 0 100%; }
+.uk-transform-origin-bottom-center { transform-origin: 50% 100%; }
+.uk-transform-origin-bottom-right { transform-origin: 100% 100%; }
 
 
 // Hooks

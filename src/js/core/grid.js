@@ -1,4 +1,5 @@
 import { Class } from '../mixin/index';
+import { toggleClass } from '../util/index';
 
 export default function (UIkit) {
 
@@ -15,9 +16,9 @@ export default function (UIkit) {
 
         update: {
 
-            write() {
+            write({stacks}) {
 
-                this.$toggleClass(this.clsStack, this.stacks);
+                toggleClass(this.$el, this.clsStack, stacks);
 
             },
 

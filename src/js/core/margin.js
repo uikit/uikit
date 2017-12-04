@@ -1,4 +1,4 @@
-import { isRtl } from '../util/index';
+import { isRtl, isVisible, toggleClass } from '../util/index';
 
 export default function (UIkit) {
 
@@ -14,30 +14,23 @@ export default function (UIkit) {
             firstColumn: 'uk-first-column'
         },
 
-        computed: {
-
-            items() {
-                return this.$el[0].children;
-            }
-
-        },
-
         update: {
 
-            read() {
+            read(data) {
 
-                if (!this.items.length || this.$el[0].offsetHeight === 0) {
-                    this.rows = false;
-                    return;
+                var items = this.$el.children;
+
+                if (!items.length || !isVisible(this.$el)) {
+                    return data.rows = false;
                 }
 
-                this.stacks = true;
+                data.stacks = true;
 
                 var rows = [[]];
 
-                for (var i = 0; i < this.items.length; i++) {
+                for (var i = 0; i < items.length; i++) {
 
-                    var el = this.items[i],
+                    var el = items[i],
                         dim = el.getBoundingClientRect();
 
                     if (!dim.height) {
@@ -55,14 +48,14 @@ export default function (UIkit) {
 
                         var leftDim = row[0].getBoundingClientRect();
 
-                        if (dim.top >= leftDim.bottom) {
+                        if (dim.top >= Math.floor(leftDim.bottom)) {
                             rows.push([el]);
                             break;
                         }
 
-                        if (dim.bottom > leftDim.top) {
+                        if (Math.floor(dim.bottom) > leftDim.top) {
 
-                            this.stacks = false;
+                            data.stacks = false;
 
                             if (dim.left < leftDim.left && !isRtl) {
                                 row.unshift(el);
@@ -82,18 +75,18 @@ export default function (UIkit) {
 
                 }
 
-                this.rows = rows;
+                data.rows = rows;
 
             },
 
-            write() {
+            write({rows}) {
 
-                this.rows && this.rows.forEach((row, i) =>
+                rows.forEach((row, i) =>
                     row.forEach((el, j) => {
-                        this.$toggleClass(el, this.margin, i !== 0);
-                        this.$toggleClass(el, this.firstColumn, j === 0);
+                        toggleClass(el, this.margin, i !== 0);
+                        toggleClass(el, this.firstColumn, j === 0);
                     })
-                )
+                );
 
             },
 

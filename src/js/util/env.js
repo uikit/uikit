@@ -1,54 +1,28 @@
-import { classify, promise, toNode } from './lang';
+/* global DocumentTouch */
+import Promise from './promise';
 
-export const Observer = window.MutationObserver || window.WebKitMutationObserver;
-export const requestAnimationFrame = window.requestAnimationFrame || function (fn) { return setTimeout(fn, 1000 / 60); };
+export const win = window;
+export const doc = document;
+export const docEl = doc.documentElement;
 
-var hasTouchEvents = 'ontouchstart' in window;
-var hasPointerEvents = window.PointerEvent;
-export const hasPromise = 'Promise' in window;
-export const hasTouch = 'ontouchstart' in window
-    || window.DocumentTouch && document instanceof DocumentTouch
-    || navigator.msPointerEnabled && navigator.msMaxTouchPoints // IE 10
+export const Observer = win.MutationObserver;
+export const requestAnimationFrame = win.requestAnimationFrame;
+
+var hasTouchEvents = 'ontouchstart' in win;
+var hasPointerEvents = win.PointerEvent;
+export const hasTouch = 'ontouchstart' in win
+    || win.DocumentTouch && doc instanceof DocumentTouch
     || navigator.pointerEnabled && navigator.maxTouchPoints; // IE >=11
 
 export const pointerDown = !hasTouch ? 'mousedown' : `mousedown ${hasTouchEvents ? 'touchstart' : 'pointerdown'}`;
 export const pointerMove = !hasTouch ? 'mousemove' : `mousemove ${hasTouchEvents ? 'touchmove' : 'pointermove'}`;
-export const pointerUp = !hasTouch ? 'mouseup' :  `mouseup ${hasTouchEvents ? 'touchend' : 'pointerup'}`;
+export const pointerUp = !hasTouch ? 'mouseup' : `mouseup ${hasTouchEvents ? 'touchend' : 'pointerup'}`;
 export const pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mouseenter';
 export const pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
 
-export const transitionend = prefix('transition', 'transition-end');
-export const animationstart = prefix('animation', 'animation-start');
-export const animationend = prefix('animation', 'animation-end');
-
-export function getStyle(element, property, pseudoElt) {
-    return (window.getComputedStyle(toNode(element), pseudoElt) || {})[property];
-}
-
-export function getCssVar(name) {
-
-    /* usage in css:  .var-name:before { content:"xyz" } */
-
-    var val, doc = document.documentElement,
-        element = doc.appendChild(document.createElement('div'));
-
-    element.classList.add(`var-${name}`);
-
-    try {
-
-        val = getStyle(element, 'content', ':before').replace(/^["'](.*)["']$/, '$1');
-        val = JSON.parse(val);
-
-    } catch (e) {}
-
-    doc.removeChild(element);
-
-    return val || undefined;
-}
-
 export function getImage(src) {
 
-    return promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         var img = new Image();
 
         img.onerror = reject;
@@ -59,22 +33,19 @@ export function getImage(src) {
 
 }
 
-function prefix(name, event) {
+export const supports = {};
 
-    var ucase = classify(name),
-        lowered = classify(event).toLowerCase(),
-        classified = classify(event),
-        element = document.body || document.documentElement,
-        names = {
-            [`Webkit${ucase}`]: `webkit${classified}`,
-            [`Moz${ucase}`]: lowered,
-            [`o${ucase}`]: `o${classified} o${lowered}`,
-            [name]: lowered
-        };
+// IE 11
+(function () {
 
-    for (name in names) {
-        if (element.style[name] !== undefined) {
-            return names[name];
-        }
+    var list = doc.createElement('_').classList;
+    if (list) {
+        list.add('a', 'b');
+        list.toggle('c', false);
+        supports.Multiple = list.contains('b');
+        supports.Force = !list.contains('c');
+        supports.ClassList = true;
     }
-}
+    list = null;
+
+})();

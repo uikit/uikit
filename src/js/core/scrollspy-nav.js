@@ -1,4 +1,4 @@
-import { $, docHeight, offsetTop, toJQuery, isInView } from '../util/index';
+import { $, $$, addClass, closest, doc, filter, height, isInView, offset, removeClass, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -22,16 +22,16 @@ export default function (UIkit) {
 
         computed: {
 
-            links() {
-                return this.$el.find('a[href^="#"]').filter((i, el) => el.hash);
+            links(_, $el) {
+                return $$('a[href^="#"]', $el).filter(el => el.hash);
             },
 
             elements() {
-                return this.closest ? this.links.closest(this.closest) : this.links;
+                return this.closest ? closest(this.links, this.closest) : this.links;
             },
 
             targets() {
-                return $(this.links.toArray().map(el => el.hash).join(','));
+                return $$(this.links.map(el => el.hash).join(','));
             }
 
         },
@@ -50,50 +50,46 @@ export default function (UIkit) {
 
             {
 
-                read() {
+                read(data) {
 
-                    var scroll = window.pageYOffset + this.offset, max = docHeight() - window.innerHeight + this.offset;
+                    var scroll = win.pageYOffset + this.offset + 1,
+                        max = height(doc) - height(win) + this.offset;
 
-                    this.active = false;
+                    data.active = false;
 
-                    this.targets.each((i, el) => {
+                    this.targets.every((el, i) => {
 
-                        el = $(el);
-
-                        var top = offsetTop(el), last = i + 1 === this.targets.length;
-                        if (!this.overflow && (i === 0 && top > scroll || last && top + el[0].offsetTop < scroll)) {
+                        var top = offset(el).top, last = i + 1 === this.targets.length;
+                        if (!this.overflow && (i === 0 && top > scroll || last && top + el.offsetTop < scroll)) {
                             return false;
                         }
 
-                        if (!last && offsetTop(this.targets.eq(i + 1)) <= scroll) {
-                            return;
+                        if (!last && offset(this.targets[i + 1]).top <= scroll) {
+                            return true;
                         }
 
                         if (scroll >= max) {
                             for (var j = this.targets.length - 1; j > i; j--) {
-                                if (isInView(this.targets.eq(j))) {
-                                    el = this.targets.eq(j);
+                                if (isInView(this.targets[j])) {
+                                    el = this.targets[j];
                                     break;
                                 }
                             }
                         }
 
-                        return !(this.active = toJQuery(this.links.filter(`[href="#${el.attr('id')}"]`)));
+                        return !(data.active = $(filter(this.links, `[href="#${el.id}"]`)));
 
                     });
 
                 },
 
-                write() {
+                write({active}) {
 
-                    this.links.blur();
-                    this.elements.removeClass(this.cls);
+                    this.links.forEach(el => el.blur());
+                    removeClass(this.elements, this.cls);
 
-                    if (this.active) {
-                        this.$el.trigger('active', [
-                            this.active,
-                            (this.closest ? this.active.closest(this.closest) : this.active).addClass(this.cls)
-                        ]);
+                    if (active) {
+                        trigger(this.$el, 'active', [active, addClass(this.closest ? closest(active, this.closest) : active, this.cls)]);
                     }
 
                 },

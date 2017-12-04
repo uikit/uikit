@@ -43,12 +43,14 @@
 @import "tab.scss";
 @import "slidenav.scss";
 @import "dotnav.scss";
+@import "thumbnav.scss";
 
 // JavaScript
 @import "accordion.scss";
 @import "drop.scss";
 @import "dropdown.scss";
 @import "modal.scss";
+@import "lightbox.scss";
 @import "sticky.scss";
 @import "offcanvas.scss";
 
@@ -61,7 +63,7 @@
 @import "sortable.scss";
 @import "countdown.scss";
 
-// Utility
+// Utilities
 @import "animation.scss";
 @import "width.scss";
 @import "text.scss";
