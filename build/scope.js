@@ -1,26 +1,23 @@
 /* eslint-env node */
-var glob = require('glob');
-var util = require('./util');
-var argv = require('minimist')(process.argv.slice(2));
+const glob = require('glob');
+const util = require('./util');
+const argv = require('minimist')(process.argv.slice(2));
 
 argv._.forEach(arg => {
     const tokens = arg.split('=');
     argv[tokens[0]] = tokens[1] || true;
 });
 
-const inquirer = require('inquirer');
-const prompt = inquirer.createPromptModule();
-
 const currentScopeRegex = /\/\* scoped: ([^\*]*) \*\//;
 const currentScopeLegacyRegex = new RegExp('\.(uk-scope)');
+
 const allFiles = [];
-var currentScope;
 
 if (argv.h || argv.help) {
     console.log(`
         usage:
 
-        scope.js [-scope=your_great_new_scope_name][cleanup]
+        scope.js [-s{cope}=your_great_new_scope_name][cleanup]
 
         example:
 
@@ -34,6 +31,8 @@ if (argv.h || argv.help) {
 }
 
 function startProcess() {
+
+    const currentScope = getCurrentScope();
 
     if (argv.cleanup && currentScope) {
         cleanUp(currentScope).then(store).catch(console.log);
@@ -78,7 +77,7 @@ function doScope(scopeFromInput) {
 
         scopes.push(util.renderLess(`.${scopeFromInput} {\n${store.data}\n}`)
                         .then(output =>
-                            store.data = `/* scoped: ${currentScope ? currentScope + ' ' + scopeFromInput : scopeFromInput} */` +
+                            store.data = `/* scoped: ${scopeFromInput} */` +
                                     output.replace(new RegExp(`.${scopeFromInput} ${/{(.|[\r\n])*?}/.source}`), '')
                                           .replace(new RegExp(`.${scopeFromInput} ${/\s((\.(uk-(drag|modal-page|offcanvas-page|offcanvas-flip)))|html)/.source}`, 'g'), '$1')
                         )
@@ -95,15 +94,28 @@ function store() {
     return Promise.all(writes);
 }
 
-function cleanUp() {
+function cleanUp(currentScope) {
     allFiles.forEach((store) => {
         const string = currentScope.split(' ').map(scope => `.${scope}`).join(' ');
         store.data = store.data.replace(new RegExp(/ */.source + string + / ({[\s\S]*?})?/.source, 'g'), '') // replace classes
                    .replace(new RegExp(currentScopeRegex.source, 'g'), ''); // remove scope comment
     });
 
-    currentScope = null;
     return Promise.resolve();
+}
+
+function getCurrentScope() {
+
+    var currentScope;
+    allFiles.forEach(({data}) => {
+        const scope = isScoped(data);
+        if (currentScope && scope !== currentScope) {
+            throw 'scopes used on current css differ from file to file.';
+        }
+        currentScope = scope;
+    });
+
+    return currentScope;
 }
 
 function readAllFiles() {
@@ -114,11 +126,6 @@ function readAllFiles() {
             files.forEach(file => {
                 const promise = util.read(file, data => {
                     allFiles.push({file, data});
-                    const scope = isScoped(data);
-                    if (currentScope && scope !== currentScope) {
-                        throw 'scopes used on current css differ from file to file.';
-                    }
-                    currentScope = scope;
                 });
                 reads.push(promise);
             });

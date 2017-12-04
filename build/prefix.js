@@ -3,15 +3,13 @@ var fs = require('fs');
 var glob = require('glob');
 var util = require('./util');
 var argv = require('minimist')(process.argv.slice(2));
-var inquirer = require('inquirer');
-var prompt = inquirer.createPromptModule();
+var prompt = require('inquirer').createPromptModule();
 
 argv._.forEach(arg => {
     const tokens = arg.split('=');
     argv[tokens[0]] = tokens[1] || true;
 });
 
-var prefixFromInput = argv.p || argv.prefix;
 const allFiles = [];
 
 if (argv.h || argv.help) {
@@ -32,27 +30,36 @@ if (argv.h || argv.help) {
 
 function startProcess() {
 
-    // find existing prefix
-    var currentPrefix;
-    allFiles.some(({file, data}) => {
-        currentPrefix = findExistingPrefix(data);
-        return currentPrefix;
-    });
-
+    const currentPrefix = findExistingPrefix();
     getPrefix().then(prefix => replacePrefix(currentPrefix, prefix));
 
 }
 
-function findExistingPrefix(data) {
-    const res = data.match(new RegExp(`(${util.validClassName.source})-grid`));
-    return res && res[1];
+function findExistingPrefix() {
+
+    // find existing prefix
+    var currentPrefix;
+    allFiles.some(({file, data}) => {
+
+        const res = data.match(new RegExp(`(${util.validClassName.source})-grid`));
+        currentPrefix = res && res[1];
+        return currentPrefix;
+
+    });
+    return currentPrefix;
+
 }
 
 function getPrefix() {
 
+    const prefixFromInput = argv.p || argv.prefix;
     if (!prefixFromInput) {
-        return prompt({name: 'prefix', message: 'enter a prefix', validate: (val, res) => val.length && val.match(util.validClassName) ? !!(res.prefix = val) : 'invalid prefix'})
-            .then(res => res.prefix);
+        return prompt({
+            name: 'prefix',
+            message: 'enter a prefix',
+            validate: (val, res) => val.length && val.match(util.validClassName) ? !!(res.prefix = val) : 'invalid prefix'
+        })
+        .then(res => res.prefix);
     } else if (util.validClassName.test(prefixFromInput)) {
         return Promise.resolve(prefixFromInput);
     } else {
