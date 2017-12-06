@@ -28,6 +28,7 @@
 ### Fixed
 - Fix scrolling with scrollbar on Modal closes Modal
 - Fix `container` options
+- Fix initializing Icon components programmatically
 
 ## 3.0.0 beta 35 (November 13, 2017)
 
