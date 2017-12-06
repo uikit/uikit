@@ -32,7 +32,7 @@ glob.sync('custom/*.less').forEach(file => {
     themes[theme] = {css: `../${dist}`};
 
     if (fs.existsSync(`dist/js/uikit-icons-${theme}.js`)) {
-        themes[theme].icons = `dist/js/uikit-icons-${theme}.js`;
+        themes[theme].icons = `../dist/js/uikit-icons-${theme}.js`;
     }
 
     return compile(file, dist);
