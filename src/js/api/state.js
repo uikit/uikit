@@ -44,7 +44,7 @@ export default function (UIkit) {
             }, {});
         }
 
-        for (var key in defaults) {
+        for (var key in assign({}, defaults, props)) {
             this.$props[key] = this[key] = hasOwn(data, key) && !isUndefined(data[key])
                 ? coerce(props[key], data[key], el)
                 : isArray(defaults[key])
