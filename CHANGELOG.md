@@ -25,7 +25,8 @@
 - Fix scrolling with scrollbar on Modal closes Modal
 - Fix `container` options
 - Fix initializing Icon components programmatically
-
+- Fix accordion initial active option
+- Fix webpack builds (npm run test)
 ## 3.0.0 beta 35 (November 13, 2017)
 
 ### Added
