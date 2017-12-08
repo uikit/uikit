@@ -14,12 +14,19 @@ export default function (UIkit) {
             clsStack: 'uk-grid-stack'
         },
 
+        methods: {^
+            masonry() {
+                debugger;
+            }
+        },
+
         update: {
 
             write({stacks}) {
 
                 toggleClass(this.$el, this.clsStack, stacks);
 
+                this.masonry();
             },
 
             events: ['load', 'resize']
