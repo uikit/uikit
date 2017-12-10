@@ -19,7 +19,8 @@ function plugin(UIkit) {
             name: String,
             params: Object,
             type: String,
-            url: String
+            url: String,
+            headers: Object
         },
 
         defaults: {
@@ -33,6 +34,7 @@ function plugin(UIkit) {
             name: 'files[]',
             params: {},
             type: 'POST',
+            headers: {},
             url: '',
             abort: noop,
             beforeAll: noop,
@@ -142,6 +144,7 @@ function plugin(UIkit) {
                         ajax(this.url, {
                             data,
                             method: this.type,
+                            headers: this.headers
                             beforeSend: env => {
 
                                 var xhr = env.xhr;

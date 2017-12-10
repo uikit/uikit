@@ -2025,7 +2025,7 @@ function offset(element, coordinates) {
         ['left', 'top'].forEach(function (prop) {
             if (prop in coordinates) {
                 var value = css(element, prop);
-                element.style[prop] = ((coordinates[prop] - currentOffset[prop]) 
+                element.style[prop] = ((coordinates[prop] - currentOffset[prop])
                     + toFloat(pos === 'absolute' && value === 'auto' ? position(element)[prop] : value)) + "px";
             }
         });
@@ -2344,7 +2344,7 @@ function isTouch(e) {
 function getPos$1(e) {
     var touches = e.touches;
     var changedTouches = e.changedTouches;
-    
+
     var ref = touches && touches[0] || changedTouches && changedTouches[0] || e;
     var x = ref.pageX;
     var y = ref.pageY;
@@ -10285,7 +10285,8 @@ function plugin$9(UIkit) {
             name: String,
             params: Object,
             type: String,
-            url: String
+            url: String,
+            header: Object
         },
 
         defaults: {
@@ -10299,6 +10300,7 @@ function plugin$9(UIkit) {
             name: 'files[]',
             params: {},
             type: 'POST',
+            headers: {},
             url: '',
             abort: noop,
             beforeAll: noop,
@@ -10410,6 +10412,7 @@ function plugin$9(UIkit) {
                         ajax(this$1.url, {
                             data: data,
                             method: this$1.type,
+                            headers: this$1.headers,
                             beforeSend: function (env) {
 
                                 var xhr = env.xhr;
