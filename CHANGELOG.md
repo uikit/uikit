@@ -12,10 +12,6 @@
 - Add option to skip minification for less building (./build/less.js -d)
 - Add parameterization for prefix and scope scripts. use scope/prefix -h (e.g. npm run prefix -- -h) to list the available options.
 
-### Changed
-
-- Fix `container` options
-
 ### Deprecated
 
 - Deprecate `uk-gif`
@@ -29,7 +25,8 @@
 - Fix scrolling with scrollbar on Modal closes Modal
 - Fix `container` options
 - Fix initializing Icon components programmatically
-
+- Fix accordion initial active option
+- Fix webpack builds (npm run test)
 ## 3.0.0 beta 35 (November 13, 2017)
 
 ### Added
