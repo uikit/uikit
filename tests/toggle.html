@@ -5,7 +5,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Toggle - UIkit tests</title>
-        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -32,7 +31,7 @@
 
                     <h3>Two items</h3>
 
-                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: +">Toggle</button>
+                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: ~">Toggle</button>
 
                     <p>Hello!</p>
                     <p hidden>Bazinga!</p>
@@ -57,7 +56,7 @@
 
                     <h3>Multiple targets</h3>
 
-                    <button class="uk-button uk-button-default uk-margin uk-display-block" uk-toggle="target: +">Go</button>
+                    <button class="uk-button uk-button-default uk-margin uk-display-block" uk-toggle="target: ~">Go</button>
 
                     <span>What's up?</span>
                     <span>Hello!</span>
@@ -68,7 +67,7 @@
 
                     <h3>Custom class</h3>
 
-                    <button class="uk-button uk-button-default" uk-toggle="target: +;cls: uk-alert-success">Toggle</button>
+                    <button class="uk-button uk-button-default" uk-toggle="target: +; cls: uk-alert-success">Toggle</button>
 
                     <p class="uk-alert">What's up?</p>
 
@@ -95,7 +94,7 @@
 
                     <h3>Queued</h3>
 
-                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: +; animation: uk-animation-fade; duration: 500; queued: true">Queued</button>
+                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: ~; animation: uk-animation-fade; duration: 500; queued: true">Queued</button>
 
                     <p>Animation</p>
                     <p hidden>Bazinga!</p>
@@ -114,7 +113,7 @@
 
                     <h3>Mode Hover</h3>
 
-                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: +; mode: hover">Hover</button>
+                    <button class="uk-button uk-button-default" type="button" uk-toggle="target: ~; mode: hover">Hover</button>
 
                     <p>What's up?</p>
                     <p hidden>Hovered</p>

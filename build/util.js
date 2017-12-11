@@ -15,6 +15,7 @@ var version = require('../package.json').version;
 var banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */\n`;
 
 exports.banner = banner;
+exports.validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
 
 exports.read = function (file, callback) {
     return new Promise((resolve, reject) => {
@@ -45,7 +46,7 @@ exports.write = function (dest, data) {
                 }
                 exports.logFile(dest);
                 resolve(dest);
-            })
+            });
 
         })
     );
@@ -81,7 +82,7 @@ exports.renderLess = function (data, options) {
     return less.render(data, options).then(output => output.css);
 };
 
-exports.compile = function (file, dest, external, globals, name, aliases, bundled) {
+exports.compile = function (file, dest, external, globals, name, aliases, bundled, minify) {
 
     name = (name || '').replace(/[^\w]/g, '_');
 
@@ -115,7 +116,7 @@ exports.compile = function (file, dest, external, globals, name, aliases, bundle
             moduleName: `UIkit${exports.ucfirst(name)}`
         }))
         .then(({code}) => exports.write(`${dest}.js`, code.replace(/(>)\\n\s+|\\n\s+(<)/g, '$1 $2')))
-        .then(exports.uglify)
+        .then(code => (minify !== false) ? exports.uglify(code) : code)
         .catch(console.log);
 };
 

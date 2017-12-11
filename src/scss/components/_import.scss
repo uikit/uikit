@@ -44,6 +44,7 @@
 @import "tab.scss";
 @import "slidenav.scss"; // After: Icon
 @import "dotnav.scss";
+@import "thumbnav.scss";
 
 // JavaScript
 @import "accordion.scss";
@@ -51,6 +52,7 @@
 @import "dropdown.scss"; // After: Card
 @import "modal.scss"; // After: Close
 @import "lightbox.scss"; // After: Close
+@import "slideshow.scss";
 @import "sticky.scss";
 @import "offcanvas.scss";
 @import "switcher.scss";

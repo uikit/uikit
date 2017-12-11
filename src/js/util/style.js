@@ -1,4 +1,8 @@
-import { addClass, append, doc, docEl, each, hyphenate, isArray, isNumeric, isObject, isString, isUndefined, toNode, toNodes } from './index';
+import { append } from './dom';
+import { addClass } from './class';
+import { doc, docEl } from './env';
+import { toNode, toNodes } from './selector';
+import { each, hyphenate, isArray, isNumeric, isObject, isString, isUndefined } from './lang';
 
 var cssNumber = {
     'animation-iteration-count': true,
@@ -99,7 +103,7 @@ function propName(name) {
 }
 
 var cssPrefixes = ['webkit', 'moz', 'ms'],
-    style = doc.createElement('div').style;
+    style = doc.createElement('_').style;
 
 function vendorPropName(name) {
 
@@ -112,7 +116,7 @@ function vendorPropName(name) {
     var i = cssPrefixes.length, prefixedName;
 
     while (i--) {
-        prefixedName = `-${cssPrefixes[i]}${name}`;
+        prefixedName = `-${cssPrefixes[i]}-${name}`;
         if (prefixedName in style) {
             return prefixedName;
         }

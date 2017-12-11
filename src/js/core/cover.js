@@ -1,40 +1,32 @@
 import { Class } from '../mixin/index';
-import { css, Dimensions, isVisible, Player } from '../util/index';
+import { css, Dimensions, isVisible } from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('cover', {
 
-        mixins: [Class],
+        mixins: [Class, UIkit.components.video.options],
 
         props: {
             width: Number,
             height: Number
         },
 
-        ready() {
-
-            if (this.$el.tagName === 'IFRAME') {
-                css(this.$el, 'pointerEvents', 'none');
-            }
-
-            var player = new Player(this.$el);
-
-            if (player.isVideo()) {
-                player.mute();
-            }
-
+        defaults: {
+            automute: true
         },
 
         update: {
 
             write() {
 
-                var el = this.$el, parent = el.parentNode;
+                var el = this.$el;
 
                 if (!isVisible(el)) {
                     return;
                 }
+
+                var {offsetHeight: height, offsetWidth: width} = el.parentNode;
 
                 css(
                     css(el, {width: '', height: ''}),
@@ -44,8 +36,8 @@ export default function (UIkit) {
                             height: this.height || el.clientHeight
                         },
                         {
-                            width: parent.offsetWidth,
-                            height: parent.offsetHeight
+                            width: width + (width % 2 ? 1 : 0),
+                            height: height + (height % 2 ? 1 : 0)
                         }
                     )
                 );

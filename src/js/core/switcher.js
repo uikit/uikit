@@ -1,7 +1,5 @@
 import { Togglable } from '../mixin/index';
-import { $$, addClass, attr, data, getIndex, hasClass, isTouch, removeClass, win } from '../util/index';
-import { filter, matches, queryAll } from "../util/selector";
-import { index } from "../util/dom";
+import { $$, addClass, attr, data, filter, getIndex, hasClass, index, isTouch, matches, queryAll, removeClass, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -19,7 +17,7 @@ export default function (UIkit) {
         },
 
         defaults: {
-            connect: '+ .uk-switcher',
+            connect: '~.uk-switcher',
             toggle: '> *',
             active: 0,
             swiping: true,
@@ -111,12 +109,8 @@ export default function (UIkit) {
 
             show(item) {
 
-                if (!this.connects.length) {
-                    return;
-                }
-
                 var length = this.toggles.length,
-                    prev = index(filter(this.connects[0].children, `.${this.cls}`)[0]),
+                    prev = !!this.connects.length && index(filter(this.connects[0].children, `.${this.cls}`)[0]),
                     hasPrev = prev >= 0,
                     next = getIndex(item, this.toggles, prev),
                     dir = item === 'previous' ? -1 : 1,
@@ -144,7 +138,7 @@ export default function (UIkit) {
                     } else {
                         this.toggleElement([list.children[prev], list.children[next]]);
                     }
-                })
+                });
 
             }
 

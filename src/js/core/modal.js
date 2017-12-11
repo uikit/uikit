@@ -165,7 +165,7 @@ export default function (UIkit) {
                 e.preventDefault();
                 resolve(input.value);
                 resolved = true;
-                prompt.hide()
+                prompt.hide();
             });
             on(prompt.$el, 'hide', () => {
                 if (!resolved) {
@@ -179,6 +179,6 @@ export default function (UIkit) {
     UIkit.modal.labels = {
         ok: 'Ok',
         cancel: 'Cancel'
-    }
+    };
 
 }

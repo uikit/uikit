@@ -5,7 +5,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Sortable - UIkit tests</title>
-        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
 
         <style>
@@ -29,8 +28,16 @@
                     console.log('move', sortable);
                 });
 
-                util.on(document.body, 'change', function(e, sortable, el, mode) {
-                    console.log('change', sortable, el, mode);
+                util.on(document.body, 'moved', function(e, sortable, el) {
+                    console.log('moved', sortable, el);
+                });
+
+                util.on(document.body, 'added', function(e, sortable, el) {
+                    console.log('added', sortable, el);
+                });
+
+                util.on(document.body, 'removed', function(e, sortable, el) {
+                    console.log('removed', sortable, el);
                 });
 
                 util.on(document.body, 'stop', function(e, sortable) {
@@ -264,7 +271,7 @@
                             <td>The ghost class.</td>
                         </tr>
                         <tr>
-                            <td><code>clsDrag-state</code></td>
+                            <td><code>cls-drag-state</code></td>
                             <td>String</td>
                             <td>uk-sortable-dragging</td>
                             <td>The body's dragging class.</td>
@@ -276,7 +283,7 @@
                             <td>The list's class.</td>
                         </tr>
                         <tr>
-                            <td><code>clsNo-drag</code></td>
+                            <td><code>cls-no-drag</code></td>
                             <td>String</td>
                             <td>uk-sortable-nodrag</td>
                             <td>Prevent dragging on elements with this class.</td>

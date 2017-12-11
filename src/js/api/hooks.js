@@ -1,4 +1,4 @@
-import { createEvent, fastdom, includes, ready } from '../util/index';
+import { assign, createEvent, fastdom, includes, isPlainObject, ready } from '../util/index';
 
 export default function (UIkit) {
 
@@ -9,17 +9,6 @@ export default function (UIkit) {
         if (handlers) {
             handlers.forEach(handler => handler.call(this));
         }
-    };
-
-    UIkit.prototype._callReady = function () {
-
-        if (this._isReady) {
-            return;
-        }
-
-        this._isReady = true;
-        this._callHook('ready');
-        this._callUpdate();
     };
 
     UIkit.prototype._callConnected = function () {
@@ -34,6 +23,7 @@ export default function (UIkit) {
 
         UIkit.instances[this._uid] = this;
 
+        this._data = {};
         this._initEvents();
 
         this._callHook('connected');
@@ -74,37 +64,59 @@ export default function (UIkit) {
 
     };
 
+    UIkit.prototype._callReady = function () {
+
+        if (this._isReady) {
+            return;
+        }
+
+        this._isReady = true;
+        this._callHook('ready');
+        this._resetComputeds();
+        this._callUpdate();
+    };
+
     UIkit.prototype._callUpdate = function (e) {
 
         e = createEvent(e || 'update');
 
-        if (e.type === 'update') {
-            this._computeds = {};
+        var {type, detail} = e;
+
+        if (type === 'update' && detail && detail.mutation) {
+            this._resetComputeds();
         }
 
-        var updates = this.$options.update;
+        var updates = this.$options.update, {reads, writes} = this._frames;
 
         if (!updates) {
             return;
         }
 
-        updates.forEach((update, i) => {
+        updates.forEach(({read, write, events}, i) => {
 
-            if (e.type !== 'update' && !includes(update.events, e.type)) {
+            if (type !== 'update' && !includes(events, type)) {
                 return;
             }
 
-            if (update.read && !includes(fastdom.reads, this._frames.reads[i])) {
-                this._frames.reads[i] = fastdom.measure(() => {
-                    update.read.call(this, e);
-                    delete this._frames.reads[i];
+            if (read && !includes(fastdom.reads, reads[i])) {
+                reads[i] = fastdom.read(() => {
+
+                    var result = read.call(this, this._data, e);
+
+                    if (result === false && write) {
+                        fastdom.clear(writes[i]);
+                        delete writes[i];
+                    } else if (isPlainObject(result)) {
+                        assign(this._data, result);
+                    }
+                    delete reads[i];
                 });
             }
 
-            if (update.write && !includes(fastdom.writes, this._frames.writes[i])) {
-                this._frames.writes[i] = fastdom.mutate(() => {
-                    update.write.call(this, e);
-                    delete this._frames.writes[i];
+            if (write && !includes(fastdom.writes, writes[i])) {
+                writes[i] = fastdom.write(() => {
+                    write.call(this, this._data, e);
+                    delete writes[i];
                 });
             }
 

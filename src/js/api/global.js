@@ -1,4 +1,4 @@
-import { classify, createEvent, doc, isString, mergeOptions, toNode } from '../util/index';
+import { $, classify, createEvent, doc, isString, mergeOptions, toNode } from '../util/index';
 
 export default function (UIkit) {
 
@@ -61,7 +61,7 @@ export default function (UIkit) {
                 update(element[DATA], e);
                 element = element.parentNode;
 
-            } while (element)
+            } while (element);
 
         } else {
 
@@ -79,7 +79,7 @@ export default function (UIkit) {
         },
 
         set(element) {
-            container = element;
+            container = $(element);
         }
 
     });

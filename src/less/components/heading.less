@@ -160,8 +160,8 @@
  * 3. Style
  */
 
-.uk-heading-line > :before,
-.uk-heading-line > :after {
+.uk-heading-line > ::before,
+.uk-heading-line > ::after {
     content: "";
     /* 1 */
     position: absolute;
@@ -173,11 +173,11 @@
     .hook-heading-line;
 }
 
-.uk-heading-line > :before {
+.uk-heading-line > ::before {
     right: 100%;
     margin-right: @heading-line-margin-horizontal;
 }
-.uk-heading-line > :after {
+.uk-heading-line > ::after {
     left: 100%;
     margin-left: @heading-line-margin-horizontal;
 }
@@ -223,8 +223,8 @@
         .hook-inverse-heading-bullet;
     }
 
-    .uk-heading-line > :before,
-    .uk-heading-line > :after {
+    .uk-heading-line > ::before,
+    .uk-heading-line > ::after {
         border-bottom-color: @inverse-heading-line-border;
         .hook-inverse-heading-line;
     }

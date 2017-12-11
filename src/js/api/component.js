@@ -14,7 +14,7 @@ export default function (UIkit) {
             options.name = name;
             options = UIkit.extend(options);
         } else if (isUndefined(options)) {
-            return UIkit.components[name]
+            return UIkit.components[name];
         } else {
             options.options.name = name;
         }
@@ -40,7 +40,7 @@ export default function (UIkit) {
         };
 
         if (UIkit._initialized && !options.options.functional) {
-            fastdom.measure(() => UIkit[name](`[uk-${id}],[data-uk-${id}]`));
+            fastdom.read(() => UIkit[name](`[uk-${id}],[data-uk-${id}]`));
         }
 
         return UIkit.components[name];
@@ -61,16 +61,12 @@ export default function (UIkit) {
 
         for (var i = 0; i < node.attributes.length; i++) {
 
-            name = node.attributes[i].name;
+            name = getComponentName(node.attributes[i].name);
 
-            if (startsWith(name, 'uk-') || startsWith(name, 'data-uk-')) {
-
-                name = camelize(name.replace('data-uk-', '').replace('uk-', ''));
-
-                if (UIkit[name]) {
-                    UIkit[name](node);
-                }
+            if (name && name in UIkit.components) {
+                UIkit[name](node);
             }
+
         }
 
     };
@@ -79,6 +75,12 @@ export default function (UIkit) {
         for (var name in node[DATA]) {
             node[DATA][name]._callDisconnected();
         }
-    }
+    };
 
+}
+
+export function getComponentName(attribute) {
+    return startsWith(attribute, 'uk-') || startsWith(attribute, 'data-uk-')
+        ? camelize(attribute.replace('data-uk-', '').replace('uk-', ''))
+        : false;
 }

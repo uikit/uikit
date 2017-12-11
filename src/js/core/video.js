@@ -1,4 +1,4 @@
-import { css, isVisible, Player } from '../util/index';
+import { css, isInView, isVisible, Player } from '../util/index';
 
 export default function (UIkit) {
 
@@ -9,9 +9,21 @@ export default function (UIkit) {
             autoplay: Boolean,
         },
 
-        defaults: {automute: false, autoplay: true},
+        defaults: {
+            automute: false,
+            autoplay: true
+        },
+
+        computed: {
+
+            inView({autoplay}) {
+                return autoplay === 'inview';
+            }
+
+        },
 
         ready() {
+
             this.player = new Player(this.$el);
 
             if (this.automute) {
@@ -20,25 +32,35 @@ export default function (UIkit) {
 
         },
 
-        update: {
+        update: [
 
-            write() {
+            {
 
-                if (!this.player) {
-                    return;
-                }
+                read(_, {type}) {
 
-                if (!isVisible(this.$el) || css(this.$el, 'visibility') === 'hidden') {
-                    this.player.pause();
-                } else if (this.autoplay) {
-                    this.player.play();
-                }
+                    return !this.player || (type === 'scroll' || type === 'resize') && !this.inView
+                        ? false
+                        : {
+                            visible: isVisible(this.$el) && css(this.$el, 'visibility') !== 'hidden',
+                            inView: this.inView && isInView(this.$el)
+                        };
+                },
 
-            },
+                write({visible, inView}) {
 
-            events: ['load']
+                    if (!visible || this.inView && !inView) {
+                        this.player.pause();
+                    } else if (this.autoplay === true || this.inView && inView) {
+                        this.player.play();
+                    }
 
-        },
+                },
+
+                events: ['load', 'resize', 'scroll']
+
+            }
+
+        ],
 
     });
 

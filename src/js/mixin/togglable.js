@@ -125,10 +125,10 @@ export default {
             }
 
             var promise = (animate === false || !this.hasAnimation
-                    ? this._toggleImmediate
-                    : this.hasTransition
-                        ? this._toggleHeight
-                        : this._toggleAnimation
+                ? this._toggleImmediate
+                : this.hasTransition
+                    ? this._toggleHeight
+                    : this._toggleAnimation
             )(el, show);
 
             trigger(el, show ? 'show' : 'hide', [this]);
@@ -140,6 +140,10 @@ export default {
         },
 
         _toggle(el, toggled) {
+
+            if (!el) {
+                return;
+            }
 
             if (this.cls) {
                 toggleClass(el, this.cls, includes(this.cls, ' ') ? undefined : toggled);

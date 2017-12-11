@@ -1,4 +1,4 @@
-import { animationstart, css, doc, fastdom, on, toMs, win } from '../util/index';
+import { css, doc, on, toMs, win } from '../util/index';
 
 import Accordion from './accordion';
 import Alert from './alert';
@@ -35,13 +35,12 @@ export default function (UIkit) {
 
     on(win, 'load resize', UIkit.update);
     on(win, 'scroll', e => {
-        e.dir = scroll < win.pageYOffset ? 'down' : 'up';
-        scroll = win.pageYOffset;
+        e.dir = scroll <= win.pageYOffset ? 'down' : 'up';
+        e.scrollY = scroll = win.pageYOffset;
         UIkit.update(e);
-        fastdom.flush();
     });
 
-    animationstart && on(doc, animationstart, ({target}) => {
+    on(doc, 'animationstart', ({target}) => {
         if ((css(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
             started++;
             doc.body.style.overflowX = 'hidden';

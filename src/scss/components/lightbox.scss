@@ -4,7 +4,7 @@
 // Component:       `uk-lightbox`
 //
 // Sub-objects:     `uk-lightbox-page`
-//                  `uk-lightbox-item`
+//                  `uk-lightbox-items`
 //                  `uk-lightbox-toolbar`
 //                  `uk-lightbox-toolbar-icon`
 //                  `uk-lightbox-button`
@@ -103,12 +103,13 @@ $lightbox-button-hover-color:                    #fff !default;
  * 1. Center child within the viewport
  * 2. Not visible by default
  * 3. Color needed for spinner icon
- * 4. Responsiveness
+ * 4. Optimize animation
+ * 5. Responsiveness
  *    Using `vh` for `max-height` to fix image proportions after resize in Safari and Opera
  *    Using `vh` and `vw` to make responsive image work in IE11
  */
 
-.uk-lightbox-item {
+.uk-lightbox-items > * {
     /* 1 */
     position: absolute;
     top: 0;
@@ -123,23 +124,25 @@ $lightbox-button-hover-color:                    #fff !default;
     -ms-flex-align: center;
     -webkit-align-items: center;
     align-items: center;
-    /* 2 */
+    /* 3 */
     color: $lightbox-item-color;
+    /* 4 */
+    will-change: transform, opacity;
     @if(mixin-exists(hook-lightbox-item)) {@include hook-lightbox-item();}
 }
 
-/* 4 */
-.uk-lightbox-item > * {
+/* 5 */
+.uk-lightbox-items > * > * {
     max-width: 100vw;
     max-height: 100vh;
 }
 
-.uk-lightbox-item > :not(iframe) {
+.uk-lightbox-items > * > :not(iframe) {
     width: auto;
     height: auto;
 }
 
-.uk-lightbox-item.uk-active {
+.uk-lightbox-items > .uk-active {
     display: -ms-flexbox;
     display: -webkit-flex;
     display: flex;

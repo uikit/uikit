@@ -5,7 +5,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Utility - UIkit tests</title>
-        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
         <style type="text/css">
 
@@ -181,7 +180,7 @@
             <div class="uk-child-width-1-3@s" uk-grid>
                 <div>
                     <p>JS Responsive Width (Iframe)</p>
-                    <iframe src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;controls=0&amp;showinfo=0&amp;rel=0&amp;loop=1&amp;modestbranding=1&amp;wmode=transparent" width="560" height="315" frameborder="0" allowfullscreen uk-responsive></iframe>
+                    <iframe src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;showinfo=0&amp;rel=0&amp;modestbranding=1" width="560" height="315" frameborder="0" allowfullscreen uk-responsive></iframe>
                 </div>
                 <div>
                     <p>Responsive Height (Image)</p>
@@ -452,7 +451,7 @@
                 </tbody>
             </table>
 
-            <h2>Gif</h2>
+            <h2>Gif (Deprecated)</h2>
 
             <p>
                 <img src="images/animated.gif" alt="" uk-gif>
@@ -463,15 +462,21 @@
             <div class="uk-grid uk-child-width-1-2@s">
                 <div>
 
-                    <button class="uk-button uk-button-default uk-margin-bottom" type="button" uk-toggle="target: +video">Toggle Video</button>
-                    <video src="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4" width="640" height="360" controls playsline uk-video="automute: true"></video>
+                    <h3>Autoplay</h3>
+
+                    <button class="uk-button uk-button-default uk-margin-bottom" type="button" uk-toggle="target: +">Toggle Video</button>
+                    <video controls playsinline uk-video="automute: true">
+                        <source src="//www.quirksmode.org/html5/videos/big_buck_bunny.mp4" type="video/mp4">
+                        <source src="//www.quirksmode.org/html5/videos/big_buck_bunny.ogv" type="video/ogg">
+                    </video>
 
                 </div>
                 <div>
 
-                    <button class="uk-button uk-button-default uk-margin-bottom" type="button" uk-toggle="target: +iframe">Toggle Video</button>
-                    <iframe src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;showinfo=0&amp;rel=0&amp;modestbranding=1" width="640" height="360" frameborder="0" allowfullscreen uk-responsive uk-video="automute: true"></iframe>
+                    <h3>Autoplay Inview</h3>
 
+                    <button class="uk-button uk-button-default uk-margin-bottom" type="button" uk-toggle="target: +">Toggle Video</button>
+                    <iframe src="//www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;showinfo=0&amp;rel=0&amp;modestbranding=1&amp;playsinline=1" width="560" height="315" frameborder="0" allowfullscreen uk-responsive uk-video="automute: true; autoplay: inview"></iframe>
                 </div>
             </div>
 
@@ -487,9 +492,9 @@
                 <tbody>
                     <tr>
                         <td><code>autoplay</code></td>
-                        <td>Boolean</td>
+                        <td>Boolean|String</td>
                         <td><code>true</code></td>
-                        <td>Automatically start the video. Pauses the video if it is not visible.</td>
+                        <td>Automatically start the video. Pauses the video if it is not visible. A value of `inview` will play/pause the video as it enters/leaves the viewport.</td>
                     </tr>
                     <tr>
                         <td><code>automute</code></td>
@@ -552,14 +557,14 @@
                     <tr>
                         <td><code>target</code></td>
                         <td>CSS selector</td>
-                        <td>false</td>
+                        <td>> *</td>
                         <td>Elements that should match. By default the children will match.</td>
                     </tr>
                     <tr>
                         <td><code>row</code></td>
                         <td>Boolean</td>
                         <td>true</td>
-                        <td>If your targets wrap into multiple rows, only grid columns within the same row are matched.</td>
+                        <td>By default only items in the same row will be matched. For example, once grid columns extend to a width of 100%, their heights will no longer be matched. This makes sense, for example, if they stack vertically in narrower viewports.</td>
                     </tr>
                 </tbody>
             </table>

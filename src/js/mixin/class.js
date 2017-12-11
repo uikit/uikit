@@ -6,4 +6,4 @@ export default {
         addClass(this.$el, this.$name);
     }
 
-}
+};

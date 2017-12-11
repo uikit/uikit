@@ -5,7 +5,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Overview - UIkit tests</title>
-        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -477,7 +476,7 @@
 
                 <hr class="uk-margin-medium">
 
-                <div class="uk-grid-divider uk-child-width-expand@m" uk-grid>
+                <div class="uk-grid-divider uk-child-width-auto@m" uk-grid>
                     <div>
 
                         <ul class="uk-dotnav">
@@ -490,7 +489,7 @@
                         </ul>
 
                     </div>
-                    <div class="uk-width-auto@m">
+                    <div>
 
                         <a href="#" uk-slidenav-previous></a>
                         <a href="#" uk-slidenav-next></a>
@@ -498,20 +497,29 @@
                     </div>
                     <div>
 
-                        <div class="uk-tooltip uk-tooltip-top-center uk-display-inline-block uk-margin-remove uk-position-relative">Tooltip</div>
+                        <ul class="uk-thumbnav">
+                            <li class="uk-active"><a href="#"><img src="images/photo.jpg" width="60" alt=""></a></li>
+                            <li><a href="#"><img src="images/dark.jpg" width="60" alt=""></a></li>
+                            <li><a href="#"><img src="images/light.jpg" width="60" alt=""></a></li>
+                        </ul>
 
                     </div>
                     <div>
 
+                        <div class="uk-tooltip uk-tooltip-top-center uk-display-inline-block uk-margin-remove uk-position-relative">Tooltip</div>
+
+                    </div>
+                    <div class="uk-width-expand@m">
+
                         <progress class="uk-progress" value="45" max="100">45%</progress>
 
                     </div>
-                    <div class="uk-width-auto@m">
+                    <div>
 
                         <button type="button" uk-close></button>
 
                     </div>
-                    <div class="uk-width-auto@m">
+                    <div>
 
                         <a href="#" uk-totop></a>
 
@@ -638,16 +646,6 @@
                                 <div class="uk-countdown-number uk-countdown-seconds"></div>
                             </div>
                         </div>
-
-                        <script>
-
-                            var demodate = (new Date(Date.now() + 864e5 * 7)).toISOString();
-
-                            $('[js-countdown]').each(function() {
-                                UIkit.countdown(this, {date:demodate});
-                            })
-
-                        </script>
 
                     </div>
                 </div>
@@ -800,6 +798,16 @@
 
             </div>
         </div>
+
+        <script>
+
+            var date = (new Date(Date.now() + 864e5 * 7)).toISOString();
+
+            UIkit.util.$$('[js-countdown]').forEach(function(el) {
+                UIkit.countdown(el, {date: date});
+            });
+
+        </script>
 
     </body>
 </html>

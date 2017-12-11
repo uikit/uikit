@@ -1,5 +1,5 @@
 import { Position, Togglable } from '../mixin/index';
-import { $$, addClass, Animation, attr, css, doc, includes, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointInRect, query, removeClass, removeClasses, toggleClass, trigger, win, within } from '../util/index';
+import { $$, addClass, Animation, attr, css, docEl, includes, isString, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointInRect, query, removeClass, removeClasses, toggleClass, trigger, win, within } from '../util/index';
 
 export default function (UIkit) {
 
@@ -23,7 +23,7 @@ export default function (UIkit) {
 
         defaults: {
             mode: ['click', 'hover'],
-            toggle: '-',
+            toggle: true,
             boundary: win,
             boundaryAlign: false,
             delayShow: 0,
@@ -47,7 +47,7 @@ export default function (UIkit) {
             this.updateAria(this.$el);
 
             if (this.toggle) {
-                this.toggle = UIkit.toggle(query(this.toggle, this.$el), {target: this.$el, mode: this.mode});
+                this.toggle = UIkit.toggle(isString(this.toggle) ? query(this.toggle, this.$el) : this.$el.previousElementSibling, {target: this.$el, mode: this.mode});
             }
 
         },
@@ -314,7 +314,7 @@ export default function (UIkit) {
                         active = this;
                     };
 
-                if (toggle && this.toggle &&  toggle.$el !== this.toggle.$el) {
+                if (toggle && this.toggle && toggle.$el !== this.toggle.$el) {
 
                     once(this.$el, 'hide', tryShow);
                     this.hide(false);
@@ -399,7 +399,7 @@ export default function (UIkit) {
         }
 
         registered = true;
-        on(doc, 'click', ({target, defaultPrevented}) => {
+        on(docEl, 'click', ({target, defaultPrevented}) => {
             var prev;
 
             if (defaultPrevented) {

@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var { $, empty, html } = UIkit.util;
+    var { $, doc, empty, html } = UIkit.util;
 
     UIkit.component('countdown', {
 
@@ -59,6 +59,26 @@ function plugin(UIkit) {
             this.units.forEach(unit => empty(this[unit]));
         },
 
+        events: [
+
+            {
+
+                name: 'visibilitychange',
+
+                el: doc,
+
+                handler() {
+                    if (doc.hidden) {
+                        this.stop();
+                    } else {
+                        this.start();
+                    }
+                }
+
+            }
+
+        ],
+
         update: {
 
             write() {
@@ -83,14 +103,14 @@ function plugin(UIkit) {
                     digits = digits.length < 2 ? `0${digits}` : digits;
 
                     var el = this[unit];
-                    if (el.innerText !== digits) {
+                    if (el.textContent !== digits) {
                         digits = digits.split('');
 
                         if (digits.length !== el.children.length) {
                             html(el, digits.map(() => '<span></span>').join(''));
                         }
 
-                        digits.forEach((digit, i) => el.children[i].innerText = digit);
+                        digits.forEach((digit, i) => el.children[i].textContent = digit);
                     }
 
                 });

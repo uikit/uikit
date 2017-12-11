@@ -190,13 +190,6 @@
 .uk-textarea::-moz-placeholder { opacity: 1; }
 
 /*
- * Remove the padding in IE 10-.
- */
-
-.uk-radio,
-.uk-checkbox { padding: 0; }
-
-/*
  * Improves consistency of cursor style for clickable elements
  */
 
@@ -307,12 +300,10 @@
  */
 
 .uk-input:-ms-input-placeholder { color: @form-placeholder-color !important; }
-.uk-input::-moz-placeholder { color: @form-placeholder-color; }
-.uk-input::-webkit-input-placeholder { color: @form-placeholder-color; }
+.uk-input::placeholder { color: @form-placeholder-color; }
 
 .uk-textarea:-ms-input-placeholder { color: @form-placeholder-color !important; }
-.uk-textarea::-moz-placeholder { color: @form-placeholder-color; }
-.uk-textarea::-webkit-input-placeholder { color: @form-placeholder-color; }
+.uk-textarea::placeholder { color: @form-placeholder-color; }
 
 
 /* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)
@@ -673,14 +664,8 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     /* 2 */
     width: @form-icon-width;
     /* 3 */
-    display: -ms-inline-flexbox;
-    display: -webkit-inline-flex;
     display: inline-flex;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
     justify-content: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
     align-items: center;
     /* 4 */
     color: @form-icon-color;
@@ -782,12 +767,10 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     //
 
     .uk-input:-ms-input-placeholder { color: @inverse-form-placeholder-color !important; }
-    .uk-input::-moz-placeholder { color: @inverse-form-placeholder-color; }
-    .uk-input::-webkit-input-placeholder { color: @inverse-form-placeholder-color; }
+    .uk-input::placeholder { color: @inverse-form-placeholder-color; }
 
     .uk-textarea:-ms-input-placeholder { color: @inverse-form-placeholder-color !important; }
-    .uk-textarea::-moz-placeholder { color: @inverse-form-placeholder-color; }
-    .uk-textarea::-webkit-input-placeholder { color: @inverse-form-placeholder-color; }
+    .uk-textarea::placeholder { color: @inverse-form-placeholder-color; }
 
     //
     // Radio and checkbox

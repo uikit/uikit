@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {mixin, util} = UIkit;
-    var {$$, addClass, after, assign, append, attr, before, closest, css, doc, docEl, height, fastdom, includes, index, isInput, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, Promise, remove, removeClass, toggleClass, toNodes, Transition, trigger, win, within} = util;
+    var {addClass, after, assign, append, attr, before, closest, css, doc, docEl, height, fastdom, getPos, includes, index, isInput, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, Promise, remove, removeClass, toggleClass, toNodes, Transition, trigger, win, within} = util;
 
     UIkit.component('sortable', {
 
@@ -46,11 +46,11 @@ function plugin(UIkit) {
                 var fn = this[key];
                 this[key] = e => {
                     this.scrollY = win.scrollY;
-                    var {pageX: x, pageY: y} = e.touches && e.touches[0] || e;
+                    var {x, y} = getPos(e);
                     this.pos = {x, y};
 
                     fn(e);
-                }
+                };
             });
         },
 
@@ -99,7 +99,7 @@ function plugin(UIkit) {
                 if (!placeholder
                     || isInput(e.target)
                     || this.handle && !within(target, this.handle)
-                    || button !== 0
+                    || button > 0
                     || within(target, `.${this.clsNoDrag}`)
                     || defaultPrevented
                 ) {
@@ -132,7 +132,7 @@ function plugin(UIkit) {
                     height: this.placeholder.offsetHeight
                 }, css(this.placeholder, ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom'])));
                 attr(this.drag, 'uk-no-boot', '');
-                addClass(this.drag, `${this.clsDrag} ${this.clsCustom}`);
+                addClass(this.drag, this.clsDrag, this.clsCustom);
 
                 height(this.drag.firstElementChild, height(this.placeholder.firstElementChild));
 
@@ -216,11 +216,11 @@ function plugin(UIkit) {
 
                 if (this === sortable) {
                     if (this.origin.index !== index(this.placeholder)) {
-                        trigger(this.$el, 'change', [this, this.placeholder, 'moved']);
+                        trigger(this.$el, 'moved', [this, this.placeholder]);
                     }
                 } else {
-                    trigger(sortable.$el, 'change', [sortable, this.placeholder, 'added']);
-                    trigger(this.$el, 'change', [this, this.placeholder, 'removed']);
+                    trigger(sortable.$el, 'added', [sortable, this.placeholder]);
+                    trigger(this.$el, 'removed', [this, this.placeholder]);
                 }
 
                 trigger(this.$el, 'stop', [this]);
@@ -243,7 +243,7 @@ function plugin(UIkit) {
 
                     if (target) {
 
-                        if (!within(element, this.$el) || $$('-', element).some(element => element === target)) {
+                        if (!within(element, this.$el) || isPredecessor(element, target)) {
                             before(target, element);
                         } else {
                             after(target, element);
@@ -295,7 +295,7 @@ function plugin(UIkit) {
                 action();
 
                 children.forEach(Transition.cancel);
-                css(children, reset);
+                css(this.$el.children, reset);
                 this.$update('update', true);
                 fastdom.flush();
 
@@ -317,7 +317,11 @@ function plugin(UIkit) {
     });
 
     function getSortable(element) {
-        return UIkit.getComponent(element, 'sortable') || element.parentNode && getSortable(element.parentNode);
+        return element && (UIkit.getComponent(element, 'sortable') || getSortable(element.parentNode));
+    }
+
+    function isPredecessor(element, target) {
+        return element.parentNode === target.parentNode && index(element) > index(target);
     }
 
 }

@@ -43,7 +43,7 @@ export default function (UIkit) {
         computed: {
 
             boundary({boundary, boundaryAlign}, $el) {
-                return (boundary === true || boundaryAlign) ? $el : boundary
+                return (boundary === true || boundaryAlign) ? $el : boundary;
             },
 
             pos({align}) {
@@ -195,7 +195,7 @@ export default function (UIkit) {
             transitionTo(newHeight) {
                 height(this.$el, isVisible(this.$el) ? height(this.$el) : 0);
                 Transition.cancel(this.$el);
-                return Transition.start(this.$el, {height: newHeight}, this.duration).then(null, noop);
+                return Transition.start(this.$el, {height: newHeight}, this.duration).catch(noop);
             }
 
         }
