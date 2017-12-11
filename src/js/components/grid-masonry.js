@@ -1,4 +1,4 @@
-import { $$, append, doc, remove } from '../util/index';
+import { addClass, win } from '../util/index';
 
 export default function plugin(UIkit) {
 
@@ -6,40 +6,50 @@ export default function plugin(UIkit) {
         return;
     }
 
-    UIkit.component('grid-masonry', {
+    UIkit.component('grid-masonry', UIkit.components.grid.extend({
 
-        ready() {
-            this.$el.style.gridAutoRows = '1px';
+        init() {
+            addClass(this.$el, 'uk-grid');
         },
 
         update: {
             write(data) {
-                // return;
-                const nw = this.$el.offsetWidth;
-                const computed = getComputedStyle(this.$el);
-                const rowHeight = parseInt(computed.getPropertyValue('grid-auto-rows'));
-                const rowGap = parseInt(computed.getPropertyValue('grid-row-gap'));
-                const colGap = parseInt(computed.getPropertyValue('grid-column-gap'));
-                if (data.w !== nw || rowHeight !== data.rowHeight) {
-                    data.w = nw;
-                    data.rowHeight = rowHeight;
-                    const fullRowHeight = rowHeight + rowGap;
-                    $$('> *', this.$el).forEach(el => {
-                        // const tmp = doc.createElement('div');
-                        // append(tmp, el);
-                        // append(this.$el, tmp);
-                        const contentHeight = el.firstChild.offsetHeight + colGap;
-                        el.style.gridRowEnd = `span ${Math.ceil(contentHeight / fullRowHeight)}`;
-                        if (!rowGap) {
-                            el.firstChild.style.marginBottom = `${colGap}px`;
+
+                const currentWidth = this.$el.offsetWidth;
+                if (data.width !== currentWidth) {
+                    data.width = currentWidth;
+
+                    const columns = {};
+                    var gapSize = -1;
+                    for (var i = 0; i < this.$el.children.length; i++) {
+
+                        const el = this.$el.children[i].firstChild;
+                        el.style.marginTop = '';
+                        const bounds = el.getBoundingClientRect();
+                        const x = bounds.left;
+                        const columnY = columns[x];
+                        if (columnY) {
+                            if (gapSize === -1) {
+
+                                const cptStyle = win.getComputedStyle(this._data.rows[1][0]);
+                                const val = cptStyle.getPropertyValue('margin-top');
+                                gapSize = parseInt(val);
+                            }
+                            const offset = columnY - bounds.y + gapSize;
+                            el.style.marginTop = `${offset}px`;
+                            columns[x] += bounds.height + gapSize;
+                        } else {
+                            columns[x] = bounds.bottom;
                         }
-                        // append(this.$el, el);
-                        // remove(tmp);
-                    });
+
+                    }
                 }
+
             },
             events: ['load', 'resize']
         }
 
-    });
+    })
+);
+
 }
