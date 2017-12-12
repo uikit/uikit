@@ -1,11 +1,11 @@
-import { Class } from '../mixin/index';
-import { $$, toggleClass } from '../util/index';
+import { Class, Masonry } from '../mixin/index';
+import { toggleClass } from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.component('grid', UIkit.components.margin.extend({
 
-        mixins: [Class],
+        mixins: [Class, Masonry],
 
         name: 'grid',
 

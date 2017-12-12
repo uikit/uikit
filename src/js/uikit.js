@@ -9,11 +9,9 @@ import Slideshow from './components/slideshow';
 import Sortable from './components/sortable';
 import Tooltip from './components/tooltip';
 import Upload from './components/upload';
-import GridMasonry from './components/grid-masonry';
 
 UIkit.use(Countdown);
 UIkit.use(GridParallax);
-UIkit.use(GridMasonry);
 UIkit.use(Lightbox);
 UIkit.use(Notification);
 UIkit.use(Parallax);
