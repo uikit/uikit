@@ -18,6 +18,7 @@ function plugin(UIkit) {
 
         props: {
             animation: String,
+            container: Boolean,
             toggle: String,
             autoplay: Boolean,
             autoplayInterval: Number,
@@ -26,6 +27,7 @@ function plugin(UIkit) {
 
         defaults: {
             animation: undefined,
+            container: true,
             toggle: 'a',
             autoplay: 0,
             videoAutoplay: false
