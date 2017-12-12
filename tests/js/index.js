@@ -107,6 +107,7 @@ window.addEventListener('load', () => setTimeout(() => {
         'pagination',
         'parallax',
         'position',
+        'priority',
         'placeholder',
         'progress',
         'scroll',
