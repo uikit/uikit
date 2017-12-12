@@ -30,6 +30,18 @@ export function attr(element, name, value) {
 
 }
 
+export function show(el) {
+    attr(el, 'hidden', null);
+}
+
+export function hide(el) {
+    attr(el, 'hidden', '');
+}
+
+export function setVisible(el, vis) {
+    vis ? show(el) : hide(el);
+}
+
 export function hasAttr(element, name) {
     return toNodes(element).some(element => element.hasAttribute(name));
 }
