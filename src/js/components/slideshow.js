@@ -1,6 +1,6 @@
 import Parallax from './parallax';
 import Slideshow from '../mixin/slideshow';
-import Animations from './internal/slideshow-animations';
+import AnimationsPlugin from './internal/slideshow-animations';
 
 function plugin(UIkit) {
 
@@ -13,6 +13,8 @@ function plugin(UIkit) {
 
     var {mixin} = UIkit;
     var {closest, css, fastdom, endsWith, height, noop, Transition} = UIkit.util;
+
+    var Animations = AnimationsPlugin(UIkit);
 
     UIkit.component('slideshow', {
 
@@ -30,7 +32,7 @@ function plugin(UIkit) {
             maxHeight: false,
             selList: '.uk-slideshow-items',
             attrItem: 'uk-slideshow-item',
-            Animations: Animations(UIkit)
+            Animations
         },
 
         ready() {

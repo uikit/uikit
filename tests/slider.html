@@ -6,7 +6,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Slider - UIkit tests</title>
         <script src="js/test.js"></script>
-        <script src="../dist/js/uikit.js"></script>
         <style type="text/css">
 
             .test > :nth-child(10n-9) > canvas { background: rgba(0,0,0,0.1); }
@@ -20,6 +19,14 @@
             .test > :nth-child(10n-1) > canvas { background: rgba(0,0,0,0.50); }
             .test > :nth-child(10n) > canvas { background: rgba(0,0,0,0.55); }
 
+            [uk-slider-item] > a {
+                background-color: rgba(102, 102, 102, 0.2) !important;
+            }
+
+            [uk-slider-item].uk-active > a {
+                background-color: rgba(102, 102, 102, 0.6) !important;
+            }
+
         </style>
     </head>
 
@@ -31,12 +38,12 @@
 
             <div class="uk-margin">
                 <select id="js-center-switcher" class="uk-select uk-form-width-small">
-                    <option value="">Not centered</option>
-                    <option value="center">Center</option>
+                    <option value="0">Not centered</option>
+                    <option value="1">Center</option>
                 </select>
-                <select id="js-infinite-switcher" class="uk-select uk-form-width-small">
-                    <option value="">Infinite</option>
-                    <option value="false">Finite</option>
+                <select id="js-finite-switcher" class="uk-select uk-form-width-small">
+                    <option value="0">Infinite</option>
+                    <option value="1">Finite</option>
                 </select>
             </div>
 
@@ -122,11 +129,18 @@
                 <a class="uk-position-center-left uk-position-small uk-hidden-hover" uk-slidenav-previous uk-slider-item="previous"></a>
                 <a class="uk-position-center-right uk-position-small uk-hidden-hover" uk-slidenav-next uk-slider-item="next"></a>
 
+                <ul class="uk-dotnav uk-flex-center uk-margin">
+                    <li uk-slider-item="0"><a href="#">Item 1</a></li>
+                    <li uk-slider-item="2"><a href="#">Item 2</a></li>
+                    <li uk-slider-item="5"><a href="#">Item 5</a></li>
+                    <li uk-slider-item="11"><a href="#">Item 11</a></li>
+                </ul>
+
             </div>
 
             <h2>Different Widths</h2>
 
-            <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider>
+            <div class="uk-position-relative uk-visible-toggle uk-light" _uk-slider>
 
                 <ul class="test uk-slider-items">
                     <li>
@@ -206,11 +220,18 @@
                 <a class="uk-position-center-left uk-position-small uk-hidden-hover" uk-slidenav-previous uk-slider-item="previous"></a>
                 <a class="uk-position-center-right uk-position-small uk-hidden-hover" uk-slidenav-next uk-slider-item="next"></a>
 
+                <ul class="uk-dotnav uk-flex-center uk-margin">
+                    <li uk-slider-item="0"><a href="#">Item 1</a></li>
+                    <li uk-slider-item="2"><a href="#">Item 2</a></li>
+                    <li uk-slider-item="5"><a href="#">Item 5</a></li>
+                    <li uk-slider-item="11"><a href="#">Item 11</a></li>
+                </ul>
+
             </div>
 
             <h2>Width Classes</h2>
 
-            <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider>
+            <div class="uk-position-relative uk-visible-toggle uk-light" _uk-slider>
 
                 <ul class="uk-slider-items uk-child-width-1-4">
                     <li>
@@ -272,11 +293,17 @@
                 <a class="uk-position-center-left uk-position-small uk-hidden-hover" uk-slidenav-previous uk-slider-item="previous"></a>
                 <a class="uk-position-center-right uk-position-small uk-hidden-hover" uk-slidenav-next uk-slider-item="next"></a>
 
+                <ul class="uk-dotnav uk-flex-center uk-margin">
+                    <li uk-slider-item="0"><a href="#">Item 1</a></li>
+                    <li uk-slider-item="2"><a href="#">Item 2</a></li>
+                    <li uk-slider-item="5"><a href="#">Item 5</a></li>
+                    <li uk-slider-item="11"><a href="#">Item 11</a></li>
+                </ul>
             </div>
 
             <h2>Grid</h2>
 
-            <div class="uk-position-relative uk-visible-toggle uk-light" uk-slider>
+            <div class="uk-position-relative uk-visible-toggle uk-light" _uk-slider>
 
                 <ul class="uk-slider-items uk-child-width-1-4" uk-grid>
                     <li>
@@ -356,13 +383,20 @@
                 <a class="uk-position-center-left uk-position-small uk-hidden-hover" uk-slidenav-previous uk-slider-item="previous"></a>
                 <a class="uk-position-center-right uk-position-small uk-hidden-hover" uk-slidenav-next uk-slider-item="next"></a>
 
+                <ul class="uk-dotnav uk-flex-center uk-margin">
+                    <li uk-slider-item="0"><a href="#">Item 1</a></li>
+                    <li uk-slider-item="2"><a href="#">Item 2</a></li>
+                    <li uk-slider-item="5"><a href="#">Item 5</a></li>
+                    <li uk-slider-item="11"><a href="#">Item 11</a></li>
+                </ul>
+
             </div>
 
             <h2>Viewport Height</h2>
 
         </div>
 
-        <div class="uk-margin uk-position-relative uk-visible-toggle uk-light" uk-slider>
+        <div class="uk-margin uk-position-relative uk-visible-toggle uk-light" _uk-slider>
 
             <ul class="uk-slider-items uk-child-width-1-4" uk-height-viewport>
                 <li>
@@ -424,6 +458,13 @@
             <a class="uk-position-center-left uk-position-small uk-hidden-hover" uk-slidenav-previous uk-slider-item="previous"></a>
             <a class="uk-position-center-right uk-position-small uk-hidden-hover" uk-slidenav-next uk-slider-item="next"></a>
 
+            <ul class="uk-dotnav uk-flex-center uk-margin">
+                <li uk-slider-item="0"><a href="#">Item 1</a></li>
+                <li uk-slider-item="2"><a href="#">Item 2</a></li>
+                <li uk-slider-item="5"><a href="#">Item 5</a></li>
+                <li uk-slider-item="8"><a href="#">Item 8</a></li>
+            </ul>
+
         </div>
 
         <div class="uk-container">
@@ -441,12 +482,34 @@
                         </tr>
                     </thead>
                     <tbody>
-
+                        <tr>
+                            <td><code>center</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Center the active slide.</td>
+                        </tr>
+                        <tr>
+                            <td><code>finite</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Disable infinite sliding.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
 
         </div>
+
+        <script>
+
+            ['finite', 'center'].forEach(function(attr) {
+                UIkit.util.on('#js-'+attr+'-switcher', 'change', function () {
+                    var value = this.value;
+                    UIkit.util.$$('[uk-slider]').forEach(function (slider) { UIkit.util.attr(slider, attr, value); });
+                });
+            });
+
+        </script>
 
     </body>
 </html>

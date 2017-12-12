@@ -203,20 +203,25 @@ function positionTop(element) {
     return top;
 }
 
-export function getIndex(i, elements, current = 0) {
+export function getIndex(i, elements, current = 0, finite = false) {
 
     elements = toNodes(elements);
 
     var length = elements.length;
 
-    i = (isNumeric(i)
+    i = isNumeric(i)
         ? toNumber(i)
         : i === 'next'
             ? current + 1
             : i === 'previous'
                 ? current - 1
-                : index(elements, i)
-    ) % length;
+                : index(elements, i);
+
+    if (finite) {
+        return clamp(i, 0, length - 1);
+    }
+
+    i %= length;
 
     return i < 0 ? i + length : i;
 }

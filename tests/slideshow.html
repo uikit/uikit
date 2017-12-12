@@ -24,6 +24,10 @@
                     <option value="pull">Pull</option>
                     <option value="push">Push</option>
                 </select>
+                <select id="js-finite-switcher" class="uk-select uk-form-width-small">
+                    <option value="0">Infinite</option>
+                    <option value="1">Finite</option>
+                </select>
             </div>
 
             <div class="uk-child-width-1-2@m" uk-grid>
@@ -414,6 +418,12 @@
                             <td>The delay between switching slides in autoplay mode.</td>
                         </tr>
                         <tr>
+                            <td><code>finite</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Disable infinite sliding.</td>
+                        </tr>
+                        <tr>
                             <td><code>pause-on-hover</code></td>
                             <td>Boolean</td>
                             <td>false</td>
@@ -454,6 +464,11 @@
             UIkit.util.on('#js-animation-switcher', 'change', function () {
                 var value = this.value;
                 UIkit.util.$$('.js-slideshow-animation').forEach(function (slideshow) { UIkit.util.attr(slideshow, 'animation', value); });
+            });
+
+            UIkit.util.on('#js-finite-switcher', 'change', function () {
+                var value = this.value;
+                UIkit.util.$$('[uk-slideshow]').forEach(function (slideshow) { UIkit.util.attr(slideshow, 'finite', value); });
             });
 
         </script>
