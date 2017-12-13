@@ -144,7 +144,7 @@ function plugin(UIkit) {
                         ajax(this.url, {
                             data,
                             method: this.type,
-                            headers: this.headers
+                            headers: this.headers,
                             beforeSend: env => {
 
                                 var xhr = env.xhr;
