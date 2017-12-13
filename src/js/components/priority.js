@@ -1,4 +1,5 @@
-import { $, $$, closest, hide, show, width, setVisible } from '../util/index';
+import { $, $$, closest, hide, isInvisible, isVisible, show, width, setVisible } from '../util/index';
+import { isVisible } from '../util/dom';
 
 function plugin(UIkit) {
 
@@ -22,17 +23,19 @@ function plugin(UIkit) {
             container: null,
             containerElements: null,
             lastTarget: null,
-            hiddenElements: [],
-            currentElements: []
         },
 
-        ready() {
+        connected() {
             const navBarContainer = closest(this.$el, '.uk-navbar-container');
             if (navBarContainer) {
                 this.container = this.container || navBarContainer;
                 this.containerElements = this.containerElements || '[class^=uk-navbar-left],[class^=uk-navbar-right],[class^=uk-navbar-center]';
                 this.source = this.source || '[class^=uk-navbar-] .uk-navbar-nav';
             }
+        },
+
+        disconnected() {
+            this.restoreOriginalPriobar;
         },
 
         computed: {
@@ -94,13 +97,22 @@ function plugin(UIkit) {
 
         methods: {
 
+            hiddenElements() {
+                return this.allElements.filter(item => !isVisible(item.el));
+            },
+
+            currentElements() {
+                const cur = this.allElements.filter(item => isVisible(item.el));
+                return cur;
+            },
+
             neededWidth() {
-                const w = this.currentElements.reduce((width, el) => width + (el.width || (el.width = el.el.getBoundingClientRect().width)), 0);
-                return w + (this.currentElements.length < this.allElements.length ? this.moreNodeWidth : 0);
+                const w = this.currentElements().reduce((width, el) => width + (el.width || (el.width = el.el.getBoundingClientRect().width)), 0);
+                return w + (this.currentElements().length < this.allElements.length ? this.moreNodeWidth : 0);
             },
 
             showMore() {
-                return this.currentElements.length < this.allElements.length;
+                return this.currentElements().length < this.allElements.length;
             },
 
             overLaps() {
@@ -117,7 +129,7 @@ function plugin(UIkit) {
 
             hasBreakingElement() {
                 var prevElement = null;
-                var elements = this.showMore() ? this.currentElements.concat([{el: this.moreNode}]) : this.currentElements;
+                var elements = this.showMore() ? this.currentElements().concat([{el: this.moreNode}]) : this.currentElements();
                 const breaks = elements.some((el, i) => {
                     var breaks;
                     el.top = el.el.offsetTop;
@@ -138,8 +150,8 @@ function plugin(UIkit) {
             },
 
             shouldShrink() {
-                return this.currentElements.length
-                    && this.hiddenElements.length < this.temporaryNodes.length
+                return this.currentElements().length
+                    && this.hiddenElements().length < this.temporaryNodes.length
                     && (this.neededWidth() > this.availableWidth || this.hasBreakingElement() || this.overLaps());
             },
 
@@ -149,19 +161,16 @@ function plugin(UIkit) {
 
             restoreOriginalPriobar() {
 
-                this.hiddenElements = [];
-                this.currentElements = this.allElements.concat();
-                this.currentElements.forEach(node => {
+                this.allElements.forEach(node => {
                     show(node.el);
                 });
 
                 hide(this.moreNode);
 
-                this.resetMeasurements();
             },
 
             resetMeasurements() {
-                this.currentElements.forEach(el => {
+                this.currentElements().forEach(el => {
                     delete el.width;
                     delete el.top;
                     delete el.height;
@@ -171,11 +180,10 @@ function plugin(UIkit) {
 
             getNextItemToRemove() {
 
-                for (var i = 0 ; i < this.currentElements.length; i++) {
-                    const index = this.currentElements.length - i - 1;
-                    const overHangingChild = this.currentElements[index];
+                for (var i = 0 ; i < this.currentElements().length; i++) {
+                    const index = this.currentElements().length - i - 1;
+                    const overHangingChild = this.currentElements()[index];
                     if (this.canBePrioritized(overHangingChild.el)) {
-                        this.currentElements.splice(index, 1);
                         return overHangingChild;
                     }
                 }
@@ -183,15 +191,16 @@ function plugin(UIkit) {
 
             resize() {
 
+                debugger;
                 this.restoreOriginalPriobar();
-
+                this.resetMeasurements();
+                
                 while (this.shouldShrink()) {
 
                     show(this.moreNode);
 
                     const overHangingChild = this.getNextItemToRemove();
                     if (overHangingChild) {
-                        this.hiddenElements.unshift(overHangingChild);
                         hide(overHangingChild.el);
                     } else {
                         break;
@@ -199,7 +208,7 @@ function plugin(UIkit) {
                 }
 
                 this.temporaryNodes.concat().reverse().forEach((node, i) => {
-                    setVisible(node, i < this.hiddenElements.length);
+                    setVisible(node, i < this.hiddenElements().length);
                 });
             }
 
