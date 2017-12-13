@@ -301,6 +301,7 @@ function plugin(UIkit) {
 
                     var i = index(target),
                         caption = this.getItem(i).caption;
+
                     css(this.caption, 'display', caption ? '' : 'none');
                     html(this.caption, caption);
 
