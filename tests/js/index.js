@@ -85,6 +85,7 @@ window.addEventListener('load', () => setTimeout(() => {
         'flex',
         'form',
         'grid',
+        'grid-masonry',
         'grid-parallax',
         'heading',
         'height-expand',

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Grid - UIkit tests</title>
+        <script src="js/test.js"></script>
+        <style type="text/css">
+
+            .uk-panel {
+                padding: 10px;
+                text-align: center;
+            }
+
+            :nth-child(10n-9) > .uk-panel { background: rgba(0,0,0,0.1); }
+            :nth-child(10n-8) > .uk-panel { background: rgba(0,0,0,0.15); }
+            :nth-child(10n-7) > .uk-panel { background: rgba(0,0,0,0.2); }
+            :nth-child(10n-6) > .uk-panel { background: rgba(0,0,0,0.25); }
+            :nth-child(10n-5) > .uk-panel { background: rgba(0,0,0,0.3); }
+            :nth-child(10n-4) > .uk-panel { background: rgba(0,0,0,0.35); }
+            :nth-child(10n-3) > .uk-panel { background: rgba(0,0,0,0.40); }
+            :nth-child(10n-2) > .uk-panel { background: rgba(0,0,0,0.45); }
+            :nth-child(10n-1) > .uk-panel { background: rgba(0,0,0,0.50); }
+            :nth-child(10n) > .uk-panel { background: rgba(0,0,0,0.55); }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Grid Masonry</h1>
+
+            <h2>Basic</h2>
+            
+            <div class="uk-child-width-1-4 uk-grid-small" uk-grid masonry="true" >
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam..
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam..
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                </div></div>
+            </div>
+
+            <h2>Parallax</h2>
+            
+            <div class="uk-child-width-1-4 uk-grid-small" uk-grid masonry="true" translate="200">
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam..
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam..
+                </div></div>
+                <div><div class="uk-card uk-card-default uk-card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
+                </div></div>
+            </div>
+
+
+            <h2>Javascript Options</h2>
+            
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>margin</code></td>
+                            <td>String</td>
+                            <td>uk-grid-margin</td>
+                            <td>This class is added to items that break into the next row, typically to create margin to the previous row.</td>
+                        </tr>
+                        <tr>
+                            <td><code>first-column</code></td>
+                            <td>String</td>
+                            <td>uk-first-column</td>
+                            <td>This class is added to the first element in each row.</td>
+                        </tr>
+                        <tr>
+                            <td><code>masonry</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Enables or disables masonry layout for this grid.</td>
+                        </tr>
+                        <tr>
+                            <td><code>translate</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>Parallax translation value. The value must be a positive integer. Falsy disables the parallax effect (default).</td>
+                        </tr>
+                        <tr>
+                            <td><code>target</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>Selector string for child elements to translate. Defaults to element's children.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </body>
+</html>
