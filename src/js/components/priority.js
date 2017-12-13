@@ -1,11 +1,10 @@
-import { $, $$, closest, hide, isInvisible, isVisible, show, width, setVisible } from '../util/index';
-import { isVisible } from '../util/dom';
-
 function plugin(UIkit) {
 
     if (plugin.installed) {
         return;
     }
+
+    const { $, $$, closest, hide, isVisible, show, width, setVisible } = UIkit.util;
 
     UIkit.component('priority-nav', {
         props: {
@@ -191,10 +190,9 @@ function plugin(UIkit) {
 
             resize() {
 
-                debugger;
                 this.restoreOriginalPriobar();
                 this.resetMeasurements();
-                
+
                 while (this.shouldShrink()) {
 
                     show(this.moreNode);
@@ -234,6 +232,10 @@ function plugin(UIkit) {
         }
     });
 
+}
+
+if (!BUNDLED && typeof window !== 'undefined' && window.UIkit) {
+    window.UIkit.use(plugin);
 }
 
 export default plugin;
