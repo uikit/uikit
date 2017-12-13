@@ -16,7 +16,7 @@
 
 ### Changed
 
-- Calling a constructor with data on an already initialized component will reset the component
+- Calling a component constructor with data on an already initialized component will reset the component
 
 ### Deprecated
 
