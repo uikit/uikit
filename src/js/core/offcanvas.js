@@ -38,7 +38,7 @@ export default function (UIkit) {
         computed: {
 
             content({content}) {
-                return $(content);
+                return $(content) || doc.body;
             },
 
             clsFlip({flip, clsFlip}) {

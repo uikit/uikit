@@ -14,7 +14,7 @@ export default {
     computed: {
 
         container({container}) {
-            return container === true && UIkit.container || container && $(container) || UIkit.container;
+            return container === true && UIkit.container || container && $(container);
         }
 
     }
