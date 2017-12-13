@@ -14,6 +14,10 @@
 - Add parameterization for prefix and scope scripts. use scope/prefix -h (e.g. npm run prefix -- -h) to list the available options.
 - Make some util methods more error resilient
 
+### Changed
+
+- Calling a constructor with data on an already initialized component will reset the component
+
 ### Deprecated
 
 - Deprecate `uk-gif`
