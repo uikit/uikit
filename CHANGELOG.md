@@ -3,6 +3,7 @@
 ## WIP
 
 ### Added
+
 - Add option to pass data-alt="" to images in Lightbox.
 - Component DOM attributes are being observed too (uk-grid, ...)
 - Video component supports play/pause video as it enters/leaves the viewport
@@ -17,16 +18,19 @@
 - Deprecate `uk-gif`
 
 ### Removed
+
 - Remove support for IE 10
 - Remove support for iOS < 9.1
 - Remove most -webkit and -moz vendor prefixes
 
 ### Fixed
+
 - Fix scrolling with scrollbar on Modal closes Modal
 - Fix `container` options
 - Fix initializing Icon components programmatically
 - Fix accordion initial active option
 - Fix webpack builds (npm run test)
+
 ## 3.0.0 beta 35 (November 13, 2017)
 
 ### Added
