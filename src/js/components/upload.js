@@ -12,6 +12,7 @@ function plugin(UIkit) {
             allow: String,
             clsDragover: String,
             concurrent: Number,
+            maxSize: Number,
             mime: String,
             msgInvalidMime: String,
             msgInvalidName: String,
@@ -29,6 +30,7 @@ function plugin(UIkit) {
             allow: false,
             clsDragover: 'uk-dragover',
             concurrent: 1,
+            maxSize: 0,
             mime: false,
             msgInvalidMime: 'Invalid File Type: %s',
             msgInvalidName: 'Invalid File Name: %s',
@@ -39,7 +41,6 @@ function plugin(UIkit) {
             type: 'POST',
             headers: {},
             url: '',
-            size_limit: 0,
             abort: noop,
             beforeAll: noop,
             beforeSend: noop,
@@ -111,23 +112,20 @@ function plugin(UIkit) {
                 trigger(this.$el, 'upload', [files]);
 
                 for (var i = 0; i < files.length; i++) {
-                    if (this.size_limit > 0 && this.size_limit < files[i].size) {
-                        this.fail(this.msgInvalidSize.replace(/%s/, this.allow));
+
+                    if (this.maxSize && this.maxSize * 1000 < files[i].size) {
+                        this.fail(this.msgInvalidSize.replace('%s', this.allow));
                         return;
                     }
 
-                    if (this.allow) {
-                        if (!match(this.allow, files[i].name)) {
-                            this.fail(this.msgInvalidName.replace(/%s/, this.allow));
-                            return;
-                        }
+                    if (this.allow && !match(this.allow, files[i].name)) {
+                        this.fail(this.msgInvalidName.replace('%s', this.allow));
+                        return;
                     }
 
-                    if (this.mime) {
-                        if (!match(this.mime, files[i].type)) {
-                            this.fail(this.msgInvalidMime.replace(/%s/, this.mime));
-                            return;
-                        }
+                    if (this.mime && !match(this.mime, files[i].type)) {
+                        this.fail(this.msgInvalidMime.replace('%s', this.mime));
+                        return;
                     }
 
                 }
