@@ -13,6 +13,7 @@
 - Add option to skip minification for less building (./build/less.js -d)
 - Add parameterization for prefix and scope scripts. use scope/prefix -h (e.g. npm run prefix -- -h) to list the available options.
 - Make some util methods more error resilient
+- Add File size restriction `maxSize` to Upload component. (PR #3087)
 
 ### Changed
 
