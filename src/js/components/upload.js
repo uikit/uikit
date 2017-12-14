@@ -15,11 +15,13 @@ function plugin(UIkit) {
             mime: String,
             msgInvalidMime: String,
             msgInvalidName: String,
+            msgInvalidSize: String,
             multiple: Boolean,
             name: String,
             params: Object,
             type: String,
-            url: String
+            url: String,
+            size_limit: Number
         },
 
         defaults: {
@@ -29,11 +31,13 @@ function plugin(UIkit) {
             mime: false,
             msgInvalidMime: 'Invalid File Type: %s',
             msgInvalidName: 'Invalid File Name: %s',
+            msgInvalidSize: 'Invalid File Size: %s Bytes Max',
             multiple: false,
             name: 'files[]',
             params: {},
             type: 'POST',
             url: '',
+            size_limit: 0,
             abort: noop,
             beforeAll: noop,
             beforeSend: noop,
@@ -105,6 +109,10 @@ function plugin(UIkit) {
                 trigger(this.$el, 'upload', [files]);
 
                 for (var i = 0; i < files.length; i++) {
+                    if (this.size_limit > 0 && this.size_limit < files[i].size) {
+                        this.fail(this.msgInvalidSize.replace(/%s/, this.allow));
+                        return;
+                    }
 
                     if (this.allow) {
                         if (!match(this.allow, files[i].name)) {
