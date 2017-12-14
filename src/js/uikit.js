@@ -1,6 +1,8 @@
 import boot from './api/boot';
 import UIkit from './uikit-core';
+import Attribute from './components/attribute';
 import Countdown from './components/countdown';
+import Filter from './components/filter';
 import GridParallax from './components/grid-parallax';
 import Lightbox from './components/lightbox';
 import Notification from './components/notification';
@@ -10,7 +12,9 @@ import Sortable from './components/sortable';
 import Tooltip from './components/tooltip';
 import Upload from './components/upload';
 
+UIkit.use(Attribute);
 UIkit.use(Countdown);
+UIkit.use(Filter);
 UIkit.use(GridParallax);
 UIkit.use(Lightbox);
 UIkit.use(Notification);
