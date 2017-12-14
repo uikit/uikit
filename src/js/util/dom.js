@@ -345,7 +345,7 @@ export function after(ref, element) {
 
 function insertNodes(element, fn) {
     element = isString(element) ? fragment(element) : element;
-    return 'length' in element ? toNodes(element).map(fn) : fn(element);
+    return element ? 'length' in element ? toNodes(element).map(fn) : fn(element) : null;
 }
 
 export function remove(element) {
