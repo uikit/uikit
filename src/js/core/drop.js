@@ -36,8 +36,8 @@ export default function (UIkit) {
 
         computed: {
 
-            toggle({toggle}) {
-                return toggle && UIkit.toggle(isString(toggle) ? query(toggle, this.$el) : this.$el.previousElementSibling, {target: this.$el, mode: this.mode});
+            toggle({mode, toggle}, $el) {
+                return toggle && UIkit.toggle(isString(toggle) ? query(toggle, $el) : $el.previousElementSibling, {target: $el, mode});
             },
 
             clsDrop({clsDrop}) {
