@@ -4,16 +4,16 @@
 
 ### Added
 
-- Add option to pass data-alt="" to images in Lightbox.
+- Add option to pass `data-alt=""` to images in Lightbox
 - Component DOM attributes are being observed too (uk-grid, ...)
 - Video component supports play/pause video as it enters/leaves the viewport
-- Add config options to build scripts, type ```./build/build.js -h``` for options
+- Add config options to build scripts, type `./build/build.js -h` for options
 - Add UIkit version banner to generated css files
-- Improve UIkit.container setter (allows for assigning selector strings)
-- Add option to skip minification for less building (./build/less.js -d)
-- Add parameterization for prefix and scope scripts. use scope/prefix -h (e.g. npm run prefix -- -h) to list the available options.
+- Improve `UIkit.container` setter (allows for assigning selector strings)
+- Add option to skip minification for less building (`./build/less.js -d`)
+- Add parameterization for prefix and scope scripts. Use `scope/prefix -h` (e.g. `npm run prefix -- -h`) to list the available options.
 - Make some util methods more error resilient
-- Add File size restriction `maxSize` to Upload component. (PR #3087)
+- Add File size restriction `maxSize` to Upload component
 
 ### Changed
 
