@@ -1,27 +1,23 @@
+
 export default function plugin (UIkit) {
+
+    const { mixin, util } = UIkit;
+    const { $ } = util;
 
     if (plugin.installed) {
         return;
     }
 
-    const {$, toggleClass, toNodes} = UIkit.util;
-
     UIkit.component('filter', {
-
-        attrs: true,
+        
+        mixins: [mixin.filter],
 
         props: {
-            filter: String,
             target: String
         },
-
+        
         defaults: {
-            filter: null,
             target: null
-        },
-
-        ready() {
-            // debugger;
         },
 
         computed: {
@@ -29,17 +25,5 @@ export default function plugin (UIkit) {
                 return this.target ? $(this.target) : this.$el.nextElementSibling;
             }
         },
-
-        update: {
-            write() {
-                toNodes(this.targetNode.children).forEach(el => {
-                    const show = el.textContent.indexOf(this.filter) >= 0;
-                    toggleClass(el, 'uk-hidden', !show);
-                });
-            },
-
-            evens: ['load', 'resize']
-        }
-
     });
 }

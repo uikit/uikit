@@ -28,7 +28,18 @@
 
             <h2>Grid</h2>
 
-            <ul class="uk-grid-match uk-child-width-1-2 uk-child-width-1-5@m" uk-grid>
+            <div uk-attribute mode="radio" event="filter" target="#grid">
+                <input value="" />
+                <input type="button" value="1"/>
+                <input type="button" value="2" />
+                <input  type="button" value="" />
+            </div>
+            <div uk-attribute mode="radio" event="sort" target="#grid">
+                <input type="button" value="asc"/>
+                <input type="button" value="desc" />
+                <input type="button" value="" />
+            </div>
+            <ul id="grid" class="uk-grid-match uk-child-width-1-2 uk-child-width-1-5@m" uk-grid>
                 <li>
                     <div class="uk-card uk-card-default uk-card-body">
                         <a href="//getuikit.com">Link</a>
@@ -50,31 +61,37 @@
 
 
             <h2>List</h2>
-            <div uk-attribute  attribute="filter">
+            <div uk-attribute mode="radio" attribute="filter" target="#filter">
                 <input value="" />
                 <input type="button" value="1"/>
                 <input type="button" value="2" />
                 <input  type="button" value="" />
             </div>
-            <div uk-filter filter="test"></div>
-            <div id="list">
+            <div uk-attribute mode="radio" attribute="sort" target="#filter">
+                <input type="button" value="asc"/>
+                <input type="button" value="desc" />
+                <input type="button" value="" />
+            </div>
+            <div id="filter" uk-filter filter="Item"></div>
+
+            <div id="list" class="uk-flex uk-flex-column">
                 <div class="uk-margin">
-                    <div class="uk-card uk-card-default uk-card-body uk-card-small">Item 1</div>
+                    <div class="uk-card uk-card-default uk-card-body uk-card-small">5</div>
                 </div>
                 <div class="uk-margin">
-                    <div class="uk-card uk-card-default uk-card-body uk-card-small">Item 2</div>
+                    <div class="uk-card uk-card-default uk-card-body uk-card-small">2</div>
                 </div>
                 <div class="uk-margin">
-                    <div class="uk-card uk-card-default uk-card-body uk-card-small">Item 3</div>
+                    <div class="uk-card uk-card-default uk-card-body uk-card-small">17</div>
                 </div>
                 <div class="uk-margin">
-                    <div class="uk-card uk-card-default uk-card-body uk-card-small">Item 4</div>
+                    <div class="uk-card uk-card-default uk-card-body uk-card-small">4</div>
                 </div>
                 <div class="uk-margin">
-                    <div class="uk-card uk-card-default uk-card-body uk-card-small">Item 5</div>
+                    <div class="uk-card uk-card-default uk-card-body uk-card-small">8</div>
                 </div>
             </div>
-
+            
             <h2>Javascript Options</h2>
 
             <div class="uk-overflow-auto">

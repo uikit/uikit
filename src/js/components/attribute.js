@@ -4,7 +4,7 @@ export default function plugin (UIkit) {
         return;
     }
 
-    const {$, attr} = UIkit.util;
+    const {$, attr, trigger} = UIkit.util;
 
     UIkit.component('attribute', {
 
@@ -12,12 +12,14 @@ export default function plugin (UIkit) {
 
         props: {
             attribute: String,
+            event: String,
             value: String,
             target: String
         },
 
         defaults: {
             attribute: null,
+            event: null,
             value: null,
             target: null
         },
@@ -28,10 +30,17 @@ export default function plugin (UIkit) {
             }
         },
 
+        methods: {
+            trigger() {
+                if (this.event) {
+                    trigger(this.targetNode, this.event, this.value);
+                }
+            }
+        },
+
         update: {
             write() {
                 if (this.attribute) {
-                    console.log('changed');
                     attr(this.targetNode, this.attribute, this.value);
                 }
             },
@@ -43,11 +52,19 @@ export default function plugin (UIkit) {
             change(e) {
                 this.value = e.target.value;
                 this.$update();
+                this.trigger();
                 e.preventDefault();
             },
             click(e) {
                 this.value = e.target.value;
                 this.$update();
+                this.trigger();
+                e.preventDefault();
+            },
+            keyup(e) {
+                this.value = e.target.value;
+                this.$update();
+                this.trigger();
                 e.preventDefault();
             }
         }

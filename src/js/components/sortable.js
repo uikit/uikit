@@ -9,7 +9,7 @@ function plugin(UIkit) {
 
     UIkit.component('sortable', {
 
-        mixins: [mixin.class],
+        mixins: [mixin.class, mixin.animator],
 
         props: {
             group: String,
@@ -277,40 +277,40 @@ function plugin(UIkit) {
 
             },
 
-            animate(action) {
+            // animate(action) {
 
-                var props = [],
-                    children = toNodes(this.$el.children),
-                    reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: '', bottom: '', right: ''};
+            //     const props = [],
+            //         children = toNodes(this.$el.children),
+            //         reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: '', bottom: '', right: ''};
 
-                children.forEach(el => {
-                    props.push(assign({
-                        position: 'absolute',
-                        pointerEvents: 'none',
-                        width: el.offsetWidth,
-                        height: el.offsetHeight
-                    }, position(el)));
-                });
+            //     children.forEach(el => {
+            //         props.push(assign({
+            //             position: 'absolute',
+            //             pointerEvents: 'none',
+            //             width: el.offsetWidth,
+            //             height: el.offsetHeight
+            //         }, position(el)));
+            //     });
 
-                action();
+            //     action();
 
-                children.forEach(Transition.cancel);
-                css(this.$el.children, reset);
-                this.$update('update', true);
-                fastdom.flush();
+            //     children.forEach(Transition.cancel);
+            //     css(this.$el.children, reset);
+            //     this.$update('update', true);
+            //     fastdom.flush();
 
-                css(this.$el, 'minHeight', height(this.$el));
+            //     css(this.$el, 'minHeight', height(this.$el));
 
-                var positions = children.map(el => position(el));
-                Promise.all(children.map((el, i) => Transition.start(css(el, props[i]), positions[i], this.animation)))
-                    .then(() => {
-                        css(this.$el, 'minHeight', '');
-                        css(children, reset);
-                        this.$update('update', true);
-                        fastdom.flush();
-                    }, noop);
+            //     const positions = children.map(el => position(el));
+            //     Promise.all(children.map((el, i) => Transition.start(css(el, props[i]), positions[i], this.animation)))
+            //         .then(() => {
+            //             css(this.$el, 'minHeight', '');
+            //             css(children, reset);
+            //             this.$update('update', true);
+            //             fastdom.flush();
+            //         }, noop);
 
-            }
+            // }
 
         }
 
