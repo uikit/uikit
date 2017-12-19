@@ -9,13 +9,13 @@ export default function plugin (UIkit) {
     }
 
     UIkit.component('filter', {
-        
+
         mixins: [mixin.filter],
 
         props: {
             target: String
         },
-        
+
         defaults: {
             target: null
         },

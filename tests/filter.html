@@ -34,12 +34,15 @@
                 <input type="button" value="2" />
                 <input  type="button" value="" />
             </div>
+
             <div uk-attribute mode="radio" event="sort" target="#grid">
                 <input type="button" value="asc"/>
                 <input type="button" value="desc" />
+                <input type="button" value="rnd" />
                 <input type="button" value="" />
             </div>
-            <ul id="grid" class="uk-grid-match uk-child-width-1-2 uk-child-width-1-5@m" uk-grid>
+
+            <ul id="grid" class="uk-grid-match uk-child-width-1-2 uk-child-width-1-5@m" uk-grid animation="1000">
                 <li>
                     <div class="uk-card uk-card-default uk-card-body">
                         <a href="//getuikit.com">Link</a>
@@ -47,8 +50,8 @@
                     </div>
                 </li>
                 <li><a class="uk-card uk-card-default uk-card-body uk-display-block" href="//getuikit.com">Link Handle</a></li>
-                <li><div class="uk-card uk-card-default uk-card-body">Item 3</div></li>
-                <li><div class="uk-card uk-card-default uk-card-body">Item 4</div></li>
+                <li data-uk-sort="b" data-uk-filter="Item"><div class="uk-card uk-card-default uk-card-body">Item 3</div></li>
+                <li data-uk-sort="a"><div class="uk-card uk-card-default uk-card-body">Item 4</div></li>
                 <li><div class="uk-card uk-card-default uk-card-body">Item 5</div></li>
                 <li><div class="uk-card uk-card-default uk-card-body">Item 6</div></li>
                 <li><div class="uk-card uk-card-default uk-card-body">Item 7</div></li>
@@ -59,39 +62,6 @@
                 <li><div class="uk-card uk-card-default uk-card-body">Item 12</div></li>
             </ul>
 
-
-            <h2>List</h2>
-            <div uk-attribute mode="radio" attribute="filter" target="#filter">
-                <input value="" />
-                <input type="button" value="1"/>
-                <input type="button" value="2" />
-                <input  type="button" value="" />
-            </div>
-            <div uk-attribute mode="radio" attribute="sort" target="#filter">
-                <input type="button" value="asc"/>
-                <input type="button" value="desc" />
-                <input type="button" value="" />
-            </div>
-            <div id="filter" uk-filter filter="Item"></div>
-
-            <div id="list" class="uk-flex uk-flex-column">
-                <div class="uk-margin">
-                    <div class="uk-card uk-card-default uk-card-body uk-card-small">5</div>
-                </div>
-                <div class="uk-margin">
-                    <div class="uk-card uk-card-default uk-card-body uk-card-small">2</div>
-                </div>
-                <div class="uk-margin">
-                    <div class="uk-card uk-card-default uk-card-body uk-card-small">17</div>
-                </div>
-                <div class="uk-margin">
-                    <div class="uk-card uk-card-default uk-card-body uk-card-small">4</div>
-                </div>
-                <div class="uk-margin">
-                    <div class="uk-card uk-card-default uk-card-body uk-card-small">8</div>
-                </div>
-            </div>
-            
             <h2>Javascript Options</h2>
 
             <div class="uk-overflow-auto">
@@ -106,10 +76,28 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>group</code></td>
+                            <td><code>filter</code></td>
                             <td>String</td>
                             <td>''</td>
-                            <td>The group</td>
+                            <td>The string to filter by.</td>
+                        </tr>
+                        <tr>
+                            <td><code>attr-filter</code></td>
+                            <td>String</td>
+                            <td>''</td>
+                            <td>The attribute to use when filtering (defaults to text content).</td>
+                        </tr>
+                        <tr>
+                            <td><code>sort</code></td>
+                            <td>String</td>
+                            <td>''</td>
+                            <td>The direction to sort by. (asc|desc|rnd|'')</td>
+                        </tr>
+                        <tr>
+                            <td><code>attr-sort</code></td>
+                            <td>String</td>
+                            <td>''</td>
+                            <td>The attribute to use when sorting(default to text content).</td>
                         </tr>
                         <tr>
                             <td><code>animation</code></td>
@@ -117,71 +105,9 @@
                             <td>150</td>
                             <td>The animation duration.</td>
                         </tr>
-                        <tr>
-                            <td><code>threshold</code></td>
-                            <td>Number</td>
-                            <td>10</td>
-                            <td>Mouse move threshold before dragging starts.</td>
-                        </tr>
-                        <tr>
-                            <td><code>cls-item</code></td>
-                            <td>String</td>
-                            <td>uk-sortable-item</td>
-                            <td>The item class.</td>
-                        </tr>
-                        <tr>
-                            <td><code>cls-placeholder</code></td>
-                            <td>String</td>
-                            <td>uk-sortable-placeholder</td>
-                            <td>The placeholder class.</td>
-                        </tr>
-                        <tr>
-                            <td><code>cls-drag</code></td>
-                            <td>String</td>
-                            <td>uk-sortable-drag</td>
-                            <td>The ghost class.</td>
-                        </tr>
-                        <tr>
-                            <td><code>cls-drag-state</code></td>
-                            <td>String</td>
-                            <td>uk-sortable-dragging</td>
-                            <td>The body's dragging class.</td>
-                        </tr>
-                        <tr>
-                            <td><code>cls-base</code></td>
-                            <td>String</td>
-                            <td>uk-sortable</td>
-                            <td>The list's class.</td>
-                        </tr>
-                        <tr>
-                            <td><code>cls-no-drag</code></td>
-                            <td>String</td>
-                            <td>uk-sortable-nodrag</td>
-                            <td>Prevent dragging on elements with this class.</td>
-                        </tr>
-                        <tr>
-                            <td><code>cls-empty</code></td>
-                            <td>String</td>
-                            <td>uk-sortable-empty</td>
-                            <td>The empty list class.</td>
-                        </tr>
-                        <tr>
-                            <td><code>cls-custom</code></td>
-                            <td>String</td>
-                            <td>''</td>
-                            <td>The ghost's custom class.</td>
-                        </tr>
-                        <tr>
-                            <td><code>handle</code></td>
-                            <td>String</td>
-                            <td>false</td>
-                            <td>The handle selector.</td>
-                        </tr>
                     </tbody>
                 </table>
             </div>
-
         </div>
-
     </body>
 </html>
