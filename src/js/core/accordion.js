@@ -1,5 +1,5 @@
 import { Class, Togglable } from '../mixin/index';
-import { $, $$, attr, filter, getIndex, hasClass, includes, index, toggleClass, unwrap, wrapAll } from '../util/index';
+import { $, $$, attr, filter, getIndex, hasClass, includes, index, toggleClass, trigger, unwrap, wrapAll } from '../util/index';
 
 export default function (UIkit) {
 
@@ -33,6 +33,10 @@ export default function (UIkit) {
 
             items({targets}, $el) {
                 return $$(targets, $el);
+            },
+
+            togglerSelector() {
+                return `${this.targets} ${this.$props.toggle}`;
             }
 
         },
@@ -40,16 +44,30 @@ export default function (UIkit) {
         events: [
 
             {
+                name: 'keypress',
 
+                delegate() {
+                    return this.togglerSelector;
+                },
+
+                handler(e) {
+                    if ([13, 32].indexOf(e.charCode) === -1) {
+                        return;
+                    }
+                    trigger(e.target, 'click');
+                }
+            },
+
+            {
                 name: 'click',
 
                 delegate() {
-                    return `${this.targets} ${this.$props.toggle}`;
+                    return this.togglerSelector;
                 },
 
                 handler(e) {
                     e.preventDefault();
-                    this.toggle(index($$(`${this.targets} ${this.$props.toggle}`, this.$el), e.current));
+                    this.toggle(index($$(this.togglerSelector, this.$el), e.current));
                 }
 
             }
@@ -61,12 +79,13 @@ export default function (UIkit) {
             if (active) {
                 this.toggle(active, false);
             }
+            $$(this.togglerSelector, this.$el).forEach(el => attr(el, 'tabindex', 1));
+
         },
 
         update() {
 
             this.items.forEach(el => this._toggleImmediate($(this.content, el), hasClass(el, this.clsOpen)));
-
             var active = !this.collapsible && !hasClass(this.items, this.clsOpen) && this.items[0];
             if (active) {
                 this.toggle(active, false);
