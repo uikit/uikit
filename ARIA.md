@@ -10,11 +10,9 @@ https://foundation.zurb.com/sites/docs/accordion.html
 
 ## Alert:
 key
-    close
 
 ## Dotnav?
     keyboard & focus?
-
 
 
 ## transition:
@@ -37,11 +35,9 @@ https://stackoverflow.com/questions/21832334/aria-do-you-need-to-use-aria-expand
 
 
 ## Notification:
-    Add aria-alert etc. 
+    Add aria-alert etc.
     role = alert for notifications from code.
-
-    aria-hidden
-
+    user can use custom html
 
 ### aria-labels?
     Breadcrumb:
@@ -51,12 +47,16 @@ https://stackoverflow.com/questions/21832334/aria-do-you-need-to-use-aria-expand
         aria-label=close
 
 
-
-
 ### complex controlls:
 
 Slideshow
     https://www.w3.org/WAI/tutorials/carousels/
+
+
 Sortable
     https://dev.opera.com/articles/accessible-drag-and-drop/example.html
-Accordion
+
+    carousel
+    slideshow
+    etc.
+    arrow navigation?

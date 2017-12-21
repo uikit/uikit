@@ -99,7 +99,10 @@
 .uk-visible-toggle:not(:hover):not(.uk-hover) .uk-hidden-hover { display: none !important; }
 
 /* Invisible */
-.uk-visible-toggle:not(:hover):not(.uk-hover) .uk-invisible-hover { visibility: hidden !important; }
+.uk-visible-toggle:not(:hover):not(.uk-hover) .uk-invisible-hover:not(:focus) { 
+    opacity: 0 !important; 
+    pointer-events: none !important; 
+}
 
 
 /* Touch

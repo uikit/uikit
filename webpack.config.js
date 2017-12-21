@@ -64,7 +64,7 @@ module.exports = [
                 VERSION: `'${version}'`
             }),
             new webpack.optimize.ModuleConcatenationPlugin(),
-            new uglify
+            // new uglify
         ]
     },
 

@@ -100,6 +100,28 @@ function plugin(UIkit) {
         events: [
 
             {
+                
+                name: 'keypress',
+
+                delegate() {
+                    return `[${this.attrItem}],[data-${this.attrItem}]`;
+                },
+
+                handler(e) {
+
+                    if (e.defaultPrevented) {
+                        return;
+                    }
+                    if (e.keyCode === 13 || e.keyCode === 32 ) {
+
+                        e.preventDefault();
+                        e.stopPropagation();
+                        this.show(data(e.current, this.attrItem));
+                    }
+                }
+
+            },
+            {
 
                 name: 'click',
 
@@ -108,6 +130,11 @@ function plugin(UIkit) {
                 },
 
                 handler(e) {
+
+                    if (e.defaultPrevented) {
+                        return;
+                    }
+
                     e.preventDefault();
                     e.current.blur();
                     this.show(data(e.current, this.attrItem));

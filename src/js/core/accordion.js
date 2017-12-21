@@ -51,7 +51,7 @@ export default function (UIkit) {
                 },
 
                 handler(e) {
-                    if ([13, 32].indexOf(e.charCode) === -1) {
+                    if ([13, 32].indexOf(e.keyCode) === -1) {
                         return;
                     }
                     trigger(e.target, 'click');
