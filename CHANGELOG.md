@@ -32,6 +32,7 @@
 ### Fixed
 
 - Make `uk-visible-toggle` accessible through keyboard
+- Make `uk-transition-toggle` accessible through keyboard
 - Fix scrolling with scrollbar on Modal closes Modal
 - Fix `container` options
 - Fix initializing Icon components programmatically
