@@ -44,21 +44,6 @@ export default function (UIkit) {
         events: [
 
             {
-                name: 'keypress',
-
-                delegate() {
-                    return this.togglerSelector;
-                },
-
-                handler(e) {
-                    if ([13, 32].indexOf(e.keyCode) === -1) {
-                        return;
-                    }
-                    trigger(e.target, 'click');
-                }
-            },
-
-            {
                 name: 'click',
 
                 delegate() {
