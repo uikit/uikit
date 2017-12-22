@@ -17,6 +17,7 @@
 
 ### Changed
 
+- IMPORTANT: Use `a` element instead of headings for the accordion title
 - Calling a component constructor with data on an already initialized component will reset the component
 
 ### Deprecated
@@ -31,6 +32,7 @@
 
 ### Fixed
 
+- Make Accordion component accessible through keyboard
 - Make `uk-visible-toggle` accessible through keyboard
 - Make `uk-transition-toggle` accessible through keyboard
 - Fix scrolling with scrollbar on Modal closes Modal
