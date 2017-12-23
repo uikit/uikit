@@ -37,6 +37,19 @@ export default function (UIkit) {
         UIkit.update(e, this.$options.el, parents);
     };
 
+    UIkit.prototype.$reinit = function (data) {
+
+        this.$options.data = data;
+        this._initData();
+
+        if (this._connected) {
+            this.$reset();
+        } else {
+            this._initProps();
+        }
+
+    };
+
     UIkit.prototype.$reset = function (data) {
         this._callDisconnected();
         this._initProps(data);

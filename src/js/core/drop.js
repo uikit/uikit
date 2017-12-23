@@ -1,5 +1,5 @@
 import { Position, Togglable } from '../mixin/index';
-import { $$, addClass, Animation, attr, css, docEl, includes, isString, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointInRect, query, removeClass, removeClasses, toggleClass, trigger, win, within } from '../util/index';
+import { $$, addClass, Animation, attr, css, docEl, includes, isString, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointInRect, Promise, query, removeClass, removeClasses, toggleClass, trigger, win, within } from '../util/index';
 
 export default function (UIkit) {
 
@@ -34,22 +34,30 @@ export default function (UIkit) {
             cls: 'uk-open'
         },
 
+        computed: {
+
+            toggle({mode, toggle}, $el) {
+                return toggle && UIkit.toggle(isString(toggle) ? query(toggle, $el) : $el.previousElementSibling, {target: $el, mode});
+            },
+
+            clsDrop({clsDrop}) {
+                return clsDrop || `uk-${this.$options.name}`;
+            },
+
+            clsPos() {
+                return this.clsDrop;
+            }
+
+        },
+
         init() {
             this.tracker = new MouseTracker();
-            this.clsDrop = this.clsDrop || `uk-${this.$options.name}`;
-            this.clsPos = this.clsDrop;
-
             addClass(this.$el, this.clsDrop);
         },
 
-        ready() {
-
+        connected() {
             this.updateAria(this.$el);
-
-            if (this.toggle) {
-                this.toggle = UIkit.toggle(isString(this.toggle) ? query(this.toggle, this.$el) : this.$el.previousElementSibling, {target: this.$el, mode: this.mode});
-            }
-
+            Promise.resolve().then(() => this.toggle); // access computed toggle
         },
 
         events: [
