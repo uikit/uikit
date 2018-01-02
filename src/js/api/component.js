@@ -38,7 +38,7 @@ export default function (UIkit) {
                 var cmp = UIkit.getComponent(element, name);
 
                 if (cmp) {
-                    cmp.$reset(data);
+                    cmp.$reinit(data);
                 }
 
                 return cmp || new UIkit.components[name]({el: element, data: data || {}});

@@ -18,6 +18,8 @@
 
 @accordion-title-font-size:                    @global-medium-font-size;
 @accordion-title-line-height:                  1.4;
+@accordion-title-color:                        @global-emphasis-color;
+@accordion-title-hover-color:                  @global-color;
 
 @accordion-content-margin-top:                 @global-margin;
 
@@ -46,11 +48,20 @@
  ========================================================================== */
 
 .uk-accordion-title {
-    margin: 0;
+    display: block;
     font-size: @accordion-title-font-size;
     line-height: @accordion-title-line-height;
-    cursor: pointer;
+    color: @accordion-title-color;
     .hook-accordion-title;
+}
+
+/* Hover + Focus */
+.uk-accordion-title:hover,
+.uk-accordion-title:focus {
+    color: @accordion-title-hover-color;
+    text-decoration: none;
+    outline: none;
+    .hook-accordion-title-hover;
 }
 
 
@@ -89,12 +100,16 @@
 .hook-accordion() {}
 .hook-accordion-item() {}
 .hook-accordion-title() {}
+.hook-accordion-title-hover() {}
 .hook-accordion-content() {}
 .hook-accordion-misc() {}
 
 
 // Inverse
 // ========================================================================
+
+@inverse-accordion-title-color:             @inverse-global-emphasis-color;
+@inverse-accordion-title-hover-color:       @inverse-global-inverse-color;
 
 .hook-inverse() {
 
@@ -103,10 +118,18 @@
     }
 
     .uk-accordion-title {
+        color: @inverse-accordion-title-color;
         .hook-inverse-accordion-title;
+    }
+
+    .uk-accordion-title:hover,
+    .uk-accordion-title:focus {
+        color: @inverse-accordion-title-hover-color;
+        .hook-inverse-accordion-title-hover;
     }
 
 }
 
 .hook-inverse-accordion-item() {}
 .hook-inverse-accordion-title() {}
+.hook-inverse-accordion-title-hover() {}
