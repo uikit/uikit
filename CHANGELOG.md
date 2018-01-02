@@ -41,6 +41,7 @@
 - Fix initializing Icon components programmatically
 - Fix accordion initial active option
 - Fix webpack builds (npm run test)
+- 'uk-scrollspy-class' attr may now be `data-` prefixed too
 
 ## 3.0.0 beta 35 (November 13, 2017)
 
