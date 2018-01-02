@@ -19,6 +19,7 @@
 
 - IMPORTANT: Use `a` element instead of headings for the accordion title
 - Calling a component constructor with data on an already initialized component will reset the component
+- Dropbar no longer repositions Dropdowns in DOM upon opening
 
 ### Deprecated
 
