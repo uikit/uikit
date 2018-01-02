@@ -19,6 +19,7 @@
 
 - IMPORTANT: Use `a` element instead of headings for the accordion title
 - Calling a component constructor with data on an already initialized component will reset the component
+- Dropbar no longer repositions Dropdowns in DOM upon opening
 
 ### Deprecated
 
@@ -40,6 +41,7 @@
 - Fix initializing Icon components programmatically
 - Fix accordion initial active option
 - Fix webpack builds (npm run test)
+- 'uk-scrollspy-class' attr may now be `data-` prefixed too
 
 ## 3.0.0 beta 35 (November 13, 2017)
 

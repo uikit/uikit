@@ -36,10 +36,6 @@ export default function (UIkit) {
 
         computed: {
 
-            toggle({mode, toggle}, $el) {
-                return toggle && UIkit.toggle(isString(toggle) ? query(toggle, $el) : $el.previousElementSibling, {target: $el, mode});
-            },
-
             clsDrop({clsDrop}) {
                 return clsDrop || `uk-${this.$options.name}`;
             },
@@ -56,8 +52,12 @@ export default function (UIkit) {
         },
 
         connected() {
+
+            var toggle = this.$props.toggle;
+            this.toggle = toggle && UIkit.toggle(isString(toggle) ? query(toggle, this.$el) : this.$el.previousElementSibling, {target: this.$el, mode: this.mode});
+
             this.updateAria(this.$el);
-            Promise.resolve().then(() => this.toggle); // access computed toggle
+
         },
 
         events: [
