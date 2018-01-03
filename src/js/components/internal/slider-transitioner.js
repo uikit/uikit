@@ -4,7 +4,7 @@ export default function (UIkit) {
 
     var {clamp, css, Deferred, noop, toNodes, Transition} = UIkit.util;
 
-    function Transitioner(prev, next, dir, {center, list}) {
+    function Transitioner(prev, next, dir, {center, easing, list}) {
 
         var deferred = new Deferred();
 
@@ -23,7 +23,9 @@ export default function (UIkit) {
 
             dir,
 
-            show(duration, percent = 0) {
+            show(duration, percent = 0, linear) {
+
+                var ease = linear ? 'linear' : easing;
 
                 duration *= this.getDistance() / list.offsetWidth;
                 duration -= duration * percent;
@@ -31,7 +33,7 @@ export default function (UIkit) {
                 this.translate(percent);
 
                 Transition
-                    .start(list, {transform: translate(-to, 'px')}, duration, 'linear')
+                    .start(list, {transform: translate(-to, 'px')}, duration, ease)
                     .then(deferred.resolve, noop);
 
                 return deferred.promise;
@@ -52,7 +54,7 @@ export default function (UIkit) {
 
             forward(duration, percent = this.percent()) {
                 Transition.cancel(list);
-                return this.show(duration * list.offsetWidth / this.getDistance(), percent);
+                return this.show(duration * list.offsetWidth / this.getDistance(), percent, true);
             },
 
             translate(percent) {

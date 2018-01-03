@@ -483,12 +483,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var promise = this._show(
-                    prev,
-                    next,
-                    stack.length > 1,
-                    force
-                ).then(() => {
+                var promise = this._show(prev, next, force).then(() => {
 
                     prev && trigger(prev, 'itemhidden', [this]);
                     trigger(next, 'itemshown', [this]);
@@ -548,7 +543,7 @@ function plugin(UIkit) {
                 }
             },
 
-            _show(prev, next, forward, force) {
+            _show(prev, next, force) {
 
                 this._transitioner = this._getTransitioner(
                     prev,
@@ -562,7 +557,8 @@ function plugin(UIkit) {
                     return Promise.resolve();
                 }
 
-                return this._transitioner[forward ? 'forward' : 'show'](forward ? 150 : this.duration, this.percent);
+                var length = this.stack.length;
+                return this._transitioner[length > 1 ? 'forward' : 'show'](length > 1 ? 150 / (length - 1) : this.duration, this.percent);
 
             },
 
