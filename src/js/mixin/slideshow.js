@@ -7,7 +7,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, $$, addClass, assign, clamp, data, doc, endsWith, fastdom, getIndex, getPos, hasClass, includes, index, isNumber, isNumeric, isTouch, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, toNodes, trigger, win} = UIkit.util;
+    var {$, $$, addClass, assign, clamp, data, doc, fastdom, getIndex, getPos, hasClass, html, includes, index, isNumber, isTouch, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, toNodes, trigger, win} = UIkit.util;
 
     var Animations = AnimationsPlugin(UIkit),
         Transitioner = TransitionerPlugin(UIkit);
@@ -41,6 +41,7 @@ function plugin(UIkit) {
             percent: 0,
             clsActive: 'uk-active',
             clsActivated: 'uk-transition-active',
+            selNav: false,
             easingOut: 'cubic-bezier(0.165, 0.840, 0.440, 1.000)',
             Animations,
             Transitioner,
@@ -49,14 +50,6 @@ function plugin(UIkit) {
         },
 
         computed: {
-
-            list({selList}, $el) {
-                return $(selList, $el);
-            },
-
-            slides() {
-                return toNodes(this.list.children);
-            },
 
             animation({animation, Animations}) {
                 return assign(animation in Animations ? Animations[animation] : Animations.slide, {name: animation});
@@ -70,15 +63,37 @@ function plugin(UIkit) {
                 return this.slides.length;
             },
 
+            list({selList}, $el) {
+                return $(selList, $el);
+            },
+
             maxIndex() {
                 return this.length - 1;
             },
 
-            transitionOptions() {
-                return {
-                    animation: this.animation
-                };
+            nav({selNav}, $el) {
+                return $(selNav, $el);
             },
+
+            navItemSelector({attrItem}) {
+                return `[${attrItem}],[data-${attrItem}]`
+            },
+
+            navItems(_, $el) {
+                return $$(this.navItemSelector, $el);
+            },
+
+            slidesSelector({selList}) {
+                return `${selList} > *`;
+            },
+
+            slides() {
+                return toNodes(this.list.children);
+            },
+
+            transitionOptions() {
+                return {animation: this.animation};
+            }
 
         },
 
@@ -113,6 +128,12 @@ function plugin(UIkit) {
                     delete this._computeds.duration;
                 },
 
+                write() {
+                    if (this.nav && this.length !== this.nav.children.length) {
+                        html(this.nav, this.slides.map((_, i) => `<li uk-slider-item="${i}"><a href="#"></a></li>`).join(''));
+                    }
+                },
+
                 events: ['load', 'resize']
 
             }
@@ -126,7 +147,7 @@ function plugin(UIkit) {
                 name: 'click',
 
                 delegate() {
-                    return `[${this.attrItem}],[data-${this.attrItem}]`;
+                    return this.navItemSelector;
                 },
 
                 handler(e) {
@@ -139,10 +160,26 @@ function plugin(UIkit) {
 
             {
 
+                name: 'itemshow',
+
+                self: true,
+
+                delegate() {
+                    return this.slidesSelector;
+                },
+
+                handler() {
+                    this.navItems.forEach(item => toggleClass(item, this.clsActive, index(item) === this.index));
+                }
+
+            },
+
+            {
+
                 name: pointerDown,
 
                 delegate() {
-                    return `${this.selList} > *`;
+                    return this.slidesSelector;
                 },
 
                 handler(e) {
@@ -211,7 +248,7 @@ function plugin(UIkit) {
                 self: true,
 
                 delegate() {
-                    return `${this.selList} > *`;
+                    return this.slidesSelector;
                 },
 
                 handler({target}) {
@@ -227,27 +264,11 @@ function plugin(UIkit) {
                 self: true,
 
                 delegate() {
-                    return `${this.selList} > *`;
+                    return this.slidesSelector;
                 },
 
                 handler({target}) {
                     addClass(target, this.clsActivated);
-                }
-
-            },
-
-            {
-
-                name: 'itemshow itemhide itemhidden',
-
-                self: true,
-
-                delegate() {
-                    return `${this.selList} > *`;
-                },
-
-                handler({type, target}) {
-                    toggleClass($$(`[${this.attrItem}="${index(target)}"],[data-${this.attrItem}="${index(target)}"]`, this.$el), this.clsActive, endsWith(type, 'show'));
                 }
 
             },
@@ -259,7 +280,7 @@ function plugin(UIkit) {
                 self: true,
 
                 delegate() {
-                    return `${this.selList} > *`;
+                    return this.slidesSelector;
                 },
 
                 handler({target}) {
@@ -275,7 +296,7 @@ function plugin(UIkit) {
                 self: true,
 
                 delegate() {
-                    return `${this.selList} > *`;
+                    return this.slidesSelector;
                 },
 
                 handler({target}) {
@@ -346,7 +367,7 @@ function plugin(UIkit) {
                     prevIndex = this.prevIndex,
                     dis = Math.abs(distance),
                     nextIndex = this.getIndex(prevIndex + this.dir, prevIndex),
-                    width = this._getDistance(prevIndex, nextIndex);
+                    width = this._getDistance(prevIndex, nextIndex) || slides[prevIndex].offsetWidth;
 
                 while (nextIndex !== prevIndex && dis > width) {
 
@@ -355,7 +376,7 @@ function plugin(UIkit) {
                     prevIndex = nextIndex;
                     dis -= width;
                     nextIndex = this.getIndex(prevIndex + this.dir, prevIndex);
-                    width = this._getDistance(prevIndex, nextIndex);
+                    width = this._getDistance(prevIndex, nextIndex) || slides[prevIndex].offsetWidth;
 
                 }
 
@@ -411,7 +432,7 @@ function plugin(UIkit) {
                     if (this.index === this.prevIndex) {
                         this.percent = 1 - this.percent;
                         this.dir *= -1;
-                        this._show(false, this.index, false, true);
+                        this._show(false, this.index, true);
                         this._transitioner = null;
                     } else {
 
@@ -462,7 +483,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var prevIndex = Math.min(this.index, this.maxIndex),
+                var prevIndex = this.index,
                     prev = hasClass(this.slides, this.clsActive) && this.slides[prevIndex],
                     nextIndex = this.getIndex(index, this.index),
                     next = this.slides[nextIndex];
@@ -515,14 +536,6 @@ function plugin(UIkit) {
                 return clamp(getIndex(index, this.slides, prev, this.finite), 0, this.maxIndex);
             },
 
-            outOfBounds(index, prev) {
-                return this.finite && (isNumeric(index)
-                    ? index < 0 || index > this.maxIndex
-                    : prev === 0 && index === 'previous'
-                        || prev === this.maxIndex && index === 'next'
-                );
-            },
-
             startAutoplay() {
 
                 this.stopAutoplay();
@@ -557,8 +570,8 @@ function plugin(UIkit) {
                     return Promise.resolve();
                 }
 
-                var length = this.stack.length;
-                return this._transitioner[length > 1 ? 'forward' : 'show'](length > 1 ? 150 / (length - 1) : this.duration, this.percent);
+                var forward = this.stack.length > 1;
+                return this._transitioner[forward ? 'forward' : 'show'](forward ? 150 : this.duration, this.percent);
 
             },
 

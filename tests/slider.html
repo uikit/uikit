@@ -37,6 +37,10 @@
                     <option value="0">Infinite</option>
                     <option value="1">Finite</option>
                 </select>
+                <select id="js-sets-switcher" class="uk-select uk-form-width-small">
+                    <option value="0">Single</option>
+                    <option value="1">Sets</option>
+                </select>
             </div>
 
             <h2>Content Widths</h2>
@@ -101,12 +105,7 @@
 
                 </div>
 
-                <ul class="uk-dotnav uk-flex-center uk-margin">
-                    <li uk-slider-item="0"><a href="#">Item 1</a></li>
-                    <li uk-slider-item="2"><a href="#">Item 2</a></li>
-                    <li uk-slider-item="5"><a href="#">Item 5</a></li>
-                    <li uk-slider-item="11"><a href="#">Item 11</a></li>
-                </ul>
+                <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
 
             </div>
 
@@ -172,12 +171,7 @@
 
                 </div>
 
-                <ul class="uk-dotnav uk-flex-center uk-margin">
-                    <li uk-slider-item="0"><a href="#">Item 1</a></li>
-                    <li uk-slider-item="2"><a href="#">Item 2</a></li>
-                    <li uk-slider-item="5"><a href="#">Item 5</a></li>
-                    <li uk-slider-item="11"><a href="#">Item 11</a></li>
-                </ul>
+                <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
 
             </div>
 
@@ -231,12 +225,8 @@
 
                 </div>
 
-                <ul class="uk-dotnav uk-flex-center uk-margin">
-                    <li uk-slider-item="0"><a href="#">Item 1</a></li>
-                    <li uk-slider-item="2"><a href="#">Item 2</a></li>
-                    <li uk-slider-item="5"><a href="#">Item 5</a></li>
-                    <li uk-slider-item="11"><a href="#">Item 11</a></li>
-                </ul>
+                <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
+
             </div>
 
             <h2>Grid</h2>
@@ -307,12 +297,7 @@
 
                 </div>
 
-                <ul class="uk-dotnav uk-flex-center uk-margin">
-                    <li uk-slider-item="0"><a href="#">Item 1</a></li>
-                    <li uk-slider-item="2"><a href="#">Item 2</a></li>
-                    <li uk-slider-item="5"><a href="#">Item 5</a></li>
-                    <li uk-slider-item="8"><a href="#">Item 8</a></li>
-                </ul>
+                <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
 
             </div>
 
@@ -368,12 +353,7 @@
 
             </div>
 
-            <ul class="uk-dotnav uk-flex-center uk-margin">
-                <li uk-slider-item="0"><a href="#">Item 1</a></li>
-                <li uk-slider-item="2"><a href="#">Item 2</a></li>
-                <li uk-slider-item="5"><a href="#">Item 5</a></li>
-                <li uk-slider-item="8"><a href="#">Item 8</a></li>
-            </ul>
+            <ul class="uk-slider-nav uk-dotnav uk-flex-center uk-margin"></ul>
 
         </div>
 
@@ -404,6 +384,12 @@
                             <td>false</td>
                             <td>Disable infinite sliding.</td>
                         </tr>
+                        <tr>
+                            <td><code>sets</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Slide in sets.</td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -412,7 +398,7 @@
 
         <script>
 
-            ['finite', 'center'].forEach(function(attr) {
+            ['finite', 'center', 'sets'].forEach(function(attr) {
                 UIkit.util.on('#js-'+attr+'-switcher', 'change', function () {
                     var value = this.value;
                     UIkit.util.$$('[uk-slider]').forEach(function (slider) { UIkit.util.attr(slider, attr, value); });

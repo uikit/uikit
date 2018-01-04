@@ -15,10 +15,6 @@ export default function (UIkit) {
                 ? Transitioner.getLeft(next, list, center)
                 : from + prev.offsetWidth * dir;
 
-        if (prev && from === to) {
-            to += prev.offsetWidth;
-        }
-
         return {
 
             dir,
