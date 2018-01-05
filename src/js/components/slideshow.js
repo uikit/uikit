@@ -32,6 +32,7 @@ function plugin(UIkit) {
             maxHeight: false,
             selList: '.uk-slideshow-items',
             attrItem: 'uk-slideshow-item',
+            selNav: '.uk-slideshow-nav',
             Animations
         },
 

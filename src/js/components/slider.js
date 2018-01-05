@@ -1,4 +1,5 @@
 import TransitionerPlugin from './internal/slider-transitioner';
+import {speedUp} from '../mixin/slideshow';
 
 function plugin(UIkit) {
 
@@ -7,7 +8,7 @@ function plugin(UIkit) {
     }
 
     var {mixin} = UIkit;
-    var {$$, css, data, fastdom, includes, isNumeric, removeClass, toggleClass, toFloat} = UIkit.util;
+    var {$$, css, data, fastdom, includes, isNumeric, toggleClass, toFloat} = UIkit.util;
     var Transitioner = TransitionerPlugin(UIkit);
 
     UIkit.component('slider', {
@@ -22,8 +23,6 @@ function plugin(UIkit) {
         defaults: {
             center: false,
             sets: false,
-            velocity: 1,
-            easingOut: 'ease-out',
             attrItem: 'uk-slider-item',
             selList: '.uk-slider-items',
             selNav: '.uk-slider-nav',
@@ -31,6 +30,10 @@ function plugin(UIkit) {
         },
 
         computed: {
+
+            finite({finite}) {
+                return finite || Transitioner.getWidth(this.list) < this.list.offsetWidth + Transitioner.getMaxWidth(this.list) + this.center;
+            },
 
             maxIndex() {
 
@@ -49,17 +52,6 @@ function plugin(UIkit) {
                 return 0;
             },
 
-            transitionOptions() {
-                return {
-                    center: this.center,
-                    list: this.list
-                };
-            },
-
-            finite({finite}) {
-                return finite || Transitioner.getWidth(this.list) < this.list.offsetWidth + Transitioner.getMaxWidth(this.list) + this.center;
-            },
-
             sets({sets}) {
 
                 var width = this.list.offsetWidth / (this.center ? 2 : 1),
@@ -69,7 +61,7 @@ function plugin(UIkit) {
 
                 return sets && this.slides.reduce((sets, slide, i) => {
 
-                    if (slide.offsetLeft + slide.offsetWidth >= left) {
+                    if (slide.offsetLeft + slide.offsetWidth > left) {
 
                         if (i > this.maxIndex) {
                             i = this.maxIndex;
@@ -85,6 +77,13 @@ function plugin(UIkit) {
 
                 }, []);
 
+            },
+
+            transitionOptions() {
+                return {
+                    center: this.center,
+                    list: this.list
+                };
             }
 
         },
@@ -105,10 +104,6 @@ function plugin(UIkit) {
                     var index = data(el, this.attrItem);
                     toggleClass(el, 'uk-hidden', isNumeric(index) && (this.sets && !includes(this.sets, toFloat(index)) || index > this.maxIndex));
                 });
-
-                delete this.prevIndex;
-                removeClass(this.slides, this.clsActive, this.clsActivated);
-                this.show(this.getValidIndex());
 
             },
 
@@ -148,6 +143,8 @@ function plugin(UIkit) {
                         e.preventDefault();
                         return;
                     }
+
+                    this.duration = speedUp((this.dir < 0 || !this.slides[this.prevIndex] ? this.slides[this.index] : this.slides[this.prevIndex]).offsetWidth / this.velocity);
 
                     this.reorder();
 

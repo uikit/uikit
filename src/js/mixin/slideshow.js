@@ -42,7 +42,7 @@ function plugin(UIkit) {
             clsActive: 'uk-active',
             clsActivated: 'uk-transition-active',
             selNav: false,
-            easingOut: 'cubic-bezier(0.165, 0.840, 0.440, 1.000)',
+            easingOut: 'cubic-bezier(0.165, 0.840, 0.440, 1.000)', /* easeOutQuart */
             Animations,
             Transitioner,
             transitionOptions: {},
@@ -129,9 +129,15 @@ function plugin(UIkit) {
                 },
 
                 write() {
+
                     if (this.nav && this.length !== this.nav.children.length) {
-                        html(this.nav, this.slides.map((_, i) => `<li uk-slider-item="${i}"><a href="#"></a></li>`).join(''));
+                        html(this.nav, this.slides.map((_, i) => `<li ${this.attrItem}="${i}"><a href="#"></a></li>`).join(''));
                     }
+
+                    delete this.prevIndex;
+                    removeClass(this.slides, this.clsActive, this.clsActivated);
+                    this.show(this.getValidIndex());
+
                 },
 
                 events: ['load', 'resize']
@@ -169,7 +175,8 @@ function plugin(UIkit) {
                 },
 
                 handler() {
-                    this.navItems.forEach(item => toggleClass(item, this.clsActive, index(item) === this.index));
+                    var i = this.getValidIndex();
+                    this.navItems.forEach(item => toggleClass(item, this.clsActive, index(item) === i));
                 }
 
             },
@@ -536,6 +543,10 @@ function plugin(UIkit) {
                 return clamp(getIndex(index, this.slides, prev, this.finite), 0, this.maxIndex);
             },
 
+            getValidIndex(index = this.index, prevIndex = this.prevIndex) {
+                return this.getIndex(index, prevIndex);
+            },
+
             startAutoplay() {
 
                 this.stopAutoplay();
@@ -570,8 +581,9 @@ function plugin(UIkit) {
                     return Promise.resolve();
                 }
 
-                var forward = this.stack.length > 1;
-                return this._transitioner[forward ? 'forward' : 'show'](forward ? 150 : this.duration, this.percent);
+                var length = this.stack.length;
+
+                return this._transitioner[length > 1 ? 'forward' : 'show'](length > 1 ? 75 + 75 / (length - 1) : this.duration, this.percent);
 
             },
 
@@ -608,10 +620,6 @@ function plugin(UIkit) {
                     : 1;
     }
 
-    function speedUp(x) {
-        return .5 * x + 300; // parabola through (400,500; 600,600; 1800,1200)
-    }
-
     function hasTextNodesOnly(el) {
         return !el.children.length && el.childNodes.length;
     }
@@ -619,3 +627,7 @@ function plugin(UIkit) {
 }
 
 export default plugin;
+
+export function speedUp(x) {
+    return .5 * x + 300; // parabola through (400,500; 600,600; 1800,1200)
+}

@@ -23,8 +23,7 @@ export default function (UIkit) {
 
                 var ease = linear ? 'linear' : easing;
 
-                duration *= this.getDistance() / list.offsetWidth;
-                duration -= duration * percent;
+                duration -= Math.round(duration * clamp(percent, -1, 1));
 
                 this.translate(percent);
 
@@ -50,7 +49,7 @@ export default function (UIkit) {
 
             forward(duration, percent = this.percent()) {
                 Transition.cancel(list);
-                return this.show(duration * list.offsetWidth / this.getDistance(), percent, true);
+                return this.show(duration, percent, true);
             },
 
             translate(percent) {
