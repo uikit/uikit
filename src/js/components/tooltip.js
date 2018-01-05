@@ -106,7 +106,7 @@ function plugin(UIkit) {
                 }
             },
 
-            'blur': 'hide',
+            blur: 'hide',
 
             [pointerLeave](e) {
                 if (!isTouch(e)) {

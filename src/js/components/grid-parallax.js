@@ -89,7 +89,7 @@ function plugin(UIkit) {
 
     }));
 
-    UIkit.component('grid-parallax').options.update.unshift({
+    UIkit.components.gridParallax.options.update.unshift({
 
         read() {
             this.reset();
