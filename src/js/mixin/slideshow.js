@@ -42,7 +42,7 @@ function plugin(UIkit) {
             clsActive: 'uk-active',
             clsActivated: 'uk-transition-active',
             selNav: false,
-            easingOut: 'cubic-bezier(0.165, 0.840, 0.440, 1.000)', /* easeOutQuart */
+            easingOut: 'cubic-bezier(0.250, 0.460, 0.450, 0.940)', /* easeOutQuad */
             Animations,
             Transitioner,
             transitionOptions: {},
