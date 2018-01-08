@@ -29,7 +29,7 @@ export function ready(fn) {
         unbind2 = on(win, 'load', handle);
 }
 
-export function transition(element, props, duration = 400, transition = 'linear') {
+export function transition(element, props, duration = 400, timing = 'linear') {
 
     return Promise.all(toNodes(element).map(element =>
         new Promise((resolve, reject) => {
@@ -51,7 +51,7 @@ export function transition(element, props, duration = 400, transition = 'linear'
             }, false, ({target}) => element === target);
 
             addClass(element, 'uk-transition');
-            css(element, assign({transition: `all ${duration}ms ${transition}`}, props));
+            css(element, assign({transition: `all ${duration}ms ${timing}`}, props));
 
         })
     ));

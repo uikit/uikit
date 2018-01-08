@@ -109,7 +109,7 @@ function plugin(UIkit) {
                     return this.item;
                 },
 
-                handler({type, detail: {percent, duration, ease, dir}}) {
+                handler({type, detail: {percent, duration, timing, dir}}) {
 
                     Transition.cancel(this.$el);
                     css(this.$el, this.getCss(getCurrent(type, dir, percent)));
@@ -119,7 +119,7 @@ function plugin(UIkit) {
                         : dir > 0
                             ? 1
                             : 0
-                    ), duration, ease).catch(noop);
+                    ), duration, timing).catch(noop);
 
                 }
             },

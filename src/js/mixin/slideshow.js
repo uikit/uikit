@@ -7,7 +7,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, $$, addClass, assign, clamp, data, doc, fastdom, getIndex, getPos, hasClass, html, includes, index, isNumber, isTouch, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, toNodes, trigger, win} = UIkit.util;
+    var {$, $$, addClass, assign, clamp, data, doc, fastdom, getIndex, getPos, hasClass, html, includes, index, isNumber, isRtl, isTouch, off, on, pointerDown, pointerMove, pointerUp, preventClick, Promise, removeClass, toggleClass, toNodes, trigger, win} = UIkit.util;
 
     var Animations = AnimationsPlugin(UIkit),
         Transitioner = TransitionerPlugin(UIkit);
@@ -339,7 +339,7 @@ function plugin(UIkit) {
                 if (this._transitioner) {
 
                     this.percent = this._transitioner.percent();
-                    this.drag += this._transitioner.getDistance() * this.percent * this.dir;
+                    this.drag += this._transitioner.getDistance() * this.percent * this.dir * (isRtl ? -1 : 1);
                     this._transitioner.translate(this.percent);
                     this._transitioner.cancel();
 
@@ -368,7 +368,7 @@ function plugin(UIkit) {
                 e.cancelable && e.preventDefault();
 
                 this.dragging = true;
-                this.dir = distance < 0 ? 1 : -1;
+                this.dir = (distance < 0 ? 1 : -1) * (isRtl ? -1 : 1);
 
                 var slides = this.slides,
                     prevIndex = this.prevIndex,
@@ -443,7 +443,7 @@ function plugin(UIkit) {
                         this._transitioner = null;
                     } else {
 
-                        var dirChange = this.dir < 0 === this.prevPos > this.pos;
+                        var dirChange = (isRtl ? this.dir * -1 : this.dir) < 0 === this.prevPos > this.pos;
                         this.index = dirChange ? this.index : this.prevIndex;
 
                         if (dirChange) {
@@ -601,7 +601,7 @@ function plugin(UIkit) {
                 return new this.Transitioner(
                     isNumber(prev) ? this.slides[prev] : prev,
                     isNumber(next) ? this.slides[next] : next,
-                    dir,
+                    dir * (isRtl ? -1 : 1),
                     options
                 );
             }

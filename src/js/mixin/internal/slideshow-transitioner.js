@@ -14,17 +14,17 @@ export default function (UIkit) {
 
             show(duration, percent = 0, linear) {
 
-                var ease = linear ? 'linear' : easing;
+                var timing = linear ? 'linear' : easing;
                 duration -= Math.round(duration * clamp(percent, -1, 1));
 
                 this.translate(percent);
 
-                triggerUpdate(next, 'itemin', {percent, duration, ease, dir});
-                triggerUpdate(prev, 'itemout', {percent: 1 - percent, duration, ease, dir});
+                triggerUpdate(next, 'itemin', {percent, duration, timing, dir});
+                triggerUpdate(prev, 'itemout', {percent: 1 - percent, duration, timing, dir});
 
                 Promise.all([
-                    Transition.start(next, props[1], duration, ease),
-                    Transition.start(prev, props[0], duration, ease)
+                    Transition.start(next, props[1], duration, timing),
+                    Transition.start(prev, props[0], duration, timing)
                 ]).then(() => {
                     this.reset();
                     deferred.resolve();

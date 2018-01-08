@@ -14,6 +14,7 @@
 - Add parameterization for prefix and scope scripts. Use `scope/prefix -h` (e.g. `npm run prefix -- -h`) to list the available options.
 - Make some util methods more error resilient
 - Add File size restriction `maxSize` to Upload component
+- Add Slideshow RTL support
 
 ### Changed
 

@@ -21,14 +21,12 @@ export default function (UIkit) {
 
             show(duration, percent = 0, linear) {
 
-                var ease = linear ? 'linear' : easing;
-
                 duration -= Math.round(duration * clamp(percent, -1, 1));
 
                 this.translate(percent);
 
                 Transition
-                    .start(list, {transform: translate(-to, 'px')}, duration, ease)
+                    .start(list, {transform: translate(-to, 'px')}, duration, linear ? 'linear' : easing)
                     .then(deferred.resolve, noop);
 
                 return deferred.promise;
