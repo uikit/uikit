@@ -133,7 +133,7 @@ export default function (UIkit) {
                         drop.offset = toFloat(css($el, 'margin-top'));
                     }
 
-                    this.transitionTo($el.offsetHeight + toFloat(css($el, 'margin-top')) + toFloat(css($el, 'margin-bottom')));
+                    this.transitionTo($el.offsetHeight + toFloat(css($el, 'margin-top')) + toFloat(css($el, 'margin-bottom')), $el);
                 }
             },
 
@@ -180,7 +180,7 @@ export default function (UIkit) {
                 return active && includes(active.mode, 'hover') && within(active.toggle.$el, this.$el) && active;
             },
 
-            transitionTo(newHeight) {
+            transitionTo(newHeight, el) {
 
                 var dropbar = this.dropbar;
 
@@ -188,10 +188,18 @@ export default function (UIkit) {
                     after(this.dropbarAnchor || this.$el, dropbar);
                 }
 
-                height(dropbar, isVisible(dropbar) ? height(dropbar) : 0);
-                Transition.cancel(dropbar);
-                return Transition.start(dropbar, {height: newHeight}, this.duration).catch(noop);
+                var oldHeight = isVisible(dropbar) ? height(dropbar) : 0;
 
+                el = oldHeight < newHeight && el;
+
+                css(el, {height: oldHeight, overflow: 'hidden'});
+                height(dropbar, oldHeight);
+
+                Transition.cancel([el, dropbar]);
+                return Transition
+                    .start([el, dropbar], {height: newHeight}, this.duration)
+                    .catch(noop)
+                    .finally(() => css(el, {height: '', overflow: ''}));
             }
 
         }
