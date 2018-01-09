@@ -134,6 +134,8 @@ function plugin(UIkit) {
                         html(this.nav, this.slides.map((_, i) => `<li ${this.attrItem}="${i}"><a href="#"></a></li>`).join(''));
                     }
 
+                    toggleClass($$(`[${this.attrItem}],[data-${this.attrItem}]`, this.$el).concat(this.nav), 'uk-hidden', !this.maxIndex);
+
                     delete this.prevIndex;
                     removeClass(this.slides, this.clsActive, this.clsActivated);
                     this.show(this.getValidIndex());
@@ -465,7 +467,7 @@ function plugin(UIkit) {
 
             show(index, force = false) {
 
-                if (this.dragging) {
+                if (this.dragging || !this.length) {
                     return;
                 }
 

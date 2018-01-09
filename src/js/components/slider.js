@@ -102,7 +102,7 @@ function plugin(UIkit) {
 
                 $$(`[${this.attrItem}],[data-${this.attrItem}]`, this.$el).forEach(el => {
                     var index = data(el, this.attrItem);
-                    toggleClass(el, 'uk-hidden', isNumeric(index) && (this.sets && !includes(this.sets, toFloat(index)) || index > this.maxIndex));
+                    this.maxIndex && toggleClass(el, 'uk-hidden', isNumeric(index) && (this.sets && !includes(this.sets, toFloat(index)) || index > this.maxIndex));
                 });
 
             },

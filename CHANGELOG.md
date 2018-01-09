@@ -15,6 +15,8 @@
 - Make some util methods more error resilient
 - Add File size restriction `maxSize` to Upload component
 - Add Slideshow RTL support
+- Add reactive Slideshow Nav
+- Hide Slideshow navigation if slideshow contains single slide only
 
 ### Changed
 
