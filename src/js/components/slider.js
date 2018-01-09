@@ -61,7 +61,7 @@ function plugin(UIkit) {
 
                 return sets && this.slides.reduce((sets, slide, i) => {
 
-                    if (Transitioner.getElLeft(slide) + slide.offsetWidth > left) {
+                    if (Transitioner.getElLeft(slide, this.list) + slide.offsetWidth > left) {
 
                         if (i > this.maxIndex) {
                             i = this.maxIndex;
@@ -69,7 +69,7 @@ function plugin(UIkit) {
 
                         if (!includes(sets, i)) {
                             sets.push(i);
-                            left = Transitioner.getElLeft(slide) + width + (this.center ? slide.offsetWidth / 2 : 0);
+                            left = Transitioner.getElLeft(slide, this.list) + width + (this.center ? slide.offsetWidth / 2 : 0);
                         }
                     }
 
