@@ -101,7 +101,7 @@ export default function (UIkit) {
     };
 
     Transitioner.getElLeft = function (el, list) {
-        return (el.offsetLeft + (isRtl ? el.offsetWidth - list.offsetWidth: 0)) * (isRtl ? -1 : 1);
+        return (el.offsetLeft + (isRtl ? el.offsetWidth - list.offsetWidth : 0)) * (isRtl ? -1 : 1);
     };
 
     return Transitioner;

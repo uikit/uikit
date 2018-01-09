@@ -1,5 +1,5 @@
 import { Position, Togglable } from '../mixin/index';
-import { $$, addClass, Animation, attr, css, docEl, includes, isString, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointInRect, Promise, query, removeClass, removeClasses, toggleClass, trigger, win, within } from '../util/index';
+import { $$, addClass, Animation, attr, css, docEl, includes, isString, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointInRect, query, removeClass, removeClasses, toggleClass, trigger, win, within } from '../util/index';
 
 export default function (UIkit) {
 

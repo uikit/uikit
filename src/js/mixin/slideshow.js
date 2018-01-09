@@ -76,7 +76,7 @@ function plugin(UIkit) {
             },
 
             navItemSelector({attrItem}) {
-                return `[${attrItem}],[data-${attrItem}]`
+                return `[${attrItem}],[data-${attrItem}]`;
             },
 
             navItems(_, $el) {
