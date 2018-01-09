@@ -2,7 +2,7 @@ import { translate } from '../../mixin/internal/slideshow-animations';
 
 export default function (UIkit) {
 
-    var {clamp, css, Deferred, noop, toNodes, Transition} = UIkit.util;
+    var {clamp, css, Deferred, isRtl, noop, toNodes, Transition} = UIkit.util;
 
     function Transitioner(prev, next, dir, {center, easing, list}) {
 
@@ -13,7 +13,7 @@ export default function (UIkit) {
                 : Transitioner.getLeft(next, list, center) + next.offsetWidth * dir,
             to = next
                 ? Transitioner.getLeft(next, list, center)
-                : from + prev.offsetWidth * dir;
+                : from + prev.offsetWidth * dir * (isRtl ? -1 : 1);
 
         return {
 
@@ -26,7 +26,7 @@ export default function (UIkit) {
                 this.translate(percent);
 
                 Transition
-                    .start(list, {transform: translate(-to, 'px')}, duration, linear ? 'linear' : easing)
+                    .start(list, {transform: translate(-to * (isRtl ? -1 : 1), 'px')}, duration, linear ? 'linear' : easing)
                     .then(deferred.resolve, noop);
 
                 return deferred.promise;
@@ -52,18 +52,18 @@ export default function (UIkit) {
 
             translate(percent) {
 
-                var distance = this.getDistance() * dir;
+                var distance = this.getDistance() * dir * (isRtl ? -1 : 1);
 
                 css(list, 'transform', translate(clamp(
                     -to + (distance - distance * percent),
                     -Transitioner.getWidth(list),
                     list.offsetWidth
-                ), 'px'));
+                ) * (isRtl ? -1 : 1), 'px'));
 
             },
 
             percent() {
-                return Math.abs((Number(css(list, 'transform').split(',')[4] || 0) + from) / (to - from));
+                return Math.abs((css(list, 'transform').split(',')[4] * (isRtl ? -1 : 1) + from) / (to - from));
             },
 
             getDistance() {
@@ -76,9 +76,11 @@ export default function (UIkit) {
 
     Transitioner.getLeft = function (el, list, center) {
 
+        var left = Transitioner.getElLeft(el, list);
+
         return center
-            ? el.offsetLeft - Transitioner.center(el, list)
-            : Math.min(el.offsetLeft, Transitioner.getMax(list));
+            ? left - Transitioner.center(el, list)
+            : Math.min(left, Transitioner.getMax(list));
 
     };
 
@@ -96,6 +98,10 @@ export default function (UIkit) {
 
     Transitioner.center = function (el, list) {
         return list.offsetWidth / 2 - el.offsetWidth / 2;
+    };
+
+    Transitioner.getElLeft = function (el, list) {
+        return (el.offsetLeft + (isRtl ? el.offsetWidth - list.offsetWidth: 0)) * (isRtl ? -1 : 1);
     };
 
     return Transitioner;

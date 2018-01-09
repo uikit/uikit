@@ -102,7 +102,7 @@ function plugin(UIkit) {
                 var fn = this[key];
                 this[key] = e => {
 
-                    var pos = getPos(e).x;
+                    var pos = getPos(e).x * (isRtl ? -1 : 1);
 
                     this.prevPos = pos !== this.pos ? this.pos : this.prevPos;
                     this.pos = pos;
@@ -341,7 +341,8 @@ function plugin(UIkit) {
                 if (this._transitioner) {
 
                     this.percent = this._transitioner.percent();
-                    this.drag += this._transitioner.getDistance() * this.percent * this.dir * (isRtl ? -1 : 1);
+                    this.drag += this._transitioner.getDistance() * this.percent * this.dir;
+
                     this._transitioner.translate(this.percent);
                     this._transitioner.cancel();
 
@@ -370,7 +371,7 @@ function plugin(UIkit) {
                 e.cancelable && e.preventDefault();
 
                 this.dragging = true;
-                this.dir = (distance < 0 ? 1 : -1) * (isRtl ? -1 : 1);
+                this.dir = (distance < 0 ? 1 : -1);
 
                 var slides = this.slides,
                     prevIndex = this.prevIndex,
@@ -445,7 +446,7 @@ function plugin(UIkit) {
                         this._transitioner = null;
                     } else {
 
-                        var dirChange = (isRtl ? this.dir * -1 : this.dir) < 0 === this.prevPos > this.pos;
+                        var dirChange = (isRtl ? this.dir * (isRtl ? 1 : -1) : this.dir) < 0 === this.prevPos > this.pos;
                         this.index = dirChange ? this.index : this.prevIndex;
 
                         if (dirChange) {

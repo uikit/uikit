@@ -44,7 +44,7 @@ function plugin(UIkit) {
                 var max = Transitioner.getMax(this.list), i = this.length;
 
                 while (i--) {
-                    if (this.list.children[i].offsetLeft < max) {
+                    if (Transitioner.getElLeft(this.list.children[i], this.list) < max) {
                         return Math.min(i + 1, this.length - 1);
                     }
                 }
@@ -61,7 +61,7 @@ function plugin(UIkit) {
 
                 return sets && this.slides.reduce((sets, slide, i) => {
 
-                    if (slide.offsetLeft + slide.offsetWidth > left) {
+                    if (Transitioner.getElLeft(slide) + slide.offsetWidth > left) {
 
                         if (i > this.maxIndex) {
                             i = this.maxIndex;
@@ -69,7 +69,7 @@ function plugin(UIkit) {
 
                         if (!includes(sets, i)) {
                             sets.push(i);
-                            left = slide.offsetLeft + width + (this.center ? slide.offsetWidth / 2 : 0);
+                            left = Transitioner.getElLeft(slide) + width + (this.center ? slide.offsetWidth / 2 : 0);
                         }
                     }
 
