@@ -136,9 +136,10 @@ function plugin(UIkit) {
 
                     toggleClass($$(`[${this.attrItem}],[data-${this.attrItem}]`, this.$el).concat(this.nav), 'uk-hidden', !this.maxIndex);
 
-                    delete this.prevIndex;
+                    var index = this.getValidIndex();
+                    delete this.index;
                     removeClass(this.slides, this.clsActive, this.clsActivated);
-                    this.show(this.getValidIndex());
+                    this.show(index);
 
                 },
 

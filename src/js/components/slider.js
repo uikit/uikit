@@ -41,6 +41,8 @@ function plugin(UIkit) {
                     return this.length - 1;
                 }
 
+                css(this.slides, 'order', '');
+
                 var max = Transitioner.getMax(this.list), i = this.length;
 
                 while (i--) {
