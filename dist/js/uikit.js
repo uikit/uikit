@@ -2025,7 +2025,7 @@ function offset(element, coordinates) {
         ['left', 'top'].forEach(function (prop) {
             if (prop in coordinates) {
                 var value = css(element, prop);
-                element.style[prop] = ((coordinates[prop] - currentOffset[prop]) 
+                element.style[prop] = ((coordinates[prop] - currentOffset[prop])
                     + toFloat(pos === 'absolute' && value === 'auto' ? position(element)[prop] : value)) + "px";
             }
         });
@@ -2344,7 +2344,7 @@ function isTouch(e) {
 function getPos$1(e) {
     var touches = e.touches;
     var changedTouches = e.changedTouches;
-    
+
     var ref = touches && touches[0] || changedTouches && changedTouches[0] || e;
     var x = ref.pageX;
     var y = ref.pageY;
