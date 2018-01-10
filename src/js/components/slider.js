@@ -1,11 +1,13 @@
+import Slideshow, { speedUp } from '../mixin/slideshow';
 import TransitionerPlugin from './internal/slider-transitioner';
-import {speedUp} from '../mixin/slideshow';
 
 function plugin(UIkit) {
 
     if (plugin.installed) {
         return;
     }
+
+    UIkit.use(Slideshow);
 
     var {mixin} = UIkit;
     var {$$, css, data, fastdom, includes, isNumeric, toggleClass, toFloat} = UIkit.util;
