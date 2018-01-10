@@ -11,12 +11,12 @@
 - Add UIkit version banner to generated css files
 - Improve `UIkit.container` setter (allows for assigning selector strings)
 - Add option to skip minification for less building (`./build/less.js -d`)
-- Add parameterization for prefix and scope scripts. Use `scope/prefix -h` (e.g. `npm run prefix -- -h`) to list the available options.
+- Add parametrization for prefix and scope scripts. Use `scope/prefix -h` (e.g. `npm run prefix -- -h`) to list the available options.
 - Make some util methods more error resilient
 - Add File size restriction `maxSize` to Upload component
 - Add Slideshow RTL support
 - Add reactive Slideshow Nav
-- Hide Slideshow navigation if slideshow contains single slide only
+- Hide Slideshow navigation if Slideshow contains single slide only
 
 ### Changed
 
