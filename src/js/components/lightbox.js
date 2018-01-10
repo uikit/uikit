@@ -1,5 +1,5 @@
 import Slideshow from '../mixin/slideshow';
-import Animations from './internal/lightbox-animations';
+import AnimationsPlugin from './internal/lightbox-animations';
 
 function plugin(UIkit) {
 
@@ -11,6 +11,8 @@ function plugin(UIkit) {
 
     var {mixin, util} = UIkit;
     var {$, $$, addClass, ajax, append, assign, attr, css, doc, docEl, data, getImage, html, index, on, pointerDown, pointerMove, removeClass, Transition, trigger} = util;
+
+    var Animations = AnimationsPlugin(UIkit);
 
     UIkit.component('lightbox', {
 
@@ -138,10 +140,9 @@ function plugin(UIkit) {
             clsPage: 'uk-lightbox-page',
             selList: '.uk-lightbox-items',
             attrItem: 'uk-lightbox-item',
-            initialAnimation: 'scale',
             pauseOnHover: false,
             velocity: 2,
-            Animations: Animations(UIkit),
+            Animations,
             template: `<div class="uk-lightbox uk-overflow-hidden">
                             <ul class="uk-lightbox-items"></ul>
                             <div class="uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque">
@@ -159,7 +160,7 @@ function plugin(UIkit) {
 
             this.caption = $('.uk-lightbox-caption', this.$el);
 
-            this.items.forEach((el, i) => append(this.list, '<li></li>'));
+            this.items.forEach(() => append(this.list, '<li></li>'));
 
         },
 
@@ -279,8 +280,17 @@ function plugin(UIkit) {
                     return `${this.selList} > *`;
                 },
 
-                handler() {
+                handler(e) {
                     if (!this.isToggled()) {
+
+                        this.preventCatch = true;
+
+                        e.preventDefault();
+
+                        this.animation = Animations['scale'];
+                        removeClass(e.target, this.clsActive);
+                        this.stack.splice(1, 0, this.index);
+
                         this.toggleNow(this.$el, true);
                     }
                 }
@@ -309,6 +319,26 @@ function plugin(UIkit) {
                         this.loadItem(this.getIndex(i + j));
                         this.loadItem(this.getIndex(i - j));
                     }
+
+                    delete this._computeds.animation;
+
+                }
+
+            },
+
+            {
+
+                name: 'itemshown',
+
+                self: true,
+
+                delegate() {
+                    return `${this.selList} > *`;
+                },
+
+                handler() {
+
+                    this.preventCatch = false;
 
                 }
 
@@ -407,7 +437,7 @@ function plugin(UIkit) {
 
                 delete this.index;
                 delete this.percent;
-                delete this._animation;
+                delete this._transitioner;
 
             },
 

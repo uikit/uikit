@@ -91,7 +91,7 @@ function detail(listener) {
 function isEventTarget(target) {
     return 'EventTarget' in win
         ? target instanceof EventTarget
-        : 'addEventListener' in target;
+        : target && 'addEventListener' in target;
 }
 
 function toEventTarget(target) {

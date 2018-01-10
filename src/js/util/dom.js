@@ -29,7 +29,7 @@ export function ready(fn) {
         unbind2 = on(win, 'load', handle);
 }
 
-export function transition(element, props, duration = 400, transition = 'linear') {
+export function transition(element, props, duration = 400, timing = 'linear') {
 
     return Promise.all(toNodes(element).map(element =>
         new Promise((resolve, reject) => {
@@ -51,7 +51,7 @@ export function transition(element, props, duration = 400, transition = 'linear'
             }, false, ({target}) => element === target);
 
             addClass(element, 'uk-transition');
-            css(element, assign({transition: `all ${duration}ms ${transition}`}, props));
+            css(element, assign({transition: `all ${duration}ms ${timing}`}, props));
 
         })
     ));
@@ -203,20 +203,25 @@ function positionTop(element) {
     return top;
 }
 
-export function getIndex(i, elements, current = 0) {
+export function getIndex(i, elements, current = 0, finite = false) {
 
     elements = toNodes(elements);
 
     var length = elements.length;
 
-    i = (isNumeric(i)
+    i = isNumeric(i)
         ? toNumber(i)
         : i === 'next'
             ? current + 1
             : i === 'previous'
                 ? current - 1
-                : index(elements, i)
-    ) % length;
+                : index(elements, i);
+
+    if (finite) {
+        return clamp(i, 0, length - 1);
+    }
+
+    i %= length;
 
     return i < 0 ? i + length : i;
 }
