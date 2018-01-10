@@ -81,7 +81,7 @@ exports.renderLess = function (data, options) {
     return less.render(data, options).then(output => output.css);
 };
 
-exports.compile = async function (file, dest, external, globals, name, aliases, bundled, minify) {
+exports.compile = async function (file, dest, {external, globals, name, aliases, bundled, minify = true}) {
 
     name = (name || '').replace(/[^\w]/g, '_');
 
