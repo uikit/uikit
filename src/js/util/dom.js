@@ -350,7 +350,11 @@ export function after(ref, element) {
 
 function insertNodes(element, fn) {
     element = isString(element) ? fragment(element) : element;
-    return element ? 'length' in element ? toNodes(element).map(fn) : fn(element) : null;
+    return element
+        ? 'length' in element
+            ? toNodes(element).map(fn)
+            : fn(element)
+        : null;
 }
 
 export function remove(element) {

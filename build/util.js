@@ -87,18 +87,18 @@ exports.compile = async function (file, dest, external, globals, name, aliases, 
 
     var bundle = await rollup.rollup({
         external,
-        input  : `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
+        input: `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
         plugins: [
             replace({
                 BUNDLED: bundled || false,
                 VERSION: `'${version}'`
             }),
             alias({
-                Paths     : aliases || {},
+                Paths: aliases || {},
                 Extensions: ['js', 'json']
             }),
             html({
-                include            : '**/*.svg',
+                include: '**/*.svg',
                 htmlMinifierOptions: {
                     collapseWhitespace: true
                 }
