@@ -181,7 +181,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var index = this.dir > 0 ? this.prevIndex : this.index,
+                var index = this.dir > 0 && this.slides[this.prevIndex] ? this.prevIndex : this.index,
                     next = this.slides[index],
                     width = this.list.offsetWidth / 2 - next.offsetWidth / 2,
                     j = 0;
