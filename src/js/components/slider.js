@@ -39,8 +39,12 @@ function plugin(UIkit) {
 
             maxIndex() {
 
-                if (!this.finite || this.center) {
+                if (!this.finite || this.center && !this.sets) {
                     return this.length - 1;
+                }
+
+                if (this.center) {
+                    return this.sets[this.sets.length - 1];
                 }
 
                 css(this.slides, 'order', '');
@@ -59,21 +63,33 @@ function plugin(UIkit) {
             sets({sets}) {
 
                 var width = this.list.offsetWidth / (this.center ? 2 : 1),
-                    left = 0;
+                    left = 0, leftCenter = width;
 
                 css(this.slides, 'order', '');
 
                 return sets && this.slides.reduce((sets, slide, i) => {
 
-                    if (Transitioner.getElLeft(slide, this.list) + slide.offsetWidth > left) {
+                    var slideWidth = slide.offsetWidth,
+                        slideLeft = Transitioner.getElLeft(slide, this.list),
+                        slideRight = slideLeft + slideWidth;
 
-                        if (i > this.maxIndex) {
+                    if (slideRight > left) {
+
+                        if (!this.center && i > this.maxIndex) {
                             i = this.maxIndex;
                         }
 
                         if (!includes(sets, i)) {
-                            sets.push(i);
-                            left = Transitioner.getElLeft(slide, this.list) + width + (this.center ? slide.offsetWidth / 2 : 0);
+
+                            var cmp = this.slides[i + 1];
+                            if (!(this.center && cmp && slideWidth < leftCenter - cmp.offsetWidth / 2)) {
+                                leftCenter = width;
+                                sets.push(i);
+                                left = slideLeft + width + (this.center ? slideWidth / 2 : 0);
+                            } else {
+                                leftCenter -= slideWidth;
+                            }
+
                         }
                     }
 
