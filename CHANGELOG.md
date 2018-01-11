@@ -33,6 +33,7 @@
 - Remove support for IE 10
 - Remove support for iOS < 9.1
 - Remove most -webkit and -moz vendor prefixes
+- Remove named component Constructors
 
 ### Fixed
 
