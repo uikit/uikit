@@ -99,7 +99,7 @@ export function animate(element, animation, duration = 200, origin, out) {
             if (startsWith(animation, animationPrefix)) {
 
                 if (origin) {
-                    cls += ` ${animationPrefix}${origin}`;
+                    cls += ` uk-transform-origin-${origin}`;
                 }
 
                 if (out) {
