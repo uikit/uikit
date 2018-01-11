@@ -1,5 +1,7 @@
-import { getCssVar, query } from './index';
+import { on } from './event';
 import promiseFn from './promise';
+import { query } from './selector';
+import { getCssVar } from './style';
 
 export function bind(fn, context) {
     return function (a) {
@@ -16,6 +18,15 @@ export function hasOwn(obj, key) {
 
 export const Promise = 'Promise' in window ? window.Promise : promiseFn;
 
+export class Deferred {
+    constructor() {
+        this.promise = new Promise((resolve, reject) => {
+            this.reject = reject;
+            this.resolve = resolve;
+        });
+    }
+}
+
 const classifyRe = /(?:^|[-_\/])(\w)/g;
 
 export function classify(str) {
@@ -27,17 +38,17 @@ const hyphenateRe = /([a-z\d])([A-Z])/g;
 export function hyphenate(str) {
     return str
         .replace(hyphenateRe, '$1-$2')
-        .toLowerCase()
+        .toLowerCase();
 }
 
 const camelizeRE = /-(\w)/g;
 
 export function camelize(str) {
-    return str.replace(camelizeRE, toUpper)
+    return str.replace(camelizeRE, toUpper);
 }
 
 function toUpper(_, c) {
-    return c ? c.toUpperCase() : ''
+    return c ? c.toUpperCase() : '';
 }
 
 export function ucfirst(str) {
@@ -130,7 +141,7 @@ export function toList(value) {
     return isArray(value)
         ? value
         : isString(value)
-            ? value.split(',').map(value => isNumeric(value)
+            ? value.split(/,(?![^(]*\))/).map(value => isNumeric(value)
                 ? toNumber(value)
                 : toBoolean(value.trim()))
             : [value];
@@ -179,7 +190,7 @@ export function toMs(time) {
 
 export function swap(value, a, b) {
     return value.replace(new RegExp(`${a}|${b}`, 'mg'), function (match) {
-        return match === a ? b : a
+        return match === a ? b : a;
     });
 }
 
@@ -220,14 +231,13 @@ export function intersectRect(r1, r2) {
 }
 
 export function pointInRect(point, rect) {
-    return intersectRect({top: point.y, bottom: point.y, left: point.x, right: point.x}, rect)
+    return intersectRect({top: point.y, bottom: point.y, left: point.x, right: point.x}, rect);
 }
 
 export function ajax(url, options) {
     return new Promise((resolve, reject) => {
 
         var env = assign({
-            url: url,
             data: null,
             method: 'GET',
             headers: {},
@@ -236,31 +246,42 @@ export function ajax(url, options) {
             responseType: ''
         }, options);
 
+        var xhr = env.xhr;
+
         env.beforeSend(env);
 
-        env.xhr.open(env.method, env.url);
-        env.xhr.responseType = env.responseType;
+        for (var prop in env) {
+            if (prop in xhr) {
+                try {
 
-        env.xhr.onload = function() {
-            if (this.status === 0 || this.status >= 200 && this.status < 300 || this.status === 304) {
-                resolve(this);
+                    xhr[prop] = env[prop];
+
+                } catch (e) {}
             }
-            else {
-                reject(assign(Error(this.statusText), {
-                    xhr: this,
-                    status: this.status
+        }
+
+        xhr.open(env.method.toUpperCase(), url);
+
+        for (var header in env.headers) {
+            xhr.setRequestHeader(header, env.headers[header]);
+        }
+
+        on(xhr, 'load', () => {
+
+            if (xhr.status === 0 || xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
+                resolve(xhr);
+            } else {
+                reject(assign(Error(xhr.statusText), {
+                    xhr,
+                    status: xhr.status
                 }));
             }
-        };
 
-        env.xhr.onerror = function() {
-            reject(assign(Error('Network Error'), {xhr: this}));
-        };
+        });
 
-        env.xhr.ontimeout = function() {
-            reject(assign(Error('Network Timeout'), {xhr: this}));
-        };
+        on(xhr, 'error', () => reject(assign(Error('Network Error'), {xhr})));
+        on(xhr, 'timeout', () => reject(assign(Error('Network Timeout'), {xhr})));
 
-        env.xhr.send(env.data);
-    })
+        xhr.send(env.data);
+    });
 }

@@ -5,7 +5,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Dropdown - UIkit tests</title>
-        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
         <style type="text/css">
 
@@ -140,7 +139,7 @@
 
                         <div class="uk-inline">
                             <button class="uk-button uk-button-default" type="button">Hover only</button>
-                            <div uk-dropdown="mode: hover; delayHide: 0">
+                            <div uk-dropdown="mode: hover; delay-hide: 0">
                                 <ul class="uk-nav uk-dropdown-nav">
                                     <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Item</a></li>
@@ -150,8 +149,8 @@
                         </div>
 
                         <div class="uk-inline">
-                            <button class="uk-button uk-button-default" type="button" uk-toggle="target: +div; mode: click,hover">Same</button>
-                            <button class="uk-button uk-button-default" type="button" uk-toggle="target: +div; mode: click,hover">Same</button>
+                            <button class="uk-button uk-button-default" type="button" uk-toggle="target: ~div; mode: click,hover">Same</button>
+                            <button class="uk-button uk-button-default" type="button" uk-toggle="target: ~div; mode: click,hover">Same</button>
                             <button class="uk-button uk-button-default" type="button">Target</button>
                             <div uk-dropdown>
                                 <ul class="uk-nav uk-dropdown-nav">
@@ -416,7 +415,7 @@
                             <td><code>animation</code></td>
                             <td>String</td>
                             <td>false</td>
-                            <td>The space separated names of animations to use. (Comma separate for animation out)</td>
+                            <td>The space separated names of animations to use.</td>
                         </tr>
                         <tr>
                             <td><code>duration</code></td>

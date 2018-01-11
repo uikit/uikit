@@ -50,12 +50,12 @@ export default function (UIkit) {
 
             {
 
-                read() {
+                read(data) {
 
                     var scroll = win.pageYOffset + this.offset + 1,
                         max = height(doc) - height(win) + this.offset;
 
-                    this.active = false;
+                    data.active = false;
 
                     this.targets.every((el, i) => {
 
@@ -77,22 +77,19 @@ export default function (UIkit) {
                             }
                         }
 
-                        return !(this.active = $(filter(this.links, `[href="#${el.id}"]`)));
+                        return !(data.active = $(filter(this.links, `[href="#${el.id}"]`)));
 
                     });
 
                 },
 
-                write() {
+                write({active}) {
 
                     this.links.forEach(el => el.blur());
                     removeClass(this.elements, this.cls);
 
-                    if (this.active) {
-                        trigger(this.$el, 'active', [
-                            this.active,
-                            addClass(this.closest ? closest(this.active, this.closest) : this.active, this.cls)
-                        ]);
+                    if (active) {
+                        trigger(this.$el, 'active', [active, addClass(this.closest ? closest(active, this.closest) : active, this.cls)]);
                     }
 
                 },

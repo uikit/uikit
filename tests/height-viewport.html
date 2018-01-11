@@ -5,7 +5,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Height Viewport - UIkit tests</title>
-        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -154,21 +153,27 @@
                     <tbody>
                         <tr>
                             <td><code>expand</code></td>
-                            <td>false</td>
                             <td>Boolean</td>
+                            <td>false</td>
                             <td>Expands the element's height to make the document fill the viewport.</td>
                         </tr>
                         <tr>
                             <td><code>offset-top</code></td>
-                            <td>false</td>
                             <td>Boolean</td>
+                            <td>false</td>
                             <td>Subtracts the element's offset top from its height.</td>
                         </tr>
                         <tr>
                             <td><code>offset-bottom</code></td>
-                            <td>false</td>
                             <td>Boolean|Number|Pixel|selector</td>
+                            <td>false</td>
                             <td>Subtracts the element's immediately following sibling's height (true), the given percentage (Number), Pixel (px) value from its own height or the given element's height.</td>
+                        </tr>
+                        <tr>
+                            <td><code>min-height</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>Sets a minimum height.</td>
                         </tr>
                     </tbody>
                 </table>

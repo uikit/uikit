@@ -43,8 +43,6 @@ export default function (UIkit) {
 
                 name: 'click',
 
-                self: true,
-
                 delegate() {
                     return `${this.targets} ${this.$props.toggle}`;
                 },
@@ -59,7 +57,7 @@ export default function (UIkit) {
         ],
 
         ready() {
-            var active = this.active !== false && this.items[Number(this.active)] && !hasClass(active, this.clsOpen);
+            var active = this.active !== false && !hasClass(active, this.clsOpen) && this.items[Number(this.active)];
             if (active) {
                 this.toggle(active, false);
             }
@@ -67,7 +65,7 @@ export default function (UIkit) {
 
         update() {
 
-            this.items.forEach(el => this.toggleNow($(this.content, el), hasClass(el, this.clsOpen)));
+            this.items.forEach(el => this._toggleImmediate($(this.content, el), hasClass(el, this.clsOpen)));
 
             var active = !this.collapsible && !hasClass(this.items, this.clsOpen) && this.items[0];
             if (active) {
@@ -116,7 +114,7 @@ export default function (UIkit) {
                             }
                         });
 
-                    })
+                    });
             }
 
         }

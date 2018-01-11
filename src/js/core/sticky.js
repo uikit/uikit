@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $, addClass, after, Animation, assign, attr, css, docEl, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, remove, removeClass, replaceClass, requestAnimationFrame, toFloat, toggleClass, trigger, win, within } from '../util/index';
+import { $, addClass, after, Animation, assign, attr, css, docEl, fastdom, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, remove, removeClass, replaceClass, toFloat, toggleClass, trigger, win, within } from '../util/index';
 
 export default function (UIkit) {
 
@@ -81,7 +81,7 @@ export default function (UIkit) {
             var target = $(location.hash);
 
             if (target) {
-                requestAnimationFrame(() => {
+                fastdom.read(() => {
 
                     var top = offset(target).top,
                         elTop = offset(this.$el).top,
@@ -101,6 +101,8 @@ export default function (UIkit) {
             {
                 name: 'active',
 
+                self: true,
+
                 handler() {
                     replaceClass(this.selTarget, this.clsInactive, this.clsActive);
                 }
@@ -109,6 +111,8 @@ export default function (UIkit) {
 
             {
                 name: 'inactive',
+
+                self: true,
 
                 handler() {
                     replaceClass(this.selTarget, this.clsActive, this.clsInactive);
@@ -189,17 +193,16 @@ export default function (UIkit) {
 
             {
 
-                read() {
-                    this.offsetTop = offset(this.$el).top;
-                    this.scroll = win.pageYOffset;
-                    this.visible = isVisible(this.$el);
+                read(_, {scrollY = win.pageYOffset}) {
+                    return {
+                        scroll: this.scroll = scrollY,
+                        visible: isVisible(this.$el)
+                    };
                 },
 
-                write({dir} = {}) {
+                write({visible, scroll}, {dir} = {}) {
 
-                    var scroll = this.scroll;
-
-                    if (scroll < 0 || !this.visible || this.disabled || this.showOnUp && !dir) {
+                    if (scroll < 0 || !visible || this.disabled || this.showOnUp && !dir) {
                         return;
                     }
 
@@ -229,7 +232,7 @@ export default function (UIkit) {
 
                         Animation.cancel(this.$el);
                         this.show();
-                        Animation.in(this.$el, this.animation).then(null, noop);
+                        Animation.in(this.$el, this.animation).catch(noop);
 
                     } else {
                         this.show();
@@ -293,9 +296,7 @@ export default function (UIkit) {
                 }
 
                 toggleClass(this.$el, this.clsBelow, this.scroll > this.bottomOffset);
-
-
-                    addClass(this.$el, this.clsFixed);
+                addClass(this.$el, this.clsFixed);
 
             }
 

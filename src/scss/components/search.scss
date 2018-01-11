@@ -127,52 +127,11 @@ $search-toggle-hover-color:                          $global-color !default;
 
 /* Placeholder */
 .uk-search-input:-ms-input-placeholder { color: $search-placeholder-color !important; }
-.uk-search-input::-moz-placeholder { color: $search-placeholder-color; }
-.uk-search-input::-webkit-input-placeholder { color: $search-placeholder-color; }
+.uk-search-input::placeholder { color: $search-placeholder-color; }
 
 
-/* Icon
+/* Icon (Adopts `uk-icon`)
  ========================================================================== */
-
-/*
- * Adopts `uk-icon`
- * Required for `button`
- * 1. Remove margins in Chrome, Safari and Opera.
- * 2. Remove borders for `button`.
- * 3. Address `overflow` set to `hidden` in IE.
- * 4. Correct `font` properties and `color` not being inherited for `button`.
- * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
- * 6. Remove default `button` padding and background color
- * 7. Required for `button`.
- */
-
-.uk-search-icon {
-    /* 1 */
-    margin: 0;
-    /* 2 */
-    border: none;
-    /* 3 */
-    overflow: visible;
-    /* 4 */
-    font: inherit;
-    color: inherit;
-    /* 5 */
-    text-transform: none;
-    /* 6. */
-    padding: 0;
-    background-color: transparent;
-    /* 7 */
-    cursor: pointer;
-}
-
-/*
- * Remove the inner border and padding in Firefox. Required for `button`.
- */
-
-.uk-search-icon::-moz-focus-inner {
-    border: 0;
-    padding: 0;
-}
 
 /*
  * Remove default focus style
@@ -194,14 +153,8 @@ $search-toggle-hover-color:                          $global-color !default;
     bottom: 0;
     left: 0;
     /* 2 */
-    display: -ms-inline-flexbox;
-    display: -webkit-inline-flex;
     display: inline-flex;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
     justify-content: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
     align-items: center;
     /* 3 */
     color: $search-icon-color;

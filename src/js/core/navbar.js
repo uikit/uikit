@@ -1,5 +1,5 @@
 import { Class } from '../mixin/index';
-import { $$, addClass, after, append, assign, css, height, includes, isRtl, isVisible, matches, noop, query, toFloat, Transition, within } from '../util/index';
+import { $, $$, addClass, after, assign, css, height, includes, isRtl, isString, isVisible, matches, noop, query, remove, toFloat, Transition, within } from '../util/index';
 
 export default function (UIkit) {
 
@@ -43,7 +43,7 @@ export default function (UIkit) {
         computed: {
 
             boundary({boundary, boundaryAlign}, $el) {
-                return (boundary === true || boundaryAlign) ? $el : boundary
+                return (boundary === true || boundaryAlign) ? $el : boundary;
             },
 
             pos({align}) {
@@ -52,21 +52,31 @@ export default function (UIkit) {
 
         },
 
-        ready() {
+        connected() {
+
+            var dropbar = this.$props.dropbar;
+
+            this.dropbar = dropbar && (isString(dropbar) && query(dropbar, this.$el) || $('<div></div>'));
 
             if (this.dropbar) {
-                UIkit.navbarDropbar(
-                    query(this.dropbar, this.$el) || after(this.dropbarAnchor || this.$el, '<div></div>'),
-                    {clsDrop: this.clsDrop, mode: this.dropbarMode, duration: this.duration, navbar: this}
-                );
+
+                addClass(this.dropbar, 'uk-navbar-dropbar');
+
+                if (this.dropbarMode === 'slide') {
+                    addClass(this.dropbar, 'uk-navbar-dropbar-slide');
+                }
             }
 
+        },
+
+        disconnected() {
+            this.dropbar && remove(this.dropbar);
         },
 
         update() {
 
             UIkit.drop(
-                $$(`${this.dropdown} .${this.clsDrop}`, this.$el).filter(el => !UIkit.getComponent(el, 'dropdown')),
+                $$(`${this.dropdown} .${this.clsDrop}`, this.$el).filter(el => !UIkit.getComponent(el, 'drop') && !UIkit.getComponent(el, 'dropdown')),
                 assign({}, this.$props, {boundary: this.boundary, pos: this.pos})
             );
 
@@ -88,66 +98,19 @@ export default function (UIkit) {
                     }
                 }
 
-            }
-
-        ],
-
-        methods: {
-
-            getActive() {
-                var active = UIkit.drop.getActive();
-                return active && includes(active.mode, 'hover') && within(active.toggle.$el, this.$el) && active;
-            }
-
-        }
-
-    });
-
-    UIkit.component('navbar-dropbar', {
-
-        mixins: [Class],
-
-        defaults: {
-            clsDrop: '',
-            mode: 'slide',
-            navbar: null,
-            duration: 200
-        },
-
-        init() {
-
-            if (this.mode === 'slide') {
-                addClass(this.$el, 'uk-navbar-dropbar-slide');
-            }
-
-        },
-
-        events: [
-
-            {
-                name: 'beforeshow',
-
-                el() {
-                    return this.navbar.$el;
-                },
-
-                handler(e, drop) {
-                    var {$el, dir} = drop;
-                    if (dir === 'bottom' && !within($el, this.$el)) {
-                        append(this.$el, $el);
-                        drop.show();
-                        e.preventDefault();
-                    }
-                }
             },
 
             {
                 name: 'mouseleave',
 
-                handler() {
-                    var active = this.navbar.getActive();
+                el() {
+                    return this.dropbar;
+                },
 
-                    if (active && !matches(this.$el, ':hover')) {
+                handler() {
+                    var active = this.getActive();
+
+                    if (active && !matches(this.dropbar, ':hover')) {
                         active.hide();
                     }
                 }
@@ -156,20 +119,36 @@ export default function (UIkit) {
             {
                 name: 'show',
 
-                handler(_, {$el}) {
+                filter() {
+                    return this.dropbar;
+                },
+
+                handler(_, drop) {
+
+                    var $el = drop.$el;
+
                     this.clsDrop && addClass($el, `${this.clsDrop}-dropbar`);
-                    this.transitionTo($el.offsetHeight + toFloat(css($el, 'margin-top')) + toFloat(css($el, 'margin-bottom')));
+
+                    if (drop.$props.offset === false) {
+                        drop.offset = toFloat(css($el, 'margin-top'));
+                    }
+
+                    this.transitionTo($el.offsetHeight + toFloat(css($el, 'margin-top')) + toFloat(css($el, 'margin-bottom')), $el);
                 }
             },
 
             {
                 name: 'beforehide',
 
+                filter() {
+                    return this.dropbar;
+                },
+
                 handler(e, {$el}) {
 
-                    var active = this.navbar.getActive();
+                    var active = this.getActive();
 
-                    if (matches(this.$el, ':hover') && active && active.$el === $el) {
+                    if (matches(this.dropbar, ':hover') && active && active.$el === $el) {
                         e.preventDefault();
                     }
                 }
@@ -178,9 +157,13 @@ export default function (UIkit) {
             {
                 name: 'hide',
 
+                filter() {
+                    return this.dropbar;
+                },
+
                 handler(_, {$el}) {
 
-                    var active = this.navbar.getActive();
+                    var active = this.getActive();
 
                     if (!active || active && active.$el === $el) {
                         this.transitionTo(0);
@@ -192,10 +175,31 @@ export default function (UIkit) {
 
         methods: {
 
-            transitionTo(newHeight) {
-                height(this.$el, isVisible(this.$el) ? height(this.$el) : 0);
-                Transition.cancel(this.$el);
-                return Transition.start(this.$el, {height: newHeight}, this.duration).then(null, noop);
+            getActive() {
+                var active = UIkit.drop.getActive();
+                return active && includes(active.mode, 'hover') && within(active.toggle.$el, this.$el) && active;
+            },
+
+            transitionTo(newHeight, el) {
+
+                var dropbar = this.dropbar;
+
+                if (!dropbar.parentNode) {
+                    after(this.dropbarAnchor || this.$el, dropbar);
+                }
+
+                var oldHeight = isVisible(dropbar) ? height(dropbar) : 0;
+
+                el = oldHeight < newHeight && el;
+
+                css(el, {height: oldHeight, overflow: 'hidden'});
+                height(dropbar, oldHeight);
+
+                Transition.cancel([el, dropbar]);
+                return Transition
+                    .start([el, dropbar], {height: newHeight}, this.duration)
+                    .catch(noop)
+                    .finally(() => css(el, {height: '', overflow: ''}));
             }
 
         }

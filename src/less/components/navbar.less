@@ -76,7 +76,7 @@
 @navbar-dropdown-nav-sublist-item-hover-color:  @global-color;
 
 @navbar-dropbar-background:                     @navbar-dropdown-background;
-@navbar-dropbar-z-index:                        @global-z-index + 20;
+@navbar-dropbar-z-index:                        @navbar-dropdown-z-index - 1;
 
 
 /* ========================================================================
@@ -88,8 +88,6 @@
  */
 
 .uk-navbar {
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     /* 1 */
     position: relative;
@@ -131,13 +129,9 @@
 // 2. [class*='uk-navbar-center'],
 .uk-navbar-center,
 .uk-navbar-center-left > *,
-.uk-navbar-center-right > *, {
-    display: -ms-flexbox;
-    display: -webkit-flex;
+.uk-navbar-center-right > * {
     display: flex;
     /* 1 */
-    -ms-flex-align: center;
-    -webkit-align-items: center;
     align-items: center;
 }
 
@@ -163,7 +157,6 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    -webkit-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
     /* 2 */
     z-index: @global-z-index - 10;
@@ -197,8 +190,6 @@
  */
 
 .uk-navbar-nav {
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     /* 1 */
     margin: 0;
@@ -213,11 +204,7 @@
 
 .uk-navbar-left,
 .uk-navbar-right,
-.uk-navbar-center:only-child {
-    -ms-flex-wrap: wrap;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-}
+.uk-navbar-center:only-child { flex-wrap: wrap; }
 
 /*
  * Items
@@ -231,14 +218,8 @@
 .uk-navbar-item,            // Content item
 .uk-navbar-toggle {         // Clickable item
     /* 1 */
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
     justify-content: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
     align-items: center;
     /* 2 */
     box-sizing: border-box;
@@ -418,7 +399,6 @@
  */
 
 .uk-navbar-dropdown-dropbar {
-    top: 0 !important;
     margin-top: @navbar-dropdown-dropbar-margin-top;
     margin-bottom: @navbar-dropdown-dropbar-margin-bottom;
     .hook-navbar-dropdown-dropbar;
@@ -487,9 +467,7 @@
  ========================================================================== */
 
 .uk-navbar-dropbar {
-    position: relative;
     background: @navbar-dropbar-background;
-    overflow: hidden;
     .hook-navbar-dropbar;
 }
 

@@ -1,4 +1,4 @@
-import { $, addClass, append, css, doc, docEl, hasClass, on, once, Promise, removeClass, requestAnimationFrame, toMs, transitionend, width, win, within } from '../util/index';
+import { $, addClass, append, css, doc, docEl, hasClass, on, once, Promise, removeClass, requestAnimationFrame, toMs, width, win, within } from '../util/index';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
@@ -62,7 +62,14 @@ export default {
 
             name: 'toggle',
 
+            self: true,
+
             handler(e) {
+
+                if (e.defaultPrevented) {
+                    return;
+                }
+
                 e.preventDefault();
                 this.toggle();
             }
@@ -135,7 +142,7 @@ export default {
 
             if (this.container && this.$el.parentNode !== this.container) {
                 append(this.container, this.$el);
-                this._callConnected()
+                this._callConnected();
             }
 
             var prev = active && active !== this && active;
@@ -176,17 +183,22 @@ export default {
         },
 
         _toggleImmediate(el, show) {
+            return new Promise(resolve =>
+                requestAnimationFrame(() => {
+                    this._toggle(el, show);
 
-            requestAnimationFrame(() => this._toggle(el, show));
+                    if (this.transitionDuration) {
+                        once(this.transitionElement, 'transitionend', resolve, false, e => e.target === this.transitionElement);
+                    } else {
+                        resolve();
+                    }
+                })
+            );
+        }
 
-            return this.transitionDuration
-                ? new Promise(resolve => once(this.transitionElement, transitionend, resolve, false, e => e.target === this.transitionElement))
-                : Promise.resolve();
-
-        },
     }
 
-}
+};
 
 var events;
 
@@ -197,7 +209,7 @@ function registerEvents() {
     }
 
     events = [
-        on(doc, 'click', ({target, defaultPrevented}) => {
+        on(docEl, 'click', ({target, defaultPrevented}) => {
             if (active && active.bgClose && !defaultPrevented && !within(target, active.panel)) {
                 active.hide();
             }

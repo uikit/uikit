@@ -5,7 +5,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Off-canvas - UIkit tests</title>
-        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -754,8 +753,10 @@
 
             var util = UIkit.util;
 
-            util.ready(function () {
-                util.prepend(util.$('.uk-offcanvas-content'), util.$('div'));
+            window.addEventListener('load', function () {
+                setTimeout(function () {
+                    util.prepend(util.$('.uk-offcanvas-content'), util.$('div'));
+                }, 200);
             });
 
             util.on(util.$('#js-toggle'), 'click', function (e) {

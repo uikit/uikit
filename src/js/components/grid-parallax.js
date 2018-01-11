@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$$, addClass, css, scrolledOver, toFloat, toNodes} = UIkit.util;
+    var {addClass, css, scrolledOver, toFloat} = UIkit.util;
 
     UIkit.component('grid-parallax', UIkit.components.grid.extend({
 
@@ -22,10 +22,6 @@ function plugin(UIkit) {
 
             translate({translate}) {
                 return Math.abs(translate);
-            },
-
-            items({target}, $el) {
-                return target ? $$(target, $el) : toNodes($el.children);
             }
 
         },
@@ -43,13 +39,15 @@ function plugin(UIkit) {
 
             {
 
-                read() {
-                    this.columns = this.rows && this.rows[0] && this.rows[0].length || 0;
-                    this.rows = this.rows && this.rows.map(elements => sortBy(elements, 'offsetLeft'));
+                read({rows}) {
+                    return {
+                        columns: rows && rows[0] && rows[0].length || 0,
+                        rows: rows && rows.map(elements => sortBy(elements, 'offsetLeft'))
+                    };
                 },
 
-                write() {
-                    css(this.$el, 'marginBottom', this.columns > 1
+                write({columns}) {
+                    css(this.$el, 'marginBottom', columns > 1
                         ? this.translate + toFloat(css(css(this.$el, 'marginBottom', ''), 'marginBottom'))
                         : '');
                 },
@@ -60,20 +58,18 @@ function plugin(UIkit) {
             {
 
                 read() {
-
-                    this.scrolled = scrolledOver(this.$el) * this.translate;
-
+                    return {scrolled: scrolledOver(this.$el) * this.translate};
                 },
 
-                write() {
+                write({rows, columns, scrolled}) {
 
-                    if (!this.rows || this.columns === 1 || !this.scrolled) {
+                    if (!rows || columns === 1 || !scrolled) {
                         return this.reset();
                     }
 
-                    this.rows.forEach(row =>
+                    rows.forEach(row =>
                         row.forEach((el, i) =>
-                            css(el, 'transform', `translateY(${i % 2 ? this.scrolled : this.scrolled / 8}px)`)
+                            css(el, 'transform', `translateY(${i % 2 ? scrolled : scrolled / 8}px)`)
                         )
                     );
 
@@ -86,14 +82,14 @@ function plugin(UIkit) {
         methods: {
 
             reset() {
-                css(this.items, 'transform', '');
+                css(this.$el.children, 'transform', '');
             }
 
         }
 
     }));
 
-    UIkit.component('grid-parallax').options.update.unshift({
+    UIkit.components.gridParallax.options.update.unshift({
 
         read() {
             this.reset();
@@ -110,7 +106,7 @@ function plugin(UIkit) {
                 : b[prop] > a[prop]
                     ? -1
                     : 0
-        )
+        );
     }
 
 }

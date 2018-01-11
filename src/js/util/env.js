@@ -1,13 +1,17 @@
-import { classify, doc, docEl, Promise, win } from './index';
+/* global DocumentTouch */
+import Promise from './promise';
 
-export const Observer = win.MutationObserver || win.WebKitMutationObserver;
-export const requestAnimationFrame = win.requestAnimationFrame || (fn => setTimeout(fn, 1000 / 60));
+export const win = window;
+export const doc = document;
+export const docEl = doc.documentElement;
+
+export const Observer = win.MutationObserver;
+export const requestAnimationFrame = win.requestAnimationFrame;
 
 var hasTouchEvents = 'ontouchstart' in win;
 var hasPointerEvents = win.PointerEvent;
 export const hasTouch = 'ontouchstart' in win
     || win.DocumentTouch && doc instanceof DocumentTouch
-    || navigator.msPointerEnabled && navigator.msMaxTouchPoints // IE 10
     || navigator.pointerEnabled && navigator.maxTouchPoints; // IE >=11
 
 export const pointerDown = !hasTouch ? 'mousedown' : `mousedown ${hasTouchEvents ? 'touchstart' : 'pointerdown'}`;
@@ -15,10 +19,6 @@ export const pointerMove = !hasTouch ? 'mousemove' : `mousemove ${hasTouchEvents
 export const pointerUp = !hasTouch ? 'mouseup' : `mouseup ${hasTouchEvents ? 'touchend' : 'pointerup'}`;
 export const pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mouseenter';
 export const pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
-
-export const transitionend = prefix('transition', 'transition-end');
-export const animationstart = prefix('animation', 'animation-start');
-export const animationend = prefix('animation', 'animation-end');
 
 export function getImage(src) {
 
@@ -33,22 +33,19 @@ export function getImage(src) {
 
 }
 
-function prefix(name, event) {
+export const supports = {};
 
-    var ucase = classify(name),
-        lowered = classify(event).toLowerCase(),
-        classified = classify(event),
-        element = doc.body || docEl,
-        names = {
-            [name]: lowered,
-            [`Webkit${ucase}`]: `webkit${classified}`,
-            [`Moz${ucase}`]: lowered,
-            [`o${ucase}`]: `o${classified} o${lowered}`
-        };
+// IE 11
+(function () {
 
-    for (name in names) {
-        if (element.style[name] !== undefined) {
-            return names[name];
-        }
+    var list = doc.createElement('_').classList;
+    if (list) {
+        list.add('a', 'b');
+        list.toggle('c', false);
+        supports.Multiple = list.contains('b');
+        supports.Force = !list.contains('c');
+        supports.ClassList = true;
     }
-}
+    list = null;
+
+})();

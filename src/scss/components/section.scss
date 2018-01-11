@@ -11,7 +11,6 @@
 //                  `uk-section-muted`
 //                  `uk-section-primary`
 //                  `uk-section-secondary`
-//                  `uk-section-media`
 //                  `uk-section-overlap`
 //
 // States:          `uk-preserve-color`
@@ -198,14 +197,6 @@ $section-secondary-color-mode:                     light !default;
 @if ( $section-secondary-color-mode == dark ) { .uk-section-secondary:not(.uk-preserve-color) { @extend .uk-dark !optional;} }
 
 
-/*
- * Indicate that an image or video is used as background
- */
-
-.uk-section-media {
-    @if(mixin-exists(hook-section-media)) {@include hook-section-media();}
-}
-
 /* Overlap modifier
  ========================================================================== */
 
@@ -229,6 +220,5 @@ $section-secondary-color-mode:                     light !default;
 // @mixin hook-section-muted(){}
 // @mixin hook-section-secondary(){}
 // @mixin hook-section-primary(){}
-// @mixin hook-section-media(){}
 // @mixin hook-section-overlap(){}
 // @mixin hook-section-misc(){}

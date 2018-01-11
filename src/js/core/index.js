@@ -1,7 +1,6 @@
-import { animationstart, css, doc, fastdom, on, toMs, win } from '../util/index';
-
 import Accordion from './accordion';
 import Alert from './alert';
+import Core from './core';
 import Cover from './cover';
 import Drop from './drop';
 import Dropdown from './dropdown';
@@ -10,7 +9,6 @@ import Gif from './gif';
 import Grid from './grid';
 import HeightMatch from './height-match';
 import HeightViewport from './height-viewport';
-import Hover from './hover';
 import Icon from './icon';
 import Leader from './leader';
 import Margin from './margin';
@@ -31,28 +29,6 @@ import Video from './video';
 
 export default function (UIkit) {
 
-    var scroll = 0, started = 0;
-
-    on(win, 'load resize', UIkit.update);
-    on(win, 'scroll', e => {
-        e.dir = scroll < win.pageYOffset ? 'down' : 'up';
-        scroll = win.pageYOffset;
-        UIkit.update(e);
-        fastdom.flush();
-    });
-
-    animationstart && on(doc, animationstart, ({target}) => {
-        if ((css(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
-            started++;
-            doc.body.style.overflowX = 'hidden';
-            setTimeout(() => {
-                if (!--started) {
-                    doc.body.style.overflowX = '';
-                }
-            }, toMs(css(target, 'animationDuration')) + 100);
-        }
-    }, true);
-
     // core components
     UIkit.use(Toggle);
     UIkit.use(Accordion);
@@ -64,7 +40,6 @@ export default function (UIkit) {
     UIkit.use(FormCustom);
     UIkit.use(HeightMatch);
     UIkit.use(HeightViewport);
-    UIkit.use(Hover);
     UIkit.use(Margin);
     UIkit.use(Gif);
     UIkit.use(Grid);
@@ -82,5 +57,8 @@ export default function (UIkit) {
     UIkit.use(Icon);
     UIkit.use(Switcher);
     UIkit.use(Tab);
+
+    // core functionality
+    UIkit.use(Core);
 
 }

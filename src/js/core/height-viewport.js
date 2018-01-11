@@ -7,13 +7,15 @@ export default function (UIkit) {
         props: {
             expand: Boolean,
             offsetTop: Boolean,
-            offsetBottom: Boolean
+            offsetBottom: Boolean,
+            minHeight: Number
         },
 
         defaults: {
             expand: false,
             offsetTop: false,
-            offsetBottom: false
+            offsetBottom: false,
+            minHeight: 0
         },
 
         update: {
@@ -28,10 +30,10 @@ export default function (UIkit) {
 
                     css(this.$el, {height: '', minHeight: ''});
 
-                    var diff = viewport - docEl.offsetHeight;
+                    var diff = viewport - offsetHeight(docEl);
 
                     if (diff > 0) {
-                        css(this.$el, 'minHeight', minHeight = this.$el.offsetHeight + diff)
+                        minHeight = offsetHeight(this.$el) + diff;
                     }
 
                 } else {
@@ -44,7 +46,7 @@ export default function (UIkit) {
 
                     if (this.offsetBottom === true) {
 
-                        offsetTop += this.$el.nextElementSibling.offsetHeight || 0;
+                        offsetTop += offsetHeight(this.$el.nextElementSibling);
 
                     } else if (isNumeric(this.offsetBottom)) {
 
@@ -56,18 +58,28 @@ export default function (UIkit) {
 
                     } else if (isString(this.offsetBottom)) {
 
-                        var el = query(this.offsetBottom, this.$el);
-                        offsetTop += el && el.offsetHeight || 0;
+                        offsetTop += offsetHeight(query(this.offsetBottom, this.$el));
 
                     }
 
-                    css(this.$el, 'minHeight', minHeight = offsetTop ? `calc(100vh - ${offsetTop}px)` : '100vh');
+                    // on mobile devices (iOS and Android) window.innerHeight !== 100vh
+                    minHeight = offsetTop ? `calc(100vh - ${offsetTop}px)` : '100vh';
 
                 }
 
-                // IE 10-11 fix (min-height on a flex container won't apply to its flex items)
-                height(this.$el, '');
-                if (minHeight && viewport - offsetTop >= this.$el.offsetHeight) {
+                if (!minHeight) {
+                    return;
+                }
+
+                css(this.$el, {height: '', minHeight});
+
+                var elHeight = this.$el.offsetHeight;
+                if (this.minHeight && this.minHeight > elHeight) {
+                    css(this.$el, 'minHeight', this.minHeight);
+                }
+
+                // IE 11 fix (min-height on a flex container won't apply to its flex items)
+                if (viewport - offsetTop >= elHeight) {
                     css(this.$el, 'height', minHeight);
                 }
 
@@ -78,5 +90,9 @@ export default function (UIkit) {
         }
 
     });
+
+    function offsetHeight(el) {
+        return el && el.offsetHeight || 0;
+    }
 
 }

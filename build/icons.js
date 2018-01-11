@@ -14,7 +14,7 @@ glob(custom, (err, folders) =>
         var icons = `dist/${name}${shortid.generate()}`;
 
         util.write(`${icons}.json`, util.icons(`{src/images/icons,${folder}}/*.svg`)).then(() =>
-            util.compile('src/js/icons.js', `dist/js/uikit-icons-${name}`, [], {}, name, {icons}).then(() =>
+            util.compile('src/js/icons.js', `dist/js/uikit-icons-${name}`, {name, aliases: {icons}}).then(() =>
                 fs.unlink(`${icons}.json`, () => {})
             )
         )

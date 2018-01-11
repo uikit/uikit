@@ -1,4 +1,6 @@
-import { doc, offset, on } from './index';
+import { doc } from './env';
+import { on } from './event';
+import { offset } from './position';
 
 export function MouseTracker() {}
 

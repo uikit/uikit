@@ -17,10 +17,12 @@
     .uk-open > &::after { @include svg-fill($internal-accordion-open-image, "#000", $accordion-icon-color); }
 
 }
+@mixin hook-accordion-title-hover(){}
 @mixin hook-accordion-content(){}
 @mixin hook-accordion-misc(){}
 @mixin hook-inverse-accordion-item(){}
 @mixin hook-inverse-accordion-title(){}
+@mixin hook-inverse-accordion-title-hover(){}
 @mixin hook-inverse-component-accordion(){
 
     .uk-accordion-title::after { @include svg-fill($internal-accordion-close-image, "#000", $inverse-global-color); }
@@ -257,7 +259,7 @@
     // Horizontal rules
     //
 
-    hr {
+    hr, .uk-hr {
         border-top-color: $inverse-base-hr-border;
         @if(mixin-exists(hook-inverse-base-hr)) {@include hook-inverse-base-hr();}
     }
@@ -310,9 +312,7 @@
 }
 @mixin hook-button(){
     text-transform: $button-text-transform;
-    -webkit-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
-    -webkit-transition-property: color, background-color, border-color;
     transition-property: color, background-color, border-color;
 }
 @mixin hook-button-hover(){}
@@ -344,7 +344,6 @@
         left: 0;
         right: 100%;
         border-bottom: $button-text-border-width solid $button-text-border;
-        -webkit-transition: right 0.3s ease-out;
         transition: right 0.3s ease-out;
     }
 
@@ -511,34 +510,7 @@
 
 
 }
-@mixin hook-close(){
-    -webkit-transition: 0.1s ease-in-out;
-    transition: 0.1s ease-in-out;
-    -webkit-transition-property: color, opacity;
-    transition-property: color, opacity;
-}
-@mixin hook-close-hover(){}
-@mixin hook-close-misc(){}
-@mixin hook-inverse-close(){}
-@mixin hook-inverse-close-hover(){}
-@mixin hook-inverse-component-close(){
-
-    .uk-close {
-        color: $inverse-close-color;
-        @if(mixin-exists(hook-inverse-close)) {@include hook-inverse-close();}
-    }
-
-    .uk-close:hover,
-    .uk-close:focus {
-        color: $inverse-close-hover-color;
-        @if(mixin-exists(hook-inverse-close-hover)) {@include hook-inverse-close-hover();}
-    }
-
-}
-@mixin hook-card(){
-    -webkit-transition: box-shadow 0.1s ease-in-out;
-    transition: box-shadow 0.1s ease-in-out;
-}
+@mixin hook-card(){ transition: box-shadow 0.1s ease-in-out; }
 @mixin hook-card-body(){}
 @mixin hook-card-header(){}
 @mixin hook-card-footer(){}
@@ -626,14 +598,32 @@
     }
 
 }
+@mixin hook-close(){
+    transition: 0.1s ease-in-out;
+    transition-property: color, opacity;
+}
+@mixin hook-close-hover(){}
+@mixin hook-close-misc(){}
+@mixin hook-inverse-close(){}
+@mixin hook-inverse-close-hover(){}
+@mixin hook-inverse-component-close(){
+
+    .uk-close {
+        color: $inverse-close-color;
+        @if(mixin-exists(hook-inverse-close)) {@include hook-inverse-close();}
+    }
+
+    .uk-close:hover,
+    .uk-close:focus {
+        color: $inverse-close-hover-color;
+        @if(mixin-exists(hook-inverse-close-hover)) {@include hook-inverse-close-hover();}
+    }
+
+}
 @mixin hook-column-misc(){}
 @mixin hook-inverse-component-column(){
 
-    .uk-column-divider {
-        -webkit-column-rule-color: $inverse-column-divider-rule-color;
-        -moz-column-rule-color: $inverse-column-divider-rule-color;
-        column-rule-color: $inverse-column-divider-rule-color;
-    }
+    .uk-column-divider { column-rule-color: $inverse-column-divider-rule-color; }
 
 }
 @mixin hook-comment(){}
@@ -730,17 +720,18 @@
 }
 @mixin hook-dotnav(){}
 @mixin hook-dotnav-item(){
-    -webkit-transition: background-color 0.2s ease-in-out;
-    transition: background-color 0.2s ease-in-out;
+    border: $dotnav-item-border-width solid $dotnav-item-border;
+    transition: 0.2s ease-in-out;
+    transition-property: background-color, border-color;
 }
-@mixin hook-dotnav-item-hover(){}
-@mixin hook-dotnav-item-onclick(){}
-@mixin hook-dotnav-item-active(){}
+@mixin hook-dotnav-item-hover(){ border-color: $dotnav-item-hover-border; }
+@mixin hook-dotnav-item-onclick(){ border-color: $dotnav-item-onclick-border; }
+@mixin hook-dotnav-item-active(){ border-color: $dotnav-item-active-border; }
 @mixin hook-dotnav-misc(){}
-@mixin hook-inverse-dotnav-item(){}
-@mixin hook-inverse-dotnav-item-hover(){}
-@mixin hook-inverse-dotnav-item-onclick(){}
-@mixin hook-inverse-dotnav-item-active(){}
+@mixin hook-inverse-dotnav-item(){ border-color: rgba($inverse-global-color, 0.9); }
+@mixin hook-inverse-dotnav-item-hover(){ border-color: transparent; }
+@mixin hook-inverse-dotnav-item-onclick(){ border-color: transparent; }
+@mixin hook-inverse-dotnav-item-active(){ border-color: transparent; }
 @mixin hook-inverse-component-dotnav(){
 
     .uk-dotnav > * > * {
@@ -781,9 +772,7 @@
 @mixin hook-form-range-misc(){}
 @mixin hook-form(){
     border: $form-border-width solid $form-border;
-    -webkit-transition: 0.2s ease-in-out;
     transition: 0.2s ease-in-out;
-    -webkit-transition-property: color, background-color, border;
     transition-property: color, background-color, border;
 }
 @mixin hook-form-single-line(){}
@@ -799,9 +788,7 @@
 }
 @mixin hook-form-radio(){
     border: $form-radio-border-width solid $form-radio-border;
-    -webkit-transition: 0.2s ease-in-out;
     transition: 0.2s ease-in-out;
-    -webkit-transition-property: background-color, border;
     transition-property: background-color, border;
 }
 @mixin hook-form-radio-focus(){ border-color: $form-radio-focus-border; }
@@ -845,12 +832,10 @@
     //
 
     .uk-input:-ms-input-placeholder { color: $inverse-form-placeholder-color !important; }
-    .uk-input::-moz-placeholder { color: $inverse-form-placeholder-color; }
-    .uk-input::-webkit-input-placeholder { color: $inverse-form-placeholder-color; }
+    .uk-input::placeholder { color: $inverse-form-placeholder-color; }
 
     .uk-textarea:-ms-input-placeholder { color: $inverse-form-placeholder-color !important; }
-    .uk-textarea::-moz-placeholder { color: $inverse-form-placeholder-color; }
-    .uk-textarea::-webkit-input-placeholder { color: $inverse-form-placeholder-color; }
+    .uk-textarea::placeholder { color: $inverse-form-placeholder-color; }
 
     //
     // Radio and checkbox
@@ -939,8 +924,8 @@
         @if(mixin-exists(hook-inverse-heading-bullet)) {@include hook-inverse-heading-bullet();}
     }
 
-    .uk-heading-line > :before,
-    .uk-heading-line > :after {
+    .uk-heading-line > ::before,
+    .uk-heading-line > ::after {
         border-bottom-color: $inverse-heading-line-border;
         @if(mixin-exists(hook-inverse-heading-line)) {@include hook-inverse-heading-line();}
     }
@@ -950,9 +935,7 @@
 @mixin hook-icon-link-hover(){}
 @mixin hook-icon-link-active(){}
 @mixin hook-icon-button(){
-    -webkit-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
-    -webkit-transition-property: color, background-color;
     transition-property: color, background-color
 }
 @mixin hook-icon-button-hover(){}
@@ -1115,8 +1098,7 @@
     .uk-search-input { color: $inverse-search-color; }
 
     .uk-search-input:-ms-input-placeholder { color: $inverse-search-placeholder-color !important; }
-    .uk-search-input::-moz-placeholder { color: $inverse-search-placeholder-color; }
-    .uk-search-input::-webkit-input-placeholder { color: $inverse-search-placeholder-color; }
+    .uk-search-input::placeholder { color: $inverse-search-placeholder-color; }
 
 
     //
@@ -1624,9 +1606,7 @@
 @mixin hook-navbar-container(){}
 @mixin hook-navbar-nav-item(){
     text-transform: $navbar-nav-item-text-transform;
-    -webkit-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
-    -webkit-transition-property: color, background-color;
     transition-property: color, background-color;
 }
 @mixin hook-navbar-nav-item-hover(){}
@@ -1714,10 +1694,7 @@
 @mixin hook-overlay-misc(){}
 @mixin hook-padding-misc(){}
 @mixin hook-pagination(){}
-@mixin hook-pagination-item(){
-    -webkit-transition: color 0.1s ease-in-out;
-    transition: color 0.1s ease-in-out;
-}
+@mixin hook-pagination-item(){ transition: color 0.1s ease-in-out; }
 @mixin hook-pagination-item-hover(){}
 @mixin hook-pagination-item-active(){}
 @mixin hook-pagination-item-disabled(){}
@@ -1726,9 +1703,9 @@
 @mixin hook-inverse-pagination-item-hover(){}
 @mixin hook-inverse-pagination-item-active(){}
 @mixin hook-inverse-pagination-item-disabled(){}
-@mixin hook-position-misc(){}
 @mixin hook-placeholder(){ border: $placeholder-border-width dashed $placeholder-border; }
 @mixin hook-placeholder-misc(){}
+@mixin hook-position-misc(){}
 @mixin hook-print(){}
 @mixin hook-progress(){
     border-radius: $progress-border-radius;
@@ -1755,22 +1732,23 @@
 @mixin hook-section-muted(){}
 @mixin hook-section-primary(){}
 @mixin hook-section-secondary(){}
-@mixin hook-section-media(){}
 @mixin hook-section-overlap(){}
 @mixin hook-section-misc(){}
-@mixin hook-slidenav(){
-    -webkit-transition: color 0.1s ease-in-out;
-    transition: color 0.1s ease-in-out;
-}
+@mixin hook-slidenav(){ transition: color 0.1s ease-in-out; }
 @mixin hook-slidenav-hover(){}
 @mixin hook-slidenav-active(){}
 @mixin hook-slidenav-previous(){}
 @mixin hook-slidenav-next(){}
+@mixin hook-slidenav-large(){}
 @mixin hook-slidenav-container(){}
 @mixin hook-slidenav-misc(){}
 @mixin hook-inverse-slidenav(){}
 @mixin hook-inverse-slidenav-hover(){}
 @mixin hook-inverse-slidenav-active(){}
+@mixin hook-slider(){}
+@mixin hook-slider-misc(){}
+@mixin hook-slideshow(){}
+@mixin hook-slideshow-misc(){}
 @mixin hook-sortable(){}
 @mixin hook-sortable-drag(){}
 @mixin hook-sortable-placeholder(){}
@@ -1783,9 +1761,7 @@
 @mixin hook-subnav-item(){
     font-size: $subnav-item-font-size;
     text-transform: $subnav-item-text-transform;
-    -webkit-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
-    -webkit-transition-property: color, background-color;
     transition-property: color, background-color;
 }
 @mixin hook-subnav-item-hover(){}
@@ -1825,7 +1801,6 @@
     border-bottom: $tab-item-border-width solid transparent;
     font-size: $tab-item-font-size;
     text-transform: $tab-item-text-transform;
-    -webkit-transition: color 0.1s ease-in-out;
     transition: color 0.1s ease-in-out;
 }
 @mixin hook-tab-item-hover(){}
@@ -1904,10 +1879,7 @@
 @mixin hook-table-small(){}
 @mixin hook-table-misc(){
 
-    .uk-table tbody tr {
-        -webkit-transition: background-color 0.1s linear;
-        transition: background-color 0.1s linear;
-    }
+    .uk-table tbody tr { transition: background-color 0.1s linear; }
 
 }
 @mixin hook-inverse-table-header-cell(){}
@@ -1974,6 +1946,49 @@
 @mixin hook-text-misc(){}
 @mixin hook-inverse-text-lead(){}
 @mixin hook-inverse-text-meta(){}
+@mixin hook-thumbnav(){}
+@mixin hook-thumbnav-item(){
+
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: $thumbnav-item-background;
+        transition: background-color 0.1s ease-in-out;
+    }
+
+}
+@mixin hook-thumbnav-item-hover(){
+    &::after { background-color: $thumbnav-item-hover-background; }
+}
+@mixin hook-thumbnav-item-active(){
+    &::after { background-color: $thumbnav-item-active-background; }
+}
+@mixin hook-thumbnav-misc(){}
+@mixin hook-inverse-thumbnav-item(){}
+@mixin hook-inverse-thumbnav-item-hover(){}
+@mixin hook-inverse-thumbnav-item-active(){}
+@mixin hook-inverse-component-thumbnav(){
+
+    .uk-thumbnav > * > * {
+        @if(mixin-exists(hook-inverse-thumbnav-item)) {@include hook-inverse-thumbnav-item();}
+    }
+
+    .uk-thumbnav > * > :hover,
+    .uk-thumbnav > * > :focus {
+        @if(mixin-exists(hook-inverse-thumbnav-item-hover)) {@include hook-inverse-thumbnav-item-hover();}
+    }
+
+    .uk-thumbnav > .uk-active > * {
+        @if(mixin-exists(hook-inverse-thumbnav-item-active)) {@include hook-inverse-thumbnav-item-active();}
+    }
+
+}
 @mixin hook-tile(){}
 @mixin hook-tile-default(){}
 @mixin hook-tile-muted(){}
@@ -1982,10 +1997,7 @@
 @mixin hook-tile-misc(){}
 @mixin hook-tooltip(){}
 @mixin hook-tooltip-misc(){}
-@mixin hook-totop(){
-    -webkit-transition: color 0.1s ease-in-out;
-    transition: color 0.1s ease-in-out;
-}
+@mixin hook-totop(){ transition: color 0.1s ease-in-out; }
 @mixin hook-totop-hover(){}
 @mixin hook-totop-active(){}
 @mixin hook-totop-misc(){}
@@ -1993,6 +2005,7 @@
 @mixin hook-inverse-totop-hover(){}
 @mixin hook-inverse-totop-active(){}
 @mixin hook-transition-misc(){}
+@mixin hook-visibility-misc(){}
 @mixin hook-panel-scrollable(){}
 @mixin hook-box-shadow-bottom(){}
 @mixin hook-dropcap(){
@@ -2007,5 +2020,4 @@
 @mixin hook-inverse-leader(){}
 @mixin hook-inverse-logo(){}
 @mixin hook-inverse-logo-hover(){}
-@mixin hook-visibility-misc(){}
 @mixin hook-width-misc(){}

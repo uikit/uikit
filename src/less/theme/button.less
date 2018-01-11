@@ -46,9 +46,7 @@
 
 .hook-button() {
     text-transform: @button-text-transform;
-    -webkit-transition: 0.1s ease-in-out;
     transition: 0.1s ease-in-out;
-    -webkit-transition-property: color, background-color, border-color;
     transition-property: color, background-color, border-color;
 }
 
@@ -127,7 +125,6 @@
         left: 0;
         right: 100%;
         border-bottom: @button-text-border-width solid @button-text-border;
-        -webkit-transition: right 0.3s ease-out;
         transition: right 0.3s ease-out;
     }
 
@@ -197,10 +194,6 @@
 
 @inverse-button-text-color:                    @inverse-global-emphasis-color;
 @inverse-button-text-hover-color:              @inverse-global-emphasis-color;
-
-//
-// Hooks
-//
 
 .hook-inverse-button-default() { border-color: @inverse-global-color; }
 .hook-inverse-button-default-hover() { border-color: @inverse-global-emphasis-color; }

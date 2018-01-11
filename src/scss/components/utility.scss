@@ -46,10 +46,10 @@ $border-rounded-border-radius:                   5px !default;
 
 $box-shadow-duration:                            0.1s !default;
 
-$box-shadow-bottom-height:                            30px !default;
-$box-shadow-bottom-border-radius:                     100% !default;
-$box-shadow-bottom-background:                        #444 !default;
-$box-shadow-bottom-blur:                              20px !default;
+$box-shadow-bottom-height:                       30px !default;
+$box-shadow-bottom-border-radius:                100% !default;
+$box-shadow-bottom-background:                   #444 !default;
+$box-shadow-bottom-blur:                         20px !default;
 
 $dropcap-margin-right:                           10px !default;
 $dropcap-font-size:                              (($global-line-height * 3) * 1em) !default;
@@ -320,10 +320,7 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
  * Hover
  */
 
-[class*='uk-box-shadow-hover'] {
-    -webkit-transition: box-shadow $box-shadow-duration ease-in-out;
-    transition: box-shadow $box-shadow-duration ease-in-out;
-}
+[class*='uk-box-shadow-hover'] { transition: box-shadow $box-shadow-duration ease-in-out; }
 
 .uk-box-shadow-hover-small:hover { box-shadow: $global-small-box-shadow; }
 .uk-box-shadow-hover-medium:hover { box-shadow: $global-medium-box-shadow; }
@@ -341,7 +338,7 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
  *    Solved by using `before` and add position context to child elements.
  */
 
-@supports (filter: blur(0)) or (-webkit-filter: blur(0)) {
+@supports (filter: blur(0)) {
 
     .uk-box-shadow-bottom {
         display: inline-block;
@@ -361,7 +358,6 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
         height: $box-shadow-bottom-height;
         border-radius: $box-shadow-bottom-border-radius;
         background: $box-shadow-bottom-background;
-        -webkit-filter: blur($box-shadow-bottom-blur);
         filter: blur($box-shadow-bottom-blur);
         @if(mixin-exists(hook-box-shadow-bottom)) {@include hook-box-shadow-bottom();}
     }
@@ -529,54 +525,20 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
 /* Transform
 ========================================================================== */
 
-.uk-transform-center {
-    -webkit-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
-}
+.uk-transform-center { transform: translate(-50%, -50%); }
 
 
 /* Transform Origin
 ========================================================================== */
 
-.uk-transform-origin-top-left {
-     -webkit-transform-origin: 0 0;
-     transform-origin: 0 0;
-}
-
-.uk-transform-origin-top-center {
-     -webkit-transform-origin: 50% 0;
-     transform-origin: 50% 0;
-}
-
-.uk-transform-origin-top-right {
-     -webkit-transform-origin: 100% 0;
-     transform-origin: 100% 0;
-}
-
-.uk-transform-origin-center-left {
-     -webkit-transform-origin: 0 50%;
-     transform-origin: 0 50%;
-}
-
-.uk-transform-origin-center-right {
-     -webkit-transform-origin: 100% 50%;
-     transform-origin: 100% 50%;
-}
-
-.uk-transform-origin-bottom-left {
-     -webkit-transform-origin: 0 100%;
-     transform-origin: 0 100%;
-}
-
-.uk-transform-origin-bottom-center {
-     -webkit-transform-origin: 50% 100%;
-     transform-origin: 50% 100%;
-}
-
-.uk-transform-origin-bottom-right {
-     -webkit-transform-origin: 100% 100%;
-     transform-origin: 100% 100%;
-}
+.uk-transform-origin-top-left { transform-origin: 0 0; }
+.uk-transform-origin-top-center { transform-origin: 50% 0; }
+.uk-transform-origin-top-right { transform-origin: 100% 0; }
+.uk-transform-origin-center-left { transform-origin: 0 50%; }
+.uk-transform-origin-center-right { transform-origin: 100% 50%; }
+.uk-transform-origin-bottom-left { transform-origin: 0 100%; }
+.uk-transform-origin-bottom-center { transform-origin: 50% 100%; }
+.uk-transform-origin-bottom-right { transform-origin: 100% 100%; }
 
 
 // Hooks

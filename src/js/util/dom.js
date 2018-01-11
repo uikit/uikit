@@ -1,8 +1,11 @@
-import { addClass, animationend, assign, attr, clamp, css, each, hasClass, height, intersectRect, isNumeric, isString, isUndefined, matches, on, once, Promise, removeClass, removeClasses, requestAnimationFrame, startsWith, toNode, toNodes, toNumber, transitionend, trigger, width } from './index';
-
-export const win = window;
-export const doc = document;
-export const docEl = doc.documentElement;
+import { attr } from './attr';
+import { css } from './style';
+import { doc, docEl, win } from './env';
+import { height, width } from './position';
+import { on, once, trigger } from './event';
+import { matches, toNode, toNodes } from './selector';
+import { addClass, hasClass, removeClass, removeClasses } from './class';
+import { assign, clamp, each, intersectRect, isNumeric, isString, isUndefined, Promise, startsWith, toNumber } from './lang';
 
 export const isRtl = attr(docEl, 'dir') === 'rtl';
 
@@ -26,28 +29,29 @@ export function ready(fn) {
         unbind2 = on(win, 'load', handle);
 }
 
-var transitioncancel = 'transitioncancel';
-
-export function transition(element, props, duration = 400, transition = 'linear') {
+export function transition(element, props, duration = 400, timing = 'linear') {
 
     return Promise.all(toNodes(element).map(element =>
         new Promise((resolve, reject) => {
 
             for (var name in props) {
-                css(element, name, css(element, name));
+                var value = css(element, name);
+                if (value === '') {
+                    css(element, name, value);
+                }
             }
 
-            var timer = setTimeout(() => trigger(element, transitionend), duration);
+            var timer = setTimeout(() => trigger(element, 'transitionend'), duration);
 
-            once(element, `${transitionend} ${transitioncancel}`, ({type}) => {
+            once(element, 'transitionend transitioncanceled', ({type}) => {
                 clearTimeout(timer);
                 removeClass(element, 'uk-transition');
                 css(element, 'transition', '');
-                type === transitioncancel ? reject() : resolve();
+                type === 'transitioncanceled' ? reject() : resolve();
             }, false, ({target}) => element === target);
 
             addClass(element, 'uk-transition');
-            css(element, assign({transition: `all ${duration}ms ${transition}`}, props));
+            css(element, assign({transition: `all ${duration}ms ${timing}`}, props));
 
         })
     ));
@@ -59,12 +63,12 @@ export const Transition = {
     start: transition,
 
     stop(element) {
-        trigger(element, transitionend);
+        trigger(element, 'transitionend');
         return Promise.resolve();
     },
 
     cancel(element) {
-        trigger(element, transitioncancel);
+        trigger(element, 'transitioncanceled');
     },
 
     inProgress(element) {
@@ -73,8 +77,7 @@ export const Transition = {
 
 };
 
-var animationcancel = 'animationcancel',
-    animationPrefix = 'uk-animation-',
+var animationPrefix = 'uk-animation-',
     clsCancelAnimation = 'uk-cancel-animation';
 
 export function animate(element, animation, duration = 200, origin, out) {
@@ -96,7 +99,7 @@ export function animate(element, animation, duration = 200, origin, out) {
             if (startsWith(animation, animationPrefix)) {
 
                 if (origin) {
-                    cls += ` ${animationPrefix}${origin}`;
+                    cls += ` uk-transform-origin-${origin}`;
                 }
 
                 if (out) {
@@ -107,11 +110,11 @@ export function animate(element, animation, duration = 200, origin, out) {
 
             reset();
 
-            once(element, `${animationend || 'animationend'} ${animationcancel}`, ({type}) => {
+            once(element, 'animationend animationcancel', ({type}) => {
 
                 var hasReset = false;
 
-                if (type === animationcancel) {
+                if (type === 'animationcancel') {
                     reject();
                     reset();
                 } else {
@@ -134,10 +137,6 @@ export function animate(element, animation, duration = 200, origin, out) {
 
             css(element, 'animationDuration', `${duration}ms`);
             addClass(element, cls);
-
-            if (!animationend) {
-                requestAnimationFrame(() => Animation.cancel(element));
-            }
 
             function reset() {
                 css(element, 'animationDuration', '');
@@ -165,7 +164,7 @@ export const Animation = {
     },
 
     cancel(element) {
-        trigger(element, animationcancel);
+        trigger(element, 'animationcancel');
     }
 
 };
@@ -189,7 +188,7 @@ export function scrolledOver(element) {
         vh = vp + Math.min(0, top - vp),
         diff = Math.max(0, vp - (height(doc) - (top + elHeight)));
 
-    return clamp(((vh + win.pageYOffset - top) / ((vh + (elHeight - (diff < vp ? diff : 0)) ) / 100)) / 100);
+    return clamp(((vh + win.pageYOffset - top) / ((vh + (elHeight - (diff < vp ? diff : 0))) / 100)) / 100);
 }
 
 function positionTop(element) {
@@ -204,20 +203,25 @@ function positionTop(element) {
     return top;
 }
 
-export function getIndex(i, elements, current = 0) {
+export function getIndex(i, elements, current = 0, finite = false) {
 
     elements = toNodes(elements);
 
     var length = elements.length;
 
-    i = (isNumeric(i)
-            ? toNumber(i)
-            : i === 'next'
-                ? current + 1
-                : i === 'previous'
-                    ? current - 1
-                    : index(elements, i)
-    ) % length;
+    i = isNumeric(i)
+        ? toNumber(i)
+        : i === 'next'
+            ? current + 1
+            : i === 'previous'
+                ? current - 1
+                : index(elements, i);
+
+    if (finite) {
+        return clamp(i, 0, length - 1);
+    }
+
+    i %= length;
 
     return i < 0 ? i + length : i;
 }
@@ -340,13 +344,17 @@ export function after(ref, element) {
     ref = toNode(ref);
     return insertNodes(element, element => ref.nextSibling
         ? before(ref.nextSibling, element)
-        : append(ref.parentNode,element)
+        : append(ref.parentNode, element)
     );
 }
 
 function insertNodes(element, fn) {
     element = isString(element) ? fragment(element) : element;
-    return 'length' in element ? toNodes(element).map(fn) : fn(element);
+    return element
+        ? 'length' in element
+            ? toNodes(element).map(fn)
+            : fn(element)
+        : null;
 }
 
 export function remove(element) {
@@ -383,7 +391,7 @@ export function unwrap(element) {
 }
 
 var fragmentRE = /^\s*<(\w+|!)[^>]*>/,
-    singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>|)$/;
+    singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
 
 export function fragment(html) {
 

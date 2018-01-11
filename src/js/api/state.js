@@ -44,12 +44,14 @@ export default function (UIkit) {
             }, {});
         }
 
-        for (var key in defaults) {
+        for (var key in assign({}, defaults, props)) {
             this.$props[key] = this[key] = hasOwn(data, key) && !isUndefined(data[key])
                 ? coerce(props[key], data[key], el)
-                : isArray(defaults[key])
-                    ? defaults[key].concat()
-                    : defaults[key];
+                : defaults
+                    ? defaults[key] && isArray(defaults[key])
+                        ? defaults[key].concat()
+                        : defaults[key]
+                    : null;
         }
     };
 
@@ -68,7 +70,7 @@ export default function (UIkit) {
 
         var computed = this.$options.computed;
 
-        this._computeds = {};
+        this._resetComputeds();
 
         if (computed) {
             for (var key in computed) {
@@ -77,14 +79,27 @@ export default function (UIkit) {
         }
     };
 
+    UIkit.prototype._resetComputeds = function () {
+        this._computeds = {};
+    };
+
     UIkit.prototype._initProps = function (props) {
 
-        this._computeds = {};
-        assign(this.$props, props || getProps(this.$options, this.$name));
+        var key;
+
+        this._resetComputeds();
+
+        props = props || getProps(this.$options, this.$name);
+
+        for (key in props) {
+            if (!isUndefined(props[key])) {
+                this.$props[key] = props[key];
+            }
+        }
 
         var exclude = [this.$options.computed, this.$options.methods];
-        for (var key in this.$props) {
-            if (notIn(exclude, key)) {
+        for (key in this.$props) {
+            if (key in props && notIn(exclude, key)) {
                 this[key] = this.$props[key];
             }
         }
@@ -226,20 +241,20 @@ export default function (UIkit) {
         }
 
         var {name, el, delegate, self, filter, handler} = event;
-        el = isFunction(el) && el.call(component) || el || component.$el;
+        el = isFunction(el)
+            ? el.call(component)
+            : el || component.$el;
 
         if (isArray(el)) {
-
-            el.forEach(el => registerEvent(component, assign(event, {el}), key));
-
+            el.forEach(el => registerEvent(component, assign({}, event, {el}), key));
             return;
         }
 
-        if (filter && !filter.call(component)) {
+        if (!el || filter && !filter.call(component)) {
             return;
         }
 
-        handler = isString(handler) ? component[handler] : bind(handler, component);
+        handler = detail(isString(handler) ? component[handler] : bind(handler, component));
 
         if (self) {
             handler = selfFilter(handler);
@@ -254,7 +269,7 @@ export default function (UIkit) {
                     : isString(delegate)
                         ? delegate
                         : delegate.call(component),
-                detail(handler)
+                handler
             )
         );
 
@@ -265,7 +280,7 @@ export default function (UIkit) {
             if (e.target === e.currentTarget || e.target === e.current) {
                 return handler.call(null, e);
             }
-        }
+        };
     }
 
     function notIn(options, key) {

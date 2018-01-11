@@ -97,7 +97,6 @@
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     /* 4 */
-    -webkit-transform: translateX(-100%);
     transform: translateX(-100%);
     .hook-offcanvas-bar;
 }
@@ -120,7 +119,6 @@
 .uk-offcanvas-flip .uk-offcanvas-bar {
     left: auto;
     right: 0;
-    -webkit-transform: translateX(100%);
     transform: translateX(100%);
 }
 
@@ -128,19 +126,13 @@
  * Open
  */
 
-.uk-open > .uk-offcanvas-bar {
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-}
+.uk-open > .uk-offcanvas-bar { transform: translateX(0); }
 
 /*
  * Slide Animation (Used in slide and push mode)
  */
 
-.uk-offcanvas-bar-animation {
-    -webkit-transition: -webkit-transform 0.3s ease-out;
-    transition: transform 0.3s ease-out;
-}
+.uk-offcanvas-bar-animation { transition: transform 0.3s ease-out; }
 
 /*
  * Reveal Animation
@@ -160,13 +152,11 @@
     width: 0;
     overflow: hidden;
     /* 3 */
-    -webkit-transition: width 0.3s ease-out;
     transition: width 0.3s ease-out;
 }
 
 .uk-offcanvas-reveal .uk-offcanvas-bar {
     /* 4 */
-    -webkit-transform: translateX(0);
     transform: translateX(0);
 }
 
@@ -235,7 +225,6 @@
     background: @offcanvas-overlay-background;
     /* 2 */
     opacity: 0;
-    -webkit-transition: opacity 0.15s linear;
     transition: opacity 0.15s linear;
     .hook-offcanvas-overlay;
 }
@@ -275,7 +264,6 @@
 .uk-offcanvas-container .uk-offcanvas-content {
     position: relative;
     left: 0;
-    -webkit-transition: left 0.3s ease-out;
     transition: left 0.3s ease-out;
     /* 1 */
     -webkit-overflow-scrolling: touch;

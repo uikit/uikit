@@ -4,7 +4,7 @@
 // Component:       `uk-lightbox`
 //
 // Sub-objects:     `uk-lightbox-page`
-//                  `uk-lightbox-item`
+//                  `uk-lightbox-items`
 //                  `uk-lightbox-toolbar`
 //                  `uk-lightbox-toolbar-icon`
 //                  `uk-lightbox-button`
@@ -68,7 +68,6 @@
     background: @lightbox-background;
     /* 6 */
     opacity: 0;
-    -webkit-transition: opacity 0.15s linear;
     transition: opacity 0.15s linear;
     .hook-lightbox;
 }
@@ -103,12 +102,13 @@
  * 1. Center child within the viewport
  * 2. Not visible by default
  * 3. Color needed for spinner icon
- * 4. Responsiveness
+ * 4. Optimize animation
+ * 5. Responsiveness
  *    Using `vh` for `max-height` to fix image proportions after resize in Safari and Opera
  *    Using `vh` and `vw` to make responsive image work in IE11
  */
 
-.uk-lightbox-item {
+.uk-lightbox-items > * {
     /* 1 */
     position: absolute;
     top: 0;
@@ -117,33 +117,27 @@
     left: 0;
     /* 2 */
     display: none;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
     justify-content: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
     align-items: center;
-    /* 2 */
+    /* 3 */
     color: @lightbox-item-color;
+    /* 4 */
+    will-change: transform, opacity;
     .hook-lightbox-item;
 }
 
-/* 4 */
-.uk-lightbox-item > * {
+/* 5 */
+.uk-lightbox-items > * > * {
     max-width: 100vw;
     max-height: 100vh;
 }
 
-.uk-lightbox-item > :not(iframe) {
+.uk-lightbox-items > * > :not(iframe) {
     width: auto;
     height: auto;
 }
 
-.uk-lightbox-item.uk-active {
-    display: -ms-flexbox;
-    display: -webkit-flex;
-    display: flex;
-}
+.uk-lightbox-items > .uk-active { display: flex; }
 
 /* Toolbar
  ========================================================================== */
@@ -192,14 +186,8 @@
     background: @lightbox-button-background;
     color: @lightbox-button-color;
     /* 1 */
-    display: -ms-inline-flexbox;
-    display: -webkit-inline-flex;
     display: inline-flex;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
     justify-content: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
     align-items: center;
     .hook-lightbox-button;
 }

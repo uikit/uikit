@@ -84,14 +84,15 @@
 /*
  * 1. Remove margins in Chrome, Safari and Opera.
  * 2. Remove borders for `button`.
- * 3. Address `overflow` set to `hidden` in IE.
- * 4. Correct `font` properties and `color` not being inherited for `button`.
- * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
- * 6. Style
- * 7. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
+ * 3. Remove border-radius in Chrome.
+ * 4. Address `overflow` set to `hidden` in IE.
+ * 5. Correct `font` properties and `color` not being inherited for `button`.
+ * 6. Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 7. Style
+ * 8. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
  *    Better would be to use height and flexbox to center the text vertically but flexbox doesn't work in Firefox on `button` elements.
- * 8. Align text if button has a width
- * 9. Required for `a`.
+ * 9. Align text if button has a width
+ * 10. Required for `a`.
  */
 
 .uk-button {
@@ -100,23 +101,25 @@
     /* 2 */
     border: none;
     /* 3 */
-    overflow: visible;
+    border-radius: 0;
     /* 4 */
+    overflow: visible;
+    /* 5 */
     font: inherit;
     color: inherit;
-    /* 5 */
-    text-transform: none;
     /* 6 */
+    text-transform: none;
+    /* 7 */
     display: inline-block;
     box-sizing: border-box;
     padding: 0 @button-padding-horizontal;
     vertical-align: middle;
     font-size: @button-font-size;
-    /* 7 */
-    line-height: @button-line-height;
     /* 8 */
-    text-align: center;
+    line-height: @button-line-height;
     /* 9 */
+    text-align: center;
+    /* 10 */
     text-decoration: none;
     .hook-button;
 }
@@ -365,8 +368,6 @@
 
 .uk-button-group {
     /* 1 */
-    display: -ms-inline-flexbox;
-    display: -webkit-inline-flex;
     display: inline-flex;
     /* 2 */
     vertical-align: middle;

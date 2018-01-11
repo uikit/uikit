@@ -1,6 +1,7 @@
-import { doc, filterAttr, includes, isString, isUndefined, toNodes } from './index';
-
-var supportsClassList, supportsMultiple, supportsForce;
+import { supports } from './env';
+import { filterAttr } from './attr';
+import { toNodes } from './selector';
+import { includes, isString, isUndefined } from './lang';
 
 export function addClass(element, ...args) {
     apply(element, args, 'add');
@@ -20,22 +21,24 @@ export function replaceClass(element, ...args) {
 }
 
 export function hasClass(element, cls) {
-    return supportsClassList && toNodes(element).some(element => element.classList.contains(cls));
+    return supports.ClassList && toNodes(element).some(element => element.classList.contains(cls));
 }
 
 export function toggleClass(element, ...args) {
 
-    if (!supportsClassList || !args.length) {
+    if (!supports.ClassList || !args.length) {
         return;
     }
 
     args = getArgs(args);
 
-    var force = !isString(args[args.length - 1]) ? args.pop()  : undefined;
+    var force = !isString(args[args.length - 1]) ? args.pop() : undefined;
+
+    args = args.filter(Boolean);
 
     toNodes(element).forEach(({classList}) => {
         for (var i = 0; i < args.length; i++) {
-            supportsForce
+            supports.Force
                 ? classList.toggle(args[i], force)
                 : (classList[(!isUndefined(force) ? force : !classList.contains(args[i])) ? 'add' : 'remove'](args[i]));
         }
@@ -44,32 +47,18 @@ export function toggleClass(element, ...args) {
 }
 
 function apply(element, args, fn) {
-    args = getArgs(args).filter(arg => arg);
+    args = getArgs(args).filter(Boolean);
 
-    supportsClassList && args.length && toNodes(element).forEach(({classList}) => {
-        supportsMultiple
+    supports.ClassList && args.length && toNodes(element).forEach(({classList}) => {
+        supports.Multiple
             ? classList[fn].apply(classList, args)
             : args.forEach(cls => classList[fn](cls));
     });
 }
 
 function getArgs(args) {
-    return args.reduce((args, arg) => {
-        args.push.apply(args, isString(arg) && includes(arg, ' ') ? arg.trim().split(' ') : [arg]);
-        return args;
-    }, []);
+    return args.reduce((args, arg) =>
+        args.concat.call(args, isString(arg) && includes(arg, ' ') ? arg.trim().split(' ') : arg)
+        , []);
 }
 
-(function () {
-
-    var list = doc.createElement('_').classList;
-    if (list) {
-        list.add('a', 'b');
-        list.toggle('c', false);
-        supportsMultiple = list.contains('b');
-        supportsForce = !list.contains('c');
-        supportsClassList = true;
-    }
-    list = null;
-
-})();

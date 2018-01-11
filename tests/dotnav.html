@@ -5,7 +5,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Dotnav - UIkit tests</title>
-        <script src="../dist/js/uikit.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -39,13 +38,50 @@
 
             <h2>Image</h2>
 
-            <div class="uk-child-width-1-2@m" uk-grid>
+            <div class="uk-child-width-1-3@m" uk-grid>
+                <div>
+
+                    <div class="uk-inline uk-light">
+                        <img src="images/photo.jpg" alt="">
+                        <div class="uk-position-small uk-position-bottom-center">
+                            <ul class="uk-dotnav">
+                                <li class="uk-active"><a href="#">Item 1</a></li>
+                                <li><a href="#">Item 2</a></li>
+                                <li><a href="#">Item 3</a></li>
+                                <li><a href="#">Item 4</a></li>
+                                <li><a href="#">Item 5</a></li>
+                                <li><a href="#">Item 6</a></li>
+                            </ul>
+                        </div>
+                        <div class="uk-position-small uk-position-center-right">
+                            <ul class="uk-dotnav uk-dotnav-vertical">
+                                <li class="uk-active"><a href="#">Item 1</a></li>
+                                <li><a href="#">Item 2</a></li>
+                                <li><a href="#">Item 3</a></li>
+                                <li><a href="#">Item 4</a></li>
+                                <li><a href="#">Item 5</a></li>
+                                <li><a href="#">Item 6</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
                 <div>
 
                     <div class="uk-inline uk-light">
                         <img src="images/dark.jpg" alt="">
-                        <div class="uk-position-medium uk-position-bottom-center">
+                        <div class="uk-position-small uk-position-bottom-center">
                             <ul class="uk-dotnav">
+                                <li class="uk-active"><a href="#">Item 1</a></li>
+                                <li><a href="#">Item 2</a></li>
+                                <li><a href="#">Item 3</a></li>
+                                <li><a href="#">Item 4</a></li>
+                                <li><a href="#">Item 5</a></li>
+                                <li><a href="#">Item 6</a></li>
+                            </ul>
+                        </div>
+                        <div class="uk-position-small uk-position-center-right">
+                            <ul class="uk-dotnav uk-dotnav-vertical">
                                 <li class="uk-active"><a href="#">Item 1</a></li>
                                 <li><a href="#">Item 2</a></li>
                                 <li><a href="#">Item 3</a></li>
@@ -61,7 +97,17 @@
 
                     <div class="uk-inline uk-dark">
                         <img src="images/light.jpg" alt="">
-                        <div class="uk-position-medium uk-position-center-right">
+                        <div class="uk-position-small uk-position-bottom-center">
+                            <ul class="uk-dotnav">
+                                <li class="uk-active"><a href="#">Item 1</a></li>
+                                <li><a href="#">Item 2</a></li>
+                                <li><a href="#">Item 3</a></li>
+                                <li><a href="#">Item 4</a></li>
+                                <li><a href="#">Item 5</a></li>
+                                <li><a href="#">Item 6</a></li>
+                            </ul>
+                        </div>
+                        <div class="uk-position-small uk-position-center-right">
                             <ul class="uk-dotnav uk-dotnav-vertical">
                                 <li class="uk-active"><a href="#">Item 1</a></li>
                                 <li><a href="#">Item 2</a></li>
@@ -76,7 +122,7 @@
                 </div>
             </div>
 
-            <div class="uk-position-medium uk-position-center-right uk-position-fixed">
+            <div class="uk-position-medium uk-position-center-right uk-position-fixed uk-visible@l">
                 <ul class="uk-dotnav uk-dotnav-vertical">
                     <li class="uk-active"><a href="#">Item 1</a></li>
                     <li><a href="#">Item 2</a></li>

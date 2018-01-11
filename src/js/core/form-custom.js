@@ -72,10 +72,10 @@ export default function (UIkit) {
                         return;
                     }
 
-                    target[isInput(target) ? 'value' : 'innerText'] = input.files && input.files[0]
+                    target[isInput(target) ? 'value' : 'textContent'] = input.files && input.files[0]
                         ? input.files[0].name
                         : matches(input, 'select') && (option = $$('option', input).filter(el => el.selected)[0])
-                            ? option.innerText
+                            ? option.textContent
                             : input.value;
                 }
 

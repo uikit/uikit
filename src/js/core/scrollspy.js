@@ -1,4 +1,4 @@
-import { $$, addClass, attr, css, filter, isInView, removeClass, toggleClass, trigger } from '../util/index';
+import { $$, addClass, css, data, filter, isInView, removeClass, toggleClass, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -30,7 +30,7 @@ export default function (UIkit) {
         computed: {
 
             elements({target}, $el) {
-                return target && $$(target, $el) || [$el];
+                return target ? $$(target, $el) : [$el];
             }
 
         },
@@ -49,30 +49,38 @@ export default function (UIkit) {
 
             {
 
-                read() {
-                    this.elements.forEach(el => {
+                read(els) {
 
-                        if (!el._scrollspy) {
-                            var cls = attr(el, 'uk-scrollspy-class');
-                            el._scrollspy = {toggles: cls && cls.split(',') || this.cls};
+                    if (!UIkit._initialized) {
+                        return false;
+                    }
+
+                    this.elements.forEach((el, i) => {
+
+                        var elData = els[i];
+
+                        if (!elData) {
+                            var cls = data(el, 'uk-scrollspy-class');
+                            elData = {toggles: cls && cls.split(',') || this.cls};
                         }
 
-                        el._scrollspy.show = isInView(el, this.offsetTop, this.offsetLeft);
+                        elData.show = isInView(el, this.offsetTop, this.offsetLeft);
+                        els[i] = elData;
 
                     });
                 },
 
-                write() {
+                write(data) {
 
                     var index = this.elements.length === 1 ? 1 : 0;
 
                     this.elements.forEach((el, i) => {
 
-                        var data = el._scrollspy, cls = data.toggles[i] || data.toggles[0];
+                        var elData = data[i], cls = elData.toggles[i] || elData.toggles[0];
 
-                        if (data.show) {
+                        if (elData.show) {
 
-                            if (!data.inview && !data.timer) {
+                            if (!elData.inview && !elData.timer) {
 
                                 var show = () => {
                                     css(el, 'visibility', '');
@@ -83,12 +91,12 @@ export default function (UIkit) {
 
                                     this.$update();
 
-                                    data.inview = true;
-                                    delete data.timer;
+                                    elData.inview = true;
+                                    delete elData.timer;
                                 };
 
                                 if (this.delay && index) {
-                                    data.timer = setTimeout(show, this.delay * index);
+                                    elData.timer = setTimeout(show, this.delay * index);
                                 } else {
                                     show();
                                 }
@@ -99,11 +107,11 @@ export default function (UIkit) {
 
                         } else {
 
-                            if (data.inview && this.repeat) {
+                            if (elData.inview && this.repeat) {
 
-                                if (data.timer) {
-                                    clearTimeout(data.timer);
-                                    delete data.timer;
+                                if (elData.timer) {
+                                    clearTimeout(elData.timer);
+                                    delete elData.timer;
                                 }
 
                                 css(el, 'visibility', this.hidden ? 'hidden' : '');
@@ -114,7 +122,7 @@ export default function (UIkit) {
 
                                 this.$update();
 
-                                data.inview = false;
+                                elData.inview = false;
 
                             }
 

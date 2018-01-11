@@ -1,5 +1,5 @@
 import { Modal } from '../mixin/index';
-import { $, addClass, css, doc, docEl, hasClass, height, isTouch, once, removeClass, transitionend, trigger, unwrap, width, win, wrapAll } from '../util/index';
+import { $, addClass, css, doc, docEl, hasClass, height, isTouch, once, removeClass, trigger, unwrap, width, win, wrapAll } from '../util/index';
 
 var scroll;
 
@@ -38,7 +38,7 @@ export default function (UIkit) {
         computed: {
 
             content({content}) {
-                return $(content);
+                return $(content) || doc.body;
             },
 
             clsFlip({flip, clsFlip}) {
@@ -58,7 +58,7 @@ export default function (UIkit) {
             },
 
             clsContentAnimation({mode, clsContentAnimation}) {
-                return mode !== 'push' && mode !== 'reveal' ? '' : clsContentAnimation
+                return mode !== 'push' && mode !== 'reveal' ? '' : clsContentAnimation;
             },
 
             transitionElement({mode}) {
@@ -143,11 +143,11 @@ export default function (UIkit) {
                     }
 
                     css(docEl, 'overflowY', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
-                    addClass(doc.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
+                    addClass(doc.body, this.clsContainer, this.clsFlip, this.clsOverlay);
                     height(doc.body); // force reflow
                     addClass(this.content, this.clsContentAnimation);
                     addClass(this.panel, `${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
-                    addClass(this.clsOverlay);
+                    addClass(this.$el, this.clsOverlay);
                     css(this.$el, 'display', 'block');
                     height(this.$el); // force reflow
 
@@ -164,7 +164,7 @@ export default function (UIkit) {
 
                     var active = this.getActive();
                     if (this.mode === 'none' || active && active !== this && active !== this.prev) {
-                        trigger(this.panel, transitionend);
+                        trigger(this.panel, 'transitionend');
                     }
                 }
             },
@@ -181,16 +181,16 @@ export default function (UIkit) {
                     }
 
                     if (!this.overlay) {
-                        scroll = {x: win.pageXOffset, y: win.pageYOffset}
+                        scroll = {x: win.pageXOffset, y: win.pageYOffset};
                     } else if (!scroll) {
                         var {scrollLeft: x, scrollTop: y} = this.content;
                         scroll = {x, y};
                     }
 
-                    removeClass(this.panel, `${this.clsSidebarAnimation} ${this.clsMode}`);
+                    removeClass(this.panel, this.clsSidebarAnimation, this.clsMode);
                     removeClass(this.$el, this.clsOverlay);
                     css(this.$el, 'display', '');
-                    removeClass(doc.body, `${this.clsContainer} ${this.clsFlip} ${this.clsOverlay}`);
+                    removeClass(doc.body, this.clsContainer, this.clsFlip, this.clsOverlay);
                     doc.body.scrollTop = scroll.y;
 
                     css(docEl, 'overflow-y', '');

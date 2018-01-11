@@ -1,4 +1,4 @@
-import { $, clamp, doc, height, isString, offset, requestAnimationFrame, trigger, win } from '../util/index';
+import { $, clamp, doc, escape, height, offset, requestAnimationFrame, trigger, win } from '../util/index';
 
 export default function (UIkit) {
 
@@ -18,7 +18,7 @@ export default function (UIkit) {
 
             scrollTo(el) {
 
-                el = el && $(isString(el) ? el.replace(/\//g, '\\/') : el) || doc.body;
+                el = el && $(el) || doc.body;
 
                 var target = offset(el).top - this.offset,
                     docHeight = height(doc),
@@ -35,11 +35,7 @@ export default function (UIkit) {
                 var start = Date.now(),
                     startY = win.pageYOffset,
                     step = () => {
-                        var time = Date.now(),
-                            currentY,
-                            elapsed = (time - start) / this.duration;
-
-                        currentY = startY + (target - startY) * ease(clamp(elapsed));
+                        var currentY = startY + (target - startY) * ease(clamp((Date.now() - start) / this.duration));
 
                         win.scrollTo(win.pageXOffset, currentY);
 
@@ -47,7 +43,7 @@ export default function (UIkit) {
                         if (currentY !== target) {
                             requestAnimationFrame(step);
                         } else {
-                            trigger(this.$el, 'scrolled', [this, el])
+                            trigger(this.$el, 'scrolled', [this, el]);
                         }
                     };
 
@@ -66,7 +62,7 @@ export default function (UIkit) {
                 }
 
                 e.preventDefault();
-                this.scrollTo(this.$el.hash);
+                this.scrollTo(escape(this.$el.hash).substr(1));
             }
 
         }
