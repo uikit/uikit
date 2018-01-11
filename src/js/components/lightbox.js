@@ -86,6 +86,9 @@ function plugin(UIkit) {
             _init() {
                 return this.panel = this.panel || UIkit.lightboxPanel(assign({}, this.$props, {
                     items: this.toggles.reduce((items, el) => {
+                        if ($(el).hasClass("uk-lightbox-exclude")) {
+                            return items;
+                        }
                         items.push(['href', 'caption', 'type', 'poster', 'alt'].reduce((obj, attr) => {
                             obj[attr === 'href' ? 'source' : attr] = data(el, attr);
                             return obj;
