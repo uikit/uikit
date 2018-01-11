@@ -4,7 +4,7 @@ import Modal from './modal';
 import Position from './position';
 import Togglable from './togglable';
 
-export { Class, Container, Modal, Position, Togglable }
+export { Class, Container, Modal, Position, Togglable };
 
 export default function (UIkit) {
 

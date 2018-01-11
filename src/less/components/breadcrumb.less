@@ -32,12 +32,8 @@
  */
 
 .uk-breadcrumb {
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     /* 1 */
-    -ms-flex-wrap: wrap;
-    -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
     /* 2 */
     padding: 0;
@@ -49,11 +45,7 @@
  * Space is allocated solely based on content dimensions: 0 0 auto
  */
 
-.uk-breadcrumb > * {
-    -ms-flex: none;
-    -webkit-flex: none;
-    flex: none;
-}
+.uk-breadcrumb > * { flex: none; }
 
 
 /* Items

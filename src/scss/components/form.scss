@@ -100,10 +100,10 @@ $form-icon-font-size:                            $global-font-size !default;
 $form-icon-color:                                $global-muted-color !default;
 $form-icon-hover-color:                          $global-color !default;
 
-$internal-form-select-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22#000%22%20points%3D%2212%201%209%206%2015%206%22%3E%3C%2Fpolygon%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22#000%22%20points%3D%2212%2013%209%208%2015%208%22%3E%3C%2Fpolygon%3E%0A%3C%2Fsvg%3E%0A" !default;
-$internal-form-radio-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22#000%22%20cx%3D%228%22%20cy%3D%228%22%20r%3D%222%22%3E%3C%2Fcircle%3E%0A%3C%2Fsvg%3E" !default;
-$internal-form-checkbox-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2214%22%20height%3D%2211%22%20viewBox%3D%220%200%2014%2011%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22#000%22%20points%3D%2212%201%205%207.5%202%205%201%205.5%205%2010%2013%201.5%22%2F%3E%0A%3C%2Fsvg%3E" !default;
-$internal-form-checkbox-indeterminate-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22#000%22%20x%3D%223%22%20y%3D%228%22%20width%3D%2210%22%20height%3D%221%22%3E%3C%2Frect%3E%0A%3C%2Fsvg%3E" !default;
+$internal-form-select-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22#000%22%20points%3D%2212%201%209%206%2015%206%22%20%2F%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22#000%22%20points%3D%2212%2013%209%208%2015%208%22%20%2F%3E%0A%3C%2Fsvg%3E%0A" !default;
+$internal-form-radio-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22#000%22%20cx%3D%228%22%20cy%3D%228%22%20r%3D%222%22%20%2F%3E%0A%3C%2Fsvg%3E" !default;
+$internal-form-checkbox-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2214%22%20height%3D%2211%22%20viewBox%3D%220%200%2014%2011%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22#000%22%20points%3D%2212%201%205%207.5%202%205%201%205.5%205%2010%2013%201.5%22%20%2F%3E%0A%3C%2Fsvg%3E%0A" !default;
+$internal-form-checkbox-indeterminate-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22#000%22%20x%3D%223%22%20y%3D%228%22%20width%3D%2210%22%20height%3D%221%22%20%2F%3E%0A%3C%2Fsvg%3E" !default;
 
 
 /* ========================================================================
@@ -188,13 +188,6 @@ $internal-form-checkbox-indeterminate-image: "data:image/svg+xml;charset=UTF-8,%
 
 .uk-input::-moz-placeholder,
 .uk-textarea::-moz-placeholder { opacity: 1; }
-
-/*
- * Remove the padding in IE 10-.
- */
-
-.uk-radio,
-.uk-checkbox { padding: 0; }
 
 /*
  * Improves consistency of cursor style for clickable elements
@@ -307,12 +300,10 @@ $internal-form-checkbox-indeterminate-image: "data:image/svg+xml;charset=UTF-8,%
  */
 
 .uk-input:-ms-input-placeholder { color: $form-placeholder-color !important; }
-.uk-input::-moz-placeholder { color: $form-placeholder-color; }
-.uk-input::-webkit-input-placeholder { color: $form-placeholder-color; }
+.uk-input::placeholder { color: $form-placeholder-color; }
 
 .uk-textarea:-ms-input-placeholder { color: $form-placeholder-color !important; }
-.uk-textarea::-moz-placeholder { color: $form-placeholder-color; }
-.uk-textarea::-webkit-input-placeholder { color: $form-placeholder-color; }
+.uk-textarea::placeholder { color: $form-placeholder-color; }
 
 
 /* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)
@@ -673,14 +664,8 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
     /* 2 */
     width: $form-icon-width;
     /* 3 */
-    display: -ms-inline-flexbox;
-    display: -webkit-inline-flex;
     display: inline-flex;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
     justify-content: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
     align-items: center;
     /* 4 */
     color: $form-icon-color;

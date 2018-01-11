@@ -61,10 +61,6 @@ export default function (UIkit) {
             }
         },
 
-        disconnected() {
-            delete this.delay;
-        },
-
         methods: {
 
             getSvg() {

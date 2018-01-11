@@ -2,19 +2,24 @@ import { isInView } from '../util/index';
 
 export default function (UIkit) {
 
+    // Deprecated
     UIkit.component('gif', {
 
         update: {
 
-            read() {
+            read(data) {
 
                 var inview = isInView(this.$el);
 
-                if (!this.isInView && inview) {
-                    this.$el.src = this.$el.src;
+                if (!inview || data.isInView === inview) {
+                    return false;
                 }
 
-                this.isInView = inview;
+                data.isInView = inview;
+            },
+
+            write() {
+                this.$el.src = this.$el.src;
             },
 
             events: ['scroll', 'load', 'resize']

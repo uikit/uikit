@@ -1,6 +1,7 @@
-import Parallax from './parallax';
+import Parallax from '../mixin/parallax';
 import Slideshow from '../mixin/slideshow';
-import Animations from './internal/slideshow-animations';
+import AnimationsPlugin from './internal/slideshow-animations';
+import SliderReactive from '../mixin/internal/slider-reactive';
 
 function plugin(UIkit) {
 
@@ -12,11 +13,13 @@ function plugin(UIkit) {
     UIkit.use(Slideshow);
 
     var {mixin} = UIkit;
-    var {closest, css, fastdom, endsWith, height, noop, Transition} = UIkit.util;
+    var {closest, css, endsWith, height, noop, Transition} = UIkit.util;
+
+    var Animations = AnimationsPlugin(UIkit);
 
     UIkit.component('slideshow', {
 
-        mixins: [mixin.class, mixin.slideshow],
+        mixins: [mixin.class, mixin.slideshow, SliderReactive(UIkit)],
 
         props: {
             ratio: String,
@@ -30,11 +33,8 @@ function plugin(UIkit) {
             maxHeight: false,
             selList: '.uk-slideshow-items',
             attrItem: 'uk-slideshow-item',
-            Animations: Animations(UIkit)
-        },
-
-        ready() {
-            fastdom.write(() => this.show(this.index));
+            selNav: '.uk-slideshow-nav',
+            Animations
         },
 
         update: {
@@ -42,20 +42,22 @@ function plugin(UIkit) {
             read() {
 
                 var [width, height] = this.ratio.split(':').map(Number);
-                this.height = height * this.$el.offsetWidth / width;
+
+                height = height * this.$el.offsetWidth / width;
 
                 if (this.minHeight) {
-                    this.height = Math.max(this.minHeight, this.height);
+                    height = Math.max(this.minHeight, height);
                 }
 
                 if (this.maxHeight) {
-                    this.height = Math.min(this.maxHeight, this.height);
+                    height = Math.min(this.maxHeight, height);
                 }
 
+                return {height};
             },
 
-            write() {
-                height(this.list, Math.floor(this.height));
+            write({height: hgt}) {
+                height(this.list, Math.floor(hgt));
             },
 
             events: ['load', 'resize']
@@ -72,7 +74,7 @@ function plugin(UIkit) {
 
             item() {
                 var slideshow = UIkit.getComponent(closest(this.$el, '.uk-slideshow'), 'slideshow');
-                return slideshow && closest(this.$el, `${slideshow.selList} > *`);
+                return slideshow && closest(this.$el, slideshow.slidesSelector);
             }
 
         },
@@ -104,7 +106,7 @@ function plugin(UIkit) {
                     return this.item;
                 },
 
-                handler({type, detail: {percent, duration, ease, dir}}) {
+                handler({type, detail: {percent, duration, timing, dir}}) {
 
                     Transition.cancel(this.$el);
                     css(this.$el, this.getCss(getCurrent(type, dir, percent)));
@@ -114,7 +116,7 @@ function plugin(UIkit) {
                         : dir > 0
                             ? 1
                             : 0
-                    ), duration, ease).catch(noop);
+                    ), duration, timing).catch(noop);
 
                 }
             },

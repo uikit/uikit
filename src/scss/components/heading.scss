@@ -160,8 +160,8 @@ $heading-line-margin-horizontal:                 0.6em !default;
  * 3. Style
  */
 
-.uk-heading-line > :before,
-.uk-heading-line > :after {
+.uk-heading-line > ::before,
+.uk-heading-line > ::after {
     content: "";
     /* 1 */
     position: absolute;
@@ -173,11 +173,11 @@ $heading-line-margin-horizontal:                 0.6em !default;
     @if(mixin-exists(hook-heading-line)) {@include hook-heading-line();}
 }
 
-.uk-heading-line > :before {
+.uk-heading-line > ::before {
     right: 100%;
     margin-right: $heading-line-margin-horizontal;
 }
-.uk-heading-line > :after {
+.uk-heading-line > ::after {
     left: 100%;
     margin-left: $heading-line-margin-horizontal;
 }

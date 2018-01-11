@@ -103,7 +103,7 @@ function plugin(UIkit) {
                         opacity: 0,
                         marginTop: -1 * this.$el.offsetHeight,
                         marginBottom: 0
-                    }).then(removeFn)
+                    }).then(removeFn);
                 }
             }
 
@@ -116,7 +116,7 @@ function plugin(UIkit) {
             if (component.$options.name === 'notification' && (!group || group === component.group)) {
                 component.close(immediate);
             }
-        })
+        });
     };
 
 }

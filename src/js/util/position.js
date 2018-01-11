@@ -1,9 +1,12 @@
-import { css, each, endsWith, includes, isDocument, isUndefined, isVisible, isWindow, toFloat, toNode, ucfirst } from './index';
+import { css } from './style';
+import { isVisible } from './dom';
+import { toNode } from './selector';
+import { each, endsWith, includes, isDocument, isUndefined, isWindow, toFloat, ucfirst } from './lang';
 
 var dirs = {
-        width: ['x', 'left', 'right'],
-        height: ['y', 'top', 'bottom']
-    };
+    width: ['x', 'left', 'right'],
+    height: ['y', 'top', 'bottom']
+};
 
 export function positionAt(element, target, elAttach, targetAttach, elOffset, targetOffset, flip, boundary) {
 
@@ -104,7 +107,7 @@ export function offset(element, coordinates) {
         ['left', 'top'].forEach(prop => {
             if (prop in coordinates) {
                 var value = css(element, prop);
-                element.style[prop] = `${(coordinates[prop] - currentOffset[prop]) 
+                element.style[prop] = `${(coordinates[prop] - currentOffset[prop])
                     + toFloat(pos === 'absolute' && value === 'auto' ? position(element)[prop] : value)
                 }px`;
             }
@@ -134,7 +137,7 @@ function getDimensions(element) {
             width,
             bottom: top + height,
             right: left + width,
-        }
+        };
     }
 
     var display = false;
@@ -156,7 +159,7 @@ function getDimensions(element) {
         left: rect.left + left,
         bottom: rect.bottom + top,
         right: rect.right + left,
-    }
+    };
 }
 
 export function position(element) {
@@ -219,7 +222,7 @@ function dimension(prop) {
 
         }
 
-    }
+    };
 }
 
 function getContentSize(prop, element, value) {
@@ -227,7 +230,7 @@ function getContentSize(prop, element, value) {
         value
             - toFloat(css(element, `padding${prop}`))
             - toFloat(css(element, `border${prop}Width`))
-    , value) : value;
+        , value) : value;
 }
 
 function getWindow(element) {

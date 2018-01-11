@@ -125,10 +125,10 @@ export default {
             }
 
             var promise = (animate === false || !this.hasAnimation
-                    ? this._toggleImmediate
-                    : this.hasTransition
-                        ? this._toggleHeight
-                        : this._toggleAnimation
+                ? this._toggleImmediate
+                : this.hasTransition
+                    ? this._toggleHeight
+                    : this._toggleAnimation
             )(el, show);
 
             trigger(el, show ? 'show' : 'hide', [this]);

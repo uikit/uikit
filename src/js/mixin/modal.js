@@ -1,4 +1,4 @@
-import { $, addClass, append, css, doc, docEl, hasClass, on, once, Promise, removeClass, requestAnimationFrame, toMs, transitionend, width, win, within } from '../util/index';
+import { $, addClass, append, css, doc, docEl, hasClass, on, once, Promise, removeClass, requestAnimationFrame, toMs, width, win, within } from '../util/index';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
@@ -142,7 +142,7 @@ export default {
 
             if (this.container && this.$el.parentNode !== this.container) {
                 append(this.container, this.$el);
-                this._callConnected()
+                this._callConnected();
             }
 
             var prev = active && active !== this && active;
@@ -188,7 +188,7 @@ export default {
                     this._toggle(el, show);
 
                     if (this.transitionDuration) {
-                        once(this.transitionElement, transitionend, resolve, false, e => e.target === this.transitionElement);
+                        once(this.transitionElement, 'transitionend', resolve, false, e => e.target === this.transitionElement);
                     } else {
                         resolve();
                     }
@@ -198,7 +198,7 @@ export default {
 
     }
 
-}
+};
 
 var events;
 

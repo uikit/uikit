@@ -1,4 +1,4 @@
-import { classify, createEvent, doc, isString, mergeOptions, toNode } from '../util/index';
+import { $, createEvent, doc, isString, mergeOptions, toNode } from '../util/index';
 
 export default function (UIkit) {
 
@@ -28,8 +28,10 @@ export default function (UIkit) {
 
         options = options || {};
 
-        var Super = this, name = options.name || Super.options.name;
-        var Sub = createClass(name || 'UIkitComponent');
+        var Super = this;
+        var Sub = function UIkitComponent (options) {
+            this._init(options)
+        };
 
         Sub.prototype = Object.create(Super.prototype);
         Sub.prototype.constructor = Sub;
@@ -61,7 +63,7 @@ export default function (UIkit) {
                 update(element[DATA], e);
                 element = element.parentNode;
 
-            } while (element)
+            } while (element);
 
         } else {
 
@@ -79,14 +81,10 @@ export default function (UIkit) {
         },
 
         set(element) {
-            container = element;
+            container = $(element);
         }
 
     });
-
-    function createClass(name) {
-        return new Function(`return function ${classify(name)} (options) { this._init(options); }`)();
-    }
 
     function apply(node, fn) {
 

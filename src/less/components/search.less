@@ -127,8 +127,7 @@
 
 /* Placeholder */
 .uk-search-input:-ms-input-placeholder { color: @search-placeholder-color !important; }
-.uk-search-input::-moz-placeholder { color: @search-placeholder-color; }
-.uk-search-input::-webkit-input-placeholder { color: @search-placeholder-color; }
+.uk-search-input::placeholder { color: @search-placeholder-color; }
 
 
 /* Icon (Adopts `uk-icon`)
@@ -154,14 +153,8 @@
     bottom: 0;
     left: 0;
     /* 2 */
-    display: -ms-inline-flexbox;
-    display: -webkit-inline-flex;
     display: inline-flex;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
     justify-content: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
     align-items: center;
     /* 3 */
     color: @search-icon-color;
@@ -334,8 +327,7 @@
     .uk-search-input { color: @inverse-search-color; }
 
     .uk-search-input:-ms-input-placeholder { color: @inverse-search-placeholder-color !important; }
-    .uk-search-input::-moz-placeholder { color: @inverse-search-placeholder-color; }
-    .uk-search-input::-webkit-input-placeholder { color: @inverse-search-placeholder-color; }
+    .uk-search-input::placeholder { color: @inverse-search-placeholder-color; }
 
 
     //

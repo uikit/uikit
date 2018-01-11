@@ -14,7 +14,7 @@ export default function (UIkit) {
             options.name = name;
             options = UIkit.extend(options);
         } else if (isUndefined(options)) {
-            return UIkit.components[name]
+            return UIkit.components[name];
         } else {
             options.options.name = name;
         }
@@ -34,7 +34,14 @@ export default function (UIkit) {
             return element && element.nodeType ? init(element) : $$(element).map(init)[0];
 
             function init(element) {
-                return UIkit.getComponent(element, name) || new UIkit.components[name]({el: element, data: data || {}});
+
+                var cmp = UIkit.getComponent(element, name);
+
+                if (cmp) {
+                    cmp.$reset(data);
+                }
+
+                return cmp || new UIkit.components[name]({el: element, data: data || {}});
             }
 
         };
@@ -61,16 +68,12 @@ export default function (UIkit) {
 
         for (var i = 0; i < node.attributes.length; i++) {
 
-            name = node.attributes[i].name;
+            name = getComponentName(node.attributes[i].name);
 
-            if (startsWith(name, 'uk-') || startsWith(name, 'data-uk-')) {
-
-                name = camelize(name.replace('data-uk-', '').replace('uk-', ''));
-
-                if (UIkit[name]) {
-                    UIkit[name](node);
-                }
+            if (name && name in UIkit.components) {
+                UIkit[name](node);
             }
+
         }
 
     };
@@ -79,6 +82,12 @@ export default function (UIkit) {
         for (var name in node[DATA]) {
             node[DATA][name]._callDisconnected();
         }
-    }
+    };
 
+}
+
+export function getComponentName(attribute) {
+    return startsWith(attribute, 'uk-') || startsWith(attribute, 'data-uk-')
+        ? camelize(attribute.replace('data-uk-', '').replace('uk-', ''))
+        : false;
 }

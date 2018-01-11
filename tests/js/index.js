@@ -1,10 +1,9 @@
+/* global UIkit */
 var storage = window.sessionStorage,
     key = '_uikit_style',
     keyinverse = '_uikit_inverse',
     themes = {},
     docEl = document.documentElement;
-
-var {addClass, assign, attr, append, css, on, prepend, ready, removeClass, trigger, ucfirst} = UIkit.util;
 
 // try to load themes.json
 var request = new XMLHttpRequest();
@@ -15,11 +14,15 @@ if (request.status === 200) {
     themes = JSON.parse(request.responseText);
 }
 
-var styles = assign({
+var styles = {
         core: {css: '../dist/css/uikit-core.css'},
         theme: {css: '../dist/css/uikit.css'}
-    }, themes),
+    },
     component = location.pathname.split('/').pop().replace(/.html$/, '');
+
+for (var theme in themes) {
+    styles[theme] = themes[theme];
+}
 
 if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
     styles.custom = getParam('style');
@@ -31,7 +34,7 @@ storage[keyinverse] = storage[keyinverse] || 'default';
 var dir = storage._uikit_dir || 'ltr';
 
 // set dir
-attr(docEl, 'dir', dir);
+docEl.setAttribute('dir', dir);
 
 var style = styles[storage[key]] || styles.theme;
 
@@ -39,9 +42,12 @@ var style = styles[storage[key]] || styles.theme;
 document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : style.css.replace('.css', '').concat('-rtl.css')}">`);
 
 // add javascript
+document.writeln('<script src="../dist/js/uikit.js"></script>');
 document.writeln(`<script src="${style.icons ? style.icons : '../dist/js/uikit-icons.js'}"></script>`);
 
 window.addEventListener('load', () => setTimeout(() => {
+
+    var {addClass, append, css, on, prepend, removeClass, trigger, ucfirst} = UIkit.util;
 
     var $body = document.body;
     var $container = prepend($body, '<div class="uk-container"></div>');
@@ -108,6 +114,7 @@ window.addEventListener('load', () => setTimeout(() => {
         'search',
         'section',
         'slidenav',
+        'slider',
         'slideshow',
         'sortable',
         'spinner',
@@ -138,7 +145,7 @@ window.addEventListener('load', () => setTimeout(() => {
 
     $tests.value = component && `${component}.html`;
 
-    prepend($tests, `<option value="index.html">Overview</option>`);
+    prepend($tests, '<option value="index.html">Overview</option>');
 
     // Styles
     // ------------------------------
@@ -202,7 +209,7 @@ window.addEventListener('load', () => setTimeout(() => {
     css(docEl, 'padding-top', '');
 }, 100));
 
-css(docEl, 'padding-top', '80px');
+docEl.style.paddingTop = '80px';
 
 function getParam(name) {
     var match = new RegExp(`[?&]${name}=([^&]*)`).exec(window.location.search);

@@ -95,7 +95,6 @@
     background: @modal-background;
     /* 6 */
     opacity: 0;
-    -webkit-transition: opacity 0.15s linear;
     transition: opacity 0.15s linear;
     .hook-modal;
 }
@@ -159,11 +158,8 @@
     background: @modal-dialog-background;
     /* 5 */
     opacity: 0;
-    -webkit-transform: translateY(-100px);
     transform: translateY(-100px);
-    -webkit-transition: 0.3s linear;
     transition: 0.3s linear;
-    -webkit-transition-property: opacity, transform;
     transition-property: opacity, transform;
     .hook-modal-dialog;
 }
@@ -174,7 +170,6 @@
 
 .uk-open > .uk-modal-dialog {
     opacity: 1;
-    -webkit-transform: translateY(0);
     transform: translateY(0);
 }
 
@@ -206,7 +201,6 @@
     margin: 0;
     width: 100%;
     max-width: 100%;
-    -webkit-transform: translateY(0);
     transform: translateY(0);
     .hook-modal-full;
 }
@@ -317,7 +311,6 @@
     top: @modal-close-outside-position;
     /* 1 */
     right: -@modal-close-padding;
-    -webkit-transform: translate(0, -(@modal-close-outside-translate));
     transform: translate(0, -(@modal-close-outside-translate));
     color: @modal-close-outside-color;
     .hook-modal-close-outside;
@@ -334,7 +327,6 @@
     /* 1 */
     .uk-modal-close-outside {
         right: @modal-close-outside-position;
-        -webkit-transform: translate(@modal-close-outside-translate, -(@modal-close-outside-translate));
         transform: translate(@modal-close-outside-translate, -(@modal-close-outside-translate));
     }
 

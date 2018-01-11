@@ -1,4 +1,5 @@
-import { isFunction, isObject, isUndefined, toNode, toNodes } from './index';
+import { toNode, toNodes } from './selector';
+import { isFunction, isObject, isUndefined } from './lang';
 
 export function attr(element, name, value) {
 

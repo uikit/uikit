@@ -1,4 +1,4 @@
-import { createEvent, fastdom, includes, ready } from '../util/index';
+import { assign, createEvent, fastdom, includes, isPlainObject, ready } from '../util/index';
 
 export default function (UIkit) {
 
@@ -9,18 +9,6 @@ export default function (UIkit) {
         if (handlers) {
             handlers.forEach(handler => handler.call(this));
         }
-    };
-
-    UIkit.prototype._callReady = function () {
-
-        if (this._isReady) {
-            return;
-        }
-
-        this._isReady = true;
-        this._callHook('ready');
-        this._resetComputeds();
-        this._callUpdate();
     };
 
     UIkit.prototype._callConnected = function () {
@@ -35,11 +23,12 @@ export default function (UIkit) {
 
         UIkit.instances[this._uid] = this;
 
-        this._initEvents();
+        this._data = {};
 
         this._callHook('connected');
         this._connected = true;
 
+        this._initEvents();
         this._initObserver();
 
         if (!this._isReady) {
@@ -75,6 +64,18 @@ export default function (UIkit) {
 
     };
 
+    UIkit.prototype._callReady = function () {
+
+        if (this._isReady) {
+            return;
+        }
+
+        this._isReady = true;
+        this._callHook('ready');
+        this._resetComputeds();
+        this._callUpdate();
+    };
+
     UIkit.prototype._callUpdate = function (e) {
 
         e = createEvent(e || 'update');
@@ -99,9 +100,14 @@ export default function (UIkit) {
 
             if (read && !includes(fastdom.reads, reads[i])) {
                 reads[i] = fastdom.read(() => {
-                    if (read.call(this, e) === false && write) {
+
+                    var result = read.call(this, this._data, e);
+
+                    if (result === false && write) {
                         fastdom.clear(writes[i]);
                         delete writes[i];
+                    } else if (isPlainObject(result)) {
+                        assign(this._data, result);
                     }
                     delete reads[i];
                 });
@@ -109,7 +115,7 @@ export default function (UIkit) {
 
             if (write && !includes(fastdom.writes, writes[i])) {
                 writes[i] = fastdom.write(() => {
-                    write.call(this, e);
+                    write.call(this, this._data, e);
                     delete writes[i];
                 });
             }

@@ -1,8 +1,7 @@
-var fs = require('fs');
+var fs = require('fs-extra');
 var path = require('path');
 var glob = require('glob');
 var less = require('less');
-var mkdirp = require('mkdirp');
 var rollup = require('rollup');
 var uglify = require('uglify-js');
 var CleanCSS = require('clean-css');
@@ -15,44 +14,34 @@ var version = require('../package.json').version;
 var banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */\n`;
 
 exports.banner = banner;
+exports.validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
 
-exports.read = function (file, callback) {
-    return new Promise((resolve, reject) => {
-        fs.readFile(file, 'utf8', (err, data) => {
+exports.read = async function (file, cb) {
 
-            if (err) {
-                return reject(err);
-            }
+    var data = await fs.readFile(file, 'utf8');
+    cb && cb(data);
+    return data;
 
-            resolve(data);
-            callback && callback(data);
-
-        });
-    });
 };
 
-exports.write = function (dest, data) {
-    return new Promise((resolve, reject) =>
-        mkdirp(path.dirname(dest), err => {
+exports.write = async function (dest, data) {
 
-            if (err) {
-                reject(err);
-            }
+    var err = await fs.outputFile(dest, data);
 
-            fs.writeFile(dest, data, err => {
-                if (err) {
-                    return reject(err);
-                }
-                exports.logFile(dest);
-                resolve(dest);
-            })
+    if (err) {
+        console.log(err);
+        throw err;
+    }
 
-        })
-    );
+    exports.logFile(dest);
+
+    return dest;
+
 };
 
-exports.logFile = function (file) {
-    exports.read(file).then(data => console.log(`${exports.cyan(file)} ${exports.getSize(data)}`));
+exports.logFile = async function (file) {
+    var data = await exports.read(file);
+    console.log(`${exports.cyan(file)} ${exports.getSize(data)}`);
 };
 
 exports.getSize = function (data) {
@@ -63,31 +52,42 @@ exports.cyan = function (str) {
     return `\x1b[1m\x1b[36m${str}\x1b[39m\x1b[22m`;
 };
 
-exports.minify = function (file) {
-    return new CleanCSS({
+exports.minify = async function (file) {
+    var {styles} = await new CleanCSS({
         advanced: false,
         keepSpecialComments: 0,
         rebase: false,
         returnPromise: true
-    }).minify([file]).then(minified => exports.write(`${path.join(path.dirname(file), path.basename(file, '.css'))}.min.css`, minified.styles));
+    }).minify([file]);
+
+    await exports.write(`${path.join(path.dirname(file), path.basename(file, '.css'))}.min.css`, styles);
+
+    return styles;
+
 };
 
-exports.uglify = function (file) {
+exports.uglify = async function (file) {
     file = path.join(path.dirname(file), path.basename(file, '.js'));
-    return exports.write(`${file}.min.js`, uglify.minify(fs.readFileSync(`${file}.js`).toString(), {output: {preamble: exports.banner}}).code);
+    return exports.write(
+        `${file}.min.js`,
+        uglify.minify(
+            await exports.read(`${file}.js`),
+            {output: {preamble: exports.banner}}
+        ).code
+    );
 };
 
 exports.renderLess = function (data, options) {
     return less.render(data, options).then(output => output.css);
 };
 
-exports.compile = function (file, dest, external, globals, name, aliases, bundled) {
+exports.compile = async function (file, dest, {external, globals, name, aliases, bundled, minify = true}) {
 
     name = (name || '').replace(/[^\w]/g, '_');
 
-    return rollup.rollup({
+    var bundle = await rollup.rollup({
         external,
-        entry: `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
+        input: `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
         plugins: [
             replace({
                 BUNDLED: bundled || false,
@@ -106,17 +106,24 @@ exports.compile = function (file, dest, external, globals, name, aliases, bundle
             json(),
             buble(),
         ]
-    })
-        .then(bundle => bundle.generate({
-            globals,
-            format: 'umd',
-            banner: exports.banner,
-            amd: {id: `UIkit${name}`.toLowerCase()},
-            moduleName: `UIkit${exports.ucfirst(name)}`
-        }))
-        .then(({code}) => exports.write(`${dest}.js`, code.replace(/(>)\\n\s+|\\n\s+(<)/g, '$1 $2')))
-        .then(exports.uglify)
-        .catch(console.log);
+    });
+
+    var {code, map} = await bundle.generate({
+        globals,
+        format: 'umd',
+        banner: exports.banner,
+        amd: {id: `UIkit${name}`.toLowerCase()},
+        name: `UIkit${exports.ucfirst(name)}`,
+        sourcemap: !minify ? 'inline' : false
+    });
+
+    code = code.replace(/(>)\\n\s+|\\n\s+(<)/g, '$1 $2');
+
+    return await Promise.all([
+        exports.write(`${dest}.js`, code + (!minify ? '\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,' + new Buffer(map.toString()).toString('base64') : '')),
+        minify ? exports.write(`${dest}.min.js`, uglify.minify(code, {output: {preamble: exports.banner}}).code) : null
+    ])[0];
+
 };
 
 exports.icons = function (src) {
