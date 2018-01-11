@@ -95,7 +95,6 @@ $modal-close-outside-hover-color:                $global-inverse-color !default;
     background: $modal-background;
     /* 6 */
     opacity: 0;
-    -webkit-transition: opacity 0.15s linear;
     transition: opacity 0.15s linear;
     @if(mixin-exists(hook-modal)) {@include hook-modal();}
 }
@@ -159,11 +158,8 @@ $modal-close-outside-hover-color:                $global-inverse-color !default;
     background: $modal-dialog-background;
     /* 5 */
     opacity: 0;
-    -webkit-transform: translateY(-100px);
     transform: translateY(-100px);
-    -webkit-transition: 0.3s linear;
     transition: 0.3s linear;
-    -webkit-transition-property: opacity, transform;
     transition-property: opacity, transform;
     @if(mixin-exists(hook-modal-dialog)) {@include hook-modal-dialog();}
 }
@@ -174,7 +170,6 @@ $modal-close-outside-hover-color:                $global-inverse-color !default;
 
 .uk-open > .uk-modal-dialog {
     opacity: 1;
-    -webkit-transform: translateY(0);
     transform: translateY(0);
 }
 
@@ -206,7 +201,6 @@ $modal-close-outside-hover-color:                $global-inverse-color !default;
     margin: 0;
     width: 100%;
     max-width: 100%;
-    -webkit-transform: translateY(0);
     transform: translateY(0);
     @if(mixin-exists(hook-modal-full)) {@include hook-modal-full();}
 }
@@ -317,7 +311,6 @@ $modal-close-outside-hover-color:                $global-inverse-color !default;
     top: $modal-close-outside-position;
     /* 1 */
     right: (-$modal-close-padding);
-    -webkit-transform: translate(0, -($modal-close-outside-translate));
     transform: translate(0, -($modal-close-outside-translate));
     color: $modal-close-outside-color;
     @if(mixin-exists(hook-modal-close-outside)) {@include hook-modal-close-outside();}
@@ -334,7 +327,6 @@ $modal-close-outside-hover-color:                $global-inverse-color !default;
     /* 1 */
     .uk-modal-close-outside {
         right: $modal-close-outside-position;
-        -webkit-transform: translate($modal-close-outside-translate, -($modal-close-outside-translate));
         transform: translate($modal-close-outside-translate, -($modal-close-outside-translate));
     }
 

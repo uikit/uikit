@@ -40,15 +40,9 @@ $sticky-reverse-animation-duration:              0.2s !default;
  * Faster animations
  */
 
-.uk-sticky[class*='uk-animation-'] {
-    -webkit-animation-duration: $sticky-animation-duration;
-    animation-duration: $sticky-animation-duration;
-}
+.uk-sticky[class*='uk-animation-'] { animation-duration: $sticky-animation-duration; }
 
-.uk-sticky.uk-animation-reverse {
-    -webkit-animation-duration: $sticky-reverse-animation-duration;
-    animation-duration: $sticky-reverse-animation-duration;
-}
+.uk-sticky.uk-animation-reverse { animation-duration: $sticky-reverse-animation-duration; }
 
 
 // Hooks
