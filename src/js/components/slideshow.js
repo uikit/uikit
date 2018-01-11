@@ -1,6 +1,7 @@
-import Parallax from './parallax';
+import Parallax from '../mixin/parallax';
 import Slideshow from '../mixin/slideshow';
 import AnimationsPlugin from './internal/slideshow-animations';
+import SliderReactive from '../mixin/internal/slider-reactive';
 
 function plugin(UIkit) {
 
@@ -12,13 +13,13 @@ function plugin(UIkit) {
     UIkit.use(Slideshow);
 
     var {mixin} = UIkit;
-    var {closest, css, fastdom, endsWith, height, noop, Transition} = UIkit.util;
+    var {closest, css, endsWith, height, noop, Transition} = UIkit.util;
 
     var Animations = AnimationsPlugin(UIkit);
 
     UIkit.component('slideshow', {
 
-        mixins: [mixin.class, mixin.slideshow],
+        mixins: [mixin.class, mixin.slideshow, SliderReactive(UIkit)],
 
         props: {
             ratio: String,
@@ -34,10 +35,6 @@ function plugin(UIkit) {
             attrItem: 'uk-slideshow-item',
             selNav: '.uk-slideshow-nav',
             Animations
-        },
-
-        ready() {
-            fastdom.write(() => this.show(this.index));
         },
 
         update: {
@@ -77,7 +74,7 @@ function plugin(UIkit) {
 
             item() {
                 var slideshow = UIkit.getComponent(closest(this.$el, '.uk-slideshow'), 'slideshow');
-                return slideshow && closest(this.$el, `${slideshow.selList} > *`);
+                return slideshow && closest(this.$el, slideshow.slidesSelector);
             }
 
         },

@@ -11,7 +11,7 @@ argv._.forEach(arg => {
 });
 
 var numArgs = Object.keys(argv).length;
-argv.all = argv.all || numArgs <= 1; //no arguments passed, so compile all
+argv.all = argv.all || numArgs <= 1; // no arguments passed, so compile all
 
 const minify = !(argv.debug || argv.nominify || argv.nominify || argv.d);
 

@@ -1,4 +1,5 @@
-import Slideshow, { speedUp } from '../mixin/slideshow';
+import Slider, { speedUp } from '../mixin/slider';
+import SliderReactive from '../mixin/internal/slider-reactive';
 import TransitionerPlugin from './internal/slider-transitioner';
 
 function plugin(UIkit) {
@@ -7,15 +8,15 @@ function plugin(UIkit) {
         return;
     }
 
-    UIkit.use(Slideshow);
+    UIkit.use(Slider);
 
     var {mixin} = UIkit;
-    var {$$, css, data, fastdom, includes, isNumeric, toggleClass, toFloat} = UIkit.util;
+    var {$$, css, data, includes, isNumeric, toggleClass, toFloat} = UIkit.util;
     var Transitioner = TransitionerPlugin(UIkit);
 
     UIkit.component('slider', {
 
-        mixins: [mixin.class, mixin.slideshow],
+        mixins: [mixin.class, mixin.slider, SliderReactive(UIkit)],
 
         props: {
             center: Boolean,
@@ -63,7 +64,8 @@ function plugin(UIkit) {
             sets({sets}) {
 
                 var width = this.list.offsetWidth / (this.center ? 2 : 1),
-                    left = 0, leftCenter = width;
+                    left = 0,
+                    leftCenter = width;
 
                 css(this.slides, 'order', '');
 
@@ -82,12 +84,12 @@ function plugin(UIkit) {
                         if (!includes(sets, i)) {
 
                             var cmp = this.slides[i + 1];
-                            if (!(this.center && cmp && slideWidth < leftCenter - cmp.offsetWidth / 2)) {
+                            if (this.center && cmp && slideWidth < leftCenter - cmp.offsetWidth / 2) {
+                                leftCenter -= slideWidth;
+                            } else {
                                 leftCenter = width;
                                 sets.push(i);
                                 left = slideLeft + width + (this.center ? slideWidth / 2 : 0);
-                            } else {
-                                leftCenter -= slideWidth;
                             }
 
                         }
@@ -108,15 +110,7 @@ function plugin(UIkit) {
 
         },
 
-        ready() {
-            fastdom.write(() => this.show(this.getValidIndex()));
-        },
-
         update: {
-
-            read() {
-                this._resetComputeds();
-            },
 
             write() {
 
@@ -131,48 +125,36 @@ function plugin(UIkit) {
 
         },
 
-        events: [
+        events: {
 
-            {
+            beforeitemshow(e) {
 
-                name: 'beforeitemshow',
+                if (!this.dragging && this.sets && this.stack.length < 2 && !includes(this.sets, this.index)) {
+                    this.index = this.getValidIndex();
+                }
 
-                self: true,
-
-                delegate() {
-                    return `${this.selList} > *`;
-                },
-
-                handler(e) {
-
-                    if (!this.dragging && this.sets && this.stack.length < 2 && !includes(this.sets, this.index)) {
-                        this.index = this.getValidIndex();
-                    }
-
-                    var diff = Math.abs(this.index + (this.dir > 0
+                var diff = Math.abs(this.index + (this.dir > 0
                         ? this.index < this.prevIndex ? this.maxIndex + 1 : 0
                         : this.index > this.prevIndex ? -this.maxIndex : 0
-                    ) - this.prevIndex);
+                ) - this.prevIndex);
 
-                    if (!this.dragging && diff > 1) {
+                if (!this.dragging && diff > 1) {
 
-                        for (var i = 0; i < diff; i++) {
-                            this.stack.splice(1, 0, this.dir > 0 ? 'next' : 'previous');
-                        }
-
-                        e.preventDefault();
-                        return;
+                    for (var i = 0; i < diff; i++) {
+                        this.stack.splice(1, 0, this.dir > 0 ? 'next' : 'previous');
                     }
 
-                    this.duration = speedUp((this.dir < 0 || !this.slides[this.prevIndex] ? this.slides[this.index] : this.slides[this.prevIndex]).offsetWidth / this.velocity);
-
-                    this.reorder();
-
+                    e.preventDefault();
+                    return;
                 }
+
+                this.duration = speedUp((this.dir < 0 || !this.slides[this.prevIndex] ? this.slides[this.index] : this.slides[this.prevIndex]).offsetWidth / this.velocity);
+
+                this.reorder();
 
             }
 
-        ],
+        },
 
         methods: {
 
