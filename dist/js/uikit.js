@@ -887,7 +887,7 @@ function animate(element, animation, duration, origin, out) {
             if (startsWith(animation, animationPrefix)) {
 
                 if (origin) {
-                    cls += " " + animationPrefix + origin;
+                    cls += " uk-transform-origin-" + origin;
                 }
 
                 if (out) {
@@ -1222,7 +1222,7 @@ function index(element, ref) {
 
 var arrayProto = Array.prototype;
 
-function $(selector, context) {
+function $$1(selector, context) {
     return !isString(selector)
         ? toNode(selector)
         : isHtml(selector)
@@ -1243,7 +1243,7 @@ function isHtml(str) {
 }
 
 function query(selector, context) {
-    return $(selector, isContextSelector(selector) ? context : doc);
+    return $$1(selector, isContextSelector(selector) ? context : doc);
 }
 
 function queryAll(selector, context) {
@@ -1501,7 +1501,7 @@ function createEvent(e, bubbles, cancelable, detail) {
 function getArgs(args) {
 
     if (isString(args[0])) {
-        args[0] = $(args[0]);
+        args[0] = $$1(args[0]);
     }
 
     if (isFunction(args[2])) {
@@ -2387,7 +2387,7 @@ var util = Object.freeze({
 	intersectRect: intersectRect,
 	pointInRect: pointInRect,
 	ajax: ajax,
-	$: $,
+	$: $$1,
 	$$: $$,
 	query: query,
 	queryAll: queryAll,
@@ -2772,7 +2772,7 @@ function globalAPI (UIkit) {
         },
 
         set: function set(element) {
-            container = $(element);
+            container = $$1(element);
         }
 
     });
@@ -3388,7 +3388,7 @@ var Container = {
         container: function container(ref) {
             var container = ref.container;
 
-            return container === true && UIkit$2.container || container && $(container);
+            return container === true && UIkit$2.container || container && $$1(container);
         }
 
     }
@@ -3641,7 +3641,7 @@ var Modal = {
         panel: function panel(ref, $el) {
             var clsPanel = ref.clsPanel;
 
-            return $(("." + clsPanel), $el);
+            return $$1(("." + clsPanel), $el);
         },
 
         transitionElement: function transitionElement() {
@@ -3996,7 +3996,7 @@ function Accordion (UIkit) {
             var this$1 = this;
 
 
-            this.items.forEach(function (el) { return this$1._toggleImmediate($(this$1.content, el), hasClass(el, this$1.clsOpen)); });
+            this.items.forEach(function (el) { return this$1._toggleImmediate($$1(this$1.content, el), hasClass(el, this$1.clsOpen)); });
 
             var active = !this.collapsible && !hasClass(this.items, this.clsOpen) && this.items[0];
             if (active) {
@@ -4027,7 +4027,7 @@ function Accordion (UIkit) {
 
                         toggleClass(el, this$1.clsOpen, state);
 
-                        var content = el._wrapper ? el._wrapper.firstElementChild : $(this$1.content, el);
+                        var content = el._wrapper ? el._wrapper.firstElementChild : $$1(this$1.content, el);
 
                         if (!el._wrapper) {
                             el._wrapper = wrapAll(content, '<div>');
@@ -4690,7 +4690,7 @@ function FormCustom (UIkit) {
         computed: {
 
             input: function input(_, $el) {
-                return $(selInput, $el);
+                return $$1(selInput, $el);
             },
 
             state: function state() {
@@ -5177,7 +5177,7 @@ function Icon (UIkit) {
         connected: function connected() {
             var this$1 = this;
 
-            this.svg.then(function (svg) { return this$1.ratio !== 1 && css($('circle', svg), 'stroke-width', 1 / this$1.ratio); }, noop);
+            this.svg.then(function (svg) { return this$1.ratio !== 1 && css($$1('circle', svg), 'stroke-width', 1 / this$1.ratio); }, noop);
         }
 
     });
@@ -5219,7 +5219,7 @@ function Icon (UIkit) {
         }
 
         if (!parsed[icon]) {
-            parsed[icon] = $(icons[icon].trim());
+            parsed[icon] = $$1(icons[icon].trim());
         }
 
         return parsed[icon];
@@ -5540,7 +5540,7 @@ function Modal$1 (UIkit) {
 
             var resolved = false,
                 prompt = UIkit.modal.dialog((" <form class=\"uk-form-stacked\"> <div class=\"uk-modal-body\"> <label>" + (isString(message) ? message : html(message)) + "</label> <input class=\"uk-input\" autofocus> </div> <div class=\"uk-modal-footer uk-text-right\"> <button class=\"uk-button uk-button-default uk-modal-close\" type=\"button\">" + (options.labels.cancel) + "</button> <button class=\"uk-button uk-button-primary\">" + (options.labels.ok) + "</button> </div> </form> "), options),
-                input = $('input', prompt.$el);
+                input = $$1('input', prompt.$el);
 
             input.value = value;
 
@@ -5642,7 +5642,7 @@ function Navbar (UIkit) {
 
             var dropbar = this.$props.dropbar;
 
-            this.dropbar = dropbar && (isString(dropbar) && query(dropbar, this.$el) || $('<div></div>'));
+            this.dropbar = dropbar && (isString(dropbar) && query(dropbar, this.$el) || $$1('<div></div>'));
 
             if (this.dropbar) {
 
@@ -5839,7 +5839,7 @@ function Offcanvas (UIkit) {
             content: function content(ref) {
                 var content = ref.content;
 
-                return $(content) || doc.body;
+                return $$1(content) || doc.body;
             },
 
             clsFlip: function clsFlip(ref) {
@@ -5923,7 +5923,7 @@ function Offcanvas (UIkit) {
                 handler: function handler(ref) {
                     var current = ref.current;
 
-                    if (current.hash && $(current.hash, this.content)) {
+                    if (current.hash && $$1(current.hash, this.content)) {
                         scroll = null;
                         this.hide();
                     }
@@ -5940,7 +5940,7 @@ function Offcanvas (UIkit) {
                 },
 
                 handler: function handler(e, scroll, target) {
-                    if (scroll && target && this.isToggled() && $(target, this.content)) {
+                    if (scroll && target && this.isToggled() && $$1(target, this.content)) {
                         once(this.$el, 'hidden', function () { return scroll.scrollTo(target); });
                         e.preventDefault();
                     }
@@ -6095,7 +6095,7 @@ function Scroll (UIkit) {
                 var this$1 = this;
 
 
-                el = el && $(el) || doc.body;
+                el = el && $$1(el) || doc.body;
 
                 var target = offset(el).top - this.offset,
                     docHeight = height(doc),
@@ -6379,7 +6379,7 @@ function ScrollspyNav (UIkit) {
                             }
                         }
 
-                        return !(data.active = $(filter(this$1.links, ("[href=\"#" + (el.id) + "\"]"))));
+                        return !(data.active = $$1(filter(this$1.links, ("[href=\"#" + (el.id) + "\"]"))));
 
                     });
 
@@ -6453,14 +6453,14 @@ function Sticky (UIkit) {
             selTarget: function selTarget(ref, $el) {
                 var selTarget = ref.selTarget;
 
-                return selTarget && $(selTarget, $el) || $el;
+                return selTarget && $$1(selTarget, $el) || $el;
             }
 
         },
 
         connected: function connected() {
 
-            this.placeholder = $('<div class="uk-sticky-placeholder"></div>');
+            this.placeholder = $$1('<div class="uk-sticky-placeholder"></div>');
             this.widthElement = this.$props.widthElement || this.placeholder;
 
             if (!this.isActive) {
@@ -6489,7 +6489,7 @@ function Sticky (UIkit) {
                 return;
             }
 
-            var target = $(location.hash);
+            var target = $$1(location.hash);
 
             if (target) {
                 fastdom.read(function () {
@@ -6779,7 +6779,7 @@ function Svg (UIkit) {
                         svg = parseSymbols(svg, this$1.icon) || svg;
                     }
 
-                    el = $(svg.substr(svg.indexOf('<svg')));
+                    el = $$1(svg.substr(svg.indexOf('<svg')));
 
                 } else {
                     el = svg.cloneNode(true);
@@ -9126,6 +9126,9 @@ function plugin$2(UIkit) {
             _init: function _init() {
                 return this.panel = this.panel || UIkit.lightboxPanel(assign({}, this.$props, {
                     items: this.toggles.reduce(function (items, el) {
+                        if ($(el).hasClass("uk-lightbox-exclude")) {
+                            return items;
+                        }
                         items.push(['href', 'caption', 'type', 'poster', 'alt'].reduce(function (obj, attr) {
                             obj[attr === 'href' ? 'source' : attr] = data(el, attr);
                             return obj;
