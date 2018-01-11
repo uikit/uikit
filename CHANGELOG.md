@@ -4,19 +4,19 @@
 
 ### Added
 
-- Add option to pass `data-alt=""` to images in Lightbox
-- Component DOM attributes are being observed too (uk-grid, ...)
-- Video component supports play/pause video as it enters/leaves the viewport
-- Add config options to build scripts, type `./build/build.js -h` for options
-- Add UIkit version banner to generated css files
+- Add RTL support to Slideshow component
+- Add reactive navigation to Slideshow component
+- Hide slideshow navigation if slideshow contains single slide only
+- Add support to play/pause Video component as it enters/leaves the viewport
+- Add file size restriction `maxSize` to Upload component
+- Add option to pass `data-alt=""` to images in Lightbox component
+- Component DOM attributes like `uk-grid` are being observed for changes
 - Improve `UIkit.container` setter (allows for assigning selector strings)
-- Add option to skip minification for less building (`./build/less.js -d`)
-- Add parametrization for prefix and scope scripts. Use `scope/prefix -h` (e.g. `npm run prefix -- -h`) to list the available options.
 - Make some util methods more error resilient
-- Add File size restriction `maxSize` to Upload component
-- Add Slideshow RTL support
-- Add reactive Slideshow Nav
-- Hide Slideshow navigation if Slideshow contains single slide only
+- Add config options to build scripts, type `./build/build.js -h` for options
+- Add UIkit version banner to generated CSS files
+- Add option to skip minification during Less compiling (`./build/less.js -d`)
+- Add parametrization for prefix and scope scripts. Use `scope/prefix -h` (e.g. `npm run prefix -- -h`) to list the available options.
 
 ### Changed
 
