@@ -45,6 +45,7 @@
 - Fix accordion initial active option
 - Fix webpack builds (npm run test)
 - 'uk-scrollspy-class' attr may now be `data-` prefixed too
+- Fix dialogs not being removed from DOM after closing
 
 ## 3.0.0 beta 35 (November 13, 2017)
 

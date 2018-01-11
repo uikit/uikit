@@ -99,8 +99,8 @@ export default function (UIkit) {
              </div>
         `, options);
 
-        on(dialog.$el, 'hidden', ({target, current}) => {
-            if (target === current) {
+        on(dialog.$el, 'hidden', ({target, currentTarget}) => {
+            if (target === currentTarget) {
                 dialog.$destroy(true);
             }
         });
