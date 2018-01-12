@@ -44,12 +44,14 @@ export default function (UIkit) {
             }, {});
         }
 
-        for (var key in defaults) {
+        for (var key in assign({}, defaults, props)) {
             this.$props[key] = this[key] = hasOwn(data, key) && !isUndefined(data[key])
                 ? coerce(props[key], data[key], el)
-                : isArray(defaults[key])
-                    ? defaults[key].concat()
-                    : defaults[key];
+                : defaults
+                    ? defaults[key] && isArray(defaults[key])
+                        ? defaults[key].concat()
+                        : defaults[key]
+                    : null;
         }
     };
 
@@ -83,12 +85,21 @@ export default function (UIkit) {
 
     UIkit.prototype._initProps = function (props) {
 
+        var key;
+
         this._resetComputeds();
-        assign(this.$props, props || getProps(this.$options, this.$name));
+
+        props = props || getProps(this.$options, this.$name);
+
+        for (key in props) {
+            if (!isUndefined(props[key])) {
+                this.$props[key] = props[key];
+            }
+        }
 
         var exclude = [this.$options.computed, this.$options.methods];
-        for (var key in this.$props) {
-            if (notIn(exclude, key)) {
+        for (key in this.$props) {
+            if (key in props && notIn(exclude, key)) {
                 this[key] = this.$props[key];
             }
         }

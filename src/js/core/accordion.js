@@ -57,7 +57,7 @@ export default function (UIkit) {
         ],
 
         ready() {
-            var active = this.active !== false && this.items[Number(this.active)] && !hasClass(active, this.clsOpen);
+            var active = this.active !== false && !hasClass(active, this.clsOpen) && this.items[Number(this.active)];
             if (active) {
                 this.toggle(active, false);
             }

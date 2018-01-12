@@ -12,23 +12,27 @@ function plugin(UIkit) {
             allow: String,
             clsDragover: String,
             concurrent: Number,
+            maxSize: Number,
             mime: String,
             msgInvalidMime: String,
             msgInvalidName: String,
+            msgInvalidSize: String,
             multiple: Boolean,
             name: String,
             params: Object,
             type: String,
-            url: String
+            url: String,
         },
 
         defaults: {
             allow: false,
             clsDragover: 'uk-dragover',
             concurrent: 1,
+            maxSize: 0,
             mime: false,
             msgInvalidMime: 'Invalid File Type: %s',
             msgInvalidName: 'Invalid File Name: %s',
+            msgInvalidSize: 'Invalid File Size: %s Bytes Max',
             multiple: false,
             name: 'files[]',
             params: {},
@@ -106,18 +110,19 @@ function plugin(UIkit) {
 
                 for (var i = 0; i < files.length; i++) {
 
-                    if (this.allow) {
-                        if (!match(this.allow, files[i].name)) {
-                            this.fail(this.msgInvalidName.replace(/%s/, this.allow));
-                            return;
-                        }
+                    if (this.maxSize && this.maxSize * 1000 < files[i].size) {
+                        this.fail(this.msgInvalidSize.replace('%s', this.allow));
+                        return;
                     }
 
-                    if (this.mime) {
-                        if (!match(this.mime, files[i].type)) {
-                            this.fail(this.msgInvalidMime.replace(/%s/, this.mime));
-                            return;
-                        }
+                    if (this.allow && !match(this.allow, files[i].name)) {
+                        this.fail(this.msgInvalidName.replace('%s', this.allow));
+                        return;
+                    }
+
+                    if (this.mime && !match(this.mime, files[i].type)) {
+                        this.fail(this.msgInvalidMime.replace('%s', this.mime));
+                        return;
                     }
 
                 }

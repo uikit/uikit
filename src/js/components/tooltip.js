@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {util, mixin} = UIkit;
-    var {append, attr, doc, fastdom, flipPosition, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, remove, within} = util;
+    var {append, attr, doc, flipPosition, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, remove, within} = util;
 
     var actives = [];
 
@@ -31,7 +31,7 @@ function plugin(UIkit) {
         },
 
         connected() {
-            fastdom.write(() => attr(this.$el, {title: null, 'aria-expanded': false}));
+            attr(this.$el, {title: null, 'aria-expanded': false});
         },
 
         disconnected() {
@@ -106,7 +106,7 @@ function plugin(UIkit) {
                 }
             },
 
-            'blur': 'hide',
+            blur: 'hide',
 
             [pointerLeave](e) {
                 if (!isTouch(e)) {

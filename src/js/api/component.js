@@ -34,7 +34,14 @@ export default function (UIkit) {
             return element && element.nodeType ? init(element) : $$(element).map(init)[0];
 
             function init(element) {
-                return UIkit.getComponent(element, name) || new UIkit.components[name]({el: element, data: data || {}});
+
+                var cmp = UIkit.getComponent(element, name);
+
+                if (cmp) {
+                    cmp.$reset(data);
+                }
+
+                return cmp || new UIkit.components[name]({el: element, data: data || {}});
             }
 
         };

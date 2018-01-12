@@ -34,21 +34,29 @@ export default function (UIkit) {
             cls: 'uk-open'
         },
 
+        computed: {
+
+            clsDrop({clsDrop}) {
+                return clsDrop || `uk-${this.$options.name}`;
+            },
+
+            clsPos() {
+                return this.clsDrop;
+            }
+
+        },
+
         init() {
             this.tracker = new MouseTracker();
-            this.clsDrop = this.clsDrop || `uk-${this.$options.name}`;
-            this.clsPos = this.clsDrop;
-
             addClass(this.$el, this.clsDrop);
         },
 
-        ready() {
+        connected() {
+
+            var toggle = this.$props.toggle;
+            this.toggle = toggle && UIkit.toggle(isString(toggle) ? query(toggle, this.$el) : this.$el.previousElementSibling, {target: this.$el, mode: this.mode});
 
             this.updateAria(this.$el);
-
-            if (this.toggle) {
-                this.toggle = UIkit.toggle(isString(this.toggle) ? query(this.toggle, this.$el) : this.$el.previousElementSibling, {target: this.$el, mode: this.mode});
-            }
 
         },
 

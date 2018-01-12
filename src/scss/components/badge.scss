@@ -33,7 +33,6 @@ $badge-hover-color:                              $global-inverse-color !default;
     box-sizing: border-box;
     min-width: $badge-size;
     height: $badge-size;
-    line-height: $badge-size;
     padding: $badge-padding-vertical $badge-padding-horizontal;
     border-radius: $badge-border-radius;
     vertical-align: middle;
@@ -42,14 +41,8 @@ $badge-hover-color:                              $global-inverse-color !default;
     color: $badge-color;
     font-size: $badge-font-size;
     /* 2 */
-    display: -ms-inline-flexbox;
-    display: -webkit-inline-flex;
     display: inline-flex;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
     justify-content: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
     align-items: center;
     @if(mixin-exists(hook-badge)) {@include hook-badge();}
 }

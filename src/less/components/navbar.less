@@ -76,7 +76,7 @@
 @navbar-dropdown-nav-sublist-item-hover-color:  @global-color;
 
 @navbar-dropbar-background:                     @navbar-dropdown-background;
-@navbar-dropbar-z-index:                        @global-z-index + 20;
+@navbar-dropbar-z-index:                        @navbar-dropdown-z-index - 1;
 
 
 /* ========================================================================
@@ -399,7 +399,6 @@
  */
 
 .uk-navbar-dropdown-dropbar {
-    top: 0 !important;
     margin-top: @navbar-dropdown-dropbar-margin-top;
     margin-bottom: @navbar-dropdown-dropbar-margin-bottom;
     .hook-navbar-dropdown-dropbar;
@@ -468,9 +467,7 @@
  ========================================================================== */
 
 .uk-navbar-dropbar {
-    position: relative;
     background: @navbar-dropbar-background;
-    overflow: hidden;
     .hook-navbar-dropbar;
 }
 

@@ -24,11 +24,11 @@ export default function (UIkit) {
         UIkit.instances[this._uid] = this;
 
         this._data = {};
-        this._initEvents();
 
         this._callHook('connected');
         this._connected = true;
 
+        this._initEvents();
         this._initObserver();
 
         if (!this._isReady) {

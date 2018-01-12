@@ -115,6 +115,7 @@ window.addEventListener('load', () => setTimeout(() => {
         'search',
         'section',
         'slidenav',
+        'slider',
         'slideshow',
         'sortable',
         'spinner',

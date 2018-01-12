@@ -56,12 +56,8 @@ $grid-divider-border:                            $global-border !default;
  */
 
 .uk-grid {
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     /* 1 */
-    -ms-flex-wrap: wrap;
-    -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
     /* 2 */
     margin: 0;
@@ -325,12 +321,8 @@ $grid-divider-border:                            $global-border !default;
 
 .uk-grid-match > *,
 .uk-grid-item-match {
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     /* 1 */
-    -ms-flex-wrap: wrap;
-    -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
 }
 
@@ -340,8 +332,6 @@ $grid-divider-border:                            $global-border !default;
     box-sizing: border-box;
     width: 100%;
     /* 3 */
-    -ms-flex: auto;
-    -webkit-flex: auto;
     flex: auto;
 }
 

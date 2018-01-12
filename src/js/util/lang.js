@@ -18,6 +18,15 @@ export function hasOwn(obj, key) {
 
 export const Promise = 'Promise' in window ? window.Promise : promiseFn;
 
+export class Deferred {
+    constructor() {
+        this.promise = new Promise((resolve, reject) => {
+            this.reject = reject;
+            this.resolve = resolve;
+        });
+    }
+}
+
 const classifyRe = /(?:^|[-_\/])(\w)/g;
 
 export function classify(str) {

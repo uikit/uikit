@@ -16,12 +16,13 @@ export function on(...args) {
         listener = detail(listener);
     }
 
-    type.split(' ').forEach(type => target.addEventListener(type, listener, useCapture));
+    type.split(' ').forEach(type => target && target.addEventListener(type, listener, useCapture));
     return () => off(target, type, listener, useCapture);
 }
 
 export function off(target, type, listener, useCapture = false) {
-    type.split(' ').forEach(type => toEventTarget(target).removeEventListener(type, listener, useCapture));
+    target = toEventTarget(target);
+    target && type.split(' ').forEach(type => target.removeEventListener(type, listener, useCapture));
 }
 
 export function once(...args) {
@@ -90,7 +91,7 @@ function detail(listener) {
 function isEventTarget(target) {
     return 'EventTarget' in win
         ? target instanceof EventTarget
-        : 'addEventListener' in target;
+        : target && 'addEventListener' in target;
 }
 
 function toEventTarget(target) {

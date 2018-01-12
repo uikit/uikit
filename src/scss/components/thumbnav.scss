@@ -28,12 +28,8 @@ $thumbnav-margin-vertical:                       $thumbnav-margin-horizontal !de
  */
 
 .uk-thumbnav {
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     /* 1 */
-    -ms-flex-wrap: wrap;
-    -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
     /* 2 */
     margin: 0;
@@ -51,8 +47,6 @@ $thumbnav-margin-vertical:                       $thumbnav-margin-horizontal !de
 
 .uk-thumbnav > * {
     /* 1 */
-    -ms-flex: none;
-    -webkit-flex: none;
     flex: none;
     /* 2 */
     padding-left: $thumbnav-margin-horizontal;
@@ -94,8 +88,6 @@ $thumbnav-margin-vertical:                       $thumbnav-margin-horizontal !de
 
 .uk-thumbnav-vertical {
     /* 1 */
-    -ms-flex-direction: column;
-    -webkit-flex-direction: column;
     flex-direction: column;
     /* 2 */
     margin-left: 0;

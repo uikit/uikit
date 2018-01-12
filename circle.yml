@@ -1,6 +1,6 @@
 machine:
   node:
-    version: 6.1.0
+    version: 8.2.0
 
 compile:
   override:

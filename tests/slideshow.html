@@ -24,12 +24,16 @@
                     <option value="pull">Pull</option>
                     <option value="push">Push</option>
                 </select>
+                <select id="js-finite-switcher" class="uk-select uk-form-width-small">
+                    <option value="0">Infinite</option>
+                    <option value="1">Finite</option>
+                </select>
             </div>
 
             <div class="uk-child-width-1-2@m" uk-grid>
                 <div>
 
-                    <div class="js-slideshow-animation" uk-slideshow="ratio: 3:2; autoplay: 1">
+                    <div class="js-slideshow-animation" uk-slideshow="ratio: 3:2; autoplay: true">
 
                         <div class="uk-position-relative uk-visible-toggle uk-light">
 
@@ -64,8 +68,8 @@
                                 </li>
                             </ul>
 
-                            <a class="uk-position-center-left uk-position-small uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                            <a class="uk-position-center-right uk-position-small uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
+                            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
 
                         </div>
 
@@ -121,17 +125,12 @@
                                 -->
                             </ul>
 
-                            <a class="uk-position-center-left uk-position-small uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                            <a class="uk-position-center-right uk-position-small uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
+                            <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                            <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
 
                         </div>
 
-                        <ul class="uk-dotnav uk-flex-center uk-margin">
-                            <li uk-slideshow-item="0"><a href="#">Item 1</a></li>
-                            <li uk-slideshow-item="1"><a href="#">Item 2</a></li>
-                            <li uk-slideshow-item="2"><a href="#">Item 3</a></li>
-                            <!--<li uk-slideshow-item="3"><a href="#">Item 4</a></li>-->
-                        </ul>
+                        <ul class="uk-slideshow-nav uk-dotnav uk-flex-center uk-margin"></ul>
 
                     </div>
 
@@ -200,12 +199,7 @@
 
                 </div>
 
-                <ul class="uk-dotnav uk-flex-center uk-margin">
-                    <li uk-slideshow-item="0"><a href="#">Item 1</a></li>
-                    <li uk-slideshow-item="1"><a href="#">Item 2</a></li>
-                    <li uk-slideshow-item="2"><a href="#">Item 3</a></li>
-                    <li uk-slideshow-item="3"><a href="#">Item 4</a></li>
-                </ul>
+                <ul class="uk-slideshow-nav uk-dotnav uk-flex-center uk-margin"></ul>
 
             </div>
 
@@ -254,17 +248,12 @@
                         </li>
                     </ul>
 
-                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
+                    <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                    <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
 
                 </div>
 
-                <ul class="uk-dotnav uk-flex-center uk-margin">
-                    <li uk-slideshow-item="0"><a href="#">Item 1</a></li>
-                    <li uk-slideshow-item="1"><a href="#">Item 2</a></li>
-                    <li uk-slideshow-item="2"><a href="#">Item 3</a></li>
-                    <li uk-slideshow-item="3"><a href="#">Item 4</a></li>
-                </ul>
+                <ul class="uk-slideshow-nav uk-dotnav uk-flex-center uk-margin"></ul>
 
             </div>
 
@@ -307,16 +296,11 @@
                     </li>
                 </ul>
 
-                <a class="uk-slidenav-large uk-position-center-left uk-position-small uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                <a class="uk-slidenav-large uk-position-center-right uk-position-small uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
+                <a class="uk-slidenav-large uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                <a class="uk-slidenav-large uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
 
                 <div class="uk-position-bottom-center uk-position-medium">
-                    <ul class="uk-dotnav ">
-                        <li uk-slideshow-item="0"><a href="#">Item 1</a></li>
-                        <li uk-slideshow-item="1"><a href="#">Item 2</a></li>
-                        <li uk-slideshow-item="2"><a href="#">Item 3</a></li>
-                        <li uk-slideshow-item="3"><a href="#">Item 4</a></li>
-                    </ul>
+                    <ul class="uk-slideshow-nav uk-dotnav"></ul>
                 </div>
 
             </div>
@@ -333,7 +317,7 @@
 
             <div class="uk-position-relative uk-visible-toggle uk-light">
 
-                <ul class="uk-slideshow-items" uk-height-viewport>
+                <ul class="uk-slideshow-items" uk-height-viewport="min-height: 300">
                     <li>
                         <img src="images/photo.jpg" alt="" uk-cover>
                         <div class="uk-position-center uk-position-medium uk-text-center">
@@ -364,16 +348,11 @@
                     </li>
                 </ul>
 
-                <a class="uk-slidenav-large uk-position-center-left uk-position-small uk-hidden-hover" uk-slidenav-previous uk-slideshow-item="previous"></a>
-                <a class="uk-slidenav-large uk-position-center-right uk-position-small uk-hidden-hover" uk-slidenav-next uk-slideshow-item="next"></a>
+                <a class="uk-slidenav-large uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                <a class="uk-slidenav-large uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
 
                 <div class="uk-position-bottom-center uk-position-medium">
-                    <ul class="uk-dotnav ">
-                        <li uk-slideshow-item="0"><a href="#">Item 1</a></li>
-                        <li uk-slideshow-item="1"><a href="#">Item 2</a></li>
-                        <li uk-slideshow-item="2"><a href="#">Item 3</a></li>
-                        <li uk-slideshow-item="3"><a href="#">Item 4</a></li>
-                    </ul>
+                    <ul class="uk-slideshow-nav uk-dotnav uk-flex-center uk-margin"></ul>
                 </div>
 
             </div>
@@ -382,7 +361,7 @@
 
         <div class="uk-container">
 
-            <h3>Slideshow</h3>
+            <h3>Javascript Options</h3>
 
             <div class="uk-overflow-auto">
                 <table class="uk-table uk-table-striped">
@@ -412,6 +391,18 @@
                             <td>Number</td>
                             <td>7000</td>
                             <td>The delay between switching slides in autoplay mode.</td>
+                        </tr>
+                        <tr>
+                            <td><code>finite</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Disable infinite sliding.</td>
+                        </tr>
+                        <tr>
+                            <td><code>index</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>Slideshow item to show. 0 based index.</td>
                         </tr>
                         <tr>
                             <td><code>pause-on-hover</code></td>
@@ -454,6 +445,11 @@
             UIkit.util.on('#js-animation-switcher', 'change', function () {
                 var value = this.value;
                 UIkit.util.$$('.js-slideshow-animation').forEach(function (slideshow) { UIkit.util.attr(slideshow, 'animation', value); });
+            });
+
+            UIkit.util.on('#js-finite-switcher', 'change', function () {
+                var value = this.value;
+                UIkit.util.$$('[uk-slideshow]').forEach(function (slideshow) { UIkit.util.attr(slideshow, 'finite', value); });
             });
 
         </script>
