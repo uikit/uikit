@@ -21,7 +21,104 @@
 
     <body>
 
+    <div class="uk-navbar-container">
+
+        <div class="uk-container uk-container-expand">
+            <nav class="uk-navbar" uk-navbar="{&quot;align&quot;:&quot;left&quot;,&quot;boundary&quot;:&quot;!.uk-navbar-container&quot;,&quot;dropbar&quot;:true,&quot;dropbar-anchor&quot;:&quot;!.uk-navbar-container&quot;,&quot;dropbar-mode&quot;:&quot;slide&quot;}">
+
+                <div class="uk-navbar-left">
+
+
+                    <a href="http://localhost/warp8" class="uk-navbar-item uk-logo">
+                        <img src="/warp8/images/yootheme/logo.svg" class="uk-responsive-height" alt="Jack Baker11111"><img src="/warp8/images/yootheme/logo-inverted.svg" class="uk-responsive-height uk-logo-inverse" alt="Jack Baker11111"></a>
+
+
+                    <ul class="uk-navbar-nav">
+
+                        <li class="uk-active"><a href="/warp8/" title="test">Home</a></li>
+                        <li class="uk-parent"><a href="/warp8/work">Work</a>
+                            <div class="uk-navbar-dropdown"><div class="uk-navbar-dropdown-grid uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid=""><div><ul class="uk-nav uk-navbar-dropdown-nav">
+
+                                <li><a href="/warp8/work/work-gallery">Work Gallery</a></li>
+                                <li><a href="/warp8/work/categories">Categories</a></li></ul></div></div></div></li>
+                        <li class="uk-parent"><a href="/warp8/stories">Stories</a>
+                            <div class="uk-navbar-dropdown"><div class="uk-navbar-dropdown-grid uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid=""><div><ul class="uk-nav uk-navbar-dropdown-nav">
+
+                                <li><a href="/warp8/stories/benjamin-smoke">Benjamin Smoke</a></li>
+                                <li><a href="/warp8/stories/chloe-dann">Chloé &amp; Marc</a></li></ul></div></div></div></li>
+                        <li class="uk-parent"><a href="/warp8/editor-s-pick">Editor's pick</a>
+                            <div class="uk-navbar-dropdown"><div class="uk-navbar-dropdown-grid uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid=""><div><ul class="uk-nav uk-navbar-dropdown-nav">
+
+                                <li><a href="/warp8/editor-s-pick/gian-paolo-e-marco">Gian Paolo e Marco</a></li></ul></div></div></div></li>
+                        <li><a href="/warp8/about">About</a></li>
+                        <li class="uk-parent"><a href="/warp8/services">Services</a>
+                            <div class="uk-navbar-dropdown"><div class="uk-navbar-dropdown-grid uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid=""><div><ul class="uk-nav uk-navbar-dropdown-nav">
+
+                                <li><a href="/warp8/services/portrait-photography">Portrait Photography</a></li></ul></div></div></div></li>
+                        <li class="uk-parent"><a href="/warp8/journal">Journal</a>
+                            <div class="uk-navbar-dropdown"><div class="uk-navbar-dropdown-grid uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid=""><div><ul class="uk-nav uk-navbar-dropdown-nav">
+
+                                <li><a href="/warp8/journal/featured-articles">Featured Articles</a></li></ul></div></div></div></li>
+                        <li class="uk-parent"><a href="#">Text Separator</a>
+                            <div class="uk-navbar-dropdown" uk-drop="{&quot;clsDrop&quot;:&quot;uk-navbar-dropdown&quot;,&quot;flip&quot;:&quot;x&quot;,&quot;pos&quot;:&quot;bottom-left&quot;,&quot;mode&quot;:&quot;click&quot;}"><div class="uk-navbar-dropdown-grid uk-child-width-1-1 uk-grid uk-grid-stack" uk-grid=""><div><ul class="uk-nav uk-navbar-dropdown-nav">
+
+                                <li><a href="#selected-projects">Selected Projects</a></li></ul></div></div></div></li></ul>
+
+                    <div class="uk-navbar-item" id="module-tm-1">
+
+
+
+
+                        <a href="#search-tm-1-modal" uk-search-icon="" uk-toggle="" class="uk-search-icon uk-icon"><svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" ratio="1"><circle fill="none" stroke="#000" stroke-width="1.1" cx="9" cy="9" r="7"></circle><path fill="none" stroke="#000" stroke-width="1.1" d="M14,14 L18,18 L14,14 Z"></path></svg></a>
+
+                        <div id="search-tm-1-modal" class="uk-modal-full uk-modal" uk-modal="">
+                            <div class="uk-modal-dialog uk-flex uk-flex-center uk-flex-middle" uk-height-viewport="" style="box-sizing: border-box; min-height: 100vh; height: 100vh;">
+                                <button class="uk-modal-close-full uk-close uk-icon" type="button" uk-close=""><svg width="14" height="14" viewBox="0 0 14 14" xmlns="http://www.w3.org/2000/svg" ratio="1"><line fill="none" stroke="#000" stroke-width="1.1" x1="1" y1="1" x2="13" y2="13"></line><line fill="none" stroke="#000" stroke-width="1.1" x1="13" y1="1" x2="1" y2="13"></line></svg></button>
+                                <div class="uk-search uk-search-large">
+                                    <form id="search-tm-1" action="/warp8/" method="post" role="search" class="uk-search uk-search-large">
+                                        <input name="searchword" placeholder="Search" type="search" class="uk-search-input uk-text-center" autofocus="">
+                                        <input type="hidden" name="task" value="search">
+                                        <input type="hidden" name="option" value="com_search">
+                                        <input type="hidden" name="Itemid" value="101">
+                                    </form>            </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="uk-navbar-right">
+
+
+
+                    <div class="uk-navbar-item" id="module-94">
+
+
+
+                        <div class="custom "><p><a class="uk-button uk-button-text" href="/warp8/?id=24">Book me</a></p></div>
+
+                    </div>
+
+
+                </div>
+
+            </nav>
+        </div>
+
+    </div>
+
         <div class="uk-container uk-margin">
+
+
 
             <h1>Navbar</h1>
 
@@ -1879,7 +1976,7 @@
 
         <div class="uk-container">
 
-            <h2>Javascript Options</h2>
+            <h2>JavaScript Options</h2>
 
             <div class="uk-overflow-auto">
                 <table class="uk-table uk-table-striped">
