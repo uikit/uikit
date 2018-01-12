@@ -1,4 +1,4 @@
-import { css, flipPosition, includes, isRtl, positionAt, removeClasses, toggleClass, toNumber } from '../util/index';
+import { $, css, flipPosition, includes, isNumeric, isRtl, offset as getOffset, positionAt, removeClasses, toggleClass } from '../util/index';
 
 export default {
 
@@ -36,17 +36,27 @@ export default {
 
         positionAt(element, target, boundary) {
 
+            this._resetComputeds();
+
             removeClasses(element, `${this.clsPos}-(top|bottom|left|right)(-[a-z]+)?`);
             css(element, {top: '', left: ''});
 
-            var offset = toNumber(this.offset) || 0,
-                axis = this.getAxis(),
-                {x, y} = positionAt(
+            var node,
+                offset = this.offset,
+                axis = this.getAxis();
+
+            offset = isNumeric(offset)
+                ? offset
+                : (node = $(offset))
+                    ? getOffset(node)[axis === 'x' ? 'left' : 'top'] - getOffset(target)[axis === 'x' ? 'right' : 'bottom']
+                    : 0;
+
+            var {x, y} = positionAt(
                     element,
                     target,
                     axis === 'x' ? `${flipPosition(this.dir)} ${this.align}` : `${this.align} ${flipPosition(this.dir)}`,
                     axis === 'x' ? `${this.dir} ${this.align}` : `${this.align} ${this.dir}`,
-                    axis === 'x' ? `${this.dir === 'left' ? -1 * offset : offset}` : ` ${this.dir === 'top' ? -1 * offset : offset}`,
+                    axis === 'x' ? `${this.dir === 'left' ? -offset : offset}` : ` ${this.dir === 'top' ? -offset : offset}`,
                     null,
                     this.flip,
                     boundary

@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {util, mixin} = UIkit;
-    var {append, attr, doc, fastdom, flipPosition, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, remove, within} = util;
+    var {append, attr, doc, flipPosition, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, remove, within} = util;
 
     var actives = [];
 
@@ -13,7 +13,7 @@ function plugin(UIkit) {
 
         attrs: true,
 
-        mixins: [mixin.togglable, mixin.position],
+        mixins: [mixin.container, mixin.togglable, mixin.position],
 
         props: {
             delay: Number,
@@ -31,7 +31,7 @@ function plugin(UIkit) {
         },
 
         connected() {
-            fastdom.write(() => attr(this.$el, {title: null, 'aria-expanded': false}));
+            attr(this.$el, {title: null, 'aria-expanded': false});
         },
 
         disconnected() {
@@ -53,7 +53,7 @@ function plugin(UIkit) {
 
                 clearTimeout(this.showTimer);
 
-                this.tooltip = append(UIkit.container, `<div class="${this.clsPos}" aria-hidden><div class="${this.clsPos}-inner">${this.title}</div></div>`);
+                this.tooltip = append(this.container, `<div class="${this.clsPos}" aria-hidden><div class="${this.clsPos}-inner">${this.title}</div></div>`);
 
                 attr(this.$el, 'aria-expanded', true);
 
@@ -106,7 +106,7 @@ function plugin(UIkit) {
                 }
             },
 
-            'blur': 'hide',
+            blur: 'hide',
 
             [pointerLeave](e) {
                 if (!isTouch(e)) {

@@ -18,6 +18,15 @@ export function hasOwn(obj, key) {
 
 export const Promise = 'Promise' in window ? window.Promise : promiseFn;
 
+export class Deferred {
+    constructor() {
+        this.promise = new Promise((resolve, reject) => {
+            this.reject = reject;
+            this.resolve = resolve;
+        });
+    }
+}
+
 const classifyRe = /(?:^|[-_\/])(\w)/g;
 
 export function classify(str) {
@@ -53,7 +62,7 @@ export function startsWith(str, search) {
     return startsWithFn.call(str, search);
 }
 
-var endsWithFn = strPrototype.endsWith || function (search) { return this.substr(-1 * search.length) === search; };
+var endsWithFn = strPrototype.endsWith || function (search) { return this.substr(-search.length) === search; };
 
 export function endsWith(str, search) {
     return endsWithFn.call(str, search);

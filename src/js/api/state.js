@@ -85,12 +85,21 @@ export default function (UIkit) {
 
     UIkit.prototype._initProps = function (props) {
 
+        var key;
+
         this._resetComputeds();
-        assign(this.$props, props || getProps(this.$options, this.$name));
+
+        props = props || getProps(this.$options, this.$name);
+
+        for (key in props) {
+            if (!isUndefined(props[key])) {
+                this.$props[key] = props[key];
+            }
+        }
 
         var exclude = [this.$options.computed, this.$options.methods];
-        for (var key in this.$props) {
-            if (notIn(exclude, key)) {
+        for (key in this.$props) {
+            if (key in props && notIn(exclude, key)) {
                 this[key] = this.$props[key];
             }
         }
@@ -231,7 +240,7 @@ export default function (UIkit) {
             event = ({name: key, handler: event});
         }
 
-        var {name, el, delegate, self, filter, handler} = event;
+        var {name, el, handler, capture, delegate, filter, self} = event;
         el = isFunction(el)
             ? el.call(component)
             : el || component.$el;
@@ -260,7 +269,8 @@ export default function (UIkit) {
                     : isString(delegate)
                         ? delegate
                         : delegate.call(component),
-                handler
+                handler,
+                capture
             )
         );
 

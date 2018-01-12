@@ -1,0 +1,86 @@
+// Name:            Slider
+// Description:     Component to create horizontal sliders
+//
+// Component:       `uk-slider`
+//
+// Sub-objects:     `uk-slider-items`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+/* ========================================================================
+   Component: Slider
+ ========================================================================== */
+
+/*
+ * 1. Clip child elements
+ * 2. Prevent tab highlighting on iOS.
+ */
+
+.uk-slider {
+    /* 1 */
+    overflow: hidden;
+    /* 1 */
+    -webkit-tap-highlight-color: transparent;
+    .hook-slider;
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * 1. Optimize animation
+ */
+
+.uk-slider-items {
+    /* 1 */
+    will-change: transform;
+}
+
+/*
+ * 1. Reset list style without interfering with grid
+ * 2. Prevent displaying the callout information on iOS.
+ */
+
+.uk-slider-items:not(.uk-grid) {
+    display: flex;
+    /* 1 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 2 */
+    -webkit-touch-callout: none;
+}
+
+.uk-slider-items.uk-grid { flex-wrap: nowrap; }
+
+
+/* Item
+ ========================================================================== */
+
+/*
+ * 1. Let items take content dimensions (0 0 auto)
+ * 2. Create position context
+ * 3. Clip child elements
+ */
+
+.uk-slider-items > * {
+    /* 1 */
+    flex: none;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    overflow: hidden;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-slider-misc;
+
+.hook-slider() {}
+.hook-slider-misc() {}

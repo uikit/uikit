@@ -44,11 +44,11 @@ export default function (UIkit) {
 
     function applyMutation(mutation) {
 
-        var {attributeName, target, type} = mutation;
+        var {target, type} = mutation;
 
         var update = type !== 'attributes'
             ? applyChildList(mutation)
-            : attributeName === 'href' || applyAttribute(mutation);
+            : applyAttribute(mutation);
 
         update && UIkit.update(createEvent('update', true, false, {mutation: true}), target, true);
 
