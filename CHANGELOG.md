@@ -1,5 +1,12 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix origin modifier for programmatically triggered animations
+- Dialogs correctly cleanup after closing
+
 ## 3.0.0 beta 36 (January 11, 2018)
 
 ### Added
