@@ -7,6 +7,7 @@
 - Fix origin modifier for programmatically triggered animations
 - Dialogs correctly cleanup after closing
 - Fix missing container option on Tooltip component
+- Fix positioning of Dropdowns in Dropbar
 
 ## 3.0.0 beta 36 (January 11, 2018)
 
@@ -538,7 +539,7 @@
 
 ### Fixed
 
-- Fix prefixed Javascript not working
+- Fix prefixed JavaScript not working
 - Fix beta 8 regression with Scrollspy targets
 - Fix width-expand not wrapping into next row in rare cases (Safari)
 
