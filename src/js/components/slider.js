@@ -69,7 +69,7 @@ function plugin(UIkit) {
 
                 css(this.slides, 'order', '');
 
-                return sets && this.slides.reduce((sets, slide, i) => {
+                sets = sets && this.slides.reduce((sets, slide, i) => {
 
                     var slideWidth = slide.offsetWidth,
                         slideLeft = Transitioner.getElLeft(slide, this.list),
@@ -98,6 +98,8 @@ function plugin(UIkit) {
                     return sets;
 
                 }, []);
+
+                return sets && sets.length && sets;
 
             },
 

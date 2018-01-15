@@ -8,6 +8,7 @@
 - Dialogs correctly cleanup after closing
 - Fix missing container option on Tooltip component
 - Fix positioning of Dropdowns in Dropbar
+- Fix browser freezing on Slider resize
 
 ## 3.0.0 beta 36 (January 11, 2018)
 
