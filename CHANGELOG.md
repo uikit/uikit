@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add `beforeConnect` and `beforeDisconnect` component hooks
+
 ### Fixed
 
 - Fix origin modifier for programmatically triggered animations

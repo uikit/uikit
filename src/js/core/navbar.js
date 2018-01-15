@@ -52,7 +52,7 @@ export default function (UIkit) {
 
         },
 
-        connected() {
+        beforeConnect() {
 
             var dropbar = this.$props.dropbar;
 
