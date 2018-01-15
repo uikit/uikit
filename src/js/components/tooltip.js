@@ -30,8 +30,8 @@ function plugin(UIkit) {
             clsPos: 'uk-tooltip'
         },
 
-        connected() {
-            attr(this.$el, {title: null, 'aria-expanded': false});
+        beforeConnect() {
+            attr(this.$el, {title: '', 'aria-expanded': false});
         },
 
         disconnected() {
