@@ -14,6 +14,7 @@
 
 ### Added
 
+- Add Slider component
 - Add RTL support to Slideshow component
 - Add reactive navigation to Slideshow component
 - Hide slideshow navigation if slideshow contains single slide only
