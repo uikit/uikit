@@ -36,6 +36,7 @@ function plugin(UIkit) {
 
         disconnected() {
             this.hide();
+            attr(this.$el, {title: this.title, 'aria-expanded': ''});
         },
 
         methods: {

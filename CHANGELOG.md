@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Tooltip in Accordion loosing title
+
 ## 3.0.0 beta 37 (January 16, 2018)
 
 ### Added
