@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.36 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.37 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -4039,7 +4039,7 @@ ul.uk-nav-sub {
  */
 .uk-navbar-dropbar-slide {
   position: absolute;
-  z-index: 1019;
+  z-index: 980;
   right: 0;
   left: 0;
   box-shadow: 0 5px 7px rgba(0, 0, 0, 0.05);
