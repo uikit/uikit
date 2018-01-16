@@ -44,7 +44,7 @@ function plugin(UIkit) {
 
             var marginBottom = toFloat(css(this.$el, 'marginBottom'));
             Transition.start(
-                css(this.$el, {opacity: 0, marginTop: -1 * this.$el.offsetHeight, marginBottom: 0}),
+                css(this.$el, {opacity: 0, marginTop: -this.$el.offsetHeight, marginBottom: 0}),
                 {opacity: 1, marginTop: 0, marginBottom}
             ).then(() => {
                 if (this.timeout) {
@@ -101,7 +101,7 @@ function plugin(UIkit) {
                 } else {
                     Transition.start(this.$el, {
                         opacity: 0,
-                        marginTop: -1 * this.$el.offsetHeight,
+                        marginTop: -this.$el.offsetHeight,
                         marginBottom: 0
                     }).then(removeFn);
                 }

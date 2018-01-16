@@ -1,9 +1,26 @@
 # Changelog
 
+## 3.0.0 beta 37 (January 16, 2018)
+
+### Added
+
+- Add `beforeConnect` and `beforeDisconnect` component hooks
+
+### Fixed
+
+- Fix origin modifier for programmatically triggered animations
+- Dialogs correctly cleanup after closing
+- Fix missing container option on Tooltip component
+- Fix positioning of Dropdowns in Dropbar
+- Fix browser freezing on Slider resize
+- Fix Custom Form initial value
+- Fix Tooltip removing title attribute
+
 ## 3.0.0 beta 36 (January 11, 2018)
 
 ### Added
 
+- Add Slider component
 - Add RTL support to Slideshow component
 - Add reactive navigation to Slideshow component
 - Hide slideshow navigation if slideshow contains single slide only
@@ -530,7 +547,7 @@
 
 ### Fixed
 
-- Fix prefixed Javascript not working
+- Fix prefixed JavaScript not working
 - Fix beta 8 regression with Scrollspy targets
 - Fix width-expand not wrapping into next row in rare cases (Safari)
 

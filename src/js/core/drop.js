@@ -1,5 +1,5 @@
 import { Position, Togglable } from '../mixin/index';
-import { $$, addClass, Animation, attr, css, docEl, includes, isString, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointInRect, query, removeClass, removeClasses, toggleClass, trigger, win, within } from '../util/index';
+import { $$, addClass, Animation, attr, css, docEl, includes, isString, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointInRect, query, removeClass, removeClasses, toggleClass, win, within } from '../util/index';
 
 export default function (UIkit) {
 
@@ -217,6 +217,7 @@ export default function (UIkit) {
                 self: true,
 
                 handler() {
+                    this.position();
                     this.tracker.init();
                     addClass(this.toggle.$el, this.cls);
                     attr(this.toggle.$el, 'aria-expanded', 'true');
@@ -278,12 +279,7 @@ export default function (UIkit) {
 
             show(toggle, delay = true) {
 
-                var show = () => {
-                        if (!this.isToggled()) {
-                            this.position();
-                            this.toggleElement(this.$el, true);
-                        }
-                    },
+                var show = () => !this.isToggled() && this.toggleElement(this.$el, true),
                     tryShow = () => {
 
                         this.toggle = toggle || this.toggle;
@@ -383,7 +379,6 @@ export default function (UIkit) {
                     css(this.$el, prop, alignTo[prop]);
                 } else if (this.$el.offsetWidth > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
                     addClass(this.$el, `${this.clsDrop}-stack`);
-                    trigger(this.$el, 'stack', [this]);
                 }
 
                 this.positionAt(this.$el, this.boundaryAlign ? this.boundary : this.toggle.$el, this.boundary);

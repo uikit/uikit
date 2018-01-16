@@ -64,7 +64,7 @@ export default function (UIkit) {
             if (this.isActive) {
                 this.isActive = false;
                 this.hide();
-                removeClass(this.$el, this.clsInactive);
+                removeClass(this.selTarget, this.clsInactive);
             }
 
             remove(this.placeholder);
