@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add support to center elements outside of a container to Position component
+
 ### Fixed
 
 - Fix Tooltip in Accordion loosing title
