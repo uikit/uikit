@@ -118,7 +118,7 @@ function plugin(UIkit) {
                 if (!force && stack.length > 1) {
 
                     if (stack.length === 2) {
-                        this._transitioner.forward(200);
+                        this._transitioner.forward(Math.min(this.duration, 200));
                     }
 
                     return;
@@ -194,7 +194,7 @@ function plugin(UIkit) {
                 }
 
                 var length = this.stack.length;
-                return this._transitioner[length > 1 ? 'forward' : 'show'](length > 1 ? 75 + 75 / (length - 1) : this.duration, this.percent);
+                return this._transitioner[length > 1 ? 'forward' : 'show'](length > 1 ? Math.min(this.duration, 75 + 75 / (length - 1)) : this.duration, this.percent);
 
             },
 
