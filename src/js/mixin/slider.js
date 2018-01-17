@@ -32,7 +32,6 @@ function plugin(UIkit) {
             percent: 0,
             clsActive: 'uk-active',
             clsActivated: 'uk-transition-active',
-            easingOut: 'cubic-bezier(0.250, 0.460, 0.450, 0.940)', /* easeOutQuad */
             Transitioner: false,
             transitionOptions: {}
         },
@@ -185,7 +184,11 @@ function plugin(UIkit) {
                     prev,
                     next,
                     this.dir,
-                    assign({easing: force ? this.easingOut : this.easing}, this.transitionOptions)
+                    assign({easing: force
+                            ? next.offsetWidth < 600
+                                ? 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' /* easeOutQuad */
+                                : 'cubic-bezier(0.165, 0.84, 0.44, 1)' /* easeOutQuart */
+                            : this.easing}, this.transitionOptions)
                 );
 
                 if (!force && !prev) {
