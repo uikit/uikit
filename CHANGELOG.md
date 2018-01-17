@@ -15,6 +15,7 @@
 
 - Fix Tooltip in Accordion loosing title
 - Fix Inverse mode (Light and Dark) in tests
+- Fix component getter
 
 ## 3.0.0 beta 37 (January 16, 2018)
 
