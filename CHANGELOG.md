@@ -4,7 +4,6 @@
 
 ### Added
 
-- Add object-fit classes to Utility component
 - Add support to center elements outside of a container to Position component
 
 ### Changed
