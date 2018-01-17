@@ -6,6 +6,11 @@
 
 - Add support to center elements outside of a container to Position component
 
+### Changed
+
+- Add `uk-slider-container` class to clip the Slider component
+- Removed auto-clipping from Slider items. Use `uk-cover-container` instead.
+
 ### Fixed
 
 - Fix Tooltip in Accordion loosing title
