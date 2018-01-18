@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.0.0 beta 37 (January 18, 2018)
+## 3.0.0 beta 38 (January 18, 2018)
 
 ### Added
 
