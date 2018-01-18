@@ -3,7 +3,8 @@
 //
 // Component:       `uk-slider`
 //
-// Sub-objects:     `uk-slider-items`
+// Sub-objects:     `uk-slider-container`
+//                  `uk-slider-items`
 //
 // States:          `uk-active`
 //
@@ -15,18 +16,27 @@
  ========================================================================== */
 
 /*
- * 1. Clip child elements
- * 2. Prevent tab highlighting on iOS.
+ * 1. Prevent tab highlighting on iOS.
  */
 
 .uk-slider {
-    /* 1 */
-    overflow: hidden;
     /* 1 */
     -webkit-tap-highlight-color: transparent;
     @if(mixin-exists(hook-slider)) {@include hook-slider();}
 }
 
+
+/* Container
+ ========================================================================== */
+
+/*
+ * 1. Clip child elements
+ */
+
+.uk-slider-container {
+    /* 1 */
+    overflow: hidden;
+}
 
 /* Items
  ========================================================================== */
@@ -64,7 +74,6 @@
 /*
  * 1. Let items take content dimensions (0 0 auto)
  * 2. Create position context
- * 3. Clip child elements
  */
 
 .uk-slider-items > * {
@@ -72,8 +81,6 @@
     flex: none;
     /* 2 */
     position: relative;
-    /* 3 */
-    overflow: hidden;
 }
 
 
