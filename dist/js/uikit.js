@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.37 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.38 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -398,7 +398,7 @@ function css(element, property, value) {
             var styles = getStyles(element);
 
             return property.reduce(function (props, property) {
-                props[property] = propName(styles[property]);
+                props[property] = styles[propName(property)];
                 return props;
             }, {});
 
@@ -427,7 +427,7 @@ function getCssVar(name) {
 
     if (!(name in vars$1)) {
 
-        /* usage in css:  .var-name:before { content:"xyz" } */
+        /* usage in css: .var-name:before { content:"xyz" } */
 
         var element = append(docEl, doc.createElement('div'));
 
@@ -651,10 +651,10 @@ function position(element) {
         parentOffset = parent === docEl$1(element) ? {top: 0, left: 0} : offset(parent);
 
     return ['top', 'left'].reduce(function (props, prop) {
-        var propName = ucfirst(prop);
+        var propName$$1 = ucfirst(prop);
         props[prop] -= parentOffset[prop]
-            + (toFloat(css(element, ("margin" + propName))) || 0)
-            + (toFloat(css(parent, ("border" + propName + "Width"))) || 0);
+            + (toFloat(css(element, ("margin" + propName$$1))) || 0)
+            + (toFloat(css(parent, ("border" + propName$$1 + "Width"))) || 0);
         return props;
     }, offset(element));
 }
@@ -674,7 +674,7 @@ var height = dimension('height');
 var width = dimension('width');
 
 function dimension(prop) {
-    var propName = ucfirst(prop);
+    var propName$$1 = ucfirst(prop);
     return function (element, value) {
 
         element = toNode(element);
@@ -682,7 +682,7 @@ function dimension(prop) {
         if (isUndefined(value)) {
 
             if (isWindow(element)) {
-                return element[("inner" + propName)];
+                return element[("inner" + propName$$1)];
             }
 
             if (isDocument(element)) {
@@ -691,7 +691,7 @@ function dimension(prop) {
             }
 
             value = css(element, prop);
-            value = value === 'auto' ? element[("offset" + propName)] : toFloat(value) || 0;
+            value = value === 'auto' ? element[("offset" + propName$$1)] : toFloat(value) || 0;
 
             return getContentSize(prop, element, value);
 
@@ -830,7 +830,11 @@ function transition(element, props, duration, timing) {
 
                 clearTimeout(timer);
                 removeClass(element, 'uk-transition');
-                css(element, 'transition', '');
+                css(element, {
+                    'transition-property': '',
+                    'transition-duration': '',
+                    'transition-timing-function': ''
+                });
                 type === 'transitioncanceled' ? reject() : resolve();
             }, false, function (ref) {
                 var target = ref.target;
@@ -839,7 +843,11 @@ function transition(element, props, duration, timing) {
             });
 
             addClass(element, 'uk-transition');
-            css(element, assign({transition: ("all " + duration + "ms " + timing)}, props));
+            css(element, assign({
+                'transition-property': Object.keys(props).map(propName).join(','),
+                'transition-duration': (duration + "ms"),
+                'transition-timing-function': timing
+            }, props));
 
         }); }
     ));
@@ -2439,6 +2447,7 @@ var util = Object.freeze({
 	getStyles: getStyles,
 	getStyle: getStyle,
 	getCssVar: getCssVar,
+	propName: propName,
 	addClass: addClass,
 	removeClass: removeClass,
 	removeClasses: removeClasses,
@@ -2518,7 +2527,7 @@ function componentAPI (UIkit) {
 
                 var cmp = UIkit.getComponent(element, name);
 
-                if (cmp) {
+                if (cmp && data) {
                     cmp.$reset(data);
                 }
 
@@ -7375,7 +7384,7 @@ function core (UIkit) {
 
 }
 
-UIkit$2.version = '3.0.0-beta.37';
+UIkit$2.version = '3.0.0-beta.38';
 
 mixin(UIkit$2);
 core(UIkit$2);
@@ -8315,7 +8324,6 @@ function plugin$5(UIkit) {
             percent: 0,
             clsActive: 'uk-active',
             clsActivated: 'uk-transition-active',
-            easingOut: 'cubic-bezier(0.250, 0.460, 0.450, 0.940)', /* easeOutQuad */
             Transitioner: false,
             transitionOptions: {}
         },
@@ -8416,7 +8424,7 @@ function plugin$5(UIkit) {
                 if (!force && stack.length > 1) {
 
                     if (stack.length === 2) {
-                        this._transitioner.forward(200);
+                        this._transitioner.forward(Math.min(this.duration, 200));
                     }
 
                     return;
@@ -8489,7 +8497,11 @@ function plugin$5(UIkit) {
                     prev,
                     next,
                     this.dir,
-                    assign({easing: force ? this.easingOut : this.easing}, this.transitionOptions)
+                    assign({easing: force
+                            ? next.offsetWidth < 600
+                                ? 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' /* easeOutQuad */
+                                : 'cubic-bezier(0.165, 0.84, 0.44, 1)' /* easeOutQuart */
+                            : this.easing}, this.transitionOptions)
                 );
 
                 if (!force && !prev) {
@@ -8498,7 +8510,7 @@ function plugin$5(UIkit) {
                 }
 
                 var length = this.stack.length;
-                return this._transitioner[length > 1 ? 'forward' : 'show'](length > 1 ? 75 + 75 / (length - 1) : this.duration, this.percent);
+                return this._transitioner[length > 1 ? 'forward' : 'show'](length > 1 ? Math.min(this.duration, 75 + 75 / (length - 1)) : this.duration, this.percent);
 
             },
 
@@ -9915,6 +9927,7 @@ function plugin$9(UIkit) {
 
     var mixin = UIkit.mixin;
     var ref = UIkit.util;
+    var $ = ref.$;
     var $$ = ref.$$;
     var css = ref.css;
     var data = ref.data;
@@ -9939,10 +9952,15 @@ function plugin$9(UIkit) {
             attrItem: 'uk-slider-item',
             selList: '.uk-slider-items',
             selNav: '.uk-slider-nav',
+            clsContainer: 'uk-slider-container',
             Transitioner: Transitioner
         },
 
         computed: {
+
+            avgWidth: function avgWidth() {
+                return Transitioner.getWidth(this.list) / this.length;
+            },
 
             finite: function finite(ref) {
                 var finite = ref.finite;
@@ -10029,6 +10047,10 @@ function plugin$9(UIkit) {
 
         },
 
+        connected: function connected() {
+            toggleClass(this.$el, this.clsContainer, !$(("." + (this.clsContainer)), this.$el));
+        },
+
         update: {
 
             write: function write() {
@@ -10071,7 +10093,12 @@ function plugin$9(UIkit) {
                     return;
                 }
 
-                this.duration = speedUp((this.dir < 0 || !this.slides[this.prevIndex] ? this.slides[this.index] : this.slides[this.prevIndex]).offsetWidth / this.velocity);
+                this.duration = speedUp(this.avgWidth / this.velocity)
+                    * ((
+                        this.dir < 0 || !this.slides[this.prevIndex]
+                            ? this.slides[this.index]
+                            : this.slides[this.prevIndex]
+                    ).offsetWidth / this.avgWidth);
 
                 this.reorder();
 
@@ -10275,78 +10302,21 @@ function AnimationsPlugin$2 (UIkit) {
 
 }
 
-function plugin$10(UIkit) {
+function plugin$11(UIkit) {
 
-    if (plugin$10.installed) {
+    if (plugin$11.installed) {
         return;
     }
 
     UIkit.use(plugin$8);
-    UIkit.use(plugin$4);
 
     var mixin = UIkit.mixin;
     var ref = UIkit.util;
     var closest = ref.closest;
     var css = ref.css;
     var endsWith = ref.endsWith;
-    var height = ref.height;
     var noop = ref.noop;
     var Transition = ref.Transition;
-
-    var Animations = AnimationsPlugin$2(UIkit);
-
-    UIkit.component('slideshow', {
-
-        mixins: [mixin.class, mixin.slideshow, SliderReactive(UIkit)],
-
-        props: {
-            ratio: String,
-            minHeight: Boolean,
-            maxHeight: Boolean,
-        },
-
-        defaults: {
-            ratio: '16:9',
-            minHeight: false,
-            maxHeight: false,
-            selList: '.uk-slideshow-items',
-            attrItem: 'uk-slideshow-item',
-            selNav: '.uk-slideshow-nav',
-            Animations: Animations
-        },
-
-        update: {
-
-            read: function read() {
-
-                var ref = this.ratio.split(':').map(Number);
-                var width = ref[0];
-                var height = ref[1];
-
-                height = height * this.$el.offsetWidth / width;
-
-                if (this.minHeight) {
-                    height = Math.max(this.minHeight, height);
-                }
-
-                if (this.maxHeight) {
-                    height = Math.min(this.maxHeight, height);
-                }
-
-                return {height: height};
-            },
-
-            write: function write(ref) {
-                var hgt = ref.height;
-
-                height(this.list, Math.floor(hgt));
-            },
-
-            events: ['load', 'resize']
-
-        }
-
-    });
 
     UIkit.component('slideshow-parallax', {
 
@@ -10468,11 +10438,81 @@ function plugin$10(UIkit) {
 
 }
 
-function plugin$11(UIkit) {
+function plugin$10(UIkit) {
+
+    if (plugin$10.installed) {
+        return;
+    }
+
+    UIkit.use(plugin$11);
+    UIkit.use(plugin$4);
+
+    var mixin = UIkit.mixin;
+    var ref = UIkit.util;
+    var height = ref.height;
+
+    var Animations = AnimationsPlugin$2(UIkit);
+
+    UIkit.component('slideshow', {
+
+        mixins: [mixin.class, mixin.slideshow, SliderReactive(UIkit)],
+
+        props: {
+            ratio: String,
+            minHeight: Boolean,
+            maxHeight: Boolean,
+        },
+
+        defaults: {
+            ratio: '16:9',
+            minHeight: false,
+            maxHeight: false,
+            selList: '.uk-slideshow-items',
+            attrItem: 'uk-slideshow-item',
+            selNav: '.uk-slideshow-nav',
+            Animations: Animations
+        },
+
+        update: {
+
+            read: function read() {
+
+                var ref = this.ratio.split(':').map(Number);
+                var width = ref[0];
+                var height = ref[1];
+
+                height = height * this.$el.offsetWidth / width;
+
+                if (this.minHeight) {
+                    height = Math.max(this.minHeight, height);
+                }
+
+                if (this.maxHeight) {
+                    height = Math.min(this.maxHeight, height);
+                }
+
+                return {height: height};
+            },
+
+            write: function write(ref) {
+                var hgt = ref.height;
+
+                height(this.list, Math.floor(hgt));
+            },
+
+            events: ['load', 'resize']
+
+        }
+
+    });
+
+}
+
+function plugin$12(UIkit) {
     var obj;
 
 
-    if (plugin$11.installed) {
+    if (plugin$12.installed) {
         return;
     }
 
@@ -10840,11 +10880,11 @@ function plugin$11(UIkit) {
 
 }
 
-function plugin$12(UIkit) {
+function plugin$13(UIkit) {
     var obj;
 
 
-    if (plugin$12.installed) {
+    if (plugin$13.installed) {
         return;
     }
 
@@ -10854,6 +10894,7 @@ function plugin$12(UIkit) {
     var attr = util.attr;
     var doc = util.doc;
     var flipPosition = util.flipPosition;
+    var hasAttr = util.hasAttr;
     var includes = util.includes;
     var isTouch = util.isTouch;
     var isVisible = util.isVisible;
@@ -10889,11 +10930,13 @@ function plugin$12(UIkit) {
         },
 
         beforeConnect: function beforeConnect() {
+            this._hasTitle = hasAttr(this.$el, 'title');
             attr(this.$el, {title: '', 'aria-expanded': false});
         },
 
         disconnected: function disconnected() {
             this.hide();
+            attr(this.$el, {title: this._hasTitle ? this.title : null, 'aria-expanded': null});
         },
 
         methods: {
@@ -10972,9 +11015,9 @@ function plugin$12(UIkit) {
 
 }
 
-function plugin$13(UIkit) {
+function plugin$14(UIkit) {
 
-    if (plugin$13.installed) {
+    if (plugin$14.installed) {
         return;
     }
 
@@ -11195,9 +11238,9 @@ UIkit$2.use(plugin$6);
 UIkit$2.use(plugin$7);
 UIkit$2.use(plugin$9);
 UIkit$2.use(plugin$10);
-UIkit$2.use(plugin$11);
 UIkit$2.use(plugin$12);
 UIkit$2.use(plugin$13);
+UIkit$2.use(plugin$14);
 
 {
     boot(UIkit$2);
