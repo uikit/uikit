@@ -120,7 +120,7 @@ function isContextSelector(selector) {
 }
 
 var elProto = Element.prototype;
-var matchesFn = elProto.matches || elProto.msMatchesSelector;
+var matchesFn = elProto.matches || elProto.webkitMatchesSelector || elProto.msMatchesSelector;
 
 export function matches(element, selector) {
     return toNodes(element).some(element => matchesFn.call(element, selector));
