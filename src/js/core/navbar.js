@@ -52,7 +52,7 @@ export default function (UIkit) {
 
         },
 
-        connected() {
+        beforeConnect() {
 
             var dropbar = this.$props.dropbar;
 
@@ -77,7 +77,7 @@ export default function (UIkit) {
 
             UIkit.drop(
                 $$(`${this.dropdown} .${this.clsDrop}`, this.$el).filter(el => !UIkit.getComponent(el, 'drop') && !UIkit.getComponent(el, 'dropdown')),
-                assign({}, this.$props, {boundary: this.boundary, pos: this.pos})
+                assign({}, this.$props, {boundary: this.boundary, pos: this.pos, offset: this.dropbar || this.offset })
             );
 
         },
@@ -119,19 +119,21 @@ export default function (UIkit) {
             {
                 name: 'show',
 
+                capture: true,
+
                 filter() {
                     return this.dropbar;
                 },
 
                 handler(_, drop) {
 
+                    if (!this.dropbar.parentNode) {
+                        after(this.dropbarAnchor || this.$el, this.dropbar);
+                    }
+
                     var $el = drop.$el;
 
                     this.clsDrop && addClass($el, `${this.clsDrop}-dropbar`);
-
-                    if (drop.$props.offset === false) {
-                        drop.offset = toFloat(css($el, 'margin-top'));
-                    }
 
                     this.transitionTo($el.offsetHeight + toFloat(css($el, 'margin-top')) + toFloat(css($el, 'margin-bottom')), $el);
                 }
@@ -182,13 +184,8 @@ export default function (UIkit) {
 
             transitionTo(newHeight, el) {
 
-                var dropbar = this.dropbar;
-
-                if (!dropbar.parentNode) {
-                    after(this.dropbarAnchor || this.$el, dropbar);
-                }
-
-                var oldHeight = isVisible(dropbar) ? height(dropbar) : 0;
+                var dropbar = this.dropbar,
+                    oldHeight = isVisible(dropbar) ? height(dropbar) : 0;
 
                 el = oldHeight < newHeight && el;
 

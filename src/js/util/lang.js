@@ -62,7 +62,7 @@ export function startsWith(str, search) {
     return startsWithFn.call(str, search);
 }
 
-var endsWithFn = strPrototype.endsWith || function (search) { return this.substr(-1 * search.length) === search; };
+var endsWithFn = strPrototype.endsWith || function (search) { return this.substr(-search.length) === search; };
 
 export function endsWith(str, search) {
     return endsWithFn.call(str, search);

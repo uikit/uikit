@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.36 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.38 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -4039,7 +4039,7 @@ ul.uk-nav-sub {
  */
 .uk-navbar-dropbar-slide {
   position: absolute;
-  z-index: 1019;
+  z-index: 980;
   left: 0;
   right: 0;
   box-shadow: 0 5px 7px rgba(0, 0, 0, 0.05);
@@ -5237,14 +5237,20 @@ ul.uk-nav-sub {
    Component: Slider
  ========================================================================== */
 /*
- * 1. Clip child elements
- * 2. Prevent tab highlighting on iOS.
+ * 1. Prevent tab highlighting on iOS.
  */
 .uk-slider {
   /* 1 */
-  overflow: hidden;
-  /* 1 */
   -webkit-tap-highlight-color: transparent;
+}
+/* Container
+ ========================================================================== */
+/*
+ * 1. Clip child elements
+ */
+.uk-slider-container {
+  /* 1 */
+  overflow: hidden;
 }
 /* Items
  ========================================================================== */
@@ -5276,15 +5282,12 @@ ul.uk-nav-sub {
 /*
  * 1. Let items take content dimensions (0 0 auto)
  * 2. Create position context
- * 3. Clip child elements
  */
 .uk-slider-items > * {
   /* 1 */
   flex: none;
   /* 2 */
   position: relative;
-  /* 3 */
-  overflow: hidden;
 }
 /* ========================================================================
    Component: Sticky
@@ -8494,8 +8497,8 @@ iframe.uk-cover {
   box-sizing: border-box;
 }
 /* Vertical */
-.uk-position-center-left,
-.uk-position-center-right {
+[class*='uk-position-center-left'],
+[class*='uk-position-center-right'] {
   top: 50%;
   transform: translateY(-50%);
 }
@@ -8504,6 +8507,14 @@ iframe.uk-cover {
 }
 .uk-position-center-right {
   right: 0;
+}
+.uk-position-center-left-out {
+  right: 100%;
+  width: max-content;
+}
+.uk-position-center-right-out {
+  left: 100%;
+  width: max-content;
 }
 /* Horizontal */
 .uk-position-top-center,
@@ -8557,8 +8568,8 @@ iframe.uk-cover {
 .uk-position-small.uk-position-center {
   transform: translate(-50%, -50%) translate(-15px, -15px);
 }
-.uk-position-small.uk-position-center-left,
-.uk-position-small.uk-position-center-right {
+.uk-position-small[class*='uk-position-center-left'],
+.uk-position-small[class*='uk-position-center-right'] {
   transform: translateY(-50%) translateY(-15px);
 }
 .uk-position-small.uk-position-top-center,
@@ -8574,8 +8585,8 @@ iframe.uk-cover {
 .uk-position-medium.uk-position-center {
   transform: translate(-50%, -50%) translate(-30px, -30px);
 }
-.uk-position-medium.uk-position-center-left,
-.uk-position-medium.uk-position-center-right {
+.uk-position-medium[class*='uk-position-center-left'],
+.uk-position-medium[class*='uk-position-center-right'] {
   transform: translateY(-50%) translateY(-30px);
 }
 .uk-position-medium.uk-position-top-center,
@@ -8591,8 +8602,8 @@ iframe.uk-cover {
 .uk-position-large.uk-position-center {
   transform: translate(-50%, -50%) translate(-30px, -30px);
 }
-.uk-position-large.uk-position-center-left,
-.uk-position-large.uk-position-center-right {
+.uk-position-large[class*='uk-position-center-left'],
+.uk-position-large[class*='uk-position-center-right'] {
   transform: translateY(-50%) translateY(-30px);
 }
 .uk-position-large.uk-position-top-center,
@@ -8607,8 +8618,8 @@ iframe.uk-cover {
   .uk-position-large.uk-position-center {
     transform: translate(-50%, -50%) translate(-50px, -50px);
   }
-  .uk-position-large.uk-position-center-left,
-  .uk-position-large.uk-position-center-right {
+  .uk-position-large[class*='uk-position-center-left'],
+  .uk-position-large[class*='uk-position-center-right'] {
     transform: translateY(-50%) translateY(-50px);
   }
   .uk-position-large.uk-position-top-center,

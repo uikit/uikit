@@ -11,7 +11,7 @@ function plugin(UIkit) {
     UIkit.use(Slider);
 
     var {mixin} = UIkit;
-    var {$$, css, data, includes, isNumeric, toggleClass, toFloat} = UIkit.util;
+    var {$, $$, css, data, includes, isNumeric, toggleClass, toFloat} = UIkit.util;
     var Transitioner = TransitionerPlugin(UIkit);
 
     UIkit.component('slider', {
@@ -29,10 +29,15 @@ function plugin(UIkit) {
             attrItem: 'uk-slider-item',
             selList: '.uk-slider-items',
             selNav: '.uk-slider-nav',
+            clsContainer: 'uk-slider-container',
             Transitioner
         },
 
         computed: {
+
+            avgWidth() {
+                return Transitioner.getWidth(this.list) / this.length;
+            },
 
             finite({finite}) {
                 return finite || Transitioner.getWidth(this.list) < this.list.offsetWidth + Transitioner.getMaxWidth(this.list) + this.center;
@@ -69,7 +74,7 @@ function plugin(UIkit) {
 
                 css(this.slides, 'order', '');
 
-                return sets && this.slides.reduce((sets, slide, i) => {
+                sets = sets && this.slides.reduce((sets, slide, i) => {
 
                     var slideWidth = slide.offsetWidth,
                         slideLeft = Transitioner.getElLeft(slide, this.list),
@@ -99,6 +104,8 @@ function plugin(UIkit) {
 
                 }, []);
 
+                return sets && sets.length && sets;
+
             },
 
             transitionOptions() {
@@ -108,6 +115,10 @@ function plugin(UIkit) {
                 };
             }
 
+        },
+
+        connected() {
+            toggleClass(this.$el, this.clsContainer, !$(`.${this.clsContainer}`, this.$el));
         },
 
         update: {
@@ -148,7 +159,12 @@ function plugin(UIkit) {
                     return;
                 }
 
-                this.duration = speedUp((this.dir < 0 || !this.slides[this.prevIndex] ? this.slides[this.index] : this.slides[this.prevIndex]).offsetWidth / this.velocity);
+                this.duration = speedUp(this.avgWidth / this.velocity)
+                    * ((
+                        this.dir < 0 || !this.slides[this.prevIndex]
+                            ? this.slides[this.index]
+                            : this.slides[this.prevIndex]
+                    ).offsetWidth / this.avgWidth);
 
                 this.reorder();
 

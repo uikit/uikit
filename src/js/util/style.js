@@ -41,7 +41,7 @@ export function css(element, property, value) {
             var styles = getStyles(element);
 
             return property.reduce((props, property) => {
-                props[property] = propName(styles[property]);
+                props[property] = styles[propName(property)];
                 return props;
             }, {});
 
@@ -70,7 +70,7 @@ export function getCssVar(name) {
 
     if (!(name in vars)) {
 
-        /* usage in css:  .var-name:before { content:"xyz" } */
+        /* usage in css: .var-name:before { content:"xyz" } */
 
         var element = append(docEl, doc.createElement('div'));
 
@@ -93,7 +93,7 @@ export function getCssVar(name) {
 
 var cssProps = {};
 
-function propName(name) {
+export function propName(name) {
 
     var ret = cssProps[name];
     if (!ret) {

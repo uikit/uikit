@@ -10,13 +10,13 @@ function plugin(UIkit) {
     UIkit.use(Slideshow);
 
     var {mixin, util} = UIkit;
-    var {$, addClass, ajax, append, assign, attr, css, doc, docEl, getImage, html, index, on, pointerDown, pointerMove, removeClass, Transition, trigger} = util;
+    var {$, addClass, ajax, append, assign, attr, css, doc, getImage, html, index, on, pointerDown, pointerMove, removeClass, Transition, trigger} = util;
 
     var Animations = AnimationsPlugin(UIkit);
 
     UIkit.component('lightbox-panel', {
 
-        mixins: [mixin.container, mixin.togglable, mixin.slideshow],
+        mixins: [mixin.container, mixin.modal, mixin.togglable, mixin.slideshow],
 
         functional: true,
 
@@ -29,13 +29,14 @@ function plugin(UIkit) {
             clsPage: 'uk-lightbox-page',
             selList: '.uk-lightbox-items',
             attrItem: 'uk-lightbox-item',
+            selClose: '.uk-close-large',
             pauseOnHover: false,
             velocity: 2,
             Animations,
             template: `<div class="uk-lightbox uk-overflow-hidden">
                             <ul class="uk-lightbox-items"></ul>
                             <div class="uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque">
-                                <button class="uk-lightbox-toolbar-icon uk-close-large" type="button" uk-close uk-toggle="!.uk-lightbox"></button>
+                                <button class="uk-lightbox-toolbar-icon uk-close-large" type="button" uk-close></button>
                              </div>
                             <a class="uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade" href="#" uk-slidenav-previous uk-lightbox-item="previous"></a>
                             <a class="uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade" href="#" uk-slidenav-next uk-lightbox-item="next"></a>
@@ -82,17 +83,6 @@ function plugin(UIkit) {
 
             {
 
-                name: 'show',
-
-                self: true,
-
-                handler() {
-                    addClass(docEl, this.clsPage);
-                }
-            },
-
-            {
-
                 name: 'shown',
 
                 self: true,
@@ -106,17 +96,17 @@ function plugin(UIkit) {
 
                 self: true,
 
-                handler: 'hideControls'
-            },
-
-            {
-
-                name: 'hidden',
-
-                self: true,
-
                 handler() {
-                    removeClass(docEl, this.clsPage);
+
+                    this.hideControls();
+
+                    removeClass(this.slides, this.clsActive);
+                    Transition.stop(this.slides);
+
+                    delete this.index;
+                    delete this.percent;
+                    delete this._transitioner;
+
                 }
             },
 
@@ -135,9 +125,6 @@ function plugin(UIkit) {
                     }
 
                     switch (e.keyCode) {
-                        case 27:
-                            this.hide();
-                            break;
                         case 37:
                             this.show('previous');
                             break;
@@ -146,17 +133,6 @@ function plugin(UIkit) {
                             break;
                     }
                 }
-            },
-
-            {
-
-                name: 'toggle',
-
-                handler(e) {
-                    e.preventDefault();
-                    this.toggle();
-                }
-
             },
 
             {
@@ -293,25 +269,6 @@ function plugin(UIkit) {
         ],
 
         methods: {
-
-            toggle() {
-                return this.isToggled() ? this.hide() : this.show();
-            },
-
-            hide() {
-
-                if (this.isToggled()) {
-                    this.toggleNow(this.$el, false);
-                }
-
-                removeClass(this.slides, this.clsActive);
-                Transition.stop(this.slides);
-
-                delete this.index;
-                delete this.percent;
-                delete this._transitioner;
-
-            },
 
             loadItem(index = this.index) {
 

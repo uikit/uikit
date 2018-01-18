@@ -56,9 +56,14 @@ export default function (UIkit) {
 
         ],
 
-        ready() {
-            var active = this.active !== false && !hasClass(active, this.clsOpen) && this.items[Number(this.active)];
-            if (active) {
+        connected() {
+
+            if (this.active === false) {
+                return;
+            }
+
+            var active = this.items[Number(this.active)];
+            if (active && !hasClass(active, this.clsOpen)) {
                 this.toggle(active, false);
             }
         },

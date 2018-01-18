@@ -240,7 +240,7 @@ export default function (UIkit) {
             event = ({name: key, handler: event});
         }
 
-        var {name, el, delegate, self, filter, handler} = event;
+        var {name, el, handler, capture, delegate, filter, self} = event;
         el = isFunction(el)
             ? el.call(component)
             : el || component.$el;
@@ -269,7 +269,8 @@ export default function (UIkit) {
                     : isString(delegate)
                         ? delegate
                         : delegate.call(component),
-                handler
+                handler,
+                capture
             )
         );
 

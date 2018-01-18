@@ -8,8 +8,6 @@
         <script src="js/test.js"></script>
         <style>
 
-            .uk-overlay { background: rgba(255,255,255,0.8); }
-
             /* JavaScript */
             #js-boundary {
                 height: 300px;
@@ -43,131 +41,159 @@
 
             <h1>Position</h1>
 
-            <div class="uk-child-width-1-2@s" uk-grid>
-                <div>
+            <div class="uk-position-relative">
 
-                    <div class="uk-inline">
-                        <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-top-left">Top Left</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-top-center">Top Center</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-top-right">Top Right</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-center-left">Center Left</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-center">Center Center</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-center-right">Center Right</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-bottom-left">Bottom Left</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-bottom-center">Bottom Center</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-bottom-right">Bottom Right</div>
+                <div class="uk-child-width-1-2@s" uk-grid>
+                    <div>
+
+                        <div class="uk-inline">
+                            <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-top-left">Top Left</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-top-center">Top Center</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-top-right">Top Right</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-center-left">Center Left</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-center">Center Center</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-center-right">Center Right</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-bottom-left">Bottom Left</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-bottom-center">Bottom Center</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-bottom-right">Bottom Right</div>
+                        </div>
+
                     </div>
+                    <div>
 
-                </div>
-                <div>
+                        <div class="uk-inline">
+                            <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-top uk-text-center">Top</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-bottom uk-text-center">Bottom</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-left uk-flex uk-flex-middle">Left</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-right uk-flex uk-flex-middle">Right</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-center">This is a test for text wrapping if centered</div>
+                        </div>
 
-                    <div class="uk-inline">
-                        <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-top uk-text-center">Top</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-bottom uk-text-center">Bottom</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-left uk-flex uk-flex-middle">Left</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-right uk-flex uk-flex-middle">Right</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-center">This is a test for text wrapping if centered</div>
                     </div>
-
                 </div>
+
+                <div class="uk-overlay uk-overlay-primary uk-padding-small uk-position-center-left-out uk-visible@xl">Out</div>
+                <div class="uk-overlay uk-overlay-primary uk-padding-small uk-position-center-right-out uk-visible@xl">Out</div>
+
             </div>
 
             <h2>Small</h2>
 
-            <div class="uk-child-width-1-2@s" uk-grid>
-                <div>
+            <div class="uk-position-relative">
 
-                    <div class="uk-inline">
-                        <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-top-left">Top Left</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-top-center">Top Center</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-top-right">Top Right</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-center-left">Center Left</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-center">Center Center</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-center-right">Center Right</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-bottom-left">Bottom Left</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-bottom-center">Bottom Center</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-bottom-right">Bottom Right</div>
+                <div class="uk-child-width-1-2@s" uk-grid>
+                    <div>
+
+                        <div class="uk-inline">
+                            <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-top-left">Top Left</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-top-center">Top Center</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-top-right">Top Right</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-center-left">Center Left</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-center">Center Center</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-center-right">Center Right</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-bottom-left">Bottom Left</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-bottom-center">Bottom Center</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-bottom-right">Bottom Right</div>
+                        </div>
+
                     </div>
+                    <div>
 
-                </div>
-                <div>
+                        <div class="uk-inline">
+                            <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-top uk-text-center">Top</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-bottom uk-text-center">Bottom</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-left uk-flex uk-flex-middle">Left</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-right uk-flex uk-flex-middle">Right</div>
+                        </div>
 
-                    <div class="uk-inline">
-                        <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-top uk-text-center">Top</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-bottom uk-text-center">Bottom</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-left uk-flex uk-flex-middle">Left</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-small uk-position-right uk-flex uk-flex-middle">Right</div>
                     </div>
-
                 </div>
+
+                <div class="uk-overlay uk-overlay-primary uk-padding-small uk-position-small uk-position-center-left-out uk-visible@xl">Out</div>
+                <div class="uk-overlay uk-overlay-primary uk-padding-small uk-position-small uk-position-center-right-out uk-visible@xl">Out</div>
+
             </div>
 
             <h2>Medium</h2>
 
-            <div class="uk-child-width-1-2@s" uk-grid>
-                <div>
+            <div class="uk-position-relative">
 
-                    <div class="uk-inline">
-                        <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-top-left">Top Left</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-top-center">Top Center</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-top-right">Top Right</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-center-left">Center Left</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-center">Center Center</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-center-right">Center Right</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-bottom-left">Bottom Left</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-bottom-center">Bottom Center</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-bottom-right">Bottom Right</div>
+                <div class="uk-child-width-1-2@s" uk-grid>
+                    <div>
+
+                        <div class="uk-inline">
+                            <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-top-left">Top Left</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-top-center">Top Center</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-top-right">Top Right</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-center-left">Center Left</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-center">Center Center</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-center-right">Center Right</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-bottom-left">Bottom Left</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-bottom-center">Bottom Center</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-bottom-right">Bottom Right</div>
+                        </div>
+
                     </div>
+                    <div>
 
-                </div>
-                <div>
+                        <div class="uk-inline">
+                            <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-top uk-text-center">Top</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-bottom uk-text-center">Bottom</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-left uk-flex uk-flex-middle">Left</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-right uk-flex uk-flex-middle">Right</div>
+                        </div>
 
-                    <div class="uk-inline">
-                        <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-top uk-text-center">Top</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-bottom uk-text-center">Bottom</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-left uk-flex uk-flex-middle">Left</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-medium uk-position-right uk-flex uk-flex-middle">Right</div>
                     </div>
-
                 </div>
+
+                <div class="uk-overlay uk-overlay-primary uk-padding-small uk-position-medium uk-position-center-left-out uk-visible@xl">Out</div>
+                <div class="uk-overlay uk-overlay-primary uk-padding-small uk-position-medium uk-position-center-right-out uk-visible@xl">Out</div>
+
             </div>
 
             <h2>Large</h2>
 
-            <div class="uk-child-width-1-2@s" uk-grid>
-                <div>
+            <div class="uk-position-relative">
 
-                    <div class="uk-inline">
-                        <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-top-left">Top Left</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-top-center">Top Center</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-top-right">Top Right</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-center-left">Center Left</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-center">Center Center</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-center-right">Center Right</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-bottom-left">Bottom Left</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-bottom-center">Bottom Center</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-bottom-right">Bottom Right</div>
+                <div class="uk-child-width-1-2@s" uk-grid>
+                    <div>
+
+                        <div class="uk-inline">
+                            <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-top-left">Top Left</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-top-center">Top Center</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-top-right">Top Right</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-center-left">Center Left</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-center">Center Center</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-center-right">Center Right</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-bottom-left">Bottom Left</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-bottom-center">Bottom Center</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-bottom-right">Bottom Right</div>
+                        </div>
+
                     </div>
+                    <div>
 
-                </div>
-                <div>
+                        <div class="uk-inline">
+                            <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-top uk-text-center">Top</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-bottom uk-text-center">Bottom</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-left uk-flex uk-flex-middle">Left</div>
+                            <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-right uk-flex uk-flex-middle">Right</div>
+                        </div>
 
-                    <div class="uk-inline">
-                        <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-top uk-text-center">Top</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-bottom uk-text-center">Bottom</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-left uk-flex uk-flex-middle">Left</div>
-                        <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-large uk-position-right uk-flex uk-flex-middle">Right</div>
                     </div>
-
                 </div>
+
+                <div class="uk-overlay uk-overlay-primary uk-padding-small uk-position-large uk-position-center-left-out uk-visible@xl">Out</div>
+                <div class="uk-overlay uk-overlay-primary uk-padding-small uk-position-large uk-position-center-right-out uk-visible@xl">Out</div>
+
             </div>
 
             <h2>Cover</h2>
@@ -316,7 +342,7 @@
                     $('#js-element_x').value + ' ' + $('#js-element_y').value,
                     $('#js-target_x').value + ' ' + $('#js-target_y').value,
                     $('#js-offset_x').value + ' ' + $('#js-offset_y').value,
-                    null,
+                    '10 10',
                     $('#js-flip_x').value + $('#js-flip_y').value,
                     boundary
                 );
