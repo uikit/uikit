@@ -1,5 +1,5 @@
 import { attr } from './attr';
-import { css } from './style';
+import { css, propName } from './style';
 import { doc, docEl, win } from './env';
 import { height, width } from './position';
 import { on, once, trigger } from './event';
@@ -46,12 +46,20 @@ export function transition(element, props, duration = 400, timing = 'linear') {
             once(element, 'transitionend transitioncanceled', ({type}) => {
                 clearTimeout(timer);
                 removeClass(element, 'uk-transition');
-                css(element, 'transition', '');
+                css(element, {
+                    'transition-property': '',
+                    'transition-duration': '',
+                    'transition-timing-function': ''
+                });
                 type === 'transitioncanceled' ? reject() : resolve();
             }, false, ({target}) => element === target);
 
             addClass(element, 'uk-transition');
-            css(element, assign({transition: `all ${duration}ms ${timing}`}, props));
+            css(element, assign({
+                'transition-property': Object.keys(props).map(propName).join(','),
+                'transition-duration': `${duration}ms`,
+                'transition-timing-function': timing
+            }, props));
 
         })
     ));
