@@ -118,7 +118,7 @@ function plugin(UIkit) {
         },
 
         connected() {
-            toggleClass(this.$el, this.clsContainer, !$(this.clsContainer, this.$el));
+            toggleClass(this.$el, this.clsContainer, !$(`.${this.clsContainer}`, this.$el));
         },
 
         update: {
