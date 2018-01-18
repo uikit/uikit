@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.36 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.38 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -398,7 +398,7 @@ function css(element, property, value) {
             var styles = getStyles(element);
 
             return property.reduce(function (props, property) {
-                props[property] = propName(styles[property]);
+                props[property] = styles[propName(property)];
                 return props;
             }, {});
 
@@ -427,7 +427,7 @@ function getCssVar(name) {
 
     if (!(name in vars$1)) {
 
-        /* usage in css:  .var-name:before { content:"xyz" } */
+        /* usage in css: .var-name:before { content:"xyz" } */
 
         var element = append(docEl, doc.createElement('div'));
 
@@ -651,10 +651,10 @@ function position(element) {
         parentOffset = parent === docEl$1(element) ? {top: 0, left: 0} : offset(parent);
 
     return ['top', 'left'].reduce(function (props, prop) {
-        var propName = ucfirst(prop);
+        var propName$$1 = ucfirst(prop);
         props[prop] -= parentOffset[prop]
-            + (toFloat(css(element, ("margin" + propName))) || 0)
-            + (toFloat(css(parent, ("border" + propName + "Width"))) || 0);
+            + (toFloat(css(element, ("margin" + propName$$1))) || 0)
+            + (toFloat(css(parent, ("border" + propName$$1 + "Width"))) || 0);
         return props;
     }, offset(element));
 }
@@ -674,7 +674,7 @@ var height = dimension('height');
 var width = dimension('width');
 
 function dimension(prop) {
-    var propName = ucfirst(prop);
+    var propName$$1 = ucfirst(prop);
     return function (element, value) {
 
         element = toNode(element);
@@ -682,7 +682,7 @@ function dimension(prop) {
         if (isUndefined(value)) {
 
             if (isWindow(element)) {
-                return element[("inner" + propName)];
+                return element[("inner" + propName$$1)];
             }
 
             if (isDocument(element)) {
@@ -691,7 +691,7 @@ function dimension(prop) {
             }
 
             value = css(element, prop);
-            value = value === 'auto' ? element[("offset" + propName)] : toFloat(value) || 0;
+            value = value === 'auto' ? element[("offset" + propName$$1)] : toFloat(value) || 0;
 
             return getContentSize(prop, element, value);
 
@@ -830,7 +830,11 @@ function transition(element, props, duration, timing) {
 
                 clearTimeout(timer);
                 removeClass(element, 'uk-transition');
-                css(element, 'transition', '');
+                css(element, {
+                    'transition-property': '',
+                    'transition-duration': '',
+                    'transition-timing-function': ''
+                });
                 type === 'transitioncanceled' ? reject() : resolve();
             }, false, function (ref) {
                 var target = ref.target;
@@ -839,7 +843,11 @@ function transition(element, props, duration, timing) {
             });
 
             addClass(element, 'uk-transition');
-            css(element, assign({transition: ("all " + duration + "ms " + timing)}, props));
+            css(element, assign({
+                'transition-property': Object.keys(props).map(propName).join(','),
+                'transition-duration': (duration + "ms"),
+                'transition-timing-function': timing
+            }, props));
 
         }); }
     ));
@@ -887,7 +895,7 @@ function animate(element, animation, duration, origin, out) {
             if (startsWith(animation, animationPrefix)) {
 
                 if (origin) {
-                    cls += " " + animationPrefix + origin;
+                    cls += " uk-transform-origin-" + origin;
                 }
 
                 if (out) {
@@ -1610,7 +1618,7 @@ function startsWith(str, search) {
     return startsWithFn.call(str, search);
 }
 
-var endsWithFn = strPrototype.endsWith || function (search) { return this.substr(-1 * search.length) === search; };
+var endsWithFn = strPrototype.endsWith || function (search) { return this.substr(-search.length) === search; };
 
 function endsWith(str, search) {
     return endsWithFn.call(str, search);
@@ -1994,11 +2002,13 @@ var strats = {};
 
 // concat strategy
 strats.args =
-strats.created =
 strats.events =
 strats.init =
-strats.ready =
+strats.created =
+strats.beforeConnect =
 strats.connected =
+strats.ready =
+strats.beforeDisconnect =
 strats.disconnected =
 strats.destroy = function (parentVal, childVal) {
 
@@ -2437,6 +2447,7 @@ var util = Object.freeze({
 	getStyles: getStyles,
 	getStyle: getStyle,
 	getCssVar: getCssVar,
+	propName: propName,
 	addClass: addClass,
 	removeClass: removeClass,
 	removeClasses: removeClasses,
@@ -2516,7 +2527,7 @@ function componentAPI (UIkit) {
 
                 var cmp = UIkit.getComponent(element, name);
 
-                if (cmp) {
+                if (cmp && data) {
                     cmp.$reset(data);
                 }
 
@@ -2836,11 +2847,13 @@ function hooksAPI (UIkit) {
 
         this._data = {};
 
-        this._callHook('connected');
+        this._callHook('beforeConnect');
         this._connected = true;
 
         this._initEvents();
         this._initObserver();
+
+        this._callHook('connected');
 
         if (!this._isReady) {
             ready(function () { return this$1._callReady(); });
@@ -2854,6 +2867,8 @@ function hooksAPI (UIkit) {
         if (!this._connected) {
             return;
         }
+
+        this._callHook('beforeDisconnect');
 
         if (this._observer) {
             this._observer.disconnect();
@@ -3218,10 +3233,11 @@ function stateAPI (UIkit) {
 
         var name = event.name;
         var el = event.el;
-        var delegate = event.delegate;
-        var self = event.self;
-        var filter = event.filter;
         var handler = event.handler;
+        var capture = event.capture;
+        var delegate = event.delegate;
+        var filter = event.filter;
+        var self = event.self;
         el = isFunction(el)
             ? el.call(component)
             : el || component.$el;
@@ -3250,7 +3266,8 @@ function stateAPI (UIkit) {
                     : isString(delegate)
                         ? delegate
                         : delegate.call(component),
-                handler
+                handler,
+                capture
             )
         );
 
@@ -3690,6 +3707,50 @@ var Modal = {
         },
 
         {
+            name: 'beforeshow',
+
+            self: true,
+
+            handler: function handler(e) {
+
+                var prev = active && active !== this && active;
+
+                active = this;
+
+                if (prev) {
+                    if (this.stack) {
+                        this.prev = prev;
+                    } else {
+                        prev.hide().then(this.show);
+                        e.preventDefault();
+                        return;
+                    }
+                }
+
+                registerEvents();
+
+            }
+
+        },
+
+        {
+            name: 'beforehide',
+
+            self: true,
+
+            handler: function handler() {
+
+                active = active && active !== this && active || this.prev;
+
+                if (!active) {
+                    deregisterEvents();
+                }
+
+            }
+
+        },
+
+        {
 
             name: 'show',
 
@@ -3760,37 +3821,13 @@ var Modal = {
                 this._callConnected();
             }
 
-            var prev = active && active !== this && active;
-
-            active = this;
-
-            if (prev) {
-                if (this.stack) {
-                    this.prev = prev;
-                } else {
-                    prev.hide().then(this.show);
-                    return;
-                }
-            }
-
-            registerEvents();
-
             return this.toggleNow(this.$el, true);
         },
 
         hide: function hide() {
-
-            if (!this.isToggled()) {
-                return;
+            if (this.isToggled()) {
+                return this.toggleNow(this.$el, false);
             }
-
-            active = active && active !== this && active || this.prev;
-
-            if (!active) {
-                deregisterEvents();
-            }
-
-            return this.toggleNow(this.$el, false);
         },
 
         getActive: function getActive() {
@@ -3829,7 +3866,7 @@ function registerEvents() {
             var target = ref.target;
             var defaultPrevented = ref.defaultPrevented;
 
-            if (active && active.bgClose && !defaultPrevented && !within(target, active.panel)) {
+            if (active && active.bgClose && !defaultPrevented && !within(target, (active.panel || active.$el))) {
                 active.hide();
             }
         }),
@@ -3885,17 +3922,27 @@ var Position = {
 
         positionAt: function positionAt$1(element, target, boundary) {
 
+            this._resetComputeds();
+
             removeClasses(element, ((this.clsPos) + "-(top|bottom|left|right)(-[a-z]+)?"));
             css(element, {top: '', left: ''});
 
-            var offset = toNumber(this.offset) || 0,
+            var node,
+                offset$$1 = this.offset,
                 axis = this.getAxis();
+
+            offset$$1 = isNumeric(offset$$1)
+                ? offset$$1
+                : (node = $(offset$$1))
+                    ? offset(node)[axis === 'x' ? 'left' : 'top'] - offset(target)[axis === 'x' ? 'right' : 'bottom']
+                    : 0;
+
             var ref = positionAt(
                     element,
                     target,
                     axis === 'x' ? ((flipPosition(this.dir)) + " " + (this.align)) : ((this.align) + " " + (flipPosition(this.dir))),
                     axis === 'x' ? ((this.dir) + " " + (this.align)) : ((this.align) + " " + (this.dir)),
-                    axis === 'x' ? ("" + (this.dir === 'left' ? -1 * offset : offset)) : (" " + (this.dir === 'top' ? -1 * offset : offset)),
+                    axis === 'x' ? ("" + (this.dir === 'left' ? -offset$$1 : offset$$1)) : (" " + (this.dir === 'top' ? -offset$$1 : offset$$1)),
                     null,
                     this.flip,
                     boundary
@@ -3985,9 +4032,14 @@ function Accordion (UIkit) {
 
         ],
 
-        ready: function ready() {
-            var active = this.active !== false && !hasClass(active, this.clsOpen) && this.items[Number(this.active)];
-            if (active) {
+        connected: function connected() {
+
+            if (this.active === false) {
+                return;
+            }
+
+            var active = this.items[Number(this.active)];
+            if (active && !hasClass(active, this.clsOpen)) {
                 this.toggle(active, false);
             }
         },
@@ -4448,6 +4500,7 @@ function Drop (UIkit) {
                 self: true,
 
                 handler: function handler() {
+                    this.position();
                     this.tracker.init();
                     addClass(this.toggle.$el, this.cls);
                     attr(this.toggle.$el, 'aria-expanded', 'true');
@@ -4514,12 +4567,7 @@ function Drop (UIkit) {
                 if ( delay === void 0 ) delay = true;
 
 
-                var show = function () {
-                        if (!this$1.isToggled()) {
-                            this$1.position();
-                            this$1.toggleElement(this$1.$el, true);
-                        }
-                    },
+                var show = function () { return !this$1.isToggled() && this$1.toggleElement(this$1.$el, true); },
                     tryShow = function () {
 
                         this$1.toggle = toggle || this$1.toggle;
@@ -4622,7 +4670,6 @@ function Drop (UIkit) {
                     css(this.$el, prop, alignTo[prop]);
                 } else if (this.$el.offsetWidth > Math.max(boundary.right - alignTo.left, alignTo.right - boundary.left)) {
                     addClass(this.$el, ((this.clsDrop) + "-stack"));
-                    trigger(this.$el, 'stack', [this]);
                 }
 
                 this.positionAt(this.$el, this.boundaryAlign ? this.boundary : this.toggle.$el, this.boundary);
@@ -5497,6 +5544,8 @@ function Modal$1 (UIkit) {
 
         var dialog = UIkit.modal((" <div class=\"uk-modal\"> <div class=\"uk-modal-dialog\">" + content + "</div> </div> "), options);
 
+        dialog.show();
+
         on(dialog.$el, 'hidden', function (ref) {
             var target = ref.target;
             var currentTarget = ref.currentTarget;
@@ -5505,7 +5554,6 @@ function Modal$1 (UIkit) {
                 dialog.$destroy(true);
             }
         });
-        dialog.show();
 
         return dialog;
     };
@@ -5638,7 +5686,7 @@ function Navbar (UIkit) {
 
         },
 
-        connected: function connected() {
+        beforeConnect: function beforeConnect() {
 
             var dropbar = this.$props.dropbar;
 
@@ -5663,7 +5711,7 @@ function Navbar (UIkit) {
 
             UIkit.drop(
                 $$(((this.dropdown) + " ." + (this.clsDrop)), this.$el).filter(function (el) { return !UIkit.getComponent(el, 'drop') && !UIkit.getComponent(el, 'dropdown'); }),
-                assign({}, this.$props, {boundary: this.boundary, pos: this.pos})
+                assign({}, this.$props, {boundary: this.boundary, pos: this.pos, offset: this.dropbar || this.offset })
             );
 
         },
@@ -5707,19 +5755,21 @@ function Navbar (UIkit) {
             {
                 name: 'show',
 
+                capture: true,
+
                 filter: function filter() {
                     return this.dropbar;
                 },
 
                 handler: function handler(_, drop) {
 
+                    if (!this.dropbar.parentNode) {
+                        after(this.dropbarAnchor || this.$el, this.dropbar);
+                    }
+
                     var $el = drop.$el;
 
                     this.clsDrop && addClass($el, ((this.clsDrop) + "-dropbar"));
-
-                    if (drop.$props.offset === false) {
-                        drop.offset = toFloat(css($el, 'margin-top'));
-                    }
 
                     this.transitionTo($el.offsetHeight + toFloat(css($el, 'margin-top')) + toFloat(css($el, 'margin-bottom')), $el);
                 }
@@ -5774,13 +5824,8 @@ function Navbar (UIkit) {
 
             transitionTo: function transitionTo(newHeight, el) {
 
-                var dropbar = this.dropbar;
-
-                if (!dropbar.parentNode) {
-                    after(this.dropbarAnchor || this.$el, dropbar);
-                }
-
-                var oldHeight = isVisible(dropbar) ? height(dropbar) : 0;
+                var dropbar = this.dropbar,
+                    oldHeight = isVisible(dropbar) ? height(dropbar) : 0;
 
                 el = oldHeight < newHeight && el;
 
@@ -6473,7 +6518,7 @@ function Sticky (UIkit) {
             if (this.isActive) {
                 this.isActive = false;
                 this.hide();
-                removeClass(this.$el, this.clsInactive);
+                removeClass(this.selTarget, this.clsInactive);
             }
 
             remove(this.placeholder);
@@ -7339,7 +7384,7 @@ function core (UIkit) {
 
 }
 
-UIkit$2.version = '3.0.0-beta.36';
+UIkit$2.version = '3.0.0-beta.38';
 
 mixin(UIkit$2);
 core(UIkit$2);
@@ -8279,7 +8324,6 @@ function plugin$5(UIkit) {
             percent: 0,
             clsActive: 'uk-active',
             clsActivated: 'uk-transition-active',
-            easingOut: 'cubic-bezier(0.250, 0.460, 0.450, 0.940)', /* easeOutQuad */
             Transitioner: false,
             transitionOptions: {}
         },
@@ -8380,7 +8424,7 @@ function plugin$5(UIkit) {
                 if (!force && stack.length > 1) {
 
                     if (stack.length === 2) {
-                        this._transitioner.forward(200);
+                        this._transitioner.forward(Math.min(this.duration, 200));
                     }
 
                     return;
@@ -8453,7 +8497,11 @@ function plugin$5(UIkit) {
                     prev,
                     next,
                     this.dir,
-                    assign({easing: force ? this.easingOut : this.easing}, this.transitionOptions)
+                    assign({easing: force
+                            ? next.offsetWidth < 600
+                                ? 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' /* easeOutQuad */
+                                : 'cubic-bezier(0.165, 0.84, 0.44, 1)' /* easeOutQuart */
+                            : this.easing}, this.transitionOptions)
                 );
 
                 if (!force && !prev) {
@@ -8462,7 +8510,7 @@ function plugin$5(UIkit) {
                 }
 
                 var length = this.stack.length;
-                return this._transitioner[length > 1 ? 'forward' : 'show'](length > 1 ? 75 + 75 / (length - 1) : this.duration, this.percent);
+                return this._transitioner[length > 1 ? 'forward' : 'show'](length > 1 ? Math.min(this.duration, 75 + 75 / (length - 1)) : this.duration, this.percent);
 
             },
 
@@ -8650,7 +8698,6 @@ function plugin$3(UIkit) {
     var attr = util.attr;
     var css = util.css;
     var doc = util.doc;
-    var docEl = util.docEl;
     var getImage = util.getImage;
     var html = util.html;
     var index = util.index;
@@ -8665,7 +8712,7 @@ function plugin$3(UIkit) {
 
     UIkit.component('lightbox-panel', {
 
-        mixins: [mixin.container, mixin.togglable, mixin.slideshow],
+        mixins: [mixin.container, mixin.modal, mixin.togglable, mixin.slideshow],
 
         functional: true,
 
@@ -8678,10 +8725,11 @@ function plugin$3(UIkit) {
             clsPage: 'uk-lightbox-page',
             selList: '.uk-lightbox-items',
             attrItem: 'uk-lightbox-item',
+            selClose: '.uk-close-large',
             pauseOnHover: false,
             velocity: 2,
             Animations: Animations,
-            template: "<div class=\"uk-lightbox uk-overflow-hidden\"> <ul class=\"uk-lightbox-items\"></ul> <div class=\"uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque\"> <button class=\"uk-lightbox-toolbar-icon uk-close-large\" type=\"button\" uk-close uk-toggle=\"!.uk-lightbox\"></button> </div> <a class=\"uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade\" href=\"#\" uk-slidenav-previous uk-lightbox-item=\"previous\"></a> <a class=\"uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade\" href=\"#\" uk-slidenav-next uk-lightbox-item=\"next\"></a> <div class=\"uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque\"></div> </div>"
+            template: "<div class=\"uk-lightbox uk-overflow-hidden\"> <ul class=\"uk-lightbox-items\"></ul> <div class=\"uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque\"> <button class=\"uk-lightbox-toolbar-icon uk-close-large\" type=\"button\" uk-close></button> </div> <a class=\"uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade\" href=\"#\" uk-slidenav-previous uk-lightbox-item=\"previous\"></a> <a class=\"uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade\" href=\"#\" uk-slidenav-next uk-lightbox-item=\"next\"></a> <div class=\"uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque\"></div> </div>"
         },
 
         created: function created() {
@@ -8725,17 +8773,6 @@ function plugin$3(UIkit) {
 
             {
 
-                name: 'show',
-
-                self: true,
-
-                handler: function handler() {
-                    addClass(docEl, this.clsPage);
-                }
-            },
-
-            {
-
                 name: 'shown',
 
                 self: true,
@@ -8749,17 +8786,17 @@ function plugin$3(UIkit) {
 
                 self: true,
 
-                handler: 'hideControls'
-            },
-
-            {
-
-                name: 'hidden',
-
-                self: true,
-
                 handler: function handler() {
-                    removeClass(docEl, this.clsPage);
+
+                    this.hideControls();
+
+                    removeClass(this.slides, this.clsActive);
+                    Transition.stop(this.slides);
+
+                    delete this.index;
+                    delete this.percent;
+                    delete this._transitioner;
+
                 }
             },
 
@@ -8778,9 +8815,6 @@ function plugin$3(UIkit) {
                     }
 
                     switch (e.keyCode) {
-                        case 27:
-                            this.hide();
-                            break;
                         case 37:
                             this.show('previous');
                             break;
@@ -8789,17 +8823,6 @@ function plugin$3(UIkit) {
                             break;
                     }
                 }
-            },
-
-            {
-
-                name: 'toggle',
-
-                handler: function handler(e) {
-                    e.preventDefault();
-                    this.toggle();
-                }
-
             },
 
             {
@@ -8962,25 +8985,6 @@ function plugin$3(UIkit) {
         ],
 
         methods: {
-
-            toggle: function toggle() {
-                return this.isToggled() ? this.hide() : this.show();
-            },
-
-            hide: function hide() {
-
-                if (this.isToggled()) {
-                    this.toggleNow(this.$el, false);
-                }
-
-                removeClass(this.slides, this.clsActive);
-                Transition.stop(this.slides);
-
-                delete this.index;
-                delete this.percent;
-                delete this._transitioner;
-
-            },
 
             loadItem: function loadItem(index) {
                 if ( index === void 0 ) index = this.index;
@@ -9226,7 +9230,7 @@ function plugin$6(UIkit) {
 
             var marginBottom = toFloat(css(this.$el, 'marginBottom'));
             Transition.start(
-                css(this.$el, {opacity: 0, marginTop: -1 * this.$el.offsetHeight, marginBottom: 0}),
+                css(this.$el, {opacity: 0, marginTop: -this.$el.offsetHeight, marginBottom: 0}),
                 {opacity: 1, marginTop: 0, marginBottom: marginBottom}
             ).then(function () {
                 if (this$1.timeout) {
@@ -9281,7 +9285,7 @@ function plugin$6(UIkit) {
                 } else {
                     Transition.start(this.$el, {
                         opacity: 0,
-                        marginTop: -1 * this.$el.offsetHeight,
+                        marginTop: -this.$el.offsetHeight,
                         marginBottom: 0
                     }).then(removeFn);
                 }
@@ -9923,6 +9927,7 @@ function plugin$9(UIkit) {
 
     var mixin = UIkit.mixin;
     var ref = UIkit.util;
+    var $ = ref.$;
     var $$ = ref.$$;
     var css = ref.css;
     var data = ref.data;
@@ -9947,10 +9952,15 @@ function plugin$9(UIkit) {
             attrItem: 'uk-slider-item',
             selList: '.uk-slider-items',
             selNav: '.uk-slider-nav',
+            clsContainer: 'uk-slider-container',
             Transitioner: Transitioner
         },
 
         computed: {
+
+            avgWidth: function avgWidth() {
+                return Transitioner.getWidth(this.list) / this.length;
+            },
 
             finite: function finite(ref) {
                 var finite = ref.finite;
@@ -9994,7 +10004,7 @@ function plugin$9(UIkit) {
 
                 css(this.slides, 'order', '');
 
-                return sets && this.slides.reduce(function (sets, slide, i) {
+                sets = sets && this.slides.reduce(function (sets, slide, i) {
 
                     var slideWidth = slide.offsetWidth,
                         slideLeft = Transitioner.getElLeft(slide, this$1.list),
@@ -10024,6 +10034,8 @@ function plugin$9(UIkit) {
 
                 }, []);
 
+                return sets && sets.length && sets;
+
             },
 
             transitionOptions: function transitionOptions() {
@@ -10033,6 +10045,10 @@ function plugin$9(UIkit) {
                 };
             }
 
+        },
+
+        connected: function connected() {
+            toggleClass(this.$el, this.clsContainer, !$(("." + (this.clsContainer)), this.$el));
         },
 
         update: {
@@ -10077,7 +10093,12 @@ function plugin$9(UIkit) {
                     return;
                 }
 
-                this.duration = speedUp((this.dir < 0 || !this.slides[this.prevIndex] ? this.slides[this.index] : this.slides[this.prevIndex]).offsetWidth / this.velocity);
+                this.duration = speedUp(this.avgWidth / this.velocity)
+                    * ((
+                        this.dir < 0 || !this.slides[this.prevIndex]
+                            ? this.slides[this.index]
+                            : this.slides[this.prevIndex]
+                    ).offsetWidth / this.avgWidth);
 
                 this.reorder();
 
@@ -10281,78 +10302,21 @@ function AnimationsPlugin$2 (UIkit) {
 
 }
 
-function plugin$10(UIkit) {
+function plugin$11(UIkit) {
 
-    if (plugin$10.installed) {
+    if (plugin$11.installed) {
         return;
     }
 
     UIkit.use(plugin$8);
-    UIkit.use(plugin$4);
 
     var mixin = UIkit.mixin;
     var ref = UIkit.util;
     var closest = ref.closest;
     var css = ref.css;
     var endsWith = ref.endsWith;
-    var height = ref.height;
     var noop = ref.noop;
     var Transition = ref.Transition;
-
-    var Animations = AnimationsPlugin$2(UIkit);
-
-    UIkit.component('slideshow', {
-
-        mixins: [mixin.class, mixin.slideshow, SliderReactive(UIkit)],
-
-        props: {
-            ratio: String,
-            minHeight: Boolean,
-            maxHeight: Boolean,
-        },
-
-        defaults: {
-            ratio: '16:9',
-            minHeight: false,
-            maxHeight: false,
-            selList: '.uk-slideshow-items',
-            attrItem: 'uk-slideshow-item',
-            selNav: '.uk-slideshow-nav',
-            Animations: Animations
-        },
-
-        update: {
-
-            read: function read() {
-
-                var ref = this.ratio.split(':').map(Number);
-                var width = ref[0];
-                var height = ref[1];
-
-                height = height * this.$el.offsetWidth / width;
-
-                if (this.minHeight) {
-                    height = Math.max(this.minHeight, height);
-                }
-
-                if (this.maxHeight) {
-                    height = Math.min(this.maxHeight, height);
-                }
-
-                return {height: height};
-            },
-
-            write: function write(ref) {
-                var hgt = ref.height;
-
-                height(this.list, Math.floor(hgt));
-            },
-
-            events: ['load', 'resize']
-
-        }
-
-    });
 
     UIkit.component('slideshow-parallax', {
 
@@ -10474,11 +10438,81 @@ function plugin$10(UIkit) {
 
 }
 
-function plugin$11(UIkit) {
+function plugin$10(UIkit) {
+
+    if (plugin$10.installed) {
+        return;
+    }
+
+    UIkit.use(plugin$11);
+    UIkit.use(plugin$4);
+
+    var mixin = UIkit.mixin;
+    var ref = UIkit.util;
+    var height = ref.height;
+
+    var Animations = AnimationsPlugin$2(UIkit);
+
+    UIkit.component('slideshow', {
+
+        mixins: [mixin.class, mixin.slideshow, SliderReactive(UIkit)],
+
+        props: {
+            ratio: String,
+            minHeight: Boolean,
+            maxHeight: Boolean,
+        },
+
+        defaults: {
+            ratio: '16:9',
+            minHeight: false,
+            maxHeight: false,
+            selList: '.uk-slideshow-items',
+            attrItem: 'uk-slideshow-item',
+            selNav: '.uk-slideshow-nav',
+            Animations: Animations
+        },
+
+        update: {
+
+            read: function read() {
+
+                var ref = this.ratio.split(':').map(Number);
+                var width = ref[0];
+                var height = ref[1];
+
+                height = height * this.$el.offsetWidth / width;
+
+                if (this.minHeight) {
+                    height = Math.max(this.minHeight, height);
+                }
+
+                if (this.maxHeight) {
+                    height = Math.min(this.maxHeight, height);
+                }
+
+                return {height: height};
+            },
+
+            write: function write(ref) {
+                var hgt = ref.height;
+
+                height(this.list, Math.floor(hgt));
+            },
+
+            events: ['load', 'resize']
+
+        }
+
+    });
+
+}
+
+function plugin$12(UIkit) {
     var obj;
 
 
-    if (plugin$11.installed) {
+    if (plugin$12.installed) {
         return;
     }
 
@@ -10846,11 +10880,11 @@ function plugin$11(UIkit) {
 
 }
 
-function plugin$12(UIkit) {
+function plugin$13(UIkit) {
     var obj;
 
 
-    if (plugin$12.installed) {
+    if (plugin$13.installed) {
         return;
     }
 
@@ -10860,6 +10894,7 @@ function plugin$12(UIkit) {
     var attr = util.attr;
     var doc = util.doc;
     var flipPosition = util.flipPosition;
+    var hasAttr = util.hasAttr;
     var includes = util.includes;
     var isTouch = util.isTouch;
     var isVisible = util.isVisible;
@@ -10877,7 +10912,7 @@ function plugin$12(UIkit) {
 
         attrs: true,
 
-        mixins: [mixin.togglable, mixin.position],
+        mixins: [mixin.container, mixin.togglable, mixin.position],
 
         props: {
             delay: Number,
@@ -10894,12 +10929,14 @@ function plugin$12(UIkit) {
             clsPos: 'uk-tooltip'
         },
 
-        connected: function connected() {
-            attr(this.$el, {title: null, 'aria-expanded': false});
+        beforeConnect: function beforeConnect() {
+            this._hasTitle = hasAttr(this.$el, 'title');
+            attr(this.$el, {title: '', 'aria-expanded': false});
         },
 
         disconnected: function disconnected() {
             this.hide();
+            attr(this.$el, {title: this._hasTitle ? this.title : null, 'aria-expanded': null});
         },
 
         methods: {
@@ -10919,7 +10956,7 @@ function plugin$12(UIkit) {
 
                 clearTimeout(this.showTimer);
 
-                this.tooltip = append(UIkit.container, ("<div class=\"" + (this.clsPos) + "\" aria-hidden><div class=\"" + (this.clsPos) + "-inner\">" + (this.title) + "</div></div>"));
+                this.tooltip = append(this.container, ("<div class=\"" + (this.clsPos) + "\" aria-hidden><div class=\"" + (this.clsPos) + "-inner\">" + (this.title) + "</div></div>"));
 
                 attr(this.$el, 'aria-expanded', true);
 
@@ -10978,9 +11015,9 @@ function plugin$12(UIkit) {
 
 }
 
-function plugin$13(UIkit) {
+function plugin$14(UIkit) {
 
-    if (plugin$13.installed) {
+    if (plugin$14.installed) {
         return;
     }
 
@@ -11201,9 +11238,9 @@ UIkit$2.use(plugin$6);
 UIkit$2.use(plugin$7);
 UIkit$2.use(plugin$9);
 UIkit$2.use(plugin$10);
-UIkit$2.use(plugin$11);
 UIkit$2.use(plugin$12);
 UIkit$2.use(plugin$13);
+UIkit$2.use(plugin$14);
 
 {
     boot(UIkit$2);

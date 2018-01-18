@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     var {util, mixin} = UIkit;
-    var {append, attr, doc, flipPosition, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, remove, within} = util;
+    var {append, attr, doc, flipPosition, hasAttr, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, remove, within} = util;
 
     var actives = [];
 
@@ -13,7 +13,7 @@ function plugin(UIkit) {
 
         attrs: true,
 
-        mixins: [mixin.togglable, mixin.position],
+        mixins: [mixin.container, mixin.togglable, mixin.position],
 
         props: {
             delay: Number,
@@ -30,12 +30,14 @@ function plugin(UIkit) {
             clsPos: 'uk-tooltip'
         },
 
-        connected() {
-            attr(this.$el, {title: null, 'aria-expanded': false});
+        beforeConnect() {
+            this._hasTitle = hasAttr(this.$el, 'title');
+            attr(this.$el, {title: '', 'aria-expanded': false});
         },
 
         disconnected() {
             this.hide();
+            attr(this.$el, {title: this._hasTitle ? this.title : null, 'aria-expanded': null});
         },
 
         methods: {
@@ -53,7 +55,7 @@ function plugin(UIkit) {
 
                 clearTimeout(this.showTimer);
 
-                this.tooltip = append(UIkit.container, `<div class="${this.clsPos}" aria-hidden><div class="${this.clsPos}-inner">${this.title}</div></div>`);
+                this.tooltip = append(this.container, `<div class="${this.clsPos}" aria-hidden><div class="${this.clsPos}-inner">${this.title}</div></div>`);
 
                 attr(this.$el, 'aria-expanded', true);
 

@@ -76,7 +76,7 @@ $navbar-dropdown-nav-sublist-item-color:         $global-muted-color !default;
 $navbar-dropdown-nav-sublist-item-hover-color:   $global-color !default;
 
 $navbar-dropbar-background:                      $navbar-dropdown-background !default;
-$navbar-dropbar-z-index:                         $navbar-dropdown-z-index - 1 !default;
+$navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 
 
 /* ========================================================================

@@ -29,7 +29,7 @@ if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
 }
 
 storage[key] = storage[key] || 'core';
-storage[keyinverse] = storage[keyinverse] || 'default';
+storage[keyinverse] = storage[keyinverse] || '';
 
 var dir = storage._uikit_dir || 'ltr';
 
@@ -47,7 +47,7 @@ document.writeln(`<script src="${style.icons ? style.icons : '../dist/js/uikit-i
 
 window.addEventListener('load', () => setTimeout(() => {
 
-    var {addClass, append, css, on, prepend, removeClass, trigger, ucfirst} = UIkit.util;
+    var {addClass, append, css, on, prepend, removeClass, ucfirst} = UIkit.util;
 
     var $body = document.body;
     var $container = prepend($body, '<div class="uk-container"></div>');
@@ -162,37 +162,44 @@ window.addEventListener('load', () => setTimeout(() => {
     // ------------------------------
 
     var variations = {
-        'default': 'Default',
+        '': 'Default',
         'light': 'Dark',
         'dark': 'Light'
     };
 
     Object.keys(variations).forEach(name => append($inverse, `<option value="${name}">${variations[name]}</option>`));
 
-    on($inverse, 'change', () => {
-
-        removeClass($body, 'uk-dark uk-light');
-
-        switch ($inverse.value) {
-            case 'dark':
-                css(docEl, 'background', '#fff');
-                addClass($body, 'uk-dark');
-                break;
-
-            case 'light':
-                css(docEl, 'background', '#222');
-                addClass($body, 'uk-light');
-                break;
-
-            default:
-                css(docEl, 'background', '');
-        }
-
-        storage[keyinverse] = $inverse.value;
-
-    });
     $inverse.value = storage[keyinverse];
-    trigger($inverse, 'change');
+
+    if ($inverse.value) {
+
+        removeClass(document.querySelectorAll('*'), [
+            'uk-navbar-container',
+            'uk-card-default',
+            'uk-card-muted',
+            'uk-card-primary',
+            'uk-card-secondary',
+            'uk-tile-default',
+            'uk-tile-muted',
+            'uk-tile-primary',
+            'uk-tile-secondary',
+            'uk-section-default',
+            'uk-section-muted',
+            'uk-section-primary',
+            'uk-section-secondary',
+            'uk-overlay-default',
+            'uk-overlay-primary'
+        ]);
+
+        css(docEl, 'background', $inverse.value === 'dark' ? '#fff' : '#222');
+        addClass($body, `uk-${$inverse.value}`);
+
+    }
+
+    on($inverse, 'change', () => {
+        storage[keyinverse] = $inverse.value;
+        location.reload();
+    });
 
     // RTL
     // ------------------------------

@@ -77,6 +77,50 @@ export default {
         },
 
         {
+            name: 'beforeshow',
+
+            self: true,
+
+            handler(e) {
+
+                var prev = active && active !== this && active;
+
+                active = this;
+
+                if (prev) {
+                    if (this.stack) {
+                        this.prev = prev;
+                    } else {
+                        prev.hide().then(this.show);
+                        e.preventDefault();
+                        return;
+                    }
+                }
+
+                registerEvents();
+
+            }
+
+        },
+
+        {
+            name: 'beforehide',
+
+            self: true,
+
+            handler() {
+
+                active = active && active !== this && active || this.prev;
+
+                if (!active) {
+                    deregisterEvents();
+                }
+
+            }
+
+        },
+
+        {
 
             name: 'show',
 
@@ -145,37 +189,13 @@ export default {
                 this._callConnected();
             }
 
-            var prev = active && active !== this && active;
-
-            active = this;
-
-            if (prev) {
-                if (this.stack) {
-                    this.prev = prev;
-                } else {
-                    prev.hide().then(this.show);
-                    return;
-                }
-            }
-
-            registerEvents();
-
             return this.toggleNow(this.$el, true);
         },
 
         hide() {
-
-            if (!this.isToggled()) {
-                return;
+            if (this.isToggled()) {
+                return this.toggleNow(this.$el, false);
             }
-
-            active = active && active !== this && active || this.prev;
-
-            if (!active) {
-                deregisterEvents();
-            }
-
-            return this.toggleNow(this.$el, false);
         },
 
         getActive() {
@@ -210,7 +230,7 @@ function registerEvents() {
 
     events = [
         on(docEl, 'click', ({target, defaultPrevented}) => {
-            if (active && active.bgClose && !defaultPrevented && !within(target, active.panel)) {
+            if (active && active.bgClose && !defaultPrevented && !within(target, (active.panel || active.$el))) {
                 active.hide();
             }
         }),
