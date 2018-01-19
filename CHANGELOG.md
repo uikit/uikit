@@ -1,9 +1,16 @@
 # Changelog
 
+### 2.27.5
+
+  - Fixed IE 11 sortable bug
+  - Fixed closing parent modal if current modal is a nested modal
+  - Fixed text selection in offcanvas bar
+  - Fixed broken contrast component in SASS conversion
+  - Updated dynamic grid size calculation
+
 ### 2.27.4
 
   - Added container option for datepicker dropdown
-
 
 ### 2.27.3
 

@@ -296,10 +296,15 @@ gulp.task('sass-copy', function() {
 
 gulp.task('sass-convert', ['sass-copy'], function() {
 
+    var fade = function(match, color, amount){
+        return 'fade-out('+color+', '+(1.0-amount/100.0)+')';
+    }
+
     return gulp.src('./dist/scss/**/*.scss')
            .pipe(replace(/\/less\//g, '/scss/'))                              // change less/ dir to scss/ on imports
            .pipe(replace(/\.less/g, '.scss'))                                 // change .less extensions to .scss on imports
            .pipe(replace(/@/g, '$'))                                          // convert variables
+           .pipe(replace(/fade\(([\$a-zA-Z\-\d]+)\,\s*(\d+)\%\)/g, fade))     // convert fade function
            .pipe(replace(/ e\(/g, ' unquote('))                               // convert escape function
            .pipe(replace(/\.([\w\-]*)\s*\((.*)\)\s*\{/g, '@mixin $1($2){'))   // hook -> mixins
            .pipe(replace(/@mixin ([\w\-]*)\s*\((.*)\)\s*\{\s*\}/g, '// @mixin $1($2){}'))   // comment empty mixins
