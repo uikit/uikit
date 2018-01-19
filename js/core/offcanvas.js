@@ -1,4 +1,4 @@
-/*! UIkit 2.27.4 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.5 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(UI) {
 
     "use strict";
@@ -102,7 +102,9 @@
 
                 var target = UI.$(e.target);
 
-                if (!e.type.match(/swipe/)) {
+                if (e.type.match(/swipe/)) {
+                    if (target.parents('.uk-offcanvas-bar:first').length) return;
+                } else {
 
                     if (!target.hasClass('uk-offcanvas-close')) {
                         if (target.hasClass('uk-offcanvas-bar')) return;

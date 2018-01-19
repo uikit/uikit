@@ -1,4 +1,4 @@
-/*! UIkit 2.27.4 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.5 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
   * Based on nativesortable - Copyright (c) Brian Grinstead - https://github.com/bgrins/nativesortable
   */
@@ -23,9 +23,10 @@
     var supportsTouch       = ('ontouchstart' in window || 'MSGesture' in window) || (window.DocumentTouch && document instanceof DocumentTouch),
         draggingPlaceholder, currentlyDraggingElement, currentlyDraggingTarget, dragging, moving, clickedlink, delayIdle, touchedlists, moved, overElement, startEvent;
 
-    var POINTER_DOWN = supportsTouch ? ('MSGesture' in window ? 'pointerdown':'touchstart') : 'mousedown',
-        POINTER_MOVE = supportsTouch ? ('MSGesture' in window ? 'pointermove':'touchmove') : 'mousemove',
-        POINTER_UP   = supportsTouch ? ('MSGesture' in window ? 'pointerup':'touchend') : 'mouseup';
+    var POINTER_DOWN = supportsTouch ? ('MSGesture' in window || window.PointerEvent ? 'pointerdown':'touchstart') : 'mousedown',
+        POINTER_MOVE = supportsTouch ? ('MSGesture' in window || window.PointerEvent ? 'pointermove':'touchmove') : 'mousemove',
+        POINTER_UP   = supportsTouch ? ('MSGesture' in window || window.PointerEvent ? 'pointerup':'touchend') : 'mouseup';
+
 
     function closestSortable(ele) {
 
@@ -283,7 +284,12 @@
 
                         // Fix event.target for a touch event
                         if (supportsTouch && document.elementFromPoint) {
-                            target = document.elementFromPoint(touch.pageX - document.body.scrollLeft, touch.pageY - document.body.scrollTop);
+                            
+                            var _target = document.elementFromPoint(touch.pageX - document.body.scrollLeft, touch.pageY - document.body.scrollTop);
+
+                            if (_target) {
+                                target = _target;
+                            }
                         }
 
                         overElement = UI.$(target);
@@ -320,7 +326,13 @@
                 return;
             }
 
-            if (target.is('.'+$this.options.noDragClass) || target.closest('.'+$this.options.noDragClass).length) {
+            if (target.is('.'+$this.options.noDragClass)) {
+                return;
+            }
+
+            var noDragParent = target.closest('.'+$this.options.noDragClass);
+
+            if (noDragParent.length && this.element.find(noDragParent[0]).length) {
                 return;
             }
 

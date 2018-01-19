@@ -1,4 +1,4 @@
-/*! UIkit 2.27.4 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.5 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 /*
  * Based on Nestable jQuery Plugin - Copyright (c) 2012 David Bushell - http://dbushell.com/
  */
@@ -20,16 +20,16 @@
 
     "use strict";
 
-    var hasTouch     = 'ontouchstart' in window,
+    var hasTouch     = 'ontouchstart' in window || 'MSGesture' in window || window.PointerEvent,
         html         = UI.$html,
         touchedlists = [],
         $win         = UI.$win,
         draggingElement;
 
-    var eStart  = hasTouch ? 'touchstart'  : 'mousedown',
-        eMove   = hasTouch ? 'touchmove'   : 'mousemove',
-        eEnd    = hasTouch ? 'touchend'    : 'mouseup',
-        eCancel = hasTouch ? 'touchcancel' : 'mouseup';
+    var eStart  = hasTouch ? ('MSGesture' in window || window.PointerEvent ? 'pointerdown':'touchstart')    : 'mousedown',
+        eMove   = hasTouch ? ('MSGesture' in window || window.PointerEvent ? 'pointermove':'touchmove')     : 'mousemove',
+        eEnd    = hasTouch ? ('MSGesture' in window || window.PointerEvent ? 'pointerup':'touchend')        : 'mouseup',
+        eCancel = hasTouch ? ('MSGesture' in window || window.PointerEvent ? 'pointercancel':'touchcancel') : 'mouseup';
 
 
     UI.component('nestable', {
@@ -152,7 +152,7 @@
                     }
                 }
 
-                if (!handle.length || $this.dragEl || (!hasTouch && e.button !== 0) || (hasTouch && e.touches.length !== 1)) {
+                if (!handle.length || $this.dragEl || (!hasTouch && e.button !== 0) || (hasTouch && e.touches && e.touches.length !== 1)) {
                     return;
                 }
 
@@ -213,7 +213,7 @@
 
                 if ($this.dragEl) {
                     e.preventDefault();
-                    $this.dragStop(hasTouch ? e.touches[0] : e);
+                    $this.dragStop(hasTouch && e.touches ? e.touches[0] : e);
                 }
 
                 draggingElement = false;

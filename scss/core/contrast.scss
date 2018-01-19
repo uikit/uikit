@@ -18,7 +18,7 @@ $contrast-inverted-color:                        #444 !default;
 
 $contrast-base-color:                            $contrast-color !default;
 
-$contrast-base-link-color:                       fade($contrast-color, 70%) !default;
+$contrast-base-link-color:                       fade-out($contrast-color, 0.30000000000000004) !default;
 $contrast-base-link-text-decoration:             none !default;
 $contrast-base-link-hover-color:                 $contrast-color !default;
 $contrast-base-link-hover-text-decoration:       underline !default;
@@ -28,55 +28,55 @@ $contrast-base-em-color:                         $contrast-color !default;
 
 $contrast-base-heading-color:                    $contrast-color !default;
 
-$contrast-base-hr-border:                        fade($contrast-color, 20%) !default;
+$contrast-base-hr-border:                        fade-out($contrast-color, 0.8) !default;
 
 $contrast-nav-side-color:                        $contrast-color !default;
-$contrast-nav-side-hover-background:             fade($contrast-color, 10%) !default;
+$contrast-nav-side-hover-background:             fade-out($contrast-color, 0.9) !default;
 $contrast-nav-side-hover-color:                  $contrast-color !default;
 $contrast-nav-side-active-background:            $contrast-color !default;
 $contrast-nav-side-active-color:                 $contrast-inverted-color !default;
 $contrast-nav-side-header-color:                 $contrast-color !default;
-$contrast-nav-side-divider-border:               fade($contrast-color, 20%) !default;
-$contrast-nav-side-nested-color:                 fade($contrast-color, 70%) !default;
+$contrast-nav-side-divider-border:               fade-out($contrast-color, 0.8) !default;
+$contrast-nav-side-nested-color:                 fade-out($contrast-color, 0.30000000000000004) !default;
 $contrast-nav-side-nested-hover-color:           $contrast-color !default;
 
-$contrast-subnav-color:                          fade($contrast-color, 70%) !default;
+$contrast-subnav-color:                          fade-out($contrast-color, 0.30000000000000004) !default;
 $contrast-subnav-hover-color:                    $contrast-color !default;
 $contrast-subnav-hover-text-decoration:          none !default;
 $contrast-subnav-active-color:                   $contrast-color !default;
 
-$contrast-subnav-line-border:                    fade($contrast-color, 20%) !default;
+$contrast-subnav-line-border:                    fade-out($contrast-color, 0.8) !default;
 
-$contrast-subnav-pill-hover-background:          fade($contrast-color, 70%) !default;
+$contrast-subnav-pill-hover-background:          fade-out($contrast-color, 0.30000000000000004) !default;
 $contrast-subnav-pill-hover-color:               $contrast-inverted-color !default;
 $contrast-subnav-pill-active-background:         $contrast-color !default;
 $contrast-subnav-pill-active-color:              $contrast-inverted-color !default;
 
-$contrast-tab-border:                            fade($contrast-color, 20%) !default;
-$contrast-tab-color:                             fade($contrast-color, 70%) !default;
-$contrast-tab-hover-border:                      fade($contrast-color, 70%) !default;
-$contrast-tab-hover-background:                  fade($contrast-color, 70%) !default;
+$contrast-tab-border:                            fade-out($contrast-color, 0.8) !default;
+$contrast-tab-color:                             fade-out($contrast-color, 0.30000000000000004) !default;
+$contrast-tab-hover-border:                      fade-out($contrast-color, 0.30000000000000004) !default;
+$contrast-tab-hover-background:                  fade-out($contrast-color, 0.30000000000000004) !default;
 $contrast-tab-hover-color:                       $contrast-inverted-color !default;
-$contrast-tab-active-border:                     fade($contrast-color, 20%) !default;
+$contrast-tab-active-border:                     fade-out($contrast-color, 0.8) !default;
 $contrast-tab-active-background:                 $contrast-color !default;
 $contrast-tab-active-color:                      $contrast-inverted-color !default;
 
-$contrast-list-line-border:                      fade($contrast-color, 20%) !default;
+$contrast-list-line-border:                      fade-out($contrast-color, 0.8) !default;
 
-$contrast-form-border:                           fade($contrast-color, 80%) !default;
-$contrast-form-background:                       fade($contrast-color, 80%) !default;
+$contrast-form-border:                           fade-out($contrast-color, 0.19999999999999996) !default;
+$contrast-form-background:                       fade-out($contrast-color, 0.19999999999999996) !default;
 $contrast-form-color:                            $contrast-inverted-color !default;
 $contrast-form-focus-border:                     $contrast-color !default;
 $contrast-form-focus-background:                 $contrast-color !default;
 $contrast-form-focus-color:                      $contrast-inverted-color !default;
 
-$contrast-form-placeholder-color:                fade($contrast-inverted-color, 70%) !default;
+$contrast-form-placeholder-color:                fade-out($contrast-inverted-color, 0.30000000000000004) !default;
 
 $contrast-button-background:                     $contrast-color !default;
 $contrast-button-color:                          $contrast-inverted-color !default;
-$contrast-button-hover-background:               fade($contrast-color, 80%) !default;
+$contrast-button-hover-background:               fade-out($contrast-color, 0.19999999999999996) !default;
 $contrast-button-hover-color:                    $contrast-inverted-color !default;
-$contrast-button-active-background:              fade($contrast-color, 70%) !default;
+$contrast-button-active-background:              fade-out($contrast-color, 0.30000000000000004) !default;
 $contrast-button-active-color:                   $contrast-inverted-color !default;
 
 $contrast-button-primary-background:             #00a8e6 !default;
@@ -86,17 +86,17 @@ $contrast-button-primary-hover-color:            $contrast-color !default;
 $contrast-button-primary-active-background:      #0091ca !default;
 $contrast-button-primary-active-color:           $contrast-color !default;
 
-$contrast-icon-hover-color:                      fade($contrast-color, 70%) !default;
+$contrast-icon-hover-color:                      fade-out($contrast-color, 0.30000000000000004) !default;
 $contrast-icon-hover-hover-color:                $contrast-color !default;
 
 $contrast-icon-button-background:                $contrast-color !default;
 $contrast-icon-button-color:                     $contrast-inverted-color !default;
-$contrast-icon-button-hover-background:          fade($contrast-color, 80%) !default;
+$contrast-icon-button-hover-background:          fade-out($contrast-color, 0.19999999999999996) !default;
 $contrast-icon-button-hover-color:               $contrast-inverted-color !default;
-$contrast-icon-button-active-background:         fade($contrast-color, 70%) !default;
+$contrast-icon-button-active-background:         fade-out($contrast-color, 0.30000000000000004) !default;
 $contrast-icon-button-active-color:              $contrast-inverted-color !default;
 
-$contrast-text-muted-color:                      fade($contrast-color, 60%) !default;
+$contrast-text-muted-color:                      fade-out($contrast-color, 0.4) !default;
 $contrast-text-primary-color:                    #2d7091 !default;
 
 

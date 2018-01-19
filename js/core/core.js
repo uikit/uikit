@@ -1,4 +1,4 @@
-/*! UIkit 2.27.4 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
+/*! UIkit 2.27.5 | http://www.getuikit.com | (c) 2014 YOOtheme | MIT License */
 (function(core) {
 
     var uikit;
@@ -45,7 +45,7 @@
 
     var UI = {}, _UI = window.UIkit || undefined;
 
-    UI.version = '2.27.4';
+    UI.version = '2.27.5';
 
     UI.noConflict = function() {
         // restore UIkit version
