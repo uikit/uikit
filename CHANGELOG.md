@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add link heading to Link component
+
 ## 3.0.0 beta 38 (January 18, 2018)
 
 ### Added
