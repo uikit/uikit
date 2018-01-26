@@ -5,9 +5,15 @@
 ### Added
 
 - Add link heading to Link component
+- Add Slider Parallax component
+
+### Changed
+
+- _Active_ classes are applied to all fully visible slides in Slider component
 
 ### Fixed
 
+- Fix Slider Nav initially has no state
 - Fix Esc closing on Confirm and Prompt dialogs
 
 ## 3.0.0 beta 38 (January 18, 2018)

@@ -217,6 +217,16 @@ export function each(obj, cb) {
     }
 }
 
+export function sortBy(collection, prop) {
+    return collection.sort((a, b) =>
+        a[prop] > b[prop]
+            ? 1
+            : b[prop] > a[prop]
+                ? -1
+                : 0
+    );
+}
+
 export function clamp(number, min = 0, max = 1) {
     return Math.min(Math.max(number, min), max);
 }

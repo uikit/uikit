@@ -127,12 +127,13 @@ export default function (UIkit) {
                 var prev = slides[prevIndex],
                     next = slides[nextIndex],
                     changed = this.index !== nextIndex,
-                    edge = prevIndex === nextIndex;
+                    edge = prevIndex === nextIndex,
+                    reset;
 
                 [this.index, this.prevIndex].filter(i => !includes([nextIndex, prevIndex], i)).forEach(i => {
                     trigger(slides[i], 'itemhidden', [this]);
 
-                    this._transitioner && this._transitioner.reset();
+                    reset = true;
 
                     if (edge) {
                         this.prevIndex = prevIndex;
@@ -140,7 +141,7 @@ export default function (UIkit) {
 
                 });
 
-                if (this.index === prevIndex && this.prevIndex !== prevIndex) {
+                if (this.index === prevIndex && this.prevIndex !== prevIndex || reset && edge) {
                     trigger(slides[this.index], 'itemshown', [this]);
                 }
 
@@ -152,6 +153,7 @@ export default function (UIkit) {
                     trigger(next, 'beforeitemshow', [this]);
                 }
 
+                reset && this._transitioner && this._transitioner.reset();
                 this._transitioner = this._translate(Math.abs(this.percent), prev, !edge && next);
 
                 if (changed) {
@@ -206,4 +208,4 @@ export default function (UIkit) {
         return !el.children.length && el.childNodes.length;
     }
 
-};
+}

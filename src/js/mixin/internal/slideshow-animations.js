@@ -37,7 +37,7 @@ export default function (UIkit) {
 }
 
 export function translate(value = 0, unit = '%') {
-    return `translate(${value}${value ? unit : ''}, 0)`; // currently not translate3d to support IE, translate3d within translate3d does not work while transitioning
+    return `translateX(${value}${value ? unit : ''})`; // currently not translate3d to support IE, translate3d within translate3d does not work while transitioning
 }
 
 export function scale3d(value) {

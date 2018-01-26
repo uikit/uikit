@@ -1,6 +1,6 @@
 import Slideshow from '../mixin/slideshow';
 import AnimationsPlugin from './internal/slideshow-animations';
-import ParallaxPlugin from './internal/slideshow-parallax';
+import ParallaxPlugin from './internal/slider-parallax';
 import SliderReactive from '../mixin/internal/slider-reactive';
 
 function plugin(UIkit) {
@@ -9,13 +9,14 @@ function plugin(UIkit) {
         return;
     }
 
-    UIkit.use(ParallaxPlugin);
     UIkit.use(Slideshow);
 
     var {mixin} = UIkit;
     var {height} = UIkit.util;
 
     var Animations = AnimationsPlugin(UIkit);
+
+    UIkit.component('slideshow-parallax', ParallaxPlugin(UIkit, 'slideshow'));
 
     UIkit.component('slideshow', {
 

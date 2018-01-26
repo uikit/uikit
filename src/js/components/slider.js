@@ -1,6 +1,7 @@
 import Slider, { speedUp } from '../mixin/slider';
 import SliderReactive from '../mixin/internal/slider-reactive';
 import TransitionerPlugin from './internal/slider-transitioner';
+import ParallaxPlugin from './internal/slider-parallax';
 
 function plugin(UIkit) {
 
@@ -11,8 +12,10 @@ function plugin(UIkit) {
     UIkit.use(Slider);
 
     var {mixin} = UIkit;
-    var {$, $$, css, data, includes, isNumeric, toggleClass, toFloat} = UIkit.util;
+    var {$, $$, addClass, css, data, includes, isNumeric, isUndefined, toggleClass, toFloat} = UIkit.util;
     var Transitioner = TransitionerPlugin(UIkit);
+
+    UIkit.component('slider-parallax', ParallaxPlugin(UIkit, 'slider'));
 
     UIkit.component('slider', {
 
@@ -145,8 +148,8 @@ function plugin(UIkit) {
                 }
 
                 var diff = Math.abs(this.index + (this.dir > 0
-                        ? this.index < this.prevIndex ? this.maxIndex + 1 : 0
-                        : this.index > this.prevIndex ? -this.maxIndex : 0
+                    ? this.index < this.prevIndex ? this.maxIndex + 1 : 0
+                    : this.index > this.prevIndex ? -this.maxIndex : 0
                 ) - this.prevIndex);
 
                 if (!this.dragging && diff > 1) {
@@ -168,6 +171,15 @@ function plugin(UIkit) {
 
                 this.reorder();
 
+            },
+
+            itemshow() {
+                !isUndefined(this.prevIndex) && addClass(this._getTransitioner().getItemIn(), this.clsActive);
+            },
+
+            itemshown() {
+                var actives = this._getTransitioner(this.index).getActives();
+                this.slides.forEach(slide => toggleClass(slide, this.clsActive, this.clsActivated, includes(actives, slide)));
             }
 
         },
