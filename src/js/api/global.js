@@ -30,7 +30,7 @@ export default function (UIkit) {
 
         var Super = this;
         var Sub = function UIkitComponent (options) {
-            this._init(options)
+            this._init(options);
         };
 
         Sub.prototype = Object.create(Super.prototype);

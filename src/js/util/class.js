@@ -32,14 +32,14 @@ export function toggleClass(element, ...args) {
 
     args = getArgs(args);
 
-    var force = !isString(args[args.length - 1]) ? args.pop() : [];  // in iOS 9.3 force === undefined evaluates to false
+    var force = !isString(args[args.length - 1]) ? args.pop() : []; // in iOS 9.3 force === undefined evaluates to false
 
     args = args.filter(Boolean);
 
     toNodes(element).forEach(({classList}) => {
         for (var i = 0; i < args.length; i++) {
             supports.Force
-                ? classList.toggle.apply(classList, [args[i]].concat(force))
+                ? classList.toggle(...[args[i]].concat(force))
                 : (classList[(!isUndefined(force) ? force : !classList.contains(args[i])) ? 'add' : 'remove'](args[i]));
         }
     });

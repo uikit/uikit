@@ -96,7 +96,7 @@ export function animate(element, animation, duration = 200, origin, out) {
             if (hasClass(element, clsCancelAnimation)) {
                 requestAnimationFrame(() =>
                     Promise.resolve().then(() =>
-                        animate.apply(null, arguments).then(resolve, reject)
+                        animate(...arguments).then(resolve, reject)
                     )
                 );
                 return;
