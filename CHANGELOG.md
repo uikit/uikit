@@ -6,6 +6,10 @@
 
 - Add link heading to Link component
 
+### Fixed
+
+- Fix Esc closing on Confirm and Prompt dialogs
+
 ## 3.0.0 beta 38 (January 18, 2018)
 
 ### Added
