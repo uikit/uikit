@@ -16,6 +16,7 @@
 - Fix Slider Nav initially has no state
 - Fix Esc closing on Confirm and Prompt dialogs
 - Fix using Grids in Slider component in Safari
+- Fix edge scrolling in Sortable component in IE 11
 
 ## 3.0.0 beta 38 (January 18, 2018)
 
