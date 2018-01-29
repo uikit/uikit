@@ -147,10 +147,11 @@ function plugin(UIkit) {
                     this.index = this.getValidIndex();
                 }
 
-                var diff = Math.abs(this.index + (this.dir > 0
-                    ? this.index < this.prevIndex ? this.maxIndex + 1 : 0
-                    : this.index > this.prevIndex ? -this.maxIndex : 0
-                ) - this.prevIndex);
+                var diff = Math.abs(
+                    this.index
+                    - this.prevIndex
+                    + (this.dir > 0 && this.index < this.prevIndex || this.dir < 0 && this.index > this.prevIndex ? (this.maxIndex + 1) * this.dir : 0)
+                );
 
                 if (!this.dragging && diff > 1) {
 
@@ -179,7 +180,8 @@ function plugin(UIkit) {
 
             itemshown() {
                 var actives = this._getTransitioner(this.index).getActives();
-                this.slides.forEach(slide => toggleClass(slide, this.clsActive, this.clsActivated, includes(actives, slide)));
+                this.slides.forEach(slide => toggleClass(slide, this.clsActive, includes(actives, slide)));
+                (!this.sets || includes(this.sets, toFloat(this.index))) && this.slides.forEach(slide => toggleClass(slide, this.clsActivated, includes(actives, slide)));
             }
 
         },
