@@ -43,11 +43,14 @@
 
 /*
  * 1. Optimize animation
+ * 2. Create a containing block. In Safari it's neither created by `transform` nor `will-change`.
  */
 
 .uk-slider-items {
     /* 1 */
     will-change: transform;
+    /* 2 */
+    position: relative;
 }
 
 /*
