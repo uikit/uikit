@@ -45,7 +45,7 @@ function plugin(UIkit) {
             ['init', 'start', 'move', 'end'].forEach(key => {
                 var fn = this[key];
                 this[key] = e => {
-                    this.scrollY = win.scrollY;
+                    this.scrollY = win.pageYOffset;
                     var {x, y} = getPos(e);
                     this.pos = {x, y};
 
@@ -187,7 +187,7 @@ function plugin(UIkit) {
             },
 
             scroll() {
-                var scroll = win.scrollY;
+                var scroll = win.pageYOffset;
                 if (scroll !== this.scrollY) {
                     this.pos.y += scroll - this.scrollY;
                     this.scrollY = scroll;
