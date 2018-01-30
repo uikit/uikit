@@ -6,6 +6,7 @@
 
 - Add link heading to Link component
 - Add Slider Parallax component
+- Add support for privacy enhanced mode in YouTube urls
 
 ### Changed
 
