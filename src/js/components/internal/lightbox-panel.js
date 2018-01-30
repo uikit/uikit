@@ -231,7 +231,7 @@ function plugin(UIkit) {
 
                         this.setItem(item, `<iframe class="uk-lightbox-iframe" src="${source}" frameborder="0" allowfullscreen></iframe>`);
 
-                    // Youtube
+                    // YouTube
                     } else if (matches = source.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/watch\?v=([^&\s]+)/) || source.match(/(y)outu\.be\/(.*)/)) {
 
                         var id = matches[2],
@@ -239,7 +239,7 @@ function plugin(UIkit) {
 
                         getImage(`//img.youtube.com/vi/${id}/maxresdefault.jpg`).then(
                             ({width, height}) => {
-                                //youtube default 404 thumb, fall back to lowres
+                                // YouTube default 404 thumb, fall back to low resolution
                                 if (width === 120 && height === 90) {
                                     getImage(`//img.youtube.com/vi/${id}/0.jpg`).then(
                                         ({width, height}) => setIframe(width, height),

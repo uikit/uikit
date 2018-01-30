@@ -11,6 +11,7 @@
 ### Changed
 
 - _Active_ classes are applied to all fully visible slides in Slider component
+- Allow all Lightbox Panel options to be set through Lightbox component
 
 ### Fixed
 
