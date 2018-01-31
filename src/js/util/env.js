@@ -10,9 +10,9 @@ export const requestAnimationFrame = win.requestAnimationFrame;
 
 var hasTouchEvents = 'ontouchstart' in win;
 var hasPointerEvents = win.PointerEvent;
-export const hasTouch = 'ontouchstart' in win
+export const hasTouch = hasTouchEvents
     || win.DocumentTouch && doc instanceof DocumentTouch
-    || navigator.pointerEnabled && navigator.maxTouchPoints; // IE >=11
+    || navigator.maxTouchPoints; // IE >=11
 
 export const pointerDown = !hasTouch ? 'mousedown' : `mousedown ${hasTouchEvents ? 'touchstart' : 'pointerdown'}`;
 export const pointerMove = !hasTouch ? 'mousemove' : `mousemove ${hasTouchEvents ? 'touchmove' : 'pointermove'}`;

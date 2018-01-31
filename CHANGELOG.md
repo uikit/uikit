@@ -19,6 +19,8 @@
 - Fix Esc closing on Confirm and Prompt dialogs
 - Fix using Grids in Slider component in Safari
 - Fix edge scrolling in Sortable component in IE 11
+- Fix touch scrolling in Slideshow/Slider in Edge
+- Fix tap event on touch devices
 - Fix initial Drop positioning
 
 ## 3.0.0 beta 38 (January 18, 2018)

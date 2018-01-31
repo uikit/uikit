@@ -77,6 +77,7 @@
 /*
  * 1. Let items take content dimensions (0 0 auto)
  * 2. Create position context
+ * 3. Disable horizontal panning gestures in IE11 and Edge
  */
 
 .uk-slider-items > * {
@@ -84,6 +85,8 @@
     flex: none;
     /* 2 */
     position: relative;
+    /* 3 */
+    touch-action: pan-y;
 }
 
 

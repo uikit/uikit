@@ -17,7 +17,6 @@ function plugin(UIkit) {
         mixins: [AutoplayMixin(UIkit), DragMixin(UIkit), NavMixin(UIkit)],
 
         props: {
-            clsActive: String,
             clsActivated: Boolean,
             easing: String,
             index: Number,

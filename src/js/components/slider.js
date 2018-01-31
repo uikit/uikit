@@ -214,7 +214,7 @@ function plugin(UIkit) {
                     width = this.list.offsetWidth / 2 - next.offsetWidth / 2,
                     j = 0;
 
-                while (width >= 0) {
+                while (width > 0) {
                     var slideIndex = this.getIndex(--j + index, index),
                         slide = this.slides[slideIndex];
 

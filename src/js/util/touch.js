@@ -30,7 +30,12 @@ ready(function () {
 
         var target = e.target,
             {x, y} = getPos(e),
-            now = Date.now();
+            now = Date.now(),
+            type = getType(e.type);
+
+        if (touch.type && touch.type !== type) {
+            return;
+        }
 
         touch.el = 'tagName' in target ? target : target.parentNode;
 
@@ -43,6 +48,7 @@ ready(function () {
             touch = {};
         }
 
+        touch.type = type;
         touch.last = now;
 
         clicked = e.button > 0;
@@ -59,6 +65,10 @@ ready(function () {
 
     on(doc, pointerUp, function ({type, target}) {
 
+        if (touch.type !== getType(type)) {
+            return;
+        }
+
         // swipe
         if (touch.x2 && Math.abs(touch.x1 - touch.x2) > 30 || touch.y2 && Math.abs(touch.y1 - touch.y2) > 30) {
 
@@ -73,7 +83,7 @@ ready(function () {
         // normal tap
         } else if ('last' in touch) {
 
-            tapTimeout = setTimeout(() => touch.el && trigger(touch.el, 'tap'));
+            tapTimeout = setTimeout(() => trigger(touch.el, 'tap'));
 
             // trigger single click after 350ms of inactivity
             if (touch.el && type !== 'mouseup' && within(target, touch.el)) {
@@ -108,4 +118,8 @@ export function getPos(e) {
     var {touches, changedTouches} = e,
         {pageX: x, pageY: y} = touches && touches[0] || changedTouches && changedTouches[0] || e;
     return {x, y};
+}
+
+function getType(type) {
+    return type.slice(0, 5);
 }

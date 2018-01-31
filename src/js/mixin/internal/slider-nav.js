@@ -1,6 +1,6 @@
 export default function (UIkit) {
 
-    var {$, $$, data, html, index, toggleClass} = UIkit.util;
+    var {$, $$, data, html, toggleClass, toNumber} = UIkit.util;
 
     return {
 
@@ -82,7 +82,7 @@ export default function (UIkit) {
 
                     var cmd = data(el, this.attrItem);
 
-                    toggleClass(el, this.clsActive, index(el) === i);
+                    toggleClass(el, this.clsActive, toNumber(cmd) === i);
                     toggleClass(el, 'uk-invisible', this.finite && (cmd === 'previous' && i === 0 || cmd === 'next' && i >= this.maxIndex));
                 });
 

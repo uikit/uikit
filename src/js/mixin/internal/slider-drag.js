@@ -39,9 +39,16 @@ export default function (UIkit) {
                 },
 
                 handler(e) {
-                    if (isTouch(e) || !hasTextNodesOnly(e.target)) {
-                        this.start(e);
+
+                    if (!isTouch(e) && hasTextNodesOnly(e.target)
+                        || e.button > 0
+                        || this.length < 2
+                        || this.preventCatch
+                    ) {
+                        return;
                     }
+
+                    this.start(e);
                 }
 
             },
@@ -58,15 +65,7 @@ export default function (UIkit) {
 
         methods: {
 
-            start(e) {
-
-                if (e.button > 0 || this.length < 2) {
-                    return;
-                }
-
-                if (this.preventCatch) {
-                    return;
-                }
+            start() {
 
                 this.drag = this.pos;
 
