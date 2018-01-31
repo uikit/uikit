@@ -306,7 +306,7 @@ export function preventClick() {
 }
 
 export function isVisible(element) {
-    return toNodes(element).some(element => element.offsetHeight);
+    return toNodes(element).some(element => element.offsetHeight || element.getClientRects().length);
 }
 
 export const selInput = 'input,select,textarea,button';
