@@ -38,9 +38,10 @@ $heading-bullet-margin-right:                    10px !default;
 $heading-bullet-border-width:                    5px !default;
 $heading-bullet-border:                          $global-border !default;
 
+$heading-line-height:                            $heading-line-border-width !default;
+$heading-line-width:                             2000px !default;
 $heading-line-border-width:                      $global-border-width !default;
 $heading-line-border:                            $global-border !default;
-$heading-line-height:                            $heading-line-border-width !default;
 $heading-line-margin-horizontal:                 0.6em !default;
 
 
@@ -167,7 +168,7 @@ $heading-line-margin-horizontal:                 0.6em !default;
     position: absolute;
     top: unquote('calc(50% - (#{$heading-line-height} / 2))');
     /* 2 */
-    width: 2000px;
+    width: $heading-line-width;
     /* 3 */
     border-bottom: $heading-line-border-width solid $heading-line-border;
     @if(mixin-exists(hook-heading-line)) {@include hook-heading-line();}

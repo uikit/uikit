@@ -3,6 +3,7 @@
 //
 // Component:       `uk-link-muted`
 //                  `uk-link-text`
+//                  `uk-link-heading`
 //                  `uk-link-reset`
 //
 // ========================================================================
@@ -15,6 +16,9 @@ $link-muted-color:                               $global-muted-color !default;
 $link-muted-hover-color:                         $global-color !default;
 
 $link-text-hover-color:                          $global-muted-color !default;
+
+$link-heading-hover-color:                       $global-primary-background !default;
+$link-heading-hover-text-decoration:             none !default;
 
 
 /* ========================================================================
@@ -41,13 +45,9 @@ a.uk-link-muted:hover,
 /* Text
  ========================================================================== */
 
-/*
- * `!important` needed to override inverse component
- */
-
 a.uk-link-text:not(:hover),
 .uk-link-text a:not(:hover) {
-    color: inherit !important;
+    color: inherit;
     @if(mixin-exists(hook-link-text)) {@include hook-link-text();}
 }
 
@@ -55,6 +55,23 @@ a.uk-link-text:hover,
 .uk-link-text a:hover {
     color: $link-text-hover-color;
     @if(mixin-exists(hook-link-text-hover)) {@include hook-link-text-hover();}
+}
+
+
+/* Heading
+ ========================================================================== */
+
+a.uk-link-heading:not(:hover),
+.uk-link-heading a:not(:hover) {
+    color: inherit;
+    @if(mixin-exists(hook-link-heading)) {@include hook-link-heading();}
+}
+
+a.uk-link-heading:hover,
+.uk-link-heading a:hover {
+    color: $link-heading-hover-color;
+    text-decoration: $link-heading-hover-text-decoration;
+    @if(mixin-exists(hook-link-heading-hover)) {@include hook-link-heading-hover();}
 }
 
 
@@ -84,6 +101,8 @@ a.uk-link-reset:hover,
 // @mixin hook-link-muted-hover(){}
 // @mixin hook-link-text(){}
 // @mixin hook-link-text-hover(){}
+// @mixin hook-link-heading(){}
+// @mixin hook-link-heading-hover(){}
 // @mixin hook-link-reset(){}
 // @mixin hook-link-misc(){}
 
@@ -94,9 +113,11 @@ a.uk-link-reset:hover,
 $inverse-link-muted-color:                         $inverse-global-muted-color !default;
 $inverse-link-muted-hover-color:                   $inverse-global-color !default;
 $inverse-link-text-hover-color:                    $inverse-global-muted-color !default;
+$inverse-link-heading-hover-color:                 $inverse-global-primary-background !default;
 
 
 
 // @mixin hook-inverse-link-muted(){}
 // @mixin hook-inverse-link-muted-hover(){}
 // @mixin hook-inverse-link-text-hover(){}
+// @mixin hook-inverse-link-heading-hover(){}
