@@ -168,13 +168,15 @@ export function position(element) {
     var parent = offsetParent(element),
         parentOffset = parent === docEl(element) ? {top: 0, left: 0} : offset(parent);
 
-    return ['top', 'left'].reduce((props, prop) => {
+    var {top, left} = ['top', 'left'].reduce((props, prop) => {
         var propName = ucfirst(prop);
         props[prop] -= parentOffset[prop]
             + (toFloat(css(element, `margin${propName}`)) || 0)
             + (toFloat(css(parent, `border${propName}Width`)) || 0);
         return props;
     }, offset(element));
+
+    return {top, left};
 }
 
 function offsetParent(element) {

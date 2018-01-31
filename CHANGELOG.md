@@ -1,5 +1,28 @@
 # Changelog
 
+## 3.0.0 beta 39 (January 31, 2018)
+
+### Added
+
+- Add link heading to Link component
+- Add Slider Parallax component
+- Add support for privacy enhanced mode in YouTube urls
+
+### Changed
+
+- _Active_ classes are applied to all fully visible slides in Slider component
+- Allow all Lightbox Panel options to be set through Lightbox component
+
+### Fixed
+
+- Fix Slider Nav initially has no state
+- Fix Esc closing on Confirm and Prompt dialogs
+- Fix using Grids in Slider component in Safari
+- Fix edge scrolling in Sortable component in IE 11
+- Fix touch scrolling in Slideshow/Slider in Edge
+- Fix tap event on touch devices
+- Fix initial Drop positioning
+
 ## 3.0.0 beta 38 (January 18, 2018)
 
 ### Added

@@ -1,25 +1,21 @@
 import Parallax from '../../mixin/parallax';
 
-function plugin(UIkit) {
-
-    if (plugin.installed) {
-        return;
-    }
+export default function (UIkit, parent) {
 
     UIkit.use(Parallax);
 
     var {mixin} = UIkit;
     var {closest, css, endsWith, noop, Transition} = UIkit.util;
 
-    UIkit.component('slideshow-parallax', {
+    return {
 
         mixins: [mixin.parallax],
 
         computed: {
 
             item() {
-                var slideshow = UIkit.getComponent(closest(this.$el, '.uk-slideshow'), 'slideshow');
-                return slideshow && closest(this.$el, slideshow.slidesSelector);
+                var slider = UIkit.getComponent(closest(this.$el, `.uk-${parent}`), parent);
+                return slider && closest(this.$el, slider.slidesSelector);
             }
 
         },
@@ -98,7 +94,7 @@ function plugin(UIkit) {
 
         ]
 
-    });
+    };
 
     function isIn(type) {
         return endsWith(type, 'in');
@@ -118,9 +114,3 @@ function plugin(UIkit) {
     }
 
 }
-
-if (!BUNDLED && typeof window !== 'undefined' && window.UIkit) {
-    window.UIkit.use(plugin);
-}
-
-export default plugin;

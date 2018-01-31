@@ -3,6 +3,7 @@
 //
 // Component:       `uk-link-muted`
 //                  `uk-link-text`
+//                  `uk-link-heading`
 //                  `uk-link-reset`
 //
 // ========================================================================
@@ -15,6 +16,9 @@
 @link-muted-hover-color:                        @global-color;
 
 @link-text-hover-color:                         @global-muted-color;
+
+@link-heading-hover-color:                      @global-primary-background;
+@link-heading-hover-text-decoration:            none;
 
 
 /* ========================================================================
@@ -41,13 +45,9 @@ a.uk-link-muted:hover,
 /* Text
  ========================================================================== */
 
-/*
- * `!important` needed to override inverse component
- */
-
 a.uk-link-text:not(:hover),
 .uk-link-text a:not(:hover) {
-    color: inherit !important;
+    color: inherit;
     .hook-link-text;
 }
 
@@ -55,6 +55,23 @@ a.uk-link-text:hover,
 .uk-link-text a:hover {
     color: @link-text-hover-color;
     .hook-link-text-hover;
+}
+
+
+/* Heading
+ ========================================================================== */
+
+a.uk-link-heading:not(:hover),
+.uk-link-heading a:not(:hover) {
+    color: inherit;
+    .hook-link-heading;
+}
+
+a.uk-link-heading:hover,
+.uk-link-heading a:hover {
+    color: @link-heading-hover-color;
+    text-decoration: @link-heading-hover-text-decoration;
+    .hook-link-heading-hover;
 }
 
 
@@ -84,6 +101,8 @@ a.uk-link-reset:hover,
 .hook-link-muted-hover() {}
 .hook-link-text() {}
 .hook-link-text-hover() {}
+.hook-link-heading() {}
+.hook-link-heading-hover() {}
 .hook-link-reset() {}
 .hook-link-misc() {}
 
@@ -94,6 +113,7 @@ a.uk-link-reset:hover,
 @inverse-link-muted-color:                        @inverse-global-muted-color;
 @inverse-link-muted-hover-color:                  @inverse-global-color;
 @inverse-link-text-hover-color:                   @inverse-global-muted-color;
+@inverse-link-heading-hover-color:                @inverse-global-primary-background;
 
 .hook-inverse() {
 
@@ -115,8 +135,15 @@ a.uk-link-reset:hover,
         .hook-inverse-link-text-hover;
     }
 
+    a.uk-link-heading:hover,
+    .uk-link-heading a:hover {
+        color: @inverse-link-heading-hover-color;
+        .hook-inverse-link-heading-hover;
+    }
+
 }
 
 .hook-inverse-link-muted() {}
 .hook-inverse-link-muted-hover() {}
 .hook-inverse-link-text-hover() {}
+.hook-inverse-link-heading-hover() {}

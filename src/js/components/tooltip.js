@@ -13,6 +13,8 @@ function plugin(UIkit) {
 
         attrs: true,
 
+        args: 'title',
+
         mixins: [mixin.container, mixin.togglable, mixin.position],
 
         props: {

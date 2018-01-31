@@ -231,15 +231,15 @@ function plugin(UIkit) {
 
                         this.setItem(item, `<iframe class="uk-lightbox-iframe" src="${source}" frameborder="0" allowfullscreen></iframe>`);
 
-                    // Youtube
-                    } else if (matches = source.match(/\/\/.*?youtube\.[a-z]+\/watch\?v=([^&\s]+)/) || source.match(/youtu\.be\/(.*)/)) {
+                    // YouTube
+                    } else if (matches = source.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/watch\?v=([^&\s]+)/) || source.match(/(y)outu\.be\/(.*)/)) {
 
-                        var id = matches[1],
-                            setIframe = (width = 640, height = 450) => this.setItem(item, getIframe(`//www.youtube.com/embed/${id}`, width, height, this.videoAutoplay));
+                        var id = matches[2],
+                            setIframe = (width = 640, height = 450) => this.setItem(item, getIframe(`//www.youtube${matches[1] || ''}.com/embed/${id}`, width, height, this.videoAutoplay));
 
                         getImage(`//img.youtube.com/vi/${id}/maxresdefault.jpg`).then(
                             ({width, height}) => {
-                                //youtube default 404 thumb, fall back to lowres
+                                // YouTube default 404 thumb, fall back to low resolution
                                 if (width === 120 && height === 90) {
                                     getImage(`//img.youtube.com/vi/${id}/0.jpg`).then(
                                         ({width, height}) => setIframe(width, height),

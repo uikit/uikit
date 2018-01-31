@@ -18,7 +18,7 @@ export default function (UIkit) {
 
                 write() {
 
-                    if (this.stack.length) {
+                    if (this.stack.length || this.dragging) {
                         return;
                     }
 

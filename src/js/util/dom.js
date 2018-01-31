@@ -96,7 +96,7 @@ export function animate(element, animation, duration = 200, origin, out) {
             if (hasClass(element, clsCancelAnimation)) {
                 requestAnimationFrame(() =>
                     Promise.resolve().then(() =>
-                        animate.apply(null, arguments).then(resolve, reject)
+                        animate(...arguments).then(resolve, reject)
                     )
                 );
                 return;
@@ -294,19 +294,19 @@ export const Dimensions = {
 
 export function preventClick() {
 
-    var timer = setTimeout(() => trigger(doc, 'click'), 0);
+    let timer = setTimeout(once(doc, 'click', e => {
 
-    once(doc, 'click', e => {
         e.preventDefault();
         e.stopImmediatePropagation();
 
         clearTimeout(timer);
-    }, true);
+
+    }, true));
 
 }
 
 export function isVisible(element) {
-    return toNodes(element).some(element => element.offsetHeight);
+    return toNodes(element).some(element => element.offsetHeight || element.getBoundingClientRect().height);
 }
 
 export const selInput = 'input,select,textarea,button';

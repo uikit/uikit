@@ -32,7 +32,7 @@ export default function (UIkit) {
         var cls = 'uk-hover';
 
         on(doc, 'tap', ({target}) =>
-            $$(`.${cls}`).forEach((_, el) =>
+            $$(`.${cls}`).forEach(el =>
                 !within(target, el) && removeClass(el, cls)
             )
         );

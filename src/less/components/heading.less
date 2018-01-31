@@ -38,9 +38,10 @@
 @heading-bullet-border-width:                   5px;
 @heading-bullet-border:                         @global-border;
 
+@heading-line-height:                           @heading-line-border-width;
+@heading-line-width:                            2000px;
 @heading-line-border-width:                     @global-border-width;
 @heading-line-border:                           @global-border;
-@heading-line-height:                           @heading-line-border-width;
 @heading-line-margin-horizontal:                0.6em;
 
 
@@ -167,7 +168,7 @@
     position: absolute;
     top: ~'calc(50% - (@{heading-line-height} / 2))';
     /* 2 */
-    width: 2000px;
+    width: @heading-line-width;
     /* 3 */
     border-bottom: @heading-line-border-width solid @heading-line-border;
     .hook-heading-line;

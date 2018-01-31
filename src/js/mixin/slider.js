@@ -8,7 +8,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, addClass, assign, clamp, fastdom, getIndex, hasClass, isNumber, isRtl, Promise, removeClass, toNodes, trigger} = UIkit.util;
+    var {$, assign, clamp, fastdom, getIndex, hasClass, isNumber, isRtl, Promise, toNodes, trigger} = UIkit.util;
 
     UIkit.mixin.slider = {
 
@@ -17,6 +17,7 @@ function plugin(UIkit) {
         mixins: [AutoplayMixin(UIkit), DragMixin(UIkit), NavMixin(UIkit)],
 
         props: {
+            clsActivated: Boolean,
             easing: String,
             index: Number,
             finite: Boolean,
@@ -31,7 +32,7 @@ function plugin(UIkit) {
             stack: [],
             percent: 0,
             clsActive: 'uk-active',
-            clsActivated: 'uk-transition-active',
+            clsActivated: false,
             Transitioner: false,
             transitionOptions: {}
         },
@@ -77,22 +78,6 @@ function plugin(UIkit) {
             }
 
         ],
-
-        events: {
-
-            beforeitemshow({target}) {
-                addClass(target, this.clsActive);
-            },
-
-            itemshown({target}) {
-                addClass(target, this.clsActivated);
-            },
-
-            itemhidden({target}) {
-                removeClass(target, this.clsActive, this.clsActivated);
-            }
-
-        },
 
         methods: {
 
@@ -185,10 +170,11 @@ function plugin(UIkit) {
                     next,
                     this.dir,
                     assign({easing: force
-                            ? next.offsetWidth < 600
-                                ? 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' /* easeOutQuad */
-                                : 'cubic-bezier(0.165, 0.84, 0.44, 1)' /* easeOutQuart */
-                            : this.easing}, this.transitionOptions)
+                        ? next.offsetWidth < 600
+                            ? 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' /* easeOutQuad */
+                            : 'cubic-bezier(0.165, 0.84, 0.44, 1)' /* easeOutQuart */
+                        : this.easing
+                    }, this.transitionOptions)
                 );
 
                 if (!force && !prev) {
@@ -211,7 +197,7 @@ function plugin(UIkit) {
                 return transitioner;
             },
 
-            _getTransitioner(prev, next, dir = this.dir || 1, options = this.transitionOptions) {
+            _getTransitioner(prev = this.prevIndex, next = this.index, dir = this.dir || 1, options = this.transitionOptions) {
                 return new this.Transitioner(
                     isNumber(prev) ? this.slides[prev] : prev,
                     isNumber(next) ? this.slides[next] : next,

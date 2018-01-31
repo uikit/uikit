@@ -206,6 +206,7 @@ export default function (UIkit) {
 
                 handler() {
                     this.clearTimers();
+                    this.position();
                 }
 
             },
@@ -217,7 +218,6 @@ export default function (UIkit) {
                 self: true,
 
                 handler() {
-                    this.position();
                     this.tracker.init();
                     addClass(this.toggle.$el, this.cls);
                     attr(this.toggle.$el, 'aria-expanded', 'true');

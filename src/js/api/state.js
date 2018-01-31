@@ -289,7 +289,7 @@ export default function (UIkit) {
     }
 
     function detail(listener) {
-        return e => isArray(e.detail) ? listener.apply(listener, [e].concat(e.detail)) : listener(e);
+        return e => isArray(e.detail) ? listener(...[e].concat(e.detail)) : listener(e);
     }
 
 }

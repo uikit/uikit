@@ -270,7 +270,7 @@ export default function (UIkit) {
 
             update() {
 
-                var top = Math.max(0, this.offset), active = this.scroll > this.top;
+                var top = Math.max(0, this.offset), active = this.top !== 0 || this.scroll > this.top;
 
                 if (this.bottom && this.scroll > this.bottom - this.offset) {
                     top = this.bottom - this.scroll;

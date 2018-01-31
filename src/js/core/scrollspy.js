@@ -70,13 +70,13 @@ export default function (UIkit) {
                     });
                 },
 
-                write(data) {
+                write(els) {
 
                     var index = this.elements.length === 1 ? 1 : 0;
 
                     this.elements.forEach((el, i) => {
 
-                        var elData = data[i], cls = elData.toggles[i] || elData.toggles[0];
+                        var elData = els[i], cls = elData.toggles[i] || elData.toggles[0];
 
                         if (elData.show) {
 
@@ -89,7 +89,7 @@ export default function (UIkit) {
 
                                     trigger(el, 'inview');
 
-                                    this.$update();
+                                    UIkit.update(null, el);
 
                                     elData.inview = true;
                                     delete elData.timer;
@@ -120,7 +120,7 @@ export default function (UIkit) {
 
                                 trigger(el, 'outview');
 
-                                this.$update();
+                                UIkit.update(null, el);
 
                                 elData.inview = false;
 

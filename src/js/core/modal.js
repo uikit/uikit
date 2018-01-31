@@ -1,5 +1,5 @@
 import { Class, Modal } from '../mixin/index';
-import { $, addClass, assign, closest, css, hasClass, height, html, index, isString, on, Promise, removeClass, trigger } from '../util/index';
+import { $, addClass, assign, closest, css, hasClass, height, html, isString, on, Promise, removeClass, trigger } from '../util/index';
 
 export default function (UIkit) {
 
@@ -126,22 +126,39 @@ export default function (UIkit) {
 
     UIkit.modal.confirm = function (message, options) {
 
-        options = assign({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
+        options = assign({bgClose: false, escClose: true, labels: UIkit.modal.labels}, options);
 
-        return new Promise(
-            (resolve, reject) => on(UIkit.modal.dialog(`
-                <div class="uk-modal-body">${isString(message) ? message : html(message)}</div>
-                <div class="uk-modal-footer uk-text-right">
-                    <button class="uk-button uk-button-default uk-modal-close">${options.labels.cancel}</button>
-                    <button class="uk-button uk-button-primary uk-modal-close" autofocus>${options.labels.ok}</button>
-                </div>
-            `, options).$el, 'click', '.uk-modal-footer button', ({target}) => index(target) === 0 ? reject() : resolve())
-        );
+        return new Promise((resolve, reject) => {
+
+            var resolved = false,
+                confirm = UIkit.modal.dialog(`
+                <form>
+                    <div class="uk-modal-body">${isString(message) ? message : html(message)}</div>
+                    <div class="uk-modal-footer uk-text-right">
+                        <button class="uk-button uk-button-default uk-modal-close" type="button">${options.labels.cancel}</button>
+                        <button class="uk-button uk-button-primary" autofocus>${options.labels.ok}</button>
+                    </div>
+                </form>
+            `, options);
+
+            on(confirm.$el, 'submit', 'form', e => {
+                e.preventDefault();
+                resolve();
+                resolved = true;
+                confirm.hide();
+            });
+            on(confirm.$el, 'hide', () => {
+                if (!resolved) {
+                    reject();
+                }
+            });
+
+        });
     };
 
     UIkit.modal.prompt = function (message, value, options) {
 
-        options = assign({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
+        options = assign({bgClose: false, escClose: true, labels: UIkit.modal.labels}, options);
 
         return new Promise(resolve => {
 

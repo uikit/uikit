@@ -117,6 +117,24 @@ export default function (UIkit) {
             },
 
             {
+                name: 'beforeshow',
+
+                capture: true,
+
+                filter() {
+                    return this.dropbar;
+                },
+
+                handler() {
+
+                    if (!this.dropbar.parentNode) {
+                        after(this.dropbarAnchor || this.$el, this.dropbar);
+                    }
+
+                }
+            },
+
+            {
                 name: 'show',
 
                 capture: true,
@@ -126,10 +144,6 @@ export default function (UIkit) {
                 },
 
                 handler(_, drop) {
-
-                    if (!this.dropbar.parentNode) {
-                        after(this.dropbarAnchor || this.$el, this.dropbar);
-                    }
 
                     var $el = drop.$el;
 

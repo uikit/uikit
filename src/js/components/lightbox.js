@@ -11,26 +11,18 @@ function plugin(UIkit) {
     var {util} = UIkit;
     var {$$, assign, data, index} = util;
 
+    var options = UIkit.components.lightboxPanel.options;
+
     UIkit.component('lightbox', {
 
         attrs: true,
 
-        props: {
-            animation: String,
-            container: Boolean,
-            toggle: String,
-            autoplay: Boolean,
-            autoplayInterval: Number,
-            videoAutoplay: Boolean
-        },
+        props: assign({toggle: String}, options.props),
 
-        defaults: {
-            animation: undefined,
-            container: true,
-            toggle: 'a',
-            autoplay: 0,
-            videoAutoplay: false
-        },
+        defaults: assign({toggle: 'a'}, Object.keys(options.props).reduce((defaults, key) => {
+            defaults[key] = options.defaults[key];
+            return defaults;
+        }, {})),
 
         computed: {
 
