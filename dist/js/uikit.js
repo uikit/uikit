@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.38 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.39 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -195,9 +195,9 @@ var requestAnimationFrame$1 = win.requestAnimationFrame;
 
 var hasTouchEvents = 'ontouchstart' in win;
 var hasPointerEvents = win.PointerEvent;
-var hasTouch = 'ontouchstart' in win
+var hasTouch = hasTouchEvents
     || win.DocumentTouch && doc instanceof DocumentTouch
-    || navigator.pointerEnabled && navigator.maxTouchPoints; // IE >=11
+    || navigator.maxTouchPoints; // IE >=11
 
 var pointerDown = !hasTouch ? 'mousedown' : ("mousedown " + (hasTouchEvents ? 'touchstart' : 'pointerdown'));
 var pointerMove = !hasTouch ? 'mousemove' : ("mousemove " + (hasTouchEvents ? 'touchmove' : 'pointermove'));
@@ -328,7 +328,7 @@ function toggleClass(element) {
 
     args = getArgs$1(args);
 
-    var force = !isString(args[args.length - 1]) ? args.pop() : undefined;
+    var force = !isString(args[args.length - 1]) ? args.pop() : []; // in iOS 9.3 force === undefined evaluates to false
 
     args = args.filter(Boolean);
 
@@ -337,7 +337,7 @@ function toggleClass(element) {
 
         for (var i = 0; i < args.length; i++) {
             supports.Force
-                ? classList.toggle(args[i], force)
+                ? classList.toggle.apply(classList, [args[i]].concat(force))
                 : (classList[(!isUndefined(force) ? force : !classList.contains(args[i])) ? 'add' : 'remove'](args[i]));
         }
     });
@@ -650,13 +650,17 @@ function position(element) {
     var parent = offsetParent(element),
         parentOffset = parent === docEl$1(element) ? {top: 0, left: 0} : offset(parent);
 
-    return ['top', 'left'].reduce(function (props, prop) {
+    var ref = ['top', 'left'].reduce(function (props, prop) {
         var propName$$1 = ucfirst(prop);
         props[prop] -= parentOffset[prop]
             + (toFloat(css(element, ("margin" + propName$$1))) || 0)
             + (toFloat(css(parent, ("border" + propName$$1 + "Width"))) || 0);
         return props;
     }, offset(element));
+    var top = ref.top;
+    var left = ref.left;
+
+    return {top: top, left: left};
 }
 
 function offsetParent(element) {
@@ -884,7 +888,7 @@ function animate(element, animation, duration, origin, out) {
     return Promise$$1.all(toNodes(element).map(function (element) { return new Promise$$1(function (resolve, reject) {
 
             if (hasClass(element, clsCancelAnimation)) {
-                requestAnimationFrame(function () { return Promise$$1.resolve().then(function () { return animate.apply(null, arguments$1).then(resolve, reject); }
+                requestAnimationFrame(function () { return Promise$$1.resolve().then(function () { return animate.apply(void 0, arguments$1).then(resolve, reject); }
                     ); }
                 );
                 return;
@@ -1097,19 +1101,19 @@ var Dimensions = {
 
 function preventClick() {
 
-    var timer = setTimeout(function () { return trigger(doc, 'click'); }, 0);
+    var timer = setTimeout(once(doc, 'click', function (e) {
 
-    once(doc, 'click', function (e) {
         e.preventDefault();
         e.stopImmediatePropagation();
 
         clearTimeout(timer);
-    }, true);
+
+    }, true));
 
 }
 
 function isVisible(element) {
-    return toNodes(element).some(function (element) { return element.offsetHeight; });
+    return toNodes(element).some(function (element) { return element.offsetHeight || element.getBoundingClientRect().height; });
 }
 
 var selInput = 'input,select,textarea,button';
@@ -1347,7 +1351,7 @@ function isContextSelector(selector) {
 }
 
 var elProto = Element.prototype;
-var matchesFn = elProto.matches || elProto.msMatchesSelector;
+var matchesFn = elProto.matches || elProto.webkitMatchesSelector || elProto.msMatchesSelector;
 
 function matches(element, selector) {
     return toNodes(element).some(function (element) { return matchesFn.call(element, selector); });
@@ -1776,6 +1780,15 @@ function each(obj, cb) {
     }
 }
 
+function sortBy(collection, prop) {
+    return collection.sort(function (a, b) { return a[prop] > b[prop]
+            ? 1
+            : b[prop] > a[prop]
+                ? -1
+                : 0; }
+    );
+}
+
 function clamp(number, min, max) {
     if ( min === void 0 ) min = 0;
     if ( max === void 0 ) max = 1;
@@ -2104,7 +2117,7 @@ Player.prototype.isIFrame = function isIFrame () {
 };
 
 Player.prototype.isYoutube = function isYoutube () {
-    return this.isIFrame() && !!this.el.src.match(/\/\/.*?youtube\.[a-z]+\/(watch\?v=[^&\s]+|embed)|youtu\.be\/.*/);
+    return this.isIFrame() && !!this.el.src.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/(watch\?v=[^&\s]+|embed)|youtu\.be\/.*/);
 };
 
 Player.prototype.isVimeo = function isVimeo () {
@@ -2268,7 +2281,12 @@ ready(function () {
         var ref = getPos$1(e);
         var x = ref.x;
         var y = ref.y;
-        var now = Date.now();
+        var now = Date.now(),
+            type = getType(e.type);
+
+        if (touch.type && touch.type !== type) {
+            return;
+        }
 
         touch.el = 'tagName' in target ? target : target.parentNode;
 
@@ -2281,6 +2299,7 @@ ready(function () {
             touch = {};
         }
 
+        touch.type = type;
         touch.last = now;
 
         clicked = e.button > 0;
@@ -2302,6 +2321,10 @@ ready(function () {
         var target = ref.target;
 
 
+        if (touch.type !== getType(type)) {
+            return;
+        }
+
         // swipe
         if (touch.x2 && Math.abs(touch.x1 - touch.x2) > 30 || touch.y2 && Math.abs(touch.y1 - touch.y2) > 30) {
 
@@ -2316,7 +2339,7 @@ ready(function () {
         // normal tap
         } else if ('last' in touch) {
 
-            tapTimeout = setTimeout(function () { return touch.el && trigger(touch.el, 'tap'); });
+            tapTimeout = setTimeout(function () { return trigger(touch.el, 'tap'); });
 
             // trigger single click after 350ms of inactivity
             if (touch.el && type !== 'mouseup' && within(target, touch.el)) {
@@ -2357,6 +2380,10 @@ function getPos$1(e) {
     return {x: x, y: y};
 }
 
+function getType(type) {
+    return type.slice(0, 5);
+}
+
 
 
 var util = Object.freeze({
@@ -2392,6 +2419,7 @@ var util = Object.freeze({
 	swap: swap,
 	assign: assign,
 	each: each,
+	sortBy: sortBy,
 	clamp: clamp,
 	noop: noop,
 	intersectRect: intersectRect,
@@ -3286,7 +3314,7 @@ function stateAPI (UIkit) {
     }
 
     function detail(listener) {
-        return function (e) { return isArray(e.detail) ? listener.apply(listener, [e].concat(e.detail)) : listener(e); };
+        return function (e) { return isArray(e.detail) ? listener.apply(void 0, [e].concat(e.detail)) : listener(e); };
     }
 
 }
@@ -3938,15 +3966,15 @@ var Position = {
                     : 0;
 
             var ref = positionAt(
-                    element,
-                    target,
-                    axis === 'x' ? ((flipPosition(this.dir)) + " " + (this.align)) : ((this.align) + " " + (flipPosition(this.dir))),
-                    axis === 'x' ? ((this.dir) + " " + (this.align)) : ((this.align) + " " + (this.dir)),
-                    axis === 'x' ? ("" + (this.dir === 'left' ? -offset$$1 : offset$$1)) : (" " + (this.dir === 'top' ? -offset$$1 : offset$$1)),
-                    null,
-                    this.flip,
-                    boundary
-                ).target;
+                element,
+                target,
+                axis === 'x' ? ((flipPosition(this.dir)) + " " + (this.align)) : ((this.align) + " " + (flipPosition(this.dir))),
+                axis === 'x' ? ((this.dir) + " " + (this.align)) : ((this.align) + " " + (this.dir)),
+                axis === 'x' ? ("" + (this.dir === 'left' ? -offset$$1 : offset$$1)) : (" " + (this.dir === 'top' ? -offset$$1 : offset$$1)),
+                null,
+                this.flip,
+                boundary
+            ).target;
             var x = ref.x;
             var y = ref.y;
 
@@ -4198,7 +4226,7 @@ function Core (UIkit) {
         on(doc, 'tap', function (ref) {
                 var target = ref.target;
 
-                return $$(("." + cls)).forEach(function (_, el) { return !within(target, el) && removeClass(el, cls); }
+                return $$(("." + cls)).forEach(function (el) { return !within(target, el) && removeClass(el, cls); }
             );
         }
         );
@@ -4489,6 +4517,7 @@ function Drop (UIkit) {
 
                 handler: function handler() {
                     this.clearTimers();
+                    this.position();
                 }
 
             },
@@ -4500,7 +4529,6 @@ function Drop (UIkit) {
                 self: true,
 
                 handler: function handler() {
-                    this.position();
                     this.tracker.init();
                     addClass(this.toggle.$el, this.cls);
                     attr(this.toggle.$el, 'aria-expanded', 'true');
@@ -5569,20 +5597,31 @@ function Modal$1 (UIkit) {
 
     UIkit.modal.confirm = function (message, options) {
 
-        options = assign({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
+        options = assign({bgClose: false, escClose: true, labels: UIkit.modal.labels}, options);
 
-        return new Promise$$1(
-            function (resolve, reject) { return on(UIkit.modal.dialog((" <div class=\"uk-modal-body\">" + (isString(message) ? message : html(message)) + "</div> <div class=\"uk-modal-footer uk-text-right\"> <button class=\"uk-button uk-button-default uk-modal-close\">" + (options.labels.cancel) + "</button> <button class=\"uk-button uk-button-primary uk-modal-close\" autofocus>" + (options.labels.ok) + "</button> </div> "), options).$el, 'click', '.uk-modal-footer button', function (ref) {
-                var target = ref.target;
+        return new Promise$$1(function (resolve, reject) {
 
-                return index(target) === 0 ? reject() : resolve();
-                }); }
-        );
+            var resolved = false,
+                confirm = UIkit.modal.dialog((" <form> <div class=\"uk-modal-body\">" + (isString(message) ? message : html(message)) + "</div> <div class=\"uk-modal-footer uk-text-right\"> <button class=\"uk-button uk-button-default uk-modal-close\" type=\"button\">" + (options.labels.cancel) + "</button> <button class=\"uk-button uk-button-primary\" autofocus>" + (options.labels.ok) + "</button> </div> </form> "), options);
+
+            on(confirm.$el, 'submit', 'form', function (e) {
+                e.preventDefault();
+                resolve();
+                resolved = true;
+                confirm.hide();
+            });
+            on(confirm.$el, 'hide', function () {
+                if (!resolved) {
+                    reject();
+                }
+            });
+
+        });
     };
 
     UIkit.modal.prompt = function (message, value, options) {
 
-        options = assign({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
+        options = assign({bgClose: false, escClose: true, labels: UIkit.modal.labels}, options);
 
         return new Promise$$1(function (resolve) {
 
@@ -5753,6 +5792,24 @@ function Navbar (UIkit) {
             },
 
             {
+                name: 'beforeshow',
+
+                capture: true,
+
+                filter: function filter() {
+                    return this.dropbar;
+                },
+
+                handler: function handler() {
+
+                    if (!this.dropbar.parentNode) {
+                        after(this.dropbarAnchor || this.$el, this.dropbar);
+                    }
+
+                }
+            },
+
+            {
                 name: 'show',
 
                 capture: true,
@@ -5762,10 +5819,6 @@ function Navbar (UIkit) {
                 },
 
                 handler: function handler(_, drop) {
-
-                    if (!this.dropbar.parentNode) {
-                        after(this.dropbarAnchor || this.$el, this.dropbar);
-                    }
 
                     var $el = drop.$el;
 
@@ -6271,7 +6324,7 @@ function Scrollspy (UIkit) {
                     });
                 },
 
-                write: function write(data) {
+                write: function write(els) {
                     var this$1 = this;
 
 
@@ -6279,7 +6332,7 @@ function Scrollspy (UIkit) {
 
                     this.elements.forEach(function (el, i) {
 
-                        var elData = data[i], cls = elData.toggles[i] || elData.toggles[0];
+                        var elData = els[i], cls = elData.toggles[i] || elData.toggles[0];
 
                         if (elData.show) {
 
@@ -6292,7 +6345,7 @@ function Scrollspy (UIkit) {
 
                                     trigger(el, 'inview');
 
-                                    this$1.$update();
+                                    UIkit.update(null, el);
 
                                     elData.inview = true;
                                     delete elData.timer;
@@ -6323,7 +6376,7 @@ function Scrollspy (UIkit) {
 
                                 trigger(el, 'outview');
 
-                                this$1.$update();
+                                UIkit.update(null, el);
 
                                 elData.inview = false;
 
@@ -6734,7 +6787,7 @@ function Sticky (UIkit) {
 
             update: function update() {
 
-                var top = Math.max(0, this.offset), active = this.scroll > this.top;
+                var top = Math.max(0, this.offset), active = this.top !== 0 || this.scroll > this.top;
 
                 if (this.bottom && this.scroll > this.bottom - this.offset) {
                     top = this.bottom - this.scroll;
@@ -7384,7 +7437,7 @@ function core (UIkit) {
 
 }
 
-UIkit$2.version = '3.0.0-beta.38';
+UIkit$2.version = '3.0.0-beta.39';
 
 mixin(UIkit$2);
 core(UIkit$2);
@@ -7583,6 +7636,7 @@ function plugin$1(UIkit) {
     var addClass = ref.addClass;
     var css = ref.css;
     var scrolledOver = ref.scrolledOver;
+    var sortBy = ref.sortBy;
     var toFloat = ref.toFloat;
 
     UIkit.component('grid-parallax', UIkit.components.grid.extend({
@@ -7686,15 +7740,6 @@ function plugin$1(UIkit) {
 
     });
 
-    function sortBy(collection, prop) {
-        return collection.sort(function (a, b) { return a[prop] > b[prop]
-                ? 1
-                : b[prop] > a[prop]
-                    ? -1
-                    : 0; }
-        );
-    }
-
 }
 
 function AnimationsPlugin (UIkit) {
@@ -7740,7 +7785,7 @@ function translate(value, unit) {
     if ( value === void 0 ) value = 0;
     if ( unit === void 0 ) unit = '%';
 
-    return ("translate(" + value + (value ? unit : '') + ", 0)"); // currently not translate3d to support IE, translate3d within translate3d does not work while transitioning
+    return ("translateX(" + value + (value ? unit : '') + ")"); // currently not translate3d to support IE, translate3d within translate3d does not work while transitioning
 }
 
 function scale3d(value) {
@@ -7942,8 +7987,10 @@ function AutoplayMixin (UIkit) {
                 this.stopAutoplay();
 
                 if (this.autoplay) {
-                    this.interval = setInterval(function () { return !(this$1.isHovering && this$1.pauseOnHover) && !this$1.stack.length && this$1.show('next'); }
-                    , this.autoplayInterval);
+                    this.interval = setInterval(
+                        function () { return !(this$1.isHovering && this$1.pauseOnHover) && !this$1.stack.length && this$1.show('next'); },
+                        this.autoplayInterval
+                    );
                 }
 
             },
@@ -7956,7 +8003,7 @@ function AutoplayMixin (UIkit) {
 
         }
 
-    }
+    };
 }
 
 function DragMixin (UIkit) {
@@ -8015,9 +8062,16 @@ function DragMixin (UIkit) {
                 },
 
                 handler: function handler(e) {
-                    if (isTouch(e) || !hasTextNodesOnly(e.target)) {
-                        this.start(e);
+
+                    if (!isTouch(e) && hasTextNodesOnly(e.target)
+                        || e.button > 0
+                        || this.length < 2
+                        || this.preventCatch
+                    ) {
+                        return;
                     }
+
+                    this.start(e);
                 }
 
             },
@@ -8034,15 +8088,7 @@ function DragMixin (UIkit) {
 
         methods: {
 
-            start: function start(e) {
-
-                if (e.button > 0 || this.length < 2) {
-                    return;
-                }
-
-                if (this.preventCatch) {
-                    return;
-                }
+            start: function start() {
 
                 this.drag = this.pos;
 
@@ -8105,12 +8151,13 @@ function DragMixin (UIkit) {
                 var prev = slides[prevIndex],
                     next = slides[nextIndex],
                     changed = this.index !== nextIndex,
-                    edge = prevIndex === nextIndex;
+                    edge = prevIndex === nextIndex,
+                    reset;
 
                 [this.index, this.prevIndex].filter(function (i) { return !includes([nextIndex, prevIndex], i); }).forEach(function (i) {
                     trigger(slides[i], 'itemhidden', [this$1]);
 
-                    this$1._transitioner && this$1._transitioner.reset();
+                    reset = true;
 
                     if (edge) {
                         this$1.prevIndex = prevIndex;
@@ -8118,7 +8165,7 @@ function DragMixin (UIkit) {
 
                 });
 
-                if (this.index === prevIndex && this.prevIndex !== prevIndex) {
+                if (this.index === prevIndex && this.prevIndex !== prevIndex || reset && edge) {
                     trigger(slides[this.index], 'itemshown', [this]);
                 }
 
@@ -8130,6 +8177,7 @@ function DragMixin (UIkit) {
                     trigger(next, 'beforeitemshow', [this]);
                 }
 
+                reset && this._transitioner && this._transitioner.reset();
                 this._transitioner = this._translate(Math.abs(this.percent), prev, !edge && next);
 
                 if (changed) {
@@ -8193,8 +8241,8 @@ function NavMixin (UIkit) {
     var $$ = ref.$$;
     var data = ref.data;
     var html = ref.html;
-    var index = ref.index;
     var toggleClass = ref.toggleClass;
+    var toNumber = ref.toNumber;
 
     return {
 
@@ -8236,6 +8284,8 @@ function NavMixin (UIkit) {
 
                     toggleClass($$(this.navItemSelector, this.$el).concat(this.nav), 'uk-hidden', !this.maxIndex);
 
+                    this.updateNav();
+
                 },
 
                 events: ['load', 'resize']
@@ -8265,17 +8315,30 @@ function NavMixin (UIkit) {
             {
 
                 name: 'itemshow',
-
-                handler: function handler() {
-                    var this$1 = this;
-
-                    var i = this.getValidIndex();
-                    this.navItems.forEach(function (item) { return toggleClass(item, this$1.clsActive, index(item) === i); });
-                }
+                handler: 'updateNav'
 
             }
 
-        ]
+        ],
+
+        methods: {
+
+            updateNav: function updateNav() {
+                var this$1 = this;
+
+
+                var i = this.getValidIndex();
+                this.navItems.forEach(function (el) {
+
+                    var cmd = data(el, this$1.attrItem);
+
+                    toggleClass(el, this$1.clsActive, toNumber(cmd) === i);
+                    toggleClass(el, 'uk-invisible', this$1.finite && (cmd === 'previous' && i === 0 || cmd === 'next' && i >= this$1.maxIndex));
+                });
+
+            }
+
+        }
 
     };
 
@@ -8289,7 +8352,6 @@ function plugin$5(UIkit) {
 
     var ref = UIkit.util;
     var $ = ref.$;
-    var addClass = ref.addClass;
     var assign = ref.assign;
     var clamp = ref.clamp;
     var fastdom = ref.fastdom;
@@ -8298,7 +8360,6 @@ function plugin$5(UIkit) {
     var isNumber = ref.isNumber;
     var isRtl = ref.isRtl;
     var Promise = ref.Promise;
-    var removeClass = ref.removeClass;
     var toNodes = ref.toNodes;
     var trigger = ref.trigger;
 
@@ -8309,6 +8370,7 @@ function plugin$5(UIkit) {
         mixins: [AutoplayMixin(UIkit), DragMixin(UIkit), NavMixin(UIkit)],
 
         props: {
+            clsActivated: Boolean,
             easing: String,
             index: Number,
             finite: Boolean,
@@ -8323,7 +8385,7 @@ function plugin$5(UIkit) {
             stack: [],
             percent: 0,
             clsActive: 'uk-active',
-            clsActivated: 'uk-transition-active',
+            clsActivated: false,
             Transitioner: false,
             transitionOptions: {}
         },
@@ -8375,28 +8437,6 @@ function plugin$5(UIkit) {
             }
 
         ],
-
-        events: {
-
-            beforeitemshow: function beforeitemshow(ref) {
-                var target = ref.target;
-
-                addClass(target, this.clsActive);
-            },
-
-            itemshown: function itemshown(ref) {
-                var target = ref.target;
-
-                addClass(target, this.clsActivated);
-            },
-
-            itemhidden: function itemhidden(ref) {
-                var target = ref.target;
-
-                removeClass(target, this.clsActive, this.clsActivated);
-            }
-
-        },
 
         methods: {
 
@@ -8498,10 +8538,11 @@ function plugin$5(UIkit) {
                     next,
                     this.dir,
                     assign({easing: force
-                            ? next.offsetWidth < 600
-                                ? 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' /* easeOutQuad */
-                                : 'cubic-bezier(0.165, 0.84, 0.44, 1)' /* easeOutQuart */
-                            : this.easing}, this.transitionOptions)
+                        ? next.offsetWidth < 600
+                            ? 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' /* easeOutQuad */
+                            : 'cubic-bezier(0.165, 0.84, 0.44, 1)' /* easeOutQuart */
+                        : this.easing
+                    }, this.transitionOptions)
                 );
 
                 if (!force && !prev) {
@@ -8528,6 +8569,8 @@ function plugin$5(UIkit) {
             },
 
             _getTransitioner: function _getTransitioner(prev, next, dir, options) {
+                if ( prev === void 0 ) prev = this.prevIndex;
+                if ( next === void 0 ) next = this.index;
                 if ( dir === void 0 ) dir = this.dir || 1;
                 if ( options === void 0 ) options = this.transitionOptions;
 
@@ -8569,9 +8612,11 @@ function plugin$4(UIkit) {
 
     var mixin = UIkit.mixin;
     var ref = UIkit.util;
+    var addClass = ref.addClass;
     var assign = ref.assign;
     var fastdom = ref.fastdom;
     var isNumber = ref.isNumber;
+    var removeClass = ref.removeClass;
 
     var Animations = AnimationsPlugin(UIkit),
         Transitioner = TransitionerPlugin(UIkit);
@@ -8586,6 +8631,7 @@ function plugin$4(UIkit) {
 
         defaults: {
             animation: 'slide',
+            clsActivated: 'uk-transition-active',
             Animations: Animations,
             Transitioner: Transitioner
         },
@@ -8615,6 +8661,24 @@ function plugin$4(UIkit) {
 
             itemshow: function itemshow() {
                 isNumber(this.prevIndex) && fastdom.flush(); // iOS 10+ will honor the video.play only if called from a gesture handler
+            },
+
+            beforeitemshow: function beforeitemshow(ref) {
+                var target = ref.target;
+
+                addClass(target, this.clsActive);
+            },
+
+            itemshown: function itemshown(ref) {
+                var target = ref.target;
+
+                addClass(target, this.clsActivated);
+            },
+
+            itemhidden: function itemhidden(ref) {
+                var target = ref.target;
+
+                removeClass(target, this.clsActive, this.clsActivated);
             }
 
         }
@@ -8929,15 +8993,15 @@ function plugin$3(UIkit) {
 
                         this.setItem(item, ("<iframe class=\"uk-lightbox-iframe\" src=\"" + source + "\" frameborder=\"0\" allowfullscreen></iframe>"));
 
-                    // Youtube
-                    } else if (matches = source.match(/\/\/.*?youtube\.[a-z]+\/watch\?v=([^&\s]+)/) || source.match(/youtu\.be\/(.*)/)) {
+                    // YouTube
+                    } else if (matches = source.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/watch\?v=([^&\s]+)/) || source.match(/(y)outu\.be\/(.*)/)) {
 
-                        var id = matches[1],
+                        var id = matches[2],
                             setIframe = function (width, height) {
                                 if ( width === void 0 ) width = 640;
                                 if ( height === void 0 ) height = 450;
 
-                                return this$1.setItem(item, getIframe(("//www.youtube.com/embed/" + id), width, height, this$1.videoAutoplay));
+                                return this$1.setItem(item, getIframe(("//www.youtube" + (matches[1] || '') + ".com/embed/" + id), width, height, this$1.videoAutoplay));
                         };
 
                         getImage(("//img.youtube.com/vi/" + id + "/maxresdefault.jpg")).then(
@@ -8945,7 +9009,7 @@ function plugin$3(UIkit) {
                                 var width = ref.width;
                                 var height = ref.height;
 
-                                //youtube default 404 thumb, fall back to lowres
+                                // YouTube default 404 thumb, fall back to low resolution
                                 if (width === 120 && height === 90) {
                                     getImage(("//img.youtube.com/vi/" + id + "/0.jpg")).then(
                                         function (ref) {
@@ -9053,26 +9117,18 @@ function plugin$2(UIkit) {
     var data = util.data;
     var index = util.index;
 
+    var options = UIkit.components.lightboxPanel.options;
+
     UIkit.component('lightbox', {
 
         attrs: true,
 
-        props: {
-            animation: String,
-            container: Boolean,
-            toggle: String,
-            autoplay: Boolean,
-            autoplayInterval: Number,
-            videoAutoplay: Boolean
-        },
+        props: assign({toggle: String}, options.props),
 
-        defaults: {
-            animation: undefined,
-            container: true,
-            toggle: 'a',
-            autoplay: 0,
-            videoAutoplay: false
-        },
+        defaults: assign({toggle: 'a'}, Object.keys(options.props).reduce(function (defaults, key) {
+            defaults[key] = options.defaults[key];
+            return defaults;
+        }, {})),
 
         computed: {
 
@@ -9773,7 +9829,7 @@ function SliderReactive (UIkit) {
 
                 write: function write() {
 
-                    if (this.stack.length) {
+                    if (this.stack.length || this.dragging) {
                         return;
                     }
 
@@ -9797,15 +9853,21 @@ function SliderReactive (UIkit) {
 function TransitionerPlugin$1 (UIkit) {
 
     var ref = UIkit.util;
+    var assign = ref.assign;
     var clamp = ref.clamp;
+    var createEvent = ref.createEvent;
     var css = ref.css;
     var Deferred = ref.Deferred;
+    var includes = ref.includes;
+    var index = ref.index;
     var isRtl = ref.isRtl;
     var noop = ref.noop;
+    var sortBy = ref.sortBy;
     var toNodes = ref.toNodes;
     var Transition = ref.Transition;
+    var trigger = ref.trigger;
 
-    function Transitioner(prev, next, dir, ref) {
+    var Transitioner = assign(function (prev, next, dir, ref) {
         var center = ref.center;
         var easing = ref.easing;
         var list = ref.list;
@@ -9828,12 +9890,18 @@ function TransitionerPlugin$1 (UIkit) {
                 if ( percent === void 0 ) percent = 0;
 
 
+                var timing = linear ? 'linear' : easing;
                 duration -= Math.round(duration * clamp(percent, -1, 1));
 
                 this.translate(percent);
 
+                prev && this.updateTranslates();
+                percent = prev ? percent : clamp(percent, 0, 1);
+                triggerUpdate(this.getItemIn(), 'itemin', {percent: percent, duration: duration, timing: timing, dir: dir});
+                prev && triggerUpdate(this.getItemIn(true), 'itemout', {percent: 1 - percent, duration: duration, timing: timing, dir: dir});
+
                 Transition
-                    .start(list, {transform: translate(-to * (isRtl ? -1 : 1), 'px')}, duration, linear ? 'linear' : easing)
+                    .start(list, {transform: translate(-to * (isRtl ? -1 : 1), 'px')}, duration, timing)
                     .then(deferred.resolve, noop);
 
                 return deferred.promise;
@@ -9869,6 +9937,14 @@ function TransitionerPlugin$1 (UIkit) {
                     list.offsetWidth
                 ) * (isRtl ? -1 : 1), 'px'));
 
+                this.updateTranslates();
+
+                if (prev) {
+                    percent = clamp(percent, -1, 1);
+                    triggerUpdate(this.getItemIn(), 'itemtranslatein', {percent: percent, dir: dir});
+                    triggerUpdate(this.getItemIn(true), 'itemtranslateout', {percent: 1 - percent, dir: dir});
+                }
+
             },
 
             percent: function percent() {
@@ -9877,43 +9953,222 @@ function TransitionerPlugin$1 (UIkit) {
 
             getDistance: function getDistance() {
                 return Math.abs(to - from);
+            },
+
+            getItemIn: function getItemIn(out) {
+                if ( out === void 0 ) out = false;
+
+
+                var actives = this.getActives(),
+                    all = sortBy(slides(list), 'offsetLeft'),
+                    i = index(all, actives[dir * (out ? -1 : 1) > 0 ? actives.length - 1 : 0]);
+
+                return ~i && all[i + (prev && !out ? dir : 0)];
+
+            },
+
+            getActives: function getActives() {
+
+                var left = Transitioner.getLeft(prev || next, list, center);
+
+                return sortBy(slides(list).filter(function (slide) {
+                    var slideLeft = Transitioner.getElLeft(slide, list);
+                    return slideLeft >= left && slideLeft + slide.offsetWidth <= list.offsetWidth + left;
+                }), 'offsetLeft');
+
+            },
+
+            updateTranslates: function updateTranslates() {
+
+                var actives = this.getActives();
+
+                slides(list).forEach(function (slide) {
+                    var isActive = includes(actives, slide);
+
+                    triggerUpdate(slide, ("itemtranslate" + (isActive ? 'in' : 'out')), {
+                        percent: isActive ? 1 : 0,
+                        dir: slide.offsetLeft <= next.offsetLeft ? 1 : -1
+                    });
+                });
             }
 
         };
 
+    }, {
+
+        getLeft: function getLeft(el, list, center) {
+
+            var left = this.getElLeft(el, list);
+
+            return center
+                ? left - this.center(el, list)
+                : Math.min(left, this.getMax(list));
+
+        },
+
+        getMax: function getMax(list) {
+            return Math.max(0, this.getWidth(list) - list.offsetWidth);
+        },
+
+        getWidth: function getWidth(list) {
+            return slides(list).reduce(function (right, el) { return el.offsetWidth + right; }, 0);
+        },
+
+        getMaxWidth: function getMaxWidth(list) {
+            return slides(list).reduce(function (right, el) { return Math.max(right, el.offsetWidth); }, 0);
+        },
+
+        center: function center(el, list) {
+            return list.offsetWidth / 2 - el.offsetWidth / 2;
+        },
+
+        getElLeft: function getElLeft(el, list) {
+            return (el.offsetLeft + (isRtl ? el.offsetWidth - list.offsetWidth : 0)) * (isRtl ? -1 : 1);
+        }
+
+    });
+
+    function triggerUpdate(el, type, data) {
+        trigger(el, createEvent(type, false, false, data));
     }
 
-    Transitioner.getLeft = function (el, list, center) {
-
-        var left = Transitioner.getElLeft(el, list);
-
-        return center
-            ? left - Transitioner.center(el, list)
-            : Math.min(left, Transitioner.getMax(list));
-
-    };
-
-    Transitioner.getMax = function (list) {
-        return Math.max(0, Transitioner.getWidth(list) - list.offsetWidth);
-    };
-
-    Transitioner.getWidth = function (list) {
-        return toNodes(list.children).reduce(function (right, el) { return el.offsetWidth + right; }, 0);
-    };
-
-    Transitioner.getMaxWidth = function (list) {
-        return toNodes(list.children).reduce(function (right, el) { return Math.max(right, el.offsetWidth); }, 0);
-    };
-
-    Transitioner.center = function (el, list) {
-        return list.offsetWidth / 2 - el.offsetWidth / 2;
-    };
-
-    Transitioner.getElLeft = function (el, list) {
-        return (el.offsetLeft + (isRtl ? el.offsetWidth - list.offsetWidth : 0)) * (isRtl ? -1 : 1);
-    };
+    function slides(list) {
+        return toNodes(list.children);
+    }
 
     return Transitioner;
+
+}
+
+function ParallaxPlugin (UIkit, parent) {
+
+    UIkit.use(plugin$8);
+
+    var mixin = UIkit.mixin;
+    var ref = UIkit.util;
+    var closest = ref.closest;
+    var css = ref.css;
+    var endsWith = ref.endsWith;
+    var noop = ref.noop;
+    var Transition = ref.Transition;
+
+    return {
+
+        mixins: [mixin.parallax],
+
+        computed: {
+
+            item: function item() {
+                var slider = UIkit.getComponent(closest(this.$el, (".uk-" + parent)), parent);
+                return slider && closest(this.$el, slider.slidesSelector);
+            }
+
+        },
+
+        events: [
+
+            {
+
+                name: 'itemshown',
+
+                self: true,
+
+                el: function el() {
+                    return this.item;
+                },
+
+                handler: function handler() {
+                    css(this.$el, this.getCss(.5));
+                }
+
+            },
+
+            {
+                name: 'itemin itemout',
+
+                self: true,
+
+                el: function el() {
+                    return this.item;
+                },
+
+                handler: function handler(ref) {
+                    var type = ref.type;
+                    var ref_detail = ref.detail;
+                    var percent = ref_detail.percent;
+                    var duration = ref_detail.duration;
+                    var timing = ref_detail.timing;
+                    var dir = ref_detail.dir;
+
+
+                    Transition.cancel(this.$el);
+                    css(this.$el, this.getCss(getCurrent(type, dir, percent)));
+
+                    Transition.start(this.$el, this.getCss(isIn(type)
+                        ? .5
+                        : dir > 0
+                            ? 1
+                            : 0
+                    ), duration, timing).catch(noop);
+
+                }
+            },
+
+            {
+                name: 'transitioncanceled transitionend',
+
+                self: true,
+
+                el: function el() {
+                    return this.item;
+                },
+
+                handler: function handler() {
+                    Transition.cancel(this.$el);
+                }
+
+            },
+
+            {
+                name: 'itemtranslatein itemtranslateout',
+
+                self: true,
+
+                el: function el() {
+                    return this.item;
+                },
+
+                handler: function handler(ref) {
+                    var type = ref.type;
+                    var ref_detail = ref.detail;
+                    var percent = ref_detail.percent;
+                    var dir = ref_detail.dir;
+
+                    Transition.cancel(this.$el);
+                    css(this.$el, this.getCss(getCurrent(type, dir, percent)));
+                }
+            }
+
+        ]
+
+    };
+
+    function isIn(type) {
+        return endsWith(type, 'in');
+    }
+
+    function getCurrent(type, dir, percent) {
+
+        percent /= 2;
+
+        return !isIn(type)
+            ? dir < 0
+                ? percent
+                : 1 - percent
+            : dir < 0
+                ? 1 - percent
+                : percent;
+    }
 
 }
 
@@ -9929,13 +10184,17 @@ function plugin$9(UIkit) {
     var ref = UIkit.util;
     var $ = ref.$;
     var $$ = ref.$$;
+    var addClass = ref.addClass;
     var css = ref.css;
     var data = ref.data;
     var includes = ref.includes;
     var isNumeric = ref.isNumeric;
+    var isUndefined = ref.isUndefined;
     var toggleClass = ref.toggleClass;
     var toFloat = ref.toFloat;
     var Transitioner = TransitionerPlugin$1(UIkit);
+
+    UIkit.component('slider-parallax', ParallaxPlugin(UIkit, 'slider'));
 
     UIkit.component('slider', {
 
@@ -10078,10 +10337,11 @@ function plugin$9(UIkit) {
                     this.index = this.getValidIndex();
                 }
 
-                var diff = Math.abs(this.index + (this.dir > 0
-                        ? this.index < this.prevIndex ? this.maxIndex + 1 : 0
-                        : this.index > this.prevIndex ? -this.maxIndex : 0
-                ) - this.prevIndex);
+                var diff = Math.abs(
+                    this.index
+                    - this.prevIndex
+                    + (this.dir > 0 && this.index < this.prevIndex || this.dir < 0 && this.index > this.prevIndex ? (this.maxIndex + 1) * this.dir : 0)
+                );
 
                 if (!this.dragging && diff > 1) {
 
@@ -10102,6 +10362,18 @@ function plugin$9(UIkit) {
 
                 this.reorder();
 
+            },
+
+            itemshow: function itemshow() {
+                !isUndefined(this.prevIndex) && addClass(this._getTransitioner().getItemIn(), this.clsActive);
+            },
+
+            itemshown: function itemshown() {
+                var this$1 = this;
+
+                var actives = this._getTransitioner(this.index).getActives();
+                this.slides.forEach(function (slide) { return toggleClass(slide, this$1.clsActive, includes(actives, slide)); });
+                (!this.sets || includes(this.sets, toFloat(this.index))) && this.slides.forEach(function (slide) { return toggleClass(slide, this$1.clsActivated, includes(actives, slide)); });
             }
 
         },
@@ -10135,7 +10407,7 @@ function plugin$9(UIkit) {
                     width = this.list.offsetWidth / 2 - next.offsetWidth / 2,
                     j = 0;
 
-                while (width >= 0) {
+                while (width > 0) {
                     var slideIndex = this$1.getIndex(--j + index, index),
                         slide = this$1.slides[slideIndex];
 
@@ -10302,149 +10574,12 @@ function AnimationsPlugin$2 (UIkit) {
 
 }
 
-function plugin$11(UIkit) {
-
-    if (plugin$11.installed) {
-        return;
-    }
-
-    UIkit.use(plugin$8);
-
-    var mixin = UIkit.mixin;
-    var ref = UIkit.util;
-    var closest = ref.closest;
-    var css = ref.css;
-    var endsWith = ref.endsWith;
-    var noop = ref.noop;
-    var Transition = ref.Transition;
-
-    UIkit.component('slideshow-parallax', {
-
-        mixins: [mixin.parallax],
-
-        computed: {
-
-            item: function item() {
-                var slideshow = UIkit.getComponent(closest(this.$el, '.uk-slideshow'), 'slideshow');
-                return slideshow && closest(this.$el, slideshow.slidesSelector);
-            }
-
-        },
-
-        events: [
-
-            {
-
-                name: 'itemshown',
-
-                self: true,
-
-                el: function el() {
-                    return this.item;
-                },
-
-                handler: function handler() {
-                    css(this.$el, this.getCss(.5));
-                }
-
-            },
-
-            {
-                name: 'itemin itemout',
-
-                self: true,
-
-                el: function el() {
-                    return this.item;
-                },
-
-                handler: function handler(ref) {
-                    var type = ref.type;
-                    var ref_detail = ref.detail;
-                    var percent = ref_detail.percent;
-                    var duration = ref_detail.duration;
-                    var timing = ref_detail.timing;
-                    var dir = ref_detail.dir;
-
-
-                    Transition.cancel(this.$el);
-                    css(this.$el, this.getCss(getCurrent(type, dir, percent)));
-
-                    Transition.start(this.$el, this.getCss(isIn(type)
-                        ? .5
-                        : dir > 0
-                            ? 1
-                            : 0
-                    ), duration, timing).catch(noop);
-
-                }
-            },
-
-            {
-                name: 'transitioncanceled transitionend',
-
-                self: true,
-
-                el: function el() {
-                    return this.item;
-                },
-
-                handler: function handler() {
-                    Transition.cancel(this.$el);
-                }
-
-            },
-
-            {
-                name: 'itemtranslatein itemtranslateout',
-
-                self: true,
-
-                el: function el() {
-                    return this.item;
-                },
-
-                handler: function handler(ref) {
-                    var type = ref.type;
-                    var ref_detail = ref.detail;
-                    var percent = ref_detail.percent;
-                    var dir = ref_detail.dir;
-
-                    Transition.cancel(this.$el);
-                    css(this.$el, this.getCss(getCurrent(type, dir, percent)));
-                }
-            }
-
-        ]
-
-    });
-
-    function isIn(type) {
-        return endsWith(type, 'in');
-    }
-
-    function getCurrent(type, dir, percent) {
-
-        percent /= 2;
-
-        return !isIn(type)
-            ? dir < 0
-                ? percent
-                : 1 - percent
-            : dir < 0
-                ? 1 - percent
-                : percent;
-    }
-
-}
-
 function plugin$10(UIkit) {
 
     if (plugin$10.installed) {
         return;
     }
 
-    UIkit.use(plugin$11);
     UIkit.use(plugin$4);
 
     var mixin = UIkit.mixin;
@@ -10452,6 +10587,8 @@ function plugin$10(UIkit) {
     var height = ref.height;
 
     var Animations = AnimationsPlugin$2(UIkit);
+
+    UIkit.component('slideshow-parallax', ParallaxPlugin(UIkit, 'slideshow'));
 
     UIkit.component('slideshow', {
 
@@ -10508,11 +10645,11 @@ function plugin$10(UIkit) {
 
 }
 
-function plugin$12(UIkit) {
+function plugin$11(UIkit) {
     var obj;
 
 
-    if (plugin$12.installed) {
+    if (plugin$11.installed) {
         return;
     }
 
@@ -10593,7 +10730,7 @@ function plugin$12(UIkit) {
             ['init', 'start', 'move', 'end'].forEach(function (key) {
                 var fn = this$1[key];
                 this$1[key] = function (e) {
-                    this$1.scrollY = win.scrollY;
+                    this$1.scrollY = win.pageYOffset;
                     var ref = getPos(e);
                     var x = ref.x;
                     var y = ref.y;
@@ -10737,7 +10874,7 @@ function plugin$12(UIkit) {
             },
 
             scroll: function scroll() {
-                var scroll = win.scrollY;
+                var scroll = win.pageYOffset;
                 if (scroll !== this.scrollY) {
                     this.pos.y += scroll - this.scrollY;
                     this.scrollY = scroll;
@@ -10880,11 +11017,11 @@ function plugin$12(UIkit) {
 
 }
 
-function plugin$13(UIkit) {
+function plugin$12(UIkit) {
     var obj;
 
 
-    if (plugin$13.installed) {
+    if (plugin$12.installed) {
         return;
     }
 
@@ -10911,6 +11048,8 @@ function plugin$13(UIkit) {
     UIkit.component('tooltip', {
 
         attrs: true,
+
+        args: 'title',
 
         mixins: [mixin.container, mixin.togglable, mixin.position],
 
@@ -11015,9 +11154,9 @@ function plugin$13(UIkit) {
 
 }
 
-function plugin$14(UIkit) {
+function plugin$13(UIkit) {
 
-    if (plugin$14.installed) {
+    if (plugin$13.installed) {
         return;
     }
 
@@ -11238,9 +11377,9 @@ UIkit$2.use(plugin$6);
 UIkit$2.use(plugin$7);
 UIkit$2.use(plugin$9);
 UIkit$2.use(plugin$10);
+UIkit$2.use(plugin$11);
 UIkit$2.use(plugin$12);
 UIkit$2.use(plugin$13);
-UIkit$2.use(plugin$14);
 
 {
     boot(UIkit$2);
