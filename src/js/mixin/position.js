@@ -52,15 +52,15 @@ export default {
                     : 0;
 
             var {x, y} = positionAt(
-                    element,
-                    target,
-                    axis === 'x' ? `${flipPosition(this.dir)} ${this.align}` : `${this.align} ${flipPosition(this.dir)}`,
-                    axis === 'x' ? `${this.dir} ${this.align}` : `${this.align} ${this.dir}`,
-                    axis === 'x' ? `${this.dir === 'left' ? -offset : offset}` : ` ${this.dir === 'top' ? -offset : offset}`,
-                    null,
-                    this.flip,
-                    boundary
-                ).target;
+                element,
+                target,
+                axis === 'x' ? `${flipPosition(this.dir)} ${this.align}` : `${this.align} ${flipPosition(this.dir)}`,
+                axis === 'x' ? `${this.dir} ${this.align}` : `${this.align} ${this.dir}`,
+                axis === 'x' ? `${this.dir === 'left' ? -offset : offset}` : ` ${this.dir === 'top' ? -offset : offset}`,
+                null,
+                this.flip,
+                boundary
+            ).target;
 
             this.dir = axis === 'x' ? x : y;
             this.align = axis === 'x' ? y : x;
