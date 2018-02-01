@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix using Scrollspy component with default values
+
 ## 3.0.0 beta 39 (January 31, 2018)
 
 ### Added

@@ -17,7 +17,7 @@ export default function (UIkit) {
         },
 
         defaults: {
-            cls: ['uk-scrollspy-inview'],
+            cls: [],
             target: false,
             hidden: true,
             offsetTop: 0,
