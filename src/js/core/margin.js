@@ -1,4 +1,4 @@
-import { isRtl, isVisible, toggleClass } from '../util/index';
+import {isRtl, isVisible, toggleClass} from '../util/index';
 
 export default function (UIkit) {
 
@@ -18,7 +18,7 @@ export default function (UIkit) {
 
             read(data) {
 
-                var items = this.$el.children;
+                const items = this.$el.children;
 
                 if (!items.length || !isVisible(this.$el)) {
                     return data.rows = false;
@@ -26,27 +26,27 @@ export default function (UIkit) {
 
                 data.stacks = true;
 
-                var rows = [[]];
+                const rows = [[]];
 
-                for (var i = 0; i < items.length; i++) {
+                for (let i = 0; i < items.length; i++) {
 
-                    var el = items[i],
-                        dim = el.getBoundingClientRect();
+                    const el = items[i];
+                    const dim = el.getBoundingClientRect();
 
                     if (!dim.height) {
                         continue;
                     }
 
-                    for (var j = rows.length - 1; j >= 0; j--) {
+                    for (let j = rows.length - 1; j >= 0; j--) {
 
-                        var row = rows[j];
+                        const row = rows[j];
 
                         if (!row[0]) {
                             row.push(el);
                             break;
                         }
 
-                        var leftDim = row[0].getBoundingClientRect();
+                        const leftDim = row[0].getBoundingClientRect();
 
                         if (dim.top >= Math.floor(leftDim.bottom)) {
                             rows.push([el]);

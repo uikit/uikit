@@ -10,11 +10,10 @@ function plugin(UIkit) {
 
     UIkit.use(SliderPlugin);
 
-    var {mixin} = UIkit;
-    var {addClass, assign, fastdom, isNumber, removeClass} = UIkit.util;
+    const {mixin, util: {addClass, assign, fastdom, isNumber, removeClass}} = UIkit;
 
-    var Animations = AnimationsPlugin(UIkit),
-        Transitioner = TransitionerPlugin(UIkit);
+    const Animations = AnimationsPlugin(UIkit);
+    const Transitioner = TransitionerPlugin(UIkit);
 
     UIkit.mixin.slideshow = {
 

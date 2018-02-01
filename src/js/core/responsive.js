@@ -1,4 +1,4 @@
-import { addClass, Dimensions, height, isVisible, width } from '../util/index';
+import {addClass, Dimensions, height, isVisible, width} from '../util/index';
 
 export default function (UIkit) {
 

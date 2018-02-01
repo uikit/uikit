@@ -8,10 +8,9 @@ function plugin(UIkit) {
 
     UIkit.use(LightboxPanel);
 
-    var {util} = UIkit;
-    var {$$, assign, data, index} = util;
-
-    var options = UIkit.components.lightboxPanel.options;
+    const {util} = UIkit;
+    const {$$, assign, data, index} = util;
+    const {options} = UIkit.components.lightboxPanel;
 
     UIkit.component('lightbox', {
 

@@ -1,5 +1,5 @@
-import { Class } from '../mixin/index';
-import { $, addClass, after, Animation, assign, attr, css, docEl, fastdom, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, remove, removeClass, replaceClass, toFloat, toggleClass, trigger, win, within } from '../util/index';
+import {Class} from '../mixin/index';
+import {$, addClass, after, Animation, assign, attr, css, docEl, fastdom, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, remove, removeClass, replaceClass, toFloat, toggleClass, trigger, win, within} from '../util/index';
 
 export default function (UIkit) {
 
@@ -78,14 +78,14 @@ export default function (UIkit) {
                 return;
             }
 
-            var target = $(location.hash);
+            const target = $(location.hash);
 
             if (target) {
                 fastdom.read(() => {
 
-                    var top = offset(target).top,
-                        elTop = offset(this.$el).top,
-                        elHeight = this.$el.offsetHeight;
+                    const {top} = offset(target);
+                    const elTop = offset(this.$el).top;
+                    const elHeight = this.$el.offsetHeight;
 
                     if (elTop + elHeight >= top && elTop <= top + target.offsetHeight) {
                         win.scrollTo(0, top - elHeight - this.target - this.offset);
@@ -128,8 +128,8 @@ export default function (UIkit) {
 
                 write() {
 
-                    var placeholder = this.placeholder,
-                        outerHeight = (this.isActive ? placeholder : this.$el).offsetHeight;
+                    const {placeholder} = this;
+                    const outerHeight = (this.isActive ? placeholder : this.$el).offsetHeight;
 
                     css(placeholder, assign(
                         {height: css(this.$el, 'position') !== 'absolute' ? outerHeight : ''},
@@ -148,7 +148,7 @@ export default function (UIkit) {
                     this.topOffset = offset(this.isActive ? placeholder : this.$el).top;
                     this.bottomOffset = this.topOffset + outerHeight;
 
-                    var bottom = parseProp('bottom', this);
+                    const bottom = parseProp('bottom', this);
 
                     this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
                     this.bottom = bottom && bottom - outerHeight;
@@ -242,7 +242,8 @@ export default function (UIkit) {
 
             update() {
 
-                var top = Math.max(0, this.offset), active = this.top !== 0 || this.scroll > this.top;
+                const active = this.top !== 0 || this.scroll > this.top;
+                let top = Math.max(0, this.offset);
 
                 if (this.bottom && this.scroll > this.bottom - this.offset) {
                     top = this.bottom - this.scroll;
@@ -260,11 +261,8 @@ export default function (UIkit) {
                         trigger(this.$el, 'inactive');
                     }
 
-                } else {
-
-                    if (active) {
-                        trigger(this.$el, 'active');
-                    }
+                } else if (active) {
+                    trigger(this.$el, 'active');
                 }
 
                 toggleClass(this.$el, this.clsBelow, this.scroll > this.bottomOffset);

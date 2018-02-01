@@ -9,10 +9,10 @@ function plugin(UIkit) {
 
     UIkit.use(Slideshow);
 
-    var {mixin, util} = UIkit;
-    var {$, addClass, ajax, append, assign, attr, css, doc, getImage, html, index, on, pointerDown, pointerMove, removeClass, Transition, trigger} = util;
+    const {mixin, util} = UIkit;
+    const {$, addClass, ajax, append, assign, attr, css, doc, getImage, html, index, on, pointerDown, pointerMove, removeClass, Transition, trigger} = util;
 
-    var Animations = AnimationsPlugin(UIkit);
+    const Animations = AnimationsPlugin(UIkit);
 
     UIkit.component('lightbox-panel', {
 
@@ -164,13 +164,13 @@ function plugin(UIkit) {
 
                 handler({target}) {
 
-                    var i = index(target),
-                        caption = this.getItem(i).caption;
+                    const i = index(target);
+                    const {caption} = this.getItem(i);
 
                     css(this.caption, 'display', caption ? '' : 'none');
                     html(this.caption, caption);
 
-                    for (var j = 0; j <= this.preload; j++) {
+                    for (let j = 0; j <= this.preload; j++) {
                         this.loadItem(this.getIndex(i + j));
                         this.loadItem(this.getIndex(i - j));
                     }
@@ -197,13 +197,15 @@ function plugin(UIkit) {
 
                 handler(_, item) {
 
-                    var {source, type, alt} = item, matches;
+                    const {source, type, alt} = item;
 
                     this.setItem(item, '<span uk-spinner></span>');
 
                     if (!source) {
                         return;
                     }
+
+                    let matches;
 
                     // Image
                     if (type === 'image' || source.match(/\.(jp(e)?g|png|gif|svg)$/i)) {
@@ -216,7 +218,7 @@ function plugin(UIkit) {
                     // Video
                     } else if (type === 'video' || source.match(/\.(mp4|webm|ogv)$/i)) {
 
-                        var video = $(`<video controls playsinline${item.poster ? ` poster="${item.poster}"` : ''} uk-video="autoplay: ${this.videoAutoplay}"></video>`);
+                        const video = $(`<video controls playsinline${item.poster ? ` poster="${item.poster}"` : ''} uk-video="autoplay: ${this.videoAutoplay}"></video>`);
                         attr(video, 'src', source);
 
                         on(video, 'error', () => this.setError(item));
@@ -231,10 +233,10 @@ function plugin(UIkit) {
                         this.setItem(item, `<iframe class="uk-lightbox-iframe" src="${source}" frameborder="0" allowfullscreen></iframe>`);
 
                     // YouTube
-                    } else if (matches = source.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/watch\?v=([^&\s]+)/) || source.match(/(y)outu\.be\/(.*)/)) {
+                    } else if ((matches = source.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/watch\?v=([^&\s]+)/) || source.match(/(y)outu\.be\/(.*)/))) {
 
-                        var id = matches[2],
-                            setIframe = (width = 640, height = 450) => this.setItem(item, getIframe(`//www.youtube${matches[1] || ''}.com/embed/${id}`, width, height, this.videoAutoplay));
+                        const [, , id] = matches;
+                        const setIframe = (width = 640, height = 450) => this.setItem(item, getIframe(`//www.youtube${matches[1] || ''}.com/embed/${id}`, width, height, this.videoAutoplay));
 
                         getImage(`//img.youtube.com/vi/${id}/maxresdefault.jpg`).then(
                             ({width, height}) => {
@@ -252,7 +254,7 @@ function plugin(UIkit) {
                         );
 
                     // Vimeo
-                    } else if (matches = source.match(/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/)) {
+                    } else if ((matches = source.match(/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/))) {
 
                         ajax(`//vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURI(source)}`, {responseType: 'json'})
                             .then(({response: {height, width}}) =>
@@ -271,7 +273,7 @@ function plugin(UIkit) {
 
             loadItem(index = this.index) {
 
-                var item = this.getItem(index);
+                const item = this.getItem(index);
 
                 if (item.content) {
                     return;
@@ -286,7 +288,7 @@ function plugin(UIkit) {
 
             setItem(item, content) {
                 assign(item, {content});
-                var el = html(this.slides[this.items.indexOf(item)], content);
+                const el = html(this.slides[this.items.indexOf(item)], content);
                 trigger(this.$el, 'itemloaded', [this, el]);
                 UIkit.update(null, el);
             },

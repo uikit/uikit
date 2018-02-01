@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {addClass, ajax, matches, noop, on, removeClass, trigger} = UIkit.util;
+    const {addClass, ajax, matches, noop, on, removeClass, trigger} = UIkit.util;
 
     UIkit.component('upload', {
 
@@ -71,7 +71,7 @@ function plugin(UIkit) {
             drop(e) {
                 stop(e);
 
-                var transfer = e.dataTransfer;
+                const transfer = e.dataTransfer;
 
                 if (!transfer || !transfer.files) {
                     return;
@@ -108,7 +108,7 @@ function plugin(UIkit) {
 
                 trigger(this.$el, 'upload', [files]);
 
-                for (var i = 0; i < files.length; i++) {
+                for (let i = 0; i < files.length; i++) {
 
                     if (this.maxSize && this.maxSize * 1000 < files[i].size) {
                         this.fail(this.msgInvalidSize.replace('%s', this.allow));
@@ -133,47 +133,47 @@ function plugin(UIkit) {
 
                 this.beforeAll(this, files);
 
-                var chunks = chunk(files, this.concurrent),
-                    upload = files => {
+                const chunks = chunk(files, this.concurrent);
+                const upload = files => {
 
-                        var data = new FormData();
+                    const data = new FormData();
 
-                        files.forEach(file => data.append(this.name, file));
+                    files.forEach(file => data.append(this.name, file));
 
-                        for (var key in this.params) {
-                            data.append(key, this.params[key]);
+                    for (const key in this.params) {
+                        data.append(key, this.params[key]);
+                    }
+
+                    ajax(this.url, {
+                        data,
+                        method: this.type,
+                        beforeSend: env => {
+
+                            const {xhr} = env;
+                            xhr.upload && on(xhr.upload, 'progress', this.progress);
+                            ['loadStart', 'load', 'loadEnd', 'abort'].forEach(type =>
+                                on(xhr, type.toLowerCase(), this[type])
+                            );
+
+                            this.beforeSend(env);
+
                         }
+                    }).then(
+                        xhr => {
 
-                        ajax(this.url, {
-                            data,
-                            method: this.type,
-                            beforeSend: env => {
+                            this.complete(xhr);
 
-                                var xhr = env.xhr;
-                                xhr.upload && on(xhr.upload, 'progress', this.progress);
-                                ['loadStart', 'load', 'loadEnd', 'abort'].forEach(type =>
-                                    on(xhr, type.toLowerCase(), this[type])
-                                );
-
-                                this.beforeSend(env);
-
+                            if (chunks.length) {
+                                upload(chunks.shift());
+                            } else {
+                                this.completeAll(xhr);
                             }
-                        }).then(
-                            xhr => {
 
-                                this.complete(xhr);
+                        },
+                        e => this.error(e.message)
+                    );
 
-                                if (chunks.length) {
-                                    upload(chunks.shift());
-                                } else {
-                                    this.completeAll(xhr);
-                                }
-
-                            },
-                            e => this.error(e.message)
-                        );
-
-                    };
+                };
 
                 upload(chunks.shift());
 
@@ -188,10 +188,10 @@ function plugin(UIkit) {
     }
 
     function chunk(files, size) {
-        var chunks = [];
-        for (var i = 0; i < files.length; i += size) {
-            var chunk = [];
-            for (var j = 0; j < size; j++) {
+        const chunks = [];
+        for (let i = 0; i < files.length; i += size) {
+            const chunk = [];
+            for (let j = 0; j < size; j++) {
                 chunk.push(files[i + j]);
             }
             chunks.push(chunk);

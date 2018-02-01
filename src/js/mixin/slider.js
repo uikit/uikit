@@ -8,7 +8,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {$, assign, clamp, fastdom, getIndex, hasClass, isNumber, isRtl, Promise, toNodes, trigger} = UIkit.util;
+    const {$, assign, clamp, fastdom, getIndex, hasClass, isNumber, isRtl, Promise, toNodes, trigger} = UIkit.util;
 
     UIkit.mixin.slider = {
 
@@ -87,15 +87,15 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var stack = this.stack,
-                    queueIndex = force ? 0 : stack.length,
-                    reset = () => {
-                        stack.splice(queueIndex, 1);
+                const {stack} = this;
+                const queueIndex = force ? 0 : stack.length;
+                const reset = () => {
+                    stack.splice(queueIndex, 1);
 
-                        if (stack.length) {
-                            this.show(stack.shift(), true);
-                        }
-                    };
+                    if (stack.length) {
+                        this.show(stack.shift(), true);
+                    }
+                };
 
                 stack[force ? 'unshift' : 'push'](index);
 
@@ -108,10 +108,10 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var prevIndex = this.index,
-                    prev = hasClass(this.slides, this.clsActive) && this.slides[prevIndex],
-                    nextIndex = this.getIndex(index, this.index),
-                    next = this.slides[nextIndex];
+                const prevIndex = this.index;
+                const prev = hasClass(this.slides, this.clsActive) && this.slides[prevIndex];
+                const nextIndex = this.getIndex(index, this.index);
+                const next = this.slides[nextIndex];
 
                 if (prev === next) {
                     reset();
@@ -129,7 +129,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var promise = this._show(prev, next, force).then(() => {
+                const promise = this._show(prev, next, force).then(() => {
 
                     prev && trigger(prev, 'itemhidden', [this]);
                     trigger(next, 'itemshown', [this]);
@@ -169,11 +169,12 @@ function plugin(UIkit) {
                     prev,
                     next,
                     this.dir,
-                    assign({easing: force
-                        ? next.offsetWidth < 600
-                            ? 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' /* easeOutQuad */
-                            : 'cubic-bezier(0.165, 0.84, 0.44, 1)' /* easeOutQuart */
-                        : this.easing
+                    assign({
+                        easing: force
+                            ? next.offsetWidth < 600
+                                ? 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' /* easeOutQuad */
+                                : 'cubic-bezier(0.165, 0.84, 0.44, 1)' /* easeOutQuart */
+                            : this.easing
                     }, this.transitionOptions)
                 );
 
@@ -182,7 +183,7 @@ function plugin(UIkit) {
                     return Promise.resolve();
                 }
 
-                var length = this.stack.length;
+                const {length} = this.stack;
                 return this._transitioner[length > 1 ? 'forward' : 'show'](length > 1 ? Math.min(this.duration, 75 + 75 / (length - 1)) : this.duration, this.percent);
 
             },
@@ -192,7 +193,7 @@ function plugin(UIkit) {
             },
 
             _translate(percent, prev = this.prevIndex, next = this.index) {
-                var transitioner = this._getTransitioner(prev !== next ? prev : false, next);
+                const transitioner = this._getTransitioner(prev !== next ? prev : false, next);
                 transitioner.translate(percent);
                 return transitioner;
             },

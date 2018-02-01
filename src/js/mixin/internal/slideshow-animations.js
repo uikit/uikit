@@ -1,8 +1,8 @@
 export default function (UIkit) {
 
-    var {css} = UIkit.util;
+    const {css} = UIkit.util;
 
-    var Animations = {
+    const Animations = {
 
         slide: {
 

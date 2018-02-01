@@ -1,4 +1,4 @@
-import { css, isInView, isVisible, Player } from '../util/index';
+import {css, isInView, isVisible, Player} from '../util/index';
 
 export default function (UIkit) {
 

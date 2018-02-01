@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var { $, doc, empty, html } = UIkit.util;
+    const {$, doc, empty, html} = UIkit.util;
 
     UIkit.component('countdown', {
 
@@ -83,7 +83,7 @@ function plugin(UIkit) {
 
             write() {
 
-                var timespan = getTimeSpan(this.date);
+                const timespan = getTimeSpan(this.date);
 
                 if (timespan.total <= 0) {
 
@@ -98,11 +98,11 @@ function plugin(UIkit) {
 
                 this.units.forEach(unit => {
 
-                    var digits = String(Math.floor(timespan[unit]));
+                    let digits = String(Math.floor(timespan[unit]));
 
                     digits = digits.length < 2 ? `0${digits}` : digits;
 
-                    var el = this[unit];
+                    const el = this[unit];
                     if (el.textContent !== digits) {
                         digits = digits.split('');
 
@@ -147,7 +147,7 @@ function plugin(UIkit) {
 
     function getTimeSpan(date) {
 
-        var total = date - Date.now();
+        const total = date - Date.now();
 
         return {
             total,

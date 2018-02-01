@@ -4,8 +4,7 @@ export default function (UIkit, parent) {
 
     UIkit.use(Parallax);
 
-    var {mixin} = UIkit;
-    var {closest, css, endsWith, noop, Transition} = UIkit.util;
+    const {mixin, util: {closest, css, endsWith, noop, Transition}} = UIkit;
 
     return {
 
@@ -14,7 +13,7 @@ export default function (UIkit, parent) {
         computed: {
 
             item() {
-                var slider = UIkit.getComponent(closest(this.$el, `.uk-${parent}`), parent);
+                const slider = UIkit.getComponent(closest(this.$el, `.uk-${parent}`), parent);
                 return slider && closest(this.$el, slider.slidesSelector);
             }
 

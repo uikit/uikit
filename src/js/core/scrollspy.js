@@ -1,4 +1,4 @@
-import { $$, addClass, css, data, filter, isInView, removeClass, toggleClass, trigger } from '../util/index';
+import {$$, addClass, css, data, filter, isInView, removeClass, toggleClass, trigger} from '../util/index';
 
 export default function (UIkit) {
 
@@ -57,10 +57,10 @@ export default function (UIkit) {
 
                     this.elements.forEach((el, i) => {
 
-                        var elData = els[i];
+                        let elData = els[i];
 
                         if (!elData) {
-                            var cls = data(el, 'uk-scrollspy-class');
+                            const cls = data(el, 'uk-scrollspy-class');
                             elData = {toggles: cls && cls.split(',') || this.cls};
                         }
 
@@ -72,15 +72,16 @@ export default function (UIkit) {
 
                 write(els) {
 
-                    var index = this.elements.length === 1 ? 1 : 0;
+                    let index = this.elements.length === 1 ? 1 : 0;
 
                     this.elements.forEach((el, i) => {
 
-                        var elData = els[i], cls = elData.toggles[i] || elData.toggles[0];
+                        const elData = els[i];
+                        const cls = elData.toggles[i] || elData.toggles[0];
 
                         if (elData.show && !elData.inview && !elData.timer) {
 
-                            var show = () => {
+                            const show = () => {
                                 css(el, 'visibility', '');
                                 addClass(el, this.inViewClass);
                                 toggleClass(el, cls);

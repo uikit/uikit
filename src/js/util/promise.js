@@ -1,5 +1,5 @@
 /* global setImmediate */
-import { isFunction, isObject } from './lang';
+import {isFunction, isObject} from './lang';
 
 /**
  * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)
@@ -9,7 +9,7 @@ const RESOLVED = 0;
 const REJECTED = 1;
 const PENDING = 2;
 
-var async = 'setImmediate' in window ? setImmediate : setTimeout;
+const async = 'setImmediate' in window ? setImmediate : setTimeout;
 
 export default function Promise(executor) {
 
@@ -17,7 +17,7 @@ export default function Promise(executor) {
     this.value = undefined;
     this.deferred = [];
 
-    var promise = this;
+    const promise = this;
 
     try {
         executor(function (x) {
@@ -44,7 +44,8 @@ Promise.resolve = function (x) {
 
 Promise.all = function all(iterable) {
     return new Promise(function (resolve, reject) {
-        var count = 0, result = [];
+        const result = [];
+        let count = 0;
 
         if (iterable.length === 0) {
             resolve(result);
@@ -61,7 +62,7 @@ Promise.all = function all(iterable) {
             };
         }
 
-        for (var i = 0; i < iterable.length; i += 1) {
+        for (let i = 0; i < iterable.length; i += 1) {
             Promise.resolve(iterable[i]).then(resolver(i), reject);
         }
     });
@@ -69,26 +70,26 @@ Promise.all = function all(iterable) {
 
 Promise.race = function race(iterable) {
     return new Promise(function (resolve, reject) {
-        for (var i = 0; i < iterable.length; i += 1) {
+        for (let i = 0; i < iterable.length; i += 1) {
             Promise.resolve(iterable[i]).then(resolve, reject);
         }
     });
 };
 
-var p = Promise.prototype;
+const p = Promise.prototype;
 
 p.resolve = function resolve(x) {
-    var promise = this;
+    const promise = this;
 
     if (promise.state === PENDING) {
         if (x === promise) {
             throw new TypeError('Promise settled with itself.');
         }
 
-        var called = false;
+        let called = false;
 
         try {
-            var then = x && x.then;
+            const then = x && x.then;
 
             if (x !== null && isObject(x) && isFunction(then)) {
                 then.call(x, function (x) {
@@ -119,7 +120,7 @@ p.resolve = function resolve(x) {
 };
 
 p.reject = function reject(reason) {
-    var promise = this;
+    const promise = this;
 
     if (promise.state === PENDING) {
         if (reason === promise) {
@@ -136,11 +137,7 @@ p.notify = function notify() {
     async(() => {
         if (this.state !== PENDING) {
             while (this.deferred.length) {
-                var deferred = this.deferred.shift(),
-                    onResolved = deferred[0],
-                    onRejected = deferred[1],
-                    resolve = deferred[2],
-                    reject = deferred[3];
+                const [onResolved, onRejected, resolve, reject] = this.deferred.shift();
 
                 try {
                     if (this.state === RESOLVED) {

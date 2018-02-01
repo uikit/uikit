@@ -1,6 +1,6 @@
 export default function (UIkit) {
 
-    var {doc, pointerDown} = UIkit.util;
+    const {doc, pointerDown} = UIkit.util;
 
     return {
 

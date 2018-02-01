@@ -1,9 +1,9 @@
-import { css } from './style';
-import { isVisible } from './dom';
-import { toNode } from './selector';
-import { each, endsWith, includes, isDocument, isUndefined, isWindow, toFloat, ucfirst } from './lang';
+import {css} from './style';
+import {isVisible} from './dom';
+import {toNode} from './selector';
+import {each, endsWith, includes, isDocument, isUndefined, isWindow, toFloat, ucfirst} from './lang';
 
-var dirs = {
+const dirs = {
     width: ['x', 'left', 'right'],
     height: ['y', 'top', 'bottom']
 };
@@ -13,15 +13,15 @@ export function positionAt(element, target, elAttach, targetAttach, elOffset, ta
     elAttach = getPos(elAttach);
     targetAttach = getPos(targetAttach);
 
-    var flipped = {element: elAttach, target: targetAttach};
+    const flipped = {element: elAttach, target: targetAttach};
 
     if (!element || !target) {
         return flipped;
     }
 
-    var dim = getDimensions(element),
-        targetDim = getDimensions(target),
-        position = targetDim;
+    const dim = getDimensions(element);
+    const targetDim = getDimensions(target);
+    const position = targetDim;
 
     moveTo(position, elAttach, dim, -1);
     moveTo(position, targetAttach, targetDim, 1);
@@ -44,21 +44,22 @@ export function positionAt(element, target, elAttach, targetAttach, elOffset, ta
                 return;
             }
 
-            var elemOffset = elAttach[dir] === align
-                    ? -dim[prop]
-                    : elAttach[dir] === alignFlip
-                        ? dim[prop]
-                        : 0,
-                targetOffset = targetAttach[dir] === align
-                    ? targetDim[prop]
-                    : targetAttach[dir] === alignFlip
-                        ? -targetDim[prop]
-                        : 0;
+            const elemOffset = elAttach[dir] === align
+                ? -dim[prop]
+                : elAttach[dir] === alignFlip
+                    ? dim[prop]
+                    : 0;
+
+            const targetOffset = targetAttach[dir] === align
+                ? targetDim[prop]
+                : targetAttach[dir] === alignFlip
+                    ? -targetDim[prop]
+                    : 0;
 
             if (position[align] < boundary[align] || position[align] + dim[prop] > boundary[alignFlip]) {
 
-                var centerOffset = dim[prop] / 2,
-                    centerTargetOffset = targetAttach[dir] === 'center' ? -targetDim[prop] / 2 : 0;
+                const centerOffset = dim[prop] / 2;
+                const centerTargetOffset = targetAttach[dir] === 'center' ? -targetDim[prop] / 2 : 0;
 
                 elAttach[dir] === 'center' && (
                     apply(centerOffset, centerTargetOffset)
@@ -69,7 +70,7 @@ export function positionAt(element, target, elAttach, targetAttach, elOffset, ta
 
             function apply(elemOffset, targetOffset) {
 
-                var newVal = position[align] + elemOffset + targetOffset - elOffset[dir] * 2;
+                const newVal = position[align] + elemOffset + targetOffset - elOffset[dir] * 2;
 
                 if (newVal >= boundary[align] && newVal + dim[prop] <= boundary[alignFlip]) {
                     position[align] = newVal;
@@ -101,15 +102,15 @@ export function offset(element, coordinates) {
 
     if (coordinates) {
 
-        var currentOffset = offset(element),
-            pos = css(element, 'position');
+        const currentOffset = offset(element);
+        const pos = css(element, 'position');
 
         ['left', 'top'].forEach(prop => {
             if (prop in coordinates) {
-                var value = css(element, prop);
+                const value = css(element, prop);
                 element.style[prop] = `${(coordinates[prop] - currentOffset[prop])
-                    + toFloat(pos === 'absolute' && value === 'auto' ? position(element)[prop] : value)
-                }px`;
+                + toFloat(pos === 'absolute' && value === 'auto' ? position(element)[prop] : value)
+                    }px`;
             }
         });
 
@@ -123,12 +124,12 @@ function getDimensions(element) {
 
     element = toNode(element);
 
-    var {pageYOffset: top, pageXOffset: left} = getWindow(element);
+    const {pageYOffset: top, pageXOffset: left} = getWindow(element);
 
     if (isWindow(element)) {
 
-        var height = element.innerHeight,
-            width = element.innerWidth;
+        const height = element.innerHeight;
+        const width = element.innerWidth;
 
         return {
             top,
@@ -140,13 +141,13 @@ function getDimensions(element) {
         };
     }
 
-    var display = false;
+    let display = false;
     if (!isVisible(element)) {
         display = element.style.display;
         element.style.display = 'block';
     }
 
-    var rect = element.getBoundingClientRect();
+    const rect = element.getBoundingClientRect();
 
     if (display !== false) {
         element.style.display = display;
@@ -165,11 +166,10 @@ function getDimensions(element) {
 export function position(element) {
     element = toNode(element);
 
-    var parent = offsetParent(element),
-        parentOffset = parent === docEl(element) ? {top: 0, left: 0} : offset(parent);
-
-    var {top, left} = ['top', 'left'].reduce((props, prop) => {
-        var propName = ucfirst(prop);
+    const parent = offsetParent(element);
+    const parentOffset = parent === docEl(element) ? {top: 0, left: 0} : offset(parent);
+    const {top, left} = ['top', 'left'].reduce((props, prop) => {
+        const propName = ucfirst(prop);
         props[prop] -= parentOffset[prop]
             + (toFloat(css(element, `margin${propName}`)) || 0)
             + (toFloat(css(parent, `border${propName}Width`)) || 0);
@@ -181,7 +181,7 @@ export function position(element) {
 
 function offsetParent(element) {
 
-    var parent = toNode(element).offsetParent;
+    let parent = toNode(element).offsetParent;
 
     while (parent && css(parent, 'position') === 'static') {
         parent = parent.offsetParent;
@@ -194,7 +194,7 @@ export const height = dimension('height');
 export const width = dimension('width');
 
 function dimension(prop) {
-    var propName = ucfirst(prop);
+    const propName = ucfirst(prop);
     return (element, value) => {
 
         element = toNode(element);
@@ -206,7 +206,7 @@ function dimension(prop) {
             }
 
             if (isDocument(element)) {
-                var doc = element.documentElement;
+                const doc = element.documentElement;
                 return Math.max(doc.offsetHeight, doc.scrollHeight);
             }
 
@@ -230,8 +230,8 @@ function dimension(prop) {
 function getContentSize(prop, element, value) {
     return css(element, 'boxSizing') === 'border-box' ? dirs[prop].slice(1).map(ucfirst).reduce((value, prop) =>
         value
-            - toFloat(css(element, `padding${prop}`))
-            - toFloat(css(element, `border${prop}Width`))
+        - toFloat(css(element, `padding${prop}`))
+        - toFloat(css(element, `border${prop}Width`))
         , value) : value;
 }
 
@@ -251,7 +251,8 @@ function moveTo(position, attach, dim, factor) {
 
 function getPos(pos) {
 
-    var x = /left|center|right/, y = /top|center|bottom/;
+    const x = /left|center|right/;
+    const y = /top|center|bottom/;
 
     pos = (pos || '').split(' ');
 
@@ -271,7 +272,7 @@ function getPos(pos) {
 
 function getOffsets(offsets, width, height) {
 
-    var [x, y] = (offsets || '').split(' ');
+    const [x, y] = (offsets || '').split(' ');
 
     return {
         x: x ? toFloat(x) * (endsWith(x, '%') ? width / 100 : 1) : 0,

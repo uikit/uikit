@@ -6,10 +6,10 @@ export const doc = document;
 export const docEl = doc.documentElement;
 
 export const Observer = win.MutationObserver;
-export const requestAnimationFrame = win.requestAnimationFrame;
+export const {requestAnimationFrame} = win;
 
-var hasTouchEvents = 'ontouchstart' in win;
-var hasPointerEvents = win.PointerEvent;
+const hasTouchEvents = 'ontouchstart' in win;
+const hasPointerEvents = win.PointerEvent;
 export const hasTouch = hasTouchEvents
     || win.DocumentTouch && doc instanceof DocumentTouch
     || navigator.maxTouchPoints; // IE >=11
@@ -23,7 +23,7 @@ export const pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mou
 export function getImage(src) {
 
     return new Promise((resolve, reject) => {
-        var img = new Image();
+        const img = new Image();
 
         img.onerror = reject;
         img.onload = () => resolve(img);
@@ -38,7 +38,7 @@ export const supports = {};
 // IE 11
 (function () {
 
-    var list = doc.createElement('_').classList;
+    let list = doc.createElement('_').classList;
     if (list) {
         list.add('a', 'b');
         list.toggle('c', false);

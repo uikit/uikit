@@ -1,14 +1,14 @@
-import { translate } from '../../mixin/internal/slideshow-animations';
+import {translate} from '../../mixin/internal/slideshow-animations';
 
 export default function (UIkit) {
 
-    var {assign, clamp, createEvent, css, Deferred, includes, index, isRtl, noop, sortBy, toNodes, Transition, trigger} = UIkit.util;
+    const {assign, clamp, createEvent, css, Deferred, includes, index, isRtl, noop, sortBy, toNodes, Transition, trigger} = UIkit.util;
 
-    var Transitioner = assign(function (prev, next, dir, {center, easing, list}) {
+    const Transitioner = assign(function (prev, next, dir, {center, easing, list}) {
 
-        var deferred = new Deferred();
+        const deferred = new Deferred();
 
-        var from = prev
+        const from = prev
                 ? Transitioner.getLeft(prev, list, center)
                 : Transitioner.getLeft(next, list, center) + next.offsetWidth * dir,
             to = next
@@ -21,7 +21,7 @@ export default function (UIkit) {
 
             show(duration, percent = 0, linear) {
 
-                var timing = linear ? 'linear' : easing;
+                const timing = linear ? 'linear' : easing;
                 duration -= Math.round(duration * clamp(percent, -1, 1));
 
                 this.translate(percent);
@@ -58,7 +58,7 @@ export default function (UIkit) {
 
             translate(percent) {
 
-                var distance = this.getDistance() * dir * (isRtl ? -1 : 1);
+                const distance = this.getDistance() * dir * (isRtl ? -1 : 1);
 
                 css(list, 'transform', translate(clamp(
                     -to + (distance - distance * percent),
@@ -86,9 +86,9 @@ export default function (UIkit) {
 
             getItemIn(out = false) {
 
-                var actives = this.getActives(),
-                    all = sortBy(slides(list), 'offsetLeft'),
-                    i = index(all, actives[dir * (out ? -1 : 1) > 0 ? actives.length - 1 : 0]);
+                const actives = this.getActives();
+                const all = sortBy(slides(list), 'offsetLeft');
+                const i = index(all, actives[dir * (out ? -1 : 1) > 0 ? actives.length - 1 : 0]);
 
                 return ~i && all[i + (prev && !out ? dir : 0)];
 
@@ -96,10 +96,10 @@ export default function (UIkit) {
 
             getActives() {
 
-                var left = Transitioner.getLeft(prev || next, list, center);
+                const left = Transitioner.getLeft(prev || next, list, center);
 
                 return sortBy(slides(list).filter(slide => {
-                    var slideLeft = Transitioner.getElLeft(slide, list);
+                    const slideLeft = Transitioner.getElLeft(slide, list);
                     return slideLeft >= left && slideLeft + slide.offsetWidth <= list.offsetWidth + left;
                 }), 'offsetLeft');
 
@@ -107,10 +107,10 @@ export default function (UIkit) {
 
             updateTranslates() {
 
-                var actives = this.getActives();
+                const actives = this.getActives();
 
                 slides(list).forEach(slide => {
-                    var isActive = includes(actives, slide);
+                    const isActive = includes(actives, slide);
 
                     triggerUpdate(slide, `itemtranslate${isActive ? 'in' : 'out'}`, {
                         percent: isActive ? 1 : 0,
@@ -125,7 +125,7 @@ export default function (UIkit) {
 
         getLeft(el, list, center) {
 
-            var left = this.getElLeft(el, list);
+            const left = this.getElLeft(el, list);
 
             return center
                 ? left - this.center(el, list)

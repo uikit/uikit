@@ -1,4 +1,4 @@
-import { $, css, flipPosition, includes, isNumeric, isRtl, offset as getOffset, positionAt, removeClasses, toggleClass } from '../util/index';
+import {$, css, flipPosition, includes, isNumeric, isRtl, offset as getOffset, positionAt, removeClasses, toggleClass} from '../util/index';
 
 export default {
 
@@ -41,9 +41,8 @@ export default {
             removeClasses(element, `${this.clsPos}-(top|bottom|left|right)(-[a-z]+)?`);
             css(element, {top: '', left: ''});
 
-            var node,
-                offset = this.offset,
-                axis = this.getAxis();
+            let node;
+            let {offset} = this;
 
             offset = isNumeric(offset)
                 ? offset
@@ -51,7 +50,8 @@ export default {
                     ? getOffset(node)[axis === 'x' ? 'left' : 'top'] - getOffset(target)[axis === 'x' ? 'right' : 'bottom']
                     : 0;
 
-            var {x, y} = positionAt(
+            const axis = this.getAxis();
+            const {x, y} = positionAt(
                 element,
                 target,
                 axis === 'x' ? `${flipPosition(this.dir)} ${this.align}` : `${this.align} ${flipPosition(this.dir)}`,

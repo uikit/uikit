@@ -8,8 +8,8 @@ argv._.forEach(arg => {
     argv[tokens[0]] = tokens[1] || true;
 });
 
-const currentScopeRegex = /\/\* scoped: ([^\*]*) \*\//;
-const currentScopeLegacyRegex = new RegExp('\.(uk-scope)');
+const currentScopeRegex = /\/\* scoped: ([^*]*) \*\//;
+const currentScopeLegacyRegex = new RegExp('\\.(uk-scope)');
 
 const allFiles = [];
 
@@ -61,7 +61,7 @@ function getNewScope() {
 }
 
 function isScoped(data) {
-    var varName = data.match(currentScopeRegex);
+    let varName = data.match(currentScopeRegex);
     if (varName) {
         return varName[1];
     } else {
@@ -106,7 +106,7 @@ function cleanUp(currentScope) {
 
 function getCurrentScope() {
 
-    var currentScope;
+    let currentScope;
     allFiles.forEach(({data}) => {
         const scope = isScoped(data);
         if (currentScope && scope !== currentScope) {
