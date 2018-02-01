@@ -188,37 +188,61 @@ export default function (UIkit) {
 
                 write({visible, scroll}, {dir} = {}) {
 
-                    if (scroll < 0 || !visible || this.disabled || this.showOnUp && !dir) {
+                    // place the logic into descriptive variables
+                    const isHidden = !visible;
+                    const {bottomOffset, topOffset, stickAt} = this;
+                    const {showOnUp, disabled, isActive, inactive, animation} = this;
+
+                    // this one os confusing, in what situation
+                    // a scroll could be less than 0?
+                    const noScroll = scroll < 0;
+
+                    // this one as well, what is the !dir meaning?
+                    // it is perhaps another way to say no srolled yet?
+                    const showOnUpConfusing = (showOnUp && !dir);
+
+                    if (noScroll || isHidden || disabled || showOnUpConfusing) {
                         return;
                     }
 
-                    if (this.inactive
-                        || scroll < this.stickAt
-                        || this.showOnUp && (scroll <= this.stickAt || dir === 'down' || dir === 'up' && !this.isActive && scroll <= this.bottomOffset)
+                    const scrollingUp = dir === 'up';
+                    const scrollingDown = dir === 'down';
+                    const stickAtReached = scroll <= stickAt;
+                    const stickAtNotReached = scroll < stickAt;
+                    const bottomOffsetReached = scroll <= bottomOffset;
+
+                    // the condition is still long and the entire logic of this
+                    // function could be refactored, but at list for now there is
+                    // a better understanding of what is going on and that may lead
+                    // to easier later refactoring
+                    if (inactive || stickAtNotReached || showOnUp &&
+                      (stickAtReached || scrollingDown ||
+                        (scrollingUp && !isActive && bottomOffsetReached)
+                      )
                     ) {
 
-                        if (!this.isActive) {
+                        if (!isActive) {
                             return;
                         }
 
                         this.isActive = false;
 
-                        if (this.animation && scroll > this.topOffset) {
+                        if (animation && scroll > topOffset) {
                             Animation.cancel(this.$el);
-                            Animation.out(this.$el, this.animation).then(() => this.hide(), noop);
+                            Animation.out(this.$el, animation).then(() => this.hide(), noop);
                         } else {
                             this.hide();
                         }
 
-                    } else if (this.isActive) {
+                    } else if (isActive) {
 
                         this.update();
 
-                    } else if (this.animation) {
+                    } else if (animation) {
 
                         Animation.cancel(this.$el);
                         this.show();
-                        Animation.in(this.$el, this.animation).catch(noop);
+                        Animation.in(this.$el, animation).catch(noop);
 
                     } else {
                         this.show();
