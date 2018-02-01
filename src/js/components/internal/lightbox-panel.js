@@ -105,7 +105,6 @@ function plugin(UIkit) {
 
                     delete this.index;
                     delete this.percent;
-                    delete this._transitioner;
 
                 }
             },
