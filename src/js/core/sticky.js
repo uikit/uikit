@@ -1,11 +1,30 @@
-import {Class} from '../mixin/index';
-import {$, addClass, after, Animation, assign, attr, css, docEl, fastdom, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, remove, removeClass, replaceClass, toFloat, toggleClass, trigger, win, within} from '../util/index';
+// keeping util imports small and explicit helps
+// for a better and fast understanding of the dependencies
+// plus makes it easier to refactor
+
+// Additionally the offset was imported as offsetOf to avoid concept
+// and name conflicts. In general is a good idea to have less generic globals.
+
+import {attr} from '../util/attr';
+import {css} from '../util/style';
+import {trigger} from '../util/event';
+import {win, docEl} from '../util/env';
+import {fastdom} from '../util/fastdom';
+import {offset as offsetOf, height} from '../util/position';
+import {$, query, within} from '../util/selector';
+import {isVisible, Animation, after, remove} from '../util/dom';
+import {assign, isNumeric, isString, toFloat, noop} from '../util/lang';
+import {hasClass, addClass, removeClass, toggleClass, replaceClass} from '../util/class';
 
 export default function (UIkit) {
 
     UIkit.component('sticky', {
 
-        mixins: [Class],
+        // Relying on a mixing that literally does one simple
+        // line of code introduces more troubles than solutions.
+        // The final size code saving is very minimum and not worthy of
+        // loosing explicitness of what this component does.
+        // mixins: [Class], // logic moved to Connected event
 
         attrs: true,
 
@@ -44,12 +63,16 @@ export default function (UIkit) {
         computed: {
 
             selTarget({selTarget}, $el) {
-                return selTarget && $(selTarget, $el) || $el;
+                return selTarget
+                    ? $(selTarget, $el)
+                    : $el;
             }
 
         },
 
         connected() {
+
+            addClass(this.$el, this.$name);
 
             this.placeholder = $('<div class="uk-sticky-placeholder"></div>');
             this.widthElement = this.$props.widthElement || this.placeholder;
@@ -83,8 +106,8 @@ export default function (UIkit) {
             if (target) {
                 fastdom.read(() => {
 
-                    const {top} = offset(target);
-                    const elTop = offset(this.$el).top;
+                    const {top} = offsetOf(target);
+                    const elTop = offsetOf(this.$el).top;
                     const elHeight = this.$el.offsetHeight;
 
                     if (elTop + elHeight >= top && elTop <= top + target.offsetHeight) {
@@ -145,7 +168,7 @@ export default function (UIkit) {
                     this.width = this.widthElement.offsetWidth;
                     attr(this.widthElement, 'hidden', this.isActive ? null : '');
 
-                    this.topOffset = offset(this.isActive ? placeholder : this.$el).top;
+                    this.topOffset = offsetOf(this.isActive ? placeholder : this.$el).top;
                     this.bottomOffset = this.topOffset + outerHeight;
 
                     const bottom = parseProp('bottom', this);
@@ -242,8 +265,8 @@ export default function (UIkit) {
 
             update() {
 
-                const active = this.top !== 0 || this.scroll > this.top;
                 let top = Math.max(0, this.offset);
+                const active = this.top !== 0 || this.scroll > this.top;
 
                 if (this.bottom && this.scroll > this.bottom - this.offset) {
                     top = this.bottom - this.scroll;
@@ -295,7 +318,7 @@ export default function (UIkit) {
             const el = value === true ? $el.parentNode : query(value, $el);
 
             if (el) {
-                return offset(el).top + el.offsetHeight;
+                return offsetOf(el).top + el.offsetHeight;
             }
 
         }
