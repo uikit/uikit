@@ -151,30 +151,21 @@ export default function (UIkit) {
 
                 write() {
 
-                    const {placeholder} = this;
-                    const outerHeight = (this.isActive ? placeholder : this.$el).offsetHeight;
+                    // a workaround until no cached computed props are supported
+                    this.outerHeight = (this.isActive ? this.placeholder : this.$el).offsetHeight;
 
-                    css(placeholder, assign(
-                        {height: css(this.$el, 'position') !== 'absolute' ? outerHeight : ''},
-                        css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
-                    ));
+                    this.updatePlaceholder();
+                    this.updateWidthElement();
 
-                    if (!within(placeholder, docEl)) {
-                        after(this.$el, placeholder);
-                        attr(placeholder, 'hidden', '');
-                    }
+                    this.topOffset = offsetOf(this.isActive ? this.placeholder : this.$el).top;
+                    this.bottomOffset = this.topOffset + this.outerHeight;
 
-                    attr(this.widthElement, 'hidden', null);
-                    this.width = this.widthElement.offsetWidth;
-                    attr(this.widthElement, 'hidden', this.isActive ? null : '');
-
-                    this.topOffset = offsetOf(this.isActive ? placeholder : this.$el).top;
-                    this.bottomOffset = this.topOffset + outerHeight;
-
+                    const top = parseProp('top', this);
                     const bottom = parseProp('bottom', this);
 
-                    this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
-                    this.bottom = bottom && bottom - outerHeight;
+                    // names changed to be more descriptive and less conflicting
+                    this.stickAt = Math.max(toFloat(top), this.topOffset) - this.offset;
+                    this.stickUntil = bottom && bottom - this.outerHeight;
                     this.inactive = this.media && !win.matchMedia(this.media).matches;
 
                     if (this.isActive) {
@@ -202,8 +193,8 @@ export default function (UIkit) {
                     }
 
                     if (this.inactive
-                        || scroll < this.top
-                        || this.showOnUp && (scroll <= this.top || dir === 'down' || dir === 'up' && !this.isActive && scroll <= this.bottomOffset)
+                        || scroll < this.stickAt
+                        || this.showOnUp && (scroll <= this.stickAt || dir === 'down' || dir === 'up' && !this.isActive && scroll <= this.bottomOffset)
                     ) {
 
                         if (!this.isActive) {
@@ -266,10 +257,10 @@ export default function (UIkit) {
             update() {
 
                 let top = Math.max(0, this.offset);
-                const active = this.top !== 0 || this.scroll > this.top;
+                const active = this.stickAt !== 0 || this.scroll > this.stickAt;
 
-                if (this.bottom && this.scroll > this.bottom - this.offset) {
-                    top = this.bottom - this.scroll;
+                if (this.stickUntil && this.scroll > this.stickUntil - this.offset) {
+                    top = this.stickUntil - this.scroll;
                 }
 
                 css(this.$el, {
@@ -290,6 +281,28 @@ export default function (UIkit) {
 
                 toggleClass(this.$el, this.clsBelow, this.scroll > this.bottomOffset);
                 addClass(this.$el, this.clsFixed);
+
+            },
+
+            updatePlaceholder() {
+
+                css(this.placeholder, assign(
+                    {height: css(this.$el, 'position') !== 'absolute' ? this.outerHeight : ''},
+                    css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
+                ));
+
+                if (!within(this.placeholder, docEl)) {
+                    after(this.$el, this.placeholder);
+                    attr(this.placeholder, 'hidden', '');
+                }
+
+            },
+
+            updateWidthElement() {
+
+                attr(this.widthElement, 'hidden', null);
+                this.width = this.widthElement.offsetWidth;
+                attr(this.widthElement, 'hidden', this.isActive ? null : '');
 
             }
 
