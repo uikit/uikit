@@ -6,6 +6,8 @@
 
 - Fix using Scrollspy component with default values
 - Fix Scrollspy if UIkit is loaded async
+- Fix YouTube short urls in Lightbox component
+- Fix empty select in Form Custom component 
 
 ## 3.0.0 beta 39 (January 31, 2018)
 

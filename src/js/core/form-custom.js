@@ -76,7 +76,7 @@ export default function (UIkit) {
 
                     target[isInput(target) ? 'value' : 'textContent'] = input.files && input.files[0]
                         ? input.files[0].name
-                        : matches(input, 'select') && ([option] = $$('option', input).filter(el => el.selected))
+                        : matches(input, 'select') && (option = $$('option', input).filter(el => el.selected[0]))
                             ? option.textContent
                             : input.value;
                 }
