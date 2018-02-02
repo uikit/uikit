@@ -66,6 +66,10 @@ export default function (UIkit) {
                 return selTarget
                     ? $(selTarget, $el)
                     : $el;
+            },
+
+            outerHeight () {
+                return (this.isActive ? this.placeholder : this.$el).offsetHeight;
             }
 
         },
@@ -150,9 +154,6 @@ export default function (UIkit) {
             {
 
                 write() {
-
-                    // a workaround until no cached computed props are supported
-                    this.outerHeight = (this.isActive ? this.placeholder : this.$el).offsetHeight;
 
                     this.updatePlaceholder();
                     this.updateWidthElement();
