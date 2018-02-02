@@ -65,20 +65,6 @@ function plugin(UIkit) {
 
         },
 
-        update: [
-
-            {
-
-                read() {
-                    this._resetComputeds();
-                },
-
-                events: ['load', 'resize']
-
-            }
-
-        ],
-
         methods: {
 
             show(index, force = false) {

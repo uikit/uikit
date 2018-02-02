@@ -1,5 +1,5 @@
 import {getComponentName} from './component';
-import {createEvent, doc, docEl, fastdom, hasAttr, Observer} from '../util/index';
+import {doc, docEl, fastdom, hasAttr, Observer} from '../util/index';
 
 export default function (UIkit) {
 
@@ -50,7 +50,7 @@ export default function (UIkit) {
             ? applyChildList(mutation)
             : applyAttribute(mutation);
 
-        update && UIkit.update(createEvent('update', true, false, {mutation: true}), target, true);
+        update && UIkit.update('update', target, true);
 
     }
 

@@ -12,10 +12,6 @@ export default function (UIkit) {
 
             {
 
-                read() {
-                    this._resetComputeds();
-                },
-
                 write() {
 
                     if (this.stack.length || this.dragging) {

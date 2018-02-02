@@ -118,8 +118,6 @@ function plugin(UIkit) {
 
                 read(data) {
 
-                    this._resetComputeds();
-
                     data.active = !this.media || win.matchMedia(this.media).matches;
 
                     if (data.image) {

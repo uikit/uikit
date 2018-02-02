@@ -36,8 +36,6 @@ export default {
 
         positionAt(element, target, boundary) {
 
-            this._resetComputeds();
-
             removeClasses(element, `${this.clsPos}-(top|bottom|left|right)(-[a-z]+)?`);
             css(element, {top: '', left: ''});
 

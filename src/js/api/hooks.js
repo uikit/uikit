@@ -84,9 +84,9 @@ export default function (UIkit) {
 
         e = createEvent(e || 'update');
 
-        const {type, detail} = e;
+        const {type} = e;
 
-        if (type === 'update' && detail && detail.mutation) {
+        if (includes(['update', 'load', 'resize'], type)) {
             this._resetComputeds();
         }
 

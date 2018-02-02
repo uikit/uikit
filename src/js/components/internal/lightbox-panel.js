@@ -103,9 +103,6 @@ function plugin(UIkit) {
                     removeClass(this.slides, this.clsActive);
                     Transition.stop(this.slides);
 
-                    delete this.index;
-                    delete this.percent;
-
                 }
             },
 
@@ -148,11 +145,11 @@ function plugin(UIkit) {
 
                     e.preventDefault();
 
+                    this.toggleNow(this.$el, true);
+
                     this.animation = Animations['scale'];
                     removeClass(e.target, this.clsActive);
                     this.stack.splice(1, 0, this.index);
-
-                    this.toggleNow(this.$el, true);
 
                 }
 
@@ -174,8 +171,6 @@ function plugin(UIkit) {
                         this.loadItem(this.getIndex(i + j));
                         this.loadItem(this.getIndex(i - j));
                     }
-
-                    delete this._computeds.animation;
 
                 }
 
