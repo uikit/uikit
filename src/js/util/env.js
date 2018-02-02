@@ -1,9 +1,12 @@
 /* global DocumentTouch */
-import Promise from './promise';
+import {attr} from './attr';
+import {Promise} from './promise';
 
 export const win = window;
 export const doc = document;
 export const docEl = doc.documentElement;
+
+export const isRtl = attr(docEl, 'dir') === 'rtl';
 
 export const Observer = win.MutationObserver;
 export const {requestAnimationFrame} = win;

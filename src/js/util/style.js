@@ -1,8 +1,7 @@
 import {append} from './dom';
 import {addClass} from './class';
 import {doc, docEl} from './env';
-import {toNode, toNodes} from './selector';
-import {each, hyphenate, isArray, isNumeric, isObject, isString, isUndefined} from './lang';
+import {each, hyphenate, isArray, isNumeric, isObject, isString, isUndefined, toNode, toNodes} from './lang';
 
 const cssNumber = {
     'animation-iteration-count': true,

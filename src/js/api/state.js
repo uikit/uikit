@@ -1,4 +1,4 @@
-import {assign, attr, bind, camelize, coerce, data as getData, hasAttr, hasOwn, hyphenate, includes, isArray, isFunction, isPlainObject, isString, isUndefined, mergeOptions, Observer, on, startsWith} from '../util/index';
+import {assign, attr, bind, camelize, data as getData, getCssVar, hasAttr, hasOwn, hyphenate, includes, isArray, isFunction, isPlainObject, isString, isUndefined, mergeOptions, Observer, on, query, startsWith, toBoolean, toFloat, toList, toNumber} from '../util/index';
 
 export default function (UIkit) {
 
@@ -289,6 +289,37 @@ export default function (UIkit) {
 
     function detail(listener) {
         return e => isArray(e.detail) ? listener(...[e].concat(e.detail)) : listener(e);
+    }
+
+    function coerce(type, value, context) {
+
+        if (type === Boolean) {
+            return toBoolean(value);
+        } else if (type === Number) {
+            return toNumber(value);
+        } else if (type === 'query') {
+            return query(value, context);
+        } else if (type === 'list') {
+            return toList(value);
+        } else if (type === 'media') {
+            return toMedia(value);
+        }
+
+        return type ? type(value) : value;
+    }
+
+    function toMedia(value) {
+
+        if (isString(value)) {
+            if (value[0] === '@') {
+                const name = `media-${value.substr(1)}`;
+                value = toFloat(getCssVar(name));
+            } else if (isNaN(value)) {
+                return value;
+            }
+        }
+
+        return value && !isNaN(value) ? `(min-width: ${value}px)` : false;
     }
 
 }

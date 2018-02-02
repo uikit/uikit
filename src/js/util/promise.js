@@ -1,6 +1,17 @@
 /* global setImmediate */
 import {isFunction, isObject} from './lang';
 
+export const Promise = 'Promise' in window ? window.Promise : PromiseFn;
+
+export class Deferred {
+    constructor() {
+        this.promise = new Promise((resolve, reject) => {
+            this.reject = reject;
+            this.resolve = resolve;
+        });
+    }
+}
+
 /**
  * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)
  */
@@ -11,7 +22,7 @@ const PENDING = 2;
 
 const async = 'setImmediate' in window ? setImmediate : setTimeout;
 
-export default function Promise(executor) {
+function PromiseFn(executor) {
 
     this.state = PENDING;
     this.value = undefined;
@@ -30,20 +41,20 @@ export default function Promise(executor) {
     }
 }
 
-Promise.reject = function (r) {
-    return new Promise(function (resolve, reject) {
+PromiseFn.reject = function (r) {
+    return new PromiseFn(function (resolve, reject) {
         reject(r);
     });
 };
 
-Promise.resolve = function (x) {
-    return new Promise(function (resolve, reject) {
+PromiseFn.resolve = function (x) {
+    return new PromiseFn(function (resolve, reject) {
         resolve(x);
     });
 };
 
-Promise.all = function all(iterable) {
-    return new Promise(function (resolve, reject) {
+PromiseFn.all = function all(iterable) {
+    return new PromiseFn(function (resolve, reject) {
         const result = [];
         let count = 0;
 
@@ -63,20 +74,20 @@ Promise.all = function all(iterable) {
         }
 
         for (let i = 0; i < iterable.length; i += 1) {
-            Promise.resolve(iterable[i]).then(resolver(i), reject);
+            PromiseFn.resolve(iterable[i]).then(resolver(i), reject);
         }
     });
 };
 
-Promise.race = function race(iterable) {
-    return new Promise(function (resolve, reject) {
+PromiseFn.race = function race(iterable) {
+    return new PromiseFn(function (resolve, reject) {
         for (let i = 0; i < iterable.length; i += 1) {
-            Promise.resolve(iterable[i]).then(resolve, reject);
+            PromiseFn.resolve(iterable[i]).then(resolve, reject);
         }
     });
 };
 
-const p = Promise.prototype;
+const p = PromiseFn.prototype;
 
 p.resolve = function resolve(x) {
     const promise = this;
@@ -162,7 +173,7 @@ p.notify = function notify() {
 };
 
 p.then = function then(onResolved, onRejected) {
-    return new Promise((resolve, reject) => {
+    return new PromiseFn((resolve, reject) => {
         this.deferred.push([onResolved, onRejected, resolve, reject]);
         this.notify();
     });

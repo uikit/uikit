@@ -4,7 +4,7 @@
     http://zeptojs.com/
 */
 import {ready} from './dom';
-import {within} from './selector';
+import {within} from './filter';
 import {on, trigger} from './event';
 import {doc, pointerDown, pointerMove, pointerUp, win} from './env';
 
