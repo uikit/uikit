@@ -1,4 +1,9 @@
-import {assign, attr, bind, camelize, data as getData, getCssVar, hasAttr, hasOwn, hyphenate, includes, isArray, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, query, startsWith, toBoolean, toFloat, toList, toNumber} from '../util/index';
+import {on} from '../util/event';
+import {query} from '../util/selector';
+import {getCssVar} from '../util/style';
+import {mergeOptions} from '../util/options';
+import {attr, data as getData, hasAttr} from '../util/attr';
+import {startsWith, hasOwn, toList, toNumber, assign, bind, camelize, hyphenate, includes, isArray, toFloat, isFunction, isPlainObject, isString, isUndefined, toBoolean} from '../util/lang';
 
 export default function (UIkit) {
 

@@ -1,5 +1,6 @@
 import {getComponentName} from './component';
-import {fastdom, hasAttr} from '../util/index';
+import {hasAttr} from '../util/attr';
+import {fastdom} from '../util/fastdom';
 
 export default function (UIkit) {
 

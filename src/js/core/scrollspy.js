@@ -1,4 +1,10 @@
-import {$$, addClass, css, data, filter, isInView, removeClass, toggleClass, trigger} from '../util/index';
+import {$$} from '../util/core';
+import {css} from '../util/style';
+import {data} from '../util/attr';
+import {filter} from '../util/filter';
+import {trigger} from '../util/event';
+import {isInView} from '../util/dimensions';
+import {addClass, removeClass, toggleClass} from '../util/class';
 
 export default function (UIkit) {
 

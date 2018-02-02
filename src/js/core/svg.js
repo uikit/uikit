@@ -1,4 +1,10 @@
-import {$, after, ajax, append, attr, includes, isString, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from '../util/index';
+import {$} from '../util/core';
+import {ajax} from '../util/ajax';
+import {Promise} from '../util/promise';
+import {isVoidElement} from '../util/filter';
+import {attr, removeAttr} from '../util/attr';
+import {after, remove, append} from '../util/dom';
+import {isString, noop, includes, startsWith} from '../util/lang';
 
 const svgs = {};
 

@@ -1,4 +1,9 @@
-import {closest, hasTouch, includes, isTouch, isVisible, matches, once, pointerEnter, pointerLeave, queryAll, trigger} from '../util/index';
+import {isTouch} from '../util/touch';
+import {includes} from '../util/lang';
+import {isVisible} from '../util/filter';
+import {once, trigger} from '../util/event';
+import {queryAll, closest, matches} from '../util/selector';
+import {pointerEnter, pointerLeave, hasTouch} from '../util/env';
 
 export default function (UIkit) {
 

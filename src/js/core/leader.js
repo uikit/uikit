@@ -1,5 +1,9 @@
 import {Class} from '../mixin/index';
-import {attr, getCssVar, toggleClass, unwrap, wrapInner} from '../util/index';
+
+import {attr} from '../util/attr';
+import {getCssVar} from '../util/style';
+import {toggleClass} from '../util/class';
+import {unwrap, wrapInner} from '../util/dom';
 
 export default function (UIkit) {
 

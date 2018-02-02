@@ -1,4 +1,11 @@
-import {$$, addClass, css, hasTouch, on, ready, removeClass, toMs, within} from '../util/index';
+import {$$} from '../util/core';
+import {on} from '../util/event';
+import {css} from '../util/style';
+import {toMs} from '../util/lang';
+import {ready} from '../util/dom';
+import {within} from '../util/filter';
+import {hasTouch} from '../util/env';
+import {addClass, removeClass} from '../util/class';
 
 export default function (UIkit) {
 

@@ -1,4 +1,8 @@
-import {$$, attr, css, isUndefined, isVisible} from '../util/index';
+import {$$} from '../util/core';
+import {css} from '../util/style';
+import {attr} from '../util/attr';
+import {isVisible} from '../util/filter';
+import {isUndefined} from '../util/lang';
 
 export default function (UIkit) {
 

@@ -1,5 +1,5 @@
 import {Class, Togglable} from '../mixin/index';
-import {assign} from '../util/index';
+import {assign} from '../util/lang';
 
 export default function (UIkit) {
 

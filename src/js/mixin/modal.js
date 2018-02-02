@@ -1,4 +1,13 @@
-import {$, addClass, append, css, hasClass, on, once, Promise, removeClass, toMs, width, within} from '../util/index';
+import {$} from '../util/core';
+import {css} from '../util/style';
+import {toMs} from '../util/lang';
+import {width} from '../util/dimensions';
+import {append} from '../util/dom';
+import {within} from '../util/filter';
+import {Promise} from '../util/promise';
+import {on, once} from '../util/event';
+import {addClass, hasClass, removeClass} from '../util/class';
+
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';

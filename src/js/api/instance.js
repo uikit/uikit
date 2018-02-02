@@ -1,4 +1,5 @@
-import {remove, within} from '../util/index';
+import {remove} from '../util/dom';
+import {within} from '../util/filter';
 
 export default function (UIkit) {
 
