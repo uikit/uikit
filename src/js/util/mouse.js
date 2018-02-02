@@ -1,6 +1,6 @@
 import {doc} from './env';
 import {on} from './event';
-import {offset} from './position';
+import {offset} from './dimensions';
 
 export function MouseTracker() {}
 

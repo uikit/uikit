@@ -1,7 +1,6 @@
 import {supports} from './env';
 import {filterAttr} from './attr';
-import {toNodes} from './selector';
-import {includes, isString, isUndefined} from './lang';
+import {includes, isString, isUndefined, toNodes} from './lang';
 
 export function addClass(element, ...args) {
     apply(element, args, 'add');

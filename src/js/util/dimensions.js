@@ -1,7 +1,6 @@
 import {css} from './style';
-import {isVisible} from './dom';
-import {toNode} from './selector';
-import {each, endsWith, includes, isDocument, isUndefined, isWindow, toFloat, ucfirst} from './lang';
+import {isVisible} from './filter';
+import {clamp, each, endsWith, includes, intersectRect, isDocument, isUndefined, isWindow, toFloat, toNode, ucfirst} from './lang';
 
 const dirs = {
     width: ['x', 'left', 'right'],
@@ -35,7 +34,7 @@ export function positionAt(element, target, elAttach, targetAttach, elOffset, ta
     position.left += elOffset['x'];
     position.top += elOffset['y'];
 
-    boundary = getDimensions(boundary || getWindow(element));
+    boundary = getDimensions(boundary || window(element));
 
     if (flip) {
         each(dirs, ([dir, align, alignFlip], prop) => {
@@ -124,7 +123,7 @@ function getDimensions(element) {
 
     element = toNode(element);
 
-    const {pageYOffset: top, pageXOffset: left} = getWindow(element);
+    const {pageYOffset: top, pageXOffset: left} = window(element);
 
     if (isWindow(element)) {
 
@@ -235,10 +234,6 @@ function getContentSize(prop, element, value) {
         , value) : value;
 }
 
-function getWindow(element) {
-    return isWindow(element) ? element : document(element).defaultView;
-}
-
 function moveTo(position, attach, dim, factor) {
     each(dirs, function ([dir, align, alignFlip], prop) {
         if (attach[dir] === alignFlip) {
@@ -293,6 +288,50 @@ export function flipPosition(pos) {
         default:
             return pos;
     }
+}
+
+export function isInView(element, top = 0, left = 0) {
+
+    element = toNode(element);
+
+    const win = window(element);
+    return intersectRect(element.getBoundingClientRect(), {
+        top,
+        left,
+        bottom: top + height(win),
+        right: left + width(win)
+    });
+}
+
+export function scrolledOver(element) {
+
+    element = toNode(element);
+
+    const win = window(element);
+    const doc = document(element);
+    const elHeight = element.offsetHeight;
+    const top = positionTop(element);
+    const vp = height(win);
+    const vh = vp + Math.min(0, top - vp);
+    const diff = Math.max(0, vp - (height(doc) - (top + elHeight)));
+
+    return clamp(((vh + win.pageYOffset - top) / ((vh + (elHeight - (diff < vp ? diff : 0))) / 100)) / 100);
+}
+
+function positionTop(element) {
+    let top = 0;
+
+    do {
+
+        top += element.offsetTop;
+
+    } while ((element = element.offsetParent));
+
+    return top;
+}
+
+function window(element) {
+    return isWindow(element) ? element : document(element).defaultView;
 }
 
 function document(element) {
