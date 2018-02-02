@@ -23,6 +23,7 @@
 @base-link-hover-color:                         @global-link-hover-color;
 @base-link-hover-text-decoration:               underline;
 
+@base-strong-font-weight:                       bolder;
 @base-code-font-size:                           @global-small-font-size;
 @base-code-font-family:                         Consolas, monaco, monospace;
 @base-code-color:                               @global-danger-background;
@@ -162,17 +163,11 @@ abbr[title] {
 
 
 /*
- * 1. Prevent the duplicate application of `bolder` by the next rule in Safari 6.
- * 2. Add the correct font weight in Chrome, Edge, and Safari.
+ * Add the correct font weight in Chrome, Edge, and Safari.
  */
 
-/* 1 */
 b,
-strong { font-weight: inherit; }
-
-/* 2 */
-b,
-strong { font-weight: bolder; }
+strong { font-weight: @base-strong-font-weight; }
 
 /*
  * 1. Correct the odd `em` font sizing in all browsers.

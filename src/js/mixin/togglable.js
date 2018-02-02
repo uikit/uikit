@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import { $$, Animation, assign, attr, css, doc, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger } from '../util/index';
+import {$$, Animation, assign, attr, css, doc, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger} from '../util/index';
 
 export default {
 
@@ -59,10 +59,11 @@ export default {
 
                 targets = toNodes(targets);
 
-                var all = targets => Promise.all(targets.map(el => this._toggleElement(el, show, animate))),
-                    toggled = targets.filter(el => this.isToggled(el)),
-                    untoggled = targets.filter(el => !includes(toggled, el)),
-                    p;
+                const all = targets => Promise.all(targets.map(el => this._toggleElement(el, show, animate)));
+                const toggled = targets.filter(el => this.isToggled(el));
+                const untoggled = targets.filter(el => !includes(toggled, el));
+
+                let p;
 
                 if (!this.queued || !isUndefined(animate) || !isUndefined(show) || !this.hasAnimation || targets.length < 2) {
 
@@ -70,17 +71,17 @@ export default {
 
                 } else {
 
-                    var body = doc.body,
-                        scroll = body.scrollTop,
-                        el = toggled[0],
-                        inProgress = Animation.inProgress(el) && hasClass(el, 'uk-animation-leave')
+                    const {body} = doc;
+                    const scroll = body.scrollTop;
+                    const [el] = toggled;
+                    const inProgress = Animation.inProgress(el) && hasClass(el, 'uk-animation-leave')
                             || Transition.inProgress(el) && el.style.height === '0px';
 
                     p = all(toggled);
 
                     if (!inProgress) {
                         p = p.then(() => {
-                            var p = all(untoggled);
+                            const p = all(untoggled);
                             body.scrollTop = scroll;
                             return p;
                         });
@@ -98,7 +99,7 @@ export default {
         },
 
         isToggled(el) {
-            var nodes = toNodes(el || this.$el);
+            const nodes = toNodes(el || this.$el);
             return this.cls
                 ? hasClass(nodes, this.cls.split(' ')[0])
                 : !hasAttr(nodes, 'hidden');
@@ -124,7 +125,7 @@ export default {
                 return Promise.reject();
             }
 
-            var promise = (animate === false || !this.hasAnimation
+            const promise = (animate === false || !this.hasAnimation
                 ? this._toggleImmediate
                 : this.hasTransition
                     ? this._toggleHeight
@@ -164,10 +165,9 @@ export default {
 
         _toggleHeight(el, show) {
 
-            var inProgress = Transition.inProgress(el),
-                inner = el.hasChildNodes ? toFloat(css(el.firstElementChild, 'marginTop')) + toFloat(css(el.lastElementChild, 'marginBottom')) : 0,
-                currentHeight = isVisible(el) ? height(el) + (inProgress ? 0 : inner) : 0,
-                endHeight;
+            const inProgress = Transition.inProgress(el);
+            const inner = el.hasChildNodes ? toFloat(css(el.firstElementChild, 'marginTop')) + toFloat(css(el.lastElementChild, 'marginBottom')) : 0;
+            const currentHeight = isVisible(el) ? height(el) + (inProgress ? 0 : inner) : 0;
 
             Transition.cancel(el);
 
@@ -180,7 +180,7 @@ export default {
             // Update child components first
             fastdom.flush();
 
-            endHeight = height(el) + (inProgress ? 0 : inner);
+            const endHeight = height(el) + (inProgress ? 0 : inner);
             height(el, currentHeight);
 
             return (show

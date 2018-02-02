@@ -4,8 +4,8 @@ function plugin(UIkit) {
         return;
     }
 
-    var {mixin, util} = UIkit;
-    var {addClass, after, assign, append, attr, before, closest, css, doc, docEl, height, fastdom, getPos, includes, index, isInput, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, Promise, remove, removeClass, toggleClass, toNodes, Transition, trigger, win, within} = util;
+    const {mixin, util} = UIkit;
+    const {addClass, after, assign, append, attr, before, closest, css, doc, docEl, height, fastdom, getPos, includes, index, isInput, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, Promise, remove, removeClass, toggleClass, toNodes, Transition, trigger, win, within} = util;
 
     UIkit.component('sortable', {
 
@@ -43,10 +43,10 @@ function plugin(UIkit) {
 
         init() {
             ['init', 'start', 'move', 'end'].forEach(key => {
-                var fn = this[key];
+                const fn = this[key];
                 this[key] = e => {
-                    this.scrollY = win.scrollY;
-                    var {x, y} = getPos(e);
+                    this.scrollY = win.pageYOffset;
+                    const {x, y} = getPos(e);
                     this.pos = {x, y};
 
                     fn(e);
@@ -74,9 +74,9 @@ function plugin(UIkit) {
 
                 offset(this.drag, {top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
 
-                var top = offset(this.drag).top,
-                    bottom = top + this.drag.offsetHeight,
-                    scroll;
+                const {top} = offset(this.drag);
+                const bottom = top + this.drag.offsetHeight;
+                let scroll;
 
                 if (top > 0 && top < this.scrollY) {
                     scroll = this.scrollY - 5;
@@ -93,8 +93,8 @@ function plugin(UIkit) {
 
             init(e) {
 
-                var {target, button, defaultPrevented} = e,
-                    placeholder = toNodes(this.$el.children).filter(el => within(target, el))[0];
+                const {target, button, defaultPrevented} = e;
+                const [placeholder] = toNodes(this.$el.children).filter(el => within(target, el));
 
                 if (!placeholder
                     || isInput(e.target)
@@ -136,7 +136,7 @@ function plugin(UIkit) {
 
                 height(this.drag.firstElementChild, height(this.placeholder.firstElementChild));
 
-                var {left, top} = offset(this.placeholder);
+                const {left, top} = offset(this.placeholder);
                 assign(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
 
                 addClass(this.placeholder, this.clsPlaceholder);
@@ -161,10 +161,11 @@ function plugin(UIkit) {
 
                 this.$emit();
 
-                var target = e.type === 'mousemove' ? e.target : doc.elementFromPoint(this.pos.x - doc.body.scrollLeft, this.pos.y - doc.body.scrollTop),
-                    sortable = getSortable(target),
-                    previous = getSortable(this.placeholder),
-                    move = sortable !== previous;
+                let target = e.type === 'mousemove' ? e.target : doc.elementFromPoint(this.pos.x - doc.body.scrollLeft, this.pos.y - doc.body.scrollTop);
+
+                const sortable = getSortable(target);
+                const previous = getSortable(this.placeholder);
+                const move = sortable !== previous;
 
                 if (!sortable || within(target, this.placeholder) || move && (!sortable.group || sortable.group !== previous.group)) {
                     return;
@@ -187,7 +188,7 @@ function plugin(UIkit) {
             },
 
             scroll() {
-                var scroll = win.scrollY;
+                const scroll = win.pageYOffset;
                 if (scroll !== this.scrollY) {
                     this.pos.y += scroll - this.scrollY;
                     this.scrollY = scroll;
@@ -212,7 +213,7 @@ function plugin(UIkit) {
 
                 preventClick();
 
-                var sortable = getSortable(this.placeholder);
+                const sortable = getSortable(this.placeholder);
 
                 if (this === sortable) {
                     if (this.origin.index !== index(this.placeholder)) {
@@ -228,7 +229,7 @@ function plugin(UIkit) {
                 remove(this.drag);
                 this.drag = null;
 
-                var classes = this.touched.map(sortable => `${sortable.clsPlaceholder} ${sortable.clsItem}`).join(' ');
+                const classes = this.touched.map(sortable => `${sortable.clsPlaceholder} ${sortable.clsItem}`).join(' ');
                 this.touched.forEach(sortable => removeClass(sortable.$el.children, classes));
 
                 removeClass(docEl, this.clsDragState);
@@ -239,7 +240,7 @@ function plugin(UIkit) {
 
                 addClass(this.$el.children, this.clsItem);
 
-                var insert = () => {
+                const insert = () => {
 
                     if (target) {
 
@@ -279,9 +280,9 @@ function plugin(UIkit) {
 
             animate(action) {
 
-                var props = [],
-                    children = toNodes(this.$el.children),
-                    reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: '', bottom: '', right: ''};
+                const props = [];
+                const children = toNodes(this.$el.children);
+                const reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: '', bottom: '', right: ''};
 
                 children.forEach(el => {
                     props.push(assign({
@@ -301,7 +302,7 @@ function plugin(UIkit) {
 
                 css(this.$el, 'minHeight', height(this.$el));
 
-                var positions = children.map(el => position(el));
+                const positions = children.map(el => position(el));
                 Promise.all(children.map((el, i) => Transition.start(css(el, props[i]), positions[i], this.animation)))
                     .then(() => {
                         css(this.$el, 'minHeight', '');

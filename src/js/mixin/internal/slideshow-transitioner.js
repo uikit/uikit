@@ -1,12 +1,12 @@
 export default function (UIkit) {
 
-    var {createEvent, clamp, css, Deferred, noop, Promise, Transition, trigger} = UIkit.util;
+    const {createEvent, clamp, css, Deferred, noop, Promise, Transition, trigger} = UIkit.util;
 
     function Transitioner(prev, next, dir, {animation, easing}) {
 
-        var {percent, translate, show = noop} = animation,
-            props = show(dir),
-            deferred = new Deferred();
+        const {percent, translate, show = noop} = animation;
+        const props = show(dir);
+        const deferred = new Deferred();
 
         return {
 
@@ -14,7 +14,7 @@ export default function (UIkit) {
 
             show(duration, percent = 0, linear) {
 
-                var timing = linear ? 'linear' : easing;
+                const timing = linear ? 'linear' : easing;
                 duration -= Math.round(duration * clamp(percent, -1, 1));
 
                 this.translate(percent);
@@ -42,7 +42,7 @@ export default function (UIkit) {
             },
 
             reset() {
-                for (var prop in props[0]) {
+                for (const prop in props[0]) {
                     css([next, prev], prop, '');
                 }
             },
@@ -55,7 +55,7 @@ export default function (UIkit) {
 
             translate(percent) {
 
-                var props = translate(percent, dir);
+                const props = translate(percent, dir);
                 css(next, props[1]);
                 css(prev, props[0]);
                 triggerUpdate(next, 'itemtranslatein', {percent, dir});

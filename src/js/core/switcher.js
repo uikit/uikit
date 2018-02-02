@@ -1,5 +1,5 @@
-import { Togglable } from '../mixin/index';
-import { $$, addClass, attr, data, filter, getIndex, hasClass, index, isTouch, matches, queryAll, removeClass, win } from '../util/index';
+import {Togglable} from '../mixin/index';
+import {$$, addClass, attr, data, filter, getIndex, hasClass, index, isTouch, matches, queryAll, removeClass, win} from '../util/index';
 
 export default function (UIkit) {
 
@@ -109,14 +109,14 @@ export default function (UIkit) {
 
             show(item) {
 
-                var length = this.toggles.length,
-                    prev = !!this.connects.length && index(filter(this.connects[0].children, `.${this.cls}`)[0]),
-                    hasPrev = prev >= 0,
-                    next = getIndex(item, this.toggles, prev),
-                    dir = item === 'previous' ? -1 : 1,
-                    toggle;
+                const {length} = this.toggles;
+                const prev = !!this.connects.length && index(filter(this.connects[0].children, `.${this.cls}`)[0]);
+                const hasPrev = prev >= 0;
+                const dir = item === 'previous' ? -1 : 1;
 
-                for (var i = 0; i < length; i++, next = (next + dir + length) % length) {
+                let toggle, next = getIndex(item, this.toggles, prev);
+
+                for (let i = 0; i < length; i++, next = (next + dir + length) % length) {
                     if (!matches(this.toggles[next], '.uk-disabled, [disabled]')) {
                         toggle = this.toggles[next];
                         break;

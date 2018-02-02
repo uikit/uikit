@@ -1,5 +1,5 @@
-import { Class, Modal } from '../mixin/index';
-import { $, addClass, assign, closest, css, hasClass, height, html, index, isString, on, Promise, removeClass, trigger } from '../util/index';
+import {Class, Modal} from '../mixin/index';
+import {$, addClass, assign, closest, css, hasClass, height, html, isString, on, Promise, removeClass, trigger} from '../util/index';
 
 export default function (UIkit) {
 
@@ -77,7 +77,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                var current = css(this.$el, 'maxHeight');
+                const current = css(this.$el, 'maxHeight');
 
                 css(css(this.$el, 'maxHeight', 150), 'maxHeight', Math.max(150, 150 + height(this.modal) - this.panel.offsetHeight));
                 if (current !== css(this.$el, 'maxHeight')) {
@@ -93,7 +93,7 @@ export default function (UIkit) {
 
     UIkit.modal.dialog = function (content, options) {
 
-        var dialog = UIkit.modal(`
+        const dialog = UIkit.modal(`
             <div class="uk-modal">
                 <div class="uk-modal-dialog">${content}</div>
              </div>
@@ -126,27 +126,44 @@ export default function (UIkit) {
 
     UIkit.modal.confirm = function (message, options) {
 
-        options = assign({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
+        options = assign({bgClose: false, escClose: true, labels: UIkit.modal.labels}, options);
 
-        return new Promise(
-            (resolve, reject) => on(UIkit.modal.dialog(`
-                <div class="uk-modal-body">${isString(message) ? message : html(message)}</div>
-                <div class="uk-modal-footer uk-text-right">
-                    <button class="uk-button uk-button-default uk-modal-close">${options.labels.cancel}</button>
-                    <button class="uk-button uk-button-primary uk-modal-close" autofocus>${options.labels.ok}</button>
-                </div>
-            `, options).$el, 'click', '.uk-modal-footer button', ({target}) => index(target) === 0 ? reject() : resolve())
-        );
+        return new Promise((resolve, reject) => {
+
+            const confirm = UIkit.modal.dialog(`
+                <form>
+                    <div class="uk-modal-body">${isString(message) ? message : html(message)}</div>
+                    <div class="uk-modal-footer uk-text-right">
+                        <button class="uk-button uk-button-default uk-modal-close" type="button">${options.labels.cancel}</button>
+                        <button class="uk-button uk-button-primary" autofocus>${options.labels.ok}</button>
+                    </div>
+                </form>
+            `, options);
+
+            let resolved = false;
+
+            on(confirm.$el, 'submit', 'form', e => {
+                e.preventDefault();
+                resolve();
+                resolved = true;
+                confirm.hide();
+            });
+            on(confirm.$el, 'hide', () => {
+                if (!resolved) {
+                    reject();
+                }
+            });
+
+        });
     };
 
     UIkit.modal.prompt = function (message, value, options) {
 
-        options = assign({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
+        options = assign({bgClose: false, escClose: true, labels: UIkit.modal.labels}, options);
 
         return new Promise(resolve => {
 
-            var resolved = false,
-                prompt = UIkit.modal.dialog(`
+            const prompt = UIkit.modal.dialog(`
                     <form class="uk-form-stacked">
                         <div class="uk-modal-body">
                             <label>${isString(message) ? message : html(message)}</label>
@@ -161,6 +178,8 @@ export default function (UIkit) {
                 input = $('input', prompt.$el);
 
             input.value = value;
+
+            let resolved = false;
 
             on(prompt.$el, 'submit', 'form', e => {
                 e.preventDefault();

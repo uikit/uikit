@@ -1,6 +1,6 @@
-import { assign, hasOwn, isArray, isFunction, isUndefined } from './lang';
+import {assign, hasOwn, isArray, isFunction, isUndefined} from './lang';
 
-var strats = {};
+const strats = {};
 
 // concat strategy
 strats.args =
@@ -55,25 +55,25 @@ strats.methods = function (parentVal, childVal) {
 };
 
 // default strategy
-var defaultStrat = function (parentVal, childVal) {
+const defaultStrat = function (parentVal, childVal) {
     return isUndefined(childVal) ? parentVal : childVal;
 };
 
 export function mergeOptions(parent, child) {
 
-    var options = {}, key;
+    const options = {};
 
     if (child.mixins) {
-        for (var i = 0, l = child.mixins.length; i < l; i++) {
+        for (let i = 0, l = child.mixins.length; i < l; i++) {
             parent = mergeOptions(parent, child.mixins[i]);
         }
     }
 
-    for (key in parent) {
+    for (const key in parent) {
         mergeKey(key);
     }
 
-    for (key in child) {
+    for (const key in child) {
         if (!hasOwn(parent, key)) {
             mergeKey(key);
         }

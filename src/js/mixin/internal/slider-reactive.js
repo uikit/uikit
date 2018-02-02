@@ -1,6 +1,6 @@
 export default function (UIkit) {
 
-    var {fastdom, removeClass} = UIkit.util;
+    const {fastdom, removeClass} = UIkit.util;
 
     return {
 
@@ -12,17 +12,13 @@ export default function (UIkit) {
 
             {
 
-                read() {
-                    this._resetComputeds();
-                },
-
                 write() {
 
-                    if (this.stack.length) {
+                    if (this.stack.length || this.dragging) {
                         return;
                     }
 
-                    var index = this.getValidIndex();
+                    const index = this.getValidIndex();
                     delete this.index;
                     removeClass(this.slides, this.clsActive, this.clsActivated);
                     this.show(index);

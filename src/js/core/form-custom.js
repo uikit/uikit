@@ -1,5 +1,5 @@
-import { Class } from '../mixin/index';
-import { $, $$, includes, isInput, matches, query, selInput, toggleClass, trigger } from '../util/index';
+import {Class} from '../mixin/index';
+import {$, $$, includes, isInput, matches, query, selInput, toggleClass, trigger} from '../util/index';
 
 export default function (UIkit) {
 
@@ -66,15 +66,17 @@ export default function (UIkit) {
 
                 handler() {
 
-                    var target = this.target, input = this.input, option;
+                    const {target, input} = this;
 
                     if (!target) {
                         return;
                     }
 
+                    let option;
+
                     target[isInput(target) ? 'value' : 'textContent'] = input.files && input.files[0]
                         ? input.files[0].name
-                        : matches(input, 'select') && (option = $$('option', input).filter(el => el.selected)[0])
+                        : matches(input, 'select') && ([option] = $$('option', input).filter(el => el.selected))
                             ? option.textContent
                             : input.value;
                 }

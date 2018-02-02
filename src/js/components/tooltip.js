@@ -4,14 +4,16 @@ function plugin(UIkit) {
         return;
     }
 
-    var {util, mixin} = UIkit;
-    var {append, attr, doc, flipPosition, hasAttr, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, remove, within} = util;
+    const {util, mixin} = UIkit;
+    const {append, attr, doc, flipPosition, hasAttr, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, remove, within} = util;
 
-    var actives = [];
+    const actives = [];
 
     UIkit.component('tooltip', {
 
         attrs: true,
+
+        args: 'title',
 
         mixins: [mixin.container, mixin.togglable, mixin.position],
 
@@ -80,7 +82,7 @@ function plugin(UIkit) {
 
             hide() {
 
-                var index = actives.indexOf(this);
+                const index = actives.indexOf(this);
 
                 if (!~index || matches(this.$el, 'input') && this.$el === doc.activeElement) {
                     return;

@@ -10,11 +10,10 @@ function plugin(UIkit) {
 
     UIkit.use(SliderPlugin);
 
-    var {mixin} = UIkit;
-    var {assign, fastdom, isNumber} = UIkit.util;
+    const {mixin, util: {addClass, assign, fastdom, isNumber, removeClass}} = UIkit;
 
-    var Animations = AnimationsPlugin(UIkit),
-        Transitioner = TransitionerPlugin(UIkit);
+    const Animations = AnimationsPlugin(UIkit);
+    const Transitioner = TransitionerPlugin(UIkit);
 
     UIkit.mixin.slideshow = {
 
@@ -26,6 +25,7 @@ function plugin(UIkit) {
 
         defaults: {
             animation: 'slide',
+            clsActivated: 'uk-transition-active',
             Animations,
             Transitioner
         },
@@ -50,6 +50,18 @@ function plugin(UIkit) {
 
             itemshow() {
                 isNumber(this.prevIndex) && fastdom.flush(); // iOS 10+ will honor the video.play only if called from a gesture handler
+            },
+
+            beforeitemshow({target}) {
+                addClass(target, this.clsActive);
+            },
+
+            itemshown({target}) {
+                addClass(target, this.clsActivated);
+            },
+
+            itemhidden({target}) {
+                removeClass(target, this.clsActive, this.clsActivated);
             }
 
         }

@@ -1,7 +1,7 @@
-import { supports } from './env';
-import { filterAttr } from './attr';
-import { toNodes } from './selector';
-import { includes, isString, isUndefined } from './lang';
+import {supports} from './env';
+import {filterAttr} from './attr';
+import {toNodes} from './selector';
+import {includes, isString, isUndefined} from './lang';
 
 export function addClass(element, ...args) {
     apply(element, args, 'add');
@@ -32,14 +32,14 @@ export function toggleClass(element, ...args) {
 
     args = getArgs(args);
 
-    var force = !isString(args[args.length - 1]) ? args.pop() : undefined;
+    const force = !isString(args[args.length - 1]) ? args.pop() : []; // in iOS 9.3 force === undefined evaluates to false
 
     args = args.filter(Boolean);
 
     toNodes(element).forEach(({classList}) => {
-        for (var i = 0; i < args.length; i++) {
+        for (let i = 0; i < args.length; i++) {
             supports.Force
-                ? classList.toggle(args[i], force)
+                ? classList.toggle(...[args[i]].concat(force))
                 : (classList[(!isUndefined(force) ? force : !classList.contains(args[i])) ? 'add' : 'remove'](args[i]));
         }
     });

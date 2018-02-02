@@ -1,6 +1,7 @@
-import Slider, { speedUp } from '../mixin/slider';
+import Slider, {speedUp} from '../mixin/slider';
 import SliderReactive from '../mixin/internal/slider-reactive';
 import TransitionerPlugin from './internal/slider-transitioner';
+import ParallaxPlugin from './internal/slider-parallax';
 
 function plugin(UIkit) {
 
@@ -10,9 +11,10 @@ function plugin(UIkit) {
 
     UIkit.use(Slider);
 
-    var {mixin} = UIkit;
-    var {$, $$, css, data, includes, isNumeric, toggleClass, toFloat} = UIkit.util;
-    var Transitioner = TransitionerPlugin(UIkit);
+    const {mixin, util: {$, $$, addClass, css, data, includes, isNumeric, isUndefined, toggleClass, toFloat}} = UIkit;
+    const Transitioner = TransitionerPlugin(UIkit);
+
+    UIkit.component('slider-parallax', ParallaxPlugin(UIkit, 'slider'));
 
     UIkit.component('slider', {
 
@@ -55,7 +57,8 @@ function plugin(UIkit) {
 
                 css(this.slides, 'order', '');
 
-                var max = Transitioner.getMax(this.list), i = this.length;
+                const max = Transitioner.getMax(this.list);
+                let i = this.length;
 
                 while (i--) {
                     if (Transitioner.getElLeft(this.list.children[i], this.list) < max) {
@@ -68,17 +71,18 @@ function plugin(UIkit) {
 
             sets({sets}) {
 
-                var width = this.list.offsetWidth / (this.center ? 2 : 1),
-                    left = 0,
-                    leftCenter = width;
+                const width = this.list.offsetWidth / (this.center ? 2 : 1);
+
+                let left = 0;
+                let leftCenter = width;
 
                 css(this.slides, 'order', '');
 
                 sets = sets && this.slides.reduce((sets, slide, i) => {
 
-                    var slideWidth = slide.offsetWidth,
-                        slideLeft = Transitioner.getElLeft(slide, this.list),
-                        slideRight = slideLeft + slideWidth;
+                    const slideWidth = slide.offsetWidth;
+                    const slideLeft = Transitioner.getElLeft(slide, this.list);
+                    const slideRight = slideLeft + slideWidth;
 
                     if (slideRight > left) {
 
@@ -88,7 +92,7 @@ function plugin(UIkit) {
 
                         if (!includes(sets, i)) {
 
-                            var cmp = this.slides[i + 1];
+                            const cmp = this.slides[i + 1];
                             if (this.center && cmp && slideWidth < leftCenter - cmp.offsetWidth / 2) {
                                 leftCenter -= slideWidth;
                             } else {
@@ -126,7 +130,7 @@ function plugin(UIkit) {
             write() {
 
                 $$(`[${this.attrItem}],[data-${this.attrItem}]`, this.$el).forEach(el => {
-                    var index = data(el, this.attrItem);
+                    const index = data(el, this.attrItem);
                     this.maxIndex && toggleClass(el, 'uk-hidden', isNumeric(index) && (this.sets && !includes(this.sets, toFloat(index)) || index > this.maxIndex));
                 });
 
@@ -144,14 +148,15 @@ function plugin(UIkit) {
                     this.index = this.getValidIndex();
                 }
 
-                var diff = Math.abs(this.index + (this.dir > 0
-                        ? this.index < this.prevIndex ? this.maxIndex + 1 : 0
-                        : this.index > this.prevIndex ? -this.maxIndex : 0
-                ) - this.prevIndex);
+                const diff = Math.abs(
+                    this.index
+                    - this.prevIndex
+                    + (this.dir > 0 && this.index < this.prevIndex || this.dir < 0 && this.index > this.prevIndex ? (this.maxIndex + 1) * this.dir : 0)
+                );
 
                 if (!this.dragging && diff > 1) {
 
-                    for (var i = 0; i < diff; i++) {
+                    for (let i = 0; i < diff; i++) {
                         this.stack.splice(1, 0, this.dir > 0 ? 'next' : 'previous');
                     }
 
@@ -168,6 +173,16 @@ function plugin(UIkit) {
 
                 this.reorder();
 
+            },
+
+            itemshow() {
+                !isUndefined(this.prevIndex) && addClass(this._getTransitioner().getItemIn(), this.clsActive);
+            },
+
+            itemshown() {
+                const actives = this._getTransitioner(this.index).getActives();
+                this.slides.forEach(slide => toggleClass(slide, this.clsActive, includes(actives, slide)));
+                (!this.sets || includes(this.sets, toFloat(this.index))) && this.slides.forEach(slide => toggleClass(slide, this.clsActivated, includes(actives, slide)));
             }
 
         },
@@ -195,14 +210,15 @@ function plugin(UIkit) {
                     return;
                 }
 
-                var index = this.dir > 0 && this.slides[this.prevIndex] ? this.prevIndex : this.index,
-                    next = this.slides[index],
-                    width = this.list.offsetWidth / 2 - next.offsetWidth / 2,
-                    j = 0;
+                const index = this.dir > 0 && this.slides[this.prevIndex] ? this.prevIndex : this.index;
+                const next = this.slides[index];
 
-                while (width >= 0) {
-                    var slideIndex = this.getIndex(--j + index, index),
-                        slide = this.slides[slideIndex];
+                let width = this.list.offsetWidth / 2 - next.offsetWidth / 2;
+                let j = 0;
+
+                while (width > 0) {
+                    const slideIndex = this.getIndex(--j + index, index);
+                    const slide = this.slides[slideIndex];
 
                     css(slide, 'order', slideIndex > index ? -2 : -1);
                     width -= slide.offsetWidth;
@@ -218,7 +234,7 @@ function plugin(UIkit) {
                     return index;
                 }
 
-                var prev;
+                let prev;
 
                 do {
 

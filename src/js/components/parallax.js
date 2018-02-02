@@ -8,8 +8,8 @@ function plugin(UIkit) {
 
     UIkit.use(ParallaxMixin);
 
-    var {mixin, util} = UIkit;
-    var {clamp, css, scrolledOver, query} = util;
+    const {mixin, util} = UIkit;
+    const {clamp, css, scrolledOver, query} = util;
 
     UIkit.component('parallax', {
 

@@ -1,10 +1,11 @@
-import { $$, addClass, css, doc, hasTouch, on, ready, removeClass, toMs, win, within } from '../util/index';
+import {$$, addClass, css, doc, hasTouch, on, ready, removeClass, toMs, win, within} from '../util/index';
 
 export default function (UIkit) {
 
     ready(() => {
 
-        var scroll = 0, started = 0;
+        let scroll = 0;
+        let started = 0;
 
         on(win, 'load resize', UIkit.update);
         on(win, 'scroll', e => {
@@ -29,10 +30,10 @@ export default function (UIkit) {
             return;
         }
 
-        var cls = 'uk-hover';
+        const cls = 'uk-hover';
 
         on(doc, 'tap', ({target}) =>
-            $$(`.${cls}`).forEach((_, el) =>
+            $$(`.${cls}`).forEach(el =>
                 !within(target, el) && removeClass(el, cls)
             )
         );

@@ -1,4 +1,4 @@
-import { css, docEl, endsWith, height, isNumeric, isString, offset, query, toFloat, win } from '../util/index';
+import {css, docEl, endsWith, height, isNumeric, isString, offset, query, toFloat, win} from '../util/index';
 
 export default function (UIkit) {
 
@@ -24,13 +24,14 @@ export default function (UIkit) {
 
                 css(this.$el, 'boxSizing', 'border-box');
 
-                var viewport = height(win), minHeight, offsetTop = 0;
+                const viewport = height(win);
+                let minHeight, offsetTop = 0;
 
                 if (this.expand) {
 
                     css(this.$el, {height: '', minHeight: ''});
 
-                    var diff = viewport - offsetHeight(docEl);
+                    const diff = viewport - offsetHeight(docEl);
 
                     if (diff > 0) {
                         minHeight = offsetHeight(this.$el) + diff;
@@ -38,7 +39,7 @@ export default function (UIkit) {
 
                 } else {
 
-                    var top = offset(this.$el).top;
+                    const {top} = offset(this.$el);
 
                     if (top < viewport / 2 && this.offsetTop) {
                         offsetTop += top;
@@ -73,7 +74,7 @@ export default function (UIkit) {
 
                 css(this.$el, {height: '', minHeight});
 
-                var elHeight = this.$el.offsetHeight;
+                const elHeight = this.$el.offsetHeight;
                 if (this.minHeight && this.minHeight > elHeight) {
                     css(this.$el, 'minHeight', this.minHeight);
                 }

@@ -1,5 +1,5 @@
-import { Class } from '../mixin/index';
-import { $, $$, addClass, after, assign, css, height, includes, isRtl, isString, isVisible, matches, noop, query, remove, toFloat, Transition, within } from '../util/index';
+import {Class} from '../mixin/index';
+import {$, $$, addClass, after, assign, css, height, includes, isRtl, isString, isVisible, matches, noop, query, remove, toFloat, Transition, within} from '../util/index';
 
 export default function (UIkit) {
 
@@ -54,7 +54,7 @@ export default function (UIkit) {
 
         beforeConnect() {
 
-            var dropbar = this.$props.dropbar;
+            const {dropbar} = this.$props;
 
             this.dropbar = dropbar && (isString(dropbar) && query(dropbar, this.$el) || $('<div></div>'));
 
@@ -77,7 +77,7 @@ export default function (UIkit) {
 
             UIkit.drop(
                 $$(`${this.dropdown} .${this.clsDrop}`, this.$el).filter(el => !UIkit.getComponent(el, 'drop') && !UIkit.getComponent(el, 'dropdown')),
-                assign({}, this.$props, {boundary: this.boundary, pos: this.pos, offset: this.dropbar || this.offset })
+                assign({}, this.$props, {boundary: this.boundary, pos: this.pos, offset: this.dropbar || this.offset})
             );
 
         },
@@ -92,7 +92,7 @@ export default function (UIkit) {
                 },
 
                 handler({current}) {
-                    var active = this.getActive();
+                    const active = this.getActive();
                     if (active && active.toggle && !within(active.toggle.$el, current) && !active.tracker.movesTo(active.$el)) {
                         active.hide(false);
                     }
@@ -108,11 +108,29 @@ export default function (UIkit) {
                 },
 
                 handler() {
-                    var active = this.getActive();
+                    const active = this.getActive();
 
                     if (active && !matches(this.dropbar, ':hover')) {
                         active.hide();
                     }
+                }
+            },
+
+            {
+                name: 'beforeshow',
+
+                capture: true,
+
+                filter() {
+                    return this.dropbar;
+                },
+
+                handler() {
+
+                    if (!this.dropbar.parentNode) {
+                        after(this.dropbarAnchor || this.$el, this.dropbar);
+                    }
+
                 }
             },
 
@@ -127,11 +145,7 @@ export default function (UIkit) {
 
                 handler(_, drop) {
 
-                    if (!this.dropbar.parentNode) {
-                        after(this.dropbarAnchor || this.$el, this.dropbar);
-                    }
-
-                    var $el = drop.$el;
+                    const {$el} = drop;
 
                     this.clsDrop && addClass($el, `${this.clsDrop}-dropbar`);
 
@@ -148,7 +162,7 @@ export default function (UIkit) {
 
                 handler(e, {$el}) {
 
-                    var active = this.getActive();
+                    const active = this.getActive();
 
                     if (matches(this.dropbar, ':hover') && active && active.$el === $el) {
                         e.preventDefault();
@@ -165,7 +179,7 @@ export default function (UIkit) {
 
                 handler(_, {$el}) {
 
-                    var active = this.getActive();
+                    const active = this.getActive();
 
                     if (!active || active && active.$el === $el) {
                         this.transitionTo(0);
@@ -178,14 +192,14 @@ export default function (UIkit) {
         methods: {
 
             getActive() {
-                var active = UIkit.drop.getActive();
+                const active = UIkit.drop.getActive();
                 return active && includes(active.mode, 'hover') && within(active.toggle.$el, this.$el) && active;
             },
 
             transitionTo(newHeight, el) {
 
-                var dropbar = this.dropbar,
-                    oldHeight = isVisible(dropbar) ? height(dropbar) : 0;
+                const {dropbar} = this;
+                const oldHeight = isVisible(dropbar) ? height(dropbar) : 0;
 
                 el = oldHeight < newHeight && el;
 

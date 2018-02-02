@@ -1,11 +1,11 @@
-import { attr } from './attr';
-import { css, propName } from './style';
-import { doc, docEl, win } from './env';
-import { height, width } from './position';
-import { on, once, trigger } from './event';
-import { matches, toNode, toNodes } from './selector';
-import { addClass, hasClass, removeClass, removeClasses } from './class';
-import { assign, clamp, each, intersectRect, isNumeric, isString, isUndefined, Promise, startsWith, toNumber } from './lang';
+import {attr} from './attr';
+import {css, propName} from './style';
+import {doc, docEl, win} from './env';
+import {height, width} from './position';
+import {on, once, trigger} from './event';
+import {matches, toNode, toNodes} from './selector';
+import {addClass, hasClass, removeClass, removeClasses} from './class';
+import {assign, clamp, each, intersectRect, isNumeric, isString, isUndefined, Promise, startsWith, toNumber} from './lang';
 
 export const isRtl = attr(docEl, 'dir') === 'rtl';
 
@@ -20,13 +20,13 @@ export function ready(fn) {
         return;
     }
 
-    var handle = function () {
-            unbind1();
-            unbind2();
-            fn();
-        },
-        unbind1 = on(doc, 'DOMContentLoaded', handle),
-        unbind2 = on(win, 'load', handle);
+    const handle = function () {
+        unbind1();
+        unbind2();
+        fn();
+    };
+    const unbind1 = on(doc, 'DOMContentLoaded', handle);
+    const unbind2 = on(win, 'load', handle);
 }
 
 export function transition(element, props, duration = 400, timing = 'linear') {
@@ -34,14 +34,14 @@ export function transition(element, props, duration = 400, timing = 'linear') {
     return Promise.all(toNodes(element).map(element =>
         new Promise((resolve, reject) => {
 
-            for (var name in props) {
-                var value = css(element, name);
+            for (const name in props) {
+                const value = css(element, name);
                 if (value === '') {
                     css(element, name, value);
                 }
             }
 
-            var timer = setTimeout(() => trigger(element, 'transitionend'), duration);
+            const timer = setTimeout(() => trigger(element, 'transitionend'), duration);
 
             once(element, 'transitionend transitioncanceled', ({type}) => {
                 clearTimeout(timer);
@@ -85,8 +85,8 @@ export const Transition = {
 
 };
 
-var animationPrefix = 'uk-animation-',
-    clsCancelAnimation = 'uk-cancel-animation';
+const animationPrefix = 'uk-animation-';
+const clsCancelAnimation = 'uk-cancel-animation';
 
 export function animate(element, animation, duration = 200, origin, out) {
 
@@ -96,13 +96,13 @@ export function animate(element, animation, duration = 200, origin, out) {
             if (hasClass(element, clsCancelAnimation)) {
                 requestAnimationFrame(() =>
                     Promise.resolve().then(() =>
-                        animate.apply(null, arguments).then(resolve, reject)
+                        animate(...arguments).then(resolve, reject)
                     )
                 );
                 return;
             }
 
-            var cls = `${animation} ${animationPrefix}${out ? 'leave' : 'enter'}`;
+            let cls = `${animation} ${animationPrefix}${out ? 'leave' : 'enter'}`;
 
             if (startsWith(animation, animationPrefix)) {
 
@@ -120,7 +120,7 @@ export function animate(element, animation, duration = 200, origin, out) {
 
             once(element, 'animationend animationcancel', ({type}) => {
 
-                var hasReset = false;
+                let hasReset = false;
 
                 if (type === 'animationcancel') {
                     reject();
@@ -156,7 +156,7 @@ export function animate(element, animation, duration = 200, origin, out) {
 
 }
 
-var inProgress = new RegExp(`${animationPrefix}(enter|leave)`);
+const inProgress = new RegExp(`${animationPrefix}(enter|leave)`);
 export const Animation = {
 
     in(element, animation, duration, origin) {
@@ -190,23 +190,23 @@ export function scrolledOver(element) {
 
     element = toNode(element);
 
-    var elHeight = element.offsetHeight,
-        top = positionTop(element),
-        vp = height(win),
-        vh = vp + Math.min(0, top - vp),
-        diff = Math.max(0, vp - (height(doc) - (top + elHeight)));
+    const elHeight = element.offsetHeight;
+    const top = positionTop(element);
+    const vp = height(win);
+    const vh = vp + Math.min(0, top - vp);
+    const diff = Math.max(0, vp - (height(doc) - (top + elHeight)));
 
     return clamp(((vh + win.pageYOffset - top) / ((vh + (elHeight - (diff < vp ? diff : 0))) / 100)) / 100);
 }
 
 function positionTop(element) {
-    var top = 0;
+    let top = 0;
 
     do {
 
         top += element.offsetTop;
 
-    } while (element = element.offsetParent);
+    } while ((element = element.offsetParent));
 
     return top;
 }
@@ -215,7 +215,7 @@ export function getIndex(i, elements, current = 0, finite = false) {
 
     elements = toNodes(elements);
 
-    var length = elements.length;
+    const {length} = elements;
 
     i = isNumeric(i)
         ? toNumber(i)
@@ -234,7 +234,7 @@ export function getIndex(i, elements, current = 0, finite = false) {
     return i < 0 ? i + length : i;
 }
 
-var voidElements = {
+const voidElements = {
     area: true,
     base: true,
     br: true,
@@ -260,7 +260,7 @@ export const Dimensions = {
 
     ratio(dimensions, prop, value) {
 
-        var aProp = prop === 'width' ? 'height' : 'width';
+        const aProp = prop === 'width' ? 'height' : 'width';
 
         return {
             [aProp]: Math.round(value * dimensions[aProp] / dimensions[prop]),
@@ -294,19 +294,19 @@ export const Dimensions = {
 
 export function preventClick() {
 
-    var timer = setTimeout(() => trigger(doc, 'click'), 0);
+    const timer = setTimeout(once(doc, 'click', e => {
 
-    once(doc, 'click', e => {
         e.preventDefault();
         e.stopImmediatePropagation();
 
         clearTimeout(timer);
-    }, true);
+
+    }, true));
 
 }
 
 export function isVisible(element) {
-    return toNodes(element).some(element => element.offsetHeight);
+    return toNodes(element).some(element => element.offsetHeight || element.getBoundingClientRect().height);
 }
 
 export const selInput = 'input,select,textarea,button';
@@ -398,18 +398,17 @@ export function unwrap(element) {
         });
 }
 
-var fragmentRE = /^\s*<(\w+|!)[^>]*>/,
-    singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
+const fragmentRE = /^\s*<(\w+|!)[^>]*>/;
+const singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
 
 export function fragment(html) {
 
-    var matches;
-
-    if (matches = singleTagRE.exec(html)) {
+    const matches = singleTagRE.exec(html);
+    if (matches) {
         return doc.createElement(matches[1]);
     }
 
-    var container = doc.createElement('div');
+    const container = doc.createElement('div');
     if (fragmentRE.test(html)) {
         container.insertAdjacentHTML('beforeend', html.trim());
     } else {

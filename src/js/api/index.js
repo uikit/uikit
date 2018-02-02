@@ -5,7 +5,7 @@ import instanceAPI from './instance';
 import componentAPI from './component';
 import * as util from '../util/index';
 
-var UIkit = function (options) {
+const UIkit = function (options) {
     this._init(options);
 };
 

@@ -1,6 +1,6 @@
 export default function (UIkit) {
 
-    var {doc, getPos, includes, isRtl, isTouch, off, on, pointerDown, pointerMove, pointerUp, preventClick, trigger, win} = UIkit.util;
+    const {doc, getPos, includes, isRtl, isTouch, off, on, pointerDown, pointerMove, pointerUp, preventClick, trigger, win} = UIkit.util;
 
     return {
 
@@ -13,10 +13,10 @@ export default function (UIkit) {
 
             ['start', 'move', 'end'].forEach(key => {
 
-                var fn = this[key];
+                const fn = this[key];
                 this[key] = e => {
 
-                    var pos = getPos(e).x * (isRtl ? -1 : 1);
+                    const pos = getPos(e).x * (isRtl ? -1 : 1);
 
                     this.prevPos = pos !== this.pos ? this.pos : this.prevPos;
                     this.pos = pos;
@@ -39,9 +39,16 @@ export default function (UIkit) {
                 },
 
                 handler(e) {
-                    if (isTouch(e) || !hasTextNodesOnly(e.target)) {
-                        this.start(e);
+
+                    if (!isTouch(e) && hasTextNodesOnly(e.target)
+                        || e.button > 0
+                        || this.length < 2
+                        || this.preventCatch
+                    ) {
+                        return;
                     }
+
+                    this.start(e);
                 }
 
             },
@@ -58,15 +65,7 @@ export default function (UIkit) {
 
         methods: {
 
-            start(e) {
-
-                if (e.button > 0 || this.length < 2) {
-                    return;
-                }
-
-                if (this.preventCatch) {
-                    return;
-                }
+            start() {
 
                 this.drag = this.pos;
 
@@ -94,7 +93,7 @@ export default function (UIkit) {
 
             move(e) {
 
-                var distance = this.pos - this.drag;
+                const distance = this.pos - this.drag;
 
                 if (distance === 0 || this.prevPos === this.pos || !this.dragging && Math.abs(distance) < this.threshold) {
                     return;
@@ -105,11 +104,11 @@ export default function (UIkit) {
                 this.dragging = true;
                 this.dir = (distance < 0 ? 1 : -1);
 
-                var slides = this.slides,
-                    prevIndex = this.prevIndex,
-                    dis = Math.abs(distance),
-                    nextIndex = this.getIndex(prevIndex + this.dir, prevIndex),
-                    width = this._getDistance(prevIndex, nextIndex) || slides[prevIndex].offsetWidth;
+                const {slides} = this;
+                let {prevIndex} = this;
+                let dis = Math.abs(distance);
+                let nextIndex = this.getIndex(prevIndex + this.dir, prevIndex);
+                let width = this._getDistance(prevIndex, nextIndex) || slides[prevIndex].offsetWidth;
 
                 while (nextIndex !== prevIndex && dis > width) {
 
@@ -124,15 +123,17 @@ export default function (UIkit) {
 
                 this.percent = dis / width;
 
-                var prev = slides[prevIndex],
-                    next = slides[nextIndex],
-                    changed = this.index !== nextIndex,
-                    edge = prevIndex === nextIndex;
+                const prev = slides[prevIndex];
+                const next = slides[nextIndex];
+                const changed = this.index !== nextIndex;
+                const edge = prevIndex === nextIndex;
+
+                let reset;
 
                 [this.index, this.prevIndex].filter(i => !includes([nextIndex, prevIndex], i)).forEach(i => {
                     trigger(slides[i], 'itemhidden', [this]);
 
-                    this._transitioner && this._transitioner.reset();
+                    reset = true;
 
                     if (edge) {
                         this.prevIndex = prevIndex;
@@ -140,7 +141,7 @@ export default function (UIkit) {
 
                 });
 
-                if (this.index === prevIndex && this.prevIndex !== prevIndex) {
+                if (this.index === prevIndex && this.prevIndex !== prevIndex || reset && edge) {
                     trigger(slides[this.index], 'itemshown', [this]);
                 }
 
@@ -152,6 +153,7 @@ export default function (UIkit) {
                     trigger(next, 'beforeitemshow', [this]);
                 }
 
+                reset && this._transitioner && this._transitioner.reset();
                 this._transitioner = this._translate(Math.abs(this.percent), prev, !edge && next);
 
                 if (changed) {
@@ -178,7 +180,7 @@ export default function (UIkit) {
                         this._transitioner = null;
                     } else {
 
-                        var dirChange = (isRtl ? this.dir * (isRtl ? 1 : -1) : this.dir) < 0 === this.prevPos > this.pos;
+                        const dirChange = (isRtl ? this.dir * (isRtl ? 1 : -1) : this.dir) < 0 === this.prevPos > this.pos;
                         this.index = dirChange ? this.index : this.prevIndex;
 
                         if (dirChange) {
@@ -206,4 +208,4 @@ export default function (UIkit) {
         return !el.children.length && el.childNodes.length;
     }
 
-};
+}

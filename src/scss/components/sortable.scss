@@ -34,7 +34,7 @@ $sortable-empty-height:                          50px !default;
 }
 
 /*
- * Deactivate browser touch actions in IE11
+ * Deactivate browser touch actions in IE11 and Edge
  */
 
 .uk-sortable > * { touch-action: none; }

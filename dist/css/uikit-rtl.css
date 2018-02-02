@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.38 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.39 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -71,15 +71,8 @@ abbr[title] {
   /* 2 */
 }
 /*
- * 1. Prevent the duplicate application of `bolder` by the next rule in Safari 6.
- * 2. Add the correct font weight in Chrome, Edge, and Safari.
+ * Add the correct font weight in Chrome, Edge, and Safari.
  */
-/* 1 */
-b,
-strong {
-  font-weight: inherit;
-}
-/* 2 */
 b,
 strong {
   font-weight: bolder;
@@ -479,16 +472,24 @@ a.uk-link-muted:hover,
 }
 /* Text
  ========================================================================== */
-/*
- * `!important` needed to override inverse component
- */
 a.uk-link-text:not(:hover),
 .uk-link-text a:not(:hover) {
-  color: inherit !important;
+  color: inherit;
 }
 a.uk-link-text:hover,
 .uk-link-text a:hover {
   color: #999;
+}
+/* Heading
+ ========================================================================== */
+a.uk-link-heading:not(:hover),
+.uk-link-heading a:not(:hover) {
+  color: inherit;
+}
+a.uk-link-heading:hover,
+.uk-link-heading a:hover {
+  color: #1e87f0;
+  text-decoration: none;
 }
 /* Reset
  ========================================================================== */
@@ -5213,6 +5214,7 @@ ul.uk-nav-sub {
  * 2. Take the full width
  * 3. Clip child elements, e.g. for `uk-cover`
  * 4. Optimize animation
+ * 5. Disable horizontal panning gestures in IE11 and Edge
  */
 .uk-slideshow-items > * {
   /* 1 */
@@ -5226,6 +5228,8 @@ ul.uk-nav-sub {
   overflow: hidden;
   /* 4 */
   will-change: transform, opacity;
+  /* 5 */
+  touch-action: pan-y;
 }
 /*
  * Hide not active items
@@ -5256,10 +5260,13 @@ ul.uk-nav-sub {
  ========================================================================== */
 /*
  * 1. Optimize animation
+ * 2. Create a containing block. In Safari it's neither created by `transform` nor `will-change`.
  */
 .uk-slider-items {
   /* 1 */
   will-change: transform;
+  /* 2 */
+  position: relative;
 }
 /*
  * 1. Reset list style without interfering with grid
@@ -5282,12 +5289,15 @@ ul.uk-nav-sub {
 /*
  * 1. Let items take content dimensions (0 0 auto)
  * 2. Create position context
+ * 3. Disable horizontal panning gestures in IE11 and Edge
  */
 .uk-slider-items > * {
   /* 1 */
   flex: none;
   /* 2 */
   position: relative;
+  /* 3 */
+  touch-action: pan-y;
 }
 /* ========================================================================
    Component: Sticky
@@ -5850,7 +5860,7 @@ ul.uk-nav-sub {
   position: relative;
 }
 /*
- * Deactivate browser touch actions in IE11
+ * Deactivate browser touch actions in IE11 and Edge
  */
 .uk-sortable > * {
   touch-action: none;
@@ -7523,6 +7533,7 @@ iframe.uk-cover {
 }
 /*
  * Enable scrollbars if content is clipped
+ * Note: Firefox ignores `padding-bottom` for the scrollable overflow https://bugzilla.mozilla.org/show_bug.cgi?id=748518
  */
 .uk-overflow-auto {
   overflow: auto;
@@ -9231,6 +9242,30 @@ iframe.uk-cover {
 .uk-offcanvas-bar a.uk-link-text:hover,
 .uk-offcanvas-bar .uk-link-text a:hover {
   color: rgba(255, 255, 255, 0.5);
+}
+.uk-light a.uk-link-heading:hover,
+.uk-light .uk-link-heading a:hover,
+.uk-section-primary:not(.uk-preserve-color) a.uk-link-heading:hover,
+.uk-section-primary:not(.uk-preserve-color) .uk-link-heading a:hover,
+.uk-section-secondary:not(.uk-preserve-color) a.uk-link-heading:hover,
+.uk-section-secondary:not(.uk-preserve-color) .uk-link-heading a:hover,
+.uk-tile-primary:not(.uk-preserve-color) a.uk-link-heading:hover,
+.uk-tile-primary:not(.uk-preserve-color) .uk-link-heading a:hover,
+.uk-tile-secondary:not(.uk-preserve-color) a.uk-link-heading:hover,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-link-heading a:hover,
+.uk-card-primary.uk-card-body a.uk-link-heading:hover,
+.uk-card-primary.uk-card-body .uk-link-heading a:hover,
+.uk-card-primary > :not([class*='uk-card-media']) a.uk-link-heading:hover,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-link-heading a:hover,
+.uk-card-secondary.uk-card-body a.uk-link-heading:hover,
+.uk-card-secondary.uk-card-body .uk-link-heading a:hover,
+.uk-card-secondary > :not([class*='uk-card-media']) a.uk-link-heading:hover,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-link-heading a:hover,
+.uk-overlay-primary a.uk-link-heading:hover,
+.uk-overlay-primary .uk-link-heading a:hover,
+.uk-offcanvas-bar a.uk-link-heading:hover,
+.uk-offcanvas-bar .uk-link-heading a:hover {
+  color: #fff;
 }
 .uk-light .uk-heading-divider,
 .uk-section-primary:not(.uk-preserve-color) .uk-heading-divider,

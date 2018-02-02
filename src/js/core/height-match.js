@@ -1,4 +1,4 @@
-import { $$, attr, css, isUndefined, isVisible } from '../util/index';
+import {$$, attr, css, isUndefined, isVisible} from '../util/index';
 
 export default function (UIkit) {
 
@@ -28,7 +28,7 @@ export default function (UIkit) {
 
             read() {
 
-                var lastOffset = false;
+                let lastOffset = false;
 
                 css(this.elements, 'minHeight', '');
 
@@ -69,12 +69,13 @@ export default function (UIkit) {
                     return {};
                 }
 
-                var max = 0, heights = [];
+                const heights = [];
+                let max = 0;
 
                 elements
                     .forEach(el => {
 
-                        var style, hidden;
+                        let style, hidden;
 
                         if (!isVisible(el)) {
                             style = attr(el, 'style');

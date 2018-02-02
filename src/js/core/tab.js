@@ -1,5 +1,5 @@
-import { Class } from '../mixin/index';
-import { hasClass } from '../util/index';
+import {Class} from '../mixin/index';
+import {hasClass} from '../util/index';
 
 export default function (UIkit) {
 
@@ -20,7 +20,7 @@ export default function (UIkit) {
 
         init() {
 
-            var cls = hasClass(this.$el, 'uk-tab-left')
+            const cls = hasClass(this.$el, 'uk-tab-left')
                 ? 'uk-tab-left'
                 : hasClass(this.$el, 'uk-tab-right')
                     ? 'uk-tab-right'

@@ -1,7 +1,7 @@
-import { Modal } from '../mixin/index';
-import { $, addClass, css, doc, docEl, hasClass, height, isTouch, once, removeClass, trigger, unwrap, width, win, wrapAll } from '../util/index';
+import {Modal} from '../mixin/index';
+import {$, addClass, css, doc, docEl, hasClass, height, isTouch, once, removeClass, trigger, unwrap, width, win, wrapAll} from '../util/index';
 
-var scroll;
+let scroll;
 
 export default function (UIkit) {
 
@@ -162,7 +162,7 @@ export default function (UIkit) {
                 handler() {
                     removeClass(this.content, this.clsContentAnimation);
 
-                    var active = this.getActive();
+                    const active = this.getActive();
                     if (this.mode === 'none' || active && active !== this && active !== this.prev) {
                         trigger(this.panel, 'transitionend');
                     }
@@ -183,7 +183,7 @@ export default function (UIkit) {
                     if (!this.overlay) {
                         scroll = {x: win.pageXOffset, y: win.pageYOffset};
                     } else if (!scroll) {
-                        var {scrollLeft: x, scrollTop: y} = this.content;
+                        const {scrollLeft: x, scrollTop: y} = this.content;
                         scroll = {x, y};
                     }
 

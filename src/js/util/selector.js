@@ -1,9 +1,9 @@
-import { fragment } from './dom';
-import { doc, win } from './env';
-import { removeAttr } from './attr';
-import { isArray, isDocument, isObject, isString, isWindow, startsWith } from './lang';
+import {fragment} from './dom';
+import {doc, win} from './env';
+import {removeAttr} from './attr';
+import {isArray, isDocument, isObject, isString, isWindow, startsWith} from './lang';
 
-var arrayProto = Array.prototype;
+const arrayProto = Array.prototype;
 
 export function $(selector, context) {
     return !isString(selector)
@@ -49,7 +49,7 @@ function _query(selector, context = doc, queryFn) {
 
     selector = selector.replace(contextSanitizeRe, '$1 *');
 
-    var removes;
+    let removes;
 
     if (isContextSelector(selector)) {
 
@@ -63,7 +63,7 @@ function _query(selector, context = doc, queryFn) {
 
             if (selector[0] === '!') {
 
-                var selectors = selector.substr(1).trim().split(' ');
+                const selectors = selector.substr(1).trim().split(' ');
                 ctx = closest(context.parentNode, selectors[0]);
                 selector = selectors.slice(1).join(' ');
 
@@ -112,22 +112,22 @@ export function within(element, selector) {
         : matches(element, selector) || closest(element, selector);
 }
 
-var contextSelectorRe = /(^|,)\s*[!>+~]/,
-    contextSanitizeRe = /([!>+~])(?=\s+[!>+~]|\s*$)/g;
+const contextSelectorRe = /(^|,)\s*[!>+~]/;
+const contextSanitizeRe = /([!>+~])(?=\s+[!>+~]|\s*$)/g;
 
 function isContextSelector(selector) {
     return isString(selector) && selector.match(contextSelectorRe);
 }
 
-var elProto = Element.prototype;
-var matchesFn = elProto.matches || elProto.msMatchesSelector;
+const elProto = Element.prototype;
+const matchesFn = elProto.matches || elProto.webkitMatchesSelector || elProto.msMatchesSelector;
 
 export function matches(element, selector) {
     return toNodes(element).some(element => matchesFn.call(element, selector));
 }
 
-var closestFn = elProto.closest || function (selector) {
-    var ancestor = this;
+const closestFn = elProto.closest || function (selector) {
+    let ancestor = this;
 
     do {
 
@@ -152,7 +152,8 @@ export function closest(element, selector) {
 }
 
 export function parents(element, selector) {
-    var elements = [], parent = toNode(element).parentNode;
+    const elements = [];
+    let parent = toNode(element).parentNode;
 
     while (parent && parent.nodeType === 1) {
 
@@ -200,7 +201,7 @@ export function toNodes(element) {
                     : [];
 }
 
-var escapeFn = win.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, match => `\\${match}`); };
+const escapeFn = win.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, match => `\\${match}`); };
 export function escape(css) {
     return isString(css) ? escapeFn.call(null, css) : '';
 }

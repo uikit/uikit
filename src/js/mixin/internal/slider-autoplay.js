@@ -1,6 +1,6 @@
 export default function (UIkit) {
 
-    var {doc, pointerDown} = UIkit.util;
+    const {doc, pointerDown} = UIkit.util;
 
     return {
 
@@ -86,9 +86,10 @@ export default function (UIkit) {
                 this.stopAutoplay();
 
                 if (this.autoplay) {
-                    this.interval = setInterval(() =>
-                        !(this.isHovering && this.pauseOnHover) && !this.stack.length && this.show('next')
-                    , this.autoplayInterval);
+                    this.interval = setInterval(
+                        () => !(this.isHovering && this.pauseOnHover) && !this.stack.length && this.show('next'),
+                        this.autoplayInterval
+                    );
                 }
 
             },
@@ -101,5 +102,5 @@ export default function (UIkit) {
 
         }
 
-    }
-};
+    };
+}

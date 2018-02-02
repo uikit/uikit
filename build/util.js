@@ -77,8 +77,8 @@ exports.uglify = async function (file) {
     );
 };
 
-exports.renderLess = function (data, options) {
-    return less.render(data, options).then(output => output.css);
+exports.renderLess = async function (data, options) {
+    return (await less.render(data, options)).css;
 };
 
 exports.compile = async function (file, dest, {external, globals, name, aliases, bundled, minify = true}) {

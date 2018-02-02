@@ -1,4 +1,4 @@
-import { $, createEvent, doc, isString, mergeOptions, toNode } from '../util/index';
+import {$, createEvent, doc, isString, mergeOptions, toNode} from '../util/index';
 
 export default function (UIkit) {
 
@@ -28,9 +28,9 @@ export default function (UIkit) {
 
         options = options || {};
 
-        var Super = this;
-        var Sub = function UIkitComponent (options) {
-            this._init(options)
+        const Super = this;
+        const Sub = function UIkitComponent (options) {
+            this._init(options);
         };
 
         Sub.prototype = Object.create(Super.prototype);
@@ -73,7 +73,7 @@ export default function (UIkit) {
 
     };
 
-    var container;
+    let container;
     Object.defineProperty(UIkit, 'container', {
 
         get() {
@@ -106,7 +106,7 @@ export default function (UIkit) {
             return;
         }
 
-        for (var name in data) {
+        for (const name in data) {
             if (data[name]._isReady) {
                 data[name]._callUpdate(e);
             }

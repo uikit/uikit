@@ -1,11 +1,10 @@
-import { scale3d, translate } from '../../mixin/internal/slideshow-animations';
+import {scale3d, translate} from '../../mixin/internal/slideshow-animations';
 
 export default function (UIkit) {
 
-    var {mixin} = UIkit;
-    var {assign, css} = UIkit.util;
+    const {mixin, util: {assign, css}} = UIkit;
 
-    var Animations = assign({}, mixin.slideshow.defaults.Animations, {
+    const Animations = assign({}, mixin.slideshow.defaults.Animations, {
 
         fade: {
 

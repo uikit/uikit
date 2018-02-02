@@ -1,16 +1,16 @@
-import { on } from './event';
+import {on} from './event';
 import promiseFn from './promise';
-import { query } from './selector';
-import { getCssVar } from './style';
+import {query} from './selector';
+import {getCssVar} from './style';
 
 export function bind(fn, context) {
     return function (a) {
-        var l = arguments.length;
+        const l = arguments.length;
         return l ? l > 1 ? fn.apply(context, arguments) : fn.call(context, a) : fn.call(context);
     };
 }
 
-var hasOwnProperty = Object.prototype.hasOwnProperty;
+const {hasOwnProperty} = Object.prototype;
 
 export function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key);
@@ -25,12 +25,6 @@ export class Deferred {
             this.resolve = resolve;
         });
     }
-}
-
-const classifyRe = /(?:^|[-_\/])(\w)/g;
-
-export function classify(str) {
-    return str.replace(classifyRe, (_, c) => c ? c.toUpperCase() : '');
 }
 
 const hyphenateRe = /([a-z\d])([A-Z])/g;
@@ -55,28 +49,28 @@ export function ucfirst(str) {
     return str.length ? toUpper(null, str.charAt(0)) + str.slice(1) : '';
 }
 
-var strPrototype = String.prototype;
-var startsWithFn = strPrototype.startsWith || function (search) { return this.lastIndexOf(search, 0) === 0; };
+const strPrototype = String.prototype;
+const startsWithFn = strPrototype.startsWith || function (search) { return this.lastIndexOf(search, 0) === 0; };
 
 export function startsWith(str, search) {
     return startsWithFn.call(str, search);
 }
 
-var endsWithFn = strPrototype.endsWith || function (search) { return this.substr(-search.length) === search; };
+const endsWithFn = strPrototype.endsWith || function (search) { return this.substr(-search.length) === search; };
 
 export function endsWith(str, search) {
     return endsWithFn.call(str, search);
 }
 
-var includesFn = function (search) { return ~this.indexOf(search); };
-var includesStr = strPrototype.includes || includesFn;
-var includesArray = Array.prototype.includes || includesFn;
+const includesFn = function (search) { return ~this.indexOf(search); };
+const includesStr = strPrototype.includes || includesFn;
+const includesArray = Array.prototype.includes || includesFn;
 
 export function includes(obj, search) {
     return obj && (isString(obj) ? includesStr : includesArray).call(obj, search);
 }
 
-export const isArray = Array.isArray;
+export const {isArray} = Array;
 
 export function isFunction(obj) {
     return typeof obj === 'function';
@@ -129,7 +123,7 @@ export function toBoolean(value) {
 }
 
 export function toNumber(value) {
-    var number = Number(value);
+    const number = Number(value);
     return !isNaN(number) ? number : false;
 }
 
@@ -147,13 +141,13 @@ export function toList(value) {
             : [value];
 }
 
-var vars = {};
+const vars = {};
 
 export function toMedia(value) {
 
     if (isString(value)) {
         if (value[0] === '@') {
-            var name = `media-${value.substr(1)}`;
+            const name = `media-${value.substr(1)}`;
             value = vars[name] || (vars[name] = toFloat(getCssVar(name)));
         } else if (isNaN(value)) {
             return value;
@@ -196,10 +190,10 @@ export function swap(value, a, b) {
 
 export const assign = Object.assign || function (target, ...args) {
     target = Object(target);
-    for (var i = 0; i < args.length; i++) {
-        var source = args[i];
+    for (let i = 0; i < args.length; i++) {
+        const source = args[i];
         if (source !== null) {
-            for (var key in source) {
+            for (const key in source) {
                 if (hasOwn(source, key)) {
                     target[key] = source[key];
                 }
@@ -210,11 +204,21 @@ export const assign = Object.assign || function (target, ...args) {
 };
 
 export function each(obj, cb) {
-    for (var key in obj) {
+    for (const key in obj) {
         if (cb.call(obj[key], obj[key], key) === false) {
             break;
         }
     }
+}
+
+export function sortBy(collection, prop) {
+    return collection.sort((a, b) =>
+        a[prop] > b[prop]
+            ? 1
+            : b[prop] > a[prop]
+                ? -1
+                : 0
+    );
 }
 
 export function clamp(number, min = 0, max = 1) {
@@ -237,7 +241,7 @@ export function pointInRect(point, rect) {
 export function ajax(url, options) {
     return new Promise((resolve, reject) => {
 
-        var env = assign({
+        const env = assign({
             data: null,
             method: 'GET',
             headers: {},
@@ -246,11 +250,11 @@ export function ajax(url, options) {
             responseType: ''
         }, options);
 
-        var xhr = env.xhr;
-
         env.beforeSend(env);
 
-        for (var prop in env) {
+        const {xhr} = env;
+
+        for (const prop in env) {
             if (prop in xhr) {
                 try {
 
@@ -262,7 +266,7 @@ export function ajax(url, options) {
 
         xhr.open(env.method.toUpperCase(), url);
 
-        for (var header in env.headers) {
+        for (const header in env.headers) {
             xhr.setRequestHeader(header, env.headers[header]);
         }
 

@@ -23,6 +23,8 @@ $text-small-line-height:                         1.5 !default;
 $text-large-font-size:                           $global-large-font-size !default;
 $text-large-line-height:                         1.5 !default;
 
+$text-bold-font-weight:                          bolder !default;
+
 $text-muted-color:                               $global-muted-color !default;
 $text-primary-color:                             $global-primary-background !default;
 $text-success-color:                             $global-success-background !default;
@@ -74,7 +76,7 @@ $text-background-color:                          $global-primary-background !def
 /* Weight modifier
  ========================================================================== */
 
-.uk-text-bold { font-weight: bolder; }
+.uk-text-bold { font-weight: $text-bold-font-weight; }
 
 
 /* Transform modifier

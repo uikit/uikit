@@ -1,4 +1,4 @@
-import { $$, addClass, css, data, filter, isInView, removeClass, toggleClass, trigger } from '../util/index';
+import {$$, addClass, css, data, doc, filter, isInView, removeClass, requestAnimationFrame, toggleClass, trigger} from '../util/index';
 
 export default function (UIkit) {
 
@@ -17,7 +17,7 @@ export default function (UIkit) {
         },
 
         defaults: {
-            cls: ['uk-scrollspy-inview'],
+            cls: [],
             target: false,
             hidden: true,
             offsetTop: 0,
@@ -51,16 +51,22 @@ export default function (UIkit) {
 
                 read(els) {
 
+                    // Let child components be applied at least once first
                     if (!UIkit._initialized) {
+
+                        if (doc.readyState === 'complete') {
+                            requestAnimationFrame(() => this.$emit());
+                        }
+
                         return false;
                     }
 
                     this.elements.forEach((el, i) => {
 
-                        var elData = els[i];
+                        let elData = els[i];
 
                         if (!elData) {
-                            var cls = data(el, 'uk-scrollspy-class');
+                            const cls = data(el, 'uk-scrollspy-class');
                             elData = {toggles: cls && cls.split(',') || this.cls};
                         }
 
@@ -70,63 +76,57 @@ export default function (UIkit) {
                     });
                 },
 
-                write(data) {
+                write(els) {
 
-                    var index = this.elements.length === 1 ? 1 : 0;
+                    let index = this.elements.length === 1 ? 1 : 0;
 
                     this.elements.forEach((el, i) => {
 
-                        var elData = data[i], cls = elData.toggles[i] || elData.toggles[0];
+                        const elData = els[i];
+                        const cls = elData.toggles[i] || elData.toggles[0];
 
-                        if (elData.show) {
+                        if (elData.show && !elData.inview && !elData.timer) {
 
-                            if (!elData.inview && !elData.timer) {
-
-                                var show = () => {
-                                    css(el, 'visibility', '');
-                                    addClass(el, this.inViewClass);
-                                    toggleClass(el, cls);
-
-                                    trigger(el, 'inview');
-
-                                    this.$update();
-
-                                    elData.inview = true;
-                                    delete elData.timer;
-                                };
-
-                                if (this.delay && index) {
-                                    elData.timer = setTimeout(show, this.delay * index);
-                                } else {
-                                    show();
-                                }
-
-                                index++;
-
-                            }
-
-                        } else {
-
-                            if (elData.inview && this.repeat) {
-
-                                if (elData.timer) {
-                                    clearTimeout(elData.timer);
-                                    delete elData.timer;
-                                }
-
-                                css(el, 'visibility', this.hidden ? 'hidden' : '');
-                                removeClass(el, this.inViewClass);
+                            const show = () => {
+                                css(el, 'visibility', '');
+                                addClass(el, this.inViewClass);
                                 toggleClass(el, cls);
 
-                                trigger(el, 'outview');
+                                trigger(el, 'inview');
 
-                                this.$update();
+                                UIkit.update(null, el);
 
-                                elData.inview = false;
+                                elData.inview = true;
+                                delete elData.timer;
+                            };
 
+                            if (this.delay && index) {
+                                elData.timer = setTimeout(show, this.delay * index);
+                            } else {
+                                show();
                             }
 
+                            index++;
+
+                        } else if (!elData.show && elData.inview && this.repeat) {
+
+                            if (elData.timer) {
+                                clearTimeout(elData.timer);
+                                delete elData.timer;
+                            }
+
+                            css(el, 'visibility', this.hidden ? 'hidden' : '');
+                            removeClass(el, this.inViewClass);
+                            toggleClass(el, cls);
+
+                            trigger(el, 'outview');
+
+                            UIkit.update(null, el);
+
+                            elData.inview = false;
+
                         }
+
 
                     });
 
