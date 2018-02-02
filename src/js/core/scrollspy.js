@@ -1,4 +1,4 @@
-import {$$, addClass, css, data, filter, isInView, removeClass, toggleClass, trigger} from '../util/index';
+import {$$, addClass, css, data, doc, filter, isInView, removeClass, requestAnimationFrame, toggleClass, trigger} from '../util/index';
 
 export default function (UIkit) {
 
@@ -51,7 +51,13 @@ export default function (UIkit) {
 
                 read(els) {
 
+                    // Let child components be applied at least once first
                     if (!UIkit._initialized) {
+
+                        if (doc.readyState === 'complete') {
+                            requestAnimationFrame(() => this.$emit());
+                        }
+
                         return false;
                     }
 
