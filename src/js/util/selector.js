@@ -7,7 +7,8 @@ export function query(selector, context) {
 }
 
 export function queryAll(selector, context) {
-    return toNodes(selector) || findAll(selector, isContextSelector(selector) ? context : doc);
+    const nodes = toNodes(selector);
+    return nodes.length && nodes || findAll(selector, isContextSelector(selector) ? context : doc);
 }
 
 export function find(selector, context) {
