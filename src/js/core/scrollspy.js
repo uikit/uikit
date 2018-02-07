@@ -65,9 +65,9 @@ export default function (UIkit) {
 
                         let elData = els[i];
 
-                        if (!elData) {
+                        if (!elData || elData.el !== el) {
                             const cls = data(el, 'uk-scrollspy-class');
-                            elData = {toggles: cls && cls.split(',') || this.cls};
+                            elData = {el, toggles: cls && cls.split(',') || this.cls};
                         }
 
                         elData.show = isInView(el, this.offsetTop, this.offsetLeft);
