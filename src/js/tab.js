@@ -4,9 +4,11 @@
 
     var Tab = function(element, options) {
 
-        var $this    = this;
+        var $this = this, $element = $(element);
 
-        this.element = $(element);
+        if($element.data("tab")) return;
+
+        this.element = $element;
         this.options = $.extend({
             connect: false
         }, this.options, options);
@@ -55,17 +57,16 @@
             caption.html(tab.find("a").text());
         });
 
+        this.element.data("tab", this);
     };
 
-    UI["tab"] = Tab;
+    $(document).on("uk-domready", function(e) {
 
-    // init code
-    $(function() {
         $("[data-uk-tab]").each(function() {
             var tab = $(this);
 
             if (!tab.data("tab")) {
-                tab.data("tab", new Tab(tab, UI.Utils.options(tab.data("uk-tab"))));
+                var obj = new Tab(tab, UI.Utils.options(tab.attr("data-uk-tab")));
             }
         });
     });

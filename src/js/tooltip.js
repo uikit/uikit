@@ -8,11 +8,13 @@
 
     var Tooltip = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
+
+        if($element.data("tooltip")) return;
 
         this.options = $.extend({}, Tooltip.defaults, options);
 
-        this.element = $(element).on({
+        this.element = $element.on({
             "focus"     : function(e) { $this.show(); },
             "blur"      : function(e) { $this.hide(); },
             "mouseenter": function(e) { $this.show(); },
@@ -23,6 +25,8 @@
 
         // disable title attribute
         this.element.attr("data-cached-title", this.element.attr("title")).attr("title", "");
+
+        this.element.data("tooltip", this);
     };
 
     $.extend(Tooltip.prototype, {
@@ -176,7 +180,8 @@
         var ele = $(this);
 
         if (!ele.data("tooltip")) {
-            ele.data("tooltip", new Tooltip(ele, UI.Utils.options(ele.data("uk-tooltip")))).trigger("mouseenter");
+            var obj = new Tooltip(ele, UI.Utils.options(ele.attr("data-uk-tooltip")));
+            ele.trigger("mouseenter");
         }
     });
 

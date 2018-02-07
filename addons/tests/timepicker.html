@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Datepicker - UIkit tests</title>
+        <script src="../../vendor/jquery.js"></script>
+        <script src="utils/test.js"></script>
+        <script src="../src/timepicker/timepicker.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container uk-container-center">
+
+            <h1>Timepicker</h1>
+
+            <form action="" class="uk-form" onsubmit="return false">
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label" for="form-ip">Time (with meridian)</label>
+                    <div class="uk-form-controls">
+                        <input type="text" data-uk-timepicker="{showMeridian:true}">
+                    </div>
+                </div>
+
+                <div class="uk-form-row">
+                    <label class="uk-form-label" for="form-ip">Time</label>
+                    <div class="uk-form-controls">
+                        <input type="text" data-uk-timepicker>
+                    </div>
+                </div>
+
+            </form>
+
+
+
+        </div>
+
+    </body>
+</html>

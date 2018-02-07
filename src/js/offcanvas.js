@@ -91,6 +91,8 @@
         var $this    = this,
             $element = $(element);
 
+        if($element.data("offcanvas")) return;
+
         this.options = $.extend({
             "target": $element.is("a") ? $element.attr("href") : false
         }, options);
@@ -101,6 +103,8 @@
             e.preventDefault();
             Offcanvas.show($this.options.target);
         });
+
+        this.element.data("offcanvas", this);
     };
 
     OffcanvasTrigger.offcanvas = Offcanvas;
@@ -116,8 +120,7 @@
         var ele = $(this);
 
         if (!ele.data("offcanvas")) {
-            ele.data("offcanvas", new OffcanvasTrigger(ele, UI.Utils.options(ele.data("uk-offcanvas"))));
-
+            var obj = new OffcanvasTrigger(ele, UI.Utils.options(ele.attr("data-uk-offcanvas")));
             ele.trigger("click");
         }
     });

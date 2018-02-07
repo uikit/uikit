@@ -31,5 +31,6 @@
         "grunt-banner": "0.1.4",
         "grunt": "~0.4.0"
     },
-    "keywords": []
+    "keywords": [],
+    "main": "server.js"
 }

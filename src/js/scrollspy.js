@@ -6,14 +6,20 @@
 
         ScrollSpy   = function(element, options) {
 
+            var $element = $(element);
+
+            if($element.data("scrollspy")) return;
+
             this.options = $.extend({}, this.options, options);
 
-            var $this = this, inviewstate, initinview,
+            var $this = this, idle, inviewstate, initinview,
                 fn = function(){
 
                     var inview = isInView($this);
 
                     if(inview && !inviewstate) {
+
+                        if(idle) clearTimeout(idle);
 
                         if(!initinview) {
                             $this.element.addClass($this.options.initcls);
@@ -23,9 +29,15 @@
                             $this.element.trigger("uk-scrollspy-init");
                         }
 
-                        $this.element.addClass("uk-scrollspy-inview").addClass($this.options.cls).width();
-                        inviewstate = true;
+                        idle = setTimeout(function(){
 
+                            if(inview) {
+                                $this.element.addClass("uk-scrollspy-inview").addClass($this.options.cls).width();
+                            }
+
+                        }, $this.options.delay);
+
+                        inviewstate = true;
                         $this.element.trigger("uk.scrollspy.inview");
                     }
 
@@ -42,22 +54,24 @@
             $win.on("scroll", fn).on("resize orientationchange", UI.Utils.debounce(fn, 50));
 
             fn();
+
+            this.element.data("scrollspy", this);
         };
 
     $.extend(ScrollSpy.prototype, {
 
         options: {
-            "cls": "uk-scrollspy-inview",
-            "initcls": "uk-scrollspy-init-inview",
-            "topoffset": 0,
-            "leftoffset": 0,
-            "repeat": false
+            "cls"        : "uk-scrollspy-inview",
+            "initcls"    : "uk-scrollspy-init-inview",
+            "topoffset"  : 0,
+            "leftoffset" : 0,
+            "repeat"     : false,
+            "delay"      : 0
         }
 
     });
 
     UI["scrollspy"] = ScrollSpy;
-
 
     function isInView(obj) {
 
@@ -79,13 +93,13 @@
 
 
     // init code
-    $(function() {
+    $(document).on("uk-domready", function(e) {
         $("[data-uk-scrollspy]").each(function() {
 
             var element = $(this);
 
             if (!element.data("scrollspy")) {
-                element.data("scrollspy", new ScrollSpy(element, UI.Utils.options(element.data("uk-scrollspy"))));
+                var obj = new ScrollSpy(element, UI.Utils.options(element.attr("data-uk-scrollspy")));
             }
         });
     });

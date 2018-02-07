@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Search component - UIkit tests</title>
+		<script src="../../vendor/jquery.js"></script>
+		<script src="utils/test.js"></script>
+		<style type="text/css">
+
+			body.uk-container { padding-bottom: 150px; }
+
+		</style>
+	</head>
+
+	<body>
+
+		<div class="uk-container uk-container-center">
+
+			<h1>Search</h1>
+
+			<form class="uk-search" data-uk-search="{source:'../../vendor/searchresults.json'}">
+				<input class="uk-search-field" type="search" placeholder="search...">
+				<button class="uk-search-close" type="reset"></button>
+			</form>
+
+			<h2>Search in navbar</h2>
+
+			<div class="uk-margin">
+
+				<nav class="uk-navbar">
+
+					<ul class="uk-navbar-nav">
+						<li class="uk-active"><a href="">Active</a></li>
+						<li><a href="">Item</a></li>
+						<li class="uk-parent" data-uk-dropdown>
+							<a href="">Parent</a>
+
+							<div class="uk-dropdown uk-dropdown-navbar">
+								<ul class="uk-nav uk-nav-navbar">
+									<li><a href="#">Item</a></li>
+									<li><a href="#">Another item</a></li>
+									<li class="uk-nav-header">Header</li>
+									<li><a href="#">Item</a></li>
+									<li><a href="#">Another item</a></li>
+									<li class="uk-nav-divider"></li>
+									<li><a href="#">Separated item</a></li>
+								</ul>
+							</div>
+
+						</li>
+					</ul>
+
+					<div class="uk-navbar-flip">
+						<div class="uk-navbar-content">
+							<form class="uk-search" data-uk-search="{flipDropdown:true, source:'../../vendor/searchresults.json'}">
+								<input class="uk-search-field" type="search" placeholder="search...">
+								<button class="uk-search-close" type="reset"></button>
+							</form>
+						</div>
+					</div>
+
+				</nav>
+
+			</div>
+
+			<h2>Search in offcanvas</h2>
+
+			<p>
+				<button class="uk-button" data-uk-offcanvas="{target:'#offcanvas-1'}">Open</button>
+			</p>
+
+			<div id="offcanvas-1" class="uk-offcanvas">
+
+				<div class="uk-offcanvas-bar">
+
+					<form class="uk-search">
+						<input class="uk-search-field" type="search" placeholder="search...">
+						<button class="uk-search-close" type="reset"></button>
+					</form>
+
+					<div class="uk-panel">
+						<h3 class="uk-panel-title">Panel title</h3>
+						Lorem ipsum dolor sit amet, <a href="#">consetetur</a> sadipscing elitr.
+					</div>
+
+					<form class="uk-search">
+						<input class="uk-search-field" type="search" placeholder="search...">
+						<button class="uk-search-close" type="reset"></button>
+					</form>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</body>
+</html>

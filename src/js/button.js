@@ -6,12 +6,16 @@
 
         var $this = this, $element = $(element);
 
+        if($element.data("buttonRadio")) return;
+
         this.options = $.extend({}, this.options, options);
         this.element = $element.on("click", this.options.target, function(e) {
             e.preventDefault();
             $element.find($this.options.target).not(this).removeClass("uk-active").blur();
             $element.trigger("change", [$(this).addClass("uk-active")]);
         });
+
+        this.element.data("buttonRadio", this);
     };
 
     $.extend(ButtonRadio.prototype, {
@@ -30,11 +34,15 @@
 
         var $element = $(element);
 
+        if($element.data("buttonCheckbox")) return;
+
         this.options = $.extend({}, this.options, options);
         this.element = $element.on("click", this.options.target, function(e) {
             e.preventDefault();
             $element.trigger("change", [$(this).toggleClass("uk-active").blur()]);
         });
+
+        this.element.data("buttonCheckbox", this);
     };
 
     $.extend(ButtonCheckbox.prototype, {
@@ -51,14 +59,18 @@
 
     var Button = function(element, options) {
 
-        var $this = this;
+        var $this = this, $element = $(element);
+
+        if($element.data("button")) return;
 
         this.options = $.extend({}, this.options, options);
-        this.element = $(element).on("click", function(e) {
+        this.element = $element.on("click", function(e) {
             e.preventDefault();
             $this.toggle();
             $this.element.blur();
         });
+
+        this.element.data("button", this);
     };
 
     $.extend(Button.prototype, {
@@ -71,30 +83,30 @@
 
     });
 
-    UI["button"] = Button;
-    UI["button-checkbox"] = ButtonCheckbox;
-    UI["button-radio"] = ButtonRadio;
+    UI["button"]         = Button;
+    UI["buttonCheckbox"] = ButtonCheckbox;
+    UI["buttonRadio"]    = ButtonRadio;
 
     // init code
-    $(document).on("click.button-radio.uikit", "[data-uk-button-radio]", function(e) {
+    $(document).on("click.buttonradio.uikit", "[data-uk-button-radio]", function(e) {
         var ele = $(this);
 
-        if (!ele.data("button-radio")) {
-            ele.data("button-radio", new ButtonRadio(ele, UI.Utils.options(ele.data("uk-button-radio"))));
+        if (!ele.data("buttonRadio")) {
+            var obj = new ButtonRadio(ele, UI.Utils.options(ele.attr("data-uk-button-radio")));
 
-            if ($(e.target).is(ele.data("button-radio").options.target)) {
+            if ($(e.target).is(obj.options.target)) {
                 $(e.target).trigger("click");
             }
         }
     });
 
-    $(document).on("click.button-checkbox.uikit", "[data-uk-button-checkbox]", function(e) {
+    $(document).on("click.buttoncheckbox.uikit", "[data-uk-button-checkbox]", function(e) {
         var ele = $(this);
 
-        if (!ele.data("button-checkbox")) {
-            ele.data("button-checkbox", new ButtonCheckbox(ele, UI.Utils.options(ele.data("uk-button-checkbox"))));
+        if (!ele.data("buttonCheckbox")) {
+            var obj = new ButtonCheckbox(ele, UI.Utils.options(ele.attr("data-uk-button-checkbox")));
 
-            if ($(e.target).is(ele.data("button-checkbox").options.target)) {
+            if ($(e.target).is(obj.options.target)) {
                 $(e.target).trigger("click");
             }
         }
@@ -104,7 +116,9 @@
         var ele = $(this);
 
         if (!ele.data("button")) {
-            ele.data("button", new Button(ele, ele.data("uk-button"))).trigger("click");
+
+            var obj = new Button(ele, ele.attr("data-uk-button"));
+            ele.trigger("click");
         }
     });
 
