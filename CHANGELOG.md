@@ -13,6 +13,7 @@
 - Fix Scrollspy if UIkit is loaded async
 - Fix YouTube short urls in Lightbox component
 - Fix empty select in Form Custom component
+- Fix Slider reactivity
 
 ## 3.0.0 beta 39 (January 31, 2018)
 

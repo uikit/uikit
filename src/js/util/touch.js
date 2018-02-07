@@ -57,10 +57,15 @@ ready(function () {
 
     on(doc, pointerMove, function (e) {
 
+        if (e.defaultPrevented) {
+            return;
+        }
+
         const {x, y} = getPos(e);
 
         touch.x2 = x;
         touch.y2 = y;
+
     });
 
     on(doc, pointerUp, function ({type, target}) {
@@ -99,10 +104,12 @@ ready(function () {
         } else {
             touch = {};
         }
+
     });
 
     on(doc, 'touchcancel', cancelAll);
     on(win, 'scroll', cancelAll);
+
 });
 
 let touching = false;

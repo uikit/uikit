@@ -1,12 +1,8 @@
 export default function (UIkit) {
 
-    const {fastdom, removeClass} = UIkit.util;
+    const {removeClass} = UIkit.util;
 
     return {
-
-        ready() {
-            fastdom.write(() => this.show(this.getValidIndex()));
-        },
 
         update: [
 
