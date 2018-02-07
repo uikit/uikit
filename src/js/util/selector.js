@@ -3,11 +3,11 @@ import {removeAttr} from './attr';
 import {isNode, isString, startsWith, toNode, toNodes} from './lang';
 
 export function query(selector, context) {
-    return find(selector, isContextSelector(selector) ? context : doc);
+    return toNode(selector) || find(selector, isContextSelector(selector) ? context : doc);
 }
 
 export function queryAll(selector, context) {
-    return findAll(selector, isContextSelector(selector) ? context : doc);
+    return toNodes(selector) || findAll(selector, isContextSelector(selector) ? context : doc);
 }
 
 export function find(selector, context) {
