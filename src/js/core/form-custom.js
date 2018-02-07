@@ -36,8 +36,22 @@ export default function (UIkit) {
 
         },
 
-        connected() {
-            trigger(this.input, 'change');
+        update() {
+
+            const {target, input} = this;
+
+            if (!target) {
+                return;
+            }
+
+            let option;
+
+            target[isInput(target) ? 'value' : 'textContent'] = input.files && input.files[0]
+                ? input.files[0].name
+                : matches(input, 'select') && (option = $$('option', input).filter(el => el.selected)[0])
+                    ? option.textContent
+                    : input.value;
+
         },
 
         events: [
@@ -65,20 +79,7 @@ export default function (UIkit) {
                 name: 'change',
 
                 handler() {
-
-                    const {target, input} = this;
-
-                    if (!target) {
-                        return;
-                    }
-
-                    let option;
-
-                    target[isInput(target) ? 'value' : 'textContent'] = input.files && input.files[0]
-                        ? input.files[0].name
-                        : matches(input, 'select') && (option = $$('option', input).filter(el => el.selected)[0])
-                            ? option.textContent
-                            : input.value;
+                    this.$emit();
                 }
 
             }

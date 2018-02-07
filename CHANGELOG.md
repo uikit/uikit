@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Form Custom is more reactive now
+
 ### Fixed
 
 - Fix using Scrollspy component with default values
