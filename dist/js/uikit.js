@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-beta.39 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.40 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
 	typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -6,7 +6,341 @@
 	(global.UIkit = factory());
 }(this, (function () { 'use strict';
 
+function bind(fn, context) {
+    return function (a) {
+        var l = arguments.length;
+        return l ? l > 1 ? fn.apply(context, arguments) : fn.call(context, a) : fn.call(context);
+    };
+}
+
+var ref = Object.prototype;
+var hasOwnProperty = ref.hasOwnProperty;
+
+function hasOwn(obj, key) {
+    return hasOwnProperty.call(obj, key);
+}
+
+var hyphenateRe = /([a-z\d])([A-Z])/g;
+
+function hyphenate(str) {
+    return str
+        .replace(hyphenateRe, '$1-$2')
+        .toLowerCase();
+}
+
+var camelizeRE = /-(\w)/g;
+
+function camelize(str) {
+    return str.replace(camelizeRE, toUpper);
+}
+
+function toUpper(_, c) {
+    return c ? c.toUpperCase() : '';
+}
+
+function ucfirst(str) {
+    return str.length ? toUpper(null, str.charAt(0)) + str.slice(1) : '';
+}
+
+var strPrototype = String.prototype;
+var startsWithFn = strPrototype.startsWith || function (search) { return this.lastIndexOf(search, 0) === 0; };
+
+function startsWith(str, search) {
+    return startsWithFn.call(str, search);
+}
+
+var endsWithFn = strPrototype.endsWith || function (search) { return this.substr(-search.length) === search; };
+
+function endsWith(str, search) {
+    return endsWithFn.call(str, search);
+}
+
+var includesFn = function (search) { return ~this.indexOf(search); };
+var includesStr = strPrototype.includes || includesFn;
+var includesArray = Array.prototype.includes || includesFn;
+
+function includes(obj, search) {
+    return obj && (isString(obj) ? includesStr : includesArray).call(obj, search);
+}
+
+var isArray = Array.isArray;
+
+function isFunction(obj) {
+    return typeof obj === 'function';
+}
+
+function isObject(obj) {
+    return obj !== null && typeof obj === 'object';
+}
+
+function isPlainObject(obj) {
+    return isObject(obj) && Object.getPrototypeOf(obj) === Object.prototype;
+}
+
+function isWindow(obj) {
+    return isObject(obj) && obj === obj.window;
+}
+
+function isDocument(obj) {
+    return isObject(obj) && obj.nodeType === 9;
+}
+
+function isJQuery(obj) {
+    return isObject(obj) && !!obj.jquery;
+}
+
+function isNode(element) {
+    return element instanceof Node || isObject(element) && element.nodeType === 1;
+}
+
+function isNodeCollection(element) {
+    return element instanceof NodeList || element instanceof HTMLCollection;
+}
+
+function isBoolean(value) {
+    return typeof value === 'boolean';
+}
+
+function isString(value) {
+    return typeof value === 'string';
+}
+
+function isNumber(value) {
+    return typeof value === 'number';
+}
+
+function isNumeric(value) {
+    return isNumber(value) || isString(value) && !isNaN(value - parseFloat(value));
+}
+
+function isUndefined(value) {
+    return value === void 0;
+}
+
+function toBoolean(value) {
+    return isBoolean(value)
+        ? value
+        : value === 'true' || value === '1' || value === ''
+            ? true
+            : value === 'false' || value === '0'
+                ? false
+                : value;
+}
+
+function toNumber(value) {
+    var number = Number(value);
+    return !isNaN(number) ? number : false;
+}
+
+function toFloat(value) {
+    return parseFloat(value) || 0;
+}
+
+function toNode(element) {
+    return isNode(element) || isWindow(element) || isDocument(element)
+        ? element
+        : isNodeCollection(element) || isJQuery(element)
+            ? element[0]
+            : isArray(element)
+                ? toNode(element[0])
+                : null;
+}
+
+var arrayProto = Array.prototype;
+function toNodes(element) {
+    return isNode(element)
+        ? [element]
+        : isNodeCollection(element)
+            ? arrayProto.slice.call(element)
+            : isArray(element)
+                ? element.map(toNode).filter(Boolean)
+                : isJQuery(element)
+                    ? element.toArray()
+                    : [];
+}
+
+function toList(value) {
+    return isArray(value)
+        ? value
+        : isString(value)
+            ? value.split(/,(?![^(]*\))/).map(function (value) { return isNumeric(value)
+                ? toNumber(value)
+                : toBoolean(value.trim()); })
+            : [value];
+}
+
+function toMs(time) {
+    return !time
+        ? 0
+        : endsWith(time, 'ms')
+            ? toFloat(time)
+            : toFloat(time) * 1000;
+}
+
+function swap(value, a, b) {
+    return value.replace(new RegExp((a + "|" + b), 'mg'), function (match) {
+        return match === a ? b : a;
+    });
+}
+
+var assign = Object.assign || function (target) {
+    var args = [], len = arguments.length - 1;
+    while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
+
+    target = Object(target);
+    for (var i = 0; i < args.length; i++) {
+        var source = args[i];
+        if (source !== null) {
+            for (var key in source) {
+                if (hasOwn(source, key)) {
+                    target[key] = source[key];
+                }
+            }
+        }
+    }
+    return target;
+};
+
+function each(obj, cb) {
+    for (var key in obj) {
+        if (cb.call(obj[key], obj[key], key) === false) {
+            break;
+        }
+    }
+}
+
+function sortBy(collection, prop) {
+    return collection.sort(function (a, b) { return a[prop] > b[prop]
+            ? 1
+            : b[prop] > a[prop]
+                ? -1
+                : 0; }
+    );
+}
+
+function clamp(number, min, max) {
+    if ( min === void 0 ) min = 0;
+    if ( max === void 0 ) max = 1;
+
+    return Math.min(Math.max(number, min), max);
+}
+
+function noop() {}
+
+function intersectRect(r1, r2) {
+    return r1.left <= r2.right &&
+        r2.left <= r1.right &&
+        r1.top <= r2.bottom &&
+        r2.top <= r1.bottom;
+}
+
+function pointInRect(point, rect) {
+    return intersectRect({top: point.y, bottom: point.y, left: point.x, right: point.x}, rect);
+}
+
+var Dimensions = {
+
+    ratio: function ratio(dimensions, prop, value) {
+        var obj;
+
+
+        var aProp = prop === 'width' ? 'height' : 'width';
+
+        return ( obj = {}, obj[aProp] = Math.round(value * dimensions[aProp] / dimensions[prop]), obj[prop] = value, obj);
+    },
+
+    contain: function contain(dimensions, maxDimensions) {
+        var this$1 = this;
+
+        dimensions = assign({}, dimensions);
+
+        each(dimensions, function (_, prop) { return dimensions = dimensions[prop] > maxDimensions[prop]
+            ? this$1.ratio(dimensions, prop, maxDimensions[prop])
+            : dimensions; }
+        );
+
+        return dimensions;
+    },
+
+    cover: function cover(dimensions, maxDimensions) {
+        var this$1 = this;
+
+        dimensions = this.contain(dimensions, maxDimensions);
+
+        each(dimensions, function (_, prop) { return dimensions = dimensions[prop] < maxDimensions[prop]
+            ? this$1.ratio(dimensions, prop, maxDimensions[prop])
+            : dimensions; }
+        );
+
+        return dimensions;
+    }
+
+};
+
+function attr(element, name, value) {
+
+    if (isObject(name)) {
+        for (var key in name) {
+            attr(element, key, name[key]);
+        }
+        return;
+    }
+
+    if (isUndefined(value)) {
+        element = toNode(element);
+        return element && element.getAttribute(name);
+    } else {
+        toNodes(element).forEach(function (element) {
+
+            if (isFunction(value)) {
+                value = value.call(element, attr(element, name));
+            }
+
+            if (value === null) {
+                removeAttr(element, name);
+            } else {
+                element.setAttribute(name, value);
+            }
+        });
+    }
+
+}
+
+function hasAttr(element, name) {
+    return toNodes(element).some(function (element) { return element.hasAttribute(name); });
+}
+
+function removeAttr(element, name) {
+    element = toNodes(element);
+    name.split(' ').forEach(function (name) { return element.forEach(function (element) { return element.removeAttribute(name); }
+        ); }
+    );
+}
+
+function filterAttr(element, attribute, pattern, replacement) {
+    attr(element, attribute, function (value) { return value ? value.replace(pattern, replacement) : value; });
+}
+
+function data(element, attribute) {
+    for (var i = 0, attrs = [attribute, ("data-" + attribute)]; i < attrs.length; i++) {
+        if (hasAttr(element, attrs[i])) {
+            return attr(element, attrs[i]);
+        }
+    }
+}
+
 /* global setImmediate */
+var Promise = 'Promise' in window ? window.Promise : PromiseFn;
+
+var Deferred = function Deferred() {
+    var this$1 = this;
+
+    this.promise = new Promise(function (resolve, reject) {
+        this$1.reject = reject;
+        this$1.resolve = resolve;
+    });
+};
+
 /**
  * Promises/A+ polyfill v1.1.4 (https://github.com/bramstein/promis)
  */
@@ -17,7 +351,7 @@ var PENDING = 2;
 
 var async = 'setImmediate' in window ? setImmediate : setTimeout;
 
-function Promise$1(executor) {
+function PromiseFn(executor) {
 
     this.state = PENDING;
     this.value = undefined;
@@ -36,21 +370,22 @@ function Promise$1(executor) {
     }
 }
 
-Promise$1.reject = function (r) {
-    return new Promise$1(function (resolve, reject) {
+PromiseFn.reject = function (r) {
+    return new PromiseFn(function (resolve, reject) {
         reject(r);
     });
 };
 
-Promise$1.resolve = function (x) {
-    return new Promise$1(function (resolve, reject) {
+PromiseFn.resolve = function (x) {
+    return new PromiseFn(function (resolve, reject) {
         resolve(x);
     });
 };
 
-Promise$1.all = function all(iterable) {
-    return new Promise$1(function (resolve, reject) {
-        var count = 0, result = [];
+PromiseFn.all = function all(iterable) {
+    return new PromiseFn(function (resolve, reject) {
+        var result = [];
+        var count = 0;
 
         if (iterable.length === 0) {
             resolve(result);
@@ -68,20 +403,20 @@ Promise$1.all = function all(iterable) {
         }
 
         for (var i = 0; i < iterable.length; i += 1) {
-            Promise$1.resolve(iterable[i]).then(resolver(i), reject);
+            PromiseFn.resolve(iterable[i]).then(resolver(i), reject);
         }
     });
 };
 
-Promise$1.race = function race(iterable) {
-    return new Promise$1(function (resolve, reject) {
+PromiseFn.race = function race(iterable) {
+    return new PromiseFn(function (resolve, reject) {
         for (var i = 0; i < iterable.length; i += 1) {
-            Promise$1.resolve(iterable[i]).then(resolve, reject);
+            PromiseFn.resolve(iterable[i]).then(resolve, reject);
         }
     });
 };
 
-var p = Promise$1.prototype;
+var p = PromiseFn.prototype;
 
 p.resolve = function resolve(x) {
     var promise = this;
@@ -144,11 +479,11 @@ p.notify = function notify() {
     async(function () {
         if (this$1.state !== PENDING) {
             while (this$1.deferred.length) {
-                var deferred = this$1.deferred.shift(),
-                    onResolved = deferred[0],
-                    onRejected = deferred[1],
-                    resolve = deferred[2],
-                    reject = deferred[3];
+                var ref = this$1.deferred.shift();
+                var onResolved = ref[0];
+                var onRejected = ref[1];
+                var resolve = ref[2];
+                var reject = ref[3];
 
                 try {
                     if (this$1.state === RESOLVED) {
@@ -175,7 +510,7 @@ p.notify = function notify() {
 p.then = function then(onResolved, onRejected) {
     var this$1 = this;
 
-    return new Promise$1(function (resolve, reject) {
+    return new PromiseFn(function (resolve, reject) {
         this$1.deferred.push([onResolved, onRejected, resolve, reject]);
         this$1.notify();
     });
@@ -190,8 +525,9 @@ var win = window;
 var doc = document;
 var docEl = doc.documentElement;
 
+var isRtl = attr(docEl, 'dir') === 'rtl';
+
 var Observer = win.MutationObserver;
-var requestAnimationFrame$1 = win.requestAnimationFrame;
 
 var hasTouchEvents = 'ontouchstart' in win;
 var hasPointerEvents = win.PointerEvent;
@@ -207,7 +543,7 @@ var pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
 
 function getImage(src) {
 
-    return new Promise$1(function (resolve, reject) {
+    return new Promise(function (resolve, reject) {
         var img = new Image();
 
         img.onerror = reject;
@@ -235,56 +571,533 @@ var supports = {};
 
 })();
 
-function attr(element, name, value) {
+function query(selector, context) {
+    return toNode(selector) || find(selector, isContextSelector(selector) ? context : doc);
+}
 
-    if (isObject(name)) {
-        for (var key in name) {
-            attr(element, key, name[key]);
+function queryAll(selector, context) {
+    var nodes = toNodes(selector);
+    return nodes.length && nodes || findAll(selector, isContextSelector(selector) ? context : doc);
+}
+
+function find(selector, context) {
+    return toNode(_query(selector, context, 'querySelector'));
+}
+
+function findAll(selector, context) {
+    return toNodes(_query(selector, context, 'querySelectorAll'));
+}
+
+function _query(selector, context, queryFn) {
+    if ( context === void 0 ) context = doc;
+
+
+    if (!selector || !isString(selector)) {
+        return null;
+    }
+
+    selector = selector.replace(contextSanitizeRe, '$1 *');
+
+    var removes;
+
+    if (isContextSelector(selector)) {
+
+        removes = [];
+
+        selector = selector.split(',').map(function (selector, i) {
+
+            var ctx = context;
+
+            selector = selector.trim();
+
+            if (selector[0] === '!') {
+
+                var selectors = selector.substr(1).trim().split(' ');
+                ctx = closest(context.parentNode, selectors[0]);
+                selector = selectors.slice(1).join(' ');
+
+            }
+
+            if (!ctx) {
+                return null;
+            }
+
+            if (!ctx.id) {
+                ctx.id = "uk-" + (Date.now()) + i;
+                removes.push(function () { return removeAttr(ctx, 'id'); });
+            }
+
+            return ("#" + (escape(ctx.id)) + " " + selector);
+
+        }).filter(Boolean).join(',');
+
+        context = doc;
+
+    }
+
+    try {
+
+        return context[queryFn](selector);
+
+    } catch (e) {
+
+        return null;
+
+    } finally {
+
+        removes && removes.forEach(function (remove) { return remove(); });
+
+    }
+
+}
+
+var contextSelectorRe = /(^|,)\s*[!>+~]/;
+var contextSanitizeRe = /([!>+~])(?=\s+[!>+~]|\s*$)/g;
+
+function isContextSelector(selector) {
+    return isString(selector) && selector.match(contextSelectorRe);
+}
+
+var elProto = Element.prototype;
+var matchesFn = elProto.matches || elProto.webkitMatchesSelector || elProto.msMatchesSelector;
+
+function matches(element, selector) {
+    return toNodes(element).some(function (element) { return matchesFn.call(element, selector); });
+}
+
+var closestFn = elProto.closest || function (selector) {
+    var ancestor = this;
+
+    do {
+
+        if (matches(ancestor, selector)) {
+            return ancestor;
         }
+
+        ancestor = ancestor.parentNode;
+
+    } while (ancestor && ancestor.nodeType === 1);
+};
+
+function closest(element, selector) {
+
+    if (startsWith(selector, '>')) {
+        selector = selector.slice(1);
+    }
+
+    return isNode(element)
+        ? element.parentNode && closestFn.call(element, selector)
+        : toNodes(element).map(function (element) { return element.parentNode && closestFn.call(element, selector); }).filter(Boolean);
+}
+
+function parents(element, selector) {
+    var elements = [];
+    var parent = toNode(element).parentNode;
+
+    while (parent && parent.nodeType === 1) {
+
+        if (matches(parent, selector)) {
+            elements.push(parent);
+        }
+
+        parent = parent.parentNode;
+    }
+
+    return elements;
+}
+
+var escapeFn = win.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, function (match) { return ("\\" + match); }); };
+function escape(css) {
+    return isString(css) ? escapeFn.call(null, css) : '';
+}
+
+var voidElements = {
+    area: true,
+    base: true,
+    br: true,
+    col: true,
+    embed: true,
+    hr: true,
+    img: true,
+    input: true,
+    keygen: true,
+    link: true,
+    menuitem: true,
+    meta: true,
+    param: true,
+    source: true,
+    track: true,
+    wbr: true
+};
+function isVoidElement(element) {
+    return toNodes(element).some(function (element) { return voidElements[element.tagName.toLowerCase()]; });
+}
+
+function isVisible(element) {
+    return toNodes(element).some(function (element) { return element.offsetHeight || element.getBoundingClientRect().height; });
+}
+
+var selInput = 'input,select,textarea,button';
+function isInput(element) {
+    return toNodes(element).some(function (element) { return matches(element, selInput); });
+}
+
+function filter(element, selector) {
+    return toNodes(element).filter(function (element) { return matches(element, selector); });
+}
+
+function within(element, selector) {
+    return !isString(selector)
+        ? element === selector || toNode(selector).contains(toNode(element))
+        : matches(element, selector) || closest(element, selector);
+}
+
+function on() {
+    var args = [], len = arguments.length;
+    while ( len-- ) args[ len ] = arguments[ len ];
+
+
+    var ref = getArgs(args);
+    var target = ref[0];
+    var type = ref[1];
+    var selector = ref[2];
+    var listener = ref[3];
+    var useCapture = ref[4];
+
+    target = toEventTarget(target);
+
+    if (selector) {
+        listener = delegate(target, selector, listener);
+    }
+
+    if (listener.length > 1) {
+        listener = detail(listener);
+    }
+
+    type.split(' ').forEach(function (type) { return target && target.addEventListener(type, listener, useCapture); });
+    return function () { return off(target, type, listener, useCapture); };
+}
+
+function off(target, type, listener, useCapture) {
+    if ( useCapture === void 0 ) useCapture = false;
+
+    target = toEventTarget(target);
+    target && type.split(' ').forEach(function (type) { return target.removeEventListener(type, listener, useCapture); });
+}
+
+function once() {
+    var args = [], len = arguments.length;
+    while ( len-- ) args[ len ] = arguments[ len ];
+
+
+    var ref = getArgs(args);
+    var element = ref[0];
+    var type = ref[1];
+    var selector = ref[2];
+    var listener = ref[3];
+    var useCapture = ref[4];
+    var condition = ref[5];
+    var off = on(element, type, selector, function (e) {
+        var result = !condition || condition(e);
+        if (result) {
+            off();
+            listener(e, result);
+        }
+    }, useCapture);
+
+    return off;
+}
+
+function trigger(target, event, detail) {
+    return toEventTargets(target).reduce(function (notCanceled, target) { return notCanceled && target.dispatchEvent(createEvent(event, true, true, detail)); }
+        , true);
+}
+
+function createEvent(e, bubbles, cancelable, detail) {
+    if ( bubbles === void 0 ) bubbles = true;
+    if ( cancelable === void 0 ) cancelable = false;
+
+    if (isString(e)) {
+        var event = document.createEvent('CustomEvent'); // IE 11
+        event.initCustomEvent(e, bubbles, cancelable, detail);
+        e = event;
+    }
+
+    return e;
+}
+
+function getArgs(args) {
+
+    if (isString(args[0])) {
+        args[0] = find(args[0]);
+    }
+
+    if (isFunction(args[2])) {
+        args.splice(2, 0, false);
+    }
+    return args;
+}
+
+function delegate(element, selector, listener) {
+    var this$1 = this;
+
+    return function (e) {
+
+        var target = e.target;
+        var current = selector[0] === '>'
+            ? findAll(selector, element).reverse().filter(function (element) { return within(target, element); })[0]
+            : closest(target, selector);
+
+        if (current) {
+            e.delegate = element;
+            e.current = current;
+
+            listener.call(this$1, e);
+        }
+    };
+}
+
+function detail(listener) {
+    return function (e) { return isArray(e.detail) ? listener.apply(listener, [e].concat(e.detail)) : listener(e); };
+}
+
+function isEventTarget(target) {
+    return 'EventTarget' in window
+        ? target instanceof EventTarget
+        : target && 'addEventListener' in target;
+}
+
+function toEventTarget(target) {
+    return isEventTarget(target) ? target : toNode(target);
+}
+
+function toEventTargets(target) {
+    return isEventTarget(target)
+        ? [target]
+        : isArray(target)
+            ? target.map(toEventTarget).filter(Boolean)
+            : toNodes(target);
+}
+
+function preventClick() {
+
+    var timer = setTimeout(once(document, 'click', function (e) {
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        clearTimeout(timer);
+
+    }, true));
+
+}
+
+function ajax(url, options) {
+    return new Promise(function (resolve, reject) {
+
+        var env = assign({
+            data: null,
+            method: 'GET',
+            headers: {},
+            xhr: new XMLHttpRequest(),
+            beforeSend: noop,
+            responseType: ''
+        }, options);
+
+        env.beforeSend(env);
+
+        var xhr = env.xhr;
+
+        for (var prop in env) {
+            if (prop in xhr) {
+                try {
+
+                    xhr[prop] = env[prop];
+
+                } catch (e) {}
+            }
+        }
+
+        xhr.open(env.method.toUpperCase(), url);
+
+        for (var header in env.headers) {
+            xhr.setRequestHeader(header, env.headers[header]);
+        }
+
+        on(xhr, 'load', function () {
+
+            if (xhr.status === 0 || xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
+                resolve(xhr);
+            } else {
+                reject(assign(Error(xhr.statusText), {
+                    xhr: xhr,
+                    status: xhr.status
+                }));
+            }
+
+        });
+
+        on(xhr, 'error', function () { return reject(assign(Error('Network Error'), {xhr: xhr})); });
+        on(xhr, 'timeout', function () { return reject(assign(Error('Network Timeout'), {xhr: xhr})); });
+
+        xhr.send(env.data);
+    });
+}
+
+function isReady() {
+    return doc.readyState === 'complete' || doc.readyState !== 'loading' && !docEl.doScroll;
+}
+
+function ready(fn) {
+
+    if (isReady()) {
+        fn();
         return;
     }
 
-    if (isUndefined(value)) {
-        element = toNode(element);
-        return element && element.getAttribute(name);
-    } else {
-        toNodes(element).forEach(function (element) {
+    var handle = function () {
+        unbind1();
+        unbind2();
+        fn();
+    };
+    var unbind1 = on(doc, 'DOMContentLoaded', handle);
+    var unbind2 = on(win, 'load', handle);
+}
 
-            if (isFunction(value)) {
-                value = value.call(element, attr(element, name));
-            }
+function index(element, ref) {
+    return ref
+        ? toNodes(element).indexOf(toNode(ref))
+        : toNodes((element = toNode(element)) && element.parentNode.children).indexOf(element);
+}
 
-            if (value === null) {
-                removeAttr(element, name);
-            } else {
-                element.setAttribute(name, value);
-            }
-        });
+function getIndex(i, elements, current, finite) {
+    if ( current === void 0 ) current = 0;
+    if ( finite === void 0 ) finite = false;
+
+
+    elements = toNodes(elements);
+
+    var length = elements.length;
+
+    i = isNumeric(i)
+        ? toNumber(i)
+        : i === 'next'
+            ? current + 1
+            : i === 'previous'
+                ? current - 1
+                : index(elements, i);
+
+    if (finite) {
+        return clamp(i, 0, length - 1);
     }
 
+    i %= length;
+
+    return i < 0 ? i + length : i;
 }
 
-function hasAttr(element, name) {
-    return toNodes(element).some(function (element) { return element.hasAttribute(name); });
+function empty(element) {
+    element = toNode(element);
+    element.innerHTML = '';
+    return element;
 }
 
-function removeAttr(element, name) {
-    element = toNodes(element);
-    name.split(' ').forEach(function (name) { return element.forEach(function (element) { return element.removeAttribute(name); }
-        ); }
+function html(parent, html) {
+    parent = toNode(parent);
+    return isUndefined(html)
+        ? parent.innerHTML
+        : append(parent.hasChildNodes() ? empty(parent) : parent, html);
+}
+
+function prepend(parent, element) {
+
+    parent = toNode(parent);
+
+    if (!parent.hasChildNodes()) {
+        return append(parent, element);
+    } else {
+        return insertNodes(element, function (element) { return parent.insertBefore(element, parent.firstChild); });
+    }
+}
+
+function append(parent, element) {
+    parent = toNode(parent);
+    return insertNodes(element, function (element) { return parent.appendChild(element); });
+}
+
+function before(ref, element) {
+    ref = toNode(ref);
+    return insertNodes(element, function (element) { return ref.parentNode.insertBefore(element, ref); });
+}
+
+function after(ref, element) {
+    ref = toNode(ref);
+    return insertNodes(element, function (element) { return ref.nextSibling
+        ? before(ref.nextSibling, element)
+        : append(ref.parentNode, element); }
     );
 }
 
-function filterAttr(element, attribute, pattern, replacement) {
-    attr(element, attribute, function (value) { return value ? value.replace(pattern, replacement) : value; });
+function insertNodes(element, fn) {
+    element = isString(element) ? fragment(element) : element;
+    return element
+        ? 'length' in element
+            ? toNodes(element).map(fn)
+            : fn(element)
+        : null;
 }
 
-function data(element, attribute) {
-    for (var i = 0, attrs = [attribute, ("data-" + attribute)]; i < attrs.length; i++) {
-        if (hasAttr(element, attrs[i])) {
-            return attr(element, attrs[i]);
-        }
+function remove(element) {
+    toNodes(element).map(function (element) { return element.parentNode && element.parentNode.removeChild(element); });
+}
+
+function wrapAll(element, structure) {
+
+    structure = toNode(before(element, structure));
+
+    while (structure.firstChild) {
+        structure = structure.firstChild;
     }
+
+    append(structure, element);
+
+    return structure;
+}
+
+function wrapInner(element, structure) {
+    return toNodes(toNodes(element).map(function (element) { return element.hasChildNodes ? wrapAll(toNodes(element.childNodes), structure) : append(element, structure); }
+    ));
+}
+
+function unwrap(element) {
+    toNodes(element)
+        .map(function (element) { return element.parentNode; })
+        .filter(function (value, index, self) { return self.indexOf(value) === index; })
+        .forEach(function (parent) {
+            before(parent, parent.childNodes);
+            remove(parent);
+        });
+}
+
+var fragmentRE = /^\s*<(\w+|!)[^>]*>/;
+var singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
+
+function fragment(html) {
+
+    var matches = singleTagRE.exec(html);
+    if (matches) {
+        return doc.createElement(matches[1]);
+    }
+
+    var container = doc.createElement('div');
+    if (fragmentRE.test(html)) {
+        container.insertAdjacentHTML('beforeend', html.trim());
+    } else {
+        container.textContent = html;
+    }
+
+    return container.childNodes.length > 1 ? toNodes(container.childNodes) : container.firstChild;
+
 }
 
 function addClass(element) {
@@ -421,11 +1234,11 @@ function getStyle(element, property, pseudoElt) {
     return getStyles(element, pseudoElt)[property];
 }
 
-var vars$1 = {};
+var vars = {};
 
 function getCssVar(name) {
 
-    if (!(name in vars$1)) {
+    if (!(name in vars)) {
 
         /* usage in css: .var-name:before { content:"xyz" } */
 
@@ -435,8 +1248,8 @@ function getCssVar(name) {
 
         try {
 
-            vars$1[name] = getStyle(element, 'content', ':before').replace(/^["'](.*)["']$/, '$1');
-            vars$1[name] = JSON.parse(vars$1[name]);
+            vars[name] = getStyle(element, 'content', ':before').replace(/^["'](.*)["']$/, '$1');
+            vars[name] = JSON.parse(vars[name]);
 
         } catch (e) {}
 
@@ -444,7 +1257,7 @@ function getCssVar(name) {
 
     }
 
-    return vars$1[name];
+    return vars[name];
 
 }
 
@@ -460,7 +1273,8 @@ function propName(name) {
 }
 
 var cssPrefixes = ['webkit', 'moz', 'ms'];
-var style = doc.createElement('_').style;
+var ref$1 = doc.createElement('_');
+var style = ref$1.style;
 
 function vendorPropName(name) {
 
@@ -480,6 +1294,188 @@ function vendorPropName(name) {
     }
 }
 
+function transition(element, props, duration, timing) {
+    if ( duration === void 0 ) duration = 400;
+    if ( timing === void 0 ) timing = 'linear';
+
+
+    return Promise.all(toNodes(element).map(function (element) { return new Promise(function (resolve, reject) {
+
+            for (var name in props) {
+                var value = css(element, name);
+                if (value === '') {
+                    css(element, name, value);
+                }
+            }
+
+            var timer = setTimeout(function () { return trigger(element, 'transitionend'); }, duration);
+
+            once(element, 'transitionend transitioncanceled', function (ref) {
+                var type = ref.type;
+
+                clearTimeout(timer);
+                removeClass(element, 'uk-transition');
+                css(element, {
+                    'transition-property': '',
+                    'transition-duration': '',
+                    'transition-timing-function': ''
+                });
+                type === 'transitioncanceled' ? reject() : resolve();
+            }, false, function (ref) {
+                var target = ref.target;
+
+                return element === target;
+            });
+
+            addClass(element, 'uk-transition');
+            css(element, assign({
+                'transition-property': Object.keys(props).map(propName).join(','),
+                'transition-duration': (duration + "ms"),
+                'transition-timing-function': timing
+            }, props));
+
+        }); }
+    ));
+
+}
+
+var Transition = {
+
+    start: transition,
+
+    stop: function stop(element) {
+        trigger(element, 'transitionend');
+        return Promise.resolve();
+    },
+
+    cancel: function cancel(element) {
+        trigger(element, 'transitioncanceled');
+    },
+
+    inProgress: function inProgress(element) {
+        return hasClass(element, 'uk-transition');
+    }
+
+};
+
+var animationPrefix = 'uk-animation-';
+var clsCancelAnimation = 'uk-cancel-animation';
+
+function animate(element, animation, duration, origin, out) {
+    var arguments$1 = arguments;
+    if ( duration === void 0 ) duration = 200;
+
+
+    return Promise.all(toNodes(element).map(function (element) { return new Promise(function (resolve, reject) {
+
+            if (hasClass(element, clsCancelAnimation)) {
+                requestAnimationFrame(function () { return Promise.resolve().then(function () { return animate.apply(void 0, arguments$1).then(resolve, reject); }
+                    ); }
+                );
+                return;
+            }
+
+            var cls = animation + " " + animationPrefix + (out ? 'leave' : 'enter');
+
+            if (startsWith(animation, animationPrefix)) {
+
+                if (origin) {
+                    cls += " uk-transform-origin-" + origin;
+                }
+
+                if (out) {
+                    cls += " " + animationPrefix + "reverse";
+                }
+
+            }
+
+            reset();
+
+            once(element, 'animationend animationcancel', function (ref) {
+                var type = ref.type;
+
+
+                var hasReset = false;
+
+                if (type === 'animationcancel') {
+                    reject();
+                    reset();
+                } else {
+                    resolve();
+                    Promise.resolve().then(function () {
+                        hasReset = true;
+                        reset();
+                    });
+                }
+
+                requestAnimationFrame(function () {
+                    if (!hasReset) {
+                        addClass(element, clsCancelAnimation);
+
+                        requestAnimationFrame(function () { return removeClass(element, clsCancelAnimation); });
+                    }
+                });
+
+            }, false, function (ref) {
+                var target = ref.target;
+
+                return element === target;
+            });
+
+            css(element, 'animationDuration', (duration + "ms"));
+            addClass(element, cls);
+
+            function reset() {
+                css(element, 'animationDuration', '');
+                removeClasses(element, (animationPrefix + "\\S*"));
+            }
+
+        }); }
+    ));
+
+}
+
+var inProgress = new RegExp((animationPrefix + "(enter|leave)"));
+var Animation = {
+
+    in: function in$1(element, animation, duration, origin) {
+        return animate(element, animation, duration, origin, false);
+    },
+
+    out: function out(element, animation, duration, origin) {
+        return animate(element, animation, duration, origin, true);
+    },
+
+    inProgress: function inProgress$1(element) {
+        return inProgress.test(attr(element, 'class'));
+    },
+
+    cancel: function cancel(element) {
+        trigger(element, 'animationcancel');
+    }
+
+};
+
+function $(selector, context) {
+    return !isString(selector)
+        ? toNode(selector)
+        : isHtml(selector)
+            ? toNode(fragment(selector))
+            : find(selector, context);
+}
+
+function $$(selector, context) {
+    return !isString(selector)
+        ? toNodes(selector)
+        : isHtml(selector)
+            ? toNodes(fragment(selector))
+            : findAll(selector, context);
+}
+
+function isHtml(str) {
+    return str[0] === '<' || str.match(/^\s*</);
+}
+
 var dirs = {
     width: ['x', 'left', 'right'],
     height: ['y', 'top', 'bottom']
@@ -496,9 +1492,9 @@ function positionAt(element, target, elAttach, targetAttach, elOffset, targetOff
         return flipped;
     }
 
-    var dim = getDimensions(element),
-        targetDim = getDimensions(target),
-        position = targetDim;
+    var dim = getDimensions(element);
+    var targetDim = getDimensions(target);
+    var position = targetDim;
 
     moveTo(position, elAttach, dim, -1);
     moveTo(position, targetAttach, targetDim, 1);
@@ -512,7 +1508,7 @@ function positionAt(element, target, elAttach, targetAttach, elOffset, targetOff
     position.left += elOffset['x'];
     position.top += elOffset['y'];
 
-    boundary = getDimensions(boundary || getWindow(element));
+    boundary = getDimensions(boundary || window$1(element));
 
     if (flip) {
         each(dirs, function (ref, prop) {
@@ -526,20 +1522,21 @@ function positionAt(element, target, elAttach, targetAttach, elOffset, targetOff
             }
 
             var elemOffset = elAttach[dir] === align
-                    ? -dim[prop]
-                    : elAttach[dir] === alignFlip
-                        ? dim[prop]
-                        : 0,
-                targetOffset = targetAttach[dir] === align
-                    ? targetDim[prop]
-                    : targetAttach[dir] === alignFlip
-                        ? -targetDim[prop]
-                        : 0;
+                ? -dim[prop]
+                : elAttach[dir] === alignFlip
+                    ? dim[prop]
+                    : 0;
+
+            var targetOffset = targetAttach[dir] === align
+                ? targetDim[prop]
+                : targetAttach[dir] === alignFlip
+                    ? -targetDim[prop]
+                    : 0;
 
             if (position[align] < boundary[align] || position[align] + dim[prop] > boundary[alignFlip]) {
 
-                var centerOffset = dim[prop] / 2,
-                    centerTargetOffset = targetAttach[dir] === 'center' ? -targetDim[prop] / 2 : 0;
+                var centerOffset = dim[prop] / 2;
+                var centerTargetOffset = targetAttach[dir] === 'center' ? -targetDim[prop] / 2 : 0;
 
                 elAttach[dir] === 'center' && (
                     apply(centerOffset, centerTargetOffset)
@@ -582,14 +1579,14 @@ function offset(element, coordinates) {
 
     if (coordinates) {
 
-        var currentOffset = offset(element),
-            pos = css(element, 'position');
+        var currentOffset = offset(element);
+        var pos = css(element, 'position');
 
         ['left', 'top'].forEach(function (prop) {
             if (prop in coordinates) {
                 var value = css(element, prop);
                 element.style[prop] = ((coordinates[prop] - currentOffset[prop])
-                    + toFloat(pos === 'absolute' && value === 'auto' ? position(element)[prop] : value)) + "px";
+                + toFloat(pos === 'absolute' && value === 'auto' ? position(element)[prop] : value)) + "px";
             }
         });
 
@@ -603,14 +1600,14 @@ function getDimensions(element) {
 
     element = toNode(element);
 
-    var ref = getWindow(element);
+    var ref = window$1(element);
     var top = ref.pageYOffset;
     var left = ref.pageXOffset;
 
     if (isWindow(element)) {
 
-        var height = element.innerHeight,
-            width = element.innerWidth;
+        var height = element.innerHeight;
+        var width = element.innerWidth;
 
         return {
             top: top,
@@ -647,9 +1644,8 @@ function getDimensions(element) {
 function position(element) {
     element = toNode(element);
 
-    var parent = offsetParent(element),
-        parentOffset = parent === docEl$1(element) ? {top: 0, left: 0} : offset(parent);
-
+    var parent = offsetParent(element);
+    var parentOffset = parent === docEl$1(element) ? {top: 0, left: 0} : offset(parent);
     var ref = ['top', 'left'].reduce(function (props, prop) {
         var propName$$1 = ucfirst(prop);
         props[prop] -= parentOffset[prop]
@@ -713,13 +1709,9 @@ function dimension(prop) {
 
 function getContentSize(prop, element, value) {
     return css(element, 'boxSizing') === 'border-box' ? dirs[prop].slice(1).map(ucfirst).reduce(function (value, prop) { return value
-            - toFloat(css(element, ("padding" + prop)))
-            - toFloat(css(element, ("border" + prop + "Width"))); }
+        - toFloat(css(element, ("padding" + prop)))
+        - toFloat(css(element, ("border" + prop + "Width"))); }
         , value) : value;
-}
-
-function getWindow(element) {
-    return isWindow(element) ? element : document$1(element).defaultView;
 }
 
 function moveTo(position, attach, dim, factor) {
@@ -738,7 +1730,8 @@ function moveTo(position, attach, dim, factor) {
 
 function getPos(pos) {
 
-    var x = /left|center|right/, y = /top|center|bottom/;
+    var x = /left|center|right/;
+    var y = /top|center|bottom/;
 
     pos = (pos || '').split(' ');
 
@@ -783,203 +1776,15 @@ function flipPosition(pos) {
     }
 }
 
-function document$1(element) {
-    return toNode(element).ownerDocument;
-}
-
-function docEl$1(element) {
-    return document$1(element).documentElement;
-}
-
-var isRtl = attr(docEl, 'dir') === 'rtl';
-
-function isReady() {
-    return doc.readyState === 'complete' || doc.readyState !== 'loading' && !docEl.doScroll;
-}
-
-function ready(fn) {
-
-    if (isReady()) {
-        fn();
-        return;
-    }
-
-    var handle = function () {
-            unbind1();
-            unbind2();
-            fn();
-        },
-        unbind1 = on(doc, 'DOMContentLoaded', handle),
-        unbind2 = on(win, 'load', handle);
-}
-
-function transition(element, props, duration, timing) {
-    if ( duration === void 0 ) duration = 400;
-    if ( timing === void 0 ) timing = 'linear';
-
-
-    return Promise$$1.all(toNodes(element).map(function (element) { return new Promise$$1(function (resolve, reject) {
-
-            for (var name in props) {
-                var value = css(element, name);
-                if (value === '') {
-                    css(element, name, value);
-                }
-            }
-
-            var timer = setTimeout(function () { return trigger(element, 'transitionend'); }, duration);
-
-            once(element, 'transitionend transitioncanceled', function (ref) {
-                var type = ref.type;
-
-                clearTimeout(timer);
-                removeClass(element, 'uk-transition');
-                css(element, {
-                    'transition-property': '',
-                    'transition-duration': '',
-                    'transition-timing-function': ''
-                });
-                type === 'transitioncanceled' ? reject() : resolve();
-            }, false, function (ref) {
-                var target = ref.target;
-
-                return element === target;
-            });
-
-            addClass(element, 'uk-transition');
-            css(element, assign({
-                'transition-property': Object.keys(props).map(propName).join(','),
-                'transition-duration': (duration + "ms"),
-                'transition-timing-function': timing
-            }, props));
-
-        }); }
-    ));
-
-}
-
-var Transition = {
-
-    start: transition,
-
-    stop: function stop(element) {
-        trigger(element, 'transitionend');
-        return Promise$$1.resolve();
-    },
-
-    cancel: function cancel(element) {
-        trigger(element, 'transitioncanceled');
-    },
-
-    inProgress: function inProgress(element) {
-        return hasClass(element, 'uk-transition');
-    }
-
-};
-
-var animationPrefix = 'uk-animation-';
-var clsCancelAnimation = 'uk-cancel-animation';
-
-function animate(element, animation, duration, origin, out) {
-    var arguments$1 = arguments;
-    if ( duration === void 0 ) duration = 200;
-
-
-    return Promise$$1.all(toNodes(element).map(function (element) { return new Promise$$1(function (resolve, reject) {
-
-            if (hasClass(element, clsCancelAnimation)) {
-                requestAnimationFrame(function () { return Promise$$1.resolve().then(function () { return animate.apply(void 0, arguments$1).then(resolve, reject); }
-                    ); }
-                );
-                return;
-            }
-
-            var cls = animation + " " + animationPrefix + (out ? 'leave' : 'enter');
-
-            if (startsWith(animation, animationPrefix)) {
-
-                if (origin) {
-                    cls += " uk-transform-origin-" + origin;
-                }
-
-                if (out) {
-                    cls += " " + animationPrefix + "reverse";
-                }
-
-            }
-
-            reset();
-
-            once(element, 'animationend animationcancel', function (ref) {
-                var type = ref.type;
-
-
-                var hasReset = false;
-
-                if (type === 'animationcancel') {
-                    reject();
-                    reset();
-                } else {
-                    resolve();
-                    Promise$$1.resolve().then(function () {
-                        hasReset = true;
-                        reset();
-                    });
-                }
-
-                requestAnimationFrame(function () {
-                    if (!hasReset) {
-                        addClass(element, clsCancelAnimation);
-
-                        requestAnimationFrame(function () { return removeClass(element, clsCancelAnimation); });
-                    }
-                });
-
-            }, false, function (ref) {
-                var target = ref.target;
-
-                return element === target;
-            });
-
-            css(element, 'animationDuration', (duration + "ms"));
-            addClass(element, cls);
-
-            function reset() {
-                css(element, 'animationDuration', '');
-                removeClasses(element, (animationPrefix + "\\S*"));
-            }
-
-        }); }
-    ));
-
-}
-
-var inProgress = new RegExp((animationPrefix + "(enter|leave)"));
-var Animation = {
-
-    in: function in$1(element, animation, duration, origin) {
-        return animate(element, animation, duration, origin, false);
-    },
-
-    out: function out(element, animation, duration, origin) {
-        return animate(element, animation, duration, origin, true);
-    },
-
-    inProgress: function inProgress$1(element) {
-        return inProgress.test(attr(element, 'class'));
-    },
-
-    cancel: function cancel(element) {
-        trigger(element, 'animationcancel');
-    }
-
-};
-
 function isInView(element, top, left) {
     if ( top === void 0 ) top = 0;
     if ( left === void 0 ) left = 0;
 
-    return intersectRect(toNode(element).getBoundingClientRect(), {
+
+    element = toNode(element);
+
+    var win = window$1(element);
+    return intersectRect(element.getBoundingClientRect(), {
         top: top,
         left: left,
         bottom: top + height(win),
@@ -991,11 +1796,13 @@ function scrolledOver(element) {
 
     element = toNode(element);
 
-    var elHeight = element.offsetHeight,
-        top = positionTop(element),
-        vp = height(win),
-        vh = vp + Math.min(0, top - vp),
-        diff = Math.max(0, vp - (height(doc) - (top + elHeight)));
+    var win = window$1(element);
+    var doc = document$1(element);
+    var elHeight = element.offsetHeight;
+    var top = positionTop(element);
+    var vp = height(win);
+    var vh = vp + Math.min(0, top - vp);
+    var diff = Math.max(0, vp - (height(doc) - (top + elHeight)));
 
     return clamp(((vh + win.pageYOffset - top) / ((vh + (elHeight - (diff < vp ? diff : 0))) / 100)) / 100);
 }
@@ -1007,858 +1814,21 @@ function positionTop(element) {
 
         top += element.offsetTop;
 
-    } while (element = element.offsetParent);
+    } while ((element = element.offsetParent));
 
     return top;
 }
 
-function getIndex(i, elements, current, finite) {
-    if ( current === void 0 ) current = 0;
-    if ( finite === void 0 ) finite = false;
-
-
-    elements = toNodes(elements);
-
-    var length = elements.length;
-
-    i = isNumeric(i)
-        ? toNumber(i)
-        : i === 'next'
-            ? current + 1
-            : i === 'previous'
-                ? current - 1
-                : index(elements, i);
-
-    if (finite) {
-        return clamp(i, 0, length - 1);
-    }
-
-    i %= length;
-
-    return i < 0 ? i + length : i;
-}
-
-var voidElements = {
-    area: true,
-    base: true,
-    br: true,
-    col: true,
-    embed: true,
-    hr: true,
-    img: true,
-    input: true,
-    keygen: true,
-    link: true,
-    menuitem: true,
-    meta: true,
-    param: true,
-    source: true,
-    track: true,
-    wbr: true
-};
-function isVoidElement(element) {
-    return voidElements[toNode(element).tagName.toLowerCase()];
-}
-
-var Dimensions = {
-
-    ratio: function ratio(dimensions, prop, value) {
-        var obj;
-
-
-        var aProp = prop === 'width' ? 'height' : 'width';
-
-        return ( obj = {}, obj[aProp] = Math.round(value * dimensions[aProp] / dimensions[prop]), obj[prop] = value, obj);
-    },
-
-    contain: function contain(dimensions, maxDimensions) {
-        var this$1 = this;
-
-        dimensions = assign({}, dimensions);
-
-        each(dimensions, function (_, prop) { return dimensions = dimensions[prop] > maxDimensions[prop]
-            ? this$1.ratio(dimensions, prop, maxDimensions[prop])
-            : dimensions; }
-        );
-
-        return dimensions;
-    },
-
-    cover: function cover(dimensions, maxDimensions) {
-        var this$1 = this;
-
-        dimensions = this.contain(dimensions, maxDimensions);
-
-        each(dimensions, function (_, prop) { return dimensions = dimensions[prop] < maxDimensions[prop]
-            ? this$1.ratio(dimensions, prop, maxDimensions[prop])
-            : dimensions; }
-        );
-
-        return dimensions;
-    }
-
-};
-
-function preventClick() {
-
-    var timer = setTimeout(once(doc, 'click', function (e) {
-
-        e.preventDefault();
-        e.stopImmediatePropagation();
-
-        clearTimeout(timer);
-
-    }, true));
-
-}
-
-function isVisible(element) {
-    return toNodes(element).some(function (element) { return element.offsetHeight || element.getBoundingClientRect().height; });
-}
-
-var selInput = 'input,select,textarea,button';
-function isInput(element) {
-    return toNodes(element).some(function (element) { return matches(element, selInput); });
-}
-
-function empty(element) {
-    element = toNode(element);
-    element.innerHTML = '';
-    return element;
-}
-
-function html(parent, html) {
-    parent = toNode(parent);
-    return isUndefined(html)
-        ? parent.innerHTML
-        : append(parent.hasChildNodes() ? empty(parent) : parent, html);
-}
-
-function prepend(parent, element) {
-
-    parent = toNode(parent);
-
-    if (!parent.hasChildNodes()) {
-        return append(parent, element);
-    } else {
-        return insertNodes(element, function (element) { return parent.insertBefore(element, parent.firstChild); });
-    }
-}
-
-function append(parent, element) {
-    parent = toNode(parent);
-    return insertNodes(element, function (element) { return parent.appendChild(element); });
-}
-
-function before(ref, element) {
-    ref = toNode(ref);
-    return insertNodes(element, function (element) { return ref.parentNode.insertBefore(element, ref); });
-}
-
-function after(ref, element) {
-    ref = toNode(ref);
-    return insertNodes(element, function (element) { return ref.nextSibling
-        ? before(ref.nextSibling, element)
-        : append(ref.parentNode, element); }
-    );
-}
-
-function insertNodes(element, fn) {
-    element = isString(element) ? fragment(element) : element;
-    return element
-        ? 'length' in element
-            ? toNodes(element).map(fn)
-            : fn(element)
-        : null;
-}
-
-function remove(element) {
-    toNodes(element).map(function (element) { return element.parentNode && element.parentNode.removeChild(element); });
-}
-
-function wrapAll(element, structure) {
-
-    structure = toNode(before(element, structure));
-
-    while (structure.firstChild) {
-        structure = structure.firstChild;
-    }
-
-    append(structure, element);
-
-    return structure;
-}
-
-function wrapInner(element, structure) {
-    return toNodes(toNodes(element).map(function (element) { return element.hasChildNodes ? wrapAll(toNodes(element.childNodes), structure) : append(element, structure); }
-    ));
-}
-
-function unwrap(element) {
-    toNodes(element)
-        .map(function (element) { return element.parentNode; })
-        .filter(function (value, index, self) { return self.indexOf(value) === index; })
-        .forEach(function (parent) {
-            before(parent, parent.childNodes);
-            remove(parent);
-        });
-}
-
-var fragmentRE = /^\s*<(\w+|!)[^>]*>/;
-var singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
-
-function fragment(html) {
-
-    var matches$$1;
-
-    if (matches$$1 = singleTagRE.exec(html)) {
-        return doc.createElement(matches$$1[1]);
-    }
-
-    var container = doc.createElement('div');
-    if (fragmentRE.test(html)) {
-        container.insertAdjacentHTML('beforeend', html.trim());
-    } else {
-        container.textContent = html;
-    }
-
-    return container.childNodes.length > 1 ? toNodes(container.childNodes) : container.firstChild;
-
-}
-
-function index(element, ref) {
-    return ref
-        ? toNodes(element).indexOf(toNode(ref))
-        : toNodes((element = toNode(element)) && element.parentNode.children).indexOf(element);
-}
-
-var arrayProto = Array.prototype;
-
-function $(selector, context) {
-    return !isString(selector)
-        ? toNode(selector)
-        : isHtml(selector)
-            ? toNode(fragment(selector))
-            : find(selector, context);
-}
-
-function $$(selector, context) {
-    return !isString(selector)
-        ? toNodes(selector)
-        : isHtml(selector)
-            ? toNodes(fragment(selector))
-            : findAll(selector, context);
-}
-
-function isHtml(str) {
-    return str[0] === '<' || str.match(/^\s*</);
-}
-
-function query(selector, context) {
-    return $(selector, isContextSelector(selector) ? context : doc);
-}
-
-function queryAll(selector, context) {
-    return $$(selector, isContextSelector(selector) ? context : doc);
-}
-
-function find(selector, context) {
-    return toNode(_query(selector, context, 'querySelector'));
-}
-
-function findAll(selector, context) {
-    return toNodes(_query(selector, context, 'querySelectorAll'));
-}
-
-function _query(selector, context, queryFn) {
-    if ( context === void 0 ) context = doc;
-
-
-    if (!selector || !isString(selector)) {
-        return null;
-    }
-
-    selector = selector.replace(contextSanitizeRe, '$1 *');
-
-    var removes;
-
-    if (isContextSelector(selector)) {
-
-        removes = [];
-
-        selector = selector.split(',').map(function (selector, i) {
-
-            var ctx = context;
-
-            selector = selector.trim();
-
-            if (selector[0] === '!') {
-
-                var selectors = selector.substr(1).trim().split(' ');
-                ctx = closest(context.parentNode, selectors[0]);
-                selector = selectors.slice(1).join(' ');
-
-            }
-
-            if (!ctx) {
-                return null;
-            }
-
-            if (!ctx.id) {
-                ctx.id = "uk-" + (Date.now()) + i;
-                removes.push(function () { return removeAttr(ctx, 'id'); });
-            }
-
-            return ("#" + (escape(ctx.id)) + " " + selector);
-
-        }).filter(Boolean).join(',');
-
-        context = doc;
-
-    }
-
-    try {
-
-        return context[queryFn](selector);
-
-    } catch (e) {
-
-        return null;
-
-    } finally {
-
-        removes && removes.forEach(function (remove$$1) { return remove$$1(); });
-
-    }
-
-}
-
-function filter(element, selector) {
-    return $$(element).filter(function (element) { return matches(element, selector); });
-}
-
-function within(element, selector) {
-    return !isString(selector)
-        ? element === selector || toNode(selector).contains(toNode(element))
-        : matches(element, selector) || closest(element, selector);
-}
-
-var contextSelectorRe = /(^|,)\s*[!>+~]/;
-var contextSanitizeRe = /([!>+~])(?=\s+[!>+~]|\s*$)/g;
-
-function isContextSelector(selector) {
-    return isString(selector) && selector.match(contextSelectorRe);
-}
-
-var elProto = Element.prototype;
-var matchesFn = elProto.matches || elProto.webkitMatchesSelector || elProto.msMatchesSelector;
-
-function matches(element, selector) {
-    return toNodes(element).some(function (element) { return matchesFn.call(element, selector); });
-}
-
-var closestFn = elProto.closest || function (selector) {
-    var ancestor = this;
-
-    do {
-
-        if (matches(ancestor, selector)) {
-            return ancestor;
-        }
-
-        ancestor = ancestor.parentNode;
-
-    } while (ancestor && ancestor.nodeType === 1);
-};
-
-function closest(element, selector) {
-
-    if (startsWith(selector, '>')) {
-        selector = selector.slice(1);
-    }
-
-    return isNode(element)
-        ? element.parentNode && closestFn.call(element, selector)
-        : toNodes(element).map(function (element) { return element.parentNode && closestFn.call(element, selector); }).filter(Boolean);
-}
-
-function parents(element, selector) {
-    var elements = [], parent = toNode(element).parentNode;
-
-    while (parent && parent.nodeType === 1) {
-
-        if (matches(parent, selector)) {
-            elements.push(parent);
-        }
-
-        parent = parent.parentNode;
-    }
-
-    return elements;
-}
-
-function isJQuery(obj) {
-    return isObject(obj) && !!obj.jquery;
-}
-
-function isNode(element) {
-    return element instanceof Node || isObject(element) && element.nodeType === 1;
+function window$1(element) {
+    return isWindow(element) ? element : document$1(element).defaultView;
 }
 
-function isNodeCollection(element) {
-    return element instanceof NodeList || element instanceof HTMLCollection;
+function document$1(element) {
+    return toNode(element).ownerDocument;
 }
-
-function toNode(element) {
-    return isNode(element) || isWindow(element) || isDocument(element)
-        ? element
-        : isNodeCollection(element) || isJQuery(element)
-            ? element[0]
-            : isArray(element)
-                ? toNode(element[0])
-                : null;
-}
-
-function toNodes(element) {
-    return isNode(element)
-        ? [element]
-        : isNodeCollection(element)
-            ? arrayProto.slice.call(element)
-            : isArray(element)
-                ? element.map(toNode).filter(Boolean)
-                : isJQuery(element)
-                    ? element.toArray()
-                    : [];
-}
-
-var escapeFn = win.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, function (match) { return ("\\" + match); }); };
-function escape(css) {
-    return isString(css) ? escapeFn.call(null, css) : '';
-}
-
-function on() {
-    var args = [], len = arguments.length;
-    while ( len-- ) args[ len ] = arguments[ len ];
-
-
-    var ref = getArgs(args);
-    var target = ref[0];
-    var type = ref[1];
-    var selector = ref[2];
-    var listener = ref[3];
-    var useCapture = ref[4];
-
-    target = toEventTarget(target);
-
-    if (selector) {
-        listener = delegate(target, selector, listener);
-    }
-
-    if (listener.length > 1) {
-        listener = detail(listener);
-    }
-
-    type.split(' ').forEach(function (type) { return target && target.addEventListener(type, listener, useCapture); });
-    return function () { return off(target, type, listener, useCapture); };
-}
-
-function off(target, type, listener, useCapture) {
-    if ( useCapture === void 0 ) useCapture = false;
-
-    target = toEventTarget(target);
-    target && type.split(' ').forEach(function (type) { return target.removeEventListener(type, listener, useCapture); });
-}
-
-function once() {
-    var args = [], len = arguments.length;
-    while ( len-- ) args[ len ] = arguments[ len ];
-
-
-    var ref = getArgs(args);
-    var element = ref[0];
-    var type = ref[1];
-    var selector = ref[2];
-    var listener = ref[3];
-    var useCapture = ref[4];
-    var condition = ref[5];
-    var off = on(element, type, selector, function (e) {
-            var result = !condition || condition(e);
-            if (result) {
-                off();
-                listener(e, result);
-            }
-        }, useCapture);
-
-    return off;
-}
-
-function trigger(target, event, detail) {
-    return toEventTargets(target).reduce(function (notCanceled, target) { return notCanceled && target.dispatchEvent(createEvent(event, true, true, detail)); }
-        , true);
-}
-
-function createEvent(e, bubbles, cancelable, detail) {
-    if ( bubbles === void 0 ) bubbles = true;
-    if ( cancelable === void 0 ) cancelable = false;
-
-    if (isString(e)) {
-        var event = doc.createEvent('CustomEvent'); // IE 11
-        event.initCustomEvent(e, bubbles, cancelable, detail);
-        e = event;
-    }
-
-    return e;
-}
-
-function getArgs(args) {
-
-    if (isString(args[0])) {
-        args[0] = $(args[0]);
-    }
-
-    if (isFunction(args[2])) {
-        args.splice(2, 0, false);
-    }
-    return args;
-}
-
-function delegate(element, selector, listener) {
-    var this$1 = this;
-
-    return function (e) {
-
-        var target = e.target,
-            current = selector[0] === '>'
-                ? $$(selector, element).reverse().filter(function (element) { return within(target, element); })[0]
-                : closest(target, selector);
-
-        if (current) {
-            e.delegate = element;
-            e.current = current;
-
-            listener.call(this$1, e);
-        }
-    };
-}
-
-function detail(listener) {
-    return function (e) { return isArray(e.detail) ? listener.apply(listener, [e].concat(e.detail)) : listener(e); };
-}
-
-function isEventTarget(target) {
-    return 'EventTarget' in win
-        ? target instanceof EventTarget
-        : target && 'addEventListener' in target;
-}
-
-function toEventTarget(target) {
-    return isEventTarget(target) ? target : toNode(target);
-}
-
-function toEventTargets(target) {
-    return isEventTarget(target)
-        ? [target]
-        : isArray(target)
-            ? target.map(toEventTarget).filter(Boolean)
-            : toNodes(target);
-}
-
-function bind(fn, context) {
-    return function (a) {
-        var l = arguments.length;
-        return l ? l > 1 ? fn.apply(context, arguments) : fn.call(context, a) : fn.call(context);
-    };
-}
-
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-function hasOwn(obj, key) {
-    return hasOwnProperty.call(obj, key);
-}
-
-var Promise$$1 = 'Promise' in window ? window.Promise : Promise$1;
-
-var Deferred = function Deferred() {
-    var this$1 = this;
-
-    this.promise = new Promise$$1(function (resolve, reject) {
-        this$1.reject = reject;
-        this$1.resolve = resolve;
-    });
-};
-
-var classifyRe = /(?:^|[-_\/])(\w)/g;
-
-function classify(str) {
-    return str.replace(classifyRe, function (_, c) { return c ? c.toUpperCase() : ''; });
-}
-
-var hyphenateRe = /([a-z\d])([A-Z])/g;
-
-function hyphenate(str) {
-    return str
-        .replace(hyphenateRe, '$1-$2')
-        .toLowerCase();
-}
-
-var camelizeRE = /-(\w)/g;
-
-function camelize(str) {
-    return str.replace(camelizeRE, toUpper);
-}
-
-function toUpper(_, c) {
-    return c ? c.toUpperCase() : '';
-}
-
-function ucfirst(str) {
-    return str.length ? toUpper(null, str.charAt(0)) + str.slice(1) : '';
-}
-
-var strPrototype = String.prototype;
-var startsWithFn = strPrototype.startsWith || function (search) { return this.lastIndexOf(search, 0) === 0; };
-
-function startsWith(str, search) {
-    return startsWithFn.call(str, search);
-}
-
-var endsWithFn = strPrototype.endsWith || function (search) { return this.substr(-search.length) === search; };
-
-function endsWith(str, search) {
-    return endsWithFn.call(str, search);
-}
-
-var includesFn = function (search) { return ~this.indexOf(search); };
-var includesStr = strPrototype.includes || includesFn;
-var includesArray = Array.prototype.includes || includesFn;
-
-function includes(obj, search) {
-    return obj && (isString(obj) ? includesStr : includesArray).call(obj, search);
-}
-
-var isArray = Array.isArray;
-
-function isFunction(obj) {
-    return typeof obj === 'function';
-}
-
-function isObject(obj) {
-    return obj !== null && typeof obj === 'object';
-}
-
-function isPlainObject(obj) {
-    return isObject(obj) && Object.getPrototypeOf(obj) === Object.prototype;
-}
-
-function isWindow(obj) {
-    return isObject(obj) && obj === obj.window;
-}
-
-function isDocument(obj) {
-    return isObject(obj) && obj.nodeType === 9;
-}
-
-function isBoolean(value) {
-    return typeof value === 'boolean';
-}
-
-function isString(value) {
-    return typeof value === 'string';
-}
-
-function isNumber(value) {
-    return typeof value === 'number';
-}
-
-function isNumeric(value) {
-    return isNumber(value) || isString(value) && !isNaN(value - parseFloat(value));
-}
-
-function isUndefined(value) {
-    return value === void 0;
-}
-
-function toBoolean(value) {
-    return isBoolean(value)
-        ? value
-        : value === 'true' || value === '1' || value === ''
-            ? true
-            : value === 'false' || value === '0'
-                ? false
-                : value;
-}
-
-function toNumber(value) {
-    var number = Number(value);
-    return !isNaN(number) ? number : false;
-}
-
-function toFloat(value) {
-    return parseFloat(value) || 0;
-}
-
-function toList(value) {
-    return isArray(value)
-        ? value
-        : isString(value)
-            ? value.split(/,(?![^(]*\))/).map(function (value) { return isNumeric(value)
-                ? toNumber(value)
-                : toBoolean(value.trim()); })
-            : [value];
-}
-
-var vars = {};
-
-function toMedia(value) {
-
-    if (isString(value)) {
-        if (value[0] === '@') {
-            var name = "media-" + (value.substr(1));
-            value = vars[name] || (vars[name] = toFloat(getCssVar(name)));
-        } else if (isNaN(value)) {
-            return value;
-        }
-    }
-
-    return value && !isNaN(value) ? ("(min-width: " + value + "px)") : false;
-}
-
-function coerce(type, value, context) {
-
-    if (type === Boolean) {
-        return toBoolean(value);
-    } else if (type === Number) {
-        return toNumber(value);
-    } else if (type === 'query') {
-        return query(value, context);
-    } else if (type === 'list') {
-        return toList(value);
-    } else if (type === 'media') {
-        return toMedia(value);
-    }
-
-    return type ? type(value) : value;
-}
-
-function toMs(time) {
-    return !time
-        ? 0
-        : endsWith(time, 'ms')
-            ? toFloat(time)
-            : toFloat(time) * 1000;
-}
-
-function swap(value, a, b) {
-    return value.replace(new RegExp((a + "|" + b), 'mg'), function (match) {
-        return match === a ? b : a;
-    });
-}
-
-var assign = Object.assign || function (target) {
-    var args = [], len = arguments.length - 1;
-    while ( len-- > 0 ) args[ len ] = arguments[ len + 1 ];
-
-    target = Object(target);
-    for (var i = 0; i < args.length; i++) {
-        var source = args[i];
-        if (source !== null) {
-            for (var key in source) {
-                if (hasOwn(source, key)) {
-                    target[key] = source[key];
-                }
-            }
-        }
-    }
-    return target;
-};
-
-function each(obj, cb) {
-    for (var key in obj) {
-        if (cb.call(obj[key], obj[key], key) === false) {
-            break;
-        }
-    }
-}
-
-function sortBy(collection, prop) {
-    return collection.sort(function (a, b) { return a[prop] > b[prop]
-            ? 1
-            : b[prop] > a[prop]
-                ? -1
-                : 0; }
-    );
-}
-
-function clamp(number, min, max) {
-    if ( min === void 0 ) min = 0;
-    if ( max === void 0 ) max = 1;
-
-    return Math.min(Math.max(number, min), max);
-}
-
-function noop() {}
-
-function intersectRect(r1, r2) {
-    return r1.left <= r2.right &&
-        r2.left <= r1.right &&
-        r1.top <= r2.bottom &&
-        r2.top <= r1.bottom;
-}
-
-function pointInRect(point, rect) {
-    return intersectRect({top: point.y, bottom: point.y, left: point.x, right: point.x}, rect);
-}
-
-function ajax(url, options) {
-    return new Promise$$1(function (resolve, reject) {
-
-        var env = assign({
-            data: null,
-            method: 'GET',
-            headers: {},
-            xhr: new XMLHttpRequest(),
-            beforeSend: noop,
-            responseType: ''
-        }, options);
-
-        var xhr = env.xhr;
-
-        env.beforeSend(env);
-
-        for (var prop in env) {
-            if (prop in xhr) {
-                try {
-
-                    xhr[prop] = env[prop];
-
-                } catch (e) {}
-            }
-        }
-
-        xhr.open(env.method.toUpperCase(), url);
-
-        for (var header in env.headers) {
-            xhr.setRequestHeader(header, env.headers[header]);
-        }
-
-        on(xhr, 'load', function () {
-
-            if (xhr.status === 0 || xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
-                resolve(xhr);
-            } else {
-                reject(assign(Error(xhr.statusText), {
-                    xhr: xhr,
-                    status: xhr.status
-                }));
-            }
-
-        });
-
-        on(xhr, 'error', function () { return reject(assign(Error('Network Error'), {xhr: xhr})); });
-        on(xhr, 'timeout', function () { return reject(assign(Error('Network Timeout'), {xhr: xhr})); });
 
-        xhr.send(env.data);
-    });
+function docEl$1(element) {
+    return document$1(element).documentElement;
 }
 
 /*
@@ -1906,13 +1876,13 @@ var fastdom = {
 function scheduleFlush() {
     if (!fastdom.scheduled) {
         fastdom.scheduled = true;
-        requestAnimationFrame$1(fastdom.flush.bind(fastdom));
+        requestAnimationFrame(fastdom.flush.bind(fastdom));
     }
 }
 
 function runTasks(tasks) {
     var task;
-    while (task = tasks.shift()) {
+    while ((task = tasks.shift())) {
         task();
     }
 }
@@ -1945,7 +1915,10 @@ MouseTracker.prototype = {
 
             setTimeout(function () {
 
-                var time = Date.now(), length = this$1.positions.length;
+                var time = Date.now();
+                var ref = this$1.positions;
+                var length = ref.length;
+
                 if (length && (time - this$1.positions[length - 1].time > 100)) {
                     this$1.positions.splice(0, length);
                 }
@@ -1976,9 +1949,10 @@ MouseTracker.prototype = {
             return false;
         }
 
-        var p = offset(target),
-            position$$1 = this.positions[this.positions.length - 1],
-            prevPos = this.positions[0];
+        var p = offset(target);
+        var position$$1 = this.positions[this.positions.length - 1];
+        var ref = this.positions;
+        var prevPos = ref[0];
 
         if (p.left <= position$$1.x && position$$1.x <= p.right && p.top <= position$$1.y && position$$1.y <= p.bottom) {
             return false;
@@ -1990,7 +1964,7 @@ MouseTracker.prototype = {
         ];
 
         if (p.right <= position$$1.x) {
-
+            // empty
         } else if (p.left >= position$$1.x) {
             points[0].reverse();
             points[1].reverse();
@@ -2072,7 +2046,7 @@ var defaultStrat = function (parentVal, childVal) {
 
 function mergeOptions(parent, child) {
 
-    var options = {}, key;
+    var options = {};
 
     if (child.mixins) {
         for (var i = 0, l = child.mixins.length; i < l; i++) {
@@ -2080,13 +2054,13 @@ function mergeOptions(parent, child) {
         }
     }
 
-    for (key in parent) {
+    for (var key in parent) {
         mergeKey(key);
     }
 
-    for (key in child) {
-        if (!hasOwn(parent, key)) {
-            mergeKey(key);
+    for (var key$1 in child) {
+        if (!hasOwn(parent, key$1)) {
+            mergeKey(key$1);
         }
     }
 
@@ -2132,11 +2106,14 @@ Player.prototype.enableApi = function enableApi () {
         return this.ready;
     }
 
-    var youtube = this.isYoutube(), vimeo = this.isVimeo(), poller;
+    var youtube = this.isYoutube();
+    var vimeo = this.isVimeo();
+
+    var poller;
 
     if (youtube || vimeo) {
 
-        return this.ready = new Promise$1(function (resolve) {
+        return this.ready = new Promise(function (resolve) {
 
             once(this$1.el, 'load', function () {
                 if (youtube) {
@@ -2158,7 +2135,7 @@ Player.prototype.enableApi = function enableApi () {
 
     }
 
-    return Promise$1.resolve();
+    return Promise.resolve();
 
 };
 
@@ -2219,7 +2196,7 @@ function post(el, cmd) {
 
 function listen(cb) {
 
-    return new Promise$1(function (resolve) {
+    return new Promise(function (resolve) {
 
         once(win, 'message', function (_, data$$1) { return resolve(data$$1); }, false, function (ref) {
             var data$$1 = ref.data;
@@ -2281,8 +2258,8 @@ ready(function () {
         var ref = getPos$1(e);
         var x = ref.x;
         var y = ref.y;
-        var now = Date.now(),
-            type = getType(e.type);
+        var now = Date.now();
+        var type = getType(e.type);
 
         if (touch.type && touch.type !== type) {
             return;
@@ -2308,12 +2285,17 @@ ready(function () {
 
     on(doc, pointerMove, function (e) {
 
+        if (e.defaultPrevented) {
+            return;
+        }
+
         var ref = getPos$1(e);
         var x = ref.x;
         var y = ref.y;
 
         touch.x2 = x;
         touch.y2 = y;
+
     });
 
     on(doc, pointerUp, function (ref) {
@@ -2355,10 +2337,12 @@ ready(function () {
         } else {
             touch = {};
         }
+
     });
 
     on(doc, 'touchcancel', cancelAll);
     on(win, 'scroll', cancelAll);
+
 });
 
 var touching = false;
@@ -2373,10 +2357,10 @@ function isTouch(e) {
 function getPos$1(e) {
     var touches = e.touches;
     var changedTouches = e.changedTouches;
-    
     var ref = touches && touches[0] || changedTouches && changedTouches[0] || e;
     var x = ref.pageX;
     var y = ref.pageY;
+
     return {x: x, y: y};
 }
 
@@ -2387,78 +2371,36 @@ function getType(type) {
 
 
 var util = Object.freeze({
-	bind: bind,
-	hasOwn: hasOwn,
-	Promise: Promise$$1,
-	Deferred: Deferred,
-	classify: classify,
-	hyphenate: hyphenate,
-	camelize: camelize,
-	ucfirst: ucfirst,
-	startsWith: startsWith,
-	endsWith: endsWith,
-	includes: includes,
-	isArray: isArray,
-	isFunction: isFunction,
-	isObject: isObject,
-	isPlainObject: isPlainObject,
-	isWindow: isWindow,
-	isDocument: isDocument,
-	isBoolean: isBoolean,
-	isString: isString,
-	isNumber: isNumber,
-	isNumeric: isNumeric,
-	isUndefined: isUndefined,
-	toBoolean: toBoolean,
-	toNumber: toNumber,
-	toFloat: toFloat,
-	toList: toList,
-	toMedia: toMedia,
-	coerce: coerce,
-	toMs: toMs,
-	swap: swap,
-	assign: assign,
-	each: each,
-	sortBy: sortBy,
-	clamp: clamp,
-	noop: noop,
-	intersectRect: intersectRect,
-	pointInRect: pointInRect,
 	ajax: ajax,
-	$: $,
-	$$: $$,
-	query: query,
-	queryAll: queryAll,
-	filter: filter,
-	within: within,
-	matches: matches,
-	closest: closest,
-	parents: parents,
-	isJQuery: isJQuery,
-	toNode: toNode,
-	toNodes: toNodes,
-	escape: escape,
+	transition: transition,
+	Transition: Transition,
+	animate: animate,
+	Animation: Animation,
 	attr: attr,
 	hasAttr: hasAttr,
 	removeAttr: removeAttr,
 	filterAttr: filterAttr,
 	data: data,
-	isRtl: isRtl,
-	isReady: isReady,
-	ready: ready,
-	transition: transition,
-	Transition: Transition,
-	animate: animate,
-	Animation: Animation,
+	addClass: addClass,
+	removeClass: removeClass,
+	removeClasses: removeClasses,
+	replaceClass: replaceClass,
+	hasClass: hasClass,
+	toggleClass: toggleClass,
+	$: $,
+	$$: $$,
+	positionAt: positionAt,
+	offset: offset,
+	position: position,
+	height: height,
+	width: width,
+	flipPosition: flipPosition,
 	isInView: isInView,
 	scrolledOver: scrolledOver,
+	isReady: isReady,
+	ready: ready,
+	index: index,
 	getIndex: getIndex,
-	isVoidElement: isVoidElement,
-	Dimensions: Dimensions,
-	preventClick: preventClick,
-	isVisible: isVisible,
-	selInput: selInput,
-	isInput: isInput,
 	empty: empty,
 	html: html,
 	prepend: prepend,
@@ -2470,23 +2412,11 @@ var util = Object.freeze({
 	wrapInner: wrapInner,
 	unwrap: unwrap,
 	fragment: fragment,
-	index: index,
-	css: css,
-	getStyles: getStyles,
-	getStyle: getStyle,
-	getCssVar: getCssVar,
-	propName: propName,
-	addClass: addClass,
-	removeClass: removeClass,
-	removeClasses: removeClasses,
-	replaceClass: replaceClass,
-	hasClass: hasClass,
-	toggleClass: toggleClass,
 	win: win,
 	doc: doc,
 	docEl: docEl,
+	isRtl: isRtl,
 	Observer: Observer,
-	requestAnimationFrame: requestAnimationFrame$1,
 	hasTouch: hasTouch,
 	pointerDown: pointerDown,
 	pointerMove: pointerMove,
@@ -2501,16 +2431,70 @@ var util = Object.freeze({
 	trigger: trigger,
 	createEvent: createEvent,
 	toEventTargets: toEventTargets,
+	preventClick: preventClick,
 	fastdom: fastdom,
+	isVoidElement: isVoidElement,
+	isVisible: isVisible,
+	selInput: selInput,
+	isInput: isInput,
+	filter: filter,
+	within: within,
+	bind: bind,
+	hasOwn: hasOwn,
+	hyphenate: hyphenate,
+	camelize: camelize,
+	ucfirst: ucfirst,
+	startsWith: startsWith,
+	endsWith: endsWith,
+	includes: includes,
+	isArray: isArray,
+	isFunction: isFunction,
+	isObject: isObject,
+	isPlainObject: isPlainObject,
+	isWindow: isWindow,
+	isDocument: isDocument,
+	isJQuery: isJQuery,
+	isNode: isNode,
+	isNodeCollection: isNodeCollection,
+	isBoolean: isBoolean,
+	isString: isString,
+	isNumber: isNumber,
+	isNumeric: isNumeric,
+	isUndefined: isUndefined,
+	toBoolean: toBoolean,
+	toNumber: toNumber,
+	toFloat: toFloat,
+	toNode: toNode,
+	toNodes: toNodes,
+	toList: toList,
+	toMs: toMs,
+	swap: swap,
+	assign: assign,
+	each: each,
+	sortBy: sortBy,
+	clamp: clamp,
+	noop: noop,
+	intersectRect: intersectRect,
+	pointInRect: pointInRect,
+	Dimensions: Dimensions,
 	MouseTracker: MouseTracker,
 	mergeOptions: mergeOptions,
 	Player: Player,
-	positionAt: positionAt,
-	offset: offset,
-	position: position,
-	height: height,
-	width: width,
-	flipPosition: flipPosition,
+	Promise: Promise,
+	Deferred: Deferred,
+	query: query,
+	queryAll: queryAll,
+	find: find,
+	findAll: findAll,
+	matches: matches,
+	closest: closest,
+	parents: parents,
+	escape: escape,
+	css: css,
+	getStyles: getStyles,
+	getStyle: getStyle,
+	getCssVar: getCssVar,
+	propName: propName,
 	isTouch: isTouch,
 	getPos: getPos$1
 });
@@ -2576,20 +2560,18 @@ function componentAPI (UIkit) {
 
     UIkit.connect = function (node) {
 
-        var name;
-
         if (node[DATA]) {
-            for (name in node[DATA]) {
+            for (var name in node[DATA]) {
                 node[DATA][name]._callConnected();
             }
         }
 
         for (var i = 0; i < node.attributes.length; i++) {
 
-            name = getComponentName(node.attributes[i].name);
+            var name$1 = getComponentName(node.attributes[i].name);
 
-            if (name && name in UIkit.components) {
-                UIkit[name](node);
+            if (name$1 && name$1 in UIkit.components) {
+                UIkit[name$1](node);
             }
 
         }
@@ -2661,7 +2643,7 @@ function boot (UIkit) {
             ? applyChildList(mutation)
             : applyAttribute(mutation);
 
-        update && UIkit.update(createEvent('update', true, false, {mutation: true}), target, true);
+        update && UIkit.update('update', target, true);
 
     }
 
@@ -2699,14 +2681,12 @@ function boot (UIkit) {
         var removedNodes = ref.removedNodes;
 
 
-        var i;
-
-        for (i = 0; i < addedNodes.length; i++) {
+        for (var i = 0; i < addedNodes.length; i++) {
             apply(addedNodes[i], connect);
         }
 
-        for (i = 0; i < removedNodes.length; i++) {
-            apply(removedNodes[i], disconnect);
+        for (var i$1 = 0; i$1 < removedNodes.length; i$1++) {
+            apply(removedNodes[i$1], disconnect);
         }
 
         return true;
@@ -2937,9 +2917,8 @@ function hooksAPI (UIkit) {
         e = createEvent(e || 'update');
 
         var type = e.type;
-        var detail = e.detail;
 
-        if (type === 'update' && detail && detail.mutation) {
+        if (includes(['update', 'load', 'resize'], type)) {
             this._resetComputeds();
         }
 
@@ -3056,7 +3035,8 @@ function stateAPI (UIkit) {
         var this$1 = this;
 
 
-        var methods = this.$options.methods;
+        var ref = this.$options;
+        var methods = ref.methods;
 
         if (methods) {
             for (var key in methods) {
@@ -3069,7 +3049,8 @@ function stateAPI (UIkit) {
         var this$1 = this;
 
 
-        var computed = this.$options.computed;
+        var ref = this.$options;
+        var computed = ref.computed;
 
         this._resetComputeds();
 
@@ -3112,7 +3093,8 @@ function stateAPI (UIkit) {
         var this$1 = this;
 
 
-        var events = this.$options.events;
+        var ref = this.$options;
+        var events = ref.events;
 
         if (events) {
 
@@ -3167,14 +3149,13 @@ function stateAPI (UIkit) {
         var args = opts.args; if ( args === void 0 ) args = [];
         var props = opts.props; if ( props === void 0 ) props = {};
         var el = opts.el;
-        var key, prop;
 
         if (!props) {
             return data$$1;
         }
 
-        for (key in props) {
-            prop = hyphenate(key);
+        for (var key in props) {
+            var prop = hyphenate(key);
             if (hasAttr(el, prop)) {
 
                 var value = coerce(props[key], attr(el, prop), el);
@@ -3189,10 +3170,10 @@ function stateAPI (UIkit) {
 
         var options = parseOptions(data(el, name), args);
 
-        for (key in options) {
-            prop = camelize(key);
-            if (props[prop] !== undefined) {
-                data$$1[prop] = coerce(props[prop], options[key], el);
+        for (var key$1 in options) {
+            var prop$1 = camelize(key$1);
+            if (props[prop$1] !== undefined) {
+                data$$1[prop$1] = coerce(props[prop$1], options[key$1], el);
             }
         }
 
@@ -3317,6 +3298,37 @@ function stateAPI (UIkit) {
         return function (e) { return isArray(e.detail) ? listener.apply(void 0, [e].concat(e.detail)) : listener(e); };
     }
 
+    function coerce(type, value, context) {
+
+        if (type === Boolean) {
+            return toBoolean(value);
+        } else if (type === Number) {
+            return toNumber(value);
+        } else if (type === 'query') {
+            return query(value, context);
+        } else if (type === 'list') {
+            return toList(value);
+        } else if (type === 'media') {
+            return toMedia(value);
+        }
+
+        return type ? type(value) : value;
+    }
+
+    function toMedia(value) {
+
+        if (isString(value)) {
+            if (value[0] === '@') {
+                var name = "media-" + (value.substr(1));
+                value = toFloat(getCssVar(name));
+            } else if (isNaN(value)) {
+                return value;
+            }
+        }
+
+        return value && !isNaN(value) ? ("(min-width: " + value + "px)") : false;
+    }
+
 }
 
 function instanceAPI (UIkit) {
@@ -3325,7 +3337,8 @@ function instanceAPI (UIkit) {
 
     UIkit.prototype.$mount = function (el) {
 
-        var name = this.$options.name;
+        var ref = this.$options;
+        var name = ref.name;
 
         if (!el[DATA]) {
             el[DATA] = {};
@@ -3500,14 +3513,15 @@ var Togglable = {
         toggleElement: function toggleElement(targets, show, animate) {
             var this$1 = this;
 
-            return new Promise$$1(function (resolve) {
+            return new Promise(function (resolve) {
 
                 targets = toNodes(targets);
 
-                var all = function (targets) { return Promise$$1.all(targets.map(function (el) { return this$1._toggleElement(el, show, animate); })); },
-                    toggled = targets.filter(function (el) { return this$1.isToggled(el); }),
-                    untoggled = targets.filter(function (el) { return !includes(toggled, el); }),
-                    p;
+                var all = function (targets) { return Promise.all(targets.map(function (el) { return this$1._toggleElement(el, show, animate); })); };
+                var toggled = targets.filter(function (el) { return this$1.isToggled(el); });
+                var untoggled = targets.filter(function (el) { return !includes(toggled, el); });
+
+                var p;
 
                 if (!this$1.queued || !isUndefined(animate) || !isUndefined(show) || !this$1.hasAnimation || targets.length < 2) {
 
@@ -3515,10 +3529,10 @@ var Togglable = {
 
                 } else {
 
-                    var body = doc.body,
-                        scroll = body.scrollTop,
-                        el = toggled[0],
-                        inProgress = Animation.inProgress(el) && hasClass(el, 'uk-animation-leave')
+                    var body = doc.body;
+                    var scroll = body.scrollTop;
+                    var el = toggled[0];
+                    var inProgress = Animation.inProgress(el) && hasClass(el, 'uk-animation-leave')
                             || Transition.inProgress(el) && el.style.height === '0px';
 
                     p = all(toggled);
@@ -3541,7 +3555,7 @@ var Togglable = {
         toggleNow: function toggleNow(targets, show) {
             var this$1 = this;
 
-            return new Promise$$1(function (resolve) { return Promise$$1.all(toNodes(targets).map(function (el) { return this$1._toggleElement(el, show, false); })).then(resolve, noop); });
+            return new Promise(function (resolve) { return Promise.all(toNodes(targets).map(function (el) { return this$1._toggleElement(el, show, false); })).then(resolve, noop); });
         },
 
         isToggled: function isToggled(el) {
@@ -3570,7 +3584,7 @@ var Togglable = {
                         : !this.isToggled(el);
 
             if (!trigger(el, ("before" + (show ? 'show' : 'hide')), [this])) {
-                return Promise$$1.reject();
+                return Promise.reject();
             }
 
             var promise = (animate === false || !this.hasAnimation
@@ -3608,17 +3622,16 @@ var Togglable = {
 
         _toggleImmediate: function _toggleImmediate(el, show) {
             this._toggle(el, show);
-            return Promise$$1.resolve();
+            return Promise.resolve();
         },
 
         _toggleHeight: function _toggleHeight(el, show) {
             var this$1 = this;
 
 
-            var inProgress = Transition.inProgress(el),
-                inner = el.hasChildNodes ? toFloat(css(el.firstElementChild, 'marginTop')) + toFloat(css(el.lastElementChild, 'marginBottom')) : 0,
-                currentHeight = isVisible(el) ? height(el) + (inProgress ? 0 : inner) : 0,
-                endHeight;
+            var inProgress = Transition.inProgress(el);
+            var inner = el.hasChildNodes ? toFloat(css(el.firstElementChild, 'marginTop')) + toFloat(css(el.lastElementChild, 'marginBottom')) : 0;
+            var currentHeight = isVisible(el) ? height(el) + (inProgress ? 0 : inner) : 0;
 
             Transition.cancel(el);
 
@@ -3631,7 +3644,7 @@ var Togglable = {
             // Update child components first
             fastdom.flush();
 
-            endHeight = height(el) + (inProgress ? 0 : inner);
+            var endHeight = height(el) + (inProgress ? 0 : inner);
             height(el, currentHeight);
 
             return (show
@@ -3807,7 +3820,9 @@ var Modal = {
                 var this$1 = this;
 
 
-                var found, prev = this.prev;
+                var found;
+                var ref = this;
+                var prev = ref.prev;
 
                 while (prev) {
 
@@ -3865,7 +3880,7 @@ var Modal = {
         _toggleImmediate: function _toggleImmediate(el, show) {
             var this$1 = this;
 
-            return new Promise$$1(function (resolve) { return requestAnimationFrame$1(function () {
+            return new Promise(function (resolve) { return requestAnimationFrame(function () {
                     this$1._toggle(el, show);
 
                     if (this$1.transitionDuration) {
@@ -3950,14 +3965,12 @@ var Position = {
 
         positionAt: function positionAt$1(element, target, boundary) {
 
-            this._resetComputeds();
-
             removeClasses(element, ((this.clsPos) + "-(top|bottom|left|right)(-[a-z]+)?"));
             css(element, {top: '', left: ''});
 
-            var node,
-                offset$$1 = this.offset,
-                axis = this.getAxis();
+            var node;
+            var ref = this;
+            var offset$$1 = ref.offset;
 
             offset$$1 = isNumeric(offset$$1)
                 ? offset$$1
@@ -3965,7 +3978,8 @@ var Position = {
                     ? offset(node)[axis === 'x' ? 'left' : 'top'] - offset(target)[axis === 'x' ? 'right' : 'bottom']
                     : 0;
 
-            var ref = positionAt(
+            var axis = this.getAxis();
+            var ref$1 = positionAt(
                 element,
                 target,
                 axis === 'x' ? ((flipPosition(this.dir)) + " " + (this.align)) : ((this.align) + " " + (flipPosition(this.dir))),
@@ -3975,8 +3989,8 @@ var Position = {
                 this.flip,
                 boundary
             ).target;
-            var x = ref.x;
-            var y = ref.y;
+            var x = ref$1.x;
+            var y = ref$1.y;
 
             this.dir = axis === 'x' ? x : y;
             this.align = axis === 'x' ? y : x;
@@ -4090,8 +4104,8 @@ function Accordion (UIkit) {
                 var this$1 = this;
 
 
-                var index = getIndex(item, this.items),
-                    active = filter(this.items, ("." + (this.clsOpen)));
+                var index = getIndex(item, this.items);
+                var active = filter(this.items, ("." + (this.clsOpen)));
 
                 item = this.items[index];
 
@@ -4099,7 +4113,8 @@ function Accordion (UIkit) {
                     .concat(!this.multiple && !includes(active, item) && active || [])
                     .forEach(function (el) {
 
-                        var isItem = el === item, state = isItem && !hasClass(el, this$1.clsOpen);
+                        var isItem = el === item;
+                        var state = isItem && !hasClass(el, this$1.clsOpen);
 
                         if (!state && isItem && !this$1.collapsible && active.length < 2) {
                             return;
@@ -4194,7 +4209,8 @@ function Core (UIkit) {
 
     ready(function () {
 
-        var scroll = 0, started = 0;
+        var scroll = 0;
+        var started = 0;
 
         on(win, 'load resize', UIkit.update);
         on(win, 'scroll', function (e) {
@@ -4364,8 +4380,12 @@ function Drop (UIkit) {
 
         connected: function connected() {
 
-            var toggle = this.$props.toggle;
-            this.toggle = toggle && UIkit.toggle(isString(toggle) ? query(toggle, this.$el) : this.$el.previousElementSibling, {target: this.$el, mode: this.mode});
+            var ref = this.$props;
+            var toggle = ref.toggle;
+            this.toggle = toggle && UIkit.toggle(isString(toggle) ? query(toggle, this.$el) : this.$el.previousElementSibling, {
+                target: this.$el,
+                mode: this.mode
+            });
 
             this.updateAria(this.$el);
 
@@ -4595,44 +4615,44 @@ function Drop (UIkit) {
                 if ( delay === void 0 ) delay = true;
 
 
-                var show = function () { return !this$1.isToggled() && this$1.toggleElement(this$1.$el, true); },
-                    tryShow = function () {
+                var show = function () { return !this$1.isToggled() && this$1.toggleElement(this$1.$el, true); };
+                var tryShow = function () {
 
-                        this$1.toggle = toggle || this$1.toggle;
+                    this$1.toggle = toggle || this$1.toggle;
 
-                        this$1.clearTimers();
+                    this$1.clearTimers();
 
-                        if (this$1.isActive()) {
-                            return;
-                        } else if (delay && active && active !== this$1 && active.isDelaying) {
-                            this$1.showTimer = setTimeout(this$1.show, 10);
-                            return;
-                        } else if (this$1.isParentOf(active)) {
+                    if (this$1.isActive()) {
+                        return;
+                    } else if (delay && active && active !== this$1 && active.isDelaying) {
+                        this$1.showTimer = setTimeout(this$1.show, 10);
+                        return;
+                    } else if (this$1.isParentOf(active)) {
 
-                            if (active.hideTimer) {
-                                active.hide(false);
-                            } else {
-                                return;
-                            }
-
-                        } else if (active && !this$1.isChildOf(active) && !this$1.isParentOf(active)) {
-
-                            var prev;
-                            while (active && active !== prev && !this$1.isChildOf(active)) {
-                                prev = active;
-                                active.hide(false);
-                            }
-
-                        }
-
-                        if (delay && this$1.delayShow) {
-                            this$1.showTimer = setTimeout(show, this$1.delayShow);
+                        if (active.hideTimer) {
+                            active.hide(false);
                         } else {
-                            show();
+                            return;
                         }
 
-                        active = this$1;
-                    };
+                    } else if (active && !this$1.isChildOf(active) && !this$1.isParentOf(active)) {
+
+                        var prev;
+                        while (active && active !== prev && !this$1.isChildOf(active)) {
+                            prev = active;
+                            active.hide(false);
+                        }
+
+                    }
+
+                    if (delay && this$1.delayShow) {
+                        this$1.showTimer = setTimeout(show, this$1.delayShow);
+                    } else {
+                        show();
+                    }
+
+                    active = this$1;
+                };
 
                 if (toggle && this.toggle && toggle.$el !== this.toggle.$el) {
 
@@ -4690,8 +4710,8 @@ function Drop (UIkit) {
                 css(this.$el, {top: '', left: '', display: 'block'});
                 toggleClass(this.$el, ((this.clsDrop) + "-boundary"), this.boundaryAlign);
 
-                var boundary = offset(this.boundary),
-                    alignTo = this.boundaryAlign ? boundary : offset(this.toggle.$el);
+                var boundary = offset(this.boundary);
+                var alignTo = this.boundaryAlign ? boundary : offset(this.toggle.$el);
 
                 if (this.align === 'justify') {
                     var prop = this.getAxis() === 'y' ? 'width' : 'height';
@@ -4783,8 +4803,24 @@ function FormCustom (UIkit) {
 
         },
 
-        connected: function connected() {
-            trigger(this.input, 'change');
+        update: function update() {
+
+            var ref = this;
+            var target = ref.target;
+            var input = ref.input;
+
+            if (!target) {
+                return;
+            }
+
+            var option;
+
+            target[isInput(target) ? 'value' : 'textContent'] = input.files && input.files[0]
+                ? input.files[0].name
+                : matches(input, 'select') && (option = $$('option', input).filter(function (el) { return el.selected; })[0])
+                    ? option.textContent
+                    : input.value;
+
         },
 
         events: [
@@ -4815,18 +4851,7 @@ function FormCustom (UIkit) {
                 name: 'change',
 
                 handler: function handler() {
-
-                    var target = this.target, input = this.input, option;
-
-                    if (!target) {
-                        return;
-                    }
-
-                    target[isInput(target) ? 'value' : 'textContent'] = input.files && input.files[0]
-                        ? input.files[0].name
-                        : matches(input, 'select') && (option = $$('option', input).filter(function (el) { return el.selected; })[0])
-                            ? option.textContent
-                            : input.value;
+                    this.$emit();
                 }
 
             }
@@ -4977,7 +5002,8 @@ function HeightMatch (UIkit) {
                     return {};
                 }
 
-                var max = 0, heights = [];
+                var heights = [];
+                var max = 0;
 
                 elements
                     .forEach(function (el) {
@@ -5037,7 +5063,8 @@ function HeightViewport (UIkit) {
 
                 css(this.$el, 'boxSizing', 'border-box');
 
-                var viewport = height(win), minHeight, offsetTop = 0;
+                var viewport = height(win);
+                var minHeight, offsetTop = 0;
 
                 if (this.expand) {
 
@@ -5051,7 +5078,8 @@ function HeightViewport (UIkit) {
 
                 } else {
 
-                    var top = offset(this.$el).top;
+                    var ref = offset(this.$el);
+                    var top = ref.top;
 
                     if (top < viewport / 2 && this.offsetTop) {
                         offsetTop += top;
@@ -5144,25 +5172,25 @@ var totop = "<svg width=\"18\" height=\"10\" viewBox=\"0 0 18 10\" xmlns=\"http:
 
 function Icon (UIkit) {
 
-    var parsed = {},
-        icons = {
-            spinner: spinner,
-            totop: totop,
-            marker: marker,
-            'close-icon': closeIcon,
-            'close-large': closeLarge,
-            'navbar-toggle-icon': navbarToggleIcon,
-            'overlay-icon': overlayIcon,
-            'pagination-next': paginationNext,
-            'pagination-previous': paginationPrevious,
-            'search-icon': searchIcon,
-            'search-large': searchLarge,
-            'search-navbar': searchNavbar,
-            'slidenav-next': slidenavNext,
-            'slidenav-next-large': slidenavNextLarge,
-            'slidenav-previous': slidenavPrevious,
-            'slidenav-previous-large': slidenavPreviousLarge
-        };
+    var parsed = {};
+    var icons = {
+        spinner: spinner,
+        totop: totop,
+        marker: marker,
+        'close-icon': closeIcon,
+        'close-large': closeLarge,
+        'navbar-toggle-icon': navbarToggleIcon,
+        'overlay-icon': overlayIcon,
+        'pagination-next': paginationNext,
+        'pagination-previous': paginationPrevious,
+        'search-icon': searchIcon,
+        'search-large': searchLarge,
+        'search-navbar': searchNavbar,
+        'slidenav-next': slidenavNext,
+        'slidenav-next-large': slidenavNextLarge,
+        'slidenav-previous': slidenavPrevious,
+        'slidenav-previous-large': slidenavPreviousLarge
+    };
 
     UIkit.component('icon', UIkit.components.svg.extend({
 
@@ -5193,10 +5221,10 @@ function Icon (UIkit) {
                 var icon = getIcon(this.icon);
 
                 if (!icon) {
-                    return Promise$$1.reject('Icon not found.');
+                    return Promise.reject('Icon not found.');
                 }
 
-                return Promise$$1.resolve(icon);
+                return Promise.resolve(icon);
             }
 
         }
@@ -5332,7 +5360,8 @@ function Leader (UIkit) {
         },
 
         connected: function connected() {
-            this.wrapper = wrapInner(this.$el, ("<span class=\"" + (this.clsWrapper) + "\">"))[0];
+            var assign;
+            (assign = wrapInner(this.$el, ("<span class=\"" + (this.clsWrapper) + "\">")), this.wrapper = assign[0]);
         },
 
         disconnected: function disconnected() {
@@ -5408,8 +5437,8 @@ function Margin (UIkit) {
 
                 for (var i = 0; i < items.length; i++) {
 
-                    var el = items[i],
-                        dim = el.getBoundingClientRect();
+                    var el = items[i];
+                    var dim = el.getBoundingClientRect();
 
                     if (!dim.height) {
                         continue;
@@ -5590,7 +5619,7 @@ function Modal$1 (UIkit) {
 
         options = assign({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
 
-        return new Promise$$1(
+        return new Promise(
             function (resolve) { return on(UIkit.modal.dialog((" <div class=\"uk-modal-body\">" + (isString(message) ? message : html(message)) + "</div> <div class=\"uk-modal-footer uk-text-right\"> <button class=\"uk-button uk-button-primary uk-modal-close\" autofocus>" + (options.labels.ok) + "</button> </div> "), options).$el, 'hide', resolve); }
         );
     };
@@ -5599,10 +5628,11 @@ function Modal$1 (UIkit) {
 
         options = assign({bgClose: false, escClose: true, labels: UIkit.modal.labels}, options);
 
-        return new Promise$$1(function (resolve, reject) {
+        return new Promise(function (resolve, reject) {
 
-            var resolved = false,
-                confirm = UIkit.modal.dialog((" <form> <div class=\"uk-modal-body\">" + (isString(message) ? message : html(message)) + "</div> <div class=\"uk-modal-footer uk-text-right\"> <button class=\"uk-button uk-button-default uk-modal-close\" type=\"button\">" + (options.labels.cancel) + "</button> <button class=\"uk-button uk-button-primary\" autofocus>" + (options.labels.ok) + "</button> </div> </form> "), options);
+            var confirm = UIkit.modal.dialog((" <form> <div class=\"uk-modal-body\">" + (isString(message) ? message : html(message)) + "</div> <div class=\"uk-modal-footer uk-text-right\"> <button class=\"uk-button uk-button-default uk-modal-close\" type=\"button\">" + (options.labels.cancel) + "</button> <button class=\"uk-button uk-button-primary\" autofocus>" + (options.labels.ok) + "</button> </div> </form> "), options);
+
+            var resolved = false;
 
             on(confirm.$el, 'submit', 'form', function (e) {
                 e.preventDefault();
@@ -5623,13 +5653,14 @@ function Modal$1 (UIkit) {
 
         options = assign({bgClose: false, escClose: true, labels: UIkit.modal.labels}, options);
 
-        return new Promise$$1(function (resolve) {
+        return new Promise(function (resolve) {
 
-            var resolved = false,
-                prompt = UIkit.modal.dialog((" <form class=\"uk-form-stacked\"> <div class=\"uk-modal-body\"> <label>" + (isString(message) ? message : html(message)) + "</label> <input class=\"uk-input\" autofocus> </div> <div class=\"uk-modal-footer uk-text-right\"> <button class=\"uk-button uk-button-default uk-modal-close\" type=\"button\">" + (options.labels.cancel) + "</button> <button class=\"uk-button uk-button-primary\">" + (options.labels.ok) + "</button> </div> </form> "), options),
+            var prompt = UIkit.modal.dialog((" <form class=\"uk-form-stacked\"> <div class=\"uk-modal-body\"> <label>" + (isString(message) ? message : html(message)) + "</label> <input class=\"uk-input\" autofocus> </div> <div class=\"uk-modal-footer uk-text-right\"> <button class=\"uk-button uk-button-default uk-modal-close\" type=\"button\">" + (options.labels.cancel) + "</button> <button class=\"uk-button uk-button-primary\">" + (options.labels.ok) + "</button> </div> </form> "), options),
                 input = $('input', prompt.$el);
 
             input.value = value;
+
+            var resolved = false;
 
             on(prompt.$el, 'submit', 'form', function (e) {
                 e.preventDefault();
@@ -5727,7 +5758,8 @@ function Navbar (UIkit) {
 
         beforeConnect: function beforeConnect() {
 
-            var dropbar = this.$props.dropbar;
+            var ref = this.$props;
+            var dropbar = ref.dropbar;
 
             this.dropbar = dropbar && (isString(dropbar) && query(dropbar, this.$el) || $('<div></div>'));
 
@@ -5750,7 +5782,7 @@ function Navbar (UIkit) {
 
             UIkit.drop(
                 $$(((this.dropdown) + " ." + (this.clsDrop)), this.$el).filter(function (el) { return !UIkit.getComponent(el, 'drop') && !UIkit.getComponent(el, 'dropdown'); }),
-                assign({}, this.$props, {boundary: this.boundary, pos: this.pos, offset: this.dropbar || this.offset })
+                assign({}, this.$props, {boundary: this.boundary, pos: this.pos, offset: this.dropbar || this.offset})
             );
 
         },
@@ -5877,8 +5909,9 @@ function Navbar (UIkit) {
 
             transitionTo: function transitionTo(newHeight, el) {
 
-                var dropbar = this.dropbar,
-                    oldHeight = isVisible(dropbar) ? height(dropbar) : 0;
+                var ref = this;
+                var dropbar = ref.dropbar;
+                var oldHeight = isVisible(dropbar) ? height(dropbar) : 0;
 
                 el = oldHeight < newHeight && el;
 
@@ -6195,10 +6228,10 @@ function Scroll (UIkit) {
 
                 el = el && $(el) || doc.body;
 
-                var target = offset(el).top - this.offset,
-                    docHeight = height(doc),
-                    winHeight = height(win);
+                var docHeight = height(doc);
+                var winHeight = height(win);
 
+                var target = offset(el).top - this.offset;
                 if (target + winHeight > docHeight) {
                     target = docHeight - winHeight;
                 }
@@ -6207,20 +6240,22 @@ function Scroll (UIkit) {
                     return;
                 }
 
-                var start = Date.now(),
-                    startY = win.pageYOffset,
-                    step = function () {
-                        var currentY = startY + (target - startY) * ease(clamp((Date.now() - start) / this$1.duration));
+                var start = Date.now();
+                var startY = win.pageYOffset;
+                var step = function () {
 
-                        win.scrollTo(win.pageXOffset, currentY);
+                    var currentY = startY + (target - startY) * ease(clamp((Date.now() - start) / this$1.duration));
 
-                        // scroll more if we have not reached our destination
-                        if (currentY !== target) {
-                            requestAnimationFrame$1(step);
-                        } else {
-                            trigger(this$1.$el, 'scrolled', [this$1, el]);
-                        }
-                    };
+                    win.scrollTo(win.pageXOffset, currentY);
+
+                    // scroll more if we have not reached our destination
+                    if (currentY !== target) {
+                        requestAnimationFrame(step);
+                    } else {
+                        trigger(this$1.$el, 'scrolled', [this$1, el]);
+                    }
+
+                };
 
                 step();
 
@@ -6267,7 +6302,7 @@ function Scrollspy (UIkit) {
         },
 
         defaults: {
-            cls: ['uk-scrollspy-inview'],
+            cls: [],
             target: false,
             hidden: true,
             offsetTop: 0,
@@ -6305,7 +6340,13 @@ function Scrollspy (UIkit) {
                     var this$1 = this;
 
 
+                    // Let child components be applied at least once first
                     if (!UIkit._initialized) {
+
+                        if (doc.readyState === 'complete') {
+                            requestAnimationFrame(function () { return this$1.$emit(); });
+                        }
+
                         return false;
                     }
 
@@ -6313,9 +6354,9 @@ function Scrollspy (UIkit) {
 
                         var elData = els[i];
 
-                        if (!elData) {
+                        if (!elData || elData.el !== el) {
                             var cls = data(el, 'uk-scrollspy-class');
-                            elData = {toggles: cls && cls.split(',') || this$1.cls};
+                            elData = {el: el, toggles: cls && cls.split(',') || this$1.cls};
                         }
 
                         elData.show = isInView(el, this$1.offsetTop, this$1.offsetLeft);
@@ -6332,57 +6373,51 @@ function Scrollspy (UIkit) {
 
                     this.elements.forEach(function (el, i) {
 
-                        var elData = els[i], cls = elData.toggles[i] || elData.toggles[0];
+                        var elData = els[i];
+                        var cls = elData.toggles[i] || elData.toggles[0];
 
-                        if (elData.show) {
+                        if (elData.show && !elData.inview && !elData.timer) {
 
-                            if (!elData.inview && !elData.timer) {
-
-                                var show = function () {
-                                    css(el, 'visibility', '');
-                                    addClass(el, this$1.inViewClass);
-                                    toggleClass(el, cls);
-
-                                    trigger(el, 'inview');
-
-                                    UIkit.update(null, el);
-
-                                    elData.inview = true;
-                                    delete elData.timer;
-                                };
-
-                                if (this$1.delay && index) {
-                                    elData.timer = setTimeout(show, this$1.delay * index);
-                                } else {
-                                    show();
-                                }
-
-                                index++;
-
-                            }
-
-                        } else {
-
-                            if (elData.inview && this$1.repeat) {
-
-                                if (elData.timer) {
-                                    clearTimeout(elData.timer);
-                                    delete elData.timer;
-                                }
-
-                                css(el, 'visibility', this$1.hidden ? 'hidden' : '');
-                                removeClass(el, this$1.inViewClass);
+                            var show = function () {
+                                css(el, 'visibility', '');
+                                addClass(el, this$1.inViewClass);
                                 toggleClass(el, cls);
 
-                                trigger(el, 'outview');
+                                trigger(el, 'inview');
 
                                 UIkit.update(null, el);
 
-                                elData.inview = false;
+                                elData.inview = true;
+                                delete elData.timer;
+                            };
 
+                            if (this$1.delay && index) {
+                                elData.timer = setTimeout(show, this$1.delay * index);
+                            } else {
+                                show();
                             }
 
+                            index++;
+
+                        } else if (!elData.show && elData.inview && this$1.repeat) {
+
+                            if (elData.timer) {
+                                clearTimeout(elData.timer);
+                                delete elData.timer;
+                            }
+
+                            css(el, 'visibility', this$1.hidden ? 'hidden' : '');
+                            removeClass(el, this$1.inViewClass);
+                            toggleClass(el, cls);
+
+                            trigger(el, 'outview');
+
+                            UIkit.update(null, el);
+
+                            elData.inview = false;
+
                         }
+
 
                     });
 
@@ -6452,14 +6487,17 @@ function ScrollspyNav (UIkit) {
                     var this$1 = this;
 
 
-                    var scroll = win.pageYOffset + this.offset + 1,
-                        max = height(doc) - height(win) + this.offset;
+                    var scroll = win.pageYOffset + this.offset + 1;
+                    var max = height(doc) - height(win) + this.offset;
 
                     data.active = false;
 
                     this.targets.every(function (el, i) {
 
-                        var top = offset(el).top, last = i + 1 === this$1.targets.length;
+                        var ref = offset(el);
+                        var top = ref.top;
+                        var last = i + 1 === this$1.targets.length;
+
                         if (!this$1.overflow && (i === 0 && top > scroll || last && top + el.offsetTop < scroll)) {
                             return false;
                         }
@@ -6592,9 +6630,10 @@ function Sticky (UIkit) {
             if (target) {
                 fastdom.read(function () {
 
-                    var top = offset(target).top,
-                        elTop = offset(this$1.$el).top,
-                        elHeight = this$1.$el.offsetHeight;
+                    var ref = offset(target);
+                    var top = ref.top;
+                    var elTop = offset(this$1.$el).top;
+                    var elHeight = this$1.$el.offsetHeight;
 
                     if (elTop + elHeight >= top && elTop <= top + target.offsetHeight) {
                         win.scrollTo(0, top - elHeight - this$1.target - this$1.offset);
@@ -6636,11 +6675,10 @@ function Sticky (UIkit) {
             {
 
                 write: function write() {
-                    var this$1 = this;
 
-
-                    var placeholder = this.placeholder,
-                        outerHeight = (this.isActive ? placeholder : this.$el).offsetHeight, el;
+                    var ref = this;
+                    var placeholder = ref.placeholder;
+                    var outerHeight = (this.isActive ? placeholder : this.$el).offsetHeight;
 
                     css(placeholder, assign(
                         {height: css(this.$el, 'position') !== 'absolute' ? outerHeight : ''},
@@ -6659,38 +6697,10 @@ function Sticky (UIkit) {
                     this.topOffset = offset(this.isActive ? placeholder : this.$el).top;
                     this.bottomOffset = this.topOffset + outerHeight;
 
-                    ['top', 'bottom'].forEach(function (prop) {
+                    var bottom = parseProp('bottom', this);
 
-                        this$1[prop] = this$1.$props[prop];
-
-                        if (!this$1[prop]) {
-                            return;
-                        }
-
-                        if (isNumeric(this$1[prop])) {
-
-                            this$1[prop] = this$1[(prop + "Offset")] + toFloat(this$1[prop]);
-
-                        } else {
-
-                            if (isString(this$1[prop]) && this$1[prop].match(/^-?\d+vh$/)) {
-                                this$1[prop] = height(win) * toFloat(this$1[prop]) / 100;
-                            } else {
-
-                                el = this$1[prop] === true ? this$1.$el.parentNode : query(this$1[prop], this$1.$el);
-
-                                if (el) {
-                                    this$1[prop] = offset(el).top + el.offsetHeight;
-                                }
-
-                            }
-
-                        }
-
-                    });
-
-                    this.top = Math.max(toFloat(this.top), this.topOffset) - this.offset;
-                    this.bottom = this.bottom && this.bottom - outerHeight;
+                    this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
+                    this.bottom = bottom && bottom - outerHeight;
                     this.inactive = this.media && !win.matchMedia(this.media).matches;
 
                     if (this.isActive) {
@@ -6787,7 +6797,8 @@ function Sticky (UIkit) {
 
             update: function update() {
 
-                var top = Math.max(0, this.offset), active = this.top !== 0 || this.scroll > this.top;
+                var active = this.top !== 0 || this.scroll > this.top;
+                var top = Math.max(0, this.offset);
 
                 if (this.bottom && this.scroll > this.bottom - this.offset) {
                     top = this.bottom - this.scroll;
@@ -6805,11 +6816,8 @@ function Sticky (UIkit) {
                         trigger(this.$el, 'inactive');
                     }
 
-                } else {
-
-                    if (active) {
-                        trigger(this.$el, 'active');
-                    }
+                } else if (active) {
+                    trigger(this.$el, 'active');
                 }
 
                 toggleClass(this.$el, this.clsBelow, this.scroll > this.bottomOffset);
@@ -6820,6 +6828,37 @@ function Sticky (UIkit) {
         }
 
     });
+
+    function parseProp(prop, ref) {
+        var $props = ref.$props;
+        var $el = ref.$el;
+        var propOffset = ref[(prop + "Offset")];
+
+
+        var value = $props[prop];
+
+        if (!value) {
+            return;
+        }
+
+        if (isNumeric(value)) {
+
+            return propOffset + toFloat(value);
+
+        } else if (isString(value) && value.match(/^-?\d+vh$/)) {
+
+            return height(win) * toFloat(value) / 100;
+
+        } else {
+
+            var el = value === true ? $el.parentNode : query(value, $el);
+
+            if (el) {
+                return offset(el).top + el.offsetHeight;
+            }
+
+        }
+    }
 
 }
 
@@ -6862,8 +6901,8 @@ function Svg (UIkit) {
                 var parts = this.src.split('#');
 
                 if (parts.length > 1) {
-                    this.src = parts[0];
-                    this.icon = parts[1];
+                    var assign;
+                    (assign = parts, this.src = assign[0], this.icon = assign[1]);
                 }
             }
 
@@ -6884,7 +6923,7 @@ function Svg (UIkit) {
                 }
 
                 if (!el) {
-                    return Promise$$1.reject('SVG not found.');
+                    return Promise.reject('SVG not found.');
                 }
 
                 var dimensions = attr(el, 'viewBox');
@@ -6970,14 +7009,14 @@ function Svg (UIkit) {
 
 
                 if (!this.src) {
-                    return Promise$$1.reject();
+                    return Promise.reject();
                 }
 
                 if (svgs[this.src]) {
                     return svgs[this.src];
                 }
 
-                svgs[this.src] = new Promise$$1(function (resolve, reject) {
+                svgs[this.src] = new Promise(function (resolve, reject) {
 
                     if (startsWith(this$1.src, 'data:')) {
                         resolve(decodeURIComponent(this$1.src.split(',')[1]));
@@ -7000,8 +7039,8 @@ function Svg (UIkit) {
 
     });
 
-    var symbolRe = /<symbol(.*?id=(['"])(.*?)\2[^]*?<\/)symbol>/g,
-        symbols = {};
+    var symbolRe = /<symbol(.*?id=(['"])(.*?)\2[^]*?<\/)symbol>/g;
+    var symbols = {};
 
     function parseSymbols(svg, icon) {
 
@@ -7010,7 +7049,7 @@ function Svg (UIkit) {
             symbols[svg] = {};
 
             var match;
-            while (match = symbolRe.exec(svg)) {
+            while ((match = symbolRe.exec(svg))) {
                 symbols[svg][match[3]] = "<svg xmlns=\"http://www.w3.org/2000/svg\"" + (match[1]) + "svg>";
             }
 
@@ -7137,12 +7176,13 @@ function Switcher (UIkit) {
                 var this$1 = this;
 
 
-                var length = this.toggles.length,
-                    prev = !!this.connects.length && index(filter(this.connects[0].children, ("." + (this.cls)))[0]),
-                    hasPrev = prev >= 0,
-                    next = getIndex(item, this.toggles, prev),
-                    dir = item === 'previous' ? -1 : 1,
-                    toggle;
+                var ref = this.toggles;
+                var length = ref.length;
+                var prev = !!this.connects.length && index(filter(this.connects[0].children, ("." + (this.cls)))[0]);
+                var hasPrev = prev >= 0;
+                var dir = item === 'previous' ? -1 : 1;
+
+                var toggle, next = getIndex(item, this.toggles, prev);
 
                 for (var i = 0; i < length; i++, next = (next + dir + length) % length) {
                     if (!matches(this$1.toggles[next], '.uk-disabled, [disabled]')) {
@@ -7437,7 +7477,7 @@ function core (UIkit) {
 
 }
 
-UIkit$2.version = '3.0.0-beta.39';
+UIkit$2.version = '3.0.0-beta.40';
 
 mixin(UIkit$2);
 core(UIkit$2);
@@ -7812,8 +7852,8 @@ function TransitionerPlugin (UIkit) {
         var percent = animation.percent;
         var translate = animation.translate;
         var show = animation.show; if ( show === void 0 ) show = noop;
-        var props = show(dir),
-            deferred = new Deferred();
+        var props = show(dir);
+        var deferred = new Deferred();
 
         return {
 
@@ -8129,11 +8169,13 @@ function DragMixin (UIkit) {
                 this.dragging = true;
                 this.dir = (distance < 0 ? 1 : -1);
 
-                var slides = this.slides,
-                    prevIndex = this.prevIndex,
-                    dis = Math.abs(distance),
-                    nextIndex = this.getIndex(prevIndex + this.dir, prevIndex),
-                    width = this._getDistance(prevIndex, nextIndex) || slides[prevIndex].offsetWidth;
+                var ref = this;
+                var slides = ref.slides;
+                var ref$1 = this;
+                var prevIndex = ref$1.prevIndex;
+                var dis = Math.abs(distance);
+                var nextIndex = this.getIndex(prevIndex + this.dir, prevIndex);
+                var width = this._getDistance(prevIndex, nextIndex) || slides[prevIndex].offsetWidth;
 
                 while (nextIndex !== prevIndex && dis > width) {
 
@@ -8148,11 +8190,12 @@ function DragMixin (UIkit) {
 
                 this.percent = dis / width;
 
-                var prev = slides[prevIndex],
-                    next = slides[nextIndex],
-                    changed = this.index !== nextIndex,
-                    edge = prevIndex === nextIndex,
-                    reset;
+                var prev = slides[prevIndex];
+                var next = slides[nextIndex];
+                var changed = this.index !== nextIndex;
+                var edge = prevIndex === nextIndex;
+
+                var reset;
 
                 [this.index, this.prevIndex].filter(function (i) { return !includes([nextIndex, prevIndex], i); }).forEach(function (i) {
                     trigger(slides[i], 'itemhidden', [this$1]);
@@ -8177,7 +8220,7 @@ function DragMixin (UIkit) {
                     trigger(next, 'beforeitemshow', [this]);
                 }
 
-                reset && this._transitioner && this._transitioner.reset();
+                (reset || this.length < 3) && this._transitioner && this._transitioner.reset();
                 this._transitioner = this._translate(Math.abs(this.percent), prev, !edge && next);
 
                 if (changed) {
@@ -8424,20 +8467,6 @@ function plugin$5(UIkit) {
 
         },
 
-        update: [
-
-            {
-
-                read: function read() {
-                    this._resetComputeds();
-                },
-
-                events: ['load', 'resize']
-
-            }
-
-        ],
-
         methods: {
 
             show: function show(index, force) {
@@ -8449,15 +8478,16 @@ function plugin$5(UIkit) {
                     return;
                 }
 
-                var stack = this.stack,
-                    queueIndex = force ? 0 : stack.length,
-                    reset = function () {
-                        stack.splice(queueIndex, 1);
+                var ref = this;
+                var stack = ref.stack;
+                var queueIndex = force ? 0 : stack.length;
+                var reset = function () {
+                    stack.splice(queueIndex, 1);
 
-                        if (stack.length) {
-                            this$1.show(stack.shift(), true);
-                        }
-                    };
+                    if (stack.length) {
+                        this$1.show(stack.shift(), true);
+                    }
+                };
 
                 stack[force ? 'unshift' : 'push'](index);
 
@@ -8470,10 +8500,10 @@ function plugin$5(UIkit) {
                     return;
                 }
 
-                var prevIndex = this.index,
-                    prev = hasClass(this.slides, this.clsActive) && this.slides[prevIndex],
-                    nextIndex = this.getIndex(index, this.index),
-                    next = this.slides[nextIndex];
+                var prevIndex = this.index;
+                var prev = hasClass(this.slides, this.clsActive) && this.slides[prevIndex];
+                var nextIndex = this.getIndex(index, this.index);
+                var next = this.slides[nextIndex];
 
                 if (prev === next) {
                     reset();
@@ -8537,11 +8567,12 @@ function plugin$5(UIkit) {
                     prev,
                     next,
                     this.dir,
-                    assign({easing: force
-                        ? next.offsetWidth < 600
-                            ? 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' /* easeOutQuad */
-                            : 'cubic-bezier(0.165, 0.84, 0.44, 1)' /* easeOutQuart */
-                        : this.easing
+                    assign({
+                        easing: force
+                            ? next.offsetWidth < 600
+                                ? 'cubic-bezier(0.25, 0.46, 0.45, 0.94)' /* easeOutQuad */
+                                : 'cubic-bezier(0.165, 0.84, 0.44, 1)' /* easeOutQuart */
+                            : this.easing
                     }, this.transitionOptions)
                 );
 
@@ -8550,7 +8581,8 @@ function plugin$5(UIkit) {
                     return Promise.resolve();
                 }
 
-                var length = this.stack.length;
+                var ref = this.stack;
+                var length = ref.length;
                 return this._transitioner[length > 1 ? 'forward' : 'show'](length > 1 ? Math.min(this.duration, 75 + 75 / (length - 1)) : this.duration, this.percent);
 
             },
@@ -8611,15 +8643,15 @@ function plugin$4(UIkit) {
     UIkit.use(plugin$5);
 
     var mixin = UIkit.mixin;
-    var ref = UIkit.util;
-    var addClass = ref.addClass;
-    var assign = ref.assign;
-    var fastdom = ref.fastdom;
-    var isNumber = ref.isNumber;
-    var removeClass = ref.removeClass;
+    var UIkit_util = UIkit.util;
+    var addClass = UIkit_util.addClass;
+    var assign = UIkit_util.assign;
+    var fastdom = UIkit_util.fastdom;
+    var isNumber = UIkit_util.isNumber;
+    var removeClass = UIkit_util.removeClass;
 
-    var Animations = AnimationsPlugin(UIkit),
-        Transitioner = TransitionerPlugin(UIkit);
+    var Animations = AnimationsPlugin(UIkit);
+    var Transitioner = TransitionerPlugin(UIkit);
 
     UIkit.mixin.slideshow = {
 
@@ -8690,9 +8722,9 @@ function plugin$4(UIkit) {
 function AnimationsPlugin$1 (UIkit) {
 
     var mixin = UIkit.mixin;
-    var ref = UIkit.util;
-    var assign = ref.assign;
-    var css = ref.css;
+    var UIkit_util = UIkit.util;
+    var assign = UIkit_util.assign;
+    var css = UIkit_util.css;
 
     return assign({}, mixin.slideshow.defaults.Animations, {
 
@@ -8857,10 +8889,6 @@ function plugin$3(UIkit) {
                     removeClass(this.slides, this.clsActive);
                     Transition.stop(this.slides);
 
-                    delete this.index;
-                    delete this.percent;
-                    delete this._transitioner;
-
                 }
             },
 
@@ -8903,11 +8931,11 @@ function plugin$3(UIkit) {
 
                     e.preventDefault();
 
+                    this.toggleNow(this.$el, true);
+
                     this.animation = Animations['scale'];
                     removeClass(e.target, this.clsActive);
                     this.stack.splice(1, 0, this.index);
-
-                    this.toggleNow(this.$el, true);
 
                 }
 
@@ -8922,8 +8950,9 @@ function plugin$3(UIkit) {
                     var target = ref.target;
 
 
-                    var i = index(target),
-                        caption = this.getItem(i).caption;
+                    var i = index(target);
+                    var ref$1 = this.getItem(i);
+                    var caption = ref$1.caption;
 
                     css(this.caption, 'display', caption ? '' : 'none');
                     html(this.caption, caption);
@@ -8932,8 +8961,6 @@ function plugin$3(UIkit) {
                         this$1.loadItem(this$1.getIndex(i + j));
                         this$1.loadItem(this$1.getIndex(i - j));
                     }
-
-                    delete this._computeds.animation;
 
                 }
 
@@ -8960,13 +8987,14 @@ function plugin$3(UIkit) {
                     var source = item.source;
                     var type = item.type;
                     var alt = item.alt;
-                    var matches;
 
                     this.setItem(item, '<span uk-spinner></span>');
 
                     if (!source) {
                         return;
                     }
+
+                    var matches;
 
                     // Image
                     if (type === 'image' || source.match(/\.(jp(e)?g|png|gif|svg)$/i)) {
@@ -8994,14 +9022,14 @@ function plugin$3(UIkit) {
                         this.setItem(item, ("<iframe class=\"uk-lightbox-iframe\" src=\"" + source + "\" frameborder=\"0\" allowfullscreen></iframe>"));
 
                     // YouTube
-                    } else if (matches = source.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/watch\?v=([^&\s]+)/) || source.match(/(y)outu\.be\/(.*)/)) {
+                    } else if ((matches = source.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/watch\?v=([^&\s]+)/) || source.match(/()youtu\.be\/(.*)/))) {
 
-                        var id = matches[2],
-                            setIframe = function (width, height) {
-                                if ( width === void 0 ) width = 640;
-                                if ( height === void 0 ) height = 450;
+                        var id = matches[2];
+                        var setIframe = function (width, height) {
+                            if ( width === void 0 ) width = 640;
+                            if ( height === void 0 ) height = 450;
 
-                                return this$1.setItem(item, getIframe(("//www.youtube" + (matches[1] || '') + ".com/embed/" + id), width, height, this$1.videoAutoplay));
+                            return this$1.setItem(item, getIframe(("//www.youtube" + (matches[1] || '') + ".com/embed/" + id), width, height, this$1.videoAutoplay));
                         };
 
                         getImage(("//img.youtube.com/vi/" + id + "/maxresdefault.jpg")).then(
@@ -9028,7 +9056,7 @@ function plugin$3(UIkit) {
                         );
 
                     // Vimeo
-                    } else if (matches = source.match(/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/)) {
+                    } else if ((matches = source.match(/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/))) {
 
                         ajax(("//vimeo.com/api/oembed.json?maxwidth=1920&url=" + (encodeURI(source))), {responseType: 'json'})
                             .then(function (ref) {
@@ -9116,8 +9144,8 @@ function plugin$2(UIkit) {
     var assign = util.assign;
     var data = util.data;
     var index = util.index;
-
-    var options = UIkit.components.lightboxPanel.options;
+    var ref = UIkit.components.lightboxPanel;
+    var options = ref.options;
 
     UIkit.component('lightbox', {
 
@@ -9409,10 +9437,11 @@ function plugin$8(UIkit) {
                         return props;
                     }
 
-                    var isColor = prop.match(/color/i),
-                        isCssProp = isColor || prop === 'opacity',
-                        steps = properties[prop].slice(0),
-                        pos, bgPos, diff;
+                    var isColor = prop.match(/color/i);
+                    var isCssProp = isColor || prop === 'opacity';
+
+                    var pos, bgPos, diff;
+                    var steps = properties[prop].slice(0);
 
                     if (isCssProp) {
                         css($el, prop, '');
@@ -9430,7 +9459,8 @@ function plugin$8(UIkit) {
 
                     if (isColor) {
 
-                        var color = $el.style.color;
+                        var ref = $el.style;
+                        var color = ref.color;
                         steps = steps.map(function (step) { return parseColor($el, step); });
                         $el.style.color = color;
 
@@ -9447,9 +9477,9 @@ function plugin$8(UIkit) {
 
                         if (this$1.covers) {
 
-                            var min = Math.min.apply(Math, steps),
-                                max = Math.max.apply(Math, steps),
-                                down = steps.indexOf(min) < steps.indexOf(max);
+                            var min = Math.min.apply(Math, steps);
+                            var max = Math.max.apply(Math, steps);
+                            var down = steps.indexOf(min) < steps.indexOf(max);
 
                             diff = max - min;
 
@@ -9494,8 +9524,6 @@ function plugin$8(UIkit) {
                 read: function read(data) {
                     var this$1 = this;
 
-
-                    this._resetComputeds();
 
                     data.active = !this.media || win.matchMedia(this.media).matches;
 
@@ -9544,8 +9572,9 @@ function plugin$8(UIkit) {
                         return;
                     }
 
-                    var dimEl = image.dimEl,
-                        dim = Dimensions.cover(image, dimEl);
+                    var dimEl = image.dimEl;
+
+                    var dim = Dimensions.cover(image, dimEl);
 
                     this.bgProps.forEach(function (prop) {
 
@@ -9553,8 +9582,8 @@ function plugin$8(UIkit) {
                         var diff = ref.diff;
                         var bgPos = ref.bgPos;
                         var steps = ref.steps;
-                        var attr = prop === 'bgy' ? 'height' : 'width',
-                            span = dim[attr] - dimEl[attr];
+                        var attr = prop === 'bgy' ? 'height' : 'width';
+                        var span = dim[attr] - dimEl[attr];
 
                         if (!bgPos.match(/%$|0px/)) {
                             return;
@@ -9564,10 +9593,10 @@ function plugin$8(UIkit) {
                             dimEl[attr] = dim[attr] + diff - span;
                         } else if (span > diff) {
 
-                            bgPos = parseFloat(bgPos);
+                            var bgPosFloat = parseFloat(bgPos);
 
-                            if (bgPos) {
-                                this$1.props[prop].steps = steps.map(function (step) { return step - (span - diff) / (100 / bgPos); });
+                            if (bgPosFloat) {
+                                this$1.props[prop].steps = steps.map(function (step) { return step - (span - diff) / (100 / bgPosFloat); });
                             }
                         }
 
@@ -9597,8 +9626,9 @@ function plugin$8(UIkit) {
 
             getCss: function getCss(percent) {
 
-                var translated = false,
-                    props = this.props;
+                var ref = this;
+                var props = ref.props;
+                var translated = false;
 
                 return Object.keys(props).reduce(function (css, prop) {
 
@@ -9694,9 +9724,9 @@ function plugin$8(UIkit) {
     }
 
     function getStep(steps, percent) {
-        var count = steps.length - 1,
-            index = Math.min(Math.floor(count * percent), count - 1),
-            step = steps.slice(index, index + 2);
+        var count = steps.length - 1;
+        var index = Math.min(Math.floor(count * percent), count - 1);
+        var step = steps.slice(index, index + 2);
 
         step.push(percent === 1 ? 1 : percent % (1 / count) * count);
 
@@ -9808,24 +9838,13 @@ function plugin$7(UIkit) {
 function SliderReactive (UIkit) {
 
     var ref = UIkit.util;
-    var fastdom = ref.fastdom;
     var removeClass = ref.removeClass;
 
     return {
 
-        ready: function ready() {
-            var this$1 = this;
-
-            fastdom.write(function () { return this$1.show(this$1.getValidIndex()); });
-        },
-
         update: [
 
             {
-
-                read: function read() {
-                    this._resetComputeds();
-                },
 
                 write: function write() {
 
@@ -9959,9 +9978,9 @@ function TransitionerPlugin$1 (UIkit) {
                 if ( out === void 0 ) out = false;
 
 
-                var actives = this.getActives(),
-                    all = sortBy(slides(list), 'offsetLeft'),
-                    i = index(all, actives[dir * (out ? -1 : 1) > 0 ? actives.length - 1 : 0]);
+                var actives = this.getActives();
+                var all = sortBy(slides(list), 'offsetLeft');
+                var i = index(all, actives[dir * (out ? -1 : 1) > 0 ? actives.length - 1 : 0]);
 
                 return ~i && all[i + (prev && !out ? dir : 0)];
 
@@ -10045,12 +10064,12 @@ function ParallaxPlugin (UIkit, parent) {
     UIkit.use(plugin$8);
 
     var mixin = UIkit.mixin;
-    var ref = UIkit.util;
-    var closest = ref.closest;
-    var css = ref.css;
-    var endsWith = ref.endsWith;
-    var noop = ref.noop;
-    var Transition = ref.Transition;
+    var UIkit_util = UIkit.util;
+    var closest = UIkit_util.closest;
+    var css = UIkit_util.css;
+    var endsWith = UIkit_util.endsWith;
+    var noop = UIkit_util.noop;
+    var Transition = UIkit_util.Transition;
 
     return {
 
@@ -10181,17 +10200,17 @@ function plugin$9(UIkit) {
     UIkit.use(plugin$5);
 
     var mixin = UIkit.mixin;
-    var ref = UIkit.util;
-    var $ = ref.$;
-    var $$ = ref.$$;
-    var addClass = ref.addClass;
-    var css = ref.css;
-    var data = ref.data;
-    var includes = ref.includes;
-    var isNumeric = ref.isNumeric;
-    var isUndefined = ref.isUndefined;
-    var toggleClass = ref.toggleClass;
-    var toFloat = ref.toFloat;
+    var UIkit_util = UIkit.util;
+    var $ = UIkit_util.$;
+    var $$ = UIkit_util.$$;
+    var addClass = UIkit_util.addClass;
+    var css = UIkit_util.css;
+    var data = UIkit_util.data;
+    var includes = UIkit_util.includes;
+    var isNumeric = UIkit_util.isNumeric;
+    var isUndefined = UIkit_util.isUndefined;
+    var toggleClass = UIkit_util.toggleClass;
+    var toFloat = UIkit_util.toFloat;
     var Transitioner = TransitionerPlugin$1(UIkit);
 
     UIkit.component('slider-parallax', ParallaxPlugin(UIkit, 'slider'));
@@ -10241,7 +10260,8 @@ function plugin$9(UIkit) {
 
                 css(this.slides, 'order', '');
 
-                var max = Transitioner.getMax(this.list), i = this.length;
+                var max = Transitioner.getMax(this.list);
+                var i = this.length;
 
                 while (i--) {
                     if (Transitioner.getElLeft(this$1.list.children[i], this$1.list) < max) {
@@ -10257,17 +10277,16 @@ function plugin$9(UIkit) {
                 var sets = ref.sets;
 
 
-                var width = this.list.offsetWidth / (this.center ? 2 : 1),
-                    left = 0,
-                    leftCenter = width;
+                var width = this.list.offsetWidth / (this.center ? 2 : 1);
 
-                css(this.slides, 'order', '');
+                var left = 0;
+                var leftCenter = width;
+                var slideLeft = 0;
 
                 sets = sets && this.slides.reduce(function (sets, slide, i) {
 
-                    var slideWidth = slide.offsetWidth,
-                        slideLeft = Transitioner.getElLeft(slide, this$1.list),
-                        slideRight = slideLeft + slideWidth;
+                    var slideWidth = slide.offsetWidth;
+                    var slideRight = slideLeft + slideWidth;
 
                     if (slideRight > left) {
 
@@ -10288,6 +10307,8 @@ function plugin$9(UIkit) {
 
                         }
                     }
+
+                    slideLeft += slideWidth;
 
                     return sets;
 
@@ -10390,7 +10411,9 @@ function plugin$9(UIkit) {
                     return;
                 }
 
-                this.slides.forEach(function (slide, i) { return css(slide, 'order', this$1.dir > 0 && i < this$1.prevIndex
+                var index = this.dir > 0 && this.slides[this.prevIndex] ? this.prevIndex : this.index;
+
+                this.slides.forEach(function (slide, i) { return css(slide, 'order', this$1.dir > 0 && i < index
                         ? 1
                         : this$1.dir < 0 && i >= this$1.index
                             ? -1
@@ -10402,14 +10425,13 @@ function plugin$9(UIkit) {
                     return;
                 }
 
-                var index = this.dir > 0 && this.slides[this.prevIndex] ? this.prevIndex : this.index,
-                    next = this.slides[index],
-                    width = this.list.offsetWidth / 2 - next.offsetWidth / 2,
-                    j = 0;
+                var next = this.slides[index];
+                var width = this.list.offsetWidth / 2 - next.offsetWidth / 2;
+                var j = 0;
 
                 while (width > 0) {
-                    var slideIndex = this$1.getIndex(--j + index, index),
-                        slide = this$1.slides[slideIndex];
+                    var slideIndex = this$1.getIndex(--j + index, index);
+                    var slide = this$1.slides[slideIndex];
 
                     css(slide, 'order', slideIndex > index ? -2 : -1);
                     width -= slide.offsetWidth;
@@ -10454,9 +10476,9 @@ function plugin$9(UIkit) {
 function AnimationsPlugin$2 (UIkit) {
 
     var mixin = UIkit.mixin;
-    var ref = UIkit.util;
-    var assign = ref.assign;
-    var css = ref.css;
+    var UIkit_util = UIkit.util;
+    var assign = UIkit_util.assign;
+    var css = UIkit_util.css;
 
     var Animations = assign({}, mixin.slideshow.defaults.Animations, {
 
@@ -10583,8 +10605,7 @@ function plugin$10(UIkit) {
     UIkit.use(plugin$4);
 
     var mixin = UIkit.mixin;
-    var ref = UIkit.util;
-    var height = ref.height;
+    var height = UIkit.util.height;
 
     var Animations = AnimationsPlugin$2(UIkit);
 
@@ -10757,9 +10778,10 @@ function plugin$11(UIkit) {
 
                 offset(this.drag, {top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
 
-                var top = offset(this.drag).top,
-                    bottom = top + this.drag.offsetHeight,
-                    scroll;
+                var ref = offset(this.drag);
+                var top = ref.top;
+                var bottom = top + this.drag.offsetHeight;
+                var scroll;
 
                 if (top > 0 && top < this.scrollY) {
                     scroll = this.scrollY - 5;
@@ -10779,7 +10801,8 @@ function plugin$11(UIkit) {
                 var target = e.target;
                 var button = e.button;
                 var defaultPrevented = e.defaultPrevented;
-                var placeholder = toNodes(this.$el.children).filter(function (el) { return within(target, el); })[0];
+                var ref = toNodes(this.$el.children).filter(function (el) { return within(target, el); });
+                var placeholder = ref[0];
 
                 if (!placeholder
                     || isInput(e.target)
@@ -10848,10 +10871,11 @@ function plugin$11(UIkit) {
 
                 this.$emit();
 
-                var target = e.type === 'mousemove' ? e.target : doc.elementFromPoint(this.pos.x - doc.body.scrollLeft, this.pos.y - doc.body.scrollTop),
-                    sortable = getSortable(target),
-                    previous = getSortable(this.placeholder),
-                    move = sortable !== previous;
+                var target = e.type === 'mousemove' ? e.target : doc.elementFromPoint(this.pos.x - doc.body.scrollLeft, this.pos.y - doc.body.scrollTop);
+
+                var sortable = getSortable(target);
+                var previous = getSortable(this.placeholder);
+                var move = sortable !== previous;
 
                 if (!sortable || within(target, this.placeholder) || move && (!sortable.group || sortable.group !== previous.group)) {
                     return;
@@ -10970,9 +10994,9 @@ function plugin$11(UIkit) {
                 var this$1 = this;
 
 
-                var props = [],
-                    children = toNodes(this.$el.children),
-                    reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: '', bottom: '', right: ''};
+                var props = [];
+                var children = toNodes(this.$el.children);
+                var reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: '', bottom: '', right: ''};
 
                 children.forEach(function (el) {
                     props.push(assign({
@@ -11298,46 +11322,46 @@ function plugin$13(UIkit) {
 
                 this.beforeAll(this, files);
 
-                var chunks = chunk(files, this.concurrent),
-                    upload = function (files) {
+                var chunks = chunk(files, this.concurrent);
+                var upload = function (files) {
 
-                        var data = new FormData();
+                    var data = new FormData();
 
-                        files.forEach(function (file) { return data.append(this$1.name, file); });
+                    files.forEach(function (file) { return data.append(this$1.name, file); });
 
-                        for (var key in this$1.params) {
-                            data.append(key, this$1.params[key]);
+                    for (var key in this$1.params) {
+                        data.append(key, this$1.params[key]);
+                    }
+
+                    ajax(this$1.url, {
+                        data: data,
+                        method: this$1.type,
+                        beforeSend: function (env) {
+
+                            var xhr = env.xhr;
+                            xhr.upload && on(xhr.upload, 'progress', this$1.progress);
+                            ['loadStart', 'load', 'loadEnd', 'abort'].forEach(function (type) { return on(xhr, type.toLowerCase(), this$1[type]); }
+                            );
+
+                            this$1.beforeSend(env);
+
                         }
+                    }).then(
+                        function (xhr) {
 
-                        ajax(this$1.url, {
-                            data: data,
-                            method: this$1.type,
-                            beforeSend: function (env) {
+                            this$1.complete(xhr);
 
-                                var xhr = env.xhr;
-                                xhr.upload && on(xhr.upload, 'progress', this$1.progress);
-                                ['loadStart', 'load', 'loadEnd', 'abort'].forEach(function (type) { return on(xhr, type.toLowerCase(), this$1[type]); }
-                                );
-
-                                this$1.beforeSend(env);
-
+                            if (chunks.length) {
+                                upload(chunks.shift());
+                            } else {
+                                this$1.completeAll(xhr);
                             }
-                        }).then(
-                            function (xhr) {
 
-                                this$1.complete(xhr);
+                        },
+                        function (e) { return this$1.error(e.message); }
+                    );
 
-                                if (chunks.length) {
-                                    upload(chunks.shift());
-                                } else {
-                                    this$1.completeAll(xhr);
-                                }
-
-                            },
-                            function (e) { return this$1.error(e.message); }
-                        );
-
-                    };
+                };
 
                 upload(chunks.shift());
 
