@@ -1,11 +1,30 @@
-import {Class} from '../mixin/index';
-import {$, addClass, after, Animation, assign, attr, css, docEl, fastdom, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, remove, removeClass, replaceClass, toFloat, toggleClass, trigger, win, within} from '../util/index';
+// keeping util imports small and explicit helps
+// for a better and fast understanding of the dependencies
+// plus makes it easier to refactor
+
+// Additionally the offset was imported as offsetOf to avoid concept
+// and name conflicts. In general is a good idea to have less generic globals.
+
+import {attr} from '../util/attr';
+import {css} from '../util/style';
+import {trigger} from '../util/event';
+import {win, docEl} from '../util/env';
+import {fastdom} from '../util/fastdom';
+import {offset as offsetOf, height} from '../util/position';
+import {$, query, within} from '../util/selector';
+import {isVisible, Animation, after, remove} from '../util/dom';
+import {assign, isNumeric, isString, toFloat, noop} from '../util/lang';
+import {hasClass, addClass, removeClass, toggleClass, replaceClass} from '../util/class';
 
 export default function (UIkit) {
 
     UIkit.component('sticky', {
 
-        mixins: [Class],
+        // Relying on a mixing that literally does one simple
+        // line of code introduces more troubles than solutions.
+        // The final size code saving is very minimum and not worthy of
+        // loosing explicitness of what this component does.
+        // mixins: [Class], // logic moved to Connected event
 
         attrs: true,
 
@@ -44,12 +63,20 @@ export default function (UIkit) {
         computed: {
 
             selTarget({selTarget}, $el) {
-                return selTarget && $(selTarget, $el) || $el;
+                return selTarget
+                    ? $(selTarget, $el)
+                    : $el;
+            },
+
+            outerHeight () {
+                return (this.isActive ? this.placeholder : this.$el).offsetHeight;
             }
 
         },
 
         connected() {
+
+            addClass(this.$el, this.$name);
 
             this.placeholder = $('<div class="uk-sticky-placeholder"></div>');
             this.widthElement = this.$props.widthElement || this.placeholder;
@@ -83,8 +110,8 @@ export default function (UIkit) {
             if (target) {
                 fastdom.read(() => {
 
-                    const {top} = offset(target);
-                    const elTop = offset(this.$el).top;
+                    const {top} = offsetOf(target);
+                    const elTop = offsetOf(this.$el).top;
                     const elHeight = this.$el.offsetHeight;
 
                     if (elTop + elHeight >= top && elTop <= top + target.offsetHeight) {
@@ -128,30 +155,18 @@ export default function (UIkit) {
 
                 write() {
 
-                    const {placeholder} = this;
-                    const outerHeight = (this.isActive ? placeholder : this.$el).offsetHeight;
+                    this.updatePlaceholder();
+                    this.updateWidthElement();
 
-                    css(placeholder, assign(
-                        {height: css(this.$el, 'position') !== 'absolute' ? outerHeight : ''},
-                        css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
-                    ));
+                    this.topOffset = offsetOf(this.isActive ? this.placeholder : this.$el).top;
+                    this.bottomOffset = this.topOffset + this.outerHeight;
 
-                    if (!within(placeholder, docEl)) {
-                        after(this.$el, placeholder);
-                        attr(placeholder, 'hidden', '');
-                    }
-
-                    attr(this.widthElement, 'hidden', null);
-                    this.width = this.widthElement.offsetWidth;
-                    attr(this.widthElement, 'hidden', this.isActive ? null : '');
-
-                    this.topOffset = offset(this.isActive ? placeholder : this.$el).top;
-                    this.bottomOffset = this.topOffset + outerHeight;
-
+                    const top = parseProp('top', this);
                     const bottom = parseProp('bottom', this);
 
-                    this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
-                    this.bottom = bottom && bottom - outerHeight;
+                    // names changed to be more descriptive and less conflicting
+                    this.stickAt = Math.max(toFloat(top), this.topOffset) - this.offset;
+                    this.stickUntil = bottom && bottom - this.outerHeight;
                     this.inactive = this.media && !win.matchMedia(this.media).matches;
 
                     if (this.isActive) {
@@ -174,37 +189,61 @@ export default function (UIkit) {
 
                 write({visible, scroll}, {dir} = {}) {
 
-                    if (scroll < 0 || !visible || this.disabled || this.showOnUp && !dir) {
+                    // place the logic into descriptive variables
+                    const isHidden = !visible;
+                    const {bottomOffset, topOffset, stickAt} = this;
+                    const {showOnUp, disabled, isActive, inactive, animation} = this;
+
+                    // this one os confusing, in what situation
+                    // a scroll could be less than 0?
+                    const noScroll = scroll < 0;
+
+                    // this one as well, what is the !dir meaning?
+                    // it is perhaps another way to say no srolled yet?
+                    const showOnUpConfusing = (showOnUp && !dir);
+
+                    if (noScroll || isHidden || disabled || showOnUpConfusing) {
                         return;
                     }
 
-                    if (this.inactive
-                        || scroll < this.top
-                        || this.showOnUp && (scroll <= this.top || dir === 'down' || dir === 'up' && !this.isActive && scroll <= this.bottomOffset)
+                    const scrollingUp = dir === 'up';
+                    const scrollingDown = dir === 'down';
+                    const stickAtReached = scroll <= stickAt;
+                    const stickAtNotReached = scroll < stickAt;
+                    const bottomOffsetReached = scroll <= bottomOffset;
+
+                    // the condition is still long and the entire logic of this
+                    // function could be refactored, but at list for now there is
+                    // a better understanding of what is going on and that may lead
+                    // to easier later refactoring
+                    if (inactive || stickAtNotReached || showOnUp &&
+                      (stickAtReached || scrollingDown ||
+                        (scrollingUp && !isActive && bottomOffsetReached)
+                      )
                     ) {
 
-                        if (!this.isActive) {
+                        if (!isActive) {
                             return;
                         }
 
                         this.isActive = false;
 
-                        if (this.animation && scroll > this.topOffset) {
+                        if (animation && scroll > topOffset) {
                             Animation.cancel(this.$el);
-                            Animation.out(this.$el, this.animation).then(() => this.hide(), noop);
+                            Animation.out(this.$el, animation).then(() => this.hide(), noop);
                         } else {
                             this.hide();
                         }
 
-                    } else if (this.isActive) {
+                    } else if (isActive) {
 
                         this.update();
 
-                    } else if (this.animation) {
+                    } else if (animation) {
 
                         Animation.cancel(this.$el);
                         this.show();
-                        Animation.in(this.$el, this.animation).catch(noop);
+                        Animation.in(this.$el, animation).catch(noop);
 
                     } else {
                         this.show();
@@ -242,11 +281,11 @@ export default function (UIkit) {
 
             update() {
 
-                const active = this.top !== 0 || this.scroll > this.top;
                 let top = Math.max(0, this.offset);
+                const active = this.stickAt !== 0 || this.scroll > this.stickAt;
 
-                if (this.bottom && this.scroll > this.bottom - this.offset) {
-                    top = this.bottom - this.scroll;
+                if (this.stickUntil && this.scroll > this.stickUntil - this.offset) {
+                    top = this.stickUntil - this.scroll;
                 }
 
                 css(this.$el, {
@@ -267,6 +306,28 @@ export default function (UIkit) {
 
                 toggleClass(this.$el, this.clsBelow, this.scroll > this.bottomOffset);
                 addClass(this.$el, this.clsFixed);
+
+            },
+
+            updatePlaceholder() {
+
+                css(this.placeholder, assign(
+                    {height: css(this.$el, 'position') !== 'absolute' ? this.outerHeight : ''},
+                    css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
+                ));
+
+                if (!within(this.placeholder, docEl)) {
+                    after(this.$el, this.placeholder);
+                    attr(this.placeholder, 'hidden', '');
+                }
+
+            },
+
+            updateWidthElement() {
+
+                attr(this.widthElement, 'hidden', null);
+                this.width = this.widthElement.offsetWidth;
+                attr(this.widthElement, 'hidden', this.isActive ? null : '');
 
             }
 
@@ -295,7 +356,7 @@ export default function (UIkit) {
             const el = value === true ? $el.parentNode : query(value, $el);
 
             if (el) {
-                return offset(el).top + el.offsetHeight;
+                return offsetOf(el).top + el.offsetHeight;
             }
 
         }
