@@ -1,4 +1,4 @@
-import {$, clamp, doc, escape, height, offset, requestAnimationFrame, trigger, win} from '../util/index';
+import {$, clamp, doc, escape, height, offset, trigger, win} from '../util/index';
 
 export default function (UIkit) {
 

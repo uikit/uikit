@@ -1,4 +1,4 @@
-import {$, addClass, append, css, doc, docEl, hasClass, on, once, Promise, removeClass, requestAnimationFrame, toMs, width, win, within} from '../util/index';
+import {$, addClass, append, css, doc, docEl, hasClass, on, once, Promise, removeClass, toMs, width, win, within} from '../util/index';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';

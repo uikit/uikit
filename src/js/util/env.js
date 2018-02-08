@@ -9,7 +9,6 @@ export const docEl = doc.documentElement;
 export const isRtl = attr(docEl, 'dir') === 'rtl';
 
 export const Observer = win.MutationObserver;
-export const {requestAnimationFrame} = win;
 
 const hasTouchEvents = 'ontouchstart' in win;
 const hasPointerEvents = win.PointerEvent;

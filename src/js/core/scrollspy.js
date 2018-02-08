@@ -1,4 +1,4 @@
-import {$$, addClass, css, data, doc, filter, isInView, removeClass, requestAnimationFrame, toggleClass, trigger} from '../util/index';
+import {$$, addClass, css, data, doc, filter, isInView, removeClass, toggleClass, trigger} from '../util/index';
 
 export default function (UIkit) {
 
