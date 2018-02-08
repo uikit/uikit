@@ -128,20 +128,19 @@ export default function (UIkit) {
                 const changed = this.index !== nextIndex;
                 const edge = prevIndex === nextIndex;
 
-                let reset;
+                let itemShown;
 
                 [this.index, this.prevIndex].filter(i => !includes([nextIndex, prevIndex], i)).forEach(i => {
                     trigger(slides[i], 'itemhidden', [this]);
 
-                    reset = true;
-
                     if (edge) {
+                        itemShown = true;
                         this.prevIndex = prevIndex;
                     }
 
                 });
 
-                if (this.index === prevIndex && this.prevIndex !== prevIndex || reset && edge) {
+                if (this.index === prevIndex && this.prevIndex !== prevIndex || itemShown) {
                     trigger(slides[this.index], 'itemshown', [this]);
                 }
 
@@ -153,7 +152,7 @@ export default function (UIkit) {
                     trigger(next, 'beforeitemshow', [this]);
                 }
 
-                (reset || this.length < 3) && this._transitioner && this._transitioner.reset();
+                this._transitioner && this._transitioner.reset();
                 this._transitioner = this._translate(Math.abs(this.percent), prev, !edge && next);
 
                 if (changed) {
