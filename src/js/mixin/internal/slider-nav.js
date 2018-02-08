@@ -1,6 +1,6 @@
 export default function (UIkit) {
 
-    var {$, $$, data, html, toggleClass, toNumber} = UIkit.util;
+    const {$, $$, data, html, toggleClass, toNumber} = UIkit.util;
 
     return {
 
@@ -77,10 +77,10 @@ export default function (UIkit) {
 
             updateNav() {
 
-                var i = this.getValidIndex();
+                const i = this.getValidIndex();
                 this.navItems.forEach(el => {
 
-                    var cmd = data(el, this.attrItem);
+                    const cmd = data(el, this.attrItem);
 
                     toggleClass(el, this.clsActive, toNumber(cmd) === i);
                     toggleClass(el, 'uk-invisible', this.finite && (cmd === 'previous' && i === 0 || cmd === 'next' && i >= this.maxIndex));

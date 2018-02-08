@@ -11,10 +11,9 @@ function plugin(UIkit) {
 
     UIkit.use(Slideshow);
 
-    var {mixin} = UIkit;
-    var {height} = UIkit.util;
+    const {mixin, util: {height}} = UIkit;
 
-    var Animations = AnimationsPlugin(UIkit);
+    const Animations = AnimationsPlugin(UIkit);
 
     UIkit.component('slideshow-parallax', ParallaxPlugin(UIkit, 'slideshow'));
 
@@ -42,7 +41,7 @@ function plugin(UIkit) {
 
             read() {
 
-                var [width, height] = this.ratio.split(':').map(Number);
+                let [width, height] = this.ratio.split(':').map(Number);
 
                 height = height * this.$el.offsetWidth / width;
 

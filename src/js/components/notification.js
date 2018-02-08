@@ -4,8 +4,8 @@ function plugin(UIkit) {
         return;
     }
 
-    var {append, closest, css, each, pointerEnter, pointerLeave, remove, toFloat, Transition, trigger} = UIkit.util;
-    var containers = {};
+    const {append, closest, css, each, pointerEnter, pointerLeave, remove, toFloat, Transition, trigger} = UIkit.util;
+    const containers = {};
 
     UIkit.component('notification', {
 
@@ -29,7 +29,7 @@ function plugin(UIkit) {
                 containers[this.pos] = append(UIkit.container, `<div class="uk-notification uk-notification-${this.pos}"></div>`);
             }
 
-            var container = css(containers[this.pos], 'display', 'block');
+            const container = css(containers[this.pos], 'display', 'block');
 
             this.$mount(append(container,
                 `<div class="${this.clsMsg}${this.status ? ` ${this.clsMsg}-${this.status}` : ''}">
@@ -42,7 +42,7 @@ function plugin(UIkit) {
 
         ready() {
 
-            var marginBottom = toFloat(css(this.$el, 'marginBottom'));
+            const marginBottom = toFloat(css(this.$el, 'marginBottom'));
             Transition.start(
                 css(this.$el, {opacity: 0, marginTop: -this.$el.offsetHeight, marginBottom: 0}),
                 {opacity: 1, marginTop: 0, marginBottom}
@@ -81,7 +81,7 @@ function plugin(UIkit) {
 
             close(immediate) {
 
-                var removeFn = () => {
+                const removeFn = () => {
 
                     trigger(this.$el, 'close', [this]);
                     remove(this.$el);

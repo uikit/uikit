@@ -1,4 +1,4 @@
-import { $, clamp, doc, escape, height, offset, requestAnimationFrame, trigger, win } from '../util/index';
+import {$, clamp, doc, escape, height, offset, trigger, win} from '../util/index';
 
 export default function (UIkit) {
 
@@ -20,10 +20,10 @@ export default function (UIkit) {
 
                 el = el && $(el) || doc.body;
 
-                var target = offset(el).top - this.offset,
-                    docHeight = height(doc),
-                    winHeight = height(win);
+                const docHeight = height(doc);
+                const winHeight = height(win);
 
+                let target = offset(el).top - this.offset;
                 if (target + winHeight > docHeight) {
                     target = docHeight - winHeight;
                 }
@@ -32,20 +32,22 @@ export default function (UIkit) {
                     return;
                 }
 
-                var start = Date.now(),
-                    startY = win.pageYOffset,
-                    step = () => {
-                        var currentY = startY + (target - startY) * ease(clamp((Date.now() - start) / this.duration));
+                const start = Date.now();
+                const startY = win.pageYOffset;
+                const step = () => {
 
-                        win.scrollTo(win.pageXOffset, currentY);
+                    const currentY = startY + (target - startY) * ease(clamp((Date.now() - start) / this.duration));
 
-                        // scroll more if we have not reached our destination
-                        if (currentY !== target) {
-                            requestAnimationFrame(step);
-                        } else {
-                            trigger(this.$el, 'scrolled', [this, el]);
-                        }
-                    };
+                    win.scrollTo(win.pageXOffset, currentY);
+
+                    // scroll more if we have not reached our destination
+                    if (currentY !== target) {
+                        requestAnimationFrame(step);
+                    } else {
+                        trigger(this.$el, 'scrolled', [this, el]);
+                    }
+
+                };
 
                 step();
 

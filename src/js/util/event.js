@@ -1,10 +1,10 @@
-import { doc, win } from './env';
-import { isArray, isFunction, isString } from './lang';
-import { $, $$, closest, toNode, toNodes, within } from './selector';
+import {within} from './filter';
+import {closest, find, findAll} from './selector';
+import {isArray, isFunction, isString, toNode, toNodes} from './lang';
 
 export function on(...args) {
 
-    var [target, type, selector, listener, useCapture] = getArgs(args);
+    let [target, type, selector, listener, useCapture] = getArgs(args);
 
     target = toEventTarget(target);
 
@@ -27,14 +27,14 @@ export function off(target, type, listener, useCapture = false) {
 
 export function once(...args) {
 
-    var [element, type, selector, listener, useCapture, condition] = getArgs(args),
-        off = on(element, type, selector, e => {
-            var result = !condition || condition(e);
-            if (result) {
-                off();
-                listener(e, result);
-            }
-        }, useCapture);
+    const [element, type, selector, listener, useCapture, condition] = getArgs(args);
+    const off = on(element, type, selector, e => {
+        const result = !condition || condition(e);
+        if (result) {
+            off();
+            listener(e, result);
+        }
+    }, useCapture);
 
     return off;
 }
@@ -47,7 +47,7 @@ export function trigger(target, event, detail) {
 
 export function createEvent(e, bubbles = true, cancelable = false, detail) {
     if (isString(e)) {
-        var event = doc.createEvent('CustomEvent'); // IE 11
+        const event = document.createEvent('CustomEvent'); // IE 11
         event.initCustomEvent(e, bubbles, cancelable, detail);
         e = event;
     }
@@ -58,7 +58,7 @@ export function createEvent(e, bubbles = true, cancelable = false, detail) {
 function getArgs(args) {
 
     if (isString(args[0])) {
-        args[0] = $(args[0]);
+        args[0] = find(args[0]);
     }
 
     if (isFunction(args[2])) {
@@ -70,10 +70,10 @@ function getArgs(args) {
 function delegate(element, selector, listener) {
     return e => {
 
-        var target = e.target,
-            current = selector[0] === '>'
-                ? $$(selector, element).reverse().filter(element => within(target, element))[0]
-                : closest(target, selector);
+        const {target} = e;
+        const current = selector[0] === '>'
+            ? findAll(selector, element).reverse().filter(element => within(target, element))[0]
+            : closest(target, selector);
 
         if (current) {
             e.delegate = element;
@@ -89,7 +89,7 @@ function detail(listener) {
 }
 
 function isEventTarget(target) {
-    return 'EventTarget' in win
+    return 'EventTarget' in window
         ? target instanceof EventTarget
         : target && 'addEventListener' in target;
 }
@@ -104,4 +104,17 @@ export function toEventTargets(target) {
         : isArray(target)
             ? target.map(toEventTarget).filter(Boolean)
             : toNodes(target);
+}
+
+export function preventClick() {
+
+    const timer = setTimeout(once(document, 'click', e => {
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        clearTimeout(timer);
+
+    }, true));
+
 }

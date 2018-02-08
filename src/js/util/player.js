@@ -1,11 +1,10 @@
-import { win } from './env';
-import { attr } from './attr';
-import { once } from './event';
-import Promise from './promise';
-import { toNode } from './selector';
-import { assign, includes, isString } from './lang';
+import {win} from './env';
+import {attr} from './attr';
+import {once} from './event';
+import {Promise} from './promise';
+import {assign, includes, isString, toNode} from './lang';
 
-var id = 0;
+let id = 0;
 
 export class Player {
 
@@ -40,7 +39,10 @@ export class Player {
             return this.ready;
         }
 
-        var youtube = this.isYoutube(), vimeo = this.isVimeo(), poller;
+        const youtube = this.isYoutube();
+        const vimeo = this.isVimeo();
+
+        let poller;
 
         if (youtube || vimeo) {
 
@@ -48,7 +50,7 @@ export class Player {
 
                 once(this.el, 'load', () => {
                     if (youtube) {
-                        var listener = () => post(this.el, {event: 'listening', id: this.id});
+                        const listener = () => post(this.el, {event: 'listening', id: this.id});
                         poller = setInterval(listener, 100);
                         listener();
                     }

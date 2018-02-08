@@ -1,5 +1,5 @@
-import { Class } from '../mixin/index';
-import { css, Dimensions, isVisible } from '../util/index';
+import {Class} from '../mixin/index';
+import {css, Dimensions, isVisible} from '../util/index';
 
 export default function (UIkit) {
 
@@ -20,13 +20,13 @@ export default function (UIkit) {
 
             write() {
 
-                var el = this.$el;
+                const el = this.$el;
 
                 if (!isVisible(el)) {
                     return;
                 }
 
-                var {offsetHeight: height, offsetWidth: width} = el.parentNode;
+                const {offsetHeight: height, offsetWidth: width} = el.parentNode;
 
                 css(
                     css(el, {width: '', height: ''}),

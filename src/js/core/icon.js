@@ -1,5 +1,5 @@
-import { Class } from '../mixin/index';
-import { $, addClass, css, each, hasClass, isRtl, noop, parents, Promise, swap } from '../util/index';
+import {Class} from '../mixin/index';
+import {$, addClass, css, each, hasClass, isRtl, noop, parents, Promise, swap} from '../util/index';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
 import marker from '../../images/components/marker.svg';
@@ -19,25 +19,25 @@ import totop from '../../images/components/totop.svg';
 
 export default function (UIkit) {
 
-    var parsed = {},
-        icons = {
-            spinner,
-            totop,
-            marker,
-            'close-icon': closeIcon,
-            'close-large': closeLarge,
-            'navbar-toggle-icon': navbarToggleIcon,
-            'overlay-icon': overlayIcon,
-            'pagination-next': paginationNext,
-            'pagination-previous': paginationPrevious,
-            'search-icon': searchIcon,
-            'search-large': searchLarge,
-            'search-navbar': searchNavbar,
-            'slidenav-next': slidenavNext,
-            'slidenav-next-large': slidenavNextLarge,
-            'slidenav-previous': slidenavPrevious,
-            'slidenav-previous-large': slidenavPreviousLarge
-        };
+    const parsed = {};
+    const icons = {
+        spinner,
+        totop,
+        marker,
+        'close-icon': closeIcon,
+        'close-large': closeLarge,
+        'navbar-toggle-icon': navbarToggleIcon,
+        'overlay-icon': overlayIcon,
+        'pagination-next': paginationNext,
+        'pagination-previous': paginationPrevious,
+        'search-icon': searchIcon,
+        'search-large': searchLarge,
+        'search-navbar': searchNavbar,
+        'slidenav-next': slidenavNext,
+        'slidenav-next-large': slidenavNextLarge,
+        'slidenav-previous': slidenavPrevious,
+        'slidenav-previous-large': slidenavPreviousLarge
+    };
 
     UIkit.component('icon', UIkit.components.svg.extend({
 
@@ -65,7 +65,7 @@ export default function (UIkit) {
 
             getSvg() {
 
-                var icon = getIcon(this.icon);
+                const icon = getIcon(this.icon);
 
                 if (!icon) {
                     return Promise.reject('Icon not found.');

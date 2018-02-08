@@ -1,36 +1,14 @@
-import { on } from './event';
-import promiseFn from './promise';
-import { query } from './selector';
-import { getCssVar } from './style';
-
 export function bind(fn, context) {
     return function (a) {
-        var l = arguments.length;
+        const l = arguments.length;
         return l ? l > 1 ? fn.apply(context, arguments) : fn.call(context, a) : fn.call(context);
     };
 }
 
-var hasOwnProperty = Object.prototype.hasOwnProperty;
+const {hasOwnProperty} = Object.prototype;
 
 export function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key);
-}
-
-export const Promise = 'Promise' in window ? window.Promise : promiseFn;
-
-export class Deferred {
-    constructor() {
-        this.promise = new Promise((resolve, reject) => {
-            this.reject = reject;
-            this.resolve = resolve;
-        });
-    }
-}
-
-const classifyRe = /(?:^|[-_\/])(\w)/g;
-
-export function classify(str) {
-    return str.replace(classifyRe, (_, c) => c ? c.toUpperCase() : '');
 }
 
 const hyphenateRe = /([a-z\d])([A-Z])/g;
@@ -55,28 +33,28 @@ export function ucfirst(str) {
     return str.length ? toUpper(null, str.charAt(0)) + str.slice(1) : '';
 }
 
-var strPrototype = String.prototype;
-var startsWithFn = strPrototype.startsWith || function (search) { return this.lastIndexOf(search, 0) === 0; };
+const strPrototype = String.prototype;
+const startsWithFn = strPrototype.startsWith || function (search) { return this.lastIndexOf(search, 0) === 0; };
 
 export function startsWith(str, search) {
     return startsWithFn.call(str, search);
 }
 
-var endsWithFn = strPrototype.endsWith || function (search) { return this.substr(-search.length) === search; };
+const endsWithFn = strPrototype.endsWith || function (search) { return this.substr(-search.length) === search; };
 
 export function endsWith(str, search) {
     return endsWithFn.call(str, search);
 }
 
-var includesFn = function (search) { return ~this.indexOf(search); };
-var includesStr = strPrototype.includes || includesFn;
-var includesArray = Array.prototype.includes || includesFn;
+const includesFn = function (search) { return ~this.indexOf(search); };
+const includesStr = strPrototype.includes || includesFn;
+const includesArray = Array.prototype.includes || includesFn;
 
 export function includes(obj, search) {
     return obj && (isString(obj) ? includesStr : includesArray).call(obj, search);
 }
 
-export const isArray = Array.isArray;
+export const {isArray} = Array;
 
 export function isFunction(obj) {
     return typeof obj === 'function';
@@ -96,6 +74,18 @@ export function isWindow(obj) {
 
 export function isDocument(obj) {
     return isObject(obj) && obj.nodeType === 9;
+}
+
+export function isJQuery(obj) {
+    return isObject(obj) && !!obj.jquery;
+}
+
+export function isNode(element) {
+    return element instanceof Node || isObject(element) && element.nodeType === 1;
+}
+
+export function isNodeCollection(element) {
+    return element instanceof NodeList || element instanceof HTMLCollection;
 }
 
 export function isBoolean(value) {
@@ -129,12 +119,35 @@ export function toBoolean(value) {
 }
 
 export function toNumber(value) {
-    var number = Number(value);
+    const number = Number(value);
     return !isNaN(number) ? number : false;
 }
 
 export function toFloat(value) {
     return parseFloat(value) || 0;
+}
+
+export function toNode(element) {
+    return isNode(element) || isWindow(element) || isDocument(element)
+        ? element
+        : isNodeCollection(element) || isJQuery(element)
+            ? element[0]
+            : isArray(element)
+                ? toNode(element[0])
+                : null;
+}
+
+const arrayProto = Array.prototype;
+export function toNodes(element) {
+    return isNode(element)
+        ? [element]
+        : isNodeCollection(element)
+            ? arrayProto.slice.call(element)
+            : isArray(element)
+                ? element.map(toNode).filter(Boolean)
+                : isJQuery(element)
+                    ? element.toArray()
+                    : [];
 }
 
 export function toList(value) {
@@ -145,39 +158,6 @@ export function toList(value) {
                 ? toNumber(value)
                 : toBoolean(value.trim()))
             : [value];
-}
-
-var vars = {};
-
-export function toMedia(value) {
-
-    if (isString(value)) {
-        if (value[0] === '@') {
-            var name = `media-${value.substr(1)}`;
-            value = vars[name] || (vars[name] = toFloat(getCssVar(name)));
-        } else if (isNaN(value)) {
-            return value;
-        }
-    }
-
-    return value && !isNaN(value) ? `(min-width: ${value}px)` : false;
-}
-
-export function coerce(type, value, context) {
-
-    if (type === Boolean) {
-        return toBoolean(value);
-    } else if (type === Number) {
-        return toNumber(value);
-    } else if (type === 'query') {
-        return query(value, context);
-    } else if (type === 'list') {
-        return toList(value);
-    } else if (type === 'media') {
-        return toMedia(value);
-    }
-
-    return type ? type(value) : value;
 }
 
 export function toMs(time) {
@@ -196,10 +176,10 @@ export function swap(value, a, b) {
 
 export const assign = Object.assign || function (target, ...args) {
     target = Object(target);
-    for (var i = 0; i < args.length; i++) {
-        var source = args[i];
+    for (let i = 0; i < args.length; i++) {
+        const source = args[i];
         if (source !== null) {
-            for (var key in source) {
+            for (const key in source) {
                 if (hasOwn(source, key)) {
                     target[key] = source[key];
                 }
@@ -210,7 +190,7 @@ export const assign = Object.assign || function (target, ...args) {
 };
 
 export function each(obj, cb) {
-    for (var key in obj) {
+    for (const key in obj) {
         if (cb.call(obj[key], obj[key], key) === false) {
             break;
         }
@@ -244,54 +224,38 @@ export function pointInRect(point, rect) {
     return intersectRect({top: point.y, bottom: point.y, left: point.x, right: point.x}, rect);
 }
 
-export function ajax(url, options) {
-    return new Promise((resolve, reject) => {
+export const Dimensions = {
 
-        var env = assign({
-            data: null,
-            method: 'GET',
-            headers: {},
-            xhr: new XMLHttpRequest(),
-            beforeSend: noop,
-            responseType: ''
-        }, options);
+    ratio(dimensions, prop, value) {
 
-        var xhr = env.xhr;
+        const aProp = prop === 'width' ? 'height' : 'width';
 
-        env.beforeSend(env);
+        return {
+            [aProp]: Math.round(value * dimensions[aProp] / dimensions[prop]),
+            [prop]: value
+        };
+    },
 
-        for (var prop in env) {
-            if (prop in xhr) {
-                try {
+    contain(dimensions, maxDimensions) {
+        dimensions = assign({}, dimensions);
 
-                    xhr[prop] = env[prop];
+        each(dimensions, (_, prop) => dimensions = dimensions[prop] > maxDimensions[prop]
+            ? this.ratio(dimensions, prop, maxDimensions[prop])
+            : dimensions
+        );
 
-                } catch (e) {}
-            }
-        }
+        return dimensions;
+    },
 
-        xhr.open(env.method.toUpperCase(), url);
+    cover(dimensions, maxDimensions) {
+        dimensions = this.contain(dimensions, maxDimensions);
 
-        for (var header in env.headers) {
-            xhr.setRequestHeader(header, env.headers[header]);
-        }
+        each(dimensions, (_, prop) => dimensions = dimensions[prop] < maxDimensions[prop]
+            ? this.ratio(dimensions, prop, maxDimensions[prop])
+            : dimensions
+        );
 
-        on(xhr, 'load', () => {
+        return dimensions;
+    }
 
-            if (xhr.status === 0 || xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
-                resolve(xhr);
-            } else {
-                reject(assign(Error(xhr.statusText), {
-                    xhr,
-                    status: xhr.status
-                }));
-            }
-
-        });
-
-        on(xhr, 'error', () => reject(assign(Error('Network Error'), {xhr})));
-        on(xhr, 'timeout', () => reject(assign(Error('Network Timeout'), {xhr})));
-
-        xhr.send(env.data);
-    });
-}
+};

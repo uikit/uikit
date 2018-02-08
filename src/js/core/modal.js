@@ -1,5 +1,5 @@
-import { Class, Modal } from '../mixin/index';
-import { $, addClass, assign, closest, css, hasClass, height, html, isString, on, Promise, removeClass, trigger } from '../util/index';
+import {Class, Modal} from '../mixin/index';
+import {$, addClass, assign, closest, css, hasClass, height, html, isString, on, Promise, removeClass, trigger} from '../util/index';
 
 export default function (UIkit) {
 
@@ -77,7 +77,7 @@ export default function (UIkit) {
                     return;
                 }
 
-                var current = css(this.$el, 'maxHeight');
+                const current = css(this.$el, 'maxHeight');
 
                 css(css(this.$el, 'maxHeight', 150), 'maxHeight', Math.max(150, 150 + height(this.modal) - this.panel.offsetHeight));
                 if (current !== css(this.$el, 'maxHeight')) {
@@ -93,7 +93,7 @@ export default function (UIkit) {
 
     UIkit.modal.dialog = function (content, options) {
 
-        var dialog = UIkit.modal(`
+        const dialog = UIkit.modal(`
             <div class="uk-modal">
                 <div class="uk-modal-dialog">${content}</div>
              </div>
@@ -130,8 +130,7 @@ export default function (UIkit) {
 
         return new Promise((resolve, reject) => {
 
-            var resolved = false,
-                confirm = UIkit.modal.dialog(`
+            const confirm = UIkit.modal.dialog(`
                 <form>
                     <div class="uk-modal-body">${isString(message) ? message : html(message)}</div>
                     <div class="uk-modal-footer uk-text-right">
@@ -140,6 +139,8 @@ export default function (UIkit) {
                     </div>
                 </form>
             `, options);
+
+            let resolved = false;
 
             on(confirm.$el, 'submit', 'form', e => {
                 e.preventDefault();
@@ -162,8 +163,7 @@ export default function (UIkit) {
 
         return new Promise(resolve => {
 
-            var resolved = false,
-                prompt = UIkit.modal.dialog(`
+            const prompt = UIkit.modal.dialog(`
                     <form class="uk-form-stacked">
                         <div class="uk-modal-body">
                             <label>${isString(message) ? message : html(message)}</label>
@@ -178,6 +178,8 @@ export default function (UIkit) {
                 input = $('input', prompt.$el);
 
             input.value = value;
+
+            let resolved = false;
 
             on(prompt.$el, 'submit', 'form', e => {
                 e.preventDefault();

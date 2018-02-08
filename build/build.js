@@ -1,24 +1,24 @@
 /* eslint-env node */
-var fs = require('fs');
-var path = require('path');
-var glob = require('glob');
-var util = require('./util');
-var argv = require('minimist')(process.argv.slice(2));
+const fs = require('fs');
+const path = require('path');
+const glob = require('glob');
+const util = require('./util');
+const argv = require('minimist')(process.argv.slice(2));
 
 argv._.forEach(arg => {
     const tokens = arg.split('=');
     argv[tokens[0]] = tokens[1] || true;
 });
 
-var numArgs = Object.keys(argv).length;
+const numArgs = Object.keys(argv).length;
 argv.all = argv.all || numArgs <= 1; // no arguments passed, so compile all
 
 const minify = !(argv.debug || argv.nominify || argv.nominify || argv.d);
 
 // map component build jobs
-var components = glob.sync('src/js/components/*.js').reduce((components, file) => {
+const components = glob.sync('src/js/components/*.js').reduce((components, file) => {
 
-    var name = path.basename(file, '.js');
+    const name = path.basename(file, '.js');
 
     components[name] = () => util.compile(file, `dist/${file.substring(4, file.length - 3)}`, {
         name,
@@ -30,7 +30,7 @@ var components = glob.sync('src/js/components/*.js').reduce((components, file) =
     return components;
 }, {});
 
-var steps = {
+const steps = {
 
     core: () => util.compile('src/js/uikit-core.js', 'dist/js/uikit-core', {minify}),
     uikit: () => util.compile('src/js/uikit.js', 'dist/js/uikit', {minify, bundled: true}),
@@ -68,7 +68,7 @@ if (argv.h || argv.help) {
 
 } else {
 
-    var jobs = collectJobs();
+    let jobs = collectJobs();
 
     if (jobs.length === 0) {
         argv.all = true;
@@ -79,7 +79,7 @@ if (argv.h || argv.help) {
 
 function collectJobs() {
 
-    var jobs = [];
+    const jobs = [];
 
     // if parameter components is set or all or none(implicit all), add all components
     if (argv.components || argv.all) {

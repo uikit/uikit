@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {addClass, css, scrolledOver, sortBy, toFloat} = UIkit.util;
+    const {addClass, css, scrolledOver, sortBy, toFloat} = UIkit.util;
 
     UIkit.component('grid-parallax', UIkit.components.grid.extend({
 

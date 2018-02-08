@@ -3,12 +3,12 @@
     Copyright (c) 2010-2016 Thomas Fuchs
     http://zeptojs.com/
 */
-import { ready } from './dom';
-import { within } from './selector';
-import { on, trigger } from './event';
-import { doc, pointerDown, pointerMove, pointerUp, win } from './env';
+import {ready} from './dom';
+import {within} from './filter';
+import {on, trigger} from './event';
+import {doc, pointerDown, pointerMove, pointerUp, win} from './env';
 
-var touch = {}, clickTimeout, swipeTimeout, tapTimeout, clicked;
+let touch = {}, clickTimeout, swipeTimeout, tapTimeout, clicked;
 
 function swipeDirection({x1, x2, y1, y2}) {
     return Math.abs(x1 - x2) >= Math.abs(y1 - y2) ? (x1 - x2 > 0 ? 'Left' : 'Right') : (y1 - y2 > 0 ? 'Up' : 'Down');
@@ -28,10 +28,10 @@ ready(function () {
 
     on(doc, pointerDown, function (e) {
 
-        var target = e.target,
-            {x, y} = getPos(e),
-            now = Date.now(),
-            type = getType(e.type);
+        const {target} = e;
+        const {x, y} = getPos(e);
+        const now = Date.now();
+        const type = getType(e.type);
 
         if (touch.type && touch.type !== type) {
             return;
@@ -57,10 +57,15 @@ ready(function () {
 
     on(doc, pointerMove, function (e) {
 
-        var {x, y} = getPos(e);
+        if (e.defaultPrevented) {
+            return;
+        }
+
+        const {x, y} = getPos(e);
 
         touch.x2 = x;
         touch.y2 = y;
+
     });
 
     on(doc, pointerUp, function ({type, target}) {
@@ -99,13 +104,15 @@ ready(function () {
         } else {
             touch = {};
         }
+
     });
 
     on(doc, 'touchcancel', cancelAll);
     on(win, 'scroll', cancelAll);
+
 });
 
-var touching = false;
+let touching = false;
 on(doc, 'touchstart', () => touching = true, true);
 on(doc, 'click', () => {touching = false;});
 on(doc, 'touchcancel', () => touching = false, true);
@@ -115,8 +122,9 @@ export function isTouch(e) {
 }
 
 export function getPos(e) {
-    var {touches, changedTouches} = e,
-        {pageX: x, pageY: y} = touches && touches[0] || changedTouches && changedTouches[0] || e;
+    const {touches, changedTouches} = e;
+    const {pageX: x, pageY: y} = touches && touches[0] || changedTouches && changedTouches[0] || e;
+
     return {x, y};
 }
 

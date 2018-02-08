@@ -1,9 +1,9 @@
-import { $, addClass, append, css, doc, docEl, hasClass, on, once, Promise, removeClass, requestAnimationFrame, toMs, width, win, within } from '../util/index';
+import {$, addClass, append, css, doc, docEl, hasClass, on, once, Promise, removeClass, toMs, width, win, within} from '../util/index';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
 
-var active;
+let active;
 
 export default {
 
@@ -83,7 +83,7 @@ export default {
 
             handler(e) {
 
-                var prev = active && active !== this && active;
+                const prev = active && active !== this && active;
 
                 active = this;
 
@@ -147,7 +147,7 @@ export default {
 
             handler() {
 
-                var found, prev = this.prev;
+                let found, {prev} = this;
 
                 while (prev) {
 
@@ -220,7 +220,7 @@ export default {
 
 };
 
-var events;
+let events;
 
 function registerEvents() {
 

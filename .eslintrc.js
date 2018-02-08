@@ -16,59 +16,39 @@ module.exports = {
         "VERSION": true
     },
     "rules": {
-        "brace-style": [2, "1tbs", {"allowSingleLine": true}],
-        "comma-spacing": 2,
-        "comma-style": 2,
-        "eqeqeq": [0, "smart"],
-        "indent": [2, 4, {"SwitchCase": 1}],
-        "indent-legacy": 0,
-        "key-spacing": 2,
-        "keyword-spacing": 2,
-        "linebreak-style": [2, "unix"],
-        "no-array-constructor": 2,
-        "no-cond-assign": 0,
-        "no-duplicate-imports": 2,
-        "no-empty": [0, {"allowEmptyCatch": true}],
-        "no-extend-native": 2,
-        "no-lone-blocks": 2,
-        "no-multi-spaces": 2,
-        "no-multiple-empty-lines": [2, {"max": 1}],
-        "no-template-curly-in-string": 2,
-        "no-trailing-spaces": 2,
-        "no-unused-vars": [2, {"vars": "local", "args": "none"}],
-        "no-useless-escape": 0,
-        "quotes": [2, "single", {"avoidEscape": true}],
-        "semi": [2, "always"],
-        "space-before-blocks": 2,
-        "space-in-parens": 2,
-        "space-infix-ops": 2,
-        "space-unary-ops": 2,
-        "template-curly-spacing": 2,
-        // "sort-imports": ["error", {
-        //     "ignoreCase": true,
-        //     "ignoreMemberSort": false,
-        //     "memberSyntaxSortOrder": ["none", "single", "all", "multiple"]
-        // }]
+        "brace-style": ["error", "1tbs", {"allowSingleLine": true}],
+        "comma-spacing": "error",
+        "comma-style": "error",
+        "eqeqeq": ["off", "smart"],
+        "indent": "off",
+        "indent-legacy": ["error", 4, {"SwitchCase": 1}],
+        "key-spacing": "error",
+        "keyword-spacing": "error",
+        "linebreak-style": ["error", "unix"],
+        "no-array-constructor": "error",
+        "no-console": "off",
+        "no-duplicate-imports": "error",
+        "no-empty": ["error", {"allowEmptyCatch": true}],
+        "no-extend-native": "error",
+        "no-case-declarations": "warn",
+        "no-lone-blocks": "error",
+        "no-lonely-if": "error",
+        "no-multi-spaces": "error",
+        "no-multiple-empty-lines": "error",
+        "no-template-curly-in-string": "error",
+        "no-trailing-spaces": "error",
+        "no-unused-vars": ["error", {"vars": "local", "args": "none"}],
+        "no-var": "error",
+        "object-curly-spacing": "error",
+        "prefer-const": ["error", {"destructuring": "all"}],
+        "prefer-destructuring": "warn",
+        "quotes": ["error", "single", {"avoidEscape": true}],
+        "semi": ["error", "always"],
+        "space-before-blocks": "error",
+        "space-in-parens": "error",
+        "space-infix-ops": "error",
+        "space-unary-ops": "error",
+        "template-curly-spacing": "error"
     }
 
 };
-
-/*
-    implicit:
-
-    "rules": {
-
-        "no-undef": 2,
-        "strict": 0,
-        "new-cap": 0,
-        "camelcase": 0,
-        "no-underscore-dangle": 0,
-        "no-new": 0,
-        "no-alert": 0,
-        "no-use-before-define": 0,
-        "consistent-return": 0,
-        "no-shadow": 0,
-
-    }
-
-*/

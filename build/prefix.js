@@ -1,9 +1,9 @@
 /* eslint-env node */
-var fs = require('fs');
-var glob = require('glob');
-var util = require('./util');
-var argv = require('minimist')(process.argv.slice(2));
-var prompt = require('inquirer').createPromptModule();
+const fs = require('fs');
+const glob = require('glob');
+const util = require('./util');
+const argv = require('minimist')(process.argv.slice(2));
+const prompt = require('inquirer').createPromptModule();
 
 argv._.forEach(arg => {
     const tokens = arg.split('=');
@@ -38,7 +38,7 @@ function startProcess() {
 function findExistingPrefix() {
 
     // find existing prefix
-    var currentPrefix;
+    let currentPrefix;
     allFiles.some(({file, data}) => {
 
         const res = data.match(new RegExp(`(${util.validClassName.source})-grid`));
@@ -85,13 +85,13 @@ function readAllFiles(prefix) {
 
     globs.push(new Promise(res =>
         glob('dist/**/*.css', (err, files) => {
-            var reads = [];
+            const reads = [];
             files.forEach(file =>
                 reads.push(util.read(file, data =>
                     allFiles.push({
                         file,
                         data,
-                        replace: (data, needle, replace) => data.replace(new RegExp(`${needle}-` + /([a-z\d\-]+)/.source, 'g'), `${replace}-$1`)
+                        replace: (data, needle, replace) => data.replace(new RegExp(`${needle}-` + /([a-z\d-]+)/.source, 'g'), `${replace}-$1`)
                     })
                 ))
             );
@@ -102,7 +102,7 @@ function readAllFiles(prefix) {
 
     globs.push(new Promise(res =>
         glob('dist/**/*.js', (err, files) => {
-            var reads = [];
+            const reads = [];
             files.forEach(file =>
                 reads.push(util.read(file, data =>
                     allFiles.push({
