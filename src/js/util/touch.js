@@ -6,7 +6,7 @@
 import {ready} from './dom';
 import {within} from './filter';
 import {on, trigger} from './event';
-import {doc, pointerDown, pointerMove, pointerUp, win} from './env';
+import {pointerDown, pointerMove, pointerUp} from './env';
 
 let touch = {}, clickTimeout, swipeTimeout, tapTimeout, clicked;
 
@@ -24,9 +24,9 @@ function cancelAll() {
 
 ready(function () {
 
-    on(doc, 'click', () => clicked = true, true);
+    on(document, 'click', () => clicked = true, true);
 
-    on(doc, pointerDown, function (e) {
+    on(document, pointerDown, function (e) {
 
         const {target} = e;
         const {x, y} = getPos(e);
@@ -55,7 +55,7 @@ ready(function () {
 
     });
 
-    on(doc, pointerMove, function (e) {
+    on(document, pointerMove, function (e) {
 
         if (e.defaultPrevented) {
             return;
@@ -68,7 +68,7 @@ ready(function () {
 
     });
 
-    on(doc, pointerUp, function ({type, target}) {
+    on(document, pointerUp, function ({type, target}) {
 
         if (touch.type !== getType(type)) {
             return;
@@ -107,15 +107,15 @@ ready(function () {
 
     });
 
-    on(doc, 'touchcancel', cancelAll);
-    on(win, 'scroll', cancelAll);
+    on(document, 'touchcancel', cancelAll);
+    on(window, 'scroll', cancelAll);
 
 });
 
 let touching = false;
-on(doc, 'touchstart', () => touching = true, true);
-on(doc, 'click', () => {touching = false;});
-on(doc, 'touchcancel', () => touching = false, true);
+on(document, 'touchstart', () => touching = true, true);
+on(document, 'click', () => {touching = false;});
+on(document, 'touchcancel', () => touching = false, true);
 
 export function isTouch(e) {
     return touching || e.pointerType === 'touch';

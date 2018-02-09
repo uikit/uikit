@@ -1,6 +1,6 @@
 export default function (UIkit) {
 
-    const {doc, getPos, includes, isRtl, isTouch, off, on, pointerDown, pointerMove, pointerUp, preventClick, trigger, win} = UIkit.util;
+    const {getPos, includes, isRtl, isTouch, off, on, pointerDown, pointerMove, pointerUp, preventClick, trigger} = UIkit.util;
 
     return {
 
@@ -85,9 +85,9 @@ export default function (UIkit) {
                     this.prevIndex = this.index;
                 }
 
-                this.unbindMove = on(doc, pointerMove, this.move, {capture: true, passive: false});
-                on(win, 'scroll', this.unbindMove);
-                on(doc, pointerUp, this.end, true);
+                this.unbindMove = on(document, pointerMove, this.move, {capture: true, passive: false});
+                on(window, 'scroll', this.unbindMove);
+                on(document, pointerUp, this.end, true);
 
             },
 
@@ -164,9 +164,9 @@ export default function (UIkit) {
 
             end() {
 
-                off(win, 'scroll', this.unbindMove);
+                off(window, 'scroll', this.unbindMove);
                 this.unbindMove();
-                off(doc, pointerUp, this.end, true);
+                off(document, pointerUp, this.end, true);
 
                 if (this.dragging) {
 

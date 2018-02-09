@@ -1,4 +1,4 @@
-import {$, clamp, doc, escape, height, offset, trigger, win} from '../util/index';
+import {$, clamp, escape, height, offset, trigger} from '../util/index';
 
 export default function (UIkit) {
 
@@ -18,10 +18,10 @@ export default function (UIkit) {
 
             scrollTo(el) {
 
-                el = el && $(el) || doc.body;
+                el = el && $(el) || document.body;
 
-                const docHeight = height(doc);
-                const winHeight = height(win);
+                const docHeight = height(document);
+                const winHeight = height(window);
 
                 let target = offset(el).top - this.offset;
                 if (target + winHeight > docHeight) {
@@ -33,12 +33,12 @@ export default function (UIkit) {
                 }
 
                 const start = Date.now();
-                const startY = win.pageYOffset;
+                const startY = window.pageYOffset;
                 const step = () => {
 
                     const currentY = startY + (target - startY) * ease(clamp((Date.now() - start) / this.duration));
 
-                    win.scrollTo(win.pageXOffset, currentY);
+                    window.scrollTo(window.pageXOffset, currentY);
 
                     // scroll more if we have not reached our destination
                     if (currentY !== target) {

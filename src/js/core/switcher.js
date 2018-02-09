@@ -1,5 +1,5 @@
 import {Togglable} from '../mixin/index';
-import {$$, addClass, attr, data, filter, getIndex, hasClass, index, isTouch, matches, queryAll, removeClass, win} from '../util/index';
+import {$$, addClass, attr, data, filter, getIndex, hasClass, index, isTouch, matches, queryAll, removeClass} from '../util/index';
 
 export default function (UIkit) {
 
@@ -90,7 +90,7 @@ export default function (UIkit) {
                     }
 
                     e.preventDefault();
-                    if (!win.getSelection().toString()) {
+                    if (!window.getSelection().toString()) {
                         this.show(e.type === 'swipeLeft' ? 'next' : 'previous');
                     }
                 }

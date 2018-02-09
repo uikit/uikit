@@ -1,5 +1,5 @@
 import UIkit from '../api/index';
-import {$$, Animation, assign, attr, css, doc, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger} from '../util/index';
+import {$$, Animation, assign, attr, css, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger} from '../util/index';
 
 export default {
 
@@ -71,7 +71,7 @@ export default {
 
                 } else {
 
-                    const {body} = doc;
+                    const {body} = document;
                     const scroll = body.scrollTop;
                     const [el] = toggled;
                     const inProgress = Animation.inProgress(el) && hasClass(el, 'uk-animation-leave')

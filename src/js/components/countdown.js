@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    const {$, doc, empty, html} = UIkit.util;
+    const {$, empty, html} = UIkit.util;
 
     UIkit.component('countdown', {
 
@@ -65,10 +65,10 @@ function plugin(UIkit) {
 
                 name: 'visibilitychange',
 
-                el: doc,
+                el: document,
 
                 handler() {
-                    if (doc.hidden) {
+                    if (document.hidden) {
                         this.stop();
                     } else {
                         this.start();

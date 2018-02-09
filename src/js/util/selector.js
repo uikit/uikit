@@ -1,14 +1,13 @@
-import {doc, win} from './env';
 import {removeAttr} from './attr';
 import {isNode, isString, startsWith, toNode, toNodes} from './lang';
 
 export function query(selector, context) {
-    return toNode(selector) || find(selector, isContextSelector(selector) ? context : doc);
+    return toNode(selector) || find(selector, isContextSelector(selector) ? context : document);
 }
 
 export function queryAll(selector, context) {
     const nodes = toNodes(selector);
-    return nodes.length && nodes || findAll(selector, isContextSelector(selector) ? context : doc);
+    return nodes.length && nodes || findAll(selector, isContextSelector(selector) ? context : document);
 }
 
 export function find(selector, context) {
@@ -19,7 +18,7 @@ export function findAll(selector, context) {
     return toNodes(_query(selector, context, 'querySelectorAll'));
 }
 
-function _query(selector, context = doc, queryFn) {
+function _query(selector, context = document, queryFn) {
 
     if (!selector || !isString(selector)) {
         return null;
@@ -60,7 +59,7 @@ function _query(selector, context = doc, queryFn) {
 
         }).filter(Boolean).join(',');
 
-        context = doc;
+        context = document;
 
     }
 
@@ -135,7 +134,7 @@ export function parents(element, selector) {
     return elements;
 }
 
-const escapeFn = win.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, match => `\\${match}`); };
+const escapeFn = window.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, match => `\\${match}`); };
 export function escape(css) {
     return isString(css) ? escapeFn.call(null, css) : '';
 }

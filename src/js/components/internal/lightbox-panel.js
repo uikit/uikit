@@ -10,7 +10,7 @@ function plugin(UIkit) {
     UIkit.use(Slideshow);
 
     const {mixin, util} = UIkit;
-    const {$, addClass, ajax, append, assign, attr, css, doc, getImage, html, index, on, pointerDown, pointerMove, removeClass, Transition, trigger} = util;
+    const {$, addClass, ajax, append, assign, attr, css, getImage, html, index, on, pointerDown, pointerMove, removeClass, Transition, trigger} = util;
 
     const Animations = AnimationsPlugin(UIkit);
 
@@ -110,9 +110,7 @@ function plugin(UIkit) {
 
                 name: 'keyup',
 
-                el() {
-                    return doc;
-                },
+                el: document,
 
                 handler(e) {
 
