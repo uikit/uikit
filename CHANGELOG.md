@@ -1,10 +1,16 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Allow dropdowns in Iconnav component
+
 ## 3.0.0 beta 40 (February 8, 2018)
 
 ### Changed
 
-- Form Custom is more reactive now
+- Improve Form Custom reactivity
 - Improve Scrollspy component reactivity
 
 ### Fixed
