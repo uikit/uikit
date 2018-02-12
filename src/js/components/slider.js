@@ -75,13 +75,11 @@ function plugin(UIkit) {
 
                 let left = 0;
                 let leftCenter = width;
-
-                css(this.slides, 'order', '');
+                let slideLeft = 0;
 
                 sets = sets && this.slides.reduce((sets, slide, i) => {
 
                     const slideWidth = slide.offsetWidth;
-                    const slideLeft = Transitioner.getElLeft(slide, this.list);
                     const slideRight = slideLeft + slideWidth;
 
                     if (slideRight > left) {
@@ -103,6 +101,8 @@ function plugin(UIkit) {
 
                         }
                     }
+
+                    slideLeft += slideWidth;
 
                     return sets;
 
@@ -197,8 +197,10 @@ function plugin(UIkit) {
                     return;
                 }
 
+                const index = this.dir > 0 && this.slides[this.prevIndex] ? this.prevIndex : this.index;
+
                 this.slides.forEach((slide, i) =>
-                    css(slide, 'order', this.dir > 0 && i < this.prevIndex
+                    css(slide, 'order', this.dir > 0 && i < index
                         ? 1
                         : this.dir < 0 && i >= this.index
                             ? -1
@@ -210,9 +212,7 @@ function plugin(UIkit) {
                     return;
                 }
 
-                const index = this.dir > 0 && this.slides[this.prevIndex] ? this.prevIndex : this.index;
                 const next = this.slides[index];
-
                 let width = this.list.offsetWidth / 2 - next.offsetWidth / 2;
                 let j = 0;
 

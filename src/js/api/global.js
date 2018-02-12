@@ -1,4 +1,4 @@
-import {$, createEvent, doc, isString, mergeOptions, toNode} from '../util/index';
+import {$, createEvent, isString, mergeOptions, toNode} from '../util/index';
 
 export default function (UIkit) {
 
@@ -77,7 +77,7 @@ export default function (UIkit) {
     Object.defineProperty(UIkit, 'container', {
 
         get() {
-            return container || doc.body;
+            return container || document.body;
         },
 
         set(element) {

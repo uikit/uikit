@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     const {util, mixin} = UIkit;
-    const {append, attr, doc, flipPosition, hasAttr, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, remove, within} = util;
+    const {append, attr, flipPosition, hasAttr, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, remove, within} = util;
 
     const actives = [];
 
@@ -53,7 +53,7 @@ function plugin(UIkit) {
                 actives.forEach(active => active.hide());
                 actives.push(this);
 
-                this._unbind = on(doc, 'click', e => !within(e.target, this.$el) && this.hide());
+                this._unbind = on(document, 'click', e => !within(e.target, this.$el) && this.hide());
 
                 clearTimeout(this.showTimer);
 
@@ -84,7 +84,7 @@ function plugin(UIkit) {
 
                 const index = actives.indexOf(this);
 
-                if (!~index || matches(this.$el, 'input') && this.$el === doc.activeElement) {
+                if (!~index || matches(this.$el, 'input') && this.$el === document.activeElement) {
                     return;
                 }
 

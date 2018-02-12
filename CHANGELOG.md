@@ -2,10 +2,24 @@
 
 ## WIP
 
+### Changed
+
+- Allow dropdowns in Iconnav component
+
+## 3.0.0 beta 40 (February 8, 2018)
+
+### Changed
+
+- Improve Form Custom reactivity
+- Improve Scrollspy component reactivity
+
 ### Fixed
 
 - Fix using Scrollspy component with default values
 - Fix Scrollspy if UIkit is loaded async
+- Fix YouTube short urls in Lightbox component
+- Fix empty select in Form Custom component
+- Fix Slider reactivity
 
 ## 3.0.0 beta 39 (January 31, 2018)
 

@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     const {mixin, util} = UIkit;
-    const {css, Dimensions, each, getImage, includes, isNumber, isUndefined, toFloat, win} = util;
+    const {css, Dimensions, each, getImage, includes, isNumber, isUndefined, toFloat} = util;
 
     const props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
@@ -118,7 +118,7 @@ function plugin(UIkit) {
 
                 read(data) {
 
-                    data.active = !this.media || win.matchMedia(this.media).matches;
+                    data.active = !this.media || window.matchMedia(this.media).matches;
 
                     if (data.image) {
                         data.image.dimEl = {

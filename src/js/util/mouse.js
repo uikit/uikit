@@ -1,4 +1,3 @@
-import {doc} from './env';
 import {on} from './event';
 import {offset} from './dimensions';
 
@@ -15,7 +14,7 @@ MouseTracker.prototype = {
         this.position = null;
 
         let ticking = false;
-        this.unbind = on(doc, 'mousemove', e => {
+        this.unbind = on(document, 'mousemove', e => {
 
             if (ticking) {
                 return;

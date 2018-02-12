@@ -1,5 +1,5 @@
 import {Class} from '../mixin/index';
-import {attr, getCssVar, toggleClass, unwrap, win, wrapInner} from '../util/index';
+import {attr, getCssVar, toggleClass, unwrap, wrapInner} from '../util/index';
 
 export default function (UIkit) {
 
@@ -49,7 +49,7 @@ export default function (UIkit) {
                     return {
                         width,
                         changed: changed || prev !== width,
-                        hide: this.media && !win.matchMedia(this.media).matches
+                        hide: this.media && !window.matchMedia(this.media).matches
                     };
                 },
 

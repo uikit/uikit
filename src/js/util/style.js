@@ -1,6 +1,5 @@
 import {append} from './dom';
 import {addClass} from './class';
-import {doc, docEl} from './env';
 import {each, hyphenate, isArray, isNumeric, isObject, isString, isUndefined, toNode, toNodes} from './lang';
 
 const cssNumber = {
@@ -71,7 +70,7 @@ export function getCssVar(name) {
 
         /* usage in css: .var-name:before { content:"xyz" } */
 
-        const element = append(docEl, doc.createElement('div'));
+        const element = append(document.documentElement, document.createElement('div'));
 
         addClass(element, `var-${name}`);
 
@@ -82,7 +81,7 @@ export function getCssVar(name) {
 
         } catch (e) {}
 
-        docEl.removeChild(element);
+        document.documentElement.removeChild(element);
 
     }
 
@@ -102,7 +101,7 @@ export function propName(name) {
 }
 
 const cssPrefixes = ['webkit', 'moz', 'ms'];
-const {style} = doc.createElement('_');
+const {style} = document.createElement('_');
 
 function vendorPropName(name) {
 

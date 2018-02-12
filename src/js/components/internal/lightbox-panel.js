@@ -10,7 +10,7 @@ function plugin(UIkit) {
     UIkit.use(Slideshow);
 
     const {mixin, util} = UIkit;
-    const {$, addClass, ajax, append, assign, attr, css, doc, getImage, html, index, on, pointerDown, pointerMove, removeClass, Transition, trigger} = util;
+    const {$, addClass, ajax, append, assign, attr, css, getImage, html, index, on, pointerDown, pointerMove, removeClass, Transition, trigger} = util;
 
     const Animations = AnimationsPlugin(UIkit);
 
@@ -110,9 +110,7 @@ function plugin(UIkit) {
 
                 name: 'keyup',
 
-                el() {
-                    return doc;
-                },
+                el: document,
 
                 handler(e) {
 
@@ -228,7 +226,7 @@ function plugin(UIkit) {
                         this.setItem(item, `<iframe class="uk-lightbox-iframe" src="${source}" frameborder="0" allowfullscreen></iframe>`);
 
                     // YouTube
-                    } else if ((matches = source.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/watch\?v=([^&\s]+)/) || source.match(/(y)outu\.be\/(.*)/))) {
+                    } else if ((matches = source.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/watch\?v=([^&\s]+)/) || source.match(/()youtu\.be\/(.*)/))) {
 
                         const [, , id] = matches;
                         const setIframe = (width = 640, height = 450) => this.setItem(item, getIframe(`//www.youtube${matches[1] || ''}.com/embed/${id}`, width, height, this.videoAutoplay));
