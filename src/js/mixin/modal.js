@@ -10,7 +10,7 @@ export default {
     mixins: [Class, Container, Togglable],
 
     props: {
-        clsPanel: String,
+        selPanel: String,
         selClose: String,
         escClose: Boolean,
         bgClose: Boolean,
@@ -27,8 +27,8 @@ export default {
 
     computed: {
 
-        panel({clsPanel}, $el) {
-            return $(`.${clsPanel}`, $el);
+        panel({selPanel}, $el) {
+            return $(selPanel, $el);
         },
 
         transitionElement() {

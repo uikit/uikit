@@ -25,7 +25,7 @@ export default function (UIkit) {
             overlay: false,
             clsPage: 'uk-offcanvas-page',
             clsContainer: 'uk-offcanvas-container',
-            clsPanel: 'uk-offcanvas-bar',
+            selPanel: '.uk-offcanvas-bar',
             clsFlip: 'uk-offcanvas-flip',
             clsContent: 'uk-offcanvas-content',
             clsContentAnimation: 'uk-offcanvas-content-animation',
@@ -146,7 +146,7 @@ export default function (UIkit) {
                     addClass(document.body, this.clsContainer, this.clsFlip, this.clsOverlay);
                     height(document.body); // force reflow
                     addClass(this.content, this.clsContentAnimation);
-                    addClass(this.panel, `${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
+                    addClass(this.panel, this.clsSidebarAnimation, this.mode !== 'reveal' ? this.clsMode : '');
                     addClass(this.$el, this.clsOverlay);
                     css(this.$el, 'display', 'block');
                     height(this.$el); // force reflow

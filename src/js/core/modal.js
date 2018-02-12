@@ -9,7 +9,7 @@ export default function (UIkit) {
 
         defaults: {
             clsPage: 'uk-modal-page',
-            clsPanel: 'uk-modal-dialog',
+            selPanel: '.uk-modal-dialog',
             selClose: '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full'
         },
 
