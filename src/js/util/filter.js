@@ -1,5 +1,5 @@
 import {closest, matches} from './selector';
-import {isString, toNode, toNodes} from './lang';
+import {isDocument, isString, toNode, toNodes} from './lang';
 
 const voidElements = {
     area: true,
@@ -38,6 +38,8 @@ export function filter(element, selector) {
 
 export function within(element, selector) {
     return !isString(selector)
-        ? element === selector || toNode(selector).contains(toNode(element))
+        ? element === selector || (isDocument(selector)
+            ? selector.documentElement
+            : toNode(selector)).contains(toNode(element)) // IE 11 document does not implement contains
         : matches(element, selector) || closest(element, selector);
 }

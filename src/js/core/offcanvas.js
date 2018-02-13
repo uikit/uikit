@@ -193,7 +193,7 @@ export default function (UIkit) {
                     removeClass(document.body, this.clsContainer, this.clsFlip, this.clsOverlay);
                     document.body.scrollTop = scroll.y;
 
-                    css(document.documentElement, 'overflow-y', '');
+                    css(document.documentElement, 'overflowY', '');
 
                     width(this.content, '');
                     height(this.content, '');
