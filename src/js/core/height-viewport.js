@@ -31,7 +31,7 @@ export default function (UIkit) {
 
                     css(this.$el, {height: '', minHeight: ''});
 
-                    const diff = viewport - height(document);
+                    const diff = viewport - height(document.documentElement);
 
                     if (diff > 0) {
                         minHeight = offsetHeight(this.$el) + diff;
