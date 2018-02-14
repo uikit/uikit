@@ -1,4 +1,6 @@
-import {isRtl, isVisible, toggleClass} from '../util/index';
+import {isRtl} from '../util/env';
+import {isVisible} from '../util/filter';
+import {toggleClass} from '../util/class';
 
 export default function (UIkit) {
 

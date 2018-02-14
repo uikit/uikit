@@ -1,5 +1,16 @@
 import UIkit from '../api/index';
-import {$$, Animation, assign, attr, css, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger} from '../util/index';
+
+import {$$} from '../util/core';
+import {css} from '../util/style';
+import {height} from '../util/dimensions';
+import {trigger} from '../util/event';
+import {fastdom} from '../util/fastdom';
+import {Promise} from '../util/promise';
+import {isVisible} from '../util/filter';
+import {attr, hasAttr} from '../util/attr';
+import {hasClass, toggleClass} from '../util/class';
+import {Animation, Transition} from '../util/animation';
+import {includes, assign, isBoolean, isUndefined, noop, toFloat, toNodes} from '../util/lang';
 
 export default {
 

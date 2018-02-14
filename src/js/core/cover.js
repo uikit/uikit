@@ -1,5 +1,8 @@
 import {Class} from '../mixin/index';
-import {css, Dimensions, isVisible} from '../util/index';
+
+import {css} from '../util/style';
+import {isVisible} from '../util/filter';
+import {Dimensions} from '../util/lang';
 
 export default function (UIkit) {
 

@@ -1,4 +1,4 @@
-import {isInView} from '../util/index';
+import {isInView} from '../util/dimensions';
 
 export default function (UIkit) {
 

@@ -1,4 +1,8 @@
-import {$, clamp, escape, height, offset, trigger} from '../util/index';
+import {$} from '../util/core';
+import {clamp} from '../util/lang';
+import {escape} from '../util/selector';
+import {trigger} from '../util/event';
+import {offset, height} from '../util/dimensions';
 
 export default function (UIkit) {
 

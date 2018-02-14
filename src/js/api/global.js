@@ -1,4 +1,7 @@
-import {$, createEvent, isString, mergeOptions, toNode} from '../util/index';
+import {$} from '../util/core';
+import {createEvent} from '../util/event';
+import {mergeOptions} from '../util/options';
+import {isString, toNode} from '../util/lang';
 
 export default function (UIkit) {
 

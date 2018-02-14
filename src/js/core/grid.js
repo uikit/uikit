@@ -1,5 +1,5 @@
 import {Class} from '../mixin/index';
-import {toggleClass} from '../util/index';
+import {toggleClass} from '../util/class';
 
 export default function (UIkit) {
 

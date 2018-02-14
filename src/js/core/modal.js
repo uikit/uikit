@@ -1,5 +1,14 @@
 import {Class, Modal} from '../mixin/index';
-import {$, addClass, assign, closest, css, hasClass, height, html, isString, on, Promise, removeClass, trigger} from '../util/index';
+
+import {$} from '../util/core';
+import {css} from '../util/style';
+import {html} from '../util/dom';
+import {height} from '../util/dimensions';
+import {Promise} from '../util/promise';
+import {closest} from '../util/selector';
+import {on, trigger} from '../util/event';
+import {assign, isString} from '../util/lang';
+import {addClass, hasClass, removeClass} from '../util/class';
 
 export default function (UIkit) {
 

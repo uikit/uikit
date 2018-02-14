@@ -1,5 +1,12 @@
 import {Modal} from '../mixin/index';
-import {$, addClass, css, hasClass, height, isTouch, once, removeClass, trigger, unwrap, width, wrapAll} from '../util/index';
+
+import {$} from '../util/core';
+import {css} from '../util/style';
+import {isTouch} from '../util/touch';
+import {height, width} from '../util/dimensions';
+import {once, trigger} from '../util/event';
+import {unwrap, wrapAll} from '../util/dom';
+import {addClass, hasClass, removeClass} from '../util/class';
 
 let scroll;
 

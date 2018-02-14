@@ -1,4 +1,9 @@
-import {$, css, flipPosition, includes, isNumeric, isRtl, offset as getOffset, positionAt, removeClasses, toggleClass} from '../util/index';
+import {$} from '../util/core';
+import {css} from '../util/style';
+import {isRtl} from '../util/env';
+import {includes, isNumeric} from '../util/lang';
+import {removeClasses, toggleClass} from '../util/class';
+import {offset as getOffset, positionAt, flipPosition} from '../util/dimensions';
 
 export default {
 

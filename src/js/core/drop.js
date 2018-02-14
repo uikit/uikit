@@ -1,5 +1,18 @@
 import {Position, Togglable} from '../mixin/index';
-import {$$, addClass, Animation, attr, css, includes, isString, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointInRect, query, removeClass, removeClasses, toggleClass, within} from '../util/index';
+
+import {$$} from '../util/core';
+import {css} from '../util/style';
+import {attr} from '../util/attr';
+import {query} from '../util/selector';
+import {within} from '../util/filter';
+import {offset} from '../util/dimensions';
+import {isTouch} from '../util/touch';
+import {on, once} from '../util/event';
+import {Animation} from '../util/animation';
+import {MouseTracker} from '../util/mouse';
+import {pointerLeave, pointerEnter} from '../util/env';
+import {includes, isString, pointInRect} from '../util/lang';
+import {addClass, removeClass, removeClasses, toggleClass} from '../util/class';
 
 export default function (UIkit) {
 

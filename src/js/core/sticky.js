@@ -1,5 +1,17 @@
 import {Class} from '../mixin/index';
-import {$, addClass, after, Animation, assign, attr, css, fastdom, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, remove, removeClass, replaceClass, toFloat, toggleClass, trigger, within} from '../util/index';
+
+import {$} from '../util/core';
+import {css} from '../util/style';
+import {attr} from '../util/attr';
+import {query} from '../util/selector';
+import {trigger} from '../util/event';
+import {fastdom} from '../util/fastdom';
+import {Animation} from '../util/animation';
+import {after, remove} from '../util/dom';
+import {offset, height} from '../util/dimensions';
+import {within, isVisible} from '../util/filter';
+import {assign, isNumeric, isString, toFloat, noop} from '../util/lang';
+import {hasClass, addClass, removeClass, toggleClass, replaceClass} from '../util/class';
 
 export default function (UIkit) {
 

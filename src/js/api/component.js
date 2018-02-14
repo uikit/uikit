@@ -1,4 +1,6 @@
-import {$$, camelize, fastdom, isJQuery, isPlainObject, isUndefined, startsWith} from '../util/index';
+import {$$} from '../util/core';
+import {fastdom} from '../util/index';
+import {camelize, isPlainObject, isUndefined, startsWith, isJQuery} from '../util/lang';
 
 export default function (UIkit) {
 

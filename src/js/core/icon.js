@@ -1,21 +1,29 @@
 import {Class} from '../mixin/index';
-import {$, addClass, css, each, hasClass, isRtl, noop, parents, Promise, swap} from '../util/index';
-import closeIcon from '../../images/components/close-icon.svg';
-import closeLarge from '../../images/components/close-large.svg';
+
+import {$} from '../util/core';
+import {css} from '../util/style';
+import {isRtl} from '../util/env';
+import {Promise} from '../util/promise';
+import {parents} from '../util/selector';
+import {each, noop, swap} from '../util/lang';
+import {addClass, hasClass} from '../util/class';
+
+import totop from '../../images/components/totop.svg';
 import marker from '../../images/components/marker.svg';
-import navbarToggleIcon from '../../images/components/navbar-toggle-icon.svg';
-import overlayIcon from '../../images/components/overlay-icon.svg';
-import paginationNext from '../../images/components/pagination-next.svg';
-import paginationPrevious from '../../images/components/pagination-previous.svg';
+import spinner from '../../images/components/spinner.svg';
+import closeIcon from '../../images/components/close-icon.svg';
 import searchIcon from '../../images/components/search-icon.svg';
+import closeLarge from '../../images/components/close-large.svg';
+import overlayIcon from '../../images/components/overlay-icon.svg';
 import searchLarge from '../../images/components/search-large.svg';
 import searchNavbar from '../../images/components/search-navbar.svg';
 import slidenavNext from '../../images/components/slidenav-next.svg';
-import slidenavNextLarge from '../../images/components/slidenav-next-large.svg';
+import paginationNext from '../../images/components/pagination-next.svg';
 import slidenavPrevious from '../../images/components/slidenav-previous.svg';
+import navbarToggleIcon from '../../images/components/navbar-toggle-icon.svg';
+import slidenavNextLarge from '../../images/components/slidenav-next-large.svg';
+import paginationPrevious from '../../images/components/pagination-previous.svg';
 import slidenavPreviousLarge from '../../images/components/slidenav-previous-large.svg';
-import spinner from '../../images/components/spinner.svg';
-import totop from '../../images/components/totop.svg';
 
 export default function (UIkit) {
 
