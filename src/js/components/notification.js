@@ -114,7 +114,7 @@ function plugin(UIkit) {
     UIkit.notification.closeAll = function (group, immediate) {
         apply(document.body, el => {
             const notification = UIkit.getComponent(el, 'notification');
-            if (!group || group === notification.group) {
+            if (notification && (!group || group === notification.group)) {
                 notification.close(immediate);
             }
         });
