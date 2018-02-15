@@ -154,3 +154,17 @@ export function fragment(html) {
     return container.childNodes.length > 1 ? toNodes(container.childNodes) : container.firstChild;
 
 }
+
+export function apply(node, fn) {
+
+    if (!node || node.nodeType !== 1) {
+        return;
+    }
+
+    fn(node);
+    node = node.firstElementChild;
+    while (node) {
+        apply(node, fn);
+        node = node.nextElementSibling;
+    }
+}

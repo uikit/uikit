@@ -1,4 +1,4 @@
-import {$$, camelize, fastdom, isJQuery, isPlainObject, isUndefined, startsWith} from '../util/index';
+import {$$, camelize, fastdom, isPlainObject, isUndefined, startsWith} from '../util/index';
 
 export default function (UIkit) {
 
@@ -53,7 +53,7 @@ export default function (UIkit) {
         return UIkit.components[name];
     };
 
-    UIkit.getComponents = element => element && (element = isJQuery(element) ? element[0] : element) && element[DATA] || {};
+    UIkit.getComponents = element => element && element[DATA] || {};
     UIkit.getComponent = (element, name) => UIkit.getComponents(element)[name];
 
     UIkit.connect = node => {

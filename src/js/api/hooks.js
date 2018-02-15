@@ -17,12 +17,6 @@ export default function (UIkit) {
             return;
         }
 
-        if (!includes(UIkit.elements, this.$options.el)) {
-            UIkit.elements.push(this.$options.el);
-        }
-
-        UIkit.instances[this._uid] = this;
-
         this._data = {};
 
         this._callHook('beforeConnect');
@@ -52,14 +46,6 @@ export default function (UIkit) {
             this._observer.disconnect();
             this._observer = null;
         }
-
-        const index = UIkit.elements.indexOf(this.$options.el);
-
-        if (~index) {
-            UIkit.elements.splice(index, 1);
-        }
-
-        delete UIkit.instances[this._uid];
 
         this._unbindEvents();
         this._callHook('disconnected');
