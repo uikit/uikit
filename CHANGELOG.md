@@ -6,6 +6,10 @@
 
 - Allow dropdowns in Iconnav component
 
+### Fixed
+
+- Fix browser compatibility in Navbar component
+
 ## 3.0.0 beta 40 (February 8, 2018)
 
 ### Changed
