@@ -200,7 +200,6 @@ export default function (UIkit) {
 
                 const {dropbar} = this;
                 const oldHeight = isVisible(dropbar) ? height(dropbar) : 0;
-                const reset = () => css(el, {height: '', overflow: ''});
 
                 el = oldHeight < newHeight && el;
 
@@ -210,7 +209,8 @@ export default function (UIkit) {
                 Transition.cancel([el, dropbar]);
                 return Transition
                     .start([el, dropbar], {height: newHeight}, this.duration)
-                    .then(reset, reset);
+                    .catch(noop)
+                    .then(() => css(el, {height: '', overflow: ''}));
             }
 
         }
