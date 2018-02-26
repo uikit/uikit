@@ -5,6 +5,7 @@
 ### Changed
 
 - Allow dropdowns in Iconnav component
+- Allow any property in `svg-fill` mixin
 
 ### Fixed
 
