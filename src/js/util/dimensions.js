@@ -235,7 +235,7 @@ function getContentSize(prop, element, value) {
 }
 
 function moveTo(position, attach, dim, factor) {
-    each(dirs, function ([dir, align, alignFlip], prop) {
+    each(dirs, ([dir, align, alignFlip], prop) => {
         if (attach[dir] === alignFlip) {
             position[align] += dim[prop] * factor;
         } else if (attach[dir] === 'center') {

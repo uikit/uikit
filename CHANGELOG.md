@@ -6,6 +6,11 @@
 
 - Allow dropdowns in Iconnav component
 - Allow any property in `svg-fill` mixin
+- Defer UIkit's initial execution to DOMContentLoaded event
+
+### Removed
+
+- Remove `ready` callback in component definition
 
 ### Fixed
 

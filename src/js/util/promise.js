@@ -31,30 +31,33 @@ function PromiseFn(executor) {
     const promise = this;
 
     try {
-        executor(function (x) {
-            promise.resolve(x);
-        }, function (r) {
-            promise.reject(r);
-        });
+        executor(
+            x => {
+                promise.resolve(x);
+            },
+            r => {
+                promise.reject(r);
+            }
+        );
     } catch (e) {
         promise.reject(e);
     }
 }
 
 PromiseFn.reject = function (r) {
-    return new PromiseFn(function (resolve, reject) {
+    return new PromiseFn((resolve, reject) => {
         reject(r);
     });
 };
 
 PromiseFn.resolve = function (x) {
-    return new PromiseFn(function (resolve, reject) {
+    return new PromiseFn((resolve, reject) => {
         resolve(x);
     });
 };
 
 PromiseFn.all = function all(iterable) {
-    return new PromiseFn(function (resolve, reject) {
+    return new PromiseFn((resolve, reject) => {
         const result = [];
         let count = 0;
 
@@ -80,7 +83,7 @@ PromiseFn.all = function all(iterable) {
 };
 
 PromiseFn.race = function race(iterable) {
-    return new PromiseFn(function (resolve, reject) {
+    return new PromiseFn((resolve, reject) => {
         for (let i = 0; i < iterable.length; i += 1) {
             PromiseFn.resolve(iterable[i]).then(resolve, reject);
         }
@@ -103,18 +106,21 @@ p.resolve = function resolve(x) {
             const then = x && x.then;
 
             if (x !== null && isObject(x) && isFunction(then)) {
-                then.call(x, function (x) {
-                    if (!called) {
-                        promise.resolve(x);
+                then.call(
+                    x,
+                    x => {
+                        if (!called) {
+                            promise.resolve(x);
+                        }
+                        called = true;
+                    },
+                    r => {
+                        if (!called) {
+                            promise.reject(r);
+                        }
+                        called = true;
                     }
-                    called = true;
-
-                }, function (r) {
-                    if (!called) {
-                        promise.reject(r);
-                    }
-                    called = true;
-                });
+                );
                 return;
             }
         } catch (e) {

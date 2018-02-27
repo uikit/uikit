@@ -22,7 +22,7 @@ export default function (UIkit) {
 
         },
 
-        ready() {
+        connected() {
 
             this.player = new Player(this.$el);
 

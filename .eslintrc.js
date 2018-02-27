@@ -40,6 +40,7 @@ module.exports = {
         "no-unused-vars": ["error", {"vars": "local", "args": "none"}],
         "no-var": "error",
         "object-curly-spacing": "error",
+        "object-shorthand": "error",
         "prefer-const": ["error", {"destructuring": "all"}],
         "prefer-destructuring": "warn",
         "quotes": ["error", "single", {"avoidEscape": true}],

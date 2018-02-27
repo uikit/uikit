@@ -169,7 +169,7 @@ export function toMs(time) {
 }
 
 export function swap(value, a, b) {
-    return value.replace(new RegExp(`${a}|${b}`, 'mg'), function (match) {
+    return value.replace(new RegExp(`${a}|${b}`, 'mg'), match => {
         return match === a ? b : a;
     });
 }

@@ -1,5 +1,5 @@
 import {getComponentName} from './component';
-import {fastdom, hasAttr} from '../util/index';
+import {fastdom, hasAttr, ready} from '../util/index';
 
 export default function (UIkit) {
 
@@ -9,24 +9,7 @@ export default function (UIkit) {
         return;
     }
 
-    if (document.body) {
-
-        init();
-
-    } else {
-
-        (new MutationObserver(function () {
-
-            if (document.body) {
-                this.disconnect();
-                init();
-            }
-
-        })).observe(document, {childList: true, subtree: true});
-
-    }
-
-    function init() {
+    ready(() => {
 
         apply(document.body, connect);
 
@@ -40,7 +23,8 @@ export default function (UIkit) {
         });
 
         UIkit._initialized = true;
-    }
+
+    });
 
     function applyMutation(mutation) {
 
