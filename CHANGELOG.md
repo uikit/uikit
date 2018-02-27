@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Make `uk-form-icon` padding work with size modifier
 - Allow dropdowns in Iconnav component
 - Allow any property in `svg-fill` mixin
 - Defer UIkit's initial execution to DOMContentLoaded event
