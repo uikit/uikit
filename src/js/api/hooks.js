@@ -1,4 +1,4 @@
-import {assign, createEvent, fastdom, includes, isPlainObject} from '../util/index';
+import {assign, createEvent, fastdom, includes, isPlainObject, ready} from '../util/index';
 
 export default function (UIkit) {
 
@@ -26,6 +26,11 @@ export default function (UIkit) {
         this._initObserver();
 
         this._callHook('connected');
+
+        if (!this._isReady) {
+            ready(() => this._callReady());
+        }
+
         this._callUpdate();
     };
 
@@ -47,6 +52,18 @@ export default function (UIkit) {
 
         this._connected = false;
 
+    };
+
+    UIkit.prototype._callReady = function () {
+
+        if (this._isReady) {
+            return;
+        }
+
+        this._isReady = true;
+        this._callHook('ready');
+        this._resetComputeds();
+        this._callUpdate();
     };
 
     UIkit.prototype._callUpdate = function (e) {

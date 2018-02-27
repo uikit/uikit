@@ -1,4 +1,4 @@
-import {$$, camelize, isPlainObject, isUndefined, ready, startsWith} from '../util/index';
+import {$$, camelize, fastdom, isPlainObject, isUndefined, startsWith} from '../util/index';
 
 export default function (UIkit) {
 
@@ -47,7 +47,7 @@ export default function (UIkit) {
         };
 
         if (UIkit._initialized && !options.options.functional) {
-            ready(() => UIkit[name](`[uk-${id}],[data-uk-${id}]`));
+            fastdom.read(() => UIkit[name](`[uk-${id}],[data-uk-${id}]`));
         }
 
         return UIkit.components[name];

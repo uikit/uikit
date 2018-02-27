@@ -40,7 +40,7 @@ function plugin(UIkit) {
 
         },
 
-        connected() {
+        ready() {
 
             const marginBottom = toFloat(css(this.$el, 'marginBottom'));
             Transition.start(

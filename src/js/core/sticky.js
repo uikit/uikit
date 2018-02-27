@@ -57,6 +57,22 @@ export default function (UIkit) {
             if (!this.isActive) {
                 this.hide();
             }
+        },
+
+        disconnected() {
+
+            if (this.isActive) {
+                this.isActive = false;
+                this.hide();
+                removeClass(this.selTarget, this.clsInactive);
+            }
+
+            remove(this.placeholder);
+            this.placeholder = null;
+            this.widthElement = null;
+        },
+
+        ready() {
 
             if (!(this.target && location.hash && window.pageYOffset > 0)) {
                 return;
@@ -78,19 +94,6 @@ export default function (UIkit) {
                 });
             }
 
-        },
-
-        disconnected() {
-
-            if (this.isActive) {
-                this.isActive = false;
-                this.hide();
-                removeClass(this.selTarget, this.clsInactive);
-            }
-
-            remove(this.placeholder);
-            this.placeholder = null;
-            this.widthElement = null;
         },
 
         events: [

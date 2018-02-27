@@ -85,7 +85,7 @@ export default function (UIkit) {
         }
 
         for (const name in data) {
-            if (data[name]._connected) {
+            if (data[name]._isReady) {
                 data[name]._callUpdate(e);
             }
         }
