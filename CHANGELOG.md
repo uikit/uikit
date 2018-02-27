@@ -16,6 +16,7 @@
 ### Fixed
 
 - Fix browser compatibility in Navbar component
+- Fix preventClick function on touch devices
 
 ## 3.0.0 beta 40 (February 8, 2018)
 
