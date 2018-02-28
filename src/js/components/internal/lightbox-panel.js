@@ -20,6 +20,13 @@ function plugin(UIkit) {
 
         functional: true,
 
+        props: {
+            delayControls: Number,
+            preload: Number,
+            videoAutoplay: Boolean,
+            template: String
+        },
+
         defaults: {
             preload: 1,
             videoAutoplay: false,
