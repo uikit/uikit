@@ -7,6 +7,7 @@
 - Make `uk-form-icon` padding work with size modifier
 - Allow dropdowns in Iconnav component
 - Allow any property in `svg-fill` mixin
+- Move progress normalization to progress component
 
 ### Fixed
 
