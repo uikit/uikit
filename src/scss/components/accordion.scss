@@ -18,6 +18,8 @@ $accordion-item-margin-top:                     $global-margin !default;
 
 $accordion-title-font-size:                     $global-medium-font-size !default;
 $accordion-title-line-height:                   1.4 !default;
+$accordion-title-color:                         $global-emphasis-color !default;
+$accordion-title-hover-color:                   $global-color !default;
 
 $accordion-content-margin-top:                  $global-margin !default;
 
@@ -46,11 +48,20 @@ $accordion-content-margin-top:                  $global-margin !default;
  ========================================================================== */
 
 .uk-accordion-title {
-    margin: 0;
+    display: block;
     font-size: $accordion-title-font-size;
     line-height: $accordion-title-line-height;
-    cursor: pointer;
+    color: $accordion-title-color;
     @if(mixin-exists(hook-accordion-title)) {@include hook-accordion-title();}
+}
+
+/* Hover + Focus */
+.uk-accordion-title:hover,
+.uk-accordion-title:focus {
+    color: $accordion-title-hover-color;
+    text-decoration: none;
+    outline: none;
+    @if(mixin-exists(hook-accordion-title-hover)) {@include hook-accordion-title-hover();}
 }
 
 
@@ -89,6 +100,7 @@ $accordion-content-margin-top:                  $global-margin !default;
 // @mixin hook-accordion(){}
 // @mixin hook-accordion-item(){}
 // @mixin hook-accordion-title(){}
+// @mixin hook-accordion-title-hover(){}
 // @mixin hook-accordion-content(){}
 // @mixin hook-accordion-misc(){}
 
@@ -96,7 +108,11 @@ $accordion-content-margin-top:                  $global-margin !default;
 // Inverse
 // ========================================================================
 
+$inverse-accordion-title-color:              $inverse-global-emphasis-color !default;
+$inverse-accordion-title-hover-color:        $inverse-global-inverse-color !default;
+
 
 
 // @mixin hook-inverse-accordion-item(){}
 // @mixin hook-inverse-accordion-title(){}
+// @mixin hook-inverse-accordion-title-hover(){}

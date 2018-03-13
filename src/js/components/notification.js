@@ -4,8 +4,8 @@ function plugin(UIkit) {
         return;
     }
 
-    var {append, closest, css, each, pointerEnter, pointerLeave, remove, toFloat, Transition, trigger} = UIkit.util;
-    var containers = {};
+    const {append, apply, closest, css, pointerEnter, pointerLeave, remove, toFloat, Transition, trigger} = UIkit.util;
+    const containers = {};
 
     UIkit.component('notification', {
 
@@ -29,7 +29,7 @@ function plugin(UIkit) {
                 containers[this.pos] = append(UIkit.container, `<div class="uk-notification uk-notification-${this.pos}"></div>`);
             }
 
-            var container = css(containers[this.pos], 'display', 'block');
+            const container = css(containers[this.pos], 'display', 'block');
 
             this.$mount(append(container,
                 `<div class="${this.clsMsg}${this.status ? ` ${this.clsMsg}-${this.status}` : ''}">
@@ -42,9 +42,9 @@ function plugin(UIkit) {
 
         ready() {
 
-            var marginBottom = toFloat(css(this.$el, 'marginBottom'));
+            const marginBottom = toFloat(css(this.$el, 'marginBottom'));
             Transition.start(
-                css(this.$el, {opacity: 0, marginTop: -1 * this.$el.offsetHeight, marginBottom: 0}),
+                css(this.$el, {opacity: 0, marginTop: -this.$el.offsetHeight, marginBottom: 0}),
                 {opacity: 1, marginTop: 0, marginBottom}
             ).then(() => {
                 if (this.timeout) {
@@ -81,7 +81,7 @@ function plugin(UIkit) {
 
             close(immediate) {
 
-                var removeFn = () => {
+                const removeFn = () => {
 
                     trigger(this.$el, 'close', [this]);
                     remove(this.$el);
@@ -101,7 +101,7 @@ function plugin(UIkit) {
                 } else {
                     Transition.start(this.$el, {
                         opacity: 0,
-                        marginTop: -1 * this.$el.offsetHeight,
+                        marginTop: -this.$el.offsetHeight,
                         marginBottom: 0
                     }).then(removeFn);
                 }
@@ -112,9 +112,10 @@ function plugin(UIkit) {
     });
 
     UIkit.notification.closeAll = function (group, immediate) {
-        each(UIkit.instances, component => {
-            if (component.$options.name === 'notification' && (!group || group === component.group)) {
-                component.close(immediate);
+        apply(document.body, el => {
+            const notification = UIkit.getComponent(el, 'notification');
+            if (notification && (!group || group === notification.group)) {
+                notification.close(immediate);
             }
         });
     };

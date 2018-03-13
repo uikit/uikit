@@ -2,21 +2,116 @@
 
 ## WIP
 
-### Added
+### Changed
 
-- Add option to pass data-alt="" to images in Lightbox.
-- Component DOM attributes are being observed too (uk-grid, ...)
-- Video component supports play/pause video as it enters/leaves the viewport
-- Add config options to build scripts, type ```./build/build.js -h``` for options
-- Add UIkit version banner to generated css files
-- Improve UIkit.container setter (allows for assigning selector strings)
-- Add option to skip minification for less building (./build/less.js -d)
-- Add parameterization for prefix and scope scripts. use scope/prefix -h (e.g. npm run prefix -- -h) to list the available options.
-- Make some util methods more error resilient
+- Make `uk-form-icon` padding work with size modifier
+- Allow dropdowns in Iconnav component
+- Allow any property in `svg-fill` mixin
+- Move progress normalization to progress component
+
+### Fixed
+
+- Fix browser compatibility in Navbar component
+- Fix preventClick function on touch devices
+- Fix LightboxPanel props
+- Fix Player ids in Vimeo videos 
+- Dropbar opens on bottom positioned drops only
+
+## 3.0.0 beta 40 (February 8, 2018)
 
 ### Changed
 
+- Improve Form Custom reactivity
+- Improve Scrollspy component reactivity
+
+### Fixed
+
+- Fix using Scrollspy component with default values
+- Fix Scrollspy if UIkit is loaded async
+- Fix YouTube short urls in Lightbox component
+- Fix empty select in Form Custom component
+- Fix Slider reactivity
+
+## 3.0.0 beta 39 (January 31, 2018)
+
+### Added
+
+- Add link heading to Link component
+- Add Slider Parallax component
+- Add support for privacy enhanced mode in YouTube urls
+
+### Changed
+
+- _Active_ classes are applied to all fully visible slides in Slider component
+- Allow all Lightbox Panel options to be set through Lightbox component
+
+### Fixed
+
+- Fix Slider Nav initially has no state
+- Fix Esc closing on Confirm and Prompt dialogs
+- Fix using Grids in Slider component in Safari
+- Fix edge scrolling in Sortable component in IE 11
+- Fix touch scrolling in Slideshow/Slider in Edge
+- Fix tap event on touch devices
+- Fix initial Drop positioning
+
+## 3.0.0 beta 38 (January 18, 2018)
+
+### Added
+
+- Add support to center elements outside of a container to Position component
+
+### Changed
+
+- Add `uk-slider-container` class to clip the Slider component
+- Removed auto-clipping from Slider items. Use `uk-cover-container` instead.
+
+### Fixed
+
+- Fix Tooltip in Accordion loosing title
+- Fix Inverse mode (Light and Dark) in tests
+- Fix component getter
+
+## 3.0.0 beta 37 (January 16, 2018)
+
+### Added
+
+- Add `beforeConnect` and `beforeDisconnect` component hooks
+
+### Fixed
+
+- Fix origin modifier for programmatically triggered animations
+- Dialogs correctly cleanup after closing
+- Fix missing container option on Tooltip component
+- Fix positioning of Dropdowns in Dropbar
+- Fix browser freezing on Slider resize
+- Fix Custom Form initial value
+- Fix Tooltip removing title attribute
+
+## 3.0.0 beta 36 (January 11, 2018)
+
+### Added
+
+- Add Slider component
+- Add RTL support to Slideshow component
+- Add reactive navigation to Slideshow component
+- Hide slideshow navigation if slideshow contains single slide only
+- Add support to play/pause Video component as it enters/leaves the viewport
+- Add file size restriction `maxSize` to Upload component
+- Add option to pass `data-alt=""` to images in Lightbox component
+- Component DOM attributes like `uk-grid` are being observed for changes
+- Improve `UIkit.container` setter (allows for assigning selector strings)
+- Make some util methods more error resilient
+- Add config options to build scripts, type `./build/build.js -h` for options
+- Add UIkit version banner to generated CSS files
+- Add option to skip minification during Less compiling (`./build/less.js -d`)
+- Add parametrization for prefix and scope scripts. Use `scope/prefix -h` (e.g. `npm run prefix -- -h`) to list the available options.
+
+### Changed
+
+- IMPORTANT: Use `a` element instead of headings for the accordion title
 - Calling a component constructor with data on an already initialized component will reset the component
+- Dropbar no longer repositions Dropdowns in DOM upon opening
 
 ### Deprecated
 
@@ -27,14 +122,20 @@
 - Remove support for IE 10
 - Remove support for iOS < 9.1
 - Remove most -webkit and -moz vendor prefixes
+- Remove named component Constructors
 
 ### Fixed
 
+- Make Accordion component accessible through keyboard
+- Make `uk-visible-toggle` accessible through keyboard
+- Make `uk-transition-toggle` accessible through keyboard
 - Fix scrolling with scrollbar on Modal closes Modal
 - Fix `container` options
 - Fix initializing Icon components programmatically
 - Fix accordion initial active option
 - Fix webpack builds (npm run test)
+- 'uk-scrollspy-class' attr may now be `data-` prefixed too
+- Fix dialogs not being removed from DOM after closing
 
 ## 3.0.0 beta 35 (November 13, 2017)
 
@@ -518,7 +619,7 @@
 
 ### Fixed
 
-- Fix prefixed Javascript not working
+- Fix prefixed JavaScript not working
 - Fix beta 8 regression with Scrollspy targets
 - Fix width-expand not wrapping into next row in rare cases (Safari)
 

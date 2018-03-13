@@ -1,10 +1,9 @@
-import { toNode, toNodes } from './selector';
-import { isFunction, isObject, isUndefined } from './lang';
+import {isFunction, isObject, isUndefined, toNode, toNodes} from './lang';
 
 export function attr(element, name, value) {
 
     if (isObject(name)) {
-        for (var key in name) {
+        for (const key in name) {
             attr(element, key, name[key]);
         }
         return;
@@ -48,7 +47,7 @@ export function filterAttr(element, attribute, pattern, replacement) {
 }
 
 export function data(element, attribute) {
-    for (var i = 0, attrs = [attribute, `data-${attribute}`]; i < attrs.length; i++) {
+    for (let i = 0, attrs = [attribute, `data-${attribute}`]; i < attrs.length; i++) {
         if (hasAttr(element, attrs[i])) {
             return attr(element, attrs[i]);
         }

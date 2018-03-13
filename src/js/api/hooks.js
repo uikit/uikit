@@ -1,10 +1,10 @@
-import { assign, createEvent, fastdom, includes, isPlainObject, ready } from '../util/index';
+import {assign, createEvent, fastdom, includes, isPlainObject, ready} from '../util/index';
 
 export default function (UIkit) {
 
     UIkit.prototype._callHook = function (hook) {
 
-        var handlers = this.$options[hook];
+        const handlers = this.$options[hook];
 
         if (handlers) {
             handlers.forEach(handler => handler.call(this));
@@ -17,19 +17,15 @@ export default function (UIkit) {
             return;
         }
 
-        if (!includes(UIkit.elements, this.$options.el)) {
-            UIkit.elements.push(this.$options.el);
-        }
-
-        UIkit.instances[this._uid] = this;
-
         this._data = {};
-        this._initEvents();
 
-        this._callHook('connected');
+        this._callHook('beforeConnect');
         this._connected = true;
 
+        this._initEvents();
         this._initObserver();
+
+        this._callHook('connected');
 
         if (!this._isReady) {
             ready(() => this._callReady());
@@ -44,18 +40,12 @@ export default function (UIkit) {
             return;
         }
 
+        this._callHook('beforeDisconnect');
+
         if (this._observer) {
             this._observer.disconnect();
             this._observer = null;
         }
-
-        var index = UIkit.elements.indexOf(this.$options.el);
-
-        if (~index) {
-            UIkit.elements.splice(index, 1);
-        }
-
-        delete UIkit.instances[this._uid];
 
         this._unbindEvents();
         this._callHook('disconnected');
@@ -80,13 +70,14 @@ export default function (UIkit) {
 
         e = createEvent(e || 'update');
 
-        var {type, detail} = e;
+        const {type} = e;
 
-        if (type === 'update' && detail && detail.mutation) {
+        if (includes(['update', 'load', 'resize'], type)) {
             this._resetComputeds();
         }
 
-        var updates = this.$options.update, {reads, writes} = this._frames;
+        const updates = this.$options.update;
+        const {reads, writes} = this._frames;
 
         if (!updates) {
             return;
@@ -101,7 +92,7 @@ export default function (UIkit) {
             if (read && !includes(fastdom.reads, reads[i])) {
                 reads[i] = fastdom.read(() => {
 
-                    var result = read.call(this, this._data, e);
+                    const result = read.call(this, this._data, e);
 
                     if (result === false && write) {
                         fastdom.clear(writes[i]);

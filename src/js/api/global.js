@@ -1,4 +1,4 @@
-import { $, classify, createEvent, doc, isString, mergeOptions, toNode } from '../util/index';
+import {$, apply, createEvent, isString, mergeOptions, toNode} from '../util/index';
 
 export default function (UIkit) {
 
@@ -28,8 +28,10 @@ export default function (UIkit) {
 
         options = options || {};
 
-        var Super = this, name = options.name || Super.options.name;
-        var Sub = createClass(name || 'UIkitComponent');
+        const Super = this;
+        const Sub = function UIkitComponent (options) {
+            this._init(options);
+        };
 
         Sub.prototype = Object.create(Super.prototype);
         Sub.prototype.constructor = Sub;
@@ -44,15 +46,7 @@ export default function (UIkit) {
     UIkit.update = function (e, element, parents = false) {
 
         e = createEvent(e || 'update');
-
-        if (!element) {
-
-            update(UIkit.instances, e);
-            return;
-
-        }
-
-        element = toNode(element);
+        element = element ? toNode(element) : document.body;
 
         if (parents) {
 
@@ -71,11 +65,11 @@ export default function (UIkit) {
 
     };
 
-    var container;
+    let container;
     Object.defineProperty(UIkit, 'container', {
 
         get() {
-            return container || doc.body;
+            return container || document.body;
         },
 
         set(element) {
@@ -84,31 +78,13 @@ export default function (UIkit) {
 
     });
 
-    function createClass(name) {
-        return new Function(`return function ${classify(name)} (options) { this._init(options); }`)();
-    }
-
-    function apply(node, fn) {
-
-        if (node.nodeType !== 1) {
-            return;
-        }
-
-        fn(node);
-        node = node.firstElementChild;
-        while (node) {
-            apply(node, fn);
-            node = node.nextElementSibling;
-        }
-    }
-
     function update(data, e) {
 
         if (!data) {
             return;
         }
 
-        for (var name in data) {
+        for (const name in data) {
             if (data[name]._isReady) {
                 data[name]._callUpdate(e);
             }

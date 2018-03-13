@@ -88,8 +88,6 @@ $slidenav-large-padding-horizontal:              $slidenav-large-padding-vertica
  ========================================================================== */
 
 .uk-slidenav-container {
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     @if(mixin-exists(hook-slidenav-container)) {@include hook-slidenav-container();}
 }

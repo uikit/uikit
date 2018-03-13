@@ -368,8 +368,6 @@ $button-link-disabled-color:                     $global-muted-color !default;
 
 .uk-button-group {
     /* 1 */
-    display: -ms-inline-flexbox;
-    display: -webkit-inline-flex;
     display: inline-flex;
     /* 2 */
     vertical-align: middle;

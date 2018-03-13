@@ -1,4 +1,4 @@
-import { docEl, remove, within } from '../util/index';
+import {remove, within} from '../util/index';
 
 export default function (UIkit) {
 
@@ -6,7 +6,7 @@ export default function (UIkit) {
 
     UIkit.prototype.$mount = function (el) {
 
-        var name = this.$options.name;
+        const {name} = this.$options;
 
         if (!el[DATA]) {
             el[DATA] = {};
@@ -24,7 +24,7 @@ export default function (UIkit) {
 
         this._callHook('init');
 
-        if (within(el, docEl)) {
+        if (within(el, document)) {
             this._callConnected();
         }
     };
@@ -45,7 +45,7 @@ export default function (UIkit) {
 
     UIkit.prototype.$destroy = function (removeEl = false) {
 
-        var {el, name} = this.$options;
+        const {el, name} = this.$options;
 
         if (el) {
             this._callDisconnected();

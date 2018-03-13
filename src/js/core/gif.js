@@ -1,4 +1,4 @@
-import { isInView } from '../util/index';
+import {isInView} from '../util/index';
 
 export default function (UIkit) {
 
@@ -9,7 +9,7 @@ export default function (UIkit) {
 
             read(data) {
 
-                var inview = isInView(this.$el);
+                const inview = isInView(this.$el);
 
                 if (!inview || data.isInView === inview) {
                     return false;

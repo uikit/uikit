@@ -1,20 +1,20 @@
 /* eslint-env node */
-var fs = require('fs');
-var glob = require('glob');
-var path = require('path');
-var util = require('./util');
-var rtlcss = require('rtlcss');
-var postcss = require('postcss');
+const fs = require('fs');
+const glob = require('glob');
+const path = require('path');
+const util = require('./util');
+const rtlcss = require('rtlcss');
+const postcss = require('postcss');
 const argv = require('minimist')(process.argv);
-var args = argv._;
-var rtl = ~args.indexOf('rtl');
+const args = argv._;
+const rtl = ~args.indexOf('rtl');
 
 argv._.forEach(arg => {
     const tokens = arg.split('=');
     argv[tokens[0]] = tokens[1] || true;
 });
 
-var develop = argv.develop || argv.debug || argv.d || argv.nominify;
+const develop = argv.develop || argv.debug || argv.d || argv.nominify;
 
 [
     {src: 'src/less/uikit.less', dist: `dist/css/uikit-core${rtl ? '-rtl' : ''}.css`},
@@ -22,12 +22,12 @@ var develop = argv.develop || argv.debug || argv.d || argv.nominify;
 
 ].forEach(config => compile(config.src, config.dist));
 
-var themes = fs.existsSync('themes.json') ? JSON.parse(fs.readFileSync('themes.json')) : {};
+const themes = fs.existsSync('themes.json') ? JSON.parse(fs.readFileSync('themes.json')) : {};
 
 glob.sync('custom/*.less').forEach(file => {
 
-    var theme = path.basename(file, '.less'),
-        dist = `dist/css/uikit.${theme}${rtl ? '-rtl' : ''}.css`;
+    const theme = path.basename(file, '.less');
+    const dist = `dist/css/uikit.${theme}${rtl ? '-rtl' : ''}.css`;
 
     themes[theme] = {css: `../${dist}`};
 

@@ -1,8 +1,8 @@
-import { assign, attr, bind, camelize, coerce, data as getData, hasAttr, hasOwn, hyphenate, includes, isArray, isFunction, isPlainObject, isString, isUndefined, mergeOptions, Observer, on, startsWith } from '../util/index';
+import {assign, attr, bind, camelize, data as getData, getCssVar, hasAttr, hasOwn, hyphenate, includes, isArray, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, query, startsWith, toBoolean, toFloat, toList, toNumber} from '../util/index';
 
 export default function (UIkit) {
 
-    var uid = 0;
+    let uid = 0;
 
     UIkit.prototype.props = {};
 
@@ -31,7 +31,7 @@ export default function (UIkit) {
 
     UIkit.prototype._initData = function () {
 
-        var {defaults, data = {}, args = [], props = {}, el} = this.$options;
+        let {defaults, data = {}, args = [], props = {}, el} = this.$options;
 
         if (args.length && isArray(data)) {
             data = data.slice(0, args.length).reduce((data, value, index) => {
@@ -44,21 +44,23 @@ export default function (UIkit) {
             }, {});
         }
 
-        for (var key in assign({}, defaults, props)) {
+        for (const key in assign({}, defaults, props)) {
             this.$props[key] = this[key] = hasOwn(data, key) && !isUndefined(data[key])
                 ? coerce(props[key], data[key], el)
-                : isArray(defaults[key])
-                    ? defaults[key].concat()
-                    : defaults[key];
+                : defaults
+                    ? defaults[key] && isArray(defaults[key])
+                        ? defaults[key].concat()
+                        : defaults[key]
+                    : null;
         }
     };
 
     UIkit.prototype._initMethods = function () {
 
-        var methods = this.$options.methods;
+        const {methods} = this.$options;
 
         if (methods) {
-            for (var key in methods) {
+            for (const key in methods) {
                 this[key] = bind(methods[key], this);
             }
         }
@@ -66,12 +68,12 @@ export default function (UIkit) {
 
     UIkit.prototype._initComputeds = function () {
 
-        var computed = this.$options.computed;
+        const {computed} = this.$options;
 
         this._resetComputeds();
 
         if (computed) {
-            for (var key in computed) {
+            for (const key in computed) {
                 registerComputed(this, key, computed[key]);
             }
         }
@@ -83,12 +85,21 @@ export default function (UIkit) {
 
     UIkit.prototype._initProps = function (props) {
 
-        this._resetComputeds();
-        assign(this.$props, props || getProps(this.$options, this.$name));
+        let key;
 
-        var exclude = [this.$options.computed, this.$options.methods];
-        for (var key in this.$props) {
-            if (notIn(exclude, key)) {
+        this._resetComputeds();
+
+        props = props || getProps(this.$options, this.$name);
+
+        for (key in props) {
+            if (!isUndefined(props[key])) {
+                this.$props[key] = props[key];
+            }
+        }
+
+        const exclude = [this.$options.computed, this.$options.methods];
+        for (key in this.$props) {
+            if (key in props && notIn(exclude, key)) {
                 this[key] = this.$props[key];
             }
         }
@@ -96,14 +107,14 @@ export default function (UIkit) {
 
     UIkit.prototype._initEvents = function () {
 
-        var events = this.$options.events;
+        const {events} = this.$options;
 
         if (events) {
 
             events.forEach(event => {
 
                 if (!hasOwn(event, 'handler')) {
-                    for (var key in event) {
+                    for (const key in event) {
                         registerEvent(this, event[key], key);
                     }
                 } else {
@@ -121,16 +132,16 @@ export default function (UIkit) {
 
     UIkit.prototype._initObserver = function () {
 
-        var {attrs, props, el} = this.$options;
-        if (this._observer || !props || !attrs || !Observer) {
+        let {attrs, props, el} = this.$options;
+        if (this._observer || !props || !attrs) {
             return;
         }
 
         attrs = isArray(attrs) ? attrs : Object.keys(props).map(key => hyphenate(key));
 
-        this._observer = new Observer(() => {
+        this._observer = new MutationObserver(() => {
 
-            var data = getProps(this.$options, this.$name);
+            const data = getProps(this.$options, this.$name);
             if (attrs.some(key => !isUndefined(data[key]) && data[key] !== this.$props[key])) {
                 this.$reset(data);
             }
@@ -142,19 +153,18 @@ export default function (UIkit) {
 
     function getProps(opts, name) {
 
-        var data = {},
-            {args = [], props = {}, el} = opts,
-            key, prop;
+        const data = {};
+        const {args = [], props = {}, el} = opts;
 
         if (!props) {
             return data;
         }
 
-        for (key in props) {
-            prop = hyphenate(key);
+        for (const key in props) {
+            const prop = hyphenate(key);
             if (hasAttr(el, prop)) {
 
-                var value = coerce(props[key], attr(el, prop), el);
+                const value = coerce(props[key], attr(el, prop), el);
 
                 if (prop === 'target' && (!value || startsWith(value, '_'))) {
                     continue;
@@ -164,10 +174,10 @@ export default function (UIkit) {
             }
         }
 
-        var options = parseOptions(getData(el, name), args);
+        const options = parseOptions(getData(el, name), args);
 
-        for (key in options) {
-            prop = camelize(key);
+        for (const key in options) {
+            const prop = camelize(key);
             if (props[prop] !== undefined) {
                 data[prop] = coerce(props[prop], options[key], el);
             }
@@ -187,7 +197,7 @@ export default function (UIkit) {
                     : args.length && !includes(options, ':')
                         ? ({[args[0]]: options})
                         : options.split(';').reduce((options, option) => {
-                            var [key, value] = option.split(/:(.+)/);
+                            const [key, value] = option.split(/:(.+)/);
                             if (key && value) {
                                 options[key.trim()] = value.trim();
                             }
@@ -207,7 +217,7 @@ export default function (UIkit) {
 
             get() {
 
-                var {_computeds, $props, $el} = component;
+                const {_computeds, $props, $el} = component;
 
                 if (!hasOwn(_computeds, key)) {
                     _computeds[key] = cb.call(component, $props, $el);
@@ -229,7 +239,7 @@ export default function (UIkit) {
             event = ({name: key, handler: event});
         }
 
-        var {name, el, delegate, self, filter, handler} = event;
+        let {name, el, handler, capture, delegate, filter, self} = event;
         el = isFunction(el)
             ? el.call(component)
             : el || component.$el;
@@ -258,7 +268,8 @@ export default function (UIkit) {
                     : isString(delegate)
                         ? delegate
                         : delegate.call(component),
-                handler
+                handler,
+                capture
             )
         );
 
@@ -277,7 +288,38 @@ export default function (UIkit) {
     }
 
     function detail(listener) {
-        return e => isArray(e.detail) ? listener.apply(listener, [e].concat(e.detail)) : listener(e);
+        return e => isArray(e.detail) ? listener(...[e].concat(e.detail)) : listener(e);
+    }
+
+    function coerce(type, value, context) {
+
+        if (type === Boolean) {
+            return toBoolean(value);
+        } else if (type === Number) {
+            return toNumber(value);
+        } else if (type === 'query') {
+            return query(value, context);
+        } else if (type === 'list') {
+            return toList(value);
+        } else if (type === 'media') {
+            return toMedia(value);
+        }
+
+        return type ? type(value) : value;
+    }
+
+    function toMedia(value) {
+
+        if (isString(value)) {
+            if (value[0] === '@') {
+                const name = `media-${value.substr(1)}`;
+                value = toFloat(getCssVar(name));
+            } else if (isNaN(value)) {
+                return value;
+            }
+        }
+
+        return value && !isNaN(value) ? `(min-width: ${value}px)` : false;
     }
 
 }
