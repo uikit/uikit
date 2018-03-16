@@ -16,6 +16,7 @@
 - Fix LightboxPanel props
 - Fix Player ids in Vimeo videos 
 - Dropbar opens on bottom positioned drops only
+- Fix setting height of drag in Sortable component
 
 ## 3.0.0 beta 40 (February 8, 2018)
 
