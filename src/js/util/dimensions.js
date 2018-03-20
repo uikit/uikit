@@ -297,7 +297,7 @@ export function isInView(element, top = 0, left = 0) {
     element = toNode(element);
 
     const win = window(element);
-    return intersectRect(element.getBoundingClientRect(), {
+    return isVisible(element) && intersectRect(element.getBoundingClientRect(), {
         top,
         left,
         bottom: top + height(win),
