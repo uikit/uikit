@@ -212,13 +212,13 @@ function dimension(prop) {
             value = css(element, prop);
             value = value === 'auto' ? element[`offset${propName}`] : toFloat(value) || 0;
 
-            return getContentSize(prop, element, value);
+            return value - boxModelAdjust(prop, element);
 
         } else {
 
             css(element, prop, !value && value !== 0
                 ? ''
-                : getContentSize(prop, element, value) + 'px'
+                : value + boxModelAdjust(prop, element) + 'px'
             );
 
         }
@@ -226,12 +226,14 @@ function dimension(prop) {
     };
 }
 
-function getContentSize(prop, element, value) {
-    return css(element, 'boxSizing') === 'border-box' ? dirs[prop].slice(1).map(ucfirst).reduce((value, prop) =>
-        value
-        - toFloat(css(element, `padding${prop}`))
-        - toFloat(css(element, `border${prop}Width`))
-        , value) : value;
+function boxModelAdjust(prop, element) {
+    return css(element, 'boxSizing') === 'border-box'
+        ? dirs[prop].slice(1).map(ucfirst).reduce((value, prop) =>
+            value
+            + toFloat(css(element, `padding${prop}`))
+            + toFloat(css(element, `border${prop}Width`))
+            , 0)
+        : 0;
 }
 
 function moveTo(position, attach, dim, factor) {
@@ -295,7 +297,7 @@ export function isInView(element, top = 0, left = 0) {
     element = toNode(element);
 
     const win = window(element);
-    return intersectRect(element.getBoundingClientRect(), {
+    return isVisible(element) && intersectRect(element.getBoundingClientRect(), {
         top,
         left,
         bottom: top + height(win),
