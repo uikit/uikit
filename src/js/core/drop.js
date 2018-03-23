@@ -14,7 +14,7 @@ export default function (UIkit) {
         props: {
             mode: 'list',
             toggle: Boolean,
-            boundary: 'query',
+            boundary: Boolean,
             boundaryAlign: Boolean,
             delayShow: Number,
             delayHide: Number,
@@ -35,6 +35,10 @@ export default function (UIkit) {
         },
 
         computed: {
+
+            boundary({boundary}, $el) {
+                return query(boundary, $el);
+            },
 
             clsDrop({clsDrop}) {
                 return clsDrop || `uk-${this.$options.name}`;

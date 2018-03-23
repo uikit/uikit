@@ -19,7 +19,7 @@ export default function (UIkit) {
             delayHide: Number,
             dropbar: Boolean,
             dropbarMode: String,
-            dropbarAnchor: 'query',
+            dropbarAnchor: Boolean,
             duration: Number
         },
 
@@ -44,6 +44,10 @@ export default function (UIkit) {
 
             boundary({boundary, boundaryAlign}, $el) {
                 return (boundary === true || boundaryAlign) ? $el : boundary;
+            },
+
+            dropbarAnchor({dropbarAnchor}, $el) {
+                return query(dropbarAnchor, $el);
             },
 
             pos({align}) {

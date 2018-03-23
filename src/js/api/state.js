@@ -1,4 +1,4 @@
-import {assign, attr, bind, camelize, data as getData, getCssVar, hasAttr, hasOwn, hyphenate, includes, isArray, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, query, startsWith, toBoolean, toFloat, toList, toNumber} from '../util/index';
+import {assign, attr, bind, camelize, data as getData, getCssVar, hasAttr, hasOwn, hyphenate, isArray, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, query, startsWith, toBoolean, toFloat, toList, toNumber} from '../util/index';
 
 export default function (UIkit) {
 
@@ -46,7 +46,7 @@ export default function (UIkit) {
 
         for (const key in assign({}, defaults, props)) {
             this.$props[key] = this[key] = hasOwn(data, key) && !isUndefined(data[key])
-                ? coerce(props[key], data[key], el)
+                ? coerce(props[key], data[key])
                 : defaults
                     ? defaults[key] && isArray(defaults[key])
                         ? defaults[key].concat()
@@ -164,7 +164,7 @@ export default function (UIkit) {
             const prop = hyphenate(key);
             if (hasAttr(el, prop)) {
 
-                const value = coerce(props[key], attr(el, prop), el);
+                const value = coerce(props[key], attr(el, prop));
 
                 if (prop === 'target' && (!value || startsWith(value, '_'))) {
                     continue;
@@ -179,35 +179,11 @@ export default function (UIkit) {
         for (const key in options) {
             const prop = camelize(key);
             if (props[prop] !== undefined) {
-                data[prop] = coerce(props[prop], options[key], el);
+                data[prop] = coerce(props[prop], options[key]);
             }
         }
 
         return data;
-    }
-
-    function parseOptions(options, args = []) {
-
-        try {
-
-            return !options
-                ? {}
-                : startsWith(options, '{')
-                    ? JSON.parse(options)
-                    : args.length && !includes(options, ':')
-                        ? ({[args[0]]: options})
-                        : options.split(';').reduce((options, option) => {
-                            const [key, value] = option.split(/:(.+)/);
-                            if (key && value) {
-                                options[key.trim()] = value.trim();
-                            }
-                            return options;
-                        }, {});
-
-        } catch (e) {
-            return {};
-        }
-
     }
 
     function registerComputed(component, key, cb) {
@@ -291,14 +267,12 @@ export default function (UIkit) {
         return e => isArray(e.detail) ? listener(...[e].concat(e.detail)) : listener(e);
     }
 
-    function coerce(type, value, context) {
+    function coerce(type, value) {
 
         if (type === Boolean) {
             return toBoolean(value);
         } else if (type === Number) {
             return toNumber(value);
-        } else if (type === 'query') {
-            return query(value, context);
         } else if (type === 'list') {
             return toList(value);
         } else if (type === 'media') {

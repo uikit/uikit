@@ -1,4 +1,4 @@
-import {assign, hasOwn, isArray, isFunction, isUndefined} from './lang';
+import {assign, hasOwn, includes, isArray, isFunction, isUndefined, startsWith} from './lang';
 
 const strats = {};
 
@@ -84,4 +84,28 @@ export function mergeOptions(parent, child) {
     }
 
     return options;
+}
+
+export function parseOptions(options, args = []) {
+
+    try {
+
+        return !options
+            ? {}
+            : startsWith(options, '{')
+                ? JSON.parse(options)
+                : args.length && !includes(options, ':')
+                    ? ({[args[0]]: options})
+                    : options.split(';').reduce((options, option) => {
+                        const [key, value] = option.split(':');
+                        if (key && !isUndefined(value)) {
+                            options[key.trim()] = value.trim();
+                        }
+                        return options;
+                    }, {});
+
+    } catch (e) {
+        return {};
+    }
+
 }
