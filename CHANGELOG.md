@@ -18,6 +18,7 @@
 - Dropbar opens on bottom positioned drops only
 - Fix setting height of drag in Sortable component
 - _isInView_ checks for element visibility now
+- Fix check for backgroundSize: cover resetting backgroundSize in Parallax
 
 ## 3.0.0 beta 40 (February 8, 2018)
 
