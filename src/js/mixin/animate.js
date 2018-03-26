@@ -4,17 +4,8 @@ function plugin(UIkit) {
         return;
     }
 
-    const {assign, css, fastdom, height, includes, isVisible, noop, position, Promise, toFloat, toNodes, Transition} = UIkit.util;
-
-    const reset = {
-        height: '',
-        left: '',
-        marginTop: '',
-        pointerEvents: '',
-        position: '',
-        top: '',
-        width: ''
-    };
+    const {addClass, append, assign, css, fastdom, height, includes, isVisible, noop, position, Promise, removeClass, toFloat, toNodes, Transition} = UIkit.util;
+    const containerClass = 'uk-animation-container';
 
     UIkit.mixin.animate = {
 
@@ -38,18 +29,19 @@ function plugin(UIkit) {
 
             animate(action) {
 
+                addStyle();
+
                 let children = toNodes(this.container.children);
                 let propsFrom = children.map(el => getProps(el, true));
 
                 const oldHeight = height(this.container);
 
-                css(this.container, 'minHeight', '');
-
                 action();
 
                 children.forEach(Transition.cancel);
-                css(this.container.children, reset);
-                updateImmediate(this.container);
+
+                reset(this.container);
+
                 const newHeight = height(this.container);
 
                 children = children.concat(toNodes(this.container.children).filter(el => !includes(children, el)));
@@ -68,17 +60,14 @@ function plugin(UIkit) {
                 );
 
                 propsFrom = propsTo.map((props, i) => {
-                    const from = children[i].parentNode === this.container
+                    const from = children[i].parentNode
                         ? propsFrom[i] || getProps(children[i])
                         : false;
 
                     if (from) {
                         if (!props) {
                             delete from.opacity;
-                            return;
-                        }
-
-                        if (!('opacity' in props)) {
+                        } else if (!('opacity' in props)) {
                             const {opacity} = from;
 
                             if (opacity % 1) {
@@ -92,8 +81,8 @@ function plugin(UIkit) {
                     return from;
                 });
 
+                addClass(this.container, containerClass);
                 children.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-
                 css(this.container, 'minHeight', Math.max(oldHeight, newHeight));
 
                 return Promise.all(children.map((el, i) =>
@@ -101,13 +90,8 @@ function plugin(UIkit) {
                         ? Transition.start(el, propsTo[i], this.animation, 'ease')
                         : Promise.resolve()
                 )).then(() => {
-                    css(this.container, 'minHeight', '');
-                    css(children, reset);
-                    children.forEach((el, i) => css(el, {
-                        opacity: '',
-                        display: propsTo[i].opacity === 0 ? 'none' : ''
-                    }));
-                    updateImmediate(this.container);
+                    children.forEach((el, i) => css(el, 'display', propsTo[i].opacity === 0 ? 'none' : ''));
+                    reset(this.container);
                 }, noop);
 
             }
@@ -119,13 +103,27 @@ function plugin(UIkit) {
             ? assign({
                 display: '',
                 height: el.offsetHeight,
-                marginTop: '0 !important',
                 opacity: opacity ? css(el, 'opacity') : '0',
                 pointerEvents: 'none',
                 position: 'absolute',
                 width: el.offsetWidth
             }, getPositionWithMargin(el))
             : false;
+    }
+
+    function reset(el) {
+        css(el.children, {
+            height: '',
+            left: '',
+            opacity: '',
+            pointerEvents: '',
+            position: '',
+            top: '',
+            width: ''
+        });
+        removeClass(el, containerClass);
+        css(el, 'minHeight', '');
+        updateImmediate(el);
     }
 
     function updateImmediate(el) {
@@ -137,6 +135,19 @@ function plugin(UIkit) {
         let {top, left} = position(el);
         top += toFloat(css(el, 'marginTop'));
         return {top, left};
+    }
+
+    let style;
+    function addStyle() {
+        if (!style) {
+            style = append(document.head, '<style>').sheet;
+            style.insertRule(
+                `.${containerClass} > * {
+                    margin-top: 0 !important;
+                    transform: none !important;
+                }`
+            );
+        }
     }
 
 }

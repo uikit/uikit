@@ -183,7 +183,7 @@ function plugin(UIkit) {
     }
 
     function sortItems(nodes, sort, order) {
-        return toNodes(nodes).sort((a, b) => data(order === 'asc' ? a : b, sort).localeCompare(data(order === 'asc' ? b : a, sort)));
+        return toNodes(nodes).sort((a, b) => data(a, sort).localeCompare(data(b, sort)) * (order === 'asc' || -1));
     }
 
 }

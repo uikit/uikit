@@ -107,9 +107,11 @@ export function offset(element, coordinates) {
         ['left', 'top'].forEach(prop => {
             if (prop in coordinates) {
                 const value = css(element, prop);
-                element.style[prop] = `${(coordinates[prop] - currentOffset[prop])
-                + toFloat(pos === 'absolute' && value === 'auto' ? position(element)[prop] : value)
-                    }px`;
+                css(element, prop, coordinates[prop] - currentOffset[prop]
+                    + toFloat(pos === 'absolute' && value === 'auto'
+                        ? position(element)[prop]
+                        : value)
+                );
             }
         });
 

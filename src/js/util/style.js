@@ -1,6 +1,6 @@
 import {append} from './dom';
 import {addClass} from './class';
-import {each, endsWith, hyphenate, isArray, isNumeric, isObject, isString, isUndefined, toNode, toNodes} from './lang';
+import {each, hyphenate, isArray, isNumeric, isObject, isString, isUndefined, toNode, toNodes} from './lang';
 
 const cssNumber = {
     'animation-iteration-count': true,
@@ -31,20 +31,7 @@ export function css(element, property, value) {
             } else if (!value && value !== 0) {
                 element.style.removeProperty(property);
             } else {
-
-                let priority;
-
-                if (isString(value) && endsWith(value, '!important')) {
-                    [value, priority] = value.split(/\s*!/);
-                }
-
-                const args = [property, isNumeric(value) && !cssNumber[property] ? `${value}px` : value];
-
-                if (priority) {
-                    args.push(priority);
-                }
-
-                element.style.setProperty(...args);
+                element.style[property] = isNumeric(value) && !cssNumber[property] ? `${value}px` : value;
             }
 
         } else if (isArray(property)) {
