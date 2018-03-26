@@ -169,7 +169,7 @@ export function toMs(time) {
 }
 
 export function swap(value, a, b) {
-    return value.replace(new RegExp(`${a}|${b}`, 'mg'), function (match) {
+    return value.replace(new RegExp(`${a}|${b}`, 'mg'), match => {
         return match === a ? b : a;
     });
 }
@@ -197,14 +197,9 @@ export function each(obj, cb) {
     }
 }
 
+// Compare by numbers only
 export function sortBy(collection, prop) {
-    return collection.sort((a, b) =>
-        a[prop] > b[prop]
-            ? 1
-            : b[prop] > a[prop]
-                ? -1
-                : 0
-    );
+    return collection.sort((a, b) => a[prop] - b[prop]);
 }
 
 export function clamp(number, min = 0, max = 1) {

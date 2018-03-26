@@ -22,11 +22,11 @@ function cancelAll() {
     touch = {};
 }
 
-ready(function () {
+ready(() => {
 
     on(document, 'click', () => clicked = true, true);
 
-    on(document, pointerDown, function (e) {
+    on(document, pointerDown, e => {
 
         const {target} = e;
         const {x, y} = getPos(e);
@@ -55,7 +55,7 @@ ready(function () {
 
     });
 
-    on(document, pointerMove, function (e) {
+    on(document, pointerMove, e => {
 
         if (e.defaultPrevented) {
             return;
@@ -68,7 +68,7 @@ ready(function () {
 
     });
 
-    on(document, pointerUp, function ({type, target}) {
+    on(document, pointerUp, ({type, target}) => {
 
         if (touch.type !== getType(type)) {
             return;
@@ -77,7 +77,7 @@ ready(function () {
         // swipe
         if (touch.x2 && Math.abs(touch.x1 - touch.x2) > 30 || touch.y2 && Math.abs(touch.y1 - touch.y2) > 30) {
 
-            swipeTimeout = setTimeout(function () {
+            swipeTimeout = setTimeout(() => {
                 if (touch.el) {
                     trigger(touch.el, 'swipe');
                     trigger(touch.el, `swipe${swipeDirection(touch)}`);
@@ -92,7 +92,7 @@ ready(function () {
 
             // trigger single click after 350ms of inactivity
             if (touch.el && type !== 'mouseup' && within(target, touch.el)) {
-                clickTimeout = setTimeout(function () {
+                clickTimeout = setTimeout(() => {
                     clickTimeout = null;
                     if (touch.el && !clicked) {
                         trigger(touch.el, 'click');

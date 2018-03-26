@@ -1,5 +1,5 @@
 import {Class} from '../mixin/index';
-import {$, addClass, css, each, hasClass, isRtl, noop, parents, Promise, swap} from '../util/index';
+import {$, addClass, apply, css, hasClass, isRtl, noop, parents, Promise, swap} from '../util/index';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
 import marker from '../../images/components/marker.svg';
@@ -137,9 +137,10 @@ export default function (UIkit) {
         });
 
         if (UIkit._initialized) {
-            each(UIkit.instances, component => {
-                if (component.$options.name === 'icon') {
-                    component.$reset();
+            apply(document.body, el => {
+                const icon = UIkit.getComponent(el, 'icon');
+                if (icon) {
+                    icon.$reset();
                 }
             });
         }

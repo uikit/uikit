@@ -222,8 +222,10 @@ export default function (UIkit) {
 
                 handler() {
                     this.tracker.init();
-                    addClass(this.toggle.$el, this.cls);
-                    attr(this.toggle.$el, 'aria-expanded', 'true');
+                    if (this.toggle) {
+                        addClass(this.toggle.$el, this.cls);
+                        attr(this.toggle.$el, 'aria-expanded', 'true');
+                    }
                     registerEvent();
                 }
 
@@ -253,10 +255,14 @@ export default function (UIkit) {
                     }
 
                     active = this.isActive() ? null : active;
-                    removeClass(this.toggle.$el, this.cls);
-                    attr(this.toggle.$el, 'aria-expanded', 'false');
-                    this.toggle.$el.blur();
-                    $$('a, button', this.toggle.$el).forEach(el => el.blur());
+
+                    if (this.toggle) {
+                        removeClass(this.toggle.$el, this.cls);
+                        attr(this.toggle.$el, 'aria-expanded', 'false');
+                        this.toggle.$el.blur();
+                        $$('a, button', this.toggle.$el).forEach(el => el.blur());
+                    }
+
                     this.tracker.cancel();
                 }
 

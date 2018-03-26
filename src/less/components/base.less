@@ -85,7 +85,7 @@
 /*
  * 1. Set `font-size` to support `rem` units
  *    Not using `font` property because a leading hyphen (e.g. -apple-system) causes the font to break in IE11 and Edge
- * 2. Prevent adjustments of font size after orientation changes in IE and iOS.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
  * 3. Style
  */
 
@@ -97,7 +97,6 @@ html {
     line-height: @base-body-line-height;
     /* 2 */
     -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
     /* 3 */
     background: @base-body-background;
     color: @base-body-color;
@@ -105,7 +104,7 @@ html {
 }
 
 /*
- * Removes default margin.
+ * Remove the margin in all browsers.
  */
 
 body { margin: 0; }
@@ -151,14 +150,16 @@ a:hover,
  ========================================================================== */
 
 /*
- * 1. Remove the bottom border in Firefox 39-.
+ * 1. Remove the bottom border in Chrome 57-.
  * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
  */
 
 abbr[title] {
-  border-bottom: none; /* 1 */
-  text-decoration: underline; /* 2 */
-  text-decoration: underline dotted; /* 2 */
+    /* 1 */
+    border-bottom: none;
+    /* 2 */
+    text-decoration: underline;
+    text-decoration: underline dotted;
 }
 
 
@@ -170,8 +171,8 @@ b,
 strong { font-weight: @base-strong-font-weight; }
 
 /*
- * 1. Correct the odd `em` font sizing in all browsers.
- * 2. Consolas has a better baseline in running text compared to `Courier`
+ * 1. Consolas has a better baseline in running text compared to `Courier`
+ * 2. Correct the odd `em` font sizing in all browsers.
  * 3. Style
  */
 
@@ -179,9 +180,9 @@ strong { font-weight: @base-strong-font-weight; }
 :not(pre) > kbd,
 :not(pre) > samp {
     /* 1 */
-    font-size: @base-code-font-size;
-    /* 2 */
     font-family: @base-code-font-family;
+    /* 2 */
+    font-size: @base-code-font-size;
     /* 3 */
     color: @base-code-color;
     white-space: nowrap;
@@ -466,7 +467,6 @@ blockquote footer {
 
 /*
  * 1. Contain overflow in all browsers.
- * 2. Override UA
  */
 
 pre {
@@ -502,7 +502,7 @@ pre code { font-family: @base-pre-font-family; }
  ========================================================================== */
 
 /*
- * 1. Add the correct display in Edge, IE, and Firefox.
+ * 1. Add the correct display in Edge, IE 10+, and Firefox.
  * 2. Add the correct display in IE.
  */
 
@@ -516,12 +516,6 @@ main { /* 2 */
  */
 
 summary { display: list-item; }
-
-/*
- * Add the correct vertical alignment in Chrome, Firefox, and Opera.
- */
-
-progress { vertical-align: baseline; }
 
 /*
  * Add the correct display in IE.
