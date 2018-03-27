@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Filter - UIkit tests</title>
+        <script src="js/test.js"></script>
+        <style>
+
+            .item {
+                display: inline-block;
+                position: relative;
+            }
+
+            .item:before {
+                content: '';
+                display: inline-block;
+                padding-top: 100%;
+                margin: 0;
+            }
+
+            .item:after {
+                content: '';
+                position: absolute;
+                transform: scale(1.5);
+            }
+
+            [color="red"] > :after {color: orangered}
+            [color="green"] > :after {color: greenyellow}
+            [color="blue"] > :after {color: cornflowerblue}
+
+            [shape="square"] > :after {
+                width: 40%;
+                height: 40%;
+                top: 30%;
+                left: 30%;
+                background: currentColor;
+                border-radius: 3px;
+            }
+            [shape="round"] > :after {
+                width: 40%;
+                height: 40%;
+                top: 30%;
+                left: 30%;
+                background: currentColor;
+                border-radius: 100%;
+            }
+            [shape="triangle"] > :after{
+                position: absolute;
+                border: 3em solid transparent;
+                border-bottom: 5em solid currentColor;
+                border-top: 0;
+                left: calc(50% - 3em);
+                top: calc(50% - 2.5em);
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Filter</h1>
+
+            <div uk-filter="container: .items">
+
+                <div class="uk-grid-divider" uk-grid>
+
+                    <h2>None Grouped</h2>
+
+                    <div>
+                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                            <li uk-filter-item><a>All</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                            <li uk-filter-item="[color='red']"><a>Red</a></li>
+                            <li uk-filter-item="[color='green']"><a>Green</a></li>
+                            <li uk-filter-item="[color='blue']"><a>Blue</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                            <li uk-filter-item="[shape='square']"><a>Square</a></li>
+                            <li uk-filter-item="[shape='round']"><a>Round</a></li>
+                            <li uk-filter-item="[shape='triangle']"><a>Triangle</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="uk-grid-divider" uk-grid>
+
+                    <h2>Grouped</h2>
+
+                    <div>
+                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                            <li uk-filter-item><a>All</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                            <li uk-filter-item="filter: [color='red']; group: color"><a>Red</a></li>
+                            <li uk-filter-item="filter: [color='green']; group: color"><a>Green</a></li>
+                            <li uk-filter-item="filter: [color='blue']; group: color"><a>Blue</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                            <li uk-filter-item="filter: [shape='square']; group: shape"><a>Square</a></li>
+                            <li uk-filter-item="filter: [shape='round']; group: shape"><a>Round</a></li>
+                            <li uk-filter-item="filter: [shape='triangle']; group: shape"><a>Triangle</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="uk-grid-divider" uk-grid>
+
+                    <h2>Order by</h2>
+
+                    <div>
+                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                            <li uk-filter-item="sort: color"><a>Color Asc</a></li>
+                            <li uk-filter-item="sort: color; order: desc"><a>Color Desc</a></li>
+                            <li class="uk-active" uk-filter-item="sort: shape"><a>Shape Asc</a></li>
+                            <li uk-filter-item="sort: shape; order: desc"><a>Shape Desc</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <ul class="items uk-grid-match uk-child-width-1-2 uk-child-width-1-5@m" uk-grid>
+                    <li color="blue" shape="triangle"><div class="item"></div></li>
+                    <li color="red" shape="square"><div class="item"></div></li>
+                    <li color="blue" shape="round"><div class="item"></div></li>
+                    <li color="blue" shape="square"><div class="item"></div></li>
+                    <li color="green" shape="round"><div class="item"></div></li>
+                    <li color="green" shape="square"><div class="item"></div></li>
+                    <li color="red" shape="round"><div class="item"></div></li>
+                    <li color="green" shape="triangle"><div class="item"></div></li>
+                    <li color="red" shape="triangle"><div class="item"></div></li>
+                </ul>
+
+            </div>
+
+            <h2>Javascript Options</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>container</code></td>
+                            <td>String</td>
+                            <td>''</td>
+                            <td>The container on which to apply the filter to.</td>
+                        </tr>
+                        <tr>
+                            <td><code>selActive</code></td>
+                            <td>String|Boolean</td>
+                            <td>false</td>
+                            <td>A selector for the initially active filter items.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </body>
+</html>

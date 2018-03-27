@@ -20,24 +20,8 @@
 
             util.ready(function () {
 
-                util.on(document.body, 'start', function (e, sortable, el) {
-                    console.log('start', sortable, el);
-                });
-
-                util.on(document.body, 'moved', function(e, sortable, el) {
-                    console.log('moved', sortable, el);
-                });
-
-                util.on(document.body, 'added', function(e, sortable, el) {
-                    console.log('added', sortable, el);
-                });
-
-                util.on(document.body, 'removed', function(e, sortable, el) {
-                    console.log('removed', sortable, el);
-                });
-
-                util.on(document.body, 'stop', function(e, sortable) {
-                    console.log('stop', sortable);
+                util.on(document.body, 'start moved added removed stop', function (e, sortable, el) {
+                    console.log(e.type, sortable, el);
                 });
 
             });

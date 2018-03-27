@@ -19,7 +19,7 @@ export default function (UIkit) {
             clsFixed: String,
             clsBelow: String,
             selTarget: String,
-            widthElement: 'query',
+            widthElement: Boolean,
             showOnUp: Boolean,
             media: 'media',
             target: Number
@@ -45,6 +45,10 @@ export default function (UIkit) {
 
             selTarget({selTarget}, $el) {
                 return selTarget && $(selTarget, $el) || $el;
+            },
+
+            widthElement({widthElement}, $el) {
+                return query(widthElement, $el) || this.placeholder;
             }
 
         },
@@ -52,7 +56,6 @@ export default function (UIkit) {
         connected() {
 
             this.placeholder = $('<div class="uk-sticky-placeholder"></div>');
-            this.widthElement = this.$props.widthElement || this.placeholder;
 
             if (!this.isActive) {
                 this.hide();

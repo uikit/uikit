@@ -1,6 +1,7 @@
 import boot from './api/boot';
 import UIkit from './uikit-core';
 import Countdown from './components/countdown';
+import Filter from './components/filter';
 import Lightbox from './components/lightbox';
 import Notification from './components/notification';
 import Parallax from './components/parallax';
@@ -11,6 +12,7 @@ import Tooltip from './components/tooltip';
 import Upload from './components/upload';
 
 UIkit.use(Countdown);
+UIkit.use(Filter);
 UIkit.use(Lightbox);
 UIkit.use(Notification);
 UIkit.use(Parallax);

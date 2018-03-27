@@ -115,7 +115,7 @@ function plugin(UIkit) {
 
     function isEqualList(listA, listB) {
         return listA.length === listB.length
-            && listA.every((el, i) => el !== listB[i]);
+            && listA.every((el, i) => el === listB[i]);
     }
 
 }

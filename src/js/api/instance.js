@@ -33,10 +33,6 @@ export default function (UIkit) {
         this._callUpdate(e);
     };
 
-    UIkit.prototype.$update = function (e, parents) {
-        UIkit.update(e, this.$options.el, parents);
-    };
-
     UIkit.prototype.$reset = function (data) {
         this._callDisconnected();
         this._initProps(data);

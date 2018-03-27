@@ -1,19 +1,22 @@
+import Animate from '../mixin/animate';
+
 function plugin(UIkit) {
 
     if (plugin.installed) {
         return;
     }
 
+    UIkit.use(Animate);
+
     const {mixin, util} = UIkit;
-    const {addClass, after, assign, append, attr, before, closest, css, height, fastdom, getPos, includes, index, isInput, noop, offset, off, on, pointerDown, pointerMove, pointerUp, position, preventClick, Promise, remove, removeClass, toggleClass, toNodes, Transition, trigger, within} = util;
+    const {addClass, after, assign, append, attr, before, closest, css, height, getPos, includes, index, isInput, offset, off, on, pointerDown, pointerMove, pointerUp, preventClick, remove, removeClass, toggleClass, toNodes, trigger, within} = util;
 
     UIkit.component('sortable', {
 
-        mixins: [mixin.class],
+        mixins: [mixin.class, mixin.animate],
 
         props: {
             group: String,
-            animation: Number,
             threshold: Number,
             clsItem: String,
             clsPlaceholder: String,
@@ -28,7 +31,6 @@ function plugin(UIkit) {
 
         defaults: {
             group: false,
-            animation: 150,
             threshold: 5,
             clsItem: 'uk-sortable-item',
             clsPlaceholder: 'uk-sortable-placeholder',
@@ -143,7 +145,7 @@ function plugin(UIkit) {
                 addClass(this.$el.children, this.clsItem);
                 addClass(document.documentElement, this.clsDragState);
 
-                trigger(this.$el, 'start', [this, this.placeholder, this.drag]);
+                trigger(this.$el, 'start', [this, this.placeholder]);
 
                 this.move(e);
             },
@@ -224,7 +226,7 @@ function plugin(UIkit) {
                     trigger(this.$el, 'removed', [this, this.placeholder]);
                 }
 
-                trigger(this.$el, 'stop', [this]);
+                trigger(this.$el, 'stop', [this, this.placeholder]);
 
                 remove(this.drag);
                 this.drag = null;
@@ -275,41 +277,6 @@ function plugin(UIkit) {
                 } else {
                     remove(element);
                 }
-
-            },
-
-            animate(action) {
-
-                const props = [];
-                const children = toNodes(this.$el.children);
-                const reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: '', bottom: '', right: ''};
-
-                children.forEach(el => {
-                    props.push(assign({
-                        position: 'absolute',
-                        pointerEvents: 'none',
-                        width: el.offsetWidth,
-                        height: el.offsetHeight
-                    }, position(el)));
-                });
-
-                action();
-
-                children.forEach(Transition.cancel);
-                css(this.$el.children, reset);
-                this.$update('update', true);
-                fastdom.flush();
-
-                css(this.$el, 'minHeight', height(this.$el));
-
-                const positions = children.map(el => position(el));
-                Promise.all(children.map((el, i) => Transition.start(css(el, props[i]), positions[i], this.animation)))
-                    .then(() => {
-                        css(this.$el, 'minHeight', '');
-                        css(children, reset);
-                        this.$update('update', true);
-                        fastdom.flush();
-                    }, noop);
 
             }
 

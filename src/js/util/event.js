@@ -85,7 +85,7 @@ function delegate(element, selector, listener) {
 }
 
 function detail(listener) {
-    return e => isArray(e.detail) ? listener.apply(listener, [e].concat(e.detail)) : listener(e);
+    return e => isArray(e.detail) ? listener(...[e].concat(e.detail)) : listener(e);
 }
 
 function isEventTarget(target) {

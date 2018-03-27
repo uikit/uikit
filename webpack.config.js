@@ -63,8 +63,8 @@ module.exports = [
                 BUNDLED: true,
                 VERSION: `'${version}'`
             }),
-            new webpack.optimize.ModuleConcatenationPlugin(),
-            new uglify
+            // new webpack.optimize.ModuleConcatenationPlugin(),
+            // new uglify
         ]
     },
 
