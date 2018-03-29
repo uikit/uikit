@@ -14,6 +14,7 @@
 - Allow dropdowns in Iconnav component
 - Allow any property in `svg-fill` mixin
 - Move progress normalization to progress component
+- Video component sets _preload="false"_ if _autoplay_ is set to `inview`
 
 ### Fixed
 

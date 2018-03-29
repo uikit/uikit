@@ -1,4 +1,4 @@
-import {css, isInView, isVisible, Player} from '../util/index';
+import {css, hasAttr, isInView, isVisible, Player} from '../util/index';
 
 export default function (UIkit) {
 
@@ -20,6 +20,14 @@ export default function (UIkit) {
 
             inView({autoplay}) {
                 return autoplay === 'inview';
+            }
+
+        },
+
+        connected() {
+
+            if (this.inView && !hasAttr(this.$el, 'preload')) {
+                this.$el.preload = 'none';
             }
 
         },
