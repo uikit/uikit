@@ -42,9 +42,11 @@
 @base-heading-color:                            @global-emphasis-color;
 @base-heading-text-transform:                   none;
 @base-heading-margin-top:                       @global-medium-margin;
-@base-h1-font-size:                             @global-xxlarge-font-size;
+@base-h1-font-size:                             @global-xxlarge-font-size * 0.85;
+@base-h1-font-size-s:                           @global-xxlarge-font-size;
 @base-h1-line-height:                           1.2;
-@base-h2-font-size:                             @global-xlarge-font-size;
+@base-h2-font-size:                             @global-xlarge-font-size * 0.85;
+@base-h2-font-size-s:                           @global-xlarge-font-size;
 @base-h2-line-height:                           1.3;
 @base-h3-font-size:                             @global-large-font-size;
 @base-h3-line-height:                           1.4;
@@ -372,6 +374,14 @@ h6, .uk-h6 {
     font-size: @base-h6-font-size;
     line-height: @base-h6-line-height;
     .hook-base-h6;
+}
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    h1, .uk-h1 { font-size: @base-h1-font-size-s; }
+    h2, .uk-h2 { font-size: @base-h2-font-size-s; }
+
 }
 
 

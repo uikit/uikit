@@ -13,8 +13,10 @@
 // Variables
 // ========================================================================
 
-@heading-primary-font-size:                     @global-xxlarge-font-size;
+@heading-primary-font-size:                     @global-xxlarge-font-size * 0.9;
 @heading-primary-line-height:                   1.2;
+
+@heading-primary-font-size-s:                   @global-xxlarge-font-size;
 
 @heading-primary-font-size-m:                   3.75rem; // 54px
 @heading-primary-line-height-m:                 1.1;
@@ -58,6 +60,13 @@
     font-size: @heading-primary-font-size;
     line-height: @heading-primary-line-height;
     .hook-heading-primary;
+}
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-heading-primary { font-size: @heading-primary-font-size-s; }
+
 }
 
 /* Tablet landscape and bigger */
