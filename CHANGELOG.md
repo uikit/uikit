@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add table large modifier
+
 ### Changed
 
 - Make `uk-form-icon` padding work with size modifier
