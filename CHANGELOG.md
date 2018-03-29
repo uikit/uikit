@@ -5,6 +5,7 @@
 ### Changed
 
 - Make `uk-form-icon` padding work with size modifier
+- Make heading line position top a variable
 - Allow dropdowns in Iconnav component
 - Allow any property in `svg-fill` mixin
 - Move progress normalization to progress component
@@ -14,7 +15,7 @@
 - Fix browser compatibility in Navbar component
 - Fix preventClick function on touch devices
 - Fix LightboxPanel props
-- Fix Player ids in Vimeo videos 
+- Fix Player ids in Vimeo videos
 - Dropbar opens on bottom positioned drops only
 - Fix setting height of drag in Sortable component
 - _isInView_ checks for element visibility now
