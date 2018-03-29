@@ -4,6 +4,8 @@ export default function (UIkit) {
 
     UIkit.component('video', {
 
+        args: 'autoplay',
+
         props: {
             automute: Boolean,
             autoplay: Boolean,

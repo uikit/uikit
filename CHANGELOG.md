@@ -5,6 +5,7 @@
 ### Added
 
 - Add table large modifier
+- Add `Autoplay` as primary option for Video component
 
 ### Changed
 
