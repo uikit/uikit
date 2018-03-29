@@ -307,6 +307,10 @@ export function isInView(element, top = 0, left = 0) {
 
 export function scrolledOver(element) {
 
+    if (!isVisible(element)) {
+        return 0;
+    }
+
     element = toNode(element);
 
     const win = window(element);
