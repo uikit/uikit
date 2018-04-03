@@ -30,6 +30,7 @@
 - Fix Slideshow _fade_ effect
 - Fix _type_ option in Upload component
 - Fix misplaced Drop on fast toggling
+- Fix Modal close on bgClick behaviour
 
 ## 3.0.0 beta 40 (February 8, 2018)
 
