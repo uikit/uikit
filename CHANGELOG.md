@@ -28,6 +28,7 @@
 - Fix check for backgroundSize: cover resetting backgroundSize in Parallax
 - Fix "Uncaught (in promise) DOMException" in Player
 - Fix Slideshow _fade_ effect
+- Fix _type_ option in Upload component
 
 ## 3.0.0 beta 40 (February 8, 2018)
 
