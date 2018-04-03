@@ -152,7 +152,6 @@ export default function (UIkit) {
                     trigger(next, 'beforeitemshow', [this]);
                 }
 
-                this._transitioner && this._transitioner.reset();
                 this._transitioner = this._translate(Math.abs(this.percent), prev, !edge && next);
 
                 if (changed) {

@@ -27,6 +27,7 @@
 - _isInView_ checks for element visibility now
 - Fix check for backgroundSize: cover resetting backgroundSize in Parallax
 - Fix "Uncaught (in promise) DOMException" in Player
+- Fix Slideshow _fade_ effect
 
 ## 3.0.0 beta 40 (February 8, 2018)
 
