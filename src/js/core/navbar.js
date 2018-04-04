@@ -145,11 +145,13 @@ export default function (UIkit) {
 
                 handler(_, drop) {
 
-                    const {$el} = drop;
+                    const {$el, dir} = drop;
 
                     this.clsDrop && addClass($el, `${this.clsDrop}-dropbar`);
 
-                    this.transitionTo($el.offsetHeight + toFloat(css($el, 'margin-top')) + toFloat(css($el, 'margin-bottom')), $el);
+                    if (dir === 'bottom') {
+                        this.transitionTo($el.offsetHeight + toFloat(css($el, 'marginTop')) + toFloat(css($el, 'marginBottom')), $el);
+                    }
                 }
             },
 
@@ -210,7 +212,7 @@ export default function (UIkit) {
                 return Transition
                     .start([el, dropbar], {height: newHeight}, this.duration)
                     .catch(noop)
-                    .finally(() => css(el, {height: '', overflow: ''}));
+                    .then(() => css(el, {height: '', overflow: ''}));
             }
 
         }

@@ -13,6 +13,7 @@ function plugin(UIkit) {
             clsDragover: String,
             concurrent: Number,
             maxSize: Number,
+            method: String,
             mime: String,
             msgInvalidMime: String,
             msgInvalidName: String,
@@ -29,6 +30,7 @@ function plugin(UIkit) {
             clsDragover: 'uk-dragover',
             concurrent: 1,
             maxSize: 0,
+            method: 'POST',
             mime: false,
             msgInvalidMime: 'Invalid File Type: %s',
             msgInvalidName: 'Invalid File Name: %s',
@@ -36,7 +38,7 @@ function plugin(UIkit) {
             multiple: false,
             name: 'files[]',
             params: {},
-            type: 'POST',
+            type: '',
             url: '',
             abort: noop,
             beforeAll: noop,
@@ -146,7 +148,8 @@ function plugin(UIkit) {
 
                     ajax(this.url, {
                         data,
-                        method: this.type,
+                        method: this.method,
+                        responseType: this.type,
                         beforeSend: env => {
 
                             const {xhr} = env;

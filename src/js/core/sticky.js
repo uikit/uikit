@@ -1,5 +1,5 @@
 import {Class} from '../mixin/index';
-import {$, addClass, after, Animation, assign, attr, css, docEl, fastdom, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, remove, removeClass, replaceClass, toFloat, toggleClass, trigger, win, within} from '../util/index';
+import {$, addClass, after, Animation, assign, attr, css, fastdom, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, remove, removeClass, replaceClass, toFloat, toggleClass, trigger, within} from '../util/index';
 
 export default function (UIkit) {
 
@@ -74,7 +74,7 @@ export default function (UIkit) {
 
         ready() {
 
-            if (!(this.target && location.hash && win.pageYOffset > 0)) {
+            if (!(this.target && location.hash && window.pageYOffset > 0)) {
                 return;
             }
 
@@ -88,7 +88,7 @@ export default function (UIkit) {
                     const elHeight = this.$el.offsetHeight;
 
                     if (elTop + elHeight >= top && elTop <= top + target.offsetHeight) {
-                        win.scrollTo(0, top - elHeight - this.target - this.offset);
+                        window.scrollTo(0, top - elHeight - this.target - this.offset);
                     }
 
                 });
@@ -136,7 +136,7 @@ export default function (UIkit) {
                         css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
                     ));
 
-                    if (!within(placeholder, docEl)) {
+                    if (!within(placeholder, document)) {
                         after(this.$el, placeholder);
                         attr(placeholder, 'hidden', '');
                     }
@@ -152,7 +152,7 @@ export default function (UIkit) {
 
                     this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
                     this.bottom = bottom && bottom - outerHeight;
-                    this.inactive = this.media && !win.matchMedia(this.media).matches;
+                    this.inactive = this.media && !window.matchMedia(this.media).matches;
 
                     if (this.isActive) {
                         this.update();
@@ -165,7 +165,7 @@ export default function (UIkit) {
 
             {
 
-                read(_, {scrollY = win.pageYOffset}) {
+                read(_, {scrollY = window.pageYOffset}) {
                     return {
                         scroll: this.scroll = scrollY,
                         visible: isVisible(this.$el)
@@ -288,7 +288,7 @@ export default function (UIkit) {
 
         } else if (isString(value) && value.match(/^-?\d+vh$/)) {
 
-            return height(win) * toFloat(value) / 100;
+            return height(window) * toFloat(value) / 100;
 
         } else {
 

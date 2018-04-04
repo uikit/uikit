@@ -1,4 +1,4 @@
-import {$$, addClass, css, doc, hasTouch, on, ready, removeClass, toMs, win, within} from '../util/index';
+import {$$, addClass, css, hasTouch, on, ready, removeClass, toMs, within} from '../util/index';
 
 export default function (UIkit) {
 
@@ -7,20 +7,21 @@ export default function (UIkit) {
         let scroll = 0;
         let started = 0;
 
-        on(win, 'load resize', UIkit.update);
-        on(win, 'scroll', e => {
-            e.dir = scroll <= win.pageYOffset ? 'down' : 'up';
-            e.scrollY = scroll = win.pageYOffset;
-            UIkit.update(e);
+        on(window, 'load resize', e => UIkit.update(null, e));
+        on(window, 'scroll', e => {
+            e.dir = scroll <= window.pageYOffset ? 'down' : 'up';
+            e.scrollY = scroll = window.pageYOffset;
+            UIkit.update(null, e);
         });
 
-        on(doc, 'animationstart', ({target}) => {
+        on(document, 'animationstart', ({target}) => {
             if ((css(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
+
                 started++;
-                doc.body.style.overflowX = 'hidden';
+                css(document.body, 'overflowX', 'hidden');
                 setTimeout(() => {
                     if (!--started) {
-                        doc.body.style.overflowX = '';
+                        css(document.body, 'overflowX', '');
                     }
                 }, toMs(css(target, 'animationDuration')) + 100);
             }
@@ -32,7 +33,7 @@ export default function (UIkit) {
 
         const cls = 'uk-hover';
 
-        on(doc, 'tap', ({target}) =>
+        on(document, 'tap', ({target}) =>
             $$(`.${cls}`).forEach(el =>
                 !within(target, el) && removeClass(el, cls)
             )
@@ -41,7 +42,7 @@ export default function (UIkit) {
         Object.defineProperty(UIkit, 'hoverSelector', {
 
             set(selector) {
-                on(doc, 'tap', selector, ({current}) => addClass(current, cls));
+                on(document, 'tap', selector, ({current}) => addClass(current, cls));
             }
 
         });

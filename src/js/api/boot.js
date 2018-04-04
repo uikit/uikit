@@ -1,38 +1,38 @@
 import {getComponentName} from './component';
-import {doc, docEl, fastdom, hasAttr, Observer} from '../util/index';
+import {fastdom, hasAttr} from '../util/index';
 
 export default function (UIkit) {
 
     const {connect, disconnect} = UIkit;
 
-    if (!Observer) {
+    if (!('MutationObserver' in window)) {
         return;
     }
 
-    if (doc.body) {
+    if (document.body) {
 
         init();
 
     } else {
 
-        (new Observer(function () {
+        (new MutationObserver(function () {
 
-            if (doc.body) {
+            if (document.body) {
                 this.disconnect();
                 init();
             }
 
-        })).observe(docEl, {childList: true, subtree: true});
+        })).observe(document, {childList: true, subtree: true});
 
     }
 
     function init() {
 
-        apply(doc.body, connect);
+        apply(document.body, connect);
 
         fastdom.flush();
 
-        (new Observer(mutations => mutations.forEach(applyMutation))).observe(docEl, {
+        (new MutationObserver(mutations => mutations.forEach(applyMutation))).observe(document, {
             childList: true,
             subtree: true,
             characterData: true,
@@ -50,7 +50,7 @@ export default function (UIkit) {
             ? applyChildList(mutation)
             : applyAttribute(mutation);
 
-        update && UIkit.update('update', target, true);
+        update && UIkit.update(target);
 
     }
 
@@ -92,6 +92,7 @@ export default function (UIkit) {
 
         return true;
     }
+
     function apply(node, fn) {
 
         if (node.nodeType !== 1 || hasAttr(node, 'uk-no-boot')) {

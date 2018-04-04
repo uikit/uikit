@@ -10,7 +10,7 @@ function plugin(UIkit) {
     UIkit.use(Slideshow);
 
     const {mixin, util} = UIkit;
-    const {$, addClass, ajax, append, assign, attr, css, doc, getImage, html, index, on, pointerDown, pointerMove, removeClass, Transition, trigger} = util;
+    const {$, addClass, ajax, append, assign, attr, css, getImage, html, index, on, pointerDown, pointerMove, removeClass, Transition, trigger} = util;
 
     const Animations = AnimationsPlugin(UIkit);
 
@@ -19,6 +19,13 @@ function plugin(UIkit) {
         mixins: [mixin.container, mixin.modal, mixin.togglable, mixin.slideshow],
 
         functional: true,
+
+        props: {
+            delayControls: Number,
+            preload: Number,
+            videoAutoplay: Boolean,
+            template: String
+        },
 
         defaults: {
             preload: 1,
@@ -110,9 +117,7 @@ function plugin(UIkit) {
 
                 name: 'keyup',
 
-                el() {
-                    return doc;
-                },
+                el: document,
 
                 handler(e) {
 
@@ -213,7 +218,7 @@ function plugin(UIkit) {
                     // Video
                     } else if (type === 'video' || source.match(/\.(mp4|webm|ogv)$/i)) {
 
-                        const video = $(`<video controls playsinline${item.poster ? ` poster="${item.poster}"` : ''} uk-video="autoplay: ${this.videoAutoplay}"></video>`);
+                        const video = $(`<video controls playsinline${item.poster ? ` poster="${item.poster}"` : ''} uk-video="${this.videoAutoplay}"></video>`);
                         attr(video, 'src', source);
 
                         on(video, 'error', () => this.setError(item));
@@ -285,7 +290,7 @@ function plugin(UIkit) {
                 assign(item, {content});
                 const el = html(this.slides[this.items.indexOf(item)], content);
                 trigger(this.$el, 'itemloaded', [this, el]);
-                UIkit.update(null, el);
+                UIkit.update(el);
             },
 
             setError(item) {

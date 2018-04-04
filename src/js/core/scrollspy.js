@@ -1,4 +1,4 @@
-import {$$, addClass, css, data, doc, filter, isInView, removeClass, toggleClass, trigger} from '../util/index';
+import {$$, addClass, css, data, filter, isInView, removeClass, toggleClass, trigger} from '../util/index';
 
 export default function (UIkit) {
 
@@ -54,7 +54,7 @@ export default function (UIkit) {
                     // Let child components be applied at least once first
                     if (!UIkit._initialized) {
 
-                        if (doc.readyState === 'complete') {
+                        if (document.readyState === 'complete') {
                             requestAnimationFrame(() => this.$emit());
                         }
 
@@ -94,7 +94,7 @@ export default function (UIkit) {
 
                                 trigger(el, 'inview');
 
-                                UIkit.update(null, el);
+                                UIkit.update(el);
 
                                 elData.inview = true;
                                 delete elData.timer;
@@ -121,7 +121,7 @@ export default function (UIkit) {
 
                             trigger(el, 'outview');
 
-                            UIkit.update(null, el);
+                            UIkit.update(el);
 
                             elData.inview = false;
 

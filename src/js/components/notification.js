@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    const {append, closest, css, each, pointerEnter, pointerLeave, remove, toFloat, Transition, trigger} = UIkit.util;
+    const {append, apply, closest, css, pointerEnter, pointerLeave, remove, toFloat, Transition, trigger} = UIkit.util;
     const containers = {};
 
     UIkit.component('notification', {
@@ -112,9 +112,10 @@ function plugin(UIkit) {
     });
 
     UIkit.notification.closeAll = function (group, immediate) {
-        each(UIkit.instances, component => {
-            if (component.$options.name === 'notification' && (!group || group === component.group)) {
-                component.close(immediate);
+        apply(document.body, el => {
+            const notification = UIkit.getComponent(el, 'notification');
+            if (notification && (!group || group === notification.group)) {
+                notification.close(immediate);
             }
         });
     };

@@ -5,7 +5,7 @@ function plugin(UIkit) {
     }
 
     const {mixin, util} = UIkit;
-    const {css, Dimensions, each, getImage, includes, isNumber, isUndefined, toFloat, win} = util;
+    const {css, Dimensions, each, getImage, includes, isNumber, isUndefined, toFloat} = util;
 
     const props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
@@ -103,7 +103,7 @@ function plugin(UIkit) {
             },
 
             covers(_, $el) {
-                return css($el.style.backgroundSize !== '' ? css($el, 'backgroundSize', '') : $el, 'backgroundSize') === 'cover';
+                return covers($el);
             }
 
         },
@@ -118,7 +118,7 @@ function plugin(UIkit) {
 
                 read(data) {
 
-                    data.active = !this.media || win.matchMedia(this.media).matches;
+                    data.active = !this.media || window.matchMedia(this.media).matches;
 
                     if (data.image) {
                         data.image.dimEl = {
@@ -316,6 +316,13 @@ function plugin(UIkit) {
             ? start + Math.abs(start - end) * p * (start < end ? 1 : -1)
             : +end
         ).toFixed(2);
+    }
+
+    function covers(el) {
+        const {backgroundSize} = el.style;
+        const covers = css(css(el, 'backgroundSize', ''), 'backgroundSize') === 'cover';
+        el.style.backgroundSize = backgroundSize;
+        return covers;
     }
 
 }

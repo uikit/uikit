@@ -1,6 +1,6 @@
 export default function (UIkit) {
 
-    const {doc, pointerDown} = UIkit.util;
+    const {pointerDown} = UIkit.util;
 
     return {
 
@@ -30,10 +30,10 @@ export default function (UIkit) {
 
                 name: 'visibilitychange',
 
-                el: doc,
+                el: document,
 
                 handler() {
-                    if (doc.hidden) {
+                    if (document.hidden) {
                         this.stopAutoplay();
                     } else {
                         this.startAutoplay();

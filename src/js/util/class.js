@@ -1,4 +1,3 @@
-import {supports} from './env';
 import {filterAttr} from './attr';
 import {includes, isString, isUndefined, toNodes} from './lang';
 
@@ -20,12 +19,12 @@ export function replaceClass(element, ...args) {
 }
 
 export function hasClass(element, cls) {
-    return supports.ClassList && toNodes(element).some(element => element.classList.contains(cls));
+    return toNodes(element).some(element => element.classList.contains(cls));
 }
 
 export function toggleClass(element, ...args) {
 
-    if (!supports.ClassList || !args.length) {
+    if (!args.length) {
         return;
     }
 
@@ -48,7 +47,7 @@ export function toggleClass(element, ...args) {
 function apply(element, args, fn) {
     args = getArgs(args).filter(Boolean);
 
-    supports.ClassList && args.length && toNodes(element).forEach(({classList}) => {
+    args.length && toNodes(element).forEach(({classList}) => {
         supports.Multiple
             ? classList[fn].apply(classList, args)
             : args.forEach(cls => classList[fn](cls));
@@ -61,3 +60,18 @@ function getArgs(args) {
         , []);
 }
 
+const supports = {};
+
+// IE 11
+(function () {
+
+    let list = document.createElement('_').classList;
+    if (list) {
+        list.add('a', 'b');
+        list.toggle('c', false);
+        supports.Multiple = list.contains('b');
+        supports.Force = !list.contains('c');
+    }
+    list = null;
+
+})();

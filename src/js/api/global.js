@@ -1,4 +1,4 @@
-import {$, createEvent, doc, isString, mergeOptions, toNode} from '../util/index';
+import {$, apply, createEvent, isString, mergeOptions, toNode} from '../util/index';
 
 export default function (UIkit) {
 
@@ -43,31 +43,17 @@ export default function (UIkit) {
         return Sub;
     };
 
-    UIkit.update = function (e, element, parents = false) {
+    UIkit.update = function (element, e) {
 
         e = createEvent(e || 'update');
+        element = element ? toNode(element) : document.body;
 
-        if (!element) {
+        apply(element, element => update(element[DATA], e));
 
-            update(UIkit.instances, e);
-            return;
+        while (element && element.parentNode) {
 
-        }
-
-        element = toNode(element);
-
-        if (parents) {
-
-            do {
-
-                update(element[DATA], e);
-                element = element.parentNode;
-
-            } while (element);
-
-        } else {
-
-            apply(element, element => update(element[DATA], e));
+            update(element.parentNode[DATA], e);
+            element = element.parentNode;
 
         }
 
@@ -77,7 +63,7 @@ export default function (UIkit) {
     Object.defineProperty(UIkit, 'container', {
 
         get() {
-            return container || doc.body;
+            return container || document.body;
         },
 
         set(element) {
@@ -85,20 +71,6 @@ export default function (UIkit) {
         }
 
     });
-
-    function apply(node, fn) {
-
-        if (node.nodeType !== 1) {
-            return;
-        }
-
-        fn(node);
-        node = node.firstElementChild;
-        while (node) {
-            apply(node, fn);
-            node = node.nextElementSibling;
-        }
-    }
 
     function update(data, e) {
 

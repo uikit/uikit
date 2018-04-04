@@ -1,5 +1,5 @@
 import {Modal} from '../mixin/index';
-import {$, addClass, css, doc, docEl, hasClass, height, isTouch, once, removeClass, trigger, unwrap, width, win, wrapAll} from '../util/index';
+import {$, addClass, css, hasClass, height, isTouch, once, removeClass, trigger, unwrap, width, wrapAll} from '../util/index';
 
 let scroll;
 
@@ -25,7 +25,7 @@ export default function (UIkit) {
             overlay: false,
             clsPage: 'uk-offcanvas-page',
             clsContainer: 'uk-offcanvas-container',
-            clsPanel: 'uk-offcanvas-bar',
+            selPanel: '.uk-offcanvas-bar',
             clsFlip: 'uk-offcanvas-flip',
             clsContent: 'uk-offcanvas-content',
             clsContentAnimation: 'uk-offcanvas-content-animation',
@@ -38,7 +38,7 @@ export default function (UIkit) {
         computed: {
 
             content({content}) {
-                return $(content) || doc.body;
+                return $(content) || document.body;
             },
 
             clsFlip({flip, clsFlip}) {
@@ -74,11 +74,11 @@ export default function (UIkit) {
                 if (this.getActive() === this) {
 
                     if (this.overlay || this.clsContentAnimation) {
-                        width(this.content, width(win) - this.scrollbarWidth);
+                        width(this.content, width(window) - this.scrollbarWidth);
                     }
 
                     if (this.overlay) {
-                        height(this.content, height(win));
+                        height(this.content, height(window));
                         if (scroll) {
                             this.content.scrollTop = scroll.y;
                         }
@@ -135,18 +135,18 @@ export default function (UIkit) {
 
                 handler() {
 
-                    scroll = scroll || {x: win.pageXOffset, y: win.pageYOffset};
+                    scroll = scroll || {x: window.pageXOffset, y: window.pageYOffset};
 
                     if (this.mode === 'reveal' && !hasClass(this.panel, this.clsMode)) {
                         wrapAll(this.panel, '<div>');
                         addClass(this.panel.parentNode, this.clsMode);
                     }
 
-                    css(docEl, 'overflowY', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
-                    addClass(doc.body, this.clsContainer, this.clsFlip, this.clsOverlay);
-                    height(doc.body); // force reflow
+                    css(document.documentElement, 'overflowY', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
+                    addClass(document.body, this.clsContainer, this.clsFlip, this.clsOverlay);
+                    height(document.body); // force reflow
                     addClass(this.content, this.clsContentAnimation);
-                    addClass(this.panel, `${this.clsSidebarAnimation} ${this.mode !== 'reveal' ? this.clsMode : ''}`);
+                    addClass(this.panel, this.clsSidebarAnimation, this.mode !== 'reveal' ? this.clsMode : '');
                     addClass(this.$el, this.clsOverlay);
                     css(this.$el, 'display', 'block');
                     height(this.$el); // force reflow
@@ -181,7 +181,7 @@ export default function (UIkit) {
                     }
 
                     if (!this.overlay) {
-                        scroll = {x: win.pageXOffset, y: win.pageYOffset};
+                        scroll = {x: window.pageXOffset, y: window.pageYOffset};
                     } else if (!scroll) {
                         const {scrollLeft: x, scrollTop: y} = this.content;
                         scroll = {x, y};
@@ -190,15 +190,15 @@ export default function (UIkit) {
                     removeClass(this.panel, this.clsSidebarAnimation, this.clsMode);
                     removeClass(this.$el, this.clsOverlay);
                     css(this.$el, 'display', '');
-                    removeClass(doc.body, this.clsContainer, this.clsFlip, this.clsOverlay);
-                    doc.body.scrollTop = scroll.y;
+                    removeClass(document.body, this.clsContainer, this.clsFlip, this.clsOverlay);
+                    document.body.scrollTop = scroll.y;
 
-                    css(docEl, 'overflow-y', '');
+                    css(document.documentElement, 'overflowY', '');
 
                     width(this.content, '');
                     height(this.content, '');
 
-                    win.scrollTo(scroll.x, scroll.y);
+                    window.scrollTo(scroll.x, scroll.y);
 
                     scroll = null;
 

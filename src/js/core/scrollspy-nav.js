@@ -1,4 +1,4 @@
-import {$, $$, addClass, closest, doc, filter, height, isInView, offset, removeClass, trigger, win} from '../util/index';
+import {$, $$, addClass, closest, filter, height, isInView, offset, removeClass, trigger} from '../util/index';
 
 export default function (UIkit) {
 
@@ -52,8 +52,8 @@ export default function (UIkit) {
 
                 read(data) {
 
-                    const scroll = win.pageYOffset + this.offset + 1;
-                    const max = height(doc) - height(win) + this.offset;
+                    const scroll = window.pageYOffset + this.offset + 1;
+                    const max = height(document) - height(window) + this.offset;
 
                     data.active = false;
 

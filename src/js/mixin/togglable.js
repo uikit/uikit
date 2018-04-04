@@ -1,5 +1,4 @@
-import UIkit from '../api/index';
-import {$$, Animation, assign, attr, css, doc, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger} from '../util/index';
+import {$$, Animation, assign, attr, css, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger} from '../util/index';
 
 export default {
 
@@ -71,7 +70,7 @@ export default {
 
                 } else {
 
-                    const {body} = doc;
+                    const {body} = document;
                     const scroll = body.scrollTop;
                     const [el] = toggled;
                     const inProgress = Animation.inProgress(el) && hasClass(el, 'uk-animation-leave')
@@ -136,7 +135,7 @@ export default {
 
             return promise.then(() => {
                 trigger(el, show ? 'shown' : 'hidden', [this]);
-                UIkit.update(null, el);
+                trigger(el, 'resize');
             });
         },
 
@@ -146,16 +145,19 @@ export default {
                 return;
             }
 
+            let changed;
             if (this.cls) {
-                toggleClass(el, this.cls, includes(this.cls, ' ') ? undefined : toggled);
+                changed = includes(this.cls, ' ') || Boolean(toggled) !== hasClass(el, this.cls);
+                changed && toggleClass(el, this.cls, includes(this.cls, ' ') ? undefined : toggled);
             } else {
-                attr(el, 'hidden', !toggled ? '' : null);
+                changed = Boolean(toggled) === hasAttr(el, 'hidden');
+                changed && attr(el, 'hidden', !toggled ? '' : null);
             }
 
             $$('[autofocus]', el).some(el => isVisible(el) && (el.focus() || true));
 
             this.updateAria(el);
-            UIkit.update(null, el);
+            changed && trigger(el, 'resize');
         },
 
         _toggleImmediate(el, show) {

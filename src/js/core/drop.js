@@ -1,5 +1,5 @@
 import {Position, Togglable} from '../mixin/index';
-import {$$, addClass, Animation, attr, css, docEl, includes, isString, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointInRect, query, removeClass, removeClasses, toggleClass, win, within} from '../util/index';
+import {$$, addClass, Animation, attr, css, includes, isString, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointInRect, query, removeClass, removeClasses, toggleClass, within} from '../util/index';
 
 export default function (UIkit) {
 
@@ -24,7 +24,7 @@ export default function (UIkit) {
         defaults: {
             mode: ['click', 'hover'],
             toggle: true,
-            boundary: win,
+            boundary: window,
             boundaryAlign: false,
             delayShow: 0,
             delayHide: 800,
@@ -209,6 +209,7 @@ export default function (UIkit) {
 
                 handler() {
                     this.clearTimers();
+                    Animation.cancel(this.$el);
                     this.position();
                 }
 
@@ -222,8 +223,10 @@ export default function (UIkit) {
 
                 handler() {
                     this.tracker.init();
-                    addClass(this.toggle.$el, this.cls);
-                    attr(this.toggle.$el, 'aria-expanded', 'true');
+                    if (this.toggle) {
+                        addClass(this.toggle.$el, this.cls);
+                        attr(this.toggle.$el, 'aria-expanded', 'true');
+                    }
                     registerEvent();
                 }
 
@@ -253,10 +256,14 @@ export default function (UIkit) {
                     }
 
                     active = this.isActive() ? null : active;
-                    removeClass(this.toggle.$el, this.cls);
-                    attr(this.toggle.$el, 'aria-expanded', 'false');
-                    this.toggle.$el.blur();
-                    $$('a, button', this.toggle.$el).forEach(el => el.blur());
+
+                    if (this.toggle) {
+                        removeClass(this.toggle.$el, this.cls);
+                        attr(this.toggle.$el, 'aria-expanded', 'false');
+                        this.toggle.$el.blur();
+                        $$('a, button', this.toggle.$el).forEach(el => el.blur());
+                    }
+
                     this.tracker.cancel();
                 }
 
@@ -405,7 +412,7 @@ export default function (UIkit) {
         }
 
         registered = true;
-        on(docEl, 'click', ({target, defaultPrevented}) => {
+        on(document, 'click', ({target, defaultPrevented}) => {
             let prev;
 
             if (defaultPrevented) {

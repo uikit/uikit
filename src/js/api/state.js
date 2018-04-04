@@ -1,4 +1,4 @@
-import {assign, attr, bind, camelize, data as getData, getCssVar, hasAttr, hasOwn, hyphenate, includes, isArray, isFunction, isPlainObject, isString, isUndefined, mergeOptions, Observer, on, query, startsWith, toBoolean, toFloat, toList, toNumber} from '../util/index';
+import {assign, attr, bind, camelize, data as getData, getCssVar, hasAttr, hasOwn, hyphenate, includes, isArray, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, query, startsWith, toBoolean, toFloat, toList, toNumber} from '../util/index';
 
 export default function (UIkit) {
 
@@ -133,13 +133,13 @@ export default function (UIkit) {
     UIkit.prototype._initObserver = function () {
 
         let {attrs, props, el} = this.$options;
-        if (this._observer || !props || !attrs || !Observer) {
+        if (this._observer || !props || !attrs) {
             return;
         }
 
         attrs = isArray(attrs) ? attrs : Object.keys(props).map(key => hyphenate(key));
 
-        this._observer = new Observer(() => {
+        this._observer = new MutationObserver(() => {
 
             const data = getProps(this.$options, this.$name);
             if (attrs.some(key => !isUndefined(data[key]) && data[key] !== this.$props[key])) {
