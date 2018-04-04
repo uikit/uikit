@@ -218,7 +218,7 @@ function plugin(UIkit) {
                     // Video
                     } else if (type === 'video' || source.match(/\.(mp4|webm|ogv)$/i)) {
 
-                        const video = $(`<video controls playsinline${item.poster ? ` poster="${item.poster}"` : ''} uk-video="autoplay: ${this.videoAutoplay}"></video>`);
+                        const video = $(`<video controls playsinline${item.poster ? ` poster="${item.poster}"` : ''} uk-video="${this.videoAutoplay}"></video>`);
                         attr(video, 'src', source);
 
                         on(video, 'error', () => this.setError(item));
