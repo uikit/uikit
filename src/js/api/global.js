@@ -43,23 +43,17 @@ export default function (UIkit) {
         return Sub;
     };
 
-    UIkit.update = function (e, element, parents = false) {
+    UIkit.update = function (element, e) {
 
         e = createEvent(e || 'update');
         element = element ? toNode(element) : document.body;
 
-        if (parents) {
+        apply(element, element => update(element[DATA], e));
 
-            do {
+        while (element && element.parentNode) {
 
-                update(element[DATA], e);
-                element = element.parentNode;
-
-            } while (element);
-
-        } else {
-
-            apply(element, element => update(element[DATA], e));
+            update(element.parentNode[DATA], e);
+            element = element.parentNode;
 
         }
 

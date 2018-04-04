@@ -15,6 +15,11 @@
 - Allow any property in `svg-fill` mixin
 - Move progress normalization to progress component
 - Video component sets _preload="false"_ if _autoplay_ is set to `inview`
+- Global _update_ method now updates element itself as well as its parents and children 
+
+### Removed
+
+- Removed the instance method _$update_
 
 ### Fixed
 

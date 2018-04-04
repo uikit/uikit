@@ -7,11 +7,11 @@ export default function (UIkit) {
         let scroll = 0;
         let started = 0;
 
-        on(window, 'load resize', UIkit.update);
+        on(window, 'load resize', e => UIkit.update(null, e));
         on(window, 'scroll', e => {
             e.dir = scroll <= window.pageYOffset ? 'down' : 'up';
             e.scrollY = scroll = window.pageYOffset;
-            UIkit.update(e);
+            UIkit.update(null, e);
         });
 
         on(document, 'animationstart', ({target}) => {

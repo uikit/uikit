@@ -290,7 +290,7 @@ function plugin(UIkit) {
                 assign(item, {content});
                 const el = html(this.slides[this.items.indexOf(item)], content);
                 trigger(this.$el, 'itemloaded', [this, el]);
-                UIkit.update(null, el);
+                UIkit.update(el);
             },
 
             setError(item) {

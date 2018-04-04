@@ -297,7 +297,7 @@ function plugin(UIkit) {
 
                 children.forEach(Transition.cancel);
                 css(this.$el.children, reset);
-                this.$update('update', true);
+                UIkit.update(this.$el);
                 fastdom.flush();
 
                 css(this.$el, 'minHeight', height(this.$el));
@@ -307,7 +307,7 @@ function plugin(UIkit) {
                     .then(() => {
                         css(this.$el, 'minHeight', '');
                         css(children, reset);
-                        this.$update('update', true);
+                        UIkit.update(this.$el);
                         fastdom.flush();
                     }, noop);
 
