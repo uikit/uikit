@@ -21,25 +21,28 @@ $progress-bar-background:                        $global-primary-background !def
  ========================================================================== */
 
 /*
- * 1. Remove default style
- * 2. Behave like a block element
- * 3. Remove borders in Firefox and Edge
- * 4. Set background color for progress container in Firefox, IE11 and Edge
- * 5. Style
+ * 1. Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ * 2. Remove default style
+ * 3. Behave like a block element
+ * 4. Remove borders in Firefox and Edge
+ * 5. Set background color for progress container in Firefox, IE11 and Edge
+ * 6. Style
  */
 
 .uk-progress {
     /* 1 */
+    vertical-align: baseline;
+    /* 2 */
     -webkit-appearance: none;
     -moz-appearance: none;
-    /* 2 */
+    /* 3 */
     display: block;
     width: 100%;
-    /* 3 */
-    border: 0;
     /* 4 */
-    background-color: $progress-background;
+    border: 0;
     /* 5 */
+    background-color: $progress-background;
+    /* 6 */
     margin-bottom: $progress-margin-vertical;
     height: $progress-height;
     @if(mixin-exists(hook-progress)) {@include hook-progress();}
