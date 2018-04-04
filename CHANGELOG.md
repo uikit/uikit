@@ -6,6 +6,7 @@
 
 - Add table large modifier
 - Add `Autoplay` as primary option for Video component
+- Add core and component dist files to NPM package
 
 ### Changed
 
@@ -14,12 +15,12 @@
 - Allow dropdowns in Iconnav component
 - Allow any property in `svg-fill` mixin
 - Move progress normalization to progress component
-- Video component sets _preload="false"_ if _autoplay_ is set to `inview`
-- Global _update_ method now updates element itself as well as its parents and children 
+- Video component sets `preload="false"` if `autoplay` is set to `inview`
+- Global `update` method now updates element itself as well as its parents and children 
 
 ### Removed
 
-- Removed the instance method _$update_
+- Removed the instance method `$update`
 
 ### Fixed
 
@@ -29,11 +30,11 @@
 - Fix Player ids in Vimeo videos
 - Dropbar opens on bottom positioned drops only
 - Fix setting height of drag in Sortable component
-- _isInView_ checks for element visibility now
+- `isInView` checks for element visibility now
 - Fix check for backgroundSize: cover resetting backgroundSize in Parallax
 - Fix "Uncaught (in promise) DOMException" in Player
-- Fix Slideshow _fade_ effect
-- Fix _type_ option in Upload component
+- Fix Slideshow `fade` effect
+- Fix `type` option in Upload component
 - Fix misplaced Drop on fast toggling
 - Fix Modal close on bgClick behaviour
 - Fix Sets calculation in Slider on iOS
