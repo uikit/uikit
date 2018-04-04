@@ -170,7 +170,7 @@ export default function (UIkit) {
 
     });
 
-    const symbolRe = /<symbol(.*?id=(['"])(.*?)\2.*?<\/)symbol>/gs;
+    const symbolRe = /<symbol(.*?id=(['"])(.*?)\2[^]*?<\/)symbol>/g;
     const symbols = {};
 
     function parseSymbols(svg, icon) {
