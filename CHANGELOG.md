@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in Offcanvas
+
 ## 3.0.0 beta 41 (April 4, 2018)
 
 ### Added
