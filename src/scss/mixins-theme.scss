@@ -30,6 +30,7 @@
     .uk-open > .uk-accordion-title::after { @include svg-fill($internal-accordion-open-image, "#000", $inverse-global-color); }
 
 }
+@mixin hook-align-misc(){}
 @mixin hook-alert(){}
 @mixin hook-alert-close(){
     color: inherit;
@@ -67,8 +68,6 @@
     }
 
 }
-@mixin hook-align-misc(){}
-@mixin hook-animation-misc(){}
 @mixin hook-article(){}
 @mixin hook-article-adjacent(){}
 @mixin hook-article-title(){}
@@ -97,6 +96,7 @@
     }
 
 }
+@mixin hook-animation-misc(){}
 @mixin hook-background-misc(){}
 @mixin hook-badge(){}
 @mixin hook-badge-hover(){}
