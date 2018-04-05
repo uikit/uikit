@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Scrollspy being stuck in endless update loop
+
 ## 3.0.0 beta 42 (April 5, 2018)
 
 ### Fixed
