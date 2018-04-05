@@ -292,15 +292,13 @@ export function flipPosition(pos) {
     }
 }
 
-export function isInView(element, top = 0, left = 0) {
+export function isInView(element, topOffset = 0, leftOffset = 0) {
 
     element = toNode(element);
 
     const [elTop, elLeft] = offsetPosition(element);
     const win = window(element);
-
-    top = -top + win.pageYOffset;
-    left = -left + win.pageXOffset;
+    const {pageYOffset: top, pageXOffset: left} = win;
 
     return isVisible(element) && intersectRect(
         {
@@ -312,8 +310,8 @@ export function isInView(element, top = 0, left = 0) {
         {
             top,
             left,
-            bottom: top + height(win),
-            right: left + width(win)
+            bottom: top + topOffset + height(win),
+            right: left + leftOffset + width(win)
         }
     );
 }
