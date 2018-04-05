@@ -216,11 +216,9 @@ function dimension(prop) {
 
         } else {
 
-            const val = toFloat(value);
-
-            css(element, prop, !value && val !== 0
+            css(element, prop, !value && value !== 0
                 ? ''
-                : val + boxModelAdjust(prop, element) + 'px'
+                : +value + boxModelAdjust(prop, element) + 'px'
             );
 
         }
