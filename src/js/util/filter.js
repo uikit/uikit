@@ -24,7 +24,7 @@ export function isVoidElement(element) {
 }
 
 export function isVisible(element) {
-    return toNodes(element).some(element => element.offsetHeight || element.getBoundingClientRect().height);
+    return toNodes(element).some(element => element.offsetWidth || element.offsetHeight || element.getClientRects().length);
 }
 
 export const selInput = 'input,select,textarea,button';
