@@ -20,6 +20,10 @@ export default function (UIkit) {
 
             elements({target}, $el) {
                 return $$(target, $el);
+            },
+
+            parentElements: function elements(ref, $el) {
+                return $$('> *', $el);
             }
 
         },
@@ -32,15 +36,18 @@ export default function (UIkit) {
 
                 css(this.elements, 'minHeight', '');
 
+                const checkParents = this.target !== '> *';
+                const elements = checkParents ? this.parentElements : this.elements;
+
                 return {
                     rows: !this.row
                         ? [this.match(this.elements)]
-                        : this.elements.reduce((rows, el) => {
+                        : elements.reduce((rows, el, index) => {
 
                             if (lastOffset !== el.offsetTop) {
-                                rows.push([el]);
+                                rows.push([checkParents ? this.elements[index] : el]);
                             } else {
-                                rows[rows.length - 1].push(el);
+                                rows[rows.length - 1].push(checkParents ? this.elements[index] : el);
                             }
 
                             lastOffset = el.offsetTop;
