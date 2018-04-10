@@ -343,6 +343,13 @@ function offsetPosition(element) {
         offset[0] += element.offsetTop;
         offset[1] += element.offsetLeft;
 
+        if (css(element, 'position') === 'fixed') {
+            const win = window(element);
+            offset[0] += win.pageYOffset;
+            offset[1] += win.pageXOffset;
+            return offset;
+        }
+
     } while ((element = element.offsetParent));
 
     return offset;
