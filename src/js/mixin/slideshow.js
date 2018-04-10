@@ -45,7 +45,7 @@ function plugin(UIkit) {
         events: {
 
             'itemshow itemhide itemshown itemhidden'({target}) {
-                UIkit.update(null, target);
+                UIkit.update(target);
             },
 
             itemshow() {

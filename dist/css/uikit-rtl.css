@@ -1,11 +1,11 @@
-/*! UIkit 3.0.0-beta.40 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-beta.42 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
 /*
  * 1. Set `font-size` to support `rem` units
  *    Not using `font` property because a leading hyphen (e.g. -apple-system) causes the font to break in IE11 and Edge
- * 2. Prevent adjustments of font size after orientation changes in IE and iOS.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
  * 3. Style
  */
 html {
@@ -16,13 +16,12 @@ html {
   line-height: 1.5;
   /* 2 */
   -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
   /* 3 */
   background: #fff;
   color: #666;
 }
 /*
- * Removes default margin.
+ * Remove the margin in all browsers.
  */
 body {
   margin: 0;
@@ -59,16 +58,15 @@ a:hover,
 /* Text-level semantics
  ========================================================================== */
 /*
- * 1. Remove the bottom border in Firefox 39-.
+ * 1. Remove the bottom border in Chrome 57-.
  * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
  */
 abbr[title] {
-  border-bottom: none;
   /* 1 */
+  border-bottom: none;
+  /* 2 */
   text-decoration: underline;
-  /* 2 */
   text-decoration: underline dotted;
-  /* 2 */
 }
 /*
  * Add the correct font weight in Chrome, Edge, and Safari.
@@ -78,17 +76,17 @@ strong {
   font-weight: bolder;
 }
 /*
- * 1. Correct the odd `em` font sizing in all browsers.
- * 2. Consolas has a better baseline in running text compared to `Courier`
+ * 1. Consolas has a better baseline in running text compared to `Courier`
+ * 2. Correct the odd `em` font sizing in all browsers.
  * 3. Style
  */
 :not(pre) > code,
 :not(pre) > kbd,
 :not(pre) > samp {
   /* 1 */
-  font-size: 0.875rem;
-  /* 2 */
   font-family: Consolas, monaco, monospace;
+  /* 2 */
+  font-size: 0.875rem;
   /* 3 */
   color: #f0506e;
   white-space: nowrap;
@@ -361,7 +359,6 @@ blockquote footer::before {
  ========================================================================== */
 /*
  * 1. Contain overflow in all browsers.
- * 2. Override UA
  */
 pre {
   font: 0.875rem / 1.5 Consolas, monaco, monospace;
@@ -393,7 +390,7 @@ pre code {
 /* HTML5 elements
  ========================================================================== */
 /*
- * 1. Add the correct display in Edge, IE, and Firefox.
+ * 1. Add the correct display in Edge, IE 10+, and Firefox.
  * 2. Add the correct display in IE.
  */
 details,
@@ -406,12 +403,6 @@ main {
  */
 summary {
   display: list-item;
-}
-/*
- * Add the correct vertical alignment in Chrome, Firefox, and Opera.
- */
-progress {
-  vertical-align: baseline;
 }
 /*
  * Add the correct display in IE.
@@ -907,6 +898,10 @@ a.uk-link-reset:hover,
 .uk-table-small td {
   padding: 10px 12px;
 }
+.uk-table-large th,
+.uk-table-large td {
+  padding: 22px 12px;
+}
 /* Justify modifier
  ========================================================================== */
 .uk-table-justify th:first-child,
@@ -923,7 +918,7 @@ a.uk-link-reset:hover,
   width: 1px;
 }
 .uk-table-expand {
-  min-width: 300px;
+  min-width: 150px;
 }
 /* Cell link modifier
  ========================================================================== */
@@ -1261,7 +1256,7 @@ button.uk-icon:not(:disabled) {
  *    `input[type="color"]` in Firefox
  * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
  * 3. Remove `border-radius` in iOS.
- * 4. Change font properties to `inherit` in all browsers
+ * 4. Change font properties to `inherit` in all browsers.
  */
 .uk-input,
 .uk-select,
@@ -1301,7 +1296,7 @@ button.uk-icon:not(:disabled) {
   font-weight: bold;
 }
 /*
- * Remove the default vertical scrollbar in IE.
+ * Remove the default vertical scrollbar in IE 10+.
  */
 .uk-textarea {
   overflow: auto;
@@ -1779,7 +1774,7 @@ select.uk-form-width-xsmall {
  * Input padding
  */
 .uk-form-icon:not(.uk-form-icon-flip) + .uk-input {
-  padding-right: 40px;
+  padding-right: 40px !important;
 }
 /*
  * Position modifier
@@ -1789,7 +1784,7 @@ select.uk-form-width-xsmall {
   right: auto;
 }
 .uk-form-icon-flip + .uk-input {
-  padding-left: 40px;
+  padding-left: 40px !important;
 }
 /* ========================================================================
    Component: Button
@@ -5589,24 +5584,24 @@ ul.uk-nav-sub {
 /* Items
  ========================================================================== */
 /*
- * Items
+ * Items must target `a` elements to exclude other elements (e.g. dropdowns)
  * 1. Prevent gap if child element is `inline-block`, e.g. an icon
  * 2. Style
  */
-.uk-iconnav > * > * {
+.uk-iconnav > * > a {
   /* 1 */
   display: block;
   /* 2 */
   color: #999;
 }
 /* Hover + Focus */
-.uk-iconnav > * > :hover,
-.uk-iconnav > * > :focus {
+.uk-iconnav > * > a:hover,
+.uk-iconnav > * > a:focus {
   color: #666;
   outline: none;
 }
 /* Active */
-.uk-iconnav > .uk-active > * {
+.uk-iconnav > .uk-active > a {
   color: #666;
 }
 /* Modifier: 'uk-iconnav-vertical'
@@ -5790,24 +5785,27 @@ ul.uk-nav-sub {
    Component: Progress
  ========================================================================== */
 /*
- * 1. Remove default style
- * 2. Behave like a block element
- * 3. Remove borders in Firefox and Edge
- * 4. Set background color for progress container in Firefox, IE11 and Edge
- * 5. Style
+ * 1. Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ * 2. Remove default style
+ * 3. Behave like a block element
+ * 4. Remove borders in Firefox and Edge
+ * 5. Set background color for progress container in Firefox, IE11 and Edge
+ * 6. Style
  */
 .uk-progress {
   /* 1 */
+  vertical-align: baseline;
+  /* 2 */
   -webkit-appearance: none;
   -moz-appearance: none;
-  /* 2 */
+  /* 3 */
   display: block;
   width: 100%;
-  /* 3 */
-  border: 0;
   /* 4 */
-  background-color: #f8f8f8;
+  border: 0;
   /* 5 */
+  background-color: #f8f8f8;
+  /* 6 */
   margin-bottom: 20px;
   height: 15px;
   border-radius: 500px;
@@ -11534,54 +11532,54 @@ iframe.uk-cover {
 .uk-offcanvas-bar .uk-accordion-title:focus {
   color: #666;
 }
-.uk-light .uk-iconnav > * > *,
-.uk-section-primary:not(.uk-preserve-color) .uk-iconnav > * > *,
-.uk-section-secondary:not(.uk-preserve-color) .uk-iconnav > * > *,
-.uk-tile-primary:not(.uk-preserve-color) .uk-iconnav > * > *,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-iconnav > * > *,
-.uk-card-primary.uk-card-body .uk-iconnav > * > *,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-iconnav > * > *,
-.uk-card-secondary.uk-card-body .uk-iconnav > * > *,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-iconnav > * > *,
-.uk-overlay-primary .uk-iconnav > * > *,
-.uk-offcanvas-bar .uk-iconnav > * > * {
+.uk-light .uk-iconnav > * > a,
+.uk-section-primary:not(.uk-preserve-color) .uk-iconnav > * > a,
+.uk-section-secondary:not(.uk-preserve-color) .uk-iconnav > * > a,
+.uk-tile-primary:not(.uk-preserve-color) .uk-iconnav > * > a,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-iconnav > * > a,
+.uk-card-primary.uk-card-body .uk-iconnav > * > a,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-iconnav > * > a,
+.uk-card-secondary.uk-card-body .uk-iconnav > * > a,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-iconnav > * > a,
+.uk-overlay-primary .uk-iconnav > * > a,
+.uk-offcanvas-bar .uk-iconnav > * > a {
   color: rgba(255, 255, 255, 0.5);
 }
-.uk-light .uk-iconnav > * > :hover,
-.uk-light .uk-iconnav > * > :focus,
-.uk-section-primary:not(.uk-preserve-color) .uk-iconnav > * > :hover,
-.uk-section-primary:not(.uk-preserve-color) .uk-iconnav > * > :focus,
-.uk-section-secondary:not(.uk-preserve-color) .uk-iconnav > * > :hover,
-.uk-section-secondary:not(.uk-preserve-color) .uk-iconnav > * > :focus,
-.uk-tile-primary:not(.uk-preserve-color) .uk-iconnav > * > :hover,
-.uk-tile-primary:not(.uk-preserve-color) .uk-iconnav > * > :focus,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-iconnav > * > :hover,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-iconnav > * > :focus,
-.uk-card-primary.uk-card-body .uk-iconnav > * > :hover,
-.uk-card-primary.uk-card-body .uk-iconnav > * > :focus,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-iconnav > * > :hover,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-iconnav > * > :focus,
-.uk-card-secondary.uk-card-body .uk-iconnav > * > :hover,
-.uk-card-secondary.uk-card-body .uk-iconnav > * > :focus,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-iconnav > * > :hover,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-iconnav > * > :focus,
-.uk-overlay-primary .uk-iconnav > * > :hover,
-.uk-overlay-primary .uk-iconnav > * > :focus,
-.uk-offcanvas-bar .uk-iconnav > * > :hover,
-.uk-offcanvas-bar .uk-iconnav > * > :focus {
+.uk-light .uk-iconnav > * > a:hover,
+.uk-light .uk-iconnav > * > a:focus,
+.uk-section-primary:not(.uk-preserve-color) .uk-iconnav > * > a:hover,
+.uk-section-primary:not(.uk-preserve-color) .uk-iconnav > * > a:focus,
+.uk-section-secondary:not(.uk-preserve-color) .uk-iconnav > * > a:hover,
+.uk-section-secondary:not(.uk-preserve-color) .uk-iconnav > * > a:focus,
+.uk-tile-primary:not(.uk-preserve-color) .uk-iconnav > * > a:hover,
+.uk-tile-primary:not(.uk-preserve-color) .uk-iconnav > * > a:focus,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-iconnav > * > a:hover,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-iconnav > * > a:focus,
+.uk-card-primary.uk-card-body .uk-iconnav > * > a:hover,
+.uk-card-primary.uk-card-body .uk-iconnav > * > a:focus,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-iconnav > * > a:hover,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-iconnav > * > a:focus,
+.uk-card-secondary.uk-card-body .uk-iconnav > * > a:hover,
+.uk-card-secondary.uk-card-body .uk-iconnav > * > a:focus,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-iconnav > * > a:hover,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-iconnav > * > a:focus,
+.uk-overlay-primary .uk-iconnav > * > a:hover,
+.uk-overlay-primary .uk-iconnav > * > a:focus,
+.uk-offcanvas-bar .uk-iconnav > * > a:hover,
+.uk-offcanvas-bar .uk-iconnav > * > a:focus {
   color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-iconnav > .uk-active > *,
-.uk-section-primary:not(.uk-preserve-color) .uk-iconnav > .uk-active > *,
-.uk-section-secondary:not(.uk-preserve-color) .uk-iconnav > .uk-active > *,
-.uk-tile-primary:not(.uk-preserve-color) .uk-iconnav > .uk-active > *,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-iconnav > .uk-active > *,
-.uk-card-primary.uk-card-body .uk-iconnav > .uk-active > *,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-iconnav > .uk-active > *,
-.uk-card-secondary.uk-card-body .uk-iconnav > .uk-active > *,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-iconnav > .uk-active > *,
-.uk-overlay-primary .uk-iconnav > .uk-active > *,
-.uk-offcanvas-bar .uk-iconnav > .uk-active > * {
+.uk-light .uk-iconnav > .uk-active > a,
+.uk-section-primary:not(.uk-preserve-color) .uk-iconnav > .uk-active > a,
+.uk-section-secondary:not(.uk-preserve-color) .uk-iconnav > .uk-active > a,
+.uk-tile-primary:not(.uk-preserve-color) .uk-iconnav > .uk-active > a,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-iconnav > .uk-active > a,
+.uk-card-primary.uk-card-body .uk-iconnav > .uk-active > a,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-iconnav > .uk-active > a,
+.uk-card-secondary.uk-card-body .uk-iconnav > .uk-active > a,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-iconnav > .uk-active > a,
+.uk-overlay-primary .uk-iconnav > .uk-active > a,
+.uk-offcanvas-bar .uk-iconnav > .uk-active > a {
   color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-text-lead,

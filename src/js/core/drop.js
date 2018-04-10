@@ -213,6 +213,7 @@ export default function (UIkit) {
 
                 handler() {
                     this.clearTimers();
+                    Animation.cancel(this.$el);
                     this.position();
                 }
 

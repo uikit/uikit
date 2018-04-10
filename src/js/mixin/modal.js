@@ -230,7 +230,7 @@ function registerEvents() {
 
     events = [
         on(document, 'click', ({target, defaultPrevented}) => {
-            if (active && active.bgClose && !defaultPrevented && !within(target, (active.panel || active.$el))) {
+            if (active && active.bgClose && !defaultPrevented && (!active.overlay || within(target, active.$el)) && (!active.panel || !within(target, active.panel))) {
                 active.hide();
             }
         }),

@@ -57,12 +57,14 @@ function plugin(UIkit) {
 
         update(data) {
 
+            data.toggles = data.toggles || this.toggles;
+
             if (this.panel && this.animation) {
                 this.panel.$props.animation = this.animation;
                 this.panel.$emit();
             }
 
-            if (!this.panel || data.toggles && isEqualList(data.toggles, this.toggles)) {
+            if (!this.panel || isEqualList(data.toggles, this.toggles)) {
                 return;
             }
 

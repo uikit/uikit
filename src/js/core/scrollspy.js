@@ -94,7 +94,7 @@ export default function (UIkit) {
 
                                 trigger(el, 'inview');
 
-                                UIkit.update(null, el);
+                                UIkit.update(el);
 
                                 elData.inview = true;
                                 delete elData.timer;
@@ -121,7 +121,7 @@ export default function (UIkit) {
 
                             trigger(el, 'outview');
 
-                            UIkit.update(null, el);
+                            UIkit.update(el);
 
                             elData.inview = false;
 

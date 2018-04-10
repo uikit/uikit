@@ -11,7 +11,7 @@ function plugin(UIkit) {
 
     UIkit.use(Slider);
 
-    const {mixin, util: {$, $$, addClass, css, data, includes, isNumeric, isUndefined, toggleClass, toFloat}} = UIkit;
+    const {mixin, util: {$, $$, addClass, css, data, includes, isNumeric, isUndefined, offset, toggleClass, toFloat}} = UIkit;
     const Transitioner = TransitionerPlugin(UIkit);
 
     UIkit.component('slider-parallax', ParallaxPlugin(UIkit, 'slider'));
@@ -75,14 +75,12 @@ function plugin(UIkit) {
 
                 let left = 0;
                 let leftCenter = width;
-                let slideLeft = 0;
 
                 sets = sets && this.slides.reduce((sets, slide, i) => {
 
-                    const slideWidth = slide.offsetWidth;
-                    const slideRight = slideLeft + slideWidth;
+                    const dim = offset(slide);
 
-                    if (slideRight > left) {
+                    if (dim.right > left) {
 
                         if (!this.center && i > this.maxIndex) {
                             i = this.maxIndex;
@@ -91,18 +89,16 @@ function plugin(UIkit) {
                         if (!includes(sets, i)) {
 
                             const cmp = this.slides[i + 1];
-                            if (this.center && cmp && slideWidth < leftCenter - cmp.offsetWidth / 2) {
-                                leftCenter -= slideWidth;
+                            if (this.center && cmp && dim.width < leftCenter - offset(cmp).width / 2) {
+                                leftCenter -= dim.width;
                             } else {
                                 leftCenter = width;
                                 sets.push(i);
-                                left = slideLeft + width + (this.center ? slideWidth / 2 : 0);
+                                left = dim.left + width + (this.center ? dim.width / 2 : 0);
                             }
 
                         }
                     }
-
-                    slideLeft += slideWidth;
 
                     return sets;
 

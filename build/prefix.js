@@ -39,7 +39,8 @@ function findExistingPrefix() {
 
     // find existing prefix
     let currentPrefix;
-    allFiles.some(({file, data}) => {
+
+    allFiles.filter(({file}) => ~file.indexOf('uikit.css')).some(({file, data}) => {
 
         const res = data.match(new RegExp(`(${util.validClassName.source})-grid`));
         currentPrefix = res && res[1];

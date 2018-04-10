@@ -55,6 +55,8 @@ export default function (UIkit) {
 
             translate(percent) {
 
+                this.reset();
+
                 const props = translate(percent, dir);
                 css(next, props[1]);
                 css(prev, props[0]);

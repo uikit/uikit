@@ -38,6 +38,7 @@ $heading-bullet-margin-right:                    10px !default;
 $heading-bullet-border-width:                    5px !default;
 $heading-bullet-border:                          $global-border !default;
 
+$heading-line-top:                               50% !default;
 $heading-line-height:                            $heading-line-border-width !default;
 $heading-line-width:                             2000px !default;
 $heading-line-border-width:                      $global-border-width !default;
@@ -166,7 +167,7 @@ $heading-line-margin-horizontal:                 0.6em !default;
     content: "";
     /* 1 */
     position: absolute;
-    top: unquote('calc(50% - (#{$heading-line-height} / 2))');
+    top: unquote('calc(#{$heading-line-top} - (#{$heading-line-height} / 2))');
     /* 2 */
     width: $heading-line-width;
     /* 3 */

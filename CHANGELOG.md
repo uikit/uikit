@@ -2,22 +2,54 @@
 
 ## WIP
 
+### Fixed
+
+- Fix Scrollspy being stuck in endless update loop
+
+## 3.0.0 beta 42 (April 5, 2018)
+
+### Fixed
+
+- Fix regression in Offcanvas
+
+## 3.0.0 beta 41 (April 4, 2018)
+
+### Added
+
+- Add table large modifier
+- Add `Autoplay` as primary option for Video component
+- Add core and component dist files to NPM package
+
 ### Changed
 
 - Make `uk-form-icon` padding work with size modifier
+- Make heading line position top a variable
 - Allow dropdowns in Iconnav component
 - Allow any property in `svg-fill` mixin
 - Move progress normalization to progress component
+- Video component sets `preload="false"` if `autoplay` is set to `inview`
+- Global `update` method now updates element itself as well as its parents and children 
+
+### Removed
+
+- Removed the instance method `$update`
 
 ### Fixed
 
 - Fix browser compatibility in Navbar component
 - Fix preventClick function on touch devices
 - Fix LightboxPanel props
-- Fix Player ids in Vimeo videos 
+- Fix Player ids in Vimeo videos
 - Dropbar opens on bottom positioned drops only
 - Fix setting height of drag in Sortable component
-- _isInView_ checks for element visibility now
+- `isInView` checks for element visibility now
+- Fix check for backgroundSize: cover resetting backgroundSize in Parallax
+- Fix "Uncaught (in promise) DOMException" in Player
+- Fix Slideshow `fade` effect
+- Fix `type` option in Upload component
+- Fix misplaced Drop on fast toggling
+- Fix Modal close on bgClick behaviour
+- Fix Sets calculation in Slider on iOS
 
 ## 3.0.0 beta 40 (February 8, 2018)
 

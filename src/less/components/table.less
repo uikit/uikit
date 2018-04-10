@@ -48,6 +48,9 @@
 @table-small-cell-padding-vertical:             10px;
 @table-small-cell-padding-horizontal:           12px;
 
+@table-large-cell-padding-vertical:             22px;
+@table-large-cell-padding-horizontal:           12px;
+
 @table-expand-min-width:                        150px;
 
 
@@ -192,6 +195,12 @@
     .hook-table-small;
 }
 
+.uk-table-large th,
+.uk-table-large td {
+    padding: @table-large-cell-padding-vertical @table-large-cell-padding-horizontal;
+    .hook-table-large;
+}
+
 
 /* Justify modifier
  ========================================================================== */
@@ -283,6 +292,7 @@
 .hook-table-striped() {}
 .hook-table-hover() {}
 .hook-table-small() {}
+.hook-table-large() {}
 .hook-table-misc() {}
 
 

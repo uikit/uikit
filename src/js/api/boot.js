@@ -50,7 +50,7 @@ export default function (UIkit) {
             ? applyChildList(mutation)
             : applyAttribute(mutation);
 
-        update && UIkit.update('update', target, true);
+        update && UIkit.update(target);
 
     }
 

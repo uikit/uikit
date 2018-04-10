@@ -1,22 +1,22 @@
 /* eslint-env node */
-var fs = require('fs');
-var glob = require('glob');
-var path = require('path');
-var webpack = require('webpack');
-var util = require('./build/util');
-var version = require('./package.json').version;
-var uglify = require('uglifyjs-webpack-plugin');
-var circular = require('circular-dependency-plugin');
+const fs = require('fs');
+const glob = require('glob');
+const path = require('path');
+const webpack = require('webpack');
+const util = require('./build/util');
+const {version} = require('./package.json');
+const uglify = require('uglifyjs-webpack-plugin');
+const circular = require('circular-dependency-plugin');
 
-var loaders = {
+const loaders = {
     loaders: [
-        {loader: 'buble-loader', test: /(src|tests)[\/\\].*\.js$/},
+        {loader: 'buble-loader', test: /(src|tests)[/\\].*\.js$/},
         {loader: 'json-loader', test: /\.json$/},
         {loader: 'html-loader', test: /\.svg$/, options: {minimize: false}}
     ]
 };
 
-var components = {};
+const components = {};
 glob.sync('./src/js/components/*.js').forEach(file => components[path.basename(file, '.js')] = file.substring(0, file.length - 3));
 
 module.exports = [
@@ -29,11 +29,6 @@ module.exports = [
             libraryTarget: 'umd'
         },
         module: loaders,
-        resolve: {
-            alias: {
-                'components$': __dirname + '/dist/icons/components.json',
-            }
-        },
         plugins: [
             // new circular,
             new webpack.DefinePlugin({
@@ -52,11 +47,6 @@ module.exports = [
             libraryTarget: 'umd'
         },
         module: loaders,
-        resolve: {
-            alias: {
-                'components$': __dirname + '/dist/icons/components.json',
-            }
-        },
         plugins: [
             // new circular,
             new webpack.DefinePlugin({

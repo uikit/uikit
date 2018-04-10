@@ -103,7 +103,7 @@ function plugin(UIkit) {
             },
 
             covers(_, $el) {
-                return css($el.style.backgroundSize !== '' ? css($el, 'backgroundSize', '') : $el, 'backgroundSize') === 'cover';
+                return covers($el);
             }
 
         },
@@ -316,6 +316,13 @@ function plugin(UIkit) {
             ? start + Math.abs(start - end) * p * (start < end ? 1 : -1)
             : +end
         ).toFixed(2);
+    }
+
+    function covers(el) {
+        const {backgroundSize} = el.style;
+        const covers = css(css(el, 'backgroundSize', ''), 'backgroundSize') === 'cover';
+        el.style.backgroundSize = backgroundSize;
+        return covers;
     }
 
 }
