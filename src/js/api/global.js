@@ -48,14 +48,8 @@ export default function (UIkit) {
         e = createEvent(e || 'update');
         element = element ? toNode(element) : document.body;
 
+        path(element).map(element => update(element[DATA], e));
         apply(element, element => update(element[DATA], e));
-
-        while (element && element.parentNode) {
-
-            update(element.parentNode[DATA], e);
-            element = element.parentNode;
-
-        }
 
     };
 
@@ -84,6 +78,19 @@ export default function (UIkit) {
             }
         }
 
+    }
+
+    function path(element) {
+        const path = [];
+
+        while (element && element !== document.body && element.parentNode) {
+
+            element = element.parentNode;
+            path.unshift(element);
+
+        }
+
+        return path;
     }
 
 }
