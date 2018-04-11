@@ -19,19 +19,17 @@ export default function (UIkit) {
             read(data) {
 
                 const items = this.$el.children;
+                const rows = [[]];
 
                 if (!items.length || !isVisible(this.$el)) {
-                    return data.rows = false;
+                    return data.rows = rows;
                 }
 
                 data.stacks = true;
-
-                const rows = [[]];
-
                 for (let i = 0; i < items.length; i++) {
 
                     const el = items[i];
-                    const dim = el.getBoundingClientRect();
+                    const dim = getOffset(el);
 
                     if (!dim.height) {
                         continue;
@@ -46,7 +44,7 @@ export default function (UIkit) {
                             break;
                         }
 
-                        const leftDim = row[0].getBoundingClientRect();
+                        const leftDim = getOffset(row[0]);
 
                         if (dim.top >= Math.floor(leftDim.bottom)) {
                             rows.push([el]);
@@ -95,5 +93,17 @@ export default function (UIkit) {
         }
 
     });
+
+    function getOffset(element) {
+
+        const {offsetTop, offsetLeft, offsetHeight} = element;
+
+        return {
+            top: offsetTop,
+            left: offsetLeft,
+            height: offsetHeight,
+            bottom: offsetTop + offsetHeight
+        };
+    }
 
 }

@@ -8,6 +8,13 @@
         <script src="js/test.js"></script>
         <style>
 
+            .uk-panel {
+                padding: 10px;
+                text-align: center;
+            }
+
+            li > .uk-panel { background: rgba(0,0,0,.5); }
+
             .item {
                 display: inline-block;
                 position: relative;
@@ -26,11 +33,11 @@
                 transform: scale(1.5);
             }
 
-            [color="red"] > :after {color: orangered}
-            [color="green"] > :after {color: greenyellow}
-            [color="blue"] > :after {color: cornflowerblue}
+            [color="red"] > .item:after {color: orangered}
+            [color="green"] > .item:after {color: greenyellow}
+            [color="blue"] > .item:after {color: cornflowerblue}
 
-            [shape="square"] > :after {
+            [shape="square"] > .item:after {
                 width: 40%;
                 height: 40%;
                 top: 30%;
@@ -38,7 +45,7 @@
                 background: currentColor;
                 border-radius: 3px;
             }
-            [shape="round"] > :after {
+            [shape="round"] > .item:after {
                 width: 40%;
                 height: 40%;
                 top: 30%;
@@ -46,7 +53,7 @@
                 background: currentColor;
                 border-radius: 100%;
             }
-            [shape="triangle"] > :after{
+            [shape="triangle"] > .item:after{
                 position: absolute;
                 border: 3em solid transparent;
                 border-bottom: 5em solid currentColor;
@@ -65,80 +72,169 @@
 
             <h1>Filter</h1>
 
-            <div uk-filter="container: .items">
+            <div uk-filter="target: .js-filter; animation: 3000">
 
-                <div class="uk-grid-divider" uk-grid>
+                <div class="uk-grid-divider uk-grid" _uk-grid>
 
                     <h2>None Grouped</h2>
 
                     <div>
-                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
-                            <li uk-filter-item><a>All</a></li>
+                        <ul class="uk-subnav uk-subnav-pill" _uk-margin>
+                            <li uk-filter-control><a>All</a></li>
                         </ul>
                     </div>
 
                     <div>
-                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
-                            <li uk-filter-item="[color='red']"><a>Red</a></li>
-                            <li uk-filter-item="[color='green']"><a>Green</a></li>
-                            <li uk-filter-item="[color='blue']"><a>Blue</a></li>
+                        <ul class="uk-subnav uk-subnav-pill" _uk-margin>
+                            <li uk-filter-control="[color='red']"><a>Red</a></li>
+                            <li uk-filter-control="[color='green']"><a>Green</a></li>
+                            <li uk-filter-control="[color='blue']"><a>Blue</a></li>
                         </ul>
                     </div>
 
                     <div>
-                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
-                            <li uk-filter-item="[shape='square']"><a>Square</a></li>
-                            <li uk-filter-item="[shape='round']"><a>Round</a></li>
-                            <li uk-filter-item="[shape='triangle']"><a>Triangle</a></li>
+                        <ul class="uk-subnav uk-subnav-pill" _uk-margin>
+                            <li uk-filter-control="[shape='square']"><a>Square</a></li>
+                            <li uk-filter-control="[shape='round']"><a>Round</a></li>
+                            <li uk-filter-control="[shape='triangle']"><a>Triangle</a></li>
                         </ul>
                     </div>
 
                 </div>
 
-                <div class="uk-grid-divider" uk-grid>
+                <div class="uk-grid-divider uk-grid" _uk-grid>
 
                     <h2>Grouped</h2>
 
                     <div>
-                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
-                            <li uk-filter-item><a>All</a></li>
+                        <ul class="uk-subnav uk-subnav-pill" _uk-margin>
+                            <li uk-filter-control><a>All</a></li>
                         </ul>
                     </div>
 
                     <div>
-                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
-                            <li uk-filter-item="filter: [color='red']; group: color"><a>Red</a></li>
-                            <li uk-filter-item="filter: [color='green']; group: color"><a>Green</a></li>
-                            <li uk-filter-item="filter: [color='blue']; group: color"><a>Blue</a></li>
+                        <ul class="uk-subnav uk-subnav-pill" _uk-margin>
+                            <li uk-filter-control="filter: [color='red']; group: color"><a>Red</a></li>
+                            <li uk-filter-control="filter: [color='green']; group: color"><a>Green</a></li>
+                            <li uk-filter-control="filter: [color='blue']; group: color"><a>Blue</a></li>
                         </ul>
                     </div>
 
                     <div>
-                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
-                            <li uk-filter-item="filter: [shape='square']; group: shape"><a>Square</a></li>
-                            <li uk-filter-item="filter: [shape='round']; group: shape"><a>Round</a></li>
-                            <li uk-filter-item="filter: [shape='triangle']; group: shape"><a>Triangle</a></li>
+                        <ul class="uk-subnav uk-subnav-pill" _uk-margin>
+                            <li uk-filter-control="filter: [shape='square']; group: shape"><a>Square</a></li>
+                            <li uk-filter-control="filter: [shape='round']; group: shape"><a>Round</a></li>
+                            <li uk-filter-control="filter: [shape='triangle']; group: shape"><a>Triangle</a></li>
                         </ul>
                     </div>
 
                 </div>
 
-                <div class="uk-grid-divider" uk-grid>
+                <div class="uk-grid-divider uk-grid" _uk-grid>
 
                     <h2>Order by</h2>
 
                     <div>
-                        <ul class="uk-subnav uk-subnav-pill" uk-margin>
-                            <li uk-filter-item="sort: color"><a>Color Asc</a></li>
-                            <li uk-filter-item="sort: color; order: desc"><a>Color Desc</a></li>
-                            <li class="uk-active" uk-filter-item="sort: shape"><a>Shape Asc</a></li>
-                            <li uk-filter-item="sort: shape; order: desc"><a>Shape Desc</a></li>
+                        <ul class="uk-subnav uk-subnav-pill" _uk-margin>
+                            <li uk-filter-control="sort: color"><a>Color Asc</a></li>
+                            <li uk-filter-control="sort: color; order: desc"><a>Color Desc</a></li>
+                            <li class="uk-active" uk-filter-control="sort: shape"><a>Shape Asc</a></li>
+                            <li uk-filter-control="sort: shape; order: desc"><a>Shape Desc</a></li>
                         </ul>
                     </div>
 
                 </div>
 
-                <ul class="items uk-grid-match uk-child-width-1-2 uk-child-width-1-5@m" uk-grid>
+                <ul class="js-filter uk-child-width-1-2 uk-child-width-1-5@m" uk-grid="parallax: 150; masonry: true">
+                    <li color="blue" shape="triangle"><div class="uk-panel" style="height: 100px">7</div></li>
+                    <li color="red" shape="square"><div class="uk-panel" style="height: 200px">4</div></li>
+                    <li color="blue" shape="round"><div class="uk-panel" style="height: 150px">1</div></li>
+                    <li color="blue" shape="square"><div class="uk-panel" style="height: 120px">5</div></li>
+                    <li color="green" shape="round"><div class="uk-panel" style="height: 250px">2</div></li>
+                    <li color="green" shape="square"><div class="uk-panel" style="height: 130px">6</div></li>
+                    <li color="red" shape="round"><div class="uk-panel" style="height: 110px">3</div></li>
+                    <li color="green" shape="triangle"><div class="uk-panel" style="height: 80px">8</div></li>
+                    <li color="red" shape="triangle"><div class="uk-panel" style="height: 160px">9</div></li>
+                </ul>
+
+            </div>
+
+            <h1>Filter</h1>
+
+            <div uk-filter="target: .js-filter; animation: 3000">
+
+                <div class="uk-grid-divider uk-grid" _uk-grid>
+
+                    <h2>None Grouped</h2>
+
+                    <div>
+                        <ul class="uk-subnav uk-subnav-pill" _uk-margin>
+                            <li uk-filter-control><a>All</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <ul class="uk-subnav uk-subnav-pill" _uk-margin>
+                            <li uk-filter-control="[color='red']"><a>Red</a></li>
+                            <li uk-filter-control="[color='green']"><a>Green</a></li>
+                            <li uk-filter-control="[color='blue']"><a>Blue</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <ul class="uk-subnav uk-subnav-pill" _uk-margin>
+                            <li uk-filter-control="[shape='square']"><a>Square</a></li>
+                            <li uk-filter-control="[shape='round']"><a>Round</a></li>
+                            <li uk-filter-control="[shape='triangle']"><a>Triangle</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="uk-grid-divider uk-grid" _uk-grid>
+
+                    <h2>Grouped</h2>
+
+                    <div>
+                        <ul class="uk-subnav uk-subnav-pill" _uk-margin>
+                            <li uk-filter-control><a>All</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <ul class="uk-subnav uk-subnav-pill" _uk-margin>
+                            <li uk-filter-control="filter: [color='red']; group: color"><a>Red</a></li>
+                            <li uk-filter-control="filter: [color='green']; group: color"><a>Green</a></li>
+                            <li uk-filter-control="filter: [color='blue']; group: color"><a>Blue</a></li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <ul class="uk-subnav uk-subnav-pill" _uk-margin>
+                            <li uk-filter-control="filter: [shape='square']; group: shape"><a>Square</a></li>
+                            <li uk-filter-control="filter: [shape='round']; group: shape"><a>Round</a></li>
+                            <li uk-filter-control="filter: [shape='triangle']; group: shape"><a>Triangle</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <div class="uk-grid-divider uk-grid" _uk-grid>
+
+                    <h2>Order by</h2>
+
+                    <div>
+                        <ul class="uk-subnav uk-subnav-pill" _uk-margin>
+                            <li uk-filter-control="sort: color"><a>Color Asc</a></li>
+                            <li uk-filter-control="sort: color; order: desc"><a>Color Desc</a></li>
+                            <li class="uk-active" uk-filter-control="sort: shape"><a>Shape Asc</a></li>
+                            <li uk-filter-control="sort: shape; order: desc"><a>Shape Desc</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+                <ul class="js-filter shapes uk-grid-match uk-child-width-1-2 uk-child-width-1-5@m" uk-grid="masonry: true; parallax: 150">
                     <li color="blue" shape="triangle"><div class="item"></div></li>
                     <li color="red" shape="square"><div class="item"></div></li>
                     <li color="blue" shape="round"><div class="item"></div></li>
@@ -166,20 +262,21 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><code>container</code></td>
+                            <td><code>target</code></td>
                             <td>String</td>
                             <td>''</td>
-                            <td>The container on which to apply the filter to.</td>
+                            <td>The targeted list on which to apply the filter to.</td>
                         </tr>
                         <tr>
                             <td><code>selActive</code></td>
                             <td>String|Boolean</td>
                             <td>false</td>
-                            <td>A selector for the initially active filter items.</td>
+                            <td>A selector for the initially active filter controls.</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+
         </div>
 
     </body>

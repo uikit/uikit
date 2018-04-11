@@ -197,9 +197,14 @@ export function each(obj, cb) {
     }
 }
 
-// Compare by numbers only
 export function sortBy(collection, prop) {
-    return collection.sort((a, b) => a[prop] - b[prop]);
+    return collection.sort((a, b) =>
+        a[prop] > b[prop]
+            ? 1
+            : b[prop] > a[prop]
+            ? -1
+            : 0
+    );
 }
 
 export function clamp(number, min = 0, max = 1) {

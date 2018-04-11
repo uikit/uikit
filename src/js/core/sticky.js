@@ -22,7 +22,7 @@ export default function (UIkit) {
             widthElement: Boolean,
             showOnUp: Boolean,
             media: 'media',
-            target: Number
+            targetOffset: Number
         },
 
         defaults: {
@@ -38,7 +38,7 @@ export default function (UIkit) {
             widthElement: false,
             showOnUp: false,
             media: false,
-            target: false
+            targetOffset: false
         },
 
         computed: {
@@ -77,21 +77,21 @@ export default function (UIkit) {
 
         ready() {
 
-            if (!(this.target && location.hash && window.pageYOffset > 0)) {
+            if (!(this.targetOffset && location.hash && window.pageYOffset > 0)) {
                 return;
             }
 
-            const target = $(location.hash);
+            const targetOffset = $(location.hash);
 
-            if (target) {
+            if (targetOffset) {
                 fastdom.read(() => {
 
-                    const {top} = offset(target);
+                    const {top} = offset(targetOffset);
                     const elTop = offset(this.$el).top;
                     const elHeight = this.$el.offsetHeight;
 
-                    if (elTop + elHeight >= top && elTop <= top + target.offsetHeight) {
-                        window.scrollTo(0, top - elHeight - this.target - this.offset);
+                    if (elTop + elHeight >= top && elTop <= top + targetOffset.offsetHeight) {
+                        window.scrollTo(0, top - elHeight - this.targetOffset - this.offset);
                     }
 
                 });

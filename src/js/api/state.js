@@ -1,4 +1,4 @@
-import {assign, attr, bind, camelize, data as getData, getCssVar, hasAttr, hasOwn, hyphenate, isArray, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, query, startsWith, toBoolean, toFloat, toList, toNumber} from '../util/index';
+import {assign, attr, bind, camelize, data as getData, getCssVar, hasAttr, hasOwn, hyphenate, isArray, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toFloat, toList, toNumber} from '../util/index';
 
 export default function (UIkit) {
 
@@ -31,7 +31,7 @@ export default function (UIkit) {
 
     UIkit.prototype._initData = function () {
 
-        let {defaults, data = {}, args = [], props = {}, el} = this.$options;
+        let {defaults, data = {}, args = [], props = {}} = this.$options;
 
         if (args.length && isArray(data)) {
             data = data.slice(0, args.length).reduce((data, value, index) => {

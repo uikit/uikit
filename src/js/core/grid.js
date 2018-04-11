@@ -1,5 +1,5 @@
 import {Class} from '../mixin/index';
-import {addClass, css, getStyles, scrolledOver, toFloat, toggleClass} from '../util/index';
+import {addClass, css, hasClass, height as getHeight, scrolledOver, toFloat, toggleClass, toNodes, sortBy} from '../util/index';
 
 export default function (UIkit) {
 
@@ -13,155 +13,125 @@ export default function (UIkit) {
 
         props: {
             masonry: Boolean,
-            target: String,
-            translate: Number
+            parallax: Number
         },
 
         defaults: {
             margin: 'uk-grid-margin',
             clsStack: 'uk-grid-stack',
             masonry: false,
-            target: false,
-            translate: 0
-
+            parallax: 0
         },
 
         computed: {
 
-            translate({translate}) {
-                return Math.abs(translate);
+            parallax({parallax}) {
+                return Math.abs(parallax);
             }
 
         },
 
-        init() {
-            addClass(this.$el, 'uk-grid');
-        },
-
-        disconnected() {
-            this.reset();
-            css(this.$el, 'marginBottom', '');
-        },
-
-        methods: {
-            reset() {
-                css(this.$el.children, 'transform', '');
-            }
+        connected() {
+            this.masonry && addClass(this.$el, 'uk-flex-top uk-flex-wrap-top');
         },
 
         update: [
+
             {
-                
+
                 read({rows}) {
-                    return {
-                        columns: rows && rows[0] && rows[0].length || 0,
-                        rows: rows && rows.map(elements => sortBy(elements, 'offsetLeft'))
-                    };
+
+                    if (this.masonry || this.parallax) {
+                        rows = rows.map(elements => sortBy(elements, 'offsetLeft'));
+                    }
+
+                    let translates = false;
+                    let elHeight = false;
+
+                    if (this.masonry) {
+
+                        let height = 0;
+
+                        translates = rows.reduce((translates, row, i) => {
+
+                            translates[i] = row.map((_, j) => i === 0 ? 0 : toFloat(translates[i - 1][j]) + (height - toFloat(rows[i - 1][j] && rows[i - 1][j].offsetHeight)));
+                            height = row.reduce((height, el) => Math.max(height, el.offsetHeight), 0);
+
+                            return translates;
+
+                        }, []);
+
+                        elHeight = maxColumnHeight(rows) + getMarginTop(this.$el, this.margin) * (rows.length - 1);
+
+                    }
+
+                    return {rows, translates, height: elHeight};
+
                 },
 
-                write({columns}) {
-                    css(this.$el, 'marginBottom', columns > 1
-                        ? this.translate + toFloat(css(css(this.$el, 'marginBottom', ''), 'marginBottom'))
-                        : '');
+                write({rows, stacks, height}) {
+
+                    toggleClass(this.$el, this.clsStack, stacks);
+
+                    css(this.$el, 'paddingBottom', this.parallax && rows.some(row => row.length > 1) ? this.parallax : '');
+
+                    height && css(this.$el, 'height', height);
+
                 },
 
                 events: ['load', 'resize']
+
             },
 
             {
 
-                read() {
-                    return {scrolled: scrolledOver(this.$el) * this.translate};
+                read({rows, height}) {
+                    return {
+                        scrolled: this.parallax && rows.some(row => row.length > 1)
+                            ? scrolledOver(this.$el, height ? height - getHeight(this.$el) : 0) * this.parallax
+                            : false
+                    };
                 },
 
-                write({rows, columns, scrolled}) {
+                write({rows, scrolled, translates}) {
 
-                    if (!rows || columns === 1 || !scrolled) {
-                        return this.reset();
+                    if (scrolled === false && !translates) {
+                        return;
                     }
 
-                    rows.forEach(row =>
-                        row.forEach((el, i) =>
-                            css(el, 'transform', `translateY(${i % 2 ? scrolled : scrolled / 8}px)`)
+                    rows.forEach((row, i) =>
+                        row.forEach((el, j) =>
+                            css(el, 'transform', !scrolled && !translates ? '' : `translateY(${
+                                (translates && -translates[i][j]) + (scrolled ? j % 2 ? scrolled : scrolled / 8 : 0)
+                            }px)`)
                         )
                     );
 
                 },
 
                 events: ['scroll', 'load', 'resize']
-            },
-            {
-                write(data) {
-                    for (var j = 0; j < this.$el.children.length; j++) {
-                        const el = this.$el.children[j].firstChild;
-                        if (el && el.style) {
-                            el.style.marginTop = '';
-                        }
-                    }
-
-                    if (!this.masonry) {
-                        return;
-                    }
-
-                    const columns = {};
-                    var gapSize = -1;
-
-                    for (var i = 0; i < this.$el.children.length; i++) {
-
-                        const el = this.$el.children[i].firstChild;
-                        const bounds = el.getBoundingClientRect();
-                        const x = bounds.left;
-                        const columnY = columns[x];
-                        if (columnY) {
-                            if (gapSize === -1) {
-
-                                const cptStyle = getStyles(el.parentNode);
-                                const val = cptStyle.getPropertyValue('margin-top');
-                                gapSize = parseInt(val);
-                            }
-                            const offset = columnY - bounds.y + gapSize;
-                            el.style.marginTop = `${offset}px`;
-                            columns[x] += bounds.height + gapSize;
-                        } else {
-                            columns[x] = bounds.bottom;
-                        }
-
-                    }
-                },
-
-                events: ['load', 'resize']
-            },
-            {
-
-                write(data) {
-                    toggleClass(this.$el, this.clsStack, data.stacks);
-                },
-
-                events: ['load', 'resize']
 
             }
+
         ]
 
     }));
 
-    UIkit.component('grid').options.update.unshift({
+    function getMarginTop(root, cls) {
 
-        read() {
-            this.reset();
-        },
+        const nodes = toNodes(root.children);
+        const [node] = nodes.filter(el => hasClass(el, cls));
 
-        events: ['load', 'resize']
+        return toFloat(node
+            ? css(node, 'marginTop')
+            : css(nodes[0], 'paddingLeft'));
+    }
 
-    });
-
-    function sortBy(collection, prop) {
-        return collection.sort((a, b) =>
-            a[prop] > b[prop]
-                ? 1
-                : b[prop] > a[prop]
-                    ? -1
-                    : 0
-        );
+    function maxColumnHeight(rows) {
+        return Math.max(...rows.reduce((sum, row) => {
+            row.forEach((el, i) => sum[i] = (sum[i] || 0) + el.offsetHeight);
+            return sum;
+        }, []));
     }
 
 }

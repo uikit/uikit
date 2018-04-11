@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Rename `target` to `target-offset` in Sticky component
+
 ### Fixed
 
 - Fix Scrollspy being stuck in endless update loop

@@ -4,8 +4,8 @@ function plugin(UIkit) {
         return;
     }
 
-    const {addClass, append, assign, css, fastdom, height, includes, isVisible, noop, position, Promise, removeClass, toFloat, toNodes, Transition} = UIkit.util;
-    const containerClass = 'uk-animation-container';
+    const {addClass, append, assign, css, height, includes, index, isVisible, noop, position, Promise, removeClass, toFloat, toNodes, Transition} = UIkit.util;
+    const targetClass = 'uk-animation-target';
 
     UIkit.mixin.animate = {
 
@@ -19,7 +19,7 @@ function plugin(UIkit) {
 
         computed: {
 
-            container() {
+            target() {
                 return this.$el;
             }
 
@@ -31,74 +31,84 @@ function plugin(UIkit) {
 
                 addStyle();
 
-                let children = toNodes(this.container.children);
+                let children = toNodes(this.target.children);
                 let propsFrom = children.map(el => getProps(el, true));
 
-                const oldHeight = height(this.container);
+                const oldHeight = height(this.target);
+                const oldScrollY = window.pageYOffset;
 
                 action();
 
+                Transition.cancel(this.target);
                 children.forEach(Transition.cancel);
 
-                reset(this.container);
+                reset(this.target);
 
-                const newHeight = height(this.container);
+                cancelAnimationFrame(this._raf);
+                this._raf = requestAnimationFrame(() => {
 
-                children = children.concat(toNodes(this.container.children).filter(el => !includes(children, el)));
+                    const newHeight = height(this.target);
 
-                const propsTo = children.map((el, i) =>
-                    el.parentNode && i in propsFrom
-                        ? propsFrom[i]
-                            ? isVisible(el)
-                                ? assign({
-                                    width: el.offsetWidth,
-                                    height: el.offsetHeight,
-                                }, getPositionWithMargin(el))
-                                : {opacity: 0}
-                            : {opacity: isVisible(el) ? 1 : 0}
-                        : false
-                );
+                    children = children.concat(toNodes(this.target.children).filter(el => !includes(children, el)));
 
-                propsFrom = propsTo.map((props, i) => {
-                    const from = children[i].parentNode
-                        ? propsFrom[i] || getProps(children[i])
-                        : false;
+                    const propsTo = children.map((el, i) =>
+                        el.parentNode && i in propsFrom
+                            ? propsFrom[i]
+                                ? isVisible(el)
+                                    ? assign({
+                                        width: el.offsetWidth,
+                                        height: el.offsetHeight,
+                                    }, getPositionWithMargin(el))
+                                    : {opacity: 0}
+                                : {opacity: isVisible(el) ? 1 : 0}
+                            : false
+                    );
 
-                    if (from) {
-                        if (!props) {
-                            delete from.opacity;
-                        } else if (!('opacity' in props)) {
-                            const {opacity} = from;
+                    propsFrom = propsTo.map((props, i) => {
+                        const from = children[i].parentNode === this.target
+                            ? propsFrom[i] || getProps(children[i])
+                            : false;
 
-                            if (opacity % 1) {
-                                props.opacity = 1;
-                            } else {
+                        if (from) {
+                            if (!props) {
                                 delete from.opacity;
+                            } else if (!('opacity' in props)) {
+                                const {opacity} = from;
+
+                                if (opacity % 1) {
+                                    props.opacity = 1;
+                                } else {
+                                    delete from.opacity;
+                                }
                             }
                         }
-                    }
 
-                    return from;
+                        return from;
+                    });
+
+                    addClass(this.target, targetClass);
+                    children.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
+                    css(this.target, 'height', oldHeight);
+                    window.scrollTo(window.pageXOffset, oldScrollY);
+
+                    Promise.all(children.map((el, i) =>
+                        propsFrom[i] && propsTo[i]
+                            ? Transition.start(el, propsTo[i], this.animation, 'ease')
+                            : Promise.resolve()
+                    ).concat(Transition.start(this.target, {height: newHeight}, this.animation, 'ease'))).then(() => {
+                        children.forEach((el, i) => css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}));
+                        reset(this.target);
+                    }, noop);
+
                 });
-
-                addClass(this.container, containerClass);
-                children.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-                css(this.container, 'minHeight', Math.max(oldHeight, newHeight));
-
-                return Promise.all(children.map((el, i) =>
-                    propsFrom[i] && propsTo[i]
-                        ? Transition.start(el, propsTo[i], this.animation, 'ease')
-                        : Promise.resolve()
-                )).then(() => {
-                    children.forEach((el, i) => css(el, 'display', propsTo[i].opacity === 0 ? 'none' : ''));
-                    reset(this.container);
-                }, noop);
-
             }
         }
     };
 
     function getProps(el, opacity) {
+
+        const zIndex = css(el, 'zIndex');
+
         return isVisible(el)
             ? assign({
                 display: '',
@@ -106,7 +116,8 @@ function plugin(UIkit) {
                 opacity: opacity ? css(el, 'opacity') : '0',
                 pointerEvents: 'none',
                 position: 'absolute',
-                width: el.offsetWidth
+                width: el.offsetWidth,
+                zIndex: zIndex === 'auto' ? index(el) : zIndex
             }, getPositionWithMargin(el))
             : false;
     }
@@ -121,14 +132,9 @@ function plugin(UIkit) {
             top: '',
             width: ''
         });
-        removeClass(el, containerClass);
-        css(el, 'minHeight', '');
-        updateImmediate(el);
-    }
-
-    function updateImmediate(el) {
-        UIkit.update('update', el, true);
-        fastdom.flush();
+        removeClass(el, targetClass);
+        css(el, 'height', '');
+        UIkit.update(el);
     }
 
     function getPositionWithMargin(el) {
@@ -142,7 +148,7 @@ function plugin(UIkit) {
         if (!style) {
             style = append(document.head, '<style>').sheet;
             style.insertRule(
-                `.${containerClass} > * {
+                `.${targetClass} > * {
                     margin-top: 0 !important;
                     transform: none !important;
                 }`

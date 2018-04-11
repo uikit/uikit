@@ -82,6 +82,7 @@ window.addEventListener('load', () => setTimeout(() => {
         'dotnav',
         'drop',
         'dropdown',
+        'filter',
         'flex',
         'form',
         'grid',

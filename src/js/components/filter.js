@@ -5,7 +5,7 @@ function plugin(UIkit) {
     UIkit.use(Animate);
 
     const {util, mixin} = UIkit;
-    const {$$, $, append, assign, css, data, each, hasClass, isUndefined, matches, parseOptions, toggleClass, toNodes} = util;
+    const {$$, $, append, assign, css, data, each, hasClass, includes, isUndefined, matches, parseOptions, toggleClass, toNodes} = util;
 
     if (plugin.installed) {
         return;
@@ -16,16 +16,17 @@ function plugin(UIkit) {
         mixins: [mixin.animate],
 
         props: {
-            container: Boolean,
+            target: Boolean,
             selActive: Boolean
         },
 
         defaults: {
-            container: null,
+            target: null,
             selActive: false,
-            attrItem: 'uk-filter-item',
+            attrItem: 'uk-filter-control',
             cls: 'uk-active',
-            animation: 250
+            animation: 250,
+            transitionHeight: true
         },
 
         computed: {
@@ -34,8 +35,8 @@ function plugin(UIkit) {
                 return $$(`[${this.attrItem}],[data-${this.attrItem}]`, $el);
             },
 
-            container({container}, $el) {
-                return $(container, $el);
+            target({target}, $el) {
+                return $(target, $el);
             }
 
         },
@@ -74,12 +75,12 @@ function plugin(UIkit) {
         update(data) {
 
             const {toggles, children} = data;
-            if (isEqualList(toggles, this.toggles, false) && isEqualList(children, this.container.children, false)) {
+            if (isEqualList(toggles, this.toggles, false) && isEqualList(children, this.target.children, false)) {
                 return;
             }
 
             data.toggles = this.toggles;
-            data.children = this.container.children;
+            data.children = this.target.children;
 
             this.setState(this.getState(), false);
 
@@ -99,7 +100,7 @@ function plugin(UIkit) {
 
             setState(state, animate = true) {
 
-                const children = toNodes(this.container.children);
+                const children = toNodes(this.target.children);
 
                 state = assign({filter: {'': ''}, sort: []}, state);
 
@@ -116,7 +117,7 @@ function plugin(UIkit) {
                     if (sort) {
                         const sorted = sortItems(children, sort, order);
                         if (!isEqualList(sorted, children)) {
-                            sorted.forEach(el => append(this.container, el));
+                            sorted.forEach(el => append(this.target, el));
                         }
                     }
 
