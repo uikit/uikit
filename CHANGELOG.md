@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix Scrollspy being stuck in endless update loop
+- Fix Slideshow combined with Height Viewport component 
 
 ## 3.0.0 beta 42 (April 5, 2018)
 
