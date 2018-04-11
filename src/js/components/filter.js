@@ -5,7 +5,7 @@ function plugin(UIkit) {
     UIkit.use(Animate);
 
     const {util, mixin} = UIkit;
-    const {$$, $, append, assign, css, data, each, hasClass, includes, isUndefined, matches, parseOptions, toggleClass, toNodes} = util;
+    const {$$, $, append, assign, css, data, each, hasClass, includes, isUndefined, matches, parseOptions, toggleClass, toNodes, trigger} = util;
 
     if (plugin.installed) {
         return;
@@ -100,9 +100,11 @@ function plugin(UIkit) {
 
             setState(state, animate = true) {
 
-                const children = toNodes(this.target.children);
-
                 state = assign({filter: {'': ''}, sort: []}, state);
+
+                trigger(this.$el, 'beforeFilter', [this, state]);
+
+                const children = toNodes(this.target.children);
 
                 this.toggles.forEach(el => toggleClass(el, this.cls, matchFilter(el, this.attrItem, state)));
 
@@ -123,7 +125,12 @@ function plugin(UIkit) {
 
                 };
 
-                animate ? this.animate(apply) : apply();
+                if (animate) {
+                    this.animate(apply).then(() => trigger(this.$el, 'afterFilter', [this]));
+                } else {
+                    apply();
+                    trigger(this.$el, 'afterFilter', [this]);
+                }
 
             }
 

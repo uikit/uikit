@@ -44,62 +44,65 @@ function plugin(UIkit) {
 
                 reset(this.target);
 
-                cancelAnimationFrame(this._raf);
-                this._raf = requestAnimationFrame(() => {
+                return new Promise(resolve => {
+                    cancelAnimationFrame(this._raf);
+                    this._raf = requestAnimationFrame(() => {
 
-                    const newHeight = height(this.target);
+                        const newHeight = height(this.target);
 
-                    children = children.concat(toNodes(this.target.children).filter(el => !includes(children, el)));
+                        children = children.concat(toNodes(this.target.children).filter(el => !includes(children, el)));
 
-                    const propsTo = children.map((el, i) =>
-                        el.parentNode && i in propsFrom
-                            ? propsFrom[i]
-                                ? isVisible(el)
-                                    ? assign({
-                                        width: el.offsetWidth,
-                                        height: el.offsetHeight,
-                                    }, getPositionWithMargin(el))
-                                    : {opacity: 0}
-                                : {opacity: isVisible(el) ? 1 : 0}
-                            : false
-                    );
+                        const propsTo = children.map((el, i) =>
+                            el.parentNode && i in propsFrom
+                                ? propsFrom[i]
+                                    ? isVisible(el)
+                                        ? assign({
+                                            width: el.offsetWidth,
+                                            height: el.offsetHeight,
+                                        }, getPositionWithMargin(el))
+                                        : {opacity: 0}
+                                    : {opacity: isVisible(el) ? 1 : 0}
+                                : false
+                        );
 
-                    propsFrom = propsTo.map((props, i) => {
-                        const from = children[i].parentNode === this.target
-                            ? propsFrom[i] || getProps(children[i])
-                            : false;
+                        propsFrom = propsTo.map((props, i) => {
+                            const from = children[i].parentNode === this.target
+                                ? propsFrom[i] || getProps(children[i])
+                                : false;
 
-                        if (from) {
-                            if (!props) {
-                                delete from.opacity;
-                            } else if (!('opacity' in props)) {
-                                const {opacity} = from;
-
-                                if (opacity % 1) {
-                                    props.opacity = 1;
-                                } else {
+                            if (from) {
+                                if (!props) {
                                     delete from.opacity;
+                                } else if (!('opacity' in props)) {
+                                    const {opacity} = from;
+
+                                    if (opacity % 1) {
+                                        props.opacity = 1;
+                                    } else {
+                                        delete from.opacity;
+                                    }
                                 }
                             }
-                        }
 
-                        return from;
+                            return from;
+                        });
+
+                        addClass(this.target, targetClass);
+                        children.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
+                        css(this.target, 'height', oldHeight);
+                        window.scrollTo(window.pageXOffset, oldScrollY);
+
+                        Promise.all(children.map((el, i) =>
+                            propsFrom[i] && propsTo[i]
+                                ? Transition.start(el, propsTo[i], this.animation, 'ease')
+                                : Promise.resolve()
+                        ).concat(Transition.start(this.target, {height: newHeight}, this.animation, 'ease'))).then(() => {
+                            children.forEach((el, i) => css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}));
+                            reset(this.target);
+                            resolve();
+                        }, noop);
+
                     });
-
-                    addClass(this.target, targetClass);
-                    children.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-                    css(this.target, 'height', oldHeight);
-                    window.scrollTo(window.pageXOffset, oldScrollY);
-
-                    Promise.all(children.map((el, i) =>
-                        propsFrom[i] && propsTo[i]
-                            ? Transition.start(el, propsTo[i], this.animation, 'ease')
-                            : Promise.resolve()
-                    ).concat(Transition.start(this.target, {height: newHeight}, this.animation, 'ease'))).then(() => {
-                        children.forEach((el, i) => css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}));
-                        reset(this.target);
-                    }, noop);
-
                 });
             }
         }

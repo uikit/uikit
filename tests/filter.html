@@ -64,6 +64,20 @@
 
         </style>
 
+        <script>
+
+            var util = UIkit.util;
+
+            util.ready(function () {
+
+                util.on(document.body, 'beforeFilter afterFilter', function (e, filter, state) {
+                    console.log(e.type, filter, state);
+                });
+
+            });
+
+        </script>
+
     </head>
 
     <body>
