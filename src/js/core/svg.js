@@ -22,7 +22,7 @@ export default function (UIkit) {
         defaults: {
             ratio: 1,
             id: false,
-            exclude: ['src'],
+            exclude: ['ratio', 'src', 'icon'],
             'class': ''
         },
 

@@ -51,7 +51,7 @@ export default function (UIkit) {
 
         props: ['icon'],
 
-        defaults: {exclude: ['id', 'style', 'class', 'src', 'icon']},
+        defaults: {exclude: ['id', 'style', 'class', 'src', 'icon', 'ratio']},
 
         init() {
             addClass(this.$el, 'uk-icon');
