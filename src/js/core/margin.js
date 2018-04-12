@@ -25,7 +25,7 @@ export default function (UIkit) {
                 }
 
                 data.rows = getRows(items);
-                data.stacks = data.rows.some(row => row.length > 1);
+                data.stacks = !data.rows.some(row => row.length > 1);
 
             },
 
