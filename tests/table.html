@@ -12,10 +12,16 @@
 
         <div class="uk-container">
 
-        <button class="uk-button uk-button-default uk-float-right uk-margin-small-left" type="button" uk-toggle="target: .uk-table; cls: uk-table-small">Small</button>
-        <button class="uk-button uk-button-default uk-float-right uk-margin-remove-adjacent" type="button" uk-toggle="target: .uk-table; cls: uk-table-justify">Justify</button>
-
             <h1>Table</h1>
+
+            <div class="uk-margin">
+                <select id="js-size-switcher" class="uk-select uk-form-width-small">
+                    <option value="">Default</option>
+                    <option value="uk-table-small">Small</option>
+                    <option value="uk-table-large">Large</option>
+                </select>
+                <button class="uk-button uk-button-default" type="button" uk-toggle="target: .uk-table; cls: uk-table-justify">Justify</button>
+            </div>
 
             <div class="uk-overflow-auto">
                 <table class="uk-table uk-table-hover">
@@ -304,6 +310,20 @@
             </div>
 
         </div>
+
+        <script>
+
+            var options = UIkit.util.$$('#js-size-switcher option').map(function (option) { return option.value; });
+
+            UIkit.util.on('#js-size-switcher', 'change', function () {
+                var value = this.value;
+                UIkit.util.$$('.uk-table').forEach(function (table) {
+                    UIkit.util.removeClass(table, options);
+                    UIkit.util.addClass(table, value);
+                });
+            });
+
+        </script>
 
     </body>
 </html>

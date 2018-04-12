@@ -1,4 +1,4 @@
-import { $$, camelize, fastdom, isJQuery, isPlainObject, isUndefined, startsWith } from '../util/index';
+import {$$, camelize, fastdom, isPlainObject, isUndefined, startsWith} from '../util/index';
 
 export default function (UIkit) {
 
@@ -8,7 +8,7 @@ export default function (UIkit) {
 
     UIkit.component = function (id, options) {
 
-        var name = camelize(id);
+        const name = camelize(id);
 
         if (isPlainObject(options)) {
             options.name = name;
@@ -35,7 +35,7 @@ export default function (UIkit) {
 
             function init(element) {
 
-                var cmp = UIkit.getComponent(element, name);
+                const cmp = UIkit.getComponent(element, name);
 
                 if (cmp && data) {
                     cmp.$reset(data);
@@ -53,22 +53,20 @@ export default function (UIkit) {
         return UIkit.components[name];
     };
 
-    UIkit.getComponents = element => element && (element = isJQuery(element) ? element[0] : element) && element[DATA] || {};
+    UIkit.getComponents = element => element && element[DATA] || {};
     UIkit.getComponent = (element, name) => UIkit.getComponents(element)[name];
 
     UIkit.connect = node => {
 
-        var name;
-
         if (node[DATA]) {
-            for (name in node[DATA]) {
+            for (const name in node[DATA]) {
                 node[DATA][name]._callConnected();
             }
         }
 
-        for (var i = 0; i < node.attributes.length; i++) {
+        for (let i = 0; i < node.attributes.length; i++) {
 
-            name = getComponentName(node.attributes[i].name);
+            const name = getComponentName(node.attributes[i].name);
 
             if (name && name in UIkit.components) {
                 UIkit[name](node);
@@ -79,7 +77,7 @@ export default function (UIkit) {
     };
 
     UIkit.disconnect = node => {
-        for (var name in node[DATA]) {
+        for (const name in node[DATA]) {
             node[DATA][name]._callDisconnected();
         }
     };

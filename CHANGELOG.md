@@ -1,6 +1,98 @@
 # Changelog
 
-## 3.0.0 beta 37 (January 18, 2018)
+## WIP
+
+### Fixed
+
+- Fix Scrollspy being stuck in endless update loop
+- Fix Slideshow combined with Height Viewport component
+- Fix Height Match component's `row` matching
+- Fix height calculation in Height Match component
+
+## 3.0.0 beta 42 (April 5, 2018)
+
+### Fixed
+
+- Fix regression in Offcanvas
+
+## 3.0.0 beta 41 (April 4, 2018)
+
+### Added
+
+- Add table large modifier
+- Add `Autoplay` as primary option for Video component
+- Add core and component dist files to NPM package
+
+### Changed
+
+- Make `uk-form-icon` padding work with size modifier
+- Make heading line position top a variable
+- Allow dropdowns in Iconnav component
+- Allow any property in `svg-fill` mixin
+- Move progress normalization to progress component
+- Video component sets `preload="false"` if `autoplay` is set to `inview`
+- Global `update` method now updates element itself as well as its parents and children 
+
+### Removed
+
+- Removed the instance method `$update`
+
+### Fixed
+
+- Fix browser compatibility in Navbar component
+- Fix preventClick function on touch devices
+- Fix LightboxPanel props
+- Fix Player ids in Vimeo videos
+- Dropbar opens on bottom positioned drops only
+- Fix setting height of drag in Sortable component
+- `isInView` checks for element visibility now
+- Fix check for backgroundSize: cover resetting backgroundSize in Parallax
+- Fix "Uncaught (in promise) DOMException" in Player
+- Fix Slideshow `fade` effect
+- Fix `type` option in Upload component
+- Fix misplaced Drop on fast toggling
+- Fix Modal close on bgClick behaviour
+- Fix Sets calculation in Slider on iOS
+
+## 3.0.0 beta 40 (February 8, 2018)
+
+### Changed
+
+- Improve Form Custom reactivity
+- Improve Scrollspy component reactivity
+
+### Fixed
+
+- Fix using Scrollspy component with default values
+- Fix Scrollspy if UIkit is loaded async
+- Fix YouTube short urls in Lightbox component
+- Fix empty select in Form Custom component
+- Fix Slider reactivity
+
+## 3.0.0 beta 39 (January 31, 2018)
+
+### Added
+
+- Add link heading to Link component
+- Add Slider Parallax component
+- Add support for privacy enhanced mode in YouTube urls
+
+### Changed
+
+- _Active_ classes are applied to all fully visible slides in Slider component
+- Allow all Lightbox Panel options to be set through Lightbox component
+
+### Fixed
+
+- Fix Slider Nav initially has no state
+- Fix Esc closing on Confirm and Prompt dialogs
+- Fix using Grids in Slider component in Safari
+- Fix edge scrolling in Sortable component in IE 11
+- Fix touch scrolling in Slideshow/Slider in Edge
+- Fix tap event on touch devices
+- Fix initial Drop positioning
+
+## 3.0.0 beta 38 (January 18, 2018)
 
 ### Added
 

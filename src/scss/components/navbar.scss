@@ -107,7 +107,6 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 @if ( $navbar-color-mode == light ) { .uk-navbar-container:not(.uk-navbar-transparent) { @extend .uk-light !optional;} }
 @if ( $navbar-color-mode == dark ) { .uk-navbar-container:not(.uk-navbar-transparent) { @extend .uk-dark !optional;} }
 
-
 /*
  * Remove pseudo elements created by micro clearfix as precaution (if Container component is used)
  */

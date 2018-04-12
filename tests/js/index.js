@@ -213,7 +213,7 @@ window.addEventListener('load', () => setTimeout(() => {
 
     $rtl.firstElementChild.checked = dir === 'rtl';
 
-    css(docEl, 'padding-top', '');
+    css(docEl, 'paddingTop', '');
 }, 100));
 
 docEl.style.paddingTop = '80px';

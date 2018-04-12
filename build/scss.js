@@ -1,19 +1,19 @@
-var fs = require('fs'),
+let fs = require('fs'),
     exec = require('child_process').exec,
     path = require('path'),
     util = require('./util'),
     glob = require('glob');
 
-var read = util.read,
+let read = util.read,
     write = util.write;
 
-var themeMixins = {},
+let themeMixins = {},
     coreMixins = {},
     themeVar = {},
     coreVar = {};
 
 /* template for the new components/mixins.scss file*/
-var mixinTemplate = `//
+const mixinTemplate = `//
 // Component:       Mixin
 // Description:     Defines mixins which are used across all components
 //
@@ -47,7 +47,7 @@ var mixinTemplate = `//
 }`;
 
 /* template for the inverse components */
-var inverseTemplate = `    @include hook-inverse-component-base();
+const inverseTemplate = `    @include hook-inverse-component-base();
     @include hook-inverse-component-link();
     @include hook-inverse-component-heading();
     @include hook-inverse-component-divider();
@@ -81,34 +81,34 @@ Promise.all(glob.sync('src/less/**/*.less').map(file =>
 
     read(file).then(data => {
         /* replace all LESS stuff with SCSS */
-        scssData = data.replace(/\/less\//g, '/scss/')                                                                                                                                                                    // change less/ dir to scss/ on imports
-            .replace(/\.less/g, '.scss')                                                                                                                                                                                  // change .less extensions to .scss on imports
-            .replace(/@/g, '$')                                                                                                                                                                                           // convert variables
-            .replace(/\\\$/g, '\\@')                                                                                                                                                                                      // revert classes using the @ symbol
-            .replace(/ e\(/g, ' unquote(')                                                                                                                                                                                // convert escape function
-            .replace(/\.([\w\-]*)\s*\((.*)\)\s*\{/g, '@mixin $1($2){')                                                                                                                                                    // hook -> mixins
-            .replace(/(\$[\w\-]*)\s*:(.*);/g, '$1: $2 !default;')                                                                                                                                                         // make variables optional
-            .replace(/@mixin ([\w\-]*)\s*\((.*)\)\s*\{\s*\}/g, '// @mixin $1($2){}')                                                                                                                                      // comment empty mixins
-            .replace(/\.(hook[a-zA-Z\-\d]+);/g, '@if(mixin-exists($1)) {@include $1();}')                                                                                                                                 // hook calls surrounded by a mixin-exists
-            .replace(/\$(import|supports|media|font-face|page|-ms-viewport|keyframes|-webkit-keyframes)/g, '@$1')                                                                                                         // replace valid '@' statements
-            .replace(/tint\((\$[\w\-]+),\s([^\)]*)\)/g, 'mix(white, $1, $2)')                                                                                                                                             // replace LESS function tint with mix
-            .replace(/fade\((\$[\w\-]*), ([0-9]+)\%\)/g, (match, p1, p2) => { return `rgba(${p1}, ${p2/100})`})                                                                                                           // replace LESS function fade with rgba
-            .replace(/fadeout\((\$[\w\-]*), ([0-9]+)\%\)/g, (match, p1, p2) => { return `fade-out(${p1}, ${p2/100})`})                                                                                                    // replace LESS function fadeout with fade-out
-            .replace(/\.svg-fill/g, '@include svg-fill')                                                                                                                                                                  // include svg-fill mixin
-            .replace(/(.*)\:extend\((\.[\w\-]*) all\) when \((\$[\w\-]*) = ([\w]+)\) {}/g, '@if ( $3 == $4 ) { $1 { @extend $2 !optional;} }')                                                                            // update conditional extend and add !optional to ignore warnings
+        scssData = data.replace(/\/less\//g, '/scss/') // change less/ dir to scss/ on imports
+            .replace(/\.less/g, '.scss') // change .less extensions to .scss on imports
+            .replace(/@/g, '$') // convert variables
+            .replace(/\\\$/g, '\\@') // revert classes using the @ symbol
+            .replace(/ e\(/g, ' unquote(') // convert escape function
+            .replace(/\.([\w\-]*)\s*\((.*)\)\s*\{/g, '@mixin $1($2){') // hook -> mixins
+            .replace(/(\$[\w\-]*)\s*:(.*);/g, '$1: $2 !default;') // make variables optional
+            .replace(/@mixin ([\w\-]*)\s*\((.*)\)\s*\{\s*\}/g, '// @mixin $1($2){}') // comment empty mixins
+            .replace(/\.(hook[a-zA-Z\-\d]+);/g, '@if(mixin-exists($1)) {@include $1();}') // hook calls surrounded by a mixin-exists
+            .replace(/\$(import|supports|media|font-face|page|-ms-viewport|keyframes|-webkit-keyframes)/g, '@$1') // replace valid '@' statements
+            .replace(/tint\((\$[\w\-]+),\s([^\)]*)\)/g, 'mix(white, $1, $2)') // replace LESS function tint with mix
+            .replace(/fade\((\$[\w\-]*), ([0-9]+)\%\)/g, (match, p1, p2) => { return `rgba(${p1}, ${p2 / 100})`;}) // replace LESS function fade with rgba
+            .replace(/fadeout\((\$[\w\-]*), ([0-9]+)\%\)/g, (match, p1, p2) => { return `fade-out(${p1}, ${p2 / 100})`;}) // replace LESS function fadeout with fade-out
+            .replace(/\.svg-fill/g, '@include svg-fill') // include svg-fill mixin
+            .replace(/(.*)\:extend\((\.[\w\-]*) all\) when \((\$[\w\-]*) = ([\w]+)\) {}/g, '@if ( $3 == $4 ) { $1 { @extend $2 !optional;} }') // update conditional extend and add !optional to ignore warnings
             .replace(/(\.[\w\-]+)\s*when\s*\((\$[\w\-]*)\s*=\s*(\w+)\)\s*\{\s*@if\(mixin-exists\(([\w\-]*)\)\) \{\@include\s([\w\-]*)\(\);\s*\}\s*\}/g, '@if ($2 == $3) { $1 { @if(mixin-exists($4)) {@include $4();}}}') // update conditional hook
-            .replace(/\$\{/g, '#{$')                                                                                                                                                                                      // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
-            .replace(/[^\(](\-\$[\w\-]*)/g, ' ($1)')                                                                                                                                                                      // surround negative variables with brackets
-            .replace(/~('[^']+')/g, 'unquote($1)');                                                                                                                                                                       // string literals: for real
+            .replace(/\$\{/g, '#{$') // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
+            .replace(/[^\(](\-\$[\w\-]*)/g, ' ($1)') // surround negative variables with brackets
+            .replace(/~('[^']+')/g, 'unquote($1)'); // string literals: for real
 
         /* File name of the current file */
-        var filename = file.split('/').pop().split('.less')[0];
+        const filename = file.split('/').pop().split('.less')[0];
 
         if (filename != 'inverse') {
             scssData = scssData.replace(/hook-inverse(?!-)/g, `hook-inverse-component-${filename}`);
         } else {
             joinedHook = `@mixin hook-inverse(){\n${inverseTemplate}\n}\n`;
-            scssData = scssData.replace(/\*\//, '*/\n'+joinedHook);
+            scssData = scssData.replace(/\*\//, '*/\n' + joinedHook);
         }
 
         /* get all the mixins and remove them from the file */
@@ -122,7 +122,7 @@ Promise.all(glob.sync('src/less/**/*.less').map(file =>
 
         if (filename == 'uikit.theme') {
             /* remove the theme import first place */
-            scssData = scssData.replace(/\/\/\n\/\/ Theme\n\/\/\n\n@import "theme\/_import.scss";/,'');
+            scssData = scssData.replace(/\/\/\n\/\/ Theme\n\/\/\n\n@import "theme\/_import.scss";/, '');
             /* add uikit-mixins and uikit-variables include to the uikit.scss file and change order, to load theme files first */
             scssData = scssData.replace(/\/\/ Core\n\/\//g, '// Theme\n//\n\n\@import "theme/_import.scss";');
         }
@@ -132,17 +132,17 @@ Promise.all(glob.sync('src/less/**/*.less').map(file =>
             scssData = mixinTemplate;
         }
 
-        return write(file.replace(/less/g, 'scss').replace('.theme.', '-theme.') , scssData);
+        return write(file.replace(/less/g, 'scss').replace('.theme.', '-theme.'), scssData);
     })
 
-)).then( () => {
+)).then(() => {
     /* Second Step write all new needed files for SASS */
 
     /* write mixins into new file */
-    var mixins_theme = Object.keys(themeMixins).map(function (key) { return themeMixins[key]; });
+    const mixins_theme = Object.keys(themeMixins).map(function (key) { return themeMixins[key]; });
     write('src/scss/mixins-theme.scss', mixins_theme.join('\n'));
 
-    var mixins_core = Object.keys(coreMixins).map(function (key) { return coreMixins[key]; });
+    const mixins_core = Object.keys(coreMixins).map(function (key) { return coreMixins[key]; });
     write('src/scss/mixins.scss', mixins_core.join('\n'));
 
     /* write core variables */
@@ -186,8 +186,8 @@ function getAllDependencies (allVariables, currentKey, dependencies = new Set())
 function getMixinsFromFile(file, data) {
 
     /* Step 1: get all includes and insert them, so that at least empty mixins exist. */
-    var regex = /@include ([a-z0-9\-]+)/g;
-    var match = regex.exec(data);
+    let regex = /@include ([a-z0-9\-]+)/g;
+    let match = regex.exec(data);
 
     while (match) {
         if (!(match[1] in themeMixins)) { themeMixins[match[1]] = `@mixin ${match[1]}(){}`; }
@@ -242,7 +242,7 @@ function getVariablesFromFile(file, data) {
             iconregex = /(\$[\w\-]+)\s*:\s*"\.\.\/\.\.\/images\/backgrounds\/([\w\.\/\-]+)" !default;/g;
             iconmatch = iconregex.exec(match[0]);
             svg = fs.readFileSync(`src/images/backgrounds/${iconmatch[2]}`).toString();
-            svg =  '"' + svg.replace(/\r?\n|\r/g, '%0A')
+            svg = '"' + svg.replace(/\r?\n|\r/g, '%0A')
                     .replace(/"/g, '\'')
                     .replace(/\s/g, '%20')
                     .replace(/\</g, '%3C')
@@ -255,7 +255,7 @@ function getVariablesFromFile(file, data) {
 
             /* add SVG to the coreVar and themeVar only if it is a theme file and make it optional */
             if (file.indexOf('theme/') < 0) {
-                coreVar[iconmatch[1]] = {value: `${svg} !default;` , dependencies: []};
+                coreVar[iconmatch[1]] = {value: `${svg} !default;`, dependencies: []};
             }
 
             themeVar[iconmatch[1]] = {value: `${svg} !default;`, dependencies: []};
@@ -269,7 +269,7 @@ function getVariablesFromFile(file, data) {
 
             variablesRegex = /(\$[\w\-]+)/g;
             variablesMatch = variablesRegex.exec(match[2]);
-            var dependencies = [];
+            const dependencies = [];
 
             while (variablesMatch) {
                 dependencies.push(variablesMatch[1]);

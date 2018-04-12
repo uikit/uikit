@@ -1,6 +1,6 @@
 import Slideshow from '../mixin/slideshow';
 import AnimationsPlugin from './internal/slideshow-animations';
-import ParallaxPlugin from './internal/slideshow-parallax';
+import ParallaxPlugin from './internal/slider-parallax';
 import SliderReactive from '../mixin/internal/slider-reactive';
 
 function plugin(UIkit) {
@@ -9,13 +9,13 @@ function plugin(UIkit) {
         return;
     }
 
-    UIkit.use(ParallaxPlugin);
     UIkit.use(Slideshow);
 
-    var {mixin} = UIkit;
-    var {height} = UIkit.util;
+    const {mixin, util: {height}} = UIkit;
 
-    var Animations = AnimationsPlugin(UIkit);
+    const Animations = AnimationsPlugin(UIkit);
+
+    UIkit.component('slideshow-parallax', ParallaxPlugin(UIkit, 'slideshow'));
 
     UIkit.component('slideshow', {
 
@@ -41,7 +41,7 @@ function plugin(UIkit) {
 
             read() {
 
-                var [width, height] = this.ratio.split(':').map(Number);
+                let [width, height] = this.ratio.split(':').map(Number);
 
                 height = height * this.$el.offsetWidth / width;
 

@@ -1,6 +1,6 @@
-import { $, after, ajax, append, attr, includes, isString, isVoidElement, noop, Promise, remove, removeAttr, startsWith } from '../util/index';
+import {$, after, ajax, append, attr, includes, isString, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from '../util/index';
 
-var svgs = {};
+const svgs = {};
 
 export default function (UIkit) {
 
@@ -34,17 +34,16 @@ export default function (UIkit) {
 
             if (!this.icon && includes(this.src, '#')) {
 
-                var parts = this.src.split('#');
+                const parts = this.src.split('#');
 
                 if (parts.length > 1) {
-                    this.src = parts[0];
-                    this.icon = parts[1];
+                    [this.src, this.icon] = parts;
                 }
             }
 
             this.svg = this.getSvg().then(svg => {
 
-                var el;
+                let el;
 
                 if (isString(svg)) {
 
@@ -62,7 +61,7 @@ export default function (UIkit) {
                     return Promise.reject('SVG not found.');
                 }
 
-                var dimensions = attr(el, 'viewBox');
+                let dimensions = attr(el, 'viewBox');
 
                 if (dimensions) {
                     dimensions = dimensions.split(' ');
@@ -73,7 +72,7 @@ export default function (UIkit) {
                 this.width *= this.ratio;
                 this.height *= this.ratio;
 
-                for (var prop in this.$options.props) {
+                for (const prop in this.$options.props) {
                     if (this[prop] && !includes(this.exclude, prop)) {
                         attr(el, prop, this[prop]);
                     }
@@ -91,12 +90,12 @@ export default function (UIkit) {
                     removeAttr(el, 'width');
                 }
 
-                var root = this.$el;
+                const root = this.$el;
                 if (isVoidElement(root) || root.tagName === 'CANVAS') {
 
                     attr(root, {hidden: true, id: null});
 
-                    var next = root.nextElementSibling;
+                    const next = root.nextElementSibling;
                     if (next && el.isEqualNode(next)) {
                         el = next;
                     } else {
@@ -105,7 +104,7 @@ export default function (UIkit) {
 
                 } else {
 
-                    var last = root.lastElementChild;
+                    const last = root.lastElementChild;
                     if (last && el.isEqualNode(last)) {
                         el = last;
                     } else {
@@ -171,8 +170,8 @@ export default function (UIkit) {
 
     });
 
-    var symbolRe = /<symbol(.*?id=(['"])(.*?)\2[^]*?<\/)symbol>/g,
-        symbols = {};
+    const symbolRe = /<symbol(.*?id=(['"])(.*?)\2[^]*?<\/)symbol>/g;
+    const symbols = {};
 
     function parseSymbols(svg, icon) {
 
@@ -180,8 +179,8 @@ export default function (UIkit) {
 
             symbols[svg] = {};
 
-            var match;
-            while (match = symbolRe.exec(svg)) {
+            let match;
+            while ((match = symbolRe.exec(svg))) {
                 symbols[svg][match[3]] = `<svg xmlns="http://www.w3.org/2000/svg"${match[1]}svg>`;
             }
 

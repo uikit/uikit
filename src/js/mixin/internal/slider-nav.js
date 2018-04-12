@@ -1,6 +1,6 @@
 export default function (UIkit) {
 
-    var {$, $$, data, html, index, toggleClass} = UIkit.util;
+    const {$, $$, data, html, toggleClass, toNumber} = UIkit.util;
 
     return {
 
@@ -36,6 +36,8 @@ export default function (UIkit) {
 
                     toggleClass($$(this.navItemSelector, this.$el).concat(this.nav), 'uk-hidden', !this.maxIndex);
 
+                    this.updateNav();
+
                 },
 
                 events: ['load', 'resize']
@@ -65,15 +67,28 @@ export default function (UIkit) {
             {
 
                 name: 'itemshow',
-
-                handler() {
-                    var i = this.getValidIndex();
-                    this.navItems.forEach(item => toggleClass(item, this.clsActive, index(item) === i));
-                }
+                handler: 'updateNav'
 
             }
 
-        ]
+        ],
+
+        methods: {
+
+            updateNav() {
+
+                const i = this.getValidIndex();
+                this.navItems.forEach(el => {
+
+                    const cmd = data(el, this.attrItem);
+
+                    toggleClass(el, this.clsActive, toNumber(cmd) === i);
+                    toggleClass(el, 'uk-invisible', this.finite && (cmd === 'previous' && i === 0 || cmd === 'next' && i >= this.maxIndex));
+                });
+
+            }
+
+        }
 
     };
 

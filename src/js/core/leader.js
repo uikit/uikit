@@ -1,5 +1,5 @@
-import { Class } from '../mixin/index';
-import { attr, getCssVar, toggleClass, unwrap, win, wrapInner } from '../util/index';
+import {Class} from '../mixin/index';
+import {attr, getCssVar, toggleClass, unwrap, wrapInner} from '../util/index';
 
 export default function (UIkit) {
 
@@ -29,7 +29,7 @@ export default function (UIkit) {
         },
 
         connected() {
-            this.wrapper = wrapInner(this.$el, `<span class="${this.clsWrapper}">`)[0];
+            [this.wrapper] = wrapInner(this.$el, `<span class="${this.clsWrapper}">`);
         },
 
         disconnected() {
@@ -42,14 +42,14 @@ export default function (UIkit) {
 
                 read({changed, width}) {
 
-                    var prev = width;
+                    const prev = width;
 
                     width = Math.floor(this.$el.offsetWidth / 2);
 
                     return {
                         width,
                         changed: changed || prev !== width,
-                        hide: this.media && !win.matchMedia(this.media).matches
+                        hide: this.media && !window.matchMedia(this.media).matches
                     };
                 },
 

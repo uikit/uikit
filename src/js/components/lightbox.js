@@ -8,29 +8,20 @@ function plugin(UIkit) {
 
     UIkit.use(LightboxPanel);
 
-    var {util} = UIkit;
-    var {$$, assign, data, index} = util;
+    const {util} = UIkit;
+    const {$$, assign, data, index} = util;
+    const {options} = UIkit.components.lightboxPanel;
 
     UIkit.component('lightbox', {
 
         attrs: true,
 
-        props: {
-            animation: String,
-            container: Boolean,
-            toggle: String,
-            autoplay: Boolean,
-            autoplayInterval: Number,
-            videoAutoplay: Boolean
-        },
+        props: assign({toggle: String}, options.props),
 
-        defaults: {
-            animation: undefined,
-            container: true,
-            toggle: 'a',
-            autoplay: 0,
-            videoAutoplay: false
-        },
+        defaults: assign({toggle: 'a'}, Object.keys(options.props).reduce((defaults, key) => {
+            defaults[key] = options.defaults[key];
+            return defaults;
+        }, {})),
 
         computed: {
 
@@ -66,12 +57,14 @@ function plugin(UIkit) {
 
         update(data) {
 
+            data.toggles = data.toggles || this.toggles;
+
             if (this.panel && this.animation) {
                 this.panel.$props.animation = this.animation;
                 this.panel.$emit();
             }
 
-            if (!this.panel || data.toggles && isEqualList(data.toggles, this.toggles)) {
+            if (!this.panel || isEqualList(data.toggles, this.toggles)) {
                 return;
             }
 
@@ -124,7 +117,7 @@ function plugin(UIkit) {
 
     function isEqualList(listA, listB) {
         return listA.length === listB.length
-            && listA.every((el, i) => el !== listB[i]);
+            && listA.every((el, i) => el === listB[i]);
     }
 
 }

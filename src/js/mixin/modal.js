@@ -1,16 +1,16 @@
-import { $, addClass, append, css, doc, docEl, hasClass, on, once, Promise, removeClass, requestAnimationFrame, toMs, width, win, within } from '../util/index';
+import {$, addClass, append, css, hasClass, on, once, Promise, removeClass, toMs, width, within} from '../util/index';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
 
-var active;
+let active;
 
 export default {
 
     mixins: [Class, Container, Togglable],
 
     props: {
-        clsPanel: String,
+        selPanel: String,
         selClose: String,
         escClose: Boolean,
         bgClose: Boolean,
@@ -27,8 +27,8 @@ export default {
 
     computed: {
 
-        panel({clsPanel}, $el) {
-            return $(`.${clsPanel}`, $el);
+        panel({selPanel}, $el) {
+            return $(selPanel, $el);
         },
 
         transitionElement() {
@@ -83,7 +83,7 @@ export default {
 
             handler(e) {
 
-                var prev = active && active !== this && active;
+                const prev = active && active !== this && active;
 
                 active = this;
 
@@ -128,12 +128,12 @@ export default {
 
             handler() {
 
-                if (!hasClass(docEl, this.clsPage)) {
-                    this.scrollbarWidth = width(win) - docEl.offsetWidth;
-                    css(doc.body, 'overflowY', this.scrollbarWidth && this.overlay ? 'scroll' : '');
+                if (!hasClass(document.documentElement, this.clsPage)) {
+                    this.scrollbarWidth = width(window) - width(document);
+                    css(document.body, 'overflowY', this.scrollbarWidth && this.overlay ? 'scroll' : '');
                 }
 
-                addClass(docEl, this.clsPage);
+                addClass(document.documentElement, this.clsPage);
 
             }
 
@@ -147,7 +147,7 @@ export default {
 
             handler() {
 
-                var found, prev = this.prev;
+                let found, {prev} = this;
 
                 while (prev) {
 
@@ -161,11 +161,11 @@ export default {
                 }
 
                 if (!found) {
-                    removeClass(docEl, this.clsPage);
+                    removeClass(document.documentElement, this.clsPage);
 
                 }
 
-                !this.prev && css(doc.body, 'overflowY', '');
+                !this.prev && css(document.body, 'overflowY', '');
             }
 
         }
@@ -220,7 +220,7 @@ export default {
 
 };
 
-var events;
+let events;
 
 function registerEvents() {
 
@@ -229,12 +229,12 @@ function registerEvents() {
     }
 
     events = [
-        on(docEl, 'click', ({target, defaultPrevented}) => {
-            if (active && active.bgClose && !defaultPrevented && !within(target, (active.panel || active.$el))) {
+        on(document, 'click', ({target, defaultPrevented}) => {
+            if (active && active.bgClose && !defaultPrevented && (!active.overlay || within(target, active.$el)) && (!active.panel || !within(target, active.panel))) {
                 active.hide();
             }
         }),
-        on(doc, 'keydown', e => {
+        on(document, 'keydown', e => {
             if (e.keyCode === 27 && active && active.escClose) {
                 e.preventDefault();
                 active.hide();
