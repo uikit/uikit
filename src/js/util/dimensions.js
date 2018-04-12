@@ -1,4 +1,5 @@
 import {css} from './style';
+import {attr} from './attr';
 import {isVisible} from './filter';
 import {clamp, each, endsWith, includes, intersectRect, isDocument, isUndefined, isWindow, toFloat, toNode, ucfirst} from './lang';
 
@@ -142,16 +143,22 @@ function getDimensions(element) {
         };
     }
 
-    let display = false;
+    let style, hidden;
+
     if (!isVisible(element)) {
-        display = element.style.display;
-        element.style.display = 'block';
+        style = attr(element, 'style');
+        hidden = attr(element, 'hidden');
+
+        attr(element, {
+            style: `${style || ''};display:block !important;`,
+            hidden: null
+        });
     }
 
     const rect = element.getBoundingClientRect();
 
-    if (display !== false) {
-        element.style.display = display;
+    if (!isUndefined(style)) {
+        attr(element, {style, hidden});
     }
 
     return {

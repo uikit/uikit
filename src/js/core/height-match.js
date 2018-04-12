@@ -1,4 +1,5 @@
-import {$$, attr, css, isUndefined, isVisible} from '../util/index';
+import {$$, css, offset} from '../util/index';
+import {getRows} from './margin';
 
 export default function (UIkit) {
 
@@ -28,32 +29,24 @@ export default function (UIkit) {
 
             read() {
 
-                let lastOffset = false;
-
-                css(this.elements, 'minHeight', '');
+                css(this.elements, {
+                    minHeight: '',
+                    boxSizing: ''
+                });
 
                 return {
                     rows: !this.row
                         ? [this.match(this.elements)]
-                        : this.elements.reduce((rows, el) => {
-
-                            if (lastOffset !== el.offsetTop) {
-                                rows.push([el]);
-                            } else {
-                                rows[rows.length - 1].push(el);
-                            }
-
-                            lastOffset = el.offsetTop;
-
-                            return rows;
-
-                        }, []).map(elements => this.match(elements))
+                        : getRows(this.elements).map(elements => this.match(elements))
                 };
             },
 
             write({rows}) {
 
-                rows.forEach(({height, elements}) => css(elements, 'minHeight', height));
+                rows.forEach(({height, elements}) => css(elements, {
+                    minHeight: height,
+                    boxSizing: 'border-box'
+                }));
 
             },
 
@@ -74,26 +67,9 @@ export default function (UIkit) {
 
                 elements
                     .forEach(el => {
-
-                        let style, hidden;
-
-                        if (!isVisible(el)) {
-                            style = attr(el, 'style');
-                            hidden = attr(el, 'hidden');
-
-                            attr(el, {
-                                style: `${style || ''};display:block !important;`,
-                                hidden: null
-                            });
-                        }
-
-                        max = Math.max(max, el.offsetHeight);
-                        heights.push(el.offsetHeight);
-
-                        if (!isUndefined(style)) {
-                            attr(el, {style, hidden});
-                        }
-
+                        const {height} = offset(el);
+                        max = Math.max(max, height);
+                        heights.push(height);
                     });
 
                 elements = elements.filter((el, i) => heights[i] < max);

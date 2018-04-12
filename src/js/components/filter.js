@@ -25,8 +25,7 @@ function plugin(UIkit) {
             selActive: false,
             attrItem: 'uk-filter-control',
             cls: 'uk-active',
-            animation: 250,
-            transitionHeight: true
+            animation: 250
         },
 
         computed: {
