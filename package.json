@@ -64,5 +64,8 @@
       "patterns": "**/*.less",
       "extensions": "less"
     }
+  },
+  "dependencies": {
+    "npm": "^5.8.0"
   }
 }
