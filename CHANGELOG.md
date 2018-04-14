@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Allow left and right icons at the same time in form and search component
+
 ### Fixed
 
 - Fix Scrollspy being stuck in endless update loop
@@ -32,7 +36,7 @@
 - Allow any property in `svg-fill` mixin
 - Move progress normalization to progress component
 - Video component sets `preload="false"` if `autoplay` is set to `inview`
-- Global `update` method now updates element itself as well as its parents and children 
+- Global `update` method now updates element itself as well as its parents and children
 
 ### Removed
 

@@ -687,7 +687,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * Input padding
  */
 
-.uk-form-icon:not(.uk-form-icon-flip) + .uk-input { padding-left: @form-icon-width !important; }
+.uk-form-icon:not(.uk-form-icon-flip) ~ .uk-input { padding-left: @form-icon-width !important; }
 
 /*
  * Position modifier
@@ -698,7 +698,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     left: auto;
 }
 
-.uk-form-icon-flip + .uk-input { padding-right: @form-icon-width !important; }
+.uk-form-icon-flip ~ .uk-input { padding-right: @form-icon-width !important; }
 
 
 // Hooks
