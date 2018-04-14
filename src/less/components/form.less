@@ -745,6 +745,9 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 @inverse-form-radio-checked-focus-background:  darken(@inverse-global-primary-background, 10%);
 
+@inverse-form-icon-color:                      @inverse-global-muted-color;
+@inverse-form-icon-hover-color:                @inverse-global-color;
+
 .hook-inverse() {
 
     .uk-input,
@@ -819,6 +822,10 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     .uk-form-label {
         .hook-inverse-form-label;
     }
+
+    // Icon
+    .uk-form-icon { color: @invers-form-icon-color; }
+    .uk-form-icon:hover { color: @invers-form-icon-hover-color; }
 
 }
 

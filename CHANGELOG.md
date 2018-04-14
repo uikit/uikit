@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add inverse style for form icon
+
 ### Changed
 
 - Allow left and right icons at the same time in form and search component
