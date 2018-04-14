@@ -129,8 +129,14 @@
      * Default
      */
 
-    .uk-card-body .uk-nav-default { margin: (-@card-body-padding-vertical + 15px) -@card-body-padding-horizontal; }
-    .uk-card-title + .uk-nav-default { margin-top: 0; }
+    .uk-card-body > .uk-nav-default {
+        margin-left: -@card-body-padding-horizontal;
+        margin-right: -@card-body-padding-horizontal;
+    }
+    .uk-card-body > .uk-nav-default:only-child {
+        margin-top: (-@card-body-padding-vertical + 15px);
+        margin-bottom: (-@card-body-padding-vertical + 15px);
+    }
 
     .uk-card-body .uk-nav-default > li > a,
     .uk-card-body .uk-nav-default .uk-nav-header,
@@ -145,8 +151,14 @@
     /* Desktop and bigger */
     @media (min-width: @breakpoint-large) {
 
-        .uk-card-body .uk-nav-default { margin: (-@card-body-padding-vertical-l + 15px) -@card-body-padding-horizontal-l; }
-        .uk-card-title + .uk-nav-default { margin-top: 0; }
+        .uk-card-body > .uk-nav-default {
+            margin-left: -@card-body-padding-horizontal-l;
+            margin-right: -@card-body-padding-horizontal-l;
+        }
+        .uk-card-body > .uk-nav-default:only-child {
+            margin-top: (-@card-body-padding-vertical-l + 15px);
+            margin-bottom: (-@card-body-padding-vertical-l + 15px);
+        }
 
         .uk-card-body .uk-nav-default > li > a,
         .uk-card-body .uk-nav-default .uk-nav-header,
@@ -163,8 +175,14 @@
      * Small
      */
 
-    .uk-card-small .uk-nav-default { margin: (-@card-small-body-padding-vertical + 15px) -@card-small-body-padding-horizontal; }
-    .uk-card-small .uk-card-title + .uk-nav-default { margin-top: 0; }
+    .uk-card-small > .uk-nav-default {
+        margin-left: -@card-small-body-padding-horizontal;
+        margin-right: -@card-small-body-padding-horizontal;
+    }
+    .uk-card-small > .uk-nav-default:only-child {
+        margin-top: (-@card-small-body-padding-vertical + 15px);
+        margin-bottom: (-@card-small-body-padding-vertical + 15px);
+    }
 
     .uk-card-small .uk-nav-default > li > a,
     .uk-card-small .uk-nav-default .uk-nav-header,
@@ -182,8 +200,17 @@
     /* Desktop and bigger */
     @media (min-width: @breakpoint-large) {
 
-        .uk-card-large .uk-nav-default { margin: (-@card-large-body-padding-vertical-l + 15px) -@card-large-body-padding-horizontal-l; }
-        .uk-card-large .uk-card-title + .uk-nav-default { margin-top: 0; }
+        .uk-card-large > .uk-nav-default { margin: 0; }
+        .uk-card-large > .uk-nav-default:only-child { margin: 0; }
+
+        .uk-card-large .uk-nav-default > li > a,
+        .uk-card-large .uk-nav-default .uk-nav-header,
+        .uk-card-large .uk-nav-default .uk-nav-divider {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .uk-card-large .uk-nav-default .uk-nav-sub { padding-left: @nav-sublist-deeper-padding-left; }
 
     }
 
