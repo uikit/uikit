@@ -19,10 +19,10 @@ export function hyphenate(str) {
         .toLowerCase();
 }
 
-const camelizeRE = /-(\w)/g;
+const camelizeRe = /-(\w)/g;
 
 export function camelize(str) {
-    return str.replace(camelizeRE, toUpper);
+    return str.replace(camelizeRe, toUpper);
 }
 
 function toUpper(_, c) {

@@ -180,10 +180,12 @@ export default function (UIkit) {
             symbols[svg] = {};
 
             let match;
+
             while ((match = symbolRe.exec(svg))) {
                 symbols[svg][match[3]] = `<svg xmlns="http://www.w3.org/2000/svg"${match[1]}svg>`;
             }
 
+            symbolRe.lastIndex = 0;
         }
 
         return symbols[svg][icon];
