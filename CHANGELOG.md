@@ -2,8 +2,13 @@
 
 ## WIP
 
+### Added
+
+- Add inverse style for form icon
+
 ### Changed
 
+- Allow left and right icons at the same time in form and search component
 - Rename `target` to `target-offset` in Sticky component
 
 ### Fixed
@@ -12,6 +17,7 @@
 - Fix Slideshow combined with Height Viewport component
 - Fix Height Match component's `row` matching
 - Fix height calculation in Height Match component
+- Fix regression with Video component not auto play/pause
 
 ## 3.0.0 beta 42 (April 5, 2018)
 
@@ -35,7 +41,7 @@
 - Allow any property in `svg-fill` mixin
 - Move progress normalization to progress component
 - Video component sets `preload="false"` if `autoplay` is set to `inview`
-- Global `update` method now updates element itself as well as its parents and children 
+- Global `update` method now updates element itself as well as its parents and children
 
 ### Removed
 

@@ -687,7 +687,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * Input padding
  */
 
-.uk-form-icon:not(.uk-form-icon-flip) + .uk-input { padding-left: @form-icon-width !important; }
+.uk-form-icon:not(.uk-form-icon-flip) ~ .uk-input { padding-left: @form-icon-width !important; }
 
 /*
  * Position modifier
@@ -698,7 +698,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     left: auto;
 }
 
-.uk-form-icon-flip + .uk-input { padding-right: @form-icon-width !important; }
+.uk-form-icon-flip ~ .uk-input { padding-right: @form-icon-width !important; }
 
 
 // Hooks
@@ -744,6 +744,9 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 @inverse-form-radio-checked-icon-color:        @inverse-global-inverse-color;
 
 @inverse-form-radio-checked-focus-background:  darken(@inverse-global-primary-background, 10%);
+
+@inverse-form-icon-color:                      @inverse-global-muted-color;
+@inverse-form-icon-hover-color:                @inverse-global-color;
 
 .hook-inverse() {
 
@@ -819,6 +822,10 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     .uk-form-label {
         .hook-inverse-form-label;
     }
+
+    // Icon
+    .uk-form-icon { color: @invers-form-icon-color; }
+    .uk-form-icon:hover { color: @invers-form-icon-hover-color; }
 
 }
 
