@@ -45,12 +45,17 @@ export default function (UIkit) {
             }
 
             let option;
-
-            target[isInput(target) ? 'value' : 'textContent'] = input.files && input.files[0]
+            const prop = isInput(target) ? 'value' : 'textContent';
+            const prev = target[prop];
+            const value = input.files && input.files[0]
                 ? input.files[0].name
                 : matches(input, 'select') && (option = $$('option', input).filter(el => el.selected)[0])
                     ? option.textContent
                     : input.value;
+
+            if (prev !== value) {
+                target[prop] = value;
+            }
 
         },
 

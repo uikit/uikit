@@ -1989,7 +1989,7 @@
             });
 
             util.on(el, 'mousemove', function () {
-                target.innerText = tracker.movesTo(target.parentNode) ? 'Moves to' : 'Moves away';
+                target.textContent = tracker.movesTo(target.parentNode) ? 'Moves to' : 'Moves away';
             });
 
         </script>
