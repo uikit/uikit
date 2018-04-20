@@ -97,7 +97,7 @@ export function parseOptions(options, args = []) {
                 : args.length && !includes(options, ':')
                     ? ({[args[0]]: options})
                     : options.split(';').reduce((options, option) => {
-                        const [key, value] = option.split(':');
+                        const [key, value] = option.split(/:(.*)/);
                         if (key && !isUndefined(value)) {
                             options[key.trim()] = value.trim();
                         }
