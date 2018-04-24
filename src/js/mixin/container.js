@@ -1,4 +1,4 @@
-import {$} from '../util/index';
+import {$} from 'uikit-util';
 
 export default {
 

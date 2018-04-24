@@ -1,4 +1,4 @@
-import {$, css, flipPosition, includes, isNumeric, isRtl, offset as getOffset, positionAt, removeClasses, toggleClass} from '../util/index';
+import {$, css, flipPosition, includes, isNumeric, isRtl, offset as getOffset, positionAt, removeClasses, toggleClass} from 'uikit-util';
 
 export default {
 
