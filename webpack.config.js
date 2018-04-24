@@ -23,7 +23,8 @@ module.exports = [
             path: __dirname,
             filename: 'dist/js/uikit.js',
             library: 'UIkit',
-            libraryExport: 'default'
+            libraryExport: 'default',
+            libraryTarget: 'umd'
         },
         mode: 'development',
         module: rules,
@@ -49,7 +50,8 @@ module.exports = [
             path: __dirname,
             filename: 'dist/js/uikit.min.js',
             library: 'UIkit',
-            libraryExport: 'default'
+            libraryExport: 'default',
+            libraryTarget: 'umd'
         },
         mode: 'production',
         module: rules,
@@ -75,7 +77,8 @@ module.exports = [
             path: __dirname,
             filename: 'dist/js/uikit-icons.js',
             library: 'UIkitIcons',
-            libraryExport: 'default'
+            libraryExport: 'default',
+            libraryTarget: 'umd'
         },
         mode: 'development',
         module: rules,
