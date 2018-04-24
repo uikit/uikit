@@ -1,31 +1,28 @@
-import {Class} from '../mixin/index';
-import {toggleClass} from '../util/index';
+import Margin from './margin';
+import Class from '../mixin/class';
+import {toggleClass} from 'uikit-util';
 
-export default function (UIkit) {
+export default {
 
-    UIkit.component('grid', UIkit.components.margin.extend({
+    extends: Margin,
 
-        mixins: [Class],
+    mixins: [Class],
 
-        name: 'grid',
+    defaults: {
+        margin: 'uk-grid-margin',
+        clsStack: 'uk-grid-stack'
+    },
 
-        defaults: {
-            margin: 'uk-grid-margin',
-            clsStack: 'uk-grid-stack'
+    update: {
+
+        write({stacks}) {
+
+            toggleClass(this.$el, this.clsStack, stacks);
+
         },
 
-        update: {
+        events: ['load', 'resize']
 
-            write({stacks}) {
+    }
 
-                toggleClass(this.$el, this.clsStack, stacks);
-
-            },
-
-            events: ['load', 'resize']
-
-        }
-
-    }));
-
-}
+};

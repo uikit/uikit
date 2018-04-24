@@ -62,7 +62,7 @@ export default function (UIkit) {
 
         const name = getComponentName(attributeName);
 
-        if (!name || !(name in UIkit.components)) {
+        if (!name || !(name in UIkit)) {
             return;
         }
 

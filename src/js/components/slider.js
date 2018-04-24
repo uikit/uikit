@@ -1,259 +1,239 @@
+import Class from '../mixin/class';
 import Slider, {speedUp} from '../mixin/slider';
-import SliderReactive from '../mixin/internal/slider-reactive';
-import TransitionerPlugin from './internal/slider-transitioner';
-import ParallaxPlugin from './internal/slider-parallax';
+import SliderReactive from '../mixin/slider-reactive';
+import Transitioner, {getElLeft, getWidth, getMax, getMaxWidth} from './internal/slider-transitioner';
+import {$, $$, addClass, css, data, includes, isNumeric, isUndefined, offset, toggleClass, toFloat} from 'uikit-util';
 
-function plugin(UIkit) {
+export default {
 
-    if (plugin.installed) {
-        return;
-    }
+    mixins: [Class, Slider, SliderReactive],
 
-    UIkit.use(Slider);
+    props: {
+        center: Boolean,
+        sets: Boolean,
+    },
 
-    const {mixin, util: {$, $$, addClass, css, data, includes, isNumeric, isUndefined, offset, toggleClass, toFloat}} = UIkit;
-    const Transitioner = TransitionerPlugin(UIkit);
+    defaults: {
+        center: false,
+        sets: false,
+        attrItem: 'uk-slider-item',
+        selList: '.uk-slider-items',
+        selNav: '.uk-slider-nav',
+        clsContainer: 'uk-slider-container',
+        Transitioner
+    },
 
-    UIkit.component('slider-parallax', ParallaxPlugin(UIkit, 'slider'));
+    computed: {
 
-    UIkit.component('slider', {
-
-        mixins: [mixin.class, mixin.slider, SliderReactive(UIkit)],
-
-        props: {
-            center: Boolean,
-            sets: Boolean,
+        avgWidth() {
+            return getWidth(this.list) / this.length;
         },
 
-        defaults: {
-            center: false,
-            sets: false,
-            attrItem: 'uk-slider-item',
-            selList: '.uk-slider-items',
-            selNav: '.uk-slider-nav',
-            clsContainer: 'uk-slider-container',
-            Transitioner
+        finite({finite}) {
+            return finite || getWidth(this.list) < this.list.offsetWidth + getMaxWidth(this.list) + this.center;
         },
 
-        computed: {
+        maxIndex() {
 
-            avgWidth() {
-                return Transitioner.getWidth(this.list) / this.length;
-            },
+            if (!this.finite || this.center && !this.sets) {
+                return this.length - 1;
+            }
 
-            finite({finite}) {
-                return finite || Transitioner.getWidth(this.list) < this.list.offsetWidth + Transitioner.getMaxWidth(this.list) + this.center;
-            },
+            if (this.center) {
+                return this.sets[this.sets.length - 1];
+            }
 
-            maxIndex() {
+            css(this.slides, 'order', '');
 
-                if (!this.finite || this.center && !this.sets) {
-                    return this.length - 1;
+            const max = getMax(this.list);
+            let i = this.length;
+
+            while (i--) {
+                if (getElLeft(this.list.children[i], this.list) < max) {
+                    return Math.min(i + 1, this.length - 1);
                 }
+            }
 
-                if (this.center) {
-                    return this.sets[this.sets.length - 1];
-                }
+            return 0;
+        },
 
-                css(this.slides, 'order', '');
+        sets({sets}) {
 
-                const max = Transitioner.getMax(this.list);
-                let i = this.length;
+            const width = this.list.offsetWidth / (this.center ? 2 : 1);
 
-                while (i--) {
-                    if (Transitioner.getElLeft(this.list.children[i], this.list) < max) {
-                        return Math.min(i + 1, this.length - 1);
+            let left = 0;
+            let leftCenter = width;
+
+            sets = sets && this.slides.reduce((sets, slide, i) => {
+
+                const dim = offset(slide);
+
+                if (dim.right > left) {
+
+                    if (!this.center && i > this.maxIndex) {
+                        i = this.maxIndex;
+                    }
+
+                    if (!includes(sets, i)) {
+
+                        const cmp = this.slides[i + 1];
+                        if (this.center && cmp && dim.width < leftCenter - offset(cmp).width / 2) {
+                            leftCenter -= dim.width;
+                        } else {
+                            leftCenter = width;
+                            sets.push(i);
+                            left = dim.left + width + (this.center ? dim.width / 2 : 0);
+                        }
+
                     }
                 }
 
-                return 0;
-            },
+                return sets;
 
-            sets({sets}) {
+            }, []);
 
-                const width = this.list.offsetWidth / (this.center ? 2 : 1);
+            return sets && sets.length && sets;
 
-                let left = 0;
-                let leftCenter = width;
+        },
 
-                sets = sets && this.slides.reduce((sets, slide, i) => {
+        transitionOptions() {
+            return {
+                center: this.center,
+                list: this.list
+            };
+        }
 
-                    const dim = offset(slide);
+    },
 
-                    if (dim.right > left) {
+    connected() {
+        toggleClass(this.$el, this.clsContainer, !$(`.${this.clsContainer}`, this.$el));
+    },
 
-                        if (!this.center && i > this.maxIndex) {
-                            i = this.maxIndex;
-                        }
+    update: {
 
-                        if (!includes(sets, i)) {
+        write() {
 
-                            const cmp = this.slides[i + 1];
-                            if (this.center && cmp && dim.width < leftCenter - offset(cmp).width / 2) {
-                                leftCenter -= dim.width;
-                            } else {
-                                leftCenter = width;
-                                sets.push(i);
-                                left = dim.left + width + (this.center ? dim.width / 2 : 0);
-                            }
+            $$(`[${this.attrItem}],[data-${this.attrItem}]`, this.$el).forEach(el => {
+                const index = data(el, this.attrItem);
+                this.maxIndex && toggleClass(el, 'uk-hidden', isNumeric(index) && (this.sets && !includes(this.sets, toFloat(index)) || index > this.maxIndex));
+            });
 
-                        }
-                    }
+        },
 
-                    return sets;
+        events: ['load', 'resize']
 
-                }, []);
+    },
 
-                return sets && sets.length && sets;
+    events: {
 
-            },
+        beforeitemshow(e) {
 
-            transitionOptions() {
-                return {
-                    center: this.center,
-                    list: this.list
-                };
+            if (!this.dragging && this.sets && this.stack.length < 2 && !includes(this.sets, this.index)) {
+                this.index = this.getValidIndex();
+            }
+
+            const diff = Math.abs(
+                this.index
+                - this.prevIndex
+                + (this.dir > 0 && this.index < this.prevIndex || this.dir < 0 && this.index > this.prevIndex ? (this.maxIndex + 1) * this.dir : 0)
+            );
+
+            if (!this.dragging && diff > 1) {
+
+                for (let i = 0; i < diff; i++) {
+                    this.stack.splice(1, 0, this.dir > 0 ? 'next' : 'previous');
+                }
+
+                e.preventDefault();
+                return;
+            }
+
+            this.duration = speedUp(this.avgWidth / this.velocity)
+                * ((
+                    this.dir < 0 || !this.slides[this.prevIndex]
+                        ? this.slides[this.index]
+                        : this.slides[this.prevIndex]
+                ).offsetWidth / this.avgWidth);
+
+            this.reorder();
+
+        },
+
+        itemshow() {
+            !isUndefined(this.prevIndex) && addClass(this._getTransitioner().getItemIn(), this.clsActive);
+        },
+
+        itemshown() {
+            const actives = this._getTransitioner(this.index).getActives();
+            this.slides.forEach(slide => toggleClass(slide, this.clsActive, includes(actives, slide)));
+            (!this.sets || includes(this.sets, toFloat(this.index))) && this.slides.forEach(slide => toggleClass(slide, this.clsActivated, includes(actives, slide)));
+        }
+
+    },
+
+    methods: {
+
+        reorder() {
+
+            css(this.slides, 'order', '');
+
+            if (this.finite) {
+                return;
+            }
+
+            const index = this.dir > 0 && this.slides[this.prevIndex] ? this.prevIndex : this.index;
+
+            this.slides.forEach((slide, i) =>
+                css(slide, 'order', this.dir > 0 && i < index
+                    ? 1
+                    : this.dir < 0 && i >= this.index
+                        ? -1
+                        : ''
+                )
+            );
+
+            if (!this.center) {
+                return;
+            }
+
+            const next = this.slides[index];
+            let width = this.list.offsetWidth / 2 - next.offsetWidth / 2;
+            let j = 0;
+
+            while (width > 0) {
+                const slideIndex = this.getIndex(--j + index, index);
+                const slide = this.slides[slideIndex];
+
+                css(slide, 'order', slideIndex > index ? -2 : -1);
+                width -= slide.offsetWidth;
             }
 
         },
 
-        connected() {
-            toggleClass(this.$el, this.clsContainer, !$(`.${this.clsContainer}`, this.$el));
-        },
+        getValidIndex(index = this.index, prevIndex = this.prevIndex) {
 
-        update: {
+            index = this.getIndex(index, prevIndex);
 
-            write() {
-
-                $$(`[${this.attrItem}],[data-${this.attrItem}]`, this.$el).forEach(el => {
-                    const index = data(el, this.attrItem);
-                    this.maxIndex && toggleClass(el, 'uk-hidden', isNumeric(index) && (this.sets && !includes(this.sets, toFloat(index)) || index > this.maxIndex));
-                });
-
-            },
-
-            events: ['load', 'resize']
-
-        },
-
-        events: {
-
-            beforeitemshow(e) {
-
-                if (!this.dragging && this.sets && this.stack.length < 2 && !includes(this.sets, this.index)) {
-                    this.index = this.getValidIndex();
-                }
-
-                const diff = Math.abs(
-                    this.index
-                    - this.prevIndex
-                    + (this.dir > 0 && this.index < this.prevIndex || this.dir < 0 && this.index > this.prevIndex ? (this.maxIndex + 1) * this.dir : 0)
-                );
-
-                if (!this.dragging && diff > 1) {
-
-                    for (let i = 0; i < diff; i++) {
-                        this.stack.splice(1, 0, this.dir > 0 ? 'next' : 'previous');
-                    }
-
-                    e.preventDefault();
-                    return;
-                }
-
-                this.duration = speedUp(this.avgWidth / this.velocity)
-                    * ((
-                        this.dir < 0 || !this.slides[this.prevIndex]
-                            ? this.slides[this.index]
-                            : this.slides[this.prevIndex]
-                    ).offsetWidth / this.avgWidth);
-
-                this.reorder();
-
-            },
-
-            itemshow() {
-                !isUndefined(this.prevIndex) && addClass(this._getTransitioner().getItemIn(), this.clsActive);
-            },
-
-            itemshown() {
-                const actives = this._getTransitioner(this.index).getActives();
-                this.slides.forEach(slide => toggleClass(slide, this.clsActive, includes(actives, slide)));
-                (!this.sets || includes(this.sets, toFloat(this.index))) && this.slides.forEach(slide => toggleClass(slide, this.clsActivated, includes(actives, slide)));
-            }
-
-        },
-
-        methods: {
-
-            reorder() {
-
-                css(this.slides, 'order', '');
-
-                if (this.finite) {
-                    return;
-                }
-
-                const index = this.dir > 0 && this.slides[this.prevIndex] ? this.prevIndex : this.index;
-
-                this.slides.forEach((slide, i) =>
-                    css(slide, 'order', this.dir > 0 && i < index
-                        ? 1
-                        : this.dir < 0 && i >= this.index
-                            ? -1
-                            : ''
-                    )
-                );
-
-                if (!this.center) {
-                    return;
-                }
-
-                const next = this.slides[index];
-                let width = this.list.offsetWidth / 2 - next.offsetWidth / 2;
-                let j = 0;
-
-                while (width > 0) {
-                    const slideIndex = this.getIndex(--j + index, index);
-                    const slide = this.slides[slideIndex];
-
-                    css(slide, 'order', slideIndex > index ? -2 : -1);
-                    width -= slide.offsetWidth;
-                }
-
-            },
-
-            getValidIndex(index = this.index, prevIndex = this.prevIndex) {
-
-                index = this.getIndex(index, prevIndex);
-
-                if (!this.sets) {
-                    return index;
-                }
-
-                let prev;
-
-                do {
-
-                    if (includes(this.sets, index)) {
-                        return index;
-                    }
-
-                    prev = index;
-                    index = this.getIndex(index + this.dir, prevIndex);
-
-                } while (index !== prev);
-
+            if (!this.sets) {
                 return index;
             }
 
+            let prev;
+
+            do {
+
+                if (includes(this.sets, index)) {
+                    return index;
+                }
+
+                prev = index;
+                index = this.getIndex(index + this.dir, prevIndex);
+
+            } while (index !== prev);
+
+            return index;
         }
 
-    });
+    }
 
-}
-
-if (!BUNDLED && typeof window !== 'undefined' && window.UIkit) {
-    window.UIkit.use(plugin);
-}
-
-export default plugin;
+};

@@ -64,4 +64,12 @@ export default function (UIkit) {
         }
     };
 
+    UIkit.prototype.$create = function (component, element, data) {
+        return UIkit[component](element, data);
+    };
+
+    UIkit.prototype.$update = UIkit.update;
+    UIkit.prototype.$getComponent = UIkit.getComponent;
+    UIkit.prototype.$container = UIkit.container;
+
 }

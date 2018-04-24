@@ -1,52 +1,48 @@
-import {isRtl, isVisible, toggleClass} from '../util/index';
+import {isRtl, isVisible, toggleClass} from 'uikit-util';
 
-export default function (UIkit) {
+export default {
 
-    UIkit.component('margin', {
+    props: {
+        margin: String,
+        firstColumn: Boolean
+    },
 
-        props: {
-            margin: String,
-            firstColumn: Boolean
+    defaults: {
+        margin: 'uk-margin-small-top',
+        firstColumn: 'uk-first-column'
+    },
+
+    update: {
+
+        read(data) {
+
+            const items = this.$el.children;
+
+            if (!items.length || !isVisible(this.$el)) {
+                return data.rows = false;
+            }
+
+            data.rows = getRows(items);
+            data.stacks = data.rows.some(row => row.length > 1);
+
         },
 
-        defaults: {
-            margin: 'uk-margin-small-top',
-            firstColumn: 'uk-first-column'
+        write({rows}) {
+
+            rows.forEach((row, i) =>
+                row.forEach((el, j) => {
+                    toggleClass(el, this.margin, i !== 0);
+                    toggleClass(el, this.firstColumn, j === 0);
+                })
+            );
+
         },
 
-        update: {
+        events: ['load', 'resize']
 
-            read(data) {
+    }
 
-                const items = this.$el.children;
-
-                if (!items.length || !isVisible(this.$el)) {
-                    return data.rows = false;
-                }
-
-                data.rows = getRows(items);
-                data.stacks = data.rows.some(row => row.length > 1);
-
-            },
-
-            write({rows}) {
-
-                rows.forEach((row, i) =>
-                    row.forEach((el, j) => {
-                        toggleClass(el, this.margin, i !== 0);
-                        toggleClass(el, this.firstColumn, j === 0);
-                    })
-                );
-
-            },
-
-            events: ['load', 'resize']
-
-        }
-
-    });
-
-}
+};
 
 export function getRows(items) {
     const rows = [[]];

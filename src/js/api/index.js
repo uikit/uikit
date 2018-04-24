@@ -17,7 +17,7 @@ UIkit.options = {};
 globalAPI(UIkit);
 hooksAPI(UIkit);
 stateAPI(UIkit);
-instanceAPI(UIkit);
 componentAPI(UIkit);
+instanceAPI(UIkit);
 
 export default UIkit;

@@ -1,39 +1,33 @@
-export default function (UIkit) {
+import {css} from 'uikit-util';
 
-    const {css} = UIkit.util;
+export default {
 
-    const Animations = {
+    slide: {
 
-        slide: {
-
-            show(dir) {
-                return [
-                    {transform: translate(dir * -100)},
-                    {transform: translate()}
-                ];
-            },
-
-            percent(current) {
-                return Animations.translated(current);
-            },
-
-            translate(percent, dir) {
-                return [
-                    {transform: translate(dir * -100 * percent)},
-                    {transform: translate(dir * 100 * (1 - percent))}
-                ];
-            }
-
+        show(dir) {
+            return [
+                {transform: translate(dir * -100)},
+                {transform: translate()}
+            ];
         },
 
-        translated(el) {
-            return Math.abs(css(el, 'transform').split(',')[4] / el.offsetWidth) || 0;
+        percent(current) {
+            return translated(current);
+        },
+
+        translate(percent, dir) {
+            return [
+                {transform: translate(dir * -100 * percent)},
+                {transform: translate(dir * 100 * (1 - percent))}
+            ];
         }
 
-    };
+    }
 
-    return Animations;
+};
 
+export function translated(el) {
+    return Math.abs(css(el, 'transform').split(',')[4] / el.offsetWidth) || 0;
 }
 
 export function translate(value = 0, unit = '%') {

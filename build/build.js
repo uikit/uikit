@@ -23,8 +23,8 @@ const components = glob.sync('src/js/components/*.js').reduce((components, file)
     components[name] = () => util.compile(file, `dist/${file.substring(4, file.length - 3)}`, {
         name,
         minify,
-        external: ['uikit'],
-        globals: {uikit: 'UIkit'}
+        external: ['uikit', 'uikit-mixin', 'uikit-util'],
+        globals: {uikit: 'UIkit', 'uikit-mixin': 'UIkit.mixin', 'uikit-util': 'UIkit.util'}
     });
 
     return components;
@@ -40,8 +40,7 @@ const steps = {
             name: 'icons',
             aliases: {icons: 'dist/icons'}
         }))
-        .then(() => fs.unlink('dist/icons.json', () => {
-        })),
+        .then(() => fs.unlink('dist/icons.json', () => {})),
     tests: () => util.compile('tests/js/index.js', 'tests/js/test', {minify, name: 'test'})
 
 };

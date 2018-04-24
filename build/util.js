@@ -94,7 +94,10 @@ exports.compile = async function (file, dest, {external, globals, name, aliases,
                 VERSION: `'${version}'`
             }),
             alias({
-                Paths: aliases || {},
+                Paths: Object.assign({
+                    'uikit-mixin': './src/js/mixin/index',
+                    'uikit-util': './src/js/util/index',
+                }, aliases),
                 Extensions: ['js', 'json']
             }),
             html({
