@@ -211,8 +211,8 @@
 
 .uk-search-default .uk-search-icon { width: @search-default-icon-width; }
 
-.uk-search-default .uk-search-icon:not(.uk-search-icon-flip) + .uk-search-input { padding-left: (@search-default-icon-width); }
-.uk-search-default .uk-search-icon-flip + .uk-search-input { padding-right: (@search-default-icon-width); }
+.uk-search-default .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-default-icon-width); }
+.uk-search-default .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-default-icon-width); }
 
 
 /* Navbar modifier
@@ -237,8 +237,8 @@
 
 .uk-search-navbar .uk-search-icon { width: @search-navbar-icon-width; }
 
-.uk-search-navbar .uk-search-icon:not(.uk-search-icon-flip) + .uk-search-input { padding-left: (@search-navbar-icon-width); }
-.uk-search-navbar .uk-search-icon-flip + .uk-search-input { padding-right: (@search-navbar-icon-width); }
+.uk-search-navbar .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-navbar-icon-width); }
+.uk-search-navbar .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-navbar-icon-width); }
 
 
 /* Large modifier
@@ -263,8 +263,8 @@
 
 .uk-search-large .uk-search-icon { width: @search-large-icon-width; }
 
-.uk-search-large .uk-search-icon:not(.uk-search-icon-flip) + .uk-search-input { padding-left: (@search-large-icon-width); }
-.uk-search-large .uk-search-icon-flip + .uk-search-input { padding-right: (@search-large-icon-width); }
+.uk-search-large .uk-search-icon:not(.uk-search-icon-flip) ~ .uk-search-input { padding-left: (@search-large-icon-width); }
+.uk-search-large .uk-search-icon-flip ~ .uk-search-input { padding-right: (@search-large-icon-width); }
 
 
 /* Toggle
@@ -335,7 +335,6 @@
     //
 
     .uk-search .uk-search-icon { color: @inverse-search-icon-color; }
-
     .uk-search .uk-search-icon:hover { color: @inverse-search-icon-color; }
 
     //

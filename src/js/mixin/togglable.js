@@ -135,7 +135,7 @@ export default {
 
             return promise.then(() => {
                 trigger(el, show ? 'shown' : 'hidden', [this]);
-                trigger(el, 'resize');
+                this.$update();
             });
         },
 
@@ -157,7 +157,7 @@ export default {
             $$('[autofocus]', el).some(el => isVisible(el) && (el.focus() || true));
 
             this.updateAria(el);
-            changed && trigger(el, 'resize');
+            changed && this.$update();
         },
 
         _toggleImmediate(el, show) {
