@@ -29,7 +29,7 @@ module.exports = [
         mode: 'development',
         module: rules,
         plugins: [
-            new circular,
+            new circular(),
             new webpack.DefinePlugin({
                 BUNDLED: true,
                 VERSION: `'${version}'`
@@ -56,7 +56,7 @@ module.exports = [
         mode: 'production',
         module: rules,
         plugins: [
-            new circular,
+            new circular(),
             new webpack.DefinePlugin({
                 BUNDLED: true,
                 VERSION: `'${version}'`
