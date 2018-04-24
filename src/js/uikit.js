@@ -6,21 +6,24 @@ import Lightbox from './components/lightbox';
 import Notification from './components/notification';
 import Parallax from './components/parallax';
 import Slider from './components/slider';
+import SliderParallax from './components/slider-parallax';
 import Slideshow from './components/slideshow';
 import Sortable from './components/sortable';
 import Tooltip from './components/tooltip';
 import Upload from './components/upload';
 
-UIkit.use(Countdown);
-UIkit.use(Filter);
-UIkit.use(Lightbox);
-UIkit.use(Notification);
-UIkit.use(Parallax);
-UIkit.use(Slider);
-UIkit.use(Slideshow);
-UIkit.use(Sortable);
-UIkit.use(Tooltip);
-UIkit.use(Upload);
+UIkit.component('countdown', Countdown);
+UIkit.component('filter', Filter);
+UIkit.component('lightbox', Lightbox);
+UIkit.component('notification', Notification);
+UIkit.component('parallax', Parallax);
+UIkit.component('slider', Slider);
+UIkit.component('sliderParallax', SliderParallax);
+UIkit.component('slideshow', Slideshow);
+UIkit.component('slideshowParallax', SliderParallax);
+UIkit.component('sortable', Sortable);
+UIkit.component('tooltip', Tooltip);
+UIkit.component('upload', Upload);
 
 if (BUNDLED) {
     boot(UIkit);

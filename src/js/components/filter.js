@@ -1,202 +1,184 @@
 import Animate from '../mixin/animate';
+import {$$, $, append, assign, css, data, each, hasClass, includes, isUndefined, matches, parseOptions, toggleClass, toNodes, trigger} from 'uikit-util';
 
-function plugin(UIkit) {
+export default {
 
-    UIkit.use(Animate);
+    mixins: [Animate],
 
-    const {util, mixin} = UIkit;
-    const {$$, $, append, assign, css, data, each, hasClass, includes, isUndefined, matches, parseOptions, toggleClass, toNodes, trigger} = util;
+    props: {
+        target: Boolean,
+        selActive: Boolean
+    },
 
-    if (plugin.installed) {
-        return;
-    }
+    defaults: {
+        target: null,
+        selActive: false,
+        attrItem: 'uk-filter-control',
+        cls: 'uk-active',
+        animation: 250
+    },
 
-    UIkit.component('filter', {
+    computed: {
 
-        mixins: [mixin.animate],
-
-        props: {
-            target: Boolean,
-            selActive: Boolean
+        toggles({attrItem}, $el) {
+            return $$(`[${this.attrItem}],[data-${this.attrItem}]`, $el);
         },
 
-        defaults: {
-            target: null,
-            selActive: false,
-            attrItem: 'uk-filter-control',
-            cls: 'uk-active',
-            animation: 250
-        },
+        target({target}, $el) {
+            return $(target, $el);
+        }
 
-        computed: {
+    },
 
-            toggles({attrItem}, $el) {
-                return $$(`[${this.attrItem}],[data-${this.attrItem}]`, $el);
+    events: [
+
+        {
+
+            name: 'click',
+
+            delegate() {
+                return `[${this.attrItem}],[data-${this.attrItem}]`;
             },
 
-            target({target}, $el) {
-                return $(target, $el);
-            }
+            handler(e) {
 
-        },
-
-        events: [
-
-            {
-
-                name: 'click',
-
-                delegate() {
-                    return `[${this.attrItem}],[data-${this.attrItem}]`;
-                },
-
-                handler(e) {
-
-                    e.preventDefault();
-                    this.apply(e.current);
-
-                }
-
-            }
-
-        ],
-
-        connected() {
-
-            if (this.selActive === false) {
-                return;
-            }
-
-            const actives = $$(this.selActive, this.$el);
-            this.toggles.forEach(el => toggleClass(el, this.cls, includes(actives, el)));
-        },
-
-        update(data) {
-
-            const {toggles, children} = data;
-            if (isEqualList(toggles, this.toggles, false) && isEqualList(children, this.target.children, false)) {
-                return;
-            }
-
-            data.toggles = this.toggles;
-            data.children = this.target.children;
-
-            this.setState(this.getState(), false);
-
-        },
-
-        methods: {
-
-            apply(el) {
-                this.setState(mergeState(el, this.attrItem, this.getState()));
-            },
-
-            getState() {
-                return this.toggles
-                    .filter(item => hasClass(item, this.cls))
-                    .reduce((state, el) => mergeState(el, this.attrItem, state), {filter: {'': ''}, sort: []});
-            },
-
-            setState(state, animate = true) {
-
-                state = assign({filter: {'': ''}, sort: []}, state);
-
-                trigger(this.$el, 'beforeFilter', [this, state]);
-
-                const children = toNodes(this.target.children);
-
-                this.toggles.forEach(el => toggleClass(el, this.cls, matchFilter(el, this.attrItem, state)));
-
-                const apply = () => {
-
-                    const selector = getSelector(state);
-
-                    children.forEach(el => css(el, 'display', selector && !matches(el, selector) ? 'none' : ''));
-
-                    const [sort, order] = state.sort;
-
-                    if (sort) {
-                        const sorted = sortItems(children, sort, order);
-                        if (!isEqualList(sorted, children)) {
-                            sorted.forEach(el => append(this.target, el));
-                        }
-                    }
-
-                };
-
-                if (animate) {
-                    this.animate(apply).then(() => trigger(this.$el, 'afterFilter', [this]));
-                } else {
-                    apply();
-                    trigger(this.$el, 'afterFilter', [this]);
-                }
+                e.preventDefault();
+                this.apply(e.current);
 
             }
 
         }
 
-    });
+    ],
 
-    function getFilter(el, attr) {
-        return parseOptions(data(el, attr), ['filter']);
-    }
+    connected() {
 
-    function mergeState(el, attr, state) {
+        if (this.selActive === false) {
+            return;
+        }
 
-        toNodes(el).forEach(el => {
-            const filterBy = getFilter(el, attr);
-            const {filter, group, sort, order = 'asc'} = filterBy;
+        const actives = $$(this.selActive, this.$el);
+        this.toggles.forEach(el => toggleClass(el, this.cls, includes(actives, el)));
+    },
 
-            if (filter || isUndefined(sort)) {
+    update(data) {
 
-                if (group) {
-                    delete state.filter[''];
-                    state.filter[group] = filter;
-                } else {
-                    state.filter = {'': filter};
+        const {toggles, children} = data;
+        if (isEqualList(toggles, this.toggles, false) && isEqualList(children, this.target.children, false)) {
+            return;
+        }
+
+        data.toggles = this.toggles;
+        data.children = this.target.children;
+
+        this.setState(this.getState(), false);
+
+    },
+
+    methods: {
+
+        apply(el) {
+            this.setState(mergeState(el, this.attrItem, this.getState()));
+        },
+
+        getState() {
+            return this.toggles
+                .filter(item => hasClass(item, this.cls))
+                .reduce((state, el) => mergeState(el, this.attrItem, state), {filter: {'': ''}, sort: []});
+        },
+
+        setState(state, animate = true) {
+
+            state = assign({filter: {'': ''}, sort: []}, state);
+
+            trigger(this.$el, 'beforeFilter', [this, state]);
+
+            const children = toNodes(this.target.children);
+
+            this.toggles.forEach(el => toggleClass(el, this.cls, matchFilter(el, this.attrItem, state)));
+
+            const apply = () => {
+
+                const selector = getSelector(state);
+
+                children.forEach(el => css(el, 'display', selector && !matches(el, selector) ? 'none' : ''));
+
+                const [sort, order] = state.sort;
+
+                if (sort) {
+                    const sorted = sortItems(children, sort, order);
+                    if (!isEqualList(sorted, children)) {
+                        sorted.forEach(el => append(this.target, el));
+                    }
                 }
 
+            };
+
+            if (animate) {
+                this.animate(apply).then(() => trigger(this.$el, 'afterFilter', [this]));
+            } else {
+                apply();
+                trigger(this.$el, 'afterFilter', [this]);
             }
 
-            if (!isUndefined(sort)) {
-                state.sort = [sort, order];
+        }
+
+    }
+
+};
+
+function getFilter(el, attr) {
+    return parseOptions(data(el, attr), ['filter']);
+}
+
+function mergeState(el, attr, state) {
+
+    toNodes(el).forEach(el => {
+        const filterBy = getFilter(el, attr);
+        const {filter, group, sort, order = 'asc'} = filterBy;
+
+        if (filter || isUndefined(sort)) {
+
+            if (group) {
+                delete state.filter[''];
+                state.filter[group] = filter;
+            } else {
+                state.filter = {'': filter};
             }
-        });
 
-        return state;
-    }
+        }
 
-    function matchFilter(el, attr, {filter: stateFilter, sort: [stateSort, stateOrder]}) {
-        const {filter, group = '', sort, order = 'asc'} = getFilter(el, attr);
-        return Boolean(
-            (filter || isUndefined(sort)) && group in stateFilter && (filter === stateFilter[group] || isUndefined(filter) && !stateFilter[group])
-            || stateSort && sort && stateSort === sort && stateOrder === order
-        );
-    }
+        if (!isUndefined(sort)) {
+            state.sort = [sort, order];
+        }
+    });
 
-    function isEqualList(listA, listB, strict = true) {
-
-        listA = toNodes(listA);
-        listB = toNodes(listB);
-
-        return listA.length === listB.length
-            && listA.every((el, i) => strict ? el === listB[i] : ~listB.indexOf(el));
-    }
-
-    function getSelector({filter}) {
-        let selector = '';
-        each(filter, value => selector += value || '');
-        return selector;
-    }
-
-    function sortItems(nodes, sort, order) {
-        return toNodes(nodes).sort((a, b) => data(a, sort).localeCompare(data(b, sort)) * (order === 'asc' || -1));
-    }
-
+    return state;
 }
 
-if (!BUNDLED && typeof window !== 'undefined' && window.UIkit) {
-    window.UIkit.use(plugin);
+function matchFilter(el, attr, {filter: stateFilter, sort: [stateSort, stateOrder]}) {
+    const {filter, group = '', sort, order = 'asc'} = getFilter(el, attr);
+    return Boolean(
+        (filter || isUndefined(sort)) && group in stateFilter && (filter === stateFilter[group] || isUndefined(filter) && !stateFilter[group])
+        || stateSort && sort && stateSort === sort && stateOrder === order
+    );
 }
 
-export default plugin;
+function isEqualList(listA, listB, strict = true) {
+
+    listA = toNodes(listA);
+    listB = toNodes(listB);
+
+    return listA.length === listB.length
+        && listA.every((el, i) => strict ? el === listB[i] : ~listB.indexOf(el));
+}
+
+function getSelector({filter}) {
+    let selector = '';
+    each(filter, value => selector += value || '');
+    return selector;
+}
+
+function sortItems(nodes, sort, order) {
+    return toNodes(nodes).sort((a, b) => data(a, sort).localeCompare(data(b, sort)) * (order === 'asc' || -1));
+}

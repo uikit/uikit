@@ -1,4 +1,4 @@
-import {$$, addClass, css, hasTouch, on, ready, removeClass, toMs, within} from '../util/index';
+import {$$, addClass, css, hasTouch, on, ready, removeClass, toMs, within} from 'uikit-util';
 
 export default function (UIkit) {
 

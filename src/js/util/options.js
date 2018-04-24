@@ -63,6 +63,14 @@ export function mergeOptions(parent, child) {
 
     const options = {};
 
+    if (isFunction(child)) {
+        child = child.options;
+    }
+
+    if (child.extends) {
+        parent = mergeOptions(parent, child.extends);
+    }
+
     if (child.mixins) {
         for (let i = 0, l = child.mixins.length; i < l; i++) {
             parent = mergeOptions(parent, child.mixins[i]);
