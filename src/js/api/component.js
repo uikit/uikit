@@ -1,4 +1,4 @@
-import {$$, camelize, fastdom, hyphenate, isPlainObject, startsWith} from '../util/index';
+import {$$, camelize, fastdom, hyphenate, isPlainObject, startsWith} from 'uikit-util';
 
 export default function (UIkit) {
 

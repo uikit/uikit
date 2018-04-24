@@ -1,4 +1,4 @@
-import {$, apply, createEvent, mergeOptions, toNode} from '../util/index';
+import {$, apply, createEvent, mergeOptions, toNode} from 'uikit-util';
 
 export default function (UIkit) {
 

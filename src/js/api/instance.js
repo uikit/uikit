@@ -1,4 +1,4 @@
-import {remove, within} from '../util/index';
+import {remove, within} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -70,6 +70,7 @@ export default function (UIkit) {
 
     UIkit.prototype.$update = UIkit.update;
     UIkit.prototype.$getComponent = UIkit.getComponent;
-    UIkit.prototype.$container = UIkit.container;
+
+    Object.defineProperty(UIkit.prototype, '$container', Object.getOwnPropertyDescriptor(UIkit, 'container'));
 
 }
