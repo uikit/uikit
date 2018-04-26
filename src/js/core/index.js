@@ -63,14 +63,14 @@ export default function (UIkit) {
     // Icon components
     UIkit.component('close', Close);
     UIkit.component('marker', IconComponent);
-    UIkit.component('navbar-toggle-icon', IconComponent);
-    UIkit.component('overlay-icon', IconComponent);
-    UIkit.component('pagination-next', IconComponent);
-    UIkit.component('pagination-previous', IconComponent);
+    UIkit.component('navbarToggleIcon', IconComponent);
+    UIkit.component('overlayIcon', IconComponent);
+    UIkit.component('paginationNext', IconComponent);
+    UIkit.component('paginationPrevious', IconComponent);
     UIkit.component('search', Search);
     UIkit.component('search', Search);
-    UIkit.component('slidenav-next', Slidenav);
-    UIkit.component('slidenav-previous', Slidenav);
+    UIkit.component('slidenavNext', Slidenav);
+    UIkit.component('slidenavPrevious', Slidenav);
     UIkit.component('spinner', Spinner);
     UIkit.component('spinner', Spinner);
     UIkit.component('totop', IconComponent);
