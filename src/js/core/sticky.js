@@ -142,10 +142,6 @@ export default {
                     attr(placeholder, 'hidden', '');
                 }
 
-                attr(this.widthElement, 'hidden', null);
-                this.width = this.widthElement.offsetWidth;
-                attr(this.widthElement, 'hidden', this.isActive ? null : '');
-
                 this.topOffset = offset(this.isActive ? placeholder : this.$el).top;
                 this.bottomOffset = this.topOffset + outerHeight;
 
@@ -167,6 +163,9 @@ export default {
         {
 
             read(_, {scrollY = window.pageYOffset}) {
+
+                this.width = (isVisible(this.widthElement) ? this.widthElement : this.$el).offsetWidth;
+
                 return {
                     scroll: this.scroll = scrollY,
                     visible: isVisible(this.$el)
