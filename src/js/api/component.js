@@ -36,11 +36,15 @@ export default function (UIkit) {
 
                 const instance = UIkit.getComponent(element, name);
 
-                if (instance && data) {
-                    instance.$reset(data);
+                if (instance) {
+                    if (!data) {
+                        return instance;
+                    } else {
+                        instance.$destroy();
+                    }
                 }
 
-                return instance || new component({el: element, data: data || {}});
+                return new component({el: element, data: data || {}});
             }
 
         };

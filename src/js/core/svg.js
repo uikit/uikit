@@ -24,11 +24,9 @@ export default {
         'class': ''
     },
 
-    init() {
-        this.class += ' uk-svg';
-    },
-
     connected() {
+
+        this.class += ' uk-svg';
 
         if (!this.icon && includes(this.src, '#')) {
 

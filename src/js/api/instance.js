@@ -20,8 +20,6 @@ export default function (UIkit) {
 
         this.$el = this.$options.el = this.$options.el || el;
 
-        this._initProps();
-
         this._callHook('init');
 
         if (within(el, document)) {
@@ -33,9 +31,8 @@ export default function (UIkit) {
         this._callUpdate(e);
     };
 
-    UIkit.prototype.$reset = function (data) {
+    UIkit.prototype.$reset = function () {
         this._callDisconnected();
-        this._initProps(data);
         this._callConnected();
     };
 

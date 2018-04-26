@@ -2,7 +2,7 @@ import {addClass} from 'uikit-util';
 
 export default {
 
-    init() {
+    connected() {
         addClass(this.$el, this.$name);
     }
 

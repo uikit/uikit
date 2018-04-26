@@ -56,11 +56,11 @@ const Icon = {
 
     defaults: {exclude: ['id', 'style', 'class', 'src', 'icon', 'ratio']},
 
-    init() {
+    connected() {
         addClass(this.$el, 'uk-icon');
 
         if (isRtl) {
-            this.icon = swap(swap(this.icon, 'left', 'right'), 'previous', 'next');
+            this.icon = swap(swap(this.$props.icon, 'left', 'right'), 'previous', 'next');
         }
     },
 
@@ -95,7 +95,7 @@ export const IconComponent = {
 
 export const Slidenav = assign({
 
-    init() {
+    connected() {
         addClass(this.$el, 'uk-slidenav');
 
         if (hasClass(this.$el, 'uk-slidenav-large')) {
@@ -107,7 +107,7 @@ export const Slidenav = assign({
 
 export const Search = assign({
 
-    init() {
+    connected() {
         if (hasClass(this.$el, 'uk-search-icon') && parents(this.$el, '.uk-search-large').length) {
             this.icon = 'search-large';
         } else if (parents(this.$el, '.uk-search-navbar').length) {
@@ -119,7 +119,7 @@ export const Search = assign({
 
 export const Close = assign({
 
-    init() {
+    connected() {
         this.icon = `close-${hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon'}`;
     }
 

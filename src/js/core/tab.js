@@ -17,7 +17,7 @@ export default {
         attrItem: 'uk-tab-item'
     },
 
-    init() {
+    connected() {
 
         const cls = hasClass(this.$el, 'uk-tab-left')
             ? 'uk-tab-left'

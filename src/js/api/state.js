@@ -143,7 +143,7 @@ export default function (UIkit) {
 
             const data = getProps(this.$options, this.$name);
             if (attrs.some(key => !isUndefined(data[key]) && data[key] !== this.$props[key])) {
-                this.$reset(data);
+                this.$reset();
             }
 
         });

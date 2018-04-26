@@ -4,7 +4,7 @@ export default {
 
     props: ['width', 'height'],
 
-    init() {
+    connected() {
         addClass(this.$el, 'uk-responsive-width');
     },
 

@@ -51,10 +51,11 @@ export default {
 
     init() {
         this.tracker = new MouseTracker();
-        addClass(this.$el, this.clsDrop);
     },
 
     connected() {
+
+        addClass(this.$el, this.clsDrop);
 
         const {toggle} = this.$props;
         this.toggle = toggle && this.$create('toggle', isString(toggle) ? query(toggle, this.$el) : this.$el.previousElementSibling, {
