@@ -20,7 +20,7 @@ export default {
         widthElement: Boolean,
         showOnUp: Boolean,
         media: 'media',
-        target: Number
+        targetOffset: Number
     },
 
     defaults: {
@@ -36,7 +36,7 @@ export default {
         widthElement: false,
         showOnUp: false,
         media: false,
-        target: false
+        targetOffset: false
     },
 
     computed: {
@@ -73,30 +73,6 @@ export default {
         this.widthElement = null;
     },
 
-    ready() {
-
-        if (!(this.target && location.hash && window.pageYOffset > 0)) {
-            return;
-        }
-
-        const target = $(location.hash);
-
-        if (target) {
-            fastdom.read(() => {
-
-                const {top} = offset(target);
-                const elTop = offset(this.$el).top;
-                const elHeight = this.$el.offsetHeight;
-
-                if (elTop + elHeight >= top && elTop <= top + target.offsetHeight) {
-                    window.scrollTo(0, top - elHeight - this.target - this.offset);
-                }
-
-            });
-        }
-
-    },
-
     events: [
 
         {
@@ -117,6 +93,38 @@ export default {
 
             handler() {
                 replaceClass(this.selTarget, this.clsActive, this.clsInactive);
+            }
+
+        },
+
+        {
+
+            name: 'load hashchange popstate',
+
+            el: window,
+
+            handler() {
+
+                if (!(this.targetOffset !== false && location.hash && window.scrollY > 0)) {
+                    return;
+                }
+
+                const target = $(location.hash);
+
+                if (target) {
+                    fastdom.read(() => {
+
+                        const {top} = offset(target);
+                        const elTop = offset(this.$el).top;
+                        const elHeight = this.$el.offsetHeight;
+
+                        if (this.isActive && elTop + elHeight >= top && elTop <= top + target.offsetHeight) {
+                            window.scroll(0, top - elHeight - (isNumeric(this.targetOffset) ? this.targetOffset : 0) - this.offset);
+                        }
+
+                    });
+                }
+
             }
 
         }
@@ -162,7 +170,7 @@ export default {
 
         {
 
-            read(_, {scrollY = window.pageYOffset}) {
+            read(_, {scrollY = window.scrollY}) {
 
                 this.width = (isVisible(this.widthElement) ? this.widthElement : this.$el).offsetWidth;
 

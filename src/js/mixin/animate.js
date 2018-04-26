@@ -30,7 +30,7 @@ export default {
             let propsFrom = children.map(el => getProps(el, true));
 
             const oldHeight = height(this.target);
-            const oldScrollY = window.pageYOffset;
+            const oldScrollY = window.scrollY;
 
             action();
 
@@ -86,7 +86,7 @@ export default {
                     addClass(this.target, targetClass);
                     children.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
                     css(this.target, 'height', oldHeight);
-                    window.scrollTo(window.pageXOffset, oldScrollY);
+                    window.scroll(window.scrollX, oldScrollY);
 
                     Promise.all(children.map((el, i) =>
                         propsFrom[i] && propsTo[i]

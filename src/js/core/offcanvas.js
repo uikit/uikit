@@ -133,7 +133,7 @@ export default {
 
             handler() {
 
-                scroll = scroll || {x: window.pageXOffset, y: window.pageYOffset};
+                scroll = scroll || {x: window.scrollX, y: window.scrollY};
 
                 if (this.mode === 'reveal' && !hasClass(this.panel, this.clsMode)) {
                     wrapAll(this.panel, '<div>');
@@ -179,7 +179,7 @@ export default {
                 }
 
                 if (!this.overlay) {
-                    scroll = {x: window.pageXOffset, y: window.pageYOffset};
+                    scroll = {x: window.scrollX, y: window.scrollY};
                 } else if (!scroll) {
                     const {scrollLeft: x, scrollTop: y} = this.content;
                     scroll = {x, y};
@@ -196,7 +196,7 @@ export default {
                 width(this.content, '');
                 height(this.content, '');
 
-                window.scrollTo(scroll.x, scroll.y);
+                window.scroll(scroll.x, scroll.y);
 
                 scroll = null;
 

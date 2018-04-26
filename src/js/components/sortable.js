@@ -38,7 +38,7 @@ export default {
         ['init', 'start', 'move', 'end'].forEach(key => {
             const fn = this[key];
             this[key] = e => {
-                this.scrollY = window.pageYOffset;
+                this.scrollY = window.scrollY;
                 const {x, y} = getPos(e);
                 this.pos = {x, y};
 
@@ -77,7 +77,7 @@ export default {
                 scroll = this.scrollY + 5;
             }
 
-            scroll && setTimeout(() => window.scrollTo(window.scrollX, scroll), 5);
+            scroll && setTimeout(() => window.scroll(window.scrollX, scroll), 5);
         }
 
     },
@@ -181,7 +181,7 @@ export default {
         },
 
         scroll() {
-            const scroll = window.pageYOffset;
+            const scroll = window.scrollY;
             if (scroll !== this.scrollY) {
                 this.pos.y += scroll - this.scrollY;
                 this.scrollY = scroll;
