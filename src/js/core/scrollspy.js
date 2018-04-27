@@ -14,7 +14,7 @@ export default {
         delay: Number
     },
 
-    defaults: {
+    data: () => ({
         cls: [],
         target: false,
         hidden: true,
@@ -23,7 +23,7 @@ export default {
         repeat: false,
         delay: 0,
         inViewClass: 'uk-scrollspy-inview'
-    },
+    }),
 
     computed: {
 

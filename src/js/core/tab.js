@@ -12,7 +12,7 @@ export default {
         media: 'media'
     },
 
-    defaults: {
+    data: {
         media: 960,
         attrItem: 'uk-tab-item'
     },

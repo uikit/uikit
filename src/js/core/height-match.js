@@ -10,7 +10,7 @@ export default {
         row: Boolean
     },
 
-    defaults: {
+    data: {
         target: '> *',
         row: true
     },

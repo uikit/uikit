@@ -7,7 +7,7 @@ export default {
         offset: Number
     },
 
-    defaults: {
+    data: {
         duration: 1000,
         offset: 0
     },

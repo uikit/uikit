@@ -11,7 +11,7 @@ export default {
         height: Number
     },
 
-    defaults: {
+    data: {
         automute: true
     },
 

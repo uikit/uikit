@@ -2,7 +2,7 @@ import {getPos, includes, isRtl, isTouch, off, on, pointerDown, pointerMove, poi
 
 export default {
 
-    defaults: {
+    data: {
         threshold: 10,
         preventCatch: false
     },

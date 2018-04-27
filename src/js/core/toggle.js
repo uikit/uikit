@@ -14,7 +14,7 @@ export default {
         media: 'media'
     },
 
-    defaults: {
+    data: {
         href: false,
         target: false,
         mode: 'click',

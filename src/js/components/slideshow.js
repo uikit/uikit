@@ -14,7 +14,7 @@ export default {
         maxHeight: Boolean,
     },
 
-    defaults: {
+    data: {
         ratio: '16:9',
         minHeight: false,
         maxHeight: false,

@@ -16,7 +16,7 @@ export default {
         overlay: Boolean
     },
 
-    defaults: {
+    data: {
         content: '.uk-offcanvas-content',
         mode: 'slide',
         flip: false,

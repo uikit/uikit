@@ -18,7 +18,7 @@ export default {
         title: String
     },
 
-    defaults: {
+    data: {
         pos: 'top',
         title: '',
         delay: 0,

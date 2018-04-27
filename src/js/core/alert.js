@@ -14,11 +14,11 @@ export default {
         close: String
     },
 
-    defaults: {
+    data: {
         animation: [true],
         selClose: '.uk-alert-close',
         duration: 150,
-        hideProps: assign({opacity: 0}, Togglable.defaults.hideProps)
+        hideProps: assign({opacity: 0}, Togglable.data.hideProps)
     },
 
     events: [

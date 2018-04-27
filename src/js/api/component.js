@@ -1,4 +1,4 @@
-import {$$, camelize, fastdom, hyphenate, isPlainObject, startsWith} from 'uikit-util';
+import {$$, assign, camelize, fastdom, hyphenate, isPlainObject, startsWith} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -44,12 +44,13 @@ export default function (UIkit) {
                     }
                 }
 
-                return new component({el: element, data: data || {}});
+                return new component({el: element, data});
+
             }
 
         };
 
-        const opt = isPlainObject(options) ? options : options.options;
+        const opt = isPlainObject(options) ? assign({}, options) : options.options;
 
         opt.name = name;
 
@@ -62,7 +63,7 @@ export default function (UIkit) {
             fastdom.read(() => UIkit[name](`[uk-${id}],[data-uk-${id}]`));
         }
 
-        return components[name] = options;
+        return components[name] = isPlainObject(options) ? opt : options;
     };
 
     UIkit.getComponents = element => element && element[DATA] || {};

@@ -20,7 +20,7 @@ export default {
         clsDrop: String
     },
 
-    defaults: {
+    data: {
         mode: ['click', 'hover'],
         toggle: true,
         boundary: window,

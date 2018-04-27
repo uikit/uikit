@@ -7,7 +7,7 @@ export default {
 
     mixins: [Modal],
 
-    defaults: {
+    data: {
         clsPage: 'uk-modal-page',
         selPanel: '.uk-modal-dialog',
         selClose: '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full'

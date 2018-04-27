@@ -6,7 +6,7 @@ export default {
         container: Boolean
     },
 
-    defaults: {
+    data: {
         container: true
     },
 

@@ -11,9 +11,9 @@ export default {
         media: 'media'
     }),
 
-    defaults: props.reduce((defaults, prop) => {
-        defaults[prop] = undefined;
-        return defaults;
+    data: props.reduce((data, prop) => {
+        data[prop] = undefined;
+        return data;
     }, {
         media: false
     }),

@@ -16,7 +16,7 @@ import slidenavPrevious from '../../images/components/slidenav-previous.svg';
 import slidenavPreviousLarge from '../../images/components/slidenav-previous-large.svg';
 import spinner from '../../images/components/spinner.svg';
 import totop from '../../images/components/totop.svg';
-import {$, addClass, apply, assign, css, hasClass, isRtl, noop, parents, Promise, swap} from 'uikit-util';
+import {$, addClass, apply, css, hasClass, hyphenate, isRtl, noop, parents, Promise, swap} from 'uikit-util';
 
 const parsed = {};
 const icons = {
@@ -44,9 +44,7 @@ const Icon = {
 
     attrs: ['icon', 'ratio'],
 
-    extends: SVG,
-
-    mixins: [Class],
+    mixins: [Class, SVG],
 
     name: 'icon',
 
@@ -54,21 +52,17 @@ const Icon = {
 
     props: ['icon'],
 
-    defaults: {exclude: ['id', 'style', 'class', 'src', 'icon', 'ratio']},
+    data: {exclude: ['id', 'style', 'class', 'src', 'icon', 'ratio']},
 
     connected() {
         addClass(this.$el, 'uk-icon');
-
-        if (isRtl) {
-            this.icon = swap(swap(this.$props.icon, 'left', 'right'), 'previous', 'next');
-        }
     },
 
     methods: {
 
         getSvg() {
 
-            const icon = getIcon(this.icon);
+            const icon = getIcon(applyRtl(this.icon));
 
             if (!icon) {
                 return Promise.reject('Icon not found.');
@@ -85,53 +79,71 @@ export default Icon;
 
 export const IconComponent = {
 
-    install(_, options, name) {
-        options.defaults = {icon: name};
-    },
-
     extends: Icon,
+
+    data: vm => ({
+        icon: hyphenate(vm.constructor.options.name)
+    })
 
 };
 
-export const Slidenav = assign({
+export const Slidenav = {
+
+    extends: IconComponent,
 
     connected() {
         addClass(this.$el, 'uk-slidenav');
+    },
 
-        if (hasClass(this.$el, 'uk-slidenav-large')) {
-            this.icon += '-large';
+    computed: {
+
+        icon({icon}, $el) {
+            return hasClass($el, 'uk-slidenav-large')
+                ? `${icon}-large`
+                : icon;
         }
+
     }
 
-}, IconComponent);
+};
 
-export const Search = assign({
+export const Search = {
 
-    connected() {
-        if (hasClass(this.$el, 'uk-search-icon') && parents(this.$el, '.uk-search-large').length) {
-            this.icon = 'search-large';
-        } else if (parents(this.$el, '.uk-search-navbar').length) {
-            this.icon = 'search-navbar';
+    extends: IconComponent,
+
+    computed: {
+
+        icon({icon}, $el) {
+            return hasClass($el, 'uk-search-icon') && parents($el, '.uk-search-large').length
+                ? 'search-large'
+                : parents($el, '.uk-search-navbar').length
+                    ? 'search-navbar'
+                    : icon;
         }
+
     }
 
-}, IconComponent);
+};
 
-export const Close = assign({
+export const Close = {
+
+    extends: IconComponent,
 
     connected() {
         this.icon = `close-${hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon'}`;
     }
 
-}, IconComponent);
+};
 
-export const Spinner = assign({
+export const Spinner = {
+
+    extends: IconComponent,
 
     connected() {
         this.svg.then(svg => this.ratio !== 1 && css($('circle', svg), 'strokeWidth', 1 / this.ratio), noop);
     }
 
-}, IconComponent);
+};
 
 function install(UIkit) {
     UIkit.icon.add = added => {
@@ -162,4 +174,8 @@ function getIcon(icon) {
     }
 
     return parsed[icon];
+}
+
+function applyRtl(icon) {
+    return isRtl ? swap(swap(icon, 'left', 'right'), 'previous', 'next') : icon;
 }

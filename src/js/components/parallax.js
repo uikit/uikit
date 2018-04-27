@@ -11,7 +11,7 @@ export default {
         easing: Number,
     },
 
-    defaults: {
+    data: {
         target: false,
         viewport: 1,
         easing: 1,

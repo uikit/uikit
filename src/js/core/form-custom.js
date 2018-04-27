@@ -11,7 +11,7 @@ export default {
         target: Boolean
     },
 
-    defaults: {
+    data: {
         target: false
     },
 

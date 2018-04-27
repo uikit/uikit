@@ -17,7 +17,7 @@ export default {
         'class': String
     },
 
-    defaults: {
+    data: {
         ratio: 1,
         id: false,
         exclude: ['ratio', 'src', 'icon'],

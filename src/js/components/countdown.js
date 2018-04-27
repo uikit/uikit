@@ -12,7 +12,7 @@ export default {
         clsWrapper: String
     },
 
-    defaults: {
+    data: {
         date: '',
         clsWrapper: '.uk-countdown-%unit%'
     },

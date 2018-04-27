@@ -21,7 +21,7 @@ export default {
         duration: Number
     },
 
-    defaults: {
+    data: {
         dropdown: '.uk-navbar-nav > li',
         align: !isRtl ? 'left' : 'right',
         clsDrop: 'uk-navbar-dropdown',

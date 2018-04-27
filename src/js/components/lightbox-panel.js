@@ -18,7 +18,7 @@ export default {
         template: String
     },
 
-    defaults: {
+    data: () => ({
         preload: 1,
         videoAutoplay: false,
         delayControls: 3000,
@@ -40,7 +40,7 @@ export default {
                             <a class="uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade" href="#" uk-slidenav-next uk-lightbox-item="next"></a>
                             <div class="uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div>
                         </div>`
-    },
+    }),
 
     created() {
 

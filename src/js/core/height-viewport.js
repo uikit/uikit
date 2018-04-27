@@ -9,7 +9,7 @@ export default {
         minHeight: Number
     },
 
-    defaults: {
+    data: {
         expand: false,
         offsetTop: false,
         offsetBottom: false,

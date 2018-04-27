@@ -4,15 +4,13 @@ export default function (UIkit) {
 
     let uid = 0;
 
-    UIkit.prototype.props = {};
-
     UIkit.prototype._init = function (options) {
 
         options = options || {};
-        options = this.$options = mergeOptions(this.constructor.options, options, this);
+        options.data = normalizeData(options, this.constructor.options);
 
+        this.$options = mergeOptions(this.constructor.options, options, this);
         this.$el = null;
-        this.$name = UIkit.prefix + hyphenate(this.$options.name);
         this.$props = {};
 
         this._frames = {reads: {}, writes: {}};
@@ -31,27 +29,10 @@ export default function (UIkit) {
 
     UIkit.prototype._initData = function () {
 
-        let {defaults, data = {}, args = [], props = {}} = this.$options;
+        const {data = {}} = this.$options;
 
-        if (args.length && isArray(data)) {
-            data = data.slice(0, args.length).reduce((data, value, index) => {
-                if (isPlainObject(value)) {
-                    assign(data, value);
-                } else {
-                    data[args[index]] = value;
-                }
-                return data;
-            }, {});
-        }
-
-        for (const key in assign({}, defaults, props)) {
-            this.$props[key] = this[key] = hasOwn(data, key) && !isUndefined(data[key])
-                ? coerce(props[key], data[key])
-                : defaults
-                    ? defaults[key] && isArray(defaults[key])
-                        ? defaults[key].concat()
-                        : defaults[key]
-                    : null;
+        for (const key in data) {
+            this.$props[key] = this[key] = data[key];
         }
     };
 
@@ -296,4 +277,30 @@ export default function (UIkit) {
         return value && !isNaN(value) ? `(min-width: ${value}px)` : false;
     }
 
+    function normalizeData({data, el}, {args, props = {}}) {
+        data = isArray(data)
+            ? args && args.length
+                ? data.slice(0, args.length).reduce((data, value, index) => {
+                    if (isPlainObject(value)) {
+                        assign(data, value);
+                    } else {
+                        data[args[index]] = value;
+                    }
+                    return data;
+                }, {})
+                : undefined
+            : data;
+
+        if (data) {
+            for (const key in data) {
+                if (isUndefined(data[key])) {
+                    delete data[key];
+                } else {
+                    data[key] = props[key] ? coerce(props[key], data[key], el) : data[key];
+                }
+            }
+        }
+
+        return data;
+    }
 }

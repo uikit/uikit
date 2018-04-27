@@ -67,11 +67,9 @@ export default function (UIkit) {
     UIkit.component('overlayIcon', IconComponent);
     UIkit.component('paginationNext', IconComponent);
     UIkit.component('paginationPrevious', IconComponent);
-    UIkit.component('search', Search);
-    UIkit.component('search', Search);
+    UIkit.component('searchIcon', Search);
     UIkit.component('slidenavNext', Slidenav);
     UIkit.component('slidenavPrevious', Slidenav);
-    UIkit.component('spinner', Spinner);
     UIkit.component('spinner', Spinner);
     UIkit.component('totop', IconComponent);
 

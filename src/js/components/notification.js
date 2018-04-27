@@ -8,7 +8,7 @@ export default {
 
     args: ['message', 'status'],
 
-    defaults: {
+    data: {
         message: '',
         status: '',
         timeout: 5000,

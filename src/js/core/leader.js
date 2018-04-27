@@ -10,7 +10,7 @@ export default {
         media: 'media'
     },
 
-    defaults: {
+    data: {
         fill: '',
         media: false,
         clsWrapper: 'uk-leader-fill',

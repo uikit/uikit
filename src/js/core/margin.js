@@ -7,7 +7,7 @@ export default {
         firstColumn: Boolean
     },
 
-    defaults: {
+    data: {
         margin: 'uk-margin-small-top',
         firstColumn: 'uk-first-column'
     },

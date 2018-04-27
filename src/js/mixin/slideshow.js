@@ -11,7 +11,7 @@ export default {
         animation: String
     },
 
-    defaults: {
+    data: {
         animation: 'slide',
         clsActivated: 'uk-transition-active',
         Animations,

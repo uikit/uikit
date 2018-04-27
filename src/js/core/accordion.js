@@ -16,7 +16,7 @@ export default {
         transition: String
     },
 
-    defaults: {
+    data: {
         targets: '> *',
         active: false,
         animation: [true],

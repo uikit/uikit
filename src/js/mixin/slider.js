@@ -17,7 +17,7 @@ export default {
         velocity: Number
     },
 
-    defaults: {
+    data: () => ({
         easing: 'ease',
         finite: false,
         velocity: 1,
@@ -28,7 +28,7 @@ export default {
         clsActivated: false,
         Transitioner: false,
         transitionOptions: {}
-    },
+    }),
 
     computed: {
 

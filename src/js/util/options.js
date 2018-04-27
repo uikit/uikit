@@ -45,7 +45,6 @@ strats.props = function (parentVal, childVal) {
 
 // extend strategy
 strats.computed =
-strats.defaults =
 strats.methods = function (parentVal, childVal) {
     return childVal
         ? parentVal
@@ -54,12 +53,45 @@ strats.methods = function (parentVal, childVal) {
         : parentVal;
 };
 
+// data strategy
+strats.data = function (parentVal, childVal, vm) {
+
+    if (!vm) {
+
+        if (!childVal) {
+            return parentVal;
+        }
+
+        if (!parentVal) {
+            return childVal;
+        }
+
+        return function (vm) {
+            return mergeFnData(parentVal, childVal, vm);
+        };
+
+    }
+
+    return mergeFnData(parentVal, childVal, vm);
+};
+
+function mergeFnData(parentVal, childVal, vm) {
+    return strats.computed(
+        isFunction(parentVal)
+            ? parentVal.call(vm, vm)
+            : parentVal,
+        isFunction(childVal)
+            ? childVal.call(vm, vm)
+            : childVal
+    );
+}
+
 // default strategy
 const defaultStrat = function (parentVal, childVal) {
     return isUndefined(childVal) ? parentVal : childVal;
 };
 
-export function mergeOptions(parent, child) {
+export function mergeOptions(parent, child, vm) {
 
     const options = {};
 
@@ -68,12 +100,12 @@ export function mergeOptions(parent, child) {
     }
 
     if (child.extends) {
-        parent = mergeOptions(parent, child.extends);
+        parent = mergeOptions(parent, child.extends, vm);
     }
 
     if (child.mixins) {
         for (let i = 0, l = child.mixins.length; i < l; i++) {
-            parent = mergeOptions(parent, child.mixins[i]);
+            parent = mergeOptions(parent, child.mixins[i], vm);
         }
     }
 
@@ -88,7 +120,7 @@ export function mergeOptions(parent, child) {
     }
 
     function mergeKey(key) {
-        options[key] = (strats[key] || defaultStrat)(parent[key], child[key]);
+        options[key] = (strats[key] || defaultStrat)(parent[key], child[key], vm);
     }
 
     return options;

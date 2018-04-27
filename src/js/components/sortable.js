@@ -20,7 +20,7 @@ export default {
         handle: String
     },
 
-    defaults: {
+    data: {
         group: false,
         threshold: 5,
         clsItem: 'uk-sortable-item',

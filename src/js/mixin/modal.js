@@ -17,7 +17,7 @@ export default {
         stack: Boolean
     },
 
-    defaults: {
+    data: {
         cls: 'uk-open',
         escClose: true,
         bgClose: true,

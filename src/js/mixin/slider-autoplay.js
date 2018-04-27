@@ -8,7 +8,7 @@ export default {
         pauseOnHover: Boolean
     },
 
-    defaults: {
+    data: {
         autoplay: false,
         autoplayInterval: 7000,
         pauseOnHover: true

@@ -17,7 +17,7 @@ export default {
         parallax: Number
     },
 
-    defaults: {
+    data: {
         margin: 'uk-grid-margin',
         clsStack: 'uk-grid-stack',
         masonry: false,

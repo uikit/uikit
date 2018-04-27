@@ -5,7 +5,7 @@ export default {
 
     mixins: [Parallax],
 
-    defaults: {
+    data: {
         selItem: '!li'
     },
 

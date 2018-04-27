@@ -23,7 +23,7 @@ export default {
         targetOffset: Number
     },
 
-    defaults: {
+    data: {
         top: 0,
         bottom: false,
         offset: 0,

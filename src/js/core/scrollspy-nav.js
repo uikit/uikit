@@ -10,7 +10,7 @@ export default {
         offset: Number
     },
 
-    defaults: {
+    data: {
         cls: 'uk-active',
         closest: false,
         scroll: false,

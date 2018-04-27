@@ -1,8 +1,10 @@
-import {remove, within} from 'uikit-util';
+import {hyphenate, remove, within} from 'uikit-util';
 
 export default function (UIkit) {
 
     const DATA = UIkit.data;
+
+    UIkit.prototype.$name
 
     UIkit.prototype.$mount = function (el) {
 
@@ -68,6 +70,25 @@ export default function (UIkit) {
     UIkit.prototype.$update = UIkit.update;
     UIkit.prototype.$getComponent = UIkit.getComponent;
 
-    Object.defineProperty(UIkit.prototype, '$container', Object.getOwnPropertyDescriptor(UIkit, 'container'));
+    const names = {};
+    Object.defineProperties(UIkit.prototype, {
+
+        $container: Object.getOwnPropertyDescriptor(UIkit, 'container'),
+
+        $name: {
+
+            get() {
+                const {name} = this.$options;
+
+                if (!names[name]) {
+                    names[name] = UIkit.prefix + hyphenate(name);
+                }
+
+                return names[name];
+            }
+
+        }
+
+    });
 
 }

@@ -7,9 +7,9 @@ export default {
 
     props: assign({toggle: String}, LightboxPanel.props),
 
-    defaults: assign({toggle: 'a'}, Object.keys(LightboxPanel.props).reduce((defaults, key) => {
-        defaults[key] = LightboxPanel.defaults[key];
-        return defaults;
+    data: assign({toggle: 'a'}, Object.keys(LightboxPanel.props).reduce((data, key) => {
+        data[key] = LightboxPanel.data[key];
+        return data;
     }, {})),
 
     computed: {

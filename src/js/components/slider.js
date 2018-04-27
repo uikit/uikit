@@ -13,7 +13,7 @@ export default {
         sets: Boolean,
     },
 
-    defaults: {
+    data: {
         center: false,
         sets: false,
         attrItem: 'uk-slider-item',

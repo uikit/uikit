@@ -2,7 +2,7 @@ import {$, $$, data, html, toggleClass, toNumber} from 'uikit-util';
 
 export default {
 
-    defaults: {
+    data: {
         selNav: false
     },
 

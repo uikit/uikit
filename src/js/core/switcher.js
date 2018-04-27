@@ -14,7 +14,7 @@ export default {
         swiping: Boolean
     },
 
-    defaults: {
+    data: {
         connect: '~.uk-switcher',
         toggle: '> *',
         active: 0,

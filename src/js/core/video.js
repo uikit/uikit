@@ -9,7 +9,7 @@ export default {
         autoplay: Boolean,
     },
 
-    defaults: {
+    data: {
         automute: false,
         autoplay: true
     },

@@ -19,7 +19,7 @@ export default {
         url: String,
     },
 
-    defaults: {
+    data: {
         allow: false,
         clsDragover: 'uk-dragover',
         concurrent: 1,
