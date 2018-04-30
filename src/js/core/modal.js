@@ -92,9 +92,9 @@ export default function (UIkit) {
     });
 
     UIkit.modal.dialog = function (content, options) {
-
+options = assign({class: ''}, options);
         const dialog = UIkit.modal(`
-            <div class="uk-modal">
+            <div class="uk-modal ${options.class}">
                 <div class="uk-modal-dialog">${content}</div>
              </div>
         `, options);
