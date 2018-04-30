@@ -63,12 +63,14 @@ export default {
 
             let left = 0;
             let leftCenter = width;
+            let slideLeft = 0;
 
             sets = sets && this.slides.reduce((sets, slide, i) => {
 
-                const dim = offset(slide);
+                const {width: slideWidth} = offset(slide);
+                const slideRight = slideLeft + slideWidth;
 
-                if (dim.right > left) {
+                if (slideRight > left) {
 
                     if (!this.center && i > this.maxIndex) {
                         i = this.maxIndex;
@@ -77,16 +79,18 @@ export default {
                     if (!includes(sets, i)) {
 
                         const cmp = this.slides[i + 1];
-                        if (this.center && cmp && dim.width < leftCenter - offset(cmp).width / 2) {
-                            leftCenter -= dim.width;
+                        if (this.center && cmp && slideWidth < leftCenter - offset(cmp).width / 2) {
+                            leftCenter -= slideWidth;
                         } else {
                             leftCenter = width;
                             sets.push(i);
-                            left = dim.left + width + (this.center ? dim.width / 2 : 0);
+                            left = slideLeft + width + (this.center ? slideWidth / 2 : 0);
                         }
 
                     }
                 }
+
+                slideLeft += slideWidth;
 
                 return sets;
 
