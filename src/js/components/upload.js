@@ -34,7 +34,7 @@ function plugin(UIkit) {
             mime: false,
             msgInvalidMime: 'Invalid File Type: %s',
             msgInvalidName: 'Invalid File Name: %s',
-            msgInvalidSize: 'Invalid File Size: %s Bytes Max',
+            msgInvalidSize: 'Invalid File Size: %s Kilobytes Max',
             multiple: false,
             name: 'files[]',
             params: {},
@@ -113,7 +113,7 @@ function plugin(UIkit) {
                 for (let i = 0; i < files.length; i++) {
 
                     if (this.maxSize && this.maxSize * 1000 < files[i].size) {
-                        this.fail(this.msgInvalidSize.replace('%s', this.allow));
+                        this.fail(this.msgInvalidSize.replace('%s', this.maxSize));
                         return;
                     }
 
