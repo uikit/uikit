@@ -4,8 +4,6 @@ export default function (UIkit) {
 
     const DATA = UIkit.data;
 
-    UIkit.prototype.$name
-
     UIkit.prototype.$mount = function (el) {
 
         const {name} = this.$options;
