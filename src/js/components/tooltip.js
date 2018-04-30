@@ -4,14 +4,16 @@ function plugin(UIkit) {
         return;
     }
 
-    var {util, mixin} = UIkit;
-    var {append, attr, doc, flipPosition, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, remove, within} = util;
+    const {util, mixin} = UIkit;
+    const {append, attr, flipPosition, hasAttr, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, remove, within} = util;
 
-    var actives = [];
+    const actives = [];
 
     UIkit.component('tooltip', {
 
         attrs: true,
+
+        args: 'title',
 
         mixins: [mixin.container, mixin.togglable, mixin.position],
 
@@ -30,12 +32,14 @@ function plugin(UIkit) {
             clsPos: 'uk-tooltip'
         },
 
-        connected() {
-            attr(this.$el, {title: null, 'aria-expanded': false});
+        beforeConnect() {
+            this._hasTitle = hasAttr(this.$el, 'title');
+            attr(this.$el, {title: '', 'aria-expanded': false});
         },
 
         disconnected() {
             this.hide();
+            attr(this.$el, {title: this._hasTitle ? this.title : null, 'aria-expanded': null});
         },
 
         methods: {
@@ -49,7 +53,7 @@ function plugin(UIkit) {
                 actives.forEach(active => active.hide());
                 actives.push(this);
 
-                this._unbind = on(doc, 'click', e => !within(e.target, this.$el) && this.hide());
+                this._unbind = on(document, 'click', e => !within(e.target, this.$el) && this.hide());
 
                 clearTimeout(this.showTimer);
 
@@ -78,9 +82,9 @@ function plugin(UIkit) {
 
             hide() {
 
-                var index = actives.indexOf(this);
+                const index = actives.indexOf(this);
 
-                if (!~index || matches(this.$el, 'input') && this.$el === doc.activeElement) {
+                if (!~index || matches(this.$el, 'input') && this.$el === document.activeElement) {
                     return;
                 }
 

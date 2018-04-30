@@ -1,5 +1,5 @@
-import { Class, Togglable } from '../mixin/index';
-import { $, $$, attr, filter, getIndex, hasClass, includes, index, toggleClass, unwrap, wrapAll } from '../util/index';
+import {Class, Togglable} from '../mixin/index';
+import {$, $$, attr, filter, getIndex, hasClass, includes, index, toggleClass, unwrap, wrapAll} from '../util/index';
 
 export default function (UIkit) {
 
@@ -56,9 +56,14 @@ export default function (UIkit) {
 
         ],
 
-        ready() {
-            var active = this.active !== false && !hasClass(active, this.clsOpen) && this.items[Number(this.active)];
-            if (active) {
+        connected() {
+
+            if (this.active === false) {
+                return;
+            }
+
+            const active = this.items[Number(this.active)];
+            if (active && !hasClass(active, this.clsOpen)) {
                 this.toggle(active, false);
             }
         },
@@ -67,7 +72,7 @@ export default function (UIkit) {
 
             this.items.forEach(el => this._toggleImmediate($(this.content, el), hasClass(el, this.clsOpen)));
 
-            var active = !this.collapsible && !hasClass(this.items, this.clsOpen) && this.items[0];
+            const active = !this.collapsible && !hasClass(this.items, this.clsOpen) && this.items[0];
             if (active) {
                 this.toggle(active, false);
             }
@@ -77,8 +82,8 @@ export default function (UIkit) {
 
             toggle(item, animate) {
 
-                var index = getIndex(item, this.items),
-                    active = filter(this.items, `.${this.clsOpen}`);
+                const index = getIndex(item, this.items);
+                const active = filter(this.items, `.${this.clsOpen}`);
 
                 item = this.items[index];
 
@@ -86,7 +91,8 @@ export default function (UIkit) {
                     .concat(!this.multiple && !includes(active, item) && active || [])
                     .forEach(el => {
 
-                        var isItem = el === item, state = isItem && !hasClass(el, this.clsOpen);
+                        const isItem = el === item;
+                        const state = isItem && !hasClass(el, this.clsOpen);
 
                         if (!state && isItem && !this.collapsible && active.length < 2) {
                             return;
@@ -94,7 +100,7 @@ export default function (UIkit) {
 
                         toggleClass(el, this.clsOpen, state);
 
-                        var content = el._wrapper ? el._wrapper.firstElementChild : $(this.content, el);
+                        const content = el._wrapper ? el._wrapper.firstElementChild : $(this.content, el);
 
                         if (!el._wrapper) {
                             el._wrapper = wrapAll(content, '<div>');

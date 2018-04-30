@@ -4,7 +4,7 @@ function plugin(UIkit) {
         return;
     }
 
-    var {addClass, css, scrolledOver, toFloat} = UIkit.util;
+    const {addClass, css, scrolledOver, sortBy, toFloat} = UIkit.util;
 
     UIkit.component('grid-parallax', UIkit.components.grid.extend({
 
@@ -98,16 +98,6 @@ function plugin(UIkit) {
         events: ['load', 'resize']
 
     });
-
-    function sortBy(collection, prop) {
-        return collection.sort((a, b) =>
-            a[prop] > b[prop]
-                ? 1
-                : b[prop] > a[prop]
-                    ? -1
-                    : 0
-        );
-    }
 
 }
 

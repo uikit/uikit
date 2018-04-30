@@ -1,12 +1,12 @@
-var fs = require('fs');
-var archiver = require('archiver');
-var util = require('./util');
+const fs = require('fs');
+const archiver = require('archiver');
+const util = require('./util');
 
-var info = require('../package.json');
-var file = `dist/uikit-${info.version}.zip`;
-var output = fs.createWriteStream(file).on('close', () => util.logFile(file));
+const info = require('../package.json');
+const file = `dist/uikit-${info.version}.zip`;
+const output = fs.createWriteStream(file).on('close', () => util.logFile(file));
 
-var archive = archiver('zip');
+const archive = archiver('zip');
 
 archive.pipe(output);
 archive.file('dist/js/uikit.js', {name: '/js/uikit.js'});

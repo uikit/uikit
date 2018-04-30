@@ -1,4 +1,4 @@
-import { closest, doc, hasTouch, includes, isTouch, isVisible, matches, once, pointerEnter, pointerLeave, queryAll, trigger, win } from '../util/index';
+import {closest, hasTouch, includes, isTouch, isVisible, matches, once, pointerEnter, pointerLeave, queryAll, trigger} from '../util/index';
 
 export default function (UIkit) {
 
@@ -65,7 +65,7 @@ export default function (UIkit) {
                     }
 
                     // TODO better isToggled handling
-                    var link;
+                    let link;
                     if (closest(e.target, 'a[href="#"], button')
                         || (link = closest(e.target, 'a[href]')) && (
                             this.cls
@@ -73,7 +73,7 @@ export default function (UIkit) {
                             || link.hash && matches(this.target, link.hash)
                         )
                     ) {
-                        once(doc, 'click', e => e.preventDefault());
+                        once(document, 'click', e => e.preventDefault());
                     }
 
                     this.toggle();
@@ -90,8 +90,8 @@ export default function (UIkit) {
                     return;
                 }
 
-                var toggled = this.isToggled(this.target);
-                if (win.matchMedia(this.media).matches ? !toggled : toggled) {
+                const toggled = this.isToggled(this.target);
+                if (window.matchMedia(this.media).matches ? !toggled : toggled) {
                     this.toggle();
                 }
 

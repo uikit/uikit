@@ -1,47 +1,24 @@
-import { fragment } from './dom';
-import { doc, win } from './env';
-import { removeAttr } from './attr';
-import { isArray, isDocument, isObject, isString, isWindow, startsWith } from './lang';
-
-var arrayProto = Array.prototype;
-
-export function $(selector, context) {
-    return !isString(selector)
-        ? toNode(selector)
-        : isHtml(selector)
-            ? toNode(fragment(selector))
-            : find(selector, context);
-}
-
-export function $$(selector, context) {
-    return !isString(selector)
-        ? toNodes(selector)
-        : isHtml(selector)
-            ? toNodes(fragment(selector))
-            : findAll(selector, context);
-}
-
-function isHtml(str) {
-    return str[0] === '<' || str.match(/^\s*</);
-}
+import {removeAttr} from './attr';
+import {isNode, isString, startsWith, toNode, toNodes} from './lang';
 
 export function query(selector, context) {
-    return $(selector, isContextSelector(selector) ? context : doc);
+    return toNode(selector) || find(selector, isContextSelector(selector) ? context : document);
 }
 
 export function queryAll(selector, context) {
-    return $$(selector, isContextSelector(selector) ? context : doc);
+    const nodes = toNodes(selector);
+    return nodes.length && nodes || findAll(selector, isContextSelector(selector) ? context : document);
 }
 
-function find(selector, context) {
+export function find(selector, context) {
     return toNode(_query(selector, context, 'querySelector'));
 }
 
-function findAll(selector, context) {
+export function findAll(selector, context) {
     return toNodes(_query(selector, context, 'querySelectorAll'));
 }
 
-function _query(selector, context = doc, queryFn) {
+function _query(selector, context = document, queryFn) {
 
     if (!selector || !isString(selector)) {
         return null;
@@ -49,7 +26,7 @@ function _query(selector, context = doc, queryFn) {
 
     selector = selector.replace(contextSanitizeRe, '$1 *');
 
-    var removes;
+    let removes;
 
     if (isContextSelector(selector)) {
 
@@ -63,7 +40,7 @@ function _query(selector, context = doc, queryFn) {
 
             if (selector[0] === '!') {
 
-                var selectors = selector.substr(1).trim().split(' ');
+                const selectors = selector.substr(1).trim().split(' ');
                 ctx = closest(context.parentNode, selectors[0]);
                 selector = selectors.slice(1).join(' ');
 
@@ -82,7 +59,7 @@ function _query(selector, context = doc, queryFn) {
 
         }).filter(Boolean).join(',');
 
-        context = doc;
+        context = document;
 
     }
 
@@ -102,32 +79,22 @@ function _query(selector, context = doc, queryFn) {
 
 }
 
-export function filter(element, selector) {
-    return $$(element).filter(element => matches(element, selector));
-}
-
-export function within(element, selector) {
-    return !isString(selector)
-        ? element === selector || toNode(selector).contains(toNode(element))
-        : matches(element, selector) || closest(element, selector);
-}
-
-var contextSelectorRe = /(^|,)\s*[!>+~]/,
-    contextSanitizeRe = /([!>+~])(?=\s+[!>+~]|\s*$)/g;
+const contextSelectorRe = /(^|,)\s*[!>+~]/;
+const contextSanitizeRe = /([!>+~])(?=\s+[!>+~]|\s*$)/g;
 
 function isContextSelector(selector) {
     return isString(selector) && selector.match(contextSelectorRe);
 }
 
-var elProto = Element.prototype;
-var matchesFn = elProto.matches || elProto.msMatchesSelector;
+const elProto = Element.prototype;
+const matchesFn = elProto.matches || elProto.webkitMatchesSelector || elProto.msMatchesSelector;
 
 export function matches(element, selector) {
     return toNodes(element).some(element => matchesFn.call(element, selector));
 }
 
-var closestFn = elProto.closest || function (selector) {
-    var ancestor = this;
+const closestFn = elProto.closest || function (selector) {
+    let ancestor = this;
 
     do {
 
@@ -152,7 +119,8 @@ export function closest(element, selector) {
 }
 
 export function parents(element, selector) {
-    var elements = [], parent = toNode(element).parentNode;
+    const elements = [];
+    let parent = toNode(element).parentNode;
 
     while (parent && parent.nodeType === 1) {
 
@@ -166,41 +134,7 @@ export function parents(element, selector) {
     return elements;
 }
 
-export function isJQuery(obj) {
-    return isObject(obj) && !!obj.jquery;
-}
-
-function isNode(element) {
-    return element instanceof Node || isObject(element) && element.nodeType === 1;
-}
-
-function isNodeCollection(element) {
-    return element instanceof NodeList || element instanceof HTMLCollection;
-}
-
-export function toNode(element) {
-    return isNode(element) || isWindow(element) || isDocument(element)
-        ? element
-        : isNodeCollection(element) || isJQuery(element)
-            ? element[0]
-            : isArray(element)
-                ? toNode(element[0])
-                : null;
-}
-
-export function toNodes(element) {
-    return isNode(element)
-        ? [element]
-        : isNodeCollection(element)
-            ? arrayProto.slice.call(element)
-            : isArray(element)
-                ? element.map(toNode).filter(Boolean)
-                : isJQuery(element)
-                    ? element.toArray()
-                    : [];
-}
-
-var escapeFn = win.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, match => `\\${match}`); };
+const escapeFn = window.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, match => `\\${match}`); };
 export function escape(css) {
     return isString(css) ? escapeFn.call(null, css) : '';
 }

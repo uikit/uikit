@@ -1,11 +1,9 @@
-import { win } from './env';
-import { attr } from './attr';
-import { once } from './event';
-import Promise from './promise';
-import { toNode } from './selector';
-import { assign, includes, isString } from './lang';
+import {attr} from './attr';
+import {once} from './event';
+import {Promise} from './promise';
+import {assign, includes, isString, noop, toNode} from './lang';
 
-var id = 0;
+let id = 0;
 
 export class Player {
 
@@ -27,7 +25,7 @@ export class Player {
     }
 
     isYoutube() {
-        return this.isIFrame() && !!this.el.src.match(/\/\/.*?youtube\.[a-z]+\/(watch\?v=[^&\s]+|embed)|youtu\.be\/.*/);
+        return this.isIFrame() && !!this.el.src.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/(watch\?v=[^&\s]+|embed)|youtu\.be\/.*/);
     }
 
     isVimeo() {
@@ -40,7 +38,10 @@ export class Player {
             return this.ready;
         }
 
-        var youtube = this.isYoutube(), vimeo = this.isVimeo(), poller;
+        const youtube = this.isYoutube();
+        const vimeo = this.isVimeo();
+
+        let poller;
 
         if (youtube || vimeo) {
 
@@ -48,7 +49,7 @@ export class Player {
 
                 once(this.el, 'load', () => {
                     if (youtube) {
-                        var listener = () => post(this.el, {event: 'listening', id: this.id});
+                        const listener = () => post(this.el, {event: 'listening', id: this.id});
                         poller = setInterval(listener, 100);
                         listener();
                     }
@@ -60,7 +61,7 @@ export class Player {
                         poller && clearInterval(poller);
                     });
 
-                attr(this.el, 'src', `${this.el.src}${includes(this.el.src, '?') ? '&' : '?'}${youtube ? 'enablejsapi=1' : `api=1&player_id=${id}`}`);
+                attr(this.el, 'src', `${this.el.src}${includes(this.el.src, '?') ? '&' : '?'}${youtube ? 'enablejsapi=1' : `api=1&player_id=${this.id}`}`);
 
             });
 
@@ -80,7 +81,10 @@ export class Player {
             this.enableApi().then(() => post(this.el, {func: 'playVideo', method: 'play'}));
         } else if (this.isHTML5()) {
             try {
-                this.el.play();
+                const promise = this.el.play();
+                if (promise) {
+                    promise.catch(noop);
+                }
             } catch (e) {}
         }
     }
@@ -125,7 +129,7 @@ function listen(cb) {
 
     return new Promise(resolve => {
 
-        once(win, 'message', (_, data) => resolve(data), false, ({data}) => {
+        once(window, 'message', (_, data) => resolve(data), false, ({data}) => {
 
             if (!data || !isString(data)) {
                 return;

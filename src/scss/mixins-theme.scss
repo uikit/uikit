@@ -30,6 +30,7 @@
     .uk-open > .uk-accordion-title::after { @include svg-fill($internal-accordion-open-image, "#000", $inverse-global-color); }
 
 }
+@mixin hook-align-misc(){}
 @mixin hook-alert(){}
 @mixin hook-alert-close(){
     color: inherit;
@@ -67,8 +68,6 @@
     }
 
 }
-@mixin hook-align-misc(){}
-@mixin hook-animation-misc(){}
 @mixin hook-article(){}
 @mixin hook-article-adjacent(){}
 @mixin hook-article-title(){}
@@ -97,6 +96,7 @@
     }
 
 }
+@mixin hook-animation-misc(){}
 @mixin hook-background-misc(){}
 @mixin hook-badge(){}
 @mixin hook-badge-hover(){}
@@ -680,7 +680,7 @@
 @mixin hook-description-list-description(){}
 @mixin hook-description-list-divider-term(){}
 @mixin hook-description-list-misc(){}
-@mixin svg-fill($src, $color-default, $color-new){
+@mixin svg-fill($src, $color-default, $color-new, $property: background-image){
 
     $escape-color-default:  escape($color-default) !default;
     $escape-color-new:  escape("#{$color-new}") !default;
@@ -688,7 +688,7 @@
     $data-uri:  data-uri('image/svg+xml;charset=UTF-8', "#{$src}") !default;
     $replace-src:  replace("#{$data-uri}", "#{$escape-color-default}", "#{$escape-color-new}", "g") !default;
 
-    background-image: unquote($replace-src);
+    #{$property}: unquote($replace-src);
 }
 @mixin hook-divider-icon(){}
 @mixin hook-divider-icon-line(){}
@@ -1004,18 +1004,18 @@
 @mixin hook-inverse-iconnav-item-active(){}
 @mixin hook-inverse-component-iconnav(){
 
-    .uk-iconnav > * > * {
+    .uk-iconnav > * > a {
         color: $inverse-iconnav-item-color;
         @if(mixin-exists(hook-inverse-iconnav-item)) {@include hook-inverse-iconnav-item();}
     }
 
-    .uk-iconnav > * > :hover,
-    .uk-iconnav > * > :focus {
+    .uk-iconnav > * > a:hover,
+    .uk-iconnav > * > a:focus {
         color: $inverse-iconnav-item-hover-color;
         @if(mixin-exists(hook-inverse-iconnav-item-hover)) {@include hook-inverse-iconnav-item-hover();}
     }
 
-    .uk-iconnav > .uk-active > * {
+    .uk-iconnav > .uk-active > a {
         color: $inverse-iconnav-item-active-color;
         @if(mixin-exists(hook-inverse-iconnav-item-active)) {@include hook-inverse-iconnav-item-active();}
     }
@@ -1039,6 +1039,12 @@
     .uk-link-text a:hover {
         color: $inverse-link-text-hover-color;
         @if(mixin-exists(hook-inverse-link-text-hover)) {@include hook-inverse-link-text-hover();}
+    }
+
+    a.uk-link-heading:hover,
+    .uk-link-heading a:hover {
+        color: $inverse-link-heading-hover-color;
+        @if(mixin-exists(hook-inverse-link-heading-hover)) {@include hook-inverse-link-heading-hover();}
     }
 
 }
@@ -1504,11 +1510,14 @@
 @mixin hook-link-muted-hover(){}
 @mixin hook-link-text(){}
 @mixin hook-link-text-hover(){}
+@mixin hook-link-heading(){}
+@mixin hook-link-heading-hover(){}
 @mixin hook-link-reset(){}
 @mixin hook-link-misc(){}
 @mixin hook-inverse-link-muted(){}
 @mixin hook-inverse-link-muted-hover(){}
 @mixin hook-inverse-link-text-hover(){}
+@mixin hook-inverse-link-heading-hover(){}
 @mixin hook-list-divider(){}
 @mixin hook-list-striped(){
 
@@ -1877,6 +1886,7 @@
 }
 @mixin hook-table-hover(){}
 @mixin hook-table-small(){}
+@mixin hook-table-large(){}
 @mixin hook-table-misc(){
 
     .uk-table tbody tr { transition: background-color 0.1s linear; }
@@ -2005,7 +2015,6 @@
 @mixin hook-inverse-totop-hover(){}
 @mixin hook-inverse-totop-active(){}
 @mixin hook-transition-misc(){}
-@mixin hook-visibility-misc(){}
 @mixin hook-panel-scrollable(){}
 @mixin hook-box-shadow-bottom(){}
 @mixin hook-dropcap(){
@@ -2020,4 +2029,5 @@
 @mixin hook-inverse-leader(){}
 @mixin hook-inverse-logo(){}
 @mixin hook-inverse-logo-hover(){}
+@mixin hook-visibility-misc(){}
 @mixin hook-width-misc(){}

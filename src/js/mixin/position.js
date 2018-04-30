@@ -1,4 +1,4 @@
-import { $, css, flipPosition, includes, isNumeric, isRtl, offset as getOffset, positionAt, removeClasses, toggleClass } from '../util/index';
+import {$, css, flipPosition, includes, isNumeric, isRtl, offset as getOffset, positionAt, removeClasses, toggleClass} from '../util/index';
 
 export default {
 
@@ -36,14 +36,11 @@ export default {
 
         positionAt(element, target, boundary) {
 
-            this._resetComputeds();
-
             removeClasses(element, `${this.clsPos}-(top|bottom|left|right)(-[a-z]+)?`);
             css(element, {top: '', left: ''});
 
-            var node,
-                offset = this.offset,
-                axis = this.getAxis();
+            let node;
+            let {offset} = this;
 
             offset = isNumeric(offset)
                 ? offset
@@ -51,16 +48,17 @@ export default {
                     ? getOffset(node)[axis === 'x' ? 'left' : 'top'] - getOffset(target)[axis === 'x' ? 'right' : 'bottom']
                     : 0;
 
-            var {x, y} = positionAt(
-                    element,
-                    target,
-                    axis === 'x' ? `${flipPosition(this.dir)} ${this.align}` : `${this.align} ${flipPosition(this.dir)}`,
-                    axis === 'x' ? `${this.dir} ${this.align}` : `${this.align} ${this.dir}`,
-                    axis === 'x' ? `${this.dir === 'left' ? -offset : offset}` : ` ${this.dir === 'top' ? -offset : offset}`,
-                    null,
-                    this.flip,
-                    boundary
-                ).target;
+            const axis = this.getAxis();
+            const {x, y} = positionAt(
+                element,
+                target,
+                axis === 'x' ? `${flipPosition(this.dir)} ${this.align}` : `${this.align} ${flipPosition(this.dir)}`,
+                axis === 'x' ? `${this.dir} ${this.align}` : `${this.align} ${this.dir}`,
+                axis === 'x' ? `${this.dir === 'left' ? -offset : offset}` : ` ${this.dir === 'top' ? -offset : offset}`,
+                null,
+                this.flip,
+                boundary
+            ).target;
 
             this.dir = axis === 'x' ? x : y;
             this.align = axis === 'x' ? y : x;

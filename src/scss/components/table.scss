@@ -48,7 +48,10 @@ $table-hover-row-background:                     $table-row-active-background !d
 $table-small-cell-padding-vertical:              10px !default;
 $table-small-cell-padding-horizontal:            12px !default;
 
-$table-expand-min-width:                         300px !default;
+$table-large-cell-padding-vertical:              22px !default;
+$table-large-cell-padding-horizontal:            12px !default;
+
+$table-expand-min-width:                         150px !default;
 
 
 /* ========================================================================
@@ -192,6 +195,12 @@ $table-expand-min-width:                         300px !default;
     @if(mixin-exists(hook-table-small)) {@include hook-table-small();}
 }
 
+.uk-table-large th,
+.uk-table-large td {
+    padding: $table-large-cell-padding-vertical $table-large-cell-padding-horizontal;
+    @if(mixin-exists(hook-table-large)) {@include hook-table-large();}
+}
+
 
 /* Justify modifier
  ========================================================================== */
@@ -283,6 +292,7 @@ $table-expand-min-width:                         300px !default;
 // @mixin hook-table-striped(){}
 // @mixin hook-table-hover(){}
 // @mixin hook-table-small(){}
+// @mixin hook-table-large(){}
 // @mixin hook-table-misc(){}
 
 
