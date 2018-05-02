@@ -1,7 +1,7 @@
 import {attr} from './attr';
 import {once} from './event';
 import {Promise} from './promise';
-import {assign, includes, isString, toNode} from './lang';
+import {assign, includes, isString, noop, toNode} from './lang';
 
 let id = 0;
 
@@ -84,12 +84,7 @@ export class Player {
                 const promise = this.el.play();
 
                 if (promise) {
-                    promise.catch(() => {
-                        if (!this.el.muted) {
-                            this.el.muted = true;
-                            this.play();
-                        }
-                    });
+                    promise.catch(noop);
                 }
             } catch (e) {}
         }
