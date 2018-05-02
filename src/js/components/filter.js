@@ -10,7 +10,7 @@ export default {
         selActive: Boolean
     },
 
-    defaults: {
+    data: {
         target: null,
         selActive: false,
         attrItem: 'uk-filter-control',
