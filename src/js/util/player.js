@@ -85,8 +85,9 @@ export class Player {
 
                 if (promise) {
                     promise.catch(() => {
-                        if (!this.el.preload || this.el.preload === 'none') {
-                            this.el.preload = 'metadata';
+                        if (!this.el.muted) {
+                            this.el.muted = true;
+                            this.play();
                         }
                     });
                 }
