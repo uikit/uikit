@@ -181,7 +181,7 @@ export default {
         show() {
 
             if (this.isToggled()) {
-                return;
+                return Promise.resolve();
             }
 
             if (this.container && this.$el.parentNode !== this.container) {
@@ -193,9 +193,9 @@ export default {
         },
 
         hide() {
-            if (this.isToggled()) {
-                return this.toggleNow(this.$el, false);
-            }
+            return this.isToggled()
+                ? this.toggleNow(this.$el, false)
+                : Promise.resolve();
         },
 
         getActive() {
