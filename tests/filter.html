@@ -8,59 +8,14 @@
         <script src="js/test.js"></script>
         <style>
 
-            .uk-panel {
-                padding: 10px;
-                text-align: center;
-            }
+            [color='red'] > * { background: #f0506e; }
+            [color='green'] > * { background: #32d296; }
+            [color='blue'] > * { background: #1e87f0; }
 
-            li > .uk-panel { background: rgba(0,0,0,.5); }
-
-            .item {
-                display: inline-block;
-                position: relative;
-            }
-
-            .item:before {
-                content: '';
-                display: inline-block;
-                padding-top: 100%;
-                margin: 0;
-            }
-
-            .item:after {
-                content: '';
-                position: absolute;
-                transform: scale(1.5);
-            }
-
-            [color="red"] > .item:after {color: orangered}
-            [color="green"] > .item:after {color: greenyellow}
-            [color="blue"] > .item:after {color: cornflowerblue}
-
-            [shape="square"] > .item:after {
-                width: 40%;
-                height: 40%;
-                top: 30%;
-                left: 30%;
-                background: currentColor;
-                border-radius: 3px;
-            }
-            [shape="round"] > .item:after {
-                width: 40%;
-                height: 40%;
-                top: 30%;
-                left: 30%;
-                background: currentColor;
-                border-radius: 100%;
-            }
-            [shape="triangle"] > .item:after{
-                position: absolute;
-                border: 3em solid transparent;
-                border-bottom: 5em solid currentColor;
-                border-top: 0;
-                left: calc(50% - 3em);
-                top: calc(50% - 2.5em);
-            }
+            [size='small'] > * { height: 120px; }
+            [size='medium'] > * { height: 180px; }
+            [size='large'] > * { height: 210px; }
+            [size='xlarge'] > * { height: 250px; }
 
         </style>
 
@@ -86,11 +41,11 @@
 
             <h1>Filter</h1>
 
-            <div uk-filter="target: .js-filter; animation: 3000">
+            <div uk-filter="target: .js-filter; animation: 2000">
 
-                <div class="uk-grid-divider uk-grid" uk-grid>
+                <div class="uk-grid-small uk-grid-divider" uk-grid>
 
-                    <h2>None Grouped</h2>
+                    <h3>Default</h3>
 
                     <div>
                         <ul class="uk-subnav uk-subnav-pill" uk-margin>
@@ -108,17 +63,17 @@
 
                     <div>
                         <ul class="uk-subnav uk-subnav-pill" uk-margin>
-                            <li uk-filter-control="[shape='square']"><a>Square</a></li>
-                            <li uk-filter-control="[shape='round']"><a>Round</a></li>
-                            <li uk-filter-control="[shape='triangle']"><a>Triangle</a></li>
+                            <li uk-filter-control="[size='small']"><a>Small</a></li>
+                            <li uk-filter-control="[size='medium']"><a>Medium</a></li>
+                            <li uk-filter-control="[size='large']"><a>Large</a></li>
                         </ul>
                     </div>
 
                 </div>
 
-                <div class="uk-grid-divider uk-grid" uk-grid>
+                <div class="uk-grid-small uk-grid-divider" uk-grid>
 
-                    <h2>Grouped</h2>
+                    <h3>Combinable</h3>
 
                     <div>
                         <ul class="uk-subnav uk-subnav-pill" uk-margin>
@@ -136,50 +91,55 @@
 
                     <div>
                         <ul class="uk-subnav uk-subnav-pill" uk-margin>
-                            <li uk-filter-control="filter: [shape='square']; group: shape"><a>Square</a></li>
-                            <li uk-filter-control="filter: [shape='round']; group: shape"><a>Round</a></li>
-                            <li uk-filter-control="filter: [shape='triangle']; group: shape"><a>Triangle</a></li>
+                            <li uk-filter-control="filter: [size='small']; group: size"><a>Small</a></li>
+                            <li uk-filter-control="filter: [size='medium']; group: size"><a>Medium</a></li>
+                            <li uk-filter-control="filter: [size='large']; group: size"><a>Large</a></li>
                         </ul>
                     </div>
 
                 </div>
 
-                <div class="uk-grid-divider uk-grid" uk-grid>
+                <div class="uk-grid-small uk-grid-divider" uk-grid>
 
-                    <h2>Order by</h2>
+                    <h3>Alphabetic Order</h3>
 
                     <div>
                         <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                            <li class="uk-active" uk-filter-control="sort: date"><a>Date Asc</a></li>
+                            <li uk-filter-control="sort: date; order: desc"><a>Date Desc</a></li>
                             <li uk-filter-control="sort: color"><a>Color Asc</a></li>
                             <li uk-filter-control="sort: color; order: desc"><a>Color Desc</a></li>
-                            <li class="uk-active" uk-filter-control="sort: shape"><a>Shape Asc</a></li>
-                            <li uk-filter-control="sort: shape; order: desc"><a>Shape Desc</a></li>
+                            <li uk-filter-control="sort: size"><a>Size Asc</a></li>
+                            <li uk-filter-control="sort: size; order: desc"><a>Size Desc</a></li>
                         </ul>
                     </div>
 
                 </div>
 
-                <ul class="js-filter uk-child-width-1-2 uk-child-width-1-5@m" uk-grid="parallax: 150; masonry: true">
-                    <li color="blue" shape="triangle"><div class="uk-panel" style="height: 100px">7</div></li>
-                    <li color="red" shape="square"><div class="uk-panel" style="height: 200px">4</div></li>
-                    <li color="blue" shape="round"><div class="uk-panel" style="height: 150px">1</div></li>
-                    <li color="blue" shape="square"><div class="uk-panel" style="height: 120px">5</div></li>
-                    <li color="green" shape="round"><div class="uk-panel" style="height: 250px">2</div></li>
-                    <li color="green" shape="square"><div class="uk-panel" style="height: 130px">6</div></li>
-                    <li color="red" shape="round"><div class="uk-panel" style="height: 110px">3</div></li>
-                    <li color="green" shape="triangle"><div class="uk-panel" style="height: 80px">8</div></li>
-                    <li color="red" shape="triangle"><div class="uk-panel" style="height: 160px">9</div></li>
+                <ul class="js-filter uk-child-width-1-2 uk-child-width-1-4@m uk-light" uk-grid="masonry: true">
+                    <li color="blue" size="large" date="2016-06-01"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">1</div></li>
+                    <li color="red" size="small" date="2016-12-13"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">2</div></li>
+                    <li color="blue" size="medium" date="2017-05-20"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">3</div></li>
+                    <li color="blue" size="small" date="2017-09-17"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">4</div></li>
+                    <li color="green" size="medium" date="2017-11-03"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">5</div></li>
+                    <li color="green" size="small" date="2017-12-25"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">6</div></li>
+                    <li color="red" size="medium" date="2018-01-30"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">7</div></li>
+                    <li color="green" size="large" date="2018-02-01"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">8</div></li>
+                    <li color="red" size="large" date="2018-03-11"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">9</div></li>
+                    <li color="blue" size="xlarge" date="2018-06-13"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">10</div></li>
+                    <li color="red" size="xlarge" date="2018-10-27"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">11</div></li>
+                    <li color="green" size="xlarge" date="2018-12-02"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">12</div></li>
                 </ul>
 
             </div>
 
-            <h1>Filter</h1>
+            <h2>With Parallax</h2>
 
-            <div uk-filter="target: .js-filter; animation: 3000">
+            <div uk-filter="target: .js-filter; animation: 2000">
 
-                <div class="uk-grid-divider uk-grid" uk-grid>
+                <div class="uk-grid-small uk-grid-divider" uk-grid>
 
-                    <h2>None Grouped</h2>
+                    <h3>Default</h3>
 
                     <div>
                         <ul class="uk-subnav uk-subnav-pill" uk-margin>
@@ -197,17 +157,17 @@
 
                     <div>
                         <ul class="uk-subnav uk-subnav-pill" uk-margin>
-                            <li uk-filter-control="[shape='square']"><a>Square</a></li>
-                            <li uk-filter-control="[shape='round']"><a>Round</a></li>
-                            <li uk-filter-control="[shape='triangle']"><a>Triangle</a></li>
+                            <li uk-filter-control="[size='small']"><a>Small</a></li>
+                            <li uk-filter-control="[size='medium']"><a>Medium</a></li>
+                            <li uk-filter-control="[size='large']"><a>Large</a></li>
                         </ul>
                     </div>
 
                 </div>
 
-                <div class="uk-grid-divider uk-grid" uk-grid>
+                <div class="uk-grid-small uk-grid-divider" uk-grid>
 
-                    <h2>Grouped</h2>
+                    <h3>Combinable</h3>
 
                     <div>
                         <ul class="uk-subnav uk-subnav-pill" uk-margin>
@@ -225,39 +185,44 @@
 
                     <div>
                         <ul class="uk-subnav uk-subnav-pill" uk-margin>
-                            <li uk-filter-control="filter: [shape='square']; group: shape"><a>Square</a></li>
-                            <li uk-filter-control="filter: [shape='round']; group: shape"><a>Round</a></li>
-                            <li uk-filter-control="filter: [shape='triangle']; group: shape"><a>Triangle</a></li>
+                            <li uk-filter-control="filter: [size='small']; group: size"><a>Small</a></li>
+                            <li uk-filter-control="filter: [size='medium']; group: size"><a>Medium</a></li>
+                            <li uk-filter-control="filter: [size='large']; group: size"><a>Large</a></li>
                         </ul>
                     </div>
 
                 </div>
 
-                <div class="uk-grid-divider uk-grid" uk-grid>
+                <div class="uk-grid-small uk-grid-divider" uk-grid>
 
-                    <h2>Order by</h2>
+                    <h3>Alphabetic Order</h3>
 
                     <div>
                         <ul class="uk-subnav uk-subnav-pill" uk-margin>
+                            <li class="uk-active" uk-filter-control="sort: date"><a>Date Asc</a></li>
+                            <li uk-filter-control="sort: date; order: desc"><a>Date Desc</a></li>
                             <li uk-filter-control="sort: color"><a>Color Asc</a></li>
                             <li uk-filter-control="sort: color; order: desc"><a>Color Desc</a></li>
-                            <li class="uk-active" uk-filter-control="sort: shape"><a>Shape Asc</a></li>
-                            <li uk-filter-control="sort: shape; order: desc"><a>Shape Desc</a></li>
+                            <li uk-filter-control="sort: size"><a>Size Asc</a></li>
+                            <li uk-filter-control="sort: size; order: desc"><a>Size Desc</a></li>
                         </ul>
                     </div>
 
                 </div>
 
-                <ul class="js-filter shapes uk-grid-match uk-child-width-1-2 uk-child-width-1-5@m" uk-grid="masonry: true; parallax: 150">
-                    <li color="blue" shape="triangle"><div class="item"></div></li>
-                    <li color="red" shape="square"><div class="item"></div></li>
-                    <li color="blue" shape="round"><div class="item"></div></li>
-                    <li color="blue" shape="square"><div class="item"></div></li>
-                    <li color="green" shape="round"><div class="item"></div></li>
-                    <li color="green" shape="square"><div class="item"></div></li>
-                    <li color="red" shape="round"><div class="item"></div></li>
-                    <li color="green" shape="triangle"><div class="item"></div></li>
-                    <li color="red" shape="triangle"><div class="item"></div></li>
+                <ul class="js-filter uk-child-width-1-2 uk-child-width-1-4@m uk-light" uk-grid="masonry: true; parallax: 200">
+                    <li color="blue" size="large" date="2016-06-01"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">1</div></li>
+                    <li color="red" size="small" date="2016-12-13"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">2</div></li>
+                    <li color="blue" size="medium" date="2017-05-20"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">3</div></li>
+                    <li color="blue" size="small" date="2017-09-17"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">4</div></li>
+                    <li color="green" size="medium" date="2017-11-03"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">5</div></li>
+                    <li color="green" size="small" date="2017-12-25"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">6</div></li>
+                    <li color="red" size="medium" date="2018-01-30"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">7</div></li>
+                    <li color="green" size="large" date="2018-02-01"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">8</div></li>
+                    <li color="red" size="large" date="2018-03-11"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">9</div></li>
+                    <li color="blue" size="xlarge" date="2018-06-13"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">10</div></li>
+                    <li color="red" size="xlarge" date="2018-10-27"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">11</div></li>
+                    <li color="green" size="xlarge" date="2018-12-02"><div class="uk-panel uk-flex uk-flex-center uk-flex-middle uk-h2">12</div></li>
                 </ul>
 
             </div>
