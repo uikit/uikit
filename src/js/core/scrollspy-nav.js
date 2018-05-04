@@ -50,7 +50,7 @@ export default {
 
             read(data) {
 
-                const scroll = window.scrollY + this.offset + 1;
+                const scroll = window.pageYOffset + this.offset + 1;
                 const max = height(document) - height(window) + this.offset;
 
                 data.active = false;

@@ -31,12 +31,12 @@ export default {
             }
 
             const start = Date.now();
-            const startY = window.scrollY;
+            const startY = window.pageYOffset;
             const step = () => {
 
                 const currentY = startY + (target - startY) * ease(clamp((Date.now() - start) / this.duration));
 
-                window.scroll(window.scrollX, currentY);
+                window.scroll(window.pageXOffset, currentY);
 
                 // scroll more if we have not reached our destination
                 if (currentY !== target) {

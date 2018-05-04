@@ -105,7 +105,7 @@ export default {
 
             handler() {
 
-                if (!(this.targetOffset !== false && location.hash && window.scrollY > 0)) {
+                if (!(this.targetOffset !== false && location.hash && window.pageYOffset > 0)) {
                     return;
                 }
 
@@ -170,7 +170,7 @@ export default {
 
         {
 
-            read(_, {scrollY = window.scrollY}) {
+            read(_, {scrollY = window.pageYOffset}) {
 
                 this.width = (isVisible(this.widthElement) ? this.widthElement : this.$el).offsetWidth;
 

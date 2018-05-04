@@ -126,7 +126,7 @@ function getDimensions(element) {
 
     element = toNode(element);
 
-    const {scrollY: top, scrollX: left} = window(element);
+    const {pageYOffset: top, pageXOffset: left} = window(element);
 
     if (isWindow(element)) {
 
@@ -307,7 +307,7 @@ export function isInView(element, topOffset = 0, leftOffset = 0) {
 
     const [elTop, elLeft] = offsetPosition(element);
     const win = window(element);
-    const {scrollY: top, scrollX: left} = win;
+    const {pageYOffset: top, pageXOffset: left} = win;
 
     return isVisible(element) && intersectRect(
         {
@@ -341,7 +341,7 @@ export function scrolledOver(element, heightOffset = 0) {
     const vh = vp + Math.min(0, top - vp);
     const diff = Math.max(0, vp - (height(doc) + heightOffset - (top + elHeight)));
 
-    return clamp(((vh + win.scrollY - top) / ((vh + (elHeight - (diff < vp ? diff : 0))) / 100)) / 100);
+    return clamp(((vh + win.pageYOffset - top) / ((vh + (elHeight - (diff < vp ? diff : 0))) / 100)) / 100);
 }
 
 function offsetPosition(element) {
@@ -354,8 +354,8 @@ function offsetPosition(element) {
 
         if (css(element, 'position') === 'fixed') {
             const win = window(element);
-            offset[0] += win.scrollY;
-            offset[1] += win.scrollX;
+            offset[0] += win.pageYOffset;
+            offset[1] += win.pageXOffset;
             return offset;
         }
 
