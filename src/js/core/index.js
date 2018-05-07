@@ -10,6 +10,7 @@ import Grid from './grid';
 import HeightMatch from './height-match';
 import HeightViewport from './height-viewport';
 import Icon, {IconComponent, Slidenav, Search, Close, Spinner} from './icon';
+import Img from './img';
 import Leader from './leader';
 import Margin from './margin';
 import Modal from './modal';
@@ -42,6 +43,7 @@ export default function (UIkit) {
     UIkit.component('heightMatch', HeightMatch);
     UIkit.component('heightViewport', HeightViewport);
     UIkit.component('icon', Icon);
+    UIkit.component('img', Img);
     UIkit.component('leader', Leader);
     UIkit.component('margin', Margin);
     UIkit.component('modal', Modal);

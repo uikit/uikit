@@ -6,6 +6,7 @@
 
 - Add `Masonry` option to Grid component
 - Add Filter component
+- Add Img component
 - Add inverse style for form icon
 
 ### Changed
