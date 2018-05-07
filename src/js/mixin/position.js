@@ -1,4 +1,4 @@
-import {$, css, flipPosition, includes, isNumeric, isRtl, offset as getOffset, positionAt, removeClasses, toggleClass} from '../util/index';
+import {$, css, flipPosition, includes, isNumeric, isRtl, offset as getOffset, positionAt, removeClasses, toggleClass} from 'uikit-util';
 
 export default {
 
@@ -9,7 +9,7 @@ export default {
         clsPos: String
     },
 
-    defaults: {
+    data: {
         pos: `bottom-${!isRtl ? 'left' : 'right'}`,
         flip: true,
         offset: false,

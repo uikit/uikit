@@ -1,5 +1,5 @@
 import {getComponentName} from './component';
-import {fastdom, hasAttr} from '../util/index';
+import {fastdom, hasAttr} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -62,7 +62,7 @@ export default function (UIkit) {
 
         const name = getComponentName(attributeName);
 
-        if (!name || !(name in UIkit.components)) {
+        if (!name || !(name in UIkit)) {
             return;
         }
 

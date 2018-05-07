@@ -108,9 +108,11 @@ export function offset(element, coordinates) {
         ['left', 'top'].forEach(prop => {
             if (prop in coordinates) {
                 const value = css(element, prop);
-                element.style[prop] = `${(coordinates[prop] - currentOffset[prop])
-                + toFloat(pos === 'absolute' && value === 'auto' ? position(element)[prop] : value)
-                    }px`;
+                css(element, prop, coordinates[prop] - currentOffset[prop]
+                    + toFloat(pos === 'absolute' && value === 'auto'
+                        ? position(element)[prop]
+                        : value)
+                );
             }
         });
 
@@ -323,7 +325,7 @@ export function isInView(element, topOffset = 0, leftOffset = 0) {
     );
 }
 
-export function scrolledOver(element) {
+export function scrolledOver(element, heightOffset = 0) {
 
     if (!isVisible(element)) {
         return 0;
@@ -333,11 +335,11 @@ export function scrolledOver(element) {
 
     const win = window(element);
     const doc = document(element);
-    const elHeight = element.offsetHeight;
+    const elHeight = element.offsetHeight + heightOffset;
     const [top] = offsetPosition(element);
     const vp = height(win);
     const vh = vp + Math.min(0, top - vp);
-    const diff = Math.max(0, vp - (height(doc) - (top + elHeight)));
+    const diff = Math.max(0, vp - (height(doc) + heightOffset - (top + elHeight)));
 
     return clamp(((vh + win.pageYOffset - top) / ((vh + (elHeight - (diff < vp ? diff : 0))) / 100)) / 100);
 }

@@ -1,4 +1,4 @@
-import {$, addClass, append, css, hasClass, on, once, Promise, removeClass, toMs, width, within} from '../util/index';
+import {$, addClass, append, css, hasClass, on, once, Promise, removeClass, toMs, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
@@ -17,7 +17,7 @@ export default {
         stack: Boolean
     },
 
-    defaults: {
+    data: {
         cls: 'uk-open',
         escClose: true,
         bgClose: true,
@@ -181,7 +181,7 @@ export default {
         show() {
 
             if (this.isToggled()) {
-                return;
+                return Promise.resolve();
             }
 
             if (this.container && this.$el.parentNode !== this.container) {
@@ -193,9 +193,9 @@ export default {
         },
 
         hide() {
-            if (this.isToggled()) {
-                return this.toggleNow(this.$el, false);
-            }
+            return this.isToggled()
+                ? this.toggleNow(this.$el, false)
+                : Promise.resolve();
         },
 
         getActive() {

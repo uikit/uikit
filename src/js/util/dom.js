@@ -134,18 +134,18 @@ export function unwrap(element) {
         });
 }
 
-const fragmentRE = /^\s*<(\w+|!)[^>]*>/;
-const singleTagRE = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
+const fragmentRe = /^\s*<(\w+|!)[^>]*>/;
+const singleTagRe = /^<(\w+)\s*\/?>(?:<\/\1>)?$/;
 
 export function fragment(html) {
 
-    const matches = singleTagRE.exec(html);
+    const matches = singleTagRe.exec(html);
     if (matches) {
         return document.createElement(matches[1]);
     }
 
     const container = document.createElement('div');
-    if (fragmentRE.test(html)) {
+    if (fragmentRe.test(html)) {
         container.insertAdjacentHTML('beforeend', html.trim());
     } else {
         container.textContent = html;

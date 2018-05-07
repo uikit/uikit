@@ -4,11 +4,19 @@
 
 ### Added
 
+- Add `Masonry` option to Grid component
+- Add Filter component
+- Add Img component
 - Add inverse style for form icon
 
 ### Changed
 
 - Allow left and right icons at the same time in form and search component
+- Rename `target` to `target-offset` in Sticky component
+
+### Removed
+
+- Grid Parallax, use Grid component with `parallax` option instead
 
 ### Fixed
 

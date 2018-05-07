@@ -1,4 +1,4 @@
-import {assign, createEvent, fastdom, includes, isPlainObject, ready} from '../util/index';
+import {assign, createEvent, fastdom, includes, isPlainObject, ready} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -18,6 +18,7 @@ export default function (UIkit) {
         }
 
         this._data = {};
+        this._initProps();
 
         this._callHook('beforeConnect');
         this._connected = true;

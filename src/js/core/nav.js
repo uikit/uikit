@@ -1,15 +1,13 @@
-export default function (UIkit) {
+import Accordion from './accordion';
 
-    UIkit.component('nav', UIkit.components.accordion.extend({
+export default {
 
-        name: 'nav',
+    extends: Accordion,
 
-        defaults: {
-            targets: '> .uk-parent',
-            toggle: '> a',
-            content: '> ul'
-        }
+    data: {
+        targets: '> .uk-parent',
+        toggle: '> a',
+        content: '> ul'
+    }
 
-    }));
-
-}
+};

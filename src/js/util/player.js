@@ -82,6 +82,7 @@ export class Player {
         } else if (this.isHTML5()) {
             try {
                 const promise = this.el.play();
+
                 if (promise) {
                     promise.catch(noop);
                 }

@@ -1,56 +1,69 @@
-import {$$, camelize, fastdom, isPlainObject, isUndefined, startsWith} from '../util/index';
+import {$$, assign, camelize, fastdom, hyphenate, isPlainObject, startsWith} from 'uikit-util';
 
 export default function (UIkit) {
 
     const DATA = UIkit.data;
 
-    UIkit.components = {};
+    const components = {};
 
-    UIkit.component = function (id, options) {
+    UIkit.component = function (name, options) {
 
-        const name = camelize(id);
+        if (!options) {
 
-        if (isPlainObject(options)) {
-            options.name = name;
-            options = UIkit.extend(options);
-        } else if (isUndefined(options)) {
-            return UIkit.components[name];
-        } else {
-            options.options.name = name;
+            if (isPlainObject(components[name])) {
+                components[name] = UIkit.extend(components[name]);
+            }
+
+            return components[name];
+
         }
-
-        UIkit.components[name] = options;
 
         UIkit[name] = function (element, data) {
 
+            const component = UIkit.component(name);
+
             if (isPlainObject(element)) {
-                return new UIkit.components[name]({data: element});
+                return new component({data: element});
             }
 
-            if (UIkit.components[name].options.functional) {
-                return new UIkit.components[name]({data: [...arguments]});
+            if (component.options.functional) {
+                return new component({data: [...arguments]});
             }
 
             return element && element.nodeType ? init(element) : $$(element).map(init)[0];
 
             function init(element) {
 
-                const cmp = UIkit.getComponent(element, name);
+                const instance = UIkit.getComponent(element, name);
 
-                if (cmp && data) {
-                    cmp.$reset(data);
+                if (instance) {
+                    if (!data) {
+                        return instance;
+                    } else {
+                        instance.$destroy();
+                    }
                 }
 
-                return cmp || new UIkit.components[name]({el: element, data: data || {}});
+                return new component({el: element, data});
+
             }
 
         };
 
-        if (UIkit._initialized && !options.options.functional) {
+        const opt = isPlainObject(options) ? assign({}, options) : options.options;
+
+        opt.name = name;
+
+        if (opt.install) {
+            opt.install(UIkit, opt, name);
+        }
+
+        if (UIkit._initialized && !opt.functional) {
+            const id = hyphenate(id);
             fastdom.read(() => UIkit[name](`[uk-${id}],[data-uk-${id}]`));
         }
 
-        return UIkit.components[name];
+        return components[name] = isPlainObject(options) ? opt : options;
     };
 
     UIkit.getComponents = element => element && element[DATA] || {};
@@ -68,7 +81,7 @@ export default function (UIkit) {
 
             const name = getComponentName(node.attributes[i].name);
 
-            if (name && name in UIkit.components) {
+            if (name && name in components) {
                 UIkit[name](node);
             }
 
