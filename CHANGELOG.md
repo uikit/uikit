@@ -19,6 +19,8 @@
 
 ### Fixed
 
+- Fix dropcap font size in Edge
+- Fix dropcap line height in Firefox
 - Fix Scrollspy being stuck in endless update loop
 - Fix Slideshow combined with Height Viewport component
 - Fix Height Match component's `row` matching
