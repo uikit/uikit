@@ -12,6 +12,7 @@
 
 ### Fixed
 
+- Fix option color in select dropdowns for Inverse component
 - Fix dropcap font size in Edge
 - Fix dropcap line height in Firefox
 - Fix Scrollspy being stuck in endless update loop
