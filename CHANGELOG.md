@@ -4,19 +4,17 @@
 
 ### Added
 
-- Add `Masonry` option to Grid component
-- Add Filter component
-- Add Img component
+- Add Img component to lazy load images
+- Add Filter component to filter and sort any kind of layout
+- Add `masonry` option to Grid component
 - Add inverse style for form icon
+- Add smaller font-sizes on mobile for h1, h2, primary and hero heading and article title
 
 ### Changed
 
+- Moved grid `parallax` option to Grid component and removed Grid Parallax component
 - Allow left and right icons at the same time in form and search component
 - Rename `target` to `target-offset` in Sticky component
-
-### Removed
-
-- Grid Parallax, use Grid component with `parallax` option instead
 
 ### Fixed
 
