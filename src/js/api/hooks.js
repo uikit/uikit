@@ -93,7 +93,7 @@ export default function (UIkit) {
             if (read && !includes(fastdom.reads, reads[i])) {
                 reads[i] = fastdom.read(() => {
 
-                    const result = read.call(this, this._data, e);
+                    const result = this._connected && read.call(this, this._data, e);
 
                     if (result === false && write) {
                         fastdom.clear(writes[i]);
@@ -107,7 +107,7 @@ export default function (UIkit) {
 
             if (write && !includes(fastdom.writes, writes[i])) {
                 writes[i] = fastdom.write(() => {
-                    write.call(this, this._data, e);
+                    this._connected && write.call(this, this._data, e);
                     delete writes[i];
                 });
             }
