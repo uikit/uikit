@@ -89,6 +89,7 @@ on(window, 'load', () => setTimeout(() => {
         'height-viewport',
         'icon',
         'iconnav',
+        'image',
         'label',
         'lightbox',
         'link',

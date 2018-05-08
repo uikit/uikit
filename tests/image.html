@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Image - UIkit tests</title>
+        <script src="js/test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <img data-src="images/slider1.jpg"
+                 data-srcset="images/slider2.jpg 450w,
+                  images/slider3.jpg 900w,
+                  images/slider4.jpg 1800w"
+                 sizes="(min-width: 900px) 900px"
+                 width="400" height="600" alt="" uk-img>
+
+            <h2>JavaScript Options</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>dataSrc</code></td>
+                            <td>String</td>
+                            <td>''</td>
+                            <td>The image's src attribute.</td>
+                        </tr>
+                        <tr>
+                            <td><code>dataSrcset</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>The image's `srcset` attribute.</td>
+                        </tr>
+                        <tr>
+                            <td><code>sizes</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>The image's `sizes` attribute.</td>
+                        </tr>
+                        <tr>
+                            <td><code>dataSizes</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>See `sizes` option.</td>
+                        </tr>
+                        <tr>
+                            <td><code>width</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>The image's `width` attribute. It will be used to determine the placeholder's width and the images position in the document.</td>
+                        </tr>
+                        <tr>
+                            <td><code>dataWidth</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>See `width` option. Use this option, if you do not want an actual `width` attribute on your image.</td>
+                        </tr>
+                        <tr>
+                            <td><code>height</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>The image's `height` attribute. It will be used to determine the placeholder's height and the images position in the document.</td>
+                        </tr>
+                        <tr>
+                            <td><code>dataHeight</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>See `height` option. Use this option, if you do not want an actual `height` attribute on your image.</td>
+                        </tr>
+                        <tr>
+                            <td><code>offsetTop</code></td>
+                            <td>String</td>
+                            <td>'100vh'</td>
+                            <td>The offset increases the viewport's bounding box vertically, before computing an intersection with the image.</td>
+                        </tr>
+                        <tr>
+                            <td><code>offsetLeft</code></td>
+                            <td>String</td>
+                            <td>0</td>
+                            <td>The offset increases the viewport's bounding box horizontally, before computing an intersection with the image.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </body>
+</html>

@@ -6,6 +6,7 @@ export default {
         dataSrc: String,
         dataSrcset: Boolean,
         dataSizes: Boolean,
+        sizes: String,
         width: Number,
         height: Number,
         dataWidth: Number,
@@ -18,6 +19,9 @@ export default {
         dataSrc: '',
         dataSrcset: false,
         dataSizes: false,
+        sizes: false,
+        width: false,
+        height: false,
         offsetTop: '100vh',
         offsetLeft: 0
     },
@@ -36,6 +40,10 @@ export default {
             return height || dataHeight;
         },
 
+        sizes({sizes, dataSizes}) {
+            return sizes || dataSizes;
+        },
+
         isImg(_, $el) {
             return isImg($el);
         }
@@ -47,9 +55,9 @@ export default {
         const active = storage[this.cacheKey] || !this.width || !this.height;
 
         if (active) {
-            setSrcAttrs(this.$el, storage[this.cacheKey], this.dataSrcset, this.dataSizes);
+            setSrcAttrs(this.$el, storage[this.cacheKey], this.dataSrcset, this.sizes);
         } else if (this.isImg) {
-            setSrcAttrs(this.$el, getPlaceholderImage(this.width, this.height, this.dataSizes));
+            setSrcAttrs(this.$el, getPlaceholderImage(this.width, this.height, this.sizes));
         }
 
     },
@@ -75,7 +83,7 @@ export default {
 
 
                 return {
-                    image: getImage(this.dataSrc, this.dataSrcset, this.dataSizes).then(img => {
+                    image: getImage(this.dataSrc, this.dataSrcset, this.sizes).then(img => {
 
                         setSrcAttrs(this.$el, currentSrc(img), img.srcset, img.sizes);
                         storage[this.cacheKey] = currentSrc(img);
@@ -169,7 +177,7 @@ function toPx(value, property = 'width', element = window) {
 
 const dimensions = {height, width};
 function percent(element, property, value) {
-    return (dimensions[property](element) / 100) * toFloat(value);
+    return dimensions[property](element) * toFloat(value) / 100;
 }
 
 function isImg(el) {
