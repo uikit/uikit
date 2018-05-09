@@ -68,12 +68,12 @@ export function getRows(items) {
 
             const leftDim = getOffset(row[0]);
 
-            if (dim.top >= Math.floor(leftDim.bottom)) {
+            if (dim.top >= leftDim.bottom - 1) {
                 rows.push([el]);
                 break;
             }
 
-            if (Math.floor(dim.bottom) > leftDim.top) {
+            if (dim.bottom > leftDim.top) {
 
                 if (dim.left < leftDim.left && !isRtl) {
                     row.unshift(el);
