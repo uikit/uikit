@@ -25,7 +25,8 @@ export default {
         width: false,
         height: false,
         offsetTop: '100vh',
-        offsetLeft: 0
+        offsetLeft: 0,
+        loaded: false
     },
 
     computed: {
@@ -54,6 +55,8 @@ export default {
 
     connected() {
 
+        this.loaded = false;
+
         const active = storage[this.cacheKey] || !this.width || !this.height;
 
         if (active) {
@@ -71,7 +74,7 @@ export default {
             read({image}) {
 
                 if (image
-                    || document.readyState === 'loading'
+                    || !this.loaded && this.isImg
                     || storage[this.cacheKey] && this.isImg
                     || !isInView(this.$el, toPx(this.offsetTop, 'height'), toPx(this.offsetLeft, 'width'))
                 ) {
@@ -82,7 +85,6 @@ export default {
 
                     return;
                 }
-
 
                 return {
                     image: getImage(this.dataSrc, this.dataSrcset, this.sizes).then(img => {
@@ -100,7 +102,15 @@ export default {
 
         }
 
-    ]
+    ],
+
+    events: {
+
+        load() {
+            this.loaded = true;
+        }
+
+    }
 
 };
 
