@@ -6,18 +6,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Image - UIkit tests</title>
         <script src="js/test.js"></script>
-
-        <script>
-
-            window.sessionStorage.clear();
-
-        </script>
-
     </head>
 
     <body>
 
         <div class="uk-container">
+
+            <div class="uk-margin">
+                <button class="uk-button uk-button-default" onclick="sessionStorage.clear()">Clear Session Storage</button>
+            </div>
 
             <img data-src="images/slider1.jpg"
                  data-srcset="images/slider2.jpg 450w,
