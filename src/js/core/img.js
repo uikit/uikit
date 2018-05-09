@@ -2,6 +2,8 @@ import {css, Dimensions, endsWith, getImage, height, isInView, isNumeric, noop, 
 
 export default {
 
+    attrs: true,
+
     props: {
         dataSrc: String,
         dataSrcset: Boolean,
