@@ -32,14 +32,14 @@ export default {
         velocity: 2,
         Animations,
         template: `<div class="uk-lightbox uk-overflow-hidden">
-                            <ul class="uk-lightbox-items"></ul>
-                            <div class="uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque">
-                                <button class="uk-lightbox-toolbar-icon uk-close-large" type="button" uk-close></button>
-                             </div>
-                            <a class="uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade" href="#" uk-slidenav-previous uk-lightbox-item="previous"></a>
-                            <a class="uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade" href="#" uk-slidenav-next uk-lightbox-item="next"></a>
-                            <div class="uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div>
-                        </div>`
+                        <ul class="uk-lightbox-items"></ul>
+                        <div class="uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque">
+                            <button class="uk-lightbox-toolbar-icon uk-close-large" type="button" uk-close></button>
+                         </div>
+                        <a class="uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade" href="#" uk-slidenav-previous uk-lightbox-item="previous"></a>
+                        <a class="uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade" href="#" uk-slidenav-next uk-lightbox-item="next"></a>
+                        <div class="uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque"></div>
+                    </div>`
     }),
 
     created() {
@@ -227,13 +227,13 @@ export default {
                 } else if ((matches = source.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/watch\?v=([^&\s]+)/) || source.match(/()youtu\.be\/(.*)/))) {
 
                     const [, , id] = matches;
-                    const setIframe = (width = 640, height = 450) => this.setItem(item, getIframe(`//www.youtube${matches[1] || ''}.com/embed/${id}`, width, height, this.videoAutoplay));
+                    const setIframe = (width = 640, height = 450) => this.setItem(item, getIframe(`https://www.youtube${matches[1] || ''}.com/embed/${id}`, width, height, this.videoAutoplay));
 
-                    getImage(`//img.youtube.com/vi/${id}/maxresdefault.jpg`).then(
+                    getImage(`https://img.youtube.com/vi/${id}/maxresdefault.jpg`).then(
                         ({width, height}) => {
                             // YouTube default 404 thumb, fall back to low resolution
                             if (width === 120 && height === 90) {
-                                getImage(`//img.youtube.com/vi/${id}/0.jpg`).then(
+                                getImage(`https://img.youtube.com/vi/${id}/0.jpg`).then(
                                     ({width, height}) => setIframe(width, height),
                                     setIframe
                                 );
@@ -247,9 +247,10 @@ export default {
                     // Vimeo
                 } else if ((matches = source.match(/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/))) {
 
-                    ajax(`//vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURI(source)}`, {responseType: 'json'})
-                        .then(({response: {height, width}}) =>
-                            this.setItem(item, getIframe(`//player.vimeo.com/video/${matches[2]}`, width, height, this.videoAutoplay))
+                    ajax(`https://vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURI(source)}`, {responseType: 'json', withCredentials: false})
+                        .then(
+                            ({response: {height, width}}) => this.setItem(item, getIframe(`https://player.vimeo.com/video/${matches[2]}`, width, height, this.videoAutoplay)),
+                            () => this.setError(item)
                         );
 
                 }
