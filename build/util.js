@@ -10,7 +10,7 @@ const json = require('rollup-plugin-json');
 const buble = require('rollup-plugin-buble');
 const replace = require('rollup-plugin-replace');
 const alias = require('rollup-plugin-import-alias');
-const version = require('../package.json').version;
+const {version} = require('../package.json');
 const banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */\n`;
 
 exports.banner = banner;
