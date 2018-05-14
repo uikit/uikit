@@ -1,4 +1,4 @@
-import {css, Dimensions, endsWith, getImage, height, isInView, isNumeric, noop, startsWith, toFloat, width} from 'uikit-util';
+import {css, Dimensions, endsWith, getImage, height, isInView, isNumeric, noop, queryAll, startsWith, toFloat, width} from 'uikit-util';
 
 export default {
 
@@ -14,7 +14,8 @@ export default {
         dataWidth: Number,
         dataHeight: Number,
         offsetTop: String,
-        offsetLeft: String
+        offsetLeft: String,
+        target: String
     },
 
     data: {
@@ -26,7 +27,8 @@ export default {
         height: false,
         offsetTop: '50vh',
         offsetLeft: 0,
-        loaded: false
+        loaded: false,
+        target: false
     },
 
     computed: {
@@ -49,6 +51,18 @@ export default {
 
         isImg(_, $el) {
             return isImg($el);
+        },
+
+        target({target}) {
+            return [this.$el].concat(queryAll(target, this.$el));
+        },
+
+        offsetTop({offsetTop}) {
+            return toPx(offsetTop, 'height');
+        },
+
+        offsetLeft({offsetLeft}) {
+            return toPx(offsetLeft, 'width');
         }
 
     },
@@ -57,10 +71,8 @@ export default {
 
         this.loaded = false;
 
-        const active = storage[this.cacheKey] || !this.width || !this.height;
-
-        if (active) {
-            setSrcAttrs(this.$el, storage[this.cacheKey], this.dataSrcset, this.sizes);
+        if (storage[this.cacheKey] || !this.width || !this.height) {
+            setSrcAttrs(this.$el, storage[this.cacheKey] || this.dataSrc, this.dataSrcset, this.sizes);
         } else if (this.isImg) {
             setSrcAttrs(this.$el, getPlaceholderImage(this.width, this.height, this.sizes));
         }
@@ -76,7 +88,7 @@ export default {
                 if (image
                     || !this.loaded && this.isImg
                     || storage[this.cacheKey] && this.isImg
-                    || !isInView(this.$el, toPx(this.offsetTop, 'height'), toPx(this.offsetLeft, 'width'))
+                    || !this.target.some(el => isInView(el, this.offsetTop, this.offsetLeft, true))
                 ) {
 
                     if (!this.isImg && image) {

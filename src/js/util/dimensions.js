@@ -301,28 +301,45 @@ export function flipPosition(pos) {
     }
 }
 
-export function isInView(element, topOffset = 0, leftOffset = 0) {
+export function isInView(element, topOffset = 0, leftOffset = 0, relativeToViewport) {
+
+    if (!isVisible(element)) {
+        return false;
+    }
 
     element = toNode(element);
-
-    const [elTop, elLeft] = offsetPosition(element);
     const win = window(element);
-    const {pageYOffset: top, pageXOffset: left} = win;
 
-    return isVisible(element) && intersectRect(
-        {
-            top: elTop,
-            left: elLeft,
-            bottom: elTop + element.offsetHeight,
-            right: elTop + element.offsetWidth
-        },
-        {
-            top,
-            left,
-            bottom: top + topOffset + height(win),
-            right: left + leftOffset + width(win)
-        }
-    );
+    if (relativeToViewport) {
+
+        return intersectRect(element.getBoundingClientRect(), {
+            top: -topOffset,
+            left: -leftOffset,
+            bottom: topOffset + height(win),
+            right: leftOffset + width(win)
+        });
+
+    } else {
+
+        const [elTop, elLeft] = offsetPosition(element);
+        const {scrollY: top, scrollX: left} = win;
+
+        return intersectRect(
+            {
+                top: elTop,
+                left: elLeft,
+                bottom: elTop + element.offsetHeight,
+                right: elTop + element.offsetWidth
+            },
+            {
+                top: top - topOffset,
+                left: left - leftOffset,
+                bottom: top + topOffset + height(win),
+                right: left + leftOffset + width(win)
+            }
+        );
+    }
+
 }
 
 export function scrolledOver(element, heightOffset = 0) {

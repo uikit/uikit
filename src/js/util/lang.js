@@ -11,12 +11,18 @@ export function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key);
 }
 
+const hyphenateCache = {};
 const hyphenateRe = /([a-z\d])([A-Z])/g;
 
 export function hyphenate(str) {
-    return str
-        .replace(hyphenateRe, '$1-$2')
-        .toLowerCase();
+
+    if (!(str in hyphenateCache)) {
+        hyphenateCache[str] = str
+            .replace(hyphenateRe, '$1-$2')
+            .toLowerCase();
+    }
+
+    return hyphenateCache[str];
 }
 
 const camelizeRe = /-(\w)/g;

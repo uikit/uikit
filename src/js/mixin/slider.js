@@ -58,6 +58,14 @@ export default {
 
     },
 
+    events: {
+
+        itemshown() {
+            this.$update(this.$el);
+        }
+
+    },
+
     methods: {
 
         show(index, force = false) {

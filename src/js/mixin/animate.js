@@ -8,7 +8,7 @@ export default {
         animation: Number
     },
 
-    defaults: {
+    data: {
         animation: 150
     },
 

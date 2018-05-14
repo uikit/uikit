@@ -42,6 +42,15 @@ function _query(selector, context = document, queryFn) {
 
                 const selectors = selector.substr(1).trim().split(' ');
                 ctx = closest(context.parentNode, selectors[0]);
+                selector = selectors.slice(1).join(' ').trim();
+
+            }
+
+            if (selector[0] === '-') {
+
+                const selectors = selector.substr(1).trim().split(' ');
+                const prev = (ctx || context).previousElementSibling;
+                ctx = matches(prev, selector.substr(1)) ? prev : null;
                 selector = selectors.slice(1).join(' ');
 
             }
@@ -79,8 +88,8 @@ function _query(selector, context = document, queryFn) {
 
 }
 
-const contextSelectorRe = /(^|,)\s*[!>+~]/;
-const contextSanitizeRe = /([!>+~])(?=\s+[!>+~]|\s*$)/g;
+const contextSelectorRe = /(^|,)\s*[!>+~-]/;
+const contextSanitizeRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
 
 function isContextSelector(selector) {
     return isString(selector) && selector.match(contextSelectorRe);
