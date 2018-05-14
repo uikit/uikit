@@ -219,7 +219,7 @@ export default {
                     });
 
                     // Iframe
-                } else if (type === 'iframe') {
+                } else if (type === 'iframe' || source.match(/\.(html|php)$/i)) {
 
                     this.setItem(item, `<iframe class="uk-lightbox-iframe" src="${source}" frameborder="0" allowfullscreen></iframe>`);
 
