@@ -16,6 +16,7 @@
 - Moved Height, Leader, SVG and Video from Utility component into their own components
 - Allow left and right icons at the same time in form and search component
 - Rename `target` to `target-offset` in Sticky component
+- Removed hyphenating for text break
 
 ### Fixed
 
