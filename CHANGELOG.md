@@ -12,6 +12,7 @@
 
 ### Changed
 
+- Break long words into the next line for comment body
 - Moved grid `parallax` option to Grid component and removed Grid Parallax component
 - Moved Height, Leader, SVG and Video from Utility component into their own components
 - Allow left and right icons at the same time in form and search component
