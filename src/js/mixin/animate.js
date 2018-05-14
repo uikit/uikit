@@ -52,10 +52,7 @@ export default {
                         el.parentNode && i in propsFrom
                             ? propsFrom[i]
                             ? isVisible(el)
-                                ? assign({
-                                    width: el.offsetWidth,
-                                    height: el.offsetHeight,
-                                }, getPositionWithMargin(el))
+                                ? getPositionWithMargin(el)
                                 : {opacity: 0}
                             : {opacity: isVisible(el) ? 1 : 0}
                             : false
@@ -112,11 +109,9 @@ function getProps(el, opacity) {
     return isVisible(el)
         ? assign({
             display: '',
-            height: el.offsetHeight,
             opacity: opacity ? css(el, 'opacity') : '0',
             pointerEvents: 'none',
             position: 'absolute',
-            width: el.offsetWidth,
             zIndex: zIndex === 'auto' ? index(el) : zIndex
         }, getPositionWithMargin(el))
         : false;
@@ -137,9 +132,11 @@ function reset(el) {
 }
 
 function getPositionWithMargin(el) {
+    const {height, width} = el.getBoundingClientRect();
     let {top, left} = position(el);
     top += toFloat(css(el, 'marginTop'));
-    return {top, left};
+
+    return {top, left, height, width};
 }
 
 let style;
