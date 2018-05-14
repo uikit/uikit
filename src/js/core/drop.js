@@ -22,7 +22,7 @@ export default {
 
     data: {
         mode: ['click', 'hover'],
-        toggle: true,
+        toggle: '- *',
         boundary: window,
         boundaryAlign: false,
         delayShow: 0,
@@ -58,7 +58,7 @@ export default {
         addClass(this.$el, this.clsDrop);
 
         const {toggle} = this.$props;
-        this.toggle = toggle && this.$create('toggle', isString(toggle) ? query(toggle, this.$el) : this.$el.previousElementSibling, {
+        this.toggle = toggle && this.$create('toggle', query(toggle, this.$el), {
             target: this.$el,
             mode: this.mode
         });
