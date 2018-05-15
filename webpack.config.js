@@ -38,7 +38,6 @@ module.exports = [
         ],
         resolve: {
             alias: {
-                'uikit-mixin': resolve(__dirname, 'src/js/mixin'),
                 'uikit-util': resolve(__dirname, 'src/js/util')
             }
         }
@@ -65,7 +64,6 @@ module.exports = [
         ],
         resolve: {
             alias: {
-                'uikit-mixin': resolve(__dirname, 'src/js/mixin'),
                 'uikit-util': resolve(__dirname, 'src/js/util')
             }
         }
