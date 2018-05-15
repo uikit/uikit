@@ -1,26 +1,24 @@
 /* global UIkit */
-var storage = window.sessionStorage,
-    key = '_uikit_style',
-    keyinverse = '_uikit_inverse',
-    themes = {},
-    docEl = document.documentElement;
+import {addClass, append, attr, css, on, prepend, removeClass, ucfirst} from 'uikit-util';
+
+const storage = window.sessionStorage;
+const key = '_uikit_style';
+const keyinverse = '_uikit_inverse';
+const docEl = document.documentElement;
 
 // try to load themes.json
-var request = new XMLHttpRequest();
+const request = new XMLHttpRequest();
 request.open('GET', '../themes.json', false);
 request.send(null);
 
-if (request.status === 200) {
-    themes = JSON.parse(request.responseText);
-}
+const themes = request.status === 200 ? JSON.parse(request.responseText) : {};
+const styles = {
+    core: {css: '../dist/css/uikit-core.css'},
+    theme: {css: '../dist/css/uikit.css'}
+};
+const component = location.pathname.split('/').pop().replace(/.html$/, '');
 
-var styles = {
-        core: {css: '../dist/css/uikit-core.css'},
-        theme: {css: '../dist/css/uikit.css'}
-    },
-    component = location.pathname.split('/').pop().replace(/.html$/, '');
-
-for (var theme in themes) {
+for (const theme in themes) {
     styles[theme] = themes[theme];
 }
 
@@ -31,12 +29,12 @@ if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
 storage[key] = storage[key] || 'core';
 storage[keyinverse] = storage[keyinverse] || '';
 
-var dir = storage._uikit_dir || 'ltr';
+const dir = storage._uikit_dir || 'ltr';
 
 // set dir
-docEl.setAttribute('dir', dir);
+attr(docEl, 'dir', dir);
 
-var style = styles[storage[key]] || styles.theme;
+const style = styles[storage[key]] || styles.theme;
 
 // add style
 document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : style.css.replace('.css', '').concat('-rtl.css')}">`);
@@ -45,16 +43,14 @@ document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : sty
 document.writeln('<script src="../dist/js/uikit.js"></script>');
 document.writeln(`<script src="${style.icons ? style.icons : '../dist/js/uikit-icons.js'}"></script>`);
 
-window.addEventListener('load', () => setTimeout(() => {
+on(window, 'load', () => setTimeout(() => {
 
-    var {addClass, append, css, on, prepend, removeClass, ucfirst} = UIkit.util;
-
-    var $body = document.body;
-    var $container = prepend($body, '<div class="uk-container"></div>');
-    var $tests = css(append($container, '<select class="uk-select uk-form-width-small"></select>'), 'margin', '20px 20px 20px 0');
-    var $styles = css(append($container, '<select class="uk-select uk-form-width-small"></select>'), 'margin', '20px');
-    var $inverse = css(append($container, '<select class="uk-select uk-form-width-small"></select>'), 'margin', '20px');
-    var $rtl = css(append($container, '<label></label>'), 'margin', '20px');
+    const $body = document.body;
+    const $container = prepend($body, '<div class="uk-container"></div>');
+    const $tests = css(append($container, '<select class="uk-select uk-form-width-small"></select>'), 'margin', '20px 20px 20px 0');
+    const $styles = css(append($container, '<select class="uk-select uk-form-width-small"></select>'), 'margin', '20px');
+    const $inverse = css(append($container, '<select class="uk-select uk-form-width-small"></select>'), 'margin', '20px');
+    const $rtl = css(append($container, '<label></label>'), 'margin', '20px');
 
     // Tests
     // ------------------------------
@@ -82,16 +78,21 @@ window.addEventListener('load', () => setTimeout(() => {
         'dotnav',
         'drop',
         'dropdown',
+        'filter',
         'flex',
         'form',
         'grid',
+        'grid-masonry',
         'grid-parallax',
         'heading',
+        'height',
         'height-expand',
         'height-viewport',
         'icon',
         'iconnav',
+        'image',
         'label',
+        'leader',
         'lightbox',
         'link',
         'list',
@@ -121,6 +122,7 @@ window.addEventListener('load', () => setTimeout(() => {
         'sticky',
         'sticky-navbar',
         'subnav',
+        'svg',
         'switcher',
         'tab',
         'table',
@@ -133,6 +135,7 @@ window.addEventListener('load', () => setTimeout(() => {
         'transition',
         'utility',
         'upload',
+        'video',
         'visibility',
         'width'
     ].sort().forEach(name => append($tests, `<option value="${name}.html">${name.split('-').map(ucfirst).join(' ')}</option>`));
@@ -161,7 +164,7 @@ window.addEventListener('load', () => setTimeout(() => {
     // Variations
     // ------------------------------
 
-    var variations = {
+    const variations = {
         '': 'Default',
         'light': 'Dark',
         'dark': 'Light'
@@ -219,6 +222,6 @@ window.addEventListener('load', () => setTimeout(() => {
 docEl.style.paddingTop = '80px';
 
 function getParam(name) {
-    var match = new RegExp(`[?&]${name}=([^&]*)`).exec(window.location.search);
+    const match = new RegExp(`[?&]${name}=([^&]*)`).exec(window.location.search);
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }

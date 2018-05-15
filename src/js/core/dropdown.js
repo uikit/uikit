@@ -1,5 +1,7 @@
-export default function (UIkit) {
+import Drop from './drop';
 
-    UIkit.component('dropdown', UIkit.components.drop.extend({name: 'dropdown'}));
+export default {
 
-}
+    extends: Drop
+
+};

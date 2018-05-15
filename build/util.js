@@ -1,24 +1,24 @@
-var fs = require('fs-extra');
-var path = require('path');
-var glob = require('glob');
-var less = require('less');
-var rollup = require('rollup');
-var uglify = require('uglify-js');
-var CleanCSS = require('clean-css');
-var html = require('rollup-plugin-html');
-var json = require('rollup-plugin-json');
-var buble = require('rollup-plugin-buble');
-var replace = require('rollup-plugin-replace');
-var alias = require('rollup-plugin-import-alias');
-var version = require('../package.json').version;
-var banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */\n`;
+const fs = require('fs-extra');
+const path = require('path');
+const glob = require('glob');
+const less = require('less');
+const rollup = require('rollup');
+const uglify = require('uglify-js');
+const CleanCSS = require('clean-css');
+const html = require('rollup-plugin-html');
+const json = require('rollup-plugin-json');
+const buble = require('rollup-plugin-buble');
+const replace = require('rollup-plugin-replace');
+const alias = require('rollup-plugin-import-alias');
+const {version} = require('../package.json');
+const banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */\n`;
 
 exports.banner = banner;
 exports.validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
 
 exports.read = async function (file, cb) {
 
-    var data = await fs.readFile(file, 'utf8');
+    const data = await fs.readFile(file, 'utf8');
     cb && cb(data);
     return data;
 
@@ -26,7 +26,7 @@ exports.read = async function (file, cb) {
 
 exports.write = async function (dest, data) {
 
-    var err = await fs.outputFile(dest, data);
+    const err = await fs.outputFile(dest, data);
 
     if (err) {
         console.log(err);
@@ -40,7 +40,7 @@ exports.write = async function (dest, data) {
 };
 
 exports.logFile = async function (file) {
-    var data = await exports.read(file);
+    const data = await exports.read(file);
     console.log(`${exports.cyan(file)} ${exports.getSize(data)}`);
 };
 
@@ -53,7 +53,7 @@ exports.cyan = function (str) {
 };
 
 exports.minify = async function (file) {
-    var {styles} = await new CleanCSS({
+    const {styles} = await new CleanCSS({
         advanced: false,
         keepSpecialComments: 0,
         rebase: false,
@@ -81,20 +81,22 @@ exports.renderLess = async function (data, options) {
     return (await less.render(data, options)).css;
 };
 
-exports.compile = async function (file, dest, {external, globals, name, aliases, bundled, minify = true}) {
+exports.compile = async function (file, dest, {external, globals, name, aliases, bundled, replaces, minify = true}) {
 
     name = (name || '').replace(/[^\w]/g, '_');
 
-    var bundle = await rollup.rollup({
+    const bundle = await rollup.rollup({
         external,
         input: `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
         plugins: [
-            replace({
+            replace(Object.assign({
                 BUNDLED: bundled || false,
                 VERSION: `'${version}'`
-            }),
+            }, replaces)),
             alias({
-                Paths: aliases || {},
+                Paths: Object.assign({
+                    'uikit-util': './src/js/util/index',
+                }, aliases),
                 Extensions: ['js', 'json']
             }),
             html({
@@ -108,7 +110,7 @@ exports.compile = async function (file, dest, {external, globals, name, aliases,
         ]
     });
 
-    var {code, map} = await bundle.generate({
+    let {code, map} = await bundle.generate({
         globals,
         format: 'umd',
         banner: exports.banner,

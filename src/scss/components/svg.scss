@@ -1,0 +1,39 @@
+// Name:            SVG
+// Description:     Component to style SVGs
+//
+// Component:       `uk-svg`
+//
+// ========================================================================
+
+
+/* ========================================================================
+   Component: SVG
+ ========================================================================== */
+
+/*
+ * 1. Fill all SVG elements with the current text color if no `fill` attribute is set
+ * 2. Set the fill and stroke color of all SVG elements to the current text color
+ * 3. Fix for uppercase attribute names in Edge. Will be fixed in Windows 10 builds 16251+
+ */
+
+/* 1 */
+.uk-svg,
+/* 2 */
+.uk-svg:not(.uk-preserve) [fill*='#']:not(.uk-preserve),
+.uk-svg:not(.uk-preserve) [FILL*='#']:not(.uk-preserve) { fill: currentcolor; } // 3
+.uk-svg:not(.uk-preserve) [stroke*='#']:not(.uk-preserve),
+.uk-svg:not(.uk-preserve) [STROKE*='#']:not(.uk-preserve) { stroke: currentcolor; } // 3
+
+/*
+ * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
+ */
+
+.uk-svg { transform: translate(0,0); }
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-svg-misc)) {@include hook-svg-misc();}
+
+// @mixin hook-svg-misc(){}

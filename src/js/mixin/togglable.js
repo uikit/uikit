@@ -1,5 +1,4 @@
-import UIkit from '../api/index';
-import {$$, Animation, assign, attr, css, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger} from '../util/index';
+import {$$, Animation, assign, attr, css, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger} from 'uikit-util';
 
 export default {
 
@@ -12,7 +11,7 @@ export default {
         queued: Boolean
     },
 
-    defaults: {
+    data: {
         cls: false,
         animation: [false],
         duration: 200,
@@ -136,7 +135,7 @@ export default {
 
             return promise.then(() => {
                 trigger(el, show ? 'shown' : 'hidden', [this]);
-                UIkit.update(el);
+                this.$update(el);
             });
         },
 
@@ -158,7 +157,7 @@ export default {
             $$('[autofocus]', el).some(el => isVisible(el) && (el.focus() || true));
 
             this.updateAria(el);
-            changed && UIkit.update(el);
+            changed && this.$update(el);
         },
 
         _toggleImmediate(el, show) {

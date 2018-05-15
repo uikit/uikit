@@ -1,31 +1,27 @@
-import {addClass, Dimensions, height, isVisible, width} from '../util/index';
+import {addClass, Dimensions, height, isVisible, width} from 'uikit-util';
 
-export default function (UIkit) {
+export default {
 
-    UIkit.component('responsive', {
+    props: ['width', 'height'],
 
-        props: ['width', 'height'],
+    connected() {
+        addClass(this.$el, 'uk-responsive-width');
+    },
 
-        init() {
-            addClass(this.$el, 'uk-responsive-width');
+    update: {
+
+        read() {
+            return isVisible(this.$el) && this.width && this.height
+                ? {width: width(this.$el.parentNode), height: this.height}
+                : false;
         },
 
-        update: {
+        write(dim) {
+            height(this.$el, Dimensions.contain({height: this.height, width: this.width}, dim).height);
+        },
 
-            read() {
-                return isVisible(this.$el) && this.width && this.height
-                    ? {width: width(this.$el.parentNode), height: this.height}
-                    : false;
-            },
+        events: ['load', 'resize']
 
-            write(dim) {
-                height(this.$el, Dimensions.contain({height: this.height, width: this.width}, dim).height);
-            },
+    }
 
-            events: ['load', 'resize']
-
-        }
-
-    });
-
-}
+};

@@ -1,17 +1,27 @@
 # Changelog
 
-## WIP
+## 3.0.0 rc 1 (May 15, 2018)
 
 ### Added
 
+- Add Img component to lazy load images
+- Add Filter component to filter and sort any kind of layout
+- Add `masonry` option to Grid component
 - Add inverse style for form icon
+- Add smaller font-sizes on mobile for h1, h2, primary and hero heading and article title
 
 ### Changed
 
+- Break long words into the next line for comment body
+- Moved grid `parallax` option to Grid component and removed Grid Parallax component
+- Moved Height, Leader, SVG and Video from Utility component into their own components
 - Allow left and right icons at the same time in form and search component
+- Rename `target` to `target-offset` in Sticky component
+- Removed hyphenating for text break
 
 ### Fixed
 
+- Fix option color in select dropdowns for Inverse component
 - Fix dropcap font size in Edge
 - Fix dropcap line height in Firefox
 - Fix Scrollspy being stuck in endless update loop

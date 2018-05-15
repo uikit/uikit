@@ -71,6 +71,7 @@
 
 @form-select-padding-right:                     20px;
 @form-select-icon-color:                        @global-color;
+@form-select-option-color:                      #444;
 @form-select-disabled-icon-color:               @global-muted-color;
 
 @form-radio-size:                               16px;
@@ -401,6 +402,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * 1. Remove default style. Also works in Firefox
  * 2. Style
  * 3. Remove default style in IE 10/11
+ * 4. Set `color` for options in the select dropdown, because the inherited `color` might be too light.
  */
 
 .uk-select:not([multiple]):not([size]) {
@@ -416,6 +418,9 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 /* 3 */
 .uk-select:not([multiple]):not([size])::-ms-expand { display: none; }
+
+/* 4 */
+.uk-select:not([multiple]):not([size]) option { color: @form-select-option-color; }
 
 /*
  * Disabled

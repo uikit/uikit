@@ -1,83 +1,65 @@
-import ParallaxMixin from '../mixin/parallax';
+import Parallax from '../mixin/parallax';
+import {clamp, css, scrolledOver, query} from 'uikit-util';
 
-function plugin(UIkit) {
+export default {
 
-    if (plugin.installed) {
-        return;
-    }
+    mixins: [Parallax],
 
-    UIkit.use(ParallaxMixin);
+    props: {
+        target: String,
+        viewport: Number,
+        easing: Number,
+    },
 
-    const {mixin, util} = UIkit;
-    const {clamp, css, scrolledOver, query} = util;
+    data: {
+        target: false,
+        viewport: 1,
+        easing: 1,
+    },
 
-    UIkit.component('parallax', {
+    computed: {
 
-        mixins: [mixin.parallax],
+        target({target}, $el) {
+            return target && query(target, $el) || $el;
+        }
 
-        props: {
-            target: String,
-            viewport: Number,
-            easing: Number,
-        },
+    },
 
-        defaults: {
-            target: false,
-            viewport: 1,
-            easing: 1,
-        },
+    update: [
 
-        computed: {
+        {
 
-            target({target}, $el) {
-                return target && query(target, $el) || $el;
-            }
+            read({percent}) {
+                return {
+                    prev: percent,
+                    percent: ease(scrolledOver(this.target) / (this.viewport || 1), this.easing)
+                };
+            },
 
-        },
+            write({prev, percent, active}, {type}) {
 
-        update: [
+                if (type !== 'scroll') {
+                    prev = false;
+                }
 
-            {
+                if (!active) {
+                    this.reset();
+                    return;
+                }
 
-                read({percent}) {
-                    return {
-                        prev: percent,
-                        percent: ease(scrolledOver(this.target) / (this.viewport || 1), this.easing)
-                    };
-                },
+                if (prev !== percent) {
+                    css(this.$el, this.getCss(percent));
+                }
 
-                write({prev, percent, active}, {type}) {
+            },
 
-                    if (type !== 'scroll') {
-                        prev = false;
-                    }
+            events: ['scroll', 'load', 'resize']
+        }
 
-                    if (!active) {
-                        this.reset();
-                        return;
-                    }
+    ]
 
-                    if (prev !== percent) {
-                        css(this.$el, this.getCss(percent));
-                    }
+};
 
-                },
-
-                events: ['scroll', 'load', 'resize']
-            }
-
-        ]
-
-    });
-
-    function ease(percent, easing) {
-        return clamp(percent * (1 - (easing - easing * percent)));
-    }
-
+function ease(percent, easing) {
+    return clamp(percent * (1 - (easing - easing * percent)));
 }
-
-if (!BUNDLED && typeof window !== 'undefined' && window.UIkit) {
-    window.UIkit.use(plugin);
-}
-
-export default plugin;

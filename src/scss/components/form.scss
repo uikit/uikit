@@ -71,6 +71,7 @@ $form-width-large:                               500px !default;
 
 $form-select-padding-right:                      20px !default;
 $form-select-icon-color:                         $global-color !default;
+$form-select-option-color:                       #444 !default;
 $form-select-disabled-icon-color:                $global-muted-color !default;
 
 $form-radio-size:                                16px !default;
@@ -401,6 +402,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
  * 1. Remove default style. Also works in Firefox
  * 2. Style
  * 3. Remove default style in IE 10/11
+ * 4. Set `color` for options in the select dropdown, because the inherited `color` might be too light.
  */
 
 .uk-select:not([multiple]):not([size]) {
@@ -416,6 +418,9 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
 
 /* 3 */
 .uk-select:not([multiple]):not([size])::-ms-expand { display: none; }
+
+/* 4 */
+.uk-select:not([multiple]):not([size]) option { color: $form-select-option-color; }
 
 /*
  * Disabled
@@ -687,7 +692,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
  * Input padding
  */
 
-.uk-form-icon:not(.uk-form-icon-flip) + .uk-input { padding-left: $form-icon-width !important; }
+.uk-form-icon:not(.uk-form-icon-flip) ~ .uk-input { padding-left: $form-icon-width !important; }
 
 /*
  * Position modifier
@@ -698,7 +703,7 @@ select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
     left: auto;
 }
 
-.uk-form-icon-flip + .uk-input { padding-right: $form-icon-width !important; }
+.uk-form-icon-flip ~ .uk-input { padding-right: $form-icon-width !important; }
 
 
 // Hooks
@@ -744,6 +749,9 @@ $inverse-form-radio-checked-background:         $inverse-global-primary-backgrou
 $inverse-form-radio-checked-icon-color:         $inverse-global-inverse-color !default;
 
 $inverse-form-radio-checked-focus-background:   darken($inverse-global-primary-background, 10%) !default;
+
+$inverse-form-icon-color:                       $inverse-global-muted-color !default;
+$inverse-form-icon-hover-color:                 $inverse-global-color !default;
 
 
 

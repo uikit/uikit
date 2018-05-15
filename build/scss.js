@@ -1,16 +1,13 @@
-let fs = require('fs'),
-    exec = require('child_process').exec,
-    path = require('path'),
-    util = require('./util'),
-    glob = require('glob');
+const fs = require('fs');
+const util = require('./util');
+const glob = require('glob');
 
-let read = util.read,
-    write = util.write;
+const {read, write} = util;
 
-let themeMixins = {},
-    coreMixins = {},
-    themeVar = {},
-    coreVar = {};
+const themeMixins = {};
+const coreMixins = {};
+const themeVar = {};
+const coreVar = {};
 
 /* template for the new components/mixins.scss file*/
 const mixinTemplate = `//

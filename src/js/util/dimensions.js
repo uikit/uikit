@@ -108,9 +108,11 @@ export function offset(element, coordinates) {
         ['left', 'top'].forEach(prop => {
             if (prop in coordinates) {
                 const value = css(element, prop);
-                element.style[prop] = `${(coordinates[prop] - currentOffset[prop])
-                + toFloat(pos === 'absolute' && value === 'auto' ? position(element)[prop] : value)
-                    }px`;
+                css(element, prop, coordinates[prop] - currentOffset[prop]
+                    + toFloat(pos === 'absolute' && value === 'auto'
+                        ? position(element)[prop]
+                        : value)
+                );
             }
         });
 
@@ -299,31 +301,48 @@ export function flipPosition(pos) {
     }
 }
 
-export function isInView(element, topOffset = 0, leftOffset = 0) {
+export function isInView(element, topOffset = 0, leftOffset = 0, relativeToViewport) {
+
+    if (!isVisible(element)) {
+        return false;
+    }
 
     element = toNode(element);
-
-    const [elTop, elLeft] = offsetPosition(element);
     const win = window(element);
-    const {pageYOffset: top, pageXOffset: left} = win;
 
-    return isVisible(element) && intersectRect(
-        {
-            top: elTop,
-            left: elLeft,
-            bottom: elTop + element.offsetHeight,
-            right: elTop + element.offsetWidth
-        },
-        {
-            top,
-            left,
-            bottom: top + topOffset + height(win),
-            right: left + leftOffset + width(win)
-        }
-    );
+    if (relativeToViewport) {
+
+        return intersectRect(element.getBoundingClientRect(), {
+            top: -topOffset,
+            left: -leftOffset,
+            bottom: topOffset + height(win),
+            right: leftOffset + width(win)
+        });
+
+    } else {
+
+        const [elTop, elLeft] = offsetPosition(element);
+        const {scrollY: top, scrollX: left} = win;
+
+        return intersectRect(
+            {
+                top: elTop,
+                left: elLeft,
+                bottom: elTop + element.offsetHeight,
+                right: elTop + element.offsetWidth
+            },
+            {
+                top: top - topOffset,
+                left: left - leftOffset,
+                bottom: top + topOffset + height(win),
+                right: left + leftOffset + width(win)
+            }
+        );
+    }
+
 }
 
-export function scrolledOver(element) {
+export function scrolledOver(element, heightOffset = 0) {
 
     if (!isVisible(element)) {
         return 0;
@@ -333,11 +352,11 @@ export function scrolledOver(element) {
 
     const win = window(element);
     const doc = document(element);
-    const elHeight = element.offsetHeight;
+    const elHeight = element.offsetHeight + heightOffset;
     const [top] = offsetPosition(element);
     const vp = height(win);
     const vh = vp + Math.min(0, top - vp);
-    const diff = Math.max(0, vp - (height(doc) - (top + elHeight)));
+    const diff = Math.max(0, vp - (height(doc) + heightOffset - (top + elHeight)));
 
     return clamp(((vh + win.pageYOffset - top) / ((vh + (elHeight - (diff < vp ? diff : 0))) / 100)) / 100);
 }

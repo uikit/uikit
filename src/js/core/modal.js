@@ -1,95 +1,55 @@
-import {Class, Modal} from '../mixin/index';
-import {$, addClass, assign, closest, css, hasClass, height, html, isString, on, Promise, removeClass, trigger} from '../util/index';
+import Modal from '../mixin/modal';
+import {$, addClass, assign, css, hasClass, height, html, isString, on, Promise, removeClass} from 'uikit-util';
 
-export default function (UIkit) {
+export default {
 
-    UIkit.component('modal', {
+    install,
 
-        mixins: [Modal],
+    mixins: [Modal],
 
-        defaults: {
-            clsPage: 'uk-modal-page',
-            selPanel: '.uk-modal-dialog',
-            selClose: '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full'
-        },
+    data: {
+        clsPage: 'uk-modal-page',
+        selPanel: '.uk-modal-dialog',
+        selClose: '.uk-modal-close, .uk-modal-close-default, .uk-modal-close-outside, .uk-modal-close-full'
+    },
 
-        events: [
+    events: [
 
-            {
-                name: 'show',
+        {
+            name: 'show',
 
-                self: true,
+            self: true,
 
-                handler() {
+            handler() {
 
-                    if (hasClass(this.panel, 'uk-margin-auto-vertical')) {
-                        addClass(this.$el, 'uk-flex');
-                    } else {
-                        css(this.$el, 'display', 'block');
-                    }
-
-                    height(this.$el); // force reflow
+                if (hasClass(this.panel, 'uk-margin-auto-vertical')) {
+                    addClass(this.$el, 'uk-flex');
+                } else {
+                    css(this.$el, 'display', 'block');
                 }
-            },
 
-            {
-                name: 'hidden',
-
-                self: true,
-
-                handler() {
-
-                    css(this.$el, 'display', '');
-                    removeClass(this.$el, 'uk-flex');
-
-                }
+                height(this.$el); // force reflow
             }
+        },
 
-        ]
+        {
+            name: 'hidden',
 
-    });
+            self: true,
 
-    UIkit.component('overflow-auto', {
+            handler() {
 
-        mixins: [Class],
+                css(this.$el, 'display', '');
+                removeClass(this.$el, 'uk-flex');
 
-        computed: {
-
-            modal(_, $el) {
-                return closest($el, '.uk-modal');
-            },
-
-            panel(_, $el) {
-                return closest($el, '.uk-modal-dialog');
             }
-
-        },
-
-        connected() {
-            css(this.$el, 'minHeight', 150);
-        },
-
-        update: {
-
-            write() {
-
-                if (!this.panel || !this.modal) {
-                    return;
-                }
-
-                const current = css(this.$el, 'maxHeight');
-
-                css(css(this.$el, 'maxHeight', 150), 'maxHeight', Math.max(150, 150 + height(this.modal) - this.panel.offsetHeight));
-                if (current !== css(this.$el, 'maxHeight')) {
-                    trigger(this.$el, 'resize');
-                }
-            },
-
-            events: ['load', 'resize']
-
         }
 
-    });
+    ]
+
+};
+
+function install (UIkit) {
 
     UIkit.modal.dialog = function (content, options) {
 

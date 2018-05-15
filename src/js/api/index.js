@@ -3,7 +3,7 @@ import hooksAPI from './hooks';
 import stateAPI from './state';
 import instanceAPI from './instance';
 import componentAPI from './component';
-import * as util from '../util/index';
+import * as util from 'uikit-util';
 
 const UIkit = function (options) {
     this._init(options);
@@ -17,7 +17,7 @@ UIkit.options = {};
 globalAPI(UIkit);
 hooksAPI(UIkit);
 stateAPI(UIkit);
-instanceAPI(UIkit);
 componentAPI(UIkit);
+instanceAPI(UIkit);
 
 export default UIkit;
