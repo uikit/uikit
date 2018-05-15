@@ -1,73 +1,70 @@
-import {Class} from '../mixin/index';
-import {attr, getCssVar, toggleClass, unwrap, wrapInner} from '../util/index';
+import Class from '../mixin/class';
+import {attr, getCssVar, toggleClass, unwrap, wrapInner} from 'uikit-util';
 
-export default function (UIkit) {
+export default {
 
-    UIkit.component('leader', {
+    mixins: [Class],
 
-        mixins: [Class],
+    props: {
+        fill: String,
+        media: 'media'
+    },
 
-        props: {
-            fill: String,
-            media: 'media'
-        },
+    data: {
+        fill: '',
+        media: false,
+        clsWrapper: 'uk-leader-fill',
+        clsHide: 'uk-leader-hide',
+        attrFill: 'data-fill'
+    },
 
-        defaults: {
-            fill: '',
-            media: false,
-            clsWrapper: 'uk-leader-fill',
-            clsHide: 'uk-leader-hide',
-            attrFill: 'data-fill'
-        },
+    computed: {
 
-        computed: {
+        fill({fill}) {
+            return fill || getCssVar('leader-fill');
+        }
 
-            fill({fill}) {
-                return fill || getCssVar('leader-fill');
-            }
+    },
 
-        },
+    connected() {
+        [this.wrapper] = wrapInner(this.$el, `<span class="${this.clsWrapper}">`);
+    },
 
-        connected() {
-            [this.wrapper] = wrapInner(this.$el, `<span class="${this.clsWrapper}">`);
-        },
+    disconnected() {
+        unwrap(this.wrapper.childNodes);
+    },
 
-        disconnected() {
-            unwrap(this.wrapper.childNodes);
-        },
+    update: [
 
-        update: [
+        {
 
-            {
+            read({changed, width}) {
 
-                read({changed, width}) {
+                const prev = width;
 
-                    const prev = width;
+                width = Math.floor(this.$el.offsetWidth / 2);
 
-                    width = Math.floor(this.$el.offsetWidth / 2);
+                return {
+                    width,
+                    changed: changed || prev !== width,
+                    hide: this.media && !window.matchMedia(this.media).matches
+                };
+            },
 
-                    return {
-                        width,
-                        changed: changed || prev !== width,
-                        hide: this.media && !window.matchMedia(this.media).matches
-                    };
-                },
+            write(data) {
 
-                write(data) {
+                toggleClass(this.wrapper, this.clsHide, data.hide);
 
-                    toggleClass(this.wrapper, this.clsHide, data.hide);
+                if (data.changed) {
+                    data.changed = false;
+                    attr(this.wrapper, this.attrFill, new Array(data.width).join(this.fill));
+                }
 
-                    if (data.changed) {
-                        data.changed = false;
-                        attr(this.wrapper, this.attrFill, new Array(data.width).join(this.fill));
-                    }
+            },
 
-                },
+            events: ['load', 'resize']
 
-                events: ['load', 'resize']
+        }
+    ]
 
-            }
-        ]
-    });
-
-}
+};

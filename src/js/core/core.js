@@ -1,4 +1,4 @@
-import {$$, addClass, css, hasTouch, on, ready, removeClass, toMs, within} from '../util/index';
+import {$$, addClass, css, hasTouch, on, ready, removeClass, toMs, within} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -10,9 +10,9 @@ export default function (UIkit) {
         on(window, 'load resize', e => UIkit.update(null, e));
         on(window, 'scroll', e => {
             e.dir = scroll <= window.pageYOffset ? 'down' : 'up';
-            e.scrollY = scroll = window.pageYOffset;
+            e.pageYOffset = scroll = window.pageYOffset;
             UIkit.update(null, e);
-        });
+        }, {capture: true, passive: false});
 
         on(document, 'animationstart', ({target}) => {
             if ((css(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {

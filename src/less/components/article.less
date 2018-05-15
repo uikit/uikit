@@ -14,7 +14,8 @@
 
 @article-margin-top:                            @global-large-margin;
 
-@article-title-font-size:                       @global-xxlarge-font-size;
+@article-title-font-size-m:                     @global-xxlarge-font-size;
+@article-title-font-size:                       @article-title-font-size-m * 0.85;
 @article-title-line-height:                     1.2;
 
 @article-meta-font-size:                        @global-small-font-size;
@@ -65,6 +66,13 @@
     font-size: @article-title-font-size;
     line-height: @article-title-line-height;
     .hook-article-title;
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-article-title { font-size: @article-title-font-size-m; }
+
 }
 
 

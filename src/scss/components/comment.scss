@@ -45,6 +45,8 @@ $comment-list-padding-left-m:                    100px !default;
  ========================================================================== */
 
 .uk-comment-body {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
     @if(mixin-exists(hook-comment-body)) {@include hook-comment-body();}
 }
 

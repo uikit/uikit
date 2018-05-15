@@ -1,5 +1,4 @@
-import UIkit from '../api/index';
-import {$} from '../util/index';
+import {$} from 'uikit-util';
 
 export default {
 
@@ -7,14 +6,14 @@ export default {
         container: Boolean
     },
 
-    defaults: {
+    data: {
         container: true
     },
 
     computed: {
 
         container({container}) {
-            return container === true && UIkit.container || container && $(container);
+            return container === true && this.$container || container && $(container);
         }
 
     }

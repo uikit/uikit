@@ -1,334 +1,319 @@
-function plugin(UIkit) {
+import {css, Dimensions, each, getImage, includes, isNumber, isUndefined, toFloat} from 'uikit-util';
 
-    if (plugin.installed) {
-        return;
-    }
+const props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
-    const {mixin, util} = UIkit;
-    const {css, Dimensions, each, getImage, includes, isNumber, isUndefined, toFloat} = util;
+export default {
 
-    const props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
+    props: props.reduce((props, prop) => {
+        props[prop] = 'list';
+        return props;
+    }, {
+        media: 'media'
+    }),
 
-    mixin.parallax = {
+    data: props.reduce((data, prop) => {
+        data[prop] = undefined;
+        return data;
+    }, {
+        media: false
+    }),
 
-        props: props.reduce((props, prop) => {
-            props[prop] = 'list';
-            return props;
-        }, {
-            media: 'media'
-        }),
+    computed: {
 
-        defaults: props.reduce((defaults, prop) => {
-            defaults[prop] = undefined;
-            return defaults;
-        }, {
-            media: false
-        }),
+        props(properties, $el) {
 
-        computed: {
+            return props.reduce((props, prop) => {
 
-            props(properties, $el) {
+                if (isUndefined(properties[prop])) {
+                    return props;
+                }
 
-                return props.reduce((props, prop) => {
+                const isColor = prop.match(/color/i);
+                const isCssProp = isColor || prop === 'opacity';
 
-                    if (isUndefined(properties[prop])) {
-                        return props;
-                    }
+                let pos, bgPos, diff;
+                let steps = properties[prop].slice(0);
 
-                    const isColor = prop.match(/color/i);
-                    const isCssProp = isColor || prop === 'opacity';
+                if (isCssProp) {
+                    css($el, prop, '');
+                }
 
-                    let pos, bgPos, diff;
-                    let steps = properties[prop].slice(0);
+                if (steps.length < 2) {
+                    steps.unshift((prop === 'scale'
+                        ? 1
+                        : isCssProp
+                            ? css($el, prop)
+                            : 0) || 0);
+                }
 
-                    if (isCssProp) {
-                        css($el, prop, '');
-                    }
+                const unit = includes(steps.join(''), '%') ? '%' : 'px';
 
-                    if (steps.length < 2) {
-                        steps.unshift((prop === 'scale'
-                            ? 1
-                            : isCssProp
-                                ? css($el, prop)
-                                : 0) || 0);
-                    }
+                if (isColor) {
 
-                    const unit = includes(steps.join(''), '%') ? '%' : 'px';
+                    const {color} = $el.style;
+                    steps = steps.map(step => parseColor($el, step));
+                    $el.style.color = color;
 
-                    if (isColor) {
+                } else {
 
-                        const {color} = $el.style;
-                        steps = steps.map(step => parseColor($el, step));
-                        $el.style.color = color;
+                    steps = steps.map(toFloat);
+
+                }
+
+                if (prop.match(/^bg/)) {
+
+                    css($el, `background-position-${prop[2]}`, '');
+                    bgPos = css($el, 'backgroundPosition').split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
+
+                    if (this.covers) {
+
+                        const min = Math.min(...steps);
+                        const max = Math.max(...steps);
+                        const down = steps.indexOf(min) < steps.indexOf(max);
+
+                        diff = max - min;
+
+                        steps = steps.map(step => step - (down ? min : max));
+                        pos = `${down ? -diff : 0}px`;
 
                     } else {
 
-                        steps = steps.map(toFloat);
+                        pos = bgPos;
 
                     }
+                }
 
-                    if (prop.match(/^bg/)) {
+                props[prop] = {steps, unit, pos, bgPos, diff};
 
-                        css($el, `background-position-${prop[2]}`, '');
-                        bgPos = css($el, 'backgroundPosition').split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
+                return props;
 
-                        if (this.covers) {
-
-                            const min = Math.min(...steps);
-                            const max = Math.max(...steps);
-                            const down = steps.indexOf(min) < steps.indexOf(max);
-
-                            diff = max - min;
-
-                            steps = steps.map(step => step - (down ? min : max));
-                            pos = `${down ? -diff : 0}px`;
-
-                        } else {
-
-                            pos = bgPos;
-
-                        }
-                    }
-
-                    props[prop] = {steps, unit, pos, bgPos, diff};
-
-                    return props;
-
-                }, {});
-
-            },
-
-            bgProps() {
-                return ['bgx', 'bgy'].filter(bg => bg in this.props);
-            },
-
-            covers(_, $el) {
-                return covers($el);
-            }
+            }, {});
 
         },
 
-        disconnected() {
-            delete this._image;
+        bgProps() {
+            return ['bgx', 'bgy'].filter(bg => bg in this.props);
         },
 
-        update: [
+        covers(_, $el) {
+            return covers($el);
+        }
 
-            {
+    },
 
-                read(data) {
+    disconnected() {
+        delete this._image;
+    },
 
-                    data.active = !this.media || window.matchMedia(this.media).matches;
+    update: [
 
-                    if (data.image) {
-                        data.image.dimEl = {
-                            width: this.$el.offsetWidth,
-                            height: this.$el.offsetHeight
-                        };
-                    }
+        {
 
-                    if ('image' in data || !this.covers || !this.bgProps.length) {
-                        return;
-                    }
+            read(data) {
 
-                    const src = css(this.$el, 'backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
+                data.active = !this.media || window.matchMedia(this.media).matches;
 
-                    if (!src) {
-                        return;
-                    }
+                if (data.image) {
+                    data.image.dimEl = {
+                        width: this.$el.offsetWidth,
+                        height: this.$el.offsetHeight
+                    };
+                }
 
-                    data.image = false;
+                if ('image' in data || !this.covers || !this.bgProps.length) {
+                    return;
+                }
 
-                    getImage(src).then(img => {
-                        data.image = {
-                            width: img.naturalWidth,
-                            height: img.naturalHeight
-                        };
+                const src = css(this.$el, 'backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
 
-                        this.$emit();
-                    });
+                if (!src) {
+                    return;
+                }
 
-                },
+                data.image = false;
 
-                write({image, active}) {
+                getImage(src).then(img => {
+                    data.image = {
+                        width: img.naturalWidth,
+                        height: img.naturalHeight
+                    };
 
-                    if (!image) {
-                        return;
-                    }
+                    this.$emit();
+                });
 
-                    if (!active) {
-                        css(this.$el, {backgroundSize: '', backgroundRepeat: ''});
-                        return;
-                    }
-
-                    const {dimEl} = image;
-
-                    let dim = Dimensions.cover(image, dimEl);
-
-                    this.bgProps.forEach(prop => {
-
-                        const {diff, bgPos, steps} = this.props[prop];
-                        const attr = prop === 'bgy' ? 'height' : 'width';
-                        const span = dim[attr] - dimEl[attr];
-
-                        if (!bgPos.match(/%$|0px/)) {
-                            return;
-                        }
-
-                        if (span < diff) {
-                            dimEl[attr] = dim[attr] + diff - span;
-                        } else if (span > diff) {
-
-                            const bgPosFloat = parseFloat(bgPos);
-
-                            if (bgPosFloat) {
-                                this.props[prop].steps = steps.map(step => step - (span - diff) / (100 / bgPosFloat));
-                            }
-                        }
-
-                        dim = Dimensions.cover(image, dimEl);
-                    });
-
-                    css(this.$el, {
-                        backgroundSize: `${dim.width}px ${dim.height}px`,
-                        backgroundRepeat: 'no-repeat'
-                    });
-
-                },
-
-                events: ['load', 'resize']
-
-            }
-
-        ],
-
-        methods: {
-
-            reset() {
-                each(this.getCss(0), (_, prop) => css(this.$el, prop, ''));
             },
 
-            getCss(percent) {
+            write({image, active}) {
 
-                const {props} = this;
-                let translated = false;
+                if (!image) {
+                    return;
+                }
 
-                return Object.keys(props).reduce((css, prop) => {
+                if (!active) {
+                    css(this.$el, {backgroundSize: '', backgroundRepeat: ''});
+                    return;
+                }
 
-                    const {steps, unit, pos} = props[prop];
-                    const value = getValue(steps, percent);
+                const {dimEl} = image;
 
-                    switch (prop) {
+                let dim = Dimensions.cover(image, dimEl);
 
-                        // transforms
-                        case 'x':
-                        case 'y':
+                this.bgProps.forEach(prop => {
 
-                            if (translated) {
-                                break;
-                            }
+                    const {diff, bgPos, steps} = this.props[prop];
+                    const attr = prop === 'bgy' ? 'height' : 'width';
+                    const span = dim[attr] - dimEl[attr];
 
-                            const [x, y] = ['x', 'y'].map(dir => prop === dir
-                                ? value + unit
-                                : props[dir]
-                                    ? getValue(props[dir].steps, percent) + props[dir].unit
-                                    : 0
-                            );
-
-                            translated = css.transform += ` translate3d(${x}, ${y}, 0)`;
-                            break;
-                        case 'rotate':
-                            css.transform += ` rotate(${value}deg)`;
-                            break;
-                        case 'scale':
-                            css.transform += ` scale(${value})`;
-                            break;
-
-                        // bg image
-                        case 'bgy':
-                        case 'bgx':
-                            css[`background-position-${prop[2]}`] = `calc(${pos} + ${value + unit})`;
-                            break;
-
-                        // color
-                        case 'color':
-                        case 'backgroundColor':
-                        case 'borderColor':
-
-                            const [start, end, p] = getStep(steps, percent);
-
-                            css[prop] = `rgba(${
-                                start.map((value, i) => {
-                                    value = value + p * (end[i] - value);
-                                    return i === 3 ? toFloat(value) : parseInt(value, 10);
-                                }).join(',')
-                            })`;
-                            break;
-
-                        // CSS Filter
-                        case 'blur':
-                            css.filter += ` blur(${value}px)`;
-                            break;
-                        case 'hue':
-                            css.filter += ` hue-rotate(${value}deg)`;
-                            break;
-                        case 'fopacity':
-                            css.filter += ` opacity(${value}%)`;
-                            break;
-                        case 'grayscale':
-                        case 'invert':
-                        case 'saturate':
-                        case 'sepia':
-                            css.filter += ` ${prop}(${value}%)`;
-                            break;
-
-                        default:
-                            css[prop] = value;
+                    if (!bgPos.match(/%$|0px/)) {
+                        return;
                     }
 
-                    return css;
+                    if (span < diff) {
+                        dimEl[attr] = dim[attr] + diff - span;
+                    } else if (span > diff) {
 
-                }, {transform: '', filter: ''});
+                        const bgPosFloat = parseFloat(bgPos);
 
-            }
+                        if (bgPosFloat) {
+                            this.props[prop].steps = steps.map(step => step - (span - diff) / (100 / bgPosFloat));
+                        }
+                    }
+
+                    dim = Dimensions.cover(image, dimEl);
+                });
+
+                css(this.$el, {
+                    backgroundSize: `${dim.width}px ${dim.height}px`,
+                    backgroundRepeat: 'no-repeat'
+                });
+
+            },
+
+            events: ['load', 'resize']
 
         }
 
-    };
+    ],
 
-    function parseColor(el, color) {
-        return css(css(el, 'color', color), 'color').split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => toFloat(n));
+    methods: {
+
+        reset() {
+            each(this.getCss(0), (_, prop) => css(this.$el, prop, ''));
+        },
+
+        getCss(percent) {
+
+            const {props} = this;
+            let translated = false;
+
+            return Object.keys(props).reduce((css, prop) => {
+
+                const {steps, unit, pos} = props[prop];
+                const value = getValue(steps, percent);
+
+                switch (prop) {
+
+                    // transforms
+                    case 'x':
+                    case 'y':
+
+                        if (translated) {
+                            break;
+                        }
+
+                        const [x, y] = ['x', 'y'].map(dir => prop === dir
+                            ? value + unit
+                            : props[dir]
+                                ? getValue(props[dir].steps, percent) + props[dir].unit
+                                : 0
+                        );
+
+                        translated = css.transform += ` translate3d(${x}, ${y}, 0)`;
+                        break;
+                    case 'rotate':
+                        css.transform += ` rotate(${value}deg)`;
+                        break;
+                    case 'scale':
+                        css.transform += ` scale(${value})`;
+                        break;
+
+                    // bg image
+                    case 'bgy':
+                    case 'bgx':
+                        css[`background-position-${prop[2]}`] = `calc(${pos} + ${value + unit})`;
+                        break;
+
+                    // color
+                    case 'color':
+                    case 'backgroundColor':
+                    case 'borderColor':
+
+                        const [start, end, p] = getStep(steps, percent);
+
+                        css[prop] = `rgba(${
+                            start.map((value, i) => {
+                                value = value + p * (end[i] - value);
+                                return i === 3 ? toFloat(value) : parseInt(value, 10);
+                            }).join(',')
+                            })`;
+                        break;
+
+                    // CSS Filter
+                    case 'blur':
+                        css.filter += ` blur(${value}px)`;
+                        break;
+                    case 'hue':
+                        css.filter += ` hue-rotate(${value}deg)`;
+                        break;
+                    case 'fopacity':
+                        css.filter += ` opacity(${value}%)`;
+                        break;
+                    case 'grayscale':
+                    case 'invert':
+                    case 'saturate':
+                    case 'sepia':
+                        css.filter += ` ${prop}(${value}%)`;
+                        break;
+
+                    default:
+                        css[prop] = value;
+                }
+
+                return css;
+
+            }, {transform: '', filter: ''});
+
+        }
+
     }
 
-    function getStep(steps, percent) {
-        const count = steps.length - 1;
-        const index = Math.min(Math.floor(count * percent), count - 1);
-        const step = steps.slice(index, index + 2);
+};
 
-        step.push(percent === 1 ? 1 : percent % (1 / count) * count);
+function parseColor(el, color) {
+    return css(css(el, 'color', color), 'color').split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => toFloat(n));
+}
 
-        return step;
-    }
+function getStep(steps, percent) {
+    const count = steps.length - 1;
+    const index = Math.min(Math.floor(count * percent), count - 1);
+    const step = steps.slice(index, index + 2);
 
-    function getValue(steps, percent) {
-        const [start, end, p] = getStep(steps, percent);
-        return (isNumber(start)
+    step.push(percent === 1 ? 1 : percent % (1 / count) * count);
+
+    return step;
+}
+
+function getValue(steps, percent) {
+    const [start, end, p] = getStep(steps, percent);
+    return (isNumber(start)
             ? start + Math.abs(start - end) * p * (start < end ? 1 : -1)
             : +end
-        ).toFixed(2);
-    }
-
-    function covers(el) {
-        const {backgroundSize} = el.style;
-        const covers = css(css(el, 'backgroundSize', ''), 'backgroundSize') === 'cover';
-        el.style.backgroundSize = backgroundSize;
-        return covers;
-    }
-
+    ).toFixed(2);
 }
 
-if (!BUNDLED && typeof window !== 'undefined' && window.UIkit) {
-    window.UIkit.use(plugin);
+function covers(el) {
+    const {backgroundSize} = el.style;
+    const covers = css(css(el, 'backgroundSize', ''), 'backgroundSize') === 'cover';
+    el.style.backgroundSize = backgroundSize;
+    return covers;
 }
-
-export default plugin;

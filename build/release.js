@@ -2,8 +2,8 @@ const fs = require('fs');
 const archiver = require('archiver');
 const util = require('./util');
 
-const info = require('../package.json');
-const file = `dist/uikit-${info.version}.zip`;
+const {version} = require('../package.json');
+const file = `dist/uikit-${version}.zip`;
 const output = fs.createWriteStream(file).on('close', () => util.logFile(file));
 
 const archive = archiver('zip');

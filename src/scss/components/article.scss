@@ -14,7 +14,8 @@
 
 $article-margin-top:                             $global-large-margin !default;
 
-$article-title-font-size:                        $global-xxlarge-font-size !default;
+$article-title-font-size-m:                      $global-xxlarge-font-size !default;
+$article-title-font-size:                        $article-title-font-size-m * 0.85 !default;
 $article-title-line-height:                      1.2 !default;
 
 $article-meta-font-size:                         $global-small-font-size !default;
@@ -65,6 +66,13 @@ $article-meta-color:                             $global-muted-color !default;
     font-size: $article-title-font-size;
     line-height: $article-title-line-height;
     @if(mixin-exists(hook-article-title)) {@include hook-article-title();}
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-article-title { font-size: $article-title-font-size-m; }
+
 }
 
 

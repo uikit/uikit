@@ -1,4 +1,4 @@
-import {$, apply, createEvent, isString, mergeOptions, toNode} from '../util/index';
+import {$, apply, createEvent, isString, mergeOptions, toNode} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -17,7 +17,7 @@ export default function (UIkit) {
     };
 
     UIkit.mixin = function (mixin, component) {
-        component = (isString(component) ? UIkit.components[component] : component) || this;
+        component = (isString(component) ? UIkit.component(component) : component) || this;
         mixin = mergeOptions({}, mixin);
         mixin.mixins = component.options.mixins;
         delete component.options.mixins;
@@ -48,14 +48,8 @@ export default function (UIkit) {
         e = createEvent(e || 'update');
         element = element ? toNode(element) : document.body;
 
+        path(element).map(element => update(element[DATA], e));
         apply(element, element => update(element[DATA], e));
-
-        while (element && element.parentNode) {
-
-            update(element.parentNode[DATA], e);
-            element = element.parentNode;
-
-        }
 
     };
 
@@ -84,6 +78,19 @@ export default function (UIkit) {
             }
         }
 
+    }
+
+    function path(element) {
+        const path = [];
+
+        while (element && element !== document.body && element.parentNode) {
+
+            element = element.parentNode;
+            path.unshift(element);
+
+        }
+
+        return path;
     }
 
 }

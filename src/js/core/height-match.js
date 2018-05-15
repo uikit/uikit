@@ -1,107 +1,79 @@
-import {$$, attr, css, isUndefined, isVisible} from '../util/index';
+import {getRows} from './margin';
+import {$$, css, offset} from 'uikit-util';
 
-export default function (UIkit) {
+export default {
 
-    UIkit.component('height-match', {
+    args: 'target',
 
-        args: 'target',
+    props: {
+        target: String,
+        row: Boolean
+    },
 
-        props: {
-            target: String,
-            row: Boolean
-        },
+    data: {
+        target: '> *',
+        row: true
+    },
 
-        defaults: {
-            target: '> *',
-            row: true
-        },
+    computed: {
 
-        computed: {
-
-            elements({target}, $el) {
-                return $$(target, $el);
-            }
-
-        },
-
-        update: {
-
-            read() {
-
-                let lastOffset = false;
-
-                css(this.elements, 'minHeight', '');
-
-                return {
-                    rows: !this.row
-                        ? [this.match(this.elements)]
-                        : this.elements.reduce((rows, el) => {
-
-                            if (lastOffset !== el.offsetTop) {
-                                rows.push([el]);
-                            } else {
-                                rows[rows.length - 1].push(el);
-                            }
-
-                            lastOffset = el.offsetTop;
-
-                            return rows;
-
-                        }, []).map(elements => this.match(elements))
-                };
-            },
-
-            write({rows}) {
-
-                rows.forEach(({height, elements}) => css(elements, 'minHeight', height));
-
-            },
-
-            events: ['load', 'resize']
-
-        },
-
-        methods: {
-
-            match(elements) {
-
-                if (elements.length < 2) {
-                    return {};
-                }
-
-                const heights = [];
-                let max = 0;
-
-                elements
-                    .forEach(el => {
-
-                        let style, hidden;
-
-                        if (!isVisible(el)) {
-                            style = attr(el, 'style');
-                            hidden = attr(el, 'hidden');
-
-                            attr(el, {
-                                style: `${style || ''};display:block !important;`,
-                                hidden: null
-                            });
-                        }
-
-                        max = Math.max(max, el.offsetHeight);
-                        heights.push(el.offsetHeight);
-
-                        if (!isUndefined(style)) {
-                            attr(el, {style, hidden});
-                        }
-
-                    });
-
-                elements = elements.filter((el, i) => heights[i] < max);
-
-                return {height: max, elements};
-            }
+        elements({target}, $el) {
+            return $$(target, $el);
         }
 
-    });
+    },
 
-}
+    update: {
+
+        read() {
+
+            css(this.elements, {
+                minHeight: '',
+                boxSizing: ''
+            });
+
+            return {
+                rows: !this.row
+                    ? [this.match(this.elements)]
+                    : getRows(this.elements).map(elements => this.match(elements))
+            };
+        },
+
+        write({rows}) {
+
+            rows.forEach(({height, elements}) => css(elements, {
+                minHeight: height,
+                boxSizing: 'border-box'
+            }));
+
+        },
+
+        events: ['load', 'resize']
+
+    },
+
+    methods: {
+
+        match(elements) {
+
+            if (elements.length < 2) {
+                return {};
+            }
+
+            const heights = [];
+            let max = 0;
+
+            elements
+                .forEach(el => {
+                    const {height} = offset(el);
+                    max = Math.max(max, height);
+                    heights.push(height);
+                });
+
+            elements = elements.filter((el, i) => heights[i] < max);
+
+            return {height: max, elements};
+        }
+    }
+
+};

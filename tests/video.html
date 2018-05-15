@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Video - UIkit tests</title>
+        <script src="js/test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Video</h1>
+
+            <div class="uk-grid uk-child-width-1-2@s">
+                <div>
+
+                    <h3>Autoplay</h3>
+
+                    <button class="uk-button uk-button-default uk-margin-bottom" type="button" uk-toggle="target: +">Toggle Video</button>
+                    <video controls playsinline uk-video="automute: true">
+                        <source src="https://quirksmode.org/html5/videos/big_buck_bunny.mp4" type="video/mp4">
+                        <source src="https://quirksmode.org/html5/videos/big_buck_bunny.ogv" type="video/ogg">
+                    </video>
+
+                </div>
+                <div>
+
+                    <h3>Autoplay Inview</h3>
+
+                    <button class="uk-button uk-button-default uk-margin-bottom" type="button" uk-toggle="target: +">Toggle Video</button>
+                    <iframe src="https://www.youtube.com/embed/YE7VzlLtp-4?autoplay=0&amp;showinfo=0&amp;rel=0&amp;modestbranding=1&amp;playsinline=1" width="560" height="315" frameborder="0" allowfullscreen uk-responsive uk-video="automute: true; autoplay: inview"></iframe>
+                </div>
+            </div>
+
+            <h2>JavaScript Options</h2>
+
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Value</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>autoplay</code></td>
+                        <td>Boolean|String</td>
+                        <td><code>true</code></td>
+                        <td>Automatically start the video. Pauses the video if it is not visible. A value of `inview` will delay loading the video and play/pause the video as it enters/leaves the viewport.</td>
+                    </tr>
+                    <tr>
+                        <td><code>automute</code></td>
+                        <td>Boolean</td>
+                        <td><code>false</code></td>
+                        <td>Automatically mute the video.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </body>
+</html>

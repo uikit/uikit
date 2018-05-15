@@ -1,4 +1,5 @@
 import {css} from './style';
+import {attr} from './attr';
 import {isVisible} from './filter';
 import {clamp, each, endsWith, includes, intersectRect, isDocument, isUndefined, isWindow, toFloat, toNode, ucfirst} from './lang';
 
@@ -107,9 +108,11 @@ export function offset(element, coordinates) {
         ['left', 'top'].forEach(prop => {
             if (prop in coordinates) {
                 const value = css(element, prop);
-                element.style[prop] = `${(coordinates[prop] - currentOffset[prop])
-                + toFloat(pos === 'absolute' && value === 'auto' ? position(element)[prop] : value)
-                    }px`;
+                css(element, prop, coordinates[prop] - currentOffset[prop]
+                    + toFloat(pos === 'absolute' && value === 'auto'
+                        ? position(element)[prop]
+                        : value)
+                );
             }
         });
 
@@ -140,16 +143,22 @@ function getDimensions(element) {
         };
     }
 
-    let display = false;
+    let style, hidden;
+
     if (!isVisible(element)) {
-        display = element.style.display;
-        element.style.display = 'block';
+        style = attr(element, 'style');
+        hidden = attr(element, 'hidden');
+
+        attr(element, {
+            style: `${style || ''};display:block !important;`,
+            hidden: null
+        });
     }
 
     const rect = element.getBoundingClientRect();
 
-    if (display !== false) {
-        element.style.display = display;
+    if (!isUndefined(style)) {
+        attr(element, {style, hidden});
     }
 
     return {
@@ -292,20 +301,48 @@ export function flipPosition(pos) {
     }
 }
 
-export function isInView(element, top = 0, left = 0) {
+export function isInView(element, topOffset = 0, leftOffset = 0, relativeToViewport) {
+
+    if (!isVisible(element)) {
+        return false;
+    }
 
     element = toNode(element);
-
     const win = window(element);
-    return isVisible(element) && intersectRect(element.getBoundingClientRect(), {
-        top,
-        left,
-        bottom: top + height(win),
-        right: left + width(win)
-    });
+
+    if (relativeToViewport) {
+
+        return intersectRect(element.getBoundingClientRect(), {
+            top: -topOffset,
+            left: -leftOffset,
+            bottom: topOffset + height(win),
+            right: leftOffset + width(win)
+        });
+
+    } else {
+
+        const [elTop, elLeft] = offsetPosition(element);
+        const {scrollY: top, scrollX: left} = win;
+
+        return intersectRect(
+            {
+                top: elTop,
+                left: elLeft,
+                bottom: elTop + element.offsetHeight,
+                right: elTop + element.offsetWidth
+            },
+            {
+                top: top - topOffset,
+                left: left - leftOffset,
+                bottom: top + topOffset + height(win),
+                right: left + leftOffset + width(win)
+            }
+        );
+    }
+
 }
 
-export function scrolledOver(element) {
+export function scrolledOver(element, heightOffset = 0) {
 
     if (!isVisible(element)) {
         return 0;
@@ -315,25 +352,33 @@ export function scrolledOver(element) {
 
     const win = window(element);
     const doc = document(element);
-    const elHeight = element.offsetHeight;
-    const top = positionTop(element);
+    const elHeight = element.offsetHeight + heightOffset;
+    const [top] = offsetPosition(element);
     const vp = height(win);
     const vh = vp + Math.min(0, top - vp);
-    const diff = Math.max(0, vp - (height(doc) - (top + elHeight)));
+    const diff = Math.max(0, vp - (height(doc) + heightOffset - (top + elHeight)));
 
     return clamp(((vh + win.pageYOffset - top) / ((vh + (elHeight - (diff < vp ? diff : 0))) / 100)) / 100);
 }
 
-function positionTop(element) {
-    let top = 0;
+function offsetPosition(element) {
+    const offset = [0, 0];
 
     do {
 
-        top += element.offsetTop;
+        offset[0] += element.offsetTop;
+        offset[1] += element.offsetLeft;
+
+        if (css(element, 'position') === 'fixed') {
+            const win = window(element);
+            offset[0] += win.pageYOffset;
+            offset[1] += win.pageXOffset;
+            return offset;
+        }
 
     } while ((element = element.offsetParent));
 
-    return top;
+    return offset;
 }
 
 function window(element) {

@@ -1,116 +1,113 @@
-import {closest, hasTouch, includes, isTouch, isVisible, matches, once, pointerEnter, pointerLeave, queryAll, trigger} from '../util/index';
+import Togglable from '../mixin/togglable';
+import {closest, hasTouch, includes, isTouch, isVisible, matches, once, pointerEnter, pointerLeave, queryAll, trigger} from 'uikit-util';
 
-export default function (UIkit) {
+export default {
 
-    UIkit.component('toggle', {
+    mixins: [Togglable],
 
-        mixins: [UIkit.mixin.togglable],
+    args: 'target',
 
-        args: 'target',
+    props: {
+        href: String,
+        target: null,
+        mode: 'list',
+        media: 'media'
+    },
 
-        props: {
-            href: String,
-            target: null,
-            mode: 'list',
-            media: 'media'
-        },
+    data: {
+        href: false,
+        target: false,
+        mode: 'click',
+        queued: true,
+        media: false
+    },
 
-        defaults: {
-            href: false,
-            target: false,
-            mode: 'click',
-            queued: true,
-            media: false
-        },
+    computed: {
 
-        computed: {
+        target({href, target}, $el) {
+            target = queryAll(target || href, $el);
+            return target.length && target || [$el];
+        }
 
-            target({href, target}, $el) {
-                target = queryAll(target || href, $el);
-                return target.length && target || [$el];
-            }
+    },
 
-        },
+    events: [
 
-        events: [
+        {
 
-            {
+            name: `${pointerEnter} ${pointerLeave}`,
 
-                name: `${pointerEnter} ${pointerLeave}`,
-
-                filter() {
-                    return includes(this.mode, 'hover');
-                },
-
-                handler(e) {
-                    if (!isTouch(e)) {
-                        this.toggle(`toggle${e.type === pointerEnter ? 'show' : 'hide'}`);
-                    }
-                }
-
+            filter() {
+                return includes(this.mode, 'hover');
             },
 
-            {
-
-                name: 'click',
-
-                filter() {
-                    return includes(this.mode, 'click') || hasTouch;
-                },
-
-                handler(e) {
-
-                    if (!isTouch(e) && !includes(this.mode, 'click')) {
-                        return;
-                    }
-
-                    // TODO better isToggled handling
-                    let link;
-                    if (closest(e.target, 'a[href="#"], button')
-                        || (link = closest(e.target, 'a[href]')) && (
-                            this.cls
-                            || !isVisible(this.target)
-                            || link.hash && matches(this.target, link.hash)
-                        )
-                    ) {
-                        once(document, 'click', e => e.preventDefault());
-                    }
-
-                    this.toggle();
+            handler(e) {
+                if (!isTouch(e)) {
+                    this.toggle(`toggle${e.type === pointerEnter ? 'show' : 'hide'}`);
                 }
-
             }
-        ],
 
-        update: {
+        },
 
-            write() {
+        {
 
-                if (!includes(this.mode, 'media') || !this.media) {
+            name: 'click',
+
+            filter() {
+                return includes(this.mode, 'click') || hasTouch;
+            },
+
+            handler(e) {
+
+                if (!isTouch(e) && !includes(this.mode, 'click')) {
                     return;
                 }
 
-                const toggled = this.isToggled(this.target);
-                if (window.matchMedia(this.media).matches ? !toggled : toggled) {
-                    this.toggle();
+                // TODO better isToggled handling
+                let link;
+                if (closest(e.target, 'a[href="#"], button')
+                    || (link = closest(e.target, 'a[href]')) && (
+                        this.cls
+                        || !isVisible(this.target)
+                        || link.hash && matches(this.target, link.hash)
+                    )
+                ) {
+                    once(document, 'click', e => e.preventDefault());
                 }
 
-            },
-
-            events: ['load', 'resize']
-
-        },
-
-        methods: {
-
-            toggle(type) {
-                if (trigger(this.target, type || 'toggle', [this])) {
-                    this.toggleElement(this.target);
-                }
+                this.toggle();
             }
 
         }
+    ],
 
-    });
+    update: {
 
-}
+        write() {
+
+            if (!includes(this.mode, 'media') || !this.media) {
+                return;
+            }
+
+            const toggled = this.isToggled(this.target);
+            if (window.matchMedia(this.media).matches ? !toggled : toggled) {
+                this.toggle();
+            }
+
+        },
+
+        events: ['load', 'resize']
+
+    },
+
+    methods: {
+
+        toggle(type) {
+            if (trigger(this.target, type || 'toggle', [this])) {
+                this.toggleElement(this.target);
+            }
+        }
+
+    }
+
+};

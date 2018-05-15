@@ -1,78 +1,74 @@
-import {$, clamp, escape, height, offset, trigger} from '../util/index';
+import {$, clamp, escape, height, offset, trigger} from 'uikit-util';
 
-export default function (UIkit) {
+export default {
 
-    UIkit.component('scroll', {
+    props: {
+        duration: Number,
+        offset: Number
+    },
 
-        props: {
-            duration: Number,
-            offset: Number
-        },
+    data: {
+        duration: 1000,
+        offset: 0
+    },
 
-        defaults: {
-            duration: 1000,
-            offset: 0
-        },
+    methods: {
 
-        methods: {
+        scrollTo(el) {
 
-            scrollTo(el) {
+            el = el && $(el) || document.body;
 
-                el = el && $(el) || document.body;
+            const docHeight = height(document);
+            const winHeight = height(window);
 
-                const docHeight = height(document);
-                const winHeight = height(window);
-
-                let target = offset(el).top - this.offset;
-                if (target + winHeight > docHeight) {
-                    target = docHeight - winHeight;
-                }
-
-                if (!trigger(this.$el, 'beforescroll', [this, el])) {
-                    return;
-                }
-
-                const start = Date.now();
-                const startY = window.pageYOffset;
-                const step = () => {
-
-                    const currentY = startY + (target - startY) * ease(clamp((Date.now() - start) / this.duration));
-
-                    window.scrollTo(window.pageXOffset, currentY);
-
-                    // scroll more if we have not reached our destination
-                    if (currentY !== target) {
-                        requestAnimationFrame(step);
-                    } else {
-                        trigger(this.$el, 'scrolled', [this, el]);
-                    }
-
-                };
-
-                step();
-
+            let target = offset(el).top - this.offset;
+            if (target + winHeight > docHeight) {
+                target = docHeight - winHeight;
             }
 
-        },
+            if (!trigger(this.$el, 'beforescroll', [this, el])) {
+                return;
+            }
 
-        events: {
+            const start = Date.now();
+            const startY = window.pageYOffset;
+            const step = () => {
 
-            click(e) {
+                const currentY = startY + (target - startY) * ease(clamp((Date.now() - start) / this.duration));
 
-                if (e.defaultPrevented) {
-                    return;
+                window.scroll(window.pageXOffset, currentY);
+
+                // scroll more if we have not reached our destination
+                if (currentY !== target) {
+                    requestAnimationFrame(step);
+                } else {
+                    trigger(this.$el, 'scrolled', [this, el]);
                 }
 
-                e.preventDefault();
-                this.scrollTo(escape(this.$el.hash).substr(1));
-            }
+            };
+
+            step();
 
         }
 
-    });
+    },
 
-    function ease(k) {
-        return 0.5 * (1 - Math.cos(Math.PI * k));
+    events: {
+
+        click(e) {
+
+            if (e.defaultPrevented) {
+                return;
+            }
+
+            e.preventDefault();
+            this.scrollTo(escape(this.$el.hash).substr(1));
+        }
+
     }
 
+};
+
+function ease(k) {
+    return 0.5 * (1 - Math.cos(Math.PI * k));
 }
