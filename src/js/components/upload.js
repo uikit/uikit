@@ -28,7 +28,7 @@ export default {
         mime: false,
         msgInvalidMime: 'Invalid File Type: %s',
         msgInvalidName: 'Invalid File Name: %s',
-        msgInvalidSize: 'Invalid File Size: %s Bytes Max',
+        msgInvalidSize: 'Invalid File Size: %s Kilobytes Max',
         multiple: false,
         name: 'files[]',
         params: {},
@@ -61,7 +61,36 @@ export default {
                 this.upload(e.target.files);
             }
 
+<<<<<<< HEAD
             e.target.value = '';
+=======
+        defaults: {
+            allow: false,
+            clsDragover: 'uk-dragover',
+            concurrent: 1,
+            maxSize: 0,
+            method: 'POST',
+            mime: false,
+            msgInvalidMime: 'Invalid File Type: %s',
+            msgInvalidName: 'Invalid File Name: %s',
+            msgInvalidSize: 'Invalid File Size: %s Bytes Max',
+            multiple: false,
+            name: 'files[]',
+            params: {},
+            type: '',
+            url: '',
+            abort: noop,
+            beforeAll: noop,
+            beforeSend: noop,
+            complete: noop,
+            completeAll: noop,
+            error: noop,
+            fail: noop,
+            load: noop,
+            loadEnd: noop,
+            loadStart: noop,
+            progress: noop
+>>>>>>> parent of a5f39d70... Fix error message for maxSize option
         },
 
         drop(e) {
@@ -107,7 +136,7 @@ export default {
             for (let i = 0; i < files.length; i++) {
 
                 if (this.maxSize && this.maxSize * 1000 < files[i].size) {
-                    this.fail(this.msgInvalidSize.replace('%s', this.allow));
+                    this.fail(this.msgInvalidSize.replace('%s', this.maxSize));
                     return;
                 }
 
@@ -127,7 +156,14 @@ export default {
                 files = [files[0]];
             }
 
+<<<<<<< HEAD
             this.beforeAll(this, files);
+=======
+                    if (this.maxSize && this.maxSize * 1000 < files[i].size) {
+                        this.fail(this.msgInvalidSize.replace('%s', this.allow));
+                        return;
+                    }
+>>>>>>> parent of a5f39d70... Fix error message for maxSize option
 
             const chunks = chunk(files, this.concurrent);
             const upload = files => {
