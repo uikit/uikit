@@ -1,0 +1,69 @@
+// Name:            Grid
+// Description:     Component to create two dimensional grids
+//
+// Component:       `uk-grid2`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$grid-column-xsmall:                             100px !default;
+$grid-column-small:                              200px !default;
+$grid-column-medium:                             300px !default;
+$grid-column-large:                              400px !default;
+$grid-column-xlarge:                             500px !default;
+$grid-column-xxlarge:                            600px !default;
+
+$grid-gap-small:                                 $global-small-gutter !default;
+$grid-gap-medium:                                $global-gutter !default;
+$grid-gap-large:                                 $global-large-gutter !default;
+
+
+/* ========================================================================
+   Component: Grid
+ ========================================================================== */
+
+.uk-grid-masonry { display: grid; }
+.uk-grid-inline { display: inline-grid; }
+
+
+/* Columns Width
+ ========================================================================== */
+
+.uk-grid-column-xsmall { grid-template-columns: repeat(auto-fill, minmax($grid-column-xsmall,1fr)); }
+.uk-grid-column-small { grid-template-columns: repeat(auto-fill, minmax($grid-column-small,1fr)); }
+.uk-grid-column-medium { grid-template-columns: repeat(auto-fill, minmax($grid-column-medium,1fr)); }
+.uk-grid-column-large { grid-template-columns: repeat(auto-fill, minmax($grid-column-large,1fr)); }
+.uk-grid-column-xlarge { grid-template-columns: repeat(auto-fill, minmax($grid-column-xlarge,1fr)); }
+.uk-grid-column-xxlarge { grid-template-columns: repeat(auto-fill, minmax($grid-column-xxlarge,1fr)); }
+
+
+/* Gap
+ ========================================================================== */
+
+.uk-grid-gap-none { grid-gap: 0; }
+.uk-grid-gap-small { grid-gap: $grid-gap-small; }
+.uk-grid-gap-medium { grid-gap: $grid-gap-medium; }
+.uk-grid-gap-large { grid-gap: $grid-gap-large; }
+
+
+/* Auto Placement
+ ========================================================================== */
+
+// Default
+.uk-grid-auto-flow-row { grid-auto-flow: row; }
+.uk-grid-auto-flow-column { grid-auto-flow: column; }
+.uk-grid-auto-flow-dense { grid-auto-flow: dense; }
+
+
+/* Item Span
+ ========================================================================== */
+
+// TODO Fix implicit tracks if span is too large
+.uk-grid-item-span-2 { grid-column-start: span 2; }
+.uk-grid-item-span-3 { grid-column-start: span 3; }
+.uk-grid-item-span-4 { grid-column-start: span 4; }
+.uk-grid-item-span-5 { grid-column-start: span 5; }
+

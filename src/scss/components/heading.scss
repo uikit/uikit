@@ -13,20 +13,22 @@
 // Variables
 // ========================================================================
 
-$heading-primary-font-size:                      $global-xxlarge-font-size !default;
+$heading-primary-font-size-l:                    3.75rem !default;  // 60px
+$heading-primary-line-height-l:                  1.1 !default;
+
+$heading-primary-font-size-m:                    $heading-primary-font-size-l * 0.9 !default; // 54px
+
+$heading-primary-font-size:                      $heading-primary-font-size-l * 0.8 !default; // 48px
 $heading-primary-line-height:                    1.2 !default;
 
-$heading-primary-font-size-m:                    3.75rem !default; // 54px
-$heading-primary-line-height-m:                  1.1 !default;
+$heading-hero-font-size-l:                       8rem !default; // 128px
+$heading-hero-line-height-l:                     1 !default;
 
-$heading-hero-font-size:                         4rem !default; // 64px
-$heading-hero-line-height:                       1.1 !default;
-
-$heading-hero-font-size-s:                       6rem !default; // 96px
-$heading-hero-line-height-s:                     1 !default;
-
-$heading-hero-font-size-m:                       8rem !default; // 128px
+$heading-hero-font-size-m:                       $heading-hero-font-size-l * 0.75 !default; // 96px
 $heading-hero-line-height-m:                     1 !default;
+
+$heading-hero-font-size:                         $heading-hero-font-size-l * 0.5 !default; // 64px
+$heading-hero-line-height:                       1.1 !default;
 
 $heading-divider-padding-bottom:                 10px !default;
 $heading-divider-border-width:                   $global-border-width !default;
@@ -63,9 +65,16 @@ $heading-line-margin-horizontal:                 0.6em !default;
 /* Tablet landscape and bigger */
 @media (min-width: $breakpoint-medium) {
 
+    .uk-heading-primary { font-size: $heading-primary-font-size-m; }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
     .uk-heading-primary {
-        font-size: $heading-primary-font-size-m;
-        line-height: $heading-primary-line-height-m;
+        font-size: $heading-primary-font-size-l;
+        line-height: $heading-primary-line-height-l;
     }
 
 }
@@ -80,22 +89,22 @@ $heading-line-margin-horizontal:                 0.6em !default;
     @if(mixin-exists(hook-heading-hero)) {@include hook-heading-hero();}
 }
 
-/* Phone landscape and bigger */
-@media (min-width: $breakpoint-small) {
-
-    .uk-heading-hero {
-        font-size: $heading-hero-font-size-s;
-        line-height: $heading-hero-line-height-s;
-    }
-
-}
-
 /* Tablet landscape and bigger */
 @media (min-width: $breakpoint-medium) {
 
     .uk-heading-hero {
         font-size: $heading-hero-font-size-m;
         line-height: $heading-hero-line-height-m;
+    }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-heading-hero {
+        font-size: $heading-hero-font-size-l;
+        line-height: $heading-hero-line-height-l;
     }
 
 }

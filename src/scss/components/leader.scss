@@ -1,0 +1,66 @@
+// Name:            Leader
+// Description:     Component to create dot leaders
+//
+// Component:       `uk-leader`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$leader-fill-content:                            '.' !default;
+$leader-fill-margin-left:                        $global-small-gutter !default;
+
+
+/* ========================================================================
+   Component: Leader
+ ========================================================================== */
+
+.uk-leader { overflow: hidden; }
+
+/*
+ * 1. Place element in text flow
+ * 2. Never break into a new line
+ * 3. Get a string back with as many repeating characters to fill the container
+ * 4. Prevent wrapping. Overflowing characters will be clipped by the container
+ */
+
+.uk-leader-fill::after {
+    /* 1 */
+    display: inline-block;
+    margin-left: $leader-fill-margin-left;
+    /* 2 */
+    width: 0;
+    /* 3 */
+    content: attr(data-fill);
+    /* 4 */
+    white-space: nowrap;
+    @if(mixin-exists(hook-leader)) {@include hook-leader();}
+}
+
+/*
+ * Hide if media does not match
+ */
+
+.uk-leader-fill.uk-leader-hide::after { display: none; }
+
+/* Pass fill character to JS */
+.var-leader-fill:before { content: $leader-fill-content; }
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-leader-misc)) {@include hook-leader-misc();}
+
+// @mixin hook-leader(){}
+// @mixin hook-leader-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+
+
+// @mixin hook-inverse-leader(){}

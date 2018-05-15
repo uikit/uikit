@@ -57,6 +57,7 @@
 @import "sticky.scss";
 @import "offcanvas.scss";
 @import "switcher.scss";
+@import "leader.scss";
 // Scrollspy
 // Toggle
 // Scroll
@@ -73,11 +74,13 @@
 // Utilities
 @import "animation.scss";
 @import "width.scss";
+@import "height.scss";
 @import "text.scss";
 @import "column.scss";
 @import "cover.scss";
 @import "background.scss";
 @import "align.scss";
+@import "svg.scss";
 @import "utility.scss";
 @import "flex.scss"; // After: Utility
 @import "margin.scss";
