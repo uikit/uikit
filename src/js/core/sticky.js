@@ -159,9 +159,6 @@ export default {
                 this.bottom = bottom && bottom - outerHeight;
                 this.inactive = this.media && !window.matchMedia(this.media).matches;
 
-                if (this.isActive) {
-                    this.update();
-                }
             },
 
             events: ['load', 'resize']
@@ -220,7 +217,7 @@ export default {
 
             },
 
-            events: ['scroll']
+            events: ['load', 'resize', 'scroll']
 
         },
 
