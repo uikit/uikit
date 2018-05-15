@@ -1,4 +1,4 @@
-import {$, apply, createEvent, mergeOptions, toNode} from 'uikit-util';
+import {$, apply, createEvent, isString, mergeOptions, toNode} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -14,6 +14,14 @@ export default function (UIkit) {
         plugin.installed = true;
 
         return this;
+    };
+
+    UIkit.mixin = function (mixin, component) {
+        component = (isString(component) ? UIkit.component(component) : component) || this;
+        mixin = mergeOptions({}, mixin);
+        mixin.mixins = component.options.mixins;
+        delete component.options.mixins;
+        component.options = mergeOptions(mixin, component.options);
     };
 
     UIkit.extend = function (options) {
