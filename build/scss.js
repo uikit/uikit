@@ -80,14 +80,14 @@ Promise.all(glob.sync('src/less/**/*.less').map(file =>
         /* replace all LESS stuff with SCSS */
         scssData = data.replace(/\/less\//g, '/scss/') // change less/ dir to scss/ on imports
             .replace(/\.less/g, '.scss') // change .less extensions to .scss on imports
-            .replace(/@(?=[a-z{])/g, '$') // convert variables
+            .replace(/@/g, '$') // convert variables
             .replace(/\\\$/g, '\\@') // revert classes using the @ symbol
             .replace(/ e\(/g, ' unquote(') // convert escape function
             .replace(/\.([\w\-]*)\s*\((.*)\)\s*\{/g, '@mixin $1($2){') // hook -> mixins
             .replace(/(\$[\w\-]*)\s*:(.*);/g, '$1: $2 !default;') // make variables optional
             .replace(/@mixin ([\w\-]*)\s*\((.*)\)\s*\{\s*\}/g, '// @mixin $1($2){}') // comment empty mixins
             .replace(/\.(hook[a-zA-Z\-\d]+);/g, '@if(mixin-exists($1)) {@include $1();}') // hook calls surrounded by a mixin-exists
-            .replace(/\$(import|supports|media|font-face|page|-ms-viewport|keyframes|-webkit-keyframes)/g, '@$1') // replace valid '@' statements
+            .replace(/\$(import|supports|media|font-face|page|-ms-viewport|keyframes|-webkit-keyframes|-moz-document)/g, '@$1') // replace valid '@' statements
             .replace(/tint\((\$[\w\-]+),\s([^\)]*)\)/g, 'mix(white, $1, $2)') // replace LESS function tint with mix
             .replace(/fade\((\$[\w\-]*), ([0-9]+)\%\)/g, (match, p1, p2) => { return `rgba(${p1}, ${p2 / 100})`;}) // replace LESS function fade with rgba
             .replace(/fadeout\((\$[\w\-]*), ([0-9]+)\%\)/g, (match, p1, p2) => { return `fade-out(${p1}, ${p2 / 100})`;}) // replace LESS function fadeout with fade-out
