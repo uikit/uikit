@@ -277,7 +277,7 @@
 
             lightbox.on('showitem.uk.lightbox', function(e, data){
 
-                if (data.type == 'image' || data.source && data.source.match(/\.(jpg|jpeg|png|gif|svg)$/i)) {
+                if (data.type == 'image' || data.source && data.source.match(/\.(jpg|jpeg|png|gif|svg)($|\?)/i)) {
 
                     var resolve = function(source, width, height) {
 
