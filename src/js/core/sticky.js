@@ -53,7 +53,7 @@ export default {
 
     connected() {
 
-        this.placeholder = $('<div class="uk-sticky-placeholder"></div>');
+        this.placeholder = $('+ .uk-sticky-placeholder', this.$el) || $('<div class="uk-sticky-placeholder"></div>');
 
         if (!this.isActive) {
             this.hide();
