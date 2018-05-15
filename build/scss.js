@@ -80,7 +80,7 @@ Promise.all(glob.sync('src/less/**/*.less').map(file =>
         /* replace all LESS stuff with SCSS */
         scssData = data.replace(/\/less\//g, '/scss/') // change less/ dir to scss/ on imports
             .replace(/\.less/g, '.scss') // change .less extensions to .scss on imports
-            .replace(/@/g, '$') // convert variables
+            .replace(/@(?=[a-z{])/g, '$') // convert variables
             .replace(/\\\$/g, '\\@') // revert classes using the @ symbol
             .replace(/ e\(/g, ' unquote(') // convert escape function
             .replace(/\.([\w\-]*)\s*\((.*)\)\s*\{/g, '@mixin $1($2){') // hook -> mixins
