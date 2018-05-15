@@ -81,7 +81,7 @@ exports.renderLess = async function (data, options) {
     return (await less.render(data, options)).css;
 };
 
-exports.compile = async function (file, dest, {external, globals, name, aliases, bundled, minify = true}) {
+exports.compile = async function (file, dest, {external, globals, name, aliases, bundled, replaces, minify = true}) {
 
     name = (name || '').replace(/[^\w]/g, '_');
 
@@ -89,13 +89,12 @@ exports.compile = async function (file, dest, {external, globals, name, aliases,
         external,
         input: `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
         plugins: [
-            replace({
+            replace(Object.assign({
                 BUNDLED: bundled || false,
                 VERSION: `'${version}'`
-            }),
+            }, replaces)),
             alias({
                 Paths: Object.assign({
-                    'uikit-mixin': './src/js/mixin/index',
                     'uikit-util': './src/js/util/index',
                 }, aliases),
                 Extensions: ['js', 'json']

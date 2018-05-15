@@ -1,5 +1,4 @@
 /* eslint-env node */
-const fs = require('fs');
 const {resolve} = require('path');
 const webpack = require('webpack');
 const {icons} = require('./build/util');
@@ -81,16 +80,9 @@ module.exports = [
         mode: 'development',
         module: rules,
         plugins: [
-            {
-
-                apply(compiler) {
-
-                    compiler.plugin('after-plugins', () => fs.writeFileSync('dist/icons.json', icons('src/images/icons/*.svg')));
-                    compiler.plugin('done', () => fs.unlink('dist/icons.json', () => {}));
-
-                }
-
-            }
+            new webpack.DefinePlugin({
+                ICONS: icons('src/images/icons/*.svg')
+            })
         ],
         resolve: {
             alias: {
