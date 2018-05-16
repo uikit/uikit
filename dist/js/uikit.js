@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.1 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.2 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1833,8 +1833,8 @@
             var ref = offsetPosition(element);
             var elTop = ref[0];
             var elLeft = ref[1];
-            var top = win.scrollY;
-            var left = win.scrollX;
+            var top = win.pageYOffset;
+            var left = win.pageXOffset;
 
             return intersectRect(
                 {
@@ -5595,8 +5595,12 @@
 
         extends: IconComponent,
 
-        connected: function connected() {
-            this.icon = "close-" + (hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon');
+        computed: {
+
+            icon: function icon() {
+                return ("close-" + (hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon'));
+            }
+
         }
 
     };
@@ -7957,7 +7961,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.1';
+    UIkit.version = '3.0.0-rc.2';
 
     core(UIkit);
 
