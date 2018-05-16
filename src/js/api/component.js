@@ -59,7 +59,7 @@ export default function (UIkit) {
         }
 
         if (UIkit._initialized && !opt.functional) {
-            const id = hyphenate(id);
+            const id = hyphenate(name);
             fastdom.read(() => UIkit[name](`[uk-${id}],[data-uk-${id}]`));
         }
 

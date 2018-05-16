@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix loading of lazy images with same source
+- Fix late component registration
 
 ## 3.0.0 rc 2 (May 16, 2018)
 
