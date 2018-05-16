@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>SVG - UIkit tests</title>
+        <script src="js/test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>SVG</h1>
+
+            <div class="uk-child-width-auto" uk-grid>
+                <div>
+                    <p>Image</p>
+                    <img id="svg1" class="svg-1" src="../src/images/components/navbar-toggle-icon.svg" uk-svg>
+                </div>
+                <div>
+                    <p>Width</p>
+                    <img id="svg2" class="svg-2" src="../src/images/components/navbar-toggle-icon.svg" width="40" height="40" uk-svg>
+                </div>
+                <div>
+                    <p>Symbol + ID</p>
+                    <img width="20" height="20" src="images/icons.svg#table" uk-svg>
+                    <img width="20" height="20" src="images/icons.svg#trash" uk-svg>
+                </div>
+                <div>
+                    <p>Symbol + ID + Fallback</p>
+                    <img width="20" height="20" src="../src/images/backgrounds/nav-parent-close.svg#notfound" uk-svg>
+                    <img width="20" height="20" src="../src/images/backgrounds/nav-parent-open.svg#notfound" uk-svg>
+                </div>
+            </div>
+
+            <h2>JavaScript Options</h2>
+
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Value</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>src</code></td>
+                        <td>String</td>
+                        <td>''</td>
+                        <td>The SVG source url. If a location hash is present, only the &lt;symbol&lt; of the SVG with the given ID is shown.</td>
+                    </tr>
+                    <tr>
+                        <td><code>ratio</code></td>
+                        <td>Number</td>
+                        <td>1</td>
+                        <td>The svg size ratio.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </body>
+</html>

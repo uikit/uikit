@@ -1,55 +1,50 @@
-import {scale3d} from '../../mixin/internal/slideshow-animations';
+import Animations, {scale3d} from '../../mixin/internal/slideshow-animations';
+import {assign, css} from 'uikit-util';
 
-export default function (UIkit) {
+export default assign({}, Animations, {
 
-    const {mixin, util: {assign, css}} = UIkit;
+    fade: {
 
-    return assign({}, mixin.slideshow.defaults.Animations, {
-
-        fade: {
-
-            show() {
-                return [
-                    {opacity: 0},
-                    {opacity: 1}
-                ];
-            },
-
-            percent(current) {
-                return 1 - css(current, 'opacity');
-            },
-
-            translate(percent) {
-                return [
-                    {opacity: 1 - percent},
-                    {opacity: percent}
-                ];
-            }
-
+        show() {
+            return [
+                {opacity: 0},
+                {opacity: 1}
+            ];
         },
 
-        scale: {
+        percent(current) {
+            return 1 - css(current, 'opacity');
+        },
 
-            show() {
-                return [
-                    {opacity: 0, transform: scale3d(1 - .2)},
-                    {opacity: 1, transform: scale3d(1)}
-                ];
-            },
-
-            percent(current) {
-                return 1 - css(current, 'opacity');
-            },
-
-            translate(percent) {
-                return [
-                    {opacity: 1 - percent, transform: scale3d(1 - .2 * percent)},
-                    {opacity: percent, transform: scale3d(1 - .2 + .2 * percent)}
-                ];
-            }
-
+        translate(percent) {
+            return [
+                {opacity: 1 - percent},
+                {opacity: percent}
+            ];
         }
 
-    });
+    },
 
-}
+    scale: {
+
+        show() {
+            return [
+                {opacity: 0, transform: scale3d(1 - .2)},
+                {opacity: 1, transform: scale3d(1)}
+            ];
+        },
+
+        percent(current) {
+            return 1 - css(current, 'opacity');
+        },
+
+        translate(percent) {
+            return [
+                {opacity: 1 - percent, transform: scale3d(1 - .2 * percent)},
+                {opacity: percent, transform: scale3d(1 - .2 + .2 * percent)}
+            ];
+        }
+
+    }
+
+});

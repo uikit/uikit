@@ -42,9 +42,11 @@
 @base-heading-color:                            @global-emphasis-color;
 @base-heading-text-transform:                   none;
 @base-heading-margin-top:                       @global-medium-margin;
-@base-h1-font-size:                             @global-xxlarge-font-size;
+@base-h1-font-size-m:                           @global-xxlarge-font-size;
+@base-h1-font-size:                             @base-h1-font-size-m * 0.85;
 @base-h1-line-height:                           1.2;
-@base-h2-font-size:                             @global-xlarge-font-size;
+@base-h2-font-size-m:                           @global-xlarge-font-size;
+@base-h2-font-size:                             @base-h2-font-size-m * 0.85;
 @base-h2-line-height:                           1.3;
 @base-h3-font-size:                             @global-large-font-size;
 @base-h3-line-height:                           1.4;
@@ -281,6 +283,13 @@ video {
 
 svg:not(:root) { overflow: hidden; }
 
+/*
+ * Hide `alt` text for lazy load images
+ * Selector for background while loading img[data-src*='.jpg'][src*='data:image'] { background: grey; }
+ */
+
+img:not([src]) { visibility: hidden; }
+
 
 /* Block elements
  ========================================================================== */
@@ -372,6 +381,14 @@ h6, .uk-h6 {
     font-size: @base-h6-font-size;
     line-height: @base-h6-line-height;
     .hook-base-h6;
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    h1, .uk-h1 { font-size: @base-h1-font-size-m; }
+    h2, .uk-h2 { font-size: @base-h2-font-size-m; }
+
 }
 
 

@@ -1,4 +1,4 @@
-import {remove, within} from '../util/index';
+import {hyphenate, remove, within} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -20,8 +20,6 @@ export default function (UIkit) {
 
         this.$el = this.$options.el = this.$options.el || el;
 
-        this._initProps();
-
         this._callHook('init');
 
         if (within(el, document)) {
@@ -33,9 +31,8 @@ export default function (UIkit) {
         this._callUpdate(e);
     };
 
-    UIkit.prototype.$reset = function (data) {
+    UIkit.prototype.$reset = function () {
         this._callDisconnected();
-        this._initProps(data);
         this._callConnected();
     };
 
@@ -63,5 +60,33 @@ export default function (UIkit) {
             remove(this.$el);
         }
     };
+
+    UIkit.prototype.$create = function (component, element, data) {
+        return UIkit[component](element, data);
+    };
+
+    UIkit.prototype.$update = UIkit.update;
+    UIkit.prototype.$getComponent = UIkit.getComponent;
+
+    const names = {};
+    Object.defineProperties(UIkit.prototype, {
+
+        $container: Object.getOwnPropertyDescriptor(UIkit, 'container'),
+
+        $name: {
+
+            get() {
+                const {name} = this.$options;
+
+                if (!names[name]) {
+                    names[name] = UIkit.prefix + hyphenate(name);
+                }
+
+                return names[name];
+            }
+
+        }
+
+    });
 
 }

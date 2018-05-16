@@ -1,16 +1,13 @@
-let fs = require('fs'),
-    exec = require('child_process').exec,
-    path = require('path'),
-    util = require('./util'),
-    glob = require('glob');
+const fs = require('fs');
+const util = require('./util');
+const glob = require('glob');
 
-let read = util.read,
-    write = util.write;
+const {read, write} = util;
 
-let themeMixins = {},
-    coreMixins = {},
-    themeVar = {},
-    coreVar = {};
+const themeMixins = {};
+const coreMixins = {};
+const themeVar = {};
+const coreVar = {};
 
 /* template for the new components/mixins.scss file*/
 const mixinTemplate = `//
@@ -90,7 +87,7 @@ Promise.all(glob.sync('src/less/**/*.less').map(file =>
             .replace(/(\$[\w\-]*)\s*:(.*);/g, '$1: $2 !default;') // make variables optional
             .replace(/@mixin ([\w\-]*)\s*\((.*)\)\s*\{\s*\}/g, '// @mixin $1($2){}') // comment empty mixins
             .replace(/\.(hook[a-zA-Z\-\d]+);/g, '@if(mixin-exists($1)) {@include $1();}') // hook calls surrounded by a mixin-exists
-            .replace(/\$(import|supports|media|font-face|page|-ms-viewport|keyframes|-webkit-keyframes)/g, '@$1') // replace valid '@' statements
+            .replace(/\$(import|supports|media|font-face|page|-ms-viewport|keyframes|-webkit-keyframes|-moz-document)/g, '@$1') // replace valid '@' statements
             .replace(/tint\((\$[\w\-]+),\s([^\)]*)\)/g, 'mix(white, $1, $2)') // replace LESS function tint with mix
             .replace(/fade\((\$[\w\-]*), ([0-9]+)\%\)/g, (match, p1, p2) => { return `rgba(${p1}, ${p2 / 100})`;}) // replace LESS function fade with rgba
             .replace(/fadeout\((\$[\w\-]*), ([0-9]+)\%\)/g, (match, p1, p2) => { return `fade-out(${p1}, ${p2 / 100})`;}) // replace LESS function fadeout with fade-out

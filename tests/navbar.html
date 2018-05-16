@@ -1929,12 +1929,6 @@
                             <td>Align Drop to boundary.</td>
                         </tr>
                         <tr>
-                            <td><code>target</code></td>
-                            <td>CSS selector</td>
-                            <td>'.uk-navbar-dropdown'</td>
-                            <td>The Drop container selector.</td>
-                        </tr>
-                        <tr>
                             <td><code>cls-drop</code></td>
                             <td>String</td>
                             <td>'uk-navbar-dropdown'</td>
@@ -1995,7 +1989,7 @@
             });
 
             util.on(el, 'mousemove', function () {
-                target.innerText = tracker.movesTo(target.parentNode) ? 'Moves to' : 'Moves away';
+                target.textContent = tracker.movesTo(target.parentNode) ? 'Moves to' : 'Moves away';
             });
 
         </script>

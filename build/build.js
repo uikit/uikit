@@ -23,8 +23,8 @@ const components = glob.sync('src/js/components/*.js').reduce((components, file)
     components[name] = () => util.compile(file, `dist/${file.substring(4, file.length - 3)}`, {
         name,
         minify,
-        external: ['uikit'],
-        globals: {uikit: 'UIkit'}
+        external: ['uikit', 'uikit-util'],
+        globals: {uikit: 'UIkit', 'uikit-util': 'UIkit.util'}
     });
 
     return components;
@@ -34,14 +34,11 @@ const steps = {
 
     core: () => util.compile('src/js/uikit-core.js', 'dist/js/uikit-core', {minify}),
     uikit: () => util.compile('src/js/uikit.js', 'dist/js/uikit', {minify, bundled: true}),
-    icons: () => util.write('dist/icons.json', util.icons('{src/images,custom}/icons/*.svg'))
-        .then(() => util.compile('src/js/icons.js', 'dist/js/uikit-icons', {
-            minify,
-            name: 'icons',
-            aliases: {icons: 'dist/icons'}
-        }))
-        .then(() => fs.unlink('dist/icons.json', () => {
-        })),
+    icons: () => util.compile('src/js/icons.js', 'dist/js/uikit-icons', {
+        minify,
+        name: 'icons',
+        replaces: {ICONS: util.icons('{src/images,custom}/icons/*.svg')}
+    }),
     tests: () => util.compile('tests/js/index.js', 'tests/js/test', {minify, name: 'test'})
 
 };

@@ -1,73 +1,57 @@
-import AnimationsPlugin from './internal/slideshow-animations';
-import TransitionerPlugin from './internal/slideshow-transitioner';
-import SliderPlugin from './slider.js';
+import Animations from './internal/slideshow-animations';
+import Transitioner from './internal/slideshow-transitioner';
+import Slider from './slider.js';
+import {addClass, assign, fastdom, isNumber, removeClass} from 'uikit-util';
 
-function plugin(UIkit) {
+export default {
 
-    if (plugin.installed) {
-        return;
-    }
+    mixins: [Slider],
 
-    UIkit.use(SliderPlugin);
+    props: {
+        animation: String
+    },
 
-    const {mixin, util: {addClass, assign, fastdom, isNumber, removeClass}} = UIkit;
+    data: {
+        animation: 'slide',
+        clsActivated: 'uk-transition-active',
+        Animations,
+        Transitioner
+    },
 
-    const Animations = AnimationsPlugin(UIkit);
-    const Transitioner = TransitionerPlugin(UIkit);
+    computed: {
 
-    UIkit.mixin.slideshow = {
-
-        mixins: [mixin.slider],
-
-        props: {
-            animation: String
+        animation({animation, Animations}) {
+            return assign(animation in Animations ? Animations[animation] : Animations.slide, {name: animation});
         },
 
-        defaults: {
-            animation: 'slide',
-            clsActivated: 'uk-transition-active',
-            Animations,
-            Transitioner
-        },
-
-        computed: {
-
-            animation({animation, Animations}) {
-                return assign(animation in Animations ? Animations[animation] : Animations.slide, {name: animation});
-            },
-
-            transitionOptions() {
-                return {animation: this.animation};
-            }
-
-        },
-
-        events: {
-
-            'itemshow itemhide itemshown itemhidden'({target}) {
-                UIkit.update(target);
-            },
-
-            itemshow() {
-                isNumber(this.prevIndex) && fastdom.flush(); // iOS 10+ will honor the video.play only if called from a gesture handler
-            },
-
-            beforeitemshow({target}) {
-                addClass(target, this.clsActive);
-            },
-
-            itemshown({target}) {
-                addClass(target, this.clsActivated);
-            },
-
-            itemhidden({target}) {
-                removeClass(target, this.clsActive, this.clsActivated);
-            }
-
+        transitionOptions() {
+            return {animation: this.animation};
         }
 
-    };
+    },
 
-}
+    events: {
 
-export default plugin;
+        'itemshow itemhide itemshown itemhidden'({target}) {
+            this.$update(target);
+        },
+
+        itemshow() {
+            isNumber(this.prevIndex) && fastdom.flush(); // iOS 10+ will honor the video.play only if called from a gesture handler
+        },
+
+        beforeitemshow({target}) {
+            addClass(target, this.clsActive);
+        },
+
+        itemshown({target}) {
+            addClass(target, this.clsActivated);
+        },
+
+        itemhidden({target}) {
+            removeClass(target, this.clsActive, this.clsActivated);
+        }
+
+    }
+
+};

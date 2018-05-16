@@ -8,16 +8,13 @@
 //                  `uk-resize-*`
 //                  `uk-display-*`
 //                  `uk-inline-*`
-//                  `uk-height-*`
 //                  `uk-responsive-*`
 //                  `uk-preserve-width`
 //                  `uk-border-*`
 //                  `uk-box-shadow-*`
 //                  `uk-box-shadow-bottom`
 //                  `uk-dropcap`
-//                  `uk-leader`
 //                  `uk-logo`
-//                  `uk-svg`
 //                  `uk-blend-*`
 //                  `uk-transform-*`
 //                  `uk-transform-origin-*`
@@ -38,10 +35,6 @@
 @panel-scrollable-border-width:                 @global-border-width;
 @panel-scrollable-border:                       @global-border;
 
-@height-small-height:                           150px;
-@height-medium-height:                          300px;
-@height-large-height:                           450px;
-
 @border-rounded-border-radius:                  5px;
 
 @box-shadow-duration:                           0.1s;
@@ -53,9 +46,6 @@
 
 @dropcap-margin-right:                          10px;
 @dropcap-font-size:                             ((@global-line-height * 3) * 1em);
-
-@leader-fill-content:                           '.';
-@leader-fill-margin-left:                       @global-small-gutter;
 
 @logo-font-size:                                @global-large-font-size;
 @logo-font-family:                              @global-font-family;
@@ -214,37 +204,6 @@
 }
 
 
-/* Height
- ========================================================================== */
-
-[class*='uk-height'] { box-sizing: border-box; }
-
-/*
- * Only works if parent element has a height set
- */
-
-.uk-height-1-1 { height: 100%; }
-
-/*
- * Useful to create image teasers
- */
-
-.uk-height-viewport { min-height: 100vh; }
-
-/*
- * Pixel
- * Useful for `overflow: auto`
- */
-
-.uk-height-small { height: @height-small-height; }
-.uk-height-medium { height: @height-medium-height; }
-.uk-height-large { height: @height-large-height; }
-
-.uk-height-max-small { max-height: @height-small-height; }
-.uk-height-max-medium { max-height: @height-medium-height; }
-.uk-height-max-large { max-height: @height-large-height; }
-
-
 /* Responsive objects
  ========================================================================== */
 
@@ -372,7 +331,17 @@
 /* Drop cap
  ========================================================================== */
 
+/*
+ * 1. Firefox doesn't apply `::first-letter` if the first letter is inside child elements
+ *    https://bugzilla.mozilla.org/show_bug.cgi?id=214004
+ * 2. In Firefox, a floating `::first-letter` doesn't have a line box and there for no `line-height`
+ *    https://bugzilla.mozilla.org/show_bug.cgi?id=317933
+ * 3. Caused by 1.: Edge creates two nested `::first-letter` containers, one for each selector
+ *    This doubles the `font-size` exponential when using the `em` unit.
+ */
+
 .uk-dropcap::first-letter,
+/* 1 */
 .uk-dropcap > p:first-of-type::first-letter {
     display: block;
     margin-right: @dropcap-margin-right;
@@ -382,40 +351,20 @@
     .hook-dropcap;
 }
 
+/* 2 */
+@-moz-document url-prefix() {
 
-/* Leader
- ========================================================================== */
+  .uk-dropcap::first-letter,
+  .uk-dropcap > p:first-of-type::first-letter { margin-top: 1.1%; }
 
-.uk-leader { overflow: hidden; }
-
-/*
- * 1. Place element in text flow
- * 2. Never break into a new line
- * 3. Get a string back with as many repeating characters to fill the container
- * 4. Prevent wrapping. Overflowing characters will be clipped by the container
- */
-
-.uk-leader-fill::after {
-    /* 1 */
-    display: inline-block;
-    margin-left: @leader-fill-margin-left;
-    /* 2 */
-    width: 0;
-    /* 3 */
-    content: attr(data-fill);
-    /* 4 */
-    white-space: nowrap;
-    .hook-leader;
 }
 
-/*
- * Hide if media does not match
- */
+/* 3 */
+@supports (-ms-ime-align: auto) {
 
-.uk-leader-fill.uk-leader-hide::after { display: none; }
+  .uk-dropcap > p:first-of-type::first-letter { font-size: 1em; }
 
-/* Pass fill character to JS */
-.var-leader-fill:before { content: @leader-fill-content; }
+}
 
 
 /* Logo
@@ -445,30 +394,6 @@
 }
 
 .uk-logo-inverse { display: none; }
-
-
-/* SVG
- ========================================================================== */
-
-/*
- * 1. Fill all SVG elements with the current text color if no `fill` attribute is set
- * 2. Set the fill and stroke color of all SVG elements to the current text color
- * 3. Fix for uppercase attribute names in Edge. Will be fixed in Windows 10 builds 16251+
- */
-
-/* 1 */
-.uk-svg,
-/* 2 */
-.uk-svg:not(.uk-preserve) [fill*='#']:not(.uk-preserve),
-.uk-svg:not(.uk-preserve) [FILL*='#']:not(.uk-preserve) { fill: currentcolor; } // 3
-.uk-svg:not(.uk-preserve) [stroke*='#']:not(.uk-preserve),
-.uk-svg:not(.uk-preserve) [STROKE*='#']:not(.uk-preserve) { stroke: currentcolor; } // 3
-
-/*
- * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
- */
-
-.uk-svg { transform: translate(0,0); }
 
 
 /* Disabled State
@@ -550,7 +475,6 @@
 .hook-panel-scrollable() {}
 .hook-box-shadow-bottom() {}
 .hook-dropcap() {}
-.hook-leader() {}
 .hook-logo() {}
 .hook-logo-hover() {}
 .hook-utility-misc() {}
@@ -567,10 +491,6 @@
     .uk-dropcap::first-letter,
     .uk-dropcap p:first-of-type::first-letter {
         .hook-inverse-dropcap;
-    }
-
-    .uk-leader-fill {
-        .hook-inverse-leader;
     }
 
     .uk-logo {
@@ -590,6 +510,5 @@
 }
 
 .hook-inverse-dropcap() {}
-.hook-inverse-leader() {}
 .hook-inverse-logo() {}
 .hook-inverse-logo-hover() {}

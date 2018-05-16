@@ -25,7 +25,6 @@
     }
 
 }
-@mixin hook-align-misc(){}
 @mixin hook-alert(){}
 @mixin hook-alert-close(){}
 @mixin hook-alert-close-hover(){}
@@ -34,6 +33,8 @@
 @mixin hook-alert-warning(){}
 @mixin hook-alert-danger(){}
 @mixin hook-alert-misc(){}
+@mixin hook-align-misc(){}
+@mixin hook-animation-misc(){}
 @mixin hook-article(){}
 @mixin hook-article-adjacent(){}
 @mixin hook-article-title(){}
@@ -53,7 +54,6 @@
     }
 
 }
-@mixin hook-animation-misc(){}
 @mixin hook-background-misc(){}
 @mixin hook-badge(){}
 @mixin hook-badge-hover(){}
@@ -677,6 +677,10 @@
         @if(mixin-exists(hook-inverse-form-label)) {@include hook-inverse-form-label();}
     }
 
+    // Icon
+    .uk-form-icon { color: $inverse-form-icon-color; }
+    .uk-form-icon:hover { color: $inverse-form-icon-hover-color; }
+
 }
 @mixin hook-grid-misc(){}
 @mixin hook-inverse-component-grid(){
@@ -723,6 +727,7 @@
     }
 
 }
+@mixin hook-height-misc(){}
 @mixin hook-icon-link(){}
 @mixin hook-icon-link-hover(){}
 @mixin hook-icon-link-active(){}
@@ -901,7 +906,6 @@
     //
 
     .uk-search .uk-search-icon { color: $inverse-search-icon-color; }
-
     .uk-search .uk-search-icon:hover { color: $inverse-search-icon-color; }
 
     //
@@ -1229,10 +1233,6 @@
         @if(mixin-exists(hook-inverse-dropcap)) {@include hook-inverse-dropcap();}
     }
 
-    .uk-leader-fill {
-        @if(mixin-exists(hook-inverse-leader)) {@include hook-inverse-leader();}
-    }
-
     .uk-logo {
         color: $inverse-logo-color;
         @if(mixin-exists(hook-inverse-logo)) {@include hook-inverse-logo();}
@@ -1284,6 +1284,16 @@
 @mixin hook-label-danger(){}
 @mixin hook-label-misc(){}
 @mixin hook-inverse-label(){}
+@mixin hook-leader(){}
+@mixin hook-leader-misc(){}
+@mixin hook-inverse-leader(){}
+@mixin hook-inverse-component-leader(){
+
+    .uk-leader-fill {
+        @if(mixin-exists(hook-inverse-leader)) {@include hook-inverse-leader();}
+    }
+
+}
 @mixin hook-lightbox(){}
 @mixin hook-lightbox-item(){}
 @mixin hook-lightbox-toolbar(){}
@@ -1507,6 +1517,7 @@
 @mixin hook-inverse-subnav-pill-item-onclick(){}
 @mixin hook-inverse-subnav-pill-item-active(){}
 @mixin hook-inverse-subnav-item-disabled(){}
+@mixin hook-svg-misc(){}
 @mixin hook-switcher-misc(){}
 @mixin hook-tab(){}
 @mixin hook-tab-item(){}
@@ -1632,12 +1643,10 @@
 @mixin hook-panel-scrollable(){}
 @mixin hook-box-shadow-bottom(){}
 @mixin hook-dropcap(){}
-@mixin hook-leader(){}
 @mixin hook-logo(){}
 @mixin hook-logo-hover(){}
 @mixin hook-utility-misc(){}
 @mixin hook-inverse-dropcap(){}
-@mixin hook-inverse-leader(){}
 @mixin hook-inverse-logo(){}
 @mixin hook-inverse-logo-hover(){}
 @mixin hook-visibility-misc(){}

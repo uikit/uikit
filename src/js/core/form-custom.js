@@ -1,91 +1,92 @@
-import {Class} from '../mixin/index';
-import {$, $$, includes, isInput, matches, query, selInput, toggleClass} from '../util/index';
+import Class from '../mixin/class';
+import {$, $$, includes, isInput, matches, query, selInput, toggleClass} from 'uikit-util';
 
-export default function (UIkit) {
+export default {
 
-    UIkit.component('form-custom', {
+    mixins: [Class],
 
-        mixins: [Class],
+    args: 'target',
 
-        args: 'target',
+    props: {
+        target: Boolean
+    },
 
-        props: {
-            target: Boolean
+    data: {
+        target: false
+    },
+
+    computed: {
+
+        input(_, $el) {
+            return $(selInput, $el);
         },
 
-        defaults: {
-            target: false
+        state() {
+            return this.input.nextElementSibling;
         },
 
-        computed: {
+        target({target}, $el) {
+            return target && (target === true
+                && this.input.parentNode === $el
+                && this.input.nextElementSibling
+                || query(target, $el));
+        }
 
-            input(_, $el) {
-                return $(selInput, $el);
-            },
+    },
 
-            state() {
-                return this.input.nextElementSibling;
-            },
+    update() {
 
-            target({target}, $el) {
-                return target && (target === true
-                    && this.input.parentNode === $el
-                    && this.input.nextElementSibling
-                    || query(target, $el));
-            }
+        const {target, input} = this;
 
-        },
+        if (!target) {
+            return;
+        }
 
-        update() {
+        let option;
+        const prop = isInput(target) ? 'value' : 'textContent';
+        const prev = target[prop];
+        const value = input.files && input.files[0]
+            ? input.files[0].name
+            : matches(input, 'select') && (option = $$('option', input).filter(el => el.selected)[0])
+                ? option.textContent
+                : input.value;
 
-            const {target, input} = this;
+        if (prev !== value) {
+            target[prop] = value;
+        }
 
-            if (!target) {
-                return;
-            }
+    },
 
-            let option;
+    events: [
 
-            target[isInput(target) ? 'value' : 'textContent'] = input.files && input.files[0]
-                ? input.files[0].name
-                : matches(input, 'select') && (option = $$('option', input).filter(el => el.selected)[0])
-                    ? option.textContent
-                    : input.value;
+        {
 
-        },
+            name: 'focusin focusout mouseenter mouseleave',
 
-        events: [
+            delegate: selInput,
 
-            {
-
-                name: 'focusin focusout mouseenter mouseleave',
-
-                delegate: selInput,
-
-                handler({type, current}) {
-                    if (current === this.input) {
-                        toggleClass(
-                            this.state,
-                            `uk-${includes(type, 'focus') ? 'focus' : 'hover'}`,
-                            includes(['focusin', 'mouseenter'], type)
-                        );
-                    }
+            handler({type, current}) {
+                if (current === this.input) {
+                    toggleClass(
+                        this.state,
+                        `uk-${includes(type, 'focus') ? 'focus' : 'hover'}`,
+                        includes(['focusin', 'mouseenter'], type)
+                    );
                 }
-
-            },
-
-            {
-
-                name: 'change',
-
-                handler() {
-                    this.$emit();
-                }
-
             }
 
-        ]
+        },
 
-    });
+        {
 
-}
+            name: 'change',
+
+            handler() {
+                this.$emit();
+            }
+
+        }
+
+    ]
+
+};

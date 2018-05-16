@@ -49,7 +49,7 @@ function apply(element, args, fn) {
 
     args.length && toNodes(element).forEach(({classList}) => {
         supports.Multiple
-            ? classList[fn].apply(classList, args)
+            ? classList[fn](...args)
             : args.forEach(cls => classList[fn](cls));
     });
 }
