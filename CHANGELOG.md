@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Improve Lightbox type detection
+
 ## 3.0.0 rc 2 (May 16, 2018)
 
 ### Fixed
