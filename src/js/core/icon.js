@@ -129,8 +129,12 @@ export const Close = {
 
     extends: IconComponent,
 
-    connected() {
-        this.icon = `close-${hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon'}`;
+    computed: {
+
+        icon() {
+            return `close-${hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon'}`;
+        }
+
     }
 
 };

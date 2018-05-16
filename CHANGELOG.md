@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.0.0 rc 2 (May 16, 2018)
+
+### Fixed
+
+- Fix regression in Scrollspy (IE11)
+- Fix Sass distribution
+- Fix large close icon
+
+
 ## 3.0.0 rc 1 (May 15, 2018)
 
 ### Added

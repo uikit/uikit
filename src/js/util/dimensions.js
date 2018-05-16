@@ -322,7 +322,7 @@ export function isInView(element, topOffset = 0, leftOffset = 0, relativeToViewp
     } else {
 
         const [elTop, elLeft] = offsetPosition(element);
-        const {scrollY: top, scrollX: left} = win;
+        const {pageYOffset: top, pageXOffset: left} = win;
 
         return intersectRect(
             {

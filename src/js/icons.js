@@ -1,12 +1,10 @@
-import Icons from 'icons';
-
 function plugin(UIkit) {
 
     if (plugin.installed) {
         return;
     }
 
-    UIkit.icon.add(Icons);
+    UIkit.icon.add(ICONS);
 
 }
 
