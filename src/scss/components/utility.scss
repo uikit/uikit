@@ -352,7 +352,7 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
 }
 
 /* 2 */
-$-moz-document url-prefix() {
+@-moz-document url-prefix() {
 
   .uk-dropcap::first-letter,
   .uk-dropcap > p:first-of-type::first-letter { margin-top: 1.1%; }
