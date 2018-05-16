@@ -5,6 +5,7 @@
 ### Changed
 
 - Improve Lightbox type detection
+- UIkit.icon.add supports resetting component icons now
 
 ### Fixed
 

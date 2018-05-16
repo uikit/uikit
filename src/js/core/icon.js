@@ -16,7 +16,7 @@ import slidenavPrevious from '../../images/components/slidenav-previous.svg';
 import slidenavPreviousLarge from '../../images/components/slidenav-previous-large.svg';
 import spinner from '../../images/components/spinner.svg';
 import totop from '../../images/components/totop.svg';
-import {$, addClass, apply, css, hasClass, hyphenate, isRtl, noop, parents, Promise, swap} from 'uikit-util';
+import {$, addClass, apply, css, each, hasClass, hyphenate, isRtl, isString, noop, parents, Promise, swap} from 'uikit-util';
 
 const parsed = {};
 const icons = {
@@ -46,13 +46,13 @@ const Icon = {
 
     mixins: [Class, SVG],
 
-    name: 'icon',
-
     args: 'icon',
 
     props: ['icon'],
 
     data: {exclude: ['id', 'style', 'class', 'src', 'icon', 'ratio']},
+
+    isIcon: true,
 
     connected() {
         addClass(this.$el, 'uk-icon');
@@ -150,19 +150,20 @@ export const Spinner = {
 };
 
 function install(UIkit) {
-    UIkit.icon.add = added => {
-        Object.keys(added).forEach(name => {
-            icons[name] = added[name];
+    UIkit.icon.add = (name, svg) => {
+
+        const added = isString(name) ? ({[name]: svg}) : name;
+        each(added, (svg, name) => {
+            icons[name] = svg;
             delete parsed[name];
         });
 
         if (UIkit._initialized) {
-            apply(document.body, el => {
-                const icon = UIkit.getComponent(el, 'icon');
-                if (icon) {
-                    icon.$reset();
-                }
-            });
+            apply(document.body, el =>
+                each(UIkit.getComponents(el), cmp =>
+                    cmp.$options.isIcon && cmp.icon in added && cmp.$reset()
+                )
+            );
         }
     };
 }
