@@ -6,6 +6,10 @@
 
 - Improve Lightbox type detection
 
+### Fixed
+
+- Fix loading of lazy images with same source
+
 ## 3.0.0 rc 2 (May 16, 2018)
 
 ### Fixed
