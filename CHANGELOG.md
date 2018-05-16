@@ -1,5 +1,13 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in Scrollspy (IE11)
+- Fix Sass distribution
+
+
 ## 3.0.0 rc 1 (May 15, 2018)
 
 ### Added
