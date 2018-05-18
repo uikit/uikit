@@ -137,11 +137,10 @@ export default {
 
             write() {
 
-                const {placeholder} = this;
-                const outerHeight = (this.isActive ? placeholder : this.$el).offsetHeight;
+                const {placeholder, $el: {offsetHeight}} = this;
 
                 css(placeholder, assign(
-                    {height: css(this.$el, 'position') !== 'absolute' ? outerHeight : ''},
+                    {height: css(this.$el, 'position') !== 'absolute' ? offsetHeight : ''},
                     css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
                 ));
 
@@ -151,12 +150,12 @@ export default {
                 }
 
                 this.topOffset = offset(this.isActive ? placeholder : this.$el).top;
-                this.bottomOffset = this.topOffset + outerHeight;
+                this.bottomOffset = this.topOffset + offsetHeight;
 
                 const bottom = parseProp('bottom', this);
 
                 this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
-                this.bottom = bottom && bottom - outerHeight;
+                this.bottom = bottom && bottom - offsetHeight;
                 this.inactive = this.media && !window.matchMedia(this.media).matches;
 
             },

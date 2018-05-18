@@ -11,6 +11,7 @@
 
 - Fix loading of lazy images with same source
 - Fix late component registration
+- Fix resizing behavior of Sticky component
 
 ## 3.0.0 rc 2 (May 16, 2018)
 
