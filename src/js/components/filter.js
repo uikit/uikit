@@ -5,6 +5,8 @@ export default {
 
     mixins: [Animate],
 
+    args: 'target',
+
     props: {
         target: Boolean,
         selActive: Boolean
