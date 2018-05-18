@@ -12,6 +12,7 @@
 - Fix loading of lazy images with same source
 - Fix late component registration
 - Fix resizing behavior of Sticky component
+- Fix media mode in Toggle default preventing click events on touch devices
 
 ## 3.0.0 rc 2 (May 16, 2018)
 
