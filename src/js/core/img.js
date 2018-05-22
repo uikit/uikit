@@ -71,7 +71,7 @@ export default {
 
         this.loaded = false;
 
-        if (storage[this.cacheKey] || !this.width || !this.height) {
+        if (storage[this.cacheKey] || this.isImg && (!this.width || !this.height)) {
             setSrcAttrs(this.$el, storage[this.cacheKey] || this.dataSrc, this.dataSrcset, this.sizes);
         } else if (this.isImg) {
             setSrcAttrs(this.$el, getPlaceholderImage(this.width, this.height, this.sizes));

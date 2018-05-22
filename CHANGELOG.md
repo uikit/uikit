@@ -10,6 +10,7 @@
 ### Fixed
 
 - Fix loading of lazy images with same source
+- Fix loading of lazy background images on elements with no height and width attributes
 - Fix late component registration
 - Fix resizing behavior of Sticky component
 - Fix media mode in Toggle default preventing click events on touch devices
