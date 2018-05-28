@@ -1,4 +1,4 @@
-import {css, Dimensions, endsWith, getImage, height, isInView, isNumeric, noop, queryAll, startsWith, toFloat, width} from 'uikit-util';
+import {css, Dimensions, endsWith, fragment, getImage, height, isInView, isNumeric, noop, queryAll, startsWith, toFloat, width} from 'uikit-util';
 
 export default {
 
@@ -71,7 +71,7 @@ export default {
 
         this.loaded = false;
 
-        if (storage[this.cacheKey] || !this.width || !this.height) {
+        if (storage[this.cacheKey] || this.isImg && (!this.width || !this.height)) {
             setSrcAttrs(this.$el, storage[this.cacheKey] || this.dataSrc, this.dataSrcset, this.sizes);
         } else if (this.isImg) {
             setSrcAttrs(this.$el, getPlaceholderImage(this.width, this.height, this.sizes));
@@ -87,7 +87,6 @@ export default {
 
                 if (image
                     || !this.loaded && this.isImg
-                    || storage[this.cacheKey] && this.isImg
                     || !this.target.some(el => isInView(el, this.offsetTop, this.offsetLeft, true))
                 ) {
 
@@ -163,7 +162,7 @@ function getPlaceholderImage(width, height, sizes, color = 'transparent') {
         return urlCache[key];
     }
 
-    const canvas = document.createElement('canvas');
+    const canvas = fragment('<canvas>');
     canvas.width = width;
     canvas.height = height;
 

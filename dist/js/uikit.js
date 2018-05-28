@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.2 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.3 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2719,7 +2719,7 @@
             }
 
             if (UIkit._initialized && !opt.functional) {
-                var id = hyphenate(id);
+                var id = hyphenate(name);
                 fastdom.read(function () { return UIkit[name](("[uk-" + id + "],[data-uk-" + id + "]")); });
             }
 
@@ -5510,13 +5510,13 @@
 
         mixins: [Class, SVG],
 
-        name: 'icon',
-
         args: 'icon',
 
         props: ['icon'],
 
         data: {exclude: ['id', 'style', 'class', 'src', 'icon', 'ratio']},
+
+        isIcon: true,
 
         connected: function connected() {
             addClass(this.$el, 'uk-icon');
@@ -5618,19 +5618,20 @@
     };
 
     function install(UIkit) {
-        UIkit.icon.add = function (added) {
-            Object.keys(added).forEach(function (name) {
-                icons[name] = added[name];
+        UIkit.icon.add = function (name, svg) {
+            var obj;
+
+
+            var added = isString(name) ? (( obj = {}, obj[name] = svg, obj )) : name;
+            each(added, function (svg, name) {
+                icons[name] = svg;
                 delete parsed[name];
             });
 
             if (UIkit._initialized) {
-                apply(document.body, function (el) {
-                    var icon = UIkit.getComponent(el, 'icon');
-                    if (icon) {
-                        icon.$reset();
-                    }
-                });
+                apply(document.body, function (el) { return each(UIkit.getComponents(el), function (cmp) { return cmp.$options.isIcon && cmp.icon in added && cmp.$reset(); }
+                    ); }
+                );
             }
         };
     }
@@ -5740,7 +5741,7 @@
 
             this.loaded = false;
 
-            if (storage[this.cacheKey] || !this.width || !this.height) {
+            if (storage[this.cacheKey] || this.isImg && (!this.width || !this.height)) {
                 setSrcAttrs(this.$el, storage[this.cacheKey] || this.dataSrc, this.dataSrcset, this.sizes);
             } else if (this.isImg) {
                 setSrcAttrs(this.$el, getPlaceholderImage(this.width, this.height, this.sizes));
@@ -5759,7 +5760,6 @@
 
                     if (image
                         || !this.loaded && this.isImg
-                        || storage[this.cacheKey] && this.isImg
                         || !this.target.some(function (el) { return isInView(el, this$1.offsetTop, this$1.offsetLeft, true); })
                     ) {
 
@@ -5838,7 +5838,7 @@
             return urlCache[key];
         }
 
-        var canvas = document.createElement('canvas');
+        var canvas = fragment('<canvas>');
         canvas.width = width$$1;
         canvas.height = height$$1;
 
@@ -7436,10 +7436,10 @@
 
                     var ref = this;
                     var placeholder = ref.placeholder;
-                    var outerHeight = (this.isActive ? placeholder : this.$el).offsetHeight;
+                    var offsetHeight = ref.$el.offsetHeight;
 
                     css(placeholder, assign(
-                        {height: css(this.$el, 'position') !== 'absolute' ? outerHeight : ''},
+                        {height: css(this.$el, 'position') !== 'absolute' ? offsetHeight : ''},
                         css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
                     ));
 
@@ -7449,12 +7449,12 @@
                     }
 
                     this.topOffset = offset(this.isActive ? placeholder : this.$el).top;
-                    this.bottomOffset = this.topOffset + outerHeight;
+                    this.bottomOffset = this.topOffset + offsetHeight;
 
                     var bottom = parseProp('bottom', this);
 
                     this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
-                    this.bottom = bottom && bottom - outerHeight;
+                    this.bottom = bottom && bottom - offsetHeight;
                     this.inactive = this.media && !window.matchMedia(this.media).matches;
 
                 },
@@ -7852,7 +7852,7 @@
                 name: 'click',
 
                 filter: function filter$$1() {
-                    return includes(this.mode, 'click') || hasTouch;
+                    return includes(this.mode, 'click') || hasTouch && includes(this.mode, 'hover');
                 },
 
                 handler: function handler(e) {
@@ -7961,7 +7961,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.2';
+    UIkit.version = '3.0.0-rc.3';
 
     core(UIkit);
 
@@ -8292,6 +8292,8 @@
     var Filter = {
 
         mixins: [Animate],
+
+        args: 'target',
 
         props: {
             target: Boolean,
@@ -9585,7 +9587,7 @@
                     var matches$$1;
 
                     // Image
-                    if (type === 'image' || source.match(/\.(jp(e)?g|png|gif|svg)$/i)) {
+                    if (type === 'image' || source.match(/\.(jp(e)?g|png|gif|svg)($|\?)/i)) {
 
                         getImage(source).then(
                             function (img) { return this$1.setItem(item, ("<img width=\"" + (img.width) + "\" height=\"" + (img.height) + "\" src=\"" + source + "\" alt=\"" + (alt ? alt : '') + "\">")); },
@@ -9593,7 +9595,7 @@
                         );
 
                         // Video
-                    } else if (type === 'video' || source.match(/\.(mp4|webm|ogv)$/i)) {
+                    } else if (type === 'video' || source.match(/\.(mp4|webm|ogv)($|\?)/i)) {
 
                         var video = $(("<video controls playsinline" + (item.poster ? (" poster=\"" + (item.poster) + "\"") : '') + " uk-video=\"" + (this.videoAutoplay) + "\"></video>"));
                         attr(video, 'src', source);
@@ -9605,7 +9607,7 @@
                         });
 
                         // Iframe
-                    } else if (type === 'iframe' || source.match(/\.(html|php)$/i)) {
+                    } else if (type === 'iframe' || source.match(/\.(html|php)($|\?)/i)) {
 
                         this.setItem(item, ("<iframe class=\"uk-lightbox-iframe\" src=\"" + source + "\" frameborder=\"0\" allowfullscreen></iframe>"));
 
@@ -11533,7 +11535,7 @@
             mime: false,
             msgInvalidMime: 'Invalid File Type: %s',
             msgInvalidName: 'Invalid File Name: %s',
-            msgInvalidSize: 'Invalid File Size: %s Bytes Max',
+            msgInvalidSize: 'Invalid File Size: %s Kilobytes Max',
             multiple: false,
             name: 'files[]',
             params: {},
@@ -11614,7 +11616,7 @@
                 for (var i = 0; i < files.length; i++) {
 
                     if (this$1.maxSize && this$1.maxSize * 1000 < files[i].size) {
-                        this$1.fail(this$1.msgInvalidSize.replace('%s', this$1.allow));
+                        this$1.fail(this$1.msgInvalidSize.replace('%s', this$1.maxSize));
                         return;
                     }
 

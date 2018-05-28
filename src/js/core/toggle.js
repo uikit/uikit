@@ -54,7 +54,7 @@ export default {
             name: 'click',
 
             filter() {
-                return includes(this.mode, 'click') || hasTouch;
+                return includes(this.mode, 'click') || hasTouch && includes(this.mode, 'hover');
             },
 
             handler(e) {

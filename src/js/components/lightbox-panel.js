@@ -199,7 +199,7 @@ export default {
                 let matches;
 
                 // Image
-                if (type === 'image' || source.match(/\.(jp(e)?g|png|gif|svg)$/i)) {
+                if (type === 'image' || source.match(/\.(jp(e)?g|png|gif|svg)($|\?)/i)) {
 
                     getImage(source).then(
                         img => this.setItem(item, `<img width="${img.width}" height="${img.height}" src="${source}" alt="${alt ? alt : ''}">`),
@@ -207,7 +207,7 @@ export default {
                     );
 
                     // Video
-                } else if (type === 'video' || source.match(/\.(mp4|webm|ogv)$/i)) {
+                } else if (type === 'video' || source.match(/\.(mp4|webm|ogv)($|\?)/i)) {
 
                     const video = $(`<video controls playsinline${item.poster ? ` poster="${item.poster}"` : ''} uk-video="${this.videoAutoplay}"></video>`);
                     attr(video, 'src', source);
@@ -219,7 +219,7 @@ export default {
                     });
 
                     // Iframe
-                } else if (type === 'iframe' || source.match(/\.(html|php)$/i)) {
+                } else if (type === 'iframe' || source.match(/\.(html|php)($|\?)/i)) {
 
                     this.setItem(item, `<iframe class="uk-lightbox-iframe" src="${source}" frameborder="0" allowfullscreen></iframe>`);
 

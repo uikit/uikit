@@ -1,13 +1,27 @@
 # Changelog
 
+## 3.0.0 rc 3 (May 28, 2018)
+
+### Changed
+
+- Improve Lightbox type detection
+- UIkit.icon.add supports resetting component icons now
+
+### Fixed
+
+- Fix lazy loading of images with same source
+- Fix lazy loading of background images on elements with no height and width attributes
+- Fix late component registration
+- Fix resizing behavior of Sticky component
+- Fix media mode in Toggle default preventing click events on touch devices
+
 ## 3.0.0 rc 2 (May 16, 2018)
 
 ### Fixed
 
-- Fix regression in Scrollspy (IE11)
+- Fix regression in Scrollspy in IE 11
 - Fix Sass distribution
 - Fix large close icon
-
 
 ## 3.0.0 rc 1 (May 15, 2018)
 
