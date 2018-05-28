@@ -46,7 +46,7 @@ $leader-fill-margin-left:                        $global-small-gutter !default;
 .uk-leader-fill.uk-leader-hide::after { display: none; }
 
 /* Pass fill character to JS */
-.var-leader-fill:before { content: $leader-fill-content; }
+.var-leader-fill::before { content: $leader-fill-content; }
 
 
 // Hooks
