@@ -27,7 +27,6 @@ export default {
         height: false,
         offsetTop: '50vh',
         offsetLeft: 0,
-        loaded: false,
         target: false
     },
 
@@ -69,8 +68,6 @@ export default {
 
     connected() {
 
-        this.loaded = false;
-
         if (storage[this.cacheKey] || this.isImg && (!this.width || !this.height)) {
             setSrcAttrs(this.$el, storage[this.cacheKey] || this.dataSrc, this.dataSrcset, this.sizes);
         } else if (this.isImg) {
@@ -83,12 +80,13 @@ export default {
 
         {
 
-            read({image}) {
+            read({delay, image}) {
 
-                if (image
-                    || !this.loaded && this.isImg
-                    || !this.target.some(el => isInView(el, this.offsetTop, this.offsetLeft, true))
-                ) {
+                if (!delay) {
+                    return;
+                }
+
+                if (image || !this.target.some(el => isInView(el, this.offsetTop, this.offsetLeft, true))) {
 
                     if (!this.isImg && image) {
                         image.then(img => img && setSrcAttrs(this.$el, currentSrc(img)));
@@ -109,19 +107,21 @@ export default {
 
             },
 
+            write(data) {
+
+                // Give placeholder images time to apply their dimensions
+                if (!data.delay) {
+                    this.$emit();
+                    return data.delay = true;
+                }
+
+            },
+
             events: ['scroll', 'load', 'resize']
 
         }
 
-    ],
-
-    events: {
-
-        load() {
-            this.loaded = true;
-        }
-
-    }
+    ]
 
 };
 

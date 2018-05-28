@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Delay loading images by one frame in Image Component
+
 ## 3.0.0 rc 3 (May 28, 2018)
 
 ### Changed
