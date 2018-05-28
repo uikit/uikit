@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.2 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.3 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -5636,7 +5636,7 @@ ul.uk-nav-sub {
   display: none;
 }
 /* Pass fill character to JS */
-.var-leader-fill:before {
+.var-leader-fill::before {
   content: '.';
 }
 /* ========================================================================
