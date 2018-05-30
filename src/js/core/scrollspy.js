@@ -49,9 +49,7 @@ export default {
 
             read(els) {
 
-                // Let child components be applied at least once first
-                if ((els.delay = !els.delay)) {
-                    this.$emit();
+                if (!els.delay) {
                     return;
                 }
 
@@ -71,6 +69,12 @@ export default {
             },
 
             write(els) {
+
+                // Let child components be applied at least once first
+                if (!els.delay) {
+                    this.$emit();
+                    return els.delay = true;
+                }
 
                 let index = this.elements.length === 1 ? 1 : 0;
 

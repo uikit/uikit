@@ -1,5 +1,5 @@
 import Class from '../mixin/class';
-import {$, $$, addClass, after, assign, css, height, includes, isRtl, isString, isVisible, matches, noop, query, remove, toFloat, Transition, within} from 'uikit-util';
+import {$, $$, addClass, after, assign, css, height, includes, isRtl, isVisible, matches, noop, query, remove, toFloat, Transition, within} from 'uikit-util';
 
 export default {
 
@@ -62,7 +62,7 @@ export default {
 
         const {dropbar} = this.$props;
 
-        this.dropbar = dropbar && (isString(dropbar) && query(dropbar, this.$el) || $('<div></div>'));
+        this.dropbar = dropbar && (query(dropbar, this.$el) || $('+ .uk-navbar-dropbar', this.$el) || $('<div></div>'));
 
         if (this.dropbar) {
 
@@ -212,14 +212,17 @@ export default {
 
             el = oldHeight < newHeight && el;
 
-            css(el, {height: oldHeight, overflow: 'hidden'});
+            css(el, 'clip', `rect(0,${el.offsetWidth}px,${oldHeight}px,0)`);
+
             height(dropbar, oldHeight);
 
             Transition.cancel([el, dropbar]);
-            return Transition
-                .start([el, dropbar], {height: newHeight}, this.duration)
+            return Promise.all([
+                Transition.start(dropbar, {height: newHeight}, this.duration),
+                Transition.start(el, {clip: `rect(0,${el.offsetWidth}px,${newHeight}px,0)`}, this.duration)
+            ])
                 .catch(noop)
-                .then(() => css(el, {height: '', overflow: ''}));
+                .then(() => css(el, {clip: ''}));
         },
 
         getDropdown(el) {
