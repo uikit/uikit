@@ -6,6 +6,10 @@
 
 - Delay loading images by one frame in Image Component
 
+### Fixed
+
+- Fix clipping of dropdowns in Dropbar
+
 ## 3.0.0 rc 3 (May 28, 2018)
 
 ### Changed
