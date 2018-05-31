@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix passing Lightbox options to Lightbox Panel
+- Fix not appearing fixed background images for Chrome 67
 
 ## 3.0.0 rc 4 (May 30, 2018)
 
