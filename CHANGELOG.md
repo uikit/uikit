@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fix missing standalone component installment
 - Fix passing Lightbox options to Lightbox Panel
 - Fix not appearing fixed background images for Chrome 67
 

@@ -6,6 +6,8 @@ const defaults = merge(LightboxPanel, 'data');
 
 export default {
 
+    install,
+
     attrs: true,
 
     props: assign({toggle: String}, props),
@@ -117,4 +119,10 @@ function merge(options, prop) {
         {},
         ...(options.mixins ? options.mixins.map(mixin => merge(mixin, prop)) : []),
         isFunction(options[prop]) ? options[prop]() : options[prop]);
+}
+
+function install(UIkit) {
+    if (!UIkit.lightboxPanel) {
+        UIkit.component('lightboxPanel', LightboxPanel);
+    }
 }
