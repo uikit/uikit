@@ -1,17 +1,17 @@
 import LightboxPanel from './lightbox-panel';
 import {$$, assign, data, index, isFunction} from 'uikit-util';
 
-const lbProps = merge(LightboxPanel, 'props');
-const lbData = merge(LightboxPanel, 'data');
+const props = merge(LightboxPanel, 'props');
+const defaults = merge(LightboxPanel, 'data');
 
 export default {
 
     attrs: true,
 
-    props: assign({toggle: String}, lbProps),
+    props: assign({toggle: String}, props),
 
-    data: assign({toggle: 'a'}, Object.keys(lbProps).reduce((data, key) => {
-        data[key] = lbData[key];
+    data: assign({toggle: 'a'}, Object.keys(props).reduce((data, key) => {
+        data[key] = defaults[key];
         return data;
     }, {})),
 
