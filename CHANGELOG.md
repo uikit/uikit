@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix passing Lightbox options to Lightbox Panel
+
 ## 3.0.0 rc 4 (May 30, 2018)
 
 ### Changed

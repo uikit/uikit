@@ -1,14 +1,17 @@
 import LightboxPanel from './lightbox-panel';
-import {$$, assign, data, index} from 'uikit-util';
+import {$$, assign, data, index, isFunction} from 'uikit-util';
+
+const props = merge(LightboxPanel, 'props');
+const defaults = merge(LightboxPanel, 'data');
 
 export default {
 
     attrs: true,
 
-    props: assign({toggle: String}, LightboxPanel.props),
+    props: assign({toggle: String}, props),
 
-    data: assign({toggle: 'a'}, Object.keys(LightboxPanel.props).reduce((data, key) => {
-        data[key] = LightboxPanel.data[key];
+    data: assign({toggle: 'a'}, Object.keys(props).reduce((data, key) => {
+        data[key] = defaults[key];
         return data;
     }, {})),
 
@@ -107,4 +110,11 @@ export default {
 function isEqualList(listA, listB) {
     return listA.length === listB.length
         && listA.every((el, i) => el === listB[i]);
+}
+
+function merge(options, prop) {
+    return assign(
+        {},
+        ...(options.mixins ? options.mixins.map(mixin => merge(mixin, prop)) : []),
+        isFunction(options[prop]) ? options[prop]() : options[prop]);
 }
