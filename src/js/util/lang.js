@@ -197,9 +197,7 @@ export const assign = Object.assign || function (target, ...args) {
 
 export function each(obj, cb) {
     for (const key in obj) {
-        if (cb.call(obj[key], obj[key], key) === false) {
-            break;
-        }
+        cb.call(obj[key], obj[key], key);
     }
 }
 
@@ -208,8 +206,8 @@ export function sortBy(collection, prop) {
         a[prop] > b[prop]
             ? 1
             : b[prop] > a[prop]
-            ? -1
-            : 0
+                ? -1
+                : 0
     );
 }
 
