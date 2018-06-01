@@ -82,14 +82,14 @@ export default {
 
                     addClass(this.target, targetClass);
                     children.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-                    css(this.target, 'height', oldHeight);
+                    css(this.target, 'minHeight', oldHeight);
                     window.scroll(window.pageXOffset, oldScrollY);
 
                     Promise.all(children.map((el, i) =>
                         propsFrom[i] && propsTo[i]
                             ? Transition.start(el, propsTo[i], this.animation, 'ease')
                             : Promise.resolve()
-                    ).concat(Transition.start(this.target, {height: newHeight}, this.animation, 'ease'))).then(() => {
+                    ).concat(Transition.start(this.target, {minHeight: newHeight}, this.animation, 'ease'))).then(() => {
                         children.forEach((el, i) => css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}));
                         reset(this.target);
                         this.$update(this.target);
@@ -128,7 +128,7 @@ function reset(el) {
         width: ''
     });
     removeClass(el, targetClass);
-    css(el, 'height', '');
+    css(el, 'minHeight', '');
 }
 
 function getPositionWithMargin(el) {

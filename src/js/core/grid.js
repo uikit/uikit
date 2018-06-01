@@ -76,7 +76,7 @@ export default {
 
                 css(this.$el, 'paddingBottom', this.parallax && rows.some(row => row.length > 1) ? this.parallax : '');
 
-                height && css(this.$el, 'height', height);
+                height && css(this.$el, 'minHeight', height);
 
             },
 
