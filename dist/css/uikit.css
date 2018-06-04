@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.4 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.5 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -7398,8 +7398,13 @@ iframe.uk-cover {
 }
 /* Attachment
  ========================================================================== */
+/*
+ * 1. Fix bug introduced in Chrome 67: the background image is not visible if any element on the page uses `translate3d`
+ */
 .uk-background-fixed {
   background-attachment: fixed;
+  /* 1 */
+  backface-visibility: hidden;
 }
 /*
  * Exclude touch devices because `fixed` doesn't work on iOS and Android

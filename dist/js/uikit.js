@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.4 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.5 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -209,9 +209,7 @@
 
     function each(obj, cb) {
         for (var key in obj) {
-            if (cb.call(obj[key], obj[key], key) === false) {
-                break;
-            }
+            cb.call(obj[key], obj[key], key);
         }
     }
 
@@ -219,8 +217,8 @@
         return collection.sort(function (a, b) { return a[prop] > b[prop]
                 ? 1
                 : b[prop] > a[prop]
-                ? -1
-                : 0; }
+                    ? -1
+                    : 0; }
         );
     }
 
@@ -246,7 +244,7 @@
 
     var Dimensions = {
 
-        ratio: function ratio(dimensions, prop, value) {
+        ratio: function(dimensions, prop, value) {
             var obj;
 
 
@@ -255,7 +253,7 @@
             return ( obj = {}, obj[aProp] = Math.round(value * dimensions[aProp] / dimensions[prop]), obj[prop] = value, obj );
         },
 
-        contain: function contain(dimensions, maxDimensions) {
+        contain: function(dimensions, maxDimensions) {
             var this$1 = this;
 
             dimensions = assign({}, dimensions);
@@ -268,7 +266,7 @@
             return dimensions;
         },
 
-        cover: function cover(dimensions, maxDimensions) {
+        cover: function(dimensions, maxDimensions) {
             var this$1 = this;
 
             dimensions = this.contain(dimensions, maxDimensions);
@@ -673,7 +671,7 @@
 
     var Promise$1 = 'Promise' in window ? window.Promise : PromiseFn;
 
-    var Deferred = function Deferred() {
+    var Deferred = function() {
         var this$1 = this;
 
         this.promise = new Promise$1(function (resolve, reject) {
@@ -1363,16 +1361,16 @@
 
         start: transition,
 
-        stop: function stop(element) {
+        stop: function(element) {
             trigger(element, 'transitionend');
             return Promise$1.resolve();
         },
 
-        cancel: function cancel(element) {
+        cancel: function(element) {
             trigger(element, 'transitioncanceled');
         },
 
-        inProgress: function inProgress(element) {
+        inProgress: function(element) {
             return hasClass(element, 'uk-transition');
         }
 
@@ -1458,19 +1456,19 @@
     var inProgress = new RegExp((animationPrefix + "(enter|leave)"));
     var Animation = {
 
-        in: function in$1(element, animation, duration, origin) {
+        in: function(element, animation, duration, origin) {
             return animate(element, animation, duration, origin, false);
         },
 
-        out: function out(element, animation, duration, origin) {
+        out: function(element, animation, duration, origin) {
             return animate(element, animation, duration, origin, true);
         },
 
-        inProgress: function inProgress$1(element) {
+        inProgress: function(element) {
             return inProgress.test(attr(element, 'class'));
         },
 
-        cancel: function cancel(element) {
+        cancel: function(element) {
             trigger(element, 'animationcancel');
         }
 
@@ -1935,23 +1933,23 @@
         reads: [],
         writes: [],
 
-        read: function read(task) {
+        read: function(task) {
             this.reads.push(task);
             scheduleFlush();
             return task;
         },
 
-        write: function write(task) {
+        write: function(task) {
             this.writes.push(task);
             scheduleFlush();
             return task;
         },
 
-        clear: function clear(task) {
+        clear: function(task) {
             return remove$1(this.reads, task) || remove$1(this.writes, task);
         },
 
-        flush: function flush() {
+        flush: function() {
 
             runTasks(this.reads);
             runTasks(this.writes.splice(0, this.writes.length));
@@ -1992,7 +1990,7 @@
         positions: [],
         position: null,
 
-        init: function init() {
+        init: function() {
             var this$1 = this;
 
 
@@ -2030,13 +2028,13 @@
 
         },
 
-        cancel: function cancel() {
+        cancel: function() {
             if (this.unbind) {
                 this.unbind();
             }
         },
 
-        movesTo: function movesTo(target) {
+        movesTo: function(target) {
 
             if (this.positions.length < 2) {
                 return false;
@@ -2233,32 +2231,32 @@
 
     var id = 0;
 
-    var Player = function Player(el) {
+    var Player = function(el) {
         this.id = ++id;
         this.el = toNode(el);
     };
 
-    Player.prototype.isVideo = function isVideo () {
+    Player.prototype.isVideo = function () {
         return this.isYoutube() || this.isVimeo() || this.isHTML5();
     };
 
-    Player.prototype.isHTML5 = function isHTML5 () {
+    Player.prototype.isHTML5 = function () {
         return this.el.tagName === 'VIDEO';
     };
 
-    Player.prototype.isIFrame = function isIFrame () {
+    Player.prototype.isIFrame = function () {
         return this.el.tagName === 'IFRAME';
     };
 
-    Player.prototype.isYoutube = function isYoutube () {
+    Player.prototype.isYoutube = function () {
         return this.isIFrame() && !!this.el.src.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/(watch\?v=[^&\s]+|embed)|youtu\.be\/.*/);
     };
 
-    Player.prototype.isVimeo = function isVimeo () {
+    Player.prototype.isVimeo = function () {
         return this.isIFrame() && !!this.el.src.match(/vimeo\.com\/video\/.*/);
     };
 
-    Player.prototype.enableApi = function enableApi () {
+    Player.prototype.enableApi = function () {
             var this$1 = this;
 
 
@@ -2299,7 +2297,7 @@
 
     };
 
-    Player.prototype.play = function play () {
+    Player.prototype.play = function () {
             var this$1 = this;
 
 
@@ -2320,7 +2318,7 @@
         }
     };
 
-    Player.prototype.pause = function pause () {
+    Player.prototype.pause = function () {
             var this$1 = this;
 
 
@@ -2335,7 +2333,7 @@
         }
     };
 
-    Player.prototype.mute = function mute () {
+    Player.prototype.mute = function () {
             var this$1 = this;
 
 
@@ -2936,11 +2934,11 @@
         var container;
         Object.defineProperty(UIkit, 'container', {
 
-            get: function get() {
+            get: function() {
                 return container || document.body;
             },
 
-            set: function set(element) {
+            set: function(element) {
                 container = $(element);
             }
 
@@ -3298,7 +3296,7 @@
 
                 enumerable: true,
 
-                get: function get() {
+                get: function() {
 
                     var _computeds = component._computeds;
                     var $props = component.$props;
@@ -3311,7 +3309,7 @@
                     return _computeds[key];
                 },
 
-                set: function set(value) {
+                set: function(value) {
                     component._computeds[key] = value;
                 }
 
@@ -3524,7 +3522,7 @@
 
             $name: {
 
-                get: function get() {
+                get: function() {
                     var ref = this.$options;
                     var name = ref.name;
 
@@ -3558,7 +3556,7 @@
 
     var Class = {
 
-        connected: function connected() {
+        connected: function() {
             addClass(this.$el, this.$name);
         }
 
@@ -3605,13 +3603,13 @@
 
         computed: {
 
-            hasAnimation: function hasAnimation(ref) {
+            hasAnimation: function(ref) {
                 var animation = ref.animation;
 
                 return !!animation[0];
             },
 
-            hasTransition: function hasTransition(ref) {
+            hasTransition: function(ref) {
                 var animation = ref.animation;
 
                 return this.hasAnimation && animation[0] === true;
@@ -3621,7 +3619,7 @@
 
         methods: {
 
-            toggleElement: function toggleElement(targets, show, animate$$1) {
+            toggleElement: function(targets, show, animate$$1) {
                 var this$1 = this;
 
                 return new Promise$1(function (resolve) {
@@ -3663,26 +3661,26 @@
                 });
             },
 
-            toggleNow: function toggleNow(targets, show) {
+            toggleNow: function(targets, show) {
                 var this$1 = this;
 
                 return new Promise$1(function (resolve) { return Promise$1.all(toNodes(targets).map(function (el) { return this$1._toggleElement(el, show, false); })).then(resolve, noop); });
             },
 
-            isToggled: function isToggled(el) {
+            isToggled: function(el) {
                 var nodes = toNodes(el || this.$el);
                 return this.cls
                     ? hasClass(nodes, this.cls.split(' ')[0])
                     : !hasAttr(nodes, 'hidden');
             },
 
-            updateAria: function updateAria(el) {
+            updateAria: function(el) {
                 if (this.cls === false) {
                     attr(el, 'aria-hidden', !this.isToggled(el));
                 }
             },
 
-            _toggleElement: function _toggleElement(el, show, animate$$1) {
+            _toggleElement: function(el, show, animate$$1) {
                 var this$1 = this;
 
 
@@ -3713,7 +3711,7 @@
                 });
             },
 
-            _toggle: function _toggle(el, toggled) {
+            _toggle: function(el, toggled) {
 
                 if (!el) {
                     return;
@@ -3734,12 +3732,12 @@
                 changed && this.$update(el);
             },
 
-            _toggleImmediate: function _toggleImmediate(el, show) {
+            _toggleImmediate: function(el, show) {
                 this._toggle(el, show);
                 return Promise$1.resolve();
             },
 
-            _toggleHeight: function _toggleHeight(el, show) {
+            _toggleHeight: function(el, show) {
                 var this$1 = this;
 
 
@@ -3768,7 +3766,7 @@
 
             },
 
-            _toggleAnimation: function _toggleAnimation(el, show) {
+            _toggleAnimation: function(el, show) {
                 var this$1 = this;
 
 
@@ -3814,7 +3812,7 @@
 
         computed: {
 
-            items: function items(ref, $el) {
+            items: function(ref, $el) {
                 var targets = ref.targets;
 
                 return $$(targets, $el);
@@ -3828,11 +3826,11 @@
 
                 name: 'click',
 
-                delegate: function delegate() {
+                delegate: function() {
                     return ((this.targets) + " " + (this.$props.toggle));
                 },
 
-                handler: function handler(e) {
+                handler: function(e) {
                     e.preventDefault();
                     this.toggle(index($$(((this.targets) + " " + (this.$props.toggle)), this.$el), e.current));
                 }
@@ -3841,7 +3839,7 @@
 
         ],
 
-        connected: function connected() {
+        connected: function() {
 
             if (this.active === false) {
                 return;
@@ -3853,7 +3851,7 @@
             }
         },
 
-        update: function update() {
+        update: function() {
             var this$1 = this;
 
 
@@ -3867,7 +3865,7 @@
 
         methods: {
 
-            toggle: function toggle(item, animate$$1) {
+            toggle: function(item, animate$$1) {
                 var this$1 = this;
 
 
@@ -3941,11 +3939,11 @@
 
                 name: 'click',
 
-                delegate: function delegate() {
+                delegate: function() {
                     return this.selClose;
                 },
 
-                handler: function handler(e) {
+                handler: function(e) {
                     e.preventDefault();
                     this.close();
                 }
@@ -3956,7 +3954,7 @@
 
         methods: {
 
-            close: function close() {
+            close: function() {
                 var this$1 = this;
 
                 this.toggleElement(this.$el).then(function () { return this$1.$destroy(true); });
@@ -4011,7 +4009,7 @@
 
             Object.defineProperty(UIkit, 'hoverSelector', {
 
-                set: function set(selector) {
+                set: function(selector) {
                     on(document, 'tap', selector, function (ref) {
                         var current = ref.current;
 
@@ -4043,7 +4041,7 @@
 
         computed: {
 
-            inView: function inView(ref) {
+            inView: function(ref) {
                 var autoplay = ref.autoplay;
 
                 return autoplay === 'inview';
@@ -4051,7 +4049,7 @@
 
         },
 
-        connected: function connected() {
+        connected: function() {
 
             if (this.inView && !hasAttr(this.$el, 'preload')) {
                 this.$el.preload = 'none';
@@ -4059,7 +4057,7 @@
 
         },
 
-        ready: function ready$$1() {
+        ready: function() {
 
             this.player = new Player(this.$el);
 
@@ -4073,7 +4071,7 @@
 
             {
 
-                read: function read(_, ref) {
+                read: function(_, ref) {
                     var type = ref.type;
 
 
@@ -4085,7 +4083,7 @@
                         };
                 },
 
-                write: function write(ref) {
+                write: function(ref) {
                     var visible = ref.visible;
                     var inView = ref.inView;
 
@@ -4121,7 +4119,7 @@
 
         update: {
 
-            write: function write() {
+            write: function() {
 
                 var el = this.$el;
 
@@ -4155,7 +4153,7 @@
 
         events: {
 
-            loadedmetadata: function loadedmetadata() {
+            loadedmetadata: function() {
                 this.$emit();
             }
 
@@ -4181,17 +4179,17 @@
 
         computed: {
 
-            pos: function pos(ref) {
+            pos: function(ref) {
                 var pos = ref.pos;
 
                 return (pos + (!includes(pos, '-') ? '-center' : '')).split('-');
             },
 
-            dir: function dir() {
+            dir: function() {
                 return this.pos[0];
             },
 
-            align: function align() {
+            align: function() {
                 return this.pos[1];
             }
 
@@ -4199,7 +4197,7 @@
 
         methods: {
 
-            positionAt: function positionAt$1(element, target, boundary) {
+            positionAt: function(element, target, boundary) {
 
                 removeClasses(element, ((this.clsPos) + "-(top|bottom|left|right)(-[a-z]+)?"));
                 css(element, {top: '', left: ''});
@@ -4235,7 +4233,7 @@
 
             },
 
-            getAxis: function getAxis() {
+            getAxis: function() {
                 return this.dir === 'top' || this.dir === 'bottom' ? 'y' : 'x';
             }
 
@@ -4276,29 +4274,29 @@
 
         computed: {
 
-            boundary: function boundary(ref, $el) {
+            boundary: function(ref, $el) {
                 var boundary = ref.boundary;
 
                 return query(boundary, $el);
             },
 
-            clsDrop: function clsDrop(ref) {
+            clsDrop: function(ref) {
                 var clsDrop = ref.clsDrop;
 
                 return clsDrop || ("uk-" + (this.$options.name));
             },
 
-            clsPos: function clsPos() {
+            clsPos: function() {
                 return this.clsDrop;
             }
 
         },
 
-        init: function init() {
+        init: function() {
             this.tracker = new MouseTracker();
         },
 
-        connected: function connected() {
+        connected: function() {
 
             addClass(this.$el, this.clsDrop);
 
@@ -4320,11 +4318,11 @@
 
                 name: 'click',
 
-                delegate: function delegate() {
+                delegate: function() {
                     return ("." + (this.clsDrop) + "-close");
                 },
 
-                handler: function handler(e) {
+                handler: function(e) {
                     e.preventDefault();
                     this.hide(false);
                 }
@@ -4335,11 +4333,11 @@
 
                 name: 'click',
 
-                delegate: function delegate() {
+                delegate: function() {
                     return 'a[href^="#"]';
                 },
 
-                handler: function handler(e) {
+                handler: function(e) {
 
                     if (e.defaultPrevented) {
                         return;
@@ -4362,7 +4360,7 @@
 
                 name: 'beforescroll',
 
-                handler: function handler() {
+                handler: function() {
                     this.hide(false);
                 }
 
@@ -4374,7 +4372,7 @@
 
                 self: true,
 
-                handler: function handler(e, toggle) {
+                handler: function(e, toggle) {
 
                     e.preventDefault();
 
@@ -4391,11 +4389,11 @@
 
                 name: pointerEnter,
 
-                filter: function filter$$1() {
+                filter: function() {
                     return includes(this.mode, 'hover');
                 },
 
-                handler: function handler(e) {
+                handler: function(e) {
 
                     if (isTouch(e)) {
                         return;
@@ -4421,7 +4419,7 @@
 
                 name: 'toggleshow',
 
-                handler: function handler(e, toggle) {
+                handler: function(e, toggle) {
 
                     if (toggle && !includes(toggle.target, this.$el)) {
                         return;
@@ -4437,7 +4435,7 @@
 
                 name: ("togglehide " + pointerLeave),
 
-                handler: function handler(e, toggle) {
+                handler: function(e, toggle) {
 
                     if (isTouch(e) || toggle && !includes(toggle.target, this.$el)) {
                         return;
@@ -4458,7 +4456,7 @@
 
                 self: true,
 
-                handler: function handler() {
+                handler: function() {
                     this.clearTimers();
                     Animation.cancel(this.$el);
                     this.position();
@@ -4472,7 +4470,7 @@
 
                 self: true,
 
-                handler: function handler() {
+                handler: function() {
                     this.tracker.init();
                     if (this.toggle) {
                         addClass(this.toggle.$el, this.cls);
@@ -4489,7 +4487,7 @@
 
                 self: true,
 
-                handler: function handler() {
+                handler: function() {
                     this.clearTimers();
                 }
 
@@ -4499,7 +4497,7 @@
 
                 name: 'hide',
 
-                handler: function handler(ref) {
+                handler: function(ref) {
                     var target = ref.target;
 
 
@@ -4526,7 +4524,7 @@
 
         update: {
 
-            write: function write() {
+            write: function() {
 
                 if (this.isToggled() && !Animation.inProgress(this.$el)) {
                     this.position();
@@ -4540,7 +4538,7 @@
 
         methods: {
 
-            show: function show(toggle, delay) {
+            show: function(toggle, delay) {
                 var this$1 = this;
                 if ( delay === void 0 ) delay = true;
 
@@ -4594,7 +4592,7 @@
                 }
             },
 
-            hide: function hide(delay) {
+            hide: function(delay) {
                 var this$1 = this;
                 if ( delay === void 0 ) delay = true;
 
@@ -4614,7 +4612,7 @@
                 }
             },
 
-            clearTimers: function clearTimers() {
+            clearTimers: function() {
                 clearTimeout(this.showTimer);
                 clearTimeout(this.hideTimer);
                 this.showTimer = null;
@@ -4622,19 +4620,19 @@
                 this.isDelaying = false;
             },
 
-            isActive: function isActive() {
+            isActive: function() {
                 return active === this;
             },
 
-            isChildOf: function isChildOf(drop) {
+            isChildOf: function(drop) {
                 return drop && drop !== this && within(this.$el, drop.$el);
             },
 
-            isParentOf: function isParentOf(drop) {
+            isParentOf: function(drop) {
                 return drop && drop !== this && within(drop.$el, this.$el);
             },
 
-            position: function position$$1() {
+            position: function() {
 
                 removeClasses(this.$el, ((this.clsDrop) + "-(stack|boundary)"));
                 css(this.$el, {top: '', left: '', display: 'block'});
@@ -4708,15 +4706,15 @@
 
         computed: {
 
-            input: function input(_, $el) {
+            input: function(_, $el) {
                 return $(selInput, $el);
             },
 
-            state: function state() {
+            state: function() {
                 return this.input.nextElementSibling;
             },
 
-            target: function target(ref, $el) {
+            target: function(ref, $el) {
                 var target = ref.target;
 
                 return target && (target === true
@@ -4727,7 +4725,7 @@
 
         },
 
-        update: function update() {
+        update: function() {
 
             var ref = this;
             var target = ref.target;
@@ -4760,7 +4758,7 @@
 
                 delegate: selInput,
 
-                handler: function handler(ref) {
+                handler: function(ref) {
                     var type = ref.type;
                     var current = ref.current;
 
@@ -4779,7 +4777,7 @@
 
                 name: 'change',
 
-                handler: function handler() {
+                handler: function() {
                     this.$emit();
                 }
 
@@ -4794,7 +4792,7 @@
 
         update: {
 
-            read: function read(data$$1) {
+            read: function(data$$1) {
 
                 var inview = isInView(this.$el);
 
@@ -4805,7 +4803,7 @@
                 data$$1.isInView = inview;
             },
 
-            write: function write() {
+            write: function() {
                 this.$el.src = this.$el.src;
             },
 
@@ -4828,7 +4826,7 @@
 
         update: {
 
-            read: function read(data$$1) {
+            read: function(data$$1) {
 
                 var items = this.$el.children;
                 var rows = [[]];
@@ -4842,7 +4840,7 @@
 
             },
 
-            write: function write(ref) {
+            write: function(ref) {
                 var this$1 = this;
                 var rows = ref.rows;
 
@@ -4951,7 +4949,7 @@
 
         computed: {
 
-            parallax: function parallax(ref) {
+            parallax: function(ref) {
                 var parallax = ref.parallax;
 
                 return Math.abs(parallax);
@@ -4959,7 +4957,7 @@
 
         },
 
-        connected: function connected() {
+        connected: function() {
             this.masonry && addClass(this.$el, 'uk-flex-top uk-flex-wrap-top');
         },
 
@@ -4967,7 +4965,7 @@
 
             {
 
-                read: function read(ref) {
+                read: function(ref) {
                     var rows = ref.rows;
 
 
@@ -4999,7 +4997,7 @@
 
                 },
 
-                write: function write(ref) {
+                write: function(ref) {
                     var rows = ref.rows;
                     var stacks = ref.stacks;
                     var height$$1 = ref.height;
@@ -5009,7 +5007,7 @@
 
                     css(this.$el, 'paddingBottom', this.parallax && rows.some(function (row) { return row.length > 1; }) ? this.parallax : '');
 
-                    height$$1 && css(this.$el, 'height', height$$1);
+                    height$$1 && css(this.$el, 'minHeight', height$$1);
 
                 },
 
@@ -5019,7 +5017,7 @@
 
             {
 
-                read: function read(ref) {
+                read: function(ref) {
                     var rows = ref.rows;
                     var height$$1 = ref.height;
 
@@ -5030,7 +5028,7 @@
                     };
                 },
 
-                write: function write(ref) {
+                write: function(ref) {
                     var rows = ref.rows;
                     var scrolled = ref.scrolled;
                     var translates = ref.translates;
@@ -5088,7 +5086,7 @@
 
         computed: {
 
-            elements: function elements(ref, $el) {
+            elements: function(ref, $el) {
                 var target = ref.target;
 
                 return $$(target, $el);
@@ -5098,7 +5096,7 @@
 
         update: {
 
-            read: function read() {
+            read: function() {
                 var this$1 = this;
 
 
@@ -5114,7 +5112,7 @@
                 };
             },
 
-            write: function write(ref) {
+            write: function(ref) {
                 var rows = ref.rows;
 
 
@@ -5136,7 +5134,7 @@
 
         methods: {
 
-            match: function match(elements) {
+            match: function(elements) {
 
                 if (elements.length < 2) {
                     return {};
@@ -5179,7 +5177,7 @@
 
         update: {
 
-            write: function write() {
+            write: function() {
 
                 css(this.$el, 'boxSizing', 'border-box');
 
@@ -5280,7 +5278,7 @@
             'class': ''
         },
 
-        connected: function connected() {
+        connected: function() {
             var this$1 = this;
             var assign$$1;
 
@@ -5376,7 +5374,7 @@
 
         },
 
-        disconnected: function disconnected() {
+        disconnected: function() {
             var this$1 = this;
 
 
@@ -5394,7 +5392,7 @@
 
         methods: {
 
-            getSvg: function getSvg() {
+            getSvg: function() {
                 var this$1 = this;
 
 
@@ -5518,13 +5516,13 @@
 
         isIcon: true,
 
-        connected: function connected() {
+        connected: function() {
             addClass(this.$el, 'uk-icon');
         },
 
         methods: {
 
-            getSvg: function getSvg() {
+            getSvg: function() {
 
                 var icon = getIcon(applyRtl(this.icon));
 
@@ -5553,13 +5551,13 @@
 
         extends: IconComponent,
 
-        connected: function connected() {
+        connected: function() {
             addClass(this.$el, 'uk-slidenav');
         },
 
         computed: {
 
-            icon: function icon(ref, $el) {
+            icon: function(ref, $el) {
                 var icon = ref.icon;
 
                 return hasClass($el, 'uk-slidenav-large')
@@ -5577,7 +5575,7 @@
 
         computed: {
 
-            icon: function icon(ref, $el) {
+            icon: function(ref, $el) {
                 var icon = ref.icon;
 
                 return hasClass($el, 'uk-search-icon') && parents($el, '.uk-search-large').length
@@ -5597,7 +5595,7 @@
 
         computed: {
 
-            icon: function icon() {
+            icon: function() {
                 return ("close-" + (hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon'));
             }
 
@@ -5609,7 +5607,7 @@
 
         extends: IconComponent,
 
-        connected: function connected() {
+        connected: function() {
             var this$1 = this;
 
             this.svg.then(function (svg) { return this$1.ratio !== 1 && css($('circle', svg), 'strokeWidth', 1 / this$1.ratio); }, noop);
@@ -5685,50 +5683,50 @@
 
         computed: {
 
-            cacheKey: function cacheKey(ref) {
+            cacheKey: function(ref) {
                 var dataSrc = ref.dataSrc;
 
                 return ((this.$name) + "." + dataSrc);
             },
 
-            width: function width$$1(ref) {
+            width: function(ref) {
                 var width$$1 = ref.width;
                 var dataWidth = ref.dataWidth;
 
                 return width$$1 || dataWidth;
             },
 
-            height: function height$$1(ref) {
+            height: function(ref) {
                 var height$$1 = ref.height;
                 var dataHeight = ref.dataHeight;
 
                 return height$$1 || dataHeight;
             },
 
-            sizes: function sizes(ref) {
+            sizes: function(ref) {
                 var sizes = ref.sizes;
                 var dataSizes = ref.dataSizes;
 
                 return sizes || dataSizes;
             },
 
-            isImg: function isImg$1(_, $el) {
+            isImg: function(_, $el) {
                 return isImg($el);
             },
 
-            target: function target(ref) {
+            target: function(ref) {
                 var target = ref.target;
 
                 return [this.$el].concat(queryAll(target, this.$el));
             },
 
-            offsetTop: function offsetTop(ref) {
+            offsetTop: function(ref) {
                 var offsetTop = ref.offsetTop;
 
                 return toPx(offsetTop, 'height');
             },
 
-            offsetLeft: function offsetLeft(ref) {
+            offsetLeft: function(ref) {
                 var offsetLeft = ref.offsetLeft;
 
                 return toPx(offsetLeft, 'width');
@@ -5736,11 +5734,11 @@
 
         },
 
-        connected: function connected() {
+        connected: function() {
 
-            if (storage[this.cacheKey] || this.isImg && (!this.width || !this.height)) {
+            if (storage[this.cacheKey]) {
                 setSrcAttrs(this.$el, storage[this.cacheKey] || this.dataSrc, this.dataSrcset, this.sizes);
-            } else if (this.isImg) {
+            } else if (this.isImg && this.width && this.height) {
                 setSrcAttrs(this.$el, getPlaceholderImage(this.width, this.height, this.sizes));
             }
 
@@ -5750,7 +5748,7 @@
 
             {
 
-                read: function read(ref) {
+                read: function(ref) {
                     var this$1 = this;
                     var delay = ref.delay;
                     var image = ref.image;
@@ -5781,7 +5779,7 @@
 
                 },
 
-                write: function write(data$$1) {
+                write: function(data$$1) {
 
                     // Give placeholder images time to apply their dimensions
                     if (!data$$1.delay) {
@@ -5892,11 +5890,11 @@
     }
 
     var key = '__test__';
+    var storage;
 
-    var storage = window.sessionStorage || {};
-
-    // workaround for Safari's private browsing mode
+    // workaround for Safari's private browsing mode and accessing sessionStorage in Blink
     try {
+        storage = window.sessionStorage || {};
         storage[key] = 1;
         delete storage[key];
     } catch (e) {
@@ -5922,7 +5920,7 @@
 
         computed: {
 
-            fill: function fill(ref) {
+            fill: function(ref) {
                 var fill = ref.fill;
 
                 return fill || getCssVar('leader-fill');
@@ -5930,13 +5928,13 @@
 
         },
 
-        connected: function connected() {
+        connected: function() {
             var assign$$1;
 
             (assign$$1 = wrapInner(this.$el, ("<span class=\"" + (this.clsWrapper) + "\">")), this.wrapper = assign$$1[0]);
         },
 
-        disconnected: function disconnected() {
+        disconnected: function() {
             unwrap(this.wrapper.childNodes);
         },
 
@@ -5944,7 +5942,7 @@
 
             {
 
-                read: function read(ref) {
+                read: function(ref) {
                     var changed = ref.changed;
                     var width$$1 = ref.width;
 
@@ -5960,7 +5958,7 @@
                     };
                 },
 
-                write: function write(data$$1) {
+                write: function(data$$1) {
 
                     toggleClass(this.wrapper, this.clsHide, data$$1.hide);
 
@@ -5990,7 +5988,7 @@
 
         computed: {
 
-            container: function container(ref) {
+            container: function(ref) {
                 var container = ref.container;
 
                 return container === true && this.$container || container && $(container);
@@ -6024,21 +6022,21 @@
 
         computed: {
 
-            panel: function panel(ref, $el) {
+            panel: function(ref, $el) {
                 var selPanel = ref.selPanel;
 
                 return $(selPanel, $el);
             },
 
-            transitionElement: function transitionElement() {
+            transitionElement: function() {
                 return this.panel;
             },
 
-            transitionDuration: function transitionDuration() {
+            transitionDuration: function() {
                 return toMs(css(this.transitionElement, 'transitionDuration'));
             },
 
-            bgClose: function bgClose(ref) {
+            bgClose: function(ref) {
                 var bgClose = ref.bgClose;
 
                 return bgClose && this.panel;
@@ -6052,11 +6050,11 @@
 
                 name: 'click',
 
-                delegate: function delegate() {
+                delegate: function() {
                     return this.selClose;
                 },
 
-                handler: function handler(e) {
+                handler: function(e) {
                     e.preventDefault();
                     this.hide();
                 }
@@ -6069,7 +6067,7 @@
 
                 self: true,
 
-                handler: function handler(e) {
+                handler: function(e) {
 
                     if (e.defaultPrevented) {
                         return;
@@ -6086,7 +6084,7 @@
 
                 self: true,
 
-                handler: function handler(e) {
+                handler: function(e) {
 
                     var prev = active$1 && active$1 !== this && active$1;
 
@@ -6113,7 +6111,7 @@
 
                 self: true,
 
-                handler: function handler() {
+                handler: function() {
 
                     active$1 = active$1 && active$1 !== this && active$1 || this.prev;
 
@@ -6131,7 +6129,7 @@
 
                 self: true,
 
-                handler: function handler() {
+                handler: function() {
 
                     if (!hasClass(document.documentElement, this.clsPage)) {
                         this.scrollbarWidth = width(window) - width(document);
@@ -6150,7 +6148,7 @@
 
                 self: true,
 
-                handler: function handler() {
+                handler: function() {
                     var this$1 = this;
 
 
@@ -6183,11 +6181,11 @@
 
         methods: {
 
-            toggle: function toggle() {
+            toggle: function() {
                 return this.isToggled() ? this.hide() : this.show();
             },
 
-            show: function show() {
+            show: function() {
 
                 if (this.isToggled()) {
                     return Promise$1.resolve();
@@ -6201,17 +6199,17 @@
                 return this.toggleNow(this.$el, true);
             },
 
-            hide: function hide() {
+            hide: function() {
                 return this.isToggled()
                     ? this.toggleNow(this.$el, false)
                     : Promise$1.resolve();
             },
 
-            getActive: function getActive() {
+            getActive: function() {
                 return active$1;
             },
 
-            _toggleImmediate: function _toggleImmediate(el, show) {
+            _toggleImmediate: function(el, show) {
                 var this$1 = this;
 
                 return new Promise$1(function (resolve) { return requestAnimationFrame(function () {
@@ -6280,7 +6278,7 @@
 
                 self: true,
 
-                handler: function handler() {
+                handler: function() {
 
                     if (hasClass(this.panel, 'uk-margin-auto-vertical')) {
                         addClass(this.$el, 'uk-flex');
@@ -6297,7 +6295,7 @@
 
                 self: true,
 
-                handler: function handler() {
+                handler: function() {
 
                     css(this.$el, 'display', '');
                     removeClass(this.$el, 'uk-flex');
@@ -6449,26 +6447,26 @@
 
         computed: {
 
-            boundary: function boundary(ref, $el) {
+            boundary: function(ref, $el) {
                 var boundary = ref.boundary;
                 var boundaryAlign = ref.boundaryAlign;
 
                 return (boundary === true || boundaryAlign) ? $el : boundary;
             },
 
-            dropbarAnchor: function dropbarAnchor(ref, $el) {
+            dropbarAnchor: function(ref, $el) {
                 var dropbarAnchor = ref.dropbarAnchor;
 
                 return query(dropbarAnchor, $el);
             },
 
-            pos: function pos(ref) {
+            pos: function(ref) {
                 var align = ref.align;
 
                 return ("bottom-" + align);
             },
 
-            dropdowns: function dropdowns(ref, $el) {
+            dropdowns: function(ref, $el) {
                 var dropdown = ref.dropdown;
                 var clsDrop = ref.clsDrop;
 
@@ -6477,7 +6475,7 @@
 
         },
 
-        beforeConnect: function beforeConnect() {
+        beforeConnect: function() {
 
             var ref = this.$props;
             var dropbar = ref.dropbar;
@@ -6495,11 +6493,11 @@
 
         },
 
-        disconnected: function disconnected() {
+        disconnected: function() {
             this.dropbar && remove(this.dropbar);
         },
 
-        update: function update() {
+        update: function() {
             var this$1 = this;
 
 
@@ -6516,11 +6514,11 @@
             {
                 name: 'mouseover',
 
-                delegate: function delegate() {
+                delegate: function() {
                     return this.dropdown;
                 },
 
-                handler: function handler(ref) {
+                handler: function(ref) {
                     var current = ref.current;
 
                     var active = this.getActive();
@@ -6534,11 +6532,11 @@
             {
                 name: 'mouseleave',
 
-                el: function el() {
+                el: function() {
                     return this.dropbar;
                 },
 
-                handler: function handler() {
+                handler: function() {
                     var active = this.getActive();
 
                     if (active && !matches(this.dropbar, ':hover')) {
@@ -6552,11 +6550,11 @@
 
                 capture: true,
 
-                filter: function filter$$1() {
+                filter: function() {
                     return this.dropbar;
                 },
 
-                handler: function handler() {
+                handler: function() {
 
                     if (!this.dropbar.parentNode) {
                         after(this.dropbarAnchor || this.$el, this.dropbar);
@@ -6570,11 +6568,11 @@
 
                 capture: true,
 
-                filter: function filter$$1() {
+                filter: function() {
                     return this.dropbar;
                 },
 
-                handler: function handler(_, drop) {
+                handler: function(_, drop) {
 
                     var $el = drop.$el;
                     var dir = drop.dir;
@@ -6590,11 +6588,11 @@
             {
                 name: 'beforehide',
 
-                filter: function filter$$1() {
+                filter: function() {
                     return this.dropbar;
                 },
 
-                handler: function handler(e, ref) {
+                handler: function(e, ref) {
                     var $el = ref.$el;
 
 
@@ -6609,11 +6607,11 @@
             {
                 name: 'hide',
 
-                filter: function filter$$1() {
+                filter: function() {
                     return this.dropbar;
                 },
 
-                handler: function handler(_, ref) {
+                handler: function(_, ref) {
                     var $el = ref.$el;
 
 
@@ -6629,13 +6627,13 @@
 
         methods: {
 
-            getActive: function getActive() {
+            getActive: function() {
                 var ref = this.dropdowns.map(this.getDropdown).filter(function (drop) { return drop.isActive(); });
                 var active = ref[0];
                 return active && includes(active.mode, 'hover') && within(active.toggle.$el, this.$el) && active;
             },
 
-            transitionTo: function transitionTo(newHeight, el) {
+            transitionTo: function(newHeight, el) {
 
                 var ref = this;
                 var dropbar = ref.dropbar;
@@ -6656,7 +6654,7 @@
                     .then(function () { return css(el, {clip: ''}); });
             },
 
-            getDropdown: function getDropdown(el) {
+            getDropdown: function(el) {
                 return this.$getComponent(el, 'drop') || this.$getComponent(el, 'dropdown');
             }
 
@@ -6698,48 +6696,48 @@
 
         computed: {
 
-            content: function content(ref) {
+            content: function(ref) {
                 var content = ref.content;
 
                 return $(content) || document.body;
             },
 
-            clsFlip: function clsFlip(ref) {
+            clsFlip: function(ref) {
                 var flip = ref.flip;
                 var clsFlip = ref.clsFlip;
 
                 return flip ? clsFlip : '';
             },
 
-            clsOverlay: function clsOverlay(ref) {
+            clsOverlay: function(ref) {
                 var overlay = ref.overlay;
                 var clsOverlay = ref.clsOverlay;
 
                 return overlay ? clsOverlay : '';
             },
 
-            clsMode: function clsMode(ref) {
+            clsMode: function(ref) {
                 var mode = ref.mode;
                 var clsMode = ref.clsMode;
 
                 return (clsMode + "-" + mode);
             },
 
-            clsSidebarAnimation: function clsSidebarAnimation(ref) {
+            clsSidebarAnimation: function(ref) {
                 var mode = ref.mode;
                 var clsSidebarAnimation = ref.clsSidebarAnimation;
 
                 return mode === 'none' || mode === 'reveal' ? '' : clsSidebarAnimation;
             },
 
-            clsContentAnimation: function clsContentAnimation(ref) {
+            clsContentAnimation: function(ref) {
                 var mode = ref.mode;
                 var clsContentAnimation = ref.clsContentAnimation;
 
                 return mode !== 'push' && mode !== 'reveal' ? '' : clsContentAnimation;
             },
 
-            transitionElement: function transitionElement(ref) {
+            transitionElement: function(ref) {
                 var mode = ref.mode;
 
                 return mode === 'reveal' ? this.panel.parentNode : this.panel;
@@ -6749,7 +6747,7 @@
 
         update: {
 
-            write: function write() {
+            write: function() {
 
                 if (this.getActive() === this) {
 
@@ -6778,11 +6776,11 @@
 
                 name: 'click',
 
-                delegate: function delegate() {
+                delegate: function() {
                     return 'a[href^="#"]';
                 },
 
-                handler: function handler(ref) {
+                handler: function(ref) {
                     var current = ref.current;
 
                     if (current.hash && $(current.hash, this.content)) {
@@ -6797,11 +6795,11 @@
 
                 name: 'beforescroll',
 
-                filter: function filter$$1() {
+                filter: function() {
                     return this.overlay;
                 },
 
-                handler: function handler(e, scroll, target) {
+                handler: function(e, scroll, target) {
                     if (scroll && target && this.isToggled() && $(target, this.content)) {
                         once(this.$el, 'hidden', function () { return scroll.scrollTo(target); });
                         e.preventDefault();
@@ -6815,7 +6813,7 @@
 
                 self: true,
 
-                handler: function handler() {
+                handler: function() {
 
                     scroll = scroll || {x: window.pageXOffset, y: window.pageYOffset};
 
@@ -6841,7 +6839,7 @@
 
                 self: true,
 
-                handler: function handler() {
+                handler: function() {
                     removeClass(this.content, this.clsContentAnimation);
 
                     var active = this.getActive();
@@ -6856,7 +6854,7 @@
 
                 self: true,
 
-                handler: function handler() {
+                handler: function() {
 
                     if (this.mode === 'reveal') {
                         unwrap(this.panel);
@@ -6892,7 +6890,7 @@
             {
                 name: 'swipeLeft swipeRight',
 
-                handler: function handler(e) {
+                handler: function(e) {
 
                     if (this.isToggled() && isTouch(e) && (e.type === 'swipeLeft' && !this.flip || e.type === 'swipeRight' && this.flip)) {
                         this.hide();
@@ -6911,23 +6909,23 @@
 
         computed: {
 
-            modal: function modal(_, $el) {
+            modal: function(_, $el) {
                 return closest($el, '.uk-modal');
             },
 
-            panel: function panel(_, $el) {
+            panel: function(_, $el) {
                 return closest($el, '.uk-modal-dialog');
             }
 
         },
 
-        connected: function connected() {
+        connected: function() {
             css(this.$el, 'minHeight', 150);
         },
 
         update: {
 
-            write: function write() {
+            write: function() {
 
                 if (!this.panel || !this.modal) {
                     return;
@@ -6951,19 +6949,19 @@
 
         props: ['width', 'height'],
 
-        connected: function connected() {
+        connected: function() {
             addClass(this.$el, 'uk-responsive-width');
         },
 
         update: {
 
-            read: function read() {
+            read: function() {
                 return isVisible(this.$el) && this.width && this.height
                     ? {width: width(this.$el.parentNode), height: this.height}
                     : false;
             },
 
-            write: function write(dim) {
+            write: function(dim) {
                 height(this.$el, Dimensions.contain({height: this.height, width: this.width}, dim).height);
             },
 
@@ -6987,7 +6985,7 @@
 
         methods: {
 
-            scrollTo: function scrollTo(el) {
+            scrollTo: function(el) {
                 var this$1 = this;
 
 
@@ -7030,7 +7028,7 @@
 
         events: {
 
-            click: function click(e) {
+            click: function(e) {
 
                 if (e.defaultPrevented) {
                     return;
@@ -7075,7 +7073,7 @@
 
         computed: {
 
-            elements: function elements(ref, $el) {
+            elements: function(ref, $el) {
                 var target = ref.target;
 
                 return target ? $$(target, $el) : [$el];
@@ -7087,7 +7085,7 @@
 
             {
 
-                write: function write() {
+                write: function() {
                     if (this.hidden) {
                         css(filter(this.elements, (":not(." + (this.inViewClass) + ")")), 'visibility', 'hidden');
                     }
@@ -7097,7 +7095,7 @@
 
             {
 
-                read: function read(els) {
+                read: function(els) {
                     var this$1 = this;
 
 
@@ -7120,7 +7118,7 @@
                     });
                 },
 
-                write: function write(els) {
+                write: function(els) {
                     var this$1 = this;
 
 
@@ -7212,15 +7210,15 @@
 
         computed: {
 
-            links: function links(_, $el) {
+            links: function(_, $el) {
                 return $$('a[href^="#"]', $el).filter(function (el) { return el.hash; });
             },
 
-            elements: function elements() {
+            elements: function() {
                 return this.closest ? closest(this.links, this.closest) : this.links;
             },
 
-            targets: function targets() {
+            targets: function() {
                 return $$(this.links.map(function (el) { return el.hash; }).join(','));
             }
 
@@ -7230,7 +7228,7 @@
 
             {
 
-                read: function read() {
+                read: function() {
                     if (this.scroll) {
                         this.$create('scroll', this.links, {offset: this.offset || 0});
                     }
@@ -7240,7 +7238,7 @@
 
             {
 
-                read: function read(data$$1) {
+                read: function(data$$1) {
                     var this$1 = this;
 
 
@@ -7278,7 +7276,7 @@
 
                 },
 
-                write: function write(ref) {
+                write: function(ref) {
                     var active = ref.active;
 
 
@@ -7339,13 +7337,13 @@
 
         computed: {
 
-            selTarget: function selTarget(ref, $el) {
+            selTarget: function(ref, $el) {
                 var selTarget = ref.selTarget;
 
                 return selTarget && $(selTarget, $el) || $el;
             },
 
-            widthElement: function widthElement(ref, $el) {
+            widthElement: function(ref, $el) {
                 var widthElement = ref.widthElement;
 
                 return query(widthElement, $el) || this.placeholder;
@@ -7353,7 +7351,7 @@
 
         },
 
-        connected: function connected() {
+        connected: function() {
 
             this.placeholder = $('+ .uk-sticky-placeholder', this.$el) || $('<div class="uk-sticky-placeholder"></div>');
 
@@ -7362,7 +7360,7 @@
             }
         },
 
-        disconnected: function disconnected() {
+        disconnected: function() {
 
             if (this.isActive) {
                 this.isActive = false;
@@ -7382,7 +7380,7 @@
 
                 self: true,
 
-                handler: function handler() {
+                handler: function() {
                     replaceClass(this.selTarget, this.clsInactive, this.clsActive);
                 }
 
@@ -7393,7 +7391,7 @@
 
                 self: true,
 
-                handler: function handler() {
+                handler: function() {
                     replaceClass(this.selTarget, this.clsActive, this.clsInactive);
                 }
 
@@ -7405,7 +7403,7 @@
 
                 el: window,
 
-                handler: function handler() {
+                handler: function() {
                     var this$1 = this;
 
 
@@ -7440,7 +7438,7 @@
 
             {
 
-                write: function write() {
+                write: function() {
 
                     var ref = this;
                     var placeholder = ref.placeholder;
@@ -7473,7 +7471,7 @@
 
             {
 
-                read: function read(_, ref) {
+                read: function(_, ref) {
                     var scrollY = ref.scrollY; if ( scrollY === void 0 ) scrollY = window.pageYOffset;
 
 
@@ -7485,7 +7483,7 @@
                     };
                 },
 
-                write: function write(ref, ref$1) {
+                write: function(ref, ref$1) {
                     var this$1 = this;
                     var visible = ref.visible;
                     var scroll = ref.scroll;
@@ -7537,7 +7535,7 @@
 
         methods: {
 
-            show: function show() {
+            show: function() {
 
                 this.isActive = true;
                 this.update();
@@ -7545,7 +7543,7 @@
 
             },
 
-            hide: function hide() {
+            hide: function() {
 
                 if (!this.isActive || hasClass(this.selTarget, this.clsActive)) {
                     trigger(this.$el, 'inactive');
@@ -7557,7 +7555,7 @@
 
             },
 
-            update: function update() {
+            update: function() {
 
                 var active = this.top !== 0 || this.scroll > this.top;
                 var top = Math.max(0, this.offset);
@@ -7648,13 +7646,13 @@
 
         computed: {
 
-            connects: function connects(ref, $el) {
+            connects: function(ref, $el) {
                 var connect = ref.connect;
 
                 return queryAll(connect, $el);
             },
 
-            toggles: function toggles(ref, $el) {
+            toggles: function(ref, $el) {
                 var toggle = ref.toggle;
 
                 return $$(toggle, $el);
@@ -7668,11 +7666,11 @@
 
                 name: 'click',
 
-                delegate: function delegate() {
+                delegate: function() {
                     return ((this.toggle) + ":not(.uk-disabled)");
                 },
 
-                handler: function handler(e) {
+                handler: function(e) {
                     e.preventDefault();
                     this.show(e.current);
                 }
@@ -7682,15 +7680,15 @@
             {
                 name: 'click',
 
-                el: function el() {
+                el: function() {
                     return this.connects;
                 },
 
-                delegate: function delegate() {
+                delegate: function() {
                     return ("[" + (this.attrItem) + "],[data-" + (this.attrItem) + "]");
                 },
 
-                handler: function handler(e) {
+                handler: function(e) {
                     e.preventDefault();
                     this.show(data(e.current, this.attrItem));
                 }
@@ -7699,15 +7697,15 @@
             {
                 name: 'swipeRight swipeLeft',
 
-                filter: function filter$$1() {
+                filter: function() {
                     return this.swiping;
                 },
 
-                el: function el() {
+                el: function() {
                     return this.connects;
                 },
 
-                handler: function handler(e) {
+                handler: function(e) {
                     if (!isTouch(e)) {
                         return;
                     }
@@ -7721,7 +7719,7 @@
 
         ],
 
-        update: function update() {
+        update: function() {
             var this$1 = this;
 
 
@@ -7732,7 +7730,7 @@
 
         methods: {
 
-            show: function show(item) {
+            show: function(item) {
                 var this$1 = this;
 
 
@@ -7789,7 +7787,7 @@
             attrItem: 'uk-tab-item'
         },
 
-        connected: function connected() {
+        connected: function() {
 
             var cls = hasClass(this.$el, 'uk-tab-left')
                 ? 'uk-tab-left'
@@ -7827,7 +7825,7 @@
 
         computed: {
 
-            target: function target(ref, $el) {
+            target: function(ref, $el) {
                 var href = ref.href;
                 var target = ref.target;
 
@@ -7843,11 +7841,11 @@
 
                 name: (pointerEnter + " " + pointerLeave),
 
-                filter: function filter$$1() {
+                filter: function() {
                     return includes(this.mode, 'hover');
                 },
 
-                handler: function handler(e) {
+                handler: function(e) {
                     if (!isTouch(e)) {
                         this.toggle(("toggle" + (e.type === pointerEnter ? 'show' : 'hide')));
                     }
@@ -7859,11 +7857,11 @@
 
                 name: 'click',
 
-                filter: function filter$$1() {
+                filter: function() {
                     return includes(this.mode, 'click') || hasTouch && includes(this.mode, 'hover');
                 },
 
-                handler: function handler(e) {
+                handler: function(e) {
 
                     if (!isTouch(e) && !includes(this.mode, 'click')) {
                         return;
@@ -7889,7 +7887,7 @@
 
         update: {
 
-            write: function write() {
+            write: function() {
 
                 if (!includes(this.mode, 'media') || !this.media) {
                     return;
@@ -7908,7 +7906,7 @@
 
         methods: {
 
-            toggle: function toggle(type) {
+            toggle: function(type) {
                 if (trigger(this.target, type || 'toggle', [this])) {
                     this.toggleElement(this.target);
                 }
@@ -7969,7 +7967,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.4';
+    UIkit.version = '3.0.0-rc.5';
 
     core(UIkit);
 
@@ -7991,37 +7989,37 @@
 
         computed: {
 
-            date: function date(ref) {
+            date: function(ref) {
                 var date = ref.date;
 
                 return Date.parse(date);
             },
 
-            days: function days(ref, $el) {
+            days: function(ref, $el) {
                 var clsWrapper = ref.clsWrapper;
 
                 return $(clsWrapper.replace('%unit%', 'days'), $el);
             },
 
-            hours: function hours(ref, $el) {
+            hours: function(ref, $el) {
                 var clsWrapper = ref.clsWrapper;
 
                 return $(clsWrapper.replace('%unit%', 'hours'), $el);
             },
 
-            minutes: function minutes(ref, $el) {
+            minutes: function(ref, $el) {
                 var clsWrapper = ref.clsWrapper;
 
                 return $(clsWrapper.replace('%unit%', 'minutes'), $el);
             },
 
-            seconds: function seconds(ref, $el) {
+            seconds: function(ref, $el) {
                 var clsWrapper = ref.clsWrapper;
 
                 return $(clsWrapper.replace('%unit%', 'seconds'), $el);
             },
 
-            units: function units() {
+            units: function() {
                 var this$1 = this;
 
                 return ['days', 'hours', 'minutes', 'seconds'].filter(function (unit) { return this$1[unit]; });
@@ -8029,11 +8027,11 @@
 
         },
 
-        connected: function connected() {
+        connected: function() {
             this.start();
         },
 
-        disconnected: function disconnected() {
+        disconnected: function() {
             var this$1 = this;
 
             this.stop();
@@ -8048,7 +8046,7 @@
 
                 el: document,
 
-                handler: function handler() {
+                handler: function() {
                     if (document.hidden) {
                         this.stop();
                     } else {
@@ -8062,7 +8060,7 @@
 
         update: {
 
-            write: function write() {
+            write: function() {
                 var this$1 = this;
 
 
@@ -8104,7 +8102,7 @@
 
         methods: {
 
-            start: function start() {
+            start: function() {
                 var this$1 = this;
 
 
@@ -8117,7 +8115,7 @@
 
             },
 
-            stop: function stop() {
+            stop: function() {
 
                 if (this.timer) {
                     clearInterval(this.timer);
@@ -8157,7 +8155,7 @@
 
         computed: {
 
-            target: function target() {
+            target: function() {
                 return this.$el;
             }
 
@@ -8165,7 +8163,7 @@
 
         methods: {
 
-            animate: function animate$$1(action) {
+            animate: function(action) {
                 var this$1 = this;
 
 
@@ -8184,63 +8182,57 @@
 
                 reset(this.target);
                 this.$update(this.target);
+                fastdom.flush();
 
-                return new Promise$1(function (resolve) {
-                    cancelAnimationFrame(this$1._raf);
-                    this$1._raf = requestAnimationFrame(function () {
+                var newHeight = height(this.target);
 
-                        var newHeight = height(this$1.target);
+                children = children.concat(toNodes(this.target.children).filter(function (el) { return !includes(children, el); }));
 
-                        children = children.concat(toNodes(this$1.target.children).filter(function (el) { return !includes(children, el); }));
+                var propsTo = children.map(function (el, i) { return el.parentNode && i in propsFrom
+                        ? propsFrom[i]
+                        ? isVisible(el)
+                            ? getPositionWithMargin(el)
+                            : {opacity: 0}
+                        : {opacity: isVisible(el) ? 1 : 0}
+                        : false; }
+                );
 
-                        var propsTo = children.map(function (el, i) { return el.parentNode && i in propsFrom
-                                ? propsFrom[i]
-                                ? isVisible(el)
-                                    ? getPositionWithMargin(el)
-                                    : {opacity: 0}
-                                : {opacity: isVisible(el) ? 1 : 0}
-                                : false; }
-                        );
+                propsFrom = propsTo.map(function (props, i) {
+                    var from = children[i].parentNode === this$1.target
+                        ? propsFrom[i] || getProps(children[i])
+                        : false;
 
-                        propsFrom = propsTo.map(function (props, i) {
-                            var from = children[i].parentNode === this$1.target
-                                ? propsFrom[i] || getProps(children[i])
-                                : false;
+                    if (from) {
+                        if (!props) {
+                            delete from.opacity;
+                        } else if (!('opacity' in props)) {
+                            var opacity = from.opacity;
 
-                            if (from) {
-                                if (!props) {
-                                    delete from.opacity;
-                                } else if (!('opacity' in props)) {
-                                    var opacity = from.opacity;
-
-                                    if (opacity % 1) {
-                                        props.opacity = 1;
-                                    } else {
-                                        delete from.opacity;
-                                    }
-                                }
+                            if (opacity % 1) {
+                                props.opacity = 1;
+                            } else {
+                                delete from.opacity;
                             }
+                        }
+                    }
 
-                            return from;
-                        });
-
-                        addClass(this$1.target, targetClass);
-                        children.forEach(function (el, i) { return propsFrom[i] && css(el, propsFrom[i]); });
-                        css(this$1.target, 'height', oldHeight);
-                        window.scroll(window.pageXOffset, oldScrollY);
-
-                        Promise$1.all(children.map(function (el, i) { return propsFrom[i] && propsTo[i]
-                                ? Transition.start(el, propsTo[i], this$1.animation, 'ease')
-                                : Promise$1.resolve(); }
-                        ).concat(Transition.start(this$1.target, {height: newHeight}, this$1.animation, 'ease'))).then(function () {
-                            children.forEach(function (el, i) { return css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}); });
-                            reset(this$1.target);
-                            this$1.$update(this$1.target);
-                            resolve();
-                        }, noop);
-
-                    });
+                    return from;
                 });
+
+                addClass(this.target, targetClass);
+                children.forEach(function (el, i) { return propsFrom[i] && css(el, propsFrom[i]); });
+                css(this.target, 'minHeight', oldHeight);
+                window.scroll(window.pageXOffset, oldScrollY);
+
+                return Promise$1.all(children.map(function (el, i) { return propsFrom[i] && propsTo[i]
+                        ? Transition.start(el, propsTo[i], this$1.animation, 'ease')
+                        : Promise$1.resolve(); }
+                ).concat(Transition.start(this.target, {minHeight: newHeight}, this.animation, 'ease'))).then(function () {
+                    children.forEach(function (el, i) { return css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}); });
+                    reset(this$1.target);
+                    this$1.$update(this$1.target);
+                }, noop);
+
             }
         }
     };
@@ -8271,7 +8263,7 @@
             width: ''
         });
         removeClass(el, targetClass);
-        css(el, 'height', '');
+        css(el, 'minHeight', '');
     }
 
     function getPositionWithMargin(el) {
@@ -8318,13 +8310,13 @@
 
         computed: {
 
-            toggles: function toggles(ref, $el) {
+            toggles: function(ref, $el) {
                 var attrItem = ref.attrItem;
 
                 return $$(("[" + (this.attrItem) + "],[data-" + (this.attrItem) + "]"), $el);
             },
 
-            target: function target(ref, $el) {
+            target: function(ref, $el) {
                 var target = ref.target;
 
                 return $(target, $el);
@@ -8338,11 +8330,11 @@
 
                 name: 'click',
 
-                delegate: function delegate() {
+                delegate: function() {
                     return ("[" + (this.attrItem) + "],[data-" + (this.attrItem) + "]");
                 },
 
-                handler: function handler(e) {
+                handler: function(e) {
 
                     e.preventDefault();
                     this.apply(e.current);
@@ -8353,7 +8345,7 @@
 
         ],
 
-        connected: function connected() {
+        connected: function() {
             var this$1 = this;
 
 
@@ -8365,7 +8357,7 @@
             this.toggles.forEach(function (el) { return toggleClass(el, this$1.cls, includes(actives, el)); });
         },
 
-        update: function update(data$$1) {
+        update: function(data$$1) {
 
             var toggles = data$$1.toggles;
             var children = data$$1.children;
@@ -8382,11 +8374,11 @@
 
         methods: {
 
-            apply: function apply$$1(el) {
+            apply: function(el) {
                 this.setState(mergeState(el, this.attrItem, this.getState()));
             },
 
-            getState: function getState() {
+            getState: function() {
                 var this$1 = this;
 
                 return this.toggles
@@ -8394,7 +8386,7 @@
                     .reduce(function (state, el) { return mergeState(el, this$1.attrItem, state); }, {filter: {'': ''}, sort: []});
             },
 
-            setState: function setState(state, animate$$1) {
+            setState: function(state, animate$$1) {
                 var this$1 = this;
                 if ( animate$$1 === void 0 ) animate$$1 = true;
 
@@ -8515,18 +8507,18 @@
 
         slide: {
 
-            show: function show(dir) {
+            show: function(dir) {
                 return [
                     {transform: translate(dir * -100)},
                     {transform: translate()}
                 ];
             },
 
-            percent: function percent(current) {
+            percent: function(current) {
                 return translated(current);
             },
 
-            translate: function translate$1(percent, dir) {
+            translate: function(percent, dir) {
                 return [
                     {transform: translate(dir * -100 * percent)},
                     {transform: translate(dir * 100 * (1 - percent))}
@@ -8556,18 +8548,18 @@
 
         fade: {
 
-            show: function show() {
+            show: function() {
                 return [
                     {opacity: 0},
                     {opacity: 1}
                 ];
             },
 
-            percent: function percent(current) {
+            percent: function(current) {
                 return 1 - css(current, 'opacity');
             },
 
-            translate: function translate$$1(percent) {
+            translate: function(percent) {
                 return [
                     {opacity: 1 - percent},
                     {opacity: percent}
@@ -8578,18 +8570,18 @@
 
         scale: {
 
-            show: function show() {
+            show: function() {
                 return [
                     {opacity: 0, transform: scale3d(1 - .2)},
                     {opacity: 1, transform: scale3d(1)}
                 ];
             },
 
-            percent: function percent(current) {
+            percent: function(current) {
                 return 1 - css(current, 'opacity');
             },
 
-            translate: function translate$$1(percent) {
+            translate: function(percent) {
                 return [
                     {opacity: 1 - percent, transform: scale3d(1 - .2 * percent)},
                     {opacity: percent, transform: scale3d(1 - .2 + .2 * percent)}
@@ -8615,7 +8607,7 @@
 
             dir: dir,
 
-            show: function show(duration, percent, linear) {
+            show: function(duration, percent, linear) {
                 var this$1 = this;
                 if ( percent === void 0 ) percent = 0;
 
@@ -8639,21 +8631,21 @@
                 return deferred.promise;
             },
 
-            stop: function stop() {
+            stop: function() {
                 return Transition.stop([next, prev]);
             },
 
-            cancel: function cancel() {
+            cancel: function() {
                 Transition.cancel([next, prev]);
             },
 
-            reset: function reset() {
+            reset: function() {
                 for (var prop in props[0]) {
                     css([next, prev], prop, '');
                 }
             },
 
-            forward: function forward(duration, percent) {
+            forward: function(duration, percent) {
                 if ( percent === void 0 ) percent = this.percent();
 
                 Transition.cancel([next, prev]);
@@ -8661,7 +8653,7 @@
 
             },
 
-            translate: function translate$1(percent) {
+            translate: function(percent) {
 
                 this.reset();
 
@@ -8673,11 +8665,11 @@
 
             },
 
-            percent: function percent$1() {
+            percent: function() {
                 return percent(prev || next, next, dir);
             },
 
-            getDistance: function getDistance() {
+            getDistance: function() {
                 return prev.offsetWidth;
             }
 
@@ -8703,11 +8695,11 @@
             pauseOnHover: true
         },
 
-        connected: function connected() {
+        connected: function() {
             this.startAutoplay();
         },
 
-        disconnected: function disconnected() {
+        disconnected: function() {
             this.stopAutoplay();
         },
 
@@ -8719,7 +8711,7 @@
 
                 el: document,
 
-                handler: function handler() {
+                handler: function() {
                     if (document.hidden) {
                         this.stopAutoplay();
                     } else {
@@ -8740,11 +8732,11 @@
 
                 name: 'mouseenter',
 
-                filter: function filter$$1() {
+                filter: function() {
                     return this.autoplay;
                 },
 
-                handler: function handler() {
+                handler: function() {
                     this.isHovering = true;
                 }
 
@@ -8754,11 +8746,11 @@
 
                 name: 'mouseleave',
 
-                filter: function filter$$1() {
+                filter: function() {
                     return this.autoplay;
                 },
 
-                handler: function handler() {
+                handler: function() {
                     this.isHovering = false;
                 }
 
@@ -8768,7 +8760,7 @@
 
         methods: {
 
-            startAutoplay: function startAutoplay() {
+            startAutoplay: function() {
                 var this$1 = this;
 
 
@@ -8783,7 +8775,7 @@
 
             },
 
-            stopAutoplay: function stopAutoplay() {
+            stopAutoplay: function() {
                 if (this.interval) {
                     clearInterval(this.interval);
                 }
@@ -8800,7 +8792,7 @@
             preventCatch: false
         },
 
-        init: function init() {
+        init: function() {
             var this$1 = this;
 
 
@@ -8827,11 +8819,11 @@
 
                 name: pointerDown,
 
-                delegate: function delegate() {
+                delegate: function() {
                     return this.slidesSelector;
                 },
 
-                handler: function handler(e) {
+                handler: function(e) {
 
                     if (!isTouch(e) && hasTextNodesOnly(e.target)
                         || e.button > 0
@@ -8849,7 +8841,7 @@
             {
                 name: 'dragstart',
 
-                handler: function handler(e) {
+                handler: function(e) {
                     e.preventDefault();
                 }
             }
@@ -8858,7 +8850,7 @@
 
         methods: {
 
-            start: function start() {
+            start: function() {
 
                 this.drag = this.pos;
 
@@ -8884,7 +8876,7 @@
 
             },
 
-            move: function move(e) {
+            move: function(e) {
                 var this$1 = this;
 
 
@@ -8958,7 +8950,7 @@
 
             },
 
-            end: function end() {
+            end: function() {
 
                 off(window, 'scroll', this.unbindMove);
                 this.unbindMove();
@@ -9011,19 +9003,19 @@
 
         computed: {
 
-            nav: function nav(ref, $el) {
+            nav: function(ref, $el) {
                 var selNav = ref.selNav;
 
                 return $(selNav, $el);
             },
 
-            navItemSelector: function navItemSelector(ref) {
+            navItemSelector: function(ref) {
                 var attrItem = ref.attrItem;
 
                 return ("[" + attrItem + "],[data-" + attrItem + "]");
             },
 
-            navItems: function navItems(_, $el) {
+            navItems: function(_, $el) {
                 return $$(this.navItemSelector, $el);
             }
 
@@ -9033,7 +9025,7 @@
 
             {
 
-                write: function write() {
+                write: function() {
                     var this$1 = this;
 
 
@@ -9059,11 +9051,11 @@
 
                 name: 'click',
 
-                delegate: function delegate() {
+                delegate: function() {
                     return this.navItemSelector;
                 },
 
-                handler: function handler(e) {
+                handler: function(e) {
                     e.preventDefault();
                     e.current.blur();
                     this.show(data(e.current, this.attrItem));
@@ -9082,7 +9074,7 @@
 
         methods: {
 
-            updateNav: function updateNav() {
+            updateNav: function() {
                 var this$1 = this;
 
 
@@ -9130,33 +9122,33 @@
 
         computed: {
 
-            duration: function duration(ref, $el) {
+            duration: function(ref, $el) {
                 var velocity = ref.velocity;
 
                 return speedUp($el.offsetWidth / velocity);
             },
 
-            length: function length() {
+            length: function() {
                 return this.slides.length;
             },
 
-            list: function list(ref, $el) {
+            list: function(ref, $el) {
                 var selList = ref.selList;
 
                 return $(selList, $el);
             },
 
-            maxIndex: function maxIndex() {
+            maxIndex: function() {
                 return this.length - 1;
             },
 
-            slidesSelector: function slidesSelector(ref) {
+            slidesSelector: function(ref) {
                 var selList = ref.selList;
 
                 return (selList + " > *");
             },
 
-            slides: function slides() {
+            slides: function() {
                 return toNodes(this.list.children);
             }
 
@@ -9164,15 +9156,15 @@
 
         events: {
 
-            itemshown: function itemshown() {
-                this.$update(this.$el);
+            itemshown: function() {
+                this.$update(this.list);
             }
 
         },
 
         methods: {
 
-            show: function show(index$$1, force) {
+            show: function(index$$1, force) {
                 var this$1 = this;
                 if ( force === void 0 ) force = false;
 
@@ -9250,21 +9242,21 @@
 
             },
 
-            getIndex: function getIndex$1(index$$1, prev) {
+            getIndex: function(index$$1, prev) {
                 if ( index$$1 === void 0 ) index$$1 = this.index;
                 if ( prev === void 0 ) prev = this.index;
 
                 return clamp(getIndex(index$$1, this.slides, prev, this.finite), 0, this.maxIndex);
             },
 
-            getValidIndex: function getValidIndex(index$$1, prevIndex) {
+            getValidIndex: function(index$$1, prevIndex) {
                 if ( index$$1 === void 0 ) index$$1 = this.index;
                 if ( prevIndex === void 0 ) prevIndex = this.prevIndex;
 
                 return this.getIndex(index$$1, prevIndex);
             },
 
-            _show: function _show(prev, next, force) {
+            _show: function(prev, next, force) {
 
                 this._transitioner = this._getTransitioner(
                     prev,
@@ -9290,11 +9282,11 @@
 
             },
 
-            _getDistance: function _getDistance(prev, next) {
+            _getDistance: function(prev, next) {
                 return new this._getTransitioner(prev, prev !== next && next).getDistance();
             },
 
-            _translate: function _translate(percent, prev, next) {
+            _translate: function(percent, prev, next) {
                 if ( prev === void 0 ) prev = this.prevIndex;
                 if ( next === void 0 ) next = this.index;
 
@@ -9303,7 +9295,7 @@
                 return transitioner;
             },
 
-            _getTransitioner: function _getTransitioner(prev, next, dir, options) {
+            _getTransitioner: function(prev, next, dir, options) {
                 if ( prev === void 0 ) prev = this.prevIndex;
                 if ( next === void 0 ) next = this.index;
                 if ( dir === void 0 ) dir = this.dir || 1;
@@ -9352,14 +9344,14 @@
 
         computed: {
 
-            animation: function animation(ref) {
+            animation: function(ref) {
                 var animation = ref.animation;
                 var Animations$$1 = ref.Animations;
 
                 return assign(animation in Animations$$1 ? Animations$$1[animation] : Animations$$1.slide, {name: animation});
             },
 
-            transitionOptions: function transitionOptions() {
+            transitionOptions: function() {
                 return {animation: this.animation};
             }
 
@@ -9367,29 +9359,29 @@
 
         events: {
 
-            'itemshow itemhide itemshown itemhidden': function itemshowitemhideitemshownitemhidden(ref) {
+            'itemshow itemhide itemshown itemhidden': function(ref) {
                 var target = ref.target;
 
                 this.$update(target);
             },
 
-            itemshow: function itemshow() {
+            itemshow: function() {
                 isNumber(this.prevIndex) && fastdom.flush(); // iOS 10+ will honor the video.play only if called from a gesture handler
             },
 
-            beforeitemshow: function beforeitemshow(ref) {
+            beforeitemshow: function(ref) {
                 var target = ref.target;
 
                 addClass(target, this.clsActive);
             },
 
-            itemshown: function itemshown(ref) {
+            itemshown: function(ref) {
                 var target = ref.target;
 
                 addClass(target, this.clsActivated);
             },
 
-            itemhidden: function itemhidden(ref) {
+            itemhidden: function(ref) {
                 var target = ref.target;
 
                 removeClass(target, this.clsActive, this.clsActivated);
@@ -9428,7 +9420,7 @@
             template: "<div class=\"uk-lightbox uk-overflow-hidden\"> <ul class=\"uk-lightbox-items\"></ul> <div class=\"uk-lightbox-toolbar uk-position-top uk-text-right uk-transition-slide-top uk-transition-opaque\"> <button class=\"uk-lightbox-toolbar-icon uk-close-large\" type=\"button\" uk-close></button> </div> <a class=\"uk-lightbox-button uk-position-center-left uk-position-medium uk-transition-fade\" href=\"#\" uk-slidenav-previous uk-lightbox-item=\"previous\"></a> <a class=\"uk-lightbox-button uk-position-center-right uk-position-medium uk-transition-fade\" href=\"#\" uk-slidenav-next uk-lightbox-item=\"next\"></a> <div class=\"uk-lightbox-toolbar uk-lightbox-caption uk-position-bottom uk-text-center uk-transition-slide-bottom uk-transition-opaque\"></div> </div>"
         }); },
 
-        created: function created() {
+        created: function() {
             var this$1 = this;
 
 
@@ -9456,11 +9448,11 @@
 
                 self: true,
 
-                delegate: function delegate() {
+                delegate: function() {
                     return this.slidesSelector;
                 },
 
-                handler: function handler(e) {
+                handler: function(e) {
                     e.preventDefault();
                     this.hide();
                 }
@@ -9482,7 +9474,7 @@
 
                 self: true,
 
-                handler: function handler() {
+                handler: function() {
 
                     this.hideControls();
 
@@ -9498,7 +9490,7 @@
 
                 el: document,
 
-                handler: function handler(e) {
+                handler: function(e) {
 
                     if (!this.isToggled(this.$el)) {
                         return;
@@ -9519,7 +9511,7 @@
 
                 name: 'beforeitemshow',
 
-                handler: function handler(e) {
+                handler: function(e) {
 
                     if (this.isToggled()) {
                         return;
@@ -9543,7 +9535,7 @@
 
                 name: 'itemshow',
 
-                handler: function handler(ref) {
+                handler: function(ref) {
                     var this$1 = this;
                     var target = ref.target;
 
@@ -9568,7 +9560,7 @@
 
                 name: 'itemshown',
 
-                handler: function handler() {
+                handler: function() {
                     this.preventCatch = false;
                 }
 
@@ -9578,7 +9570,7 @@
 
                 name: 'itemload',
 
-                handler: function handler(_, item) {
+                handler: function(_, item) {
                     var this$1 = this;
 
 
@@ -9678,7 +9670,7 @@
 
         methods: {
 
-            loadItem: function loadItem(index$$1) {
+            loadItem: function(index$$1) {
                 if ( index$$1 === void 0 ) index$$1 = this.index;
 
 
@@ -9691,24 +9683,24 @@
                 trigger(this.$el, 'itemload', [item]);
             },
 
-            getItem: function getItem(index$$1) {
+            getItem: function(index$$1) {
                 if ( index$$1 === void 0 ) index$$1 = this.index;
 
                 return this.items[index$$1] || {};
             },
 
-            setItem: function setItem(item, content) {
+            setItem: function(item, content) {
                 assign(item, {content: content});
                 var el = html(this.slides[this.items.indexOf(item)], content);
                 trigger(this.$el, 'itemloaded', [this, el]);
                 this.$update(el);
             },
 
-            setError: function setError(item) {
+            setError: function(item) {
                 this.setItem(item, '<span uk-icon="icon: bolt; ratio: 2"></span>');
             },
 
-            showControls: function showControls() {
+            showControls: function() {
 
                 clearTimeout(this.controlsTimer);
                 this.controlsTimer = setTimeout(this.hideControls, this.delayControls);
@@ -9717,7 +9709,7 @@
 
             },
 
-            hideControls: function hideControls() {
+            hideControls: function() {
                 removeClass(this.$el, 'uk-active', 'uk-transition-active');
             }
 
@@ -9729,20 +9721,25 @@
         return ("<iframe src=\"" + src + "\" width=\"" + width$$1 + "\" height=\"" + height$$1 + "\" style=\"max-width: 100%; box-sizing: border-box;\" frameborder=\"0\" allowfullscreen uk-video=\"autoplay: " + autoplay + "\" uk-responsive></iframe>");
     }
 
+    var props = merge(LightboxPanel, 'props');
+    var defaults = merge(LightboxPanel, 'data');
+
     var Lightbox = {
+
+        install: install$2,
 
         attrs: true,
 
-        props: assign({toggle: String}, LightboxPanel.props),
+        props: assign({toggle: String}, props),
 
-        data: assign({toggle: 'a'}, Object.keys(LightboxPanel.props).reduce(function (data$$1, key) {
-            data$$1[key] = LightboxPanel.data[key];
+        data: assign({toggle: 'a'}, Object.keys(props).reduce(function (data$$1, key) {
+            data$$1[key] = defaults[key];
             return data$$1;
         }, {})),
 
         computed: {
 
-            toggles: function toggles(ref, $el) {
+            toggles: function(ref, $el) {
                 var toggle = ref.toggle;
 
                 return $$(toggle, $el);
@@ -9750,7 +9747,7 @@
 
         },
 
-        disconnected: function disconnected() {
+        disconnected: function() {
             this._destroy();
         },
 
@@ -9760,11 +9757,11 @@
 
                 name: 'click',
 
-                delegate: function delegate() {
+                delegate: function() {
                     return ((this.toggle) + ":not(.uk-disabled)");
                 },
 
-                handler: function handler(e) {
+                handler: function(e) {
                     e.preventDefault();
                     e.current.blur();
                     this.show(index(this.toggles, e.current));
@@ -9774,7 +9771,7 @@
 
         ],
 
-        update: function update(data$$1) {
+        update: function(data$$1) {
 
             data$$1.toggles = data$$1.toggles || this.toggles;
 
@@ -9795,7 +9792,7 @@
 
         methods: {
 
-            _init: function _init() {
+            _init: function() {
                 return this.panel = this.panel || this.$create('lightboxPanel', assign({}, this.$props, {
                     items: this.toggles.reduce(function (items, el) {
                         items.push(['href', 'caption', 'type', 'poster', 'alt'].reduce(function (obj, attr$$1) {
@@ -9807,14 +9804,14 @@
                 }));
             },
 
-            _destroy: function _destroy() {
+            _destroy: function() {
                 if (this.panel) {
                     this.panel.$destroy(true);
                     this.panel = null;
                 }
             },
 
-            show: function show(index$$1) {
+            show: function(index$$1) {
 
                 if (!this.panel) {
                     this._init();
@@ -9824,7 +9821,7 @@
 
             },
 
-            hide: function hide() {
+            hide: function() {
 
                 return this.panel && this.panel.hide();
 
@@ -9837,6 +9834,18 @@
     function isEqualList$1(listA, listB) {
         return listA.length === listB.length
             && listA.every(function (el, i) { return el === listB[i]; });
+    }
+
+    function merge(options, prop) {
+        return assign.apply(
+            void 0, [ {} ].concat( (options.mixins ? options.mixins.map(function (mixin) { return merge(mixin, prop); }) : []),
+            [isFunction(options[prop]) ? options[prop]() : options[prop]] ));
+    }
+
+    function install$2(UIkit) {
+        if (!UIkit.lightboxPanel) {
+            UIkit.component('lightboxPanel', LightboxPanel);
+        }
     }
 
     var obj;
@@ -9859,9 +9868,9 @@
             clsMsg: 'uk-notification-message'
         },
 
-        install: install$2,
+        install: install$3,
 
-        created: function created() {
+        created: function() {
 
             if (!containers[this.pos]) {
                 containers[this.pos] = append(this.$container, ("<div class=\"uk-notification uk-notification-" + (this.pos) + "\"></div>"));
@@ -9875,7 +9884,7 @@
 
         },
 
-        ready: function ready$$1() {
+        ready: function() {
             var this$1 = this;
 
 
@@ -9893,7 +9902,7 @@
 
         events: ( obj = {
 
-            click: function click(e) {
+            click: function(e) {
                 if (closest(e.target, 'a[href="#"]')) {
                     e.preventDefault();
                 }
@@ -9912,7 +9921,7 @@
 
         methods: {
 
-            close: function close(immediate) {
+            close: function(immediate) {
                 var this$1 = this;
 
 
@@ -9946,7 +9955,7 @@
 
     };
 
-    function install$2(UIkit) {
+    function install$3(UIkit) {
         UIkit.notification.closeAll = function (group, immediate) {
             apply(document.body, function (el) {
                 var notification = UIkit.getComponent(el, 'notification');
@@ -9957,18 +9966,18 @@
         };
     }
 
-    var props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
+    var props$1 = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
     var Parallax = {
 
-        props: props.reduce(function (props, prop) {
+        props: props$1.reduce(function (props, prop) {
             props[prop] = 'list';
             return props;
         }, {
             media: 'media'
         }),
 
-        data: props.reduce(function (data$$1, prop) {
+        data: props$1.reduce(function (data$$1, prop) {
             data$$1[prop] = undefined;
             return data$$1;
         }, {
@@ -9977,11 +9986,11 @@
 
         computed: {
 
-            props: function props$1(properties, $el) {
+            props: function(properties, $el) {
                 var this$1 = this;
 
 
-                return props.reduce(function (props, prop) {
+                return props$1.reduce(function (props, prop) {
 
                     if (isUndefined(properties[prop])) {
                         return props;
@@ -10051,19 +10060,19 @@
 
             },
 
-            bgProps: function bgProps() {
+            bgProps: function() {
                 var this$1 = this;
 
                 return ['bgx', 'bgy'].filter(function (bg) { return bg in this$1.props; });
             },
 
-            covers: function covers$1(_, $el) {
+            covers: function(_, $el) {
                 return covers($el);
             }
 
         },
 
-        disconnected: function disconnected() {
+        disconnected: function() {
             delete this._image;
         },
 
@@ -10071,7 +10080,7 @@
 
             {
 
-                read: function read(data$$1) {
+                read: function(data$$1) {
                     var this$1 = this;
 
 
@@ -10107,7 +10116,7 @@
 
                 },
 
-                write: function write(ref) {
+                write: function(ref) {
                     var this$1 = this;
                     var image = ref.image;
                     var active = ref.active;
@@ -10168,13 +10177,13 @@
 
         methods: {
 
-            reset: function reset() {
+            reset: function() {
                 var this$1 = this;
 
                 each(this.getCss(0), function (_, prop) { return css(this$1.$el, prop, ''); });
             },
 
-            getCss: function getCss(percent) {
+            getCss: function(percent) {
 
                 var ref = this;
                 var props = ref.props;
@@ -10320,7 +10329,7 @@
 
         computed: {
 
-            target: function target(ref, $el) {
+            target: function(ref, $el) {
                 var target = ref.target;
 
                 return target && query(target, $el) || $el;
@@ -10332,7 +10341,7 @@
 
             {
 
-                read: function read(ref) {
+                read: function(ref) {
                     var percent = ref.percent;
 
                     return {
@@ -10341,7 +10350,7 @@
                     };
                 },
 
-                write: function write(ref, ref$1) {
+                write: function(ref, ref$1) {
                     var prev = ref.prev;
                     var percent = ref.percent;
                     var active = ref.active;
@@ -10380,7 +10389,7 @@
 
             {
 
-                write: function write() {
+                write: function() {
 
                     if (this.stack.length || this.dragging) {
                         return;
@@ -10420,7 +10429,7 @@
 
             dir: dir,
 
-            show: function show(duration, percent, linear) {
+            show: function(duration, percent, linear) {
                 if ( percent === void 0 ) percent = 0;
 
 
@@ -10442,26 +10451,26 @@
 
             },
 
-            stop: function stop() {
+            stop: function() {
                 return Transition.stop(list);
             },
 
-            cancel: function cancel() {
+            cancel: function() {
                 Transition.cancel(list);
             },
 
-            reset: function reset() {
+            reset: function() {
                 css(list, 'transform', '');
             },
 
-            forward: function forward(duration, percent) {
+            forward: function(duration, percent) {
                 if ( percent === void 0 ) percent = this.percent();
 
                 Transition.cancel(list);
                 return this.show(duration, percent, true);
             },
 
-            translate: function translate$1(percent) {
+            translate: function(percent) {
 
                 var distance = this.getDistance() * dir * (isRtl ? -1 : 1);
 
@@ -10481,15 +10490,15 @@
 
             },
 
-            percent: function percent() {
+            percent: function() {
                 return Math.abs((css(list, 'transform').split(',')[4] * (isRtl ? -1 : 1) + from) / (to - from));
             },
 
-            getDistance: function getDistance() {
+            getDistance: function() {
                 return Math.abs(to - from);
             },
 
-            getItemIn: function getItemIn(out) {
+            getItemIn: function(out) {
                 if ( out === void 0 ) out = false;
 
 
@@ -10501,7 +10510,7 @@
 
             },
 
-            getActives: function getActives() {
+            getActives: function() {
 
                 var left = getLeft(prev || next, list, center);
 
@@ -10512,7 +10521,7 @@
 
             },
 
-            updateTranslates: function updateTranslates() {
+            updateTranslates: function() {
 
                 var actives = this.getActives();
 
@@ -10589,17 +10598,17 @@
 
         computed: {
 
-            avgWidth: function avgWidth() {
+            avgWidth: function() {
                 return getWidth(this.list) / this.length;
             },
 
-            finite: function finite(ref) {
+            finite: function(ref) {
                 var finite = ref.finite;
 
                 return finite || getWidth(this.list) < this.list.offsetWidth + getMaxWidth(this.list) + this.center;
             },
 
-            maxIndex: function maxIndex() {
+            maxIndex: function() {
                 var this$1 = this;
 
 
@@ -10625,7 +10634,7 @@
                 return 0;
             },
 
-            sets: function sets(ref) {
+            sets: function(ref) {
                 var this$1 = this;
                 var sets = ref.sets;
 
@@ -10672,7 +10681,7 @@
 
             },
 
-            transitionOptions: function transitionOptions() {
+            transitionOptions: function() {
                 return {
                     center: this.center,
                     list: this.list
@@ -10681,13 +10690,13 @@
 
         },
 
-        connected: function connected() {
+        connected: function() {
             toggleClass(this.$el, this.clsContainer, !$(("." + (this.clsContainer)), this.$el));
         },
 
         update: {
 
-            write: function write() {
+            write: function() {
                 var this$1 = this;
 
 
@@ -10704,7 +10713,7 @@
 
         events: {
 
-            beforeitemshow: function beforeitemshow(e) {
+            beforeitemshow: function(e) {
                 var this$1 = this;
 
 
@@ -10739,11 +10748,11 @@
 
             },
 
-            itemshow: function itemshow() {
+            itemshow: function() {
                 !isUndefined(this.prevIndex) && addClass(this._getTransitioner().getItemIn(), this.clsActive);
             },
 
-            itemshown: function itemshown() {
+            itemshown: function() {
                 var this$1 = this;
 
                 var actives = this._getTransitioner(this.index).getActives();
@@ -10755,7 +10764,7 @@
 
         methods: {
 
-            reorder: function reorder() {
+            reorder: function() {
                 var this$1 = this;
 
 
@@ -10793,7 +10802,7 @@
 
             },
 
-            getValidIndex: function getValidIndex(index$$1, prevIndex) {
+            getValidIndex: function(index$$1, prevIndex) {
                 var this$1 = this;
                 if ( index$$1 === void 0 ) index$$1 = this.index;
                 if ( prevIndex === void 0 ) prevIndex = this.prevIndex;
@@ -10835,7 +10844,7 @@
 
         computed: {
 
-            item: function item(ref, $el) {
+            item: function(ref, $el) {
                 var selItem = ref.selItem;
 
                 return query(selItem, $el);
@@ -10851,11 +10860,11 @@
 
                 self: true,
 
-                el: function el() {
+                el: function() {
                     return this.item;
                 },
 
-                handler: function handler() {
+                handler: function() {
                     css(this.$el, this.getCss(.5));
                 }
 
@@ -10866,11 +10875,11 @@
 
                 self: true,
 
-                el: function el() {
+                el: function() {
                     return this.item;
                 },
 
-                handler: function handler(ref) {
+                handler: function(ref) {
                     var type = ref.type;
                     var ref_detail = ref.detail;
                     var percent = ref_detail.percent;
@@ -10897,11 +10906,11 @@
 
                 self: true,
 
-                el: function el() {
+                el: function() {
                     return this.item;
                 },
 
-                handler: function handler() {
+                handler: function() {
                     Transition.cancel(this.$el);
                 }
 
@@ -10912,11 +10921,11 @@
 
                 self: true,
 
-                el: function el() {
+                el: function() {
                     return this.item;
                 },
 
-                handler: function handler(ref) {
+                handler: function(ref) {
                     var type = ref.type;
                     var ref_detail = ref.detail;
                     var percent = ref_detail.percent;
@@ -10952,18 +10961,18 @@
 
         fade: {
 
-            show: function show() {
+            show: function() {
                 return [
                     {opacity: 0, zIndex: 0},
                     {zIndex: -1}
                 ];
             },
 
-            percent: function percent(current) {
+            percent: function(current) {
                 return 1 - css(current, 'opacity');
             },
 
-            translate: function translate$$1(percent) {
+            translate: function(percent) {
                 return [
                     {opacity: 1 - percent, zIndex: 0},
                     {zIndex: -1}
@@ -10974,18 +10983,18 @@
 
         scale: {
 
-            show: function show() {
+            show: function() {
                 return [
                     {opacity: 0, transform: scale3d(1 + .5), zIndex: 0},
                     {zIndex: -1}
                 ];
             },
 
-            percent: function percent(current) {
+            percent: function(current) {
                 return 1 - css(current, 'opacity');
             },
 
-            translate: function translate$$1(percent) {
+            translate: function(percent) {
                 return [
                     {opacity: 1 - percent, transform: scale3d(1 + .5 * percent), zIndex: 0},
                     {zIndex: -1}
@@ -10996,7 +11005,7 @@
 
         pull: {
 
-            show: function show(dir) {
+            show: function(dir) {
                 return dir < 0
                     ? [
                         {transform: translate(30), zIndex: -1},
@@ -11007,13 +11016,13 @@
                     ];
             },
 
-            percent: function percent(current, next, dir) {
+            percent: function(current, next, dir) {
                 return dir < 0
                     ? 1 - translated(next)
                     : translated(current);
             },
 
-            translate: function translate$1(percent, dir) {
+            translate: function(percent, dir) {
                 return dir < 0
                     ? [
                         {transform: translate(30 * percent), zIndex: -1},
@@ -11028,7 +11037,7 @@
 
         push: {
 
-            show: function show(dir) {
+            show: function(dir) {
                 return dir < 0
                     ? [
                         {transform: translate(100), zIndex: 0},
@@ -11039,13 +11048,13 @@
                     ];
             },
 
-            percent: function percent(current, next, dir) {
+            percent: function(current, next, dir) {
                 return dir > 0
                     ? 1 - translated(next)
                     : translated(current);
             },
 
-            translate: function translate$2(percent, dir) {
+            translate: function(percent, dir) {
                 return dir < 0
                     ? [
                         {transform: translate(percent * 100), zIndex: 0},
@@ -11082,7 +11091,7 @@
 
         update: {
 
-            read: function read() {
+            read: function() {
 
                 var ref = this.ratio.split(':').map(Number);
                 var width$$1 = ref[0];
@@ -11101,7 +11110,7 @@
                 return {height: height$$1};
             },
 
-            write: function write(ref) {
+            write: function(ref) {
                 var hgt = ref.height;
 
                 height(this.list, Math.floor(hgt));
@@ -11147,7 +11156,7 @@
             handle: false
         },
 
-        init: function init() {
+        init: function() {
             var this$1 = this;
 
             ['init', 'start', 'move', 'end'].forEach(function (key) {
@@ -11168,7 +11177,7 @@
 
         update: {
 
-            write: function write() {
+            write: function() {
 
                 if (this.clsEmpty) {
                     toggleClass(this.$el, this.clsEmpty, !this.$el.children.length);
@@ -11198,7 +11207,7 @@
 
         methods: {
 
-            init: function init(e) {
+            init: function(e) {
 
                 var target = e.target;
                 var button = e.button;
@@ -11232,7 +11241,7 @@
 
             },
 
-            start: function start(e) {
+            start: function(e) {
 
                 this.drag = append(this.$container, this.placeholder.outerHTML.replace(/^<li/i, '<div').replace(/li>$/i, 'div>'));
 
@@ -11260,7 +11269,7 @@
                 this.move(e);
             },
 
-            move: function move(e) {
+            move: function(e) {
 
                 if (!this.drag) {
 
@@ -11299,7 +11308,7 @@
 
             },
 
-            scroll: function scroll() {
+            scroll: function() {
                 var scroll = window.pageYOffset;
                 if (scroll !== this.scrollY) {
                     this.pos.y += scroll - this.scrollY;
@@ -11308,7 +11317,7 @@
                 }
             },
 
-            end: function end(e) {
+            end: function(e) {
 
                 off(document, pointerMove, this.move);
                 off(document, pointerUp, this.end);
@@ -11348,7 +11357,7 @@
 
             },
 
-            insert: function insert(element, target) {
+            insert: function(element, target) {
                 var this$1 = this;
 
 
@@ -11378,7 +11387,7 @@
 
             },
 
-            remove: function remove$1(element) {
+            remove: function(element) {
 
                 if (!within(element, this.$el)) {
                     return;
@@ -11392,7 +11401,7 @@
 
             },
 
-            getSortable: function getSortable(element) {
+            getSortable: function(element) {
                 return element && (this.$getComponent(element, 'sortable') || this.getSortable(element.parentNode));
             }
 
@@ -11431,19 +11440,19 @@
             clsPos: 'uk-tooltip'
         },
 
-        beforeConnect: function beforeConnect() {
+        beforeConnect: function() {
             this._hasTitle = hasAttr(this.$el, 'title');
             attr(this.$el, {title: '', 'aria-expanded': false});
         },
 
-        disconnected: function disconnected() {
+        disconnected: function() {
             this.hide();
             attr(this.$el, {title: this._hasTitle ? this.title : null, 'aria-expanded': null});
         },
 
         methods: {
 
-            show: function show() {
+            show: function() {
                 var this$1 = this;
 
 
@@ -11481,7 +11490,7 @@
                 }, this.delay);
             },
 
-            hide: function hide() {
+            hide: function() {
 
                 var index$$1 = actives.indexOf(this);
 
@@ -11564,7 +11573,7 @@
 
         events: {
 
-            change: function change(e) {
+            change: function(e) {
 
                 if (!matches(e.target, 'input[type="file"]')) {
                     return;
@@ -11579,7 +11588,7 @@
                 e.target.value = '';
             },
 
-            drop: function drop(e) {
+            drop: function(e) {
                 stop(e);
 
                 var transfer = e.dataTransfer;
@@ -11593,16 +11602,16 @@
                 this.upload(transfer.files);
             },
 
-            dragenter: function dragenter(e) {
+            dragenter: function(e) {
                 stop(e);
             },
 
-            dragover: function dragover(e) {
+            dragover: function(e) {
                 stop(e);
                 addClass(this.$el, this.clsDragover);
             },
 
-            dragleave: function dragleave(e) {
+            dragleave: function(e) {
                 stop(e);
                 removeClass(this.$el, this.clsDragover);
             }
@@ -11611,7 +11620,7 @@
 
         methods: {
 
-            upload: function upload(files) {
+            upload: function(files) {
                 var this$1 = this;
 
 
