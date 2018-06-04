@@ -1,4 +1,4 @@
-import {addClass, append, assign, css, height, includes, index, isVisible, noop, position, Promise, removeClass, toFloat, toNodes, Transition} from 'uikit-util';
+import {addClass, append, assign, css, fastdom, height, includes, index, isVisible, noop, position, Promise, removeClass, toFloat, toNodes, Transition} from 'uikit-util';
 
 const targetClass = 'uk-animation-target';
 
@@ -39,65 +39,59 @@ export default {
 
             reset(this.target);
             this.$update(this.target);
+            fastdom.flush();
 
-            return new Promise(resolve => {
-                cancelAnimationFrame(this._raf);
-                this._raf = requestAnimationFrame(() => {
+            const newHeight = height(this.target);
 
-                    const newHeight = height(this.target);
+            children = children.concat(toNodes(this.target.children).filter(el => !includes(children, el)));
 
-                    children = children.concat(toNodes(this.target.children).filter(el => !includes(children, el)));
+            const propsTo = children.map((el, i) =>
+                el.parentNode && i in propsFrom
+                    ? propsFrom[i]
+                    ? isVisible(el)
+                        ? getPositionWithMargin(el)
+                        : {opacity: 0}
+                    : {opacity: isVisible(el) ? 1 : 0}
+                    : false
+            );
 
-                    const propsTo = children.map((el, i) =>
-                        el.parentNode && i in propsFrom
-                            ? propsFrom[i]
-                            ? isVisible(el)
-                                ? getPositionWithMargin(el)
-                                : {opacity: 0}
-                            : {opacity: isVisible(el) ? 1 : 0}
-                            : false
-                    );
+            propsFrom = propsTo.map((props, i) => {
+                const from = children[i].parentNode === this.target
+                    ? propsFrom[i] || getProps(children[i])
+                    : false;
 
-                    propsFrom = propsTo.map((props, i) => {
-                        const from = children[i].parentNode === this.target
-                            ? propsFrom[i] || getProps(children[i])
-                            : false;
+                if (from) {
+                    if (!props) {
+                        delete from.opacity;
+                    } else if (!('opacity' in props)) {
+                        const {opacity} = from;
 
-                        if (from) {
-                            if (!props) {
-                                delete from.opacity;
-                            } else if (!('opacity' in props)) {
-                                const {opacity} = from;
-
-                                if (opacity % 1) {
-                                    props.opacity = 1;
-                                } else {
-                                    delete from.opacity;
-                                }
-                            }
+                        if (opacity % 1) {
+                            props.opacity = 1;
+                        } else {
+                            delete from.opacity;
                         }
+                    }
+                }
 
-                        return from;
-                    });
-
-                    addClass(this.target, targetClass);
-                    children.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-                    css(this.target, 'height', oldHeight);
-                    window.scroll(window.pageXOffset, oldScrollY);
-
-                    Promise.all(children.map((el, i) =>
-                        propsFrom[i] && propsTo[i]
-                            ? Transition.start(el, propsTo[i], this.animation, 'ease')
-                            : Promise.resolve()
-                    ).concat(Transition.start(this.target, {height: newHeight}, this.animation, 'ease'))).then(() => {
-                        children.forEach((el, i) => css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}));
-                        reset(this.target);
-                        this.$update(this.target);
-                        resolve();
-                    }, noop);
-
-                });
+                return from;
             });
+
+            addClass(this.target, targetClass);
+            children.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
+            css(this.target, 'minHeight', oldHeight);
+            window.scroll(window.pageXOffset, oldScrollY);
+
+            return Promise.all(children.map((el, i) =>
+                propsFrom[i] && propsTo[i]
+                    ? Transition.start(el, propsTo[i], this.animation, 'ease')
+                    : Promise.resolve()
+            ).concat(Transition.start(this.target, {minHeight: newHeight}, this.animation, 'ease'))).then(() => {
+                children.forEach((el, i) => css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}));
+                reset(this.target);
+                this.$update(this.target);
+            }, noop);
+
         }
     }
 };
@@ -128,7 +122,7 @@ function reset(el) {
         width: ''
     });
     removeClass(el, targetClass);
-    css(el, 'height', '');
+    css(el, 'minHeight', '');
 }
 
 function getPositionWithMargin(el) {

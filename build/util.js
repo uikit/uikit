@@ -106,7 +106,7 @@ exports.compile = async function (file, dest, {external, globals, name, aliases,
                 }
             }),
             json(),
-            buble(),
+            buble({namedFunctionExpressions: false}),
         ]
     });
 

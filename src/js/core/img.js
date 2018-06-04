@@ -68,9 +68,9 @@ export default {
 
     connected() {
 
-        if (storage[this.cacheKey] || this.isImg && (!this.width || !this.height)) {
+        if (storage[this.cacheKey]) {
             setSrcAttrs(this.$el, storage[this.cacheKey] || this.dataSrc, this.dataSrcset, this.sizes);
-        } else if (this.isImg) {
+        } else if (this.isImg && this.width && this.height) {
             setSrcAttrs(this.$el, getPlaceholderImage(this.width, this.height, this.sizes));
         }
 
@@ -212,11 +212,11 @@ function currentSrc(el) {
 }
 
 const key = '__test__';
+let storage;
 
-let storage = window.sessionStorage || {};
-
-// workaround for Safari's private browsing mode
+// workaround for Safari's private browsing mode and accessing sessionStorage in Blink
 try {
+    storage = window.sessionStorage || {};
     storage[key] = 1;
     delete storage[key];
 } catch (e) {

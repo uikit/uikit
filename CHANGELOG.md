@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.0.0 rc 5 (June 4, 2018)
+
+### Fixed
+
+- Fix missing standalone component installment
+- Fix passing Lightbox options to Lightbox Panel
+- Fix not appearing fixed background images for Chrome 67
+- Fix having a Slider within a Slideshow element
+- Fix filter animation in Edge
+- Fix accessing sessionStorage if that's prevented
+- Fix lazy loading images if no width and height are provided
+
 ## 3.0.0 rc 4 (May 30, 2018)
 
 ### Changed

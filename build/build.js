@@ -20,12 +20,16 @@ const components = glob.sync('src/js/components/*.js').reduce((components, file)
 
     const name = path.basename(file, '.js');
 
-    components[name] = () => util.compile(file, `dist/${file.substring(4, file.length - 3)}`, {
-        name,
-        minify,
-        external: ['uikit', 'uikit-util'],
-        globals: {uikit: 'UIkit', 'uikit-util': 'UIkit.util'}
-    });
+    components[name] = () => {
+        return util.compile( __dirname + '/componentWrapper.js', `dist/${file.substring(4, file.length - 3)}`, {
+            name,
+            minify,
+            external: ['uikit', 'uikit-util'],
+            globals: {uikit: 'UIkit', 'uikit-util': 'UIkit.util'},
+            aliases: {component: path.join(__dirname, '..', file.substr(0, file.length - 3))},
+            replaces: {NAME: `'${name}'`}
+        });
+    }
 
     return components;
 }, {});
@@ -76,8 +80,6 @@ if (argv.h || argv.help) {
 
 function collectJobs() {
 
-    const jobs = [];
-
     // if parameter components is set or all or none(implicit all), add all components
     if (argv.components || argv.all) {
         Object.assign(argv, components);
@@ -91,7 +93,6 @@ function collectJobs() {
     Object.assign(steps, components);
 
     // Object.keys(argv).forEach(step => components[step] && componentJobs.push(components[step]()));
-    Object.keys(argv).forEach(step => steps[step] && jobs.push(steps[step]()));
+    return Object.keys(argv).filter(step => steps[step]).map(step => steps[step]());
 
-    return jobs;
 }
