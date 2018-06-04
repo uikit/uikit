@@ -68,9 +68,9 @@ export default {
 
     connected() {
 
-        if (storage[this.cacheKey] || this.isImg && (!this.width || !this.height)) {
+        if (storage[this.cacheKey]) {
             setSrcAttrs(this.$el, storage[this.cacheKey] || this.dataSrc, this.dataSrcset, this.sizes);
-        } else if (this.isImg) {
+        } else if (this.isImg && this.width && this.height) {
             setSrcAttrs(this.$el, getPlaceholderImage(this.width, this.height, this.sizes));
         }
 
