@@ -212,11 +212,11 @@ function currentSrc(el) {
 }
 
 const key = '__test__';
+let storage;
 
-let storage = window.sessionStorage || {};
-
-// workaround for Safari's private browsing mode
+// workaround for Safari's private browsing mode and accessing sessionStorage in Blink
 try {
+    storage = window.sessionStorage || {};
     storage[key] = 1;
     delete storage[key];
 } catch (e) {
