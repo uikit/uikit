@@ -8,6 +8,7 @@
 - Fix passing Lightbox options to Lightbox Panel
 - Fix not appearing fixed background images for Chrome 67
 - Fix having a Slider within a Slideshow element
+- Fix filter animation in Edge
 
 ## 3.0.0 rc 4 (May 30, 2018)
 
