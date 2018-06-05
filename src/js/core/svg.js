@@ -62,13 +62,13 @@ export default {
             // #2 svg viewport sizes
             // #3 svg viewbox sizes 
 
-            let svgViewportWidth = attr(el, 'width') ;
-            let svgViewportHeight = attr(el, 'height') ;
-            let svgViewbox = attr(el, 'viewBox');
+            var svgViewportWidth = attr(el, 'width') ;
+            var svgViewportHeight = attr(el, 'height') ;
+            var svgViewbox = attr(el, 'viewBox');
             if (svgViewbox) {
                 svgViewbox = svgViewbox.split(' ');
-                let svgViewboxWidth = svgViewbox[2] - svgViewbox[0];
-                let svgViewboxHeight = svgViewbox[3] - svgViewbox[1];
+                var svgViewboxWidth = svgViewbox[2] - svgViewbox[0];
+                var svgViewboxHeight = svgViewbox[3] - svgViewbox[1];
             }
 
             this$1.width = this$1.$props.width || svgViewportWidth || svgViewboxWidth;
