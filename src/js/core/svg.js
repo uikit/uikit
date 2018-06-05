@@ -71,8 +71,8 @@ export default {
                 var svgViewboxHeight = svgViewbox[3] - svgViewbox[1];
             }
 
-            this$1.width = this$1.$props.width || svgViewportWidth || svgViewboxWidth;
-            this$1.height = this$1.$props.width || svgViewportHeight || svgViewboxHeight;
+            this.width = this.$props.width || svgViewportWidth || svgViewboxWidth;
+            this.height = this.$props.width || svgViewportHeight || svgViewboxHeight;
             
             this.width *= this.ratio;
             this.height *= this.ratio;
