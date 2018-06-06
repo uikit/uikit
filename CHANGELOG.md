@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix active row style for striped table
+
 ## 3.0.0 rc 5 (June 4, 2018)
 
 ### Fixed
