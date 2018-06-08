@@ -6,6 +6,7 @@
 
 - Fix active row style for striped table
 - Fix height of Masonry Grid
+- Fix attribute change listener
 
 ## 3.0.0 rc 5 (June 4, 2018)
 
