@@ -49,7 +49,7 @@ export default {
 
     events: {
 
-        loadedmetadata() {
+        'loadedmetadata load'() {
             this.$emit();
         }
 
