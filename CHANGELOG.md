@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Added development builds to npm registry (`npm i uikit@dev` / `yarn add uikit@dev`)
+
 ### Fixed
 
 - Fix single components to auto-install only when UIkit is attached to window object
