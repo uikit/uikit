@@ -1,8 +1,5 @@
 import LightboxPanel from './lightbox-panel';
-import {$$, assign, data, index, isFunction} from 'uikit-util';
-
-const props = merge(LightboxPanel, 'props');
-const defaults = merge(LightboxPanel, 'data');
+import {$$, assign, data, index} from 'uikit-util';
 
 export default {
 
@@ -10,12 +7,9 @@ export default {
 
     attrs: true,
 
-    props: assign({toggle: String}, props),
+    props: {toggle: String},
 
-    data: assign({toggle: 'a'}, Object.keys(props).reduce((data, key) => {
-        data[key] = defaults[key];
-        return data;
-    }, {})),
+    data: {toggle: 'a'},
 
     computed: {
 
@@ -114,15 +108,15 @@ function isEqualList(listA, listB) {
         && listA.every((el, i) => el === listB[i]);
 }
 
-function merge(options, prop) {
-    return assign(
-        {},
-        ...(options.mixins ? options.mixins.map(mixin => merge(mixin, prop)) : []),
-        isFunction(options[prop]) ? options[prop]() : options[prop]);
-}
+function install(UIkit, Lightbox) {
 
-function install(UIkit) {
     if (!UIkit.lightboxPanel) {
         UIkit.component('lightboxPanel', LightboxPanel);
     }
+
+    assign(
+        Lightbox.props,
+        UIkit.component('lightboxPanel').options.props
+    );
+
 }
