@@ -38,6 +38,7 @@ To always have the latest development version of UIkit, even before a release, y
 
 - Using npm: ```npm install uikit@dev```
 - Using yarn: ```yarn add uikit@dev```
+- Using [cdn](cdn.jsdelivr.net): https://cdn.jsdelivr.net/npm/uikit@dev
 
 ## Contributing
 
