@@ -20,11 +20,36 @@ if (!['-alpha', '-beta', '-rc'].some(qualifier => jsonData.version.includes(qual
 //get current git hash
 const hash = execSync('git rev-parse --short HEAD', execOpts).trim();
 
-//set version of package.json
-execSync(`npm version ${version}-dev.${hash} --git-tag-version false`, execOpts);
+//check for changes to publish
+const changes = execSync('git log -1 --pretty=%B', execOpts);
 
-//create dist files
-execSync('npm run compile && npm run compile-rtl && npm run build-scss', execOpts);
+const ignored = ['polish', 'docs', 'test', 'workflow', 'ci'];
+let publish = false;
 
-//publish to dev tag
-execSync('npm publish --tag dev', execOpts);
+const commitRegex = /^(revert: )?(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types)(\(.+\))?: .{1,50}/g;
+let change = commitRegex.exec(changes);
+if (!change) {
+    //no explicit changes, publish
+    publish = true;
+} else {
+    //find specific changes to publish
+    while (change) {
+        if (!ignored.includes(change[2])) {
+            publish = true;
+            break;
+        }
+        change = commitRegex.exec(changes);
+    }
+}
+
+if (publish) {
+
+    //set version of package.json
+    execSync(`npm version ${version}-dev.${hash} --git-tag-version false`, execOpts);
+
+    //create dist files
+    execSync('npm run compile && npm run compile-rtl && npm run build-scss', execOpts);
+
+    //publish to dev tag
+    execSync('npm publish --tag dev', execOpts);
+}
