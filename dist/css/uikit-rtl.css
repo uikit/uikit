@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.5 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.6 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -878,12 +878,6 @@ a.uk-link-reset:hover,
   text-align: right;
   color: #999;
 }
-/* Row
- ========================================================================== */
-.uk-table > tr.uk-active,
-.uk-table tbody tr.uk-active {
-  background: #ffd;
-}
 /* Alignment modifier
  ========================================================================== */
 .uk-table-middle,
@@ -914,6 +908,12 @@ a.uk-link-reset:hover,
  */
 .uk-table-hover > tr:hover,
 .uk-table-hover tbody tr:hover {
+  background: #ffd;
+}
+/* Active state
+ ========================================================================== */
+.uk-table > tr.uk-active,
+.uk-table tbody tr.uk-active {
   background: #ffd;
 }
 /* Size modifier
