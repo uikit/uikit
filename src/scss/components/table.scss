@@ -134,16 +134,6 @@ $table-expand-min-width:                         150px !default;
 }
 
 
-/* Row
- ========================================================================== */
-
-.uk-table > tr.uk-active,
-.uk-table tbody tr.uk-active {
-    background: $table-row-active-background;
-    @if(mixin-exists(hook-table-row-active)) {@include hook-table-row-active();}
-}
-
-
 /* Alignment modifier
  ========================================================================== */
 
@@ -185,6 +175,15 @@ $table-expand-min-width:                         150px !default;
     @if(mixin-exists(hook-table-hover)) {@include hook-table-hover();}
 }
 
+
+/* Active state
+ ========================================================================== */
+
+.uk-table > tr.uk-active,
+.uk-table tbody tr.uk-active {
+    background: $table-row-active-background;
+    @if(mixin-exists(hook-table-row-active)) {@include hook-table-row-active();}
+}
 
 /* Size modifier
  ========================================================================== */

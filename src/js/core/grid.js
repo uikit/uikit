@@ -26,8 +26,12 @@ export default {
 
     computed: {
 
+        length(_, $el) {
+            return $el.children.length;
+        },
+
         parallax({parallax}) {
-            return Math.abs(parallax);
+            return parallax && this.length ? Math.abs(parallax) : '';
         }
 
     },
@@ -49,7 +53,7 @@ export default {
                 let translates = false;
                 let elHeight = false;
 
-                if (this.masonry) {
+                if (this.masonry && this.length) {
 
                     let height = 0;
 
@@ -74,9 +78,10 @@ export default {
 
                 toggleClass(this.$el, this.clsStack, stacks);
 
-                css(this.$el, 'paddingBottom', this.parallax && rows.some(row => row.length > 1) ? this.parallax : '');
-
-                height && css(this.$el, 'minHeight', height);
+                css(this.$el, {
+                    paddingBottom: this.parallax,
+                    height: height || ''
+                });
 
             },
 
@@ -88,7 +93,7 @@ export default {
 
             read({rows, height}) {
                 return {
-                    scrolled: this.parallax && rows.some(row => row.length > 1)
+                    scrolled: this.parallax
                         ? scrolledOver(this.$el, height ? height - getHeight(this.$el) : 0) * this.parallax
                         : false
                 };

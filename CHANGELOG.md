@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.0.0 rc 6 (June 15, 2018)
+
+### Added
+
+- Add development builds to npm registry (`npm i uikit@dev` / `yarn add uikit@dev`)
+
+### Fixed
+
+- Fix single components to auto-install only when UIkit is attached to window object
+- Fix component naming (camelCase) in single component auto-install wrapper
+- Fix active row style for striped table
+- Fix height of Masonry Grid
+- Fix attribute change listener
+- Cover component updates on image load
+- Fix Lightbox options handling 
+
 ## 3.0.0 rc 5 (June 4, 2018)
 
 ### Fixed

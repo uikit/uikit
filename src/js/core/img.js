@@ -1,4 +1,4 @@
-import {css, Dimensions, endsWith, fragment, getImage, height, isInView, isNumeric, noop, queryAll, startsWith, toFloat, width} from 'uikit-util';
+import {css, Dimensions, endsWith, fragment, getImage, height, isInView, isNumeric, noop, once, queryAll, startsWith, toFloat, width} from 'uikit-util';
 
 export default {
 
@@ -73,6 +73,8 @@ export default {
         } else if (this.isImg && this.width && this.height) {
             setSrcAttrs(this.$el, getPlaceholderImage(this.width, this.height, this.sizes));
         }
+
+        once(this.$el, 'load', () => this.$update(this.$el, 'resize'));
 
     },
 
