@@ -1,5 +1,11 @@
 # Changelog
 
+## 
+
+### Fixed
+
+- Fix Dropbar in Navbar in IE 11
+
 ## 3.0.0 rc 6 (June 15, 2018)
 
 ### Added
