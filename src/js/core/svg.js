@@ -57,13 +57,20 @@ export default {
                 return Promise.reject('SVG not found.');
             }
 
-            let dimensions = attr(el, 'viewBox');
-
-            if (dimensions) {
-                dimensions = dimensions.split(' ');
-                this.width = this.$props.width || dimensions[2];
-                this.height = this.$props.height || dimensions[3];
+            // Width and height definition priority:
+            // #1 tag sizes
+            // #2 svg viewport sizes
+            // #3 svg viewbox sizes 
+            var svgViewportWidth = attr(el, 'width') ;
+            var svgViewportHeight = attr(el, 'height') ;
+            var svgViewbox = attr(el, 'viewBox');
+            if (svgViewbox) {
+                var svgViewboxDimensions = svgViewbox.split(' ');
+                var svgViewboxWidth = svgViewboxDimensions[2] - svgViewboxDimensions[0];
+                var svgViewboxHeight = svgViewboxDimensions[3] - svgViewboxDimensions[1];
             }
+            this.width = this.$props.width || svgViewportWidth || svgViewboxWidth;
+            this.height = this.$props.width || svgViewportHeight || svgViewboxHeight;
 
             this.width *= this.ratio;
             this.height *= this.ratio;
