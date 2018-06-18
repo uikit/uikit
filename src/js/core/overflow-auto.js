@@ -1,18 +1,28 @@
 import Class from '../mixin/class';
-import {closest, css, height, trigger} from 'uikit-util';
+import {closest, css, height, toFloat, trigger} from 'uikit-util';
 
 export default {
 
     mixins: [Class],
 
+    props: {
+        selModal: String,
+        selPanel: String,
+    },
+
+    data: {
+        selModal: '.uk-modal',
+        selPanel: '.uk-modal-dialog',
+    },
+
     computed: {
 
-        modal(_, $el) {
-            return closest($el, '.uk-modal');
+        modal({selModal}, $el) {
+            return closest($el, selModal);
         },
 
-        panel(_, $el) {
-            return closest($el, '.uk-modal-dialog');
+        panel({selPanel}, $el) {
+            return closest($el, selPanel);
         }
 
     },
@@ -23,16 +33,21 @@ export default {
 
     update: {
 
-        write() {
+        read() {
 
             if (!this.panel || !this.modal) {
-                return;
+                return false;
             }
 
-            const current = css(this.$el, 'maxHeight');
+            return {
+                current: toFloat(css(this.$el, 'maxHeight')),
+                max: Math.max(150, height(this.modal) - (this.panel.offsetHeight - height(this.$el)))
+            }
+        },
 
-            css(css(this.$el, 'maxHeight', 150), 'maxHeight', Math.max(150, 150 + height(this.modal) - this.panel.offsetHeight));
-            if (current !== css(this.$el, 'maxHeight')) {
+        write({current, max}) {
+            css(this.$el, 'maxHeight', max);
+            if (current !== max) {
                 trigger(this.$el, 'resize');
             }
         },

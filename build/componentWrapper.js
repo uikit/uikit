@@ -1,4 +1,6 @@
 /* global UIkit, NAME */
 import Component from 'component';
 
-UIkit.component(NAME, Component);
+if (typeof window !== 'undefined' && window.UIkit) {
+    window.UIkit.component(NAME, Component);
+}

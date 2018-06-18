@@ -1,5 +1,4 @@
 /* eslint-env node */
-const fs = require('fs');
 const path = require('path');
 const glob = require('glob');
 const util = require('./util');
@@ -15,6 +14,19 @@ argv.all = argv.all || numArgs <= 1; // no arguments passed, so compile all
 
 const minify = !(argv.debug || argv.nominify || argv.nominify || argv.d);
 
+// TODO, reference camelize function from utils when seperated
+const camelizeRe = /-(\w)/g;
+
+function camelize(str) {
+    return str.replace(camelizeRe, toUpper);
+}
+
+function toUpper(_, c) {
+    return c ? c.toUpperCase() : '';
+}
+
+// -----
+
 // map component build jobs
 const components = glob.sync('src/js/components/*.js').reduce((components, file) => {
 
@@ -27,9 +39,9 @@ const components = glob.sync('src/js/components/*.js').reduce((components, file)
             external: ['uikit', 'uikit-util'],
             globals: {uikit: 'UIkit', 'uikit-util': 'UIkit.util'},
             aliases: {component: path.join(__dirname, '..', file.substr(0, file.length - 3))},
-            replaces: {NAME: `'${name}'`}
+            replaces: {NAME: `'${camelize(name)}'`}
         });
-    }
+    };
 
     return components;
 }, {});

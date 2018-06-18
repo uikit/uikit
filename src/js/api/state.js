@@ -118,7 +118,7 @@ export default function (UIkit) {
             return;
         }
 
-        attrs = isArray(attrs) ? attrs : Object.keys(props).map(key => hyphenate(key));
+        attrs = isArray(attrs) ? attrs : Object.keys(props);
 
         this._observer = new MutationObserver(() => {
 
@@ -129,7 +129,10 @@ export default function (UIkit) {
 
         });
 
-        this._observer.observe(el, {attributes: true, attributeFilter: attrs.concat([this.$name, `data-${this.$name}`])});
+        this._observer.observe(el, {
+            attributes: true,
+            attributeFilter: attrs.map(key => hyphenate(key)).concat([this.$name, `data-${this.$name}`])
+        });
     };
 
     function getProps(opts, name) {
