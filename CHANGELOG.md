@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix Dropbar in Navbar in IE 11
+- Fix single components did not get exported from their modules
 
 ## 3.0.0 rc 6 (June 15, 2018)
 
@@ -24,7 +25,7 @@
 - Fix height of Masonry Grid
 - Fix attribute change listener
 - Cover component updates on image load
-- Fix Lightbox options handling 
+- Fix Lightbox options handling
 
 ## 3.0.0 rc 5 (June 4, 2018)
 
