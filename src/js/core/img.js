@@ -139,7 +139,6 @@ function setSrcAttrs(el, src, srcset, sizes) {
 
 }
 
-const urlCache = {};
 const sizesRe = /\s*(.*?)\s*(\w+|calc\(.*?\))\s*(?:,|$)/g;
 function getPlaceholderImage(width, height, sizes, color = 'transparent') {
 
@@ -159,20 +158,7 @@ function getPlaceholderImage(width, height, sizes, color = 'transparent') {
 
     }
 
-    const key = `${width}.${height}.${color}`;
-    if (urlCache[key]) {
-        return urlCache[key];
-    }
-
-    const canvas = fragment('<canvas>');
-    canvas.width = width;
-    canvas.height = height;
-
-    const context = canvas.getContext('2d');
-    context.fillStyle = color;
-    context.fillRect(0, 0, width, height);
-
-    return urlCache[key] = canvas.toDataURL('image/png');
+    return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><rect width="100%" fill="${color}"></rect></svg>`;
 }
 
 const sizeRe = /\d+(?:\w+|%)/g;

@@ -1,6 +1,10 @@
 # Changelog
 
-## 
+## WIP
+
+### Changed
+
+- Improve Image component performance
 
 ### Fixed
 
