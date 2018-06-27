@@ -74,7 +74,7 @@ export default {
 
             },
 
-            write({rows, stacks, height}) {
+            write({stacks, height}) {
 
                 toggleClass(this.$el, this.clsStack, stacks);
 
@@ -91,7 +91,7 @@ export default {
 
         {
 
-            read({rows, height}) {
+            read({height}) {
                 return {
                     scrolled: this.parallax
                         ? scrolledOver(this.$el, height ? height - getHeight(this.$el) : 0) * this.parallax
