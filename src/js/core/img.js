@@ -140,7 +140,7 @@ function setSrcAttrs(el, src, srcset, sizes) {
 }
 
 const sizesRe = /\s*(.*?)\s*(\w+|calc\(.*?\))\s*(?:,|$)/g;
-function getPlaceholderImage(width, height, sizes, color = 'transparent') {
+function getPlaceholderImage(width, height, sizes) {
 
     if (sizes) {
         let matches;
@@ -158,7 +158,7 @@ function getPlaceholderImage(width, height, sizes, color = 'transparent') {
 
     }
 
-    return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"><rect width="100%" fill="${color}"></rect></svg>`;
+    return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"></svg>`;
 }
 
 const sizeRe = /\d+(?:\w+|%)/g;
