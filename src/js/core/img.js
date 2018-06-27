@@ -1,4 +1,4 @@
-import {css, Dimensions, endsWith, fragment, getImage, height, isInView, isNumeric, noop, once, queryAll, startsWith, toFloat, width} from 'uikit-util';
+import {css, Dimensions, endsWith, getImage, height, isInView, isNumeric, noop, once, queryAll, startsWith, toFloat, width} from 'uikit-util';
 
 export default {
 
