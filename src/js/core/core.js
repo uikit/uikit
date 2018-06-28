@@ -12,7 +12,7 @@ export default function (UIkit) {
             e.dir = scroll <= window.pageYOffset ? 'down' : 'up';
             e.pageYOffset = scroll = window.pageYOffset;
             UIkit.update(null, e);
-        }, {capture: true, passive: false});
+        }, {passive: false});
 
         on(document, 'animationstart', ({target}) => {
             if ((css(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
