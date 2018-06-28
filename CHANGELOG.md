@@ -5,6 +5,7 @@
 ### Changed
 
 - Improve Image component performance
+- Improve Cover component performance
 
 ### Fixed
 

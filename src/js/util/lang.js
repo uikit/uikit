@@ -235,7 +235,7 @@ export const Dimensions = {
         const aProp = prop === 'width' ? 'height' : 'width';
 
         return {
-            [aProp]: Math.round(value * dimensions[aProp] / dimensions[prop]),
+            [aProp]: dimensions[prop] ? Math.round(value * dimensions[aProp] / dimensions[prop]) : dimensions[aProp],
             [prop]: value
         };
     },
