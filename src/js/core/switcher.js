@@ -105,10 +105,14 @@ export default {
 
     methods: {
 
+        index() {
+            return !!this.connects.length && index(filter(this.connects[0].children, `.${this.cls}`)[0]);
+        },
+
         show(item) {
 
             const {length} = this.toggles;
-            const prev = !!this.connects.length && index(filter(this.connects[0].children, `.${this.cls}`)[0]);
+            const prev = this.index();
             const hasPrev = prev >= 0;
             const dir = item === 'previous' ? -1 : 1;
 
