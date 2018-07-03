@@ -65,12 +65,10 @@ function getArgs(args) {
 function delegate(delegates, selector, listener) {
     return e => {
 
-        const {target} = e;
-
         delegates.forEach(delegate => {
 
             const current = selector[0] === '>'
-                ? findAll(selector, delegate).reverse().filter(element => within(e.target, delegate))[0]
+                ? findAll(selector, delegate).reverse().filter(element => within(e.target, element))[0]
                 : closest(e.target, selector);
 
             if (current) {
