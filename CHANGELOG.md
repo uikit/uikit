@@ -11,6 +11,7 @@
 
 - Fix Dropbar in Navbar in IE 11
 - Fix single components did not get exported from their modules
+- Fix Lightbox reactivity
 
 ## 3.0.0 rc 6 (June 15, 2018)
 

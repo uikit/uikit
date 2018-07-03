@@ -45,12 +45,7 @@ export default {
 
     update(data) {
 
-        data.toggles = data.toggles || this.toggles;
-
-        if (this.panel && this.animation) {
-            this.panel.$props.animation = this.animation;
-            this.panel.$emit();
-        }
+        data.toggles = this.panel && data.toggles || this.toggles;
 
         if (!this.panel || isEqualList(data.toggles, this.toggles)) {
             return;
