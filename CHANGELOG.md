@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Allow `data-` prefixed attributes as component options
+
 ### Changed
 
 - Improve Image component performance

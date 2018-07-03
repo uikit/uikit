@@ -7,12 +7,9 @@ export default {
     props: {
         dataSrc: String,
         dataSrcset: Boolean,
-        dataSizes: Boolean,
         sizes: String,
         width: Number,
         height: Number,
-        dataWidth: Number,
-        dataHeight: Number,
         offsetTop: String,
         offsetLeft: String,
         target: String
@@ -21,7 +18,6 @@ export default {
     data: {
         dataSrc: '',
         dataSrcset: false,
-        dataSizes: false,
         sizes: false,
         width: false,
         height: false,
