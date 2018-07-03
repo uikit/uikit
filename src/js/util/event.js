@@ -1,5 +1,5 @@
 import {within} from './filter';
-import {closest, find, findAll} from './selector';
+import {closest, findAll} from './selector';
 import {isArray, isFunction, isString, toNode, toNodes} from './lang';
 
 export function on(...args) {
