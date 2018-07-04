@@ -1,4 +1,4 @@
-import {createEvent, css, Dimensions, endsWith, getImage, height, isInView, isNumeric, noop, queryAll, startsWith, toFloat, trigger, width} from 'uikit-util';
+import {attr, createEvent, css, Dimensions, endsWith, getImage, height, includes, isInView, isNumeric, noop, queryAll, startsWith, toFloat, trigger, width} from 'uikit-util';
 
 export default {
 
@@ -129,9 +129,9 @@ function setSrcAttrs(el, src, srcset, sizes) {
         sizes && (el.sizes = sizes);
     } else if (src) {
 
-        const prev = css(el, 'backgroundImage');
+        const change = !includes(el.style.backgroundImage, src);
         css(el, 'backgroundImage', `url(${src})`);
-        if (prev !== css(el, 'backgroundImage')) {
+        if (change) {
             trigger(el, createEvent('load', false));
         }
 

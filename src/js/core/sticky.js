@@ -135,12 +135,19 @@ export default {
 
         {
 
-            write() {
+            read() {
+                return {
+                    height: this.$el.offsetHeight,
+                    top: offset(this.isActive ? this.placeholder : this.$el).top
+                };
+            },
 
-                const {placeholder, $el: {offsetHeight}} = this;
+            write({height, top}) {
+
+                const {placeholder} = this;
 
                 css(placeholder, assign(
-                    {height: css(this.$el, 'position') !== 'absolute' ? offsetHeight : ''},
+                    {height: css(this.$el, 'position') !== 'absolute' ? height : ''},
                     css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
                 ));
 
@@ -149,13 +156,13 @@ export default {
                     attr(placeholder, 'hidden', '');
                 }
 
-                this.topOffset = offset(this.isActive ? placeholder : this.$el).top;
-                this.bottomOffset = this.topOffset + offsetHeight;
+                this.topOffset = top;
+                this.bottomOffset = this.topOffset + height;
 
                 const bottom = parseProp('bottom', this);
 
                 this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
-                this.bottom = bottom && bottom - offsetHeight;
+                this.bottom = bottom && bottom - height;
                 this.inactive = this.media && !window.matchMedia(this.media).matches;
 
             },
