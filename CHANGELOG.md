@@ -10,6 +10,7 @@
 
 - Improve Image component performance
 - Improve Cover component performance
+- Improve resize reactivity on Image/Video load
 
 ### Fixed
 

@@ -55,14 +55,6 @@ export default {
 
         events: ['load', 'resize']
 
-    },
-
-    events: {
-
-        'loadedmetadata load'() {
-            this.$emit();
-        }
-
     }
 
 };

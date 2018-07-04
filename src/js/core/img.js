@@ -1,4 +1,4 @@
-import {css, Dimensions, endsWith, getImage, height, isInView, isNumeric, noop, once, queryAll, startsWith, toFloat, width} from 'uikit-util';
+import {createEvent, css, Dimensions, endsWith, getImage, height, isInView, isNumeric, noop, queryAll, startsWith, toFloat, trigger, width} from 'uikit-util';
 
 export default {
 
@@ -70,8 +70,6 @@ export default {
             setSrcAttrs(this.$el, getPlaceholderImage(this.width, this.height, this.sizes));
         }
 
-        once(this.$el, 'load', () => this.$update(this.$el, 'resize'));
-
     },
 
     update: [
@@ -129,8 +127,14 @@ function setSrcAttrs(el, src, srcset, sizes) {
         src && (el.src = src);
         srcset && (el.srcset = srcset);
         sizes && (el.sizes = sizes);
-    } else {
-        src && css(el, 'backgroundImage', `url(${src})`);
+    } else if (src) {
+
+        const prev = css(el, 'backgroundImage');
+        css(el, 'backgroundImage', `url(${src})`);
+        if (prev !== css(el, 'backgroundImage')) {
+            trigger(el, createEvent('load', false));
+        }
+
     }
 
 }

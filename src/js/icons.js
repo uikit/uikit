@@ -1,3 +1,5 @@
+/* global ICONS */
+
 function plugin(UIkit) {
 
     if (plugin.installed) {

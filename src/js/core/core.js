@@ -11,8 +11,9 @@ export default function (UIkit) {
         on(window, 'scroll', e => {
             e.dir = scroll <= window.pageYOffset ? 'down' : 'up';
             e.pageYOffset = scroll = window.pageYOffset;
-            UIkit.update(null, e);
-        }, {passive: false});
+            UIkit.update(e.target, e);
+        }, {passive: true, capture: true});
+        on(document, 'loadedmetadata load', ({target}) => UIkit.update(target, 'load'), true);
 
         on(document, 'animationstart', ({target}) => {
             if ((css(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
