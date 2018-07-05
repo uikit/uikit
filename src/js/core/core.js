@@ -9,10 +9,12 @@ export default function (UIkit) {
 
         on(window, 'load resize', e => UIkit.update(null, e));
         on(window, 'scroll', e => {
+            const {target} = e;
             e.dir = scroll <= window.pageYOffset ? 'down' : 'up';
             e.pageYOffset = scroll = window.pageYOffset;
-            UIkit.update(null, e);
-        }, {capture: true, passive: false});
+            UIkit.update(target.nodeType !== 1 ? document.body : target, e);
+        }, {passive: true, capture: true});
+        on(document, 'loadedmetadata load', ({target}) => UIkit.update(target, 'load'), true);
 
         on(document, 'animationstart', ({target}) => {
             if ((css(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {

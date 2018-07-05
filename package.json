@@ -2,7 +2,7 @@
   "name": "uikit",
   "title": "UIkit",
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
-  "version": "3.0.0-rc.6",
+  "version": "3.0.0-rc.7",
   "main": "dist/js/uikit.js",
   "style": "dist/css/uikit.css",
   "scripts": {
@@ -36,7 +36,7 @@
     "circular-dependency-plugin": "^5.0.2",
     "clean-css": "^4.1.11",
     "dateformat": "^3.0.3",
-    "eslint": "^4.18.2",
+    "eslint": "5.0.1",
     "fs-extra": "^5.0.0",
     "glob": "^7.1.2",
     "inquirer": "^5.1.0",
@@ -46,7 +46,7 @@
     "npm-watch": "github:dasdeck/npm-watch#46a8a36c61cfd998ed53d27f62eaf79e11c395b4",
     "postcss": "^6.0.22",
     "raw-loader": "^0.5.1",
-    "rollup": "^0.59.4",
+    "rollup": "^0.62.0",
     "rollup-plugin-buble": "^0.19.2",
     "rollup-plugin-html": "^0.2.1",
     "rollup-plugin-import-alias": "^1.0.4",
@@ -57,7 +57,7 @@
     "uglify-js": "^3.3.25",
     "uglifyjs-webpack-plugin": "^1.2.2",
     "webpack": "^4.6.0",
-    "webpack-cli": "^2.1.2",
+    "webpack-cli": "^3.0.8",
     "webpack-dev-server": "^3.1.3"
   },
   "watch": {

@@ -17,41 +17,43 @@ export default {
 
     update: {
 
-        write() {
+        read() {
 
             const el = this.$el;
 
             if (!isVisible(el)) {
-                return;
+                return false;
             }
 
             const {offsetHeight: height, offsetWidth: width} = el.parentNode;
 
-            css(
-                css(el, {width: '', height: ''}),
-                Dimensions.cover(
-                    {
-                        width: this.width || el.clientWidth,
-                        height: this.height || el.clientHeight
-                    },
-                    {
-                        width: width + (width % 2 ? 1 : 0),
-                        height: height + (height % 2 ? 1 : 0)
-                    }
-                )
-            );
+            return {height, width};
+        },
+
+        write({height, width}) {
+
+            const el = this.$el;
+            const elWidth = this.width || el.naturalWidth || el.videoWidth || el.clientWidth;
+            const elHeight = this.height || el.naturalHeight || el.videoHeight || el.clientHeight;
+
+            if (!elWidth || !elHeight) {
+                return;
+            }
+
+            css(el, Dimensions.cover(
+                {
+                    width: elWidth,
+                    height: elHeight
+                },
+                {
+                    width: width + (width % 2 ? 1 : 0),
+                    height: height + (height % 2 ? 1 : 0)
+                }
+            ));
 
         },
 
         events: ['load', 'resize']
-
-    },
-
-    events: {
-
-        'loadedmetadata load'() {
-            this.$emit();
-        }
 
     }
 

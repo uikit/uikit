@@ -23,23 +23,23 @@ const hash = execSync('git rev-parse --short HEAD', execOpts).trim();
 //check for changes to publish
 const changes = execSync('git log -1 --pretty=%B', execOpts);
 
-const ignored = ['polish', 'docs', 'test', 'workflow', 'ci'];
+const autoPublish = ['feat', 'fix', 'refactor', 'perf'];
+
 let publish = false;
 
 const commitRegex = /^(revert: )?(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types)(\(.+\))?: .{1,50}/g;
 let change = commitRegex.exec(changes);
-if (!change) {
-    //no explicit changes, publish
-    publish = true;
-} else {
+if (change) {
+
     //find specific changes to publish
     while (change) {
-        if (!ignored.includes(change[2])) {
+        if (autoPublish.includes(change[2])) {
             publish = true;
             break;
         }
         change = commitRegex.exec(changes);
     }
+
 }
 
 if (publish) {

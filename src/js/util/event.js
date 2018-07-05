@@ -1,28 +1,28 @@
 import {within} from './filter';
-import {closest, find, findAll} from './selector';
+import {closest, findAll} from './selector';
 import {isArray, isFunction, isString, toNode, toNodes} from './lang';
 
 export function on(...args) {
 
-    let [target, type, selector, listener, useCapture] = getArgs(args);
+    let [targets, type, selector, listener, useCapture] = getArgs(args);
 
-    target = toEventTarget(target);
+    targets = toEventTargets(targets);
 
     if (selector) {
-        listener = delegate(target, selector, listener);
+        listener = delegate(targets, selector, listener);
     }
 
     if (listener.length > 1) {
         listener = detail(listener);
     }
 
-    type.split(' ').forEach(type => target && target.addEventListener(type, listener, useCapture));
-    return () => off(target, type, listener, useCapture);
+    type.split(' ').forEach(type => targets.forEach(target => target.addEventListener(type, listener, useCapture)));
+    return () => off(targets, type, listener, useCapture);
 }
 
-export function off(target, type, listener, useCapture = false) {
-    target = toEventTarget(target);
-    target && type.split(' ').forEach(type => target.removeEventListener(type, listener, useCapture));
+export function off(targets, type, listener, useCapture = false) {
+    targets = toEventTargets(targets);
+    type.split(' ').forEach(type => targets.forEach(target => target.removeEventListener(type, listener, useCapture)));
 }
 
 export function once(...args) {
@@ -39,8 +39,8 @@ export function once(...args) {
     return off;
 }
 
-export function trigger(target, event, detail) {
-    return toEventTargets(target).reduce((notCanceled, target) =>
+export function trigger(targets, event, detail) {
+    return toEventTargets(targets).reduce((notCanceled, target) =>
         notCanceled && target.dispatchEvent(createEvent(event, true, true, detail))
         , true);
 }
@@ -56,31 +56,30 @@ export function createEvent(e, bubbles = true, cancelable = false, detail) {
 }
 
 function getArgs(args) {
-
-    if (isString(args[0])) {
-        args[0] = find(args[0]);
-    }
-
     if (isFunction(args[2])) {
         args.splice(2, 0, false);
     }
     return args;
 }
 
-function delegate(element, selector, listener) {
+function delegate(delegates, selector, listener) {
     return e => {
 
-        const {target} = e;
-        const current = selector[0] === '>'
-            ? findAll(selector, element).reverse().filter(element => within(target, element))[0]
-            : closest(target, selector);
+        delegates.forEach(delegate => {
 
-        if (current) {
-            e.delegate = element;
-            e.current = current;
+            const current = selector[0] === '>'
+                ? findAll(selector, delegate).reverse().filter(element => within(e.target, element))[0]
+                : closest(e.target, selector);
 
-            listener.call(this, e);
-        }
+            if (current) {
+                e.delegate = delegate;
+                e.current = current;
+
+                listener.call(this, e);
+            }
+
+        });
+
     };
 }
 
@@ -103,7 +102,9 @@ export function toEventTargets(target) {
         ? [target]
         : isArray(target)
             ? target.map(toEventTarget).filter(Boolean)
-            : toNodes(target);
+            : isString(target)
+                ? findAll(target)
+                : toNodes(target);
 }
 
 export function preventClick() {

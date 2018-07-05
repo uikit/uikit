@@ -42,7 +42,7 @@ export default {
             return {
                 current: toFloat(css(this.$el, 'maxHeight')),
                 max: Math.max(150, height(this.modal) - (this.panel.offsetHeight - height(this.$el)))
-            }
+            };
         },
 
         write({current, max}) {
