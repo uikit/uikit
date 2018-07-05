@@ -47,7 +47,7 @@ export default {
 
         write({current, max}) {
             css(this.$el, 'maxHeight', max);
-            if (current !== max) {
+            if (Math.round(current) !== Math.round(max)) {
                 trigger(this.$el, 'resize');
             }
         },

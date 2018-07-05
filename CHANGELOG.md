@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Overflow Auto component triggering `resize` event indefinitely 
+
 ## 3.0.0 rc 8 (July 5, 2018)
 
 ### Fixed
