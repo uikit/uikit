@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.7 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.8 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2075,6 +2075,92 @@
         return (b.y - a.y) / (b.x - a.x);
     }
 
+    var strats = {};
+
+    // concat strategy
+    strats.args =
+    strats.events =
+    strats.init =
+    strats.created =
+    strats.beforeConnect =
+    strats.connected =
+    strats.ready =
+    strats.beforeDisconnect =
+    strats.disconnected =
+    strats.destroy = function (parentVal, childVal) {
+
+        parentVal = parentVal && !isArray(parentVal) ? [parentVal] : parentVal;
+
+        return childVal
+            ? parentVal
+                ? parentVal.concat(childVal)
+                : isArray(childVal)
+                    ? childVal
+                    : [childVal]
+            : parentVal;
+    };
+
+    // update strategy
+    strats.update = function (parentVal, childVal) {
+        return strats.args(parentVal, isFunction(childVal) ? {read: childVal} : childVal);
+    };
+
+    // property strategy
+    strats.props = function (parentVal, childVal) {
+
+        if (isArray(childVal)) {
+            childVal = childVal.reduce(function (value, key) {
+                value[key] = String;
+                return value;
+            }, {});
+        }
+
+        return strats.methods(parentVal, childVal);
+    };
+
+    // extend strategy
+    strats.computed =
+    strats.methods = function (parentVal, childVal) {
+        return childVal
+            ? parentVal
+                ? assign({}, parentVal, childVal)
+                : childVal
+            : parentVal;
+    };
+
+    // data strategy
+    strats.data = function (parentVal, childVal, vm) {
+
+        if (!vm) {
+
+            if (!childVal) {
+                return parentVal;
+            }
+
+            if (!parentVal) {
+                return childVal;
+            }
+
+            return function (vm) {
+                return mergeFnData(parentVal, childVal, vm);
+            };
+
+        }
+
+        return mergeFnData(parentVal, childVal, vm);
+    };
+
+    function mergeFnData(parentVal, childVal, vm) {
+        return strats.computed(
+            isFunction(parentVal)
+                ? parentVal.call(vm, vm)
+                : parentVal,
+            isFunction(childVal)
+                ? childVal.call(vm, vm)
+                : childVal
+        );
+    }
+
     // default strategy
     var defaultStrat = function (parentVal, childVal) {
         return isUndefined(childVal) ? parentVal : childVal;
@@ -2109,7 +2195,7 @@
         }
 
         function mergeKey(key) {
-            options[key] = (defaultStrat)(parent[key], child[key], vm);
+            options[key] = (strats[key] || defaultStrat)(parent[key], child[key], vm);
         }
 
         return options;
@@ -7925,7 +8011,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.7';
+    UIkit.version = '3.0.0-rc.8';
 
     core(UIkit);
 
