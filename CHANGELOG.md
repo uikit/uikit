@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.0 rc 8 (July 5, 2018)
+
+### Fixed
+
+- Fix regression in dev dependencies
+
 ## 3.0.0 rc 7 (July 5, 2018)
 
 ### Added

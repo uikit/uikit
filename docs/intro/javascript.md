@@ -59,10 +59,16 @@ in valid JSON format,
 <div uk-sticky='{"offset": 50, "top": 100}'></div>
 ```
 
-or with single attributes.
+with single attributes,
 
 ```html
 <div uk-sticky offset="50" top="100"></div>
+```
+
+or as single attributes prefixed with `data-`.
+
+```html
+<div uk-sticky data-offset="50" data-top="100"></div>
 ```
 
 For _Primary_ options, its key may be omitted, if it's the only option in the attribute value. Please take a look at the specific component documentation to find which option is the _Primary_ option.

@@ -68,6 +68,7 @@
 
 }
 @mixin hook-align-misc(){}
+@mixin hook-animation-misc(){}
 @mixin hook-article(){}
 @mixin hook-article-adjacent(){}
 @mixin hook-article-title(){}
@@ -96,7 +97,6 @@
     }
 
 }
-@mixin hook-animation-misc(){}
 @mixin hook-background-misc(){}
 @mixin hook-badge(){}
 @mixin hook-badge-hover(){}
@@ -115,51 +115,6 @@
     .uk-badge:focus {
         color: $inverse-badge-hover-color;
         @if(mixin-exists(hook-inverse-badge-hover)) {@include hook-inverse-badge-hover();}
-    }
-
-}
-@mixin hook-breadcrumb(){}
-@mixin hook-breadcrumb-item(){}
-@mixin hook-breadcrumb-item-hover(){}
-@mixin hook-breadcrumb-item-disabled(){}
-@mixin hook-breadcrumb-item-active(){}
-@mixin hook-breadcrumb-divider(){}
-@mixin hook-breadcrumb-misc(){}
-@mixin hook-inverse-breadcrumb-item(){}
-@mixin hook-inverse-breadcrumb-item-hover(){}
-@mixin hook-inverse-breadcrumb-item-disabled(){}
-@mixin hook-inverse-breadcrumb-item-active(){}
-@mixin hook-inverse-breadcrumb-divider(){}
-@mixin hook-inverse-component-breadcrumb(){
-
-    .uk-breadcrumb > * > * {
-        color: $inverse-breadcrumb-item-color;
-        @if(mixin-exists(hook-inverse-breadcrumb-item)) {@include hook-inverse-breadcrumb-item();}
-    }
-
-    .uk-breadcrumb > * > :hover,
-    .uk-breadcrumb > * > :focus {
-        color: $inverse-breadcrumb-item-hover-color;
-        @if(mixin-exists(hook-inverse-breadcrumb-item-hover)) {@include hook-inverse-breadcrumb-item-hover();}
-    }
-
-
-    .uk-breadcrumb > .uk-disabled > * {
-        @if(mixin-exists(hook-inverse-breadcrumb-item-disabled)) {@include hook-inverse-breadcrumb-item-disabled();}
-    }
-
-    .uk-breadcrumb > :last-child > * {
-        color: $inverse-breadcrumb-item-active-color;
-        @if(mixin-exists(hook-inverse-breadcrumb-item-active)) {@include hook-inverse-breadcrumb-item-active();}
-    }
-
-    //
-    // Divider
-    //
-
-    .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
-        color: $inverse-breadcrumb-divider-color;
-        @if(mixin-exists(hook-inverse-breadcrumb-divider)) {@include hook-inverse-breadcrumb-divider();}
     }
 
 }
@@ -310,118 +265,48 @@
     }
 
 }
-@mixin hook-card(){ transition: box-shadow 0.1s ease-in-out; }
-@mixin hook-card-body(){}
-@mixin hook-card-header(){}
-@mixin hook-card-footer(){}
-@mixin hook-card-media(){}
-@mixin hook-card-media-top(){}
-@mixin hook-card-media-bottom(){}
-@mixin hook-card-media-left(){}
-@mixin hook-card-media-right(){}
-@mixin hook-card-title(){}
-@mixin hook-card-badge(){}
-@mixin hook-card-hover(){ box-shadow: $card-hover-box-shadow; }
-@mixin hook-card-default(){ box-shadow: $card-default-box-shadow; }
-@mixin hook-card-default-title(){}
-@mixin hook-card-default-hover(){ box-shadow: $card-default-hover-box-shadow; }
-@mixin hook-card-default-header(){ border-bottom: $card-default-header-border-width solid $card-default-header-border; }
-@mixin hook-card-default-footer(){ border-top: $card-default-footer-border-width  solid $card-default-footer-border; }
-@mixin hook-card-primary(){ box-shadow: $card-primary-box-shadow; }
-@mixin hook-card-primary-title(){}
-@mixin hook-card-primary-hover(){ box-shadow: $card-primary-hover-box-shadow; }
-@mixin hook-card-secondary(){ box-shadow: $card-secondary-box-shadow; }
-@mixin hook-card-secondary-title(){}
-@mixin hook-card-secondary-hover(){ box-shadow: $card-secondary-hover-box-shadow; }
-@mixin hook-card-misc(){
+@mixin hook-breadcrumb(){}
+@mixin hook-breadcrumb-item(){}
+@mixin hook-breadcrumb-item-hover(){}
+@mixin hook-breadcrumb-item-disabled(){}
+@mixin hook-breadcrumb-item-active(){}
+@mixin hook-breadcrumb-divider(){}
+@mixin hook-breadcrumb-misc(){}
+@mixin hook-inverse-breadcrumb-item(){}
+@mixin hook-inverse-breadcrumb-item-hover(){}
+@mixin hook-inverse-breadcrumb-item-disabled(){}
+@mixin hook-inverse-breadcrumb-item-active(){}
+@mixin hook-inverse-breadcrumb-divider(){}
+@mixin hook-inverse-component-breadcrumb(){
 
-    /*
-     * Default
-     */
-
-    .uk-card-body > .uk-nav-default {
-        margin-left: (-$card-body-padding-horizontal);
-        margin-right: (-$card-body-padding-horizontal);
-    }
-    .uk-card-body > .uk-nav-default:only-child {
-        margin-top: (-$card-body-padding-vertical + 15px);
-        margin-bottom: (-$card-body-padding-vertical + 15px);
+    .uk-breadcrumb > * > * {
+        color: $inverse-breadcrumb-item-color;
+        @if(mixin-exists(hook-inverse-breadcrumb-item)) {@include hook-inverse-breadcrumb-item();}
     }
 
-    .uk-card-body .uk-nav-default > li > a,
-    .uk-card-body .uk-nav-default .uk-nav-header,
-    .uk-card-body .uk-nav-default .uk-nav-divider {
-        padding-left: $card-body-padding-horizontal;
-        padding-right: $card-body-padding-horizontal;
+    .uk-breadcrumb > * > :hover,
+    .uk-breadcrumb > * > :focus {
+        color: $inverse-breadcrumb-item-hover-color;
+        @if(mixin-exists(hook-inverse-breadcrumb-item-hover)) {@include hook-inverse-breadcrumb-item-hover();}
     }
 
-    .uk-card-body .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left + $card-body-padding-horizontal; }
 
-
-    /* Desktop and bigger */
-    @media (min-width: $breakpoint-large) {
-
-        .uk-card-body > .uk-nav-default {
-            margin-left: (-$card-body-padding-horizontal-l);
-            margin-right: (-$card-body-padding-horizontal-l);
-        }
-        .uk-card-body > .uk-nav-default:only-child {
-            margin-top: (-$card-body-padding-vertical-l + 15px);
-            margin-bottom: (-$card-body-padding-vertical-l + 15px);
-        }
-
-        .uk-card-body .uk-nav-default > li > a,
-        .uk-card-body .uk-nav-default .uk-nav-header,
-        .uk-card-body .uk-nav-default .uk-nav-divider {
-            padding-left: $card-body-padding-horizontal-l;
-            padding-right: $card-body-padding-horizontal-l;
-        }
-
-        .uk-card-body .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left + $card-body-padding-horizontal-l; }
-
+    .uk-breadcrumb > .uk-disabled > * {
+        @if(mixin-exists(hook-inverse-breadcrumb-item-disabled)) {@include hook-inverse-breadcrumb-item-disabled();}
     }
 
-    /*
-     * Small
-     */
-
-    .uk-card-small > .uk-nav-default {
-        margin-left: (-$card-small-body-padding-horizontal);
-        margin-right: (-$card-small-body-padding-horizontal);
-    }
-    .uk-card-small > .uk-nav-default:only-child {
-        margin-top: (-$card-small-body-padding-vertical + 15px);
-        margin-bottom: (-$card-small-body-padding-vertical + 15px);
+    .uk-breadcrumb > :last-child > * {
+        color: $inverse-breadcrumb-item-active-color;
+        @if(mixin-exists(hook-inverse-breadcrumb-item-active)) {@include hook-inverse-breadcrumb-item-active();}
     }
 
-    .uk-card-small .uk-nav-default > li > a,
-    .uk-card-small .uk-nav-default .uk-nav-header,
-    .uk-card-small .uk-nav-default .uk-nav-divider {
-        padding-left: $card-small-body-padding-horizontal;
-        padding-right: $card-small-body-padding-horizontal;
-    }
+    //
+    // Divider
+    //
 
-    .uk-card-small .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left + $card-small-body-padding-horizontal; }
-
-    /*
-     * Large
-     */
-
-    /* Desktop and bigger */
-    @media (min-width: $breakpoint-large) {
-
-        .uk-card-large > .uk-nav-default { margin: 0; }
-        .uk-card-large > .uk-nav-default:only-child { margin: 0; }
-
-        .uk-card-large .uk-nav-default > li > a,
-        .uk-card-large .uk-nav-default .uk-nav-header,
-        .uk-card-large .uk-nav-default .uk-nav-divider {
-            padding-left: 0;
-            padding-right: 0;
-        }
-
-        .uk-card-large .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left; }
-
+    .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
+        color: $inverse-breadcrumb-divider-color;
+        @if(mixin-exists(hook-inverse-breadcrumb-divider)) {@include hook-inverse-breadcrumb-divider();}
     }
 
 }
@@ -623,6 +508,121 @@
     .uk-button-link:hover,
     .uk-button-link:focus { color: $inverse-button-link-hover-color; }
 
+
+}
+@mixin hook-card(){ transition: box-shadow 0.1s ease-in-out; }
+@mixin hook-card-body(){}
+@mixin hook-card-header(){}
+@mixin hook-card-footer(){}
+@mixin hook-card-media(){}
+@mixin hook-card-media-top(){}
+@mixin hook-card-media-bottom(){}
+@mixin hook-card-media-left(){}
+@mixin hook-card-media-right(){}
+@mixin hook-card-title(){}
+@mixin hook-card-badge(){}
+@mixin hook-card-hover(){ box-shadow: $card-hover-box-shadow; }
+@mixin hook-card-default(){ box-shadow: $card-default-box-shadow; }
+@mixin hook-card-default-title(){}
+@mixin hook-card-default-hover(){ box-shadow: $card-default-hover-box-shadow; }
+@mixin hook-card-default-header(){ border-bottom: $card-default-header-border-width solid $card-default-header-border; }
+@mixin hook-card-default-footer(){ border-top: $card-default-footer-border-width  solid $card-default-footer-border; }
+@mixin hook-card-primary(){ box-shadow: $card-primary-box-shadow; }
+@mixin hook-card-primary-title(){}
+@mixin hook-card-primary-hover(){ box-shadow: $card-primary-hover-box-shadow; }
+@mixin hook-card-secondary(){ box-shadow: $card-secondary-box-shadow; }
+@mixin hook-card-secondary-title(){}
+@mixin hook-card-secondary-hover(){ box-shadow: $card-secondary-hover-box-shadow; }
+@mixin hook-card-misc(){
+
+    /*
+     * Default
+     */
+
+    .uk-card-body > .uk-nav-default {
+        margin-left: (-$card-body-padding-horizontal);
+        margin-right: (-$card-body-padding-horizontal);
+    }
+    .uk-card-body > .uk-nav-default:only-child {
+        margin-top: (-$card-body-padding-vertical + 15px);
+        margin-bottom: (-$card-body-padding-vertical + 15px);
+    }
+
+    .uk-card-body .uk-nav-default > li > a,
+    .uk-card-body .uk-nav-default .uk-nav-header,
+    .uk-card-body .uk-nav-default .uk-nav-divider {
+        padding-left: $card-body-padding-horizontal;
+        padding-right: $card-body-padding-horizontal;
+    }
+
+    .uk-card-body .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left + $card-body-padding-horizontal; }
+
+
+    /* Desktop and bigger */
+    @media (min-width: $breakpoint-large) {
+
+        .uk-card-body > .uk-nav-default {
+            margin-left: (-$card-body-padding-horizontal-l);
+            margin-right: (-$card-body-padding-horizontal-l);
+        }
+        .uk-card-body > .uk-nav-default:only-child {
+            margin-top: (-$card-body-padding-vertical-l + 15px);
+            margin-bottom: (-$card-body-padding-vertical-l + 15px);
+        }
+
+        .uk-card-body .uk-nav-default > li > a,
+        .uk-card-body .uk-nav-default .uk-nav-header,
+        .uk-card-body .uk-nav-default .uk-nav-divider {
+            padding-left: $card-body-padding-horizontal-l;
+            padding-right: $card-body-padding-horizontal-l;
+        }
+
+        .uk-card-body .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left + $card-body-padding-horizontal-l; }
+
+    }
+
+    /*
+     * Small
+     */
+
+    .uk-card-small > .uk-nav-default {
+        margin-left: (-$card-small-body-padding-horizontal);
+        margin-right: (-$card-small-body-padding-horizontal);
+    }
+    .uk-card-small > .uk-nav-default:only-child {
+        margin-top: (-$card-small-body-padding-vertical + 15px);
+        margin-bottom: (-$card-small-body-padding-vertical + 15px);
+    }
+
+    .uk-card-small .uk-nav-default > li > a,
+    .uk-card-small .uk-nav-default .uk-nav-header,
+    .uk-card-small .uk-nav-default .uk-nav-divider {
+        padding-left: $card-small-body-padding-horizontal;
+        padding-right: $card-small-body-padding-horizontal;
+    }
+
+    .uk-card-small .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left + $card-small-body-padding-horizontal; }
+
+    /*
+     * Large
+     */
+
+    /* Desktop and bigger */
+    @media (min-width: $breakpoint-large) {
+
+        .uk-card-large > .uk-nav-default { margin: 0; }
+        .uk-card-large > .uk-nav-default:only-child { margin: 0; }
+
+        .uk-card-large .uk-nav-default > li > a,
+        .uk-card-large .uk-nav-default .uk-nav-header,
+        .uk-card-large .uk-nav-default .uk-nav-divider {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .uk-card-large .uk-nav-default .uk-nav-sub { padding-left: $nav-sublist-deeper-padding-left; }
+
+    }
 
 }
 @mixin hook-close(){
