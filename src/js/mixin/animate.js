@@ -90,6 +90,7 @@ export default {
                 children.forEach((el, i) => css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}));
                 reset(this.target);
                 this.$update(this.target);
+                fastdom.flush(); // needed for IE11
             }, noop);
 
         }
@@ -142,7 +143,7 @@ function addStyle() {
             `.${targetClass} > * {
                     margin-top: 0 !important;
                     transform: none !important;
-                }`
+                }`, 0
         );
     }
 }
