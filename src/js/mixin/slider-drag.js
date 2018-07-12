@@ -72,8 +72,8 @@ export default {
                 this.percent = this._transitioner.percent();
                 this.drag += this._transitioner.getDistance() * this.percent * this.dir;
 
-                this._transitioner.translate(this.percent);
                 this._transitioner.cancel();
+                this._transitioner.translate(this.percent);
 
                 this.dragging = true;
 

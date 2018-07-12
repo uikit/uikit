@@ -11,6 +11,7 @@
 - Fix Filter component height during transition
 - Fix Filter/Sortable component in IE 11
 - Fix Overflow Auto component triggering `resize` event indefinitely
+- Fix Slider/Slideshow capture slide during transition in Safari 11
 
 ## 3.0.0 rc 8 (July 5, 2018)
 
