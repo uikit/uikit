@@ -2,9 +2,14 @@
 
 ## WIP
 
+### Changed
+
+- Improve Height Viewport component performance
+
 ### Fixed
 
 - Fix performance regression in Grid component
+- Fix Height Viewport jumping in size on mobile devices if BottomOffset was set
 
 ## 3.0.0 rc 9 (July 13, 2018)
 
