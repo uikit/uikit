@@ -16,13 +16,21 @@ export function on(...args) {
         listener = detail(listener);
     }
 
-    type.split(' ').forEach(type => targets.forEach(target => target.addEventListener(type, listener, useCapture)));
+    type.split(' ').forEach(type =>
+        targets.forEach(target =>
+            target.addEventListener(type, listener, useCapture)
+        )
+    );
     return () => off(targets, type, listener, useCapture);
 }
 
 export function off(targets, type, listener, useCapture = false) {
     targets = toEventTargets(targets);
-    type.split(' ').forEach(type => targets.forEach(target => target.removeEventListener(type, listener, useCapture)));
+    type.split(' ').forEach(type =>
+        targets.forEach(target =>
+            target.removeEventListener(type, listener, useCapture)
+        )
+    );
 }
 
 export function once(...args) {
@@ -98,13 +106,13 @@ function toEventTarget(target) {
 }
 
 export function toEventTargets(target) {
-    return isEventTarget(target)
-        ? [target]
-        : isArray(target)
+    return isArray(target)
             ? target.map(toEventTarget).filter(Boolean)
             : isString(target)
                 ? findAll(target)
-                : toNodes(target);
+                : isEventTarget(target)
+                    ? [target]
+                    : toNodes(target);
 }
 
 export function preventClick() {

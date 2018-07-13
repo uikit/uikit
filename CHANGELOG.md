@@ -13,6 +13,7 @@
 - Fix Overflow Auto component triggering `resize` event indefinitely
 - Fix Slider/Slideshow capture slide during transition in Safari 11
 - Fix Slider/Slideshow drag behavior in iOS 11.3+ (https://bugs.webkit.org/show_bug.cgi?id=184250)
+- Fix `toEventTargets` in IE 11
 
 ## 3.0.0 rc 8 (July 5, 2018)
 
