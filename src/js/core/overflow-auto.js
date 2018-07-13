@@ -1,5 +1,5 @@
 import Class from '../mixin/class';
-import {closest, css, height, toFloat, trigger} from 'uikit-util';
+import {closest, css, height, offset, toFloat, trigger} from 'uikit-util';
 
 export default {
 
@@ -41,13 +41,13 @@ export default {
 
             return {
                 current: toFloat(css(this.$el, 'maxHeight')),
-                max: Math.max(150, height(this.modal) - (this.panel.offsetHeight - height(this.$el)))
+                max: Math.max(150, height(this.modal) - (offset(this.panel).height - height(this.$el)))
             };
         },
 
         write({current, max}) {
             css(this.$el, 'maxHeight', max);
-            if (current !== max) {
+            if (Math.round(current) !== Math.round(max)) {
                 trigger(this.$el, 'resize');
             }
         },

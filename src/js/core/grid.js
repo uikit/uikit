@@ -50,8 +50,9 @@ export default {
                     rows = rows.map(elements => sortBy(elements, 'offsetLeft'));
                 }
 
+                const hasStaticContent = rows.some(elements => elements.some(element => css(element, 'position') === 'static'));
                 let translates = false;
-                let elHeight = false;
+                let elHeight = '';
 
                 if (this.masonry && this.length) {
 
@@ -70,7 +71,7 @@ export default {
 
                 }
 
-                return {rows, translates, height: elHeight};
+                return {rows, translates, height: hasStaticContent ? elHeight : undefined};
 
             },
 
@@ -79,8 +80,8 @@ export default {
                 toggleClass(this.$el, this.clsStack, stacks);
 
                 css(this.$el, {
-                    paddingBottom: this.parallax,
-                    height: height || ''
+                    height,
+                    paddingBottom: this.parallax
                 });
 
             },

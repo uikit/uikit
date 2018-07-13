@@ -1,4 +1,4 @@
-import {assign, bind, camelize, data as getData, getCssVar, hasOwn, hyphenate, isArray, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toFloat, toList, toNumber} from 'uikit-util';
+import {assign, bind, camelize, data as getData, getCssVar, hasOwn, hyphenate, isArray, isBoolean, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toFloat, toList, toNumber} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -203,7 +203,7 @@ export default function (UIkit) {
             event = ({name: key, handler: event});
         }
 
-        let {name, el, handler, capture, delegate, filter, self} = event;
+        let {name, el, handler, capture, passive, delegate, filter, self} = event;
         el = isFunction(el)
             ? el.call(component)
             : el || component.$el;
@@ -233,7 +233,9 @@ export default function (UIkit) {
                         ? delegate
                         : delegate.call(component),
                 handler,
-                capture
+                isBoolean(passive)
+                    ? {passive, capture}
+                    : capture
             )
         );
 

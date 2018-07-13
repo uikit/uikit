@@ -182,5 +182,5 @@ function getSelector({filter}) {
 }
 
 function sortItems(nodes, sort, order) {
-    return toNodes(nodes).sort((a, b) => data(a, sort).localeCompare(data(b, sort)) * (order === 'asc' || -1));
+    return toNodes(nodes).sort((a, b) => data(a, sort).localeCompare(data(b, sort), undefined, {numeric: true}) * (order === 'asc' || -1));
 }
