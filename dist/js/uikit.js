@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.8 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.9 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -547,7 +547,9 @@
             listener = detail(listener);
         }
 
-        type.split(' ').forEach(function (type) { return targets.forEach(function (target) { return target.addEventListener(type, listener, useCapture); }); });
+        type.split(' ').forEach(function (type) { return targets.forEach(function (target) { return target.addEventListener(type, listener, useCapture); }
+            ); }
+        );
         return function () { return off(targets, type, listener, useCapture); };
     }
 
@@ -555,7 +557,9 @@
         if ( useCapture === void 0 ) useCapture = false;
 
         targets = toEventTargets(targets);
-        type.split(' ').forEach(function (type) { return targets.forEach(function (target) { return target.removeEventListener(type, listener, useCapture); }); });
+        type.split(' ').forEach(function (type) { return targets.forEach(function (target) { return target.removeEventListener(type, listener, useCapture); }
+            ); }
+        );
     }
 
     function once() {
@@ -644,13 +648,13 @@
     }
 
     function toEventTargets(target) {
-        return isEventTarget(target)
-            ? [target]
-            : isArray(target)
+        return isArray(target)
                 ? target.map(toEventTarget).filter(Boolean)
                 : isString(target)
                     ? findAll(target)
-                    : toNodes(target);
+                    : isEventTarget(target)
+                        ? [target]
+                        : toNodes(target);
     }
 
     function preventClick() {
@@ -3334,6 +3338,7 @@
             var el = event.el;
             var handler = event.handler;
             var capture = event.capture;
+            var passive = event.passive;
             var delegate = event.delegate;
             var filter$$1 = event.filter;
             var self = event.self;
@@ -3366,7 +3371,9 @@
                             ? delegate
                             : delegate.call(component),
                     handler,
-                    capture
+                    isBoolean(passive)
+                        ? {passive: passive, capture: capture}
+                        : capture
                 )
             );
 
@@ -4996,8 +5003,9 @@
                         rows = rows.map(function (elements) { return sortBy(elements, 'offsetLeft'); });
                     }
 
+                    var hasStaticContent = rows.some(function (elements) { return elements.some(function (element) { return css(element, 'position') === 'static'; }); });
                     var translates = false;
-                    var elHeight = false;
+                    var elHeight = '';
 
                     if (this.masonry && this.length) {
 
@@ -5016,7 +5024,7 @@
 
                     }
 
-                    return {rows: rows, translates: translates, height: elHeight};
+                    return {rows: rows, translates: translates, height: hasStaticContent ? elHeight : undefined};
 
                 },
 
@@ -5028,8 +5036,8 @@
                     toggleClass(this.$el, this.clsStack, stacks);
 
                     css(this.$el, {
-                        paddingBottom: this.parallax,
-                        height: height$$1 || ''
+                        height: height$$1,
+                        paddingBottom: this.parallax
                     });
 
                 },
@@ -6956,7 +6964,7 @@
 
                 return {
                     current: toFloat(css(this.$el, 'maxHeight')),
-                    max: Math.max(150, height(this.modal) - (this.panel.offsetHeight - height(this.$el)))
+                    max: Math.max(150, height(this.modal) - (offset(this.panel).height - height(this.$el)))
                 };
             },
 
@@ -6965,7 +6973,7 @@
                 var max = ref.max;
 
                 css(this.$el, 'maxHeight', max);
-                if (current !== max) {
+                if (Math.round(current) !== Math.round(max)) {
                     trigger(this.$el, 'resize');
                 }
             },
@@ -8011,7 +8019,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.8';
+    UIkit.version = '3.0.0-rc.9';
 
     core(UIkit);
 
@@ -8275,6 +8283,7 @@
                     children.forEach(function (el, i) { return css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}); });
                     reset(this$1.target);
                     this$1.$update(this$1.target);
+                    fastdom.flush(); // needed for IE11
                 }, noop);
 
             }
@@ -8328,7 +8337,7 @@
         if (!style$1) {
             style$1 = append(document.head, '<style>').sheet;
             style$1.insertRule(
-                ("." + targetClass + " > * {\n                    margin-top: 0 !important;\n                    transform: none !important;\n                }")
+                ("." + targetClass + " > * {\n                    margin-top: 0 !important;\n                    transform: none !important;\n                }"), 0
             );
         }
     }
@@ -8544,7 +8553,7 @@
     }
 
     function sortItems(nodes, sort, order) {
-        return toNodes(nodes).sort(function (a, b) { return data(a, sort).localeCompare(data(b, sort)) * (order === 'asc' || -1); });
+        return toNodes(nodes).sort(function (a, b) { return data(a, sort).localeCompare(data(b, sort), undefined, {numeric: true}) * (order === 'asc' || -1); });
     }
 
     var Animations = {
@@ -8883,6 +8892,19 @@
             },
 
             {
+
+                // Workaround for iOS 11 bug: https://bugs.webkit.org/show_bug.cgi?id=184250
+
+                name: 'touchmove',
+                passive: false,
+                handler: 'move',
+                delegate: function() {
+                    return this.slidesSelector;
+                }
+
+            },
+
+            {
                 name: 'dragstart',
 
                 handler: function(e) {
@@ -8895,6 +8917,8 @@
         methods: {
 
             start: function() {
+                var this$1 = this;
+
 
                 this.drag = this.pos;
 
@@ -8903,8 +8927,8 @@
                     this.percent = this._transitioner.percent();
                     this.drag += this._transitioner.getDistance() * this.percent * this.dir;
 
-                    this._transitioner.translate(this.percent);
                     this._transitioner.cancel();
+                    this._transitioner.translate(this.percent);
 
                     this.dragging = true;
 
@@ -8914,7 +8938,12 @@
                     this.prevIndex = this.index;
                 }
 
-                this.unbindMove = on(document, pointerMove, this.move, {capture: true, passive: false});
+                // See above workaround notice
+                var off$$1 = on(document, pointerMove.replace(' touchmove', ''), this.move, {passive: false});
+                this.unbindMove = function () {
+                    off$$1();
+                    this$1.unbindMove = null;
+                };
                 on(window, 'scroll', this.unbindMove);
                 on(document, pointerUp, this.end, true);
 
@@ -8923,6 +8952,11 @@
             move: function(e) {
                 var this$1 = this;
 
+
+                // See above workaround notice
+                if (!this.unbindMove) {
+                    return;
+                }
 
                 var distance = this.pos - this.drag;
 
@@ -8997,7 +9031,7 @@
             end: function() {
 
                 off(window, 'scroll', this.unbindMove);
-                this.unbindMove();
+                this.unbindMove && this.unbindMove();
                 off(document, pointerUp, this.end, true);
 
                 if (this.dragging) {
