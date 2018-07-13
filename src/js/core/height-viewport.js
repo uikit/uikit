@@ -72,7 +72,7 @@ export default {
             css(this.$el, {height: '', minHeight});
 
             if (this.minHeight && toFloat(css(this.$el, 'minHeight')) < this.minHeight) {
-                css(this.$el, 'minHeight', minHeight);
+                css(this.$el, 'minHeight', this.minHeight);
             }
 
             // IE 11 fix (min-height on a flex container won't apply to its flex items)
