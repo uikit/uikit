@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix performance regression in Grid component
+
 ## 3.0.0 rc 9 (July 13, 2018)
 
 ### Changed
