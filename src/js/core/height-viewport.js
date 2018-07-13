@@ -35,6 +35,7 @@ export default {
 
                 const {top} = offset(this.$el);
 
+                // on mobile devices (iOS and Android) window.innerHeight !== 100vh
                 minHeight = 'calc(100vh';
 
                 if (top < viewport / 2 && this.offsetTop) {
@@ -59,7 +60,6 @@ export default {
 
                 }
 
-                // on mobile devices (iOS and Android) window.innerHeight !== 100vh
                 minHeight += ')';
 
             }
@@ -76,9 +76,9 @@ export default {
             }
 
             // IE 11 fix (min-height on a flex container won't apply to its flex items)
-            let mHeight;
-            if (isIE && (mHeight = Math.round(toFloat(css(this.$el, 'minHeight')))) >= offsetHeight(this.$el)) {
-                css(this.$el, 'height', mHeight);
+            let height;
+            if (isIE && (height = Math.round(toFloat(css(this.$el, 'minHeight')))) >= offsetHeight(this.$el)) {
+                css(this.$el, 'height', height);
             }
 
         },
