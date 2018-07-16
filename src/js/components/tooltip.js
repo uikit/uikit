@@ -7,11 +7,11 @@ const actives = [];
 
 export default {
 
-    attrs: true,
+    mixins: [Container, Togglable, Position],
 
     args: 'title',
 
-    mixins: [Container, Togglable, Position],
+    attrs: true,
 
     props: {
         delay: Number,
