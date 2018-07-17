@@ -2,7 +2,12 @@ import {css, getPos, includes, isRtl, isTouch, off, on, pointerDown, pointerMove
 
 export default {
 
+    props: {
+        draggable: Boolean,
+    },
+
     data: {
+        draggable: true,
         threshold: 10,
         preventCatch: false
     },
@@ -46,7 +51,9 @@ export default {
                     return;
                 }
 
-                this.start(e);
+                if(this.draggable) {
+                  this.start(e);
+                }
             }
 
         },
