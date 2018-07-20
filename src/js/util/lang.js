@@ -5,7 +5,8 @@ export function bind(fn, context) {
     };
 }
 
-const {hasOwnProperty} = Object.prototype;
+const objPrototype = Object.prototype;
+const {hasOwnProperty} = objPrototype;
 
 export function hasOwn(obj, key) {
     return hasOwnProperty.call(obj, key);
@@ -71,7 +72,7 @@ export function isObject(obj) {
 }
 
 export function isPlainObject(obj) {
-    return isObject(obj) && Object.getPrototypeOf(obj) === Object.prototype;
+    return isObject(obj) && Object.getPrototypeOf(obj) === objPrototype;
 }
 
 export function isWindow(obj) {
@@ -86,12 +87,13 @@ export function isJQuery(obj) {
     return isObject(obj) && !!obj.jquery;
 }
 
-export function isNode(element) {
-    return element instanceof Node || isObject(element) && element.nodeType === 1;
+const {toString} = objPrototype;
+export function isNode(obj) {
+    return toString.call(obj) === '[object Node]' || isObject(obj) && obj.nodeType === 1;
 }
 
-export function isNodeCollection(element) {
-    return element instanceof NodeList || element instanceof HTMLCollection;
+export function isNodeCollection(obj) {
+    return toString.call(obj).match(/^\[object (NodeList|HTMLCollection)\]$/);
 }
 
 export function isBoolean(value) {
