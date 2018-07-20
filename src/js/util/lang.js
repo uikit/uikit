@@ -87,11 +87,11 @@ export function isJQuery(obj) {
     return isObject(obj) && !!obj.jquery;
 }
 
-const {toString} = objPrototype;
 export function isNode(obj) {
-    return toString.call(obj) === '[object Node]' || isObject(obj) && obj.nodeType === 1;
+    return obj instanceof Node || isObject(obj) && obj.nodeType === 1;
 }
 
+const {toString} = objPrototype;
 export function isNodeCollection(obj) {
     return toString.call(obj).match(/^\[object (NodeList|HTMLCollection)\]$/);
 }
