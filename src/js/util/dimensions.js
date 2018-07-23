@@ -350,6 +350,17 @@ export function scrolledOver(element, heightOffset = 0) {
     return clamp(((vh + win.pageYOffset - top) / ((vh + (elHeight - (diff < vp ? diff : 0))) / 100)) / 100);
 }
 
+export function scrollTop(element, top) {
+    element = toNode(element);
+
+    if (isWindow(element) || isDocument(element)) {
+        const {scrollTo, pageXOffset} = window(element);
+        scrollTo(pageXOffset, top);
+    } else {
+        element.scrollTop = top;
+    }
+}
+
 function offsetPosition(element) {
     const offset = [0, 0];
 
