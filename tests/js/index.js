@@ -14,7 +14,8 @@ request.send(null);
 const themes = request.status === 200 ? JSON.parse(request.responseText) : {};
 const styles = {
     core: {css: '../dist/css/uikit-core.css'},
-    theme: {css: '../dist/css/uikit.css'}
+    theme: {css: '../dist/css/uikit.css'},
+    dark: {css: '../dist/css/uikit.dark.css'}
 };
 const component = location.pathname.split('/').pop().replace(/.html$/, '');
 

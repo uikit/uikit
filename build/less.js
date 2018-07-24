@@ -18,7 +18,8 @@ const develop = argv.develop || argv.debug || argv.d || argv.nominify;
 
 [
     {src: 'src/less/uikit.less', dist: `dist/css/uikit-core${rtl ? '-rtl' : ''}.css`},
-    {src: 'src/less/uikit.theme.less', dist: `dist/css/uikit${rtl ? '-rtl' : ''}.css`}
+    {src: 'src/less/uikit.theme.less', dist: `dist/css/uikit${rtl ? '-rtl' : ''}.css`},
+    {src: 'src/less/uikit.dark.less', dist: `dist/css/uikit${rtl ? '-rtl' : ''}.dark.css`}
 
 ].forEach(config => compile(config.src, config.dist));
 
