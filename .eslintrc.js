@@ -13,7 +13,8 @@ module.exports = {
     },
     "globals": {
         "BUNDLED": true,
-        "VERSION": true
+        "VERSION": true,
+        "ICONS": []
     },
     "rules": {
         "brace-style": ["error", "1tbs", {"allowSingleLine": true}],

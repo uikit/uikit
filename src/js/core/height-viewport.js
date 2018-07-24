@@ -1,4 +1,4 @@
-import {css, endsWith, height, isIE, isNumeric, isString, offset, query, toFloat} from 'uikit-util';
+import {css, endsWith, height, /* isIE, */ isNumeric, isString, offset, query, toFloat} from 'uikit-util';
 
 export default {
 
@@ -77,7 +77,7 @@ export default {
 
             // IE 11 fix (min-height on a flex container won't apply to its flex items)
             let height;
-            if (/*isIE && */(height = Math.round(toFloat(css(this.$el, 'minHeight')))) >= offsetHeight(this.$el)) {
+            if (/* isIE && */(height = Math.round(toFloat(css(this.$el, 'minHeight')))) >= offsetHeight(this.$el)) {
                 css(this.$el, 'height', height);
             }
 
