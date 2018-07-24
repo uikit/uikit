@@ -220,14 +220,17 @@ export function clamp(number, min = 0, max = 1) {
 export function noop() {}
 
 export function intersectRect(r1, r2) {
-    return r1.left <= r2.right &&
-        r2.left <= r1.right &&
-        r1.top <= r2.bottom &&
-        r2.top <= r1.bottom;
+    return r1.left < r2.right &&
+        r1.right > r2.left &&
+        r1.top < r2.bottom &&
+        r1.bottom > r2.top;
 }
 
 export function pointInRect(point, rect) {
-    return intersectRect({top: point.y, bottom: point.y, left: point.x, right: point.x}, rect);
+    return point.x <= r2.right &&
+        point.x >= r2.left &&
+        point.y <= r2.bottom &&
+        point.y >= r2.top;
 }
 
 export const Dimensions = {
