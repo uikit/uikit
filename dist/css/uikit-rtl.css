@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.9 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.10 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -2259,6 +2259,9 @@ select.uk-form-width-xsmall {
 }
 /* Size modifier
  ========================================================================== */
+.uk-container-xsmall {
+  max-width: 750px;
+}
 .uk-container-small {
   max-width: 900px;
 }
