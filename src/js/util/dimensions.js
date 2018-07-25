@@ -174,28 +174,17 @@ function getDimensions(element) {
 export function position(element) {
     element = toNode(element);
 
-    const parent = offsetParent(element);
-    const parentOffset = parent === docEl(element) ? {top: 0, left: 0} : offset(parent);
+    const parent = element.offsetParent || docEl(element);
+    const parentOffset = offset(parent);
     const {top, left} = ['top', 'left'].reduce((props, prop) => {
         const propName = ucfirst(prop);
         props[prop] -= parentOffset[prop]
-            + (toFloat(css(element, `margin${propName}`)) || 0)
-            + (toFloat(css(parent, `border${propName}Width`)) || 0);
+            + toFloat(css(element, `margin${propName}`))
+            + toFloat(css(parent, `border${propName}Width`));
         return props;
     }, offset(element));
 
     return {top, left};
-}
-
-function offsetParent(element) {
-
-    let parent = toNode(element).offsetParent;
-
-    while (parent && css(parent, 'position') === 'static') {
-        parent = parent.offsetParent;
-    }
-
-    return parent || docEl(element);
 }
 
 export const height = dimension('height');
@@ -359,6 +348,17 @@ export function scrolledOver(element, heightOffset = 0) {
     const diff = Math.max(0, vp - (height(doc) + heightOffset - (top + elHeight)));
 
     return clamp(((vh + win.pageYOffset - top) / ((vh + (elHeight - (diff < vp ? diff : 0))) / 100)) / 100);
+}
+
+export function scrollTop(element, top) {
+    element = toNode(element);
+
+    if (isWindow(element) || isDocument(element)) {
+        const {scrollTo, pageXOffset} = window(element);
+        scrollTo(pageXOffset, top);
+    } else {
+        element.scrollTop = top;
+    }
 }
 
 function offsetPosition(element) {

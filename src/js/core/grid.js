@@ -71,7 +71,7 @@ export default {
 
                 }
 
-                return {rows, translates, height: hasStaticContent ? elHeight : undefined};
+                return {rows, translates, height: hasStaticContent ? elHeight : false};
 
             },
 
@@ -79,10 +79,8 @@ export default {
 
                 toggleClass(this.$el, this.clsStack, stacks);
 
-                css(this.$el, {
-                    height,
-                    paddingBottom: this.parallax
-                });
+                css(this.$el, 'paddingBottom', this.parallax);
+                height !== false && css(this.$el, 'height', height);
 
             },
 

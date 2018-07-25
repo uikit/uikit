@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.0.0 rc 10 (July 25, 2018)
+
+### Added
+
+- Add container xsmall modifier
+
+### Changed
+
+- Improve Height Viewport component performance
+
+### Fixed
+
+- Fix performance regression in Grid component
+- Fix Height Viewport jumping in size on mobile devices if BottomOffset was set
+- Fix offsetParent detection
+
 ## 3.0.0 rc 9 (July 13, 2018)
 
 ### Changed

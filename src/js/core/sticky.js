@@ -1,5 +1,5 @@
 import Class from '../mixin/class';
-import {$, addClass, after, Animation, assign, attr, css, fastdom, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, remove, removeClass, replaceClass, toFloat, toggleClass, trigger, within} from 'uikit-util';
+import {$, addClass, after, Animation, assign, attr, css, fastdom, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -119,7 +119,7 @@ export default {
                         const elHeight = this.$el.offsetHeight;
 
                         if (this.isActive && elTop + elHeight >= top && elTop <= top + target.offsetHeight) {
-                            window.scroll(0, top - elHeight - (isNumeric(this.targetOffset) ? this.targetOffset : 0) - this.offset);
+                            scrollTop(window, top - elHeight - (isNumeric(this.targetOffset) ? this.targetOffset : 0) - this.offset);
                         }
 
                     });

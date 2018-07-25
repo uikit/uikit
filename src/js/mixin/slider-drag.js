@@ -1,4 +1,4 @@
-import {css, getPos, includes, isRtl, isTouch, off, on, pointerDown, pointerMove, pointerUp, preventClick, trigger} from 'uikit-util';
+import {getPos, includes, isRtl, isTouch, off, on, pointerDown, pointerMove, pointerUp, preventClick, trigger} from 'uikit-util';
 
 export default {
 
@@ -101,7 +101,7 @@ export default {
             this.unbindMove = () => {
                 off();
                 this.unbindMove = null;
-            }
+            };
             on(window, 'scroll', this.unbindMove);
             on(document, pointerUp, this.end, true);
 

@@ -1,4 +1,4 @@
-import {$, clamp, escape, height, offset, trigger} from 'uikit-util';
+import {$, clamp, escape, height, offset, scrollTop, trigger} from 'uikit-util';
 
 export default {
 
@@ -36,7 +36,7 @@ export default {
 
                 const currentY = startY + (target - startY) * ease(clamp((Date.now() - start) / this.duration));
 
-                window.scroll(window.pageXOffset, currentY);
+                scrollTop(window, currentY);
 
                 // scroll more if we have not reached our destination
                 if (currentY !== target) {

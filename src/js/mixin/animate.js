@@ -1,4 +1,4 @@
-import {addClass, append, assign, css, fastdom, height, includes, index, isVisible, noop, position, Promise, removeClass, toFloat, toNodes, Transition} from 'uikit-util';
+import {addClass, append, assign, css, fastdom, height, includes, index, isVisible, noop, position, Promise, removeClass, scrollTop, toFloat, toNodes, Transition} from 'uikit-util';
 
 const targetClass = 'uk-animation-target';
 
@@ -80,7 +80,7 @@ export default {
             addClass(this.target, targetClass);
             children.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
             css(this.target, 'height', oldHeight);
-            window.scroll(window.pageXOffset, oldScrollY);
+            scrollTop(window, oldScrollY);
 
             return Promise.all(children.map((el, i) =>
                 propsFrom[i] && propsTo[i]

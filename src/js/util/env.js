@@ -1,6 +1,7 @@
 /* global DocumentTouch */
 import {attr} from './attr';
 
+export const isIE = /msie|trident/i.test(window.navigator.userAgent);
 export const isRtl = attr(document.documentElement, 'dir') === 'rtl';
 
 const hasTouchEvents = 'ontouchstart' in window;

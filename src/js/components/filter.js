@@ -7,6 +7,8 @@ export default {
 
     args: 'target',
 
+    attrs: true,
+
     props: {
         target: Boolean,
         selActive: Boolean
