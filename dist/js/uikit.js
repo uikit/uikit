@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.9 | http://www.getuikit.com | (c) 2014 - 2017 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.10 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -13,8 +13,8 @@
         };
     }
 
-    var ref = Object.prototype;
-    var hasOwnProperty = ref.hasOwnProperty;
+    var objPrototype = Object.prototype;
+    var hasOwnProperty = objPrototype.hasOwnProperty;
 
     function hasOwn(obj, key) {
         return hasOwnProperty.call(obj, key);
@@ -80,7 +80,7 @@
     }
 
     function isPlainObject(obj) {
-        return isObject(obj) && Object.getPrototypeOf(obj) === Object.prototype;
+        return isObject(obj) && Object.getPrototypeOf(obj) === objPrototype;
     }
 
     function isWindow(obj) {
@@ -95,12 +95,13 @@
         return isObject(obj) && !!obj.jquery;
     }
 
-    function isNode(element) {
-        return element instanceof Node || isObject(element) && element.nodeType === 1;
+    function isNode(obj) {
+        return obj instanceof Node || isObject(obj) && obj.nodeType === 1;
     }
 
-    function isNodeCollection(element) {
-        return element instanceof NodeList || element instanceof HTMLCollection;
+    var toString = objPrototype.toString;
+    function isNodeCollection(obj) {
+        return toString.call(obj).match(/^\[object (NodeList|HTMLCollection)\]$/);
     }
 
     function isBoolean(value) {
@@ -232,14 +233,17 @@
     function noop() {}
 
     function intersectRect(r1, r2) {
-        return r1.left <= r2.right &&
-            r2.left <= r1.right &&
-            r1.top <= r2.bottom &&
-            r2.top <= r1.bottom;
+        return r1.left < r2.right &&
+            r1.right > r2.left &&
+            r1.top < r2.bottom &&
+            r1.bottom > r2.top;
     }
 
     function pointInRect(point, rect) {
-        return intersectRect({top: point.y, bottom: point.y, left: point.x, right: point.x}, rect);
+        return point.x <= r2.right &&
+            point.x >= r2.left &&
+            point.y <= r2.bottom &&
+            point.y >= r2.top;
     }
 
     var Dimensions = {
@@ -1296,8 +1300,8 @@
     }
 
     var cssPrefixes = ['webkit', 'moz', 'ms'];
-    var ref$1 = document.createElement('_');
-    var style = ref$1.style;
+    var ref = document.createElement('_');
+    var style = ref.style;
 
     function vendorPropName(name) {
 
@@ -1676,30 +1680,19 @@
     function position(element) {
         element = toNode(element);
 
-        var parent = offsetParent(element);
-        var parentOffset = parent === docEl(element) ? {top: 0, left: 0} : offset(parent);
+        var parent = element.offsetParent || docEl(element);
+        var parentOffset = offset(parent);
         var ref = ['top', 'left'].reduce(function (props, prop) {
             var propName$$1 = ucfirst(prop);
             props[prop] -= parentOffset[prop]
-                + (toFloat(css(element, ("margin" + propName$$1))) || 0)
-                + (toFloat(css(parent, ("border" + propName$$1 + "Width"))) || 0);
+                + toFloat(css(element, ("margin" + propName$$1)))
+                + toFloat(css(parent, ("border" + propName$$1 + "Width")));
             return props;
         }, offset(element));
         var top = ref.top;
         var left = ref.left;
 
         return {top: top, left: left};
-    }
-
-    function offsetParent(element) {
-
-        var parent = toNode(element).offsetParent;
-
-        while (parent && css(parent, 'position') === 'static') {
-            parent = parent.offsetParent;
-        }
-
-        return parent || docEl(element);
     }
 
     var height = dimension('height');
@@ -1879,6 +1872,19 @@
         return clamp(((vh + win.pageYOffset - top) / ((vh + (elHeight - (diff < vp ? diff : 0))) / 100)) / 100);
     }
 
+    function scrollTop(element, top) {
+        element = toNode(element);
+
+        if (isWindow(element) || isDocument(element)) {
+            var ref = window$1(element);
+            var scrollTo = ref.scrollTo;
+            var pageXOffset = ref.pageXOffset;
+            scrollTo(pageXOffset, top);
+        } else {
+            element.scrollTop = top;
+        }
+    }
+
     function offsetPosition(element) {
         var offset = [0, 0];
 
@@ -1913,6 +1919,7 @@
 
     /* global DocumentTouch */
 
+    var isIE = /msie|trident/i.test(window.navigator.userAgent);
     var isRtl = attr(document.documentElement, 'dir') === 'rtl';
 
     var hasTouchEvents = 'ontouchstart' in window;
@@ -2562,6 +2569,7 @@
         flipPosition: flipPosition,
         isInView: isInView,
         scrolledOver: scrolledOver,
+        scrollTop: scrollTop,
         isReady: isReady,
         ready: ready,
         index: index,
@@ -2578,6 +2586,7 @@
         unwrap: unwrap,
         fragment: fragment,
         apply: apply,
+        isIE: isIE,
         isRtl: isRtl,
         hasTouch: hasTouch,
         pointerDown: pointerDown,
@@ -3931,11 +3940,11 @@
 
     var Alert = {
 
-        attrs: true,
-
         mixins: [Class, Togglable],
 
         args: 'animation',
+
+        attrs: true,
 
         props: {
             close: String
@@ -5024,7 +5033,7 @@
 
                     }
 
-                    return {rows: rows, translates: translates, height: hasStaticContent ? elHeight : undefined};
+                    return {rows: rows, translates: translates, height: hasStaticContent ? elHeight : false};
 
                 },
 
@@ -5035,10 +5044,8 @@
 
                     toggleClass(this.$el, this.clsStack, stacks);
 
-                    css(this.$el, {
-                        height: height$$1,
-                        paddingBottom: this.parallax
-                    });
+                    css(this.$el, 'paddingBottom', this.parallax);
+                    height$$1 !== false && css(this.$el, 'height', height$$1);
 
                 },
 
@@ -5205,71 +5212,72 @@
             minHeight: 0
         },
 
+        connected: function() {
+            css(this.$el, 'boxSizing', 'border-box');
+        },
+
         update: {
 
-            write: function() {
-
-                css(this.$el, 'boxSizing', 'border-box');
+            read: function() {
 
                 var viewport = height(window);
-                var minHeight, offsetTop = 0;
+                var minHeight = '';
 
                 if (this.expand) {
 
-                    css(this.$el, {height: '', minHeight: ''});
-
-                    var diff = viewport - offsetHeight(document.documentElement);
-
-                    if (diff > 0) {
-                        minHeight = offsetHeight(this.$el) + diff;
-                    }
+                    minHeight = viewport - (offsetHeight(document.documentElement) - offsetHeight(this.$el)) || '';
 
                 } else {
 
                     var ref = offset(this.$el);
                     var top = ref.top;
 
+                    // on mobile devices (iOS and Android) window.innerHeight !== 100vh
+                    minHeight = 'calc(100vh';
+
                     if (top < viewport / 2 && this.offsetTop) {
-                        offsetTop += top;
+                        minHeight += " - " + top + "px";
                     }
 
                     if (this.offsetBottom === true) {
 
-                        offsetTop += offsetHeight(this.$el.nextElementSibling);
+                        minHeight += " - " + (offsetHeight(this.$el.nextElementSibling)) + "px";
 
                     } else if (isNumeric(this.offsetBottom)) {
 
-                        offsetTop += (viewport / 100) * this.offsetBottom;
+                        minHeight += " - " + (this.offsetBottom) + "vh";
 
                     } else if (this.offsetBottom && endsWith(this.offsetBottom, 'px')) {
 
-                        offsetTop += toFloat(this.offsetBottom);
+                        minHeight += " - " + (toFloat(this.offsetBottom)) + "px";
 
                     } else if (isString(this.offsetBottom)) {
 
-                        offsetTop += offsetHeight(query(this.offsetBottom, this.$el));
+                        minHeight += " - " + (offsetHeight(query(this.offsetBottom, this.$el))) + "px";
 
                     }
 
-                    // on mobile devices (iOS and Android) window.innerHeight !== 100vh
-                    minHeight = offsetTop ? ("calc(100vh - " + offsetTop + "px)") : '100vh';
+                    minHeight += ')';
 
                 }
 
-                if (!minHeight) {
-                    return;
-                }
+                return {minHeight: minHeight, viewport: viewport};
+            },
+
+            write: function(ref) {
+                var minHeight = ref.minHeight;
+
 
                 css(this.$el, {height: '', minHeight: minHeight});
 
-                var elHeight = this.$el.offsetHeight;
-                if (this.minHeight && this.minHeight > elHeight) {
+                if (this.minHeight && toFloat(css(this.$el, 'minHeight')) < this.minHeight) {
                     css(this.$el, 'minHeight', this.minHeight);
                 }
 
                 // IE 11 fix (min-height on a flex container won't apply to its flex items)
-                if (viewport - offsetTop >= elHeight) {
-                    css(this.$el, 'height', minHeight);
+                var height$$1;
+                if (/* isIE && */(height$$1 = Math.round(toFloat(css(this.$el, 'minHeight')))) >= offsetHeight(this.$el)) {
+                    css(this.$el, 'height', height$$1);
                 }
 
             },
@@ -7048,7 +7056,7 @@
 
                     var currentY = startY + (target - startY) * ease(clamp((Date.now() - start) / this$1.duration));
 
-                    window.scroll(window.pageXOffset, currentY);
+                    scrollTop(window, currentY);
 
                     // scroll more if we have not reached our destination
                     if (currentY !== target) {
@@ -7461,7 +7469,7 @@
                             var elHeight = this$1.$el.offsetHeight;
 
                             if (this$1.isActive && elTop + elHeight >= top && elTop <= top + target.offsetHeight) {
-                                window.scroll(0, top - elHeight - (isNumeric(this$1.targetOffset) ? this$1.targetOffset : 0) - this$1.offset);
+                                scrollTop(window, top - elHeight - (isNumeric(this$1.targetOffset) ? this$1.targetOffset : 0) - this$1.offset);
                             }
 
                         });
@@ -8019,7 +8027,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.9';
+    UIkit.version = '3.0.0-rc.10';
 
     core(UIkit);
 
@@ -8274,7 +8282,7 @@
                 addClass(this.target, targetClass);
                 children.forEach(function (el, i) { return propsFrom[i] && css(el, propsFrom[i]); });
                 css(this.target, 'height', oldHeight);
-                window.scroll(window.pageXOffset, oldScrollY);
+                scrollTop(window, oldScrollY);
 
                 return Promise.all(children.map(function (el, i) { return propsFrom[i] && propsTo[i]
                         ? Transition.start(el, propsTo[i], this$1.animation, 'ease')
@@ -8347,6 +8355,8 @@
         mixins: [Animate],
 
         args: 'target',
+
+        attrs: true,
 
         props: {
             target: Boolean,
@@ -9173,9 +9183,9 @@
 
     var Slider = {
 
-        attrs: true,
-
         mixins: [SliderAutoplay, SliderDrag, SliderNav],
+
+        attrs: true,
 
         props: {
             clsActivated: Boolean,
@@ -11268,7 +11278,7 @@
                     scroll = this.scrollY + 5;
                 }
 
-                scroll && setTimeout(function () { return window.scroll(window.pageXOffset, scroll); }, 5);
+                scroll && setTimeout(function () { return scrollTop(window, scroll); }, 5);
             }
 
         },
@@ -11487,11 +11497,11 @@
 
     var Tooltip = {
 
-        attrs: true,
+        mixins: [Container, Togglable, Position],
 
         args: 'title',
 
-        mixins: [Container, Togglable, Position],
+        attrs: true,
 
         props: {
             delay: Number,
