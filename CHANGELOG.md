@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add container xsmall modifier
+
 ### Changed
 
 - Improve Height Viewport component performance
