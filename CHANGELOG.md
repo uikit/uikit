@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Removed
+
+- Remove deprecated prevention of the 300ms delay for touch devices
+
 ## 3.0.0 rc 10 (July 25, 2018)
 
 ### Added
@@ -129,11 +135,11 @@
 ### Changed
 
 - Break long words into the next line for comment body
-- Moved grid `parallax` option to Grid component and removed Grid Parallax component
-- Moved Height, Leader, SVG and Video from Utility component into their own components
+- Move grid `parallax` option to Grid component and remove Grid Parallax component
+- Move Height, Leader, SVG and Video from Utility component into their own components
 - Allow left and right icons at the same time in form and search component
 - Rename `target` to `target-offset` in Sticky component
-- Removed hyphenating for text break
+- Remove hyphenating for text break
 
 ### Fixed
 
@@ -172,7 +178,7 @@
 
 ### Removed
 
-- Removed the instance method `$update`
+- Remove the instance method `$update`
 
 ### Fixed
 
@@ -238,7 +244,7 @@
 ### Changed
 
 - Add `uk-slider-container` class to clip the Slider component
-- Removed auto-clipping from Slider items. Use `uk-cover-container` instead.
+- Remove auto-clipping from Slider items. Use `uk-cover-container` instead.
 
 ### Fixed
 
@@ -830,7 +836,7 @@
 
 ### Removed
 
-- Removed `uk-cover` CSS only solution
+- Remove `uk-cover` CSS only solution
 
 ### Fixed
 
