@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Pass error object to callback function instead of message only in Upload component
+
 ### Removed
 
 - Remove deprecated prevention of the 300ms delay for touch devices

@@ -167,7 +167,7 @@ export default {
                         }
 
                     },
-                    e => this.error(e.message)
+                    e => this.error(e)
                 );
 
             };
