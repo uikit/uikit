@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.10 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.11 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -240,10 +240,10 @@
     }
 
     function pointInRect(point, rect) {
-        return point.x <= r2.right &&
-            point.x >= r2.left &&
-            point.y <= r2.bottom &&
-            point.y >= r2.top;
+        return point.x <= rect.right &&
+            point.x >= rect.left &&
+            point.y <= rect.bottom &&
+            point.y >= rect.top;
     }
 
     var Dimensions = {
@@ -8027,7 +8027,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.10';
+    UIkit.version = '3.0.0-rc.11';
 
     core(UIkit);
 
@@ -11770,7 +11770,7 @@
                             }
 
                         },
-                        function (e) { return this$1.error(e.message); }
+                        function (e) { return this$1.error(e); }
                     );
 
                 };
