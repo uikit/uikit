@@ -30,6 +30,7 @@
     .uk-open > .uk-accordion-title::after { @include svg-fill($internal-accordion-open-image, "#000", $inverse-global-color); }
 
 }
+@mixin hook-align-misc(){}
 @mixin hook-alert(){}
 @mixin hook-alert-close(){
     color: inherit;
@@ -67,7 +68,6 @@
     }
 
 }
-@mixin hook-align-misc(){}
 @mixin hook-animation-misc(){}
 @mixin hook-article(){}
 @mixin hook-article-adjacent(){}
@@ -1977,23 +1977,6 @@
     }
 
 }
-@mixin hook-text-lead(){}
-@mixin hook-text-meta(){
-
-    a { color: $text-meta-link-color; }
-
-    a:hover {
-        color: $text-meta-link-hover-color;
-        text-decoration: none;
-    }
-
-}
-@mixin hook-text-small(){}
-@mixin hook-text-large(){}
-@mixin hook-text-background(){}
-@mixin hook-text-misc(){}
-@mixin hook-inverse-text-lead(){}
-@mixin hook-inverse-text-meta(){}
 @mixin hook-thumbnav(){}
 @mixin hook-thumbnav-item(){
 
@@ -2037,6 +2020,23 @@
     }
 
 }
+@mixin hook-text-lead(){}
+@mixin hook-text-meta(){
+
+    a { color: $text-meta-link-color; }
+
+    a:hover {
+        color: $text-meta-link-hover-color;
+        text-decoration: none;
+    }
+
+}
+@mixin hook-text-small(){}
+@mixin hook-text-large(){}
+@mixin hook-text-background(){}
+@mixin hook-text-misc(){}
+@mixin hook-inverse-text-lead(){}
+@mixin hook-inverse-text-meta(){}
 @mixin hook-tile(){}
 @mixin hook-tile-default(){}
 @mixin hook-tile-muted(){}

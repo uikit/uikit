@@ -39,27 +39,16 @@ $width-xxlarge-width:                            750px !default;
 .uk-child-width-auto > * { width: auto; }
 
 /*
- *    Instead of 0, 1px is needed to make cell wrap into next row if predecessor is 100% wide
- *    and the grid gutter is 0 pixels wide
- */
-
-.uk-child-width-expand > * { width: 1px; }
-
-/*
- * 1. Make `width: 1px` work, because according to the spec flex items won’t shrink
- *    below their minimum content size. To change this, set the min-width.
- *    Only needed for Firefox. All other browsers ignore this.
- *
- * 2. `width` is ignored when wrapping flex items in Safari
- *    https://github.com/philipwalton/flexbugs#11-min-and-max-size-declarations-are-ignored-when-wrapping-flex-items
+ * 1. Reset the `min-width`, which is set to auto by default, because
+ *    flex items won't shrink below their minimum intrinsic content size.
+ *    Using `1px` instead of `0`, so items still wrap into the next line,
+ *    if they have zero width and padding and the predecessor is 100% wide.
  */
 
 .uk-child-width-expand > :not([class*='uk-width']) {
     flex: 1;
     /* 1 */
-    min-width: 0;
-    /* 2 */
-    flex-basis: 1px;
+    min-width: 1px;
 }
 
 /* Phone landscape and bigger */
@@ -73,12 +62,9 @@ $width-xxlarge-width:                            750px !default;
     .uk-child-width-1-6\@s > * { width: unquote('calc(100% * 1 / 6.001)'); }
 
     .uk-child-width-auto\@s > * { width: auto; }
-    .uk-child-width-expand\@s > * { width: 1px; }
-
     .uk-child-width-expand\@s > :not([class*='uk-width']) {
         flex: 1;
-        min-width: 0;
-        flex-basis: 1px;
+        min-width: 1px;
     }
 
 }
@@ -94,12 +80,9 @@ $width-xxlarge-width:                            750px !default;
     .uk-child-width-1-6\@m > * { width: unquote('calc(100% * 1 / 6.001)'); }
 
     .uk-child-width-auto\@m > * { width: auto; }
-    .uk-child-width-expand\@m > * { width: 1px; }
-
     .uk-child-width-expand\@m > :not([class*='uk-width']) {
         flex: 1;
-        min-width: 0;
-        flex-basis: 1px;
+        min-width: 1px;
     }
 
 }
@@ -115,12 +98,9 @@ $width-xxlarge-width:                            750px !default;
     .uk-child-width-1-6\@l > * { width: unquote('calc(100% * 1 / 6.001)'); }
 
     .uk-child-width-auto\@l > * { width: auto; }
-    .uk-child-width-expand\@l > * { width: 1px; }
-
     .uk-child-width-expand\@l > :not([class*='uk-width']) {
         flex: 1;
-        min-width: 0;
-        flex-basis: 1px;
+        min-width: 1px;
     }
 
 }
@@ -136,12 +116,9 @@ $width-xxlarge-width:                            750px !default;
     .uk-child-width-1-6\@xl > * { width: unquote('calc(100% * 1 / 6.001)'); }
 
     .uk-child-width-auto\@xl > * { width: auto; }
-    .uk-child-width-expand\@xl > * { width: 1px; }
-
     .uk-child-width-expand\@xl > :not([class*='uk-width']) {
         flex: 1;
-        min-width: 0;
-        flex-basis: 1px;
+        min-width: 1px;
     }
 
 }
@@ -194,10 +171,8 @@ $width-xxlarge-width:                            750px !default;
 
 /* Expand */
 .uk-width-expand {
-    width: 1px;
     flex: 1;
-    min-width: 0;
-    flex-basis: 1px;
+    min-width: 1px;
 }
 
 /* Phone landscape and bigger */
@@ -239,10 +214,8 @@ $width-xxlarge-width:                            750px !default;
 
     /* Expand */
     .uk-width-expand\@s {
-        width: 1px;
         flex: 1;
-        min-width: 0;
-        flex-basis: 1px;
+        min-width: 1px;
     }
 
 }
@@ -286,10 +259,8 @@ $width-xxlarge-width:                            750px !default;
 
     /* Expand */
     .uk-width-expand\@m {
-        width: 1px;
         flex: 1;
-        min-width: 0;
-        flex-basis: 1px;
+        min-width: 1px;
     }
 
 }
@@ -333,10 +304,8 @@ $width-xxlarge-width:                            750px !default;
 
     /* Expand */
     .uk-width-expand\@l {
-        width: 1px;
         flex: 1;
-        min-width: 0;
-        flex-basis: 1px;
+        min-width: 1px;
     }
 
 }
@@ -380,10 +349,8 @@ $width-xxlarge-width:                            750px !default;
 
     /* Expand */
     .uk-width-expand\@xl {
-        width: 1px;
         flex: 1;
-        min-width: 0;
-        flex-basis: 1px;
+        min-width: 1px;
     }
 
 }
