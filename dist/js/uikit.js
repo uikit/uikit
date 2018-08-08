@@ -240,10 +240,10 @@
     }
 
     function pointInRect(point, rect) {
-        return point.x <= r2.right &&
-            point.x >= r2.left &&
-            point.y <= r2.bottom &&
-            point.y >= r2.top;
+        return point.x <= rect.right &&
+            point.x >= rect.left &&
+            point.y <= rect.bottom &&
+            point.y >= rect.top;
     }
 
     var Dimensions = {
