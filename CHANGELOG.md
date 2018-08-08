@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Boolean attributes coerce to `true` if the prop is defined as Boolean
+
 ### Changed
 
 - `UIkit.mixin` can now be used to extend existing components

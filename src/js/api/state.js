@@ -152,7 +152,9 @@ export default function (UIkit) {
 
             if (!isUndefined(value)) {
 
-                value = coerce(props[key], value);
+                value = props[key] === Boolean && value === ''
+                    ? true
+                    : coerce(props[key], value);
 
                 if (prop === 'target' && (!value || startsWith(value, '_'))) {
                     continue;
