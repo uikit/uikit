@@ -21,7 +21,7 @@ export default function (UIkit) {
         mixin = mergeOptions({}, mixin);
         mixin.mixins = component.options.mixins;
         delete component.options.mixins;
-        component.options = mergeOptions(mixin, component.options);
+        component.options = mergeOptions(component.options, mixin);
     };
 
     UIkit.extend = function (options) {
