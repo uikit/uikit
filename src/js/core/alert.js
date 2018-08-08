@@ -8,8 +8,6 @@ export default {
 
     args: 'animation',
 
-    attrs: true,
-
     props: {
         close: String
     },

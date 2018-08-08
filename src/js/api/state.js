@@ -114,7 +114,7 @@ export default function (UIkit) {
     UIkit.prototype._initObserver = function () {
 
         let {attrs, props, el} = this.$options;
-        if (this._observer || !props || !attrs) {
+        if (this._observer || !props || attrs === false) {
             return;
         }
 

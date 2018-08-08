@@ -7,8 +7,6 @@ export default {
 
     mixins: [SliderAutoplay, SliderDrag, SliderNav],
 
-    attrs: true,
-
     props: {
         clsActivated: Boolean,
         easing: String,

@@ -4,6 +4,7 @@
 
 ### Added
 
+- Make remaining components reactive
 - Boolean attributes coerce to `true` if the prop is defined as Boolean
 
 ### Changed

@@ -37,7 +37,7 @@ export default function (UIkit) {
         Sub.prototype.constructor = Sub;
         Sub.options = mergeOptions(Super.options, options);
 
-        Sub['super'] = Super;
+        Sub.super = Super;
         Sub.extend = Super.extend;
 
         return Sub;

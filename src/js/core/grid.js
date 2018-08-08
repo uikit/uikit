@@ -8,8 +8,6 @@ export default {
 
     mixins: [Class],
 
-    attrs: true,
-
     name: 'grid',
 
     props: {

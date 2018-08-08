@@ -5,8 +5,6 @@ export default {
 
     mixins: [Class],
 
-    attrs: true,
-
     props: {
         top: null,
         bottom: Boolean,
