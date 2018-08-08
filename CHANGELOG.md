@@ -6,6 +6,10 @@
 
 - Pass error object to callback function instead of message only in Upload component
 
+### Fixed
+
+- Fix bug in `pointInRect` function
+
 ### Removed
 
 - Remove deprecated prevention of the 300ms delay for touch devices
