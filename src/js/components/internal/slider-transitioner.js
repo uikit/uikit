@@ -111,7 +111,7 @@ export default function (prev, next, dir, {center, easing, list}) {
 
                 triggerUpdate(slide, `itemtranslate${isActive ? 'in' : 'out'}`, {
                     percent: isActive ? 1 : 0,
-                    dir: bounds(slide).left <= bounds(next).left ? 1 : -1
+                    dir: slide.offsetLeft <= next.offsetLeft ? 1 : -1
                 });
             });
         }
