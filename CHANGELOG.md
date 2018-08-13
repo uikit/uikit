@@ -11,6 +11,10 @@
 
 - `UIkit.mixin` can now be used to extend existing components
 
+### Fixed
+
+- Fix Slider incorrectly showing navigation
+
 ## 3.0.0 rc 11 (August 8, 2018)
 
 ### Changed
