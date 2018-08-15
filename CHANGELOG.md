@@ -9,10 +9,12 @@
 
 ### Changed
 
+- Add more margin between accordion title and icon
 - `UIkit.mixin` can now be used to extend existing components
 
 ### Fixed
 
+- Fix accordion icon position if title is wrapping into the next line
 - Fix Slider incorrectly showing navigation
 
 ## 3.0.0 rc 11 (August 8, 2018)
