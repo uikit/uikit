@@ -12,6 +12,10 @@
 - Add more margin between accordion title and icon
 - `UIkit.mixin` can now be used to extend existing components
 
+### Removed
+
+- Remove fix for uppercase SVGs attributes in Edge on Windows 10 older than build 16251
+
 ### Fixed
 
 - Fix form placeholder color in Edge
@@ -24,13 +28,13 @@
 
 - Pass error object to callback function instead of message only in Upload component
 
-### Fixed
-
-- Fix bug in `pointInRect` function
-
 ### Removed
 
 - Remove deprecated prevention of the 300ms delay for touch devices
+
+### Fixed
+
+- Fix bug in `pointInRect` function
 
 ## 3.0.0 rc 10 (July 25, 2018)
 
