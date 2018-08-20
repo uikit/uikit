@@ -21,6 +21,7 @@
 - Fix form placeholder color in Edge
 - Fix accordion icon position if title is wrapping into the next line
 - Fix Slider incorrectly showing navigation
+- Fix element queuing in Scrollspy component
 
 ## 3.0.0 rc 11 (August 8, 2018)
 
