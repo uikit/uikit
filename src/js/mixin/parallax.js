@@ -222,9 +222,9 @@ export default {
                         }
 
                         const [x, y] = ['x', 'y'].map(dir => prop === dir
-                            ? value + unit
+                            ? toFloat(value).toFixed(0) + unit
                             : props[dir]
-                                ? getValue(props[dir].steps, percent) + props[dir].unit
+                                ? getValue(props[dir].steps, percent, 0) + props[dir].unit
                                 : 0
                         );
 
@@ -303,12 +303,12 @@ function getStep(steps, percent) {
     return step;
 }
 
-function getValue(steps, percent) {
+function getValue(steps, percent, digits = 2) {
     const [start, end, p] = getStep(steps, percent);
     return (isNumber(start)
             ? start + Math.abs(start - end) * p * (start < end ? 1 : -1)
             : +end
-    ).toFixed(2);
+    ).toFixed(digits);
 }
 
 function covers(el) {
