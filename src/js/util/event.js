@@ -96,9 +96,7 @@ function detail(listener) {
 }
 
 function isEventTarget(target) {
-    return 'EventTarget' in window
-        ? target instanceof EventTarget
-        : target && 'addEventListener' in target;
+    return target && 'addEventListener' in target;
 }
 
 function toEventTarget(target) {
