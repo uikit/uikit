@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.11 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.12 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -164,6 +164,7 @@ video {
 audio,
 canvas,
 img,
+svg,
 video {
   /* 1 */
   max-width: 100%;
@@ -746,7 +747,6 @@ a.uk-link-reset:hover,
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%226%22%20height%3D%226%22%20viewBox%3D%220%200%206%206%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22%23666%22%20cx%3D%223%22%20cy%3D%223%22%20r%3D%223%22%20%2F%3E%0A%3C%2Fsvg%3E");
   background-repeat: no-repeat;
   background-position: 50% 50%;
-  float: left;
 }
 /* Size modifier
  ========================================================================== */
@@ -1037,14 +1037,11 @@ button.uk-icon:not(:disabled) {
 }
 /*
  * Set the fill and stroke color of all SVG elements to the current text color
- * 1. Fix for uppercase attribute names in Edge. Will be fixed in Windows 10 builds 16251+
  */
-.uk-icon [fill*='#']:not(.uk-preserve),
-.uk-icon [FILL*='#']:not(.uk-preserve) {
+.uk-icon [fill*='#']:not(.uk-preserve) {
   fill: currentcolor;
 }
-.uk-icon [stroke*='#']:not(.uk-preserve),
-.uk-icon [STROKE*='#']:not(.uk-preserve) {
+.uk-icon [stroke*='#']:not(.uk-preserve) {
   stroke: currentcolor;
 }
 /*
@@ -1428,13 +1425,13 @@ button.uk-icon:not(:disabled) {
 /*
  * Placeholder
  */
-.uk-input:-ms-input-placeholder {
+.uk-input::-ms-input-placeholder {
   color: #999 !important;
 }
 .uk-input::placeholder {
   color: #999;
 }
-.uk-textarea:-ms-input-placeholder {
+.uk-textarea::-ms-input-placeholder {
   color: #999 !important;
 }
 .uk-textarea::placeholder {
@@ -4684,16 +4681,17 @@ ul.uk-nav-sub {
   color: #333;
   overflow: hidden;
 }
-.uk-accordion-title::after {
+.uk-accordion-title::before {
   content: "";
   width: 1.4em;
   height: 1.4em;
+  margin-left: 10px;
   float: right;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%221%22%20height%3D%2213%22%20x%3D%226%22%20y%3D%220%22%20%2F%3E%0A%3C%2Fsvg%3E");
   background-repeat: no-repeat;
   background-position: 50% 50%;
 }
-.uk-open > .uk-accordion-title::after {
+.uk-open > .uk-accordion-title::before {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22%23666%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%3C%2Fsvg%3E");
 }
 /* Hover + Focus */
@@ -5928,12 +5926,6 @@ ul.uk-nav-sub {
  ========================================================================== */
 .uk-sortable {
   position: relative;
-}
-/*
- * Deactivate browser touch actions in IE11 and Edge
- */
-.uk-sortable > * {
-  touch-action: none;
 }
 /*
  * Deactivate pointer-events on SVGs in Safari
@@ -7536,16 +7528,13 @@ iframe.uk-cover {
 /*
  * 1. Fill all SVG elements with the current text color if no `fill` attribute is set
  * 2. Set the fill and stroke color of all SVG elements to the current text color
- * 3. Fix for uppercase attribute names in Edge. Will be fixed in Windows 10 builds 16251+
  */
 /* 1 */
 .uk-svg,
-.uk-svg:not(.uk-preserve) [fill*='#']:not(.uk-preserve),
-.uk-svg:not(.uk-preserve) [FILL*='#']:not(.uk-preserve) {
+.uk-svg:not(.uk-preserve) [fill*='#']:not(.uk-preserve) {
   fill: currentcolor;
 }
-.uk-svg:not(.uk-preserve) [stroke*='#']:not(.uk-preserve),
-.uk-svg:not(.uk-preserve) [STROKE*='#']:not(.uk-preserve) {
+.uk-svg:not(.uk-preserve) [stroke*='#']:not(.uk-preserve) {
   stroke: currentcolor;
 }
 /*
@@ -8852,7 +8841,7 @@ iframe.uk-cover {
  ========================================================================== */
 /*
  * Hidden
- * Can't use `display: hidden` because it's not focusable. This is accessible through keyboard.
+ * Can't use `display: none` because it's not accessible through keyboard.
  */
 .uk-visible-toggle:not(:hover):not(.uk-hover) .uk-hidden-hover:not(:focus) {
   position: absolute !important;
@@ -8864,7 +8853,7 @@ iframe.uk-cover {
 }
 /*
  * Invisible
- * Can't use `visibility: hidden` because it's not focusable. This is accessible through keyboard.
+ * Can't use `visibility: hidden` because it's not accessible through keyboard.
  */
 .uk-visible-toggle:not(:hover):not(.uk-hover) .uk-invisible-hover:not(:focus) {
   opacity: 0 !important;
@@ -9769,17 +9758,17 @@ iframe.uk-cover {
   color: rgba(255, 255, 255, 0.7);
   border-color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-input:-ms-input-placeholder,
-.uk-section-primary:not(.uk-preserve-color) .uk-input:-ms-input-placeholder,
-.uk-section-secondary:not(.uk-preserve-color) .uk-input:-ms-input-placeholder,
-.uk-tile-primary:not(.uk-preserve-color) .uk-input:-ms-input-placeholder,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-input:-ms-input-placeholder,
-.uk-card-primary.uk-card-body .uk-input:-ms-input-placeholder,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-input:-ms-input-placeholder,
-.uk-card-secondary.uk-card-body .uk-input:-ms-input-placeholder,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-input:-ms-input-placeholder,
-.uk-overlay-primary .uk-input:-ms-input-placeholder,
-.uk-offcanvas-bar .uk-input:-ms-input-placeholder {
+.uk-light .uk-input::-ms-input-placeholder,
+.uk-section-primary:not(.uk-preserve-color) .uk-input::-ms-input-placeholder,
+.uk-section-secondary:not(.uk-preserve-color) .uk-input::-ms-input-placeholder,
+.uk-tile-primary:not(.uk-preserve-color) .uk-input::-ms-input-placeholder,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-input::-ms-input-placeholder,
+.uk-card-primary.uk-card-body .uk-input::-ms-input-placeholder,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-input::-ms-input-placeholder,
+.uk-card-secondary.uk-card-body .uk-input::-ms-input-placeholder,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-input::-ms-input-placeholder,
+.uk-overlay-primary .uk-input::-ms-input-placeholder,
+.uk-offcanvas-bar .uk-input::-ms-input-placeholder {
   color: rgba(255, 255, 255, 0.5) !important;
 }
 .uk-light .uk-input::placeholder,
@@ -9795,17 +9784,17 @@ iframe.uk-cover {
 .uk-offcanvas-bar .uk-input::placeholder {
   color: rgba(255, 255, 255, 0.5);
 }
-.uk-light .uk-textarea:-ms-input-placeholder,
-.uk-section-primary:not(.uk-preserve-color) .uk-textarea:-ms-input-placeholder,
-.uk-section-secondary:not(.uk-preserve-color) .uk-textarea:-ms-input-placeholder,
-.uk-tile-primary:not(.uk-preserve-color) .uk-textarea:-ms-input-placeholder,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-textarea:-ms-input-placeholder,
-.uk-card-primary.uk-card-body .uk-textarea:-ms-input-placeholder,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-textarea:-ms-input-placeholder,
-.uk-card-secondary.uk-card-body .uk-textarea:-ms-input-placeholder,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-textarea:-ms-input-placeholder,
-.uk-overlay-primary .uk-textarea:-ms-input-placeholder,
-.uk-offcanvas-bar .uk-textarea:-ms-input-placeholder {
+.uk-light .uk-textarea::-ms-input-placeholder,
+.uk-section-primary:not(.uk-preserve-color) .uk-textarea::-ms-input-placeholder,
+.uk-section-secondary:not(.uk-preserve-color) .uk-textarea::-ms-input-placeholder,
+.uk-tile-primary:not(.uk-preserve-color) .uk-textarea::-ms-input-placeholder,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-textarea::-ms-input-placeholder,
+.uk-card-primary.uk-card-body .uk-textarea::-ms-input-placeholder,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-textarea::-ms-input-placeholder,
+.uk-card-secondary.uk-card-body .uk-textarea::-ms-input-placeholder,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-textarea::-ms-input-placeholder,
+.uk-overlay-primary .uk-textarea::-ms-input-placeholder,
+.uk-offcanvas-bar .uk-textarea::-ms-input-placeholder {
   color: rgba(255, 255, 255, 0.5) !important;
 }
 .uk-light .uk-textarea::placeholder,
@@ -11763,30 +11752,30 @@ iframe.uk-cover {
 .uk-offcanvas-bar .uk-logo-inverse {
   display: inline;
 }
-.uk-light .uk-accordion-title::after,
-.uk-section-primary:not(.uk-preserve-color) .uk-accordion-title::after,
-.uk-section-secondary:not(.uk-preserve-color) .uk-accordion-title::after,
-.uk-tile-primary:not(.uk-preserve-color) .uk-accordion-title::after,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-accordion-title::after,
-.uk-card-primary.uk-card-body .uk-accordion-title::after,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-accordion-title::after,
-.uk-card-secondary.uk-card-body .uk-accordion-title::after,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-accordion-title::after,
-.uk-overlay-primary .uk-accordion-title::after,
-.uk-offcanvas-bar .uk-accordion-title::after {
+.uk-light .uk-accordion-title::before,
+.uk-section-primary:not(.uk-preserve-color) .uk-accordion-title::before,
+.uk-section-secondary:not(.uk-preserve-color) .uk-accordion-title::before,
+.uk-tile-primary:not(.uk-preserve-color) .uk-accordion-title::before,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-accordion-title::before,
+.uk-card-primary.uk-card-body .uk-accordion-title::before,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-accordion-title::before,
+.uk-card-secondary.uk-card-body .uk-accordion-title::before,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-accordion-title::before,
+.uk-overlay-primary .uk-accordion-title::before,
+.uk-offcanvas-bar .uk-accordion-title::before {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%20%20%20%20%3Crect%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20width%3D%221%22%20height%3D%2213%22%20x%3D%226%22%20y%3D%220%22%20%2F%3E%0A%3C%2Fsvg%3E");
 }
-.uk-light .uk-open > .uk-accordion-title::after,
-.uk-section-primary:not(.uk-preserve-color) .uk-open > .uk-accordion-title::after,
-.uk-section-secondary:not(.uk-preserve-color) .uk-open > .uk-accordion-title::after,
-.uk-tile-primary:not(.uk-preserve-color) .uk-open > .uk-accordion-title::after,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-open > .uk-accordion-title::after,
-.uk-card-primary.uk-card-body .uk-open > .uk-accordion-title::after,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-open > .uk-accordion-title::after,
-.uk-card-secondary.uk-card-body .uk-open > .uk-accordion-title::after,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-open > .uk-accordion-title::after,
-.uk-overlay-primary .uk-open > .uk-accordion-title::after,
-.uk-offcanvas-bar .uk-open > .uk-accordion-title::after {
+.uk-light .uk-open > .uk-accordion-title::before,
+.uk-section-primary:not(.uk-preserve-color) .uk-open > .uk-accordion-title::before,
+.uk-section-secondary:not(.uk-preserve-color) .uk-open > .uk-accordion-title::before,
+.uk-tile-primary:not(.uk-preserve-color) .uk-open > .uk-accordion-title::before,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-open > .uk-accordion-title::before,
+.uk-card-primary.uk-card-body .uk-open > .uk-accordion-title::before,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-open > .uk-accordion-title::before,
+.uk-card-secondary.uk-card-body .uk-open > .uk-accordion-title::before,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-open > .uk-accordion-title::before,
+.uk-overlay-primary .uk-open > .uk-accordion-title::before,
+.uk-offcanvas-bar .uk-open > .uk-accordion-title::before {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%3C%2Fsvg%3E");
 }
 /* ========================================================================

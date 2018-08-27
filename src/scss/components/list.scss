@@ -130,7 +130,6 @@ $internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D
     @include svg-fill($internal-list-bullet-image, "#000", $list-bullet-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    float: left;
     @if(mixin-exists(hook-list-bullet)) {@include hook-list-bullet();}
 }
 
