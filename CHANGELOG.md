@@ -1,18 +1,44 @@
 # Changelog
 
+## 3.0.0 rc 12 (August 27, 2018)
+
+### Added
+
+- Add responsiveness to SVGs in Base component
+- Make remaining components reactive
+- Boolean attributes coerce to `true` if the prop is defined as Boolean
+
+### Changed
+
+- Add more margin between accordion title and icon
+- `UIkit.mixin` can now be used to extend existing components
+
+### Removed
+
+- Remove fix for uppercase SVGs attributes in Edge on Windows 10 older than build 16251
+
+### Fixed
+
+- Fix form placeholder color in Edge
+- Fix accordion icon position if title is wrapping into the next line
+- Fix Slider incorrectly showing navigation
+- Fix element queuing in Scrollspy component
+- Fix parallax translating to subpixels
+- Fix issue with scrolling on mobile devices in Sortable component
+
 ## 3.0.0 rc 11 (August 8, 2018)
 
 ### Changed
 
 - Pass error object to callback function instead of message only in Upload component
 
-### Fixed
-
-- Fix bug in `pointInRect` function
-
 ### Removed
 
 - Remove deprecated prevention of the 300ms delay for touch devices
+
+### Fixed
+
+- Fix bug in `pointInRect` function
 
 ## 3.0.0 rc 10 (July 25, 2018)
 

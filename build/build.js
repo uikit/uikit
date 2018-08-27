@@ -12,7 +12,7 @@ argv._.forEach(arg => {
 const numArgs = Object.keys(argv).length;
 argv.all = argv.all || numArgs <= 1; // no arguments passed, so compile all
 
-const minify = !(argv.debug || argv.nominify || argv.nominify || argv.d);
+const minify = !(argv.debug || argv.nominify || argv.d);
 
 // TODO, reference camelize function from utils when seperated
 const camelizeRe = /-(\w)/g;

@@ -2,8 +2,6 @@ import {createEvent, css, Dimensions, endsWith, getImage, height, includes, isIn
 
 export default {
 
-    attrs: true,
-
     props: {
         dataSrc: String,
         dataSrcset: Boolean,

@@ -4,8 +4,6 @@ const svgs = {};
 
 export default {
 
-    attrs: true,
-
     props: {
         id: String,
         icon: String,

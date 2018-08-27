@@ -11,6 +11,7 @@
 // New
 //
 
+@accordion-icon-margin-left:                   10px;
 @accordion-icon-color:                         @global-color;
 @internal-accordion-open-image:                "../../images/backgrounds/accordion-open.svg";
 @internal-accordion-close-image:               "../../images/backgrounds/accordion-close.svg";
@@ -35,17 +36,18 @@
 
     overflow: hidden;
 
-    &::after {
+    &::before {
         content: "";
         width: (@accordion-title-line-height * 1em);
         height: (@accordion-title-line-height * 1em);
+        margin-left: @accordion-icon-margin-left;
         float: right;
         .svg-fill(@internal-accordion-close-image, "#000", @accordion-icon-color);
         background-repeat: no-repeat;
         background-position: 50% 50%;
     }
 
-    .uk-open > &::after { .svg-fill(@internal-accordion-open-image, "#000", @accordion-icon-color); }
+    .uk-open > &::before { .svg-fill(@internal-accordion-open-image, "#000", @accordion-icon-color); }
 
 }
 
@@ -73,8 +75,8 @@
 
 .hook-inverse() {
 
-    .uk-accordion-title::after { .svg-fill(@internal-accordion-close-image, "#000", @inverse-global-color); }
+    .uk-accordion-title::before { .svg-fill(@internal-accordion-close-image, "#000", @inverse-global-color); }
 
-    .uk-open > .uk-accordion-title::after { .svg-fill(@internal-accordion-open-image, "#000", @inverse-global-color); }
+    .uk-open > .uk-accordion-title::before { .svg-fill(@internal-accordion-open-image, "#000", @inverse-global-color); }
 
 }

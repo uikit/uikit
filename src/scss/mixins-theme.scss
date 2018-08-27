@@ -4,17 +4,18 @@
 
     overflow: hidden;
 
-    &::after {
+    &::before {
         content: "";
         width: ($accordion-title-line-height * 1em);
         height: ($accordion-title-line-height * 1em);
+        margin-left: $accordion-icon-margin-left;
         float: right;
         @include svg-fill($internal-accordion-close-image, "#000", $accordion-icon-color);
         background-repeat: no-repeat;
         background-position: 50% 50%;
     }
 
-    .uk-open > &::after { @include svg-fill($internal-accordion-open-image, "#000", $accordion-icon-color); }
+    .uk-open > &::before { @include svg-fill($internal-accordion-open-image, "#000", $accordion-icon-color); }
 
 }
 @mixin hook-accordion-title-hover(){}
@@ -25,12 +26,11 @@
 @mixin hook-inverse-accordion-title-hover(){}
 @mixin hook-inverse-component-accordion(){
 
-    .uk-accordion-title::after { @include svg-fill($internal-accordion-close-image, "#000", $inverse-global-color); }
+    .uk-accordion-title::before { @include svg-fill($internal-accordion-close-image, "#000", $inverse-global-color); }
 
-    .uk-open > .uk-accordion-title::after { @include svg-fill($internal-accordion-open-image, "#000", $inverse-global-color); }
+    .uk-open > .uk-accordion-title::before { @include svg-fill($internal-accordion-open-image, "#000", $inverse-global-color); }
 
 }
-@mixin hook-align-misc(){}
 @mixin hook-alert(){}
 @mixin hook-alert-close(){
     color: inherit;
@@ -69,6 +69,7 @@
 
 }
 @mixin hook-animation-misc(){}
+@mixin hook-align-misc(){}
 @mixin hook-article(){}
 @mixin hook-article-adjacent(){}
 @mixin hook-article-title(){}
@@ -858,10 +859,10 @@
     // Placeholder
     //
 
-    .uk-input:-ms-input-placeholder { color: $inverse-form-placeholder-color !important; }
+    .uk-input::-ms-input-placeholder { color: $inverse-form-placeholder-color !important; }
     .uk-input::placeholder { color: $inverse-form-placeholder-color; }
 
-    .uk-textarea:-ms-input-placeholder { color: $inverse-form-placeholder-color !important; }
+    .uk-textarea::-ms-input-placeholder { color: $inverse-form-placeholder-color !important; }
     .uk-textarea::placeholder { color: $inverse-form-placeholder-color; }
 
     //
@@ -1977,6 +1978,23 @@
     }
 
 }
+@mixin hook-text-lead(){}
+@mixin hook-text-meta(){
+
+    a { color: $text-meta-link-color; }
+
+    a:hover {
+        color: $text-meta-link-hover-color;
+        text-decoration: none;
+    }
+
+}
+@mixin hook-text-small(){}
+@mixin hook-text-large(){}
+@mixin hook-text-background(){}
+@mixin hook-text-misc(){}
+@mixin hook-inverse-text-lead(){}
+@mixin hook-inverse-text-meta(){}
 @mixin hook-thumbnav(){}
 @mixin hook-thumbnav-item(){
 
@@ -2020,23 +2038,6 @@
     }
 
 }
-@mixin hook-text-lead(){}
-@mixin hook-text-meta(){
-
-    a { color: $text-meta-link-color; }
-
-    a:hover {
-        color: $text-meta-link-hover-color;
-        text-decoration: none;
-    }
-
-}
-@mixin hook-text-small(){}
-@mixin hook-text-large(){}
-@mixin hook-text-background(){}
-@mixin hook-text-misc(){}
-@mixin hook-inverse-text-lead(){}
-@mixin hook-inverse-text-meta(){}
 @mixin hook-tile(){}
 @mixin hook-tile-default(){}
 @mixin hook-tile-muted(){}

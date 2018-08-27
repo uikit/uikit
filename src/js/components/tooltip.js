@@ -11,8 +11,6 @@ export default {
 
     args: 'title',
 
-    attrs: true,
-
     props: {
         delay: Number,
         title: String

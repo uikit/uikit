@@ -90,13 +90,10 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
 
 /*
  * Set the fill and stroke color of all SVG elements to the current text color
- * 1. Fix for uppercase attribute names in Edge. Will be fixed in Windows 10 builds 16251+
  */
 
-.uk-icon [fill*='#']:not(.uk-preserve),
-.uk-icon [FILL*='#']:not(.uk-preserve) { fill: currentcolor; } // 1
-.uk-icon [stroke*='#']:not(.uk-preserve),
-.uk-icon [STROKE*='#']:not(.uk-preserve) { stroke: currentcolor; } // 1
+.uk-icon [fill*='#']:not(.uk-preserve) { fill: currentcolor; }
+.uk-icon [stroke*='#']:not(.uk-preserve) { stroke: currentcolor; }
 
 /*
  * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835

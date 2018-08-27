@@ -5,8 +5,6 @@ export default {
 
     install,
 
-    attrs: true,
-
     props: {toggle: String},
 
     data: {toggle: 'a'},

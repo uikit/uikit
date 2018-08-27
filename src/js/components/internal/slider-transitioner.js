@@ -1,5 +1,5 @@
 import {translate} from '../../mixin/internal/slideshow-animations';
-import {clamp, createEvent, css, Deferred, includes, index, isRtl, noop, sortBy, toNodes, Transition, trigger} from 'uikit-util';
+import {clamp, createEvent, css, Deferred, includes, index, isRtl, noop, position, sortBy, toNodes, Transition, trigger} from 'uikit-util';
 
 export default function (prev, next, dir, {center, easing, list}) {
 
@@ -7,10 +7,10 @@ export default function (prev, next, dir, {center, easing, list}) {
 
     const from = prev
         ? getLeft(prev, list, center)
-        : getLeft(next, list, center) + next.offsetWidth * dir;
+        : getLeft(next, list, center) + bounds(next).width * dir;
     const to = next
         ? getLeft(next, list, center)
-        : from + prev.offsetWidth * dir * (isRtl ? -1 : 1);
+        : from + bounds(prev).width * dir * (isRtl ? -1 : 1);
 
     return {
 
@@ -60,7 +60,7 @@ export default function (prev, next, dir, {center, easing, list}) {
             css(list, 'transform', translate(clamp(
                 -to + (distance - distance * percent),
                 -getWidth(list),
-                list.offsetWidth
+                bounds(list).width
             ) * (isRtl ? -1 : 1), 'px'));
 
             this.updateTranslates();
@@ -97,7 +97,7 @@ export default function (prev, next, dir, {center, easing, list}) {
 
             return sortBy(slides(list).filter(slide => {
                 const slideLeft = getElLeft(slide, list);
-                return slideLeft >= left && slideLeft + slide.offsetWidth <= list.offsetWidth + left;
+                return slideLeft >= left && slideLeft + bounds(slide).width <= bounds(list).width + left;
             }), 'offsetLeft');
 
         },
@@ -131,23 +131,27 @@ function getLeft(el, list, center) {
 }
 
 export function getMax(list) {
-    return Math.max(0, getWidth(list) - list.offsetWidth);
+    return Math.max(0, getWidth(list) - bounds(list).width);
 }
 
 export function getWidth(list) {
-    return slides(list).reduce((right, el) => el.offsetWidth + right, 0);
+    return slides(list).reduce((right, el) => bounds(el).width + right, 0);
 }
 
 export function getMaxWidth(list) {
-    return slides(list).reduce((right, el) => Math.max(right, el.offsetWidth), 0);
+    return slides(list).reduce((right, el) => Math.max(right, bounds(el).width), 0);
 }
 
 function centerEl(el, list) {
-    return list.offsetWidth / 2 - el.offsetWidth / 2;
+    return bounds(list).width / 2 - bounds(el).width / 2;
 }
 
 export function getElLeft(el, list) {
-    return (el.offsetLeft + (isRtl ? el.offsetWidth - list.offsetWidth : 0)) * (isRtl ? -1 : 1);
+    return (position(el).left + (isRtl ? bounds(el).width - bounds(list).width : 0)) * (isRtl ? -1 : 1);
+}
+
+export function bounds(el) {
+    return el.getBoundingClientRect();
 }
 
 function triggerUpdate(el, type, data) {
