@@ -1,5 +1,10 @@
 /* global UIkit */
-import {addClass, append, attr, css, on, prepend, removeClass, ucfirst} from 'uikit-util';
+import {on} from '../../src/js/util/event';
+import {attr} from '../../src/js/util/attr';
+import {css} from '../../src/js/util/style';
+import {ucfirst} from '../../src/js/util/lang';
+import {append, prepend} from '../../src/js/util/dom';
+import {addClass, removeClass} from '../../src/js/util/class';
 
 const storage = window.sessionStorage;
 const key = '_uikit_style';
