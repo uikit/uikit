@@ -24,6 +24,7 @@
 - Fix Slider incorrectly showing navigation
 - Fix element queuing in Scrollspy component
 - Fix parallax translating to subpixels
+- Fix issue with scrolling on mobile devices in Sortable component
 
 ## 3.0.0 rc 11 (August 8, 2018)
 
