@@ -10,6 +10,7 @@
 
 ### Changed
 
+- Allow icons to shrink in Iconnav
 - Add more margin between accordion title and icon
 - `UIkit.mixin` can now be used to extend existing components
 
