@@ -262,13 +262,13 @@ video { vertical-align: middle; }
  * Responsiveness
  * 1. Set a maximum width
  * 2. Auto scale the height. Only needed if `height` attribute is present
- * 2. Corrects `max-width` behavior if padding and border are used
+ * 3. Corrects `max-width` behavior if padding and border are used
+ * 4. Exclude SVGs for IE11 because they don't preserve their aspect ratio
  */
 
 audio,
 canvas,
 img,
-svg,
 video {
     /* 1 */
     max-width: 100%;
@@ -276,6 +276,17 @@ video {
     height: auto;
     /* 3 */
     box-sizing: border-box;
+}
+
+/* 4 */
+@supports (display: block) {
+
+   svg {
+        max-width: 100%;
+        height: auto;
+        box-sizing: border-box;
+    }
+
 }
 
 /*
