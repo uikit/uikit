@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add border pill to Utility component
+
 ### Changed
 
 - Use `min-height` instead of `height` for navbar nav items
