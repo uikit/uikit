@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Use `min-height` instead of `height` for navbar nav items
+
 ### Fixed
 
 - Fix SVGs not preserving their aspect ratio in IE11
