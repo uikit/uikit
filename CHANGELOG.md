@@ -1,5 +1,15 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Responsive Component no longer sets `uk-responsive-width` class
+
+### Fixed
+
+- Fix SVGs not preserving their aspect ratio in IE11
+
 ## 3.0.0 rc 12 (August 27, 2018)
 
 ### Added
@@ -20,7 +30,6 @@
 
 ### Fixed
 
-- Fix SVGs not preserving their aspect ratio in IE11
 - Fix form placeholder color in Edge
 - Fix accordion icon position if title is wrapping into the next line
 - Fix Slider incorrectly showing navigation
