@@ -259,11 +259,10 @@ svg,
 video { vertical-align: middle; }
 
 /*
- * Responsiveness
- * 1. Set a maximum width
- * 2. Auto scale the height. Only needed if `height` attribute is present
- * 3. Corrects `max-width` behavior if padding and border are used
- * 4. Exclude SVGs for IE11 because they don't preserve their aspect ratio
+ * 1. Add responsiveness
+ * 2. Auto-scale the height. Only needed if `height` attribute is present.
+ * 3. Corrects responsive `max-width` behavior if padding and border are used.
+ * 4. Exclude SVGs for IE11 because they don't preserve their aspect ratio.
  */
 
 audio,
@@ -301,6 +300,13 @@ svg:not(:root) { overflow: hidden; }
  */
 
 img:not([src]) { visibility: hidden; }
+
+/*
+ * Iframe
+ * Remove border in all browsers
+ */
+
+iframe { border: 0; }
 
 
 /* Block elements
@@ -551,12 +557,6 @@ summary { display: list-item; }
  */
 
 template { display: none; }
-
-
-/* Iframe
- ========================================================================== */
-
-iframe { border: 0; }
 
 
 /* Pass media breakpoints to JS
