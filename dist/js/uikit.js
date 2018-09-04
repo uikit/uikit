@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.13 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.14 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1128,7 +1128,7 @@
     }
 
     function removeClasses(element, cls) {
-        attr(element, 'class', function (value) { return (value || '').replace(new RegExp(("\b" + cls + "\b"), 'g'), ''); });
+        attr(element, 'class', function (value) { return (value || '').replace(new RegExp(("\\b" + cls + "\\b"), 'g'), ''); });
     }
 
     function replaceClass(element) {
@@ -8040,7 +8040,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.13';
+    UIkit.version = '3.0.0-rc.14';
 
     core(UIkit);
 
