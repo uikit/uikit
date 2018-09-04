@@ -42,10 +42,6 @@ export function removeAttr(element, name) {
     );
 }
 
-export function filterAttr(element, attribute, pattern, replacement) {
-    attr(element, attribute, value => value ? value.replace(pattern, replacement) : value);
-}
-
 export function data(element, attribute) {
     for (let i = 0, attrs = [attribute, `data-${attribute}`]; i < attrs.length; i++) {
         if (hasAttr(element, attrs[i])) {

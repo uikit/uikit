@@ -10,6 +10,11 @@
 
 - Use `min-height` instead of `height` for navbar nav items
 
+### Removed
+
+- Remove `filterAttr` function
+
+
 ### Fixed
 
 - Fix SVGs not preserving their aspect ratio in IE11

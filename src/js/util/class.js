@@ -1,4 +1,4 @@
-import {filterAttr} from './attr';
+import {attr} from './attr';
 import {includes, isString, isUndefined, toNodes} from './lang';
 
 export function addClass(element, ...args) {
@@ -10,7 +10,7 @@ export function removeClass(element, ...args) {
 }
 
 export function removeClasses(element, cls) {
-    filterAttr(element, 'class', new RegExp(`(^|\\s)${cls}(?!\\S)`, 'g'), '');
+    attr(element, 'class', value => (value || '').replace(new RegExp(`\b${cls}\b`, 'g'), ''));
 }
 
 export function replaceClass(element, ...args) {
