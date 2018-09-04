@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.12 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.13 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -323,10 +323,6 @@
         name.split(' ').forEach(function (name) { return element.forEach(function (element) { return element.removeAttribute(name); }
             ); }
         );
-    }
-
-    function filterAttr(element, attribute, pattern, replacement) {
-        attr(element, attribute, function (value) { return value ? value.replace(pattern, replacement) : value; });
     }
 
     function data(element, attribute) {
@@ -940,9 +936,9 @@
             img.onerror = reject;
             img.onload = function () { return resolve(img); };
 
-            img.src = src;
-            srcset && (img.srcset = srcset);
             sizes && (img.sizes = sizes);
+            srcset && (img.srcset = srcset);
+            img.src = src;
         });
 
     }
@@ -1132,7 +1128,7 @@
     }
 
     function removeClasses(element, cls) {
-        filterAttr(element, 'class', new RegExp(("(^|\\s)" + cls + "(?!\\S)"), 'g'), '');
+        attr(element, 'class', function (value) { return (value || '').replace(new RegExp(("\b" + cls + "\b"), 'g'), ''); });
     }
 
     function replaceClass(element) {
@@ -2557,7 +2553,6 @@
         attr: attr,
         hasAttr: hasAttr,
         removeAttr: removeAttr,
-        filterAttr: filterAttr,
         data: data,
         addClass: addClass,
         removeClass: removeClass,
@@ -5834,9 +5829,9 @@
     function setSrcAttrs(el, src, srcset, sizes) {
 
         if (isImg(el)) {
-            src && (el.src = src);
-            srcset && (el.srcset = srcset);
             sizes && (el.sizes = sizes);
+            srcset && (el.srcset = srcset);
+            src && (el.src = src);
         } else if (src) {
 
             var change = !includes(el.style.backgroundImage, src);
@@ -8045,7 +8040,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.12';
+    UIkit.version = '3.0.0-rc.13';
 
     core(UIkit);
 

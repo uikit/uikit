@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.12 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.13 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -156,15 +156,14 @@ video {
   vertical-align: middle;
 }
 /*
- * Responsiveness
- * 1. Set a maximum width
- * 2. Auto scale the height. Only needed if `height` attribute is present
- * 2. Corrects `max-width` behavior if padding and border are used
+ * 1. Add responsiveness.
+ * 2. Auto-scale the height. Only needed if `height` attribute is present.
+ * 3. Corrects responsive `max-width` behavior if padding and border are used.
+ * 4. Exclude SVGs for IE11 because they don't preserve their aspect ratio.
  */
 audio,
 canvas,
 img,
-svg,
 video {
   /* 1 */
   max-width: 100%;
@@ -172,6 +171,14 @@ video {
   height: auto;
   /* 3 */
   box-sizing: border-box;
+}
+/* 4 */
+@supports (display: block) {
+  svg {
+    max-width: 100%;
+    height: auto;
+    box-sizing: border-box;
+  }
 }
 /*
  * Hide the overflow in IE.
@@ -185,6 +192,13 @@ svg:not(:root) {
  */
 img:not([src]) {
   visibility: hidden;
+}
+/*
+ * Iframe
+ * Remove border in all browsers
+ */
+iframe {
+  border: 0;
 }
 /* Block elements
  ========================================================================== */
@@ -428,11 +442,6 @@ summary {
  */
 template {
   display: none;
-}
-/* Iframe
- ========================================================================== */
-iframe {
-  border: 0;
 }
 /* Pass media breakpoints to JS
  ========================================================================== */
@@ -1802,15 +1811,14 @@ select.uk-form-width-xsmall {
 /*
  * 1. Remove margins in Chrome, Safari and Opera.
  * 2. Remove borders for `button`.
- * 3. Remove border-radius in Chrome.
- * 4. Address `overflow` set to `hidden` in IE.
- * 5. Correct `font` properties and `color` not being inherited for `button`.
- * 6. Remove the inheritance of text transform in Edge, Firefox, and IE.
- * 7. Style
- * 8. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
+ * 3. Address `overflow` set to `hidden` in IE.
+ * 4. Correct `font` properties and `color` not being inherited for `button`.
+ * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 6. Style
+ * 7. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
  *    Better would be to use height and flexbox to center the text vertically but flexbox doesn't work in Firefox on `button` elements.
- * 9. Align text if button has a width
- * 10. Required for `a`.
+ * 8. Align text if button has a width
+ * 9. Required for `a`.
  */
 .uk-button {
   /* 1 */
@@ -1818,25 +1826,23 @@ select.uk-form-width-xsmall {
   /* 2 */
   border: none;
   /* 3 */
-  border-radius: 0;
-  /* 4 */
   overflow: visible;
-  /* 5 */
+  /* 4 */
   font: inherit;
   color: inherit;
-  /* 6 */
+  /* 5 */
   text-transform: none;
-  /* 7 */
+  /* 6 */
   display: inline-block;
   box-sizing: border-box;
   padding: 0 30px;
   vertical-align: middle;
   font-size: 0.875rem;
-  /* 8 */
+  /* 7 */
   line-height: 38px;
-  /* 9 */
+  /* 8 */
   text-align: center;
-  /* 10 */
+  /* 9 */
   text-decoration: none;
   text-transform: uppercase;
   transition: 0.1s ease-in-out;
@@ -1854,7 +1860,7 @@ select.uk-form-width-xsmall {
 }
 /* Hover */
 .uk-button:hover {
-  /* 8 */
+  /* 9 */
   text-decoration: none;
 }
 /* Focus */
@@ -3870,7 +3876,7 @@ ul.uk-nav-sub {
   align-items: center;
   /* 2 */
   box-sizing: border-box;
-  height: 80px;
+  min-height: 80px;
   padding: 0 15px;
   /* 3 */
   font-size: 0.875rem;
@@ -5642,13 +5648,11 @@ ul.uk-nav-sub {
   margin-right: -10px;
 }
 /*
- * 1. Space is allocated solely based on content dimensions: 0 0 auto
- * 2. Gutter
+ * Space is allocated based on content dimensions, but shrinks: 0 1 auto
+ * 1. Gutter
  */
 .uk-iconnav > * {
   /* 1 */
-  flex: none;
-  /* 2 */
   padding-right: 10px;
 }
 /* Items
@@ -7724,6 +7728,9 @@ iframe.uk-cover {
  ========================================================================== */
 .uk-border-circle {
   border-radius: 50%;
+}
+.uk-border-pill {
+  border-radius: 500px;
 }
 .uk-border-rounded {
   border-radius: 5px;
