@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.0 rc 14 (September 4, 2018)
+
+### Fixed
+
+- Fix regression in `removeClasses` function
+
 ## 3.0.0 rc 13 (September 4, 2018)
 
 ### Added

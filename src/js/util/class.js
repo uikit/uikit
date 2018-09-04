@@ -10,7 +10,7 @@ export function removeClass(element, ...args) {
 }
 
 export function removeClasses(element, cls) {
-    attr(element, 'class', value => (value || '').replace(new RegExp(`\b${cls}\b`, 'g'), ''));
+    attr(element, 'class', value => (value || '').replace(new RegExp(`\\b${cls}\\b`, 'g'), ''));
 }
 
 export function replaceClass(element, ...args) {
