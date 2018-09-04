@@ -122,9 +122,9 @@ export default {
 function setSrcAttrs(el, src, srcset, sizes) {
 
     if (isImg(el)) {
-        src && (el.src = src);
-        srcset && (el.srcset = srcset);
         sizes && (el.sizes = sizes);
+        srcset && (el.srcset = srcset);
+        src && (el.src = src);
     } else if (src) {
 
         const change = !includes(el.style.backgroundImage, src);

@@ -14,10 +14,10 @@
 
 - Remove `filterAttr` function
 
-
 ### Fixed
 
 - Fix SVGs not preserving their aspect ratio in IE11
+- Fix lazy loading images in Edge
 
 ## 3.0.0 rc 12 (August 27, 2018)
 
