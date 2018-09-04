@@ -1,5 +1,24 @@
 # Changelog
 
+## 3.0.0 rc 13 (September 4, 2018)
+
+### Added
+
+- Add border pill to Utility component
+
+### Changed
+
+- Use `min-height` instead of `height` for navbar nav items
+
+### Removed
+
+- Remove `filterAttr` function
+
+### Fixed
+
+- Fix SVGs not preserving their aspect ratio in IE11
+- Fix lazy loading images in Edge
+
 ## 3.0.0 rc 12 (August 27, 2018)
 
 ### Added
@@ -10,6 +29,7 @@
 
 ### Changed
 
+- Allow icons to shrink in Iconnav
 - Add more margin between accordion title and icon
 - `UIkit.mixin` can now be used to extend existing components
 

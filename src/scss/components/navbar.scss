@@ -222,7 +222,7 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
     align-items: center;
     /* 2 */
     box-sizing: border-box;
-    height: $navbar-nav-item-height;
+    min-height: $navbar-nav-item-height;
     padding: 0 $navbar-nav-item-padding-horizontal;
     /* 3 */
     font-size: $navbar-nav-item-font-size;

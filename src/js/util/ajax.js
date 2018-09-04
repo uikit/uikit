@@ -62,9 +62,9 @@ export function getImage(src, srcset, sizes) {
         img.onerror = reject;
         img.onload = () => resolve(img);
 
-        img.src = src;
-        srcset && (img.srcset = srcset);
         sizes && (img.sizes = sizes);
+        srcset && (img.srcset = srcset);
+        img.src = src;
     });
 
 }
