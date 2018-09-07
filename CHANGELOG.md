@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix `isInView` function for elements with zero width and height
+
 ## 3.0.0 rc 14 (September 4, 2018)
 
 ### Fixed
