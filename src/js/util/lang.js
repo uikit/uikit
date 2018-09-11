@@ -88,7 +88,7 @@ export function isJQuery(obj) {
 }
 
 export function isNode(obj) {
-    return obj instanceof Node || isObject(obj) && obj.nodeType === 1;
+    return obj instanceof Node || isObject(obj) && obj.nodeType >= 1;
 }
 
 const {toString} = objPrototype;

@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.14 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.15 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -96,7 +96,7 @@
     }
 
     function isNode(obj) {
-        return obj instanceof Node || isObject(obj) && obj.nodeType === 1;
+        return obj instanceof Node || isObject(obj) && obj.nodeType >= 1;
     }
 
     var toString = objPrototype.toString;
@@ -1815,16 +1815,19 @@
         }
 
         element = toNode(element);
+
         var win = window$1(element);
+        var client, bounding;
 
         if (relativeToViewport) {
 
-            return intersectRect(element.getBoundingClientRect(), {
+            client = element.getBoundingClientRect();
+            bounding = {
                 top: -topOffset,
                 left: -leftOffset,
                 bottom: topOffset + height(win),
                 right: leftOffset + width(win)
-            });
+            };
 
         } else {
 
@@ -1834,21 +1837,21 @@
             var top = win.pageYOffset;
             var left = win.pageXOffset;
 
-            return intersectRect(
-                {
-                    top: elTop,
-                    left: elLeft,
-                    bottom: elTop + element.offsetHeight,
-                    right: elTop + element.offsetWidth
-                },
-                {
-                    top: top - topOffset,
-                    left: left - leftOffset,
-                    bottom: top + topOffset + height(win),
-                    right: left + leftOffset + width(win)
-                }
-            );
+            client = {
+                top: elTop,
+                left: elLeft,
+                bottom: elTop + element.offsetHeight,
+                right: elTop + element.offsetWidth
+            };
+            bounding = {
+                top: top - topOffset,
+                left: left - leftOffset,
+                bottom: top + topOffset + height(win),
+                right: left + leftOffset + width(win)
+            };
         }
+
+        return intersectRect(client, bounding) || pointInRect({x: client.left, y: client.top}, bounding);
 
     }
 
@@ -6928,27 +6931,27 @@
         mixins: [Class],
 
         props: {
-            selModal: String,
-            selPanel: String,
+            selContainer: String,
+            selContent: String,
         },
 
         data: {
-            selModal: '.uk-modal',
-            selPanel: '.uk-modal-dialog',
+            selContainer: '.uk-container',
+            selContent: '.uk-modal-dialog',
         },
 
         computed: {
 
-            modal: function(ref, $el) {
-                var selModal = ref.selModal;
+            container: function(ref, $el) {
+                var selContainer = ref.selContainer;
 
-                return closest($el, selModal);
+                return closest($el, selContainer);
             },
 
-            panel: function(ref, $el) {
-                var selPanel = ref.selPanel;
+            content: function(ref, $el) {
+                var selContent = ref.selContent;
 
-                return closest($el, selPanel);
+                return closest($el, selContent);
             }
 
         },
@@ -6961,13 +6964,13 @@
 
             read: function() {
 
-                if (!this.panel || !this.modal) {
+                if (!this.content || !this.container) {
                     return false;
                 }
 
                 return {
                     current: toFloat(css(this.$el, 'maxHeight')),
-                    max: Math.max(150, height(this.modal) - (offset(this.panel).height - height(this.$el)))
+                    max: Math.max(150, height(this.container) - (offset(this.content).height - height(this.$el)))
                 };
             },
 
@@ -8040,7 +8043,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.14';
+    UIkit.version = '3.0.0-rc.15';
 
     core(UIkit);
 

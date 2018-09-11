@@ -1,7 +1,7 @@
 import {css} from './style';
 import {attr} from './attr';
 import {isVisible} from './filter';
-import {clamp, each, endsWith, includes, intersectRect, isDocument, isUndefined, isWindow, toFloat, toNode, ucfirst} from './lang';
+import {clamp, each, endsWith, includes, intersectRect, isDocument, isUndefined, isWindow, pointInRect, toFloat, toNode, ucfirst} from './lang';
 
 const dirs = {
     width: ['x', 'left', 'right'],
@@ -297,37 +297,40 @@ export function isInView(element, topOffset = 0, leftOffset = 0, relativeToViewp
     }
 
     element = toNode(element);
+
     const win = window(element);
+    let client, bounding;
 
     if (relativeToViewport) {
 
-        return intersectRect(element.getBoundingClientRect(), {
+        client = element.getBoundingClientRect();
+        bounding = {
             top: -topOffset,
             left: -leftOffset,
             bottom: topOffset + height(win),
             right: leftOffset + width(win)
-        });
+        };
 
     } else {
 
         const [elTop, elLeft] = offsetPosition(element);
         const {pageYOffset: top, pageXOffset: left} = win;
 
-        return intersectRect(
-            {
-                top: elTop,
-                left: elLeft,
-                bottom: elTop + element.offsetHeight,
-                right: elTop + element.offsetWidth
-            },
-            {
-                top: top - topOffset,
-                left: left - leftOffset,
-                bottom: top + topOffset + height(win),
-                right: left + leftOffset + width(win)
-            }
-        );
+        client = {
+            top: elTop,
+            left: elLeft,
+            bottom: elTop + element.offsetHeight,
+            right: elTop + element.offsetWidth
+        };
+        bounding = {
+            top: top - topOffset,
+            left: left - leftOffset,
+            bottom: top + topOffset + height(win),
+            right: left + leftOffset + width(win)
+        };
     }
+
+    return intersectRect(client, bounding) || pointInRect({x: client.left, y: client.top}, bounding);
 
 }
 

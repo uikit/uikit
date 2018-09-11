@@ -1054,54 +1054,6 @@
     }
 
 }
-@mixin hook-label(){
-    border-radius: $label-border-radius;
-    text-transform: $label-text-transform;
-}
-@mixin hook-label-success(){}
-@mixin hook-label-warning(){}
-@mixin hook-label-danger(){}
-@mixin hook-label-misc(){}
-@mixin hook-inverse-label(){}
-@mixin hook-inverse-component-label(){
-
-    .uk-label {
-        background-color: $inverse-label-background;
-        color: $inverse-label-color;
-        @if(mixin-exists(hook-inverse-label)) {@include hook-inverse-label();}
-    }
-
-}
-@mixin hook-leader(){}
-@mixin hook-leader-misc(){}
-@mixin hook-inverse-leader(){}
-@mixin hook-inverse-component-leader(){
-
-    .uk-leader-fill {
-        @if(mixin-exists(hook-inverse-leader)) {@include hook-inverse-leader();}
-    }
-
-}
-@mixin hook-lightbox(){}
-@mixin hook-lightbox-item(){}
-@mixin hook-lightbox-toolbar(){}
-@mixin hook-lightbox-toolbar-icon(){}
-@mixin hook-lightbox-toolbar-icon-hover(){}
-@mixin hook-lightbox-button(){}
-@mixin hook-lightbox-button-hover(){}
-@mixin hook-lightbox-misc(){}
-@mixin hook-link-muted(){}
-@mixin hook-link-muted-hover(){}
-@mixin hook-link-text(){}
-@mixin hook-link-text-hover(){}
-@mixin hook-link-heading(){}
-@mixin hook-link-heading-hover(){}
-@mixin hook-link-reset(){}
-@mixin hook-link-misc(){}
-@mixin hook-inverse-link-muted(){}
-@mixin hook-inverse-link-muted-hover(){}
-@mixin hook-inverse-link-text-hover(){}
-@mixin hook-inverse-link-heading-hover(){}
 @mixin hook-inverse-component-link(){
 
     a.uk-link-muted,
@@ -1129,27 +1081,6 @@
     }
 
 }
-@mixin hook-list-divider(){}
-@mixin hook-list-striped(){
-
-    &:nth-of-type(odd) {
-        border-top: $list-striped-border-width solid $list-striped-border;
-        border-bottom: $list-striped-border-width solid $list-striped-border;
-    }
-
-}
-@mixin hook-list-bullet(){}
-@mixin hook-list-misc(){}
-@mixin hook-inverse-list-divider(){}
-@mixin hook-inverse-list-striped(){
-
-    &:nth-of-type(odd) {
-        border-top-color: $inverse-global-border;
-        border-bottom-color: $inverse-global-border;
-    }
-
-}
-@mixin hook-inverse-list-bullet(){}
 @mixin hook-inverse-component-list(){
 
     .uk-list-divider > li:nth-child(n+2) {
@@ -1169,29 +1100,6 @@
     }
 
 }
-@mixin hook-margin-misc(){}
-@mixin hook-marker(){
-    border-radius: 500px;
-}
-@mixin hook-marker-hover(){}
-@mixin hook-marker-misc(){}
-@mixin hook-inverse-marker(){}
-@mixin hook-inverse-marker-hover(){}
-@mixin hook-inverse-component-marker(){
-
-    .uk-marker {
-        background: $inverse-marker-background;
-        color: $inverse-marker-color;
-        @if(mixin-exists(hook-inverse-marker)) {@include hook-inverse-marker();}
-    }
-
-    .uk-marker:hover,
-    .uk-marker:focus {
-        color: $inverse-marker-hover-color;
-        @if(mixin-exists(hook-inverse-marker-hover)) {@include hook-inverse-marker-hover();}
-    }
-
-}
 @mixin hook-inverse-component-totop(){
 
     .uk-totop {
@@ -1208,6 +1116,15 @@
     .uk-totop:active {
         color: $inverse-totop-active-color;
         @if(mixin-exists(hook-inverse-totop-active)) {@include hook-inverse-totop-active();}
+    }
+
+}
+@mixin hook-inverse-component-label(){
+
+    .uk-label {
+        background-color: $inverse-label-background;
+        color: $inverse-label-color;
+        @if(mixin-exists(hook-inverse-label)) {@include hook-inverse-label();}
     }
 
 }
@@ -1600,6 +1517,89 @@
     @include hook-inverse-component-column();
     @include hook-inverse-component-utility();
 }
+@mixin hook-label(){
+    border-radius: $label-border-radius;
+    text-transform: $label-text-transform;
+}
+@mixin hook-label-success(){}
+@mixin hook-label-warning(){}
+@mixin hook-label-danger(){}
+@mixin hook-label-misc(){}
+@mixin hook-inverse-label(){}
+@mixin hook-leader(){}
+@mixin hook-leader-misc(){}
+@mixin hook-inverse-leader(){}
+@mixin hook-inverse-component-leader(){
+
+    .uk-leader-fill {
+        @if(mixin-exists(hook-inverse-leader)) {@include hook-inverse-leader();}
+    }
+
+}
+@mixin hook-lightbox(){}
+@mixin hook-lightbox-item(){}
+@mixin hook-lightbox-toolbar(){}
+@mixin hook-lightbox-toolbar-icon(){}
+@mixin hook-lightbox-toolbar-icon-hover(){}
+@mixin hook-lightbox-button(){}
+@mixin hook-lightbox-button-hover(){}
+@mixin hook-lightbox-misc(){}
+@mixin hook-link-muted(){}
+@mixin hook-link-muted-hover(){}
+@mixin hook-link-text(){}
+@mixin hook-link-text-hover(){}
+@mixin hook-link-heading(){}
+@mixin hook-link-heading-hover(){}
+@mixin hook-link-reset(){}
+@mixin hook-link-misc(){}
+@mixin hook-inverse-link-muted(){}
+@mixin hook-inverse-link-muted-hover(){}
+@mixin hook-inverse-link-text-hover(){}
+@mixin hook-inverse-link-heading-hover(){}
+@mixin hook-list-divider(){}
+@mixin hook-list-striped(){
+
+    &:nth-of-type(odd) {
+        border-top: $list-striped-border-width solid $list-striped-border;
+        border-bottom: $list-striped-border-width solid $list-striped-border;
+    }
+
+}
+@mixin hook-list-bullet(){}
+@mixin hook-list-misc(){}
+@mixin hook-inverse-list-divider(){}
+@mixin hook-inverse-list-striped(){
+
+    &:nth-of-type(odd) {
+        border-top-color: $inverse-global-border;
+        border-bottom-color: $inverse-global-border;
+    }
+
+}
+@mixin hook-inverse-list-bullet(){}
+@mixin hook-margin-misc(){}
+@mixin hook-marker(){
+    border-radius: 500px;
+}
+@mixin hook-marker-hover(){}
+@mixin hook-marker-misc(){}
+@mixin hook-inverse-marker(){}
+@mixin hook-inverse-marker-hover(){}
+@mixin hook-inverse-component-marker(){
+
+    .uk-marker {
+        background: $inverse-marker-background;
+        color: $inverse-marker-color;
+        @if(mixin-exists(hook-inverse-marker)) {@include hook-inverse-marker();}
+    }
+
+    .uk-marker:hover,
+    .uk-marker:focus {
+        color: $inverse-marker-hover-color;
+        @if(mixin-exists(hook-inverse-marker-hover)) {@include hook-inverse-marker-hover();}
+    }
+
+}
 @mixin hook-modal(){}
 @mixin hook-modal-dialog(){}
 @mixin hook-modal-full(){}
@@ -1649,14 +1649,6 @@
 @mixin hook-inverse-nav-primary-item-active(){}
 @mixin hook-inverse-nav-primary-header(){}
 @mixin hook-inverse-nav-primary-divider(){}
-@mixin hook-notification(){}
-@mixin hook-notification-message(){}
-@mixin hook-notification-close(){}
-@mixin hook-notification-message-primary(){}
-@mixin hook-notification-message-success(){}
-@mixin hook-notification-message-warning(){}
-@mixin hook-notification-message-danger(){}
-@mixin hook-notification-misc(){}
 @mixin hook-navbar(){}
 @mixin hook-navbar-container(){}
 @mixin hook-navbar-nav-item(){
@@ -1730,6 +1722,14 @@
 @mixin hook-inverse-navbar-item(){}
 @mixin hook-inverse-navbar-toggle(){}
 @mixin hook-inverse-navbar-toggle-hover(){}
+@mixin hook-notification(){}
+@mixin hook-notification-message(){}
+@mixin hook-notification-close(){}
+@mixin hook-notification-message-primary(){}
+@mixin hook-notification-message-success(){}
+@mixin hook-notification-message-warning(){}
+@mixin hook-notification-message-danger(){}
+@mixin hook-notification-misc(){}
 @mixin hook-offcanvas-bar(){}
 @mixin hook-offcanvas-close(){}
 @mixin hook-offcanvas-overlay(){}

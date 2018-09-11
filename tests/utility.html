@@ -156,6 +156,80 @@
                 </div>
             </div>
 
+            <h2>Overflow Auto JS</h2>
+
+            <div class="uk-child-width-1-2@m" uk-grid>
+                <div>
+
+                    <div class="uk-height-medium">
+                        <div class="js-wrapper">
+
+                            <p>Some content before the overflow auto container.</p>
+
+                            <div uk-overflow-auto="selContainer: .uk-height-medium; selContent: .js-wrapper">
+                                <div class="uk-grid-small" uk-grid>
+                                    <div class="uk-width-1-2"><img src="images/light.jpg" alt=""></div>
+                                    <div class="uk-width-1-2"><img src="images/dark.jpg" alt=""></div>
+                                </div>
+                            </div>
+
+                            <p>Some content after the overflow auto container.</p>
+
+                        </div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <div class="uk-height-medium">
+                        <div class="js-wrapper">
+
+                            <p>Some content before the overflow auto container.</p>
+
+                            <div uk-overflow-auto="selContainer: .uk-height-medium; selContent: .js-wrapper">
+                                <div class="uk-grid-small" uk-grid>
+                                    <div class="uk-width-1-2"><img src="images/light.jpg" alt=""></div>
+                                    <div class="uk-width-1-2"><img src="images/dark.jpg" alt=""></div>
+                                    <div class="uk-width-1-2"><img src="images/photo.jpg" alt=""></div>
+                                    <div class="uk-width-1-2"><img src="images/photo2.jpg" alt=""></div>
+                                </div>
+                            </div>
+
+                            <p>Some content after the overflow auto container.</p>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h3>JavaScript Options</h3>
+
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Value</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>selContainer</code></td>
+                        <td>CSS selector</td>
+                        <td><code>.uk-modal</code></td>
+                        <td>The container element which provides the height.</td>
+                    </tr>
+                    <tr>
+                        <td><code>selContent</code></td>
+                        <td>CSS selector</td>
+                        <td><code>.uk-modal-dialog</code></td>
+                        <td>The element which wraps the inner content to provide its height.</td>
+                    </tr>
+                </tbody>
+            </table>
+
             <h2>Responsive Objects</h2>
 
             <div class="uk-child-width-1-3@s" uk-grid>

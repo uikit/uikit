@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.0.0 rc 15 (September 11, 2018)
+
+### Changed
+
+- Rename `selModal` to `selContainer` and `selPanel` to `selContent` in Overflow Auto component
+
+### Fixed
+
+- Fix `isInView` function for elements with zero width and height
+
 ## 3.0.0 rc 14 (September 4, 2018)
 
 ### Fixed
