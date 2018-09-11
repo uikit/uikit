@@ -4,7 +4,7 @@
 
 ### Changed
 
-- Rename selModal to selContainer adn selPanel to selContent in Overflow Auto component
+- Rename `selModal` to `selContainer` and `selPanel` to `selContent` in Overflow Auto component
 
 ### Fixed
 
