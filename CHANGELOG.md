@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Rename selModal to selContainer adn selPanel to selContent in Overflow Auto component
+
 ### Fixed
 
 - Fix `isInView` function for elements with zero width and height
