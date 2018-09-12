@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.0 rc 16 (September 12, 2018)
+
+### Fixed
+
+- Fix regression in Overflow Auto component
+
 ## 3.0.0 rc 15 (September 11, 2018)
 
 ### Changed

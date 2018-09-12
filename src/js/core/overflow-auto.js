@@ -11,7 +11,7 @@ export default {
     },
 
     data: {
-        selContainer: '.uk-container',
+        selContainer: '.uk-modal',
         selContent: '.uk-modal-dialog',
     },
 
