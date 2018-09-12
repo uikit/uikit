@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.15 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.16 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -6936,7 +6936,7 @@
         },
 
         data: {
-            selContainer: '.uk-container',
+            selContainer: '.uk-modal',
             selContent: '.uk-modal-dialog',
         },
 
@@ -8043,7 +8043,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.15';
+    UIkit.version = '3.0.0-rc.16';
 
     core(UIkit);
 
