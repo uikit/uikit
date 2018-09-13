@@ -1,5 +1,11 @@
 # Changelog
 
+## WP
+
+### Removed
+
+- Remove `::-moz-selection` which is not needed anymore
+
 ## 3.0.0 rc 16 (September 12, 2018)
 
 ### Fixed
