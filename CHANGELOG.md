@@ -2,6 +2,10 @@
 
 ## WP
 
+### Changed
+
+- Viewport Height component no longer sets a `height` except for IE  
+
 ### Removed
 
 - Remove `::-moz-selection` which is not needed anymore
