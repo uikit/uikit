@@ -12,9 +12,9 @@
 
 ### Fixed
 
+- Fix `UIkit.mixin()` 
 - Fix issue with list bullet in combination with multi column layouts
 - Allow for special characters in URI hash in Scroll Component
-- Fix `UIkit.mixin`
 
 ## 3.0.0 rc 16 (September 12, 2018)
 
