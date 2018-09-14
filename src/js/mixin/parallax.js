@@ -105,95 +105,91 @@ export default {
         delete this._image;
     },
 
-    update: [
+    update: {
 
-        {
+        read(data) {
 
-            read(data) {
+            data.active = !this.media || window.matchMedia(this.media).matches;
 
-                data.active = !this.media || window.matchMedia(this.media).matches;
+            if (data.image) {
+                data.image.dimEl = {
+                    width: this.$el.offsetWidth,
+                    height: this.$el.offsetHeight
+                };
+            }
 
-                if (data.image) {
-                    data.image.dimEl = {
-                        width: this.$el.offsetWidth,
-                        height: this.$el.offsetHeight
-                    };
-                }
+            if ('image' in data || !this.covers || !this.bgProps.length) {
+                return;
+            }
 
-                if ('image' in data || !this.covers || !this.bgProps.length) {
+            const src = css(this.$el, 'backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
+
+            if (!src) {
+                return;
+            }
+
+            data.image = false;
+
+            getImage(src).then(img => {
+                data.image = {
+                    width: img.naturalWidth,
+                    height: img.naturalHeight
+                };
+
+                this.$emit();
+            });
+
+        },
+
+        write({image, active}) {
+
+            if (!image) {
+                return;
+            }
+
+            if (!active) {
+                css(this.$el, {backgroundSize: '', backgroundRepeat: ''});
+                return;
+            }
+
+            const {dimEl} = image;
+
+            let dim = Dimensions.cover(image, dimEl);
+
+            this.bgProps.forEach(prop => {
+
+                const {diff, bgPos, steps} = this.props[prop];
+                const attr = prop === 'bgy' ? 'height' : 'width';
+                const span = dim[attr] - dimEl[attr];
+
+                if (!bgPos.match(/%$|0px/)) {
                     return;
                 }
 
-                const src = css(this.$el, 'backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
+                if (span < diff) {
+                    dimEl[attr] = dim[attr] + diff - span;
+                } else if (span > diff) {
 
-                if (!src) {
-                    return;
-                }
+                    const bgPosFloat = parseFloat(bgPos);
 
-                data.image = false;
-
-                getImage(src).then(img => {
-                    data.image = {
-                        width: img.naturalWidth,
-                        height: img.naturalHeight
-                    };
-
-                    this.$emit();
-                });
-
-            },
-
-            write({image, active}) {
-
-                if (!image) {
-                    return;
-                }
-
-                if (!active) {
-                    css(this.$el, {backgroundSize: '', backgroundRepeat: ''});
-                    return;
-                }
-
-                const {dimEl} = image;
-
-                let dim = Dimensions.cover(image, dimEl);
-
-                this.bgProps.forEach(prop => {
-
-                    const {diff, bgPos, steps} = this.props[prop];
-                    const attr = prop === 'bgy' ? 'height' : 'width';
-                    const span = dim[attr] - dimEl[attr];
-
-                    if (!bgPos.match(/%$|0px/)) {
-                        return;
+                    if (bgPosFloat) {
+                        this.props[prop].steps = steps.map(step => step - (span - diff) / (100 / bgPosFloat));
                     }
+                }
 
-                    if (span < diff) {
-                        dimEl[attr] = dim[attr] + diff - span;
-                    } else if (span > diff) {
+                dim = Dimensions.cover(image, dimEl);
+            });
 
-                        const bgPosFloat = parseFloat(bgPos);
+            css(this.$el, {
+                backgroundSize: `${dim.width}px ${dim.height}px`,
+                backgroundRepeat: 'no-repeat'
+            });
 
-                        if (bgPosFloat) {
-                            this.props[prop].steps = steps.map(step => step - (span - diff) / (100 / bgPosFloat));
-                        }
-                    }
+        },
 
-                    dim = Dimensions.cover(image, dimEl);
-                });
+        events: ['load', 'resize']
 
-                css(this.$el, {
-                    backgroundSize: `${dim.width}px ${dim.height}px`,
-                    backgroundRepeat: 'no-repeat'
-                });
-
-            },
-
-            events: ['load', 'resize']
-
-        }
-
-    ],
+    },
 
     methods: {
 

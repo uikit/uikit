@@ -25,38 +25,34 @@ export default {
 
     },
 
-    update: [
+    update: {
 
-        {
+        read({percent}) {
+            return {
+                prev: percent,
+                percent: ease(scrolledOver(this.target) / (this.viewport || 1), this.easing)
+            };
+        },
 
-            read({percent}) {
-                return {
-                    prev: percent,
-                    percent: ease(scrolledOver(this.target) / (this.viewport || 1), this.easing)
-                };
-            },
+        write({prev, percent, active}, {type}) {
 
-            write({prev, percent, active}, {type}) {
+            if (type !== 'scroll') {
+                prev = false;
+            }
 
-                if (type !== 'scroll') {
-                    prev = false;
-                }
+            if (!active) {
+                this.reset();
+                return;
+            }
 
-                if (!active) {
-                    this.reset();
-                    return;
-                }
+            if (prev !== percent) {
+                css(this.$el, this.getCss(percent));
+            }
 
-                if (prev !== percent) {
-                    css(this.$el, this.getCss(percent));
-                }
+        },
 
-            },
-
-            events: ['scroll', 'load', 'resize']
-        }
-
-    ]
+        events: ['scroll', 'load', 'resize']
+    }
 
 };
 
