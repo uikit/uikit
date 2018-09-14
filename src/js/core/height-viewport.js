@@ -1,6 +1,9 @@
-import {css, endsWith, height, isIE, isNumeric, isString, offset, query, toFloat} from 'uikit-util';
+import FlexBug from '../mixin/flex-bug';
+import {css, endsWith, height, isNumeric, isString, offset, query, toFloat} from 'uikit-util';
 
 export default {
+
+    mixins: [FlexBug],
 
     props: {
         expand: Boolean,
@@ -69,18 +72,10 @@ export default {
 
         write({minHeight}) {
 
-            css(this.$el, {height: '', minHeight});
+            css(this.$el, {minHeight});
 
             if (this.minHeight && toFloat(css(this.$el, 'minHeight')) < this.minHeight) {
                 css(this.$el, 'minHeight', this.minHeight);
-            }
-
-            // IE 11 fix (min-height on a flex container won't apply to its flex items)
-            if (isIE) {
-                const height = Math.round(toFloat(css(this.$el, 'minHeight')));
-                if (height >= offsetHeight(this.$el)) {
-                    css(this.$el, 'height', height);
-                }
             }
 
         },

@@ -1,9 +1,10 @@
 import Class from '../mixin/class';
+import FlexBug from '../mixin/flex-bug';
 import {$, $$, addClass, after, assign, css, height, includes, isRtl, isVisible, matches, noop, Promise, query, remove, toFloat, Transition, within} from 'uikit-util';
 
 export default {
 
-    mixins: [Class],
+    mixins: [Class, FlexBug],
 
     props: {
         dropdown: String,
@@ -36,6 +37,8 @@ export default {
         dropbarMode: 'slide',
         dropbarAnchor: false,
         duration: 200,
+        forceHeight: true,
+        selMinHeight: '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle'
     },
 
     computed: {
