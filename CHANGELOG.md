@@ -1,6 +1,6 @@
 # Changelog
 
-## WP
+## WIP
 
 ### Changed
 
@@ -9,6 +9,10 @@
 ### Removed
 
 - Remove `::-moz-selection` which is not needed anymore
+
+### Fixed
+
+- Fix issue with list bullet in combination with multi column layouts
 
 ## 3.0.0 rc 16 (September 12, 2018)
 
