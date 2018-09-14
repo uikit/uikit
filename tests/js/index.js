@@ -1,10 +1,10 @@
 /* global UIkit */
 import {on} from '../../src/js/util/event';
-import {attr} from '../../src/js/util/attr';
 import {css} from '../../src/js/util/style';
 import {ucfirst} from '../../src/js/util/lang';
 import {append, prepend} from '../../src/js/util/dom';
 import {addClass, removeClass} from '../../src/js/util/class';
+import {fastdom} from '../../src/js/util/fastdom';
 
 const storage = window.sessionStorage;
 const key = '_uikit_style';
@@ -37,7 +37,7 @@ storage[keyinverse] = storage[keyinverse] || '';
 const dir = storage._uikit_dir || 'ltr';
 
 // set dir
-attr(docEl, 'dir', dir);
+docEl.dir = dir;
 
 const style = styles[storage[key]] || styles.theme;
 
@@ -48,102 +48,100 @@ document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : sty
 document.writeln('<script src="../dist/js/uikit.js"></script>');
 document.writeln(`<script src="${style.icons ? style.icons : '../dist/js/uikit-icons.js'}"></script>`);
 
-on(window, 'load', () => setTimeout(() => {
+on(window, 'load', () => setTimeout(() => fastdom.write(() => {
 
     const $body = document.body;
     const $container = prepend($body, '<div class="uk-container"></div>');
-    const $tests = css(append($container, '<select class="uk-select uk-form-width-small"></select>'), 'margin', '20px 20px 20px 0');
-    const $styles = css(append($container, '<select class="uk-select uk-form-width-small"></select>'), 'margin', '20px');
-    const $inverse = css(append($container, '<select class="uk-select uk-form-width-small"></select>'), 'margin', '20px');
-    const $rtl = css(append($container, '<label></label>'), 'margin', '20px');
 
     // Tests
     // ------------------------------
-
-    [
-        'accordion',
-        'alert',
-        'align',
-        'animation',
-        'article',
-        'background',
-        'badge',
-        'base',
-        'breadcrumb',
-        'button',
-        'card',
-        'close',
-        'column',
-        'comment',
-        'container',
-        'countdown',
-        'cover',
-        'description-list',
-        'divider',
-        'dotnav',
-        'drop',
-        'dropdown',
-        'filter',
-        'flex',
-        'form',
-        'grid',
-        'grid-masonry',
-        'grid-parallax',
-        'heading',
-        'height',
-        'height-expand',
-        'height-viewport',
-        'icon',
-        'iconnav',
-        'image',
-        'label',
-        'leader',
-        'lightbox',
-        'link',
-        'list',
-        'margin',
-        'marker',
-        'modal',
-        'nav',
-        'navbar',
-        'notification',
-        'offcanvas',
-        'overlay',
-        'padding',
-        'pagination',
-        'parallax',
-        'position',
-        'placeholder',
-        'progress',
-        'scroll',
-        'scrollspy',
-        'search',
-        'section',
-        'slidenav',
-        'slider',
-        'slideshow',
-        'sortable',
-        'spinner',
-        'sticky',
-        'sticky-navbar',
-        'subnav',
-        'svg',
-        'switcher',
-        'tab',
-        'table',
-        'text',
-        'thumbnav',
-        'tile',
-        'toggle',
-        'tooltip',
-        'totop',
-        'transition',
-        'utility',
-        'upload',
-        'video',
-        'visibility',
-        'width'
-    ].sort().forEach(name => append($tests, `<option value="${name}.html">${name.split('-').map(ucfirst).join(' ')}</option>`));
+    const $tests = append($container, `<select class="uk-select uk-form-width-small" style="margin: 20px 20px 20px 0">
+        <option value="index.html">Overview</option>${
+        [
+            'accordion',
+            'alert',
+            'align',
+            'animation',
+            'article',
+            'background',
+            'badge',
+            'base',
+            'breadcrumb',
+            'button',
+            'card',
+            'close',
+            'column',
+            'comment',
+            'container',
+            'countdown',
+            'cover',
+            'description-list',
+            'divider',
+            'dotnav',
+            'drop',
+            'dropdown',
+            'filter',
+            'flex',
+            'form',
+            'grid',
+            'grid-masonry',
+            'grid-parallax',
+            'heading',
+            'height',
+            'height-expand',
+            'height-viewport',
+            'icon',
+            'iconnav',
+            'image',
+            'label',
+            'leader',
+            'lightbox',
+            'link',
+            'list',
+            'margin',
+            'marker',
+            'modal',
+            'nav',
+            'navbar',
+            'notification',
+            'offcanvas',
+            'overlay',
+            'padding',
+            'pagination',
+            'parallax',
+            'position',
+            'placeholder',
+            'progress',
+            'scroll',
+            'scrollspy',
+            'search',
+            'section',
+            'slidenav',
+            'slider',
+            'slideshow',
+            'sortable',
+            'spinner',
+            'sticky',
+            'sticky-navbar',
+            'subnav',
+            'svg',
+            'switcher',
+            'tab',
+            'table',
+            'text',
+            'thumbnav',
+            'tile',
+            'toggle',
+            'tooltip',
+            'totop',
+            'transition',
+            'utility',
+            'upload',
+            'video',
+            'visibility',
+            'width'
+        ].sort().map(name => `<option value="${name}.html">${name.split('-').map(ucfirst).join(' ')}</option>`).join('')
+    }</select>`);
 
     on($tests, 'change', () => {
         if ($tests.value) {
@@ -153,12 +151,12 @@ on(window, 'load', () => setTimeout(() => {
 
     $tests.value = component && `${component}.html`;
 
-    prepend($tests, '<option value="index.html">Overview</option>');
-
     // Styles
     // ------------------------------
 
-    Object.keys(styles).forEach(style => append($styles, `<option value="${style}">${ucfirst(style)}</option>`));
+    const $styles = append($container, `<select class="uk-select uk-form-width-small" style="margin: 20px">
+        ${Object.keys(styles).map(style => `<option value="${style}">${ucfirst(style)}</option>`).join('')}
+    </select>`);
 
     on($styles, 'change', () => {
         storage[key] = $styles.value;
@@ -171,11 +169,13 @@ on(window, 'load', () => setTimeout(() => {
 
     const variations = {
         '': 'Default',
-        'light': 'Dark',
-        'dark': 'Light'
+        light: 'Dark',
+        dark: 'Light'
     };
 
-    Object.keys(variations).forEach(name => append($inverse, `<option value="${name}">${variations[name]}</option>`));
+    const $inverse = append($container, `<select class="uk-select uk-form-width-small" style="margin: 20px">
+        ${Object.keys(variations).map(name => `<option value="${name}">${variations[name]}</option>`).join('')}        
+    </select>`);
 
     $inverse.value = storage[keyinverse];
 
@@ -212,8 +212,11 @@ on(window, 'load', () => setTimeout(() => {
     // RTL
     // ------------------------------
 
-    append($rtl, '<input type="checkbox" class="uk-checkbox" />');
-    append($rtl, '<span style="margin:5px;">RTL</span>');
+    const $rtl = append($container, `<label style="margin: 20px">
+        <input type="checkbox" class="uk-checkbox"/>
+        <span style="margin: 5px">RTL</span>
+    </label>`);
+
     on($rtl, 'change', ({target}) => {
         storage._uikit_dir = target.checked ? 'rtl' : 'ltr';
         location.reload();
@@ -222,9 +225,9 @@ on(window, 'load', () => setTimeout(() => {
     $rtl.firstElementChild.checked = dir === 'rtl';
 
     css(docEl, 'paddingTop', '');
-}, 100));
+}), 100));
 
-docEl.style.paddingTop = '80px';
+fastdom.write(() => css(docEl, 'paddingTop', '80px'));
 
 function getParam(name) {
     const match = new RegExp(`[?&]${name}=([^&]*)`).exec(window.location.search);
