@@ -204,10 +204,10 @@ export function each(obj, cb) {
 }
 
 export function sortBy(collection, prop) {
-    return collection.sort((a, b) =>
-        a[prop] > b[prop]
+    return collection.sort(({[prop]: propA = 0}, {[prop]: propB = 0}) =>
+        propA > propB
             ? 1
-            : b[prop] > a[prop]
+            : propB > propA
                 ? -1
                 : 0
     );

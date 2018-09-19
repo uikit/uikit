@@ -224,8 +224,8 @@ function dimension(prop) {
     };
 }
 
-function boxModelAdjust(prop, element) {
-    return css(element, 'boxSizing') === 'border-box'
+export function boxModelAdjust(prop, element, sizing = 'border-box') {
+    return css(element, 'boxSizing') === sizing
         ? dirs[prop].slice(1).map(ucfirst).reduce((value, prop) =>
             value
             + toFloat(css(element, `padding${prop}`))

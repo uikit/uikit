@@ -228,7 +228,7 @@ on(window, 'load', () => setTimeout(() => fastdom.write(() => {
 
 }), 100));
 
-fastdom.write(() => css(docEl, 'paddingTop', '80px'));
+css(docEl, 'paddingTop', '80px');
 
 function getParam(name) {
     const match = new RegExp(`[?&]${name}=([^&]*)`).exec(window.location.search);

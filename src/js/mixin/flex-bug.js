@@ -8,19 +8,45 @@ export default isIE ? {
         forceHeight: false
     },
 
-    update() {
+    computed: {
 
-        const targets = this.selMinHeight ? $$(this.selMinHeight, this.$el) : [this.$el];
+        elements({selMinHeight}, $el) {
+            return selMinHeight ? $$(selMinHeight, $el) : [$el];
+        }
 
-        css(targets, 'height', '');
+    },
 
-        targets.forEach(el => {
-            const height = Math.round(toFloat(css(el, 'minHeight')));
-            if (this.forceHeight || height >= el.offsetHeight) {
-                css(el, 'height', height);
-            }
-        });
+    update: [
 
-    }
+        {
+
+            read() {
+                css(this.elements, 'height', '');
+            },
+
+            order: -5,
+
+            events: ['load', 'resize']
+
+        },
+
+        {
+
+            write() {
+                this.elements.forEach(el => {
+                    const height = toFloat(css(el, 'minHeight'));
+                    if (height && (this.forceHeight || Math.round(height) >= el.offsetHeight)) {
+                        css(el, 'height', height);
+                    }
+                });
+            },
+
+            order: 5,
+
+            events: ['load', 'resize']
+
+        }
+
+    ]
 
 } : {};
