@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Dom functions support selectors
+
 ### Changed
 
 - Viewport Height component no longer sets a `height` except for IE  
