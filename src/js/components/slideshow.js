@@ -2,7 +2,7 @@ import Class from '../mixin/class';
 import Slideshow from '../mixin/slideshow';
 import Animations from './internal/slideshow-animations';
 import SliderReactive from '../mixin/slider-reactive';
-import {height} from 'uikit-util';
+import {boxModelAdjust, css} from 'uikit-util';
 
 export default {
 
@@ -30,7 +30,7 @@ export default {
 
             let [width, height] = this.ratio.split(':').map(Number);
 
-            height = height * this.$el.offsetWidth / width;
+            height = height * this.list.offsetWidth / width;
 
             if (this.minHeight) {
                 height = Math.max(this.minHeight, height);
@@ -40,11 +40,11 @@ export default {
                 height = Math.min(this.maxHeight, height);
             }
 
-            return {height};
+            return {height: height - boxModelAdjust(this.list, 'content-box')};
         },
 
-        write({height: hgt}) {
-            height(this.list, Math.floor(hgt));
+        write({height}) {
+            css(this.list, 'minHeight', height);
         },
 
         events: ['load', 'resize']
