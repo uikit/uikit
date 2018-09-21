@@ -135,19 +135,17 @@ export default {
 
             read() {
                 return {
-                    height: this.$el.offsetHeight,
-                    top: offset(this.isActive ? this.placeholder : this.$el).top
+                    top: offset(this.isActive ? this.placeholder : this.$el).top,
+                    height: css(this.$el, 'position') !== 'absolute' ? this.$el.offsetHeight : '',
+                    margins: css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
                 };
             },
 
-            write({height, top}) {
+            write({height, top, margins}) {
 
                 const {placeholder} = this;
 
-                css(placeholder, assign(
-                    {height: css(this.$el, 'position') !== 'absolute' ? height : ''},
-                    css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
-                ));
+                css(placeholder, assign({height}, margins));
 
                 if (!within(placeholder, document)) {
                     after(this.$el, placeholder);

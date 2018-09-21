@@ -27,22 +27,22 @@ export default {
 
         read() {
 
-            const viewport = height(window);
             let minHeight = '';
 
             if (this.expand) {
 
-                minHeight = viewport - (offsetHeight(document.documentElement) - offsetHeight(this.$el)) || '';
+                minHeight = height(window) - (offsetHeight(document.documentElement) - offsetHeight(this.$el)) || '';
 
             } else {
-
-                const {top} = offset(this.$el);
 
                 // on mobile devices (iOS and Android) window.innerHeight !== 100vh
                 minHeight = 'calc(100vh';
 
-                if (top < viewport / 2 && this.offsetTop) {
-                    minHeight += ` - ${top}px`;
+                if (this.offsetTop) {
+
+                    const {top} = offset(this.$el);
+                    minHeight += top < height(window) / 2 ? ` - ${top}px` : '';
+
                 }
 
                 if (this.offsetBottom === true) {
@@ -67,7 +67,7 @@ export default {
 
             }
 
-            return {minHeight, viewport};
+            return {minHeight};
         },
 
         write({minHeight}) {
