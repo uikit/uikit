@@ -41,7 +41,8 @@ To change the dot to any custom character, just add the `fill: STRING` option to
 **Note** The default fill character can be set through CSS or a LESS variable.
 
 ```css
-.var-leader-fill:before { content: '.'; }
+.uk-leader-fill-content::before { content: '.'; }
+:root { --uk-leader-fill-content: '.'; }
 ```
 
 ```less

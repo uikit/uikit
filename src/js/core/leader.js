@@ -21,7 +21,7 @@ export default {
     computed: {
 
         fill({fill}) {
-            return fill || getCssVar('leader-fill');
+            return fill || getCssVar('leader-fill-content');
         }
 
     },
