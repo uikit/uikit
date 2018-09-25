@@ -37,7 +37,7 @@ export default {
 
     },
 
-    ready() {
+    connected() {
 
         const marginBottom = toFloat(css(this.$el, 'marginBottom'));
         Transition.start(

@@ -4,6 +4,8 @@ export default function (UIkit) {
 
     ready(() => {
 
+        UIkit.update();
+
         let scroll = 0;
         let started = 0;
 

@@ -28,10 +28,6 @@ export default {
             this.$el.preload = 'none';
         }
 
-    },
-
-    ready() {
-
         this.player = new Player(this.$el);
 
         if (this.automute) {

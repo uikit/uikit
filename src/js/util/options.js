@@ -5,11 +5,9 @@ const strats = {};
 // concat strategy
 strats.args =
 strats.events =
-strats.init =
 strats.created =
 strats.beforeConnect =
 strats.connected =
-strats.ready =
 strats.beforeDisconnect =
 strats.disconnected =
 strats.destroy = function (parentVal, childVal) {

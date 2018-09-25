@@ -34,7 +34,7 @@ export default {
         handle: false
     },
 
-    init() {
+    created() {
         ['init', 'start', 'move', 'end'].forEach(key => {
             const fn = this[key];
             this[key] = e => {

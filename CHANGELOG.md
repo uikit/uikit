@@ -16,6 +16,8 @@
 ### Removed
 
 - Remove `::-moz-selection` which is not needed anymore
+- Remove component `init` hook
+- Remove component `ready` hook
 
 ### Fixed
 

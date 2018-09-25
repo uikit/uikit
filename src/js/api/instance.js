@@ -20,8 +20,6 @@ export default function (UIkit) {
 
         this.$el = this.$options.el = this.$options.el || el;
 
-        this._callHook('init');
-
         if (within(el, document)) {
             this._callConnected();
         }
