@@ -133,10 +133,10 @@ export default {
 
         {
 
-            read() {
+            read({height}) {
                 return {
                     top: offset(this.isActive ? this.placeholder : this.$el).top,
-                    height: css(this.$el, 'position') !== 'absolute' ? this.$el.offsetHeight : '',
+                    height: !this.isActive ? this.$el.offsetHeight : height,
                     margins: css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
                 };
             },
