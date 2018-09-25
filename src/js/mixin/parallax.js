@@ -111,12 +111,10 @@ export default {
 
             data.active = !this.media || window.matchMedia(this.media).matches;
 
-            if (data.image) {
-                data.image.dimEl = {
-                    width: this.$el.offsetWidth,
-                    height: this.$el.offsetHeight
-                };
-            }
+            data.dimEl = {
+                width: this.$el.offsetWidth,
+                height: this.$el.offsetHeight
+            };
 
             if ('image' in data || !this.covers || !this.bgProps.length) {
                 return;
@@ -128,22 +126,18 @@ export default {
                 return;
             }
 
-            data.image = false;
+            const img = new Image();
+            img.src = src;
+            data.image = img;
 
-            getImage(src).then(img => {
-                data.image = {
-                    width: img.naturalWidth,
-                    height: img.naturalHeight
-                };
-
-                this.$emit();
-            });
-
+            if (!img.naturalWidth) {
+                getImage(src).then(() => this.$emit());
+            }
         },
 
-        write({image, active}) {
+        write({dimEl, image, active}) {
 
-            if (!image) {
+            if (!image || !image.naturalWidth) {
                 return;
             }
 
@@ -152,9 +146,12 @@ export default {
                 return;
             }
 
-            const {dimEl} = image;
+            const imageDim = {
+                width: image.naturalWidth,
+                height: image.naturalHeight
+            };
 
-            let dim = Dimensions.cover(image, dimEl);
+            let dim = Dimensions.cover(imageDim, dimEl);
 
             this.bgProps.forEach(prop => {
 
@@ -177,7 +174,7 @@ export default {
                     }
                 }
 
-                dim = Dimensions.cover(image, dimEl);
+                dim = Dimensions.cover(imageDim, dimEl);
             });
 
             css(this.$el, {
