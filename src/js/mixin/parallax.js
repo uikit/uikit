@@ -1,4 +1,4 @@
-import {css, Dimensions, each, getImage, includes, isNumber, isUndefined, toFloat} from 'uikit-util';
+import {css, Dimensions, each, includes, isNumber, isUndefined, toFloat} from 'uikit-util';
 
 const props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
@@ -131,7 +131,7 @@ export default {
             data.image = img;
 
             if (!img.naturalWidth) {
-                getImage(src).then(() => this.$emit());
+                img.onload = () => this.$emit();
             }
         },
 
