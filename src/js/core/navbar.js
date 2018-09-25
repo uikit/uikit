@@ -225,7 +225,10 @@ export default {
                 Transition.start(el, {clip: `rect(0,${el.offsetWidth}px,${newHeight}px,0)`}, this.duration)
             ])
                 .catch(noop)
-                .then(() => css(el, {clip: ''}));
+                .then(() => {
+                    css(el, {clip: ''});
+                    this.$update(dropbar);
+                });
         },
 
         getDropdown(el) {
