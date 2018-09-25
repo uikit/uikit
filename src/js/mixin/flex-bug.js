@@ -1,4 +1,4 @@
-import {$$, css, isIE, toFloat} from 'uikit-util';
+import {$$, css, height as getHeight, isIE, toFloat} from 'uikit-util';
 
 // IE 11 fix (min-height on a flex container won't apply to its flex items)
 export default isIE ? {
@@ -35,7 +35,7 @@ export default isIE ? {
             write() {
                 this.elements.forEach(el => {
                     const height = toFloat(css(el, 'minHeight'));
-                    if (height && (this.forceHeight || Math.round(height) >= el.offsetHeight)) {
+                    if (height && (this.forceHeight || Math.round(height) >= getHeight(el))) {
                         css(el, 'height', height);
                     }
                 });
