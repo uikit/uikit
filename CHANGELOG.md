@@ -12,6 +12,7 @@
 - Viewport Height component no longer forces `box-sizing: border-box`  
 - Improve Tooltip performance
 - Improve Parallax performance
+- Improve Sticky performance
 
 ### Removed
 

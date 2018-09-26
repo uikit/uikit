@@ -1,5 +1,5 @@
 import Class from '../mixin/class';
-import {$, addClass, after, Animation, assign, attr, css, fastdom, hasClass, height, isNumeric, isString, isVisible, noop, offset, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, trigger, within} from 'uikit-util';
+import {$, addClass, after, Animation, assign, attr, css, fastdom, hasClass, height, isNumeric, isString, isUndefined, isVisible, noop, offset, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -50,18 +50,13 @@ export default {
     },
 
     connected() {
-
         this.placeholder = $('+ .uk-sticky-placeholder', this.$el) || $('<div class="uk-sticky-placeholder"></div>');
-
-        if (!this.isActive) {
-            this.hide();
-        }
     },
 
     disconnected() {
 
         if (this.isActive) {
-            this.isActive = false;
+            this.isActive = undefined;
             this.hide();
             removeClass(this.selTarget, this.clsInactive);
         }
@@ -134,14 +129,23 @@ export default {
         {
 
             read({height}) {
+
+                this.topOffset = offset(this.isActive ? this.placeholder : this.$el).top;
+                this.bottomOffset = this.topOffset + height;
+
+                const bottom = parseProp('bottom', this);
+
+                this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
+                this.bottom = bottom && bottom - height;
+                this.inactive = this.media && !window.matchMedia(this.media).matches;
+
                 return {
-                    top: offset(this.isActive ? this.placeholder : this.$el).top,
                     height: !this.isActive ? this.$el.offsetHeight : height,
                     margins: css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
                 };
             },
 
-            write({height, top, margins}) {
+            write({height, margins}) {
 
                 const {placeholder} = this;
 
@@ -152,14 +156,9 @@ export default {
                     attr(placeholder, 'hidden', '');
                 }
 
-                this.topOffset = top;
-                this.bottomOffset = this.topOffset + height;
-
-                const bottom = parseProp('bottom', this);
-
-                this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
-                this.bottom = bottom && bottom - height;
-                this.inactive = this.media && !window.matchMedia(this.media).matches;
+                if (isUndefined(this.isActive)) {
+                    this.hide();
+                }
 
             },
 
