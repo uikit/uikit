@@ -1,4 +1,4 @@
-import {assign, bind, camelize, data as getData, getCssVar, hasOwn, hyphenate, isArray, isBoolean, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toFloat, toList, toNumber} from 'uikit-util';
+import {assign, bind, camelize, data as getData, hasOwn, hyphenate, isArray, isBoolean, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toList, toNumber} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -267,25 +267,9 @@ export default function (UIkit) {
             return toNumber(value);
         } else if (type === 'list') {
             return toList(value);
-        } else if (type === 'media') {
-            return toMedia(value);
         }
 
         return type ? type(value) : value;
-    }
-
-    function toMedia(value) {
-
-        if (isString(value)) {
-            if (value[0] === '@') {
-                const name = `media-${value.substr(1)}`;
-                value = toFloat(getCssVar(name));
-            } else if (isNaN(value)) {
-                return value;
-            }
-        }
-
-        return value && !isNaN(value) ? `(min-width: ${value}px)` : false;
     }
 
     function normalizeData({data, el}, {args, props = {}}) {

@@ -1,9 +1,10 @@
 import Class from '../mixin/class';
+import Media from '../mixin/media';
 import {$, addClass, after, Animation, assign, attr, css, fastdom, hasClass, height, isNumeric, isString, isUndefined, isVisible, noop, offset, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, trigger, within} from 'uikit-util';
 
 export default {
 
-    mixins: [Class],
+    mixins: [Class, Media],
 
     props: {
         top: null,
@@ -17,7 +18,6 @@ export default {
         selTarget: String,
         widthElement: Boolean,
         showOnUp: Boolean,
-        media: 'media',
         targetOffset: Number
     },
 
@@ -33,7 +33,6 @@ export default {
         selTarget: '',
         widthElement: false,
         showOnUp: false,
-        media: false,
         targetOffset: false
     },
 
@@ -137,7 +136,7 @@ export default {
 
                 this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
                 this.bottom = bottom && bottom - height;
-                this.inactive = this.media && !window.matchMedia(this.media).matches;
+                this.inactive = !this.matchMedia;
 
                 return {
                     height: !this.isActive ? this.$el.offsetHeight : height,

@@ -1,18 +1,17 @@
 import Class from '../mixin/class';
+import Media from '../mixin/media';
 import {attr, getCssVar, toggleClass, unwrap, wrapInner} from 'uikit-util';
 
 export default {
 
-    mixins: [Class],
+    mixins: [Class, Media],
 
     props: {
-        fill: String,
-        media: 'media'
+        fill: String
     },
 
     data: {
         fill: '',
-        media: false,
         clsWrapper: 'uk-leader-fill',
         clsHide: 'uk-leader-hide',
         attrFill: 'data-fill'
@@ -45,7 +44,7 @@ export default {
             return {
                 width,
                 changed: changed || prev !== width,
-                hide: this.media && !window.matchMedia(this.media).matches
+                hide: !this.matchMedia
             };
         },
 

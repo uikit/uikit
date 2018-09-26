@@ -1,22 +1,21 @@
+import Media from '../mixin/media';
 import {css, Dimensions, each, includes, isNumber, isUndefined, toFloat} from 'uikit-util';
 
 const props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
 
 export default {
 
+    mixins: [Media],
+
     props: props.reduce((props, prop) => {
         props[prop] = 'list';
         return props;
-    }, {
-        media: 'media'
-    }),
+    }, {}),
 
     data: props.reduce((data, prop) => {
         data[prop] = undefined;
         return data;
-    }, {
-        media: false
-    }),
+    }, {}),
 
     computed: {
 
@@ -109,7 +108,7 @@ export default {
 
         read(data) {
 
-            data.active = !this.media || window.matchMedia(this.media).matches;
+            data.active = this.matchMedia;
 
             data.dimEl = {
                 width: this.$el.offsetWidth,

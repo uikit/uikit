@@ -1,9 +1,10 @@
+import Media from '../mixin/media';
 import Togglable from '../mixin/togglable';
 import {closest, hasTouch, includes, isTouch, isVisible, matches, once, pointerEnter, pointerLeave, queryAll, trigger} from 'uikit-util';
 
 export default {
 
-    mixins: [Togglable],
+    mixins: [Media, Togglable],
 
     args: 'target',
 
@@ -11,7 +12,6 @@ export default {
         href: String,
         target: null,
         mode: 'list',
-        media: 'media'
     },
 
     data: {
@@ -19,7 +19,6 @@ export default {
         target: false,
         mode: 'click',
         queued: true,
-        media: false
     },
 
     computed: {
@@ -90,7 +89,7 @@ export default {
             }
 
             const toggled = this.isToggled(this.target);
-            if (window.matchMedia(this.media).matches ? !toggled : toggled) {
+            if (this.matchMedia ? !toggled : toggled) {
                 this.toggle();
             }
 
