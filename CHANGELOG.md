@@ -8,8 +8,8 @@
 
 ### Changed
 
-- Viewport Height component no longer sets a `height` except for IE  
-- Viewport Height component no longer forces `box-sizing: border-box`  
+- Viewport Height component no longer sets a `height` except for IE
+- Viewport Height component no longer forces `box-sizing: border-box`
 - Improve Tooltip performance
 - Improve Parallax performance
 - Improve Sticky performance
@@ -22,11 +22,12 @@
 
 ### Fixed
 
-- Fix `UIkit.mixin()` 
+- Fix `UIkit.mixin()`
 - Fix issue with list bullet in combination with multi column layouts
 - Allow for special characters in URI hash in Scroll Component
 - Height Match also sets a `height` in IE
 - Slideshow sets `min-height` instead of `height`
+- `scope`command will now work as expected. This fix removes all comments from the generated css files.
 
 ## 3.0.0 rc 16 (September 12, 2018)
 

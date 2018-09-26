@@ -24,10 +24,14 @@ if (argv.h || argv.help) {
         scope.js // will scope with uk-scope
         scope.js -s "my-scope" // will replace any existing scope with my-scope
         scope.js cleanup // will remove current scope
-        
+
     `);
 } else {
     readAllFiles().then(startProcess);
+}
+
+function stripComments(input) {
+    return input.replace(/\/\*(.|\n)*?\*\//gm, '').split('\n').filter(line => line.trim().substr(0, 2) !== '//').join('\n');
 }
 
 function startProcess() {
@@ -75,12 +79,12 @@ function doScope(scopeFromInput) {
     const scopes = [];
     allFiles.forEach(store => {
 
-        scopes.push(util.renderLess(`.${scopeFromInput} {\n${store.data}\n}`)
-                        .then(output =>
-                            store.data = `/* scoped: ${scopeFromInput} */` +
-                                    output.replace(new RegExp(`.${scopeFromInput} ${/{(.|[\r\n])*?}/.source}`), '')
-                                          .replace(new RegExp(`.${scopeFromInput} ${/\s((\.(uk-(drag|modal-page|offcanvas-page|offcanvas-flip)))|html)/.source}`, 'g'), '$1')
-                        )
+        scopes.push(util.renderLess(`.${scopeFromInput} {\n${stripComments(store.data)}\n}`)
+                .then(output => {
+                    store.data = `/* scoped: ${scopeFromInput} */\n` +
+                    output.replace(new RegExp(`.${scopeFromInput} ${/{(.|[\r\n])*?}/.source}`), '')
+                    .replace(new RegExp(`.${scopeFromInput}${/\s((\.(uk-(drag|modal-page|offcanvas-page|offcanvas-flip)))|html)/.source}`, 'g'), '$1')
+                })
         );
     });
 
