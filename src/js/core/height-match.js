@@ -1,7 +1,10 @@
+import FlexBug from '../mixin/flex-bug';
 import {getRows} from './margin';
-import {$$, css, offset} from 'uikit-util';
+import {$$, boxModelAdjust, css, offset, toFloat} from 'uikit-util';
 
 export default {
+
+    mixins: [FlexBug],
 
     args: 'target',
 
@@ -12,7 +15,8 @@ export default {
 
     data: {
         target: '> *',
-        row: true
+        row: true,
+        forceHeight: true
     },
 
     computed: {
@@ -26,54 +30,50 @@ export default {
     update: {
 
         read() {
-
-            css(this.elements, {
-                minHeight: '',
-                boxSizing: ''
-            });
-
             return {
-                rows: !this.row
-                    ? [this.match(this.elements)]
-                    : getRows(this.elements).map(elements => this.match(elements))
+                rows: (this.row ? getRows(this.elements) : [this.elements]).map(match)
             };
         },
 
         write({rows}) {
-
-            rows.forEach(({height, elements}) => css(elements, {
-                minHeight: height,
-                boxSizing: 'border-box'
-            }));
-
+            rows.forEach(({heights, elements}) =>
+                elements.forEach((el, i) =>
+                    css(el, 'minHeight', heights[i])
+                )
+            );
         },
 
         events: ['load', 'resize']
 
-    },
-
-    methods: {
-
-        match(elements) {
-
-            if (elements.length < 2) {
-                return {};
-            }
-
-            const heights = [];
-            let max = 0;
-
-            elements
-                .forEach(el => {
-                    const {height} = offset(el);
-                    max = Math.max(max, height);
-                    heights.push(height);
-                });
-
-            elements = elements.filter((el, i) => heights[i] < max);
-
-            return {height: max, elements};
-        }
     }
 
 };
+
+function match(elements) {
+
+    if (elements.length < 2) {
+        return {heights: [''], elements};
+    }
+
+    let {heights, max} = getHeights(elements);
+    const hasMinHeight = elements.some(el => el.style.minHeight);
+    const hasShrunk = elements.some((el, i) => !el.style.minHeight && heights[i] < max);
+
+    if (hasMinHeight && hasShrunk) {
+        css(elements, 'minHeight', '');
+        ({heights, max} = getHeights(elements));
+    }
+
+    heights = elements.map((el, i) =>
+        heights[i] === max && toFloat(el.style.minHeight) !== max ? '' : max
+    );
+
+    return {heights, elements};
+}
+
+function getHeights(elements) {
+    const heights = elements.map(el => offset(el).height - boxModelAdjust('height', el, 'content-box'));
+    const max = Math.max.apply(null, heights);
+
+    return {heights, max};
+}

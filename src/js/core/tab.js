@@ -9,7 +9,7 @@ export default {
     extends: Switcher,
 
     props: {
-        media: 'media'
+        media: Boolean
     },
 
     data: {

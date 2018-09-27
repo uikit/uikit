@@ -22,27 +22,23 @@ export default {
 
     },
 
-    update: [
+    update: {
 
-        {
+        write() {
 
-            write() {
+            if (this.nav && this.length !== this.nav.children.length) {
+                html(this.nav, this.slides.map((_, i) => `<li ${this.attrItem}="${i}"><a href="#"></a></li>`).join(''));
+            }
 
-                if (this.nav && this.length !== this.nav.children.length) {
-                    html(this.nav, this.slides.map((_, i) => `<li ${this.attrItem}="${i}"><a href="#"></a></li>`).join(''));
-                }
+            toggleClass($$(this.navItemSelector, this.$el).concat(this.nav), 'uk-hidden', !this.maxIndex);
 
-                toggleClass($$(this.navItemSelector, this.$el).concat(this.nav), 'uk-hidden', !this.maxIndex);
+            this.updateNav();
 
-                this.updateNav();
+        },
 
-            },
+        events: ['load', 'resize']
 
-            events: ['load', 'resize']
-
-        }
-
-    ],
+    },
 
     events: [
 

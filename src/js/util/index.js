@@ -2,7 +2,6 @@ export * from './ajax';
 export * from './animation';
 export * from './attr';
 export * from './class';
-export * from './core';
 export * from './dimensions';
 export * from './dom';
 export * from './env';

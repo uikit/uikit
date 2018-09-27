@@ -49,7 +49,7 @@ export default {
 
     },
 
-    init() {
+    created() {
         this.tracker = new MouseTracker();
     },
 

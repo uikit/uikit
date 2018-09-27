@@ -2,27 +2,23 @@ import {removeClass} from 'uikit-util';
 
 export default {
 
-    update: [
+    update: {
 
-        {
+        write() {
 
-            write() {
+            if (this.stack.length || this.dragging) {
+                return;
+            }
 
-                if (this.stack.length || this.dragging) {
-                    return;
-                }
+            const index = this.getValidIndex();
+            delete this.index;
+            removeClass(this.slides, this.clsActive, this.clsActivated);
+            this.show(index);
 
-                const index = this.getValidIndex();
-                delete this.index;
-                removeClass(this.slides, this.clsActive, this.clsActivated);
-                this.show(index);
+        },
 
-            },
+        events: ['load', 'resize']
 
-            events: ['load', 'resize']
-
-        }
-
-    ]
+    }
 
 };

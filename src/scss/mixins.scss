@@ -1474,6 +1474,8 @@
 @mixin hook-section-secondary(){}
 @mixin hook-section-overlap(){}
 @mixin hook-section-misc(){}
+@mixin hook-slider(){}
+@mixin hook-slider-misc(){}
 @mixin hook-slidenav(){}
 @mixin hook-slidenav-hover(){}
 @mixin hook-slidenav-active(){}
@@ -1485,8 +1487,6 @@
 @mixin hook-inverse-slidenav(){}
 @mixin hook-inverse-slidenav-hover(){}
 @mixin hook-inverse-slidenav-active(){}
-@mixin hook-slider(){}
-@mixin hook-slider-misc(){}
 @mixin hook-slideshow(){}
 @mixin hook-slideshow-misc(){}
 @mixin hook-sortable(){}

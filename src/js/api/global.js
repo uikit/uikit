@@ -18,9 +18,6 @@ export default function (UIkit) {
 
     UIkit.mixin = function (mixin, component) {
         component = (isString(component) ? UIkit.component(component) : component) || this;
-        mixin = mergeOptions({}, mixin);
-        mixin.mixins = component.options.mixins;
-        delete component.options.mixins;
         component.options = mergeOptions(component.options, mixin);
     };
 
@@ -73,7 +70,7 @@ export default function (UIkit) {
         }
 
         for (const name in data) {
-            if (data[name]._isReady) {
+            if (data[name]._connected) {
                 data[name]._callUpdate(e);
             }
         }

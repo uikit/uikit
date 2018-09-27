@@ -70,52 +70,48 @@ export default {
 
     },
 
-    update: [
+    update: {
 
-        {
+        read({delay, image}) {
 
-            read({delay, image}) {
+            if (!delay) {
+                return;
+            }
 
-                if (!delay) {
-                    return;
+            if (image || !this.target.some(el => isInView(el, this.offsetTop, this.offsetLeft, true))) {
+
+                if (!this.isImg && image) {
+                    image.then(img => img && setSrcAttrs(this.$el, currentSrc(img)));
                 }
 
-                if (image || !this.target.some(el => isInView(el, this.offsetTop, this.offsetLeft, true))) {
+                return;
+            }
 
-                    if (!this.isImg && image) {
-                        image.then(img => img && setSrcAttrs(this.$el, currentSrc(img)));
-                    }
+            return {
+                image: getImage(this.dataSrc, this.dataSrcset, this.sizes).then(img => {
 
-                    return;
-                }
+                    setSrcAttrs(this.$el, currentSrc(img), img.srcset, img.sizes);
+                    storage[this.cacheKey] = currentSrc(img);
+                    return img;
 
-                return {
-                    image: getImage(this.dataSrc, this.dataSrcset, this.sizes).then(img => {
+                }, noop)
+            };
 
-                        setSrcAttrs(this.$el, currentSrc(img), img.srcset, img.sizes);
-                        storage[this.cacheKey] = currentSrc(img);
-                        return img;
+        },
 
-                    }, noop)
-                };
+        write(data) {
 
-            },
+            // Give placeholder images time to apply their dimensions
+            if (!data.delay) {
+                this.$emit();
+                return data.delay = true;
+            }
 
-            write(data) {
+        },
 
-                // Give placeholder images time to apply their dimensions
-                if (!data.delay) {
-                    this.$emit();
-                    return data.delay = true;
-                }
+        events: ['scroll', 'load', 'resize']
 
-            },
-
-            events: ['scroll', 'load', 'resize']
-
-        }
-
-    ]
+    }
 
 };
 

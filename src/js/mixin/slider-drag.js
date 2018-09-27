@@ -7,7 +7,7 @@ export default {
         preventCatch: false
     },
 
-    init() {
+    created() {
 
         ['start', 'move', 'end'].forEach(key => {
 

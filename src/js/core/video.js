@@ -28,10 +28,6 @@ export default {
             this.$el.preload = 'none';
         }
 
-    },
-
-    ready() {
-
         this.player = new Player(this.$el);
 
         if (this.automute) {
@@ -40,34 +36,30 @@ export default {
 
     },
 
-    update: [
+    update: {
 
-        {
+        read(_, {type}) {
 
-            read(_, {type}) {
+            return !this.player || (type === 'scroll' || type === 'resize') && !this.inView
+                ? false
+                : {
+                    visible: isVisible(this.$el) && css(this.$el, 'visibility') !== 'hidden',
+                    inView: this.inView && isInView(this.$el)
+                };
+        },
 
-                return !this.player || (type === 'scroll' || type === 'resize') && !this.inView
-                    ? false
-                    : {
-                        visible: isVisible(this.$el) && css(this.$el, 'visibility') !== 'hidden',
-                        inView: this.inView && isInView(this.$el)
-                    };
-            },
+        write({visible, inView}) {
 
-            write({visible, inView}) {
+            if (!visible || this.inView && !inView) {
+                this.player.pause();
+            } else if (this.autoplay === true || this.inView && inView) {
+                this.player.play();
+            }
 
-                if (!visible || this.inView && !inView) {
-                    this.player.pause();
-                } else if (this.autoplay === true || this.inView && inView) {
-                    this.player.play();
-                }
+        },
 
-            },
+        events: ['load', 'resize', 'scroll']
 
-            events: ['load', 'resize', 'scroll']
-
-        }
-
-    ]
+    }
 
 };

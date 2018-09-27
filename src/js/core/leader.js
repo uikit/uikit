@@ -1,18 +1,17 @@
 import Class from '../mixin/class';
+import Media from '../mixin/media';
 import {attr, getCssVar, toggleClass, unwrap, wrapInner} from 'uikit-util';
 
 export default {
 
-    mixins: [Class],
+    mixins: [Class, Media],
 
     props: {
-        fill: String,
-        media: 'media'
+        fill: String
     },
 
     data: {
         fill: '',
-        media: false,
         clsWrapper: 'uk-leader-fill',
         clsHide: 'uk-leader-hide',
         attrFill: 'data-fill'
@@ -21,7 +20,7 @@ export default {
     computed: {
 
         fill({fill}) {
-            return fill || getCssVar('leader-fill');
+            return fill || getCssVar('leader-fill-content');
         }
 
     },
@@ -34,37 +33,34 @@ export default {
         unwrap(this.wrapper.childNodes);
     },
 
-    update: [
+    update: {
 
-        {
+        read({changed, width}) {
 
-            read({changed, width}) {
+            const prev = width;
 
-                const prev = width;
+            width = Math.floor(this.$el.offsetWidth / 2);
 
-                width = Math.floor(this.$el.offsetWidth / 2);
+            return {
+                width,
+                changed: changed || prev !== width,
+                hide: !this.matchMedia
+            };
+        },
 
-                return {
-                    width,
-                    changed: changed || prev !== width,
-                    hide: this.media && !window.matchMedia(this.media).matches
-                };
-            },
+        write(data) {
 
-            write(data) {
+            toggleClass(this.wrapper, this.clsHide, data.hide);
 
-                toggleClass(this.wrapper, this.clsHide, data.hide);
+            if (data.changed) {
+                data.changed = false;
+                attr(this.wrapper, this.attrFill, new Array(data.width).join(this.fill));
+            }
 
-                if (data.changed) {
-                    data.changed = false;
-                    attr(this.wrapper, this.attrFill, new Array(data.width).join(this.fill));
-                }
+        },
 
-            },
+        events: ['load', 'resize']
 
-            events: ['load', 'resize']
-
-        }
-    ]
+    }
 
 };

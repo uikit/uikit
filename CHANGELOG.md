@@ -1,5 +1,33 @@
 # Changelog
 
+## 3.0.0 rc 17 (September 27, 2018)
+
+### Added
+
+- Dom functions support selectors
+
+### Changed
+
+- Viewport Height component no longer sets a `height` except for IE  
+- Viewport Height component no longer forces `box-sizing: border-box`  
+- Improve Tooltip performance
+- Improve Parallax performance
+- Improve Sticky performance
+
+### Removed
+
+- Remove `::-moz-selection` which is not needed anymore
+- Remove component `init` hook
+- Remove component `ready` hook
+
+### Fixed
+
+- Fix `UIkit.mixin()` 
+- Fix issue with list bullet in combination with multi column layouts
+- Allow for special characters in URI hash in Scroll Component
+- Height Match also sets a `height` in IE
+- Slideshow sets `min-height` instead of `height`
+
 ## 3.0.0 rc 16 (September 12, 2018)
 
 ### Fixed

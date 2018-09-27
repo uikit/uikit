@@ -50,19 +50,8 @@ export default {
             this._unbind = on(document, 'click', e => !within(e.target, this.$el) && this.hide());
 
             clearTimeout(this.showTimer);
-
-            this.tooltip = append(this.container, `<div class="${this.clsPos}" aria-hidden><div class="${this.clsPos}-inner">${this.title}</div></div>`);
-
-            attr(this.$el, 'aria-expanded', true);
-
-            this.positionAt(this.tooltip, this.$el);
-
-            this.origin = this.getAxis() === 'y' ? `${flipPosition(this.dir)}-${this.align}` : `${this.align}-${flipPosition(this.dir)}`;
-
             this.showTimer = setTimeout(() => {
-
-                this.toggleElement(this.tooltip, true);
-
+                this._show();
                 this.hideTimer = setInterval(() => {
 
                     if (!isVisible(this.$el)) {
@@ -70,7 +59,6 @@ export default {
                     }
 
                 }, 150);
-
             }, this.delay);
         },
 
@@ -91,6 +79,24 @@ export default {
             this.tooltip && remove(this.tooltip);
             this.tooltip = false;
             this._unbind();
+
+        },
+
+        _show() {
+
+            this.tooltip = append(this.container,
+                `<div class="${this.clsPos}" aria-expanded="true" aria-hidden>
+                        <div class="${this.clsPos}-inner">${this.title}</div>
+                 </div>`
+            );
+
+            this.positionAt(this.tooltip, this.$el);
+
+            this.origin = this.getAxis() === 'y'
+                ? `${flipPosition(this.dir)}-${this.align}`
+                : `${this.align}-${flipPosition(this.dir)}`;
+
+            this.toggleElement(this.tooltip, true);
 
         }
 

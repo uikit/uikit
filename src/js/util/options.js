@@ -1,15 +1,13 @@
-import {assign, hasOwn, includes, isArray, isFunction, isUndefined, startsWith} from './lang';
+import {assign, hasOwn, includes, isArray, isFunction, isUndefined, sortBy, startsWith} from './lang';
 
 const strats = {};
 
 // concat strategy
 strats.args =
 strats.events =
-strats.init =
 strats.created =
 strats.beforeConnect =
 strats.connected =
-strats.ready =
 strats.beforeDisconnect =
 strats.disconnected =
 strats.destroy = function (parentVal, childVal) {
@@ -27,7 +25,7 @@ strats.destroy = function (parentVal, childVal) {
 
 // update strategy
 strats.update = function (parentVal, childVal) {
-    return strats.args(parentVal, isFunction(childVal) ? {read: childVal} : childVal);
+    return sortBy(strats.args(parentVal, isFunction(childVal) ? {read: childVal} : childVal), 'order');
 };
 
 // property strategy
