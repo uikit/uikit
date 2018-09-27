@@ -523,7 +523,7 @@ $label-danger-background: $global-danger-background !default;
 $label-danger-color: $global-inverse-color !default;
 $inverse-label-background: $inverse-global-primary-background !default;
 $inverse-label-color: $inverse-global-inverse-color !default;
-$leader-fill-content: '.' !default;
+$leader-fill-content: unquote('.') !default;
 $leader-fill-margin-left: $global-small-gutter !default;
 $lightbox-z-index: $global-z-index + 10 !default;
 $lightbox-background: #000 !default;

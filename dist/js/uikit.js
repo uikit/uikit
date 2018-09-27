@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.16 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.17 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -215,11 +215,16 @@
     }
 
     function sortBy(collection, prop) {
-        return collection.sort(function (a, b) { return a[prop] > b[prop]
+        return collection.sort(function (ref, ref$1) {
+                var propA = ref[prop]; if ( propA === void 0 ) propA = 0;
+                var propB = ref$1[prop]; if ( propB === void 0 ) propB = 0;
+
+                return propA > propB
                 ? 1
-                : b[prop] > a[prop]
+                : propB > propA
                     ? -1
-                    : 0; }
+                    : 0;
+        }
         );
     }
 
@@ -943,6 +948,23 @@
 
     }
 
+    /* global DocumentTouch */
+
+    var isIE = /msie|trident/i.test(window.navigator.userAgent);
+    var isRtl = attr(document.documentElement, 'dir') === 'rtl';
+
+    var hasTouchEvents = 'ontouchstart' in window;
+    var hasPointerEvents = window.PointerEvent;
+    var hasTouch = hasTouchEvents
+        || window.DocumentTouch && document instanceof DocumentTouch
+        || navigator.maxTouchPoints; // IE >=11
+
+    var pointerDown = !hasTouch ? 'mousedown' : ("mousedown " + (hasTouchEvents ? 'touchstart' : 'pointerdown'));
+    var pointerMove = !hasTouch ? 'mousemove' : ("mousemove " + (hasTouchEvents ? 'touchmove' : 'pointermove'));
+    var pointerUp = !hasTouch ? 'mouseup' : ("mouseup " + (hasTouchEvents ? 'touchend' : 'pointerup'));
+    var pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mouseenter';
+    var pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
+
     function isReady() {
         return document.readyState === 'complete' || document.readyState !== 'loading' && !document.documentElement.doScroll;
     }
@@ -996,13 +1018,13 @@
     }
 
     function empty(element) {
-        element = toNode(element);
+        element = $(element);
         element.innerHTML = '';
         return element;
     }
 
     function html(parent, html) {
-        parent = toNode(parent);
+        parent = $(parent);
         return isUndefined(html)
             ? parent.innerHTML
             : append(parent.hasChildNodes() ? empty(parent) : parent, html);
@@ -1010,7 +1032,7 @@
 
     function prepend(parent, element) {
 
-        parent = toNode(parent);
+        parent = $(parent);
 
         if (!parent.hasChildNodes()) {
             return append(parent, element);
@@ -1020,17 +1042,17 @@
     }
 
     function append(parent, element) {
-        parent = toNode(parent);
+        parent = $(parent);
         return insertNodes(element, function (element) { return parent.appendChild(element); });
     }
 
     function before(ref, element) {
-        ref = toNode(ref);
+        ref = $(ref);
         return insertNodes(element, function (element) { return ref.parentNode.insertBefore(element, ref); });
     }
 
     function after(ref, element) {
-        ref = toNode(ref);
+        ref = $(ref);
         return insertNodes(element, function (element) { return ref.nextSibling
             ? before(ref.nextSibling, element)
             : append(ref.parentNode, element); }
@@ -1083,9 +1105,9 @@
 
     function fragment(html) {
 
-        var matches = singleTagRe.exec(html);
-        if (matches) {
-            return document.createElement(matches[1]);
+        var matches$$1 = singleTagRe.exec(html);
+        if (matches$$1) {
+            return document.createElement(matches$$1[1]);
         }
 
         var container = document.createElement('div');
@@ -1111,6 +1133,26 @@
             apply(node, fn);
             node = node.nextElementSibling;
         }
+    }
+
+    function $(selector, context) {
+        return !isString(selector)
+            ? toNode(selector)
+            : isHtml(selector)
+                ? toNode(fragment(selector))
+                : find(selector, context);
+    }
+
+    function $$(selector, context) {
+        return !isString(selector)
+            ? toNodes(selector)
+            : isHtml(selector)
+                ? toNodes(fragment(selector))
+                : findAll(selector, context);
+    }
+
+    function isHtml(str) {
+        return str[0] === '<' || str.match(/^\s*</);
     }
 
     function addClass(element) {
@@ -1267,22 +1309,23 @@
 
     function getCssVar(name) {
 
+        var docEl = document.documentElement;
+
+        if (!isIE) {
+            return getStyles(docEl).getPropertyValue(("--uk-" + name));
+        }
+
         if (!(name in vars)) {
 
-            /* usage in css: .var-name:before { content:"xyz" } */
+            /* usage in css: .uk-name:before { content:"xyz" } */
 
-            var element = append(document.documentElement, document.createElement('div'));
+            var element = append(docEl, document.createElement('div'));
 
-            addClass(element, ("var-" + name));
+            addClass(element, ("uk-" + name));
 
-            try {
+            vars[name] = getStyle(element, 'content', ':before').replace(/^["'](.*)["']$/, '$1');
 
-                vars[name] = getStyle(element, 'content', ':before').replace(/^["'](.*)["']$/, '$1');
-                vars[name] = JSON.parse(vars[name]);
-
-            } catch (e) {}
-
-            document.documentElement.removeChild(element);
+            remove(element);
 
         }
 
@@ -1484,26 +1527,6 @@
         }
 
     };
-
-    function $(selector, context) {
-        return !isString(selector)
-            ? toNode(selector)
-            : isHtml(selector)
-                ? toNode(fragment(selector))
-                : find(selector, context);
-    }
-
-    function $$(selector, context) {
-        return !isString(selector)
-            ? toNodes(selector)
-            : isHtml(selector)
-                ? toNodes(fragment(selector))
-                : findAll(selector, context);
-    }
-
-    function isHtml(str) {
-        return str[0] === '<' || str.match(/^\s*</);
-    }
 
     var dirs = {
         width: ['x', 'left', 'right'],
@@ -1734,8 +1757,10 @@
         };
     }
 
-    function boxModelAdjust(prop, element) {
-        return css(element, 'boxSizing') === 'border-box'
+    function boxModelAdjust(prop, element, sizing) {
+        if ( sizing === void 0 ) sizing = 'border-box';
+
+        return css(element, 'boxSizing') === sizing
             ? dirs[prop].slice(1).map(ucfirst).reduce(function (value, prop) { return value
                 + toFloat(css(element, ("padding" + prop)))
                 + toFloat(css(element, ("border" + prop + "Width"))); }
@@ -1922,23 +1947,6 @@
         return document$1(element).documentElement;
     }
 
-    /* global DocumentTouch */
-
-    var isIE = /msie|trident/i.test(window.navigator.userAgent);
-    var isRtl = attr(document.documentElement, 'dir') === 'rtl';
-
-    var hasTouchEvents = 'ontouchstart' in window;
-    var hasPointerEvents = window.PointerEvent;
-    var hasTouch = hasTouchEvents
-        || window.DocumentTouch && document instanceof DocumentTouch
-        || navigator.maxTouchPoints; // IE >=11
-
-    var pointerDown = !hasTouch ? 'mousedown' : ("mousedown " + (hasTouchEvents ? 'touchstart' : 'pointerdown'));
-    var pointerMove = !hasTouch ? 'mousemove' : ("mousemove " + (hasTouchEvents ? 'touchmove' : 'pointermove'));
-    var pointerUp = !hasTouch ? 'mouseup' : ("mouseup " + (hasTouchEvents ? 'touchend' : 'pointerup'));
-    var pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mouseenter';
-    var pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
-
     /*
         Based on:
         Copyright (c) 2016 Wilson Page wilsonpage@me.com
@@ -2096,11 +2104,9 @@
     // concat strategy
     strats.args =
     strats.events =
-    strats.init =
     strats.created =
     strats.beforeConnect =
     strats.connected =
-    strats.ready =
     strats.beforeDisconnect =
     strats.disconnected =
     strats.destroy = function (parentVal, childVal) {
@@ -2118,7 +2124,7 @@
 
     // update strategy
     strats.update = function (parentVal, childVal) {
-        return strats.args(parentVal, isFunction(childVal) ? {read: childVal} : childVal);
+        return sortBy(strats.args(parentVal, isFunction(childVal) ? {read: childVal} : childVal), 'order');
     };
 
     // property strategy
@@ -2563,13 +2569,12 @@
         replaceClass: replaceClass,
         hasClass: hasClass,
         toggleClass: toggleClass,
-        $: $,
-        $$: $$,
         positionAt: positionAt,
         offset: offset,
         position: position,
         height: height,
         width: width,
+        boxModelAdjust: boxModelAdjust,
         flipPosition: flipPosition,
         isInView: isInView,
         scrolledOver: scrolledOver,
@@ -2590,6 +2595,8 @@
         unwrap: unwrap,
         fragment: fragment,
         apply: apply,
+        $: $,
+        $$: $$,
         isIE: isIE,
         isRtl: isRtl,
         hasTouch: hasTouch,
@@ -2914,9 +2921,6 @@
 
         UIkit.mixin = function (mixin, component) {
             component = (isString(component) ? UIkit.component(component) : component) || this;
-            mixin = mergeOptions({}, mixin);
-            mixin.mixins = component.options.mixins;
-            delete component.options.mixins;
             component.options = mergeOptions(component.options, mixin);
         };
 
@@ -2969,7 +2973,7 @@
             }
 
             for (var name in data$$1) {
-                if (data$$1[name]._isReady) {
+                if (data$$1[name]._connected) {
                     data$$1[name]._callUpdate(e);
                 }
             }
@@ -3005,8 +3009,6 @@
         };
 
         UIkit.prototype._callConnected = function () {
-            var this$1 = this;
-
 
             if (this._connected) {
                 return;
@@ -3022,11 +3024,6 @@
             this._initObserver();
 
             this._callHook('connected');
-
-            if (!this._isReady) {
-                ready(function () { return this$1._callReady(); });
-            }
-
             this._callUpdate();
         };
 
@@ -3048,18 +3045,6 @@
 
             this._connected = false;
 
-        };
-
-        UIkit.prototype._callReady = function () {
-
-            if (this._isReady) {
-                return;
-            }
-
-            this._isReady = true;
-            this._callHook('ready');
-            this._resetComputeds();
-            this._callUpdate();
         };
 
         UIkit.prototype._callUpdate = function (e) {
@@ -3418,25 +3403,9 @@
                 return toNumber(value);
             } else if (type === 'list') {
                 return toList(value);
-            } else if (type === 'media') {
-                return toMedia(value);
             }
 
             return type ? type(value) : value;
-        }
-
-        function toMedia(value) {
-
-            if (isString(value)) {
-                if (value[0] === '@') {
-                    var name = "media-" + (value.substr(1));
-                    value = toFloat(getCssVar(name));
-                } else if (isNaN(value)) {
-                    return value;
-                }
-            }
-
-            return value && !isNaN(value) ? ("(min-width: " + value + "px)") : false;
         }
 
         function normalizeData(ref, ref$1) {
@@ -3492,8 +3461,6 @@
             el[DATA][name] = this;
 
             this.$el = this.$options.el = this.$options.el || el;
-
-            this._callHook('init');
 
             if (within(el, document)) {
                 this._callConnected();
@@ -3996,6 +3963,8 @@
 
         ready(function () {
 
+            UIkit.update();
+
             var scroll = 0;
             var started = 0;
 
@@ -4089,10 +4058,6 @@
                 this.$el.preload = 'none';
             }
 
-        },
-
-        ready: function() {
-
             this.player = new Player(this.$el);
 
             if (this.automute) {
@@ -4101,40 +4066,36 @@
 
         },
 
-        update: [
+        update: {
 
-            {
-
-                read: function(_, ref) {
-                    var type = ref.type;
+            read: function(_, ref) {
+                var type = ref.type;
 
 
-                    return !this.player || (type === 'scroll' || type === 'resize') && !this.inView
-                        ? false
-                        : {
-                            visible: isVisible(this.$el) && css(this.$el, 'visibility') !== 'hidden',
-                            inView: this.inView && isInView(this.$el)
-                        };
-                },
+                return !this.player || (type === 'scroll' || type === 'resize') && !this.inView
+                    ? false
+                    : {
+                        visible: isVisible(this.$el) && css(this.$el, 'visibility') !== 'hidden',
+                        inView: this.inView && isInView(this.$el)
+                    };
+            },
 
-                write: function(ref) {
-                    var visible = ref.visible;
-                    var inView = ref.inView;
+            write: function(ref) {
+                var visible = ref.visible;
+                var inView = ref.inView;
 
 
-                    if (!visible || this.inView && !inView) {
-                        this.player.pause();
-                    } else if (this.autoplay === true || this.inView && inView) {
-                        this.player.play();
-                    }
+                if (!visible || this.inView && !inView) {
+                    this.player.pause();
+                } else if (this.autoplay === true || this.inView && inView) {
+                    this.player.play();
+                }
 
-                },
+            },
 
-                events: ['load', 'resize', 'scroll']
+            events: ['load', 'resize', 'scroll']
 
-            }
-
-        ]
+        }
 
     };
 
@@ -4331,7 +4292,7 @@
 
         },
 
-        init: function() {
+        created: function() {
             this.tracker = new MouseTracker();
         },
 
@@ -5109,7 +5070,64 @@
         }, []));
     }
 
+    // IE 11 fix (min-height on a flex container won't apply to its flex items)
+    var FlexBug = isIE ? {
+
+        data: {
+            selMinHeight: false,
+            forceHeight: false
+        },
+
+        computed: {
+
+            elements: function(ref, $el) {
+                var selMinHeight = ref.selMinHeight;
+
+                return selMinHeight ? $$(selMinHeight, $el) : [$el];
+            }
+
+        },
+
+        update: [
+
+            {
+
+                read: function() {
+                    css(this.elements, 'height', '');
+                },
+
+                order: -5,
+
+                events: ['load', 'resize']
+
+            },
+
+            {
+
+                write: function() {
+                    var this$1 = this;
+
+                    this.elements.forEach(function (el) {
+                        var height$$1 = toFloat(css(el, 'minHeight'));
+                        if (height$$1 && (this$1.forceHeight || Math.round(height$$1) >= height(el))) {
+                            css(el, 'height', height$$1);
+                        }
+                    });
+                },
+
+                order: 5,
+
+                events: ['load', 'resize']
+
+            }
+
+        ]
+
+    } : {};
+
     var HeightMatch = {
+
+        mixins: [FlexBug],
 
         args: 'target',
 
@@ -5120,7 +5138,8 @@
 
         data: {
             target: '> *',
-            row: true
+            row: true,
+            forceHeight: true
         },
 
         computed: {
@@ -5136,69 +5155,65 @@
         update: {
 
             read: function() {
-                var this$1 = this;
-
-
-                css(this.elements, {
-                    minHeight: '',
-                    boxSizing: ''
-                });
-
                 return {
-                    rows: !this.row
-                        ? [this.match(this.elements)]
-                        : getRows(this.elements).map(function (elements) { return this$1.match(elements); })
+                    rows: (this.row ? getRows(this.elements) : [this.elements]).map(match)
                 };
             },
 
             write: function(ref) {
                 var rows = ref.rows;
 
-
                 rows.forEach(function (ref) {
-                    var height$$1 = ref.height;
-                    var elements = ref.elements;
+                        var heights = ref.heights;
+                        var elements = ref.elements;
 
-                    return css(elements, {
-                    minHeight: height$$1,
-                    boxSizing: 'border-box'
-                });
-                });
-
+                        return elements.forEach(function (el, i) { return css(el, 'minHeight', heights[i]); }
+                    );
+                }
+                );
             },
 
             events: ['load', 'resize']
 
-        },
-
-        methods: {
-
-            match: function(elements) {
-
-                if (elements.length < 2) {
-                    return {};
-                }
-
-                var heights = [];
-                var max = 0;
-
-                elements
-                    .forEach(function (el) {
-                        var ref = offset(el);
-                        var height$$1 = ref.height;
-                        max = Math.max(max, height$$1);
-                        heights.push(height$$1);
-                    });
-
-                elements = elements.filter(function (el, i) { return heights[i] < max; });
-
-                return {height: max, elements: elements};
-            }
         }
 
     };
 
+    function match(elements) {
+        var assign$$1;
+
+
+        if (elements.length < 2) {
+            return {heights: [''], elements: elements};
+        }
+
+        var ref = getHeights(elements);
+        var heights = ref.heights;
+        var max = ref.max;
+        var hasMinHeight = elements.some(function (el) { return el.style.minHeight; });
+        var hasShrunk = elements.some(function (el, i) { return !el.style.minHeight && heights[i] < max; });
+
+        if (hasMinHeight && hasShrunk) {
+            css(elements, 'minHeight', '');
+            ((assign$$1 = getHeights(elements), heights = assign$$1.heights, max = assign$$1.max));
+        }
+
+        heights = elements.map(function (el, i) { return heights[i] === max && toFloat(el.style.minHeight) !== max ? '' : max; }
+        );
+
+        return {heights: heights, elements: elements};
+    }
+
+    function getHeights(elements) {
+        var heights = elements.map(function (el) { return offset(el).height - boxModelAdjust('height', el, 'content-box'); });
+        var max = Math.max.apply(null, heights);
+
+        return {heights: heights, max: max};
+    }
+
     var HeightViewport = {
+
+        mixins: [FlexBug],
 
         props: {
             expand: Boolean,
@@ -5214,31 +5229,28 @@
             minHeight: 0
         },
 
-        connected: function() {
-            css(this.$el, 'boxSizing', 'border-box');
-        },
-
         update: {
 
             read: function() {
 
-                var viewport = height(window);
                 var minHeight = '';
+                var box = boxModelAdjust('height', this.$el, 'content-box');
 
                 if (this.expand) {
 
-                    minHeight = viewport - (offsetHeight(document.documentElement) - offsetHeight(this.$el)) || '';
+                    minHeight = height(window) - (offsetHeight(document.documentElement) - offsetHeight(this.$el)) - box || '';
 
                 } else {
-
-                    var ref = offset(this.$el);
-                    var top = ref.top;
 
                     // on mobile devices (iOS and Android) window.innerHeight !== 100vh
                     minHeight = 'calc(100vh';
 
-                    if (top < viewport / 2 && this.offsetTop) {
-                        minHeight += " - " + top + "px";
+                    if (this.offsetTop) {
+
+                        var ref = offset(this.$el);
+                        var top = ref.top;
+                        minHeight += top < height(window) / 2 ? (" - " + top + "px") : '';
+
                     }
 
                     if (this.offsetBottom === true) {
@@ -5259,27 +5271,21 @@
 
                     }
 
-                    minHeight += ')';
+                    minHeight += (box ? (" - " + box + "px") : '') + ")";
 
                 }
 
-                return {minHeight: minHeight, viewport: viewport};
+                return {minHeight: minHeight};
             },
 
             write: function(ref) {
                 var minHeight = ref.minHeight;
 
 
-                css(this.$el, {height: '', minHeight: minHeight});
+                css(this.$el, {minHeight: minHeight});
 
                 if (this.minHeight && toFloat(css(this.$el, 'minHeight')) < this.minHeight) {
                     css(this.$el, 'minHeight', this.minHeight);
-                }
-
-                // IE 11 fix (min-height on a flex container won't apply to its flex items)
-                var height$$1;
-                if (/* isIE && */(height$$1 = Math.round(toFloat(css(this.$el, 'minHeight')))) >= offsetHeight(this.$el)) {
-                    css(this.$el, 'height', height$$1);
                 }
 
             },
@@ -5776,56 +5782,52 @@
 
         },
 
-        update: [
+        update: {
 
-            {
-
-                read: function(ref) {
-                    var this$1 = this;
-                    var delay = ref.delay;
-                    var image = ref.image;
+            read: function(ref) {
+                var this$1 = this;
+                var delay = ref.delay;
+                var image = ref.image;
 
 
-                    if (!delay) {
-                        return;
+                if (!delay) {
+                    return;
+                }
+
+                if (image || !this.target.some(function (el) { return isInView(el, this$1.offsetTop, this$1.offsetLeft, true); })) {
+
+                    if (!this.isImg && image) {
+                        image.then(function (img) { return img && setSrcAttrs(this$1.$el, currentSrc(img)); });
                     }
 
-                    if (image || !this.target.some(function (el) { return isInView(el, this$1.offsetTop, this$1.offsetLeft, true); })) {
+                    return;
+                }
 
-                        if (!this.isImg && image) {
-                            image.then(function (img) { return img && setSrcAttrs(this$1.$el, currentSrc(img)); });
-                        }
+                return {
+                    image: getImage(this.dataSrc, this.dataSrcset, this.sizes).then(function (img) {
 
-                        return;
-                    }
+                        setSrcAttrs(this$1.$el, currentSrc(img), img.srcset, img.sizes);
+                        storage[this$1.cacheKey] = currentSrc(img);
+                        return img;
 
-                    return {
-                        image: getImage(this.dataSrc, this.dataSrcset, this.sizes).then(function (img) {
+                    }, noop)
+                };
 
-                            setSrcAttrs(this$1.$el, currentSrc(img), img.srcset, img.sizes);
-                            storage[this$1.cacheKey] = currentSrc(img);
-                            return img;
+            },
 
-                        }, noop)
-                    };
+            write: function(data$$1) {
 
-                },
+                // Give placeholder images time to apply their dimensions
+                if (!data$$1.delay) {
+                    this.$emit();
+                    return data$$1.delay = true;
+                }
 
-                write: function(data$$1) {
+            },
 
-                    // Give placeholder images time to apply their dimensions
-                    if (!data$$1.delay) {
-                        this.$emit();
-                        return data$$1.delay = true;
-                    }
+            events: ['scroll', 'load', 'resize']
 
-                },
-
-                events: ['scroll', 'load', 'resize']
-
-            }
-
-        ]
+        }
 
     };
 
@@ -5924,18 +5926,51 @@
         storage = {};
     }
 
-    var Leader = {
-
-        mixins: [Class],
+    var Media = {
 
         props: {
-            fill: String,
-            media: 'media'
+            media: Boolean
+        },
+
+        data: {
+            media: false
+        },
+
+        computed: {
+
+            matchMedia: function() {
+                var media = toMedia(this.media);
+                return !media || window.matchMedia(media).matches;
+            }
+
+        }
+
+    };
+
+    function toMedia(value) {
+
+        if (isString(value)) {
+            if (value[0] === '@') {
+                var name = "breakpoint-" + (value.substr(1));
+                value = toFloat(getCssVar(name));
+            } else if (isNaN(value)) {
+                return value;
+            }
+        }
+
+        return value && !isNaN(value) ? ("(min-width: " + value + "px)") : false;
+    }
+
+    var Leader = {
+
+        mixins: [Class, Media],
+
+        props: {
+            fill: String
         },
 
         data: {
             fill: '',
-            media: false,
             clsWrapper: 'uk-leader-fill',
             clsHide: 'uk-leader-hide',
             attrFill: 'data-fill'
@@ -5946,7 +5981,7 @@
             fill: function(ref) {
                 var fill = ref.fill;
 
-                return fill || getCssVar('leader-fill');
+                return fill || getCssVar('leader-fill-content');
             }
 
         },
@@ -5961,41 +5996,38 @@
             unwrap(this.wrapper.childNodes);
         },
 
-        update: [
+        update: {
 
-            {
-
-                read: function(ref) {
-                    var changed = ref.changed;
-                    var width$$1 = ref.width;
+            read: function(ref) {
+                var changed = ref.changed;
+                var width$$1 = ref.width;
 
 
-                    var prev = width$$1;
+                var prev = width$$1;
 
-                    width$$1 = Math.floor(this.$el.offsetWidth / 2);
+                width$$1 = Math.floor(this.$el.offsetWidth / 2);
 
-                    return {
-                        width: width$$1,
-                        changed: changed || prev !== width$$1,
-                        hide: this.media && !window.matchMedia(this.media).matches
-                    };
-                },
+                return {
+                    width: width$$1,
+                    changed: changed || prev !== width$$1,
+                    hide: !this.matchMedia
+                };
+            },
 
-                write: function(data$$1) {
+            write: function(data$$1) {
 
-                    toggleClass(this.wrapper, this.clsHide, data$$1.hide);
+                toggleClass(this.wrapper, this.clsHide, data$$1.hide);
 
-                    if (data$$1.changed) {
-                        data$$1.changed = false;
-                        attr(this.wrapper, this.attrFill, new Array(data$$1.width).join(this.fill));
-                    }
+                if (data$$1.changed) {
+                    data$$1.changed = false;
+                    attr(this.wrapper, this.attrFill, new Array(data$$1.width).join(this.fill));
+                }
 
-                },
+            },
 
-                events: ['load', 'resize']
+            events: ['load', 'resize']
 
-            }
-        ]
+        }
 
     };
 
@@ -6433,7 +6465,7 @@
 
     var Navbar = {
 
-        mixins: [Class],
+        mixins: [Class, FlexBug],
 
         props: {
             dropdown: String,
@@ -6466,6 +6498,8 @@
             dropbarMode: 'slide',
             dropbarAnchor: false,
             duration: 200,
+            forceHeight: true,
+            selMinHeight: '.uk-navbar-nav > li > a, .uk-navbar-item, .uk-navbar-toggle'
         },
 
         computed: {
@@ -6657,6 +6691,8 @@
             },
 
             transitionTo: function(newHeight, el) {
+                var this$1 = this;
+
 
                 var ref = this;
                 var dropbar = ref.dropbar;
@@ -6674,7 +6710,10 @@
                     Transition.start(el, {clip: ("rect(0," + (el.offsetWidth) + "px," + newHeight + "px,0)")}, this.duration)
                 ])
                     .catch(noop)
-                    .then(function () { return css(el, {clip: ''}); });
+                    .then(function () {
+                        css(el, {clip: ''});
+                        this$1.$update(dropbar);
+                    });
             },
 
             getDropdown: function(el) {
@@ -7080,7 +7119,7 @@
                 }
 
                 e.preventDefault();
-                this.scrollTo(escape(this.$el.hash).substr(1));
+                this.scrollTo(escape(decodeURIComponent(this.$el.hash)).substr(1));
             }
 
         }
@@ -7364,7 +7403,7 @@
 
     var Sticky = {
 
-        mixins: [Class],
+        mixins: [Class, Media],
 
         props: {
             top: null,
@@ -7378,7 +7417,6 @@
             selTarget: String,
             widthElement: Boolean,
             showOnUp: Boolean,
-            media: 'media',
             targetOffset: Number
         },
 
@@ -7394,7 +7432,6 @@
             selTarget: '',
             widthElement: false,
             showOnUp: false,
-            media: false,
             targetOffset: false
         },
 
@@ -7415,18 +7452,13 @@
         },
 
         connected: function() {
-
             this.placeholder = $('+ .uk-sticky-placeholder', this.$el) || $('<div class="uk-sticky-placeholder"></div>');
-
-            if (!this.isActive) {
-                this.hide();
-            }
         },
 
         disconnected: function() {
 
             if (this.isActive) {
-                this.isActive = false;
+                this.isActive = undefined;
                 this.hide();
                 removeClass(this.selTarget, this.clsInactive);
             }
@@ -7501,39 +7533,43 @@
 
             {
 
-                read: function() {
-                    return {
-                        height: this.$el.offsetHeight,
-                        top: offset(this.isActive ? this.placeholder : this.$el).top
-                    };
-                },
-
-                write: function(ref) {
+                read: function(ref) {
                     var height$$1 = ref.height;
-                    var top = ref.top;
 
 
-                    var ref$1 = this;
-                    var placeholder = ref$1.placeholder;
-
-                    css(placeholder, assign(
-                        {height: css(this.$el, 'position') !== 'absolute' ? height$$1 : ''},
-                        css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
-                    ));
-
-                    if (!within(placeholder, document)) {
-                        after(this.$el, placeholder);
-                        attr(placeholder, 'hidden', '');
-                    }
-
-                    this.topOffset = top;
+                    this.topOffset = offset(this.isActive ? this.placeholder : this.$el).top;
                     this.bottomOffset = this.topOffset + height$$1;
 
                     var bottom = parseProp('bottom', this);
 
                     this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
                     this.bottom = bottom && bottom - height$$1;
-                    this.inactive = this.media && !window.matchMedia(this.media).matches;
+                    this.inactive = !this.matchMedia;
+
+                    return {
+                        height: !this.isActive ? this.$el.offsetHeight : height$$1,
+                        margins: css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
+                    };
+                },
+
+                write: function(ref) {
+                    var height$$1 = ref.height;
+                    var margins = ref.margins;
+
+
+                    var ref$1 = this;
+                    var placeholder = ref$1.placeholder;
+
+                    css(placeholder, assign({height: height$$1}, margins));
+
+                    if (!within(placeholder, document)) {
+                        after(this.$el, placeholder);
+                        attr(placeholder, 'hidden', '');
+                    }
+
+                    if (isUndefined(this.isActive)) {
+                        this.hide();
+                    }
 
                 },
 
@@ -7855,7 +7891,7 @@
         extends: Switcher,
 
         props: {
-            media: 'media'
+            media: Boolean
         },
 
         data: {
@@ -7880,7 +7916,7 @@
 
     var Toggle = {
 
-        mixins: [Togglable],
+        mixins: [Media, Togglable],
 
         args: 'target',
 
@@ -7888,7 +7924,6 @@
             href: String,
             target: null,
             mode: 'list',
-            media: 'media'
         },
 
         data: {
@@ -7896,7 +7931,6 @@
             target: false,
             mode: 'click',
             queued: true,
-            media: false
         },
 
         computed: {
@@ -7970,7 +8004,7 @@
                 }
 
                 var toggled = this.isToggled(this.target);
-                if (window.matchMedia(this.media).matches ? !toggled : toggled) {
+                if (this.matchMedia ? !toggled : toggled) {
                     this.toggle();
                 }
 
@@ -8043,7 +8077,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.16';
+    UIkit.version = '3.0.0-rc.17';
 
     core(UIkit);
 
@@ -8867,7 +8901,7 @@
             preventCatch: false
         },
 
-        init: function() {
+        created: function() {
             var this$1 = this;
 
 
@@ -9121,29 +9155,25 @@
 
         },
 
-        update: [
+        update: {
 
-            {
-
-                write: function() {
-                    var this$1 = this;
+            write: function() {
+                var this$1 = this;
 
 
-                    if (this.nav && this.length !== this.nav.children.length) {
-                        html(this.nav, this.slides.map(function (_, i) { return ("<li " + (this$1.attrItem) + "=\"" + i + "\"><a href=\"#\"></a></li>"); }).join(''));
-                    }
+                if (this.nav && this.length !== this.nav.children.length) {
+                    html(this.nav, this.slides.map(function (_, i) { return ("<li " + (this$1.attrItem) + "=\"" + i + "\"><a href=\"#\"></a></li>"); }).join(''));
+                }
 
-                    toggleClass($$(this.navItemSelector, this.$el).concat(this.nav), 'uk-hidden', !this.maxIndex);
+                toggleClass($$(this.navItemSelector, this.$el).concat(this.nav), 'uk-hidden', !this.maxIndex);
 
-                    this.updateNav();
+                this.updateNav();
 
-                },
+            },
 
-                events: ['load', 'resize']
+            events: ['load', 'resize']
 
-            }
-
-        ],
+        },
 
         events: [
 
@@ -9970,7 +10000,7 @@
 
         },
 
-        ready: function() {
+        connected: function() {
             var this$1 = this;
 
 
@@ -10056,19 +10086,17 @@
 
     var Parallax = {
 
+        mixins: [Media],
+
         props: props.reduce(function (props, prop) {
             props[prop] = 'list';
             return props;
-        }, {
-            media: 'media'
-        }),
+        }, {}),
 
         data: props.reduce(function (data$$1, prop) {
             data$$1[prop] = undefined;
             return data$$1;
-        }, {
-            media: false
-        }),
+        }, {}),
 
         computed: {
 
@@ -10162,104 +10190,98 @@
             delete this._image;
         },
 
-        update: [
+        update: {
 
-            {
-
-                read: function(data$$1) {
-                    var this$1 = this;
+            read: function(data$$1) {
+                var this$1 = this;
 
 
-                    data$$1.active = !this.media || window.matchMedia(this.media).matches;
+                data$$1.active = this.matchMedia;
 
-                    if (data$$1.image) {
-                        data$$1.image.dimEl = {
-                            width: this.$el.offsetWidth,
-                            height: this.$el.offsetHeight
-                        };
-                    }
+                data$$1.dimEl = {
+                    width: this.$el.offsetWidth,
+                    height: this.$el.offsetHeight
+                };
 
-                    if ('image' in data$$1 || !this.covers || !this.bgProps.length) {
+                if ('image' in data$$1 || !this.covers || !this.bgProps.length) {
+                    return;
+                }
+
+                var src = css(this.$el, 'backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
+
+                if (!src) {
+                    return;
+                }
+
+                var img = new Image();
+                img.src = src;
+                data$$1.image = img;
+
+                if (!img.naturalWidth) {
+                    img.onload = function () { return this$1.$emit(); };
+                }
+            },
+
+            write: function(ref) {
+                var this$1 = this;
+                var dimEl = ref.dimEl;
+                var image = ref.image;
+                var active = ref.active;
+
+
+                if (!image || !image.naturalWidth) {
+                    return;
+                }
+
+                if (!active) {
+                    css(this.$el, {backgroundSize: '', backgroundRepeat: ''});
+                    return;
+                }
+
+                var imageDim = {
+                    width: image.naturalWidth,
+                    height: image.naturalHeight
+                };
+
+                var dim = Dimensions.cover(imageDim, dimEl);
+
+                this.bgProps.forEach(function (prop) {
+
+                    var ref = this$1.props[prop];
+                    var diff = ref.diff;
+                    var bgPos = ref.bgPos;
+                    var steps = ref.steps;
+                    var attr$$1 = prop === 'bgy' ? 'height' : 'width';
+                    var span = dim[attr$$1] - dimEl[attr$$1];
+
+                    if (!bgPos.match(/%$|0px/)) {
                         return;
                     }
 
-                    var src = css(this.$el, 'backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
+                    if (span < diff) {
+                        dimEl[attr$$1] = dim[attr$$1] + diff - span;
+                    } else if (span > diff) {
 
-                    if (!src) {
-                        return;
-                    }
+                        var bgPosFloat = parseFloat(bgPos);
 
-                    data$$1.image = false;
-
-                    getImage(src).then(function (img) {
-                        data$$1.image = {
-                            width: img.naturalWidth,
-                            height: img.naturalHeight
-                        };
-
-                        this$1.$emit();
-                    });
-
-                },
-
-                write: function(ref) {
-                    var this$1 = this;
-                    var image = ref.image;
-                    var active = ref.active;
-
-
-                    if (!image) {
-                        return;
-                    }
-
-                    if (!active) {
-                        css(this.$el, {backgroundSize: '', backgroundRepeat: ''});
-                        return;
-                    }
-
-                    var dimEl = image.dimEl;
-
-                    var dim = Dimensions.cover(image, dimEl);
-
-                    this.bgProps.forEach(function (prop) {
-
-                        var ref = this$1.props[prop];
-                        var diff = ref.diff;
-                        var bgPos = ref.bgPos;
-                        var steps = ref.steps;
-                        var attr$$1 = prop === 'bgy' ? 'height' : 'width';
-                        var span = dim[attr$$1] - dimEl[attr$$1];
-
-                        if (!bgPos.match(/%$|0px/)) {
-                            return;
+                        if (bgPosFloat) {
+                            this$1.props[prop].steps = steps.map(function (step) { return step - (span - diff) / (100 / bgPosFloat); });
                         }
+                    }
 
-                        if (span < diff) {
-                            dimEl[attr$$1] = dim[attr$$1] + diff - span;
-                        } else if (span > diff) {
+                    dim = Dimensions.cover(imageDim, dimEl);
+                });
 
-                            var bgPosFloat = parseFloat(bgPos);
+                css(this.$el, {
+                    backgroundSize: ((dim.width) + "px " + (dim.height) + "px"),
+                    backgroundRepeat: 'no-repeat'
+                });
 
-                            if (bgPosFloat) {
-                                this$1.props[prop].steps = steps.map(function (step) { return step - (span - diff) / (100 / bgPosFloat); });
-                            }
-                        }
+            },
 
-                        dim = Dimensions.cover(image, dimEl);
-                    });
+            events: ['load', 'resize']
 
-                    css(this.$el, {
-                        backgroundSize: ((dim.width) + "px " + (dim.height) + "px"),
-                        backgroundRepeat: 'no-repeat'
-                    });
-
-                },
-
-                events: ['load', 'resize']
-
-            }
-
-        ],
+        },
 
         methods: {
 
@@ -10425,45 +10447,47 @@
 
         },
 
-        update: [
+        update: {
 
-            {
-
-                read: function(ref) {
-                    var percent = ref.percent;
-
-                    return {
-                        prev: percent,
-                        percent: ease$1(scrolledOver(this.target) / (this.viewport || 1), this.easing)
-                    };
-                },
-
-                write: function(ref, ref$1) {
-                    var prev = ref.prev;
-                    var percent = ref.percent;
-                    var active = ref.active;
-                    var type = ref$1.type;
+            read: function(ref, ref$1) {
+                var percent = ref.percent;
+                var active = ref.active;
+                var type = ref$1.type;
 
 
-                    if (type !== 'scroll') {
-                        prev = false;
-                    }
+                if (type !== 'scroll') {
+                    percent = false;
+                }
 
-                    if (!active) {
-                        this.reset();
-                        return;
-                    }
+                if (!active) {
+                    return;
+                }
 
-                    if (prev !== percent) {
-                        css(this.$el, this.getCss(percent));
-                    }
+                var prev = percent;
+                percent = ease$1(scrolledOver(this.target) / (this.viewport || 1), this.easing);
 
-                },
+                return {
+                    percent: percent,
+                    style: prev !== percent ? this.getCss(percent) : false
+                };
+            },
 
-                events: ['scroll', 'load', 'resize']
-            }
+            write: function(ref) {
+                var style = ref.style;
+                var active = ref.active;
 
-        ]
+
+                if (!active) {
+                    this.reset();
+                    return;
+                }
+
+                style && css(this.$el, style);
+
+            },
+
+            events: ['scroll', 'load', 'resize']
+        }
 
     };
 
@@ -10473,28 +10497,24 @@
 
     var SliderReactive = {
 
-        update: [
+        update: {
 
-            {
+            write: function() {
 
-                write: function() {
+                if (this.stack.length || this.dragging) {
+                    return;
+                }
 
-                    if (this.stack.length || this.dragging) {
-                        return;
-                    }
+                var index$$1 = this.getValidIndex();
+                delete this.index;
+                removeClass(this.slides, this.clsActive, this.clsActivated);
+                this.show(index$$1);
 
-                    var index$$1 = this.getValidIndex();
-                    delete this.index;
-                    removeClass(this.slides, this.clsActive, this.clsActivated);
-                    this.show(index$$1);
+            },
 
-                },
+            events: ['load', 'resize']
 
-                events: ['load', 'resize']
-
-            }
-
-        ]
+        }
 
     };
 
@@ -11189,7 +11209,7 @@
                 var width$$1 = ref[0];
                 var height$$1 = ref[1];
 
-                height$$1 = height$$1 * this.$el.offsetWidth / width$$1;
+                height$$1 = height$$1 * this.list.offsetWidth / width$$1;
 
                 if (this.minHeight) {
                     height$$1 = Math.max(this.minHeight, height$$1);
@@ -11199,13 +11219,13 @@
                     height$$1 = Math.min(this.maxHeight, height$$1);
                 }
 
-                return {height: height$$1};
+                return {height: height$$1 - boxModelAdjust(this.list, 'content-box')};
             },
 
             write: function(ref) {
-                var hgt = ref.height;
+                var height$$1 = ref.height;
 
-                height(this.list, Math.floor(hgt));
+                css(this.list, 'minHeight', height$$1);
             },
 
             events: ['load', 'resize']
@@ -11248,7 +11268,7 @@
             handle: false
         },
 
-        init: function() {
+        created: function() {
             var this$1 = this;
 
             ['init', 'start', 'move', 'end'].forEach(function (key) {
@@ -11558,19 +11578,8 @@
                 this._unbind = on(document, 'click', function (e) { return !within(e.target, this$1.$el) && this$1.hide(); });
 
                 clearTimeout(this.showTimer);
-
-                this.tooltip = append(this.container, ("<div class=\"" + (this.clsPos) + "\" aria-hidden><div class=\"" + (this.clsPos) + "-inner\">" + (this.title) + "</div></div>"));
-
-                attr(this.$el, 'aria-expanded', true);
-
-                this.positionAt(this.tooltip, this.$el);
-
-                this.origin = this.getAxis() === 'y' ? ((flipPosition(this.dir)) + "-" + (this.align)) : ((this.align) + "-" + (flipPosition(this.dir)));
-
                 this.showTimer = setTimeout(function () {
-
-                    this$1.toggleElement(this$1.tooltip, true);
-
+                    this$1._show();
                     this$1.hideTimer = setInterval(function () {
 
                         if (!isVisible(this$1.$el)) {
@@ -11578,7 +11587,6 @@
                         }
 
                     }, 150);
-
                 }, this.delay);
             },
 
@@ -11599,6 +11607,22 @@
                 this.tooltip && remove(this.tooltip);
                 this.tooltip = false;
                 this._unbind();
+
+            },
+
+            _show: function() {
+
+                this.tooltip = append(this.container,
+                    ("<div class=\"" + (this.clsPos) + "\" aria-expanded=\"true\" aria-hidden> <div class=\"" + (this.clsPos) + "-inner\">" + (this.title) + "</div> </div>")
+                );
+
+                this.positionAt(this.tooltip, this.$el);
+
+                this.origin = this.getAxis() === 'y'
+                    ? ((flipPosition(this.dir)) + "-" + (this.align))
+                    : ((this.align) + "-" + (flipPosition(this.dir)));
+
+                this.toggleElement(this.tooltip, true);
 
             }
 
@@ -11729,12 +11753,12 @@
                         return;
                     }
 
-                    if (this$1.allow && !match(this$1.allow, files[i].name)) {
+                    if (this$1.allow && !match$1(this$1.allow, files[i].name)) {
                         this$1.fail(this$1.msgInvalidName.replace('%s', this$1.allow));
                         return;
                     }
 
-                    if (this$1.mime && !match(this$1.mime, files[i].type)) {
+                    if (this$1.mime && !match$1(this$1.mime, files[i].type)) {
                         this$1.fail(this$1.msgInvalidMime.replace('%s', this$1.mime));
                         return;
                     }
@@ -11797,7 +11821,7 @@
 
     };
 
-    function match(pattern, path) {
+    function match$1(pattern, path) {
         return path.match(new RegExp(("^" + (pattern.replace(/\//g, '\\/').replace(/\*\*/g, '(\\/[^\\/]+)*').replace(/\*/g, '[^\\/]+').replace(/((?!\\))\?/g, '$1.')) + "$"), 'i'));
     }
 
