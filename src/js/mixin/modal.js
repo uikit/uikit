@@ -35,10 +35,6 @@ export default {
             return this.panel;
         },
 
-        transitionDuration() {
-            return toMs(css(this.transitionElement, 'transitionDuration'));
-        },
-
         bgClose({bgClose}) {
             return bgClose && this.panel;
         }
@@ -200,12 +196,12 @@ export default {
                 this._callConnected();
             }
 
-            return this.toggleElement(this.$el, true, animate);
+            return this.toggleElement(this.$el, true, animate(this.transitionElement));
         },
 
         hide() {
             return this.isToggled()
-                ? this.toggleElement(this.$el, false, animate)
+                ? this.toggleElement(this.$el, false, animate(this.transitionElement))
                 : Promise.resolve();
         },
 
@@ -245,16 +241,18 @@ function deregisterEvents() {
     events = null;
 }
 
-function animate(el, show) {
-    return new Promise(resolve =>
-        requestAnimationFrame(() => {
-            this._toggle(el, show);
+function animate (transitionElement) {
+    return (el, show, toggle) =>
+        new Promise(resolve =>
+            requestAnimationFrame(() => {
 
-            if (this.transitionDuration) {
-                once(this.transitionElement, 'transitionend', resolve, false, e => e.target === this.transitionElement);
-            } else {
-                resolve();
-            }
-        })
-    );
+                toggle(el, show);
+
+                if (toMs(css(transitionElement, 'transitionDuration'))) {
+                    once(transitionElement, 'transitionend', resolve, false, e => e.target === transitionElement);
+                } else {
+                    resolve();
+                }
+            })
+        );
 }

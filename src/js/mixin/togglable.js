@@ -132,7 +132,7 @@ export default {
                         : this.hasTransition
                             ? this._toggleHeight
                             : this._toggleAnimation
-            ).call(this, el, show);
+            ).call(this, el, show, this._toggle);
 
             trigger(el, show ? 'show' : 'hide', [this]);
 
@@ -163,12 +163,12 @@ export default {
             changed && this.$update(el);
         },
 
-        _toggleImmediate(el, show) {
-            this._toggle(el, show);
+        _toggleImmediate(el, show, toggle) {
+            toggle(el, show);
             return Promise.resolve();
         },
 
-        _toggleHeight(el, show) {
+        _toggleHeight(el, show, toggle) {
 
             const inProgress = Transition.inProgress(el);
             const inner = el.hasChildNodes ? toFloat(css(el.firstElementChild, 'marginTop')) + toFloat(css(el.lastElementChild, 'marginBottom')) : 0;
@@ -177,7 +177,7 @@ export default {
             Transition.cancel(el);
 
             if (!this.isToggled(el)) {
-                this._toggle(el, true);
+                toggle(el, true);
             }
 
             height(el, '');
@@ -190,21 +190,21 @@ export default {
 
             return (show
                 ? Transition.start(el, assign({}, this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - currentHeight / endHeight)), this.transition)
-                : Transition.start(el, this.hideProps, Math.round(this.duration * (currentHeight / endHeight)), this.transition).then(() => this._toggle(el, false))
+                : Transition.start(el, this.hideProps, Math.round(this.duration * (currentHeight / endHeight)), this.transition).then(() => toggle(el, false))
             ).then(() => css(el, this.initProps));
 
         },
 
-        _toggleAnimation(el, show) {
+        _toggleAnimation(el, show, toggle) {
 
             Animation.cancel(el);
 
             if (show) {
-                this._toggle(el, true);
+                toggle(el, true);
                 return Animation.in(el, this.animation[0], this.duration, this.origin);
             }
 
-            return Animation.out(el, this.animation[1] || this.animation[0], this.duration, this.origin).then(() => this._toggle(el, false));
+            return Animation.out(el, this.animation[1] || this.animation[0], this.duration, this.origin).then(() => toggle(el, false));
         }
 
     }
