@@ -1,4 +1,4 @@
-import {$$, Animation, assign, attr, css, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger} from 'uikit-util';
+import {$$, Animation, assign, attr, css, fastdom, hasAttr, hasClass, height, includes, isBoolean, isFunction, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger} from 'uikit-util';
 
 export default {
 
@@ -124,12 +124,15 @@ export default {
                 return Promise.reject();
             }
 
-            const promise = (animate === false || !this.hasAnimation
-                ? this._toggleImmediate
-                : this.hasTransition
-                    ? this._toggleHeight
-                    : this._toggleAnimation
-            )(el, show);
+            const promise = (
+                isFunction(animate)
+                    ? animate
+                    : animate === false || !this.hasAnimation
+                        ? this._toggleImmediate
+                        : this.hasTransition
+                            ? this._toggleHeight
+                            : this._toggleAnimation
+            ).call(this, el, show);
 
             trigger(el, show ? 'show' : 'hide', [this]);
 

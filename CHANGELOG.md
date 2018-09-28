@@ -1,5 +1,12 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Modal not hiding upon being destroyed
+- Fix `scope` command for already scoped css, comments are removed from generated css files
+
 ## 3.0.0 rc 17 (September 27, 2018)
 
 ### Added
@@ -27,7 +34,7 @@
 - Allow for special characters in URI hash in Scroll Component
 - Height Match also sets a `height` in IE
 - Slideshow sets `min-height` instead of `height`
-- `scope`command will now work as expected. This fix removes all comments from the generated css files.
+
 
 ## 3.0.0 rc 16 (September 12, 2018)
 

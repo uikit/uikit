@@ -1,4 +1,4 @@
-import {$, addClass, append, css, hasClass, on, once, Promise, removeClass, toMs, width, within} from 'uikit-util';
+import {$, addClass, append, css, hasClass, on, once, Promise, removeClass, toMs, trigger, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
@@ -43,6 +43,13 @@ export default {
             return bgClose && this.panel;
         }
 
+    },
+
+    beforeDisconnect() {
+        if (this.isToggled()) {
+            this.toggleNow(this.$el, false);
+            trigger(this.$el, 'hidden', [this]);
+        }
     },
 
     events: [
@@ -193,31 +200,17 @@ export default {
                 this._callConnected();
             }
 
-            return this.toggleNow(this.$el, true);
+            return this.toggleElement(this.$el, true, animate);
         },
 
         hide() {
             return this.isToggled()
-                ? this.toggleNow(this.$el, false)
+                ? this.toggleElement(this.$el, false, animate)
                 : Promise.resolve();
         },
 
         getActive() {
             return active;
-        },
-
-        _toggleImmediate(el, show) {
-            return new Promise(resolve =>
-                requestAnimationFrame(() => {
-                    this._toggle(el, show);
-
-                    if (this.transitionDuration) {
-                        once(this.transitionElement, 'transitionend', resolve, false, e => e.target === this.transitionElement);
-                    } else {
-                        resolve();
-                    }
-                })
-            );
         }
 
     }
@@ -250,4 +243,18 @@ function registerEvents() {
 function deregisterEvents() {
     events && events.forEach(unbind => unbind());
     events = null;
+}
+
+function animate(el, show) {
+    return new Promise(resolve =>
+        requestAnimationFrame(() => {
+            this._toggle(el, show);
+
+            if (this.transitionDuration) {
+                once(this.transitionElement, 'transitionend', resolve, false, e => e.target === this.transitionElement);
+            } else {
+                resolve();
+            }
+        })
+    );
 }
