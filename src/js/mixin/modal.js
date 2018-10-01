@@ -44,7 +44,6 @@ export default {
     beforeDisconnect() {
         if (this.isToggled()) {
             this.toggleNow(this.$el, false);
-            trigger(this.$el, 'hidden', [this]);
         }
     },
 
