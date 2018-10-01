@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add divider vertical modifier to Divider component
+
 ### Fixed
 
 - Fix Modal not hiding upon being destroyed
