@@ -196,12 +196,12 @@ export default {
                 this._callConnected();
             }
 
-            return this.toggleElement(this.$el, true, animate(this.transitionElement));
+            return this.toggleElement(this.$el, true, animate(this));
         },
 
         hide() {
             return this.isToggled()
-                ? this.toggleElement(this.$el, false, animate(this.transitionElement))
+                ? this.toggleElement(this.$el, false, animate(this))
                 : Promise.resolve();
         },
 
@@ -241,12 +241,12 @@ function deregisterEvents() {
     events = null;
 }
 
-function animate (transitionElement) {
-    return (el, show, toggle) =>
+function animate({transitionElement, _toggle}) {
+    return (el, show) =>
         new Promise(resolve =>
             requestAnimationFrame(() => {
 
-                toggle(el, show);
+                _toggle(el, show);
 
                 if (toMs(css(transitionElement, 'transitionDuration'))) {
                     once(transitionElement, 'transitionend', resolve, false, e => e.target === transitionElement);
