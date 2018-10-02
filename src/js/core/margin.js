@@ -1,4 +1,4 @@
-import {isRtl, isVisible, toggleClass} from 'uikit-util';
+import {isRtl, isVisible, offsetPosition, toggleClass} from 'uikit-util';
 
 export default {
 
@@ -51,7 +51,7 @@ export function getRows(items) {
     for (let i = 0; i < items.length; i++) {
 
         const el = items[i];
-        const dim = getOffset(el);
+        let dim = getOffset(el);
 
         if (!dim.height) {
             continue;
@@ -66,7 +66,13 @@ export function getRows(items) {
                 break;
             }
 
-            const leftDim = getOffset(row[0]);
+            let leftDim;
+            if (row[0].offsetParent === el.offsetParent) {
+                leftDim = getOffset(row[0]);
+            } else {
+                dim = getOffset(el, true);
+                leftDim = getOffset(row[0], true);
+            }
 
             if (dim.top >= leftDim.bottom - 1) {
                 rows.push([el]);
@@ -97,9 +103,13 @@ export function getRows(items) {
 
 }
 
-function getOffset(element) {
+function getOffset(element, offset = false) {
 
-    const {offsetTop, offsetLeft, offsetHeight} = element;
+    let {offsetTop, offsetLeft, offsetHeight} = element;
+
+    if (offset) {
+        [offsetTop, offsetLeft] = offsetPosition(element);
+    }
 
     return {
         top: offsetTop,

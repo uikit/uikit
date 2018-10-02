@@ -48,7 +48,7 @@ export default {
                     rows = rows.map(elements => sortBy(elements, 'offsetLeft'));
                 }
 
-                const hasStaticContent = rows.some(elements => elements.some(element => css(element, 'position') === 'static'));
+                const hasStaticContent = rows.some(elements => elements.some(element => element.style.position === 'static'));
                 let translates = false;
                 let elHeight = '';
 
