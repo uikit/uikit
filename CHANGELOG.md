@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix Modal not hiding upon being destroyed
+- Fix using node as offset in position mixin
 - Fix `scope` command for already scoped css, comments are removed from generated css files
 
 ## 3.0.0 rc 17 (September 27, 2018)
