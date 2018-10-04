@@ -127,7 +127,9 @@ export default {
 
         {
 
-            read({height}) {
+            read({height}, {type}) {
+
+                height = !this.isActive || type === 'resize' ? this.$el.offsetHeight : height;
 
                 this.topOffset = offset(this.isActive ? this.placeholder : this.$el).top;
                 this.bottomOffset = this.topOffset + height;
@@ -139,7 +141,7 @@ export default {
                 this.inactive = !this.matchMedia;
 
                 return {
-                    height: !this.isActive ? this.$el.offsetHeight : height,
+                    height,
                     margins: css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
                 };
             },

@@ -1,9 +1,9 @@
-import {addClass} from 'uikit-util';
+import {addClass, hasClass} from 'uikit-util';
 
 export default {
 
     connected() {
-        addClass(this.$el, this.$name);
+        !hasClass(this.$el, this.$name) && addClass(this.$el, this.$name);
     }
 
 };
