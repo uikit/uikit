@@ -8,6 +8,7 @@
 
 ### Fixed
 
+- close color being overwritten from toolbar in Lightbox component
 - Fix Modal not hiding upon being destroyed
 - Fix using node as offset in position mixin
 - Fix using Height Match component on elements with different offsetParents
