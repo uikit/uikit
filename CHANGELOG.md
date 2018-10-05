@@ -8,6 +8,7 @@
 
 ### Fixed
 
+- Fix inverse hover color for accordion title
 - Fix close color being overwritten from toolbar in Lightbox component
 - Fix Modal not hiding upon being destroyed
 - Fix using node as offset in position mixin
