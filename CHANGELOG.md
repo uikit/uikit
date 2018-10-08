@@ -16,6 +16,7 @@
 - Fix `scope` command for already scoped css, comments are removed from generated css files
 - Fix Sticky placeholder height on resize
 - Fix starting/stopping of autoplay in Lightbox
+- Fix initially wrong position of background image in Parallax component
 
 ## 3.0.0 rc 17 (September 27, 2018)
 
