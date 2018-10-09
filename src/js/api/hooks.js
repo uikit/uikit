@@ -1,4 +1,4 @@
-import {assign, createEvent, fastdom, includes, isPlainObject, ready} from 'uikit-util';
+import {assign, createEvent, fastdom, includes, isPlainObject} from 'uikit-util';
 
 export default function (UIkit) {
 
