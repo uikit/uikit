@@ -18,6 +18,7 @@
 - Fix Sticky placeholder height on resize
 - Fix starting/stopping of autoplay in Lightbox
 - Fix initially wrong position of background image in Parallax component
+- Fix calling `isActive` on `undefined` in Navbar component
 
 ## 3.0.0 rc 17 (September 27, 2018)
 
