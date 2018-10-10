@@ -8,6 +8,7 @@
 
 ### Fixed
 
+- Fix preserve color not working if class is set on svg element in Icon component
 - Fix inverse hover color for accordion title
 - Fix close color being overwritten from toolbar in Lightbox component
 - Fix Modal not hiding upon being destroyed
