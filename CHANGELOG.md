@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in Icon component
+
 ## 3.0.0 rc 18 (October 11, 2018)
 
 ### Added
