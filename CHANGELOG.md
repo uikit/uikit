@@ -1,5 +1,26 @@
 # Changelog
 
+## 3.0.0 rc 18 (October 11, 2018)
+
+### Added
+
+- Add divider vertical modifier to Divider component
+
+### Fixed
+
+- Fix preserve color not working if class is set on svg element in Icon component
+- Fix inverse hover color for accordion title
+- Fix close color being overwritten from toolbar in Lightbox component
+- Fix Modal not hiding upon being destroyed
+- Fix using node as offset in position mixin
+- Fix using Height Match component on elements with different offsetParents
+- Fix rounding error in Height Match component
+- Fix `scope` command for already scoped css, comments are removed from generated css files
+- Fix Sticky placeholder height on resize
+- Fix starting/stopping of autoplay in Lightbox
+- Fix initially wrong position of background image in Parallax component
+- Fix calling `isActive` on `undefined` in Navbar component
+
 ## 3.0.0 rc 17 (September 27, 2018)
 
 ### Added
@@ -8,8 +29,8 @@
 
 ### Changed
 
-- Viewport Height component no longer sets a `height` except for IE  
-- Viewport Height component no longer forces `box-sizing: border-box`  
+- Viewport Height component no longer sets a `height` except for IE
+- Viewport Height component no longer forces `box-sizing: border-box`
 - Improve Tooltip performance
 - Improve Parallax performance
 - Improve Sticky performance
@@ -22,11 +43,12 @@
 
 ### Fixed
 
-- Fix `UIkit.mixin()` 
+- Fix `UIkit.mixin()`
 - Fix issue with list bullet in combination with multi column layouts
 - Allow for special characters in URI hash in Scroll Component
 - Height Match also sets a `height` in IE
 - Slideshow sets `min-height` instead of `height`
+
 
 ## 3.0.0 rc 16 (September 12, 2018)
 

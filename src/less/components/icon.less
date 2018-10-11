@@ -92,8 +92,8 @@ button.uk-icon:not(:disabled) { cursor: pointer; }
  * Set the fill and stroke color of all SVG elements to the current text color
  */
 
-.uk-icon [fill*='#']:not(.uk-preserve) { fill: currentcolor; }
-.uk-icon [stroke*='#']:not(.uk-preserve) { stroke: currentcolor; }
+.uk-icon:not(.uk-preserve) [fill*='#']:not(.uk-preserve) { fill: currentcolor; }
+.uk-icon:not(.uk-preserve) [stroke*='#']:not(.uk-preserve) { stroke: currentcolor; }
 
 /*
  * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835

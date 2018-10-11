@@ -1,4 +1,4 @@
-import {$$, Animation, assign, attr, css, fastdom, hasAttr, hasClass, height, includes, isBoolean, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger} from 'uikit-util';
+import {$$, Animation, assign, attr, css, fastdom, hasAttr, hasClass, height, includes, isBoolean, isFunction, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger} from 'uikit-util';
 
 export default {
 
@@ -124,19 +124,24 @@ export default {
                 return Promise.reject();
             }
 
-            const promise = (animate === false || !this.hasAnimation
-                ? this._toggleImmediate
-                : this.hasTransition
-                    ? this._toggleHeight
-                    : this._toggleAnimation
+            const promise = (
+                isFunction(animate)
+                    ? animate
+                    : animate === false || !this.hasAnimation
+                        ? this._toggle
+                        : this.hasTransition
+                            ? toggleHeight(this)
+                            : toggleAnimation(this)
             )(el, show);
 
             trigger(el, show ? 'show' : 'hide', [this]);
 
-            return promise.then(() => {
+            const final = () => {
                 trigger(el, show ? 'shown' : 'hidden', [this]);
                 this.$update(el);
-            });
+            };
+
+            return promise ? promise.then(final) : Promise.resolve(final());
         },
 
         _toggle(el, toggled) {
@@ -158,52 +163,51 @@ export default {
 
             this.updateAria(el);
             changed && this.$update(el);
-        },
-
-        _toggleImmediate(el, show) {
-            this._toggle(el, show);
-            return Promise.resolve();
-        },
-
-        _toggleHeight(el, show) {
-
-            const inProgress = Transition.inProgress(el);
-            const inner = el.hasChildNodes ? toFloat(css(el.firstElementChild, 'marginTop')) + toFloat(css(el.lastElementChild, 'marginBottom')) : 0;
-            const currentHeight = isVisible(el) ? height(el) + (inProgress ? 0 : inner) : 0;
-
-            Transition.cancel(el);
-
-            if (!this.isToggled(el)) {
-                this._toggle(el, true);
-            }
-
-            height(el, '');
-
-            // Update child components first
-            fastdom.flush();
-
-            const endHeight = height(el) + (inProgress ? 0 : inner);
-            height(el, currentHeight);
-
-            return (show
-                ? Transition.start(el, assign({}, this.initProps, {overflow: 'hidden', height: endHeight}), Math.round(this.duration * (1 - currentHeight / endHeight)), this.transition)
-                : Transition.start(el, this.hideProps, Math.round(this.duration * (currentHeight / endHeight)), this.transition).then(() => this._toggle(el, false))
-            ).then(() => css(el, this.initProps));
-
-        },
-
-        _toggleAnimation(el, show) {
-
-            Animation.cancel(el);
-
-            if (show) {
-                this._toggle(el, true);
-                return Animation.in(el, this.animation[0], this.duration, this.origin);
-            }
-
-            return Animation.out(el, this.animation[1] || this.animation[0], this.duration, this.origin).then(() => this._toggle(el, false));
         }
 
     }
 
 };
+
+function toggleHeight({isToggled, duration, initProps, hideProps, transition, _toggle}) {
+    return (el, show) => {
+
+        const inProgress = Transition.inProgress(el);
+        const inner = el.hasChildNodes ? toFloat(css(el.firstElementChild, 'marginTop')) + toFloat(css(el.lastElementChild, 'marginBottom')) : 0;
+        const currentHeight = isVisible(el) ? height(el) + (inProgress ? 0 : inner) : 0;
+
+        Transition.cancel(el);
+
+        if (!isToggled(el)) {
+            _toggle(el, true);
+        }
+
+        height(el, '');
+
+        // Update child components first
+        fastdom.flush();
+
+        const endHeight = height(el) + (inProgress ? 0 : inner);
+        height(el, currentHeight);
+
+        return (show
+                ? Transition.start(el, assign({}, initProps, {overflow: 'hidden', height: endHeight}), Math.round(duration * (1 - currentHeight / endHeight)), transition)
+                : Transition.start(el, hideProps, Math.round(duration * (currentHeight / endHeight)), transition).then(() => _toggle(el, false))
+        ).then(() => css(el, initProps));
+
+    };
+}
+
+function toggleAnimation({animation, duration, origin, _toggle}) {
+    return (el, show) => {
+
+        Animation.cancel(el);
+
+        if (show) {
+            _toggle(el, true);
+            return Animation.in(el, animation[0], duration, origin);
+        }
+
+        return Animation.out(el, animation[1] || animation[0], duration, origin).then(() => _toggle(el, false));
+    };
+}

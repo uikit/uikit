@@ -364,7 +364,7 @@ export function scrollTop(element, top) {
     }
 }
 
-function offsetPosition(element) {
+export function offsetPosition(element) {
     const offset = [0, 0];
 
     do {

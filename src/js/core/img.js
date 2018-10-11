@@ -72,9 +72,9 @@ export default {
 
     update: {
 
-        read({delay, image}) {
+        read({update, image}) {
 
-            if (!delay) {
+            if (!update) {
                 return;
             }
 
@@ -102,9 +102,9 @@ export default {
         write(data) {
 
             // Give placeholder images time to apply their dimensions
-            if (!data.delay) {
+            if (!data.update) {
                 this.$emit();
-                return data.delay = true;
+                return data.update = true;
             }
 
         },

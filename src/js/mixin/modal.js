@@ -35,14 +35,16 @@ export default {
             return this.panel;
         },
 
-        transitionDuration() {
-            return toMs(css(this.transitionElement, 'transitionDuration'));
-        },
-
         bgClose({bgClose}) {
             return bgClose && this.panel;
         }
 
+    },
+
+    beforeDisconnect() {
+        if (this.isToggled()) {
+            this.toggleNow(this.$el, false);
+        }
     },
 
     events: [
@@ -193,31 +195,17 @@ export default {
                 this._callConnected();
             }
 
-            return this.toggleNow(this.$el, true);
+            return this.toggleElement(this.$el, true, animate(this));
         },
 
         hide() {
             return this.isToggled()
-                ? this.toggleNow(this.$el, false)
+                ? this.toggleElement(this.$el, false, animate(this))
                 : Promise.resolve();
         },
 
         getActive() {
             return active;
-        },
-
-        _toggleImmediate(el, show) {
-            return new Promise(resolve =>
-                requestAnimationFrame(() => {
-                    this._toggle(el, show);
-
-                    if (this.transitionDuration) {
-                        once(this.transitionElement, 'transitionend', resolve, false, e => e.target === this.transitionElement);
-                    } else {
-                        resolve();
-                    }
-                })
-            );
         }
 
     }
@@ -250,4 +238,20 @@ function registerEvents() {
 function deregisterEvents() {
     events && events.forEach(unbind => unbind());
     events = null;
+}
+
+function animate({transitionElement, _toggle}) {
+    return (el, show) =>
+        new Promise(resolve =>
+            requestAnimationFrame(() => {
+
+                _toggle(el, show);
+
+                if (toMs(css(transitionElement, 'transitionDuration'))) {
+                    once(transitionElement, 'transitionend', resolve, false, e => e.target === transitionElement);
+                } else {
+                    resolve();
+                }
+            })
+        );
 }

@@ -69,7 +69,7 @@ export default {
 
     update() {
 
-        this.items.forEach(el => this._toggleImmediate($(this.content, el), hasClass(el, this.clsOpen)));
+        this.items.forEach(el => this._toggle($(this.content, el), hasClass(el, this.clsOpen)));
 
         const active = !this.collapsible && !hasClass(this.items, this.clsOpen) && this.items[0];
         if (active) {
@@ -106,17 +106,20 @@ export default {
                         attr(el._wrapper, 'hidden', state ? '' : null);
                     }
 
-                    this._toggleImmediate(content, true);
+                    this._toggle(content, true);
                     this.toggleElement(el._wrapper, state, animate).then(() => {
-                        if (hasClass(el, this.clsOpen) === state) {
 
-                            if (!state) {
-                                this._toggleImmediate(content, false);
-                            }
-
-                            el._wrapper = null;
-                            unwrap(content);
+                        if (hasClass(el, this.clsOpen) !== state) {
+                            return;
                         }
+
+                        if (!state) {
+                            this._toggle(content, false);
+                        }
+
+                        el._wrapper = null;
+                        unwrap(content);
+
                     });
 
                 });

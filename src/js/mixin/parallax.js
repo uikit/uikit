@@ -110,47 +110,41 @@ export default {
 
             data.active = this.matchMedia;
 
-            data.dimEl = {
-                width: this.$el.offsetWidth,
-                height: this.$el.offsetHeight
-            };
-
-            if ('image' in data || !this.covers || !this.bgProps.length) {
+            if (!data.active) {
                 return;
             }
 
-            const src = css(this.$el, 'backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
+            if (!data.image && this.covers && this.bgProps.length) {
+                const src = css(this.$el, 'backgroundImage').replace(/^none|url\(["']?(.+?)["']?\)$/, '$1');
 
-            if (!src) {
-                return;
+                if (src) {
+                    const img = new Image();
+                    img.src = src;
+                    data.image = img;
+
+                    if (!img.naturalWidth) {
+                        img.onload = () => this.$emit();
+                    }
+                }
+
             }
 
-            const img = new Image();
-            img.src = src;
-            data.image = img;
-
-            if (!img.naturalWidth) {
-                img.onload = () => this.$emit();
-            }
-        },
-
-        write({dimEl, image, active}) {
+            const {image} = data;
 
             if (!image || !image.naturalWidth) {
                 return;
             }
 
-            if (!active) {
-                css(this.$el, {backgroundSize: '', backgroundRepeat: ''});
-                return;
-            }
-
-            const imageDim = {
+            const dimEl = {
+                width: this.$el.offsetWidth,
+                height: this.$el.offsetHeight
+            };
+            const dimImage = {
                 width: image.naturalWidth,
                 height: image.naturalHeight
             };
 
-            let dim = Dimensions.cover(imageDim, dimEl);
+            let dim = Dimensions.cover(dimImage, dimEl);
 
             this.bgProps.forEach(prop => {
 
@@ -173,10 +167,20 @@ export default {
                     }
                 }
 
-                dim = Dimensions.cover(imageDim, dimEl);
+                dim = Dimensions.cover(dimImage, dimEl);
             });
 
-            css(this.$el, {
+            data.dim = dim;
+        },
+
+        write({dim, active}) {
+
+            if (!active) {
+                css(this.$el, {backgroundSize: '', backgroundRepeat: ''});
+                return;
+            }
+
+            dim && css(this.$el, {
                 backgroundSize: `${dim.width}px ${dim.height}px`,
                 backgroundRepeat: 'no-repeat'
             });

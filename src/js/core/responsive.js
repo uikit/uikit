@@ -17,7 +17,10 @@ export default {
         },
 
         write(dim) {
-            height(this.$el, Dimensions.contain({height: this.height, width: this.width}, dim).height);
+            height(this.$el, Dimensions.contain({
+                height: this.height,
+                width: this.width
+            }, dim).height);
         },
 
         events: ['load', 'resize']

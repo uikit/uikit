@@ -65,7 +65,7 @@ function match(elements) {
     }
 
     heights = elements.map((el, i) =>
-        heights[i] === max && toFloat(el.style.minHeight) !== max ? '' : max
+        heights[i] === max && toFloat(el.style.minHeight).toFixed(2) !== max.toFixed(2) ? '' : max
     );
 
     return {heights, elements};

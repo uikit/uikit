@@ -3,6 +3,7 @@
 //
 // Component:       `uk-divider-icon`
 //                  `uk-divider-small`
+//                  `uk-divider-vertical`
 //
 // ========================================================================
 
@@ -25,6 +26,10 @@ $internal-divider-icon-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3
 $divider-small-width:                            100px !default;
 $divider-small-border-width:                     $global-border-width !default;
 $divider-small-border:                           $global-border !default;
+
+$divider-vertical-height:                        100px !default;
+$divider-vertical-border-width:                  $global-border-width !default;
+$divider-vertical-border:                        $global-border !default;
 
 
 /* ========================================================================
@@ -102,6 +107,19 @@ $divider-small-border:                           $global-border !default;
 }
 
 
+/* Vertical
+ ========================================================================== */
+
+.uk-divider-vertical {
+    width: 1px;
+    height: $divider-vertical-height;
+    margin-left: auto;
+    margin-right: auto;
+    border-left: $divider-vertical-border-width solid $divider-vertical-border;
+    @if(mixin-exists(hook-divider-vertical)) {@include hook-divider-vertical();}
+}
+
+
 // Hooks
 // ========================================================================
 
@@ -112,6 +130,7 @@ $divider-small-border:                           $global-border !default;
 // @mixin hook-divider-icon-line-left(){}
 // @mixin hook-divider-icon-line-right(){}
 // @mixin hook-divider-small(){}
+// @mixin hook-divider-vertical(){}
 // @mixin hook-divider-misc(){}
 
 
@@ -121,9 +140,11 @@ $divider-small-border:                           $global-border !default;
 $inverse-divider-icon-color:                       $inverse-global-border !default;
 $inverse-divider-icon-line-border:                 $inverse-global-border !default;
 $inverse-divider-small-border:                     $inverse-global-border !default;
+$inverse-divider-vertical-border:                  $inverse-global-border !default;
 
 
 
 // @mixin hook-inverse-divider-icon(){}
 // @mixin hook-inverse-divider-icon-line(){}
 // @mixin hook-inverse-divider-small(){}
+// @mixin hook-inverse-divider-vertical(){}

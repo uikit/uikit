@@ -204,7 +204,7 @@ export default {
     methods: {
 
         getActive() {
-            const [active] = this.dropdowns.map(this.getDropdown).filter(drop => drop.isActive());
+            const [active] = this.dropdowns.map(this.getDropdown).filter(drop => drop && drop.isActive());
             return active && includes(active.mode, 'hover') && within(active.toggle.$el, this.$el) && active;
         },
 
