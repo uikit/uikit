@@ -23,6 +23,8 @@ $lightbox-z-index:                               $global-z-index + 10 !default;
 $lightbox-background:                            #000 !default;
 
 $lightbox-item-color:                            rgba(255,255,255,0.7) !default;
+$lightbox-item-max-width:                        100vw !default;
+$lightbox-item-max-height:                       100vh !default;
 
 $lightbox-toolbar-padding-vertical:              10px !default;
 $lightbox-toolbar-padding-horizontal:            10px !default;
@@ -128,8 +130,8 @@ $lightbox-button-hover-color:                    #fff !default;
 
 /* 5 */
 .uk-lightbox-items > * > * {
-    max-width: 100vw;
-    max-height: 100vh;
+    max-width: $lightbox-item-max-width;
+    max-height: $lightbox-item-max-height;
 }
 
 .uk-lightbox-items > * > :not(iframe) {
@@ -149,7 +151,7 @@ $lightbox-button-hover-color:                    #fff !default;
     @if(mixin-exists(hook-lightbox-toolbar)) {@include hook-lightbox-toolbar();}
 }
 
-.uk-lightbox-toolbar * { color: $lightbox-toolbar-color; }
+.uk-lightbox-toolbar > * { color: $lightbox-toolbar-color; }
 
 
 /* Toolbar Icon (Close)
