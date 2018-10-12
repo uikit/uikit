@@ -2,30 +2,22 @@ import {assign, hasOwn, includes, isArray, isFunction, isUndefined, sortBy, star
 
 const strats = {};
 
-// concat strategy
-strats.args =
 strats.events =
 strats.created =
 strats.beforeConnect =
 strats.connected =
 strats.beforeDisconnect =
 strats.disconnected =
-strats.destroy = function (parentVal, childVal) {
+strats.destroy = concatStrat;
 
-    parentVal = parentVal && !isArray(parentVal) ? [parentVal] : parentVal;
-
-    return childVal
-        ? parentVal
-            ? parentVal.concat(childVal)
-            : isArray(childVal)
-                ? childVal
-                : [childVal]
-        : parentVal;
+// args strategy
+strats.args = function (parentVal, childVal) {
+    return concatStrat(childVal || parentVal);
 };
 
 // update strategy
 strats.update = function (parentVal, childVal) {
-    return sortBy(strats.args(parentVal, isFunction(childVal) ? {read: childVal} : childVal), 'order');
+    return sortBy(concatStrat(parentVal, isFunction(childVal) ? {read: childVal} : childVal), 'order');
 };
 
 // property strategy
@@ -84,10 +76,24 @@ function mergeFnData(parentVal, childVal, vm) {
     );
 }
 
+// concat strategy
+function concatStrat(parentVal, childVal) {
+
+    parentVal = parentVal && !isArray(parentVal) ? [parentVal] : parentVal;
+
+    return childVal
+        ? parentVal
+            ? parentVal.concat(childVal)
+            : isArray(childVal)
+                ? childVal
+                : [childVal]
+        : parentVal;
+}
+
 // default strategy
-const defaultStrat = function (parentVal, childVal) {
+function defaultStrat(parentVal, childVal) {
     return isUndefined(childVal) ? parentVal : childVal;
-};
+}
 
 export function mergeOptions(parent, child, vm) {
 
