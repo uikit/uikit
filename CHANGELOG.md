@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add text emphasis to Text component
 - Add `src` as primary option to SVG component
 
 ## 3.0.0 rc 19 (October 11, 2018)
