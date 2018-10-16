@@ -7,6 +7,10 @@
 - Add text emphasis to Text component
 - Add `src` as primary option to SVG component
 
+## Fixed
+
+- Fix sorting in Sortable component on touch devices with page scrolled down
+
 ## 3.0.0 rc 19 (October 11, 2018)
 
 ### Fixed
