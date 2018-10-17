@@ -179,7 +179,7 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 [class*='uk-navbar-center-'] .uk-navbar-nav > li > a,
 [class*='uk-navbar-center-'] .uk-navbar-item,
 [class*='uk-navbar-center-'] .uk-navbar-toggle { white-space: nowrap; }
-
+[class*='uk-navbar-center-'] .uk-navbar-toggle { min-width: max-content; }
 
 /* Nav
  ========================================================================== */

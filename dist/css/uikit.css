@@ -3852,6 +3852,11 @@ ul.uk-nav-sub {
 [class*='uk-navbar-center-'] .uk-navbar-toggle {
   white-space: nowrap;
 }
+[class*='uk-navbar-center-'] .uk-navbar-toggle {
+  min-width: -webkit-max-content;
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
 /* Nav
  ========================================================================== */
 /*
