@@ -10,6 +10,7 @@
 ## Fixed
 
 - Fix sorting in Sortable component on touch devices with page scrolled down
+- Fix height of Masonry Grid
 
 ## 3.0.0 rc 19 (October 11, 2018)
 
