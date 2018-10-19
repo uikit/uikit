@@ -5,8 +5,10 @@ import closeLarge from '../../images/components/close-large.svg';
 import marker from '../../images/components/marker.svg';
 import navbarToggleIcon from '../../images/components/navbar-toggle-icon.svg';
 import overlayIcon from '../../images/components/overlay-icon.svg';
+import paginationFirst from '../../images/components/pagination-first.svg';
 import paginationNext from '../../images/components/pagination-next.svg';
 import paginationPrevious from '../../images/components/pagination-previous.svg';
+import paginationLast from '../../images/components/pagination-last.svg';
 import searchIcon from '../../images/components/search-icon.svg';
 import searchLarge from '../../images/components/search-large.svg';
 import searchNavbar from '../../images/components/search-navbar.svg';
@@ -27,8 +29,10 @@ const icons = {
     'close-large': closeLarge,
     'navbar-toggle-icon': navbarToggleIcon,
     'overlay-icon': overlayIcon,
+    'pagination-first': paginationFirst,
     'pagination-next': paginationNext,
     'pagination-previous': paginationPrevious,
+    'pagination-last': paginationLast,
     'search-icon': searchIcon,
     'search-large': searchLarge,
     'search-navbar': searchNavbar,

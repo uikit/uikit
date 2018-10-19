@@ -67,8 +67,10 @@ export default function (UIkit) {
     UIkit.component('marker', IconComponent);
     UIkit.component('navbarToggleIcon', IconComponent);
     UIkit.component('overlayIcon', IconComponent);
+    UIkit.component('paginationFirst', IconComponent);
     UIkit.component('paginationNext', IconComponent);
     UIkit.component('paginationPrevious', IconComponent);
+    UIkit.component('paginationLast', IconComponent);
     UIkit.component('searchIcon', Search);
     UIkit.component('slidenavNext', Slidenav);
     UIkit.component('slidenavPrevious', Slidenav);
