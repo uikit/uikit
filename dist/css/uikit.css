@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.17 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.19 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -675,6 +675,15 @@ a.uk-link-reset:hover,
   border-top: 1px solid #e5e5e5;
   vertical-align: top;
 }
+/* Vertical
+ ========================================================================== */
+.uk-divider-vertical {
+  width: 1px;
+  height: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  border-left: 1px solid #e5e5e5;
+}
 /* ========================================================================
    Component: List
  ========================================================================== */
@@ -1051,10 +1060,10 @@ button.uk-icon:not(:disabled) {
 /*
  * Set the fill and stroke color of all SVG elements to the current text color
  */
-.uk-icon [fill*='#']:not(.uk-preserve) {
+.uk-icon:not(.uk-preserve) [fill*='#']:not(.uk-preserve) {
   fill: currentcolor;
 }
-.uk-icon [stroke*='#']:not(.uk-preserve) {
+.uk-icon:not(.uk-preserve) [stroke*='#']:not(.uk-preserve) {
   stroke: currentcolor;
 }
 /*
@@ -5173,7 +5182,7 @@ ul.uk-nav-sub {
   background: rgba(0, 0, 0, 0.3);
   color: rgba(255, 255, 255, 0.7);
 }
-.uk-lightbox-toolbar * {
+.uk-lightbox-toolbar > * {
   color: rgba(255, 255, 255, 0.7);
 }
 /* Toolbar Icon (Close)
@@ -9397,6 +9406,19 @@ iframe.uk-cover {
 .uk-offcanvas-bar .uk-divider-small::after {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
+.uk-light .uk-divider-vertical::after,
+.uk-section-primary:not(.uk-preserve-color) .uk-divider-vertical::after,
+.uk-section-secondary:not(.uk-preserve-color) .uk-divider-vertical::after,
+.uk-tile-primary:not(.uk-preserve-color) .uk-divider-vertical::after,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-divider-vertical::after,
+.uk-card-primary.uk-card-body .uk-divider-vertical::after,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-divider-vertical::after,
+.uk-card-secondary.uk-card-body .uk-divider-vertical::after,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-divider-vertical::after,
+.uk-overlay-primary .uk-divider-vertical::after,
+.uk-offcanvas-bar .uk-divider-vertical::after {
+  border-left-color: rgba(255, 255, 255, 0.2);
+}
 .uk-light .uk-list-divider > li:nth-child(n+2),
 .uk-section-primary:not(.uk-preserve-color) .uk-list-divider > li:nth-child(n+2),
 .uk-section-secondary:not(.uk-preserve-color) .uk-list-divider > li:nth-child(n+2),
@@ -11588,7 +11610,7 @@ iframe.uk-cover {
 .uk-overlay-primary .uk-accordion-title:focus,
 .uk-offcanvas-bar .uk-accordion-title:hover,
 .uk-offcanvas-bar .uk-accordion-title:focus {
-  color: #666;
+  color: rgba(255, 255, 255, 0.7);
 }
 .uk-light .uk-iconnav > * > a,
 .uk-section-primary:not(.uk-preserve-color) .uk-iconnav > * > a,

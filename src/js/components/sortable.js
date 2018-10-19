@@ -69,8 +69,8 @@ export default {
 
             offset(this.drag, {top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
 
-            const {top} = offset(this.drag);
-            const bottom = top + this.drag.offsetHeight;
+            const {top, height: offsetHeight} = offset(this.drag);
+            const bottom = top + offsetHeight;
             let scroll;
 
             if (top > 0 && top < this.scrollY) {
@@ -156,7 +156,7 @@ export default {
 
             this.$emit();
 
-            let target = e.type === 'mousemove' ? e.target : document.elementFromPoint(this.pos.x - document.body.scrollLeft, this.pos.y - document.body.scrollTop);
+            let target = e.type === 'mousemove' ? e.target : document.elementFromPoint(this.pos.x - window.pageXOffset, this.pos.y - window.pageYOffset);
 
             const sortable = this.getSortable(target);
             const previous = this.getSortable(this.placeholder);
@@ -180,15 +180,6 @@ export default {
                 this.touched.push(sortable);
             }
 
-        },
-
-        scroll() {
-            const scroll = window.pageYOffset;
-            if (scroll !== this.scrollY) {
-                this.pos.y += scroll - this.scrollY;
-                this.scrollY = scroll;
-                this.$emit();
-            }
         },
 
         end(e) {
@@ -229,6 +220,15 @@ export default {
 
             removeClass(document.documentElement, this.clsDragState);
 
+        },
+
+        scroll() {
+            const scroll = window.pageYOffset;
+            if (scroll !== this.scrollY) {
+                this.pos.y += scroll - this.scrollY;
+                this.scrollY = scroll;
+                this.$emit();
+            }
         },
 
         insert(element, target) {

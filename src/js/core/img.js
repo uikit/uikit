@@ -72,9 +72,9 @@ export default {
 
     update: {
 
-        read({delay, image}) {
+        read({update, image}) {
 
-            if (!delay) {
+            if (!update) {
                 return;
             }
 
@@ -102,9 +102,9 @@ export default {
         write(data) {
 
             // Give placeholder images time to apply their dimensions
-            if (!data.delay) {
+            if (!data.update) {
                 this.$emit();
-                return data.delay = true;
+                return data.update = true;
             }
 
         },
@@ -124,8 +124,8 @@ function setSrcAttrs(el, src, srcset, sizes) {
     } else if (src) {
 
         const change = !includes(el.style.backgroundImage, src);
-        css(el, 'backgroundImage', `url(${src})`);
         if (change) {
+            css(el, 'backgroundImage', `url(${src})`);
             trigger(el, createEvent('load', false));
         }
 

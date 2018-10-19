@@ -4,17 +4,40 @@
 
 ### Added
 
+- Add text emphasis to Text component
+- Add `src` as primary option to SVG component
+
+## Fixed
+
+- Fix sorting in Sortable component on touch devices with page scrolled down
+- Fix height of Masonry Grid
+
+## 3.0.0 rc 19 (October 11, 2018)
+
+### Fixed
+
+- Fix regression in Icon component
+
+## 3.0.0 rc 18 (October 11, 2018)
+
+### Added
+
 - Add divider vertical modifier to Divider component
 
 ### Fixed
 
+- Fix preserve color not working if class is set on svg element in Icon component
+- Fix inverse hover color for accordion title
 - Fix close color being overwritten from toolbar in Lightbox component
 - Fix Modal not hiding upon being destroyed
 - Fix using node as offset in position mixin
 - Fix using Height Match component on elements with different offsetParents
+- Fix rounding error in Height Match component
 - Fix `scope` command for already scoped css, comments are removed from generated css files
 - Fix Sticky placeholder height on resize
 - Fix starting/stopping of autoplay in Lightbox
+- Fix initially wrong position of background image in Parallax component
+- Fix calling `isActive` on `undefined` in Navbar component
 
 ## 3.0.0 rc 17 (September 27, 2018)
 

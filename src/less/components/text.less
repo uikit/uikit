@@ -26,6 +26,7 @@
 @text-bold-font-weight:                         bolder;
 
 @text-muted-color:                              @global-muted-color;
+@text-emphasis-color:                           @global-emphasis-color;
 @text-primary-color:                            @global-primary-background;
 @text-success-color:                            @global-success-background;
 @text-warning-color:                            @global-warning-background;
@@ -91,6 +92,7 @@
  ========================================================================== */
 
 .uk-text-muted { color: @text-muted-color !important; }
+.uk-text-emphasis { color: @text-emphasis-color !important; }
 .uk-text-primary { color: @text-primary-color !important; }
 .uk-text-success { color: @text-success-color !important; }
 .uk-text-warning { color: @text-warning-color !important; }
@@ -250,6 +252,7 @@ td.uk-text-break { word-break: break-all; }
 @inverse-text-lead-color:                      @inverse-global-color;
 @inverse-text-meta-color:                      @inverse-global-muted-color;
 @inverse-text-muted-color:                     @inverse-global-muted-color;
+@inverse-text-emphasis-color:                  @inverse-global-emphasis-color;
 @inverse-text-primary-color:                   @inverse-global-color;
 
 .hook-inverse() {
@@ -265,6 +268,7 @@ td.uk-text-break { word-break: break-all; }
     }
 
     .uk-text-muted { color: @inverse-text-muted-color !important; }
+    .uk-text-emphasis { color: @inverse-text-emphasis-color !important; }
     .uk-text-primary { color: @inverse-text-primary-color !important; }
 
 }

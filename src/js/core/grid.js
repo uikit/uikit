@@ -1,6 +1,6 @@
 import Margin from './margin';
 import Class from '../mixin/class';
-import {addClass, css, hasClass, height as getHeight, scrolledOver, toFloat, toggleClass, toNodes, sortBy} from 'uikit-util';
+import {addClass, css, hasClass, height as getHeight, scrolledOver, toFloat, toggleClass, toNodes, Transition, sortBy} from 'uikit-util';
 
 export default {
 
@@ -48,7 +48,7 @@ export default {
                     rows = rows.map(elements => sortBy(elements, 'offsetLeft'));
                 }
 
-                const hasStaticContent = rows.some(elements => elements.some(element => element.style.position === 'static'));
+                const transitionInProgress = rows.some(elements => elements.some(Transition.inProgress));
                 let translates = false;
                 let elHeight = '';
 
@@ -69,7 +69,7 @@ export default {
 
                 }
 
-                return {rows, translates, height: hasStaticContent ? elHeight : false};
+                return {rows, translates, height: !transitionInProgress ? elHeight : false};
 
             },
 

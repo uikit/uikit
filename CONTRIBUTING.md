@@ -70,6 +70,22 @@ UIkit follows the [GitFlow branching model](http://nvie.com/posts/a-successful-g
 
 Each time you want to work on a fix or a new feature, create a new branch based on the ```develop``` branch: ```git checkout -b BRANCH_NAME develop```. Only pull requests to the ```develop``` branch will be merged.
 
+<a name="commit-message-convention"></a>
+## Commit Message Convention
+
+UIkit adapts the [Vue's commit convention](https://github.com/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md). Commit messages can have the following types:
+
+- `build:` Changes that affect the build system or external dependencies
+- `chore:` Changes to readme, etc
+- `ci:` Changes to our CI configuration files and scripts
+- `docs:` Documentation only changes
+- `feat:` A new feature
+- `fix:` A bug fix
+- `perf:` A code change that improves performance
+- `refactor:` A code change that neither fixes a bug nor adds a feature
+- `style:` Changes that do not affect the meaning of the code (white-space, formatting, etc)
+- `test:` Adding missing tests or correcting existing tests
+
 ## Versioning
 
 UIkit is maintained by using the [Semantic Versioning Specification (SemVer)](http://semver.org).
