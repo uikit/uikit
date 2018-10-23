@@ -7,10 +7,16 @@
 - Add text emphasis to Text component
 - Add `src` as primary option to SVG component
 
+### Changed
+
+- Offcanvas no longer requires a wrapping content div
+
 ## Fixed
 
 - Fix sorting in Sortable component on touch devices with page scrolled down
 - Fix height of Masonry Grid
+- Fix Sticky hiding with Offcanvas in overlay mode
+- Fix Parallax in combination with Offcanvas in overlay mode
 
 ## 3.0.0 rc 19 (October 11, 2018)
 
