@@ -4,12 +4,14 @@
 
 ### Added
 
+- Add print, reddit, mircrophone, file-text, file-pdf, chevron-double left and right icons
 - Add text emphasis to Text component
 - Add `src` as primary option to SVG component
 
 ### Changed
 
 - Offcanvas no longer requires a wrapping content div
+- Change video-camera icon style to outline
 
 ## Fixed
 
