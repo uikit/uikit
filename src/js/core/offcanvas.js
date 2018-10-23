@@ -1,5 +1,5 @@
 import Modal from '../mixin/modal';
-import {$, addClass, css, hasClass, height, isTouch, once, removeClass, trigger, unwrap, width, wrapAll} from 'uikit-util';
+import {$, addClass, css, hasClass, height, isTouch, once, removeClass, trigger, unwrap, wrapAll} from 'uikit-util';
 
 export default {
 
@@ -8,14 +8,12 @@ export default {
     args: 'mode',
 
     props: {
-        container: String,
         mode: String,
         flip: Boolean,
         overlay: Boolean
     },
 
     data: {
-        container: 'body',
         mode: 'slide',
         flip: false,
         overlay: false,
@@ -31,10 +29,6 @@ export default {
     },
 
     computed: {
-
-        container({container}) {
-            return $(container) || document.body;
-        },
 
         clsFlip({flip, clsFlip}) {
             return flip ? clsFlip : '';
@@ -73,7 +67,7 @@ export default {
             },
 
             handler({current}) {
-                if (current.hash && $(current.hash, this.container)) {
+                if (current.hash && $(current.hash, document.body)) {
                     this.hide();
                 }
             }
@@ -89,7 +83,7 @@ export default {
             },
 
             handler(e, scroll, target) {
-                if (scroll && target && this.isToggled() && $(target, this.container)) {
+                if (scroll && target && this.isToggled() && $(target, document.body)) {
                     once(this.$el, 'hidden', () => scroll.scrollTo(target));
                     e.preventDefault();
                 }
@@ -174,7 +168,7 @@ export default {
                 css(document.documentElement, 'overflowY', this.overlay ? 'hidden' : '');
                 addClass(document.body, this.clsContainer, this.clsFlip);
                 height(document.body); // force reflow
-                addClass(this.container, this.clsContainerAnimation);
+                addClass(document.body, this.clsContainerAnimation);
                 addClass(this.panel, this.clsSidebarAnimation, this.mode !== 'reveal' ? this.clsMode : '');
                 addClass(this.$el, this.clsOverlay);
                 css(this.$el, 'display', 'block');
@@ -189,7 +183,7 @@ export default {
             self: true,
 
             handler() {
-                removeClass(this.container, this.clsContainerAnimation);
+                removeClass(document.body, this.clsContainerAnimation);
 
                 const active = this.getActive();
                 if (this.mode === 'none' || active && active !== this && active !== this.prev) {
@@ -215,7 +209,6 @@ export default {
                 removeClass(document.body, this.clsContainer, this.clsFlip);
 
                 css(document.documentElement, 'overflowY', '');
-                width(this.container, '');
 
             }
         },
