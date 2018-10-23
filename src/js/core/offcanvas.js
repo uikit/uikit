@@ -1,5 +1,5 @@
 import Modal from '../mixin/modal';
-import {$, addClass, css, hasClass, height, isTouch, once, removeClass, trigger, unwrap, wrapAll} from 'uikit-util';
+import {$, addClass, css, hasClass, height, isTouch, removeClass, trigger, unwrap, wrapAll} from 'uikit-util';
 
 export default {
 
@@ -69,23 +69,6 @@ export default {
             handler({current}) {
                 if (current.hash && $(current.hash, document.body)) {
                     this.hide();
-                }
-            }
-
-        },
-
-        {
-
-            name: 'beforescroll',
-
-            filter() {
-                return this.overlay;
-            },
-
-            handler(e, scroll, target) {
-                if (scroll && target && this.isToggled() && $(target, document.body)) {
-                    once(this.$el, 'hidden', () => scroll.scrollTo(target));
-                    e.preventDefault();
                 }
             }
 
