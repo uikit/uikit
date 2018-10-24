@@ -5,7 +5,6 @@
 //
 // Sub-objects:     `uk-offcanvas-bar`
 //                  `uk-offcanvas-container`
-//                  `uk-offcanvas-content`
 //                  `uk-offcanvas-page`
 //
 // Adopted:         `uk-offcanvas-close`
@@ -14,7 +13,7 @@
 //                  `uk-offcanvas-bar-animation`
 //                  `uk-offcanvas-reveal`
 //                  `uk-offcanvas-overlay`
-//                  `uk-offcanvas-content-animation`
+//                  `uk-offcanvas-container-animation`
 //
 // States:          `uk-open`
 //
@@ -49,6 +48,7 @@ $offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
 /*
  * 1. Hide by default
  * 2. Set position
+ * 3. Use height instead of `bottom: 0` because of wrong height calculation on Android (+ Chrome Responsive Mode)
  */
 
 .uk-offcanvas {
@@ -57,9 +57,10 @@ $offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
     /* 2 */
     position: fixed;
     top: 0;
-    bottom: 0;
     left: 0;
     z-index: $offcanvas-z-index;
+    /* 3 */
+    height: 100vh;
 }
 
 /*
@@ -232,7 +233,7 @@ $offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
 .uk-offcanvas-overlay.uk-open::before { opacity: 1; }
 
 
-/* Container
+/* Prevent scrolling
  ========================================================================== */
 
 /*
@@ -243,49 +244,40 @@ $offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
 .uk-offcanvas-page,
 .uk-offcanvas-container { overflow-x: hidden; }
 
-/*
- * Prevent all scrollbars if overlay is used
- */
 
-.uk-offcanvas-container-overlay { overflow: hidden; }
-
-
-/* Content
+/* Container
  ========================================================================== */
 
 /*
  * Prepare slide-out animation (Used in reveal and push mode)
  * Using `position: left` instead of `transform` because position `fixed` elements like sticky navbars
  * lose their fixed state and behaves like `absolute` within a transformed container
- * Note: JS sets a fixed width and height so the page can slide-out without shrinking
- * 1. Smooth scrolling
+ * 1. Provide a fixed width and prevent shrinking
  */
 
-.uk-offcanvas-container .uk-offcanvas-content {
+.uk-offcanvas-container {
     position: relative;
     left: 0;
     transition: left 0.3s ease-out;
     /* 1 */
-    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+    width: 100%;
 }
-
-/* Disable scrolling if overlay mode */
-.uk-offcanvas-overlay .uk-offcanvas-content { overflow-y: hidden; }
 
 /*
  * Activate slide-out animation
  */
 
-:not(.uk-offcanvas-flip) > .uk-offcanvas-content-animation { left: $offcanvas-bar-width; }
+:not(.uk-offcanvas-flip).uk-offcanvas-container-animation { left: $offcanvas-bar-width; }
 
-.uk-offcanvas-flip > .uk-offcanvas-content-animation { left: (-$offcanvas-bar-width); }
+.uk-offcanvas-flip.uk-offcanvas-container-animation { left: (-$offcanvas-bar-width); }
 
 /* Tablet landscape and bigger */
 @media (min-width: $breakpoint-medium) {
 
-    :not(.uk-offcanvas-flip) > .uk-offcanvas-content-animation { left: $offcanvas-bar-width-m; }
+    :not(.uk-offcanvas-flip).uk-offcanvas-container-animation { left: $offcanvas-bar-width-m; }
 
-    .uk-offcanvas-flip > .uk-offcanvas-content-animation { left: (-$offcanvas-bar-width-m); }
+    .uk-offcanvas-flip.uk-offcanvas-container-animation { left: (-$offcanvas-bar-width-m); }
 
 }
 

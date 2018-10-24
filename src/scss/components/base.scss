@@ -152,18 +152,17 @@ a:hover,
  ========================================================================== */
 
 /*
- * 1. Remove the bottom border in Chrome 57-.
- * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ * 1. Add an underline text decoration in Safari, Edge and IE.
+ * 2. Add `dotted` style in Safari.
+ * Note: The shorthand declaration `underline dotted` is not supported in Safari, Edge and IE.
  */
 
 abbr[title] {
     /* 1 */
-    border-bottom: none;
-    /* 2 */
     text-decoration: underline;
-    text-decoration: underline dotted;
+    /* 2 */
+    -webkit-text-decoration-style: dotted;
 }
-
 
 /*
  * Add the correct font weight in Chrome, Edge, and Safari.
