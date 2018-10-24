@@ -143,7 +143,7 @@ export default {
 
             handler() {
 
-                if (this.mode === 'reveal' && !hasClass(this.panel, this.clsMode)) {
+                if (this.mode === 'reveal' && !hasClass(this.panel.parentNode, this.clsMode)) {
                     wrapAll(this.panel, '<div>');
                     addClass(this.panel.parentNode, this.clsMode);
                 }

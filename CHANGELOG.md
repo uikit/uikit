@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix toggling Offcanvas component while transition in progress
+
 ## 3.0.0 rc 20 (October 24, 2018)
 
 ### Added
