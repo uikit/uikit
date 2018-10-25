@@ -179,9 +179,10 @@ export default {
 
                     }
 
-                    if (!found) {
-                        removeClass(document.documentElement, this.clsPage);
-                    }
+                }
+
+                if (!found) {
+                    removeClass(document.documentElement, this.clsPage);
                 }
 
             }
