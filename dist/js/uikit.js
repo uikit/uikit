@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.19 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.20 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2101,30 +2101,22 @@
 
     var strats = {};
 
-    // concat strategy
-    strats.args =
     strats.events =
     strats.created =
     strats.beforeConnect =
     strats.connected =
     strats.beforeDisconnect =
     strats.disconnected =
-    strats.destroy = function (parentVal, childVal) {
+    strats.destroy = concatStrat;
 
-        parentVal = parentVal && !isArray(parentVal) ? [parentVal] : parentVal;
-
-        return childVal
-            ? parentVal
-                ? parentVal.concat(childVal)
-                : isArray(childVal)
-                    ? childVal
-                    : [childVal]
-            : parentVal;
+    // args strategy
+    strats.args = function (parentVal, childVal) {
+        return concatStrat(childVal || parentVal);
     };
 
     // update strategy
     strats.update = function (parentVal, childVal) {
-        return sortBy(strats.args(parentVal, isFunction(childVal) ? {read: childVal} : childVal), 'order');
+        return sortBy(concatStrat(parentVal, isFunction(childVal) ? {read: childVal} : childVal), 'order');
     };
 
     // property strategy
@@ -2183,10 +2175,24 @@
         );
     }
 
+    // concat strategy
+    function concatStrat(parentVal, childVal) {
+
+        parentVal = parentVal && !isArray(parentVal) ? [parentVal] : parentVal;
+
+        return childVal
+            ? parentVal
+                ? parentVal.concat(childVal)
+                : isArray(childVal)
+                    ? childVal
+                    : [childVal]
+            : parentVal;
+    }
+
     // default strategy
-    var defaultStrat = function (parentVal, childVal) {
+    function defaultStrat(parentVal, childVal) {
         return isUndefined(childVal) ? parentVal : childVal;
-    };
+    }
 
     function mergeOptions(parent, child, vm) {
 
@@ -5004,7 +5010,7 @@
                         rows = rows.map(function (elements) { return sortBy(elements, 'offsetLeft'); });
                     }
 
-                    var hasStaticContent = rows.some(function (elements) { return elements.some(function (element) { return element.style.position === 'static'; }); });
+                    var transitionInProgress = rows.some(function (elements) { return elements.some(Transition.inProgress); });
                     var translates = false;
                     var elHeight = '';
 
@@ -5025,7 +5031,7 @@
 
                     }
 
-                    return {rows: rows, translates: translates, height: hasStaticContent ? elHeight : false};
+                    return {rows: rows, translates: translates, height: !transitionInProgress ? elHeight : false};
 
                 },
 
@@ -5332,6 +5338,8 @@
     var svgs = {};
 
     var SVG = {
+
+        args: 'src',
 
         props: {
             id: String,
@@ -5869,8 +5877,8 @@
         } else if (src) {
 
             var change = !includes(el.style.backgroundImage, src);
-            css(el, 'backgroundImage', ("url(" + src + ")"));
             if (change) {
+                css(el, 'backgroundImage', ("url(" + src + ")"));
                 trigger(el, createEvent('load', false));
             }
 
@@ -6757,8 +6765,6 @@
 
     };
 
-    var scroll;
-
     var Offcanvas = {
 
         mixins: [Modal],
@@ -6766,14 +6772,12 @@
         args: 'mode',
 
         props: {
-            content: String,
             mode: String,
             flip: Boolean,
             overlay: Boolean
         },
 
         data: {
-            content: '.uk-offcanvas-content',
             mode: 'slide',
             flip: false,
             overlay: false,
@@ -6781,8 +6785,7 @@
             clsContainer: 'uk-offcanvas-container',
             selPanel: '.uk-offcanvas-bar',
             clsFlip: 'uk-offcanvas-flip',
-            clsContent: 'uk-offcanvas-content',
-            clsContentAnimation: 'uk-offcanvas-content-animation',
+            clsContainerAnimation: 'uk-offcanvas-container-animation',
             clsSidebarAnimation: 'uk-offcanvas-bar-animation',
             clsMode: 'uk-offcanvas',
             clsOverlay: 'uk-offcanvas-overlay',
@@ -6790,12 +6793,6 @@
         },
 
         computed: {
-
-            content: function(ref) {
-                var content = ref.content;
-
-                return $(content) || document.body;
-            },
 
             clsFlip: function(ref) {
                 var flip = ref.flip;
@@ -6825,11 +6822,11 @@
                 return mode === 'none' || mode === 'reveal' ? '' : clsSidebarAnimation;
             },
 
-            clsContentAnimation: function(ref) {
+            clsContainerAnimation: function(ref) {
                 var mode = ref.mode;
-                var clsContentAnimation = ref.clsContentAnimation;
+                var clsContainerAnimation = ref.clsContainerAnimation;
 
-                return mode !== 'push' && mode !== 'reveal' ? '' : clsContentAnimation;
+                return mode !== 'push' && mode !== 'reveal' ? '' : clsContainerAnimation;
             },
 
             transitionElement: function(ref) {
@@ -6837,31 +6834,6 @@
 
                 return mode === 'reveal' ? this.panel.parentNode : this.panel;
             }
-
-        },
-
-        update: {
-
-            write: function() {
-
-                if (this.getActive() === this) {
-
-                    if (this.overlay || this.clsContentAnimation) {
-                        width(this.content, width(window) - this.scrollbarWidth);
-                    }
-
-                    if (this.overlay) {
-                        height(this.content, height(window));
-                        if (scroll) {
-                            this.content.scrollTop = scroll.y;
-                        }
-                    }
-
-                }
-
-            },
-
-            events: ['resize']
 
         },
 
@@ -6878,8 +6850,7 @@
                 handler: function(ref) {
                     var current = ref.current;
 
-                    if (current.hash && $(current.hash, this.content)) {
-                        scroll = null;
+                    if (current.hash && $(current.hash, document.body)) {
                         this.hide();
                     }
                 }
@@ -6887,18 +6858,68 @@
             },
 
             {
+                name: 'touchstart',
 
-                name: 'beforescroll',
+                el: function() {
+                    return this.panel;
+                },
+
+                handler: function(ref) {
+                    var targetTouches = ref.targetTouches;
+
+
+                    if (targetTouches.length === 1) {
+                        this.clientY = targetTouches[0].clientY;
+                    }
+
+                }
+
+            },
+
+            {
+                name: 'touchmove',
+
+                self: true,
 
                 filter: function() {
                     return this.overlay;
                 },
 
-                handler: function(e, scroll, target) {
-                    if (scroll && target && this.isToggled() && $(target, this.content)) {
-                        once(this.$el, 'hidden', function () { return scroll.scrollTo(target); });
+                passive: false,
+
+                handler: function(e) {
+                    e.preventDefault();
+                }
+
+            },
+
+            {
+                name: 'touchmove',
+
+                el: function() {
+                    return this.panel;
+                },
+
+                passive: false,
+
+                handler: function(e) {
+
+                    if (e.targetTouches.length !== 1) {
+                        return;
+                    }
+
+                    var clientY = event.targetTouches[0].clientY - this.clientY;
+                    var ref = this.panel;
+                    var scrollTop$$1 = ref.scrollTop;
+                    var scrollHeight = ref.scrollHeight;
+                    var clientHeight = ref.clientHeight;
+
+                    if (scrollTop$$1 === 0 && clientY > 0
+                        || scrollHeight - scrollTop$$1 <= clientHeight && clientY < 0
+                    ) {
                         e.preventDefault();
                     }
+
                 }
 
             },
@@ -6910,17 +6931,15 @@
 
                 handler: function() {
 
-                    scroll = scroll || {x: window.pageXOffset, y: window.pageYOffset};
-
                     if (this.mode === 'reveal' && !hasClass(this.panel, this.clsMode)) {
                         wrapAll(this.panel, '<div>');
                         addClass(this.panel.parentNode, this.clsMode);
                     }
 
-                    css(document.documentElement, 'overflowY', (!this.clsContentAnimation || this.flip) && this.scrollbarWidth && this.overlay ? 'scroll' : '');
-                    addClass(document.body, this.clsContainer, this.clsFlip, this.clsOverlay);
+                    css(document.documentElement, 'overflowY', this.overlay ? 'hidden' : '');
+                    addClass(document.body, this.clsContainer, this.clsFlip);
                     height(document.body); // force reflow
-                    addClass(this.content, this.clsContentAnimation);
+                    addClass(document.body, this.clsContainerAnimation);
                     addClass(this.panel, this.clsSidebarAnimation, this.mode !== 'reveal' ? this.clsMode : '');
                     addClass(this.$el, this.clsOverlay);
                     css(this.$el, 'display', 'block');
@@ -6935,7 +6954,7 @@
                 self: true,
 
                 handler: function() {
-                    removeClass(this.content, this.clsContentAnimation);
+                    removeClass(document.body, this.clsContainerAnimation);
 
                     var active = this.getActive();
                     if (this.mode === 'none' || active && active !== this && active !== this.prev) {
@@ -6955,29 +6974,12 @@
                         unwrap(this.panel);
                     }
 
-                    if (!this.overlay) {
-                        scroll = {x: window.pageXOffset, y: window.pageYOffset};
-                    } else if (!scroll) {
-                        var ref = this.content;
-                        var x = ref.scrollLeft;
-                        var y = ref.scrollTop;
-                        scroll = {x: x, y: y};
-                    }
-
                     removeClass(this.panel, this.clsSidebarAnimation, this.clsMode);
                     removeClass(this.$el, this.clsOverlay);
                     css(this.$el, 'display', '');
-                    removeClass(document.body, this.clsContainer, this.clsFlip, this.clsOverlay);
-                    document.body.scrollTop = scroll.y;
+                    removeClass(document.body, this.clsContainer, this.clsFlip);
 
                     css(document.documentElement, 'overflowY', '');
-
-                    width(this.content, '');
-                    height(this.content, '');
-
-                    window.scroll(scroll.x, scroll.y);
-
-                    scroll = null;
 
                 }
             },
@@ -8116,7 +8118,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.19';
+    UIkit.version = '3.0.0-rc.20';
 
     core(UIkit);
 
@@ -11351,7 +11353,8 @@
 
                 var ref = offset(this.drag);
                 var top = ref.top;
-                var bottom = top + this.drag.offsetHeight;
+                var offsetHeight = ref.height;
+                var bottom = top + offsetHeight;
                 var scroll;
 
                 if (top > 0 && top < this.scrollY) {
@@ -11442,7 +11445,7 @@
 
                 this.$emit();
 
-                var target = e.type === 'mousemove' ? e.target : document.elementFromPoint(this.pos.x - document.body.scrollLeft, this.pos.y - document.body.scrollTop);
+                var target = e.type === 'mousemove' ? e.target : document.elementFromPoint(this.pos.x - window.pageXOffset, this.pos.y - window.pageYOffset);
 
                 var sortable = this.getSortable(target);
                 var previous = this.getSortable(this.placeholder);
@@ -11466,15 +11469,6 @@
                     this.touched.push(sortable);
                 }
 
-            },
-
-            scroll: function() {
-                var scroll = window.pageYOffset;
-                if (scroll !== this.scrollY) {
-                    this.pos.y += scroll - this.scrollY;
-                    this.scrollY = scroll;
-                    this.$emit();
-                }
             },
 
             end: function(e) {
@@ -11515,6 +11509,15 @@
 
                 removeClass(document.documentElement, this.clsDragState);
 
+            },
+
+            scroll: function() {
+                var scroll = window.pageYOffset;
+                if (scroll !== this.scrollY) {
+                    this.pos.y += scroll - this.scrollY;
+                    this.scrollY = scroll;
+                    this.$emit();
+                }
             },
 
             insert: function(element, target) {

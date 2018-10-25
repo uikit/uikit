@@ -1230,6 +1230,7 @@
     }
 
     .uk-text-muted { color: $inverse-text-muted-color !important; }
+    .uk-text-emphasis { color: $inverse-text-emphasis-color !important; }
     .uk-text-primary { color: $inverse-text-primary-color !important; }
 
 }
@@ -1309,6 +1310,14 @@
 @mixin hook-lightbox-button(){}
 @mixin hook-lightbox-button-hover(){}
 @mixin hook-lightbox-misc(){}
+@mixin hook-list-divider(){}
+@mixin hook-list-striped(){}
+@mixin hook-list-bullet(){}
+@mixin hook-list-misc(){}
+@mixin hook-inverse-list-divider(){}
+@mixin hook-inverse-list-striped(){}
+@mixin hook-inverse-list-bullet(){}
+@mixin hook-margin-misc(){}
 @mixin hook-link-muted(){}
 @mixin hook-link-muted-hover(){}
 @mixin hook-link-text(){}
@@ -1321,14 +1330,6 @@
 @mixin hook-inverse-link-muted-hover(){}
 @mixin hook-inverse-link-text-hover(){}
 @mixin hook-inverse-link-heading-hover(){}
-@mixin hook-list-divider(){}
-@mixin hook-list-striped(){}
-@mixin hook-list-bullet(){}
-@mixin hook-list-misc(){}
-@mixin hook-inverse-list-divider(){}
-@mixin hook-inverse-list-striped(){}
-@mixin hook-inverse-list-bullet(){}
-@mixin hook-margin-misc(){}
 @mixin hook-marker(){}
 @mixin hook-marker-hover(){}
 @mixin hook-marker-misc(){}

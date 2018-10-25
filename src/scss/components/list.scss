@@ -113,7 +113,7 @@ $internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D
 
 /*
  * Bullet
- * 1. Reset display table which causes issues in combination with multi column layouts
+ * 1. Reset display `table` which causes issues in combination with multi column layouts.
  */
 
 .uk-list-bullet > li {

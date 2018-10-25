@@ -1,5 +1,25 @@
 # Changelog
 
+## 3.0.0 rc 20 (October 24, 2018)
+
+### Added
+
+- Add print, reddit, mircrophone, file-text, file-pdf, chevron-double left and right icons
+- Add text emphasis to Text component
+- Add `src` as primary option to SVG component
+
+### Changed
+
+- Offcanvas no longer requires a wrapping content div
+- Change video-camera icon style to outline
+
+## Fixed
+
+- Fix sorting in Sortable component on touch devices with page scrolled down
+- Fix height of Masonry Grid
+- Fix Sticky hiding with Offcanvas in overlay mode
+- Fix Parallax in combination with Offcanvas in overlay mode
+
 ## 3.0.0 rc 19 (October 11, 2018)
 
 ### Fixed
