@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import {$, addClass, after, Animation, assign, attr, css, fastdom, hasClass, height, isNumeric, isString, isUndefined, isVisible, noop, offset, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, trigger, within} from 'uikit-util';
+import {$, addClass, after, Animation, assign, attr, css, fastdom, hasClass, height, isNumeric, isString, isUndefined, isVisible, noop, offset, offsetPosition, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -175,13 +175,29 @@ export default {
 
                 return {
                     scroll: this.scroll = scrollY,
-                    visible: isVisible(this.$el)
+                    visible: isVisible(this.$el),
+                    top: offsetPosition(this.placeholder)[0]
                 };
             },
 
-            write({visible, scroll}, {dir} = {}) {
+            write(data, {dir} = {}) {
+
+                const {initTimestamp = 0, lastDir, lastScroll, scroll, top, visible} = data;
+                const now = performance.now();
 
                 if (scroll < 0 || !visible || this.disabled || this.showOnUp && !dir) {
+                    return;
+                }
+
+                if (now - initTimestamp > 300 || dir !== lastDir) {
+                    data.initScroll = scroll;
+                    data.initTimestamp = now;
+                }
+
+                data.lastDir = dir;
+                data.lastScroll = scroll;
+
+                if (this.showOnUp && Math.abs(data.initScroll - scroll) <= 30 && Math.abs(lastScroll - scroll) <= 10) {
                     return;
                 }
 
@@ -191,6 +207,12 @@ export default {
                 ) {
 
                     if (!this.isActive) {
+
+                        if (Animation.inProgress(this.$el) && top > scroll) {
+                            Animation.cancel(this.$el);
+                            this.hide();
+                        }
+
                         return;
                     }
 

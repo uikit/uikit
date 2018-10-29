@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add threshold before Sticky with `Show On Up` changes state
+
 ### Fixed
 
 - Fix toggling Offcanvas component while transition in progress
