@@ -185,7 +185,9 @@ export default {
                 const {initTimestamp = 0, lastDir, lastScroll, scroll, top, visible} = data;
                 const now = performance.now();
 
-                if (scroll < 0 || !visible || this.disabled || this.showOnUp && !dir) {
+                data.lastScroll = scroll;
+
+                if (scroll < 0 || scroll === lastScroll || !visible || this.disabled || this.showOnUp && !dir) {
                     return;
                 }
 
@@ -195,7 +197,6 @@ export default {
                 }
 
                 data.lastDir = dir;
-                data.lastScroll = scroll;
 
                 if (this.showOnUp && Math.abs(data.initScroll - scroll) <= 30 && Math.abs(lastScroll - scroll) <= 10) {
                     return;
