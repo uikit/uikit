@@ -48,7 +48,6 @@
 /*
  * 1. Hide by default
  * 2. Set position
- * 3. Use height instead of `bottom: 0` because of wrong height calculation on Android (+ Chrome Responsive Mode)
  */
 
 .uk-offcanvas {
@@ -59,8 +58,6 @@
     top: 0;
     left: 0;
     z-index: @offcanvas-z-index;
-    /* 3 */
-    height: 100vh;
 }
 
 /*

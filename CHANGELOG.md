@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix toggling Offcanvas component while transition in progress
+- Fix Offcanvas height on mobile devices
 
 ## 3.0.0 rc 20 (October 24, 2018)
 

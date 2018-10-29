@@ -56,6 +56,22 @@ export default {
 
     },
 
+    update: {
+
+        write() {
+
+            if (this.getActive() !== this) {
+                return false;
+            }
+
+            height(this.$el, height(window));
+
+        },
+
+        events: ['resize']
+
+    },
+
     events: [
 
         {
