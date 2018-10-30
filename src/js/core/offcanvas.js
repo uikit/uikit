@@ -64,7 +64,9 @@ export default {
                 return false;
             }
 
-            height(this.$el, height(window));
+            if (window.visualViewport) {
+                css(this.$el, 'height', window.visualViewport.height);
+            }
 
         },
 

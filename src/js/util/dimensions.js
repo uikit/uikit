@@ -199,9 +199,7 @@ function dimension(prop) {
         if (isUndefined(value)) {
 
             if (isWindow(element)) {
-                return element.visualViewport
-                    ? element.visualViewport[prop]
-                    : element[`inner${propName}`];
+                return element[`inner${propName}`];
             }
 
             if (isDocument(element)) {
