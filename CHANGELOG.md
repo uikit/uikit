@@ -5,6 +5,7 @@
 ### Added
 
 - Add threshold before Sticky with `Show On Up` changes state
+- Add `draggable` option to Slider and Slideshow component
 
 ### Fixed
 

@@ -142,7 +142,7 @@ export default {
                     return;
                 }
 
-                this.preventCatch = true;
+                this.draggable = false;
 
                 e.preventDefault();
 
@@ -182,7 +182,7 @@ export default {
             name: 'itemshown',
 
             handler() {
-                this.preventCatch = false;
+                this.draggable = this.$props.draggable;
             }
 
         },
