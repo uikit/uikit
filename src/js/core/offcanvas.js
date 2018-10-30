@@ -1,5 +1,5 @@
 import Modal from '../mixin/modal';
-import {$, addClass, css, hasClass, height, isTouch, removeClass, trigger, unwrap, wrapAll} from 'uikit-util';
+import {$, addClass, append, css, hasClass, height, isTouch, remove, removeClass, trigger, unwrap, wrapAll} from 'uikit-util';
 
 export default {
 
@@ -53,24 +53,6 @@ export default {
         transitionElement({mode}) {
             return mode === 'reveal' ? this.panel.parentNode : this.panel;
         }
-
-    },
-
-    update: {
-
-        write() {
-
-            if (this.getActive() !== this) {
-                return false;
-            }
-
-            if (window.visualViewport) {
-                css(this.$el, 'height', window.visualViewport.height);
-            }
-
-        },
-
-        events: ['resize']
 
     },
 
@@ -175,6 +157,10 @@ export default {
                 css(this.$el, 'display', 'block');
                 height(this.$el); // force reflow
 
+                if (window.visualViewport && height(window) !== Math.ceil(window.visualViewport.height)) {
+                    this._viewport = append(document.head, '<meta name="viewport" content="user-scalable=0">');
+                }
+
             }
         },
 
@@ -199,6 +185,8 @@ export default {
             self: true,
 
             handler() {
+
+                remove(this._viewport);
 
                 if (this.mode === 'reveal') {
                     unwrap(this.panel);
