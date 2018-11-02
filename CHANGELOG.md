@@ -25,7 +25,7 @@
 - Offcanvas no longer requires a wrapping content div
 - Change video-camera icon style to outline
 
-## Fixed
+### Fixed
 
 - Fix sorting in Sortable component on touch devices with page scrolled down
 - Fix height of Masonry Grid
