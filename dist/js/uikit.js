@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.20 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.21 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -6188,30 +6188,27 @@
                         if (this.stack) {
                             this.prev = prev;
                         } else {
-                            prev.hide().then(this.show);
+
+                            active$1 = prev;
+
+                            if (prev.isToggled()) {
+                                prev.hide().then(this.show);
+                            } else {
+                                once(prev.$el, 'beforeshow hidden', this.show, false, function (ref) {
+                                    var target = ref.target;
+                                    var type = ref.type;
+
+                                    return type === 'hidden' && target === prev.$el;
+                                });
+                            }
                             e.preventDefault();
-                            return;
+
                         }
+
+                        return;
                     }
 
                     registerEvents();
-
-                }
-
-            },
-
-            {
-                name: 'beforehide',
-
-                self: true,
-
-                handler: function() {
-
-                    active$1 = active$1 && active$1 !== this && active$1 || this.prev;
-
-                    if (!active$1) {
-                        deregisterEvents();
-                    }
 
                 }
 
@@ -6238,6 +6235,20 @@
 
             {
 
+                name: 'hide',
+
+                self: true,
+
+                handler: function() {
+                    if (!active$1 || active$1 === this) {
+                        deregisterEvents();
+                    }
+                }
+
+            },
+
+            {
+
                 name: 'hidden',
 
                 self: true,
@@ -6250,23 +6261,30 @@
                     var ref = this;
                     var prev = ref.prev;
 
-                    while (prev) {
+                    active$1 = active$1 && active$1 !== this && active$1 || prev;
 
-                        if (prev.clsPage === this$1.clsPage) {
-                            found = true;
-                            break;
+                    if (!active$1) {
+
+                        css(document.body, 'overflowY', '');
+
+                    } else {
+                        while (prev) {
+
+                            if (prev.clsPage === this$1.clsPage) {
+                                found = true;
+                                break;
+                            }
+
+                            prev = prev.prev;
+
                         }
-
-                        prev = prev.prev;
 
                     }
 
                     if (!found) {
                         removeClass(document.documentElement, this.clsPage);
-
                     }
 
-                    !this.prev && css(document.body, 'overflowY', '');
                 }
 
             }
@@ -6287,7 +6305,7 @@
 
                 if (this.container && this.$el.parentNode !== this.container) {
                     append(this.container, this.$el);
-                    this._callConnected();
+                    return Promise.resolve().then(this.show);
                 }
 
                 return this.toggleElement(this.$el, true, animate$1(this));
@@ -6342,7 +6360,9 @@
         var transitionElement = ref.transitionElement;
         var _toggle = ref._toggle;
 
-        return function (el, show) { return new Promise(function (resolve) { return requestAnimationFrame(function () {
+        return function (el, show) { return new Promise(function (resolve, reject) { return once(el, 'show hide', function () {
+                    el._reject && el._reject();
+                    el._reject = reject;
 
                     _toggle(el, show);
 
@@ -6931,7 +6951,7 @@
 
                 handler: function() {
 
-                    if (this.mode === 'reveal' && !hasClass(this.panel, this.clsMode)) {
+                    if (this.mode === 'reveal' && !hasClass(this.panel.parentNode, this.clsMode)) {
                         wrapAll(this.panel, '<div>');
                         addClass(this.panel.parentNode, this.clsMode);
                     }
@@ -6944,6 +6964,10 @@
                     addClass(this.$el, this.clsOverlay);
                     css(this.$el, 'display', 'block');
                     height(this.$el); // force reflow
+
+                    if (window.visualViewport && height(window) !== Math.ceil(window.visualViewport.height)) {
+                        this._viewport = append(document.head, '<meta name="viewport" content="user-scalable=0">');
+                    }
 
                 }
             },
@@ -6969,6 +6993,8 @@
                 self: true,
 
                 handler: function() {
+
+                    remove(this._viewport);
 
                     if (this.mode === 'reveal') {
                         unwrap(this.panel);
@@ -7628,19 +7654,39 @@
 
                     return {
                         scroll: this.scroll = scrollY,
-                        visible: isVisible(this.$el)
+                        visible: isVisible(this.$el),
+                        top: offsetPosition(this.placeholder)[0]
                     };
                 },
 
-                write: function(ref, ref$1) {
+                write: function(data$$1, ref) {
                     var this$1 = this;
-                    var visible = ref.visible;
-                    var scroll = ref.scroll;
-                    if ( ref$1 === void 0 ) ref$1 = {};
-                    var dir = ref$1.dir;
+                    if ( ref === void 0 ) ref = {};
+                    var dir = ref.dir;
 
 
-                    if (scroll < 0 || !visible || this.disabled || this.showOnUp && !dir) {
+                    var initTimestamp = data$$1.initTimestamp; if ( initTimestamp === void 0 ) initTimestamp = 0;
+                    var lastDir = data$$1.lastDir;
+                    var lastScroll = data$$1.lastScroll;
+                    var scroll = data$$1.scroll;
+                    var top = data$$1.top;
+                    var visible = data$$1.visible;
+                    var now = performance.now();
+
+                    data$$1.lastScroll = scroll;
+
+                    if (scroll < 0 || scroll === lastScroll || !visible || this.disabled || this.showOnUp && !dir) {
+                        return;
+                    }
+
+                    if (now - initTimestamp > 300 || dir !== lastDir) {
+                        data$$1.initScroll = scroll;
+                        data$$1.initTimestamp = now;
+                    }
+
+                    data$$1.lastDir = dir;
+
+                    if (this.showOnUp && Math.abs(data$$1.initScroll - scroll) <= 30 && Math.abs(lastScroll - scroll) <= 10) {
                         return;
                     }
 
@@ -7650,6 +7696,12 @@
                     ) {
 
                         if (!this.isActive) {
+
+                            if (Animation.inProgress(this.$el) && top > scroll) {
+                                Animation.cancel(this.$el);
+                                this.hide();
+                            }
+
                             return;
                         }
 
@@ -8118,7 +8170,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.20';
+    UIkit.version = '3.0.0-rc.21';
 
     core(UIkit);
 
@@ -8820,7 +8872,7 @@
             },
 
             getDistance: function() {
-                return prev.offsetWidth;
+                return prev && prev.offsetWidth;
             }
 
         };
@@ -8937,9 +8989,13 @@
 
     var SliderDrag = {
 
+        props: {
+            draggable: Boolean
+        },
+
         data: {
-            threshold: 10,
-            preventCatch: false
+            draggable: true,
+            threshold: 10
         },
 
         created: function() {
@@ -8975,10 +9031,10 @@
 
                 handler: function(e) {
 
-                    if (!isTouch(e) && hasTextNodesOnly(e.target)
+                    if (!this.draggable
+                        || !isTouch(e) && hasTextNodesOnly(e.target)
                         || e.button > 0
                         || this.length < 2
-                        || this.preventCatch
                     ) {
                         return;
                     }
@@ -9691,7 +9747,7 @@
                         return;
                     }
 
-                    this.preventCatch = true;
+                    this.draggable = false;
 
                     e.preventDefault();
 
@@ -9735,7 +9791,7 @@
                 name: 'itemshown',
 
                 handler: function() {
-                    this.preventCatch = false;
+                    this.draggable = this.$props.draggable;
                 }
 
             },
