@@ -1,5 +1,5 @@
 import Modal from '../mixin/modal';
-import {$, addClass, css, hasClass, height, isTouch, removeClass, trigger, unwrap, wrapAll} from 'uikit-util';
+import {$, addClass, append, css, hasClass, height, isTouch, remove, removeClass, trigger, unwrap, wrapAll} from 'uikit-util';
 
 export default {
 
@@ -143,7 +143,7 @@ export default {
 
             handler() {
 
-                if (this.mode === 'reveal' && !hasClass(this.panel, this.clsMode)) {
+                if (this.mode === 'reveal' && !hasClass(this.panel.parentNode, this.clsMode)) {
                     wrapAll(this.panel, '<div>');
                     addClass(this.panel.parentNode, this.clsMode);
                 }
@@ -156,6 +156,10 @@ export default {
                 addClass(this.$el, this.clsOverlay);
                 css(this.$el, 'display', 'block');
                 height(this.$el); // force reflow
+
+                if (window.visualViewport && height(window) !== Math.ceil(window.visualViewport.height)) {
+                    this._viewport = append(document.head, '<meta name="viewport" content="user-scalable=0">');
+                }
 
             }
         },
@@ -181,6 +185,8 @@ export default {
             self: true,
 
             handler() {
+
+                remove(this._viewport);
 
                 if (this.mode === 'reveal') {
                     unwrap(this.panel);

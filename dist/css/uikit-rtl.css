@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.20 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.21 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -5379,7 +5379,6 @@ ul.uk-nav-sub {
 /*
  * 1. Hide by default
  * 2. Set position
- * 3. Use height instead of `bottom: 0` because of wrong height calculation on Android (+ Chrome Responsive Mode)
  */
 .uk-offcanvas {
   /* 1 */
@@ -5387,10 +5386,9 @@ ul.uk-nav-sub {
   /* 2 */
   position: fixed;
   top: 0;
+  bottom: 0;
   right: 0;
   z-index: 1000;
-  /* 3 */
-  height: 100vh;
 }
 /*
  * Flip modifier

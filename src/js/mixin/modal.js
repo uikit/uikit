@@ -97,30 +97,22 @@ export default {
                     if (this.stack) {
                         this.prev = prev;
                     } else {
-                        prev.hide().then(this.show);
+
+                        active = prev;
+
+                        if (prev.isToggled()) {
+                            prev.hide().then(this.show);
+                        } else {
+                            once(prev.$el, 'beforeshow hidden', this.show, false, ({target, type}) => type === 'hidden' && target === prev.$el);
+                        }
                         e.preventDefault();
-                        return;
+
                     }
+
+                    return;
                 }
 
                 registerEvents();
-
-            }
-
-        },
-
-        {
-            name: 'beforehide',
-
-            self: true,
-
-            handler() {
-
-                active = active && active !== this && active || this.prev;
-
-                if (!active) {
-                    deregisterEvents();
-                }
 
             }
 
@@ -147,6 +139,20 @@ export default {
 
         {
 
+            name: 'hide',
+
+            self: true,
+
+            handler() {
+                if (!active || active === this) {
+                    deregisterEvents();
+                }
+            }
+
+        },
+
+        {
+
             name: 'hidden',
 
             self: true,
@@ -155,23 +161,30 @@ export default {
 
                 let found, {prev} = this;
 
-                while (prev) {
+                active = active && active !== this && active || prev;
 
-                    if (prev.clsPage === this.clsPage) {
-                        found = true;
-                        break;
+                if (!active) {
+
+                    css(document.body, 'overflowY', '');
+
+                } else {
+                    while (prev) {
+
+                        if (prev.clsPage === this.clsPage) {
+                            found = true;
+                            break;
+                        }
+
+                        prev = prev.prev;
+
                     }
-
-                    prev = prev.prev;
 
                 }
 
                 if (!found) {
                     removeClass(document.documentElement, this.clsPage);
-
                 }
 
-                !this.prev && css(document.body, 'overflowY', '');
             }
 
         }
@@ -192,7 +205,7 @@ export default {
 
             if (this.container && this.$el.parentNode !== this.container) {
                 append(this.container, this.$el);
-                this._callConnected();
+                return Promise.resolve().then(this.show);
             }
 
             return this.toggleElement(this.$el, true, animate(this));
@@ -242,8 +255,10 @@ function deregisterEvents() {
 
 function animate({transitionElement, _toggle}) {
     return (el, show) =>
-        new Promise(resolve =>
-            requestAnimationFrame(() => {
+        new Promise((resolve, reject) =>
+            once(el, 'show hide', () => {
+                el._reject && el._reject();
+                el._reject = reject;
 
                 _toggle(el, show);
 

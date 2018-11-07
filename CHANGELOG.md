@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.0.0 rc 21 (November 7, 2018)
+
+### Added
+
+- Add threshold before Sticky with `Show On Up` changes state
+- Add `draggable` option to Slider and Slideshow component
+
+### Fixed
+
+- Fix toggling Offcanvas component while transition in progress
+- Fix Offcanvas height on mobile devices
+
 ## 3.0.0 rc 20 (October 24, 2018)
 
 ### Added
@@ -13,7 +25,7 @@
 - Offcanvas no longer requires a wrapping content div
 - Change video-camera icon style to outline
 
-## Fixed
+### Fixed
 
 - Fix sorting in Sortable component on touch devices with page scrolled down
 - Fix height of Masonry Grid
