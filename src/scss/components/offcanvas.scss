@@ -48,7 +48,6 @@ $offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
 /*
  * 1. Hide by default
  * 2. Set position
- * 3. Use height instead of `bottom: 0` because of wrong height calculation on Android (+ Chrome Responsive Mode)
  */
 
 .uk-offcanvas {
@@ -57,10 +56,9 @@ $offcanvas-overlay-background:                   rgba(0,0,0,0.1) !default;
     /* 2 */
     position: fixed;
     top: 0;
+    bottom: 0;
     left: 0;
     z-index: $offcanvas-z-index;
-    /* 3 */
-    height: 100vh;
 }
 
 /*
