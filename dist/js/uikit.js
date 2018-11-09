@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.21 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.22 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -6240,7 +6240,7 @@
                 self: true,
 
                 handler: function() {
-                    if (!active$1 || active$1 === this) {
+                    if (!active$1 || active$1 === this && !this.prev) {
                         deregisterEvents();
                     }
                 }
@@ -6436,7 +6436,7 @@
                 var currentTarget = ref.currentTarget;
 
                 if (target === currentTarget) {
-                    dialog.$destroy(true);
+                    Promise.resolve(function () { return dialog.$destroy(true); });
                 }
             });
 
@@ -8170,7 +8170,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.21';
+    UIkit.version = '3.0.0-rc.22';
 
     core(UIkit);
 
