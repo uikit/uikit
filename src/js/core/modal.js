@@ -63,7 +63,7 @@ function install (UIkit) {
 
         on(dialog.$el, 'hidden', ({target, currentTarget}) => {
             if (target === currentTarget) {
-                dialog.$destroy(true);
+                Promise.resolve(() => dialog.$destroy(true));
             }
         });
 
