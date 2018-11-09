@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regressions in Modal component
+
 ## 3.0.0 rc 21 (November 7, 2018)
 
 ### Added

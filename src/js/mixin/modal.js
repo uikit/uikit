@@ -144,7 +144,7 @@ export default {
             self: true,
 
             handler() {
-                if (!active || active === this) {
+                if (!active || active === this && !this.prev) {
                     deregisterEvents();
                 }
             }
