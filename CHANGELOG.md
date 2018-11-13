@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix sticky not recalculating after update
+- Fix clicking on items not triggering `click` event in Sortable component
 
 ## 3.0.0 rc 22 (November 9, 2018)
 
