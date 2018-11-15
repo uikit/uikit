@@ -49,7 +49,9 @@ export default {
 
     events: {
 
-        [pointerDown]: 'init'
+        name: pointerDown,
+        passive: false,
+        handler: 'init'
 
     },
 
