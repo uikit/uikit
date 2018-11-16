@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.22 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.23 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -6900,12 +6900,11 @@
                 name: 'touchmove',
 
                 self: true,
+                passive: false,
 
                 filter: function() {
                     return this.overlay;
                 },
-
-                passive: false,
 
                 handler: function(e) {
                     e.preventDefault();
@@ -6916,11 +6915,11 @@
             {
                 name: 'touchmove',
 
+                passive: false,
+
                 el: function() {
                     return this.panel;
                 },
-
-                passive: false,
 
                 handler: function(e) {
 
@@ -6965,9 +6964,7 @@
                     css(this.$el, 'display', 'block');
                     height(this.$el); // force reflow
 
-                    if (window.visualViewport && height(window) !== Math.ceil(window.visualViewport.height)) {
-                        this._viewport = append(document.head, '<meta name="viewport" content="user-scalable=0">');
-                    }
+                    this.clsContainerAnimation && suppressUserScale();
 
                 }
             },
@@ -6994,7 +6991,7 @@
 
                 handler: function() {
 
-                    remove(this._viewport);
+                    this.clsContainerAnimation && resumeUserScale();
 
                     if (this.mode === 'reveal') {
                         unwrap(this.panel);
@@ -7015,7 +7012,7 @@
 
                 handler: function(e) {
 
-                    if (this.isToggled() && isTouch(e) && (e.type === 'swipeLeft' && !this.flip || e.type === 'swipeRight' && this.flip)) {
+                    if (this.isToggled() && isTouch(e) && e.type === 'swipeLeft' ^ this.flip) {
                         this.hide();
                     }
 
@@ -7025,6 +7022,20 @@
         ]
 
     };
+
+    // Chrome in responsive mode zooms page upon opening offcanvas
+    function suppressUserScale() {
+        getViewport().content += ',user-scalable=0';
+    }
+
+    function resumeUserScale() {
+        var viewport = getViewport();
+        viewport.content = viewport.content.replace(/,user-scalable=0$/, '');
+    }
+
+    function getViewport() {
+        return $('meta[name="viewport"]', document.head) || append(document.head, '<meta name="viewport">');
+    }
 
     var OverflowAuto = {
 
@@ -7614,6 +7625,7 @@
                     this.inactive = !this.matchMedia;
 
                     return {
+                        lastScroll: false,
                         height: height$$1,
                         margins: css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
                     };
@@ -8170,7 +8182,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.22';
+    UIkit.version = '3.0.0-rc.23';
 
     core(UIkit);
 
@@ -11338,8 +11350,6 @@
 
     };
 
-    var obj$1;
-
     var Sortable = {
 
         mixins: [Class, Animate],
@@ -11389,7 +11399,13 @@
             });
         },
 
-        events: ( obj$1 = {}, obj$1[pointerDown] = 'init', obj$1 ),
+        events: {
+
+            name: pointerDown,
+            passive: false,
+            handler: 'init'
+
+        },
 
         update: {
 
@@ -11435,7 +11451,7 @@
                 var placeholder = ref[0];
 
                 if (!placeholder
-                    || isInput(e.target)
+                    || isInput(target)
                     || this.handle && !within(target, this.handle)
                     || button > 0
                     || within(target, ("." + (this.clsNoDrag)))
@@ -11534,9 +11550,8 @@
                 off(window, 'scroll', this.scroll);
 
                 if (!this.drag) {
-
-                    if (e.type !== 'mouseup' && within(e.target, 'a[href]')) {
-                        location.href = closest(e.target, 'a[href]').href;
+                    if (e.type === 'touchend') {
+                        e.target.click();
                     }
 
                     return;
@@ -11632,7 +11647,7 @@
         return element.parentNode === target.parentNode && index(element) > index(target);
     }
 
-    var obj$2;
+    var obj$1;
 
     var actives = [];
 
@@ -11733,15 +11748,15 @@
 
         },
 
-        events: ( obj$2 = {}, obj$2[("focus " + pointerEnter + " " + pointerDown)] = function (e) {
+        events: ( obj$1 = {}, obj$1[("focus " + pointerEnter + " " + pointerDown)] = function (e) {
                 if (e.type !== pointerDown || !isTouch(e)) {
                     this.show();
                 }
-            }, obj$2.blur = 'hide', obj$2[pointerLeave] = function (e) {
+            }, obj$1.blur = 'hide', obj$1[pointerLeave] = function (e) {
                 if (!isTouch(e)) {
                     this.hide();
                 }
-            }, obj$2 )
+            }, obj$1 )
 
     };
 
