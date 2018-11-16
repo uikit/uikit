@@ -1,0 +1,6 @@
+<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+  <polyline points="16 11.75 16 19.5 0.5 19.5 0.5 4 8.25 4" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+  <line x1="19.5" y1="0.5" x2="8" y2="12" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+  <line x1="19.5" x2="19.5" y2="8.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+  <line x1="19.5" y1="0.5" x2="10.5" y2="0.5" style="fill: none;stroke: #000;stroke-miterlimit: 10"/>
+</svg>
