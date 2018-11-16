@@ -1,5 +1,5 @@
 import Modal from '../mixin/modal';
-import {$, addClass, append, css, hasClass, height, isTouch, remove, removeClass, trigger, unwrap, wrapAll} from 'uikit-util';
+import {$, addClass, append, css, hasClass, height, isTouch, removeClass, trigger, unwrap, wrapAll} from 'uikit-util';
 
 export default {
 
@@ -95,12 +95,11 @@ export default {
             name: 'touchmove',
 
             self: true,
+            passive: false,
 
             filter() {
                 return this.overlay;
             },
-
-            passive: false,
 
             handler(e) {
                 e.preventDefault();
@@ -111,11 +110,11 @@ export default {
         {
             name: 'touchmove',
 
+            passive: false,
+
             el() {
                 return this.panel;
             },
-
-            passive: false,
 
             handler(e) {
 
@@ -157,9 +156,7 @@ export default {
                 css(this.$el, 'display', 'block');
                 height(this.$el); // force reflow
 
-                if (window.visualViewport && height(window) !== Math.ceil(window.visualViewport.height)) {
-                    this._viewport = append(document.head, '<meta name="viewport" content="user-scalable=0">');
-                }
+                this.clsContainerAnimation && suppressUserScale();
 
             }
         },
@@ -186,7 +183,7 @@ export default {
 
             handler() {
 
-                remove(this._viewport);
+                this.clsContainerAnimation && resumeUserScale();
 
                 if (this.mode === 'reveal') {
                     unwrap(this.panel);
@@ -207,7 +204,7 @@ export default {
 
             handler(e) {
 
-                if (this.isToggled() && isTouch(e) && (e.type === 'swipeLeft' && !this.flip || e.type === 'swipeRight' && this.flip)) {
+                if (this.isToggled() && isTouch(e) && e.type === 'swipeLeft' ^ this.flip) {
                     this.hide();
                 }
 
@@ -217,3 +214,17 @@ export default {
     ]
 
 };
+
+// Chrome in responsive mode zooms page upon opening offcanvas
+function suppressUserScale() {
+    getViewport().content += ',user-scalable=0';
+}
+
+function resumeUserScale() {
+    const viewport = getViewport();
+    viewport.content = viewport.content.replace(/,user-scalable=0$/, '');
+}
+
+function getViewport() {
+    return $('meta[name="viewport"]', document.head) || append(document.head, '<meta name="viewport">');
+}

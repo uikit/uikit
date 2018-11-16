@@ -141,6 +141,7 @@ export default {
                 this.inactive = !this.matchMedia;
 
                 return {
+                    lastScroll: false,
                     height,
                     margins: css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
                 };
