@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.0.0 rc 23 (November 16, 2018)
 
 ### Fixed
 
