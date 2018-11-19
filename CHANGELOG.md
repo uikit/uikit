@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add expand classes to Container component
+
 ## 3.0.0 rc 23 (November 16, 2018)
 
 ### Fixed
