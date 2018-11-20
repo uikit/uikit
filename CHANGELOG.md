@@ -13,6 +13,7 @@
 - Fix Offcanvas changing viewport upon opening
 - Fix Masonry Grid in Rtl mode
 - Make sure autoplay does not resume after user interaction in slider-autoplay mixin
+- Fix modal not opening on first click in Angular apps
 
 ## 3.0.0 rc 22 (November 9, 2018)
 
