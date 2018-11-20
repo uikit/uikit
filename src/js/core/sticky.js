@@ -129,7 +129,17 @@ export default {
 
             read({height}, {type}) {
 
-                height = !this.isActive || type === 'resize' ? this.$el.offsetHeight : height;
+                const active = hasClass(this.selTarget, this.clsActive);
+
+                if (active && type !== 'update') {
+
+                    this.hide();
+                    height = this.$el.offsetHeight;
+                    this.show();
+
+                }
+
+                height = !active ? this.$el.offsetHeight : height;
 
                 this.topOffset = offset(this.isActive ? this.placeholder : this.$el).top;
                 this.bottomOffset = this.topOffset + height;
