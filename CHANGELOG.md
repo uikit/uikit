@@ -7,6 +7,7 @@
 - Fix sticky not recalculating after update
 - Fix clicking on items not triggering `click` event in Sortable component
 - Fix Offcanvas changing viewport upon opening
+- Fix Masonry Grid in Rtl mode
 
 ## 3.0.0 rc 22 (November 9, 2018)
 

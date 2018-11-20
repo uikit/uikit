@@ -1,6 +1,6 @@
 import Margin from './margin';
 import Class from '../mixin/class';
-import {addClass, css, hasClass, height as getHeight, scrolledOver, toFloat, toggleClass, toNodes, Transition, sortBy} from 'uikit-util';
+import {addClass, css, hasClass, height as getHeight, isRtl, scrolledOver, toFloat, toggleClass, toNodes, Transition, sortBy} from 'uikit-util';
 
 export default {
 
@@ -46,6 +46,11 @@ export default {
 
                 if (this.masonry || this.parallax) {
                     rows = rows.map(elements => sortBy(elements, 'offsetLeft'));
+
+                    if (isRtl) {
+                        rows.map(row => row.reverse());
+                    }
+
                 }
 
                 const transitionInProgress = rows.some(elements => elements.some(Transition.inProgress));
