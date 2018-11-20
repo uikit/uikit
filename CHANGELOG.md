@@ -12,6 +12,7 @@
 - Fix clicking on items not triggering `click` event in Sortable component
 - Fix Offcanvas changing viewport upon opening
 - Fix Masonry Grid in Rtl mode
+- Make sure autoplay does not resume after user interaction in slider-autoplay mixin
 
 ## 3.0.0 rc 22 (November 9, 2018)
 

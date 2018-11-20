@@ -16,6 +16,7 @@ export default {
 
     connected() {
         this.startAutoplay();
+        this.userInteracted = false;
     },
 
     disconnected() {
@@ -43,7 +44,10 @@ export default {
         {
 
             name: pointerDown,
-            handler: 'stopAutoplay'
+            handler() {
+                this.userInteracted = true;
+                this.stopAutoplay();
+            }
 
         },
 
@@ -83,7 +87,7 @@ export default {
 
             this.stopAutoplay();
 
-            if (this.autoplay) {
+            if (this.autoplay && !this.userInteracted) {
                 this.interval = setInterval(
                     () => !(this.isHovering && this.pauseOnHover) && !this.stack.length && this.show('next'),
                     this.autoplayInterval
