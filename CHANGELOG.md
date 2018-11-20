@@ -2,6 +2,10 @@
 
 ## 3.0.0 rc 23 (November 16, 2018)
 
+### Changed
+
+- Destroy Lightbox Panel upon closing
+
 ### Fixed
 
 - Fix sticky not recalculating after update
