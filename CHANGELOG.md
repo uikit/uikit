@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix filter controls active state in Filter component
+
 ## 3.0.0 rc 23 (November 16, 2018)
 
 ### Changed
