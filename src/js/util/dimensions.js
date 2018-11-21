@@ -35,58 +35,67 @@ export function positionAt(element, target, elAttach, targetAttach, elOffset, ta
     position.left += elOffset['x'];
     position.top += elOffset['y'];
 
-    boundary = getDimensions(boundary || window(element));
-
     if (flip) {
+
+        const boundaries = [getDimensions(window(element))];
+
+        if (boundary) {
+            boundaries.unshift(getDimensions(boundary));
+        }
+
         each(dirs, ([dir, align, alignFlip], prop) => {
 
             if (!(flip === true || includes(flip, dir))) {
                 return;
             }
 
-            const elemOffset = elAttach[dir] === align
-                ? -dim[prop]
-                : elAttach[dir] === alignFlip
-                    ? dim[prop]
-                    : 0;
+            boundaries.some(boundary => {
 
-            const targetOffset = targetAttach[dir] === align
-                ? targetDim[prop]
-                : targetAttach[dir] === alignFlip
-                    ? -targetDim[prop]
-                    : 0;
+                const elemOffset = elAttach[dir] === align
+                    ? -dim[prop]
+                    : elAttach[dir] === alignFlip
+                        ? dim[prop]
+                        : 0;
 
-            if (position[align] < boundary[align] || position[align] + dim[prop] > boundary[alignFlip]) {
+                const targetOffset = targetAttach[dir] === align
+                    ? targetDim[prop]
+                    : targetAttach[dir] === alignFlip
+                        ? -targetDim[prop]
+                        : 0;
 
-                const centerOffset = dim[prop] / 2;
-                const centerTargetOffset = targetAttach[dir] === 'center' ? -targetDim[prop] / 2 : 0;
+                if (position[align] < boundary[align] || position[align] + dim[prop] > boundary[alignFlip]) {
 
-                elAttach[dir] === 'center' && (
-                    apply(centerOffset, centerTargetOffset)
-                    || apply(-centerOffset, -centerTargetOffset)
-                ) || apply(elemOffset, targetOffset);
+                    const centerOffset = dim[prop] / 2;
+                    const centerTargetOffset = targetAttach[dir] === 'center' ? -targetDim[prop] / 2 : 0;
 
-            }
+                    return elAttach[dir] === 'center' && (
+                        apply(centerOffset, centerTargetOffset)
+                        || apply(-centerOffset, -centerTargetOffset)
+                    ) || apply(elemOffset, targetOffset);
 
-            function apply(elemOffset, targetOffset) {
-
-                const newVal = position[align] + elemOffset + targetOffset - elOffset[dir] * 2;
-
-                if (newVal >= boundary[align] && newVal + dim[prop] <= boundary[alignFlip]) {
-                    position[align] = newVal;
-
-                    ['element', 'target'].forEach((el) => {
-                        flipped[el][dir] = !elemOffset
-                            ? flipped[el][dir]
-                            : flipped[el][dir] === dirs[prop][1]
-                                ? dirs[prop][2]
-                                : dirs[prop][1];
-                    });
-
-                    return true;
                 }
 
-            }
+                function apply(elemOffset, targetOffset) {
+
+                    const newVal = position[align] + elemOffset + targetOffset - elOffset[dir] * 2;
+
+                    if (newVal >= boundary[align] && newVal + dim[prop] <= boundary[alignFlip]) {
+                        position[align] = newVal;
+
+                        ['element', 'target'].forEach((el) => {
+                            flipped[el][dir] = !elemOffset
+                                ? flipped[el][dir]
+                                : flipped[el][dir] === dirs[prop][1]
+                                    ? dirs[prop][2]
+                                    : dirs[prop][1];
+                        });
+
+                        return true;
+                    }
+
+                }
+
+            });
 
         });
     }

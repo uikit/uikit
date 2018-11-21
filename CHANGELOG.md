@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Drop positioning uses window as secondary boundary
+
 ### Fixed
 
 - Fix modal not opening on first click in Angular apps
