@@ -12,6 +12,7 @@
 - Fix filter controls active state in Filter component
 - Fix Masonry Grid in Rtl mode
 - Make sure autoplay does not resume after user interaction in slider-autoplay mixin
+- Fix `hasClass` in IE11
 
 ## 3.0.0 rc 23 (November 16, 2018)
 
