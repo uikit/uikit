@@ -163,6 +163,9 @@ export default {
                     attr(placeholder, 'hidden', '');
                 }
 
+                // ensure active/inactive classes are applied
+                this.isActive = this.isActive;
+
             },
 
             events: ['load', 'resize']
