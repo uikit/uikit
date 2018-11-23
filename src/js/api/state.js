@@ -186,14 +186,21 @@ export default function (UIkit) {
                 const {_computeds, $props, $el} = component;
 
                 if (!hasOwn(_computeds, key)) {
-                    _computeds[key] = cb.call(component, $props, $el);
+                    _computeds[key] = (cb.get || cb).call(component, $props, $el);
                 }
 
                 return _computeds[key];
             },
 
             set(value) {
-                component._computeds[key] = value;
+
+                const {_computeds} = component;
+
+                _computeds[key] = cb.set ? cb.set.call(component, value) : value;
+
+                if (isUndefined(_computeds[key])) {
+                    delete _computeds[key];
+                }
             }
 
         });

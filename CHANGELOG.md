@@ -1,6 +1,24 @@
 # Changelog
 
+## 3.0.0 rc 24 (November 23, 2018)
+
+### Changed
+
+- Drop positioning uses window as secondary boundary
+
+### Fixed
+
+- Fix modal not opening on first click in Angular apps
+- Fix filter controls active state in Filter component
+- Fix Masonry Grid in Rtl mode
+- Make sure autoplay does not resume after user interaction in slider-autoplay mixin
+- Fix `hasClass` in IE11
+
 ## 3.0.0 rc 23 (November 16, 2018)
+
+### Changed
+
+- Destroy Lightbox Panel upon closing
 
 ### Fixed
 

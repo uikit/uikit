@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.23 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.24 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1182,7 +1182,7 @@
     }
 
     function hasClass(element, cls) {
-        return toNodes(element).some(function (element) { return element.classList.contains(cls); });
+        return cls && toNodes(element).some(function (element) { return element.classList.contains(cls); });
     }
 
     function toggleClass(element) {
@@ -1560,9 +1560,14 @@
         position.left += elOffset['x'];
         position.top += elOffset['y'];
 
-        boundary = getDimensions(boundary || window$1(element));
-
         if (flip) {
+
+            var boundaries = [getDimensions(window$1(element))];
+
+            if (boundary) {
+                boundaries.unshift(getDimensions(boundary));
+            }
+
             each(dirs, function (ref, prop) {
                 var dir = ref[0];
                 var align = ref[1];
@@ -1573,49 +1578,53 @@
                     return;
                 }
 
-                var elemOffset = elAttach[dir] === align
-                    ? -dim[prop]
-                    : elAttach[dir] === alignFlip
-                        ? dim[prop]
-                        : 0;
+                boundaries.some(function (boundary) {
 
-                var targetOffset = targetAttach[dir] === align
-                    ? targetDim[prop]
-                    : targetAttach[dir] === alignFlip
-                        ? -targetDim[prop]
-                        : 0;
+                    var elemOffset = elAttach[dir] === align
+                        ? -dim[prop]
+                        : elAttach[dir] === alignFlip
+                            ? dim[prop]
+                            : 0;
 
-                if (position[align] < boundary[align] || position[align] + dim[prop] > boundary[alignFlip]) {
+                    var targetOffset = targetAttach[dir] === align
+                        ? targetDim[prop]
+                        : targetAttach[dir] === alignFlip
+                            ? -targetDim[prop]
+                            : 0;
 
-                    var centerOffset = dim[prop] / 2;
-                    var centerTargetOffset = targetAttach[dir] === 'center' ? -targetDim[prop] / 2 : 0;
+                    if (position[align] < boundary[align] || position[align] + dim[prop] > boundary[alignFlip]) {
 
-                    elAttach[dir] === 'center' && (
-                        apply(centerOffset, centerTargetOffset)
-                        || apply(-centerOffset, -centerTargetOffset)
-                    ) || apply(elemOffset, targetOffset);
+                        var centerOffset = dim[prop] / 2;
+                        var centerTargetOffset = targetAttach[dir] === 'center' ? -targetDim[prop] / 2 : 0;
 
-                }
+                        return elAttach[dir] === 'center' && (
+                            apply(centerOffset, centerTargetOffset)
+                            || apply(-centerOffset, -centerTargetOffset)
+                        ) || apply(elemOffset, targetOffset);
 
-                function apply(elemOffset, targetOffset) {
-
-                    var newVal = position[align] + elemOffset + targetOffset - elOffset[dir] * 2;
-
-                    if (newVal >= boundary[align] && newVal + dim[prop] <= boundary[alignFlip]) {
-                        position[align] = newVal;
-
-                        ['element', 'target'].forEach(function (el) {
-                            flipped[el][dir] = !elemOffset
-                                ? flipped[el][dir]
-                                : flipped[el][dir] === dirs[prop][1]
-                                    ? dirs[prop][2]
-                                    : dirs[prop][1];
-                        });
-
-                        return true;
                     }
 
-                }
+                    function apply(elemOffset, targetOffset) {
+
+                        var newVal = position[align] + elemOffset + targetOffset - elOffset[dir] * 2;
+
+                        if (newVal >= boundary[align] && newVal + dim[prop] <= boundary[alignFlip]) {
+                            position[align] = newVal;
+
+                            ['element', 'target'].forEach(function (el) {
+                                flipped[el][dir] = !elemOffset
+                                    ? flipped[el][dir]
+                                    : flipped[el][dir] === dirs[prop][1]
+                                        ? dirs[prop][2]
+                                        : dirs[prop][1];
+                            });
+
+                            return true;
+                        }
+
+                    }
+
+                });
 
             });
         }
@@ -3322,14 +3331,21 @@
                     var $el = component.$el;
 
                     if (!hasOwn(_computeds, key)) {
-                        _computeds[key] = cb.call(component, $props, $el);
+                        _computeds[key] = (cb.get || cb).call(component, $props, $el);
                     }
 
                     return _computeds[key];
                 },
 
                 set: function(value) {
-                    component._computeds[key] = value;
+
+                    var _computeds = component._computeds;
+
+                    _computeds[key] = cb.set ? cb.set.call(component, value) : value;
+
+                    if (isUndefined(_computeds[key])) {
+                        delete _computeds[key];
+                    }
                 }
 
             });
@@ -5008,6 +5024,11 @@
 
                     if (this.masonry || this.parallax) {
                         rows = rows.map(function (elements) { return sortBy(elements, 'offsetLeft'); });
+
+                        if (isRtl) {
+                            rows.map(function (row) { return row.reverse(); });
+                        }
+
                     }
 
                     var transitionInProgress = rows.some(function (elements) { return elements.some(Transition.inProgress); });
@@ -6298,6 +6319,8 @@
             },
 
             show: function() {
+                var this$1 = this;
+
 
                 if (this.isToggled()) {
                     return Promise.resolve();
@@ -6305,7 +6328,9 @@
 
                 if (this.container && this.$el.parentNode !== this.container) {
                     append(this.container, this.$el);
-                    return Promise.resolve().then(this.show);
+                    return new Promise(function (resolve) { return requestAnimationFrame(function () { return this$1.show().then(resolve); }
+                        ); }
+                    );
                 }
 
                 return this.toggleElement(this.$el, true, animate$1(this));
@@ -7522,18 +7547,37 @@
                 var widthElement = ref.widthElement;
 
                 return query(widthElement, $el) || this.placeholder;
-            }
+            },
+
+            isActive: {
+
+                get: function() {
+                    return hasClass(this.selTarget, this.clsActive);
+                },
+
+                set: function(value) {
+                    if (value && !this.isActive) {
+                        replaceClass(this.selTarget, this.clsInactive, this.clsActive);
+                        trigger(this.$el, 'active');
+                    } else if (!value && !hasClass(this.selTarget, this.clsInactive)) {
+                        replaceClass(this.selTarget, this.clsActive, this.clsInactive);
+                        trigger(this.$el, 'inactive');
+                    }
+                }
+
+            },
 
         },
 
         connected: function() {
             this.placeholder = $('+ .uk-sticky-placeholder', this.$el) || $('<div class="uk-sticky-placeholder"></div>');
+            this.isFixed = false;
+            this.isActive = false;
         },
 
         disconnected: function() {
 
-            if (this.isActive) {
-                this.isActive = undefined;
+            if (this.isFixed) {
                 this.hide();
                 removeClass(this.selTarget, this.clsInactive);
             }
@@ -7544,28 +7588,6 @@
         },
 
         events: [
-
-            {
-                name: 'active',
-
-                self: true,
-
-                handler: function() {
-                    replaceClass(this.selTarget, this.clsInactive, this.clsActive);
-                }
-
-            },
-
-            {
-                name: 'inactive',
-
-                self: true,
-
-                handler: function() {
-                    replaceClass(this.selTarget, this.clsActive, this.clsInactive);
-                }
-
-            },
 
             {
 
@@ -7591,7 +7613,7 @@
                             var elTop = offset(this$1.$el).top;
                             var elHeight = this$1.$el.offsetHeight;
 
-                            if (this$1.isActive && elTop + elHeight >= top && elTop <= top + target.offsetHeight) {
+                            if (this$1.isFixed && elTop + elHeight >= top && elTop <= top + target.offsetHeight) {
                                 scrollTop(window, top - elHeight - (isNumeric(this$1.targetOffset) ? this$1.targetOffset : 0) - this$1.offset);
                             }
 
@@ -7613,9 +7635,17 @@
                     var type = ref$1.type;
 
 
-                    height$$1 = !this.isActive || type === 'resize' ? this.$el.offsetHeight : height$$1;
+                    if (this.isActive && type !== 'update') {
 
-                    this.topOffset = offset(this.isActive ? this.placeholder : this.$el).top;
+                        this.hide();
+                        height$$1 = this.$el.offsetHeight;
+                        this.show();
+
+                    }
+
+                    height$$1 = !this.isActive ? this.$el.offsetHeight : height$$1;
+
+                    this.topOffset = offset(this.isFixed ? this.placeholder : this.$el).top;
                     this.bottomOffset = this.topOffset + height$$1;
 
                     var bottom = parseProp('bottom', this);
@@ -7646,9 +7676,8 @@
                         attr(placeholder, 'hidden', '');
                     }
 
-                    if (isUndefined(this.isActive)) {
-                        this.hide();
-                    }
+                    // ensure active/inactive classes are applied
+                    this.isActive = this.isActive;
 
                 },
 
@@ -7704,10 +7733,10 @@
 
                     if (this.inactive
                         || scroll < this.top
-                        || this.showOnUp && (scroll <= this.top || dir === 'down' || dir === 'up' && !this.isActive && scroll <= this.bottomOffset)
+                        || this.showOnUp && (scroll <= this.top || dir === 'down' || dir === 'up' && !this.isFixed && scroll <= this.bottomOffset)
                     ) {
 
-                        if (!this.isActive) {
+                        if (!this.isFixed) {
 
                             if (Animation.inProgress(this.$el) && top > scroll) {
                                 Animation.cancel(this.$el);
@@ -7717,7 +7746,7 @@
                             return;
                         }
 
-                        this.isActive = false;
+                        this.isFixed = false;
 
                         if (this.animation && scroll > this.topOffset) {
                             Animation.cancel(this.$el);
@@ -7726,7 +7755,7 @@
                             this.hide();
                         }
 
-                    } else if (this.isActive) {
+                    } else if (this.isFixed) {
 
                         this.update();
 
@@ -7750,7 +7779,7 @@
 
             show: function() {
 
-                this.isActive = true;
+                this.isFixed = true;
                 this.update();
                 attr(this.placeholder, 'hidden', null);
 
@@ -7758,10 +7787,7 @@
 
             hide: function() {
 
-                if (!this.isActive || hasClass(this.selTarget, this.clsActive)) {
-                    trigger(this.$el, 'inactive');
-                }
-
+                this.isActive = false;
                 removeClass(this.$el, this.clsFixed, this.clsBelow);
                 css(this.$el, {position: '', top: '', width: ''});
                 attr(this.placeholder, 'hidden', '');
@@ -7783,16 +7809,7 @@
                     width: this.width
                 });
 
-                if (hasClass(this.selTarget, this.clsActive)) {
-
-                    if (!active) {
-                        trigger(this.$el, 'inactive');
-                    }
-
-                } else if (active) {
-                    trigger(this.$el, 'active');
-                }
-
+                this.isActive = active;
                 toggleClass(this.$el, this.clsBelow, this.scroll > this.bottomOffset);
                 addClass(this.$el, this.clsFixed);
 
@@ -8182,7 +8199,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.23';
+    UIkit.version = '3.0.0-rc.24';
 
     core(UIkit);
 
@@ -8664,7 +8681,7 @@
                     delete state.filter[''];
                     state.filter[group] = filter$$1;
                 } else {
-                    state.filter = {'': filter$$1};
+                    state.filter = {'': filter$$1 || ''};
                 }
 
             }
@@ -8678,20 +8695,23 @@
     }
 
     function matchFilter(el, attr$$1, ref) {
-        var stateFilter = ref.filter;
+        var stateFilter = ref.filter; if ( stateFilter === void 0 ) stateFilter = {'': ''};
         var ref_sort = ref.sort;
         var stateSort = ref_sort[0];
         var stateOrder = ref_sort[1];
+
 
         var ref$1 = getFilter(el, attr$$1);
         var filter$$1 = ref$1.filter;
         var group = ref$1.group; if ( group === void 0 ) group = '';
         var sort = ref$1.sort;
         var order = ref$1.order; if ( order === void 0 ) order = 'asc';
-        return Boolean(
-            (filter$$1 || isUndefined(sort)) && group in stateFilter && (filter$$1 === stateFilter[group] || isUndefined(filter$$1) && !stateFilter[group])
-            || stateSort && sort && stateSort === sort && stateOrder === order
-        );
+
+        filter$$1 = isUndefined(sort) ? filter$$1 || '' : filter$$1;
+        sort = isUndefined(filter$$1) ? sort || '' : sort;
+
+        return (isUndefined(filter$$1) || group in stateFilter && filter$$1 === stateFilter[group])
+            && (isUndefined(sort) || stateSort === sort && stateOrder === order);
     }
 
     function isEqualList(listA, listB, strict) {
@@ -8911,6 +8931,7 @@
 
         connected: function() {
             this.startAutoplay();
+            this.userInteracted = false;
         },
 
         disconnected: function() {
@@ -8938,7 +8959,10 @@
             {
 
                 name: pointerDown,
-                handler: 'stopAutoplay'
+                handler: function() {
+                    this.userInteracted = true;
+                    this.stopAutoplay();
+                }
 
             },
 
@@ -8980,7 +9004,7 @@
 
                 this.stopAutoplay();
 
-                if (this.autoplay) {
+                if (this.autoplay && !this.userInteracted) {
                     this.interval = setInterval(
                         function () { return !(this$1.isHovering && this$1.pauseOnHover) && !this$1.stack.length && this$1.show('next'); },
                         this.autoplayInterval
@@ -9728,6 +9752,18 @@
 
             {
 
+                name: 'hidden',
+
+                self: true,
+
+                handler: function() {
+                    this.$destroy(true);
+                }
+
+            },
+
+            {
+
                 name: 'keyup',
 
                 el: document,
@@ -9842,10 +9878,13 @@
                         var video = $(("<video controls playsinline" + (item.poster ? (" poster=\"" + (item.poster) + "\"") : '') + " uk-video=\"" + (this.videoAutoplay) + "\"></video>"));
                         attr(video, 'src', source);
 
-                        on(video, 'error', function () { return this$1.setError(item); });
-                        on(video, 'loadedmetadata', function () {
-                            attr(video, {width: video.videoWidth, height: video.videoHeight});
-                            this$1.setItem(item, video);
+                        once(video, 'error loadedmetadata', function (type) {
+                            if (type === 'error') {
+                                this$1.setError(item);
+                            } else {
+                                attr(video, {width: video.videoWidth, height: video.videoHeight});
+                                this$1.setItem(item, video);
+                            }
                         });
 
                         // Iframe
@@ -9982,7 +10021,7 @@
         },
 
         disconnected: function() {
-            this._destroy();
+            this.hide();
         },
 
         events: [
@@ -10014,15 +10053,17 @@
             }
 
             data$$1.toggles = this.toggles;
-            this._destroy();
-            this._init();
+            this.panel.hide();
 
         },
 
         methods: {
 
-            _init: function() {
-                return this.panel = this.panel || this.$create('lightboxPanel', assign({}, this.$props, {
+            show: function(index$$1) {
+                var this$1 = this;
+
+
+                this.panel = this.panel || this.$create('lightboxPanel', assign({}, this.$props, {
                     items: this.toggles.reduce(function (items, el) {
                         items.push(['href', 'caption', 'type', 'poster', 'alt'].reduce(function (obj, attr$$1) {
                             obj[attr$$1 === 'href' ? 'source' : attr$$1] = data(el, attr$$1);
@@ -10031,23 +10072,9 @@
                         return items;
                     }, [])
                 }));
-            },
 
-            _destroy: function() {
-                if (this.panel) {
-                    this.panel.$destroy(true);
-                    this.panel = null;
-                }
-            },
-
-            show: function(index$$1) {
-
-                if (!this.panel) {
-                    this._init();
-                }
-
+                on(this.panel.$el, 'hidden', function () { return this$1.panel = false; });
                 return this.panel.show(index$$1);
-
             },
 
             hide: function() {

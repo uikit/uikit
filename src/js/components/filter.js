@@ -145,7 +145,7 @@ function mergeState(el, attr, state) {
                 delete state.filter[''];
                 state.filter[group] = filter;
             } else {
-                state.filter = {'': filter};
+                state.filter = {'': filter || ''};
             }
 
         }
@@ -158,12 +158,15 @@ function mergeState(el, attr, state) {
     return state;
 }
 
-function matchFilter(el, attr, {filter: stateFilter, sort: [stateSort, stateOrder]}) {
-    const {filter, group = '', sort, order = 'asc'} = getFilter(el, attr);
-    return Boolean(
-        (filter || isUndefined(sort)) && group in stateFilter && (filter === stateFilter[group] || isUndefined(filter) && !stateFilter[group])
-        || stateSort && sort && stateSort === sort && stateOrder === order
-    );
+function matchFilter(el, attr, {filter: stateFilter = {'': ''}, sort: [stateSort, stateOrder]}) {
+
+    let {filter, group = '', sort, order = 'asc'} = getFilter(el, attr);
+
+    filter = isUndefined(sort) ? filter || '' : filter;
+    sort = isUndefined(filter) ? sort || '' : sort;
+
+    return (isUndefined(filter) || group in stateFilter && filter === stateFilter[group])
+        && (isUndefined(sort) || stateSort === sort && stateOrder === order);
 }
 
 function isEqualList(listA, listB, strict = true) {
