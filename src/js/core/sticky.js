@@ -49,7 +49,7 @@ export default {
         isActive: {
 
             get() {
-                hasClass(this.selTarget, this.clsActive);
+                return hasClass(this.selTarget, this.clsActive);
             },
 
             set(value) {

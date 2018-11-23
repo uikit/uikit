@@ -193,11 +193,13 @@ export default function (UIkit) {
             },
 
             set(value) {
-                if (cb.set) {
-                    cb.set.call(component, value);
-                    delete component._computeds[key];
-                } else {
-                    component._computeds[key] = value;
+
+                const {_computeds} = component;
+
+                _computeds[key] = cb.set ? cb.set.call(component, value) : value;
+
+                if (isUndefined(_computeds[key])) {
+                    delete _computeds[key];
                 }
             }
 
