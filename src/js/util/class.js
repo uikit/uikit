@@ -19,7 +19,7 @@ export function replaceClass(element, ...args) {
 }
 
 export function hasClass(element, cls) {
-    return cls && toNodes(element).some(element => element.classList.contains(cls));
+    return cls && toNodes(element).some(element => element.classList.contains(cls.split(' ')[0]));
 }
 
 export function toggleClass(element, ...args) {
