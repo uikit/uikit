@@ -86,13 +86,15 @@ export default {
                 removeAttr(el, 'width');
             }
 
+            el.dataset.ukSrc = this.icon || this.src;
+
             const root = this.$el;
             if (isVoidElement(root) || root.tagName === 'CANVAS') {
 
                 attr(root, {hidden: true, id: null});
 
                 const next = root.nextElementSibling;
-                if (next && el.isEqualNode(next)) {
+                if (next && next.dataset.ukSrc === el.dataset.ukSrc) {
                     el = next;
                 } else {
                     after(root, el);
@@ -101,7 +103,7 @@ export default {
             } else {
 
                 const last = root.lastElementChild;
-                if (last && el.isEqualNode(last)) {
+                if (last && last.dataset.ukSrc === el.dataset.ukSrc) {
                     el = last;
                 } else {
                     append(root, el);

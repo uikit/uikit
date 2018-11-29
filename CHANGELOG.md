@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix `hasClass` in IE11 again
+- Fix workaround to mitigate the duplicating icons issue
 
 ## 3.0.0 rc 24 (November 23, 2018)
 
