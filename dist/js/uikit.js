@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.24 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.25 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1182,7 +1182,7 @@
     }
 
     function hasClass(element, cls) {
-        return cls && toNodes(element).some(function (element) { return element.classList.contains(cls); });
+        return cls && toNodes(element).some(function (element) { return element.classList.contains(cls.split(' ')[0]); });
     }
 
     function toggleClass(element) {
@@ -5445,13 +5445,16 @@
                     removeAttr(el, 'width');
                 }
 
+                var src = this$1.icon || this$1.src;
+                attr(el, 'data-svg', src);
+
                 var root = this$1.$el;
                 if (isVoidElement(root) || root.tagName === 'CANVAS') {
 
                     attr(root, {hidden: true, id: null});
 
                     var next = root.nextElementSibling;
-                    if (next && el.isEqualNode(next)) {
+                    if (src === attr(next, 'data-svg')) {
                         el = next;
                     } else {
                         after(root, el);
@@ -5460,7 +5463,7 @@
                 } else {
 
                     var last = root.lastElementChild;
-                    if (last && el.isEqualNode(last)) {
+                    if (src === attr(last, 'data-svg')) {
                         el = last;
                     } else {
                         append(root, el);
@@ -8199,7 +8202,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.24';
+    UIkit.version = '3.0.0-rc.25';
 
     core(UIkit);
 
