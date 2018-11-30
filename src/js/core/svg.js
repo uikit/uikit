@@ -86,7 +86,8 @@ export default {
                 removeAttr(el, 'width');
             }
 
-            el.dataset.ukSrc = this.icon || this.src;
+            const src = this.icon || this.src;
+            attr(el, 'data-svg', src);
 
             const root = this.$el;
             if (isVoidElement(root) || root.tagName === 'CANVAS') {
@@ -94,7 +95,7 @@ export default {
                 attr(root, {hidden: true, id: null});
 
                 const next = root.nextElementSibling;
-                if (next && next.dataset.ukSrc === el.dataset.ukSrc) {
+                if (src === attr(next, 'data-svg')) {
                     el = next;
                 } else {
                     after(root, el);
@@ -103,7 +104,7 @@ export default {
             } else {
 
                 const last = root.lastElementChild;
-                if (last && last.dataset.ukSrc === el.dataset.ukSrc) {
+                if (src === attr(last, 'data-svg')) {
                     el = last;
                 } else {
                     append(root, el);
