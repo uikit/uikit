@@ -6,6 +6,10 @@
 // Modifier:        `uk-container-small`
 //                  `uk-container-large`
 //                  `uk-container-expand`
+//                  `uk-container-expand-left`
+//                  `uk-container-expand-right`
+//                  `uk-container-item-padding-remove-left`
+//                  `uk-container-item-padding-remove-right`
 //
 // ========================================================================
 
@@ -33,7 +37,8 @@
  */
 
 .uk-container {
-    box-sizing: content-box; /* 1 */
+    /* 1 */
+    box-sizing: content-box;
     max-width: @container-max-width;
     margin-left: auto;
     margin-right: auto;
@@ -99,6 +104,82 @@
 .uk-container-large { max-width: @container-large-max-width; }
 
 .uk-container-expand { max-width: none; }
+
+
+/* Expand modifier
+ ========================================================================== */
+
+/*
+ * Expand one side only
+ */
+
+.uk-container-expand-left { margin-left: 0; }
+.uk-container-expand-right { margin-right: 0; }
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-container-expand-left.uk-container-xsmall,
+    .uk-container-expand-right.uk-container-xsmall { max-width: ~'calc(50% + (@{container-xsmall-max-width} / 2) - @{container-padding-horizontal-s})'; }
+
+    .uk-container-expand-left.uk-container-small,
+    .uk-container-expand-right.uk-container-small { max-width: ~'calc(50% + (@{container-small-max-width} / 2) - @{container-padding-horizontal-s})'; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-container-expand-left,
+    .uk-container-expand-right { max-width: ~'calc(50% + (@{container-max-width} / 2) - @{container-padding-horizontal-m})'; }
+
+    .uk-container-expand-left.uk-container-xsmall,
+    .uk-container-expand-right.uk-container-xsmall { max-width: ~'calc(50% + (@{container-xsmall-max-width} / 2) - @{container-padding-horizontal-m})'; }
+
+    .uk-container-expand-left.uk-container-small,
+    .uk-container-expand-right.uk-container-small { max-width: ~'calc(50% + (@{container-small-max-width} / 2) - @{container-padding-horizontal-m})'; }
+
+    .uk-container-expand-left.uk-container-large,
+    .uk-container-expand-right.uk-container-large { max-width: ~'calc(50% + (@{container-large-max-width} / 2) - @{container-padding-horizontal-m})'; }
+
+}
+
+
+/* Item
+ ========================================================================== */
+
+/*
+ * Utility classes to reset container padding on the left or right side
+ * Note: It has to be negative margin on the item, because it's specific to the item.
+ */
+
+.uk-container-item-padding-remove-left,
+.uk-container-item-padding-remove-right { width: ~'calc(100% + @{container-padding-horizontal})' }
+
+.uk-container-item-padding-remove-left { margin-left: -@container-padding-horizontal; }
+.uk-container-item-padding-remove-right { margin-right: -@container-padding-horizontal; }
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-container-item-padding-remove-left,
+    .uk-container-item-padding-remove-right { width: ~'calc(100% + @{container-padding-horizontal-s})' }
+
+    .uk-container-item-padding-remove-left { margin-left: -@container-padding-horizontal-s; }
+    .uk-container-item-padding-remove-right { margin-right: -@container-padding-horizontal-s; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-container-item-padding-remove-left,
+    .uk-container-item-padding-remove-right { width: ~'calc(100% + @{container-padding-horizontal-m})' }
+
+    .uk-container-item-padding-remove-left { margin-left: -@container-padding-horizontal-m; }
+    .uk-container-item-padding-remove-right { margin-right: -@container-padding-horizontal-m; }
+
+}
 
 
 // Hooks
