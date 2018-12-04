@@ -6,6 +6,10 @@
 
 - Add expand classes to Container component
 
+### Changed
+
+- @notification-message-margin-bottom to top in Notification component
+
 ### Fixed
 
 - Fix `flex bug` mixin (IE 11)
