@@ -6,6 +6,10 @@
 
 - Add expand classes to Container component
 
+### Fixed
+
+- Fix `flex bug` mixin (IE 11)
+
 ## 3.0.0 rc 25 (November 30, 2018)
 
 ### Fixed
