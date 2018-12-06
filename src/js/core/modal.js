@@ -1,5 +1,5 @@
 import Modal from '../mixin/modal';
-import {$, addClass, assign, css, hasClass, height, html, isString, on, Promise, removeClass} from 'uikit-util';
+import {$, addClass, assign, css, hasClass, height, html, isString, isUndefined, on, Promise, removeClass} from 'uikit-util';
 
 export default {
 
@@ -54,7 +54,7 @@ function install (UIkit) {
     UIkit.modal.dialog = function (content, options) {
 
         const dialog = UIkit.modal(`
-            <div class="uk-modal">
+            <div class="uk-modal ${isUndefined$1(options.addClass)? '' : options.addClass}">
                 <div class="uk-modal-dialog">${content}</div>
              </div>
         `, options);
