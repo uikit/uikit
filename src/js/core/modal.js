@@ -54,7 +54,7 @@ function install (UIkit) {
     UIkit.modal.dialog = function (content, options) {
 
         const dialog = UIkit.modal(`
-            <div class="uk-modal ${isUndefined$1(options.addClass)? '' : options.addClass}">
+            <div class="uk-modal ${isUndefined(options.addClass)? '' : options.addClass}">
                 <div class="uk-modal-dialog">${content}</div>
              </div>
         `, options);
