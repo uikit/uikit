@@ -220,7 +220,7 @@ export default {
                         const [x, y] = ['x', 'y'].map(dir => prop === dir
                             ? toFloat(value).toFixed(0) + unit
                             : props[dir]
-                                ? getValue(props[dir].steps, percent, 0) + props[dir].unit
+                                ? getValue(props[dir].steps, percent, 1) + props[dir].unit
                                 : 0
                         );
 
