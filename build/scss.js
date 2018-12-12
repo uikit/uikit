@@ -278,7 +278,9 @@ function getVariablesFromFile(file, data) {
                 coreVar[match[1]] = {value: `${match[2]};`, dependencies: Array.from(dependencies)};
             }
 
-            themeVar[match[1]] = {value: `${match[2]};`, dependencies: Array.from(dependencies)};
+            if (!themeVar[match[1]]) {
+                themeVar[match[1]] = {value: `${match[2]};`, dependencies: Array.from(dependencies)};
+            }
         }
 
         match = regex.exec(data);
