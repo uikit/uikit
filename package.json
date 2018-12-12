@@ -54,6 +54,7 @@
     "rollup-plugin-replace": "^2.0.0",
     "rtlcss": "^2.2.0",
     "shortid": "^2.2.14",
+    "svgo": "^1.1.1",
     "uglify-js": "^3.3.25",
     "uglifyjs-webpack-plugin": "2.0.1",
     "webpack": "^4.27.0",

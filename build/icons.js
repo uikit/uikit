@@ -10,7 +10,9 @@ glob(custom, (err, folders) =>
     folders.forEach(folder => {
 
         const [, name] = folder.toString().match(new RegExp(match, 'i'));
-        util.compile('src/js/icons.js', `dist/js/uikit-icons-${name}`, {name, replaces: {ICONS: util.icons(`{src/images/icons,${folder}}/*.svg`)}});
+        util.icons(`{src/images/icons,${folder}}/*.svg`).then(ICONS =>
+            util.compile('src/js/icons.js', `dist/js/uikit-icons-${name}`, {name, replaces: {ICONS}})
+        );
 
     })
 );
