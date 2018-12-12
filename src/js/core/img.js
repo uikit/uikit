@@ -81,7 +81,7 @@ export default {
             if (image || !this.target.some(el => isInView(el, this.offsetTop, this.offsetLeft, true))) {
 
                 if (!this.isImg && image) {
-                    image.then(img => img && setSrcAttrs(this.$el, currentSrc(img)));
+                    image.then(img => img && img.currentSrc !== '' && setSrcAttrs(this.$el, currentSrc(img)));
                 }
 
                 return;
@@ -105,6 +105,10 @@ export default {
             if (!data.update) {
                 this.$emit();
                 return data.update = true;
+            }
+
+            if (!this.isImg && data.image) {
+                data.image.then(img => setBackgroundSize(this.$el, img));
             }
 
         },
@@ -131,6 +135,21 @@ function setSrcAttrs(el, src, srcset, sizes) {
 
     }
 
+}
+
+function setBackgroundSize(el, img) {
+
+    if (!img.width || toFloat(el.style.backgroundSize) === img.width) {
+        return;
+    }
+
+    if (el.style.backgroundSize) {
+        css(el, 'backgroundSize', '');
+    }
+
+    if (css(el, 'backgroundSize') === 'auto') {
+        css(el, 'backgroundSize', `${img.width}px`);
+    }
 }
 
 const sizesRe = /\s*(.*?)\s*(\w+|calc\(.*?\))\s*(?:,|$)/g;
