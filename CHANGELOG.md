@@ -13,6 +13,7 @@
 ### Fixed
 
 - Fix `flex bug` mixin (IE 11)
+- Fix properly resolving css custom properties in scss
 
 ## 3.0.0 rc 25 (November 30, 2018)
 
