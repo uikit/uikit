@@ -9,6 +9,7 @@
 ### Changed
 
 - @notification-message-margin-bottom to top in Notification component
+- Improve swipe gesture detection
 
 ### Fixed
 
