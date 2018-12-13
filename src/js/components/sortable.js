@@ -39,7 +39,7 @@ export default {
             const fn = this[key];
             this[key] = e => {
                 this.scrollY = window.pageYOffset;
-                const {x, y} = getPos(e, 'screen');
+                const {x, y} = getPos(e, 'page');
                 this.pos = {x, y};
 
                 fn(e);
