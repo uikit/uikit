@@ -108,10 +108,6 @@ export function getPos(e, prop = 'client') {
     const {touches, changedTouches} = e;
     const {[`${prop}X`]: x, [`${prop}Y`]: y} = touches && touches[0] || changedTouches && changedTouches[0] || e;
 
-    const test = touches && touches[0] || changedTouches && changedTouches[0] || e;
-
-    console.log(test.screenY, test.pageY, test.clientY);
-    console.log(test.screenX, test.pageX, test.clientX);
     return {x, y};
 }
 
