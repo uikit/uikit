@@ -66,7 +66,7 @@ export default {
     events: {
 
         click(e) {
-            if (closest(e.target, 'a[href="#"]')) {
+            if (closest(e.target, 'a[href="#"],a[href=""]')) {
                 e.preventDefault();
             }
             this.close();
