@@ -129,7 +129,7 @@ function setSrcAttrs(el, src, srcset, sizes) {
 
         const change = !includes(el.style.backgroundImage, src);
         if (change) {
-            css(el, 'backgroundImage', `url(${src})`);
+            css(el, 'backgroundImage', `url("${src}")`);
             trigger(el, createEvent('load', false));
         }
 
