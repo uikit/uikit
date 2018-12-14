@@ -8,11 +8,12 @@ import {within} from './filter';
 import {on, trigger} from './event';
 import {pointerDown, pointerMove, pointerUp} from './env';
 
-let touch = {}, clickTimeout, swipeTimeout, tapTimeout, clicked;
+let touch = {}, clickTimeout, swipeTimeout, tapTimeout, clicked, scrolled;
 
 ready(() => {
 
     on(document, 'click', () => clicked = true, true);
+    on(window, 'scroll', () => scrolled = true);
 
     on(document, pointerDown, e => {
 
@@ -40,6 +41,7 @@ ready(() => {
         touch.last = now;
 
         clicked = e.button > 0;
+        scrolled = false;
 
     });
 
@@ -59,7 +61,7 @@ ready(() => {
         }
 
         // swipe
-        if (touch.x2 && Math.abs(touch.x1 - touch.x2) > 30 || touch.y2 && Math.abs(touch.y1 - touch.y2) > 30) {
+        if (touch.x2 && Math.abs(touch.x1 - touch.x2) > 100 || touch.y2 && Math.abs(touch.y1 - touch.y2) > 100) {
 
             swipeTimeout = setTimeout(() => {
                 if (touch.el) {
@@ -70,7 +72,7 @@ ready(() => {
             });
 
         // normal tap
-        } else if ('last' in touch) {
+        } else if (!scrolled && 'last' in touch) {
 
             tapTimeout = setTimeout(() => trigger(touch.el, 'tap'));
 
