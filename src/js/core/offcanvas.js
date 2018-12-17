@@ -153,8 +153,7 @@ export default {
                 addClass(document.body, this.clsContainerAnimation);
                 addClass(this.panel, this.clsSidebarAnimation, this.mode !== 'reveal' ? this.clsMode : '');
                 addClass(this.$el, this.clsOverlay);
-                css(this.$el, 'display', 'block');
-                height(this.$el); // force reflow
+                css(this.$el, 'visibility', 'visible');
 
                 this.clsContainerAnimation && suppressUserScale();
 
@@ -191,7 +190,7 @@ export default {
 
                 removeClass(this.panel, this.clsSidebarAnimation, this.clsMode);
                 removeClass(this.$el, this.clsOverlay);
-                css(this.$el, 'display', '');
+                css(this.$el, 'visibility', '');
                 removeClass(document.body, this.clsContainer, this.clsFlip);
 
                 css(document.documentElement, 'overflowY', '');
