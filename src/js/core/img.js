@@ -194,7 +194,7 @@ function toPx(value, property = 'width', element = window) {
                     : toFloat(value);
 }
 
-const srcSetRe = /\s+\d+w\s*,/g
+const srcSetRe = /\s+\d+w\s*,/g;
 function getSourceSize(srcset, sizes) {
     const srcSize = toPx(sizesToPixel(sizes));
     const descriptors = (srcset.match(srcSetRe) || []).map(toFloat).sort((a, b) => a - b);
