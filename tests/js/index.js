@@ -169,7 +169,7 @@ on(window, 'load', () => setTimeout(() => fastdom.write(() => {
             location.href = `${$tests.value}${styles.custom ? `?style=${getParam('style')}` : ''}`;
         }
     });
-    $tests.value = component && `${component}.html`;
+    $tests.value = `${component || 'index'}.html`;
 
     // Styles
     // ------------------------------
