@@ -10,6 +10,7 @@
 
 - @notification-message-margin-bottom to top in Notification component
 - Improve swipe gesture detection
+- `isInView` checks relative to viewport only
 
 ### Fixed
 

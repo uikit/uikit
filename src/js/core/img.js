@@ -78,7 +78,7 @@ export default {
                 return;
             }
 
-            if (image || !this.target.some(el => isInView(el, this.offsetTop, this.offsetLeft, true))) {
+            if (image || !this.target.some(el => isInView(el, this.offsetTop, this.offsetLeft))) {
 
                 if (!this.isImg && image) {
                     image.then(img => img && img.currentSrc !== '' && setSrcAttrs(this.$el, currentSrc(img)));
