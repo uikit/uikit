@@ -125,7 +125,8 @@ export default {
                 const clientY = event.targetTouches[0].clientY - this.clientY;
                 const {scrollTop, scrollHeight, clientHeight} = this.panel;
 
-                if (scrollTop === 0 && clientY > 0
+                if (clientHeight >= scrollHeight
+                    || scrollTop === 0 && clientY > 0
                     || scrollHeight - scrollTop <= clientHeight && clientY < 0
                 ) {
                     e.preventDefault();
