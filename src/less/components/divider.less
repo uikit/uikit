@@ -91,10 +91,11 @@
  ========================================================================== */
 
 /*
- * Reset child height, caused by `inline-block`
+ * Fix height of `hr` element not being expanded by child border width.
+ * `height` also needed to reset the child `line-height` caused by `inline-block`
  */
 
-.uk-divider-small { line-height: 0; }
+.uk-divider-small { height: @divider-small-border-width; }
 
 .uk-divider-small::after {
     content: "";
