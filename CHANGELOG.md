@@ -18,6 +18,7 @@
 - Fix properly resolving css custom properties in scss
 - Fix order of variable assignments in scss
 - Fix background images are shown too large on retina displays in Img component
+- Limit positioned element to container width and margin in Position component
 
 ## 3.0.0 rc 25 (November 30, 2018)
 
