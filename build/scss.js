@@ -78,9 +78,10 @@ Promise.all(glob.sync('src/less/**/*.less').map(file =>
 
     read(file).then(data => {
         /* replace all LESS stuff with SCSS */
-        scssData = data.replace(/\/less\//g, '/scss/') // change less/ dir to scss/ on imports
+        let scssData = data.replace(/\/less\//g, '/scss/') // change less/ dir to scss/ on imports
             .replace(/\.less/g, '.scss') // change .less extensions to .scss on imports
             .replace(/@/g, '$') // convert variables
+            .replace(/--uk-[^\s]+: (\$[^\s]+);/g, (exp, name) => exp.replace(name, `#{${name}}`))
             .replace(/\\\$/g, '\\@') // revert classes using the @ symbol
             .replace(/ e\(/g, ' unquote(') // convert escape function
             .replace(/\.([\w\-]*)\s*\((.*)\)\s*\{/g, '@mixin $1($2){') // hook -> mixins
@@ -99,12 +100,12 @@ Promise.all(glob.sync('src/less/**/*.less').map(file =>
             .replace(/~('[^']+')/g, 'unquote($1)'); // string literals: for real
 
         /* File name of the current file */
-        const filename = file.split('/').pop().split('.less')[0];
+        const [filename] = file.split('/').pop().split('.less');
 
         if (filename != 'inverse') {
             scssData = scssData.replace(/hook-inverse(?!-)/g, `hook-inverse-component-${filename}`);
         } else {
-            joinedHook = `@mixin hook-inverse(){\n${inverseTemplate}\n}\n`;
+            const joinedHook = `@mixin hook-inverse(){\n${inverseTemplate}\n}\n`;
             scssData = scssData.replace(/\*\//, '*/\n' + joinedHook);
         }
 
@@ -115,7 +116,6 @@ Promise.all(glob.sync('src/less/**/*.less').map(file =>
         if (filename != 'mixin') {
             scssData = getVariablesFromFile(file, scssData);
         }
-
 
         if (filename == 'uikit.theme') {
             /* remove the theme import first place */
@@ -143,13 +143,13 @@ Promise.all(glob.sync('src/less/**/*.less').map(file =>
     write('src/scss/mixins.scss', mixins_core.join('\n'));
 
     /* write core variables */
-    compactCoreVar = new Set();
+    const compactCoreVar = new Set();
     Object.keys(coreVar).map(key => getAllDependencies(coreVar, key).forEach(dependency => compactCoreVar.add(dependency)));
 
     write('src/scss/variables.scss', Array.from(compactCoreVar).join('\n'));
 
     /* write theme variables */
-    compactThemeVar = new Set();
+    const compactThemeVar = new Set();
     Object.keys(themeVar).map(key => getAllDependencies(themeVar, key).forEach(dependency => compactThemeVar.add(dependency)));
 
     write('src/scss/variables-theme.scss', Array.from(compactThemeVar).join('\n'));
@@ -228,17 +228,17 @@ function getMixinsFromFile(file, data) {
  * @return an updated data where the icons have been replaced by the actual SVG data.
  */
 function getVariablesFromFile(file, data) {
-    regex = /(\$[\w\-]*)\s*:\s*(.*);/g;
-    match = regex.exec(data);
+    const regex = /(\$[\w\-]*)\s*:\s*(.*);/g;
+    let match = regex.exec(data);
 
     while (match) {
 
         /* check if variable is an background icon, if so replace it directly by the SVG */
         if (match[0].indexOf('../../images/backgrounds') >= 0) {
 
-            iconregex = /(\$[\w\-]+)\s*:\s*"\.\.\/\.\.\/images\/backgrounds\/([\w\.\/\-]+)" !default;/g;
-            iconmatch = iconregex.exec(match[0]);
-            svg = fs.readFileSync(`src/images/backgrounds/${iconmatch[2]}`).toString();
+            const iconregex = /(\$[\w\-]+)\s*:\s*"\.\.\/\.\.\/images\/backgrounds\/([\w\.\/\-]+)" !default;/g;
+            const iconmatch = iconregex.exec(match[0]);
+            let svg = fs.readFileSync(`src/images/backgrounds/${iconmatch[2]}`).toString();
             svg = '"' + svg.replace(/\r?\n|\r/g, '%0A')
                     .replace(/"/g, '\'')
                     .replace(/\s/g, '%20')
@@ -258,14 +258,14 @@ function getVariablesFromFile(file, data) {
             themeVar[iconmatch[1]] = {value: `${svg} !default;`, dependencies: []};
 
             /* add SVG to the variable within the file itself as well */
-            inlineSVG = `${iconmatch[1]}: ${svg} !default;`;
+            const inlineSVG = `${iconmatch[1]}: ${svg} !default;`;
             data = data.replace(match[0], inlineSVG);
 
         /* when it is not an SVG add the variable and search for its dependencies */
         } else {
 
-            variablesRegex = /(\$[\w\-]+)/g;
-            variablesMatch = variablesRegex.exec(match[2]);
+            const variablesRegex = /(\$[\w\-]+)/g;
+            let variablesMatch = variablesRegex.exec(match[2]);
             const dependencies = [];
 
             while (variablesMatch) {
@@ -278,7 +278,9 @@ function getVariablesFromFile(file, data) {
                 coreVar[match[1]] = {value: `${match[2]};`, dependencies: Array.from(dependencies)};
             }
 
-            themeVar[match[1]] = {value: `${match[2]};`, dependencies: Array.from(dependencies)};
+            if (!themeVar[match[1]]) {
+                themeVar[match[1]] = {value: `${match[2]};`, dependencies: Array.from(dependencies)};
+            }
         }
 
         match = regex.exec(data);

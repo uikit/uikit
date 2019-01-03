@@ -299,7 +299,7 @@ export function flipPosition(pos) {
     }
 }
 
-export function isInView(element, topOffset = 0, leftOffset = 0, relativeToViewport) {
+export function isInView(element, topOffset = 0, leftOffset = 0) {
 
     if (!isVisible(element)) {
         return false;
@@ -308,36 +308,13 @@ export function isInView(element, topOffset = 0, leftOffset = 0, relativeToViewp
     element = toNode(element);
 
     const win = window(element);
-    let client, bounding;
-
-    if (relativeToViewport) {
-
-        client = element.getBoundingClientRect();
-        bounding = {
-            top: -topOffset,
-            left: -leftOffset,
-            bottom: topOffset + height(win),
-            right: leftOffset + width(win)
-        };
-
-    } else {
-
-        const [elTop, elLeft] = offsetPosition(element);
-        const {pageYOffset: top, pageXOffset: left} = win;
-
-        client = {
-            top: elTop,
-            left: elLeft,
-            bottom: elTop + element.offsetHeight,
-            right: elTop + element.offsetWidth
-        };
-        bounding = {
-            top: top - topOffset,
-            left: left - leftOffset,
-            bottom: top + topOffset + height(win),
-            right: left + leftOffset + width(win)
-        };
-    }
+    const client = element.getBoundingClientRect();
+    const bounding = {
+        top: -topOffset,
+        left: -leftOffset,
+        bottom: topOffset + height(win),
+        right: leftOffset + width(win)
+    };
 
     return intersectRect(client, bounding) || pointInRect({x: client.left, y: client.top}, bounding);
 

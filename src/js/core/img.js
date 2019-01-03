@@ -1,4 +1,4 @@
-import {createEvent, css, Dimensions, endsWith, getImage, height, includes, isInView, isNumeric, noop, queryAll, startsWith, toFloat, trigger, width} from 'uikit-util';
+import {createEvent, css, Dimensions, endsWith, getImage, height, includes, isInView, isNumeric, isVisible, noop, queryAll, startsWith, toFloat, trigger, width} from 'uikit-util';
 
 export default {
 
@@ -78,12 +78,16 @@ export default {
                 return;
             }
 
-            if (image || !this.target.some(el => isInView(el, this.offsetTop, this.offsetLeft, true))) {
+            if (image || !this.target.some(el => isInView(el, this.offsetTop, this.offsetLeft))) {
 
                 if (!this.isImg && image) {
-                    image.then(img => img && setSrcAttrs(this.$el, currentSrc(img)));
+                    image.then(img => img && img.currentSrc !== '' && setSrcAttrs(this.$el, currentSrc(img)));
                 }
 
+                return;
+            }
+
+            if (this.$el.src && isVisible(this.$el) && !height(this.$el)) {
                 return;
             }
 
@@ -105,6 +109,16 @@ export default {
             if (!data.update) {
                 this.$emit();
                 return data.update = true;
+            }
+
+            if (!this.isImg && this.dataSrcset && window.devicePixelRatio !== 1) {
+
+                const bgSize = css(this.$el, 'backgroundSize');
+                if (bgSize === 'auto' || toFloat(bgSize) === data.bgSize) {
+                    data.bgSize = getSourceSize(this.dataSrcset, this.sizes);
+                    css(this.$el, 'backgroundSize', `${data.bgSize}px`);
+                }
+
             }
 
         },
@@ -133,26 +147,29 @@ function setSrcAttrs(el, src, srcset, sizes) {
 
 }
 
-const sizesRe = /\s*(.*?)\s*(\w+|calc\(.*?\))\s*(?:,|$)/g;
 function getPlaceholderImage(width, height, sizes) {
 
     if (sizes) {
-        let matches;
-
-        while ((matches = sizesRe.exec(sizes))) {
-            if (!matches[1] || window.matchMedia(matches[1]).matches) {
-                matches = evaluateSize(matches[2]);
-                break;
-            }
-        }
-
-        sizesRe.lastIndex = 0;
-
-        ({width, height} = Dimensions.ratio({width, height}, 'width', toPx(matches || '100vw')));
-
+        ({width, height} = Dimensions.ratio({width, height}, 'width', toPx(sizesToPixel(sizes))));
     }
 
     return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"></svg>`;
+}
+
+const sizesRe = /\s*(.*?)\s*(\w+|calc\(.*?\))\s*(?:,|$)/g;
+function sizesToPixel(sizes) {
+    let matches;
+
+    sizesRe.lastIndex = 0;
+
+    while ((matches = sizesRe.exec(sizes))) {
+        if (!matches[1] || window.matchMedia(matches[1]).matches) {
+            matches = evaluateSize(matches[2]);
+            break;
+        }
+    }
+
+    return matches;
 }
 
 const sizeRe = /\d+(?:\w+|%)/g;
@@ -169,6 +186,7 @@ function evaluateSize(size) {
 }
 
 function toPx(value, property = 'width', element = window) {
+    value = value || '100vw';
     return isNumeric(value)
         ? +value
         : endsWith(value, 'vw')
@@ -178,6 +196,14 @@ function toPx(value, property = 'width', element = window) {
                 : endsWith(value, '%')
                     ? percent(element, property, value)
                     : toFloat(value);
+}
+
+const srcSetRe = /\s+\d+w\s*,/g;
+function getSourceSize(srcset, sizes) {
+    const srcSize = toPx(sizesToPixel(sizes));
+    const descriptors = (srcset.match(srcSetRe) || []).map(toFloat).sort((a, b) => a - b);
+
+    return descriptors.filter(size => size > srcSize)[0] || descriptors[0] || '';
 }
 
 const dimensions = {height, width};

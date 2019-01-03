@@ -1,4 +1,4 @@
-import {append, apply, closest, css, pointerEnter, pointerLeave, remove, toFloat, Transition, trigger} from 'uikit-util';
+import {append, apply, closest, css, pointerEnter, pointerLeave, remove, startsWith, toFloat, Transition, trigger} from 'uikit-util';
 
 const containers = {};
 
@@ -20,6 +20,18 @@ export default {
 
     install,
 
+    computed: {
+
+        marginProp({pos}) {
+            return `margin${startsWith(pos, 'top') ? 'Top' : 'Bottom'}`;
+        },
+
+        startProps() {
+            return {opacity: 0, [this.marginProp]: -this.$el.offsetHeight};
+        }
+
+    },
+
     created() {
 
         if (!containers[this.pos]) {
@@ -39,10 +51,10 @@ export default {
 
     connected() {
 
-        const marginBottom = toFloat(css(this.$el, 'marginBottom'));
+        const margin = toFloat(css(this.$el, this.marginProp));
         Transition.start(
-            css(this.$el, {opacity: 0, marginTop: -this.$el.offsetHeight, marginBottom: 0}),
-            {opacity: 1, marginTop: 0, marginBottom}
+            css(this.$el, this.startProps),
+            {opacity: 1, [this.marginProp]: margin}
         ).then(() => {
             if (this.timeout) {
                 this.timer = setTimeout(this.close, this.timeout);
@@ -54,7 +66,7 @@ export default {
     events: {
 
         click(e) {
-            if (closest(e.target, 'a[href="#"]')) {
+            if (closest(e.target, 'a[href="#"],a[href=""]')) {
                 e.preventDefault();
             }
             this.close();
@@ -96,11 +108,7 @@ export default {
             if (immediate) {
                 removeFn();
             } else {
-                Transition.start(this.$el, {
-                    opacity: 0,
-                    marginTop: -this.$el.offsetHeight,
-                    marginBottom: 0
-                }).then(removeFn);
+                Transition.start(this.$el, this.startProps).then(removeFn);
             }
         }
 

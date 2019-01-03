@@ -1,4 +1,4 @@
-/*! UIkit 3.0.0-rc.25 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0-rc.26 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -661,10 +661,11 @@ a.uk-link-reset:hover,
 /* Small
  ========================================================================== */
 /*
- * Reset child height, caused by `inline-block`
+ * Fix height of `hr` element not being expanded by child border width.
+ * `height` also needed to reset the child `line-height` caused by `inline-block`
  */
 .uk-divider-small {
-  line-height: 0;
+  height: 1px;
 }
 .uk-divider-small::after {
   content: "";
@@ -2210,8 +2211,8 @@ select.uk-form-width-xsmall {
  *    unaffected by the padding on different breakpoints. It's important for the size modifiers.
  */
 .uk-container {
-  box-sizing: content-box;
   /* 1 */
+  box-sizing: content-box;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
@@ -2269,6 +2270,89 @@ select.uk-form-width-xsmall {
 }
 .uk-container-expand {
   max-width: none;
+}
+/* Expand modifier
+ ========================================================================== */
+/*
+ * Expand one side only
+ */
+.uk-container-expand-left {
+  margin-left: 0;
+}
+.uk-container-expand-right {
+  margin-right: 0;
+}
+/* Phone landscape and bigger */
+@media (min-width: 640px) {
+  .uk-container-expand-left.uk-container-xsmall,
+  .uk-container-expand-right.uk-container-xsmall {
+    max-width: calc(50% + (750px / 2) - 30px);
+  }
+  .uk-container-expand-left.uk-container-small,
+  .uk-container-expand-right.uk-container-small {
+    max-width: calc(50% + (900px / 2) - 30px);
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-container-expand-left,
+  .uk-container-expand-right {
+    max-width: calc(50% + (1200px / 2) - 40px);
+  }
+  .uk-container-expand-left.uk-container-xsmall,
+  .uk-container-expand-right.uk-container-xsmall {
+    max-width: calc(50% + (750px / 2) - 40px);
+  }
+  .uk-container-expand-left.uk-container-small,
+  .uk-container-expand-right.uk-container-small {
+    max-width: calc(50% + (900px / 2) - 40px);
+  }
+  .uk-container-expand-left.uk-container-large,
+  .uk-container-expand-right.uk-container-large {
+    max-width: calc(50% + (1600px / 2) - 40px);
+  }
+}
+/* Item
+ ========================================================================== */
+/*
+ * Utility classes to reset container padding on the left or right side
+ * Note: It has to be negative margin on the item, because it's specific to the item.
+ */
+.uk-container-item-padding-remove-left,
+.uk-container-item-padding-remove-right {
+  width: calc(100% + 15px);
+}
+.uk-container-item-padding-remove-left {
+  margin-left: -15px;
+}
+.uk-container-item-padding-remove-right {
+  margin-right: -15px;
+}
+/* Phone landscape and bigger */
+@media (min-width: 640px) {
+  .uk-container-item-padding-remove-left,
+  .uk-container-item-padding-remove-right {
+    width: calc(100% + 30px);
+  }
+  .uk-container-item-padding-remove-left {
+    margin-left: -30px;
+  }
+  .uk-container-item-padding-remove-right {
+    margin-right: -30px;
+  }
+}
+/* Tablet landscape and bigger */
+@media (min-width: 960px) {
+  .uk-container-item-padding-remove-left,
+  .uk-container-item-padding-remove-right {
+    width: calc(100% + 40px);
+  }
+  .uk-container-item-padding-remove-left {
+    margin-left: -40px;
+  }
+  .uk-container-item-padding-remove-right {
+    margin-right: -40px;
+  }
 }
 /* ========================================================================
    Component: Grid
@@ -5753,13 +5837,15 @@ ul.uk-nav-sub {
 ========================================================================== */
 .uk-notification-message {
   position: relative;
-  margin-bottom: 10px;
   padding: 15px;
   background: #f8f8f8;
   color: #666;
   font-size: 1.25rem;
   line-height: 1.4;
   cursor: pointer;
+}
+* + .uk-notification-message {
+  margin-top: 10px;
 }
 /* Close
  * Adopts `uk-close`
@@ -8523,17 +8609,15 @@ iframe.uk-cover {
 }
 /*
  * Center
- * 1. Fix text wrapping if content is larger than 50% of the container (Not working in Firefox)
- * 2. Fix text wrapping for Firefox
+ * 1. Fix text wrapping if content is larger than 50% of the container.
  */
 .uk-position-center {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   /* 1 */
-  display: table;
-  /* 2 */
   width: -moz-max-content;
+  width: max-content;
   max-width: 100%;
   box-sizing: border-box;
 }
@@ -8551,10 +8635,12 @@ iframe.uk-cover {
 }
 .uk-position-center-left-out {
   right: 100%;
+  width: -moz-max-content;
   width: max-content;
 }
 .uk-position-center-right-out {
   left: 100%;
+  width: -moz-max-content;
   width: max-content;
 }
 /* Horizontal */
@@ -8563,9 +8649,8 @@ iframe.uk-cover {
   left: 50%;
   transform: translateX(-50%);
   /* 1 */
-  display: table;
-  /* 2 */
   width: -moz-max-content;
+  width: max-content;
   max-width: 100%;
   box-sizing: border-box;
 }
@@ -8604,6 +8689,7 @@ iframe.uk-cover {
  * Small
  */
 .uk-position-small {
+  max-width: calc(100% - (15px * 2));
   margin: 15px;
 }
 .uk-position-small.uk-position-center {
@@ -8621,6 +8707,7 @@ iframe.uk-cover {
  * Medium
  */
 .uk-position-medium {
+  max-width: calc(100% - (30px * 2));
   margin: 30px;
 }
 .uk-position-medium.uk-position-center {
@@ -8638,6 +8725,7 @@ iframe.uk-cover {
  * Large
  */
 .uk-position-large {
+  max-width: calc(100% - (30px * 2));
   margin: 30px;
 }
 .uk-position-large.uk-position-center {
@@ -8654,6 +8742,7 @@ iframe.uk-cover {
 /* Desktop and bigger */
 @media (min-width: 1200px) {
   .uk-position-large {
+    max-width: calc(100% - (50px * 2));
     margin: 50px;
   }
   .uk-position-large.uk-position-center {
