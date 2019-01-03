@@ -1,4 +1,4 @@
-import {createEvent, css, Dimensions, endsWith, getImage, height, includes, isInView, isNumeric, noop, queryAll, startsWith, toFloat, trigger, width} from 'uikit-util';
+import {createEvent, css, Dimensions, endsWith, getImage, height, includes, isInView, isNumeric, isVisible, noop, queryAll, startsWith, toFloat, trigger, width} from 'uikit-util';
 
 export default {
 
@@ -84,6 +84,10 @@ export default {
                     image.then(img => img && img.currentSrc !== '' && setSrcAttrs(this.$el, currentSrc(img)));
                 }
 
+                return;
+            }
+
+            if (this.$el.src && isVisible(this.$el) && !height(this.$el)) {
                 return;
             }
 
