@@ -27,7 +27,7 @@ $notification-position:                                10px !default;
 $notification-z-index:                                 $global-z-index + 40 !default;
 $notification-width:                                   350px !default;
 
-$notification-message-margin-bottom:                   10px !default;
+$notification-message-margin-top:                      10px !default;
 $notification-message-padding:                         $global-small-gutter !default;
 $notification-message-background:                      $global-muted-background !default;
 $notification-message-color:                           $global-color !default;
@@ -109,7 +109,6 @@ $notification-message-danger-color:                    $global-danger-background
 
 .uk-notification-message {
     position: relative;
-    margin-bottom: $notification-message-margin-bottom;
     padding: $notification-message-padding;
     background: $notification-message-background;
     color: $notification-message-color;
@@ -118,6 +117,8 @@ $notification-message-danger-color:                    $global-danger-background
     cursor: pointer;
     @if(mixin-exists(hook-notification-message)) {@include hook-notification-message();}
 }
+
+* + .uk-notification-message { margin-top: $notification-message-margin-top; }
 
 
 /* Close
