@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.0.0 rc 26 (January 3, 2019)
 
 ### Added
 
