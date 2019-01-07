@@ -19,7 +19,7 @@ Before you get lost in the repository, here are a few starting points
 for you to check out. You might find that others have had similar
 questions or that your question rather belongs in one place than another.
 
-* Chat: https://gitter.im/uikit/uikit
+* Chat: https://discord.gg/NEt4Pv7
 * Website: https://getuikit.com
 * Twitter: https://twitter.com/getuikit
 
@@ -43,7 +43,7 @@ The issue tracker is the preferred channel for [bug reports](#bugs),
 [features requests](#features) and [submitting pull
 requests](#pull-requests), but please respect the following restriction:
 
-Please **do not** use the issue tracker for personal support requests (use [Gitter chat](https://gitter.im/uikit/uikit)).
+Please **do not** use the issue tracker for personal support requests (use [Discord chat](https://discord.gg/NEt4Pv7)).
 
 <a name="bugs"></a>
 ## Bug reports
