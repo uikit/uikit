@@ -31,7 +31,6 @@
     .uk-open > .uk-accordion-title::before { @include svg-fill($internal-accordion-open-image, "#000", $inverse-global-color); }
 
 }
-@mixin hook-align-misc(){}
 @mixin hook-alert(){}
 @mixin hook-alert-close(){
     color: inherit;
@@ -69,6 +68,7 @@
     }
 
 }
+@mixin hook-align-misc(){}
 @mixin hook-animation-misc(){}
 @mixin hook-article(){}
 @mixin hook-article-adjacent(){}
@@ -1853,6 +1853,19 @@
     // Prevent line wrap
     margin-bottom: -2px;
 }
+@mixin hook-card-body(){}
+@mixin hook-card-header(){}
+@mixin hook-card-footer(){}
+@mixin hook-card-media(){}
+@mixin hook-card-media-top(){}
+@mixin hook-card-media-bottom(){}
+@mixin hook-card-media-left(){}
+@mixin hook-card-media-right(){}
+@mixin hook-card-title(){}
+@mixin hook-card-badge(){}
+@mixin hook-card-default-title(){}
+@mixin hook-card-primary-title(){}
+@mixin hook-card-secondary-title(){}
 @mixin hook-button-hover(){}
 @mixin hook-button-focus(){}
 @mixin hook-button-active(){}
@@ -1874,20 +1887,20 @@
 @mixin hook-inverse-button-text-hover(){}
 @mixin hook-inverse-button-text-disabled(){}
 @mixin hook-inverse-button-link(){}
-@mixin hook-card-body(){}
-@mixin hook-card-header(){}
-@mixin hook-card-footer(){}
-@mixin hook-card-media(){}
-@mixin hook-card-media-top(){}
-@mixin hook-card-media-bottom(){}
-@mixin hook-card-media-left(){}
-@mixin hook-card-media-right(){}
-@mixin hook-card-title(){}
-@mixin hook-card-badge(){}
-@mixin hook-card-default-title(){}
-@mixin hook-card-primary-title(){}
-@mixin hook-card-secondary-title(){}
 @mixin hook-grid-misc(){}
+@mixin hook-modal(){}
+@mixin hook-modal-dialog(){}
+@mixin hook-modal-full(){}
+@mixin hook-modal-body(){}
+@mixin hook-modal-title(){}
+@mixin hook-modal-close(){}
+@mixin hook-modal-close-hover(){}
+@mixin hook-modal-close-default(){}
+@mixin hook-modal-close-default-hover(){}
+@mixin hook-modal-close-outside(){}
+@mixin hook-modal-close-outside-hover(){}
+@mixin hook-modal-close-full-hover(){}
+@mixin hook-modal-misc(){}
 @mixin hook-nav-sub(){}
 @mixin hook-nav-parent-icon(){}
 @mixin hook-nav-header(){}
@@ -1915,19 +1928,6 @@
 @mixin hook-inverse-nav-primary-item-active(){}
 @mixin hook-inverse-nav-primary-header(){}
 @mixin hook-inverse-nav-primary-divider(){}
-@mixin hook-modal(){}
-@mixin hook-modal-dialog(){}
-@mixin hook-modal-full(){}
-@mixin hook-modal-body(){}
-@mixin hook-modal-title(){}
-@mixin hook-modal-close(){}
-@mixin hook-modal-close-hover(){}
-@mixin hook-modal-close-default(){}
-@mixin hook-modal-close-default-hover(){}
-@mixin hook-modal-close-outside(){}
-@mixin hook-modal-close-outside-hover(){}
-@mixin hook-modal-close-full-hover(){}
-@mixin hook-modal-misc(){}
 @mixin hook-navbar(){}
 @mixin hook-navbar-container(){}
 @mixin hook-navbar-nav-item-hover(){}

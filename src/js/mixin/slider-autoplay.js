@@ -35,7 +35,7 @@ export default {
                 if (document.hidden) {
                     this.stopAutoplay();
                 } else {
-                    this.startAutoplay();
+                    !this.userInteracted && this.startAutoplay();
                 }
             }
 
@@ -87,7 +87,7 @@ export default {
 
             this.stopAutoplay();
 
-            if (this.autoplay && !this.userInteracted) {
+            if (this.autoplay) {
                 this.interval = setInterval(
                     () => !(this.isHovering && this.pauseOnHover) && !this.stack.length && this.show('next'),
                     this.autoplayInterval

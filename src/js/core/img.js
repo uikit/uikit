@@ -1,4 +1,4 @@
-import {createEvent, css, Dimensions, endsWith, getImage, height, includes, isInView, isNumeric, noop, queryAll, startsWith, toFloat, trigger, width} from 'uikit-util';
+import {createEvent, css, Dimensions, endsWith, getImage, height, includes, isInView, isNumeric, isVisible, noop, queryAll, startsWith, toFloat, trigger, width} from 'uikit-util';
 
 export default {
 
@@ -78,12 +78,16 @@ export default {
                 return;
             }
 
-            if (image || !this.target.some(el => isInView(el, this.offsetTop, this.offsetLeft, true))) {
+            if (image || !this.target.some(el => isInView(el, this.offsetTop, this.offsetLeft))) {
 
                 if (!this.isImg && image) {
                     image.then(img => img && img.currentSrc !== '' && setSrcAttrs(this.$el, currentSrc(img)));
                 }
 
+                return;
+            }
+
+            if (this.$el.src && isVisible(this.$el) && !height(this.$el)) {
                 return;
             }
 
@@ -194,7 +198,7 @@ function toPx(value, property = 'width', element = window) {
                     : toFloat(value);
 }
 
-const srcSetRe = /\s+\d+w\s*,/g
+const srcSetRe = /\s+\d+w\s*,/g;
 function getSourceSize(srcset, sizes) {
     const srcSize = toPx(sizesToPixel(sizes));
     const descriptors = (srcset.match(srcSetRe) || []).map(toFloat).sort((a, b) => a - b);

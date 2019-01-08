@@ -104,8 +104,7 @@
 
 /*
  * Center
- * 1. Fix text wrapping if content is larger than 50% of the container (Not working in Firefox)
- * 2. Fix text wrapping for Firefox
+ * 1. Fix text wrapping if content is larger than 50% of the container.
  */
 
 .uk-position-center {
@@ -113,9 +112,8 @@
     left: 50%;
     transform: translate(-50%,-50%);
     /* 1 */
-    display: table;
-    /* 2 */
     width: -moz-max-content;
+    width: max-content;
     max-width: 100%;
     box-sizing: border-box;
 }
@@ -132,11 +130,13 @@
 
 .uk-position-center-left-out {
     right: 100%;
+    width: -moz-max-content;
     width: max-content;
 }
 
 .uk-position-center-right-out {
     left: 100%;
+    width: -moz-max-content;
     width: max-content;
 }
 
@@ -146,9 +146,8 @@
     left: 50%;
     transform: translateX(-50%);
     /* 1 */
-    display: table;
-    /* 2 */
     width: -moz-max-content;
+    width: max-content;
     max-width: 100%;
     box-sizing: border-box;
 }
@@ -188,7 +187,10 @@
  * Small
  */
 
-.uk-position-small { margin: @position-small-margin; }
+.uk-position-small {
+    max-width: ~'calc(100% - (@{position-small-margin} * 2))';
+    margin: @position-small-margin;
+}
 
 .uk-position-small.uk-position-center { transform: translate(-50%, -50%) translate(-@position-small-margin, -@position-small-margin); }
 
@@ -202,7 +204,10 @@
  * Medium
  */
 
-.uk-position-medium { margin: @position-medium-margin; }
+.uk-position-medium {
+    max-width: ~'calc(100% - (@{position-medium-margin} * 2))';
+    margin: @position-medium-margin;
+}
 
 .uk-position-medium.uk-position-center { transform: translate(-50%, -50%) translate(-@position-medium-margin, -@position-medium-margin); }
 
@@ -216,7 +221,10 @@
  * Large
  */
 
-.uk-position-large { margin: @position-large-margin; }
+.uk-position-large {
+    max-width: ~'calc(100% - (@{position-large-margin} * 2))';
+    margin: @position-large-margin;
+}
 
 .uk-position-large.uk-position-center { transform: translate(-50%, -50%) translate(-@position-large-margin, -@position-large-margin); }
 
@@ -229,7 +237,10 @@
 /* Desktop and bigger */
 @media (min-width: @breakpoint-large) {
 
-    .uk-position-large { margin: @position-large-margin-l; }
+    .uk-position-large {
+        max-width: ~'calc(100% - (@{position-large-margin-l} * 2))';
+        margin: @position-large-margin-l;
+    }
 
     .uk-position-large.uk-position-center { transform: translate(-50%, -50%) translate(-@position-large-margin-l, -@position-large-margin-l); }
 

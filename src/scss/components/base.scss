@@ -564,10 +564,10 @@ template { display: none; }
 .uk-breakpoint-xl::before { content: '#{$breakpoint-xlarge}'; }
 
 :root {
-    --uk-breakpoint-s: $breakpoint-small;
-    --uk-breakpoint-m: $breakpoint-medium;
-    --uk-breakpoint-l: $breakpoint-large;
-    --uk-breakpoint-xl: $breakpoint-xlarge;
+    --uk-breakpoint-s: #{$breakpoint-small};
+    --uk-breakpoint-m: #{$breakpoint-medium};
+    --uk-breakpoint-l: #{$breakpoint-large};
+    --uk-breakpoint-xl: #{$breakpoint-xlarge};
 }
 
 // Hooks

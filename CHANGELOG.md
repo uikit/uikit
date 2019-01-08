@@ -4,12 +4,24 @@
 
 ### Added
 
+- Add active states for sub nav items in Nav, Navbar and Dropdown component
+
+### Changed
+
+- Improve update performance
+- `css` function: Setting a CSS property to `NaN` no longer removes the property
+
+## 3.0.0 rc 26 (January 3, 2019)
+
+### Added
+
 - Add expand classes to Container component
 
 ### Changed
 
 - @notification-message-margin-bottom to top in Notification component
 - Improve swipe gesture detection
+- `isInView` checks relative to viewport only
 
 ### Fixed
 
@@ -17,6 +29,8 @@
 - Fix properly resolving css custom properties in scss
 - Fix order of variable assignments in scss
 - Fix background images are shown too large on retina displays in Img component
+- Fix lazy loading images in Img component in Safari
+- Limit positioned element to container width and margin in Position component
 
 ## 3.0.0 rc 25 (November 30, 2018)
 
