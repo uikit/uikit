@@ -8,6 +8,7 @@
 
 ### Changed
 
+- Optimize offcanvas animations
 - Improve update performance
 - `css` function: Setting a CSS property to `NaN` no longer removes the property
 
