@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add active states for sub nav items in Nav, Navbar and Dropdown component
+
 ### Changed
 
 - Improve update performance
