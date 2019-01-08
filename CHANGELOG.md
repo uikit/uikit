@@ -1,5 +1,12 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Improve update performance
+- `css` function: Setting a CSS property to `NaN` no longer removes the property
+
 ## 3.0.0 rc 26 (January 3, 2019)
 
 ### Added
