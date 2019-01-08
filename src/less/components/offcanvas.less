@@ -78,7 +78,6 @@
  * 1. Set position
  * 2. Size and style
  * 3. Allow scrolling
- * 4. Transform
  */
 
 .uk-offcanvas-bar {
@@ -86,7 +85,7 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 0;
+    left: -@offcanvas-bar-width;
     /* 2 */
     box-sizing: border-box;
     width: @offcanvas-bar-width;
@@ -95,8 +94,6 @@
     /* 3 */
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    /* 4 */
-    transform: translateX(-100%);
     .hook-offcanvas-bar;
 }
 
@@ -104,6 +101,7 @@
 @media (min-width: @breakpoint-medium) {
 
     .uk-offcanvas-bar {
+        left: -@offcanvas-bar-width-m;
         width: @offcanvas-bar-width-m;
         padding: @offcanvas-bar-padding-vertical-m @offcanvas-bar-padding-horizontal-m;
     }
@@ -117,28 +115,39 @@
 /* Flip modifier */
 .uk-offcanvas-flip .uk-offcanvas-bar {
     left: auto;
-    right: 0;
-    transform: translateX(100%);
+    right: -@offcanvas-bar-width;
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-offcanvas-flip .uk-offcanvas-bar { right: -@offcanvas-bar-width-m; }
+
 }
 
 /*
  * Open
  */
 
-.uk-open > .uk-offcanvas-bar { transform: translateX(0); }
+.uk-open > .uk-offcanvas-bar { left: 0; }
+.uk-offcanvas-flip .uk-open > .uk-offcanvas-bar {
+    left: auto;
+    right: 0;
+}
 
 /*
  * Slide Animation (Used in slide and push mode)
  */
 
-.uk-offcanvas-bar-animation { transition: transform 0.3s ease-out; }
+.uk-offcanvas-bar-animation { transition: left 0.3s ease-out; }
+.uk-offcanvas-flip .uk-offcanvas-bar-animation { transition-property: right; }
 
 /*
  * Reveal Animation
  * 1. Set position
  * 2. Clip the bar
  * 3. Animation
- * 4. Reset transform
+ * 4. Reset position
  */
 
 .uk-offcanvas-reveal {
@@ -156,7 +165,13 @@
 
 .uk-offcanvas-reveal .uk-offcanvas-bar {
     /* 4 */
-    transform: translateX(0);
+    left: 0;
+}
+
+.uk-offcanvas-flip .uk-offcanvas-reveal .uk-offcanvas-bar {
+    /* 4 */
+    left: auto;
+    right: 0;
 }
 
 .uk-open > .uk-offcanvas-reveal { width: @offcanvas-bar-width; }
