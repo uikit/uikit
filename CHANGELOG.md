@@ -9,13 +9,17 @@
 ### Changed
 
 - Improve offcanvas reveal and push animations
-- Improve transitions on touch devices
+- Improve animation, transition and visibility toggles for touch devices
 - Improve update performance
 - `css` function: Setting a CSS property to `NaN` no longer removes the property
 
 ### Removed
 
 - Remove `uk-hover` set via JavaScript
+
+### Fixed
+
+- Fix visible toggle and its child elments not being focusable through keyboard navigation
 
 ## 3.0.0 rc 26 (January 3, 2019)
 
