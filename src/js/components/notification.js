@@ -12,6 +12,7 @@ export default {
         message: '',
         status: '',
         timeout: 5000,
+        duration: 400,
         group: null,
         pos: 'top-center',
         clsClose: 'uk-notification-close',
@@ -54,7 +55,8 @@ export default {
         const margin = toFloat(css(this.$el, this.marginProp));
         Transition.start(
             css(this.$el, this.startProps),
-            {opacity: 1, [this.marginProp]: margin}
+            {opacity: 1, [this.marginProp]: margin},
+            this.duration
         ).then(() => {
             if (this.timeout) {
                 this.timer = setTimeout(this.close, this.timeout);
@@ -108,7 +110,7 @@ export default {
             if (immediate) {
                 removeFn();
             } else {
-                Transition.start(this.$el, this.startProps).then(removeFn);
+                Transition.start(this.$el, this.startProps, this.duration).then(removeFn);
             }
         }
 
