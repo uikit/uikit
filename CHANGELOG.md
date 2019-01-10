@@ -8,9 +8,14 @@
 
 ### Changed
 
-- Optimize offcanvas animations
+- Improve offcanvas reveal and push animations
+- Improve transitions on touch devices
 - Improve update performance
 - `css` function: Setting a CSS property to `NaN` no longer removes the property
+
+### Removed
+
+- Remove `uk-hover` set via JavaScript
 
 ## 3.0.0 rc 26 (January 3, 2019)
 
