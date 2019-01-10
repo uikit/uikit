@@ -25,6 +25,7 @@ export default {
         message: '',
         status: '',
         timeout: 5000,
+        duration: 400,
         group: '',
         pos: 'top-center',
         clsContainer: 'uk-notification',
@@ -67,10 +68,11 @@ export default {
 
     async connected() {
         const margin = toFloat(css(this.$el, this.marginProp));
-        await Transition.start(css(this.$el, this.startProps), {
-            opacity: 1,
-            [this.marginProp]: margin,
-        });
+        await Transition.start(
+            css(this.$el, this.startProps),
+            { opacity: 1, [this.marginProp]: margin },
+            this.duration,
+        );
 
         if (this.timeout) {
             this.timer = setTimeout(this.close, this.timeout);
@@ -114,7 +116,7 @@ export default {
             }
 
             if (!immediate) {
-                await Transition.start(this.$el, this.startProps);
+                await Transition.start(this.$el, this.startProps, this.duration);
             }
 
             removeFn(this.$el);
