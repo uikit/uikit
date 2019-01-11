@@ -1,4 +1,5 @@
 import {within} from './filter';
+import {pointerCancel} from './env';
 import {closest, findAll} from './selector';
 import {isArray, isFunction, isString, toNode, toNodes} from './lang';
 
@@ -124,6 +125,6 @@ export function preventClick() {
 
     }, true));
 
-    trigger(document, 'touchcancel');
+    trigger(document, pointerCancel);
 
 }

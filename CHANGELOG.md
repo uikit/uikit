@@ -17,6 +17,7 @@
 ### Removed
 
 - Remove `uk-hover` class
+- Remove artificial `click` event on mobile devices
 
 ### Removed
 

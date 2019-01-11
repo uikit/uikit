@@ -46,7 +46,7 @@ export default {
             return this.length - 1;
         },
 
-        slidesSelector({selList}) {
+        selSlides({selList}) {
             return `${selList} > *`;
         },
 

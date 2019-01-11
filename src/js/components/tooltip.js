@@ -1,7 +1,7 @@
 import Container from '../mixin/container';
 import Togglable from '../mixin/togglable';
 import Position from '../mixin/position';
-import {append, attr, flipPosition, hasAttr, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, remove, within} from 'uikit-util';
+import {append, attr, flipPosition, hasAttr, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, pointerUp, remove, within} from 'uikit-util';
 
 const actives = [];
 
@@ -47,7 +47,7 @@ export default {
             actives.forEach(active => active.hide());
             actives.push(this);
 
-            this._unbind = on(document, 'click', e => !within(e.target, this.$el) && this.hide());
+            this._unbind = on(document, pointerUp, e => !within(e.target, this.$el) && this.hide());
 
             clearTimeout(this.showTimer);
             this.showTimer = setTimeout(() => {

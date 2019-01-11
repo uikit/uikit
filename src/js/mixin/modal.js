@@ -1,4 +1,4 @@
-import {$, addClass, append, css, hasClass, on, once, Promise, removeClass, toMs, width, within} from 'uikit-util';
+import {$, addClass, append, css, hasClass, on, once, pointerUp, Promise, removeClass, toMs, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
@@ -238,7 +238,7 @@ function registerEvents() {
     }
 
     events = [
-        on(document, 'click', ({target, defaultPrevented}) => {
+        on(document, pointerUp, ({target, defaultPrevented}) => {
             if (active && active.bgClose && !defaultPrevented && (!active.overlay || within(target, active.$el)) && !within(target, active.panel)) {
                 active.hide();
             }

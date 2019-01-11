@@ -1,6 +1,6 @@
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {$$, addClass, Animation, attr, css, includes, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointInRect, query, removeClass, removeClasses, toggleClass, within} from 'uikit-util';
+import {addClass, Animation, attr, css, includes, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointerUp, pointInRect, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
 
 let active;
 
@@ -63,7 +63,7 @@ export default {
             mode: this.mode
         });
 
-        this.updateAria(this.$el);
+        !this.toggle && trigger(this.$el, 'updatearia');
 
     },
 
@@ -228,10 +228,7 @@ export default {
 
             handler() {
                 this.tracker.init();
-                if (this.toggle) {
-                    addClass(this.toggle.$el, this.cls);
-                    attr(this.toggle.$el, 'aria-expanded', 'true');
-                }
+                trigger(this.$el, 'updatearia');
                 registerEvent();
             }
 
@@ -261,15 +258,29 @@ export default {
                 }
 
                 active = this.isActive() ? null : active;
-
-                if (this.toggle) {
-                    removeClass(this.toggle.$el, this.cls);
-                    attr(this.toggle.$el, 'aria-expanded', 'false');
-                }
-
+                trigger(this.$el, 'updatearia');
                 this.tracker.cancel();
             }
 
+        },
+
+        {
+
+            name: 'updatearia',
+
+            self: true,
+
+            handler(e, toggle) {
+
+                e.preventDefault();
+
+                this.updateAria(this.$el);
+
+                if (toggle || this.toggle) {
+                    attr((toggle || this.toggle).$el, 'aria-expanded', this.isToggled() ? 'true' : 'false');
+                    toggleClass(this.toggle.$el, this.cls, this.isToggled());
+                }
+            }
         }
 
     ],
@@ -311,6 +322,10 @@ export default {
                     } else {
                         return;
                     }
+
+                } else if (active && this.isChildOf(active)) {
+
+                    active.clearTimers();
 
                 } else if (active && !this.isChildOf(active) && !this.isParentOf(active)) {
 
@@ -413,7 +428,7 @@ function registerEvent() {
     }
 
     registered = true;
-    on(document, 'click', ({target, defaultPrevented}) => {
+    on(document, pointerUp, ({target, defaultPrevented}) => {
         let prev;
 
         if (defaultPrevented) {
