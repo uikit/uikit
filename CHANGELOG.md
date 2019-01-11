@@ -5,6 +5,7 @@
 ### Added
 
 - Add active states for sub nav items in Nav, Navbar and Dropdown component
+- Add emoji default fonts to the system font stack
 
 ### Changed
 
