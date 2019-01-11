@@ -12,6 +12,9 @@
 - Improve animation, transition and visibility toggles for touch devices
 - Improve update performance
 - `css` function: Setting a CSS property to `NaN` no longer removes the property
+### Removed
+
+- Remove `uk-hover` class
 
 ### Removed
 
