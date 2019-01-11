@@ -20,10 +20,6 @@
 - Remove `uk-hover` class
 - Remove artificial `click` event on mobile devices
 
-### Removed
-
-- Remove `uk-hover` set via JavaScript
-
 ### Fixed
 
 - Fix visible toggle and its child elments not being focusable through keyboard navigation
