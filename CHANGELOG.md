@@ -23,6 +23,7 @@
 ### Fixed
 
 - Fix visible toggle and its child elments not being focusable through keyboard navigation
+- Fix Img component correctly escapes urls on background images
 
 ## 3.0.0 rc 26 (January 3, 2019)
 
