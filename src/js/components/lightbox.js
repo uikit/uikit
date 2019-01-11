@@ -33,7 +33,6 @@ export default {
 
             handler(e) {
                 e.preventDefault();
-                e.current.blur();
                 this.show(index(this.toggles, e.current));
             }
 

@@ -265,8 +265,6 @@ export default {
                 if (this.toggle) {
                     removeClass(this.toggle.$el, this.cls);
                     attr(this.toggle.$el, 'aria-expanded', 'false');
-                    this.toggle.$el.blur();
-                    $$('a, button', this.toggle.$el).forEach(el => el.blur());
                 }
 
                 this.tracker.cancel();
