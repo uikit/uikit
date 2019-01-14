@@ -111,7 +111,7 @@ exports.compile = async function (file, dest, {external, globals, name, aliases,
         ]
     });
 
-    let {code, map} = await bundle.generate({
+    let {output: [{code, map}]} = await bundle.generate({
         globals,
         format: 'umd',
         banner: exports.banner,
