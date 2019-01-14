@@ -74,6 +74,7 @@ $navbar-dropdown-nav-divider-border-width:       $global-border-width !default;
 $navbar-dropdown-nav-divider-border:             $global-border !default;
 $navbar-dropdown-nav-sublist-item-color:         $global-muted-color !default;
 $navbar-dropdown-nav-sublist-item-hover-color:   $global-color !default;
+$navbar-dropdown-nav-sublist-item-active-color:  $global-emphasis-color !default;
 
 $navbar-dropbar-background:                      $navbar-dropdown-background !default;
 $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
@@ -460,6 +461,8 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 
 .uk-navbar-dropdown-nav .uk-nav-sub a:hover,
 .uk-navbar-dropdown-nav .uk-nav-sub a:focus { color: $navbar-dropdown-nav-sublist-item-hover-color; }
+
+.uk-navbar-dropdown-nav .uk-nav-sub li.uk-active > a { color: $navbar-dropdown-nav-sublist-item-active-color; }
 
 
 /* Dropbar
