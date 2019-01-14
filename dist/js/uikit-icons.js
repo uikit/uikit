@@ -1,10 +1,10 @@
-/*! UIkit 3.0.0-rc.26 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define('uikiticons', factory) :
-    global.UIkitIcons = factory();
-}(typeof self !== 'undefined' ? self : this, function () { 'use strict';
+    (global = global || self, global.UIkitIcons = factory());
+}(this, function () { 'use strict';
 
     function plugin(UIkit) {
 
