@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.0.1 (January 14, 2019)
+
+### Fixed
+
+- Fix Sass distribution
+
 ## 3.0.0 (January 14, 2019)
 
 ### Added
