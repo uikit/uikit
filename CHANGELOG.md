@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix offcanvas overlay transition
+
 ## 3.0.1 (January 14, 2019)
 
 ### Fixed

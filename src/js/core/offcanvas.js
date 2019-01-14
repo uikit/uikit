@@ -151,12 +151,11 @@ export default {
                 css(document.documentElement, 'overflowY', this.overlay ? 'hidden' : '');
                 addClass(document.body, this.clsContainer, this.clsFlip);
                 css(this.$el, 'display', 'block');
-
-                height(document.body); // force reflow
-
-                addClass(document.body, this.clsContainerAnimation);
                 addClass(this.$el, this.clsOverlay);
                 addClass(this.panel, this.clsSidebarAnimation, this.mode !== 'reveal' ? this.clsMode : '');
+
+                height(document.body); // force reflow
+                addClass(document.body, this.clsContainerAnimation);
 
                 this.clsContainerAnimation && suppressUserScale();
 
