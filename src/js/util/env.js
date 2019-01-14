@@ -10,8 +10,10 @@ export const hasTouch = hasTouchEvents
     || window.DocumentTouch && document instanceof DocumentTouch
     || navigator.maxTouchPoints; // IE >=11
 
-export const pointerDown = !hasTouch ? 'mousedown' : `mousedown ${hasTouchEvents ? 'touchstart' : 'pointerdown'}`;
-export const pointerMove = !hasTouch ? 'mousemove' : `mousemove ${hasTouchEvents ? 'touchmove' : 'pointermove'}`;
-export const pointerUp = !hasTouch ? 'mouseup' : `mouseup ${hasTouchEvents ? 'touchend' : 'pointerup'}`;
-export const pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mouseenter';
-export const pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
+export const pointerDown = hasPointerEvents ? 'pointerdown' : hasTouchEvents ? 'touchstart' : 'mousedown';
+export const pointerMove = hasPointerEvents ? 'pointermove' : hasTouchEvents ? 'touchmove' : 'mousemove';
+export const pointerUp = hasPointerEvents ? 'pointerup' : hasTouchEvents ? 'touchend' : 'mouseup';
+export const pointerEnter = hasPointerEvents ? 'pointerenter' : hasTouchEvents ? '' : 'mouseenter';
+export const pointerLeave = hasPointerEvents ? 'pointerleave' : hasTouchEvents ? '' : 'mouseleave';
+export const pointerCancel = hasPointerEvents ? 'pointercancel' : 'touchcancel';
+

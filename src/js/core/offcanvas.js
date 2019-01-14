@@ -125,7 +125,8 @@ export default {
                 const clientY = event.targetTouches[0].clientY - this.clientY;
                 const {scrollTop, scrollHeight, clientHeight} = this.panel;
 
-                if (scrollTop === 0 && clientY > 0
+                if (clientHeight >= scrollHeight
+                    || scrollTop === 0 && clientY > 0
                     || scrollHeight - scrollTop <= clientHeight && clientY < 0
                 ) {
                     e.preventDefault();
@@ -149,12 +150,13 @@ export default {
 
                 css(document.documentElement, 'overflowY', this.overlay ? 'hidden' : '');
                 addClass(document.body, this.clsContainer, this.clsFlip);
-                height(document.body); // force reflow
-                addClass(document.body, this.clsContainerAnimation);
-                addClass(this.panel, this.clsSidebarAnimation, this.mode !== 'reveal' ? this.clsMode : '');
-                addClass(this.$el, this.clsOverlay);
                 css(this.$el, 'display', 'block');
-                height(this.$el); // force reflow
+
+                height(document.body); // force reflow
+
+                addClass(document.body, this.clsContainerAnimation);
+                addClass(this.$el, this.clsOverlay);
+                addClass(this.panel, this.clsSidebarAnimation, this.mode !== 'reveal' ? this.clsMode : '');
 
                 this.clsContainerAnimation && suppressUserScale();
 

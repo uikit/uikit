@@ -12,6 +12,8 @@
 //                  `uk-dropdown-stack`
 //                  `uk-dropdown-grid`
 //
+// States:          `uk-active`
+//
 // ========================================================================
 
 
@@ -116,7 +118,8 @@ $dropdown-nav-sublist-item-hover-color:          $global-color !default;
 .uk-dropdown-nav .uk-nav-sub a { color: $dropdown-nav-sublist-item-color; }
 
 .uk-dropdown-nav .uk-nav-sub a:hover,
-.uk-dropdown-nav .uk-nav-sub a:focus { color: $dropdown-nav-sublist-item-hover-color; }
+.uk-dropdown-nav .uk-nav-sub a:focus,
+.uk-dropdown-nav .uk-nav-sub li.uk-active > a { color: $dropdown-nav-sublist-item-hover-color; }
 
 
 /* Direction / Alignment modifiers

@@ -17,8 +17,6 @@
 //
 // Sub-objects:     `uk-animation-toggle`
 //
-// States:          `uk-hover`
-//
 // ========================================================================
 
 
@@ -54,7 +52,32 @@
 }
 
 
-/* Animations for scrollspy
+/* Toggle (Hover + Focus)
+========================================================================== */
+
+/*
+ * The toggle is triggered on touch devices using `:focus` and tabindex
+ */
+
+.uk-animation-toggle:not(:hover):not(:focus) [class*='uk-animation-'] { animation-name: none; }
+
+/*
+ * 1. Prevent tab highlighting on iOS.
+ */
+
+.uk-animation-toggle {
+    /* 1 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/*
+ * Remove outline for `tabindex`
+ */
+
+.uk-animation-toggle:focus { outline: none; }
+
+
+/* Animations
  ========================================================================== */
 
 /*
@@ -121,16 +144,6 @@
  ========================================================================== */
 
 .uk-animation-fast { animation-duration: @animation-fast-duration; }
-
-
-/* Enable animation only on hover
-========================================================================== */
-
-/*
- * Note: Firefox and IE needs this because animations are not triggered when switching between display `none` and `block`
- */
-
-.uk-animation-toggle:not(:hover):not(.uk-hover) [class*='uk-animation-'] { animation-name: none; }
 
 
 /* Keyframes used by animation classes

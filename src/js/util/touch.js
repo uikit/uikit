@@ -1,109 +1,52 @@
-/*
-    Based on:
-    Copyright (c) 2010-2016 Thomas Fuchs
-    http://zeptojs.com/
-*/
-import {ready} from './dom';
-import {within} from './filter';
 import {on, trigger} from './event';
-import {pointerDown, pointerMove, pointerUp} from './env';
+import {pointerCancel, pointerDown, pointerUp} from './env';
 
-let touch = {}, clickTimeout, swipeTimeout, tapTimeout, clicked, scrolled;
+let touch = {}, swipeTimeout, touching;
 
-ready(() => {
+on(document, pointerDown, e => {
 
-    on(document, 'click', () => clicked = true, true);
-    on(window, 'scroll', () => scrolled = true);
+    if (touch.el) {
+        touch = {};
+    }
 
-    on(document, pointerDown, e => {
+    const {target} = e;
+    const {x, y} = getPos(e);
 
-        const {target} = e;
-        const {x, y} = getPos(e);
-        const now = Date.now();
-        const type = getType(e.type);
+    touch.el = 'tagName' in target ? target : target.parentNode;
+    touch.x = x;
+    touch.y = y;
 
-        if (touch.type && touch.type !== type) {
-            return;
-        }
-
-        touch.el = 'tagName' in target ? target : target.parentNode;
-
-        clickTimeout && clearTimeout(clickTimeout);
-
-        touch.x1 = x;
-        touch.y1 = y;
-
-        if (touch.last && now - touch.last <= 250) {
-            touch = {};
-        }
-
-        touch.type = type;
-        touch.last = now;
-
-        clicked = e.button > 0;
-        scrolled = false;
-
-    });
-
-    on(document, pointerMove, e => {
-
-        const {x, y} = getPos(e);
-
-        touch.x2 = x;
-        touch.y2 = y;
-
-    });
-
-    on(document, pointerUp, ({type, target}) => {
-
-        if (touch.type !== getType(type)) {
-            return;
-        }
-
-        // swipe
-        if (touch.x2 && Math.abs(touch.x1 - touch.x2) > 100 || touch.y2 && Math.abs(touch.y1 - touch.y2) > 100) {
-
-            swipeTimeout = setTimeout(() => {
-                if (touch.el) {
-                    trigger(touch.el, 'swipe');
-                    trigger(touch.el, `swipe${swipeDirection(touch)}`);
-                }
-                touch = {};
-            });
-
-        // normal tap
-        } else if (!scrolled && 'last' in touch) {
-
-            tapTimeout = setTimeout(() => trigger(touch.el, 'tap'));
-
-            // trigger single click after 350ms of inactivity
-            if (touch.el && type !== 'mouseup' && within(target, touch.el)) {
-                clickTimeout = setTimeout(() => {
-                    clickTimeout = null;
-                    if (touch.el && !clicked) {
-                        trigger(touch.el, 'click');
-                    }
-                    touch = {};
-                }, 350);
-            }
-
-        } else {
-            touch = {};
-        }
-
-    });
-
-    on(document, 'touchcancel', cancelAll);
+    touching = true;
 
 });
 
-let touching = false;
-on(document, 'touchstart', () => touching = true, true);
-on(document, 'click', () => {touching = false;});
-on(document, 'touchcancel', () => touching = false, true);
+on(document, pointerUp, e => {
+
+    const {x, y} = getPos(e);
+
+    // swipe
+    if (touch.el && x && Math.abs(touch.x - x) > 100 || y && Math.abs(touch.y - y) > 100) {
+
+        swipeTimeout = setTimeout(() => {
+            if (touch.el) {
+                trigger(touch.el, 'swipe');
+                trigger(touch.el, `swipe${swipeDirection(touch.x, touch.y, x, y)}`);
+            }
+            touch = {};
+        });
+
+    } else {
+        touch = {};
+    }
+
+    setTimeout(() => touching = false);
+
+});
+
+on(document, pointerCancel, cancelAll);
 
 export function isTouch(e) {
-    return touching || e.pointerType === 'touch';
+    return e.pointerType === 'touch' || e.touches || touching;
 }
 
 export function getPos(e, prop = 'client') {
@@ -113,11 +56,7 @@ export function getPos(e, prop = 'client') {
     return {x, y};
 }
 
-function getType(type) {
-    return type.slice(0, 5);
-}
-
-function swipeDirection({x1, x2, y1, y2}) {
+function swipeDirection(x1, y1, x2, y2) {
     return Math.abs(x1 - x2) >= Math.abs(y1 - y2)
         ? x1 - x2 > 0
             ? 'Left'
@@ -128,9 +67,7 @@ function swipeDirection({x1, x2, y1, y2}) {
 }
 
 function cancelAll() {
-    clickTimeout && clearTimeout(clickTimeout);
     swipeTimeout && clearTimeout(swipeTimeout);
-    tapTimeout && clearTimeout(tapTimeout);
-    clickTimeout = swipeTimeout = tapTimeout = null;
+    swipeTimeout = null;
     touch = {};
 }

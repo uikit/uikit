@@ -74,6 +74,7 @@
 @navbar-dropdown-nav-divider-border:            @global-border;
 @navbar-dropdown-nav-sublist-item-color:        @global-muted-color;
 @navbar-dropdown-nav-sublist-item-hover-color:  @global-color;
+@navbar-dropdown-nav-sublist-item-active-color: @global-emphasis-color;
 
 @navbar-dropbar-background:                     @navbar-dropdown-background;
 @navbar-dropbar-z-index:                        @global-z-index - 20;
@@ -460,6 +461,8 @@
 
 .uk-navbar-dropdown-nav .uk-nav-sub a:hover,
 .uk-navbar-dropdown-nav .uk-nav-sub a:focus { color: @navbar-dropdown-nav-sublist-item-hover-color; }
+
+.uk-navbar-dropdown-nav .uk-nav-sub li.uk-active > a { color: @navbar-dropdown-nav-sublist-item-active-color; }
 
 
 /* Dropbar

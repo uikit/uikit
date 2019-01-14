@@ -16,7 +16,7 @@ export default {
 
     data: {
         connect: '~.uk-switcher',
-        toggle: '> *',
+        toggle: '> * > :first-child',
         active: 0,
         swiping: true,
         cls: 'uk-active',

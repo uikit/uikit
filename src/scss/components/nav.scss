@@ -52,6 +52,7 @@ $nav-default-divider-border-width:               $global-border-width !default;
 $nav-default-divider-border:                     $global-border !default;
 $nav-default-sublist-item-color:                 $global-muted-color !default;
 $nav-default-sublist-item-hover-color:           $global-color !default;
+$nav-default-sublist-item-active-color:          $global-emphasis-color !default;
 
 $nav-primary-item-font-size:                     $global-large-font-size !default;
 $nav-primary-item-line-height:                   $global-line-height !default;
@@ -63,6 +64,7 @@ $nav-primary-divider-border-width:               $global-border-width !default;
 $nav-primary-divider-border:                     $global-border !default;
 $nav-primary-sublist-item-color:                 $global-muted-color !default;
 $nav-primary-sublist-item-hover-color:           $global-color !default;
+$nav-primary-sublist-item-active-color:          $global-emphasis-color !default;
 
 $internal-nav-parent-close-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22#000%22%20stroke-width%3D%221.1%22%20points%3D%2210%201%204%207%2010%2013%22%20%2F%3E%0A%3C%2Fsvg%3E" !default;
 $internal-nav-parent-open-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22#000%22%20stroke-width%3D%221.1%22%20points%3D%221%204%207%2010%2013%204%22%20%2F%3E%0A%3C%2Fsvg%3E" !default;
@@ -225,6 +227,8 @@ ul.uk-nav-sub {
 .uk-nav-default .uk-nav-sub a:hover,
 .uk-nav-default .uk-nav-sub a:focus { color: $nav-default-sublist-item-hover-color; }
 
+.uk-nav-default .uk-nav-sub li.uk-active > a { color: $nav-default-sublist-item-active-color; }
+
 
 /* Primary modifier
  ========================================================================== */
@@ -284,6 +288,8 @@ ul.uk-nav-sub {
 .uk-nav-primary .uk-nav-sub a:hover,
 .uk-nav-primary .uk-nav-sub a:focus { color: $nav-primary-sublist-item-hover-color; }
 
+.uk-nav-primary .uk-nav-sub li.uk-active > a { color: $nav-primary-sublist-item-active-color; }
+
 
 /* Alignment modifier
  ========================================================================== */
@@ -325,22 +331,24 @@ ul.uk-nav-sub {
 // Inverse
 // ========================================================================
 
-$inverse-nav-parent-icon-color:                 $inverse-global-color !default;
-$inverse-nav-default-item-color:                $inverse-global-muted-color !default;
-$inverse-nav-default-item-hover-color:          $inverse-global-color !default;
-$inverse-nav-default-item-active-color:         $inverse-global-emphasis-color !default;
-$inverse-nav-default-header-color:              $inverse-global-emphasis-color !default;
-$inverse-nav-default-divider-border:            $inverse-global-border !default;
-$inverse-nav-default-sublist-item-color:        $inverse-global-muted-color !default;
-$inverse-nav-default-sublist-item-hover-color:  $inverse-global-color !default;
+$inverse-nav-parent-icon-color:                  $inverse-global-color !default;
+$inverse-nav-default-item-color:                 $inverse-global-muted-color !default;
+$inverse-nav-default-item-hover-color:           $inverse-global-color !default;
+$inverse-nav-default-item-active-color:          $inverse-global-emphasis-color !default;
+$inverse-nav-default-header-color:               $inverse-global-emphasis-color !default;
+$inverse-nav-default-divider-border:             $inverse-global-border !default;
+$inverse-nav-default-sublist-item-color:         $inverse-global-muted-color !default;
+$inverse-nav-default-sublist-item-hover-color:   $inverse-global-color !default;
+$inverse-nav-default-sublist-item-active-color:  $inverse-global-emphasis-color !default;
 
-$inverse-nav-primary-item-color:                $inverse-global-muted-color !default;
-$inverse-nav-primary-item-hover-color:          $inverse-global-color !default;
-$inverse-nav-primary-item-active-color:         $inverse-global-emphasis-color !default;
-$inverse-nav-primary-header-color:              $inverse-global-emphasis-color !default;
-$inverse-nav-primary-divider-border:            $inverse-global-border !default;
-$inverse-nav-primary-sublist-item-color:        $inverse-global-muted-color !default;
-$inverse-nav-primary-sublist-item-hover-color:  $inverse-global-color !default;
+$inverse-nav-primary-item-color:                 $inverse-global-muted-color !default;
+$inverse-nav-primary-item-hover-color:           $inverse-global-color !default;
+$inverse-nav-primary-item-active-color:          $inverse-global-emphasis-color !default;
+$inverse-nav-primary-header-color:               $inverse-global-emphasis-color !default;
+$inverse-nav-primary-divider-border:             $inverse-global-border !default;
+$inverse-nav-primary-sublist-item-color:         $inverse-global-muted-color !default;
+$inverse-nav-primary-sublist-item-hover-color:   $inverse-global-color !default;
+$inverse-nav-primary-sublist-item-active-color:  $inverse-global-emphasis-color !default;
 
 
 

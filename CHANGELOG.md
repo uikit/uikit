@@ -1,5 +1,31 @@
 # Changelog
 
+## 3.0.0 (January 14, 2019)
+
+### Added
+
+- Add active states for sub nav items in Nav, Navbar and Dropdown component
+- Add emoji default fonts to the system font stack
+
+### Changed
+
+- Improve offcanvas reveal and push animations
+- Improve animation, transition and visibility toggles for touch devices
+- Improve update performance
+- `css` function: Setting a CSS property to `NaN` no longer removes the property
+- Slide/Slideshow navs and Drops no longer blur after hiding
+- Changed the default `toggle` option for Switcher component to `> * > :first-child`
+
+### Removed
+
+- Remove `uk-hover` class
+- Remove artificial `click` event on mobile devices
+
+### Fixed
+
+- Fix visible toggle and its child elments not being focusable through keyboard navigation
+- Fix Img component correctly escapes urls on background images
+
 ## 3.0.0 rc 26 (January 3, 2019)
 
 ### Added

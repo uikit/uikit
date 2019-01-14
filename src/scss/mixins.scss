@@ -25,6 +25,7 @@
     }
 
 }
+@mixin hook-align-misc(){}
 @mixin hook-alert(){}
 @mixin hook-alert-close(){}
 @mixin hook-alert-close-hover(){}
@@ -33,7 +34,6 @@
 @mixin hook-alert-warning(){}
 @mixin hook-alert-danger(){}
 @mixin hook-alert-misc(){}
-@mixin hook-align-misc(){}
 @mixin hook-animation-misc(){}
 @mixin hook-article(){}
 @mixin hook-article-adjacent(){}
@@ -885,6 +885,8 @@
     .uk-nav-default .uk-nav-sub a:hover,
     .uk-nav-default .uk-nav-sub a:focus { color: $inverse-nav-default-sublist-item-hover-color; }
 
+    .uk-nav-default .uk-nav-sub li.uk-active > a { color: $inverse-nav-default-sublist-item-active-color; }
+
     //
     // Primary
     //
@@ -919,6 +921,8 @@
 
     .uk-nav-primary .uk-nav-sub a:hover,
     .uk-nav-primary .uk-nav-sub a:focus { color: $inverse-nav-primary-sublist-item-hover-color; }
+
+    .uk-nav-primary .uk-nav-sub li.uk-active > a { color: $inverse-nav-primary-sublist-item-active-color; }
 
 }
 @mixin hook-inverse-component-navbar(){
@@ -1245,11 +1249,6 @@
 @mixin hook-offcanvas-close(){}
 @mixin hook-offcanvas-overlay(){}
 @mixin hook-offcanvas-misc(){}
-@mixin hook-overlay(){}
-@mixin hook-overlay-icon(){}
-@mixin hook-overlay-default(){}
-@mixin hook-overlay-primary(){}
-@mixin hook-overlay-misc(){}
 @mixin hook-padding-misc(){}
 @mixin hook-pagination(){}
 @mixin hook-pagination-item(){}
@@ -1261,6 +1260,11 @@
 @mixin hook-inverse-pagination-item-hover(){}
 @mixin hook-inverse-pagination-item-active(){}
 @mixin hook-inverse-pagination-item-disabled(){}
+@mixin hook-overlay(){}
+@mixin hook-overlay-icon(){}
+@mixin hook-overlay-default(){}
+@mixin hook-overlay-primary(){}
+@mixin hook-overlay-misc(){}
 @mixin hook-placeholder(){}
 @mixin hook-placeholder-misc(){}
 @mixin hook-position-misc(){}
@@ -1366,30 +1370,6 @@
 @mixin hook-inverse-totop-active(){}
 @mixin hook-transition-misc(){}
 @mixin hook-visibility-misc(){}
-@mixin hook-card(){}
-@mixin hook-card-body(){}
-@mixin hook-card-header(){}
-@mixin hook-card-footer(){}
-@mixin hook-card-media(){}
-@mixin hook-card-media-top(){}
-@mixin hook-card-media-bottom(){}
-@mixin hook-card-media-left(){}
-@mixin hook-card-media-right(){}
-@mixin hook-card-title(){}
-@mixin hook-card-badge(){}
-@mixin hook-card-hover(){}
-@mixin hook-card-default(){}
-@mixin hook-card-default-title(){}
-@mixin hook-card-default-hover(){}
-@mixin hook-card-default-header(){}
-@mixin hook-card-default-footer(){}
-@mixin hook-card-primary(){}
-@mixin hook-card-primary-title(){}
-@mixin hook-card-primary-hover(){}
-@mixin hook-card-secondary(){}
-@mixin hook-card-secondary-title(){}
-@mixin hook-card-secondary-hover(){}
-@mixin hook-card-misc(){}
 @mixin hook-button(){}
 @mixin hook-button-hover(){}
 @mixin hook-button-focus(){}
@@ -1427,6 +1407,30 @@
 @mixin hook-inverse-button-text-hover(){}
 @mixin hook-inverse-button-text-disabled(){}
 @mixin hook-inverse-button-link(){}
+@mixin hook-card(){}
+@mixin hook-card-body(){}
+@mixin hook-card-header(){}
+@mixin hook-card-footer(){}
+@mixin hook-card-media(){}
+@mixin hook-card-media-top(){}
+@mixin hook-card-media-bottom(){}
+@mixin hook-card-media-left(){}
+@mixin hook-card-media-right(){}
+@mixin hook-card-title(){}
+@mixin hook-card-badge(){}
+@mixin hook-card-hover(){}
+@mixin hook-card-default(){}
+@mixin hook-card-default-title(){}
+@mixin hook-card-default-hover(){}
+@mixin hook-card-default-header(){}
+@mixin hook-card-default-footer(){}
+@mixin hook-card-primary(){}
+@mixin hook-card-primary-title(){}
+@mixin hook-card-primary-hover(){}
+@mixin hook-card-secondary(){}
+@mixin hook-card-secondary-title(){}
+@mixin hook-card-secondary-hover(){}
+@mixin hook-card-misc(){}
 @mixin hook-grid-misc(){}
 @mixin hook-modal(){}
 @mixin hook-modal-dialog(){}

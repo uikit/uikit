@@ -239,7 +239,7 @@
 
                     <h3>Button</h3>
 
-                    <p uk-switcher="animation: uk-animation-fade">
+                    <p uk-switcher="animation: uk-animation-fade; toggle: > *">
                         <a class="uk-button uk-button-default" href="#">Link</a>
                         <button class="uk-button uk-button-default" type="button">Button</button>
                         <button class="uk-button uk-button-default" type="button">Button</button>
@@ -257,7 +257,7 @@
                     <h3>Button Group</h3>
 
                     <p>
-                        <div class="uk-button-group" uk-switcher="connect: #component-button-group; animation: uk-animation-fade">
+                        <div class="uk-button-group" uk-switcher="connect: #component-button-group; animation: uk-animation-fade; toggle: > *">
                             <a class="uk-button uk-button-default" href="#">Link</a>
                             <button class="uk-button uk-button-default" type="button">Button</button>
                             <button class="uk-button uk-button-default" type="button">Button</button>
@@ -278,7 +278,7 @@
                     <div uk-grid>
                         <div class="uk-width-1-3@m">
 
-                            <ul class="uk-nav uk-nav-default" uk-switcher="connect: #component-nav; animation: uk-animation-fade; toggle: > :not(.uk-nav-header)">
+                            <ul class="uk-nav uk-nav-default" uk-switcher="connect: #component-nav; animation: uk-animation-fade">
                                 <li><a href="#">Active</a></li>
                                 <li><a href="#">Item</a></li>
                                 <li class="uk-nav-header">Header</li>
@@ -339,7 +339,7 @@
                         <tr>
                             <td><code>toggle</code></td>
                             <td>CSS selector</td>
-                            <td>> *</td>
+                            <td>> * > :first-child</td>
                             <td>Toggle selector - triggers content switching on click.</td>
                         </tr>
                         <tr>

@@ -30,6 +30,10 @@ export default {
 
     },
 
+    connected() {
+        trigger(this.target, 'updatearia', [this]);
+    },
+
     events: [
 
         {
@@ -78,6 +82,7 @@ export default {
             }
 
         }
+
     ],
 
     update: {

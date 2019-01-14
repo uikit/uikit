@@ -2,13 +2,13 @@
 
 # UIkit
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/uikit/uikit)
+[![Discord](https://img.shields.io/badge/chat-on%20discord-7289da.svg)](https://discord.gg/NEt4Pv7)
 
 UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.
 
 * [Homepage](http://getuikit.com) - Learn more about UIkit
 * [@getuikit](https://twitter.com/getuikit) - Get the latest buzz on Twitter
-* [Gitter Chat](https://gitter.im/uikit/uikit) - Join our developer chat on Gitter.
+* [Discord Chat](https://discord.gg/NEt4Pv7) - Join our developer chat on Discord.
 
 ---
 

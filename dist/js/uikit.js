@@ -1,10 +1,10 @@
-/*! UIkit 3.0.0-rc.26 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.0 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define('uikit', factory) :
-    global.UIkit = factory();
-}(typeof self !== 'undefined' ? self : this, function () { 'use strict';
+    (global = global || self, global.UIkit = factory());
+}(this, function () { 'use strict';
 
     function bind(fn, context) {
         return function (a) {
@@ -538,6 +538,24 @@
             : matches(element, selector) || closest(element, selector);
     }
 
+    /* global DocumentTouch */
+
+    var isIE = /msie|trident/i.test(window.navigator.userAgent);
+    var isRtl = attr(document.documentElement, 'dir') === 'rtl';
+
+    var hasTouchEvents = 'ontouchstart' in window;
+    var hasPointerEvents = window.PointerEvent;
+    var hasTouch = hasTouchEvents
+        || window.DocumentTouch && document instanceof DocumentTouch
+        || navigator.maxTouchPoints; // IE >=11
+
+    var pointerDown = hasPointerEvents ? 'pointerdown' : hasTouchEvents ? 'touchstart' : 'mousedown';
+    var pointerMove = hasPointerEvents ? 'pointermove' : hasTouchEvents ? 'touchmove' : 'mousemove';
+    var pointerUp = hasPointerEvents ? 'pointerup' : hasTouchEvents ? 'touchend' : 'mouseup';
+    var pointerEnter = hasPointerEvents ? 'pointerenter' : hasTouchEvents ? '' : 'mouseenter';
+    var pointerLeave = hasPointerEvents ? 'pointerleave' : hasTouchEvents ? '' : 'mouseleave';
+    var pointerCancel = hasPointerEvents ? 'pointercancel' : 'touchcancel';
+
     function on() {
         var args = [], len = arguments.length;
         while ( len-- ) args[ len ] = arguments[ len ];
@@ -679,7 +697,7 @@
 
         }, true));
 
-        trigger(document, 'touchcancel');
+        trigger(document, pointerCancel);
 
     }
 
@@ -947,23 +965,6 @@
         });
 
     }
-
-    /* global DocumentTouch */
-
-    var isIE = /msie|trident/i.test(window.navigator.userAgent);
-    var isRtl = attr(document.documentElement, 'dir') === 'rtl';
-
-    var hasTouchEvents = 'ontouchstart' in window;
-    var hasPointerEvents = window.PointerEvent;
-    var hasTouch = hasTouchEvents
-        || window.DocumentTouch && document instanceof DocumentTouch
-        || navigator.maxTouchPoints; // IE >=11
-
-    var pointerDown = !hasTouch ? 'mousedown' : ("mousedown " + (hasTouchEvents ? 'touchstart' : 'pointerdown'));
-    var pointerMove = !hasTouch ? 'mousemove' : ("mousemove " + (hasTouchEvents ? 'touchmove' : 'pointermove'));
-    var pointerUp = !hasTouch ? 'mouseup' : ("mouseup " + (hasTouchEvents ? 'touchend' : 'pointerup'));
-    var pointerEnter = hasTouch && hasPointerEvents ? 'pointerenter' : 'mouseenter';
-    var pointerLeave = hasTouch && hasPointerEvents ? 'pointerleave' : 'mouseleave';
 
     function isReady() {
         return document.readyState === 'complete' || document.readyState !== 'loading' && !document.documentElement.doScroll;
@@ -1271,7 +1272,7 @@
 
                 if (isUndefined(value)) {
                     return getStyle(element, property);
-                } else if (!value && value !== 0) {
+                } else if (!value && !isNumber(value)) {
                     element.style.removeProperty(property);
                 } else {
                     element.style[property] = isNumeric(value) && !cssNumber[property] ? (value + "px") : value;
@@ -2394,115 +2395,56 @@
 
     }
 
-    /*
-        Based on:
-        Copyright (c) 2010-2016 Thomas Fuchs
-        http://zeptojs.com/
-    */
+    var touch = {}, swipeTimeout, touching;
 
-    var touch = {}, clickTimeout, swipeTimeout, tapTimeout, clicked, scrolled;
+    on(document, pointerDown, function (e) {
 
-    ready(function () {
+        if (touch.el) {
+            touch = {};
+        }
 
-        on(document, 'click', function () { return clicked = true; }, true);
-        on(window, 'scroll', function () { return scrolled = true; });
+        var target = e.target;
+        var ref = getPos$1(e);
+        var x = ref.x;
+        var y = ref.y;
 
-        on(document, pointerDown, function (e) {
+        touch.el = 'tagName' in target ? target : target.parentNode;
+        touch.x = x;
+        touch.y = y;
 
-            var target = e.target;
-            var ref = getPos$1(e);
-            var x = ref.x;
-            var y = ref.y;
-            var now = Date.now();
-            var type = getType(e.type);
-
-            if (touch.type && touch.type !== type) {
-                return;
-            }
-
-            touch.el = 'tagName' in target ? target : target.parentNode;
-
-            clickTimeout && clearTimeout(clickTimeout);
-
-            touch.x1 = x;
-            touch.y1 = y;
-
-            if (touch.last && now - touch.last <= 250) {
-                touch = {};
-            }
-
-            touch.type = type;
-            touch.last = now;
-
-            clicked = e.button > 0;
-            scrolled = false;
-
-        });
-
-        on(document, pointerMove, function (e) {
-
-            var ref = getPos$1(e);
-            var x = ref.x;
-            var y = ref.y;
-
-            touch.x2 = x;
-            touch.y2 = y;
-
-        });
-
-        on(document, pointerUp, function (ref) {
-            var type = ref.type;
-            var target = ref.target;
-
-
-            if (touch.type !== getType(type)) {
-                return;
-            }
-
-            // swipe
-            if (touch.x2 && Math.abs(touch.x1 - touch.x2) > 100 || touch.y2 && Math.abs(touch.y1 - touch.y2) > 100) {
-
-                swipeTimeout = setTimeout(function () {
-                    if (touch.el) {
-                        trigger(touch.el, 'swipe');
-                        trigger(touch.el, ("swipe" + (swipeDirection(touch))));
-                    }
-                    touch = {};
-                });
-
-            // normal tap
-            } else if (!scrolled && 'last' in touch) {
-
-                tapTimeout = setTimeout(function () { return trigger(touch.el, 'tap'); });
-
-                // trigger single click after 350ms of inactivity
-                if (touch.el && type !== 'mouseup' && within(target, touch.el)) {
-                    clickTimeout = setTimeout(function () {
-                        clickTimeout = null;
-                        if (touch.el && !clicked) {
-                            trigger(touch.el, 'click');
-                        }
-                        touch = {};
-                    }, 350);
-                }
-
-            } else {
-                touch = {};
-            }
-
-        });
-
-        on(document, 'touchcancel', cancelAll);
+        touching = true;
 
     });
 
-    var touching = false;
-    on(document, 'touchstart', function () { return touching = true; }, true);
-    on(document, 'click', function () {touching = false;});
-    on(document, 'touchcancel', function () { return touching = false; }, true);
+    on(document, pointerUp, function (e) {
+
+        var ref = getPos$1(e);
+        var x = ref.x;
+        var y = ref.y;
+
+        // swipe
+        if (touch.el && x && Math.abs(touch.x - x) > 100 || y && Math.abs(touch.y - y) > 100) {
+
+            swipeTimeout = setTimeout(function () {
+                if (touch.el) {
+                    trigger(touch.el, 'swipe');
+                    trigger(touch.el, ("swipe" + (swipeDirection(touch.x, touch.y, x, y))));
+                }
+                touch = {};
+            });
+
+        } else {
+            touch = {};
+        }
+
+        setTimeout(function () { return touching = false; });
+
+    });
+
+    on(document, pointerCancel, cancelAll);
 
     function isTouch(e) {
-        return touching || e.pointerType === 'touch';
+        return e.pointerType === 'touch' || e.touches || touching;
     }
 
     function getPos$1(e, prop) {
@@ -2517,16 +2459,7 @@
         return {x: x, y: y};
     }
 
-    function getType(type) {
-        return type.slice(0, 5);
-    }
-
-    function swipeDirection(ref) {
-        var x1 = ref.x1;
-        var x2 = ref.x2;
-        var y1 = ref.y1;
-        var y2 = ref.y2;
-
+    function swipeDirection(x1, y1, x2, y2) {
         return Math.abs(x1 - x2) >= Math.abs(y1 - y2)
             ? x1 - x2 > 0
                 ? 'Left'
@@ -2537,10 +2470,8 @@
     }
 
     function cancelAll() {
-        clickTimeout && clearTimeout(clickTimeout);
         swipeTimeout && clearTimeout(swipeTimeout);
-        tapTimeout && clearTimeout(tapTimeout);
-        clickTimeout = swipeTimeout = tapTimeout = null;
+        swipeTimeout = null;
         touch = {};
     }
 
@@ -2600,6 +2531,7 @@
         pointerUp: pointerUp,
         pointerEnter: pointerEnter,
         pointerLeave: pointerLeave,
+        pointerCancel: pointerCancel,
         on: on,
         off: off,
         once: once,
@@ -2943,7 +2875,7 @@
             e = createEvent(e || 'update');
             element = element ? toNode(element) : document.body;
 
-            path(element).map(function (element) { return update(element[DATA], e); });
+            path(element, function (element) { return update(element[DATA], e); });
             apply(element, function (element) { return update(element[DATA], e); });
 
         };
@@ -2975,17 +2907,11 @@
 
         }
 
-        function path(element) {
-            var path = [];
-
-            while (element && element !== document.body && element.parentNode) {
-
-                element = element.parentNode;
-                path.unshift(element);
-
+        function path(node, fn) {
+            if (node && node !== document.body && node.parentNode) {
+                path(node.parentNode, fn);
+                fn(node.parentNode);
             }
-
-            return path;
         }
 
     }
@@ -3080,19 +3006,14 @@
 
                         if (result === false && write) {
                             fastdom.clear(writes[i]);
-                            delete writes[i];
                         } else if (isPlainObject(result)) {
                             assign(this$1._data, result);
                         }
-                        delete reads[i];
                     });
                 }
 
                 if (write && !includes(fastdom.writes, writes[i])) {
-                    writes[i] = fastdom.write(function () {
-                        this$1._connected && write.call(this$1, this$1._data, e);
-                        delete writes[i];
-                    });
+                    writes[i] = fastdom.write(function () { return this$1._connected && write.call(this$1, this$1._data, e); });
                 }
 
             });
@@ -4005,34 +3926,6 @@
                 }
             }, true);
 
-            if (!hasTouch) {
-                return;
-            }
-
-            var cls = 'uk-hover';
-
-            on(document, 'tap', function (ref) {
-                    var target = ref.target;
-
-                    return $$(("." + cls)).forEach(function (el) { return !within(target, el) && removeClass(el, cls); }
-                );
-            }
-            );
-
-            Object.defineProperty(UIkit, 'hoverSelector', {
-
-                set: function(selector) {
-                    on(document, 'tap', selector, function (ref) {
-                        var current = ref.current;
-
-                        return addClass(current, cls);
-                    });
-                }
-
-            });
-
-            UIkit.hoverSelector = '.uk-animation-toggle, .uk-transition-toggle, [uk-hover]';
-
         });
 
     }
@@ -4316,7 +4209,7 @@
                 mode: this.mode
             });
 
-            this.updateAria(this.$el);
+            !this.toggle && trigger(this.$el, 'updatearia');
 
         },
 
@@ -4481,10 +4374,7 @@
 
                 handler: function() {
                     this.tracker.init();
-                    if (this.toggle) {
-                        addClass(this.toggle.$el, this.cls);
-                        attr(this.toggle.$el, 'aria-expanded', 'true');
-                    }
+                    trigger(this.$el, 'updatearia');
                     registerEvent();
                 }
 
@@ -4516,17 +4406,29 @@
                     }
 
                     active = this.isActive() ? null : active;
-
-                    if (this.toggle) {
-                        removeClass(this.toggle.$el, this.cls);
-                        attr(this.toggle.$el, 'aria-expanded', 'false');
-                        this.toggle.$el.blur();
-                        $$('a, button', this.toggle.$el).forEach(function (el) { return el.blur(); });
-                    }
-
+                    trigger(this.$el, 'updatearia');
                     this.tracker.cancel();
                 }
 
+            },
+
+            {
+
+                name: 'updatearia',
+
+                self: true,
+
+                handler: function(e, toggle) {
+
+                    e.preventDefault();
+
+                    this.updateAria(this.$el);
+
+                    if (toggle || this.toggle) {
+                        attr((toggle || this.toggle).$el, 'aria-expanded', this.isToggled() ? 'true' : 'false');
+                        toggleClass(this.toggle.$el, this.cls, this.isToggled());
+                    }
+                }
             }
 
         ],
@@ -4571,6 +4473,10 @@
                         } else {
                             return;
                         }
+
+                    } else if (active && this$1.isChildOf(active)) {
+
+                        active.clearTimers();
 
                     } else if (active && !this$1.isChildOf(active) && !this$1.isParentOf(active)) {
 
@@ -4676,7 +4582,7 @@
         }
 
         registered = true;
-        on(document, 'click', function (ref) {
+        on(document, pointerUp, function (ref) {
             var target = ref.target;
             var defaultPrevented = ref.defaultPrevented;
 
@@ -5887,7 +5793,7 @@
 
             var change = !includes(el.style.backgroundImage, src);
             if (change) {
-                css(el, 'backgroundImage', ("url(" + src + ")"));
+                css(el, 'backgroundImage', ("url(" + (escape(src)) + ")"));
                 trigger(el, createEvent('load', false));
             }
 
@@ -6357,7 +6263,7 @@
         }
 
         events = [
-            on(document, 'click', function (ref) {
+            on(document, pointerUp, function (ref) {
                 var target = ref.target;
                 var defaultPrevented = ref.defaultPrevented;
 
@@ -6956,7 +6862,8 @@
                     var scrollHeight = ref.scrollHeight;
                     var clientHeight = ref.clientHeight;
 
-                    if (scrollTop$$1 === 0 && clientY > 0
+                    if (clientHeight >= scrollHeight
+                        || scrollTop$$1 === 0 && clientY > 0
                         || scrollHeight - scrollTop$$1 <= clientHeight && clientY < 0
                     ) {
                         e.preventDefault();
@@ -6980,12 +6887,13 @@
 
                     css(document.documentElement, 'overflowY', this.overlay ? 'hidden' : '');
                     addClass(document.body, this.clsContainer, this.clsFlip);
-                    height(document.body); // force reflow
-                    addClass(document.body, this.clsContainerAnimation);
-                    addClass(this.panel, this.clsSidebarAnimation, this.mode !== 'reveal' ? this.clsMode : '');
-                    addClass(this.$el, this.clsOverlay);
                     css(this.$el, 'display', 'block');
-                    height(this.$el); // force reflow
+
+                    height(document.body); // force reflow
+
+                    addClass(document.body, this.clsContainerAnimation);
+                    addClass(this.$el, this.clsOverlay);
+                    addClass(this.panel, this.clsSidebarAnimation, this.mode !== 'reveal' ? this.clsMode : '');
 
                     this.clsContainerAnimation && suppressUserScale();
 
@@ -7863,7 +7771,7 @@
 
         data: {
             connect: '~.uk-switcher',
-            toggle: '> *',
+            toggle: '> * > :first-child',
             active: 0,
             swiping: true,
             cls: 'uk-active',
@@ -8065,6 +7973,10 @@
 
         },
 
+        connected: function() {
+            trigger(this.target, 'updatearia', [this]);
+        },
+
         events: [
 
             {
@@ -8113,6 +8025,7 @@
                 }
 
             }
+
         ],
 
         update: {
@@ -8197,7 +8110,7 @@
 
     }
 
-    UIkit.version = '3.0.0-rc.26';
+    UIkit.version = '3.0.0';
 
     core(UIkit);
 
@@ -9060,7 +8973,7 @@
                 name: pointerDown,
 
                 delegate: function() {
-                    return this.slidesSelector;
+                    return this.selSlides;
                 },
 
                 handler: function(e) {
@@ -9086,7 +8999,7 @@
                 passive: false,
                 handler: 'move',
                 delegate: function() {
-                    return this.slidesSelector;
+                    return this.selSlides;
                 }
 
             },
@@ -9126,7 +9039,9 @@
                 }
 
                 // See above workaround notice
-                var off$$1 = on(document, pointerMove.replace(' touchmove', ''), this.move, {passive: false});
+                var off$$1 = pointerMove !== 'touchmove'
+                    ? on(document, pointerMove, this.move, {passive: false})
+                    : noop;
                 this.unbindMove = function () {
                     off$$1();
                     this$1.unbindMove = null;
@@ -9274,14 +9189,14 @@
                 return $(selNav, $el);
             },
 
-            navItemSelector: function(ref) {
+            selNavItem: function(ref) {
                 var attrItem = ref.attrItem;
 
                 return ("[" + attrItem + "],[data-" + attrItem + "]");
             },
 
             navItems: function(_, $el) {
-                return $$(this.navItemSelector, $el);
+                return $$(this.selNavItem, $el);
             }
 
         },
@@ -9296,7 +9211,7 @@
                     html(this.nav, this.slides.map(function (_, i) { return ("<li " + (this$1.attrItem) + "=\"" + i + "\"><a href=\"#\"></a></li>"); }).join(''));
                 }
 
-                toggleClass($$(this.navItemSelector, this.$el).concat(this.nav), 'uk-hidden', !this.maxIndex);
+                toggleClass($$(this.selNavItem, this.$el).concat(this.nav), 'uk-hidden', !this.maxIndex);
 
                 this.updateNav();
 
@@ -9313,12 +9228,11 @@
                 name: 'click',
 
                 delegate: function() {
-                    return this.navItemSelector;
+                    return this.selNavItem;
                 },
 
                 handler: function(e) {
                     e.preventDefault();
-                    e.current.blur();
                     this.show(data(e.current, this.attrItem));
                 }
 
@@ -9401,7 +9315,7 @@
                 return this.length - 1;
             },
 
-            slidesSelector: function(ref) {
+            selSlides: function(ref) {
                 var selList = ref.selList;
 
                 return (selList + " > *");
@@ -9703,12 +9617,12 @@
 
             {
 
-                name: 'click',
+                name: pointerUp,
 
                 self: true,
 
                 delegate: function() {
-                    return this.slidesSelector;
+                    return this.selSlides;
                 },
 
                 handler: function(e) {
@@ -10033,7 +9947,6 @@
 
                 handler: function(e) {
                     e.preventDefault();
-                    e.current.blur();
                     this.show(index(this.toggles, e.current));
                 }
 
@@ -11727,7 +11640,7 @@
                 actives.forEach(function (active) { return active.hide(); });
                 actives.push(this);
 
-                this._unbind = on(document, 'click', function (e) { return !within(e.target, this$1.$el) && this$1.hide(); });
+                this._unbind = on(document, pointerUp, function (e) { return !within(e.target, this$1.$el) && this$1.hide(); });
 
                 clearTimeout(this.showTimer);
                 this.showTimer = setTimeout(function () {

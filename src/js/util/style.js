@@ -1,7 +1,7 @@
 import {isIE} from './env';
 import {append, remove} from './dom';
 import {addClass} from './class';
-import {each, hyphenate, isArray, isNumeric, isObject, isString, isUndefined, toNode, toNodes} from './lang';
+import {each, hyphenate, isArray, isNumber, isNumeric, isObject, isString, isUndefined, toNode, toNodes} from './lang';
 
 const cssNumber = {
     'animation-iteration-count': true,
@@ -29,7 +29,7 @@ export function css(element, property, value) {
 
             if (isUndefined(value)) {
                 return getStyle(element, property);
-            } else if (!value && value !== 0) {
+            } else if (!value && !isNumber(value)) {
                 element.style.removeProperty(property);
             } else {
                 element.style[property] = isNumeric(value) && !cssNumber[property] ? `${value}px` : value;

@@ -80,19 +80,14 @@ export default function (UIkit) {
 
                     if (result === false && write) {
                         fastdom.clear(writes[i]);
-                        delete writes[i];
                     } else if (isPlainObject(result)) {
                         assign(this._data, result);
                     }
-                    delete reads[i];
                 });
             }
 
             if (write && !includes(fastdom.writes, writes[i])) {
-                writes[i] = fastdom.write(() => {
-                    this._connected && write.call(this, this._data, e);
-                    delete writes[i];
-                });
+                writes[i] = fastdom.write(() => this._connected && write.call(this, this._data, e));
             }
 
         });

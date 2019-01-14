@@ -92,15 +92,21 @@
 .uk-invisible { visibility: hidden !important; }
 
 
-/* Hover
+/* Toggle (Hover + Focus)
  ========================================================================== */
 
 /*
  * Hidden
- * Can't use `display: none` because it's not accessible through keyboard.
+ * 1. The toggle is triggered on touch devices using `:focus` and tabindex
+ * 2. The target stays visible if any element within receives focus through keyboard
+ *    Doesn't work in Edge, yet.
+ * 3. Can't use `display: none` nor `visibility: hidden` because both are not focusable.
+ *
  */
 
-.uk-visible-toggle:not(:hover):not(.uk-hover) .uk-hidden-hover:not(:focus) {
+/* 1 + 2 */
+.uk-visible-toggle:not(:hover):not(:focus) .uk-hidden-hover:not(:focus-within) {
+    /* 3 */
     position: absolute !important;
     width: 0 !important;
     height: 0 !important;
@@ -111,10 +117,28 @@
 
 /*
  * Invisible
- * Can't use `visibility: hidden` because it's not accessible through keyboard.
  */
 
-.uk-visible-toggle:not(:hover):not(.uk-hover) .uk-invisible-hover:not(:focus) { opacity: 0 !important; }
+/* 1 + 2 */
+.uk-visible-toggle:not(:hover):not(:focus) .uk-invisible-hover:not(:focus-within) {
+    /* 3 */
+    opacity: 0 !important;
+}
+
+/*
+ * 1. Prevent tab highlighting on iOS.
+ */
+
+.uk-visible-toggle {
+    /* 1 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/*
+ * Remove outline for `tabindex`
+ */
+
+.uk-visible-toggle:focus { outline: none; }
 
 
 /* Touch
