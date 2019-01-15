@@ -1,5 +1,5 @@
 import Togglable from '../mixin/togglable';
-import {$$, addClass, attr, data, filter, getIndex, hasClass, index, isTouch, matches, queryAll, removeClass} from 'uikit-util';
+import {$$, addClass, attr, data, filter, getIndex, hasClass, index, isTouch, matches, queryAll, removeClass, toNodes, within} from 'uikit-util';
 
 export default {
 
@@ -49,7 +49,7 @@ export default {
 
             handler(e) {
                 e.preventDefault();
-                this.show(e.current);
+                this.show(toNodes(this.$el.children).filter(el => within(e.current, el))[0]);
             }
 
         },
@@ -99,7 +99,8 @@ export default {
     update() {
 
         this.connects.forEach(list => this.updateAria(list.children));
-        this.show(filter(this.toggles, `.${this.cls}`)[0] || this.toggles[this.active] || this.toggles[0]);
+        const {children} = this.$el;
+        this.show(filter(children, `.${this.cls}`)[0] || children[this.active] || children[0]);
 
     },
 
@@ -111,27 +112,29 @@ export default {
 
         show(item) {
 
-            const {length} = this.toggles;
+            const {children} = this.$el;
+            const {length} = children;
             const prev = this.index();
             const hasPrev = prev >= 0;
             const dir = item === 'previous' ? -1 : 1;
 
-            let toggle, next = getIndex(item, this.toggles, prev);
+            let toggle, active, next = getIndex(item, children, prev);
 
             for (let i = 0; i < length; i++, next = (next + dir + length) % length) {
-                if (!matches(this.toggles[next], '.uk-disabled, [disabled]')) {
+                if (!matches(this.toggles[next], '.uk-disabled *, .uk-disabled, [disabled]')) {
                     toggle = this.toggles[next];
+                    active = children[next];
                     break;
                 }
             }
 
-            if (!toggle || prev >= 0 && hasClass(toggle, this.cls) || prev === next) {
+            if (!active || prev >= 0 && hasClass(active, this.cls) || prev === next) {
                 return;
             }
 
-            removeClass(this.toggles, this.cls);
+            removeClass(children, this.cls);
+            addClass(active, this.cls);
             attr(this.toggles, 'aria-expanded', false);
-            addClass(toggle, this.cls);
             attr(toggle, 'aria-expanded', true);
 
             this.connects.forEach(list => {

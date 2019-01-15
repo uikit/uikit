@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix offcanvas overlay transition
+- Fix active state in Switcher component
 
 ## 3.0.1 (January 14, 2019)
 
