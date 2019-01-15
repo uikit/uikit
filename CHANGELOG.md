@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.0.2 (January 15, 2019)
+
+### Fixed
+
+- Fix offcanvas overlay transition
+- Fix active state in Switcher component
+- Fix background images on displays with higher devicePixelRatio in Img component
+
 ## 3.0.1 (January 14, 2019)
 
 ### Fixed

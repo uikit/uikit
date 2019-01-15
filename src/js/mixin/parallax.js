@@ -211,7 +211,7 @@ export default {
 
                     // transforms
                     case 'x':
-                    case 'y':
+                    case 'y': {
 
                         if (translated) {
                             break;
@@ -226,6 +226,7 @@ export default {
 
                         translated = css.transform += ` translate3d(${x}, ${y}, 0)`;
                         break;
+                    }
                     case 'rotate':
                         css.transform += ` rotate(${value}deg)`;
                         break;
@@ -242,7 +243,7 @@ export default {
                     // color
                     case 'color':
                     case 'backgroundColor':
-                    case 'borderColor':
+                    case 'borderColor': {
 
                         const [start, end, p] = getStep(steps, percent);
 
@@ -253,7 +254,7 @@ export default {
                             }).join(',')
                             })`;
                         break;
-
+                    }
                     // CSS Filter
                     case 'blur':
                         css.filter += ` blur(${value}px)`;
