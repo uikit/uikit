@@ -1,4 +1,4 @@
-/*! UIkit 3.0.1 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.0.2 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -471,7 +471,7 @@
 
         return isNode(element)
             ? element.parentNode && closestFn.call(element, selector)
-            : toNodes(element).map(function (element) { return element.parentNode && closestFn.call(element, selector); }).filter(Boolean);
+            : toNodes(element).map(function (element) { return closest(element, selector); }).filter(Boolean);
     }
 
     function parents(element, selector) {
@@ -4109,11 +4109,12 @@
                 var offset$$1 = ref.offset;
                 var axis = this.getAxis();
 
-                offset$$1 = isNumeric(offset$$1)
-                    ? offset$$1
-                    : (node = $(offset$$1))
+                if (!isNumeric(offset$$1)) {
+                    node = $(offset$$1);
+                    offset$$1 = node
                         ? offset(node)[axis === 'x' ? 'left' : 'top'] - offset(target)[axis === 'x' ? 'right' : 'bottom']
                         : 0;
+                }
 
                 var ref$1 = positionAt(
                     element,
@@ -5857,12 +5858,12 @@
                         : toFloat(value);
     }
 
-    var srcSetRe = /\s+\d+w\s*,/g;
+    var srcSetRe = /\s+\d+w\s*(?:,|$)/g;
     function getSourceSize(srcset, sizes) {
         var srcSize = toPx(sizesToPixel(sizes));
         var descriptors = (srcset.match(srcSetRe) || []).map(toFloat).sort(function (a, b) { return a - b; });
 
-        return descriptors.filter(function (size) { return size > srcSize; })[0] || descriptors[0] || '';
+        return descriptors.filter(function (size) { return size > srcSize; })[0] || descriptors.pop() || '';
     }
 
     var dimensions = {height: height, width: width};
@@ -6888,12 +6889,11 @@
                     css(document.documentElement, 'overflowY', this.overlay ? 'hidden' : '');
                     addClass(document.body, this.clsContainer, this.clsFlip);
                     css(this.$el, 'display', 'block');
-
-                    height(document.body); // force reflow
-
-                    addClass(document.body, this.clsContainerAnimation);
                     addClass(this.$el, this.clsOverlay);
                     addClass(this.panel, this.clsSidebarAnimation, this.mode !== 'reveal' ? this.clsMode : '');
+
+                    height(document.body); // force reflow
+                    addClass(document.body, this.clsContainerAnimation);
 
                     this.clsContainerAnimation && suppressUserScale();
 
@@ -7808,7 +7808,7 @@
 
                 handler: function(e) {
                     e.preventDefault();
-                    this.show(e.current);
+                    this.show(toNodes(this.$el.children).filter(function (el) { return within(e.current, el); })[0]);
                 }
 
             },
@@ -7860,7 +7860,9 @@
 
 
             this.connects.forEach(function (list) { return this$1.updateAria(list.children); });
-            this.show(filter(this.toggles, ("." + (this.cls)))[0] || this.toggles[this.active] || this.toggles[0]);
+            var ref = this.$el;
+            var children = ref.children;
+            this.show(filter(children, ("." + (this.cls)))[0] || children[this.active] || children[0]);
 
         },
 
@@ -7874,28 +7876,30 @@
                 var this$1 = this;
 
 
-                var ref = this.toggles;
-                var length = ref.length;
+                var ref = this.$el;
+                var children = ref.children;
+                var length = children.length;
                 var prev = this.index();
                 var hasPrev = prev >= 0;
                 var dir = item === 'previous' ? -1 : 1;
 
-                var toggle, next = getIndex(item, this.toggles, prev);
+                var toggle, active, next = getIndex(item, children, prev);
 
                 for (var i = 0; i < length; i++, next = (next + dir + length) % length) {
-                    if (!matches(this.toggles[next], '.uk-disabled, [disabled]')) {
+                    if (!matches(this.toggles[next], '.uk-disabled *, .uk-disabled, [disabled]')) {
                         toggle = this.toggles[next];
+                        active = children[next];
                         break;
                     }
                 }
 
-                if (!toggle || prev >= 0 && hasClass(toggle, this.cls) || prev === next) {
+                if (!active || prev >= 0 && hasClass(active, this.cls) || prev === next) {
                     return;
                 }
 
-                removeClass(this.toggles, this.cls);
+                removeClass(children, this.cls);
+                addClass(active, this.cls);
                 attr(this.toggles, 'aria-expanded', false);
-                addClass(toggle, this.cls);
                 attr(toggle, 'aria-expanded', true);
 
                 this.connects.forEach(function (list) {
@@ -8110,7 +8114,7 @@
 
     }
 
-    UIkit.version = '3.0.1';
+    UIkit.version = '3.0.2';
 
     core(UIkit);
 
@@ -10375,7 +10379,7 @@
 
                         // transforms
                         case 'x':
-                        case 'y':
+                        case 'y': {
 
                             if (translated) {
                                 break;
@@ -10387,11 +10391,12 @@
                                     ? getValue(props[dir].steps, percent, 1) + props[dir].unit
                                     : 0; }
                             );
-                    var x = ref$1[0];
-                    var y = ref$1[1];
+                            var x = ref$1[0];
+                            var y = ref$1[1];
 
                             translated = css$$1.transform += " translate3d(" + x + ", " + y + ", 0)";
                             break;
+                        }
                         case 'rotate':
                             css$$1.transform += " rotate(" + value + "deg)";
                             break;
@@ -10408,19 +10413,19 @@
                         // color
                         case 'color':
                         case 'backgroundColor':
-                        case 'borderColor':
+                        case 'borderColor': {
 
                             var ref$2 = getStep(steps, percent);
-                    var start = ref$2[0];
-                    var end = ref$2[1];
-                    var p = ref$2[2];
+                            var start = ref$2[0];
+                            var end = ref$2[1];
+                            var p = ref$2[2];
 
                             css$$1[prop] = "rgba(" + (start.map(function (value, i) {
                                     value = value + p * (end[i] - value);
                                     return i === 3 ? toFloat(value) : parseInt(value, 10);
                                 }).join(',')) + ")";
                             break;
-
+                        }
                         // CSS Filter
                         case 'blur':
                             css$$1.filter += " blur(" + value + "px)";
