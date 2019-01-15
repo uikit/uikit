@@ -130,7 +130,7 @@ export function closest(element, selector) {
 
     return isNode(element)
         ? element.parentNode && closestFn.call(element, selector)
-        : toNodes(element).map(element => element.parentNode && closestFn.call(element, selector)).filter(Boolean);
+        : toNodes(element).map(element => closest(element, selector)).filter(Boolean);
 }
 
 export function parents(element, selector) {
