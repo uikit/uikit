@@ -198,12 +198,12 @@ function toPx(value, property = 'width', element = window) {
                     : toFloat(value);
 }
 
-const srcSetRe = /\s+\d+w\s*,/g;
+const srcSetRe = /\s+\d+w\s*(?:,|$)/g;
 function getSourceSize(srcset, sizes) {
     const srcSize = toPx(sizesToPixel(sizes));
     const descriptors = (srcset.match(srcSetRe) || []).map(toFloat).sort((a, b) => a - b);
 
-    return descriptors.filter(size => size > srcSize)[0] || descriptors[0] || '';
+    return descriptors.filter(size => size > srcSize)[0] || descriptors.pop() || '';
 }
 
 const dimensions = {height, width};
