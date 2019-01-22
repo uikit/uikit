@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix touch event detection
+
 ## 3.0.2 (January 15, 2019)
 
 ### Fixed
