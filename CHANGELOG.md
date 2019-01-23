@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix touch event detection
+- Fix background images are shown too large on retina displays in Img component
 
 ## 3.0.2 (January 15, 2019)
 

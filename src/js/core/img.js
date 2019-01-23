@@ -203,7 +203,7 @@ function getSourceSize(srcset, sizes) {
     const srcSize = toPx(sizesToPixel(sizes));
     const descriptors = (srcset.match(srcSetRe) || []).map(toFloat).sort((a, b) => a - b);
 
-    return descriptors.filter(size => size > srcSize)[0] || descriptors.pop() || '';
+    return descriptors.filter(size => size >= srcSize)[0] || descriptors.pop() || '';
 }
 
 const dimensions = {height, width};
