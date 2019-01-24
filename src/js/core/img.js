@@ -169,7 +169,7 @@ function sizesToPixel(sizes) {
         }
     }
 
-    return matches;
+    return matches || '100vw';
 }
 
 const sizeRe = /\d+(?:\w+|%)/g;
@@ -186,7 +186,6 @@ function evaluateSize(size) {
 }
 
 function toPx(value, property = 'width', element = window) {
-    value = value || '100vw';
     return isNumeric(value)
         ? +value
         : endsWith(value, 'vw')
