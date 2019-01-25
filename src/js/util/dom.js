@@ -2,24 +2,17 @@ import {on} from './event';
 import {find, findAll} from './selector';
 import {clamp, isNumeric, isString, isUndefined, toNode, toNodes, toNumber} from './lang';
 
-export function isReady() {
-    return document.readyState === 'complete' || document.readyState !== 'loading' && !document.documentElement.doScroll;
-}
-
 export function ready(fn) {
 
-    if (isReady()) {
+    if (document.readyState !== 'loading') {
         fn();
         return;
     }
 
-    const handle = function () {
-        unbind1();
-        unbind2();
+    const unbind = on(document, 'DOMContentLoaded', function () {
+        unbind();
         fn();
-    };
-    const unbind1 = on(document, 'DOMContentLoaded', handle);
-    const unbind2 = on(window, 'load', handle);
+    });
 }
 
 export function index(element, ref) {

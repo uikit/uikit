@@ -2,6 +2,10 @@
 
 ## WIP
 
+## Removed
+
+- Remove `isReady` function
+
 ### Fixed
 
 - Fix touch event detection
