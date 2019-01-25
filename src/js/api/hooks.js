@@ -18,6 +18,7 @@ export default function (UIkit) {
         }
 
         this._data = {};
+        this._computeds = {};
         this._initProps();
 
         this._callHook('beforeConnect');
@@ -55,7 +56,7 @@ export default function (UIkit) {
         const type = e.type || e;
 
         if (includes(['update', 'resize'], type)) {
-            this._resetComputeds(true);
+            this._callWatches();
         }
 
         const updates = this.$options.update;

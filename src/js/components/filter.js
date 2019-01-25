@@ -1,5 +1,5 @@
 import Animate from '../mixin/animate';
-import {$$, $, append, assign, css, data, each, hasClass, includes, isUndefined, matches, parseOptions, toggleClass, toNodes, trigger} from 'uikit-util';
+import {$$, $, append, assign, css, data, each, hasClass, includes, isEqual, isUndefined, matches, parseOptions, toggleClass, toNodes, trigger} from 'uikit-util';
 
 export default {
 
@@ -22,12 +22,33 @@ export default {
 
     computed: {
 
-        toggles({attrItem}, $el) {
-            return $$(`[${this.attrItem}],[data-${this.attrItem}]`, $el);
+        toggles: {
+
+            get({attrItem}, $el) {
+                return $$(`[${this.attrItem}],[data-${this.attrItem}]`, $el);
+            },
+
+            watch() {
+                this.setState(this.getState(), false);
+            }
+
         },
 
         target({target}, $el) {
             return $(target, $el);
+        },
+
+        children: {
+
+            get() {
+                return toNodes(this.target.children);
+            },
+
+            watch(list, old) {
+                if (!isEqualList(list, old)) {
+                    this.updateState();
+                }
+            }
         }
 
     },
@@ -63,20 +84,6 @@ export default {
         this.toggles.forEach(el => toggleClass(el, this.cls, includes(actives, el)));
     },
 
-    update(data) {
-
-        const {toggles, children} = data;
-        if (isEqualList(toggles, this.toggles, false) && isEqualList(children, this.target.children, false)) {
-            return;
-        }
-
-        data.toggles = this.toggles;
-        data.children = this.target.children;
-
-        this.setState(this.getState(), false);
-
-    },
-
     methods: {
 
         apply(el) {
@@ -95,7 +102,7 @@ export default {
 
             trigger(this.$el, 'beforeFilter', [this, state]);
 
-            const children = toNodes(this.target.children);
+            const {children} = this;
 
             this.toggles.forEach(el => toggleClass(el, this.cls, matchFilter(el, this.attrItem, state)));
 
@@ -109,7 +116,7 @@ export default {
 
                 if (sort) {
                     const sorted = sortItems(children, sort, order);
-                    if (!isEqualList(sorted, children)) {
+                    if (!isEqual(sorted, children)) {
                         sorted.forEach(el => append(this.target, el));
                     }
                 }
@@ -123,6 +130,10 @@ export default {
                 trigger(this.$el, 'afterFilter', [this]);
             }
 
+        },
+
+        updateState() {
+            this.setState(this.getState(), false);
         }
 
     }
@@ -169,13 +180,9 @@ function matchFilter(el, attr, {filter: stateFilter = {'': ''}, sort: [stateSort
         && (isUndefined(sort) || stateSort === sort && stateOrder === order);
 }
 
-function isEqualList(listA, listB, strict = true) {
-
-    listA = toNodes(listA);
-    listB = toNodes(listB);
-
+function isEqualList(listA, listB) {
     return listA.length === listB.length
-        && listA.every((el, i) => strict ? el === listB[i] : ~listB.indexOf(el));
+        && listA.every(el => ~listB.indexOf(el));
 }
 
 function getSelector({filter}) {
@@ -185,5 +192,5 @@ function getSelector({filter}) {
 }
 
 function sortItems(nodes, sort, order) {
-    return toNodes(nodes).sort((a, b) => data(a, sort).localeCompare(data(b, sort), undefined, {numeric: true}) * (order === 'asc' || -1));
+    return assign([], nodes).sort((a, b) => data(a, sort).localeCompare(data(b, sort), undefined, {numeric: true}) * (order === 'asc' || -1));
 }
