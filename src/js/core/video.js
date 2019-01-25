@@ -38,9 +38,9 @@ export default {
 
     update: {
 
-        read(_, {type}) {
+        read() {
 
-            return !this.player || (type === 'scroll' || type === 'resize') && !this.inView
+            return !this.player
                 ? false
                 : {
                     visible: isVisible(this.$el) && css(this.$el, 'visibility') !== 'hidden',

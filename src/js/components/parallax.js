@@ -27,7 +27,7 @@ export default {
 
     update: {
 
-        read({percent, active}, {type}) {
+        read({percent, active}, type) {
 
             if (type !== 'scroll') {
                 percent = false;

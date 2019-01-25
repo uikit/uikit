@@ -124,7 +124,7 @@ export default {
 
         {
 
-            read({height}, {type}) {
+            read({height}, type) {
 
                 if (this.isActive && type !== 'update') {
 
@@ -174,25 +174,28 @@ export default {
 
         {
 
-            read(_, {scrollY = window.pageYOffset}) {
+            read({scroll = 0}) {
 
                 this.width = (isVisible(this.widthElement) ? this.widthElement : this.$el).offsetWidth;
 
+                this.scroll = window.pageYOffset;
+
                 return {
-                    scroll: this.scroll = scrollY,
+                    dir: scroll <= this.scroll ? 'down' : 'up',
+                    scroll: this.scroll,
                     visible: isVisible(this.$el),
                     top: offsetPosition(this.placeholder)[0]
                 };
             },
 
-            write(data, {dir} = {}) {
+            write(data, type) {
 
-                const {initTimestamp = 0, lastDir, lastScroll, scroll, top, visible} = data;
+                const {initTimestamp = 0, dir, lastDir, lastScroll, scroll, top, visible} = data;
                 const now = performance.now();
 
                 data.lastScroll = scroll;
 
-                if (scroll < 0 || scroll === lastScroll || !visible || this.disabled || this.showOnUp && !dir) {
+                if (scroll < 0 || scroll === lastScroll || !visible || this.disabled || this.showOnUp && type !== 'scroll') {
                     return;
                 }
 

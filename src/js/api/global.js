@@ -1,4 +1,4 @@
-import {$, apply, createEvent, isString, mergeOptions, toNode} from 'uikit-util';
+import {$, apply, isString, mergeOptions, toNode} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -42,7 +42,6 @@ export default function (UIkit) {
 
     UIkit.update = function (element, e) {
 
-        e = createEvent(e || 'update');
         element = element ? toNode(element) : document.body;
 
         path(element, element => update(element[DATA], e));

@@ -1,4 +1,4 @@
-import {css, on, ready, toMs} from 'uikit-util';
+import {css, fastdom, on, ready, toMs} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -6,15 +6,21 @@ export default function (UIkit) {
 
         UIkit.update();
 
-        let scroll = 0;
         let started = 0;
 
         on(window, 'load resize', e => UIkit.update(null, e));
+        // throttle `scroll` event (Safari triggers multiple `scroll` events per frame)
+        let pending;
         on(window, 'scroll', e => {
+
+            if (pending) {
+                return;
+            }
+            pending = true;
+            fastdom.write(() => pending = false);
+
             const {target} = e;
-            e.dir = scroll <= window.pageYOffset ? 'down' : 'up';
-            e.pageYOffset = scroll = window.pageYOffset;
-            UIkit.update(target.nodeType !== 1 ? document.body : target, e);
+            UIkit.update(target.nodeType !== 1 ? document.body : target, e.type);
         }, {passive: true, capture: true});
         on(document, 'loadedmetadata load', ({target}) => UIkit.update(target, 'load'), true);
 
