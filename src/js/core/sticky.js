@@ -168,7 +168,7 @@ export default {
 
             },
 
-            events: ['load', 'resize']
+            events: ['resize']
 
         },
 
@@ -250,7 +250,7 @@ export default {
 
             },
 
-            events: ['load', 'resize', 'scroll']
+            events: ['resize', 'scroll']
 
         },
 

@@ -2,6 +2,14 @@
 
 ## WIP
 
+### Added
+
+- Computeds can be watched now
+
+### Changed
+
+- Image Component uses IntersectionObserver now
+
 ## Removed
 
 - Remove `isReady` function

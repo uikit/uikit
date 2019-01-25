@@ -20,7 +20,7 @@ export default {
             this.$el.src = this.$el.src;
         },
 
-        events: ['scroll', 'load', 'resize']
+        events: ['scroll', 'resize']
     }
 
 };

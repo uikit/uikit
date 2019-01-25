@@ -87,7 +87,7 @@ export default {
 
             },
 
-            events: ['load', 'resize']
+            events: ['resize']
 
         },
 
@@ -117,7 +117,7 @@ export default {
 
             },
 
-            events: ['scroll', 'load', 'resize']
+            events: ['scroll', 'resize']
 
         }
 

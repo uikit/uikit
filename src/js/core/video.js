@@ -58,7 +58,7 @@ export default {
 
         },
 
-        events: ['load', 'resize', 'scroll']
+        events: ['resize', 'scroll']
 
     }
 

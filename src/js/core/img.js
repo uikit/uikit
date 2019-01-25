@@ -1,4 +1,4 @@
-import {createEvent, css, Dimensions, endsWith, escape, getImage, height, includes, isInView, isNumeric, isVisible, noop, queryAll, startsWith, toFloat, trigger, width} from 'uikit-util';
+import {createEvent, css, Dimensions, endsWith, escape, getImage, height, includes, IntersectionObserver, isNumeric, noop, queryAll, startsWith, toFloat, trigger, width} from 'uikit-util';
 
 export default {
 
@@ -46,8 +46,16 @@ export default {
             return isImg($el);
         },
 
-        target({target}) {
-            return [this.$el].concat(queryAll(target, this.$el));
+        target: {
+
+            get({target}) {
+                return [this.$el].concat(queryAll(target, this.$el));
+            },
+
+            watch() {
+                this.observe();
+            }
+
         },
 
         offsetTop({offsetTop}) {
@@ -68,50 +76,37 @@ export default {
             setSrcAttrs(this.$el, getPlaceholderImage(this.width, this.height, this.sizes));
         }
 
+        this.observer = new IntersectionObserver(this.load, {
+            rootMargin: `${this.offsetTop}px ${this.offsetLeft}px`,
+        });
+
+        requestAnimationFrame(this.observe);
+
+    },
+
+    disconnected() {
+        this.observer.disconnect();
     },
 
     update: {
 
-        read({update, image}) {
+        read({image}) {
 
-            if (!update) {
-                return;
+            if (!image && document.readyState === 'complete') {
+                this.load(this.observer.takeRecords());
             }
 
-            if (image || !this.target.some(el => isInView(el, this.offsetTop, this.offsetLeft))) {
-
-                if (!this.isImg && image) {
-                    image.then(img => img && img.currentSrc !== '' && setSrcAttrs(this.$el, currentSrc(img)));
-                }
-
-                return;
+            if (this.isImg) {
+                return false;
             }
 
-            if (this.$el.src && isVisible(this.$el) && !height(this.$el)) {
-                return;
-            }
-
-            return {
-                image: getImage(this.dataSrc, this.dataSrcset, this.sizes).then(img => {
-
-                    setSrcAttrs(this.$el, currentSrc(img), img.srcset, img.sizes);
-                    storage[this.cacheKey] = currentSrc(img);
-                    return img;
-
-                }, noop)
-            };
+            image && image.then(img => img && img.currentSrc !== '' && setSrcAttrs(this.$el, currentSrc(img)));
 
         },
 
         write(data) {
 
-            // Give placeholder images time to apply their dimensions
-            if (!data.update) {
-                this.$emit();
-                return data.update = true;
-            }
-
-            if (!this.isImg && this.dataSrcset && window.devicePixelRatio !== 1) {
+            if (this.dataSrcset && window.devicePixelRatio !== 1) {
 
                 const bgSize = css(this.$el, 'backgroundSize');
                 if (bgSize === 'auto' || toFloat(bgSize) === data.bgSize) {
@@ -123,7 +118,34 @@ export default {
 
         },
 
-        events: ['scroll', 'load', 'resize']
+        events: ['resize']
+
+    },
+
+    methods: {
+
+        load(entries) {
+
+            if (!entries.some(entry => entry.isIntersecting)) {
+                return;
+            }
+
+            this._data.image = getImage(this.dataSrc, this.dataSrcset, this.sizes).then(img => {
+
+                setSrcAttrs(this.$el, currentSrc(img), img.srcset, img.sizes);
+                storage[this.cacheKey] = currentSrc(img);
+                return img;
+
+            }, noop);
+
+            this.observer.disconnect();
+        },
+
+        observe() {
+            if (!this._data.image && this._connected) {
+                this.target.forEach(el => this.observer.observe(el));
+            }
+        }
 
     }
 
