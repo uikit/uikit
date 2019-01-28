@@ -5,6 +5,7 @@
 ### Added
 
 - Computeds can be watched now
+- Parallax supports <SVG> and its child elements now
 
 ### Changed
 

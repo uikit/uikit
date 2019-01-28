@@ -20,7 +20,7 @@ export default {
     computed: {
 
         target({target}, $el) {
-            return target && query(target, $el) || $el;
+            return getOffsetElement(target && query(target, $el) || $el);
         }
 
     },
@@ -64,4 +64,13 @@ export default {
 
 function ease(percent, easing) {
     return clamp(percent * (1 - (easing - easing * percent)));
+}
+
+// SVG elements do not inherit from HTMLElement
+function getOffsetElement(el) {
+    return el
+        ? 'offsetTop' in el
+            ? el
+            : getOffsetElement(el.parentNode)
+        : document.body;
 }
