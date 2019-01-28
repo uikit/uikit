@@ -43,7 +43,7 @@ export const IntersectionObserver = 'IntersectionObserver' in window
 
                 const inView = isInView(entry.target, this.offsetTop, this.offsetLeft);
 
-                if (inView ^ entry.isIntersecting) {
+                if (entry.isIntersecting === null || inView ^ entry.isIntersecting) {
                     entry.isIntersecting = inView;
                     return true;
                 }
@@ -54,7 +54,7 @@ export const IntersectionObserver = 'IntersectionObserver' in window
         observe(target) {
             this.targets.push({
                 target,
-                isIntersecting: false
+                isIntersecting: null
             });
             this.apply();
         }
