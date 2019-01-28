@@ -13,6 +13,7 @@
 ## Removed
 
 - Remove `isReady` function
+- Form Custom component no longer sets `uk-hover` and `uk-focus` classes
 
 ### Fixed
 
