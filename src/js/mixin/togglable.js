@@ -150,16 +150,18 @@ export default {
                 return;
             }
 
+            toggled = Boolean(toggled);
+
             let changed;
             if (this.cls) {
-                changed = includes(this.cls, ' ') || Boolean(toggled) !== hasClass(el, this.cls);
+                changed = includes(this.cls, ' ') || toggled !== hasClass(el, this.cls);
                 changed && toggleClass(el, this.cls, includes(this.cls, ' ') ? undefined : toggled);
             } else {
-                changed = Boolean(toggled) === hasAttr(el, 'hidden');
+                changed = toggled === hasAttr(el, 'hidden');
                 changed && attr(el, 'hidden', !toggled ? '' : null);
             }
 
-            $$('[autofocus]', el).some(el => isVisible(el) && (el.focus() || true));
+            $$('[autofocus]', el).some(el => isVisible(el) ? el.focus() || true : el.blur());
 
             this.updateAria(el);
             changed && this.$update(el);

@@ -20,6 +20,7 @@
 - Fix touch event detection
 - Fix background images are shown too large on retina displays in Img component
 - Fix correctly calculate offsetLeft in Img component
+- Fix autofocus elements not blurring within Toggable on hide
 
 ## 3.0.2 (January 15, 2019)
 
