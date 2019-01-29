@@ -109,7 +109,7 @@ export default {
             if (this.dataSrcset && window.devicePixelRatio !== 1) {
 
                 const bgSize = css(this.$el, 'backgroundSize');
-                if (bgSize === 'auto' || toFloat(bgSize) === data.bgSize) {
+                if (bgSize.match(/^(auto\s?)+$/) || toFloat(bgSize) === data.bgSize) {
                     data.bgSize = getSourceSize(this.dataSrcset, this.sizes);
                     css(this.$el, 'backgroundSize', `${data.bgSize}px`);
                 }
