@@ -33,7 +33,7 @@ const components = glob.sync('src/js/components/*.js').reduce((components, file)
     const name = path.basename(file, '.js');
 
     components[name] = () => {
-        return util.compile( __dirname + '/componentWrapper.js', `dist/${file.substring(4, file.length - 3)}`, {
+        return util.compile(`${__dirname}/componentWrapper.js`, `dist/${file.substring(4, file.length - 3)}`, {
             name,
             minify,
             external: ['uikit', 'uikit-util'],
