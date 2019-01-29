@@ -160,9 +160,9 @@ function install(UIkit) {
 
         if (UIkit._initialized) {
             apply(document.body, el =>
-                each(UIkit.getComponents(el), cmp =>
-                    cmp.$options.isIcon && cmp.icon in added && cmp.$reset()
-                )
+                each(UIkit.getComponents(el), cmp => {
+                    cmp.$options.isIcon && cmp.icon in added && cmp.$reset();
+                })
             );
         }
     };

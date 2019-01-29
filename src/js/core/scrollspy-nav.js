@@ -24,8 +24,8 @@ export default {
             return $$('a[href^="#"]', $el).filter(el => el.hash);
         },
 
-        elements() {
-            return this.closest ? closest(this.links, this.closest) : this.links;
+        elements({closest: selector}) {
+            return closest(this.links, selector || '*');
         },
 
         targets() {
@@ -94,7 +94,7 @@ export default {
 
             },
 
-            events: ['scroll', 'load', 'resize']
+            events: ['scroll', 'resize']
 
         }
 

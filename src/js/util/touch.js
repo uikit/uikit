@@ -16,7 +16,7 @@ on(document, pointerDown, e => {
     touch.x = x;
     touch.y = y;
 
-    touching = true;
+    touching = isTouch(e);
 
 });
 

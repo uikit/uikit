@@ -176,6 +176,14 @@ export function toMs(time) {
             : toFloat(time) * 1000;
 }
 
+export function isEqual(value, other) {
+    return value === other
+        || isObject(value)
+        && isObject(other)
+        && Object.keys(value).length === Object.keys(other).length
+        && each(value, (val, key) => val === other[key]);
+}
+
 export function swap(value, a, b) {
     return value.replace(new RegExp(`${a}|${b}`, 'mg'), match => {
         return match === a ? b : a;
@@ -199,8 +207,11 @@ export const assign = Object.assign || function (target, ...args) {
 
 export function each(obj, cb) {
     for (const key in obj) {
-        cb.call(obj[key], obj[key], key);
+        if (false === cb(obj[key], key)) {
+            return false;
+        }
     }
+    return true;
 }
 
 export function sortBy(collection, prop) {

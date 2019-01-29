@@ -11,8 +11,16 @@ export default {
 
     computed: {
 
-        toggles({toggle}, $el) {
-            return $$(toggle, $el);
+        toggles: {
+
+            get({toggle}, $el) {
+                return $$(toggle, $el);
+            },
+
+            watch() {
+                this.hide();
+            }
+
         }
 
     },
@@ -39,19 +47,6 @@ export default {
         }
 
     ],
-
-    update(data) {
-
-        data.toggles = this.panel && data.toggles || this.toggles;
-
-        if (!this.panel || isEqualList(data.toggles, this.toggles)) {
-            return;
-        }
-
-        data.toggles = this.toggles;
-        this.panel.hide();
-
-    },
 
     methods: {
 
@@ -80,11 +75,6 @@ export default {
     }
 
 };
-
-function isEqualList(listA, listB) {
-    return listA.length === listB.length
-        && listA.every((el, i) => el === listB[i]);
-}
 
 function install(UIkit, Lightbox) {
 

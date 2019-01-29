@@ -1,23 +1,29 @@
-import {css, on, ready, toMs} from 'uikit-util';
+import {css, fastdom, on, ready, toMs} from 'uikit-util';
 
 export default function (UIkit) {
 
     ready(() => {
 
         UIkit.update();
+        on(window, 'load resize', () => UIkit.update(null, 'resize'));
+        on(document, 'loadedmetadata load', ({target}) => UIkit.update(target, 'resize'), true);
 
-        let scroll = 0;
-        let started = 0;
-
-        on(window, 'load resize', e => UIkit.update(null, e));
+        // throttle `scroll` event (Safari triggers multiple `scroll` events per frame)
+        let pending;
         on(window, 'scroll', e => {
-            const {target} = e;
-            e.dir = scroll <= window.pageYOffset ? 'down' : 'up';
-            e.pageYOffset = scroll = window.pageYOffset;
-            UIkit.update(target.nodeType !== 1 ? document.body : target, e);
-        }, {passive: true, capture: true});
-        on(document, 'loadedmetadata load', ({target}) => UIkit.update(target, 'load'), true);
 
+            if (pending) {
+                return;
+            }
+            pending = true;
+            fastdom.write(() => pending = false);
+
+            const {target} = e;
+            UIkit.update(target.nodeType !== 1 ? document.body : target, e.type);
+
+        }, {passive: true, capture: true});
+
+        let started = 0;
         on(document, 'animationstart', ({target}) => {
             if ((css(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
 

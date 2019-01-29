@@ -47,7 +47,7 @@ export default {
             css(this.list, 'minHeight', height);
         },
 
-        events: ['load', 'resize']
+        events: ['resize']
 
     }
 

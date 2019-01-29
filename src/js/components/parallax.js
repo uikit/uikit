@@ -20,14 +20,14 @@ export default {
     computed: {
 
         target({target}, $el) {
-            return target && query(target, $el) || $el;
+            return getOffsetElement(target && query(target, $el) || $el);
         }
 
     },
 
     update: {
 
-        read({percent, active}, {type}) {
+        read({percent, active}, type) {
 
             if (type !== 'scroll') {
                 percent = false;
@@ -57,11 +57,20 @@ export default {
 
         },
 
-        events: ['scroll', 'load', 'resize']
+        events: ['scroll', 'resize']
     }
 
 };
 
 function ease(percent, easing) {
     return clamp(percent * (1 - (easing - easing * percent)));
+}
+
+// SVG elements do not inherit from HTMLElement
+function getOffsetElement(el) {
+    return el
+        ? 'offsetTop' in el
+            ? el
+            : getOffsetElement(el.parentNode)
+        : document.body;
 }

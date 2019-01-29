@@ -1,5 +1,28 @@
 # Changelog
 
+## 3.0.3 (January 29, 2019)
+
+### Added
+
+- Computeds can be watched now
+- Parallax supports <SVG> and its child elements now
+
+### Changed
+
+- Image Component uses IntersectionObserver now
+
+## Removed
+
+- Remove `isReady` function
+- Form Custom component no longer sets `uk-hover` and `uk-focus` classes
+
+### Fixed
+
+- Fix touch event detection
+- Fix background images are shown too large on retina displays in Img component
+- Fix correctly calculate offsetLeft in Img component
+- Fix autofocus elements not blurring within Toggable on hide
+
 ## 3.0.2 (January 15, 2019)
 
 ### Fixed

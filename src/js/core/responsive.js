@@ -23,7 +23,7 @@ export default {
             }, dim).height);
         },
 
-        events: ['load', 'resize']
+        events: ['resize']
 
     }
 

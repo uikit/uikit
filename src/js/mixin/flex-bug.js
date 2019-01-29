@@ -26,7 +26,7 @@ export default isIE ? {
 
             order: -5,
 
-            events: ['load', 'resize']
+            events: ['resize']
 
         },
 
@@ -43,7 +43,7 @@ export default isIE ? {
 
             order: 5,
 
-            events: ['load', 'resize']
+            events: ['resize']
 
         }
 

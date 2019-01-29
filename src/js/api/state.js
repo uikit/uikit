@@ -1,4 +1,4 @@
-import {assign, bind, camelize, data as getData, hasOwn, hyphenate, isArray, isBoolean, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toList, toNumber} from 'uikit-util';
+import {assign, bind, camelize, data as getData, hasOwn, hyphenate, isArray, isBoolean, isEqual, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toList, toNumber} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -51,7 +51,7 @@ export default function (UIkit) {
 
         const {computed} = this.$options;
 
-        this._resetComputeds();
+        this._computeds = {};
 
         if (computed) {
             for (const key in computed) {
@@ -60,15 +60,26 @@ export default function (UIkit) {
         }
     };
 
-    UIkit.prototype._resetComputeds = function () {
-        this._computeds = {};
+    UIkit.prototype._callWatches = function () {
+
+        const {$options: {computed}, _computeds} = this;
+
+        for (const key in _computeds) {
+
+            const value = _computeds[key];
+            delete _computeds[key];
+
+            if (computed[key].watch && !isEqual(value, this[key])) {
+                computed[key].watch.call(this, this[key], value);
+            }
+
+        }
+
     };
 
     UIkit.prototype._initProps = function (props) {
 
         let key;
-
-        this._resetComputeds();
 
         props = props || getProps(this.$options, this.$name);
 

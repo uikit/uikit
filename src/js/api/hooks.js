@@ -1,4 +1,4 @@
-import {assign, createEvent, fastdom, includes, isPlainObject} from 'uikit-util';
+import {assign, fastdom, includes, isPlainObject} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -18,6 +18,7 @@ export default function (UIkit) {
         }
 
         this._data = {};
+        this._computeds = {};
         this._initProps();
 
         this._callHook('beforeConnect');
@@ -50,14 +51,12 @@ export default function (UIkit) {
 
     };
 
-    UIkit.prototype._callUpdate = function (e) {
+    UIkit.prototype._callUpdate = function (e = 'update') {
 
-        e = createEvent(e || 'update');
+        const type = e.type || e;
 
-        const {type} = e;
-
-        if (includes(['update', 'load', 'resize'], type)) {
-            this._resetComputeds();
+        if (includes(['update', 'resize'], type)) {
+            this._callWatches();
         }
 
         const updates = this.$options.update;
@@ -76,7 +75,7 @@ export default function (UIkit) {
             if (read && !includes(fastdom.reads, reads[i])) {
                 reads[i] = fastdom.read(() => {
 
-                    const result = this._connected && read.call(this, this._data, e);
+                    const result = this._connected && read.call(this, this._data, type);
 
                     if (result === false && write) {
                         fastdom.clear(writes[i]);
@@ -87,7 +86,7 @@ export default function (UIkit) {
             }
 
             if (write && !includes(fastdom.writes, writes[i])) {
-                writes[i] = fastdom.write(() => this._connected && write.call(this, this._data, e));
+                writes[i] = fastdom.write(() => this._connected && write.call(this, this._data, type));
             }
 
         });

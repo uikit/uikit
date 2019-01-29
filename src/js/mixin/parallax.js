@@ -187,7 +187,7 @@ export default {
 
         },
 
-        events: ['load', 'resize']
+        events: ['resize']
 
     },
 
