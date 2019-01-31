@@ -58,7 +58,6 @@
 
 .uk-transition-toggle:focus { outline: none; }
 
-
 /* Transitions
  ========================================================================== */
 
@@ -143,15 +142,15 @@
  * Stroke
  */
 
-.uk-transition-stroke { transition-duration: 3s; }
+.uk-transition-stroke {
+    transition-duration: 1s;
+    opacity: 1;
+}
 
 /* Show */
-.uk-transition-stroke:hover,
-.uk-transition-stroke:focus,
-.uk-transition-stroke.uk-transition-active {
-    opacity: 1;
-    stroke-dashoffset: 0 !important;
-}
+.uk-transition-toggle:hover .uk-transition-stroke,
+.uk-transition-toggle:focus .uk-transition-stroke,
+.uk-transition-toggle.uk-transition-active .uk-transition-stroke[style*='stroke-dash'] { stroke-dashoffset: 0 !important; }
 
 
 /* Opacity modifier
