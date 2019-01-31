@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix filter component initial active state
+
 ## 3.0.3 (January 29, 2019)
 
 ### Added

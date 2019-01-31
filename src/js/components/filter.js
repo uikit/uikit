@@ -1,5 +1,5 @@
 import Animate from '../mixin/animate';
-import {$$, $, append, assign, css, data, each, hasClass, includes, isEqual, isUndefined, matches, parseOptions, toggleClass, toNodes, trigger} from 'uikit-util';
+import {$$, $, append, assign, css, data, each, fastdom, hasClass, includes, isEqual, isUndefined, matches, parseOptions, toggleClass, toNodes, trigger} from 'uikit-util';
 
 export default {
 
@@ -29,7 +29,7 @@ export default {
             },
 
             watch() {
-                this.setState(this.getState(), false);
+                this.updateState();
             }
 
         },
@@ -75,6 +75,8 @@ export default {
     ],
 
     connected() {
+
+        this.updateState();
 
         if (this.selActive === false) {
             return;
@@ -133,7 +135,7 @@ export default {
         },
 
         updateState() {
-            this.setState(this.getState(), false);
+            fastdom.write(() => this.setState(this.getState(), false));
         }
 
     }
