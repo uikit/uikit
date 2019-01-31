@@ -37,7 +37,7 @@ export function positionAt(element, target, elAttach, targetAttach, elOffset, ta
 
     if (flip) {
 
-        const boundaries = [getDimensions(window(element))];
+        const boundaries = [getDimensions(getWindow(element))];
 
         if (boundary) {
             boundaries.unshift(getDimensions(boundary));
@@ -135,7 +135,7 @@ function getDimensions(element) {
 
     element = toNode(element);
 
-    const {pageYOffset: top, pageXOffset: left} = window(element);
+    const {pageYOffset: top, pageXOffset: left} = getWindow(element);
 
     if (isWindow(element)) {
 
@@ -183,7 +183,7 @@ function getDimensions(element) {
 export function position(element) {
     element = toNode(element);
 
-    const parent = element.offsetParent || docEl(element);
+    const parent = element.offsetParent || getDocEl(element);
     const parentOffset = offset(parent);
     const {top, left} = ['top', 'left'].reduce((props, prop) => {
         const propName = ucfirst(prop);
@@ -307,7 +307,7 @@ export function isInView(element, topOffset = 0, leftOffset = 0) {
 
     element = toNode(element);
 
-    const win = window(element);
+    const win = getWindow(element);
     const client = element.getBoundingClientRect();
     const bounding = {
         top: -topOffset,
@@ -328,8 +328,8 @@ export function scrolledOver(element, heightOffset = 0) {
 
     element = toNode(element);
 
-    const win = window(element);
-    const doc = document(element);
+    const win = getWindow(element);
+    const doc = getDocument(element);
     const elHeight = element.offsetHeight + heightOffset;
     const [top] = offsetPosition(element);
     const vp = height(win);
@@ -343,7 +343,7 @@ export function scrollTop(element, top) {
     element = toNode(element);
 
     if (isWindow(element) || isDocument(element)) {
-        const {scrollTo, pageXOffset} = window(element);
+        const {scrollTo, pageXOffset} = getWindow(element);
         scrollTo(pageXOffset, top);
     } else {
         element.scrollTop = top;
@@ -359,7 +359,7 @@ export function offsetPosition(element) {
         offset[1] += element.offsetLeft;
 
         if (css(element, 'position') === 'fixed') {
-            const win = window(element);
+            const win = getWindow(element);
             offset[0] += win.pageYOffset;
             offset[1] += win.pageXOffset;
             return offset;
@@ -374,9 +374,9 @@ export function toPx(value, property = 'width', element = window) {
     return isNumeric(value)
         ? +value
         : endsWith(value, 'vw')
-            ? percent(window(element), 'width', value)
+            ? percent(getWindow(element), 'width', value)
             : endsWith(value, 'vh')
-                ? percent(window(element), 'height', value)
+                ? percent(getWindow(element), 'height', value)
                 : endsWith(value, '%')
                     ? percent(element, property, value)
                     : toFloat(value);
@@ -386,14 +386,14 @@ function percent(element, property, value) {
     return dimension(property)(element) * toFloat(value) / 100;
 }
 
-function window(element) {
-    return isWindow(element) ? element : document(element).defaultView;
+function getWindow(element) {
+    return isWindow(element) ? element : getDocument(element).defaultView;
 }
 
-function document(element) {
+function getDocument(element) {
     return toNode(element).ownerDocument;
 }
 
-function docEl(element) {
-    return document(element).documentElement;
+function getDocEl(element) {
+    return getDocument(element).documentElement;
 }
