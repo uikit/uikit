@@ -1,7 +1,7 @@
 import {css} from './style';
 import {attr} from './attr';
 import {isVisible} from './filter';
-import {clamp, each, endsWith, includes, intersectRect, isDocument, isUndefined, isWindow, pointInRect, toFloat, toNode, ucfirst} from './lang';
+import {clamp, each, endsWith, includes, intersectRect, isDocument, isNumeric, isUndefined, isWindow, pointInRect, toFloat, toNode, ucfirst} from './lang';
 
 const dirs = {
     width: ['x', 'left', 'right'],
@@ -368,6 +368,22 @@ export function offsetPosition(element) {
     } while ((element = element.offsetParent));
 
     return offset;
+}
+
+export function toPx(value, property = 'width', element = window) {
+    return isNumeric(value)
+        ? +value
+        : endsWith(value, 'vw')
+            ? percent(window(element), 'width', value)
+            : endsWith(value, 'vh')
+                ? percent(window(element), 'height', value)
+                : endsWith(value, '%')
+                    ? percent(element, property, value)
+                    : toFloat(value);
+}
+
+function percent(element, property, value) {
+    return dimension(property)(element) * toFloat(value) / 100;
 }
 
 function window(element) {

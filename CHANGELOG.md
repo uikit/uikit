@@ -5,6 +5,8 @@
 ### Added
 
 - Add `strokeAnimation` option to Svg component
+- Add `stroke` option to Parallax component
+- Parallax component supports more units
 
 ### Fixed
 
