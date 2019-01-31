@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add `strokeAnimation` option to Svg component
+
 ### Fixed
 
 - Fix filter component initial active state

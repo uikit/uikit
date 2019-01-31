@@ -14,6 +14,8 @@ const cssNumber = {
     'opacity': true,
     'order': true,
     'orphans': true,
+    'stroke-dasharray': true,
+    'stroke-dashoffset': true,
     'widows': true,
     'z-index': true,
     'zoom': true

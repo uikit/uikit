@@ -1,6 +1,4 @@
-import {$, after, ajax, append, attr, includes, isString, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
-
-const svgs = {};
+import {$, $$, addClass, after, ajax, append, attr, css, includes, isIE, isString, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
 
 export default {
 
@@ -14,14 +12,16 @@ export default {
         width: Number,
         height: Number,
         ratio: Number,
-        'class': String
+        'class': String,
+        strokeAnimation: Boolean
     },
 
     data: {
         ratio: 1,
         id: false,
         exclude: ['ratio', 'src', 'icon'],
-        'class': ''
+        'class': '',
+        strokeAnimation: false
     },
 
     connected() {
@@ -37,25 +37,48 @@ export default {
             }
         }
 
-        this.svg = this.getSvg().then(svg => {
+        this.svg = this.getSvg().then(el => {
+            this.applyAttributes(el);
+            this.svgEl = insertSVG(el, this.$el);
 
-            let el;
+            if (this.strokeAnimation) {
+                applyAnimation(this.svgEl);
+            }
 
-            if (isString(svg)) {
+            return this.svgEl;
+        }, noop);
 
-                if (this.icon && includes(svg, '<symbol')) {
-                    svg = parseSymbols(svg, this.icon) || svg;
+    },
+
+    disconnected() {
+
+        if (isVoidElement(this.$el)) {
+            attr(this.$el, {hidden: null, id: this.id || null});
+        }
+
+        if (this.svg) {
+            this.svg.then(svg => (!this._connected || svg !== this.svgEl) && remove(svg), noop);
+        }
+
+        this.svg = this.svgEl = null;
+
+    },
+
+    methods: {
+
+        getSvg() {
+            return loadSVG(this.src).then(svg => {
+                const el = parseSVG(svg, this.icon);
+
+                if (!el) {
+                    return Promise.reject('SVG not found.');
                 }
 
-                el = $(svg.substr(svg.indexOf('<svg')));
+                return el;
+            });
+        },
 
-            } else {
-                el = svg.cloneNode(true);
-            }
-
-            if (!el) {
-                return Promise.reject('SVG not found.');
-            }
+        applyAttributes(el) {
 
             let dimensions = attr(el, 'viewBox');
 
@@ -86,88 +109,57 @@ export default {
                 removeAttr(el, 'width');
             }
 
-            const src = this.icon || this.src;
-            attr(el, 'data-svg', src);
-
-            const root = this.$el;
-            if (isVoidElement(root) || root.tagName === 'CANVAS') {
-
-                attr(root, {hidden: true, id: null});
-
-                const next = root.nextElementSibling;
-                if (src === attr(next, 'data-svg')) {
-                    el = next;
-                } else {
-                    after(root, el);
-                }
-
-            } else {
-
-                const last = root.lastElementChild;
-                if (src === attr(last, 'data-svg')) {
-                    el = last;
-                } else {
-                    append(root, el);
-                }
-
-            }
-
-            this.svgEl = el;
-
-            return el;
-
-        }, noop);
-
-    },
-
-    disconnected() {
-
-        if (isVoidElement(this.$el)) {
-            attr(this.$el, {hidden: null, id: this.id || null});
-        }
-
-        if (this.svg) {
-            this.svg.then(svg => (!this._connected || svg !== this.svgEl) && remove(svg), noop);
-        }
-
-        this.svg = this.svgEl = null;
-
-    },
-
-    methods: {
-
-        getSvg() {
-
-            if (!this.src) {
-                return Promise.reject();
-            }
-
-            if (svgs[this.src]) {
-                return svgs[this.src];
-            }
-
-            svgs[this.src] = new Promise((resolve, reject) => {
-
-                if (startsWith(this.src, 'data:')) {
-                    resolve(decodeURIComponent(this.src.split(',')[1]));
-                } else {
-
-                    ajax(this.src).then(
-                        xhr => resolve(xhr.response),
-                        () => reject('SVG not found.')
-                    );
-
-                }
-
-            });
-
-            return svgs[this.src];
+            attr(el, 'data-svg', this.icon || this.src);
 
         }
 
     }
 
 };
+
+
+const svgs = {};
+
+function loadSVG(src) {
+
+    if (svgs[src]) {
+        return svgs[src];
+    }
+
+    return svgs[src] = new Promise((resolve, reject) => {
+
+        if (!src) {
+            reject();
+            return;
+        }
+
+        if (startsWith(src, 'data:')) {
+            resolve(decodeURIComponent(src.split(',')[1]));
+        } else {
+
+            ajax(src).then(
+                xhr => resolve(xhr.response),
+                () => reject('SVG not found.')
+            );
+
+        }
+
+    });
+}
+
+function parseSVG(svg, icon) {
+    if (isString(svg)) {
+
+        if (icon && includes(svg, '<symbol')) {
+            svg = parseSymbols(svg, icon) || svg;
+        }
+
+        return $(svg.substr(svg.indexOf('<svg')));
+
+    } else {
+        return svg;
+    }
+}
 
 const symbolRe = /<symbol(.*?id=(['"])(.*?)\2[^]*?<\/)symbol>/g;
 const symbols = {};
@@ -188,4 +180,49 @@ function parseSymbols(svg, icon) {
     }
 
     return symbols[svg][icon];
+}
+
+function applyAnimation(el) {
+    const length = getMaxPathLength(el);
+
+    if (!length || isIE) {
+        return;
+    }
+
+    css(el, {
+        strokeDasharray: length,
+        strokeDashoffset: length
+    });
+
+    requestAnimationFrame(() => addClass(el, 'uk-transition-stroke'));
+}
+
+export function getMaxPathLength(el) {
+    return Math.ceil($$('*', el).concat(el).reduce((length, stroke) => stroke.getTotalLength
+        ? Math.max(length, stroke.getTotalLength())
+        : length, 0));
+}
+
+function insertSVG(el, root) {
+    if (isVoidElement(root) || root.tagName === 'CANVAS') {
+
+        attr(root, {hidden: true, id: null});
+
+        const next = root.nextElementSibling;
+        return equals(el, next)
+            ? next
+            : after(root, el);
+
+    } else {
+
+        const last = root.lastElementChild;
+        return equals(el, last)
+            ? last
+            : append(root, el);
+
+    }
+}
+
+function equals(el, other) {
+    return attr(el, 'data-svg') === attr(other, 'data-svg');
 }

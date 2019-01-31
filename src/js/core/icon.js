@@ -178,7 +178,7 @@ function getIcon(icon) {
         parsed[icon] = $(icons[icon].trim());
     }
 
-    return parsed[icon];
+    return parsed[icon].cloneNode(true);
 }
 
 function applyRtl(icon) {
