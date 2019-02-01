@@ -167,18 +167,14 @@ export default {
                 const attr = prop === 'bgy' ? 'height' : 'width';
                 const span = dim[attr] - dimEl[attr];
 
-                if (!bgPos.match(/%$|0px/)) {
-                    return;
-                }
-
                 if (span < diff) {
                     dimEl[attr] = dim[attr] + diff - span;
                 } else if (span > diff) {
 
-                    const bgPosFloat = parseFloat(bgPos);
+                    const posPercentage = dimEl[attr] / toPx(bgPos, attr, this.$el);
 
-                    if (bgPosFloat) {
-                        this.props[prop].steps = steps.map(step => step - (span - diff) / (100 / bgPosFloat));
+                    if (posPercentage) {
+                        this.props[prop].steps = steps.map(step => step - (span - diff) / posPercentage);
                     }
                 }
 
@@ -255,7 +251,6 @@ export default {
                     // bg image
                     case 'bgy':
                     case 'bgx':
-                        unit = unit || 'px';
                         css[`background-position-${prop[2]}`] = `calc(${pos} + ${value}px)`;
                         break;
 

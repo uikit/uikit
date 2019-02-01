@@ -383,7 +383,7 @@ export function toPx(value, property = 'width', element = window) {
 }
 
 function percent(element, property, value) {
-    return dimension(property)(element) * toFloat(value) / 100;
+    return getDimensions(element)[property] * toFloat(value) / 100;
 }
 
 function getWindow(element) {
