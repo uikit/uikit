@@ -1,4 +1,4 @@
-import {$, $$, addClass, after, ajax, append, attr, css, includes, isIE, isString, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
+import {$, $$, addClass, after, ajax, append, attr, css, includes, isIE, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
 
 export default {
 
@@ -148,17 +148,12 @@ function loadSVG(src) {
 }
 
 function parseSVG(svg, icon) {
-    if (isString(svg)) {
 
-        if (icon && includes(svg, '<symbol')) {
-            svg = parseSymbols(svg, icon) || svg;
-        }
-
-        return $(svg.substr(svg.indexOf('<svg')));
-
-    } else {
-        return svg;
+    if (icon && includes(svg, '<symbol')) {
+        svg = parseSymbols(svg, icon) || svg;
     }
+
+    return $(svg.substr(svg.indexOf('<svg')));
 }
 
 const symbolRe = /<symbol(.*?id=(['"])(.*?)\2[^]*?<\/)symbol>/g;
