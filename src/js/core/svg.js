@@ -1,4 +1,4 @@
-import {$, $$, addClass, after, ajax, append, attr, css, includes, isIE, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
+import {$, $$, addClass, after, ajax, append, attr, css, includes, insertStyleRule, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
 
 export default {
 
@@ -97,6 +97,10 @@ export default {
                 }
             }
 
+            for (const key in this.$el.dataset) {
+                el.dataset[key] = this.$el.dataset[key];
+            }
+
             if (!this.id) {
                 removeAttr(el, 'id');
             }
@@ -116,7 +120,6 @@ export default {
     }
 
 };
-
 
 const svgs = {};
 
@@ -178,24 +181,32 @@ function parseSymbols(svg, icon) {
 }
 
 function applyAnimation(el) {
+
     const length = getMaxPathLength(el);
 
-    if (!length || isIE) {
+    if (!length) {
         return;
     }
 
-    css(el, {
-        strokeDasharray: length,
-        strokeDashoffset: length
-    });
+    addClass(el, 'uk-animation-stroke');
+    css(el, 'animationName', `uk-stroke-${length}`);
 
-    requestAnimationFrame(() => addClass(el, 'uk-transition-stroke'));
+    insertStyleRule(`@keyframes uk-stroke-${length} {
+        0% { 
+            stroke-dasharray: ${length};
+            stroke-dashoffset: ${length}; 
+        }
+        100% { 
+            stroke-dasharray: ${length};
+            stroke-dashoffset: 0;            
+        }
+    }`);
 }
 
 export function getMaxPathLength(el) {
-    return Math.ceil($$('*', el).concat(el).reduce((length, stroke) => stroke.getTotalLength
-        ? Math.max(length, stroke.getTotalLength())
-        : length, 0));
+    return Math.ceil(Math.max(...$$('[stroke]', el).map(stroke =>
+        stroke.getTotalLength() || 0
+    )));
 }
 
 function insertSVG(el, root) {
