@@ -10,7 +10,6 @@
 //                  `uk-transition-slide-bottom-*`
 //                  `uk-transition-slide-left-*`
 //                  `uk-transition-slide-right-*`
-//                  `uk-transition-stroke`
 //                  `uk-transition-opaque`
 //                  `uk-transition-slow`
 //
@@ -73,8 +72,7 @@
 
 .uk-transition-fade,
 [class*='uk-transition-scale'],
-[class*='uk-transition-slide'],
-.uk-transition-stroke {
+[class*='uk-transition-slide'] {
     transition: @transition-duration ease-out;
     transition-property: opacity, transform, filter, stroke-dashoffset;
     opacity: 0;
@@ -137,20 +135,6 @@
     opacity: 1;
     transform: translate(0,0);
 }
-
-/*
- * Stroke
- */
-
-.uk-transition-stroke {
-    transition-duration: 1s;
-    opacity: 1;
-}
-
-/* Show */
-.uk-transition-toggle:hover .uk-transition-stroke,
-.uk-transition-toggle:focus .uk-transition-stroke,
-.uk-transition-toggle.uk-transition-active .uk-transition-stroke[style*='stroke-dash'] { stroke-dashoffset: 0 !important; }
 
 
 /* Opacity modifier
