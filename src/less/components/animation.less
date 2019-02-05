@@ -14,6 +14,8 @@
 //                  `uk-animation-slide-right-*`
 //                  `uk-animation-kenburns`
 //                  `uk-animation-shake`
+//                  `uk-animation-stroke`
+//                  `uk-animation-none`
 //
 // Sub-objects:     `uk-animation-toggle`
 //
@@ -58,9 +60,10 @@
 
 /*
  * The toggle is triggered on touch devices using `:focus` and tabindex
+ * `!important` needed to override inline style for the stroke animation.
  */
 
-.uk-animation-toggle:not(:hover):not(:focus) [class*='uk-animation-'] { animation-name: none; }
+.uk-animation-toggle:not(:hover):not(:focus) [class*='uk-animation-'] { animation-name: none !important; }
 
 /*
  * 1. Prevent tab highlighting on iOS.
@@ -77,7 +80,6 @@
 
 .uk-animation-toggle:focus { outline: none; }
 
-.uk-animation-none { animation-name: none !important; }
 
 /* Animations
  ========================================================================== */
@@ -141,11 +143,23 @@
 
 .uk-animation-shake { animation-name: uk-shake; }
 
+
+/* SVG stroke animation
+ ========================================================================== */
+
 /*
- * Stroke
+ * This class is set by `uk-svg="stroke-animation: true"`.
+ * Unique animation names and keyfames are defined for each SVG because of different stroke lengths.
  */
 
 .uk-animation-stroke { animation-duration: @animation-stroke-duration; }
+
+/*
+ * Needed to trigger the stroke animations with Scrollspy component.
+ * `!important` needed to override inline style.
+ */
+
+.uk-animation-none { animation-name: none !important; }
 
 
 /* Duration modifier
