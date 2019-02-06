@@ -97,10 +97,6 @@ export default {
                 }
             }
 
-            for (const key in this.$el.dataset) {
-                el.dataset[key] = this.$el.dataset[key];
-            }
-
             if (!this.id) {
                 removeAttr(el, 'id');
             }
@@ -206,7 +202,7 @@ function applyAnimation(el) {
 export function getMaxPathLength(el) {
     return Math.ceil(Math.max(...$$('[stroke]', el).map(stroke =>
         stroke.getTotalLength() || 0
-    )));
+    ).concat([0])));
 }
 
 function insertSVG(el, root) {

@@ -159,7 +159,10 @@
  * `!important` needed to override inline style.
  */
 
-.uk-animation-none { animation-name: none !important; }
+.uk-animation-none [class*='uk-animation-'] {
+    visibility: hidden;
+    animation-name: none !important;
+}
 
 
 /* Duration modifier
