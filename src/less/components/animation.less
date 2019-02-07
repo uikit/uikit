@@ -3,9 +3,7 @@
 //
 // Component:       `uk-animation-*`
 //
-// Modifiers:       `uk-animation-reverse`
-//                  `uk-animation-fast`
-//                  `uk-animation-fade`
+// Modifiers:       `uk-animation-fade`
 //                  `uk-animation-scale-up`
 //                  `uk-animation-scale-down`
 //                  `uk-animation-slide-top-*`
@@ -15,9 +13,13 @@
 //                  `uk-animation-kenburns`
 //                  `uk-animation-shake`
 //                  `uk-animation-stroke`
-//                  `uk-animation-none`
+//                  `uk-animation-reverse`
+//                  `uk-animation-fast`
 //
 // Sub-objects:     `uk-animation-toggle`
+//                  `uk-animation-active
+//
+// States:          `uk-active`
 //
 // ========================================================================
 
@@ -44,41 +46,6 @@
     animation-timing-function: ease-out;
     animation-fill-mode: both;
 }
-
-
-/* Direction modifier
- ========================================================================== */
-
-.uk-animation-reverse {
-    animation-direction: reverse;
-    animation-timing-function: ease-in;
-}
-
-
-/* Toggle (Hover + Focus)
-========================================================================== */
-
-/*
- * The toggle is triggered on touch devices using `:focus` and tabindex
- * `!important` needed to override inline style for the stroke animation.
- */
-
-.uk-animation-toggle:not(:hover):not(:focus) [class*='uk-animation-'] { animation-name: none !important; }
-
-/*
- * 1. Prevent tab highlighting on iOS.
- */
-
-.uk-animation-toggle {
-    /* 1 */
-    -webkit-tap-highlight-color: transparent;
-}
-
-/*
- * Remove outline for `tabindex`
- */
-
-.uk-animation-toggle:focus { outline: none; }
 
 
 /* Animations
@@ -143,32 +110,68 @@
 
 .uk-animation-shake { animation-name: uk-shake; }
 
-
-/* SVG stroke animation
- ========================================================================== */
-
 /*
+ * SVG Stroke
  * This class is set by `uk-svg="stroke-animation: true"`.
  * Unique animation names and keyfames are defined for each SVG because of different stroke lengths.
  */
 
 .uk-animation-stroke { animation-duration: @animation-stroke-duration; }
 
-/*
- * Needed to trigger the stroke animations with Scrollspy component.
- * `!important` needed to override inline style.
- */
 
-.uk-animation-none [class*='uk-animation-'] {
-    visibility: hidden;
-    animation-name: none !important;
+/* Direction modifier
+ ========================================================================== */
+
+ .uk-animation-reverse {
+    animation-direction: reverse;
+    animation-timing-function: ease-in;
 }
 
 
 /* Duration modifier
  ========================================================================== */
 
-.uk-animation-fast { animation-duration: @animation-fast-duration; }
+ .uk-animation-fast { animation-duration: @animation-fast-duration; }
+
+
+/* Toggle (Hover + Focus)
+========================================================================== */
+
+/*
+ * The toggle is triggered on touch devices using `:focus` and tabindex
+ * `!important` needed to override inline style for SVG stroke animations.
+ */
+
+.uk-animation-toggle:not(:hover):not(:focus) [class*='uk-animation-'] { animation-name: none !important; }
+
+/*
+ * 1. Prevent tab highlighting on iOS.
+ */
+
+.uk-animation-toggle {
+    /* 1 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/*
+ * Remove outline for `tabindex`
+ */
+
+.uk-animation-toggle:focus { outline: none; }
+
+
+/* Toggle (Active)
+========================================================================== */
+
+/*
+ * Needed to trigger SVG stroke animations with Scrollspy component.
+ * `!important` needed to override inline style for SVG stroke animations.
+ */
+
+ .uk-animation-active:not(.uk-active) [class*='uk-animation-'] {
+    visibility: hidden;
+    animation-name: none !important;
+}
 
 
 /* Keyframes used by animation classes
