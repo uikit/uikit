@@ -1,6 +1,6 @@
 import Media from '../mixin/media';
 import {getMaxPathLength} from '../core/svg';
-import {css, Dimensions, each, isNumber, isString, isUndefined, startsWith, toFloat, toPx} from 'uikit-util';
+import {css, Dimensions, each, isNumber, isString, isUndefined, startsWith, toFloat, toPx, ucfirst} from 'uikit-util';
 
 const props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity', 'stroke'];
 
@@ -211,8 +211,6 @@ export default {
         getCss(percent) {
 
             const {props} = this;
-            let translated = false;
-
             return Object.keys(props).reduce((css, prop) => {
 
                 let {steps, unit, pos} = props[prop];
@@ -223,21 +221,10 @@ export default {
                     // transforms
                     case 'x':
                     case 'y': {
-
-                        if (translated) {
-                            break;
-                        }
-
                         unit = unit || 'px';
-
-                        const [x, y] = ['x', 'y'].map(dir => prop === dir
-                            ? toFloat(value).toFixed(unit === 'px' ? 0 : 2) + unit
-                            : props[dir]
-                                ? getValue(props[dir].steps, percent, 1) + props[dir].unit
-                                : 0
-                        );
-
-                        translated = css.transform += ` translate3d(${x}, ${y}, 0)`;
+                        css.transform += ` translate${ucfirst(prop)}(${
+                            toFloat(value).toFixed(unit === 'px' ? 0 : 2)
+                        }${unit})`;
                         break;
                     }
                     case 'rotate':

@@ -15,6 +15,7 @@
 ### Fixed
 
 - Fix filter component initial active state
+- Fix translating `x` and `y` properties simultaneously in Parallax component
 
 ## 3.0.3 (January 29, 2019)
 
