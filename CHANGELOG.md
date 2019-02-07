@@ -8,6 +8,10 @@
 - Add `stroke` option to Parallax component
 - Parallax component supports more units
 
+### Changed
+
+- Improve dimension handling in SVG component
+
 ### Fixed
 
 - Fix filter component initial active state

@@ -19,7 +19,7 @@ export default {
     data: {
         ratio: 1,
         id: false,
-        exclude: ['ratio', 'src', 'icon'],
+        exclude: ['ratio', 'src', 'icon', 'width', 'height'],
         'class': '',
         strokeAnimation: false
     },
@@ -80,17 +80,6 @@ export default {
 
         applyAttributes(el) {
 
-            let dimensions = attr(el, 'viewBox');
-
-            if (dimensions) {
-                dimensions = dimensions.split(' ');
-                this.width = this.$props.width || dimensions[2];
-                this.height = this.$props.height || dimensions[3];
-            }
-
-            this.width *= this.ratio;
-            this.height *= this.ratio;
-
             for (const prop in this.$options.props) {
                 if (this[prop] && !includes(this.exclude, prop)) {
                     attr(el, prop, this[prop]);
@@ -101,13 +90,26 @@ export default {
                 removeAttr(el, 'id');
             }
 
-            if (this.width && !this.height) {
-                removeAttr(el, 'height');
+            const props = ['width', 'height'];
+            let dimensions = [this.width, this.height];
+
+            if (!dimensions.some(val => val)) {
+                dimensions = props.map(prop => attr(el, prop));
             }
 
-            if (this.height && !this.width) {
-                removeAttr(el, 'width');
+            const viewBox = attr(el, 'viewBox');
+            if (viewBox && !dimensions.some(val => val)) {
+                dimensions = viewBox.split(' ').slice(2);
             }
+
+            dimensions.forEach((val, i) => {
+                val = (val | 0) * this.ratio;
+                val && attr(el, props[i], val);
+
+                if (val && !dimensions[i ^ 1]) {
+                    removeAttr(el, props[i ^ 1]);
+                }
+            });
 
             attr(el, 'data-svg', this.icon || this.src);
 
