@@ -19,7 +19,7 @@ export default {
     data: {
         ratio: 1,
         id: false,
-        exclude: ['ratio', 'src', 'icon', 'width', 'height'],
+        include: ['id', 'style', 'class'],
         'class': '',
         strokeAnimation: false
     },
@@ -81,7 +81,7 @@ export default {
         applyAttributes(el) {
 
             for (const prop in this.$options.props) {
-                if (this[prop] && !includes(this.exclude, prop)) {
+                if (this[prop] && includes(this.include, prop)) {
                     attr(el, prop, this[prop]);
                 }
             }

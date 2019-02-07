@@ -50,7 +50,7 @@ const Icon = {
 
     props: ['icon'],
 
-    data: {exclude: ['id', 'style', 'class', 'src', 'icon', 'ratio']},
+    data: {include: []},
 
     isIcon: true,
 
