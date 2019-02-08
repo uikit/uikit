@@ -54,6 +54,7 @@ exports.cyan = function (str) {
 };
 
 exports.minify = async function (file) {
+
     const {styles} = await new CleanCSS({
         advanced: false,
         keepSpecialComments: 0,

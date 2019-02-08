@@ -155,7 +155,7 @@ function parseSVG(svg, icon) {
     }
 
     svg = $(svg.substr(svg.indexOf('<svg')));
-    return attr(svg, 'type') !== 'no-inline' && svg;
+    return svg && svg.hasChildNodes() && svg;
 }
 
 const symbolRe = /<symbol(.*?id=(['"])(.*?)\2[^]*?<\/)symbol>/g;
