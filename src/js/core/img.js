@@ -2,6 +2,8 @@ import {createEvent, css, Dimensions, escape, getImage, includes, IntersectionOb
 
 export default {
 
+    args: 'dataSrc',
+
     props: {
         dataSrc: String,
         dataSrcset: Boolean,
@@ -175,7 +177,7 @@ function getPlaceholderImage(width, height, sizes) {
         ({width, height} = Dimensions.ratio({width, height}, 'width', toPx(sizesToPixel(sizes))));
     }
 
-    return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}"></svg>`;
+    return `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" type="no-inline"></svg>`;
 }
 
 const sizesRe = /\s*(.*?)\s*(\w+|calc\(.*?\))\s*(?:,|$)/g;
