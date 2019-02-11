@@ -91,8 +91,10 @@ export default {
                     css($el, 'strokeDasharray', length);
 
                     if (unit === '%') {
-                        steps = steps.map(step => length - step * length / 100);
+                        steps = steps.map(step => step * length / 100);
                     }
+
+                    steps = steps.reverse();
 
                     prop = 'strokeDashoffset';
                 }

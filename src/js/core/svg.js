@@ -1,4 +1,4 @@
-import {$, $$, addClass, after, ajax, append, attr, css, includes, insertStyleRule, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
+import {$, $$, addClass, after, ajax, append, attr, css, includes, insertStyleRule, isVisible, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
 
 export default {
 
@@ -39,13 +39,7 @@ export default {
 
         this.svg = this.getSvg().then(el => {
             this.applyAttributes(el);
-            this.svgEl = insertSVG(el, this.$el);
-
-            if (this.strokeAnimation) {
-                applyAnimation(this.svgEl);
-            }
-
-            return this.svgEl;
+            return this.svgEl = insertSVG(el, this.$el);
         }, noop);
 
     },
@@ -64,18 +58,26 @@ export default {
 
     },
 
+    update: {
+
+        read() {
+            return !!(this.strokeAnimation && this.svgEl && isVisible(this.svgEl));
+        },
+
+        write() {
+            applyAnimation(this.svgEl);
+        },
+
+        type: ['resize']
+
+    },
+
     methods: {
 
         getSvg() {
-            return loadSVG(this.src).then(svg => {
-                const el = parseSVG(svg, this.icon);
-
-                if (!el) {
-                    return Promise.reject('SVG not found.');
-                }
-
-                return el;
-            });
+            return loadSVG(this.src).then(svg =>
+                parseSVG(svg, this.icon) || Promise.reject('SVG not found.')
+            );
         },
 
         applyAttributes(el) {
