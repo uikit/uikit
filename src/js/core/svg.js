@@ -204,7 +204,7 @@ function applyAnimation(el) {
 
 export function getMaxPathLength(el) {
     return Math.ceil(Math.max(...$$('[stroke]', el).map(stroke =>
-        stroke.getTotalLength() || 0
+        stroke.getTotalLength && stroke.getTotalLength() || 0
     ).concat([0])));
 }
 
