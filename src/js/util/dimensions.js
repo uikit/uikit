@@ -374,9 +374,9 @@ export function toPx(value, property = 'width', element = window) {
     return isNumeric(value)
         ? +value
         : endsWith(value, 'vh')
-            ? percent(getWindow(element).innerHeight, value)
+            ? percent(height(getWindow(element)), value)
             : endsWith(value, 'vw')
-                ? percent(getWindow(element).innerWidth, value)
+                ? percent(width(getWindow(element)), value)
                 : endsWith(value, '%')
                     ? percent(getDimensions(element)[property], value)
                     : toFloat(value);
