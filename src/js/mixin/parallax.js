@@ -87,6 +87,10 @@ export default {
 
                 if (prop === 'stroke') {
 
+                    if (!steps.some(step => step)) {
+                        return props;
+                    }
+
                     const length = getMaxPathLength(this.$el);
                     css($el, 'strokeDasharray', length);
 
