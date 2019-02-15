@@ -25,12 +25,8 @@ export default {
 
     },
 
-    connected() {
-        [this.wrapper] = wrapInner(this.$el, `<span class="${this.clsWrapper}">`);
-    },
-
     disconnected() {
-        unwrap(this.wrapper.childNodes);
+        this.wrapper && unwrap(this.wrapper.childNodes);
     },
 
     update: {
@@ -43,6 +39,7 @@ export default {
 
             return {
                 width,
+                fill: this.fill,
                 changed: changed || prev !== width,
                 hide: !this.matchMedia
             };
@@ -50,11 +47,15 @@ export default {
 
         write(data) {
 
+            if (!this.wrapper) {
+                [this.wrapper] = wrapInner(this.$el, `<span class="${this.clsWrapper}">`);
+            }
+
             toggleClass(this.wrapper, this.clsHide, data.hide);
 
             if (data.changed) {
                 data.changed = false;
-                attr(this.wrapper, this.attrFill, new Array(data.width).join(this.fill));
+                attr(this.wrapper, this.attrFill, new Array(data.width).join(data.fill));
             }
 
         },

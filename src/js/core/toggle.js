@@ -87,14 +87,18 @@ export default {
 
     update: {
 
-        write() {
-
+        read() {
             if (!includes(this.mode, 'media') || !this.media) {
-                return;
+                return false;
             }
 
+            return {match: this.matchMedia};
+        },
+
+        write({match}) {
+
             const toggled = this.isToggled(this.target);
-            if (this.matchMedia ? !toggled : toggled) {
+            if (match ? !toggled : toggled) {
                 this.toggle();
             }
 

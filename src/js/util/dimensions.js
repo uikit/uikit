@@ -373,17 +373,17 @@ export function offsetPosition(element) {
 export function toPx(value, property = 'width', element = window) {
     return isNumeric(value)
         ? +value
-        : endsWith(value, 'vw')
-            ? percent(getWindow(element), 'width', value)
-            : endsWith(value, 'vh')
-                ? percent(getWindow(element), 'height', value)
+        : endsWith(value, 'vh')
+            ? percent(getWindow(element).innerHeight, value)
+            : endsWith(value, 'vw')
+                ? percent(getWindow(element).innerWidth, value)
                 : endsWith(value, '%')
-                    ? percent(element, property, value)
+                    ? percent(getDimensions(element)[property], value)
                     : toFloat(value);
 }
 
-function percent(element, property, value) {
-    return getDimensions(element)[property] * toFloat(value) / 100;
+function percent(base, value) {
+    return base * toFloat(value) / 100;
 }
 
 function getWindow(element) {

@@ -12,6 +12,7 @@
 ### Changed
 
 - Improve dimension handling in SVG component
+- Improve Image/Leader/Toggle component performance
 
 ### Fixed
 
