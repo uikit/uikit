@@ -4,7 +4,8 @@
 
 ### Added
 
-- Add `strokeAnimation` option to Svg component
+- Add text secondary to Text component
+- Add `strokeAnimation` option to SVG component
 - Add `stroke` option to Parallax component
 - Add `dataSrc` as primary option to Image component
 - Parallax component supports more units
