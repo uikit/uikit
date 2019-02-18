@@ -13,7 +13,8 @@ export default {
         height: Number,
         ratio: Number,
         'class': String,
-        strokeAnimation: Boolean
+        strokeAnimation: Boolean,
+        attributes: 'list'
     },
 
     data: {
@@ -86,6 +87,11 @@ export default {
                 if (this[prop] && includes(this.include, prop)) {
                     attr(el, prop, this[prop]);
                 }
+            }
+
+            for (const attribute in this.attributes) {
+                const [prop, value] = this.attributes[attribute].split(':', 2);
+                attr(el, prop, value);
             }
 
             if (!this.id) {
