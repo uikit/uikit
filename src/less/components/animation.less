@@ -17,7 +17,6 @@
 //                  `uk-animation-fast`
 //
 // Sub-objects:     `uk-animation-toggle`
-//                  `uk-animation-active
 //
 // States:          `uk-active`
 //
@@ -112,11 +111,16 @@
 
 /*
  * SVG Stroke
- * This class is set by `uk-svg="stroke-animation: true"`.
- * Unique animation names and keyfames are defined for each SVG because of different stroke lengths.
+ * `pathLength="1"` is not working in Safari. Therefore, Javascript and a custom property is used.
+ * The `--uk-animation-stroke` custom property is set by `uk-svg="stroke-animation: true"`.
+ * Note: Use `pathLength="1"` as soon as it's supported in Safari
  */
 
-.uk-animation-stroke { animation-duration: @animation-stroke-duration; }
+.uk-animation-stroke {
+    animation-name: uk-stroke;
+    stroke-dasharray: var(--uk-animation-stroke);
+    animation-duration: @animation-stroke-duration;
+}
 
 
 /* Direction modifier
@@ -139,10 +143,9 @@
 
 /*
  * The toggle is triggered on touch devices using `:focus` and tabindex
- * `!important` needed to override inline style for SVG stroke animations.
  */
 
-.uk-animation-toggle:not(:hover):not(:focus) [class*='uk-animation-'] { animation-name: none !important; }
+.uk-animation-toggle:not(:hover):not(:focus) [class*='uk-animation-'] { animation-name: none; }
 
 /*
  * 1. Prevent tab highlighting on iOS.
@@ -158,20 +161,6 @@
  */
 
 .uk-animation-toggle:focus { outline: none; }
-
-
-/* Toggle (Active)
-========================================================================== */
-
-/*
- * Needed to trigger SVG stroke animations with Scrollspy component.
- * `!important` needed to override inline style for SVG stroke animations.
- */
-
- .uk-animation-active:not(.uk-active) [class*='uk-animation-'] {
-    visibility: hidden;
-    animation-name: none !important;
-}
 
 
 /* Keyframes used by animation classes
@@ -420,6 +409,15 @@
     70% { transform: translateX(-3px); }
     80% { transform: translateX(2px); }
     90% { transform: translateX(-1px); }
+}
+
+/*
+ * Stroke
+ */
+
+ @keyframes uk-stroke {
+    0% { stroke-dashoffset: var(--uk-animation-stroke); }
+    100% { stroke-dashoffset: 0; }
 }
 
 
