@@ -1,7 +1,7 @@
 import {isIE} from './env';
 import {append, remove} from './dom';
 import {addClass} from './class';
-import {each, hyphenate, includes, isArray, isNumber, isNumeric, isObject, isString, isUndefined, toNode, toNodes} from './lang';
+import {each, hyphenate, isArray, isNumber, isNumeric, isObject, isString, isUndefined, toNode, toNodes} from './lang';
 
 const cssNumber = {
     'animation-iteration-count': true,
@@ -122,19 +122,5 @@ function vendorPropName(name) {
         if (prefixedName in style) {
             return prefixedName;
         }
-    }
-}
-
-let styleSheet;
-export function insertStyleRule(rule) {
-
-    if (!styleSheet) {
-        styleSheet = append(document.head, '<style>').sheet;
-        styleSheet._rules = [];
-    }
-
-    if (!includes(styleSheet._rules, rule)) {
-        styleSheet._rules.push(rule);
-        styleSheet.insertRule(rule, styleSheet.cssRules.length);
     }
 }

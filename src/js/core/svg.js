@@ -1,4 +1,4 @@
-import {$, $$, addClass, after, ajax, append, attr, css, includes, insertStyleRule, isVisible, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
+import {$, $$, after, ajax, append, attr, includes, isVisible, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
 
 export default {
 
@@ -185,23 +185,10 @@ function applyAnimation(el) {
 
     const length = getMaxPathLength(el);
 
-    if (!length) {
-        return;
+    if (length) {
+        el.style.setProperty('--uk-animation-stroke', length);
     }
 
-    addClass(el, 'uk-animation-stroke');
-    css(el, 'animationName', `uk-stroke-${length}`);
-
-    insertStyleRule(`@keyframes uk-stroke-${length} {
-        0% { 
-            stroke-dasharray: ${length};
-            stroke-dashoffset: ${length}; 
-        }
-        100% { 
-            stroke-dasharray: ${length};
-            stroke-dashoffset: 0;            
-        }
-    }`);
 }
 
 export function getMaxPathLength(el) {

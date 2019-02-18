@@ -1,4 +1,4 @@
-import {addClass, assign, css, fastdom, height, includes, index, insertStyleRule, isVisible, noop, position, Promise, removeClass, scrollTop, toFloat, toNodes, Transition} from 'uikit-util';
+import {addClass, append, assign, css, fastdom, height, includes, index, isVisible, noop, position, Promise, removeClass, scrollTop, toFloat, toNodes, Transition} from 'uikit-util';
 
 const targetClass = 'uk-animation-target';
 
@@ -24,10 +24,7 @@ export default {
 
         animate(action) {
 
-            insertStyleRule(`.${targetClass} > * {
-                margin-top: 0 !important;
-                transform: none !important;
-            }`);
+            addStyle();
 
             let children = toNodes(this.target.children);
             let propsFrom = children.map(el => getProps(el, true));
@@ -135,4 +132,19 @@ function getPositionWithMargin(el) {
     top += toFloat(css(el, 'marginTop'));
 
     return {top, left, height, width};
+}
+
+let style;
+
+function addStyle() {
+    if (style) {
+        return;
+    }
+    style = append(document.head, '<style>').sheet;
+    style.insertRule(
+        `.${targetClass} > * {
+            margin-top: 0 !important;
+            transform: none !important;
+        }`, 0
+    );
 }
