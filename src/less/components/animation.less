@@ -111,9 +111,10 @@
 
 /*
  * SVG Stroke
- * `pathLength="1"` is not working in Safari. Therefore, Javascript and a custom property is used.
- * The `--uk-animation-stroke` custom property is set by `uk-svg="stroke-animation: true"`.
- * Note: Use `pathLength="1"` as soon as it's supported in Safari
+ * The `--uk-animation-stroke` custom property contains the longest path length.
+ * Set it manually or use `uk-svg="stroke-animation: true"` to set it automatically.
+ * All strokes are animated by the same pace and doesn't end simultaneously.
+ * To end simultaneously, `pathLength="1"` could be used, but it's not working in Safari yet.
  */
 
 .uk-animation-stroke {
