@@ -25,8 +25,12 @@ export default {
 
     },
 
+    connected() {
+        [this.wrapper] = wrapInner(this.$el, `<span class="${this.clsWrapper}">`);
+    },
+
     disconnected() {
-        this.wrapper && unwrap(this.wrapper.childNodes);
+        unwrap(this.wrapper.childNodes);
     },
 
     update: {
@@ -46,10 +50,6 @@ export default {
         },
 
         write(data) {
-
-            if (!this.wrapper) {
-                [this.wrapper] = wrapInner(this.$el, `<span class="${this.clsWrapper}">`);
-            }
 
             toggleClass(this.wrapper, this.clsHide, data.hide);
 
