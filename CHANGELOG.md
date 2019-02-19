@@ -15,6 +15,10 @@
 - Improve dimension handling in SVG component
 - Improve Image/Leader/Toggle component performance
 
+### Removed
+
+- `cls` option no longer accepts a list of classNames in Scrollspy component
+
 ### Fixed
 
 - Fix filter component initial active state

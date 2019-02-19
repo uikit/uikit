@@ -5,7 +5,7 @@ export default {
     args: 'cls',
 
     props: {
-        cls: 'list',
+        cls: String,
         target: String,
         hidden: Boolean,
         offsetTop: Number,
@@ -15,7 +15,7 @@ export default {
     },
 
     data: () => ({
-        cls: [],
+        cls: false,
         target: false,
         hidden: true,
         offsetTop: 0,
@@ -58,8 +58,7 @@ export default {
                     let state = el._ukScrollspyState;
 
                     if (!state) {
-                        const cls = data(el, 'uk-scrollspy-class');
-                        state = {el, toggles: cls && cls.split(',') || this.cls};
+                        state = {cls: data(el, 'uk-scrollspy-class') || this.cls};
                     }
 
                     state.show = isInView(el, this.offsetTop, this.offsetLeft);
@@ -77,10 +76,10 @@ export default {
                     return data.update = true;
                 }
 
-                this.elements.forEach((el, i) => {
+                this.elements.forEach(el => {
 
                     const state = el._ukScrollspyState;
-                    const cls = state.toggles[i] || state.toggles[0];
+                    const {cls} = state;
 
                     if (state.show && !state.inview && !state.queued) {
 
