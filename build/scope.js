@@ -1,6 +1,4 @@
-const util = require('./util');
-const {promisify} = require('util');
-const glob = promisify(require('glob'));
+const {glob, minify, read, renderLess, write, validClassName} = require('./util');
 const argv = require('minimist')(process.argv.slice(2));
 
 argv._.forEach(arg => {
@@ -64,7 +62,7 @@ async function readFiles() {
     const files = await glob('dist/**/!(*.min).css');
     return Promise.all(files.map(async file => {
 
-        const data = await util.read(file);
+        const data = await read(file);
         return {file, data};
 
     }));
@@ -81,7 +79,7 @@ function getNewScope() {
 
     const scopeFromInput = argv.scope || argv.s || 'uk-scope';
 
-    if (util.validClassName.test(scopeFromInput)) {
+    if (validClassName.test(scopeFromInput)) {
         return scopeFromInput;
     } else {
         throw `Illegal scope-name: ${scopeFromInput}`;
@@ -93,7 +91,7 @@ async function scope(files, scope) {
         files.map(async store => {
             try {
 
-                const output = await util.renderLess(`.${scope} {\n${stripComments(store.data)}\n}`);
+                const output = await renderLess(`.${scope} {\n${stripComments(store.data)}\n}`);
                 store.data = `/* scoped: ${scope} */\n${
                     output
                         .replace(new RegExp(`.${scope} ${/{(.|[\r\n])*?}/.source}`), '')
@@ -110,8 +108,8 @@ async function scope(files, scope) {
 async function store(files) {
     return Promise.all(
         files.map(async ({file, data}) => {
-            await util.write(file, data);
-            await util.minify(file);
+            await write(file, data);
+            await minify(file);
         })
     );
 }

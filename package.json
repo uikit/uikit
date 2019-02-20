@@ -37,7 +37,6 @@
     "clean-css": "^4.1.11",
     "dateformat": "^3.0.3",
     "eslint": "5.14.1",
-    "fs-extra": "7.0.1",
     "glob": "^7.1.2",
     "inquirer": "6.2.2",
     "less": "^2.7.2",

@@ -1,15 +1,15 @@
+const fs = require('fs');
 const path = require('path');
-const glob = require('glob');
 const less = require('less');
 const SVGO = require('svgo');
 const rollup = require('rollup');
 const uglify = require('uglify-js');
+const {promisify} = require('util');
 const CleanCSS = require('clean-css');
 const html = require('rollup-plugin-html');
 const json = require('rollup-plugin-json');
 const buble = require('rollup-plugin-buble');
 const replace = require('rollup-plugin-replace');
-const {readFile, outputFile} = require('fs-extra');
 const alias = require('rollup-plugin-import-alias');
 const {version} = require('../package.json');
 const banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */\n`;
@@ -17,6 +17,9 @@ const banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2018
 exports.banner = banner;
 exports.validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
 
+exports.glob = promisify(require('glob'));
+
+const readFile = promisify(fs.readFile);
 exports.read = async function (file, cb) {
 
     const data = await readFile(file, 'utf8');
@@ -25,9 +28,10 @@ exports.read = async function (file, cb) {
 
 };
 
+const writeFile = promisify(fs.writeFile);
 exports.write = async function (dest, data) {
 
-    const err = await outputFile(dest, data);
+    const err = await writeFile(dest, data);
 
     if (err) {
         console.log(err);
@@ -152,7 +156,7 @@ exports.icons = async function (src) {
         ]
 
     });
-    const files = glob.sync(src, {nosort: true});
+    const files = await exports.glob(src, {nosort: true});
     const icons = await Promise.all(files.map(async file => {
         const data = await exports.read(file);
         const {data: svg} = await svgo.optimize(data);
