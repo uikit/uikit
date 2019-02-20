@@ -83,7 +83,8 @@ function doScope(scopeFromInput) {
                 .then(output => {
                     store.data = `/* scoped: ${scopeFromInput} */\n` +
                     output.replace(new RegExp(`.${scopeFromInput} ${/{(.|[\r\n])*?}/.source}`), '')
-                    .replace(new RegExp(`.${scopeFromInput}${/\s((\.(uk-(drag|modal-page|offcanvas-page|offcanvas-flip)))|html)/.source}`, 'g'), '$1')
+                    .replace(new RegExp(`.${scopeFromInput}${/\s((\.(uk-(drag|modal-page|offcanvas-page|offcanvas-flip))))/.source}`, 'g'), '$1')
+                    .replace(`.${scopeFromInput} html`, `.${scopeFromInput}`)
                 })
         );
     });
@@ -101,7 +102,8 @@ function store() {
 function cleanUp(currentScope) {
     allFiles.forEach((store) => {
         const string = currentScope.split(' ').map(scope => `.${scope}`).join(' ');
-        store.data = store.data.replace(new RegExp(/ */.source + string + / ({[\s\S]*?})?/.source, 'g'), '') // replace classes
+        store.data = store.data.replace(new RegExp(/ */.source + string + / {/.source), 'html {') // restore top-level html tag
+                   .replace(new RegExp(/ */.source + string + / ({[\s\S]*?})?/.source, 'g'), '') // replace classes
                    .replace(new RegExp(currentScopeRegex.source, 'g'), ''); // remove scope comment
     });
 
