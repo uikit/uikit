@@ -1,6 +1,7 @@
 const path = require('path');
 const glob = require('glob');
 const util = require('./util');
+const camelize = require('camelcase');
 const argv = require('minimist')(process.argv.slice(2));
 
 argv._.forEach(arg => {
@@ -12,17 +13,6 @@ const numArgs = Object.keys(argv).length;
 argv.all = argv.all || numArgs <= 1; // no arguments passed, so compile all
 
 const minify = !(argv.debug || argv.nominify || argv.d);
-
-// TODO, reference camelize function from utils when separated
-const camelizeRe = /-(\w)/g;
-
-function camelize(str) {
-    return str.replace(camelizeRe, toUpper);
-}
-
-function toUpper(_, c) {
-    return c ? c.toUpperCase() : '';
-}
 
 // -----
 

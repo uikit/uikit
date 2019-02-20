@@ -46,15 +46,7 @@ exports.write = async function (dest, data) {
 
 exports.logFile = async function (file) {
     const data = await exports.read(file);
-    console.log(`${exports.cyan(file)} ${exports.getSize(data)}`);
-};
-
-exports.getSize = function (data) {
-    return `${(data.length / 1024).toFixed(2)}kb`;
-};
-
-exports.cyan = function (str) {
-    return `\x1b[1m\x1b[36m${str}\x1b[39m\x1b[22m`;
+    console.log(`${cyan(file)} ${getSize(data)}`);
 };
 
 exports.minify = async function (file) {
@@ -173,3 +165,11 @@ exports.icons = async function (src) {
 exports.ucfirst = function (str) {
     return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : '';
 };
+
+function cyan(str) {
+    return `\x1b[1m\x1b[36m${str}\x1b[39m\x1b[22m`;
+}
+
+function getSize(data) {
+    return `${(data.length / 1024).toFixed(2)}kb`;
+}
