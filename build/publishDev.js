@@ -28,9 +28,9 @@ if (isDevCommit()) {
 function isDevCommit() {
 
     // check for changes to publish (%B: raw body (unwrapped subject and body)
-    const change = execSync('git log -1 --pretty=%B', options);
+    const message = execSync('git log -1 --pretty=%B', options);
 
-    const type = change.match(/^(revert: )?(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types)(\(.+\))?: .{1,50}/);
+    const type = message.match(/^(revert: )?(feat|fix|polish|docs|style|refactor|perf|test|workflow|ci|chore|types)(\(.+\))?: .{1,50}/);
 
     return type && ['feat', 'fix', 'refactor', 'perf'].includes(type[2]);
 

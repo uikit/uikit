@@ -7,7 +7,7 @@ const pkg = require('../package.json');
 const dateFormat = require('dateformat');
 const {execSync} = require('child_process');
 const args = require('minimist')(process.argv);
-const versionRe = /(\d+\.\d+\.)(\d+)(?:-([a-z]+)\.(\d+))?/;
+const {coerce, inc, prerelease} = require('semver');
 
 let version = args.v || args.version;
 
@@ -27,7 +27,7 @@ async function inquireVersion() {
     return await prompt({
         name: 'version',
         message: 'Enter a version',
-        default: () => pkg.version.replace(versionRe, (match, p1, p2, p3, p4) => p3 ? `${p1}${p2}-${p3}.${++p4}` : `${p1}${++p2}`),
+        default: () => inc(pkg.version, prerelease(pkg.version) ? 'prerelease' : 'patch'),
         validate: val => !!val.length || 'Invalid version'
     }).then(res => res.version);
 
@@ -35,10 +35,11 @@ async function inquireVersion() {
 
 async function updateVersion(version) {
 
+    execSync(`npm version ${version} --git-tag-version false`);
+
     return Promise.all([
-        util.write('package.json', JSON.stringify(Object.assign({}, pkg, {version}), null, '  ') + '\n'),
-        util.read('CHANGELOG.md').then(data => util.write('CHANGELOG.md', data.replace(/^##\s*WIP/m, `## ${version.replace(versionRe, (match, p1, p2, p3, p4) => p3 ? `${p1}${p2} ${p3} ${p4}` : `${p1}${p2}`)} (${dateFormat(Date.now(), 'mmmm d, yyyy')})`))),
-        util.read('.github/ISSUE_TEMPLATE.md').then(data => util.write('.github/ISSUE_TEMPLATE.md', data.replace(versionRe, version))),
+        util.read('CHANGELOG.md').then(data => util.write('CHANGELOG.md', data.replace(/^##\s*WIP/m, `## ${versionFormat(version)} (${dateFormat(Date.now(), 'mmmm d, yyyy')})`))),
+        util.read('.github/ISSUE_TEMPLATE.md').then(data => util.write('.github/ISSUE_TEMPLATE.md', data.replace(pkg.version, version))),
     ]).then(() => version);
 
 }
@@ -66,4 +67,8 @@ function createPackage(version) {
     archive.file('dist/css/uikit-rtl.css', {name: '/css/uikit-rtl.css'});
     archive.file('dist/css/uikit-rtl.min.css', {name: '/css/uikit-rtl.min.css'});
     archive.finalize();
+}
+
+function versionFormat(version) {
+    return [coerce(version).version].concat(prerelease(version) || []).join(' ');
 }

@@ -14,7 +14,7 @@ argv.all = argv.all || numArgs <= 1; // no arguments passed, so compile all
 
 const minify = !(argv.debug || argv.nominify || argv.d);
 
-// TODO, reference camelize function from utils when seperated
+// TODO, reference camelize function from utils when separated
 const camelizeRe = /-(\w)/g;
 
 function camelize(str) {
