@@ -1,4 +1,3 @@
-/* eslint-env node */
 const fs = require('fs');
 const util = require('./util');
 const {promisify} = require('util');
@@ -32,7 +31,7 @@ async function inquireVersion(v) {
         validate: val => !!val.length || 'Invalid version'
     });
 
-    return version
+    return version;
 
 }
 

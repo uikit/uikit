@@ -1,4 +1,3 @@
-const fs = require('fs-extra');
 const path = require('path');
 const glob = require('glob');
 const less = require('less');
@@ -10,6 +9,7 @@ const html = require('rollup-plugin-html');
 const json = require('rollup-plugin-json');
 const buble = require('rollup-plugin-buble');
 const replace = require('rollup-plugin-replace');
+const {readFile, outputFile} = require('fs-extra');
 const alias = require('rollup-plugin-import-alias');
 const {version} = require('../package.json');
 const banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */\n`;
@@ -19,7 +19,7 @@ exports.validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
 
 exports.read = async function (file, cb) {
 
-    const data = await fs.readFile(file, 'utf8');
+    const data = await readFile(file, 'utf8');
     cb && cb(data);
     return data;
 
@@ -27,7 +27,7 @@ exports.read = async function (file, cb) {
 
 exports.write = async function (dest, data) {
 
-    const err = await fs.outputFile(dest, data);
+    const err = await outputFile(dest, data);
 
     if (err) {
         console.log(err);

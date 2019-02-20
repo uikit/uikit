@@ -1,4 +1,3 @@
-/* eslint-env node */
 const {inc} = require('semver');
 const {resolve} = require('path');
 const {execSync} = require('child_process');

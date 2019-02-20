@@ -1,4 +1,3 @@
-/* eslint-env node */
 const util = require('./util');
 const {promisify} = require('util');
 const glob = promisify(require('glob'));
@@ -42,11 +41,11 @@ async function startProcess() {
             const newScope = getNewScope();
 
             if (oldScope === newScope) {
-                throw new Error(`Already scoped with: ${oldScope}`)
+                throw new Error(`Already scoped with: ${oldScope}`);
             }
 
             cleanup(files, oldScope);
-            await scope(files, newScope)
+            await scope(files, newScope);
 
         } else {
             await scope(files, getNewScope());
@@ -62,7 +61,7 @@ async function startProcess() {
 
 async function readFiles() {
 
-    let files = await glob('dist/**/!(*.min).css');
+    const files = await glob('dist/**/!(*.min).css');
     return Promise.all(files.map(async file => {
 
         const data = await util.read(file);
@@ -105,7 +104,7 @@ async function scope(files, scope) {
                 console.error(store.file, e.message);
             }
         })
-    )
+    );
 }
 
 async function store(files) {

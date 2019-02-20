@@ -1,4 +1,3 @@
-/* eslint-env node */
 const glob = require('glob');
 const util = require('./util');
 const args = require('minimist')(process.argv);
