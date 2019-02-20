@@ -73,6 +73,11 @@ export default {
             },
 
             handler(e) {
+
+                if (e.defaultPrevented) {
+                    return;
+                }
+
                 e.preventDefault();
                 this.hide();
             }

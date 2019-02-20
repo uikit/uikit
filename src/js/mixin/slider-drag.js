@@ -1,4 +1,4 @@
-import {getPos, includes, isRtl, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, trigger} from 'uikit-util';
+import {getPos, includes, isRtl, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, trigger} from 'uikit-util';
 
 export default {
 
@@ -188,7 +188,7 @@ export default {
 
         },
 
-        end() {
+        end(e) {
 
             off(window, 'scroll', this.unbindMove);
             this.unbindMove && this.unbindMove();
@@ -215,7 +215,7 @@ export default {
                     this.show(this.dir > 0 && !dirChange || this.dir < 0 && dirChange ? 'next' : 'previous', true);
                 }
 
-                preventClick();
+                e.preventDefault();
 
             }
 

@@ -24,6 +24,7 @@
 - Fix filter component initial active state
 - Fix translating `x` and `y` properties simultaneously in Parallax component
 - Class utils can handle SVGs in IE 11 now
+- Fix drag closes Lightbox
 
 ## 3.0.3 (January 29, 2019)
 
