@@ -40,7 +40,7 @@ export default {
 
         show() {
 
-            if (includes(actives, this)) {
+            if (this.isActive()) {
                 return;
             }
 
@@ -64,13 +64,11 @@ export default {
 
         hide() {
 
-            const index = actives.indexOf(this);
-
-            if (!~index || matches(this.$el, 'input') && this.$el === document.activeElement) {
+            if (!this.isActive() || matches(this.$el, 'input') && this.$el === document.activeElement) {
                 return;
             }
 
-            actives.splice(index, 1);
+            actives.splice(actives.indexOf(this), 1);
 
             clearTimeout(this.showTimer);
             clearInterval(this.hideTimer);
@@ -86,7 +84,7 @@ export default {
 
             this.tooltip = append(this.container,
                 `<div class="${this.clsPos}" aria-expanded="true" aria-hidden>
-                        <div class="${this.clsPos}-inner">${this.title}</div>
+                    <div class="${this.clsPos}-inner">${this.title}</div>
                  </div>`
             );
 
@@ -98,24 +96,35 @@ export default {
 
             this.toggleElement(this.tooltip, true);
 
+        },
+
+        isActive() {
+            return includes(actives, this);
         }
 
     },
 
     events: {
 
-        [`focus ${pointerEnter} ${pointerDown}`](e) {
-            if (e.type !== pointerDown || !isTouch(e)) {
-                this.show();
-            }
-        },
-
+        focus: 'show',
         blur: 'hide',
 
-        [pointerLeave](e) {
-            if (!isTouch(e)) {
-                this.hide();
+        [`${pointerEnter} ${pointerLeave}`](e) {
+            if (isTouch(e)) {
+                return;
             }
+            e.type === pointerEnter
+                ? this.show()
+                : this.hide();
+        },
+
+        [pointerDown](e) {
+            if (!isTouch(e)) {
+                return;
+            }
+            this.isActive()
+                ? this.hide()
+                : this.show();
         }
 
     }
