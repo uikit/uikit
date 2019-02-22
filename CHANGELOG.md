@@ -14,6 +14,7 @@
 
 - Improve dimension handling in SVG component
 - Improve Image/Leader/Toggle component performance
+- Autoplay is halted while Slideshow/Slider are active
 
 ### Removed
 
