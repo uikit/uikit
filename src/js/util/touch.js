@@ -1,46 +1,33 @@
-import {on, trigger} from './event';
+import {on, once, trigger} from './event';
 import {pointerDown, pointerUp} from './env';
 
-let touch = {};
+let off;
 
 on(document, pointerDown, e => {
+
+    off && off();
 
     if (!isTouch(e)) {
         return;
     }
 
-    if (touch.el) {
-        touch = {};
-    }
+    const pos = getPos(e);
+    const target = 'tagName' in e.target ? e.target : e.target.parentNode;
+    off = once(document, pointerUp, e => {
 
-    const {target} = e;
-    const {x, y} = getPos(e);
+        const {x, y} = getPos(e);
 
-    touch.el = 'tagName' in target ? target : target.parentNode;
-    touch.x = x;
-    touch.y = y;
+        // swipe
+        if (target && x && Math.abs(pos.x - x) > 100 || y && Math.abs(pos.y - y) > 100) {
 
-});
+            setTimeout(() => {
+                trigger(target, 'swipe');
+                trigger(target, `swipe${swipeDirection(pos.x, pos.y, x, y)}`);
+            });
 
-on(document, pointerUp, e => {
+        }
 
-    const {x, y} = getPos(e);
-
-    // swipe
-    if (touch.el && x && Math.abs(touch.x - x) > 100 || y && Math.abs(touch.y - y) > 100) {
-
-        setTimeout(() => {
-            if (touch.el) {
-                trigger(touch.el, 'swipe');
-                trigger(touch.el, `swipe${swipeDirection(touch.x, touch.y, x, y)}`);
-            }
-            touch = {};
-        });
-
-    } else {
-        touch = {};
-    }
-
+    });
 });
 
 export function isTouch(e) {
