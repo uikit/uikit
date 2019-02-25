@@ -1,6 +1,6 @@
 import Media from '../mixin/media';
 import Togglable from '../mixin/togglable';
-import {closest, hasTouch, includes, isTouch, isVisible, matches, pointerEnter, pointerLeave, queryAll, trigger} from 'uikit-util';
+import {closest, hasTouch, includes, isTouch, isVisible, matches, pointerEnter, pointerLeave, pointerUp, queryAll, trigger} from 'uikit-util';
 
 export default {
 
@@ -61,10 +61,6 @@ export default {
             },
 
             handler(e) {
-
-                if (!isTouch(e) && !includes(this.mode, 'click')) {
-                    return;
-                }
 
                 // TODO better isToggled handling
                 let link;

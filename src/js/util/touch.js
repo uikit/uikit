@@ -1,9 +1,13 @@
 import {on, trigger} from './event';
-import {pointerCancel, pointerDown, pointerUp} from './env';
+import {pointerDown, pointerUp} from './env';
 
-let touch = {}, swipeTimeout, touching;
+let touch = {};
 
 on(document, pointerDown, e => {
+
+    if (!isTouch(e)) {
+        return;
+    }
 
     if (touch.el) {
         touch = {};
@@ -16,8 +20,6 @@ on(document, pointerDown, e => {
     touch.x = x;
     touch.y = y;
 
-    touching = isTouch(e);
-
 });
 
 on(document, pointerUp, e => {
@@ -27,7 +29,7 @@ on(document, pointerUp, e => {
     // swipe
     if (touch.el && x && Math.abs(touch.x - x) > 100 || y && Math.abs(touch.y - y) > 100) {
 
-        swipeTimeout = setTimeout(() => {
+        setTimeout(() => {
             if (touch.el) {
                 trigger(touch.el, 'swipe');
                 trigger(touch.el, `swipe${swipeDirection(touch.x, touch.y, x, y)}`);
@@ -39,14 +41,10 @@ on(document, pointerUp, e => {
         touch = {};
     }
 
-    setTimeout(() => touching = false);
-
 });
 
-on(document, pointerCancel, cancelAll);
-
 export function isTouch(e) {
-    return e.pointerType === 'touch' || e.touches || touching;
+    return e.pointerType === 'touch' || e.touches;
 }
 
 export function getPos(e, prop = 'client') {
@@ -64,10 +62,4 @@ function swipeDirection(x1, y1, x2, y2) {
         : y1 - y2 > 0
             ? 'Up'
             : 'Down';
-}
-
-function cancelAll() {
-    swipeTimeout && clearTimeout(swipeTimeout);
-    swipeTimeout = null;
-    touch = {};
 }

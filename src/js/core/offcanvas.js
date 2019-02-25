@@ -1,5 +1,5 @@
 import Modal from '../mixin/modal';
-import {$, addClass, append, css, hasClass, height, isTouch, removeClass, trigger, unwrap, wrapAll} from 'uikit-util';
+import {$, addClass, append, css, endsWith, hasClass, height, removeClass, trigger, unwrap, wrapAll} from 'uikit-util';
 
 export default {
 
@@ -205,7 +205,7 @@ export default {
 
             handler(e) {
 
-                if (this.isToggled() && isTouch(e) && e.type === 'swipeLeft' ^ this.flip) {
+                if (this.isToggled() && endsWith(e.type, 'Left') ^ this.flip) {
                     this.hide();
                 }
 

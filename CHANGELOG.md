@@ -27,6 +27,7 @@
 - Class utils can handle SVGs in IE 11 now
 - Fix drag closes Lightbox
 - Fix Tooltip component (touch device)
+- Fix `hover` mode for Toggle component (touch device)
 
 ## 3.0.3 (January 29, 2019)
 
