@@ -28,6 +28,7 @@
 - Fix drag closes Lightbox
 - Fix Tooltip component (touch device)
 - Fix `hover` mode for Toggle component (touch device)
+- Fix Slideshow not setting `min-height` if ratio is set to `false`
 
 ## 3.0.3 (January 29, 2019)
 
