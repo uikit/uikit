@@ -1,6 +1,5 @@
-import {isIE} from './env';
 import {attr} from './attr';
-import {includes, isArray, isString, toNodes} from './lang';
+import {includes, isString, isUndefined, toNodes} from './lang';
 
 export function addClass(element, ...args) {
     apply(element, args, 'add');
@@ -20,12 +19,7 @@ export function replaceClass(element, ...args) {
 }
 
 export function hasClass(element, cls) {
-    cls = cls && cls.split(' ')[0];
-    return cls && toNodes(element).some(element =>
-        !isIE
-            ? element.classList.contains(cls)
-            : classList.contains(element, cls)
-    );
+    return cls && toNodes(element).some(element => element.classList.contains(cls.split(' ')[0]));
 }
 
 export function toggleClass(element, ...args) {
@@ -40,11 +34,11 @@ export function toggleClass(element, ...args) {
 
     args = args.filter(Boolean);
 
-    toNodes(element).forEach(element => {
+    toNodes(element).forEach(({classList}) => {
         for (let i = 0; i < args.length; i++) {
-            !isIE
-                ? element.classList.toggle(...[args[i]].concat(force))
-                : classList.toggle(element, args[i], force);
+            supports.Force
+                ? classList.toggle(...[args[i]].concat(force))
+                : (classList[(!isUndefined(force) ? force : !classList.contains(args[i])) ? 'add' : 'remove'](args[i]));
         }
     });
 
@@ -53,10 +47,10 @@ export function toggleClass(element, ...args) {
 function apply(element, args, fn) {
     args = getArgs(args).filter(Boolean);
 
-    args.length && toNodes(element).forEach(element => {
-        !isIE
-            ? element.classList[fn](...args)
-            : classList[fn](element, args);
+    args.length && toNodes(element).forEach(({classList}) => {
+        supports.Multiple
+            ? classList[fn](...args)
+            : args.forEach(cls => classList[fn](cls));
     });
 }
 
@@ -66,28 +60,18 @@ function getArgs(args) {
         , []);
 }
 
-// IE 11 shim (SVG elements do not support `classList` in IE 11)
-const classList = {
+const supports = {};
 
-    add(element, classNames) {
-        classNames.forEach(name => !this.contains(element, name) && attr(element, 'class', `${attr(element, 'class') || ''} ${name}`.trim()));
-    },
+// IE 11
+(function () {
 
-    remove(element, classNames) {
-        classNames.forEach(name => attr(element, 'class', (attr(element, 'class') || '').replace(new RegExp(name, 'g'), ' ').trim()));
-    },
-
-    toggle(element, className, force) {
-        this[
-            (!isArray(force)
-                ? force
-                : !this.contains(element, className)
-            ) ? 'add' : 'remove'
-        ](element, [className]);
-    },
-
-    contains(element, name) {
-        return (attr(element, 'class') || '').match(new RegExp(`^${name}$`));
+    let list = document.createElement('_').classList;
+    if (list) {
+        list.add('a', 'b');
+        list.toggle('c', false);
+        supports.Multiple = list.contains('b');
+        supports.Force = !list.contains('c');
     }
+    list = null;
 
-};
+})();
