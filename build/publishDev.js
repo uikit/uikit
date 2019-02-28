@@ -20,7 +20,7 @@ if (isDevCommit()) {
     execSync('yarn compile && yarn compile-rtl && yarn build-scss', {...options, stdio: 'inherit'});
 
     // publish to dev tag
-    execSync('npm publish --tag dev', options);
+    // execSync('npm publish --tag dev', options);
 
 }
 

@@ -18,7 +18,8 @@
 !/dist/js/uikit-icons.js
 !/dist/js/uikit-icons.min.js
 !/dist/js/components/
-/docs/*
+/.circleci
+/.github
 /node_modules
 /tests/js/test*
 /tests/css/*
