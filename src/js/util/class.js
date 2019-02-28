@@ -20,7 +20,12 @@ export function replaceClass(element, ...args) {
 }
 
 export function hasClass(element, cls) {
-    return cls && toNodes(element).some(element => element.classList.contains(cls.split(' ')[0]));
+    cls = cls && cls.split(' ')[0];
+    return cls && toNodes(element).some(element =>
+        !isIE
+            ? element.classList.contains(cls)
+            : classList.contains(element, cls)
+    );
 }
 
 export function toggleClass(element, ...args) {
@@ -65,7 +70,7 @@ function getArgs(args) {
 const classList = {
 
     add(element, classNames) {
-        classNames.forEach(name => !this.contains(element, name) && attr(element, 'class', `${attr(element, 'class')} ${name}`));
+        classNames.forEach(name => !this.contains(element, name) && attr(element, 'class', `${attr(element, 'class') || ''} ${name}`.trim()));
     },
 
     remove(element, classNames) {
@@ -82,7 +87,7 @@ const classList = {
     },
 
     contains(element, name) {
-        return (attr(element, 'class') || '').match(new RegExp(name));
+        return (attr(element, 'class') || '').match(new RegExp(`^${name}$`));
     }
 
 };
