@@ -6,7 +6,7 @@
   "main": "dist/js/uikit.js",
   "style": "dist/css/uikit.css",
   "scripts": {
-    "build-scss": "make-dir src/scss/theme && make-dir src/scss/components && node build/scss",
+    "build-scss": "node build/scss",
     "compile": "yarn compile-less && yarn compile-js",
     "compile-js": "node build/build",
     "compile-less": "yarn icons && node build/less",
@@ -41,7 +41,6 @@
     "glob": "^7.1.2",
     "inquirer": "6.2.2",
     "less": "^2.7.2",
-    "make-dir-cli": "^2.0.0",
     "minimist": "^1.2.0",
     "npm-watch": "github:dasdeck/npm-watch#46a8a36c61cfd998ed53d27f62eaf79e11c395b4",
     "postcss": "7.0.14",

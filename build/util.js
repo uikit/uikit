@@ -1,5 +1,4 @@
 const fs = require('fs');
-const path = require('path');
 const less = require('less');
 const SVGO = require('svgo');
 const rollup = require('rollup');
@@ -11,6 +10,7 @@ const json = require('rollup-plugin-json');
 const buble = require('rollup-plugin-buble');
 const replace = require('rollup-plugin-replace');
 const alias = require('rollup-plugin-import-alias');
+const {basename, dirname, join, resolve} = require('path');
 const {version} = require('../package.json');
 const banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */\n`;
 
@@ -58,14 +58,14 @@ exports.minify = async function (file) {
         returnPromise: true
     }).minify([file]);
 
-    await exports.write(`${path.join(path.dirname(file), path.basename(file, '.css'))}.min.css`, styles);
+    await exports.write(`${join(dirname(file), basename(file, '.css'))}.min.css`, styles);
 
     return styles;
 
 };
 
 exports.uglify = async function (file) {
-    file = path.join(path.dirname(file), path.basename(file, '.js'));
+    file = join(dirname(file), basename(file, '.js'));
     return exports.write(
         `${file}.min.js`,
         uglify.minify(
@@ -85,7 +85,7 @@ exports.compile = async function (file, dest, {external, globals, name, aliases,
 
     const bundle = await rollup.rollup({
         external,
-        input: `${path.resolve(path.dirname(file), path.basename(file, '.js'))}.js`,
+        input: `${resolve(dirname(file), basename(file, '.js'))}.js`,
         plugins: [
             replace(Object.assign({
                 BUNDLED: bundled || false,
@@ -156,7 +156,7 @@ exports.icons = async function (src) {
     }));
 
     return JSON.stringify(files.reduce((result, file, i) => {
-        result[path.basename(file, '.svg')] = icons[i];
+        result[basename(file, '.svg')] = icons[i];
         return result;
     }, {}), null, '    ');
 
