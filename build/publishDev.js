@@ -14,10 +14,10 @@ if (isDevCommit()) {
     const hash = execSync('git rev-parse --short HEAD', options).trim();
 
     // set version of package.json
-    execSync(`npm version ${version}-dev.${hash} --git-tag-version false`, options);
+    execSync(`npm version ${version}-dev.${hash} --git-tag-version false`, {...options, stdio: 'inherit'});
 
     // create dist files
-    execSync('npm run compile && npm run compile-rtl && npm run build-scss', options);
+    execSync('yarn compile && yarn compile-rtl && yarn build-scss', {...options, stdio: 'inherit'});
 
     // publish to dev tag
     execSync('npm publish --tag dev', options);
