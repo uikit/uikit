@@ -23,7 +23,7 @@ export default {
     },
 
     update() {
-        attr(this.slide, 'tabindex', '-1');
+        attr(this.slides, 'tabindex', '-1');
     },
 
     events: [

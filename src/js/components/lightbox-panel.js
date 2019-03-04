@@ -91,7 +91,6 @@ export default {
             self: true,
 
             handler() {
-                this.startAutoplay();
                 this.showControls();
             }
 
@@ -105,7 +104,6 @@ export default {
 
             handler() {
 
-                this.stopAutoplay();
                 this.hideControls();
 
                 removeClass(this.slides, this.clsActive);
