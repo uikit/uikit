@@ -1,6 +1,6 @@
 import Media from '../mixin/media';
 import Togglable from '../mixin/togglable';
-import {closest, hasTouch, includes, isTouch, isVisible, matches, pointerEnter, pointerLeave, pointerUp, queryAll, trigger} from 'uikit-util';
+import {closest, hasTouch, includes, isTouch, isVisible, matches, pointerEnter, pointerLeave, queryAll, trigger} from 'uikit-util';
 
 export default {
 
@@ -84,11 +84,9 @@ export default {
     update: {
 
         read() {
-            if (!includes(this.mode, 'media') || !this.media) {
-                return false;
-            }
-
-            return {match: this.matchMedia};
+            return includes(this.mode, 'media') && this.media
+                ? {match: this.matchMedia}
+                : false;
         },
 
         write({match}) {
