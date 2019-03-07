@@ -5,7 +5,7 @@ export default {
     args: 'src',
 
     props: {
-        id: String,
+        id: Boolean,
         icon: String,
         src: String,
         style: String,
@@ -19,8 +19,7 @@ export default {
 
     data: {
         ratio: 1,
-        id: false,
-        include: ['id', 'style', 'class'],
+        include: ['style', 'class'],
         'class': '',
         strokeAnimation: false
     },
@@ -48,7 +47,7 @@ export default {
     disconnected() {
 
         if (isVoidElement(this.$el)) {
-            attr(this.$el, {hidden: null, id: this.id || null});
+            attr(this.$el, 'hidden', null);
         }
 
         if (this.svg) {
@@ -206,7 +205,7 @@ export function getMaxPathLength(el) {
 function insertSVG(el, root) {
     if (isVoidElement(root) || root.tagName === 'CANVAS') {
 
-        attr(root, {hidden: true, id: null});
+        attr(root, 'hidden', true);
 
         const next = root.nextElementSibling;
         return equals(el, next)

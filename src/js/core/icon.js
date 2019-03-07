@@ -42,8 +42,6 @@ const Icon = {
 
     install,
 
-    attrs: ['icon', 'ratio'],
-
     mixins: [Class, SVG],
 
     args: 'icon',

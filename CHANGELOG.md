@@ -81,6 +81,7 @@
 - `css` function: Setting a CSS property to `NaN` no longer removes the property
 - Slide/Slideshow navs and Drops no longer blur after hiding
 - Changed the default `toggle` option for Switcher component to `> * > :first-child`
+- SVG component no longer moves `id` from element to svg
 
 ### Removed
 
