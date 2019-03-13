@@ -6,9 +6,6 @@ argv._.forEach(arg => {
     argv[tokens[0]] = tokens[1] || true;
 });
 
-const currentScopeRegex = /\/\* scoped: ([^*]*) \*\//;
-const currentScopeLegacyRegex = /\.(uk-scope)/;
-
 if (argv.h || argv.help) {
     console.log(`
         usage:
@@ -23,10 +20,10 @@ if (argv.h || argv.help) {
 
     `);
 } else {
-    startProcess();
+    run();
 }
 
-async function startProcess() {
+async function run() {
 
     const files = await readFiles();
     const oldScope = getScope(files);
@@ -70,9 +67,7 @@ async function readFiles() {
 }
 
 function getScope(files) {
-    let scope;
-    files.some(({data}) => (scope = isScoped(data)));
-    return scope;
+    return files.reduce((scope, {data}) => scope || isScoped(data), '');
 }
 
 function getNewScope() {
@@ -114,24 +109,20 @@ async function store(files) {
     );
 }
 
+const currentScopeRe = /\/\* scoped: ([^*]*) \*\//;
+const currentScopeLegacyRe = /\.(uk-scope)/;
+
 function cleanup(files, scope) {
     const string = scope.split(' ').map(scope => `.${scope}`).join(' ');
     files.forEach(store => {
         store.data = store.data
             .replace(new RegExp(/ */.source + string + / ({[\s\S]*?})?/.source, 'g'), '') // replace classes
-            .replace(new RegExp(currentScopeRegex.source, 'g'), ''); // remove scope comment
+            .replace(new RegExp(currentScopeRe.source, 'g'), ''); // remove scope comment
     });
 }
 
 function isScoped(data) {
-
-    let varName = data.match(currentScopeRegex);
-    if (varName) {
-        return varName[1];
-    } else {
-        varName = data.match(currentScopeLegacyRegex);
-    }
-    return varName && varName[1];
+    return (data.match(currentScopeRe) || data.match(currentScopeLegacyRe) || [])[1];
 }
 
 function stripComments(input) {

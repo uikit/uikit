@@ -119,7 +119,7 @@ exports.compile = async function (file, dest, {external, globals, name, aliases,
 
     code = code.replace(/(>)\\n\s+|\\n\s+(<)/g, '$1 $2');
 
-    return await Promise.all([
+    return Promise.all([
         exports.write(`${dest}.js`, code + (!minify ? '\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,' + Buffer.from(map.toString()).toString('base64') : '')),
         minify ? exports.write(`${dest}.min.js`, uglify.minify(code, {output: {preamble: exports.banner}}).code) : null
     ])[0];
