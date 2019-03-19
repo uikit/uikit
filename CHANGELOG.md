@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add navbar nav primary to Navbar component
 - Add text secondary to Text component
 - Add `strokeAnimation` option to SVG component
 - Add `stroke` option to Parallax component

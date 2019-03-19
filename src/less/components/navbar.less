@@ -79,6 +79,8 @@
 @navbar-dropbar-background:                     @navbar-dropdown-background;
 @navbar-dropbar-z-index:                        @global-z-index - 20;
 
+@navbar-nav-primary-item-font-size:             @global-large-font-size;
+
 
 /* ========================================================================
    Component: Navbar
@@ -486,6 +488,23 @@
 }
 
 
+/* Primary modifier
+ ========================================================================== */
+
+.uk-navbar-nav-primary {
+    .hook-navbar-nav-primary;
+}
+
+/*
+ * Nav items
+ */
+
+.uk-navbar-nav-primary > li > a {
+    font-size: @navbar-nav-primary-item-font-size;
+    .hook-navbar-nav-primary-item;
+}
+
+
 // Hooks
 // ========================================================================
 
@@ -515,6 +534,8 @@
 .hook-navbar-dropdown-nav-divider() {}
 .hook-navbar-dropbar(){}
 .hook-navbar-dropbar-slide(){}
+.hook-navbar-nav-primary(){}
+.hook-navbar-nav-primary-item(){}
 .hook-navbar-misc() {}
 
 
