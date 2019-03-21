@@ -9,6 +9,7 @@
 - Add `stroke` option to Parallax component
 - Add `dataSrc` as primary option to Image component
 - Parallax component supports more units
+- Add `webp` as image type to Lightbox Panel component
 
 ### Changed
 
