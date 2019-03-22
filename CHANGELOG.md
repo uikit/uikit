@@ -16,6 +16,7 @@
 - Improve dimension handling in SVG component
 - Improve Image/Leader/Toggle component performance
 - Autoplay is halted while Slideshow/Slider are active
+- Lightbox filters duplicate items by `source`
 
 ### Removed
 

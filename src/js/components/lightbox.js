@@ -1,5 +1,5 @@
 import LightboxPanel from './lightbox-panel';
-import {$$, assign, data, index, on} from 'uikit-util';
+import {$$, assign, data, index, on, uniqueBy} from 'uikit-util';
 
 export default {
 
@@ -53,13 +53,13 @@ export default {
         show(index) {
 
             this.panel = this.panel || this.$create('lightboxPanel', assign({}, this.$props, {
-                items: this.toggles.reduce((items, el) => {
+                items: uniqueBy(this.toggles.reduce((items, el) => {
                     items.push(['href', 'caption', 'type', 'poster', 'alt'].reduce((obj, attr) => {
                         obj[attr === 'href' ? 'source' : attr] = data(el, attr);
                         return obj;
                     }, {}));
                     return items;
-                }, [])
+                }, []), 'source')
             }));
 
             on(this.panel.$el, 'hidden', () => this.panel = false);
