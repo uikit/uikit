@@ -4,11 +4,13 @@
 
 ### Added
 
+- Add SVG stroke animation to Animation component
+- Add option to animate SVG strokes to SVG component
+- Add option to animate SVG strokes to Parallax component
+- Add support for more units to Parallax component
+- Add lazy loading support for inlined SVG images to Image component
 - Add text secondary to Text component
-- Add `strokeAnimation` option to SVG component
-- Add `stroke` option to Parallax component
 - Add `dataSrc` as primary option to Image component
-- Parallax component supports more units
 - Add `webp` as image type to Lightbox Panel component
 
 ### Changed
