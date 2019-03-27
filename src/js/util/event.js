@@ -1,5 +1,4 @@
 import {within} from './filter';
-import {pointerCancel} from './env';
 import {closest, findAll} from './selector';
 import {isArray, isFunction, isString, toNode, toNodes} from './lang';
 
@@ -112,19 +111,4 @@ export function toEventTargets(target) {
                 : isEventTarget(target)
                     ? [target]
                     : toNodes(target);
-}
-
-export function preventClick() {
-
-    const timer = setTimeout(once(document, 'click', e => {
-
-        e.preventDefault();
-        e.stopImmediatePropagation();
-
-        clearTimeout(timer);
-
-    }, true));
-
-    trigger(document, pointerCancel);
-
 }

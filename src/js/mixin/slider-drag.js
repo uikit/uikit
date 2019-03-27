@@ -1,4 +1,4 @@
-import {getPos, includes, isRtl, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, trigger} from 'uikit-util';
+import {css, getPos, includes, isRtl, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, trigger} from 'uikit-util';
 
 export default {
 
@@ -126,6 +126,8 @@ export default {
                 return;
             }
 
+            css(this.list, 'pointer-events', 'none');
+
             e.cancelable && e.preventDefault();
 
             this.dragging = true;
@@ -188,7 +190,7 @@ export default {
 
         },
 
-        end(e) {
+        end() {
 
             off(window, 'scroll', this.unbindMove);
             this.unbindMove && this.unbindMove();
@@ -215,10 +217,9 @@ export default {
                     this.show(this.dir > 0 && !dirChange || this.dir < 0 && dirChange ? 'next' : 'previous', true);
                 }
 
-                e.preventDefault();
-                preventClick();
-
             }
+
+            css(this.list, 'pointer-events', '');
 
             this.drag
                 = this.percent
