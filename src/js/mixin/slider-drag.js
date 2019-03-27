@@ -1,4 +1,4 @@
-import {getPos, includes, isRtl, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, trigger} from 'uikit-util';
+import {getPos, includes, isRtl, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, preventClick, trigger} from 'uikit-util';
 
 export default {
 
@@ -216,6 +216,7 @@ export default {
                 }
 
                 e.preventDefault();
+                preventClick();
 
             }
 
