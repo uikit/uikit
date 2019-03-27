@@ -4,6 +4,8 @@
 
 ### Added
 
+- Add deprecated flag to Less variables
+- Add style modifier to Heading component
 - Add SVG stroke animation to Animation component
 - Add option to animate SVG strokes to SVG component
 - Add option to animate SVG strokes to Parallax component
@@ -15,10 +17,16 @@
 
 ### Changed
 
+- Refactor divider, bullet and line modifiers in Heading component
 - Improve dimension handling in SVG component
 - Improve Image/Leader/Toggle component performance
 - Autoplay is halted while Slideshow/Slider are active
 - Lightbox filters duplicate items by `source`
+
+### Deprecated
+
+- Primary Heading: Use `uk-heading-medium` instead of `uk-heading-primary`
+- Hero Heading: Use `uk-heading-xlarge` instead of `uk-heading-hero`
 
 ### Removed
 
