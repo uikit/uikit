@@ -10,7 +10,7 @@
 - Add option to animate SVG strokes to SVG component
 - Add option to animate SVG strokes to Parallax component
 - Add support for more units to Parallax component
-- Add lazy loading support for inlined SVG images to Image component
+- Add lazy loading support if Image component is used with SVG component
 - Add text secondary to Text component
 - Add `dataSrc` as primary option to Image component
 - Add `webp` as image type to Lightbox Panel component
@@ -34,6 +34,7 @@
 
 ### Fixed
 
+- Fix rendering issue for scale in Transition component
 - Fix Filter component's initial active state
 - Fix translating `x` and `y` properties simultaneously in Parallax component
 - Fix drag closes Lightbox
