@@ -154,7 +154,8 @@ function getDimensions(element) {
 
     let style, hidden;
 
-    if (!isVisible(element)) {
+    if (!isVisible(element) && css(element, 'display') === 'none') {
+
         style = attr(element, 'style');
         hidden = attr(element, 'hidden');
 
