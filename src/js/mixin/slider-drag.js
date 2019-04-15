@@ -111,6 +111,8 @@ export default {
             on(window, 'scroll', this.unbindMove);
             on(document, pointerUp, this.end, true);
 
+            css(this.list, 'userSelect', 'none');
+
         },
 
         move(e) {
@@ -126,7 +128,7 @@ export default {
                 return;
             }
 
-            css(this.list, 'pointer-events', 'none');
+            css(this.list, 'pointerEvents', 'none');
 
             e.cancelable && e.preventDefault();
 
@@ -219,7 +221,7 @@ export default {
 
             }
 
-            css(this.list, 'pointer-events', '');
+            css(this.list, {userSelect: '', pointerEvents: ''});
 
             this.drag
                 = this.percent
