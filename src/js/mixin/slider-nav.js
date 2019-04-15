@@ -76,7 +76,7 @@ export default {
                 const cmd = data(el, this.attrItem);
 
                 toggleClass(el, this.clsActive, toNumber(cmd) === i);
-                toggleClass(el, 'uk-invisible', this.finite && (cmd === 'previous' && i === 0 || cmd === 'next' && i >= this.maxIndex));
+                toggleClass(el, this.clsDisabled, this.finite && (cmd === 'previous' && i === 0 || cmd === 'next' && i >= this.maxIndex));
             });
 
         }

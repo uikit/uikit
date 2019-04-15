@@ -5239,6 +5239,7 @@ ul.uk-nav-sub {
  * 5. Responsiveness
  *    Using `vh` for `max-height` to fix image proportions after resize in Safari and Opera
  *    Using `vh` and `vw` to make responsive image work in IE11
+ * 6. Suppress outline on focus
  */
 .uk-lightbox-items > * {
   /* 1 */
@@ -5260,6 +5261,10 @@ ul.uk-nav-sub {
 .uk-lightbox-items > * > * {
   max-width: 100vw;
   max-height: 100vh;
+}
+/* 6 */
+.uk-slideshow-items > :focus {
+  outline: none;
 }
 .uk-lightbox-items > * > :not(iframe) {
   width: auto;
@@ -5359,6 +5364,7 @@ ul.uk-nav-sub {
  * 3. Clip child elements, e.g. for `uk-cover`
  * 4. Optimize animation
  * 5. Disable horizontal panning gestures in IE11 and Edge
+ * 6. Suppress outline on focus
  */
 .uk-slideshow-items > * {
   /* 1 */
@@ -5374,6 +5380,10 @@ ul.uk-nav-sub {
   will-change: transform, opacity;
   /* 5 */
   touch-action: pan-y;
+}
+/* 6 */
+.uk-slideshow-items > :focus {
+  outline: none;
 }
 /*
  * Hide not active items
@@ -5434,6 +5444,7 @@ ul.uk-nav-sub {
  * 1. Let items take content dimensions (0 0 auto)
  * 2. Create position context
  * 3. Disable horizontal panning gestures in IE11 and Edge
+ * 4. Suppress outline on focus
  */
 .uk-slider-items > * {
   /* 1 */
@@ -5442,6 +5453,10 @@ ul.uk-nav-sub {
   position: relative;
   /* 3 */
   touch-action: pan-y;
+}
+/* 4 */
+.uk-slider-items > :focus {
+  outline: none;
 }
 /* ========================================================================
    Component: Sticky
@@ -6141,33 +6156,6 @@ ul.uk-nav-sub {
   animation-timing-function: ease-out;
   animation-fill-mode: both;
 }
-/* Direction modifier
- ========================================================================== */
-.uk-animation-reverse {
-  animation-direction: reverse;
-  animation-timing-function: ease-in;
-}
-/* Toggle (Hover + Focus)
-========================================================================== */
-/*
- * The toggle is triggered on touch devices using `:focus` and tabindex
- */
-.uk-animation-toggle:not(:hover):not(:focus) [class*='uk-animation-'] {
-  animation-name: none;
-}
-/*
- * 1. Prevent tab highlighting on iOS.
- */
-.uk-animation-toggle {
-  /* 1 */
-  -webkit-tap-highlight-color: transparent;
-}
-/*
- * Remove outline for `tabindex`
- */
-.uk-animation-toggle:focus {
-  outline: none;
-}
 /* Animations
  ========================================================================== */
 /*
@@ -6245,10 +6233,49 @@ ul.uk-nav-sub {
 .uk-animation-shake {
   animation-name: uk-shake;
 }
+/*
+ * SVG Stroke
+ * The `--uk-animation-stroke` custom property contains the longest path length.
+ * Set it manually or use `uk-svg="stroke-animation: true"` to set it automatically.
+ * All strokes are animated by the same pace and doesn't end simultaneously.
+ * To end simultaneously, `pathLength="1"` could be used, but it's not working in Safari yet.
+ */
+.uk-animation-stroke {
+  animation-name: uk-stroke;
+  stroke-dasharray: var(--uk-animation-stroke);
+  animation-duration: 2s;
+}
+/* Direction modifier
+ ========================================================================== */
+.uk-animation-reverse {
+  animation-direction: reverse;
+  animation-timing-function: ease-in;
+}
 /* Duration modifier
  ========================================================================== */
 .uk-animation-fast {
   animation-duration: 0.1s;
+}
+/* Toggle (Hover + Focus)
+========================================================================== */
+/*
+ * The toggle is triggered on touch devices using `:focus` and tabindex
+ */
+.uk-animation-toggle:not(:hover):not(:focus) [class*='uk-animation-'] {
+  animation-name: none;
+}
+/*
+ * 1. Prevent tab highlighting on iOS.
+ */
+.uk-animation-toggle {
+  /* 1 */
+  -webkit-tap-highlight-color: transparent;
+}
+/*
+ * Remove outline for `tabindex`
+ */
+.uk-animation-toggle:focus {
+  outline: none;
 }
 /* Keyframes used by animation classes
  ========================================================================== */
@@ -6490,6 +6517,17 @@ ul.uk-nav-sub {
   }
   90% {
     transform: translateX(-1px);
+  }
+}
+/*
+ * Stroke
+ */
+@keyframes uk-stroke {
+  0% {
+    stroke-dashoffset: var(--uk-animation-stroke);
+  }
+  100% {
+    stroke-dashoffset: 0;
   }
 }
 /* ========================================================================
@@ -7094,6 +7132,9 @@ ul.uk-nav-sub {
 }
 .uk-text-primary {
   color: #1e87f0 !important;
+}
+.uk-text-secondary {
+  color: #222 !important;
 }
 .uk-text-success {
   color: #32d296 !important;
@@ -8514,7 +8555,8 @@ iframe.uk-cover {
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
-.uk-margin-remove-adjacent + * {
+.uk-margin-remove-adjacent + *,
+.uk-margin-remove-first-child > :first-child {
   margin-top: 0 !important;
 }
 /* Auto
@@ -8654,7 +8696,6 @@ iframe.uk-cover {
   left: 50%;
   transform: translate(-50%, -50%);
   /* 1 */
-  width: -moz-max-content;
   width: max-content;
   max-width: 100%;
   box-sizing: border-box;
@@ -8673,12 +8714,10 @@ iframe.uk-cover {
 }
 .uk-position-center-left-out {
   right: 100%;
-  width: -moz-max-content;
   width: max-content;
 }
 .uk-position-center-right-out {
   left: 100%;
-  width: -moz-max-content;
   width: max-content;
 }
 /* Horizontal */
@@ -8687,7 +8726,6 @@ iframe.uk-cover {
   left: 50%;
   transform: translateX(-50%);
   /* 1 */
-  width: -moz-max-content;
   width: max-content;
   max-width: 100%;
   box-sizing: border-box;
@@ -8826,10 +8864,9 @@ iframe.uk-cover {
  */
 .uk-transition-fade,
 [class*='uk-transition-scale'],
-[class*='uk-transition-slide'],
-.uk-transition-stroke {
+[class*='uk-transition-slide'] {
   transition: 0.3s ease-out;
-  transition-property: opacity, transform, filter, stroke-dashoffset;
+  transition-property: opacity, transform, filter;
   opacity: 0;
 }
 /*
@@ -8908,19 +8945,6 @@ iframe.uk-cover {
 .uk-transition-active.uk-active [class*='uk-transition-slide'] {
   opacity: 1;
   transform: translate(0, 0);
-}
-/*
- * Stroke
- */
-.uk-transition-stroke {
-  transition-duration: 3s;
-}
-/* Show */
-.uk-transition-stroke:hover,
-.uk-transition-stroke:focus,
-.uk-transition-stroke.uk-transition-active {
-  opacity: 1;
-  stroke-dashoffset: 0 !important;
 }
 /* Opacity modifier
  ========================================================================== */
@@ -11908,7 +11932,20 @@ iframe.uk-cover {
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-text-primary,
 .uk-overlay-primary .uk-text-primary,
 .uk-offcanvas-bar .uk-text-primary {
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: #fff !important;
+}
+.uk-light .uk-text-secondary,
+.uk-section-primary:not(.uk-preserve-color) .uk-text-secondary,
+.uk-section-secondary:not(.uk-preserve-color) .uk-text-secondary,
+.uk-tile-primary:not(.uk-preserve-color) .uk-text-secondary,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-text-secondary,
+.uk-card-primary.uk-card-body .uk-text-secondary,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-text-secondary,
+.uk-card-secondary.uk-card-body .uk-text-secondary,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-text-secondary,
+.uk-overlay-primary .uk-text-secondary,
+.uk-offcanvas-bar .uk-text-secondary {
+  color: #fff !important;
 }
 .uk-light .uk-column-divider,
 .uk-section-primary:not(.uk-preserve-color) .uk-column-divider,

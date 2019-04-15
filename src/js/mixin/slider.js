@@ -12,7 +12,8 @@ export default {
         easing: String,
         index: Number,
         finite: Boolean,
-        velocity: Number
+        velocity: Number,
+        clsDisabled: String
     },
 
     data: () => ({
@@ -23,6 +24,7 @@ export default {
         stack: [],
         percent: 0,
         clsActive: 'uk-active',
+        clsDisabled: 'uk-invisible',
         clsActivated: false,
         Transitioner: false,
         transitionOptions: {}
