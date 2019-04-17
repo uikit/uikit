@@ -20,7 +20,8 @@
 //                  `uk-navbar-dropdown-grid`
 //                  `uk-navbar-toggle-icon`
 //
-// Modifiers:       `uk-navbar-transparent`
+// Modifiers:       `uk-navbar-primary`
+//                  `uk-navbar-transparent`
 //                  `uk-navbar-sticky`
 //                  `uk-navbar-dropdown-stack`
 //
@@ -321,6 +322,10 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 /* Style modifiers
  ========================================================================== */
 
+.uk-navbar-primary {
+    @if(mixin-exists(hook-navbar-primary)) {@include hook-navbar-primary();}
+}
+
 .uk-navbar-transparent {
     @if(mixin-exists(hook-navbar-transparent)) {@include hook-navbar-transparent();}
 }
@@ -503,6 +508,7 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 // @mixin hook-navbar-toggle-icon(){}
 // @mixin hook-navbar-toggle-icon-hover(){}
 // @mixin hook-navbar-subtitle(){}
+// @mixin hook-navbar-primary(){}
 // @mixin hook-navbar-transparent(){}
 // @mixin hook-navbar-sticky(){}
 // @mixin hook-navbar-dropdown(){}
