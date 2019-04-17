@@ -4,17 +4,20 @@
 
 ### Added
 
+- Add deprecated flag to Less variables
+- Add style modifier to Heading component
 - Add SVG stroke animation to Animation component
 - Add option to animate SVG strokes to SVG component
 - Add option to animate SVG strokes to Parallax component
 - Add support for more units to Parallax component
-- Add lazy loading support for inlined SVG images to Image component
+- Add lazy loading support if Image component is used with SVG component
 - Add text secondary to Text component
 - Add `dataSrc` as primary option to Image component
 - Add `webp` as image type to Lightbox Panel component
 
 ### Changed
 
+- Refactor divider, bullet and line modifiers in Heading component
 - Improve dimension handling in SVG component
 - Improve Image/Leader/Toggle component performance
 - Autoplay is halted while Slideshow/Slider are active
@@ -22,12 +25,18 @@
 - Rename `getPos` to `getEventPos`
 - Move code with side effects to `core.js`
 
+### Deprecated
+
+- Primary Heading: Use `uk-heading-medium` instead of `uk-heading-primary`
+- Hero Heading: Use `uk-heading-xlarge` instead of `uk-heading-hero`
+
 ### Removed
 
 - `cls` option no longer accepts a list of classNames in Scrollspy component
 
 ### Fixed
 
+- Fix rendering issue for scale in Transition component
 - Fix Filter component's initial active state
 - Fix translating `x` and `y` properties simultaneously in Parallax component
 - Fix drag closes Lightbox

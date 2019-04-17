@@ -89,25 +89,24 @@
 
 /*
  * Scale
- * Note: Using `scale3d` for better image rendering
  */
 
-.uk-transition-scale-up { transform: scale3d(1,1,1); }
-.uk-transition-scale-down { transform: scale3d(@transition-scale,@transition-scale,1); }
+.uk-transition-scale-up { transform: scale(1,1); }
+.uk-transition-scale-down { transform: scale(@transition-scale,@transition-scale); }
 
 /* Show */
 .uk-transition-toggle:hover .uk-transition-scale-up,
 .uk-transition-toggle:focus .uk-transition-scale-up,
 .uk-transition-active.uk-active .uk-transition-scale-up {
     opacity: 1;
-    transform: scale3d(@transition-scale,@transition-scale,1);
+    transform: scale(@transition-scale,@transition-scale);
 }
 
 .uk-transition-toggle:hover .uk-transition-scale-down,
 .uk-transition-toggle:focus .uk-transition-scale-down,
 .uk-transition-active.uk-active .uk-transition-scale-down {
     opacity: 1;
-    transform: scale3d(1,1,1);
+    transform: scale(1,1);
 }
 
 /*
