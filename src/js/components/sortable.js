@@ -47,13 +47,31 @@ export default {
         });
     },
 
-    events: {
+    events: [
+        {
 
-        name: pointerDown,
-        passive: false,
-        handler: 'init'
+            name: pointerDown,
+            passive: false,
+            handler: 'init'
 
-    },
+        },
+
+        {
+            name: 'dragstart',
+
+            handler(e) {
+                e.preventDefault();
+            }
+        },
+
+        {
+            name: 'touchmove',
+
+            handler(e) {
+                this.drag && e.preventDefault();
+            }
+        }
+    ],
 
     update: {
 
@@ -103,13 +121,11 @@ export default {
                 return;
             }
 
-            e.preventDefault();
-
             this.touched = [this];
             this.placeholder = placeholder;
             this.origin = assign({target, index: index(placeholder)}, this.pos);
 
-            on(document, pointerMove, this.move);
+            on(document, pointerMove, this.move, {passive: false});
             on(document, pointerUp, this.end);
             on(window, 'scroll', this.scroll);
 
@@ -136,6 +152,8 @@ export default {
             const {left, top} = offset(this.placeholder);
             assign(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
 
+            css(this.placeholder, 'pointerEvents', 'none');
+
             addClass(this.placeholder, this.clsPlaceholder);
             addClass(this.$el.children, this.clsItem);
             addClass(document.documentElement, this.clsDragState);
@@ -155,6 +173,8 @@ export default {
 
                 return;
             }
+
+            e.cancelable && e.preventDefault();
 
             this.$emit();
 
@@ -184,19 +204,13 @@ export default {
 
         },
 
-        end(e) {
+        end() {
 
             off(document, pointerMove, this.move);
             off(document, pointerUp, this.end);
             off(window, 'scroll', this.scroll);
 
-            if (!this.drag) {
-                if (e.type === 'touchend') {
-                    e.target.click();
-                }
-
-                return;
-            }
+            css(this.placeholder, 'pointerEvents', '');
 
             const sortable = this.getSortable(this.placeholder);
 
