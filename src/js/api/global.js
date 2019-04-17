@@ -26,7 +26,7 @@ export default function (UIkit) {
         options = options || {};
 
         const Super = this;
-        const Sub = function UIkitComponent (options) {
+        const Sub = function UIkitComponent(options) {
             this._init(options);
         };
 

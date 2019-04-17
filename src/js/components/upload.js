@@ -16,7 +16,7 @@ export default {
         name: String,
         params: Object,
         type: String,
-        url: String,
+        url: String
     },
 
     data: {

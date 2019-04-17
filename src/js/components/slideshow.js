@@ -11,7 +11,7 @@ export default {
     props: {
         ratio: String,
         minHeight: Number,
-        maxHeight: Number,
+        maxHeight: Number
     },
 
     data: {

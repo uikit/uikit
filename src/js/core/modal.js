@@ -49,7 +49,7 @@ export default {
 
 };
 
-function install (UIkit) {
+function install(UIkit) {
 
     UIkit.modal.dialog = function (content, options) {
 

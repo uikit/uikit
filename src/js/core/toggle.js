@@ -11,14 +11,14 @@ export default {
     props: {
         href: String,
         target: null,
-        mode: 'list',
+        mode: 'list'
     },
 
     data: {
         href: false,
         target: false,
         mode: 'click',
-        queued: true,
+        queued: true
     },
 
     computed: {

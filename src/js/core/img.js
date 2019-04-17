@@ -79,7 +79,7 @@ export default {
         }
 
         this.observer = new IntersectionObserver(this.load, {
-            rootMargin: `${this.offsetTop}px ${this.offsetLeft}px`,
+            rootMargin: `${this.offsetTop}px ${this.offsetLeft}px`
         });
 
         requestAnimationFrame(this.observe);

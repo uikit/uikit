@@ -82,7 +82,7 @@ export function positionAt(element, target, elAttach, targetAttach, elOffset, ta
                     if (newVal >= boundary[align] && newVal + dim[prop] <= boundary[alignFlip]) {
                         position[align] = newVal;
 
-                        ['element', 'target'].forEach((el) => {
+                        ['element', 'target'].forEach(el => {
                             flipped[el][dir] = !elemOffset
                                 ? flipped[el][dir]
                                 : flipped[el][dir] === dirs[prop][1]
@@ -148,7 +148,7 @@ function getDimensions(element) {
             height,
             width,
             bottom: top + height,
-            right: left + width,
+            right: left + width
         };
     }
 
@@ -177,7 +177,7 @@ function getDimensions(element) {
         top: rect.top + top,
         left: rect.left + left,
         bottom: rect.bottom + top,
-        right: rect.right + left,
+        right: rect.right + left
     };
 }
 

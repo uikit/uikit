@@ -10,7 +10,7 @@ export default {
 
     props: {
         center: Boolean,
-        sets: Boolean,
+        sets: Boolean
     },
 
     data: {
