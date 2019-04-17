@@ -5,7 +5,7 @@
 ### Added
 
 - Add deprecated flag to Less variables
-- Add style modifiers to Heading component
+- Add size modifiers to Heading component
 - Add SVG stroke animation to Animation component
 - Add option to animate SVG strokes to SVG component
 - Add option to animate SVG strokes to Parallax component
