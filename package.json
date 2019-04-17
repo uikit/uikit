@@ -5,6 +5,11 @@
   "version": "3.0.3",
   "main": "dist/js/uikit.js",
   "style": "dist/css/uikit.css",
+  "sideEffects": [
+    "*.css",
+    "./src/js/*.js",
+    "./dist/**/*.js"
+  ],
   "scripts": {
     "build-scss": "node build/scss",
     "compile": "yarn compile-less && yarn compile-js",

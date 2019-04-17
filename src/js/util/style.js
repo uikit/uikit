@@ -105,11 +105,12 @@ export function propName(name) {
 }
 
 const cssPrefixes = ['webkit', 'moz', 'ms'];
-const {style} = document.createElement('_');
 
 function vendorPropName(name) {
 
     name = hyphenate(name);
+
+    const {style} = document.documentElement;
 
     if (name in style) {
         return name;

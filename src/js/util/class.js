@@ -1,5 +1,5 @@
 import {attr} from './attr';
-import {includes, isString, isUndefined, toNodes} from './lang';
+import {hasOwn, includes, isString, isUndefined, toNodes} from './lang';
 
 export function addClass(element, ...args) {
     apply(element, args, 'add');
@@ -60,18 +60,28 @@ function getArgs(args) {
         , []);
 }
 
-const supports = {};
-
 // IE 11
-(function () {
+const supports = {
 
-    let list = document.createElement('_').classList;
-    if (list) {
-        list.add('a', 'b');
-        list.toggle('c', false);
-        supports.Multiple = list.contains('b');
-        supports.Force = !list.contains('c');
+    get Multiple() {
+        return this.get('_multiple');
+    },
+
+    get Force() {
+        return this.get('_force');
+    },
+
+    get(key) {
+
+        if (!hasOwn(this, key)) {
+            const {classList} = document.createElement('_');
+            classList.add('a', 'b');
+            classList.toggle('c', false);
+            this._multiple = classList.contains('b');
+            this._force = !classList.contains('c');
+        }
+
+        return this[key];
     }
-    list = null;
 
-})();
+};

@@ -112,3 +112,14 @@ export function toEventTargets(target) {
                     ? [target]
                     : toNodes(target);
 }
+
+export function isTouch(e) {
+    return e.pointerType === 'touch' || e.touches;
+}
+
+export function getEventPos(e, prop = 'client') {
+    const {touches, changedTouches} = e;
+    const {[`${prop}X`]: x, [`${prop}Y`]: y} = touches && touches[0] || changedTouches && changedTouches[0] || e;
+
+    return {x, y};
+}

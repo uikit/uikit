@@ -1,4 +1,4 @@
-import {css, getPos, includes, isRtl, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, trigger} from 'uikit-util';
+import {css, getEventPos, includes, isRtl, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, trigger} from 'uikit-util';
 
 export default {
 
@@ -18,7 +18,7 @@ export default {
             const fn = this[key];
             this[key] = e => {
 
-                const pos = getPos(e).x * (isRtl ? -1 : 1);
+                const pos = getEventPos(e).x * (isRtl ? -1 : 1);
 
                 this.prevPos = pos !== this.pos ? this.pos : this.prevPos;
                 this.pos = pos;

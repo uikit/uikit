@@ -19,6 +19,8 @@
 - Improve Image/Leader/Toggle component performance
 - Autoplay is halted while Slideshow/Slider are active
 - Lightbox filters duplicate items by `source`
+- Rename `getPos` to `getEventPos`
+- Move code with side effects to `core.js`
 
 ### Removed
 
