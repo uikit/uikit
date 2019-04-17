@@ -47,31 +47,13 @@ export default {
         });
     },
 
-    events: [
-        {
+    events: {
 
-            name: pointerDown,
-            passive: false,
-            handler: 'init'
+        name: pointerDown,
+        passive: false,
+        handler: 'init'
 
-        },
-
-        {
-            name: 'dragstart',
-
-            handler(e) {
-                e.preventDefault();
-            }
-        },
-
-        {
-            name: 'touchmove',
-
-            handler(e) {
-                this.drag && e.preventDefault();
-            }
-        }
-    ],
+    },
 
     update: {
 
@@ -81,7 +63,7 @@ export default {
                 toggleClass(this.$el, this.clsEmpty, !this.$el.children.length);
             }
 
-            css(this.handle ? $$(this.handle, this.$el) : this.$el.children, 'touchAction', 'none');
+            css(this.handle ? $$(this.handle, this.$el) : this.$el.children, {touchAction: 'none', userSelect: 'none'});
 
             if (!this.drag) {
                 return;
@@ -112,20 +94,22 @@ export default {
             const [placeholder] = toNodes(this.$el.children).filter(el => within(target, el));
 
             if (!placeholder
-                || isInput(target)
-                || this.handle && !within(target, this.handle)
-                || button > 0
-                || within(target, `.${this.clsNoDrag}`)
                 || defaultPrevented
+                || button > 0
+                || isInput(target)
+                || within(target, `.${this.clsNoDrag}`)
+                || this.handle && !within(target, this.handle)
             ) {
                 return;
             }
+
+            e.preventDefault();
 
             this.touched = [this];
             this.placeholder = placeholder;
             this.origin = assign({target, index: index(placeholder)}, this.pos);
 
-            on(document, pointerMove, this.move, {passive: false});
+            on(document, pointerMove, this.move);
             on(document, pointerUp, this.end);
             on(window, 'scroll', this.scroll);
 
@@ -152,7 +136,7 @@ export default {
             const {left, top} = offset(this.placeholder);
             assign(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
 
-            css(this.placeholder, 'pointerEvents', 'none');
+            css(this.origin.target, 'pointerEvents', 'none');
 
             addClass(this.placeholder, this.clsPlaceholder);
             addClass(this.$el.children, this.clsItem);
@@ -173,8 +157,6 @@ export default {
 
                 return;
             }
-
-            e.cancelable && e.preventDefault();
 
             this.$emit();
 
@@ -204,13 +186,21 @@ export default {
 
         },
 
-        end() {
+        end(e) {
 
             off(document, pointerMove, this.move);
             off(document, pointerUp, this.end);
             off(window, 'scroll', this.scroll);
 
-            css(this.placeholder, 'pointerEvents', '');
+            css(this.origin.target, 'pointerEvents', '');
+
+            if (!this.drag) {
+                if (e.type === 'touchend') {
+                    e.target.click();
+                }
+
+                return;
+            }
 
             const sortable = this.getSortable(this.placeholder);
 
@@ -277,6 +267,8 @@ export default {
             if (!within(element, this.$el)) {
                 return;
             }
+
+            css(this.handle ? $$(this.handle, element) : element, {touchAction: '', userSelect: ''});
 
             if (this.animation) {
                 this.animate(() => remove(element));
