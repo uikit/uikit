@@ -38,11 +38,9 @@ function _query(selector, context = document, queryFn) {
 
         removes = [];
 
-        selector = selector.split(',').map((selector, i) => {
+        selector = splitSelector(selector).map((selector, i) => {
 
             let ctx = context;
-
-            selector = selector.trim();
 
             if (selector[0] === '!') {
 
@@ -94,11 +92,17 @@ function _query(selector, context = document, queryFn) {
 
 }
 
-const contextSelectorRe = /(^|,)\s*[!>+~-]/;
+const contextSelectorRe = /(^|[^\\],)\s*[!>+~-]/;
 const contextSanitizeRe = /([!>+~-])(?=\s+[!>+~-]|\s*$)/g;
 
 function isContextSelector(selector) {
     return isString(selector) && selector.match(contextSelectorRe);
+}
+
+const selectorRe = /.*?[^\\](?:,|$)/;
+
+function splitSelector(selector) {
+    return selector.match(selectorRe).map(selector => selector.replace(/,$/, '').trim());
 }
 
 const elProto = Element.prototype;
