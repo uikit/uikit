@@ -5,7 +5,7 @@
 ### Added
 
 - Add deprecated flag to Less variables
-- Add style modifier to Heading component
+- Add style modifiers to Heading component
 - Add SVG stroke animation to Animation component
 - Add option to animate SVG strokes to SVG component
 - Add option to animate SVG strokes to Parallax component
@@ -19,7 +19,7 @@
 
 - Refactor divider, bullet and line modifiers in Heading component
 - Improve dimension handling in SVG component
-- Improve Image/Leader/Toggle component performance
+- Improve performance of Image, Leader and Toggle component
 - Autoplay is halted while Slideshow/Slider are active
 - Lightbox filters duplicate items by `source`
 - Rename `getPos` to `getEventPos`
