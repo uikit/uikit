@@ -1,4 +1,4 @@
-import {$, $$, addClass, closest, filter, height, isInView, offset, removeClass, trigger} from 'uikit-util';
+import {$, $$, addClass, closest, escape, filter, height, isInView, offset, removeClass, trigger} from 'uikit-util';
 
 export default {
 
@@ -29,7 +29,7 @@ export default {
         },
 
         targets() {
-            return $$(this.links.map(el => el.hash).join(','));
+            return $$(this.links.map(el => escape(el.hash)).join(','));
         }
 
     },

@@ -5,7 +5,7 @@ export default {
     args: 'cls',
 
     props: {
-        cls: 'list',
+        cls: String,
         target: String,
         hidden: Boolean,
         offsetTop: Number,
@@ -15,7 +15,7 @@ export default {
     },
 
     data: () => ({
-        cls: [],
+        cls: false,
         target: false,
         hidden: true,
         offsetTop: 0,
@@ -47,42 +47,41 @@ export default {
 
         {
 
-            read(els) {
+            read({update}) {
 
-                if (!els.update) {
+                if (!update) {
                     return;
                 }
 
-                this.elements.forEach((el, i) => {
+                this.elements.forEach(el => {
 
-                    let elData = els[i];
+                    let state = el._ukScrollspyState;
 
-                    if (!elData || elData.el !== el) {
-                        const cls = data(el, 'uk-scrollspy-class');
-                        elData = {el, toggles: cls && cls.split(',') || this.cls};
+                    if (!state) {
+                        state = {cls: data(el, 'uk-scrollspy-class') || this.cls};
                     }
 
-                    elData.show = isInView(el, this.offsetTop, this.offsetLeft);
-                    els[i] = elData;
+                    state.show = isInView(el, this.offsetTop, this.offsetLeft);
+                    el._ukScrollspyState = state;
 
                 });
 
             },
 
-            write(els) {
+            write(data) {
 
                 // Let child components be applied at least once first
-                if (!els.update) {
+                if (!data.update) {
                     this.$emit();
-                    return els.update = true;
+                    return data.update = true;
                 }
 
-                this.elements.forEach((el, i) => {
+                this.elements.forEach(el => {
 
-                    const elData = els[i];
-                    const cls = elData.toggles[i] || elData.toggles[0];
+                    const state = el._ukScrollspyState;
+                    const {cls} = state;
 
-                    if (elData.show && !elData.inview && !elData.queued) {
+                    if (state.show && !state.inview && !state.queued) {
 
                         const show = () => {
 
@@ -94,27 +93,27 @@ export default {
 
                             this.$update(el);
 
-                            elData.inview = true;
-                            elData.abort && elData.abort();
+                            state.inview = true;
+                            state.abort && state.abort();
                         };
 
                         if (this.delay) {
 
-                            elData.queued = true;
-                            els.promise = (els.promise || Promise.resolve()).then(() => {
-                                return !elData.inview && new Promise(resolve => {
+                            state.queued = true;
+                            data.promise = (data.promise || Promise.resolve()).then(() => {
+                                return !state.inview && new Promise(resolve => {
 
                                     const timer = setTimeout(() => {
 
                                         show();
                                         resolve();
 
-                                    }, els.promise || this.elements.length === 1 ? this.delay : 0);
+                                    }, data.promise || this.elements.length === 1 ? this.delay : 0);
 
-                                    elData.abort = () => {
+                                    state.abort = () => {
                                         clearTimeout(timer);
                                         resolve();
-                                        elData.queued = false;
+                                        state.queued = false;
                                     };
 
                                 });
@@ -125,11 +124,11 @@ export default {
                             show();
                         }
 
-                    } else if (!elData.show && (elData.inview || elData.queued) && this.repeat) {
+                    } else if (!state.show && (state.inview || state.queued) && this.repeat) {
 
-                        elData.abort && elData.abort();
+                        state.abort && state.abort();
 
-                        if (!elData.inview) {
+                        if (!state.inview) {
                             return;
                         }
 
@@ -141,7 +140,7 @@ export default {
 
                         this.$update(el);
 
-                        elData.inview = false;
+                        state.inview = false;
 
                     }
 

@@ -62,7 +62,7 @@ export default {
                 }
             }
 
-        },
+        }
 
     },
 
@@ -252,7 +252,7 @@ export default {
 
             events: ['resize', 'scroll']
 
-        },
+        }
 
     ],
 

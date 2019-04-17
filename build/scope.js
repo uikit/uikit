@@ -1,17 +1,10 @@
-/* eslint-env node */
-const glob = require('glob');
-const util = require('./util');
+const {glob, minify, read, renderLess, write, validClassName} = require('./util');
 const argv = require('minimist')(process.argv.slice(2));
 
 argv._.forEach(arg => {
     const tokens = arg.split('=');
     argv[tokens[0]] = tokens[1] || true;
 });
-
-const currentScopeRegex = /\/\* scoped: ([^*]*) \*\//;
-const currentScopeLegacyRegex = new RegExp('\\.(uk-scope)');
-
-const allFiles = [];
 
 if (argv.h || argv.help) {
     console.log(`
@@ -27,114 +20,111 @@ if (argv.h || argv.help) {
 
     `);
 } else {
-    readAllFiles().then(startProcess);
+    run();
 }
 
-function stripComments(input) {
-    return input.replace(/\/\*(.|\n)*?\*\//gm, '').split('\n').filter(line => line.trim().substr(0, 2) !== '//').join('\n');
-}
+async function run() {
 
-function startProcess() {
+    const files = await readFiles();
+    const oldScope = getScope(files);
 
-    const currentScope = getCurrentScope();
+    try {
 
-    if (argv.cleanup && currentScope) {
-        cleanUp(currentScope).then(store).catch(console.log);
-    } else if (currentScope) {
-        getNewScope().then(newScope => {
-            if (currentScope !== newScope) {
-                cleanUp(currentScope).then(() => doScope(newScope)).then(store).catch(console.log);
-            } else {
-                console.log('already scoped with:' + currentScope);
+        if (argv.cleanup && oldScope) {
+            cleanup(files, oldScope);
+        } else if (oldScope) {
+            const newScope = getNewScope();
+
+            if (oldScope === newScope) {
+                throw new Error(`Already scoped with: ${oldScope}`);
             }
-        });
-    } else {
-        getNewScope().then(doScope).then(store).catch(console.log);
+
+            cleanup(files, oldScope);
+            await scope(files, newScope);
+
+        } else {
+            await scope(files, getNewScope());
+        }
+
+        await store(files);
+
+    } catch (e) {
+        console.error(e);
     }
+
+}
+
+async function readFiles() {
+
+    const files = await glob('dist/**/!(*.min).css');
+    return Promise.all(files.map(async file => {
+
+        const data = await read(file);
+        return {file, data};
+
+    }));
+
+}
+
+function getScope(files) {
+    return files.reduce((scope, {data}) => scope || isScoped(data), '');
 }
 
 function getNewScope() {
 
     const scopeFromInput = argv.scope || argv.s || 'uk-scope';
 
-    if (util.validClassName.test(scopeFromInput)) {
-        return Promise.resolve(scopeFromInput);
+    if (validClassName.test(scopeFromInput)) {
+        return scopeFromInput;
     } else {
-        throw 'illegal scope-name: ' + scopeFromInput;
+        throw `Illegal scope-name: ${scopeFromInput}`;
     }
+}
+
+async function scope(files, scope) {
+    await Promise.all(
+        files.map(async store => {
+            try {
+
+                const output = await renderLess(`.${scope} {\n${stripComments(store.data)}\n}`);
+                store.data = `/* scoped: ${scope} */\n${
+                    output
+                        .replace(new RegExp(`.${scope} ${/{(.|[\r\n])*?}/.source}`), '')
+                        .replace(new RegExp(`.${scope}${/\s((\.(uk-(drag|modal-page|offcanvas-page|offcanvas-flip)))|html)/.source}`, 'g'), '$1')
+                }`;
+
+            } catch (e) {
+                console.error(store.file, e.message);
+            }
+        })
+    );
+}
+
+async function store(files) {
+    return Promise.all(
+        files.map(async ({file, data}) => {
+            await write(file, data);
+            await minify(file);
+        })
+    );
+}
+
+const currentScopeRe = /\/\* scoped: ([^*]*) \*\//;
+const currentScopeLegacyRe = /\.(uk-scope)/;
+
+function cleanup(files, scope) {
+    const string = scope.split(' ').map(scope => `.${scope}`).join(' ');
+    files.forEach(store => {
+        store.data = store.data
+            .replace(new RegExp(/ */.source + string + / ({[\s\S]*?})?/.source, 'g'), '') // replace classes
+            .replace(new RegExp(currentScopeRe.source, 'g'), ''); // remove scope comment
+    });
 }
 
 function isScoped(data) {
-    let varName = data.match(currentScopeRegex);
-    if (varName) {
-        return varName[1];
-    } else {
-        varName = data.match(currentScopeLegacyRegex);
-    }
-    return varName && varName[1];
+    return (data.match(currentScopeRe) || data.match(currentScopeLegacyRe) || [])[1];
 }
 
-function doScope(scopeFromInput) {
-
-    const scopes = [];
-    allFiles.forEach(store => {
-
-        scopes.push(util.renderLess(`.${scopeFromInput} {\n${stripComments(store.data)}\n}`)
-                .then(output => {
-                    store.data = `/* scoped: ${scopeFromInput} */\n` +
-                    output.replace(new RegExp(`.${scopeFromInput} ${/{(.|[\r\n])*?}/.source}`), '')
-                    .replace(new RegExp(`.${scopeFromInput}${/\s((\.(uk-(drag|modal-page|offcanvas-page|offcanvas-flip)))|html)/.source}`, 'g'), '$1')
-                })
-        );
-    });
-
-    return Promise.all(scopes);
-
-}
-
-function store() {
-    const writes = [];
-    allFiles.forEach(({file, data}) => writes.push(util.write(file, data).then(util.minify)));
-    return Promise.all(writes);
-}
-
-function cleanUp(currentScope) {
-    allFiles.forEach((store) => {
-        const string = currentScope.split(' ').map(scope => `.${scope}`).join(' ');
-        store.data = store.data.replace(new RegExp(/ */.source + string + / ({[\s\S]*?})?/.source, 'g'), '') // replace classes
-                   .replace(new RegExp(currentScopeRegex.source, 'g'), ''); // remove scope comment
-    });
-
-    return Promise.resolve();
-}
-
-function getCurrentScope() {
-
-    let currentScope;
-    allFiles.forEach(({data}) => {
-        const scope = isScoped(data);
-        if (currentScope && scope !== currentScope) {
-            throw 'scopes used on current css differ from file to file.';
-        }
-        currentScope = scope;
-    });
-
-    return currentScope;
-}
-
-function readAllFiles() {
-    return new Promise(res => {
-        glob('dist/**/!(*.min).css', (err, files) => {
-            //read files, check scopes
-            const reads = [];
-            files.forEach(file => {
-                const promise = util.read(file, data => {
-                    allFiles.push({file, data});
-                });
-                reads.push(promise);
-            });
-            Promise.all(reads).then(res);
-        });
-
-    });
+function stripComments(input) {
+    return input.replace(/\/\*(.|\n)*?\*\//gm, '').split('\n').filter(line => line.trim().substr(0, 2) !== '//').join('\n');
 }

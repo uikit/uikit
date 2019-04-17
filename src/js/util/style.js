@@ -14,6 +14,8 @@ const cssNumber = {
     'opacity': true,
     'order': true,
     'orphans': true,
+    'stroke-dasharray': true,
+    'stroke-dashoffset': true,
     'widows': true,
     'z-index': true,
     'zoom': true
@@ -103,11 +105,12 @@ export function propName(name) {
 }
 
 const cssPrefixes = ['webkit', 'moz', 'ms'];
-const {style} = document.createElement('_');
 
 function vendorPropName(name) {
 
     name = hyphenate(name);
+
+    const {style} = document.documentElement;
 
     if (name in style) {
         return name;

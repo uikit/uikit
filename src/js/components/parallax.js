@@ -8,13 +8,13 @@ export default {
     props: {
         target: String,
         viewport: Number,
-        easing: Number,
+        easing: Number
     },
 
     data: {
         target: false,
         viewport: 1,
-        easing: 1,
+        easing: 1
     },
 
     computed: {

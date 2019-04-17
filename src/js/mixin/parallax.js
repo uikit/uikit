@@ -1,7 +1,8 @@
 import Media from '../mixin/media';
-import {css, Dimensions, each, includes, isNumber, isUndefined, toFloat} from 'uikit-util';
+import {getMaxPathLength} from '../core/svg';
+import {css, Dimensions, each, isNumber, isString, isUndefined, startsWith, toFloat, toPx, ucfirst} from 'uikit-util';
 
-const props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity'];
+const props = ['x', 'y', 'bgx', 'bgy', 'rotate', 'scale', 'color', 'backgroundColor', 'borderColor', 'opacity', 'blur', 'hue', 'grayscale', 'invert', 'saturate', 'sepia', 'fopacity', 'stroke'];
 
 export default {
 
@@ -45,7 +46,7 @@ export default {
                             : 0) || 0);
                 }
 
-                const unit = includes(steps.join(''), '%') ? '%' : 'px';
+                const unit = getUnit(steps, prop);
 
                 if (isColor) {
 
@@ -53,13 +54,10 @@ export default {
                     steps = steps.map(step => parseColor($el, step));
                     $el.style.color = color;
 
-                } else {
+                } else if (startsWith(prop, 'bg')) {
 
-                    steps = steps.map(toFloat);
-
-                }
-
-                if (prop.match(/^bg/)) {
+                    const attr = prop === 'bgy' ? 'height' : 'width';
+                    steps = steps.map(step => toPx(step, attr, this.$el));
 
                     css($el, `background-position-${prop[2]}`, '');
                     bgPos = css($el, 'backgroundPosition').split(' ')[prop[2] === 'x' ? 0 : 1]; // IE 11 can't read background-position-[x|y]
@@ -80,6 +78,29 @@ export default {
                         pos = bgPos;
 
                     }
+
+                } else {
+
+                    steps = steps.map(toFloat);
+
+                }
+
+                if (prop === 'stroke') {
+
+                    if (!steps.some(step => step)) {
+                        return props;
+                    }
+
+                    const length = getMaxPathLength(this.$el);
+                    css($el, 'strokeDasharray', length);
+
+                    if (unit === '%') {
+                        steps = steps.map(step => step * length / 100);
+                    }
+
+                    steps = steps.reverse();
+
+                    prop = 'strokeDashoffset';
                 }
 
                 props[prop] = {steps, unit, pos, bgPos, diff};
@@ -152,18 +173,14 @@ export default {
                 const attr = prop === 'bgy' ? 'height' : 'width';
                 const span = dim[attr] - dimEl[attr];
 
-                if (!bgPos.match(/%$|0px/)) {
-                    return;
-                }
-
                 if (span < diff) {
                     dimEl[attr] = dim[attr] + diff - span;
                 } else if (span > diff) {
 
-                    const bgPosFloat = parseFloat(bgPos);
+                    const posPercentage = dimEl[attr] / toPx(bgPos, attr, this.$el);
 
-                    if (bgPosFloat) {
-                        this.props[prop].steps = steps.map(step => step - (span - diff) / (100 / bgPosFloat));
+                    if (posPercentage) {
+                        this.props[prop].steps = steps.map(step => step - (span - diff) / posPercentage);
                     }
                 }
 
@@ -200,11 +217,9 @@ export default {
         getCss(percent) {
 
             const {props} = this;
-            let translated = false;
-
             return Object.keys(props).reduce((css, prop) => {
 
-                const {steps, unit, pos} = props[prop];
+                let {steps, unit, pos} = props[prop];
                 const value = getValue(steps, percent);
 
                 switch (prop) {
@@ -212,23 +227,15 @@ export default {
                     // transforms
                     case 'x':
                     case 'y': {
-
-                        if (translated) {
-                            break;
-                        }
-
-                        const [x, y] = ['x', 'y'].map(dir => prop === dir
-                            ? toFloat(value).toFixed(0) + unit
-                            : props[dir]
-                                ? getValue(props[dir].steps, percent, 1) + props[dir].unit
-                                : 0
-                        );
-
-                        translated = css.transform += ` translate3d(${x}, ${y}, 0)`;
+                        unit = unit || 'px';
+                        css.transform += ` translate${ucfirst(prop)}(${
+                            toFloat(value).toFixed(unit === 'px' ? 0 : 2)
+                        }${unit})`;
                         break;
                     }
                     case 'rotate':
-                        css.transform += ` rotate(${value}deg)`;
+                        unit = unit || 'deg';
+                        css.transform += ` rotate(${value + unit})`;
                         break;
                     case 'scale':
                         css.transform += ` scale(${value})`;
@@ -237,7 +244,7 @@ export default {
                     // bg image
                     case 'bgy':
                     case 'bgx':
-                        css[`background-position-${prop[2]}`] = `calc(${pos} + ${value + unit})`;
+                        css[`background-position-${prop[2]}`] = `calc(${pos} + ${value}px)`;
                         break;
 
                     // color
@@ -252,26 +259,29 @@ export default {
                                 value = value + p * (end[i] - value);
                                 return i === 3 ? toFloat(value) : parseInt(value, 10);
                             }).join(',')
-                            })`;
+                        })`;
                         break;
                     }
                     // CSS Filter
                     case 'blur':
-                        css.filter += ` blur(${value}px)`;
+                        unit = unit || 'px';
+                        css.filter += ` blur(${value + unit})`;
                         break;
                     case 'hue':
-                        css.filter += ` hue-rotate(${value}deg)`;
+                        unit = unit || 'deg';
+                        css.filter += ` hue-rotate(${value + unit})`;
                         break;
                     case 'fopacity':
-                        css.filter += ` opacity(${value}%)`;
+                        unit = unit || '%';
+                        css.filter += ` opacity(${value + unit})`;
                         break;
                     case 'grayscale':
                     case 'invert':
                     case 'saturate':
                     case 'sepia':
-                        css.filter += ` ${prop}(${value}%)`;
+                        unit = unit || '%';
+                        css.filter += ` ${prop}(${value + unit})`;
                         break;
-
                     default:
                         css[prop] = value;
                 }
@@ -287,7 +297,12 @@ export default {
 };
 
 function parseColor(el, color) {
-    return css(css(el, 'color', color), 'color').split(/[(),]/g).slice(1, -1).concat(1).slice(0, 4).map(n => toFloat(n));
+    return css(css(el, 'color', color), 'color')
+        .split(/[(),]/g)
+        .slice(1, -1)
+        .concat(1)
+        .slice(0, 4)
+        .map(toFloat);
 }
 
 function getStep(steps, percent) {
@@ -303,9 +318,13 @@ function getStep(steps, percent) {
 function getValue(steps, percent, digits = 2) {
     const [start, end, p] = getStep(steps, percent);
     return (isNumber(start)
-            ? start + Math.abs(start - end) * p * (start < end ? 1 : -1)
-            : +end
+        ? start + Math.abs(start - end) * p * (start < end ? 1 : -1)
+        : +end
     ).toFixed(digits);
+}
+
+function getUnit(steps) {
+    return steps.reduce((unit, step) => isString(step) && step.replace(/-|\d/g, '').trim() || unit, '');
 }
 
 function covers(el) {

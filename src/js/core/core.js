@@ -1,4 +1,4 @@
-import {css, fastdom, on, ready, toMs} from 'uikit-util';
+import {css, fastdom, getEventPos, isTouch, on, once, pointerDown, pointerUp, ready, toMs, trigger} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -39,4 +39,43 @@ export default function (UIkit) {
 
     });
 
+    let off;
+
+    on(document, pointerDown, e => {
+
+        off && off();
+
+        if (!isTouch(e)) {
+            return;
+        }
+
+        const pos = getEventPos(e);
+        const target = 'tagName' in e.target ? e.target : e.target.parentNode;
+        off = once(document, pointerUp, e => {
+
+            const {x, y} = getEventPos(e);
+
+            // swipe
+            if (target && x && Math.abs(pos.x - x) > 100 || y && Math.abs(pos.y - y) > 100) {
+
+                setTimeout(() => {
+                    trigger(target, 'swipe');
+                    trigger(target, `swipe${swipeDirection(pos.x, pos.y, x, y)}`);
+                });
+
+            }
+
+        });
+    });
+
+}
+
+function swipeDirection(x1, y1, x2, y2) {
+    return Math.abs(x1 - x2) >= Math.abs(y1 - y2)
+        ? x1 - x2 > 0
+            ? 'Left'
+            : 'Right'
+        : y1 - y2 > 0
+            ? 'Up'
+            : 'Down';
 }

@@ -1,5 +1,4 @@
 import {within} from './filter';
-import {pointerCancel} from './env';
 import {closest, findAll} from './selector';
 import {isArray, isFunction, isString, toNode, toNodes} from './lang';
 
@@ -114,17 +113,13 @@ export function toEventTargets(target) {
                     : toNodes(target);
 }
 
-export function preventClick() {
+export function isTouch(e) {
+    return e.pointerType === 'touch' || e.touches;
+}
 
-    const timer = setTimeout(once(document, 'click', e => {
+export function getEventPos(e, prop = 'client') {
+    const {touches, changedTouches} = e;
+    const {[`${prop}X`]: x, [`${prop}Y`]: y} = touches && touches[0] || changedTouches && changedTouches[0] || e;
 
-        e.preventDefault();
-        e.stopImmediatePropagation();
-
-        clearTimeout(timer);
-
-    }, true));
-
-    trigger(document, pointerCancel);
-
+    return {x, y};
 }

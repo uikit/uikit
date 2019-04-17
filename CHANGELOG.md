@@ -1,11 +1,57 @@
 # Changelog
 
+## 3.1.0 (April 17, 2019)
+
+### Added
+
+- Add deprecated flag to Less variables
+- Add size modifiers to Heading component
+- Add SVG stroke animation to Animation component
+- Add option to animate SVG strokes to SVG component
+- Add option to animate SVG strokes to Parallax component
+- Add support for more units to Parallax component
+- Add lazy loading support if Image component is used with SVG component
+- Add text secondary to Text component
+- Add `dataSrc` as primary option to Image component
+- Add `webp` as image type to Lightbox Panel component
+
+### Changed
+
+- Refactor divider, bullet and line modifiers in Heading component
+- Improve dimension handling in SVG component
+- Improve performance of Image, Leader and Toggle component
+- Autoplay is halted while Slideshow/Slider are active
+- Lightbox filters duplicate items by `source`
+- Rename `getPos` to `getEventPos`
+- Move code with side effects to `core.js`
+
+### Deprecated
+
+- Primary Heading: Use `uk-heading-medium` instead of `uk-heading-primary`
+- Hero Heading: Use `uk-heading-xlarge` instead of `uk-heading-hero`
+
+### Removed
+
+- `cls` option no longer accepts a list of classNames in Scrollspy component
+
+### Fixed
+
+- Fix rendering issue for scale in Transition component
+- Fix Filter component's initial active state
+- Fix translating `x` and `y` properties simultaneously in Parallax component
+- Fix drag closes Lightbox
+- Fix Tooltip component (touch device)
+- Fix `hover` mode for Toggle component (touch device)
+- Fix Slideshow not setting `min-height` if ratio is set to `false`
+- Default prevent `click` event in Slider/Slideshow component after drag
+- Fix images being selected while dragging in Slider/Slideshow component
+
 ## 3.0.3 (January 29, 2019)
 
 ### Added
 
 - Computeds can be watched now
-- Parallax supports <SVG> and its child elements now
+- Parallax supports `<SVG>` and its child elements now
 
 ### Changed
 
@@ -52,6 +98,7 @@
 - `css` function: Setting a CSS property to `NaN` no longer removes the property
 - Slide/Slideshow navs and Drops no longer blur after hiding
 - Changed the default `toggle` option for Switcher component to `> * > :first-child`
+- SVG component no longer moves `id` from element to svg
 
 ### Removed
 

@@ -17,21 +17,25 @@
             <div class="uk-child-width-auto" uk-grid>
                 <div>
                     <p>Image</p>
-                    <img id="svg1" class="svg-1" src="../src/images/components/navbar-toggle-icon.svg" uk-svg>
+                    <img id="svg1" class="svg-1" src="../src/images/components/navbar-toggle-icon.svg" uk-svg alt="">
                 </div>
                 <div>
                     <p>Width</p>
-                    <img id="svg2" class="svg-2" src="../src/images/components/navbar-toggle-icon.svg" width="40" height="40" uk-svg>
+                    <img id="svg2" class="svg-2" src="../src/images/components/navbar-toggle-icon.svg" width="40" height="40" uk-svg alt="">
                 </div>
                 <div>
                     <p>Symbol + ID</p>
-                    <img width="20" height="20" src="images/icons.svg#table" uk-svg>
-                    <img width="20" height="20" src="images/icons.svg#trash" uk-svg>
+                    <img width="20" height="20" src="images/icons.svg#table" uk-svg alt="">
+                    <img width="20" height="20" src="images/icons.svg#trash" uk-svg alt="">
                 </div>
                 <div>
                     <p>Symbol + ID + Fallback</p>
-                    <img width="20" height="20" src="../src/images/backgrounds/nav-parent-close.svg#notfound" uk-svg>
-                    <img width="20" height="20" src="../src/images/backgrounds/nav-parent-open.svg#notfound" uk-svg>
+                    <img width="20" height="20" src="../src/images/backgrounds/nav-parent-close.svg#notfound" uk-svg alt="">
+                    <img width="20" height="20" src="../src/images/backgrounds/nav-parent-open.svg#notfound" uk-svg alt="">
+                </div>
+                <div>
+                    <p>Stroke Animation</p>
+                    <img class="uk-animation-stroke" width="40" height="40" src="images/icons.svg#cloud-upload" uk-svg="stroke-animation: true" alt="">
                 </div>
             </div>
 
@@ -57,7 +61,13 @@
                         <td><code>ratio</code></td>
                         <td>Number</td>
                         <td>1</td>
-                        <td>The svg size ratio.</td>
+                        <td>The SVG size ratio.</td>
+                    </tr>
+                    <tr>
+                        <td><code>stroke-animation</code></td>
+                        <td>Boolean</td>
+                        <td>false</td>
+                        <td>Animate all elements with the `stroke` attribute in the SVG.</td>
                     </tr>
                 </tbody>
             </table>

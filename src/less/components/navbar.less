@@ -20,7 +20,8 @@
 //                  `uk-navbar-dropdown-grid`
 //                  `uk-navbar-toggle-icon`
 //
-// Modifiers:       `uk-navbar-transparent`
+// Modifiers:       `uk-navbar-primary`
+//                  `uk-navbar-transparent`
 //                  `uk-navbar-sticky`
 //                  `uk-navbar-dropdown-stack`
 //
@@ -321,6 +322,10 @@
 /* Style modifiers
  ========================================================================== */
 
+.uk-navbar-primary {
+    .hook-navbar-primary;
+}
+
 .uk-navbar-transparent {
     .hook-navbar-transparent;
 }
@@ -503,6 +508,7 @@
 .hook-navbar-toggle-icon(){}
 .hook-navbar-toggle-icon-hover(){}
 .hook-navbar-subtitle() {}
+.hook-navbar-primary(){}
 .hook-navbar-transparent(){}
 .hook-navbar-sticky(){}
 .hook-navbar-dropdown(){}

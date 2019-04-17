@@ -1,6 +1,6 @@
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
-import {$$, addClass, after, assign, append, attr, before, css, height, getPos, includes, index, isInput, offset, off, on, pointerDown, pointerMove, pointerUp, preventClick, remove, removeClass, scrollTop, toggleClass, toNodes, trigger, within} from 'uikit-util';
+import {$$, addClass, after, assign, append, attr, before, css, height, getEventPos, includes, index, isInput, offset, off, on, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollTop, toggleClass, toNodes, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -39,7 +39,7 @@ export default {
             const fn = this[key];
             this[key] = e => {
                 this.scrollY = window.pageYOffset;
-                const {x, y} = getPos(e, 'page');
+                const {x, y} = getEventPos(e, 'page');
                 this.pos = {x, y};
 
                 fn(e);
@@ -63,7 +63,7 @@ export default {
                 toggleClass(this.$el, this.clsEmpty, !this.$el.children.length);
             }
 
-            css(this.handle ? $$(this.handle, this.$el) : this.$el.children, 'touchAction', 'none');
+            css(this.handle ? $$(this.handle, this.$el) : this.$el.children, {touchAction: 'none', userSelect: 'none'});
 
             if (!this.drag) {
                 return;
@@ -94,11 +94,11 @@ export default {
             const [placeholder] = toNodes(this.$el.children).filter(el => within(target, el));
 
             if (!placeholder
-                || isInput(target)
-                || this.handle && !within(target, this.handle)
-                || button > 0
-                || within(target, `.${this.clsNoDrag}`)
                 || defaultPrevented
+                || button > 0
+                || isInput(target)
+                || within(target, `.${this.clsNoDrag}`)
+                || this.handle && !within(target, this.handle)
             ) {
                 return;
             }
@@ -135,6 +135,8 @@ export default {
 
             const {left, top} = offset(this.placeholder);
             assign(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
+
+            css(this.origin.target, 'pointerEvents', 'none');
 
             addClass(this.placeholder, this.clsPlaceholder);
             addClass(this.$el.children, this.clsItem);
@@ -190,6 +192,8 @@ export default {
             off(document, pointerUp, this.end);
             off(window, 'scroll', this.scroll);
 
+            css(this.origin.target, 'pointerEvents', '');
+
             if (!this.drag) {
                 if (e.type === 'touchend') {
                     e.target.click();
@@ -197,8 +201,6 @@ export default {
 
                 return;
             }
-
-            preventClick();
 
             const sortable = this.getSortable(this.placeholder);
 
@@ -265,6 +267,8 @@ export default {
             if (!within(element, this.$el)) {
                 return;
             }
+
+            css(this.handle ? $$(this.handle, element) : element, {touchAction: '', userSelect: ''});
 
             if (this.animation) {
                 this.animate(() => remove(element));

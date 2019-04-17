@@ -53,7 +53,7 @@ export function endsWith(str, search) {
     return endsWithFn.call(str, search);
 }
 
-const includesFn = function (search) { return ~this.indexOf(search); };
+const includesFn = function (search, i) { return ~this.indexOf(search, i); };
 const includesStr = strPrototype.includes || includesFn;
 const includesArray = Array.prototype.includes || includesFn;
 
@@ -214,13 +214,21 @@ export function each(obj, cb) {
     return true;
 }
 
-export function sortBy(collection, prop) {
-    return collection.sort(({[prop]: propA = 0}, {[prop]: propB = 0}) =>
+export function sortBy(array, prop) {
+    return array.sort(({[prop]: propA = 0}, {[prop]: propB = 0}) =>
         propA > propB
             ? 1
             : propB > propA
                 ? -1
                 : 0
+    );
+}
+
+export function uniqueBy(array, prop) {
+    const seen = new Set();
+    return array.filter(({[prop]: check}) => seen.has(check)
+        ? false
+        : seen.add(check) || true // IE 11 does not return the Set object
     );
 }
 

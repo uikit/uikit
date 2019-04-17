@@ -1,18 +1,18 @@
-/* eslint-env node */
-const glob = require('glob');
-const util = require('./util');
+const {compile, glob, icons} = require('./util');
 const args = require('minimist')(process.argv);
 
-const custom = args.c || args.custom || 'custom/*/icons';
+const path = args.c || args.custom || 'custom/*/icons';
 const match = args.n || args.name || '([a-z]+)/icons$';
 
-glob(custom, (err, folders) =>
-    folders.forEach(folder => {
+run();
 
-        const [, name] = folder.toString().match(new RegExp(match, 'i'));
-        util.icons(`{src/images/icons,${folder}}/*.svg`).then(ICONS =>
-            util.compile('src/js/icons.js', `dist/js/uikit-icons-${name}`, {name, replaces: {ICONS}})
-        );
+async function run() {
+    const folders = await glob(path);
+    return Promise.all(folders.map(compileIcons));
+}
 
-    })
-);
+async function compileIcons(folder) {
+    const [, name] = folder.toString().match(new RegExp(match, 'i'));
+    const ICONS = await icons(`{src/images/icons,${folder}}/*.svg`);
+    return compile('src/js/icons.js', `dist/js/uikit-icons-${name}`, {name, replaces: {ICONS}});
+}

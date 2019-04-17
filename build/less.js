@@ -1,4 +1,3 @@
-/* eslint-env node */
 const fs = require('fs');
 const glob = require('glob');
 const path = require('path');
@@ -35,7 +34,7 @@ glob.sync('custom/*.less').forEach(file => {
         themes[theme].icons = `../dist/js/uikit-icons-${theme}.js`;
     }
 
-    return compile(file, dist);
+    compile(file, dist);
 
 });
 
@@ -43,34 +42,41 @@ if (!rtl && (Object.keys(themes).length || !fs.existsSync('themes.json'))) {
     util.write('themes.json', JSON.stringify(themes));
 }
 
-function compile(file, dist) {
-    return util.read(file).then(data =>
-        util.renderLess(data, {
-            relativeUrls: true,
-            rootpath: '../../',
-            paths: ['src/less/', 'custom/']
-        })
-            .then(output => output.replace(/\.\.\/dist\//g, ''))
-            .then(output => !rtl && output || postcss([
-                css => {
-                    css.insertBefore(css.nodes[0], postcss.comment({text: 'rtl:begin:rename'}));
-                    css.insertAfter(css.nodes[css.nodes.length - 1], postcss.comment({text: 'rtl:end:rename'}));
-                },
-                rtlcss({
-                    stringMap: [{
-                        name: 'previous-next',
-                        priority: 100,
-                        search: ['previous', 'Previous', 'PREVIOUS'],
-                        replace: ['next', 'Next', 'NEXT'],
-                        options: {
-                            scope: '*',
-                            ignoreCase: false
-                        }
-                    }]
-                })
-            ]).process(output).css)
-            .then(output => util.write(dist, util.banner + output))
-            .then(res => !develop && util.minify(res)),
-        error => console.log(error)
-    );
+async function compile(file, dist) {
+
+    const less = await util.read(file);
+
+    let output = (await util.renderLess(less, {
+        relativeUrls: true,
+        rootpath: '../../',
+        paths: ['src/less/', 'custom/']
+    })).replace(/\.\.\/dist\//g, '');
+
+    if (rtl) {
+        output = postcss([
+            css => {
+                css.insertBefore(css.nodes[0], postcss.comment({text: 'rtl:begin:rename'}));
+                css.insertAfter(css.nodes[css.nodes.length - 1], postcss.comment({text: 'rtl:end:rename'}));
+            },
+            rtlcss({
+                stringMap: [{
+                    name: 'previous-next',
+                    priority: 100,
+                    search: ['previous', 'Previous', 'PREVIOUS'],
+                    replace: ['next', 'Next', 'NEXT'],
+                    options: {
+                        scope: '*',
+                        ignoreCase: false
+                    }
+                }]
+            })
+        ]).process(output).css;
+    }
+
+    const res = await util.write(dist, util.banner + output);
+
+    if (!develop) {
+        util.minify(res);
+    }
+
 }

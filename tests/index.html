@@ -142,7 +142,9 @@
                                     <div>
                                         <ul class="uk-list">
                                             <li class="uk-text-muted">Text Muted</li>
+                                            <li class="uk-text-emphasis">Text Emphasis</li>
                                             <li class="uk-text-primary">Text Primary</li>
+                                            <li class="uk-text-secondary">Text Secondary</li>
                                             <li class="uk-text-success">Text Success</li>
                                             <li class="uk-text-warning">Text Warning</li>
                                             <li class="uk-text-danger">Text Danger</li>
@@ -223,8 +225,6 @@
                                 <li><a href="#"><span uk-pagination-next></span></a></li>
                             </ul>
 
-                            <h1 class="uk-heading-hero">Hero Heading</h1>
-
                         </div>
                         <div class="uk-width-expand@m">
 
@@ -265,47 +265,22 @@
 
                             <div class="uk-card uk-card-body uk-card-default uk-card-hover">
                                 <h3 class="uk-card-title">Default</h3>
-                                <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur sadipscing.</p>
+                                <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                             </div>
 
                             <div class="uk-margin uk-card uk-card-body uk-card-primary uk-card-hover">
                                 <h3 class="uk-card-title">Primary</h3>
-                                <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur sadipscing.</p>
+                                <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                             </div>
 
                             <div class="uk-margin uk-card uk-card-body uk-card-secondary uk-card-hover">
                                 <h3 class="uk-card-title">Secondary</h3>
-                                <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur sadipscing.</p>
+                                <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                             </div>
 
                             <div class="uk-margin uk-card uk-card-body uk-card-hover">
                                 <h3 class="uk-card-title">Hover</h3>
-                                <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur sadipscing.</p>
-                            </div>
-
-                            <div uk-alert>
-                                <a href="#" class="uk-alert-close" uk-close></a>
-                                <p>Default</p>
-                            </div>
-
-                            <div class="uk-alert-primary" uk-alert>
-                                <a href="#" class="uk-alert-close" uk-close></a>
-                                <p>Primary</p>
-                            </div>
-
-                            <div class="uk-alert-success" uk-alert>
-                                <a href="#" class="uk-alert-close" uk-close></a>
-                                <p>Success</p>
-                            </div>
-
-                            <div class="uk-alert-warning" uk-alert>
-                                <a href="#" class="uk-alert-close" uk-close></a>
-                                <p>Warning</p>
-                            </div>
-
-                            <div class="uk-alert-danger uk-margin-remove-bottom" uk-alert>
-                                <a href="#" class="uk-alert-close" uk-close></a>
-                                <p>Danger</p>
+                                <p>Lorem ipsum <a href="#">dolor</a> sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                             </div>
 
                         </div>
@@ -313,8 +288,8 @@
 
                     <hr class="uk-margin-large">
 
-                    <div class="uk-grid-divider uk-child-width-expand@m" uk-grid>
-                        <div>
+                    <div class="uk-grid-divider" uk-grid>
+                        <div class="uk-width-3-5@m">
 
                             <div class="uk-child-width-expand@s" uk-grid>
                                 <div>
@@ -377,7 +352,7 @@
                                 </div>
                             </div>
 
-                            <div class="uk-overflow-auto uk-margin-large-top">
+                            <div class="uk-overflow-auto uk-margin-medium-top">
                                 <table class="uk-table uk-table-divider uk-table-hover uk-table-small">
                                     <thead>
                                         <tr>
@@ -411,21 +386,78 @@
                                 </table>
                             </div>
 
+                            <div class="uk-margin-medium-top" uk-alert>
+                                <a href="#" class="uk-alert-close" uk-close></a>
+                                <p>Default</p>
+                            </div>
+
+                            <div class="uk-alert-primary" uk-alert>
+                                <a href="#" class="uk-alert-close" uk-close></a>
+                                <p>Primary</p>
+                            </div>
+
+                            <div class="uk-alert-success" uk-alert>
+                                <a href="#" class="uk-alert-close" uk-close></a>
+                                <p>Success</p>
+                            </div>
+
+                            <div class="uk-alert-warning" uk-alert>
+                                <a href="#" class="uk-alert-close" uk-close></a>
+                                <p>Warning</p>
+                            </div>
+
+                            <div class="uk-alert-danger uk-margin-remove-bottom" uk-alert>
+                                <a href="#" class="uk-alert-close" uk-close></a>
+                                <p>Danger</p>
+                            </div>
+
+                            <div class="uk-grid-small uk-child-width-auto uk-margin-medium-top" uk-grid js-countdown>
+                                <div>
+                                    <div class="uk-countdown-number uk-countdown-days"></div>
+                                </div>
+                                <div class="uk-countdown-separator">:</div>
+                                <div>
+                                    <div class="uk-countdown-number uk-countdown-hours"></div>
+                                </div>
+                                <div class="uk-countdown-separator">:</div>
+                                <div>
+                                    <div class="uk-countdown-number uk-countdown-minutes"></div>
+                                </div>
+                                <div class="uk-countdown-separator">:</div>
+                                <div>
+                                    <div class="uk-countdown-number uk-countdown-seconds"></div>
+                                </div>
+                            </div>
+
+                            <script>
+
+                                var date = (new Date(Date.now() + 864e5 * 7)).toISOString();
+                    
+                                UIkit.util.$$('[js-countdown]').forEach(function(el) {
+                                    UIkit.countdown(el, {date: date});
+                                });
+                    
+                            </script>
+    
                         </div>
-                        <div>
+                        <div class="uk-width-2-5@m">
 
-                            <h1 class="uk-heading-primary">Primary Heading</h1>
+                            <h1 class="uk-heading-2xlarge uk-margin-small">2XL</h1>
+                            <h1 class="uk-heading-xlarge uk-margin-small">XLarge</h1>
+                            <h1 class="uk-heading-large uk-margin-small">Heading L</h1>
+                            <h1 class="uk-heading-medium uk-margin-small">Heading M</h1>
+                            <h1 class="uk-heading-small uk-margin-small">Heading S</h1>
 
-                            <h1 class="uk-margin-small">H1 heading</h1>
-                            <h2 class="uk-margin-small">H2 heading</h2>
-                            <h3 class="uk-margin-small">H3 heading</h3>
-                            <h4 class="uk-margin-small">H4 heading</h4>
-                            <h5 class="uk-margin-small">H5 heading</h5>
-                            <h6 class="uk-margin-small">H6 heading</h6>
+                            <h1 class="uk-margin-small">Heading H1</h1>
+                            <h2 class="uk-margin-small">Heading H2</h2>
+                            <h3 class="uk-margin-small">Heading H3</h3>
+                            <h4 class="uk-margin-small">Heading H4</h4>
+                            <h5 class="uk-margin-small">Heading H5</h5>
+                            <h6 class="uk-margin-small">Heading H6</h6>
 
-                            <h3 class="uk-heading-divider">Heading divider</h3>
-                            <h3 class="uk-heading-bullet">Heading bullet</h3>
-                            <h3 class="uk-heading-line"><span>Heading line</span></h3>
+                            <h3 class="uk-heading-divider">Heading Divider</h3>
+                            <h3 class="uk-heading-bullet">Heading Bullet</h3>
+                            <h3 class="uk-heading-line"><span>Heading Line</span></h3>
 
                         </div>
                     </div>
@@ -625,32 +657,6 @@
                         </div>
                     </div>
 
-                    <hr class="uk-margin-medium">
-
-                    <div class="uk-grid-divider uk-child-width-expand@m" uk-grid>
-                        <div>
-
-                            <div class="uk-grid-small uk-child-width-auto uk-margin" uk-grid js-countdown>
-                                <div>
-                                    <div class="uk-countdown-number uk-countdown-days"></div>
-                                </div>
-                                <div class="uk-countdown-separator">:</div>
-                                <div>
-                                    <div class="uk-countdown-number uk-countdown-hours"></div>
-                                </div>
-                                <div class="uk-countdown-separator">:</div>
-                                <div>
-                                    <div class="uk-countdown-number uk-countdown-minutes"></div>
-                                </div>
-                                <div class="uk-countdown-separator">:</div>
-                                <div>
-                                    <div class="uk-countdown-number uk-countdown-seconds"></div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
@@ -801,16 +807,6 @@
             </div>
 
         </div>
-
-        <script>
-
-            var date = (new Date(Date.now() + 864e5 * 7)).toISOString();
-
-            UIkit.util.$$('[js-countdown]').forEach(function(el) {
-                UIkit.countdown(el, {date: date});
-            });
-
-        </script>
 
     </body>
 </html>

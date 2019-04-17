@@ -1,6 +1,8 @@
-import {createEvent, css, Dimensions, endsWith, escape, getImage, height, includes, IntersectionObserver, isNumeric, noop, queryAll, startsWith, toFloat, trigger, width} from 'uikit-util';
+import {createEvent, css, Dimensions, escape, getImage, includes, IntersectionObserver, noop, queryAll, startsWith, toFloat, toPx, trigger} from 'uikit-util';
 
 export default {
+
+    args: 'dataSrc',
 
     props: {
         dataSrc: String,
@@ -77,7 +79,7 @@ export default {
         }
 
         this.observer = new IntersectionObserver(this.load, {
-            rootMargin: `${this.offsetTop}px ${this.offsetLeft}px`,
+            rootMargin: `${this.offsetTop}px ${this.offsetLeft}px`
         });
 
         requestAnimationFrame(this.observe);
@@ -207,29 +209,12 @@ function evaluateSize(size) {
         : size;
 }
 
-function toPx(value, property = 'width', element = window) {
-    return isNumeric(value)
-        ? +value
-        : endsWith(value, 'vw')
-            ? percent(element, 'width', value)
-            : endsWith(value, 'vh')
-                ? percent(element, 'height', value)
-                : endsWith(value, '%')
-                    ? percent(element, property, value)
-                    : toFloat(value);
-}
-
 const srcSetRe = /\s+\d+w\s*(?:,|$)/g;
 function getSourceSize(srcset, sizes) {
     const srcSize = toPx(sizesToPixel(sizes));
     const descriptors = (srcset.match(srcSetRe) || []).map(toFloat).sort((a, b) => a - b);
 
     return descriptors.filter(size => size >= srcSize)[0] || descriptors.pop() || '';
-}
-
-const dimensions = {height, width};
-function percent(element, property, value) {
-    return dimensions[property](element) * toFloat(value) / 100;
 }
 
 function isImg(el) {

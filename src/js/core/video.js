@@ -6,7 +6,7 @@ export default {
 
     props: {
         automute: Boolean,
-        autoplay: Boolean,
+        autoplay: Boolean
     },
 
     data: {

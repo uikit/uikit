@@ -3,9 +3,7 @@
 //
 // Component:       `uk-animation-*`
 //
-// Modifiers:       `uk-animation-reverse`
-//                  `uk-animation-fast`
-//                  `uk-animation-fade`
+// Modifiers:       `uk-animation-fade`
 //                  `uk-animation-scale-up`
 //                  `uk-animation-scale-down`
 //                  `uk-animation-slide-top-*`
@@ -14,8 +12,13 @@
 //                  `uk-animation-slide-right-*`
 //                  `uk-animation-kenburns`
 //                  `uk-animation-shake`
+//                  `uk-animation-stroke`
+//                  `uk-animation-reverse`
+//                  `uk-animation-fast`
 //
 // Sub-objects:     `uk-animation-toggle`
+//
+// States:          `uk-active`
 //
 // ========================================================================
 
@@ -25,6 +28,7 @@
 
 @animation-duration:                            0.5s;
 @animation-fade-duration:                       0.8s;
+@animation-stroke-duration:                     2s;
 @animation-kenburns-duration:                   15s;
 @animation-fast-duration:                       0.1s;
 
@@ -41,40 +45,6 @@
     animation-timing-function: ease-out;
     animation-fill-mode: both;
 }
-
-
-/* Direction modifier
- ========================================================================== */
-
-.uk-animation-reverse {
-    animation-direction: reverse;
-    animation-timing-function: ease-in;
-}
-
-
-/* Toggle (Hover + Focus)
-========================================================================== */
-
-/*
- * The toggle is triggered on touch devices using `:focus` and tabindex
- */
-
-.uk-animation-toggle:not(:hover):not(:focus) [class*='uk-animation-'] { animation-name: none; }
-
-/*
- * 1. Prevent tab highlighting on iOS.
- */
-
-.uk-animation-toggle {
-    /* 1 */
-    -webkit-tap-highlight-color: transparent;
-}
-
-/*
- * Remove outline for `tabindex`
- */
-
-.uk-animation-toggle:focus { outline: none; }
 
 
 /* Animations
@@ -139,11 +109,59 @@
 
 .uk-animation-shake { animation-name: uk-shake; }
 
+/*
+ * SVG Stroke
+ * The `--uk-animation-stroke` custom property contains the longest path length.
+ * Set it manually or use `uk-svg="stroke-animation: true"` to set it automatically.
+ * All strokes are animated by the same pace and doesn't end simultaneously.
+ * To end simultaneously, `pathLength="1"` could be used, but it's not working in Safari yet.
+ */
+
+.uk-animation-stroke {
+    animation-name: uk-stroke;
+    stroke-dasharray: var(--uk-animation-stroke);
+    animation-duration: @animation-stroke-duration;
+}
+
+
+/* Direction modifier
+ ========================================================================== */
+
+ .uk-animation-reverse {
+    animation-direction: reverse;
+    animation-timing-function: ease-in;
+}
+
 
 /* Duration modifier
  ========================================================================== */
 
-.uk-animation-fast { animation-duration: @animation-fast-duration; }
+ .uk-animation-fast { animation-duration: @animation-fast-duration; }
+
+
+/* Toggle (Hover + Focus)
+========================================================================== */
+
+/*
+ * The toggle is triggered on touch devices using `:focus` and tabindex
+ */
+
+.uk-animation-toggle:not(:hover):not(:focus) [class*='uk-animation-'] { animation-name: none; }
+
+/*
+ * 1. Prevent tab highlighting on iOS.
+ */
+
+.uk-animation-toggle {
+    /* 1 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/*
+ * Remove outline for `tabindex`
+ */
+
+.uk-animation-toggle:focus { outline: none; }
 
 
 /* Keyframes used by animation classes
@@ -392,6 +410,15 @@
     70% { transform: translateX(-3px); }
     80% { transform: translateX(2px); }
     90% { transform: translateX(-1px); }
+}
+
+/*
+ * Stroke
+ */
+
+ @keyframes uk-stroke {
+    0% { stroke-dashoffset: var(--uk-animation-stroke); }
+    100% { stroke-dashoffset: 0; }
 }
 
 

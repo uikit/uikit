@@ -2,7 +2,7 @@ const fs = require('fs');
 const util = require('./util');
 const glob = require('glob');
 
-const {read, write} = util;
+const {write} = util;
 
 const themeMixins = {};
 const coreMixins = {};
@@ -84,19 +84,19 @@ glob.sync('src/less/**/*.less').forEach(file => {
         .replace(/--uk-[^\s]+: (\$[^\s]+);/g, (exp, name) => exp.replace(name, `#{${name}}`))
         .replace(/\\\$/g, '\\@') // revert classes using the @ symbol
         .replace(/ e\(/g, ' unquote(') // convert escape function
-        .replace(/\.([\w\-]*)\s*\((.*)\)\s*\{/g, '@mixin $1($2){') // hook -> mixins
-        .replace(/(\$[\w\-]*)\s*:(.*);/g, '$1: $2 !default;') // make variables optional
-        .replace(/@mixin ([\w\-]*)\s*\((.*)\)\s*\{\s*\}/g, '// @mixin $1($2){}') // comment empty mixins
+        .replace(/\.([\w-]*)\s*\((.*)\)\s*\{/g, '@mixin $1($2){') // hook -> mixins
+        .replace(/(\$[\w-]*)\s*:(.*);/g, '$1: $2 !default;') // make variables optional
+        .replace(/@mixin ([\w-]*)\s*\((.*)\)\s*\{\s*\}/g, '// @mixin $1($2){}') // comment empty mixins
         .replace(/\.(hook[a-zA-Z\-\d]+);/g, '@if(mixin-exists($1)) {@include $1();}') // hook calls surrounded by a mixin-exists
         .replace(/\$(import|supports|media|font-face|page|-ms-viewport|keyframes|-webkit-keyframes|-moz-document)/g, '@$1') // replace valid '@' statements
-        .replace(/tint\((\$[\w\-]+),\s([^\)]*)\)/g, 'mix(white, $1, $2)') // replace LESS function tint with mix
-        .replace(/fade\((\$[\w\-]*), ([0-9]+)\%\)/g, (match, p1, p2) => { return `rgba(${p1}, ${p2 / 100})`;}) // replace LESS function fade with rgba
-        .replace(/fadeout\((\$[\w\-]*), ([0-9]+)\%\)/g, (match, p1, p2) => { return `fade-out(${p1}, ${p2 / 100})`;}) // replace LESS function fadeout with fade-out
+        .replace(/tint\((\$[\w-]+),\s([^)]*)\)/g, 'mix(white, $1, $2)') // replace LESS function tint with mix
+        .replace(/fade\((\$[\w-]*), ([0-9]+)%\)/g, (match, p1, p2) => { return `rgba(${p1}, ${p2 / 100})`;}) // replace LESS function fade with rgba
+        .replace(/fadeout\((\$[\w-]*), ([0-9]+)%\)/g, (match, p1, p2) => { return `fade-out(${p1}, ${p2 / 100})`;}) // replace LESS function fadeout with fade-out
         .replace(/\.svg-fill/g, '@include svg-fill') // include svg-fill mixin
-        .replace(/(.*)\:extend\((\.[\w\-]*) all\) when \((\$[\w\-]*) = ([\w]+)\) {}/g, '@if ( $3 == $4 ) { $1 { @extend $2 !optional;} }') // update conditional extend and add !optional to ignore warnings
-        .replace(/(\.[\w\-]+)\s*when\s*\((\$[\w\-]*)\s*=\s*(\w+)\)\s*\{\s*@if\(mixin-exists\(([\w\-]*)\)\) \{\@include\s([\w\-]*)\(\);\s*\}\s*\}/g, '@if ($2 == $3) { $1 { @if(mixin-exists($4)) {@include $4();}}}') // update conditional hook
-        .replace(/\$\{/g, '#{$') // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
-        .replace(/[^\(](\-\$[\w\-]*)/g, ' ($1)') // surround negative variables with brackets
+        .replace(/(.*):extend\((\.[\w-]*) all\) when \((\$[\w-]*) = ([\w]+)\) {}/g, '@if ( $3 == $4 ) { $1 { @extend $2 !optional;} }') // update conditional extend and add !optional to ignore warnings
+        .replace(/(\.[\w-]+)\s*when\s*\((\$[\w-]*)\s*=\s*(\w+)\)\s*{\s*@if\(mixin-exists\(([\w-]*)\)\) {@include\s([\w-]*)\(\);\s*}\s*}/g, '@if ($2 == $3) { $1 { @if(mixin-exists($4)) {@include $4();}}}') // update conditional hook
+        .replace(/\${/g, '#{$') // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
+        .replace(/[^(](-\$[\w-]*)/g, ' ($1)') // surround negative variables with brackets
         .replace(/~('[^']+')/g, 'unquote($1)'); // string literals: for real
 
     /* File name of the current file */
@@ -121,7 +121,7 @@ glob.sync('src/less/**/*.less').forEach(file => {
         /* remove the theme import first place */
         scssData = scssData.replace(/\/\/\n\/\/ Theme\n\/\/\n\n@import "theme\/_import.scss";/, '');
         /* add uikit-mixins and uikit-variables include to the uikit.scss file and change order, to load theme files first */
-        scssData = scssData.replace(/\/\/ Core\n\/\//g, '// Theme\n//\n\n\@import "theme/_import.scss";');
+        scssData = scssData.replace(/\/\/ Core\n\/\//g, '// Theme\n//\n\n@import "theme/_import.scss";');
     }
 
     /* mixin.less needs to be fully replaced by the new mixin file*/
@@ -131,7 +131,7 @@ glob.sync('src/less/**/*.less').forEach(file => {
 
     return write(file.replace(/less/g, 'scss').replace('.theme.', '-theme.'), scssData);
 
-})
+});
 
 /* Second Step write all new needed files for SASS */
 
@@ -182,7 +182,7 @@ function getAllDependencies (allVariables, currentKey, dependencies = new Set())
 function getMixinsFromFile(file, data) {
 
     /* Step 1: get all includes and insert them, so that at least empty mixins exist. */
-    let regex = /@include ([a-z0-9\-]+)/g;
+    let regex = /@include ([a-z0-9-]+)/g;
     let match = regex.exec(data);
 
     while (match) {
@@ -193,7 +193,7 @@ function getMixinsFromFile(file, data) {
     }
 
     /* Step 2: get all multiline mixins */
-    regex = /@mixin ([\w\-]*)\s*\((.*)\)\s*\{\n(\s+[\w\W]+?)(?=\n\})\n}/g;
+    regex = /@mixin ([\w-]*)\s*\((.*)\)\s*{\n(\s+[\w\W]+?)(?=\n})\n}/g;
     match = regex.exec(data);
 
     while (match) {
@@ -205,7 +205,7 @@ function getMixinsFromFile(file, data) {
     }
 
     /* Step 3: get all singleline mixins */
-    regex = /@mixin ([\w\-]*)\s*\((.*)\)\s*\{( [^\n]+)}/g;
+    regex = /@mixin ([\w-]*)\s*\((.*)\)\s*{( [^\n]+)}/g;
     match = regex.exec(data);
 
     while (match) {
@@ -218,8 +218,9 @@ function getMixinsFromFile(file, data) {
     }
 
     /* Step 4: remove the mixins from the file, so that users can overwrite them in their custom code. */
-    return data.replace(/@mixin ([\w\-]*)\s*\((.*)\)\s*\{\n(\s+[\w\W]+?)(?=\n\})\n}/g, '')
-        .replace(/@mixin ([\w\-]*)\s*\((.*)\)\s*\{( [^\n]+)}/g, '');
+    return data
+        .replace(/@mixin ([\w-]*)\s*\((.*)\)\s*{\n(\s+[\w\W]+?)(?=\n})\n}/g, '')
+        .replace(/@mixin ([\w-]*)\s*\((.*)\)\s*{( [^\n]+)}/g, '');
 }
 
 /*
@@ -227,7 +228,7 @@ function getMixinsFromFile(file, data) {
  * @return an updated data where the icons have been replaced by the actual SVG data.
  */
 function getVariablesFromFile(file, data) {
-    const regex = /(\$[\w\-]*)\s*:\s*(.*);/g;
+    const regex = /(\$[\w-]*)\s*:\s*(.*);/g;
     let match = regex.exec(data);
 
     while (match) {
@@ -235,19 +236,19 @@ function getVariablesFromFile(file, data) {
         /* check if variable is an background icon, if so replace it directly by the SVG */
         if (match[0].indexOf('../../images/backgrounds') >= 0) {
 
-            const iconregex = /(\$[\w\-]+)\s*:\s*"\.\.\/\.\.\/images\/backgrounds\/([\w\.\/\-]+)" !default;/g;
+            const iconregex = /(\$[\w-]+)\s*:\s*"\.\.\/\.\.\/images\/backgrounds\/([\w./-]+)" !default;/g;
             const iconmatch = iconregex.exec(match[0]);
             let svg = fs.readFileSync(`src/images/backgrounds/${iconmatch[2]}`).toString();
-            svg = '"' + svg.replace(/\r?\n|\r/g, '%0A')
+            svg = `"${svg.replace(/\r?\n|\r/g, '%0A')
                 .replace(/"/g, '\'')
                 .replace(/\s/g, '%20')
-                .replace(/\</g, '%3C')
-                .replace(/\=/g, '%3D')
-                .replace(/\'/g, '%22')
-                .replace(/\:/g, '%3A')
+                .replace(/</g, '%3C')
+                .replace(/=/g, '%3D')
+                .replace(/'/g, '%22')
+                .replace(/:/g, '%3A')
                 .replace(/\//g, '%2F')
-                .replace(/\>/g, '%3E')
-                .replace(/%3Csvg/, 'data:image/svg+xml;charset=UTF-8,%3Csvg') + '"';
+                .replace(/>/g, '%3E')
+                .replace(/%3Csvg/, 'data:image/svg+xml;charset=UTF-8,%3Csvg')}"`;
 
             /* add SVG to the coreVar and themeVar only if it is a theme file and make it optional */
             if (file.indexOf('theme/') < 0) {
@@ -263,7 +264,7 @@ function getVariablesFromFile(file, data) {
             /* when it is not an SVG add the variable and search for its dependencies */
         } else {
 
-            const variablesRegex = /(\$[\w\-]+)/g;
+            const variablesRegex = /(\$[\w-]+)/g;
             let variablesMatch = variablesRegex.exec(match[2]);
             const dependencies = [];
 

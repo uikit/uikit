@@ -1,27 +1,27 @@
-import {$, after, ajax, append, attr, includes, isString, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
-
-const svgs = {};
+import {$, $$, after, ajax, append, attr, includes, isVisible, isVoidElement, noop, Promise, remove, removeAttr, startsWith} from 'uikit-util';
 
 export default {
 
     args: 'src',
 
     props: {
-        id: String,
+        id: Boolean,
         icon: String,
         src: String,
         style: String,
         width: Number,
         height: Number,
         ratio: Number,
-        'class': String
+        'class': String,
+        strokeAnimation: Boolean,
+        attributes: 'list'
     },
 
     data: {
         ratio: 1,
-        id: false,
-        exclude: ['ratio', 'src', 'icon'],
-        'class': ''
+        include: ['style', 'class'],
+        'class': '',
+        strokeAnimation: false
     },
 
     connected() {
@@ -37,85 +37,9 @@ export default {
             }
         }
 
-        this.svg = this.getSvg().then(svg => {
-
-            let el;
-
-            if (isString(svg)) {
-
-                if (this.icon && includes(svg, '<symbol')) {
-                    svg = parseSymbols(svg, this.icon) || svg;
-                }
-
-                el = $(svg.substr(svg.indexOf('<svg')));
-
-            } else {
-                el = svg.cloneNode(true);
-            }
-
-            if (!el) {
-                return Promise.reject('SVG not found.');
-            }
-
-            let dimensions = attr(el, 'viewBox');
-
-            if (dimensions) {
-                dimensions = dimensions.split(' ');
-                this.width = this.$props.width || dimensions[2];
-                this.height = this.$props.height || dimensions[3];
-            }
-
-            this.width *= this.ratio;
-            this.height *= this.ratio;
-
-            for (const prop in this.$options.props) {
-                if (this[prop] && !includes(this.exclude, prop)) {
-                    attr(el, prop, this[prop]);
-                }
-            }
-
-            if (!this.id) {
-                removeAttr(el, 'id');
-            }
-
-            if (this.width && !this.height) {
-                removeAttr(el, 'height');
-            }
-
-            if (this.height && !this.width) {
-                removeAttr(el, 'width');
-            }
-
-            const src = this.icon || this.src;
-            attr(el, 'data-svg', src);
-
-            const root = this.$el;
-            if (isVoidElement(root) || root.tagName === 'CANVAS') {
-
-                attr(root, {hidden: true, id: null});
-
-                const next = root.nextElementSibling;
-                if (src === attr(next, 'data-svg')) {
-                    el = next;
-                } else {
-                    after(root, el);
-                }
-
-            } else {
-
-                const last = root.lastElementChild;
-                if (src === attr(last, 'data-svg')) {
-                    el = last;
-                } else {
-                    append(root, el);
-                }
-
-            }
-
-            this.svgEl = el;
-
-            return el;
-
+        this.svg = this.getSvg().then(el => {
+            this.applyAttributes(el);
+            return this.svgEl = insertSVG(el, this.$el);
         }, noop);
 
     },
@@ -123,7 +47,7 @@ export default {
     disconnected() {
 
         if (isVoidElement(this.$el)) {
-            attr(this.$el, {hidden: null, id: this.id || null});
+            attr(this.$el, 'hidden', null);
         }
 
         if (this.svg) {
@@ -134,40 +58,112 @@ export default {
 
     },
 
+    update: {
+
+        read() {
+            return !!(this.strokeAnimation && this.svgEl && isVisible(this.svgEl));
+        },
+
+        write() {
+            applyAnimation(this.svgEl);
+        },
+
+        type: ['resize']
+
+    },
+
     methods: {
 
         getSvg() {
+            return loadSVG(this.src).then(svg =>
+                parseSVG(svg, this.icon) || Promise.reject('SVG not found.')
+            );
+        },
 
-            if (!this.src) {
-                return Promise.reject();
-            }
+        applyAttributes(el) {
 
-            if (svgs[this.src]) {
-                return svgs[this.src];
-            }
-
-            svgs[this.src] = new Promise((resolve, reject) => {
-
-                if (startsWith(this.src, 'data:')) {
-                    resolve(decodeURIComponent(this.src.split(',')[1]));
-                } else {
-
-                    ajax(this.src).then(
-                        xhr => resolve(xhr.response),
-                        () => reject('SVG not found.')
-                    );
-
+            for (const prop in this.$options.props) {
+                if (this[prop] && includes(this.include, prop)) {
+                    attr(el, prop, this[prop]);
                 }
+            }
 
+            for (const attribute in this.attributes) {
+                const [prop, value] = this.attributes[attribute].split(':', 2);
+                attr(el, prop, value);
+            }
+
+            if (!this.id) {
+                removeAttr(el, 'id');
+            }
+
+            const props = ['width', 'height'];
+            let dimensions = [this.width, this.height];
+
+            if (!dimensions.some(val => val)) {
+                dimensions = props.map(prop => attr(el, prop));
+            }
+
+            const viewBox = attr(el, 'viewBox');
+            if (viewBox && !dimensions.some(val => val)) {
+                dimensions = viewBox.split(' ').slice(2);
+            }
+
+            dimensions.forEach((val, i) => {
+                val = (val | 0) * this.ratio;
+                val && attr(el, props[i], val);
+
+                if (val && !dimensions[i ^ 1]) {
+                    removeAttr(el, props[i ^ 1]);
+                }
             });
 
-            return svgs[this.src];
+            attr(el, 'data-svg', this.icon || this.src);
 
         }
 
     }
 
 };
+
+const svgs = {};
+
+function loadSVG(src) {
+
+    if (svgs[src]) {
+        return svgs[src];
+    }
+
+    return svgs[src] = new Promise((resolve, reject) => {
+
+        if (!src) {
+            reject();
+            return;
+        }
+
+        if (startsWith(src, 'data:')) {
+            resolve(decodeURIComponent(src.split(',')[1]));
+        } else {
+
+            ajax(src).then(
+                xhr => resolve(xhr.response),
+                () => reject('SVG not found.')
+            );
+
+        }
+
+    });
+}
+
+function parseSVG(svg, icon) {
+
+    if (icon && includes(svg, '<symbol')) {
+        svg = parseSymbols(svg, icon) || svg;
+    }
+
+    svg = $(svg.substr(svg.indexOf('<svg')));
+    return svg && svg.hasChildNodes() && svg;
+}
 
 const symbolRe = /<symbol(.*?id=(['"])(.*?)\2[^]*?<\/)symbol>/g;
 const symbols = {};
@@ -188,4 +184,44 @@ function parseSymbols(svg, icon) {
     }
 
     return symbols[svg][icon];
+}
+
+function applyAnimation(el) {
+
+    const length = getMaxPathLength(el);
+
+    if (length) {
+        el.style.setProperty('--uk-animation-stroke', length);
+    }
+
+}
+
+export function getMaxPathLength(el) {
+    return Math.ceil(Math.max(...$$('[stroke]', el).map(stroke =>
+        stroke.getTotalLength && stroke.getTotalLength() || 0
+    ).concat([0])));
+}
+
+function insertSVG(el, root) {
+    if (isVoidElement(root) || root.tagName === 'CANVAS') {
+
+        attr(root, 'hidden', true);
+
+        const next = root.nextElementSibling;
+        return equals(el, next)
+            ? next
+            : after(root, el);
+
+    } else {
+
+        const last = root.lastElementChild;
+        return equals(el, last)
+            ? last
+            : append(root, el);
+
+    }
+}
+
+function equals(el, other) {
+    return attr(el, 'data-svg') === attr(other, 'data-svg');
 }

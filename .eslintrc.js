@@ -17,10 +17,12 @@ module.exports = {
         "ICONS": []
     },
     "rules": {
+        "arrow-parens": ["error", "as-needed"],
         "brace-style": ["error", "1tbs", {"allowSingleLine": true}],
+        "comma-dangle": ["error", "never"],
         "comma-spacing": "error",
         "comma-style": "error",
-        "eqeqeq": ["off", "smart"],
+        "eqeqeq": ["error", "smart"],
         "eol-last": "error",
         "indent": "off",
         "indent-legacy": ["error", 4, {"SwitchCase": 1}],
@@ -28,11 +30,11 @@ module.exports = {
         "keyword-spacing": "error",
         "linebreak-style": ["error", "unix"],
         "no-array-constructor": "error",
+        "no-case-declarations": "warn",
         "no-console": "off",
         "no-duplicate-imports": "error",
         "no-empty": ["error", {"allowEmptyCatch": true}],
         "no-extend-native": "error",
-        "no-case-declarations": "warn",
         "no-lone-blocks": "error",
         "no-lonely-if": "error",
         "no-multi-spaces": "error",
@@ -48,10 +50,11 @@ module.exports = {
         "quotes": ["error", "single", {"avoidEscape": true}],
         "semi": ["error", "always"],
         "space-before-blocks": "error",
+        "space-before-function-paren": ["error", {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
         "space-in-parens": "error",
         "space-infix-ops": "error",
         "space-unary-ops": "error",
         "spaced-comment": "error",
-        "template-curly-spacing": "error"
+        "template-curly-spacing": "error",
     }
 };

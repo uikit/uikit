@@ -137,13 +137,14 @@ function getPositionWithMargin(el) {
 let style;
 
 function addStyle() {
-    if (!style) {
-        style = append(document.head, '<style>').sheet;
-        style.insertRule(
-            `.${targetClass} > * {
-                    margin-top: 0 !important;
-                    transform: none !important;
-                }`, 0
-        );
+    if (style) {
+        return;
     }
+    style = append(document.head, '<style>').sheet;
+    style.insertRule(
+        `.${targetClass} > * {
+            margin-top: 0 !important;
+            transform: none !important;
+        }`, 0
+    );
 }

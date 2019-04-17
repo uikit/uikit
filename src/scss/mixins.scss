@@ -153,7 +153,12 @@
     h3, .uk-h3,
     h4, .uk-h4,
     h5, .uk-h5,
-    h6, .uk-h6 {
+    h6, .uk-h6,
+    .uk-heading-small,
+    .uk-heading-medium,
+    .uk-heading-large,
+    .uk-heading-xlarge,
+    .uk-heading-2xlarge {
         color: $inverse-base-heading-color;
         @if(mixin-exists(hook-inverse-base-heading)) {@include hook-inverse-base-heading();}
     }
@@ -696,12 +701,21 @@
     .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before { border-top-color: $inverse-grid-divider-border; }
 
 }
+@mixin hook-heading-small(){}
+@mixin hook-heading-medium(){}
+@mixin hook-heading-large(){}
+@mixin hook-heading-xlarge(){}
+@mixin hook-heading-2xlarge(){}
 @mixin hook-heading-primary(){}
 @mixin hook-heading-hero(){}
 @mixin hook-heading-divider(){}
 @mixin hook-heading-bullet(){}
 @mixin hook-heading-line(){}
 @mixin hook-heading-misc(){}
+@mixin hook-inverse-heading-small(){}
+@mixin hook-inverse-heading-medium(){}
+@mixin hook-inverse-heading-large(){}
+@mixin hook-inverse-heading-xlarge(){}
 @mixin hook-inverse-heading-primary(){}
 @mixin hook-inverse-heading-hero(){}
 @mixin hook-inverse-heading-divider(){}
@@ -709,13 +723,29 @@
 @mixin hook-inverse-heading-line(){}
 @mixin hook-inverse-component-heading(){
 
-    .uk-heading-primary {
+    .uk-heading-small {
+        @if(mixin-exists(hook-inverse-heading-small)) {@include hook-inverse-heading-small();}
+    }
+
+    .uk-heading-medium {
+        @if(mixin-exists(hook-inverse-heading-medium)) {@include hook-inverse-heading-medium();}
+    }
+
+    .uk-heading-large {
+        @if(mixin-exists(hook-inverse-heading-large)) {@include hook-inverse-heading-large();}
+    }
+
+    .uk-heading-xlarge {
+        @if(mixin-exists(hook-inverse-heading-xlarge)) {@include hook-inverse-heading-xlarge();}
+    }
+
+    .uk-heading-2xlarge {
         @if(mixin-exists(hook-inverse-heading-primary)) {@include hook-inverse-heading-primary();}
     }
 
-    .uk-heading-hero {
-        @if(mixin-exists(hook-inverse-heading-hero)) {@include hook-inverse-heading-hero();}
-    }
+    @if ($deprecated == true) { .uk-heading-primary { @if(mixin-exists(hook-inverse-heading-primary)) {@include hook-inverse-heading-primary();}}}
+
+    @if ($deprecated == true) { .uk-heading-hero { @if(mixin-exists(hook-inverse-heading-hero)) {@include hook-inverse-heading-hero();}}}
 
     .uk-heading-divider {
         border-bottom-color: $inverse-heading-divider-border;
@@ -1236,6 +1266,7 @@
     .uk-text-muted { color: $inverse-text-muted-color !important; }
     .uk-text-emphasis { color: $inverse-text-emphasis-color !important; }
     .uk-text-primary { color: $inverse-text-primary-color !important; }
+    .uk-text-secondary { color: $inverse-text-secondary-color !important; }
 
 }
 @mixin hook-inverse-component-utility(){
@@ -1410,6 +1441,7 @@
 @mixin hook-navbar-toggle-icon(){}
 @mixin hook-navbar-toggle-icon-hover(){}
 @mixin hook-navbar-subtitle(){}
+@mixin hook-navbar-primary(){}
 @mixin hook-navbar-transparent(){}
 @mixin hook-navbar-sticky(){}
 @mixin hook-navbar-dropdown(){}

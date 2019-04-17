@@ -42,15 +42,13 @@ const Icon = {
 
     install,
 
-    attrs: ['icon', 'ratio'],
-
     mixins: [Class, SVG],
 
     args: 'icon',
 
     props: ['icon'],
 
-    data: {exclude: ['id', 'style', 'class', 'src', 'icon', 'ratio']},
+    data: {include: []},
 
     isIcon: true,
 
@@ -178,7 +176,7 @@ function getIcon(icon) {
         parsed[icon] = $(icons[icon].trim());
     }
 
-    return parsed[icon];
+    return parsed[icon].cloneNode(true);
 }
 
 function applyRtl(icon) {

@@ -11,14 +11,14 @@ export default {
     props: {
         href: String,
         target: null,
-        mode: 'list',
+        mode: 'list'
     },
 
     data: {
         href: false,
         target: false,
         mode: 'click',
-        queued: true,
+        queued: true
     },
 
     computed: {
@@ -62,10 +62,6 @@ export default {
 
             handler(e) {
 
-                if (!isTouch(e) && !includes(this.mode, 'click')) {
-                    return;
-                }
-
                 // TODO better isToggled handling
                 let link;
                 if (closest(e.target, 'a[href="#"], a[href=""], button')
@@ -87,14 +83,16 @@ export default {
 
     update: {
 
-        write() {
+        read() {
+            return includes(this.mode, 'media') && this.media
+                ? {match: this.matchMedia}
+                : false;
+        },
 
-            if (!includes(this.mode, 'media') || !this.media) {
-                return;
-            }
+        write({match}) {
 
             const toggled = this.isToggled(this.target);
-            if (this.matchMedia ? !toggled : toggled) {
+            if (match ? !toggled : toggled) {
                 this.toggle();
             }
 

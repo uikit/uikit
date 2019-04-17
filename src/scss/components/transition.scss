@@ -10,7 +10,6 @@
 //                  `uk-transition-slide-bottom-*`
 //                  `uk-transition-slide-left-*`
 //                  `uk-transition-slide-right-*`
-//                  `uk-transition-stroke`
 //                  `uk-transition-opaque`
 //                  `uk-transition-slow`
 //
@@ -74,10 +73,9 @@ $transition-slow-duration:                       0.7s !default;
 
 .uk-transition-fade,
 [class*='uk-transition-scale'],
-[class*='uk-transition-slide'],
-.uk-transition-stroke, {
+[class*='uk-transition-slide'] {
     transition: $transition-duration ease-out;
-    transition-property: opacity, transform, filter, stroke-dashoffset;
+    transition-property: opacity, transform, filter;
     opacity: 0;
 }
 
@@ -91,25 +89,24 @@ $transition-slow-duration:                       0.7s !default;
 
 /*
  * Scale
- * Note: Using `scale3d` for better image rendering
  */
 
-.uk-transition-scale-up { transform: scale3d(1,1,1); }
-.uk-transition-scale-down { transform: scale3d($transition-scale,$transition-scale,1); }
+.uk-transition-scale-up { transform: scale(1,1); }
+.uk-transition-scale-down { transform: scale($transition-scale,$transition-scale); }
 
 /* Show */
 .uk-transition-toggle:hover .uk-transition-scale-up,
 .uk-transition-toggle:focus .uk-transition-scale-up,
 .uk-transition-active.uk-active .uk-transition-scale-up {
     opacity: 1;
-    transform: scale3d($transition-scale,$transition-scale,1);
+    transform: scale($transition-scale,$transition-scale);
 }
 
 .uk-transition-toggle:hover .uk-transition-scale-down,
 .uk-transition-toggle:focus .uk-transition-scale-down,
 .uk-transition-active.uk-active .uk-transition-scale-down {
     opacity: 1;
-    transform: scale3d(1,1,1);
+    transform: scale(1,1);
 }
 
 /*
@@ -137,20 +134,6 @@ $transition-slow-duration:                       0.7s !default;
 .uk-transition-active.uk-active [class*='uk-transition-slide'] {
     opacity: 1;
     transform: translate(0,0);
-}
-
-/*
- * Stroke
- */
-
-.uk-transition-stroke { transition-duration: 3s; }
-
-/* Show */
-.uk-transition-stroke:hover,
-.uk-transition-stroke:focus,
-.uk-transition-stroke.uk-transition-active {
-    opacity: 1;
-    stroke-dashoffset: 0 !important;
 }
 
 

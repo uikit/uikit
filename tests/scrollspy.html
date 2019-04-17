@@ -33,6 +33,8 @@
                 <li><a href="#animation-slide-top">Slide Top</a></li>
                 <li><a href="#animation-slide-bottom">Slide Bottom</a></li>
                 <li><a href="#animation-different">Different Animations</a></li>
+                <li><a href="#animation-stroke">Stroke</a></li>
+                <li><a href="#animation-stroke-fade">Stroke + Fade</a></li>
                 <li><a href="#adjacent1">Adjacent 1</a></li>
                 <li><a href="#adjacent2">Adjacent 2</a></li>
             </ul>
@@ -44,7 +46,7 @@
 
             <h2 id="animation-repeat">Single, Repeat, Delay</h2>
 
-            <div class="uk-child-width-1-4@m" uk-grid uk-height-match="target: > div > .uk-card">
+            <div class="uk-child-width-1-4@m" uk-grid uk-height-match="target: .uk-card">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body" uk-scrollspy="cls: uk-animation-fade">
                         <p>The element is animated only the first time it appears in the viewport.</p>
@@ -64,7 +66,7 @@
 
             <h2 id="animation-delay">Group, Repeat, Delay</h2>
 
-            <div class="uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-fade; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-child-width-1-4@m" uk-grid uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body">
                         <p>The animation of this element is delayed by some milliseconds.</p>
@@ -89,7 +91,7 @@
 
             <h2 id="animation-fade">Group: Fade</h2>
 
-            <div class="uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-fade; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-fade; target: .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body">
                         <h3 class="uk-card-title">Fade</h3>
@@ -118,7 +120,7 @@
 
             <h2 id="animation-scale-up">Group: Scale Up</h2>
 
-            <div class="uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-scale-up; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-scale-up; target: .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body">
                         <h3 class="uk-card-title">Scale Up</h3>
@@ -244,7 +246,7 @@
 
             <h2 id="animation-scale-down">Group: Scale Down</h2>
 
-            <div class="uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-scale-down; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-scale-down; target: .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body">
                         <h3 class="uk-card-title">Scale Down</h3>
@@ -273,7 +275,7 @@
 
             <h2 id="animation-slide-left">Group: Left</h2>
 
-            <div class="uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-slide-left; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-slide-left; target: .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body">
                         <h3 class="uk-card-title">Left</h3>
@@ -302,7 +304,7 @@
 
             <h2 id="animation-slide-right">Group: Right</h2>
 
-            <div class="uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-slide-right; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-slide-right; target: .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body">
                         <h3 class="uk-card-title">Right</h3>
@@ -331,7 +333,7 @@
 
             <h2 id="animation-slide-top">Group: Top</h2>
 
-            <div class="uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-slide-top; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-slide-top; target: .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body">
                         <h3 class="uk-card-title">Top</h3>
@@ -360,7 +362,7 @@
 
             <h2 id="animation-slide-bottom">Group: Bottom</h2>
 
-            <div class="uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom; target: .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body">
                         <h3 class="uk-card-title">Bottom</h3>
@@ -389,7 +391,7 @@
 
             <h2 id="animation-different">Different Animations</h2>
 
-            <div class="uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom; target: > div > .uk-card; delay: 300; repeat: true">
+            <div class="uk-child-width-1-4@m uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-slide-bottom; target: .uk-card; delay: 300; repeat: true">
                 <div>
                     <div class="uk-card uk-card-default uk-card-body">
                         <h3 class="uk-card-title">Bottom</h3>
@@ -416,7 +418,65 @@
                 </div>
             </div>
 
-            <h2>Adjacent Sibling</h2>
+            <h2 id="animation-stroke">Group: Stroke</h2>
+
+            <div class="uk-child-width-1-4@m uk-text-center uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-stroke; target: svg; delay: 300; repeat: true">
+                <div>
+                    <div class="uk-card uk-card-default uk-card-body">
+                        <h3 class="uk-card-title">Stroke</h3>
+                        <img width="80" height="80" src="images/icons.svg#cloud-upload" uk-svg="stroke-animation: true">
+                    </div>
+                </div>
+                <div>
+                    <div class="uk-card uk-card-default uk-card-body">
+                        <h3 class="uk-card-title">Stroke</h3>
+                        <img width="80" height="80" src="images/icons.svg#cloud-upload" uk-svg="stroke-animation: true">
+                    </div>
+                </div>
+                <div>
+                    <div class="uk-card uk-card-default uk-card-body">
+                        <h3 class="uk-card-title">Stroke</h3>
+                        <img width="80" height="80" src="images/icons.svg#cloud-upload" uk-svg="stroke-animation: true">
+                    </div>
+                </div>
+                <div>
+                    <div class="uk-card uk-card-default uk-card-body">
+                        <h3 class="uk-card-title">Stroke</h3>
+                        <img width="80" height="80" src="images/icons.svg#cloud-upload" uk-svg="stroke-animation: true">
+                    </div>
+                </div>
+            </div>
+
+            <h2 id="animation-stroke-fade">Different Animations: Stroke + Fade</h2>
+
+            <div class="uk-child-width-1-4@m uk-text-center uk-margin-xlarge-bottom" uk-grid uk-scrollspy="cls: uk-animation-stroke; target: .uk-card, svg; delay: 300; repeat: true">
+                <div>
+                    <div class="uk-card uk-card-default uk-card-body" uk-scrollspy-class="uk-animation-fade">
+                        <h3 class="uk-card-title">Stroke</h3>
+                        <img width="80" height="80" src="images/icons.svg#cloud-upload" uk-svg="stroke-animation: true">
+                    </div>
+                </div>
+                <div>
+                    <div class="uk-card uk-card-default uk-card-body" uk-scrollspy-class="uk-animation-fade">
+                        <h3 class="uk-card-title">Stroke</h3>
+                        <img width="80" height="80" src="images/icons.svg#cloud-upload" uk-svg="stroke-animation: true">
+                    </div>
+                </div>
+                <div>
+                    <div class="uk-card uk-card-default uk-card-body" uk-scrollspy-class="uk-animation-fade">
+                        <h3 class="uk-card-title">Stroke</h3>
+                        <img width="80" height="80" src="images/icons.svg#cloud-upload" uk-svg="stroke-animation: true">
+                    </div>
+                </div>
+                <div>
+                    <div class="uk-card uk-card-default uk-card-body" uk-scrollspy-class="uk-animation-fade">
+                        <h3 class="uk-card-title">Stroke</h3>
+                        <img width="80" height="80" src="images/icons.svg#cloud-upload" uk-svg="stroke-animation: true">
+                    </div>
+                </div>
+            </div>
+
+            <h2>Adjacent Sibling (Test for Scrollspy Nav)</h2>
 
             <div id="adjacent1" class="uk-section uk-section-primary uk-text-center">
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -443,8 +503,8 @@
                         <tr>
                             <td><code>cls</code></td>
                             <td>String</td>
-                            <td>uk-scrollspy-inview</td>
-                            <td>Class to add when the element is in view. If two, comma separated classes are provided those will be toggled.</td>
+                            <td>``</td>
+                            <td>Class to toggle when the element enters/leaves viewport.</td>
                         </tr>
                         <tr>
                             <td><code>hidden</code></td>

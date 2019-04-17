@@ -108,6 +108,7 @@ $lightbox-button-hover-color:                    #fff !default;
  * 5. Responsiveness
  *    Using `vh` for `max-height` to fix image proportions after resize in Safari and Opera
  *    Using `vh` and `vw` to make responsive image work in IE11
+ * 6. Suppress outline on focus
  */
 
 .uk-lightbox-items > * {
@@ -133,6 +134,9 @@ $lightbox-button-hover-color:                    #fff !default;
     max-width: $lightbox-item-max-width;
     max-height: $lightbox-item-max-height;
 }
+
+/* 6 */
+.uk-slideshow-items > :focus { outline: none; }
 
 .uk-lightbox-items > * > :not(iframe) {
     width: auto;
