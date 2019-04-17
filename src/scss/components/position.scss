@@ -112,7 +112,6 @@ $position-large-margin-l:                               50px !default;
     left: 50%;
     transform: translate(-50%,-50%);
     /* 1 */
-    width: -moz-max-content;
     width: max-content;
     max-width: 100%;
     box-sizing: border-box;
@@ -130,13 +129,11 @@ $position-large-margin-l:                               50px !default;
 
 .uk-position-center-left-out {
     right: 100%;
-    width: -moz-max-content;
     width: max-content;
 }
 
 .uk-position-center-right-out {
     left: 100%;
-    width: -moz-max-content;
     width: max-content;
 }
 
@@ -146,7 +143,6 @@ $position-large-margin-l:                               50px !default;
     left: 50%;
     transform: translateX(-50%);
     /* 1 */
-    width: -moz-max-content;
     width: max-content;
     max-width: 100%;
     box-sizing: border-box;

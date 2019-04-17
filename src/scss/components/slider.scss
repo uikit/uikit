@@ -78,6 +78,7 @@
  * 1. Let items take content dimensions (0 0 auto)
  * 2. Create position context
  * 3. Disable horizontal panning gestures in IE11 and Edge
+ * 4. Suppress outline on focus
  */
 
 .uk-slider-items > * {
@@ -88,6 +89,9 @@
     /* 3 */
     touch-action: pan-y;
 }
+
+/* 4 */
+.uk-slider-items > :focus { outline: none; }
 
 
 // Hooks

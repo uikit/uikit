@@ -28,6 +28,7 @@ $text-bold-font-weight:                          bolder !default;
 $text-muted-color:                               $global-muted-color !default;
 $text-emphasis-color:                            $global-emphasis-color !default;
 $text-primary-color:                             $global-primary-background !default;
+$text-secondary-color:                           $global-secondary-background !default;
 $text-success-color:                             $global-success-background !default;
 $text-warning-color:                             $global-warning-background !default;
 $text-danger-color:                              $global-danger-background !default;
@@ -94,6 +95,7 @@ $text-background-color:                          $global-primary-background !def
 .uk-text-muted { color: $text-muted-color !important; }
 .uk-text-emphasis { color: $text-emphasis-color !important; }
 .uk-text-primary { color: $text-primary-color !important; }
+.uk-text-secondary { color: $text-secondary-color !important; }
 .uk-text-success { color: $text-success-color !important; }
 .uk-text-warning { color: $text-warning-color !important; }
 .uk-text-danger { color: $text-danger-color !important; }
@@ -253,7 +255,8 @@ $inverse-text-lead-color:                       $inverse-global-color !default;
 $inverse-text-meta-color:                       $inverse-global-muted-color !default;
 $inverse-text-muted-color:                      $inverse-global-muted-color !default;
 $inverse-text-emphasis-color:                   $inverse-global-emphasis-color !default;
-$inverse-text-primary-color:                    $inverse-global-color !default;
+$inverse-text-primary-color:                    $inverse-global-primary-background !default;
+$inverse-text-secondary-color:                  $inverse-global-primary-background !default;
 
 
 
