@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.1.1 (April 18, 2019)
 
 ### Fixed
 
