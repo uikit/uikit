@@ -35,9 +35,9 @@ $inverse-global-border:                          rgba($global-inverse-color, 0.2
  * `uk-dark` is or dark colors on light backgrounds
  */
 
-@if ($inverse-global-color-mode == light) { .uk-light { @if(mixin-exists(hook-inverse)) {@include hook-inverse();}}}
+@if ($inverse-global-color-mode == light) { .uk-light { @if (mixin-exists(hook-inverse)) {@include hook-inverse();}}}
 
-@if ($inverse-global-color-mode == dark) { .uk-dark { @if(mixin-exists(hook-inverse)) {@include hook-inverse();}}}
+@if ($inverse-global-color-mode == dark) { .uk-dark { @if (mixin-exists(hook-inverse)) {@include hook-inverse();}}}
 
 
 // Hooks

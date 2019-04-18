@@ -1,4 +1,4 @@
-/*! UIkit 3.1.0 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.1.1 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -61,12 +61,29 @@
         return endsWithFn.call(str, search);
     }
 
+    var arrPrototype = Array.prototype;
+
     var includesFn = function (search, i) { return ~this.indexOf(search, i); };
     var includesStr = strPrototype.includes || includesFn;
-    var includesArray = Array.prototype.includes || includesFn;
+    var includesArray = arrPrototype.includes || includesFn;
 
     function includes(obj, search) {
         return obj && (isString(obj) ? includesStr : includesArray).call(obj, search);
+    }
+
+    var findIndexFn = arrPrototype.findIndex || function (predicate) {
+        var arguments$1 = arguments;
+
+        for (var i = 0; i < this.length; i++) {
+            if (predicate.call(arguments$1[1], this[i], i, this)) {
+                return i;
+            }
+        }
+        return -1;
+    };
+
+    function findIndex(array, predicate) {
+        return findIndexFn.call(array, predicate);
     }
 
     var isArray = Array.isArray;
@@ -153,12 +170,11 @@
                     : null;
     }
 
-    var arrayProto = Array.prototype;
     function toNodes(element) {
         return isNode(element)
             ? [element]
             : isNodeCollection(element)
-                ? arrayProto.slice.call(element)
+                ? arrPrototype.slice.call(element)
                 : isArray(element)
                     ? element.map(toNode).filter(Boolean)
                     : isJQuery(element)
@@ -2602,6 +2618,7 @@
         startsWith: startsWith,
         endsWith: endsWith,
         includes: includes,
+        findIndex: findIndex,
         isArray: isArray,
         isFunction: isFunction,
         isObject: isObject,
@@ -4026,7 +4043,7 @@
                 }
 
             });
-        });
+        }, {passive: true});
 
     }
 
@@ -6935,6 +6952,8 @@
             {
                 name: 'touchstart',
 
+                passive: true,
+
                 el: function() {
                     return this.panel;
                 },
@@ -8239,7 +8258,7 @@
 
     }
 
-    UIkit.version = '3.1.0';
+    UIkit.version = '3.1.1';
 
     core(UIkit);
 
@@ -10077,6 +10096,10 @@
                     this.hide();
                 }
 
+            },
+
+            items: function() {
+                return uniqueBy(this.toggles.map(toItem), 'source');
             }
 
         },
@@ -10097,7 +10120,12 @@
 
                 handler: function(e) {
                     e.preventDefault();
-                    this.show(index(this.toggles, e.current));
+                    var src = data(e.current, 'href');
+                    this.show(findIndex(this.items, function (ref) {
+                        var source = ref.source;
+
+                        return source === src;
+                    }));
                 }
 
             }
@@ -10110,18 +10138,12 @@
                 var this$1 = this;
 
 
-                this.panel = this.panel || this.$create('lightboxPanel', assign({}, this.$props, {
-                    items: uniqueBy(this.toggles.reduce(function (items, el) {
-                        items.push(['href', 'caption', 'type', 'poster', 'alt'].reduce(function (obj, attr) {
-                            obj[attr === 'href' ? 'source' : attr] = data(el, attr);
-                            return obj;
-                        }, {}));
-                        return items;
-                    }, []), 'source')
-                }));
+                this.panel = this.panel || this.$create('lightboxPanel', assign({}, this.$props, {items: this.items}));
 
                 on(this.panel.$el, 'hidden', function () { return this$1.panel = false; });
+
                 return this.panel.show(index);
+
             },
 
             hide: function() {
@@ -10145,6 +10167,13 @@
             UIkit.component('lightboxPanel').options.props
         );
 
+    }
+
+    function toItem(el) {
+        return ['href', 'caption', 'type', 'poster', 'alt'].reduce(function (obj, attr) {
+            obj[attr === 'href' ? 'source' : attr] = data(el, attr);
+            return obj;
+        }, {});
     }
 
     var obj;
