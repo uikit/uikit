@@ -84,9 +84,9 @@ glob.sync('src/less/**/*.less').forEach(file => {
         .replace(/--uk-[^\s]+: (\$[^\s]+);/g, (exp, name) => exp.replace(name, `#{${name}}`))
         .replace(/\\\$/g, '\\@') // revert classes using the @ symbol
         .replace(/ e\(/g, ' unquote(') // convert escape function
-        .replace(/\.([\w-]*)\s*\((.*)\)\s*\{/g, '@mixin $1($2){') // hook -> mixins
+        .replace(/\.([\w-]*)\s*\((.*)\)\s*{/g, '@mixin $1($2){') // hook -> mixins
         .replace(/(\$[\w-]*)\s*:(.*);/g, '$1: $2 !default;') // make variables optional
-        .replace(/@mixin ([\w-]*)\s*\((.*)\)\s*\{\s*\}/g, '// @mixin $1($2){}') // comment empty mixins
+        .replace(/@mixin ([\w-]*)\s*\((.*)\)\s*{\s*}/g, '// @mixin $1($2){}') // comment empty mixins
         .replace(/\.(hook[a-zA-Z\-\d]+);/g, '@if(mixin-exists($1)) {@include $1();}') // hook calls surrounded by a mixin-exists
         .replace(/\$(import|supports|media|font-face|page|-ms-viewport|keyframes|-webkit-keyframes|-moz-document)/g, '@$1') // replace valid '@' statements
         .replace(/tint\((\$[\w-]+),\s([^)]*)\)/g, 'mix(white, $1, $2)') // replace LESS function tint with mix
@@ -94,7 +94,8 @@ glob.sync('src/less/**/*.less').forEach(file => {
         .replace(/fadeout\((\$[\w-]*), ([0-9]+)%\)/g, (match, p1, p2) => { return `fade-out(${p1}, ${p2 / 100})`;}) // replace LESS function fadeout with fade-out
         .replace(/\.svg-fill/g, '@include svg-fill') // include svg-fill mixin
         .replace(/(.*):extend\((\.[\w-]*) all\) when \((\$[\w-]*) = ([\w]+)\) {}/g, '@if ( $3 == $4 ) { $1 { @extend $2 !optional;} }') // update conditional extend and add !optional to ignore warnings
-        .replace(/(\.[\w-]+)\s*when\s*\((\$[\w-]*)\s*=\s*(\w+)\)\s*{\s*@if\(mixin-exists\(([\w-]*)\)\) {@include\s([\w-]*)\(\);\s*}\s*}/g, '@if ($2 == $3) { $1 { @if(mixin-exists($4)) {@include $4();}}}') // update conditional hook
+        .replace(/(\.[\w-]+)\s*when\s*\((\$[\w-]*)\s*=\s*(\w+)\)\s*{\s*@if\(mixin-exists\(([\w-]*)\)\) {@include\s([\w-]*)\(\);\s*}\s*}/g, '@if ($2 == $3) { $1 { @if (mixin-exists($4)) {@include $4();}}}') // update conditional hook
+        .replace(/(\.[\w-]+)\s*when\s*\((\$[\w-]*)\s*=\s*(\w+)\)\s*({\s*.*?\s*})/gs, '@if ($2 == $3) {\n$1 $4\n}') // replace conditionals
         .replace(/\${/g, '#{$') // string literals: from: /~"(.*)"/g, to: '#{"$1"}'
         .replace(/[^(](-\$[\w-]*)/g, ' ($1)') // surround negative variables with brackets
         .replace(/~('[^']+')/g, 'unquote($1)'); // string literals: for real
@@ -102,7 +103,7 @@ glob.sync('src/less/**/*.less').forEach(file => {
     /* File name of the current file */
     const [filename] = file.split('/').pop().split('.less');
 
-    if (filename != 'inverse') {
+    if (filename !== 'inverse') {
         scssData = scssData.replace(/hook-inverse(?!-)/g, `hook-inverse-component-${filename}`);
     } else {
         const joinedHook = `@mixin hook-inverse(){\n${inverseTemplate}\n}\n`;
@@ -113,11 +114,11 @@ glob.sync('src/less/**/*.less').forEach(file => {
     scssData = getMixinsFromFile(file, scssData);
 
     /* get all Variables but not from the mixin.less file */
-    if (filename != 'mixin') {
+    if (filename !== 'mixin') {
         scssData = getVariablesFromFile(file, scssData);
     }
 
-    if (filename == 'uikit.theme') {
+    if (filename === 'uikit.theme') {
         /* remove the theme import first place */
         scssData = scssData.replace(/\/\/\n\/\/ Theme\n\/\/\n\n@import "theme\/_import.scss";/, '');
         /* add uikit-mixins and uikit-variables include to the uikit.scss file and change order, to load theme files first */
@@ -125,7 +126,7 @@ glob.sync('src/less/**/*.less').forEach(file => {
     }
 
     /* mixin.less needs to be fully replaced by the new mixin file*/
-    if (filename == 'mixin') {
+    if (filename === 'mixin') {
         scssData = mixinTemplate;
     }
 
@@ -158,7 +159,7 @@ write('src/scss/variables-theme.scss', Array.from(compactThemeVar).join('\n'));
  * recursive function to get a dependencie Set which is ordered so that no depencies exist to a later on entry
  * @return Set with all the dependencies.
  */
-function getAllDependencies (allVariables, currentKey, dependencies = new Set()) {
+function getAllDependencies(allVariables, currentKey, dependencies = new Set()) {
 
     if (!allVariables[currentKey].dependencies.length) {
 

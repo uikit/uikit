@@ -66,7 +66,7 @@ export default function (UIkit) {
             }
 
         });
-    });
+    }, {passive: true});
 
 }
 

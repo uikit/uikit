@@ -979,9 +979,9 @@
         @if(mixin-exists(hook-inverse-heading-primary)) {@include hook-inverse-heading-primary();}
     }
 
-    @if ($deprecated == true) { .uk-heading-primary { @if(mixin-exists(hook-inverse-heading-primary)) {@include hook-inverse-heading-primary();}}}
+    @if ($deprecated == true) { .uk-heading-primary { @if (mixin-exists(hook-inverse-heading-primary)) {@include hook-inverse-heading-primary();}}}
 
-    @if ($deprecated == true) { .uk-heading-hero { @if(mixin-exists(hook-inverse-heading-hero)) {@include hook-inverse-heading-hero();}}}
+    @if ($deprecated == true) { .uk-heading-hero { @if (mixin-exists(hook-inverse-heading-hero)) {@include hook-inverse-heading-hero();}}}
 
     .uk-heading-divider {
         border-bottom-color: $inverse-heading-divider-border;

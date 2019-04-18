@@ -1,5 +1,5 @@
 import LightboxPanel from './lightbox-panel';
-import {$$, assign, data, index, on, uniqueBy} from 'uikit-util';
+import {$$, assign, data, findIndex, on, uniqueBy} from 'uikit-util';
 
 export default {
 
@@ -21,6 +21,10 @@ export default {
                 this.hide();
             }
 
+        },
+
+        items() {
+            return uniqueBy(this.toggles.map(toItem), 'source');
         }
 
     },
@@ -41,7 +45,8 @@ export default {
 
             handler(e) {
                 e.preventDefault();
-                this.show(index(this.toggles, e.current));
+                const src = data(e.current, 'href');
+                this.show(findIndex(this.items, ({source}) => source === src));
             }
 
         }
@@ -52,18 +57,12 @@ export default {
 
         show(index) {
 
-            this.panel = this.panel || this.$create('lightboxPanel', assign({}, this.$props, {
-                items: uniqueBy(this.toggles.reduce((items, el) => {
-                    items.push(['href', 'caption', 'type', 'poster', 'alt'].reduce((obj, attr) => {
-                        obj[attr === 'href' ? 'source' : attr] = data(el, attr);
-                        return obj;
-                    }, {}));
-                    return items;
-                }, []), 'source')
-            }));
+            this.panel = this.panel || this.$create('lightboxPanel', assign({}, this.$props, {items: this.items}));
 
             on(this.panel.$el, 'hidden', () => this.panel = false);
+
             return this.panel.show(index);
+
         },
 
         hide() {
@@ -87,4 +86,11 @@ function install(UIkit, Lightbox) {
         UIkit.component('lightboxPanel').options.props
     );
 
+}
+
+function toItem(el) {
+    return ['href', 'caption', 'type', 'poster', 'alt'].reduce((obj, attr) => {
+        obj[attr === 'href' ? 'source' : attr] = data(el, attr);
+        return obj;
+    }, {});
 }

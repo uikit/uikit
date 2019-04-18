@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.1.1 (April 18, 2019)
+
+### Fixed
+
+- Fix Sass distribution
+- Fix Lightbox opens with wrong index
+
 ## 3.1.0 (April 17, 2019)
 
 ### Added
