@@ -53,12 +53,27 @@ export function endsWith(str, search) {
     return endsWithFn.call(str, search);
 }
 
+const arrPrototype = Array.prototype;
+
 const includesFn = function (search, i) { return ~this.indexOf(search, i); };
 const includesStr = strPrototype.includes || includesFn;
-const includesArray = Array.prototype.includes || includesFn;
+const includesArray = arrPrototype.includes || includesFn;
 
 export function includes(obj, search) {
     return obj && (isString(obj) ? includesStr : includesArray).call(obj, search);
+}
+
+const findIndexFn = arrPrototype.findIndex || function (predicate) {
+    for (let i = 0; i < this.length; i++) {
+        if (predicate.call(arguments[1], this[i], i, this)) {
+            return i;
+        }
+    }
+    return -1;
+};
+
+export function findIndex(array, predicate) {
+    return findIndexFn.call(array, predicate);
 }
 
 export const {isArray} = Array;
@@ -145,12 +160,11 @@ export function toNode(element) {
                 : null;
 }
 
-const arrayProto = Array.prototype;
 export function toNodes(element) {
     return isNode(element)
         ? [element]
         : isNodeCollection(element)
-            ? arrayProto.slice.call(element)
+            ? arrPrototype.slice.call(element)
             : isArray(element)
                 ? element.map(toNode).filter(Boolean)
                 : isJQuery(element)
