@@ -127,6 +127,15 @@ export function isNumeric(value) {
     return isNumber(value) || isString(value) && !isNaN(value - parseFloat(value));
 }
 
+export function isEmpty(obj) {
+    return !(isArray(obj)
+        ? obj.length
+        : isObject(obj)
+            ? Object.keys(obj).length
+            : false
+    );
+}
+
 export function isUndefined(value) {
     return value === void 0;
 }

@@ -1,4 +1,4 @@
-import {assign, bind, camelize, data as getData, hasOwn, hyphenate, isArray, isBoolean, isEqual, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toList, toNumber} from 'uikit-util';
+import {assign, bind, camelize, data as getData, hasOwn, hyphenate, isArray, isBoolean, isEmpty, isEqual, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toList, toNumber} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -292,7 +292,7 @@ export default function (UIkit) {
 
     function normalizeData({data, el}, {args, props = {}}) {
         data = isArray(data)
-            ? args && args.length
+            ? !isEmpty(args)
                 ? data.slice(0, args.length).reduce((data, value, index) => {
                     if (isPlainObject(value)) {
                         assign(data, value);

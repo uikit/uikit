@@ -1,6 +1,6 @@
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
-import {$$, addClass, after, assign, append, attr, before, css, height, getEventPos, includes, index, isInput, offset, off, on, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollTop, toggleClass, toNodes, trigger, within} from 'uikit-util';
+import {$$, addClass, after, assign, append, attr, before, css, getEventPos, height, includes, index, isEmpty, isInput, offset, off, on, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollTop, toggleClass, toNodes, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -60,7 +60,7 @@ export default {
         write() {
 
             if (this.clsEmpty) {
-                toggleClass(this.$el, this.clsEmpty, !this.$el.children.length);
+                toggleClass(this.$el, this.clsEmpty, isEmpty(this.$el.children));
             }
 
             css(this.handle ? $$(this.handle, this.$el) : this.$el.children, {touchAction: 'none', userSelect: 'none'});
