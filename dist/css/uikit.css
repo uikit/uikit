@@ -1,4 +1,4 @@
-/*! UIkit 3.1.1 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.1.2 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -575,44 +575,13 @@ a.uk-link-reset:hover,
 /* Primary
    Deprecated: Use `uk-heading-medium` instead
  ========================================================================== */
-.uk-heading-primary {
-  font-size: 3rem;
-  line-height: 1.2;
-}
 /* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-heading-primary {
-    font-size: 3.375rem;
-  }
-}
 /* Desktop and bigger */
-@media (min-width: 1200px) {
-  .uk-heading-primary {
-    font-size: 3.75rem;
-    line-height: 1.1;
-  }
-}
 /* Hero
    Deprecated: Use `uk-heading-xlarge` instead
  ========================================================================== */
-.uk-heading-hero {
-  font-size: 4rem;
-  line-height: 1.1;
-}
 /* Tablet landscape and bigger */
-@media (min-width: 960px) {
-  .uk-heading-hero {
-    font-size: 6rem;
-    line-height: 1;
-  }
-}
 /* Desktop and bigger */
-@media (min-width: 1200px) {
-  .uk-heading-hero {
-    font-size: 8rem;
-    line-height: 1;
-  }
-}
 /* Divider
  ========================================================================== */
 .uk-heading-divider {
