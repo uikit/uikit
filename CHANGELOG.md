@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- IMPORTANT: Change `@deprecated` variable to `false`
+
 ### Fixed
 
 - Fix filter controls active state in Filter component
