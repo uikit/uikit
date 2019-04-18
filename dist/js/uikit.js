@@ -1,4 +1,4 @@
-/*! UIkit 3.1.1 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.1.2 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -135,6 +135,15 @@
 
     function isNumeric(value) {
         return isNumber(value) || isString(value) && !isNaN(value - parseFloat(value));
+    }
+
+    function isEmpty(obj) {
+        return !(isArray(obj)
+            ? obj.length
+            : isObject(obj)
+                ? Object.keys(obj).length
+                : false
+        );
     }
 
     function isUndefined(value) {
@@ -2632,6 +2641,7 @@
         isString: isString,
         isNumber: isNumber,
         isNumeric: isNumeric,
+        isEmpty: isEmpty,
         isUndefined: isUndefined,
         toBoolean: toBoolean,
         toNumber: toNumber,
@@ -3408,7 +3418,7 @@
             var props = ref$1.props; if ( props === void 0 ) props = {};
 
             data = isArray(data)
-                ? args && args.length
+                ? !isEmpty(args)
                     ? data.slice(0, args.length).reduce(function (data, value, index) {
                         if (isPlainObject(value)) {
                             assign(data, value);
@@ -3489,7 +3499,7 @@
 
             delete el[DATA][name];
 
-            if (!Object.keys(el[DATA]).length) {
+            if (!isEmpty(el[DATA])) {
                 delete el[DATA];
             }
 
@@ -8013,7 +8023,7 @@
         methods: {
 
             index: function() {
-                return !!this.connects.length && index(filter(this.connects[0].children, ("." + (this.cls)))[0]);
+                return !isEmpty(this.connects) && index(filter(this.connects[0].children, ("." + (this.cls)))[0]);
             },
 
             show: function(item) {
@@ -8258,7 +8268,7 @@
 
     }
 
-    UIkit.version = '3.1.1';
+    UIkit.version = '3.1.2';
 
     core(UIkit);
 
@@ -8663,12 +8673,11 @@
 
             this.updateState();
 
-            if (this.selActive === false) {
-                return;
+            if (this.selActive !== false) {
+                var actives = $$(this.selActive, this.$el);
+                this.toggles.forEach(function (el) { return toggleClass(el, this$1.cls, includes(actives, el)); });
             }
 
-            var actives = $$(this.selActive, this.$el);
-            this.toggles.forEach(function (el) { return toggleClass(el, this$1.cls, includes(actives, el)); });
         },
 
         methods: {
@@ -8697,7 +8706,7 @@
                 var ref = this;
                 var children = ref.children;
 
-                this.toggles.forEach(function (el) { return toggleClass(el, this$1.cls, matchFilter(el, this$1.attrItem, state)); });
+                this.toggles.forEach(function (el) { return toggleClass(el, this$1.cls, !!matchFilter(el, this$1.attrItem, state)); });
 
                 var apply = function () {
 
@@ -8743,28 +8752,37 @@
 
     function mergeState(el, attr, state) {
 
-        toNodes(el).forEach(function (el) {
-            var filterBy = getFilter(el, attr);
-            var filter = filterBy.filter;
-            var group = filterBy.group;
-            var sort = filterBy.sort;
-            var order = filterBy.order; if ( order === void 0 ) order = 'asc';
+        var filterBy = getFilter(el, attr);
+        var filter = filterBy.filter;
+        var group = filterBy.group;
+        var sort = filterBy.sort;
+        var order = filterBy.order; if ( order === void 0 ) order = 'asc';
 
-            if (filter || isUndefined(sort)) {
+        if (filter || isUndefined(sort)) {
 
-                if (group) {
+            if (group) {
+
+                if (filter) {
                     delete state.filter[''];
                     state.filter[group] = filter;
                 } else {
-                    state.filter = {'': filter || ''};
+                    delete state.filter[group];
+
+                    if (isEmpty(state.filter) || '' in state.filter) {
+                        state.filter = {'': filter || ''};
+                    }
+
                 }
 
+            } else {
+                state.filter = {'': filter || ''};
             }
 
-            if (!isUndefined(sort)) {
-                state.sort = [sort, order];
-            }
-        });
+        }
+
+        if (!isUndefined(sort)) {
+            state.sort = [sort, order];
+        }
 
         return state;
     }
@@ -8777,16 +8795,22 @@
 
 
         var ref$1 = getFilter(el, attr);
-        var filter = ref$1.filter;
+        var filter = ref$1.filter; if ( filter === void 0 ) filter = '';
         var group = ref$1.group; if ( group === void 0 ) group = '';
         var sort = ref$1.sort;
         var order = ref$1.order; if ( order === void 0 ) order = 'asc';
 
-        filter = isUndefined(sort) ? filter || '' : filter;
-        sort = isUndefined(filter) ? sort || '' : sort;
-
-        return (isUndefined(filter) || group in stateFilter && filter === stateFilter[group])
-            && (isUndefined(sort) || stateSort === sort && stateOrder === order);
+        if (isUndefined(sort)) {
+            return group in stateFilter && filter === stateFilter[group]
+                || !filter && group && !(group in stateFilter) && !stateFilter[''];
+        } else {
+            return stateSort === sort && stateOrder === order;
+        }
+        // filter = isUndefined(sort) ? filter || '' : filter;
+        // sort = isUndefined(filter) ? sort || '' : sort;
+        //
+        // return (isUndefined(filter) || group in stateFilter && filter === stateFilter[group])
+        //     && (isUndefined(sort) || stateSort === sort && stateOrder === order);
     }
 
     function isEqualList(listA, listB) {
@@ -11037,7 +11061,7 @@
 
                 }, []);
 
-                return sets && sets.length && sets;
+                return !isEmpty(sets) && sets;
 
             },
 
@@ -11545,7 +11569,7 @@
             write: function() {
 
                 if (this.clsEmpty) {
-                    toggleClass(this.$el, this.clsEmpty, !this.$el.children.length);
+                    toggleClass(this.$el, this.clsEmpty, isEmpty(this.$el.children));
                 }
 
                 css(this.handle ? $$(this.handle, this.$el) : this.$el.children, {touchAction: 'none', userSelect: 'none'});

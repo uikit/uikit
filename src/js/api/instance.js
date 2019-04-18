@@ -1,4 +1,4 @@
-import {hyphenate, remove, within} from 'uikit-util';
+import {hyphenate, isEmpty, remove, within} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -50,7 +50,7 @@ export default function (UIkit) {
 
         delete el[DATA][name];
 
-        if (!Object.keys(el[DATA]).length) {
+        if (!isEmpty(el[DATA])) {
             delete el[DATA];
         }
 

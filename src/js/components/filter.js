@@ -1,5 +1,5 @@
 import Animate from '../mixin/animate';
-import {$$, $, append, assign, css, data, each, fastdom, hasClass, includes, isEqual, isUndefined, matches, parseOptions, toggleClass, toNodes, trigger} from 'uikit-util';
+import {$$, $, append, assign, css, data, each, fastdom, hasClass, includes, isEmpty, isEqual, isUndefined, matches, parseOptions, toggleClass, toNodes, trigger} from 'uikit-util';
 
 export default {
 
@@ -78,12 +78,11 @@ export default {
 
         this.updateState();
 
-        if (this.selActive === false) {
-            return;
+        if (this.selActive !== false) {
+            const actives = $$(this.selActive, this.$el);
+            this.toggles.forEach(el => toggleClass(el, this.cls, includes(actives, el)));
         }
 
-        const actives = $$(this.selActive, this.$el);
-        this.toggles.forEach(el => toggleClass(el, this.cls, includes(actives, el)));
     },
 
     methods: {
@@ -106,7 +105,7 @@ export default {
 
             const {children} = this;
 
-            this.toggles.forEach(el => toggleClass(el, this.cls, matchFilter(el, this.attrItem, state)));
+            this.toggles.forEach(el => toggleClass(el, this.cls, !!matchFilter(el, this.attrItem, state)));
 
             const apply = () => {
 
@@ -148,38 +147,53 @@ function getFilter(el, attr) {
 
 function mergeState(el, attr, state) {
 
-    toNodes(el).forEach(el => {
-        const filterBy = getFilter(el, attr);
-        const {filter, group, sort, order = 'asc'} = filterBy;
+    const filterBy = getFilter(el, attr);
+    const {filter, group, sort, order = 'asc'} = filterBy;
 
-        if (filter || isUndefined(sort)) {
+    if (filter || isUndefined(sort)) {
 
-            if (group) {
+        if (group) {
+
+            if (filter) {
                 delete state.filter[''];
                 state.filter[group] = filter;
             } else {
-                state.filter = {'': filter || ''};
+                delete state.filter[group];
+
+                if (isEmpty(state.filter) || '' in state.filter) {
+                    state.filter = {'': filter || ''};
+                }
+
             }
 
+        } else {
+            state.filter = {'': filter || ''};
         }
 
-        if (!isUndefined(sort)) {
-            state.sort = [sort, order];
-        }
-    });
+    }
+
+    if (!isUndefined(sort)) {
+        state.sort = [sort, order];
+    }
 
     return state;
 }
 
 function matchFilter(el, attr, {filter: stateFilter = {'': ''}, sort: [stateSort, stateOrder]}) {
 
-    let {filter, group = '', sort, order = 'asc'} = getFilter(el, attr);
+    const {filter = '', group = '', sort, order = 'asc'} = getFilter(el, attr);
 
-    filter = isUndefined(sort) ? filter || '' : filter;
-    sort = isUndefined(filter) ? sort || '' : sort;
-
-    return (isUndefined(filter) || group in stateFilter && filter === stateFilter[group])
-        && (isUndefined(sort) || stateSort === sort && stateOrder === order);
+    if (isUndefined(sort)) {
+        return group in stateFilter && filter === stateFilter[group]
+            || !filter && group && !(group in stateFilter) && !stateFilter[''];
+    } else {
+        return stateSort === sort && stateOrder === order;
+    }
+    // filter = isUndefined(sort) ? filter || '' : filter;
+    // sort = isUndefined(filter) ? sort || '' : sort;
+    //
+    // return (isUndefined(filter) || group in stateFilter && filter === stateFilter[group])
+    //     && (isUndefined(sort) || stateSort === sort && stateOrder === order);
 }
 
 function isEqualList(listA, listB) {

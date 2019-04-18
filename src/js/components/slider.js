@@ -2,7 +2,7 @@ import Class from '../mixin/class';
 import Slider, {speedUp} from '../mixin/slider';
 import SliderReactive from '../mixin/slider-reactive';
 import Transitioner, {bounds, getElLeft, getWidth, getMax, getMaxWidth} from './internal/slider-transitioner';
-import {$, $$, addClass, css, data, includes, isNumeric, isUndefined, toggleClass, toFloat} from 'uikit-util';
+import {$, $$, addClass, css, data, includes, isEmpty, isNumeric, isUndefined, toggleClass, toFloat} from 'uikit-util';
 
 export default {
 
@@ -96,7 +96,7 @@ export default {
 
             }, []);
 
-            return sets && sets.length && sets;
+            return !isEmpty(sets) && sets;
 
         },
 

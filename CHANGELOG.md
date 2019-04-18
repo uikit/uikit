@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.1.2 (April 18, 2019)
+
+### Changed
+
+- IMPORTANT: Change `@deprecated` variable to `false`
+
+### Fixed
+
+- Fix filter controls active state in Filter component
+
 ## 3.1.1 (April 18, 2019)
 
 ### Fixed
