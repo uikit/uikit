@@ -94,7 +94,7 @@ async function scope(files, scope) {
                 }`;
 
             } catch (e) {
-                console.error(store.file, e.message);
+                console.error(store.file, e);
             }
         })
     );

@@ -1,4 +1,4 @@
-/*! UIkit 3.1.2 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.1.3 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -7485,7 +7485,7 @@
             },
 
             targets: function() {
-                return $$(this.links.map(function (el) { return escape(el.hash); }).join(','));
+                return $$(this.links.map(function (el) { return escape(el.hash).substr(1); }).join(','));
             }
 
         },
@@ -8268,7 +8268,7 @@
 
     }
 
-    UIkit.version = '3.1.2';
+    UIkit.version = '3.1.3';
 
     core(UIkit);
 
@@ -9799,7 +9799,7 @@
 
             {
 
-                name: pointerUp,
+                name: 'click',
 
                 self: true,
 
@@ -9813,7 +9813,6 @@
                         return;
                     }
 
-                    e.preventDefault();
                     this.hide();
                 }
 

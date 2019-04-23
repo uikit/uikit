@@ -64,7 +64,7 @@ export default {
 
         {
 
-            name: pointerUp,
+            name: 'click',
 
             self: true,
 
@@ -78,7 +78,6 @@ export default {
                     return;
                 }
 
-                e.preventDefault();
                 this.hide();
             }
 
