@@ -2,6 +2,7 @@ const fs = require('fs');
 const less = require('less');
 const SVGO = require('svgo');
 const rollup = require('rollup');
+const postcss = require('postcss');
 const uglify = require('uglify-js');
 const {promisify} = require('util');
 const CleanCSS = require('clean-css');
@@ -76,7 +77,20 @@ exports.uglify = async function (file) {
 };
 
 exports.renderLess = async function (data, options) {
-    return (await less.render(data, options)).css;
+    return postcss()
+        .use(postcss.plugin('calc', () =>
+            css => {
+                css.walk(node => {
+                    const {type} = node;
+
+                    if (type === 'decl' && node.value.startsWith('calc')) {
+                        node.value = node.value.replace(/(.)calc/g, '$1');
+                    }
+                });
+            }
+        ))
+        .process((await less.render(data, options)).css)
+        .css;
 };
 
 exports.compile = async function (file, dest, {external, globals, name, aliases, bundled, replaces, minify = true}) {
@@ -93,7 +107,7 @@ exports.compile = async function (file, dest, {external, globals, name, aliases,
             }, replaces)),
             alias({
                 Paths: Object.assign({
-                    'uikit-util': './src/js/util/index',
+                    'uikit-util': './src/js/util/index'
                 }, aliases),
                 Extensions: ['js', 'json']
             }),
@@ -104,7 +118,7 @@ exports.compile = async function (file, dest, {external, globals, name, aliases,
                 }
             }),
             json(),
-            buble({namedFunctionExpressions: false}),
+            buble({namedFunctionExpressions: false})
         ]
     });
 
