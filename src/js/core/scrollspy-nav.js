@@ -29,7 +29,7 @@ export default {
         },
 
         targets() {
-            return $$(this.links.map(el => escape(el.hash)).join(','));
+            return $$(this.links.map(el => escape(el.hash).substr(1)).join(','));
         }
 
     },
