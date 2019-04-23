@@ -1,4 +1,4 @@
-/*! UIkit 3.1.2 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.1.3 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -636,7 +636,7 @@ a.uk-link-reset:hover,
   content: "";
   /* 1 */
   position: absolute;
-  top: calc(50% - (calc(0.2px + 0.05em) / 2));
+  top: calc(50% - ((0.2px + 0.05em) / 2));
   /* 2 */
   width: 2000px;
   /* 3 */
