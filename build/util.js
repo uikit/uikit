@@ -83,8 +83,12 @@ exports.renderLess = async function (data, options) {
                 css.walk(node => {
                     const {type} = node;
 
-                    if (type === 'decl' && node.value.startsWith('calc')) {
-                        node.value = node.value.replace(/(.)calc/g, '$1');
+                    if (type === 'decl') {
+                        node.value = postcss.list.space(node.value).map(value =>
+                            value.startsWith('calc(')
+                                ? value.replace(/(.)calc/g, '$1')
+                                : value
+                        ).join(' ');
                     }
                 });
             }
