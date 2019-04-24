@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix selector engine
+- Fix CSS selector in Lightbox component
  
 ## 3.1.3 (April 23, 2019)
 
