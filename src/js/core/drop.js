@@ -95,10 +95,6 @@ export default {
 
             handler(e) {
 
-                if (e.defaultPrevented) {
-                    return;
-                }
-
                 const id = e.target.hash;
 
                 if (!id) {

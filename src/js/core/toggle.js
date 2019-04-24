@@ -64,7 +64,7 @@ export default {
 
                 // TODO better isToggled handling
                 let link;
-                if (closest(e.target, 'a[href="#"], a[href=""], button')
+                if (closest(e.target, 'a[href="#"], a[href=""]')
                     || (link = closest(e.target, 'a[href]')) && (
                         this.cls
                         || !isVisible(this.target)
