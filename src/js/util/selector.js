@@ -99,7 +99,7 @@ function isContextSelector(selector) {
     return isString(selector) && selector.match(contextSelectorRe);
 }
 
-const selectorRe = /.*?[^\\](?:,|$)/;
+const selectorRe = /.*?[^\\](?:,|$)/g;
 
 function splitSelector(selector) {
     return selector.match(selectorRe).map(selector => selector.replace(/,$/, '').trim());

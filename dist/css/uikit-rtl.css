@@ -1,4 +1,4 @@
-/*! UIkit 3.1.3 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.1.4 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -5297,7 +5297,7 @@ ul.uk-nav-sub {
   max-height: 100vh;
 }
 /* 6 */
-.uk-slideshow-items > :focus {
+.uk-lightbox-items > :focus {
   outline: none;
 }
 .uk-lightbox-items > * > :not(iframe) {
