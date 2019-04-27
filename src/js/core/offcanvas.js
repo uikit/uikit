@@ -104,7 +104,8 @@ export default {
             },
 
             handler(e) {
-                e.preventDefault();
+                if (e.cancelable)
+                    e.preventDefault();
             }
 
         },
@@ -120,7 +121,7 @@ export default {
 
             handler(e) {
 
-                if (e.targetTouches.length !== 1) {
+                if (e.targetTouches.length !== 1 || !e.cancelable) {
                     return;
                 }
 

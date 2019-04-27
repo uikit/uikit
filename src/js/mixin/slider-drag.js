@@ -72,7 +72,8 @@ export default {
             name: 'dragstart',
 
             handler(e) {
-                e.preventDefault();
+                if (e.cancelable)
+                    e.preventDefault();
             }
         }
 
