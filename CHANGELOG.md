@@ -6,6 +6,10 @@
 
 - Add link toggle to Link component
 
+### Fixed
+
+- Fix Dropbar closing unexpectedly
+
 ## 3.1.4 (April 24, 2019)
 
 ### Fixed

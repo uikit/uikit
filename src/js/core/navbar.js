@@ -120,7 +120,7 @@ export default {
             handler() {
                 const active = this.getActive();
 
-                if (active && !matches(this.dropbar, ':hover')) {
+                if (active && !this.dropdowns.some(el => matches(el, ':hover'))) {
                     active.hide();
                 }
             }
