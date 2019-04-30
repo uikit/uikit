@@ -141,7 +141,9 @@ a,
 }
 
 a:hover,
-.uk-link:hover {
+.uk-link:hover,
+.uk-link-toggle:hover .uk-link,
+.uk-link-toggle:focus .uk-link {
     color: @base-link-hover-color;
     text-decoration: @base-link-hover-text-decoration;
     .hook-base-link-hover;
