@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add link toggle to Link component
+
 ## 3.1.4 (April 24, 2019)
 
 ### Fixed
