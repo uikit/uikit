@@ -119,24 +119,6 @@
 }
 
 
-/* Remove
- ========================================================================== */
-
-.uk-margin-remove { margin: 0 !important; }
-.uk-margin-remove-top { margin-top: 0 !important; }
-.uk-margin-remove-bottom { margin-bottom: 0 !important; }
-.uk-margin-remove-left { margin-left: 0 !important; }
-.uk-margin-remove-right { margin-right: 0 !important; }
-
-.uk-margin-remove-vertical {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
-}
-
-.uk-margin-remove-adjacent + *,
-.uk-margin-remove-first-child > :first-child { margin-top: 0 !important; }
-
-
 /* Auto
  ========================================================================== */
 
@@ -206,6 +188,57 @@
     .uk-margin-auto-right\@xl { margin-right: auto !important; }
 
 }
+
+
+/* Remove
+ ========================================================================== */
+
+ .uk-margin-remove { margin: 0 !important; }
+ .uk-margin-remove-top { margin-top: 0 !important; }
+ .uk-margin-remove-bottom { margin-bottom: 0 !important; }
+ .uk-margin-remove-left { margin-left: 0 !important; }
+ .uk-margin-remove-right { margin-right: 0 !important; }
+ 
+ .uk-margin-remove-vertical {
+     margin-top: 0 !important;
+     margin-bottom: 0 !important;
+ }
+ 
+ .uk-margin-remove-adjacent + *,
+ .uk-margin-remove-first-child > :first-child { margin-top: 0 !important; }
+
+/* Phone landscape and bigger */
+@media (min-width: @breakpoint-small) {
+
+    .uk-margin-remove-left\@s { margin-left: 0 !important; }
+    .uk-margin-remove-right\@s { margin-right: 0 !important; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    .uk-margin-remove-left\@m { margin-left: 0 !important; }
+    .uk-margin-remove-right\@m { margin-right: 0 !important; }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: @breakpoint-large) {
+
+    .uk-margin-remove-left\@l { margin-left: 0 !important; }
+    .uk-margin-remove-right\@l { margin-right: 0 !important; }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: @breakpoint-xlarge) {
+
+    .uk-margin-remove-left\@xl { margin-left: 0 !important; }
+    .uk-margin-remove-right\@xl { margin-right: 0 !important; }
+
+}
+
 
 
 // Hooks
