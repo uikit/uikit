@@ -5,7 +5,7 @@
 ### Added
 
 - Add link toggle to Link component
-- Add breakpoint classes for margin auto
+- Add breakpoint classes for margin auto and remove
 
 ### Fixed
 
