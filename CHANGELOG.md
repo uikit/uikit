@@ -10,6 +10,7 @@
 ### Fixed
 
 - Fix Dropbar closing unexpectedly
+- Fix Sortable `click` event prevention in Firefox
 
 ## 3.1.4 (April 24, 2019)
 

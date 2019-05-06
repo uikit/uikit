@@ -136,8 +136,6 @@ export default {
             const {left, top} = offset(this.placeholder);
             assign(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
 
-            css(this.origin.target, 'pointerEvents', 'none');
-
             addClass(this.placeholder, this.clsPlaceholder);
             addClass(this.$el.children, this.clsItem);
             addClass(document.documentElement, this.clsDragState);
@@ -191,8 +189,6 @@ export default {
             off(document, pointerMove, this.move);
             off(document, pointerUp, this.end);
             off(window, 'scroll', this.scroll);
-
-            css(this.origin.target, 'pointerEvents', '');
 
             if (!this.drag) {
                 if (e.type === 'touchend') {
