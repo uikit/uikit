@@ -6,6 +6,7 @@
 
 - Add link toggle to Link component
 - Add breakpoint classes for margin auto and remove
+- Add Etsy icon
 
 ### Fixed
 
