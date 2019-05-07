@@ -4022,38 +4022,37 @@
                 }
             }, true);
 
-        });
+            var off;
+            on(document, pointerDown, function (e) {
 
-        var off;
+                off && off();
 
-        on(document, pointerDown, function (e) {
-
-            off && off();
-
-            if (!isTouch(e)) {
-                return;
-            }
-
-            var pos = getEventPos(e);
-            var target = 'tagName' in e.target ? e.target : e.target.parentNode;
-            off = once(document, pointerUp, function (e) {
-
-                var ref = getEventPos(e);
-                var x = ref.x;
-                var y = ref.y;
-
-                // swipe
-                if (target && x && Math.abs(pos.x - x) > 100 || y && Math.abs(pos.y - y) > 100) {
-
-                    setTimeout(function () {
-                        trigger(target, 'swipe');
-                        trigger(target, ("swipe" + (swipeDirection(pos.x, pos.y, x, y))));
-                    });
-
+                if (!isTouch(e)) {
+                    return;
                 }
 
-            });
-        }, {passive: true});
+                var pos = getEventPos(e);
+                var target = 'tagName' in e.target ? e.target : e.target.parentNode;
+                off = once(document, pointerUp, function (e) {
+
+                    var ref = getEventPos(e);
+                    var x = ref.x;
+                    var y = ref.y;
+
+                    // swipe
+                    if (target && x && Math.abs(pos.x - x) > 100 || y && Math.abs(pos.y - y) > 100) {
+
+                        setTimeout(function () {
+                            trigger(target, 'swipe');
+                            trigger(target, ("swipe" + (swipeDirection(pos.x, pos.y, x, y))));
+                        });
+
+                    }
+
+                });
+            }, {passive: true});
+
+        });
 
     }
 
@@ -6735,7 +6734,7 @@
                 handler: function() {
                     var active = this.getActive();
 
-                    if (active && !matches(this.dropbar, ':hover')) {
+                    if (active && !this.dropdowns.some(function (el) { return matches(el, ':hover'); })) {
                         active.hide();
                     }
                 }
@@ -8796,17 +8795,10 @@
         var sort = ref$1.sort;
         var order = ref$1.order; if ( order === void 0 ) order = 'asc';
 
-        if (isUndefined(sort)) {
-            return group in stateFilter && filter === stateFilter[group]
-                || !filter && group && !(group in stateFilter) && !stateFilter[''];
-        } else {
-            return stateSort === sort && stateOrder === order;
-        }
-        // filter = isUndefined(sort) ? filter || '' : filter;
-        // sort = isUndefined(filter) ? sort || '' : sort;
-        //
-        // return (isUndefined(filter) || group in stateFilter && filter === stateFilter[group])
-        //     && (isUndefined(sort) || stateSort === sort && stateOrder === order);
+        return isUndefined(sort)
+            ? group in stateFilter && filter === stateFilter[group]
+                || !filter && group && !(group in stateFilter) && !stateFilter['']
+            : stateSort === sort && stateOrder === order;
     }
 
     function isEqualList(listA, listB) {
@@ -11647,8 +11639,6 @@
                 var top = ref.top;
                 assign(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
 
-                css(this.origin.target, 'pointerEvents', 'none');
-
                 addClass(this.placeholder, this.clsPlaceholder);
                 addClass(this.$el.children, this.clsItem);
                 addClass(document.documentElement, this.clsDragState);
@@ -11702,8 +11692,6 @@
                 off(document, pointerMove, this.move);
                 off(document, pointerUp, this.end);
                 off(window, 'scroll', this.scroll);
-
-                css(this.origin.target, 'pointerEvents', '');
 
                 if (!this.drag) {
                     if (e.type === 'touchend') {
