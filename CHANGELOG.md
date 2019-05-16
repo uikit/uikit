@@ -12,6 +12,7 @@
 
 - Fix Dropbar closing unexpectedly
 - Fix Sortable `click` event prevention in Firefox
+- Fix JS error in Offcanvas component on touch devices
 
 ## 3.1.4 (April 24, 2019)
 
