@@ -37,36 +37,35 @@ export default function (UIkit) {
             }
         }, true);
 
-    });
+        let off;
+        on(document, pointerDown, e => {
 
-    let off;
+            off && off();
 
-    on(document, pointerDown, e => {
-
-        off && off();
-
-        if (!isTouch(e)) {
-            return;
-        }
-
-        const pos = getEventPos(e);
-        const target = 'tagName' in e.target ? e.target : e.target.parentNode;
-        off = once(document, pointerUp, e => {
-
-            const {x, y} = getEventPos(e);
-
-            // swipe
-            if (target && x && Math.abs(pos.x - x) > 100 || y && Math.abs(pos.y - y) > 100) {
-
-                setTimeout(() => {
-                    trigger(target, 'swipe');
-                    trigger(target, `swipe${swipeDirection(pos.x, pos.y, x, y)}`);
-                });
-
+            if (!isTouch(e)) {
+                return;
             }
 
-        });
-    }, {passive: true});
+            const pos = getEventPos(e);
+            const target = 'tagName' in e.target ? e.target : e.target.parentNode;
+            off = once(document, pointerUp, e => {
+
+                const {x, y} = getEventPos(e);
+
+                // swipe
+                if (target && x && Math.abs(pos.x - x) > 100 || y && Math.abs(pos.y - y) > 100) {
+
+                    setTimeout(() => {
+                        trigger(target, 'swipe');
+                        trigger(target, `swipe${swipeDirection(pos.x, pos.y, x, y)}`);
+                    });
+
+                }
+
+            });
+        }, {passive: true});
+
+    });
 
 }
 

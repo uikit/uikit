@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.1.5 (May 17, 2019)
+
+### Added
+
+- Add link toggle to Link component
+- Add breakpoint classes for margin auto and remove
+- Add Etsy icon
+
+### Fixed
+
+- Fix Dropbar closing unexpectedly
+- Fix Sortable `click` event prevention in Firefox
+- Fix JS error in Offcanvas component on touch devices
+- Icon components no longer have a primary option
+- Icon/Svg components no longer reset initially
+
 ## 3.1.4 (April 24, 2019)
 
 ### Fixed

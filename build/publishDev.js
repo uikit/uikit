@@ -1,11 +1,17 @@
 const {inc} = require('semver');
 const {resolve} = require('path');
 const {execSync} = require('child_process');
+const argv = require('minimist')(process.argv.slice(2));
+
+argv._.forEach(arg => {
+    const tokens = arg.split('=');
+    argv[tokens[0]] = tokens[1] || true;
+});
 
 // default exec options
 const options = {cwd: resolve(`${__dirname}/..`), encoding: 'utf8'};
 
-if (isDevCommit()) {
+if (isDevCommit() || argv.f || argv.force) {
 
     // increase version patch number
     const version = inc(require('../package.json').version, 'patch');

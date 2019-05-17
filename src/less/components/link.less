@@ -6,6 +6,8 @@
 //                  `uk-link-heading`
 //                  `uk-link-reset`
 //
+// Sub-objects:     `uk-link-toggle`
+//
 // ========================================================================
 
 
@@ -36,7 +38,9 @@ a.uk-link-muted,
 }
 
 a.uk-link-muted:hover,
-.uk-link-muted a:hover {
+.uk-link-muted a:hover,
+.uk-link-toggle:hover .uk-link-muted,
+.uk-link-toggle:focus .uk-link-muted {
     color: @link-muted-hover-color;
     .hook-link-muted-hover;
 }
@@ -45,14 +49,16 @@ a.uk-link-muted:hover,
 /* Text
  ========================================================================== */
 
-a.uk-link-text:not(:hover),
-.uk-link-text a:not(:hover) {
+a.uk-link-text,
+.uk-link-text a {
     color: inherit;
     .hook-link-text;
 }
 
 a.uk-link-text:hover,
-.uk-link-text a:hover {
+.uk-link-text a:hover,
+.uk-link-toggle:hover .uk-link-text,
+.uk-link-toggle:focus .uk-link-text {
     color: @link-text-hover-color;
     .hook-link-text-hover;
 }
@@ -61,14 +67,16 @@ a.uk-link-text:hover,
 /* Heading
  ========================================================================== */
 
-a.uk-link-heading:not(:hover),
-.uk-link-heading a:not(:hover) {
+a.uk-link-heading,
+.uk-link-heading a {
     color: inherit;
     .hook-link-heading;
 }
 
 a.uk-link-heading:hover,
-.uk-link-heading a:hover {
+.uk-link-heading a:hover,
+.uk-link-toggle:hover .uk-link-heading,
+.uk-link-toggle:focus .uk-link-heading {
     color: @link-heading-hover-color;
     text-decoration: @link-heading-hover-text-decoration;
     .hook-link-heading-hover;
@@ -83,13 +91,22 @@ a.uk-link-heading:hover,
  */
 
 a.uk-link-reset,
-a.uk-link-reset:hover,
-.uk-link-reset a,
-.uk-link-reset a:hover {
+.uk-link-reset a {
     color: inherit !important;
     text-decoration: none !important;
     .hook-link-reset;
 }
+
+
+/* Toggle
+ ========================================================================== */
+
+.uk-link-toggle {
+    color: inherit !important;
+    text-decoration: none !important;
+}
+ 
+.uk-link-toggle:focus { outline: none; }
 
 
 // Hooks
@@ -117,25 +134,25 @@ a.uk-link-reset:hover,
 
 .hook-inverse() {
 
-    a.uk-link-muted,
+    .uk-link-muted,
     .uk-link-muted a {
         color: @inverse-link-muted-color;
         .hook-inverse-link-muted;
     }
 
-    a.uk-link-muted:hover,
+    .uk-link-muted:hover,
     .uk-link-muted a:hover {
         color: @inverse-link-muted-hover-color;
         .hook-inverse-link-muted-hover;
     }
 
-    a.uk-link-text:hover,
+    .uk-link-text:hover,
     .uk-link-text a:hover {
         color: @inverse-link-text-hover-color;
         .hook-inverse-link-text-hover;
     }
 
-    a.uk-link-heading:hover,
+    .uk-link-heading:hover,
     .uk-link-heading a:hover {
         color: @inverse-link-heading-hover-color;
         .hook-inverse-link-heading-hover;

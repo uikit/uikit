@@ -1,4 +1,4 @@
-/*! UIkit 3.1.4 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.1.5 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2175,7 +2175,7 @@
 
     // args strategy
     strats.args = function (parentVal, childVal) {
-        return concatStrat(childVal || parentVal);
+        return childVal !== false && concatStrat(childVal || parentVal);
     };
 
     // update strategy
@@ -4022,38 +4022,37 @@
                 }
             }, true);
 
-        });
+            var off;
+            on(document, pointerDown, function (e) {
 
-        var off;
+                off && off();
 
-        on(document, pointerDown, function (e) {
-
-            off && off();
-
-            if (!isTouch(e)) {
-                return;
-            }
-
-            var pos = getEventPos(e);
-            var target = 'tagName' in e.target ? e.target : e.target.parentNode;
-            off = once(document, pointerUp, function (e) {
-
-                var ref = getEventPos(e);
-                var x = ref.x;
-                var y = ref.y;
-
-                // swipe
-                if (target && x && Math.abs(pos.x - x) > 100 || y && Math.abs(pos.y - y) > 100) {
-
-                    setTimeout(function () {
-                        trigger(target, 'swipe');
-                        trigger(target, ("swipe" + (swipeDirection(pos.x, pos.y, x, y))));
-                    });
-
+                if (!isTouch(e)) {
+                    return;
                 }
 
-            });
-        }, {passive: true});
+                var pos = getEventPos(e);
+                var target = 'tagName' in e.target ? e.target : e.target.parentNode;
+                off = once(document, pointerUp, function (e) {
+
+                    var ref = getEventPos(e);
+                    var x = ref.x;
+                    var y = ref.y;
+
+                    // swipe
+                    if (target && x && Math.abs(pos.x - x) > 100 || y && Math.abs(pos.y - y) > 100) {
+
+                        setTimeout(function () {
+                            trigger(target, 'swipe');
+                            trigger(target, ("swipe" + (swipeDirection(pos.x, pos.y, x, y))));
+                        });
+
+                    }
+
+                });
+            }, {passive: true});
+
+        });
 
     }
 
@@ -5362,7 +5361,7 @@
             strokeAnimation: false
         },
 
-        connected: function() {
+        beforeConnect: function() {
             var this$1 = this;
             var assign;
 
@@ -5629,7 +5628,7 @@
 
         install: install,
 
-        mixins: [Class, Svg],
+        extends: Svg,
 
         args: 'icon',
 
@@ -5639,7 +5638,7 @@
 
         isIcon: true,
 
-        connected: function() {
+        beforeConnect: function() {
             addClass(this.$el, 'uk-icon');
         },
 
@@ -5662,11 +5661,17 @@
 
     var IconComponent = {
 
+        args: false,
+
         extends: Icon,
 
         data: function (vm) { return ({
             icon: hyphenate(vm.constructor.options.name)
-        }); }
+        }); },
+
+        beforeConnect: function() {
+            addClass(this.$el, this.$name);
+        }
 
     };
 
@@ -5674,7 +5679,7 @@
 
         extends: IconComponent,
 
-        connected: function() {
+        beforeConnect: function() {
             addClass(this.$el, 'uk-slidenav');
         },
 
@@ -6735,7 +6740,7 @@
                 handler: function() {
                     var active = this.getActive();
 
-                    if (active && !matches(this.dropbar, ':hover')) {
+                    if (active && !this.dropdowns.some(function (el) { return matches(el, ':hover'); })) {
                         active.hide();
                     }
                 }
@@ -6987,7 +6992,7 @@
                 },
 
                 handler: function(e) {
-                    e.preventDefault();
+                    e.cancelable && e.preventDefault();
                 }
 
             },
@@ -7017,7 +7022,7 @@
                         || scrollTop === 0 && clientY > 0
                         || scrollHeight - scrollTop <= clientHeight && clientY < 0
                     ) {
-                        e.preventDefault();
+                        e.cancelable && e.preventDefault();
                     }
 
                 }
@@ -8264,7 +8269,7 @@
 
     }
 
-    UIkit.version = '3.1.4';
+    UIkit.version = '3.1.5';
 
     core(UIkit);
 
@@ -8796,17 +8801,10 @@
         var sort = ref$1.sort;
         var order = ref$1.order; if ( order === void 0 ) order = 'asc';
 
-        if (isUndefined(sort)) {
-            return group in stateFilter && filter === stateFilter[group]
-                || !filter && group && !(group in stateFilter) && !stateFilter[''];
-        } else {
-            return stateSort === sort && stateOrder === order;
-        }
-        // filter = isUndefined(sort) ? filter || '' : filter;
-        // sort = isUndefined(filter) ? sort || '' : sort;
-        //
-        // return (isUndefined(filter) || group in stateFilter && filter === stateFilter[group])
-        //     && (isUndefined(sort) || stateSort === sort && stateOrder === order);
+        return isUndefined(sort)
+            ? group in stateFilter && filter === stateFilter[group]
+                || !filter && group && !(group in stateFilter) && !stateFilter['']
+            : stateSort === sort && stateOrder === order;
     }
 
     function isEqualList(listA, listB) {
@@ -11647,8 +11645,6 @@
                 var top = ref.top;
                 assign(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
 
-                css(this.origin.target, 'pointerEvents', 'none');
-
                 addClass(this.placeholder, this.clsPlaceholder);
                 addClass(this.$el.children, this.clsItem);
                 addClass(document.documentElement, this.clsDragState);
@@ -11702,8 +11698,6 @@
                 off(document, pointerMove, this.move);
                 off(document, pointerUp, this.end);
                 off(window, 'scroll', this.scroll);
-
-                css(this.origin.target, 'pointerEvents', '');
 
                 if (!this.drag) {
                     if (e.type === 'touchend') {

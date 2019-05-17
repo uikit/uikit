@@ -183,17 +183,10 @@ function matchFilter(el, attr, {filter: stateFilter = {'': ''}, sort: [stateSort
 
     const {filter = '', group = '', sort, order = 'asc'} = getFilter(el, attr);
 
-    if (isUndefined(sort)) {
-        return group in stateFilter && filter === stateFilter[group]
-            || !filter && group && !(group in stateFilter) && !stateFilter[''];
-    } else {
-        return stateSort === sort && stateOrder === order;
-    }
-    // filter = isUndefined(sort) ? filter || '' : filter;
-    // sort = isUndefined(filter) ? sort || '' : sort;
-    //
-    // return (isUndefined(filter) || group in stateFilter && filter === stateFilter[group])
-    //     && (isUndefined(sort) || stateSort === sort && stateOrder === order);
+    return isUndefined(sort)
+        ? group in stateFilter && filter === stateFilter[group]
+            || !filter && group && !(group in stateFilter) && !stateFilter['']
+        : stateSort === sort && stateOrder === order;
 }
 
 function isEqualList(listA, listB) {

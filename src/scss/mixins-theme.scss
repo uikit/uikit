@@ -1093,25 +1093,25 @@
 }
 @mixin hook-inverse-component-link(){
 
-    a.uk-link-muted,
+    .uk-link-muted,
     .uk-link-muted a {
         color: $inverse-link-muted-color;
         @if(mixin-exists(hook-inverse-link-muted)) {@include hook-inverse-link-muted();}
     }
 
-    a.uk-link-muted:hover,
+    .uk-link-muted:hover,
     .uk-link-muted a:hover {
         color: $inverse-link-muted-hover-color;
         @if(mixin-exists(hook-inverse-link-muted-hover)) {@include hook-inverse-link-muted-hover();}
     }
 
-    a.uk-link-text:hover,
+    .uk-link-text:hover,
     .uk-link-text a:hover {
         color: $inverse-link-text-hover-color;
         @if(mixin-exists(hook-inverse-link-text-hover)) {@include hook-inverse-link-text-hover();}
     }
 
-    a.uk-link-heading:hover,
+    .uk-link-heading:hover,
     .uk-link-heading a:hover {
         color: $inverse-link-heading-hover-color;
         @if(mixin-exists(hook-inverse-link-heading-hover)) {@include hook-inverse-link-heading-hover();}

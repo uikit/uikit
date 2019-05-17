@@ -104,7 +104,7 @@ export default {
             },
 
             handler(e) {
-                e.preventDefault();
+                e.cancelable && e.preventDefault();
             }
 
         },
@@ -131,7 +131,7 @@ export default {
                     || scrollTop === 0 && clientY > 0
                     || scrollHeight - scrollTop <= clientHeight && clientY < 0
                 ) {
-                    e.preventDefault();
+                    e.cancelable && e.preventDefault();
                 }
 
             }
