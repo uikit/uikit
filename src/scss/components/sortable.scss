@@ -62,6 +62,7 @@ $sortable-empty-height:                          50px !default;
 
 .uk-sortable-placeholder {
     opacity: $sortable-placeholder-opacity;
+    pointer-events: none;
     @if(mixin-exists(hook-sortable-placeholder)) {@include hook-sortable-placeholder();}
 }
 
