@@ -48,7 +48,9 @@ const Icon = {
 
     props: ['icon'],
 
-    data: {include: []},
+    data: {
+        include: ['focusable']
+    },
 
     isIcon: true,
 

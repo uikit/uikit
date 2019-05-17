@@ -14,6 +14,7 @@ export default {
         ratio: Number,
         'class': String,
         strokeAnimation: Boolean,
+        focusable: Boolean,
         attributes: 'list'
     },
 
@@ -21,7 +22,8 @@ export default {
         ratio: 1,
         include: ['style', 'class'],
         'class': '',
-        strokeAnimation: false
+        strokeAnimation: false,
+        focusable: 'false'
     },
 
     connected() {
