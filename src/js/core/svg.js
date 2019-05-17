@@ -24,7 +24,7 @@ export default {
         strokeAnimation: false
     },
 
-    connected() {
+    beforeConnect() {
 
         this.class += ' uk-svg';
 

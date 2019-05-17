@@ -14,6 +14,7 @@
 - Fix Sortable `click` event prevention in Firefox
 - Fix JS error in Offcanvas component on touch devices
 - Icon components no longer have a primary option
+- Icon/Svg components no longer reset initially
 
 ## 3.1.4 (April 24, 2019)
 
