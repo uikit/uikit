@@ -12,7 +12,7 @@ strats.destroy = concatStrat;
 
 // args strategy
 strats.args = function (parentVal, childVal) {
-    return concatStrat(childVal || parentVal);
+    return childVal !== false && concatStrat(childVal || parentVal);
 };
 
 // update strategy
