@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix leader inverse hook
+
 ## 3.1.5 (May 17, 2019)
 
 ### Added
