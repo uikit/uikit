@@ -3,12 +3,13 @@ import {css, getEventPos, includes, isRtl, isTouch, noop, off, on, pointerDown, 
 export default {
 
     props: {
-        draggable: Boolean
+        draggable: Boolean,
     },
 
     data: {
         draggable: true,
-        threshold: 10
+        threshold: 10,
+        preventCatch: false
     },
 
     created() {
@@ -50,7 +51,9 @@ export default {
                     return;
                 }
 
-                this.start(e);
+                if(this.draggable) {
+                  this.start(e);
+                }
             }
 
         },
