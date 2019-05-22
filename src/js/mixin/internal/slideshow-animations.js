@@ -31,7 +31,7 @@ export function translated(el) {
 }
 
 export function translate(value = 0, unit = '%') {
-    return `translateX(${value}${value ? unit : ''})`; // currently not translate3d to support IE, translate3d within translate3d does not work while transitioning
+    return `translate3d(${value}${value ? unit : ''})`; // currently not translate3d to support IE, translate3d within translate3d does not work while transitioning
 }
 
 export function scale3d(value) {
