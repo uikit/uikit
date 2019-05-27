@@ -74,6 +74,9 @@
 @form-select-option-color:                      #444;
 @form-select-disabled-icon-color:               @global-muted-color;
 
+@form-datalist-padding-right:                   20px;
+@form-datalist-icon-color:                      @global-color;
+
 @form-radio-size:                               16px;
 @form-radio-margin-top:                         -4px;
 @form-radio-background:                         darken(@global-muted-background, 5%);
@@ -101,6 +104,7 @@
 @form-icon-hover-color:                         @global-color;
 
 @internal-form-select-image:                     "../../images/backgrounds/form-select.svg";
+@internal-form-datalist-image:                   "../../images/backgrounds/form-datalist.svg";
 @internal-form-radio-image:                      "../../images/backgrounds/form-radio.svg";
 @internal-form-checkbox-image:                   "../../images/backgrounds/form-checkbox.svg";
 @internal-form-checkbox-indeterminate-image:     "../../images/backgrounds/form-checkbox-indeterminate.svg";
@@ -428,6 +432,26 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-select:not([multiple]):not([size]):disabled { .svg-fill(@internal-form-select-image, "#000", @form-select-disabled-icon-color); }
 
 
+/* Datalist
+ ========================================================================== */
+
+/*
+ * 1. Remove default style in Chrome
+ */
+
+ .uk-input[list] {
+    padding-right: @form-datalist-padding-right;
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+}
+
+.uk-input[list]:hover,
+.uk-input[list]:focus { .svg-fill(@internal-form-datalist-image, "#000", @form-datalist-icon-color); }
+
+/* 1 */
+.uk-input[list]::-webkit-calendar-picker-indicator { display: none; }
+
+
 /* Radio and checkbox
  * Note: Does not work in IE11
  ========================================================================== */
@@ -742,6 +766,8 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 @inverse-form-select-icon-color:               @inverse-global-color;
 
+@inverse-form-datalist-icon-color:             @inverse-global-color;
+
 @inverse-form-radio-background:                darken(@inverse-global-muted-background, 5%);
 
 @inverse-form-radio-checked-background:        @inverse-global-primary-background;
@@ -780,10 +806,17 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     .uk-textarea::placeholder { color: @inverse-form-placeholder-color; }
 
     //
-    // Radio and checkbox
+    // Select
     //
 
     .uk-select:not([multiple]):not([size]) { .svg-fill(@internal-form-select-image, "#000", @inverse-form-select-icon-color); }
+
+    //
+    // Datalist
+    //
+
+    .uk-input[list]:hover,
+    .uk-input[list]:focus { .svg-fill(@internal-form-datalist-image, "#000", @inverse-form-datalist-icon-color); }
 
     //
     // Radio and checkbox

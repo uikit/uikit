@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add style for input with datalist
+
 ### Fixed
 
 - Fix leader inverse hook
