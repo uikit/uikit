@@ -8,6 +8,7 @@
 
 ### Fixed
 
+- Fix image shrinking in centered and absolutely positioned navbars
 - Fix leader inverse hook
 
 ## 3.1.5 (May 17, 2019)
