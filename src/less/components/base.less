@@ -116,12 +116,6 @@ body { margin: 0; }
  ========================================================================== */
 
 /*
- * Remove gaps in links underline in iOS 8+ and Safari 8+.
- */
-
-a { -webkit-text-decoration-skip: objects; }
-
-/*
  * Remove the outline on focused links when they are also active or hovered
  */
 
@@ -154,14 +148,13 @@ a:hover,
  ========================================================================== */
 
 /*
- * 1. Add an underline text decoration in Safari, Edge and IE.
- * 2. Add `dotted` style in Safari.
- * Note: The shorthand declaration `underline dotted` is not supported in Safari, Edge and IE.
+ * 1. Add the correct text decoration in Edge.
+ * 2. The shorthand declaration `underline dotted` is not supported in Safari.
  */
 
 abbr[title] {
     /* 1 */
-    text-decoration: underline;
+    text-decoration: underline dotted;
     /* 2 */
     -webkit-text-decoration-style: dotted;
 }
