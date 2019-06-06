@@ -9,8 +9,9 @@
 ### Fixed
 
 - Fix image shrinking in centered and absolutely positioned navbars
-- Fix leader inverse hook
 - Fix Custom Form not resetting on form `reset` event
+- Fix leader inverse hook
+- Fix divider vertical inverse hook
 
 ## 3.1.5 (May 17, 2019)
 
