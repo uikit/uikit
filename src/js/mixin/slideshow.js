@@ -1,7 +1,7 @@
 import Animations from './internal/slideshow-animations';
 import Transitioner from './internal/slideshow-transitioner';
 import Slider from './slider.js';
-import {addClass, assign, fastdom, isNumber, removeClass} from 'uikit-util';
+import {addClass, assign, removeClass} from 'uikit-util';
 
 export default {
 
@@ -34,10 +34,6 @@ export default {
 
         'itemshow itemhide itemshown itemhidden'({target}) {
             this.$update(target);
-        },
-
-        itemshow() {
-            isNumber(this.prevIndex) && fastdom.flush(); // iOS 10+ will honor the video.play only if called from a gesture handler
         },
 
         beforeitemshow({target}) {
