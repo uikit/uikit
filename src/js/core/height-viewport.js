@@ -21,7 +21,7 @@ export default {
 
     update: {
 
-        read() {
+        read({minHeight: prev}) {
 
             let minHeight = '';
             const box = boxModelAdjust('height', this.$el, 'content-box');
@@ -64,12 +64,16 @@ export default {
 
             }
 
-            return {minHeight};
+            return {minHeight, prev};
         },
 
-        write({minHeight}) {
+        write({minHeight, prev}) {
 
             css(this.$el, {minHeight});
+
+            if (minHeight !== prev) {
+                this.$update(this.$el, 'resize');
+            }
 
             if (this.minHeight && toFloat(css(this.$el, 'minHeight')) < this.minHeight) {
                 css(this.$el, 'minHeight', this.minHeight);
