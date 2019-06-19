@@ -139,9 +139,9 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 /*
  * Horizontal alignment
  * 1. Create position context for centered navbar with sub groups (left/right)
- * 2. Needed for dropdowns because a new position context is created
+ * 2. Fix text wrapping if content is larger than 50% of the container.
+ * 3. Needed for dropdowns because a new position context is created
  *    `z-index` must be smaller than off-canvas
- * 3. Fix text wrapping if the centered section is larger than 50% of the navbar
  * 4. Align sub groups for centered navbar
  */
 
@@ -160,13 +160,11 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
     left: 50%;
     transform: translate(-50%,-50%);
     /* 2 */
+    width: max-content;
+    box-sizing: border-box;
+    /* 3 */
     z-index: $global-z-index - 10;
 }
-
-/* 3 */
-.uk-navbar-center:not(:only-child) .uk-navbar-nav > li > a,
-.uk-navbar-center:not(:only-child) .uk-navbar-item,
-.uk-navbar-center:not(:only-child) .uk-navbar-toggle { white-space: nowrap; }
 
 /* 4 */
 .uk-navbar-center-left,
@@ -178,9 +176,10 @@ $navbar-dropbar-z-index:                         $global-z-index - 20 !default;
 .uk-navbar-center-left { right: 100%; }
 .uk-navbar-center-right { left: 100%; }
 
-[class*='uk-navbar-center-'] .uk-navbar-nav > li > a,
-[class*='uk-navbar-center-'] .uk-navbar-item,
-[class*='uk-navbar-center-'] .uk-navbar-toggle { white-space: nowrap; }
+[class*='uk-navbar-center-'] {
+    width: max-content;
+    box-sizing: border-box;
+}
 
 
 /* Nav

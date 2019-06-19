@@ -1,4 +1,4 @@
-/*! UIkit 3.1.5 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.1.6 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -29,12 +29,6 @@ body {
 /* Links
  ========================================================================== */
 /*
- * Remove gaps in links underline in iOS 8+ and Safari 8+.
- */
-a {
-  -webkit-text-decoration-skip: objects;
-}
-/*
  * Remove the outline on focused links when they are also active or hovered
  */
 a:active,
@@ -60,13 +54,12 @@ a:hover,
 /* Text-level semantics
  ========================================================================== */
 /*
- * 1. Add an underline text decoration in Safari, Edge and IE.
- * 2. Add `dotted` style in Safari.
- * Note: The shorthand declaration `underline dotted` is not supported in Safari, Edge and IE.
+ * 1. Add the correct text decoration in Edge.
+ * 2. The shorthand declaration `underline dotted` is not supported in Safari.
  */
 abbr[title] {
   /* 1 */
-  text-decoration: underline;
+  text-decoration: underline dotted;
   /* 2 */
   -webkit-text-decoration-style: dotted;
 }
@@ -342,21 +335,17 @@ dd {
 /* Horizontal rules
  ========================================================================== */
 /*
- * 1. Add the correct box sizing and height in Firefox.
- * 2. Show the overflow in Edge and IE.
- * 3. Add the correct text-align in Edge and IE.
- * 4. Style
+ * 1. Show the overflow in Chrome, Edge and IE.
+ * 2. Add the correct text-align in Edge and IE.
+ * 3. Style
  */
 hr,
 .uk-hr {
   /* 1 */
-  box-sizing: content-box;
-  height: 0;
-  /* 2 */
   overflow: visible;
-  /* 3 */
+  /* 2 */
   text-align: inherit;
-  /* 4 */
+  /* 3 */
   margin: 0 0 20px 0;
   border: 0;
   border-top: 1px solid #e5e5e5;
@@ -710,12 +699,14 @@ a.uk-link-reset,
 /* Small
  ========================================================================== */
 /*
- * Fix height of `hr` element not being expanded by child border width.
- * `height` also needed to reset the child `line-height` caused by `inline-block`
+ * 1. Fix height because of `inline-block`
+ * 2. Using ::after and inline-block to make `text-align` work
  */
+/* 1 */
 .uk-divider-small {
-  height: 1px;
+  line-height: 0;
 }
+/* 2 */
 .uk-divider-small::after {
   content: "";
   display: inline-block;
@@ -1619,6 +1610,24 @@ select.uk-form-width-xsmall {
  */
 .uk-select:not([multiple]):not([size]):disabled {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%2212%201%209%206%2015%206%22%20%2F%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23999%22%20points%3D%2212%2013%209%208%2015%208%22%20%2F%3E%0A%3C%2Fsvg%3E%0A");
+}
+/* Datalist
+ ========================================================================== */
+/*
+ * 1. Remove default style in Chrome
+ */
+.uk-input[list] {
+  padding-right: 20px;
+  background-repeat: no-repeat;
+  background-position: 100% 50%;
+}
+.uk-input[list]:hover,
+.uk-input[list]:focus {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22%23666%22%20points%3D%2212%2012%208%206%2016%206%22%20%2F%3E%0A%3C%2Fsvg%3E%0A");
+}
+/* 1 */
+.uk-input[list]::-webkit-calendar-picker-indicator {
+  display: none;
 }
 /* Radio and checkbox
  * Note: Does not work in IE11
@@ -3945,9 +3954,9 @@ ul.uk-nav-sub {
 /*
  * Horizontal alignment
  * 1. Create position context for centered navbar with sub groups (left/right)
- * 2. Needed for dropdowns because a new position context is created
+ * 2. Fix text wrapping if content is larger than 50% of the container.
+ * 3. Needed for dropdowns because a new position context is created
  *    `z-index` must be smaller than off-canvas
- * 3. Fix text wrapping if the centered section is larger than 50% of the navbar
  * 4. Align sub groups for centered navbar
  */
 .uk-navbar-right {
@@ -3965,13 +3974,10 @@ ul.uk-nav-sub {
   left: 50%;
   transform: translate(-50%, -50%);
   /* 2 */
+  width: max-content;
+  box-sizing: border-box;
+  /* 3 */
   z-index: 990;
-}
-/* 3 */
-.uk-navbar-center:not(:only-child) .uk-navbar-nav > li > a,
-.uk-navbar-center:not(:only-child) .uk-navbar-item,
-.uk-navbar-center:not(:only-child) .uk-navbar-toggle {
-  white-space: nowrap;
 }
 /* 4 */
 .uk-navbar-center-left,
@@ -3985,10 +3991,9 @@ ul.uk-nav-sub {
 .uk-navbar-center-right {
   left: 100%;
 }
-[class*='uk-navbar-center-'] .uk-navbar-nav > li > a,
-[class*='uk-navbar-center-'] .uk-navbar-item,
-[class*='uk-navbar-center-'] .uk-navbar-toggle {
-  white-space: nowrap;
+[class*='uk-navbar-center-'] {
+  width: max-content;
+  box-sizing: border-box;
 }
 /* Nav
  ========================================================================== */
@@ -8683,6 +8688,9 @@ iframe.uk-cover {
 .uk-margin-remove-first-child > :first-child {
   margin-top: 0 !important;
 }
+.uk-margin-remove-last-child > :last-child {
+  margin-bottom: 0 !important;
+}
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
   .uk-margin-remove-left\@s {
@@ -9779,17 +9787,17 @@ iframe.uk-cover {
 .uk-offcanvas-bar .uk-divider-small::after {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-divider-vertical::after,
-.uk-section-primary:not(.uk-preserve-color) .uk-divider-vertical::after,
-.uk-section-secondary:not(.uk-preserve-color) .uk-divider-vertical::after,
-.uk-tile-primary:not(.uk-preserve-color) .uk-divider-vertical::after,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-divider-vertical::after,
-.uk-card-primary.uk-card-body .uk-divider-vertical::after,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-divider-vertical::after,
-.uk-card-secondary.uk-card-body .uk-divider-vertical::after,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-divider-vertical::after,
-.uk-overlay-primary .uk-divider-vertical::after,
-.uk-offcanvas-bar .uk-divider-vertical::after {
+.uk-light .uk-divider-vertical,
+.uk-section-primary:not(.uk-preserve-color) .uk-divider-vertical,
+.uk-section-secondary:not(.uk-preserve-color) .uk-divider-vertical,
+.uk-tile-primary:not(.uk-preserve-color) .uk-divider-vertical,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-divider-vertical,
+.uk-card-primary.uk-card-body .uk-divider-vertical,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-divider-vertical,
+.uk-card-secondary.uk-card-body .uk-divider-vertical,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-divider-vertical,
+.uk-overlay-primary .uk-divider-vertical,
+.uk-offcanvas-bar .uk-divider-vertical {
   border-left-color: rgba(255, 255, 255, 0.2);
 }
 .uk-light .uk-list-divider > li:nth-child(n+2),
@@ -10233,6 +10241,30 @@ iframe.uk-cover {
 .uk-overlay-primary .uk-select:not([multiple]):not([size]),
 .uk-offcanvas-bar .uk-select:not([multiple]):not([size]) {
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20points%3D%2212%201%209%206%2015%206%22%20%2F%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20points%3D%2212%2013%209%208%2015%208%22%20%2F%3E%0A%3C%2Fsvg%3E%0A");
+}
+.uk-light .uk-input[list]:hover,
+.uk-light .uk-input[list]:focus,
+.uk-section-primary:not(.uk-preserve-color) .uk-input[list]:hover,
+.uk-section-primary:not(.uk-preserve-color) .uk-input[list]:focus,
+.uk-section-secondary:not(.uk-preserve-color) .uk-input[list]:hover,
+.uk-section-secondary:not(.uk-preserve-color) .uk-input[list]:focus,
+.uk-tile-primary:not(.uk-preserve-color) .uk-input[list]:hover,
+.uk-tile-primary:not(.uk-preserve-color) .uk-input[list]:focus,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-input[list]:hover,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-input[list]:focus,
+.uk-card-primary.uk-card-body .uk-input[list]:hover,
+.uk-card-primary.uk-card-body .uk-input[list]:focus,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-input[list]:hover,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-input[list]:focus,
+.uk-card-secondary.uk-card-body .uk-input[list]:hover,
+.uk-card-secondary.uk-card-body .uk-input[list]:focus,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-input[list]:hover,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-input[list]:focus,
+.uk-overlay-primary .uk-input[list]:hover,
+.uk-overlay-primary .uk-input[list]:focus,
+.uk-offcanvas-bar .uk-input[list]:hover,
+.uk-offcanvas-bar .uk-input[list]:focus {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22rgba%28255,%20255,%20255,%200.7%29%22%20points%3D%2212%2012%208%206%2016%206%22%20%2F%3E%0A%3C%2Fsvg%3E%0A");
 }
 .uk-light .uk-radio,
 .uk-light .uk-checkbox,

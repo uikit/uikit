@@ -1,4 +1,4 @@
-/*! UIkit 3.1.5 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.1.6 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2038,25 +2038,31 @@
             return remove$1(this.reads, task) || remove$1(this.writes, task);
         },
 
-        flush: function() {
-
-            runTasks(this.reads);
-            runTasks(this.writes.splice(0, this.writes.length));
-
-            this.scheduled = false;
-
-            if (this.reads.length || this.writes.length) {
-                scheduleFlush();
-            }
-
-        }
+        flush: flush
 
     };
 
-    function scheduleFlush() {
+    function flush() {
+        runTasks(fastdom.reads);
+        runTasks(fastdom.writes.splice(0, fastdom.writes.length));
+
+        fastdom.scheduled = false;
+
+        if (fastdom.reads.length || fastdom.writes.length) {
+            scheduleFlush(true);
+        }
+    }
+
+    function scheduleFlush(microtask) {
+        if ( microtask === void 0 ) microtask = false;
+
         if (!fastdom.scheduled) {
             fastdom.scheduled = true;
-            requestAnimationFrame(fastdom.flush.bind(fastdom));
+            if (microtask) {
+                Promise.resolve().then(flush);
+            } else {
+                requestAnimationFrame(flush);
+            }
         }
     }
 
@@ -2819,6 +2825,7 @@
 
             apply(document.body, connect);
 
+            // Safari renders prior to first animation frame
             fastdom.flush();
 
             (new MutationObserver(function (mutations) { return mutations.forEach(applyMutation); })).observe(document, {
@@ -3435,7 +3442,7 @@
                     if (isUndefined(data[key])) {
                         delete data[key];
                     } else {
-                        data[key] = props[key] ? coerce(props[key], data[key], el) : data[key];
+                        data[key] = props[key] ? coerce(props[key], data[key]) : data[key];
                     }
                 }
             }
@@ -4796,13 +4803,29 @@
 
         },
 
-        events: {
+        events: [
 
-            change: function() {
-                this.$emit();
+            {
+                name: 'change',
+
+                handler: function() {
+                    this.$emit();
+                }
+            },
+
+            {
+                name: 'reset',
+
+                el: function() {
+                    return closest(this.$el, 'form');
+                },
+
+                handler: function() {
+                    this.$emit();
+                }
             }
 
-        }
+        ]
 
     };
 
@@ -5268,7 +5291,9 @@
 
         update: {
 
-            read: function() {
+            read: function(ref) {
+                var prev = ref.minHeight;
+
 
                 var minHeight = '';
                 var box = boxModelAdjust('height', this.$el, 'content-box');
@@ -5284,8 +5309,8 @@
 
                     if (this.offsetTop) {
 
-                        var ref = offset(this.$el);
-                        var top = ref.top;
+                        var ref$1 = offset(this.$el);
+                        var top = ref$1.top;
                         minHeight += top < height(window) / 2 ? (" - " + top + "px") : '';
 
                     }
@@ -5312,14 +5337,19 @@
 
                 }
 
-                return {minHeight: minHeight};
+                return {minHeight: minHeight, prev: prev};
             },
 
             write: function(ref) {
                 var minHeight = ref.minHeight;
+                var prev = ref.prev;
 
 
                 css(this.$el, {minHeight: minHeight});
+
+                if (minHeight !== prev) {
+                    this.$update(this.$el, 'resize');
+                }
 
                 if (this.minHeight && toFloat(css(this.$el, 'minHeight')) < this.minHeight) {
                     css(this.$el, 'minHeight', this.minHeight);
@@ -8269,7 +8299,7 @@
 
     }
 
-    UIkit.version = '3.1.5';
+    UIkit.version = '3.1.6';
 
     core(UIkit);
 
@@ -8635,7 +8665,7 @@
             children: {
 
                 get: function() {
-                    return toNodes(this.target.children);
+                    return toNodes(this.target && this.target.children);
                 },
 
                 watch: function(list, old) {
@@ -8858,7 +8888,8 @@
         if ( value === void 0 ) value = 0;
         if ( unit === void 0 ) unit = '%';
 
-        return ("translateX(" + value + (value ? unit : '') + ")"); // currently not translate3d to support IE, translate3d within translate3d does not work while transitioning
+        value += value ? unit : '';
+        return isIE ? ("translateX(" + value + ")") : ("translate3d(" + value + ", 0, 0)"); // currently not translate3d in IE, translate3d within translate3d does not work while transitioning
     }
 
     function scale3d(value) {
@@ -9714,10 +9745,6 @@
                 this.$update(target);
             },
 
-            itemshow: function() {
-                isNumber(this.prevIndex) && fastdom.flush(); // iOS 10+ will honor the video.play only if called from a gesture handler
-            },
-
             beforeitemshow: function(ref) {
                 var target = ref.target;
 
@@ -10370,7 +10397,7 @@
                                 : 0) || 0);
                     }
 
-                    var unit = getUnit(steps, prop);
+                    var unit = getUnit(steps);
 
                     if (isColor) {
 

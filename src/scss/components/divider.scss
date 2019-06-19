@@ -91,12 +91,14 @@ $divider-vertical-border:                        $global-border !default;
  ========================================================================== */
 
 /*
- * Fix height of `hr` element not being expanded by child border width.
- * `height` also needed to reset the child `line-height` caused by `inline-block`
+ * 1. Fix height because of `inline-block`
+ * 2. Using ::after and inline-block to make `text-align` work
  */
 
-.uk-divider-small { height: $divider-small-border-width; }
+/* 1 */
+.uk-divider-small { line-height: 0; }
 
+/* 2 */
 .uk-divider-small::after {
     content: "";
     display: inline-block;
