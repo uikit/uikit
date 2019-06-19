@@ -752,7 +752,7 @@
         @if(mixin-exists(hook-inverse-divider-small)) {@include hook-inverse-divider-small();}
     }
 
-    .uk-divider-vertical::after {
+    .uk-divider-vertical {
         border-left-color: $inverse-divider-vertical-border;
         @if(mixin-exists(hook-inverse-divider-vertical)) {@include hook-inverse-divider-vertical();}
     }
@@ -878,10 +878,17 @@
     .uk-textarea::placeholder { color: $inverse-form-placeholder-color; }
 
     //
-    // Radio and checkbox
+    // Select
     //
 
     .uk-select:not([multiple]):not([size]) { @include svg-fill($internal-form-select-image, "#000", $inverse-form-select-icon-color); }
+
+    //
+    // Datalist
+    //
+
+    .uk-input[list]:hover,
+    .uk-input[list]:focus { @include svg-fill($internal-form-datalist-image, "#000", $inverse-form-datalist-icon-color); }
 
     //
     // Radio and checkbox
@@ -1574,7 +1581,7 @@
 @mixin hook-inverse-leader(){}
 @mixin hook-inverse-component-leader(){
 
-    .uk-leader-fill {
+    .uk-leader-fill::after {
         @if(mixin-exists(hook-inverse-leader)) {@include hook-inverse-leader();}
     }
 
