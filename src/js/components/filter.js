@@ -41,7 +41,7 @@ export default {
         children: {
 
             get() {
-                return toNodes(this.target.children);
+                return toNodes(this.target && this.target.children);
             },
 
             watch(list, old) {

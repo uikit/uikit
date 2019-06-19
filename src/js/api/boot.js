@@ -30,6 +30,7 @@ export default function (UIkit) {
 
         apply(document.body, connect);
 
+        // Safari renders prior to first animation frame
         fastdom.flush();
 
         (new MutationObserver(mutations => mutations.forEach(applyMutation))).observe(document, {

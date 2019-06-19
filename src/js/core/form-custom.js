@@ -1,5 +1,5 @@
 import Class from '../mixin/class';
-import {$, $$, isInput, matches, query, selInput} from 'uikit-util';
+import {$, $$, closest, isInput, matches, query, selInput} from 'uikit-util';
 
 export default {
 
@@ -57,12 +57,28 @@ export default {
 
     },
 
-    events: {
+    events: [
 
-        change() {
-            this.$emit();
+        {
+            name: 'change',
+
+            handler() {
+                this.$emit();
+            }
+        },
+
+        {
+            name: 'reset',
+
+            el() {
+                return closest(this.$el, 'form');
+            },
+
+            handler() {
+                this.$emit();
+            }
         }
 
-    }
+    ]
 
 };

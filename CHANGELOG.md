@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.1.6 (June 19, 2019)
+
+### Added
+
+- Add style for input with datalist
+
+### Fixed
+
+- Fix image shrinking in centered and absolutely positioned navbars
+- Fix Custom Form not resetting on form `reset` event
+- Fix leader inverse hook
+- Fix divider vertical inverse hook
+
 ## 3.1.5 (May 17, 2019)
 
 ### Added
