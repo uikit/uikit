@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Slideshow/Slider triggering show events to often initially
+- Fix swipe gestures in Switcher component (Android)
 
 ## 3.1.6 (June 19, 2019)
 
