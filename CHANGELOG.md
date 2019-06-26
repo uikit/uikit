@@ -6,6 +6,7 @@
 
 - Fix Slideshow/Slider triggering show events to often initially
 - Fix swipe gestures in Switcher component (Android)
+- Ensure at most one Height Viewport component set to `expand` is active
 
 ## 3.1.6 (June 19, 2019)
 
