@@ -1,5 +1,5 @@
 import FlexBug from '../mixin/flex-bug';
-import {$, boxModelAdjust, css, endsWith, height, isNumeric, isString, offset, query, toFloat} from 'uikit-util';
+import {$, boxModelAdjust, css, endsWith, height, isNumeric, isString, isVisible, offset, query, toFloat} from 'uikit-util';
 
 export default {
 
@@ -22,6 +22,10 @@ export default {
     update: {
 
         read({minHeight: prev}) {
+
+            if (!isVisible(this.$el)) {
+                return false;
+            }
 
             let minHeight = '';
             const box = boxModelAdjust('height', this.$el, 'content-box');
