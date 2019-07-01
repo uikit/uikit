@@ -17,14 +17,6 @@
 @text-meta-line-height:                         1.4;
 @text-meta-color:                               @global-muted-color;
 
-@text-small-font-size:                          @global-small-font-size;
-@text-small-line-height:                        1.5;
-
-@text-large-font-size:                          @global-large-font-size;
-@text-large-line-height:                        1.5;
-
-@text-bold-font-weight:                         bolder;
-
 @text-muted-color:                              @global-muted-color;
 @text-emphasis-color:                           @global-emphasis-color;
 @text-primary-color:                            @global-primary-background;
@@ -59,33 +51,11 @@
 }
 
 
-/* Size modifiers
- ========================================================================== */
-
-.uk-text-small {
-    font-size: @text-small-font-size;
-    line-height: @text-small-line-height;
-    .hook-text-small;
-}
-
-.uk-text-large {
-    font-size: @text-large-font-size;
-    line-height: @text-large-line-height;
-    .hook-text-large;
-}
-
-
-/* Weight modifier
- ========================================================================== */
-
-.uk-text-bold { font-weight: @text-bold-font-weight; }
-
-
 /* Transform modifier
  ========================================================================== */
 
-.uk-text-uppercase { text-transform: uppercase !important; }
 .uk-text-capitalize { text-transform: capitalize !important; }
+.uk-text-uppercase { text-transform: uppercase !important; }
 .uk-text-lowercase { text-transform: lowercase !important; }
 
 
@@ -234,6 +204,38 @@ th.uk-text-break,
 td.uk-text-break { word-break: break-all; }
 
 
+/* Size modifiers
+ * DEPRECATED: Use `uk-font-xsmall` and `uk-font-large` instead 
+ ========================================================================== */
+
+@text-small-font-size:                          @global-small-font-size;
+@text-small-line-height:                        1.5;
+
+@text-large-font-size:                          @global-large-font-size;
+@text-large-line-height:                        1.5;
+
+.uk-text-small when (@deprecated = true) {
+    font-size: @text-small-font-size;
+    line-height: @text-small-line-height;
+    .hook-text-small;
+}
+
+.uk-text-large when (@deprecated = true) {
+    font-size: @text-large-font-size;
+    line-height: @text-large-line-height;
+    .hook-text-large;
+}
+
+
+/* Weight modifier
+ * DEPRECATED: Use `uk-font-bold` instead
+ ========================================================================== */
+
+ @text-bold-font-weight:                         bolder;
+
+ .uk-text-bold when (@deprecated = true) { font-weight: @text-bold-font-weight; }
+ 
+
 
 // Hooks
 // ========================================================================
@@ -242,9 +244,9 @@ td.uk-text-break { word-break: break-all; }
 
 .hook-text-lead() {}
 .hook-text-meta() {}
+.hook-text-background() {}
 .hook-text-small() {}
 .hook-text-large() {}
-.hook-text-background() {}
 .hook-text-misc() {}
 
 

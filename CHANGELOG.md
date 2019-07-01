@@ -17,6 +17,9 @@
 - Heading Large: Use `uk-font-5xlarge` instead of `uk-heading-large`
 - Heading Xlarge: Use `uk-font-6xlarge` instead of `uk-heading-xlarge`
 - Heading 2Xlarge: Use `uk-font-7xlarge` instead of `uk-heading-2xlarge`
+- Text Large: Use `uk-font-large` instead of `uk-text-large`
+- Text Small: Use `uk-font-xsmall` instead of `uk-text-small`
+- Text Bold: Use `uk-font-bold` instead of `uk-text-bold`
 - Width XXLarge: Use `uk-width-2xlarge` instead of `uk-width-xxlarge`
 
 ### Fixed
