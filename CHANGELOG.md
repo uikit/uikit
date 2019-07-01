@@ -8,8 +8,7 @@
 
 ### Changed
 
-- IMPORTANT: Renamed `uk-width-xxlarge` to `uk-width-2xlarge`
-- IMPORTANT: Renamed Less variable parts `xxlarge` to `2xlarge`
+- IMPORTANT: Rename Less variable parts `xxlarge` to `2xlarge`
 
 ### Deprecated
 
@@ -18,6 +17,7 @@
 - Heading Large: Use `uk-font-5xlarge` instead of `uk-heading-large`
 - Heading Xlarge: Use `uk-font-6xlarge` instead of `uk-heading-xlarge`
 - Heading 2Xlarge: Use `uk-font-7xlarge` instead of `uk-heading-2xlarge`
+- Width XXLarge: Use `uk-width-2xlarge` instead of `uk-width-xxlarge`
 
 ### Fixed
 
