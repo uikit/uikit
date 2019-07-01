@@ -86,6 +86,7 @@ on(window, 'load', () => setTimeout(() => fastdom.write(() => {
                     'dropdown',
                     'filter',
                     'flex',
+                    'font',
                     'form',
                     'grid',
                     'grid-masonry',
