@@ -2,6 +2,18 @@
 
 ## WIP
 
+### Added
+
+- Add Font component
+
+### Deprecated
+
+- Heading Small: Use `uk-font-3xlarge` instead of `uk-heading-small`
+- Heading Medium: Use `uk-font-4xlarge` instead of `uk-heading-medium`
+- Heading Large: Use `uk-font-5xlarge` instead of `uk-heading-large`
+- Heading Xlarge: Use `uk-font-6xlarge` instead of `uk-heading-xlarge`
+- Heading 2Xlarge: Use `uk-font-7xlarge` instead of `uk-heading-2xlarge`
+
 ### Fixed
 
 - Fix Slideshow/Slider triggering show events to often initially
