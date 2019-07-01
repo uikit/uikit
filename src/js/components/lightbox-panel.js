@@ -28,6 +28,7 @@ export default {
         selList: '.uk-lightbox-items',
         attrItem: 'uk-lightbox-item',
         selClose: '.uk-close-large',
+        selCaption: '.uk-lightbox-caption',
         pauseOnHover: false,
         velocity: 2,
         Animations,
@@ -44,11 +45,19 @@ export default {
 
     created() {
 
-        this.$mount(append(this.container, this.template));
+        const $el = $(this.template);
+        const list = $(this.selList, $el);
+        this.items.forEach(() => append(list, '<li></li>'));
 
-        this.caption = $('.uk-lightbox-caption', this.$el);
+        this.$mount(append(this.container, $el));
 
-        this.items.forEach(() => append(this.list, '<li></li>'));
+    },
+
+    computed: {
+
+        caption({selCaption}, $el) {
+            return $('.uk-lightbox-caption', $el);
+        }
 
     },
 
