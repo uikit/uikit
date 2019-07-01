@@ -6,6 +6,11 @@
 
 - Add Font component
 
+### Changed
+
+- IMPORTANT: Renamed `uk-width-xxlarge` to `uk-width-2xlarge`
+- IMPORTANT: Renamed Less variable parts `xxlarge` to `2xlarge`
+
 ### Deprecated
 
 - Heading Small: Use `uk-font-3xlarge` instead of `uk-heading-small`
