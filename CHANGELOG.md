@@ -5,6 +5,7 @@
 ### Added
 
 - Add Font component
+- Add font weight modifier
 
 ### Changed
 
