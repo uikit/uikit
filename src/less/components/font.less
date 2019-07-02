@@ -95,68 +95,64 @@
 /* Size modifiers
  ========================================================================== */
 
- .uk-font-xsmall {
+.uk-font-2xsmall {
+    font-size: @font-2xsmall-font-size;
+    line-height: @font-small-line-height;
+}
+
+.uk-font-xsmall {
     font-size: @font-xsmall-font-size;
     line-height: @font-small-line-height;
-    .hook-font-xsmall;
 }
+
 .uk-font-small {
     font-size: @font-small-font-size;
     line-height: @font-small-line-height;
-    .hook-font-small;
 }
 
 .uk-font-medium {
     font-size: @font-medium-font-size;
     line-height: @font-medium-line-height;
-    .hook-font-medium;
 }
 
 .uk-font-large {
     font-size: @font-large-font-size;
     line-height: @font-large-line-height;
-    .hook-font-large;
 }
 
 .uk-font-xlarge {
     font-size: @font-xlarge-font-size;
     line-height: @font-xlarge-line-height;
-    .hook-font-xlarge;
 }
+
 .uk-font-2xlarge {
     font-size: @font-2xlarge-font-size;
     line-height: @font-2xlarge-line-height;
-    .hook-font-2xlarge;
 }
 
 .uk-font-3xlarge {
     font-size: @font-3xlarge-font-size;
     line-height: @font-3xlarge-line-height;
-    .hook-font-3xlarge;
 }
 
 .uk-font-4xlarge {
     font-size: @font-4xlarge-font-size;
     line-height: @font-4xlarge-line-height;
-    .hook-font-4xlarge;
 }
 
 .uk-font-5xlarge {
     font-size: @font-5xlarge-font-size;
     line-height: @font-5xlarge-line-height;
-    .hook-font-5xlarge;
 }
 
 .uk-font-6xlarge {
     font-size: @font-6xlarge-font-size;
     line-height: @font-6xlarge-line-height;
-    .hook-font-6xlarge;
 }
 
 .uk-font-7xlarge {
     font-size: @font-7xlarge-font-size;
     line-height: @font-7xlarge-line-height;
-    .hook-font-7xlarge;
 }
 
 /* Tablet Landscape and bigger */
@@ -197,7 +193,6 @@
 .uk-font-italic { font-style: italic; }
 
 
-
 // Hooks
 // ========================================================================
 
@@ -207,15 +202,4 @@
 .hook-font-primary() {}
 .hook-font-secondary() {}
 .hook-font-tertiary() {}
-.hook-font-xsmall() {}
-.hook-font-small() {}
-.hook-font-medium() {}
-.hook-font-large() {}
-.hook-font-xlarge() {}
-.hook-font-2xlarge() {}
-.hook-font-3xlarge() {}
-.hook-font-4xlarge() {}
-.hook-font-5xlarge() {}
-.hook-font-6xlarge() {}
-.hook-font-7xlarge() {}
 .hook-font-misc() {}
