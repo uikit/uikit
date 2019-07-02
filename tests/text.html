@@ -23,13 +23,45 @@
 
                     <p class="uk-text-meta">Written by <a href="#">Super User</a> on <time datetime="2016-04-01T19:00">01 April 2016</time>. Posted in <a href="#">Blog</a><br>And wrapping into the next line.</p>
 
-                    <h1>Large and Small</h1>
+                    <h2>Text Overflow</h2>
 
-                    <p class="uk-text-large">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+                    <div class="uk-child-width-1-3" uk-grid>
+                        <div>
 
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                            <h3 class="uk-h4">Truncate</h3>
+                            <p class="uk-text-truncate">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
-                    <p class="uk-text-small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+                        </div>
+                        <div>
+
+                            <h3 class="uk-h4">Break</h3>
+                            <p class="uk-text-break">Loremipsumdolorsitamet,consecteturadipiscingelit,seddoeiusmodtemporincididuntutlaboreetdoloremagnaaliqua.</p>
+
+                        </div>
+                        <div>
+
+                            <h3 class="uk-h4">Default</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+
+                        </div>
+                    </div>
+
+                    <table class="uk-table uk-table-rule">
+                        <thead>
+                            <tr>
+                                <th class="uk-width-1-3">Truncate</th>
+                                <th class="uk-width-1-3">Break</th>
+                                <th class="uk-width-1-3">Default</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="uk-text-truncate">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                                <td class="uk-text-break">Loremipsumdolorsitamet,consecteturadipiscingelit,seddoeiusmodtemporincididuntutlaboreetdoloremagnaaliqua.</td>
+                                <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                 </div>
                 <div class="uk-width-1-3@m">
@@ -70,37 +102,6 @@
                         <li><span class="uk-text-background">text-background</span></li>
                         <li><a class="uk-text-background" href="#">Link with text-background</a></li>
                     </ul>
-
-                    <div class="uk-child-width-1-2" uk-grid>
-                        <div>
-
-                            <h3>Truncate</h3>
-
-                            <p class="uk-text-truncate">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-
-                        </div>
-                        <div>
-
-                            <h3>Break</h3>
-
-                            <p class="uk-text-break">Loremipsumdolorsitamet,consectetur.</p>
-
-                        </div>
-                    </div>
-
-                    <table class="uk-table uk-table-striped">
-                        <tr>
-                            <td class="uk-text-truncate uk-width-1-2">Truncate ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                            <td class="uk-width-1-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                        </tr>
-                    </table>
-
-                    <table class="uk-table uk-table-striped">
-                        <tr>
-                            <td class="uk-text-break uk-width-1-2">Break ipsum dolorsitamet,consecteturadipiscing elit.</td>
-                            <td class="uk-width-1-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                        </tr>
-                    </table>
 
                 </div>
             </div>
