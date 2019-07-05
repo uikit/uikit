@@ -119,7 +119,7 @@ function install(UIkit) {
 
     UIkit.modal.prompt = function (message, value, options) {
 
-        options = assign({bgClose: false, escClose: true, labels: UIkit.modal.labels}, options);
+        options = assign({bgClose: false, escClose: true, labels: UIkit.modal.labels, password: false}, options);
 
         return new Promise(resolve => {
 
@@ -127,7 +127,7 @@ function install(UIkit) {
                     <form class="uk-form-stacked">
                         <div class="uk-modal-body">
                             <label>${isString(message) ? message : html(message)}</label>
-                            <input class="uk-input" autofocus>
+                            <input class="uk-input" ${options.password === true ? 'type="password"' : ''}autofocus>
                         </div>
                         <div class="uk-modal-footer uk-text-right">
                             <button class="uk-button uk-button-default uk-modal-close" type="button">${options.labels.cancel}</button>
