@@ -9,6 +9,7 @@
 - Ensure at most one Height Viewport component set to `expand` is active
 - Height Viewport component no longer calculates its height if invisible
 - Fix using Sortable in scrolling container 
+- Fix lazy loading images if parent element is fully clipped
 
 ## 3.1.6 (June 19, 2019)
 
