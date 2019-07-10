@@ -10,6 +10,7 @@
 - Height Viewport component no longer calculates its height if invisible
 - Fix using Sortable in scrolling container 
 - Fix lazy loading images if parent element is fully clipped
+- Fix clicking Slideshow with `draggable: false` no longer pauses autoplay
 
 ## 3.1.6 (June 19, 2019)
 
