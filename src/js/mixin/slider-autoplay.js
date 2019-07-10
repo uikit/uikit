@@ -1,4 +1,4 @@
-import {attr, matches, within} from 'uikit-util';
+import {$, attr, matches} from 'uikit-util';
 
 export default {
 
@@ -57,7 +57,7 @@ export default {
             this.stopAutoplay();
 
             this.interval = setInterval(
-                () => (!this.draggable || !within(document.activeElement, this.$el))
+                () => (!this.draggable || !$(':focus', this.$el))
                     && (!this.pauseOnHover || !matches(this.$el, ':hover'))
                     && !this.stack.length
                     && this.show('next'),
