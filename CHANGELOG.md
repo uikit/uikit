@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- By default the Offcanvas `container` option is `false` now
+
 ### Fixed
 
 - Fix Slideshow/Slider triggering show events to often initially
