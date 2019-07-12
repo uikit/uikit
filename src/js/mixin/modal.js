@@ -1,4 +1,4 @@
-import {$, addClass, append, css, hasClass, on, once, pointerUp, Promise, removeClass, width, within} from 'uikit-util';
+import {$, addClass, append, css, hasClass, on, once, pointerUp, Promise, removeClass, toMs, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
@@ -264,7 +264,7 @@ function animate({transitionElement, _toggle}) {
                 const timer = setTimeout(() => {
                     off();
                     resolve();
-                }, 80);
+                }, toMs(css(transitionElement, 'transitionDuration')));
 
             })
         );
