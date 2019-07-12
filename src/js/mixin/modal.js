@@ -1,4 +1,4 @@
-import {$, addClass, append, css, hasClass, on, once, pointerUp, Promise, removeClass, toMs, width, within} from 'uikit-util';
+import {$, addClass, append, css, hasClass, on, once, pointerUp, Promise, removeClass, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
@@ -99,12 +99,7 @@ export default {
                     } else {
 
                         active = prev;
-
-                        if (prev.isToggled()) {
-                            prev.hide().then(this.show);
-                        } else {
-                            once(prev.$el, 'beforeshow hidden', this.show, false, ({target, type}) => type === 'hidden' && target === prev.$el);
-                        }
+                        prev.hide().then(this.show);
                         e.preventDefault();
 
                     }
@@ -175,6 +170,7 @@ export default {
                             break;
                         }
 
+                        // eslint-disable-next-line prefer-destructuring
                         prev = prev.prev;
 
                     }
@@ -199,10 +195,6 @@ export default {
 
         show() {
 
-            if (this.isToggled()) {
-                return Promise.resolve();
-            }
-
             if (this.container && this.$el.parentNode !== this.container) {
                 append(this.container, this.$el);
                 return new Promise(resolve =>
@@ -216,9 +208,7 @@ export default {
         },
 
         hide() {
-            return this.isToggled()
-                ? this.toggleElement(this.$el, false, animate(this))
-                : Promise.resolve();
+            return this.toggleElement(this.$el, false, animate(this));
         },
 
         getActive() {
@@ -266,11 +256,16 @@ function animate({transitionElement, _toggle}) {
 
                 _toggle(el, show);
 
-                if (toMs(css(transitionElement, 'transitionDuration'))) {
-                    once(transitionElement, 'transitionend', resolve, false, e => e.target === transitionElement);
-                } else {
+                const off = once(transitionElement, 'transitionstart', () => {
+                    once(transitionElement, 'transitionend transitioncancel', resolve, false, e => e.target === transitionElement);
+                    clearTimeout(timer);
+                }, false, e => e.target === transitionElement);
+
+                const timer = setTimeout(() => {
+                    off();
                     resolve();
-                }
+                }, 80);
+
             })
         );
 }
