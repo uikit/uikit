@@ -39,14 +39,25 @@
 //
 
 @global-font-family:                            -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-@global-font-size:                              16px;
-@global-line-height:                            1.5;      // 24px
 
-@global-2xlarge-font-size:                      2.625rem; // 42px
-@global-xlarge-font-size:                       2rem;     // 32px
-@global-large-font-size:                        1.5rem;   // 24px
+@global-2xsmall-font-size:                      0.75rem;  // 12px
+@global-xsmall-font-size:                       0.875rem; // 14px
+@global-small-font-size:                        16px;
 @global-medium-font-size:                       1.25rem;  // 20px
-@global-small-font-size:                        0.875rem; // 14px
+@global-large-font-size:                        1.5rem;   // 24px
+@global-2xlarge-font-size:                      @global-2xlarge-font-size-m * 0.85;       // 2.23125rem   / 35.7px
+@global-xlarge-font-size:                       @global-xlarge-font-size-m * 0.85;        // 1.7rem       / 27.2px
+
+@global-2xlarge-font-size-m:                    2.625rem; // 42px
+@global-xlarge-font-size-m:                     2rem;     // 32px
+
+@global-2xsmall-line-height:                    1.5;
+@global-xsmall-line-height:                     1.5;
+@global-small-line-height:                      1.5;      // 24px
+@global-medium-line-height:                     1.4;
+@global-large-line-height:                      1.4;
+@global-xlarge-line-height:                     1.3;
+@global-2xlarge-line-height:                    1.2;
 
 //
 // Colors

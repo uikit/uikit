@@ -10,11 +10,11 @@
 // ========================================================================
 
 @text-lead-font-size:                           @global-large-font-size;
-@text-lead-line-height:                         1.5;
+@text-lead-line-height:                         @global-large-line-height;
 @text-lead-color:                               @global-emphasis-color;
 
-@text-meta-font-size:                           @global-small-font-size;
-@text-meta-line-height:                         1.4;
+@text-meta-font-size:                           @global-xsmall-font-size;
+@text-meta-line-height:                         @global-xsmall-line-height;
 @text-meta-color:                               @global-muted-color;
 
 @text-muted-color:                              @global-muted-color;
@@ -208,11 +208,11 @@ td.uk-text-break { word-break: break-all; }
  * DEPRECATED: Use `uk-font-xsmall` and `uk-font-large` instead 
  ========================================================================== */
 
-@text-small-font-size:                          @global-small-font-size;
-@text-small-line-height:                        1.5;
+@text-small-font-size:                          @global-xsmall-font-size;
+@text-small-line-height:                        @global-xsmall-line-height;
 
 @text-large-font-size:                          @global-large-font-size;
-@text-large-line-height:                        1.5;
+@text-large-line-height:                        @global-large-line-height;
 
 .uk-text-small when (@deprecated = true) {
     font-size: @text-small-font-size;
