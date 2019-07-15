@@ -5,6 +5,7 @@
 ### Changed
 
 - By default the Offcanvas `container` option is `false` now
+- The `focusable` attribute on SVG/Icon component makes SVG focusable in IE
 
 ### Fixed
 
