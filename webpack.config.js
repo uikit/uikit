@@ -86,7 +86,7 @@ module.exports = [
         ],
         resolve: {
             alias: {
-                'icons$': resolve(__dirname, 'dist/icons.json'),
+                'icons$': resolve(__dirname, 'dist/icons.json')
             }
         }
     },
