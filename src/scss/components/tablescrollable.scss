@@ -1,0 +1,36 @@
+// Name:            Tablescrollable
+// Description:     Component to create scrollable tables
+//
+// Component:       `uk-table-scrollable`
+//
+// ========================================================================
+ .uk-table.uk-table-scrollable {
+
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    width: 100%;
+  
+    thead {
+      flex: 0 0 auto;
+      display: table;
+  
+      tr {
+        table-layout: fixed;
+      }
+    }
+  
+    tbody {
+      flex: 1 1 auto;
+      display: block;
+      overflow-x: hidden;
+      overflow-y: scroll;
+  
+      tr {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+      }
+    }
+  }
+  

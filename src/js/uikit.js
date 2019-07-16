@@ -10,6 +10,7 @@ import Slider from './components/slider';
 import SliderParallax from './components/slider-parallax';
 import Slideshow from './components/slideshow';
 import Sortable from './components/sortable';
+import TableScrollable from './components/table-scrollable';
 import Tooltip from './components/tooltip';
 import Upload from './components/upload';
 
@@ -24,6 +25,7 @@ UIkit.component('sliderParallax', SliderParallax);
 UIkit.component('slideshow', Slideshow);
 UIkit.component('slideshowParallax', SliderParallax);
 UIkit.component('sortable', Sortable);
+UIkit.component('tableScrollable', TableScrollable);
 UIkit.component('tooltip', Tooltip);
 UIkit.component('upload', Upload);
 
