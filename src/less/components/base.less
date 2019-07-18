@@ -41,21 +41,22 @@
 @base-heading-font-weight:                      normal;
 @base-heading-color:                            @global-emphasis-color;
 @base-heading-text-transform:                   none;
+@base-heading-line-height-modifier:             0.93;
 @base-heading-margin-top:                       @global-medium-margin;
 @base-h1-font-size-m:                           @global-2xlarge-font-size-m;
 @base-h1-font-size:                             @global-2xlarge-font-size;
-@base-h1-line-height:                           @global-2xlarge-line-height;
+@base-h1-line-height:                           @global-2xlarge-line-height * @base-heading-line-height-modifier;
 @base-h2-font-size-m:                           @global-xlarge-font-size-m;
 @base-h2-font-size:                             @global-xlarge-font-size;
-@base-h2-line-height:                           @global-xlarge-line-height;
+@base-h2-line-height:                           @global-xlarge-line-height * @base-heading-line-height-modifier;
 @base-h3-font-size:                             @global-large-font-size;
-@base-h3-line-height:                           @global-large-line-height;
+@base-h3-line-height:                           @global-large-line-height * @base-heading-line-height-modifier;
 @base-h4-font-size:                             @global-medium-font-size;
-@base-h4-line-height:                           @global-medium-line-height;
+@base-h4-line-height:                           @global-medium-line-height * @base-heading-line-height-modifier;
 @base-h5-font-size:                             @global-small-font-size;
-@base-h5-line-height:                           @global-small-line-height;
+@base-h5-line-height:                           @global-small-line-height * @base-heading-line-height-modifier;
 @base-h6-font-size:                             @global-xsmall-font-size;
-@base-h6-line-height:                           @global-xsmall-line-height;
+@base-h6-line-height:                           @global-xsmall-line-height * @base-heading-line-height-modifier;
 
 @base-list-padding-left:                        30px;
 
@@ -348,6 +349,7 @@ h6, .uk-h6,
     font-weight: @base-heading-font-weight;
     color: @base-heading-color;
     text-transform: @base-heading-text-transform;
+    --uk-line-height-modifier: @base-heading-line-height-modifier;
     .hook-base-heading;
 }
 

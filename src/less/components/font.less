@@ -26,11 +26,11 @@
 @font-6xlarge-font-size-l:                      8rem;                                   // 128px
 @font-7xlarge-font-size-l:                      11rem;                                  // 176px
 
-@font-3xlarge-line-height:                      1.2;
-@font-4xlarge-line-height:                      1.1;
-@font-5xlarge-line-height:                      1.1;
-@font-6xlarge-line-height:                      1;
-@font-7xlarge-line-height:                      1;
+@font-3xlarge-line-height:                      1.3;                                    // ~1.2
+@font-4xlarge-line-height:                      1.2;                                    // ~1.1
+@font-5xlarge-line-height:                      1.2;                                    // ~1.1
+@font-6xlarge-line-height:                      1.1;                                    // ~1
+@font-7xlarge-line-height:                      1.1;                                    // ~1
 
 
 /* ========================================================================
@@ -80,67 +80,79 @@
 .uk-font-2xsmall {
     font-size: @global-2xsmall-font-size;
     line-height: @global-2xsmall-line-height;
+    line-height: ~'calc(@{global-2xsmall-line-height} * var(--uk-line-height-modifier, 1))';
 }
 
 /* `h6` */
 .uk-font-xsmall {
     font-size: @global-xsmall-font-size;
     line-height: @global-xsmall-line-height;
+    line-height: ~'calc(@{global-xsmall-line-height} * var(--uk-line-height-modifier, 1))';
 }
 
 /* Default + `h5` */
 .uk-font-small {
     font-size: @global-small-font-size;
     line-height: @global-small-line-height;
+    line-height: ~'calc(@{global-small-line-height} * var(--uk-line-height-modifier, 1))';
 }
 
 /* `h4` */
 .uk-font-medium {
     font-size: @global-medium-font-size;
     line-height: @global-medium-line-height;
+    line-height: ~'calc(@{global-medium-line-height} * var(--uk-line-height-modifier, 1))';
 }
 
 /* `h3` */
 .uk-font-large {
     font-size: @global-large-font-size;
     line-height: @global-large-line-height;
+    line-height: ~'calc(@{global-large-line-height} * var(--uk-line-height-modifier, 1))';
 }
 
 /* `h2` */
 .uk-font-xlarge {
     font-size: @global-xlarge-font-size;
     line-height: @global-xlarge-line-height;
+    line-height: ~'calc(@{global-xlarge-line-height} * var(--uk-line-height-modifier, 1))';
 }
 
 /* `h1` */
 .uk-font-2xlarge {
     font-size: @global-2xlarge-font-size;
     line-height: @global-2xlarge-line-height;
+    line-height: ~'calc(@{global-2xlarge-line-height} * var(--uk-line-height-modifier, 1))';
 }
 
 .uk-font-3xlarge {
     font-size: @font-3xlarge-font-size;
     line-height: @font-3xlarge-line-height;
+    line-height: ~'calc(@{font-3xlarge-line-height} * var(--uk-line-height-modifier, 1))';
 }
 
 .uk-font-4xlarge {
     font-size: @font-4xlarge-font-size;
     line-height: @font-4xlarge-line-height;
+    line-height: ~'calc(@{font-4xlarge-line-height} * var(--uk-line-height-modifier, 1))';
 }
 
 .uk-font-5xlarge {
     font-size: @font-5xlarge-font-size;
     line-height: @font-5xlarge-line-height;
+    line-height: ~'calc(@{font-5xlarge-line-height} * var(--uk-line-height-modifier, 1))';
 }
 
 .uk-font-6xlarge {
     font-size: @font-6xlarge-font-size;
     line-height: @font-6xlarge-line-height;
+    line-height: ~'calc(@{font-6xlarge-line-height} * var(--uk-line-height-modifier, 1))';
 }
 
 .uk-font-7xlarge {
     font-size: @font-7xlarge-font-size;
     line-height: @font-7xlarge-line-height;
+    line-height: ~'calc(@{font-7xlarge-line-height} * var(--uk-line-height-modifier, 1))';
 }
 
 /* Tablet Landscape and bigger */
@@ -165,12 +177,6 @@
     .uk-font-7xlarge { font-size: @font-7xlarge-font-size-l; }
 
 }
-
-
-/* Line Height
- ========================================================================== */
-
- .uk-line-height-large { line-height: 1.5; }
 
 
 /* Weight
