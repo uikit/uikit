@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP 3.2
+## WIP 3.2 Fonts
 
 ### Added
 
