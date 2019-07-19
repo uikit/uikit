@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## WIP 3.2
 
 ### Added
 
@@ -23,12 +23,23 @@
 - Text Bold: Use `uk-font-bold` instead of `uk-text-bold`
 - Width XXLarge: Use `uk-width-2xlarge` instead of `uk-width-xxlarge`
 
+## WIP
+
+### Changed
+
+- By default the Offcanvas `container` option is `false` now
+- The `focusable` attribute on SVG/Icon component makes SVG focusable in IE
+
 ### Fixed
 
 - Fix Slideshow/Slider triggering show events to often initially
 - Fix swipe gestures in Switcher component (Android)
 - Ensure at most one Height Viewport component set to `expand` is active
-- Height Viewport component no longer calculates its height if invisible 
+- Height Viewport component no longer calculates its height if invisible
+- Fix using Sortable in scrolling container 
+- Fix lazy loading images if parent element is fully clipped
+- Fix clicking Slideshow with `draggable: false` no longer pauses autoplay
+- Fix toggling modal while transition is in progress
 
 ## 3.1.6 (June 19, 2019)
 

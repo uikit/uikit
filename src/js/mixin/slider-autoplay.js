@@ -1,4 +1,4 @@
-import {attr, within} from 'uikit-util';
+import {$, attr, matches} from 'uikit-util';
 
 export default {
 
@@ -46,34 +46,6 @@ export default {
                 }
             }
 
-        },
-
-        {
-
-            name: 'mouseenter',
-
-            filter() {
-                return this.autoplay && this.pauseOnHover;
-            },
-
-            handler() {
-                this.isHovering = true;
-            }
-
-        },
-
-        {
-
-            name: 'mouseleave',
-
-            filter() {
-                return this.autoplay && this.pauseOnHover;
-            },
-
-            handler() {
-                this.isHovering = false;
-            }
-
         }
 
     ],
@@ -85,8 +57,8 @@ export default {
             this.stopAutoplay();
 
             this.interval = setInterval(
-                () => !within(document.activeElement, this.$el)
-                    && !this.isHovering
+                () => (!this.draggable || !$(':focus', this.$el))
+                    && (!this.pauseOnHover || !matches(this.$el, ':hover'))
                     && !this.stack.length
                     && this.show('next'),
                 this.autoplayInterval

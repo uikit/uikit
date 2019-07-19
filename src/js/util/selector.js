@@ -121,9 +121,9 @@ const closestFn = elProto.closest || function (selector) {
             return ancestor;
         }
 
-        ancestor = ancestor.parentNode;
+        ancestor = ancestor.parentElement;
 
-    } while (ancestor && ancestor.nodeType === 1);
+    } while (ancestor);
 };
 
 export function closest(element, selector) {
@@ -133,21 +133,18 @@ export function closest(element, selector) {
     }
 
     return isNode(element)
-        ? element.parentNode && closestFn.call(element, selector)
+        ? closestFn.call(element, selector)
         : toNodes(element).map(element => closest(element, selector)).filter(Boolean);
 }
 
 export function parents(element, selector) {
     const elements = [];
-    let parent = toNode(element).parentNode;
+    element = toNode(element);
 
-    while (parent && parent.nodeType === 1) {
-
-        if (matches(parent, selector)) {
-            elements.push(parent);
+    while ((element = element.parentElement)) {
+        if (matches(element, selector)) {
+            elements.push(element);
         }
-
-        parent = parent.parentNode;
     }
 
     return elements;

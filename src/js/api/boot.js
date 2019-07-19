@@ -11,7 +11,7 @@ export default function (UIkit) {
 
     if (document.body) {
 
-        init();
+        fastdom.read(init);
 
     } else {
 
