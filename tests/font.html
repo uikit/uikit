@@ -10,149 +10,153 @@
 
     <body>
 
-        <div class="uk-container uk-container-expand">
+        <div class="uk-container">
 
             <h1>Font</h1>
 
-            <div class="uk-margin-small">
+            <div class="uk-width-3-4@m uk-margin">
+
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <p class="uk-font-primary">Font Primary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <p class="uk-font-secondary">Font Secondary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            </div>
+
+            <div class="uk-margin-medium">
                 <button class="uk-button uk-button-default" type="button" uk-toggle="target: .uk-hidden; cls: uk-hidden">More Text</button>
             </div>
 
-            <div class="uk-grid-small uk-child-width-1-4@m uk-margin-medium" uk-grid>
+            <div class="uk-child-width-1-2@m uk-margin" uk-grid>
 
-                <div><div class="uk-font-default uk-font-2xsmall">Font 2X-Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-primary uk-font-2xsmall">Font 2X-Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-secondary uk-font-2xsmall">Font 2X-Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-tertiary uk-font-2xsmall">Font 2X-Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
+                <div>
+                    <h2 class="uk-h3">Text</h2>
+                    <select id="js-font-style-switcher" class="uk-select uk-width-small uk-margin-small">
+                        <option value="">—</option>
+                        <option value="uk-font-primary">Primary</option>
+                        <option value="uk-font-secondary">Secondary</option>
+                    </select>
+                </div>
+                <div>
+                    <h2 class="uk-h3">Heading H1</h2>
+                    <select id="js-heading-style-switcher" class="uk-select uk-width-small uk-margin-small">
+                        <option value="" selected>—</option>
+                        <option value="uk-heading-primary">Primary</option>
+                        <option value="uk-heading-secondary">Secondary</option>
+                    </select>
+                </div>
 
-                <div><div class="uk-font-default uk-font-xsmall">Font X-Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-primary uk-font-xsmall">Font X-Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-secondary uk-font-xsmall">Font X-Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-tertiary uk-font-xsmall">Font X-Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
+                <div><div class="uk-font-2xsmall js-font">Font 2X-Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
+                <div><h1 class="uk-font-2xsmall js-heading">Font 2X-Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></h1></div>
 
-                <div><div class="uk-font-default uk-font-small">Font Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-primary uk-font-small">Font Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-secondary uk-font-small">Font Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-tertiary uk-font-small">Font Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
+                <div><div class="uk-font-xsmall js-font">Font X-Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
+                <div><h1 class="uk-font-xsmall js-heading">Font X-Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></h1></div>
+
+                <div><div class="uk-font-small js-font">Font Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
+                <div><h1 class="uk-font-small js-heading">Font Small<span class="uk-hidden"><br>Lorem ipsum dolor</span></h1></div>
                                     
-                <div><div class="uk-font-default uk-font-medium">Font Medium<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-primary uk-font-medium">Font Medium<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-secondary uk-font-medium">Font Medium<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-tertiary uk-font-medium">Font Medium<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
+                <div><div class="uk-font-medium js-font">Font Medium<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
+                <div><h1 class="uk-font-medium js-heading">Font Medium<span class="uk-hidden"><br>Lorem ipsum dolor</span></h1></div>
                                 
-                <div><div class="uk-font-default uk-font-large">Font Large<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-primary uk-font-large">Font Large<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-secondary uk-font-large">Font Large<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-tertiary uk-font-large">Font Large<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
+                <div><div class="uk-font-large js-font">Font Large<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
+                <div><h1 class="uk-font-large js-heading">Font Large<span class="uk-hidden"><br>Lorem ipsum dolor</span></h1></div>
                             
-                <div><div class="uk-font-default uk-font-xlarge">Font XL<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-primary uk-font-xlarge">Font XL<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-secondary uk-font-xlarge">Font XL<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-tertiary uk-font-xlarge">Font XL<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
+                <div><div class="uk-font-xlarge js-font">Font XL<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
+                <div><h1 class="uk-font-xlarge js-heading">Font XL<span class="uk-hidden"><br>Lorem ipsum dolor</span></h1></div>
                                     
-                <div><div class="uk-font-default uk-font-2xlarge">Font 2XL<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-primary uk-font-2xlarge">Font 2XL<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-secondary uk-font-2xlarge">Font 2XL<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
-                <div><div class="uk-font-tertiary uk-font-2xlarge">Font 2XL<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
+                <div><div class="uk-font-2xlarge js-font">Font 2XL<span class="uk-hidden"><br>Lorem ipsum dolor</span></div></div>
+                <div><h1 class="uk-font-2xlarge js-heading">Font 2XL<span class="uk-hidden"><br>Lorem ipsum dolor</span></h1></div>
 
-                <div><div class="uk-font-default uk-font-3xlarge">Font 3XL<span class="uk-hidden"><br>Lorem ipsum</span></div></div>
-                <div><div class="uk-font-primary uk-font-3xlarge">Font 3XL<span class="uk-hidden"><br>Lorem ipsum</span></div></div>
-                <div><div class="uk-font-secondary uk-font-3xlarge">Font 3XL<span class="uk-hidden"><br>Lorem ipsum</span></div></div>
-                <div><div class="uk-font-tertiary uk-font-3xlarge">Font 3XL<span class="uk-hidden"><br>Lorem ipsum</span></div></div>
+                <div><div class="uk-font-3xlarge js-font">Font 3XL<span class="uk-hidden"><br>Lorem ipsum</span></div></div>
+                <div><h1 class="uk-font-3xlarge js-heading">Font 3XL<span class="uk-hidden"><br>Lorem ipsum</span></h1></div>
                 
-                <div><div class="uk-font-default uk-font-4xlarge">4XL<span class="uk-hidden"><br>Lorem ipsum</span></div></div>
-                <div><div class="uk-font-primary uk-font-4xlarge">4XL<span class="uk-hidden"><br>Lorem ipsum</span></div></div>
-                <div><div class="uk-font-secondary uk-font-4xlarge">4XL<span class="uk-hidden"><br>Lorem ipsum</span></div></div>
-                <div><div class="uk-font-tertiary uk-font-4xlarge">4XL<span class="uk-hidden"><br>Lorem ipsum</span></div></div>
+                <div><div class="uk-font-4xlarge js-font">Font 4XL<span class="uk-hidden"><br>Lorem ipsum</span></div></div>
+                <div><h1 class="uk-font-4xlarge js-heading">Font 4XL<span class="uk-hidden"><br>Lorem ipsum</span></h1></div>
                                 
-                <div><div class="uk-font-default uk-font-5xlarge">5XL<span class="uk-hidden"><br>Lorem ipsum</span></div></div>
-                <div><div class="uk-font-primary uk-font-5xlarge">5XL<span class="uk-hidden"><br>Lorem ipsum</span></div></div>
-                <div><div class="uk-font-secondary uk-font-5xlarge">5XL<span class="uk-hidden"><br>Lorem ipsum</span></div></div>
-                <div><div class="uk-font-tertiary uk-font-5xlarge">5XL<span class="uk-hidden"><br>Lorem ipsum</span></div></div>
+                <div><div class="uk-font-5xlarge js-font">Font 5XL<span class="uk-hidden"><br>Lorem ipsum</span></div></div>
+                <div><h1 class="uk-font-5xlarge js-heading">Font 5XL<span class="uk-hidden"><br>Lorem ipsum</span></h1></div>
                                     
-                <div><div class="uk-font-default uk-font-6xlarge">6XL<span class="uk-hidden"><br>Lorem</span></div></div>
-                <div><div class="uk-font-primary uk-font-6xlarge">6XL<span class="uk-hidden"><br>Lorem</span></div></div>
-                <div><div class="uk-font-secondary uk-font-6xlarge">6XL<span class="uk-hidden"><br>Lorem</span></div></div>
-                <div><div class="uk-font-tertiary uk-font-6xlarge">6XL<span class="uk-hidden"><br>Lorem</span></div></div>
+                <div><div class="uk-font-6xlarge js-font">6XL<span class="uk-hidden"><br>Lorem</span></div></div>
+                <div><h1 class="uk-font-6xlarge js-heading">6XL<span class="uk-hidden"><br>Lorem</span></h1></div>
 
-                <div><div class="uk-font-default uk-font-7xlarge">7XL<span class="uk-hidden"><br>Lorem</span></div></div>
-                <div><div class="uk-font-primary uk-font-7xlarge">7XL<span class="uk-hidden"><br>Lorem</span></div></div>
-                <div><div class="uk-font-secondary uk-font-7xlarge">7XL<span class="uk-hidden"><br>Lorem</span></div></div>
-                <div><div class="uk-font-tertiary uk-font-7xlarge">7XL<span class="uk-hidden"><br>Lorem</span></div></div>
+                <div><div class="uk-font-7xlarge js-font">7XL<span class="uk-hidden"><br>Lorem</span></div></div>
+                <div><h1 class="uk-font-7xlarge js-heading">7XL<span class="uk-hidden"><br>Lorem</span></h1></div>
 
             </div>
 
-        </div>
+            <div class="uk-width-3-4@m uk-margin-large">
 
-        <div class="uk-container uk-container-small uk-margin-large">
+                <p class="uk-font-2xsmall uk-margin-large-top">Font 2X-Small lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p class="uk-font-2xsmall uk-font-primary">Font Primary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p class="uk-font-2xsmall uk-font-secondary">Font Secondary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-            <div>
-                <select id="js-font-family-switcher" class="uk-select uk-width-small">
-                    <option value="uk-font-default" selected>Default</option>
-                    <option value="uk-font-primary">Primary</option>
-                    <option value="uk-font-secondary">Secondary</option>
-                    <option value="uk-font-tertiary">Tertiary</option>
-                </select>
+                <p class="uk-font-xsmall uk-margin-large-top">Font X-Small lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                <p class="uk-font-xsmall uk-font-primary">Font Primary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                <p class="uk-font-xsmall uk-font-secondary">Font Secondary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+
+                <p class="uk-font-small uk-margin-large-top">Font Small lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                <p class="uk-font-small uk-font-primary">Font Primary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                <p class="uk-font-small uk-font-secondary">Font Secondary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+
+                <p class="uk-font-medium uk-margin-large-top">Font Medium lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
+                <p class="uk-font-medium uk-font-primary">Font Primary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
+                <p class="uk-font-medium uk-font-secondary">Font Secondary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.</p>
+
+                <p class="uk-font-large uk-margin-large-top">Font Large lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+                <p class="uk-font-large uk-font-primary">Font Primary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+                <p class="uk-font-large uk-font-secondary">Font Secondary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
+
+                <p class="uk-font-xlarge uk-margin-large-top">Font X-Large lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                <p class="uk-font-xlarge uk-font-primary">Font Primary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+                <p class="uk-font-xlarge uk-font-secondary">Font Secondary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+
+                <p class="uk-font-2xlarge uk-margin-xlarge-top">Font 2X-Large lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                <p class="uk-font-2xlarge uk-font-primary uk-margin-large">Font Primary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+                <p class="uk-font-2xlarge uk-font-secondary uk-margin-large">Font Secondary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
+
+                <p class="uk-font-3xlarge uk-margin-xlarge-top">Font 3X-Large lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                <p class="uk-font-3xlarge uk-font-primary uk-margin-large">Font Primary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+                <p class="uk-font-3xlarge uk-font-secondary uk-margin-large">Font Secondary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+
+                <p class="uk-font-4xlarge uk-margin-xlarge-top">Font 4X-Large lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+                <p class="uk-font-4xlarge uk-font-primary uk-margin-large">Font Primary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+                <p class="uk-font-4xlarge uk-font-secondary uk-margin-large">Font Secondary lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+
+                <p class="uk-font-5xlarge uk-margin-xlarge-top">Font 5X-Large lorem ipsum dolor sit amet, consectetur.</p>
+                <p class="uk-font-5xlarge uk-font-primary uk-margin-large">Font Primary lorem ipsum dolor sit amet, consectetur.</p>
+                <p class="uk-font-5xlarge uk-font-secondary uk-margin-large">Font Secondary lorem ipsum dolor sit amet, consectetur.</p>
+
+                <p class="uk-font-6xlarge uk-margin-xlarge-top">Font 6X-Large lorem ipsum dolor sit amet.</p>
+                <p class="uk-font-6xlarge uk-font-primary uk-margin-large">Font Primary lorem ipsum dolor sit amet.</p>
+                <p class="uk-font-6xlarge uk-font-secondary uk-margin-large">Font Secondary lorem ipsum dolor sit amet.</p>
+
+                <p class="uk-font-7xlarge uk-margin-xlarge-top">Font 7X-Large lorem ipsum dolor.</p>
+                <p class="uk-font-7xlarge uk-font-primary uk-margin-large">Font Primary lorem ipsum dolor.</p>
+                <p class="uk-font-7xlarge uk-font-secondary uk-margin-large">Font Secondary lorem ipsum dolor.</p>
+
             </div>
-
-            <div class="js-font uk-font-default uk-font-2xsmall uk-margin-large-top">Font 2X-Small<br>Lorem ipsum dolor</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p class="js-font uk-font-default uk-font-2xsmall uk-margin-small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            
-            <div class="js-font uk-font-default uk-font-xsmall uk-margin-large-top">Font X-Small<br>Lorem ipsum dolor</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p class="js-font uk-font-default uk-font-xsmall uk-margin-small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-            <div class="js-font uk-font-default uk-font-small uk-margin-large-top">Font Small<br>Lorem ipsum dolor</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p class="js-font uk-font-default uk-font-small uk-margin-small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            
-            <div class="js-font uk-font-default uk-font-medium uk-margin-large-top">Font Medium<br>Lorem ipsum dolor</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p class="js-font uk-font-default uk-font-medium uk-margin-small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            
-            <div class="js-font uk-font-default uk-font-large uk-margin-large-top">Font Large<br>Lorem ipsum dolor</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p class="js-font uk-font-default uk-font-large uk-margin-small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-            
-            <div class="js-font uk-font-default uk-font-xlarge uk-margin-large-top">Font X-Large<br>Lorem ipsum dolor</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p class="js-font uk-font-default uk-font-xlarge uk-margin-small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-            
-            <div class="js-font uk-font-default uk-font-2xlarge uk-margin-large-top">Font 2X-Large<br>Lorem ipsum dolor</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p class="js-font uk-font-default uk-font-2xlarge uk-margin-small">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-
-            <div class="js-font uk-font-default uk-font-3xlarge uk-margin-large-top">Font 3XL<br>Lorem ipsum</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p class="js-font uk-font-default uk-font-3xlarge uk-margin-medium">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-
-            <div class="js-font uk-font-default uk-font-4xlarge uk-margin-large-top">Font 4XL<br>Lorem ipsum</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p class="js-font uk-font-default uk-font-4xlarge uk-margin-medium">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt</p>
-
-            <div class="js-font uk-font-default uk-font-5xlarge uk-margin-large-top">Font 5XL<br>Lorem ipsum</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p class="js-font uk-font-default uk-font-5xlarge uk-margin-medium">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do.</p>
-
-            <div class="js-font uk-font-default uk-font-6xlarge uk-margin-large-top">Font 6XL<br>Lorem ipsum</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p class="js-font uk-font-default uk-font-6xlarge uk-margin-medium">Lorem ipsum dolor sit amet, consectetur adipiscing.</p>
-
-            <div class="js-font uk-font-default uk-font-7xlarge uk-margin-large-top">7XL<br>Lorem</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-            <p class="js-font uk-font-default uk-font-7xlarge uk-margin-medium">Lorem ipsum dolor sit amet.</p>
 
         </div>
 
         <script>
 
-            var options = UIkit.util.$$('#js-font-family-switcher option').map(function (option) { return option.value; });
+            var options1 = UIkit.util.$$('#js-font-style-switcher option').map(function (option) { return option.value; });
 
-            UIkit.util.on('#js-font-family-switcher', 'change', function () {
+            UIkit.util.on('#js-font-style-switcher', 'change', function () {
                 var value = this.value;
                 UIkit.util.$$('.js-font').forEach(function (table) {
-                    UIkit.util.removeClass(table, options);
+                    UIkit.util.removeClass(table, options1);
+                    UIkit.util.addClass(table, value);
+                });
+            });
+
+            var options2 = UIkit.util.$$('#js-heading-style-switcher option').map(function (option) { return option.value; });
+
+            UIkit.util.on('#js-heading-style-switcher', 'change', function () {
+                var value = this.value;
+                UIkit.util.$$('.js-heading').forEach(function (table) {
+                    UIkit.util.removeClass(table, options2);
                     UIkit.util.addClass(table, value);
                 });
             });
