@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import {$, addClass, after, Animation, assign, attr, css, fastdom, hasClass, height, isNumeric, isString, isVisible, noop, offset, offsetPosition, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, trigger, within} from 'uikit-util';
+import {$, addClass, after, Animation, assign, attr, css, fastdom, hasClass, isNumeric, isString, isVisible, noop, offset, offsetPosition, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, toPx, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -9,7 +9,7 @@ export default {
     props: {
         top: null,
         bottom: Boolean,
-        offset: Number,
+        offset: String,
         animation: String,
         clsActive: String,
         clsInactive: String,
@@ -37,6 +37,10 @@ export default {
     },
 
     computed: {
+
+        offset({offset}) {
+            return toPx(offset);
+        },
 
         selTarget({selTarget}, $el) {
             return selTarget && $(selTarget, $el) || $el;
@@ -312,9 +316,9 @@ function parseProp(prop, {$props, $el, [`${prop}Offset`]: propOffset}) {
 
         return propOffset + toFloat(value);
 
-    } else if (isString(value) && value.match(/^-?\d+vh$/)) {
+    } else if (isString(value) && value.match(/^-?\d/)) {
 
-        return height(window) * toFloat(value) / 100;
+        return toPx(value);
 
     } else {
 

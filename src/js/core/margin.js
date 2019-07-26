@@ -74,7 +74,7 @@ export function getRows(items) {
                 leftDim = getOffset(row[0], true);
             }
 
-            if (dim.top >= leftDim.bottom - 1) {
+            if (dim.top >= leftDim.bottom - 1 && dim.top !== leftDim.top) {
                 rows.push([el]);
                 break;
             }

@@ -40,6 +40,8 @@
 - Fix lazy loading images if parent element is fully clipped
 - Fix clicking Slideshow with `draggable: false` no longer pauses autoplay
 - Fix toggling modal while transition is in progress
+- Fix Height Viewport component growing indefinitely if positioned above document
+- Fix Margin component for rows 1 pixel in height
 
 ## 3.1.6 (June 19, 2019)
 
