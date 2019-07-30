@@ -98,5 +98,5 @@ export default {
 };
 
 function offsetHeight(el) {
-    return el && el.offsetHeight || 0;
+    return el && offset(el).height || 0;
 }
