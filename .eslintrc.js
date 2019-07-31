@@ -14,7 +14,7 @@ module.exports = {
     "globals": {
         "BUNDLED": true,
         "VERSION": true,
-        "ICONS": []
+        "ICONS": true
     },
     "rules": {
         "arrow-parens": ["error", "as-needed"],
