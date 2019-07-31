@@ -1,4 +1,4 @@
-import {css, fastdom, getEventPos, isTouch, on, once, pointerDown, pointerUp, ready, toMs, trigger} from 'uikit-util';
+import {css, fastdom, getEventPos, isTouch, on, once, pointerCancel, pointerDown, pointerUp, ready, toMs, trigger} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -48,7 +48,7 @@ export default function (UIkit) {
 
             const pos = getEventPos(e);
             const target = 'tagName' in e.target ? e.target : e.target.parentNode;
-            off = once(document, pointerUp, e => {
+            off = once(document, `${pointerUp} ${pointerCancel}`, e => {
 
                 const {x, y} = getEventPos(e);
 

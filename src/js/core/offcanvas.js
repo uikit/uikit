@@ -25,7 +25,8 @@ export default {
         clsSidebarAnimation: 'uk-offcanvas-bar-animation',
         clsMode: 'uk-offcanvas',
         clsOverlay: 'uk-offcanvas-overlay',
-        selClose: '.uk-offcanvas-close'
+        selClose: '.uk-offcanvas-close',
+        container: false
     },
 
     computed: {
@@ -152,6 +153,7 @@ export default {
 
                 css(document.documentElement, 'overflowY', this.overlay ? 'hidden' : '');
                 addClass(document.body, this.clsContainer, this.clsFlip);
+                css(document.body, 'touch-action', 'pan-y pinch-zoom');
                 css(this.$el, 'display', 'block');
                 addClass(this.$el, this.clsOverlay);
                 addClass(this.panel, this.clsSidebarAnimation, this.mode !== 'reveal' ? this.clsMode : '');
@@ -160,6 +162,7 @@ export default {
                 addClass(document.body, this.clsContainerAnimation);
 
                 this.clsContainerAnimation && suppressUserScale();
+
 
             }
         },
@@ -171,6 +174,7 @@ export default {
 
             handler() {
                 removeClass(document.body, this.clsContainerAnimation);
+                css(document.body, 'touch-action', '');
 
                 const active = this.getActive();
                 if (this.mode === 'none' || active && active !== this && active !== this.prev) {

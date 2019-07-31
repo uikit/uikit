@@ -12,15 +12,16 @@ export default {
         width: Number,
         height: Number,
         ratio: Number,
-        'class': String,
+        class: String,
         strokeAnimation: Boolean,
+        focusable: Boolean, // IE 11
         attributes: 'list'
     },
 
     data: {
         ratio: 1,
-        include: ['style', 'class'],
-        'class': '',
+        include: ['style', 'class', 'focusable'],
+        class: '',
         strokeAnimation: false
     },
 

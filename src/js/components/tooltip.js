@@ -64,7 +64,7 @@ export default {
 
         hide() {
 
-            if (!this.isActive() || matches(this.$el, 'input') && this.$el === document.activeElement) {
+            if (!this.isActive() || matches(this.$el, 'input:focus')) {
                 return;
             }
 

@@ -1,5 +1,5 @@
 import Togglable from '../mixin/togglable';
-import {$$, addClass, attr, data, endsWith, filter, getIndex, hasClass, index, isEmpty, matches, queryAll, removeClass, toNodes, within} from 'uikit-util';
+import {$$, addClass, attr, css, data, endsWith, filter, getIndex, hasClass, index, isEmpty, matches, queryAll, removeClass, toNodes, within} from 'uikit-util';
 
 export default {
 
@@ -94,6 +94,8 @@ export default {
         this.connects.forEach(list => this.updateAria(list.children));
         const {children} = this.$el;
         this.show(filter(children, `.${this.cls}`)[0] || children[this.active] || children[0]);
+
+        this.swiping && css(this.connects, 'touch-action', 'pan-y pinch-zoom');
 
     },
 

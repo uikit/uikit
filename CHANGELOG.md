@@ -1,5 +1,26 @@
 # Changelog
 
+## 3.1.7 (July 31, 2019)
+
+### Changed
+
+- By default the Offcanvas `container` option is `false` now
+- The `focusable` attribute on SVG/Icon component makes SVG focusable in IE
+
+### Fixed
+
+- Fix Slideshow/Slider triggering show events to often initially
+- Fix swipe gestures in Switcher component (Android)
+- Ensure at most one Height Viewport component set to `expand` is active
+- Height Viewport component no longer calculates its height if invisible
+- Fix using Sortable in scrolling container 
+- Fix lazy loading images if parent element is fully clipped
+- Fix clicking Slideshow with `draggable: false` no longer pauses autoplay
+- Fix toggling modal while transition is in progress
+- Fix Height Viewport component growing indefinitely if positioned above document
+- Fix Height Viewport component uses height with fractions
+- Fix Margin component for rows 1 pixel in height
+
 ## 3.1.6 (June 19, 2019)
 
 ### Added

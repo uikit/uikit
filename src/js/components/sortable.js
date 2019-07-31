@@ -1,6 +1,6 @@
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
-import {$$, addClass, after, assign, append, attr, before, css, getEventPos, height, includes, index, isEmpty, isInput, offset, off, on, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollTop, toggleClass, toNodes, trigger, within} from 'uikit-util';
+import {$$, addClass, after, assign, append, attr, before, clamp, css, getEventPos, height, includes, index, isEmpty, isInput, offset, off, on, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollTop, toggleClass, toNodes, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -65,23 +65,19 @@ export default {
 
             css(this.handle ? $$(this.handle, this.$el) : this.$el.children, {touchAction: 'none', userSelect: 'none'});
 
-            if (!this.drag) {
-                return;
+            if (this.drag) {
+
+                // clamp to viewport
+                const {right, bottom} = offset(window);
+                offset(this.drag, {
+                    top: clamp(this.pos.y + this.origin.top, 0, bottom - this.drag.offsetHeight),
+                    left: clamp(this.pos.x + this.origin.left, 0, right - this.drag.offsetWidth)
+                });
+
+                trackScroll(this.pos);
+
             }
 
-            offset(this.drag, {top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
-
-            const {top, height: offsetHeight} = offset(this.drag);
-            const bottom = top + offsetHeight;
-            let scroll;
-
-            if (top > 0 && top < this.scrollY) {
-                scroll = this.scrollY - 5;
-            } else if (bottom < height(document) && bottom > height(window) + this.scrollY) {
-                scroll = this.scrollY + 5;
-            }
-
-            scroll && setTimeout(() => scrollTop(window, scroll), 5);
         }
 
     },
@@ -126,7 +122,8 @@ export default {
             css(this.drag, assign({
                 boxSizing: 'border-box',
                 width: this.placeholder.offsetWidth,
-                height: this.placeholder.offsetHeight
+                height: this.placeholder.offsetHeight,
+                overflow: 'hidden'
             }, css(this.placeholder, ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom'])));
             attr(this.drag, 'uk-no-boot', '');
             addClass(this.drag, this.clsDrag, this.clsCustom);
@@ -197,6 +194,8 @@ export default {
 
                 return;
             }
+
+            untrackScroll();
 
             const sortable = this.getSortable(this.placeholder);
 
@@ -284,4 +283,62 @@ export default {
 
 function isPredecessor(element, target) {
     return element.parentNode === target.parentNode && index(element) > index(target);
+}
+
+let trackTimer;
+function trackScroll({x, y}) {
+
+    clearTimeout(trackTimer);
+
+    scrollParents(document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset)).some(scrollEl => {
+
+        let {scrollTop: scroll, scrollHeight} = scrollEl;
+
+        if (getScrollingElement() === scrollEl) {
+            scrollEl = window;
+            scrollHeight -= window.innerHeight;
+        }
+
+        const {top, bottom} = offset(scrollEl);
+
+        if (top < y && top + 30 > y) {
+            scroll -= 5;
+        } else if (bottom > y && bottom - 20 < y) {
+            scroll += 5;
+        }
+
+        if (scroll > 0 && scroll < scrollHeight) {
+            return trackTimer = setTimeout(() => {
+                scrollTop(scrollEl, scroll);
+                trackScroll({x, y});
+            }, 10);
+        }
+
+    });
+
+}
+
+function untrackScroll() {
+    clearTimeout(trackTimer);
+}
+
+const overflowRe = /(auto|scroll)/;
+
+function scrollParents(element) {
+    const scrollEl = getScrollingElement();
+    return parents(element, parent => parent === scrollEl || overflowRe.test(css(parent, 'overflow')));
+}
+
+function parents(element, fn) {
+    const parents = [];
+    do {
+        if (fn(element)) {
+            parents.unshift(element);
+        }
+    } while (element && (element = element.parentElement));
+    return parents;
+}
+
+function getScrollingElement() {
+    return document.scrollingElement || document.documentElement;
 }

@@ -1,5 +1,3 @@
-import {removeClass} from 'uikit-util';
-
 export default {
 
     update: {
@@ -10,10 +8,11 @@ export default {
                 return;
             }
 
-            const index = this.getValidIndex();
-            delete this.index;
-            removeClass(this.slides, this.clsActive, this.clsActivated);
-            this.show(index);
+            const index = this.getValidIndex(this.index);
+
+            if (!~this.prevIndex || this.index !== index) {
+                this.show(index);
+            }
 
         },
 
