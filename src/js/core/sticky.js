@@ -312,21 +312,13 @@ function parseProp(prop, {$props, $el, [`${prop}Offset`]: propOffset}) {
         return;
     }
 
-    if (isNumeric(value)) {
+    if (isNumeric(value) && isString(value) && value.match(/^-?\d/)) {
 
-        return propOffset + toFloat(value);
-
-    } else if (isString(value) && value.match(/^-?\d/)) {
-
-        return toPx(value);
+        return propOffset + toPx(value);
 
     } else {
 
-        const el = value === true ? $el.parentNode : query(value, $el);
-
-        if (el) {
-            return offset(el).top + el.offsetHeight;
-        }
+        return offset(value === true ? $el.parentNode : query(value, $el)).bottom;
 
     }
 }
