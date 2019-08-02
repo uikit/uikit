@@ -8,12 +8,12 @@ export function on(...args) {
 
     targets = toEventTargets(targets);
 
-    if (selector) {
-        listener = delegate(targets, selector, listener);
-    }
-
     if (listener.length > 1) {
         listener = detail(listener);
+    }
+
+    if (selector) {
+        listener = delegate(targets, selector, listener);
     }
 
     type.split(' ').forEach(type =>
