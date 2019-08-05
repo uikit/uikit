@@ -1,10 +1,3 @@
-export function bind(fn, context) {
-    return function (a) {
-        const l = arguments.length;
-        return l ? l > 1 ? fn.apply(context, arguments) : fn.call(context, a) : fn.call(context);
-    };
-}
-
 const objPrototype = Object.prototype;
 const {hasOwnProperty} = objPrototype;
 
