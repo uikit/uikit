@@ -1,5 +1,9 @@
 # Changelog
 
+### Changed
+
+- Improve `padding-bottom` calculation for Grid with `parallax: true`
+
 ### Fixed
 
 - Fix spreading event args on delegated event listeners 
