@@ -322,7 +322,7 @@ function untrackScroll() {
     clearTimeout(trackTimer);
 }
 
-const overflowRe = /(auto|scroll)/;
+const overflowRe = /auto|scroll/;
 
 function scrollParents(element) {
     const scrollEl = getScrollingElement();
