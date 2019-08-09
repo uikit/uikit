@@ -3,6 +3,7 @@
 ### Changed
 
 - Improve `padding-bottom` calculation for Grid with `parallax: true`
+- Make `selMinHeight` in the Flex Bug mixin a prop
 
 ### Fixed
 
