@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP 3.2
+
+### Removed
+
+- Remove `@text-bold-font-weight` variable
+
 ## WIP
 
 ### Added
