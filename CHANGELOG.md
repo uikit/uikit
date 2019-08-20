@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add font weight and style modifier
+
 ### Changed
 
 - Improve `padding-bottom` calculation for Grid with `parallax: true`
