@@ -4,8 +4,11 @@
 
 ### Changed
 
-- IMPORTANT: Renamed `uk-width-xxlarge` to `uk-width-2xlarge`
 - IMPORTANT: Renamed Less variable parts `xxlarge` to `2xlarge`
+
+### Deprecated
+
+- Width XXLarge: Use `uk-width-2xlarge` instead of `uk-width-xxlarge`
 
 ## WIP
 
