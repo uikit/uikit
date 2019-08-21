@@ -1,6 +1,6 @@
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {addClass, Animation, attr, css, includes, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointerUp, pointInRect, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
+import {addClass, Animation, attr, css, includes, isTouch, MouseTracker, offset, once, onClick, pointerEnter, pointerLeave, pointInRect, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
 
 let active;
 
@@ -424,13 +424,8 @@ function registerEvent() {
     }
 
     registered = true;
-    on(document, pointerUp, ({defaultPrevented, target}) => {
+    onClick(document, ({target}) => {
         let prev;
-
-        if (defaultPrevented) {
-            return;
-        }
-
         while (active && active !== prev && !within(target, active.$el) && !(active.toggle && within(target, active.toggle.$el))) {
             prev = active;
             active.hide(false);

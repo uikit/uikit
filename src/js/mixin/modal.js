@@ -1,4 +1,4 @@
-import {$, addClass, append, css, hasClass, on, once, pointerCancel, pointerDown, pointerUp, Promise, removeClass, toMs, width, within} from 'uikit-util';
+import {$, addClass, append, css, hasClass, on, once, onClick, Promise, removeClass, toMs, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
@@ -211,20 +211,14 @@ function registerEvents() {
     }
 
     registered = true;
-
-    on(document, pointerDown, ({target}) => {
-        once(document, `${pointerUp} ${pointerCancel} scroll`, ({defaultPrevented, type, target: newTarget}) => {
-            if (!defaultPrevented
-                && type === pointerUp
-                && target === newTarget
-                && active
-                && active.bgClose
-                && (!active.overlay || within(target, active.$el))
-                && !within(target, active.panel)
-            ) {
-                active.hide();
-            }
-        }, true);
+    onClick(document, ({target}) => {
+        if (active
+            && active.bgClose
+            && (!active.overlay || within(target, active.$el))
+            && !within(target, active.panel)
+        ) {
+            active.hide();
+        }
     });
 
     on(document, 'keydown', e => {
