@@ -1,5 +1,12 @@
 # Changelog
 
+## WIP 3.2: XXL to 2XL
+
+### Changed
+
+- IMPORTANT: Renamed `uk-width-xxlarge` to `uk-width-2xlarge`
+- IMPORTANT: Renamed Less variable parts `xxlarge` to `2xlarge`
+
 ## WIP
 
 ### Added
