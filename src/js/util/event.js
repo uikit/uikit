@@ -114,7 +114,7 @@ export function toEventTargets(target) {
 }
 
 export function isTouch(e) {
-    return e.pointerType === 'touch' || e.touches;
+    return e.pointerType === 'touch' || !!e.touches;
 }
 
 export function getEventPos(e, prop = 'client') {

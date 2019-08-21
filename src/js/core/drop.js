@@ -424,10 +424,12 @@ function registerEvent() {
     }
 
     registered = true;
-    on(document, pointerUp, ({target, defaultPrevented}) => {
+    on(document, `${pointerUp} click`, e => {
         let prev;
 
-        if (defaultPrevented) {
+        const {defaultPrevented, target, type} = e;
+
+        if (defaultPrevented || isTouch(e) && type === 'click') {
             return;
         }
 
