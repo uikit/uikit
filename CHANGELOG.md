@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP Grid Column and Row Gutter
+
+### Added
+
+- Add column and row gutter to Grid component
+
 ## WIP
 
 ### Added
