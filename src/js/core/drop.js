@@ -93,15 +93,8 @@ export default {
                 return 'a[href^="#"]';
             },
 
-            handler(e) {
-
-                const id = e.target.hash;
-
-                if (!id) {
-                    e.preventDefault();
-                }
-
-                if (!id || !within(id, this.$el)) {
+            handler({defaultPrevented, current: {hash}}) {
+                if (!defaultPrevented && hash && !within(hash, this.$el)) {
                     this.hide(false);
                 }
             }
