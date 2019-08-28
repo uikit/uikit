@@ -1,6 +1,5 @@
 import {within} from './filter';
 import {closest, findAll} from './selector';
-import {pointerCancel, pointerDown, pointerUp} from './env';
 import {isArray, isFunction, isString, toNode, toNodes} from './lang';
 
 export function on(...args) {
@@ -46,19 +45,6 @@ export function once(...args) {
     }, useCapture);
 
     return off;
-}
-
-export function onClick(el, fn) {
-    return on(el, pointerDown, ({target}) => {
-        once(el, `${pointerUp} ${pointerCancel} scroll`, e => {
-            if (!e.defaultPrevented
-                && e.type === pointerUp
-                && target === e.target
-            ) {
-                fn(e);
-            }
-        }, true);
-    });
 }
 
 export function trigger(targets, event, detail) {
