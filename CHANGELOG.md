@@ -1,5 +1,25 @@
 # Changelog
 
+## 3.1.8 (August 29, 2019)
+
+### Added
+
+- Add font weight and style modifier
+- Add `self` option to `on` function
+
+### Changed
+
+- Improve `padding-bottom` calculation for Grid with `parallax: true`
+- Make `selMinHeight` in the Flex Bug mixin a prop
+
+### Fixed
+
+- Fix Modal close on bgClick behaviour
+- Fix spreading event args on delegated event listeners
+- Fix clicking an empty link within itself no longer closes the Drop
+- Fix IE 11 compatibility
+- Fix empty tooltips will no longer show
+
 ## 3.1.7 (July 31, 2019)
 
 ### Changed

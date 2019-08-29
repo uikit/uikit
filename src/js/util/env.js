@@ -16,4 +16,3 @@ export const pointerUp = hasPointerEvents ? 'pointerup' : hasTouchEvents ? 'touc
 export const pointerEnter = hasPointerEvents ? 'pointerenter' : hasTouchEvents ? '' : 'mouseenter';
 export const pointerLeave = hasPointerEvents ? 'pointerleave' : hasTouchEvents ? '' : 'mouseleave';
 export const pointerCancel = hasPointerEvents ? 'pointercancel' : 'touchcancel';
-

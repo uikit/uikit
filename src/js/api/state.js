@@ -1,4 +1,4 @@
-import {assign, bind, camelize, data as getData, hasOwn, hyphenate, isArray, isBoolean, isEmpty, isEqual, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toList, toNumber} from 'uikit-util';
+import {assign, camelize, data as getData, hasOwn, hyphenate, isArray, isEmpty, isEqual, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toList, toNumber} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -42,7 +42,7 @@ export default function (UIkit) {
 
         if (methods) {
             for (const key in methods) {
-                this[key] = bind(methods[key], this);
+                this[key] = methods[key].bind(this);
             }
         }
     };
@@ -237,12 +237,6 @@ export default function (UIkit) {
             return;
         }
 
-        handler = detail(isString(handler) ? component[handler] : bind(handler, component));
-
-        if (self) {
-            handler = selfFilter(handler);
-        }
-
         component._events.push(
             on(
                 el,
@@ -252,29 +246,15 @@ export default function (UIkit) {
                     : isString(delegate)
                         ? delegate
                         : delegate.call(component),
-                handler,
-                isBoolean(passive)
-                    ? {passive, capture}
-                    : capture
+                isString(handler) ? component[handler] : handler.bind(component),
+                {passive, capture, self}
             )
         );
 
     }
 
-    function selfFilter(handler) {
-        return function selfHandler(e) {
-            if (e.target === e.currentTarget || e.target === e.current) {
-                return handler.call(null, e);
-            }
-        };
-    }
-
     function notIn(options, key) {
         return options.every(arr => !arr || !hasOwn(arr, key));
-    }
-
-    function detail(listener) {
-        return e => isArray(e.detail) ? listener(...[e].concat(e.detail)) : listener(e);
     }
 
     function coerce(type, value) {

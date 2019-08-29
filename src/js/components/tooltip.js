@@ -40,7 +40,7 @@ export default {
 
         show() {
 
-            if (this.isActive()) {
+            if (this.isActive() || !this.title) {
                 return;
             }
 

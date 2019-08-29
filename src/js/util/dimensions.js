@@ -135,6 +135,10 @@ function getDimensions(element) {
 
     element = toNode(element);
 
+    if (!element) {
+        return {};
+    }
+
     const {pageYOffset: top, pageXOffset: left} = getWindow(element);
 
     if (isWindow(element)) {

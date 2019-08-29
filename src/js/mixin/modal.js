@@ -1,4 +1,4 @@
-import {$, addClass, append, css, hasClass, on, once, pointerUp, Promise, removeClass, toMs, width, within} from 'uikit-util';
+import {$, addClass, append, css, hasClass, on, once, Promise, removeClass, toMs, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
@@ -93,22 +93,17 @@ export default {
 
                 active = this;
 
-                if (prev) {
-                    if (this.stack) {
-                        this.prev = prev;
-                    } else {
-
-                        active = prev;
-                        prev.hide().then(this.show);
-                        e.preventDefault();
-
-                    }
-
+                if (!prev) {
                     return;
                 }
 
-                registerEvents();
-
+                if (this.stack) {
+                    this.prev = prev;
+                } else {
+                    active = prev;
+                    prev.hide().then(this.show);
+                    e.preventDefault();
+                }
             }
 
         },
@@ -121,6 +116,8 @@ export default {
 
             handler() {
 
+                registerEvents();
+
                 if (!hasClass(document.documentElement, this.clsPage)) {
                     this.scrollbarWidth = width(window) - width(document);
                     css(document.body, 'overflowY', this.scrollbarWidth && this.overlay ? 'scroll' : '');
@@ -128,20 +125,6 @@ export default {
 
                 addClass(document.documentElement, this.clsPage);
 
-            }
-
-        },
-
-        {
-
-            name: 'hide',
-
-            self: true,
-
-            handler() {
-                if (!active || active === this && !this.prev) {
-                    deregisterEvents();
-                }
             }
 
         },
@@ -219,32 +202,33 @@ export default {
 
 };
 
-let events;
+let registered;
 
 function registerEvents() {
 
-    if (events) {
+    if (registered) {
         return;
     }
 
-    events = [
-        on(document, pointerUp, ({target, defaultPrevented}) => {
-            if (active && active.bgClose && !defaultPrevented && (!active.overlay || within(target, active.$el)) && !within(target, active.panel)) {
-                active.hide();
-            }
-        }),
-        on(document, 'keydown', e => {
-            if (e.keyCode === 27 && active && active.escClose) {
-                e.preventDefault();
-                active.hide();
-            }
-        })
-    ];
-}
+    registered = true;
+    on(document, 'click', ({defaultPrevented, target}) => {
+        if (!defaultPrevented
+            && active
+            && active.bgClose
+            && (!active.overlay || within(target, active.$el))
+            && !within(target, active.panel)
+        ) {
+            active.hide();
+        }
+    });
 
-function deregisterEvents() {
-    events && events.forEach(unbind => unbind());
-    events = null;
+    on(document, 'keydown', e => {
+        if (e.keyCode === 27 && active && active.escClose) {
+            e.preventDefault();
+            active.hide();
+        }
+    });
+
 }
 
 function animate({transitionElement, _toggle}) {
@@ -257,9 +241,9 @@ function animate({transitionElement, _toggle}) {
                 _toggle(el, show);
 
                 const off = once(transitionElement, 'transitionstart', () => {
-                    once(transitionElement, 'transitionend transitioncancel', resolve, false, e => e.target === transitionElement);
+                    once(transitionElement, 'transitionend transitioncancel', resolve, {self: true});
                     clearTimeout(timer);
-                }, false, e => e.target === transitionElement);
+                }, {self: true});
 
                 const timer = setTimeout(() => {
                     off();

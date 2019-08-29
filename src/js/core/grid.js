@@ -74,15 +74,17 @@ export default {
 
                 }
 
-                return {rows, translates, height: !transitionInProgress ? elHeight : false};
+                const padding = this.parallax && getPaddingBottom(this.parallax, rows, translates);
+
+                return {padding, rows, translates, height: !transitionInProgress ? elHeight : false};
 
             },
 
-            write({stacks, height}) {
+            write({stacks, height, padding}) {
 
                 toggleClass(this.$el, this.clsStack, stacks);
 
-                css(this.$el, 'paddingBottom', this.parallax);
+                css(this.$el, 'paddingBottom', padding);
                 height !== false && css(this.$el, 'height', height);
 
             },
@@ -124,6 +126,22 @@ export default {
     ]
 
 };
+
+function getPaddingBottom(distance, rows, translates) {
+    let column = 0;
+    let max = 0;
+    let maxScrolled = 0;
+    for (let i = rows.length - 1; i >= 0; i--) {
+        for (let j = column; j < rows[i].length; j++) {
+            const el = rows[i][j];
+            const bottom = el.offsetTop + getHeight(el) + (translates && -translates[i][j]);
+            max = Math.max(max, bottom);
+            maxScrolled = Math.max(maxScrolled, bottom + (j % 2 ? distance : distance / 8));
+            column++;
+        }
+    }
+    return maxScrolled - max;
+}
 
 function getMarginTop(root, cls) {
 

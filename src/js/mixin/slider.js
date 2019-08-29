@@ -193,7 +193,7 @@ export default {
         },
 
         _getDistance(prev, next) {
-            return new this._getTransitioner(prev, prev !== next && next).getDistance();
+            return this._getTransitioner(prev, prev !== next && next).getDistance();
         },
 
         _translate(percent, prev = this.prevIndex, next = this.index) {
