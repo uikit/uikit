@@ -121,9 +121,9 @@ const closestFn = elProto.closest || function (selector) {
             return ancestor;
         }
 
-        ancestor = ancestor.parentElement;
+        ancestor = ancestor.parentNode;
 
-    } while (ancestor);
+    } while (ancestor && ancestor.nodeType === 1);
 };
 
 export function closest(element, selector) {
@@ -141,7 +141,7 @@ export function parents(element, selector) {
     const elements = [];
     element = toNode(element);
 
-    while ((element = element.parentElement)) {
+    while ((element = element.parentNode) && element.nodeType === 1) {
         if (matches(element, selector)) {
             elements.push(element);
         }

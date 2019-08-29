@@ -16,6 +16,7 @@
 - Fix Modal close on bgClick behaviour
 - Fix spreading event args on delegated event listeners
 - Fix clicking an empty link within itself no longer closes the Drop
+- Fix IE 11 compatibility
 
 ## 3.1.7 (July 31, 2019)
 
