@@ -1,4 +1,4 @@
-import {assign, camelize, data as getData, hasOwn, hyphenate, isArray, isBoolean, isEmpty, isEqual, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toList, toNumber} from 'uikit-util';
+import {assign, camelize, data as getData, hasOwn, hyphenate, isArray, isEmpty, isEqual, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toList, toNumber} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -237,8 +237,6 @@ export default function (UIkit) {
             return;
         }
 
-        handler = detail(isString(handler) ? component[handler] : handler.bind(component));
-
         component._events.push(
             on(
                 el,
@@ -248,15 +246,11 @@ export default function (UIkit) {
                     : isString(delegate)
                         ? delegate
                         : delegate.call(component),
-                handler,
+                isString(handler) ? component[handler] : handler.bind(component),
                 {passive, capture, self}
             )
         );
 
-    }
-
-    function detail(listener) {
-        return e => isArray(e.detail) ? listener(...[e].concat(e.detail)) : listener(e);
     }
 
     function notIn(options, key) {

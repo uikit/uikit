@@ -99,6 +99,10 @@ function delegate(delegates, selector, listener) {
     };
 }
 
+function detail(listener) {
+    return e => isArray(e.detail) ? listener(...[e].concat(e.detail)) : listener(e);
+}
+
 function selfFilter(listener) {
     return function (e) {
         if (e.target === e.currentTarget || e.target === e.current) {
@@ -111,10 +115,6 @@ function useCaptureFilter(options) {
     return options && isIE && !isBoolean(options)
         ? !!options.capture
         : options;
-}
-
-function detail(listener) {
-    return e => isArray(e.detail) ? listener(...[e].concat(e.detail)) : listener(e);
 }
 
 function isEventTarget(target) {
