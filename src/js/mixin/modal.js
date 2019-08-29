@@ -241,9 +241,9 @@ function animate({transitionElement, _toggle}) {
                 _toggle(el, show);
 
                 const off = once(transitionElement, 'transitionstart', () => {
-                    once(transitionElement, 'transitionend transitioncancel', resolve, false, e => e.target === transitionElement);
+                    once(transitionElement, 'transitionend transitioncancel', resolve, {self: true});
                     clearTimeout(timer);
-                }, false, e => e.target === transitionElement);
+                }, {self: true});
 
                 const timer = setTimeout(() => {
                     off();

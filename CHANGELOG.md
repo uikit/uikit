@@ -5,6 +5,7 @@
 ### Added
 
 - Add font weight and style modifier
+- Add `self` option to `on` function
 
 ### Changed
 

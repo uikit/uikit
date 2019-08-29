@@ -239,10 +239,6 @@ export default function (UIkit) {
 
         handler = detail(isString(handler) ? component[handler] : handler.bind(component));
 
-        if (self) {
-            handler = selfFilter(handler);
-        }
-
         component._events.push(
             on(
                 el,
@@ -253,9 +249,7 @@ export default function (UIkit) {
                         ? delegate
                         : delegate.call(component),
                 handler,
-                isBoolean(passive)
-                    ? {passive, capture}
-                    : capture
+                {passive, capture, self}
             )
         );
 
@@ -263,14 +257,6 @@ export default function (UIkit) {
 
     function detail(listener) {
         return e => isArray(e.detail) ? listener(...[e].concat(e.detail)) : listener(e);
-    }
-
-    function selfFilter(handler) {
-        return function selfHandler(e) {
-            if (e.target === e.currentTarget || e.target === e.current) {
-                return handler.call(null, e);
-            }
-        };
     }
 
     function notIn(options, key) {

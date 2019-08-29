@@ -28,7 +28,7 @@ export function transition(element, props, duration = 400, timing = 'linear') {
                     'transition-timing-function': ''
                 });
                 type === 'transitioncanceled' ? reject() : resolve();
-            }, false, ({target}) => element === target);
+            }, {self: true});
 
             addClass(element, 'uk-transition');
             css(element, assign({
@@ -117,7 +117,7 @@ export function animate(element, animation, duration = 200, origin, out) {
                     }
                 });
 
-            }, false, ({target}) => element === target);
+            }, {self: true});
 
             css(element, 'animationDuration', `${duration}ms`);
             addClass(element, cls);
