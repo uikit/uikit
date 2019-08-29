@@ -218,7 +218,15 @@ export default {
             handler() {
                 this.tracker.init();
                 trigger(this.$el, 'updatearia');
-                registerEvent();
+
+                // If triggered from an click event handler, delay adding the click handler
+                const off = delayOn(document, 'click', ({defaultPrevented, target}) => {
+                    if (!defaultPrevented && !within(target, this.$el) && !(this.toggle && within(target, this.toggle.$el))) {
+                        this.hide(false);
+                    }
+                });
+
+                once(this.$el, 'hide', off, {self: true});
             }
 
         },
@@ -266,7 +274,7 @@ export default {
                 this.updateAria(this.$el);
 
                 if (toggle || this.toggle) {
-                    attr((toggle || this.toggle).$el, 'aria-expanded', this.isToggled() ? 'true' : 'false');
+                    attr((toggle || this.toggle).$el, 'aria-expanded', this.isToggled());
                     toggleClass(this.toggle.$el, this.cls, this.isToggled());
                 }
             }
@@ -312,7 +320,7 @@ export default {
                         return;
                     }
 
-                } else if (active && this.isChildOf(active)) {
+                } else if (this.isChildOf(active)) {
 
                     active.clearTimers();
 
@@ -408,20 +416,9 @@ export default {
 
 };
 
-let registered;
-
-function registerEvent() {
-
-    if (registered) {
-        return;
-    }
-
-    registered = true;
-    on(document, 'click', ({defaultPrevented, target}) => {
-        let prev;
-        while (!defaultPrevented && active && active !== prev && !within(target, active.$el) && !(active.toggle && within(target, active.toggle.$el))) {
-            prev = active;
-            active.hide(false);
-        }
-    });
+function delayOn(el, type, fn) {
+    let off = once(el, type, () =>
+        off = on(el, type, fn)
+    , true);
+    return () => off();
 }
