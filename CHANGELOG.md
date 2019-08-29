@@ -6,6 +6,10 @@
 
 - Add column and row gutter to Grid component
 
+### Fixed
+
+- Fix countdown line-height on small devices
+
 ## WIP
 
 ### Added
