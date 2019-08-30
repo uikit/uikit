@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Slideshow invisible after switching tabs in Switcher
+
 ## 3.1.8 (August 29, 2019)
 
 ### Added
