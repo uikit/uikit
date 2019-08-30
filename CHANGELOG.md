@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Slideshow invisible after switching tabs in Switcher
+- Fix lazy loading images in Img component in UC Browser
 
 ## 3.1.8 (August 29, 2019)
 

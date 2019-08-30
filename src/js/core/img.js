@@ -1,4 +1,4 @@
-import {createEvent, css, Dimensions, escape, getImage, includes, IntersectionObserver, noop, queryAll, startsWith, toFloat, toPx, trigger} from 'uikit-util';
+import {createEvent, css, Dimensions, escape, getImage, includes, IntersectionObserver, isUndefined, noop, queryAll, startsWith, toFloat, toPx, trigger} from 'uikit-util';
 
 export default {
 
@@ -128,7 +128,8 @@ export default {
 
         load(entries) {
 
-            if (!entries.some(entry => entry.isIntersecting)) {
+            // Old chromium based browsers (UC Browser) did not implement `isIntersecting`
+            if (!entries.some(entry => isUndefined(entry.isIntersecting) || entry.isIntersecting)) {
                 return;
             }
 
