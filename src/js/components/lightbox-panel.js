@@ -216,7 +216,7 @@ export default {
 
             handler(_, item) {
 
-                const {source, type, alt} = item;
+                const {source, type, alt, srcset} = item;
 
                 this.setItem(item, '<span uk-spinner></span>');
 
@@ -229,8 +229,8 @@ export default {
                 // Image
                 if (type === 'image' || source.match(/\.(jp(e)?g|png|gif|svg|webp)($|\?)/i)) {
 
-                    getImage(source).then(
-                        img => this.setItem(item, `<img width="${img.width}" height="${img.height}" src="${source}" alt="${alt ? alt : ''}">`),
+                    getImage(source, srcset).then(
+                        img => this.setItem(item, `<img width="${img.width}" height="${img.height}" src="${source}" alt="${alt ? alt : ''}" srcset="${srcset ? srcset : ''}">`),
                         () => this.setError(item)
                     );
 

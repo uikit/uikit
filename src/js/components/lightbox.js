@@ -89,7 +89,7 @@ function install(UIkit, Lightbox) {
 }
 
 function toItem(el) {
-    return ['href', 'caption', 'type', 'poster', 'alt'].reduce((obj, attr) => {
+    return ['href', 'caption', 'type', 'poster', 'alt', 'srcset'].reduce((obj, attr) => {
         obj[attr === 'href' ? 'source' : attr] = data(el, attr);
         return obj;
     }, {});
