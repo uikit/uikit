@@ -1,4 +1,4 @@
-/*! UIkit 3.1.8 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
+/*! UIkit 3.1.9 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -5981,7 +5981,8 @@
                 var this$1 = this;
 
 
-                if (!entries.some(function (entry) { return entry.isIntersecting; })) {
+                // Old chromium based browsers (UC Browser) did not implement `isIntersecting`
+                if (!entries.some(function (entry) { return isUndefined(entry.isIntersecting) || entry.isIntersecting; })) {
                     return;
                 }
 
@@ -6338,8 +6339,8 @@
                 self: true,
 
                 handler: function() {
+                    var this$1 = this;
 
-                    registerEvents();
 
                     if (!hasClass(document.documentElement, this.clsPage)) {
                         this.scrollbarWidth = width(window) - width(document);
@@ -6348,6 +6349,29 @@
 
                     addClass(document.documentElement, this.clsPage);
 
+                    if (this.bgClose) {
+                        once(this.$el, 'hide', delayOn(document, 'click', function (ref) {
+                            var defaultPrevented = ref.defaultPrevented;
+                            var target = ref.target;
+
+                            if (!defaultPrevented
+                                && active$1 === this$1
+                                && (!active$1.overlay || within(target, active$1.$el))
+                                && !within(target, active$1.panel)
+                            ) {
+                                active$1.hide();
+                            }
+                        }), {self: true});
+                    }
+
+                    if (this.escClose) {
+                        once(this.$el, 'hide', on(document, 'keydown', function (e) {
+                            if (e.keyCode === 27 && active$1 === this$1) {
+                                e.preventDefault();
+                                active$1.hide();
+                            }
+                        }), {self: true});
+                    }
                 }
 
             },
@@ -6426,38 +6450,6 @@
         }
 
     };
-
-    var registered;
-
-    function registerEvents() {
-
-        if (registered) {
-            return;
-        }
-
-        registered = true;
-        on(document, 'click', function (ref) {
-            var defaultPrevented = ref.defaultPrevented;
-            var target = ref.target;
-
-            if (!defaultPrevented
-                && active$1
-                && active$1.bgClose
-                && (!active$1.overlay || within(target, active$1.$el))
-                && !within(target, active$1.panel)
-            ) {
-                active$1.hide();
-            }
-        });
-
-        on(document, 'keydown', function (e) {
-            if (e.keyCode === 27 && active$1 && active$1.escClose) {
-                e.preventDefault();
-                active$1.hide();
-            }
-        });
-
-    }
 
     function animate$1(ref) {
         var transitionElement = ref.transitionElement;
@@ -8292,7 +8284,7 @@
 
     }
 
-    UIkit.version = '3.1.8';
+    UIkit.version = '3.1.9';
 
     core(UIkit);
 
@@ -11495,6 +11487,10 @@
         update: {
 
             read: function() {
+
+                if (!isVisible(this.$el)) {
+                    return false;
+                }
 
                 var ref = this.ratio.split(':').map(Number);
                 var width = ref[0];
