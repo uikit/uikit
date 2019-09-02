@@ -2,7 +2,7 @@ import Class from '../mixin/class';
 import Slideshow from '../mixin/slideshow';
 import Animations from './internal/slideshow-animations';
 import SliderReactive from '../mixin/slider-reactive';
-import {boxModelAdjust, css} from 'uikit-util';
+import {boxModelAdjust, css, isVisible} from 'uikit-util';
 
 export default {
 
@@ -27,6 +27,10 @@ export default {
     update: {
 
         read() {
+
+            if (!isVisible(this.$el)) {
+                return false;
+            }
 
             let [width, height] = this.ratio.split(':').map(Number);
 
