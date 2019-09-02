@@ -416,7 +416,7 @@ export default {
 
 };
 
-function delayOn(el, type, fn) {
+export function delayOn(el, type, fn) {
     let off = once(el, type, () =>
         off = on(el, type, fn)
     , true);

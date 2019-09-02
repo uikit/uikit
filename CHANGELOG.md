@@ -6,6 +6,7 @@
 
 - Fix Slideshow invisible after switching tabs in Switcher
 - Fix lazy loading images in Img component in UC Browser
+- Fix opening Offcanvas/Modal through buttons
 
 ## 3.1.8 (August 29, 2019)
 
