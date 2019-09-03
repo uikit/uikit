@@ -2,7 +2,7 @@ import Class from '../mixin/class';
 import Slideshow from '../mixin/slideshow';
 import Animations from './internal/slideshow-animations';
 import SliderReactive from '../mixin/slider-reactive';
-import {boxModelAdjust, css, isVisible} from 'uikit-util';
+import {boxModelAdjust, css} from 'uikit-util';
 
 export default {
 
@@ -28,10 +28,6 @@ export default {
 
         read() {
 
-            if (!isVisible(this.$el)) {
-                return false;
-            }
-
             let [width, height] = this.ratio.split(':').map(Number);
 
             height = height * this.list.offsetWidth / width || 0;
@@ -48,7 +44,7 @@ export default {
         },
 
         write({height}) {
-            css(this.list, 'minHeight', height || '');
+            height > 0 && css(this.list, 'minHeight', height);
         },
 
         events: ['resize']
