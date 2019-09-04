@@ -67,8 +67,8 @@ export default {
                 return 'a[href^="#"]';
             },
 
-            handler({current}) {
-                if (current.hash && $(current.hash, document.body)) {
+            handler({current: {hash}, defaultPrevented}) {
+                if (!defaultPrevented && hash && $(hash, document.body)) {
                     this.hide();
                 }
             }

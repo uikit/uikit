@@ -1,6 +1,6 @@
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {addClass, Animation, attr, css, includes, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointerUp, pointInRect, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
+import {addClass, Animation, attr, css, includes, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointInRect, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
 
 let active;
 
@@ -93,15 +93,8 @@ export default {
                 return 'a[href^="#"]';
             },
 
-            handler(e) {
-
-                const id = e.target.hash;
-
-                if (!id) {
-                    e.preventDefault();
-                }
-
-                if (!id || !within(id, this.$el)) {
+            handler({defaultPrevented, current: {hash}}) {
+                if (!defaultPrevented && hash && !within(hash, this.$el)) {
                     this.hide(false);
                 }
             }
@@ -225,7 +218,15 @@ export default {
             handler() {
                 this.tracker.init();
                 trigger(this.$el, 'updatearia');
-                registerEvent();
+
+                // If triggered from an click event handler, delay adding the click handler
+                const off = delayOn(document, 'click', ({defaultPrevented, target}) => {
+                    if (!defaultPrevented && !within(target, this.$el) && !(this.toggle && within(target, this.toggle.$el))) {
+                        this.hide(false);
+                    }
+                });
+
+                once(this.$el, 'hide', off, {self: true});
             }
 
         },
@@ -273,7 +274,7 @@ export default {
                 this.updateAria(this.$el);
 
                 if (toggle || this.toggle) {
-                    attr((toggle || this.toggle).$el, 'aria-expanded', this.isToggled() ? 'true' : 'false');
+                    attr((toggle || this.toggle).$el, 'aria-expanded', this.isToggled());
                     toggleClass(this.toggle.$el, this.cls, this.isToggled());
                 }
             }
@@ -319,7 +320,7 @@ export default {
                         return;
                     }
 
-                } else if (active && this.isChildOf(active)) {
+                } else if (this.isChildOf(active)) {
 
                     active.clearTimers();
 
@@ -415,25 +416,9 @@ export default {
 
 };
 
-let registered;
-
-function registerEvent() {
-
-    if (registered) {
-        return;
-    }
-
-    registered = true;
-    on(document, pointerUp, ({target, defaultPrevented}) => {
-        let prev;
-
-        if (defaultPrevented) {
-            return;
-        }
-
-        while (active && active !== prev && !within(target, active.$el) && !(active.toggle && within(target, active.toggle.$el))) {
-            prev = active;
-            active.hide(false);
-        }
-    });
+export function delayOn(el, type, fn) {
+    let off = once(el, type, () =>
+        off = on(el, type, fn)
+    , true);
+    return () => off();
 }

@@ -6,11 +6,20 @@
 
 - Remove `@text-bold-font-weight` variable
 
-## WIP
+## 3.1.9 (September 2, 2019)
+
+### Fixed
+
+- Fix Slideshow invisible after switching tabs in Switcher
+- Fix lazy loading images in Img component in UC Browser
+- Fix opening Offcanvas/Modal through buttons
+
+## 3.1.8 (August 29, 2019)
 
 ### Added
 
 - Add font weight and style modifier
+- Add `self` option to `on` function
 
 ### Changed
 
@@ -19,7 +28,11 @@
 
 ### Fixed
 
-- Fix spreading event args on delegated event listeners 
+- Fix Modal close on bgClick behaviour
+- Fix spreading event args on delegated event listeners
+- Fix clicking an empty link within itself no longer closes the Drop
+- Fix IE 11 compatibility
+- Fix empty tooltips will no longer show
 
 ## 3.1.7 (July 31, 2019)
 

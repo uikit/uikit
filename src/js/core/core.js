@@ -46,6 +46,7 @@ export default function (UIkit) {
                 return;
             }
 
+            // Handle Swipe Gesture
             const pos = getEventPos(e);
             const target = 'tagName' in e.target ? e.target : e.target.parentNode;
             off = once(document, `${pointerUp} ${pointerCancel}`, e => {
@@ -63,6 +64,17 @@ export default function (UIkit) {
                 }
 
             });
+
+            // Force click event anywhere on iOS < 13
+            if (pointerDown === 'touchstart') {
+                css(document.body, 'cursor', 'pointer');
+                once(document, `${pointerUp} ${pointerCancel}`, () =>
+                    setTimeout(() =>
+                        css(document.body, 'cursor', '')
+                    , 50)
+                );
+            }
+
         }, {passive: true});
 
     });

@@ -44,7 +44,7 @@ export default {
         },
 
         write({height}) {
-            css(this.list, 'minHeight', height || '');
+            height > 0 && css(this.list, 'minHeight', height);
         },
 
         events: ['resize']

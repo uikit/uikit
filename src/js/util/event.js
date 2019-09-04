@@ -1,6 +1,7 @@
+import {isIE} from './env';
 import {within} from './filter';
 import {closest, findAll} from './selector';
-import {isArray, isFunction, isString, toNode, toNodes} from './lang';
+import {isArray, isBoolean, isFunction, isString, toNode, toNodes} from './lang';
 
 export function on(...args) {
 
@@ -16,6 +17,12 @@ export function on(...args) {
         listener = delegate(targets, selector, listener);
     }
 
+    if (useCapture && useCapture.self) {
+        listener = selfFilter(listener);
+    }
+
+    useCapture = useCaptureFilter(useCapture);
+
     type.split(' ').forEach(type =>
         targets.forEach(target =>
             target.addEventListener(type, listener, useCapture)
@@ -25,6 +32,7 @@ export function on(...args) {
 }
 
 export function off(targets, type, listener, useCapture = false) {
+    useCapture = useCaptureFilter(useCapture);
     targets = toEventTargets(targets);
     type.split(' ').forEach(type =>
         targets.forEach(target =>
@@ -95,6 +103,20 @@ function detail(listener) {
     return e => isArray(e.detail) ? listener(...[e].concat(e.detail)) : listener(e);
 }
 
+function selfFilter(listener) {
+    return function (e) {
+        if (e.target === e.currentTarget || e.target === e.current) {
+            return listener.call(null, e);
+        }
+    };
+}
+
+function useCaptureFilter(options) {
+    return options && isIE && !isBoolean(options)
+        ? !!options.capture
+        : options;
+}
+
 function isEventTarget(target) {
     return target && 'addEventListener' in target;
 }
@@ -114,7 +136,7 @@ export function toEventTargets(target) {
 }
 
 export function isTouch(e) {
-    return e.pointerType === 'touch' || e.touches;
+    return e.pointerType === 'touch' || !!e.touches;
 }
 
 export function getEventPos(e, prop = 'client') {

@@ -1,7 +1,8 @@
-import {$, addClass, append, css, hasClass, on, once, pointerUp, Promise, removeClass, toMs, width, within} from 'uikit-util';
+import {$, addClass, append, css, hasClass, on, once, Promise, removeClass, toMs, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
+import {delayOn} from '../core/drop';
 
 let active;
 
@@ -93,22 +94,17 @@ export default {
 
                 active = this;
 
-                if (prev) {
-                    if (this.stack) {
-                        this.prev = prev;
-                    } else {
-
-                        active = prev;
-                        prev.hide().then(this.show);
-                        e.preventDefault();
-
-                    }
-
+                if (!prev) {
                     return;
                 }
 
-                registerEvents();
-
+                if (this.stack) {
+                    this.prev = prev;
+                } else {
+                    active = prev;
+                    prev.hide().then(this.show);
+                    e.preventDefault();
+                }
             }
 
         },
@@ -128,19 +124,25 @@ export default {
 
                 addClass(document.documentElement, this.clsPage);
 
-            }
+                if (this.bgClose) {
+                    once(this.$el, 'hide', delayOn(document, 'click', ({defaultPrevented, target}) => {
+                        if (!defaultPrevented
+                            && active === this
+                            && (!active.overlay || within(target, active.$el))
+                            && !within(target, active.panel)
+                        ) {
+                            active.hide();
+                        }
+                    }), {self: true});
+                }
 
-        },
-
-        {
-
-            name: 'hide',
-
-            self: true,
-
-            handler() {
-                if (!active || active === this && !this.prev) {
-                    deregisterEvents();
+                if (this.escClose) {
+                    once(this.$el, 'hide', on(document, 'keydown', e => {
+                        if (e.keyCode === 27 && active === this) {
+                            e.preventDefault();
+                            active.hide();
+                        }
+                    }), {self: true});
                 }
             }
 
@@ -219,34 +221,6 @@ export default {
 
 };
 
-let events;
-
-function registerEvents() {
-
-    if (events) {
-        return;
-    }
-
-    events = [
-        on(document, pointerUp, ({target, defaultPrevented}) => {
-            if (active && active.bgClose && !defaultPrevented && (!active.overlay || within(target, active.$el)) && !within(target, active.panel)) {
-                active.hide();
-            }
-        }),
-        on(document, 'keydown', e => {
-            if (e.keyCode === 27 && active && active.escClose) {
-                e.preventDefault();
-                active.hide();
-            }
-        })
-    ];
-}
-
-function deregisterEvents() {
-    events && events.forEach(unbind => unbind());
-    events = null;
-}
-
 function animate({transitionElement, _toggle}) {
     return (el, show) =>
         new Promise((resolve, reject) =>
@@ -257,9 +231,9 @@ function animate({transitionElement, _toggle}) {
                 _toggle(el, show);
 
                 const off = once(transitionElement, 'transitionstart', () => {
-                    once(transitionElement, 'transitionend transitioncancel', resolve, false, e => e.target === transitionElement);
+                    once(transitionElement, 'transitionend transitioncancel', resolve, {self: true});
                     clearTimeout(timer);
-                }, false, e => e.target === transitionElement);
+                }, {self: true});
 
                 const timer = setTimeout(() => {
                     off();
