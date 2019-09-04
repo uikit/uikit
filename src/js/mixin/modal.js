@@ -1,4 +1,4 @@
-import {$, addClass, append, css, hasClass, on, once, Promise, removeClass, toMs, width, within} from 'uikit-util';
+import {$, addClass, append, css, on, once, Promise, removeClass, toMs, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
@@ -117,9 +117,8 @@ export default {
 
             handler() {
 
-                if (!hasClass(document.documentElement, this.clsPage)) {
-                    this.scrollbarWidth = width(window) - width(document);
-                    css(document.body, 'overflowY', this.scrollbarWidth && this.overlay ? 'scroll' : '');
+                if (width(window) - width(document) && this.overlay) {
+                    css(document.body, 'overflowY', 'scroll');
                 }
 
                 addClass(document.documentElement, this.clsPage);
