@@ -1,5 +1,5 @@
 import Modal from '../mixin/modal';
-import {$, addClass, append, css, endsWith, hasClass, height, removeClass, trigger, unwrap, wrapAll} from 'uikit-util';
+import {$, addClass, append, css, endsWith, hasClass, height, removeClass, unwrap, wrapAll} from 'uikit-util';
 
 export default {
 
@@ -175,11 +175,6 @@ export default {
             handler() {
                 removeClass(document.body, this.clsContainerAnimation);
                 css(document.body, 'touch-action', '');
-
-                const active = this.getActive();
-                if (this.mode === 'none' || active && active !== this && active !== this.prev) {
-                    trigger(this.panel, 'transitionend');
-                }
             }
         },
 

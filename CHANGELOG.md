@@ -1,6 +1,24 @@
 # Changelog
 
+## 3.2.0 (September 5, 2019)
+
+### Added
+
+- Add column and row gutter to Grid component
+
+### Removed
+
+- Remove `@text-bold-font-weight` variable
+
+### Fixed
+
+- Fix countdown line-height on small devices
+
 ## 3.1.9 (September 2, 2019)
+
+### Added
+
+- Add `last` utility function
 
 ### Fixed
 
