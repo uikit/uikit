@@ -23,8 +23,6 @@ $text-small-line-height:                         1.5 !default;
 $text-large-font-size:                           $global-large-font-size !default;
 $text-large-line-height:                         1.5 !default;
 
-$text-bold-font-weight:                          bolder !default;
-
 $text-muted-color:                               $global-muted-color !default;
 $text-emphasis-color:                            $global-emphasis-color !default;
 $text-primary-color:                             $global-primary-background !default;
@@ -80,7 +78,7 @@ $text-background-color:                          $global-primary-background !def
 
 .uk-text-light { font-weight: 300; }
 .uk-text-normal { font-weight: 400; }
-.uk-text-bold { font-weight: $text-bold-font-weight; }
+.uk-text-bold { font-weight: 700; }
  
 .uk-text-lighter { font-weight: lighter; }
 .uk-text-bolder { font-weight: bolder; }

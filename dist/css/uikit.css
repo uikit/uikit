@@ -1,4 +1,4 @@
-/*! UIkit 3.1.9 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
+/*! UIkit 3.2.0 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -2484,15 +2484,19 @@ select.uk-form-width-xsmall {
  * Small
  */
 /* Horizontal */
-.uk-grid-small {
+.uk-grid-small,
+.uk-grid-column-small {
   margin-left: -15px;
 }
-.uk-grid-small > * {
+.uk-grid-small > *,
+.uk-grid-column-small > * {
   padding-left: 15px;
 }
 /* Vertical */
 .uk-grid + .uk-grid-small,
+.uk-grid + .uk-grid-row-small,
 .uk-grid-small > .uk-grid-margin,
+.uk-grid-row-small > .uk-grid-margin,
 * + .uk-grid-margin-small {
   margin-top: 15px;
 }
@@ -2500,15 +2504,19 @@ select.uk-form-width-xsmall {
  * Medium
  */
 /* Horizontal */
-.uk-grid-medium {
+.uk-grid-medium,
+.uk-grid-column-medium {
   margin-left: -30px;
 }
-.uk-grid-medium > * {
+.uk-grid-medium > *,
+.uk-grid-column-medium > * {
   padding-left: 30px;
 }
 /* Vertical */
 .uk-grid + .uk-grid-medium,
+.uk-grid + .uk-grid-row-medium,
 .uk-grid-medium > .uk-grid-margin,
+.uk-grid-row-medium > .uk-grid-margin,
 * + .uk-grid-margin-medium {
   margin-top: 30px;
 }
@@ -2516,30 +2524,38 @@ select.uk-form-width-xsmall {
  * Large
  */
 /* Horizontal */
-.uk-grid-large {
+.uk-grid-large,
+.uk-grid-column-large {
   margin-left: -40px;
 }
-.uk-grid-large > * {
+.uk-grid-large > *,
+.uk-grid-column-large > * {
   padding-left: 40px;
 }
 /* Vertical */
 .uk-grid + .uk-grid-large,
+.uk-grid + .uk-grid-row-large,
 .uk-grid-large > .uk-grid-margin,
+.uk-grid-row-large > .uk-grid-margin,
 * + .uk-grid-margin-large {
   margin-top: 40px;
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
   /* Horizontal */
-  .uk-grid-large {
+  .uk-grid-large,
+  .uk-grid-column-large {
     margin-left: -70px;
   }
-  .uk-grid-large > * {
+  .uk-grid-large > *,
+  .uk-grid-column-large > * {
     padding-left: 70px;
   }
   /* Vertical */
   .uk-grid + .uk-grid-large,
+  .uk-grid + .uk-grid-row-large,
   .uk-grid-large > .uk-grid-margin,
+  .uk-grid-row-large > .uk-grid-margin,
   * + .uk-grid-margin-large {
     margin-top: 70px;
   }
@@ -2548,15 +2564,19 @@ select.uk-form-width-xsmall {
  * Collapse
  */
 /* Horizontal */
-.uk-grid-collapse {
+.uk-grid-collapse,
+.uk-grid-column-collapse {
   margin-left: 0;
 }
-.uk-grid-collapse > * {
+.uk-grid-collapse > *,
+.uk-grid-column-collapse > * {
   padding-left: 0;
 }
 /* Vertical */
 .uk-grid + .uk-grid-collapse,
-.uk-grid-collapse > .uk-grid-margin {
+.uk-grid + .uk-grid-row-collapse,
+.uk-grid-collapse > .uk-grid-margin,
+.uk-grid-row-collapse > .uk-grid-margin {
   margin-top: 0;
 }
 /* Divider
@@ -2625,83 +2645,123 @@ select.uk-form-width-xsmall {
  * Small
  */
 /* Horizontal */
-.uk-grid-divider.uk-grid-small {
+.uk-grid-divider.uk-grid-small,
+.uk-grid-divider.uk-grid-column-small {
   margin-left: -30px;
 }
-.uk-grid-divider.uk-grid-small > * {
+.uk-grid-divider.uk-grid-small > *,
+.uk-grid-divider.uk-grid-column-small > * {
   padding-left: 30px;
 }
-.uk-grid-divider.uk-grid-small > :not(.uk-first-column)::before {
+.uk-grid-divider.uk-grid-small > :not(.uk-first-column)::before,
+.uk-grid-divider.uk-grid-column-small > :not(.uk-first-column)::before {
   left: 15px;
 }
 /* Vertical */
-.uk-grid-divider.uk-grid-small.uk-grid-stack > .uk-grid-margin {
+.uk-grid-divider.uk-grid-small.uk-grid-stack > .uk-grid-margin,
+.uk-grid-divider.uk-grid-row-small.uk-grid-stack > .uk-grid-margin {
   margin-top: 30px;
 }
 .uk-grid-divider.uk-grid-small.uk-grid-stack > .uk-grid-margin::before {
   top: -15px;
   left: 30px;
 }
+.uk-grid-divider.uk-grid-row-small.uk-grid-stack > .uk-grid-margin::before {
+  top: -15px;
+}
+.uk-grid-divider.uk-grid-column-small.uk-grid-stack > .uk-grid-margin::before {
+  left: 30px;
+}
 /*
  * Medium
  */
 /* Horizontal */
-.uk-grid-divider.uk-grid-medium {
+.uk-grid-divider.uk-grid-medium,
+.uk-grid-divider.uk-grid-column-medium {
   margin-left: -60px;
 }
-.uk-grid-divider.uk-grid-medium > * {
+.uk-grid-divider.uk-grid-medium > *,
+.uk-grid-divider.uk-grid-column-medium > * {
   padding-left: 60px;
 }
-.uk-grid-divider.uk-grid-medium > :not(.uk-first-column)::before {
+.uk-grid-divider.uk-grid-medium > :not(.uk-first-column)::before,
+.uk-grid-divider.uk-grid-column-medium > :not(.uk-first-column)::before {
   left: 30px;
 }
 /* Vertical */
-.uk-grid-divider.uk-grid-medium.uk-grid-stack > .uk-grid-margin {
+.uk-grid-divider.uk-grid-medium.uk-grid-stack > .uk-grid-margin,
+.uk-grid-divider.uk-grid-row-medium.uk-grid-stack > .uk-grid-margin {
   margin-top: 60px;
 }
 .uk-grid-divider.uk-grid-medium.uk-grid-stack > .uk-grid-margin::before {
   top: -30px;
   left: 60px;
 }
+.uk-grid-divider.uk-grid-row-medium.uk-grid-stack > .uk-grid-margin::before {
+  top: -30px;
+}
+.uk-grid-divider.uk-grid-column-medium.uk-grid-stack > .uk-grid-margin::before {
+  left: 60px;
+}
 /*
  * Large
  */
 /* Horizontal */
-.uk-grid-divider.uk-grid-large {
+.uk-grid-divider.uk-grid-large,
+.uk-grid-divider.uk-grid-column-large {
   margin-left: -80px;
 }
-.uk-grid-divider.uk-grid-large > * {
+.uk-grid-divider.uk-grid-large > *,
+.uk-grid-divider.uk-grid-column-large > * {
   padding-left: 80px;
 }
-.uk-grid-divider.uk-grid-large > :not(.uk-first-column)::before {
+.uk-grid-divider.uk-grid-large > :not(.uk-first-column)::before,
+.uk-grid-divider.uk-grid-column-large > :not(.uk-first-column)::before {
   left: 40px;
 }
 /* Vertical */
-.uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin {
+.uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin,
+.uk-grid-divider.uk-grid-row-large.uk-grid-stack > .uk-grid-margin {
   margin-top: 80px;
 }
 .uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin::before {
   top: -40px;
   left: 80px;
 }
+.uk-grid-divider.uk-grid-row-large.uk-grid-stack > .uk-grid-margin::before {
+  top: -40px;
+}
+.uk-grid-divider.uk-grid-column-large.uk-grid-stack > .uk-grid-margin::before {
+  left: 80px;
+}
 /* Desktop and bigger */
 @media (min-width: 1200px) {
   /* Horizontal */
-  .uk-grid-divider.uk-grid-large {
+  .uk-grid-divider.uk-grid-large,
+  .uk-grid-divider.uk-grid-column-large {
     margin-left: -140px;
   }
-  .uk-grid-divider.uk-grid-large > * {
+  .uk-grid-divider.uk-grid-large > *,
+  .uk-grid-divider.uk-grid-column-large > * {
     padding-left: 140px;
   }
-  .uk-grid-divider.uk-grid-large > :not(.uk-first-column)::before {
+  .uk-grid-divider.uk-grid-large > :not(.uk-first-column)::before,
+  .uk-grid-divider.uk-grid-column-large > :not(.uk-first-column)::before {
     left: 70px;
   }
   /* Vertical */
-  .uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin {
+  .uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin,
+  .uk-grid-divider.uk-grid-row-large.uk-grid-stack > .uk-grid-margin {
     margin-top: 140px;
   }
   .uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin::before {
     top: -70px;
+    left: 140px;
+  }
+  .uk-grid-divider.uk-grid-row-large.uk-grid-stack > .uk-grid-margin::before {
+    top: -70px;
+  }
+  .uk-grid-divider.uk-grid-column-large.uk-grid-stack > .uk-grid-margin::before {
     left: 140px;
   }
 }
@@ -6169,7 +6229,7 @@ ul.uk-nav-sub {
 .uk-countdown-number,
 .uk-countdown-separator {
   /* 1 */
-  line-height: 70px;
+  line-height: 0.8;
 }
 /* Number
  ========================================================================== */
@@ -7174,7 +7234,7 @@ ul.uk-nav-sub {
   font-weight: 400;
 }
 .uk-text-bold {
-  font-weight: bolder;
+  font-weight: 700;
 }
 .uk-text-lighter {
   font-weight: lighter;
