@@ -1,4 +1,5 @@
 import {on} from './event';
+import {last} from './lang';
 import {offset} from './dimensions';
 
 export function MouseTracker() {}
@@ -56,7 +57,7 @@ MouseTracker.prototype = {
         }
 
         const p = offset(target);
-        const position = this.positions[this.positions.length - 1];
+        const position = last(this.positions);
         const [prevPos] = this.positions;
 
         if (p.left <= position.x && position.x <= p.right && p.top <= position.y && position.y <= p.bottom) {

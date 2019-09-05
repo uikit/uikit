@@ -221,6 +221,10 @@ export const assign = Object.assign || function (target, ...args) {
     return target;
 };
 
+export function last(array) {
+    return array[array.length - 1];
+}
+
 export function each(obj, cb) {
     for (const key in obj) {
         if (false === cb(obj[key], key)) {

@@ -2,6 +2,10 @@
 
 ## 3.1.9 (September 2, 2019)
 
+### Added
+
+- Add `last` utility function
+
 ### Fixed
 
 - Fix Slideshow invisible after switching tabs in Switcher
