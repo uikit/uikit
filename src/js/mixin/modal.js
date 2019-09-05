@@ -1,10 +1,10 @@
-import {$, addClass, append, css, on, once, Promise, removeClass, toMs, width, within} from 'uikit-util';
+import {$, addClass, append, css, includes, last, on, once, Promise, removeClass, toMs, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
 import {delayOn} from '../core/drop';
 
-let active;
+const active = [];
 
 export default {
 
@@ -90,20 +90,15 @@ export default {
 
             handler(e) {
 
-                const prev = active && active !== this && active;
-
-                active = this;
-
-                if (!prev) {
-                    return;
+                if (includes(active, this)) {
+                    return false;
                 }
 
-                if (this.stack) {
-                    this.prev = prev;
-                } else {
-                    active = prev;
-                    prev.hide().then(this.show);
+                if (!this.stack && active.length) {
+                    Promise.all(active.map(modal => modal.hide())).then(this.show);
                     e.preventDefault();
+                } else {
+                    active.push(this);
                 }
             }
 
@@ -125,21 +120,23 @@ export default {
 
                 if (this.bgClose) {
                     once(this.$el, 'hide', delayOn(document, 'click', ({defaultPrevented, target}) => {
+                        const current = last(active);
                         if (!defaultPrevented
-                            && active === this
-                            && (!active.overlay || within(target, active.$el))
-                            && !within(target, active.panel)
+                            && current === this
+                            && (!current.overlay || within(target, current.$el))
+                            && !within(target, current.panel)
                         ) {
-                            active.hide();
+                            current.hide();
                         }
                     }), {self: true});
                 }
 
                 if (this.escClose) {
                     once(this.$el, 'hide', on(document, 'keydown', e => {
-                        if (e.keyCode === 27 && active === this) {
+                        const current = last(active);
+                        if (e.keyCode === 27 && current === this) {
                             e.preventDefault();
-                            active.hide();
+                            current.hide();
                         }
                     }), {self: true});
                 }
@@ -155,30 +152,13 @@ export default {
 
             handler() {
 
-                let found, {prev} = this;
+                active.splice(active.indexOf(this), 1);
 
-                active = active && active !== this && active || prev;
-
-                if (!active) {
-
+                if (!active.length) {
                     css(document.body, 'overflowY', '');
-
-                } else {
-                    while (prev) {
-
-                        if (prev.clsPage === this.clsPage) {
-                            found = true;
-                            break;
-                        }
-
-                        // eslint-disable-next-line prefer-destructuring
-                        prev = prev.prev;
-
-                    }
-
                 }
 
-                if (!found) {
+                if (!active.some(modal => modal.clsPage === this.clsPage)) {
                     removeClass(document.documentElement, this.clsPage);
                 }
 
@@ -210,10 +190,6 @@ export default {
 
         hide() {
             return this.toggleElement(this.$el, false, animate(this));
-        },
-
-        getActive() {
-            return active;
         }
 
     }
