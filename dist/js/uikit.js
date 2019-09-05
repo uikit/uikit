@@ -1,4 +1,4 @@
-/*! UIkit 3.1.9 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
+/*! UIkit 3.2.0 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -233,6 +233,10 @@
         }
         return target;
     };
+
+    function last(array) {
+        return array[array.length - 1];
+    }
 
     function each(obj, cb) {
         for (var key in obj) {
@@ -1254,7 +1258,7 @@
 
         args = getArgs$1(args);
 
-        var force = !isString(args[args.length - 1]) ? args.pop() : []; // in iOS 9.3 force === undefined evaluates to false
+        var force = !isString(last(args)) ? args.pop() : []; // in iOS 9.3 force === undefined evaluates to false
 
         args = args.filter(Boolean);
 
@@ -2143,7 +2147,7 @@
             }
 
             var p = offset(target);
-            var position = this.positions[this.positions.length - 1];
+            var position = last(this.positions);
             var ref = this.positions;
             var prevPos = ref[0];
 
@@ -2665,6 +2669,7 @@
         isEqual: isEqual,
         swap: swap,
         assign: assign,
+        last: last,
         each: each,
         sortBy: sortBy,
         uniqueBy: uniqueBy,
@@ -4156,42 +4161,32 @@
             read: function() {
 
                 var el = this.$el;
-
-                if (!isVisible(el)) {
-                    return false;
-                }
-
                 var ref = el.parentNode;
                 var height = ref.offsetHeight;
                 var width = ref.offsetWidth;
+                var dim = Dimensions.cover(
+                    {
+                        width: this.width || el.naturalWidth || el.videoWidth || el.clientWidth,
+                        height: this.height || el.naturalHeight || el.videoHeight || el.clientHeight
+                    },
+                    {
+                        width: width + (width % 2 ? 1 : 0),
+                        height: height + (height % 2 ? 1 : 0)
+                    }
+                );
 
-                return {height: height, width: width};
+                if (!dim.width || !dim.height) {
+                    return false;
+                }
+
+                return dim;
             },
 
             write: function(ref) {
                 var height = ref.height;
                 var width = ref.width;
 
-
-                var el = this.$el;
-                var elWidth = this.width || el.naturalWidth || el.videoWidth || el.clientWidth;
-                var elHeight = this.height || el.naturalHeight || el.videoHeight || el.clientHeight;
-
-                if (!elWidth || !elHeight) {
-                    return;
-                }
-
-                css(el, Dimensions.cover(
-                    {
-                        width: elWidth,
-                        height: elHeight
-                    },
-                    {
-                        width: width + (width % 2 ? 1 : 0),
-                        height: height + (height % 2 ? 1 : 0)
-                    }
-                ));
-
+                css(this.$el, {height: height, width: width});
             },
 
             events: ['resize']
@@ -6223,7 +6218,7 @@
 
     };
 
-    var active$1;
+    var active$1 = [];
 
     var Modal = {
 
@@ -6313,20 +6308,15 @@
 
                 handler: function(e) {
 
-                    var prev = active$1 && active$1 !== this && active$1;
-
-                    active$1 = this;
-
-                    if (!prev) {
-                        return;
+                    if (includes(active$1, this)) {
+                        return false;
                     }
 
-                    if (this.stack) {
-                        this.prev = prev;
-                    } else {
-                        active$1 = prev;
-                        prev.hide().then(this.show);
+                    if (!this.stack && active$1.length) {
+                        Promise.all(active$1.map(function (modal) { return modal.hide(); })).then(this.show);
                         e.preventDefault();
+                    } else {
+                        active$1.push(this);
                     }
                 }
 
@@ -6342,9 +6332,8 @@
                     var this$1 = this;
 
 
-                    if (!hasClass(document.documentElement, this.clsPage)) {
-                        this.scrollbarWidth = width(window) - width(document);
-                        css(document.body, 'overflowY', this.scrollbarWidth && this.overlay ? 'scroll' : '');
+                    if (width(window) - width(document) && this.overlay) {
+                        css(document.body, 'overflowY', 'scroll');
                     }
 
                     addClass(document.documentElement, this.clsPage);
@@ -6354,21 +6343,23 @@
                             var defaultPrevented = ref.defaultPrevented;
                             var target = ref.target;
 
+                            var current = last(active$1);
                             if (!defaultPrevented
-                                && active$1 === this$1
-                                && (!active$1.overlay || within(target, active$1.$el))
-                                && !within(target, active$1.panel)
+                                && current === this$1
+                                && (!current.overlay || within(target, current.$el))
+                                && !within(target, current.panel)
                             ) {
-                                active$1.hide();
+                                current.hide();
                             }
                         }), {self: true});
                     }
 
                     if (this.escClose) {
                         once(this.$el, 'hide', on(document, 'keydown', function (e) {
-                            if (e.keyCode === 27 && active$1 === this$1) {
+                            var current = last(active$1);
+                            if (e.keyCode === 27 && current === this$1) {
                                 e.preventDefault();
-                                active$1.hide();
+                                current.hide();
                             }
                         }), {self: true});
                     }
@@ -6383,33 +6374,16 @@
                 self: true,
 
                 handler: function() {
+                    var this$1 = this;
 
-                    var found;
-                    var ref = this;
-                    var prev = ref.prev;
 
-                    active$1 = active$1 && active$1 !== this && active$1 || prev;
+                    active$1.splice(active$1.indexOf(this), 1);
 
-                    if (!active$1) {
-
+                    if (!active$1.length) {
                         css(document.body, 'overflowY', '');
-
-                    } else {
-                        while (prev) {
-
-                            if (prev.clsPage === this.clsPage) {
-                                found = true;
-                                break;
-                            }
-
-                            // eslint-disable-next-line prefer-destructuring
-                            prev = prev.prev;
-
-                        }
-
                     }
 
-                    if (!found) {
+                    if (!active$1.some(function (modal) { return modal.clsPage === this$1.clsPage; })) {
                         removeClass(document.documentElement, this.clsPage);
                     }
 
@@ -6441,10 +6415,6 @@
 
             hide: function() {
                 return this.toggleElement(this.$el, false, animate$1(this));
-            },
-
-            getActive: function() {
-                return active$1;
             }
 
         }
@@ -7077,11 +7047,6 @@
                 handler: function() {
                     removeClass(document.body, this.clsContainerAnimation);
                     css(document.body, 'touch-action', '');
-
-                    var active = this.getActive();
-                    if (this.mode === 'none' || active && active !== this && active !== this.prev) {
-                        trigger(this.panel, 'transitionend');
-                    }
                 }
             },
 
@@ -8284,7 +8249,7 @@
 
     }
 
-    UIkit.version = '3.1.9';
+    UIkit.version = '3.2.0';
 
     core(UIkit);
 
@@ -11007,7 +10972,7 @@
                 }
 
                 if (this.center) {
-                    return this.sets[this.sets.length - 1];
+                    return last(this.sets);
                 }
 
                 css(this.slides, 'order', '');
@@ -11488,10 +11453,6 @@
 
             read: function() {
 
-                if (!isVisible(this.$el)) {
-                    return false;
-                }
-
                 var ref = this.ratio.split(':').map(Number);
                 var width = ref[0];
                 var height = ref[1];
@@ -11512,7 +11473,7 @@
             write: function(ref) {
                 var height = ref.height;
 
-                css(this.list, 'minHeight', height || '');
+                height > 0 && css(this.list, 'minHeight', height);
             },
 
             events: ['resize']
