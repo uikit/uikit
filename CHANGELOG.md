@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Slider throws error if initialized with no slides
+- Fix Slider crash in IE
 
 ## 3.2.0 (September 5, 2019)
 
