@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add `selSlides` option to Slider/Slideshow component
+
 ### Fixed
 
 - Fix Slider throws error if initialized with no slides

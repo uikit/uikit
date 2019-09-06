@@ -12,7 +12,8 @@ export default {
         easing: String,
         index: Number,
         finite: Boolean,
-        velocity: Number
+        velocity: Number,
+        selSlides: String
     },
 
     data: () => ({
@@ -53,8 +54,8 @@ export default {
             return this.length - 1;
         },
 
-        selSlides({selList}) {
-            return `${selList} > *`;
+        selSlides({selList, selSlides}) {
+            return `${selList} ${selSlides || '> *'}`;
         },
 
         slides: {
