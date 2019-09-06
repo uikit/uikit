@@ -80,7 +80,7 @@ export function isObject(obj) {
 }
 
 export function isPlainObject(obj) {
-    return isObject(obj) && Object.getPrototypeOf(obj) === objPrototype;
+    return objPrototype.toString.call(obj) === '[object Object]';
 }
 
 export function isWindow(obj) {
