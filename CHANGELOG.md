@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Slider throws error if initialized with no slides
+
 ## 3.2.0 (September 5, 2019)
 
 ### Added

@@ -1,7 +1,7 @@
 import SliderAutoplay from './slider-autoplay';
 import SliderDrag from './slider-drag';
 import SliderNav from './slider-nav';
-import {$, assign, clamp, fastdom, getIndex, hasClass, isNumber, isRtl, Promise, removeClass, toNodes, trigger} from 'uikit-util';
+import {$, $$, assign, clamp, fastdom, getIndex, hasClass, isNumber, isRtl, Promise, removeClass, trigger} from 'uikit-util';
 
 export default {
 
@@ -60,7 +60,7 @@ export default {
         slides: {
 
             get() {
-                return toNodes(this.list.children);
+                return $$(this.selSlides, this.$el);
             },
 
             watch() {

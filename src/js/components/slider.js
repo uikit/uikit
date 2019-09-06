@@ -122,7 +122,7 @@ export default {
                 this.maxIndex && toggleClass(el, 'uk-hidden', isNumeric(index) && (this.sets && !includes(this.sets, toFloat(index)) || index > this.maxIndex));
             });
 
-            if (!this.dragging && !this.stack.length) {
+            if (this.length && !this.dragging && !this.stack.length) {
                 this._getTransitioner().translate(1);
             }
 
