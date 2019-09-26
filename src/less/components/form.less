@@ -29,6 +29,8 @@
 //                  `uk-form-width-large`
 //                  `uk-form-controls-text`
 //
+// States:          `uk-disabled`
+//
 // ========================================================================
 
 
@@ -198,7 +200,11 @@
  */
 
 .uk-radio:not(:disabled),
-.uk-checkbox:not(:disabled) { cursor: pointer; }
+.uk-radio:not(.uk-disabled),
+.uk-checkbox:not(:disabled),
+.uk-checkbox:not(.uk-disabled) { 
+  cursor: pointer; 
+}
 
 /*
  * Define consistent border, margin, and padding.
@@ -292,8 +298,11 @@
 
 /* Disabled */
 .uk-input:disabled,
+.uk-input.uk-disabled,
 .uk-select:disabled,
-.uk-textarea:disabled {
+.uk-select.uk-disabled,
+.uk-textarea:disabled,
+.uk-textarea.uk-disabled {
     background-color: @form-disabled-background;
     color: @form-disabled-color;
     .hook-form-disabled;
@@ -429,7 +438,10 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * Disabled
  */
 
-.uk-select:not([multiple]):not([size]):disabled { .svg-fill(@internal-form-select-image, "#000", @form-select-disabled-icon-color); }
+.uk-select:not([multiple]):not([size]):disabled,
+.uk-select:not([multiple]):not([size]).uk-disabled { 
+  .svg-fill(@internal-form-select-image, "#000", @form-select-disabled-icon-color); 
+}
 
 
 /* Datalist
@@ -528,14 +540,27 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  */
 
 .uk-radio:disabled,
-.uk-checkbox:disabled {
+.uk-radio.uk-disabled,
+.uk-checkbox:disabled,
+.uk-checkbox.uk-disabled {
     background-color: @form-radio-disabled-background;
     .hook-form-radio-disabled;
 }
 
-.uk-radio:disabled:checked { .svg-fill(@internal-form-radio-image, "#000", @form-radio-disabled-icon-color); }
-.uk-checkbox:disabled:checked { .svg-fill(@internal-form-checkbox-image, "#000", @form-radio-disabled-icon-color); }
-.uk-checkbox:disabled:indeterminate { .svg-fill(@internal-form-checkbox-indeterminate-image, "#000", @form-radio-disabled-icon-color); }
+.uk-radio:disabled:checked,
+.uk-radio.uk-disabled:checked { 
+  .svg-fill(@internal-form-radio-image, "#000", @form-radio-disabled-icon-color); 
+}
+
+.uk-checkbox:disabled:checked,
+.uk-checkbox.uk-disabled:checked { 
+  .svg-fill(@internal-form-checkbox-image, "#000", @form-radio-disabled-icon-color); 
+}
+
+.uk-checkbox:disabled:indeterminate,
+.uk-checkbox.uk-disabled:indeterminate { 
+  .svg-fill(@internal-form-checkbox-indeterminate-image, "#000", @form-radio-disabled-icon-color); 
+}
 
 
 /* Legend
