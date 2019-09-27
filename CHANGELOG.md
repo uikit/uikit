@@ -4,6 +4,7 @@
 
 ### Added
 
+- Add support for `input type="submit"` to Button component
 - Add `selSlides` option to Slider/Slideshow component
 
 ### Fixed
