@@ -87,11 +87,12 @@ $button-link-disabled-color:                     $global-muted-color !default;
  * 3. Address `overflow` set to `hidden` in IE.
  * 4. Correct `font` properties and `color` not being inherited for `button`.
  * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
- * 6. Style
- * 7. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
+ * 6. Remove default style for `input type="submit"`in iOS.
+ * 7. Style
+ * 8. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
  *    Better would be to use height and flexbox to center the text vertically but flexbox doesn't work in Firefox on `button` elements.
- * 8. Align text if button has a width
- * 9. Required for `a`.
+ * 9. Align text if button has a width
+ * 10. Required for `a`.
  */
 
 .uk-button {
@@ -107,16 +108,19 @@ $button-link-disabled-color:                     $global-muted-color !default;
     /* 5 */
     text-transform: none;
     /* 6 */
+    -webkit-appearance: none;
+    border-radius: 0;
+    /* 7 */
     display: inline-block;
     box-sizing: border-box;
     padding: 0 $button-padding-horizontal;
     vertical-align: middle;
     font-size: $button-font-size;
-    /* 7 */
-    line-height: $button-line-height;
     /* 8 */
-    text-align: center;
+    line-height: $button-line-height;
     /* 9 */
+    text-align: center;
+    /* 10 */
     text-decoration: none;
     @if(mixin-exists(hook-button)) {@include hook-button();}
 }
