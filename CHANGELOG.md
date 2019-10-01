@@ -13,6 +13,7 @@
 - Fix Slider/Slideshow crash in IE
 - Fix Slider/Slideshow drag no longer starts on input elements
 - Fix `isPlainObject` to work across iframes
+- Fix Scrollspy causes endless update loop
 
 ## 3.2.0 (September 5, 2019)
 
