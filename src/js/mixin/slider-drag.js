@@ -1,4 +1,4 @@
-import {css, getEventPos, includes, isRtl, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, trigger} from 'uikit-util';
+import {closest, css, getEventPos, includes, isRtl, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, selInput, trigger} from 'uikit-util';
 
 export default {
 
@@ -44,6 +44,7 @@ export default {
 
                 if (!this.draggable
                     || !isTouch(e) && hasTextNodesOnly(e.target)
+                    || closest(e.target, selInput)
                     || e.button > 0
                     || this.length < 2
                 ) {

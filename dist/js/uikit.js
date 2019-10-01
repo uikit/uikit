@@ -1,4 +1,4 @@
-/*! UIkit 3.2.0 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
+/*! UIkit 3.2.1 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -89,8 +89,9 @@
         return obj !== null && typeof obj === 'object';
     }
 
+    var toString = objPrototype.toString;
     function isPlainObject(obj) {
-        return isObject(obj) && Object.getPrototypeOf(obj) === objPrototype;
+        return toString.call(obj) === '[object Object]';
     }
 
     function isWindow(obj) {
@@ -109,7 +110,6 @@
         return obj instanceof Node || isObject(obj) && obj.nodeType >= 1;
     }
 
-    var toString = objPrototype.toString;
     function isNodeCollection(obj) {
         return toString.call(obj).match(/^\[object (NodeList|HTMLCollection)\]$/);
     }
@@ -7357,71 +7357,37 @@
                     this.elements.forEach(function (el) {
 
                         var state = el._ukScrollspyState;
-                        var cls = state.cls;
+                        var toggle = function (inview) {
 
-                        if (state.show && !state.inview && !state.queued) {
+                            css(el, 'visibility', !inview && this$1.hidden ? 'hidden' : '');
 
-                            var show = function () {
+                            toggleClass(el, this$1.inViewClass, inview);
+                            toggleClass(el, state.cls);
 
-                                css(el, 'visibility', '');
-                                addClass(el, this$1.inViewClass);
-                                toggleClass(el, cls);
+                            trigger(el, inview ? 'inview' : 'outview');
 
-                                trigger(el, 'inview');
-
-                                this$1.$update(el);
-
-                                state.inview = true;
-                                state.abort && state.abort();
-                            };
-
-                            if (this$1.delay) {
-
-                                state.queued = true;
-                                data.promise = (data.promise || Promise.resolve()).then(function () {
-                                    return !state.inview && new Promise(function (resolve) {
-
-                                        var timer = setTimeout(function () {
-
-                                            show();
-                                            resolve();
-
-                                        }, data.promise || this$1.elements.length === 1 ? this$1.delay : 0);
-
-                                        state.abort = function () {
-                                            clearTimeout(timer);
-                                            resolve();
-                                            state.queued = false;
-                                        };
-
-                                    });
-
-                                });
-
-                            } else {
-                                show();
-                            }
-
-                        } else if (!state.show && (state.inview || state.queued) && this$1.repeat) {
-
-                            state.abort && state.abort();
-
-                            if (!state.inview) {
-                                return;
-                            }
-
-                            css(el, 'visibility', this$1.hidden ? 'hidden' : '');
-                            removeClass(el, this$1.inViewClass);
-                            toggleClass(el, cls);
-
-                            trigger(el, 'outview');
+                            state.inview = inview;
 
                             this$1.$update(el);
 
-                            state.inview = false;
+                        };
+
+                        if (state.show && !state.inview && !state.queued) {
+
+                            state.queued = true;
+
+                            data.promise = (data.promise || Promise.resolve()).then(function () { return new Promise(function (resolve) { return setTimeout(resolve, this$1.delay); }
+                                ); }
+                            ).then(function () {
+                                toggle(true);
+                                setTimeout(function () { return state.queued = false; }, 300);
+                            });
+
+                        } else if (!state.show && state.inview && !state.queued && this$1.repeat) {
+
+                            toggle(false);
 
                         }
-
 
                     });
 
@@ -8249,7 +8215,7 @@
 
     }
 
-    UIkit.version = '3.2.0';
+    UIkit.version = '3.2.1';
 
     core(UIkit);
 
@@ -9105,6 +9071,7 @@
 
                     if (!this.draggable
                         || !isTouch(e) && hasTextNodesOnly(e.target)
+                        || closest(e.target, selInput)
                         || e.button > 0
                         || this.length < 2
                     ) {
@@ -9406,7 +9373,8 @@
             easing: String,
             index: Number,
             finite: Boolean,
-            velocity: Number
+            velocity: Number,
+            selSlides: String
         },
 
         data: function () { return ({
@@ -9453,14 +9421,15 @@
 
             selSlides: function(ref) {
                 var selList = ref.selList;
+                var selSlides = ref.selSlides;
 
-                return (selList + " > *");
+                return (selList + " " + (selSlides || '> *'));
             },
 
             slides: {
 
                 get: function() {
-                    return toNodes(this.list.children);
+                    return $$(this.selSlides, this.$el);
                 },
 
                 watch: function() {
@@ -10962,7 +10931,7 @@
             finite: function(ref) {
                 var finite = ref.finite;
 
-                return finite || getWidth(this.list) < bounds(this.list).width + getMaxWidth(this.list) + this.center;
+                return finite || Math.ceil(getWidth(this.list)) < bounds(this.list).width + getMaxWidth(this.list) + this.center;
             },
 
             maxIndex: function() {
@@ -11060,7 +11029,7 @@
                     this$1.maxIndex && toggleClass(el, 'uk-hidden', isNumeric(index) && (this$1.sets && !includes(this$1.sets, toFloat(index)) || index > this$1.maxIndex));
                 });
 
-                if (!this.dragging && !this.stack.length) {
+                if (this.length && !this.dragging && !this.stack.length) {
                     this._getTransitioner().translate(1);
                 }
 
