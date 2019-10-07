@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Prevent endless update loops
+
 ## 3.2.1 (October 1, 2019)
 
 ### Added
