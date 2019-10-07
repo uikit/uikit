@@ -30,7 +30,7 @@ export const fastdom = {
 
 };
 
-function flush(recursion = 0) {
+function flush(recursion = 1) {
     runTasks(fastdom.reads);
     runTasks(fastdom.writes.splice(0, fastdom.writes.length));
 
@@ -42,7 +42,7 @@ function flush(recursion = 0) {
 }
 
 const RECURSION_LIMIT = 5;
-function scheduleFlush(recursion = 0) {
+function scheduleFlush(recursion) {
     if (!fastdom.scheduled) {
         fastdom.scheduled = true;
         if (recursion > RECURSION_LIMIT) {
