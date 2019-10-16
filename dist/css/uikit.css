@@ -12403,3 +12403,295 @@ iframe.uk-cover {
     page-break-after: avoid;
   }
 }
+/* ========================================================================
+   Component: Background Color
+ ========================================================================== */
+.uk-indianred{background: indianred;}
+.uk-lightcoral{background: lightcoral;}
+.uk-salmon{background: salmon;}
+.uk-darksalmon{background: darksalmon;}
+.uk-lightsalmon{background: lightsalmon;}
+.uk-crimson{background: crimson;}
+.uk-red{background: red;}
+.uk-firebrick{background: firebrick;}
+.uk-darkred{background: darkred;}
+.uk-pink{background: pink;}
+.uk-lightpink{background: lightpink;}
+.uk-hotpink{background: hotpink;}
+.uk-deeppink{background: deeppink;}
+.uk-mediumvioletred{background: mediumvioletred;}
+.uk-palevioletred{background: palevioletred;}
+.uk-lightsalmon{background: lightsalmon;}
+.uk-coral{background: coral;}
+.uk-tomato{background: tomato;}
+.uk-orangered{background: orangered;}
+.uk-darkorange{background: darkorange;}
+.uk-orange{background: orange;}
+.uk-gold{background: gold;}
+.uk-yellow{background: yellow;}
+.uk-lightyellow{background: lightyellow;}
+.uk-lemonchiffon{background: lemonchiffon;}
+.uk-lightgoldenrodyellow{background: lightgoldenrodyellow;}
+.uk-papayawhip{background: papayawhip;}
+.uk-moccasin{background: moccasin;}
+.uk-peachpuff{background: peachpuff;}
+.uk-palegoldenrod{background: palegoldenrod;}
+.uk-khaki{background: khaki;}
+.uk-darkkhaki{background: darkkhaki;}
+.uk-lavender{background: lavender;}
+.uk-thistle{background: thistle;}
+.uk-plum{background: plum;}
+.uk-violet{background: violet;}
+.uk-orchid{background: orchid;}
+.uk-fuchsia{background: fuchsia;}
+.uk-magenta{background: magenta;}
+.uk-mediumorchid{background: mediumorchid;}
+.uk-mediumpurple{background: mediumpurple;}
+.uk-rebeccapurple{background: rebeccapurple;}
+.uk-blueviolet{background: blueviolet;}
+.uk-darkviolet{background: darkviolet;}
+.uk-darkorchid{background: darkorchid;}
+.uk-darkmagenta{background: darkmagenta;}
+.uk-purple{background: purple;}
+.uk-indigo{background: indigo;}
+.uk-slateblue{background: slateblue;}
+.uk-darkslateblue{background: darkslateblue;}
+.uk-mediumslateblue{background: mediumslateblue;}
+.uk-greenyellow{background: greenyellow;}
+.uk-chartreuse{background: chartreuse;}
+.uk-lawngreen{background: lawngreen;}
+.uk-lime{background: lime;}
+.uk-limegreen{background: limegreen;}
+.uk-palegreen{background: palegreen;}
+.uk-lightgreen{background: lightgreen;}
+.uk-mediumspringgreen{background: mediumspringgreen;}
+.uk-springgreen{background: springgreen;}
+.uk-mediumseagreen{background: mediumseagreen;}
+.uk-seagreen{background: seagreen;}
+.uk-forestgreen{background: forestgreen;}
+.uk-green{background: green;}
+.uk-darkgreen{background: darkgreen;}
+.uk-yellowgreen{background: yellowgreen;}
+.uk-olivedrab{background: olivedrab;}
+.uk-olive{background: olive;}
+.uk-darkolivegreen{background: darkolivegreen;}
+.uk-mediumaquamarine{background: mediumaquamarine;}
+.uk-darkseagreen{background: darkseagreen;}
+.uk-lightseagreen{background: lightseagreen;}
+.uk-darkcyan{background: darkcyan;}
+.uk-teal{background: teal;}
+.uk-aqua{background: aqua;}
+.uk-cyan{background: cyan;}
+.uk-lightcyan{background: lightcyan;}
+.uk-paleturquoise{background: paleturquoise;}
+.uk-aquamarine{background: aquamarine;}
+.uk-turquoise{background: turquoise;}
+.uk-mediumturquoise{background: mediumturquoise;}
+.uk-darkturquoise{background: darkturquoise;}
+.uk-cadetblue{background: cadetblue;}
+.uk-steelblue{background: steelblue;}
+.uk-lightsteelblue{background: lightsteelblue;}
+.uk-powderblue{background: powderblue;}
+.uk-lightblue{background: lightblue;}
+.uk-skyblue{background: skyblue;}
+.uk-lightskyblue{background: lightskyblue;}
+.uk-deepskyblue{background: deepskyblue;}
+.uk-dodgerblue{background: dodgerblue;}
+.uk-cornflowerblue{background: cornflowerblue;}
+.uk-mediumslateblue{background: mediumslateblue;}
+.uk-royalblue{background: royalblue;}
+.uk-blue{background: blue;}
+.uk-mediumblue{background: mediumblue;}
+.uk-darkblue{background: darkblue;}
+.uk-navy{background: navy;}
+.uk-midnightblue{background: midnightblue;}
+.uk-cornsilk{background: cornsilk;}
+.uk-blanchedalmond{background: blanchedalmond;}
+.uk-bisque{background: bisque;}
+.uk-navajowhite{background: navajowhite;}
+.uk-wheat{background: wheat;}
+.uk-burlywood{background: burlywood;}
+.uk-tan{background: tan;}
+.uk-rosybrown{background: rosybrown;}
+.uk-sandybrown{background: sandybrown;}
+.uk-goldenrod{background: goldenrod;}
+.uk-darkgoldenrod{background: darkgoldenrod;}
+.uk-peru{background: peru;}
+.uk-chocolate{background: chocolate;}
+.uk-saddlebrown{background: saddlebrown;}
+.uk-sienna{background: sienna;}
+.uk-brown{background: brown;}
+.uk-maroon{background: maroon;}
+.uk-white{background: white;}
+.uk-snow{background: snow;}
+.uk-honeydew{background: honeydew;}
+.uk-mintcream{background: mintcream;}
+.uk-azure{background: azure;}
+.uk-aliceblue{background: aliceblue;}
+.uk-ghostwhite{background: ghostwhite;}
+.uk-whitesmoke{background: whitesmoke;}
+.uk-seashell{background: seashell;}
+.uk-beige{background: beige;}
+.uk-oldlace{background: oldlace;}
+.uk-floralwhite{background: floralwhite;}
+.uk-ivory{background: ivory;}
+.uk-antiquewhite{background: antiquewhite;}
+.uk-linen{background: linen;}
+.uk-lavenderblush{background: lavenderblush;}
+.uk-mistyrose{background: mistyrose;}
+.uk-gainsboro{background: gainsboro;}
+.uk-lightgray{background: lightgray;}
+.uk-silver{background: silver;}
+.uk-darkgray{background: darkgray;}
+.uk-gray{background: gray;}
+.uk-dimgray{background: dimgray;}
+.uk-lightslategray{background: lightslategray;}
+.uk-slategray{background: slategray;}
+.uk-darkslategray{background: darkslategray;}
+.uk-black{background: black;}
+/* ========================================================================
+   Component: Text Color
+ ========================================================================== */
+.uk-text-indianred{color:indianred;}
+.uk-text-lightcoral{color:lightcoral;}
+.uk-text-salmon{color:salmon;}
+.uk-text-darksalmon{color:darksalmon;}
+.uk-text-lightsalmon{color:lightsalmon;}
+.uk-text-crimson{color:crimson;}
+.uk-text-red{color:red;}
+.uk-text-firebrick{color:firebrick;}
+.uk-text-darkred{color:darkred;}
+.uk-text-pink{color:pink;}
+.uk-text-lightpink{color:lightpink;}
+.uk-text-hotpink{color:hotpink;}
+.uk-text-deeppink{color:deeppink;}
+.uk-text-mediumvioletred{color:mediumvioletred;}
+.uk-text-palevioletred{color:palevioletred;}
+.uk-text-lightsalmon{color:lightsalmon;}
+.uk-text-coral{color:coral;}
+.uk-text-tomato{color:tomato;}
+.uk-text-orangered{color:orangered;}
+.uk-text-darkorange{color:darkorange;}
+.uk-text-orange{color:orange;}
+.uk-text-gold{color:gold;}
+.uk-text-yellow{color:yellow;}
+.uk-text-lightyellow{color:lightyellow;}
+.uk-text-lemonchiffon{color:lemonchiffon;}
+.uk-text-lightgoldenrodyellow{color:lightgoldenrodyellow;}
+.uk-text-papayawhip{color:papayawhip;}
+.uk-text-moccasin{color:moccasin;}
+.uk-text-peachpuff{color:peachpuff;}
+.uk-text-palegoldenrod{color:palegoldenrod;}
+.uk-text-khaki{color:khaki;}
+.uk-text-darkkhaki{color:darkkhaki;}
+.uk-text-lavender{color:lavender;}
+.uk-text-thistle{color:thistle;}
+.uk-text-plum{color:plum;}
+.uk-text-violet{color:violet;}
+.uk-text-orchid{color:orchid;}
+.uk-text-fuchsia{color:fuchsia;}
+.uk-text-magenta{color:magenta;}
+.uk-text-mediumorchid{color:mediumorchid;}
+.uk-text-mediumpurple{color:mediumpurple;}
+.uk-text-rebeccapurple{color:rebeccapurple;}
+.uk-text-blueviolet{color:blueviolet;}
+.uk-text-darkviolet{color:darkviolet;}
+.uk-text-darkorchid{color:darkorchid;}
+.uk-text-darkmagenta{color:darkmagenta;}
+.uk-text-purple{color:purple;}
+.uk-text-indigo{color:indigo;}
+.uk-text-slateblue{color:slateblue;}
+.uk-text-darkslateblue{color:darkslateblue;}
+.uk-text-mediumslateblue{color:mediumslateblue;}
+.uk-text-greenyellow{color:greenyellow;}
+.uk-text-chartreuse{color:chartreuse;}
+.uk-text-lawngreen{color:lawngreen;}
+.uk-text-lime{color:lime;}
+.uk-text-limegreen{color:limegreen;}
+.uk-text-palegreen{color:palegreen;}
+.uk-text-lightgreen{color:lightgreen;}
+.uk-text-mediumspringgreen{color:mediumspringgreen;}
+.uk-text-springgreen{color:springgreen;}
+.uk-text-mediumseagreen{color:mediumseagreen;}
+.uk-text-seagreen{color:seagreen;}
+.uk-text-forestgreen{color:forestgreen;}
+.uk-text-green{color:green;}
+.uk-text-darkgreen{color:darkgreen;}
+.uk-text-yellowgreen{color:yellowgreen;}
+.uk-text-olivedrab{color:olivedrab;}
+.uk-text-olive{color:olive;}
+.uk-text-darkolivegreen{color:darkolivegreen;}
+.uk-text-mediumaquamarine{color:mediumaquamarine;}
+.uk-text-darkseagreen{color:darkseagreen;}
+.uk-text-lightseagreen{color:lightseagreen;}
+.uk-text-darkcyan{color:darkcyan;}
+.uk-text-teal{color:teal;}
+.uk-text-aqua{color:aqua;}
+.uk-text-cyan{color:cyan;}
+.uk-text-lightcyan{color:lightcyan;}
+.uk-text-paleturquoise{color:paleturquoise;}
+.uk-text-aquamarine{color:aquamarine;}
+.uk-text-turquoise{color:turquoise;}
+.uk-text-mediumturquoise{color:mediumturquoise;}
+.uk-text-darkturquoise{color:darkturquoise;}
+.uk-text-cadetblue{color:cadetblue;}
+.uk-text-steelblue{color:steelblue;}
+.uk-text-lightsteelblue{color:lightsteelblue;}
+.uk-text-powderblue{color:powderblue;}
+.uk-text-lightblue{color:lightblue;}
+.uk-text-skyblue{color:skyblue;}
+.uk-text-lightskyblue{color:lightskyblue;}
+.uk-text-deepskyblue{color:deepskyblue;}
+.uk-text-dodgerblue{color:dodgerblue;}
+.uk-text-cornflowerblue{color:cornflowerblue;}
+.uk-text-mediumslateblue{color:mediumslateblue;}
+.uk-text-royalblue{color:royalblue;}
+.uk-text-blue{color:blue;}
+.uk-text-mediumblue{color:mediumblue;}
+.uk-text-darkblue{color:darkblue;}
+.uk-text-navy{color:navy;}
+.uk-text-midnightblue{color:midnightblue;}
+.uk-text-cornsilk{color:cornsilk;}
+.uk-text-blanchedalmond{color:blanchedalmond;}
+.uk-text-bisque{color:bisque;}
+.uk-text-navajowhite{color:navajowhite;}
+.uk-text-wheat{color:wheat;}
+.uk-text-burlywood{color:burlywood;}
+.uk-text-tan{color:tan;}
+.uk-text-rosybrown{color:rosybrown;}
+.uk-text-sandybrown{color:sandybrown;}
+.uk-text-goldenrod{color:goldenrod;}
+.uk-text-darkgoldenrod{color:darkgoldenrod;}
+.uk-text-peru{color:peru;}
+.uk-text-chocolate{color:chocolate;}
+.uk-text-saddlebrown{color:saddlebrown;}
+.uk-text-sienna{color:sienna;}
+.uk-text-brown{color:brown;}
+.uk-text-maroon{color:maroon;}
+.uk-text-white{color:white;}
+.uk-text-snow{color:snow;}
+.uk-text-honeydew{color:honeydew;}
+.uk-text-mintcream{color:mintcream;}
+.uk-text-azure{color:azure;}
+.uk-text-aliceblue{color:aliceblue;}
+.uk-text-ghostwhite{color:ghostwhite;}
+.uk-text-whitesmoke{color:whitesmoke;}
+.uk-text-seashell{color:seashell;}
+.uk-text-beige{color:beige;}
+.uk-text-oldlace{color:oldlace;}
+.uk-text-floralwhite{color:floralwhite;}
+.uk-text-ivory{color:ivory;}
+.uk-text-antiquewhite{color:antiquewhite;}
+.uk-text-linen{color:linen;}
+.uk-text-lavenderblush{color:lavenderblush;}
+.uk-text-mistyrose{color:mistyrose;}
+.uk-text-gainsboro{color:gainsboro;}
+.uk-text-lightgray{color:lightgray;}
+.uk-text-silver{color:silver;}
+.uk-text-darkgray{color:darkgray;}
+.uk-text-gray{color:gray;}
+.uk-text-dimgray{color:dimgray;}
+.uk-text-lightslategray{color:lightslategray;}
+.uk-text-slategray{color:slategray;}
+.uk-text-darkslategray{color:darkslategray;}
+.uk-text-black{color:black;}
