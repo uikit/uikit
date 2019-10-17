@@ -13,12 +13,12 @@ export function on(...args) {
         listener = detail(listener);
     }
 
-    if (selector) {
-        listener = delegate(targets, selector, listener);
-    }
-
     if (useCapture && useCapture.self) {
         listener = selfFilter(listener);
+    }
+
+    if (selector) {
+        listener = delegate(targets, selector, listener);
     }
 
     useCapture = useCaptureFilter(useCapture);
