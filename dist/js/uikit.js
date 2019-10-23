@@ -1,4 +1,4 @@
-/*! UIkit 3.2.1 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
+/*! UIkit 3.2.2 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -620,12 +620,12 @@
             listener = detail(listener);
         }
 
-        if (selector) {
-            listener = delegate(targets, selector, listener);
-        }
-
         if (useCapture && useCapture.self) {
             listener = selfFilter(listener);
+        }
+
+        if (selector) {
+            listener = delegate(targets, selector, listener);
         }
 
         useCapture = useCaptureFilter(useCapture);
@@ -2053,26 +2053,29 @@
 
     };
 
-    function flush() {
+    function flush(recursion) {
+        if ( recursion === void 0 ) recursion = 1;
+
         runTasks(fastdom.reads);
         runTasks(fastdom.writes.splice(0, fastdom.writes.length));
 
         fastdom.scheduled = false;
 
         if (fastdom.reads.length || fastdom.writes.length) {
-            scheduleFlush(true);
+            scheduleFlush(recursion + 1);
         }
     }
 
-    function scheduleFlush(microtask) {
-        if ( microtask === void 0 ) microtask = false;
-
+    var RECURSION_LIMIT = 5;
+    function scheduleFlush(recursion) {
         if (!fastdom.scheduled) {
             fastdom.scheduled = true;
-            if (microtask) {
-                Promise.resolve().then(flush);
+            if (recursion > RECURSION_LIMIT) {
+                throw new Error('Maximum recursion limit reached.');
+            } else if (recursion) {
+                Promise.resolve().then(function () { return flush(recursion); });
             } else {
-                requestAnimationFrame(flush);
+                requestAnimationFrame(function () { return flush(); });
             }
         }
     }
@@ -2815,29 +2818,11 @@
             return;
         }
 
-        if (document.body) {
-
-            fastdom.read(init);
-
-        } else {
-
-            (new MutationObserver(function () {
-
-                if (document.body) {
-                    this.disconnect();
-                    init();
-                }
-
-            })).observe(document, {childList: true, subtree: true});
-
-        }
+        fastdom.read(init);
 
         function init() {
 
             apply(document.body, connect);
-
-            // Safari renders prior to first animation frame
-            fastdom.flush();
 
             (new MutationObserver(function (mutations) { return mutations.forEach(applyMutation); })).observe(document, {
                 childList: true,
@@ -7970,7 +7955,7 @@
         methods: {
 
             index: function() {
-                return !isEmpty(this.connects) && index(filter(this.connects[0].children, ("." + (this.cls)))[0]);
+                return !isEmpty(this.connects) ? index(filter(this.connects[0].children, ("." + (this.cls)))[0]) : -1;
             },
 
             show: function(item) {
@@ -7994,7 +7979,7 @@
                     }
                 }
 
-                if (!active || prev >= 0 && hasClass(active, this.cls) || prev === next) {
+                if (!active || prev === next) {
                     return;
                 }
 
@@ -8114,7 +8099,7 @@
                     var link;
                     if (closest(e.target, 'a[href="#"], a[href=""]')
                         || (link = closest(e.target, 'a[href]')) && (
-                            this.cls
+                            this.cls && !hasClass(this.target, this.cls.split(' ')[0])
                             || !isVisible(this.target)
                             || link.hash && matches(this.target, link.hash)
                         )
@@ -8215,7 +8200,7 @@
 
     }
 
-    UIkit.version = '3.2.1';
+    UIkit.version = '3.2.2';
 
     core(UIkit);
 
