@@ -29,7 +29,7 @@ You have the following options to get UIkit:
 - Download the [latest release](https://github.com/uikit/uikit/releases/latest) with pre-built CSS and JS.
 - Install with [npm](https://npmjs.com) to get all source files as they are available on Github: ```npm install uikit```
 - Install with [yarn](https://yarnpkg.com/) to get all source files as they are available on Github: ```yarn add uikit```
-- Directly load UIkit from [CDNJS](https://cdnjs.com): https://cdnjs.com/libraries/uikit
+- Directly load UIkit from [jsDelivr](https://www.jsdelivr.com): https://www.jsdelivr.com/package/npm/uikit
 - Clone the repo to get all source files including build scripts: `git clone git://github.com/uikit/uikit.git`
 
 ## Developers
