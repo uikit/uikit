@@ -1,6 +1,6 @@
 import Media from '../mixin/media';
 import Togglable from '../mixin/togglable';
-import {closest, hasTouch, includes, isTouch, isVisible, matches, pointerEnter, pointerLeave, queryAll, trigger} from 'uikit-util';
+import {closest, hasClass, hasTouch, includes, isTouch, isVisible, matches, pointerEnter, pointerLeave, queryAll, trigger} from 'uikit-util';
 
 export default {
 
@@ -66,7 +66,7 @@ export default {
                 let link;
                 if (closest(e.target, 'a[href="#"], a[href=""]')
                     || (link = closest(e.target, 'a[href]')) && (
-                        this.cls
+                        this.cls && !hasClass(this.target, this.cls.split(' ')[0])
                         || !isVisible(this.target)
                         || link.hash && matches(this.target, link.hash)
                     )

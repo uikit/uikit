@@ -6,6 +6,10 @@
 
 - Prevent endless update loops
 
+### Changed
+
+- Improve event.preventDefault behaviour in Toggle Component
+
 ### Fixed
 
 - Fix event delegation with `self` filter
