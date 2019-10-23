@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.2.2 (October 23, 2019)
 
 ### Added
 
