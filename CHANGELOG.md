@@ -9,6 +9,7 @@
 ### Changed
 
 - Improve event.preventDefault behaviour in Toggle Component
+- Improve initial boot
 
 ### Fixed
 
