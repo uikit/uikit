@@ -30,24 +30,27 @@ export const fastdom = {
 
 };
 
-function flush() {
+function flush(recursion = 1) {
     runTasks(fastdom.reads);
     runTasks(fastdom.writes.splice(0, fastdom.writes.length));
 
     fastdom.scheduled = false;
 
     if (fastdom.reads.length || fastdom.writes.length) {
-        scheduleFlush(true);
+        scheduleFlush(recursion + 1);
     }
 }
 
-function scheduleFlush(microtask = false) {
+const RECURSION_LIMIT = 5;
+function scheduleFlush(recursion) {
     if (!fastdom.scheduled) {
         fastdom.scheduled = true;
-        if (microtask) {
-            Promise.resolve().then(flush);
+        if (recursion > RECURSION_LIMIT) {
+            throw new Error('Maximum recursion limit reached.');
+        } else if (recursion) {
+            Promise.resolve().then(() => flush(recursion));
         } else {
-            requestAnimationFrame(flush);
+            requestAnimationFrame(() => flush());
         }
     }
 }

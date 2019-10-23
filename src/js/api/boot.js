@@ -9,29 +9,11 @@ export default function (UIkit) {
         return;
     }
 
-    if (document.body) {
-
-        fastdom.read(init);
-
-    } else {
-
-        (new MutationObserver(function () {
-
-            if (document.body) {
-                this.disconnect();
-                init();
-            }
-
-        })).observe(document, {childList: true, subtree: true});
-
-    }
+    fastdom.read(init);
 
     function init() {
 
         apply(document.body, connect);
-
-        // Safari renders prior to first animation frame
-        fastdom.flush();
 
         (new MutationObserver(mutations => mutations.forEach(applyMutation))).observe(document, {
             childList: true,

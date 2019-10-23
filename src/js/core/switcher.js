@@ -1,5 +1,5 @@
 import Togglable from '../mixin/togglable';
-import {$$, addClass, attr, css, data, endsWith, filter, getIndex, hasClass, index, isEmpty, matches, queryAll, removeClass, toNodes, within} from 'uikit-util';
+import {$$, addClass, attr, css, data, endsWith, filter, getIndex, index, isEmpty, matches, queryAll, removeClass, toNodes, within} from 'uikit-util';
 
 export default {
 
@@ -102,7 +102,7 @@ export default {
     methods: {
 
         index() {
-            return !isEmpty(this.connects) && index(filter(this.connects[0].children, `.${this.cls}`)[0]);
+            return !isEmpty(this.connects) ? index(filter(this.connects[0].children, `.${this.cls}`)[0]) : -1;
         },
 
         show(item) {
@@ -123,7 +123,7 @@ export default {
                 }
             }
 
-            if (!active || prev >= 0 && hasClass(active, this.cls) || prev === next) {
+            if (!active || prev === next) {
                 return;
             }
 

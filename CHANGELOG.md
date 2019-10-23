@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.2.2 (October 23, 2019)
+
+### Added
+
+- Prevent endless update loops
+
+### Changed
+
+- Improve event.preventDefault behaviour in Toggle Component
+- Improve initial boot
+
+### Fixed
+
+- Fix event delegation with `self` filter
+
 ## 3.2.1 (October 1, 2019)
 
 ### Added

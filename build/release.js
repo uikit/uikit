@@ -37,7 +37,7 @@ async function updateVersion(version) {
     await Promise.all([
         run(`npm version ${version} --git-tag-version false`),
         replaceInFile('CHANGELOG.md', data => data.replace(/^##\s*WIP/m, `## ${versionFormat(version)} (${dateFormat(Date.now(), 'mmmm d, yyyy')})`)),
-        replaceInFile('.github/ISSUE_TEMPLATE.md', data => data.replace(pkg.version, version)),
+        replaceInFile('.github/ISSUE_TEMPLATE/bug-report.md', data => data.replace(pkg.version, version)),
     ]);
 
     return version;
