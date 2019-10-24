@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix initializing components with jQuery elements
+
 ## 3.2.2 (October 23, 2019)
 
 ### Added
