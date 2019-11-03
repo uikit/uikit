@@ -26,9 +26,7 @@ export default {
         this.equilibrateHeader();
     },
 
-
     events: [
-
         {
             name: 'resize',
             el: window,
@@ -37,13 +35,10 @@ export default {
 
     ],
 
-
     methods: {
 
         equilibrateHeader() {
             this.tds.forEach((el, key) => {
-                console.log(css(el, 'width'))
-
                 css(this.ths[key], 'width', css(el, 'width'));
             });
         }
