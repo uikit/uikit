@@ -22,15 +22,9 @@ export default function (UIkit) {
 
             const component = UIkit.component(name);
 
-            if (isPlainObject(element)) {
-                return new component({data: element});
-            }
-
-            if (component.options.functional) {
-                return new component({data: [...arguments]});
-            }
-
-            return element && element.nodeType ? init(element) : $$(element).map(init)[0];
+            return component.options.functional
+                ? new component({data: isPlainObject(element) ? element : [...arguments]})
+                : element && element.nodeType ? init(element) : $$(element).map(init)[0];
 
             function init(element) {
 

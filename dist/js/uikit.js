@@ -1,4 +1,4 @@
-/*! UIkit 3.2.2 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
+/*! UIkit 3.2.3 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2728,15 +2728,9 @@
 
                 var component = UIkit.component(name);
 
-                if (isPlainObject(element)) {
-                    return new component({data: element});
-                }
-
-                if (component.options.functional) {
-                    return new component({data: [].concat( argsArray )});
-                }
-
-                return element && element.nodeType ? init(element) : $$(element).map(init)[0];
+                return component.options.functional
+                    ? new component({data: isPlainObject(element) ? element : [].concat( argsArray )})
+                    : element && element.nodeType ? init(element) : $$(element).map(init)[0];
 
                 function init(element) {
 
@@ -2822,7 +2816,9 @@
 
         function init() {
 
-            apply(document.body, connect);
+            if (document.body) {
+                apply(document.body, connect);
+            }
 
             (new MutationObserver(function (mutations) { return mutations.forEach(applyMutation); })).observe(document, {
                 childList: true,
@@ -8200,7 +8196,7 @@
 
     }
 
-    UIkit.version = '3.2.2';
+    UIkit.version = '3.2.3';
 
     core(UIkit);
 

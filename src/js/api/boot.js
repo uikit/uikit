@@ -13,7 +13,9 @@ export default function (UIkit) {
 
     function init() {
 
-        apply(document.body, connect);
+        if (document.body) {
+            apply(document.body, connect);
+        }
 
         (new MutationObserver(mutations => mutations.forEach(applyMutation))).observe(document, {
             childList: true,
