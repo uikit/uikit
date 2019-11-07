@@ -245,7 +245,7 @@
 
             if (this.element.css('position') == 'fixed') {
                 this.element.css({
-                    width: this.sticky.getWidthFrom.length ? this.sticky.getWidthFrom.width() : this.element.width()
+                    width: this.sticky && this.sticky.getWidthFrom.length ? this.sticky.getWidthFrom.width() : this.element.width()
                 });
             }
         }
