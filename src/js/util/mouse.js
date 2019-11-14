@@ -1,5 +1,5 @@
-import {on} from './event';
-import {last} from './lang';
+import {getEventPos, on} from './event';
+import {last, pointInRect} from './lang';
 import {offset} from './dimensions';
 
 export function MouseTracker() {}
@@ -7,47 +7,31 @@ export function MouseTracker() {}
 MouseTracker.prototype = {
 
     positions: [],
-    position: null,
 
     init() {
 
         this.positions = [];
-        this.position = null;
 
-        let ticking = false;
-        this.unbind = on(document, 'mousemove', e => {
+        let position;
+        this.unbind = on(document, 'mousemove', e => position = getEventPos(e, 'page'));
+        this.interval = setInterval(() => {
 
-            if (ticking) {
+            if (!position) {
                 return;
             }
 
-            setTimeout(() => {
+            this.positions.push(position);
 
-                const time = Date.now();
-                const {length} = this.positions;
-
-                if (length && (time - this.positions[length - 1].time > 100)) {
-                    this.positions.splice(0, length);
-                }
-
-                this.positions.push({time, x: e.pageX, y: e.pageY});
-
-                if (this.positions.length > 5) {
-                    this.positions.shift();
-                }
-
-                ticking = false;
-            }, 5);
-
-            ticking = true;
-        });
+            if (this.positions.length > 5) {
+                this.positions.shift();
+            }
+        }, 50);
 
     },
 
     cancel() {
-        if (this.unbind) {
-            this.unbind();
-        }
+        this.unbind && this.unbind();
+        this.interval && clearInterval(this.interval);
     },
 
     movesTo(target) {
@@ -57,36 +41,42 @@ MouseTracker.prototype = {
         }
 
         const p = offset(target);
-        const position = last(this.positions);
-        const [prevPos] = this.positions;
+        const {left, right, top, bottom} = p;
 
-        if (p.left <= position.x && position.x <= p.right && p.top <= position.y && position.y <= p.bottom) {
+        const [prevPosition] = this.positions;
+        const position = last(this.positions);
+        const path = [prevPosition, position];
+
+        if (pointInRect(position, p)) {
             return false;
         }
 
-        const points = [
-            [{x: p.left, y: p.top}, {x: p.right, y: p.bottom}],
-            [{x: p.right, y: p.top}, {x: p.left, y: p.bottom}]
-        ];
+        const diagonals = [[{x: left, y: top}, {x: right, y: bottom}], [{x: left, y: bottom}, {x: right, y: top}]];
 
-        if (p.right <= position.x) {
-            // empty
-        } else if (p.left >= position.x) {
-            points[0].reverse();
-            points[1].reverse();
-        } else if (p.bottom <= position.y) {
-            points[0].reverse();
-        } else if (p.top >= position.y) {
-            points[1].reverse();
-        }
-
-        return !!points.reduce((result, point) => {
-            return result + (slope(prevPos, point[0]) < slope(position, point[0]) && slope(prevPos, point[1]) > slope(position, point[1]));
-        }, 0);
+        return diagonals.some(diagonal => {
+            const intersection = intersect(path, diagonal);
+            return intersection && pointInRect(intersection, p);
+        });
     }
 
 };
 
-function slope(a, b) {
-    return (b.y - a.y) / (b.x - a.x);
+// Inspired by http://paulbourke.net/geometry/pointlineplane/
+function intersect([{x: x1, y: y1}, {x: x2, y: y2}], [{x: x3, y: y3}, {x: x4, y: y4}]) {
+
+    const denominator = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
+
+    // Lines are parallel
+    if (denominator === 0) {
+        return false;
+    }
+
+    const ua = ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / denominator;
+
+    if (ua < 0) {
+        return false;
+    }
+
+    // Return a object with the x and y coordinates of the intersection
+    return {x: x1 + ua * (x2 - x1), y: y1 + ua * (y2 - y1)};
 }
