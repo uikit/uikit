@@ -6,6 +6,7 @@
 
 - Fix scrolling containers while dragging in Sortable component
 - Fix initializing components with jQuery elements
+- Fix nested drops in Drop component
 
 ## 3.2.2 (October 23, 2019)
 

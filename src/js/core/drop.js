@@ -1,6 +1,6 @@
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {addClass, Animation, attr, css, includes, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointInRect, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
+import {addClass, Animation, attr, css, includes, isTouch, matches, MouseTracker, offset, on, once, pointerEnter, pointerLeave, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
 
 let active;
 
@@ -28,7 +28,6 @@ export default {
         delayShow: 0,
         delayHide: 800,
         clsDrop: false,
-        hoverIdle: 200,
         animation: ['uk-animation-fade'],
         cls: 'uk-open'
     },
@@ -132,6 +131,32 @@ export default {
 
         {
 
+            name: 'toggleshow',
+
+            self: true,
+
+            handler(e, toggle) {
+                e.preventDefault();
+                this.show(toggle);
+            }
+
+        },
+
+        {
+
+            name: 'togglehide',
+
+            self: true,
+
+            handler(e) {
+                e.preventDefault();
+                this.hide();
+            }
+
+        },
+
+        {
+
             name: pointerEnter,
 
             filter() {
@@ -144,53 +169,30 @@ export default {
                     return;
                 }
 
-                if (active
-                    && active !== this
-                    && active.toggle
-                    && includes(active.toggle.mode, 'hover')
-                    && !within(e.target, active.toggle.$el)
-                    && !pointInRect({x: e.pageX, y: e.pageY}, offset(active.$el))
-                ) {
-                    active.hide(false);
-                }
-
                 e.preventDefault();
-                this.show(this.toggle);
+                this.show();
             }
 
         },
 
         {
 
-            name: 'toggleshow',
+            name: pointerLeave,
 
-            handler(e, toggle) {
+            filter() {
+                return includes(this.mode, 'hover');
+            },
 
-                if (toggle && !includes(toggle.target, this.$el)) {
+            handler(e) {
+
+                if (isTouch(e)) {
                     return;
                 }
 
-                e.preventDefault();
-                this.show(toggle || this.toggle);
-            }
-
-        },
-
-        {
-
-            name: `togglehide ${pointerLeave}`,
-
-            handler(e, toggle) {
-
-                if (isTouch(e) || toggle && !includes(toggle.target, this.$el)) {
-                    return;
-                }
-
-                e.preventDefault();
-
-                if (this.toggle && includes(this.toggle.mode, 'hover')) {
+                if (!matches(this.$el, ':hover')) {
                     this.hide();
                 }
+
             }
 
         },
@@ -298,12 +300,12 @@ export default {
 
     methods: {
 
-        show(toggle, delay = true) {
+        show(toggle = this.toggle, delay = true) {
 
             const show = () => !this.isToggled() && this.toggleElement(this.$el, true);
             const tryShow = () => {
 
-                this.toggle = toggle || this.toggle;
+                this.toggle = toggle;
 
                 this.clearTimers();
 
@@ -362,7 +364,7 @@ export default {
             this.isDelaying = this.tracker.movesTo(this.$el);
 
             if (delay && this.isDelaying) {
-                this.hideTimer = setTimeout(this.hide, this.hoverIdle);
+                this.hideTimer = setTimeout(this.hide, 50);
             } else if (delay && this.delayHide) {
                 this.hideTimer = setTimeout(hide, this.delayHide);
             } else {
