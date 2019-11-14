@@ -363,7 +363,7 @@ export default {
 
             this.isDelaying = this.tracker.movesTo(this.$el);
 
-            if (delay && this.isDelaying) {
+            if (delay && (this.isDelaying || active && active !== this && active.isDelaying)) {
                 this.hideTimer = setTimeout(this.hide, 50);
             } else if (delay && this.delayHide) {
                 this.hideTimer = setTimeout(hide, this.delayHide);
