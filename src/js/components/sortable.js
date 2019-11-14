@@ -1,6 +1,6 @@
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
-import {$$, addClass, after, assign, append, attr, before, clamp, css, getEventPos, height, includes, index, isEmpty, isInput, offset, off, on, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollTop, toggleClass, toNodes, trigger, within} from 'uikit-util';
+import {$$, addClass, after, assign, append, attr, before, clamp, css, getEventPos, height, includes, index, isEmpty, isInput, offset, off, on, parents, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollTop, toggleClass, toNodes, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -31,7 +31,8 @@ export default {
         clsNoDrag: 'uk-sortable-nodrag',
         clsEmpty: 'uk-sortable-empty',
         clsCustom: '',
-        handle: false
+        handle: false,
+        pos: {}
     },
 
     created() {
@@ -39,8 +40,7 @@ export default {
             const fn = this[key];
             this[key] = e => {
                 this.scrollY = window.pageYOffset;
-                const {x, y} = getEventPos(e, 'page');
-                this.pos = {x, y};
+                assign(this.pos, getEventPos(e, 'page'));
 
                 fn(e);
             };
@@ -73,8 +73,6 @@ export default {
                     top: clamp(this.pos.y + this.origin.top, 0, bottom - this.drag.offsetHeight),
                     left: clamp(this.pos.x + this.origin.left, 0, right - this.drag.offsetWidth)
                 });
-
-                trackScroll(this.pos);
 
             }
 
@@ -138,6 +136,8 @@ export default {
             addClass(document.documentElement, this.clsDragState);
 
             trigger(this.$el, 'start', [this, this.placeholder]);
+
+            trackScroll(this.pos);
 
             this.move(e);
         },
@@ -286,57 +286,55 @@ function isPredecessor(element, target) {
 }
 
 let trackTimer;
-function trackScroll({x, y}) {
+function trackScroll(pos) {
 
-    clearTimeout(trackTimer);
+    trackTimer = setInterval(() => {
 
-    scrollParents(document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset)).some(scrollEl => {
+        const {x, y} = pos;
+        scrollParents(document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset)).some(scrollEl => {
 
-        let {scrollTop: scroll, scrollHeight} = scrollEl;
+            let {scrollTop: scroll, scrollHeight, offsetHeight} = scrollEl;
 
-        if (getScrollingElement() === scrollEl) {
-            scrollEl = window;
-            scrollHeight -= window.innerHeight;
-        }
+            if (getScrollingElement() === scrollEl) {
+                scrollEl = window;
+                scrollHeight -= window.innerHeight;
+            } else {
+                scrollHeight -= offsetHeight;
+            }
 
-        const {top, bottom} = offset(scrollEl);
+            const {top, bottom} = offset(scrollEl);
 
-        if (top < y && top + 30 > y) {
-            scroll -= 5;
-        } else if (bottom > y && bottom - 20 < y) {
-            scroll += 5;
-        }
+            if (top < y && top + 30 > y) {
+                scroll -= 5;
+            } else if (bottom > y && bottom - 20 < y) {
+                scroll += 5;
+            } else {
+                return;
+            }
 
-        if (scroll > 0 && scroll < scrollHeight) {
-            return trackTimer = setTimeout(() => {
+            if (scroll > 0 && scroll < scrollHeight) {
                 scrollTop(scrollEl, scroll);
-                trackScroll({x, y});
-            }, 10);
-        }
+                return true;
+            }
 
-    });
+        });
+
+    }, 15);
 
 }
 
 function untrackScroll() {
-    clearTimeout(trackTimer);
+    clearInterval(trackTimer);
 }
 
 const overflowRe = /auto|scroll/;
 
 function scrollParents(element) {
     const scrollEl = getScrollingElement();
-    return parents(element, parent => parent === scrollEl || overflowRe.test(css(parent, 'overflow')));
-}
-
-function parents(element, fn) {
-    const parents = [];
-    do {
-        if (fn(element)) {
-            parents.unshift(element);
-        }
-    } while (element && (element = element.parentElement));
-    return parents;
+    return element
+        ? [element].concat(parents(element, '*'))
+            .filter(parent => parent === scrollEl || overflowRe.test(css(parent, 'overflow'))).reverse()
+        : [];
 }
 
 function getScrollingElement() {
