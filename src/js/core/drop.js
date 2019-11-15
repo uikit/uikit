@@ -164,13 +164,9 @@ export default {
             },
 
             handler(e) {
-
-                if (isTouch(e)) {
-                    return;
+                if (!isTouch(e)) {
+                    this.clearTimers();
                 }
-
-                e.preventDefault();
-                this.show();
             }
 
         },
@@ -184,15 +180,9 @@ export default {
             },
 
             handler(e) {
-
-                if (isTouch(e)) {
-                    return;
-                }
-
-                if (!matches(this.$el, ':hover')) {
+                if (!isTouch(e) && !matches(this.$el, ':hover')) {
                     this.hide();
                 }
-
             }
 
         },
@@ -218,6 +208,9 @@ export default {
             self: true,
 
             handler() {
+
+                active = this;
+
                 this.tracker.init();
                 trigger(this.$el, 'updatearia');
 
@@ -302,57 +295,32 @@ export default {
 
         show(toggle = this.toggle, delay = true) {
 
-            const show = () => !this.isToggled() && this.toggleElement(this.$el, true);
-            const tryShow = () => {
+            if (this.isToggled() && toggle && this.toggle && toggle.$el !== this.toggle.$el) {
+                this.hide(false);
+            }
 
-                this.toggle = toggle;
+            this.toggle = toggle;
 
-                this.clearTimers();
+            this.clearTimers();
 
-                if (this.isActive()) {
-                    return;
-                } else if (delay && active && active !== this && active.isDelaying) {
+            if (this.isActive()) {
+                return;
+            }
+
+            if (active) {
+
+                if (delay && active.isDelaying) {
                     this.showTimer = setTimeout(this.show, 10);
                     return;
-                } else if (this.isParentOf(active)) {
-
-                    if (active.hideTimer) {
-                        active.hide(false);
-                    } else {
-                        return;
-                    }
-
-                } else if (this.isChildOf(active)) {
-
-                    active.clearTimers();
-
-                } else if (active && !this.isChildOf(active) && !this.isParentOf(active)) {
-
-                    let prev;
-                    while (active && active !== prev && !this.isChildOf(active)) {
-                        prev = active;
-                        active.hide(false);
-                    }
-
                 }
 
-                if (delay && this.delayShow) {
-                    this.showTimer = setTimeout(show, this.delayShow);
-                } else {
-                    show();
+                while (active && !within(this.$el, active.$el)) {
+                    active.hide(false);
                 }
-
-                active = this;
-            };
-
-            if (toggle && this.toggle && toggle.$el !== this.toggle.$el) {
-
-                once(this.$el, 'hide', tryShow);
-                this.hide(false);
-
-            } else {
-                tryShow();
             }
+
+            this.showTimer = setTimeout(() => !this.isToggled() && this.toggleElement(this.$el, true), delay && this.delayShow || 0);
+
         },
 
         hide(delay = true) {
@@ -361,9 +329,9 @@ export default {
 
             this.clearTimers();
 
-            this.isDelaying = this.tracker.movesTo(this.$el);
+            this.isDelaying = getPositionedElements(this.$el).some(el => this.tracker.movesTo(el));
 
-            if (delay && (this.isDelaying || active && active !== this && active.isDelaying)) {
+            if (delay && this.isDelaying) {
                 this.hideTimer = setTimeout(this.hide, 50);
             } else if (delay && this.delayHide) {
                 this.hideTimer = setTimeout(hide, this.delayHide);
@@ -382,14 +350,6 @@ export default {
 
         isActive() {
             return active === this;
-        },
-
-        isChildOf(drop) {
-            return drop && drop !== this && within(this.$el, drop.$el);
-        },
-
-        isParentOf(drop) {
-            return drop && drop !== this && within(drop.$el, this.$el);
         },
 
         position() {
@@ -417,6 +377,11 @@ export default {
     }
 
 };
+
+function getPositionedElements(el) {
+    const result = css(el, 'position') !== 'static' ? [el] : [];
+    return result.concat(result.map.call(el.children, getPositionedElements));
+}
 
 export function delayOn(el, type, fn) {
     let off = once(el, type, () =>
