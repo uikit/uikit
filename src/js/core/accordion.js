@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Togglable from '../mixin/togglable';
-import {$, $$, attr, filter, getIndex, hasClass, includes, index, toggleClass, unwrap, wrapAll} from 'uikit-util';
+import {$, $$, attr, filter, getIndex, hasClass, includes, index, isInView, scrollIntoView, toggleClass, unwrap, wrapAll} from 'uikit-util';
 
 export default {
 
@@ -115,6 +115,11 @@ export default {
 
                         if (!state) {
                             this._toggle(content, false);
+                        } else {
+                            const toggle = $(this.$props.toggle, el);
+                            if (!isInView(toggle)) {
+                                scrollIntoView(toggle);
+                            }
                         }
 
                         el._wrapper = null;
