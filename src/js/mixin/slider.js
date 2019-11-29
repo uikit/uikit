@@ -184,7 +184,7 @@ export default {
             );
 
             if (!force && !prev) {
-                this._transitioner.translate(1);
+                this._translate(1);
                 return Promise.resolve();
             }
 

@@ -123,7 +123,7 @@ export default {
             });
 
             if (this.length && !this.dragging && !this.stack.length) {
-                this._getTransitioner().translate(1);
+                this._translate(1);
             }
 
         },

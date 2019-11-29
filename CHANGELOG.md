@@ -42,6 +42,7 @@
 - Fix Slider throws error if initialized with no slides
 - Fix Slider/Slideshow crash in IE
 - Fix Slider/Slideshow drag no longer starts on input elements
+- Fix Slider/Slideshow Parallax shows wrong initial state
 - Fix `isPlainObject` to work across iframes
 - Fix Scrollspy causes endless update loop
 
