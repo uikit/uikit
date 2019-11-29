@@ -42,6 +42,16 @@ export default {
 
         {
 
+            write({stacks}) {
+                toggleClass(this.$el, this.clsStack, stacks);
+            },
+
+            events: ['resize']
+
+        },
+
+        {
+
             read({rows}) {
 
                 if (this.masonry || this.parallax) {
@@ -51,6 +61,8 @@ export default {
                         rows.map(row => row.reverse());
                     }
 
+                } else {
+                    return false;
                 }
 
                 const transitionInProgress = rows.some(elements => elements.some(Transition.inProgress));
