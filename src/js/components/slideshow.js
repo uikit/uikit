@@ -40,7 +40,7 @@ export default {
                 height = Math.min(this.maxHeight, height);
             }
 
-            return {height: height - boxModelAdjust(this.list, 'content-box')};
+            return {height: height - boxModelAdjust(this.list, 'height', 'content-box')};
         },
 
         write({height}) {

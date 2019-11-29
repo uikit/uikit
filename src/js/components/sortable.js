@@ -1,6 +1,6 @@
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
-import {$$, addClass, after, assign, append, attr, before, clamp, css, getEventPos, height, includes, index, isEmpty, isInput, offset, off, on, parents, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollTop, toggleClass, toNodes, trigger, within} from 'uikit-util';
+import {$$, addClass, after, assign, append, attr, before, clamp, css, getEventPos, height, includes, index, isEmpty, isInput, offset, off, on, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, toNodes, trigger, within, getViewport} from 'uikit-util';
 
 export default {
 
@@ -293,26 +293,19 @@ function trackScroll(pos) {
         const {x, y} = pos;
         scrollParents(document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset)).some(scrollEl => {
 
-            let {scrollTop: scroll, scrollHeight, offsetHeight} = scrollEl;
+            let {scrollTop: scroll, scrollHeight} = scrollEl;
 
-            if (getScrollingElement() === scrollEl) {
-                scrollEl = window;
-                scrollHeight -= window.innerHeight;
-            } else {
-                scrollHeight -= offsetHeight;
-            }
-
-            const {top, bottom} = offset(scrollEl);
+            const {top, bottom, height} = offset(getViewport(scrollEl));
 
             if (top < y && top + 30 > y) {
                 scroll -= 5;
-            } else if (bottom > y && bottom - 20 < y) {
+            } else if (bottom > y && bottom - 30 < y) {
                 scroll += 5;
             } else {
                 return;
             }
 
-            if (scroll > 0 && scroll < scrollHeight) {
+            if (scroll > 0 && scroll < scrollHeight - height) {
                 scrollTop(scrollEl, scroll);
                 return true;
             }
@@ -325,18 +318,4 @@ function trackScroll(pos) {
 
 function untrackScroll() {
     clearInterval(trackTimer);
-}
-
-const overflowRe = /auto|scroll/;
-
-function scrollParents(element) {
-    const scrollEl = getScrollingElement();
-    return element
-        ? [element].concat(parents(element, '*'))
-            .filter(parent => parent === scrollEl || overflowRe.test(css(parent, 'overflow'))).reverse()
-        : [];
-}
-
-function getScrollingElement() {
-    return document.scrollingElement || document.documentElement;
 }

@@ -182,4 +182,3 @@ export function $$(selector, context) {
 function isHtml(str) {
     return str[0] === '<' || str.match(/^\s*</);
 }
-

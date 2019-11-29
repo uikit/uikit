@@ -72,7 +72,7 @@ function match(elements) {
 }
 
 function getHeights(elements) {
-    const heights = elements.map(el => offset(el).height - boxModelAdjust('height', el, 'content-box'));
+    const heights = elements.map(el => offset(el).height - boxModelAdjust(el, 'height', 'content-box'));
     const max = Math.max.apply(null, heights);
 
     return {heights, max};

@@ -1,4 +1,4 @@
-import {addClass, append, assign, css, fastdom, height, includes, index, isVisible, noop, position, Promise, removeClass, scrollTop, toFloat, toNodes, Transition} from 'uikit-util';
+import {addClass, append, assign, css, fastdom, height, includes, index, isVisible, noop, offset, position, Promise, removeClass, scrollTop, toNodes, Transition} from 'uikit-util';
 
 const targetClass = 'uk-animation-target';
 
@@ -127,9 +127,8 @@ function reset(el) {
 }
 
 function getPositionWithMargin(el) {
-    const {height, width} = el.getBoundingClientRect();
-    let {top, left} = position(el);
-    top += toFloat(css(el, 'marginTop'));
+    const {height, width} = offset(el);
+    const {top, left} = position(el);
 
     return {top, left, height, width};
 }

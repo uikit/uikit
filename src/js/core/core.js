@@ -18,8 +18,7 @@ export default function (UIkit) {
             pending = true;
             fastdom.write(() => pending = false);
 
-            const {target} = e;
-            UIkit.update(target.nodeType !== 1 ? document.body : target, e.type);
+            UIkit.update(null, e.type);
 
         }, {passive: true, capture: true});
 

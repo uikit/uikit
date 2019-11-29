@@ -2,6 +2,11 @@
 
 ## 3.2.3 (November 6, 2019)
 
+### Added
+
+- Parallax, Scroll, Scrollspy Nav components work inside of scrollable container
+- Expose `scrollIntoView` utility function
+
 ### Fixed
 
 - Fix scrolling containers while dragging in Sortable component
