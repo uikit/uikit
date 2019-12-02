@@ -1,7 +1,7 @@
 import {css} from './style';
 import {attr} from './attr';
 import {isVisible} from './filter';
-import {each, endsWith, includes, isDocument, isNumeric, isUndefined, isWindow, toFloat, toNode, ucfirst} from './lang';
+import {each, endsWith, getWindow, includes, isDocument, isNumeric, isUndefined, isWindow, toFloat, toNode, ucfirst} from './lang';
 
 const dirs = {
     width: ['x', 'left', 'right'],
@@ -187,13 +187,15 @@ function getDimensions(element) {
 
 export function position(element, parent) {
     const elementOffset = offset(element);
-    const parentOffset = offset(parent || toNode(element).offsetParent || getDocEl(element));
+    const parentOffset = offset(parent || toNode(element).offsetParent || getWindow(element).document.documentElement);
 
     return {top: elementOffset.top - parentOffset.top, left: elementOffset.left - parentOffset.left};
 }
 
 export function offsetPosition(element) {
     const offset = [0, 0];
+
+    element = toNode(element);
 
     do {
 
@@ -329,16 +331,4 @@ export function toPx(value, property = 'width', element = window) {
 
 function percent(base, value) {
     return base * toFloat(value) / 100;
-}
-
-function getWindow(element) {
-    return isWindow(element) ? element : getDocument(element).defaultView;
-}
-
-function getDocument(element) {
-    return toNode(element).ownerDocument;
-}
-
-function getDocEl(element) {
-    return getDocument(element).documentElement;
 }

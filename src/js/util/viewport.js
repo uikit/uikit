@@ -3,7 +3,7 @@ import {Promise} from './promise';
 import {isVisible} from './filter';
 import {parents} from './selector';
 import {offset, offsetPosition, position} from './dimensions';
-import {clamp, intersectRect, isDocument, isWindow, last, pointInRect, toNode} from './lang';
+import {clamp, getWindow, intersectRect, isDocument, isWindow, last, pointInRect, toNode} from './lang';
 
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
@@ -11,7 +11,7 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
         return false;
     }
 
-    const parents = scrollParents(element, /auto|scroll|hidden/).concat(toNode(element));
+    const parents = overflowParents(element).concat(element);
 
     for (let i = 0; i < parents.length - 1; i++) {
         const {top, left, bottom, right} = offset(getViewport(parents[i]));
@@ -36,7 +36,7 @@ export function scrollTop(element, top) {
     element = toNode(element);
 
     if (isWindow(element) || isDocument(element)) {
-        element = getScrollingElement();
+        element = getScrollingElement(element);
     }
 
     element.scrollTo(0, top);
@@ -48,7 +48,7 @@ export function scrollIntoView(element, {duration = 1000, offset = 0} = {}) {
         return;
     }
 
-    const parents = scrollParents(element, /auto|scroll|hidden/).concat(toNode(element));
+    const parents = overflowParents(element).concat(element);
     duration /= parents.length - 1;
 
     let promise = Promise.resolve();
@@ -97,9 +97,7 @@ export function scrolledOver(element, heightOffset = 0) {
         return 0;
     }
 
-    element = toNode(element);
-
-    const scrollElement = scrollParent(element);
+    const scrollElement = last(scrollParents(element));
     const {scrollHeight, scrollTop} = scrollElement;
     const viewport = getViewport(scrollElement);
     const viewportHeight = offset(viewport).height;
@@ -117,10 +115,7 @@ export function scrolledOver(element, heightOffset = 0) {
 }
 
 export function scrollParents(element, overflowRe = /auto|scroll/) {
-
-    element = toNode(element);
-
-    const scrollEl = getScrollingElement();
+    const scrollEl = getScrollingElement(element);
     return element
         ? parents(element, '*').filter(parent =>
             parent === scrollEl
@@ -130,14 +125,15 @@ export function scrollParents(element, overflowRe = /auto|scroll/) {
         : [scrollEl];
 }
 
-export function scrollParent(element) {
-    return last(scrollParents(element));
-}
-
-export function getScrollingElement() {
-    return document.scrollingElement || document.documentElement;
-}
-
 export function getViewport(scrollElement) {
-    return scrollElement === getScrollingElement() ? window : scrollElement;
+    return scrollElement === getScrollingElement(scrollElement) ? window : scrollElement;
+}
+
+function overflowParents(element) {
+    return scrollParents(element, /auto|scroll|hidden/);
+}
+
+function getScrollingElement(element) {
+    const {document} = getWindow(element);
+    return document.scrollingElement || document.documentElement;
 }

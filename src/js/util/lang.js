@@ -307,3 +307,13 @@ export const Dimensions = {
     }
 
 };
+
+export function getWindow(element) {
+    element = toNode(element);
+    return isWindow(element)
+        ? element
+        : (isDocument(element)
+            ? element
+            : element.ownerDocument
+        ).defaultView;
+}
