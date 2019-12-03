@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.2.4 (December 3, 2019)
 
 ### Added
 
