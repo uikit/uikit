@@ -3,7 +3,7 @@ import {Promise} from './promise';
 import {isVisible} from './filter';
 import {parents} from './selector';
 import {offset, offsetPosition, position} from './dimensions';
-import {clamp, getWindow, intersectRect, isDocument, isWindow, last, pointInRect, toNode} from './lang';
+import {clamp, intersectRect, isDocument, isWindow, last, pointInRect, toNode, toWindow} from './lang';
 
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
@@ -134,6 +134,6 @@ function overflowParents(element) {
 }
 
 function getScrollingElement(element) {
-    const {document} = getWindow(element);
+    const {document} = toWindow(element);
     return document.scrollingElement || document.documentElement;
 }

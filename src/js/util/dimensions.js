@@ -1,7 +1,7 @@
 import {css} from './style';
 import {attr} from './attr';
 import {isVisible} from './filter';
-import {each, endsWith, getWindow, includes, isDocument, isNumeric, isUndefined, isWindow, toFloat, toNode, ucfirst} from './lang';
+import {each, endsWith, includes, isDocument, isNumeric, isUndefined, isWindow, toFloat, toNode, toWindow, ucfirst} from './lang';
 
 const dirs = {
     width: ['x', 'left', 'right'],
@@ -37,7 +37,7 @@ export function positionAt(element, target, elAttach, targetAttach, elOffset, ta
 
     if (flip) {
 
-        const boundaries = [getDimensions(getWindow(element))];
+        const boundaries = [getDimensions(toWindow(element))];
 
         if (boundary) {
             boundaries.unshift(getDimensions(boundary));
@@ -139,7 +139,7 @@ function getDimensions(element) {
         return {};
     }
 
-    const {pageYOffset: top, pageXOffset: left} = getWindow(element);
+    const {pageYOffset: top, pageXOffset: left} = toWindow(element);
 
     if (isWindow(element)) {
 
@@ -187,7 +187,7 @@ function getDimensions(element) {
 
 export function position(element, parent) {
     const elementOffset = offset(element);
-    const parentOffset = offset(parent || toNode(element).offsetParent || getWindow(element).document.documentElement);
+    const parentOffset = offset(parent || toNode(element).offsetParent || toWindow(element).document.documentElement);
 
     return {top: elementOffset.top - parentOffset.top, left: elementOffset.left - parentOffset.left};
 }
@@ -203,7 +203,7 @@ export function offsetPosition(element) {
         offset[1] += element.offsetLeft;
 
         if (css(element, 'position') === 'fixed') {
-            const win = getWindow(element);
+            const win = toWindow(element);
             offset[0] += win.pageYOffset;
             offset[1] += win.pageXOffset;
             return offset;
@@ -321,9 +321,9 @@ export function toPx(value, property = 'width', element = window) {
     return isNumeric(value)
         ? +value
         : endsWith(value, 'vh')
-            ? percent(height(getWindow(element)), value)
+            ? percent(height(toWindow(element)), value)
             : endsWith(value, 'vw')
-                ? percent(width(getWindow(element)), value)
+                ? percent(width(toWindow(element)), value)
                 : endsWith(value, '%')
                     ? percent(getDimensions(element)[property], value)
                     : toFloat(value);

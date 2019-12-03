@@ -1,6 +1,6 @@
 # Changelog
 
-## 3.2.3 (November 6, 2019)
+## WIP
 
 ### Added
 
@@ -10,10 +10,15 @@
 ### Fixed
 
 - Fix scrolling containers while dragging in Sortable component
-- Fix initializing components with jQuery elements
 - Fix show/hide behaviour in Drop component 
 - Fix Accordion component will scroll title into view if needed
 - Fix component initialization without element
+
+## 3.2.3 (November 6, 2019)
+
+### Fixed
+
+- Fix initializing components with jQuery elements
 
 ## 3.2.2 (October 23, 2019)
 
