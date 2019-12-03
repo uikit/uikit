@@ -24,7 +24,7 @@ export default function (UIkit) {
 
             return component.options.functional
                 ? new component({data: isPlainObject(element) ? element : [...arguments]})
-                : element && element.nodeType ? init(element) : $$(element).map(init)[0];
+                : !element ? init(element) : $$(element).map(init)[0];
 
             function init(element) {
 

@@ -1,6 +1,6 @@
-import {toFloat} from './lang';
 import {on} from './event';
-import {isInView} from './dimensions';
+import {toFloat} from './lang';
+import {isInView} from './viewport';
 
 export const IntersectionObserver = 'IntersectionObserver' in window
     ? window.IntersectionObserver

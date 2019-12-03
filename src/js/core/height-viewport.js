@@ -28,7 +28,7 @@ export default {
             }
 
             let minHeight = '';
-            const box = boxModelAdjust('height', this.$el, 'content-box');
+            const box = boxModelAdjust(this.$el, 'height', 'content-box');
 
             if (this.expand) {
 

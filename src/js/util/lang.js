@@ -174,6 +174,16 @@ export function toNodes(element) {
                     : [];
 }
 
+export function toWindow(element) {
+    element = toNode(element);
+    return isWindow(element)
+        ? element
+        : (isDocument(element)
+                ? element
+                : element.ownerDocument
+        ).defaultView;
+}
+
 export function toList(value) {
     return isArray(value)
         ? value

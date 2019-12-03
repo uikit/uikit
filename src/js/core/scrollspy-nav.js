@@ -1,4 +1,4 @@
-import {$, $$, addClass, closest, escape, filter, height, isInView, offset, removeClass, trigger} from 'uikit-util';
+import {$$, addClass, closest, escape, getViewport, isVisible, last, offset, position, removeClass, scrollParents, trigger} from 'uikit-util';
 
 export default {
 
@@ -24,12 +24,12 @@ export default {
             return $$('a[href^="#"]', $el).filter(el => el.hash);
         },
 
-        elements({closest: selector}) {
-            return closest(this.links, selector || '*');
-        },
-
         targets() {
             return $$(this.links.map(el => escape(el.hash).substr(1)).join(','));
+        },
+
+        elements({closest: selector}) {
+            return closest($$(this.targets.map(el => `[href="#${el.id}"]`).join(',')), selector || '*');
         }
 
     },
@@ -48,39 +48,39 @@ export default {
 
         {
 
-            read(data) {
+            read() {
 
-                const scroll = window.pageYOffset + this.offset + 1;
-                const max = height(document) - height(window) + this.offset;
+                const {length} = this.targets;
 
-                data.active = false;
+                if (!length || !isVisible(this.$el)) {
+                    return false;
+                }
 
-                this.targets.every((el, i) => {
+                const scrollElement = last(scrollParents(this.targets[0]));
+                const {scrollTop, scrollHeight} = scrollElement;
+                const viewport = getViewport(scrollElement);
+                const scroll = scrollTop;
+                const max = scrollHeight - offset(viewport).height;
+                let active = false;
 
-                    const {top} = offset(el);
-                    const last = i + 1 === this.targets.length;
+                if (scroll === max) {
+                    active = length - 1;
+                } else {
 
-                    if (!this.overflow && (i === 0 && top > scroll || last && top + el.offsetTop < scroll)) {
-                        return false;
-                    }
-
-                    if (!last && offset(this.targets[i + 1]).top <= scroll) {
-                        return true;
-                    }
-
-                    if (scroll >= max) {
-                        for (let j = this.targets.length - 1; j > i; j--) {
-                            if (isInView(this.targets[j])) {
-                                el = this.targets[j];
-                                break;
-                            }
+                    this.targets.every((el, i) => {
+                        const {top} = position(el, viewport);
+                        if (top - this.offset <= 0) {
+                            active = i;
+                            return true;
                         }
+                    });
+
+                    if (active === false && this.overflow) {
+                        active = 0;
                     }
+                }
 
-                    return !(data.active = $(filter(this.links, `[href="#${el.id}"]`)));
-
-                });
-
+                return {active};
             },
 
             write({active}) {
@@ -88,8 +88,8 @@ export default {
                 this.links.forEach(el => el.blur());
                 removeClass(this.elements, this.cls);
 
-                if (active) {
-                    trigger(this.$el, 'active', [active, addClass(this.closest ? closest(active, this.closest) : active, this.cls)]);
+                if (active !== false) {
+                    trigger(this.$el, 'active', [active, addClass(this.elements[active], this.cls)]);
                 }
 
             },

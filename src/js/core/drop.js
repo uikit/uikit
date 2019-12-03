@@ -1,6 +1,6 @@
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {addClass, Animation, attr, css, includes, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointInRect, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
+import {addClass, Animation, attr, css, includes, isTouch, matches, MouseTracker, offset, on, once, pointerEnter, pointerLeave, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
 
 let active;
 
@@ -28,7 +28,6 @@ export default {
         delayShow: 0,
         delayHide: 800,
         clsDrop: false,
-        hoverIdle: 200,
         animation: ['uk-animation-fade'],
         cls: 'uk-open'
     },
@@ -132,6 +131,32 @@ export default {
 
         {
 
+            name: 'toggleshow',
+
+            self: true,
+
+            handler(e, toggle) {
+                e.preventDefault();
+                this.show(toggle);
+            }
+
+        },
+
+        {
+
+            name: 'togglehide',
+
+            self: true,
+
+            handler(e) {
+                e.preventDefault();
+                this.hide();
+            }
+
+        },
+
+        {
+
             name: pointerEnter,
 
             filter() {
@@ -139,56 +164,23 @@ export default {
             },
 
             handler(e) {
-
-                if (isTouch(e)) {
-                    return;
+                if (!isTouch(e)) {
+                    this.clearTimers();
                 }
-
-                if (active
-                    && active !== this
-                    && active.toggle
-                    && includes(active.toggle.mode, 'hover')
-                    && !within(e.target, active.toggle.$el)
-                    && !pointInRect({x: e.pageX, y: e.pageY}, offset(active.$el))
-                ) {
-                    active.hide(false);
-                }
-
-                e.preventDefault();
-                this.show(this.toggle);
             }
 
         },
 
         {
 
-            name: 'toggleshow',
+            name: pointerLeave,
 
-            handler(e, toggle) {
+            filter() {
+                return includes(this.mode, 'hover');
+            },
 
-                if (toggle && !includes(toggle.target, this.$el)) {
-                    return;
-                }
-
-                e.preventDefault();
-                this.show(toggle || this.toggle);
-            }
-
-        },
-
-        {
-
-            name: `togglehide ${pointerLeave}`,
-
-            handler(e, toggle) {
-
-                if (isTouch(e) || toggle && !includes(toggle.target, this.$el)) {
-                    return;
-                }
-
-                e.preventDefault();
-
-                if (this.toggle && includes(this.toggle.mode, 'hover')) {
+            handler(e) {
+                if (!isTouch(e) && !matches(this.$el, ':hover')) {
                     this.hide();
                 }
             }
@@ -216,6 +208,9 @@ export default {
             self: true,
 
             handler() {
+
+                active = this;
+
                 this.tracker.init();
                 trigger(this.$el, 'updatearia');
 
@@ -298,59 +293,34 @@ export default {
 
     methods: {
 
-        show(toggle, delay = true) {
+        show(toggle = this.toggle, delay = true) {
 
-            const show = () => !this.isToggled() && this.toggleElement(this.$el, true);
-            const tryShow = () => {
+            if (this.isToggled() && toggle && this.toggle && toggle.$el !== this.toggle.$el) {
+                this.hide(false);
+            }
 
-                this.toggle = toggle || this.toggle;
+            this.toggle = toggle;
 
-                this.clearTimers();
+            this.clearTimers();
 
-                if (this.isActive()) {
-                    return;
-                } else if (delay && active && active !== this && active.isDelaying) {
+            if (this.isActive()) {
+                return;
+            }
+
+            if (active) {
+
+                if (delay && active.isDelaying) {
                     this.showTimer = setTimeout(this.show, 10);
                     return;
-                } else if (this.isParentOf(active)) {
-
-                    if (active.hideTimer) {
-                        active.hide(false);
-                    } else {
-                        return;
-                    }
-
-                } else if (this.isChildOf(active)) {
-
-                    active.clearTimers();
-
-                } else if (active && !this.isChildOf(active) && !this.isParentOf(active)) {
-
-                    let prev;
-                    while (active && active !== prev && !this.isChildOf(active)) {
-                        prev = active;
-                        active.hide(false);
-                    }
-
                 }
 
-                if (delay && this.delayShow) {
-                    this.showTimer = setTimeout(show, this.delayShow);
-                } else {
-                    show();
+                while (active && !within(this.$el, active.$el)) {
+                    active.hide(false);
                 }
-
-                active = this;
-            };
-
-            if (toggle && this.toggle && toggle.$el !== this.toggle.$el) {
-
-                once(this.$el, 'hide', tryShow);
-                this.hide(false);
-
-            } else {
-                tryShow();
             }
+
+            this.showTimer = setTimeout(() => !this.isToggled() && this.toggleElement(this.$el, true), delay && this.delayShow || 0);
+
         },
 
         hide(delay = true) {
@@ -359,10 +329,10 @@ export default {
 
             this.clearTimers();
 
-            this.isDelaying = this.tracker.movesTo(this.$el);
+            this.isDelaying = getPositionedElements(this.$el).some(el => this.tracker.movesTo(el));
 
             if (delay && this.isDelaying) {
-                this.hideTimer = setTimeout(this.hide, this.hoverIdle);
+                this.hideTimer = setTimeout(this.hide, 50);
             } else if (delay && this.delayHide) {
                 this.hideTimer = setTimeout(hide, this.delayHide);
             } else {
@@ -380,14 +350,6 @@ export default {
 
         isActive() {
             return active === this;
-        },
-
-        isChildOf(drop) {
-            return drop && drop !== this && within(this.$el, drop.$el);
-        },
-
-        isParentOf(drop) {
-            return drop && drop !== this && within(drop.$el, this.$el);
         },
 
         position() {
@@ -415,6 +377,11 @@ export default {
     }
 
 };
+
+function getPositionedElements(el) {
+    const result = css(el, 'position') !== 'static' ? [el] : [];
+    return result.concat(result.map.call(el.children, getPositionedElements));
+}
 
 export function delayOn(el, type, fn) {
     let off = once(el, type, () =>
