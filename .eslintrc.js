@@ -12,9 +12,9 @@ module.exports = {
         "sourceType": "module"
     },
     "globals": {
-        "BUNDLED": true,
         "VERSION": true,
-        "ICONS": true
+        "ICONS": true,
+        "NAME": true
     },
     "rules": {
         "arrow-parens": ["error", "as-needed"],

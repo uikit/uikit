@@ -13,6 +13,7 @@ UIkit.util = util;
 UIkit.data = '__uikit__';
 UIkit.prefix = 'uk-';
 UIkit.options = {};
+UIkit.version = VERSION;
 
 globalAPI(UIkit);
 hooksAPI(UIkit);
