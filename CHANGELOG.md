@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+-  Prevent content overflow if `max-width: 100%` is used inside Position component
+
 ## 3.2.4 (December 3, 2019)
 
 ### Added
