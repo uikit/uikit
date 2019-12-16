@@ -94,7 +94,7 @@ export default {
         },
 
         toggleNow(targets, show) {
-            return new Promise(resolve => Promise.all(toNodes(targets).map(el => this._toggleElement(el, show, false))).then(resolve, noop));
+            return this.toggleElement(targets, show, false);
         },
 
         isToggled(el) {
