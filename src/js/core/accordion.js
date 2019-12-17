@@ -117,7 +117,7 @@ export default {
                             this._toggle(content, false);
                         } else {
                             const toggle = $(this.$props.toggle, el);
-                            if (!isInView(toggle)) {
+                            if (animate !== false && !isInView(toggle)) {
                                 scrollIntoView(toggle);
                             }
                         }

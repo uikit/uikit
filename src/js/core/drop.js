@@ -1,6 +1,6 @@
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {addClass, Animation, attr, css, includes, isTouch, matches, MouseTracker, offset, on, once, pointerEnter, pointerLeave, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
+import {addClass, Animation, attr, children, css, includes, isTouch, matches, MouseTracker, offset, on, once, pointerEnter, pointerLeave, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
 
 let active;
 
@@ -380,7 +380,7 @@ export default {
 
 function getPositionedElements(el) {
     const result = css(el, 'position') !== 'static' ? [el] : [];
-    return result.concat(result.map.call(el.children, getPositionedElements));
+    return result.concat.apply(result, children(el).map(getPositionedElements));
 }
 
 export function delayOn(el, type, fn) {

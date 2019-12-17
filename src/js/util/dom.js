@@ -1,6 +1,6 @@
 import {on} from './event';
-import {find, findAll} from './selector';
-import {clamp, isNumeric, isString, isUndefined, toNode, toNodes, toNumber} from './lang';
+import {children, find, findAll, parent} from './selector';
+import {clamp, isElement, isNumeric, isString, isUndefined, toNode, toNodes, toNumber} from './lang';
 
 export function ready(fn) {
 
@@ -18,7 +18,7 @@ export function ready(fn) {
 export function index(element, ref) {
     return ref
         ? toNodes(element).indexOf(toNode(ref))
-        : toNodes((element = toNode(element)) && element.parentNode.children).indexOf(element);
+        : children(parent(element)).indexOf(element);
 }
 
 export function getIndex(i, elements, current = 0, finite = false) {
@@ -120,7 +120,7 @@ export function wrapInner(element, structure) {
 
 export function unwrap(element) {
     toNodes(element)
-        .map(element => element.parentNode)
+        .map(parent)
         .filter((value, index, self) => self.indexOf(value) === index)
         .forEach(parent => {
             before(parent, parent.childNodes);
@@ -151,15 +151,16 @@ export function fragment(html) {
 
 export function apply(node, fn) {
 
-    if (!node || node.nodeType !== 1) {
+    if (!isElement(node)) {
         return;
     }
 
     fn(node);
     node = node.firstElementChild;
     while (node) {
+        const next = node.nextElementSibling;
         apply(node, fn);
-        node = node.nextElementSibling;
+        node = next;
     }
 }
 

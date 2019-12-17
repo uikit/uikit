@@ -97,7 +97,11 @@ export function isJQuery(obj) {
 }
 
 export function isNode(obj) {
-    return obj instanceof Node || isObject(obj) && obj.nodeType >= 1;
+    return isObject(obj) && obj.nodeType >= 1;
+}
+
+export function isElement(obj) {
+    return isObject(obj) && obj.nodeType === 1;
 }
 
 export function isNodeCollection(obj) {
@@ -153,7 +157,7 @@ export function toFloat(value) {
 }
 
 export function toNode(element) {
-    return isNode(element) || isWindow(element) || isDocument(element)
+    return isNode(element)
         ? element
         : isNodeCollection(element) || isJQuery(element)
             ? element[0]
@@ -175,13 +179,18 @@ export function toNodes(element) {
 }
 
 export function toWindow(element) {
+    if (isWindow(element)) {
+        return element;
+    }
+
     element = toNode(element);
-    return isWindow(element)
-        ? element
-        : (isDocument(element)
-                ? element
-                : element.ownerDocument
-        ).defaultView;
+
+    return element
+        ? (isDocument(element)
+            ? element
+            : element.ownerDocument
+        ).defaultView
+        : window;
 }
 
 export function toList(value) {

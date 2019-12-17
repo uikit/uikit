@@ -107,33 +107,26 @@ export function positionAt(element, target, elAttach, targetAttach, elOffset, ta
 
 export function offset(element, coordinates) {
 
-    element = toNode(element);
-
-    if (coordinates) {
-
-        const currentOffset = offset(element);
-        const pos = css(element, 'position');
-
-        ['left', 'top'].forEach(prop => {
-            if (prop in coordinates) {
-                const value = css(element, prop);
-                css(element, prop, coordinates[prop] - currentOffset[prop]
-                    + toFloat(pos === 'absolute' && value === 'auto'
-                        ? position(element)[prop]
-                        : value)
-                );
-            }
-        });
-
-        return;
+    if (!coordinates) {
+        return getDimensions(element);
     }
 
-    return getDimensions(element);
+    const currentOffset = offset(element);
+    const pos = css(element, 'position');
+
+    ['left', 'top'].forEach(prop => {
+        if (prop in coordinates) {
+            const value = css(element, prop);
+            css(element, prop, coordinates[prop] - currentOffset[prop]
+                + toFloat(pos === 'absolute' && value === 'auto'
+                    ? position(element)[prop]
+                    : value)
+            );
+        }
+    });
 }
 
 function getDimensions(element) {
-
-    element = toNode(element);
 
     if (!element) {
         return {};
@@ -168,6 +161,8 @@ function getDimensions(element) {
             hidden: null
         });
     }
+
+    element = toNode(element);
 
     const rect = element.getBoundingClientRect();
 
@@ -221,8 +216,6 @@ function dimension(prop) {
     const propName = ucfirst(prop);
     return (element, value) => {
 
-        element = toNode(element);
-
         if (isUndefined(value)) {
 
             if (isWindow(element)) {
@@ -233,6 +226,8 @@ function dimension(prop) {
                 const doc = element.documentElement;
                 return Math.max(doc[`offset${propName}`], doc[`scroll${propName}`]);
             }
+
+            element = toNode(element);
 
             value = css(element, prop);
             value = value === 'auto' ? element[`offset${propName}`] : toFloat(value) || 0;

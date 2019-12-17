@@ -1,13 +1,17 @@
 import UIkit from './api/index';
-import core from './core/index';
+import Core from './core/core';
 import boot from './api/boot';
+import * as components from './core/index';
+import {each} from './util/lang';
 
-UIkit.version = VERSION;
+// register components
+each(components, (component, name) =>
+    UIkit.component(name, component)
+);
 
-core(UIkit);
+// core functionality
+UIkit.use(Core);
 
-if (!BUNDLED) {
-    boot(UIkit);
-}
+boot(UIkit);
 
 export default UIkit;

@@ -33,13 +33,14 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 }
 
 export function scrollTop(element, top) {
-    element = toNode(element);
 
     if (isWindow(element) || isDocument(element)) {
         element = getScrollingElement(element);
+    } else {
+        element = toNode(element);
     }
 
-    element.scrollTo(0, top);
+    element.scrollTop = top;
 }
 
 export function scrollIntoView(element, {duration = 1000, offset = 0} = {}) {
@@ -59,7 +60,7 @@ export function scrollIntoView(element, {duration = 1000, offset = 0} = {}) {
                 const scrollElement = parents[i];
                 const element = parents[i + 1];
 
-                const {scrollTop} = scrollElement;
+                const {scrollTop: scroll} = scrollElement;
                 const top = position(element, getViewport(scrollElement)).top - offset;
 
                 const start = Date.now();
@@ -67,7 +68,7 @@ export function scrollIntoView(element, {duration = 1000, offset = 0} = {}) {
 
                     const percent = ease(clamp((Date.now() - start) / duration));
 
-                    scrollElement.scrollTo(0, scrollTop + top * percent);
+                    scrollTop(scrollElement, scroll + top * percent);
 
                     // scroll more if we have not reached our destination
                     if (percent !== 1) {
@@ -116,13 +117,12 @@ export function scrolledOver(element, heightOffset = 0) {
 
 export function scrollParents(element, overflowRe = /auto|scroll/) {
     const scrollEl = getScrollingElement(element);
-    return element
-        ? parents(element, '*').filter(parent =>
-            parent === scrollEl
-            || overflowRe.test(css(parent, 'overflow'))
-            && parent.scrollHeight > offset(parent).height
-        ).reverse()
-        : [scrollEl];
+    const scrollParents = parents(element).filter(parent =>
+        parent === scrollEl
+        || overflowRe.test(css(parent, 'overflow'))
+        && parent.scrollHeight > offset(parent).height
+    ).reverse();
+    return scrollParents.length ? scrollParents : [scrollEl];
 }
 
 export function getViewport(scrollElement) {

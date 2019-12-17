@@ -1,6 +1,6 @@
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
-import {$$, addClass, after, assign, append, attr, before, clamp, css, getEventPos, height, includes, index, isEmpty, isInput, offset, off, on, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, toNodes, trigger, within, getViewport} from 'uikit-util';
+import {$$, addClass, after, assign, append, before, children, clamp, css, getEventPos, height, includes, index, isEmpty, isInput, offset, off, on, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, trigger, within, getViewport} from 'uikit-util';
 
 export default {
 
@@ -85,7 +85,7 @@ export default {
         init(e) {
 
             const {target, button, defaultPrevented} = e;
-            const [placeholder] = toNodes(this.$el.children).filter(el => within(target, el));
+            const [placeholder] = children(this.$el).filter(el => within(target, el));
 
             if (!placeholder
                 || defaultPrevented
@@ -115,22 +115,12 @@ export default {
 
         start(e) {
 
-            this.drag = append(this.$container, this.placeholder.outerHTML.replace(/^<li/i, '<div').replace(/li>$/i, 'div>'));
-
-            css(this.drag, assign({
-                boxSizing: 'border-box',
-                width: this.placeholder.offsetWidth,
-                height: this.placeholder.offsetHeight,
-                overflow: 'hidden'
-            }, css(this.placeholder, ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom'])));
-            attr(this.drag, 'uk-no-boot', '');
-            addClass(this.drag, this.clsDrag, this.clsCustom);
-
-            height(this.drag.firstElementChild, height(this.placeholder.firstElementChild));
+            this.drag = appendDrag(this.$container, this.placeholder);
 
             const {left, top} = offset(this.placeholder);
             assign(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
 
+            addClass(this.drag, this.clsDrag, this.clsCustom);
             addClass(this.placeholder, this.clsPlaceholder);
             addClass(this.$el.children, this.clsItem);
             addClass(document.documentElement, this.clsDragState);
@@ -165,7 +155,7 @@ export default {
                 return;
             }
 
-            target = sortable.$el === target.parentNode && target || toNodes(sortable.$el.children).filter(element => within(target, element))[0];
+            target = sortable.$el === target.parentNode && target || children(sortable.$el).filter(element => within(target, element))[0];
 
             if (move) {
                 previous.remove(this.placeholder);
@@ -318,4 +308,19 @@ function trackScroll(pos) {
 
 function untrackScroll() {
     clearInterval(trackTimer);
+}
+
+function appendDrag(container, element) {
+    const clone = append(container, element.outerHTML.replace(/(^<)li|li(\/>$)/g, '$1div$2'));
+
+    css(clone, assign({
+        boxSizing: 'border-box',
+        width: element.offsetWidth,
+        height: element.offsetHeight,
+        overflow: 'hidden'
+    }, css(element, ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom'])));
+
+    height(clone.firstElementChild, height(element.firstElementChild));
+
+    return clone;
 }

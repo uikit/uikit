@@ -8,6 +8,10 @@ export default function (UIkit) {
 
     UIkit.component = function (name, options) {
 
+        const id = hyphenate(name);
+
+        name = camelize(id);
+
         if (!options) {
 
             if (isPlainObject(components[name])) {
@@ -53,7 +57,6 @@ export default function (UIkit) {
         }
 
         if (UIkit._initialized && !opt.functional) {
-            const id = hyphenate(name);
             fastdom.read(() => UIkit[name](`[uk-${id}],[data-uk-${id}]`));
         }
 

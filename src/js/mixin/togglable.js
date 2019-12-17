@@ -59,17 +59,17 @@ export default {
                 targets = toNodes(targets);
 
                 const all = targets => Promise.all(targets.map(el => this._toggleElement(el, show, animate)));
-                const toggled = targets.filter(el => this.isToggled(el));
-                const untoggled = targets.filter(el => !includes(toggled, el));
 
                 let p;
 
                 if (!this.queued || !isUndefined(animate) || !isUndefined(show) || !this.hasAnimation || targets.length < 2) {
 
-                    p = all(untoggled.concat(toggled));
+                    p = all(targets);
 
                 } else {
 
+                    const toggled = targets.filter(el => this.isToggled(el));
+                    const untoggled = targets.filter(el => !includes(toggled, el));
                     const {body} = document;
                     const scroll = body.scrollTop;
                     const [el] = toggled;
@@ -94,7 +94,7 @@ export default {
         },
 
         toggleNow(targets, show) {
-            return new Promise(resolve => Promise.all(toNodes(targets).map(el => this._toggleElement(el, show, false))).then(resolve, noop));
+            return this.toggleElement(targets, show, false);
         },
 
         isToggled(el) {

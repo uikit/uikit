@@ -97,7 +97,7 @@ exports.renderLess = async function (data, options) {
         .css;
 };
 
-exports.compile = async function (file, dest, {external, globals, name, aliases, bundled, replaces, minify = true}) {
+exports.compile = async function (file, dest, {external, globals, name, aliases, replaces, minify = true}) {
 
     name = (name || '').replace(/[^\w]/g, '_');
 
@@ -106,7 +106,6 @@ exports.compile = async function (file, dest, {external, globals, name, aliases,
         input: `${resolve(dirname(file), basename(file, '.js'))}.js`,
         plugins: [
             replace(Object.assign({
-                BUNDLED: bundled || false,
                 VERSION: `'${version}'`
             }, replaces)),
             alias({
