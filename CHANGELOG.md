@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression with custom icons build task
+
 ## 3.2.5 (December 17, 2019)
 
 ### Added
