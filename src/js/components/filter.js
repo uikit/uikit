@@ -1,5 +1,5 @@
 import Animate from '../mixin/animate';
-import {$$, $, append, assign, css, data, each, fastdom, hasClass, includes, isEmpty, isEqual, isUndefined, matches, parseOptions, toggleClass, toNodes, trigger} from 'uikit-util';
+import {$$, $, append, assign, children, css, data, each, fastdom, hasClass, includes, isEmpty, isEqual, isUndefined, matches, parseOptions, toggleClass, trigger} from 'uikit-util';
 
 export default {
 
@@ -41,7 +41,7 @@ export default {
         children: {
 
             get() {
-                return toNodes(this.target && this.target.children);
+                return children(this.target);
             },
 
             watch(list, old) {

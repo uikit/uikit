@@ -4,7 +4,10 @@
 
 ### Added
 
--  Prevent content overflow if `max-width: 100%` is used inside Position component
+- Prevent content overflow if `max-width: 100%` is used inside Position component
+- Add `parent` util function
+- Add `children` util function
+- Add `isElement` util function
 
 ### Fixed
 

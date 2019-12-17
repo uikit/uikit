@@ -1,5 +1,5 @@
 import {translate} from '../../mixin/internal/slideshow-animations';
-import {clamp, createEvent, css, Deferred, includes, index, isRtl, noop, offset, position, sortBy, toNodes, Transition, trigger} from 'uikit-util';
+import {children, clamp, createEvent, css, Deferred, includes, index, isRtl, noop, offset, position, sortBy, Transition, trigger} from 'uikit-util';
 
 export default function (prev, next, dir, {center, easing, list}) {
 
@@ -155,5 +155,5 @@ function triggerUpdate(el, type, data) {
 }
 
 function slides(list) {
-    return toNodes(list.children);
+    return children(list);
 }

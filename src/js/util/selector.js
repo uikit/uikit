@@ -1,5 +1,5 @@
 import {removeAttr} from './attr';
-import {isDocument, isNode, isString, startsWith, toNode, toNodes} from './lang';
+import {isDocument, isElement, isString, startsWith, toNode, toNodes} from './lang';
 
 export function query(selector, context) {
     return toNode(selector) || find(selector, getContext(selector, context));
@@ -45,7 +45,7 @@ function _query(selector, context = document, queryFn) {
             if (selector[0] === '!') {
 
                 const selectors = selector.substr(1).trim().split(' ');
-                ctx = closest(context.parentNode, selectors[0]);
+                ctx = closest(parent(context), selectors[0]);
                 selector = selectors.slice(1).join(' ').trim();
 
             }
@@ -121,9 +121,7 @@ const closestFn = elProto.closest || function (selector) {
             return ancestor;
         }
 
-        ancestor = ancestor.parentNode;
-
-    } while (ancestor && ancestor.nodeType === 1);
+    } while ((ancestor = parent(ancestor)));
 };
 
 export function closest(element, selector) {
@@ -132,22 +130,32 @@ export function closest(element, selector) {
         selector = selector.slice(1);
     }
 
-    return isNode(element)
+    return isElement(element)
         ? closestFn.call(element, selector)
         : toNodes(element).map(element => closest(element, selector)).filter(Boolean);
 }
 
+export function parent(element) {
+    element = toNode(element);
+    return element && isElement(element.parentNode) && element.parentNode;
+}
+
 export function parents(element, selector) {
     const elements = [];
-    element = toNode(element);
 
-    while ((element = element.parentNode) && element.nodeType === 1) {
-        if (matches(element, selector)) {
+    while ((element = parent(element))) {
+        if (!selector || matches(element, selector)) {
             elements.push(element);
         }
     }
 
     return elements;
+}
+
+export function children(element, selector) {
+    element = toNode(element);
+    const children = element ? toNodes(element.children) : [];
+    return selector ? children.filter(element => matches(element, selector)) : children;
 }
 
 const escapeFn = window.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, match => `\\${match}`); };

@@ -1,6 +1,6 @@
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
-import {$$, addClass, after, assign, append, attr, before, clamp, css, getEventPos, height, includes, index, isEmpty, isInput, offset, off, on, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, toNodes, trigger, within, getViewport} from 'uikit-util';
+import {$$, addClass, after, assign, append, attr, before, children, clamp, css, getEventPos, height, includes, index, isEmpty, isInput, offset, off, on, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, trigger, within, getViewport} from 'uikit-util';
 
 export default {
 
@@ -85,7 +85,7 @@ export default {
         init(e) {
 
             const {target, button, defaultPrevented} = e;
-            const [placeholder] = toNodes(this.$el.children).filter(el => within(target, el));
+            const [placeholder] = children(this.$el).filter(el => within(target, el));
 
             if (!placeholder
                 || defaultPrevented
@@ -165,7 +165,7 @@ export default {
                 return;
             }
 
-            target = sortable.$el === target.parentNode && target || toNodes(sortable.$el.children).filter(element => within(target, element))[0];
+            target = sortable.$el === target.parentNode && target || children(sortable.$el).filter(element => within(target, element))[0];
 
             if (move) {
                 previous.remove(this.placeholder);

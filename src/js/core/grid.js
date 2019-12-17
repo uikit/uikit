@@ -1,6 +1,6 @@
 import Margin from './margin';
 import Class from '../mixin/class';
-import {addClass, css, hasClass, height as getHeight, isRtl, scrolledOver, toFloat, toggleClass, toNodes, Transition, sortBy} from 'uikit-util';
+import {addClass, children, css, hasClass, height as getHeight, isRtl, scrolledOver, toFloat, toggleClass, Transition, sortBy} from 'uikit-util';
 
 export default {
 
@@ -157,7 +157,7 @@ function getPaddingBottom(distance, rows, translates) {
 
 function getMarginTop(root, cls) {
 
-    const nodes = toNodes(root.children);
+    const nodes = children(root);
     const [node] = nodes.filter(el => hasClass(el, cls));
 
     return toFloat(node

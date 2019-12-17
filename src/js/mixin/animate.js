@@ -1,4 +1,4 @@
-import {addClass, append, assign, css, fastdom, height, includes, index, isVisible, noop, offset, position, Promise, removeClass, scrollTop, toNodes, Transition} from 'uikit-util';
+import {addClass, append, assign, children as getChildren, css, fastdom, height, includes, index, isVisible, noop, offset, position, Promise, removeClass, scrollTop, Transition} from 'uikit-util';
 
 const targetClass = 'uk-animation-target';
 
@@ -26,7 +26,7 @@ export default {
 
             addStyle();
 
-            let children = toNodes(this.target.children);
+            let children = getChildren(this.target);
             let propsFrom = children.map(el => getProps(el, true));
 
             const oldHeight = height(this.target);
@@ -43,7 +43,7 @@ export default {
 
             const newHeight = height(this.target);
 
-            children = children.concat(toNodes(this.target.children).filter(el => !includes(children, el)));
+            children = children.concat(getChildren(this.target).filter(el => !includes(children, el)));
 
             const propsTo = children.map((el, i) =>
                 el.parentNode && i in propsFrom
