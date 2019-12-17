@@ -1,4 +1,4 @@
-/*! UIkit 3.2.4 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
+/*! UIkit 3.2.5 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -8870,12 +8870,17 @@ iframe.uk-cover {
  ========================================================================== */
 /* Directions
  ========================================================================== */
+/*
+ * 1. Prevent content overflow if `max-width: 100%` is used inside position container.
+ */
 [class*='uk-position-top'],
 [class*='uk-position-bottom'],
 [class*='uk-position-left'],
 [class*='uk-position-right'],
 [class*='uk-position-center'] {
   position: absolute !important;
+  /* 1 */
+  max-width: 100%;
 }
 /* Edges
  ========================================================================== */
