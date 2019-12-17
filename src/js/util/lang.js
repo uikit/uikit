@@ -185,10 +185,12 @@ export function toWindow(element) {
 
     element = toNode(element);
 
-    return (isDocument(element)
-        ? element
-        : element.ownerDocument
-    ).defaultView;
+    return element
+        ? (isDocument(element)
+            ? element
+            : element.ownerDocument
+        ).defaultView
+        : window;
 }
 
 export function toList(value) {
