@@ -2,7 +2,7 @@
   "name": "uikit",
   "title": "UIkit",
   "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
-  "version": "3.2.5",
+  "version": "3.2.6",
   "main": "dist/js/uikit.js",
   "style": "dist/css/uikit.css",
   "sideEffects": [
@@ -22,8 +22,7 @@
     "release": "node build/release",
     "watch": "npm-watch",
     "eslint": "eslint src/js",
-    "eslint-fix": "eslint --fix src/js",
-    "test": "webpack-dev-server --inline --hot --watchContentBase && open http://localhost:8080/tests/"
+    "eslint-fix": "eslint --fix src/js"
   },
   "repository": {
     "type": "git",
