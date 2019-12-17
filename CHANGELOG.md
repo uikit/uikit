@@ -12,6 +12,7 @@
 ### Fixed
 
 - Accordion component triggers scroll on page load
+- Fix regression in Scroll component in Edge and IE
 
 ## 3.2.4 (December 3, 2019)
 

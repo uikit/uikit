@@ -117,13 +117,12 @@ export function scrolledOver(element, heightOffset = 0) {
 
 export function scrollParents(element, overflowRe = /auto|scroll/) {
     const scrollEl = getScrollingElement(element);
-    return element
-        ? parents(element, '*').filter(parent =>
-            parent === scrollEl
-            || overflowRe.test(css(parent, 'overflow'))
-            && parent.scrollHeight > offset(parent).height
-        ).reverse()
-        : [scrollEl];
+    const scrollParents = parents(element).filter(parent =>
+        parent === scrollEl
+        || overflowRe.test(css(parent, 'overflow'))
+        && parent.scrollHeight > offset(parent).height
+    ).reverse();
+    return scrollParents.length ? scrollParents : [scrollEl];
 }
 
 export function getViewport(scrollElement) {
