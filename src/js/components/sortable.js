@@ -1,6 +1,6 @@
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
-import {$$, addClass, after, assign, append, attr, before, children, clamp, css, getEventPos, height, includes, index, isEmpty, isInput, offset, off, on, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, trigger, within, getViewport} from 'uikit-util';
+import {$$, addClass, after, assign, append, before, children, clamp, css, getEventPos, height, includes, index, isEmpty, isInput, offset, off, on, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, trigger, within, getViewport} from 'uikit-util';
 
 export default {
 
