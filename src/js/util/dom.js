@@ -158,8 +158,9 @@ export function apply(node, fn) {
     fn(node);
     node = node.firstElementChild;
     while (node) {
+        const next = node.nextElementSibling;
         apply(node, fn);
-        node = node.nextElementSibling;
+        node = next;
     }
 }
 

@@ -115,22 +115,12 @@ export default {
 
         start(e) {
 
-            this.drag = append(this.$container, this.placeholder.outerHTML.replace(/^<li/i, '<div').replace(/li>$/i, 'div>'));
-
-            css(this.drag, assign({
-                boxSizing: 'border-box',
-                width: this.placeholder.offsetWidth,
-                height: this.placeholder.offsetHeight,
-                overflow: 'hidden'
-            }, css(this.placeholder, ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom'])));
-            attr(this.drag, 'uk-no-boot', '');
-            addClass(this.drag, this.clsDrag, this.clsCustom);
-
-            height(this.drag.firstElementChild, height(this.placeholder.firstElementChild));
+            this.drag = appendDrag(this.$container, this.placeholder);
 
             const {left, top} = offset(this.placeholder);
             assign(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
 
+            addClass(this.drag, this.clsDrag, this.clsCustom);
             addClass(this.placeholder, this.clsPlaceholder);
             addClass(this.$el.children, this.clsItem);
             addClass(document.documentElement, this.clsDragState);
@@ -318,4 +308,19 @@ function trackScroll(pos) {
 
 function untrackScroll() {
     clearInterval(trackTimer);
+}
+
+function appendDrag(container, element) {
+    const clone = append(container, element.outerHTML.replace(/(^<)li|li(\/>$)/g, '$1div$2'));
+
+    css(clone, assign({
+        boxSizing: 'border-box',
+        width: element.offsetWidth,
+        height: element.offsetHeight,
+        overflow: 'hidden'
+    }, css(element, ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom'])));
+
+    height(clone.firstElementChild, height(element.firstElementChild));
+
+    return clone;
 }
