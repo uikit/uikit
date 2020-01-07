@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix `repeat` option in Scrollspy component in Firefox
+
 ## 3.2.6 (December 17, 2019)
 
 ### Fixed
