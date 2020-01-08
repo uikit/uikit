@@ -66,8 +66,13 @@ export default {
 
     },
 
-    events: [
+    disconnected() {
+        if (this.isActive()) {
+            active = null;
+        }
+    },
 
+    events: [
 
         {
 

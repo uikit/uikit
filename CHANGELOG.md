@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fix Drop component has wrong state after disconnect
 - Fix `repeat` option in Scrollspy component in Firefox
 
 ## 3.2.6 (December 17, 2019)
