@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.2.7 (January 13, 2020)
 
 ### Fixed
 

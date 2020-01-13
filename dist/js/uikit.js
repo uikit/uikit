@@ -1,4 +1,4 @@
-/*! UIkit 3.2.6 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
+/*! UIkit 3.2.7 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2576,7 +2576,7 @@
         var scrollEl = getScrollingElement(element);
         var scrollParents = parents(element).filter(function (parent) { return parent === scrollEl
             || overflowRe.test(css(parent, 'overflow'))
-            && parent.scrollHeight > offset(parent).height; }
+            && parent.scrollHeight > Math.round(offset(parent).height); }
         ).reverse();
         return scrollParents.length ? scrollParents : [scrollEl];
     }
@@ -3528,7 +3528,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.2.6';
+    UIkit.version = '3.2.7';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4418,8 +4418,13 @@
 
         },
 
-        events: [
+        disconnected: function() {
+            if (this.isActive()) {
+                active = null;
+            }
+        },
 
+        events: [
 
             {
 
@@ -9917,7 +9922,7 @@
                     var matches;
 
                     // Image
-                    if (type === 'image' || source.match(/\.(jp(e)?g|png|gif|svg|webp)($|\?)/i)) {
+                    if (type === 'image' || source.match(/\.(jpe?g|png|gif|svg|webp)($|\?)/i)) {
 
                         getImage(source).then(
                             function (img) { return this$1.setItem(item, ("<img width=\"" + (img.width) + "\" height=\"" + (img.height) + "\" src=\"" + source + "\" alt=\"" + (alt ? alt : '') + "\">")); },
