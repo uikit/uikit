@@ -120,7 +120,7 @@ export function scrollParents(element, overflowRe = /auto|scroll/) {
     const scrollParents = parents(element).filter(parent =>
         parent === scrollEl
         || overflowRe.test(css(parent, 'overflow'))
-        && parent.scrollHeight > offset(parent).height
+        && parent.scrollHeight > Math.round(offset(parent).height)
     ).reverse();
     return scrollParents.length ? scrollParents : [scrollEl];
 }

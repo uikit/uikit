@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.2.7 (January 13, 2020)
+
+### Fixed
+
+- Fix Drop component has wrong state after disconnect
+- Fix `repeat` option in Scrollspy component in Firefox
+
 ## 3.2.6 (December 17, 2019)
 
 ### Fixed

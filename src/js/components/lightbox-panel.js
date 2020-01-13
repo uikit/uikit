@@ -227,7 +227,7 @@ export default {
                 let matches;
 
                 // Image
-                if (type === 'image' || source.match(/\.(jp(e)?g|png|gif|svg|webp)($|\?)/i)) {
+                if (type === 'image' || source.match(/\.(jpe?g|png|gif|svg|webp)($|\?)/i)) {
 
                     getImage(source).then(
                         img => this.setItem(item, `<img width="${img.width}" height="${img.height}" src="${source}" alt="${alt ? alt : ''}">`),
