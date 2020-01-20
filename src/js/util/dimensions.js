@@ -181,10 +181,16 @@ function getDimensions(element) {
 }
 
 export function position(element, parent) {
-    const elementOffset = offset(element);
-    const parentOffset = offset(parent || toNode(element).offsetParent || toWindow(element).document.documentElement);
 
-    return {top: elementOffset.top - parentOffset.top, left: elementOffset.left - parentOffset.left};
+    parent = parent || toNode(element).offsetParent || toWindow(element).document.documentElement;
+
+    const elementOffset = offset(element);
+    const parentOffset = offset(parent);
+
+    return {
+        top: elementOffset.top - parentOffset.top - toFloat(css(parent, 'borderTopWidth')),
+        left: elementOffset.left - parentOffset.left - toFloat(css(parent, 'borderLeftWidth'))
+    };
 }
 
 export function offsetPosition(element) {

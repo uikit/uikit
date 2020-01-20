@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix `position` takes offsetParent's border width into account
+
 ## 3.2.7 (January 13, 2020)
 
 ### Fixed
