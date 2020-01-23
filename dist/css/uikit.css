@@ -1,4 +1,4 @@
-/*! UIkit 3.2.7 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
+/*! UIkit 3.3.0 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -2332,6 +2332,9 @@ select.uk-form-width-xsmall {
   max-width: 900px;
 }
 .uk-container-large {
+  max-width: 1400px;
+}
+.uk-container-xlarge {
   max-width: 1600px;
 }
 .uk-container-expand {
@@ -2375,6 +2378,10 @@ select.uk-form-width-xsmall {
   }
   .uk-container-expand-left.uk-container-large,
   .uk-container-expand-right.uk-container-large {
+    max-width: calc(50% + (1400px / 2) - 40px);
+  }
+  .uk-container-expand-left.uk-container-xlarge,
+  .uk-container-expand-right.uk-container-xlarge {
     max-width: calc(50% + (1600px / 2) - 40px);
   }
 }

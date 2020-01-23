@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.3.0 (January 23, 2020)
+
+### Added
+
+- Add container xlarge modifier
+
+### Changed
+
+- IMPORTANT: Change `uk-container-large` width. Use `uk-container-xlarge`
+
+### Fixed
+
+- Fix `position` takes offsetParent's border width into account
+
 ## 3.2.7 (January 13, 2020)
 
 ### Fixed
