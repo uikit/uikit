@@ -1,4 +1,4 @@
-/*! UIkit 3.2.7 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
+/*! UIkit 3.3.0 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1808,10 +1808,16 @@
     }
 
     function position(element, parent) {
-        var elementOffset = offset(element);
-        var parentOffset = offset(parent || toNode(element).offsetParent || toWindow(element).document.documentElement);
 
-        return {top: elementOffset.top - parentOffset.top, left: elementOffset.left - parentOffset.left};
+        parent = parent || toNode(element).offsetParent || toWindow(element).document.documentElement;
+
+        var elementOffset = offset(element);
+        var parentOffset = offset(parent);
+
+        return {
+            top: elementOffset.top - parentOffset.top - toFloat(css(parent, 'borderTopWidth')),
+            left: elementOffset.left - parentOffset.left - toFloat(css(parent, 'borderLeftWidth'))
+        };
     }
 
     function offsetPosition(element) {
@@ -3528,7 +3534,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.2.7';
+    UIkit.version = '3.3.0';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
