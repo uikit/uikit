@@ -1,6 +1,14 @@
 # Changelog
 
-## WIP
+## 3.3.0 (January 23, 2020)
+
+### Added
+
+- Add container xlarge modifier
+
+### Changed
+
+- IMPORTANT: Change `uk-container-large` width. Use `uk-container-xlarge`
 
 ### Fixed
 
