@@ -17,7 +17,11 @@ export default function (UIkit) {
             apply(document.body, connect);
         }
 
-        (new MutationObserver(mutations => mutations.forEach(applyMutation))).observe(document, {
+        (new MutationObserver(mutations => {
+            const updates = [];
+            mutations.forEach(mutation => applyMutation(mutation, updates));
+            updates.forEach(UIkit.update);
+        })).observe(document, {
             childList: true,
             subtree: true,
             characterData: true,
@@ -27,7 +31,7 @@ export default function (UIkit) {
         UIkit._initialized = true;
     }
 
-    function applyMutation(mutation) {
+    function applyMutation(mutation, updates) {
 
         const {target, type} = mutation;
 
@@ -35,7 +39,9 @@ export default function (UIkit) {
             ? applyChildList(mutation)
             : applyAttribute(mutation);
 
-        update && UIkit.update(target);
+        if (update && !updates.some(element => element.contains(target))) {
+            updates.push(target);
+        }
 
     }
 
