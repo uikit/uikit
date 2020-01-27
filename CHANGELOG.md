@@ -6,6 +6,10 @@
 
 - Improve update performance
 
+### Fixed
+
+- Fix countdown separator line-height
+
 ## 3.3.0 (January 23, 2020)
 
 ### Added
