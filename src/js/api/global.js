@@ -1,4 +1,4 @@
-import {$, apply, isString, mergeOptions, parents, toNode} from 'uikit-util';
+import {$, apply, fastdom, isString, mergeOptions, parents, toNode} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -40,12 +40,22 @@ export default function (UIkit) {
         return Sub;
     };
 
+    let enqueued;
     UIkit.update = function (element, e) {
 
-        element = element ? toNode(element) : document.body;
+        if (!enqueued) {
 
-        parents(element).reverse().forEach(element => update(element[DATA], e));
-        apply(element, element => update(element[DATA], e));
+            fastdom.read(() => {
+
+                parents(enqueued).reverse().forEach(element => update(element[DATA], e));
+                apply(enqueued, element => update(element[DATA], e));
+
+                enqueued = false;
+            });
+
+        }
+
+        enqueued = findCommonParent(enqueued, element ? toNode(element) : document.body);
 
     };
 
@@ -73,6 +83,26 @@ export default function (UIkit) {
                 data[name]._callUpdate(e);
             }
         }
+
+    }
+
+    function findCommonParent(elementA, elementB) {
+
+        if (!elementB) {
+            return elementA;
+        }
+
+        if (!elementA) {
+            return elementB;
+        }
+
+        do {
+
+            if (elementA.contains(elementB)) {
+                return elementA;
+            }
+
+        } while ((elementA = elementA.parentElement));
 
     }
 
