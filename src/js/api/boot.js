@@ -35,7 +35,8 @@ export default function (UIkit) {
             ? applyChildList(mutation)
             : applyAttribute(mutation);
 
-        return update && UIkit.update(target);
+        update && UIkit.update(target);
+
     }
 
     function applyAttribute({target, attributeName}) {

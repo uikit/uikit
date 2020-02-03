@@ -60,6 +60,20 @@ export default function (UIkit) {
         }
     };
 
+    UIkit.prototype._initWatches = function () {
+
+        const {computed} = this.$options;
+
+        if (computed) {
+            for (const key in computed) {
+                const {watch, immediate} = computed[key];
+                if (watch && immediate) {
+                    watch.call(this, this[key]);
+                }
+            }
+        }
+    };
+
     UIkit.prototype._callWatches = function () {
 
         const {$options: {computed}, _computeds} = this;

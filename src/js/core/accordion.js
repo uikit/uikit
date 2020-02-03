@@ -30,8 +30,31 @@ export default {
 
     computed: {
 
-        items({targets}, $el) {
-            return $$(targets, $el);
+        items: {
+
+            get({targets}, $el) {
+                return $$(targets, $el);
+            },
+
+            watch(items, prev) {
+
+                items.forEach(el => this._toggle($(this.content, el), hasClass(el, this.clsOpen)));
+
+                if (hasClass(items, this.clsOpen)) {
+                    return;
+                }
+
+                const active = !prev && this.active !== false && items[Number(this.active)]
+                    || !this.collapsible && items[0];
+
+                if (active) {
+                    this.toggle(active, false);
+                }
+
+            },
+
+            immediate: true
+
         }
 
     },
@@ -54,28 +77,6 @@ export default {
         }
 
     ],
-
-    connected() {
-
-        if (this.active === false) {
-            return;
-        }
-
-        const active = this.items[Number(this.active)];
-        if (active && !hasClass(active, this.clsOpen)) {
-            this.toggle(active, false);
-        }
-    },
-
-    update() {
-
-        this.items.forEach(el => this._toggle($(this.content, el), hasClass(el, this.clsOpen)));
-
-        const active = !this.collapsible && !hasClass(this.items, this.clsOpen) && this.items[0];
-        if (active) {
-            this.toggle(active, false);
-        }
-    },
 
     methods: {
 

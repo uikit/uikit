@@ -29,8 +29,17 @@ export default {
             },
 
             watch() {
+
                 this.updateState();
-            }
+
+                if (this.selActive !== false) {
+                    const actives = $$(this.selActive, this.$el);
+                    this.toggles.forEach(el => toggleClass(el, this.cls, includes(actives, el)));
+                }
+
+            },
+
+            immediate: true
 
         },
 
@@ -73,17 +82,6 @@ export default {
         }
 
     ],
-
-    connected() {
-
-        this.updateState();
-
-        if (this.selActive !== false) {
-            const actives = $$(this.selActive, this.$el);
-            this.toggles.forEach(el => toggleClass(el, this.cls, includes(actives, el)));
-        }
-
-    },
 
     methods: {
 

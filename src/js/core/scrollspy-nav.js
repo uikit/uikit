@@ -20,8 +20,20 @@ export default {
 
     computed: {
 
-        links(_, $el) {
-            return $$('a[href^="#"]', $el).filter(el => el.hash);
+        links: {
+
+            get(_, $el) {
+                return $$('a[href^="#"]', $el).filter(el => el.hash);
+            },
+
+            watch(links) {
+                if (this.scroll) {
+                    this.$create('scroll', links, {offset: this.offset || 0});
+                }
+            },
+
+            immediate: true
+
         },
 
         targets() {
@@ -35,16 +47,6 @@ export default {
     },
 
     update: [
-
-        {
-
-            read() {
-                if (this.scroll) {
-                    this.$create('scroll', this.links, {offset: this.offset || 0});
-                }
-            }
-
-        },
 
         {
 

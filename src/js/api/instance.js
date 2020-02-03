@@ -25,10 +25,6 @@ export default function (UIkit) {
         }
     };
 
-    UIkit.prototype.$emit = function (e) {
-        this._callUpdate(e);
-    };
-
     UIkit.prototype.$reset = function () {
         this._callDisconnected();
         this._callConnected();
@@ -63,7 +59,10 @@ export default function (UIkit) {
         return UIkit[component](element, data);
     };
 
-    UIkit.prototype.$update = UIkit.update;
+    UIkit.prototype.$update = function (element = this.$el, e) {
+        UIkit.update(element, e);
+    };
+
     UIkit.prototype.$getComponent = UIkit.getComponent;
 
     const names = {};

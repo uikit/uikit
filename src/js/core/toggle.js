@@ -23,15 +23,21 @@ export default {
 
     computed: {
 
-        target({href, target}, $el) {
-            target = queryAll(target || href, $el);
-            return target.length && target || [$el];
+        target: {
+
+            get({href, target}, $el) {
+                target = queryAll(target || href, $el);
+                return target.length && target || [$el];
+            },
+
+            watch() {
+                trigger(this.target, 'updatearia', [this]);
+            },
+
+            immediate: true
+
         }
 
-    },
-
-    connected() {
-        trigger(this.target, 'updatearia', [this]);
     },
 
     events: [

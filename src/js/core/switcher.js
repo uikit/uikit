@@ -1,5 +1,5 @@
 import Togglable from '../mixin/togglable';
-import {$$, addClass, attr, children, css, data, endsWith, filter, getIndex, index, isEmpty, matches, queryAll, removeClass, within} from 'uikit-util';
+import {$$, addClass, attr, children, css, data, endsWith, filter, getIndex, index, isEmpty, matches, queryAll, removeClass, toNodes, within} from 'uikit-util';
 
 export default {
 
@@ -27,8 +27,38 @@ export default {
 
     computed: {
 
-        connects({connect}, $el) {
-            return queryAll(connect, $el);
+        connects: {
+
+            get({connect}, $el) {
+                return queryAll(connect, $el);
+            },
+
+            watch(connects) {
+
+                connects.forEach(list => this.updateAria(list.children));
+
+                if (this.swiping) {
+                    css(connects, 'touch-action', 'pan-y pinch-zoom');
+                }
+
+            },
+
+            immediate: true
+
+        },
+
+        children: {
+
+            get() {
+                return toNodes(this.$el.children);
+            },
+
+            watch(children) {
+                this.show(filter(children, `.${this.cls}`)[0] || children[this.active] || children[0]);
+            },
+
+            immediate: true
+
         },
 
         toggles({toggle}, $el) {
@@ -89,16 +119,6 @@ export default {
 
     ],
 
-    update() {
-
-        this.connects.forEach(list => this.updateAria(list.children));
-        const {children} = this.$el;
-        this.show(filter(children, `.${this.cls}`)[0] || children[this.active] || children[0]);
-
-        this.swiping && css(this.connects, 'touch-action', 'pan-y pinch-zoom');
-
-    },
-
     methods: {
 
         index() {
@@ -107,7 +127,7 @@ export default {
 
         show(item) {
 
-            const {children} = this.$el;
+            const {children} = this;
             const {length} = children;
             const prev = this.index();
             const hasPrev = prev >= 0;
