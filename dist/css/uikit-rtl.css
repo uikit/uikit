@@ -1,4 +1,4 @@
-/*! UIkit 3.3.0 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
+/*! UIkit 3.3.1 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -4508,6 +4508,7 @@ ul.uk-nav-sub {
   content: "/";
   display: inline-block;
   margin: 0 20px;
+  font-size: 0.875rem;
   color: #999;
 }
 /* ========================================================================
@@ -6234,18 +6235,11 @@ ul.uk-nav-sub {
  ========================================================================== */
 /* Item
  ========================================================================== */
-/*
- * 1. Center numbers and separators vertically
- */
-.uk-countdown-number,
-.uk-countdown-separator {
-  /* 1 */
-  line-height: 0.8;
-}
 /* Number
  ========================================================================== */
 .uk-countdown-number {
   font-size: 2rem;
+  line-height: 0.8;
 }
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
@@ -6263,6 +6257,7 @@ ul.uk-nav-sub {
  ========================================================================== */
 .uk-countdown-separator {
   font-size: 1rem;
+  line-height: 1.6;
 }
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
