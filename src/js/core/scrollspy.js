@@ -27,23 +27,25 @@ export default {
 
     computed: {
 
-        elements({target}, $el) {
-            return target ? $$(target, $el) : [$el];
+        elements: {
+
+            get({target}, $el) {
+                return target ? $$(target, $el) : [$el];
+            },
+
+            watch(elements) {
+                if (this.hidden) {
+                    css(filter(elements, `:not(.${this.inViewClass})`), 'visibility', 'hidden');
+                }
+            },
+
+            immediate: true
+
         }
 
     },
 
     update: [
-
-        {
-
-            write() {
-                if (this.hidden) {
-                    css(filter(this.elements, `:not(.${this.inViewClass})`), 'visibility', 'hidden');
-                }
-            }
-
-        },
 
         {
 
@@ -72,7 +74,7 @@ export default {
 
                 // Let child components be applied at least once first
                 if (!data.update) {
-                    this.$emit();
+                    this.$update();
                     return data.update = true;
                 }
 

@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.3.1 (February 4, 2020)
+
+### Changed
+
+- Improve update performance
+
+### Fixed
+
+- Fix countdown separator line-height
+- Fix Cover component covers positioned parent element
+
 ## 3.3.0 (January 23, 2020)
 
 ### Added

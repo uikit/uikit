@@ -145,7 +145,7 @@ export default {
         },
 
         observe() {
-            if (!this._data.image && this._connected) {
+            if (this._connected && !this._data.image) {
                 this.target.forEach(el => this.observer.observe(el));
             }
         }

@@ -1,6 +1,6 @@
 import Video from './video';
 import Class from '../mixin/class';
-import {css, Dimensions} from 'uikit-util';
+import {css, Dimensions, parent} from 'uikit-util';
 
 export default {
 
@@ -20,7 +20,7 @@ export default {
         read() {
 
             const el = this.$el;
-            const {offsetHeight: height, offsetWidth: width} = el.parentNode;
+            const {offsetHeight: height, offsetWidth: width} = getPositionedParent(el) || el.parentNode;
             const dim = Dimensions.cover(
                 {
                     width: this.width || el.naturalWidth || el.videoWidth || el.clientWidth,
@@ -48,3 +48,11 @@ export default {
     }
 
 };
+
+function getPositionedParent(el) {
+    while ((el = parent(el))) {
+        if (css(el, 'position') !== 'static') {
+            return el;
+        }
+    }
+}

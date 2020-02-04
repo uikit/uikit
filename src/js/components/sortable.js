@@ -143,7 +143,7 @@ export default {
                 return;
             }
 
-            this.$emit();
+            this.$update();
 
             let target = e.type === 'mousemove' ? e.target : document.elementFromPoint(this.pos.x - window.pageXOffset, this.pos.y - window.pageYOffset);
 
@@ -215,7 +215,7 @@ export default {
             if (scroll !== this.scrollY) {
                 this.pos.y += scroll - this.scrollY;
                 this.scrollY = scroll;
-                this.$emit();
+                this.$update();
             }
         },
 
