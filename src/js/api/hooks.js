@@ -29,7 +29,7 @@ export default function (UIkit) {
         this._initObserver();
 
         this._callHook('connected');
-        UIkit.update(this.$el);
+        this._callUpdate();
     };
 
     UIkit.prototype._callDisconnected = function () {
@@ -76,7 +76,7 @@ export default function (UIkit) {
                 return;
             }
 
-            if (read) {
+            if (read && !includes(fastdom.reads, reads[i])) {
                 reads[i] = fastdom.read(() => {
 
                     const result = this._connected && read.call(this, this._data, type);
@@ -89,7 +89,7 @@ export default function (UIkit) {
                 });
             }
 
-            if (write) {
+            if (write && !includes(fastdom.writes, writes[i])) {
                 writes[i] = fastdom.write(() => this._connected && write.call(this, this._data, type));
             }
 

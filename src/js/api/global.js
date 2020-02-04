@@ -40,22 +40,12 @@ export default function (UIkit) {
         return Sub;
     };
 
-    let enqueued;
     UIkit.update = function (element, e) {
 
-        if (!enqueued) {
+        element = element ? toNode(element) : document.body;
 
-            fastdom.read(() => {
-
-                parents(enqueued).reverse().forEach(element => update(element[DATA], e));
-                apply(enqueued, element => update(element[DATA], e));
-
-                enqueued = false;
-            });
-
-        }
-
-        enqueued = findCommonParent(enqueued, element ? toNode(element) : document.body);
+        parents(element).reverse().forEach(element => update(element[DATA], e));
+        apply(element, element => update(element[DATA], e));
 
     };
 
@@ -85,25 +75,4 @@ export default function (UIkit) {
         }
 
     }
-
-    function findCommonParent(elementA, elementB) {
-
-        if (!elementB) {
-            return elementA;
-        }
-
-        if (!elementA) {
-            return elementB;
-        }
-
-        do {
-
-            if (elementA.contains(elementB)) {
-                return elementA;
-            }
-
-        } while ((elementA = elementA.parentElement));
-
-    }
-
 }
