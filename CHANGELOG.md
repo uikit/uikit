@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix countdown separator line-height
+- Fix Cover component covers positioned parent element
 
 ## 3.3.0 (January 23, 2020)
 
