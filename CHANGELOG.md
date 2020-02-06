@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix accessing computed properties after component has been disconnected
+
 ## 3.3.1 (February 4, 2020)
 
 ### Changed
