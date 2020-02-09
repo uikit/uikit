@@ -20,20 +20,20 @@ Please open an issues only for a bug report or feature request. Make sure no one
 
 ### UIkit Version
 
-*Check if the issue is reproducible with the latest stable version.*
+<!-- Check if the issue is reproducible with the latest stable version. -->
 3.3.1
 
 ### Actual Behavior
 
-*What happened? Screenshots please, if relevant!*
+<!-- What happened? Screenshots please, if relevant! -->
 
 ### Expected Behavior
 
-*What should have happened?*
+<!-- What should have happened? -->
 
 ### Reproduction Link
 
-*A minimal Codepen that can reproduce the bug. Start with this [Codepen template](http://codepen.io/anon/pen/XMpryM)*
+<!-- A minimal Codepen that can reproduce the bug. Start with this [Codepen template](http://codepen.io/anon/pen/XMpryM) -->
 
 ### Steps to Reproduce the Problem
 

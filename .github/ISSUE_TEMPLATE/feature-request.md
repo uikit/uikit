@@ -20,8 +20,8 @@ Please open an issues only for a bug report or feature request. Make sure no one
 
 ### Summary
 
-*What feature are you requesting? What problem does it solve?*
+<!-- What feature are you requesting? What problem does it solve? -->
 
 ### Priority
 
-*On a scale of 1-5, how important is this feature to you? Please explain.*
+<!-- On a scale of 1-5, how important is this feature to you? Please explain. -->
