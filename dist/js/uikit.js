@@ -586,6 +586,11 @@
         return isString(css) ? escapeFn.call(null, css) : '';
     }
 
+    function isInPage(element) {
+        element = toNode(element);
+        return (element === document.body) ? false : document.body.contains(element);
+    }
+
     var voidElements = {
         area: true,
         base: true,
@@ -2804,6 +2809,7 @@
         parents: parents,
         children: children,
         escape: escape,
+        isInPage: isInPage,
         css: css,
         getStyles: getStyles,
         getStyle: getStyle,
@@ -2943,9 +2949,6 @@
 
             this._unbindEvents();
             this._callHook('disconnected');
-
-            delete this._computeds;
-            delete this._data;
 
             this._connected = false;
 
@@ -10245,6 +10248,12 @@
 
     var containers = {};
 
+    function validateContainerInPage(pos){
+        if(containers[pos] && !isInPage(container)){        
+            delete container[pos];
+        }
+    }
+
     var notification = {
 
         functional: true,
@@ -10280,6 +10289,8 @@
         },
 
         created: function() {
+
+            validateContainerInPage(this.pos);
 
             if (!containers[this.pos]) {
                 containers[this.pos] = append(this.$container, ("<div class=\"uk-notification uk-notification-" + (this.pos) + "\"></div>"));
