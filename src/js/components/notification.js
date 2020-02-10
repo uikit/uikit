@@ -1,6 +1,12 @@
-import {append, apply, closest, css, pointerEnter, pointerLeave, remove, startsWith, toFloat, Transition, trigger} from 'uikit-util';
+import {append, apply, closest, css, pointerEnter, pointerLeave, remove, startsWith, toFloat, Transition, trigger, isInPage} from 'uikit-util';
 
 const containers = {};
+
+function validateContainerInPage(pos){
+    if(containers[pos] && !isInPage(container)){        
+        delete container[pos];
+    }
+}
 
 export default {
 
@@ -33,6 +39,8 @@ export default {
     },
 
     created() {
+
+        validateContainerInPage(this.pos);
 
         if (!containers[this.pos]) {
             containers[this.pos] = append(this.$container, `<div class="uk-notification uk-notification-${this.pos}"></div>`);

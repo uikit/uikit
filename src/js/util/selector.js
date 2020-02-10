@@ -162,3 +162,8 @@ const escapeFn = window.CSS && CSS.escape || function (css) { return css.replace
 export function escape(css) {
     return isString(css) ? escapeFn.call(null, css) : '';
 }
+
+export function isInPage(element) {
+    element = toNode(element);
+    return (element === document.body) ? false : document.body.contains(element);
+}
