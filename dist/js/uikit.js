@@ -10249,8 +10249,8 @@
     var containers = {};
 
     function validateContainerInPage(pos){
-        if(containers[pos] && !isInPage(container)){        
-            delete container[pos];
+        if(containers[pos] && !isInPage(containers[pos])){        
+            delete containers[pos];
         }
     }
 
