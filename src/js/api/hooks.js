@@ -48,9 +48,6 @@ export default function (UIkit) {
         this._unbindEvents();
         this._callHook('disconnected');
 
-        delete this._computeds;
-        delete this._data;
-
         this._connected = false;
 
     };

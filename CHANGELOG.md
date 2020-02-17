@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.3.2 (February 17, 2020)
+
+### Fixed
+
+- Fix accessing computed properties after component has been disconnected
+- Fix Modal dialogs not being removed from DOM after close
+- Fix Lightbox opening only once
+- Fix updates having wrong type
+
 ## 3.3.1 (February 4, 2020)
 
 ### Changed

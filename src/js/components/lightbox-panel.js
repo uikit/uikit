@@ -140,7 +140,7 @@ export default {
 
             handler(e) {
 
-                if (!this.isToggled(this.$el)) {
+                if (!this.isToggled(this.$el) || !this.draggable) {
                     return;
                 }
 
