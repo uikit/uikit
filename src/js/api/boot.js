@@ -20,7 +20,7 @@ export default function (UIkit) {
         (new MutationObserver(mutations => {
             const updates = [];
             mutations.forEach(mutation => applyMutation(mutation, updates));
-            updates.forEach(UIkit.update);
+            updates.forEach(el => UIkit.update(el));
         })).observe(document, {
             childList: true,
             subtree: true,
