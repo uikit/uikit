@@ -6,6 +6,7 @@
 
 - Fix accessing computed properties after component has been disconnected
 - Fix Modal dialogs not being removed from DOM after close
+- Fix Lightbox opening only once
 
 ## 3.3.1 (February 4, 2020)
 
