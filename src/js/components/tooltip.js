@@ -36,6 +36,20 @@ export default {
         attr(this.$el, {title: this._hasTitle ? this.title : null, 'aria-expanded': null});
     },
 
+    update: {
+
+        write() {
+
+            if (this.tooltip) {
+                this.positionAt(this.tooltip, this.$el);
+            }
+
+        },
+
+        events: ['resize']
+
+    },
+
     methods: {
 
         show() {
@@ -88,13 +102,13 @@ export default {
                  </div>`
             );
 
-            this.positionAt(this.tooltip, this.$el);
-
             this.origin = this.getAxis() === 'y'
                 ? `${flipPosition(this.dir)}-${this.align}`
                 : `${this.align}-${flipPosition(this.dir)}`;
 
             this.toggleElement(this.tooltip, true);
+
+            this.$update();
 
         },
 

@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Improve Tooltip component performance
+
 ### Fixed
 
 - Fix infinite loop in Slider component
