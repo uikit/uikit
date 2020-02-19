@@ -36,20 +36,6 @@ export default {
         attr(this.$el, {title: this._hasTitle ? this.title : null, 'aria-expanded': null});
     },
 
-    update: {
-
-        write() {
-
-            if (this.tooltip) {
-                this.positionAt(this.tooltip, this.$el);
-            }
-
-        },
-
-        events: ['resize']
-
-    },
-
     methods: {
 
         show() {
@@ -64,16 +50,7 @@ export default {
             this._unbind = on(document, pointerUp, e => !within(e.target, this.$el) && this.hide());
 
             clearTimeout(this.showTimer);
-            this.showTimer = setTimeout(() => {
-                this._show();
-                this.hideTimer = setInterval(() => {
-
-                    if (!isVisible(this.$el)) {
-                        this.hide();
-                    }
-
-                }, 150);
-            }, this.delay);
+            this.showTimer = setTimeout(this._show, this.delay);
         },
 
         hide() {
@@ -97,10 +74,12 @@ export default {
         _show() {
 
             this.tooltip = append(this.container,
-                `<div class="${this.clsPos}" aria-expanded="true" aria-hidden>
+                `<div class="${this.clsPos} ${this.cls}" aria-expanded="true" aria-hidden>
                     <div class="${this.clsPos}-inner">${this.title}</div>
                  </div>`
             );
+
+            this.positionAt(this.tooltip, this.$el);
 
             this.origin = this.getAxis() === 'y'
                 ? `${flipPosition(this.dir)}-${this.align}`
@@ -108,7 +87,7 @@ export default {
 
             this.toggleElement(this.tooltip, true);
 
-            this.$update();
+            this.hideTimer = setInterval(() => !isVisible(this.$el) && this.hide(), 150);
 
         },
 
