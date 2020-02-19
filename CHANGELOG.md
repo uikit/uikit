@@ -5,6 +5,7 @@
 ### Changed
 
 - Improve Tooltip component performance
+- Notifications remove their container if it's empty
 
 ### Fixed
 
