@@ -5,6 +5,7 @@
   "version": "3.3.0",
   "main": "dist/js/uikit.js",
   "style": "dist/css/uikit.css",
+  "types": "types/index.d.ts",
   "sideEffects": [
     "*.css",
     "./src/js/*.js",
