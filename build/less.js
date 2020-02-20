@@ -71,6 +71,8 @@ async function compile(file, dist) {
                 }]
             })
         ]).process(output).css;
+
+        output = output.replace(/stroke-dashoffset: (\d+)px/g, 'stroke-dashoffset: -$1px');
     }
 
     const res = await util.write(dist, util.banner + output);
