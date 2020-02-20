@@ -10,6 +10,7 @@
 
 ### Fixed
 
+- Fix style for breadcrumbs without last active item
 - Fix infinite loop in Slider component
 - Fix IE 11 compatibility
 - Fix Spinner component in Rtl mode
