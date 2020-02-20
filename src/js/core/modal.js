@@ -137,6 +137,8 @@ function install({modal}) {
 
         on(dialog.$el, 'hide', () => !resolved && hideFn(deferred));
 
+        deferred.promise.dialog = dialog;
+
         return deferred.promise;
     }
 

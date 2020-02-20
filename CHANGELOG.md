@@ -6,6 +6,7 @@
 
 - Improve Tooltip component performance
 - Notifications remove their container if it's empty
+- The promise object returned by Modal Dialogs holds a reference to the Modal component itself.
 
 ### Fixed
 
