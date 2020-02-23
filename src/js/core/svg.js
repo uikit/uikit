@@ -198,6 +198,9 @@ function applyAnimation(el) {
 }
 
 export function getMaxPathLength(el) {
+    if (!isVisible(el)) {
+        return;
+    }
     return Math.ceil(Math.max(...$$('[stroke]', el).map(stroke =>
         stroke.getTotalLength && stroke.getTotalLength() || 0
     ).concat([0])));
