@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.3.3 (February 25, 2020)
+
+### Changed
+
+- Improve Tooltip component performance
+- Notifications remove their container if it's empty
+- The promise object returned by Modal Dialogs holds a reference to the Modal component itself.
+
+### Fixed
+
+- Fix style for breadcrumbs without last active item
+- Fix infinite loop in Slider component
+- Fix IE 11 compatibility
+- Fix Spinner component in Rtl mode
+- Fix animating `stroke` in Parallax component when element is hidden
+
 ## 3.3.2 (February 17, 2020)
 
 ### Fixed

@@ -198,12 +198,17 @@ function applyAnimation(el) {
 }
 
 export function getMaxPathLength(el) {
-    return Math.ceil(Math.max(...$$('[stroke]', el).map(stroke =>
-        stroke.getTotalLength && stroke.getTotalLength() || 0
-    ).concat([0])));
+    return Math.ceil(Math.max(0, ...$$('[stroke]', el).map(stroke => {
+        try {
+            return stroke.getTotalLength();
+        } catch (e) {
+            return 0;
+        }
+    })));
 }
 
 function insertSVG(el, root) {
+
     if (isVoidElement(root) || root.tagName === 'CANVAS') {
 
         attr(root, 'hidden', true);
@@ -213,14 +218,12 @@ function insertSVG(el, root) {
             ? next
             : after(root, el);
 
-    } else {
-
-        const last = root.lastElementChild;
-        return equals(el, last)
-            ? last
-            : append(root, el);
-
     }
+
+    const last = root.lastElementChild;
+    return equals(el, last)
+        ? last
+        : append(root, el);
 }
 
 function equals(el, other) {

@@ -50,16 +50,7 @@ export default {
             this._unbind = on(document, pointerUp, e => !within(e.target, this.$el) && this.hide());
 
             clearTimeout(this.showTimer);
-            this.showTimer = setTimeout(() => {
-                this._show();
-                this.hideTimer = setInterval(() => {
-
-                    if (!isVisible(this.$el)) {
-                        this.hide();
-                    }
-
-                }, 150);
-            }, this.delay);
+            this.showTimer = setTimeout(this._show, this.delay);
         },
 
         hide() {
@@ -83,7 +74,7 @@ export default {
         _show() {
 
             this.tooltip = append(this.container,
-                `<div class="${this.clsPos}" aria-expanded="true" aria-hidden>
+                `<div class="${this.clsPos} ${this.cls}" aria-expanded="true" aria-hidden>
                     <div class="${this.clsPos}-inner">${this.title}</div>
                  </div>`
             );
@@ -95,6 +86,8 @@ export default {
                 : `${this.align}-${flipPosition(this.dir)}`;
 
             this.toggleElement(this.tooltip, true);
+
+            this.hideTimer = setInterval(() => !isVisible(this.$el) && this.hide(), 150);
 
         },
 

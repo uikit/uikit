@@ -45,7 +45,16 @@
 /* Number
  ========================================================================== */
 
+
+/*
+ * 1. Make numbers all of the same size to prevent jumping. Must be supported by the font.
+ * 2. Style
+ */
+
 .uk-countdown-number {
+    /* 1 */
+    font-variant-numeric: tabular-nums;
+    /* 2 */
     font-size: @countdown-number-font-size;
     line-height: @countdown-number-line-height;
     .hook-countdown-number;

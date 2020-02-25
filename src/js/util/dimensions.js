@@ -281,7 +281,7 @@ function getPos(pos) {
 
     if (pos.length === 1) {
         pos = x.test(pos[0])
-            ? pos.concat(['center'])
+            ? pos.concat('center')
             : y.test(pos[0])
                 ? ['center'].concat(pos)
                 : ['center', 'center'];

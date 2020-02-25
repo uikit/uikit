@@ -40,7 +40,7 @@ export default function (UIkit) {
             : applyAttribute(mutation);
 
         if (update && !updates.some(element => element.contains(target))) {
-            updates.push(target);
+            updates.push(target.contains ? target : target.parentNode); // IE 11 text node does not implement contains
         }
 
     }

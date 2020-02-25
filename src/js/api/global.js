@@ -1,4 +1,4 @@
-import {$, apply, fastdom, isString, mergeOptions, parents, toNode} from 'uikit-util';
+import {$, apply, isString, mergeOptions, parents, toNode} from 'uikit-util';
 
 export default function (UIkit) {
 

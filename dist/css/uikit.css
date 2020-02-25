@@ -1,4 +1,4 @@
-/*! UIkit 3.3.2 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
+/*! UIkit 3.3.3 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -4497,7 +4497,8 @@ ul.uk-nav-sub {
 }
 /* Disabled */
 /* Active */
-.uk-breadcrumb > :last-child > * {
+.uk-breadcrumb > :last-child > span,
+.uk-breadcrumb > :last-child > a:not([href]) {
   color: #666;
 }
 /*
@@ -6061,8 +6062,9 @@ ul.uk-nav-sub {
 /*
  * 1. Hide by default
  * 2. Position
- * 3. Dimensions
- * 4. Style
+ * 3. Remove tooltip from document flow to keep the UIkit container from changing its size when injected into the document initially
+ * 4. Dimensions
+ * 5. Style
  */
 .uk-tooltip {
   /* 1 */
@@ -6071,10 +6073,12 @@ ul.uk-nav-sub {
   position: absolute;
   z-index: 1030;
   /* 3 */
+  top: 0;
+  /* 4 */
   box-sizing: border-box;
   max-width: 200px;
   padding: 3px 6px;
-  /* 4 */
+  /* 5 */
   background: #666;
   border-radius: 2px;
   color: #fff;
@@ -6237,7 +6241,14 @@ ul.uk-nav-sub {
  ========================================================================== */
 /* Number
  ========================================================================== */
+/*
+ * 1. Make numbers all of the same size to prevent jumping. Must be supported by the font.
+ * 2. Style
+ */
 .uk-countdown-number {
+  /* 1 */
+  font-variant-numeric: tabular-nums;
+  /* 2 */
   font-size: 2rem;
   line-height: 0.8;
 }
