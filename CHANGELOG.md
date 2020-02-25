@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Drop component does not close on pointerleave in Firefox
+
 ## 3.3.3 (February 25, 2020)
 
 ### Changed

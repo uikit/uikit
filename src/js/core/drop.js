@@ -1,6 +1,6 @@
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {addClass, Animation, apply, attr, css, includes, isTouch, matches, MouseTracker, offset, on, once, pointerEnter, pointerLeave, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
+import {addClass, Animation, apply, attr, css, includes, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
 
 let active;
 
@@ -164,6 +164,8 @@ export default {
 
             name: pointerEnter,
 
+            self: true,
+
             filter() {
                 return includes(this.mode, 'hover');
             },
@@ -180,12 +182,14 @@ export default {
 
             name: pointerLeave,
 
+            self: true,
+
             filter() {
                 return includes(this.mode, 'hover');
             },
 
             handler(e) {
-                if (!isTouch(e) && !matches(this.$el, ':hover')) {
+                if (!isTouch(e)) {
                     this.hide();
                 }
             }
