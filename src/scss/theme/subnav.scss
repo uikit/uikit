@@ -1,0 +1,74 @@
+//
+// Component: Subnav
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+//
+// New
+//
+
+$subnav-item-font-size:                          $global-small-font-size !default;
+$subnav-item-text-transform:                     uppercase !default;
+
+
+// Component
+// ========================================================================
+
+// @mixin hook-subnav(){}
+
+
+
+// @mixin hook-subnav-item-hover(){}
+
+// @mixin hook-subnav-item-active(){}
+
+
+// Divider modifier
+// ========================================================================
+
+// @mixin hook-subnav-divider(){}
+
+
+// Pill modifier
+// ========================================================================
+
+// @mixin hook-subnav-pill-item(){}
+
+// @mixin hook-subnav-pill-item-hover(){}
+
+// @mixin hook-subnav-pill-item-onclick(){}
+
+// @mixin hook-subnav-pill-item-active(){}
+
+
+// Disabled
+// ========================================================================
+
+// @mixin hook-subnav-item-disabled(){}
+
+
+// Miscellaneous
+// ========================================================================
+
+// @mixin hook-subnav-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+// @mixin hook-inverse-subnav-item(){}
+// @mixin hook-inverse-subnav-item-hover(){}
+// @mixin hook-inverse-subnav-item-active(){}
+
+// @mixin hook-inverse-subnav-divider(){}
+
+// @mixin hook-inverse-subnav-pill-item(){}
+// @mixin hook-inverse-subnav-pill-item-hover(){}
+// @mixin hook-inverse-subnav-pill-item-onclick(){}
+// @mixin hook-inverse-subnav-pill-item-active(){}
+
+// @mixin hook-inverse-subnav-item-disabled(){}

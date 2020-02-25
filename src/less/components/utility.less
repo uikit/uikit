@@ -8,16 +8,15 @@
 //                  `uk-resize-*`
 //                  `uk-display-*`
 //                  `uk-inline-*`
-//                  `uk-height-*`
 //                  `uk-responsive-*`
 //                  `uk-preserve-width`
 //                  `uk-border-*`
 //                  `uk-box-shadow-*`
+//                  `uk-box-shadow-bottom`
 //                  `uk-dropcap`
-//                  `uk-leader`
 //                  `uk-logo`
-//                  `uk-svg`
 //                  `uk-blend-*`
+//                  `uk-transform-*`
 //                  `uk-transform-origin-*`
 //
 // States:          `uk-disabled`
@@ -36,19 +35,17 @@
 @panel-scrollable-border-width:                 @global-border-width;
 @panel-scrollable-border:                       @global-border;
 
-@height-small-height:                           150px;
-@height-medium-height:                          300px;
-@height-large-height:                           450px;
-
 @border-rounded-border-radius:                  5px;
 
 @box-shadow-duration:                           0.1s;
 
+@box-shadow-bottom-height:                      30px;
+@box-shadow-bottom-border-radius:               100%;
+@box-shadow-bottom-background:                  #444;
+@box-shadow-bottom-blur:                        20px;
+
 @dropcap-margin-right:                          10px;
 @dropcap-font-size:                             ((@global-line-height * 3) * 1em);
-
-@leader-fill-content:                           .;
-@leader-fill-margin-left:                       @global-small-gutter;
 
 @logo-font-size:                                @global-large-font-size;
 @logo-font-family:                              @global-font-family;
@@ -149,6 +146,7 @@
 
 /*
  * Enable scrollbars if content is clipped
+ * Note: Firefox ignores `padding-bottom` for the scrollable overflow https://bugzilla.mozilla.org/show_bug.cgi?id=748518
  */
 
 .uk-overflow-auto {
@@ -182,7 +180,9 @@
  * 2. Create position context
  * 3. Prevent content overflow
  * 4. Behave like most inline-block elements
- * 5. Clip child elements
+ * 5. Force hardware acceleration without creating a new stacking context
+ *    to fix 1px glitch when combined with overlays and transitions in Webkit
+ * 6. Clip child elements
  */
 
 [class*='uk-inline'] {
@@ -194,43 +194,14 @@
     max-width: 100%;
     /* 4 */
     vertical-align: middle;
+    /* 5 */
+    -webkit-backface-visibility: hidden;
 }
 
 .uk-inline-clip {
-    /* 5 */
+    /* 6 */
     overflow: hidden;
 }
-
-
-/* Height
- ========================================================================== */
-
-[class*='uk-height'] { box-sizing: border-box; }
-
-/*
- * Only works if parent element has a height set
- */
-
-.uk-height-1-1 { height: 100%; }
-
-/*
- * Useful to create image teasers
- */
-
-.uk-height-viewport { min-height: 100vh; }
-
-/*
- * Pixel
- * Useful for `overflow: auto`
- */
-
-.uk-height-small { height: @height-small-height; }
-.uk-height-medium { height: @height-medium-height; }
-.uk-height-large { height: @height-large-height; }
-
-.uk-height-max-small { max-height: @height-small-height; }
-.uk-height-max-medium { max-height: @height-medium-height; }
-.uk-height-max-large { max-height: @height-large-height; }
 
 
 /* Responsive objects
@@ -242,7 +213,6 @@
  */
 
 .uk-preserve-width,
-.uk-preserve-width audio,
 .uk-preserve-width canvas,
 .uk-preserve-width img,
 .uk-preserve-width svg,
@@ -288,6 +258,7 @@
  ========================================================================== */
 
 .uk-border-circle { border-radius: 50%; }
+.uk-border-pill { border-radius: 500px; }
 .uk-border-rounded { border-radius: @border-rounded-border-radius; }
 
 /*
@@ -309,10 +280,7 @@
  * Hover
  */
 
-[class*='uk-box-shadow-hover'] {
-    -webkit-transition: box-shadow @box-shadow-duration ease-in-out;
-    transition: box-shadow @box-shadow-duration ease-in-out;
-}
+[class*='uk-box-shadow-hover'] { transition: box-shadow @box-shadow-duration ease-in-out; }
 
 .uk-box-shadow-hover-small:hover { box-shadow: @global-small-box-shadow; }
 .uk-box-shadow-hover-medium:hover { box-shadow: @global-medium-box-shadow; }
@@ -320,10 +288,60 @@
 .uk-box-shadow-hover-xlarge:hover { box-shadow: @global-xlarge-box-shadow; }
 
 
+/* Box-shadow bottom
+ ========================================================================== */
+
+/*
+ * 1. Set position.
+ * 2. Set style
+ * 3. Blur doesn't work on pseudo elements with negative `z-index` in Edge.
+ *    Solved by using `before` and add position context to child elements.
+ */
+
+@supports (filter: blur(0)) {
+
+    .uk-box-shadow-bottom {
+        display: inline-block;
+        position: relative;
+        max-width: 100%;
+        vertical-align: middle;
+    }
+
+    .uk-box-shadow-bottom::before {
+        content: '';
+        /* 1 */
+        position: absolute;
+        bottom: -@box-shadow-bottom-height;
+        left: 0;
+        right: 0;
+        /* 2 */
+        height: @box-shadow-bottom-height;
+        border-radius: @box-shadow-bottom-border-radius;
+        background: @box-shadow-bottom-background;
+        filter: blur(@box-shadow-bottom-blur);
+        .hook-box-shadow-bottom;
+    }
+
+    /* 3 */
+    .uk-box-shadow-bottom > * { position: relative; }
+
+}
+
+
 /* Drop cap
  ========================================================================== */
 
+/*
+ * 1. Firefox doesn't apply `::first-letter` if the first letter is inside child elements
+ *    https://bugzilla.mozilla.org/show_bug.cgi?id=214004
+ * 2. In Firefox, a floating `::first-letter` doesn't have a line box and there for no `line-height`
+ *    https://bugzilla.mozilla.org/show_bug.cgi?id=317933
+ * 3. Caused by 1.: Edge creates two nested `::first-letter` containers, one for each selector
+ *    This doubles the `font-size` exponential when using the `em` unit.
+ */
+
 .uk-dropcap::first-letter,
+/* 1 */
 .uk-dropcap > p:first-of-type::first-letter {
     display: block;
     margin-right: @dropcap-margin-right;
@@ -333,20 +351,20 @@
     .hook-dropcap;
 }
 
+/* 2 */
+@-moz-document url-prefix() {
 
-/* Leader
- ========================================================================== */
+  .uk-dropcap::first-letter,
+  .uk-dropcap > p:first-of-type::first-letter { margin-top: 1.1%; }
 
-.var-leader-fill:before { content: '@{leader-fill-content}'; }
-
-.uk-leader {}
-
-.uk-leader-fill {
-    display: inline-block;
-    .hook-leader;
 }
 
-.uk-leader-fill:after { content: attr(data-fill); }
+/* 3 */
+@supports (-ms-ime-align: auto) {
+
+  .uk-dropcap > p:first-of-type::first-letter { font-size: 1em; }
+
+}
 
 
 /* Logo
@@ -376,27 +394,6 @@
 }
 
 .uk-logo-inverse { display: none; }
-
-
-/* SVG
- ========================================================================== */
-
-/*
- * 1. Fill all SVG elements with the current text color if no `fill` attribute is set
- * 2. Set the fill and stroke color of all SVG elements to the current text color
- */
-
-/* 1 */
-.uk-svg,
-/* 2 */
-.uk-svg:not(.uk-preserve) [fill*='#']:not(.uk-preserve) { fill: currentcolor; }
-.uk-svg:not(.uk-preserve) [stroke*='#']:not(.uk-preserve) { stroke: currentcolor; }
-
-/*
- * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
- */
-
-.uk-svg { transform: translate(0,0); }
 
 
 /* Disabled State
@@ -451,48 +448,23 @@
 .uk-blend-luminosity { mix-blend-mode: luminosity; }
 
 
+/* Transform
+========================================================================== */
+
+.uk-transform-center { transform: translate(-50%, -50%); }
+
+
 /* Transform Origin
 ========================================================================== */
 
-.uk-transform-origin-top-left {
-     -webkit-transform-origin: 0 0;
-     transform-origin: 0 0;
-}
-
-.uk-transform-origin-top-center {
-     -webkit-transform-origin: 50% 0;
-     transform-origin: 50% 0;
-}
-
-.uk-transform-origin-top-right {
-     -webkit-transform-origin: 100% 0;
-     transform-origin: 100% 0;
-}
-
-.uk-transform-origin-center-left {
-     -webkit-transform-origin: 0 50%;
-     transform-origin: 0 50%;
-}
-
-.uk-transform-origin-center-right {
-     -webkit-transform-origin: 100% 50%;
-     transform-origin: 100% 50%;
-}
-
-.uk-transform-origin-bottom-left {
-     -webkit-transform-origin: 0 100%;
-     transform-origin: 0 100%;
-}
-
-.uk-transform-origin-bottom-center {
-     -webkit-transform-origin: 50% 100%;
-     transform-origin: 50% 100%;
-}
-
-.uk-transform-origin-bottom-right {
-     -webkit-transform-origin: 100% 100%;
-     transform-origin: 100% 100%;
-}
+.uk-transform-origin-top-left { transform-origin: 0 0; }
+.uk-transform-origin-top-center { transform-origin: 50% 0; }
+.uk-transform-origin-top-right { transform-origin: 100% 0; }
+.uk-transform-origin-center-left { transform-origin: 0 50%; }
+.uk-transform-origin-center-right { transform-origin: 100% 50%; }
+.uk-transform-origin-bottom-left { transform-origin: 0 100%; }
+.uk-transform-origin-bottom-center { transform-origin: 50% 100%; }
+.uk-transform-origin-bottom-right { transform-origin: 100% 100%; }
 
 
 // Hooks
@@ -501,8 +473,8 @@
 .hook-utility-misc;
 
 .hook-panel-scrollable() {}
+.hook-box-shadow-bottom() {}
 .hook-dropcap() {}
-.hook-leader() {}
 .hook-logo() {}
 .hook-logo-hover() {}
 .hook-utility-misc() {}

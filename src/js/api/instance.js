@@ -1,4 +1,4 @@
-import { $, createEvent } from '../util/index';
+import {hyphenate, isEmpty, remove, within} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -6,56 +6,33 @@ export default function (UIkit) {
 
     UIkit.prototype.$mount = function (el) {
 
-        var name = this.$options.name;
+        const {name} = this.$options;
 
         if (!el[DATA]) {
             el[DATA] = {};
         }
 
         if (el[DATA][name]) {
-            console.warn(`Component "${name}" is already mounted on element: `, el);
             return;
         }
 
         el[DATA][name] = this;
 
-        this.$el = $(el);
+        this.$el = this.$options.el = this.$options.el || el;
 
-        this._initProps();
-
-        this._callHook('init');
-
-        if (document.documentElement.contains(el)) {
+        if (within(el, document)) {
             this._callConnected();
         }
     };
 
-    UIkit.prototype.$emit = function (e) {
-        this._callUpdate(e);
-    };
-
-    UIkit.prototype.$emitSync = function (e) {
-        this._callUpdate(createEvent(e || 'update', true, false, {sync: true}));
-    };
-
-    UIkit.prototype.$update = function (e, parents) {
-        UIkit.update(e, this.$el, parents);
-    };
-
-    UIkit.prototype.$updateSync = function (e, parents) {
-        this.$update(createEvent(e || 'update', true, false, {sync: true}), parents);
-    };
-
-    UIkit.prototype.$reset = function (data) {
+    UIkit.prototype.$reset = function () {
         this._callDisconnected();
-        this._initProps(data);
         this._callConnected();
-        this._callUpdate();
     };
 
-    UIkit.prototype.$destroy = function (remove = false) {
+    UIkit.prototype.$destroy = function (removeEl = false) {
 
-        var el = this.$options.el;
+        const {el, name} = this.$options;
 
         if (el) {
             this._callDisconnected();
@@ -67,15 +44,46 @@ export default function (UIkit) {
             return;
         }
 
-        delete el[DATA][this.$options.name];
+        delete el[DATA][name];
 
-        if (!Object.keys(el[DATA]).length) {
+        if (!isEmpty(el[DATA])) {
             delete el[DATA];
         }
 
-        if (remove) {
-            this.$el.remove();
+        if (removeEl) {
+            remove(this.$el);
         }
     };
+
+    UIkit.prototype.$create = function (component, element, data) {
+        return UIkit[component](element, data);
+    };
+
+    UIkit.prototype.$update = function (element = this.$el, e) {
+        UIkit.update(element, e);
+    };
+
+    UIkit.prototype.$getComponent = UIkit.getComponent;
+
+    const names = {};
+    Object.defineProperties(UIkit.prototype, {
+
+        $container: Object.getOwnPropertyDescriptor(UIkit, 'container'),
+
+        $name: {
+
+            get() {
+                const {name} = this.$options;
+
+                if (!names[name]) {
+                    names[name] = UIkit.prefix + hyphenate(name);
+                }
+
+                return names[name];
+            }
+
+        }
+
+    });
 
 }

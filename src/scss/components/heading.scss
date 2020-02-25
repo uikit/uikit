@@ -1,0 +1,321 @@
+// Name:            Heading
+// Description:     Styles for headings
+//
+// Component:       `uk-heading-primary`
+//                  `uk-heading-hero`
+//                  `uk-heading-divider`
+//                  `uk-heading-bullet`
+//                  `uk-heading-line`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$heading-small-font-size:                        $heading-small-font-size-m * 0.8 !default;      // 38px 0.73
+$heading-medium-font-size:                       $heading-medium-font-size-m * 0.825 !default;     // 40px 0.714
+$heading-large-font-size:                        $heading-large-font-size-m * 0.85 !default;      // 50px 0.78
+$heading-xlarge-font-size:                       $heading-large-font-size-m !default;             // 4rem / 64px
+$heading-2xlarge-font-size:                      $heading-xlarge-font-size-m !default;            // 6rem / 96px
+
+$heading-small-font-size-m:                      $heading-medium-font-size-l * 0.8125 !default;   // 3.25rem / 52px
+$heading-medium-font-size-m:                     $heading-medium-font-size-l * 0.875 !default;    // 3.5rem / 56px 
+$heading-large-font-size-m:                      $heading-medium-font-size-l !default;            // 4rem / 64px
+$heading-xlarge-font-size-m:                     $heading-large-font-size-l !default;             // 6rem / 96px
+$heading-2xlarge-font-size-m:                    $heading-xlarge-font-size-l !default;            // 8rem / 128px
+
+$heading-medium-font-size-l:                     4rem !default;                                   // 64px
+$heading-large-font-size-l:                      6rem !default;                                   // 96px
+$heading-xlarge-font-size-l:                     8rem !default;                                   // 128px
+$heading-2xlarge-font-size-l:                    11rem !default;                                  // 176px
+
+$heading-small-line-height:                      1.2 !default;
+$heading-medium-line-height:                     1.1 !default;
+$heading-large-line-height:                      1.1 !default;
+$heading-xlarge-line-height:                     1 !default;
+$heading-2xlarge-line-height:                    1 !default;
+
+$heading-divider-padding-bottom:                 unquote('calc(5px + 0.1em)') !default;
+$heading-divider-border-width:                   unquote('calc(0.2px + 0.05em)') !default;
+$heading-divider-border:                         $global-border !default;
+
+$heading-bullet-top:                             unquote('calc(-0.1 * 1em)') !default;
+$heading-bullet-height:                          unquote('calc(4px + 0.7em)') !default;
+$heading-bullet-margin-right:                    unquote('calc(5px + 0.2em)') !default;
+$heading-bullet-border-width:                    unquote('calc(5px + 0.1em)') !default;
+$heading-bullet-border:                          $global-border !default;
+
+$heading-line-top:                               50% !default;
+$heading-line-height:                            $heading-line-border-width !default;
+$heading-line-width:                             2000px !default;
+$heading-line-border-width:                      unquote('calc(0.2px + 0.05em)') !default;
+$heading-line-border:                            $global-border !default;
+$heading-line-margin-horizontal:                 unquote('calc(5px + 0.3em)') !default;
+
+
+/* ========================================================================
+   Component: Heading
+ ========================================================================== */
+
+.uk-heading-small {
+    font-size: $heading-small-font-size;
+    line-height: $heading-small-line-height;
+    @if(mixin-exists(hook-heading-small)) {@include hook-heading-small();}
+}
+
+.uk-heading-medium {
+    font-size: $heading-medium-font-size;
+    line-height: $heading-medium-line-height;
+    @if(mixin-exists(hook-heading-medium)) {@include hook-heading-medium();}
+}
+
+.uk-heading-large {
+    font-size: $heading-large-font-size;
+    line-height: $heading-large-line-height;
+    @if(mixin-exists(hook-heading-large)) {@include hook-heading-large();}
+}
+
+.uk-heading-xlarge {
+    font-size: $heading-xlarge-font-size;
+    line-height: $heading-xlarge-line-height;
+    @if(mixin-exists(hook-heading-xlarge)) {@include hook-heading-xlarge();}
+}
+
+.uk-heading-2xlarge {
+    font-size: $heading-2xlarge-font-size;
+    line-height: $heading-2xlarge-line-height;
+    @if(mixin-exists(hook-heading-2xlarge)) {@include hook-heading-2xlarge();}
+}
+
+/* Tablet Landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-heading-small { font-size: $heading-small-font-size-m; }
+    .uk-heading-medium { font-size: $heading-medium-font-size-m; }
+    .uk-heading-large { font-size: $heading-large-font-size-m; }
+    .uk-heading-xlarge { font-size: $heading-xlarge-font-size-m; }
+    .uk-heading-2xlarge { font-size: $heading-2xlarge-font-size-m; }
+
+}
+
+/* Laptop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-heading-medium { font-size: $heading-medium-font-size-l; }
+    .uk-heading-large { font-size: $heading-large-font-size-l; }
+    .uk-heading-xlarge { font-size: $heading-xlarge-font-size-l; }
+    .uk-heading-2xlarge { font-size: $heading-2xlarge-font-size-l; }
+
+}
+
+
+/* Primary
+   Deprecated: Use `uk-heading-medium` instead
+ ========================================================================== */
+
+$heading-primary-font-size-l:                    3.75rem !default;  // 60px
+$heading-primary-line-height-l:                  1.1 !default;
+
+$heading-primary-font-size-m:                    $heading-primary-font-size-l * 0.9 !default; // 54px
+
+$heading-primary-font-size:                      $heading-primary-font-size-l * 0.8 !default; // 48px
+$heading-primary-line-height:                    1.2 !default;
+
+@if ($deprecated == true) {
+.uk-heading-primary {
+    font-size: $heading-primary-font-size;
+    line-height: $heading-primary-line-height;
+    @if(mixin-exists(hook-heading-primary)) {@include hook-heading-primary();}
+}
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    @if ($deprecated == true) {
+.uk-heading-primary { font-size: $heading-primary-font-size-m; }
+}
+
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    @if ($deprecated == true) {
+.uk-heading-primary {
+        font-size: $heading-primary-font-size-l;
+        line-height: $heading-primary-line-height-l;
+    }
+}
+
+}
+
+
+/* Hero
+   Deprecated: Use `uk-heading-xlarge` instead
+ ========================================================================== */
+
+$heading-hero-font-size-l:                       8rem !default; // 128px
+$heading-hero-line-height-l:                     1 !default;
+
+$heading-hero-font-size-m:                       $heading-hero-font-size-l * 0.75 !default; // 96px
+$heading-hero-line-height-m:                     1 !default;
+
+$heading-hero-font-size:                         $heading-hero-font-size-l * 0.5 !default; // 64px
+$heading-hero-line-height:                       1.1 !default;
+
+@if ($deprecated == true) {
+.uk-heading-hero {
+    font-size: $heading-hero-font-size;
+    line-height: $heading-hero-line-height;
+    @if(mixin-exists(hook-heading-hero)) {@include hook-heading-hero();}
+}
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    @if ($deprecated == true) {
+.uk-heading-hero {
+        font-size: $heading-hero-font-size-m;
+        line-height: $heading-hero-line-height-m;
+    }
+}
+
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    @if ($deprecated == true) {
+.uk-heading-hero {
+        font-size: $heading-hero-font-size-l;
+        line-height: $heading-hero-line-height-l;
+    }
+}
+
+}
+
+
+/* Divider
+ ========================================================================== */
+
+.uk-heading-divider {
+    padding-bottom: $heading-divider-padding-bottom;
+    border-bottom: $heading-divider-border-width solid $heading-divider-border;
+    @if(mixin-exists(hook-heading-divider)) {@include hook-heading-divider();}
+}
+
+
+/* Bullet
+ ========================================================================== */
+
+.uk-heading-bullet { position: relative; }
+
+/*
+ * 1. Using `inline-block` to make it work with text alignment
+ * 2. Center vertically
+ * 3. Style
+ */
+
+.uk-heading-bullet::before {
+    content: "";
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    position: relative;
+    top: $heading-bullet-top;
+    vertical-align: middle;
+    /* 3 */
+    height: $heading-bullet-height;
+    margin-right: $heading-bullet-margin-right;
+    border-left: $heading-bullet-border-width solid $heading-bullet-border;
+    @if(mixin-exists(hook-heading-bullet)) {@include hook-heading-bullet();}
+}
+
+
+/* Line
+ ========================================================================== */
+
+/*
+ * Clip the child element
+ */
+
+.uk-heading-line { overflow: hidden; }
+
+/*
+ * Extra markup is needed to make it work with text align
+ */
+
+.uk-heading-line > * {
+    display: inline-block;
+    position: relative;
+}
+
+/*
+ * 1. Center vertically
+ * 2. Make the element as large as possible. It's clipped by the container.
+ * 3. Style
+ */
+
+.uk-heading-line > ::before,
+.uk-heading-line > ::after {
+    content: "";
+    /* 1 */
+    position: absolute;
+    top: unquote('calc(#{$heading-line-top} - (#{$heading-line-height} / 2))');
+    /* 2 */
+    width: $heading-line-width;
+    /* 3 */
+    border-bottom: $heading-line-border-width solid $heading-line-border;
+    @if(mixin-exists(hook-heading-line)) {@include hook-heading-line();}
+}
+
+.uk-heading-line > ::before {
+    right: 100%;
+    margin-right: $heading-line-margin-horizontal;
+}
+.uk-heading-line > ::after {
+    left: 100%;
+    margin-left: $heading-line-margin-horizontal;
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-heading-misc)) {@include hook-heading-misc();}
+
+// @mixin hook-heading-small(){}
+// @mixin hook-heading-medium(){}
+// @mixin hook-heading-large(){}
+// @mixin hook-heading-xlarge(){}
+// @mixin hook-heading-2xlarge(){}
+// @mixin hook-heading-primary(){}
+// @mixin hook-heading-hero(){}
+// @mixin hook-heading-divider(){}
+// @mixin hook-heading-bullet(){}
+// @mixin hook-heading-line(){}
+// @mixin hook-heading-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-heading-divider-border:                   $inverse-global-border !default;
+$inverse-heading-bullet-border:                    $inverse-global-border !default;
+$inverse-heading-line-border:                      $inverse-global-border !default;
+
+
+
+// @mixin hook-inverse-heading-small(){}
+// @mixin hook-inverse-heading-medium(){}
+// @mixin hook-inverse-heading-large(){}
+// @mixin hook-inverse-heading-xlarge(){}
+// @mixin hook-inverse-heading-2xlarge(){}
+// @mixin hook-inverse-heading-primary(){}
+// @mixin hook-inverse-heading-hero(){}
+// @mixin hook-inverse-heading-divider(){}
+// @mixin hook-inverse-heading-bullet(){}
+// @mixin hook-inverse-heading-line(){}

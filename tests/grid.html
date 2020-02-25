@@ -5,7 +5,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Grid - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
         <script src="js/test.js"></script>
         <style type="text/css">
 
@@ -491,6 +490,34 @@
                 <div class="uk-width-expand@m"><div class="uk-panel">Expand-M</div></div>
             </div>
 
+            <h2>Column and Row</h2>
+
+            <h3>Small / Large</h3>
+
+            <div class="uk-grid-column-small uk-grid-row-large uk-child-width-1-4@m" uk-grid>
+                <div><div class="uk-panel">1-4-M</div></div>
+                <div><div class="uk-panel">1-4-M</div></div>
+                <div><div class="uk-panel">1-4-M</div></div>
+                <div><div class="uk-panel">1-4-M</div></div>
+                <div><div class="uk-panel">1-4-M</div></div>
+                <div><div class="uk-panel">1-4-M</div></div>
+                <div><div class="uk-panel">1-4-M</div></div>
+                <div><div class="uk-panel">1-4-M</div></div>
+            </div>
+
+            <h3>Medium / Small</h3>
+
+            <div class="uk-grid-divider uk-grid-column-medium uk-grid-row-small uk-child-width-1-4@m" uk-grid>
+                    <div><div class="uk-panel">1-4-M</div></div>
+                    <div><div class="uk-panel">1-4-M</div></div>
+                    <div><div class="uk-panel">1-4-M</div></div>
+                    <div><div class="uk-panel">1-4-M</div></div>
+                    <div><div class="uk-panel">1-4-M</div></div>
+                    <div><div class="uk-panel">1-4-M</div></div>
+                    <div><div class="uk-panel">1-4-M</div></div>
+                    <div><div class="uk-panel">1-4-M</div></div>
+                </div>
+
             <h2>Divider</h2>
 
             <h3>Order</h3>
@@ -587,7 +614,7 @@
                 </div>
             </div>
 
-            <h2>Javascript Options</h2>
+            <h2>JavaScript Options</h2>
 
             <div class="uk-overflow-auto">
                 <table class="uk-table uk-table-striped">
@@ -611,6 +638,18 @@
                             <td>String</td>
                             <td>uk-first-column</td>
                             <td>This class is added to the first element in each row.</td>
+                        </tr>
+                        <tr>
+                            <td><code>masonry</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Enables masonry layout for this grid.</td>
+                        </tr>
+                        <tr>
+                            <td><code>parallax</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>Parallax translation value. The value must be a positive integer. Falsy disables the parallax effect (default).</td>
                         </tr>
                     </tbody>
                 </table>

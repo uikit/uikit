@@ -5,7 +5,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Base - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -204,8 +203,18 @@
                     <div class="uk-grid-small uk-child-width-1-4" uk-grid>
                         <figure>
 
-                            <img src="images/photo.jpg" alt="">
+                            <img width="1800" height="1200" src="images/photo.jpg" alt="">
                             <figcaption>Image</figcaption>
+
+                        </figure>
+                        <figure>
+
+                            <svg width="180" height="120" viewBox="0 0 180 120">
+                                <rect x="0" y="0" width="180" height="10" />
+                                <rect x="0" y="55" width="180" height="10" />
+                                <rect x="0" y="110" width="180" height="10" />
+                            </svg>
+                            <figcaption>SVG</figcaption>
 
                         </figure>
                         <figure>
@@ -216,14 +225,15 @@
                         </figure>
                         <figure>
 
-                            <video>
-                                <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.mp4?test1" type="video/mp4">
-                                <source src="http://www.quirksmode.org/html5/videos/big_buck_bunny.ogv?test1" type="video/ogg">
-                            </video>
+                            <video src="https://yootheme.com/site/images/media/yootheme-pro.mp4"></video>
                             <figcaption>Video</figcaption>
 
                         </figure>
                     </div>
+
+                    <h3>Audio</h3>
+
+                    <audio controls src="https://interactive-examples.mdn.mozilla.net/media/examples/t-rex-roar.mp3"></audio>
 
                 </div>
             </div>

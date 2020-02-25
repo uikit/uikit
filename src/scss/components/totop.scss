@@ -1,0 +1,71 @@
+// Name:            Totop
+// Description:     Component to create an icon to scroll back to top
+//
+// Component:       `uk-totop`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$totop-padding:                                  5px !default;
+$totop-color:                                    $global-muted-color !default;
+
+$totop-hover-color:                              $global-color !default;
+
+$totop-active-color:                             $global-emphasis-color !default;
+
+
+/* ========================================================================
+   Component: Totop
+ ========================================================================== */
+
+/*
+ * Addopts `uk-icon`
+ */
+
+.uk-totop {
+    padding: $totop-padding;
+    color: $totop-color;
+    @if(mixin-exists(hook-totop)) {@include hook-totop();}
+}
+
+/* Hover + Focus */
+.uk-totop:hover,
+.uk-totop:focus {
+    color: $totop-hover-color;
+    outline: none;
+    @if(mixin-exists(hook-totop-hover)) {@include hook-totop-hover();}
+}
+
+/* OnClick */
+.uk-totop:active {
+    color: $totop-active-color;
+    @if(mixin-exists(hook-totop-active)) {@include hook-totop-active();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-totop-misc)) {@include hook-totop-misc();}
+
+// @mixin hook-totop(){}
+// @mixin hook-totop-hover(){}
+// @mixin hook-totop-active(){}
+// @mixin hook-totop-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-totop-color:                        $inverse-global-muted-color !default;
+$inverse-totop-hover-color:                  $inverse-global-color !default;
+$inverse-totop-active-color:                 $inverse-global-emphasis-color !default;
+
+
+
+// @mixin hook-inverse-totop(){}
+// @mixin hook-inverse-totop-hover(){}
+// @mixin hook-inverse-totop-active(){}

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Grid Masonry - UIkit tests</title>
+        <script src="js/test.js"></script>
+        <style type="text/css">
+
+            :nth-child(7n-6) > .uk-panel { height: 120px; background: rgba(0,0,0,0.1); }
+            :nth-child(7n-5) > .uk-panel { height: 180px; background: rgba(0,0,0,0.15); }
+            :nth-child(7n-4) > .uk-panel { height: 200px; background: rgba(0,0,0,0.2); }
+            :nth-child(7n-3) > .uk-panel { height: 170px; background: rgba(0,0,0,0.25); }
+            :nth-child(7n-2) > .uk-panel { height: 220px; background: rgba(0,0,0,0.3); }
+            :nth-child(7n-1) > .uk-panel { height: 160px; background: rgba(0,0,0,0.35); }
+            :nth-child(7n) > .uk-panel { height: 250px; background: rgba(0,0,0,0.35); }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Grid Masonry</h1>
+
+            <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l" uk-grid="masonry: true">
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+            </div>
+
+            <h1>With Parallax</h1>
+
+            <div class="uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l" uk-grid="masonry: true; parallax: 150">
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+                <div><div class="uk-panel"></div></div>
+            </div>
+
+            <h2>JavaScript Options</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>margin</code></td>
+                            <td>String</td>
+                            <td>uk-grid-margin</td>
+                            <td>This class is added to items that break into the next row, typically to create margin to the previous row.</td>
+                        </tr>
+                        <tr>
+                            <td><code>first-column</code></td>
+                            <td>String</td>
+                            <td>uk-first-column</td>
+                            <td>This class is added to the first element in each row.</td>
+                        </tr>
+                        <tr>
+                            <td><code>masonry</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Enables masonry layout for this grid.</td>
+                        </tr>
+                        <tr>
+                            <td><code>parallax</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>Parallax translation value. The value must be a positive integer. Falsy disables the parallax effect (default).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </body>
+</html>

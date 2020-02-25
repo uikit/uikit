@@ -1,0 +1,17 @@
+{
+    "name": "uikit/uikit",
+    "type": "library",
+    "description": "UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.",
+    "keywords": [],
+    "homepage": "https://getuikit.com/",
+    "authors": [],
+    "support": {
+        "issues": "https://github.com/uikit/uikit/issues"
+    },
+    "license": "MIT",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "3.0.x-dev"
+        }
+    }
+}

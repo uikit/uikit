@@ -1,62 +1,68 @@
+import {Promise} from './promise';
 /*
     Based on:
     Copyright (c) 2016 Wilson Page wilsonpage@me.com
     https://github.com/wilsonpage/fastdom
 */
 
-import { requestAnimationFrame } from './index';
-
 export const fastdom = {
 
     reads: [],
     writes: [],
 
-    measure: function(task) {
+    read(task) {
         this.reads.push(task);
-        scheduleFlush(this);
+        scheduleFlush();
         return task;
     },
 
-    mutate: function(task) {
+    write(task) {
         this.writes.push(task);
-        scheduleFlush(this);
+        scheduleFlush();
         return task;
     },
 
-    clear: function(task) {
+    clear(task) {
         return remove(this.reads, task) || remove(this.writes, task);
-    }
+    },
+
+    flush
 
 };
 
-function scheduleFlush(fastdom) {
-    if (!fastdom.scheduled) {
-        fastdom.scheduled = true;
-        requestAnimationFrame(flush.bind(null, fastdom));
-    }
-}
-
-function flush(fastdom) {
-
+function flush(recursion = 1) {
     runTasks(fastdom.reads);
     runTasks(fastdom.writes.splice(0, fastdom.writes.length));
 
     fastdom.scheduled = false;
 
     if (fastdom.reads.length || fastdom.writes.length) {
-        scheduleFlush(fastdom);
+        scheduleFlush(recursion + 1);
     }
+}
 
+const RECURSION_LIMIT = 5;
+function scheduleFlush(recursion) {
+    if (!fastdom.scheduled) {
+        fastdom.scheduled = true;
+        if (recursion > RECURSION_LIMIT) {
+            throw new Error('Maximum recursion limit reached.');
+        } else if (recursion) {
+            Promise.resolve().then(() => flush(recursion));
+        } else {
+            requestAnimationFrame(() => flush());
+        }
+    }
 }
 
 function runTasks(tasks) {
-    var task;
-    while (task = tasks.shift()) {
+    let task;
+    while ((task = tasks.shift())) {
         task();
     }
 }
 
 function remove(array, item) {
-    var index = array.indexOf(item);
+    const index = array.indexOf(item);
     return !!~index && !!array.splice(index, 1);
 }

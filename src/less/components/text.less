@@ -24,7 +24,9 @@
 @text-large-line-height:                        1.5;
 
 @text-muted-color:                              @global-muted-color;
+@text-emphasis-color:                           @global-emphasis-color;
 @text-primary-color:                            @global-primary-background;
+@text-secondary-color:                          @global-secondary-background;
 @text-success-color:                            @global-success-background;
 @text-warning-color:                            @global-warning-background;
 @text-danger-color:                             @global-danger-background;
@@ -74,14 +76,25 @@
 /* Weight modifier
  ========================================================================== */
 
-.uk-text-bold { font-weight: bolder; }
+.uk-text-light { font-weight: 300; }
+.uk-text-normal { font-weight: 400; }
+.uk-text-bold { font-weight: 700; }
+ 
+.uk-text-lighter { font-weight: lighter; }
+.uk-text-bolder { font-weight: bolder; }
+
+ 
+/* Style modifier
+ ========================================================================== */
+ 
+.uk-text-italic { font-style: italic; }
 
 
 /* Transform modifier
  ========================================================================== */
 
-.uk-text-uppercase { text-transform: uppercase !important; }
 .uk-text-capitalize { text-transform: capitalize !important; }
+.uk-text-uppercase { text-transform: uppercase !important; }
 .uk-text-lowercase { text-transform: lowercase !important; }
 
 
@@ -89,7 +102,9 @@
  ========================================================================== */
 
 .uk-text-muted { color: @text-muted-color !important; }
+.uk-text-emphasis { color: @text-emphasis-color !important; }
 .uk-text-primary { color: @text-primary-color !important; }
+.uk-text-secondary { color: @text-secondary-color !important; }
 .uk-text-success { color: @text-success-color !important; }
 .uk-text-warning { color: @text-warning-color !important; }
 .uk-text-danger { color: @text-danger-color !important; }
@@ -211,9 +226,9 @@ td.uk-text-truncate { max-width: 0; }
 /*
  * 1. Wrap long words onto the next line and break them if they are too long to fit
  * 2. Legacy `word-wrap` as fallback for `overflow-wrap`
- * 3. Add a hyphen where the word breaks
- * 4. Fix `overflow-wrap` which doesn't work with table cells in Chrome, Opera, IE11 and Edge
+ * 3. Fix `overflow-wrap` which doesn't work with table cells in Chrome, Opera, IE11 and Edge
  *    Must use `break-all` to support IE11 and Edge
+ * Note: Not using `hyphens: auto;` because it hyphenates text even if not needed
  */
 
 .uk-text-break {
@@ -221,14 +236,9 @@ td.uk-text-truncate { max-width: 0; }
     overflow-wrap: break-word;
     /* 2 */
     word-wrap: break-word;
-    /* 3 */
-    -webkit-hyphens: auto;
-    -ms-hyphens: auto;
-    -moz-hyphens: auto;
-    hyphens: auto;
 }
 
-/* 4 */
+/* 3 */
 th.uk-text-break,
 td.uk-text-break { word-break: break-all; }
 
@@ -253,7 +263,9 @@ td.uk-text-break { word-break: break-all; }
 @inverse-text-lead-color:                      @inverse-global-color;
 @inverse-text-meta-color:                      @inverse-global-muted-color;
 @inverse-text-muted-color:                     @inverse-global-muted-color;
-@inverse-text-primary-color:                   @inverse-global-color;
+@inverse-text-emphasis-color:                  @inverse-global-emphasis-color;
+@inverse-text-primary-color:                   @inverse-global-primary-background;
+@inverse-text-secondary-color:                 @inverse-global-primary-background;
 
 .hook-inverse() {
 
@@ -268,7 +280,9 @@ td.uk-text-break { word-break: break-all; }
     }
 
     .uk-text-muted { color: @inverse-text-muted-color !important; }
+    .uk-text-emphasis { color: @inverse-text-emphasis-color !important; }
     .uk-text-primary { color: @inverse-text-primary-color !important; }
+    .uk-text-secondary { color: @inverse-text-secondary-color !important; }
 
 }
 

@@ -1,109 +1,105 @@
-import { $, offsetTop, toJQuery, isInView } from '../util/index';
+import {$$, addClass, closest, escape, getViewport, isVisible, last, offset, position, removeClass, scrollParents, trigger} from 'uikit-util';
 
-export default function (UIkit) {
+export default {
 
-    UIkit.component('scrollspy-nav', {
+    props: {
+        cls: String,
+        closest: String,
+        scroll: Boolean,
+        overflow: Boolean,
+        offset: Number
+    },
 
-        props: {
-            cls: String,
-            closest: String,
-            scroll: Boolean,
-            overflow: Boolean,
-            offset: Number
-        },
+    data: {
+        cls: 'uk-active',
+        closest: false,
+        scroll: false,
+        overflow: true,
+        offset: 0
+    },
 
-        defaults: {
-            cls: 'uk-active',
-            closest: false,
-            scroll: false,
-            overflow: true,
-            offset: 0
-        },
+    computed: {
 
-        computed: {
+        links: {
 
-            links() {
-                return this.$el.find('a[href^="#"]').filter((i, el) => el.hash);
+            get(_, $el) {
+                return $$('a[href^="#"]', $el).filter(el => el.hash);
             },
 
-            elements() {
-                return this.closest ? this.links.closest(this.closest) : this.links;
+            watch(links) {
+                if (this.scroll) {
+                    this.$create('scroll', links, {offset: this.offset || 0});
+                }
             },
 
-            targets() {
-                return $(this.links.toArray().map(el => el.hash).join(','));
-            }
+            immediate: true
 
         },
 
-        update: [
+        targets() {
+            return $$(this.links.map(el => escape(el.hash).substr(1)).join(','));
+        },
 
-            {
+        elements({closest: selector}) {
+            return closest($$(this.targets.map(el => `[href="#${el.id}"]`).join(',')), selector || '*');
+        }
 
-                read() {
-                    if (this.scroll) {
-                        UIkit.scroll(this.links, {offset: this.offset || 0});
+    },
+
+    update: [
+
+        {
+
+            read() {
+
+                const {length} = this.targets;
+
+                if (!length || !isVisible(this.$el)) {
+                    return false;
+                }
+
+                const scrollElement = last(scrollParents(this.targets[0]));
+                const {scrollTop, scrollHeight} = scrollElement;
+                const viewport = getViewport(scrollElement);
+                const scroll = scrollTop;
+                const max = scrollHeight - offset(viewport).height;
+                let active = false;
+
+                if (scroll === max) {
+                    active = length - 1;
+                } else {
+
+                    this.targets.every((el, i) => {
+                        const {top} = position(el, viewport);
+                        if (top - this.offset <= 0) {
+                            active = i;
+                            return true;
+                        }
+                    });
+
+                    if (active === false && this.overflow) {
+                        active = 0;
                     }
+                }
+
+                return {active};
+            },
+
+            write({active}) {
+
+                this.links.forEach(el => el.blur());
+                removeClass(this.elements, this.cls);
+
+                if (active !== false) {
+                    trigger(this.$el, 'active', [active, addClass(this.elements[active], this.cls)]);
                 }
 
             },
 
-            {
+            events: ['scroll', 'resize']
 
-                read() {
+        }
 
-                    var scroll = window.pageYOffset + this.offset, max = document.documentElement.scrollHeight - window.innerHeight + this.offset;
+    ]
 
-                    this.active = false;
-
-                    this.targets.each((i, el) => {
-
-                        el = $(el);
-
-                        var top = offsetTop(el), last = i + 1 === this.targets.length;
-                        if (!this.overflow && (i === 0 && top > scroll || last && top + el[0].offsetTop < scroll)) {
-                            return false;
-                        }
-
-                        if (!last && offsetTop(this.targets.eq(i + 1)) <= scroll) {
-                            return;
-                        }
-
-                        if (scroll >= max) {
-                            for (var j = this.targets.length - 1; j > i; j--) {
-                                if (isInView(this.targets.eq(j))) {
-                                    el = this.targets.eq(j);
-                                    break;
-                                }
-                            }
-                        }
-
-                        return !(this.active = toJQuery(this.links.filter(`[href="#${el.attr('id')}"]`)));
-
-                    });
-
-                },
-
-                write() {
-
-                    this.links.blur();
-                    this.elements.removeClass(this.cls);
-
-                    if (this.active) {
-                        this.$el.trigger('active', [
-                            this.active,
-                            (this.closest ? this.active.closest(this.closest) : this.active).addClass(this.cls)
-                        ]);
-                    }
-
-                },
-
-                events: ['scroll', 'load', 'resize']
-
-            }
-
-        ]
-
-    });
-
-}
+};

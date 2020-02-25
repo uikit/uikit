@@ -5,7 +5,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Tooltip - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
         <script src="js/test.js"></script>
     </head>
 
@@ -23,40 +22,40 @@
                     <h2>Position</h2>
 
                     <p uk-margin>
-                        <button class="uk-button uk-button-default" title="Hello World" uk-tooltip>Top</button>
-                        <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: top-left">Top Left</button>
-                        <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: top-right">Top Right</button>
+                        <button class="uk-button uk-button-default" uk-tooltip="Hello World">Top</button>
+                        <button class="uk-button uk-button-default" uk-tooltip="title: Hello World; pos: top-left">Top Left</button>
+                        <button class="uk-button uk-button-default" uk-tooltip="title: Hello World; pos: top-right">Top Right</button>
                     </p>
 
                     <p uk-margin>
-                        <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: bottom">Bottom</button>
-                        <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: bottom-left">Bottom Left</button>
-                        <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: bottom-right">Bottom Right</button>
+                        <button class="uk-button uk-button-default" uk-tooltip="title: Hello World; pos: bottom">Bottom</button>
+                        <button class="uk-button uk-button-default" uk-tooltip="title: Hello World; pos: bottom-left">Bottom Left</button>
+                        <button class="uk-button uk-button-default" uk-tooltip="title: Hello World; pos: bottom-right">Bottom Right</button>
                     </p>
 
                     <p uk-margin>
-                        <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: left">Left</button>
-                        <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="pos: right">Right</button>
+                        <button class="uk-button uk-button-default" uk-tooltip="title: Hello World; pos: left">Left</button>
+                        <button class="uk-button uk-button-default" uk-tooltip="title: Hello World; pos: right">Right</button>
                     </p>
 
                 </div>
                 <form>
 
-                <h2>Focused Form</h2>
+                    <h2>Focused Form</h2>
 
                     <p>
-                        <input class="uk-input uk-form-width-medium" type="text" title="Hello World" placeholder="Input" uk-tooltip="pos: left">
+                        <input class="uk-input uk-form-width-medium" type="text" placeholder="Input" uk-tooltip="title: Hello World; pos: left">
                     </p>
                     <p>
-                        <input class="uk-input uk-form-width-medium" type="text" title="Hello World" placeholder="Input" uk-tooltip="pos: right">
+                        <input class="uk-input uk-form-width-medium" type="text" placeholder="Input" uk-tooltip="title: Hello World; pos: right">
                     </p>
 
-                    <button class="uk-button uk-button-default" title="Hello World" uk-tooltip="delay: 500">Delay 500</button>
+                    <button type="button" class="uk-button uk-button-default" uk-tooltip="title: Hello World; delay: 500">Delay 500</button>
 
                 </form>
             </div>
 
-            <h2>Javascript Options</h2>
+            <h2>JavaScript Options</h2>
 
             <div class="uk-overflow-auto">
                 <table class="uk-table uk-table-striped">
@@ -69,6 +68,12 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr>
+                            <td><code>title</code></td>
+                            <td>String</td>
+                            <td>''</td>
+                            <td>Tooltip title.</td>
+                        </tr>
                         <tr>
                             <td><code>pos</code></td>
                             <td>String</td>
@@ -104,6 +109,12 @@
                             <td>String</td>
                             <td>uk-active</td>
                             <td>The active class.</td>
+                        </tr>
+                        <tr>
+                            <td><code>container</code></td>
+                            <td>Boolean</td>
+                            <td>true</td>
+                            <td>Define a target container via a selector to specify where the tooltip should be appended in the DOM.</td>
                         </tr>
                     </tbody>
                 </table>

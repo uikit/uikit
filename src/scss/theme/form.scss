@@ -1,0 +1,131 @@
+//
+// Component: Form
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$form-line-height:                               $form-height - (2* $form-border-width) !default;
+
+$form-background:                                $global-background !default;
+$form-focus-background:                          $global-background !default;
+
+$form-small-line-height:                         $form-small-height - (2* $form-border-width) !default;
+$form-large-line-height:                         $form-large-height - (2* $form-border-width) !default;
+
+$form-radio-background:                          transparent !default;
+
+$form-stacked-margin-bottom:                     5px !default;
+
+//
+// New
+//
+
+$form-border-width:                              $global-border-width !default;
+$form-border:                                    $global-border !default;
+
+$form-focus-border:                              $global-primary-background !default;
+
+$form-disabled-border:                           $global-border !default;
+
+$form-danger-border:                             $global-danger-background !default;
+$form-success-border:                            $global-success-background !default;
+
+$form-blank-focus-border:                        $global-border !default;
+$form-blank-focus-border-style:                  dashed !default;
+
+$form-radio-border-width:                        $global-border-width !default;
+$form-radio-border:                              darken($global-border, 10%) !default;
+
+$form-radio-focus-border:                        $global-primary-background !default;
+
+$form-radio-checked-border:                      transparent !default;
+
+$form-radio-disabled-border:                     $global-border !default;
+
+$form-label-color:                               $global-emphasis-color !default;
+$form-label-font-size:                           $global-small-font-size !default;
+
+
+// Component
+// ========================================================================
+
+
+
+// @mixin hook-form-single-line(){}
+
+// @mixin hook-form-multi-line(){}
+
+
+
+
+
+
+// Style modifiers
+// ========================================================================
+
+
+
+
+
+
+
+
+
+
+// Radio and checkbox
+// ========================================================================
+
+
+
+
+
+
+
+// @mixin hook-form-radio-checked-focus(){}
+
+
+
+
+// Legend
+// ========================================================================
+
+// @mixin hook-form-legend(){}
+
+
+// Label
+// ========================================================================
+
+
+
+
+// Layout
+// ========================================================================
+
+// @mixin hook-form-stacked-label(){}
+
+// @mixin hook-form-horizontal-label(){}
+
+
+// Miscellaneous
+// ========================================================================
+
+// @mixin hook-form-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-form-label-color:                       $inverse-global-emphasis-color !default;
+
+
+
+
+
+
+
+
+// @mixin hook-inverse-form-radio-checked-focus(){}
+

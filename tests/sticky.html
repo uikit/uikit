@@ -5,7 +5,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Sticky - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
         <script src="js/test.js"></script>
         <style type="text/css">
 
@@ -29,7 +28,7 @@
                     </div>
                     <div>
 
-                        <div class="uk-card uk-card-primary uk-card-body" uk-sticky="top: 100vh; target: 10">Sticky after 100vh; Scroll up if initially above paragraph below</div>
+                        <div class="uk-card uk-card-primary uk-card-body" uk-sticky="top: 50vh; target-offset: 10">Sticky after 50vh; Scroll up if initially above paragraph below</div>
 
                     </div>
                     <div>
@@ -57,7 +56,7 @@
 
             <p id="hash" class="uk-margin-large">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-            <h2>Javascript Options</h2>
+            <h2>JavaScript Options</h2>
 
             <div class="uk-overflow-auto">
                 <table class="uk-table uk-table-striped">
@@ -84,7 +83,7 @@
                         </tr>
                         <tr>
                             <td><code>offset</code></td>
-                            <td>Number</td>
+                            <td>String</td>
                             <td>0</td>
                             <td>The offset the Sticky should be fixed to.</td>
                         </tr>
@@ -107,6 +106,12 @@
                             <td>The inactive class.</td>
                         </tr>
                         <tr>
+                            <td><code>sel-target</code></td>
+                            <td>CSS Selector</td>
+                            <td>self</td>
+                            <td>The target element to apply active and inactive classes to. Defaults to the element itself.</td>
+                        </tr>
+                        <tr>
                             <td><code>width-element</code></td>
                             <td>CSS Selector</td>
                             <td>false</td>
@@ -122,11 +127,11 @@
                             <td><code>media</code></td>
                             <td>Integer|String</td>
                             <td>false</td>
-                            <td>Condition for the active status with a width as integer (e.g. 640) or a css media query.</td>
+                            <td>Condition for the active status - a width as integer (e.g. 640) or a breakpoint (e.g. @s, @m, @l, @xl).</td>
                         </tr>
                         <tr>
-                            <td><code>target</code></td>
-                            <td>Boolean</td>
+                            <td><code>target-offset</code></td>
+                            <td>Boolean, Number</td>
                             <td>false</td>
                             <td>Initially make sure that the Sticky is not over a targeted element via location hash.</td>
                         </tr>

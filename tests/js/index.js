@@ -1,200 +1,236 @@
-var storage = window.sessionStorage, key = '_uikit_style', keyinverse = '_uikit_inverse', themes = {}, $html = $('html');
+/* global UIkit */
+import {on} from '../../src/js/util/event';
+import {css} from '../../src/js/util/style';
+import {ucfirst} from '../../src/js/util/lang';
+import {prepend} from '../../src/js/util/dom';
+import {addClass, removeClass} from '../../src/js/util/class';
+import {fastdom} from '../../src/js/util/fastdom';
+
+const storage = window.sessionStorage;
+const key = '_uikit_style';
+const keyinverse = '_uikit_inverse';
+const docEl = document.documentElement;
 
 // try to load themes.json
-var request = new XMLHttpRequest();
+const request = new XMLHttpRequest();
 request.open('GET', '../themes.json', false);
 request.send(null);
 
-if (request.status === 200) {
-    themes = JSON.parse(request.responseText);
+const themes = request.status === 200 ? JSON.parse(request.responseText) : {};
+const styles = {
+    core: {css: '../dist/css/uikit-core.css'},
+    theme: {css: '../dist/css/uikit.css'}
+};
+const component = location.pathname.split('/').pop().replace(/.html$/, '');
+
+for (const theme in themes) {
+    styles[theme] = themes[theme];
 }
 
-var styles = $.extend({
-        core: {css: '../dist/css/uikit-core.css'},
-        theme: {css: '../dist/css/uikit.css'}
-    }, themes),
-    component = location.pathname.split('/').pop().replace(/.html$/, ''),
-    components = [
-        'lightbox',
-        'notification',
-        'sortable',
-        'tooltip',
-        'upload'
-    ];
+const variations = {
+    '': 'Default',
+    light: 'Dark',
+    dark: 'Light'
+};
 
 if (getParam('style') && getParam('style').match(/\.(json|css)$/)) {
     styles.custom = getParam('style');
 }
 
 storage[key] = storage[key] || 'core';
-storage[keyinverse] = storage[keyinverse] || 'default';
+storage[keyinverse] = storage[keyinverse] || '';
 
-var dir = storage._uikit_dir || 'ltr';
+const dir = storage._uikit_dir || 'ltr';
 
 // set dir
-$html.attr('dir', dir);
+docEl.dir = dir;
 
-var style = styles[storage[key]] || styles.theme;
+const style = styles[storage[key]] || styles.theme;
 
 // add style
-document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : style.css.replace('.css', '').concat('-rtl.css')}">`);
+document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : style.css.replace('.css', '-rtl.css')}">`);
 
 // add javascript
-document.writeln(`<script src="../dist/js/uikit.js"></script>`);
+document.writeln('<script src="../dist/js/uikit.js"></script>');
 document.writeln(`<script src="${style.icons ? style.icons : '../dist/js/uikit-icons.js'}"></script>`);
 
-$(() => {
+on(window, 'load', () => setTimeout(() => fastdom.write(() => {
 
-    var $body = $('body');
-    var $container = $('<div class="uk-container"></div>').prependTo('body');
-    var $tests = $('<select class="uk-select uk-form-width-small"></select>').css('margin', '20px 20px 20px 0').prependTo($container);
-    var $styles = $('<select class="uk-select uk-form-width-small"></select>').css('margin', '20px').appendTo($container);
-    var $inverse = $('<select class="uk-select uk-form-width-small"></select>').css('margin', '20px').appendTo($container);
-    var $label = $('<label></label>').css('margin', '20px').appendTo($container);
+    const $body = document.body;
+    const $container = prepend($body, `
+        <div class="uk-container">
+            <select class="uk-select uk-form-width-small" style="margin: 20px 20px 20px 0">
+                <option value="index.html">Overview</option>
+                ${[
+                    'accordion',
+                    'alert',
+                    'align',
+                    'animation',
+                    'article',
+                    'background',
+                    'badge',
+                    'base',
+                    'breadcrumb',
+                    'button',
+                    'card',
+                    'close',
+                    'column',
+                    'comment',
+                    'container',
+                    'countdown',
+                    'cover',
+                    'description-list',
+                    'divider',
+                    'dotnav',
+                    'drop',
+                    'dropdown',
+                    'filter',
+                    'flex',
+                    'form',
+                    'grid',
+                    'grid-masonry',
+                    'grid-parallax',
+                    'heading',
+                    'height',
+                    'height-expand',
+                    'height-viewport',
+                    'icon',
+                    'iconnav',
+                    'image',
+                    'label',
+                    'leader',
+                    'lightbox',
+                    'link',
+                    'list',
+                    'margin',
+                    'marker',
+                    'modal',
+                    'nav',
+                    'navbar',
+                    'notification',
+                    'offcanvas',
+                    'overlay',
+                    'padding',
+                    'pagination',
+                    'parallax',
+                    'position',
+                    'placeholder',
+                    'progress',
+                    'scroll',
+                    'scrollspy',
+                    'search',
+                    'section',
+                    'slidenav',
+                    'slider',
+                    'slideshow',
+                    'sortable',
+                    'spinner',
+                    'sticky',
+                    'sticky-navbar',
+                    'subnav',
+                    'svg',
+                    'switcher',
+                    'tab',
+                    'table',
+                    'text',
+                    'thumbnav',
+                    'tile',
+                    'toggle',
+                    'tooltip',
+                    'totop',
+                    'transition',
+                    'utility',
+                    'upload',
+                    'video',
+                    'visibility',
+                    'width'
+                ].sort().map(name => `<option value="${name}.html">${name.split('-').map(ucfirst).join(' ')}</option>`).join('')}
+            </select>
+            <select class="uk-select uk-form-width-small" style="margin: 20px">
+                ${Object.keys(styles).map(style => `<option value="${style}">${ucfirst(style)}</option>`).join('')}
+            </select>
+            <select class="uk-select uk-form-width-small" style="margin: 20px">
+                ${Object.keys(variations).map(name => `<option value="${name}">${variations[name]}</option>`).join('')}        
+            </select>
+            <label style="margin: 20px">
+                <input type="checkbox" class="uk-checkbox"/>
+                <span style="margin: 5px">RTL</span>
+            </label>
+        </div>
+    `);
+
+    const [$tests, $styles, $inverse, $rtl] = $container.children;
 
     // Tests
     // ------------------------------
 
-    [
-        'accordion',
-        'alert',
-        'align',
-        'animation',
-        'article',
-        'background',
-        'badge',
-        'base',
-        'breadcrumb',
-        'button',
-        'card',
-        'close',
-        'column',
-        'comment',
-        'container',
-        'cover',
-        'description-list',
-        'divider',
-        'dotnav',
-        'drop',
-        'dropdown',
-        'flex',
-        'form',
-        'grid',
-        'heading',
-        'height-expand',
-        'height-viewport',
-        'icon',
-        'iconnav',
-        'label',
-        'link',
-        'list',
-        'margin',
-        'modal',
-        'nav',
-        'navbar',
-        'offcanvas',
-        'overlay',
-        'padding',
-        'pagination',
-        'position',
-        'placeholder',
-        'progress',
-        'scroll',
-        'scrollspy',
-        'search',
-        'section',
-        'slidenav',
-        'spinner',
-        'sticky',
-        'subnav',
-        'switcher',
-        'tab',
-        'table',
-        'text',
-        'tile',
-        'toggle',
-        'totop',
-        'transition',
-        'utility',
-        'visibility',
-        'width'
-    ].concat(components).sort().forEach(name => $(`<option value="${name}.html">${name.split('-').map(ucfirst).join(' ')}</option>`).appendTo($tests));
-
-    $tests.on('change', () => {
-        if ($tests.val()) {
-            var style = styles.custom ? `?style=${getParam('style')}` : '';
-            location.href = `../${$html.find('script[src*="test.js"]').attr('src').replace('js/test.js', '')}tests/${$tests.val()}${style}`;
+    on($tests, 'change', () => {
+        if ($tests.value) {
+            location.href = `${$tests.value}${styles.custom ? `?style=${getParam('style')}` : ''}`;
         }
-    }).val(component && `${component}.html`);
-
-    $tests.prepend(`<option value="index.html">Overview</option>`);
+    });
+    $tests.value = `${component || 'index'}.html`;
 
     // Styles
     // ------------------------------
 
-    Object.keys(styles).forEach(style => $styles.append(`<option value="${style}">${ucfirst(style)}</option>`));
-
-    $styles.on('change', () => {
-        storage[key] = $styles.val();
+    on($styles, 'change', () => {
+        storage[key] = $styles.value;
         location.reload();
-    }).val(storage[key]);
+    });
+    $styles.value = storage[key];
 
     // Variations
     // ------------------------------
 
-    var variations = {
-        'default': 'Default',
-        'light': 'Dark',
-        'dark': 'Light'
-    };
+    $inverse.value = storage[keyinverse];
 
-    Object.keys(variations).forEach(name => $(`<option value="${name}">${variations[name]}</option>`).appendTo($inverse));
+    if ($inverse.value) {
 
-    $inverse.on('change', () => {
+        removeClass(document.querySelectorAll('*'), [
+            'uk-navbar-container',
+            'uk-card-default',
+            'uk-card-muted',
+            'uk-card-primary',
+            'uk-card-secondary',
+            'uk-tile-default',
+            'uk-tile-muted',
+            'uk-tile-primary',
+            'uk-tile-secondary',
+            'uk-section-default',
+            'uk-section-muted',
+            'uk-section-primary',
+            'uk-section-secondary',
+            'uk-overlay-default',
+            'uk-overlay-primary'
+        ]);
 
-        $body.removeClass('uk-dark uk-light');
+        css(docEl, 'background', $inverse.value === 'dark' ? '#fff' : '#222');
+        addClass($body, `uk-${$inverse.value}`);
 
-        switch ($inverse.val()) {
-            case 'dark':
-                $html.css('background', '#fff');
-                $body.addClass('uk-dark');
-                break;
+    }
 
-            case 'light':
-                $html.css('background', '#222');
-                $body.addClass('uk-light');
-                break;
-
-            default:
-                $html.css('background', '');
-        }
-
-        storage[keyinverse] = $inverse.val();
-
-    }).val(storage[keyinverse]).trigger('change');
+    on($inverse, 'change', () => {
+        storage[keyinverse] = $inverse.value;
+        location.reload();
+    });
 
     // RTL
     // ------------------------------
 
-    var $rtl = $('<input type="checkbox" class="uk-checkbox uk-form-width-small" />').on('change', () => {
-        storage._uikit_dir = $rtl.prop('checked') ? 'rtl' : 'ltr';
+    on($rtl, 'change', ({target}) => {
+        storage._uikit_dir = target.checked ? 'rtl' : 'ltr';
         location.reload();
-    }).appendTo($label).after('<span style="margin:5px;">RTL</span>');
+    });
+    $rtl.firstElementChild.checked = dir === 'rtl';
 
-    if (dir == 'rtl') {
-        $rtl.prop('checked', true);
-    }
+    css(docEl, 'paddingTop', '');
 
-    $html.css('padding-top', '');
-});
+}), 100));
 
-$html.css('padding-top', '80px');
-
-function ucfirst(str) {
-    return str.length ? str.charAt(0).toUpperCase() + str.slice(1) : '';
-}
+css(docEl, 'paddingTop', '80px');
 
 function getParam(name) {
-    var match = RegExp(`[?&]${name}=([^&]*)`).exec(window.location.search);
+    const match = new RegExp(`[?&]${name}=([^&]*)`).exec(window.location.search);
     return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
 }

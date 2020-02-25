@@ -1,0 +1,153 @@
+// Name:            Divider
+// Description:     Styles for dividers
+//
+// Component:       `uk-divider-icon`
+//                  `uk-divider-small`
+//                  `uk-divider-vertical`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$divider-margin-vertical:                        $global-margin !default;
+
+$divider-icon-width:                             50px !default;
+$divider-icon-height:                            20px !default;
+$divider-icon-color:                             $global-border !default;
+$divider-icon-line-top:                          50% !default;
+$divider-icon-line-width:                        100% !default;
+$divider-icon-line-border-width:                 $global-border-width !default;
+$divider-icon-line-border:                       $global-border !default;
+
+$internal-divider-icon-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2020%2020%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22none%22%20stroke%3D%22#000%22%20stroke-width%3D%222%22%20cx%3D%2210%22%20cy%3D%2210%22%20r%3D%227%22%20%2F%3E%0A%3C%2Fsvg%3E%0A" !default;
+
+$divider-small-width:                            100px !default;
+$divider-small-border-width:                     $global-border-width !default;
+$divider-small-border:                           $global-border !default;
+
+$divider-vertical-height:                        100px !default;
+$divider-vertical-border-width:                  $global-border-width !default;
+$divider-vertical-border:                        $global-border !default;
+
+
+/* ========================================================================
+   Component: Divider
+ ========================================================================== */
+
+/*
+ * 1. Reset default `hr`
+ * 2. Set margin if a `div` is used for semantical reason
+ */
+
+[class*='uk-divider'] {
+    /* 1 */
+    border: none;
+    /* 2 */
+    margin-bottom: $divider-margin-vertical;
+}
+
+/* Add margin if adjacent element */
+* + [class*='uk-divider'] { margin-top: $divider-margin-vertical; }
+
+
+/* Icon
+ ========================================================================== */
+
+.uk-divider-icon {
+    position: relative;
+    height: $divider-icon-height;
+    @include svg-fill($internal-divider-icon-image, "#000", $divider-icon-color);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    @if(mixin-exists(hook-divider-icon)) {@include hook-divider-icon();}
+}
+
+.uk-divider-icon::before,
+.uk-divider-icon::after {
+    content: "";
+    position: absolute;
+    top: $divider-icon-line-top;
+    max-width: unquote('calc(50% - (#{$divider-icon-width} / 2))');
+    border-bottom: $divider-icon-line-border-width solid $divider-icon-line-border;
+    @if(mixin-exists(hook-divider-icon-line)) {@include hook-divider-icon-line();}
+}
+
+.uk-divider-icon::before {
+    right: unquote('calc(50% + (#{$divider-icon-width} / 2))');
+    width: $divider-icon-line-width;
+    @if(mixin-exists(hook-divider-icon-line-left)) {@include hook-divider-icon-line-left();}
+}
+
+.uk-divider-icon::after {
+    left: unquote('calc(50% + (#{$divider-icon-width} / 2))');
+    width: $divider-icon-line-width;
+    @if(mixin-exists(hook-divider-icon-line-right)) {@include hook-divider-icon-line-right();}
+}
+
+
+/* Small
+ ========================================================================== */
+
+/*
+ * 1. Fix height because of `inline-block`
+ * 2. Using ::after and inline-block to make `text-align` work
+ */
+
+/* 1 */
+.uk-divider-small { line-height: 0; }
+
+/* 2 */
+.uk-divider-small::after {
+    content: "";
+    display: inline-block;
+    width: $divider-small-width;
+    max-width: 100%;
+    border-top: $divider-small-border-width solid $divider-small-border;
+    vertical-align: top;
+    @if(mixin-exists(hook-divider-small)) {@include hook-divider-small();}
+}
+
+
+/* Vertical
+ ========================================================================== */
+
+.uk-divider-vertical {
+    width: 1px;
+    height: $divider-vertical-height;
+    margin-left: auto;
+    margin-right: auto;
+    border-left: $divider-vertical-border-width solid $divider-vertical-border;
+    @if(mixin-exists(hook-divider-vertical)) {@include hook-divider-vertical();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-divider-misc)) {@include hook-divider-misc();}
+
+// @mixin hook-divider-icon(){}
+// @mixin hook-divider-icon-line(){}
+// @mixin hook-divider-icon-line-left(){}
+// @mixin hook-divider-icon-line-right(){}
+// @mixin hook-divider-small(){}
+// @mixin hook-divider-vertical(){}
+// @mixin hook-divider-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-divider-icon-color:                       $inverse-global-border !default;
+$inverse-divider-icon-line-border:                 $inverse-global-border !default;
+$inverse-divider-small-border:                     $inverse-global-border !default;
+$inverse-divider-vertical-border:                  $inverse-global-border !default;
+
+
+
+// @mixin hook-inverse-divider-icon(){}
+// @mixin hook-inverse-divider-icon-line(){}
+// @mixin hook-inverse-divider-small(){}
+// @mixin hook-inverse-divider-vertical(){}

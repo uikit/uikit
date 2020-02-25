@@ -1,0 +1,103 @@
+// Name:            Slider
+// Description:     Component to create horizontal sliders
+//
+// Component:       `uk-slider`
+//
+// Sub-objects:     `uk-slider-container`
+//                  `uk-slider-items`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+/* ========================================================================
+   Component: Slider
+ ========================================================================== */
+
+/*
+ * 1. Prevent tab highlighting on iOS.
+ */
+
+.uk-slider {
+    /* 1 */
+    -webkit-tap-highlight-color: transparent;
+    .hook-slider;
+}
+
+
+/* Container
+ ========================================================================== */
+
+/*
+ * 1. Clip child elements
+ */
+
+.uk-slider-container {
+    /* 1 */
+    overflow: hidden;
+}
+
+/* Items
+ ========================================================================== */
+
+/*
+ * 1. Optimize animation
+ * 2. Create a containing block. In Safari it's neither created by `transform` nor `will-change`.
+ */
+
+.uk-slider-items {
+    /* 1 */
+    will-change: transform;
+    /* 2 */
+    position: relative;
+}
+
+/*
+ * 1. Reset list style without interfering with grid
+ * 2. Prevent displaying the callout information on iOS.
+ */
+
+.uk-slider-items:not(.uk-grid) {
+    display: flex;
+    /* 1 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 2 */
+    -webkit-touch-callout: none;
+}
+
+.uk-slider-items.uk-grid { flex-wrap: nowrap; }
+
+
+/* Item
+ ========================================================================== */
+
+/*
+ * 1. Let items take content dimensions (0 0 auto)
+ * 2. Create position context
+ * 3. Disable horizontal panning gestures in IE11 and Edge
+ * 4. Suppress outline on focus
+ */
+
+.uk-slider-items > * {
+    /* 1 */
+    flex: none;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    touch-action: pan-y;
+}
+
+/* 4 */
+.uk-slider-items > :focus { outline: none; }
+
+
+// Hooks
+// ========================================================================
+
+.hook-slider-misc;
+
+.hook-slider() {}
+.hook-slider-misc() {}

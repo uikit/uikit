@@ -1,0 +1,191 @@
+// Name:            Notification
+// Description:     Component to create notification messages
+//
+// Component:       `uk-notification`
+//
+// Sub-objects:     `uk-notification-message`
+//
+// Adopted:         `uk-notification-close`
+//
+// Modifiers:       `uk-notification-top-center`
+//                  `uk-notification-top-right`
+//                  `uk-notification-bottom-left`
+//                  `uk-notification-bottom-center`
+//                  `uk-notification-bottom-right`
+//                  `uk-notification-message-primary`
+//                  `uk-notification-message-success`
+//                  `uk-notification-message-warning`
+//                  `uk-notification-message-danger`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$notification-position:                                10px !default;
+$notification-z-index:                                 $global-z-index + 40 !default;
+$notification-width:                                   350px !default;
+
+$notification-message-margin-top:                      10px !default;
+$notification-message-padding:                         $global-small-gutter !default;
+$notification-message-background:                      $global-muted-background !default;
+$notification-message-color:                           $global-color !default;
+$notification-message-font-size:                       $global-medium-font-size !default;
+$notification-message-line-height:                     1.4 !default;
+
+$notification-close-top:                               $notification-message-padding + 5px !default;
+$notification-close-right:                             $notification-message-padding !default;
+
+$notification-message-primary-color:                   $global-primary-background !default;
+$notification-message-success-color:                   $global-success-background !default;
+$notification-message-warning-color:                   $global-warning-background !default;
+$notification-message-danger-color:                    $global-danger-background !default;
+
+
+/* ========================================================================
+   Component: Notification
+ ========================================================================== */
+
+/*
+ * 1. Set position
+ * 2. Dimensions
+ */
+
+.uk-notification {
+    /* 1 */
+    position: fixed;
+    top: $notification-position;
+    left: $notification-position;
+    z-index: $notification-z-index;
+    /* 2 */
+    box-sizing: border-box;
+    width: $notification-width;
+    @if(mixin-exists(hook-notification)) {@include hook-notification();}
+}
+
+
+/* Position modifiers
+========================================================================== */
+
+.uk-notification-top-right,
+.uk-notification-bottom-right {
+    left: auto;
+    right: $notification-position;
+}
+
+.uk-notification-top-center,
+.uk-notification-bottom-center {
+    left: 50%;
+    margin-left: ($notification-width / -2);
+}
+
+.uk-notification-bottom-left,
+.uk-notification-bottom-right,
+.uk-notification-bottom-center {
+    top: auto;
+    bottom: $notification-position;
+}
+
+
+/* Responsiveness
+========================================================================== */
+
+/* Phones portrait and smaller */
+@media (max-width: $breakpoint-xsmall-max) {
+
+    .uk-notification {
+        left: $notification-position;
+        right: $notification-position;
+        width: auto;
+        margin: 0;
+    }
+
+}
+
+
+/* Message
+========================================================================== */
+
+.uk-notification-message {
+    position: relative;
+    padding: $notification-message-padding;
+    background: $notification-message-background;
+    color: $notification-message-color;
+    font-size: $notification-message-font-size;
+    line-height: $notification-message-line-height;
+    cursor: pointer;
+    @if(mixin-exists(hook-notification-message)) {@include hook-notification-message();}
+}
+
+* + .uk-notification-message { margin-top: $notification-message-margin-top; }
+
+
+/* Close
+ * Adopts `uk-close`
+ ========================================================================== */
+
+.uk-notification-close {
+    display: none;
+    position: absolute;
+    top: $notification-close-top;
+    right: $notification-close-right;
+    @if(mixin-exists(hook-notification-close)) {@include hook-notification-close();}
+}
+
+.uk-notification-message:hover .uk-notification-close { display: block; }
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Primary
+ */
+
+.uk-notification-message-primary {
+    color: $notification-message-primary-color;
+    @if(mixin-exists(hook-notification-message-primary)) {@include hook-notification-message-primary();}
+}
+
+/*
+ * Success
+ */
+
+.uk-notification-message-success {
+    color: $notification-message-success-color;
+    @if(mixin-exists(hook-notification-message-success)) {@include hook-notification-message-success();}
+}
+
+/*
+ * Warning
+ */
+
+.uk-notification-message-warning {
+    color: $notification-message-warning-color;
+    @if(mixin-exists(hook-notification-message-warning)) {@include hook-notification-message-warning();}
+}
+
+/*
+ * Danger
+ */
+
+.uk-notification-message-danger {
+    color: $notification-message-danger-color;
+    @if(mixin-exists(hook-notification-message-danger)) {@include hook-notification-message-danger();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-notification-misc)) {@include hook-notification-misc();}
+
+// @mixin hook-notification(){}
+// @mixin hook-notification-message(){}
+// @mixin hook-notification-close(){}
+// @mixin hook-notification-message-primary(){}
+// @mixin hook-notification-message-success(){}
+// @mixin hook-notification-message-warning(){}
+// @mixin hook-notification-message-danger(){}
+// @mixin hook-notification-misc(){}

@@ -1,337 +1,326 @@
-function plugin(UIkit) {
+import Animate from '../mixin/animate';
+import Class from '../mixin/class';
+import {$$, addClass, after, assign, append, before, children, clamp, css, getEventPos, height, includes, index, isEmpty, isInput, offset, off, on, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, trigger, within, getViewport} from 'uikit-util';
 
-    if (plugin.installed) {
-        return;
-    }
+export default {
 
-    var { mixin, util } = UIkit;
-    var {$, docElement: doc, extend, getDimensions, isWithin, on, off, offsetTop, pointerDown, pointerMove, pointerUp, promise, win} = util;
+    mixins: [Class, Animate],
 
-    UIkit.component('sortable', {
+    props: {
+        group: String,
+        threshold: Number,
+        clsItem: String,
+        clsPlaceholder: String,
+        clsDrag: String,
+        clsDragState: String,
+        clsBase: String,
+        clsNoDrag: String,
+        clsEmpty: String,
+        clsCustom: String,
+        handle: String
+    },
 
-        mixins: [mixin.class],
+    data: {
+        group: false,
+        threshold: 5,
+        clsItem: 'uk-sortable-item',
+        clsPlaceholder: 'uk-sortable-placeholder',
+        clsDrag: 'uk-sortable-drag',
+        clsDragState: 'uk-drag',
+        clsBase: 'uk-sortable',
+        clsNoDrag: 'uk-sortable-nodrag',
+        clsEmpty: 'uk-sortable-empty',
+        clsCustom: '',
+        handle: false,
+        pos: {}
+    },
 
-        props: {
-            group: String,
-            animation: Number,
-            threshold: Number,
-            clsItem: String,
-            clsPlaceholder: String,
-            clsDrag: String,
-            clsDragState: String,
-            clsBase: String,
-            clsNoDrag: String,
-            clsEmpty: String,
-            clsCustom: String,
-            handle: String
-        },
+    created() {
+        ['init', 'start', 'move', 'end'].forEach(key => {
+            const fn = this[key];
+            this[key] = e => {
+                this.scrollY = window.pageYOffset;
+                assign(this.pos, getEventPos(e, 'page'));
 
-        defaults: {
-            group: false,
-            animation: 150,
-            threshold: 5,
-            clsItem: 'uk-sortable-item',
-            clsPlaceholder: 'uk-sortable-placeholder',
-            clsDrag: 'uk-sortable-drag',
-            clsDragState: 'uk-drag',
-            clsBase: 'uk-sortable',
-            clsNoDrag: 'uk-sortable-nodrag',
-            clsEmpty: 'uk-sortable-empty',
-            clsCustom: '',
-            handle: false
-        },
+                fn(e);
+            };
+        });
+    },
 
-        init() {
-            ['init', 'start', 'move', 'end'].forEach(key => {
-                let fn = this[key];
-                this[key] = e => {
-                    e = e.originalEvent || e;
-                    this.scrollY = window.scrollY;
-                    var {pageX, pageY} = e.touches && e.touches[0] || e;
-                    this.pos = {x: pageX, y: pageY};
+    events: {
 
-                    fn(e);
-                }
-            });
-        },
+        name: pointerDown,
+        passive: false,
+        handler: 'init'
 
-        events: {
+    },
 
-            [pointerDown]: 'init'
+    update: {
 
-        },
+        write() {
 
-        update: {
-
-            write() {
-
-                if (this.clsEmpty) {
-                    this.$el.toggleClass(this.clsEmpty, !this.$el.children().length);
-                }
-
-                if (!this.drag) {
-                    return;
-                }
-
-                this.drag.offset({top: this.pos.y + this.origin.top, left: this.pos.x + this.origin.left});
-
-                var top = offsetTop(this.drag), bottom = top + this.drag[0].offsetHeight;
-
-                if (top > 0 && top < this.scrollY) {
-                    setTimeout(() => win.scrollTop(this.scrollY - 5), 5);
-                } else if (bottom < doc[0].offsetHeight && bottom > window.innerHeight + this.scrollY) {
-                    setTimeout(() => win.scrollTop(this.scrollY + 5), 5);
-                }
-
+            if (this.clsEmpty) {
+                toggleClass(this.$el, this.clsEmpty, isEmpty(this.$el.children));
             }
 
-        },
+            css(this.handle ? $$(this.handle, this.$el) : this.$el.children, {touchAction: 'none', userSelect: 'none'});
 
-        methods: {
+            if (this.drag) {
 
-            init(e) {
-
-                var target = $(e.target), placeholder = this.$el.children().filter((i, el) => isWithin(e.target, el));
-
-                if (!placeholder.length
-                    || target.is(':input')
-                    || this.handle && !isWithin(target, this.handle)
-                    || e.button && e.button !== 0
-                    || isWithin(target, `.${this.clsNoDrag}`)
-                ) {
-                    return;
-                }
-
-                e.preventDefault();
-                e.stopPropagation();
-
-                this.touched = [this];
-                this.placeholder = placeholder;
-                this.origin = extend({target, index: this.placeholder.index()}, this.pos);
-
-                doc.on(pointerMove, this.move);
-                doc.on(pointerUp, this.end);
-                win.on('scroll', this.scroll);
-
-                if (!this.threshold) {
-                    this.start(e);
-                }
-
-            },
-
-            start(e) {
-
-                this.drag = $(this.placeholder[0].outerHTML.replace(/^<li/i, '<div').replace(/li>$/i, 'div>'))
-                    .attr('uk-no-boot', '')
-                    .addClass(`${this.clsDrag} ${this.clsCustom}`)
-                    .css({
-                        boxSizing: 'border-box',
-                        width: this.placeholder.outerWidth(),
-                        height: this.placeholder.outerHeight()
-                    })
-                    .css(this.placeholder.css(['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom']))
-                    .appendTo(UIkit.container);
-
-                this.drag.children().first().height(this.placeholder.children().height());
-
-                var {left, top} = getDimensions(this.placeholder);
-                extend(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
-
-                this.placeholder.addClass(this.clsPlaceholder);
-                this.$el.children().addClass(this.clsItem);
-                doc.addClass(this.clsDragState);
-
-                this.$el.trigger('start', [this, this.placeholder, this.drag]);
-
-                this.move(e);
-            },
-
-            move(e) {
-
-                if (!this.drag) {
-
-                    if (Math.abs(this.pos.x - this.origin.x) > this.threshold || Math.abs(this.pos.y - this.origin.y) > this.threshold) {
-                        this.start(e);
-                    }
-
-                    return;
-                }
-
-                this.$emit();
-
-                var target = e.type === 'mousemove' ? e.target : document.elementFromPoint(this.pos.x - document.body.scrollLeft, this.pos.y - document.body.scrollTop),
-                    sortable = getSortable(target),
-                    previous = getSortable(this.placeholder[0]),
-                    move = sortable !== previous;
-
-                if (!sortable || isWithin(target, this.placeholder) || move && (!sortable.group || sortable.group !== previous.group)) {
-                    return;
-                }
-
-                target = sortable.$el.is(target.parentNode) && $(target) || sortable.$el.children().has(target);
-
-                if (move) {
-                    previous.remove(this.placeholder);
-                } else if (!target.length) {
-                    return;
-                }
-
-                sortable.insert(this.placeholder, target);
-
-                if (!~this.touched.indexOf(sortable)) {
-                    this.touched.push(sortable);
-                }
-
-            },
-
-            scroll() {
-                var scroll = window.scrollY;
-                if (scroll !== this.scrollY) {
-                    this.pos.y += scroll - this.scrollY;
-                    this.scrollY = scroll;
-                    this.$emit();
-                }
-            },
-
-            end(e) {
-
-                doc.off(pointerMove, this.move);
-                doc.off(pointerUp, this.end);
-                win.off('scroll', this.scroll);
-
-                if (!this.drag) {
-
-                    if (e.type !== 'mouseup' && isWithin(e.target, 'a[href]')) {
-                        location.href = $(e.target).closest('a[href]').attr('href');
-                    }
-
-                    return;
-                }
-
-                preventClick();
-
-                var sortable = getSortable(this.placeholder[0]);
-
-                if (this === sortable) {
-                    if (this.origin.index !== this.placeholder.index()) {
-                        this.$el.trigger('change', [this, this.placeholder, 'moved']);
-                    }
-                } else {
-                    sortable.$el.trigger('change', [sortable, this.placeholder, 'added']);
-                    this.$el.trigger('change', [this, this.placeholder, 'removed']);
-                }
-
-                this.$el.trigger('stop', [this]);
-
-                this.drag.remove();
-                this.drag = null;
-
-                this.touched.forEach(sortable => sortable.$el.children().removeClass(`${sortable.clsPlaceholder} ${sortable.clsItem}`));
-
-                doc.removeClass(this.clsDragState);
-
-            },
-
-            insert(element, target) {
-
-                this.$el.children().addClass(this.clsItem);
-
-                var insert = () => {
-
-                    if (target.length) {
-
-                        if (!this.$el.has(element).length || element.prevAll().filter(target).length) {
-                            element.insertBefore(target);
-                        } else {
-                            element.insertAfter(target);
-                        }
-
-                    } else {
-                        this.$el.append(element);
-                    }
-
-                };
-
-                if (this.animation) {
-                    this.animate(insert);
-                } else {
-                    insert();
-                }
-
-            },
-
-            remove(element) {
-
-                if (!this.$el.has(element).length) {
-                    return;
-                }
-
-                if (this.animation) {
-                    this.animate(() => element.detach());
-                } else {
-                    element.detach();
-                }
-
-            },
-
-            animate(action) {
-
-                var props = [],
-                    children = this.$el.children().toArray().map(el => {
-                        el = $(el);
-                        props.push(extend({
-                            position: 'absolute',
-                            pointerEvents: 'none',
-                            width: el.outerWidth(),
-                            height: el.outerHeight()
-                        }, el.position()));
-                        return el;
-                    }),
-                    reset = {position: '', width: '', height: '', pointerEvents: '', top: '', left: ''};
-
-                action();
-
-                children.forEach(el => el.stop());
-                this.$el.children().css(reset);
-                this.$updateSync('update', true);
-
-                this.$el.css('min-height', this.$el.height());
-
-                var positions = children.map(el => el.position());
-                promise.all(children.map((el, i) => el.css(props[i]).animate(positions[i], this.animation).promise()))
-                    .then(() => {
-                        this.$el.css('min-height', '').children().css(reset);
-                        this.$updateSync('update', true);
-                    });
+                // clamp to viewport
+                const {right, bottom} = offset(window);
+                offset(this.drag, {
+                    top: clamp(this.pos.y + this.origin.top, 0, bottom - this.drag.offsetHeight),
+                    left: clamp(this.pos.x + this.origin.left, 0, right - this.drag.offsetWidth)
+                });
 
             }
 
         }
 
-    });
+    },
 
-    function getSortable(element) {
-        return UIkit.getComponent(element, 'sortable') || element.parentNode && getSortable(element.parentNode);
-    }
+    methods: {
 
-    function preventClick() {
-        var timer = setTimeout(() => doc.trigger('click'), 0),
-            listener = e => {
+        init(e) {
 
-                e.preventDefault();
-                e.stopPropagation();
+            const {target, button, defaultPrevented} = e;
+            const [placeholder] = children(this.$el).filter(el => within(target, el));
 
-                clearTimeout(timer);
-                off(doc, 'click', listener, true);
+            if (!placeholder
+                || defaultPrevented
+                || button > 0
+                || isInput(target)
+                || within(target, `.${this.clsNoDrag}`)
+                || this.handle && !within(target, this.handle)
+            ) {
+                return;
+            }
+
+            e.preventDefault();
+
+            this.touched = [this];
+            this.placeholder = placeholder;
+            this.origin = assign({target, index: index(placeholder)}, this.pos);
+
+            on(document, pointerMove, this.move);
+            on(document, pointerUp, this.end);
+            on(window, 'scroll', this.scroll);
+
+            if (!this.threshold) {
+                this.start(e);
+            }
+
+        },
+
+        start(e) {
+
+            this.drag = appendDrag(this.$container, this.placeholder);
+
+            const {left, top} = offset(this.placeholder);
+            assign(this.origin, {left: left - this.pos.x, top: top - this.pos.y});
+
+            addClass(this.drag, this.clsDrag, this.clsCustom);
+            addClass(this.placeholder, this.clsPlaceholder);
+            addClass(this.$el.children, this.clsItem);
+            addClass(document.documentElement, this.clsDragState);
+
+            trigger(this.$el, 'start', [this, this.placeholder]);
+
+            trackScroll(this.pos);
+
+            this.move(e);
+        },
+
+        move(e) {
+
+            if (!this.drag) {
+
+                if (Math.abs(this.pos.x - this.origin.x) > this.threshold || Math.abs(this.pos.y - this.origin.y) > this.threshold) {
+                    this.start(e);
+                }
+
+                return;
+            }
+
+            this.$update();
+
+            let target = e.type === 'mousemove' ? e.target : document.elementFromPoint(this.pos.x - window.pageXOffset, this.pos.y - window.pageYOffset);
+
+            const sortable = this.getSortable(target);
+            const previous = this.getSortable(this.placeholder);
+            const move = sortable !== previous;
+
+            if (!sortable || within(target, this.placeholder) || move && (!sortable.group || sortable.group !== previous.group)) {
+                return;
+            }
+
+            target = sortable.$el === target.parentNode && target || children(sortable.$el).filter(element => within(target, element))[0];
+
+            if (move) {
+                previous.remove(this.placeholder);
+            } else if (!target) {
+                return;
+            }
+
+            sortable.insert(this.placeholder, target);
+
+            if (!includes(this.touched, sortable)) {
+                this.touched.push(sortable);
+            }
+
+        },
+
+        end(e) {
+
+            off(document, pointerMove, this.move);
+            off(document, pointerUp, this.end);
+            off(window, 'scroll', this.scroll);
+
+            if (!this.drag) {
+                if (e.type === 'touchend') {
+                    e.target.click();
+                }
+
+                return;
+            }
+
+            untrackScroll();
+
+            const sortable = this.getSortable(this.placeholder);
+
+            if (this === sortable) {
+                if (this.origin.index !== index(this.placeholder)) {
+                    trigger(this.$el, 'moved', [this, this.placeholder]);
+                }
+            } else {
+                trigger(sortable.$el, 'added', [sortable, this.placeholder]);
+                trigger(this.$el, 'removed', [this, this.placeholder]);
+            }
+
+            trigger(this.$el, 'stop', [this, this.placeholder]);
+
+            remove(this.drag);
+            this.drag = null;
+
+            const classes = this.touched.map(sortable => `${sortable.clsPlaceholder} ${sortable.clsItem}`).join(' ');
+            this.touched.forEach(sortable => removeClass(sortable.$el.children, classes));
+
+            removeClass(document.documentElement, this.clsDragState);
+
+        },
+
+        scroll() {
+            const scroll = window.pageYOffset;
+            if (scroll !== this.scrollY) {
+                this.pos.y += scroll - this.scrollY;
+                this.scrollY = scroll;
+                this.$update();
+            }
+        },
+
+        insert(element, target) {
+
+            addClass(this.$el.children, this.clsItem);
+
+            const insert = () => {
+
+                if (target) {
+
+                    if (!within(element, this.$el) || isPredecessor(element, target)) {
+                        before(target, element);
+                    } else {
+                        after(target, element);
+                    }
+
+                } else {
+                    append(this.$el, element);
+                }
+
             };
 
-        on(doc, 'click', listener, true);
+            if (this.animation) {
+                this.animate(insert);
+            } else {
+                insert();
+            }
+
+        },
+
+        remove(element) {
+
+            if (!within(element, this.$el)) {
+                return;
+            }
+
+            css(this.handle ? $$(this.handle, element) : element, {touchAction: '', userSelect: ''});
+
+            if (this.animation) {
+                this.animate(() => remove(element));
+            } else {
+                remove(element);
+            }
+
+        },
+
+        getSortable(element) {
+            return element && (this.$getComponent(element, 'sortable') || this.getSortable(element.parentNode));
+        }
+
     }
 
+};
+
+function isPredecessor(element, target) {
+    return element.parentNode === target.parentNode && index(element) > index(target);
 }
 
-if (!BUNDLED && typeof window !== 'undefined' && window.UIkit) {
-    window.UIkit.use(plugin);
+let trackTimer;
+function trackScroll(pos) {
+
+    trackTimer = setInterval(() => {
+
+        const {x, y} = pos;
+        scrollParents(document.elementFromPoint(x - window.pageXOffset, y - window.pageYOffset)).some(scrollEl => {
+
+            let {scrollTop: scroll, scrollHeight} = scrollEl;
+
+            const {top, bottom, height} = offset(getViewport(scrollEl));
+
+            if (top < y && top + 30 > y) {
+                scroll -= 5;
+            } else if (bottom > y && bottom - 30 < y) {
+                scroll += 5;
+            } else {
+                return;
+            }
+
+            if (scroll > 0 && scroll < scrollHeight - height) {
+                scrollTop(scrollEl, scroll);
+                return true;
+            }
+
+        });
+
+    }, 15);
+
 }
 
-export default plugin;
+function untrackScroll() {
+    clearInterval(trackTimer);
+}
+
+function appendDrag(container, element) {
+    const clone = append(container, element.outerHTML.replace(/(^<)li|li(\/>$)/g, '$1div$2'));
+
+    css(clone, assign({
+        boxSizing: 'border-box',
+        width: element.offsetWidth,
+        height: element.offsetHeight,
+        overflow: 'hidden'
+    }, css(element, ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom'])));
+
+    height(clone.firstElementChild, height(element.firstElementChild));
+
+    return clone;
+}

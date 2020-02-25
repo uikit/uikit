@@ -1,112 +1,79 @@
-import { $ } from '../util/index';
+import FlexBug from '../mixin/flex-bug';
+import {getRows} from './margin';
+import {$$, boxModelAdjust, css, offset, toFloat} from 'uikit-util';
 
-export default function (UIkit) {
+export default {
 
-    UIkit.component('height-match', {
+    mixins: [FlexBug],
 
-        args: 'target',
+    args: 'target',
 
-        props: {
-            target: String,
-            row: Boolean
-        },
+    props: {
+        target: String,
+        row: Boolean
+    },
 
-        defaults: {
-            target: '> *',
-            row: true
-        },
+    data: {
+        target: '> *',
+        row: true,
+        forceHeight: true
+    },
 
-        connected() {
-            this.$emit();
-        },
+    computed: {
 
-        computed: {
-
-            elements() {
-                return $(this.target, this.$el);
-            }
-
-        },
-
-        update: {
-
-            read() {
-
-                var lastOffset = false;
-
-                this.elements.css('minHeight', '');
-
-                this.rows = !this.row
-                    ? [this.match(this.elements)]
-                    : this.elements.toArray().reduce((rows, el) => {
-
-                        if (lastOffset !== el.offsetTop) {
-                            rows.push([el]);
-                        } else {
-                            rows[rows.length - 1].push(el);
-                        }
-
-                        lastOffset = el.offsetTop;
-
-                        return rows;
-
-                    }, []).map(elements => this.match($(elements)));
-            },
-
-            write() {
-
-                this.rows.forEach(({height, elements}) =>
-                    elements && elements.each((_, el) =>
-                        el.style.minHeight = `${height}px`
-                    )
-                );
-
-            },
-
-            events: ['resize']
-
-        },
-
-        methods: {
-
-            match(elements) {
-
-                if (elements.length < 2) {
-                    return {};
-                }
-
-                var max = 0, heights = [];
-
-                elements = elements
-                    .each((_, el) => {
-
-                        var $el, style, hidden;
-
-                        if (el.offsetHeight === 0) {
-                            $el = $(el);
-                            style = $el.attr('style') || null;
-                            hidden = $el.attr('hidden') || null;
-
-                            $el.attr({
-                                style: `${style};display:block !important;`,
-                                hidden: null
-                            });
-                        }
-
-                        max = Math.max(max, el.offsetHeight);
-                        heights.push(el.offsetHeight);
-
-                        if ($el) {
-                            $el.attr({style, hidden});
-                        }
-
-                    })
-                    .filter(i => heights[i] < max);
-
-                return {height: max, elements};
-            }
+        elements({target}, $el) {
+            return $$(target, $el);
         }
 
-    });
+    },
 
+    update: {
+
+        read() {
+            return {
+                rows: (this.row ? getRows(this.elements) : [this.elements]).map(match)
+            };
+        },
+
+        write({rows}) {
+            rows.forEach(({heights, elements}) =>
+                elements.forEach((el, i) =>
+                    css(el, 'minHeight', heights[i])
+                )
+            );
+        },
+
+        events: ['resize']
+
+    }
+
+};
+
+function match(elements) {
+
+    if (elements.length < 2) {
+        return {heights: [''], elements};
+    }
+
+    let {heights, max} = getHeights(elements);
+    const hasMinHeight = elements.some(el => el.style.minHeight);
+    const hasShrunk = elements.some((el, i) => !el.style.minHeight && heights[i] < max);
+
+    if (hasMinHeight && hasShrunk) {
+        css(elements, 'minHeight', '');
+        ({heights, max} = getHeights(elements));
+    }
+
+    heights = elements.map((el, i) =>
+        heights[i] === max && toFloat(el.style.minHeight).toFixed(2) !== max.toFixed(2) ? '' : max
+    );
+
+    return {heights, elements};
+}
+
+function getHeights(elements) {
+    const heights = elements.map(el => offset(el).height - boxModelAdjust(el, 'height', 'content-box'));
+    const max = Math.max.apply(null, heights);
+
+    return {heights, max};
 }

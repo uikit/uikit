@@ -1,128 +1,125 @@
-function plugin(UIkit) {
+import Container from '../mixin/container';
+import Togglable from '../mixin/togglable';
+import Position from '../mixin/position';
+import {append, attr, flipPosition, hasAttr, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, pointerUp, remove, within} from 'uikit-util';
 
-    if (plugin.installed) {
-        return;
+const actives = [];
+
+export default {
+
+    mixins: [Container, Togglable, Position],
+
+    args: 'title',
+
+    props: {
+        delay: Number,
+        title: String
+    },
+
+    data: {
+        pos: 'top',
+        title: '',
+        delay: 0,
+        animation: ['uk-animation-scale-up'],
+        duration: 100,
+        cls: 'uk-active',
+        clsPos: 'uk-tooltip'
+    },
+
+    beforeConnect() {
+        this._hasTitle = hasAttr(this.$el, 'title');
+        attr(this.$el, {title: '', 'aria-expanded': false});
+    },
+
+    disconnected() {
+        this.hide();
+        attr(this.$el, {title: this._hasTitle ? this.title : null, 'aria-expanded': null});
+    },
+
+    methods: {
+
+        show() {
+
+            if (this.isActive() || !this.title) {
+                return;
+            }
+
+            actives.forEach(active => active.hide());
+            actives.push(this);
+
+            this._unbind = on(document, pointerUp, e => !within(e.target, this.$el) && this.hide());
+
+            clearTimeout(this.showTimer);
+            this.showTimer = setTimeout(this._show, this.delay);
+        },
+
+        hide() {
+
+            if (!this.isActive() || matches(this.$el, 'input:focus')) {
+                return;
+            }
+
+            actives.splice(actives.indexOf(this), 1);
+
+            clearTimeout(this.showTimer);
+            clearInterval(this.hideTimer);
+            attr(this.$el, 'aria-expanded', false);
+            this.toggleElement(this.tooltip, false);
+            this.tooltip && remove(this.tooltip);
+            this.tooltip = false;
+            this._unbind();
+
+        },
+
+        _show() {
+
+            this.tooltip = append(this.container,
+                `<div class="${this.clsPos} ${this.cls}" aria-expanded="true" aria-hidden>
+                    <div class="${this.clsPos}-inner">${this.title}</div>
+                 </div>`
+            );
+
+            this.positionAt(this.tooltip, this.$el);
+
+            this.origin = this.getAxis() === 'y'
+                ? `${flipPosition(this.dir)}-${this.align}`
+                : `${this.align}-${flipPosition(this.dir)}`;
+
+            this.toggleElement(this.tooltip, true);
+
+            this.hideTimer = setInterval(() => !isVisible(this.$el) && this.hide(), 150);
+
+        },
+
+        isActive() {
+            return includes(actives, this);
+        }
+
+    },
+
+    events: {
+
+        focus: 'show',
+        blur: 'hide',
+
+        [`${pointerEnter} ${pointerLeave}`](e) {
+            if (isTouch(e)) {
+                return;
+            }
+            e.type === pointerEnter
+                ? this.show()
+                : this.hide();
+        },
+
+        [pointerDown](e) {
+            if (!isTouch(e)) {
+                return;
+            }
+            this.isActive()
+                ? this.hide()
+                : this.show();
+        }
+
     }
 
-    var { util, mixin } = UIkit;
-    var {$, doc, fastdom, flipPosition, isTouch, isWithin, pointerDown, pointerEnter, pointerLeave, toJQuery} = util;
-
-    var active;
-
-    doc.on('click', e => {
-        if (active && !isWithin(e.target, active.$el)) {
-            active.hide();
-        }
-    });
-
-    UIkit.component('tooltip', {
-
-        attrs: true,
-
-        mixins: [mixin.toggable, mixin.position],
-
-        props: {
-            delay: Number,
-            container: Boolean,
-            title: String
-        },
-
-        defaults: {
-            pos: 'top',
-            title: '',
-            delay: 0,
-            animation: ['uk-animation-scale-up'],
-            duration: 100,
-            cls: 'uk-active',
-            clsPos: 'uk-tooltip',
-            container: true,
-        },
-
-        init() {
-            this.container = this.container === true && UIkit.container || this.container && toJQuery(this.container);
-        },
-
-        connected() {
-            fastdom.mutate(() => this.$el.removeAttr('title').attr('aria-expanded', false));
-        },
-
-        disconnected() {
-            this.hide();
-        },
-
-        methods: {
-
-            show() {
-
-                if (active === this) {
-                    return;
-                }
-
-                if (active) {
-                    active.hide();
-                }
-
-                active = this;
-
-                clearTimeout(this.showTimer);
-
-                this.tooltip = $(`<div class="${this.clsPos}" aria-hidden="true"><div class="${this.clsPos}-inner">${this.title}</div></div>`).appendTo(this.container);
-
-                this.$el.attr('aria-expanded', true);
-
-                this.positionAt(this.tooltip, this.$el);
-                this.origin = this.getAxis() === 'y' ? `${flipPosition(this.dir)}-${this.align}` : `${this.align}-${flipPosition(this.dir)}`;
-
-                this.showTimer = setTimeout(() => {
-                    this.toggleElement(this.tooltip, true);
-
-                    this.hideTimer = setInterval(() => {
-                        if (!this.$el.is(':visible')) {
-                            this.hide();
-                        }
-                    }, 150);
-
-                }, this.delay);
-            },
-
-            hide() {
-
-                if (this.$el.is('input') && this.$el[0] === document.activeElement) {
-                    return;
-                }
-
-                active = active !== this && active || false;
-
-                clearTimeout(this.showTimer);
-                clearInterval(this.hideTimer);
-                this.$el.attr('aria-expanded', false);
-                this.toggleElement(this.tooltip, false);
-                this.tooltip && this.tooltip.remove();
-                this.tooltip = false;
-            }
-
-        },
-
-        events: {
-            [`focus ${pointerEnter} ${pointerDown}`](e) {
-                if (e.type !== pointerDown || !isTouch(e)) {
-                    this.show();
-                }
-            },
-            'blur': 'hide',
-            [pointerLeave](e) {
-                if (!isTouch(e)) {
-                    this.hide()
-                }
-            }
-        }
-
-    });
-
-}
-
-if (!BUNDLED && typeof window !== 'undefined' && window.UIkit) {
-    window.UIkit.use(plugin);
-}
-
-export default plugin;
+};

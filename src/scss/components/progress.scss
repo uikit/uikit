@@ -1,0 +1,105 @@
+// Name:            Progress
+// Description:     Component to create progress bars
+//
+// Component:       `uk-progress`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$progress-height:                                15px !default;
+$progress-margin-vertical:                       $global-margin !default;
+$progress-background:                            $global-muted-background !default;
+
+$progress-bar-background:                        $global-primary-background !default;
+
+
+/* ========================================================================
+   Component: Progress
+ ========================================================================== */
+
+/*
+ * 1. Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ * 2. Remove default style
+ * 3. Behave like a block element
+ * 4. Remove borders in Firefox and Edge
+ * 5. Set background color for progress container in Firefox, IE11 and Edge
+ * 6. Style
+ */
+
+.uk-progress {
+    /* 1 */
+    vertical-align: baseline;
+    /* 2 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* 3 */
+    display: block;
+    width: 100%;
+    /* 4 */
+    border: 0;
+    /* 5 */
+    background-color: $progress-background;
+    /* 6 */
+    margin-bottom: $progress-margin-vertical;
+    height: $progress-height;
+    @if(mixin-exists(hook-progress)) {@include hook-progress();}
+}
+
+/* Add margin if adjacent element */
+* + .uk-progress { margin-top: $progress-margin-vertical; }
+
+/*
+ * Remove animated circles for indeterminate state in IE11 and Edge
+ */
+
+.uk-progress:indeterminate { color: transparent; }
+
+/*
+ * Progress container
+ * 2. Remove progress bar for indeterminate state in Firefox
+ */
+
+.uk-progress::-webkit-progress-bar {
+  background-color: $progress-background;
+  @if(mixin-exists(hook-progress)) {@include hook-progress();}
+}
+
+/* 2 */
+.uk-progress:indeterminate::-moz-progress-bar { width: 0; }
+
+/*
+ * Progress bar
+ * 1. Remove right border in IE11 and Edge
+ */
+
+.uk-progress::-webkit-progress-value {
+    background-color: $progress-bar-background;
+    transition: width 0.6s ease;
+    @if(mixin-exists(hook-progress-bar)) {@include hook-progress-bar();}
+}
+
+.uk-progress::-moz-progress-bar {
+    background-color: $progress-bar-background;
+    @if(mixin-exists(hook-progress-bar)) {@include hook-progress-bar();}
+}
+
+.uk-progress::-ms-fill {
+    background-color: $progress-bar-background;
+    transition: width 0.6s ease;
+    /* 1 */
+    border: 0;
+    @if(mixin-exists(hook-progress-bar)) {@include hook-progress-bar();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-progress-misc)) {@include hook-progress-misc();}
+
+// @mixin hook-progress(){}
+// @mixin hook-progress-bar(){}
+// @mixin hook-progress-misc(){}

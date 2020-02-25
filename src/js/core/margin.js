@@ -1,95 +1,120 @@
-import { $ } from '../util/index';
+import {isRtl, isVisible, offsetPosition, toggleClass} from 'uikit-util';
 
-export default function (UIkit) {
+export default {
 
-    UIkit.component('margin', {
+    props: {
+        margin: String,
+        firstColumn: Boolean
+    },
 
-        props: {
-            margin: String,
-            firstColumn: Boolean
+    data: {
+        margin: 'uk-margin-small-top',
+        firstColumn: 'uk-first-column'
+    },
+
+    update: {
+
+        read(data) {
+
+            const items = this.$el.children;
+            const rows = [[]];
+
+            if (!items.length || !isVisible(this.$el)) {
+                return data.rows = rows;
+            }
+
+            data.rows = getRows(items);
+            data.stacks = !data.rows.some(row => row.length > 1);
+
         },
 
-        defaults: {
-            margin: 'uk-margin-small-top',
-            firstColumn: 'uk-first-column'
+        write({rows}) {
+
+            rows.forEach((row, i) =>
+                row.forEach((el, j) => {
+                    toggleClass(el, this.margin, i !== 0);
+                    toggleClass(el, this.firstColumn, j === 0);
+                })
+            );
+
         },
 
-        connected() {
-            this.$emit();
-        },
+        events: ['resize']
 
-        update: {
+    }
 
-            read() {
+};
 
-                if (this.$el[0].offsetHeight === 0) {
-                    this.hidden = true;
-                    return;
+export function getRows(items) {
+    const rows = [[]];
+
+    for (let i = 0; i < items.length; i++) {
+
+        const el = items[i];
+        let dim = getOffset(el);
+
+        if (!dim.height) {
+            continue;
+        }
+
+        for (let j = rows.length - 1; j >= 0; j--) {
+
+            const row = rows[j];
+
+            if (!row[0]) {
+                row.push(el);
+                break;
+            }
+
+            let leftDim;
+            if (row[0].offsetParent === el.offsetParent) {
+                leftDim = getOffset(row[0]);
+            } else {
+                dim = getOffset(el, true);
+                leftDim = getOffset(row[0], true);
+            }
+
+            if (dim.top >= leftDim.bottom - 1 && dim.top !== leftDim.top) {
+                rows.push([el]);
+                break;
+            }
+
+            if (dim.bottom > leftDim.top) {
+
+                if (dim.left < leftDim.left && !isRtl) {
+                    row.unshift(el);
+                    break;
                 }
 
-                this.hidden = false;
-                this.stacks = true;
+                row.push(el);
+                break;
+            }
 
-                var columns = this.$el.children().filter((_, el) => el.offsetHeight > 0);
-
-                this.rows = [[columns.get(0)]];
-
-                columns.slice(1).each((_, el) => {
-
-                    var top = Math.ceil(el.offsetTop), bottom = top + el.offsetHeight;
-
-                    for (var index = this.rows.length - 1; index >= 0; index--) {
-                        var row = this.rows[index], rowTop = Math.ceil(row[0].offsetTop);
-
-                        if (top >= rowTop + row[0].offsetHeight) {
-                            this.rows.push([el]);
-                            break;
-                        }
-
-                        if (bottom > rowTop) {
-
-                            this.stacks = false;
-
-                            if (el.offsetLeft < row[0].offsetLeft) {
-                                row.unshift(el);
-                                break;
-                            }
-
-                            row.push(el);
-                            break;
-                        }
-
-                        if (index === 0) {
-                            this.rows.splice(index, 0, [el]);
-                            break;
-                        }
-
-                    }
-
-                });
-
-            },
-
-            write() {
-
-                if (this.hidden) {
-                    return;
-                }
-
-                this.rows.forEach((row, i) =>
-                    row.forEach((el, j) =>
-                        $(el)
-                            .toggleClass(this.margin, i !== 0)
-                            .toggleClass(this.firstColumn, j === 0)
-                    )
-                )
-
-            },
-
-            events: ['load', 'resize']
+            if (j === 0) {
+                rows.unshift([el]);
+                break;
+            }
 
         }
 
-    });
+    }
 
+    return rows;
+
+}
+
+function getOffset(element, offset = false) {
+
+    let {offsetTop, offsetLeft, offsetHeight} = element;
+
+    if (offset) {
+        [offsetTop, offsetLeft] = offsetPosition(element);
+    }
+
+    return {
+        top: offsetTop,
+        left: offsetLeft,
+        height: offsetHeight,
+        bottom: offsetTop + offsetHeight
+    };
 }

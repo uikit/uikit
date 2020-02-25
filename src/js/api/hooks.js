@@ -1,25 +1,14 @@
-import { createEvent, extend, fastdom, isArray, isFunction, isPlainObject, ready } from '../util/index';
+import {assign, fastdom, includes, isPlainObject} from 'uikit-util';
 
 export default function (UIkit) {
 
     UIkit.prototype._callHook = function (hook) {
 
-        var handlers = this.$options[hook];
+        const handlers = this.$options[hook];
 
         if (handlers) {
             handlers.forEach(handler => handler.call(this));
         }
-    };
-
-    UIkit.prototype._callReady = function () {
-
-        if (this._isReady) {
-            return;
-        }
-
-        this._isReady = true;
-        this._callHook('ready');
-        this._callUpdate();
     };
 
     UIkit.prototype._callConnected = function () {
@@ -28,23 +17,19 @@ export default function (UIkit) {
             return;
         }
 
-        if (!~UIkit.elements.indexOf(this.$options.el)) {
-            UIkit.elements.push(this.$options.el);
-        }
+        this._data = {};
+        this._computeds = {};
+        this._initProps();
 
-        UIkit.instances[this._uid] = this;
-
-        this._initEvents();
-        this._callHook('connected');
-
+        this._callHook('beforeConnect');
         this._connected = true;
 
+        this._initWatches();
+        this._initEvents();
         this._initObserver();
 
-        if (!this._isReady) {
-            ready(() => this._callReady());
-        }
-
+        this._callHook('connected');
+        this._callUpdate();
     };
 
     UIkit.prototype._callDisconnected = function () {
@@ -53,66 +38,56 @@ export default function (UIkit) {
             return;
         }
 
+        this._callHook('beforeDisconnect');
+
         if (this._observer) {
             this._observer.disconnect();
             this._observer = null;
         }
 
-        var index = UIkit.elements.indexOf(this.$options.el);
-
-        if (~index) {
-            UIkit.elements.splice(index, 1);
-        }
-
-        delete UIkit.instances[this._uid];
-
-        this._initEvents(true);
+        this._unbindEvents();
         this._callHook('disconnected');
 
         this._connected = false;
 
     };
 
-    UIkit.prototype._callUpdate = function (e) {
+    UIkit.prototype._callUpdate = function (e = 'update') {
 
-        e = createEvent(e || 'update');
+        const type = e.type || e;
 
-        if (e.type === 'update') {
-            this._computeds = {};
+        if (includes(['update', 'resize'], type)) {
+            this._callWatches();
         }
 
-        var updates = this.$options.update;
+        const updates = this.$options.update;
+        const {reads, writes} = this._frames;
 
         if (!updates) {
             return;
         }
 
-        updates.forEach((update, i) => {
+        updates.forEach(({read, write, events}, i) => {
 
-            if (e.type !== 'update' && (!update.events || !~update.events.indexOf(e.type))) {
+            if (type !== 'update' && !includes(events, type)) {
                 return;
             }
 
-            if (e.sync) {
+            if (read && !includes(fastdom.reads, reads[i])) {
+                reads[i] = fastdom.read(() => {
 
-                if (update.read) {
-                    update.read.call(this, e);
-                }
+                    const result = this._connected && read.call(this, this._data, type);
 
-                if (update.write) {
-                    update.write.call(this, e);
-                }
-
-                return;
-
+                    if (result === false && write) {
+                        fastdom.clear(writes[i]);
+                    } else if (isPlainObject(result)) {
+                        assign(this._data, result);
+                    }
+                });
             }
 
-            if (update.read && !~fastdom.reads.indexOf(this._frames.reads[i])) {
-                this._frames.reads[i] = fastdom.measure(() => update.read.call(this, e));
-            }
-
-            if (update.write && !~fastdom.writes.indexOf(this._frames.writes[i])) {
-                this._frames.writes[i] = fastdom.mutate(() => update.write.call(this, e));
+            if (write && !includes(fastdom.writes, writes[i])) {
+                writes[i] = fastdom.write(() => this._connected && write.call(this, this._data, type));
             }
 
         });

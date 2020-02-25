@@ -3,9 +3,9 @@ import hooksAPI from './hooks';
 import stateAPI from './state';
 import instanceAPI from './instance';
 import componentAPI from './component';
-import * as util from '../util/index';
+import * as util from 'uikit-util';
 
-var UIkit = function (options) {
+const UIkit = function (options) {
     this._init(options);
 };
 
@@ -13,13 +13,12 @@ UIkit.util = util;
 UIkit.data = '__uikit__';
 UIkit.prefix = 'uk-';
 UIkit.options = {};
-UIkit.instances = {};
-UIkit.elements = [];
+UIkit.version = VERSION;
 
 globalAPI(UIkit);
 hooksAPI(UIkit);
 stateAPI(UIkit);
-instanceAPI(UIkit);
 componentAPI(UIkit);
+instanceAPI(UIkit);
 
 export default UIkit;

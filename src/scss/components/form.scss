@@ -1,0 +1,789 @@
+// Name:            Form
+// Description:     Styles for forms
+//
+// Component:       `uk-form-*`
+//                  `uk-input`
+//                  `uk-select`
+//                  `uk-textarea`
+//                  `uk-radio`
+//                  `uk-checkbox`
+//                  `uk-legend`
+//                  `uk-fieldset`
+//
+// Sub-objects:     `uk-form-custom`
+//                  `uk-form-stacked`
+//                  `uk-form-horizontal`
+//                  `uk-form-label`
+//                  `uk-form-controls`
+//                  `uk-form-icon`
+//                  `uk-form-icon-flip`
+//
+// Modifiers:       `uk-form-small`
+//                  `uk-form-large`
+//                  `uk-form-danger`
+//                  `uk-form-success`
+//                  `uk-form-blank`
+//                  `uk-form-width-xsmall`
+//                  `uk-form-width-small`
+//                  `uk-form-width-medium`
+//                  `uk-form-width-large`
+//                  `uk-form-controls-text`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$form-height:                                    $global-control-height !default;
+$form-line-height:                               $form-height !default;
+$form-padding-horizontal:                        10px !default;
+$form-padding-vertical:                          4px !default;
+
+$form-background:                                $global-muted-background !default;
+$form-color:                                     $global-color !default;
+
+$form-focus-background:                          $global-muted-background !default;
+$form-focus-color:                               $global-color !default;
+
+$form-disabled-background:                       $global-muted-background !default;
+$form-disabled-color:                            $global-muted-color !default;
+
+$form-placeholder-color:                         $global-muted-color !default;
+
+$form-small-height:                              $global-control-small-height !default;
+$form-small-padding-horizontal:                  8px !default;
+$form-small-line-height:                         $form-small-height !default;
+$form-small-font-size:                           $global-small-font-size !default;
+
+$form-large-height:                              $global-control-large-height !default;
+$form-large-padding-horizontal:                  12px !default;
+$form-large-line-height:                         $form-large-height !default;
+$form-large-font-size:                           $global-medium-font-size !default;
+
+$form-danger-color:                              $global-danger-background !default;
+$form-success-color:                             $global-success-background !default;
+
+$form-width-xsmall:                              50px !default;
+$form-width-small:                               130px !default;
+$form-width-medium:                              200px !default;
+$form-width-large:                               500px !default;
+
+$form-select-padding-right:                      20px !default;
+$form-select-icon-color:                         $global-color !default;
+$form-select-option-color:                       #444 !default;
+$form-select-disabled-icon-color:                $global-muted-color !default;
+
+$form-datalist-padding-right:                    20px !default;
+$form-datalist-icon-color:                       $global-color !default;
+
+$form-radio-size:                                16px !default;
+$form-radio-margin-top:                          -4px !default;
+$form-radio-background:                          darken($global-muted-background, 5%) !default;
+
+$form-radio-checked-background:                  $global-primary-background !default;
+$form-radio-checked-icon-color:                  $global-inverse-color !default;
+
+$form-radio-checked-focus-background:            darken($global-primary-background, 10%) !default;
+
+$form-radio-disabled-background:                 $global-muted-background !default;
+$form-radio-disabled-icon-color:                 $global-muted-color !default;
+
+$form-legend-font-size:                          $global-large-font-size !default;
+$form-legend-line-height:                        1.4 !default;
+
+$form-stacked-margin-bottom:                     $global-small-margin !default;
+
+$form-horizontal-label-width:                    200px !default;
+$form-horizontal-label-margin-top:               7px !default;
+$form-horizontal-controls-margin-left:           215px !default;
+$form-horizontal-controls-text-padding-top:      7px !default;
+
+$form-icon-width:                                $form-height !default;
+$form-icon-color:                                $global-muted-color !default;
+$form-icon-hover-color:                          $global-color !default;
+
+$internal-form-select-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22#000%22%20points%3D%2212%201%209%206%2015%206%22%20%2F%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22#000%22%20points%3D%2212%2013%209%208%2015%208%22%20%2F%3E%0A%3C%2Fsvg%3E%0A" !default;
+$internal-form-datalist-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2224%22%20height%3D%2216%22%20viewBox%3D%220%200%2024%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22#000%22%20points%3D%2212%2012%208%206%2016%206%22%20%2F%3E%0A%3C%2Fsvg%3E%0A" !default;
+$internal-form-radio-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Ccircle%20fill%3D%22#000%22%20cx%3D%228%22%20cy%3D%228%22%20r%3D%222%22%20%2F%3E%0A%3C%2Fsvg%3E" !default;
+$internal-form-checkbox-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2214%22%20height%3D%2211%22%20viewBox%3D%220%200%2014%2011%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolygon%20fill%3D%22#000%22%20points%3D%2212%201%205%207.5%202%205%201%205.5%205%2010%2013%201.5%22%20%2F%3E%0A%3C%2Fsvg%3E%0A" !default;
+$internal-form-checkbox-indeterminate-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22#000%22%20x%3D%223%22%20y%3D%228%22%20width%3D%2210%22%20height%3D%221%22%20%2F%3E%0A%3C%2Fsvg%3E" !default;
+
+
+/* ========================================================================
+   Component: Form
+ ========================================================================== */
+
+/*
+ * 1. Define consistent box sizing.
+ *    Default is `content-box` with following exceptions set to `border-box`
+ *    `select`, `input[type="checkbox"]` and `input[type="radio"]`
+ *    `input[type="search"]` in Chrome, Safari and Opera
+ *    `input[type="color"]` in Firefox
+ * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
+ * 3. Remove `border-radius` in iOS.
+ * 4. Change font properties to `inherit` in all browsers.
+ */
+
+.uk-input,
+.uk-select,
+.uk-textarea,
+.uk-radio,
+.uk-checkbox {
+    /* 1 */
+    box-sizing: border-box;
+    /* 2 */
+    margin: 0;
+    /* 3 */
+    border-radius: 0;
+    /* 4 */
+    font: inherit;
+}
+
+/*
+ * Show the overflow in Edge.
+ */
+
+.uk-input { overflow: visible; }
+
+/*
+ * Remove the inheritance of text transform in Firefox.
+ */
+
+.uk-select { text-transform: none; }
+
+/*
+ * 1. Change font properties to `inherit` in all browsers
+ * 2. Don't inherit the `font-weight` and use `bold` instead.
+ * NOTE: Both declarations don't work in Chrome, Safari and Opera.
+ */
+
+.uk-select optgroup {
+    /* 1 */
+    font: inherit;
+    /* 2 */
+    font-weight: bold;
+}
+
+/*
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+
+.uk-textarea { overflow: auto; }
+
+/*
+ * Remove the inner padding and cancel buttons in Chrome on OS X and Safari on OS X.
+ */
+
+.uk-input[type="search"]::-webkit-search-cancel-button,
+.uk-input[type="search"]::-webkit-search-decoration { -webkit-appearance: none; }
+
+
+/*
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+
+.uk-input[type="number"]::-webkit-inner-spin-button,
+.uk-input[type="number"]::-webkit-outer-spin-button { height: auto; }
+
+/*
+ * Removes placeholder transparency in Firefox.
+ */
+
+.uk-input::-moz-placeholder,
+.uk-textarea::-moz-placeholder { opacity: 1; }
+
+/*
+ * Improves consistency of cursor style for clickable elements
+ */
+
+.uk-radio:not(:disabled),
+.uk-checkbox:not(:disabled) { cursor: pointer; }
+
+/*
+ * Define consistent border, margin, and padding.
+ */
+
+.uk-fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* Input, select and textarea
+ * Allowed: `text`, `password`, `datetime`, `datetime-local`, `date`,  `month`,
+            `time`, `week`, `number`, `email`, `url`, `search`, `tel`, `color`
+ * Disallowed: `range`, `radio`, `checkbox`, `file`, `submit`, `reset` and `image`
+ ========================================================================== */
+
+/*
+ * Remove default style in iOS.
+ */
+
+.uk-input,
+.uk-textarea { -webkit-appearance: none; }
+
+/*
+ * 1. Prevent content overflow if a fixed width is used
+ * 2. Take the full width
+ * 3. Reset default
+ * 4. Style
+ */
+
+.uk-input,
+.uk-select,
+.uk-textarea {
+    /* 1 */
+    max-width: 100%;
+    /* 2 */
+    width: 100%;
+    /* 3 */
+    border: 0 none;
+    /* 4 */
+    padding: 0 $form-padding-horizontal;
+    background: $form-background;
+    color: $form-color;
+    @if(mixin-exists(hook-form)) {@include hook-form();}
+}
+
+/*
+ * Single-line
+ * 1. Allow any element to look like an `input` or `select` element
+ * 2. Make sure line-height is not larger than height
+ *    Also needed to center the text vertically
+ */
+
+.uk-input,
+.uk-select:not([multiple]):not([size]) {
+    height: $form-height;
+    vertical-align: middle;
+    /* 1 */
+    display: inline-block;
+    @if(mixin-exists(hook-form-single-line)) {@include hook-form-single-line();}
+}
+
+/* 2 */
+.uk-input:not(input),
+.uk-select:not(select) { line-height: $form-line-height; }
+
+/*
+ * Multi-line
+ */
+
+.uk-select[multiple],
+.uk-select[size],
+.uk-textarea {
+    padding-top: $form-padding-vertical;
+    padding-bottom: $form-padding-vertical;
+    vertical-align: top;
+    @if(mixin-exists(hook-form-multi-line)) {@include hook-form-multi-line();}
+}
+
+/* Focus */
+.uk-input:focus,
+.uk-select:focus,
+.uk-textarea:focus {
+    outline: none;
+    background-color: $form-focus-background;
+    color: $form-focus-color;
+    @if(mixin-exists(hook-form-focus)) {@include hook-form-focus();}
+}
+
+/* Disabled */
+.uk-input:disabled,
+.uk-select:disabled,
+.uk-textarea:disabled {
+    background-color: $form-disabled-background;
+    color: $form-disabled-color;
+    @if(mixin-exists(hook-form-disabled)) {@include hook-form-disabled();}
+}
+
+/*
+ * Placeholder
+ */
+
+.uk-input::-ms-input-placeholder { color: $form-placeholder-color !important; }
+.uk-input::placeholder { color: $form-placeholder-color; }
+
+.uk-textarea::-ms-input-placeholder { color: $form-placeholder-color !important; }
+.uk-textarea::placeholder { color: $form-placeholder-color; }
+
+
+/* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)
+ ========================================================================== */
+
+/*
+ * Small
+ */
+
+.uk-form-small { font-size: $form-small-font-size; }
+
+.uk-form-small:not(textarea):not([multiple]):not([size]) {
+    height: $form-small-height;
+    padding-left: $form-small-padding-horizontal;
+    padding-right: $form-small-padding-horizontal;
+}
+
+.uk-form-small:not(select):not(input):not(textarea) { line-height: $form-small-line-height; }
+
+/*
+ * Large
+ */
+
+.uk-form-large { font-size: $form-large-font-size; }
+
+.uk-form-large:not(textarea):not([multiple]):not([size]) {
+    height: $form-large-height;
+    padding-left: $form-large-padding-horizontal;
+    padding-right: $form-large-padding-horizontal;
+}
+
+.uk-form-large:not(select):not(input):not(textarea) { line-height: $form-large-line-height; }
+
+
+/* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)
+ ========================================================================== */
+
+/*
+ * Error
+ */
+
+.uk-form-danger,
+.uk-form-danger:focus {
+    color: $form-danger-color;
+    @if(mixin-exists(hook-form-danger)) {@include hook-form-danger();}
+}
+
+/*
+ * Success
+ */
+
+.uk-form-success,
+.uk-form-success:focus  {
+    color: $form-success-color;
+    @if(mixin-exists(hook-form-success)) {@include hook-form-success();}
+}
+
+/*
+ * Blank
+ */
+
+.uk-form-blank {
+    background: none;
+    @if(mixin-exists(hook-form-blank)) {@include hook-form-blank();}
+}
+
+.uk-form-blank:focus {
+    @if(mixin-exists(hook-form-blank-focus)) {@include hook-form-blank-focus();}
+}
+
+
+/* Width modifiers (`uk-input`, `uk-select` and `uk-textarea`)
+ ========================================================================== */
+
+/*
+ * Fixed widths
+ * Different widths for mini sized `input` and `select` elements
+ */
+
+input.uk-form-width-xsmall { width: $form-width-xsmall; }
+
+select.uk-form-width-xsmall { width: ($form-width-xsmall + 25px); }
+
+.uk-form-width-small { width: $form-width-small; }
+
+.uk-form-width-medium { width: $form-width-medium; }
+
+.uk-form-width-large { width: $form-width-large; }
+
+
+/* Select
+ ========================================================================== */
+
+/*
+ * 1. Remove default style. Also works in Firefox
+ * 2. Style
+ * 3. Remove default style in IE 10/11
+ * 4. Set `color` for options in the select dropdown, because the inherited `color` might be too light.
+ */
+
+.uk-select:not([multiple]):not([size]) {
+    /* 1 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* 2 */
+    padding-right: $form-select-padding-right;
+    @include svg-fill($internal-form-select-image, "#000", $form-select-icon-color);
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+}
+
+/* 3 */
+.uk-select:not([multiple]):not([size])::-ms-expand { display: none; }
+
+/* 4 */
+.uk-select:not([multiple]):not([size]) option { color: $form-select-option-color; }
+
+/*
+ * Disabled
+ */
+
+.uk-select:not([multiple]):not([size]):disabled { @include svg-fill($internal-form-select-image, "#000", $form-select-disabled-icon-color); }
+
+
+/* Datalist
+ ========================================================================== */
+
+/*
+ * 1. Remove default style in Chrome
+ */
+
+ .uk-input[list] {
+    padding-right: $form-datalist-padding-right;
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+}
+
+.uk-input[list]:hover,
+.uk-input[list]:focus { @include svg-fill($internal-form-datalist-image, "#000", $form-datalist-icon-color); }
+
+/* 1 */
+.uk-input[list]::-webkit-calendar-picker-indicator { display: none; }
+
+
+/* Radio and checkbox
+ * Note: Does not work in IE11
+ ========================================================================== */
+
+/*
+ * 1. Style
+ * 2. Make box more robust so it clips the child element
+ * 3. Vertical alignment
+ * 4. Remove default style
+ * 5. Fix black background on iOS
+ * 6. Center icons
+ */
+
+.uk-radio,
+.uk-checkbox {
+    /* 1 */
+    display: inline-block;
+    height: $form-radio-size;
+    width: $form-radio-size;
+    /* 2 */
+    overflow: hidden;
+    /* 3 */
+    margin-top: $form-radio-margin-top;
+    vertical-align: middle;
+    /* 4 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    /* 5 */
+    background-color: $form-radio-background;
+    /* 6 */
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    @if(mixin-exists(hook-form-radio)) {@include hook-form-radio();}
+}
+
+.uk-radio { border-radius: 50%; }
+
+/* Focus */
+.uk-radio:focus,
+.uk-checkbox:focus {
+    outline: none;
+    @if(mixin-exists(hook-form-radio-focus)) {@include hook-form-radio-focus();}
+}
+
+/*
+ * Checked
+ */
+
+.uk-radio:checked,
+.uk-checkbox:checked,
+.uk-checkbox:indeterminate {
+    background-color: $form-radio-checked-background;
+    @if(mixin-exists(hook-form-radio-checked)) {@include hook-form-radio-checked();}
+}
+
+/* Focus */
+.uk-radio:checked:focus,
+.uk-checkbox:checked:focus,
+.uk-checkbox:indeterminate:focus {
+    background-color: $form-radio-checked-focus-background;
+    @if(mixin-exists(hook-form-radio-checked-focus)) {@include hook-form-radio-checked-focus();}
+}
+
+/*
+ * Icons
+ */
+
+.uk-radio:checked { @include svg-fill($internal-form-radio-image, "#000", $form-radio-checked-icon-color); }
+.uk-checkbox:checked { @include svg-fill($internal-form-checkbox-image, "#000", $form-radio-checked-icon-color); }
+.uk-checkbox:indeterminate { @include svg-fill($internal-form-checkbox-indeterminate-image, "#000", $form-radio-checked-icon-color); }
+
+/*
+ * Disabled
+ */
+
+.uk-radio:disabled,
+.uk-checkbox:disabled {
+    background-color: $form-radio-disabled-background;
+    @if(mixin-exists(hook-form-radio-disabled)) {@include hook-form-radio-disabled();}
+}
+
+.uk-radio:disabled:checked { @include svg-fill($internal-form-radio-image, "#000", $form-radio-disabled-icon-color); }
+.uk-checkbox:disabled:checked { @include svg-fill($internal-form-checkbox-image, "#000", $form-radio-disabled-icon-color); }
+.uk-checkbox:disabled:indeterminate { @include svg-fill($internal-form-checkbox-indeterminate-image, "#000", $form-radio-disabled-icon-color); }
+
+
+/* Legend
+ ========================================================================== */
+
+/*
+ * Legend
+ * 1. Behave like block element
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove padding so people aren't caught out if they zero out fieldsets.
+ * 4. Style
+ */
+
+.uk-legend {
+    /* 1 */
+    width: 100%;
+    /* 2 */
+    color: inherit;
+    /* 3 */
+    padding: 0;
+    /* 4 */
+    font-size: $form-legend-font-size;
+    line-height: $form-legend-line-height;
+    @if(mixin-exists(hook-form-legend)) {@include hook-form-legend();}
+}
+
+
+/* Custom controls
+ ========================================================================== */
+
+/*
+ * 1. Container fits its content
+ * 2. Create position context
+ * 3. Prevent content overflow
+ * 4. Behave like most inline-block elements
+ */
+
+.uk-form-custom {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    max-width: 100%;
+    /* 4 */
+    vertical-align: middle;
+}
+
+/*
+ * 1. Position and resize the form control to always cover its container
+ * 2. Required for Firefox for positioning to the left
+ * 3. Required for Webkit to make `height` work
+ * 4. Hide controle and show cursor
+ * 5. Needed for the cursor
+ * 6. Clip height caused by 5. Needed for Webkit only
+ */
+
+.uk-form-custom select,
+.uk-form-custom input[type="file"] {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    /* 2 */
+    left: 0;
+    /* 3 */
+    -webkit-appearance: none;
+    /* 4 */
+    opacity: 0;
+    cursor: pointer;
+}
+
+.uk-form-custom input[type="file"] {
+    /* 5 */
+    font-size: 500px;
+    /* 6 */
+    overflow: hidden;
+}
+
+
+/* Label
+ ========================================================================== */
+
+.uk-form-label {
+    @if(mixin-exists(hook-form-label)) {@include hook-form-label();}
+}
+
+
+/* Layout
+ ========================================================================== */
+
+/*
+ * Stacked
+ */
+
+.uk-form-stacked .uk-form-label {
+    display: block;
+    margin-bottom: $form-stacked-margin-bottom;
+    @if(mixin-exists(hook-form-stacked-label)) {@include hook-form-stacked-label();}
+}
+
+/*
+ * Horizontal
+ */
+
+/* Tablet portrait and smaller */
+@media (max-width: $breakpoint-small-max) {
+
+    /* Behave like `uk-form-stacked` */
+    .uk-form-horizontal .uk-form-label {
+        display: block;
+        margin-bottom: $form-stacked-margin-bottom;
+        @if(mixin-exists(hook-form-stacked-label)) {@include hook-form-stacked-label();}
+    }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-form-horizontal .uk-form-label {
+        width: $form-horizontal-label-width;
+        margin-top: $form-horizontal-label-margin-top;
+        float: left;
+        @if(mixin-exists(hook-form-horizontal-label)) {@include hook-form-horizontal-label();}
+    }
+
+    .uk-form-horizontal .uk-form-controls { margin-left: $form-horizontal-controls-margin-left; }
+
+    /* Better vertical alignment if controls are checkboxes and radio buttons with text */
+    .uk-form-horizontal .uk-form-controls-text { padding-top: $form-horizontal-controls-text-padding-top; }
+
+}
+
+
+/* Icons
+ ========================================================================== */
+
+/*
+ * 1. Set position
+ * 2. Set width
+ * 3. Center icon vertically and horizontally
+ * 4. Style
+ */
+
+.uk-form-icon {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    /* 2 */
+    width: $form-icon-width;
+    /* 3 */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    /* 4 */
+    color: $form-icon-color;
+}
+
+/*
+ * Required for `a`.
+ */
+
+.uk-form-icon:hover { color: $form-icon-hover-color; }
+
+/*
+ * Make `input` element clickable through icon, e.g. if it's a `span`
+ */
+
+.uk-form-icon:not(a):not(button):not(input) { pointer-events: none; }
+
+/*
+ * Input padding
+ */
+
+.uk-form-icon:not(.uk-form-icon-flip) ~ .uk-input { padding-left: $form-icon-width !important; }
+
+/*
+ * Position modifier
+ */
+
+.uk-form-icon-flip {
+    right: 0;
+    left: auto;
+}
+
+.uk-form-icon-flip ~ .uk-input { padding-right: $form-icon-width !important; }
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-form-misc)) {@include hook-form-misc();}
+
+// @mixin hook-form(){}
+// @mixin hook-form-single-line(){}
+// @mixin hook-form-multi-line(){}
+// @mixin hook-form-focus(){}
+// @mixin hook-form-disabled(){}
+// @mixin hook-form-danger(){}
+// @mixin hook-form-success(){}
+// @mixin hook-form-blank(){}
+// @mixin hook-form-blank-focus(){}
+// @mixin hook-form-radio(){}
+// @mixin hook-form-radio-focus(){}
+// @mixin hook-form-radio-checked(){}
+// @mixin hook-form-radio-checked-focus(){}
+// @mixin hook-form-radio-disabled(){}
+// @mixin hook-form-legend(){}
+// @mixin hook-form-label(){}
+// @mixin hook-form-stacked-label(){}
+// @mixin hook-form-horizontal-label(){}
+// @mixin hook-form-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-form-background:                       $inverse-global-muted-background !default;
+$inverse-form-color:                            $inverse-global-color !default;
+$inverse-form-focus-background:                 $inverse-global-muted-background !default;
+$inverse-form-focus-color:                      $inverse-global-color !default;
+$inverse-form-placeholder-color:                $inverse-global-muted-color !default;
+
+$inverse-form-select-icon-color:                $inverse-global-color !default;
+
+$inverse-form-datalist-icon-color:              $inverse-global-color !default;
+
+$inverse-form-radio-background:                 darken($inverse-global-muted-background, 5%) !default;
+
+$inverse-form-radio-checked-background:         $inverse-global-primary-background !default;
+$inverse-form-radio-checked-icon-color:         $inverse-global-inverse-color !default;
+
+$inverse-form-radio-checked-focus-background:   darken($inverse-global-primary-background, 10%) !default;
+
+$inverse-form-icon-color:                       $inverse-global-muted-color !default;
+$inverse-form-icon-hover-color:                 $inverse-global-color !default;
+
+
+
+// @mixin hook-inverse-form(){}
+// @mixin hook-inverse-form-focus(){}
+// @mixin hook-inverse-form-radio(){}
+// @mixin hook-inverse-form-radio-focus(){}
+// @mixin hook-inverse-form-radio-checked(){}
+// @mixin hook-inverse-form-radio-checked-focus(){}
+// @mixin hook-inverse-form-label(){}

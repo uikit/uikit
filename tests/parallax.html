@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Parallax - UIkit tests</title>
+        <script src="js/test.js"></script>
+        <style type="text/css">
+
+            .test-color { border: 10px #fff solid; }
+
+        </style>
+    </head>
+
+    <body>
+
+        <!-- uk-flex-top is needed to make vertical margin work for IE11 -->
+        <div class="uk-section-default">
+            <div class="uk-section uk-background-cover uk-background-primary uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('images/dark.jpg');" uk-parallax="bgy: -400; sepia:100" uk-height-viewport="offset-top: true">
+
+                <h1 class="uk-heading-xlarge uk-margin-auto uk-margin-auto-vertical">Parallax</h1>
+
+            </div>
+        </div>
+
+        <div class="uk-section uk-section-default">
+            <div class="uk-container">
+
+                <h2>Target</h2>
+
+                <div id="test-target" class="uk-height-large uk-background-cover uk-margin uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('images/dark.jpg');" uk-parallax="bgx: -400">
+                    <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
+                        <h1 uk-parallax="target: #test-target; opacity: 0; y: -200; scale: 2">Headline</h1>
+                        <p uk-parallax="target: #test-target; opacity: 0; y: 200; scale: 0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+
+                <h2>Units (Viewport)</h2>
+
+                <div id="test-units" class="uk-height-large uk-background-cover uk-margin uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('images/dark.jpg');" uk-parallax="bgx: -20vw">
+                    <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
+                        <h1 uk-parallax="target: #test-units; opacity: 0; y: -20vw">Headline</h1>
+                        <p uk-parallax="target: #test-units; opacity: 0; y: 20vw">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+
+                <h2>Start + End (Reverse)</h2>
+
+                <div id="test-reverse" class="uk-height-large uk-background-cover uk-margin uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('images/dark.jpg');" uk-parallax="bgy: -200">
+                    <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
+                        <h1 uk-parallax="target: #test-reverse; opacity: 0,1; y: -200,0; scale: 2,1; viewport: 0.5">Headline</h1>
+                        <p uk-parallax="target: #test-reverse; opacity: 0,1; y: 200,0; scale: 0,1; viewport: 0.5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+
+                <h2>Easing</h2>
+
+                <div id="test-easing" class="uk-height-large uk-background-cover uk-margin uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('images/dark.jpg');" uk-parallax="bgy: -200">
+                    <div class="uk-grid uk-margin-auto uk-margin-auto-vertical uk-flex-inline">
+                        <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="y: 200; easing: -3">-3</div></div>
+                        <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="y: 200; easing: -2">-2</div></div>
+                        <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="y: 200; easing: -1">-1</div></div>
+                        <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="y: 200; easing: -0.5">-0.5</div></div>
+                        <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="y: 200; easing: 0">0</div></div>
+                        <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="y: 200; easing: 0.5">0.5</div></div>
+                        <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="y: 200; easing: 1">1</div></div>
+                        <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="y: 200; easing: 2">2</div></div>
+                        <div><div class="uk-card uk-card-default uk-padding-small" uk-parallax="y: 200; easing: 3">3</div></div>
+                    </div>
+                </div>
+
+                <h2>Color and Viewport</h2>
+
+                <div id="test-color" class="test-color uk-height-large uk-margin uk-overflow-hidden uk-flex uk-flex-top" uk-parallax="background-color: yellow,white; border-color: #00f,#f00; viewport: 0.5">
+                    <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
+                        <h1 uk-parallax="target: #test-color; opacity: 0,1; y: -200%,0; viewport: 0.5">Headline</h1>
+                        <p uk-parallax="target: #test-color; opacity: 0,1; viewport: 0.5">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p uk-parallax="target: #test-color; y: 200%,0; color: #0f0; viewport: 0.5">
+                            <span uk-icon="icon: uikit; ratio: 2"></span>
+                            <span uk-icon="icon: heart; ratio: 2"></span>
+                            <span uk-icon="icon: check; ratio: 2"></span>
+                        </p>
+                    </div>
+                </div>
+
+                <h2>Filter</h2>
+
+                <div id="test-filter" class="uk-height-large uk-background-cover uk-margin uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('images/dark.jpg');" uk-parallax="invert: 100; viewport: 0.5">
+                    <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
+                        <h1 uk-parallax="target: #test-filter; opacity: 0,1; y: -200%,0; viewport: 0.5">Headline</h1>
+                        <p uk-parallax="target: #test-filter; opacity: 0,1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                        <p uk-parallax="target: #test-filter; blur: 20,0; viewport: 0.5">
+                            <span uk-icon="icon: uikit; ratio: 2"></span>
+                            <span uk-icon="icon: heart; ratio: 2"></span>
+                            <span uk-icon="icon: check; ratio: 2"></span>
+                        </p>
+                    </div>
+                </div>
+
+                <h2>Multiple Steps</h2>
+
+                <div class="uk-height-large uk-background-cover uk-margin uk-overflow-hidden uk-light uk-flex uk-flex-top" style="background-image: url('images/dark.jpg');" uk-parallax="bgx: 0,200,0,200">
+                    <div class="uk-width-1-2@m uk-text-center uk-margin-auto uk-margin-auto-vertical">
+                        <h1 uk-parallax="x: -200,200,-200,200; scale: 2,1,2,1;">Headline</h1>
+                        <p uk-parallax="x: 200,-200,200,-200; scale: 1,0,1,0,1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    </div>
+                </div>
+
+                <h2>SVG Stroke</h2>
+
+                <div id="test-stroke" class="uk-child-width-expand uk-text-center" uk-grid>
+                    <div uk-parallax="target: #test-stroke; stroke: 45; viewport: 0.8">
+
+                        <img width="400" height="400" src="images/icons.svg#cloud-upload" uk-svg alt="">
+
+                    </div>
+                    <div uk-parallax="target: #test-stroke; stroke: 100%,0; viewport: 0.8">
+
+                        <img  width="400" height="400" src="images/icons.svg#cloud-upload" uk-svg alt="">
+
+                    </div>
+                </div>
+
+                <h2>JavaScript Options</h2>
+
+                <div class="uk-overflow-auto">
+                    <table class="uk-table uk-table-striped">
+                        <thead>
+                            <tr>
+                                <th>Option</th>
+                                <th>Value</th>
+                                <th>Default</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>easing</code></td>
+                                <td>Number</td>
+                                <td>1</td>
+                                <td>Animation easing during scrolling.</td>
+                            </tr>
+                            <tr>
+                                <td><code>target</code></td>
+                                <td>String</td>
+                                <td>false</td>
+                                <td>Element dimension reference for animation duration.</td>
+                            </tr>
+                            <tr>
+                                <td><code>viewport</code></td>
+                                <td>Number</td>
+                                <td>1</td>
+                                <td>Animation range depending on the viewport.</td>
+                            </tr>
+                            <tr>
+                                <td><code>media</code></td>
+                                <td>Integer|String</td>
+                                <td>false</td>
+                                <td>Condition for the active status - a width as integer (e.g. 640) or a breakpoint (e.g. @s, @m, @l, @xl).</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2>Animated properties</h2>
+
+                <p>You can define multiple steps by using a comma separated list of values. (e.g. x: 0,50,150)</p>
+
+                <div class="uk-overflow-auto">
+                    <table class="uk-table uk-table-striped">
+                        <thead>
+                            <tr>
+                                <th>Option</th>
+                                <th>Default Unit</th>
+                                <th>Description</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>x</code></td>
+                                <td><code>px</code></td>
+                                <td>Animate translateX.</td>
+                            </tr>
+                            <tr>
+                                <td><code>y</code></td>
+                                <td><code>px</code></td>
+                                <td>Animate translateY.</td>
+                            </tr>
+                            <tr>
+                                <td><code>bgy</code></td>
+                                <td><code>px</code></td>
+                                <td>Animate a background image (y-axis).</td>
+                            </tr>
+                            <tr>
+                                <td><code>bgx</code></td>
+                                <td><code>px</code></td>
+                                <td>Animate a background image (x-axis).</td>
+                            </tr>
+                            <tr>
+                                <td><code>rotate</code></td>
+                                <td><code>deg</code></td>
+                                <td>Animate rotation clockwise.</td>
+                            </tr>
+                            <tr>
+                                <td><code>scale</code></td>
+                                <td></td>
+                                <td>Animate scaling.</td>
+                            </tr>
+                            <tr>
+                                <td><code>color</code></td>
+                                <td></td>
+                                <td>Animate color (needs start and stop value).</td>
+                            </tr>
+                            <tr>
+                                <td><code>background-color</code></td>
+                                <td></td>
+                                <td>Animate background-color (needs start and stop value).</td>
+                            </tr>
+                            <tr>
+                                <td><code>border-color</code></td>
+                                <td></td>
+                                <td>Animate border color (needs start and stop value).</td>
+                            </tr>
+                            <tr>
+                                <td><code>opacity</code></td>
+                                <td></td>
+                                <td>Animate the opacity.</td>
+                            </tr>
+                            <tr>
+                                <td><code>blur</code></td>
+                                <td><code>px</code></td>
+                                <td>Animate the blur filter.</td>
+                            </tr>
+                            <tr>
+                                <td><code>hue</code></td>
+                                <td><code>deg</code></td>
+                                <td>Animate the hue rotation filter.</td>
+                            </tr>
+                            <tr>
+                                <td><code>grayscale</code></td>
+                                <td><code>%</code></td>
+                                <td>Animate the grayscale filter.</td>
+                            </tr>
+                            <tr>
+                                <td><code>invert</code></td>
+                                <td><code>%</code></td>
+                                <td>Animate the invert filter.</td>
+                            </tr>
+                            <tr>
+                                <td><code>saturate</code></td>
+                                <td><code>%</code></td>
+                                <td>Animate the saturate filter.</td>
+                            </tr>
+                            <tr>
+                                <td><code>sepia</code></td>
+                                <td><code>%</code></td>
+                                <td>Animate the sepia filter.</td>
+                            </tr>
+                            <tr>
+                                <td><code>stroke</code></td>
+                                <td></td>
+                                <td>Animate strokes within SVG images.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </body>
+</html>

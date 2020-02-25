@@ -37,7 +37,7 @@
 
 @form-height:                                   @global-control-height;
 @form-line-height:                              @form-height;
-@form-padding-horizontal:                       6px;
+@form-padding-horizontal:                       10px;
 @form-padding-vertical:                         4px;
 
 @form-background:                               @global-muted-background;
@@ -52,23 +52,30 @@
 @form-placeholder-color:                        @global-muted-color;
 
 @form-small-height:                             @global-control-small-height;
-@form-large-height:                             @global-control-large-height;
+@form-small-padding-horizontal:                 8px;
 @form-small-line-height:                        @form-small-height;
-@form-large-line-height:                        @form-large-height;
 @form-small-font-size:                          @global-small-font-size;
+
+@form-large-height:                             @global-control-large-height;
+@form-large-padding-horizontal:                 12px;
+@form-large-line-height:                        @form-large-height;
 @form-large-font-size:                          @global-medium-font-size;
 
 @form-danger-color:                             @global-danger-background;
 @form-success-color:                            @global-success-background;
 
-@form-width-xsmall:                             40px;
+@form-width-xsmall:                             50px;
 @form-width-small:                              130px;
 @form-width-medium:                             200px;
 @form-width-large:                              500px;
 
 @form-select-padding-right:                     20px;
 @form-select-icon-color:                        @global-color;
+@form-select-option-color:                      #444;
 @form-select-disabled-icon-color:               @global-muted-color;
+
+@form-datalist-padding-right:                   20px;
+@form-datalist-icon-color:                      @global-color;
 
 @form-radio-size:                               16px;
 @form-radio-margin-top:                         -4px;
@@ -92,12 +99,12 @@
 @form-horizontal-controls-margin-left:          215px;
 @form-horizontal-controls-text-padding-top:     7px;
 
-@form-icon-width:                               30px;
-@form-icon-font-size:                           @global-font-size;
+@form-icon-width:                               @form-height;
 @form-icon-color:                               @global-muted-color;
 @form-icon-hover-color:                         @global-color;
 
 @internal-form-select-image:                     "../../images/backgrounds/form-select.svg";
+@internal-form-datalist-image:                   "../../images/backgrounds/form-datalist.svg";
 @internal-form-radio-image:                      "../../images/backgrounds/form-radio.svg";
 @internal-form-checkbox-image:                   "../../images/backgrounds/form-checkbox.svg";
 @internal-form-checkbox-indeterminate-image:     "../../images/backgrounds/form-checkbox-indeterminate.svg";
@@ -115,7 +122,7 @@
  *    `input[type="color"]` in Firefox
  * 2. Address margins set differently in Firefox/IE and Chrome/Safari/Opera.
  * 3. Remove `border-radius` in iOS.
- * 4. Change font properties to `inherit` in all browsers
+ * 4. Change font properties to `inherit` in all browsers.
  */
 
 .uk-input,
@@ -159,7 +166,7 @@
 }
 
 /*
- * Remove the default vertical scrollbar in IE.
+ * Remove the default vertical scrollbar in IE 10+.
  */
 
 .uk-textarea { overflow: auto; }
@@ -185,13 +192,6 @@
 
 .uk-input::-moz-placeholder,
 .uk-textarea::-moz-placeholder { opacity: 1; }
-
-/*
- * Remove the padding in IE 10-.
- */
-
-.uk-radio,
-.uk-checkbox { padding: 0; }
 
 /*
  * Improves consistency of cursor style for clickable elements
@@ -249,9 +249,9 @@
 
 /*
  * Single-line
- * 1. Allow an `a` element to look like a `input` or `select` element
+ * 1. Allow any element to look like an `input` or `select` element
  * 2. Make sure line-height is not larger than height
- *    Also needed to center the text vertically if `a` element is used
+ *    Also needed to center the text vertically
  */
 
 .uk-input,
@@ -260,10 +260,12 @@
     vertical-align: middle;
     /* 1 */
     display: inline-block;
-    /* 2 */
-    line-height: @form-line-height;
     .hook-form-single-line;
 }
+
+/* 2 */
+.uk-input:not(input),
+.uk-select:not(select) { line-height: @form-line-height; }
 
 /*
  * Multi-line
@@ -282,7 +284,7 @@
 .uk-input:focus,
 .uk-select:focus,
 .uk-textarea:focus {
-    outline: 0;
+    outline: none;
     background-color: @form-focus-background;
     color: @form-focus-color;
     .hook-form-focus;
@@ -301,13 +303,11 @@
  * Placeholder
  */
 
-.uk-input:-ms-input-placeholder { color: @form-placeholder-color !important; }
-.uk-input::-moz-placeholder { color: @form-placeholder-color; }
-.uk-input::-webkit-input-placeholder { color: @form-placeholder-color; }
+.uk-input::-ms-input-placeholder { color: @form-placeholder-color !important; }
+.uk-input::placeholder { color: @form-placeholder-color; }
 
-.uk-textarea:-ms-input-placeholder { color: @form-placeholder-color !important; }
-.uk-textarea::-moz-placeholder { color: @form-placeholder-color; }
-.uk-textarea::-webkit-input-placeholder { color: @form-placeholder-color; }
+.uk-textarea::-ms-input-placeholder { color: @form-placeholder-color !important; }
+.uk-textarea::placeholder { color: @form-placeholder-color; }
 
 
 /* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)
@@ -321,8 +321,11 @@
 
 .uk-form-small:not(textarea):not([multiple]):not([size]) {
     height: @form-small-height;
-    line-height: @form-small-line-height;
+    padding-left: @form-small-padding-horizontal;
+    padding-right: @form-small-padding-horizontal;
 }
+
+.uk-form-small:not(select):not(input):not(textarea) { line-height: @form-small-line-height; }
 
 /*
  * Large
@@ -332,8 +335,11 @@
 
 .uk-form-large:not(textarea):not([multiple]):not([size]) {
     height: @form-large-height;
-    line-height: @form-large-line-height;
+    padding-left: @form-large-padding-horizontal;
+    padding-right: @form-large-padding-horizontal;
 }
+
+.uk-form-large:not(select):not(input):not(textarea) { line-height: @form-large-line-height; }
 
 
 /* Style modifier (`uk-input`, `uk-select` and `uk-textarea`)
@@ -399,6 +405,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * 1. Remove default style. Also works in Firefox
  * 2. Style
  * 3. Remove default style in IE 10/11
+ * 4. Set `color` for options in the select dropdown, because the inherited `color` might be too light.
  */
 
 .uk-select:not([multiple]):not([size]) {
@@ -415,6 +422,9 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 /* 3 */
 .uk-select:not([multiple]):not([size])::-ms-expand { display: none; }
 
+/* 4 */
+.uk-select:not([multiple]):not([size]) option { color: @form-select-option-color; }
+
 /*
  * Disabled
  */
@@ -422,8 +432,28 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 .uk-select:not([multiple]):not([size]):disabled { .svg-fill(@internal-form-select-image, "#000", @form-select-disabled-icon-color); }
 
 
+/* Datalist
+ ========================================================================== */
+
+/*
+ * 1. Remove default style in Chrome
+ */
+
+ .uk-input[list] {
+    padding-right: @form-datalist-padding-right;
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+}
+
+.uk-input[list]:hover,
+.uk-input[list]:focus { .svg-fill(@internal-form-datalist-image, "#000", @form-datalist-icon-color); }
+
+/* 1 */
+.uk-input[list]::-webkit-calendar-picker-indicator { display: none; }
+
+
 /* Radio and checkbox
- * Note: Only works in Chrome, Safari, Opera and Edge
+ * Note: Does not work in IE11
  ========================================================================== */
 
 /*
@@ -448,6 +478,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     vertical-align: middle;
     /* 4 */
     -webkit-appearance: none;
+    -moz-appearance: none;
     /* 5 */
     background-color: @form-radio-background;
     /* 6 */
@@ -661,14 +692,8 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     /* 2 */
     width: @form-icon-width;
     /* 3 */
-    display: -ms-inline-flexbox;
-    display: -webkit-inline-flex;
     display: inline-flex;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
     justify-content: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
     align-items: center;
     /* 4 */
     color: @form-icon-color;
@@ -690,7 +715,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
  * Input padding
  */
 
-.uk-form-icon:not(.uk-form-icon-flip) + .uk-input { padding-left: @form-icon-width; }
+.uk-form-icon:not(.uk-form-icon-flip) ~ .uk-input { padding-left: @form-icon-width !important; }
 
 /*
  * Position modifier
@@ -701,7 +726,7 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     left: auto;
 }
 
-.uk-form-icon-flip + .uk-input { padding-right: @form-icon-width; }
+.uk-form-icon-flip ~ .uk-input { padding-right: @form-icon-width !important; }
 
 
 // Hooks
@@ -741,12 +766,17 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
 
 @inverse-form-select-icon-color:               @inverse-global-color;
 
+@inverse-form-datalist-icon-color:             @inverse-global-color;
+
 @inverse-form-radio-background:                darken(@inverse-global-muted-background, 5%);
 
 @inverse-form-radio-checked-background:        @inverse-global-primary-background;
 @inverse-form-radio-checked-icon-color:        @inverse-global-inverse-color;
 
 @inverse-form-radio-checked-focus-background:  darken(@inverse-global-primary-background, 10%);
+
+@inverse-form-icon-color:                      @inverse-global-muted-color;
+@inverse-form-icon-hover-color:                @inverse-global-color;
 
 .hook-inverse() {
 
@@ -769,19 +799,24 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     // Placeholder
     //
 
-    .uk-input:-ms-input-placeholder { color: @inverse-form-placeholder-color !important; }
-    .uk-input::-moz-placeholder { color: @inverse-form-placeholder-color; }
-    .uk-input::-webkit-input-placeholder { color: @inverse-form-placeholder-color; }
+    .uk-input::-ms-input-placeholder { color: @inverse-form-placeholder-color !important; }
+    .uk-input::placeholder { color: @inverse-form-placeholder-color; }
 
-    .uk-textarea:-ms-input-placeholder { color: @inverse-form-placeholder-color !important; }
-    .uk-textarea::-moz-placeholder { color: @inverse-form-placeholder-color; }
-    .uk-textarea::-webkit-input-placeholder { color: @inverse-form-placeholder-color; }
+    .uk-textarea::-ms-input-placeholder { color: @inverse-form-placeholder-color !important; }
+    .uk-textarea::placeholder { color: @inverse-form-placeholder-color; }
 
     //
-    // Radio and checkbox
+    // Select
     //
 
     .uk-select:not([multiple]):not([size]) { .svg-fill(@internal-form-select-image, "#000", @inverse-form-select-icon-color); }
+
+    //
+    // Datalist
+    //
+
+    .uk-input[list]:hover,
+    .uk-input[list]:focus { .svg-fill(@internal-form-datalist-image, "#000", @inverse-form-datalist-icon-color); }
 
     //
     // Radio and checkbox
@@ -824,6 +859,10 @@ select.uk-form-width-xsmall { width: (@form-width-xsmall + 25px); }
     .uk-form-label {
         .hook-inverse-form-label;
     }
+
+    // Icon
+    .uk-form-icon { color: @inverse-form-icon-color; }
+    .uk-form-icon:hover { color: @inverse-form-icon-hover-color; }
 
 }
 

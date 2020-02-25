@@ -20,7 +20,8 @@
 //                  `uk-navbar-dropdown-grid`
 //                  `uk-navbar-toggle-icon`
 //
-// Modifiers:       `uk-navbar-transparent`
+// Modifiers:       `uk-navbar-primary`
+//                  `uk-navbar-transparent`
 //                  `uk-navbar-sticky`
 //                  `uk-navbar-dropdown-stack`
 //
@@ -63,7 +64,8 @@
 @navbar-dropdown-grid-gutter-horizontal:        @global-gutter;
 @navbar-dropdown-grid-gutter-vertical:          @navbar-dropdown-grid-gutter-horizontal;
 
-@navbar-dropdown-dropbar-margin-bottom:         30px;
+@navbar-dropdown-dropbar-margin-top:            0;
+@navbar-dropdown-dropbar-margin-bottom:         @navbar-dropdown-dropbar-margin-top;
 
 @navbar-dropdown-nav-item-color:                @global-muted-color;
 @navbar-dropdown-nav-item-hover-color:          @global-color;
@@ -73,9 +75,10 @@
 @navbar-dropdown-nav-divider-border:            @global-border;
 @navbar-dropdown-nav-sublist-item-color:        @global-muted-color;
 @navbar-dropdown-nav-sublist-item-hover-color:  @global-color;
+@navbar-dropdown-nav-sublist-item-active-color: @global-emphasis-color;
 
 @navbar-dropbar-background:                     @navbar-dropdown-background;
-@navbar-dropbar-z-index:                        @global-z-index + 20;
+@navbar-dropbar-z-index:                        @global-z-index - 20;
 
 
 /* ========================================================================
@@ -87,8 +90,6 @@
  */
 
 .uk-navbar {
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     /* 1 */
     position: relative;
@@ -107,7 +108,6 @@
 // Color Mode
 .uk-navbar-container:not(.uk-navbar-transparent):extend(.uk-light all) when (@navbar-color-mode = light) {}
 .uk-navbar-container:not(.uk-navbar-transparent):extend(.uk-dark all) when (@navbar-color-mode = dark) {}
-
 
 /*
  * Remove pseudo elements created by micro clearfix as precaution (if Container component is used)
@@ -130,22 +130,18 @@
 // 2. [class*='uk-navbar-center'],
 .uk-navbar-center,
 .uk-navbar-center-left > *,
-.uk-navbar-center-right > *, {
-    display: -ms-flexbox;
-    display: -webkit-flex;
+.uk-navbar-center-right > * {
     display: flex;
     /* 1 */
-    -ms-flex-align: center;
-    -webkit-align-items: center;
     align-items: center;
 }
 
 /*
  * Horizontal alignment
  * 1. Create position context for centered navbar with sub groups (left/right)
- * 2. Needed for dropdowns because a new position context is created
+ * 2. Fix text wrapping if content is larger than 50% of the container.
+ * 3. Needed for dropdowns because a new position context is created
  *    `z-index` must be smaller than off-canvas
- * 3. Fix text wrapping if the centered section is larger than 50% of the navbar
  * 4. Align sub groups for centered navbar
  */
 
@@ -162,16 +158,13 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    -webkit-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
     /* 2 */
+    width: max-content;
+    box-sizing: border-box;
+    /* 3 */
     z-index: @global-z-index - 10;
 }
-
-/* 3 */
-.uk-navbar-center:not(:only-child) .uk-navbar-nav > li > a,
-.uk-navbar-center:not(:only-child) .uk-navbar-item,
-.uk-navbar-center:not(:only-child) .uk-navbar-toggle { white-space: nowrap; }
 
 /* 4 */
 .uk-navbar-center-left,
@@ -183,21 +176,20 @@
 .uk-navbar-center-left { right: 100%; }
 .uk-navbar-center-right { left: 100%; }
 
-[class*='uk-navbar-center-'] .uk-navbar-nav > li > a,
-[class*='uk-navbar-center-'] .uk-navbar-item,
-[class*='uk-navbar-center-'] .uk-navbar-toggle { white-space: nowrap; }
+[class*='uk-navbar-center-'] {
+    width: max-content;
+    box-sizing: border-box;
+}
 
 
 /* Nav
  ========================================================================== */
 
 /*
- * 1. Reset lists
+ * 1. Reset list
  */
 
 .uk-navbar-nav {
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     /* 1 */
     margin: 0;
@@ -212,11 +204,7 @@
 
 .uk-navbar-left,
 .uk-navbar-right,
-.uk-navbar-center:only-child {
-    -ms-flex-wrap: wrap;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
-}
+.uk-navbar-center:only-child { flex-wrap: wrap; }
 
 /*
  * Items
@@ -230,18 +218,12 @@
 .uk-navbar-item,            // Content item
 .uk-navbar-toggle {         // Clickable item
     /* 1 */
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
-    -ms-flex-pack: center;
-    -webkit-justify-content: center;
     justify-content: center;
-    -ms-flex-align: center;
-    -webkit-align-items: center;
     align-items: center;
     /* 2 */
     box-sizing: border-box;
-    height: @navbar-nav-item-height;
+    min-height: @navbar-nav-item-height;
     padding: 0 @navbar-nav-item-padding-horizontal;
     /* 3 */
     font-size: @navbar-nav-item-font-size;
@@ -339,6 +321,10 @@
 /* Style modifiers
  ========================================================================== */
 
+.uk-navbar-primary {
+    .hook-navbar-primary;
+}
+
 .uk-navbar-transparent {
     .hook-navbar-transparent;
 }
@@ -417,6 +403,7 @@
  */
 
 .uk-navbar-dropdown-dropbar {
+    margin-top: @navbar-dropdown-dropbar-margin-top;
     margin-bottom: @navbar-dropdown-dropbar-margin-bottom;
     .hook-navbar-dropdown-dropbar;
 }
@@ -479,14 +466,14 @@
 .uk-navbar-dropdown-nav .uk-nav-sub a:hover,
 .uk-navbar-dropdown-nav .uk-nav-sub a:focus { color: @navbar-dropdown-nav-sublist-item-hover-color; }
 
+.uk-navbar-dropdown-nav .uk-nav-sub li.uk-active > a { color: @navbar-dropdown-nav-sublist-item-active-color; }
+
 
 /* Dropbar
  ========================================================================== */
 
 .uk-navbar-dropbar {
-    position: relative;
     background: @navbar-dropbar-background;
-    overflow: hidden;
     .hook-navbar-dropbar;
 }
 
@@ -499,6 +486,7 @@
     z-index: @navbar-dropbar-z-index;
     left: 0;
     right: 0;
+    .hook-navbar-dropbar-slide;
 }
 
 
@@ -519,6 +507,7 @@
 .hook-navbar-toggle-icon(){}
 .hook-navbar-toggle-icon-hover(){}
 .hook-navbar-subtitle() {}
+.hook-navbar-primary(){}
 .hook-navbar-transparent(){}
 .hook-navbar-sticky(){}
 .hook-navbar-dropdown(){}
@@ -530,6 +519,7 @@
 .hook-navbar-dropdown-nav-header() {}
 .hook-navbar-dropdown-nav-divider() {}
 .hook-navbar-dropbar(){}
+.hook-navbar-dropbar-slide(){}
 .hook-navbar-misc() {}
 
 

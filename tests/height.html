@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Height - UIkit tests</title>
+        <script src="js/test.js"></script>
+        <style type="text/css">
+
+            [uk-height-match] > * > .uk-panel {
+                padding: 10px;
+                text-align: center;
+            }
+
+            [uk-height-match] > :nth-child(10n-9) > .uk-panel { background: rgba(0,0,0,0.1); }
+            [uk-height-match] > :nth-child(10n-8) > .uk-panel { background: rgba(0,0,0,0.15); }
+            [uk-height-match] > :nth-child(10n-7) > .uk-panel { background: rgba(0,0,0,0.2); }
+            [uk-height-match] > :nth-child(10n-6) > .uk-panel { background: rgba(0,0,0,0.25); }
+            [uk-height-match] > :nth-child(10n-5) > .uk-panel { background: rgba(0,0,0,0.3); }
+            [uk-height-match] > :nth-child(10n-4) > .uk-panel { background: rgba(0,0,0,0.35); }
+            [uk-height-match] > :nth-child(10n-3) > .uk-panel { background: rgba(0,0,0,0.40); }
+            [uk-height-match] > :nth-child(10n-2) > .uk-panel { background: rgba(0,0,0,0.45); }
+            [uk-height-match] > :nth-child(10n-1) > .uk-panel { background: rgba(0,0,0,0.50); }
+            [uk-height-match] > :nth-child(10n) > .uk-panel { background: rgba(0,0,0,0.55); }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h2>Height Match</h2>
+
+            <div class="uk-grid uk-child-width-1-2@s">
+                <div>
+
+                    <h3>Each Row</h3>
+
+                    <div class="uk-child-width-1-2@m" uk-grid uk-height-match="target: > div > .uk-panel">
+                        <div><div class="uk-panel">1-2-M<br>...<br>...</div></div>
+                        <div><div class="uk-panel">1-2-M</div></div>
+                        <div><div class="uk-panel">1-2-M<br>...</div></div>
+                        <div><div class="uk-panel">1-2-M</div></div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <h3>All Rows</h3>
+
+                    <div class="uk-child-width-1-2@m" uk-grid uk-height-match="target: > div > .uk-panel; row: false">
+                        <div><div class="uk-panel">1-2-M<br>...<br>...</div></div>
+                        <div><div class="uk-panel">1-2-M</div></div>
+                        <div><div class="uk-panel">1-2-M<br>...</div></div>
+                        <div><div class="uk-panel">1-2-M</div></div>
+                    </div>
+
+                </div>
+                <div>
+
+                    <h3>Hidden Panels</h3>
+
+                    <div class="uk-child-width-1-2@m" uk-grid uk-height-match="target: > div > .uk-panel; row: false">
+                        <div><div class="uk-panel" style="display: none;">1-2-M<br>...<br>...</div></div>
+                        <div><div class="uk-panel">1-2-M<br>...</div></div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h2>JavaScript Options</h2>
+
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Value</th>
+                        <th>Default</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>target</code></td>
+                        <td>CSS selector</td>
+                        <td><code>> *</code></td>
+                        <td>Elements that should match. By default the children will match.</td>
+                    </tr>
+                    <tr>
+                        <td><code>row</code></td>
+                        <td>Boolean</td>
+                        <td><code>true</code></td>
+                        <td>By default only items in the same row will be matched. For example, once grid columns extend to a width of 100%, their heights will no longer be matched. This makes sense, for example, if they stack vertically in narrower viewports.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+
+    </body>
+</html>

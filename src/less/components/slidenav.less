@@ -7,6 +7,7 @@
 //
 // Modifiers:       `uk-slidenav-previous`
 //                  `uk-slidenav-next`
+//                  `uk-slidenav-large`
 //
 // ========================================================================
 
@@ -14,12 +15,15 @@
 // Variables
 // ========================================================================
 
-@slidenav-padding:                              5px;
-@slidenav-color:                                fadeout(@global-color, 40%);
+@slidenav-padding-vertical:                     5px;
+@slidenav-padding-horizontal:                   10px;
 
-@slidenav-hover-color:                          fadeout(@global-color, 20%);
+@slidenav-color:                                fade(@global-color, 50%);
+@slidenav-hover-color:                          fade(@global-color, 90%);
+@slidenav-active-color:                         fade(@global-color, 50%);
 
-@slidenav-active-color:                         fadeout(@global-color, 10%);
+@slidenav-large-padding-vertical:               10px;
+@slidenav-large-padding-horizontal:             @slidenav-large-padding-vertical;
 
 
 /* ========================================================================
@@ -31,7 +35,7 @@
  */
 
 .uk-slidenav {
-    padding: @slidenav-padding;
+    padding: @slidenav-padding-vertical @slidenav-padding-horizontal;
     color: @slidenav-color;
     .hook-slidenav;
 }
@@ -71,12 +75,19 @@
 }
 
 
+/* Size modifier
+ ========================================================================== */
+
+.uk-slidenav-large {
+    padding: @slidenav-large-padding-vertical @slidenav-large-padding-horizontal;
+    .hook-slidenav-large;
+}
+
+
 /* Container
  ========================================================================== */
 
 .uk-slidenav-container {
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     .hook-slidenav-container;
 }
@@ -92,6 +103,7 @@
 .hook-slidenav-active() {}
 .hook-slidenav-previous() {}
 .hook-slidenav-next() {}
+.hook-slidenav-large() {}
 .hook-slidenav-container() {}
 .hook-slidenav-misc() {}
 
@@ -99,9 +111,9 @@
 // Inverse
 // ========================================================================
 
-@inverse-slidenav-color:                       fadeout(@inverse-global-color, 40%);
-@inverse-slidenav-hover-color:                 fadeout(@inverse-global-color, 20%);
-@inverse-slidenav-active-color:                fadeout(@inverse-global-color, 10%);
+@inverse-slidenav-color:                       fade(@inverse-global-color, 70%);
+@inverse-slidenav-hover-color:                 fade(@inverse-global-color, 95%);
+@inverse-slidenav-active-color:                fade(@inverse-global-color, 70%);
 
 .hook-inverse() {
 

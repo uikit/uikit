@@ -1,0 +1,224 @@
+// Name:            Section
+// Description:     Component to create horizontal layout section
+//
+// Component:       `uk-section`
+//
+// Modifiers:       `uk-section-xsmall`
+//                  `uk-section-small`
+//                  `uk-section-large`
+//                  `uk-section-xlarge`
+//                  `uk-section-default`
+//                  `uk-section-muted`
+//                  `uk-section-primary`
+//                  `uk-section-secondary`
+//                  `uk-section-overlap`
+//
+// States:          `uk-preserve-color`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$section-padding-vertical:                         $global-medium-margin !default;
+$section-padding-vertical-m:                       $global-large-margin !default;
+
+$section-xsmall-padding-vertical:                  $global-margin !default;
+
+$section-small-padding-vertical:                   $global-medium-margin !default;
+
+$section-large-padding-vertical:                   $global-large-margin !default;
+$section-large-padding-vertical-m:                 $global-xlarge-margin !default;
+
+$section-xlarge-padding-vertical:                  $global-xlarge-margin !default;
+$section-xlarge-padding-vertical-m:                ($global-large-margin + $global-xlarge-margin) !default;
+
+$section-default-background:                       $global-background !default;
+
+$section-muted-background:                         $global-muted-background !default;
+
+$section-primary-background:                       $global-primary-background !default;
+$section-primary-color-mode:                       light !default;
+
+$section-secondary-background:                     $global-secondary-background !default;
+$section-secondary-color-mode:                     light !default;
+
+
+/* ========================================================================
+   Component: Section
+ ========================================================================== */
+
+/*
+ * 1. Make it work with `100vh` and height in general
+ */
+
+.uk-section {
+    box-sizing: border-box; /* 1 */
+    padding-top: $section-padding-vertical;
+    padding-bottom: $section-padding-vertical;
+    @if(mixin-exists(hook-section)) {@include hook-section();}
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-section {
+        padding-top: $section-padding-vertical-m;
+        padding-bottom: $section-padding-vertical-m;
+    }
+
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-section::before,
+.uk-section::after {
+    content: "";
+    display: table;
+}
+
+.uk-section::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-section > :last-child { margin-bottom: 0; }
+
+
+/* Size modifiers
+ ========================================================================== */
+
+/*
+ * XSmall
+ */
+
+.uk-section-xsmall {
+    padding-top: $section-xsmall-padding-vertical;
+    padding-bottom: $section-xsmall-padding-vertical;
+}
+
+/*
+ * Small
+ */
+
+.uk-section-small {
+    padding-top: $section-small-padding-vertical;
+    padding-bottom: $section-small-padding-vertical;
+}
+
+/*
+ * Large
+ */
+
+.uk-section-large {
+    padding-top: $section-large-padding-vertical;
+    padding-bottom: $section-large-padding-vertical;
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-section-large {
+        padding-top: $section-large-padding-vertical-m;
+        padding-bottom: $section-large-padding-vertical-m;
+    }
+
+}
+
+
+/*
+ * XLarge
+ */
+
+.uk-section-xlarge {
+    padding-top: $section-xlarge-padding-vertical;
+    padding-bottom: $section-xlarge-padding-vertical;
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-section-xlarge {
+        padding-top: $section-xlarge-padding-vertical-m;
+        padding-bottom: $section-xlarge-padding-vertical-m;
+    }
+
+}
+
+
+/* Style modifiers
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+.uk-section-default {
+    background: $section-default-background;
+    @if(mixin-exists(hook-section-default)) {@include hook-section-default();}
+}
+
+/*
+ * Muted
+ */
+
+.uk-section-muted {
+    background: $section-muted-background;
+    @if(mixin-exists(hook-section-muted)) {@include hook-section-muted();}
+}
+
+/*
+ * Primary
+ */
+
+.uk-section-primary {
+    background: $section-primary-background;
+    @if(mixin-exists(hook-section-primary)) {@include hook-section-primary();}
+}
+
+@if ( $section-primary-color-mode == light ) { .uk-section-primary:not(.uk-preserve-color) { @extend .uk-light !optional;} }
+@if ( $section-primary-color-mode == dark ) { .uk-section-primary:not(.uk-preserve-color) { @extend .uk-dark !optional;} }
+
+
+/*
+ * Secondary
+ */
+
+.uk-section-secondary {
+    background: $section-secondary-background;
+    @if(mixin-exists(hook-section-secondary)) {@include hook-section-secondary();}
+}
+
+@if ( $section-secondary-color-mode == light ) { .uk-section-secondary:not(.uk-preserve-color) { @extend .uk-light !optional;} }
+@if ( $section-secondary-color-mode == dark ) { .uk-section-secondary:not(.uk-preserve-color) { @extend .uk-dark !optional;} }
+
+
+/* Overlap modifier
+ ========================================================================== */
+
+/*
+ * Reserved modifier to make a section overlap another section with an border image
+ * Implemented by the theme
+ */
+
+.uk-section-overlap {
+    @if(mixin-exists(hook-section-overlap)) {@include hook-section-overlap();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-section-misc)) {@include hook-section-misc();}
+
+// @mixin hook-section(){}
+// @mixin hook-section-default(){}
+// @mixin hook-section-muted(){}
+// @mixin hook-section-secondary(){}
+// @mixin hook-section-primary(){}
+// @mixin hook-section-overlap(){}
+// @mixin hook-section-misc(){}

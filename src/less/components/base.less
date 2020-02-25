@@ -23,6 +23,7 @@
 @base-link-hover-color:                         @global-link-hover-color;
 @base-link-hover-text-decoration:               underline;
 
+@base-strong-font-weight:                       bolder;
 @base-code-font-size:                           @global-small-font-size;
 @base-code-font-family:                         Consolas, monaco, monospace;
 @base-code-color:                               @global-danger-background;
@@ -41,9 +42,11 @@
 @base-heading-color:                            @global-emphasis-color;
 @base-heading-text-transform:                   none;
 @base-heading-margin-top:                       @global-medium-margin;
-@base-h1-font-size:                             @global-xxlarge-font-size;
+@base-h1-font-size-m:                           @global-xxlarge-font-size;
+@base-h1-font-size:                             @base-h1-font-size-m * 0.85;
 @base-h1-line-height:                           1.2;
-@base-h2-font-size:                             @global-xlarge-font-size;
+@base-h2-font-size-m:                           @global-xlarge-font-size;
+@base-h2-font-size:                             @base-h2-font-size-m * 0.85;
 @base-h2-line-height:                           1.3;
 @base-h3-font-size:                             @global-large-font-size;
 @base-h3-line-height:                           1.4;
@@ -84,7 +87,7 @@
 /*
  * 1. Set `font-size` to support `rem` units
  *    Not using `font` property because a leading hyphen (e.g. -apple-system) causes the font to break in IE11 and Edge
- * 2. Prevent adjustments of font size after orientation changes in IE and iOS.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
  * 3. Style
  */
 
@@ -96,7 +99,6 @@ html {
     line-height: @base-body-line-height;
     /* 2 */
     -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
     /* 3 */
     background: @base-body-background;
     color: @base-body-color;
@@ -104,7 +106,7 @@ html {
 }
 
 /*
- * Removes default margin.
+ * Remove the margin in all browsers.
  */
 
 body { margin: 0; }
@@ -114,23 +116,11 @@ body { margin: 0; }
  ========================================================================== */
 
 /*
- * 1. Remove the gray background on active links in IE 10.
- * 2. Remove gaps in links underline in iOS 8+ and Safari 8+.
- */
-
-a {
-    /* 1 */
-    background-color: transparent;
-    /* 2 */
-    -webkit-text-decoration-skip: objects;
-}
-
-/*
  * Remove the outline on focused links when they are also active or hovered
  */
 
 a:active,
-a:hover { outline: 0; }
+a:hover { outline: none; }
 
 /*
  * Style
@@ -145,7 +135,9 @@ a,
 }
 
 a:hover,
-.uk-link:hover {
+.uk-link:hover,
+.uk-link-toggle:hover .uk-link,
+.uk-link-toggle:focus .uk-link {
     color: @base-link-hover-color;
     text-decoration: @base-link-hover-text-decoration;
     .hook-base-link-hover;
@@ -156,33 +148,27 @@ a:hover,
  ========================================================================== */
 
 /*
- * 1. Remove the bottom border in Firefox 39-.
- * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ * 1. Add the correct text decoration in Edge.
+ * 2. The shorthand declaration `underline dotted` is not supported in Safari.
  */
 
 abbr[title] {
-  border-bottom: none; /* 1 */
-  text-decoration: underline; /* 2 */
-  text-decoration: underline dotted; /* 2 */
+    /* 1 */
+    text-decoration: underline dotted;
+    /* 2 */
+    -webkit-text-decoration-style: dotted;
 }
 
-
 /*
- * 1. Prevent the duplicate application of `bolder` by the next rule in Safari 6.
- * 2. Add the correct font weight in Chrome, Edge, and Safari.
+ * Add the correct font weight in Chrome, Edge, and Safari.
  */
 
-/* 1 */
 b,
-strong { font-weight: inherit; }
-
-/* 2 */
-b,
-strong { font-weight: bolder; }
+strong { font-weight: @base-strong-font-weight; }
 
 /*
- * 1. Correct the odd `em` font sizing in all browsers.
- * 2. Consolas has a better baseline in running text compared to `Courier`
+ * 1. Consolas has a better baseline in running text compared to `Courier`
+ * 2. Correct the odd `em` font sizing in all browsers.
  * 3. Style
  */
 
@@ -190,9 +176,9 @@ strong { font-weight: bolder; }
 :not(pre) > kbd,
 :not(pre) > samp {
     /* 1 */
-    font-size: @base-code-font-size;
-    /* 2 */
     font-family: @base-code-font-family;
+    /* 2 */
+    font-size: @base-code-font-size;
     /* 3 */
     color: @base-code-color;
     white-space: nowrap;
@@ -267,13 +253,12 @@ svg,
 video { vertical-align: middle; }
 
 /*
- * Responsiveness
- * 1. Set a maximum width
- * 2. Auto scale the height. Only needed if `height` attribute is present
- * 2. Corrects `max-width` behavior if padding and border are used
+ * 1. Add responsiveness.
+ * 2. Auto-scale the height. Only needed if `height` attribute is present.
+ * 3. Corrects responsive `max-width` behavior if padding and border are used.
+ * 4. Exclude SVGs for IE11 because they don't preserve their aspect ratio.
  */
 
-audio,
 canvas,
 img,
 video {
@@ -285,17 +270,42 @@ video {
     box-sizing: border-box;
 }
 
-/*
- * Remove the border on images inside links in IE 10-.
- */
+/* 4 */
+@supports (display: block) {
 
-img { border-style: none; }
+   svg {
+        max-width: 100%;
+        height: auto;
+        box-sizing: border-box;
+    }
+
+}
 
 /*
  * Hide the overflow in IE.
  */
 
 svg:not(:root) { overflow: hidden; }
+
+/*
+ * 1. Fix lazy loading images if parent element is set to `display: inline` and has `overflow: hidden`.
+ * 2. Hide `alt` text for lazy loading images.
+ * Note: Selector for background while loading img[data-src*='.jpg'][src*='data:image'] { background: grey; }
+ */
+
+img:not([src]) {
+    /* 1 */
+    min-width: 1px;
+    /* 2 */
+    visibility: hidden;
+}
+
+/*
+ * Iframe
+ * Remove border in all browsers
+ */
+
+iframe { border: 0; }
 
 
 /* Block elements
@@ -333,7 +343,12 @@ h2, .uk-h2,
 h3, .uk-h3,
 h4, .uk-h4,
 h5, .uk-h5,
-h6, .uk-h6 {
+h6, .uk-h6,
+.uk-heading-small,
+.uk-heading-medium,
+.uk-heading-large,
+.uk-heading-xlarge,
+.uk-heading-2xlarge {
     margin: 0 0 @base-margin-vertical 0;
     font-family: @base-heading-font-family;
     font-weight: @base-heading-font-weight;
@@ -348,7 +363,12 @@ h6, .uk-h6 {
 * + h3, * + .uk-h3,
 * + h4, * + .uk-h4,
 * + h5, * + .uk-h5,
-* + h6, * + .uk-h6 { margin-top: @base-heading-margin-top; }
+* + h6, * + .uk-h6,
+* + .uk-heading-small,
+* + .uk-heading-medium,
+* + .uk-heading-large,
+* + .uk-heading-xlarge,
+* + .uk-heading-2xlarge { margin-top: @base-heading-margin-top; }
 
 /*
  * Sizes
@@ -390,6 +410,14 @@ h6, .uk-h6 {
     .hook-base-h6;
 }
 
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
+
+    h1, .uk-h1 { font-size: @base-h1-font-size-m; }
+    h2, .uk-h2 { font-size: @base-h2-font-size-m; }
+
+}
+
 
 /* Lists
  ========================================================================== */
@@ -418,17 +446,16 @@ dd { margin-left: 0; }
  ========================================================================== */
 
 /*
- * 1. Add the correct box sizing and height in Firefox.
- * 2. Show the overflow in Edge and IE.
+ * 1. Show the overflow in Chrome, Edge and IE.
+ * 2. Add the correct text-align in Edge and IE.
  * 3. Style
  */
 
 hr, .uk-hr {
     /* 1 */
-    box-sizing: content-box;
-    height: 0;
-    /* 2 */
     overflow: visible;
+    /* 2 */
+    text-align: inherit;
     /* 3 */
     margin: 0 0 @base-hr-margin-vertical 0;
     border: 0;
@@ -480,7 +507,6 @@ blockquote footer {
 
 /*
  * 1. Contain overflow in all browsers.
- * 2. Override UA
  */
 
 pre {
@@ -499,12 +525,6 @@ pre code { font-family: @base-pre-font-family; }
 /* Selection pseudo-element
  ========================================================================== */
 
-::-moz-selection {
-    background: @base-selection-background;
-    color: @base-selection-color;
-    text-shadow: none;
-}
-
 ::selection {
     background: @base-selection-background;
     color: @base-selection-color;
@@ -516,62 +536,26 @@ pre code { font-family: @base-pre-font-family; }
  ========================================================================== */
 
 /*
- * Add the correct display in IE 9-.
- * 1. Add the correct display in Edge, IE, and Firefox.
+ * 1. Add the correct display in Edge, IE 10+, and Firefox.
  * 2. Add the correct display in IE.
  */
 
-article,
-aside,
 details, /* 1 */
-figcaption,
-figure,
-footer,
-header,
-main, /* 2 */
-nav,
-section,
-summary { /* 1 */
+main { /* 2 */
     display: block;
 }
 
 /*
- * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ * Add the correct display in all browsers.
  */
 
-progress { vertical-align: baseline; }
+summary { display: list-item; }
 
 /*
- * Add the correct display in IE 10-.
- * 1. Add the correct display in IE.
+ * Add the correct display in IE.
  */
 
-template, /* 1 */
-[hidden] { display: none; }
-
-
-/* Iframe
- ========================================================================== */
-
-iframe { border: 0; }
-
-
-/* Prevent the 300ms delay for touchscreen interactions
- ========================================================================== */
-
-/*
- * Most browsers prevent the 300ms delay automatically for sites that use the `width=device-width` property.
- * For Safari on iOS 9.3+, IE 11 and Edge on desktops and IE 11 on Windows Phone 8.1 it must be applied manually.
- */
-
-a,
-area,
-button,
-input,
-label,
-select,
-summary,
-textarea { touch-action: manipulation; }
+template { display: none; }
 
 
 /* Pass media breakpoints to JS
@@ -581,11 +565,17 @@ textarea { touch-action: manipulation; }
  * Breakpoints
  */
 
-.var-media-s:before  { content: '@{breakpoint-small}'; }
-.var-media-m:before  { content: '@{breakpoint-medium}'; }
-.var-media-l:before  { content: '@{breakpoint-large}'; }
-.var-media-xl:before { content: '@{breakpoint-xlarge}'; }
+.uk-breakpoint-s::before  { content: '@{breakpoint-small}'; }
+.uk-breakpoint-m::before  { content: '@{breakpoint-medium}'; }
+.uk-breakpoint-l::before  { content: '@{breakpoint-large}'; }
+.uk-breakpoint-xl::before { content: '@{breakpoint-xlarge}'; }
 
+:root {
+    --uk-breakpoint-s: @breakpoint-small;
+    --uk-breakpoint-m: @breakpoint-medium;
+    --uk-breakpoint-l: @breakpoint-large;
+    --uk-breakpoint-xl: @breakpoint-xlarge;
+}
 
 // Hooks
 // ========================================================================
@@ -670,7 +660,12 @@ textarea { touch-action: manipulation; }
     h3, .uk-h3,
     h4, .uk-h4,
     h5, .uk-h5,
-    h6, .uk-h6 {
+    h6, .uk-h6,
+    .uk-heading-small,
+    .uk-heading-medium,
+    .uk-heading-large,
+    .uk-heading-xlarge,
+    .uk-heading-2xlarge {
         color: @inverse-base-heading-color;
         .hook-inverse-base-heading;
     }
@@ -715,7 +710,7 @@ textarea { touch-action: manipulation; }
     // Horizontal rules
     //
 
-    hr {
+    hr, .uk-hr {
         border-top-color: @inverse-base-hr-border;
         .hook-inverse-base-hr;
     }

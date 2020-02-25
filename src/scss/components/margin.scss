@@ -1,0 +1,250 @@
+// Name:            Margin
+// Description:     Utilities for margins
+//
+// Component:       `uk-margin-*`
+//                  `uk-margin-small-*`
+//                  `uk-margin-medium-*`
+//                  `uk-margin-large-*`
+//                  `uk-margin-xlarge-*`
+//                  `uk-margin-remove-*`
+//                  `uk-margin-auto-*`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$margin-margin:                                         $global-margin !default;
+
+$margin-small-margin:                                   $global-small-margin !default;
+
+$margin-medium-margin:                                  $global-medium-margin !default;
+
+$margin-large-margin:                                   $global-medium-margin !default;
+$margin-large-margin-l:                                 $global-large-margin !default;
+
+$margin-xlarge-margin:                                  $global-large-margin !default;
+$margin-xlarge-margin-l:                                $global-xlarge-margin !default;
+
+
+/* ========================================================================
+   Component: Margin
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+.uk-margin { margin-bottom: $margin-margin; }
+* + .uk-margin { margin-top: $margin-margin !important; }
+
+.uk-margin-top { margin-top: $margin-margin !important; }
+.uk-margin-bottom { margin-bottom: $margin-margin !important; }
+.uk-margin-left { margin-left: $margin-margin !important; }
+.uk-margin-right { margin-right: $margin-margin !important; }
+
+
+/* Small
+ ========================================================================== */
+
+.uk-margin-small { margin-bottom: $margin-small-margin; }
+* + .uk-margin-small { margin-top: $margin-small-margin !important; }
+
+.uk-margin-small-top { margin-top: $margin-small-margin !important; }
+.uk-margin-small-bottom { margin-bottom: $margin-small-margin !important; }
+.uk-margin-small-left { margin-left: $margin-small-margin !important; }
+.uk-margin-small-right { margin-right: $margin-small-margin !important; }
+
+
+/* Medium
+ ========================================================================== */
+
+.uk-margin-medium { margin-bottom: $margin-medium-margin; }
+* + .uk-margin-medium { margin-top: $margin-medium-margin !important; }
+
+.uk-margin-medium-top { margin-top: $margin-medium-margin !important; }
+.uk-margin-medium-bottom { margin-bottom: $margin-medium-margin !important; }
+.uk-margin-medium-left { margin-left: $margin-medium-margin !important; }
+.uk-margin-medium-right { margin-right: $margin-medium-margin !important; }
+
+
+/* Large
+ ========================================================================== */
+
+.uk-margin-large { margin-bottom: $margin-large-margin; }
+* + .uk-margin-large { margin-top: $margin-large-margin !important; }
+
+.uk-margin-large-top { margin-top: $margin-large-margin !important; }
+.uk-margin-large-bottom { margin-bottom: $margin-large-margin !important; }
+.uk-margin-large-left { margin-left: $margin-large-margin !important; }
+.uk-margin-large-right { margin-right: $margin-large-margin !important; }
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-margin-large { margin-bottom: $margin-large-margin-l; }
+    * + .uk-margin-large { margin-top: $margin-large-margin-l !important; }
+
+    .uk-margin-large-top { margin-top: $margin-large-margin-l !important; }
+    .uk-margin-large-bottom { margin-bottom: $margin-large-margin-l !important; }
+    .uk-margin-large-left { margin-left: $margin-large-margin-l !important; }
+    .uk-margin-large-right { margin-right: $margin-large-margin-l !important; }
+
+}
+
+
+/* XLarge
+ ========================================================================== */
+
+.uk-margin-xlarge { margin-bottom: $margin-xlarge-margin; }
+* + .uk-margin-xlarge { margin-top: $margin-xlarge-margin !important; }
+
+.uk-margin-xlarge-top { margin-top: $margin-xlarge-margin !important; }
+.uk-margin-xlarge-bottom { margin-bottom: $margin-xlarge-margin !important; }
+.uk-margin-xlarge-left { margin-left: $margin-xlarge-margin !important; }
+.uk-margin-xlarge-right { margin-right: $margin-xlarge-margin !important; }
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-margin-xlarge { margin-bottom: $margin-xlarge-margin-l; }
+    * + .uk-margin-xlarge { margin-top: $margin-xlarge-margin-l !important; }
+
+    .uk-margin-xlarge-top { margin-top: $margin-xlarge-margin-l !important; }
+    .uk-margin-xlarge-bottom { margin-bottom: $margin-xlarge-margin-l !important; }
+    .uk-margin-xlarge-left { margin-left: $margin-xlarge-margin-l !important; }
+    .uk-margin-xlarge-right { margin-right: $margin-xlarge-margin-l !important; }
+
+}
+
+
+/* Auto
+ ========================================================================== */
+
+.uk-margin-auto {
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.uk-margin-auto-top { margin-top: auto !important; }
+.uk-margin-auto-bottom { margin-bottom: auto !important; }
+.uk-margin-auto-left { margin-left: auto !important; }
+.uk-margin-auto-right { margin-right: auto !important; }
+
+.uk-margin-auto-vertical {
+    margin-top: auto !important;
+    margin-bottom: auto !important;
+}
+
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-small) {
+
+    .uk-margin-auto\@s {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .uk-margin-auto-left\@s { margin-left: auto !important; }
+    .uk-margin-auto-right\@s { margin-right: auto !important; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-margin-auto\@m {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .uk-margin-auto-left\@m { margin-left: auto !important; }
+    .uk-margin-auto-right\@m { margin-right: auto !important; }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-margin-auto\@l {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .uk-margin-auto-left\@l { margin-left: auto !important; }
+    .uk-margin-auto-right\@l { margin-right: auto !important; }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: $breakpoint-xlarge) {
+
+    .uk-margin-auto\@xl {
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+
+    .uk-margin-auto-left\@xl { margin-left: auto !important; }
+    .uk-margin-auto-right\@xl { margin-right: auto !important; }
+
+}
+
+
+/* Remove
+ ========================================================================== */
+
+ .uk-margin-remove { margin: 0 !important; }
+ .uk-margin-remove-top { margin-top: 0 !important; }
+ .uk-margin-remove-bottom { margin-bottom: 0 !important; }
+ .uk-margin-remove-left { margin-left: 0 !important; }
+ .uk-margin-remove-right { margin-right: 0 !important; }
+ 
+ .uk-margin-remove-vertical {
+     margin-top: 0 !important;
+     margin-bottom: 0 !important;
+ }
+ 
+ .uk-margin-remove-adjacent + *,
+ .uk-margin-remove-first-child > :first-child { margin-top: 0 !important; }
+ .uk-margin-remove-last-child > :last-child { margin-bottom: 0 !important; }
+
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-small) {
+
+    .uk-margin-remove-left\@s { margin-left: 0 !important; }
+    .uk-margin-remove-right\@s { margin-right: 0 !important; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-margin-remove-left\@m { margin-left: 0 !important; }
+    .uk-margin-remove-right\@m { margin-right: 0 !important; }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-margin-remove-left\@l { margin-left: 0 !important; }
+    .uk-margin-remove-right\@l { margin-right: 0 !important; }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: $breakpoint-xlarge) {
+
+    .uk-margin-remove-left\@xl { margin-left: 0 !important; }
+    .uk-margin-remove-right\@xl { margin-right: 0 !important; }
+
+}
+
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-margin-misc)) {@include hook-margin-misc();}
+
+// @mixin hook-margin-misc(){}

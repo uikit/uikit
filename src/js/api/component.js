@@ -1,79 +1,101 @@
-import { $, camelize, isArray, isJQuery, isPlainObject, isString } from '../util/index';
+import {$$, assign, camelize, fastdom, hyphenate, isPlainObject, startsWith} from 'uikit-util';
 
 export default function (UIkit) {
 
     const DATA = UIkit.data;
 
-    UIkit.components = {};
+    const components = {};
 
-    UIkit.component = function (id, options) {
+    UIkit.component = function (name, options) {
 
-        var name = camelize(id);
+        const id = hyphenate(name);
 
-        if (isPlainObject(options)) {
-            options.name = name;
-            options = UIkit.extend(options);
-        } else {
-            options.options.name = name;
+        name = camelize(id);
+
+        if (!options) {
+
+            if (isPlainObject(components[name])) {
+                components[name] = UIkit.extend(components[name]);
+            }
+
+            return components[name];
+
         }
-
-        UIkit.components[name] = options;
 
         UIkit[name] = function (element, data) {
 
-            if (isPlainObject(element)) {
-                return new UIkit.components[name]({data: element});
+            const component = UIkit.component(name);
+
+            return component.options.functional
+                ? new component({data: isPlainObject(element) ? element : [...arguments]})
+                : !element ? init(element) : $$(element).map(init)[0];
+
+            function init(element) {
+
+                const instance = UIkit.getComponent(element, name);
+
+                if (instance) {
+                    if (!data) {
+                        return instance;
+                    } else {
+                        instance.$destroy();
+                    }
+                }
+
+                return new component({el: element, data});
+
             }
 
-            if (UIkit.components[name].options.functional) {
-                return new UIkit.components[name]({data: [...arguments]});
-            }
-
-            return $(element).toArray().map(element =>
-                UIkit.getComponent(element, name) || new UIkit.components[name]({el: element, data: data || {}})
-            )[0];
         };
 
-        if (document.body && !options.options.functional) {
-            UIkit[name](`[uk-${id}],[data-uk-${id}]`);
+        const opt = isPlainObject(options) ? assign({}, options) : options.options;
+
+        opt.name = name;
+
+        if (opt.install) {
+            opt.install(UIkit, opt, name);
         }
 
-        return UIkit.components[name];
+        if (UIkit._initialized && !opt.functional) {
+            fastdom.read(() => UIkit[name](`[uk-${id}],[data-uk-${id}]`));
+        }
+
+        return components[name] = isPlainObject(options) ? opt : options;
     };
 
-    UIkit.getComponents = element => element && (element = isJQuery(element) ? element[0] : element) && element[DATA] || {};
+    UIkit.getComponents = element => element && element[DATA] || {};
     UIkit.getComponent = (element, name) => UIkit.getComponents(element)[name];
 
     UIkit.connect = node => {
 
-        var name;
-
         if (node[DATA]) {
-            for (name in node[DATA]) {
+            for (const name in node[DATA]) {
                 node[DATA][name]._callConnected();
             }
         }
 
-        for (var i = 0; i < node.attributes.length; i++) {
+        for (let i = 0; i < node.attributes.length; i++) {
 
-            name = node.attributes[i].name;
+            const name = getComponentName(node.attributes[i].name);
 
-            if (name.lastIndexOf('uk-', 0) === 0 || name.lastIndexOf('data-uk-', 0) === 0) {
-
-                name = camelize(name.replace('data-uk-', '').replace('uk-', ''));
-
-                if (UIkit[name]) {
-                    UIkit[name](node);
-                }
+            if (name && name in components) {
+                UIkit[name](node);
             }
+
         }
 
     };
 
     UIkit.disconnect = node => {
-        for (var name in node[DATA]) {
+        for (const name in node[DATA]) {
             node[DATA][name]._callDisconnected();
         }
-    }
+    };
 
+}
+
+export function getComponentName(attribute) {
+    return startsWith(attribute, 'uk-') || startsWith(attribute, 'data-uk-')
+        ? camelize(attribute.replace('data-uk-', '').replace('uk-', ''))
+        : false;
 }

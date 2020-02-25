@@ -1,0 +1,57 @@
+// Name:            Close
+// Description:     Component to create a close button
+//
+// Component:       `uk-close`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$close-color:                                    $global-muted-color !default;
+$close-hover-color:                              $global-color !default;
+
+
+/* ========================================================================
+   Component: Close
+ ========================================================================== */
+
+/*
+ * Adopts `uk-icon`
+ */
+
+.uk-close {
+    color: $close-color;
+    @if(mixin-exists(hook-close)) {@include hook-close();}
+}
+
+/* Hover + Focus */
+.uk-close:hover,
+.uk-close:focus {
+    color: $close-hover-color;
+    outline: none;
+    @if(mixin-exists(hook-close-hover)) {@include hook-close-hover();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-close-misc)) {@include hook-close-misc();}
+
+// @mixin hook-close(){}
+// @mixin hook-close-hover(){}
+// @mixin hook-close-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-close-color:                            $inverse-global-muted-color !default;
+$inverse-close-hover-color:                      $inverse-global-color !default;
+
+
+
+// @mixin hook-inverse-close(){}
+// @mixin hook-inverse-close-hover(){}

@@ -1,0 +1,118 @@
+// Name:            Accordion
+// Description:     Component to create accordions
+//
+// Component:       `uk-accordion`
+//
+// Sub-objects:     `uk-accordion-title`
+//                  `uk-accordion-content`
+//
+// States:          `uk-open`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$accordion-item-margin-top:                     $global-margin !default;
+
+$accordion-title-font-size:                     $global-medium-font-size !default;
+$accordion-title-line-height:                   1.4 !default;
+$accordion-title-color:                         $global-emphasis-color !default;
+$accordion-title-hover-color:                   $global-color !default;
+
+$accordion-content-margin-top:                  $global-margin !default;
+
+
+/* ========================================================================
+   Component: Accordion
+ ========================================================================== */
+
+.uk-accordion {
+    padding: 0;
+    list-style: none;
+    @if(mixin-exists(hook-accordion)) {@include hook-accordion();}
+}
+
+
+/* Item
+ ========================================================================== */
+
+.uk-accordion > :nth-child(n+2) {
+    margin-top: $accordion-item-margin-top;
+    @if(mixin-exists(hook-accordion-item)) {@include hook-accordion-item();}
+}
+
+
+/* Title
+ ========================================================================== */
+
+.uk-accordion-title {
+    display: block;
+    font-size: $accordion-title-font-size;
+    line-height: $accordion-title-line-height;
+    color: $accordion-title-color;
+    @if(mixin-exists(hook-accordion-title)) {@include hook-accordion-title();}
+}
+
+/* Hover + Focus */
+.uk-accordion-title:hover,
+.uk-accordion-title:focus {
+    color: $accordion-title-hover-color;
+    text-decoration: none;
+    outline: none;
+    @if(mixin-exists(hook-accordion-title-hover)) {@include hook-accordion-title-hover();}
+}
+
+
+/* Content
+ ========================================================================== */
+
+.uk-accordion-content {
+    margin-top: $accordion-content-margin-top;
+    @if(mixin-exists(hook-accordion-content)) {@include hook-accordion-content();}
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-accordion-content::before,
+.uk-accordion-content::after {
+    content: "";
+    display: table;
+}
+
+.uk-accordion-content::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+ .uk-accordion-content > :last-child { margin-bottom: 0; }
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-accordion-misc)) {@include hook-accordion-misc();}
+
+// @mixin hook-accordion(){}
+// @mixin hook-accordion-item(){}
+// @mixin hook-accordion-title(){}
+// @mixin hook-accordion-title-hover(){}
+// @mixin hook-accordion-content(){}
+// @mixin hook-accordion-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-accordion-title-color:              $inverse-global-emphasis-color !default;
+$inverse-accordion-title-hover-color:        $inverse-global-color !default;
+
+
+
+// @mixin hook-inverse-accordion-item(){}
+// @mixin hook-inverse-accordion-title(){}
+// @mixin hook-inverse-accordion-title-hover(){}

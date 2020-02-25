@@ -1,0 +1,125 @@
+//
+// Component: Card
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$card-hover-background:                         $global-background !default;
+
+$card-default-background:                       $global-background !default;
+$card-default-hover-background:                 $card-default-background !default;
+
+$card-primary-hover-background:                 $card-primary-background !default;
+
+$card-secondary-hover-background:               $card-secondary-background !default;
+
+//
+// New
+//
+
+$card-hover-box-shadow:                         $global-large-box-shadow !default;
+
+$card-default-box-shadow:                       $global-medium-box-shadow !default;
+$card-default-hover-box-shadow:                 $global-large-box-shadow !default;
+
+$card-default-header-border-width:              $global-border-width !default;
+$card-default-header-border:                    $global-border !default;
+
+$card-default-footer-border-width:              $global-border-width !default;
+$card-default-footer-border:                    $global-border !default;
+
+$card-primary-box-shadow:                       $global-medium-box-shadow !default;
+$card-primary-hover-box-shadow:                 $global-large-box-shadow !default;
+
+$card-secondary-box-shadow:                     $global-medium-box-shadow !default;
+$card-secondary-hover-box-shadow:               $global-large-box-shadow !default;
+
+
+// Component
+// ========================================================================
+
+
+
+
+// Sections
+// ========================================================================
+
+// @mixin hook-card-body(){}
+
+// @mixin hook-card-header(){}
+
+// @mixin hook-card-footer(){}
+
+
+// Media
+// ========================================================================
+
+// @mixin hook-card-media(){}
+
+// @mixin hook-card-media-top(){}
+
+// @mixin hook-card-media-bottom(){}
+
+// @mixin hook-card-media-left(){}
+
+// @mixin hook-card-media-right(){}
+
+
+// Title
+// ========================================================================
+
+// @mixin hook-card-title(){}
+
+
+// Badge
+// ========================================================================
+
+// @mixin hook-card-badge(){}
+
+
+// Hover modifier
+// ========================================================================
+
+
+
+
+// Style modifiers
+// ========================================================================
+
+
+
+// @mixin hook-card-default-title(){}
+
+
+
+
+
+
+
+//
+// Primary
+//
+
+
+
+// @mixin hook-card-primary-title(){}
+
+
+
+//
+// Secondary
+//
+
+
+
+// @mixin hook-card-secondary-title(){}
+
+
+
+
+// Miscellaneous
+// ========================================================================
+

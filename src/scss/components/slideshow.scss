@@ -1,0 +1,97 @@
+// Name:            Slideshow
+// Description:     Component to create slideshows
+//
+// Component:       `uk-slideshow`
+//
+// Sub-objects:     `uk-slideshow-items`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+/* ========================================================================
+   Component: Slideshow
+ ========================================================================== */
+
+/*
+ * 1. Prevent tab highlighting on iOS.
+ */
+
+.uk-slideshow {
+    /* 1 */
+    -webkit-tap-highlight-color: transparent;
+    @if(mixin-exists(hook-slideshow)) {@include hook-slideshow();}
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * 1. Create position and stacking context
+ * 2. Reset list
+ * 3. Clip child elements
+ * 4. Prevent displaying the callout information on iOS.
+ */
+
+.uk-slideshow-items {
+    /* 1 */
+    position: relative;
+    z-index: 0;
+    /* 2 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 3 */
+    overflow: hidden;
+    /* 4 */
+    -webkit-touch-callout: none;
+}
+
+
+/* Item
+ ========================================================================== */
+
+/*
+ * 1. Position items above each other
+ * 2. Take the full width
+ * 3. Clip child elements, e.g. for `uk-cover`
+ * 4. Optimize animation
+ * 5. Disable horizontal panning gestures in IE11 and Edge
+ * 6. Suppress outline on focus
+ */
+
+.uk-slideshow-items > * {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* 2 */
+    right: 0;
+    bottom: 0;
+    /* 3 */
+    overflow: hidden;
+    /* 4 */
+    will-change: transform, opacity;
+    /* 5 */
+    touch-action: pan-y;
+}
+
+/* 6 */
+.uk-slideshow-items > :focus { outline: none; }
+
+/*
+ * Hide not active items
+ */
+
+.uk-slideshow-items > :not(.uk-active) { display: none; }
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-slideshow-misc)) {@include hook-slideshow-misc();}
+
+// @mixin hook-slideshow(){}
+// @mixin hook-slideshow-misc(){}

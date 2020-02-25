@@ -1,0 +1,131 @@
+// Name:            Countdown
+// Description:     Component to create countdown timers
+//
+// Component:       `uk-countdown`
+//
+// Sub-objects:     `uk-countdown-number`
+//                  `uk-countdown-separator`
+//                  `uk-countdown-label`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$countdown-number-line-height:                   0.8 !default;
+$countdown-number-font-size:                     2rem !default; // 32px
+$countdown-number-font-size-s:                   4rem !default; // 64px
+$countdown-number-font-size-m:                   6rem !default; // 96px
+
+$countdown-separator-line-height:                1.6 !default;
+$countdown-separator-font-size:                  1rem !default; // 16px
+$countdown-separator-font-size-s:                2rem !default; // 32px
+$countdown-separator-font-size-m:                3rem !default; // 48px
+
+
+/* ========================================================================
+   Component: Countdown
+ ========================================================================== */
+
+.uk-countdown {
+    @if(mixin-exists(hook-countdown)) {@include hook-countdown();}
+}
+
+
+/* Item
+ ========================================================================== */
+
+.uk-countdown-number,
+.uk-countdown-separator {
+    @if(mixin-exists(hook-countdown-item)) {@include hook-countdown-item();}
+}
+
+
+/* Number
+ ========================================================================== */
+
+
+/*
+ * 1. Make numbers all of the same size to prevent jumping. Must be supported by the font.
+ * 2. Style
+ */
+
+.uk-countdown-number {
+    /* 1 */
+    font-variant-numeric: tabular-nums;
+    /* 2 */
+    font-size: $countdown-number-font-size;
+    line-height: $countdown-number-line-height;
+    @if(mixin-exists(hook-countdown-number)) {@include hook-countdown-number();}
+}
+
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-small) {
+
+    .uk-countdown-number { font-size: $countdown-number-font-size-s; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-countdown-number { font-size: $countdown-number-font-size-m; }
+
+}
+
+
+/* Separator
+ ========================================================================== */
+
+.uk-countdown-separator {
+    font-size: $countdown-separator-font-size;
+    line-height: $countdown-separator-line-height;
+    @if(mixin-exists(hook-countdown-separator)) {@include hook-countdown-separator();}
+}
+
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-small) {
+
+    .uk-countdown-separator { font-size: $countdown-separator-font-size-s; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-countdown-separator { font-size: $countdown-separator-font-size-m; }
+
+}
+
+
+/* Label
+ ========================================================================== */
+
+.uk-countdown-label {
+    @if(mixin-exists(hook-countdown-label)) {@include hook-countdown-label();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-countdown-misc)) {@include hook-countdown-misc();}
+
+// @mixin hook-countdown(){}
+// @mixin hook-countdown-item(){}
+// @mixin hook-countdown-number(){}
+// @mixin hook-countdown-separator(){}
+// @mixin hook-countdown-label(){}
+// @mixin hook-countdown-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+
+
+// @mixin hook-inverse-countdown-item(){}
+// @mixin hook-inverse-countdown-number(){}
+// @mixin hook-inverse-countdown-separator(){}
+// @mixin hook-inverse-countdown-label(){}

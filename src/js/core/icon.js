@@ -1,7 +1,7 @@
-import { Class } from '../mixin/index';
-import { extend, isRtl, promise, swap } from '../util/index';
+import SVG from './svg';
 import closeIcon from '../../images/components/close-icon.svg';
 import closeLarge from '../../images/components/close-large.svg';
+import marker from '../../images/components/marker.svg';
 import navbarToggleIcon from '../../images/components/navbar-toggle-icon.svg';
 import overlayIcon from '../../images/components/overlay-icon.svg';
 import paginationNext from '../../images/components/pagination-next.svg';
@@ -15,180 +15,177 @@ import slidenavPrevious from '../../images/components/slidenav-previous.svg';
 import slidenavPreviousLarge from '../../images/components/slidenav-previous-large.svg';
 import spinner from '../../images/components/spinner.svg';
 import totop from '../../images/components/totop.svg';
+import {$, addClass, apply, css, each, hasClass, hyphenate, isRtl, isString, noop, parents, Promise, swap} from 'uikit-util';
 
-export default function (UIkit) {
+const parsed = {};
+const icons = {
+    spinner,
+    totop,
+    marker,
+    'close-icon': closeIcon,
+    'close-large': closeLarge,
+    'navbar-toggle-icon': navbarToggleIcon,
+    'overlay-icon': overlayIcon,
+    'pagination-next': paginationNext,
+    'pagination-previous': paginationPrevious,
+    'search-icon': searchIcon,
+    'search-large': searchLarge,
+    'search-navbar': searchNavbar,
+    'slidenav-next': slidenavNext,
+    'slidenav-next-large': slidenavNextLarge,
+    'slidenav-previous': slidenavPrevious,
+    'slidenav-previous-large': slidenavPreviousLarge
+};
 
-    var parsed = {},
-        icons = {
-            spinner,
-            totop,
-            'close-icon': closeIcon,
-            'close-large': closeLarge,
-            'navbar-toggle-icon': navbarToggleIcon,
-            'overlay-icon': overlayIcon,
-            'pagination-next': paginationNext,
-            'pagination-previous': paginationPrevious,
-            'search-icon': searchIcon,
-            'search-large': searchLarge,
-            'search-navbar': searchNavbar,
-            'slidenav-next': slidenavNext,
-            'slidenav-next-large': slidenavNextLarge,
-            'slidenav-previous': slidenavPrevious,
-            'slidenav-previous-large': slidenavPreviousLarge
-        };
+const Icon = {
 
-    UIkit.component('icon', UIkit.components.svg.extend({
+    install,
 
-        mixins: [Class],
+    extends: SVG,
 
-        name: 'icon',
+    args: 'icon',
 
-        args: 'icon',
+    props: ['icon'],
 
-        props: ['icon'],
+    data: {
+        include: ['focusable']
+    },
 
-        defaults: {exclude: ['id', 'style', 'class', 'src']},
+    isIcon: true,
 
-        init() {
-            this.$el.addClass('uk-icon');
+    beforeConnect() {
+        addClass(this.$el, 'uk-icon');
+    },
 
-            if (isRtl) {
-                this.icon = swap(swap(this.icon, 'left', 'right'), 'previous', 'next');
-            }
-        },
+    methods: {
 
-        update: {
+        getSvg() {
 
-            read() {
+            const icon = getIcon(applyRtl(this.icon));
 
-                if (this.delay) {
-                    var icon = this.getIcon();
-
-                    if (icon) {
-                        this.delay(icon);
-                    }
-                }
-            },
-
-            events: ['load']
-
-        },
-
-        methods: {
-
-            getSvg() {
-
-                var icon = this.getIcon();
-
-                if (!icon) {
-
-                    if (document.readyState !== 'complete') {
-                        return promise(resolve => {
-                            this.delay = resolve;
-                        });
-                    }
-
-                    return promise.reject('Icon not found.');
-
-                }
-
-                return promise.resolve(icon);
-            },
-
-            getIcon() {
-
-                if (!icons[this.icon]) {
-                    return null;
-                }
-
-                if (!parsed[this.icon]) {
-                    parsed[this.icon] = this.parse(icons[this.icon]);
-                }
-
-                return parsed[this.icon];
+            if (!icon) {
+                return Promise.reject('Icon not found.');
             }
 
+            return Promise.resolve(icon);
         }
 
-    }));
-
-    [
-        'navbar-toggle-icon',
-        'overlay-icon',
-        'pagination-previous',
-        'pagination-next',
-        'totop'
-    ].forEach(name => registerComponent(name));
-
-    [
-        'slidenav-previous',
-        'slidenav-next'
-    ].forEach(name => registerComponent(name, {
-
-        init() {
-            this.$el.addClass('uk-slidenav');
-
-            if (this.$el.hasClass('uk-slidenav-large')) {
-                this.icon += '-large';
-            }
-        }
-
-    }));
-
-    registerComponent('search-icon', {
-
-        init() {
-            if (this.$el.hasClass('uk-search-icon') && this.$el.parents('.uk-search-large').length) {
-                this.icon = 'search-large';
-            } else if (this.$el.parents('.uk-search-navbar').length) {
-                this.icon = 'search-navbar';
-            }
-        }
-
-    });
-
-    registerComponent('close', {
-
-        init() {
-            this.icon = `close-${this.$el.hasClass('uk-close-large') ? 'large' : 'icon'}`;
-        }
-
-    });
-
-    registerComponent('spinner', {
-
-        connected() {
-
-            this.height = this.width = this.$el.width();
-
-            this.svg.then(svg => {
-
-                var circle = svg.find('circle'),
-                    diameter = Math.floor(this.width / 2);
-
-                svg[0].setAttribute('viewBox', `0 0 ${this.width} ${this.width}`);
-
-                circle.attr({cx: diameter, cy: diameter, r: diameter - parseFloat(circle.css('stroke-width') || 0)});
-            });
-        }
-
-    });
-
-    UIkit.icon.add = added => extend(icons, added);
-
-    function registerComponent(name, mixin) {
-
-        UIkit.component(name, UIkit.components.icon.extend({
-
-            name,
-
-            mixins: mixin ? [mixin] : [],
-
-            defaults: {
-                icon: name
-            }
-
-        }));
     }
 
+};
+
+export default Icon;
+
+export const IconComponent = {
+
+    args: false,
+
+    extends: Icon,
+
+    data: vm => ({
+        icon: hyphenate(vm.constructor.options.name)
+    }),
+
+    beforeConnect() {
+        addClass(this.$el, this.$name);
+    }
+
+};
+
+export const Slidenav = {
+
+    extends: IconComponent,
+
+    beforeConnect() {
+        addClass(this.$el, 'uk-slidenav');
+    },
+
+    computed: {
+
+        icon({icon}, $el) {
+            return hasClass($el, 'uk-slidenav-large')
+                ? `${icon}-large`
+                : icon;
+        }
+
+    }
+
+};
+
+export const Search = {
+
+    extends: IconComponent,
+
+    computed: {
+
+        icon({icon}, $el) {
+            return hasClass($el, 'uk-search-icon') && parents($el, '.uk-search-large').length
+                ? 'search-large'
+                : parents($el, '.uk-search-navbar').length
+                    ? 'search-navbar'
+                    : icon;
+        }
+
+    }
+
+};
+
+export const Close = {
+
+    extends: IconComponent,
+
+    computed: {
+
+        icon() {
+            return `close-${hasClass(this.$el, 'uk-close-large') ? 'large' : 'icon'}`;
+        }
+
+    }
+
+};
+
+export const Spinner = {
+
+    extends: IconComponent,
+
+    connected() {
+        this.svg.then(svg => this.ratio !== 1 && css($('circle', svg), 'strokeWidth', 1 / this.ratio), noop);
+    }
+
+};
+
+function install(UIkit) {
+    UIkit.icon.add = (name, svg) => {
+
+        const added = isString(name) ? ({[name]: svg}) : name;
+        each(added, (svg, name) => {
+            icons[name] = svg;
+            delete parsed[name];
+        });
+
+        if (UIkit._initialized) {
+            apply(document.body, el =>
+                each(UIkit.getComponents(el), cmp => {
+                    cmp.$options.isIcon && cmp.icon in added && cmp.$reset();
+                })
+            );
+        }
+    };
+}
+
+function getIcon(icon) {
+
+    if (!icons[icon]) {
+        return null;
+    }
+
+    if (!parsed[icon]) {
+        parsed[icon] = $(icons[icon].trim());
+    }
+
+    return parsed[icon].cloneNode(true);
+}
+
+function applyRtl(icon) {
+    return isRtl ? swap(swap(icon, 'left', 'right'), 'previous', 'next') : icon;
 }

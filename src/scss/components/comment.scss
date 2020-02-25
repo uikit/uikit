@@ -1,0 +1,173 @@
+// Name:            Comment
+// Description:     Component to create nested comments
+//
+// Component:       `uk-comment`
+//
+// Sub-objects:     `uk-comment-body`
+//                  `uk-comment-header`
+//                  `uk-comment-title`
+//                  `uk-comment-meta`
+//                  `uk-comment-avatar`
+//                  `uk-comment-list`
+//
+// Modifier:        `uk-comment-primary`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$comment-header-margin-bottom:                   $global-margin !default;
+
+$comment-title-font-size:                        $global-medium-font-size !default;
+$comment-title-line-height:                      1.4 !default;
+
+$comment-meta-font-size:                         $global-small-font-size !default;
+$comment-meta-line-height:                       1.4 !default;
+$comment-meta-color:                             $global-muted-color !default;
+
+$comment-list-margin-top:                        $global-large-margin !default;
+$comment-list-padding-left:                      30px !default;
+$comment-list-padding-left-m:                    100px !default;
+
+
+/* ========================================================================
+   Component: Comment
+ ========================================================================== */
+
+.uk-comment {
+    @if(mixin-exists(hook-comment)) {@include hook-comment();}
+}
+
+
+/* Sections
+ ========================================================================== */
+
+.uk-comment-body {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    @if(mixin-exists(hook-comment-body)) {@include hook-comment-body();}
+}
+
+.uk-comment-header {
+    margin-bottom: $comment-header-margin-bottom;
+    @if(mixin-exists(hook-comment-header)) {@include hook-comment-header();}
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-comment-body::before,
+.uk-comment-body::after,
+.uk-comment-header::before,
+.uk-comment-header::after {
+    content: "";
+    display: table;
+}
+
+.uk-comment-body::after,
+.uk-comment-header::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-comment-body > :last-child,
+.uk-comment-header > :last-child { margin-bottom: 0; }
+
+
+/* Title
+ ========================================================================== */
+
+.uk-comment-title {
+    font-size: $comment-title-font-size;
+    line-height: $comment-title-line-height;
+    @if(mixin-exists(hook-comment-title)) {@include hook-comment-title();}
+}
+
+
+/* Meta
+ ========================================================================== */
+
+.uk-comment-meta {
+    font-size: $comment-meta-font-size;
+    line-height: $comment-meta-line-height;
+    color: $comment-meta-color;
+    @if(mixin-exists(hook-comment-meta)) {@include hook-comment-meta();}
+}
+
+
+/* Avatar
+ ========================================================================== */
+
+.uk-comment-avatar {
+    @if(mixin-exists(hook-comment-avatar)) {@include hook-comment-avatar();}
+}
+
+
+/* List
+ ========================================================================== */
+
+.uk-comment-list {
+    padding: 0;
+    list-style: none;
+}
+
+/* Adjacent siblings */
+.uk-comment-list > :nth-child(n+2) {
+    margin-top: $comment-list-margin-top;
+    @if(mixin-exists(hook-comment-list-adjacent)) {@include hook-comment-list-adjacent();}
+}
+
+/*
+ * Sublists
+ * Note: General sibling selector allows reply block between comment and sublist
+ */
+
+.uk-comment-list .uk-comment ~ ul {
+    margin: $comment-list-margin-top 0 0 0;
+    padding-left: $comment-list-padding-left;
+    list-style: none;
+    @if(mixin-exists(hook-comment-list-sub)) {@include hook-comment-list-sub();}
+}
+
+/* Tablet and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-comment-list .uk-comment ~ ul { padding-left: $comment-list-padding-left-m; }
+
+}
+
+/* Adjacent siblings */
+.uk-comment-list .uk-comment ~ ul > :nth-child(n+2) {
+    margin-top: $comment-list-margin-top;
+    @if(mixin-exists(hook-comment-list-sub-adjacent)) {@include hook-comment-list-sub-adjacent();}
+}
+
+
+/* Style modifier
+ ========================================================================== */
+
+.uk-comment-primary {
+    @if(mixin-exists(hook-comment-primary)) {@include hook-comment-primary();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-comment-misc)) {@include hook-comment-misc();}
+
+// @mixin hook-comment(){}
+// @mixin hook-comment-body(){}
+// @mixin hook-comment-header(){}
+// @mixin hook-comment-title(){}
+// @mixin hook-comment-meta(){}
+// @mixin hook-comment-avatar(){}
+// @mixin hook-comment-list-adjacent(){}
+// @mixin hook-comment-list-sub(){}
+// @mixin hook-comment-list-sub-adjacent(){}
+// @mixin hook-comment-primary(){}
+// @mixin hook-comment-misc(){}

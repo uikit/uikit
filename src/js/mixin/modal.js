@@ -1,53 +1,51 @@
-import { $, doc, docElement, isWithin, promise, requestAnimationFrame, toMs, transitionend } from '../util/index';
+import {$, addClass, append, css, includes, last, on, once, Promise, removeClass, toMs, width, within} from 'uikit-util';
 import Class from './class';
-import Toggable from './toggable';
+import Container from './container';
+import Togglable from './togglable';
+import {delayOn} from '../core/drop';
 
-var active;
+const active = [];
 
 export default {
 
-    mixins: [Class, Toggable],
+    mixins: [Class, Container, Togglable],
 
     props: {
-        clsPanel: String,
+        selPanel: String,
         selClose: String,
         escClose: Boolean,
         bgClose: Boolean,
-        stack: Boolean,
-        container: Boolean
+        stack: Boolean
     },
 
-    defaults: {
+    data: {
         cls: 'uk-open',
         escClose: true,
         bgClose: true,
         overlay: true,
-        stack: false,
-        container: true
+        stack: false
     },
 
     computed: {
 
-        body() {
-            return $(document.body);
-        },
-
-        panel() {
-            return this.$el.find(`.${this.clsPanel}`);
-        },
-
-        container() {
-            return this.$props.container === true && UIkit.container || this.$props.container && toJQuery(this.$props.container);
+        panel({selPanel}, $el) {
+            return $(selPanel, $el);
         },
 
         transitionElement() {
             return this.panel;
         },
 
-        transitionDuration() {
-            return toMs(this.transitionElement.css('transition-duration'));
+        bgClose({bgClose}) {
+            return bgClose && this.panel;
         }
 
+    },
+
+    beforeDisconnect() {
+        if (this.isToggled()) {
+            this.toggleNow(this.$el, false);
+        }
     },
 
     events: [
@@ -71,7 +69,14 @@ export default {
 
             name: 'toggle',
 
+            self: true,
+
             handler(e) {
+
+                if (e.defaultPrevented) {
+                    return;
+                }
+
                 e.preventDefault();
                 this.toggle();
             }
@@ -79,61 +84,62 @@ export default {
         },
 
         {
-
             name: 'beforeshow',
 
             self: true,
 
-            handler() {
+            handler(e) {
 
-                if (this.isToggled()) {
+                if (includes(active, this)) {
                     return false;
                 }
 
-                var prev = active && active !== this && active;
-
-                active = this;
-
-                if (prev) {
-                    if (this.stack) {
-                        this.prev = prev;
-                    } else {
-                        prev.hide().then(this.show);
-                        return false;
-                    }
+                if (!this.stack && active.length) {
+                    Promise.all(active.map(modal => modal.hide())).then(this.show);
+                    e.preventDefault();
                 } else {
-                    requestAnimationFrame(() => register(this.$options.name));
+                    active.push(this);
                 }
-
-                if (!prev) {
-                    this.scrollbarWidth = window.innerWidth - docElement[0].offsetWidth;
-                    this.body.css('overflow-y', this.scrollbarWidth && this.overlay ? 'scroll' : '');
-                }
-
-                docElement.addClass(this.clsPage);
-
             }
 
         },
 
         {
 
-            name: 'beforehide',
+            name: 'show',
 
             self: true,
 
             handler() {
 
-                if (!this.isToggled()) {
-                    return false;
+                if (width(window) - width(document) && this.overlay) {
+                    css(document.body, 'overflowY', 'scroll');
                 }
 
-                active = active && active !== this && active || this.prev;
+                addClass(document.documentElement, this.clsPage);
 
-                if (!active) {
-                    deregister(this.$options.name);
+                if (this.bgClose) {
+                    once(this.$el, 'hide', delayOn(document, 'click', ({defaultPrevented, target}) => {
+                        const current = last(active);
+                        if (!defaultPrevented
+                            && current === this
+                            && (!current.overlay || within(target, current.$el))
+                            && !within(target, current.panel)
+                        ) {
+                            current.hide();
+                        }
+                    }), {self: true});
                 }
 
+                if (this.escClose) {
+                    once(this.$el, 'hide', on(document, 'keydown', e => {
+                        const current = last(active);
+                        if (e.keyCode === 27 && current === this) {
+                            e.preventDefault();
+                            current.hide();
+                        }
+                    }), {self: true});
+                }
             }
 
         },
@@ -145,10 +151,17 @@ export default {
             self: true,
 
             handler() {
-                if (!active) {
-                    docElement.removeClass(this.clsPage);
-                    this.body.css('overflow-y', '');
+
+                active.splice(active.indexOf(this), 1);
+
+                if (!active.length) {
+                    css(document.body, 'overflowY', '');
                 }
+
+                if (!active.some(modal => modal.clsPage === this.clsPage)) {
+                    removeClass(document.documentElement, this.clsPage);
+                }
+
             }
 
         }
@@ -162,71 +175,46 @@ export default {
         },
 
         show() {
-            if (this.container && !this.$el.parent().is(this.container)) {
-                this.$el.appendTo(this.container);
-                return promise(resolve =>
+
+            if (this.container && this.$el.parentNode !== this.container) {
+                append(this.container, this.$el);
+                return new Promise(resolve =>
                     requestAnimationFrame(() =>
-                        resolve(this.show())
+                        this.show().then(resolve)
                     )
-                )
+                );
             }
 
-            return this.toggleNow(this.$el, true);
+            return this.toggleElement(this.$el, true, animate(this));
         },
 
         hide() {
-            return this.toggleNow(this.$el, false);
-        },
-
-        getActive() {
-            return active;
-        },
-
-        _toggleImmediate(el, show) {
-            this._toggle(el, show);
-
-            return this.transitionDuration ? promise((resolve, reject) => {
-
-                if (this._transition) {
-                    this.transitionElement.off(transitionend, this._transition.handler);
-                    this._transition.reject();
-                }
-
-                this._transition = {
-                    reject,
-                    handler: () => {
-                        resolve();
-                        this._transition = null;
-                    }
-                };
-
-                this.transitionElement.one(transitionend, this._transition.handler);
-
-            }) : promise.resolve();
-        },
-    }
-
-}
-
-function register(name) {
-    doc.on({
-
-        [`click.${name}`](e) {
-            if (active && active.bgClose && !e.isDefaultPrevented() && !isWithin(e.target, active.panel)) {
-                active.hide();
-            }
-        },
-
-        [`keydown.${name}`](e) {
-            if (e.keyCode === 27 && active && active.escClose) {
-                e.preventDefault();
-                active.hide();
-            }
+            return this.toggleElement(this.$el, false, animate(this));
         }
 
-    });
-}
+    }
 
-function deregister(name) {
-    doc.off(`click.${name}`).off(`keydown.${name}`);
+};
+
+function animate({transitionElement, _toggle}) {
+    return (el, show) =>
+        new Promise((resolve, reject) =>
+            once(el, 'show hide', () => {
+                el._reject && el._reject();
+                el._reject = reject;
+
+                _toggle(el, show);
+
+                const off = once(transitionElement, 'transitionstart', () => {
+                    once(transitionElement, 'transitionend transitioncancel', resolve, {self: true});
+                    clearTimeout(timer);
+                }, {self: true});
+
+                const timer = setTimeout(() => {
+                    off();
+                    resolve();
+                }, toMs(css(transitionElement, 'transitionDuration')));
+
+            })
+        );
 }

@@ -1,0 +1,430 @@
+// Name:            Animation
+// Description:     Utilities for keyframe animations
+//
+// Component:       `uk-animation-*`
+//
+// Modifiers:       `uk-animation-fade`
+//                  `uk-animation-scale-up`
+//                  `uk-animation-scale-down`
+//                  `uk-animation-slide-top-*`
+//                  `uk-animation-slide-bottom-*`
+//                  `uk-animation-slide-left-*`
+//                  `uk-animation-slide-right-*`
+//                  `uk-animation-kenburns`
+//                  `uk-animation-shake`
+//                  `uk-animation-stroke`
+//                  `uk-animation-reverse`
+//                  `uk-animation-fast`
+//
+// Sub-objects:     `uk-animation-toggle`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$animation-duration:                             0.5s !default;
+$animation-fade-duration:                        0.8s !default;
+$animation-stroke-duration:                      2s !default;
+$animation-kenburns-duration:                    15s !default;
+$animation-fast-duration:                        0.1s !default;
+
+$animation-slide-small-translate:                10px !default;
+$animation-slide-medium-translate:               50px !default;
+
+
+/* ========================================================================
+   Component: Animation
+ ========================================================================== */
+
+[class*='uk-animation-'] {
+    animation-duration: $animation-duration;
+    animation-timing-function: ease-out;
+    animation-fill-mode: both;
+}
+
+
+/* Animations
+ ========================================================================== */
+
+/*
+ * Fade
+ */
+
+.uk-animation-fade {
+    animation-name: uk-fade;
+    animation-duration: $animation-fade-duration;
+    animation-timing-function: linear;
+}
+
+/*
+ * Scale
+ */
+
+.uk-animation-scale-up { animation-name: uk-fade-scale-02; }
+.uk-animation-scale-down { animation-name: uk-fade-scale-18; }
+
+/*
+ * Slide
+ */
+
+.uk-animation-slide-top { animation-name: uk-fade-top; }
+.uk-animation-slide-bottom { animation-name: uk-fade-bottom; }
+.uk-animation-slide-left { animation-name: uk-fade-left; }
+.uk-animation-slide-right { animation-name: uk-fade-right; }
+
+/*
+ * Slide Small
+ */
+
+.uk-animation-slide-top-small { animation-name: uk-fade-top-small; }
+.uk-animation-slide-bottom-small { animation-name: uk-fade-bottom-small; }
+.uk-animation-slide-left-small { animation-name: uk-fade-left-small; }
+.uk-animation-slide-right-small { animation-name: uk-fade-right-small; }
+
+/*
+ * Slide Medium
+ */
+
+.uk-animation-slide-top-medium { animation-name: uk-fade-top-medium; }
+.uk-animation-slide-bottom-medium { animation-name: uk-fade-bottom-medium; }
+.uk-animation-slide-left-medium { animation-name: uk-fade-left-medium; }
+.uk-animation-slide-right-medium { animation-name: uk-fade-right-medium; }
+
+/*
+ * Kenburns
+ */
+
+.uk-animation-kenburns {
+    animation-name: uk-scale-kenburns;
+    animation-duration: $animation-kenburns-duration;
+}
+
+/*
+ * Shake
+ */
+
+.uk-animation-shake { animation-name: uk-shake; }
+
+/*
+ * SVG Stroke
+ * The `--uk-animation-stroke` custom property contains the longest path length.
+ * Set it manually or use `uk-svg="stroke-animation: true"` to set it automatically.
+ * All strokes are animated by the same pace and doesn't end simultaneously.
+ * To end simultaneously, `pathLength="1"` could be used, but it's not working in Safari yet.
+ */
+
+.uk-animation-stroke {
+    animation-name: uk-stroke;
+    stroke-dasharray: var(--uk-animation-stroke);
+    animation-duration: $animation-stroke-duration;
+}
+
+
+/* Direction modifier
+ ========================================================================== */
+
+ .uk-animation-reverse {
+    animation-direction: reverse;
+    animation-timing-function: ease-in;
+}
+
+
+/* Duration modifier
+ ========================================================================== */
+
+ .uk-animation-fast { animation-duration: $animation-fast-duration; }
+
+
+/* Toggle (Hover + Focus)
+========================================================================== */
+
+/*
+ * The toggle is triggered on touch devices using `:focus` and tabindex
+ */
+
+.uk-animation-toggle:not(:hover):not(:focus) [class*='uk-animation-'] { animation-name: none; }
+
+/*
+ * 1. Prevent tab highlighting on iOS.
+ */
+
+.uk-animation-toggle {
+    /* 1 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/*
+ * Remove outline for `tabindex`
+ */
+
+.uk-animation-toggle:focus { outline: none; }
+
+
+/* Keyframes used by animation classes
+ ========================================================================== */
+
+/*
+ * Fade
+ */
+
+@keyframes uk-fade {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/*
+ * Slide Top
+ */
+
+@keyframes uk-fade-top {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Bottom
+ */
+
+@keyframes uk-fade-bottom {
+    0% {
+        opacity: 0;
+        transform: translateY(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Left
+ */
+
+@keyframes uk-fade-left {
+    0% {
+        opacity: 0;
+        transform: translateX(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Slide Right
+ */
+
+@keyframes uk-fade-right {
+    0% {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Slide Top Small
+ */
+
+@keyframes uk-fade-top-small {
+    0% {
+        opacity: 0;
+        transform: translateY(-$animation-slide-small-translate);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Bottom Small
+ */
+
+@keyframes uk-fade-bottom-small {
+    0% {
+        opacity: 0;
+        transform: translateY($animation-slide-small-translate);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Left Small
+ */
+
+@keyframes uk-fade-left-small {
+    0% {
+        opacity: 0;
+        transform: translateX(-$animation-slide-small-translate);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Slide Right Small
+ */
+
+@keyframes uk-fade-right-small {
+    0% {
+        opacity: 0;
+        transform: translateX($animation-slide-small-translate);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Slide Top Medium
+ */
+
+@keyframes uk-fade-top-medium {
+    0% {
+        opacity: 0;
+        transform: translateY(-$animation-slide-medium-translate);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Bottom Medium
+ */
+
+@keyframes uk-fade-bottom-medium {
+    0% {
+        opacity: 0;
+        transform: translateY($animation-slide-medium-translate);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/*
+ * Slide Left Medium
+ */
+
+@keyframes uk-fade-left-medium {
+    0% {
+        opacity: 0;
+        transform: translateX(-$animation-slide-medium-translate);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Slide Right Medium
+ */
+
+@keyframes uk-fade-right-medium {
+    0% {
+        opacity: 0;
+        transform: translateX($animation-slide-medium-translate);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/*
+ * Scale Up
+ */
+
+@keyframes uk-fade-scale-02 {
+    0% {
+        opacity: 0;
+        transform: scale(0.2);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/*
+ * Scale Down
+ */
+
+@keyframes uk-fade-scale-18 {
+    0% {
+        opacity: 0;
+        transform: scale(1.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/*
+ * Kenburns
+ */
+
+@keyframes uk-scale-kenburns {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.2); }
+}
+
+/*
+ * Shake
+ */
+
+@keyframes uk-shake {
+    0%, 100% { transform: translateX(0); }
+    10% { transform: translateX(-9px); }
+    20% { transform: translateX(8px); }
+    30% { transform: translateX(-7px); }
+    40% { transform: translateX(6px); }
+    50% { transform: translateX(-5px); }
+    60% { transform: translateX(4px); }
+    70% { transform: translateX(-3px); }
+    80% { transform: translateX(2px); }
+    90% { transform: translateX(-1px); }
+}
+
+/*
+ * Stroke
+ */
+
+ @keyframes uk-stroke {
+    0% { stroke-dashoffset: var(--uk-animation-stroke); }
+    100% { stroke-dashoffset: 0; }
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-animation-misc)) {@include hook-animation-misc();}
+
+// @mixin hook-animation-misc(){}

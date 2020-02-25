@@ -1,0 +1,36 @@
+// Name:            SVG
+// Description:     Component to style SVGs
+//
+// Component:       `uk-svg`
+//
+// ========================================================================
+
+
+/* ========================================================================
+   Component: SVG
+ ========================================================================== */
+
+/*
+ * 1. Fill all SVG elements with the current text color if no `fill` attribute is set
+ * 2. Set the fill and stroke color of all SVG elements to the current text color
+ */
+
+/* 1 */
+.uk-svg,
+/* 2 */
+.uk-svg:not(.uk-preserve) [fill*='#']:not(.uk-preserve) { fill: currentcolor; }
+.uk-svg:not(.uk-preserve) [stroke*='#']:not(.uk-preserve) { stroke: currentcolor; }
+
+/*
+ * Fix Firefox blurry SVG rendering: https://bugzilla.mozilla.org/show_bug.cgi?id=1046835
+ */
+
+.uk-svg { transform: translate(0,0); }
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-svg-misc)) {@include hook-svg-misc();}
+
+// @mixin hook-svg-misc(){}

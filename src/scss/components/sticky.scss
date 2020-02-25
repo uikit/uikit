@@ -1,0 +1,53 @@
+// Name:            Sticky
+// Description:     Component to make elements sticky in the viewport
+//
+// Component:       `uk-sticky`
+//
+// Modifier:        `uk-sticky-fixed`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$sticky-z-index:                                 $global-z-index - 20 !default;
+
+$sticky-animation-duration:                      0.2s !default;
+$sticky-reverse-animation-duration:              0.2s !default;
+
+
+/* ========================================================================
+   Component: Sticky
+ ========================================================================== */
+
+/*
+ * 1. Resolve frame rate issues on devices with lower frame rates by forcing hardware acceleration
+ */
+
+.uk-sticky-fixed {
+    z-index: $sticky-z-index;
+    box-sizing: border-box;
+    margin: 0 !important;
+    /* 1 */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+/*
+ * Faster animations
+ */
+
+.uk-sticky[class*='uk-animation-'] { animation-duration: $sticky-animation-duration; }
+
+.uk-sticky.uk-animation-reverse { animation-duration: $sticky-reverse-animation-duration; }
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-sticky-misc)) {@include hook-sticky-misc();}
+
+// @mixin hook-sticky-misc(){}

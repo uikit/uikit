@@ -1,0 +1,59 @@
+//
+// Component: Accordion
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+//
+// New
+//
+
+$accordion-icon-margin-left:                    10px !default;
+$accordion-icon-color:                          $global-color !default;
+$internal-accordion-open-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22#000%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%3C%2Fsvg%3E" !default;
+$internal-accordion-close-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2213%22%20height%3D%2213%22%20viewBox%3D%220%200%2013%2013%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Crect%20fill%3D%22#000%22%20width%3D%2213%22%20height%3D%221%22%20x%3D%220%22%20y%3D%226%22%20%2F%3E%0A%20%20%20%20%3Crect%20fill%3D%22#000%22%20width%3D%221%22%20height%3D%2213%22%20x%3D%226%22%20y%3D%220%22%20%2F%3E%0A%3C%2Fsvg%3E" !default;
+
+
+// Component
+// ========================================================================
+
+// @mixin hook-accordion(){}
+
+
+// Item
+// ========================================================================
+
+// @mixin hook-accordion-item(){}
+
+
+// Title
+// ========================================================================
+
+
+
+// @mixin hook-accordion-title-hover(){}
+
+
+// Content
+// ========================================================================
+
+// @mixin hook-accordion-content(){}
+
+
+// Miscellaneous
+// ========================================================================
+
+// @mixin hook-accordion-misc(){}
+
+// Inverse
+// ========================================================================
+
+// @mixin hook-inverse-accordion-item(){}
+
+// @mixin hook-inverse-accordion-title(){}
+// @mixin hook-inverse-accordion-title-hover(){}
+
+

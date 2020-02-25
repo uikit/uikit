@@ -1,74 +1,84 @@
-import { Class } from '../mixin/index';
-import { query } from '../util/index';
+import Class from '../mixin/class';
+import {$, $$, closest, isInput, matches, query, selInput} from 'uikit-util';
 
-export default function (UIkit) {
+export default {
 
-    UIkit.component('form-custom', {
+    mixins: [Class],
 
-        mixins: [Class],
+    args: 'target',
 
-        args: 'target',
+    props: {
+        target: Boolean
+    },
 
-        props: {
-            target: Boolean
+    data: {
+        target: false
+    },
+
+    computed: {
+
+        input(_, $el) {
+            return $(selInput, $el);
         },
 
-        defaults: {
-            target: false
+        state() {
+            return this.input.nextElementSibling;
         },
 
-        computed: {
+        target({target}, $el) {
+            return target && (target === true
+                && this.input.parentNode === $el
+                && this.input.nextElementSibling
+                || query(target, $el));
+        }
 
-            input() {
-                return this.$el.find(':input:first');
-            },
+    },
 
-            state() {
-                return this.input.next();
-            },
+    update() {
 
-            target() {
-                this.$props.target && query(this.$props.target === true ? '> :input:first + :first' : this.$props.target, this.$el)
+        const {target, input} = this;
+
+        if (!target) {
+            return;
+        }
+
+        let option;
+        const prop = isInput(target) ? 'value' : 'textContent';
+        const prev = target[prop];
+        const value = input.files && input.files[0]
+            ? input.files[0].name
+            : matches(input, 'select') && (option = $$('option', input).filter(el => el.selected)[0]) // eslint-disable-line prefer-destructuring
+                ? option.textContent
+                : input.value;
+
+        if (prev !== value) {
+            target[prop] = value;
+        }
+
+    },
+
+    events: [
+
+        {
+            name: 'change',
+
+            handler() {
+                this.$update();
             }
-
         },
 
-        ready() {
-            this.input.trigger('change');
-        },
+        {
+            name: 'reset',
 
-        events: [
-
-            {
-
-                name: 'focus blur mouseenter mouseleave',
-
-                delegate: ':input:first',
-
-                handler({type}) {
-                    this.state.toggleClass(`uk-${~['focus', 'blur'].indexOf(type) ? 'focus' : 'hover'}`, ~['focus', 'mouseenter'].indexOf(type));
-                }
-
+            el() {
+                return closest(this.$el, 'form');
             },
 
-            {
-
-                name: 'change',
-
-                handler() {
-                    this.target && this.target[this.target.is(':input') ? 'val' : 'text'](
-                        this.input[0].files && this.input[0].files[0]
-                            ? this.input[0].files[0].name
-                            : this.input.is('select')
-                                ? this.input.find('option:selected').text()
-                                : this.input.val()
-                    );
-                }
-
+            handler() {
+                this.$update();
             }
+        }
 
-        ]
+    ]
 
-    });
-
-}
+};

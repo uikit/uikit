@@ -1,0 +1,96 @@
+// Name:            Sortable
+// Description:     Component to create sortable grids and lists
+//
+// Component:       `uk-sortable`
+//
+// Sub-objects:     `uk-sortable-drag`
+//                  `uk-sortable-placeholder`
+//                  `uk-sortable-handle`
+//
+// Modifiers:       `uk-sortable-empty`
+//
+// States:          `uk-drag`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$sortable-dragged-z-index:                       $global-z-index + 50 !default;
+
+$sortable-placeholder-opacity:                   0 !default;
+
+$sortable-empty-height:                          50px !default;
+
+
+/* ========================================================================
+   Component: Sortable
+ ========================================================================== */
+
+.uk-sortable {
+    position: relative;
+    @if(mixin-exists(hook-sortable)) {@include hook-sortable();}
+}
+
+/*
+ * Deactivate pointer-events on SVGs in Safari
+ */
+
+.uk-sortable svg { pointer-events: none; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-sortable > :last-child { margin-bottom: 0; }
+
+
+/* Drag
+ ========================================================================== */
+
+.uk-sortable-drag {
+    position: absolute !important;
+    z-index: $sortable-dragged-z-index !important;
+    pointer-events: none;
+    @if(mixin-exists(hook-sortable-drag)) {@include hook-sortable-drag();}
+}
+
+
+/* Placeholder
+ ========================================================================== */
+
+.uk-sortable-placeholder {
+    opacity: $sortable-placeholder-opacity;
+    pointer-events: none;
+    @if(mixin-exists(hook-sortable-placeholder)) {@include hook-sortable-placeholder();}
+}
+
+
+/* Empty modifier
+ ========================================================================== */
+
+.uk-sortable-empty {
+    min-height: $sortable-empty-height;
+    @if(mixin-exists(hook-sortable-empty)) {@include hook-sortable-empty();}
+}
+
+
+/* Handle
+ ========================================================================== */
+
+/* Hover */
+.uk-sortable-handle:hover { cursor: move; }
+
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-sortable-misc)) {@include hook-sortable-misc();}
+
+// @mixin hook-sortable(){}
+// @mixin hook-sortable-drag(){}
+// @mixin hook-sortable-placeholder(){}
+// @mixin hook-sortable-empty(){}
+// @mixin hook-sortable-misc(){}

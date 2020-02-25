@@ -1,0 +1,153 @@
+// Name:            Dropdown
+// Description:     Component to create dropdown menus
+//
+// Component:       `uk-dropdown`
+//
+// Adopted:         `uk-dropdown-nav`
+//
+// Modifiers:       `uk-dropdown-top-*`
+//                  `uk-dropdown-bottom-*`
+//                  `uk-dropdown-left-*`
+//                  `uk-dropdown-right-*`
+//                  `uk-dropdown-stack`
+//                  `uk-dropdown-grid`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$dropdown-z-index:                               $global-z-index + 20 !default;
+$dropdown-min-width:                             200px !default;
+$dropdown-padding:                               15px !default;
+$dropdown-background:                            $global-muted-background !default;
+$dropdown-color:                                 $global-color !default;
+$dropdown-margin:                                $global-small-margin !default;
+
+$dropdown-nav-item-color:                        $global-muted-color !default;
+$dropdown-nav-item-hover-color:                  $global-color !default;
+$dropdown-nav-header-color:                      $global-emphasis-color !default;
+$dropdown-nav-divider-border-width:              $global-border-width !default;
+$dropdown-nav-divider-border:                    $global-border !default;
+$dropdown-nav-sublist-item-color:                $global-muted-color !default;
+$dropdown-nav-sublist-item-hover-color:          $global-color !default;
+
+
+/* ========================================================================
+   Component: Dropdown
+ ========================================================================== */
+
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Set a default width
+ * 4. Style
+ */
+
+.uk-dropdown {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: absolute;
+    z-index: $dropdown-z-index;
+    /* 3 */
+    box-sizing: border-box;
+    min-width: $dropdown-min-width;
+    /* 4 */
+    padding: $dropdown-padding;
+    background: $dropdown-background;
+    color: $dropdown-color;
+    @if(mixin-exists(hook-dropdown)) {@include hook-dropdown();}
+}
+
+/* Show */
+.uk-dropdown.uk-open { display: block; }
+
+
+/* Nav
+ * Adopts `uk-nav`
+ ========================================================================== */
+
+.uk-dropdown-nav {
+    white-space: nowrap;
+    @if(mixin-exists(hook-dropdown-nav)) {@include hook-dropdown-nav();}
+}
+
+/*
+ * Items
+ */
+
+.uk-dropdown-nav > li > a {
+    color: $dropdown-nav-item-color;
+    @if(mixin-exists(hook-dropdown-nav-item)) {@include hook-dropdown-nav-item();}
+}
+
+/* Hover + Focus + Active */
+.uk-dropdown-nav > li > a:hover,
+.uk-dropdown-nav > li > a:focus,
+.uk-dropdown-nav > li.uk-active > a {
+    color: $dropdown-nav-item-hover-color;
+    @if(mixin-exists(hook-dropdown-nav-item-hover)) {@include hook-dropdown-nav-item-hover();}
+}
+
+/*
+ * Header
+ */
+
+.uk-dropdown-nav .uk-nav-header {
+    color: $dropdown-nav-header-color;
+    @if(mixin-exists(hook-dropdown-nav-header)) {@include hook-dropdown-nav-header();}
+}
+
+/*
+ * Divider
+ */
+
+.uk-dropdown-nav .uk-nav-divider {
+    border-top: $dropdown-nav-divider-border-width solid $dropdown-nav-divider-border;
+    @if(mixin-exists(hook-dropdown-nav-divider)) {@include hook-dropdown-nav-divider();}
+}
+
+/*
+ * Sublists
+ */
+
+.uk-dropdown-nav .uk-nav-sub a { color: $dropdown-nav-sublist-item-color; }
+
+.uk-dropdown-nav .uk-nav-sub a:hover,
+.uk-dropdown-nav .uk-nav-sub a:focus,
+.uk-dropdown-nav .uk-nav-sub li.uk-active > a { color: $dropdown-nav-sublist-item-hover-color; }
+
+
+/* Direction / Alignment modifiers
+ ========================================================================== */
+
+/* Direction */
+[class*='uk-dropdown-top'] { margin-top: (-$dropdown-margin); }
+[class*='uk-dropdown-bottom'] { margin-top: $dropdown-margin; }
+[class*='uk-dropdown-left'] { margin-left: (-$dropdown-margin); }
+[class*='uk-dropdown-right'] { margin-left: $dropdown-margin; }
+
+
+/* Grid modifiers
+ ========================================================================== */
+
+.uk-dropdown-stack .uk-dropdown-grid > * { width: 100% !important; }
+
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-dropdown-misc)) {@include hook-dropdown-misc();}
+
+// @mixin hook-dropdown(){}
+// @mixin hook-dropdown-nav(){}
+// @mixin hook-dropdown-nav-item(){}
+// @mixin hook-dropdown-nav-item-hover(){}
+// @mixin hook-dropdown-nav-header(){}
+// @mixin hook-dropdown-nav-divider(){}
+// @mixin hook-dropdown-misc(){}

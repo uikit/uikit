@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Image - UIkit tests</title>
+        <script src="js/test.js"></script>
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Image</h1>
+
+            <p><button class="uk-button uk-button-default" onclick="sessionStorage.clear()">Clear Session Storage</button></p>
+
+            <div class="uk-child-width-1-2@m" uk-grid>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1522201949034-507737bce479?fit=crop&w=900&h=600&q=80" width="900" height="600" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1503481766315-7a586b20f66d?fit=crop&w=900&h=600&q=80" width="900" height="600" alt="" uk-img>
+                </div>
+            </div>
+
+            <div class="uk-height-large uk-background-cover uk-margin-medium uk-flex uk-flex-center uk-flex-middle uk-light" data-src="https://images.unsplash.com/photo-1490822180406-880c226c150b?fit=crop&w=1200&h=450&q=80" uk-img>
+                <h1>Background Image</h1>
+            </div>
+
+            <div class="uk-child-width-1-2@s uk-child-width-1-3@m" uk-grid>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1523359247812-29dde5ac53a0?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1523359247812-29dde5ac53a0?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1523359247812-29dde5ac53a0?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1522201949034-507737bce479?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1522201949034-507737bce479?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1522201949034-507737bce479?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1522205445560-4630427027e3?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1522205445560-4630427027e3?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1522205445560-4630427027e3?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1519635667140-f5e8fd6c617f?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1519635667140-f5e8fd6c617f?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1519635667140-f5e8fd6c617f?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1516054237813-0df813b7f496?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1516054237813-0df813b7f496?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1516054237813-0df813b7f496?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1487447054015-16918f0e7999?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1487447054015-16918f0e7999?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1487447054015-16918f0e7999?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1449247526693-aa049327be54?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1449247526693-aa049327be54?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1449247526693-aa049327be54?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1522205419828-f5b336fc3931?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1522205419828-f5b336fc3931?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1522205419828-f5b336fc3931?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1522204538344-922f76ecc041?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1522204538344-922f76ecc041?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1522204538344-922f76ecc041?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1491947153227-33d59da6c448?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1491947153227-33d59da6c448?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1491947153227-33d59da6c448?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1502021680532-838cfc650323?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1502021680532-838cfc650323?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1502021680532-838cfc650323?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1508138221679-760a23a2285b?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1508138221679-760a23a2285b?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1508138221679-760a23a2285b?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1487611459768-bd414656ea10?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1487611459768-bd414656ea10?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1487611459768-bd414656ea10?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1501854140801-50d01698950b?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1501854140801-50d01698950b?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1501854140801-50d01698950b?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1455612693675-112974d4880b?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1455612693675-112974d4880b?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1455612693675-112974d4880b?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1515853327920-2567e0b122f7?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1515853327920-2567e0b122f7?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1515853327920-2567e0b122f7?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1500393734221-584dd6dbf92a?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1500393734221-584dd6dbf92a?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1500393734221-584dd6dbf92a?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1506084868230-bb9d95c24759?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1506084868230-bb9d95c24759?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1506084868230-bb9d95c24759?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1501254667263-b4867b4f7482?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1501254667263-b4867b4f7482?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1501254667263-b4867b4f7482?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1478024646077-8a9b56e5319c?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1478024646077-8a9b56e5319c?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1478024646077-8a9b56e5319c?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1500964757637-c85e8a162699?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1500964757637-c85e8a162699?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1500964757637-c85e8a162699?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1481386642130-4a31ef3bf00d?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1481386642130-4a31ef3bf00d?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1481386642130-4a31ef3bf00d?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1491895200222-0fc4a4c35e18?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1491895200222-0fc4a4c35e18?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1491895200222-0fc4a4c35e18?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1448375240586-882707db888b?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1448375240586-882707db888b?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1448375240586-882707db888b?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+                <div>
+                    <img data-src="https://images.unsplash.com/photo-1508971344143-29b17efc1689?fit=crop&w=373&h=249&q=80"
+                         data-srcset="https://images.unsplash.com/photo-1508971344143-29b17efc1689?fit=crop&w=373&h=249&q=80 373w,
+                                      https://images.unsplash.com/photo-1508971344143-29b17efc1689?fit=crop&w=746&h=498&q=80 746w"
+                         sizes="(min-width: 1200px) 373px, (min-width: 960px) 33vw, (min-width: 640px) 50vw, 100vw"
+                         width="746" height="498" alt="" uk-img>
+                </div>
+            </div>
+
+            <div class="uk-height-large uk-background-cover uk-margin-medium uk-flex uk-flex-center uk-flex-middle"
+                 data-src="https://images.unsplash.com/photo-1485627941502-d2e6429a8af0?fit=crop&w=1200&h=450&q=80"
+                 data-srcset="https://images.unsplash.com/photo-1485627941502-d2e6429a8af0?fit=crop&w=800&h=300&q=80 800w,
+                              https://images.unsplash.com/photo-1485627941502-d2e6429a8af0?fit=crop&w=1200&h=450&q=80 1200w,
+                              https://images.unsplash.com/photo-1485627941502-d2e6429a8af0?fit=crop&w=2400&h=900&q=80 2400w"
+                 sizes="(min-width: 1200px) 1200px, 100vw" uk-img>
+                <h1>Background Image</h1>
+            </div>
+
+            <div class="uk-height-large uk-background-cover uk-margin-medium uk-flex uk-flex-center uk-flex-middle uk-light"
+                 data-src="https://images.unsplash.com/photo-1487837647815-bbc1f30cd0d2?fit=crop&w=1200&h=450&q=80"
+                 data-srcset="https://images.unsplash.com/photo-1487837647815-bbc1f30cd0d2?fit=crop&w=800&h=300&q=80 800w,
+                              https://images.unsplash.com/photo-1487837647815-bbc1f30cd0d2?fit=crop&w=1200&h=450&q=80 1200w,
+                              https://images.unsplash.com/photo-1487837647815-bbc1f30cd0d2?fit=crop&w=2400&h=900&q=80 2400w"
+                 sizes="(min-width: 1200px) 1200px, 100vw" uk-img>
+                <h1>Background Image</h1>
+            </div>
+
+            <div class="uk-height-large uk-background-cover uk-margin-medium uk-flex uk-flex-center uk-flex-middle uk-light"
+                 data-src="https://images.unsplash.com/photo-1464621922360-27f3bf0eca75?fit=crop&w=1200&h=450&q=80"
+                 data-srcset="https://images.unsplash.com/photo-1464621922360-27f3bf0eca75?fit=crop&w=800&h=300&q=80 800w,
+                              https://images.unsplash.com/photo-1464621922360-27f3bf0eca75?fit=crop&w=1200&h=450&q=80 1200w,
+                              https://images.unsplash.com/photo-1464621922360-27f3bf0eca75?fit=crop&w=2400&h=900&q=80 2400w"
+                 sizes="(min-width: 1200px) 1200px, 100vw" uk-img>
+                <h1>Background Image</h1>
+            </div>
+
+            <div class="uk-child-width-1-2@m" uk-grid>
+                <div>
+
+                    <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="ratio: 3:2; autoplay: false">
+
+                        <ul class="uk-slideshow-items">
+                            <li>
+                                <img data-src="images/photo.jpg" alt="" uk-cover data-width="1800" data-height="1200" uk-img="target: !.uk-slideshow-items > :last-child, !* +*">
+                                <div class="uk-position-center uk-position-small uk-text-center">
+                                    <h2 uk-slideshow-parallax="x: 100,-100">Heading</h2>
+                                    <p uk-slideshow-parallax="x: 200,-200">Lorem ipsum dolor sit amet.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <img data-src="images/dark.jpg" alt="" uk-cover data-width="1800" data-height="1200" uk-img="target: !* -*, !* +*">
+                                <div class="uk-position-center uk-position-small uk-text-center">
+                                    <h2 uk-slideshow-parallax="x: 100,-100">Heading</h2>
+                                    <p uk-slideshow-parallax="x: 200,-200">Lorem ipsum dolor sit amet.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <img data-src="images/light.jpg" alt="" uk-cover data-width="1800" data-height="1200" uk-img="target: !* -*, !* +*">
+                                <div class="uk-position-center uk-position-small uk-text-center">
+                                    <h2 uk-slideshow-parallax="y: -50,0,0; opacity: 1,1,0">Heading</h2>
+                                    <p uk-slideshow-parallax="y: 50,0,0; opacity: 1,1,0">Lorem ipsum dolor sit amet.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <img data-src="images/photo2.jpg" alt="" uk-cover data-width="1800" data-height="1200" uk-img="target: !* -*, !.uk-slideshow-items > :first-child">
+                                <div class="uk-position-center uk-position-small uk-text-center">
+                                    <h2 uk-slideshow-parallax="x: 200,0,0">Heading</h2>
+                                    <p uk-slideshow-parallax="x: 0,0,-200">Lorem ipsum dolor sit amet.</p>
+                                </div>
+                            </li>
+                        </ul>
+
+                        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slideshow-item="previous"></a>
+                        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slideshow-item="next"></a>
+
+                    </div>
+
+                </div>
+                <div>
+
+                    <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider="clsActivated: uk-transition-active">
+
+                        <ul class="uk-slider-items uk-child-width-1-2@s uk-child-width-1-3@m">
+                            <li>
+                                <img data-src="images/slider1.jpg" alt="" data-width="400" data-height="600" uk-img="target: !.uk-slider-items">
+                                <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">1</h1></div>
+                            </li>
+                            <li>
+                                <img data-src="images/slider2.jpg" alt="" data-width="400" data-height="600" uk-img="target: !.uk-slider-items">
+                                <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">2</h1></div>
+                            </li>
+                            <li>
+                                <img data-src="images/slider3.jpg" alt="" data-width="400" data-height="600" uk-img="target: !.uk-slider-items">
+                                <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">3</h1></div>
+                            </li>
+                            <li>
+                                <img data-src="images/slider4.jpg" alt="" data-width="400" data-height="600" uk-img="target: !.uk-slider-items">
+                                <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">4</h1></div>
+                            </li>
+                            <li>
+                                <img data-src="images/slider5.jpg" alt="" data-width="400" data-height="600" uk-img="target: !.uk-slider-items">
+                                <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">5</h1></div>
+                            </li>
+                            <li>
+                                <img data-src="images/slider1.jpg" alt="" data-width="400" data-height="600" uk-img="target: !.uk-slider-items">
+                                <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">6</h1></div>
+                            </li>
+                            <li>
+                                <img data-src="images/slider2.jpg" alt="" data-width="400" data-height="600" uk-img="target: !.uk-slider-items">
+                                <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">7</h1></div>
+                            </li>
+                            <li>
+                                <img data-src="images/slider3.jpg" alt="" data-width="400" data-height="600" uk-img="target: !.uk-slider-items">
+                                <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">8</h1></div>
+                            </li>
+                            <li>
+                                <img data-src="images/slider4.jpg" alt="" data-width="400" data-height="600" uk-img="target: !.uk-slider-items">
+                                <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">9</h1></div>
+                            </li>
+                            <li>
+                                <img data-src="images/slider5.jpg" alt="" data-width="400" data-height="600" uk-img="target: !.uk-slider-items">
+                                <div class="uk-position-center uk-panel"><h1 class="uk-transition-slide-bottom-small">10</h1></div>
+                            </li>
+                        </ul>
+
+                        <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
+                        <a class="uk-position-center-right uk-position-small uk-hidden-hover" href="#" uk-slidenav-next uk-slider-item="next"></a>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <h2>JavaScript Options</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>dataSrc</code></td>
+                            <td>String</td>
+                            <td>''</td>
+                            <td>The image's `src` attribute.</td>
+                        </tr>
+                        <tr>
+                            <td><code>dataSrcset</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>The image's `srcset` attribute.</td>
+                        </tr>
+                        <tr>
+                            <td><code>sizes</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>The image's `sizes` attribute.</td>
+                        </tr>
+                        <tr>
+                            <td><code>width</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>The image's `width` attribute. It will be used to determine the placeholder's width and the images position in the document.</td>
+                        </tr>
+                        <tr>
+                            <td><code>height</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>The image's `height` attribute. It will be used to determine the placeholder's height and the images position in the document.</td>
+                        </tr>
+                        <tr>
+                            <td><code>offsetTop</code></td>
+                            <td>String</td>
+                            <td>'50vh'</td>
+                            <td>The offset increases the viewport's bounding box vertically, before computing an intersection with the image.</td>
+                        </tr>
+                        <tr>
+                            <td><code>offsetLeft</code></td>
+                            <td>String</td>
+                            <td>0</td>
+                            <td>The offset increases the viewport's bounding box horizontally, before computing an intersection with the image.</td>
+                        </tr>
+                        <tr>
+                            <td><code>target</code></td>
+                            <td>String</td>
+                            <td>false</td>
+                            <td>A list of targets who's bounding boxes will be used to compute an intersection with the image. (Defaults to the image itself)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </body>
+</html>

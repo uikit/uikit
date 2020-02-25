@@ -3,6 +3,7 @@
 //
 // Component:       `uk-divider-icon`
 //                  `uk-divider-small`
+//                  `uk-divider-vertical`
 //
 // ========================================================================
 
@@ -25,6 +26,10 @@
 @divider-small-width:                           100px;
 @divider-small-border-width:                    @global-border-width;
 @divider-small-border:                          @global-border;
+
+@divider-vertical-height:                       100px;
+@divider-vertical-border-width:                 @global-border-width;
+@divider-vertical-border:                       @global-border;
 
 
 /* ========================================================================
@@ -86,11 +91,14 @@
  ========================================================================== */
 
 /*
- * Reset child height, caused by `inline-block`
+ * 1. Fix height because of `inline-block`
+ * 2. Using ::after and inline-block to make `text-align` work
  */
 
+/* 1 */
 .uk-divider-small { line-height: 0; }
 
+/* 2 */
 .uk-divider-small::after {
     content: "";
     display: inline-block;
@@ -99,6 +107,19 @@
     border-top: @divider-small-border-width solid @divider-small-border;
     vertical-align: top;
     .hook-divider-small;
+}
+
+
+/* Vertical
+ ========================================================================== */
+
+.uk-divider-vertical {
+    width: 1px;
+    height: @divider-vertical-height;
+    margin-left: auto;
+    margin-right: auto;
+    border-left: @divider-vertical-border-width solid @divider-vertical-border;
+    .hook-divider-vertical;
 }
 
 
@@ -112,6 +133,7 @@
 .hook-divider-icon-line-left() {}
 .hook-divider-icon-line-right() {}
 .hook-divider-small() {}
+.hook-divider-vertical() {}
 .hook-divider-misc() {}
 
 
@@ -121,6 +143,7 @@
 @inverse-divider-icon-color:                      @inverse-global-border;
 @inverse-divider-icon-line-border:                @inverse-global-border;
 @inverse-divider-small-border:                    @inverse-global-border;
+@inverse-divider-vertical-border:                 @inverse-global-border;
 
 .hook-inverse() {
 
@@ -140,8 +163,14 @@
         .hook-inverse-divider-small;
     }
 
+    .uk-divider-vertical {
+        border-left-color: @inverse-divider-vertical-border;
+        .hook-inverse-divider-vertical;
+    }
+
 }
 
 .hook-inverse-divider-icon() {}
 .hook-inverse-divider-icon-line() {}
 .hook-inverse-divider-small() {}
+.hook-inverse-divider-vertical() {}

@@ -1,0 +1,209 @@
+// Name:            Flex
+// Description:     Utilities for layouts based on flexbox
+//
+// Component:       `uk-flex-*`
+//
+// ========================================================================
+
+
+/* ========================================================================
+   Component: Flex
+ ========================================================================== */
+
+.uk-flex { display: flex; }
+.uk-flex-inline { display: inline-flex; }
+
+/*
+ * Remove pseudo elements created by micro clearfix as precaution
+ */
+
+.uk-flex::before,
+.uk-flex::after,
+.uk-flex-inline::before,
+.uk-flex-inline::after { display: none; }
+
+
+/* Alignment
+ ========================================================================== */
+
+/*
+ * Align items along the main axis of the current line of the flex container
+ * Row: Horizontal
+ */
+
+// Default
+.uk-flex-left { justify-content: flex-start; }
+.uk-flex-center { justify-content: center; }
+.uk-flex-right { justify-content: flex-end; }
+.uk-flex-between { justify-content: space-between; }
+.uk-flex-around { justify-content: space-around; }
+
+
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-small) {
+
+    .uk-flex-left\@s { justify-content: flex-start; }
+    .uk-flex-center\@s { justify-content: center; }
+    .uk-flex-right\@s { justify-content: flex-end; }
+    .uk-flex-between\@s { justify-content: space-between; }
+    .uk-flex-around\@s { justify-content: space-around; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-flex-left\@m { justify-content: flex-start; }
+    .uk-flex-center\@m { justify-content: center; }
+    .uk-flex-right\@m { justify-content: flex-end; }
+    .uk-flex-between\@m { justify-content: space-between; }
+    .uk-flex-around\@m { justify-content: space-around; }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-flex-left\@l { justify-content: flex-start; }
+    .uk-flex-center\@l { justify-content: center; }
+    .uk-flex-right\@l { justify-content: flex-end; }
+    .uk-flex-between\@l { justify-content: space-between; }
+    .uk-flex-around\@l { justify-content: space-around; }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: $breakpoint-xlarge) {
+
+    .uk-flex-left\@xl { justify-content: flex-start; }
+    .uk-flex-center\@xl { justify-content: center; }
+    .uk-flex-right\@xl { justify-content: flex-end; }
+    .uk-flex-between\@xl { justify-content: space-between; }
+    .uk-flex-around\@xl { justify-content: space-around; }
+
+}
+
+/*
+ * Align items in the cross axis of the current line of the flex container
+ * Row: Vertical
+ */
+
+// Default
+.uk-flex-stretch { align-items: stretch; }
+.uk-flex-top { align-items: flex-start; }
+.uk-flex-middle { align-items: center; }
+.uk-flex-bottom { align-items: flex-end; }
+
+
+/* Direction
+ ========================================================================== */
+
+// Default
+.uk-flex-row { flex-direction: row; }
+.uk-flex-row-reverse { flex-direction: row-reverse; }
+.uk-flex-column { flex-direction: column; }
+.uk-flex-column-reverse { flex-direction: column-reverse; }
+
+
+/* Wrap
+ ========================================================================== */
+
+// Default
+.uk-flex-nowrap { flex-wrap: nowrap; }
+.uk-flex-wrap { flex-wrap: wrap; }
+.uk-flex-wrap-reverse { flex-wrap: wrap-reverse; }
+
+/*
+ * Aligns items within the flex container when there is extra space in the cross-axis
+ * Only works if there is more than one line of flex items
+ */
+
+// Default
+.uk-flex-wrap-stretch { align-content: stretch; }
+.uk-flex-wrap-top { align-content: flex-start; }
+.uk-flex-wrap-middle { align-content: center; }
+.uk-flex-wrap-bottom { align-content: flex-end; }
+.uk-flex-wrap-between { align-content: space-between; }
+.uk-flex-wrap-around { align-content: space-around; }
+
+
+/* Item ordering
+ ========================================================================== */
+
+/*
+ * Default is 0
+ */
+
+.uk-flex-first { order: -1;}
+.uk-flex-last { order: 99;}
+
+
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-small) {
+
+    .uk-flex-first\@s { order: -1; }
+    .uk-flex-last\@s { order: 99; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-flex-first\@m { order: -1; }
+    .uk-flex-last\@m { order: 99; }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-flex-first\@l { order: -1; }
+    .uk-flex-last\@l { order: 99; }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: $breakpoint-xlarge) {
+
+    .uk-flex-first\@xl { order: -1; }
+    .uk-flex-last\@xl { order: 99; }
+
+}
+
+
+/* Item dimensions
+ ========================================================================== */
+
+/*
+ * Initial: 0 1 auto
+ * Content dimensions, but shrinks
+ */
+
+/*
+ * No Flex: 0 0 auto
+ * Content dimensions
+ */
+
+.uk-flex-none { flex: none; }
+
+/*
+ * Relative Flex: 1 1 auto
+ * Space is allocated considering content
+ */
+
+.uk-flex-auto { flex: auto; }
+
+/*
+ * Absolute Flex: 1 1 0%
+ * Space is allocated solely based on flex
+ */
+
+.uk-flex-1 { flex: 1; }
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-flex-misc)) {@include hook-flex-misc();}
+
+// @mixin hook-flex-misc(){}

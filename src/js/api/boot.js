@@ -1,69 +1,87 @@
-import { Observer, on, ready } from '../util/index';
+import {getComponentName} from './component';
+import {apply, fastdom, hasAttr} from 'uikit-util';
 
 export default function (UIkit) {
 
-    if (Observer) {
+    const {connect, disconnect} = UIkit;
 
-        if (document.body) {
-
-            init();
-
-        } else {
-
-            (new Observer(function () {
-
-                if (document.body) {
-                    this.disconnect();
-                    init();
-                }
-
-            })).observe(document.documentElement, {childList: true, subtree: true});
-
-        }
-
-    } else {
-
-        ready(() => {
-            apply(document.body, UIkit.connect);
-            on(document.documentElement, 'DOMNodeInserted', e => apply(e.target, UIkit.connect));
-            on(document.documentElement, 'DOMNodeRemoved', e => apply(e.target, UIkit.disconnect));
-        });
-
+    if (!('MutationObserver' in window)) {
+        return;
     }
+
+    fastdom.read(init);
 
     function init() {
 
-        apply(document.body, UIkit.connect);
+        if (document.body) {
+            apply(document.body, connect);
+        }
 
-        (new Observer(mutations =>
-            mutations.forEach(mutation => {
+        (new MutationObserver(mutations => {
+            const updates = [];
+            mutations.forEach(mutation => applyMutation(mutation, updates));
+            updates.forEach(el => UIkit.update(el));
+        })).observe(document, {
+            childList: true,
+            subtree: true,
+            characterData: true,
+            attributes: true
+        });
 
-                for (var i = 0; i < mutation.addedNodes.length; i++) {
-                    apply(mutation.addedNodes[i], UIkit.connect)
-                }
-
-                for (i = 0; i < mutation.removedNodes.length; i++) {
-                    apply(mutation.removedNodes[i], UIkit.disconnect)
-                }
-
-                UIkit.update('update', mutation.target, true);
-            })
-        )).observe(document.documentElement, {childList: true, subtree: true, characterData: true, attributes: true, attributeFilter: ['href']});
+        UIkit._initialized = true;
     }
 
-    function apply(node, fn) {
+    function applyMutation(mutation, updates) {
 
-        if (node.nodeType !== Node.ELEMENT_NODE || node.hasAttribute('uk-no-boot')) {
+        const {target, type} = mutation;
+
+        const update = type !== 'attributes'
+            ? applyChildList(mutation)
+            : applyAttribute(mutation);
+
+        if (update && !updates.some(element => element.contains(target))) {
+            updates.push(target.contains ? target : target.parentNode); // IE 11 text node does not implement contains
+        }
+
+    }
+
+    function applyAttribute({target, attributeName}) {
+
+        if (attributeName === 'href') {
+            return true;
+        }
+
+        const name = getComponentName(attributeName);
+
+        if (!name || !(name in UIkit)) {
             return;
         }
 
-        fn(node);
-        node = node.firstChild;
-        while (node) {
-            var next = node.nextSibling;
-            apply(node, fn);
-            node = next;
+        if (hasAttr(target, attributeName)) {
+            UIkit[name](target);
+            return true;
         }
+
+        const component = UIkit.getComponent(target, name);
+
+        if (component) {
+            component.$destroy();
+            return true;
+        }
+
+    }
+
+    function applyChildList({addedNodes, removedNodes}) {
+
+        for (let i = 0; i < addedNodes.length; i++) {
+            apply(addedNodes[i], connect);
+        }
+
+        for (let i = 0; i < removedNodes.length; i++) {
+            apply(removedNodes[i], disconnect);
+        }
+
+        return true;
     }
 
 }

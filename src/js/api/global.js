@@ -1,4 +1,4 @@
-import { classify, createEvent, isString, mergeOptions, toNode } from '../util/index';
+import {$, apply, isString, mergeOptions, parents, toNode} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -17,61 +17,39 @@ export default function (UIkit) {
     };
 
     UIkit.mixin = function (mixin, component) {
-        component = (isString(component) ? UIkit.components[component] : component) || this;
-        mixin = mergeOptions({}, mixin);
-        mixin.mixins = component.options.mixins;
-        delete component.options.mixins;
-        component.options = mergeOptions(mixin, component.options);
+        component = (isString(component) ? UIkit.component(component) : component) || this;
+        component.options = mergeOptions(component.options, mixin);
     };
 
     UIkit.extend = function (options) {
 
         options = options || {};
 
-        var Super = this, name = options.name || Super.options.name;
-        var Sub = createClass(name || 'UIkitComponent');
+        const Super = this;
+        const Sub = function UIkitComponent(options) {
+            this._init(options);
+        };
 
         Sub.prototype = Object.create(Super.prototype);
         Sub.prototype.constructor = Sub;
         Sub.options = mergeOptions(Super.options, options);
 
-        Sub['super'] = Super;
+        Sub.super = Super;
         Sub.extend = Super.extend;
 
         return Sub;
     };
 
-    UIkit.update = function (e, element, parents = false) {
+    UIkit.update = function (element, e) {
 
-        e = createEvent(e || 'update');
+        element = element ? toNode(element) : document.body;
 
-        if (!element) {
-
-            update(UIkit.instances, e);
-            return;
-
-        }
-
-        element = toNode(element);
-
-        if (parents) {
-
-            do {
-
-                update(element[DATA], e);
-                element = element.parentNode;
-
-            } while (element)
-
-        } else {
-
-            apply(element, element => update(element[DATA], e));
-
-        }
+        parents(element).reverse().forEach(element => update(element[DATA], e));
+        apply(element, element => update(element[DATA], e));
 
     };
 
-    var container;
+    let container;
     Object.defineProperty(UIkit, 'container', {
 
         get() {
@@ -79,41 +57,22 @@ export default function (UIkit) {
         },
 
         set(element) {
-            container = element;
+            container = $(element);
         }
 
     });
 
-}
+    function update(data, e) {
 
-function createClass(name) {
-    return new Function(`return function ${classify(name)} (options) { this._init(options); }`)();
-}
-
-function apply(node, fn) {
-
-    if (node.nodeType !== Node.ELEMENT_NODE) {
-        return;
-    }
-
-    fn(node);
-    node = node.firstChild;
-    while (node) {
-        apply(node, fn);
-        node = node.nextSibling;
-    }
-}
-
-function update(data, e) {
-
-    if (!data) {
-        return;
-    }
-
-    for (var name in data) {
-        if (data[name]._isReady) {
-            data[name]._callUpdate(e);
+        if (!data) {
+            return;
         }
-    }
 
+        for (const name in data) {
+            if (data[name]._connected) {
+                data[name]._callUpdate(e);
+            }
+        }
+
+    }
 }

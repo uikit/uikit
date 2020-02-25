@@ -1,0 +1,365 @@
+// Name:            Nav
+// Description:     Defines styles for list navigations
+//
+// Component:       `uk-nav`
+//
+// Sub-objects:     `uk-nav-header`
+//                  `uk-nav-divider`
+//                  `uk-nav-sub`
+//
+// Modifiers:       `uk-nav-parent-icon`
+//                  `uk-nav-default`
+//                  `uk-nav-primary`
+//                  `uk-nav-center`
+//
+// States:          `uk-active`
+//                  `uk-parent`
+//                  `uk-open`
+//                  `uk-touch`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$nav-item-padding-vertical:                      5px !default;
+$nav-item-padding-horizontal:                    0 !default;
+
+$nav-sublist-padding-vertical:                   5px !default;
+$nav-sublist-padding-left:                       15px !default;
+$nav-sublist-deeper-padding-left:                15px !default;
+$nav-sublist-item-padding-vertical:              2px !default;
+
+$nav-parent-icon-width:                          ($global-line-height * 1em) !default;
+$nav-parent-icon-height:                         $nav-parent-icon-width !default;
+$nav-parent-icon-color:                          $global-color !default;
+
+$nav-header-padding-vertical:                    $nav-item-padding-vertical !default;
+$nav-header-padding-horizontal:                  $nav-item-padding-horizontal !default;
+$nav-header-font-size:                           $global-small-font-size !default;
+$nav-header-text-transform:                      uppercase !default;
+$nav-header-margin-top:                          $global-margin !default;
+
+$nav-divider-margin-vertical:                    5px !default;
+$nav-divider-margin-horizontal:                  0 !default;
+
+$nav-default-item-color:                         $global-muted-color !default;
+$nav-default-item-hover-color:                   $global-color !default;
+$nav-default-item-active-color:                  $global-emphasis-color !default;
+$nav-default-header-color:                       $global-emphasis-color !default;
+$nav-default-divider-border-width:               $global-border-width !default;
+$nav-default-divider-border:                     $global-border !default;
+$nav-default-sublist-item-color:                 $global-muted-color !default;
+$nav-default-sublist-item-hover-color:           $global-color !default;
+$nav-default-sublist-item-active-color:          $global-emphasis-color !default;
+
+$nav-primary-item-font-size:                     $global-large-font-size !default;
+$nav-primary-item-line-height:                   $global-line-height !default;
+$nav-primary-item-color:                         $global-muted-color !default;
+$nav-primary-item-hover-color:                   $global-color !default;
+$nav-primary-item-active-color:                  $global-emphasis-color !default;
+$nav-primary-header-color:                       $global-emphasis-color !default;
+$nav-primary-divider-border-width:               $global-border-width !default;
+$nav-primary-divider-border:                     $global-border !default;
+$nav-primary-sublist-item-color:                 $global-muted-color !default;
+$nav-primary-sublist-item-hover-color:           $global-color !default;
+$nav-primary-sublist-item-active-color:          $global-emphasis-color !default;
+
+$internal-nav-parent-close-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22#000%22%20stroke-width%3D%221.1%22%20points%3D%2210%201%204%207%2010%2013%22%20%2F%3E%0A%3C%2Fsvg%3E" !default;
+$internal-nav-parent-open-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2214%22%20height%3D%2214%22%20viewBox%3D%220%200%2014%2014%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%20%20%20%20%3Cpolyline%20fill%3D%22none%22%20stroke%3D%22#000%22%20stroke-width%3D%221.1%22%20points%3D%221%204%207%2010%2013%204%22%20%2F%3E%0A%3C%2Fsvg%3E" !default;
+
+
+/* ========================================================================
+   Component: Nav
+ ========================================================================== */
+
+/*
+ * Reset
+ * 1. Prepare lists
+ * 2. Prepare links
+ * 3. Remove default focus style
+ */
+
+/* 1 */
+.uk-nav,
+.uk-nav ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* 2 */
+.uk-nav li > a {
+    display: block;
+    text-decoration: none;
+}
+
+/* 3 */
+.uk-nav li > a:focus { outline: none; }
+
+/*
+ * Items
+ * Must target `a` elements to exclude other elements (e.g. lists)
+ */
+
+.uk-nav > li > a { padding: $nav-item-padding-vertical $nav-item-padding-horizontal; }
+
+
+/* Sublists
+ ========================================================================== */
+
+/*
+ * Level 2
+ * `ul` needed for higher specificity to override padding
+ */
+
+ul.uk-nav-sub {
+    padding: $nav-sublist-padding-vertical 0 $nav-sublist-padding-vertical $nav-sublist-padding-left;
+    @if(mixin-exists(hook-nav-sub)) {@include hook-nav-sub();}
+}
+
+/*
+ * Level 3 and deeper
+ */
+
+.uk-nav-sub ul { padding-left: $nav-sublist-deeper-padding-left; }
+
+/*
+ * Items
+ */
+
+.uk-nav-sub a { padding: $nav-sublist-item-padding-vertical 0; }
+
+
+/* Parent icon modifier
+ ========================================================================== */
+
+.uk-nav-parent-icon > .uk-parent > a::after {
+    content: "";
+    width: $nav-parent-icon-width;
+    height: $nav-parent-icon-height;
+    float: right;
+    @include svg-fill($internal-nav-parent-close-image, "#000", $nav-parent-icon-color);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    @if(mixin-exists(hook-nav-parent-icon)) {@include hook-nav-parent-icon();}
+}
+
+.uk-nav-parent-icon > .uk-parent.uk-open > a::after { @include svg-fill($internal-nav-parent-open-image, "#000", $nav-parent-icon-color); }
+
+
+/* Header
+ ========================================================================== */
+
+.uk-nav-header {
+    padding: $nav-header-padding-vertical $nav-header-padding-horizontal;
+    text-transform: $nav-header-text-transform;
+    font-size: $nav-header-font-size;
+    @if(mixin-exists(hook-nav-header)) {@include hook-nav-header();}
+}
+
+.uk-nav-header:not(:first-child) { margin-top: $nav-header-margin-top; }
+
+
+/* Divider
+ ========================================================================== */
+
+.uk-nav-divider {
+    margin: $nav-divider-margin-vertical $nav-divider-margin-horizontal;
+    @if(mixin-exists(hook-nav-divider)) {@include hook-nav-divider();}
+}
+
+
+/* Default modifier
+ ========================================================================== */
+
+.uk-nav-default {
+    @if(mixin-exists(hook-nav-default)) {@include hook-nav-default();}
+}
+
+/*
+ * Items
+ */
+
+.uk-nav-default > li > a {
+    color: $nav-default-item-color;
+    @if(mixin-exists(hook-nav-default-item)) {@include hook-nav-default-item();}
+}
+
+/* Hover + Focus */
+.uk-nav-default > li > a:hover,
+.uk-nav-default > li > a:focus {
+    color: $nav-default-item-hover-color;
+    @if(mixin-exists(hook-nav-default-item-hover)) {@include hook-nav-default-item-hover();}
+}
+
+/* Active */
+.uk-nav-default > li.uk-active > a {
+    color: $nav-default-item-active-color;
+    @if(mixin-exists(hook-nav-default-item-active)) {@include hook-nav-default-item-active();}
+}
+
+/*
+ * Header
+ */
+
+.uk-nav-default .uk-nav-header {
+    color: $nav-default-header-color;
+    @if(mixin-exists(hook-nav-default-header)) {@include hook-nav-default-header();}
+}
+
+/*
+ * Divider
+ */
+
+.uk-nav-default .uk-nav-divider {
+    border-top: $nav-default-divider-border-width solid $nav-default-divider-border;
+    @if(mixin-exists(hook-nav-default-divider)) {@include hook-nav-default-divider();}
+}
+
+/*
+ * Sublists
+ */
+
+.uk-nav-default .uk-nav-sub a { color: $nav-default-sublist-item-color; }
+
+.uk-nav-default .uk-nav-sub a:hover,
+.uk-nav-default .uk-nav-sub a:focus { color: $nav-default-sublist-item-hover-color; }
+
+.uk-nav-default .uk-nav-sub li.uk-active > a { color: $nav-default-sublist-item-active-color; }
+
+
+/* Primary modifier
+ ========================================================================== */
+
+.uk-nav-primary {
+    @if(mixin-exists(hook-nav-primary)) {@include hook-nav-primary();}
+}
+
+/*
+ * Items
+ */
+
+.uk-nav-primary > li > a {
+    font-size: $nav-primary-item-font-size;
+    line-height: $nav-primary-item-line-height;
+    color: $nav-primary-item-color;
+    @if(mixin-exists(hook-nav-primary-item)) {@include hook-nav-primary-item();}
+}
+
+/* Hover + Focus */
+.uk-nav-primary > li > a:hover,
+.uk-nav-primary > li > a:focus {
+    color: $nav-primary-item-hover-color;
+    @if(mixin-exists(hook-nav-primary-item-hover)) {@include hook-nav-primary-item-hover();}
+}
+
+/* Active */
+.uk-nav-primary > li.uk-active > a {
+    color: $nav-primary-item-active-color;
+    @if(mixin-exists(hook-nav-primary-item-active)) {@include hook-nav-primary-item-active();}
+}
+
+/*
+ * Header
+ */
+
+.uk-nav-primary .uk-nav-header {
+    color: $nav-primary-header-color;
+    @if(mixin-exists(hook-nav-primary-header)) {@include hook-nav-primary-header();}
+}
+
+/*
+ * Divider
+ */
+
+.uk-nav-primary .uk-nav-divider {
+    border-top: $nav-primary-divider-border-width solid $nav-primary-divider-border;
+    @if(mixin-exists(hook-nav-primary-divider)) {@include hook-nav-primary-divider();}
+}
+
+/*
+ * Sublists
+ */
+
+.uk-nav-primary .uk-nav-sub a { color: $nav-primary-sublist-item-color; }
+
+.uk-nav-primary .uk-nav-sub a:hover,
+.uk-nav-primary .uk-nav-sub a:focus { color: $nav-primary-sublist-item-hover-color; }
+
+.uk-nav-primary .uk-nav-sub li.uk-active > a { color: $nav-primary-sublist-item-active-color; }
+
+
+/* Alignment modifier
+ ========================================================================== */
+
+.uk-nav-center { text-align: center; }
+
+/* Sublists */
+.uk-nav-center .uk-nav-sub,
+.uk-nav-center .uk-nav-sub ul { padding-left: 0; }
+
+/* Parent icon modifier  */
+.uk-nav-center.uk-nav-parent-icon > .uk-parent > a::after { position: absolute; }
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-nav-misc)) {@include hook-nav-misc();}
+
+// @mixin hook-nav-sub(){}
+// @mixin hook-nav-parent-icon(){}
+// @mixin hook-nav-header(){}
+// @mixin hook-nav-divider(){}
+// @mixin hook-nav-default(){}
+// @mixin hook-nav-default-item(){}
+// @mixin hook-nav-default-item-hover(){}
+// @mixin hook-nav-default-item-active(){}
+// @mixin hook-nav-default-header(){}
+// @mixin hook-nav-default-divider(){}
+// @mixin hook-nav-primary(){}
+// @mixin hook-nav-primary-item(){}
+// @mixin hook-nav-primary-item-hover(){}
+// @mixin hook-nav-primary-item-active(){}
+// @mixin hook-nav-primary-header(){}
+// @mixin hook-nav-primary-divider(){}
+// @mixin hook-nav-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-nav-parent-icon-color:                  $inverse-global-color !default;
+$inverse-nav-default-item-color:                 $inverse-global-muted-color !default;
+$inverse-nav-default-item-hover-color:           $inverse-global-color !default;
+$inverse-nav-default-item-active-color:          $inverse-global-emphasis-color !default;
+$inverse-nav-default-header-color:               $inverse-global-emphasis-color !default;
+$inverse-nav-default-divider-border:             $inverse-global-border !default;
+$inverse-nav-default-sublist-item-color:         $inverse-global-muted-color !default;
+$inverse-nav-default-sublist-item-hover-color:   $inverse-global-color !default;
+$inverse-nav-default-sublist-item-active-color:  $inverse-global-emphasis-color !default;
+
+$inverse-nav-primary-item-color:                 $inverse-global-muted-color !default;
+$inverse-nav-primary-item-hover-color:           $inverse-global-color !default;
+$inverse-nav-primary-item-active-color:          $inverse-global-emphasis-color !default;
+$inverse-nav-primary-header-color:               $inverse-global-emphasis-color !default;
+$inverse-nav-primary-divider-border:             $inverse-global-border !default;
+$inverse-nav-primary-sublist-item-color:         $inverse-global-muted-color !default;
+$inverse-nav-primary-sublist-item-hover-color:   $inverse-global-color !default;
+$inverse-nav-primary-sublist-item-active-color:  $inverse-global-emphasis-color !default;
+
+
+
+// @mixin hook-inverse-nav-parent-icon(){}
+// @mixin hook-inverse-nav-default-item(){}
+// @mixin hook-inverse-nav-default-item-hover(){}
+// @mixin hook-inverse-nav-default-item-active(){}
+// @mixin hook-inverse-nav-default-header(){}
+// @mixin hook-inverse-nav-default-divider(){}
+// @mixin hook-inverse-nav-primary-item(){}
+// @mixin hook-inverse-nav-primary-item-hover(){}
+// @mixin hook-inverse-nav-primary-item-active(){}
+// @mixin hook-inverse-nav-primary-header(){}
+// @mixin hook-inverse-nav-primary-divider(){}

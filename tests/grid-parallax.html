@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-gb" dir="ltr">
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Grid Parallax - UIkit tests</title>
+        <script src="js/test.js"></script>
+        <style type="text/css">
+
+            .uk-panel { height: 300px; }
+
+            :nth-child(5n-4) > .uk-panel { background: rgba(0,0,0,0.2); }
+            :nth-child(5n-3) > .uk-panel { background: rgba(0,0,0,0.3); }
+            :nth-child(5n-2) > .uk-panel { background: rgba(0,0,0,0.4); }
+            :nth-child(5n-1) > .uk-panel { background: rgba(0,0,0,0.5); }
+            :nth-child(5n) > .uk-panel { background: rgba(0,0,0,0.6); }
+
+            .test { background: rgba(0,0,0,0.05); }
+
+        </style>
+    </head>
+
+    <body>
+
+        <div class="uk-container">
+
+            <h1>Grid Parallax</h1>
+
+            <h2>3 Columns</h2>
+
+            <div class="test">
+                <div class="uk-child-width-1-3@m" uk-grid="parallax: 150">
+                    <div>
+
+                        <div class="uk-panel uk-grid-margin"></div>
+                        <div class="uk-panel uk-grid-margin"></div>
+                        <div class="uk-panel uk-grid-margin"></div>
+                        <div class="uk-panel uk-grid-margin"></div>
+                        <div class="uk-panel uk-grid-margin"></div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-panel uk-grid-margin"></div>
+                        <div class="uk-panel uk-grid-margin"></div>
+                        <div class="uk-panel uk-grid-margin"></div>
+                        <div class="uk-panel uk-grid-margin"></div>
+                        <div class="uk-panel uk-grid-margin"></div>
+
+                    </div>
+                    <div>
+
+                        <div class="uk-panel uk-grid-margin"></div>
+                        <div class="uk-panel uk-grid-margin"></div>
+                        <div class="uk-panel uk-grid-margin"></div>
+                        <div class="uk-panel uk-grid-margin"></div>
+                        <div class="uk-panel uk-grid-margin"></div>
+
+                    </div>
+                </div>
+            </div>
+
+            <h2>Multi-row</h2>
+
+            <div class="test">
+                <div class="uk-child-width-1-2@ uk-child-width-1-3@m uk-child-width-1-3@l" uk-grid="parallax: 200">
+                    <div><div class="uk-panel"></div></div>
+                    <div><div class="uk-panel"></div></div>
+                    <div><div class="uk-panel"></div></div>
+                    <div><div class="uk-panel"></div></div>
+                    <div><div class="uk-panel"></div></div>
+                    <div><div class="uk-panel"></div></div>
+                    <div><div class="uk-panel"></div></div>
+                    <div><div class="uk-panel"></div></div>
+                    <div><div class="uk-panel"></div></div>
+                    <div><div class="uk-panel"></div></div>
+                    <div><div class="uk-panel"></div></div>
+                    <div><div class="uk-panel"></div></div>
+                    <div><div class="uk-panel"></div></div>
+                    <div><div class="uk-panel"></div></div>
+                </div>
+            </div>
+
+            <h2>JavaScript Options</h2>
+
+            <div class="uk-overflow-auto">
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Value</th>
+                            <th>Default</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>margin</code></td>
+                            <td>String</td>
+                            <td>uk-grid-margin</td>
+                            <td>This class is added to items that break into the next row, typically to create margin to the previous row.</td>
+                        </tr>
+                        <tr>
+                            <td><code>first-column</code></td>
+                            <td>String</td>
+                            <td>uk-first-column</td>
+                            <td>This class is added to the first element in each row.</td>
+                        </tr>
+                        <tr>
+                            <td><code>masonry</code></td>
+                            <td>Boolean</td>
+                            <td>false</td>
+                            <td>Enables masonry layout for this grid.</td>
+                        </tr>
+                        <tr>
+                            <td><code>parallax</code></td>
+                            <td>Number</td>
+                            <td>0</td>
+                            <td>Parallax translation value. The value must be a positive integer. Falsy disables the parallax effect (default).</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+    </body>
+</html>

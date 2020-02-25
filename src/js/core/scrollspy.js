@@ -1,130 +1,129 @@
-import { $, isInView } from '../util/index';
+import {$$, css, data, filter, isInView, Promise, toggleClass, trigger} from 'uikit-util';
 
-export default function (UIkit) {
+export default {
 
-    UIkit.component('scrollspy', {
+    args: 'cls',
 
-        args: 'cls',
+    props: {
+        cls: String,
+        target: String,
+        hidden: Boolean,
+        offsetTop: Number,
+        offsetLeft: Number,
+        repeat: Boolean,
+        delay: Number
+    },
 
-        props: {
-            cls: 'list',
-            target: String,
-            hidden: Boolean,
-            offsetTop: Number,
-            offsetLeft: Number,
-            repeat: Boolean,
-            delay: Number
-        },
+    data: () => ({
+        cls: false,
+        target: false,
+        hidden: true,
+        offsetTop: 0,
+        offsetLeft: 0,
+        repeat: false,
+        delay: 0,
+        inViewClass: 'uk-scrollspy-inview'
+    }),
 
-        defaults: {
-            cls: ['uk-scrollspy-inview'],
-            target: false,
-            hidden: true,
-            offsetTop: 0,
-            offsetLeft: 0,
-            repeat: false,
-            delay: 0,
-            inViewClass: 'uk-scrollspy-inview'
-        },
+    computed: {
 
-        init() {
-            this.$emitSync();
-        },
+        elements: {
 
-        computed: {
+            get({target}, $el) {
+                return target ? $$(target, $el) : [$el];
+            },
 
-            elements() {
-                return this.target && $(this.target, this.$el) || this.$el;
-            }
-
-        },
-
-        update: [
-
-            {
-
-                write() {
-                    if (this.hidden) {
-                        this.elements.filter(`:not(.${this.inViewClass})`).css('visibility', 'hidden');
-                    }
+            watch(elements) {
+                if (this.hidden) {
+                    css(filter(elements, `:not(.${this.inViewClass})`), 'visibility', 'hidden');
                 }
+            },
+
+            immediate: true
+
+        }
+
+    },
+
+    update: [
+
+        {
+
+            read({update}) {
+
+                if (!update) {
+                    return;
+                }
+
+                this.elements.forEach(el => {
+
+                    let state = el._ukScrollspyState;
+
+                    if (!state) {
+                        state = {cls: data(el, 'uk-scrollspy-class') || this.cls};
+                    }
+
+                    state.show = isInView(el, this.offsetTop, this.offsetLeft);
+                    el._ukScrollspyState = state;
+
+                });
 
             },
 
-            {
+            write(data) {
 
-                read() {
-                    this.elements.each((_, el) => {
+                // Let child components be applied at least once first
+                if (!data.update) {
+                    this.$update();
+                    return data.update = true;
+                }
 
-                        if (!el._scrollspy) {
-                            var cls = $(el).attr('uk-scrollspy-class');
-                            el._scrollspy = {toggles: cls && cls.split(',') || this.cls};
-                        }
+                this.elements.forEach(el => {
 
-                        el._scrollspy.show = isInView(el, this.offsetTop, this.offsetLeft);
+                    const state = el._ukScrollspyState;
+                    const toggle = inview => {
 
-                    });
-                },
+                        css(el, 'visibility', !inview && this.hidden ? 'hidden' : '');
 
-                write() {
+                        toggleClass(el, this.inViewClass, inview);
+                        toggleClass(el, state.cls);
 
-                    var index = this.elements.length === 1 ? 1 : 0;
+                        trigger(el, inview ? 'inview' : 'outview');
 
-                    this.elements.each((_, el) => {
+                        state.inview = inview;
 
-                        var $el = $(el);
+                        this.$update(el);
 
-                        var data = el._scrollspy;
+                    };
 
-                        if (data.show) {
+                    if (state.show && !state.inview && !state.queued) {
 
-                            if (!data.inview && !data.timer) {
+                        state.queued = true;
 
-                                data.timer = setTimeout(() => {
+                        data.promise = (data.promise || Promise.resolve()).then(() =>
+                            new Promise(resolve =>
+                                setTimeout(resolve, this.delay)
+                            )
+                        ).then(() => {
+                            toggle(true);
+                            setTimeout(() => state.queued = false, 300);
+                        });
 
-                                    $el.css('visibility', '')
-                                        .addClass(this.inViewClass)
-                                        .toggleClass(data.toggles[0])
-                                        .trigger('inview');
+                    } else if (!state.show && state.inview && !state.queued && this.repeat) {
 
-                                    data.inview = true;
-                                    delete data.timer;
+                        toggle(false);
 
-                                }, this.delay * index++);
+                    }
 
-                            }
+                });
 
-                        } else {
+            },
 
-                            if (data.inview && this.repeat) {
+            events: ['scroll', 'resize']
 
-                                if (data.timer) {
-                                    clearTimeout(data.timer);
-                                    delete data.timer;
-                                }
+        }
 
-                                $el.removeClass(this.inViewClass)
-                                    .toggleClass(data.toggles[0])
-                                    .css('visibility', this.hidden ? 'hidden' : '')
-                                    .trigger('outview');
+    ]
 
-                                data.inview = false;
-                            }
+};
 
-                        }
-
-                        data.toggles.reverse();
-
-                    });
-
-                },
-
-                events: ['scroll', 'load', 'resize']
-
-            }
-
-        ]
-
-    });
-
-}

@@ -1,0 +1,125 @@
+// Name:            Breadcrumb
+// Description:     Component to create a breadcrumb navigation
+//
+// Component:       `uk-breadcrumb`
+//
+// States:          `uk-disabled`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$breadcrumb-item-font-size:                          $global-small-font-size !default;
+$breadcrumb-item-color:                              $global-muted-color !default;
+$breadcrumb-item-hover-color:                        $global-color !default;
+$breadcrumb-item-hover-text-decoration:              none !default;
+$breadcrumb-item-active-color:                       $global-color !default;
+
+$breadcrumb-divider:                                 "/" !default;
+$breadcrumb-divider-margin-horizontal:               20px !default;
+$breadcrumb-divider-font-size:                       $breadcrumb-item-font-size !default;
+$breadcrumb-divider-color:                           $global-muted-color !default;
+
+
+/* ========================================================================
+   Component: Breadcrumb
+ ========================================================================== */
+
+/*
+ * 1. Allow items to wrap into the next line
+ * 2. Reset list
+ */
+
+.uk-breadcrumb {
+    display: flex;
+    /* 1 */
+    flex-wrap: wrap;
+    /* 2 */
+    padding: 0;
+    list-style: none;
+    @if(mixin-exists(hook-breadcrumb)) {@include hook-breadcrumb();}
+}
+
+/*
+ * Space is allocated solely based on content dimensions: 0 0 auto
+ */
+
+.uk-breadcrumb > * { flex: none; }
+
+
+/* Items
+ ========================================================================== */
+
+.uk-breadcrumb > * > * {
+    display: inline-block;
+    font-size: $breadcrumb-item-font-size;
+    color: $breadcrumb-item-color;
+    @if(mixin-exists(hook-breadcrumb-item)) {@include hook-breadcrumb-item();}
+}
+
+/* Hover + Focus */
+.uk-breadcrumb > * > :hover,
+.uk-breadcrumb > * > :focus {
+    color: $breadcrumb-item-hover-color;
+    text-decoration: $breadcrumb-item-hover-text-decoration;
+    @if(mixin-exists(hook-breadcrumb-item-hover)) {@include hook-breadcrumb-item-hover();}
+}
+
+/* Disabled */
+.uk-breadcrumb > .uk-disabled > * {
+    @if(mixin-exists(hook-breadcrumb-item-disabled)) {@include hook-breadcrumb-item-disabled();}
+}
+
+/* Active */
+.uk-breadcrumb > :last-child > span,
+.uk-breadcrumb > :last-child > a:not([href]) {
+    color: $breadcrumb-item-active-color;
+    @if(mixin-exists(hook-breadcrumb-item-active)) {@include hook-breadcrumb-item-active();}
+}
+
+/*
+ * Divider
+ * `nth-child` makes it also work without JS if it's only one row
+ */
+
+.uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
+    content: $breadcrumb-divider;
+    display: inline-block;
+    margin: 0 $breadcrumb-divider-margin-horizontal;
+    font-size: $breadcrumb-divider-font-size;
+    color: $breadcrumb-divider-color;
+    @if(mixin-exists(hook-breadcrumb-divider)) {@include hook-breadcrumb-divider();}
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-breadcrumb-misc)) {@include hook-breadcrumb-misc();}
+
+// @mixin hook-breadcrumb(){}
+// @mixin hook-breadcrumb-item(){}
+// @mixin hook-breadcrumb-item-hover(){}
+// @mixin hook-breadcrumb-item-disabled(){}
+// @mixin hook-breadcrumb-item-active(){}
+// @mixin hook-breadcrumb-divider(){}
+// @mixin hook-breadcrumb-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-breadcrumb-item-color:                 $inverse-global-muted-color !default;
+$inverse-breadcrumb-item-hover-color:           $inverse-global-color !default;
+$inverse-breadcrumb-item-active-color:          $inverse-global-color !default;
+$inverse-breadcrumb-divider-color:              $inverse-global-muted-color !default;
+
+
+
+// @mixin hook-inverse-breadcrumb-item(){}
+// @mixin hook-inverse-breadcrumb-item-hover(){}
+// @mixin hook-inverse-breadcrumb-item-disabled(){}
+// @mixin hook-inverse-breadcrumb-item-active(){}
+// @mixin hook-inverse-breadcrumb-divider(){}

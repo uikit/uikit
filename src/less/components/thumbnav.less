@@ -1,0 +1,136 @@
+// Name:            Thumbnav
+// Description:     Component to create thumbnail navigations
+//
+// Component:       `uk-thumbnav`
+//
+// Modifier:        `uk-thumbnav-vertical`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@thumbnav-margin-horizontal:                    15px;
+@thumbnav-margin-vertical:                      @thumbnav-margin-horizontal;
+
+
+/* ========================================================================
+   Component: Thumbnav
+ ========================================================================== */
+
+/*
+ * 1. Allow items to wrap into the next line
+ * 2. Reset list
+ * 3. Gutter
+ */
+
+.uk-thumbnav {
+    display: flex;
+    /* 1 */
+    flex-wrap: wrap;
+    /* 2 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 3 */
+    margin-left: -@thumbnav-margin-horizontal;
+    .hook-thumbnav;
+}
+
+/*
+ * Space is allocated based on content dimensions, but shrinks: 0 1 auto
+ * 1. Gutter
+ */
+
+.uk-thumbnav > * {
+    /* 1 */
+    padding-left: @thumbnav-margin-horizontal;
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * Items
+ */
+
+.uk-thumbnav > * > * {
+    display: inline-block;
+    .hook-thumbnav-item;
+}
+
+/* Hover + Focus */
+.uk-thumbnav > * > :hover,
+.uk-thumbnav > * > :focus {
+    outline: none;
+    .hook-thumbnav-item-hover;
+}
+
+/* Active */
+.uk-thumbnav > .uk-active > * {
+    .hook-thumbnav-item-active;
+}
+
+
+/* Modifier: 'uk-thumbnav-vertical'
+ ========================================================================== */
+
+/*
+ * 1. Change direction
+ * 2. Gutter
+ */
+
+.uk-thumbnav-vertical {
+    /* 1 */
+    flex-direction: column;
+    /* 2 */
+    margin-left: 0;
+    margin-top: -@thumbnav-margin-vertical;
+}
+
+/* 2 */
+.uk-thumbnav-vertical > * {
+    padding-left: 0;
+    padding-top: @thumbnav-margin-vertical;
+}
+
+
+// Hooks
+// ========================================================================
+
+.hook-thumbnav-misc;
+
+.hook-thumbnav() {}
+.hook-thumbnav-item() {}
+.hook-thumbnav-item-hover() {}
+.hook-thumbnav-item-active() {}
+.hook-thumbnav-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-inverse() {
+
+    .uk-thumbnav > * > * {
+        .hook-inverse-thumbnav-item;
+    }
+
+    .uk-thumbnav > * > :hover,
+    .uk-thumbnav > * > :focus {
+        .hook-inverse-thumbnav-item-hover;
+    }
+
+    .uk-thumbnav > .uk-active > * {
+        .hook-inverse-thumbnav-item-active;
+    }
+
+}
+
+.hook-inverse-thumbnav-item() {}
+.hook-inverse-thumbnav-item-hover() {}
+.hook-inverse-thumbnav-item-active() {}

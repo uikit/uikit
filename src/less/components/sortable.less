@@ -34,12 +34,6 @@
 }
 
 /*
- * Deactivate browser touch actions in IE11
- */
-
-.uk-sortable > * { touch-action: none; }
-
-/*
  * Deactivate pointer-events on SVGs in Safari
  */
 
@@ -68,6 +62,7 @@
 
 .uk-sortable-placeholder {
     opacity: @sortable-placeholder-opacity;
+    pointer-events: none;
     .hook-sortable-placeholder;
 }
 

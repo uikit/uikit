@@ -1,0 +1,238 @@
+// Name:            Lightbox
+// Description:     Component to create an lightbox image gallery
+//
+// Component:       `uk-lightbox`
+//
+// Sub-objects:     `uk-lightbox-page`
+//                  `uk-lightbox-items`
+//                  `uk-lightbox-toolbar`
+//                  `uk-lightbox-toolbar-icon`
+//                  `uk-lightbox-button`
+//                  `uk-lightbox-caption`
+//                  `uk-lightbox-iframe`
+//
+// States:          `uk-open`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$lightbox-z-index:                               $global-z-index + 10 !default;
+$lightbox-background:                            #000 !default;
+
+$lightbox-item-color:                            rgba(255,255,255,0.7) !default;
+$lightbox-item-max-width:                        100vw !default;
+$lightbox-item-max-height:                       100vh !default;
+
+$lightbox-toolbar-padding-vertical:              10px !default;
+$lightbox-toolbar-padding-horizontal:            10px !default;
+$lightbox-toolbar-background:                    rgba(0,0,0,0.3) !default;
+$lightbox-toolbar-color:                         rgba(255,255,255,0.7) !default;
+
+$lightbox-toolbar-icon-padding:                  5px !default;
+$lightbox-toolbar-icon-color:                    rgba(255,255,255,0.7) !default;
+
+$lightbox-toolbar-icon-hover-color:              #fff !default;
+
+$lightbox-button-size:                           50px !default;
+$lightbox-button-background:                     $lightbox-toolbar-background !default;
+$lightbox-button-color:                          rgba(255,255,255,0.7) !default;
+
+$lightbox-button-hover-color:                    #fff !default;
+
+
+/* ========================================================================
+   Component: Lightbox
+ ========================================================================== */
+
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Allow scrolling for the modal dialog
+ * 4. Horizontal padding
+ * 5. Mask the background page
+ * 6. Fade-in transition
+ */
+
+.uk-lightbox {
+    /* 1 */
+    display: none;
+    /* 2 */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: $lightbox-z-index;
+    /* 5 */
+    background: $lightbox-background;
+    /* 6 */
+    opacity: 0;
+    transition: opacity 0.15s linear;
+    @if(mixin-exists(hook-lightbox)) {@include hook-lightbox();}
+}
+
+/*
+ * Open
+ * 1. Center child
+ * 2. Fade-in
+ */
+
+.uk-lightbox.uk-open {
+    display: block;
+    /* 2 */
+    opacity: 1;
+}
+
+
+/* Page
+ ========================================================================== */
+
+/*
+ * Prevent scrollbars
+ */
+
+.uk-lightbox-page { overflow: hidden; }
+
+
+/* Item
+ ========================================================================== */
+
+/*
+ * 1. Center child within the viewport
+ * 2. Not visible by default
+ * 3. Color needed for spinner icon
+ * 4. Optimize animation
+ * 5. Responsiveness
+ *    Using `vh` for `max-height` to fix image proportions after resize in Safari and Opera
+ *    Using `vh` and `vw` to make responsive image work in IE11
+ * 6. Suppress outline on focus
+ */
+
+.uk-lightbox-items > * {
+    /* 1 */
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    /* 2 */
+    display: none;
+    justify-content: center;
+    align-items: center;
+    /* 3 */
+    color: $lightbox-item-color;
+    /* 4 */
+    will-change: transform, opacity;
+    @if(mixin-exists(hook-lightbox-item)) {@include hook-lightbox-item();}
+}
+
+/* 5 */
+.uk-lightbox-items > * > * {
+    max-width: $lightbox-item-max-width;
+    max-height: $lightbox-item-max-height;
+}
+
+/* 6 */
+.uk-lightbox-items > :focus { outline: none; }
+
+.uk-lightbox-items > * > :not(iframe) {
+    width: auto;
+    height: auto;
+}
+
+.uk-lightbox-items > .uk-active { display: flex; }
+
+/* Toolbar
+ ========================================================================== */
+
+.uk-lightbox-toolbar {
+    padding: $lightbox-toolbar-padding-vertical $lightbox-toolbar-padding-horizontal;
+    background: $lightbox-toolbar-background;
+    color: $lightbox-toolbar-color;
+    @if(mixin-exists(hook-lightbox-toolbar)) {@include hook-lightbox-toolbar();}
+}
+
+.uk-lightbox-toolbar > * { color: $lightbox-toolbar-color; }
+
+
+/* Toolbar Icon (Close)
+ ========================================================================== */
+
+.uk-lightbox-toolbar-icon {
+    padding: $lightbox-toolbar-icon-padding;
+    color: $lightbox-toolbar-icon-color;
+    @if(mixin-exists(hook-lightbox-toolbar-icon)) {@include hook-lightbox-toolbar-icon();}
+}
+
+/*
+ * Hover
+ */
+
+.uk-lightbox-toolbar-icon:hover {
+    color: $lightbox-toolbar-icon-hover-color;
+    @if(mixin-exists(hook-lightbox-toolbar-icon-hover)) {@include hook-lightbox-toolbar-icon-hover();}
+}
+
+
+
+/* Button (Slidenav)
+ ========================================================================== */
+
+/*
+ * 1. Center icon vertically and horizontally
+ */
+
+.uk-lightbox-button {
+    box-sizing: border-box;
+    width: $lightbox-button-size;
+    height: $lightbox-button-size;
+    background: $lightbox-button-background;
+    color: $lightbox-button-color;
+    /* 1 */
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    @if(mixin-exists(hook-lightbox-button)) {@include hook-lightbox-button();}
+}
+
+/*
+ * Hover
+ */
+
+.uk-lightbox-button:hover {
+    color: $lightbox-button-hover-color;
+    @if(mixin-exists(hook-lightbox-button-hover)) {@include hook-lightbox-button-hover();}
+}
+
+
+/* Caption
+ ========================================================================== */
+
+.uk-lightbox-caption {}
+
+
+/* Iframe
+ ========================================================================== */
+
+.uk-lightbox-iframe {
+    width: 80%;
+    height: 80%;
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-lightbox-misc)) {@include hook-lightbox-misc();}
+
+// @mixin hook-lightbox(){}
+// @mixin hook-lightbox-item(){}
+// @mixin hook-lightbox-toolbar(){}
+// @mixin hook-lightbox-toolbar-icon(){}
+// @mixin hook-lightbox-toolbar-icon-hover(){}
+// @mixin hook-lightbox-button(){}
+// @mixin hook-lightbox-button-hover(){}
+// @mixin hook-lightbox-misc(){}

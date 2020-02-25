@@ -1,0 +1,400 @@
+// Name:            Grid
+// Description:     Component to create responsive, fluid and nestable grids
+//
+// Component:       `uk-grid`
+//
+// Modifiers:       `uk-grid-small`
+//                  `uk-grid-medium`
+//                  `uk-grid-large`
+//                  `uk-grid-collapse`
+//                  `uk-grid-divider`
+//                  `uk-grid-match`
+//                  `uk-grid-stack`
+//                  `uk-grid-margin`
+//                  `uk-grid-margin-small`
+//                  `uk-grid-margin-medium`
+//                  `uk-grid-margin-large`
+//                  `uk-grid-margin-collapse`
+//
+// Sub-modifier:    `uk-grid-item-match`
+//
+// States:          `uk-first-column`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$grid-gutter-horizontal:                         $global-gutter !default;
+$grid-gutter-vertical:                           $grid-gutter-horizontal !default;
+$grid-gutter-horizontal-l:                       $global-medium-gutter !default;
+$grid-gutter-vertical-l:                         $grid-gutter-horizontal-l !default;
+
+$grid-small-gutter-horizontal:                   $global-small-gutter !default;
+$grid-small-gutter-vertical:                     $grid-small-gutter-horizontal !default;
+
+$grid-medium-gutter-horizontal:                  $global-gutter !default;
+$grid-medium-gutter-vertical:                    $grid-medium-gutter-horizontal !default;
+
+$grid-large-gutter-horizontal:                   $global-medium-gutter !default;
+$grid-large-gutter-vertical:                     $grid-large-gutter-horizontal !default;
+$grid-large-gutter-horizontal-l:                 $global-large-gutter !default;
+$grid-large-gutter-vertical-l:                   $grid-large-gutter-horizontal-l !default;
+
+$grid-divider-border-width:                      $global-border-width !default;
+$grid-divider-border:                            $global-border !default;
+
+
+/* ========================================================================
+   Component: Grid
+ ========================================================================== */
+
+/*
+ * 1. Allow cells to wrap into the next line
+ * 2. Reset list
+ */
+
+.uk-grid {
+    display: flex;
+    /* 1 */
+    flex-wrap: wrap;
+    /* 2 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/*
+ * Grid cell
+ * Note: Space is allocated solely based on content dimensions, but shrinks: 0 1 auto
+ * Reset margin for e.g. paragraphs
+ */
+
+.uk-grid > * { margin: 0; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-grid > * > :last-child { margin-bottom: 0; }
+
+
+/* Gutter
+ ========================================================================== */
+
+/*
+ * Default
+ */
+
+/* Horizontal */
+.uk-grid { margin-left: (-$grid-gutter-horizontal); }
+.uk-grid > * { padding-left: $grid-gutter-horizontal; }
+
+/* Vertical */
+.uk-grid + .uk-grid,
+.uk-grid > .uk-grid-margin,
+* + .uk-grid-margin { margin-top: $grid-gutter-vertical; }
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    /* Horizontal */
+    .uk-grid { margin-left: (-$grid-gutter-horizontal-l); }
+    .uk-grid > * { padding-left: $grid-gutter-horizontal-l; }
+
+    /* Vertical */
+    .uk-grid + .uk-grid,
+    .uk-grid > .uk-grid-margin,
+    * + .uk-grid-margin { margin-top: $grid-gutter-vertical-l; }
+
+}
+
+/*
+ * Small
+ */
+
+/* Horizontal */
+.uk-grid-small,
+.uk-grid-column-small { margin-left: (-$grid-small-gutter-horizontal); }
+.uk-grid-small > *,
+.uk-grid-column-small > *  { padding-left: $grid-small-gutter-horizontal; }
+
+/* Vertical */
+.uk-grid + .uk-grid-small,
+.uk-grid + .uk-grid-row-small,
+.uk-grid-small > .uk-grid-margin,
+.uk-grid-row-small > .uk-grid-margin,
+* + .uk-grid-margin-small { margin-top: $grid-small-gutter-vertical; }
+
+/*
+ * Medium
+ */
+
+/* Horizontal */
+.uk-grid-medium,
+.uk-grid-column-medium { margin-left: (-$grid-medium-gutter-horizontal); }
+.uk-grid-medium > *,
+.uk-grid-column-medium > * { padding-left: $grid-medium-gutter-horizontal; }
+
+/* Vertical */
+.uk-grid + .uk-grid-medium,
+.uk-grid + .uk-grid-row-medium,
+.uk-grid-medium > .uk-grid-margin,
+.uk-grid-row-medium > .uk-grid-margin,
+* + .uk-grid-margin-medium { margin-top: $grid-medium-gutter-vertical; }
+
+/*
+ * Large
+ */
+
+/* Horizontal */
+.uk-grid-large,
+.uk-grid-column-large { margin-left: (-$grid-large-gutter-horizontal); }
+.uk-grid-large > *,
+.uk-grid-column-large > * { padding-left: $grid-large-gutter-horizontal; }
+
+/* Vertical */
+.uk-grid + .uk-grid-large,
+.uk-grid + .uk-grid-row-large,
+.uk-grid-large > .uk-grid-margin,
+.uk-grid-row-large > .uk-grid-margin,
+* + .uk-grid-margin-large { margin-top: $grid-large-gutter-vertical; }
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    /* Horizontal */
+    .uk-grid-large,
+    .uk-grid-column-large { margin-left: (-$grid-large-gutter-horizontal-l); }
+    .uk-grid-large > *,
+    .uk-grid-column-large > * { padding-left: $grid-large-gutter-horizontal-l; }
+
+    /* Vertical */
+    .uk-grid + .uk-grid-large,
+    .uk-grid + .uk-grid-row-large,
+    .uk-grid-large > .uk-grid-margin,
+    .uk-grid-row-large > .uk-grid-margin,
+    * + .uk-grid-margin-large { margin-top: $grid-large-gutter-vertical-l; }
+
+}
+
+/*
+ * Collapse
+ */
+
+/* Horizontal */
+.uk-grid-collapse,
+.uk-grid-column-collapse { margin-left: 0; }
+.uk-grid-collapse > *,
+.uk-grid-column-collapse > * { padding-left: 0; }
+
+/* Vertical */
+.uk-grid + .uk-grid-collapse,
+.uk-grid + .uk-grid-row-collapse,
+.uk-grid-collapse > .uk-grid-margin,
+.uk-grid-row-collapse > .uk-grid-margin { margin-top: 0; }
+
+
+/* Divider
+ ========================================================================== */
+
+.uk-grid-divider > * { position: relative; }
+
+.uk-grid-divider > :not(.uk-first-column)::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    border-left: $grid-divider-border-width solid $grid-divider-border;
+}
+
+/* Vertical */
+.uk-grid-divider.uk-grid-stack > .uk-grid-margin::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: $grid-divider-border-width solid $grid-divider-border;
+}
+
+/*
+ * Default
+ */
+
+/* Horizontal */
+.uk-grid-divider { margin-left: -($grid-gutter-horizontal * 2); }
+.uk-grid-divider > * { padding-left: ($grid-gutter-horizontal * 2); }
+
+.uk-grid-divider > :not(.uk-first-column)::before { left: $grid-gutter-horizontal; }
+
+/* Vertical */
+.uk-grid-divider.uk-grid-stack > .uk-grid-margin { margin-top: ($grid-gutter-vertical * 2); }
+
+.uk-grid-divider.uk-grid-stack > .uk-grid-margin::before {
+    top: (-$grid-gutter-vertical);
+    left: ($grid-gutter-horizontal * 2);
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    /* Horizontal */
+    .uk-grid-divider { margin-left: -($grid-gutter-horizontal-l * 2); }
+    .uk-grid-divider > * { padding-left: ($grid-gutter-horizontal-l * 2); }
+
+    .uk-grid-divider > :not(.uk-first-column)::before { left: $grid-gutter-horizontal-l; }
+
+    /* Vertical */
+    .uk-grid-divider.uk-grid-stack > .uk-grid-margin { margin-top: ($grid-gutter-vertical-l * 2); }
+
+    .uk-grid-divider.uk-grid-stack > .uk-grid-margin::before {
+        top: (-$grid-gutter-vertical-l);
+        left: ($grid-gutter-horizontal-l * 2);
+    }
+
+}
+
+/*
+ * Small
+ */
+
+/* Horizontal */
+.uk-grid-divider.uk-grid-small,
+.uk-grid-divider.uk-grid-column-small { margin-left: -($grid-small-gutter-horizontal * 2); }
+.uk-grid-divider.uk-grid-small > *,
+.uk-grid-divider.uk-grid-column-small > * { padding-left: ($grid-small-gutter-horizontal * 2); }
+
+.uk-grid-divider.uk-grid-small > :not(.uk-first-column)::before,
+.uk-grid-divider.uk-grid-column-small > :not(.uk-first-column)::before { left: $grid-small-gutter-horizontal; }
+
+/* Vertical */
+.uk-grid-divider.uk-grid-small.uk-grid-stack > .uk-grid-margin,
+.uk-grid-divider.uk-grid-row-small.uk-grid-stack > .uk-grid-margin { margin-top: ($grid-small-gutter-vertical * 2); }
+
+.uk-grid-divider.uk-grid-small.uk-grid-stack > .uk-grid-margin::before {
+    top: (-$grid-small-gutter-vertical);
+    left: ($grid-small-gutter-horizontal * 2);
+}
+
+.uk-grid-divider.uk-grid-row-small.uk-grid-stack > .uk-grid-margin::before { top: (-$grid-small-gutter-vertical); }
+.uk-grid-divider.uk-grid-column-small.uk-grid-stack > .uk-grid-margin::before { left: ($grid-small-gutter-horizontal * 2); }
+
+/*
+ * Medium
+ */
+
+/* Horizontal */
+.uk-grid-divider.uk-grid-medium,
+.uk-grid-divider.uk-grid-column-medium { margin-left: -($grid-medium-gutter-horizontal * 2); }
+.uk-grid-divider.uk-grid-medium > *,
+.uk-grid-divider.uk-grid-column-medium > * { padding-left: ($grid-medium-gutter-horizontal * 2); }
+
+.uk-grid-divider.uk-grid-medium > :not(.uk-first-column)::before,
+.uk-grid-divider.uk-grid-column-medium > :not(.uk-first-column)::before { left: $grid-medium-gutter-horizontal; }
+
+/* Vertical */
+.uk-grid-divider.uk-grid-medium.uk-grid-stack > .uk-grid-margin,
+.uk-grid-divider.uk-grid-row-medium.uk-grid-stack > .uk-grid-margin { margin-top: ($grid-medium-gutter-vertical * 2); }
+
+.uk-grid-divider.uk-grid-medium.uk-grid-stack > .uk-grid-margin::before {
+    top: (-$grid-medium-gutter-vertical);
+    left: ($grid-medium-gutter-horizontal * 2);
+}
+
+.uk-grid-divider.uk-grid-row-medium.uk-grid-stack > .uk-grid-margin::before { top: (-$grid-medium-gutter-vertical); }
+.uk-grid-divider.uk-grid-column-medium.uk-grid-stack > .uk-grid-margin::before { left: ($grid-medium-gutter-horizontal * 2); }
+
+/*
+ * Large
+ */
+
+/* Horizontal */
+.uk-grid-divider.uk-grid-large,
+.uk-grid-divider.uk-grid-column-large { margin-left: -($grid-large-gutter-horizontal * 2); }
+.uk-grid-divider.uk-grid-large > *,
+.uk-grid-divider.uk-grid-column-large > * { padding-left: ($grid-large-gutter-horizontal * 2); }
+
+.uk-grid-divider.uk-grid-large > :not(.uk-first-column)::before,
+.uk-grid-divider.uk-grid-column-large > :not(.uk-first-column)::before { left: $grid-large-gutter-horizontal; }
+
+/* Vertical */
+.uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin,
+.uk-grid-divider.uk-grid-row-large.uk-grid-stack > .uk-grid-margin { margin-top: ($grid-large-gutter-vertical * 2); }
+
+.uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin::before {
+    top: (-$grid-large-gutter-vertical);
+    left: ($grid-large-gutter-horizontal * 2);
+}
+
+.uk-grid-divider.uk-grid-row-large.uk-grid-stack > .uk-grid-margin::before { top: (-$grid-large-gutter-vertical); }
+.uk-grid-divider.uk-grid-column-large.uk-grid-stack > .uk-grid-margin::before { left: ($grid-large-gutter-horizontal * 2); }
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    /* Horizontal */
+    .uk-grid-divider.uk-grid-large,
+    .uk-grid-divider.uk-grid-column-large { margin-left: -($grid-large-gutter-horizontal-l * 2); }
+    .uk-grid-divider.uk-grid-large > *,
+    .uk-grid-divider.uk-grid-column-large > * { padding-left: ($grid-large-gutter-horizontal-l * 2); }
+
+    .uk-grid-divider.uk-grid-large > :not(.uk-first-column)::before,
+    .uk-grid-divider.uk-grid-column-large > :not(.uk-first-column)::before { left: $grid-large-gutter-horizontal-l; }
+
+    /* Vertical */
+    .uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin,
+    .uk-grid-divider.uk-grid-row-large.uk-grid-stack > .uk-grid-margin { margin-top: ($grid-large-gutter-vertical-l * 2); }
+
+    .uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin::before {
+        top: (-$grid-large-gutter-vertical-l);
+        left: ($grid-large-gutter-horizontal-l * 2);
+    }
+
+    .uk-grid-divider.uk-grid-row-large.uk-grid-stack > .uk-grid-margin::before { top: (-$grid-large-gutter-vertical-l); }
+    .uk-grid-divider.uk-grid-column-large.uk-grid-stack > .uk-grid-margin::before { left: ($grid-large-gutter-horizontal-l * 2); }
+
+}
+
+
+/* Match child of a grid cell
+ ========================================================================== */
+
+/*
+ * Behave like a block element
+ * 1. Wrap into the next line
+ * 2. Take the full width, at least 100%. Only if no class from the Width component is set.
+ * 3. Expand width even if larger than 100%, e.g. because of negative margin (Needed for nested grids)
+ */
+
+.uk-grid-match > *,
+.uk-grid-item-match {
+    display: flex;
+    /* 1 */
+    flex-wrap: wrap;
+}
+
+.uk-grid-match > * > :not([class*='uk-width']),
+.uk-grid-item-match > :not([class*='uk-width']) {
+    /* 2 */
+    box-sizing: border-box;
+    width: 100%;
+    /* 3 */
+    flex: auto;
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-grid-misc)) {@include hook-grid-misc();}
+
+// @mixin hook-grid-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-grid-divider-border:                   $inverse-global-border !default;
+
+

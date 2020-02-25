@@ -5,7 +5,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Navbar - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
         <script src="js/test.js"></script>
         <style type="text/css">
 
@@ -22,7 +21,7 @@
 
     <body>
 
-        <div class="uk-container uk-margin">
+        <div class="uk-container">
 
             <h1>Navbar</h1>
 
@@ -40,6 +39,42 @@
                                         <ul class="uk-nav uk-navbar-dropdown-nav">
                                             <li class="uk-active"><a href="#">Active</a></li>
                                              <li class="uk-parent">
+                                                <a href="#">Parent</a>
+                                                <ul class="uk-nav-sub">
+                                                    <li><a href="#">Sub item</a></li>
+                                                    <li><a href="#">Sub item</a></li>
+                                                </ul>
+                                            </li>
+                                            <li class="uk-nav-header">Header</li>
+                                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: table"></span> Item</a></li>
+                                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: thumbnails"></span> Item</a></li>
+                                            <li class="uk-nav-divider"></li>
+                                            <li><a href="#"><span class="uk-margin-small-right" uk-icon="icon: trash"></span> Item</a></li>
+                                        </ul>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a href="#">Content</a>
+                                    <div class="uk-navbar-dropdown">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</div>
+                                </li>
+                                <li><a href="#">Item</a></li>
+                                <li><a href="#">Item</a></li>
+                            </ul>
+
+                        </div>
+                    </nav>
+
+                    <nav class="uk-navbar-container uk-margin" uk-navbar>
+                        <div class="uk-navbar-left">
+
+                            <ul class="uk-navbar-nav uk-navbar-nav-primary">
+                                <li class="uk-active"><a href="#">Active</a></li>
+                                <li>
+                                    <a href="#">Parent</a>
+                                    <div class="uk-navbar-dropdown">
+                                        <ul class="uk-nav uk-navbar-dropdown-nav">
+                                            <li class="uk-active"><a href="#">Active</a></li>
+                                                <li class="uk-parent">
                                                 <a href="#">Parent</a>
                                                 <ul class="uk-nav-sub">
                                                     <li><a href="#">Sub item</a></li>
@@ -171,7 +206,7 @@
                             <li class="uk-parent">
                                 <a href="#">Parent</a>
                                 <ul class="uk-nav-sub">
-                                    <li><a href="#">Sub item</a></li>
+                                    <li class="uk-active"><a href="#">Active</a></li>
                                     <li><a href="#">Sub item</a></li>
                                 </ul>
                             </li>
@@ -955,7 +990,7 @@
 
             <div class="uk-position-relative uk-margin">
 
-                <nav class="uk-navbar-container" uk-navbar="dropbar: + .uk-navbar-dropbar:first">
+                <nav class="uk-navbar-container" uk-navbar="dropbar: +.uk-navbar-dropbar">
                     <div class="uk-navbar-left">
 
                         <ul class="uk-navbar-nav">
@@ -1116,7 +1151,7 @@
 
             <div class="uk-margin">
 
-                <nav class="uk-navbar-container" uk-navbar="dropbar: true; dropbarMode: push">
+                <nav class="uk-navbar-container" uk-navbar="dropbar: true; dropbar-mode: push">
                     <div class="uk-navbar-left">
 
                         <ul class="uk-navbar-nav">
@@ -1310,7 +1345,7 @@
                     <div class="uk-navbar-item">
                         <a class="uk-icon-button" href="#" uk-icon="icon: trash"></a>
                     </div>
-                    <div class="uk-navbar-item"><img class="uk-logo uk-responsive-height" src="images/photo.jpg" alt="" uk-responsive></div>
+                    <div class="uk-navbar-item"><img src="images/photo.jpg" width="100" alt=""></div>
                     <div class="uk-navbar-item">Search</div>
                     <div class="uk-navbar-item">
                         <form>
@@ -1880,7 +1915,7 @@
 
         <div class="uk-container">
 
-            <h2>Javascript Options</h2>
+            <h2>JavaScript Options</h2>
 
             <div class="uk-overflow-auto">
                 <table class="uk-table uk-table-striped">
@@ -1930,12 +1965,6 @@
                             <td>Align Drop to boundary.</td>
                         </tr>
                         <tr>
-                            <td><code>target</code></td>
-                            <td>CSS selector</td>
-                            <td>'.uk-navbar-dropdown'</td>
-                            <td>The Drop container selector.</td>
-                        </tr>
-                        <tr>
                             <td><code>cls-drop</code></td>
                             <td>String</td>
                             <td>'uk-navbar-dropdown'</td>
@@ -1969,16 +1998,12 @@
                 </table>
             </div>
 
-        </div>
+            <h2>Mouse Tracker</h2>
 
-        <h2>JavaScript</h2>
-
-        <div class="uk-container">
-
-            <div id="mousetracker" class="uk-inline">
-                <a class="uk-display-block" href="#"><img src="images/photo.jpg" alt=""></a>
+            <div id="js-mousetracker" class="uk-position-relative">
+                <img src="images/photo.jpg" alt="">
                 <div class="uk-overlay uk-overlay-default uk-padding-small uk-position-center" style="height: 150px; width: 150px;">
-                    <div id="mousetarget" class="uk-position-center"></div>
+                    <div id="js-mousetarget" class="uk-position-center"></div>
                 </div>
             </div>
 
@@ -1986,14 +2011,23 @@
 
         <script>
 
-            var tracker = new UIkit.util.MouseTracker(),
-                target = $('#mousetarget');
-            $('#mousetracker')
-                .on('mouseenter', function () {tracker.init()})
-                .on('mouseleave', function () {tracker.cancel()})
-                .on('mousemove', function () {
-                    target.text(tracker.movesTo(target.parent()) ? 'Moves to' : 'Moves away');
+            var util = UIkit.util,
+                tracker = new util.MouseTracker(),
+                el = util.$('#js-mousetracker'),
+                target = util.$('#js-mousetarget'),
+                interval;
+
+            util.on(el, 'mouseenter', function () {
+                tracker.init();
+                interval = setInterval(function () {
+                    target.textContent = tracker.movesTo(target.parentNode) ? 'Moves to' : 'Does not move to';
                 });
+            });
+
+            util.on(el, 'mouseleave', function () {
+                tracker.cancel();
+                clearInterval(interval);
+            });
 
         </script>
 

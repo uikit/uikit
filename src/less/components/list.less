@@ -113,6 +113,7 @@
 
 /*
  * Bullet
+ * 1. Reset display `table` which causes issues in combination with multi column layouts.
  */
 
 .uk-list-bullet > li {
@@ -130,7 +131,8 @@
     .svg-fill(@internal-list-bullet-image, "#000", @list-bullet-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
-    float: left;
+    /* 1 */
+    display: block;
     .hook-list-bullet;
 }
 

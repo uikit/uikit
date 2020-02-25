@@ -1,50 +1,67 @@
-import { Class } from '../mixin/index';
-import { $, getCssVar } from '../util/index';
+import Class from '../mixin/class';
+import Media from '../mixin/media';
+import {attr, getCssVar, toggleClass, unwrap, wrapInner} from 'uikit-util';
 
-export default function (UIkit) {
+export default {
 
-    UIkit.component('leader', {
+    mixins: [Class, Media],
 
-        mixins: [Class],
+    props: {
+        fill: String
+    },
 
-        connected() {
-            this.filler = $('<span class="uk-leader-fill"></span>').appendTo(this.$el);
-            this.fillChar = getCssVar('leader-fill');
+    data: {
+        fill: '',
+        clsWrapper: 'uk-leader-fill',
+        clsHide: 'uk-leader-hide',
+        attrFill: 'data-fill'
+    },
+
+    computed: {
+
+        fill({fill}) {
+            return fill || getCssVar('leader-fill-content');
+        }
+
+    },
+
+    connected() {
+        [this.wrapper] = wrapInner(this.$el, `<span class="${this.clsWrapper}">`);
+    },
+
+    disconnected() {
+        unwrap(this.wrapper.childNodes);
+    },
+
+    update: {
+
+        read({changed, width}) {
+
+            const prev = width;
+
+            width = Math.floor(this.$el.offsetWidth / 2);
+
+            return {
+                width,
+                fill: this.fill,
+                changed: changed || prev !== width,
+                hide: !this.matchMedia
+            };
         },
 
-        disconnected() {
-            this.filler.remove();
-        },
+        write(data) {
 
-        update: [
+            toggleClass(this.wrapper, this.clsHide, data.hide);
 
-            {
-                write() {
-
-                    var lw = this.$el.width();
-                    var mw = this.filler.removeClass('uk-hidden').attr('data-fill', this.fillChar).width();
-                    var fill = this.filler.offset().left - this.$el.offset().left;;
-                    var maxtimes = Math.floor(lw / mw);
-                    var times = Math.floor((lw - fill) / mw);
-
-                    if (times == 1 || times/maxtimes > 0.9) {
-                        this.filler.addClass('uk-hidden');
-                        return;
-                    }
-
-                    var filltext = '';
-
-                    for (var i=0;i<times;i++) {
-                        filltext += this.fillChar;
-                    }
-
-                    this.filler.attr('data-fill', filltext);
-                },
-
-                events: ['load', 'resize']
-
+            if (data.changed) {
+                data.changed = false;
+                attr(this.wrapper, this.attrFill, new Array(data.width).join(data.fill));
             }
-        ]
-    });
 
-}
+        },
+
+        events: ['resize']
+
+    }
+
+};

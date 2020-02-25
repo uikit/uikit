@@ -1,0 +1,32 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: node:10
+    working_directory: ~/uikit
+    steps:
+      - checkout
+      - restore_cache:
+          key: yarn-{{ checksum "yarn.lock" }}
+      - run:
+          name: Dependencies
+          command: |
+            yarn install --pure-lockfile --cache-folder ~/.yarn
+      - save_cache:
+          key: yarn-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.yarn
+            - ./node_modules
+      - run:
+          name: Compile
+          command: |
+            if [ "${CIRCLE_BRANCH}" = "master" ];then
+              yarn compile
+            fi
+      - run:
+          name: Deploy to NPM
+          command: |
+            if [ "${CIRCLE_BRANCH}" = "develop" ];then
+              echo "//registry.npmjs.org/:_authToken=$NPM_AUTH_TOKEN" >> ~/.npmrc
+              node ./build/publishDev.js
+            fi

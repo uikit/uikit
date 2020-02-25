@@ -1,0 +1,493 @@
+// Name:            Utility
+// Description:     Utilities collection
+//
+// Component:       `uk-panel-*`
+//                  `uk-clearfix`
+//                  `uk-float-*`
+//                  `uk-overflow-*`
+//                  `uk-resize-*`
+//                  `uk-display-*`
+//                  `uk-inline-*`
+//                  `uk-responsive-*`
+//                  `uk-preserve-width`
+//                  `uk-border-*`
+//                  `uk-box-shadow-*`
+//                  `uk-box-shadow-bottom`
+//                  `uk-dropcap`
+//                  `uk-logo`
+//                  `uk-blend-*`
+//                  `uk-transform-*`
+//                  `uk-transform-origin-*`
+//
+// States:          `uk-disabled`
+//                  `uk-drag`
+//                  `uk-dragover`
+//                  `uk-preserve`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$panel-scrollable-height:                        170px !default;
+$panel-scrollable-padding:                       10px !default;
+$panel-scrollable-border-width:                  $global-border-width !default;
+$panel-scrollable-border:                        $global-border !default;
+
+$border-rounded-border-radius:                   5px !default;
+
+$box-shadow-duration:                            0.1s !default;
+
+$box-shadow-bottom-height:                       30px !default;
+$box-shadow-bottom-border-radius:                100% !default;
+$box-shadow-bottom-background:                   #444 !default;
+$box-shadow-bottom-blur:                         20px !default;
+
+$dropcap-margin-right:                           10px !default;
+$dropcap-font-size:                              (($global-line-height * 3) * 1em) !default;
+
+$logo-font-size:                                 $global-large-font-size !default;
+$logo-font-family:                               $global-font-family !default;
+$logo-color:                                     $global-color !default;
+$logo-hover-color:                               $global-color !default;
+
+$dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) !default;
+
+
+/* ========================================================================
+   Component: Utility
+ ========================================================================== */
+
+
+/* Panel
+ ========================================================================== */
+
+.uk-panel {
+    position: relative;
+    box-sizing: border-box;
+}
+
+/*
+ * Micro clearfix
+ */
+
+.uk-panel::before,
+.uk-panel::after {
+    content: "";
+    display: table;
+}
+
+.uk-panel::after { clear: both; }
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-panel > :last-child { margin-bottom: 0; }
+
+
+/*
+ * Scrollable
+ */
+
+.uk-panel-scrollable {
+    height: $panel-scrollable-height;
+    padding: $panel-scrollable-padding;
+    border: $panel-scrollable-border-width solid $panel-scrollable-border;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    resize: both;
+    @if(mixin-exists(hook-panel-scrollable)) {@include hook-panel-scrollable();}
+}
+
+
+/* Clearfix
+ ========================================================================== */
+
+/*
+ * 1. `table-cell` is used with `::before` because `table` creates a 1px gap when it becomes a flex item, only in Webkit
+ * 2. `table` is used again with `::after` because `clear` only works with block elements.
+ * Note: `display: block` with `overflow: hidden` is currently not working in the latest Safari
+ */
+
+/* 1 */
+.uk-clearfix::before {
+    content: "";
+    display: table-cell;
+}
+
+/* 2 */
+.uk-clearfix::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+
+/* Float
+ ========================================================================== */
+
+/*
+ * 1. Prevent content overflow
+ */
+
+.uk-float-left { float: left; }
+.uk-float-right { float: right; }
+
+/* 1 */
+[class*='uk-float-'] { max-width: 100%; }
+
+
+/* Overfow
+ ========================================================================== */
+
+.uk-overflow-hidden { overflow: hidden; }
+
+/*
+ * Enable scrollbars if content is clipped
+ * Note: Firefox ignores `padding-bottom` for the scrollable overflow https://bugzilla.mozilla.org/show_bug.cgi?id=748518
+ */
+
+.uk-overflow-auto {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.uk-overflow-auto > :last-child { margin-bottom: 0; }
+
+
+/* Resize
+ ========================================================================== */
+
+.uk-resize { resize: both; }
+.uk-resize-vertical { resize: vertical; }
+
+
+/* Display
+ ========================================================================== */
+
+.uk-display-block { display: block !important; }
+.uk-display-inline { display: inline !important; }
+.uk-display-inline-block { display: inline-block !important; }
+
+
+/* Inline
+ ========================================================================== */
+
+/*
+ * 1. Container fits its content
+ * 2. Create position context
+ * 3. Prevent content overflow
+ * 4. Behave like most inline-block elements
+ * 5. Force hardware acceleration without creating a new stacking context
+ *    to fix 1px glitch when combined with overlays and transitions in Webkit
+ * 6. Clip child elements
+ */
+
+[class*='uk-inline'] {
+    /* 1 */
+    display: inline-block;
+    /* 2 */
+    position: relative;
+    /* 3 */
+    max-width: 100%;
+    /* 4 */
+    vertical-align: middle;
+    /* 5 */
+    -webkit-backface-visibility: hidden;
+}
+
+.uk-inline-clip {
+    /* 6 */
+    overflow: hidden;
+}
+
+
+/* Responsive objects
+ ========================================================================== */
+
+/*
+ * Preserve original dimensions
+ * Because `img, `video`, `canvas` and  `audio` are already responsive by default, see Base component
+ */
+
+.uk-preserve-width,
+.uk-preserve-width canvas,
+.uk-preserve-width img,
+.uk-preserve-width svg,
+.uk-preserve-width video { max-width: none; }
+
+/*
+ * Responsiveness
+ * Corrects `max-width` and `max-height` behavior if padding and border are used
+ */
+
+.uk-responsive-width,
+.uk-responsive-height { box-sizing: border-box; }
+
+/*
+ * 1. Set a maximum width. `important` needed to override `uk-preserve-width img`
+ * 2. Auto scale the height. Only needed if `height` attribute is present
+ */
+
+.uk-responsive-width {
+    /* 1 */
+    max-width: 100% !important;
+    /* 2 */
+    height: auto;
+}
+
+/*
+ * 1. Set a maximum height. Only works if the parent element has a fixed height
+ * 2. Auto scale the width. Only needed if `width` attribute is present
+ * 3. Reset max-width, which `img, `video`, `canvas` and  `audio` already have by default
+ */
+
+.uk-responsive-height {
+    /* 1 */
+    max-height: 100%;
+    /* 2 */
+    width: auto;
+    /* 3 */
+    max-width: none;
+}
+
+
+/* Border
+ ========================================================================== */
+
+.uk-border-circle { border-radius: 50%; }
+.uk-border-pill { border-radius: 500px; }
+.uk-border-rounded { border-radius: $border-rounded-border-radius; }
+
+/*
+ * Fix `overflow: hidden` to be ignored with border-radius and CSS transforms in Webkit
+ */
+
+.uk-inline-clip[class*='uk-border-'] { -webkit-transform: translateZ(0); }
+
+
+/* Box-shadow
+ ========================================================================== */
+
+.uk-box-shadow-small { box-shadow: $global-small-box-shadow; }
+.uk-box-shadow-medium { box-shadow: $global-medium-box-shadow; }
+.uk-box-shadow-large { box-shadow: $global-large-box-shadow; }
+.uk-box-shadow-xlarge { box-shadow: $global-xlarge-box-shadow; }
+
+/*
+ * Hover
+ */
+
+[class*='uk-box-shadow-hover'] { transition: box-shadow $box-shadow-duration ease-in-out; }
+
+.uk-box-shadow-hover-small:hover { box-shadow: $global-small-box-shadow; }
+.uk-box-shadow-hover-medium:hover { box-shadow: $global-medium-box-shadow; }
+.uk-box-shadow-hover-large:hover { box-shadow: $global-large-box-shadow; }
+.uk-box-shadow-hover-xlarge:hover { box-shadow: $global-xlarge-box-shadow; }
+
+
+/* Box-shadow bottom
+ ========================================================================== */
+
+/*
+ * 1. Set position.
+ * 2. Set style
+ * 3. Blur doesn't work on pseudo elements with negative `z-index` in Edge.
+ *    Solved by using `before` and add position context to child elements.
+ */
+
+@supports (filter: blur(0)) {
+
+    .uk-box-shadow-bottom {
+        display: inline-block;
+        position: relative;
+        max-width: 100%;
+        vertical-align: middle;
+    }
+
+    .uk-box-shadow-bottom::before {
+        content: '';
+        /* 1 */
+        position: absolute;
+        bottom: (-$box-shadow-bottom-height);
+        left: 0;
+        right: 0;
+        /* 2 */
+        height: $box-shadow-bottom-height;
+        border-radius: $box-shadow-bottom-border-radius;
+        background: $box-shadow-bottom-background;
+        filter: blur($box-shadow-bottom-blur);
+        @if(mixin-exists(hook-box-shadow-bottom)) {@include hook-box-shadow-bottom();}
+    }
+
+    /* 3 */
+    .uk-box-shadow-bottom > * { position: relative; }
+
+}
+
+
+/* Drop cap
+ ========================================================================== */
+
+/*
+ * 1. Firefox doesn't apply `::first-letter` if the first letter is inside child elements
+ *    https://bugzilla.mozilla.org/show_bug.cgi?id=214004
+ * 2. In Firefox, a floating `::first-letter` doesn't have a line box and there for no `line-height`
+ *    https://bugzilla.mozilla.org/show_bug.cgi?id=317933
+ * 3. Caused by 1.: Edge creates two nested `::first-letter` containers, one for each selector
+ *    This doubles the `font-size` exponential when using the `em` unit.
+ */
+
+.uk-dropcap::first-letter,
+/* 1 */
+.uk-dropcap > p:first-of-type::first-letter {
+    display: block;
+    margin-right: $dropcap-margin-right;
+    float: left;
+    font-size: $dropcap-font-size;
+    line-height: 1;
+    @if(mixin-exists(hook-dropcap)) {@include hook-dropcap();}
+}
+
+/* 2 */
+@-moz-document url-prefix() {
+
+  .uk-dropcap::first-letter,
+  .uk-dropcap > p:first-of-type::first-letter { margin-top: 1.1%; }
+
+}
+
+/* 3 */
+@supports (-ms-ime-align: auto) {
+
+  .uk-dropcap > p:first-of-type::first-letter { font-size: 1em; }
+
+}
+
+
+/* Logo
+ ========================================================================== */
+
+/*
+ * 1. Required for `a`
+ */
+
+.uk-logo {
+    font-size: $logo-font-size;
+    font-family: $logo-font-family;
+    color: $logo-color;
+    /* 1 */
+    text-decoration: none;
+    @if(mixin-exists(hook-logo)) {@include hook-logo();}
+}
+
+/* Hover + Focus */
+.uk-logo:hover,
+.uk-logo:focus {
+    color: $logo-hover-color;
+    outline: none;
+    /* 1 */
+    text-decoration: none;
+    @if(mixin-exists(hook-logo-hover)) {@include hook-logo-hover();}
+}
+
+.uk-logo-inverse { display: none; }
+
+
+/* Disabled State
+ ========================================================================== */
+
+.uk-disabled { pointer-events: none; }
+
+
+/* Drag State
+ ========================================================================== */
+
+/*
+ * 1. Needed if moving over elements with have their own cursor on hover, e.g. links or buttons
+ * 2. Fix dragging over iframes
+ */
+
+.uk-drag,
+/* 1 */
+.uk-drag * { cursor: move; }
+
+/* 2 */
+.uk-drag iframe { pointer-events: none; }
+
+
+/* Dragover State
+ ========================================================================== */
+
+/*
+ * Create a box-shadow when dragging a file over the upload area
+ */
+
+.uk-dragover { box-shadow: $dragover-box-shadow; }
+
+
+/* Blend modes
+ ========================================================================== */
+
+.uk-blend-multiply { mix-blend-mode: multiply; }
+.uk-blend-screen { mix-blend-mode: screen; }
+.uk-blend-overlay { mix-blend-mode: overlay; }
+.uk-blend-darken { mix-blend-mode: darken; }
+.uk-blend-lighten { mix-blend-mode: lighten; }
+.uk-blend-color-dodge { mix-blend-mode: color-dodge; }
+.uk-blend-color-burn { mix-blend-mode: color-burn; }
+.uk-blend-hard-light { mix-blend-mode: hard-light; }
+.uk-blend-soft-light { mix-blend-mode: soft-light; }
+.uk-blend-difference { mix-blend-mode: difference; }
+.uk-blend-exclusion { mix-blend-mode: exclusion; }
+.uk-blend-hue { mix-blend-mode: hue; }
+.uk-blend-saturation { mix-blend-mode: saturation; }
+.uk-blend-color { mix-blend-mode: color; }
+.uk-blend-luminosity { mix-blend-mode: luminosity; }
+
+
+/* Transform
+========================================================================== */
+
+.uk-transform-center { transform: translate(-50%, -50%); }
+
+
+/* Transform Origin
+========================================================================== */
+
+.uk-transform-origin-top-left { transform-origin: 0 0; }
+.uk-transform-origin-top-center { transform-origin: 50% 0; }
+.uk-transform-origin-top-right { transform-origin: 100% 0; }
+.uk-transform-origin-center-left { transform-origin: 0 50%; }
+.uk-transform-origin-center-right { transform-origin: 100% 50%; }
+.uk-transform-origin-bottom-left { transform-origin: 0 100%; }
+.uk-transform-origin-bottom-center { transform-origin: 50% 100%; }
+.uk-transform-origin-bottom-right { transform-origin: 100% 100%; }
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-utility-misc)) {@include hook-utility-misc();}
+
+// @mixin hook-panel-scrollable(){}
+// @mixin hook-box-shadow-bottom(){}
+// @mixin hook-dropcap(){}
+// @mixin hook-logo(){}
+// @mixin hook-logo-hover(){}
+// @mixin hook-utility-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-logo-color:                            $inverse-global-color !default;
+$inverse-logo-hover-color:                      $inverse-global-color !default;
+
+
+
+// @mixin hook-inverse-dropcap(){}
+// @mixin hook-inverse-logo(){}
+// @mixin hook-inverse-logo-hover(){}

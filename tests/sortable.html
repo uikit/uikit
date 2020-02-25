@@ -5,7 +5,6 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Sortable - UIkit tests</title>
-        <script src="../node_modules/jquery/dist/jquery.js"></script>
         <script src="js/test.js"></script>
 
         <style>
@@ -15,18 +14,16 @@
             }
 
         </style>
-        <script type="text/javascript">
+        <script>
 
-            jQuery(function($) {
-                 $('body').on('start', function (e, sortable, el) {
-                     console.log('start', sortable, el);
-                 }).on('move', function(e, sortable) {
-                     console.log('move', sortable);
-                 }).on('change', function(e, sortable, el, mode) {
-                     console.log('change', sortable, el, mode);
-                 }).on('stop', function(e, sortable) {
-                     console.log('stop', sortable);
-                 });
+            var util = UIkit.util;
+
+            util.ready(function () {
+
+                util.on(document.body, 'start moved added removed stop', function (e, sortable, el) {
+                    console.log(e.type, sortable, el);
+                });
+
             });
 
         </script>
@@ -43,11 +40,11 @@
             <ul class="uk-grid-match uk-child-width-1-2 uk-child-width-1-5@m" uk-sortable="handle: .uk-card" uk-grid>
                 <li>
                     <div class="uk-card uk-card-default uk-card-body">
-                        <a href="http://www.getuikit.com">Link</a>
+                        <a href="https://getuikit.com">Link</a>
                         <img src="images/avatar.jpg" width="40" alt="">
                     </div>
                 </li>
-                <li><a class="uk-card uk-card-default uk-card-body uk-display-block" href="http://www.getuikit.com">Link Handle</a></li>
+                <li><a class="uk-card uk-card-default uk-card-body uk-display-block" href="https://getuikit.com">Link Handle</a></li>
                 <li><div class="uk-card uk-card-default uk-card-body">Item 3</div></li>
                 <li><div class="uk-card uk-card-default uk-card-body">Item 4</div></li>
                 <li><div class="uk-card uk-card-default uk-card-body">Item 5</div></li>
@@ -204,7 +201,7 @@
                 </div></li>
             </ul>
 
-            <h2>Javascript Options</h2>
+            <h2>JavaScript Options</h2>
 
             <div class="uk-overflow-auto">
                 <table class="uk-table uk-table-striped">
@@ -254,7 +251,7 @@
                             <td>The ghost class.</td>
                         </tr>
                         <tr>
-                            <td><code>clsDrag-state</code></td>
+                            <td><code>cls-drag-state</code></td>
                             <td>String</td>
                             <td>uk-sortable-dragging</td>
                             <td>The body's dragging class.</td>
@@ -266,7 +263,7 @@
                             <td>The list's class.</td>
                         </tr>
                         <tr>
-                            <td><code>clsNo-drag</code></td>
+                            <td><code>cls-no-drag</code></td>
                             <td>String</td>
                             <td>uk-sortable-nodrag</td>
                             <td>Prevent dragging on elements with this class.</td>

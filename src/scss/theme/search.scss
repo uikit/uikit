@@ -1,0 +1,73 @@
+//
+// Component: Search
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$search-default-background:                          transparent !default;
+
+//
+// New
+//
+
+$search-default-border-width:                        $global-border-width !default;
+$search-default-border:                              $global-border !default;
+
+
+// Component
+// ========================================================================
+
+// @mixin hook-search-input(){}
+
+
+// Default modifiers
+// ========================================================================
+
+
+
+
+// Navbar modifiers
+// ========================================================================
+
+// @mixin hook-search-navbar-input(){}
+
+// @mixin hook-search-default-input-focus(){}
+
+
+// Large modifiers
+// ========================================================================
+
+// @mixin hook-search-large-input(){}
+
+
+// Toggle
+// ========================================================================
+
+// @mixin hook-search-toggle(){}
+
+// @mixin hook-search-toggle-hover(){}
+
+
+// Miscellaneous
+// ========================================================================
+
+// @mixin hook-search-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+$inverse-search-default-background:             transparent !default;
+
+
+// @mixin hook-inverse-search-default-input-focus(){}
+
+// @mixin hook-inverse-search-navbar-input(){}
+
+// @mixin hook-inverse-search-large-input(){}
+
+// @mixin hook-inverse-search-toggle(){}
+// @mixin hook-inverse-search-toggle-hover(){}

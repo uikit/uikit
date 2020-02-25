@@ -1,0 +1,121 @@
+// Name:            Thumbnav
+// Description:     Component to create thumbnail navigations
+//
+// Component:       `uk-thumbnav`
+//
+// Modifier:        `uk-thumbnav-vertical`
+//
+// States:          `uk-active`
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+$thumbnav-margin-horizontal:                     15px !default;
+$thumbnav-margin-vertical:                       $thumbnav-margin-horizontal !default;
+
+
+/* ========================================================================
+   Component: Thumbnav
+ ========================================================================== */
+
+/*
+ * 1. Allow items to wrap into the next line
+ * 2. Reset list
+ * 3. Gutter
+ */
+
+.uk-thumbnav {
+    display: flex;
+    /* 1 */
+    flex-wrap: wrap;
+    /* 2 */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    /* 3 */
+    margin-left: (-$thumbnav-margin-horizontal);
+    @if(mixin-exists(hook-thumbnav)) {@include hook-thumbnav();}
+}
+
+/*
+ * Space is allocated based on content dimensions, but shrinks: 0 1 auto
+ * 1. Gutter
+ */
+
+.uk-thumbnav > * {
+    /* 1 */
+    padding-left: $thumbnav-margin-horizontal;
+}
+
+
+/* Items
+ ========================================================================== */
+
+/*
+ * Items
+ */
+
+.uk-thumbnav > * > * {
+    display: inline-block;
+    @if(mixin-exists(hook-thumbnav-item)) {@include hook-thumbnav-item();}
+}
+
+/* Hover + Focus */
+.uk-thumbnav > * > :hover,
+.uk-thumbnav > * > :focus {
+    outline: none;
+    @if(mixin-exists(hook-thumbnav-item-hover)) {@include hook-thumbnav-item-hover();}
+}
+
+/* Active */
+.uk-thumbnav > .uk-active > * {
+    @if(mixin-exists(hook-thumbnav-item-active)) {@include hook-thumbnav-item-active();}
+}
+
+
+/* Modifier: 'uk-thumbnav-vertical'
+ ========================================================================== */
+
+/*
+ * 1. Change direction
+ * 2. Gutter
+ */
+
+.uk-thumbnav-vertical {
+    /* 1 */
+    flex-direction: column;
+    /* 2 */
+    margin-left: 0;
+    margin-top: (-$thumbnav-margin-vertical);
+}
+
+/* 2 */
+.uk-thumbnav-vertical > * {
+    padding-left: 0;
+    padding-top: $thumbnav-margin-vertical;
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-thumbnav-misc)) {@include hook-thumbnav-misc();}
+
+// @mixin hook-thumbnav(){}
+// @mixin hook-thumbnav-item(){}
+// @mixin hook-thumbnav-item-hover(){}
+// @mixin hook-thumbnav-item-active(){}
+// @mixin hook-thumbnav-misc(){}
+
+
+// Inverse
+// ========================================================================
+
+
+
+// @mixin hook-inverse-thumbnav-item(){}
+// @mixin hook-inverse-thumbnav-item-hover(){}
+// @mixin hook-inverse-thumbnav-item-active(){}

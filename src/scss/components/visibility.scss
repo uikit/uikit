@@ -1,0 +1,175 @@
+// Name:            Visibility
+// Description:     Utilities to show or hide content on breakpoints, hover or touch
+//
+// Component:       `uk-hidden-*`
+//                  `uk-visible-*`
+//                  `uk-invisible`
+//                  `uk-visible-toggle`
+//                  `uk-hidden-hover`
+//                  `uk-invisible-hover`
+//                  `uk-hidden-touch`
+//                  `uk-hidden-notouch`
+//
+// ========================================================================
+
+
+/* ========================================================================
+   Component: Visibility
+ ========================================================================== */
+
+/*
+ * Hidden
+ * `hidden` attribute also set here to make it stronger
+ */
+
+[hidden],
+.uk-hidden { display: none !important; }
+
+/* Phone landscape and bigger */
+@media (min-width: $breakpoint-small) {
+
+    .uk-hidden\@s { display: none !important; }
+
+}
+
+/* Tablet landscape and bigger */
+@media (min-width: $breakpoint-medium) {
+
+    .uk-hidden\@m { display: none !important; }
+
+}
+
+/* Desktop and bigger */
+@media (min-width: $breakpoint-large) {
+
+    .uk-hidden\@l { display: none !important; }
+
+}
+
+/* Large screen and bigger */
+@media (min-width: $breakpoint-xlarge) {
+
+    .uk-hidden\@xl { display: none !important; }
+
+}
+
+/*
+ * Visible
+ */
+
+/* Phone portrait and smaller */
+@media (max-width: $breakpoint-xsmall-max) {
+
+    .uk-visible\@s { display: none !important; }
+
+}
+
+/* Phone landscape and smaller */
+@media (max-width: $breakpoint-small-max) {
+
+    .uk-visible\@m { display: none !important; }
+
+}
+
+/* Tablet landscape and smaller */
+@media (max-width: $breakpoint-medium-max) {
+
+    .uk-visible\@l { display: none !important; }
+
+}
+
+/* Desktop and smaller */
+@media (max-width: $breakpoint-large-max) {
+
+    .uk-visible\@xl { display: none !important; }
+
+}
+
+
+/* Visibility
+ ========================================================================== */
+
+.uk-invisible { visibility: hidden !important; }
+
+
+/* Toggle (Hover + Focus)
+ ========================================================================== */
+
+/*
+ * Hidden
+ * 1. The toggle is triggered on touch devices using `:focus` and tabindex
+ * 2. The target stays visible if any element within receives focus through keyboard
+ *    Doesn't work in Edge, yet.
+ * 3. Can't use `display: none` nor `visibility: hidden` because both are not focusable.
+ *
+ */
+
+/* 1 + 2 */
+.uk-visible-toggle:not(:hover):not(:focus) .uk-hidden-hover:not(:focus-within) {
+    /* 3 */
+    position: absolute !important;
+    width: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: hidden !important;
+}
+
+/*
+ * Invisible
+ */
+
+/* 1 + 2 */
+.uk-visible-toggle:not(:hover):not(:focus) .uk-invisible-hover:not(:focus-within) {
+    /* 3 */
+    opacity: 0 !important;
+}
+
+/*
+ * 1. Prevent tab highlighting on iOS.
+ */
+
+.uk-visible-toggle {
+    /* 1 */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/*
+ * Remove outline for `tabindex`
+ */
+
+.uk-visible-toggle:focus { outline: none; }
+
+
+/* Touch
+ ========================================================================== */
+
+/*
+ * Hide if primary pointing device has limited accuracy, e.g. a touch screen.
+ * Works on mobile browsers: Safari, Chrome and Android browser
+ */
+
+@media (pointer: coarse) {
+    .uk-hidden-touch { display: none !important; }
+}
+
+/*
+ * Hide if primary pointing device is accurate, e.g. mouse.
+ * 1. Fallback for IE11 and Firefox, because `pointer` is not supported
+ * 2. Reset if supported
+ */
+
+/* 1 */
+.uk-hidden-notouch { display: none !important; }
+
+@media (pointer: coarse) {
+    .uk-hidden-notouch { display: block !important; }
+}
+
+
+// Hooks
+// ========================================================================
+
+@if(mixin-exists(hook-visibility-misc)) {@include hook-visibility-misc();}
+
+// @mixin hook-visibility-misc(){}

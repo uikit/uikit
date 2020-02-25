@@ -19,6 +19,7 @@
 
 @breadcrumb-divider:                                "/";
 @breadcrumb-divider-margin-horizontal:              20px;
+@breadcrumb-divider-font-size:                      @breadcrumb-item-font-size;
 @breadcrumb-divider-color:                          @global-muted-color;
 
 
@@ -28,16 +29,12 @@
 
 /*
  * 1. Allow items to wrap into the next line
- * 2. Reset lists
+ * 2. Reset list
  */
 
 .uk-breadcrumb {
-    display: -ms-flexbox;
-    display: -webkit-flex;
     display: flex;
     /* 1 */
-    -ms-flex-wrap: wrap;
-    -webkit-flex-wrap: wrap;
     flex-wrap: wrap;
     /* 2 */
     padding: 0;
@@ -49,11 +46,7 @@
  * Space is allocated solely based on content dimensions: 0 0 auto
  */
 
-.uk-breadcrumb > * {
-    -ms-flex: none;
-    -webkit-flex: none;
-    flex: none;
-}
+.uk-breadcrumb > * { flex: none; }
 
 
 /* Items
@@ -74,8 +67,14 @@
     .hook-breadcrumb-item-hover;
 }
 
+/* Disabled */
+.uk-breadcrumb > .uk-disabled > * {
+    .hook-breadcrumb-item-disabled;
+}
+
 /* Active */
-.uk-breadcrumb > :last-child > * {
+.uk-breadcrumb > :last-child > span,
+.uk-breadcrumb > :last-child > a:not([href]) {
     color: @breadcrumb-item-active-color;
     .hook-breadcrumb-item-active;
 }
@@ -89,6 +88,7 @@
     content: @breadcrumb-divider;
     display: inline-block;
     margin: 0 @breadcrumb-divider-margin-horizontal;
+    font-size: @breadcrumb-divider-font-size;
     color: @breadcrumb-divider-color;
     .hook-breadcrumb-divider;
 }
@@ -102,6 +102,7 @@
 .hook-breadcrumb() {}
 .hook-breadcrumb-item() {}
 .hook-breadcrumb-item-hover() {}
+.hook-breadcrumb-item-disabled() {}
 .hook-breadcrumb-item-active() {}
 .hook-breadcrumb-divider() {}
 .hook-breadcrumb-misc() {}
@@ -128,6 +129,11 @@
         .hook-inverse-breadcrumb-item-hover;
     }
 
+
+    .uk-breadcrumb > .uk-disabled > * {
+        .hook-inverse-breadcrumb-item-disabled;
+    }
+
     .uk-breadcrumb > :last-child > * {
         color: @inverse-breadcrumb-item-active-color;
         .hook-inverse-breadcrumb-item-active;
@@ -146,5 +152,6 @@
 
 .hook-inverse-breadcrumb-item() {}
 .hook-inverse-breadcrumb-item-hover() {}
+.hook-inverse-breadcrumb-item-disabled() {}
 .hook-inverse-breadcrumb-item-active() {}
 .hook-inverse-breadcrumb-divider() {}

@@ -1,109 +1,42 @@
-import { animationstart, getStyle, on, requestAnimationFrame, toMs, win } from '../util/index';
+export {default as Accordion} from './accordion';
+export {default as Alert} from './alert';
+export {default as Cover} from './cover';
+export {default as Drop} from './drop';
+export {default as Dropdown} from './dropdown';
+export {default as FormCustom} from './form-custom';
+export {default as Gif} from './gif';
+export {default as Grid} from './grid';
+export {default as HeightMatch} from './height-match';
+export {default as HeightViewport} from './height-viewport';
+export {default as Icon} from './icon';
+export {default as Img} from './img';
+export {default as Leader} from './leader';
+export {default as Margin} from './margin';
+export {default as Modal} from './modal';
+export {default as Nav} from './nav';
+export {default as Navbar} from './navbar';
+export {default as Offcanvas} from './offcanvas';
+export {default as OverflowAuto} from './overflow-auto';
+export {default as Responsive} from './responsive';
+export {default as Scroll} from './scroll';
+export {default as Scrollspy} from './scrollspy';
+export {default as ScrollspyNav} from './scrollspy-nav';
+export {default as Sticky} from './sticky';
+export {default as Svg} from './svg';
+export {default as Switcher} from './switcher';
+export {default as Tab} from './tab';
+export {default as Toggle} from './toggle';
+export {default as Video} from './video';
 
-import Accordion from './accordion';
-import Alert from './alert';
-import Cover from './cover';
-import Drop from './drop';
-import Dropdown from './dropdown';
-import FormCustom from './form-custom';
-import Gif from './gif';
-import Grid from './grid';
-import HeightMatch from './height-match';
-import HeightViewport from './height-viewport';
-import Hover from './hover';
-import Icon from './icon';
-import Margin from './margin';
-import Modal from './modal';
-import Nav from './nav';
-import Navbar from './navbar';
-import Offcanvas from './offcanvas';
-import Responsive from './responsive';
-import Scroll from './scroll';
-import Scrollspy from './scrollspy';
-import ScrollspyNav from './scrollspy-nav';
-import Sticky from './sticky';
-import Svg from './svg';
-import Switcher from './switcher';
-import Tab from './tab';
-import Toggle from './toggle';
-import Leader from './leader';
-
-export default function (UIkit) {
-
-    var scroll = null, dir, ticking, resizing, started = 0;
-
-    win
-        .on('load', UIkit.update)
-        .on('resize', e => {
-            if (!resizing) {
-                requestAnimationFrame(() => {
-                    UIkit.update(e);
-                    resizing = false;
-                });
-                resizing = true;
-            }
-        })
-        .on('scroll', e => {
-
-            if (scroll === null) {
-                scroll = 0;
-            }
-
-            if (scroll === window.pageYOffset) {
-                return;
-            }
-
-            dir = scroll < window.pageYOffset;
-            scroll = window.pageYOffset;
-            if (!ticking) {
-                requestAnimationFrame(() => {
-                    e.dir = dir ? 'down' : 'up';
-                    UIkit.update(e);
-                    ticking = false;
-                });
-                ticking = true;
-            }
-        });
-
-    on(document, animationstart, ({target}) => {
-        if ((getStyle(target, 'animationName') || '').match(/^uk-.*(left|right)/)) {
-            started++;
-            document.body.style.overflowX = 'hidden';
-            setTimeout(() => {
-                if (!--started) {
-                    document.body.style.overflowX = '';
-                }
-            }, toMs(getStyle(target, 'animationDuration')) + 100);
-        }
-    }, true);
-
-    // core components
-    UIkit.use(Toggle);
-    UIkit.use(Accordion);
-    UIkit.use(Alert);
-    UIkit.use(Cover);
-    UIkit.use(Drop);
-    UIkit.use(Dropdown);
-    UIkit.use(FormCustom);
-    UIkit.use(HeightMatch);
-    UIkit.use(HeightViewport);
-    UIkit.use(Hover);
-    UIkit.use(Margin);
-    UIkit.use(Gif);
-    UIkit.use(Grid);
-    UIkit.use(Leader);
-    UIkit.use(Modal);
-    UIkit.use(Nav);
-    UIkit.use(Navbar);
-    UIkit.use(Offcanvas);
-    UIkit.use(Responsive);
-    UIkit.use(Scroll);
-    UIkit.use(Scrollspy);
-    UIkit.use(ScrollspyNav);
-    UIkit.use(Sticky);
-    UIkit.use(Svg);
-    UIkit.use(Icon);
-    UIkit.use(Switcher);
-    UIkit.use(Tab);
-
-}
+// Icon components
+export {Close} from './icon';
+export {Spinner} from './icon';
+export {Slidenav as SlidenavNext} from './icon';
+export {Slidenav as SlidenavPrevious} from './icon';
+export {Search as SearchIcon} from './icon';
+export {IconComponent as Marker} from './icon';
+export {IconComponent as NavbarToggleIcon} from './icon';
+export {IconComponent as OverlayIcon} from './icon';
+export {IconComponent as PaginationNext} from './icon';
+export {IconComponent as PaginationPrevious} from './icon';
+export {IconComponent as Totop} from './icon';

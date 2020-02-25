@@ -1,67 +1,45 @@
-import { $, offsetTop } from '../util/index';
+import {$, escape, scrollIntoView, trigger} from 'uikit-util';
 
-export default function (UIkit) {
+export default {
 
-    UIkit.component('scroll', {
+    props: {
+        duration: Number,
+        offset: Number
+    },
 
-        props: {
-            duration: Number,
-            transition: String,
-            offset: Number
-        },
+    data: {
+        duration: 1000,
+        offset: 0
+    },
 
-        defaults: {
-            duration: 1000,
-            transition: 'easeOutExpo',
-            offset: 0
-        },
+    methods: {
 
-        methods: {
+        scrollTo(el) {
 
-            scrollToElement(el) {
+            el = el && $(el) || document.body;
 
-                el = $(el);
-
-                // get / set parameters
-                var target = offsetTop(el) - this.offset,
-                    docHeight = document.documentElement.offsetHeight,
-                    winHeight = window.innerHeight;
-
-                if (target + winHeight > docHeight) {
-                    target = docHeight - winHeight;
-                }
-
-                // animate to target, fire callback when done
-                $('html,body')
-                    .stop()
-                    .animate({scrollTop: parseInt(target, 10) || 1}, this.duration, this.transition)
-                    .promise()
-                    .then(() => this.$el.trigger('scrolled', [this]));
-
-            }
-
-        },
-
-        events: {
-
-            click(e) {
-
-                if (e.isDefaultPrevented()) {
-                    return;
-                }
-
-                e.preventDefault();
-                this.scrollToElement($(this.$el[0].hash).length ? this.$el[0].hash : 'body');
+            if (trigger(this.$el, 'beforescroll', [this, el])) {
+                scrollIntoView(el, this.$props).then(() =>
+                    trigger(this.$el, 'scrolled', [this, el])
+                );
             }
 
         }
 
-    });
+    },
 
-    if (!$.easing.easeOutExpo) {
-        $.easing.easeOutExpo = function (x, t, b, c, d) {
-            return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
-        };
+    events: {
+
+        click(e) {
+
+            if (e.defaultPrevented) {
+                return;
+            }
+
+            e.preventDefault();
+            this.scrollTo(escape(decodeURIComponent(this.$el.hash)).substr(1));
+        }
+
     }
 
-}
+};

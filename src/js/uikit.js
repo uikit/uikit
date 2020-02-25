@@ -1,19 +1,21 @@
+import UIkit from './api/index';
+import Core from './core/core';
 import boot from './api/boot';
-import UIkit from './uikit-core';
-import Lightbox from './components/lightbox';
-import Notification from './components/notification';
-import Sortable from './components/sortable';
-import Tooltip from './components/tooltip';
-import Upload from './components/upload';
+import * as coreComponents from './core/index';
+import * as components from './components/index';
+import {each} from './util/lang';
 
-UIkit.use(Lightbox);
-UIkit.use(Notification);
-UIkit.use(Sortable);
-UIkit.use(Tooltip);
-UIkit.use(Upload);
+// register components
+each(coreComponents, register);
+each(components, register);
 
-if (BUNDLED) {
-    boot(UIkit);
-}
+// core functionality
+UIkit.use(Core);
+
+boot(UIkit);
 
 export default UIkit;
+
+function register(component, name) {
+    UIkit.component(name, component);
+}
