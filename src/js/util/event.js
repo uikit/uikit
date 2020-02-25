@@ -100,7 +100,7 @@ function delegate(delegates, selector, listener) {
 }
 
 function detail(listener) {
-    return e => isArray(e.detail) ? listener(...[e].concat(e.detail)) : listener(e);
+    return e => isArray(e.detail) ? listener(e, ...e.detail) : listener(e);
 }
 
 function selfFilter(listener) {

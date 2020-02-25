@@ -51,7 +51,7 @@ export default {
         target: {
 
             get({target}) {
-                return [this.$el].concat(queryAll(target, this.$el));
+                return [this.$el, ...queryAll(target, this.$el)];
             },
 
             watch() {

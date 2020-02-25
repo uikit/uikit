@@ -14,6 +14,7 @@
 - Fix infinite loop in Slider component
 - Fix IE 11 compatibility
 - Fix Spinner component in Rtl mode
+- Fix animating `stroke` in Parallax component when element is hidden
 
 ## 3.3.2 (February 17, 2020)
 
