@@ -73,7 +73,8 @@ $breadcrumb-divider-color:                           $global-muted-color !defaul
 }
 
 /* Active */
-.uk-breadcrumb > :last-child > * {
+.uk-breadcrumb > :last-child > span,
+.uk-breadcrumb > :last-child > a:not([href]) {
     color: $breadcrumb-item-active-color;
     @if(mixin-exists(hook-breadcrumb-item-active)) {@include hook-breadcrumb-item-active();}
 }

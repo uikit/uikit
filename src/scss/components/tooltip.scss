@@ -39,8 +39,9 @@ $tooltip-margin:                                 10px !default;
 /*
  * 1. Hide by default
  * 2. Position
- * 3. Dimensions
- * 4. Style
+ * 3. Remove tooltip from document flow to keep the UIkit container from changing its size when injected into the document initially
+ * 4. Dimensions
+ * 5. Style
  */
 
 .uk-tooltip {
@@ -50,10 +51,12 @@ $tooltip-margin:                                 10px !default;
     position: absolute;
     z-index: $tooltip-z-index;
     /* 3 */
+    top: 0;
+    /* 4 */
     box-sizing: border-box;
     max-width: $tooltip-max-width;
     padding: $tooltip-padding-vertical $tooltip-padding-horizontal;
-    /* 4 */
+    /* 5 */
     background: $tooltip-background;
     border-radius: $tooltip-border-radius;
     color: $tooltip-color;
