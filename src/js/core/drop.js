@@ -164,8 +164,6 @@ export default {
 
             name: pointerEnter,
 
-            self: true,
-
             filter() {
                 return includes(this.mode, 'hover');
             },
@@ -181,8 +179,6 @@ export default {
         {
 
             name: pointerLeave,
-
-            self: true,
 
             filter() {
                 return includes(this.mode, 'hover');
