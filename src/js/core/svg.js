@@ -166,7 +166,7 @@ function parseSVG(svg, icon) {
     return svg && svg.hasChildNodes() && svg;
 }
 
-const symbolRe = /<symbol(.*?id=(['"])(.*?)\2[^]*?<\/)symbol>/g;
+const symbolRe = /<symbol([^]*?id=(['"])(.+?)\2[^]*?<\/)symbol>/g;
 const symbols = {};
 
 function parseSymbols(svg, icon) {
@@ -175,12 +175,12 @@ function parseSymbols(svg, icon) {
 
         symbols[svg] = {};
 
+        symbolRe.lastIndex = 0;
+
         let match;
         while ((match = symbolRe.exec(svg))) {
             symbols[svg][match[3]] = `<svg xmlns="http://www.w3.org/2000/svg"${match[1]}svg>`;
         }
-
-        symbolRe.lastIndex = 0;
 
     }
 
