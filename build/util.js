@@ -12,7 +12,7 @@ const replace = require('@rollup/plugin-replace');
 const alias = require('@rollup/plugin-alias');
 const {basename, dirname, join, resolve} = require('path');
 const {version} = require('../package.json');
-const banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */\n`;
+const banner = `/*! UIkit ${version} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;
 
 exports.banner = banner;
 exports.validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
