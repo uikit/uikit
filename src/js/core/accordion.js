@@ -13,7 +13,9 @@ export default {
         multiple: Boolean,
         toggle: String,
         content: String,
-        transition: String
+        transition: String,
+        scrollDuration: Number,
+        offset: Number
     },
 
     data: {
@@ -25,7 +27,9 @@ export default {
         clsOpen: 'uk-open',
         toggle: '> .uk-accordion-title',
         content: '> .uk-accordion-content',
-        transition: 'ease'
+        transition: 'ease',
+        scrollDuration: 1000,
+        offset: 0
     },
 
     computed: {
@@ -119,7 +123,10 @@ export default {
                         } else {
                             const toggle = $(this.$props.toggle, el);
                             if (animate !== false && !isInView(toggle)) {
-                                scrollIntoView(toggle);
+                                scrollIntoView(toggle, {
+                                    duration: this.scrollDuration,
+                                    offset: this.offset
+                                });
                             }
                         }
 
