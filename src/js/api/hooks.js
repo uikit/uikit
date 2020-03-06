@@ -1,4 +1,4 @@
-import {assign, fastdom, includes, isPlainObject} from 'uikit-util';
+import {assign, fastdom, hasOwn, includes, isEqual, isPlainObject} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -19,12 +19,13 @@ export default function (UIkit) {
 
         this._data = {};
         this._computeds = {};
+        this._frames = {reads: {}, writes: {}};
+
         this._initProps();
 
         this._callHook('beforeConnect');
         this._connected = true;
 
-        this._initWatches();
         this._initEvents();
         this._initObserver();
 
@@ -89,6 +90,47 @@ export default function (UIkit) {
             if (write && !includes(fastdom.writes, writes[i])) {
                 writes[i] = fastdom.write(() => this._connected && write.call(this, this._data, type));
             }
+
+        });
+
+    };
+
+    UIkit.prototype._callWatches = function () {
+
+        const {_frames} = this;
+
+        if (_frames.watch) {
+            return;
+        }
+
+        const initital = !hasOwn(_frames, 'watch');
+
+        _frames.watch = fastdom.read(() => {
+
+            if (!this._connected) {
+                return;
+            }
+
+            const {$options: {computed}, _computeds} = this;
+
+            for (const key in computed) {
+
+                const hasPrev = hasOwn(_computeds, key);
+                const prev = _computeds[key];
+
+                delete _computeds[key];
+
+                const {watch, immediate} = computed[key];
+                if (watch && (
+                    initital && immediate
+                    || hasPrev && !isEqual(prev, this[key])
+                )) {
+                    watch.call(this, this[key], prev);
+                }
+
+            }
+
+            _frames.watch = null;
 
         });
 
