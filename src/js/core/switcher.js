@@ -1,5 +1,5 @@
 import Togglable from '../mixin/togglable';
-import {$$, addClass, attr, children, css, data, endsWith, filter, getIndex, includes, index, matches, queryAll, removeClass, within} from 'uikit-util';
+import {$$, toggleClass, attr, children, css, data, endsWith, getIndex, includes, index, matches, queryAll, within} from 'uikit-util';
 
 export default {
 
@@ -115,6 +115,23 @@ export default {
             handler({type}) {
                 this.show(endsWith(type, 'Left') ? 'next' : 'previous');
             }
+        },
+
+        {
+            name: 'show',
+
+            el() {
+                return this.connects;
+            },
+
+            handler() {
+                const index = this.index();
+
+                this.toggles.forEach((toggle, i) => {
+                    toggleClass(children(this.$el).filter(el => within(toggle, el)), this.cls, index === i);
+                    attr(toggle, 'aria-expanded', index === i);
+                });
+            }
         }
 
     ],
@@ -122,37 +139,17 @@ export default {
     methods: {
 
         index() {
-            return index(filter(children(this.connects[0]), `.${this.cls}`)[0]);
+            return index(children(this.connects[0], `.${this.cls}`)[0]);
         },
 
         show(item) {
 
-            const {toggles} = this;
             const prev = this.index();
-            const hasPrev = prev >= 0;
+            const next = getIndex(item, this.toggles, prev);
 
-            const next = getIndex(item, toggles, prev);
-            const toggle = toggles[next];
-
-            if (!toggle || prev === next) {
-                return;
-            }
-
-            const ancestors = children(this.$el);
-            removeClass(ancestors, this.cls);
-            addClass(ancestors.filter(ancestor => within(toggle, ancestor))[0], this.cls);
-
-            attr(this.toggles, 'aria-expanded', false);
-            attr(toggle, 'aria-expanded', true);
-
-            this.connects.forEach(list => {
-                if (!hasPrev) {
-                    this.toggleNow(list.children[next]);
-                } else {
-                    this.toggleElement([list.children[prev], list.children[next]]);
-                }
-            });
-
+            this.connects.forEach(list =>
+                this.toggleElement([list.children[prev], list.children[next]], undefined, prev >= 0)
+            );
         }
 
     }

@@ -1,7 +1,6 @@
 import {css} from './style';
 import {Promise} from './promise';
-import {isVisible} from './filter';
-import {parents} from './selector';
+import {isVisible, parents} from './filter';
 import {offset, offsetPosition, position} from './dimensions';
 import {clamp, intersectRect, isDocument, isWindow, last, pointInRect, toNode, toWindow} from './lang';
 

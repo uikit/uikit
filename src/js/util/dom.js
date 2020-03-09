@@ -1,5 +1,6 @@
 import {on} from './event';
-import {children, find, findAll, parent} from './selector';
+import {children} from './filter';
+import {find, findAll, parent} from './selector';
 import {clamp, isElement, isNumeric, isString, isUndefined, toNode, toNodes, toNumber} from './lang';
 
 export function ready(fn) {

@@ -62,7 +62,7 @@ export default {
 
                 let p;
 
-                if (!this.queued || !isUndefined(animate) || !isUndefined(show) || !this.hasAnimation || targets.length < 2) {
+                if (!this.queued || !isUndefined(show) || !this.hasAnimation || targets.length < 2) {
 
                     p = all(targets);
 
@@ -91,10 +91,6 @@ export default {
                 p.then(resolve, noop);
 
             });
-        },
-
-        toggleNow(targets, show) {
-            return this.toggleElement(targets, show, false);
         },
 
         isToggled(el) {

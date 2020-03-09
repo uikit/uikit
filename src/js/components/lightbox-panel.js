@@ -169,7 +169,7 @@ export default {
 
                 e.preventDefault();
 
-                this.toggleNow(this.$el, true);
+                this.toggleElement(this.$el, true, false);
 
                 this.animation = Animations['scale'];
                 removeClass(e.target, this.clsActive);

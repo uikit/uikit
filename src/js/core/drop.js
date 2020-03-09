@@ -330,7 +330,7 @@ export default {
 
         hide(delay = true) {
 
-            const hide = () => this.toggleNow(this.$el, false);
+            const hide = () => this.toggleElement(this.$el, false, false);
 
             this.clearTimers();
 

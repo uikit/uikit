@@ -140,24 +140,6 @@ export function parent(element) {
     return element && isElement(element.parentNode) && element.parentNode;
 }
 
-export function parents(element, selector) {
-    const elements = [];
-
-    while ((element = parent(element))) {
-        if (!selector || matches(element, selector)) {
-            elements.push(element);
-        }
-    }
-
-    return elements;
-}
-
-export function children(element, selector) {
-    element = toNode(element);
-    const children = element ? toNodes(element.children) : [];
-    return selector ? children.filter(element => matches(element, selector)) : children;
-}
-
 const escapeFn = window.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, match => `\\${match}`); };
 export function escape(css) {
     return isString(css) ? escapeFn.call(null, css) : '';
