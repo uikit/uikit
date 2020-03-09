@@ -1,5 +1,5 @@
 import Togglable from '../mixin/togglable';
-import {$$, addClass, attr, children, css, data, endsWith, filter, getIndex, includes, index, isEmpty, matches, queryAll, removeClass, within} from 'uikit-util';
+import {$$, addClass, attr, children, css, data, endsWith, filter, getIndex, includes, index, matches, queryAll, removeClass, within} from 'uikit-util';
 
 export default {
 
