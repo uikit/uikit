@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Togglable from '../mixin/togglable';
-import {$, $$, attr, filter, getIndex, hasClass, includes, index, isInView, scrollIntoView, toggleClass, unwrap, wrapAll} from 'uikit-util';
+import {$, $$, attr, filter, getIndex, hasClass, includes, index, isInView, scrollIntoView, toggleClass, toNodes, unwrap, wrapAll} from 'uikit-util';
 
 export default {
 
@@ -87,8 +87,7 @@ export default {
 
             item = this.items[index];
 
-            item && [item]
-                .concat(!this.multiple && !includes(active, item) && active || [])
+            toNodes([item, !this.multiple && !includes(active, item) && active])
                 .forEach(el => {
 
                     const isItem = el === item;
