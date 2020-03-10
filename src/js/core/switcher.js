@@ -147,8 +147,8 @@ export default {
             const prev = this.index();
             const next = getIndex(item, this.toggles, prev);
 
-            this.connects.forEach(list =>
-                this.toggleElement([list.children[prev], list.children[next]], undefined, prev >= 0)
+            this.connects.forEach(({children}) =>
+                this.toggleElement([children[prev], children[next]], undefined, prev >= 0)
             );
         }
 

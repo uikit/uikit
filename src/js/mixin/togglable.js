@@ -167,7 +167,7 @@ export default {
 
 };
 
-function toggleHeight({isToggled, duration, initProps, hideProps, transition, _toggle}) {
+export function toggleHeight({isToggled, duration, initProps, hideProps, transition, _toggle}) {
     return (el, show) => {
 
         const inProgress = Transition.inProgress(el);

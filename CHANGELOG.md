@@ -6,6 +6,8 @@
 
 - Fix Drop component does not close on pointerleave in Firefox
 - Fix Switcher component sets active state on ignored item
+- Fix Accordion component triggers events on elements only
+- Fix Accordion component no longer wraps its content without transition
 
 ## 3.3.3 (February 25, 2020)
 
