@@ -1,6 +1,5 @@
 import {getEventPos, on} from './event';
 import {last, pointInRect} from './lang';
-import {offset} from './dimensions';
 
 export function MouseTracker() {}
 
@@ -13,7 +12,7 @@ MouseTracker.prototype = {
         this.positions = [];
 
         let position;
-        this.unbind = on(document, 'mousemove', e => position = getEventPos(e, 'page'));
+        this.unbind = on(document, 'mousemove', e => position = getEventPos(e));
         this.interval = setInterval(() => {
 
             if (!position) {
@@ -40,7 +39,7 @@ MouseTracker.prototype = {
             return false;
         }
 
-        const p = offset(target);
+        const p = target.getBoundingClientRect();
         const {left, right, top, bottom} = p;
 
         const [prevPosition] = this.positions;
