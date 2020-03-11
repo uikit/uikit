@@ -4,6 +4,10 @@ export default function (UIkit) {
 
     const DATA = UIkit.data;
 
+    UIkit.prototype.$create = function (component, element, data) {
+        return UIkit[component](element, data);
+    };
+
     UIkit.prototype.$mount = function (el) {
 
         const {name} = this.$options;
@@ -55,8 +59,8 @@ export default function (UIkit) {
         }
     };
 
-    UIkit.prototype.$create = function (component, element, data) {
-        return UIkit[component](element, data);
+    UIkit.prototype.$emit = function (e) {
+        this._callUpdate(e);
     };
 
     UIkit.prototype.$update = function (element = this.$el, e) {
