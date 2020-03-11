@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- `getEventPos` returns client coordinates only
+
 ### Fixed
 
 - Fix Drop component does not close on pointerleave in Firefox
