@@ -9,6 +9,7 @@
 - Fix Accordion component triggers events on elements only
 - Fix Accordion component no longer wraps its content without transition
 - Fix missing `$emit` function
+- Fix Sortable component performance
 
 ## 3.3.3 (February 25, 2020)
 
