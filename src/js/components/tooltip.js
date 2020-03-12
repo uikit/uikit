@@ -59,31 +59,42 @@ export default {
                 return;
             }
 
-            actives.splice(actives.indexOf(this), 1);
+            this.toggleElement(this.tooltip, false, false).then(() => {
 
-            clearTimeout(this.showTimer);
-            clearInterval(this.hideTimer);
-            attr(this.$el, 'aria-expanded', false);
-            this.toggleElement(this.tooltip, false);
-            this.tooltip && remove(this.tooltip);
-            this.tooltip = false;
-            this._unbind();
+                actives.splice(actives.indexOf(this), 1);
 
+                clearTimeout(this.showTimer);
+                clearInterval(this.hideTimer);
+
+                this.tooltip = remove(this.tooltip);
+                this._unbind();
+            });
         },
 
         _show() {
 
             this.tooltip = append(this.container,
-                `<div class="${this.clsPos} ${this.cls}" aria-expanded="true" aria-hidden>
+                `<div class="${this.clsPos}">
                     <div class="${this.clsPos}-inner">${this.title}</div>
                  </div>`
             );
 
-            this.positionAt(this.tooltip, this.$el);
+            on(this.tooltip, 'toggled', () => {
 
-            this.origin = this.getAxis() === 'y'
-                ? `${flipPosition(this.dir)}-${this.align}`
-                : `${this.align}-${flipPosition(this.dir)}`;
+                const toggled = this.isToggled(this.tooltip);
+
+                attr(this.$el, 'aria-expanded', toggled);
+
+                if (!toggled) {
+                    return;
+                }
+
+                this.positionAt(this.tooltip, this.$el);
+
+                this.origin = this.getAxis() === 'y'
+                    ? `${flipPosition(this.dir)}-${this.align}`
+                    : `${this.align}-${flipPosition(this.dir)}`;
+            });
 
             this.toggleElement(this.tooltip, true);
 

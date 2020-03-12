@@ -160,7 +160,11 @@ export default {
             $$('[autofocus]', el).some(el => isVisible(el) ? el.focus() || true : el.blur());
 
             this.updateAria(el);
-            changed && this.$update(el);
+
+            if (changed) {
+                trigger(el, 'toggled', [this]);
+                this.$update(el);
+            }
         }
 
     }
@@ -196,16 +200,18 @@ export function toggleHeight({isToggled, duration, initProps, hideProps, transit
     };
 }
 
-function toggleAnimation({animation, duration, origin, _toggle}) {
+function toggleAnimation(cmp) {
     return (el, show) => {
 
         Animation.cancel(el);
 
+        const {animation, duration, _toggle} = cmp;
+
         if (show) {
             _toggle(el, true);
-            return Animation.in(el, animation[0], duration, origin);
+            return Animation.in(el, animation[0], duration, cmp.origin);
         }
 
-        return Animation.out(el, animation[1] || animation[0], duration, origin).then(() => _toggle(el, false));
+        return Animation.out(el, animation[1] || animation[0], duration, cmp.origin).then(() => _toggle(el, false));
     };
 }

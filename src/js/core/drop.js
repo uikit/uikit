@@ -194,11 +194,16 @@ export default {
 
         {
 
-            name: 'beforeshow',
+            name: 'toggled',
 
             self: true,
 
             handler() {
+
+                if (!this.isToggled()) {
+                    return;
+                }
+
                 this.clearTimers();
                 Animation.cancel(this.$el);
                 this.position();
@@ -360,7 +365,6 @@ export default {
         position() {
 
             removeClasses(this.$el, `${this.clsDrop}-(stack|boundary)`);
-            css(this.$el, {top: '', left: '', display: 'block'});
             toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
 
             const boundary = offset(this.boundary);
@@ -374,8 +378,6 @@ export default {
             }
 
             this.positionAt(this.$el, this.boundaryAlign ? this.boundary : this.toggle.$el, this.boundary);
-
-            css(this.$el, 'display', '');
 
         }
 

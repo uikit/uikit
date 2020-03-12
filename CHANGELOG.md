@@ -14,6 +14,7 @@
 - Fix Accordion component no longer wraps its content without transition
 - Fix missing `$emit` function
 - Fix Sortable component performance
+- Fix prevent showing/hiding of Tooltip component
 
 ## 3.3.3 (February 25, 2020)
 
