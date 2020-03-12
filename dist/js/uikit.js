@@ -1,4 +1,4 @@
-/*! UIkit 3.3.5 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.3.6 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -2496,8 +2496,7 @@
 
     function scrollIntoView(element, ref) {
         if ( ref === void 0 ) ref = {};
-        var duration = ref.duration; if ( duration === void 0 ) duration = 1000;
-        var offset = ref.offset; if ( offset === void 0 ) offset = 0;
+        var offsetBy = ref.offset; if ( offsetBy === void 0 ) offsetBy = 0;
 
 
         if (!isVisible(element)) {
@@ -2505,7 +2504,6 @@
         }
 
         var parents = overflowParents(element).concat(element);
-        duration /= parents.length - 1;
 
         var promise = Promise.resolve();
         var loop = function ( i ) {
@@ -2515,7 +2513,8 @@
                     var element = parents[i + 1];
 
                     var scroll = scrollElement.scrollTop;
-                    var top = position(element, getViewport(scrollElement)).top - offset;
+                    var top = position(element, getViewport(scrollElement)).top - offsetBy;
+                    var duration = getDuration(Math.abs(top));
 
                     var start = Date.now();
                     var step = function () {
@@ -2541,6 +2540,10 @@
         for (var i = 0; i < parents.length - 1; i++) loop( i );
 
         return promise;
+
+        function getDuration(dist) {
+            return 40 * Math.pow(dist, .375);
+        }
 
         function ease(k) {
             return 0.5 * (1 - Math.cos(Math.PI * k));
@@ -3566,7 +3569,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.3.5';
+    UIkit.version = '3.3.6';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4015,7 +4018,8 @@
             multiple: Boolean,
             toggle: String,
             content: String,
-            transition: String
+            transition: String,
+            offset: Number
         },
 
         data: {
@@ -4027,7 +4031,8 @@
             clsOpen: 'uk-open',
             toggle: '> .uk-accordion-title',
             content: '> .uk-accordion-content',
-            transition: 'ease'
+            transition: 'ease',
+            offset: 0
         },
 
         computed: {
@@ -4080,25 +4085,6 @@
                     this.toggle(index($$(((this.targets) + " " + (this.$props.toggle)), this.$el), e.current));
                 }
 
-            },
-
-            {
-                name: 'shown',
-
-                self: true,
-
-                delegate: function() {
-                    return this.targets;
-                },
-
-                handler: function(ref) {
-                    var target = ref.target;
-
-                    var toggle = $(this.$props.toggle, target);
-                    if (!isInView(toggle)) {
-                        scrollIntoView(toggle);
-                    }
-                }
             }
 
         ],
@@ -4140,6 +4126,13 @@
                         hide(content, !show);
                         delete el._wrapper;
                         unwrap(content);
+
+                        if (show) {
+                            var toggle = $(this$1.$props.toggle, el);
+                            if (!isInView(toggle)) {
+                                scrollIntoView(toggle, {offset: this$1.offset});
+                            }
+                        }
                     });
                 }); });
             }
@@ -7338,12 +7331,10 @@
     var scroll = {
 
         props: {
-            duration: Number,
             offset: Number
         },
 
         data: {
-            duration: 1000,
             offset: 0
         },
 
@@ -7356,7 +7347,7 @@
                 el = el && $(el) || document.body;
 
                 if (trigger(this.$el, 'beforescroll', [this, el])) {
-                    scrollIntoView(el, this.$props).then(function () { return trigger(this$1.$el, 'scrolled', [this$1, el]); }
+                    scrollIntoView(el, {offset: this.offset}).then(function () { return trigger(this$1.$el, 'scrolled', [this$1, el]); }
                     );
                 }
 
