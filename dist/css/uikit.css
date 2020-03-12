@@ -1,4 +1,4 @@
-/*! UIkit 3.3.3 | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */
+/*! UIkit 3.3.4 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -6213,7 +6213,7 @@ ul.uk-nav-sub {
 /* Drag
  ========================================================================== */
 .uk-sortable-drag {
-  position: absolute !important;
+  position: fixed !important;
   z-index: 1050 !important;
   pointer-events: none;
 }

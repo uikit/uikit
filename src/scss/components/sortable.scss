@@ -50,7 +50,7 @@ $sortable-empty-height:                          50px !default;
  ========================================================================== */
 
 .uk-sortable-drag {
-    position: absolute !important;
+    position: fixed !important;
     z-index: $sortable-dragged-z-index !important;
     pointer-events: none;
     @if(mixin-exists(hook-sortable-drag)) {@include hook-sortable-drag();}
