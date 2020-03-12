@@ -1,5 +1,5 @@
 import Class from '../mixin/class';
-import Togglable from '../mixin/togglable';
+import {default as Togglable, toggleHeight} from '../mixin/togglable';
 import {$, $$, attr, filter, getIndex, hasClass, includes, index, isInView, scrollIntoView, toggleClass, unwrap, wrapAll} from 'uikit-util';
 
 export default {
@@ -38,13 +38,13 @@ export default {
 
             watch(items, prev) {
 
-                items.forEach(el => this._toggle($(this.content, el), hasClass(el, this.clsOpen)));
+                items.forEach(el => hide($(this.content, el), !hasClass(el, this.clsOpen)));
 
-                if (hasClass(items, this.clsOpen)) {
+                if (prev || hasClass(items, this.clsOpen)) {
                     return;
                 }
 
-                const active = !prev && this.active !== false && items[Number(this.active)]
+                const active = this.active !== false && items[Number(this.active)]
                     || !this.collapsible && items[0];
 
                 if (active) {
@@ -74,6 +74,23 @@ export default {
                 this.toggle(index($$(`${this.targets} ${this.$props.toggle}`, this.$el), e.current));
             }
 
+        },
+
+        {
+            name: 'shown',
+
+            self: true,
+
+            delegate() {
+                return this.targets;
+            },
+
+            handler({target}) {
+                const toggle = $(this.$props.toggle, target);
+                if (!isInView(toggle)) {
+                    scrollIntoView(toggle);
+                }
+            }
         }
 
     ],
@@ -82,55 +99,45 @@ export default {
 
         toggle(item, animate) {
 
-            const index = getIndex(item, this.items);
-            const active = filter(this.items, `.${this.clsOpen}`);
+            let items = [this.items[getIndex(item, this.items)]];
+            const activeItems = filter(this.items, `.${this.clsOpen}`);
 
-            item = this.items[index];
+            if (!this.multiple && !includes(activeItems, items[0])) {
+                items = items.concat(activeItems);
+            }
 
-            item && [item]
-                .concat(!this.multiple && !includes(active, item) && active || [])
-                .forEach(el => {
+            if (!this.collapsible && !filter(items, `:not(.${this.clsOpen})`).length) {
+                return;
+            }
 
-                    const isItem = el === item;
-                    const state = isItem && !hasClass(el, this.clsOpen);
+            items.forEach(el => this.toggleElement(el, !hasClass(el, this.clsOpen), (el, show) => {
 
-                    if (!state && isItem && !this.collapsible && active.length < 2) {
-                        return;
-                    }
+                toggleClass(el, this.clsOpen, show);
 
-                    toggleClass(el, this.clsOpen, state);
+                const content = $(`${el._wrapper ? '> * ' : ''}${this.content}`, el);
 
-                    const content = el._wrapper ? el._wrapper.firstElementChild : $(this.content, el);
+                if (animate === false || !this.hasTransition) {
+                    hide(content, !show);
+                    return;
+                }
 
-                    if (!el._wrapper) {
-                        el._wrapper = wrapAll(content, '<div>');
-                        attr(el._wrapper, 'hidden', state ? '' : null);
-                    }
+                if (!el._wrapper) {
+                    el._wrapper = wrapAll(content, `<div${show ? ' hidden' : ''}>`);
+                }
 
-                    this._toggle(content, true);
-                    this.toggleElement(el._wrapper, state, animate).then(() => {
-
-                        if (hasClass(el, this.clsOpen) !== state) {
-                            return;
-                        }
-
-                        if (!state) {
-                            this._toggle(content, false);
-                        } else {
-                            const toggle = $(this.$props.toggle, el);
-                            if (animate !== false && !isInView(toggle)) {
-                                scrollIntoView(toggle);
-                            }
-                        }
-
-                        el._wrapper = null;
-                        unwrap(content);
-
-                    });
-
+                hide(content, false);
+                return toggleHeight(this)(el._wrapper, show).then(() => {
+                    hide(content, !show);
+                    delete el._wrapper;
+                    unwrap(content);
                 });
+            }));
         }
 
     }
 
 };
+
+function hide(el, hide) {
+    attr(el, 'hidden', hide ? '' : null);
+}

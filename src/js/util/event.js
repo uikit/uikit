@@ -139,9 +139,9 @@ export function isTouch(e) {
     return e.pointerType === 'touch' || !!e.touches;
 }
 
-export function getEventPos(e, prop = 'client') {
+export function getEventPos(e) {
     const {touches, changedTouches} = e;
-    const {[`${prop}X`]: x, [`${prop}Y`]: y} = touches && touches[0] || changedTouches && changedTouches[0] || e;
+    const {clientX: x, clientY: y} = touches && touches[0] || changedTouches && changedTouches[0] || e;
 
     return {x, y};
 }

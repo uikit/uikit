@@ -38,7 +38,7 @@ export default {
             children.forEach(Transition.cancel);
 
             reset(this.target);
-            this.$update(this.target);
+            this.$update(this.target, 'resize');
             fastdom.flush();
 
             const newHeight = height(this.target);
@@ -82,14 +82,16 @@ export default {
             css(this.target, 'height', oldHeight);
             scrollTop(window, oldScrollY);
 
-            return Promise.all(children.map((el, i) =>
-                propsFrom[i] && propsTo[i]
-                    ? Transition.start(el, propsTo[i], this.animation, 'ease')
-                    : Promise.resolve()
-            ).concat(Transition.start(this.target, {height: newHeight}, this.animation, 'ease'))).then(() => {
+            return Promise.all(
+                children.map((el, i) =>
+                    ['top', 'left', 'height', 'width'].some(prop =>
+                        propsFrom[i][prop] !== propsTo[i][prop]
+                    ) && Transition.start(el, propsTo[i], this.animation, 'ease')
+                ).concat(oldHeight !== newHeight && Transition.start(this.target, {height: newHeight}, this.animation, 'ease'))
+            ).then(() => {
                 children.forEach((el, i) => css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}));
                 reset(this.target);
-                this.$update(this.target);
+                this.$update(this.target, 'resize');
                 fastdom.flush(); // needed for IE11
             }, noop);
 

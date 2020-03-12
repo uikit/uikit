@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.3.4 (March 12, 2020)
+
+### Changed
+
+- `getEventPos` returns client coordinates only
+
+### Fixed
+
+- Fix Drop component does not close on pointerleave in Firefox
+- Fix Switcher component sets active state on ignored item
+- Fix Accordion component triggers events on elements only
+- Fix Accordion component no longer wraps its content without transition
+- Fix missing `$emit` function
+- Fix Sortable component performance
+- Fix prevent showing/hiding of Tooltip component
+
 ## 3.3.3 (February 25, 2020)
 
 ### Changed

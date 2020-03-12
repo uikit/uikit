@@ -1,5 +1,5 @@
 import Togglable from '../mixin/togglable';
-import {$$, addClass, attr, children, css, data, endsWith, filter, getIndex, index, isEmpty, matches, queryAll, removeClass, toNodes, within} from 'uikit-util';
+import {$$, toggleClass, attr, children, css, data, endsWith, getIndex, includes, index, matches, queryAll, within} from 'uikit-util';
 
 export default {
 
@@ -47,22 +47,19 @@ export default {
 
         },
 
-        children: {
+        toggles: {
 
-            get() {
-                return toNodes(this.$el.children);
+            get({toggle}, $el) {
+                return $$(toggle, $el).filter(el => !matches(el, '.uk-disabled *, .uk-disabled, [disabled]'));
             },
 
-            watch(children) {
-                this.show(filter(children, `.${this.cls}`)[0] || children[this.active] || children[0]);
+            watch(toggles) {
+                const active = this.index();
+                this.show(~active && active || toggles[this.active] || toggles[0]);
             },
 
             immediate: true
 
-        },
-
-        toggles({toggle}, $el) {
-            return $$(toggle, $el);
         }
 
     },
@@ -74,12 +71,15 @@ export default {
             name: 'click',
 
             delegate() {
-                return `${this.toggle}:not(.uk-disabled)`;
+                return this.toggle;
             },
 
             handler(e) {
+                if (!includes(this.toggles, e.current)) {
+                    return;
+                }
                 e.preventDefault();
-                this.show(children(this.$el).filter(el => within(e.current, el))[0]);
+                this.show(e.current);
             }
 
         },
@@ -115,6 +115,23 @@ export default {
             handler({type}) {
                 this.show(endsWith(type, 'Left') ? 'next' : 'previous');
             }
+        },
+
+        {
+            name: 'show',
+
+            el() {
+                return this.connects;
+            },
+
+            handler() {
+                const index = this.index();
+
+                this.toggles.forEach((toggle, i) => {
+                    toggleClass(children(this.$el).filter(el => within(toggle, el)), this.cls, index === i);
+                    attr(toggle, 'aria-expanded', index === i);
+                });
+            }
         }
 
     ],
@@ -122,44 +139,17 @@ export default {
     methods: {
 
         index() {
-            return !isEmpty(this.connects) ? index(filter(this.connects[0].children, `.${this.cls}`)[0]) : -1;
+            return index(children(this.connects[0], `.${this.cls}`)[0]);
         },
 
         show(item) {
 
-            const {children} = this;
-            const {length} = children;
             const prev = this.index();
-            const hasPrev = prev >= 0;
-            const dir = item === 'previous' ? -1 : 1;
+            const next = getIndex(item, this.toggles, prev);
 
-            let toggle, active, next = getIndex(item, children, prev);
-
-            for (let i = 0; i < length; i++, next = (next + dir + length) % length) {
-                if (!matches(this.toggles[next], '.uk-disabled *, .uk-disabled, [disabled]')) {
-                    toggle = this.toggles[next];
-                    active = children[next];
-                    break;
-                }
-            }
-
-            if (!active || prev === next) {
-                return;
-            }
-
-            removeClass(children, this.cls);
-            addClass(active, this.cls);
-            attr(this.toggles, 'aria-expanded', false);
-            attr(toggle, 'aria-expanded', true);
-
-            this.connects.forEach(list => {
-                if (!hasPrev) {
-                    this.toggleNow(list.children[next]);
-                } else {
-                    this.toggleElement([list.children[prev], list.children[next]]);
-                }
-            });
-
+            this.connects.forEach(({children}) =>
+                this.toggleElement([children[prev], children[next]], undefined, prev >= 0)
+            );
         }
 
     }

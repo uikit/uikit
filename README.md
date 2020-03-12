@@ -1,4 +1,4 @@
-[![uikit banner](https://cloud.githubusercontent.com/assets/321047/21769911/474d7d9e-d681-11e6-9fe0-d95f8ccfd3a9.jpg)](http://getuikit.com/)
+[![uikit banner](https://cloud.githubusercontent.com/assets/321047/21769911/474d7d9e-d681-11e6-9fe0-d95f8ccfd3a9.jpg)](https://getuikit.com/)
 
 # UIkit
 
@@ -6,7 +6,7 @@
 
 UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.
 
-* [Homepage](http://getuikit.com) - Learn more about UIkit
+* [Homepage](https://getuikit.com) - Learn more about UIkit
 * [@getuikit](https://twitter.com/getuikit) - Get the latest buzz on Twitter
 * [Discord Chat](https://discord.gg/NEt4Pv7) - Join our developer chat on Discord.
 

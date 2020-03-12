@@ -1,6 +1,6 @@
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {addClass, Animation, apply, attr, css, includes, isTouch, matches, MouseTracker, offset, on, once, pointerEnter, pointerLeave, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
+import {addClass, Animation, apply, attr, css, includes, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
 
 let active;
 
@@ -185,7 +185,7 @@ export default {
             },
 
             handler(e) {
-                if (!isTouch(e) && !matches(this.$el, ':hover')) {
+                if (!isTouch(e)) {
                     this.hide();
                 }
             }
@@ -194,11 +194,16 @@ export default {
 
         {
 
-            name: 'beforeshow',
+            name: 'toggled',
 
             self: true,
 
             handler() {
+
+                if (!this.isToggled()) {
+                    return;
+                }
+
                 this.clearTimers();
                 Animation.cancel(this.$el);
                 this.position();
@@ -330,7 +335,7 @@ export default {
 
         hide(delay = true) {
 
-            const hide = () => this.toggleNow(this.$el, false);
+            const hide = () => this.toggleElement(this.$el, false, false);
 
             this.clearTimers();
 
@@ -360,7 +365,6 @@ export default {
         position() {
 
             removeClasses(this.$el, `${this.clsDrop}-(stack|boundary)`);
-            css(this.$el, {top: '', left: '', display: 'block'});
             toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
 
             const boundary = offset(this.boundary);
@@ -374,8 +378,6 @@ export default {
             }
 
             this.positionAt(this.$el, this.boundaryAlign ? this.boundary : this.toggle.$el, this.boundary);
-
-            css(this.$el, 'display', '');
 
         }
 

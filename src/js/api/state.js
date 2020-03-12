@@ -1,4 +1,4 @@
-import {assign, camelize, data as getData, hasOwn, hyphenate, isArray, isEmpty, isEqual, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toList, toNumber} from 'uikit-util';
+import {assign, camelize, data as getData, hasOwn, hyphenate, isArray, isEmpty, isFunction, isPlainObject, isString, isUndefined, mergeOptions, on, parseOptions, startsWith, toBoolean, toList, toNumber} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -12,9 +12,6 @@ export default function (UIkit) {
         this.$options = mergeOptions(this.constructor.options, options, this);
         this.$el = null;
         this.$props = {};
-
-        this._frames = {reads: {}, writes: {}};
-        this._events = [];
 
         this._uid = uid++;
         this._initData();
@@ -60,37 +57,6 @@ export default function (UIkit) {
         }
     };
 
-    UIkit.prototype._initWatches = function () {
-
-        const {computed} = this.$options;
-
-        if (computed) {
-            for (const key in computed) {
-                const {watch, immediate} = computed[key];
-                if (watch && immediate) {
-                    watch.call(this, this[key]);
-                }
-            }
-        }
-    };
-
-    UIkit.prototype._callWatches = function () {
-
-        const {$options: {computed}, _computeds} = this;
-
-        for (const key in _computeds) {
-
-            const value = _computeds[key];
-            delete _computeds[key];
-
-            if (computed[key].watch && !isEqual(value, this[key])) {
-                computed[key].watch.call(this, this[key], value);
-            }
-
-        }
-
-    };
-
     UIkit.prototype._initProps = function (props) {
 
         let key;
@@ -113,6 +79,8 @@ export default function (UIkit) {
 
     UIkit.prototype._initEvents = function () {
 
+        this._events = [];
+
         const {events} = this.$options;
 
         if (events) {
@@ -133,7 +101,7 @@ export default function (UIkit) {
 
     UIkit.prototype._unbindEvents = function () {
         this._events.forEach(unbind => unbind());
-        this._events = [];
+        delete this._events;
     };
 
     UIkit.prototype._initObserver = function () {

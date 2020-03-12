@@ -1,8 +1,7 @@
 export {default as Accordion} from './accordion';
 export {default as Alert} from './alert';
 export {default as Cover} from './cover';
-export {default as Drop} from './drop';
-export {default as Dropdown} from './dropdown';
+export {default as Drop, default as Dropdown} from './drop';
 export {default as FormCustom} from './form-custom';
 export {default as Gif} from './gif';
 export {default as Grid} from './grid';

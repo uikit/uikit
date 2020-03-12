@@ -18,15 +18,43 @@
     esutils "^2.0.2"
     js-tokens "^4.0.0"
 
-"@types/estree@*":
-  version "0.0.39"
-  resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.39.tgz#e177e699ee1b8c22d23174caaa7422644389509f"
-  integrity sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==
+"@rollup/plugin-alias@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-alias/-/plugin-alias-3.0.1.tgz#eb0549da7177a09e2d6d9d852e4cc5058f3e2104"
+  integrity sha512-ReSy6iPl3GsWLMNeshXAfgItZFMoMOTYC7MZQQM5va4pqxiGgwl1xZUZfHW6zGyZPK+k8TBadxx+kdmepiUa+g==
+  dependencies:
+    slash "^3.0.0"
 
-"@types/node@*":
-  version "12.12.6"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-12.12.6.tgz#a47240c10d86a9a57bb0c633f0b2e0aea9ce9253"
-  integrity sha512-FjsYUPzEJdGXjwKqSpE0/9QEh6kzhTAeObA54rn6j3rR4C/mzpI9L0KNfoeASSPMMdxIsoJuCLDWcM/rVjIsSA==
+"@rollup/plugin-buble@^0.21.1":
+  version "0.21.1"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-buble/-/plugin-buble-0.21.1.tgz#186413c2f27770bea4cefa86ba1c0aafd9593339"
+  integrity sha512-Tmd4V95cVyGTwh7qc9ZNkg53E/isFY4q/sqZK7mSyGajYp9Wb0gbJyZWAzYlg9kZxEHmwCDlvcHDcn56SpOCCQ==
+  dependencies:
+    "@rollup/pluginutils" "^3.0.4"
+    "@types/buble" "^0.19.2"
+    buble "^0.19.8"
+
+"@rollup/plugin-replace@^2.3.1":
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@rollup/plugin-replace/-/plugin-replace-2.3.1.tgz#16fb0563628f9e6c6ef9e05d48d3608916d466f5"
+  integrity sha512-qDcXj2VOa5+j0iudjb+LiwZHvBRRgWbHPhRmo1qde2KItTjuxDVQO21rp9/jOlzKR5YO0EsgRQoyox7fnL7y/A==
+  dependencies:
+    "@rollup/pluginutils" "^3.0.4"
+    magic-string "^0.25.5"
+
+"@rollup/pluginutils@^3.0.4":
+  version "3.0.8"
+  resolved "https://registry.yarnpkg.com/@rollup/pluginutils/-/pluginutils-3.0.8.tgz#4e94d128d94b90699e517ef045422960d18c8fde"
+  integrity sha512-rYGeAc4sxcZ+kPG/Tw4/fwJODC3IXHYDH4qusdN/b6aLw5LPUbzpecYbEJh4sVQGPFJxd2dBU4kc1H3oy9/bnw==
+  dependencies:
+    estree-walker "^1.0.1"
+
+"@types/buble@^0.19.2":
+  version "0.19.2"
+  resolved "https://registry.yarnpkg.com/@types/buble/-/buble-0.19.2.tgz#a4289d20b175b3c206aaad80caabdabe3ecdfdd1"
+  integrity sha512-uUD8zIfXMKThmFkahTXDGI3CthFH1kMg2dOm3KLi4GlC5cbARA64bEcUMbbWdWdE73eoc/iBB9PiTMqH0dNS2Q==
+  dependencies:
+    magic-string "^0.25.0"
 
 "@types/q@^1.5.1":
   version "1.5.2"
@@ -489,17 +517,10 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-clean-css@4.2.x:
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.2.1.tgz#2d411ef76b8569b6d0c84068dabe85b0aa5e5c17"
-  integrity sha512-4ZxI6dy4lrY6FHzfiy1aEOXgu4LIsW2MhwG0VBKdcoGoH/XLFgaHSdLTGr4O8Be6A8r3MOphEiI8Gc1n0ecf3g==
-  dependencies:
-    source-map "~0.6.0"
-
-clean-css@^4.2.2:
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.2.2.tgz#8519abda724b3e759bc79d196369906925d81a3f"
-  integrity sha512-yKycArwReQXbOD/3pmsPmt6p7oUBww8MisDabL2pCUWkbVONvCJoBdCjgY4ZVQmKX5juz/JB9oDcP6XzGUpjwQ==
+clean-css@4.2.x, clean-css@^4.2.3:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/clean-css/-/clean-css-4.2.3.tgz#507b5de7d97b48ee53d84adb0160ff6216380f78"
+  integrity sha512-VcMWDN54ZN/DS+g58HYL5/n4Zrqe8vHJpGA8KdgUXFU4fuP/aHNw8eld9SyEIyabIMJX/0RaY/fplOo5hYLSFA==
   dependencies:
     source-map "~0.6.0"
 
@@ -1037,10 +1058,10 @@ estree-walker@^0.2.1:
   resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-0.2.1.tgz#bdafe8095383d8414d5dc2ecf4c9173b6db9412e"
   integrity sha1-va/oCVOD2EFNXcLs9MkXO225QS4=
 
-estree-walker@^0.6.1:
-  version "0.6.1"
-  resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-0.6.1.tgz#53049143f40c6eb918b23671d1fe3219f3a1b362"
-  integrity sha512-SqmZANLWS0mnatqbSfRP5g8OXZC12Fgg1IwNtLsyHDzJizORW4khDfjPqJZsemPWBB2uqykUah5YpQ6epsqC/w==
+estree-walker@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/estree-walker/-/estree-walker-1.0.1.tgz#31bc5d612c96b704106b477e6dd5d8aa138cb700"
+  integrity sha512-1fMXF3YP4pZZVozF8j/ZLfvnR8NSIljt56UhbZ5PeeDmmGHpgpdwQt7ITlGvYaQukCvuBRMLEiKiYC+oeIg4cg==
 
 esutils@^2.0.2:
   version "2.0.3"
@@ -1237,6 +1258,11 @@ fsevents@^1.2.7:
   dependencies:
     nan "^2.12.1"
     node-pre-gyp "^0.12.0"
+
+fsevents@~2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/fsevents/-/fsevents-2.1.2.tgz#4c0a1fb34bc68e543b4b82a9ec392bfbda840805"
+  integrity sha512-R4wDiBwZ0KzpgOWetKDug1FZcYhqYnUYKtfZYt4mD5SBz76q0KR4Q9o7GIPamsVPGmW3EYPPJ0dOOjvx32ldZA==
 
 function-bind@^1.1.1:
   version "1.1.1"
@@ -1992,7 +2018,14 @@ lru-cache@^4.0.1:
     pseudomap "^1.0.2"
     yallist "^2.1.2"
 
-magic-string@^0.25.2, magic-string@^0.25.3:
+magic-string@^0.25.0, magic-string@^0.25.5:
+  version "0.25.6"
+  resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.25.6.tgz#5586387d1242f919c6d223579cc938bf1420795e"
+  integrity sha512-3a5LOMSGoCTH5rbqobC2HuDNRtE2glHZ8J7pK+QZYppyWA36yuNpsX994rIY2nCuyP7CZYy7lQq/X2jygiZ89g==
+  dependencies:
+    sourcemap-codec "^1.4.4"
+
+magic-string@^0.25.3:
   version "0.25.4"
   resolved "https://registry.yarnpkg.com/magic-string/-/magic-string-0.25.4.tgz#325b8a0a79fc423db109b77fd5a19183b7ba5143"
   integrity sha512-oycWO9nEVAP2RVPbIoDoA4Y7LFIJ3xRYov93gAyJhZkET1tNuB0u7uWkZS2LpBWTJUWnmau/To8ECWRC+jKNfw==
@@ -2467,10 +2500,10 @@ posix-character-classes@^0.1.0:
   resolved "https://registry.yarnpkg.com/posix-character-classes/-/posix-character-classes-0.1.1.tgz#01eac0fe3b5af71a2a6c02feabb8c1fef7e00eab"
   integrity sha1-AerA/jta9xoqbAL+q7jB/vfgDqs=
 
-postcss@7.0.26:
-  version "7.0.26"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.26.tgz#5ed615cfcab35ba9bbb82414a4fa88ea10429587"
-  integrity sha512-IY4oRjpXWYshuTDFxMVkJDtWIk2LhsTlu8bZnbEJA4+bYT16Lvpo8Qv6EvDumhYRgzjZl489pmsY3qVgJQ08nA==
+postcss@7.0.27:
+  version "7.0.27"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-7.0.27.tgz#cc67cdc6b0daa375105b7c424a85567345fc54d9"
+  integrity sha512-WuQETPMcW9Uf1/22HWUWP9lgsIC+KEHg2kozMflKjbeUtw9ujvFX6QmIfozaErDkmLWS9WEnEdEe6Uo9/BNTdQ==
   dependencies:
     chalk "^2.4.2"
     source-map "^0.6.1"
@@ -2745,14 +2778,6 @@ rimraf@^2.6.1:
   dependencies:
     glob "^7.1.3"
 
-rollup-plugin-buble@^0.19.8:
-  version "0.19.8"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-buble/-/rollup-plugin-buble-0.19.8.tgz#f9232e2bb62a7573d04f9705c1bd6f02c2a02c6a"
-  integrity sha512-8J4zPk2DQdk3rxeZvxgzhHh/rm5nJkjwgcsUYisCQg1QbT5yagW+hehYEW7ZNns/NVbDCTv4JQ7h4fC8qKGOKw==
-  dependencies:
-    buble "^0.19.8"
-    rollup-pluginutils "^2.3.3"
-
 rollup-plugin-html@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/rollup-plugin-html/-/rollup-plugin-html-0.2.1.tgz#a1862eca87ae54b677689d0d4133911e8226463d"
@@ -2760,26 +2785,6 @@ rollup-plugin-html@^0.2.1:
   dependencies:
     html-minifier "^3.0.2"
     rollup-pluginutils "^1.5.0"
-
-rollup-plugin-import-alias@^1.0.10:
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-import-alias/-/rollup-plugin-import-alias-1.0.10.tgz#5b85ee7cb6b88676354de955d6eb714dfa5d00b4"
-  integrity sha512-iHJNJWHy7QFlf57pUJD6XeN+8KDFjboPK1Yj4lVpl3Bb5KDspWwPjp9YCoJNchQu81EkjCWtJDffbIvRYrBAgg==
-
-rollup-plugin-json@^4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-json/-/rollup-plugin-json-4.0.0.tgz#a18da0a4b30bf5ca1ee76ddb1422afbb84ae2b9e"
-  integrity sha512-hgb8N7Cgfw5SZAkb3jf0QXii6QX/FOkiIq2M7BAQIEydjHvTyxXHQiIzZaTFgx1GK0cRCHOCBHIyEkkLdWKxow==
-  dependencies:
-    rollup-pluginutils "^2.5.0"
-
-rollup-plugin-replace@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-replace/-/rollup-plugin-replace-2.2.0.tgz#f41ae5372e11e7a217cde349c8b5d5fd115e70e3"
-  integrity sha512-/5bxtUPkDHyBJAKketb4NfaeZjL5yLZdeUihSfbF2PQMz+rSTEb8ARKoOl3UBT4m7/X+QOXJo3sLTcq+yMMYTA==
-  dependencies:
-    magic-string "^0.25.2"
-    rollup-pluginutils "^2.6.0"
 
 rollup-pluginutils@^1.5.0:
   version "1.5.2"
@@ -2789,26 +2794,17 @@ rollup-pluginutils@^1.5.0:
     estree-walker "^0.2.1"
     minimatch "^3.0.2"
 
-rollup-pluginutils@^2.3.3, rollup-pluginutils@^2.5.0, rollup-pluginutils@^2.6.0:
-  version "2.8.2"
-  resolved "https://registry.yarnpkg.com/rollup-pluginutils/-/rollup-pluginutils-2.8.2.tgz#72f2af0748b592364dbd3389e600e5a9444a351e"
-  integrity sha512-EEp9NhnUkwY8aif6bxgovPHMoMoNr2FulJziTndpt5H9RdwC47GSGuII9XxpSdzVGM0GWrNPHV6ie1LTNJPaLQ==
-  dependencies:
-    estree-walker "^0.6.1"
+rollup@2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.0.3.tgz#b28fd528b3b15a8caf01fa7446c83bd66142b0ab"
+  integrity sha512-OjTD1pmtqCFaaoTl+zf3dXlG0FR1PudauQzAYmP5hDLLrrisXP6EuzAx9MY6En5bv61e8F6JGcVQxsVOcqFTUA==
+  optionalDependencies:
+    fsevents "~2.1.2"
 
-rollup@1.30.0:
-  version "1.30.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-1.30.0.tgz#ae9c893804e8eaa8f8f74b0aaf7e7fb4374a9d01"
-  integrity sha512-ANcmfaSQwpcJtZUTA0ZMNBtFcQ1B4A5FldlNqEK0WdWm9sHSKu93ffa2KV1ux8HA/yKIV/ZARV28m7rNdXJgEw==
-  dependencies:
-    "@types/estree" "*"
-    "@types/node" "*"
-    acorn "^7.1.0"
-
-rtlcss@^2.4.1:
-  version "2.4.1"
-  resolved "https://registry.yarnpkg.com/rtlcss/-/rtlcss-2.4.1.tgz#88dac05fecfc0900ced321d2e7046ca6f40d6a29"
-  integrity sha512-pOY30CIGvvQTW1iBfxO6Ry6/J/C4U7fcOhtF0pm5fNgwmJXOtx5gib6czFmWyp1KXN/6rbMRsTZwWlAridxBTQ==
+rtlcss@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/rtlcss/-/rtlcss-2.5.0.tgz#455549e49113f9e1cf83169a44de526c816de8a4"
+  integrity sha512-NCVdF45w70/3CQeqVvQ84bu2HN8agNn+CDjw+RxXaiWb7mPOmEvltdd1z4qzm9kin4Jnu9ShFBIx28yvWerZ2g==
   dependencies:
     chalk "^2.4.2"
     findup "^0.1.5"
@@ -2882,10 +2878,10 @@ semver@^6.1.2:
   resolved "https://registry.yarnpkg.com/semver/-/semver-6.3.0.tgz#ee0a64c8af5e8ceea67687b133761e1becbd1d3d"
   integrity sha512-b39TBaTSfV6yBrapU89p5fKekE2m/NwnDocOVruQFS1/veMgdzuPcnOM34M6CwxW8jH/lxEa5rBoDeUwu5HHTw==
 
-semver@^7.1.1:
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/semver/-/semver-7.1.1.tgz#29104598a197d6cbe4733eeecbe968f7b43a9667"
-  integrity sha512-WfuG+fl6eh3eZ2qAf6goB7nhiCd7NPXhmyFxigB/TOkQyeLP8w8GsVehvtGNtnNmyboz4TgeK40B1Kbql/8c5A==
+semver@^7.1.3:
+  version "7.1.3"
+  resolved "https://registry.yarnpkg.com/semver/-/semver-7.1.3.tgz#e4345ce73071c53f336445cfc19efb1c311df2a6"
+  integrity sha512-ekM0zfiA9SCBlsKa2X1hxyxiI4L3B6EbVJkkdgQXnSEEaHlGdvyodMruTiulSRWMMB4NeIuYNMC9rTKTz97GxA==
 
 set-blocking@~2.0.0:
   version "2.0.0"
@@ -2925,6 +2921,11 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
+
+slash@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
+  integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
 
 slice-ansi@^2.1.0:
   version "2.1.0"
@@ -3334,10 +3335,10 @@ uglify-js@3.4.x:
     commander "~2.19.0"
     source-map "~0.6.1"
 
-uglify-js@^3.7.6:
-  version "3.7.6"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.7.6.tgz#0783daa867d4bc962a37cc92f67f6e3238c47485"
-  integrity sha512-yYqjArOYSxvqeeiYH2VGjZOqq6SVmhxzaPjJC1W2F9e+bqvFL9QXQ2osQuKUFjM2hGjKG2YclQnRKWQSt/nOTQ==
+uglify-js@^3.8.0:
+  version "3.8.0"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-3.8.0.tgz#f3541ae97b2f048d7e7e3aa4f39fd8a1f5d7a805"
+  integrity sha512-ugNSTT8ierCsDHso2jkBHXYrU8Y5/fY2ZUprfrJUiD7YpuFvV4jODLFmb3h4btQjqr5Nh4TX4XtgDfCU1WdioQ==
   dependencies:
     commander "~2.20.3"
     source-map "~0.6.1"
