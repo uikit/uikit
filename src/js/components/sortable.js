@@ -1,6 +1,6 @@
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
-import {$$, addClass, after, assign, append, before, children, clamp, css, getEventPos, height, includes, index, isEmpty, isInput, offset, off, on, parent, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, trigger, within, getViewport, attr} from 'uikit-util';
+import {$$, addClass, after, assign, append, before, children, clamp, css, getEventPos, hasTouch, height, includes, index, isEmpty, isInput, offset, off, on, parent, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, trigger, within, getViewport, attr} from 'uikit-util';
 
 export default {
 
@@ -77,7 +77,7 @@ export default {
 
             watch(handles, prev) {
                 css(prev, {touchAction: '', userSelect: ''});
-                css(handles, {touchAction: 'none', userSelect: 'none'});
+                css(handles, {touchAction: hasTouch ? 'none' : '', userSelect: 'none'}); // touchAction set to 'none' causes a performance drop in Chrome 80
             },
 
             immediate: true
@@ -157,7 +157,7 @@ export default {
             this.placeholder = placeholder;
             this.origin = assign({target, index: index(placeholder)}, this.pos);
 
-            on(document, pointerMove, this.move, {passive: true, capture: true});
+            on(document, pointerMove, this.move);
             on(document, pointerUp, this.end);
 
             if (!this.threshold) {
@@ -196,7 +196,7 @@ export default {
 
         end(e) {
 
-            off(document, pointerMove, this.move, {passive: true, capture: true});
+            off(document, pointerMove, this.move);
             off(document, pointerUp, this.end);
             off(window, 'scroll', this.scroll);
 
