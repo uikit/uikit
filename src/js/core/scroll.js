@@ -3,12 +3,10 @@ import {$, escape, scrollIntoView, trigger} from 'uikit-util';
 export default {
 
     props: {
-        duration: Number,
         offset: Number
     },
 
     data: {
-        duration: 1000,
         offset: 0
     },
 
@@ -19,7 +17,7 @@ export default {
             el = el && $(el) || document.body;
 
             if (trigger(this.$el, 'beforescroll', [this, el])) {
-                scrollIntoView(el, this.$props).then(() =>
+                scrollIntoView(el, {offset: this.offset}).then(() =>
                     trigger(this.$el, 'scrolled', [this, el])
                 );
             }
