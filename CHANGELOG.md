@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.3.5 (March 12, 2020)
+
+### Fixed
+
+- Fix regression in Sortable component
+
 ## 3.3.4 (March 12, 2020)
 
 ### Changed

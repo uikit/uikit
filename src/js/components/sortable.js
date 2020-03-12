@@ -296,10 +296,10 @@ function trackScroll(pos) {
         let {x, y} = pos;
         y += window.pageYOffset;
 
-        scrollParents(document.elementFromPoint(x, pos.y)).some(scrollEl => {
+        const dist = (Date.now() - last) * .3;
+        last = Date.now();
 
-            const dist = (Date.now() - last) * .3;
-            last = Date.now();
+        scrollParents(document.elementFromPoint(x, pos.y)).some(scrollEl => {
 
             let {scrollTop: scroll, scrollHeight} = scrollEl;
 
