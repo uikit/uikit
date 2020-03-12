@@ -42,14 +42,13 @@ export function scrollTop(element, top) {
     element.scrollTop = top;
 }
 
-export function scrollIntoView(element, {duration = 1000, offset = 0} = {}) {
+export function scrollIntoView(element, {offset: offsetBy = 0} = {}) {
 
     if (!isVisible(element)) {
         return;
     }
 
     const parents = overflowParents(element).concat(element);
-    duration /= parents.length - 1;
 
     let promise = Promise.resolve();
     for (let i = 0; i < parents.length - 1; i++) {
@@ -60,7 +59,8 @@ export function scrollIntoView(element, {duration = 1000, offset = 0} = {}) {
                 const element = parents[i + 1];
 
                 const {scrollTop: scroll} = scrollElement;
-                const top = position(element, getViewport(scrollElement)).top - offset;
+                const top = position(element, getViewport(scrollElement)).top - offsetBy;
+                const duration = getDuration(Math.abs(top));
 
                 const start = Date.now();
                 const step = () => {
@@ -84,6 +84,10 @@ export function scrollIntoView(element, {duration = 1000, offset = 0} = {}) {
     }
 
     return promise;
+
+    function getDuration(dist) {
+        return 40 * Math.pow(dist, .375);
+    }
 
     function ease(k) {
         return 0.5 * (1 - Math.cos(Math.PI * k));

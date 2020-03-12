@@ -1,5 +1,19 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Add `offset` option to Accordion component
+
+### Changed
+
+- Removed `duration` option from Scroll component
+
+### Fixed
+
+- Fix regression in Accordion component
+
 ## 3.3.5 (March 12, 2020)
 
 ### Fixed

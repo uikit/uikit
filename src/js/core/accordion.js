@@ -13,7 +13,8 @@ export default {
         multiple: Boolean,
         toggle: String,
         content: String,
-        transition: String
+        transition: String,
+        offset: Number
     },
 
     data: {
@@ -25,7 +26,8 @@ export default {
         clsOpen: 'uk-open',
         toggle: '> .uk-accordion-title',
         content: '> .uk-accordion-content',
-        transition: 'ease'
+        transition: 'ease',
+        offset: 0
     },
 
     computed: {
@@ -74,23 +76,6 @@ export default {
                 this.toggle(index($$(`${this.targets} ${this.$props.toggle}`, this.$el), e.current));
             }
 
-        },
-
-        {
-            name: 'shown',
-
-            self: true,
-
-            delegate() {
-                return this.targets;
-            },
-
-            handler({target}) {
-                const toggle = $(this.$props.toggle, target);
-                if (!isInView(toggle)) {
-                    scrollIntoView(toggle);
-                }
-            }
         }
 
     ],
@@ -130,6 +115,13 @@ export default {
                     hide(content, !show);
                     delete el._wrapper;
                     unwrap(content);
+
+                    if (show) {
+                        const toggle = $(this.$props.toggle, el);
+                        if (!isInView(toggle)) {
+                            scrollIntoView(toggle, {offset: this.offset});
+                        }
+                    }
                 });
             }));
         }
