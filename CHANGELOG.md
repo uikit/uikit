@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Height Match component not matching empty elements
+
 ## 3.3.6 (March 12, 2020)
 
 ### Added
