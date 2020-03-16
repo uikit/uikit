@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Height Match component not matching empty elements
+- Fix Scrollspy Nav component activating wrong elements
 
 ## 3.3.6 (March 12, 2020)
 

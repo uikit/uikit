@@ -41,7 +41,7 @@ export default {
         },
 
         elements({closest: selector}) {
-            return closest($$(this.targets.map(el => `[href="#${el.id}"]`).join(',')), selector || '*');
+            return closest(this.links, selector || '*');
         }
 
     },
@@ -70,8 +70,7 @@ export default {
                 } else {
 
                     this.targets.every((el, i) => {
-                        const {top} = position(el, viewport);
-                        if (top - this.offset <= 0) {
+                        if (position(el, viewport).top - this.offset <= 0) {
                             active = i;
                             return true;
                         }
