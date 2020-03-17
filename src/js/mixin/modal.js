@@ -43,7 +43,7 @@ export default {
 
     beforeDisconnect() {
         if (this.isToggled()) {
-            this.toggleNow(this.$el, false);
+            this.toggleElement(this.$el, false, false);
         }
     },
 
