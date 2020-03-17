@@ -115,6 +115,8 @@ export default {
                     css(document.body, 'overflowY', 'scroll');
                 }
 
+                this.stack && css(this.$el, 'zIndex', css(this.$el, 'zIndex') + active.length);
+
                 addClass(document.documentElement, this.clsPage);
 
                 if (this.bgClose) {
@@ -158,6 +160,8 @@ export default {
                 if (!active.length) {
                     css(document.body, 'overflowY', '');
                 }
+
+                css(this.$el, 'zIndex', '');
 
                 if (!active.some(modal => modal.clsPage === this.clsPage)) {
                     removeClass(document.documentElement, this.clsPage);
