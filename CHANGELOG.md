@@ -6,6 +6,7 @@
 
 - Fix Height Match component not matching empty elements
 - Fix Scrollspy Nav component activating wrong elements
+- Fix Modal/Drop close on bgClick behaviour 
 
 ## 3.3.6 (March 12, 2020)
 

@@ -1,6 +1,6 @@
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {addClass, Animation, apply, attr, css, includes, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
+import {addClass, Animation, apply, attr, css, includes, isTouch, last, MouseTracker, offset, on, once, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
 
 let active;
 
@@ -224,14 +224,14 @@ export default {
                 this.tracker.init();
                 trigger(this.$el, 'updatearia');
 
-                // If triggered from an click event handler, delay adding the click handler
-                const off = delayOn(document, 'click', ({defaultPrevented, target}) => {
-                    if (!defaultPrevented && !within(target, this.$el) && !(this.toggle && within(target, this.toggle.$el))) {
-                        this.hide(false);
-                    }
-                });
+                once(this.$el, 'hide', on(document, pointerDown, ({target}) =>
+                    !within(target, this.$el) && once(document, `${pointerUp} ${pointerCancel} scroll`, ({defaultPrevented, type, target: newTarget}) => {
+                        if (!defaultPrevented && type === pointerUp && target === newTarget && !(this.toggle && within(target, this.toggle.$el))) {
+                            this.hide(false);
+                        }
+                    }, true)
+                ), {self: true});
 
-                once(this.$el, 'hide', off, {self: true});
             }
 
         },
@@ -389,11 +389,4 @@ function getPositionedElements(el) {
     const result = [];
     apply(el, el => css(el, 'position') !== 'static' && result.push(el));
     return result;
-}
-
-export function delayOn(el, type, fn) {
-    let off = once(el, type, () =>
-        off = on(el, type, fn)
-    , true);
-    return () => off();
 }

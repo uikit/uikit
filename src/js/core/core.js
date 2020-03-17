@@ -64,16 +64,6 @@ export default function (UIkit) {
 
             });
 
-            // Force click event anywhere on iOS < 13
-            if (pointerDown === 'touchstart') {
-                css(document.body, 'cursor', 'pointer');
-                once(document, `${pointerUp} ${pointerCancel}`, () =>
-                    setTimeout(() =>
-                        css(document.body, 'cursor', '')
-                    , 50)
-                );
-            }
-
         }, {passive: true});
 
     });
