@@ -42,6 +42,10 @@ export default {
 
         {
 
+            read({rows}) {
+                return {stacks: !rows.some(row => row.length > 1)};
+            },
+
             write({stacks}) {
                 toggleClass(this.$el, this.clsStack, stacks);
             },
@@ -54,15 +58,14 @@ export default {
 
             read({rows}) {
 
-                if (this.masonry || this.parallax) {
-                    rows = rows.map(elements => sortBy(elements, 'offsetLeft'));
-
-                    if (isRtl) {
-                        rows.map(row => row.reverse());
-                    }
-
-                } else {
+                if (!this.masonry && !this.parallax) {
                     return false;
+                }
+
+                rows = rows.map(elements => sortBy(elements, 'offsetLeft'));
+
+                if (isRtl) {
+                    rows.map(row => row.reverse());
                 }
 
                 const transitionInProgress = rows.some(elements => elements.some(Transition.inProgress));
@@ -92,9 +95,7 @@ export default {
 
             },
 
-            write({stacks, height, padding}) {
-
-                toggleClass(this.$el, this.clsStack, stacks);
+            write({height, padding}) {
 
                 css(this.$el, 'paddingBottom', padding);
                 height !== false && css(this.$el, 'height', height);
