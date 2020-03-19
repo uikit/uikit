@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.3.7 (March 19, 2020)
+
+### Fixed
+
+- Fix Height Match component not matching empty elements
+- Fix Scrollspy Nav component activating wrong elements
+- Fix Modal/Drop close on bgClick behaviour 
+- Fix `z-index` on Modal stacked dialogs
+
 ## 3.3.6 (March 12, 2020)
 
 ### Added

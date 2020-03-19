@@ -1,8 +1,7 @@
-import {$, addClass, append, css, includes, last, on, once, Promise, removeClass, toMs, width, within} from 'uikit-util';
+import {$, addClass, append, css, includes, last, on, once, pointerCancel, pointerDown, pointerUp, Promise, removeClass, toMs, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
-import {delayOn} from '../core/drop';
 
 const active = [];
 
@@ -44,7 +43,7 @@ export default {
 
     beforeDisconnect() {
         if (this.isToggled()) {
-            this.toggleNow(this.$el, false);
+            this.toggleElement(this.$el, false, false);
         }
     },
 
@@ -116,27 +115,31 @@ export default {
                     css(document.body, 'overflowY', 'scroll');
                 }
 
+                this.stack && css(this.$el, 'zIndex', css(this.$el, 'zIndex') + active.length);
+
                 addClass(document.documentElement, this.clsPage);
 
                 if (this.bgClose) {
-                    once(this.$el, 'hide', delayOn(document, 'click', ({defaultPrevented, target}) => {
-                        const current = last(active);
-                        if (!defaultPrevented
-                            && current === this
-                            && (!current.overlay || within(target, current.$el))
-                            && !within(target, current.panel)
-                        ) {
-                            current.hide();
+                    once(this.$el, 'hide', on(document, pointerDown, ({target}) => {
+
+                        if (last(active) !== this || within(target, this.panel)) {
+                            return;
                         }
+
+                        once(document, `${pointerUp} ${pointerCancel} scroll`, ({defaultPrevented, type, target: newTarget}) => {
+                            if (!defaultPrevented && type === pointerUp && target === newTarget) {
+                                this.hide();
+                            }
+                        }, true);
+
                     }), {self: true});
                 }
 
                 if (this.escClose) {
                     once(this.$el, 'hide', on(document, 'keydown', e => {
-                        const current = last(active);
-                        if (e.keyCode === 27 && current === this) {
+                        if (e.keyCode === 27 && last(active) === this) {
                             e.preventDefault();
-                            current.hide();
+                            this.hide();
                         }
                     }), {self: true});
                 }
@@ -157,6 +160,8 @@ export default {
                 if (!active.length) {
                     css(document.body, 'overflowY', '');
                 }
+
+                css(this.$el, 'zIndex', '');
 
                 if (!active.some(modal => modal.clsPage === this.clsPage)) {
                     removeClass(document.documentElement, this.clsPage);

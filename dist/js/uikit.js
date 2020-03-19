@@ -1,4 +1,4 @@
-/*! UIkit 3.3.6 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.3.7 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3569,7 +3569,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.3.6';
+    UIkit.version = '3.3.7';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3648,14 +3648,6 @@
                     }
 
                 });
-
-                // Force click event anywhere on iOS < 13
-                if (pointerDown === 'touchstart') {
-                    css(document.body, 'cursor', 'pointer');
-                    once(document, (pointerUp + " " + pointerCancel), function () { return setTimeout(function () { return css(document.body, 'cursor', ''); }
-                        , 50); }
-                    );
-                }
 
             }, {passive: true});
 
@@ -4635,17 +4627,21 @@
                     this.tracker.init();
                     trigger(this.$el, 'updatearia');
 
-                    // If triggered from an click event handler, delay adding the click handler
-                    var off = delayOn(document, 'click', function (ref) {
-                        var defaultPrevented = ref.defaultPrevented;
-                        var target = ref.target;
+                    once(this.$el, 'hide', on(document, pointerDown, function (ref) {
+                            var target = ref.target;
 
-                        if (!defaultPrevented && !within(target, this$1.$el) && !(this$1.toggle && within(target, this$1.toggle.$el))) {
-                            this$1.hide(false);
-                        }
-                    });
+                            return !within(target, this$1.$el) && once(document, (pointerUp + " " + pointerCancel + " scroll"), function (ref) {
+                            var defaultPrevented = ref.defaultPrevented;
+                            var type = ref.type;
+                            var newTarget = ref.target;
 
-                    once(this.$el, 'hide', off, {self: true});
+                            if (!defaultPrevented && type === pointerUp && target === newTarget && !(this$1.toggle && within(target, this$1.toggle.$el))) {
+                                this$1.hide(false);
+                            }
+                        }, true);
+                    }
+                    ), {self: true});
+
                 }
 
             },
@@ -4814,12 +4810,6 @@
         return result;
     }
 
-    function delayOn(el, type, fn) {
-        var off = once(el, type, function () { return off = on(el, type, fn); }
-        , true);
-        return function () { return off(); };
-    }
-
     var formCustom = {
 
         mixins: [Class],
@@ -4984,11 +4974,12 @@
         for (var i = 0; i < items.length; i++) {
 
             var el = items[i];
-            var dim = getOffset(el);
 
-            if (!dim.height) {
+            if (!isVisible(el)) {
                 continue;
             }
+
+            var dim = getOffset(el);
 
             for (var j = rows.length - 1; j >= 0; j--) {
 
@@ -5012,7 +5003,7 @@
                     break;
                 }
 
-                if (dim.bottom > leftDim.top) {
+                if (dim.bottom > leftDim.top || dim.top === leftDim.top) {
 
                     if (dim.left < leftDim.left && !isRtl) {
                         row.unshift(el);
@@ -6377,7 +6368,7 @@
 
         beforeDisconnect: function() {
             if (this.isToggled()) {
-                this.toggleNow(this.$el, false);
+                this.toggleElement(this.$el, false, false);
             }
         },
 
@@ -6451,30 +6442,37 @@
                         css(document.body, 'overflowY', 'scroll');
                     }
 
+                    this.stack && css(this.$el, 'zIndex', css(this.$el, 'zIndex') + active$1.length);
+
                     addClass(document.documentElement, this.clsPage);
 
                     if (this.bgClose) {
-                        once(this.$el, 'hide', delayOn(document, 'click', function (ref) {
-                            var defaultPrevented = ref.defaultPrevented;
+                        once(this.$el, 'hide', on(document, pointerDown, function (ref) {
                             var target = ref.target;
 
-                            var current = last(active$1);
-                            if (!defaultPrevented
-                                && current === this$1
-                                && (!current.overlay || within(target, current.$el))
-                                && !within(target, current.panel)
-                            ) {
-                                current.hide();
+
+                            if (last(active$1) !== this$1 || within(target, this$1.panel)) {
+                                return;
                             }
+
+                            once(document, (pointerUp + " " + pointerCancel + " scroll"), function (ref) {
+                                var defaultPrevented = ref.defaultPrevented;
+                                var type = ref.type;
+                                var newTarget = ref.target;
+
+                                if (!defaultPrevented && type === pointerUp && target === newTarget) {
+                                    this$1.hide();
+                                }
+                            }, true);
+
                         }), {self: true});
                     }
 
                     if (this.escClose) {
                         once(this.$el, 'hide', on(document, 'keydown', function (e) {
-                            var current = last(active$1);
-                            if (e.keyCode === 27 && current === this$1) {
+                            if (e.keyCode === 27 && last(active$1) === this$1) {
                                 e.preventDefault();
-                                current.hide();
+                                this$1.hide();
                             }
                         }), {self: true});
                     }
@@ -6497,6 +6495,8 @@
                     if (!active$1.length) {
                         css(document.body, 'overflowY', '');
                     }
+
+                    css(this.$el, 'zIndex', '');
 
                     if (!active$1.some(function (modal) { return modal.clsPage === this$1.clsPage; })) {
                         removeClass(document.documentElement, this.clsPage);
@@ -7546,7 +7546,7 @@
             elements: function(ref) {
                 var selector = ref.closest;
 
-                return closest($$(this.targets.map(function (el) { return ("[href=\"#" + (el.id) + "\"]"); }).join(',')), selector || '*');
+                return closest(this.links, selector || '*');
             }
 
         },
@@ -7579,9 +7579,7 @@
                     } else {
 
                         this.targets.every(function (el, i) {
-                            var ref = position(el, viewport);
-                            var top = ref.top;
-                            if (top - this$1.offset <= 0) {
+                            if (position(el, viewport).top - this$1.offset <= 0) {
                                 active = i;
                                 return true;
                             }
