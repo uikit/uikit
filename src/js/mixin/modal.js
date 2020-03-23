@@ -122,7 +122,7 @@ export default {
                 if (this.bgClose) {
                     once(this.$el, 'hide', on(document, pointerDown, ({target}) => {
 
-                        if (last(active) !== this || within(target, this.panel)) {
+                        if (last(active) !== this || this.overlay && !within(target, this.$el) || within(target, this.panel)) {
                             return;
                         }
 
