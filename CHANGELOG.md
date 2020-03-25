@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Scrollspy Nav component activating previous item in Firefox
+
 ## 3.3.7 (March 19, 2020)
 
 ### Fixed

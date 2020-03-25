@@ -59,7 +59,7 @@ export function scrollIntoView(element, {offset: offsetBy = 0} = {}) {
                 const element = parents[i + 1];
 
                 const {scrollTop: scroll} = scrollElement;
-                const top = position(element, getViewport(scrollElement)).top - offsetBy;
+                const top = Math.ceil(position(element, getViewport(scrollElement)).top - offsetBy);
                 const duration = getDuration(Math.abs(top));
 
                 const start = Date.now();
