@@ -79,7 +79,7 @@ export default {
 
             addClass(this.target, targetClass);
             children.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-            css(this.target, 'height', oldHeight);
+            css(this.target, {height: oldHeight, display: 'block'});
             scrollTop(window, oldScrollY);
 
             return Promise.all(
@@ -125,7 +125,7 @@ function reset(el) {
         width: ''
     });
     removeClass(el, targetClass);
-    css(el, 'height', '');
+    css(el, {height: '', display: ''});
 }
 
 function getPositionWithMargin(el) {

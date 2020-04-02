@@ -8,6 +8,7 @@
 - Fix selected `uk-text-background` text being visible in Firefox
 - Fix Scrollspy Nav component activating previous item in Firefox
 - Fix toggling Offcanvas component
+- Fix Sortable component unable to sort table rows
 
 ## 3.3.7 (March 19, 2020)
 

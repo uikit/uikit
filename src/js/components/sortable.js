@@ -329,7 +329,7 @@ function untrackScroll() {
 }
 
 function appendDrag(container, element) {
-    const clone = append(container, element.outerHTML.replace(/(^<)li|li(\/>$)/g, '$1div$2'));
+    const clone = append(container, element.outerHTML.replace(/(^<)(?:li|tr)|(?:li|tr)(\/>$)/g, '$1div$2'));
 
     attr(clone, 'style', `${attr(clone, 'style')};margin:0!important`);
 
