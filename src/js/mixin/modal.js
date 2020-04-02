@@ -77,7 +77,10 @@ export default {
                 }
 
                 e.preventDefault();
-                this.toggle();
+
+                if (this.isToggled() === includes(active, this)) {
+                    this.toggle();
+                }
             }
 
         },
