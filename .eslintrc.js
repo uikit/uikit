@@ -49,6 +49,10 @@ module.exports = {
         "prefer-destructuring": "warn",
         "quotes": ["error", "single", {"avoidEscape": true}],
         "semi": ["error", "always"],
+        "sort-imports": ["error", {
+            "ignoreCase": true,
+            "ignoreDeclarationSort": true
+        }],
         "space-before-blocks": "error",
         "space-before-function-paren": ["error", {"anonymous": "always", "named": "never", "asyncArrow": "always"}],
         "space-in-parens": "error",

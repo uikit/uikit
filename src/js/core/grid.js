@@ -1,6 +1,6 @@
 import Margin from './margin';
 import Class from '../mixin/class';
-import {addClass, children, css, hasClass, height as getHeight, isRtl, scrolledOver, toFloat, toggleClass, Transition, sortBy} from 'uikit-util';
+import {addClass, children, css, height as getHeight, hasClass, isRtl, scrolledOver, sortBy, toFloat, toggleClass, Transition} from 'uikit-util';
 
 export default {
 

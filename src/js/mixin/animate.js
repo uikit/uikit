@@ -1,4 +1,4 @@
-import {addClass, append, assign, children as getChildren, css, fastdom, height, includes, index, isVisible, noop, offset, position, Promise, removeClass, scrollTop, Transition} from 'uikit-util';
+import {addClass, append, assign, css, fastdom, children as getChildren, height, includes, index, isVisible, noop, offset, position, Promise, removeClass, scrollTop, Transition} from 'uikit-util';
 
 const targetClass = 'uk-animation-target';
 
