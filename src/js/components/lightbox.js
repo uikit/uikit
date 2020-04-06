@@ -98,7 +98,7 @@ function toItem(el) {
         item[attr === 'href' ? 'source' : attr] = data(el, attr);
     });
 
-    item.attrs = item.attrs && parseOptions(item.attrs);
+    item.attrs = parseOptions(item.attrs);
 
     return item;
 }
