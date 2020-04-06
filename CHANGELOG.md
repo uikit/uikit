@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add `attrs` option to Lightbox items
+
 ### Fixed
 
 - Fix subnav not wrapping into the next line correctly when using `uk-margin` attribute

@@ -3,7 +3,7 @@ import Container from '../mixin/container';
 import Modal from '../mixin/modal';
 import Slideshow from '../mixin/slideshow';
 import Togglable from '../mixin/togglable';
-import {$, addClass, ajax, append, assign, attr, css, getImage, html, index, once, pointerDown, pointerMove, removeClass, Transition, trigger} from 'uikit-util';
+import {$, addClass, ajax, append, assign, attr, css, fragment, getImage, html, index, noop, on, pointerDown, pointerMove, removeClass, Transition, trigger} from 'uikit-util';
 
 export default {
 
@@ -47,7 +47,7 @@ export default {
 
         const $el = $(this.template);
         const list = $(this.selList, $el);
-        this.items.forEach(() => append(list, '<li></li>'));
+        this.items.forEach(() => append(list, '<li>'));
 
         this.$mount(append(this.container, $el));
 
@@ -216,73 +216,94 @@ export default {
 
             handler(_, item) {
 
-                const {source, type, alt} = item;
+                const {source: src, type, alt = '', poster, attrs = {}} = item;
 
                 this.setItem(item, '<span uk-spinner></span>');
 
-                if (!source) {
+                if (!src) {
                     return;
                 }
 
                 let matches;
+                const iframeAttrs = {
+                    frameborder: '0',
+                    allow: 'autoplay',
+                    allowfullscreen: '',
+                    style: 'max-width: 100%; box-sizing: border-box;',
+                    'uk-responsive': '',
+                    'uk-video': `${this.videoAutoplay}`
+                };
 
                 // Image
-                if (type === 'image' || source.match(/\.(jpe?g|png|gif|svg|webp)($|\?)/i)) {
+                if (type === 'image' || src.match(/\.(jpe?g|png|gif|svg|webp)($|\?)/i)) {
 
-                    getImage(source).then(
-                        img => this.setItem(item, `<img width="${img.width}" height="${img.height}" src="${source}" alt="${alt ? alt : ''}">`),
+                    getImage(src).then(
+                        ({width, height}) => this.setItem(item, createEl('img', assign({src, width, height, alt}, attrs))),
                         () => this.setError(item)
                     );
 
-                    // Video
-                } else if (type === 'video' || source.match(/\.(mp4|webm|ogv)($|\?)/i)) {
+                // Video
+                } else if (type === 'video' || src.match(/\.(mp4|webm|ogv)($|\?)/i)) {
 
-                    const video = $(`<video controls playsinline${item.poster ? ` poster="${item.poster}"` : ''} uk-video="${this.videoAutoplay}"></video>`);
-                    attr(video, 'src', source);
+                    const video = createEl('video', assign({
+                        src,
+                        poster,
+                        controls: '',
+                        playsinline: '',
+                        'uk-video': `${this.videoAutoplay}`
+                    }, attrs));
 
-                    once(video, 'error loadedmetadata', type => {
-                        if (type === 'error') {
-                            this.setError(item);
-                        } else {
-                            attr(video, {width: video.videoWidth, height: video.videoHeight});
-                            this.setItem(item, video);
-                        }
+                    on(video, 'error', () => this.setError(item));
+                    on(video, 'loadedmetadata', () => {
+                        attr(video, {width: video.videoWidth, height: video.videoHeight});
+                        this.setItem(item, video);
                     });
 
-                    // Iframe
-                } else if (type === 'iframe' || source.match(/\.(html|php)($|\?)/i)) {
+                // Iframe
+                } else if (type === 'iframe' || src.match(/\.(html|php)($|\?)/i)) {
 
-                    this.setItem(item, `<iframe class="uk-lightbox-iframe" src="${source}" frameborder="0" allowfullscreen></iframe>`);
+                    this.setItem(item, createEl('iframe', assign({
+                        src,
+                        frameborder: '0',
+                        allowfullscreen: '',
+                        class: 'uk-lightbox-iframe'
+                    }, attrs)));
 
-                    // YouTube
-                } else if ((matches = source.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/watch\?v=([^&\s]+)/) || source.match(/()youtu\.be\/(.*)/))) {
+                // YouTube
+                } else if ((matches = src.match(/\/\/(?:.*?youtube(-nocookie)?\..*?[?&]v=|youtu\.be\/)([\w-]{11})/))) {
 
-                    const [, , id] = matches;
-                    const setIframe = (width = 640, height = 450) => this.setItem(item, getIframe(`https://www.youtube${matches[1] || ''}.com/embed/${id}`, width, height, this.videoAutoplay));
+                    const [, nocookie = '', id] = matches;
+                    const imgSrc = `https://img.youtube.com/vi/${id}/`;
 
-                    getImage(`https://img.youtube.com/vi/${id}/maxresdefault.jpg`).then(
-                        ({width, height}) => {
+                    getImage(`${imgSrc}maxresdefault.jpg`)
+                        .then(({width, height}) =>
                             // YouTube default 404 thumb, fall back to low resolution
-                            if (width === 120 && height === 90) {
-                                getImage(`https://img.youtube.com/vi/${id}/0.jpg`).then(
-                                    ({width, height}) => setIframe(width, height),
-                                    setIframe
-                                );
-                            } else {
-                                setIframe(width, height);
-                            }
-                        },
-                        setIframe
-                    );
-
-                    // Vimeo
-                } else if ((matches = source.match(/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/))) {
-
-                    ajax(`https://vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURI(source)}`, {responseType: 'json', withCredentials: false})
-                        .then(
-                            ({response: {height, width}}) => this.setItem(item, getIframe(`https://player.vimeo.com/video/${matches[2]}`, width, height, this.videoAutoplay)),
-                            () => this.setError(item)
+                            width === 120 && height === 90
+                                ? getImage(`${imgSrc}0.jpg`).catch(noop)
+                                : {width, height}
+                        )
+                        .then(({width = 640, height = 480}) =>
+                            this.setItem(item, createEl('iframe', assign({
+                                src: `https://www.youtube${nocookie}.com/embed/${id}`,
+                                width,
+                                height
+                            }, iframeAttrs, attrs)))
                         );
+
+                // Vimeo
+                } else if ((matches = src.match(/\/\/.*?vimeo\.[a-z]+\/([0-9]+)/))) {
+
+                    ajax(`https://vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURI(src)}`, {
+                        responseType: 'json',
+                        withCredentials: false
+                    }).then(
+                        ({response: {height, width}}) => this.setItem(item, createEl('iframe', assign({
+                            src: `https://player.vimeo.com/video/${matches[1]}`,
+                            width,
+                            height
+                        }, iframeAttrs, attrs))),
+                        () => this.setError(item)
+                    );
 
                 }
 
@@ -298,11 +319,9 @@ export default {
 
             const item = this.getItem(index);
 
-            if (item.content) {
-                return;
+            if (item && !this.slides[index].childElementCount) {
+                trigger(this.$el, 'itemload', [item]);
             }
-
-            trigger(this.$el, 'itemload', [item]);
         },
 
         getItem(index = this.index) {
@@ -310,10 +329,10 @@ export default {
         },
 
         setItem(item, content) {
-            assign(item, {content});
-            const el = html(this.slides[this.items.indexOf(item)], content);
-            trigger(this.$el, 'itemloaded', [this, el]);
-            this.$update(el);
+            trigger(this.$el, 'itemloaded', [
+                this,
+                html(this.slides[this.items.indexOf(item)], content)
+            ]);
         },
 
         setError(item) {
@@ -337,6 +356,8 @@ export default {
 
 };
 
-function getIframe(src, width, height, autoplay) {
-    return `<iframe src="${src}" width="${width}" height="${height}" allow="autoplay" style="max-width: 100%; box-sizing: border-box;" frameborder="0" allowfullscreen uk-video="autoplay: ${autoplay}" uk-responsive></iframe>`;
+function createEl(tag, attrs) {
+    const el = fragment(`<${tag}>`);
+    attr(el, attrs);
+    return el;
 }
