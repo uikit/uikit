@@ -14,6 +14,7 @@
 - Fix toggling Offcanvas component
 - Fix Sortable component unable to sort table rows
 - Fix autoplay for YouTube and Vimeo videos in Lightbox component
+- Fix dragging slides in Lightbox component in Chrome mobile
 
 ## 3.3.7 (March 19, 2020)
 
