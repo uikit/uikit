@@ -3,7 +3,7 @@ import Container from '../mixin/container';
 import Modal from '../mixin/modal';
 import Slideshow from '../mixin/slideshow';
 import Togglable from '../mixin/togglable';
-import {$, addClass, ajax, append, assign, attr, css, fragment, getImage, html, index, noop, on, pointerDown, pointerMove, removeClass, Transition, trigger} from 'uikit-util';
+import {$, addClass, ajax, append, assign, attr, fragment, getImage, getIndex, html, noop, on, pointerDown, pointerMove, removeClass, Transition, trigger} from 'uikit-util';
 
 export default {
 
@@ -183,17 +183,12 @@ export default {
 
             name: 'itemshow',
 
-            handler({target}) {
+            handler() {
 
-                const i = index(target);
-                const {caption} = this.getItem(i);
+                html(this.caption, this.getItem().caption || '');
 
-                css(this.caption, 'display', caption ? '' : 'none');
-                html(this.caption, caption);
-
-                for (let j = 0; j <= this.preload; j++) {
-                    this.loadItem(this.getIndex(i + j));
-                    this.loadItem(this.getIndex(i - j));
+                for (let j = -this.preload; j <= this.preload; j++) {
+                    this.loadItem(this.index + j);
                 }
 
             }
@@ -253,11 +248,11 @@ export default {
                         'uk-video': `${this.videoAutoplay}`
                     }, attrs));
 
-                    on(video, 'error', () => this.setError(item));
                     on(video, 'loadedmetadata', () => {
                         attr(video, {width: video.videoWidth, height: video.videoHeight});
                         this.setItem(item, video);
                     });
+                    on(video, 'error', () => this.setError(item));
 
                 // Iframe
                 } else if (type === 'iframe' || src.match(/\.(html|php)($|\?)/i)) {
@@ -319,20 +314,21 @@ export default {
 
             const item = this.getItem(index);
 
-            if (item && !this.slides[index].childElementCount) {
+            if (!this.getSlide(item).childElementCount) {
                 trigger(this.$el, 'itemload', [item]);
             }
         },
 
         getItem(index = this.index) {
-            return this.items[index] || {};
+            return this.items[getIndex(index, this.slides)];
         },
 
         setItem(item, content) {
-            trigger(this.$el, 'itemloaded', [
-                this,
-                html(this.slides[this.items.indexOf(item)], content)
-            ]);
+            trigger(this.$el, 'itemloaded', [this, html(this.getSlide(item), content) ]);
+        },
+
+        getSlide(item) {
+            return this.slides[this.items.indexOf(item)];
         },
 
         setError(item) {
