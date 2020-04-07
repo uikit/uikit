@@ -1,4 +1,4 @@
-import {closest, css, getEventPos, includes, isRtl, isTouch, noop, off, on, pointerDown, pointerMove, pointerUp, selInput, trigger} from 'uikit-util';
+import {closest, css, getEventPos, includes, isRtl, isTouch, noop, off, on, pointerCancel, pointerDown, pointerMove, pointerUp, selInput, trigger} from 'uikit-util';
 
 export default {
 
@@ -63,6 +63,9 @@ export default {
             name: 'touchmove',
             passive: false,
             handler: 'move',
+            filter() {
+                return pointerMove === 'touchmove';
+            },
             delegate() {
                 return this.selSlides;
             }
@@ -110,7 +113,8 @@ export default {
                 this.unbindMove = null;
             };
             on(window, 'scroll', this.unbindMove);
-            on(document, pointerUp, this.end, true);
+            on(window.visualViewport, 'resize', this.unbindMove);
+            on(document, `${pointerUp} ${pointerCancel}`, this.end, true);
 
             css(this.list, 'userSelect', 'none');
 
@@ -196,6 +200,7 @@ export default {
         end() {
 
             off(window, 'scroll', this.unbindMove);
+            off(window.visualViewport, 'resize', this.unbindMove);
             this.unbindMove && this.unbindMove();
             off(document, pointerUp, this.end, true);
 
