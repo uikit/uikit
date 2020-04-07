@@ -6,6 +6,10 @@
 
 - Add `attrs` option to Lightbox items
 
+### Changed
+
+- Change default dimensions to 1920x1080 for YouTube in Lightbox component 
+
 ### Fixed
 
 - Fix subnav not wrapping into the next line correctly when using `uk-margin` attribute

@@ -3,7 +3,7 @@ import Container from '../mixin/container';
 import Modal from '../mixin/modal';
 import Slideshow from '../mixin/slideshow';
 import Togglable from '../mixin/togglable';
-import {$, addClass, ajax, append, assign, attr, fragment, getImage, getIndex, html, noop, on, pointerDown, pointerMove, removeClass, Transition, trigger} from 'uikit-util';
+import {$, addClass, ajax, append, assign, attr, fragment, getImage, getIndex, html, on, pointerDown, pointerMove, removeClass, Transition, trigger} from 'uikit-util';
 
 export default {
 
@@ -267,23 +267,11 @@ export default {
                 // YouTube
                 } else if ((matches = src.match(/\/\/(?:.*?youtube(-nocookie)?\..*?[?&]v=|youtu\.be\/)([\w-]{11})/))) {
 
-                    const [, nocookie = '', id] = matches;
-                    const imgSrc = `https://img.youtube.com/vi/${id}/`;
-
-                    getImage(`${imgSrc}maxresdefault.jpg`)
-                        .then(({width, height}) =>
-                            // YouTube default 404 thumb, fall back to low resolution
-                            width === 120 && height === 90
-                                ? getImage(`${imgSrc}0.jpg`).catch(noop)
-                                : {width, height}
-                        )
-                        .then(({width = 640, height = 480}) =>
-                            this.setItem(item, createEl('iframe', assign({
-                                src: `https://www.youtube${nocookie}.com/embed/${id}`,
-                                width,
-                                height
-                            }, iframeAttrs, attrs)))
-                        );
+                    this.setItem(item, createEl('iframe', assign({
+                        src: `https://www.youtube${matches[1] || ''}.com/embed/${matches[2]}`,
+                        width: 1920,
+                        height: 1080,
+                    }, iframeAttrs, attrs)));
 
                 // Vimeo
                 } else if ((matches = src.match(/\/\/.*?vimeo\.[a-z]+\/([0-9]+)/))) {
