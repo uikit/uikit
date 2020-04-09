@@ -88,7 +88,7 @@ $table-expand-min-width:                         150px !default;
 
 .uk-table th {
     padding: $table-cell-padding-vertical $table-cell-padding-horizontal;
-    text-align: left;
+    text-align: start;
     vertical-align: bottom;
     /* 1 */
     font-size: $table-header-cell-font-size;
@@ -128,7 +128,7 @@ $table-expand-min-width:                         150px !default;
 
 .uk-table caption {
     font-size: $table-caption-font-size;
-    text-align: left;
+    text-align: start;
     color: $table-caption-color;
     @if(mixin-exists(hook-table-caption)) {@include hook-table-caption();}
 }

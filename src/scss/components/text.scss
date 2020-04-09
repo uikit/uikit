@@ -143,16 +143,16 @@ $text-background-color:                          $global-primary-background !def
 /* Alignment modifiers
  ========================================================================== */
 
-.uk-text-left { text-align: left !important; }
-.uk-text-right { text-align: right !important; }
+.uk-text-start { text-align: start !important; }
+.uk-text-end { text-align: end !important; }
 .uk-text-center { text-align: center !important; }
 .uk-text-justify { text-align: justify !important; }
 
 /* Phone landscape and bigger */
 @media (min-width: $breakpoint-small) {
 
-    .uk-text-left\@s { text-align: left !important; }
-    .uk-text-right\@s { text-align: right !important; }
+    .uk-text-start\@s { text-align: start !important; }
+    .uk-text-end\@s { text-align: end !important; }
     .uk-text-center\@s { text-align: center !important; }
 
 }
@@ -160,8 +160,8 @@ $text-background-color:                          $global-primary-background !def
 /* Tablet landscape and bigger */
 @media (min-width: $breakpoint-medium) {
 
-    .uk-text-left\@m { text-align: left !important; }
-    .uk-text-right\@m { text-align: right !important; }
+    .uk-text-start\@m { text-align: start !important; }
+    .uk-text-end\@m { text-align: end !important; }
     .uk-text-center\@m { text-align: center !important; }
 
 }
@@ -169,8 +169,8 @@ $text-background-color:                          $global-primary-background !def
 /* Desktop and bigger */
 @media (min-width: $breakpoint-large) {
 
-    .uk-text-left\@l { text-align: left !important; }
-    .uk-text-right\@l { text-align: right !important; }
+    .uk-text-start\@l { text-align: start !important; }
+    .uk-text-end\@l { text-align: end !important; }
     .uk-text-center\@l { text-align: center !important; }
 
 }
@@ -178,8 +178,8 @@ $text-background-color:                          $global-primary-background !def
 /* Large screen and bigger */
 @media (min-width: $breakpoint-xlarge) {
 
-    .uk-text-left\@xl { text-align: left !important; }
-    .uk-text-right\@xl { text-align: right !important; }
+    .uk-text-start\@xl { text-align: start !important; }
+    .uk-text-end\@xl { text-align: end !important; }
     .uk-text-center\@xl { text-align: center !important; }
 
 }
