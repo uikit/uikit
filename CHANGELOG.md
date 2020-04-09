@@ -5,6 +5,7 @@
 ### Added
 
 - Add `attrs` option to Lightbox items
+- Add additional url parameters to YouTube/Vimeo embed URLs in Lightbox component
 
 ### Changed
 

@@ -265,23 +265,23 @@ export default {
                     }, attrs)));
 
                 // YouTube
-                } else if ((matches = src.match(/\/\/(?:.*?youtube(-nocookie)?\..*?[?&]v=|youtu\.be\/)([\w-]{11})/))) {
+                } else if ((matches = src.match(/\/\/(?:.*?youtube(-nocookie)?\..*?[?&]v=|youtu\.be\/)([\w-]{11})[&?]?(.*)?/))) {
 
                     this.setItem(item, createEl('iframe', assign({
-                        src: `https://www.youtube${matches[1] || ''}.com/embed/${matches[2]}`,
+                        src: `https://www.youtube${matches[1] || ''}.com/embed/${matches[2]}${matches[3] ? `?${matches[3]}` : ''}`,
                         width: 1920,
                         height: 1080,
                     }, iframeAttrs, attrs)));
 
                 // Vimeo
-                } else if ((matches = src.match(/\/\/.*?vimeo\.[a-z]+\/([0-9]+)/))) {
+                } else if ((matches = src.match(/\/\/.*?vimeo\.[a-z]+\/(\d+)[&?]?(.*)?/))) {
 
                     ajax(`https://vimeo.com/api/oembed.json?maxwidth=1920&url=${encodeURI(src)}`, {
                         responseType: 'json',
                         withCredentials: false
                     }).then(
                         ({response: {height, width}}) => this.setItem(item, createEl('iframe', assign({
-                            src: `https://player.vimeo.com/video/${matches[1]}`,
+                            src: `https://player.vimeo.com/video/${matches[1]}${matches[2] ? `?${matches[2]}` : ''}`,
                             width,
                             height
                         }, iframeAttrs, attrs))),
