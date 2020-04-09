@@ -123,7 +123,6 @@
 .uk-text-background {
     /* 1 */
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     /* 2 */
     display: inline-block;
     /* 3 */
@@ -134,6 +133,7 @@
 
     .uk-text-background {
         background-color: @text-background-color;
+        color: transparent !important;
         .hook-text-background;
     }
 

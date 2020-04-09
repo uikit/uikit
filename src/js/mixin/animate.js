@@ -1,4 +1,4 @@
-import {addClass, append, assign, children as getChildren, css, fastdom, height, includes, index, isVisible, noop, offset, position, Promise, removeClass, scrollTop, Transition} from 'uikit-util';
+import {addClass, append, assign, css, fastdom, children as getChildren, height, includes, index, isVisible, noop, offset, position, Promise, removeClass, scrollTop, Transition} from 'uikit-util';
 
 const targetClass = 'uk-animation-target';
 
@@ -79,7 +79,7 @@ export default {
 
             addClass(this.target, targetClass);
             children.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-            css(this.target, 'height', oldHeight);
+            css(this.target, {height: oldHeight, display: 'block'});
             scrollTop(window, oldScrollY);
 
             return Promise.all(
@@ -125,7 +125,7 @@ function reset(el) {
         width: ''
     });
     removeClass(el, targetClass);
-    css(el, 'height', '');
+    css(el, {height: '', display: ''});
 }
 
 function getPositionWithMargin(el) {

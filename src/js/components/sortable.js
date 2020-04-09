@@ -1,6 +1,6 @@
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
-import {$$, addClass, after, assign, append, before, children, clamp, css, getEventPos, hasTouch, height, includes, index, isEmpty, isInput, offset, off, on, parent, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, trigger, within, getViewport, attr} from 'uikit-util';
+import {$$, addClass, after, append, assign, attr, before, children, clamp, css, getEventPos, getViewport, hasTouch, height, includes, index, isEmpty, isInput, off, offset, on, parent, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -55,14 +55,22 @@ export default {
 
     computed: {
 
+        target() {
+            return (this.$el.tBodies || [this.$el])[0];
+        },
+
+        items() {
+            return children(this.target);
+        },
+
         isEmpty: {
 
             get() {
-                return isEmpty(this.$el.children);
+                return isEmpty(this.items);
             },
 
             watch(empty) {
-                toggleClass(this.$el, this.clsEmpty, empty);
+                toggleClass(this.target, this.clsEmpty, empty);
             },
 
             immediate: true
@@ -72,7 +80,7 @@ export default {
         handles: {
 
             get({handle}, el) {
-                return handle ? $$(handle, el) : children(el);
+                return handle ? $$(handle, el) : this.items;
             },
 
             watch(handles, prev) {
@@ -114,7 +122,7 @@ export default {
                 return;
             }
 
-            target = sortable.$el === target.parentNode && target || children(sortable.$el).filter(element => within(target, element))[0];
+            target = sortable.target === target.parentNode && target || sortable.items.filter(element => within(target, element))[0];
 
             if (move) {
                 previous.remove(this.placeholder);
@@ -139,7 +147,7 @@ export default {
         init(e) {
 
             const {target, button, defaultPrevented} = e;
-            const [placeholder] = children(this.$el).filter(el => within(target, el));
+            const [placeholder] = this.items.filter(el => within(target, el));
 
             if (!placeholder
                 || defaultPrevented
@@ -174,7 +182,7 @@ export default {
 
             addClass(this.drag, this.clsDrag, this.clsCustom);
             addClass(this.placeholder, this.clsPlaceholder);
-            addClass(this.$el.children, this.clsItem);
+            addClass(this.items, this.clsItem);
             addClass(document.documentElement, this.clsDragState);
 
             trigger(this.$el, 'start', [this, this.placeholder]);
@@ -227,7 +235,7 @@ export default {
             this.drag = null;
 
             const classes = this.touched.map(sortable => `${sortable.clsPlaceholder} ${sortable.clsItem}`).join(' ');
-            this.touched.forEach(sortable => removeClass(sortable.$el.children, classes));
+            this.touched.forEach(sortable => removeClass(sortable.items, classes));
 
             removeClass(document.documentElement, this.clsDragState);
 
@@ -235,20 +243,20 @@ export default {
 
         insert(element, target) {
 
-            addClass(this.$el.children, this.clsItem);
+            addClass(this.items, this.clsItem);
 
             const insert = () => {
 
                 if (target) {
 
-                    if (!within(element, this.$el) || isPredecessor(element, target)) {
+                    if (!within(element, this.target) || isPredecessor(element, target)) {
                         before(target, element);
                     } else {
                         after(target, element);
                     }
 
                 } else {
-                    append(this.$el, element);
+                    append(this.target, element);
                 }
 
             };
@@ -263,7 +271,7 @@ export default {
 
         remove(element) {
 
-            if (!within(element, this.$el)) {
+            if (!within(element, this.target)) {
                 return;
             }
 
@@ -329,7 +337,7 @@ function untrackScroll() {
 }
 
 function appendDrag(container, element) {
-    const clone = append(container, element.outerHTML.replace(/(^<)li|li(\/>$)/g, '$1div$2'));
+    const clone = append(container, element.outerHTML.replace(/(^<)(?:li|tr)|(?:li|tr)(\/>$)/g, '$1div$2'));
 
     attr(clone, 'style', `${attr(clone, 'style')};margin:0!important`);
 

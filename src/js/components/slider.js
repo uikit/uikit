@@ -1,8 +1,8 @@
 import Class from '../mixin/class';
 import Slider, {speedUp} from '../mixin/slider';
 import SliderReactive from '../mixin/slider-reactive';
-import Transitioner, {getElLeft, getWidth, getMax, getMaxWidth} from './internal/slider-transitioner';
-import {$, $$, addClass, css, data, includes, isEmpty, isNumeric, isUndefined, last, offset, toggleClass, toFloat} from 'uikit-util';
+import Transitioner, {getElLeft, getMax, getMaxWidth, getWidth} from './internal/slider-transitioner';
+import {$, $$, addClass, css, data, includes, isEmpty, isNumeric, isUndefined, last, offset, toFloat, toggleClass} from 'uikit-util';
 
 export default {
 

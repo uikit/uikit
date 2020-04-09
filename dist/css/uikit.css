@@ -1,4 +1,4 @@
-/*! UIkit 3.3.7 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.4.0 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -4414,23 +4414,32 @@ ul.uk-nav-sub {
 /* Divider modifier
  ========================================================================== */
 /*
- * 1. Align items and divider vertically
+ * Set gutter 
+ */
+.uk-subnav-divider {
+  margin-left: -41px;
+}
+/*
+ * Align items and divider vertically
  */
 .uk-subnav-divider > * {
-  /* 1 */
   display: flex;
   align-items: center;
 }
 /*
  * Divider
- * `nth-child` makes it also work without JS if it's only one row
+ * 1. `nth-child` makes it also work without JS if it's only one row
  */
-.uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
+.uk-subnav-divider > ::before {
   content: "";
   height: 1.5em;
   margin-left: 0px;
   margin-right: 20px;
-  border-left: 1px solid #e5e5e5;
+  border-left: 1px solid transparent;
+}
+/* 1 */
+.uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
+  border-left-color: #e5e5e5;
 }
 /* Pill modifier
  ========================================================================== */
@@ -5325,6 +5334,7 @@ ul.uk-nav-sub {
  * 4. Horizontal padding
  * 5. Mask the background page
  * 6. Fade-in transition
+ * 7. Prevent cancellation of pointer events while dragging
  */
 .uk-lightbox {
   /* 1 */
@@ -5341,6 +5351,8 @@ ul.uk-nav-sub {
   /* 6 */
   opacity: 0;
   transition: opacity 0.15s linear;
+  /* 7 */
+  touch-action: pinch-zoom;
 }
 /*
  * Open
@@ -5450,6 +5462,9 @@ ul.uk-nav-sub {
 }
 /* Caption
  ========================================================================== */
+.uk-lightbox-caption:empty {
+  display: none;
+}
 /* Iframe
  ========================================================================== */
 .uk-lightbox-iframe {
@@ -7309,7 +7324,6 @@ ul.uk-nav-sub {
 .uk-text-background {
   /* 1 */
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   /* 2 */
   display: inline-block;
   /* 3 */
@@ -7318,6 +7332,7 @@ ul.uk-nav-sub {
 @supports (-webkit-background-clip: text) {
   .uk-text-background {
     background-color: #1e87f0;
+    color: transparent !important;
   }
 }
 /* Alignment modifiers

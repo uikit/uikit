@@ -1,5 +1,5 @@
 import Animate from '../mixin/animate';
-import {$$, $, append, assign, children, css, data, each, fastdom, hasClass, includes, isEmpty, isEqual, isUndefined, matches, parseOptions, toggleClass, trigger} from 'uikit-util';
+import {$, $$, append, assign, children, css, data, each, fastdom, hasClass, includes, isEmpty, isEqual, isUndefined, matches, parseOptions, toggleClass, trigger} from 'uikit-util';
 
 export default {
 

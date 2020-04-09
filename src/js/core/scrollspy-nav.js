@@ -61,11 +61,10 @@ export default {
                 const scrollElement = last(scrollParents(this.targets[0]));
                 const {scrollTop, scrollHeight} = scrollElement;
                 const viewport = getViewport(scrollElement);
-                const scroll = scrollTop;
                 const max = scrollHeight - offset(viewport).height;
                 let active = false;
 
-                if (scroll === max) {
+                if (scrollTop === max) {
                     active = length - 1;
                 } else {
 

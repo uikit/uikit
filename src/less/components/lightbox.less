@@ -54,6 +54,7 @@
  * 4. Horizontal padding
  * 5. Mask the background page
  * 6. Fade-in transition
+ * 7. Prevent cancellation of pointer events while dragging
  */
 
 .uk-lightbox {
@@ -71,6 +72,8 @@
     /* 6 */
     opacity: 0;
     transition: opacity 0.15s linear;
+    /* 7 */
+    touch-action: pinch-zoom;
     .hook-lightbox;
 }
 
@@ -212,6 +215,9 @@
  ========================================================================== */
 
 .uk-lightbox-caption {}
+.uk-lightbox-caption:empty {
+    display: none;
+}
 
 
 /* Iframe

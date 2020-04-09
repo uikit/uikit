@@ -1,5 +1,26 @@
 # Changelog
 
+## 3.4.0 (April 9, 2020)
+
+### Added
+
+- Add `attrs` option to Lightbox items
+- Add additional url parameters to YouTube/Vimeo embed URLs in Lightbox component
+
+### Changed
+
+- Change default dimensions to 1920x1080 for YouTube in Lightbox component 
+
+### Fixed
+
+- Fix subnav not wrapping into the next line correctly when using `uk-margin` attribute
+- Fix selected `uk-text-background` text being visible in Firefox
+- Fix Scrollspy Nav component activating previous item in Firefox
+- Fix toggling Offcanvas component
+- Fix Sortable component unable to sort table rows
+- Fix autoplay for YouTube and Vimeo videos in Lightbox component
+- Fix dragging slides in Lightbox component in Chrome mobile
+
 ## 3.3.7 (March 19, 2020)
 
 ### Fixed

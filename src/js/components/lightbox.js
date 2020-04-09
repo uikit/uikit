@@ -1,5 +1,5 @@
 import LightboxPanel from './lightbox-panel';
-import {$$, assign, data, findIndex, isElement, on, uniqueBy} from 'uikit-util';
+import {$$, assign, data, findIndex, isElement, on, parseOptions, uniqueBy} from 'uikit-util';
 
 export default {
 
@@ -91,8 +91,14 @@ function install(UIkit, Lightbox) {
 }
 
 function toItem(el) {
-    return ['href', 'caption', 'type', 'poster', 'alt'].reduce((obj, attr) => {
-        obj[attr === 'href' ? 'source' : attr] = data(el, attr);
-        return obj;
-    }, {});
+
+    const item = {};
+
+    ['href', 'caption', 'type', 'poster', 'alt', 'attrs'].forEach(attr => {
+        item[attr === 'href' ? 'source' : attr] = data(el, attr);
+    });
+
+    item.attrs = parseOptions(item.attrs);
+
+    return item;
 }
