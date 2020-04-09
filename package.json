@@ -38,7 +38,7 @@
     "@rollup/plugin-buble": "^0.21.1",
     "@rollup/plugin-replace": "^2.3.1",
     "archiver": "3.1.1",
-    "buble": "^0.19.8",
+    "buble": "^0.20.0",
     "buble-loader": "^0.5.0",
     "circular-dependency-plugin": "^5.2.0",
     "clean-css": "^4.2.3",
@@ -51,13 +51,13 @@
     "npm-watch": "github:dasdeck/npm-watch#46a8a36c61cfd998ed53d27f62eaf79e11c395b4",
     "postcss": "7.0.27",
     "raw-loader": "^4.0.0",
-    "rollup": "2.1.0",
+    "rollup": "2.3.4",
     "rollup-plugin-html": "^0.2.1",
     "rtlcss": "^2.5.0",
-    "semver": "^7.1.3",
+    "semver": "^7.2.1",
     "shortid": "^2.2.15",
     "svgo": "^1.3.2",
-    "uglify-js": "^3.8.0"
+    "uglify-js": "^3.8.1"
   },
   "watch": {
     "compile-js": "src/js/**/*.js",
