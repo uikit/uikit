@@ -123,7 +123,6 @@ $text-background-color:                          $global-primary-background !def
 .uk-text-background {
     /* 1 */
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     /* 2 */
     display: inline-block;
     /* 3 */
@@ -134,6 +133,7 @@ $text-background-color:                          $global-primary-background !def
 
     .uk-text-background {
         background-color: $text-background-color;
+        color: transparent !important;
         @if(mixin-exists(hook-text-background)) {@include hook-text-background();}
     }
 
