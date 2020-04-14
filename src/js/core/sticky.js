@@ -284,7 +284,7 @@ export default {
             const active = this.top !== 0 || this.scroll > this.top;
             let top = Math.max(0, this.offset);
 
-            if (this.bottom && this.scroll > this.bottom - this.offset) {
+            if (isNumeric(this.bottom) && this.scroll > this.bottom - this.offset) {
                 top = this.bottom - this.scroll;
             }
 

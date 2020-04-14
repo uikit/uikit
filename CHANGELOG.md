@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix `bottom` if offset is `0` in Sticky component
+
 ## 3.4.0 (April 9, 2020)
 
 ### Added
