@@ -21,7 +21,7 @@ export default {
     computed: {
 
         animation({animation, Animations}) {
-            return assign(animation in Animations ? Animations[animation] : Animations.slide, {name: animation});
+            return assign(Animations[animation] || Animations.slide, {name: animation});
         },
 
         transitionOptions() {

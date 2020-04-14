@@ -128,14 +128,12 @@ export default {
 
         {
 
-            read({height}, type) {
+            read({height}) {
 
-                if (this.isActive && type !== 'update') {
-
+                if (this.isActive) {
                     this.hide();
                     height = this.$el.offsetHeight;
                     this.show();
-
                 }
 
                 height = !this.isActive ? this.$el.offsetHeight : height;

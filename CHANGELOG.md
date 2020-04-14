@@ -5,6 +5,8 @@
 ### Fixed
 
 - Fix `bottom` if offset is `0` in Sticky component
+- Fix dropbar mode `push` is only applied if Navbar is positioned static
+- Fix Sticky component correctly updates on `update`
 
 ## 3.4.0 (April 9, 2020)
 
