@@ -7,6 +7,9 @@
 - Fix `bottom` if offset is `0` in Sticky component
 - Fix dropbar mode `push` is only applied if Navbar is positioned static
 - Fix Sticky component correctly updates on `update`
+- Fix Sticky component handles `vh` values for `top`and `bottom` options
+- Fix Sticky component sets its width with fraction
+- Fix Sticky component with `show-on-up` and `bottom` option updates correctly
 
 ## 3.4.0 (April 9, 2020)
 

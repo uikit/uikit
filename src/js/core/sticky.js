@@ -166,7 +166,7 @@ export default {
                 }
 
                 // ensure active/inactive classes are applied
-                this.isActive = this.isActive;
+                this.isActive = this.isActive; // eslint-disable-line no-self-assign
 
             },
 
@@ -178,7 +178,7 @@ export default {
 
             read({scroll = 0}) {
 
-                this.width = (isVisible(this.widthElement) ? this.widthElement : this.$el).offsetWidth;
+                this.width = offset(isVisible(this.widthElement) ? this.widthElement : this.$el).width;
 
                 this.scroll = window.pageYOffset;
 
@@ -208,7 +208,7 @@ export default {
 
                 data.lastDir = dir;
 
-                if (this.showOnUp && Math.abs(data.initScroll - scroll) <= 30 && Math.abs(lastScroll - scroll) <= 10) {
+                if (this.showOnUp && !this.isFixed && Math.abs(data.initScroll - scroll) <= 30 && Math.abs(lastScroll - scroll) <= 10) {
                     return;
                 }
 
@@ -310,7 +310,7 @@ function parseProp(prop, {$props, $el, [`${prop}Offset`]: propOffset}) {
         return;
     }
 
-    if (isNumeric(value) && isString(value) && value.match(/^-?\d/)) {
+    if (isString(value) && value.match(/^-?\d/)) {
 
         return propOffset + toPx(value);
 
