@@ -17,7 +17,6 @@ import spinner from '../../images/components/spinner.svg';
 import totop from '../../images/components/totop.svg';
 import {$, addClass, apply, css, each, hasClass, hyphenate, isRtl, isString, noop, parents, Promise, swap} from 'uikit-util';
 
-const parsed = {};
 const icons = {
     spinner,
     totop,
@@ -61,7 +60,7 @@ const Icon = {
 
         getSvg() {
 
-            const icon = getIcon(applyRtl(this.icon));
+            const icon = getIcon(this.icon);
 
             if (!icon) {
                 return Promise.reject('Icon not found.');
@@ -154,6 +153,7 @@ export const Spinner = {
 
 };
 
+const parsed = {};
 function install(UIkit) {
     UIkit.icon.add = (name, svg) => {
 
@@ -180,7 +180,7 @@ function getIcon(icon) {
     }
 
     if (!parsed[icon]) {
-        parsed[icon] = $(icons[icon].trim());
+        parsed[icon] = $((icons[applyRtl(icon)] || icons[icon]).trim());
     }
 
     return parsed[icon].cloneNode(true);
