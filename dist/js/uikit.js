@@ -1,4 +1,4 @@
-/*! UIkit 3.4.0 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.4.1 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -56,7 +56,7 @@
 
     var arrPrototype = Array.prototype;
 
-    var includesFn = function (search, i) { return ~this.indexOf(search, i); };
+    var includesFn = function (search, i) { return !!~this.indexOf(search, i); };
     var includesStr = strPrototype.includes || includesFn;
     var includesArray = arrPrototype.includes || includesFn;
 
@@ -3565,7 +3565,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.4.0';
+    UIkit.version = '3.4.1';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4909,7 +4909,7 @@
             },
 
             write: function() {
-                this.$el.src = this.$el.src;
+                this.$el.src = this.$el.src; // eslint-disable-line no-self-assign
             },
 
             events: ['scroll', 'resize']
@@ -6777,7 +6777,6 @@
 
                 watch: function(dropbar) {
                     addClass(dropbar, 'uk-navbar-dropbar');
-                    toggleClass(dropbar, 'uk-navbar-dropbar-slide', this.dropbarMode === 'slide');
                 },
 
                 immediate: true
@@ -6881,6 +6880,8 @@
 
                     var $el = drop.$el;
                     var dir = drop.dir;
+
+                    toggleClass(this.dropbar, 'uk-navbar-dropbar-slide', this.dropbarMode === 'slide' || parents(this.$el).some(function (el) { return css(el, 'position') !== 'static'; }));
 
                     this.clsDrop && addClass($el, ((this.clsDrop) + "-dropbar"));
 
@@ -7740,16 +7741,14 @@
 
             {
 
-                read: function(ref, type) {
+                read: function(ref) {
                     var height = ref.height;
 
 
-                    if (this.isActive && type !== 'update') {
-
+                    if (this.isActive) {
                         this.hide();
                         height = this.$el.offsetHeight;
                         this.show();
-
                     }
 
                     height = !this.isActive ? this.$el.offsetHeight : height;
@@ -7786,7 +7785,7 @@
                     }
 
                     // ensure active/inactive classes are applied
-                    this.isActive = this.isActive;
+                    this.isActive = this.isActive; // eslint-disable-line no-self-assign
 
                 },
 
@@ -7800,7 +7799,7 @@
                     var scroll = ref.scroll; if ( scroll === void 0 ) scroll = 0;
 
 
-                    this.width = (isVisible(this.widthElement) ? this.widthElement : this.$el).offsetWidth;
+                    this.width = offset(isVisible(this.widthElement) ? this.widthElement : this.$el).width;
 
                     this.scroll = window.pageYOffset;
 
@@ -7838,7 +7837,7 @@
 
                     data.lastDir = dir;
 
-                    if (this.showOnUp && Math.abs(data.initScroll - scroll) <= 30 && Math.abs(lastScroll - scroll) <= 10) {
+                    if (this.showOnUp && !this.isFixed && Math.abs(data.initScroll - scroll) <= 30 && Math.abs(lastScroll - scroll) <= 10) {
                         return;
                     }
 
@@ -7912,7 +7911,7 @@
                 var active = this.top !== 0 || this.scroll > this.top;
                 var top = Math.max(0, this.offset);
 
-                if (this.bottom && this.scroll > this.bottom - this.offset) {
+                if (isNumeric(this.bottom) && this.scroll > this.bottom - this.offset) {
                     top = this.bottom - this.scroll;
                 }
 
@@ -7944,7 +7943,7 @@
             return;
         }
 
-        if (isNumeric(value) && isString(value) && value.match(/^-?\d/)) {
+        if (isString(value) && value.match(/^-?\d/)) {
 
             return propOffset + toPx(value);
 
@@ -9742,7 +9741,7 @@
                 var animation = ref.animation;
                 var Animations = ref.Animations;
 
-                return assign(animation in Animations ? Animations[animation] : Animations.slide, {name: animation});
+                return assign(Animations[animation] || Animations.slide, {name: animation});
             },
 
             transitionOptions: function() {
@@ -10051,7 +10050,7 @@
                         this.setItem(item, createEl('iframe', assign({
                             src: ("https://www.youtube" + (matches[1] || '') + ".com/embed/" + (matches[2]) + (matches[3] ? ("?" + (matches[3])) : '')),
                             width: 1920,
-                            height: 1080,
+                            height: 1080
                         }, iframeAttrs, attrs)));
 
                     // Vimeo
@@ -11996,7 +11995,6 @@
                     actives.splice(actives.indexOf(this$1), 1);
 
                     clearTimeout(this$1.showTimer);
-                    clearInterval(this$1.hideTimer);
 
                     this$1.tooltip = remove(this$1.tooltip);
                     this$1._unbind();
@@ -12029,8 +12027,6 @@
                 });
 
                 this.toggleElement(this.tooltip, true);
-
-                this.hideTimer = setInterval(function () { return !isVisible(this$1.$el) && this$1.hide(); }, 150);
 
             },
 
