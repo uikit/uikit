@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.4.1 (April 16, 2020)
+
+### Fixed
+
+- Fix `bottom` if offset is `0` in Sticky component
+- Fix dropbar mode `push` is only applied if Navbar is positioned static
+- Fix Sticky component correctly updates on `update`
+- Fix Sticky component handles `vh` values for `top`and `bottom` options
+- Fix Sticky component sets its width with fraction
+- Fix Sticky component with `show-on-up` and `bottom` option updates correctly
+- Fix Tooltip component no longer disappears on SVG shape elements
+- Fix regression with Modal/Offcanvas component not opening in IE 11
+
 ## 3.4.0 (April 9, 2020)
 
 ### Added

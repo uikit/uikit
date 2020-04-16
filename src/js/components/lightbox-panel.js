@@ -270,7 +270,7 @@ export default {
                     this.setItem(item, createEl('iframe', assign({
                         src: `https://www.youtube${matches[1] || ''}.com/embed/${matches[2]}${matches[3] ? `?${matches[3]}` : ''}`,
                         width: 1920,
-                        height: 1080,
+                        height: 1080
                     }, iframeAttrs, attrs)));
 
                 // Vimeo

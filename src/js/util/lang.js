@@ -48,7 +48,7 @@ export function endsWith(str, search) {
 
 const arrPrototype = Array.prototype;
 
-const includesFn = function (search, i) { return ~this.indexOf(search, i); };
+const includesFn = function (search, i) { return !!~this.indexOf(search, i); };
 const includesStr = strPrototype.includes || includesFn;
 const includesArray = arrPrototype.includes || includesFn;
 
