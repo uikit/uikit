@@ -1,7 +1,7 @@
 import Container from '../mixin/container';
 import Togglable from '../mixin/togglable';
 import Position from '../mixin/position';
-import {append, attr, flipPosition, hasAttr, includes, isTouch, isVisible, matches, on, pointerDown, pointerEnter, pointerLeave, pointerUp, remove, within} from 'uikit-util';
+import {append, attr, flipPosition, hasAttr, includes, isTouch, matches, on, pointerDown, pointerEnter, pointerLeave, pointerUp, remove, within} from 'uikit-util';
 
 const actives = [];
 
@@ -64,7 +64,6 @@ export default {
                 actives.splice(actives.indexOf(this), 1);
 
                 clearTimeout(this.showTimer);
-                clearInterval(this.hideTimer);
 
                 this.tooltip = remove(this.tooltip);
                 this._unbind();
@@ -97,8 +96,6 @@ export default {
             });
 
             this.toggleElement(this.tooltip, true);
-
-            this.hideTimer = setInterval(() => !isVisible(this.$el) && this.hide(), 150);
 
         },
 
