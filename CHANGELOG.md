@@ -11,6 +11,7 @@
 - Fix Sticky component sets its width with fraction
 - Fix Sticky component with `show-on-up` and `bottom` option updates correctly
 - Fix Tooltip component no longer disappears on SVG shape elements
+- Fix regression with Modal/Offcanvas component not opening in IE 11
 
 ## 3.4.0 (April 9, 2020)
 
