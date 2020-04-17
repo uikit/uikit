@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Hide Drop components on `Esc` keypress
+
 ### Fixed
 
 - Fix `quote-right` icon empty in RTL mode
