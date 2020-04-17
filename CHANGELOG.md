@@ -5,7 +5,7 @@
 ### Fixed
 
 - Fix `quote-right` icon empty in RTL mode
-- Fix Sticky component updates its placeholder height in inactive state only
+- Revert: Fix Sticky component correctly updates on `update`
 
 ## 3.4.1 (April 16, 2020)
 
