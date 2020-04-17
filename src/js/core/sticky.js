@@ -130,12 +130,6 @@ export default {
 
             read({height}) {
 
-                if (this.isActive) {
-                    this.hide();
-                    height = this.$el.offsetHeight;
-                    this.show();
-                }
-
                 height = !this.isActive ? this.$el.offsetHeight : height;
 
                 this.topOffset = offset(this.isFixed ? this.placeholder : this.$el).top;
