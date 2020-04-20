@@ -232,6 +232,13 @@ export default {
                     }, true)
                 ), {self: true});
 
+                once(this.$el, 'hide', on(document, 'keydown', e => {
+                    if (e.keyCode === 27) {
+                        e.preventDefault();
+                        this.hide(false);
+                    }
+                }), {self: true});
+
             }
 
         },

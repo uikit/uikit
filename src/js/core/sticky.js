@@ -128,9 +128,9 @@ export default {
 
         {
 
-            read({height}) {
+            read({height}, type) {
 
-                if (this.isActive) {
+                if (this.isActive && type !== 'update') {
                     this.hide();
                     height = this.$el.offsetHeight;
                     this.show();
@@ -144,7 +144,7 @@ export default {
                 const bottom = parseProp('bottom', this);
 
                 this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
-                this.bottom = bottom && bottom - height;
+                this.bottom = bottom && bottom - this.$el.offsetHeight;
                 this.inactive = !this.matchMedia;
 
                 return {
