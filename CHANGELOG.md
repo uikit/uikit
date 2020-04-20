@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.4.2 (April 20, 2020)
 
 ### Added
 
