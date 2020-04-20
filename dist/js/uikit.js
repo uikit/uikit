@@ -1,4 +1,4 @@
-/*! UIkit 3.4.1 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.4.2 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -230,9 +230,10 @@
     }
 
     function swap(value, a, b) {
-        return value.replace(new RegExp((a + "|" + b), 'mg'), function (match) {
-            return match === a ? b : a;
-        });
+        return value.replace(
+            new RegExp((a + "|" + b), 'g'),
+            function (match) { return match === a ? b : a; }
+        );
     }
 
     var assign = Object.assign || function (target) {
@@ -3565,7 +3566,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.4.1';
+    UIkit.version = '3.4.2';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4637,6 +4638,13 @@
                         }, true);
                     }
                     ), {self: true});
+
+                    once(this.$el, 'hide', on(document, 'keydown', function (e) {
+                        if (e.keyCode === 27) {
+                            e.preventDefault();
+                            this$1.hide(false);
+                        }
+                    }), {self: true});
 
                 }
 
@@ -5743,7 +5751,6 @@
 
     var totop = "<svg width=\"18\" height=\"10\" viewBox=\"0 0 18 10\" xmlns=\"http://www.w3.org/2000/svg\"><polyline fill=\"none\" stroke=\"#000\" stroke-width=\"1.2\" points=\"1 9 9 1 17 9 \"/></svg>";
 
-    var parsed = {};
     var icons = {
         spinner: spinner,
         totop: totop,
@@ -5787,7 +5794,7 @@
 
             getSvg: function() {
 
-                var icon = getIcon(applyRtl(this.icon));
+                var icon = getIcon(this.icon);
 
                 if (!icon) {
                     return Promise.reject('Icon not found.');
@@ -5884,6 +5891,7 @@
 
     };
 
+    var parsed = {};
     function install(UIkit) {
         UIkit.icon.add = function (name, svg) {
             var obj;
@@ -5911,7 +5919,7 @@
         }
 
         if (!parsed[icon]) {
-            parsed[icon] = $(icons[icon].trim());
+            parsed[icon] = $((icons[applyRtl(icon)] || icons[icon]).trim());
         }
 
         return parsed[icon].cloneNode(true);
@@ -7741,11 +7749,11 @@
 
             {
 
-                read: function(ref) {
+                read: function(ref, type) {
                     var height = ref.height;
 
 
-                    if (this.isActive) {
+                    if (this.isActive && type !== 'update') {
                         this.hide();
                         height = this.$el.offsetHeight;
                         this.show();
@@ -7759,7 +7767,7 @@
                     var bottom = parseProp('bottom', this);
 
                     this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
-                    this.bottom = bottom && bottom - height;
+                    this.bottom = bottom && bottom - this.$el.offsetHeight;
                     this.inactive = !this.matchMedia;
 
                     return {
@@ -9602,8 +9610,9 @@
                 this.prevIndex = prevIndex;
                 this.index = nextIndex;
 
-                prev && trigger(prev, 'beforeitemhide', [this]);
-                if (!trigger(next, 'beforeitemshow', [this, prev])) {
+                if (prev && !trigger(prev, 'beforeitemhide', [this])
+                    || !trigger(next, 'beforeitemshow', [this, prev])
+                ) {
                     this.index = this.prevIndex;
                     reset();
                     return;
