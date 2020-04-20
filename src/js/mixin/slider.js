@@ -127,8 +127,9 @@ export default {
             this.prevIndex = prevIndex;
             this.index = nextIndex;
 
-            prev && trigger(prev, 'beforeitemhide', [this]);
-            if (!trigger(next, 'beforeitemshow', [this, prev])) {
+            if (prev && !trigger(prev, 'beforeitemhide', [this])
+                || !trigger(next, 'beforeitemshow', [this, prev])
+            ) {
                 this.index = this.prevIndex;
                 reset();
                 return;
