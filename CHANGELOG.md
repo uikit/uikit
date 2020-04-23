@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Search Icon with large modifier
+
 ## 3.4.2 (April 20, 2020)
 
 ### Added

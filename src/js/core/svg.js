@@ -26,16 +26,13 @@ export default {
     },
 
     beforeConnect() {
-
         this.class += ' uk-svg';
+    },
+
+    connected() {
 
         if (!this.icon && includes(this.src, '#')) {
-
-            const parts = this.src.split('#');
-
-            if (parts.length > 1) {
-                [this.src, this.icon] = parts;
-            }
+            [this.src, this.icon] = this.src.split('#');
         }
 
         this.svg = this.getSvg().then(el => {
