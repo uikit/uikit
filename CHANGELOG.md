@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Improve attribute state observer performance
+
 ### Fixed
 
 - Fix Search Icon with large modifier
