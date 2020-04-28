@@ -1,6 +1,6 @@
 import Margin from './margin';
 import Class from '../mixin/class';
-import {addClass, css, hasClass, height as getHeight, isRtl, scrolledOver, toFloat, toggleClass, toNodes, Transition, sortBy} from 'uikit-util';
+import {addClass, children, css, height as getHeight, hasClass, isRtl, scrolledOver, sortBy, toFloat, toggleClass, Transition} from 'uikit-util';
 
 export default {
 
@@ -43,14 +43,29 @@ export default {
         {
 
             read({rows}) {
+                return {stacks: !rows.some(row => row.length > 1)};
+            },
 
-                if (this.masonry || this.parallax) {
-                    rows = rows.map(elements => sortBy(elements, 'offsetLeft'));
+            write({stacks}) {
+                toggleClass(this.$el, this.clsStack, stacks);
+            },
 
-                    if (isRtl) {
-                        rows.map(row => row.reverse());
-                    }
+            events: ['resize']
 
+        },
+
+        {
+
+            read({rows}) {
+
+                if (!this.masonry && !this.parallax) {
+                    return false;
+                }
+
+                rows = rows.map(elements => sortBy(elements, 'offsetLeft'));
+
+                if (isRtl) {
+                    rows.map(row => row.reverse());
                 }
 
                 const transitionInProgress = rows.some(elements => elements.some(Transition.inProgress));
@@ -74,15 +89,15 @@ export default {
 
                 }
 
-                return {rows, translates, height: !transitionInProgress ? elHeight : false};
+                const padding = this.parallax && getPaddingBottom(this.parallax, rows, translates);
+
+                return {padding, rows, translates, height: !transitionInProgress ? elHeight : false};
 
             },
 
-            write({stacks, height}) {
+            write({height, padding}) {
 
-                toggleClass(this.$el, this.clsStack, stacks);
-
-                css(this.$el, 'paddingBottom', this.parallax);
+                css(this.$el, 'paddingBottom', padding);
                 height !== false && css(this.$el, 'height', height);
 
             },
@@ -125,9 +140,25 @@ export default {
 
 };
 
+function getPaddingBottom(distance, rows, translates) {
+    let column = 0;
+    let max = 0;
+    let maxScrolled = 0;
+    for (let i = rows.length - 1; i >= 0; i--) {
+        for (let j = column; j < rows[i].length; j++) {
+            const el = rows[i][j];
+            const bottom = el.offsetTop + getHeight(el) + (translates && -translates[i][j]);
+            max = Math.max(max, bottom);
+            maxScrolled = Math.max(maxScrolled, bottom + (j % 2 ? distance : distance / 8));
+            column++;
+        }
+    }
+    return maxScrolled - max;
+}
+
 function getMarginTop(root, cls) {
 
-    const nodes = toNodes(root.children);
+    const nodes = children(root);
     const [node] = nodes.filter(el => hasClass(el, cls));
 
     return toFloat(node

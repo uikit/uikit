@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
-import Togglable from '../mixin/togglable';
-import {$, $$, attr, filter, getIndex, hasClass, includes, index, toggleClass, unwrap, wrapAll} from 'uikit-util';
+import {default as Togglable, toggleHeight} from '../mixin/togglable';
+import {$, $$, attr, filter, getIndex, hasClass, includes, index, isInView, scrollIntoView, toggleClass, unwrap, wrapAll} from 'uikit-util';
 
 export default {
 
@@ -13,7 +13,8 @@ export default {
         multiple: Boolean,
         toggle: String,
         content: String,
-        transition: String
+        transition: String,
+        offset: Number
     },
 
     data: {
@@ -25,13 +26,37 @@ export default {
         clsOpen: 'uk-open',
         toggle: '> .uk-accordion-title',
         content: '> .uk-accordion-content',
-        transition: 'ease'
+        transition: 'ease',
+        offset: 0
     },
 
     computed: {
 
-        items({targets}, $el) {
-            return $$(targets, $el);
+        items: {
+
+            get({targets}, $el) {
+                return $$(targets, $el);
+            },
+
+            watch(items, prev) {
+
+                items.forEach(el => hide($(this.content, el), !hasClass(el, this.clsOpen)));
+
+                if (prev || hasClass(items, this.clsOpen)) {
+                    return;
+                }
+
+                const active = this.active !== false && items[Number(this.active)]
+                    || !this.collapsible && items[0];
+
+                if (active) {
+                    this.toggle(active, false);
+                }
+
+            },
+
+            immediate: true
+
         }
 
     },
@@ -55,76 +80,56 @@ export default {
 
     ],
 
-    connected() {
-
-        if (this.active === false) {
-            return;
-        }
-
-        const active = this.items[Number(this.active)];
-        if (active && !hasClass(active, this.clsOpen)) {
-            this.toggle(active, false);
-        }
-    },
-
-    update() {
-
-        this.items.forEach(el => this._toggle($(this.content, el), hasClass(el, this.clsOpen)));
-
-        const active = !this.collapsible && !hasClass(this.items, this.clsOpen) && this.items[0];
-        if (active) {
-            this.toggle(active, false);
-        }
-    },
-
     methods: {
 
         toggle(item, animate) {
 
-            const index = getIndex(item, this.items);
-            const active = filter(this.items, `.${this.clsOpen}`);
+            let items = [this.items[getIndex(item, this.items)]];
+            const activeItems = filter(this.items, `.${this.clsOpen}`);
 
-            item = this.items[index];
+            if (!this.multiple && !includes(activeItems, items[0])) {
+                items = items.concat(activeItems);
+            }
 
-            item && [item]
-                .concat(!this.multiple && !includes(active, item) && active || [])
-                .forEach(el => {
+            if (!this.collapsible && !filter(items, `:not(.${this.clsOpen})`).length) {
+                return;
+            }
 
-                    const isItem = el === item;
-                    const state = isItem && !hasClass(el, this.clsOpen);
+            items.forEach(el => this.toggleElement(el, !hasClass(el, this.clsOpen), (el, show) => {
 
-                    if (!state && isItem && !this.collapsible && active.length < 2) {
-                        return;
-                    }
+                toggleClass(el, this.clsOpen, show);
 
-                    toggleClass(el, this.clsOpen, state);
+                const content = $(`${el._wrapper ? '> * ' : ''}${this.content}`, el);
 
-                    const content = el._wrapper ? el._wrapper.firstElementChild : $(this.content, el);
+                if (animate === false || !this.hasTransition) {
+                    hide(content, !show);
+                    return;
+                }
 
-                    if (!el._wrapper) {
-                        el._wrapper = wrapAll(content, '<div>');
-                        attr(el._wrapper, 'hidden', state ? '' : null);
-                    }
+                if (!el._wrapper) {
+                    el._wrapper = wrapAll(content, `<div${show ? ' hidden' : ''}>`);
+                }
 
-                    this._toggle(content, true);
-                    this.toggleElement(el._wrapper, state, animate).then(() => {
+                hide(content, false);
+                return toggleHeight(this)(el._wrapper, show).then(() => {
+                    hide(content, !show);
+                    delete el._wrapper;
+                    unwrap(content);
 
-                        if (hasClass(el, this.clsOpen) !== state) {
-                            return;
+                    if (show) {
+                        const toggle = $(this.$props.toggle, el);
+                        if (!isInView(toggle)) {
+                            scrollIntoView(toggle, {offset: this.offset});
                         }
-
-                        if (!state) {
-                            this._toggle(content, false);
-                        }
-
-                        el._wrapper = null;
-                        unwrap(content);
-
-                    });
-
+                    }
                 });
+            }));
         }
 
     }
 
 };
+
+function hide(el, hide) {
+    attr(el, 'hidden', hide ? '' : null);
+}

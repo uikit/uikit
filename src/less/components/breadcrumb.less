@@ -19,6 +19,7 @@
 
 @breadcrumb-divider:                                "/";
 @breadcrumb-divider-margin-horizontal:              20px;
+@breadcrumb-divider-font-size:                      @breadcrumb-item-font-size;
 @breadcrumb-divider-color:                          @global-muted-color;
 
 
@@ -72,7 +73,8 @@
 }
 
 /* Active */
-.uk-breadcrumb > :last-child > * {
+.uk-breadcrumb > :last-child > span,
+.uk-breadcrumb > :last-child > a:not([href]) {
     color: @breadcrumb-item-active-color;
     .hook-breadcrumb-item-active;
 }
@@ -86,6 +88,7 @@
     content: @breadcrumb-divider;
     display: inline-block;
     margin: 0 @breadcrumb-divider-margin-horizontal;
+    font-size: @breadcrumb-divider-font-size;
     color: @breadcrumb-divider-color;
     .hook-breadcrumb-divider;
 }

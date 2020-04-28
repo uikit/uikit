@@ -14,18 +14,8 @@ export default {
 
     update: {
 
-        read(data) {
-
-            const items = this.$el.children;
-            const rows = [[]];
-
-            if (!items.length || !isVisible(this.$el)) {
-                return data.rows = rows;
-            }
-
-            data.rows = getRows(items);
-            data.stacks = !data.rows.some(row => row.length > 1);
-
+        read() {
+            return {rows: getRows(this.$el.children)};
         },
 
         write({rows}) {
@@ -46,16 +36,18 @@ export default {
 };
 
 export function getRows(items) {
+
     const rows = [[]];
 
     for (let i = 0; i < items.length; i++) {
 
         const el = items[i];
-        let dim = getOffset(el);
 
-        if (!dim.height) {
+        if (!isVisible(el)) {
             continue;
         }
+
+        let dim = getOffset(el);
 
         for (let j = rows.length - 1; j >= 0; j--) {
 
@@ -74,12 +66,12 @@ export function getRows(items) {
                 leftDim = getOffset(row[0], true);
             }
 
-            if (dim.top >= leftDim.bottom - 1) {
+            if (dim.top >= leftDim.bottom - 1 && dim.top !== leftDim.top) {
                 rows.push([el]);
                 break;
             }
 
-            if (dim.bottom > leftDim.top) {
+            if (dim.bottom > leftDim.top || dim.top === leftDim.top) {
 
                 if (dim.left < leftDim.left && !isRtl) {
                     row.unshift(el);

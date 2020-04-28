@@ -18,8 +18,7 @@ export default function (UIkit) {
             pending = true;
             fastdom.write(() => pending = false);
 
-            const {target} = e;
-            UIkit.update(target.nodeType !== 1 ? document.body : target, e.type);
+            UIkit.update(null, e.type);
 
         }, {passive: true, capture: true});
 
@@ -46,6 +45,7 @@ export default function (UIkit) {
                 return;
             }
 
+            // Handle Swipe Gesture
             const pos = getEventPos(e);
             const target = 'tagName' in e.target ? e.target : e.target.parentNode;
             off = once(document, `${pointerUp} ${pointerCancel}`, e => {
@@ -63,6 +63,7 @@ export default function (UIkit) {
                 }
 
             });
+
         }, {passive: true});
 
     });

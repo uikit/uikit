@@ -1,5 +1,5 @@
 import {attr} from './attr';
-import {hasOwn, includes, isString, isUndefined, toNodes} from './lang';
+import {hasOwn, includes, isString, isUndefined, last, toNodes} from './lang';
 
 export function addClass(element, ...args) {
     apply(element, args, 'add');
@@ -30,7 +30,7 @@ export function toggleClass(element, ...args) {
 
     args = getArgs(args);
 
-    const force = !isString(args[args.length - 1]) ? args.pop() : []; // in iOS 9.3 force === undefined evaluates to false
+    const force = !isString(last(args)) ? args.pop() : []; // in iOS 9.3 force === undefined evaluates to false
 
     args = args.filter(Boolean);
 

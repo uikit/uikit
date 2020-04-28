@@ -7,13 +7,12 @@ const uglify = require('uglify-js');
 const {promisify} = require('util');
 const CleanCSS = require('clean-css');
 const html = require('rollup-plugin-html');
-const json = require('rollup-plugin-json');
-const buble = require('rollup-plugin-buble');
-const replace = require('rollup-plugin-replace');
-const alias = require('rollup-plugin-import-alias');
+const buble = require('@rollup/plugin-buble');
+const replace = require('@rollup/plugin-replace');
+const alias = require('@rollup/plugin-alias');
 const {basename, dirname, join, resolve} = require('path');
 const {version} = require('../package.json');
-const banner = `/*! UIkit ${version} | http://www.getuikit.com | (c) 2014 - 2019 YOOtheme | MIT License */\n`;
+const banner = `/*! UIkit ${version} | https://www.getuikit.com | (c) 2014 - ${new Date().getFullYear()} YOOtheme | MIT License */\n`;
 
 exports.banner = banner;
 exports.validClassName = /[a-zA-Z_\x7f-\xff][a-zA-Z0-9_\x7f-\xff]*/;
@@ -97,7 +96,7 @@ exports.renderLess = async function (data, options) {
         .css;
 };
 
-exports.compile = async function (file, dest, {external, globals, name, aliases, bundled, replaces, minify = true}) {
+exports.compile = async function (file, dest, {external, globals, name, aliases, replaces, minify = true}) {
 
     name = (name || '').replace(/[^\w]/g, '_');
 
@@ -106,14 +105,12 @@ exports.compile = async function (file, dest, {external, globals, name, aliases,
         input: `${resolve(dirname(file), basename(file, '.js'))}.js`,
         plugins: [
             replace(Object.assign({
-                BUNDLED: bundled || false,
                 VERSION: `'${version}'`
             }, replaces)),
             alias({
-                Paths: Object.assign({
-                    'uikit-util': './src/js/util/index'
-                }, aliases),
-                Extensions: ['js', 'json']
+                entries: Object.assign({
+                    'uikit-util': './src/js/util/index.js'
+                }, aliases)
             }),
             html({
                 include: '**/*.svg',
@@ -121,7 +118,6 @@ exports.compile = async function (file, dest, {external, globals, name, aliases,
                     collapseWhitespace: true
                 }
             }),
-            json(),
             buble({namedFunctionExpressions: false})
         ]
     });

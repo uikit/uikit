@@ -48,7 +48,7 @@ docEl.dir = dir;
 const style = styles[storage[key]] || styles.theme;
 
 // add style
-document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : style.css.replace('.css', '').concat('-rtl.css')}">`);
+document.writeln(`<link rel="stylesheet" href="${dir !== 'rtl' ? style.css : style.css.replace('.css', '-rtl.css')}">`);
 
 // add javascript
 document.writeln('<script src="../dist/js/uikit.js"></script>');

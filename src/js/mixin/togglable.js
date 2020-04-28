@@ -59,17 +59,17 @@ export default {
                 targets = toNodes(targets);
 
                 const all = targets => Promise.all(targets.map(el => this._toggleElement(el, show, animate)));
-                const toggled = targets.filter(el => this.isToggled(el));
-                const untoggled = targets.filter(el => !includes(toggled, el));
 
                 let p;
 
-                if (!this.queued || !isUndefined(animate) || !isUndefined(show) || !this.hasAnimation || targets.length < 2) {
+                if (!this.queued || !isUndefined(show) || !this.hasAnimation || targets.length < 2) {
 
-                    p = all(untoggled.concat(toggled));
+                    p = all(targets);
 
                 } else {
 
+                    const toggled = targets.filter(el => this.isToggled(el));
+                    const untoggled = targets.filter(el => !includes(toggled, el));
                     const {body} = document;
                     const scroll = body.scrollTop;
                     const [el] = toggled;
@@ -91,10 +91,6 @@ export default {
                 p.then(resolve, noop);
 
             });
-        },
-
-        toggleNow(targets, show) {
-            return new Promise(resolve => Promise.all(toNodes(targets).map(el => this._toggleElement(el, show, false))).then(resolve, noop));
         },
 
         isToggled(el) {
@@ -164,14 +160,18 @@ export default {
             $$('[autofocus]', el).some(el => isVisible(el) ? el.focus() || true : el.blur());
 
             this.updateAria(el);
-            changed && this.$update(el);
+
+            if (changed) {
+                trigger(el, 'toggled', [this]);
+                this.$update(el);
+            }
         }
 
     }
 
 };
 
-function toggleHeight({isToggled, duration, initProps, hideProps, transition, _toggle}) {
+export function toggleHeight({isToggled, duration, initProps, hideProps, transition, _toggle}) {
     return (el, show) => {
 
         const inProgress = Transition.inProgress(el);
@@ -200,16 +200,18 @@ function toggleHeight({isToggled, duration, initProps, hideProps, transition, _t
     };
 }
 
-function toggleAnimation({animation, duration, origin, _toggle}) {
+function toggleAnimation(cmp) {
     return (el, show) => {
 
         Animation.cancel(el);
 
+        const {animation, duration, _toggle} = cmp;
+
         if (show) {
             _toggle(el, true);
-            return Animation.in(el, animation[0], duration, origin);
+            return Animation.in(el, animation[0], duration, cmp.origin);
         }
 
-        return Animation.out(el, animation[1] || animation[0], duration, origin).then(() => _toggle(el, false));
+        return Animation.out(el, animation[1] || animation[0], duration, cmp.origin).then(() => _toggle(el, false));
     };
 }

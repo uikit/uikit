@@ -54,6 +54,7 @@ $lightbox-button-hover-color:                    #fff !default;
  * 4. Horizontal padding
  * 5. Mask the background page
  * 6. Fade-in transition
+ * 7. Prevent cancellation of pointer events while dragging
  */
 
 .uk-lightbox {
@@ -71,6 +72,8 @@ $lightbox-button-hover-color:                    #fff !default;
     /* 6 */
     opacity: 0;
     transition: opacity 0.15s linear;
+    /* 7 */
+    touch-action: pinch-zoom;
     @if(mixin-exists(hook-lightbox)) {@include hook-lightbox();}
 }
 
@@ -212,6 +215,9 @@ $lightbox-button-hover-color:                    #fff !default;
  ========================================================================== */
 
 .uk-lightbox-caption {}
+.uk-lightbox-caption:empty {
+    display: none;
+}
 
 
 /* Iframe

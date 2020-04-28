@@ -17,17 +17,17 @@ const minify = !(argv.debug || argv.nominify || argv.d);
 // -----
 
 // map component build jobs
-const components = glob.sync('src/js/components/*.js').reduce((components, file) => {
+const components = glob.sync('src/js/components/!(index).js').reduce((components, file) => {
 
     const name = path.basename(file, '.js');
 
     components[name] = () =>
-        util.compile(`${__dirname}/componentWrapper.js`, `dist/${file.substring(4, file.length - 3)}`, {
+        util.compile(`${__dirname}/wrapper/component.js`, `dist/js/components/${name}`, {
             name,
             minify,
             external: ['uikit', 'uikit-util'],
             globals: {uikit: 'UIkit', 'uikit-util': 'UIkit.util'},
-            aliases: {component: path.join(__dirname, '..', file.substr(0, file.length - 3))},
+            aliases: {component: path.resolve(__dirname, '../src/js/components', name)},
             replaces: {NAME: `'${camelize(name)}'`}
         });
 
@@ -38,8 +38,8 @@ const components = glob.sync('src/js/components/*.js').reduce((components, file)
 const steps = {
 
     core: () => util.compile('src/js/uikit-core.js', 'dist/js/uikit-core', {minify}),
-    uikit: () => util.compile('src/js/uikit.js', 'dist/js/uikit', {minify, bundled: true}),
-    icons: () => util.icons('{src/images,custom}/icons/*.svg').then(ICONS => util.compile('src/js/icons.js', 'dist/js/uikit-icons', {
+    uikit: () => util.compile('src/js/uikit.js', 'dist/js/uikit', {minify}),
+    icons: () => util.icons('{src/images,custom}/icons/*.svg').then(ICONS => util.compile('build/wrapper/icons.js', 'dist/js/uikit-icons', {
         minify,
         name: 'icons',
         replaces: {ICONS}

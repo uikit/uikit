@@ -1,5 +1,5 @@
 import {getComponentName} from './component';
-import {fastdom, hasAttr} from 'uikit-util';
+import {apply, fastdom, hasAttr} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -9,31 +9,19 @@ export default function (UIkit) {
         return;
     }
 
-    if (document.body) {
-
-        fastdom.read(init);
-
-    } else {
-
-        (new MutationObserver(function () {
-
-            if (document.body) {
-                this.disconnect();
-                init();
-            }
-
-        })).observe(document, {childList: true, subtree: true});
-
-    }
+    fastdom.read(init);
 
     function init() {
 
-        apply(document.body, connect);
+        if (document.body) {
+            apply(document.body, connect);
+        }
 
-        // Safari renders prior to first animation frame
-        fastdom.flush();
-
-        (new MutationObserver(mutations => mutations.forEach(applyMutation))).observe(document, {
+        (new MutationObserver(mutations => {
+            const updates = [];
+            mutations.forEach(mutation => applyMutation(mutation, updates));
+            updates.forEach(el => UIkit.update(el));
+        })).observe(document, {
             childList: true,
             subtree: true,
             characterData: true,
@@ -43,7 +31,7 @@ export default function (UIkit) {
         UIkit._initialized = true;
     }
 
-    function applyMutation(mutation) {
+    function applyMutation(mutation, updates) {
 
         const {target, type} = mutation;
 
@@ -51,7 +39,9 @@ export default function (UIkit) {
             ? applyChildList(mutation)
             : applyAttribute(mutation);
 
-        update && UIkit.update(target);
+        if (update && !updates.some(element => element.contains(target))) {
+            updates.push(target.contains ? target : target.parentNode); // IE 11 text node does not implement contains
+        }
 
     }
 
@@ -92,21 +82,6 @@ export default function (UIkit) {
         }
 
         return true;
-    }
-
-    function apply(node, fn) {
-
-        if (node.nodeType !== 1 || hasAttr(node, 'uk-no-boot')) {
-            return;
-        }
-
-        fn(node);
-        node = node.firstElementChild;
-        while (node) {
-            const next = node.nextElementSibling;
-            apply(node, fn);
-            node = next;
-        }
     }
 
 }

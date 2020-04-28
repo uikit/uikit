@@ -1,81 +1,41 @@
-import Accordion from './accordion';
-import Alert from './alert';
-import Core from './core';
-import Cover from './cover';
-import Drop from './drop';
-import Dropdown from './dropdown';
-import FormCustom from './form-custom';
-import Gif from './gif';
-import Grid from './grid';
-import HeightMatch from './height-match';
-import HeightViewport from './height-viewport';
-import Icon, {IconComponent, Slidenav, Search, Close, Spinner} from './icon';
-import Img from './img';
-import Leader from './leader';
-import Margin from './margin';
-import Modal from './modal';
-import Nav from './nav';
-import Navbar from './navbar';
-import Offcanvas from './offcanvas';
-import OverflowAuto from './overflow-auto';
-import Responsive from './responsive';
-import Scroll from './scroll';
-import Scrollspy from './scrollspy';
-import ScrollspyNav from './scrollspy-nav';
-import Sticky from './sticky';
-import Svg from './svg';
-import Switcher from './switcher';
-import Tab from './tab';
-import Toggle from './toggle';
-import Video from './video';
+export {default as Accordion} from './accordion';
+export {default as Alert} from './alert';
+export {default as Cover} from './cover';
+export {default as Drop, default as Dropdown} from './drop';
+export {default as FormCustom} from './form-custom';
+export {default as Gif} from './gif';
+export {default as Grid} from './grid';
+export {default as HeightMatch} from './height-match';
+export {default as HeightViewport} from './height-viewport';
+export {default as Icon} from './icon';
+export {default as Img} from './img';
+export {default as Leader} from './leader';
+export {default as Margin} from './margin';
+export {default as Modal} from './modal';
+export {default as Nav} from './nav';
+export {default as Navbar} from './navbar';
+export {default as Offcanvas} from './offcanvas';
+export {default as OverflowAuto} from './overflow-auto';
+export {default as Responsive} from './responsive';
+export {default as Scroll} from './scroll';
+export {default as Scrollspy} from './scrollspy';
+export {default as ScrollspyNav} from './scrollspy-nav';
+export {default as Sticky} from './sticky';
+export {default as Svg} from './svg';
+export {default as Switcher} from './switcher';
+export {default as Tab} from './tab';
+export {default as Toggle} from './toggle';
+export {default as Video} from './video';
 
-export default function (UIkit) {
-
-    // core components
-    UIkit.component('accordion', Accordion);
-    UIkit.component('alert', Alert);
-    UIkit.component('cover', Cover);
-    UIkit.component('drop', Drop);
-    UIkit.component('dropdown', Dropdown);
-    UIkit.component('formCustom', FormCustom);
-    UIkit.component('gif', Gif);
-    UIkit.component('grid', Grid);
-    UIkit.component('heightMatch', HeightMatch);
-    UIkit.component('heightViewport', HeightViewport);
-    UIkit.component('icon', Icon);
-    UIkit.component('img', Img);
-    UIkit.component('leader', Leader);
-    UIkit.component('margin', Margin);
-    UIkit.component('modal', Modal);
-    UIkit.component('nav', Nav);
-    UIkit.component('navbar', Navbar);
-    UIkit.component('offcanvas', Offcanvas);
-    UIkit.component('overflowAuto', OverflowAuto);
-    UIkit.component('responsive', Responsive);
-    UIkit.component('scroll', Scroll);
-    UIkit.component('scrollspy', Scrollspy);
-    UIkit.component('scrollspyNav', ScrollspyNav);
-    UIkit.component('sticky', Sticky);
-    UIkit.component('svg', Svg);
-    UIkit.component('switcher', Switcher);
-    UIkit.component('tab', Tab);
-    UIkit.component('toggle', Toggle);
-    UIkit.component('video', Video);
-
-    // Icon components
-    UIkit.component('close', Close);
-    UIkit.component('marker', IconComponent);
-    UIkit.component('navbarToggleIcon', IconComponent);
-    UIkit.component('overlayIcon', IconComponent);
-    UIkit.component('paginationNext', IconComponent);
-    UIkit.component('paginationPrevious', IconComponent);
-    UIkit.component('searchIcon', Search);
-    UIkit.component('slidenavNext', Slidenav);
-    UIkit.component('slidenavPrevious', Slidenav);
-    UIkit.component('spinner', Spinner);
-    UIkit.component('totop', IconComponent);
-
-    // core functionality
-    UIkit.use(Core);
-
-}
+// Icon components
+export {Close} from './icon';
+export {Spinner} from './icon';
+export {Slidenav as SlidenavNext} from './icon';
+export {Slidenav as SlidenavPrevious} from './icon';
+export {Search as SearchIcon} from './icon';
+export {IconComponent as Marker} from './icon';
+export {IconComponent as NavbarToggleIcon} from './icon';
+export {IconComponent as OverlayIcon} from './icon';
+export {IconComponent as PaginationNext} from './icon';
+export {IconComponent as PaginationPrevious} from './icon';
+export {IconComponent as Totop} from './icon';

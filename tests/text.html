@@ -12,10 +12,12 @@
 
         <div class="uk-container">
 
+            <h1>Text</h1>
+
             <div uk-grid>
                 <div class="uk-width-2-3@m">
 
-                    <h1>Lead and Meta</h1>
+                    <h2 class="uk-h1">Lead and Meta</h2>
 
                     <p class="uk-text-lead">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
 
@@ -23,7 +25,7 @@
 
                     <p class="uk-text-meta">Written by <a href="#">Super User</a> on <time datetime="2016-04-01T19:00">01 April 2016</time>. Posted in <a href="#">Blog</a><br>And wrapping into the next line.</p>
 
-                    <h1>Large and Small</h1>
+                    <h2 class="uk-h1">Large and Small</h2>
 
                     <p class="uk-text-large">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip.</p>
 
@@ -37,30 +39,27 @@
                     <h3>Style</h3>
 
                     <ul class="uk-list">
+                        <li class="uk-text-light">text-light</li>
+                        <li class="uk-text-lighter">text-lighter</li>
+                        <li class="uk-text-normal">text-normal</li>
+                        <li class="uk-text-bolder">text-bolder</li>
                         <li class="uk-text-bold">text-bold</li>
+                        <li class="uk-text-italic">text-italic</li>
+                        <li class="uk-text-lowercase">text-lowercase</li>
                         <li class="uk-text-uppercase">text-uppercase</li>
+                        <li class="uk-text-capitalize">text-capitalize</li>
                     </ul>
 
                     <h3>Colors</h3>
 
                     <ul class="uk-list">
-                        <li class="uk-text-muted">text-muted</li>
-                        <li class="uk-text-emphasis">text-emphasis</li>
-                        <li class="uk-text-primary">text-primary</li>
-                        <li class="uk-text-secondary">text-secondary</li>
-                        <li class="uk-text-success">text-success</li>
-                        <li class="uk-text-warning">text-warning</li>
-                        <li class="uk-text-danger">text-danger</li>
-                    </ul>
-
-                    <ul class="uk-list">
-                        <li><a class="uk-text-muted" href="#">Link with text-muted</a></li>
-                        <li><a class="uk-text-emphasis" href="#">Link with text-emphasis</a></li>
-                        <li><a class="uk-text-primary" href="#">Link with text-primary</a></li>
-                        <li><a class="uk-text-secondary" href="#">Link with text-secondary</a></li>
-                        <li><a class="uk-text-success" href="#">Link with text-success</a></li>
-                        <li><a class="uk-text-warning" href="#">Link with text-warning</a></li>
-                        <li><a class="uk-text-danger" href="#">Link with text-danger</a></li>
+                        <li class="uk-text-muted">text-muted <a class="uk-text-muted" href="#">Link</a></li>
+                        <li class="uk-text-emphasis">text-emphasis <a class="uk-text-emphasis" href="#">Link</a></li>
+                        <li class="uk-text-primary">text-primary <a class="uk-text-primary" href="#">Link</a></li>
+                        <li class="uk-text-secondary">text-secondary <a class="uk-text-secondary" href="#">Link</a></li>
+                        <li class="uk-text-success">text-success <a class="uk-text-success" href="#">Link</a></li>
+                        <li class="uk-text-warning">text-warning <a class="uk-text-warning" href="#">Link</a></li>
+                        <li class="uk-text-danger">text-danger <a class="uk-text-danger" href="#">Link</a></li>
                     </ul>
 
                     <h3>Background</h3>
@@ -70,41 +69,50 @@
                         <li><a class="uk-text-background" href="#">Link with text-background</a></li>
                     </ul>
 
-                    <div class="uk-child-width-1-2" uk-grid>
-                        <div>
+                </div>
+            </div>
 
-                            <h3>Truncate</h3>
+            <h2>Text Overflow</h2>
 
-                            <p class="uk-text-truncate">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <div class="uk-child-width-1-3@m" uk-grid>
+                <div>
 
-                        </div>
-                        <div>
+                    <h3 class="uk-h4">Truncate</h3>
+                    <p class="uk-text-truncate">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
-                            <h3>Break</h3>
+                </div>
+                <div>
 
-                            <p class="uk-text-break">Loremipsumdolorsitamet,consectetur.</p>
+                    <h3 class="uk-h4">Break</h3>
+                    <p class="uk-text-break">Loremipsumdolorsitamet,consecteturadipiscingelit,seddoeiusmodtemporincididuntutlaboreetdoloremagnaaliqua.</p>
 
-                        </div>
-                    </div>
+                </div>
+                <div>
 
-                    <table class="uk-table uk-table-striped">
-                        <tr>
-                            <td class="uk-text-truncate uk-width-1-2">Truncate ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                            <td class="uk-width-1-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                        </tr>
-                    </table>
-
-                    <table class="uk-table uk-table-striped">
-                        <tr>
-                            <td class="uk-text-break uk-width-1-2">Break ipsum dolorsitamet,consecteturadipiscing elit.</td>
-                            <td class="uk-width-1-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</td>
-                        </tr>
-                    </table>
+                    <h3 class="uk-h4">Default</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
 
                 </div>
             </div>
 
-            <h1>Alignment</h1>
+            <table class="uk-table uk-table-striped">
+                <thead>
+                    <tr>
+                        <th class="uk-width-1-3">Truncate</th>
+                        <th class="uk-width-1-3">Break</th>
+                        <th class="uk-width-1-3">Default</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="uk-text-truncate">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                        <td class="uk-text-break">Loremipsumdolorsitamet,consecteturadipiscingelit,seddoeiusmodtemporincididuntutlaboreetdoloremagnaaliqua.</td>
+                        <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>Alignment</h2>
 
             <div class="uk-child-width-1-2@m uk-child-width-1-4@l" uk-grid>
                 <div class="uk-text-center uk-text-left@m">

@@ -1,4 +1,4 @@
-/*! UIkit 3.1.6 | http://www.getuikit.com | (c) 2014 - 2018 YOOtheme | MIT License */
+/*! UIkit 3.4.2 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -181,10 +181,14 @@ svg:not(:root) {
   overflow: hidden;
 }
 /*
- * Hide `alt` text for lazy load images
- * Selector for background while loading img[data-src*='.jpg'][src*='data:image'] { background: grey; }
+ * 1. Fix lazy loading images if parent element is set to `display: inline` and has `overflow: hidden`.
+ * 2. Hide `alt` text for lazy loading images.
+ * Note: Selector for background while loading img[data-src*='.jpg'][src*='data:image'] { background: grey; }
  */
 img:not([src]) {
+  /* 1 */
+  min-width: 1px;
+  /* 2 */
   visibility: hidden;
 }
 /*
@@ -1885,11 +1889,12 @@ select.uk-form-width-xsmall {
  * 3. Address `overflow` set to `hidden` in IE.
  * 4. Correct `font` properties and `color` not being inherited for `button`.
  * 5. Remove the inheritance of text transform in Edge, Firefox, and IE.
- * 6. Style
- * 7. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
+ * 6. Remove default style for `input type="submit"`in iOS.
+ * 7. Style
+ * 8. `line-height` is used to create a height because it also centers the text vertically for `a` elements.
  *    Better would be to use height and flexbox to center the text vertically but flexbox doesn't work in Firefox on `button` elements.
- * 8. Align text if button has a width
- * 9. Required for `a`.
+ * 9. Align text if button has a width
+ * 10. Required for `a`.
  */
 .uk-button {
   /* 1 */
@@ -1904,16 +1909,19 @@ select.uk-form-width-xsmall {
   /* 5 */
   text-transform: none;
   /* 6 */
+  -webkit-appearance: none;
+  border-radius: 0;
+  /* 7 */
   display: inline-block;
   box-sizing: border-box;
   padding: 0 30px;
   vertical-align: middle;
   font-size: 0.875rem;
-  /* 7 */
-  line-height: 38px;
   /* 8 */
-  text-align: center;
+  line-height: 38px;
   /* 9 */
+  text-align: center;
+  /* 10 */
   text-decoration: none;
   text-transform: uppercase;
   transition: 0.1s ease-in-out;
@@ -2324,6 +2332,9 @@ select.uk-form-width-xsmall {
   max-width: 900px;
 }
 .uk-container-large {
+  max-width: 1400px;
+}
+.uk-container-xlarge {
   max-width: 1600px;
 }
 .uk-container-expand {
@@ -2367,6 +2378,10 @@ select.uk-form-width-xsmall {
   }
   .uk-container-expand-right.uk-container-large,
   .uk-container-expand-left.uk-container-large {
+    max-width: calc(50% + (1400px / 2) - 40px);
+  }
+  .uk-container-expand-right.uk-container-xlarge,
+  .uk-container-expand-left.uk-container-xlarge {
     max-width: calc(50% + (1600px / 2) - 40px);
   }
 }
@@ -2480,15 +2495,19 @@ select.uk-form-width-xsmall {
  * Small
  */
 /* Horizontal */
-.uk-grid-small {
+.uk-grid-small,
+.uk-grid-column-small {
   margin-right: -15px;
 }
-.uk-grid-small > * {
+.uk-grid-small > *,
+.uk-grid-column-small > * {
   padding-right: 15px;
 }
 /* Vertical */
 .uk-grid + .uk-grid-small,
+.uk-grid + .uk-grid-row-small,
 .uk-grid-small > .uk-grid-margin,
+.uk-grid-row-small > .uk-grid-margin,
 * + .uk-grid-margin-small {
   margin-top: 15px;
 }
@@ -2496,15 +2515,19 @@ select.uk-form-width-xsmall {
  * Medium
  */
 /* Horizontal */
-.uk-grid-medium {
+.uk-grid-medium,
+.uk-grid-column-medium {
   margin-right: -30px;
 }
-.uk-grid-medium > * {
+.uk-grid-medium > *,
+.uk-grid-column-medium > * {
   padding-right: 30px;
 }
 /* Vertical */
 .uk-grid + .uk-grid-medium,
+.uk-grid + .uk-grid-row-medium,
 .uk-grid-medium > .uk-grid-margin,
+.uk-grid-row-medium > .uk-grid-margin,
 * + .uk-grid-margin-medium {
   margin-top: 30px;
 }
@@ -2512,30 +2535,38 @@ select.uk-form-width-xsmall {
  * Large
  */
 /* Horizontal */
-.uk-grid-large {
+.uk-grid-large,
+.uk-grid-column-large {
   margin-right: -40px;
 }
-.uk-grid-large > * {
+.uk-grid-large > *,
+.uk-grid-column-large > * {
   padding-right: 40px;
 }
 /* Vertical */
 .uk-grid + .uk-grid-large,
+.uk-grid + .uk-grid-row-large,
 .uk-grid-large > .uk-grid-margin,
+.uk-grid-row-large > .uk-grid-margin,
 * + .uk-grid-margin-large {
   margin-top: 40px;
 }
 /* Desktop and bigger */
 @media (min-width: 1200px) {
   /* Horizontal */
-  .uk-grid-large {
+  .uk-grid-large,
+  .uk-grid-column-large {
     margin-right: -70px;
   }
-  .uk-grid-large > * {
+  .uk-grid-large > *,
+  .uk-grid-column-large > * {
     padding-right: 70px;
   }
   /* Vertical */
   .uk-grid + .uk-grid-large,
+  .uk-grid + .uk-grid-row-large,
   .uk-grid-large > .uk-grid-margin,
+  .uk-grid-row-large > .uk-grid-margin,
   * + .uk-grid-margin-large {
     margin-top: 70px;
   }
@@ -2544,15 +2575,19 @@ select.uk-form-width-xsmall {
  * Collapse
  */
 /* Horizontal */
-.uk-grid-collapse {
+.uk-grid-collapse,
+.uk-grid-column-collapse {
   margin-right: 0;
 }
-.uk-grid-collapse > * {
+.uk-grid-collapse > *,
+.uk-grid-column-collapse > * {
   padding-right: 0;
 }
 /* Vertical */
 .uk-grid + .uk-grid-collapse,
-.uk-grid-collapse > .uk-grid-margin {
+.uk-grid + .uk-grid-row-collapse,
+.uk-grid-collapse > .uk-grid-margin,
+.uk-grid-row-collapse > .uk-grid-margin {
   margin-top: 0;
 }
 /* Divider
@@ -2621,83 +2656,123 @@ select.uk-form-width-xsmall {
  * Small
  */
 /* Horizontal */
-.uk-grid-divider.uk-grid-small {
+.uk-grid-divider.uk-grid-small,
+.uk-grid-divider.uk-grid-column-small {
   margin-right: -30px;
 }
-.uk-grid-divider.uk-grid-small > * {
+.uk-grid-divider.uk-grid-small > *,
+.uk-grid-divider.uk-grid-column-small > * {
   padding-right: 30px;
 }
-.uk-grid-divider.uk-grid-small > :not(.uk-first-column)::before {
+.uk-grid-divider.uk-grid-small > :not(.uk-first-column)::before,
+.uk-grid-divider.uk-grid-column-small > :not(.uk-first-column)::before {
   right: 15px;
 }
 /* Vertical */
-.uk-grid-divider.uk-grid-small.uk-grid-stack > .uk-grid-margin {
+.uk-grid-divider.uk-grid-small.uk-grid-stack > .uk-grid-margin,
+.uk-grid-divider.uk-grid-row-small.uk-grid-stack > .uk-grid-margin {
   margin-top: 30px;
 }
 .uk-grid-divider.uk-grid-small.uk-grid-stack > .uk-grid-margin::before {
   top: -15px;
   right: 30px;
 }
+.uk-grid-divider.uk-grid-row-small.uk-grid-stack > .uk-grid-margin::before {
+  top: -15px;
+}
+.uk-grid-divider.uk-grid-column-small.uk-grid-stack > .uk-grid-margin::before {
+  right: 30px;
+}
 /*
  * Medium
  */
 /* Horizontal */
-.uk-grid-divider.uk-grid-medium {
+.uk-grid-divider.uk-grid-medium,
+.uk-grid-divider.uk-grid-column-medium {
   margin-right: -60px;
 }
-.uk-grid-divider.uk-grid-medium > * {
+.uk-grid-divider.uk-grid-medium > *,
+.uk-grid-divider.uk-grid-column-medium > * {
   padding-right: 60px;
 }
-.uk-grid-divider.uk-grid-medium > :not(.uk-first-column)::before {
+.uk-grid-divider.uk-grid-medium > :not(.uk-first-column)::before,
+.uk-grid-divider.uk-grid-column-medium > :not(.uk-first-column)::before {
   right: 30px;
 }
 /* Vertical */
-.uk-grid-divider.uk-grid-medium.uk-grid-stack > .uk-grid-margin {
+.uk-grid-divider.uk-grid-medium.uk-grid-stack > .uk-grid-margin,
+.uk-grid-divider.uk-grid-row-medium.uk-grid-stack > .uk-grid-margin {
   margin-top: 60px;
 }
 .uk-grid-divider.uk-grid-medium.uk-grid-stack > .uk-grid-margin::before {
   top: -30px;
   right: 60px;
 }
+.uk-grid-divider.uk-grid-row-medium.uk-grid-stack > .uk-grid-margin::before {
+  top: -30px;
+}
+.uk-grid-divider.uk-grid-column-medium.uk-grid-stack > .uk-grid-margin::before {
+  right: 60px;
+}
 /*
  * Large
  */
 /* Horizontal */
-.uk-grid-divider.uk-grid-large {
+.uk-grid-divider.uk-grid-large,
+.uk-grid-divider.uk-grid-column-large {
   margin-right: -80px;
 }
-.uk-grid-divider.uk-grid-large > * {
+.uk-grid-divider.uk-grid-large > *,
+.uk-grid-divider.uk-grid-column-large > * {
   padding-right: 80px;
 }
-.uk-grid-divider.uk-grid-large > :not(.uk-first-column)::before {
+.uk-grid-divider.uk-grid-large > :not(.uk-first-column)::before,
+.uk-grid-divider.uk-grid-column-large > :not(.uk-first-column)::before {
   right: 40px;
 }
 /* Vertical */
-.uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin {
+.uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin,
+.uk-grid-divider.uk-grid-row-large.uk-grid-stack > .uk-grid-margin {
   margin-top: 80px;
 }
 .uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin::before {
   top: -40px;
   right: 80px;
 }
+.uk-grid-divider.uk-grid-row-large.uk-grid-stack > .uk-grid-margin::before {
+  top: -40px;
+}
+.uk-grid-divider.uk-grid-column-large.uk-grid-stack > .uk-grid-margin::before {
+  right: 80px;
+}
 /* Desktop and bigger */
 @media (min-width: 1200px) {
   /* Horizontal */
-  .uk-grid-divider.uk-grid-large {
+  .uk-grid-divider.uk-grid-large,
+  .uk-grid-divider.uk-grid-column-large {
     margin-right: -140px;
   }
-  .uk-grid-divider.uk-grid-large > * {
+  .uk-grid-divider.uk-grid-large > *,
+  .uk-grid-divider.uk-grid-column-large > * {
     padding-right: 140px;
   }
-  .uk-grid-divider.uk-grid-large > :not(.uk-first-column)::before {
+  .uk-grid-divider.uk-grid-large > :not(.uk-first-column)::before,
+  .uk-grid-divider.uk-grid-column-large > :not(.uk-first-column)::before {
     right: 70px;
   }
   /* Vertical */
-  .uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin {
+  .uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin,
+  .uk-grid-divider.uk-grid-row-large.uk-grid-stack > .uk-grid-margin {
     margin-top: 140px;
   }
   .uk-grid-divider.uk-grid-large.uk-grid-stack > .uk-grid-margin::before {
     top: -70px;
+    right: 140px;
+  }
+  .uk-grid-divider.uk-grid-row-large.uk-grid-stack > .uk-grid-margin::before {
+    top: -70px;
+  }
+  .uk-grid-divider.uk-grid-column-large.uk-grid-stack > .uk-grid-margin::before {
     right: 140px;
   }
 }
@@ -3140,14 +3215,14 @@ select.uk-form-width-xsmall {
 }
 @keyframes uk-spinner-dash {
   0% {
-    stroke-dashoffset: 88px;
+    stroke-dashoffset: -88px;
   }
   50% {
-    stroke-dashoffset: 22px;
+    stroke-dashoffset: -22px;
     transform: rotate(-135deg);
   }
   100% {
-    stroke-dashoffset: 88px;
+    stroke-dashoffset: -88px;
     transform: rotate(-450deg);
   }
 }
@@ -4339,23 +4414,32 @@ ul.uk-nav-sub {
 /* Divider modifier
  ========================================================================== */
 /*
- * 1. Align items and divider vertically
+ * Set gutter 
+ */
+.uk-subnav-divider {
+  margin-right: -41px;
+}
+/*
+ * Align items and divider vertically
  */
 .uk-subnav-divider > * {
-  /* 1 */
   display: flex;
   align-items: center;
 }
 /*
  * Divider
- * `nth-child` makes it also work without JS if it's only one row
+ * 1. `nth-child` makes it also work without JS if it's only one row
  */
-.uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
+.uk-subnav-divider > ::before {
   content: "";
   height: 1.5em;
   margin-right: 0px;
   margin-left: 20px;
-  border-right: 1px solid #e5e5e5;
+  border-right: 1px solid transparent;
+}
+/* 1 */
+.uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
+  border-right-color: #e5e5e5;
 }
 /* Pill modifier
  ========================================================================== */
@@ -4422,7 +4506,8 @@ ul.uk-nav-sub {
 }
 /* Disabled */
 /* Active */
-.uk-breadcrumb > :last-child > * {
+.uk-breadcrumb > :last-child > span,
+.uk-breadcrumb > :last-child > a:not([href]) {
   color: #666;
 }
 /*
@@ -4433,6 +4518,7 @@ ul.uk-nav-sub {
   content: "/";
   display: inline-block;
   margin: 0 20px;
+  font-size: 0.875rem;
   color: #999;
 }
 /* ========================================================================
@@ -5248,6 +5334,7 @@ ul.uk-nav-sub {
  * 4. Horizontal padding
  * 5. Mask the background page
  * 6. Fade-in transition
+ * 7. Prevent cancellation of pointer events while dragging
  */
 .uk-lightbox {
   /* 1 */
@@ -5264,6 +5351,8 @@ ul.uk-nav-sub {
   /* 6 */
   opacity: 0;
   transition: opacity 0.15s linear;
+  /* 7 */
+  touch-action: pinch-zoom;
 }
 /*
  * Open
@@ -5373,6 +5462,9 @@ ul.uk-nav-sub {
 }
 /* Caption
  ========================================================================== */
+.uk-lightbox-caption:empty {
+  display: none;
+}
 /* Iframe
  ========================================================================== */
 .uk-lightbox-iframe {
@@ -5985,8 +6077,9 @@ ul.uk-nav-sub {
 /*
  * 1. Hide by default
  * 2. Position
- * 3. Dimensions
- * 4. Style
+ * 3. Remove tooltip from document flow to keep the UIkit container from changing its size when injected into the document initially
+ * 4. Dimensions
+ * 5. Style
  */
 .uk-tooltip {
   /* 1 */
@@ -5995,10 +6088,12 @@ ul.uk-nav-sub {
   position: absolute;
   z-index: 1030;
   /* 3 */
+  top: 0;
+  /* 4 */
   box-sizing: border-box;
   max-width: 200px;
   padding: 3px 6px;
-  /* 4 */
+  /* 5 */
   background: #666;
   border-radius: 2px;
   color: #fff;
@@ -6133,7 +6228,7 @@ ul.uk-nav-sub {
 /* Drag
  ========================================================================== */
 .uk-sortable-drag {
-  position: absolute !important;
+  position: fixed !important;
   z-index: 1050 !important;
   pointer-events: none;
 }
@@ -6159,18 +6254,18 @@ ul.uk-nav-sub {
  ========================================================================== */
 /* Item
  ========================================================================== */
-/*
- * 1. Center numbers and separators vertically
- */
-.uk-countdown-number,
-.uk-countdown-separator {
-  /* 1 */
-  line-height: 70px;
-}
 /* Number
  ========================================================================== */
+/*
+ * 1. Make numbers all of the same size to prevent jumping. Must be supported by the font.
+ * 2. Style
+ */
 .uk-countdown-number {
+  /* 1 */
+  font-variant-numeric: tabular-nums;
+  /* 2 */
   font-size: 2rem;
+  line-height: 0.8;
 }
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
@@ -6188,6 +6283,7 @@ ul.uk-nav-sub {
  ========================================================================== */
 .uk-countdown-separator {
   font-size: 1rem;
+  line-height: 1.6;
 }
 /* Phone landscape and bigger */
 @media (min-width: 640px) {
@@ -7163,16 +7259,33 @@ ul.uk-nav-sub {
 }
 /* Weight modifier
  ========================================================================== */
+.uk-text-light {
+  font-weight: 300;
+}
+.uk-text-normal {
+  font-weight: 400;
+}
 .uk-text-bold {
+  font-weight: 700;
+}
+.uk-text-lighter {
+  font-weight: lighter;
+}
+.uk-text-bolder {
   font-weight: bolder;
+}
+/* Style modifier
+ ========================================================================== */
+.uk-text-italic {
+  font-style: italic;
 }
 /* Transform modifier
  ========================================================================== */
-.uk-text-uppercase {
-  text-transform: uppercase !important;
-}
 .uk-text-capitalize {
   text-transform: capitalize !important;
+}
+.uk-text-uppercase {
+  text-transform: uppercase !important;
 }
 .uk-text-lowercase {
   text-transform: lowercase !important;
@@ -7211,7 +7324,6 @@ ul.uk-nav-sub {
 .uk-text-background {
   /* 1 */
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   /* 2 */
   display: inline-block;
   /* 3 */
@@ -7220,6 +7332,7 @@ ul.uk-nav-sub {
 @supports (-webkit-background-clip: text) {
   .uk-text-background {
     background-color: #1e87f0;
+    color: transparent !important;
   }
 }
 /* Alignment modifiers
@@ -8785,12 +8898,17 @@ iframe.uk-cover {
  ========================================================================== */
 /* Directions
  ========================================================================== */
+/*
+ * 1. Prevent content overflow if `max-width: 100%` is used inside position container.
+ */
 [class*='uk-position-top'],
 [class*='uk-position-bottom'],
 [class*='uk-position-right'],
 [class*='uk-position-left'],
 [class*='uk-position-center'] {
   position: absolute !important;
+  /* 1 */
+  max-width: 100%;
 }
 /* Edges
  ========================================================================== */

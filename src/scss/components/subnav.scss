@@ -117,26 +117,36 @@ $subnav-item-disabled-color:                     $global-muted-color !default;
  ========================================================================== */
 
 /*
- * 1. Align items and divider vertically
+ * Set gutter 
+ */
+
+.uk-subnav-divider { margin-left: -(($subnav-divider-margin-horizontal * 2) + $subnav-divider-border-width); }
+
+/*
+ * Align items and divider vertically
  */
 
 .uk-subnav-divider > * {
-    /* 1 */
     display: flex;
     align-items: center;
 }
 
 /*
  * Divider
- * `nth-child` makes it also work without JS if it's only one row
+ * 1. `nth-child` makes it also work without JS if it's only one row
  */
 
-.uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
+.uk-subnav-divider > ::before {
     content: "";
     height: $subnav-divider-border-height;
     margin-left: ($subnav-divider-margin-horizontal - $subnav-margin-horizontal);
     margin-right: $subnav-divider-margin-horizontal;
-    border-left: $subnav-divider-border-width solid $subnav-divider-border;
+    border-left: $subnav-divider-border-width solid transparent;
+}
+
+/* 1 */
+.uk-subnav-divider > :nth-child(n+2):not(.uk-first-column)::before {
+    border-left-color: $subnav-divider-border;
     @if(mixin-exists(hook-subnav-divider)) {@include hook-subnav-divider();}
 }
 

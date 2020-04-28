@@ -28,7 +28,7 @@ export default {
             }
 
             let minHeight = '';
-            const box = boxModelAdjust('height', this.$el, 'content-box');
+            const box = boxModelAdjust(this.$el, 'height', 'content-box');
 
             if (this.expand) {
 
@@ -48,7 +48,7 @@ export default {
                 if (this.offsetTop) {
 
                     const {top} = offset(this.$el);
-                    minHeight += top < height(window) / 2 ? ` - ${top}px` : '';
+                    minHeight += top > 0 && top < height(window) / 2 ? ` - ${top}px` : '';
 
                 }
 
@@ -98,5 +98,5 @@ export default {
 };
 
 function offsetHeight(el) {
-    return el && el.offsetHeight || 0;
+    return el && offset(el).height || 0;
 }

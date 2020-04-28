@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import {$, addClass, after, Animation, assign, attr, css, fastdom, hasClass, height, isNumeric, isString, isVisible, noop, offset, offsetPosition, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, trigger, within} from 'uikit-util';
+import {$, addClass, after, Animation, assign, attr, css, fastdom, hasClass, isNumeric, isString, isVisible, noop, offset, offsetPosition, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, toPx, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -9,7 +9,7 @@ export default {
     props: {
         top: null,
         bottom: Boolean,
-        offset: Number,
+        offset: String,
         animation: String,
         clsActive: String,
         clsInactive: String,
@@ -37,6 +37,10 @@ export default {
     },
 
     computed: {
+
+        offset({offset}) {
+            return toPx(offset);
+        },
 
         selTarget({selTarget}, $el) {
             return selTarget && $(selTarget, $el) || $el;
@@ -127,11 +131,9 @@ export default {
             read({height}, type) {
 
                 if (this.isActive && type !== 'update') {
-
                     this.hide();
                     height = this.$el.offsetHeight;
                     this.show();
-
                 }
 
                 height = !this.isActive ? this.$el.offsetHeight : height;
@@ -142,7 +144,7 @@ export default {
                 const bottom = parseProp('bottom', this);
 
                 this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
-                this.bottom = bottom && bottom - height;
+                this.bottom = bottom && bottom - this.$el.offsetHeight;
                 this.inactive = !this.matchMedia;
 
                 return {
@@ -164,7 +166,7 @@ export default {
                 }
 
                 // ensure active/inactive classes are applied
-                this.isActive = this.isActive;
+                this.isActive = this.isActive; // eslint-disable-line no-self-assign
 
             },
 
@@ -176,7 +178,7 @@ export default {
 
             read({scroll = 0}) {
 
-                this.width = (isVisible(this.widthElement) ? this.widthElement : this.$el).offsetWidth;
+                this.width = offset(isVisible(this.widthElement) ? this.widthElement : this.$el).width;
 
                 this.scroll = window.pageYOffset;
 
@@ -206,7 +208,7 @@ export default {
 
                 data.lastDir = dir;
 
-                if (this.showOnUp && Math.abs(data.initScroll - scroll) <= 30 && Math.abs(lastScroll - scroll) <= 10) {
+                if (this.showOnUp && !this.isFixed && Math.abs(data.initScroll - scroll) <= 30 && Math.abs(lastScroll - scroll) <= 10) {
                     return;
                 }
 
@@ -280,7 +282,7 @@ export default {
             const active = this.top !== 0 || this.scroll > this.top;
             let top = Math.max(0, this.offset);
 
-            if (this.bottom && this.scroll > this.bottom - this.offset) {
+            if (isNumeric(this.bottom) && this.scroll > this.bottom - this.offset) {
                 top = this.bottom - this.scroll;
             }
 
@@ -308,21 +310,13 @@ function parseProp(prop, {$props, $el, [`${prop}Offset`]: propOffset}) {
         return;
     }
 
-    if (isNumeric(value)) {
+    if (isString(value) && value.match(/^-?\d/)) {
 
-        return propOffset + toFloat(value);
-
-    } else if (isString(value) && value.match(/^-?\d+vh$/)) {
-
-        return height(window) * toFloat(value) / 100;
+        return propOffset + toPx(value);
 
     } else {
 
-        const el = value === true ? $el.parentNode : query(value, $el);
-
-        if (el) {
-            return offset(el).top + el.offsetHeight;
-        }
+        return offset(value === true ? $el.parentNode : query(value, $el)).bottom;
 
     }
 }

@@ -1,6 +1,6 @@
 import Video from './video';
 import Class from '../mixin/class';
-import {css, Dimensions, isVisible} from 'uikit-util';
+import {css, Dimensions, parent} from 'uikit-util';
 
 export default {
 
@@ -20,37 +20,27 @@ export default {
         read() {
 
             const el = this.$el;
-
-            if (!isVisible(el)) {
-                return false;
-            }
-
-            const {offsetHeight: height, offsetWidth: width} = el.parentNode;
-
-            return {height, width};
-        },
-
-        write({height, width}) {
-
-            const el = this.$el;
-            const elWidth = this.width || el.naturalWidth || el.videoWidth || el.clientWidth;
-            const elHeight = this.height || el.naturalHeight || el.videoHeight || el.clientHeight;
-
-            if (!elWidth || !elHeight) {
-                return;
-            }
-
-            css(el, Dimensions.cover(
+            const {offsetHeight: height, offsetWidth: width} = getPositionedParent(el) || el.parentNode;
+            const dim = Dimensions.cover(
                 {
-                    width: elWidth,
-                    height: elHeight
+                    width: this.width || el.naturalWidth || el.videoWidth || el.clientWidth,
+                    height: this.height || el.naturalHeight || el.videoHeight || el.clientHeight
                 },
                 {
                     width: width + (width % 2 ? 1 : 0),
                     height: height + (height % 2 ? 1 : 0)
                 }
-            ));
+            );
 
+            if (!dim.width || !dim.height) {
+                return false;
+            }
+
+            return dim;
+        },
+
+        write({height, width}) {
+            css(this.$el, {height, width});
         },
 
         events: ['resize']
@@ -58,3 +48,11 @@ export default {
     }
 
 };
+
+function getPositionedParent(el) {
+    while ((el = parent(el))) {
+        if (css(el, 'position') !== 'static') {
+            return el;
+        }
+    }
+}

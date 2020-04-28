@@ -23,8 +23,6 @@
 @text-large-font-size:                          @global-large-font-size;
 @text-large-line-height:                        1.5;
 
-@text-bold-font-weight:                         bolder;
-
 @text-muted-color:                              @global-muted-color;
 @text-emphasis-color:                           @global-emphasis-color;
 @text-primary-color:                            @global-primary-background;
@@ -78,14 +76,25 @@
 /* Weight modifier
  ========================================================================== */
 
-.uk-text-bold { font-weight: @text-bold-font-weight; }
+.uk-text-light { font-weight: 300; }
+.uk-text-normal { font-weight: 400; }
+.uk-text-bold { font-weight: 700; }
+ 
+.uk-text-lighter { font-weight: lighter; }
+.uk-text-bolder { font-weight: bolder; }
+
+ 
+/* Style modifier
+ ========================================================================== */
+ 
+.uk-text-italic { font-style: italic; }
 
 
 /* Transform modifier
  ========================================================================== */
 
-.uk-text-uppercase { text-transform: uppercase !important; }
 .uk-text-capitalize { text-transform: capitalize !important; }
+.uk-text-uppercase { text-transform: uppercase !important; }
 .uk-text-lowercase { text-transform: lowercase !important; }
 
 
@@ -114,7 +123,6 @@
 .uk-text-background {
     /* 1 */
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
     /* 2 */
     display: inline-block;
     /* 3 */
@@ -125,6 +133,7 @@
 
     .uk-text-background {
         background-color: @text-background-color;
+        color: transparent !important;
         .hook-text-background;
     }
 

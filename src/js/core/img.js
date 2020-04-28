@@ -1,4 +1,4 @@
-import {createEvent, css, Dimensions, escape, getImage, includes, IntersectionObserver, noop, queryAll, startsWith, toFloat, toPx, trigger} from 'uikit-util';
+import {createEvent, css, Dimensions, escape, getImage, includes, IntersectionObserver, isUndefined, noop, queryAll, startsWith, toFloat, toPx, trigger} from 'uikit-util';
 
 export default {
 
@@ -51,7 +51,7 @@ export default {
         target: {
 
             get({target}) {
-                return [this.$el].concat(queryAll(target, this.$el));
+                return [this.$el, ...queryAll(target, this.$el)];
             },
 
             watch() {
@@ -128,7 +128,8 @@ export default {
 
         load(entries) {
 
-            if (!entries.some(entry => entry.isIntersecting)) {
+            // Old chromium based browsers (UC Browser) did not implement `isIntersecting`
+            if (!entries.some(entry => isUndefined(entry.isIntersecting) || entry.isIntersecting)) {
                 return;
             }
 
@@ -144,7 +145,7 @@ export default {
         },
 
         observe() {
-            if (!this._data.image && this._connected) {
+            if (this._connected && !this._data.image) {
                 this.target.forEach(el => this.observer.observe(el));
             }
         }

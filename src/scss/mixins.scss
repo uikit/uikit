@@ -960,8 +960,9 @@
         background-color: $inverse-search-default-background;
         @if(mixin-exists(hook-inverse-search-default-input)) {@include hook-inverse-search-default-input();}
     }
+    
     .uk-search-default .uk-search-input:focus {
-        background-color: $inverse-search-default-background;
+        background-color: $inverse-search-default-focus-background;
         @if(mixin-exists(hook-inverse-search-default-input-focus)) {@include hook-inverse-search-default-input-focus();}
     }
 
