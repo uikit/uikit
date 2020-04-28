@@ -4,7 +4,7 @@
 
 ### Added
 
-- Add list small modifier
+- Add list collapse modifier
 
 ### Changed
 
