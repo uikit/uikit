@@ -13,6 +13,7 @@
 ### Fixed
 
 - Fix Search Icon with large modifier
+- Fix Grid divider in RTL mode
 
 ## 3.4.2 (April 20, 2020)
 

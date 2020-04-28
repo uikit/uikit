@@ -74,7 +74,7 @@ export default {
 
                 // Let child components be applied at least once first
                 if (!data.update) {
-                    this.$update();
+                    this.$emit();
                     return data.update = true;
                 }
 
