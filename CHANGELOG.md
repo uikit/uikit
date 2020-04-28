@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add list small modifier
+
 ### Changed
 
 - Improve attribute state observer performance

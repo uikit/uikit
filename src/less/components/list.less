@@ -31,6 +31,11 @@
 @list-bullet-margin-right:                      @global-small-margin;
 @list-bullet-icon-color:                        @global-color;
 
+@list-small-margin-top:                         0;
+@list-small-divider-margin-top:                 0;
+@list-small-striped-padding-vertical:           0;
+@list-small-striped-padding-horizontal:         @global-small-margin;
+
 @list-large-margin-top:                         @global-margin;
 @list-large-divider-margin-top:                 @global-margin;
 @list-large-striped-padding-vertical:           @global-margin;
@@ -140,12 +145,20 @@
 /* Size modifier
  ========================================================================== */
 
+.uk-list-small > li:nth-child(n+2),
+.uk-list-small > li > ul { margin-top: @list-small-margin-top; }
+
 .uk-list-large > li:nth-child(n+2),
 .uk-list-large > li > ul { margin-top: @list-large-margin-top; }
 
 /*
  * Divider
  */
+
+.uk-list-small.uk-list-divider > li:nth-child(n+2) {
+    margin-top: @list-small-divider-margin-top;
+    padding-top: @list-small-divider-margin-top;
+}
 
 .uk-list-large.uk-list-divider > li:nth-child(n+2) {
     margin-top: @list-large-divider-margin-top;
@@ -156,11 +169,11 @@
  * Striped
  */
 
-.uk-list-large.uk-list-striped > li {
-    padding: @list-large-striped-padding-vertical @list-large-striped-padding-horizontal;
-    .hook-list-striped;
-}
+.uk-list-small.uk-list-striped > li { padding: @list-small-striped-padding-vertical @list-small-striped-padding-horizontal; }
 
+.uk-list-large.uk-list-striped > li { padding: @list-large-striped-padding-vertical @list-large-striped-padding-horizontal; }
+
+.uk-list-small.uk-list-striped > li:nth-child(n+2),
 .uk-list-large.uk-list-striped > li:nth-child(n+2) { margin-top: 0; }
 
 
