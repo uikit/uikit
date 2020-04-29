@@ -14,6 +14,7 @@
 
 - Fix Search Icon with large modifier
 - Fix Grid divider in RTL mode
+- Fix Slider component responsiveness
 
 ## 3.4.2 (April 20, 2020)
 
