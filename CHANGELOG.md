@@ -4,16 +4,21 @@
 
 ### Added
 
-- Add list collapse modifier
+- Add type, color and size modifiers to List component
 
 ### Changed
 
 - Improve attribute state observer performance
+- Remove clearfix from list items in List component
 
 ### Fixed
 
 - Fix Search Icon with large modifier
 - Fix Grid divider in RTL mode
+
+### Deprecated
+
+- List Bullet: Use `uk-list-disc` instead of `uk-list-bullet`
 
 ## 3.4.2 (April 20, 2020)
 
