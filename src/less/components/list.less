@@ -27,6 +27,11 @@
 
 @list-padding-left:                             30px;
 
+@list-muted-color:                              @global-muted-color;
+@list-emphasis-color:                           @global-emphasis-color;
+@list-primary-color:                            @global-primary-background;
+@list-secondary-color:                          @global-secondary-background;
+
 @list-divider-margin-top:                       @global-small-margin;
 @list-divider-border-width:                     @global-border-width;
 @list-divider-border:                           @global-border;
@@ -84,10 +89,10 @@
  * Doesn't work in Chrome and Edge yet
  ========================================================================== */
 
-.uk-list-muted li::marker { color: @global-muted-color !important; }
-.uk-list-emphasis li::marker { color: @global-emphasis-color !important; }
-.uk-list-primary li::marker { color: @global-primary-background !important; }
-.uk-list-secondary li::marker { color: @global-secondary-background !important; }
+.uk-list-muted li::marker { color: @list-muted-color !important; }
+.uk-list-emphasis li::marker { color: @list-emphasis-color !important; }
+.uk-list-primary li::marker { color: @list-primary-color !important; }
+.uk-list-secondary li::marker { color: @list-secondary-color !important; }
 
 
 /* Style modifiers
@@ -205,6 +210,11 @@
 // Inverse
 // ========================================================================
 
+@inverse-list-muted-color:                        @inverse-global-muted-color;
+@inverse-list-emphasis-color:                     @inverse-global-emphasis-color;
+@inverse-list-primary-color:                      @inverse-global-primary-background;
+@inverse-list-secondary-color:                    @inverse-global-primary-background;
+
 @inverse-list-divider-border:                     @inverse-global-border;
 @inverse-list-striped-background:                 @inverse-global-muted-background;
 
@@ -212,10 +222,10 @@
 
 .hook-inverse() {
 
-    .uk-list-muted li::marker { color: @inverse-global-muted-color !important; }
-    .uk-list-emphasis li::marker { color: @inverse-global-emphasis-color !important; }
-    .uk-list-primary li::marker { color: @inverse-global-primary-background !important; }
-    .uk-list-secondary li::marker { color: @inverse-global-primary-background !important; }
+    .uk-list-muted li::marker { color: @inverse-list-muted-color !important; }
+    .uk-list-emphasis li::marker { color: @inverse-list-emphasis-color !important; }
+    .uk-list-primary li::marker { color: @inverse-list-primary-color !important; }
+    .uk-list-secondary li::marker { color: @inverse-list-secondary-color !important; }
 
     .uk-list-divider > li:nth-child(n+2) {
         border-top-color: @inverse-list-divider-border;
