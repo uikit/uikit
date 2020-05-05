@@ -143,6 +143,9 @@ $internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D
 .uk-list-large > li:nth-child(n+2),
 .uk-list-large > li > ul { margin-top: $list-large-margin-top; }
 
+.uk-list-collapse > li:nth-child(n+2),
+.uk-list-collapse > li > ul { margin-top: 0; }
+
 /*
  * Divider
  */
@@ -152,16 +155,24 @@ $internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D
     padding-top: $list-large-divider-margin-top;
 }
 
+.uk-list-collapse.uk-list-divider > li:nth-child(n+2) {
+    margin-top: 0;
+    padding-top: 0;
+}
+
 /*
  * Striped
  */
 
-.uk-list-large.uk-list-striped > li {
-    padding: $list-large-striped-padding-vertical $list-large-striped-padding-horizontal;
-    @if(mixin-exists(hook-list-striped)) {@include hook-list-striped();}
+.uk-list-large.uk-list-striped > li { padding: $list-large-striped-padding-vertical $list-large-striped-padding-horizontal; }
+
+.uk-list-collapse.uk-list-striped > li {
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
-.uk-list-large.uk-list-striped > li:nth-child(n+2) { margin-top: 0; }
+.uk-list-large.uk-list-striped > li:nth-child(n+2),
+.uk-list-collapse.uk-list-striped > li:nth-child(n+2) { margin-top: 0; }
 
 
 // Hooks
