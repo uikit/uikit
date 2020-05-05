@@ -113,10 +113,14 @@ export default function (UIkit) {
 
         attrs = isArray(attrs) ? attrs : Object.keys(props);
 
-        this._observer = new MutationObserver(() => {
-
+        this._observer = new MutationObserver(records => {
             const data = getProps(this.$options, this.$name);
-            if (attrs.some(key => !isUndefined(data[key]) && data[key] !== this.$props[key])) {
+            if (records.some(({attributeName}) => {
+                const prop = attributeName.replace('data-', '');
+                return (prop === this.$name ? attrs : [camelize(prop)]).some(prop =>
+                    !isUndefined(data[prop]) && data[prop] !== this.$props[prop]
+                );
+            })) {
                 this.$reset();
             }
 
@@ -143,18 +147,19 @@ export default function (UIkit) {
             const prop = hyphenate(key);
             let value = getData(el, prop);
 
-            if (!isUndefined(value)) {
-
-                value = props[key] === Boolean && value === ''
-                    ? true
-                    : coerce(props[key], value);
-
-                if (prop === 'target' && (!value || startsWith(value, '_'))) {
-                    continue;
-                }
-
-                data[key] = value;
+            if (isUndefined(value)) {
+                continue;
             }
+
+            value = props[key] === Boolean && value === ''
+                ? true
+                : coerce(props[key], value);
+
+            if (prop === 'target' && (!value || startsWith(value, '_'))) {
+                continue;
+            }
+
+            data[key] = value;
         }
 
         const options = parseOptions(getData(el, name), args);

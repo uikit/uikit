@@ -2,7 +2,7 @@ import Class from '../mixin/class';
 import Slider, {speedUp} from '../mixin/slider';
 import SliderReactive from '../mixin/slider-reactive';
 import Transitioner, {getElLeft, getMax, getMaxWidth, getWidth} from './internal/slider-transitioner';
-import {$, $$, addClass, css, data, includes, isEmpty, isNumeric, isUndefined, last, offset, toFloat, toggleClass} from 'uikit-util';
+import {$, $$, addClass, css, data, includes, isEmpty, isNumeric, last, offset, toFloat, toggleClass} from 'uikit-util';
 
 export default {
 
@@ -123,8 +123,13 @@ export default {
             });
 
             if (this.length && !this.dragging && !this.stack.length) {
+                this.reorder();
                 this._translate(1);
             }
+
+            const actives = this._getTransitioner(this.index).getActives();
+            this.slides.forEach(slide => toggleClass(slide, this.clsActive, includes(actives, slide)));
+            (!this.sets || includes(this.sets, toFloat(this.index))) && this.slides.forEach(slide => toggleClass(slide, this.clsActivated, includes(actives, slide)));
 
         },
 
@@ -168,13 +173,7 @@ export default {
         },
 
         itemshow() {
-            !isUndefined(this.prevIndex) && addClass(this._getTransitioner().getItemIn(), this.clsActive);
-        },
-
-        itemshown() {
-            const actives = this._getTransitioner(this.index).getActives();
-            this.slides.forEach(slide => toggleClass(slide, this.clsActive, includes(actives, slide)));
-            (!this.sets || includes(this.sets, toFloat(this.index))) && this.slides.forEach(slide => toggleClass(slide, this.clsActivated, includes(actives, slide)));
+            ~this.prevIndex && addClass(this._getTransitioner().getItemIn(), this.clsActive);
         }
 
     },
@@ -183,9 +182,8 @@ export default {
 
         reorder() {
 
-            css(this.slides, 'order', '');
-
             if (this.finite) {
+                css(this.slides, 'order', '');
                 return;
             }
 
