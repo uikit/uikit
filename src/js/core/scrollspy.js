@@ -106,7 +106,10 @@ export default {
                             )
                         ).then(() => {
                             toggle(true);
-                            setTimeout(() => state.queued = false, 300);
+                            setTimeout(() => {
+                                state.queued = false;
+                                this.$emit();
+                            }, 300);
                         });
 
                     } else if (!state.show && state.inview && !state.queued && this.repeat) {

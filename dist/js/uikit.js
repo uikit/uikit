@@ -1,4 +1,4 @@
-/*! UIkit 3.4.3 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.4.4 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3572,7 +3572,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.4.3';
+    UIkit.version = '3.4.4';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -5138,7 +5138,7 @@
                     var padding = ref.padding;
 
 
-                    css(this.$el, 'paddingBottom', padding);
+                    css(this.$el, 'paddingBottom', padding || '');
                     height !== false && css(this.$el, 'height', height);
 
                 },
@@ -5189,13 +5189,13 @@
         var rowHeights = rows.map(function (row) { return Math.max.apply(Math, row.map(function (el) { return el.offsetHeight; })); }
         );
 
-        columns.forEach(function (column, i) { return column.forEach(function (el, j) {
-                if (j === 0) {
-                    translates[i] = [0];
+        columns.forEach(function (elements, column) { return elements.forEach(function (element, row) {
+                if (row === 0) {
+                    translates[column] = [0];
                 } else {
-                    translates[i][j] = rowHeights[j - 1]
-                        - columns[i][j - 1].offsetHeight
-                        + translates[i].reduce(function (sum, op) { return sum + op; }, 0);
+                    translates[column][row] = rowHeights[row - 1]
+                        - columns[column][row - 1].offsetHeight
+                        + translates[column][row - 1];
                 }
             }); }
         );
@@ -7470,7 +7470,10 @@
                                 ); }
                             ).then(function () {
                                 toggle(true);
-                                setTimeout(function () { return state.queued = false; }, 300);
+                                setTimeout(function () {
+                                    state.queued = false;
+                                    this$1.$emit();
+                                }, 300);
                             });
 
                         } else if (!state.show && state.inview && !state.queued && this$1.repeat) {

@@ -77,7 +77,7 @@ export default {
 
             write({height, padding}) {
 
-                css(this.$el, 'paddingBottom', padding);
+                css(this.$el, 'paddingBottom', padding || '');
                 height !== false && css(this.$el, 'height', height);
 
             },
@@ -127,14 +127,14 @@ function getTranslates(rows, columns) {
         Math.max(...row.map(el => el.offsetHeight))
     );
 
-    columns.forEach((column, i) =>
-        column.forEach((el, j) => {
-            if (j === 0) {
-                translates[i] = [0];
+    columns.forEach((elements, column) =>
+        elements.forEach((element, row) => {
+            if (row === 0) {
+                translates[column] = [0];
             } else {
-                translates[i][j] = rowHeights[j - 1]
-                    - columns[i][j - 1].offsetHeight
-                    + translates[i].reduce((sum, op) => sum + op, 0);
+                translates[column][row] = rowHeights[row - 1]
+                    - columns[column][row - 1].offsetHeight
+                    + translates[column][row - 1];
             }
         })
     );
