@@ -1,4 +1,4 @@
-import {closest, matches} from './selector';
+import {closest, matches, parent} from './selector';
 import {isDocument, isString, toNode, toNodes} from './lang';
 
 const voidElements = {
@@ -42,4 +42,22 @@ export function within(element, selector) {
             ? selector.documentElement
             : toNode(selector)).contains(toNode(element)) // IE 11 document does not implement contains
         : matches(element, selector) || closest(element, selector);
+}
+
+export function parents(element, selector) {
+    const elements = [];
+
+    while ((element = parent(element))) {
+        if (!selector || matches(element, selector)) {
+            elements.push(element);
+        }
+    }
+
+    return elements;
+}
+
+export function children(element, selector) {
+    element = toNode(element);
+    const children = element ? toNodes(element.children) : [];
+    return selector ? filter(children, selector) : children;
 }

@@ -23,18 +23,18 @@ export function transition(element, props, duration = 400, timing = 'linear') {
                 clearTimeout(timer);
                 removeClass(element, 'uk-transition');
                 css(element, {
-                    'transition-property': '',
-                    'transition-duration': '',
-                    'transition-timing-function': ''
+                    transitionProperty: '',
+                    transitionDuration: '',
+                    transitionTimingFunction: ''
                 });
                 type === 'transitioncanceled' ? reject() : resolve();
-            }, false, ({target}) => element === target);
+            }, {self: true});
 
             addClass(element, 'uk-transition');
             css(element, assign({
-                'transition-property': Object.keys(props).map(propName).join(','),
-                'transition-duration': `${duration}ms`,
-                'transition-timing-function': timing
+                transitionProperty: Object.keys(props).map(propName).join(','),
+                transitionDuration: `${duration}ms`,
+                transitionTimingFunction: timing
             }, props));
 
         })
@@ -117,7 +117,7 @@ export function animate(element, animation, duration = 200, origin, out) {
                     }
                 });
 
-            }, false, ({target}) => element === target);
+            }, {self: true});
 
             css(element, 'animationDuration', `${duration}ms`);
             addClass(element, cls);

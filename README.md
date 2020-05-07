@@ -1,4 +1,4 @@
-[![uikit banner](https://cloud.githubusercontent.com/assets/321047/21769911/474d7d9e-d681-11e6-9fe0-d95f8ccfd3a9.jpg)](http://getuikit.com/)
+[![uikit banner](https://cloud.githubusercontent.com/assets/321047/21769911/474d7d9e-d681-11e6-9fe0-d95f8ccfd3a9.jpg)](https://getuikit.com/)
 
 # UIkit
 
@@ -6,7 +6,7 @@
 
 UIkit is a lightweight and modular front-end framework for developing fast and powerful web interfaces.
 
-* [Homepage](http://getuikit.com) - Learn more about UIkit
+* [Homepage](https://getuikit.com) - Learn more about UIkit
 * [@getuikit](https://twitter.com/getuikit) - Get the latest buzz on Twitter
 * [Discord Chat](https://discord.gg/NEt4Pv7) - Join our developer chat on Discord.
 
@@ -29,7 +29,7 @@ You have the following options to get UIkit:
 - Download the [latest release](https://github.com/uikit/uikit/releases/latest) with pre-built CSS and JS.
 - Install with [npm](https://npmjs.com) to get all source files as they are available on Github: ```npm install uikit```
 - Install with [yarn](https://yarnpkg.com/) to get all source files as they are available on Github: ```yarn add uikit```
-- Directly load UIkit from [CDNJS](https://cdnjs.com): https://cdnjs.com/libraries/uikit
+- Directly load UIkit from [jsDelivr](https://www.jsdelivr.com): https://www.jsdelivr.com/package/npm/uikit
 - Clone the repo to get all source files including build scripts: `git clone git://github.com/uikit/uikit.git`
 
 ## Developers

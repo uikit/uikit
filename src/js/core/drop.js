@@ -1,6 +1,6 @@
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {addClass, Animation, attr, css, includes, isTouch, MouseTracker, offset, on, once, pointerEnter, pointerLeave, pointerUp, pointInRect, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
+import {addClass, Animation, apply, attr, css, includes, isTouch, MouseTracker, offset, on, once, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
 
 let active;
 
@@ -28,7 +28,6 @@ export default {
         delayShow: 0,
         delayHide: 800,
         clsDrop: false,
-        hoverIdle: 200,
         animation: ['uk-animation-fade'],
         cls: 'uk-open'
     },
@@ -67,8 +66,13 @@ export default {
 
     },
 
-    events: [
+    disconnected() {
+        if (this.isActive()) {
+            active = null;
+        }
+    },
 
+    events: [
 
         {
 
@@ -93,15 +97,8 @@ export default {
                 return 'a[href^="#"]';
             },
 
-            handler(e) {
-
-                const id = e.target.hash;
-
-                if (!id) {
-                    e.preventDefault();
-                }
-
-                if (!id || !within(id, this.$el)) {
+            handler({defaultPrevented, current: {hash}}) {
+                if (!defaultPrevented && hash && !within(hash, this.$el)) {
                     this.hide(false);
                 }
             }
@@ -139,6 +136,32 @@ export default {
 
         {
 
+            name: 'toggleshow',
+
+            self: true,
+
+            handler(e, toggle) {
+                e.preventDefault();
+                this.show(toggle);
+            }
+
+        },
+
+        {
+
+            name: 'togglehide',
+
+            self: true,
+
+            handler(e) {
+                e.preventDefault();
+                this.hide();
+            }
+
+        },
+
+        {
+
             name: pointerEnter,
 
             filter() {
@@ -146,56 +169,23 @@ export default {
             },
 
             handler(e) {
-
-                if (isTouch(e)) {
-                    return;
+                if (!isTouch(e)) {
+                    this.clearTimers();
                 }
-
-                if (active
-                    && active !== this
-                    && active.toggle
-                    && includes(active.toggle.mode, 'hover')
-                    && !within(e.target, active.toggle.$el)
-                    && !pointInRect({x: e.pageX, y: e.pageY}, offset(active.$el))
-                ) {
-                    active.hide(false);
-                }
-
-                e.preventDefault();
-                this.show(this.toggle);
             }
 
         },
 
         {
 
-            name: 'toggleshow',
+            name: pointerLeave,
 
-            handler(e, toggle) {
+            filter() {
+                return includes(this.mode, 'hover');
+            },
 
-                if (toggle && !includes(toggle.target, this.$el)) {
-                    return;
-                }
-
-                e.preventDefault();
-                this.show(toggle || this.toggle);
-            }
-
-        },
-
-        {
-
-            name: `togglehide ${pointerLeave}`,
-
-            handler(e, toggle) {
-
-                if (isTouch(e) || toggle && !includes(toggle.target, this.$el)) {
-                    return;
-                }
-
-                e.preventDefault();
-
-                if (this.toggle && includes(this.toggle.mode, 'hover')) {
+            handler(e) {
+                if (!isTouch(e)) {
                     this.hide();
                 }
             }
@@ -204,11 +194,16 @@ export default {
 
         {
 
-            name: 'beforeshow',
+            name: 'toggled',
 
             self: true,
 
             handler() {
+
+                if (!this.isToggled()) {
+                    return;
+                }
+
                 this.clearTimers();
                 Animation.cancel(this.$el);
                 this.position();
@@ -223,9 +218,27 @@ export default {
             self: true,
 
             handler() {
+
+                active = this;
+
                 this.tracker.init();
                 trigger(this.$el, 'updatearia');
-                registerEvent();
+
+                once(this.$el, 'hide', on(document, pointerDown, ({target}) =>
+                    !within(target, this.$el) && once(document, `${pointerUp} ${pointerCancel} scroll`, ({defaultPrevented, type, target: newTarget}) => {
+                        if (!defaultPrevented && type === pointerUp && target === newTarget && !(this.toggle && within(target, this.toggle.$el))) {
+                            this.hide(false);
+                        }
+                    }, true)
+                ), {self: true});
+
+                once(this.$el, 'hide', on(document, 'keydown', e => {
+                    if (e.keyCode === 27) {
+                        e.preventDefault();
+                        this.hide(false);
+                    }
+                }), {self: true});
+
             }
 
         },
@@ -273,7 +286,7 @@ export default {
                 this.updateAria(this.$el);
 
                 if (toggle || this.toggle) {
-                    attr((toggle || this.toggle).$el, 'aria-expanded', this.isToggled() ? 'true' : 'false');
+                    attr((toggle || this.toggle).$el, 'aria-expanded', this.isToggled());
                     toggleClass(this.toggle.$el, this.cls, this.isToggled());
                 }
             }
@@ -297,71 +310,46 @@ export default {
 
     methods: {
 
-        show(toggle, delay = true) {
+        show(toggle = this.toggle, delay = true) {
 
-            const show = () => !this.isToggled() && this.toggleElement(this.$el, true);
-            const tryShow = () => {
+            if (this.isToggled() && toggle && this.toggle && toggle.$el !== this.toggle.$el) {
+                this.hide(false);
+            }
 
-                this.toggle = toggle || this.toggle;
+            this.toggle = toggle;
 
-                this.clearTimers();
+            this.clearTimers();
 
-                if (this.isActive()) {
-                    return;
-                } else if (delay && active && active !== this && active.isDelaying) {
+            if (this.isActive()) {
+                return;
+            }
+
+            if (active) {
+
+                if (delay && active.isDelaying) {
                     this.showTimer = setTimeout(this.show, 10);
                     return;
-                } else if (this.isParentOf(active)) {
-
-                    if (active.hideTimer) {
-                        active.hide(false);
-                    } else {
-                        return;
-                    }
-
-                } else if (active && this.isChildOf(active)) {
-
-                    active.clearTimers();
-
-                } else if (active && !this.isChildOf(active) && !this.isParentOf(active)) {
-
-                    let prev;
-                    while (active && active !== prev && !this.isChildOf(active)) {
-                        prev = active;
-                        active.hide(false);
-                    }
-
                 }
 
-                if (delay && this.delayShow) {
-                    this.showTimer = setTimeout(show, this.delayShow);
-                } else {
-                    show();
+                while (active && !within(this.$el, active.$el)) {
+                    active.hide(false);
                 }
-
-                active = this;
-            };
-
-            if (toggle && this.toggle && toggle.$el !== this.toggle.$el) {
-
-                once(this.$el, 'hide', tryShow);
-                this.hide(false);
-
-            } else {
-                tryShow();
             }
+
+            this.showTimer = setTimeout(() => !this.isToggled() && this.toggleElement(this.$el, true), delay && this.delayShow || 0);
+
         },
 
         hide(delay = true) {
 
-            const hide = () => this.toggleNow(this.$el, false);
+            const hide = () => this.toggleElement(this.$el, false, false);
 
             this.clearTimers();
 
-            this.isDelaying = this.tracker.movesTo(this.$el);
+            this.isDelaying = getPositionedElements(this.$el).some(el => this.tracker.movesTo(el));
 
             if (delay && this.isDelaying) {
-                this.hideTimer = setTimeout(this.hide, this.hoverIdle);
+                this.hideTimer = setTimeout(this.hide, 50);
             } else if (delay && this.delayHide) {
                 this.hideTimer = setTimeout(hide, this.delayHide);
             } else {
@@ -381,18 +369,9 @@ export default {
             return active === this;
         },
 
-        isChildOf(drop) {
-            return drop && drop !== this && within(this.$el, drop.$el);
-        },
-
-        isParentOf(drop) {
-            return drop && drop !== this && within(drop.$el, this.$el);
-        },
-
         position() {
 
             removeClasses(this.$el, `${this.clsDrop}-(stack|boundary)`);
-            css(this.$el, {top: '', left: '', display: 'block'});
             toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
 
             const boundary = offset(this.boundary);
@@ -407,35 +386,14 @@ export default {
 
             this.positionAt(this.$el, this.boundaryAlign ? this.boundary : this.toggle.$el, this.boundary);
 
-            css(this.$el, 'display', '');
-
         }
 
     }
 
 };
 
-let registered;
-
-function registerEvent() {
-
-    if (registered) {
-        return;
-    }
-
-    registered = true;
-    on(document, `${pointerUp} click`, e => {
-        let prev;
-
-        const {defaultPrevented, target, type} = e;
-
-        if (defaultPrevented || isTouch(e) && type === 'click') {
-            return;
-        }
-
-        while (active && active !== prev && !within(target, active.$el) && !(active.toggle && within(target, active.toggle.$el))) {
-            prev = active;
-            active.hide(false);
-        }
-    });
+function getPositionedElements(el) {
+    const result = [];
+    apply(el, el => css(el, 'position') !== 'static' && result.push(el));
+    return result;
 }

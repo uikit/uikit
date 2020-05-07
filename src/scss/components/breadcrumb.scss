@@ -19,6 +19,7 @@ $breadcrumb-item-active-color:                       $global-color !default;
 
 $breadcrumb-divider:                                 "/" !default;
 $breadcrumb-divider-margin-horizontal:               20px !default;
+$breadcrumb-divider-font-size:                       $breadcrumb-item-font-size !default;
 $breadcrumb-divider-color:                           $global-muted-color !default;
 
 
@@ -72,7 +73,8 @@ $breadcrumb-divider-color:                           $global-muted-color !defaul
 }
 
 /* Active */
-.uk-breadcrumb > :last-child > * {
+.uk-breadcrumb > :last-child > span,
+.uk-breadcrumb > :last-child > a:not([href]) {
     color: $breadcrumb-item-active-color;
     @if(mixin-exists(hook-breadcrumb-item-active)) {@include hook-breadcrumb-item-active();}
 }
@@ -86,6 +88,7 @@ $breadcrumb-divider-color:                           $global-muted-color !defaul
     content: $breadcrumb-divider;
     display: inline-block;
     margin: 0 $breadcrumb-divider-margin-horizontal;
+    font-size: $breadcrumb-divider-font-size;
     color: $breadcrumb-divider-color;
     @if(mixin-exists(hook-breadcrumb-divider)) {@include hook-breadcrumb-divider();}
 }

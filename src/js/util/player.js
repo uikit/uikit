@@ -128,7 +128,7 @@ function post(el, cmd) {
 
 function listen(cb) {
 
-    return new Promise(resolve => {
+    return new Promise(resolve =>
 
         once(window, 'message', (_, data) => resolve(data), false, ({data}) => {
 
@@ -144,8 +144,8 @@ function listen(cb) {
 
             return data && cb(data);
 
-        });
+        })
 
-    });
+    );
 
 }

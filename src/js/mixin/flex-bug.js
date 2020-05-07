@@ -39,7 +39,7 @@ export default isIE ? {
             write() {
                 this.elements.forEach(el => {
                     const height = toFloat(css(el, 'minHeight'));
-                    if (height && (this.forceHeight || Math.round(height + boxModelAdjust('height', el, 'content-box')) >= el.offsetHeight)) {
+                    if (height && (this.forceHeight || Math.round(height + boxModelAdjust(el, 'height', 'content-box')) >= el.offsetHeight)) {
                         css(el, 'height', height);
                     }
                 });

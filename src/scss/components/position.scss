@@ -43,11 +43,19 @@ $position-large-margin-l:                               50px !default;
 /* Directions
  ========================================================================== */
 
+/*
+ * 1. Prevent content overflow if `max-width: 100%` is used inside position container.
+ */
+
 [class*='uk-position-top'],
 [class*='uk-position-bottom'],
 [class*='uk-position-left'],
 [class*='uk-position-right'],
-[class*='uk-position-center'] { position: absolute !important; }
+[class*='uk-position-center'] {
+    position: absolute !important;
+    /* 1 */
+    max-width: 100%;
+}
 
 
 /* Edges

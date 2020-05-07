@@ -1,5 +1,5 @@
 import Animate from '../mixin/animate';
-import {$$, $, append, assign, css, data, each, fastdom, hasClass, includes, isEmpty, isEqual, isUndefined, matches, parseOptions, toggleClass, toNodes, trigger} from 'uikit-util';
+import {$, $$, append, assign, children, css, data, each, fastdom, hasClass, includes, isEmpty, isEqual, isUndefined, matches, parseOptions, toggleClass, trigger} from 'uikit-util';
 
 export default {
 
@@ -29,8 +29,17 @@ export default {
             },
 
             watch() {
+
                 this.updateState();
-            }
+
+                if (this.selActive !== false) {
+                    const actives = $$(this.selActive, this.$el);
+                    this.toggles.forEach(el => toggleClass(el, this.cls, includes(actives, el)));
+                }
+
+            },
+
+            immediate: true
 
         },
 
@@ -41,7 +50,7 @@ export default {
         children: {
 
             get() {
-                return toNodes(this.target && this.target.children);
+                return children(this.target);
             },
 
             watch(list, old) {
@@ -73,17 +82,6 @@ export default {
         }
 
     ],
-
-    connected() {
-
-        this.updateState();
-
-        if (this.selActive !== false) {
-            const actives = $$(this.selActive, this.$el);
-            this.toggles.forEach(el => toggleClass(el, this.cls, includes(actives, el)));
-        }
-
-    },
 
     methods: {
 

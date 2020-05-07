@@ -1,7 +1,7 @@
 import SliderAutoplay from './slider-autoplay';
 import SliderDrag from './slider-drag';
 import SliderNav from './slider-nav';
-import {$, assign, clamp, fastdom, getIndex, hasClass, isNumber, isRtl, Promise, removeClass, toNodes, trigger} from 'uikit-util';
+import {$, $$, assign, clamp, fastdom, getIndex, hasClass, isNumber, isRtl, Promise, removeClass, trigger} from 'uikit-util';
 
 export default {
 
@@ -12,7 +12,8 @@ export default {
         easing: String,
         index: Number,
         finite: Boolean,
-        velocity: Number
+        velocity: Number,
+        selSlides: String
     },
 
     data: () => ({
@@ -53,14 +54,14 @@ export default {
             return this.length - 1;
         },
 
-        selSlides({selList}) {
-            return `${selList} > *`;
+        selSlides({selList, selSlides}) {
+            return `${selList} ${selSlides || '> *'}`;
         },
 
         slides: {
 
             get() {
-                return toNodes(this.list.children);
+                return $$(this.selSlides, this.$el);
             },
 
             watch() {
@@ -112,7 +113,7 @@ export default {
                 return;
             }
 
-            const prevIndex = this.index;
+            const prevIndex = this.getIndex(this.index);
             const prev = hasClass(this.slides, this.clsActive) && this.slides[prevIndex];
             const nextIndex = this.getIndex(index, this.index);
             const next = this.slides[nextIndex];
@@ -126,8 +127,9 @@ export default {
             this.prevIndex = prevIndex;
             this.index = nextIndex;
 
-            prev && trigger(prev, 'beforeitemhide', [this]);
-            if (!trigger(next, 'beforeitemshow', [this, prev])) {
+            if (prev && !trigger(prev, 'beforeitemhide', [this])
+                || !trigger(next, 'beforeitemshow', [this, prev])
+            ) {
                 this.index = this.prevIndex;
                 reset();
                 return;
@@ -183,7 +185,7 @@ export default {
             );
 
             if (!force && !prev) {
-                this._transitioner.translate(1);
+                this._translate(1);
                 return Promise.resolve();
             }
 

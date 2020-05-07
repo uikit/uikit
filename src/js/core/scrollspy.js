@@ -1,4 +1,4 @@
-import {$$, addClass, css, data, filter, isInView, Promise, removeClass, toggleClass, trigger} from 'uikit-util';
+import {$$, css, data, filter, isInView, Promise, toggleClass, trigger} from 'uikit-util';
 
 export default {
 
@@ -27,23 +27,25 @@ export default {
 
     computed: {
 
-        elements({target}, $el) {
-            return target ? $$(target, $el) : [$el];
+        elements: {
+
+            get({target}, $el) {
+                return target ? $$(target, $el) : [$el];
+            },
+
+            watch(elements) {
+                if (this.hidden) {
+                    css(filter(elements, `:not(.${this.inViewClass})`), 'visibility', 'hidden');
+                }
+            },
+
+            immediate: true
+
         }
 
     },
 
     update: [
-
-        {
-
-            write() {
-                if (this.hidden) {
-                    css(filter(this.elements, `:not(.${this.inViewClass})`), 'visibility', 'hidden');
-                }
-            }
-
-        },
 
         {
 
@@ -79,71 +81,42 @@ export default {
                 this.elements.forEach(el => {
 
                     const state = el._ukScrollspyState;
-                    const {cls} = state;
+                    const toggle = inview => {
 
-                    if (state.show && !state.inview && !state.queued) {
+                        css(el, 'visibility', !inview && this.hidden ? 'hidden' : '');
 
-                        const show = () => {
+                        toggleClass(el, this.inViewClass, inview);
+                        toggleClass(el, state.cls);
 
-                            css(el, 'visibility', '');
-                            addClass(el, this.inViewClass);
-                            toggleClass(el, cls);
+                        trigger(el, inview ? 'inview' : 'outview');
 
-                            trigger(el, 'inview');
-
-                            this.$update(el);
-
-                            state.inview = true;
-                            state.abort && state.abort();
-                        };
-
-                        if (this.delay) {
-
-                            state.queued = true;
-                            data.promise = (data.promise || Promise.resolve()).then(() => {
-                                return !state.inview && new Promise(resolve => {
-
-                                    const timer = setTimeout(() => {
-
-                                        show();
-                                        resolve();
-
-                                    }, data.promise || this.elements.length === 1 ? this.delay : 0);
-
-                                    state.abort = () => {
-                                        clearTimeout(timer);
-                                        resolve();
-                                        state.queued = false;
-                                    };
-
-                                });
-
-                            });
-
-                        } else {
-                            show();
-                        }
-
-                    } else if (!state.show && (state.inview || state.queued) && this.repeat) {
-
-                        state.abort && state.abort();
-
-                        if (!state.inview) {
-                            return;
-                        }
-
-                        css(el, 'visibility', this.hidden ? 'hidden' : '');
-                        removeClass(el, this.inViewClass);
-                        toggleClass(el, cls);
-
-                        trigger(el, 'outview');
+                        state.inview = inview;
 
                         this.$update(el);
 
-                        state.inview = false;
+                    };
+
+                    if (state.show && !state.inview && !state.queued) {
+
+                        state.queued = true;
+
+                        data.promise = (data.promise || Promise.resolve()).then(() =>
+                            new Promise(resolve =>
+                                setTimeout(resolve, this.delay)
+                            )
+                        ).then(() => {
+                            toggle(true);
+                            setTimeout(() => {
+                                state.queued = false;
+                                this.$emit();
+                            }, 300);
+                        });
+
+                    } else if (!state.show && state.inview && !state.queued && this.repeat) {
+
+                        toggle(false);
 
                     }
-
 
                 });
 

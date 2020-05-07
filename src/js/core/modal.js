@@ -1,5 +1,5 @@
 import Modal from '../mixin/modal';
-import {$, addClass, assign, css, hasClass, height, html, isString, on, Promise, removeClass} from 'uikit-util';
+import {$, addClass, assign, css, Deferred, hasClass, height, html, isString, on, Promise, removeClass} from 'uikit-util';
 
 export default {
 
@@ -49,116 +49,97 @@ export default {
 
 };
 
-function install(UIkit) {
+function install({modal}) {
 
-    UIkit.modal.dialog = function (content, options) {
+    modal.dialog = function (content, options) {
 
-        const dialog = UIkit.modal(`
-            <div class="uk-modal">
+        const dialog = modal(
+            `<div class="uk-modal">
                 <div class="uk-modal-dialog">${content}</div>
-             </div>
-        `, options);
+             </div>`,
+            options
+        );
 
         dialog.show();
 
-        on(dialog.$el, 'hidden', ({target, currentTarget}) => {
-            if (target === currentTarget) {
-                Promise.resolve(() => dialog.$destroy(true));
-            }
-        });
+        on(dialog.$el, 'hidden', () =>
+            Promise.resolve().then(() =>
+                dialog.$destroy(true)
+            ), {self: true}
+        );
 
         return dialog;
     };
 
-    UIkit.modal.alert = function (message, options) {
-
-        options = assign({bgClose: false, escClose: false, labels: UIkit.modal.labels}, options);
-
-        return new Promise(
-            resolve => on(UIkit.modal.dialog(`
-                <div class="uk-modal-body">${isString(message) ? message : html(message)}</div>
-                <div class="uk-modal-footer uk-text-right">
-                    <button class="uk-button uk-button-primary uk-modal-close" autofocus>${options.labels.ok}</button>
-                </div>
-            `, options).$el, 'hide', resolve)
+    modal.alert = function (message, options) {
+        return openDialog(
+            ({labels}) => `<div class="uk-modal-body">${isString(message) ? message : html(message)}</div>
+            <div class="uk-modal-footer uk-text-right">
+                <button class="uk-button uk-button-primary uk-modal-close" autofocus>${labels.ok}</button>
+            </div>`,
+            options,
+            deferred => deferred.resolve()
         );
     };
 
-    UIkit.modal.confirm = function (message, options) {
-
-        options = assign({bgClose: false, escClose: true, labels: UIkit.modal.labels}, options);
-
-        return new Promise((resolve, reject) => {
-
-            const confirm = UIkit.modal.dialog(`
-                <form>
-                    <div class="uk-modal-body">${isString(message) ? message : html(message)}</div>
-                    <div class="uk-modal-footer uk-text-right">
-                        <button class="uk-button uk-button-default uk-modal-close" type="button">${options.labels.cancel}</button>
-                        <button class="uk-button uk-button-primary" autofocus>${options.labels.ok}</button>
-                    </div>
-                </form>
-            `, options);
-
-            let resolved = false;
-
-            on(confirm.$el, 'submit', 'form', e => {
-                e.preventDefault();
-                resolve();
-                resolved = true;
-                confirm.hide();
-            });
-            on(confirm.$el, 'hide', () => {
-                if (!resolved) {
-                    reject();
-                }
-            });
-
-        });
+    modal.confirm = function (message, options) {
+        return openDialog(
+            ({labels}) => `<form>
+                <div class="uk-modal-body">${isString(message) ? message : html(message)}</div>
+                <div class="uk-modal-footer uk-text-right">
+                    <button class="uk-button uk-button-default uk-modal-close" type="button">${labels.cancel}</button>
+                    <button class="uk-button uk-button-primary" autofocus>${labels.ok}</button>
+                </div>
+            </form>`,
+            options,
+            deferred => deferred.reject()
+        );
     };
 
-    UIkit.modal.prompt = function (message, value, options) {
-
-        options = assign({bgClose: false, escClose: true, labels: UIkit.modal.labels}, options);
-
-        return new Promise(resolve => {
-
-            const prompt = UIkit.modal.dialog(`
-                    <form class="uk-form-stacked">
-                        <div class="uk-modal-body">
-                            <label>${isString(message) ? message : html(message)}</label>
-                            <input class="uk-input" autofocus>
-                        </div>
-                        <div class="uk-modal-footer uk-text-right">
-                            <button class="uk-button uk-button-default uk-modal-close" type="button">${options.labels.cancel}</button>
-                            <button class="uk-button uk-button-primary">${options.labels.ok}</button>
-                        </div>
-                    </form>
-                `, options),
-                input = $('input', prompt.$el);
-
-            input.value = value;
-
-            let resolved = false;
-
-            on(prompt.$el, 'submit', 'form', e => {
-                e.preventDefault();
-                resolve(input.value);
-                resolved = true;
-                prompt.hide();
-            });
-            on(prompt.$el, 'hide', () => {
-                if (!resolved) {
-                    resolve(null);
-                }
-            });
-
-        });
+    modal.prompt = function (message, value, options) {
+        return openDialog(
+            ({labels}) => `<form class="uk-form-stacked">
+                <div class="uk-modal-body">
+                    <label>${isString(message) ? message : html(message)}</label>
+                    <input class="uk-input" value="${value || ''}" autofocus>
+                </div>
+                <div class="uk-modal-footer uk-text-right">
+                    <button class="uk-button uk-button-default uk-modal-close" type="button">${labels.cancel}</button>
+                    <button class="uk-button uk-button-primary">${labels.ok}</button>
+                </div>
+            </form>`,
+            options,
+            deferred => deferred.resolve(null),
+            dialog => $('input', dialog.$el).value
+        );
     };
 
-    UIkit.modal.labels = {
+    modal.labels = {
         ok: 'Ok',
         cancel: 'Cancel'
     };
+
+    function openDialog(tmpl, options, hideFn, submitFn) {
+
+        options = assign({bgClose: false, escClose: true, labels: modal.labels}, options);
+
+        const dialog = modal.dialog(tmpl(options), options);
+        const deferred = new Deferred();
+
+        let resolved = false;
+
+        on(dialog.$el, 'submit', 'form', e => {
+            e.preventDefault();
+            deferred.resolve(submitFn && submitFn(dialog));
+            resolved = true;
+            dialog.hide();
+        });
+
+        on(dialog.$el, 'hide', () => !resolved && hideFn(deferred));
+
+        deferred.promise.dialog = dialog;
+
+        return deferred.promise;
+    }
 
 }

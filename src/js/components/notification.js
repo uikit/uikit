@@ -1,6 +1,4 @@
-import {append, apply, closest, css, pointerEnter, pointerLeave, remove, startsWith, toFloat, Transition, trigger} from 'uikit-util';
-
-const containers = {};
+import {$, append, apply, closest, css, pointerEnter, pointerLeave, remove, startsWith, toFloat, Transition, trigger} from 'uikit-util';
 
 export default {
 
@@ -14,6 +12,7 @@ export default {
         timeout: 5000,
         group: null,
         pos: 'top-center',
+        clsContainer: 'uk-notification',
         clsClose: 'uk-notification-close',
         clsMsg: 'uk-notification-message'
     },
@@ -34,17 +33,14 @@ export default {
 
     created() {
 
-        if (!containers[this.pos]) {
-            containers[this.pos] = append(this.$container, `<div class="uk-notification uk-notification-${this.pos}"></div>`);
-        }
-
-        const container = css(containers[this.pos], 'display', 'block');
+        const container = $(`.${this.clsContainer}-${this.pos}`, this.$container)
+            || append(this.$container, `<div class="${this.clsContainer} ${this.clsContainer}-${this.pos}" style="display: block"></div>`);
 
         this.$mount(append(container,
             `<div class="${this.clsMsg}${this.status ? ` ${this.clsMsg}-${this.status}` : ''}">
-                    <a href="#" class="${this.clsClose}" data-uk-close></a>
-                    <div>${this.message}</div>
-                </div>`
+                <a href class="${this.clsClose}" data-uk-close></a>
+                <div>${this.message}</div>
+            </div>`
         ));
 
     },
@@ -92,11 +88,13 @@ export default {
 
             const removeFn = () => {
 
+                const container = this.$el.parentNode;
+
                 trigger(this.$el, 'close', [this]);
                 remove(this.$el);
 
-                if (!containers[this.pos].children.length) {
-                    css(containers[this.pos], 'display', 'none');
+                if (container && !container.hasChildNodes()) {
+                    remove(container);
                 }
 
             };

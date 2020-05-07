@@ -131,11 +131,9 @@ export default {
             read({height}, type) {
 
                 if (this.isActive && type !== 'update') {
-
                     this.hide();
                     height = this.$el.offsetHeight;
                     this.show();
-
                 }
 
                 height = !this.isActive ? this.$el.offsetHeight : height;
@@ -146,7 +144,7 @@ export default {
                 const bottom = parseProp('bottom', this);
 
                 this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
-                this.bottom = bottom && bottom - height;
+                this.bottom = bottom && bottom - this.$el.offsetHeight;
                 this.inactive = !this.matchMedia;
 
                 return {
@@ -168,7 +166,7 @@ export default {
                 }
 
                 // ensure active/inactive classes are applied
-                this.isActive = this.isActive;
+                this.isActive = this.isActive; // eslint-disable-line no-self-assign
 
             },
 
@@ -180,7 +178,7 @@ export default {
 
             read({scroll = 0}) {
 
-                this.width = (isVisible(this.widthElement) ? this.widthElement : this.$el).offsetWidth;
+                this.width = offset(isVisible(this.widthElement) ? this.widthElement : this.$el).width;
 
                 this.scroll = window.pageYOffset;
 
@@ -210,7 +208,7 @@ export default {
 
                 data.lastDir = dir;
 
-                if (this.showOnUp && Math.abs(data.initScroll - scroll) <= 30 && Math.abs(lastScroll - scroll) <= 10) {
+                if (this.showOnUp && !this.isFixed && Math.abs(data.initScroll - scroll) <= 30 && Math.abs(lastScroll - scroll) <= 10) {
                     return;
                 }
 
@@ -284,7 +282,7 @@ export default {
             const active = this.top !== 0 || this.scroll > this.top;
             let top = Math.max(0, this.offset);
 
-            if (this.bottom && this.scroll > this.bottom - this.offset) {
+            if (isNumeric(this.bottom) && this.scroll > this.bottom - this.offset) {
                 top = this.bottom - this.scroll;
             }
 
@@ -312,7 +310,7 @@ function parseProp(prop, {$props, $el, [`${prop}Offset`]: propOffset}) {
         return;
     }
 
-    if (isNumeric(value) && isString(value) && value.match(/^-?\d/)) {
+    if (isString(value) && value.match(/^-?\d/)) {
 
         return propOffset + toPx(value);
 

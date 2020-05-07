@@ -1,9 +1,9 @@
-import {$, addClass, append, css, hasClass, isTouch, on, once, pointerUp, Promise, removeClass, toMs, width, within} from 'uikit-util';
+import {$, addClass, append, css, includes, last, on, once, pointerCancel, pointerDown, pointerUp, Promise, removeClass, toMs, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
 
-let active;
+const active = [];
 
 export default {
 
@@ -43,7 +43,7 @@ export default {
 
     beforeDisconnect() {
         if (this.isToggled()) {
-            this.toggleNow(this.$el, false);
+            this.toggleElement(this.$el, false, false);
         }
     },
 
@@ -77,7 +77,10 @@ export default {
                 }
 
                 e.preventDefault();
-                this.toggle();
+
+                if (this.isToggled() === includes(active, this)) {
+                    this.toggle();
+                }
             }
 
         },
@@ -89,20 +92,15 @@ export default {
 
             handler(e) {
 
-                const prev = active && active !== this && active;
-
-                active = this;
-
-                if (!prev) {
-                    return;
+                if (includes(active, this)) {
+                    return false;
                 }
 
-                if (this.stack) {
-                    this.prev = prev;
-                } else {
-                    active = prev;
-                    prev.hide().then(this.show);
+                if (!this.stack && active.length) {
+                    Promise.all(active.map(modal => modal.hide())).then(this.show);
                     e.preventDefault();
+                } else {
+                    active.push(this);
                 }
             }
 
@@ -116,15 +114,38 @@ export default {
 
             handler() {
 
-                registerEvents();
-
-                if (!hasClass(document.documentElement, this.clsPage)) {
-                    this.scrollbarWidth = width(window) - width(document);
-                    css(document.body, 'overflowY', this.scrollbarWidth && this.overlay ? 'scroll' : '');
+                if (width(window) - width(document) && this.overlay) {
+                    css(document.body, 'overflowY', 'scroll');
                 }
+
+                this.stack && css(this.$el, 'zIndex', css(this.$el, 'zIndex') + active.length);
 
                 addClass(document.documentElement, this.clsPage);
 
+                if (this.bgClose) {
+                    once(this.$el, 'hide', on(document, pointerDown, ({target}) => {
+
+                        if (last(active) !== this || this.overlay && !within(target, this.$el) || within(target, this.panel)) {
+                            return;
+                        }
+
+                        once(document, `${pointerUp} ${pointerCancel} scroll`, ({defaultPrevented, type, target: newTarget}) => {
+                            if (!defaultPrevented && type === pointerUp && target === newTarget) {
+                                this.hide();
+                            }
+                        }, true);
+
+                    }), {self: true});
+                }
+
+                if (this.escClose) {
+                    once(this.$el, 'hide', on(document, 'keydown', e => {
+                        if (e.keyCode === 27 && last(active) === this) {
+                            e.preventDefault();
+                            this.hide();
+                        }
+                    }), {self: true});
+                }
             }
 
         },
@@ -137,30 +158,15 @@ export default {
 
             handler() {
 
-                let found, {prev} = this;
+                active.splice(active.indexOf(this), 1);
 
-                active = active && active !== this && active || prev;
-
-                if (!active) {
-
+                if (!active.length) {
                     css(document.body, 'overflowY', '');
-
-                } else {
-                    while (prev) {
-
-                        if (prev.clsPage === this.clsPage) {
-                            found = true;
-                            break;
-                        }
-
-                        // eslint-disable-next-line prefer-destructuring
-                        prev = prev.prev;
-
-                    }
-
                 }
 
-                if (!found) {
+                css(this.$el, 'zIndex', '');
+
+                if (!active.some(modal => modal.clsPage === this.clsPage)) {
                     removeClass(document.documentElement, this.clsPage);
                 }
 
@@ -192,48 +198,11 @@ export default {
 
         hide() {
             return this.toggleElement(this.$el, false, animate(this));
-        },
-
-        getActive() {
-            return active;
         }
 
     }
 
 };
-
-let registered;
-
-function registerEvents() {
-
-    if (registered) {
-        return;
-    }
-
-    registered = true;
-
-    on(document, `${pointerUp} click`, e => {
-
-        const {defaultPrevented, target, type} = e;
-
-        if (!defaultPrevented
-            && active && active.bgClose
-            && isTouch(e) ^ type === 'click'
-            && (!active.overlay || within(target, active.$el))
-            && !within(target, active.panel)
-        ) {
-            active.hide();
-        }
-    });
-
-    on(document, 'keydown', e => {
-        if (e.keyCode === 27 && active && active.escClose) {
-            e.preventDefault();
-            active.hide();
-        }
-    });
-
-}
 
 function animate({transitionElement, _toggle}) {
     return (el, show) =>
@@ -245,9 +214,9 @@ function animate({transitionElement, _toggle}) {
                 _toggle(el, show);
 
                 const off = once(transitionElement, 'transitionstart', () => {
-                    once(transitionElement, 'transitionend transitioncancel', resolve, false, e => e.target === transitionElement);
+                    once(transitionElement, 'transitionend transitioncancel', resolve, {self: true});
                     clearTimeout(timer);
-                }, false, e => e.target === transitionElement);
+                }, {self: true});
 
                 const timer = setTimeout(() => {
                     off();

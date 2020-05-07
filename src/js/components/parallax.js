@@ -1,5 +1,5 @@
 import Parallax from '../mixin/parallax';
-import {clamp, css, scrolledOver, query} from 'uikit-util';
+import {clamp, css, query, scrolledOver} from 'uikit-util';
 
 export default {
 

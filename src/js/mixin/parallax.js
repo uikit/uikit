@@ -144,7 +144,7 @@ export default {
                     data.image = img;
 
                     if (!img.naturalWidth) {
-                        img.onload = () => this.$emit();
+                        img.onload = () => this.$update();
                     }
                 }
 

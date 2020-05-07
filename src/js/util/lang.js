@@ -48,7 +48,7 @@ export function endsWith(str, search) {
 
 const arrPrototype = Array.prototype;
 
-const includesFn = function (search, i) { return ~this.indexOf(search, i); };
+const includesFn = function (search, i) { return !!~this.indexOf(search, i); };
 const includesStr = strPrototype.includes || includesFn;
 const includesArray = arrPrototype.includes || includesFn;
 
@@ -79,8 +79,9 @@ export function isObject(obj) {
     return obj !== null && typeof obj === 'object';
 }
 
+const {toString} = objPrototype;
 export function isPlainObject(obj) {
-    return isObject(obj) && Object.getPrototypeOf(obj) === objPrototype;
+    return toString.call(obj) === '[object Object]';
 }
 
 export function isWindow(obj) {
@@ -96,10 +97,13 @@ export function isJQuery(obj) {
 }
 
 export function isNode(obj) {
-    return obj instanceof Node || isObject(obj) && obj.nodeType >= 1;
+    return isObject(obj) && obj.nodeType >= 1;
 }
 
-const {toString} = objPrototype;
+export function isElement(obj) {
+    return isObject(obj) && obj.nodeType === 1;
+}
+
 export function isNodeCollection(obj) {
     return toString.call(obj).match(/^\[object (NodeList|HTMLCollection)\]$/);
 }
@@ -153,7 +157,7 @@ export function toFloat(value) {
 }
 
 export function toNode(element) {
-    return isNode(element) || isWindow(element) || isDocument(element)
+    return isNode(element)
         ? element
         : isNodeCollection(element) || isJQuery(element)
             ? element[0]
@@ -172,6 +176,21 @@ export function toNodes(element) {
                 : isJQuery(element)
                     ? element.toArray()
                     : [];
+}
+
+export function toWindow(element) {
+    if (isWindow(element)) {
+        return element;
+    }
+
+    element = toNode(element);
+
+    return element
+        ? (isDocument(element)
+            ? element
+            : element.ownerDocument
+        ).defaultView
+        : window;
 }
 
 export function toList(value) {
@@ -201,9 +220,10 @@ export function isEqual(value, other) {
 }
 
 export function swap(value, a, b) {
-    return value.replace(new RegExp(`${a}|${b}`, 'mg'), match => {
-        return match === a ? b : a;
-    });
+    return value.replace(
+        new RegExp(`${a}|${b}`, 'g'),
+        match => match === a ? b : a
+    );
 }
 
 export const assign = Object.assign || function (target, ...args) {
@@ -220,6 +240,10 @@ export const assign = Object.assign || function (target, ...args) {
     }
     return target;
 };
+
+export function last(array) {
+    return array[array.length - 1];
+}
 
 export function each(obj, cb) {
     for (const key in obj) {

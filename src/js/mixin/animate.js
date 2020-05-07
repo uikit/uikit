@@ -1,4 +1,4 @@
-import {addClass, append, assign, css, fastdom, height, includes, index, isVisible, noop, position, Promise, removeClass, scrollTop, toFloat, toNodes, Transition} from 'uikit-util';
+import {addClass, append, assign, css, fastdom, children as getChildren, height, includes, index, isVisible, noop, offset, position, Promise, removeClass, scrollTop, Transition} from 'uikit-util';
 
 const targetClass = 'uk-animation-target';
 
@@ -26,7 +26,7 @@ export default {
 
             addStyle();
 
-            let children = toNodes(this.target.children);
+            let children = getChildren(this.target);
             let propsFrom = children.map(el => getProps(el, true));
 
             const oldHeight = height(this.target);
@@ -38,12 +38,12 @@ export default {
             children.forEach(Transition.cancel);
 
             reset(this.target);
-            this.$update(this.target);
+            this.$update(this.target, 'resize');
             fastdom.flush();
 
             const newHeight = height(this.target);
 
-            children = children.concat(toNodes(this.target.children).filter(el => !includes(children, el)));
+            children = children.concat(getChildren(this.target).filter(el => !includes(children, el)));
 
             const propsTo = children.map((el, i) =>
                 el.parentNode && i in propsFrom
@@ -79,17 +79,19 @@ export default {
 
             addClass(this.target, targetClass);
             children.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-            css(this.target, 'height', oldHeight);
+            css(this.target, {height: oldHeight, display: 'block'});
             scrollTop(window, oldScrollY);
 
-            return Promise.all(children.map((el, i) =>
-                propsFrom[i] && propsTo[i]
-                    ? Transition.start(el, propsTo[i], this.animation, 'ease')
-                    : Promise.resolve()
-            ).concat(Transition.start(this.target, {height: newHeight}, this.animation, 'ease'))).then(() => {
+            return Promise.all(
+                children.map((el, i) =>
+                    ['top', 'left', 'height', 'width'].some(prop =>
+                        propsFrom[i][prop] !== propsTo[i][prop]
+                    ) && Transition.start(el, propsTo[i], this.animation, 'ease')
+                ).concat(oldHeight !== newHeight && Transition.start(this.target, {height: newHeight}, this.animation, 'ease'))
+            ).then(() => {
                 children.forEach((el, i) => css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}));
                 reset(this.target);
-                this.$update(this.target);
+                this.$update(this.target, 'resize');
                 fastdom.flush(); // needed for IE11
             }, noop);
 
@@ -123,13 +125,12 @@ function reset(el) {
         width: ''
     });
     removeClass(el, targetClass);
-    css(el, 'height', '');
+    css(el, {height: '', display: ''});
 }
 
 function getPositionWithMargin(el) {
-    const {height, width} = el.getBoundingClientRect();
-    let {top, left} = position(el);
-    top += toFloat(css(el, 'marginTop'));
+    const {height, width} = offset(el);
+    const {top, left} = position(el);
 
     return {top, left, height, width};
 }

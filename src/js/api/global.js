@@ -1,4 +1,4 @@
-import {$, apply, isString, mergeOptions, toNode} from 'uikit-util';
+import {$, apply, isString, mergeOptions, parents, toNode} from 'uikit-util';
 
 export default function (UIkit) {
 
@@ -44,7 +44,7 @@ export default function (UIkit) {
 
         element = element ? toNode(element) : document.body;
 
-        path(element, element => update(element[DATA], e));
+        parents(element).reverse().forEach(element => update(element[DATA], e));
         apply(element, element => update(element[DATA], e));
 
     };
@@ -75,12 +75,4 @@ export default function (UIkit) {
         }
 
     }
-
-    function path(node, fn) {
-        if (node && node !== document.body && node.parentNode) {
-            path(node.parentNode, fn);
-            fn(node.parentNode);
-        }
-    }
-
 }

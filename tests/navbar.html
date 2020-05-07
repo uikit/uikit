@@ -2014,18 +2014,19 @@
             var util = UIkit.util,
                 tracker = new util.MouseTracker(),
                 el = util.$('#js-mousetracker'),
-                target = util.$('#js-mousetarget');
+                target = util.$('#js-mousetarget'),
+                interval;
 
             util.on(el, 'mouseenter', function () {
-                tracker.init()
+                tracker.init();
+                interval = setInterval(function () {
+                    target.textContent = tracker.movesTo(target.parentNode) ? 'Moves to' : 'Does not move to';
+                });
             });
 
             util.on(el, 'mouseleave', function () {
-                tracker.cancel()
-            });
-
-            util.on(el, 'mousemove', function () {
-                target.textContent = tracker.movesTo(target.parentNode) ? 'Moves to' : 'Moves away';
+                tracker.cancel();
+                clearInterval(interval);
             });
 
         </script>

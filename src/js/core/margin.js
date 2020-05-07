@@ -1,4 +1,4 @@
-import {isRtl, isVisible, offsetPosition, toggleClass} from 'uikit-util';
+import {includes, isRtl, isVisible, offsetPosition, toggleClass} from 'uikit-util';
 
 export default {
 
@@ -14,29 +14,20 @@ export default {
 
     update: {
 
-        read(data) {
-
-            const items = this.$el.children;
-            const rows = [[]];
-
-            if (!items.length || !isVisible(this.$el)) {
-                return data.rows = rows;
-            }
-
-            data.rows = getRows(items);
-            data.stacks = !data.rows.some(row => row.length > 1);
-
+        read() {
+            return {
+                columns: getColumns(this.$el.children),
+                rows: getRows(this.$el.children)
+            };
         },
 
-        write({rows}) {
-
+        write({columns, rows}) {
             rows.forEach((row, i) =>
-                row.forEach((el, j) => {
+                row.forEach(el => {
                     toggleClass(el, this.margin, i !== 0);
-                    toggleClass(el, this.firstColumn, j === 0);
+                    toggleClass(el, this.firstColumn, includes(columns[0], el));
                 })
             );
-
         },
 
         events: ['resize']
@@ -46,52 +37,59 @@ export default {
 };
 
 export function getRows(items) {
-    const rows = [[]];
+    return sortBy(items, 'top', 'bottom');
+}
+
+function getColumns(items) {
+    const columns = sortBy(items, 'left', 'right');
+    return isRtl
+        ? columns.reverse()
+        : columns;
+}
+
+function sortBy(items, startProp, endProp) {
+
+    const sorted = [[]];
 
     for (let i = 0; i < items.length; i++) {
 
         const el = items[i];
-        let dim = getOffset(el);
 
-        if (!dim.height) {
+        if (!isVisible(el)) {
             continue;
         }
 
-        for (let j = rows.length - 1; j >= 0; j--) {
+        let dim = getOffset(el);
 
-            const row = rows[j];
+        for (let j = sorted.length - 1; j >= 0; j--) {
 
-            if (!row[0]) {
-                row.push(el);
+            const current = sorted[j];
+
+            if (!current[0]) {
+                current.push(el);
                 break;
             }
 
-            let leftDim;
-            if (row[0].offsetParent === el.offsetParent) {
-                leftDim = getOffset(row[0]);
+            let startDim;
+            if (current[0].offsetParent === el.offsetParent) {
+                startDim = getOffset(current[0]);
             } else {
                 dim = getOffset(el, true);
-                leftDim = getOffset(row[0], true);
+                startDim = getOffset(current[0], true);
             }
 
-            if (dim.top >= leftDim.bottom - 1 && dim.top !== leftDim.top) {
-                rows.push([el]);
+            if (dim[startProp] >= startDim[endProp] - 1 && dim[startProp] !== startDim[startProp]) {
+                sorted.push([el]);
                 break;
             }
 
-            if (dim.bottom > leftDim.top) {
-
-                if (dim.left < leftDim.left && !isRtl) {
-                    row.unshift(el);
-                    break;
-                }
-
-                row.push(el);
+            if (dim[endProp] > startDim[startProp] || dim[startProp] === startDim[startProp]) {
+                current.push(el);
                 break;
             }
 
             if (j === 0) {
-                rows.unshift([el]);
+                sorted.unshift([el]);
                 break;
             }
 
@@ -99,13 +97,12 @@ export function getRows(items) {
 
     }
 
-    return rows;
-
+    return sorted;
 }
 
 function getOffset(element, offset = false) {
 
-    let {offsetTop, offsetLeft, offsetHeight} = element;
+    let {offsetTop, offsetLeft, offsetHeight, offsetWidth} = element;
 
     if (offset) {
         [offsetTop, offsetLeft] = offsetPosition(element);
@@ -114,7 +111,7 @@ function getOffset(element, offset = false) {
     return {
         top: offsetTop,
         left: offsetLeft,
-        height: offsetHeight,
-        bottom: offsetTop + offsetHeight
+        bottom: offsetTop + offsetHeight,
+        right: offsetLeft + offsetWidth
     };
 }

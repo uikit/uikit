@@ -20,7 +20,8 @@
 $container-max-width:                    1200px !default;
 $container-xsmall-max-width:             750px !default;
 $container-small-max-width:              900px !default;
-$container-large-max-width:              1600px !default;
+$container-large-max-width:              1400px !default;
+$container-xlarge-max-width:             1600px !default;
 
 $container-padding-horizontal:           15px !default;
 $container-padding-horizontal-s:         $global-gutter !default;
@@ -103,6 +104,8 @@ $container-padding-horizontal-m:         $global-medium-gutter !default;
 
 .uk-container-large { max-width: $container-large-max-width; }
 
+.uk-container-xlarge { max-width: $container-xlarge-max-width; }
+
 .uk-container-expand { max-width: none; }
 
 
@@ -141,6 +144,9 @@ $container-padding-horizontal-m:         $global-medium-gutter !default;
 
     .uk-container-expand-left.uk-container-large,
     .uk-container-expand-right.uk-container-large { max-width: unquote('calc(50% + (#{$container-large-max-width} / 2) - #{$container-padding-horizontal-m})'); }
+
+    .uk-container-expand-left.uk-container-xlarge,
+    .uk-container-expand-right.uk-container-xlarge { max-width: unquote('calc(50% + (#{$container-xlarge-max-width} / 2) - #{$container-padding-horizontal-m})'); }
 
 }
 

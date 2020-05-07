@@ -27,7 +27,7 @@ export default {
         write() {
 
             if (this.nav && this.length !== this.nav.children.length) {
-                html(this.nav, this.slides.map((_, i) => `<li ${this.attrItem}="${i}"><a href="#"></a></li>`).join(''));
+                html(this.nav, this.slides.map((_, i) => `<li ${this.attrItem}="${i}"><a href></a></li>`).join(''));
             }
 
             toggleClass($$(this.selNavItem, this.$el).concat(this.nav), 'uk-hidden', !this.maxIndex);
