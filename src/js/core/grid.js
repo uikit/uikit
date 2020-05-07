@@ -122,24 +122,20 @@ export default {
 
 function getTranslates(rows, columns) {
 
-    const translates = [];
     const rowHeights = rows.map(row =>
         Math.max(...row.map(el => el.offsetHeight))
     );
 
-    columns.forEach((elements, column) =>
-        elements.forEach((element, row) => {
-            if (row === 0) {
-                translates[column] = [0];
-            } else {
-                translates[column][row] = rowHeights[row - 1]
-                    - columns[column][row - 1].offsetHeight
-                    + translates[column][row - 1];
-            }
-        })
-    );
+    return columns.map(elements => {
 
-    return translates;
+        let prev = 0;
+        return elements.map((element, row) =>
+            prev += row
+                ? rowHeights[row - 1] - elements[row - 1].offsetHeight
+                : 0
+        );
+
+    });
 }
 
 function getMarginTop(nodes, cls) {
