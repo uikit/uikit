@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Scrollspy component stuck in wrong state
+
 ## 3.4.3 (May 5, 2020)
 
 ### Added
