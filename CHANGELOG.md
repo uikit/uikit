@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Scrollspy component stuck in wrong state
+- Fix regression in Grid component with masonry
 
 ## 3.4.3 (May 5, 2020)
 
