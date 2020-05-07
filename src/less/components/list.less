@@ -12,6 +12,7 @@
 //                  `uk-list-emphasis`
 //                  `uk-list-primary`
 //                  `uk-list-secondary`
+//                  `uk-list-bullet`
 //                  `uk-list-divider`
 //                  `uk-list-striped`
 //                  `uk-list-large`
@@ -32,6 +33,10 @@
 @list-primary-color:                            @global-primary-background;
 @list-secondary-color:                          @global-secondary-background;
 
+@list-bullet-width:                             (@global-line-height * 1em);
+@list-bullet-height:                            @list-bullet-width;
+@list-bullet-icon-color:                        @global-color;
+
 @list-divider-margin-top:                       @global-small-margin;
 @list-divider-border-width:                     @global-border-width;
 @list-divider-border:                           @global-border;
@@ -44,6 +49,8 @@
 @list-large-divider-margin-top:                 @global-margin;
 @list-large-striped-padding-vertical:           @global-margin;
 @list-large-striped-padding-horizontal:         @global-small-margin;
+
+@internal-list-bullet-image:                    "../../images/backgrounds/list-bullet.svg";
 
 
 /* ========================================================================
@@ -95,6 +102,27 @@
 .uk-list-secondary li::marker { color: @list-secondary-color !important; }
 
 
+/* Image bullet modifier
+ ========================================================================== */
+
+.uk-list-bullet > li {
+    position: relative;
+    padding-left: @list-padding-left;
+}
+
+.uk-list-bullet > li::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: @list-bullet-width;
+    height: @list-bullet-height;
+    .svg-fill(@internal-list-bullet-image, "#000", @list-bullet-icon-color);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
+
 /* Style modifiers
  ========================================================================== */
 
@@ -121,41 +149,6 @@
 .uk-list-striped > li:nth-of-type(odd) { background: @list-striped-background; }
 
 .uk-list-striped > li:nth-child(n+2) { margin-top: 0; }
-
-
-/* Bullet
-   Deprecated: Use `uk-list-disc` instead
- ========================================================================== */
-
-@list-bullet-width:                             (@global-line-height * 1em);
-@list-bullet-height:                            @list-bullet-width;
-@list-bullet-margin-right:                      @global-small-margin;
-@list-bullet-icon-color:                        @global-color;
-@internal-list-bullet-image:                    "../../images/backgrounds/list-bullet.svg";
-
-/*
- * 1. Reset display `table` which causes issues in combination with multi column layouts.
- */
- 
-.uk-list-bullet > li when (@deprecated = true) {
-    position: relative;
-    padding-left: ~'calc(@{list-bullet-width} + @{list-bullet-margin-right})';
-}
- 
-.uk-list-bullet > li::before when (@deprecated = true) {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: @list-bullet-width;
-    height: @list-bullet-height;
-    .svg-fill(@internal-list-bullet-image, "#000", @list-bullet-icon-color);
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    /* 1 */
-    display: block;
-    .hook-list-bullet;
-}
 
 
 /* Size modifier
@@ -203,7 +196,6 @@
 
 .hook-list-divider() {}
 .hook-list-striped() {}
-.hook-list-bullet() {}
 .hook-list-misc() {}
 
 
@@ -227,6 +219,10 @@
     .uk-list-primary li::marker { color: @inverse-list-primary-color !important; }
     .uk-list-secondary li::marker { color: @inverse-list-secondary-color !important; }
 
+    .uk-list-bullet > li::before {
+        .svg-fill(@internal-list-bullet-image, "#000", @inverse-list-bullet-icon-color);
+    }
+
     .uk-list-divider > li:nth-child(n+2) {
         border-top-color: @inverse-list-divider-border;
         .hook-inverse-list-divider;
@@ -238,13 +234,7 @@
 
     .uk-list-striped > li:nth-of-type(odd) { background-color: @inverse-list-striped-background; }
 
-    .uk-list-bullet > li::before when (@deprecated = true) {
-        .svg-fill(@internal-list-bullet-image, "#000", @inverse-list-bullet-icon-color);
-        .hook-inverse-list-bullet;
-    }
-
 }
 
 .hook-inverse-list-divider() {}
 .hook-inverse-list-striped() {}
-.hook-inverse-list-bullet() {}

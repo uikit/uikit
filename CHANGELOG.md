@@ -16,10 +16,6 @@
 - Fix Search Icon with large modifier
 - Fix Grid divider in RTL mode
 
-### Deprecated
-
-- List Bullet: Use `uk-list-disc` instead of `uk-list-bullet`
-
 ## 3.4.2 (April 20, 2020)
 
 ### Added
