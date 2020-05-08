@@ -83,7 +83,7 @@ export function animate(element, animation, duration = 200, origin, out) {
             }, {self: true});
 
             css(element, 'animationDuration', `${duration}ms`);
-            addClass(element, animation, `${animationPrefix}${out ? 'leave' : 'enter'}`);
+            addClass(element, animation, animationPrefix + (out ? 'leave' : 'enter'));
 
             if (startsWith(animation, animationPrefix)) {
                 addClass(element, origin && `uk-transform-origin-${origin}`, out && `${animationPrefix}reverse`);
