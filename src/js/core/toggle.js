@@ -11,7 +11,8 @@ export default {
     props: {
         href: String,
         target: null,
-        mode: 'list'
+        mode: 'list',
+        queued: Boolean
     },
 
     data: {
