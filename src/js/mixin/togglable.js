@@ -1,4 +1,4 @@
-import {$$, Animation, assign, attr, css, fastdom, hasAttr, hasClass, height, includes, isBoolean, isFunction, isUndefined, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger} from 'uikit-util';
+import {$$, Animation, assign, attr, css, fastdom, hasAttr, hasClass, height, includes, isBoolean, isFunction, isVisible, noop, Promise, toFloat, toggleClass, toNodes, Transition, trigger} from 'uikit-util';
 
 export default {
 
@@ -7,8 +7,7 @@ export default {
         animation: 'list',
         duration: Number,
         origin: String,
-        transition: String,
-        queued: Boolean
+        transition: String
     },
 
     data: {
@@ -17,7 +16,6 @@ export default {
         duration: 200,
         origin: false,
         transition: 'linear',
-        queued: false,
 
         initProps: {
             overflow: '',
@@ -54,43 +52,11 @@ export default {
     methods: {
 
         toggleElement(targets, show, animate) {
-            return new Promise(resolve => {
-
-                targets = toNodes(targets);
-
-                const all = targets => Promise.all(targets.map(el => this._toggleElement(el, show, animate)));
-
-                let p;
-
-                if (!this.queued || !isUndefined(show) || !this.hasAnimation || targets.length < 2) {
-
-                    p = all(targets);
-
-                } else {
-
-                    const toggled = targets.filter(el => this.isToggled(el));
-                    const untoggled = targets.filter(el => !includes(toggled, el));
-                    const {body} = document;
-                    const scroll = body.scrollTop;
-                    const [el] = toggled;
-                    const inProgress = Animation.inProgress(el) && hasClass(el, 'uk-animation-leave')
-                            || Transition.inProgress(el) && el.style.height === '0px';
-
-                    p = all(toggled);
-
-                    if (!inProgress) {
-                        p = p.then(() => {
-                            const p = all(untoggled);
-                            body.scrollTop = scroll;
-                            return p;
-                        });
-                    }
-
-                }
-
-                p.then(resolve, noop);
-
-            });
+            return Promise.all(toNodes(targets).map(el =>
+                new Promise(resolve =>
+                    this._toggleElement(el, show, animate).then(resolve, noop)
+                )
+            ));
         },
 
         isToggled(el) {

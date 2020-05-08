@@ -112,7 +112,19 @@ export default {
 
         toggle(type) {
             if (trigger(this.target, type || 'toggle', [this])) {
-                this.toggleElement(this.target);
+                if (this.queued) {
+
+                    const toggled = this.target.filter(this.isToggled);
+                    this.toggleElement(toggled, false).then(() =>
+                        this.toggleElement(this.target.filter(el =>
+                            !includes(toggled, el)
+                        ), true)
+                    );
+
+                } else {
+                    this.toggleElement(this.target);
+                }
+
             }
         }
 
