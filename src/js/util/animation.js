@@ -62,21 +62,11 @@ export const Transition = {
 };
 
 const animationPrefix = 'uk-animation-';
-const clsCancelAnimation = 'uk-cancel-animation';
 
 export function animate(element, animation, duration = 200, origin, out) {
 
     return Promise.all(toNodes(element).map(element =>
         new Promise((resolve, reject) => {
-
-            if (hasClass(element, clsCancelAnimation)) {
-                requestAnimationFrame(() =>
-                    Promise.resolve().then(() =>
-                        animate(...arguments).then(resolve, reject)
-                    )
-                );
-                return;
-            }
 
             let cls = `${animation} ${animationPrefix}${out ? 'leave' : 'enter'}`;
 
@@ -96,26 +86,13 @@ export function animate(element, animation, duration = 200, origin, out) {
 
             once(element, 'animationend animationcancel', ({type}) => {
 
-                let hasReset = false;
-
                 if (type === 'animationcancel') {
                     reject();
-                    reset();
                 } else {
                     resolve();
-                    Promise.resolve().then(() => {
-                        hasReset = true;
-                        reset();
-                    });
                 }
 
-                requestAnimationFrame(() => {
-                    if (!hasReset) {
-                        addClass(element, clsCancelAnimation);
-
-                        requestAnimationFrame(() => removeClass(element, clsCancelAnimation));
-                    }
-                });
+                reset();
 
             }, {self: true});
 
