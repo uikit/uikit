@@ -127,14 +127,12 @@ function getTranslates(rows, columns) {
     );
 
     return columns.map(elements => {
-
         let prev = 0;
         return elements.map((element, row) =>
             prev += row
                 ? rowHeights[row - 1] - elements[row - 1].offsetHeight
                 : 0
         );
-
     });
 }
 
