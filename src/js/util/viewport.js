@@ -2,7 +2,7 @@ import {css} from './style';
 import {Promise} from './promise';
 import {isVisible, parents} from './filter';
 import {offset, offsetPosition, position} from './dimensions';
-import {clamp, intersectRect, isDocument, isWindow, last, pointInRect, toNode, toWindow} from './lang';
+import {clamp, intersectRect, isDocument, isWindow, last, toNode, toWindow} from './lang';
 
 export function isInView(element, offsetTop = 0, offsetLeft = 0) {
 
@@ -10,25 +10,20 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
         return false;
     }
 
-    const parents = overflowParents(element).concat(element);
+    const parents = overflowParents(element);
 
-    for (let i = 0; i < parents.length - 1; i++) {
-        const {top, left, bottom, right} = offset(getViewport(parents[i]));
-        const vp = {
+    return parents.every((parent, i) => {
+
+        const client = offset(parents[i + 1] || element);
+        const {top, left, bottom, right} = offset(getViewport(parent));
+
+        return intersectRect(client, {
             top: top - offsetTop,
             left: left - offsetLeft,
             bottom: bottom + offsetTop,
             right: right + offsetLeft
-        };
-
-        const client = offset(parents[i + 1]);
-
-        if (!intersectRect(client, vp) && !pointInRect({x: client.left, y: client.top}, vp)) {
-            return false;
-        }
-    }
-
-    return true;
+        });
+    });
 }
 
 export function scrollTop(element, top) {
