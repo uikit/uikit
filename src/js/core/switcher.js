@@ -137,8 +137,8 @@ export default {
             this.connects.forEach(({children}) =>
                 this.toggleElement(toNodes(children).filter((child, i) =>
                     i !== next && this.isToggled(child)
-                ), false, ~prev).then(() =>
-                    this.toggleElement(children[next], true, ~prev)
+                ), false, prev >= 0).then(() =>
+                    this.toggleElement(children[next], true, prev >= 0)
                 )
             );
         }
