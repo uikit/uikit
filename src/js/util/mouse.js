@@ -76,6 +76,6 @@ function intersect([{x: x1, y: y1}, {x: x2, y: y2}], [{x: x3, y: y3}, {x: x4, y:
         return false;
     }
 
-    // Return a object with the x and y coordinates of the intersection
+    // Return an object with the x and y coordinates of the intersection
     return {x: x1 + ua * (x2 - x1), y: y1 + ua * (y2 - y1)};
 }

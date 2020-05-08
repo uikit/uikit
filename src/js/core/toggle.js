@@ -111,20 +111,22 @@ export default {
     methods: {
 
         toggle(type) {
-            if (trigger(this.target, type || 'toggle', [this])) {
-                if (this.queued) {
 
-                    const toggled = this.target.filter(this.isToggled);
-                    this.toggleElement(toggled, false).then(() =>
-                        this.toggleElement(this.target.filter(el =>
-                            !includes(toggled, el)
-                        ), true)
-                    );
+            if (!trigger(this.target, type || 'toggle', [this])) {
+                return;
+            }
 
-                } else {
-                    this.toggleElement(this.target);
-                }
+            if (this.queued) {
 
+                const toggled = this.target.filter(this.isToggled);
+                this.toggleElement(toggled, false).then(() =>
+                    this.toggleElement(this.target.filter(el =>
+                        !includes(toggled, el)
+                    ), true)
+                );
+
+            } else {
+                this.toggleElement(this.target);
             }
         }
 
