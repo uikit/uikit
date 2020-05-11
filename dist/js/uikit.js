@@ -1,4 +1,4 @@
-/*! UIkit 3.4.5 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.4.6 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3536,7 +3536,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.4.5';
+    UIkit.version = '3.4.6';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -7938,6 +7938,12 @@
 
                 immediate: true
 
+            },
+
+            children: function() {
+                var this$1 = this;
+
+                return children(this.$el).filter(function (child) { return this$1.toggles.some(function (toggle) { return within(toggle, child); }); });
             }
 
         },
@@ -8004,7 +8010,7 @@
             index: function() {
                 var this$1 = this;
 
-                return index(this.toggles, this.toggles.filter(function (el) { return within(el, ("." + (this$1.cls))); }));
+                return findIndex(this.children, function (el) { return hasClass(el, this$1.cls); });
             },
 
             show: function(item) {
@@ -8014,9 +8020,9 @@
                 var prev = this.index();
                 var next = getIndex(item, this.toggles, prev);
 
-                this.toggles.forEach(function (toggle, i) {
-                    toggleClass(children(this$1.$el).filter(function (el) { return within(toggle, el); }), this$1.cls, next === i);
-                    attr(toggle, 'aria-expanded', next === i);
+                this.children.forEach(function (child, i) {
+                    toggleClass(child, this$1.cls, next === i);
+                    attr(this$1.toggles[i], 'aria-expanded', next === i);
                 });
 
                 this.connects.forEach(function (ref) {
