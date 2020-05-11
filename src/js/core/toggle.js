@@ -11,7 +11,8 @@ export default {
     props: {
         href: String,
         target: null,
-        mode: 'list'
+        mode: 'list',
+        queued: Boolean
     },
 
     data: {
@@ -111,7 +112,21 @@ export default {
     methods: {
 
         toggle(type) {
-            if (trigger(this.target, type || 'toggle', [this])) {
+
+            if (!trigger(this.target, type || 'toggle', [this])) {
+                return;
+            }
+
+            if (this.queued) {
+
+                const toggled = this.target.filter(this.isToggled);
+                this.toggleElement(toggled, false).then(() =>
+                    this.toggleElement(this.target.filter(el =>
+                        !includes(toggled, el)
+                    ), true)
+                );
+
+            } else {
                 this.toggleElement(this.target);
             }
         }

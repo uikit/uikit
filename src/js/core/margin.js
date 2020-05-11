@@ -83,7 +83,7 @@ function sortBy(items, startProp, endProp) {
                 break;
             }
 
-            if (dim[endProp] > startDim[startProp] || dim[startProp] === startDim[startProp]) {
+            if (dim[endProp] - 1 > startDim[startProp] || dim[startProp] === startDim[startProp]) {
                 current.push(el);
                 break;
             }

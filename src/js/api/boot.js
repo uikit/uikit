@@ -1,11 +1,11 @@
 import {getComponentName} from './component';
-import {apply, fastdom, hasAttr} from 'uikit-util';
+import {apply, fastdom, hasAttr, inBrowser} from 'uikit-util';
 
 export default function (UIkit) {
 
     const {connect, disconnect} = UIkit;
 
-    if (!('MutationObserver' in window)) {
+    if (!inBrowser || !window.MutationObserver) {
         return;
     }
 

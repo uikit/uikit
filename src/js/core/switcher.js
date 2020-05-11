@@ -1,5 +1,5 @@
 import Togglable from '../mixin/togglable';
-import {$$, attr, children, css, data, endsWith, getIndex, includes, index, matches, queryAll, toggleClass, within} from 'uikit-util';
+import {$$, attr, children, css, data, endsWith, getIndex, includes, index, matches, queryAll, toggleClass, toNodes, within} from 'uikit-util';
 
 export default {
 
@@ -21,8 +21,7 @@ export default {
         swiping: true,
         cls: 'uk-active',
         clsContainer: 'uk-switcher',
-        attrItem: 'uk-switcher-item',
-        queued: true
+        attrItem: 'uk-switcher-item'
     },
 
     computed: {
@@ -115,23 +114,6 @@ export default {
             handler({type}) {
                 this.show(endsWith(type, 'Left') ? 'next' : 'previous');
             }
-        },
-
-        {
-            name: 'show',
-
-            el() {
-                return this.connects;
-            },
-
-            handler() {
-                const index = this.index();
-
-                this.toggles.forEach((toggle, i) => {
-                    toggleClass(children(this.$el).filter(el => within(toggle, el)), this.cls, index === i);
-                    attr(toggle, 'aria-expanded', index === i);
-                });
-            }
         }
 
     ],
@@ -139,7 +121,7 @@ export default {
     methods: {
 
         index() {
-            return index(children(this.connects[0], `.${this.cls}`)[0]);
+            return index(this.toggles, this.toggles.filter(el => within(el, `.${this.cls}`)));
         },
 
         show(item) {
@@ -147,8 +129,17 @@ export default {
             const prev = this.index();
             const next = getIndex(item, this.toggles, prev);
 
+            this.toggles.forEach((toggle, i) => {
+                toggleClass(children(this.$el).filter(el => within(toggle, el)), this.cls, next === i);
+                attr(toggle, 'aria-expanded', next === i);
+            });
+
             this.connects.forEach(({children}) =>
-                this.toggleElement([children[prev], children[next]], undefined, prev >= 0)
+                this.toggleElement(toNodes(children).filter((child, i) =>
+                    i !== next && this.isToggled(child)
+                ), false, prev >= 0).then(() =>
+                    this.toggleElement(children[next], true, prev >= 0)
+                )
             );
         }
 

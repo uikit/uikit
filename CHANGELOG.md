@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.4.5 (May 11, 2020)
+
+### Added
+
+- Add inBrowser check to enable server-side rendering 
+
+### Fixed
+
+- Fix Switcher responsiveness
+- Fix `isInView()` no longer returns true for adjacent rectangles
+- Fix compatibility with browsers that support `Object.prototype.watch()`
+
 ## 3.4.4 (May 7, 2020)
 
 ### Fixed
