@@ -1,5 +1,5 @@
 import Togglable from '../mixin/togglable';
-import {$$, attr, children, css, data, endsWith, getIndex, includes, index, matches, queryAll, toggleClass, toNodes, within} from 'uikit-util';
+import {$$, attr, children, css, data, endsWith, findIndex, getIndex, hasClass, includes, matches, queryAll, toggleClass, toNodes, within} from 'uikit-util';
 
 export default {
 
@@ -59,6 +59,10 @@ export default {
 
             immediate: true
 
+        },
+
+        children() {
+            return children(this.$el).filter(child => this.toggles.some(toggle => within(toggle, child)));
         }
 
     },
@@ -121,7 +125,7 @@ export default {
     methods: {
 
         index() {
-            return index(this.toggles, this.toggles.filter(el => within(el, `.${this.cls}`)));
+            return findIndex(this.children, el => hasClass(el, this.cls));
         },
 
         show(item) {
@@ -129,9 +133,9 @@ export default {
             const prev = this.index();
             const next = getIndex(item, this.toggles, prev);
 
-            this.toggles.forEach((toggle, i) => {
-                toggleClass(children(this.$el).filter(el => within(toggle, el)), this.cls, next === i);
-                attr(toggle, 'aria-expanded', next === i);
+            this.children.forEach((child, i) => {
+                toggleClass(child, this.cls, next === i);
+                attr(this.toggles[i], 'aria-expanded', next === i);
             });
 
             this.connects.forEach(({children}) =>
