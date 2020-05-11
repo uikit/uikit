@@ -99,13 +99,13 @@ export default function (UIkit) {
 
         const {_frames} = this;
 
-        if (_frames.watch) {
+        if (_frames._watch) {
             return;
         }
 
-        const initital = !hasOwn(_frames, 'watch');
+        const initital = !hasOwn(_frames, '_watch');
 
-        _frames.watch = fastdom.read(() => {
+        _frames._watch = fastdom.read(() => {
 
             if (!this._connected) {
                 return;
@@ -130,7 +130,7 @@ export default function (UIkit) {
 
             }
 
-            _frames.watch = null;
+            _frames._watch = null;
 
         });
 
