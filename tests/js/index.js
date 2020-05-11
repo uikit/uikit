@@ -132,6 +132,7 @@ on(window, 'load', () => setTimeout(() => fastdom.write(() => {
                     'switcher',
                     'tab',
                     'table',
+                    'table-scrollable',
                     'text',
                     'thumbnav',
                     'tile',
