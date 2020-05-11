@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.4.6 (May 11, 2020)
+
+### Fixed
+
+- Fix regression in Switcher component
+
 ## 3.4.5 (May 11, 2020)
 
 ### Added
