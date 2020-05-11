@@ -1,6 +1,6 @@
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {addClass, Animation, apply, attr, css, includes, isTouch, MouseTracker, offset, on, once, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
+import {addClass, Animation, apply, attr, css, inBrowser, includes, isTouch, MouseTracker, offset, on, once, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
 
 let active;
 
@@ -23,7 +23,7 @@ export default {
     data: {
         mode: ['click', 'hover'],
         toggle: '- *',
-        boundary: window,
+        boundary: inBrowser && window,
         boundaryAlign: false,
         delayShow: 0,
         delayHide: 800,

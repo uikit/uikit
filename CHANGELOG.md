@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add inBrowser check to enable server-side rendering 
+
 ### Fixed
 
 - Fix Switcher responsiveness

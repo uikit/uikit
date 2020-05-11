@@ -1,8 +1,8 @@
-import {css, fastdom, getEventPos, isTouch, on, once, pointerCancel, pointerDown, pointerUp, ready, toMs, trigger} from 'uikit-util';
+import {css, fastdom, getEventPos, inBrowser, isTouch, on, once, pointerCancel, pointerDown, pointerUp, ready, toMs, trigger} from 'uikit-util';
 
 export default function (UIkit) {
 
-    ready(() => {
+    inBrowser && ready(() => {
 
         UIkit.update();
         on(window, 'load resize', () => UIkit.update(null, 'resize'));

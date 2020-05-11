@@ -1,10 +1,10 @@
 import {on} from './event';
 import {toFloat} from './lang';
+import {inBrowser} from './env';
 import {isInView} from './viewport';
 
-export const IntersectionObserver = 'IntersectionObserver' in window
-    ? window.IntersectionObserver
-    : class IntersectionObserverClass {
+export const IntersectionObserver = inBrowser && window.IntersectionObserver
+    || class IntersectionObserverClass {
 
         constructor(callback, {rootMargin = '0 0'} = {}) {
 

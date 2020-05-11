@@ -1,7 +1,8 @@
 /* global setImmediate */
+import {inBrowser} from './env';
 import {isFunction, isObject} from './lang';
 
-export const Promise = 'Promise' in window ? window.Promise : PromiseFn;
+export const Promise = inBrowser && window.Promise || PromiseFn;
 
 export class Deferred {
     constructor() {
@@ -20,7 +21,7 @@ const RESOLVED = 0;
 const REJECTED = 1;
 const PENDING = 2;
 
-const async = 'setImmediate' in window ? setImmediate : setTimeout;
+const async = inBrowser && window.setImmediate || setTimeout;
 
 function PromiseFn(executor) {
 

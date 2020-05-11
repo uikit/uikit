@@ -1,5 +1,6 @@
+import {inBrowser} from './env';
 import {removeAttr} from './attr';
-import {isDocument, isElement, isString, startsWith, toNode, toNodes} from './lang';
+import {isDocument, isElement, isString, noop, startsWith, toNode, toNodes} from './lang';
 
 export function query(selector, context) {
     return toNode(selector) || find(selector, getContext(selector, context));
@@ -105,8 +106,8 @@ function splitSelector(selector) {
     return selector.match(selectorRe).map(selector => selector.replace(/,$/, '').trim());
 }
 
-const elProto = Element.prototype;
-const matchesFn = elProto.matches || elProto.webkitMatchesSelector || elProto.msMatchesSelector;
+const elProto = inBrowser ? Element.prototype : {};
+const matchesFn = elProto.matches || elProto.webkitMatchesSelector || elProto.msMatchesSelector || noop;
 
 export function matches(element, selector) {
     return toNodes(element).some(element => matchesFn.call(element, selector));
@@ -140,7 +141,7 @@ export function parent(element) {
     return element && isElement(element.parentNode) && element.parentNode;
 }
 
-const escapeFn = window.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, match => `\\${match}`); };
+const escapeFn = inBrowser && window.CSS && CSS.escape || function (css) { return css.replace(/([^\x7f-\uFFFF\w-])/g, match => `\\${match}`); };
 export function escape(css) {
     return isString(css) ? escapeFn.call(null, css) : '';
 }
