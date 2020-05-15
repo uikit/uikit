@@ -46,13 +46,13 @@
     "less": "^2.7.2",
     "minimist": "^1.2.5",
     "npm-watch": "github:dasdeck/npm-watch#46a8a36c61cfd998ed53d27f62eaf79e11c395b4",
-    "postcss": "7.0.29",
-    "rollup": "2.9.1",
+    "postcss": "7.0.30",
+    "rollup": "2.10.2",
     "rollup-plugin-html": "^0.2.1",
     "rtlcss": "^2.5.0",
     "semver": "^7.3.2",
     "svgo": "^1.3.2",
-    "uglify-js": "^3.9.2"
+    "uglify-js": "^3.9.3"
   },
   "watch": {
     "compile-js": "src/js/**/*.js",
