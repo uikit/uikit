@@ -29,11 +29,12 @@
 
 ### Added
 
-- Add list collapse modifier
+- Add type, color and size modifiers to List component
 
 ### Changed
 
 - Improve attribute state observer performance
+- Remove clearfix from list items in List component
 
 ### Fixed
 

@@ -3,10 +3,20 @@
 //
 // Component:       `uk-list`
 //
-// Modifiers:       `uk-list-divider`
-//                  `uk-list-striped`
+// Modifiers:       `uk-list-disc`
+//                  `uk-list-circle`
+//                  `uk-list-square`
+//                  `uk-list-decimal`
+//                  `uk-list-hyphen`
+//                  `uk-list-muted`
+//                  `uk-list-emphasis`
+//                  `uk-list-primary`
+//                  `uk-list-secondary`
 //                  `uk-list-bullet`
+//                  `uk-list-divider`
+//                  `uk-list-striped`
 //                  `uk-list-large`
+//                  `uk-list-collapse`
 //
 // ========================================================================
 
@@ -16,7 +26,16 @@
 
 @list-margin-top:                               @global-small-margin;
 
-@list-nested-padding-left:                      @global-gutter;
+@list-padding-left:                             30px;
+
+@list-muted-color:                              @global-muted-color;
+@list-emphasis-color:                           @global-emphasis-color;
+@list-primary-color:                            @global-primary-background;
+@list-secondary-color:                          @global-secondary-background;
+
+@list-bullet-width:                             (@global-line-height * 1em);
+@list-bullet-height:                            @list-bullet-width;
+@list-bullet-icon-color:                        @global-color;
 
 @list-divider-margin-top:                       @global-small-margin;
 @list-divider-border-width:                     @global-border-width;
@@ -25,11 +44,6 @@
 @list-striped-padding-vertical:                 @global-small-margin;
 @list-striped-padding-horizontal:               @global-small-margin;
 @list-striped-background:                       @global-muted-background;
-
-@list-bullet-width:                             (@global-line-height * 1em);
-@list-bullet-height:                            @list-bullet-width;
-@list-bullet-margin-right:                      @global-small-margin;
-@list-bullet-icon-color:                        @global-color;
 
 @list-large-margin-top:                         @global-margin;
 @list-large-divider-margin-top:                 @global-margin;
@@ -49,32 +63,10 @@
 }
 
 /*
- * Micro clearfix
- */
-
-.uk-list > li::before,
-.uk-list > li::after {
-    content: "";
-    display: table;
-}
-
-.uk-list > li::after { clear: both; }
-
-/*
  * Remove margin from the last-child
  */
 
 .uk-list > li > :last-child { margin-bottom: 0; }
-
-/*
- * Nested lists
- */
-
-.uk-list ul {
-    margin: 0;
-    padding-left: @list-nested-padding-left;
-    list-style: none;
-}
 
 /*
  * Style
@@ -82,6 +74,53 @@
 
 .uk-list > li:nth-child(n+2),
 .uk-list > li > ul { margin-top: @list-margin-top; }
+
+
+/* Type modifiers
+ ========================================================================== */
+
+.uk-list-disc,
+.uk-list-circle,
+.uk-list-square,
+.uk-list-decimal,
+.uk-list-hyphen { padding-left: @list-padding-left; }
+
+.uk-list-disc { list-style-type: disc; }
+.uk-list-circle { list-style-type: circle; }
+.uk-list-square { list-style-type: square; }
+.uk-list-decimal { list-style-type: decimal; }
+.uk-list-hyphen { list-style-type: '–  '; }
+
+
+/* Color modifiers
+ * Doesn't work in Chrome and Edge yet
+ ========================================================================== */
+
+.uk-list-muted li::marker { color: @list-muted-color !important; }
+.uk-list-emphasis li::marker { color: @list-emphasis-color !important; }
+.uk-list-primary li::marker { color: @list-primary-color !important; }
+.uk-list-secondary li::marker { color: @list-secondary-color !important; }
+
+
+/* Image bullet modifier
+ ========================================================================== */
+
+.uk-list-bullet > li {
+    position: relative;
+    padding-left: @list-padding-left;
+}
+
+.uk-list-bullet > li::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: @list-bullet-width;
+    height: @list-bullet-height;
+    .svg-fill(@internal-list-bullet-image, "#000", @list-bullet-icon-color);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
 
 
 /* Style modifiers
@@ -110,31 +149,6 @@
 .uk-list-striped > li:nth-of-type(odd) { background: @list-striped-background; }
 
 .uk-list-striped > li:nth-child(n+2) { margin-top: 0; }
-
-/*
- * Bullet
- * 1. Reset display `table` which causes issues in combination with multi column layouts.
- */
-
-.uk-list-bullet > li {
-    position: relative;
-    padding-left: ~'calc(@{list-bullet-width} + @{list-bullet-margin-right})';
-}
-
-.uk-list-bullet > li::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: @list-bullet-width;
-    height: @list-bullet-height;
-    .svg-fill(@internal-list-bullet-image, "#000", @list-bullet-icon-color);
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    /* 1 */
-    display: block;
-    .hook-list-bullet;
-}
 
 
 /* Size modifier
@@ -182,18 +196,32 @@
 
 .hook-list-divider() {}
 .hook-list-striped() {}
-.hook-list-bullet() {}
 .hook-list-misc() {}
 
 
 // Inverse
 // ========================================================================
 
+@inverse-list-muted-color:                        @inverse-global-muted-color;
+@inverse-list-emphasis-color:                     @inverse-global-emphasis-color;
+@inverse-list-primary-color:                      @inverse-global-primary-background;
+@inverse-list-secondary-color:                    @inverse-global-primary-background;
+
 @inverse-list-divider-border:                     @inverse-global-border;
 @inverse-list-striped-background:                 @inverse-global-muted-background;
+
 @inverse-list-bullet-icon-color:                  @inverse-global-color;
 
 .hook-inverse() {
+
+    .uk-list-muted li::marker { color: @inverse-list-muted-color !important; }
+    .uk-list-emphasis li::marker { color: @inverse-list-emphasis-color !important; }
+    .uk-list-primary li::marker { color: @inverse-list-primary-color !important; }
+    .uk-list-secondary li::marker { color: @inverse-list-secondary-color !important; }
+
+    .uk-list-bullet > li::before {
+        .svg-fill(@internal-list-bullet-image, "#000", @inverse-list-bullet-icon-color);
+    }
 
     .uk-list-divider > li:nth-child(n+2) {
         border-top-color: @inverse-list-divider-border;
@@ -206,13 +234,7 @@
 
     .uk-list-striped > li:nth-of-type(odd) { background-color: @inverse-list-striped-background; }
 
-    .uk-list-bullet > li::before {
-        .svg-fill(@internal-list-bullet-image, "#000", @inverse-list-bullet-icon-color);
-        .hook-inverse-list-bullet;
-    }
-
 }
 
 .hook-inverse-list-divider() {}
 .hook-inverse-list-striped() {}
-.hook-inverse-list-bullet() {}
