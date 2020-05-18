@@ -1,6 +1,6 @@
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {addClass, Animation, apply, attr, css, inBrowser, includes, isTouch, MouseTracker, offset, on, once, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
+import {addClass, Animation, apply, attr, css, inBrowser, includes, isTouch, MouseTracker, offset, on, once, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, query, removeClass, toggleClass, trigger, within} from 'uikit-util';
 
 let active;
 
@@ -371,7 +371,7 @@ export default {
 
         position() {
 
-            removeClasses(this.$el, `${this.clsDrop}-(stack|boundary)`);
+            removeClass(this.$el, `${this.clsDrop}-stack`);
             toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
 
             const boundary = offset(this.boundary);
