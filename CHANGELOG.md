@@ -1,5 +1,20 @@
 # Changelog
 
+## WIP 3.5
+
+### Added
+
+- Add type, color and size modifiers to List component
+
+### Changed
+
+- IMPORTANT: Renamed Less variable parts `xxlarge` to `2xlarge`
+- Remove clearfix from list items in List component
+
+### Deprecated
+
+- Width XXLarge: Use `uk-width-2xlarge` instead of `uk-width-xxlarge`
+
 ## 3.4.6 (May 11, 2020)
 
 ### Fixed
@@ -27,14 +42,9 @@
 
 ## 3.4.3 (May 5, 2020)
 
-### Added
-
-- Add type, color and size modifiers to List component
-
 ### Changed
 
 - Improve attribute state observer performance
-- Remove clearfix from list items in List component
 
 ### Fixed
 
