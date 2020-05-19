@@ -15,6 +15,10 @@
 
 - Width XXLarge: Use `uk-width-2xlarge` instead of `uk-width-xxlarge`
 
+### Fixed
+
+- Fix positioning issue with Drop components in Firefox
+
 ## 3.4.6 (May 11, 2020)
 
 ### Fixed
