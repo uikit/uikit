@@ -9,7 +9,7 @@
 ### Changed
 
 - IMPORTANT: Renamed Less variable parts `xxlarge` to `2xlarge`
-- Remove clearfix from list items in List component
+- Replace clearfix by creating a block formatting context with display flow-root
 
 ### Deprecated
 

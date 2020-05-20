@@ -52,6 +52,7 @@
  ========================================================================== */
 
 .uk-tile {
+    display: flow-root;
     position: relative;
     box-sizing: border-box;
     padding-left: @tile-padding-horizontal;
@@ -82,18 +83,6 @@
     }
 
 }
-
-/*
- * Micro clearfix
- */
-
-.uk-tile::before,
-.uk-tile::after {
-    content: "";
-    display: table;
-}
-
-.uk-tile::after { clear: both; }
 
 /*
  * Remove margin from the last-child
