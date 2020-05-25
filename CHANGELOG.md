@@ -18,6 +18,7 @@
 ### Fixed
 
 - Fix positioning issue with Drop components in Firefox
+- Fix Dropbar causing endless loop in Firefox
 
 ## 3.4.6 (May 11, 2020)
 

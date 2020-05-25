@@ -157,15 +157,11 @@ export default {
         {
             name: 'show',
 
-            capture: true,
-
             filter() {
                 return this.dropbar;
             },
 
-            handler(_, drop) {
-
-                const {$el, dir} = drop;
+            handler(_, {$el, dir}) {
 
                 toggleClass(this.dropbar, 'uk-navbar-dropbar-slide', this.dropbarMode === 'slide' || parents(this.$el).some(el => css(el, 'position') !== 'static'));
 

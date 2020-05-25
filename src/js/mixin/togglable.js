@@ -103,7 +103,7 @@ export default {
                 this.$update(el);
             };
 
-            return promise ? promise.then(final) : Promise.resolve(final());
+            return (promise || Promise.resolve()).then(final);
         },
 
         _toggle(el, toggled) {
@@ -159,8 +159,8 @@ export function toggleHeight({isToggled, duration, initProps, hideProps, transit
         height(el, currentHeight);
 
         return (show
-                ? Transition.start(el, assign({}, initProps, {overflow: 'hidden', height: endHeight}), Math.round(duration * (1 - currentHeight / endHeight)), transition)
-                : Transition.start(el, hideProps, Math.round(duration * (currentHeight / endHeight)), transition).then(() => _toggle(el, false))
+            ? Transition.start(el, assign({}, initProps, {overflow: 'hidden', height: endHeight}), Math.round(duration * (1 - currentHeight / endHeight)), transition)
+            : Transition.start(el, hideProps, Math.round(duration * (currentHeight / endHeight)), transition).then(() => _toggle(el, false))
         ).then(() => css(el, initProps));
 
     };
