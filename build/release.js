@@ -12,7 +12,11 @@ const exec = promisify(require('child_process').exec);
 inquireVersion(args.v || args.version)
     .then(updateVersion)
     .then(compile)
-    .then(createPackage);
+    .then(createPackage)
+    .catch(({message}) => {
+        console.error(message);
+        process.exitCode = 1;
+    });
 
 async function inquireVersion(v) {
 

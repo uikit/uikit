@@ -210,39 +210,24 @@
  ========================================================================== */
 
 .uk-modal-body {
+    display: flow-root;
     padding: @modal-body-padding-vertical @modal-body-padding-horizontal;
     .hook-modal-body;
 }
 
 .uk-modal-header {
+    display: flow-root;
     padding: @modal-header-padding-vertical @modal-header-padding-horizontal;
     background: @modal-header-background;
     .hook-modal-header;
 }
 
 .uk-modal-footer {
+    display: flow-root;
     padding: @modal-footer-padding-vertical @modal-footer-padding-horizontal;
     background: @modal-footer-background;
     .hook-modal-footer;
 }
-
-/*
- * Micro clearfix
- */
-
-.uk-modal-body::before,
-.uk-modal-body::after,
-.uk-modal-header::before,
-.uk-modal-header::after,
-.uk-modal-footer::before,
-.uk-modal-footer::after {
-    content: "";
-    display: table;
-}
-
-.uk-modal-body::after,
-.uk-modal-header::after,
-.uk-modal-footer::after { clear: both; }
 
 /*
  * Remove margin from the last-child

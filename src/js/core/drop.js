@@ -1,6 +1,6 @@
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {addClass, Animation, apply, attr, css, inBrowser, includes, isTouch, MouseTracker, offset, on, once, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, query, removeClasses, toggleClass, trigger, within} from 'uikit-util';
+import {addClass, apply, attr, css, inBrowser, includes, isTouch, MouseTracker, offset, on, once, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, query, removeClass, toggleClass, trigger, within} from 'uikit-util';
 
 let active;
 
@@ -205,8 +205,7 @@ export default {
                 }
 
                 this.clearTimers();
-                Animation.cancel(this.$el);
-                this.position();
+                this.isToggled(this.$el) && this.position();
             }
 
         },
@@ -298,7 +297,7 @@ export default {
 
         write() {
 
-            if (this.isToggled() && !Animation.inProgress(this.$el)) {
+            if (this.isToggled()) {
                 this.position();
             }
 
@@ -331,9 +330,12 @@ export default {
                     return;
                 }
 
-                while (active && !within(this.$el, active.$el)) {
+                let prev;
+                while (active && prev !== active && !within(this.$el, active.$el)) {
+                    prev = active;
                     active.hide(false);
                 }
+
             }
 
             this.showTimer = setTimeout(() => !this.isToggled() && this.toggleElement(this.$el, true), delay && this.delayShow || 0);
@@ -371,7 +373,7 @@ export default {
 
         position() {
 
-            removeClasses(this.$el, `${this.clsDrop}-(stack|boundary)`);
+            removeClass(this.$el, `${this.clsDrop}-stack`);
             toggleClass(this.$el, `${this.clsDrop}-boundary`, this.boundaryAlign);
 
             const boundary = offset(this.boundary);

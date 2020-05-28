@@ -1,5 +1,25 @@
 # Changelog
 
+## 3.5.0 (May 28, 2020)
+
+### Added
+
+- Add type, color and size modifiers to List component
+
+### Changed
+
+- IMPORTANT: Renamed Less variable parts `xxlarge` to `2xlarge`
+- Replace clearfix by creating a block formatting context with display flow-root
+
+### Deprecated
+
+- Width XXLarge: Use `uk-width-2xlarge` instead of `uk-width-xxlarge`
+
+### Fixed
+
+- Fix positioning issue with Drop components in Firefox
+- Fix Dropbar causing endless loop in Firefox
+
 ## 3.4.6 (May 11, 2020)
 
 ### Fixed
@@ -26,10 +46,6 @@
 - Fix regression in Grid component with masonry
 
 ## 3.4.3 (May 5, 2020)
-
-### Added
-
-- Add list collapse modifier
 
 ### Changed
 

@@ -20,7 +20,10 @@ if (argv.h || argv.help) {
 
     `);
 } else {
-    run();
+    run().catch(({message}) => {
+        console.error(message);
+        process.exitCode = 1;
+    });
 }
 
 async function run() {

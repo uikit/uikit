@@ -1,4 +1,4 @@
-import {$, css, flipPosition, offset as getOffset, includes, isNumeric, isRtl, positionAt, removeClasses, toggleClass} from 'uikit-util';
+import {$, flipPosition, offset as getOffset, includes, isNumeric, isRtl, positionAt, removeClasses, toggleClass} from 'uikit-util';
 
 export default {
 
@@ -37,7 +37,6 @@ export default {
         positionAt(element, target, boundary) {
 
             removeClasses(element, `${this.clsPos}-(top|bottom|left|right)(-[a-z]+)?`);
-            css(element, {top: '', left: ''});
 
             let node;
             let {offset} = this;

@@ -68,17 +68,17 @@ export function animate(element, animation, duration = 200, origin, out) {
     return Promise.all(toNodes(element).map(element =>
         new Promise((resolve, reject) => {
 
-            reset();
+            trigger(element, 'animationcancel');
+            const timer = setTimeout(() => trigger(element, 'animationcancel'), duration);
 
             once(element, 'animationend animationcancel', ({type}) => {
 
-                if (type === 'animationcancel') {
-                    reject();
-                } else {
-                    resolve();
-                }
+                clearTimeout(timer);
 
-                reset();
+                type === 'animationcancel' ? reject() : resolve();
+
+                css(element, 'animationDuration', '');
+                removeClasses(element, `${animationPrefix}\\S*`);
 
             }, {self: true});
 
@@ -89,11 +89,6 @@ export function animate(element, animation, duration = 200, origin, out) {
                 addClass(element, origin && `uk-transform-origin-${origin}`, out && `${animationPrefix}reverse`);
             }
 
-            function reset() {
-                css(element, 'animationDuration', '');
-                removeClasses(element, `${animationPrefix}\\S*`);
-            }
-
         })
     ));
 
@@ -102,9 +97,7 @@ export function animate(element, animation, duration = 200, origin, out) {
 const inProgress = new RegExp(`${animationPrefix}(enter|leave)`);
 export const Animation = {
 
-    in(element, animation, duration, origin) {
-        return animate(element, animation, duration, origin, false);
-    },
+    in: animate,
 
     out(element, animation, duration, origin) {
         return animate(element, animation, duration, origin, true);

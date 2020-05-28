@@ -45,30 +45,17 @@
  ========================================================================== */
 
 .uk-comment-body {
+    display: flow-root;
     overflow-wrap: break-word;
     word-wrap: break-word;
     .hook-comment-body;
 }
 
 .uk-comment-header {
+    display: flow-root;
     margin-bottom: @comment-header-margin-bottom;
     .hook-comment-header;
 }
-
-/*
- * Micro clearfix
- */
-
-.uk-comment-body::before,
-.uk-comment-body::after,
-.uk-comment-header::before,
-.uk-comment-header::after {
-    content: "";
-    display: table;
-}
-
-.uk-comment-body::after,
-.uk-comment-header::after { clear: both; }
 
 /*
  * Remove margin from the last-child

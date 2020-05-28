@@ -98,16 +98,19 @@
  ========================================================================== */
 
 .uk-card-body {
+    display: flow-root;
     padding: @card-body-padding-vertical @card-body-padding-horizontal;
     .hook-card-body;
 }
 
 .uk-card-header {
+    display: flow-root;
     padding: @card-header-padding-vertical @card-header-padding-horizontal;
     .hook-card-header;
 }
 
 .uk-card-footer {
+    display: flow-root;
     padding: @card-footer-padding-vertical @card-footer-padding-horizontal;
     .hook-card-footer;
 }
@@ -122,24 +125,6 @@
     .uk-card-footer { padding: @card-footer-padding-vertical-l @card-footer-padding-horizontal-l; }
 
 }
-
-/*
- * Micro clearfix
- */
-
-.uk-card-body::before,
-.uk-card-body::after,
-.uk-card-header::before,
-.uk-card-header::after,
-.uk-card-footer::before,
-.uk-card-footer::after {
-    content: "";
-    display: table;
-}
-
-.uk-card-body::after,
-.uk-card-header::after,
-.uk-card-footer::after { clear: both; }
 
 /*
  * Remove margin from the last-child

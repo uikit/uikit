@@ -34,7 +34,11 @@ glob.sync('custom/*.less').forEach(file => {
         themes[theme].icons = `../dist/js/uikit-icons-${theme}.js`;
     }
 
-    compile(file, dist);
+    compile(file, dist)
+        .catch(({message}) => {
+            console.error(message);
+            process.exitCode = 1;
+        });
 
 });
 

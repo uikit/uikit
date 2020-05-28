@@ -41,7 +41,7 @@ export function within(element, selector) {
         ? element === selector || (isDocument(selector)
             ? selector.documentElement
             : toNode(selector)).contains(toNode(element)) // IE 11 document does not implement contains
-        : matches(element, selector) || closest(element, selector);
+        : matches(element, selector) || !!closest(element, selector);
 }
 
 export function parents(element, selector) {

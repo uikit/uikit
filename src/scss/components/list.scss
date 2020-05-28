@@ -3,10 +3,20 @@
 //
 // Component:       `uk-list`
 //
-// Modifiers:       `uk-list-divider`
-//                  `uk-list-striped`
+// Modifiers:       `uk-list-disc`
+//                  `uk-list-circle`
+//                  `uk-list-square`
+//                  `uk-list-decimal`
+//                  `uk-list-hyphen`
+//                  `uk-list-muted`
+//                  `uk-list-emphasis`
+//                  `uk-list-primary`
+//                  `uk-list-secondary`
 //                  `uk-list-bullet`
+//                  `uk-list-divider`
+//                  `uk-list-striped`
 //                  `uk-list-large`
+//                  `uk-list-collapse`
 //
 // ========================================================================
 
@@ -16,7 +26,16 @@
 
 $list-margin-top:                                $global-small-margin !default;
 
-$list-nested-padding-left:                       $global-gutter !default;
+$list-padding-left:                              30px !default;
+
+$list-muted-color:                               $global-muted-color !default;
+$list-emphasis-color:                            $global-emphasis-color !default;
+$list-primary-color:                             $global-primary-background !default;
+$list-secondary-color:                           $global-secondary-background !default;
+
+$list-bullet-width:                              ($global-line-height * 1em) !default;
+$list-bullet-height:                             $list-bullet-width !default;
+$list-bullet-icon-color:                         $global-color !default;
 
 $list-divider-margin-top:                        $global-small-margin !default;
 $list-divider-border-width:                      $global-border-width !default;
@@ -25,11 +44,6 @@ $list-divider-border:                            $global-border !default;
 $list-striped-padding-vertical:                  $global-small-margin !default;
 $list-striped-padding-horizontal:                $global-small-margin !default;
 $list-striped-background:                        $global-muted-background !default;
-
-$list-bullet-width:                              ($global-line-height * 1em) !default;
-$list-bullet-height:                             $list-bullet-width !default;
-$list-bullet-margin-right:                       $global-small-margin !default;
-$list-bullet-icon-color:                         $global-color !default;
 
 $list-large-margin-top:                          $global-margin !default;
 $list-large-divider-margin-top:                  $global-margin !default;
@@ -49,32 +63,10 @@ $internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D
 }
 
 /*
- * Micro clearfix
- */
-
-.uk-list > li::before,
-.uk-list > li::after {
-    content: "";
-    display: table;
-}
-
-.uk-list > li::after { clear: both; }
-
-/*
  * Remove margin from the last-child
  */
 
 .uk-list > li > :last-child { margin-bottom: 0; }
-
-/*
- * Nested lists
- */
-
-.uk-list ul {
-    margin: 0;
-    padding-left: $list-nested-padding-left;
-    list-style: none;
-}
 
 /*
  * Style
@@ -82,6 +74,53 @@ $internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D
 
 .uk-list > li:nth-child(n+2),
 .uk-list > li > ul { margin-top: $list-margin-top; }
+
+
+/* Type modifiers
+ ========================================================================== */
+
+.uk-list-disc,
+.uk-list-circle,
+.uk-list-square,
+.uk-list-decimal,
+.uk-list-hyphen { padding-left: $list-padding-left; }
+
+.uk-list-disc { list-style-type: disc; }
+.uk-list-circle { list-style-type: circle; }
+.uk-list-square { list-style-type: square; }
+.uk-list-decimal { list-style-type: decimal; }
+.uk-list-hyphen { list-style-type: '–  '; }
+
+
+/* Color modifiers
+ * Doesn't work in Chrome and Edge yet
+ ========================================================================== */
+
+.uk-list-muted li::marker { color: $list-muted-color !important; }
+.uk-list-emphasis li::marker { color: $list-emphasis-color !important; }
+.uk-list-primary li::marker { color: $list-primary-color !important; }
+.uk-list-secondary li::marker { color: $list-secondary-color !important; }
+
+
+/* Image bullet modifier
+ ========================================================================== */
+
+.uk-list-bullet > li {
+    position: relative;
+    padding-left: $list-padding-left;
+}
+
+.uk-list-bullet > li::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: $list-bullet-width;
+    height: $list-bullet-height;
+    @include svg-fill($internal-list-bullet-image, "#000", $list-bullet-icon-color);
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
 
 
 /* Style modifiers
@@ -110,31 +149,6 @@ $internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D
 .uk-list-striped > li:nth-of-type(odd) { background: $list-striped-background; }
 
 .uk-list-striped > li:nth-child(n+2) { margin-top: 0; }
-
-/*
- * Bullet
- * 1. Reset display `table` which causes issues in combination with multi column layouts.
- */
-
-.uk-list-bullet > li {
-    position: relative;
-    padding-left: unquote('calc(#{$list-bullet-width} + #{$list-bullet-margin-right})');
-}
-
-.uk-list-bullet > li::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: $list-bullet-width;
-    height: $list-bullet-height;
-    @include svg-fill($internal-list-bullet-image, "#000", $list-bullet-icon-color);
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    /* 1 */
-    display: block;
-    @if(mixin-exists(hook-list-bullet)) {@include hook-list-bullet();}
-}
 
 
 /* Size modifier
@@ -182,19 +196,23 @@ $internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D
 
 // @mixin hook-list-divider(){}
 // @mixin hook-list-striped(){}
-// @mixin hook-list-bullet(){}
 // @mixin hook-list-misc(){}
 
 
 // Inverse
 // ========================================================================
 
+$inverse-list-muted-color:                         $inverse-global-muted-color !default;
+$inverse-list-emphasis-color:                      $inverse-global-emphasis-color !default;
+$inverse-list-primary-color:                       $inverse-global-primary-background !default;
+$inverse-list-secondary-color:                     $inverse-global-primary-background !default;
+
 $inverse-list-divider-border:                      $inverse-global-border !default;
 $inverse-list-striped-background:                  $inverse-global-muted-background !default;
+
 $inverse-list-bullet-icon-color:                   $inverse-global-color !default;
 
 
 
 // @mixin hook-inverse-list-divider(){}
 // @mixin hook-inverse-list-striped(){}
-// @mixin hook-inverse-list-bullet(){}

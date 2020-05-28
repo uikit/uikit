@@ -24,7 +24,12 @@ if (argv.h || argv.help) {
 
     `);
 } else {
-    readAllFiles().then(startProcess);
+    readAllFiles()
+        .then(startProcess)
+        .catch(({message}) => {
+            console.error(message);
+            process.exitCode = 1;
+        });
 }
 
 function startProcess() {

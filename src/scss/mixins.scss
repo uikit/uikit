@@ -888,6 +888,15 @@
 }
 @mixin hook-inverse-component-list(){
 
+    .uk-list-muted li::marker { color: $inverse-list-muted-color !important; }
+    .uk-list-emphasis li::marker { color: $inverse-list-emphasis-color !important; }
+    .uk-list-primary li::marker { color: $inverse-list-primary-color !important; }
+    .uk-list-secondary li::marker { color: $inverse-list-secondary-color !important; }
+
+    .uk-list-bullet > li::before {
+        @include svg-fill($internal-list-bullet-image, "#000", $inverse-list-bullet-icon-color);
+    }
+
     .uk-list-divider > li:nth-child(n+2) {
         border-top-color: $inverse-list-divider-border;
         @if(mixin-exists(hook-inverse-list-divider)) {@include hook-inverse-list-divider();}
@@ -898,11 +907,6 @@
     }
 
     .uk-list-striped > li:nth-of-type(odd) { background-color: $inverse-list-striped-background; }
-
-    .uk-list-bullet > li::before {
-        @include svg-fill($internal-list-bullet-image, "#000", $inverse-list-bullet-icon-color);
-        @if(mixin-exists(hook-inverse-list-bullet)) {@include hook-inverse-list-bullet();}
-    }
 
 }
 @mixin hook-inverse-component-totop(){
@@ -1367,11 +1371,9 @@
 @mixin hook-inverse-link-heading-hover(){}
 @mixin hook-list-divider(){}
 @mixin hook-list-striped(){}
-@mixin hook-list-bullet(){}
 @mixin hook-list-misc(){}
 @mixin hook-inverse-list-divider(){}
 @mixin hook-inverse-list-striped(){}
-@mixin hook-inverse-list-bullet(){}
 @mixin hook-margin-misc(){}
 @mixin hook-marker(){}
 @mixin hook-marker-hover(){}

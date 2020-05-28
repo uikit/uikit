@@ -39,12 +39,16 @@ const steps = {
 
     core: () => util.compile('src/js/uikit-core.js', 'dist/js/uikit-core', {minify}),
     uikit: () => util.compile('src/js/uikit.js', 'dist/js/uikit', {minify}),
-    icons: () => util.icons('{src/images,custom}/icons/*.svg').then(ICONS => util.compile('build/wrapper/icons.js', 'dist/js/uikit-icons', {
+    icons: async () => util.compile('build/wrapper/icons.js', 'dist/js/uikit-icons', {
         minify,
         name: 'icons',
-        replaces: {ICONS}
-    })),
-    tests: () => util.compile('tests/js/index.js', 'tests/js/test', {minify, name: 'test'})
+        replaces: {ICONS: await util.icons('{src/images,custom}/icons/*.svg')}}
+    ),
+    tests: async () => util.compile('tests/js/index.js', 'tests/js/test', {
+        minify,
+        name: 'test',
+        replaces: {TESTS: await getTestFiles()}}
+    )
 
 };
 
@@ -94,6 +98,19 @@ function collectJobs() {
     Object.assign(steps, components);
 
     // Object.keys(argv).forEach(step => components[step] && componentJobs.push(components[step]()));
-    return Object.keys(argv).filter(step => steps[step]).map(step => steps[step]());
+    return Object.keys(argv)
+        .filter(step => steps[step])
+        .map(step =>
+            steps[step]()
+                .catch(({message}) => {
+                    console.error(message);
+                    process.exitCode = 1;
+                })
+    );
 
+}
+
+async function getTestFiles() {
+    const files = await util.glob('tests/!(index).html', {nosort: true});
+    return JSON.stringify(files.map(file => path.basename(file, '.html')));
 }
