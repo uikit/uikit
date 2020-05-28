@@ -40,19 +40,19 @@
     "archiver": "4.0.1",
     "clean-css": "^4.2.3",
     "dateformat": "^3.0.3",
-    "eslint": "7.0.0",
+    "eslint": "7.1.0",
     "glob": "^7.1.6",
     "inquirer": "7.1.0",
     "less": "^2.7.2",
     "minimist": "^1.2.5",
     "npm-watch": "github:dasdeck/npm-watch#46a8a36c61cfd998ed53d27f62eaf79e11c395b4",
-    "postcss": "7.0.30",
-    "rollup": "2.10.2",
+    "postcss": "7.0.31",
+    "rollup": "2.11.2",
     "rollup-plugin-html": "^0.2.1",
     "rtlcss": "^2.5.0",
     "semver": "^7.3.2",
     "svgo": "^1.3.2",
-    "uglify-js": "^3.9.3"
+    "uglify-js": "^3.9.4"
   },
   "watch": {
     "compile-js": "src/js/**/*.js",
