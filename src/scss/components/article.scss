@@ -14,7 +14,7 @@
 
 $article-margin-top:                             $global-large-margin !default;
 
-$article-title-font-size-m:                      $global-xxlarge-font-size !default;
+$article-title-font-size-m:                      $global-2xlarge-font-size !default;
 $article-title-font-size:                        $article-title-font-size-m * 0.85 !default;
 $article-title-line-height:                      1.2 !default;
 
@@ -28,20 +28,9 @@ $article-meta-color:                             $global-muted-color !default;
  ========================================================================== */
 
 .uk-article {
+    display: flow-root;
     @if(mixin-exists(hook-article)) {@include hook-article();}
 }
-
-/*
- * Micro clearfix
- */
-
-.uk-article::before,
-.uk-article::after {
-    content: "";
-    display: table;
-}
-
-.uk-article::after { clear: both; }
 
 /*
  * Remove margin from the last-child

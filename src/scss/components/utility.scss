@@ -64,21 +64,10 @@ $dragover-box-shadow:                            0 0 20px rgba(100,100,100,0.3) 
  ========================================================================== */
 
 .uk-panel {
+    display: flow-root;
     position: relative;
     box-sizing: border-box;
 }
-
-/*
- * Micro clearfix
- */
-
-.uk-panel::before,
-.uk-panel::after {
-    content: "";
-    display: table;
-}
-
-.uk-panel::after { clear: both; }
 
 /*
  * Remove margin from the last-child
