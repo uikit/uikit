@@ -98,7 +98,15 @@ function collectJobs() {
     Object.assign(steps, components);
 
     // Object.keys(argv).forEach(step => components[step] && componentJobs.push(components[step]()));
-    return Object.keys(argv).filter(step => steps[step]).map(step => steps[step]());
+    return Object.keys(argv)
+        .filter(step => steps[step])
+        .map(step =>
+            steps[step]()
+                .catch(({message}) => {
+                    console.error(message);
+                    process.exitCode = 1;
+                })
+    );
 
 }
 
