@@ -54,6 +54,7 @@ $section-secondary-color-mode:                     light !default;
  */
 
 .uk-section {
+    display: flow-root;
     box-sizing: border-box; /* 1 */
     padding-top: $section-padding-vertical;
     padding-bottom: $section-padding-vertical;
@@ -69,18 +70,6 @@ $section-secondary-color-mode:                     light !default;
     }
 
 }
-
-/*
- * Micro clearfix
- */
-
-.uk-section::before,
-.uk-section::after {
-    content: "";
-    display: table;
-}
-
-.uk-section::after { clear: both; }
 
 /*
  * Remove margin from the last-child

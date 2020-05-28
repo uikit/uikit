@@ -38,6 +38,7 @@ $container-padding-horizontal-m:         $global-medium-gutter !default;
  */
 
 .uk-container {
+    display: flow-root;
     /* 1 */
     box-sizing: content-box;
     max-width: $container-max-width;
@@ -66,18 +67,6 @@ $container-padding-horizontal-m:         $global-medium-gutter !default;
     }
 
 }
-
-/*
- * Micro clearfix
- */
-
-.uk-container::before,
-.uk-container::after {
-    content: "";
-    display: table;
-}
-
-.uk-container::after { clear: both; }
 
 /*
  * Remove margin from the last-child
