@@ -69,7 +69,7 @@ export function animate(element, animation, duration = 200, origin, out) {
         new Promise((resolve, reject) => {
 
             trigger(element, 'animationcancel');
-            const timer = setTimeout(() => trigger(element, 'animationcancel'), duration);
+            const timer = setTimeout(() => trigger(element, 'animationend'), duration);
 
             once(element, 'animationend animationcancel', ({type}) => {
 

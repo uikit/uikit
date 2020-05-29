@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Sticky component regression in Firefox
+
 ## 3.5.0 (May 28, 2020)
 
 ### Added
