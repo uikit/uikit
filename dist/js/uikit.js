@@ -1,4 +1,4 @@
-/*! UIkit 3.5.1 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.2 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3529,7 +3529,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.5.1';
+    UIkit.version = '3.5.2';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4845,7 +4845,7 @@
             },
 
             write: function() {
-                this.$el.src = this.$el.src; // eslint-disable-line no-self-assign
+                this.$el.src = '' + this.$el.src; // force self-assign
             },
 
             events: ['scroll', 'resize']
@@ -7696,8 +7696,7 @@
                         attr(placeholder, 'hidden', '');
                     }
 
-                    // ensure active/inactive classes are applied
-                    this.isActive = this.isActive; // eslint-disable-line no-self-assign
+                    this.isActive = !!this.isActive; // force self-assign
 
                 },
 
