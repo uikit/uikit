@@ -17,7 +17,7 @@ export default {
         },
 
         write() {
-            this.$el.src = this.$el.src; // eslint-disable-line no-self-assign
+            this.$el.src = '' + this.$el.src; // force self-assign
         },
 
         events: ['scroll', 'resize']
