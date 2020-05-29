@@ -1,10 +1,10 @@
 # Changelog
 
-## WIP
+## 3.5.1 (May 29, 2020)
 
 ### Fixed
 
-- Fix Sticky component regression in Firefox
+- Fix regression in Animation API
 
 ## 3.5.0 (May 28, 2020)
 
