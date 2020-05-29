@@ -1,4 +1,4 @@
-/*! UIkit 3.5.2 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.3 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3529,7 +3529,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.5.2';
+    UIkit.version = '3.5.3';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -5031,27 +5031,23 @@
 
                     var transitionInProgress = nodes.some(Transition.inProgress);
                     var translates = false;
-                    var elHeight = '';
-                    var padding = Math.abs(this.parallax);
+
+                    var columnHeights = getColumnHeights(columns);
+                    var margin = getMarginTop(nodes, this.margin) * (rows.length - 1);
+                    var elHeight = Math.max.apply(Math, columnHeights) + margin;
 
                     if (this.masonry) {
-
                         columns = columns.map(function (column) { return sortBy(column, 'offsetTop'); });
-
-                        var columnHeights = getColumnHeights(columns);
-                        var margin = getMarginTop(nodes, this.margin) * (rows.length - 1);
-
                         translates = getTranslates(rows, columns);
-                        elHeight = Math.max.apply(Math, columnHeights) + margin;
-
-                        if (padding) {
-                            padding = columnHeights.reduce(function (newPadding, hgt, i) { return Math.max(newPadding, hgt + margin + (i % 2 ? padding : padding / 8) - elHeight); }
-                            , 0);
-                        }
-
                     }
 
-                    return {padding: padding, columns: columns, translates: translates, height: !transitionInProgress ? elHeight : false};
+                    var padding = Math.abs(this.parallax);
+                    if (padding) {
+                        padding = columnHeights.reduce(function (newPadding, hgt, i) { return Math.max(newPadding, hgt + margin + (i % 2 ? padding : padding / 8) - elHeight); }
+                            , 0);
+                    }
+
+                    return {padding: padding, columns: columns, translates: translates, height: transitionInProgress ? false : this.masonry ? elHeight : ''};
 
                 },
 
