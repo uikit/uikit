@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix regression in Grid component with parallax option
+
 ## 3.5.2 (May 29, 2020)
 
 ### Fixed

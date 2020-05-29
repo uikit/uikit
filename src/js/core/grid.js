@@ -50,28 +50,24 @@ export default {
 
                 const transitionInProgress = nodes.some(Transition.inProgress);
                 let translates = false;
-                let elHeight = '';
-                let padding = Math.abs(this.parallax);
+
+                const columnHeights = getColumnHeights(columns);
+                const margin = getMarginTop(nodes, this.margin) * (rows.length - 1);
+                const elHeight = Math.max(...columnHeights) + margin;
 
                 if (this.masonry) {
-
                     columns = columns.map(column => sortBy(column, 'offsetTop'));
-
-                    const columnHeights = getColumnHeights(columns);
-                    const margin = getMarginTop(nodes, this.margin) * (rows.length - 1);
-
                     translates = getTranslates(rows, columns);
-                    elHeight = Math.max(...columnHeights) + margin;
-
-                    if (padding) {
-                        padding = columnHeights.reduce((newPadding, hgt, i) =>
-                            Math.max(newPadding, hgt + margin + (i % 2 ? padding : padding / 8) - elHeight)
-                        , 0);
-                    }
-
                 }
 
-                return {padding, columns, translates, height: !transitionInProgress ? elHeight : false};
+                let padding = Math.abs(this.parallax);
+                if (padding) {
+                    padding = columnHeights.reduce((newPadding, hgt, i) =>
+                            Math.max(newPadding, hgt + margin + (i % 2 ? padding : padding / 8) - elHeight)
+                        , 0);
+                }
+
+                return {padding, columns, translates, height: transitionInProgress ? false : this.masonry ? elHeight : ''};
 
             },
 
