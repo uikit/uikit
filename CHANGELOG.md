@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix regression in Animation API
+- Fix regression Drop component
 
 ## 3.5.0 (May 28, 2020)
 
