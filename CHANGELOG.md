@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.5.1 (May 29, 2020)
+
+### Fixed
+
+- Fix regression in Animation API
+
 ## 3.5.0 (May 28, 2020)
 
 ### Added
