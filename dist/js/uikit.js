@@ -1,4 +1,4 @@
-/*! UIkit 3.5.0 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.1 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1539,7 +1539,7 @@
         return Promise.all(toNodes(element).map(function (element) { return new Promise(function (resolve, reject) {
 
                 trigger(element, 'animationcancel');
-                var timer = setTimeout(function () { return trigger(element, 'animationcancel'); }, duration);
+                var timer = setTimeout(function () { return trigger(element, 'animationend'); }, duration);
 
                 once(element, 'animationend animationcancel', function (ref) {
                     var type = ref.type;
@@ -3529,7 +3529,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.5.0';
+    UIkit.version = '3.5.1';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
