@@ -165,8 +165,7 @@ export default {
                     attr(placeholder, 'hidden', '');
                 }
 
-                // ensure active/inactive classes are applied
-                this.isActive = this.isActive; // eslint-disable-line no-self-assign
+                this.isActive = !!this.isActive; // force self-assign
 
             },
 

@@ -1,5 +1,11 @@
 # Changelog
 
+## 3.5.2 (May 29, 2020)
+
+### Fixed
+
+- Fix uglifyjs removes self-assignments
+
 ## 3.5.1 (May 29, 2020)
 
 ### Fixed
