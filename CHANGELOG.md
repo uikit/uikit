@@ -6,6 +6,7 @@
 
 - Fix regression in Animation API
 - Fix regression Drop component
+- Fix regression in Sass source
 
 ## 3.5.0 (May 28, 2020)
 
