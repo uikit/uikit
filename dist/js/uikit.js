@@ -4529,7 +4529,7 @@
                     }
 
                     this.clearTimers();
-                    this.isToggled(this.$el) && this.position();
+                    this.position();
                 }
 
             },
@@ -4632,7 +4632,7 @@
 
             write: function() {
 
-                if (this.isToggled()) {
+                if (this.isToggled() && !Animation.inProgress(this.$el)) {
                     this.position();
                 }
 

@@ -1,6 +1,6 @@
 import Position from '../mixin/position';
 import Togglable from '../mixin/togglable';
-import {addClass, apply, attr, css, inBrowser, includes, isTouch, MouseTracker, offset, on, once, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, query, removeClass, toggleClass, trigger, within} from 'uikit-util';
+import {addClass, Animation, apply, attr, css, inBrowser, includes, isTouch, MouseTracker, offset, on, once, pointerCancel, pointerDown, pointerEnter, pointerLeave, pointerUp, query, removeClass, toggleClass, trigger, within} from 'uikit-util';
 
 let active;
 
@@ -205,7 +205,7 @@ export default {
                 }
 
                 this.clearTimers();
-                this.isToggled(this.$el) && this.position();
+                this.position();
             }
 
         },
@@ -297,7 +297,7 @@ export default {
 
         write() {
 
-            if (this.isToggled()) {
+            if (this.isToggled() && !Animation.inProgress(this.$el)) {
                 this.position();
             }
 
