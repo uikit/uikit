@@ -59,7 +59,7 @@ export function getImage(src, srcset, sizes) {
     return new Promise((resolve, reject) => {
         const img = new Image();
 
-        img.onerror = reject;
+        img.onerror = e => reject(e);
         img.onload = () => resolve(img);
 
         sizes && (img.sizes = sizes);

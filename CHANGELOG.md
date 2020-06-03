@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Added
+
+- Image component triggers 'error' event on failing to load image
+
 ## 3.5.3 (May 29, 2020)
 
 ### Fixed

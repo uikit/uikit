@@ -139,7 +139,7 @@ export default {
                 storage[this.cacheKey] = currentSrc(img);
                 return img;
 
-            }, noop);
+            }, e => trigger(this.$el, new e.constructor(e.type, e)));
 
             this.observer.disconnect();
         },
