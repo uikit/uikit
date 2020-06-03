@@ -40,7 +40,7 @@ export function ajax(url, options) {
 
                 // IE 11 does not support responseType 'json'
                 if (env.responseType === 'json' && isString(xhr.response)) {
-                    xhr = assign({}, xhr, {response: JSON.parse(xhr.response)});
+                    xhr = assign(copyXhr(xhr), {response: JSON.parse(xhr.response)});
                 }
 
                 resolve(xhr);
@@ -74,4 +74,12 @@ export function getImage(src, srcset, sizes) {
         img.src = src;
     });
 
+}
+
+function copyXhr(source) {
+    const target = {};
+    for (const key in source) {
+        target[key] = source[key];
+    }
+    return target;
 }
