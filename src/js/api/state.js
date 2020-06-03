@@ -117,7 +117,7 @@ export default function (UIkit) {
             const data = getProps(this.$options, this.$name);
             if (records.some(({attributeName}) => {
                 const prop = attributeName.replace('data-', '');
-                return (prop === this.$name ? attrs : [camelize(prop)]).some(prop =>
+                return (prop === this.$name ? attrs : [camelize(prop), camelize(attributeName)]).some(prop =>
                     !isUndefined(data[prop]) && data[prop] !== this.$props[prop]
                 );
             })) {
