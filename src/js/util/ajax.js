@@ -1,6 +1,6 @@
 import {on} from './event';
 import {Promise} from './promise';
-import {assign, noop} from './lang';
+import {assign, isString, noop} from './lang';
 
 export function ajax(url, options) {
     return new Promise((resolve, reject) => {
@@ -16,7 +16,7 @@ export function ajax(url, options) {
 
         env.beforeSend(env);
 
-        const {xhr} = env;
+        let {xhr} = env;
 
         for (const prop in env) {
             if (prop in xhr) {
@@ -37,7 +37,14 @@ export function ajax(url, options) {
         on(xhr, 'load', () => {
 
             if (xhr.status === 0 || xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
+
+                // IE 11 does not support responseType 'json'
+                if (env.responseType === 'json' && isString(xhr.response)) {
+                    xhr = assign({}, xhr, {response: JSON.parse(xhr.response)});
+                }
+
                 resolve(xhr);
+
             } else {
                 reject(assign(Error(xhr.statusText), {
                     xhr,

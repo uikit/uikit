@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix prop observer for dataSrc option in Image component
+- Fix ajax function supports responseType 'json' in IE 11 
 
 ## 3.5.3 (May 29, 2020)
 

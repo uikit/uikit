@@ -132,17 +132,10 @@ function listen(cb) {
 
         once(window, 'message', (_, data) => resolve(data), false, ({data}) => {
 
-            if (!data || !isString(data)) {
-                return;
-            }
-
             try {
                 data = JSON.parse(data);
-            } catch (e) {
-                return;
-            }
-
-            return data && cb(data);
+                return data && cb(data);
+            } catch (e) {}
 
         })
 
