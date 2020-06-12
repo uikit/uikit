@@ -91,7 +91,7 @@ export default {
                 items = items.concat(activeItems);
             }
 
-            if (!this.collapsible && !filter(items, `:not(.${this.clsOpen})`).length) {
+            if (!this.collapsible && activeItems.length < 2 && !filter(items, `:not(.${this.clsOpen})`).length) {
                 return;
             }
 
