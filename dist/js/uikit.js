@@ -1,4 +1,4 @@
-/*! UIkit 3.5.3 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.4 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1029,7 +1029,14 @@
             on(xhr, 'load', function () {
 
                 if (xhr.status === 0 || xhr.status >= 200 && xhr.status < 300 || xhr.status === 304) {
+
+                    // IE 11 does not support responseType 'json'
+                    if (env.responseType === 'json' && isString(xhr.response)) {
+                        xhr = assign(copyXhr(xhr), {response: JSON.parse(xhr.response)});
+                    }
+
                     resolve(xhr);
+
                 } else {
                     reject(assign(Error(xhr.statusText), {
                         xhr: xhr,
@@ -1051,7 +1058,7 @@
         return new Promise(function (resolve, reject) {
             var img = new Image();
 
-            img.onerror = reject;
+            img.onerror = function (e) { return reject(e); };
             img.onload = function () { return resolve(img); };
 
             sizes && (img.sizes = sizes);
@@ -1059,6 +1066,14 @@
             img.src = src;
         });
 
+    }
+
+    function copyXhr(source) {
+        var target = {};
+        for (var key in source) {
+            target[key] = source[key];
+        }
+        return target;
     }
 
     function ready(fn) {
@@ -2392,17 +2407,10 @@
                 var data = ref.data;
 
 
-                if (!data || !isString(data)) {
-                    return;
-                }
-
                 try {
                     data = JSON.parse(data);
-                } catch (e) {
-                    return;
-                }
-
-                return data && cb(data);
+                    return data && cb(data);
+                } catch (e) {}
 
             }); }
 
@@ -3135,7 +3143,7 @@
                     var attributeName = ref.attributeName;
 
                     var prop = attributeName.replace('data-', '');
-                    return (prop === this$1.$name ? attrs : [camelize(prop)]).some(function (prop) { return !isUndefined(data[prop]) && data[prop] !== this$1.$props[prop]; }
+                    return (prop === this$1.$name ? attrs : [camelize(prop), camelize(attributeName)]).some(function (prop) { return !isUndefined(data[prop]) && data[prop] !== this$1.$props[prop]; }
                     );
                 })) {
                     this$1.$reset();
@@ -3529,7 +3537,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.5.3';
+    UIkit.version = '3.5.4';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -4018,7 +4026,7 @@
                     items = items.concat(activeItems);
                 }
 
-                if (!this.collapsible && !filter(items, (":not(." + (this.clsOpen) + ")")).length) {
+                if (!this.collapsible && activeItems.length < 2 && !filter(items, (":not(." + (this.clsOpen) + ")")).length) {
                     return;
                 }
 
@@ -5989,7 +5997,7 @@
                     storage[this$1.cacheKey] = currentSrc(img);
                     return img;
 
-                }, noop);
+                }, function (e) { return trigger(this$1.$el, new e.constructor(e.type, e)); });
 
                 this.observer.disconnect();
             },

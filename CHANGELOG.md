@@ -1,5 +1,17 @@
 # Changelog
 
+## 3.5.4 (June 12, 2020)
+
+### Added
+
+- Image component triggers 'error' event on failing to load image
+
+### Fixed
+
+- Fix prop observer for dataSrc option in Image component
+- Fix ajax function supports responseType 'json' in IE 11 
+- Fix Accordion component with `multiple: true` and `collapsible: false`
+
 ## 3.5.3 (May 29, 2020)
 
 ### Fixed
