@@ -90,9 +90,15 @@
 // Danger
 //
 
-.hook-button-danger() { border: @button-border-width solid transparent; }
+.hook-button-danger() { 
+    border: @button-border-width solid @global-campus-green; 
+    color:@global-color
+}
 
-.hook-button-danger-hover() {}
+.hook-button-danger-hover() { 
+    background-color:@global-light-gray;
+    color:@global-color
+}
 
 .hook-button-danger-active() {}
 
