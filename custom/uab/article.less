@@ -1,5 +1,10 @@
+// Name:            Article
+// Description:     Component to create articles
 //
-// Component: Article
+// Component:       `uk-article`
+//
+// Sub-objects:     `uk-article-title`
+//                  `uk-article-meta`
 //
 // ========================================================================
 
@@ -7,54 +12,99 @@
 // Variables
 // ========================================================================
 
-//
-// New
-//
+@article-margin-top:                            @global-large-margin;
 
-@article-meta-link-color:                       @article-meta-color;
-@article-meta-link-hover-color:                 @global-color;
+@article-title-font-size-m:                     @global-2xlarge-font-size;
+@article-title-font-size:                       @article-title-font-size-m * 0.85;
+@article-title-line-height:                     1.2;
 
-
-// Component
-// ========================================================================
-
-.hook-article() {}
+@article-meta-font-size:                        @global-small-font-size;
+@article-meta-line-height:                      1.1;
+@article-meta-color:                            @global-muted-color;
 
 
-// Adjacent sibling
-// ========================================================================
+/* ========================================================================
+   Component: Article
+ ========================================================================== */
 
-.hook-article-adjacent() {}
+.uk-article {
+    display: flow-root;
+    .hook-article;
+}
+
+/*
+ * Remove margin from the last-child
+ */
+
+.uk-article > :last-child { margin-bottom: 0; }
 
 
-// Title
-// ========================================================================
+/* Adjacent sibling
+ ========================================================================== */
 
-.hook-article-title() {}
+.uk-article + .uk-article {
+    margin-top: @article-margin-top;
+    .hook-article-adjacent;
+}
 
 
-// Meta
-// ========================================================================
+/* Title
+ ========================================================================== */
 
-.hook-article-meta() {
+.uk-article-title {
+    font-size: @article-title-font-size;
+    line-height: @article-title-line-height;
+    .hook-article-title;
+}
 
-    a { color: @article-meta-link-color; }
+/* Tablet landscape and bigger */
+@media (min-width: @breakpoint-medium) {
 
-    a:hover {
-        color: @article-meta-link-hover-color;
-        text-decoration: none;
-    }
+    .uk-article-title { font-size: @article-title-font-size-m; }
 
 }
 
 
-// Miscellaneous
+/* Meta
+ ========================================================================== */
+
+.uk-article-meta {
+    font-size: @article-meta-font-size;
+    line-height: @article-meta-line-height;
+    color: @article-meta-color;
+    .hook-article-meta;
+}
+
+
+// Hooks
 // ========================================================================
 
+.hook-article-misc;
+
+.hook-article() {}
+.hook-article-adjacent() {}
+.hook-article-title() {}
+.hook-article-meta() {}
 .hook-article-misc() {}
 
 
 // Inverse
 // ========================================================================
 
+@inverse-article-meta-color:                   @inverse-global-muted-color;
+
+.hook-inverse() {
+
+    .uk-article-title  {
+        .hook-inverse-article-title;
+    }
+
+    .uk-article-meta  {
+        color: @inverse-article-meta-color;
+        .hook-inverse-article-meta;
+    }
+
+}
+
+.hook-inverse-article-title() {}
 .hook-inverse-article-meta() {}
