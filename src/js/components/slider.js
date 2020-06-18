@@ -126,11 +126,12 @@ export default {
                 this.reorder();
                 this._translate(1);
             }
-
-            const actives = this._getTransitioner(this.index).getActives();
-            this.slides.forEach(slide => toggleClass(slide, this.clsActive, includes(actives, slide)));
-            (!this.sets || includes(this.sets, toFloat(this.index))) && this.slides.forEach(slide => toggleClass(slide, this.clsActivated, includes(actives, slide)));
-
+            
+            if (this.length) {
+                const actives = this._getTransitioner(this.index).getActives();
+                this.slides.forEach(slide => toggleClass(slide, this.clsActive, includes(actives, slide)));
+                (!this.sets || includes(this.sets, toFloat(this.index))) && this.slides.forEach(slide => toggleClass(slide, this.clsActivated, includes(actives, slide)));
+            }
         },
 
         events: ['resize']
