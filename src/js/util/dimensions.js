@@ -111,7 +111,7 @@ export function offset(element, coordinates) {
         return getDimensions(element);
     }
 
-    const currentOffset = offset(element);
+    const currentOffset = getDimensions(element);
     const pos = css(element, 'position');
 
     ['left', 'top'].forEach(prop => {
@@ -182,7 +182,7 @@ function getDimensions(element) {
 
 export function position(element, parent) {
 
-    parent = parent || toNode(element).offsetParent || toWindow(element).document.documentElement;
+    parent = parent || (toNode(element) || {}).offsetParent || toWindow(element).document.documentElement;
 
     const elementOffset = offset(element);
     const parentOffset = offset(parent);

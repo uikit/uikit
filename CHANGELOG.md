@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix empty slider throws exception
+
 ## 3.5.4 (June 12, 2020)
 
 ### Added
