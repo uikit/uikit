@@ -1,0 +1,82 @@
+//
+// Component: Accordion
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+//
+// New
+//
+
+@accordion-icon-margin-left:                   10px;
+@accordion-icon-color:                         @global-color;
+@internal-accordion-open-image:                "../../images/backgrounds/accordion-open.svg";
+@internal-accordion-close-image:               "../../images/backgrounds/accordion-close.svg";
+
+
+// Component
+// ========================================================================
+
+.hook-accordion() {}
+
+
+// Item
+// ========================================================================
+
+.hook-accordion-item() {}
+
+
+// Title
+// ========================================================================
+
+.hook-accordion-title() {
+
+    overflow: hidden;
+
+    &::before {
+        content: "";
+        width: (@accordion-title-line-height * 1em);
+        height: (@accordion-title-line-height * 1em);
+        margin-left: @accordion-icon-margin-left;
+        float: right;
+        .svg-fill(@internal-accordion-close-image, "#000", @accordion-icon-color);
+        background-repeat: no-repeat;
+        background-position: 50% 50%;
+    }
+
+    .uk-open > &::before { .svg-fill(@internal-accordion-open-image, "#000", @accordion-icon-color); }
+
+}
+
+.hook-accordion-title-hover() {}
+
+
+// Content
+// ========================================================================
+
+.hook-accordion-content() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-accordion-misc() {}
+
+// Inverse
+// ========================================================================
+
+.hook-inverse-accordion-item() {}
+
+.hook-inverse-accordion-title() {}
+.hook-inverse-accordion-title-hover() {}
+
+.hook-inverse() {
+
+    .uk-accordion-title::before { .svg-fill(@internal-accordion-close-image, "#000", @inverse-global-color); }
+
+    .uk-open > .uk-accordion-title::before { .svg-fill(@internal-accordion-open-image, "#000", @inverse-global-color); }
+
+}

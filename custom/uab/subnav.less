@@ -1,0 +1,79 @@
+//
+// Component: Subnav
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+//
+// New
+//
+
+@subnav-item-font-size:                         @global-small-font-size;
+@subnav-item-text-transform:                    uppercase;
+
+
+// Component
+// ========================================================================
+
+.hook-subnav() {}
+
+.hook-subnav-item() {
+    font-size: @subnav-item-font-size;
+    text-transform: @subnav-item-text-transform;
+    transition: 0.1s ease-in-out;
+    transition-property: color, background-color;
+}
+
+.hook-subnav-item-hover() {}
+
+.hook-subnav-item-active() {}
+
+
+// Divider modifier
+// ========================================================================
+
+.hook-subnav-divider() {}
+
+
+// Pill modifier
+// ========================================================================
+
+.hook-subnav-pill-item() {}
+
+.hook-subnav-pill-item-hover() {}
+
+.hook-subnav-pill-item-onclick() {}
+
+.hook-subnav-pill-item-active() {}
+
+
+// Disabled
+// ========================================================================
+
+.hook-subnav-item-disabled() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-subnav-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-inverse-subnav-item() {}
+.hook-inverse-subnav-item-hover() {}
+.hook-inverse-subnav-item-active() {}
+
+.hook-inverse-subnav-divider() {}
+
+.hook-inverse-subnav-pill-item() {}
+.hook-inverse-subnav-pill-item-hover() {}
+.hook-inverse-subnav-pill-item-onclick() {}
+.hook-inverse-subnav-pill-item-active() {}
+
+.hook-inverse-subnav-item-disabled() {}
