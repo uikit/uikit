@@ -1,0 +1,57 @@
+//
+// Component: Dotnav
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@dotnav-item-background:                             transparent;
+
+//
+// New
+//
+
+@dotnav-item-border-width:                           1px;
+
+@dotnav-item-border:                                 fade(@global-color, 40%);
+@dotnav-item-hover-border:                           transparent;
+@dotnav-item-onclick-border:                         transparent;
+@dotnav-item-active-border:                          transparent;
+
+
+// Component
+// ========================================================================
+
+.hook-dotnav() {}
+
+.hook-dotnav-item() {
+    border: @dotnav-item-border-width solid @dotnav-item-border;
+    transition: 0.2s ease-in-out;
+    transition-property: background-color, border-color;
+}
+
+.hook-dotnav-item-hover() { border-color: @dotnav-item-hover-border; }
+
+.hook-dotnav-item-onclick() { border-color: @dotnav-item-onclick-border; }
+
+.hook-dotnav-item-active() { border-color: @dotnav-item-active-border; }
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-dotnav-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+@inverse-dotnav-item-background:                     transparent;
+
+.hook-inverse-dotnav() {}
+.hook-inverse-dotnav-item() { border-color: fade(@inverse-global-color, 90%); }
+.hook-inverse-dotnav-item-hover() { border-color: transparent; }
+.hook-inverse-dotnav-item-onclick() { border-color: transparent; }
+.hook-inverse-dotnav-item-active() { border-color: transparent; }

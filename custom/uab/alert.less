@@ -1,0 +1,76 @@
+//
+// Component: Alert
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+//
+// New
+//
+
+@alert-close-opacity:                           0.4;
+@alert-close-hover-opacity:                     0.8;
+
+
+// Component
+// ========================================================================
+
+.hook-alert() {}
+
+
+// Close
+// ========================================================================
+
+.hook-alert-close() {
+    color: inherit;
+    opacity: @alert-close-opacity;
+}
+
+.hook-alert-close-hover() {
+    color: inherit;
+    opacity: @alert-close-hover-opacity;
+}
+
+
+// Style modifiers
+// ========================================================================
+
+.hook-alert-primary() {}
+
+.hook-alert-success() {}
+
+.hook-alert-warning() {}
+
+.hook-alert-danger() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-alert-misc() {
+
+    /*
+     * Content
+     */
+
+    .uk-alert h1,
+    .uk-alert h2,
+    .uk-alert h3,
+    .uk-alert h4,
+    .uk-alert h5,
+    .uk-alert h6 { color: inherit; }
+
+    .uk-alert a:not([class]) {
+        color: inherit;
+        text-decoration: underline;
+    }
+
+    .uk-alert a:not([class]):hover {
+        color: inherit;
+        text-decoration: underline;
+    }
+
+}

@@ -1,0 +1,217 @@
+//
+// Component: Card
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@card-hover-background:                        @global-background;
+
+@card-default-background:                      @global-background;
+@card-default-hover-background:                @card-default-background;
+
+@card-primary-hover-background:                @card-primary-background;
+
+@card-secondary-hover-background:              @card-secondary-background;
+
+//
+// New
+//
+
+@card-hover-box-shadow:                        @global-large-box-shadow;
+
+@card-default-box-shadow:                      @global-medium-box-shadow;
+@card-default-hover-box-shadow:                @global-large-box-shadow;
+
+@card-default-header-border-width:             @global-border-width;
+@card-default-header-border:                   @global-border;
+
+@card-default-footer-border-width:             @global-border-width;
+@card-default-footer-border:                   @global-border;
+
+@card-primary-box-shadow:                      @global-medium-box-shadow;
+@card-primary-hover-box-shadow:                @global-large-box-shadow;
+
+@card-secondary-box-shadow:                    @global-medium-box-shadow;
+@card-secondary-hover-box-shadow:              @global-large-box-shadow;
+
+
+// Component
+// ========================================================================
+
+.hook-card() { transition: box-shadow 0.1s ease-in-out; }
+
+
+// Sections
+// ========================================================================
+
+.hook-card-body() {}
+
+.hook-card-header() {}
+
+.hook-card-footer() {}
+
+
+// Media
+// ========================================================================
+
+.hook-card-media() {}
+
+.hook-card-media-top() {}
+
+.hook-card-media-bottom() {}
+
+.hook-card-media-left() {}
+
+.hook-card-media-right() {}
+
+
+// Title
+// ========================================================================
+
+.hook-card-title() {}
+
+
+// Badge
+// ========================================================================
+
+.hook-card-badge() {}
+
+
+// Hover modifier
+// ========================================================================
+
+.hook-card-hover() { box-shadow: @card-hover-box-shadow; }
+
+
+// Style modifiers
+// ========================================================================
+
+.hook-card-default() { box-shadow: @card-default-box-shadow; }
+
+.hook-card-default-title() {}
+
+.hook-card-default-hover() { box-shadow: @card-default-hover-box-shadow; }
+
+.hook-card-default-header() { border-bottom: @card-default-header-border-width solid @card-default-header-border; }
+
+.hook-card-default-footer() { border-top: @card-default-footer-border-width  solid @card-default-footer-border; }
+
+//
+// Primary
+//
+
+.hook-card-primary() { box-shadow: @card-primary-box-shadow; }
+
+.hook-card-primary-title() {}
+
+.hook-card-primary-hover() { box-shadow: @card-primary-hover-box-shadow; }
+
+//
+// Secondary
+//
+
+.hook-card-secondary() { box-shadow: @card-secondary-box-shadow; }
+
+.hook-card-secondary-title() {}
+
+.hook-card-secondary-hover() { box-shadow: @card-secondary-hover-box-shadow; }
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-card-misc() {
+
+    /*
+     * Default
+     */
+
+    .uk-card-body > .uk-nav-default {
+        margin-left: -@card-body-padding-horizontal;
+        margin-right: -@card-body-padding-horizontal;
+    }
+    .uk-card-body > .uk-nav-default:only-child {
+        margin-top: (-@card-body-padding-vertical + 15px);
+        margin-bottom: (-@card-body-padding-vertical + 15px);
+    }
+
+    .uk-card-body .uk-nav-default > li > a,
+    .uk-card-body .uk-nav-default .uk-nav-header,
+    .uk-card-body .uk-nav-default .uk-nav-divider {
+        padding-left: @card-body-padding-horizontal;
+        padding-right: @card-body-padding-horizontal;
+    }
+
+    .uk-card-body .uk-nav-default .uk-nav-sub { padding-left: @nav-sublist-deeper-padding-left + @card-body-padding-horizontal; }
+
+
+    /* Desktop and bigger */
+    @media (min-width: @breakpoint-large) {
+
+        .uk-card-body > .uk-nav-default {
+            margin-left: -@card-body-padding-horizontal-l;
+            margin-right: -@card-body-padding-horizontal-l;
+        }
+        .uk-card-body > .uk-nav-default:only-child {
+            margin-top: (-@card-body-padding-vertical-l + 15px);
+            margin-bottom: (-@card-body-padding-vertical-l + 15px);
+        }
+
+        .uk-card-body .uk-nav-default > li > a,
+        .uk-card-body .uk-nav-default .uk-nav-header,
+        .uk-card-body .uk-nav-default .uk-nav-divider {
+            padding-left: @card-body-padding-horizontal-l;
+            padding-right: @card-body-padding-horizontal-l;
+        }
+
+        .uk-card-body .uk-nav-default .uk-nav-sub { padding-left: @nav-sublist-deeper-padding-left + @card-body-padding-horizontal-l; }
+
+    }
+
+    /*
+     * Small
+     */
+
+    .uk-card-small > .uk-nav-default {
+        margin-left: -@card-small-body-padding-horizontal;
+        margin-right: -@card-small-body-padding-horizontal;
+    }
+    .uk-card-small > .uk-nav-default:only-child {
+        margin-top: (-@card-small-body-padding-vertical + 15px);
+        margin-bottom: (-@card-small-body-padding-vertical + 15px);
+    }
+
+    .uk-card-small .uk-nav-default > li > a,
+    .uk-card-small .uk-nav-default .uk-nav-header,
+    .uk-card-small .uk-nav-default .uk-nav-divider {
+        padding-left: @card-small-body-padding-horizontal;
+        padding-right: @card-small-body-padding-horizontal;
+    }
+
+    .uk-card-small .uk-nav-default .uk-nav-sub { padding-left: @nav-sublist-deeper-padding-left + @card-small-body-padding-horizontal; }
+
+    /*
+     * Large
+     */
+
+    /* Desktop and bigger */
+    @media (min-width: @breakpoint-large) {
+
+        .uk-card-large > .uk-nav-default { margin: 0; }
+        .uk-card-large > .uk-nav-default:only-child { margin: 0; }
+
+        .uk-card-large .uk-nav-default > li > a,
+        .uk-card-large .uk-nav-default .uk-nav-header,
+        .uk-card-large .uk-nav-default .uk-nav-divider {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .uk-card-large .uk-nav-default .uk-nav-sub { padding-left: @nav-sublist-deeper-padding-left; }
+
+    }
+
+}

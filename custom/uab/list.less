@@ -1,0 +1,50 @@
+//
+// Component: List
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+//
+// New
+//
+
+@list-striped-border-width:                     @global-border-width;
+@list-striped-border:                           @global-border;
+
+
+// Style modifiers
+// ========================================================================
+
+.hook-list-divider() {}
+
+.hook-list-striped() {
+
+    &:nth-of-type(odd) {
+        border-top: @list-striped-border-width solid @list-striped-border;
+        border-bottom: @list-striped-border-width solid @list-striped-border;
+    }
+
+}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-list-misc() {}
+
+
+// Inverse
+// ========================================================================
+
+.hook-inverse-list-divider() {}
+.hook-inverse-list-striped() {
+
+    &:nth-of-type(odd) {
+        border-top-color: @inverse-global-border;
+        border-bottom-color: @inverse-global-border;
+    }
+
+}

@@ -1,0 +1,45 @@
+//
+// Component: Dropdown
+//
+// ========================================================================
+
+
+// Variables
+// ========================================================================
+
+@dropdown-padding:                              25px;
+@dropdown-background:                           @global-background;
+
+//
+// New
+//
+
+@dropdown-nav-font-size:                        @global-small-font-size;
+
+@dropdown-box-shadow:                           0 5px 12px rgba(0,0,0,0.15);
+
+
+// Component
+// ========================================================================
+
+.hook-dropdown() { box-shadow: @dropdown-box-shadow; }
+
+
+// Nav
+// ========================================================================
+
+.hook-dropdown-nav() { font-size: @dropdown-nav-font-size; }
+
+.hook-dropdown-nav-item() {}
+
+.hook-dropdown-nav-item-hover() {}
+
+.hook-dropdown-nav-header() {}
+
+.hook-dropdown-nav-divider() {}
+
+
+// Miscellaneous
+// ========================================================================
+
+.hook-dropdown-misc() {}
