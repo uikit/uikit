@@ -5,8 +5,8 @@
 !/dist/css/uikit.min.css
 !/dist/css/uikit-rtl.css
 !/dist/css/uikit-rtl.min.css
-!/dist/css/uikit.uab.min.css
-!/dist/css/uikit.uab.css
+# !/dist/css/uikit.uab.min.css
+# !/dist/css/uikit.uab.css
 !/dist/css/bkup-uab-original.css
 !/dist/js/
 /dist/js/*
