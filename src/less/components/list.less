@@ -26,15 +26,14 @@
 
 @list-margin-top:                               @global-small-margin;
 
-@list-padding-left:                             30px;
+@list-padding-left:                             1.875em;
 
 @list-muted-color:                              @global-muted-color;
 @list-emphasis-color:                           @global-emphasis-color;
 @list-primary-color:                            @global-primary-background;
 @list-secondary-color:                          @global-secondary-background;
 
-@list-bullet-width:                             (@global-line-height * 1em);
-@list-bullet-height:                            @list-bullet-width;
+@list-bullet-height:                            (@global-line-height * 1em);
 @list-bullet-icon-color:                        @global-color;
 
 @list-divider-margin-top:                       @global-small-margin;
@@ -76,7 +75,7 @@
 .uk-list > li > ul { margin-top: @list-margin-top; }
 
 
-/* Type modifiers
+/* Marker modifiers
  ========================================================================== */
 
 .uk-list-disc,
@@ -85,21 +84,75 @@
 .uk-list-decimal,
 .uk-list-hyphen { padding-left: @list-padding-left; }
 
+/* Style modifiers */
 .uk-list-disc { list-style-type: disc; }
 .uk-list-circle { list-style-type: circle; }
 .uk-list-square { list-style-type: square; }
 .uk-list-decimal { list-style-type: decimal; }
 .uk-list-hyphen { list-style-type: '–  '; }
 
+/*
+ * Color modifiers
+ * `::marker` works in Firefox and Safari
+ */
 
-/* Color modifiers
- * Doesn't work in Chrome and Edge yet
- ========================================================================== */
+.uk-list-muted  > li::marker { color: @list-muted-color !important; }
+.uk-list-emphasis  > li::marker { color: @list-emphasis-color !important; }
+.uk-list-primary  > li::marker { color: @list-primary-color !important; }
+.uk-list-secondary  > li::marker { color: @list-secondary-color !important; }
 
-.uk-list-muted li::marker { color: @list-muted-color !important; }
-.uk-list-emphasis li::marker { color: @list-emphasis-color !important; }
-.uk-list-primary li::marker { color: @list-primary-color !important; }
-.uk-list-secondary li::marker { color: @list-secondary-color !important; }
+/* Selector works in Chrome, Firefox and Edge */
+@supports not selector(::marker) {
+
+    .uk-list-disc,
+    .uk-list-circle,
+    .uk-list-square,
+    .uk-list-decimal,
+    .uk-list-hyphen { list-style-type: none; }
+
+    /*
+     * Style modifiers
+     */
+
+    .uk-list-decimal { counter-reset: decimal; }
+    .uk-list-decimal > li { counter-increment: decimal; }
+
+    [class*='uk-list'] > li { position: relative; }
+
+    [class*='uk-list'] > li::before {
+        position: absolute;
+        top: 0;
+        left: -@list-padding-left;
+        width: @list-padding-left;
+        height: @list-bullet-height;
+        text-align: right;
+    }
+
+    .uk-list-disc > li::before {
+        content: '•\00A0\2009\2009';
+        transform: scale(1.2);
+    }
+    .uk-list-circle > li::before {
+        content: '⚬\00A0\2009\2009';
+        transform: scale(0.8);
+    }
+    .uk-list-square > li::before {
+        content: '▪\00A0\2009\2009';
+        transform: scale(1.3);
+    }
+    .uk-list-decimal > li::before { content: counter(decimal, decimal) '\200A.\00A0'; }
+    .uk-list-hyphen > li::before { content: '–\00A0\00A0'; }
+
+    /*
+     * Type modifiers
+     */
+    
+    .uk-list-muted > li::before { color: @list-muted-color !important; }
+    .uk-list-emphasis > li::before { color: @list-emphasis-color !important; }
+    .uk-list-primary > li::before { color: @list-primary-color !important; }
+    .uk-list-secondary > li::before { color: @list-secondary-color !important; }
+
+}
 
 
 /* Image bullet modifier
@@ -115,7 +168,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: @list-bullet-width;
+    width: @list-padding-left;
     height: @list-bullet-height;
     .svg-fill(@internal-list-bullet-image, "#000", @list-bullet-icon-color);
     background-repeat: no-repeat;
@@ -214,10 +267,19 @@
 
 .hook-inverse() {
 
-    .uk-list-muted li::marker { color: @inverse-list-muted-color !important; }
-    .uk-list-emphasis li::marker { color: @inverse-list-emphasis-color !important; }
-    .uk-list-primary li::marker { color: @inverse-list-primary-color !important; }
-    .uk-list-secondary li::marker { color: @inverse-list-secondary-color !important; }
+    .uk-list-muted > li::marker { color: @inverse-list-muted-color !important; }
+    .uk-list-emphasis > li::marker { color: @inverse-list-emphasis-color !important; }
+    .uk-list-primary > li::marker { color: @inverse-list-primary-color !important; }
+    .uk-list-secondary > li::marker { color: @inverse-list-secondary-color !important; }
+
+    @supports not selector(::marker) {
+
+        .uk-list-muted > li::before { color: @inverse-list-muted-color !important; }
+        .uk-list-emphasis > li::before { color: @inverse-list-emphasis-color !important; }
+        .uk-list-primary > li::before { color: @inverse-list-primary-color !important; }
+        .uk-list-secondary > li::before { color: @inverse-list-secondary-color !important; }
+    
+    }
 
     .uk-list-bullet > li::before {
         .svg-fill(@internal-list-bullet-image, "#000", @inverse-list-bullet-icon-color);
