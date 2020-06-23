@@ -41,18 +41,20 @@ function flush(recursion = 1) {
     }
 }
 
-const RECURSION_LIMIT = 5;
+const RECURSION_LIMIT = 4;
 function scheduleFlush(recursion) {
-    if (!fastdom.scheduled) {
-        fastdom.scheduled = true;
-        if (recursion > RECURSION_LIMIT) {
-            throw new Error('Maximum recursion limit reached.');
-        } else if (recursion) {
-            Promise.resolve().then(() => flush(recursion));
-        } else {
-            requestAnimationFrame(() => flush());
-        }
+
+    if (fastdom.scheduled) {
+        return;
     }
+
+    fastdom.scheduled = true;
+    if (recursion && recursion < RECURSION_LIMIT) {
+        Promise.resolve().then(() => flush(recursion));
+    } else {
+        requestAnimationFrame(() => flush());
+    }
+
 }
 
 function runTasks(tasks) {
