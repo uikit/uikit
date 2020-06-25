@@ -5,7 +5,8 @@
 ### Fixed
 
 - Updates no longer throw error after too many recursions, but delay into next frame
-- Fix empty slider throws exception
+- Fix empty slider throws exception-
+- Fix pointer events ignored on SVGs in Sortable component
 
 ## 3.5.4 (June 12, 2020)
 
