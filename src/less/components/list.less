@@ -76,6 +76,8 @@
 
 
 /* Marker modifiers
+ * Not using `::marker` because it currently only supported in
+ * Firefox and Safari and only certain CSS properties are allowed.
  ========================================================================== */
 
 .uk-list-disc,
@@ -84,69 +86,41 @@
 .uk-list-decimal,
 .uk-list-hyphen { padding-left: @list-padding-left; }
 
-/* Style modifiers */
-.uk-list-disc { list-style-type: disc; }
-.uk-list-circle { list-style-type: circle; }
-.uk-list-square { list-style-type: square; }
-.uk-list-decimal { list-style-type: decimal; }
-.uk-list-hyphen { list-style-type: '–  '; }
+/*
+ * Type modifiers
+ */
+
+.uk-list-decimal { counter-reset: decimal; }
+.uk-list-decimal > li { counter-increment: decimal; }
+
+[class*='uk-list'] > li { position: relative; }
+
+[class*='uk-list'] > li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -@list-padding-left;
+    width: @list-padding-left;
+    height: @list-bullet-height;
+    display: list-item;
+    list-style-position: inside;
+    text-align: right;
+}
+
+.uk-list-disc > li::before { list-style-type: disc; }
+.uk-list-circle > li::before { list-style-type: circle; }
+.uk-list-square > li::before { list-style-type: square; }
+.uk-list-decimal > li::before { content: counter(decimal, decimal) '\200A.\00A0'; }
+.uk-list-hyphen > li::before { content: '–\00A0\00A0'; }
 
 /*
  * Color modifiers
- * `::marker` works in Firefox and Safari
  */
 
-.uk-list-muted  > li::marker { color: @list-muted-color !important; }
-.uk-list-emphasis  > li::marker { color: @list-emphasis-color !important; }
-.uk-list-primary  > li::marker { color: @list-primary-color !important; }
-.uk-list-secondary  > li::marker { color: @list-secondary-color !important; }
-
-/* Selector works in Chrome, Firefox and Edge */
-@supports not selector(::marker) {
-
-    .uk-list-disc,
-    .uk-list-circle,
-    .uk-list-square,
-    .uk-list-decimal,
-    .uk-list-hyphen { list-style-type: none; }
-
-    /*
-     * Style modifiers
-     */
-
-    .uk-list-decimal { counter-reset: decimal; }
-    .uk-list-decimal > li { counter-increment: decimal; }
-
-    [class*='uk-list'] > li { position: relative; }
-
-    [class*='uk-list'] > li::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -@list-padding-left;
-        width: @list-padding-left;
-        height: @list-bullet-height;
-        display: list-item;
-        list-style-position: inside;
-        text-align: right;
-    }
-
-    .uk-list-disc > li::before { list-style-type: disc; }
-    .uk-list-circle > li::before { list-style-type: circle; }
-    .uk-list-square > li::before { list-style-type: square; }
-    .uk-list-decimal > li::before { content: counter(decimal, decimal) '\200A.\00A0'; }
-    .uk-list-hyphen > li::before { content: '–\00A0\00A0'; }
-
-    /*
-     * Type modifiers
-     */
-    
-    .uk-list-muted > li::before { color: @list-muted-color !important; }
-    .uk-list-emphasis > li::before { color: @list-emphasis-color !important; }
-    .uk-list-primary > li::before { color: @list-primary-color !important; }
-    .uk-list-secondary > li::before { color: @list-secondary-color !important; }
-
-}
+.uk-list-muted > li::before { color: @list-muted-color !important; }
+.uk-list-emphasis > li::before { color: @list-emphasis-color !important; }
+.uk-list-primary > li::before { color: @list-primary-color !important; }
+.uk-list-secondary > li::before { color: @list-secondary-color !important; }
 
 
 /* Image bullet modifier
@@ -261,19 +235,10 @@
 
 .hook-inverse() {
 
-    .uk-list-muted > li::marker { color: @inverse-list-muted-color !important; }
-    .uk-list-emphasis > li::marker { color: @inverse-list-emphasis-color !important; }
-    .uk-list-primary > li::marker { color: @inverse-list-primary-color !important; }
-    .uk-list-secondary > li::marker { color: @inverse-list-secondary-color !important; }
-
-    @supports not selector(::marker) {
-
-        .uk-list-muted > li::before { color: @inverse-list-muted-color !important; }
-        .uk-list-emphasis > li::before { color: @inverse-list-emphasis-color !important; }
-        .uk-list-primary > li::before { color: @inverse-list-primary-color !important; }
-        .uk-list-secondary > li::before { color: @inverse-list-secondary-color !important; }
-    
-    }
+    .uk-list-muted > li::before { color: @inverse-list-muted-color !important; }
+    .uk-list-emphasis > li::before { color: @inverse-list-emphasis-color !important; }
+    .uk-list-primary > li::before { color: @inverse-list-primary-color !important; }
+    .uk-list-secondary > li::before { color: @inverse-list-secondary-color !important; }
 
     .uk-list-bullet > li::before {
         .svg-fill(@internal-list-bullet-image, "#000", @inverse-list-bullet-icon-color);
