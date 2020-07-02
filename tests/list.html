@@ -6,6 +6,15 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>List - UIkit tests</title>
         <script src="js/test.js"></script>
+        <style>
+
+            @supports not selector(::marker) {
+                .uk-list > li[value]::before {
+                    content: attr(value) "\200A.\00A0";
+                }
+            }
+
+        </style>
     </head>
 
     <body>
@@ -13,6 +22,18 @@
         <div class="uk-container">
 
             <h1>List</h1>
+
+            <h2>Marker</h2>
+
+            <div class="uk-margin">
+                <select id="js-color-switcher" class="uk-select uk-form-width-small">
+                    <option value="">Default</option>
+                    <option value="uk-list-muted">Muted</option>
+                    <option value="uk-list-emphasis">Emphasis</option>
+                    <option value="uk-list-primary">Primary</option>
+                    <option value="uk-list-secondary">Secondary</option>
+                </select>
+            </div>
 
             <div class="uk-child-width-1-6" uk-grid>
                 <div>
@@ -26,10 +47,10 @@
                         <li>List item 4 with some more text wrapping into the next line</li>
                         <li>
                             List item 5
-                            <ul class="uk-list uk-list-decimal">
+                            <ul class="uk-list uk-list-disc">
                                 <li>List item 1</li>
                                 <li>List item 2
-                                    <ul>
+                                    <ul class="uk-list uk-list-disc">
                                         <li>List item 1</li>
                                         <li>List item 2</li>
                                     </ul>
@@ -37,6 +58,7 @@
                             </ul>
                         </li>
                         <li>List item 6</li>
+                        <li>List item 7</li>
                     </ul>
 
                 </div>
@@ -44,16 +66,16 @@
 
                     <h3>Circle</h3>
 
-                    <ul class="uk-list uk-list-circle uk-list-muted">
+                    <ul class="uk-list uk-list-circle">
                         <li>List item 1</li>
                         <li>List item 2</li>
                         <li>List item 3</li>
                         <li>List item 4 with some more text wrapping into the next line</li>
                         <li>List item 5
-                            <ul>
+                            <ul class="uk-list uk-list-circle">
                                 <li>List item 1</li>
                                 <li>List item 2
-                                    <ul>
+                                    <ul class="uk-list uk-list-circle">
                                         <li>List item 1</li>
                                         <li>List item 2</li>
                                     </ul>
@@ -61,6 +83,7 @@
                             </ul>
                         </li>
                         <li>List item 6</li>
+                        <li>List item 7</li>
                     </ul>
 
                 </div>
@@ -68,16 +91,16 @@
 
                     <h3>Square</h3>
 
-                    <ul class="uk-list uk-list-square uk-list-emphasis">
+                    <ul class="uk-list uk-list-square">
                         <li>List item 1</li>
                         <li>List item 2</li>
                         <li>List item 3</li>
                         <li>List item 4 with some more text wrapping into the next line</li>
                         <li>List item 5
-                            <ul>
+                            <ul class="uk-list uk-list-square">
                                 <li>List item 1</li>
                                 <li>List item 2
-                                    <ul>
+                                    <ul class="uk-list uk-list-square">
                                         <li>List item 1</li>
                                         <li>List item 2</li>
                                     </ul>
@@ -85,6 +108,7 @@
                             </ul>
                         </li>
                         <li>List item 6</li>
+                        <li>List item 7</li>
                     </ul>
 
                 </div>
@@ -92,16 +116,16 @@
 
                     <h3>Decimal</h3>
 
-                    <ul class="uk-list uk-list-decimal uk-list-primary">
+                    <ul class="uk-list uk-list-decimal">
                         <li>List item 1</li>
                         <li>List item 2</li>
                         <li>List item 3</li>
                         <li>List item 4 with some more text wrapping into the next line</li>
                         <li>List item 5
-                            <ul>
+                            <ul class="uk-list uk-list-decimal">
                                 <li>List item 1</li>
                                 <li>List item 2
-                                    <ul>
+                                    <ul class="uk-list uk-list-decimal">
                                         <li>List item 1</li>
                                         <li>List item 2</li>
                                     </ul>
@@ -109,6 +133,7 @@
                             </ul>
                         </li>
                         <li>List item 6</li>
+                        <li value="10">List item 7</li>
                     </ul>
 
                 </div>
@@ -116,16 +141,16 @@
 
                     <h3>Hyphen</h3>
 
-                    <ul class="uk-list uk-list-hyphen uk-list-secondary">
+                    <ul class="uk-list uk-list-hyphen">
                         <li>List item 1</li>
                         <li>List item 2</li>
                         <li>List item 3</li>
                         <li>List item 4 with some more text wrapping into the next line</li>
                         <li>List item 5
-                            <ul>
+                            <ul class="uk-list uk-list-hyphen">
                                 <li>List item 1</li>
                                 <li>List item 2
-                                    <ul>
+                                    <ul class="uk-list uk-list-hyphen">
                                         <li>List item 1</li>
                                         <li>List item 2</li>
                                     </ul>
@@ -133,6 +158,7 @@
                             </ul>
                         </li>
                         <li>List item 6</li>
+                        <li>List item 7</li>
                     </ul>
 
                 </div>
@@ -146,10 +172,10 @@
                         <li>List item 3</li>
                         <li>List item 4 with some more text wrapping into the next line</li>
                         <li>List item 5
-                            <ul>
+                            <ul class="uk-list uk-list-bullet">
                                 <li>List item 1</li>
                                 <li>List item 2
-                                    <ul>
+                                    <ul class="uk-list uk-list-bullet">
                                         <li>List item 1</li>
                                         <li>List item 2</li>
                                     </ul>
@@ -157,12 +183,13 @@
                             </ul>
                         </li>
                         <li>List item 6</li>
+                        <li>List item 7</li>
                     </ul>
 
                 </div>
             </div>
 
-            <h2>Divider/Striped</h2>
+            <h2>Style</h2>
 
             <div class="uk-child-width-1-4" uk-grid>
                 <div>
@@ -194,54 +221,6 @@
                     <h3>Striped</h3>
 
                     <ul class="uk-list uk-list-striped">
-                        <li>List item 1</li>
-                        <li>List item 2</li>
-                        <li>List item 3</li>
-                        <li>List item 4 with some more text wrapping into the next line</li>
-                        <li>List item 5
-                            <ul>
-                                <li>List item 1</li>
-                                <li>List item 2
-                                    <ul>
-                                        <li>List item 1</li>
-                                        <li>List item 2</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>List item 6</li>
-                    </ul>
-
-                </div>
-                <div>
-
-                    <h3>Divider</h3>
-
-                    <ul class="uk-list uk-list-divider uk-list-disc">
-                        <li>List item 1</li>
-                        <li>List item 2</li>
-                        <li>List item 3</li>
-                        <li>List item 4 with some more text wrapping into the next line</li>
-                        <li>List item 5
-                            <ul>
-                                <li>List item 1</li>
-                                <li>List item 2
-                                    <ul>
-                                        <li>List item 1</li>
-                                        <li>List item 2</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li>List item 6</li>
-                    </ul>
-
-                </div>
-                <div>
-
-                    <h3>Striped</h3>
-
-                    <ul class="uk-list uk-list-striped uk-list-disc">
                         <li>List item 1</li>
                         <li>List item 2</li>
                         <li>List item 3</li>
@@ -468,6 +447,20 @@
             </div>
 
         </div>
+
+        <script>
+
+            var options = UIkit.util.$$('#js-color-switcher option').map(function (option) { return option.value; });
+
+            UIkit.util.on('#js-color-switcher', 'change', function () {
+                var value = this.value;
+                UIkit.util.$$('.uk-list').forEach(function (table) {
+                    UIkit.util.removeClass(table, options);
+                    UIkit.util.addClass(table, value);
+                });
+            });
+
+        </script>
 
     </body>
 </html>
