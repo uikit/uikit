@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add list marker utility support for WebKit
+
 ### Fixed
 
 - Updates no longer throw error after too many recursions, but delay into next frame
