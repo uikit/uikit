@@ -28,12 +28,13 @@
 
 @list-padding-left:                             30px;
 
+@list-marker-height:                            (@global-line-height * 1em);
+
 @list-muted-color:                              @global-muted-color;
 @list-emphasis-color:                           @global-emphasis-color;
 @list-primary-color:                            @global-primary-background;
 @list-secondary-color:                          @global-secondary-background;
 
-@list-bullet-height:                            (@global-line-height * 1em);
 @list-bullet-icon-color:                        @global-color;
 
 @list-divider-margin-top:                       @global-small-margin;
@@ -76,8 +77,8 @@
 
 
 /* Marker modifiers
- * Not using `::marker` because it currently only supported in
- * Firefox and Safari and only certain CSS properties are allowed.
+ * Moving `::marker` inside `::before` to style it differently
+ * To style the `::marker` is currently only supported in Firefox and Safari
  ========================================================================== */
 
 .uk-list-disc,
@@ -101,7 +102,7 @@
     top: 0;
     left: -@list-padding-left;
     width: @list-padding-left;
-    height: @list-bullet-height;
+    height: @list-marker-height;
     display: list-item;
     list-style-position: inside;
     text-align: right;
@@ -137,7 +138,7 @@
     top: 0;
     left: 0;
     width: @list-padding-left;
-    height: @list-bullet-height;
+    height: @list-marker-height;
     .svg-fill(@internal-list-bullet-image, "#000", @list-bullet-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
