@@ -6,6 +6,7 @@
 
 - Add list marker utility support for WebKit
 - Add `uk-text-default` to Text component 
+- Add multiple targets to Filter component
 
 ### Fixed
 

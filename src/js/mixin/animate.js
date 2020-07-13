@@ -12,38 +12,30 @@ export default {
         animation: 150
     },
 
-    computed: {
-
-        target() {
-            return this.$el;
-        }
-
-    },
-
     methods: {
 
-        animate(action) {
+        animate(action, target = this.$el) {
 
             addStyle();
 
-            let children = getChildren(this.target);
+            let children = getChildren(target);
             let propsFrom = children.map(el => getProps(el, true));
 
-            const oldHeight = height(this.target);
+            const oldHeight = height(target);
             const oldScrollY = window.pageYOffset;
 
             action();
 
-            Transition.cancel(this.target);
+            Transition.cancel(target);
             children.forEach(Transition.cancel);
 
-            reset(this.target);
-            this.$update(this.target, 'resize');
+            reset(target);
+            this.$update(target, 'resize');
             fastdom.flush();
 
-            const newHeight = height(this.target);
+            const newHeight = height(target);
 
-            children = children.concat(getChildren(this.target).filter(el => !includes(children, el)));
+            children = children.concat(getChildren(target).filter(el => !includes(children, el)));
 
             const propsTo = children.map((el, i) =>
                 el.parentNode && i in propsFrom
@@ -56,7 +48,7 @@ export default {
             );
 
             propsFrom = propsTo.map((props, i) => {
-                const from = children[i].parentNode === this.target
+                const from = children[i].parentNode === target
                     ? propsFrom[i] || getProps(children[i])
                     : false;
 
@@ -77,9 +69,9 @@ export default {
                 return from;
             });
 
-            addClass(this.target, targetClass);
+            addClass(target, targetClass);
             children.forEach((el, i) => propsFrom[i] && css(el, propsFrom[i]));
-            css(this.target, {height: oldHeight, display: 'block'});
+            css(target, {height: oldHeight, display: 'block'});
             scrollTop(window, oldScrollY);
 
             return Promise.all(
@@ -87,11 +79,11 @@ export default {
                     ['top', 'left', 'height', 'width'].some(prop =>
                         propsFrom[i][prop] !== propsTo[i][prop]
                     ) && Transition.start(el, propsTo[i], this.animation, 'ease')
-                ).concat(oldHeight !== newHeight && Transition.start(this.target, {height: newHeight}, this.animation, 'ease'))
+                ).concat(oldHeight !== newHeight && Transition.start(target, {height: newHeight}, this.animation, 'ease'))
             ).then(() => {
                 children.forEach((el, i) => css(el, {display: propsTo[i].opacity === 0 ? 'none' : '', zIndex: ''}));
-                reset(this.target);
-                this.$update(this.target, 'resize');
+                reset(target);
+                this.$update(target, 'resize');
                 fastdom.flush(); // needed for IE11
             }, noop);
 

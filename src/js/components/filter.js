@@ -1,5 +1,5 @@
 import Animate from '../mixin/animate';
-import {$, $$, append, assign, children, css, data, each, fastdom, hasClass, includes, isEmpty, isEqual, isUndefined, matches, parseOptions, toggleClass, trigger} from 'uikit-util';
+import {$$, append, assign, css, data, each, fastdom, children as getChildren, hasClass, includes, isEmpty, isEqual, isUndefined, matches, parseOptions, Promise, toggleClass, trigger} from 'uikit-util';
 
 export default {
 
@@ -43,14 +43,10 @@ export default {
 
         },
 
-        target({target}, $el) {
-            return $(target, $el);
-        },
-
         children: {
 
-            get() {
-                return children(this.target);
+            get({target}, $el) {
+                return $$(`${target} > *`, $el);
             },
 
             watch(list, old) {
@@ -101,33 +97,14 @@ export default {
 
             trigger(this.$el, 'beforeFilter', [this, state]);
 
-            const {children} = this;
-
             this.toggles.forEach(el => toggleClass(el, this.cls, !!matchFilter(el, this.attrItem, state)));
 
-            const apply = () => {
-
-                const selector = getSelector(state);
-
-                children.forEach(el => css(el, 'display', selector && !matches(el, selector) ? 'none' : ''));
-
-                const [sort, order] = state.sort;
-
-                if (sort) {
-                    const sorted = sortItems(children, sort, order);
-                    if (!isEqual(sorted, children)) {
-                        sorted.forEach(el => append(this.target, el));
-                    }
-                }
-
-            };
-
-            if (animate) {
-                this.animate(apply).then(() => trigger(this.$el, 'afterFilter', [this]));
-            } else {
-                apply();
-                trigger(this.$el, 'afterFilter', [this]);
-            }
+            Promise.all($$(this.target, this.$el).map(target => {
+                const children = getChildren(target);
+                return animate
+                    ? this.animate(() => applyState(state, target, children), target)
+                    : applyState(state, target, children);
+            })).then(() => trigger(this.$el, 'afterFilter', [this]));
 
         },
 
@@ -141,6 +118,21 @@ export default {
 
 function getFilter(el, attr) {
     return parseOptions(data(el, attr), ['filter']);
+}
+
+function applyState(state, target, children) {
+    const selector = getSelector(state);
+
+    children.forEach(el => css(el, 'display', selector && !matches(el, selector) ? 'none' : ''));
+
+    const [sort, order] = state.sort;
+
+    if (sort) {
+        const sorted = sortItems(children, sort, order);
+        if (!isEqual(sorted, children)) {
+            append(target, sorted);
+        }
+    }
 }
 
 function mergeState(el, attr, state) {
