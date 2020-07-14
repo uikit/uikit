@@ -28,13 +28,13 @@ $list-margin-top:                                $global-small-margin !default;
 
 $list-padding-left:                              30px !default;
 
+$list-marker-height:                             ($global-line-height * 1em) !default;
+
 $list-muted-color:                               $global-muted-color !default;
 $list-emphasis-color:                            $global-emphasis-color !default;
 $list-primary-color:                             $global-primary-background !default;
 $list-secondary-color:                           $global-secondary-background !default;
 
-$list-bullet-width:                              ($global-line-height * 1em) !default;
-$list-bullet-height:                             $list-bullet-width !default;
 $list-bullet-icon-color:                         $global-color !default;
 
 $list-divider-margin-top:                        $global-small-margin !default;
@@ -66,57 +66,74 @@ $internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D
  * Remove margin from the last-child
  */
 
-.uk-list > li > :last-child { margin-bottom: 0; }
+.uk-list > * > :last-child { margin-bottom: 0; }
 
 /*
  * Style
  */
 
-.uk-list > li:nth-child(n+2),
-.uk-list > li > ul { margin-top: $list-margin-top; }
+.uk-list > :nth-child(n+2),
+.uk-list > * > ul { margin-top: $list-margin-top; }
 
 
-/* Type modifiers
+/* Marker modifiers
+ * Moving `::marker` inside `::before` to style it differently
+ * To style the `::marker` is currently only supported in Firefox and Safari
  ========================================================================== */
 
-.uk-list-disc,
-.uk-list-circle,
-.uk-list-square,
-.uk-list-decimal,
-.uk-list-hyphen { padding-left: $list-padding-left; }
+.uk-list-disc > *,
+.uk-list-circle > *,
+.uk-list-square > *,
+.uk-list-decimal > *,
+.uk-list-hyphen > * { padding-left: $list-padding-left; }
 
-.uk-list-disc { list-style-type: disc; }
-.uk-list-circle { list-style-type: circle; }
-.uk-list-square { list-style-type: square; }
-.uk-list-decimal { list-style-type: decimal; }
-.uk-list-hyphen { list-style-type: '–  '; }
+/*
+ * Type modifiers
+ */
 
+.uk-list-decimal { counter-reset: decimal; }
+.uk-list-decimal > * { counter-increment: decimal; }
 
-/* Color modifiers
- * Doesn't work in Chrome and Edge yet
- ========================================================================== */
+[class*='uk-list'] > ::before {
+    content: '';
+    position: relative;
+    left: (-$list-padding-left);
+    width: $list-padding-left;
+    height: $list-marker-height;
+    margin-bottom: (-$list-marker-height);
+    display: list-item;
+    list-style-position: inside;
+    text-align: right;
+}
 
-.uk-list-muted li::marker { color: $list-muted-color !important; }
-.uk-list-emphasis li::marker { color: $list-emphasis-color !important; }
-.uk-list-primary li::marker { color: $list-primary-color !important; }
-.uk-list-secondary li::marker { color: $list-secondary-color !important; }
+.uk-list-disc > ::before { list-style-type: disc; }
+.uk-list-circle > ::before { list-style-type: circle; }
+.uk-list-square > ::before { list-style-type: square; }
+.uk-list-decimal > ::before { content: counter(decimal, decimal) '\200A.\00A0'; }
+.uk-list-hyphen > ::before { content: '–\00A0\00A0'; }
+
+/*
+ * Color modifiers
+ */
+
+.uk-list-muted > ::before { color: $list-muted-color !important; }
+.uk-list-emphasis > ::before { color: $list-emphasis-color !important; }
+.uk-list-primary > ::before { color: $list-primary-color !important; }
+.uk-list-secondary > ::before { color: $list-secondary-color !important; }
 
 
 /* Image bullet modifier
  ========================================================================== */
 
-.uk-list-bullet > li {
-    position: relative;
-    padding-left: $list-padding-left;
-}
+.uk-list-bullet > * { padding-left: $list-padding-left; }
 
-.uk-list-bullet > li::before {
+.uk-list-bullet > ::before {
     content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: $list-bullet-width;
-    height: $list-bullet-height;
+    position: relative;
+    left: (-$list-padding-left);
+    width: $list-padding-left;
+    height: $list-marker-height;
+    margin-bottom: (-$list-marker-height);
     @include svg-fill($internal-list-bullet-image, "#000", $list-bullet-icon-color);
     background-repeat: no-repeat;
     background-position: 50% 50%;
@@ -130,7 +147,7 @@ $internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D
  * Divider
  */
 
-.uk-list-divider > li:nth-child(n+2) {
+.uk-list-divider > :nth-child(n+2) {
     margin-top: $list-divider-margin-top;
     padding-top: $list-divider-margin-top;
     border-top: $list-divider-border-width solid $list-divider-border;
@@ -141,35 +158,35 @@ $internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D
  * Striped
  */
 
-.uk-list-striped > li {
+.uk-list-striped > * {
     padding: $list-striped-padding-vertical $list-striped-padding-horizontal;
     @if(mixin-exists(hook-list-striped)) {@include hook-list-striped();}
 }
 
-.uk-list-striped > li:nth-of-type(odd) { background: $list-striped-background; }
+.uk-list-striped > :nth-of-type(odd) { background: $list-striped-background; }
 
-.uk-list-striped > li:nth-child(n+2) { margin-top: 0; }
+.uk-list-striped > :nth-child(n+2) { margin-top: 0; }
 
 
 /* Size modifier
  ========================================================================== */
 
-.uk-list-large > li:nth-child(n+2),
-.uk-list-large > li > ul { margin-top: $list-large-margin-top; }
+.uk-list-large > :nth-child(n+2),
+.uk-list-large > * > ul { margin-top: $list-large-margin-top; }
 
-.uk-list-collapse > li:nth-child(n+2),
-.uk-list-collapse > li > ul { margin-top: 0; }
+.uk-list-collapse > :nth-child(n+2),
+.uk-list-collapse > * > ul { margin-top: 0; }
 
 /*
  * Divider
  */
 
-.uk-list-large.uk-list-divider > li:nth-child(n+2) {
+.uk-list-large.uk-list-divider > :nth-child(n+2) {
     margin-top: $list-large-divider-margin-top;
     padding-top: $list-large-divider-margin-top;
 }
 
-.uk-list-collapse.uk-list-divider > li:nth-child(n+2) {
+.uk-list-collapse.uk-list-divider > :nth-child(n+2) {
     margin-top: 0;
     padding-top: 0;
 }
@@ -178,15 +195,15 @@ $internal-list-bullet-image: "data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D
  * Striped
  */
 
-.uk-list-large.uk-list-striped > li { padding: $list-large-striped-padding-vertical $list-large-striped-padding-horizontal; }
+.uk-list-large.uk-list-striped > * { padding: $list-large-striped-padding-vertical $list-large-striped-padding-horizontal; }
 
-.uk-list-collapse.uk-list-striped > li {
+.uk-list-collapse.uk-list-striped > * {
     padding-top: 0;
     padding-bottom: 0;
 }
 
-.uk-list-large.uk-list-striped > li:nth-child(n+2),
-.uk-list-collapse.uk-list-striped > li:nth-child(n+2) { margin-top: 0; }
+.uk-list-large.uk-list-striped > :nth-child(n+2),
+.uk-list-collapse.uk-list-striped > :nth-child(n+2) { margin-top: 0; }
 
 
 // Hooks

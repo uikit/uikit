@@ -34,12 +34,6 @@ $sortable-empty-height:                          50px !default;
 }
 
 /*
- * Deactivate pointer-events on SVGs in Safari
- */
-
-.uk-sortable svg { pointer-events: none; }
-
-/*
  * Remove margin from the last-child
  */
 

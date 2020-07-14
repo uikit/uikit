@@ -888,25 +888,25 @@
 }
 @mixin hook-inverse-component-list(){
 
-    .uk-list-muted li::marker { color: $inverse-list-muted-color !important; }
-    .uk-list-emphasis li::marker { color: $inverse-list-emphasis-color !important; }
-    .uk-list-primary li::marker { color: $inverse-list-primary-color !important; }
-    .uk-list-secondary li::marker { color: $inverse-list-secondary-color !important; }
+    .uk-list-muted > ::before { color: $inverse-list-muted-color !important; }
+    .uk-list-emphasis > ::before { color: $inverse-list-emphasis-color !important; }
+    .uk-list-primary > ::before { color: $inverse-list-primary-color !important; }
+    .uk-list-secondary > ::before { color: $inverse-list-secondary-color !important; }
 
-    .uk-list-bullet > li::before {
+    .uk-list-bullet > ::before {
         @include svg-fill($internal-list-bullet-image, "#000", $inverse-list-bullet-icon-color);
     }
 
-    .uk-list-divider > li:nth-child(n+2) {
+    .uk-list-divider > :nth-child(n+2) {
         border-top-color: $inverse-list-divider-border;
         @if(mixin-exists(hook-inverse-list-divider)) {@include hook-inverse-list-divider();}
     }
 
-    .uk-list-striped > li {
+    .uk-list-striped > * {
         @if(mixin-exists(hook-inverse-list-striped)) {@include hook-inverse-list-striped();}
     }
 
-    .uk-list-striped > li:nth-of-type(odd) { background-color: $inverse-list-striped-background; }
+    .uk-list-striped > :nth-of-type(odd) { background-color: $inverse-list-striped-background; }
 
 }
 @mixin hook-inverse-component-totop(){

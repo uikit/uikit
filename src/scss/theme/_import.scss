@@ -13,11 +13,11 @@
 @import "form-range.scss";
 @import "form.scss";
 @import "button.scss";
+@import "progress.scss";
 
 // Layout
 @import "section.scss";
 @import "container.scss";
-@import "grid.scss";
 @import "tile.scss";
 @import "card.scss";
 
@@ -27,12 +27,29 @@
 @import "marker.scss";
 @import "totop.scss";
 @import "alert.scss";
+@import "placeholder.scss";
 @import "badge.scss";
 @import "label.scss";
 @import "overlay.scss";
 @import "article.scss";
 @import "comment.scss";
 @import "search.scss";
+
+// JavaScript
+@import "accordion.scss";
+@import "drop.scss";
+@import "dropdown.scss";
+@import "modal.scss";
+@import "lightbox.scss";
+@import "sticky.scss";
+@import "offcanvas.scss";
+@import "leader.scss";
+@import "notification.scss";
+@import "tooltip.scss";
+@import "sortable.scss";
+@import "countdown.scss";
+
+@import "grid.scss";
 
 // Navs
 @import "nav.scss";
@@ -44,25 +61,7 @@
 @import "slidenav.scss";
 @import "dotnav.scss";
 @import "thumbnav.scss";
-
-// JavaScript
-@import "accordion.scss";
-@import "drop.scss";
-@import "dropdown.scss";
-@import "modal.scss";
-@import "lightbox.scss";
-@import "sticky.scss";
-@import "offcanvas.scss";
-@import "leader.scss";
-
-// Additional
 @import "iconnav.scss";
-@import "notification.scss";
-@import "tooltip.scss";
-@import "placeholder.scss";
-@import "progress.scss";
-@import "sortable.scss";
-@import "countdown.scss";
 
 // Utilities
 @import "animation.scss";
