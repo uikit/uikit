@@ -14,6 +14,7 @@
 - Fix empty slider throws exception
 - Fix pointer events ignored on SVGs in Sortable component
 - Fix Grid component divider rendering
+- Fix `<select>` closes Drop component in hover mode in Firefox 
 
 ## 3.5.4 (June 12, 2020)
 

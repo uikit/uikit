@@ -185,7 +185,7 @@ export default {
             },
 
             handler(e) {
-                if (!isTouch(e)) {
+                if (!isTouch(e) && e.relatedTarget) {
                     this.hide();
                 }
             }
