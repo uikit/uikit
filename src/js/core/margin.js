@@ -15,9 +15,12 @@ export default {
     update: {
 
         read() {
+
+            const rows = getRows(this.$el.children);
+
             return {
-                columns: getColumns(this.$el.children),
-                rows: getRows(this.$el.children)
+                rows,
+                columns: getColumns(rows)
             };
         },
 
@@ -40,8 +43,16 @@ export function getRows(items) {
     return sortBy(items, 'top', 'bottom');
 }
 
-function getColumns(items) {
-    const columns = sortBy(items, 'left', 'right');
+function getColumns(rows) {
+
+    const columns = [[]];
+
+    rows.forEach(row =>
+        sortBy(row, 'left', 'right').forEach((column, i) =>
+            columns[i] = !columns[i] ? column : columns[i].concat(column)
+        )
+    );
+
     return isRtl
         ? columns.reverse()
         : columns;

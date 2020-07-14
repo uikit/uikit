@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.5.5 (July 14, 2020)
+
+### Added
+
+- Add list marker utility support for WebKit
+- Add `uk-text-default` to Text component 
+- Add multiple targets to Filter component
+
+### Fixed
+
+- Updates no longer throw error after too many recursions, but delay into next frame
+- Fix empty slider throws exception
+- Fix pointer events ignored on SVGs in Sortable component
+- Fix Grid component divider rendering
+- Fix `<select>` closes Drop component in hover mode in Firefox 
+
 ## 3.5.4 (June 12, 2020)
 
 ### Added

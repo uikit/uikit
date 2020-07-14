@@ -72,6 +72,11 @@ $text-background-color:                          $global-primary-background !def
     @if(mixin-exists(hook-text-large)) {@include hook-text-large();}
 }
 
+.uk-text-default {
+    font-size: $global-font-size;
+    line-height: $global-line-height;
+}
+
 
 /* Weight modifier
  ========================================================================== */
