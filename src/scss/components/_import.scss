@@ -14,11 +14,11 @@
 @import "form-range.scss";
 @import "form.scss"; // After: Icon, Form Range
 @import "button.scss";
+@import "progress.scss";
 
 // Layout
 @import "section.scss";
 @import "container.scss";
-@import "grid.scss";
 @import "tile.scss";
 @import "card.scss";
 
@@ -28,23 +28,13 @@
 @import "totop.scss"; // After: Icon
 @import "marker.scss"; // After: Icon
 @import "alert.scss"; // After: Close
+@import "placeholder.scss";
 @import "badge.scss";
 @import "label.scss";
 @import "overlay.scss"; // After: Icon
-@import "article.scss"; // After: Subnav
-@import "comment.scss"; // After: Subnav
+@import "article.scss";
+@import "comment.scss";
 @import "search.scss"; // After: Icon
-
-// Navs
-@import "nav.scss";
-@import "navbar.scss"; // After: Card, Grid, Nav, Icon, Search
-@import "subnav.scss";
-@import "breadcrumb.scss";
-@import "pagination.scss";
-@import "tab.scss";
-@import "slidenav.scss"; // After: Icon
-@import "dotnav.scss";
-@import "thumbnav.scss";
 
 // JavaScript
 @import "accordion.scss";
@@ -58,18 +48,27 @@
 @import "offcanvas.scss";
 @import "switcher.scss";
 @import "leader.scss";
+@import "notification.scss";
+@import "tooltip.scss";
+@import "sortable.scss";
+@import "countdown.scss";
 // Scrollspy
 // Toggle
 // Scroll
 
-// Additional
+@import "grid.scss";
+
+// Navs
+@import "nav.scss";
+@import "navbar.scss"; // After: Card, Grid, Nav, Icon, Search
+@import "subnav.scss";
+@import "breadcrumb.scss";
+@import "pagination.scss";
+@import "tab.scss";
+@import "slidenav.scss"; // After: Icon
+@import "dotnav.scss";
+@import "thumbnav.scss";
 @import "iconnav.scss";
-@import "notification.scss";
-@import "tooltip.scss";
-@import "placeholder.scss";
-@import "progress.scss";
-@import "sortable.scss";
-@import "countdown.scss";
 
 // Utilities
 @import "animation.scss";
