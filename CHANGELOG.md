@@ -1,5 +1,15 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- Sticky component uses window.Date instead of window.performance
+
+### Fixed
+
+- Sticky component remains inactive if hidden
+
 ## 3.5.5 (July 14, 2020)
 
 ### Added
