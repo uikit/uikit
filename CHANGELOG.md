@@ -5,6 +5,7 @@
 ### Changed
 
 - Sticky component uses window.Date instead of window.performance
+- Sticky component with sticky-on-up no longer hides when Dropdown shows
 
 ### Fixed
 
