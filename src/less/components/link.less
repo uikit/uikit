@@ -134,26 +134,32 @@ a.uk-link-reset,
 
 .hook-inverse() {
 
-    .uk-link-muted,
+    a.uk-link-muted,
     .uk-link-muted a {
         color: @inverse-link-muted-color;
         .hook-inverse-link-muted;
     }
 
-    .uk-link-muted:hover,
-    .uk-link-muted a:hover {
+    a.uk-link-muted:hover,
+    .uk-link-muted a:hover,
+    .uk-link-toggle:hover .uk-link-muted,
+    .uk-link-toggle:focus .uk-link-muted  {
         color: @inverse-link-muted-hover-color;
         .hook-inverse-link-muted-hover;
     }
 
-    .uk-link-text:hover,
-    .uk-link-text a:hover {
+    a.uk-link-text:hover,
+    .uk-link-text a:hover,
+    .uk-link-toggle:hover .uk-link-text,
+    .uk-link-toggle:focus .uk-link-text {
         color: @inverse-link-text-hover-color;
         .hook-inverse-link-text-hover;
     }
 
-    .uk-link-heading:hover,
-    .uk-link-heading a:hover {
+    a.uk-link-heading:hover,
+    .uk-link-heading a:hover,
+    .uk-link-toggle:hover .uk-link-heading,
+    .uk-link-toggle:focus .uk-link-heading {
         color: @inverse-link-heading-hover-color;
         .hook-inverse-link-heading-hover;
     }

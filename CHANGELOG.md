@@ -9,6 +9,7 @@
 
 ### Fixed
 
+- Fix inverse colors for link toggle in Link component
 - Sticky component remains inactive if hidden
 
 ## 3.5.5 (July 14, 2020)
