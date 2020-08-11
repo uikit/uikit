@@ -1,0 +1,11 @@
+<svg width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+    <circle fill="none" stroke="#000" stroke-width="1.1" cx="9.5" cy="9.5" r="9" />
+    <g transform="rotate(40,9.5,9.5)">
+        <path d="m 9.5,3.5 -1.5,6 1.5,6 1.5,-6 z" fill="none" stroke="#000" stroke-linejoin="miter" stroke-miterlimit="8" />
+        <path d="m 9.5,3.5 -1.5,6 3,0 z" fill="#000" />
+    </g>
+    <path fill="none" stroke="#000" stroke-linecap="round" d="M 9.5,0.5 9.5,2" />
+    <path fill="none" stroke="#000" stroke-linecap="round" d="m 9.5,17 0,1.5" />
+    <path fill="none" stroke="#000" stroke-linecap="round" d="M 0.5,9.5 2,9.5" />
+    <path fill="none" stroke="#000" stroke-linecap="round" d="m 17,9.5 1.5,0" />
+</svg>
