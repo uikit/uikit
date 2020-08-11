@@ -9,6 +9,7 @@
 
 ### Fixed
 
+- Fix slidenav color in Lightbox component
 - Fix inverse colors for link toggle in Link component
 - Sticky component remains inactive if hidden
 - Revert dropbar mode `push` is only applied if Navbar is positioned static
