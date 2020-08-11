@@ -11,6 +11,7 @@
 
 - Fix inverse colors for link toggle in Link component
 - Sticky component remains inactive if hidden
+- Revert dropbar mode `push` is only applied if Navbar is positioned static
 
 ## 3.5.5 (July 14, 2020)
 
