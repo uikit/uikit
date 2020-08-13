@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix Switcher component no longer toggles an already active item
+
 ## 3.5.6 (August 13, 2020)
 
 ### Changed
