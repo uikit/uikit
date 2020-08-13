@@ -723,6 +723,7 @@
 @mixin hook-inverse-heading-medium(){}
 @mixin hook-inverse-heading-large(){}
 @mixin hook-inverse-heading-xlarge(){}
+@mixin hook-inverse-heading-2xlarge(){}
 @mixin hook-inverse-heading-primary(){}
 @mixin hook-inverse-heading-hero(){}
 @mixin hook-inverse-heading-divider(){}
@@ -747,7 +748,7 @@
     }
 
     .uk-heading-2xlarge {
-        @if(mixin-exists(hook-inverse-heading-primary)) {@include hook-inverse-heading-primary();}
+        @if(mixin-exists(hook-inverse-heading-2xlarge)) {@include hook-inverse-heading-2xlarge();}
     }
 
     @if ($deprecated == true) { .uk-heading-primary { @if (mixin-exists(hook-inverse-heading-primary)) {@include hook-inverse-heading-primary();}}}
@@ -861,26 +862,32 @@
 }
 @mixin hook-inverse-component-link(){
 
-    .uk-link-muted,
+    a.uk-link-muted,
     .uk-link-muted a {
         color: $inverse-link-muted-color;
         @if(mixin-exists(hook-inverse-link-muted)) {@include hook-inverse-link-muted();}
     }
 
-    .uk-link-muted:hover,
-    .uk-link-muted a:hover {
+    a.uk-link-muted:hover,
+    .uk-link-muted a:hover,
+    .uk-link-toggle:hover .uk-link-muted,
+    .uk-link-toggle:focus .uk-link-muted  {
         color: $inverse-link-muted-hover-color;
         @if(mixin-exists(hook-inverse-link-muted-hover)) {@include hook-inverse-link-muted-hover();}
     }
 
-    .uk-link-text:hover,
-    .uk-link-text a:hover {
+    a.uk-link-text:hover,
+    .uk-link-text a:hover,
+    .uk-link-toggle:hover .uk-link-text,
+    .uk-link-toggle:focus .uk-link-text {
         color: $inverse-link-text-hover-color;
         @if(mixin-exists(hook-inverse-link-text-hover)) {@include hook-inverse-link-text-hover();}
     }
 
-    .uk-link-heading:hover,
-    .uk-link-heading a:hover {
+    a.uk-link-heading:hover,
+    .uk-link-heading a:hover,
+    .uk-link-toggle:hover .uk-link-heading,
+    .uk-link-toggle:focus .uk-link-heading {
         color: $inverse-link-heading-hover-color;
         @if(mixin-exists(hook-inverse-link-heading-hover)) {@include hook-inverse-link-heading-hover();}
     }

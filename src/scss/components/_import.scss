@@ -41,7 +41,6 @@
 @import "drop.scss"; // After: Card
 @import "dropdown.scss"; // After: Card
 @import "modal.scss"; // After: Close
-@import "lightbox.scss"; // After: Close
 @import "slideshow.scss";
 @import "slider.scss";
 @import "sticky.scss";
@@ -69,6 +68,8 @@
 @import "dotnav.scss";
 @import "thumbnav.scss";
 @import "iconnav.scss";
+
+@import "lightbox.scss"; // After: Close, Slidenav
 
 // Utilities
 @import "animation.scss";

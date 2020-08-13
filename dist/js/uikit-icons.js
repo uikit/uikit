@@ -1,9 +1,9 @@
-/*! UIkit 3.5.5 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.6 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define('uikiticons', factory) :
-    (global = global || self, global.UIkitIcons = factory());
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.UIkitIcons = factory());
 }(this, (function () { 'use strict';
 
     function plugin(UIkit) {
