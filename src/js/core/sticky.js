@@ -130,6 +130,12 @@ export default {
 
             read({height}, type) {
 
+                this.inactive = !this.matchMedia || !isVisible(this.$el);
+
+                if (this.inactive) {
+                    return false;
+                }
+
                 if (this.isActive && type !== 'update') {
                     this.hide();
                     height = this.$el.offsetHeight;
@@ -145,11 +151,11 @@ export default {
 
                 this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
                 this.bottom = bottom && bottom - this.$el.offsetHeight;
-                this.inactive = !this.matchMedia;
+                this.width = offset(isVisible(this.widthElement) ? this.widthElement : this.$el).width;
 
                 return {
-                    lastScroll: false,
                     height,
+                    top: offsetPosition(this.placeholder)[0],
                     margins: css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
                 };
             },
@@ -177,26 +183,22 @@ export default {
 
             read({scroll = 0}) {
 
-                this.width = offset(isVisible(this.widthElement) ? this.widthElement : this.$el).width;
-
                 this.scroll = window.pageYOffset;
 
                 return {
                     dir: scroll <= this.scroll ? 'down' : 'up',
-                    scroll: this.scroll,
-                    visible: isVisible(this.$el),
-                    top: offsetPosition(this.placeholder)[0]
+                    scroll: this.scroll
                 };
             },
 
             write(data, type) {
 
-                const {initTimestamp = 0, dir, lastDir, lastScroll, scroll, top, visible} = data;
-                const now = performance.now();
+                const now = Date.now();
+                const {initTimestamp = 0, dir, lastDir, lastScroll, scroll, top} = data;
 
                 data.lastScroll = scroll;
 
-                if (scroll < 0 || scroll === lastScroll || !visible || this.disabled || this.showOnUp && type !== 'scroll') {
+                if (scroll < 0 || scroll === lastScroll && type === 'scroll' || this.showOnUp && type !== 'scroll' && !this.isFixed) {
                     return;
                 }
 
@@ -213,7 +215,7 @@ export default {
 
                 if (this.inactive
                     || scroll < this.top
-                    || this.showOnUp && (scroll <= this.top || dir === 'down' || dir === 'up' && !this.isFixed && scroll <= this.bottomOffset)
+                    || this.showOnUp && (scroll <= this.top || dir === 'down' && type === 'scroll' || dir === 'up' && !this.isFixed && scroll <= this.bottomOffset)
                 ) {
 
                     if (!this.isFixed) {

@@ -68,14 +68,14 @@ export function animate(element, animation, duration = 200, origin, out) {
     return Promise.all(toNodes(element).map(element =>
         new Promise((resolve, reject) => {
 
-            trigger(element, 'animationcancel');
+            trigger(element, 'animationcanceled');
             const timer = setTimeout(() => trigger(element, 'animationend'), duration);
 
-            once(element, 'animationend animationcancel', ({type}) => {
+            once(element, 'animationend animationcanceled', ({type}) => {
 
                 clearTimeout(timer);
 
-                type === 'animationcancel' ? reject() : resolve();
+                type === 'animationcanceled' ? reject() : resolve();
 
                 css(element, 'animationDuration', '');
                 removeClasses(element, `${animationPrefix}\\S*`);
@@ -108,7 +108,7 @@ export const Animation = {
     },
 
     cancel(element) {
-        trigger(element, 'animationcancel');
+        trigger(element, 'animationcanceled');
     }
 
 };
