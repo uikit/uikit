@@ -1,9 +1,9 @@
-/*! UIkit 3.5.5 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.6 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
     typeof define === 'function' && define.amd ? define('uikit', factory) :
-    (global = global || self, global.UIkit = factory());
+    (global = typeof globalThis !== 'undefined' ? globalThis : global || self, global.UIkit = factory());
 }(this, (function () { 'use strict';
 
     var objPrototype = Object.prototype;
@@ -1553,16 +1553,16 @@
 
         return Promise.all(toNodes(element).map(function (element) { return new Promise(function (resolve, reject) {
 
-                trigger(element, 'animationcancel');
+                trigger(element, 'animationcanceled');
                 var timer = setTimeout(function () { return trigger(element, 'animationend'); }, duration);
 
-                once(element, 'animationend animationcancel', function (ref) {
+                once(element, 'animationend animationcanceled', function (ref) {
                     var type = ref.type;
 
 
                     clearTimeout(timer);
 
-                    type === 'animationcancel' ? reject() : resolve();
+                    type === 'animationcanceled' ? reject() : resolve();
 
                     css(element, 'animationDuration', '');
                     removeClasses(element, (animationPrefix + "\\S*"));
@@ -1595,7 +1595,7 @@
         },
 
         cancel: function(element) {
-            trigger(element, 'animationcancel');
+            trigger(element, 'animationcanceled');
         }
 
     };
@@ -3539,7 +3539,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.5.5';
+    UIkit.version = '3.5.6';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -6805,7 +6805,9 @@
                     var dir = ref.dir;
 
 
-                    toggleClass(this.dropbar, 'uk-navbar-dropbar-slide', this.dropbarMode === 'slide' || parents(this.$el).some(function (el) { return css(el, 'position') !== 'static'; }));
+                    if (this.dropbarMode === 'slide') {
+                        addClass(this.dropbar, 'uk-navbar-dropbar-slide');
+                    }
 
                     this.clsDrop && addClass($el, ((this.clsDrop) + "-dropbar"));
 
@@ -7672,6 +7674,12 @@
                     var height = ref.height;
 
 
+                    this.inactive = !this.matchMedia || !isVisible(this.$el);
+
+                    if (this.inactive) {
+                        return false;
+                    }
+
                     if (this.isActive && type !== 'update') {
                         this.hide();
                         height = this.$el.offsetHeight;
@@ -7687,11 +7695,11 @@
 
                     this.top = Math.max(toFloat(parseProp('top', this)), this.topOffset) - this.offset;
                     this.bottom = bottom && bottom - this.$el.offsetHeight;
-                    this.inactive = !this.matchMedia;
+                    this.width = offset(isVisible(this.widthElement) ? this.widthElement : this.$el).width;
 
                     return {
-                        lastScroll: false,
                         height: height,
+                        top: offsetPosition(this.placeholder)[0],
                         margins: css(this.$el, ['marginTop', 'marginBottom', 'marginLeft', 'marginRight'])
                     };
                 },
@@ -7725,15 +7733,11 @@
                     var scroll = ref.scroll; if ( scroll === void 0 ) scroll = 0;
 
 
-                    this.width = offset(isVisible(this.widthElement) ? this.widthElement : this.$el).width;
-
                     this.scroll = window.pageYOffset;
 
                     return {
                         dir: scroll <= this.scroll ? 'down' : 'up',
-                        scroll: this.scroll,
-                        visible: isVisible(this.$el),
-                        top: offsetPosition(this.placeholder)[0]
+                        scroll: this.scroll
                     };
                 },
 
@@ -7741,18 +7745,17 @@
                     var this$1 = this;
 
 
+                    var now = Date.now();
                     var initTimestamp = data.initTimestamp; if ( initTimestamp === void 0 ) initTimestamp = 0;
                     var dir = data.dir;
                     var lastDir = data.lastDir;
                     var lastScroll = data.lastScroll;
                     var scroll = data.scroll;
                     var top = data.top;
-                    var visible = data.visible;
-                    var now = performance.now();
 
                     data.lastScroll = scroll;
 
-                    if (scroll < 0 || scroll === lastScroll || !visible || this.disabled || this.showOnUp && type !== 'scroll') {
+                    if (scroll < 0 || scroll === lastScroll && type === 'scroll' || this.showOnUp && type !== 'scroll' && !this.isFixed) {
                         return;
                     }
 
@@ -7769,7 +7772,7 @@
 
                     if (this.inactive
                         || scroll < this.top
-                        || this.showOnUp && (scroll <= this.top || dir === 'down' || dir === 'up' && !this.isFixed && scroll <= this.bottomOffset)
+                        || this.showOnUp && (scroll <= this.top || dir === 'down' && type === 'scroll' || dir === 'up' && !this.isFixed && scroll <= this.bottomOffset)
                     ) {
 
                         if (!this.isFixed) {

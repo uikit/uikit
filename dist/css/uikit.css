@@ -1,4 +1,4 @@
-/*! UIkit 3.5.5 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.6 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -3893,153 +3893,6 @@ select.uk-form-width-xsmall {
   background: #fff;
 }
 /* ========================================================================
-   Component: Lightbox
- ========================================================================== */
-/*
- * 1. Hide by default
- * 2. Set position
- * 3. Allow scrolling for the modal dialog
- * 4. Horizontal padding
- * 5. Mask the background page
- * 6. Fade-in transition
- * 7. Prevent cancellation of pointer events while dragging
- */
-.uk-lightbox {
-  /* 1 */
-  display: none;
-  /* 2 */
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1010;
-  /* 5 */
-  background: #000;
-  /* 6 */
-  opacity: 0;
-  transition: opacity 0.15s linear;
-  /* 7 */
-  touch-action: pinch-zoom;
-}
-/*
- * Open
- * 1. Center child
- * 2. Fade-in
- */
-.uk-lightbox.uk-open {
-  display: block;
-  /* 2 */
-  opacity: 1;
-}
-/* Page
- ========================================================================== */
-/*
- * Prevent scrollbars
- */
-.uk-lightbox-page {
-  overflow: hidden;
-}
-/* Item
- ========================================================================== */
-/*
- * 1. Center child within the viewport
- * 2. Not visible by default
- * 3. Color needed for spinner icon
- * 4. Optimize animation
- * 5. Responsiveness
- *    Using `vh` for `max-height` to fix image proportions after resize in Safari and Opera
- *    Using `vh` and `vw` to make responsive image work in IE11
- * 6. Suppress outline on focus
- */
-.uk-lightbox-items > * {
-  /* 1 */
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  /* 2 */
-  display: none;
-  justify-content: center;
-  align-items: center;
-  /* 3 */
-  color: rgba(255, 255, 255, 0.7);
-  /* 4 */
-  will-change: transform, opacity;
-}
-/* 5 */
-.uk-lightbox-items > * > * {
-  max-width: 100vw;
-  max-height: 100vh;
-}
-/* 6 */
-.uk-lightbox-items > :focus {
-  outline: none;
-}
-.uk-lightbox-items > * > :not(iframe) {
-  width: auto;
-  height: auto;
-}
-.uk-lightbox-items > .uk-active {
-  display: flex;
-}
-/* Toolbar
- ========================================================================== */
-.uk-lightbox-toolbar {
-  padding: 10px 10px;
-  background: rgba(0, 0, 0, 0.3);
-  color: rgba(255, 255, 255, 0.7);
-}
-.uk-lightbox-toolbar > * {
-  color: rgba(255, 255, 255, 0.7);
-}
-/* Toolbar Icon (Close)
- ========================================================================== */
-.uk-lightbox-toolbar-icon {
-  padding: 5px;
-  color: rgba(255, 255, 255, 0.7);
-}
-/*
- * Hover
- */
-.uk-lightbox-toolbar-icon:hover {
-  color: #fff;
-}
-/* Button (Slidenav)
- ========================================================================== */
-/*
- * 1. Center icon vertically and horizontally
- */
-.uk-lightbox-button {
-  box-sizing: border-box;
-  width: 50px;
-  height: 50px;
-  background: rgba(0, 0, 0, 0.3);
-  color: rgba(255, 255, 255, 0.7);
-  /* 1 */
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-}
-/*
- * Hover
- */
-.uk-lightbox-button:hover {
-  color: #fff;
-}
-/* Caption
- ========================================================================== */
-.uk-lightbox-caption:empty {
-  display: none;
-}
-/* Iframe
- ========================================================================== */
-.uk-lightbox-iframe {
-  width: 80%;
-  height: 80%;
-}
-/* ========================================================================
    Component: Slideshow
  ========================================================================== */
 /*
@@ -6250,6 +6103,153 @@ ul.uk-nav-sub {
 .uk-iconnav-vertical > * {
   padding-left: 0;
   padding-top: 10px;
+}
+/* ========================================================================
+   Component: Lightbox
+ ========================================================================== */
+/*
+ * 1. Hide by default
+ * 2. Set position
+ * 3. Allow scrolling for the modal dialog
+ * 4. Horizontal padding
+ * 5. Mask the background page
+ * 6. Fade-in transition
+ * 7. Prevent cancellation of pointer events while dragging
+ */
+.uk-lightbox {
+  /* 1 */
+  display: none;
+  /* 2 */
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1010;
+  /* 5 */
+  background: #000;
+  /* 6 */
+  opacity: 0;
+  transition: opacity 0.15s linear;
+  /* 7 */
+  touch-action: pinch-zoom;
+}
+/*
+ * Open
+ * 1. Center child
+ * 2. Fade-in
+ */
+.uk-lightbox.uk-open {
+  display: block;
+  /* 2 */
+  opacity: 1;
+}
+/* Page
+ ========================================================================== */
+/*
+ * Prevent scrollbars
+ */
+.uk-lightbox-page {
+  overflow: hidden;
+}
+/* Item
+ ========================================================================== */
+/*
+ * 1. Center child within the viewport
+ * 2. Not visible by default
+ * 3. Color needed for spinner icon
+ * 4. Optimize animation
+ * 5. Responsiveness
+ *    Using `vh` for `max-height` to fix image proportions after resize in Safari and Opera
+ *    Using `vh` and `vw` to make responsive image work in IE11
+ * 6. Suppress outline on focus
+ */
+.uk-lightbox-items > * {
+  /* 1 */
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /* 2 */
+  display: none;
+  justify-content: center;
+  align-items: center;
+  /* 3 */
+  color: rgba(255, 255, 255, 0.7);
+  /* 4 */
+  will-change: transform, opacity;
+}
+/* 5 */
+.uk-lightbox-items > * > * {
+  max-width: 100vw;
+  max-height: 100vh;
+}
+/* 6 */
+.uk-lightbox-items > :focus {
+  outline: none;
+}
+.uk-lightbox-items > * > :not(iframe) {
+  width: auto;
+  height: auto;
+}
+.uk-lightbox-items > .uk-active {
+  display: flex;
+}
+/* Toolbar
+ ========================================================================== */
+.uk-lightbox-toolbar {
+  padding: 10px 10px;
+  background: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.7);
+}
+.uk-lightbox-toolbar > * {
+  color: rgba(255, 255, 255, 0.7);
+}
+/* Toolbar Icon (Close)
+ ========================================================================== */
+.uk-lightbox-toolbar-icon {
+  padding: 5px;
+  color: rgba(255, 255, 255, 0.7);
+}
+/*
+ * Hover
+ */
+.uk-lightbox-toolbar-icon:hover {
+  color: #fff;
+}
+/* Button (Slidenav)
+ ========================================================================== */
+/*
+ * 1. Center icon vertically and horizontally
+ */
+.uk-lightbox-button {
+  box-sizing: border-box;
+  width: 50px;
+  height: 50px;
+  background: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.7);
+  /* 1 */
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+/*
+ * Hover
+ */
+.uk-lightbox-button:hover {
+  color: #fff;
+}
+/* Caption
+ ========================================================================== */
+.uk-lightbox-caption:empty {
+  display: none;
+}
+/* Iframe
+ ========================================================================== */
+.uk-lightbox-iframe {
+  width: 80%;
+  height: 80%;
 }
 /* ========================================================================
    Component: Animation
@@ -9655,100 +9655,166 @@ iframe.uk-cover {
 .uk-offcanvas-bar .uk-hr {
   border-top-color: rgba(255, 255, 255, 0.2);
 }
-.uk-light .uk-link-muted,
+.uk-light a.uk-link-muted,
 .uk-light .uk-link-muted a,
-.uk-section-primary:not(.uk-preserve-color) .uk-link-muted,
+.uk-section-primary:not(.uk-preserve-color) a.uk-link-muted,
 .uk-section-primary:not(.uk-preserve-color) .uk-link-muted a,
-.uk-section-secondary:not(.uk-preserve-color) .uk-link-muted,
+.uk-section-secondary:not(.uk-preserve-color) a.uk-link-muted,
 .uk-section-secondary:not(.uk-preserve-color) .uk-link-muted a,
-.uk-tile-primary:not(.uk-preserve-color) .uk-link-muted,
+.uk-tile-primary:not(.uk-preserve-color) a.uk-link-muted,
 .uk-tile-primary:not(.uk-preserve-color) .uk-link-muted a,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-link-muted,
+.uk-tile-secondary:not(.uk-preserve-color) a.uk-link-muted,
 .uk-tile-secondary:not(.uk-preserve-color) .uk-link-muted a,
-.uk-card-primary.uk-card-body .uk-link-muted,
+.uk-card-primary.uk-card-body a.uk-link-muted,
 .uk-card-primary.uk-card-body .uk-link-muted a,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-link-muted,
+.uk-card-primary > :not([class*='uk-card-media']) a.uk-link-muted,
 .uk-card-primary > :not([class*='uk-card-media']) .uk-link-muted a,
-.uk-card-secondary.uk-card-body .uk-link-muted,
+.uk-card-secondary.uk-card-body a.uk-link-muted,
 .uk-card-secondary.uk-card-body .uk-link-muted a,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-link-muted,
+.uk-card-secondary > :not([class*='uk-card-media']) a.uk-link-muted,
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-link-muted a,
-.uk-overlay-primary .uk-link-muted,
+.uk-overlay-primary a.uk-link-muted,
 .uk-overlay-primary .uk-link-muted a,
-.uk-offcanvas-bar .uk-link-muted,
+.uk-offcanvas-bar a.uk-link-muted,
 .uk-offcanvas-bar .uk-link-muted a {
   color: rgba(255, 255, 255, 0.5);
 }
-.uk-light .uk-link-muted:hover,
+.uk-light a.uk-link-muted:hover,
 .uk-light .uk-link-muted a:hover,
-.uk-section-primary:not(.uk-preserve-color) .uk-link-muted:hover,
+.uk-light .uk-link-toggle:hover .uk-link-muted,
+.uk-light .uk-link-toggle:focus .uk-link-muted,
+.uk-section-primary:not(.uk-preserve-color) a.uk-link-muted:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-link-muted a:hover,
-.uk-section-secondary:not(.uk-preserve-color) .uk-link-muted:hover,
+.uk-section-primary:not(.uk-preserve-color) .uk-link-toggle:hover .uk-link-muted,
+.uk-section-primary:not(.uk-preserve-color) .uk-link-toggle:focus .uk-link-muted,
+.uk-section-secondary:not(.uk-preserve-color) a.uk-link-muted:hover,
 .uk-section-secondary:not(.uk-preserve-color) .uk-link-muted a:hover,
-.uk-tile-primary:not(.uk-preserve-color) .uk-link-muted:hover,
+.uk-section-secondary:not(.uk-preserve-color) .uk-link-toggle:hover .uk-link-muted,
+.uk-section-secondary:not(.uk-preserve-color) .uk-link-toggle:focus .uk-link-muted,
+.uk-tile-primary:not(.uk-preserve-color) a.uk-link-muted:hover,
 .uk-tile-primary:not(.uk-preserve-color) .uk-link-muted a:hover,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-link-muted:hover,
+.uk-tile-primary:not(.uk-preserve-color) .uk-link-toggle:hover .uk-link-muted,
+.uk-tile-primary:not(.uk-preserve-color) .uk-link-toggle:focus .uk-link-muted,
+.uk-tile-secondary:not(.uk-preserve-color) a.uk-link-muted:hover,
 .uk-tile-secondary:not(.uk-preserve-color) .uk-link-muted a:hover,
-.uk-card-primary.uk-card-body .uk-link-muted:hover,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-link-toggle:hover .uk-link-muted,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-link-toggle:focus .uk-link-muted,
+.uk-card-primary.uk-card-body a.uk-link-muted:hover,
 .uk-card-primary.uk-card-body .uk-link-muted a:hover,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-link-muted:hover,
+.uk-card-primary.uk-card-body .uk-link-toggle:hover .uk-link-muted,
+.uk-card-primary.uk-card-body .uk-link-toggle:focus .uk-link-muted,
+.uk-card-primary > :not([class*='uk-card-media']) a.uk-link-muted:hover,
 .uk-card-primary > :not([class*='uk-card-media']) .uk-link-muted a:hover,
-.uk-card-secondary.uk-card-body .uk-link-muted:hover,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-link-toggle:hover .uk-link-muted,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-link-toggle:focus .uk-link-muted,
+.uk-card-secondary.uk-card-body a.uk-link-muted:hover,
 .uk-card-secondary.uk-card-body .uk-link-muted a:hover,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-link-muted:hover,
+.uk-card-secondary.uk-card-body .uk-link-toggle:hover .uk-link-muted,
+.uk-card-secondary.uk-card-body .uk-link-toggle:focus .uk-link-muted,
+.uk-card-secondary > :not([class*='uk-card-media']) a.uk-link-muted:hover,
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-link-muted a:hover,
-.uk-overlay-primary .uk-link-muted:hover,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-link-toggle:hover .uk-link-muted,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-link-toggle:focus .uk-link-muted,
+.uk-overlay-primary a.uk-link-muted:hover,
 .uk-overlay-primary .uk-link-muted a:hover,
-.uk-offcanvas-bar .uk-link-muted:hover,
-.uk-offcanvas-bar .uk-link-muted a:hover {
+.uk-overlay-primary .uk-link-toggle:hover .uk-link-muted,
+.uk-overlay-primary .uk-link-toggle:focus .uk-link-muted,
+.uk-offcanvas-bar a.uk-link-muted:hover,
+.uk-offcanvas-bar .uk-link-muted a:hover,
+.uk-offcanvas-bar .uk-link-toggle:hover .uk-link-muted,
+.uk-offcanvas-bar .uk-link-toggle:focus .uk-link-muted {
   color: rgba(255, 255, 255, 0.7);
 }
-.uk-light .uk-link-text:hover,
+.uk-light a.uk-link-text:hover,
 .uk-light .uk-link-text a:hover,
-.uk-section-primary:not(.uk-preserve-color) .uk-link-text:hover,
+.uk-light .uk-link-toggle:hover .uk-link-text,
+.uk-light .uk-link-toggle:focus .uk-link-text,
+.uk-section-primary:not(.uk-preserve-color) a.uk-link-text:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-link-text a:hover,
-.uk-section-secondary:not(.uk-preserve-color) .uk-link-text:hover,
+.uk-section-primary:not(.uk-preserve-color) .uk-link-toggle:hover .uk-link-text,
+.uk-section-primary:not(.uk-preserve-color) .uk-link-toggle:focus .uk-link-text,
+.uk-section-secondary:not(.uk-preserve-color) a.uk-link-text:hover,
 .uk-section-secondary:not(.uk-preserve-color) .uk-link-text a:hover,
-.uk-tile-primary:not(.uk-preserve-color) .uk-link-text:hover,
+.uk-section-secondary:not(.uk-preserve-color) .uk-link-toggle:hover .uk-link-text,
+.uk-section-secondary:not(.uk-preserve-color) .uk-link-toggle:focus .uk-link-text,
+.uk-tile-primary:not(.uk-preserve-color) a.uk-link-text:hover,
 .uk-tile-primary:not(.uk-preserve-color) .uk-link-text a:hover,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-link-text:hover,
+.uk-tile-primary:not(.uk-preserve-color) .uk-link-toggle:hover .uk-link-text,
+.uk-tile-primary:not(.uk-preserve-color) .uk-link-toggle:focus .uk-link-text,
+.uk-tile-secondary:not(.uk-preserve-color) a.uk-link-text:hover,
 .uk-tile-secondary:not(.uk-preserve-color) .uk-link-text a:hover,
-.uk-card-primary.uk-card-body .uk-link-text:hover,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-link-toggle:hover .uk-link-text,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-link-toggle:focus .uk-link-text,
+.uk-card-primary.uk-card-body a.uk-link-text:hover,
 .uk-card-primary.uk-card-body .uk-link-text a:hover,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-link-text:hover,
+.uk-card-primary.uk-card-body .uk-link-toggle:hover .uk-link-text,
+.uk-card-primary.uk-card-body .uk-link-toggle:focus .uk-link-text,
+.uk-card-primary > :not([class*='uk-card-media']) a.uk-link-text:hover,
 .uk-card-primary > :not([class*='uk-card-media']) .uk-link-text a:hover,
-.uk-card-secondary.uk-card-body .uk-link-text:hover,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-link-toggle:hover .uk-link-text,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-link-toggle:focus .uk-link-text,
+.uk-card-secondary.uk-card-body a.uk-link-text:hover,
 .uk-card-secondary.uk-card-body .uk-link-text a:hover,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-link-text:hover,
+.uk-card-secondary.uk-card-body .uk-link-toggle:hover .uk-link-text,
+.uk-card-secondary.uk-card-body .uk-link-toggle:focus .uk-link-text,
+.uk-card-secondary > :not([class*='uk-card-media']) a.uk-link-text:hover,
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-link-text a:hover,
-.uk-overlay-primary .uk-link-text:hover,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-link-toggle:hover .uk-link-text,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-link-toggle:focus .uk-link-text,
+.uk-overlay-primary a.uk-link-text:hover,
 .uk-overlay-primary .uk-link-text a:hover,
-.uk-offcanvas-bar .uk-link-text:hover,
-.uk-offcanvas-bar .uk-link-text a:hover {
+.uk-overlay-primary .uk-link-toggle:hover .uk-link-text,
+.uk-overlay-primary .uk-link-toggle:focus .uk-link-text,
+.uk-offcanvas-bar a.uk-link-text:hover,
+.uk-offcanvas-bar .uk-link-text a:hover,
+.uk-offcanvas-bar .uk-link-toggle:hover .uk-link-text,
+.uk-offcanvas-bar .uk-link-toggle:focus .uk-link-text {
   color: rgba(255, 255, 255, 0.5);
 }
-.uk-light .uk-link-heading:hover,
+.uk-light a.uk-link-heading:hover,
 .uk-light .uk-link-heading a:hover,
-.uk-section-primary:not(.uk-preserve-color) .uk-link-heading:hover,
+.uk-light .uk-link-toggle:hover .uk-link-heading,
+.uk-light .uk-link-toggle:focus .uk-link-heading,
+.uk-section-primary:not(.uk-preserve-color) a.uk-link-heading:hover,
 .uk-section-primary:not(.uk-preserve-color) .uk-link-heading a:hover,
-.uk-section-secondary:not(.uk-preserve-color) .uk-link-heading:hover,
+.uk-section-primary:not(.uk-preserve-color) .uk-link-toggle:hover .uk-link-heading,
+.uk-section-primary:not(.uk-preserve-color) .uk-link-toggle:focus .uk-link-heading,
+.uk-section-secondary:not(.uk-preserve-color) a.uk-link-heading:hover,
 .uk-section-secondary:not(.uk-preserve-color) .uk-link-heading a:hover,
-.uk-tile-primary:not(.uk-preserve-color) .uk-link-heading:hover,
+.uk-section-secondary:not(.uk-preserve-color) .uk-link-toggle:hover .uk-link-heading,
+.uk-section-secondary:not(.uk-preserve-color) .uk-link-toggle:focus .uk-link-heading,
+.uk-tile-primary:not(.uk-preserve-color) a.uk-link-heading:hover,
 .uk-tile-primary:not(.uk-preserve-color) .uk-link-heading a:hover,
-.uk-tile-secondary:not(.uk-preserve-color) .uk-link-heading:hover,
+.uk-tile-primary:not(.uk-preserve-color) .uk-link-toggle:hover .uk-link-heading,
+.uk-tile-primary:not(.uk-preserve-color) .uk-link-toggle:focus .uk-link-heading,
+.uk-tile-secondary:not(.uk-preserve-color) a.uk-link-heading:hover,
 .uk-tile-secondary:not(.uk-preserve-color) .uk-link-heading a:hover,
-.uk-card-primary.uk-card-body .uk-link-heading:hover,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-link-toggle:hover .uk-link-heading,
+.uk-tile-secondary:not(.uk-preserve-color) .uk-link-toggle:focus .uk-link-heading,
+.uk-card-primary.uk-card-body a.uk-link-heading:hover,
 .uk-card-primary.uk-card-body .uk-link-heading a:hover,
-.uk-card-primary > :not([class*='uk-card-media']) .uk-link-heading:hover,
+.uk-card-primary.uk-card-body .uk-link-toggle:hover .uk-link-heading,
+.uk-card-primary.uk-card-body .uk-link-toggle:focus .uk-link-heading,
+.uk-card-primary > :not([class*='uk-card-media']) a.uk-link-heading:hover,
 .uk-card-primary > :not([class*='uk-card-media']) .uk-link-heading a:hover,
-.uk-card-secondary.uk-card-body .uk-link-heading:hover,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-link-toggle:hover .uk-link-heading,
+.uk-card-primary > :not([class*='uk-card-media']) .uk-link-toggle:focus .uk-link-heading,
+.uk-card-secondary.uk-card-body a.uk-link-heading:hover,
 .uk-card-secondary.uk-card-body .uk-link-heading a:hover,
-.uk-card-secondary > :not([class*='uk-card-media']) .uk-link-heading:hover,
+.uk-card-secondary.uk-card-body .uk-link-toggle:hover .uk-link-heading,
+.uk-card-secondary.uk-card-body .uk-link-toggle:focus .uk-link-heading,
+.uk-card-secondary > :not([class*='uk-card-media']) a.uk-link-heading:hover,
 .uk-card-secondary > :not([class*='uk-card-media']) .uk-link-heading a:hover,
-.uk-overlay-primary .uk-link-heading:hover,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-link-toggle:hover .uk-link-heading,
+.uk-card-secondary > :not([class*='uk-card-media']) .uk-link-toggle:focus .uk-link-heading,
+.uk-overlay-primary a.uk-link-heading:hover,
 .uk-overlay-primary .uk-link-heading a:hover,
-.uk-offcanvas-bar .uk-link-heading:hover,
-.uk-offcanvas-bar .uk-link-heading a:hover {
+.uk-overlay-primary .uk-link-toggle:hover .uk-link-heading,
+.uk-overlay-primary .uk-link-toggle:focus .uk-link-heading,
+.uk-offcanvas-bar a.uk-link-heading:hover,
+.uk-offcanvas-bar .uk-link-heading a:hover,
+.uk-offcanvas-bar .uk-link-toggle:hover .uk-link-heading,
+.uk-offcanvas-bar .uk-link-toggle:focus .uk-link-heading {
   color: #fff;
 }
 .uk-light .uk-heading-divider,
