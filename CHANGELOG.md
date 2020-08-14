@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix Switcher component no longer toggles an already active item
+- Fix 'positionAt' function not detecting flip state correctly
 
 ## 3.5.6 (August 13, 2020)
 
