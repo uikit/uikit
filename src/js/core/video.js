@@ -1,4 +1,4 @@
-import {css, hasAttr, isInView, isVisible, Player} from 'uikit-util';
+import {css, hasAttr, isInView, isVisible, mute, pause, play} from 'uikit-util';
 
 export default {
 
@@ -28,10 +28,8 @@ export default {
             this.$el.preload = 'none';
         }
 
-        this.player = new Player(this.$el);
-
         if (this.automute) {
-            this.player.mute();
+            mute(this.$el);
         }
 
     },
@@ -39,21 +37,18 @@ export default {
     update: {
 
         read() {
-
-            return !this.player
-                ? false
-                : {
-                    visible: isVisible(this.$el) && css(this.$el, 'visibility') !== 'hidden',
-                    inView: this.inView && isInView(this.$el)
-                };
+            return {
+                visible: isVisible(this.$el) && css(this.$el, 'visibility') !== 'hidden',
+                inView: this.inView && isInView(this.$el)
+            };
         },
 
         write({visible, inView}) {
 
             if (!visible || this.inView && !inView) {
-                this.player.pause();
+                pause(this.$el);
             } else if (this.autoplay === true || this.inView && inView) {
-                this.player.play();
+                play(this.$el);
             }
 
         },

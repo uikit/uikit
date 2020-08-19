@@ -1,5 +1,6 @@
 import {$$, css, data, filter, isInView, Promise, toggleClass, trigger} from 'uikit-util';
 
+const stateKey = '_ukScrollspy';
 export default {
 
     args: 'cls',
@@ -57,14 +58,11 @@ export default {
 
                 this.elements.forEach(el => {
 
-                    let state = el._ukScrollspyState;
-
-                    if (!state) {
-                        state = {cls: data(el, 'uk-scrollspy-class') || this.cls};
+                    if (!el[stateKey]) {
+                        el[stateKey] = {cls: data(el, 'uk-scrollspy-class') || this.cls};
                     }
 
-                    state.show = isInView(el, this.offsetTop, this.offsetLeft);
-                    el._ukScrollspyState = state;
+                    el[stateKey].show = isInView(el, this.offsetTop, this.offsetLeft);
 
                 });
 
@@ -80,7 +78,7 @@ export default {
 
                 this.elements.forEach(el => {
 
-                    const state = el._ukScrollspyState;
+                    const state = el[stateKey];
                     const toggle = inview => {
 
                         css(el, 'visibility', !inview && this.hidden ? 'hidden' : '');
