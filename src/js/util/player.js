@@ -1,7 +1,7 @@
 import {attr} from './attr';
 import {once} from './event';
 import {Promise} from './promise';
-import {assign, includes, isString, noop, toNode} from './lang';
+import {assign, includes, noop, toNode} from './lang';
 
 let id = 0;
 
