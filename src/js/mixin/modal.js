@@ -1,4 +1,4 @@
-import {$, addClass, append, css, includes, last, on, once, pointerCancel, pointerDown, pointerUp, Promise, removeClass, toMs, width, within} from 'uikit-util';
+import {$, addClass, append, css, includes, last, on, once, pointerCancel, pointerDown, pointerUp, Promise, removeClass, toFloat, toMs, width, within} from 'uikit-util';
 import Class from './class';
 import Container from './container';
 import Togglable from './togglable';
@@ -118,7 +118,9 @@ export default {
                     css(document.body, 'overflowY', 'scroll');
                 }
 
-                this.stack && css(this.$el, 'zIndex', css(this.$el, 'zIndex') + active.length);
+                if (this.stack) {
+                    css(this.$el, 'zIndex', toFloat(css(this.$el, 'zIndex')) + active.length);
+                }
 
                 addClass(document.documentElement, this.clsPage);
 
