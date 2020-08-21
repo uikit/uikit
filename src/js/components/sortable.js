@@ -209,10 +209,6 @@ export default {
             off(window, 'scroll', this.scroll);
 
             if (!this.drag) {
-                if (e.type === 'touchend') {
-                    e.target.click();
-                }
-
                 return;
             }
 
