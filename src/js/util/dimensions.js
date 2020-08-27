@@ -77,7 +77,7 @@ export function positionAt(element, target, elAttach, targetAttach, elOffset, ta
 
                 function apply(elemOffset, targetOffset) {
 
-                    const newVal = (position[align] + elemOffset + targetOffset - elOffset[dir] * 2).toFixed(4);
+                    const newVal = toFloat((position[align] + elemOffset + targetOffset - elOffset[dir] * 2).toFixed(4));
 
                     if (newVal >= boundary[align] && newVal + dim[prop] <= boundary[alignFlip]) {
                         position[align] = newVal;

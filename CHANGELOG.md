@@ -1,5 +1,13 @@
 # Changelog
 
+## 3.5.7 (August 27, 2020)
+
+### Fixed
+
+- Fix Switcher component no longer toggles an already active item
+- Fix 'positionAt' function not detecting flip state correctly
+- Fix 'z-index' for stacked Modals
+
 ## 3.5.6 (August 13, 2020)
 
 ### Changed

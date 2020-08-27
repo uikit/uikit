@@ -133,6 +133,10 @@ export default {
             const prev = this.index();
             const next = getIndex(item, this.toggles, prev);
 
+            if (prev === next) {
+                return;
+            }
+
             this.children.forEach((child, i) => {
                 toggleClass(child, this.cls, next === i);
                 attr(this.toggles[i], 'aria-expanded', next === i);

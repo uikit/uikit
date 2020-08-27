@@ -1,4 +1,4 @@
-import {closest, css, getEventPos, includes, isRtl, isTouch, noop, off, on, pointerCancel, pointerDown, pointerMove, pointerUp, selInput, trigger} from 'uikit-util';
+import {closest, css, getEventPos, includes, isRtl, isTouch, off, on, pointerCancel, pointerDown, pointerMove, pointerUp, selInput, trigger} from 'uikit-util';
 
 export default {
 
@@ -57,22 +57,6 @@ export default {
         },
 
         {
-
-            // Workaround for iOS 11 bug: https://bugs.webkit.org/show_bug.cgi?id=184250
-
-            name: 'touchmove',
-            passive: false,
-            handler: 'move',
-            filter() {
-                return pointerMove === 'touchmove';
-            },
-            delegate() {
-                return this.selSlides;
-            }
-
-        },
-
-        {
             name: 'dragstart',
 
             handler(e) {
@@ -105,15 +89,7 @@ export default {
             }
 
             // See above workaround notice
-            const off = pointerMove !== 'touchmove'
-                ? on(document, pointerMove, this.move, {passive: false})
-                : noop;
-            this.unbindMove = () => {
-                off();
-                this.unbindMove = null;
-            };
-            on(window, 'scroll', this.unbindMove);
-            on(window.visualViewport, 'resize', this.unbindMove);
+            on(document, pointerMove, this.move, {passive: false});
             on(document, `${pointerUp} ${pointerCancel}`, this.end, true);
 
             css(this.list, 'userSelect', 'none');
@@ -121,11 +97,6 @@ export default {
         },
 
         move(e) {
-
-            // See above workaround notice
-            if (!this.unbindMove) {
-                return;
-            }
 
             const distance = this.pos - this.drag;
 
@@ -199,10 +170,8 @@ export default {
 
         end() {
 
-            off(window, 'scroll', this.unbindMove);
-            off(window.visualViewport, 'resize', this.unbindMove);
-            this.unbindMove && this.unbindMove();
-            off(document, pointerUp, this.end, true);
+            off(document, pointerMove, this.move, {passive: false});
+            off(document, `${pointerUp} ${pointerCancel}`, this.end, true);
 
             if (this.dragging) {
 

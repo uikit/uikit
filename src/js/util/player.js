@@ -1,123 +1,65 @@
 import {attr} from './attr';
 import {once} from './event';
 import {Promise} from './promise';
-import {assign, includes, isString, noop, toNode} from './lang';
+import {assign, includes, noop} from './lang';
 
-let id = 0;
+export function play(el) {
 
-export class Player {
-
-    constructor(el) {
-        this.id = ++id;
-        this.el = toNode(el);
+    if (isIFrame(el)) {
+        call(el, {func: 'playVideo', method: 'play'});
     }
 
-    isVideo() {
-        return this.isYoutube() || this.isVimeo() || this.isHTML5();
+    if (isHTML5(el)) {
+        try {
+            el.play().catch(noop);
+        } catch (e) {}
     }
 
-    isHTML5() {
-        return this.el.tagName === 'VIDEO';
+}
+
+export function pause(el) {
+
+    if (isIFrame(el)) {
+        call(el, {func: 'pauseVideo', method: 'pause'});
     }
 
-    isIFrame() {
-        return this.el.tagName === 'IFRAME';
+    if (isHTML5(el)) {
+        el.pause();
     }
 
-    isYoutube() {
-        return this.isIFrame() && !!this.el.src.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/(watch\?v=[^&\s]+|embed)|youtu\.be\/.*/);
+}
+
+export function mute(el) {
+
+    if (isIFrame(el)) {
+        call(el, {func: 'mute', method: 'setVolume', value: 0});
     }
 
-    isVimeo() {
-        return this.isIFrame() && !!this.el.src.match(/vimeo\.com\/video\/.*/);
+    if (isHTML5(el)) {
+        el.muted = true;
+        attr(el, 'muted', '');
     }
 
-    enableApi() {
+}
 
-        if (this.ready) {
-            return this.ready;
-        }
+function isHTML5(el) {
+    return el && el.tagName === 'VIDEO';
+}
 
-        const youtube = this.isYoutube();
-        const vimeo = this.isVimeo();
+function isIFrame(el) {
+    return el && el.tagName === 'IFRAME' && (isYoutube(el) || isVimeo(el));
+}
 
-        let poller;
+function isYoutube(el) {
+    return !!el.src.match(/\/\/.*?youtube(-nocookie)?\.[a-z]+\/(watch\?v=[^&\s]+|embed)|youtu\.be\/.*/);
+}
 
-        if (youtube || vimeo) {
+function isVimeo(el) {
+    return !!el.src.match(/vimeo\.com\/video\/.*/);
+}
 
-            return this.ready = new Promise(resolve => {
-
-                once(this.el, 'load', () => {
-                    if (youtube) {
-                        const listener = () => post(this.el, {event: 'listening', id: this.id});
-                        poller = setInterval(listener, 100);
-                        listener();
-                    }
-                });
-
-                listen(data => youtube && data.id === this.id && data.event === 'onReady' || vimeo && Number(data.player_id) === this.id)
-                    .then(() => {
-                        resolve();
-                        poller && clearInterval(poller);
-                    });
-
-                attr(this.el, 'src', `${this.el.src}${includes(this.el.src, '?') ? '&' : '?'}${youtube ? 'enablejsapi=1' : `api=1&player_id=${this.id}`}`);
-
-            });
-
-        }
-
-        return Promise.resolve();
-
-    }
-
-    play() {
-
-        if (!this.isVideo()) {
-            return;
-        }
-
-        if (this.isIFrame()) {
-            this.enableApi().then(() => post(this.el, {func: 'playVideo', method: 'play'}));
-        } else if (this.isHTML5()) {
-            try {
-                const promise = this.el.play();
-
-                if (promise) {
-                    promise.catch(noop);
-                }
-            } catch (e) {}
-        }
-    }
-
-    pause() {
-
-        if (!this.isVideo()) {
-            return;
-        }
-
-        if (this.isIFrame()) {
-            this.enableApi().then(() => post(this.el, {func: 'pauseVideo', method: 'pause'}));
-        } else if (this.isHTML5()) {
-            this.el.pause();
-        }
-    }
-
-    mute() {
-
-        if (!this.isVideo()) {
-            return;
-        }
-
-        if (this.isIFrame()) {
-            this.enableApi().then(() => post(this.el, {func: 'mute', method: 'setVolume', value: 0}));
-        } else if (this.isHTML5()) {
-            this.el.muted = true;
-            attr(this.el, 'muted', '');
-        }
-
-    }
-
+function call(el, cmd) {
+    enableApi(el).then(() => post(el, cmd));
 }
 
 function post(el, cmd) {
@@ -126,19 +68,38 @@ function post(el, cmd) {
     } catch (e) {}
 }
 
-function listen(cb) {
+const stateKey = '_ukPlayer';
+let counter = 0;
+function enableApi(el) {
 
-    return new Promise(resolve =>
+    if (el[stateKey]) {
+        return el[stateKey];
+    }
 
-        once(window, 'message', (_, data) => resolve(data), false, ({data}) => {
+    const youtube = isYoutube(el);
+    const vimeo = isVimeo(el);
+
+    const id = ++counter;
+    let poller;
+
+    return el[stateKey] = new Promise(resolve => {
+
+        youtube && once(el, 'load', () => {
+            const listener = () => post(el, {event: 'listening', id});
+            poller = setInterval(listener, 100);
+            listener();
+        });
+
+        once(window, 'message', resolve, false, ({data}) => {
 
             try {
                 data = JSON.parse(data);
-                return data && cb(data);
+                return data && (youtube && data.id === id && data.event === 'onReady' || vimeo && Number(data.player_id) === id);
             } catch (e) {}
 
-        })
+        });
 
-    );
+        attr(el, 'src', `${el.src}${includes(el.src, '?') ? '&' : '?'}${youtube ? 'enablejsapi=1' : `api=1&player_id=${id}`}`);
 
+    }).then(() => clearInterval(poller));
 }

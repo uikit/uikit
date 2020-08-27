@@ -1,4 +1,4 @@
-import {createEvent, css, Dimensions, escape, getImage, includes, IntersectionObserver, isUndefined, noop, queryAll, startsWith, toFloat, toPx, trigger} from 'uikit-util';
+import {createEvent, css, Dimensions, escape, getImage, includes, IntersectionObserver, isUndefined, queryAll, startsWith, toFloat, toPx, trigger} from 'uikit-util';
 
 export default {
 
@@ -73,7 +73,7 @@ export default {
     connected() {
 
         if (storage[this.cacheKey]) {
-            setSrcAttrs(this.$el, storage[this.cacheKey] || this.dataSrc, this.dataSrcset, this.sizes);
+            setSrcAttrs(this.$el, storage[this.cacheKey], this.dataSrcset, this.sizes);
         } else if (this.isImg && this.width && this.height) {
             setSrcAttrs(this.$el, getPlaceholderImage(this.width, this.height, this.sizes));
         }
