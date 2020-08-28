@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Changed
+
+- IMPORTANT: Set `@pagination-margin-horizontal` to `0`and use new `@pagination-item-padding-vertical` and `@pagination-item-padding-horizontal`
+
 ## 3.5.7 (August 27, 2020)
 
 ### Fixed
@@ -12,7 +18,6 @@
 
 ### Changed
 
-- IMPORTANT: Set `@pagination-margin-horizontal` to `0`and use new `@pagination-item-padding-vertical` and `@pagination-item-padding-horizontal`
 - Sticky component uses window.Date instead of window.performance
 - Sticky component with sticky-on-up no longer hides when Dropdown shows
 
