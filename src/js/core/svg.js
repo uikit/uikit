@@ -45,7 +45,7 @@ export default {
     disconnected() {
 
         if (isVoidElement(this.$el)) {
-            attr(this.$el, 'hidden', null);
+            this.$el.hidden = false;
         }
 
         if (this.svg) {
@@ -208,7 +208,7 @@ function insertSVG(el, root) {
 
     if (isVoidElement(root) || root.tagName === 'CANVAS') {
 
-        attr(root, 'hidden', true);
+        root.hidden = true;
 
         const next = root.nextElementSibling;
         return equals(el, next)

@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import Media from '../mixin/media';
-import {$, addClass, after, Animation, assign, attr, css, fastdom, hasClass, inBrowser, isNumeric, isString, isVisible, noop, offset, offsetPosition, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, toPx, trigger, within} from 'uikit-util';
+import {$, addClass, after, Animation, assign, css, fastdom, hasClass, inBrowser, isNumeric, isString, isVisible, noop, offset, offsetPosition, query, remove, removeClass, replaceClass, scrollTop, toFloat, toggleClass, toPx, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -168,7 +168,7 @@ export default {
 
                 if (!within(placeholder, document)) {
                     after(this.$el, placeholder);
-                    attr(placeholder, 'hidden', '');
+                    placeholder.hidden = true;
                 }
 
                 this.isActive = !!this.isActive; // force self-assign
@@ -265,7 +265,7 @@ export default {
 
             this.isFixed = true;
             this.update();
-            attr(this.placeholder, 'hidden', null);
+            this.placeholder.hidden = false;
 
         },
 
@@ -274,7 +274,7 @@ export default {
             this.isActive = false;
             removeClass(this.$el, this.clsFixed, this.clsBelow);
             css(this.$el, {position: '', top: '', width: ''});
-            attr(this.placeholder, 'hidden', '');
+            this.placeholder.hidden = true;
 
         },
 

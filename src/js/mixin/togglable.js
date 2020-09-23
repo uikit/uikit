@@ -119,8 +119,8 @@ export default {
                 changed = includes(this.cls, ' ') || toggled !== hasClass(el, this.cls);
                 changed && toggleClass(el, this.cls, includes(this.cls, ' ') ? undefined : toggled);
             } else {
-                changed = toggled === hasAttr(el, 'hidden');
-                changed && attr(el, 'hidden', !toggled ? '' : null);
+                changed = toggled === el.hidden;
+                changed && (el.hidden = !toggled);
             }
 
             $$('[autofocus]', el).some(el => isVisible(el) ? el.focus() || true : el.blur());

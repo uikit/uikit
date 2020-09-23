@@ -154,7 +154,7 @@ function getDimensions(element) {
     if (!isVisible(element) && css(element, 'display') === 'none') {
 
         style = attr(element, 'style');
-        hidden = attr(element, 'hidden');
+        ({hidden} = element);
 
         attr(element, {
             style: `${style || ''};display:block !important;`,
