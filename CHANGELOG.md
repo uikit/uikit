@@ -2,9 +2,17 @@
 
 ## WIP
 
+### Added
+
+- Add lightbox button active hook
+
 ### Changed
 
 - IMPORTANT: Set `@pagination-margin-horizontal` to `0`and use new `@pagination-item-padding-vertical` and `@pagination-item-padding-horizontal`
+
+### Fixed
+
+- Fix lightbox button focus state
 
 ## 3.5.7 (August 27, 2020)
 
