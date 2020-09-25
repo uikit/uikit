@@ -13,6 +13,7 @@
 ### Fixed
 
 - Fix lightbox button focus state
+- Fix Slider component transition bug in iOS 14.0
 
 ## 3.5.7 (August 27, 2020)
 
