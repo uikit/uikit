@@ -8,7 +8,7 @@
 
 ### Changed
 
-- IMPORTANT: Set `@pagination-margin-horizontal` to `0`and use new `@pagination-item-padding-vertical` and `@pagination-item-padding-horizontal`
+- IMPORTANT: Set `@pagination-margin-horizontal` to `0` and use new `@pagination-item-padding-vertical` and `@pagination-item-padding-horizontal`
 
 ### Fixed
 
