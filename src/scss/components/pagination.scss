@@ -15,8 +15,10 @@
 // Variables
 // ========================================================================
 
-$pagination-margin-horizontal:                   20px !default;
+$pagination-margin-horizontal:                   0 !default;
 
+$pagination-item-padding-vertical:               5px !default;
+$pagination-item-padding-horizontal:             10px !default;
 $pagination-item-color:                          $global-muted-color !default;
 $pagination-item-hover-color:                    $global-color !default;
 $pagination-item-hover-text-decoration:          none !default;
@@ -74,6 +76,7 @@ $pagination-item-disabled-color:                 $global-muted-color !default;
     /* 1 */
     display: block;
     /* 2 */
+    padding: $pagination-item-padding-vertical $pagination-item-padding-horizontal;
     color: $pagination-item-color;
     @if(mixin-exists(hook-pagination-item)) {@include hook-pagination-item();}
 }

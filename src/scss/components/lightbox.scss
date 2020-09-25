@@ -201,23 +201,23 @@ $lightbox-button-hover-color:                    #fff !default;
     @if(mixin-exists(hook-lightbox-button)) {@include hook-lightbox-button();}
 }
 
-/*
- * Hover
- */
-
-.uk-lightbox-button:hover {
+/* Hover + Focus */
+.uk-lightbox-button:hover,
+.uk-lightbox-button:focus {
     color: $lightbox-button-hover-color;
     @if(mixin-exists(hook-lightbox-button-hover)) {@include hook-lightbox-button-hover();}
+}
+
+/* OnClick */
+.uk-lightbox-button:active {
+    @if(mixin-exists(hook-lightbox-button-active)) {@include hook-lightbox-button-active();}
 }
 
 
 /* Caption
  ========================================================================== */
 
-.uk-lightbox-caption {}
-.uk-lightbox-caption:empty {
-    display: none;
-}
+.uk-lightbox-caption:empty { display: none; }
 
 
 /* Iframe
@@ -241,4 +241,5 @@ $lightbox-button-hover-color:                    #fff !default;
 // @mixin hook-lightbox-toolbar-icon-hover(){}
 // @mixin hook-lightbox-button(){}
 // @mixin hook-lightbox-button-hover(){}
+// @mixin hook-lightbox-button-active(){}
 // @mixin hook-lightbox-misc(){}
