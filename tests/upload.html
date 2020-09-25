@@ -62,7 +62,7 @@
                     loadStart: function (e) {
                         console.log('loadStart', arguments);
 
-                        bar.removeAttribute('hidden');
+                        bar.hidden = false;
                         bar.max = e.total;
                         bar.value = e.loaded;
                     },
@@ -85,7 +85,7 @@
                         console.log('completeAll', arguments);
 
                         setTimeout(function () {
-                            bar.setAttribute('hidden', 'hidden');
+                            bar.hidden = true;
                         }, 1000);
 
                         alert('Upload Completed');

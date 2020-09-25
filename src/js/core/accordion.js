@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import {default as Togglable, toggleHeight} from '../mixin/togglable';
-import {$, $$, attr, filter, getIndex, hasClass, includes, index, isInView, scrollIntoView, toggleClass, unwrap, wrapAll} from 'uikit-util';
+import {$, $$, filter, getIndex, hasClass, includes, index, isInView, scrollIntoView, toggleClass, unwrap, wrapAll} from 'uikit-util';
 
 export default {
 
@@ -131,5 +131,5 @@ export default {
 };
 
 function hide(el, hide) {
-    attr(el, 'hidden', hide ? '' : null);
+    el && (el.hidden = hide);
 }

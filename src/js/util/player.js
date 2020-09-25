@@ -1,4 +1,3 @@
-import {attr} from './attr';
 import {once} from './event';
 import {Promise} from './promise';
 import {assign, includes, noop} from './lang';
@@ -37,7 +36,6 @@ export function mute(el) {
 
     if (isHTML5(el)) {
         el.muted = true;
-        attr(el, 'muted', '');
     }
 
 }
@@ -99,7 +97,7 @@ function enableApi(el) {
 
         });
 
-        attr(el, 'src', `${el.src}${includes(el.src, '?') ? '&' : '?'}${youtube ? 'enablejsapi=1' : `api=1&player_id=${id}`}`);
+        el.src = `${el.src}${includes(el.src, '?') ? '&' : '?'}${youtube ? 'enablejsapi=1' : `api=1&player_id=${id}`}`;
 
     }).then(() => clearInterval(poller));
 }

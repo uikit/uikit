@@ -128,55 +128,19 @@ export function offset(element, coordinates) {
 
 function getDimensions(element) {
 
-    if (!element) {
-        return {};
-    }
-
     const {pageYOffset: top, pageXOffset: left} = toWindow(element);
 
-    if (isWindow(element)) {
-
-        const height = element.innerHeight;
-        const width = element.innerWidth;
-
-        return {
-            top,
-            left,
-            height,
-            width,
-            bottom: top + height,
-            right: left + width
-        };
-    }
-
-    let style, hidden;
-
-    if (!isVisible(element) && css(element, 'display') === 'none') {
-
-        style = attr(element, 'style');
-        hidden = attr(element, 'hidden');
-
-        attr(element, {
-            style: `${style || ''};display:block !important;`,
-            hidden: null
-        });
-    }
-
-    element = toNode(element);
-
-    const rect = element.getBoundingClientRect();
-
-    if (!isUndefined(style)) {
-        attr(element, {style, hidden});
-    }
+    const rect = isWindow(element)
+        ? {height: height(element), width: width(element), top: 0, left: 0}
+        : getRect(toNode(element));
 
     return {
         height: rect.height,
         width: rect.width,
         top: rect.top + top,
         left: rect.left + left,
-        bottom: rect.bottom + top,
-        right: rect.right + left
+        bottom: rect.top + rect.height + top,
+        right: rect.left + rect.width + left
     };
 }
 
@@ -332,4 +296,24 @@ export function toPx(value, property = 'width', element = window) {
 
 function percent(base, value) {
     return base * toFloat(value) / 100;
+}
+
+function getRect(element) {
+
+    if (!element) {
+        return {};
+    }
+
+    let style;
+
+    if (!isVisible(element)) {
+        style = attr(element, 'style');
+        element.style.setProperty('display', 'block', 'important');
+    }
+
+    const rect = element.getBoundingClientRect();
+
+    attr(element, 'style', style);
+
+    return rect;
 }

@@ -1,6 +1,6 @@
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
-import {$$, addClass, after, append, assign, attr, before, children, clamp, css, getEventPos, getViewport, hasTouch, height, includes, index, isEmpty, isInput, off, offset, on, parent, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, trigger, within} from 'uikit-util';
+import {$$, addClass, after, append, assign, before, children, clamp, css, getEventPos, getViewport, hasTouch, height, includes, index, isEmpty, isInput, off, offset, on, parent, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -335,7 +335,7 @@ function untrackScroll() {
 function appendDrag(container, element) {
     const clone = append(container, element.outerHTML.replace(/(^<)(?:li|tr)|(?:li|tr)(\/>$)/g, '$1div$2'));
 
-    attr(clone, 'style', `${attr(clone, 'style')};margin:0!important`);
+    clone.style.setProperty('margin', '0', 'important');
 
     css(clone, assign({
         boxSizing: 'border-box',

@@ -1,6 +1,6 @@
 import Class from '../mixin/class';
 import FlexBug from '../mixin/flex-bug';
-import {$, $$, addClass, after, assign, css, height, includes, isRtl, isVisible, matches, noop, Promise, query, remove, toFloat, Transition, within} from 'uikit-util';
+import {$, $$, addClass, after, assign, css, hasClass, height, includes, isRtl, isVisible, matches, noop, Promise, query, remove, toFloat, Transition, within} from 'uikit-util';
 
 export default {
 
@@ -162,6 +162,9 @@ export default {
             },
 
             handler(_, {$el, dir}) {
+                if (!hasClass($el, this.clsDrop)) {
+                    return;
+                }
 
                 if (this.dropbarMode === 'slide') {
                     addClass(this.dropbar, 'uk-navbar-dropbar-slide');
@@ -200,6 +203,9 @@ export default {
             },
 
             handler(_, {$el}) {
+                if (!hasClass($el, this.clsDrop)) {
+                    return;
+                }
 
                 const active = this.getActive();
 

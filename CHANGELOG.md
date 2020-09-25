@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.5.8 (September 25, 2020)
+
+### Added
+
+- Add lightbox button active hook
+
+### Changed
+
+- IMPORTANT: Set `@pagination-margin-horizontal` to `0`and use new `@pagination-item-padding-vertical` and `@pagination-item-padding-horizontal`
+
+### Fixed
+
+- Fix lightbox button focus state
+- Fix Slider component transition bug in iOS 14.0
+
 ## 3.5.7 (August 27, 2020)
 
 ### Fixed
