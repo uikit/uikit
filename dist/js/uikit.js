@@ -1,4 +1,4 @@
-/*! UIkit 3.5.7 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.8 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1729,57 +1729,21 @@
 
     function getDimensions(element) {
 
-        if (!element) {
-            return {};
-        }
-
         var ref = toWindow(element);
         var top = ref.pageYOffset;
         var left = ref.pageXOffset;
 
-        if (isWindow(element)) {
-
-            var height = element.innerHeight;
-            var width = element.innerWidth;
-
-            return {
-                top: top,
-                left: left,
-                height: height,
-                width: width,
-                bottom: top + height,
-                right: left + width
-            };
-        }
-
-        var style, hidden;
-
-        if (!isVisible(element) && css(element, 'display') === 'none') {
-
-            style = attr(element, 'style');
-            hidden = attr(element, 'hidden');
-
-            attr(element, {
-                style: ((style || '') + ";display:block !important;"),
-                hidden: null
-            });
-        }
-
-        element = toNode(element);
-
-        var rect = element.getBoundingClientRect();
-
-        if (!isUndefined(style)) {
-            attr(element, {style: style, hidden: hidden});
-        }
+        var rect = isWindow(element)
+            ? {height: height(element), width: width(element), top: 0, left: 0}
+            : getRect(toNode(element));
 
         return {
             height: rect.height,
             width: rect.width,
             top: rect.top + top,
             left: rect.left + left,
-            bottom: rect.bottom + top,
-            right: rect.right + left
+            bottom: rect.top + rect.height + top,
+            right: rect.left + rect.width + left
         };
     }
 
@@ -1945,6 +1909,26 @@
 
     function percent(base, value) {
         return base * toFloat(value) / 100;
+    }
+
+    function getRect(element) {
+
+        if (!element) {
+            return {};
+        }
+
+        var style;
+
+        if (!isVisible(element)) {
+            style = attr(element, 'style');
+            element.style.setProperty('display', 'block', 'important');
+        }
+
+        var rect = element.getBoundingClientRect();
+
+        attr(element, 'style', style);
+
+        return rect;
     }
 
     /*
@@ -2310,7 +2294,6 @@
 
         if (isHTML5(el)) {
             el.muted = true;
-            attr(el, 'muted', '');
         }
 
     }
@@ -2374,7 +2357,7 @@
 
             });
 
-            attr(el, 'src', ("" + (el.src) + (includes(el.src, '?') ? '&' : '?') + (youtube ? 'enablejsapi=1' : ("api=1&player_id=" + id))));
+            el.src = "" + (el.src) + (includes(el.src, '?') ? '&' : '?') + (youtube ? 'enablejsapi=1' : ("api=1&player_id=" + id));
 
         }).then(function () { return clearInterval(poller); });
     }
@@ -3500,7 +3483,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.5.7';
+    UIkit.version = '3.5.8';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3822,8 +3805,8 @@
                     changed = includes(this.cls, ' ') || toggled !== hasClass(el, this.cls);
                     changed && toggleClass(el, this.cls, includes(this.cls, ' ') ? undefined : toggled);
                 } else {
-                    changed = toggled === hasAttr(el, 'hidden');
-                    changed && attr(el, 'hidden', !toggled ? '' : null);
+                    changed = toggled === el.hidden;
+                    changed && (el.hidden = !toggled);
                 }
 
                 $$('[autofocus]', el).some(function (el) { return isVisible(el) ? el.focus() || true : el.blur(); });
@@ -4029,7 +4012,7 @@
     };
 
     function hide(el, hide) {
-        attr(el, 'hidden', hide ? '' : null);
+        el && (el.hidden = hide);
     }
 
     var alert = {
@@ -5406,7 +5389,7 @@
 
 
             if (isVoidElement(this.$el)) {
-                attr(this.$el, 'hidden', null);
+                this.$el.hidden = false;
             }
 
             if (this.svg) {
@@ -5574,7 +5557,7 @@
 
         if (isVoidElement(root) || root.tagName === 'CANVAS') {
 
-            attr(root, 'hidden', true);
+            root.hidden = true;
 
             var next = root.nextElementSibling;
             return equals(el, next)
@@ -6762,6 +6745,9 @@
                     var $el = ref.$el;
                     var dir = ref.dir;
 
+                    if (!hasClass($el, this.clsDrop)) {
+                        return;
+                    }
 
                     if (this.dropbarMode === 'slide') {
                         addClass(this.dropbar, 'uk-navbar-dropbar-slide');
@@ -6804,6 +6790,9 @@
                 handler: function(_, ref) {
                     var $el = ref.$el;
 
+                    if (!hasClass($el, this.clsDrop)) {
+                        return;
+                    }
 
                     var active = this.getActive();
 
@@ -7672,7 +7661,7 @@
 
                     if (!within(placeholder, document)) {
                         after(this.$el, placeholder);
-                        attr(placeholder, 'hidden', '');
+                        placeholder.hidden = true;
                     }
 
                     this.isActive = !!this.isActive; // force self-assign
@@ -7778,7 +7767,7 @@
 
                 this.isFixed = true;
                 this.update();
-                attr(this.placeholder, 'hidden', null);
+                this.placeholder.hidden = false;
 
             },
 
@@ -7787,7 +7776,7 @@
                 this.isActive = false;
                 removeClass(this.$el, this.clsFixed, this.clsBelow);
                 css(this.$el, {position: '', top: '', width: ''});
-                attr(this.placeholder, 'hidden', '');
+                this.placeholder.hidden = true;
 
             },
 
@@ -10731,8 +10720,11 @@
                 triggerUpdate$1(this.getItemIn(), 'itemin', {percent: percent, duration: duration, timing: timing, dir: dir});
                 prev && triggerUpdate$1(this.getItemIn(true), 'itemout', {percent: 1 - percent, duration: duration, timing: timing, dir: dir});
 
+                // Workaround for a bug in iOS Safari 14.0 which does not let you transition to the same value twice
+                var randomOffset = index(next) / 10000;
+
                 Transition
-                    .start(list, {transform: translate(-to * (isRtl ? -1 : 1), 'px')}, duration, timing)
+                    .start(list, {transform: translate((-to + randomOffset) * (isRtl ? -1 : 1), 'px')}, duration, timing)
                     .then(deferred.resolve, noop);
 
                 return deferred.promise;
@@ -11766,7 +11758,7 @@
     function appendDrag(container, element) {
         var clone = append(container, element.outerHTML.replace(/(^<)(?:li|tr)|(?:li|tr)(\/>$)/g, '$1div$2'));
 
-        attr(clone, 'style', ((attr(clone, 'style')) + ";margin:0!important"));
+        clone.style.setProperty('margin', '0', 'important');
 
         css(clone, assign({
             boxSizing: 'border-box',

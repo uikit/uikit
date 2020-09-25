@@ -1,4 +1,4 @@
-/*! UIkit 3.5.7 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.8 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -5659,7 +5659,7 @@ ul.uk-nav-sub {
   /* 1 */
   flex-wrap: wrap;
   /* 2 */
-  margin-left: -20px;
+  margin-left: 0;
   /* 3 */
   padding: 0;
   list-style: none;
@@ -5673,7 +5673,7 @@ ul.uk-nav-sub {
   /* 1 */
   flex: none;
   /* 2 */
-  padding-left: 20px;
+  padding-left: 0;
   /* 3 */
   position: relative;
 }
@@ -5687,6 +5687,7 @@ ul.uk-nav-sub {
   /* 1 */
   display: block;
   /* 2 */
+  padding: 5px 10px;
   color: #999;
   transition: color 0.1s ease-in-out;
 }
@@ -6234,12 +6235,12 @@ ul.uk-nav-sub {
   justify-content: center;
   align-items: center;
 }
-/*
- * Hover
- */
-.uk-lightbox-button:hover {
+/* Hover + Focus */
+.uk-lightbox-button:hover,
+.uk-lightbox-button:focus {
   color: #fff;
 }
+/* OnClick */
 /* Caption
  ========================================================================== */
 .uk-lightbox-caption:empty {
