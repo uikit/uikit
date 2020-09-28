@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix prefix script
+
 ## 3.5.8 (September 25, 2020)
 
 ### Added
