@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Changed
+
+- Sortable drag is no longer clamped to viewport
+
 ### Fixed
 
 - Fix prefix script

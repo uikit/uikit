@@ -1,6 +1,6 @@
 import Animate from '../mixin/animate';
 import Class from '../mixin/class';
-import {$$, addClass, after, append, assign, before, children, clamp, css, getEventPos, getViewport, hasTouch, height, includes, index, isEmpty, isInput, off, offset, on, parent, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, trigger, within} from 'uikit-util';
+import {$$, addClass, after, append, assign, before, children, css, getEventPos, getViewport, hasTouch, height, includes, index, isEmpty, isInput, off, offset, on, parent, pointerDown, pointerMove, pointerUp, remove, removeClass, scrollParents, scrollTop, toggleClass, trigger, within} from 'uikit-util';
 
 export default {
 
@@ -105,13 +105,11 @@ export default {
             // clamp to viewport
             const {x, y} = this.pos;
             const {offsetTop, offsetLeft} = this.origin;
-            const {offsetHeight, offsetWidth} = this.drag;
-            const {right, bottom} = offset(window);
             let target = document.elementFromPoint(x, y);
 
             css(this.drag, {
-                top: clamp(y - offsetTop, 0, bottom - offsetHeight),
-                left: clamp(x - offsetLeft, 0, right - offsetWidth)
+                top: y - offsetTop,
+                left: x - offsetLeft
             });
 
             const sortable = this.getSortable(target);
@@ -309,9 +307,9 @@ function trackScroll(pos) {
 
             const {top, bottom, height} = offset(getViewport(scrollEl));
 
-            if (top < y && top + 30 > y) {
+            if (top < y && top + 35 > y) {
                 scroll -= dist;
-            } else if (bottom > y && bottom - 30 < y) {
+            } else if (bottom > y && bottom - 35 < y) {
                 scroll += dist;
             } else {
                 return;
