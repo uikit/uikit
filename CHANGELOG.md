@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fix prefix script
+- Fix 'scrollIntoView' does not align to top
 
 ## 3.5.8 (September 25, 2020)
 
