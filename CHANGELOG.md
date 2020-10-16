@@ -8,6 +8,7 @@
 
 ### Fixed
 
+- Prevent content overflow in Breadcrumb component
 - Fix prefix script
 - Fix 'scrollIntoView' does not align to top
 

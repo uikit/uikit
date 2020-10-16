@@ -43,10 +43,16 @@
 }
 
 /*
- * Space is allocated solely based on content dimensions: 0 0 auto
+ * 1. Space is allocated solely based on content dimensions: 0 0 auto
+ * 2. Prevent content overflow
  */
 
-.uk-breadcrumb > * { flex: none; }
+.uk-breadcrumb > * {
+    /* 1 */
+    flex: none;
+    /* 2 */
+    max-width: 100%;
+}
 
 
 /* Items
