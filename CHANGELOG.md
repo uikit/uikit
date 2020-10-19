@@ -4,6 +4,7 @@
 
 ### Changed
 
+- Improve breadrumbs wrapping into the next line
 - Sortable drag is no longer clamped to viewport
 
 ### Fixed

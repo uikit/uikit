@@ -28,38 +28,26 @@
  ========================================================================== */
 
 /*
- * 1. Allow items to wrap into the next line
- * 2. Reset list
+ * Reset list
  */
 
 .uk-breadcrumb {
-    display: flex;
-    /* 1 */
-    flex-wrap: wrap;
-    /* 2 */
     padding: 0;
     list-style: none;
     .hook-breadcrumb;
 }
 
 /*
- * 1. Space is allocated solely based on content dimensions: 0 0 auto
- * 2. Prevent content overflow
+ * 1. Doesn't generate any box and replaced by child boxes
  */
 
-.uk-breadcrumb > * {
-    /* 1 */
-    flex: none;
-    /* 2 */
-    max-width: 100%;
-}
+.uk-breadcrumb > * { display: contents; }
 
 
 /* Items
  ========================================================================== */
 
 .uk-breadcrumb > * > * {
-    display: inline-block;
     font-size: @breadcrumb-item-font-size;
     color: @breadcrumb-item-color;
     .hook-breadcrumb-item;
