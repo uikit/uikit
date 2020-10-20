@@ -28,32 +28,26 @@ $breadcrumb-divider-color:                           $global-muted-color !defaul
  ========================================================================== */
 
 /*
- * 1. Allow items to wrap into the next line
- * 2. Reset list
+ * Reset list
  */
 
 .uk-breadcrumb {
-    display: flex;
-    /* 1 */
-    flex-wrap: wrap;
-    /* 2 */
     padding: 0;
     list-style: none;
     @if(mixin-exists(hook-breadcrumb)) {@include hook-breadcrumb();}
 }
 
 /*
- * Space is allocated solely based on content dimensions: 0 0 auto
+ * 1. Doesn't generate any box and replaced by child boxes
  */
 
-.uk-breadcrumb > * { flex: none; }
+.uk-breadcrumb > * { display: contents; }
 
 
 /* Items
  ========================================================================== */
 
 .uk-breadcrumb > * > * {
-    display: inline-block;
     font-size: $breadcrumb-item-font-size;
     color: $breadcrumb-item-color;
     @if(mixin-exists(hook-breadcrumb-item)) {@include hook-breadcrumb-item();}
