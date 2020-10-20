@@ -43,42 +43,49 @@ export function scrollIntoView(element, {offset: offsetBy = 0} = {}) {
         return;
     }
 
-    const parents = overflowParents(element).concat(element);
+    const parents = overflowParents(element).reverse();
+    let diff = 0;
+    return parents.reduce((fn, scrollElement, i) => {
 
-    let promise = Promise.resolve();
-    for (let i = 0; i < parents.length - 1; i++) {
-        promise = promise.then(() =>
-            new Promise(resolve => {
+        const {scrollTop, scrollHeight, clientHeight} = scrollElement;
+        const maxScroll = scrollHeight - clientHeight;
 
-                const scrollElement = parents[i];
-                const element = parents[i + 1];
+        let top = Math.ceil(position(parents[i - 1] || element, getViewport(scrollElement)).top - offsetBy) + diff + scrollTop;
 
-                const {scrollTop: scroll} = scrollElement;
-                const top = Math.ceil(position(element, getViewport(scrollElement)).top - offsetBy);
-                const duration = getDuration(Math.abs(top));
+        if (top > maxScroll) {
+            diff = top - maxScroll;
+            top = maxScroll;
+        } else {
+            diff = 0;
+        }
 
-                const start = Date.now();
-                const step = () => {
+        return () => scrollTo(scrollElement, top - scrollTop).then(fn);
 
-                    const percent = ease(clamp((Date.now() - start) / duration));
+    }, () => Promise.resolve())();
 
-                    scrollTop(scrollElement, scroll + top * percent);
+    function scrollTo(element, top) {
+        return new Promise(resolve => {
 
-                    // scroll more if we have not reached our destination
-                    if (percent !== 1) {
-                        requestAnimationFrame(step);
-                    } else {
-                        resolve();
-                    }
+            const scroll = element.scrollTop;
+            const duration = getDuration(Math.abs(top));
+            const start = Date.now();
 
-                };
+            (function step() {
 
-                step();
-            })
-        );
+                const percent = ease(clamp((Date.now() - start) / duration));
+
+                scrollTop(element, scroll + top * percent);
+
+                // scroll more if we have not reached our destination
+                if (percent !== 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    resolve();
+                }
+
+            })();
+        });
     }
-
-    return promise;
 
     function getDuration(dist) {
         return 40 * Math.pow(dist, .375);

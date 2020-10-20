@@ -1,5 +1,18 @@
 # Changelog
 
+## 3.5.9 (October 20, 2020)
+
+### Changed
+
+- Improve breadrumbs wrapping into the next line
+- Sortable drag is no longer clamped to viewport
+
+### Fixed
+
+- Prevent content overflow in Breadcrumb component
+- Fix prefix script
+- Fix 'scrollIntoView' does not align to top
+
 ## 3.5.8 (September 25, 2020)
 
 ### Added
@@ -8,7 +21,7 @@
 
 ### Changed
 
-- IMPORTANT: Set `@pagination-margin-horizontal` to `0`and use new `@pagination-item-padding-vertical` and `@pagination-item-padding-horizontal`
+- IMPORTANT: Set `@pagination-margin-horizontal` to `0` and use new `@pagination-item-padding-vertical` and `@pagination-item-padding-horizontal`
 
 ### Fixed
 

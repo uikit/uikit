@@ -1,4 +1,4 @@
-/*! UIkit 3.5.8 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.9 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -5599,27 +5599,21 @@ ul.uk-nav-sub {
    Component: Breadcrumb
  ========================================================================== */
 /*
- * 1. Allow items to wrap into the next line
- * 2. Reset list
+ * Reset list
  */
 .uk-breadcrumb {
-  display: flex;
-  /* 1 */
-  flex-wrap: wrap;
-  /* 2 */
   padding: 0;
   list-style: none;
 }
 /*
- * Space is allocated solely based on content dimensions: 0 0 auto
+ * 1. Doesn't generate any box and replaced by child boxes
  */
 .uk-breadcrumb > * {
-  flex: none;
+  display: contents;
 }
 /* Items
  ========================================================================== */
 .uk-breadcrumb > * > * {
-  display: inline-block;
   font-size: 0.875rem;
   color: #999;
 }
