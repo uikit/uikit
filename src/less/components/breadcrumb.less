@@ -76,12 +76,16 @@
 /*
  * Divider
  * `nth-child` makes it also work without JS if it's only one row
+ * 1. Remove space between inline block elements.
+ * 2. Style
  */
 
 .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
     content: @breadcrumb-divider;
     display: inline-block;
-    margin: 0 @breadcrumb-divider-margin-horizontal;
+    /* 1 */
+    margin: 0 @breadcrumb-divider-margin-horizontal 0 ~'calc(@{breadcrumb-divider-margin-horizontal} - 4px)';
+    /* 2 */
     font-size: @breadcrumb-divider-font-size;
     color: @breadcrumb-divider-color;
     .hook-breadcrumb-divider;

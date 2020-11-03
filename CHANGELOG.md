@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Remove space between inline block elements in Breadcrumb component
+
 ## 3.5.9 (October 20, 2020)
 
 ### Changed
