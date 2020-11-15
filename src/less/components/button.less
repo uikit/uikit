@@ -538,8 +538,8 @@
         .hook-inverse-button-link;
     }
 
-    .uk-button-link:hover,
-    .uk-button-link:focus { color: @inverse-button-link-hover-color; }
+    .uk-button-link:hover:not(:disabled),
+    .uk-button-link:focus:not(:disabled) { color: @inverse-button-link-hover-color; }
 }
 
 .hook-inverse-button-default() {}
