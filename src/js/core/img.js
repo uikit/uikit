@@ -202,7 +202,7 @@ const additionRe = /[+-]?(\d+)/g;
 function evaluateSize(size) {
     return startsWith(size, 'calc')
         ? size
-            .substring(5, size.length - 1)
+            .slice(5, -1)
             .replace(sizeRe, size => toPx(size))
             .replace(/ /g, '')
             .match(additionRe)
