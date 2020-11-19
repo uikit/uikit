@@ -11,6 +11,15 @@
 // ========================================================================
 
 
+// Variables
+// ========================================================================
+
+@slider-container-offset-top:                       0;
+@slider-container-offset-bottom:                    0;
+@slider-container-offset-left:                      0;
+@slider-container-offset-right:                     0;
+
+
 /* ========================================================================
    Component: Slider
  ========================================================================== */
@@ -30,12 +39,18 @@
  ========================================================================== */
 
 /*
- * 1. Clip child elements
+ * Clip child elements
  */
 
-.uk-slider-container {
-    /* 1 */
-    overflow: hidden;
+.uk-slider-container { overflow: hidden; }
+
+/*
+ * Widen container to prevent box-shadows from clipping
+ */
+
+.uk-slider-container-offset {
+    margin: -@slider-container-offset-top -@slider-container-offset-right -@slider-container-offset-bottom -@slider-container-offset-left;
+    padding: @slider-container-offset-top @slider-container-offset-right @slider-container-offset-bottom @slider-container-offset-left;
 }
 
 /* Items

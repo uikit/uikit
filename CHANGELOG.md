@@ -2,6 +2,10 @@
 
 ## WIP
 
+### Added
+
+- Add container offset to prevent box-shadow clipping to Slider component
+
 ### Fixed
 
 - Remove space between inline block elements in Breadcrumb component
