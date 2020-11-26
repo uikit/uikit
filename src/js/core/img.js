@@ -22,7 +22,7 @@ export default {
         width: false,
         height: false,
         offsetTop: '50vh',
-        offsetLeft: 0,
+        offsetLeft: '100vw',
         target: false
     },
 

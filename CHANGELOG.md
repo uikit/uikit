@@ -6,6 +6,10 @@
 
 - Add container offset to prevent box-shadow clipping to Slider component
 
+### Changed
+
+- Add '100vw'  default horizontal root margin to Image component
+
 ### Fixed
 
 - Remove space between inline block elements in Breadcrumb component
