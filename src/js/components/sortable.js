@@ -200,7 +200,7 @@ export default {
 
         },
 
-        end(e) {
+        end() {
 
             off(document, pointerMove, this.move);
             off(document, pointerUp, this.end);
