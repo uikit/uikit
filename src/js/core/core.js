@@ -5,8 +5,24 @@ export default function (UIkit) {
     inBrowser && ready(() => {
 
         UIkit.update();
-        on(window, 'load resize', () => UIkit.update(null, 'resize'));
-        on(document, 'loadedmetadata load', ({target}) => UIkit.update(target, 'resize'), true);
+
+        // throttle 'resize'
+        let pendingResize;
+        const handleResize = () => {
+            if (pendingResize) {
+                return;
+            }
+            pendingResize = true;
+            fastdom.write(() => pendingResize = false);
+            UIkit.update(null, 'resize');
+        };
+
+        on(window, 'load resize', handleResize);
+        on(document, 'loadedmetadata load', handleResize, true);
+
+        if ('ResizeObserver' in window) {
+            (new ResizeObserver(handleResize)).observe(document.documentElement);
+        }
 
         // throttle `scroll` event (Safari triggers multiple `scroll` events per frame)
         let pending;

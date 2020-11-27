@@ -1,10 +1,24 @@
 # Changelog
 
+## 3.5.10 (November 27, 2020)
+
+### Added
+
+- Add container offset to prevent box-shadow clipping to Slider component
+
+### Changed
+
+- Add '50vw' default horizontal root margin to Image component
+
+### Fixed
+
+- Remove space between inline block elements in Breadcrumb component
+
 ## 3.5.9 (October 20, 2020)
 
 ### Changed
 
-- Improve breadrumbs wrapping into the next line
+- Improve breadcrumbs wrapping into the next line
 - Sortable drag is no longer clamped to viewport
 
 ### Fixed

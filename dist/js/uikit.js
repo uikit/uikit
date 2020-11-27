@@ -1,4 +1,4 @@
-/*! UIkit 3.5.9 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.10 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -3491,7 +3491,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.5.9';
+    UIkit.version = '3.5.10';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -3504,12 +3504,24 @@
         inBrowser && ready(function () {
 
             UIkit.update();
-            on(window, 'load resize', function () { return UIkit.update(null, 'resize'); });
-            on(document, 'loadedmetadata load', function (ref) {
-                var target = ref.target;
 
-                return UIkit.update(target, 'resize');
-            }, true);
+            // throttle 'resize'
+            var pendingResize;
+            var handleResize = function () {
+                if (pendingResize) {
+                    return;
+                }
+                pendingResize = true;
+                fastdom.write(function () { return pendingResize = false; });
+                UIkit.update(null, 'resize');
+            };
+
+            on(window, 'load resize', handleResize);
+            on(document, 'loadedmetadata load', handleResize, true);
+
+            if ('ResizeObserver' in window) {
+                (new ResizeObserver(handleResize)).observe(document.documentElement);
+            }
 
             // throttle `scroll` event (Safari triggers multiple `scroll` events per frame)
             var pending;
@@ -5816,7 +5828,7 @@
             width: false,
             height: false,
             offsetTop: '50vh',
-            offsetLeft: 0,
+            offsetLeft: '50vw',
             target: false
         },
 
@@ -6022,7 +6034,7 @@
     function evaluateSize(size) {
         return startsWith(size, 'calc')
             ? size
-                .substring(5, size.length - 1)
+                .slice(5, -1)
                 .replace(sizeRe, function (size) { return toPx(size); })
                 .replace(/ /g, '')
                 .match(additionRe)
@@ -10728,11 +10740,8 @@
                 triggerUpdate$1(this.getItemIn(), 'itemin', {percent: percent, duration: duration, timing: timing, dir: dir});
                 prev && triggerUpdate$1(this.getItemIn(true), 'itemout', {percent: 1 - percent, duration: duration, timing: timing, dir: dir});
 
-                // Workaround for a bug in iOS Safari 14.0 which does not let you transition to the same value twice
-                var randomOffset = index(next) / 10000;
-
                 Transition
-                    .start(list, {transform: translate((-to + randomOffset) * (isRtl ? -1 : 1), 'px')}, duration, timing)
+                    .start(list, {transform: translate(-to * (isRtl ? -1 : 1), 'px')}, duration, timing)
                     .then(deferred.resolve, noop);
 
                 return deferred.promise;
@@ -11620,7 +11629,7 @@
 
             },
 
-            end: function(e) {
+            end: function() {
 
                 off(document, pointerMove, this.move);
                 off(document, pointerUp, this.end);

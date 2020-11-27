@@ -28,11 +28,8 @@ export default function (prev, next, dir, {center, easing, list}) {
             triggerUpdate(this.getItemIn(), 'itemin', {percent, duration, timing, dir});
             prev && triggerUpdate(this.getItemIn(true), 'itemout', {percent: 1 - percent, duration, timing, dir});
 
-            // Workaround for a bug in iOS Safari 14.0 which does not let you transition to the same value twice
-            const randomOffset = index(next) / 10000;
-
             Transition
-                .start(list, {transform: translate((-to + randomOffset) * (isRtl ? -1 : 1), 'px')}, duration, timing)
+                .start(list, {transform: translate(-to * (isRtl ? -1 : 1), 'px')}, duration, timing)
                 .then(deferred.resolve, noop);
 
             return deferred.promise;
