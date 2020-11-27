@@ -1,5 +1,11 @@
 # Changelog
 
+## WIP
+
+### Fixed
+
+- Fix 'positionAt' function did not flip within its targets scroll container
+
 ## 3.5.10 (November 27, 2020)
 
 ### Added
