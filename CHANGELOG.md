@@ -8,7 +8,7 @@
 
 ### Changed
 
-- Add '100vw'  default horizontal root margin to Image component
+- Add '50vw' default horizontal root margin to Image component
 
 ### Fixed
 
