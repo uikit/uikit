@@ -1,4 +1,4 @@
-/*! UIkit 3.5.9 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.10 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -3971,11 +3971,17 @@ select.uk-form-width-xsmall {
 /* Container
  ========================================================================== */
 /*
- * 1. Clip child elements
+ * Clip child elements
  */
 .uk-slider-container {
-  /* 1 */
   overflow: hidden;
+}
+/*
+ * Widen container to prevent box-shadows from clipping, `large-box-shadow`
+ */
+.uk-slider-container-offset {
+  margin: -11px -25px -39px -25px;
+  padding: 11px 25px 39px 25px;
 }
 /* Items
  ========================================================================== */
@@ -5632,11 +5638,15 @@ ul.uk-nav-sub {
 /*
  * Divider
  * `nth-child` makes it also work without JS if it's only one row
+ * 1. Remove space between inline block elements.
+ * 2. Style
  */
 .uk-breadcrumb > :nth-child(n+2):not(.uk-first-column)::before {
   content: "/";
   display: inline-block;
-  margin: 0 20px;
+  /* 1 */
+  margin: 0 20px 0 calc(20px - 4px);
+  /* 2 */
   font-size: 0.875rem;
   color: #999;
 }

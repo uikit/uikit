@@ -1,6 +1,6 @@
 # Changelog
 
-## WIP
+## 3.5.10 (November 27, 2020)
 
 ### Added
 
