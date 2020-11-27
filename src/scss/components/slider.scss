@@ -11,6 +11,15 @@
 // ========================================================================
 
 
+// Variables
+// ========================================================================
+
+$slider-container-margin-top:                        -11px !default;
+$slider-container-margin-bottom:                     -39px !default;
+$slider-container-margin-left:                       -25px !default;
+$slider-container-margin-right:                      -25px !default;
+
+
 /* ========================================================================
    Component: Slider
  ========================================================================== */
@@ -30,12 +39,18 @@
  ========================================================================== */
 
 /*
- * 1. Clip child elements
+ * Clip child elements
  */
 
-.uk-slider-container {
-    /* 1 */
-    overflow: hidden;
+.uk-slider-container { overflow: hidden; }
+
+/*
+ * Widen container to prevent box-shadows from clipping, `large-box-shadow`
+ */
+
+.uk-slider-container-offset {
+    margin: $slider-container-margin-top $slider-container-margin-right $slider-container-margin-bottom $slider-container-margin-left;
+    padding: ($slider-container-margin-top * -1) ($slider-container-margin-right * -1) ($slider-container-margin-bottom * -1) ($slider-container-margin-left * -1);
 }
 
 /* Items
