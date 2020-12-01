@@ -10,7 +10,7 @@ export function isInView(element, offsetTop = 0, offsetLeft = 0) {
         return false;
     }
 
-    const parents = overflowParents(element).reverse();
+    const parents = scrollParents(element).reverse();
 
     return parents.every((parent, i) => {
 
@@ -43,7 +43,7 @@ export function scrollIntoView(element, {offset: offsetBy = 0} = {}) {
         return;
     }
 
-    const parents = overflowParents(element);
+    const parents = scrollParents(element);
     let diff = 0;
     return parents.reduce((fn, scrollElement, i) => {
 
