@@ -338,8 +338,7 @@ function appendDrag(container, element) {
     css(clone, assign({
         boxSizing: 'border-box',
         width: element.offsetWidth,
-        height: element.offsetHeight,
-        overflow: 'hidden'
+        height: element.offsetHeight
     }, css(element, ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom'])));
 
     height(clone.firstElementChild, height(element.firstElementChild));

@@ -5,6 +5,7 @@
 ### Fixed
 
 - Fix 'positionAt' function did not flip within its targets scroll container
+- Fix drag gets 'overflow: hidden' in Sortable component
 
 ## 3.5.10 (November 27, 2020)
 
