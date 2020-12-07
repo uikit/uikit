@@ -1,4 +1,4 @@
-/*! UIkit 3.5.10 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.11 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
@@ -1600,112 +1600,6 @@
 
     };
 
-    var dirs = {
-        width: ['x', 'left', 'right'],
-        height: ['y', 'top', 'bottom']
-    };
-
-    function positionAt(element, target, elAttach, targetAttach, elOffset, targetOffset, flip, boundary) {
-
-        elAttach = getPos(elAttach);
-        targetAttach = getPos(targetAttach);
-
-        var flipped = {element: elAttach, target: targetAttach};
-
-        if (!element || !target) {
-            return flipped;
-        }
-
-        var dim = getDimensions(element);
-        var targetDim = getDimensions(target);
-        var position = targetDim;
-
-        moveTo(position, elAttach, dim, -1);
-        moveTo(position, targetAttach, targetDim, 1);
-
-        elOffset = getOffsets(elOffset, dim.width, dim.height);
-        targetOffset = getOffsets(targetOffset, targetDim.width, targetDim.height);
-
-        elOffset['x'] += targetOffset['x'];
-        elOffset['y'] += targetOffset['y'];
-
-        position.left += elOffset['x'];
-        position.top += elOffset['y'];
-
-        if (flip) {
-
-            var boundaries = [getDimensions(toWindow(element))];
-
-            if (boundary) {
-                boundaries.unshift(getDimensions(boundary));
-            }
-
-            each(dirs, function (ref, prop) {
-                var dir = ref[0];
-                var align = ref[1];
-                var alignFlip = ref[2];
-
-
-                if (!(flip === true || includes(flip, dir))) {
-                    return;
-                }
-
-                boundaries.some(function (boundary) {
-
-                    var elemOffset = elAttach[dir] === align
-                        ? -dim[prop]
-                        : elAttach[dir] === alignFlip
-                            ? dim[prop]
-                            : 0;
-
-                    var targetOffset = targetAttach[dir] === align
-                        ? targetDim[prop]
-                        : targetAttach[dir] === alignFlip
-                            ? -targetDim[prop]
-                            : 0;
-
-                    if (position[align] < boundary[align] || position[align] + dim[prop] > boundary[alignFlip]) {
-
-                        var centerOffset = dim[prop] / 2;
-                        var centerTargetOffset = targetAttach[dir] === 'center' ? -targetDim[prop] / 2 : 0;
-
-                        return elAttach[dir] === 'center' && (
-                            apply(centerOffset, centerTargetOffset)
-                            || apply(-centerOffset, -centerTargetOffset)
-                        ) || apply(elemOffset, targetOffset);
-
-                    }
-
-                    function apply(elemOffset, targetOffset) {
-
-                        var newVal = toFloat((position[align] + elemOffset + targetOffset - elOffset[dir] * 2).toFixed(4));
-
-                        if (newVal >= boundary[align] && newVal + dim[prop] <= boundary[alignFlip]) {
-                            position[align] = newVal;
-
-                            ['element', 'target'].forEach(function (el) {
-                                flipped[el][dir] = !elemOffset
-                                    ? flipped[el][dir]
-                                    : flipped[el][dir] === dirs[prop][1]
-                                        ? dirs[prop][2]
-                                        : dirs[prop][1];
-                            });
-
-                            return true;
-                        }
-
-                    }
-
-                });
-
-            });
-        }
-
-        offset(element, position);
-
-        return flipped;
-    }
-
     function offset(element, coordinates) {
 
         if (!coordinates) {
@@ -1819,62 +1713,20 @@
         };
     }
 
+    var dirs = {
+        width: ['left', 'right'],
+        height: ['top', 'bottom']
+    };
+
     function boxModelAdjust(element, prop, sizing) {
         if ( sizing === void 0 ) sizing = 'border-box';
 
         return css(element, 'boxSizing') === sizing
-            ? dirs[prop].slice(1).map(ucfirst).reduce(function (value, prop) { return value
+            ? dirs[prop].map(ucfirst).reduce(function (value, prop) { return value
                 + toFloat(css(element, ("padding" + prop)))
                 + toFloat(css(element, ("border" + prop + "Width"))); }
                 , 0)
             : 0;
-    }
-
-    function moveTo(position, attach, dim, factor) {
-        each(dirs, function (ref, prop) {
-            var dir = ref[0];
-            var align = ref[1];
-            var alignFlip = ref[2];
-
-            if (attach[dir] === alignFlip) {
-                position[align] += dim[prop] * factor;
-            } else if (attach[dir] === 'center') {
-                position[align] += dim[prop] * factor / 2;
-            }
-        });
-    }
-
-    function getPos(pos) {
-
-        var x = /left|center|right/;
-        var y = /top|center|bottom/;
-
-        pos = (pos || '').split(' ');
-
-        if (pos.length === 1) {
-            pos = x.test(pos[0])
-                ? pos.concat('center')
-                : y.test(pos[0])
-                    ? ['center'].concat(pos)
-                    : ['center', 'center'];
-        }
-
-        return {
-            x: x.test(pos[0]) ? pos[0] : 'center',
-            y: y.test(pos[1]) ? pos[1] : 'center'
-        };
-    }
-
-    function getOffsets(offsets, width, height) {
-
-        var ref = (offsets || '').split(' ');
-        var x = ref[0];
-        var y = ref[1];
-
-        return {
-            x: x ? toFloat(x) * (endsWith(x, '%') ? width / 100 : 1) : 0,
-            y: y ? toFloat(y) * (endsWith(y, '%') ? height / 100 : 1) : 0
-        };
     }
 
     function flipPosition(pos) {
@@ -2371,7 +2223,7 @@
             return false;
         }
 
-        var parents = overflowParents(element);
+        var parents = scrollParents(element).reverse();
 
         return parents.every(function (parent, i) {
 
@@ -2411,7 +2263,7 @@
             return;
         }
 
-        var parents = overflowParents(element).reverse();
+        var parents = scrollParents(element);
         var diff = 0;
         return parents.reduce(function (fn, scrollElement, i) {
 
@@ -2475,7 +2327,8 @@
             return 0;
         }
 
-        var scrollElement = last(scrollParents(element));
+        var ref = scrollParents(element, /auto|scroll/);
+        var scrollElement = ref[0];
         var scrollHeight = scrollElement.scrollHeight;
         var scrollTop = scrollElement.scrollTop;
         var viewport = getViewport(scrollElement);
@@ -2494,13 +2347,11 @@
     }
 
     function scrollParents(element, overflowRe) {
-        if ( overflowRe === void 0 ) overflowRe = /auto|scroll/;
+        if ( overflowRe === void 0 ) overflowRe = /auto|scroll|hidden/;
 
         var scrollEl = getScrollingElement(element);
-        var scrollParents = parents(element).filter(function (parent) { return parent === scrollEl
-            || overflowRe.test(css(parent, 'overflow'))
-            && parent.scrollHeight > Math.round(offset(parent).height); }
-        ).reverse();
+        var scrollParents = parents(element).filter(function (parent) { return parent === scrollEl || overflowRe.test(css(parent, 'overflow')); }
+        );
         return scrollParents.length ? scrollParents : [scrollEl];
     }
 
@@ -2508,14 +2359,165 @@
         return scrollElement === getScrollingElement(scrollElement) ? window : scrollElement;
     }
 
-    function overflowParents(element) {
-        return scrollParents(element, /auto|scroll|hidden/);
-    }
-
     function getScrollingElement(element) {
         var ref = toWindow(element);
         var document = ref.document;
         return document.scrollingElement || document.documentElement;
+    }
+
+    var dirs$1 = {
+        width: ['x', 'left', 'right'],
+        height: ['y', 'top', 'bottom']
+    };
+
+    function positionAt(element, target, elAttach, targetAttach, elOffset, targetOffset, flip, boundary) {
+
+        elAttach = getPos(elAttach);
+        targetAttach = getPos(targetAttach);
+
+        var flipped = {element: elAttach, target: targetAttach};
+
+        if (!element || !target) {
+            return flipped;
+        }
+
+        var dim = offset(element);
+        var targetDim = offset(target);
+        var position = targetDim;
+
+        moveTo(position, elAttach, dim, -1);
+        moveTo(position, targetAttach, targetDim, 1);
+
+        elOffset = getOffsets(elOffset, dim.width, dim.height);
+        targetOffset = getOffsets(targetOffset, targetDim.width, targetDim.height);
+
+        elOffset['x'] += targetOffset['x'];
+        elOffset['y'] += targetOffset['y'];
+
+        position.left += elOffset['x'];
+        position.top += elOffset['y'];
+
+        if (flip) {
+
+            var boundaries = scrollParents(target).map(getViewport);
+
+            if (boundary && includes(boundaries, boundary)) {
+                boundaries.unshift(boundary);
+            }
+
+            boundaries = boundaries.map(function (el) { return offset(el); });
+
+            each(dirs$1, function (ref, prop) {
+                var dir = ref[0];
+                var align = ref[1];
+                var alignFlip = ref[2];
+
+
+                if (!(flip === true || includes(flip, dir))) {
+                    return;
+                }
+
+                boundaries.some(function (boundary) {
+
+                    var elemOffset = elAttach[dir] === align
+                        ? -dim[prop]
+                        : elAttach[dir] === alignFlip
+                            ? dim[prop]
+                            : 0;
+
+                    var targetOffset = targetAttach[dir] === align
+                        ? targetDim[prop]
+                        : targetAttach[dir] === alignFlip
+                            ? -targetDim[prop]
+                            : 0;
+
+                    if (position[align] < boundary[align] || position[align] + dim[prop] > boundary[alignFlip]) {
+
+                        var centerOffset = dim[prop] / 2;
+                        var centerTargetOffset = targetAttach[dir] === 'center' ? -targetDim[prop] / 2 : 0;
+
+                        return elAttach[dir] === 'center' && (
+                            apply(centerOffset, centerTargetOffset)
+                            || apply(-centerOffset, -centerTargetOffset)
+                        ) || apply(elemOffset, targetOffset);
+
+                    }
+
+                    function apply(elemOffset, targetOffset) {
+
+                        var newVal = toFloat((position[align] + elemOffset + targetOffset - elOffset[dir] * 2).toFixed(4));
+
+                        if (newVal >= boundary[align] && newVal + dim[prop] <= boundary[alignFlip]) {
+                            position[align] = newVal;
+
+                            ['element', 'target'].forEach(function (el) {
+                                flipped[el][dir] = !elemOffset
+                                    ? flipped[el][dir]
+                                    : flipped[el][dir] === dirs$1[prop][1]
+                                        ? dirs$1[prop][2]
+                                        : dirs$1[prop][1];
+                            });
+
+                            return true;
+                        }
+
+                    }
+
+                });
+
+            });
+        }
+
+        offset(element, position);
+
+        return flipped;
+    }
+
+    function moveTo(position, attach, dim, factor) {
+        each(dirs$1, function (ref, prop) {
+            var dir = ref[0];
+            var align = ref[1];
+            var alignFlip = ref[2];
+
+            if (attach[dir] === alignFlip) {
+                position[align] += dim[prop] * factor;
+            } else if (attach[dir] === 'center') {
+                position[align] += dim[prop] * factor / 2;
+            }
+        });
+    }
+
+    function getPos(pos) {
+
+        var x = /left|center|right/;
+        var y = /top|center|bottom/;
+
+        pos = (pos || '').split(' ');
+
+        if (pos.length === 1) {
+            pos = x.test(pos[0])
+                ? pos.concat('center')
+                : y.test(pos[0])
+                    ? ['center'].concat(pos)
+                    : ['center', 'center'];
+        }
+
+        return {
+            x: x.test(pos[0]) ? pos[0] : 'center',
+            y: y.test(pos[1]) ? pos[1] : 'center'
+        };
+    }
+
+    function getOffsets(offsets, width, height) {
+
+        var ref = (offsets || '').split(' ');
+        var x = ref[0];
+        var y = ref[1];
+
+        return {
+            x: x ? toFloat(x) * (endsWith(x, '%') ? width / 100 : 1) : 0,
+            y: y ? toFloat(y) * (endsWith(y, '%') ? height / 100 : 1) : 0
+        };
     }
 
     var IntersectionObserver = inBrowser && window.IntersectionObserver
@@ -2607,7 +2609,6 @@
         replaceClass: replaceClass,
         hasClass: hasClass,
         toggleClass: toggleClass,
-        positionAt: positionAt,
         offset: offset,
         position: position,
         offsetPosition: offsetPosition,
@@ -2710,6 +2711,7 @@
         play: play,
         pause: pause,
         mute: mute,
+        positionAt: positionAt,
         Promise: Promise,
         Deferred: Deferred,
         IntersectionObserver: IntersectionObserver,
@@ -3491,7 +3493,7 @@
     UIkit.data = '__uikit__';
     UIkit.prefix = 'uk-';
     UIkit.options = {};
-    UIkit.version = '3.5.10';
+    UIkit.version = '3.5.11';
 
     globalAPI(UIkit);
     hooksAPI(UIkit);
@@ -7453,7 +7455,8 @@
                         return false;
                     }
 
-                    var scrollElement = last(scrollParents(this.targets[0]));
+                    var ref$1 = scrollParents(this.targets, /auto|scroll/);
+                    var scrollElement = ref$1[0];
                     var scrollTop = scrollElement.scrollTop;
                     var scrollHeight = scrollElement.scrollHeight;
                     var viewport = getViewport(scrollElement);
@@ -11733,7 +11736,7 @@
             var dist = (Date.now() - last) * .3;
             last = Date.now();
 
-            scrollParents(document.elementFromPoint(x, pos.y)).some(function (scrollEl) {
+            scrollParents(document.elementFromPoint(x, pos.y)).reverse().some(function (scrollEl) {
 
                 var scroll = scrollEl.scrollTop;
                 var scrollHeight = scrollEl.scrollHeight;
@@ -11774,8 +11777,7 @@
         css(clone, assign({
             boxSizing: 'border-box',
             width: element.offsetWidth,
-            height: element.offsetHeight,
-            overflow: 'hidden'
+            height: element.offsetHeight
         }, css(element, ['paddingLeft', 'paddingRight', 'paddingTop', 'paddingBottom'])));
 
         height(clone.firstElementChild, height(element.firstElementChild));
