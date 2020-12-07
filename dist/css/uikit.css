@@ -1,4 +1,4 @@
-/*! UIkit 3.5.10 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
+/*! UIkit 3.5.11 | https://www.getuikit.com | (c) 2014 - 2020 YOOtheme | MIT License */
 /* ========================================================================
    Component: Base
  ========================================================================== */
@@ -2797,13 +2797,13 @@ select.uk-form-width-xsmall {
   margin-top: -15px;
   margin-bottom: -15px;
 }
-.uk-card-body .uk-nav-default > li > a,
-.uk-card-body .uk-nav-default .uk-nav-header,
-.uk-card-body .uk-nav-default .uk-nav-divider {
+.uk-card-body > .uk-nav-default > li > a,
+.uk-card-body > .uk-nav-default .uk-nav-header,
+.uk-card-body > .uk-nav-default .uk-nav-divider {
   padding-left: 30px;
   padding-right: 30px;
 }
-.uk-card-body .uk-nav-default .uk-nav-sub {
+.uk-card-body > .uk-nav-default .uk-nav-sub {
   padding-left: 45px;
 }
 /* Desktop and bigger */
@@ -2816,13 +2816,13 @@ select.uk-form-width-xsmall {
     margin-top: -25px;
     margin-bottom: -25px;
   }
-  .uk-card-body .uk-nav-default > li > a,
-  .uk-card-body .uk-nav-default .uk-nav-header,
-  .uk-card-body .uk-nav-default .uk-nav-divider {
+  .uk-card-body > .uk-nav-default > li > a,
+  .uk-card-body > .uk-nav-default .uk-nav-header,
+  .uk-card-body > .uk-nav-default .uk-nav-divider {
     padding-left: 40px;
     padding-right: 40px;
   }
-  .uk-card-body .uk-nav-default .uk-nav-sub {
+  .uk-card-body > .uk-nav-default .uk-nav-sub {
     padding-left: 55px;
   }
 }
@@ -2837,13 +2837,13 @@ select.uk-form-width-xsmall {
   margin-top: -5px;
   margin-bottom: -5px;
 }
-.uk-card-small .uk-nav-default > li > a,
-.uk-card-small .uk-nav-default .uk-nav-header,
-.uk-card-small .uk-nav-default .uk-nav-divider {
+.uk-card-small > .uk-nav-default > li > a,
+.uk-card-small > .uk-nav-default .uk-nav-header,
+.uk-card-small > .uk-nav-default .uk-nav-divider {
   padding-left: 20px;
   padding-right: 20px;
 }
-.uk-card-small .uk-nav-default .uk-nav-sub {
+.uk-card-small > .uk-nav-default .uk-nav-sub {
   padding-left: 35px;
 }
 /*
@@ -2857,13 +2857,13 @@ select.uk-form-width-xsmall {
   .uk-card-large > .uk-nav-default:only-child {
     margin: 0;
   }
-  .uk-card-large .uk-nav-default > li > a,
-  .uk-card-large .uk-nav-default .uk-nav-header,
-  .uk-card-large .uk-nav-default .uk-nav-divider {
+  .uk-card-large > .uk-nav-default > li > a,
+  .uk-card-large > .uk-nav-default .uk-nav-header,
+  .uk-card-large > .uk-nav-default .uk-nav-divider {
     padding-left: 0;
     padding-right: 0;
   }
-  .uk-card-large .uk-nav-default .uk-nav-sub {
+  .uk-card-large > .uk-nav-default .uk-nav-sub {
     padding-left: 15px;
   }
 }
